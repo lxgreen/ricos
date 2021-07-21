@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { initTiptapEditor } from '../TiptapEditor';
 import { Editor, JSONContent } from '@tiptap/react';
 import supportedPluginsContent from './supportedPluginsContent.json';
-import { tiptapToDraft } from 'ricos-content/lib/converters';
+import { tiptapToDraft } from '../convertor';
 import { compare } from 'ricos-content/lib/comparision';
 
 // let editor: Editor | null = null;
