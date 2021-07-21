@@ -53,7 +53,7 @@ describe('Content extract API', () => {
         'BLOCKQUOTE',
         'ORDERED_LIST',
         'LIST_ITEM',
-        'BULLET_LIST',
+        'BULLETED_LIST',
         'HEADING',
       ],
       decorations: ['BOLD', 'UNDERLINE', 'ITALIC', 'LINK', 'SPOILER', 'MENTION', 'COLOR', 'ANCHOR'],

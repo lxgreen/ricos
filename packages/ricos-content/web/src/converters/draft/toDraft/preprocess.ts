@@ -83,7 +83,7 @@ const newLine: Node = {
   textData: { text: '\n', decorations: [] },
 };
 
-const mergeAdjasentParagraphs = (node: Node): Node => {
+const mergeAdjacentParagraphs = (node: Node): Node => {
   return {
     ...node,
     nodes: partitionBy<Node>(
@@ -98,14 +98,42 @@ const mergeAdjasentParagraphs = (node: Node): Node => {
   };
 };
 
-// merge any adjasent paragraphs into a single paragraph
+// merge any adjacent paragraphs into a single paragraph
 const mergeListParagraphNodes = (content: RichContent) =>
   modify(content)
     .filter(({ type }) => type === Node_Type.LIST_ITEM)
     .filter(({ nodes }) => nodes.filter(({ type }) => type === Node_Type.PARAGRAPH).length > 1)
-    .set(mergeAdjasentParagraphs);
+    .set(mergeAdjacentParagraphs);
+
+const fixIdAndBulleted = (content: RichContent): RichContent =>
+  JSON.parse(
+    JSON.stringify(content, (_, v) => {
+      // key => id
+      if (v?.key !== undefined) {
+        v = { id: v.key, ...v };
+      }
+      // BULLET_LIST => BULLETED_LIST
+      if (v === 'BULLET_LIST') {
+        v = Node_Type.BULLETED_LIST;
+      }
+      // APP_EMBED id => itemId
+      if (v?.id && v?.imageSrc) {
+        v = { ...v, itemId: v.id };
+      }
+      // POLL id => optionId
+      if (v?.id && v?.latestVoters) {
+        v = { ...v, optionId: v.id };
+      }
+      // POLL id => pollId
+      if (v?.id && v?.options) {
+        v = { ...v, pollId: v.id };
+      }
+      return v;
+    })
+  );
 
 export default flow(
+  fixIdAndBulleted,
   mergeListParagraphNodes,
   splitUnsupportedLists,
   E.map(decomposeUnsupportedListItems),
