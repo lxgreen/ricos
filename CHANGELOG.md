@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `ricos-common`
+  - [#2744](https://github.com/wix/ricos/pull/2744) move `imageUtils` from `ricos-content` to `common` package
 ### :nail_care: Polish
 
 - `ricos-schema`
