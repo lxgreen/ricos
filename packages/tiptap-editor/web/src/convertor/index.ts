@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { toTiptap } from './toTiptap/toTiptap';
 import { fromTiptap } from './fromTiptap/fromTiptap';
-import { DraftContent } from '../../types';
-import { convertBlockDataToRicos, convertNodeDataToDraft, fromDraft, toDraft } from '../draft';
+import { DraftContent } from 'ricos-content';
+import { fromDraft, toDraft } from 'ricos-content/libs/converters';
+import { convertNodeDataToDraft } from 'ricos-content/libs/toDraftData';
+import { convertBlockDataToRicos } from 'ricos-content/libs/migrateSchema';
 import { JSONContent } from '@tiptap/core';
 import { Node_Type } from 'ricos-schema';
 
