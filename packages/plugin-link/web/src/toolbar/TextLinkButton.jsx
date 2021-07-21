@@ -50,7 +50,7 @@ export default class TextLinkButton extends Component {
 
     const OriginalLinkPanel =
       !linkTypes || isEmpty(linkTypes) || !Object.values(linkTypes).find(addon => !!addon);
-    const { externalPopups = false } = uiSettings.linkPanel;
+    const { externalPopups = false } = uiSettings.linkPanel || {};
     const customStyles =
       !isMobile && !OriginalLinkPanel
         ? {

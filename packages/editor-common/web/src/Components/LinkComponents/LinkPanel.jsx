@@ -14,6 +14,7 @@ class LinkPanel extends Component {
     showNewTabCheckbox: true,
     showNoFollowCheckbox: true,
     showSponsoredCheckbox: false,
+    hasCheckboxes: true,
     isMobile: false,
   };
 
@@ -120,7 +121,7 @@ class LinkPanel extends Component {
       linkValues,
       hideUrlInput,
       isMobile,
-      hasCheckboxes = true,
+      hasCheckboxes,
     } = this.props;
 
     const { targetBlank = true, nofollow, sponsored } = linkValues;

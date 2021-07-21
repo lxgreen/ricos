@@ -25,7 +25,7 @@ class BasicLinkPanel extends PureComponent {
       linkPanelValues,
       onChangeLinkPanel,
       isMobile,
-      hasCheckboxes,
+      hasCheckboxes = true,
     } = this.props;
     const linkPanelContainerClassName = classNames(styles.linkPanel_container, {
       [styles.linkPanel_container_isMobile]: isMobile,

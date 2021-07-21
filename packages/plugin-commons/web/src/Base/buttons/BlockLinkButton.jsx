@@ -42,7 +42,7 @@ class BlockLinkButton extends Component {
       isEmpty(linkTypes) ||
       !Object.values(linkTypes).find(addon => !!addon) ||
       hideUrlInput;
-    const { externalPopups = false } = uiSettings.linkPanel;
+    const { externalPopups = false } = uiSettings.linkPanel || {};
     const customStyles =
       !isMobile && !OriginalLinkPanel
         ? {

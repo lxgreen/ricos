@@ -124,7 +124,7 @@ class MultiSelectLinkPanel extends PureComponent {
       anchorableBlocksData,
       anchorPanelValues,
       blockPreview,
-      hasCheckboxes,
+      hasCheckboxes = true,
     } = this.props;
 
     const containerClassName = !isMobile
