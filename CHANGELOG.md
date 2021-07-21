@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+
+### :house: Internal
+- `*`
+  - [#2762](https://github.com/wix/ricos/pull/2762) make downshift external
+
+
+
 </details>
 <hr/>
 
