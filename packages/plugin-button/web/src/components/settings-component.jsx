@@ -43,6 +43,7 @@ class SettingsComponent extends PureComponent {
     const linkValues = { url, target, rel };
     const { linkPanel } = uiSettings || {};
     const { showNewTabCheckbox, showNoFollowCheckbox, showSponsoredCheckbox } = linkPanel || {};
+    const hasCheckboxes = showNewTabCheckbox || showNoFollowCheckbox || showSponsoredCheckbox;
 
     const textInputBaseProps = {
       inputRef: ref => (this.input = ref),
@@ -79,6 +80,7 @@ class SettingsComponent extends PureComponent {
               showSponsoredCheckbox={showSponsoredCheckbox}
               theme={theme}
               t={t}
+              hasCheckboxes={hasCheckboxes}
             />
           </>
         )}
