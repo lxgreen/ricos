@@ -17,22 +17,22 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.47.4 (July 21, 2021)
+
 ### :house: Internal
 
 - `ricos-common`
-
   - [#2744](https://github.com/wix/ricos/pull/2744) move `imageUtils` from `ricos-content` to `common` package
-
-- `rich-content-common`
-  - [#2755](https://github.com/wix/ricos/pull/2755) `i18next` extranaliziation and version bump (11)
 
 ### :nail_care: Polish
 
 - `ricos-schema`
   - [#2744](https://github.com/wix/ricos/pull/2744) rename unique node identifier from `key` to `id`
-
-</details>
-<hr/>
+- `rich-content-common`
+  - [#2755](https://github.com/wix/ricos/pull/2755) `i18next` extranaliziation and version bump (v11)
 
 ## 8.47.3 (July 20, 2021)
 
