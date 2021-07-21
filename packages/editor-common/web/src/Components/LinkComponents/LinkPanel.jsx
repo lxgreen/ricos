@@ -120,7 +120,7 @@ class LinkPanel extends Component {
       linkValues,
       hideUrlInput,
       isMobile,
-      hasCheckboxes,
+      hasCheckboxes = true,
     } = this.props;
 
     const { targetBlank = true, nofollow, sponsored } = linkValues;

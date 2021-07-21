@@ -79,7 +79,6 @@ class ImageSettings extends Component {
     const { linkPanel } = uiSettings || {};
     const { showNewTabCheckbox, showNoFollowCheckbox, showSponsoredCheckbox, placeholder } =
       linkPanel || {};
-    const hasCheckboxes = showNewTabCheckbox || showNoFollowCheckbox || showSponsoredCheckbox;
     const { metadata = {} } = image || {};
 
     const altText = typeof metadata.altText === 'string' ? metadata.altText : metadata.title;
@@ -229,7 +228,6 @@ class ImageSettings extends Component {
                       t={t}
                       ariaProps={{ 'aria-labelledby': 'gallery_image_link_lbl' }}
                       placeholder={placeholder}
-                      hasCheckboxes={hasCheckboxes}
                     />
                   </SettingsSection>
                 )}
