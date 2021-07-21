@@ -6,9 +6,6 @@ import {
   mergeStyles,
   validate,
   isSSR,
-  getImageSrc,
-  isPNG,
-  WIX_MEDIA_DEFAULT,
   anchorScroll,
   addAnchorTagToUrl,
   GlobalContext,
@@ -17,7 +14,7 @@ import {
   SEOSettings,
   CustomAnchorScroll,
 } from 'wix-rich-content-common';
-// eslint-disable-next-line max-len
+import { getImageSrc, isPNG, WIX_MEDIA_DEFAULT } from 'wix-rich-content-common/libs/imageUtils';
 import pluginImageSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-image.schema.json';
 import { DEFAULTS, SEO_IMAGE_WIDTH } from './consts';
 import styles from '../statics/styles/image-viewer.rtlignore.scss';
