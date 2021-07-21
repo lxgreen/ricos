@@ -12,22 +12,33 @@ const linkPanelSettings = {
   showSponsoredCheckbox: true,
 };
 
-const BasicLinkEditor: FunctionComponent<{ content?: DraftContent }> = ({ content }) => (
-  <RicosEditor plugins={[pluginLink(linkConfig)]} content={content} />
-);
-
-const BasicLinkEditorWithSettings: FunctionComponent<{ content?: DraftContent }> = ({
+const BasicLinkEditor: FunctionComponent<{ content?: DraftContent; isMobile: boolean }> = ({
   content,
-}) => (
+  isMobile,
+}) => <RicosEditor plugins={[pluginLink(linkConfig)]} content={content} isMobile={isMobile} />;
+
+const BasicLinkEditorWithSettings: FunctionComponent<{
+  content?: DraftContent;
+  isMobile: boolean;
+}> = ({ content, isMobile }) => (
   <RicosEditor
     plugins={[pluginLink(linkConfig)]}
     linkPanelSettings={linkPanelSettings}
     content={content}
+    isMobile={isMobile}
   />
 );
 
-const MultiSelectLinkEditor: FunctionComponent<{ content?: DraftContent }> = ({ content }) => (
-  <RicosEditor plugins={[pluginLink()]} linkPanelSettings={linkPanelSettings} content={content} />
+const MultiSelectLinkEditor: FunctionComponent<{ content?: DraftContent; isMobile: boolean }> = ({
+  content,
+  isMobile,
+}) => (
+  <RicosEditor
+    plugins={[pluginLink()]}
+    linkPanelSettings={linkPanelSettings}
+    content={content}
+    isMobile={isMobile}
+  />
 );
 
 export { BasicLinkEditor, BasicLinkEditorWithSettings, MultiSelectLinkEditor };

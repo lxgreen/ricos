@@ -10,11 +10,15 @@ const linkConfig = {
   linkTypes: { anchor: false },
 };
 
-const BasicLinkViewer: FunctionComponent<{ content?: DraftContent }> = ({ content }) => (
-  <RicosViewer plugins={[pluginLink(linkConfig)]} content={content} />
-);
-const MultiSelectLinkViewer: FunctionComponent<{ content?: DraftContent }> = ({ content }) => (
-  <RicosViewer plugins={[pluginLink(linkConfigWithAnchor)]} content={content} />
+const BasicLinkViewer: FunctionComponent<{ content?: DraftContent; isMobile: boolean }> = ({
+  content,
+  isMobile,
+}) => <RicosViewer plugins={[pluginLink(linkConfig)]} content={content} isMobile={isMobile} />;
+const MultiSelectLinkViewer: FunctionComponent<{ content?: DraftContent; isMobile: boolean }> = ({
+  content,
+  isMobile,
+}) => (
+  <RicosViewer plugins={[pluginLink(linkConfigWithAnchor)]} content={content} isMobile={isMobile} />
 );
 
 export { BasicLinkViewer, MultiSelectLinkViewer };

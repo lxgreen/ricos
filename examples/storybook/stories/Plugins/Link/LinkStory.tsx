@@ -11,6 +11,10 @@ import {
   Page,
 } from '../../Components/StoryParts';
 import fixtrue from '../../../../../e2e/tests/fixtures/link.json';
+import MobileDetect from 'mobile-detect';
+
+const mobileDetect = new MobileDetect(window.navigator.userAgent);
+const isMobile = mobileDetect.mobile() !== null;
 
 export default () => {
   return (
@@ -18,30 +22,30 @@ export default () => {
       <Section title="Basic Link Panel without checkboxes">
         <Section type={Section.Types.COMPARISON}>
           <RichContentEditorBox sourcecode={editorSourcecode}>
-            <BasicLinkEditor content={fixtrue} />
+            <BasicLinkEditor isMobile={isMobile} content={fixtrue} />
           </RichContentEditorBox>
           <RichContentViewerBox sourcecode={viewerSourcecode}>
-            <BasicLinkViewer content={fixtrue} />
+            <BasicLinkViewer isMobile={isMobile} content={fixtrue} />
           </RichContentViewerBox>
         </Section>
       </Section>
       <Section title="Basic Link Panel">
         <Section type={Section.Types.COMPARISON}>
           <RichContentEditorBox sourcecode={editorSourcecode}>
-            <BasicLinkEditorWithSettings content={fixtrue} />
+            <BasicLinkEditorWithSettings isMobile={isMobile} content={fixtrue} />
           </RichContentEditorBox>
           <RichContentViewerBox sourcecode={viewerSourcecode}>
-            <BasicLinkViewer content={fixtrue} />
+            <BasicLinkViewer isMobile={isMobile} content={fixtrue} />
           </RichContentViewerBox>
         </Section>
       </Section>
       <Section title="Multi Select Link Panel">
         <Section type={Section.Types.COMPARISON}>
           <RichContentEditorBox sourcecode={editorSourcecode}>
-            <MultiSelectLinkEditor content={fixtrue} />
+            <MultiSelectLinkEditor isMobile={isMobile} content={fixtrue} />
           </RichContentEditorBox>
           <RichContentViewerBox sourcecode={viewerSourcecode}>
-            <MultiSelectLinkViewer content={fixtrue} />
+            <MultiSelectLinkViewer isMobile={isMobile} content={fixtrue} />
           </RichContentViewerBox>
         </Section>
         <Section title="Content State">
