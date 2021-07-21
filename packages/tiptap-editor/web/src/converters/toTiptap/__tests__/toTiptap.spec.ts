@@ -1,6 +1,6 @@
 import { RichContent, ImageData } from 'ricos-schema';
-import { compare } from '../../../../../../ricos-content/web/src/comparision/compare';
-import migrationContent from '../../../../../../ricos-content/web/statics/json/migratedFixtures/migration-content.json';
+import { compare } from 'ricos-content/src/comparision/compare';
+import migrationContent from 'ricos-content/statics/json/migratedFixtures/migration-content';
 import draftMigrationContent from '../../../../../../../e2e/tests/fixtures/migration-content.json';
 import migrationContentTiptap from './migrationContentTiptap.json';
 import { draftBlockDataToTiptap, draftToTiptap, toTiptap } from '../..';

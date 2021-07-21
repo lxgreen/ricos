@@ -1,1 +1,1 @@
-export * from '../src/convertor';
+export * from '../src/converters';

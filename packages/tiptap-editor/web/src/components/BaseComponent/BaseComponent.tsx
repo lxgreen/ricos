@@ -10,7 +10,7 @@ import {
 } from './styles';
 import generalStyles from 'wix-rich-content-editor-common/dist/statics/styles/general.scss';
 import generalRTLIgnoredStyles from 'wix-rich-content-common/dist/statics/styles/general.rtlignore.scss';
-import { tiptapNodeDataToDraft, toTiptap } from '../../convertor';
+import { tiptapNodeDataToDraft, toTiptap } from '../../converters';
 
 const stylesWithRTL = { ...generalStyles, ...generalRTLIgnoredStyles };
 const EditorContextConsumer = ({ children }) => {
