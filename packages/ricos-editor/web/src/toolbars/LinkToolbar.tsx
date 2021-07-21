@@ -3,7 +3,6 @@ import { RichContentEditor } from 'wix-rich-content-editor';
 import {
   RichContentTheme,
   GetToolbarSettings,
-  Helpers,
   EditorCommands,
   EditorPlugin,
   LinkPanelSettings,
@@ -24,10 +23,11 @@ interface LinkToolbarProps {
   theme?: RichContentTheme;
   locale?: string;
   getToolbarSettings?: GetToolbarSettings;
-  helpers?: Helpers;
   plugins?: EditorPlugin[];
   linkPanelSettings?: LinkPanelSettings;
   linkSettings?: LinkSettings;
+  onInlineToolbarOpen?: (toolbarType: ToolbarType) => void;
+  onToolbarButtonClick?: (name: string, toolbarType: ToolbarType, value?: any) => void;
 }
 
 interface State {}
@@ -42,7 +42,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
   };
 
   render() {
-    const { activeEditor, isMobile, theme, locale, helpers } = this.props;
+    const { activeEditor, isMobile, theme, locale } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
     const showLinkToolbar =
@@ -58,6 +58,10 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
     };
     const baseStyles = { flex: 'none' };
     const baseMobileStyles = { ...baseStyles, position: 'sticky', top: 0, zIndex: 9 };
+    const onInlineToolbarOpen = () => this.props.onInlineToolbarOpen?.(ToolbarType.LINK);
+    const onToolbarButtonClick = (name, value = undefined) => {
+      this.props.onToolbarButtonClick?.(name, ToolbarType.LINK, value);
+    };
     const ToolbarToRender = (
       <RicosToolbar
         theme={theme}
@@ -67,8 +71,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
         buttons={['goToLink', '|', 'editLink', '|', 'removeLink']}
         plugins={plugins}
         linkPanelData={linkPanelData}
-        helpers={helpers}
-        toolbarType={ToolbarType.LINK}
+        onToolbarButtonClick={onToolbarButtonClick}
       />
     );
     const ToolbarContainer = isMobile ? StaticToolbarContainer : FloatingToolbarContainer;
@@ -80,6 +83,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
             isMobile={isMobile}
             showToolbar={showLinkToolbar || false}
             removeToolbarFocus={removeToolbarFocus}
+            onInlineToolbarOpen={onInlineToolbarOpen}
           >
             {ToolbarToRender}
           </ToolbarContainer>

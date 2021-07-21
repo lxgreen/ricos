@@ -336,7 +336,31 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         hideFormattingToolbar = false;
       }
     }
-
+    const onInlineToolbarOpen = toolbarType =>
+      helpers?.onInlineToolbarOpen?.({
+        toolbarType,
+        version: Version.currentVersion,
+      });
+    const onToolbarButtonClick = (name, toolbarType, value = undefined) => {
+      helpers?.onToolbarButtonClick?.({
+        buttonName: name,
+        type: toolbarType,
+        value: value === undefined ? undefined : typeof value === 'boolean' ? `${!value}` : value,
+        version: Version.currentVersion,
+      });
+    };
+    const toolbarsProps = {
+      textToolbarType: textToolbarType,
+      isMobile: isMobile,
+      theme: theme,
+      locale: locale,
+      getToolbarSettings: getToolbarSettings,
+      plugins: plugins,
+      linkPanelSettings: linkPanelSettings,
+      linkSettings: linkSettings,
+      onInlineToolbarOpen: onInlineToolbarOpen,
+      onToolbarButtonClick: onToolbarButtonClick,
+    };
     return (
       <Fragment key={`${remountKey}`}>
         {!newFormattingToolbar && this.renderToolbarPortal(StaticToolbar)}
@@ -344,31 +368,9 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         {newFormattingToolbar && activeEditor && (
           <>
             {!hideFormattingToolbar && (
-              <TextFormattingToolbar
-                activeEditor={activeEditor}
-                textToolbarType={textToolbarType}
-                isMobile={isMobile}
-                theme={theme}
-                locale={locale}
-                getToolbarSettings={getToolbarSettings}
-                helpers={helpers}
-                plugins={plugins}
-                linkPanelSettings={linkPanelSettings}
-                linkSettings={linkSettings}
-              />
+              <TextFormattingToolbar activeEditor={activeEditor} {...toolbarsProps} />
             )}
-            <LinkToolbar
-              activeEditor={activeEditor}
-              textToolbarType={textToolbarType}
-              isMobile={isMobile}
-              theme={theme}
-              locale={locale}
-              getToolbarSettings={getToolbarSettings}
-              helpers={helpers}
-              plugins={plugins}
-              linkPanelSettings={linkPanelSettings}
-              linkSettings={linkSettings}
-            />
+            <LinkToolbar activeEditor={activeEditor} {...toolbarsProps} />
           </>
         )}
         {this.renderRicosEngine(child, {

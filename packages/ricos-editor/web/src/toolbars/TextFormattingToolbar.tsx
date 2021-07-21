@@ -28,10 +28,11 @@ interface TextFormattingToolbarProps {
   theme?: RichContentTheme;
   locale?: string;
   getToolbarSettings?: GetToolbarSettings;
-  helpers?: Helpers;
   plugins?: EditorPlugin[];
   linkPanelSettings?: LinkPanelSettings;
   linkSettings?: LinkSettings;
+  onInlineToolbarOpen?: (toolbarType: ToolbarType) => void;
+  onToolbarButtonClick?: (name: string, toolbarType: ToolbarType, value?: any) => void;
 }
 
 interface State {}
@@ -58,7 +59,6 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
       theme,
       locale,
       getToolbarSettings = () => [],
-      helpers,
     } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
@@ -104,6 +104,10 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
     };
     const baseStyles = { flex: 'none' };
     const baseMobileStyles = { ...baseStyles, position: 'sticky', top: 0, zIndex: 9 };
+    const onInlineToolbarOpen = () => this.props.onInlineToolbarOpen?.(ToolbarType.FORMATTING);
+    const onToolbarButtonClick = (name, value = undefined) => {
+      this.props.onToolbarButtonClick?.(name, ToolbarType.FORMATTING, value);
+    };
     const ToolbarToRender = (
       <RicosToolbar
         theme={theme}
@@ -114,8 +118,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
         plugins={plugins}
         linkPanelData={linkPanelData}
         colorPickerData={colorPickerData}
-        helpers={helpers}
-        toolbarType={ToolbarType.FORMATTING}
+        onToolbarButtonClick={onToolbarButtonClick}
       />
     );
     const ToolbarContainer =
@@ -127,6 +130,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
           isMobile={isMobile}
           showToolbar={showFormattingToolbar || false}
           removeToolbarFocus={removeToolbarFocus}
+          onInlineToolbarOpen={onInlineToolbarOpen}
         >
           {ToolbarToRender}
         </ToolbarContainer>

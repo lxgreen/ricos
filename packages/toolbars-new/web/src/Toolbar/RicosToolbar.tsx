@@ -7,9 +7,6 @@ import {
   RichContentTheme,
   TranslationFunction,
   DesktopTextButtons,
-  Helpers,
-  ToolbarType,
-  Version,
   EditorCommands,
 } from 'wix-rich-content-common';
 
@@ -49,21 +46,10 @@ interface RicosToolbarProps {
     isMobile?: boolean;
   };
   colorPickerData?: any;
-  helpers?: Helpers;
-  toolbarType?: ToolbarType;
+  onToolbarButtonClick?: (name: string, value?: any) => void;
 }
 
 class RicosToolbar extends Component<RicosToolbarProps> {
-  onToolbarButtonClick = (name, value = undefined) => {
-    const { helpers, toolbarType } = this.props;
-    helpers?.onToolbarButtonClick?.({
-      buttonName: name,
-      type: toolbarType,
-      value: value === undefined ? undefined : typeof value === 'boolean' ? `${!value}` : value,
-      version: Version.currentVersion,
-    });
-  };
-
   separateByGaps = buttons => {
     const separatedButtons: any = [[]];
     buttons.forEach(button => {
@@ -122,7 +108,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
         setKeepOpen={setKeepOpen}
         afterClick={afterClick}
         nestedMenu={nestedMenu}
-        onToolbarButtonClick={this.onToolbarButtonClick}
+        onToolbarButtonClick={this.props.onToolbarButtonClick}
       />
     );
   }

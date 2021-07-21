@@ -12,6 +12,7 @@ interface ToolbarContainerProps {
   isMobile?: boolean;
   showToolbar: boolean;
   removeToolbarFocus: () => void;
+  onInlineToolbarOpen?: () => void;
 }
 
 interface State {
@@ -123,6 +124,9 @@ class FloatingToolbarContainer extends PureComponent<ToolbarContainerProps, Stat
     if (isVisible !== (showToolbar || this.state.keepOpen || toolbarOnFocus)) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ isVisible: showToolbar });
+      if (showToolbar && this.props.onInlineToolbarOpen) {
+        this.props.onInlineToolbarOpen();
+      }
     }
   }, 40);
 

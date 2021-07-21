@@ -61,7 +61,7 @@ class Toolbar extends Component<ToolbarProps> {
         tooltipText={tooltip}
         icon={getIcon()}
         disabled={isDisabled()}
-        onToolbarButtonClick={() => this.props.onToolbarButtonClick(name, isActive())}
+        onToolbarButtonClick={() => this.props.onToolbarButtonClick?.(name, isActive())}
       />
     );
   };
@@ -127,7 +127,7 @@ class Toolbar extends Component<ToolbarProps> {
         theme={this.theme}
         onResetColor={onResetColor}
         setKeepOpen={setKeepOpen}
-        onToolbarButtonClick={() => this.props.onToolbarButtonClick(buttonProps.name)}
+        onToolbarButtonClick={() => this.props.onToolbarButtonClick?.(buttonProps.name)}
       />
     );
   };
@@ -165,7 +165,7 @@ class Toolbar extends Component<ToolbarProps> {
         dropDownProps={dropDownProps}
         t={t}
         setKeepOpen={setKeepOpen}
-        onToolbarButtonClick={value => this.props.onToolbarButtonClick(buttonProps.name, value)}
+        onToolbarButtonClick={value => this.props.onToolbarButtonClick?.(buttonProps.name, value)}
       />
     );
   };
