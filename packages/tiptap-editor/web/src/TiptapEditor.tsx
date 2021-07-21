@@ -3,7 +3,7 @@ import { EditorPropsContext } from './context';
 import Toolbar from './components/Toolbar';
 import { JSONContent } from '@tiptap/core';
 import { Editor, EditorContent } from '@tiptap/react';
-import { draftToTiptap, tiptapToDraft, draftBlockDataToTiptap } from 'ricos-content/libs/tiptap';
+import { draftToTiptap, tiptapToDraft, draftBlockDataToTiptap } from './convertor';
 import { tiptapExtensions } from './tiptap-extensions';
 import { capitalize } from 'lodash';
 import { TiptapAPI, TiptapConfig } from './types';
