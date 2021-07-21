@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { mergeStyles, getImageSrc } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
+import { getImageSrc } from 'wix-rich-content-common/libs/imageUtils';
 import {
   SettingsPanelFooter,
   SettingsSection,

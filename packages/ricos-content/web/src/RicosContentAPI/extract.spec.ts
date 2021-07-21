@@ -53,7 +53,7 @@ describe('Content extract API', () => {
         'BLOCKQUOTE',
         'ORDERED_LIST',
         'LIST_ITEM',
-        'BULLET_LIST',
+        'BULLETED_LIST',
         'HEADING',
       ],
       decorations: ['BOLD', 'UNDERLINE', 'ITALIC', 'LINK', 'SPOILER', 'MENTION', 'COLOR', 'ANCHOR'],
@@ -62,7 +62,7 @@ describe('Content extract API', () => {
   });
   it('should extract the list texts', () => {
     const actual = extract(RichContent.fromJSON(contentWithLists).nodes)
-      .filter(({ type }) => type === Node_Type.BULLET_LIST || type === Node_Type.ORDERED_LIST)
+      .filter(({ type }) => type === Node_Type.BULLETED_LIST || type === Node_Type.ORDERED_LIST)
       .chain(n => extract(n).map(({ textData }) => textData?.text || ''))
       .map(extractor => extractor.get());
 
@@ -106,7 +106,7 @@ describe('Content extract API', () => {
     const richContent = fromDraft(contentWithImages);
     const actual = extract(richContent.nodes)
       .filter(({ imageData }) => !!imageData && !imageData.altText)
-      .map(({ key }) => key)
+      .map(({ id }) => id)
       .get();
     const expected = ['4n607', '213ea'];
     expect(actual).toEqual(expected);
