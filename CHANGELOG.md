@@ -20,7 +20,12 @@
 ### :house: Internal
 
 - `ricos-common`
+
   - [#2744](https://github.com/wix/ricos/pull/2744) move `imageUtils` from `ricos-content` to `common` package
+
+- `rich-content-common`
+  - [#2755](https://github.com/wix/ricos/pull/2755) `i18next` extranaliziation and version bump (11)
+
 ### :nail_care: Polish
 
 - `ricos-schema`
