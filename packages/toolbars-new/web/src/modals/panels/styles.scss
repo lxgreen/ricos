@@ -18,16 +18,21 @@
     background-color: transparent;
 
     &:hover {
-      color: $settings-action-color-fallback;
+      // color: $settings-action-color-fallback;
       cursor: pointer;
       background-color: rgba($fallbackColorTuple, 0.05);
     }
 
     &:active {
-      background-color: rgba($action-color-fallback-tuple, 0.1);
+     @extend %active;
     }
   }
 }
+
+%active {
+    background-color: rgba($action-color-fallback-tuple, 0.1);
+}
+
 .desktopPanel_withIcons {
   width: 46px;
   * {
@@ -66,10 +71,6 @@
     padding-bottom: 15px;
   }
 
-  // > * {
-  //   // margin: 11px 0;
-  // }
-
   * {
     font-size: 16px;
     background-color: transparent;
@@ -87,8 +88,8 @@
     padding: 0;
     width: 100%;
     &:active {
-      background-color: rgba($action-color-fallback-tuple, 0.1);
-    }
+      @extend %active;
+     }
 
     button {
       @extend .mobilePanel_AlignContent;
