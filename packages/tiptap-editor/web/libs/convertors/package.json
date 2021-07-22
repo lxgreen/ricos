@@ -1,0 +1,5 @@
+{
+    "main": "../../dist/lib/convertors.cjs.js",
+    "module": "../../dist/lib/convertors.js",
+    "types": "../../dist/lib/convertors.d.ts"
+}

@@ -1,11 +1,11 @@
 import { RichContent, ImageData } from 'ricos-schema';
-import { compare } from '../../../../comparision/compare';
-import migrationContent from '../../../../../statics/json/migratedFixtures/migration-content.json';
-import draftMigrationContent from '../../../../../../../../e2e/tests/fixtures/migration-content.json';
+import { compare } from 'ricos-content/src/comparision/compare';
+import migrationContent from 'ricos-content/statics/json/migratedFixtures/migration-content.json';
+import draftMigrationContent from '../../../../../../../e2e/tests/fixtures/migration-content.json';
 import migrationContentTiptap from './migrationContentTiptap.json';
 import { draftBlockDataToTiptap, draftToTiptap, toTiptap } from '../..';
 import { getImageBlockData, getImageNode } from '../../utils';
-import { IMAGE_TYPE } from '../../../../consts';
+import { IMAGE_TYPE } from 'ricos-content';
 
 describe('convert to Tiptap', () => {
   describe('from RichContent', () => {

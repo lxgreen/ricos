@@ -20,6 +20,18 @@
 </details>
 <hr/>
 
+## 8.47.6 (July 21, 2021)
+### :house: Internal
+- `*`
+  - [#2762](https://github.com/wix/ricos/pull/2762) make downshift external
+
+## 8.47.5 (July 21, 2021)
+
+### :house: Internal
+
+- `file`
+  - [#2761](https://github.com/wix/ricos/pull/2761) loadable support
+
 ## 8.47.4 (July 21, 2021)
 
 ### :house: Internal
