@@ -59,10 +59,11 @@ class LineSpacingPanel extends Component {
           panelHeader,
           options: lineHeights,
           onChange: onChangeLineHeight,
+          onCancel,
         }}
       />
     ) : isCustomPanel ? (
-      <CustomPanel {...{ spacing, onChange, onSave, onCancel, styles, t, isMobile }} />
+      <CustomPanel {...{ spacing, onChange, onSave, onCancel, t, isMobile }} />
     ) : (
       <DesktopPanel
         {...{

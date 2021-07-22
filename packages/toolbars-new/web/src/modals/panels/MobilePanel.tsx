@@ -1,9 +1,10 @@
 import React from 'react';
+import { CloseIcon } from 'wix-rich-content-ui-components';
 import styles from './styles.scss';
 
 const Separator = () => <div className={styles.separator} />;
 
-const MobilePanel = ({ currentSelect, panelHeader, onChange, options, hasIcons }) => {
+const MobilePanel = ({ currentSelect, panelHeader, onChange, onCancel, options, hasIcons }) => {
   const lineHeightElement = (option, isSelected, showSeparator) => {
     return (
       <div>
@@ -17,7 +18,7 @@ const MobilePanel = ({ currentSelect, panelHeader, onChange, options, hasIcons }
         >
           <div
             className={
-              hasIcons ? styles.alignment_mobile_contentWrapper : styles.mobile_contentWrapper
+              hasIcons ? styles.mobile_contentWrapper_withIcon : styles.mobile_contentWrapper
             }
           >
             {hasIcons && <div>{option.icon}</div>}
@@ -31,7 +32,10 @@ const MobilePanel = ({ currentSelect, panelHeader, onChange, options, hasIcons }
 
   return (
     <div className={styles.mobilePanel}>
-      <div className={styles.mobilePanel_header}>{panelHeader}</div>
+      <div className={styles.mobilePanel_header}>
+        {panelHeader}
+        <CloseIcon className={styles.closeIcon} onClick={onCancel} />
+      </div>
       <Separator />
       <div className={styles.mobilePanel_rows}>
         {options.map((option, i) => {

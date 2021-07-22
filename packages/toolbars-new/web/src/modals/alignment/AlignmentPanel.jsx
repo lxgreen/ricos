@@ -13,7 +13,7 @@ const alignments = [
   { text: 'Justify', commandKey: 'justify', icon: <AlignJustifyIcon /> },
 ];
 
-const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, ...props }) => {
+const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, onCancel, ...props }) => {
   const panelHeader = t('Alignment');
   const hasIcons = true;
   const onChange = alignment => {
@@ -35,6 +35,7 @@ const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, ...props })
         options: alignments,
         onChange,
         hasIcons,
+        onCancel,
       }}
     />
   ) : (

@@ -51,7 +51,7 @@ class HeadingsPanel extends Component {
   };
 
   render() {
-    const { isMobile, t, currentSelect } = this.props;
+    const { isMobile, t, currentSelect, onCancel } = this.props;
     const panelHeader = t('Headings');
 
     const panel = isMobile ? (
@@ -61,6 +61,7 @@ class HeadingsPanel extends Component {
           panelHeader,
           options: this.defaultHeadings(),
           onChange: this.onSaveHeading,
+          onCancel,
         }}
       />
     ) : (

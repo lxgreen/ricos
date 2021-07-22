@@ -1,5 +1,6 @@
 import React from 'react';
-// import styles from './styles.scss';
+import { ActionButtons, BUTTON_SIZE } from 'wix-rich-content-ui-components';
+import styles from './custom-panel.scss';
 
 const LabeledInput = ({
   label,
@@ -10,7 +11,6 @@ const LabeledInput = ({
   onChange,
   min,
   max,
-  styles,
 }) => {
   const value = spacing[name] === undefined ? defaultValue : parseFloat(spacing[name]);
   return (
@@ -30,7 +30,7 @@ const LabeledInput = ({
   );
 };
 
-const CustomPanel = ({ spacing, onChange, onSave, onCancel, styles, t }) => {
+const CustomPanel = ({ spacing, onChange, onSave, onCancel, t }) => {
   return (
     <div className={styles.customSpacingPanel}>
       <LabeledInput
@@ -41,7 +41,6 @@ const CustomPanel = ({ spacing, onChange, onSave, onCancel, styles, t }) => {
         spacing={spacing}
         min={1}
         max={100}
-        styles={styles}
       />
       <div className={styles.separator} />
       <LabeledInput
@@ -52,7 +51,6 @@ const CustomPanel = ({ spacing, onChange, onSave, onCancel, styles, t }) => {
         spacing={spacing}
         min={0}
         max={250}
-        styles={styles}
       />
       <LabeledInput
         label={t('LineSpacing_afterParagraph')}
@@ -62,11 +60,15 @@ const CustomPanel = ({ spacing, onChange, onSave, onCancel, styles, t }) => {
         spacing={spacing}
         min={0}
         max={250}
-        styles={styles}
       />
       <div className={styles.customSpacingPanel_buttons}>
-        <button onClick={onCancel}>{t('LineSpacing_cancel')}</button>
-        <button onClick={() => onSave()}>{t('LineSpacing_save')}</button>
+        <ActionButtons
+          size={BUTTON_SIZE.tiny}
+          onCancel={onCancel}
+          onSave={onSave}
+          cancelText={t('LineSpacing_cancel')}
+          saveText={t('LineSpacing_save')}
+        />
       </div>
     </div>
   );
