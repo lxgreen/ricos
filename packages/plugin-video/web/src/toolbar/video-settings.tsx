@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { VideoSettingsProps } from '../types';
 import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
@@ -12,71 +12,41 @@ import {
 
 const VideoSettings: React.FC<VideoSettingsProps> = ({
   componentData,
-  helpers,
-  pubsub,
   theme,
   t,
   isMobile,
   settings,
+  onSave,
+  onCancel,
+  updateData,
 }) => {
-  const disableDownload =
-    componentData.disableDownload !== undefined
-      ? componentData.disableDownload
-      : !!settings.disableDownload;
-  const isSpoilered = componentData.config?.spoiler?.enabled;
-
-  const [isDownloadEnabled, setIsDownloadEnabled] = useState(!disableDownload);
-  const [isSpoilerEnabled, setIsSpoilerEnabled] = useState(isSpoilered);
   const styles = mergeStyles({ styles: Styles, theme });
-  const closeModal = () => helpers.closeModal?.();
   const getSpoilerConfig = enabled => ({
     config: { ...componentData.config, spoiler: { enabled } },
   });
-  const onDoneClick = () => {
-    const newComponentData = {
-      ...componentData,
-      disableDownload: !isDownloadEnabled,
-      ...getSpoilerConfig(isSpoilerEnabled),
-    };
-    pubsub.update('componentData', newComponentData);
-    closeModal();
-  };
+
   const isCustomVideo = !!componentData.isCustomVideo;
-  const mobileSettingsProps = {
-    t,
-    theme,
-    dataHookPrefix: 'VideoSettingsMobileHeader',
-    cancelLabel: t('SettingsPanelFooter_Cancel'),
-    saveLabel: t('SettingsPanelFooter_Save'),
-    isMediaSettingsModal: true,
-    cancel: closeModal,
-    save: onDoneClick,
-  };
 
   const spoilerToggle = {
-    toggleKey: 'isSpoilerEnabled',
+    isChecked: () => componentData.config?.spoiler?.enabled,
     labelKey: 'VideoSettings_Spoiler_Toggle',
     dataHook: 'videoSpoilerToggle',
     tooltipText: 'Spoiler_Toggle_Tooltip',
-    checked: isSpoilerEnabled,
-    onToggle: () => {
-      const value = !isSpoilerEnabled;
-      setIsSpoilerEnabled(value);
-      pubsub.update('componentData', { ...componentData, ...getSpoilerConfig(value) });
-    },
+    onToggle: value => updateData(getSpoilerConfig(value)),
   };
   const downloadToggle = {
-    toggleKey: 'isDownloadEnabled',
+    isChecked: () => !componentData.disableDownload,
     labelKey: 'VideoPlugin_Settings_VideoCanBeDownloaded_Label',
     dataHook: 'videoDownloadToggle',
     tooltipText: 'VideoPlugin_Settings_VideoCanBeDownloaded_Tooltip',
-    checked: isDownloadEnabled,
-    onToggle: () => setIsDownloadEnabled(!isDownloadEnabled),
+    onToggle: value => updateData({ disableDownload: !value }),
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const toggleData: Record<string, any>[] = isCustomVideo ? [downloadToggle] : [];
   settings.spoiler && toggleData.push(spoilerToggle);
+
+  const headerProps = { theme, t, isMobile, onSave, onCancel, styles };
 
   return (
     <div
@@ -85,22 +55,15 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
         [styles.videoSettings_mobile]: isMobile,
       })}
     >
-      {isMobile ? (
-        <SettingsMobileHeader {...mobileSettingsProps} />
-      ) : (
-        <>
-          <div className={styles.videoSettingsTitle}>{t('VideoPlugin_Settings_Header')}</div>
-          <div className={styles.separator} />
-        </>
-      )}
+      <Header {...headerProps} />
       <SettingsSection theme={theme} className={classNames(styles.videoSettings_toggleContainer)}>
-        {toggleData.map(({ toggleKey, labelKey, tooltipText, dataHook, onToggle, checked }) => (
+        {toggleData.map(({ labelKey, tooltipText, dataHook, onToggle, isChecked }) => (
           <LabeledToggle
-            key={toggleKey}
+            key={labelKey}
             theme={theme}
-            checked={checked}
+            checked={isChecked()}
             label={t(labelKey)}
-            onChange={onToggle}
+            onChange={() => onToggle(!isChecked())}
             tooltipText={t(tooltipText)}
             dataHook={dataHook}
           />
@@ -111,12 +74,34 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
           className={styles.videoSettings_footer}
           fixed
           theme={theme}
-          cancel={closeModal}
-          save={onDoneClick}
+          cancel={onCancel}
+          save={onSave}
           t={t}
         />
       )}
     </div>
+  );
+};
+
+const Header = ({ theme, t, isMobile, onSave, onCancel, styles }) => {
+  const mobileSettingsProps = {
+    t,
+    theme,
+    dataHookPrefix: 'VideoSettingsMobileHeader',
+    cancelLabel: t('SettingsPanelFooter_Cancel'),
+    saveLabel: t('SettingsPanelFooter_Save'),
+    isMediaSettingsModal: true,
+    cancel: onCancel,
+    save: onSave,
+  };
+
+  return isMobile ? (
+    <SettingsMobileHeader {...mobileSettingsProps} />
+  ) : (
+    <>
+      <div className={styles.videoSettingsTitle}>{t('VideoPlugin_Settings_Header')}</div>
+      <div className={styles.separator} />
+    </>
   );
 };
 
