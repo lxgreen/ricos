@@ -1,5 +1,5 @@
 import React, { Component, ReactElement } from 'react';
-import { RICOS_IMAGE_TYPE } from 'wix-rich-content-common';
+import { RICOS_IMAGE_TYPE, RICOS_GALLERY_TYPE } from 'wix-rich-content-common';
 
 interface Props {
   modalName?: string;
@@ -15,6 +15,7 @@ interface State {
 
 const pluginTypeMap = {
   'image-settings': RICOS_IMAGE_TYPE,
+  'gallery-settings': RICOS_GALLERY_TYPE,
 };
 
 class EditorCommandModalProvider extends Component<Props, State> {
@@ -25,6 +26,9 @@ class EditorCommandModalProvider extends Component<Props, State> {
     this.initialData = props.editorCommands.getSelectedData();
     this.state = { data: this.initialData };
   }
+
+  deleteBlock = () =>
+    this.props.editorCommands.deleteBlock(this.props.editorCommands.getSelection().focusKey);
 
   updateData = data => {
     const { editorCommands, modalName = '' } = this.props;
@@ -53,6 +57,7 @@ class EditorCommandModalProvider extends Component<Props, State> {
           onSave: this.onSave,
           onCancel: this.onCancel,
           updateData: this.updateData,
+          deleteBlock: this.deleteBlock,
           componentData: this.state.data,
         })
       : children;

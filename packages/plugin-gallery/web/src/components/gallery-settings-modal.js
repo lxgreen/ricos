@@ -18,9 +18,9 @@ import GallerySettingsMobileHeader from './gallery-controls/gallery-settings-mob
 const DIVIDER = 'divider';
 class ManageMediaSection extends Component {
   applyItems = items => {
-    const { data, store } = this.props;
+    const { data, updateData } = this.props;
     const componentData = { ...data, items };
-    store.set('componentData', componentData);
+    updateData(componentData);
   };
 
   handleFileChange = (files, itemPos) => {
@@ -46,6 +46,7 @@ class ManageMediaSection extends Component {
       uiSettings,
       languageDir,
       accept,
+      deleteBlock,
     } = this.props;
     const { handleFileSelection } = helpers;
     return (
@@ -57,7 +58,7 @@ class ManageMediaSection extends Component {
           handleFileChange={this.handleFileChange}
           handleFileSelection={handleFileSelection && this.handleFileSelection}
           handleFilesAdded={store.getBlockHandler('handleFilesAdded')}
-          deleteBlock={store.get('deleteBlock')}
+          deleteBlock={deleteBlock}
           t={t}
           relValue={relValue}
           anchorTarget={anchorTarget}
@@ -82,16 +83,15 @@ ManageMediaSection.propTypes = {
   uiSettings: PropTypes.object,
   languageDir: PropTypes.string,
   accept: PropTypes.string,
+  deleteBlock: PropTypes.func,
+  updateData: PropTypes.func,
 };
 
 class AdvancedSettingsSection extends Component {
   applyGallerySetting = setting => {
-    const { data, store } = this.props;
-    const componentData = {
-      ...data,
-      styles: setting,
-    };
-    store.set('componentData', componentData);
+    const { data, updateData } = this.props;
+    const componentData = { ...data, styles: setting };
+    updateData(componentData);
   };
 
   switchLayout = layout => {
@@ -106,7 +106,7 @@ class AdvancedSettingsSection extends Component {
   }
 
   render() {
-    const { data, store, theme, t, isMobile, languageDir } = this.props;
+    const { data, updateData, theme, t, isMobile, languageDir } = this.props;
     return (
       this.shouldRender() && (
         <div
@@ -133,7 +133,7 @@ class AdvancedSettingsSection extends Component {
             theme={theme}
             layout={this.getValueFromComponentStyles('galleryLayout')}
             data={data}
-            store={store}
+            updateData={updateData}
             t={t}
             isMobile={isMobile}
           />
@@ -145,7 +145,7 @@ class AdvancedSettingsSection extends Component {
 
 AdvancedSettingsSection.propTypes = {
   data: PropTypes.object.isRequired,
-  store: PropTypes.object.isRequired,
+  updateData: PropTypes.func.isRequired,
   isMobile: PropTypes.bool,
   theme: PropTypes.object.isRequired,
   t: PropTypes.func,
@@ -154,57 +154,18 @@ AdvancedSettingsSection.propTypes = {
 export class GallerySettingsModal extends Component {
   constructor(props) {
     super(props);
-    const {
-      componentData: {
-        disableExpand,
-        disableDownload,
-        config: { spoiler = {} },
-      },
-    } = this.props;
-    this.state = {
-      activeTab: this.props.activeTab,
-      isExpandEnabled: !disableExpand,
-      isDownloadEnabled: !disableDownload,
-      isSpoilerEnabled: spoiler.enabled,
-    };
+    this.state = { activeTab: this.props.activeTab };
     this.styles = mergeStyles({ styles, theme: props.theme });
-    this.switchTab = this.switchTab.bind(this);
   }
 
-  componentDidMount() {
-    this.props.pubsub.subscribe('componentData', this.onComponentUpdate);
-    this.setState({
-      initComponentData: this.props.pubsub.get('componentData'),
-    });
-  }
-
-  componentWillUnmount() {
-    this.props.pubsub.unsubscribe('componentData', this.onComponentUpdate);
-  }
-
-  onComponentUpdate = () => this.forceUpdate();
-
-  revertComponentData = () => {
-    const { pubsub, helpers } = this.props;
-    if (this.state.initComponentData) {
-      pubsub.set('componentData', this.state.initComponentData);
-    }
-
-    helpers.closeModal();
+  switchTab = () => {
+    const tabsMapper = {
+      manage_media: 'advanced_settings',
+      advanced_settings: 'settings',
+      settings: 'manage_media',
+    };
+    this.setState({ activeTab: tabsMapper[this.state.activeTab] || 'settings' });
   };
-
-  otherTab() {
-    let tab = 'settings';
-    if (this.state.activeTab === 'manage_media') tab = 'advanced_settings';
-    if (this.state.activeTab === 'advanced_settings') tab = 'settings';
-    if (this.state.activeTab === 'settings') tab = 'manage_media';
-    return tab;
-  }
-
-  switchTab() {
-    const otherTab = this.otherTab();
-    this.setState({ activeTab: otherTab });
-  }
 
   onTabSelected = tab => this.setState({ activeTab: tab });
 
@@ -217,27 +178,9 @@ export class GallerySettingsModal extends Component {
     }[tab];
   }
 
-  onDoneClick = () => {
-    const { helpers, pubsub } = this.props;
-    const componentData = pubsub.get('componentData');
-    const newComponentData = {
-      ...componentData,
-      ...this.getSpoilerConfig(this.state.isSpoilerEnabled),
-      disableDownload: !this.state.isDownloadEnabled,
-      disableExpand: !this.state.isExpandEnabled,
-    };
-    pubsub.update('componentData', newComponentData);
-    helpers.closeModal();
-  };
-
-  toggleState = (key, onToggle) => () => {
-    const value = !this.state[key];
-    this.setState({ [key]: value }, onToggle?.(value));
-  };
-
   getSpoilerConfig = enabled => ({
     config: {
-      ...this.componentData.config,
+      ...this.props.componentData.config,
       spoiler: { enabled },
     },
   });
@@ -250,7 +193,9 @@ export class GallerySettingsModal extends Component {
         theme={this.props.theme}
       >
         <ManageMediaSection
-          data={this.props.pubsub.get('componentData')}
+          deleteBlock={this.props.deleteBlock}
+          updateData={this.props.updateData}
+          data={this.props.componentData}
           store={this.props.pubsub.store}
           helpers={this.props.helpers}
           theme={this.props.theme}
@@ -270,7 +215,8 @@ export class GallerySettingsModal extends Component {
       >
         <AdvancedSettingsSection
           theme={this.props.theme}
-          data={this.props.pubsub.get('componentData')}
+          updateData={this.props.updateData}
+          data={this.props.componentData}
           store={this.props.pubsub.store}
           helpers={this.props.helpers}
           t={this.props.t}
@@ -293,33 +239,35 @@ export class GallerySettingsModal extends Component {
       ? [this.tabsList().mangeMedia, this.tabsList().settings]
       : [this.tabsList().mangeMedia, this.tabsList().advancedSettings, this.tabsList().settings];
 
-  renderToggle = ({ toggleKey, labelKey, tooltipText, dataHook, onToggle, type }) =>
+  renderToggle = ({ isChecked, labelKey, tooltipText, dataHook, onToggle, type }) =>
     type === DIVIDER ? (
       <div className={this.styles.divider} />
     ) : (
       <LabeledToggle
-        key={toggleKey}
+        key={labelKey}
         theme={this.props.theme}
-        checked={this.state[toggleKey]}
+        checked={isChecked()}
         label={this.props.t(labelKey)}
         dataHook={dataHook}
-        onChange={this.toggleState(toggleKey, onToggle)}
+        onChange={() => onToggle(!isChecked())}
         tooltipText={tooltipText}
       />
     );
 
   baseToggleData = [
     {
-      toggleKey: 'isExpandEnabled',
+      isChecked: () => !this.props.componentData.disableExpand,
       labelKey: 'GalleryPlugin_Settings_ImagesOpenInExpandMode_Label',
       dataHook: 'galleryExpandToggle',
       tooltipText: this.props.t('GallerySettings_Expand_Mode_Toggle'),
+      onToggle: value => this.props.updateData({ disableExpand: !value }),
     },
     {
-      toggleKey: 'isDownloadEnabled',
+      isChecked: () => !this.props.componentData.disableDownload,
       labelKey: 'GalleryPlugin_Settings_ImagesCanBeDownloaded_Label',
       dataHook: 'imageDownloadToggle',
       tooltipText: this.props.t('GalleryPlugin_Settings_ImagesCanBeDownloaded_Tooltip'),
+      onToggle: value => this.props.updateData({ disableDownload: !value }),
     },
   ];
 
@@ -330,33 +278,27 @@ export class GallerySettingsModal extends Component {
           type: DIVIDER,
         },
         {
-          toggleKey: 'isSpoilerEnabled',
+          isChecked: () => this.props.componentData.config.spoiler?.enabled,
           labelKey: 'GallerySettings_Spoiler_Toggle',
           dataHook: 'gallerySpoilerToggle',
           tooltipText: this.props.t('Spoiler_Toggle_Tooltip'),
-          onToggle: value => {
-            this.props.pubsub.update('componentData', {
-              ...this.componentData,
-              ...this.getSpoilerConfig(value),
-            });
-          },
+          onToggle: value => this.props.updateData(this.getSpoilerConfig(value)),
         },
       ]
     : this.baseToggleData;
 
   render() {
     const styles = this.styles;
-    const { t, isMobile, languageDir, pubsub } = this.props;
+    const { t, isMobile, languageDir, onSave, onCancel } = this.props;
     const { activeTab } = this.state;
-    this.componentData = pubsub.get('componentData');
 
     return (
       <div data-hook="settings" dir={languageDir}>
         {isMobile && (
           <GallerySettingsMobileHeader
             theme={this.props.theme}
-            cancel={this.revertComponentData}
-            save={this.onDoneClick}
+            cancel={onCancel}
+            save={onSave}
             switchTab={this.switchTab}
             otherTab={this.tabName(this.otherTab(), t)}
             t={t}
@@ -378,8 +320,8 @@ export class GallerySettingsModal extends Component {
           {!isMobile && (
             <SettingsPanelFooter
               fixed
-              cancel={this.revertComponentData}
-              save={this.onDoneClick}
+              cancel={onCancel}
+              save={onSave}
               theme={this.props.theme}
               t={t}
             />
@@ -404,6 +346,10 @@ GallerySettingsModal.propTypes = {
   languageDir: PropTypes.string,
   accept: PropTypes.string,
   shouldShowSpoiler: PropTypes.bool,
+  updateData: PropTypes.func,
+  onSave: PropTypes.func,
+  onCancel: PropTypes.func,
+  deleteBlock: PropTypes.func,
 };
 
 export default GallerySettingsModal;
