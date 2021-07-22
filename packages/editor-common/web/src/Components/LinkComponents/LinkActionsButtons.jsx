@@ -46,11 +46,10 @@ class LinkActionsButtons extends PureComponent {
       <Button
         className={styles.actionButtons_saveOnlyBtn}
         type="primary"
+        dataHook="actionButtonSave"
         text={doneButtonText}
         onClick={onDone}
-      >
-        {doneButtonText}
-      </Button>
+      />
     ) : (
       <div
         className={classNames(styles.actionButtons_Footer, {
@@ -61,15 +60,15 @@ class LinkActionsButtons extends PureComponent {
         <div className={styles.actionButtons_FooterActions}>
           {showRemoveButton && (
             <div className={styles.actionButtons_RemoveContainer}>
-              <button
+              <Button
                 tabIndex={tabIndex}
-                aria-label={removeButtonText}
-                className={removeButtonClassName}
                 data-hook="linkPanelContainerRemove"
+                className={removeButtonClassName}
+                type="secondary"
+                text={removeButtonText}
                 onClick={onDelete}
-              >
-                {removeButtonText}
-              </button>
+                borderless
+              />
             </div>
           )}
         </div>

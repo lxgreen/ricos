@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { mergeStyles, isValidUrl } from 'wix-rich-content-common';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
-import { Checkbox, ErrorIcon } from 'wix-rich-content-ui-components';
+import { Checkbox, ErrorIcon, TextInput } from 'wix-rich-content-ui-components';
 import styles from '../../../statics/styles/link-panel.scss';
 import { LinkPanelDropdown } from './LinkPanelDropdown';
 
@@ -20,12 +20,10 @@ class LinkPanel extends Component {
 
   styles = mergeStyles({ styles, theme: this.props.theme });
 
-  textInput = React.createRef();
-
   componentDidMount() {
     this.onChange({ isValid: this.isValidUrl(this.props.linkValues.url) });
-    this.textInput?.current?.focus();
-    this.textInput?.current?.select(); //select the link in case of edit
+    this.textInput?.focus();
+    this.textInput?.select(); //select the link in case of edit
   }
 
   handleUrlChange = url => {
@@ -86,8 +84,9 @@ class LinkPanel extends Component {
 
   getTextInput() {
     return (
-      <input
-        ref={this.textInput}
+      <TextInput
+        getTarget
+        inputRef={ref => (this.inputRef = ref)}
         value={this.props.linkValues.url}
         onChange={e => this.handleUrlChange(e.target.value)}
         {...this.getTextInputProps()}

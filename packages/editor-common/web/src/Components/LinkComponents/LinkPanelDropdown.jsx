@@ -1,6 +1,7 @@
 import React, { Component, PureComponent, Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../../../statics/styles/link-panel.scss';
+import { TextInput } from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 import { isUndefined } from 'lodash';
 
@@ -84,20 +85,32 @@ export class LinkPanelDropdown extends Component {
     }
   };
 
+  componentDidMount() {
+    // eslint-disable-next-line react/prop-types
+    this.textInput?.focus();
+    if (!this.state.fallbackChanged) {
+      this.textInput?.select(); //select the link in case of edit
+    } else {
+      this.textInput?.selectionStart = this.textInput.value.length;
+      this.textInput?.selectionEnd = this.textInput.value.length;
+    }
+  }
+
   render() {
     const { itemToString, formatMenuItem, itemHeight, textInputProps, value } = this.props;
     const { selectedItem, items, fallbackChanged } = this.state;
     return (
       <Suspense
         fallback={
-          <Input
+          <TextInput
+            getEvent
             {...textInputProps}
+            inputRef={ref => (this.textInput = ref)}
             value={value}
             onChange={e => {
               this.props.onChange(e.target.value);
               this.setState({ fallbackChanged: true });
             }}
-            selectText
           />
         }
       >
@@ -118,7 +131,11 @@ export class LinkPanelDropdown extends Component {
           }) => (
             <div>
               {/*<label {...getLabelProps()}>Enter a fruit</label>*/}
-              <Input {...getInputProps({ ...textInputProps })} selectText={!fallbackChanged} />
+              <TextInput
+                getEvent
+                {...getInputProps({ ...textInputProps })}
+                inputRef={ref => (this.textInput = ref)}
+              />
               {(isOpen || this.props.isOpen) && List && (
                 <Suspense fallback={<div>Loading...</div>}>
                   <List
@@ -159,26 +176,4 @@ export class LinkPanelDropdown extends Component {
     textInputProps: PropTypes.object,
     isOpen: PropTypes.bool,
   };
-}
-
-class Input extends Component {
-  textInput = React.createRef();
-
-  componentDidMount() {
-    // eslint-disable-next-line react/prop-types
-    const { selectText } = this.props;
-    this.textInput.current.focus();
-    if (selectText) {
-      this.textInput.current.select(); //select the link in case of edit
-    } else {
-      this.textInput.current.selectionStart = this.textInput.current.value.length;
-      this.textInput.current.selectionEnd = this.textInput.current.value.length;
-    }
-  }
-
-  render() {
-    // eslint-disable-next-line react/prop-types, no-unused-vars
-    const { selectText, ...inputProps } = this.props;
-    return <input {...inputProps} ref={this.textInput} />;
-  }
 }

@@ -12,10 +12,23 @@ const linkPanelSettings = {
   showSponsoredCheckbox: true,
 };
 
+const basicLinkPanelSettings = {
+  showNewTabCheckbox: false,
+  showNoFollowCheckbox: false,
+  showSponsoredCheckbox: false,
+};
+
 const BasicLinkEditor: FunctionComponent<{ content?: DraftContent; isMobile: boolean }> = ({
   content,
   isMobile,
-}) => <RicosEditor plugins={[pluginLink(linkConfig)]} content={content} isMobile={isMobile} />;
+}) => (
+  <RicosEditor
+    plugins={[pluginLink(linkConfig)]}
+    linkPanelSettings={basicLinkPanelSettings}
+    content={content}
+    isMobile={isMobile}
+  />
+);
 
 const BasicLinkEditorWithSettings: FunctionComponent<{
   content?: DraftContent;

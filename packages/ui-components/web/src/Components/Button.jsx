@@ -16,6 +16,8 @@ class Button extends Component {
     ariaProps: PropTypes.object,
     size: PropTypes.string,
     text: PropTypes.string,
+    tabIndex: PropTypes.number,
+    borderless: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -36,14 +38,18 @@ class Button extends Component {
       ariaProps,
       size = BUTTON_SIZE.small,
       text,
+      tabIndex = '0',
+      borderless = false,
     } = this.props;
     return (
       <button
         {...ariaProps}
         data-hook={dataHook}
         onClick={onClick}
-        tabIndex="0"
-        className={classNames(this.styles[`button_${type}`], this.styles[size], className)}
+        tabIndex={tabIndex}
+        className={classNames(this.styles[`button_${type}`], this.styles[size], className, {
+          [this.styles.borderless]: borderless,
+        })}
       >
         {text}
       </button>
