@@ -4,13 +4,13 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   mergeStyles,
-  getImageSrc,
   isValidUrl,
   IMAGE_TYPE,
   VIDEO_TYPE,
   GALLERY_TYPE,
   GIPHY_TYPE,
 } from 'wix-rich-content-common';
+import { getImageSrc } from 'wix-rich-content-common/libs/imageUtils';
 import styles from '../anchor-panel.scss';
 import { ANCHORABLE_BLOCKS } from './consts';
 import classNames from 'classnames';
