@@ -27,7 +27,7 @@ interface LinkToolbarProps {
   linkPanelSettings?: LinkPanelSettings;
   linkSettings?: LinkSettings;
   onInlineToolbarOpen?: (toolbarType: ToolbarType) => void;
-  onToolbarButtonClick?: (name: string, toolbarType: ToolbarType, value?: any) => void;
+  onToolbarButtonClick?: (name: string, toolbarType: ToolbarType, value?: boolean | string) => void;
 }
 
 interface State {}
