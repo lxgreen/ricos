@@ -69,6 +69,7 @@ import {
   UNSUPPORTED_BLOCKS_TYPE,
   RICOS_LINK_TYPE,
   RICOS_MENTION_TYPE,
+  RICOS_MAP_TYPE,
 } from 'ricos-content';
 import {
   DividerData,
@@ -81,6 +82,7 @@ import {
   LinkData,
   ImageData,
   MentionData as MentionPluginData,
+  MapData,
   Node_Type,
   Decoration_Type,
 } from 'ricos-schema';
@@ -115,6 +117,7 @@ export interface CreatePluginsDataMap {
   [LINK_TYPE]?: CreatePluginData<LinkData>;
   [RICOS_MENTION_TYPE]?: CreatePluginData<MentionData>;
   [MENTION_TYPE]?: CreatePluginData<MentionData>;
+  [RICOS_MAP_TYPE]?: CreatePluginData<MapData>;
 }
 
 import { EditorPlugin as DraftEditorPlugin, PluginFunctions } from 'draft-js-plugins-editor';

@@ -17,71 +17,39 @@ import classNames from 'classnames';
 export class MapSettingsModal extends Component {
   constructor(props) {
     super(props);
-    const { componentData } = this.props;
-
     this.styles = mergeStyles({ styles, theme: props.theme });
 
     this.state = {
       locationSearchPhrase: '',
-      address: componentData.mapSettings.address,
-      lat: componentData.mapSettings.lat,
-      lng: componentData.mapSettings.lng,
-      mode: componentData.mapSettings.mode,
-      isMarkerShown: componentData.mapSettings.isMarkerShown,
-      isZoomControlShown: componentData.mapSettings.isZoomControlShown,
-      isStreetViewControlShown: componentData.mapSettings.isStreetViewControlShown,
-      isDraggingAllowed: componentData.mapSettings.isDraggingAllowed,
-      isViewControlShown: componentData.mapSettings.isViewControlShown,
-      locationDisplayName: componentData.mapSettings.locationDisplayName,
       isLocationInputAlreadyFocused: false,
     };
   }
 
-  onLocationInputChange = value => this.setState({ locationSearchPhrase: value, address: value });
+  onLocationInputChange = value => {
+    this.updateMapSettings({ address: value });
+    this.setState({ locationSearchPhrase: value });
+  };
 
-  onLocationSuggestSelect = (geocodedPrediction, originalPrediction) =>
-    this.setState({
-      locationSearchPhrase: '',
+  onLocationSuggestSelect = (geocodedPrediction, originalPrediction) => {
+    this.updateMapSettings({
       address: originalPrediction.description,
       locationDisplayName: originalPrediction.description,
       lat: geocodedPrediction.geometry.location.lat(),
       lng: geocodedPrediction.geometry.location.lng(),
     });
-
-  onSaveBtnClick = () => {
-    const { componentData, onConfirm, pubsub, helpers } = this.props;
-    const newComponentData = {
-      mapSettings: {
-        address: this.state.address,
-        locationDisplayName: this.state.locationDisplayName,
-        lat: this.state.lat,
-        lng: this.state.lng,
-        mode: this.state.mode,
-        isMarkerShown: this.state.isMarkerShown,
-        isZoomControlShown: this.state.isZoomControlShown,
-        isStreetViewControlShown: this.state.isStreetViewControlShown,
-        isViewControlShown: this.state.isViewControlShown,
-        isDraggingAllowed: this.state.isDraggingAllowed,
-      },
-    };
-
-    if (onConfirm) {
-      onConfirm({ ...componentData, ...newComponentData });
-    } else {
-      pubsub.update('componentData', { ...newComponentData });
-    }
-
-    helpers.openModal(data => pubsub.update('componentData', { metadata: { ...data } }));
-    helpers.closeModal();
+    this.setState({
+      locationSearchPhrase: '',
+    });
   };
 
   renderMobileNavBar() {
+    const { onSave, onCancel } = this.props;
     const mobileCancelButton = (
       <div
-        onClick={this.props.helpers.closeModal}
+        onClick={onCancel}
         role="button"
         tabIndex={0}
-        onKeyPress={e => e.key === 'Enter' && this.props.helpers.closeModal()}
+        onKeyPress={e => e.key === 'Enter' && onCancel()}
         className={this.styles.map_settings_modal_mobile_navbar_cancel_button}
       >
         <p>Cancel</p>
@@ -90,10 +58,10 @@ export class MapSettingsModal extends Component {
 
     const mobileSaveButton = (
       <div
-        onClick={this.onSaveBtnClick}
+        onClick={onSave}
         role="button"
         tabIndex={0}
-        onKeyPress={e => e.key === 'Enter' && this.onSaveBtnClick()}
+        onKeyPress={e => e.key === 'Enter' && onSave()}
         className={this.styles.map_settings_modal_mobile_navbar_save_button}
       >
         <p>Save</p>
@@ -113,18 +81,19 @@ export class MapSettingsModal extends Component {
     );
   }
 
-  toggleState = key => () => {
-    this.setState(prevState => ({
-      [key]: !prevState[key],
-    }));
-  };
+  updateMapSettings = newSettings =>
+    this.props.updateData({
+      mapSettings: { ...this.props.componentData.mapSettings, ...newSettings },
+    });
 
   renderToggle = ({ toggleKey, labelKey }) => (
     <LabeledToggle
       theme={this.props.theme}
-      checked={this.state[toggleKey]}
+      checked={this.props.componentData.mapSettings[toggleKey]}
       label={this.props.t(labelKey)}
-      onChange={this.toggleState(toggleKey)}
+      onChange={() =>
+        this.updateMapSettings({ [toggleKey]: !this.props.componentData.mapSettings[toggleKey] })
+      }
     />
   );
 
@@ -152,8 +121,15 @@ export class MapSettingsModal extends Component {
   ];
 
   renderSettingsSections() {
-    const { theme, t, isMobile } = this.props;
-    const { locationSearchPhrase, address } = this.state;
+    const {
+      theme,
+      t,
+      isMobile,
+      componentData: {
+        mapSettings: { address, locationDisplayName },
+      },
+    } = this.props;
+    const { locationSearchPhrase } = this.state;
     const { googleMapApiKey } = this.props.settings;
 
     return (
@@ -235,8 +211,8 @@ export class MapSettingsModal extends Component {
           <TextInput
             type="text"
             id="location-display-name"
-            value={this.state.locationDisplayName}
-            onChange={locationDisplayName => this.setState({ locationDisplayName })}
+            value={locationDisplayName}
+            onChange={locationDisplayName => this.updateMapSettings({ locationDisplayName })}
             theme={this.styles}
             autoComplete="off"
           />
@@ -265,7 +241,7 @@ export class MapSettingsModal extends Component {
   }
 
   render() {
-    const { t, isMobile, languageDir } = this.props;
+    const { t, isMobile, languageDir, onSave, onCancel, theme } = this.props;
 
     const wrapWithScrollBars = jsx => (
       <Scrollbars
@@ -297,13 +273,7 @@ export class MapSettingsModal extends Component {
             : wrapWithScrollBars(this.renderSettingsSections())}
 
           {!isMobile && (
-            <SettingsPanelFooter
-              fixed
-              cancel={this.props.helpers.closeModal}
-              save={this.onSaveBtnClick}
-              theme={this.props.theme}
-              t={t}
-            />
+            <SettingsPanelFooter fixed cancel={onCancel} save={onSave} theme={theme} t={t} />
           )}
         </div>
       </div>
@@ -312,8 +282,6 @@ export class MapSettingsModal extends Component {
 }
 
 MapSettingsModal.propTypes = {
-  pubsub: PropTypes.object,
-  helpers: PropTypes.object.isRequired,
   componentData: PropTypes.object.isRequired,
   settings: PropTypes.object.isRequired,
   onConfirm: PropTypes.func,
@@ -321,4 +289,7 @@ MapSettingsModal.propTypes = {
   t: PropTypes.func,
   isMobile: PropTypes.bool,
   languageDir: PropTypes.string,
+  onCancel: PropTypes.func,
+  onSave: PropTypes.func,
+  updateData: PropTypes.func,
 };
