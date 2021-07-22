@@ -114,6 +114,7 @@ export interface EditorCommands {
   hasLinkInSelection: () => boolean;
   getLinkDataInSelection: () => any;
   getSelectedData: () => any;
+  getSelectedType: () => any;
   getPluginsList: (settings?: { isRicosSchema?: boolean }) => PluginsList;
   insertDecoration: <K extends keyof DecorationsDataMap>(
     type: K,

@@ -19,6 +19,7 @@ import {
   hasLinksInSelection,
   getLinkDataInSelection,
   getEntityData,
+  getEntityType,
   insertLinkAtCurrentSelection,
   removeLinksInSelection,
   triggerMention,
@@ -115,6 +116,7 @@ const TO_DRAFT_PLUGIN_TYPE_MAP = {
   [POLL_TYPE]: POLL_TYPE,
   [TEXT_HIGHLIGHT_TYPE]: TEXT_HIGHLIGHT_TYPE,
   [TEXT_COLOR_TYPE]: TEXT_COLOR_TYPE,
+  [MAP_TYPE]: MAP_TYPE,
 };
 
 const TO_RICOS_PLUGIN_TYPE_MAP = {
@@ -199,6 +201,7 @@ export const createEditorCommands = (
     hasLinkInSelection: EditorCommands['hasLinkInSelection'];
     getLinkDataInSelection: EditorCommands['getLinkDataInSelection'];
     getSelectedData: EditorCommands['getSelectedData'];
+    getSelectedType: EditorCommands['getSelectedType'];
     getPluginsList: EditorCommands['getPluginsList'];
   } = {
     getSelection: () => {
@@ -218,6 +221,7 @@ export const createEditorCommands = (
     hasLinkInSelection: () => hasLinksInSelection(getEditorState()),
     getLinkDataInSelection: () => getLinkDataInSelection(getEditorState()),
     getSelectedData: () => getEntityData(getEditorState()) || {},
+    getSelectedType: () => getEntityType(getEditorState()) || {},
     getPluginsList: settings => {
       const { isRicosSchema } = settings || {};
       const pluginsList = plugins?.map(plugin =>

@@ -45,7 +45,6 @@ const RichContentEditorModal: FunctionComponent<Props> = ({
       {editorCommands ? (
         <EditorCommandModalProvider
           editorCommands={editorCommands}
-          modalName={modalName}
           closeModal={modalProps.helpers.closeModal}
         >
           <RichContentModal modalElement={element} {...modalProps} />

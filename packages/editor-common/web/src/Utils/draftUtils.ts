@@ -88,19 +88,21 @@ export const insertLinkInPosition = (
   return insertLink(editorState, selection, linkEntityData);
 };
 
-export const getEntityData = (editorState: EditorState) => {
+export const getEntityData = (editorState: EditorState) => getEntity(editorState)?.getData();
+
+const getEntity = (editorState: EditorState) => {
   const selection = getSelection(editorState);
   const contentState = editorState.getCurrentContent();
   const blockKey = selection.getStartKey();
   const block = contentState.getBlockForKey(blockKey);
   const entityKey = block.getEntityAt(selection.getStartOffset());
   if (entityKey) {
-    const entity = contentState.getEntity(entityKey);
-    const entityData = entity?.getData();
-    return entityData;
+    return contentState.getEntity(entityKey);
   }
   return null;
 };
+
+export const getEntityType = (editorState: EditorState) => getEntity(editorState)?.getType();
 
 export const insertCustomLink = (editorState: EditorState, customData: CustomLinkData) => {
   const selection = getSelection(editorState);
