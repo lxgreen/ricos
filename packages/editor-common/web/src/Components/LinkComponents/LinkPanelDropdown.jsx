@@ -91,8 +91,8 @@ export class LinkPanelDropdown extends Component {
     if (!this.state.fallbackChanged) {
       this.textInput?.select(); //select the link in case of edit
     } else {
-      this.textInput?.selectionStart = this.textInput.value.length;
-      this.textInput?.selectionEnd = this.textInput.value.length;
+      this.textInput.selectionStart = this.textInput?.value.length;
+      this.textInput.selectionEnd = this.textInput?.value.length;
     }
   }
 
