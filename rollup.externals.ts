@@ -19,6 +19,7 @@ const externals = [
   'react-flip-move',
   'image-client-api/dist/imageClientSDK',
   '@wix/draft-js',
+  'downshift',
   /^punycode$/,
   /^jss$/, //issue with ESM in CJS
   /^jss-plugin-camel-case$/, //issue with ESM in CJS

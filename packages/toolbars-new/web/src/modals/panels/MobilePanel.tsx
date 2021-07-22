@@ -9,7 +9,7 @@ const MobilePanel = ({ currentSelect, panelHeader, onChange, onCancel, options, 
     return (
       <div>
         <button
-          className={isSelected ? styles.mobilePanel_selectedRow : ''}
+          className={isSelected ? styles.panel_selectedRow : ''}
           key={option.commandKey}
           onClick={e => {
             e.stopPropagation();

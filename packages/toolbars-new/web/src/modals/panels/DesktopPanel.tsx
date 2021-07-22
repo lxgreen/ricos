@@ -17,7 +17,7 @@ const DesktopPanel = ({
   const optionElement = (option, isSelected, onClick) => {
     return (
       <button
-        className={isSelected ? styles.desktopPanel_selectedRow : ''}
+        className={isSelected ? styles.panel_selectedRow : ''}
         key={option.commandKey}
         onClick={() => onClick(option.commandKey)}
       >
