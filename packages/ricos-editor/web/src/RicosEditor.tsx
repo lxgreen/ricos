@@ -350,16 +350,16 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       });
     };
     const toolbarsProps = {
-      textToolbarType: textToolbarType,
-      isMobile: isMobile,
-      theme: theme,
-      locale: locale,
-      getToolbarSettings: getToolbarSettings,
-      plugins: plugins,
-      linkPanelSettings: linkPanelSettings,
-      linkSettings: linkSettings,
-      onInlineToolbarOpen: onInlineToolbarOpen,
-      onToolbarButtonClick: onToolbarButtonClick,
+      textToolbarType,
+      isMobile,
+      theme,
+      locale,
+      getToolbarSettings,
+      plugins,
+      linkPanelSettings,
+      linkSettings,
+      onInlineToolbarOpen,
+      onToolbarButtonClick,
     };
     return (
       <Fragment key={`${remountKey}`}>
@@ -368,7 +368,11 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         {newFormattingToolbar && activeEditor && (
           <>
             {!hideFormattingToolbar && (
-              <TextFormattingToolbar activeEditor={activeEditor} {...toolbarsProps} />
+              <TextFormattingToolbar
+                activeEditor={activeEditor}
+                openMobileAddPlugin={isMobile ? activeEditor?.openMobileAddPlugin : undefined}
+                {...toolbarsProps}
+              />
             )}
             <LinkToolbar activeEditor={activeEditor} {...toolbarsProps} />
           </>

@@ -24,7 +24,8 @@ export const createButtonsList = (
   t,
   plugins,
   linkPanelData,
-  colorPickerData
+  colorPickerData,
+  openMobileAddPlugin
 ) => {
   const buttonsList = [];
   formattingButtonsKeys.forEach((buttonKey, index) => {
@@ -35,7 +36,7 @@ export const createButtonsList = (
     handleButtonTooltip(buttonsList, index);
     handleButtonLabel(buttonsList, index, editorCommands, t);
     handleButtonArrow(buttonsList, index);
-    handleButtonOnClick(buttonsList, index, editorCommands);
+    handleButtonOnClick(buttonsList, index, editorCommands, openMobileAddPlugin);
     handleButtonIsActive(buttonsList, index, editorCommands);
     handleButtonIsDisabled(buttonsList, index, editorCommands);
     handleButtonModal(buttonsList, index, editorCommands, linkPanelData, t);
@@ -295,7 +296,12 @@ const handleButtonIsActive = (buttonsList, index, editorCommands: editorCommands
   }
 };
 
-const handleButtonOnClick = (buttonsList, index, editorCommands: editorCommands) => {
+const handleButtonOnClick = (
+  buttonsList,
+  index,
+  editorCommands: editorCommands,
+  openMobileAddPlugin
+) => {
   const buttonName = buttonsList[index].name;
   if (Object.keys(inlineStyleButtons).includes(buttonName)) {
     buttonsList[index].onClick = () =>
@@ -328,6 +334,8 @@ const handleButtonOnClick = (buttonsList, index, editorCommands: editorCommands)
       console.log('getLinkDataInSelection = ', editorCommands.getLinkDataInSelection());
       // console.log('getLinkData = ', getLinkData(editorCommands));
     };
+  } else if (buttonName === 'AddPlugin') {
+    buttonsList[index].onClick = () => openMobileAddPlugin?.();
   } else {
     // eslint-disable-next-line no-console
     buttonsList[index].onClick = () => console.log('click');
