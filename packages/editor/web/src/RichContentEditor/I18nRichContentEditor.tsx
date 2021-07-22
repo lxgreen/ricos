@@ -33,6 +33,8 @@ export default class I18nRichContentEditor extends Component<Partial<RichContent
 
   getEditorCommands = () => this.editor.EditorCommands;
 
+  getInnerRCERenderedIn = () => this.editor.getInnerRCERenderedIn();
+
   render() {
     return <WrappedEditor {...this.props} ref={this.setEditorRef} />;
   }

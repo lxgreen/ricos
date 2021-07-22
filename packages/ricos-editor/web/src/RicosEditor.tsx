@@ -322,6 +322,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       );
 
     const newFormattingToolbar = this.props.experiments?.newFormattingToolbar?.enabled;
+    const activeEditorIsTableCell =
+      activeEditor?.getInnerRCERenderedIn() === 'wix-rich-content-plugin-table';
 
     const textToolbarType = StaticToolbar ? 'static' : null;
     // const textToolbarType = StaticToolbar && !isMobile ? 'static' : null;
@@ -364,8 +366,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     return (
       <Fragment key={`${remountKey}`}>
         {!newFormattingToolbar && this.renderToolbarPortal(StaticToolbar)}
-        {/* {newFormattingToolbar && activeEditor && showFormattingToolbar && ( */}
-        {newFormattingToolbar && activeEditor && (
+        {newFormattingToolbar && !activeEditorIsTableCell && activeEditor && (
           <>
             {!hideFormattingToolbar && (
               <TextFormattingToolbar

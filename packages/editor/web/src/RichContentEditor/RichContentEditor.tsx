@@ -585,6 +585,11 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     });
   };
 
+  getInnerRCERenderedIn = () => {
+    const { innerRCERenderedIn } = this.props;
+    return innerRCERenderedIn;
+  };
+
   getInitialEditorState() {
     const {
       editorState,
