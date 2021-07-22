@@ -1,7 +1,7 @@
 import { transform, isObject, pickBy } from 'lodash';
 import { RichContent, Node } from 'ricos-schema';
 import { JSONContent } from '@tiptap/core';
-import { initializeMetadata } from '../../nodeUtils';
+import { initializeMetadata } from 'ricos-content/libs/nodeUtils';
 import { DATA_FIELDS_MAP, isDecoration, isNode, isProseContent, isTextNode } from '../utils';
 import toConstantCase from 'to-constant-case';
 

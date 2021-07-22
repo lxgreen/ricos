@@ -5,7 +5,7 @@ import { writeFileSync, readFileSync } from 'fs';
 import { fromDraft } from '../packages/ricos-content/web/src/converters/draft';
 import { fromPlainText, toPlainText } from '../packages/ricos-content/web/src/converters/plainText';
 import { fromRichTextHtml, toHtml } from '../packages/ricos-content/web/src/converters/html';
-import { toTiptap } from '../packages/ricos-content/web/src/converters/tiptap';
+import { toTiptap } from '../packages/tiptap-editor/web/src/converters';
 import migrationContent from '../e2e/tests/fixtures/migration-content.json';
 import { RichContent } from 'ricos-schema';
 
