@@ -13,7 +13,7 @@ import "google/protobuf/wrappers.proto";
 
 message GalleryData {
 
-  message Styles {
+  message Style {
     message Layout {
       enum Type {
         COLLAGE = 0;
@@ -39,7 +39,7 @@ message GalleryData {
       google.protobuf.Int32Value items_per_row = 4;
     }
     
-    message ItemStyling {
+    message ItemStyle {
       enum Crop {
         FILL = 0;
         FIT = 1;
@@ -59,22 +59,22 @@ message GalleryData {
         LEFT = 3;
       }
       Alignment alignment = 1;
-      google.protobuf.FloatValue spacings = 2;
+      google.protobuf.Int32Value spacings = 2;
     }
   
     Layout layout = 1;
-    ItemStyling item_styling = 2;
+    ItemStyle item = 2;
     Thumbnails thumbnails = 3;
   }
   
   message Item {
     message Video {
-      Media data = 1;
+      Media media = 1;
       Media thumbnail = 2;
     }
 
     message Image {
-      Media data = 1;
+      Media media = 1;
       Link link = 2;
     }
 
@@ -88,7 +88,7 @@ message GalleryData {
 
   PluginContainerData container_data = 1;
   repeated Item items = 2;
-  Styles styles = 3;
+  Style styles = 3;
   google.protobuf.BoolValue disable_expand = 4;
   google.protobuf.BoolValue disable_download = 5;
 }

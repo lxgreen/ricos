@@ -198,7 +198,7 @@ const gallery = {
     items: [
       {
         image: {
-          data: {
+          media: {
             src: {
               url: '8bb438_a3a11b05e3f54f77ba1c04dfba22c99c.jpg',
             },
@@ -209,7 +209,7 @@ const gallery = {
       },
       {
         image: {
-          data: {
+          media: {
             src: {
               url: '8bb438_f89f7e8aac574a0f962437d4f369b37a.jpg',
             },
@@ -220,7 +220,7 @@ const gallery = {
       },
       {
         image: {
-          data: {
+          media: {
             src: {
               url: '8bb438_a132b18dea524d48a68a37f0075fcc1e.jpg',
             },
@@ -237,7 +237,7 @@ const gallery = {
         orientation: 'ROWS',
         itemsPerRow: 3,
       },
-      itemStyling: {
+      item: {
         targetSize: 300,
         ratio: 1,
         crop: 'FILL',
@@ -253,7 +253,7 @@ const gallery = {
     items: [
       {
         image: {
-          data: {
+          media: {
             src: {
               url: '8bb438_a132b18dea524d48a68a37f0075fcc1e.jpg',
             },
@@ -270,7 +270,7 @@ const gallery = {
         orientation: 'ROWS',
         itemsPerRow: 3,
       },
-      itemStyling: {
+      item: {
         targetSize: 300,
         ratio: 1,
         crop: 'FILL',

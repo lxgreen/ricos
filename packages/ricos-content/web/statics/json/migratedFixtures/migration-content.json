@@ -474,7 +474,7 @@
         "items": [
           {
             "image": {
-              "data": {
+              "media": {
                 "src": {
                   "url": "8bb438_0ab44689f626435c94b9a5b996524aba.jpg"
                 },
@@ -485,7 +485,7 @@
           },
           {
             "image": {
-              "data": {
+              "media": {
                 "src": {
                   "url": "8bb438_6a7159be0f944dde9098fe566bf22831.jpg"
                 },
@@ -496,7 +496,7 @@
           },
           {
             "video": {
-              "data": {
+              "media": {
                 "src": {
                   "url": "0d72ac_31569a98fd8d436f98ae9c827c216443"
                 },
@@ -520,7 +520,7 @@
             "orientation": "ROWS",
             "itemsPerRow": 3
           },
-          "itemStyling": {
+          "item": {
             "targetSize": 300,
             "ratio": 1,
             "crop": "FILL",

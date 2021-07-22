@@ -172,15 +172,15 @@ const convertGalleryStyles = styles => {
   has(styles, 'layout.orientation') &&
     (styles.isVertical = styles.layout.orientation === 'COLUMNS');
   has(styles, 'layout.itemsPerRow') && (styles.numberOfImagesPerRow = styles.layout.itemsPerRow);
-  has(styles, 'itemStyling.targetSize') && (styles.gallerySizePx = styles.itemStyling.targetSize);
-  has(styles, 'itemStyling.ratio') && (styles.cubeRatio = styles.itemStyling.ratio);
-  has(styles, 'itemStyling.crop') && (styles.cubeType = styles.itemStyling.crop.toLowerCase());
-  has(styles, 'itemStyling.margin') && (styles.imageMargin = styles.itemStyling.margin);
+  has(styles, 'item.targetSize') && (styles.gallerySizePx = styles.item.targetSize);
+  has(styles, 'item.ratio') && (styles.cubeRatio = styles.item.ratio);
+  has(styles, 'item.crop') && (styles.cubeType = styles.item.crop.toLowerCase());
+  has(styles, 'item.margin') && (styles.imageMargin = styles.item.margin);
   has(styles, 'thumbnails.alignment') &&
     (styles.galleryThumbnailsAlignment = styles.thumbnails.alignment.toLowerCase());
-  has(styles, 'thumbnails.spacings') && (styles.thumbnailSpacings = styles.thumbnails.spacings);
+  has(styles, 'thumbnails.spacings') && (styles.thumbnailSpacings = styles.thumbnails.spacings / 2);
   delete styles.layout;
-  delete styles.itemStyling;
+  delete styles.item;
   delete styles.thumbnails;
   return styles;
 };
@@ -191,7 +191,7 @@ const convertGalleryItem = item => {
     src: { url },
     height,
     width,
-  } = item[type].data;
+  } = item[type].media;
   item.url = url;
   item.metadata = { height, width, type };
   has(item, 'title') && (item.metadata.title = item.title);

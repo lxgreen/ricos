@@ -116,19 +116,19 @@ const convertVideoData = (data: {
 
 const convertGalleryStyles = styles => {
   styles.layout = {};
-  styles.itemStyling = {};
+  styles.item = {};
   styles.thumbnails = {};
   has(styles, 'galleryLayout') && (styles.layout.type = styles.galleryLayout);
   has(styles, 'oneRow') && (styles.layout.horizontalScroll = styles.oneRow);
   has(styles, 'isVertical') && (styles.layout.orientation = styles.isVertical ? 'COLUMNS' : 'ROWS');
   has(styles, 'numberOfImagesPerRow') && (styles.layout.itemsPerRow = styles.numberOfImagesPerRow);
-  has(styles, 'gallerySizePx') && (styles.itemStyling.targetSize = styles.gallerySizePx);
-  has(styles, 'cubeRatio') && (styles.itemStyling.ratio = styles.cubeRatio);
-  has(styles, 'cubeType') && (styles.itemStyling.crop = styles.cubeType.toUpperCase());
-  has(styles, 'imageMargin') && (styles.itemStyling.margin = styles.imageMargin);
+  has(styles, 'gallerySizePx') && (styles.item.targetSize = styles.gallerySizePx);
+  has(styles, 'cubeRatio') && (styles.item.ratio = styles.cubeRatio);
+  has(styles, 'cubeType') && (styles.item.crop = styles.cubeType.toUpperCase());
+  has(styles, 'imageMargin') && (styles.item.margin = styles.imageMargin);
   has(styles, 'galleryThumbnailsAlignment') &&
     (styles.thumbnails.alignment = styles.galleryThumbnailsAlignment.toUpperCase());
-  has(styles, 'thumbnailSpacings') && (styles.thumbnails.spacings = styles.thumbnailSpacings);
+  has(styles, 'thumbnailSpacings') && (styles.thumbnails.spacings = styles.thumbnailSpacings * 2);
   return styles;
 };
 
@@ -137,7 +137,7 @@ const convertGalleryItem = item => {
     url,
     metadata: { type, poster, height, width, link, title, altText },
   } = item;
-  item[type] = { data: { src: { url }, height, width } };
+  item[type] = { media: { src: { url }, height, width } };
   title && (item.title = title);
   altText && (item.altText = altText);
   if (type === 'video' && poster) {
