@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+- `ricos-content`
+  - [#2765](https://github.com/wix/ricos/pull/2765) addAppEmbed, addLinkPreview APIs added to Content Builder
+
 </details>
 <hr/>
 
