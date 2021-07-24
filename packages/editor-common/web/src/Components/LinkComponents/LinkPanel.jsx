@@ -86,7 +86,7 @@ class LinkPanel extends Component {
     return (
       <TextInput
         getEvent
-        inputRef={ref => (this.inputRef = ref)}
+        inputRef={ref => (this.textInput = ref)}
         value={this.props.linkValues.url}
         onChange={e => this.handleUrlChange(e.target.value)}
         {...this.getTextInputProps()}
