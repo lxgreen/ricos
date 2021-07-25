@@ -98,17 +98,16 @@ export class LinkPanelDropdown extends Component {
 
   render() {
     const { itemToString, formatMenuItem, itemHeight, textInputProps, value } = this.props;
-    const { selectedItem, items, fallbackChanged } = this.state;
+    const { selectedItem, items } = this.state;
     return (
       <Suspense
         fallback={
           <TextInput
-            getEvent
             {...textInputProps}
             inputRef={ref => (this.textInput = ref)}
             value={value}
-            onChange={e => {
-              this.props.onChange(e.target.value);
+            onChange={value => {
+              this.props.onChange(value);
               this.setState({ fallbackChanged: true });
             }}
           />
@@ -128,38 +127,43 @@ export class LinkPanelDropdown extends Component {
             isOpen,
             highlightedIndex,
             inputValue,
-          }) => (
-            <div>
-              {/*<label {...getLabelProps()}>Enter a fruit</label>*/}
-              <TextInput
-                getEvent
-                {...getInputProps({ ...textInputProps })}
-                inputRef={ref => (this.textInput = ref)}
-              />
-              {(isOpen || this.props.isOpen) && List && (
-                <Suspense fallback={<div>Loading...</div>}>
-                  <List
-                    className={styles.linkPanel_dropdownList}
-                    style={{ borderTop: '0', position: 'absolute' }}
-                    height={Math.min(items.length * itemHeight + 1, 200)}
-                    itemCount={items.length}
-                    itemSize={itemHeight}
-                    itemData={{
-                      items,
-                      getItemProps,
-                      highlightedIndex,
-                      selectedItem,
-                      formatMenuItem,
-                      inputValue,
-                    }}
-                    {...getMenuProps()}
-                  >
-                    {ItemRenderer}
-                  </List>
-                </Suspense>
-              )}
-            </div>
-          )}
+          }) => {
+            const textInputProps = getInputProps({
+              ...textInputProps,
+            });
+            return (
+              <div>
+                {/*<label {...getLabelProps()}>Enter a fruit</label>*/}
+                <TextInput
+                  {...getInputProps({ ...textInputProps })}
+                  onChange={value => textInputProps.onChange({ target: { value } })}
+                  inputRef={ref => (this.textInput = ref)}
+                />
+                {(isOpen || this.props.isOpen) && List && (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <List
+                      className={styles.linkPanel_dropdownList}
+                      style={{ borderTop: '0', position: 'absolute' }}
+                      height={Math.min(items.length * itemHeight + 1, 200)}
+                      itemCount={items.length}
+                      itemSize={itemHeight}
+                      itemData={{
+                        items,
+                        getItemProps,
+                        highlightedIndex,
+                        selectedItem,
+                        formatMenuItem,
+                        inputValue,
+                      }}
+                      {...getMenuProps()}
+                    >
+                      {ItemRenderer}
+                    </List>
+                  </Suspense>
+                )}
+              </div>
+            );
+          }}
         </Downshift>
       </Suspense>
     );
