@@ -25,7 +25,7 @@
   font-stretch: normal;
   font-style: normal;
   &.basicPanel {
-    @extend .flex_with_gap;
+    @extend %flex_with_gap;
     align-items: center;
     margin: 0;
     width: 420px;
@@ -33,7 +33,7 @@
 }
 
 .linkPanel_container_isMobile {
-  @extend .flex_with_gap;
+  @extend %flex_with_gap;
   padding: 0;
   min-width: 0;
   flex-direction: column-reverse;
@@ -140,7 +140,7 @@
   }
 }
 
-.flex_with_gap {
+%flex_with_gap {
   display: flex;
   gap: 12px;
 }
