@@ -4,6 +4,7 @@ import {
   AlignTextCenterIcon,
   AlignRightIcon,
   AlignJustifyIcon,
+  FORMATTING_BUTTONS,
 } from 'wix-rich-content-editor-common';
 import {
   BoldIcon,
@@ -25,6 +26,7 @@ export const boldButton = icon =>
     style: 'BOLD',
     Icon: icon || BoldIcon,
     tooltipTextKey: 'BoldButton_Tooltip',
+    buttonName: FORMATTING_BUTTONS.BOLD,
   });
 
 export const italicButton = icon =>
@@ -32,6 +34,7 @@ export const italicButton = icon =>
     style: 'ITALIC',
     Icon: icon || ItalicIcon,
     tooltipTextKey: 'ItalicButton_Tooltip',
+    buttonName: FORMATTING_BUTTONS.ITALIC,
   });
 
 export const underlineButton = icon =>
@@ -39,6 +42,7 @@ export const underlineButton = icon =>
     style: 'UNDERLINE',
     Icon: icon || UnderlineIcon,
     tooltipTextKey: 'UnderlineButton_Tooltip',
+    buttonName: FORMATTING_BUTTONS.UNDERLINE,
   });
 
 export const titleButton = (inactiveIconTitle, iconForTitleOne, iconForTitleTwo) =>
@@ -47,6 +51,7 @@ export const titleButton = (inactiveIconTitle, iconForTitleOne, iconForTitleTwo)
     Icons: [iconForTitleOne || TitleOneIcon, iconForTitleTwo || TitleTwoIcon],
     InactiveIcon: inactiveIconTitle || TitleIcon,
     tooltipTextKey: 'TitleButton_Tooltip',
+    buttonName: FORMATTING_BUTTONS.TITLE,
   });
 
 export const blockquoteButton = icon =>
@@ -54,6 +59,7 @@ export const blockquoteButton = icon =>
     blockTypes: ['blockquote'],
     Icons: [icon || BlockQuoteIcon],
     tooltipTextKey: 'QuoteButton_Tooltip',
+    buttonName: FORMATTING_BUTTONS.BLOCKQUOTE,
   });
 
 export const alignTextLeftButton = icon =>
@@ -89,6 +95,7 @@ export const orderedListButton = icon =>
     blockTypes: ['ordered-list-item'],
     Icons: [icon || OrderedListIcon],
     tooltipTextKey: 'OrderedListButton_Tooltip',
+    buttonName: FORMATTING_BUTTONS.ORDERED_LIST,
   });
 
 export const unorderedListButton = icon =>
@@ -96,4 +103,5 @@ export const unorderedListButton = icon =>
     blockTypes: ['unordered-list-item'],
     Icons: [icon || UnorderedListIcon],
     tooltipTextKey: 'UnorderedListButton_Tooltip',
+    buttonName: FORMATTING_BUTTONS.UNORDERED_LIST,
   });
