@@ -118,7 +118,7 @@ describe('plugins', () => {
       cy.get(`[data-hook=imageSpoilerToggle]`).click();
       cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
 
-      cy.wait(50); //wait for setRef to get width and adjust correct blur
+      cy.wait(100); //wait for setRef to get width and adjust correct blur
       cy.eyesCheckWindow('adding spoiler on an image');
       editText('spoilerTextArea', 'change the description');
       editText('revealSpoilerContent', 'change the reveal button content');
