@@ -29,6 +29,9 @@
 - `ui-components`
   - [#2770](https://github.com/wix/ricos/pull/2770) refactor Button/TextInput/InputWithLabel
     components
+- `ui-components`
+  - [#2779](https://github.com/wix/ricos/pull/2779 ) revert changes in TextInput/InputWithLabel
+    components
 
 </details>
 <hr/>
