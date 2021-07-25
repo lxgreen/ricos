@@ -21,6 +21,8 @@
 
 - `html-plugin`
   - [#2769](https://github.com/wix/ricos/pull/2769) src validation
+- `table`
+  - [#2773](https://github.com/wix/ricos/pull/2773) update table toolbar position
 
 ### :house: Internal
 
