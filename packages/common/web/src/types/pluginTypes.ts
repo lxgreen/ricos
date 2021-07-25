@@ -81,6 +81,7 @@ import {
   FileData,
   LinkData,
   ImageData,
+  ButtonData,
   MentionData as MentionPluginData,
   MapData,
   Node_Type,
@@ -118,6 +119,8 @@ export interface CreatePluginsDataMap {
   [RICOS_MENTION_TYPE]?: CreatePluginData<MentionData>;
   [MENTION_TYPE]?: CreatePluginData<MentionData>;
   [RICOS_MAP_TYPE]?: CreatePluginData<MapData>;
+  [LINK_BUTTON_TYPE]?: CreatePluginData<ButtonData>;
+  [ACTION_BUTTON_TYPE]?: CreatePluginData<ButtonData>;
 }
 
 import { EditorPlugin as DraftEditorPlugin, PluginFunctions } from 'draft-js-plugins-editor';
