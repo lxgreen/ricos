@@ -265,7 +265,7 @@ const convertMapData = data => {
   data.mapSettings.zoomControl = isZoomControlShown;
   data.mapSettings.locationName = locationDisplayName;
   data.mapSettings.initialZoom = zoom;
-  data.mapSettings.mapType = mode;
+  data.mapSettings.mapType = mode?.toUpperCase();
 
   if (has(data.mapSettings, 'isViewControlShown')) {
     data.mapSettings.viewModeControl = isViewControlShown;
