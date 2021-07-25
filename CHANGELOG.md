@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `html-plugin`
+  - [#2769](https://github.com/wix/ricos/pull/2769) src validation
+
 </details>
 <hr/>
 
