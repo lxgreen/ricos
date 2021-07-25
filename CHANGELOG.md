@@ -17,10 +17,16 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `html-plugin`
+  - [#2769](https://github.com/wix/ricos/pull/2769) src validation
+
 ### :house: Internal
+
 - `ui-components`
   - [#2770](https://github.com/wix/ricos/pull/2770) refactor Button/TextInput/InputWithLabel
-  components
+    components
 
 </details>
 <hr/>
