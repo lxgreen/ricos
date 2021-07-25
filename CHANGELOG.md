@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+- `ui-components`
+  - [#2770](https://github.com/wix/ricos/pull/2770) refactor Button/TextInput/InputWithLabel
+  components
+
 </details>
 <hr/>
 
