@@ -47,6 +47,9 @@ class LinkActionsButtons extends PureComponent {
         className={styles.actionButtons_saveOnlyBtn}
         type="primary"
         dataHook="actionButtonSave"
+        ariaProps={
+          { 'aria-label': doneButtonText } && !isDoneButtonEnable && { disabled: 'disabled' }
+        }
         text={doneButtonText}
         onClick={onDone}
       />
