@@ -206,13 +206,13 @@ export default class VideoSelectionInputModal extends Component {
               />
             </div>
             <Button
+              disabled={!this.state.url}
+              theme={{ ...styles, ...theme }}
               className={
                 styles[`video_modal_add_button_${hasCustomFileUpload ? 'inline' : 'inMiddle'}`]
               }
-              onClick={this.onUrlVideoSelection}
-              ariaProps={!this.state.url && { disabled: 'disabled' }}
               dataHook="videoUploadModalAddButton"
-              theme={{ ...styles, ...theme }}
+              onClick={this.onUrlVideoSelection}
               text={t('VideoUploadModal_AddButtonText')}
             />
           </div>

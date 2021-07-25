@@ -45,13 +45,11 @@ class LinkActionsButtons extends PureComponent {
     return saveBtnOnly && !isMobile ? (
       <Button
         className={styles.actionButtons_saveOnlyBtn}
-        type="primary"
         dataHook="actionButtonSave"
-        ariaProps={
-          { 'aria-label': doneButtonText } && !isDoneButtonEnable && { disabled: 'disabled' }
-        }
+        disabled={!isDoneButtonEnable}
         text={doneButtonText}
         onClick={onDone}
+        theme={this.theme}
       />
     ) : (
       <div
@@ -67,9 +65,10 @@ class LinkActionsButtons extends PureComponent {
                 tabIndex={tabIndex}
                 data-hook="linkPanelContainerRemove"
                 className={removeButtonClassName}
-                type="secondary"
                 text={removeButtonText}
                 onClick={onDelete}
+                theme={this.theme}
+                secondary
                 borderless
               />
             </div>

@@ -4,6 +4,9 @@
   font-size: 16px;
   cursor: pointer;
   border: 1px solid $settings-action-color-fallback;
+  &.borderLess {
+    border: none;
+  }
 }
 
 .button_primary {
@@ -37,10 +40,6 @@
     color: rgba(0, 0, 0, 0.4);
     background-color: rgba(0, 0, 0, 0.4);
   }
-}
-
-.borderless {
-  border: none;
 }
 
 .tiny {
