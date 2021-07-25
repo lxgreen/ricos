@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { InlineToolbarButton, hasBlockType } from 'wix-rich-content-editor-common';
+import {
+  InlineToolbarButton,
+  hasBlockType,
+  FORMATTING_BUTTONS,
+} from 'wix-rich-content-editor-common';
 import { CODE_BLOCK_TYPE } from '../types';
 import { toggleBlockTypeAndEnsureSpaces } from './blockTypeModifiers';
 import CodeBlockIcon from '../icons/CodeBlockIcon';
@@ -38,6 +42,7 @@ export default class TextCodeBlockButton extends Component {
         isMobile={isMobile}
         tooltipText={t('TextCodeBlockButton_Tooltip')}
         dataHook={'TextCodeBlockButton'}
+        formattingButtonName={FORMATTING_BUTTONS.CODE_BLOCK}
         tabIndex={tabIndex}
         icon={icon}
         pluginType={CODE_BLOCK_TYPE}
