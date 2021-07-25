@@ -123,7 +123,7 @@ class HtmlComponent extends Component {
           />
         )}
 
-        {srcType === SRC_TYPE_URL && isValidUrl(src) && (
+        {srcType === SRC_TYPE_URL && src && isValidUrl(src) && (
           <IframeUrl key={SRC_TYPE_URL} tabIndex={0} src={normalizeUrl(src)} />
         )}
 
