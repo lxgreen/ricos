@@ -16,7 +16,7 @@ export interface ActionButtonsProps {
   saveBtnDataHook?: string;
   cancelBtnDataHook?: string;
   disableSave?: boolean;
-  theme?: RichContentTheme;
+  theme: RichContentTheme;
 }
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({
@@ -33,18 +33,19 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
     <Button
       size={size}
       theme={theme}
-      ariaProps={{ 'aria-label': cancelText }}
+      ariaLabel={cancelText}
       dataHook="actionButtonCancel"
       onClick={onCancel}
       className={classNames(styles.action_buttons_button, {
         [styles.mobile]: isMobile,
       })}
-      type={'secondary'}
+      secondary
       text={cancelText}
     />
     <Button
       size={size}
-      ariaProps={{ 'aria-label': saveText } && disableSave && { disabled: 'disabled' }}
+      ariaLabel={saveText}
+      disabled={disableSave}
       theme={theme}
       className={classNames(
         styles.action_buttons_button,
@@ -54,7 +55,6 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
       )}
       dataHook="actionButtonSave"
       onClick={onSave}
-      type={'primary'}
       text={saveText}
     />
   </div>

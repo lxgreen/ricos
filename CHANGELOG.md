@@ -17,11 +17,41 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `html-plugin`
+  - [#2769](https://github.com/wix/ricos/pull/2769) src validation
+- `table`
+  - [#2773](https://github.com/wix/ricos/pull/2773) update table toolbar position
+
+### :house: Internal
+
+- `ui-components`
+  - [#2770](https://github.com/wix/ricos/pull/2770) refactor Button/TextInput/InputWithLabel
+    components
+- `ui-components`
+  - [#2779](https://github.com/wix/ricos/pull/2779 ) revert changes in TextInput/InputWithLabel
+    components
+
 </details>
 <hr/>
 
+## 8.47.7 (July 25, 2021)
+
+### :rocket: New Feature
+
+- `ricos-content`
+  - [#2765](https://github.com/wix/ricos/pull/2765) addAppEmbed, addLinkPreview APIs added to Content Builder
+
+### :nail_care: Polish
+
+- `floadable`
+  - [#2766](https://github.com/wix/ricos/pull/2766) loadable cjs fix
+
 ## 8.47.6 (July 21, 2021)
+
 ### :house: Internal
+
 - `*`
   - [#2762](https://github.com/wix/ricos/pull/2762) make downshift external
 

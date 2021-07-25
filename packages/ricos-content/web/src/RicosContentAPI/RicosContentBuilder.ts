@@ -14,6 +14,8 @@ import {
   TextData,
   VideoData,
   TextStyle_TextAlignment,
+  AppEmbedData,
+  LinkPreviewData,
 } from 'ricos-schema';
 import { addNode as add, toTextDataArray, toListDataArray } from './builder-utils';
 import { ContentBuilder, ListItemData } from '../types';
@@ -190,6 +192,8 @@ export const setupContentBuilder = (
     { name: 'Html', type: Node_Type.HTML, dataT: {} as HTMLData },
     { name: 'Image', type: Node_Type.IMAGE, dataT: {} as ImageData },
     { name: 'Video', type: Node_Type.VIDEO, dataT: {} as VideoData },
+    { name: 'AppEmbed', type: Node_Type.APP_EMBED, dataT: {} as AppEmbedData },
+    { name: 'LinkPreview', type: Node_Type.LINK_PREVIEW, dataT: {} as LinkPreviewData },
   ].forEach(({ name, type, dataT }) => {
     builderApis[`add${name}`] = RicosContentBuilder.prototype[`add${name}`] = function({
       data,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { RichUtils } from 'wix-rich-content-editor-common';
 import TextButton from '../TextButton';
 
-export default ({ blockTypes, Icons, InactiveIcon = null, tooltipTextKey }) =>
+export default ({ blockTypes, Icons, InactiveIcon = null, tooltipTextKey, buttonName }) =>
   class TextBlockStyleButton extends Component {
     static propTypes = {
       getEditorState: PropTypes.func.isRequired,
@@ -81,7 +81,7 @@ export default ({ blockTypes, Icons, InactiveIcon = null, tooltipTextKey }) =>
         const blockType = this.activeBlockType;
         const isAddEvent = blockType !== 'unstyled';
         helpers?.onToolbarButtonClick?.({
-          buttonName: textForHooks,
+          buttonName: buttonName || textForHooks,
           value: String(isAddEvent),
           pluginId: isAddEvent ? blockType : this.selectionBlockType,
         });

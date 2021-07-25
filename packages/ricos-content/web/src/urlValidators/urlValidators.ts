@@ -13,7 +13,7 @@ const UrlPattern = new RegExp(
 
 export const isValidExactUrl = (str: string) => UrlPattern.test(str);
 
-export const isValidUrl = (url: string) => url[0] !== '#' && linkify.test(url);
+export const isValidUrl = (url: string) => url && url[0] !== '#' && linkify.test(url);
 
 export const getUrlMatches = (text: string) => linkify.match(text) || [];
 

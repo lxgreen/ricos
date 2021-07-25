@@ -61,6 +61,8 @@ module.exports = {
     'lodash/import-scope': [2, 'member'],
     'operator-linebreak': 'off',
     'no-unused-vars': 'off',
+    // lodash/fp is not supported by yoshi - never remove this rule!
+    'no-restricted-imports': ['error', 'lodash/fp'],
     indent: 'off',
     curly: 'off',
   },

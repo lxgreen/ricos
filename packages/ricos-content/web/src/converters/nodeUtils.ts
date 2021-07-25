@@ -26,6 +26,7 @@ import {
   LATEST_VERSION,
   Link,
   Link_Target,
+  AppEmbedData,
 } from 'ricos-schema';
 import { generateId } from './generateRandomId';
 import { toUpperCase, replace } from '../fp-utils';
@@ -69,6 +70,8 @@ export const dataByNodeType = (type: Node_Type, data: unknown) =>
     [Node_Type.POLL]: { pollData: data as PollData },
     [Node_Type.TEXT]: { textData: data as TextData },
     [Node_Type.VIDEO]: { videoData: data as VideoData },
+    [Node_Type.APP_EMBED]: { appEmbedData: data as AppEmbedData },
+    [Node_Type.LINK_PREVIEW]: { linkPreviewData: data as LinkPreviewData },
   }[type]);
 
 export const createParagraphNode = (

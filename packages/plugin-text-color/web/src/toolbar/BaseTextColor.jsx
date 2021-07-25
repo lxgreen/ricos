@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Modal from 'react-modal';
+import { TEXT_COLOR_TYPE } from '../types';
 
 import { mergeStyles } from 'wix-rich-content-common';
 import {
@@ -9,6 +10,7 @@ import {
   InlineToolbarButton,
   EditorState,
   getSelectionStyles,
+  FORMATTING_BUTTONS,
 } from 'wix-rich-content-editor-common';
 import TextColorPanel from './TextColorPanel';
 import { PANEL_WIDTH, DEFAULT_STYLE_SELECTION_PREDICATE } from '../constants';
@@ -108,6 +110,10 @@ export default class BaseTextColor extends Component {
           },
     };
 
+    const { TEXT_COLOR, TEXT_HIGHLIGHT } = FORMATTING_BUTTONS;
+    const formattingButtonName =
+      pluginParams.type === TEXT_COLOR_TYPE ? TEXT_COLOR : TEXT_HIGHLIGHT;
+
     if (isMobile || toolbarName !== 'StaticTextToolbar' || !settings.inlinePopups) {
       return (
         <InlineToolbarButton
@@ -118,6 +124,7 @@ export default class BaseTextColor extends Component {
           isMobile={isMobile}
           tooltipText={tooltip}
           dataHook={pluginParams.dataHook}
+          formattingButtonName={formattingButtonName}
           tabIndex={tabIndex}
           icon={pluginParams.icon}
           forwardRef={this.buttonRef}
@@ -167,6 +174,7 @@ export default class BaseTextColor extends Component {
             isMobile={isMobile}
             tooltipText={tooltip}
             dataHook={pluginParams.dataHook}
+            formattingButtonName={formattingButtonName}
             tabIndex={tabIndex}
             icon={pluginParams.icon}
             forwardRef={this.buttonRef}

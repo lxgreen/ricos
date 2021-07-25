@@ -8,6 +8,9 @@ import {
   ParagraphData,
   TextStyle_TextAlignment,
   Decoration_Type,
+  AppEmbedData,
+  AppEmbedData_AppType,
+  AppEmbedData_EventData,
 } from 'ricos-schema';
 
 describe('Ricos Content Builder', () => {
@@ -240,6 +243,25 @@ describe('Ricos Content Builder', () => {
       data: paragraphData,
       content: { nodes: [] },
     });
+    expect(actual).toEqual(expected);
+  });
+
+  it('should add AppEmbed to content', () => {
+    const content = { nodes: [] };
+    const appEmbedData: AppEmbedData = {
+      type: AppEmbedData_AppType.EVENT,
+      itemId: 'assa',
+      name: 'Birthday party',
+      imageSrc: 'https://static.wixstatic.com/media/8bb438_8307fc32bdf4455ab3033c542da4c6c7.jpg',
+      url: 'https://static.wixstatic.com/media/8bb438_8307fc32bdf4455ab3033c542da4c6c7.jpg',
+      eventData: { scheduling: 'now', location: 'home' },
+    };
+
+    const expected = { nodes: [{ type: Node_Type.APP_EMBED, id: 'foo', appEmbedData, nodes: [] }] };
+
+    const generateKey = () => 'foo';
+    const api = setupContentBuilder(generateKey);
+    const actual = api.addAppEmbed({ data: appEmbedData, content });
     expect(actual).toEqual(expected);
   });
 });
