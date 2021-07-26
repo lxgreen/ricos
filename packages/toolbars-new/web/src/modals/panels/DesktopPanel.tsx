@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import Styles from './styles.scss';
@@ -16,13 +18,15 @@ const DesktopPanel = ({
   const styles = mergeStyles({ styles: Styles, theme });
   const optionElement = (option, isSelected, onClick) => {
     return (
-      <button
-        className={isSelected ? styles.panel_selectedRow : ''}
+      <div
+        className={classNames(styles.panel_row, {
+          [styles.panel_selectedRow]: isSelected,
+        })}
         key={option.commandKey}
         onClick={() => onClick(option.commandKey)}
       >
         {hasIcons ? option.icon : option.text}
-      </button>
+      </div>
     );
   };
   return (
@@ -42,7 +46,9 @@ const DesktopPanel = ({
       {showCustomPanel && (
         <>
           <div className={styles.separator} />
-          <button onClick={showCustomPanel}>{panelHeader}</button>
+          <button className={styles.showCustomPanel_button} onClick={showCustomPanel}>
+            {panelHeader}
+          </button>
         </>
       )}
     </div>

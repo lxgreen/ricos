@@ -45,7 +45,7 @@ class LineSpacingPanel extends Component {
   };
 
   render() {
-    const { onCancel, t, isMobile, currentSelect } = this.props;
+    const { onCancel, t, isMobile, currentSelect, theme } = this.props;
     const { isCustomPanel, spacing } = this.state;
     const { styles, showCustomPanel, onChange, onSave } = this;
     const onSaveLineHeight = height => onSave({ 'line-height': height });
@@ -63,7 +63,7 @@ class LineSpacingPanel extends Component {
         }}
       />
     ) : isCustomPanel ? (
-      <CustomPanel {...{ spacing, onChange, onSave, onCancel, t, isMobile }} />
+      <CustomPanel {...{ spacing, onChange, onSave, onCancel, t, isMobile, theme }} />
     ) : (
       <DesktopPanel
         {...{

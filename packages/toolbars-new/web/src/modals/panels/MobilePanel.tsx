@@ -1,4 +1,7 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
+import classNames from 'classnames';
 import { CloseIcon } from 'wix-rich-content-ui-components';
 import styles from './styles.scss';
 
@@ -8,8 +11,10 @@ const MobilePanel = ({ currentSelect, panelHeader, onChange, onCancel, options, 
   const lineHeightElement = (option, isSelected, showSeparator) => {
     return (
       <div>
-        <button
-          className={isSelected ? styles.panel_selectedRow : ''}
+        <div
+          className={classNames(styles.panel_row, {
+            [styles.panel_selectedRow]: isSelected,
+          })}
           key={option.commandKey}
           onClick={e => {
             e.stopPropagation();
@@ -24,7 +29,7 @@ const MobilePanel = ({ currentSelect, panelHeader, onChange, onCancel, options, 
             {hasIcons && <div>{option.icon}</div>}
             <div>{option.text}</div>
           </div>
-        </button>
+        </div>
         {showSeparator && <Separator />}
       </div>
     );
