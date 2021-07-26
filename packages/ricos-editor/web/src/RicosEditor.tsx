@@ -25,7 +25,6 @@ import {
   EditorEvents,
 } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
 import { ToolbarType, Version, EditorCommands } from 'wix-rich-content-common';
-// import 'wix-rich-content-toolbars-new/dist/styles.min.css';
 import { emptyDraftContent, getEditorContentSummary } from 'wix-rich-content-editor-common';
 import { TiptapAPI } from 'wix-tiptap-editor';
 import TextFormattingToolbar from './toolbars/TextFormattingToolbar';
