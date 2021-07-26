@@ -30,7 +30,7 @@ const LabeledInput = ({
   );
 };
 
-const CustomPanel = ({ spacing, onChange, onSave, onCancel, t }) => {
+const CustomPanel = ({ spacing, onChange, onSave, onCancel, t, theme }) => {
   return (
     <div className={styles.customSpacingPanel}>
       <LabeledInput
@@ -68,6 +68,7 @@ const CustomPanel = ({ spacing, onChange, onSave, onCancel, t }) => {
           onSave={onSave}
           cancelText={t('LineSpacing_cancel')}
           saveText={t('LineSpacing_save')}
+          theme={theme}
         />
       </div>
     </div>
