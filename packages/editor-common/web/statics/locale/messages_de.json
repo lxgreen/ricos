@@ -493,7 +493,7 @@
   "ButtonModal_Text_Color": "Text",
   "LinkTo_Modal_Section_Filter_Maps": "Karten",
   "ButtonModal_Color_Section": "Buttonfarben",
-  "DividerPlugin_InsertButton_Tooltip": "Füge eine Trennlinie hinzu.",
+  "DividerPlugin_InsertButton_Tooltip": "Trennlinie hinzufügen",
   "UploadAudio_Error_MP3_Unsupported_Stereo_Format": "Diese Audiodatei hat kein unterstütztes Mono-Format und kann nicht hochgeladen werden. Versuche es mit einer anderen Datei.",
   "AlignTextRightButton_Tooltip": "Rechts ausrichten",
   "Redo_plugin_search_tags": "rückgängig machen aktualisieren zurück ändern",
