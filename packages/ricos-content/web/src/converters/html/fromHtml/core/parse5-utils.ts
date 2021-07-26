@@ -1,5 +1,7 @@
-import { pipe, flow } from 'fp-ts/function';
+import { pipe, flow, identity } from 'fp-ts/function';
 import * as A from 'fp-ts/Array';
+import * as R from 'fp-ts/Record';
+import * as O from 'fp-ts/Option';
 import * as S from 'fp-ts/string';
 import { MonoidAny } from 'fp-ts/boolean';
 import { concatAll } from 'fp-ts/Monoid';
@@ -8,13 +10,14 @@ import {
   parseFragment,
   ChildNode,
   DocumentFragment,
+  Document,
   Node,
   Element,
   TextNode,
   CommentNode,
   Attribute,
 } from 'parse5';
-import { equals } from '../../../../fp-utils';
+import { equals, split, trim } from '../../../../fp-utils';
 import { ContentNode } from './models';
 
 export type AstContext = {
@@ -32,8 +35,6 @@ export const hasDescendant = (predicate: (child: Node) => boolean) => (node: Nod
   (!isLeaf(node) &&
     pipe((node as Element).childNodes, A.map(hasDescendant(predicate)), concatAll(MonoidAny)));
 
-const toAttrs = (node: Element) => node.attrs;
-
 type AttrRecord = Record<Attribute['name'], Attribute['value']>;
 
 const toRecord = A.reduce({} as AttrRecord, (rec, { name, value }) => ({
@@ -41,7 +42,12 @@ const toRecord = A.reduce({} as AttrRecord, (rec, { name, value }) => ({
   [name]: value,
 }));
 
-export const getAttributes = flow(toAttrs, toRecord);
+export const getAttributes = (el: Element) =>
+  pipe(
+    el,
+    el => (el.attrs ? O.some(el.attrs) : O.none),
+    O.fold(() => ({} as AttrRecord), toRecord)
+  );
 
 export const getChildNodes = (element: Element | DocumentFragment): ContentNode[] =>
   isLeaf(element) ? [] : (element.childNodes as ContentNode[]);
@@ -64,7 +70,31 @@ export const toDocumentFragment = (nodes: ChildNode[]): DocumentFragment => {
 
 export const toName = (node: ContentNode) => node.nodeName;
 
+export const hasParent = (
+  predicate: (node: ContentNode | Document | DocumentFragment) => boolean
+) => (node: ContentNode) => predicate(node.parentNode);
+
 export const hasTag = (tag: string) => flow(toName, equals(S.Eq)(tag));
+
+const toStyle = flow(
+  split(';'),
+  A.map(flow(split(':'), A.map(trim))),
+  A.reduce({} as Record<string, string>, (style: Record<string, string>, rule: string[]) => ({
+    ...style,
+    [rule[0]]: rule[1],
+  }))
+);
+
+const getStyle = flow(getAttributes, R.lookup('style'), O.map(toStyle));
+
+export const hasStyle = (style: Record<string, string>) =>
+  flow(
+    getStyle,
+    O.fold(
+      () => false,
+      (s: Record<string, string>) => R.isSubrecord(S.Eq)(style, s)
+    )
+  );
 
 export const hasChild = (predicate: (node: ContentNode) => boolean) =>
   flow(getChildNodes, A.map(predicate), concatAll(MonoidAny));

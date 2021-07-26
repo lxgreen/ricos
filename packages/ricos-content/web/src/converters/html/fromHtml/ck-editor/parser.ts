@@ -1,4 +1,4 @@
-import { identity, pipe, flow } from 'fp-ts/function';
+import { not, identity, pipe, flow } from 'fp-ts/function';
 import * as A from 'fp-ts/Array';
 import * as R from 'fp-ts/Record';
 import * as O from 'fp-ts/Option';
@@ -10,17 +10,17 @@ import {
   PluginContainerData,
   PluginContainerData_Alignment,
   PluginContainerData_Width_Type,
+  Decoration_Type,
 } from 'ricos-schema';
 import { TextNode, Element } from 'parse5';
-import { toUpperCase, replace, split } from '../../../../fp-utils';
-import { hasTag, getAttributes } from '../core/ast-utils';
+import { toUpperCase, replace, concatApply, split } from '../../../../fp-utils';
+import { oneOf, hasTag, hasStyle, getAttributes, hasParent } from '../core/parse5-utils';
 import { preprocess } from './preprocess';
 import parse from '../core/parser';
 import {
   pToParagraph,
   lToList,
   hToHeading,
-  strongEmUToDecoration,
   textToText,
   imgToImage,
   identityRule,
@@ -28,6 +28,7 @@ import {
 import { iframeToVideo } from './iframeToVideo';
 import { aToCustomLink } from './aToCustomLink';
 import { Rule } from '../core/models';
+import { MonoidAll } from 'fp-ts/boolean';
 
 const noEmptyLineText: Rule = [
   node => textToText[0](node) && (node as TextNode).value !== '\n',
@@ -35,6 +36,18 @@ const noEmptyLineText: Rule = [
 ];
 
 const traverseDiv: Rule = [hasTag('div'), identityRule[1]];
+
+// const traverseSpan: Rule = [hasTag('span'), identityRule[1]];
+
+const fontStyleToItalic: Rule = [
+  hasStyle({ 'font-style': 'italic' }),
+  ({ addDecoration }) => (el: Element) => addDecoration(Decoration_Type.ITALIC, {}, el),
+];
+
+const fontWeightToBold: Rule = [
+  hasStyle({ 'font-weight': 'bold' }),
+  ({ addDecoration }) => (el: Element) => addDecoration(Decoration_Type.BOLD, {}, el),
+];
 
 type Alignment = 'LEFT' | 'RIGHT' | 'CENTER' | '';
 
@@ -145,15 +158,22 @@ const imgToAlignedImage: Rule = [
   },
 ];
 
+const brToEmptyParagraph: Rule = [
+  concatApply(MonoidAll)([hasTag('br'), hasParent(not(oneOf(['ol', 'ul', 'li'])))]),
+  pToParagraph[1],
+];
+
 export default flow(
   preprocess,
   parse([
     noEmptyLineText,
     pToAlignedParagraph,
+    brToEmptyParagraph,
     lToList,
     hToAlignedHeading,
     aToCustomLink,
-    strongEmUToDecoration,
+    fontWeightToBold,
+    fontStyleToItalic,
     iframeToAlignedVideo,
     imgToAlignedImage,
     traverseDiv,

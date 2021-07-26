@@ -2,7 +2,7 @@ import { flow } from 'fp-ts/function';
 
 import { TextNode, Element } from 'parse5';
 import { Node_Type, Decoration_Type, ImageData, Decoration } from 'ricos-schema';
-import { getAttributes, isText, toName, hasTag, oneOf } from './ast-utils';
+import { getAttributes, isText, toName, hasTag, oneOf } from './parse5-utils';
 import { Rule } from './models';
 import {
   createTextNode,
