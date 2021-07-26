@@ -22,6 +22,7 @@ type InlineToolbarButtonProps = {
   showArrowIcon?: boolean;
   helpers?: Helpers;
   pluginType?: string;
+  formattingButtonName?: string;
 };
 
 class InlineToolbarButton extends Component<InlineToolbarButtonProps> {
@@ -73,9 +74,17 @@ class InlineToolbarButton extends Component<InlineToolbarButtonProps> {
   preventDefault = event => event.preventDefault();
 
   onClick: InlineToolbarButtonProps['onClick'] = e => {
-    const { onClick, helpers, pluginType, dataHook, isActive, children } = this.props;
+    const {
+      onClick,
+      helpers,
+      pluginType,
+      dataHook,
+      formattingButtonName,
+      isActive,
+      children,
+    } = this.props;
     helpers?.onToolbarButtonClick?.({
-      buttonName: dataHook || '',
+      buttonName: formattingButtonName || dataHook || '',
       pluginId: pluginType,
       value: children ? undefined : String(!isActive),
     });

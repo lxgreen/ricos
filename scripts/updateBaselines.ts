@@ -4,16 +4,16 @@ import chalk from 'chalk';
 import { writeFileSync, readFileSync } from 'fs';
 import { fromDraft } from '../packages/ricos-content/web/src/converters/draft';
 import { fromPlainText, toPlainText } from '../packages/ricos-content/web/src/converters/plainText';
-import { fromHtml, toHtml } from '../packages/ricos-content/web/src/converters/html';
-import { toTiptap } from '../packages/ricos-content/web/src/converters/tiptap';
+import { fromRichTextHtml, toHtml } from '../packages/ricos-content/web/src/converters/html';
+import { toTiptap } from '../packages/tiptap-editor/web/src/converters';
 import migrationContent from '../e2e/tests/fixtures/migration-content.json';
 import { RichContent } from 'ricos-schema';
 
-const stringifyBaseLine = obj => {
+const stringifyBaseline = obj => {
   let i = 0;
   const normalizeKeys = (key, val) => {
     switch (key) {
-      case 'key':
+      case 'id':
         return val === '' ? '' : `${i++}`;
       case 'createdTimestamp':
       case 'updatedTimestamp':
@@ -25,7 +25,7 @@ const stringifyBaseLine = obj => {
   return JSON.stringify(obj, normalizeKeys, 2);
 };
 
-const writeBaseLine = (path, obj) => writeFileSync(path, stringifyBaseLine(obj));
+const writeBaseLine = (path, obj) => writeFileSync(path, stringifyBaseline(obj));
 
 const getAbsPath = (relPath: string) => path.resolve(__dirname, relPath);
 
@@ -52,7 +52,7 @@ const FROM_HTML_BASELINE = getAbsPath(
   '../packages/ricos-content/web/src/converters/html/fromHtml/__tests__/richTextContent.json'
 );
 const TIPTAP_BASELINE = getAbsPath(
-  '../packages/ricos-content/web/src/converters/tiptap/toTiptap/__tests__/migrationContentTiptap.json'
+  '../packages/tiptap-editor/web/src/converters/toTiptap/__tests__/migrationContentTiptap.json'
 );
 
 enum Target {
@@ -82,7 +82,7 @@ const convertToHtml = () => {
 };
 
 const convertFromHtml = () => {
-  const content = fromHtml(HTML_CONTENT);
+  const content = fromRichTextHtml(HTML_CONTENT);
   const contentJSON = RichContent.toJSON(content);
   writeBaseLine(FROM_HTML_BASELINE, contentJSON);
 };

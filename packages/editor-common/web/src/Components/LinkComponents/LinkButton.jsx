@@ -2,9 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import InlineToolbarButton from '../InlineToolbarButton';
 import { LinkIcon } from '../../Icons';
+import { FORMATTING_BUTTONS } from '../../';
 
 const LinkButton = ({ icon, ...otherProps }) => (
-  <InlineToolbarButton icon={icon || LinkIcon} dataHook={'LinkButton'} {...otherProps} />
+  <InlineToolbarButton
+    icon={icon || LinkIcon}
+    dataHook={'LinkButton'}
+    formattingButtonName={FORMATTING_BUTTONS.LINK}
+    {...otherProps}
+  />
 );
 
 LinkButton.propTypes = {

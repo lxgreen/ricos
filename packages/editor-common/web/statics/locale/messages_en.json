@@ -578,5 +578,6 @@
   "TablePlugin_SettingsModal_RowCount": "How many rows?",
   "TablePlugin_SettingsModal_CreateTable_Button": "Create Table",
   "UnsupportedPlugin_message": "This content block can only be edited from a browser",
-  "LinkPanel_Sponsored_Checkbox_Tooltip": "Let search engines know this link represents a paid ad, sponsorship, or paid agreement."
+  "LinkPanel_Sponsored_Checkbox_Tooltip": "Let search engines know this link represents a paid ad, sponsorship, or paid agreement.",
+  "Poll_plugin_search_tags": "vote ballot survey question ask interview opinion polls"
 }

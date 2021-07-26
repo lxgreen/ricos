@@ -8,6 +8,7 @@ import {
   mergeBlockData,
   EditorState,
   ClickOutside,
+  FORMATTING_BUTTONS,
 } from 'wix-rich-content-editor-common';
 
 import LineSpacingIcon from '../icons/LineSpacingIcon';
@@ -60,7 +61,7 @@ export default class LineSpacingButton extends Component {
     const newEditorState = mergeBlockData(this.oldEditorState, { dynamicStyles });
     setEditorState(newEditorState);
     helpers?.onToolbarButtonClick?.({
-      buttonName: this.dataHookName,
+      buttonName: FORMATTING_BUTTONS.LINE_SPACING,
       pluginId: LINE_SPACING_TYPE,
       value: spacing?.['line-height'],
     });
@@ -125,6 +126,7 @@ export default class LineSpacingButton extends Component {
           isMobile={isMobile}
           tooltipText={t('LineSpacingButton_Tooltip')}
           dataHook={this.dataHookName}
+          formattingButtonName={FORMATTING_BUTTONS.LINE_SPACING}
           tabIndex={tabIndex}
           icon={icon}
           pluginType={LINE_SPACING_TYPE}
@@ -169,6 +171,7 @@ export default class LineSpacingButton extends Component {
             isMobile={isMobile}
             tooltipText={t('LineSpacingButton_Tooltip')}
             dataHook={this.dataHookName}
+            formattingButtonName={FORMATTING_BUTTONS.LINE_SPACING}
             tabIndex={tabIndex}
             icon={icon}
             pluginType={LINE_SPACING_TYPE}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { InlineToolbarButton } from 'wix-rich-content-editor-common';
+import { InlineToolbarButton, FORMATTING_BUTTONS } from 'wix-rich-content-editor-common';
 import SpoilerButtonIcon from '../../Icons/SpoilerButtonIcon';
 import { SPOILER_TYPE } from 'wix-rich-content-common';
 
@@ -33,6 +33,7 @@ class BlockSpoilerButton extends Component {
         isActive={this.isActive}
         helpers={helpers}
         dataHook={'spoilerButton'}
+        formattingButtonName={FORMATTING_BUTTONS.SPOILER}
         theme={theme}
         isMobile={isMobile}
         tooltipText={tooltipText}

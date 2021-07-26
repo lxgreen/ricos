@@ -11,6 +11,8 @@ import {
   GalleryData,
   CodeBlockData,
   HeadingData,
+  AppEmbedData,
+  LinkPreviewData,
 } from 'ricos-schema';
 
 export type PartialDeep<T> = {
@@ -85,6 +87,8 @@ type AddMap = {
   addHtml: HTMLData;
   addImage: ImageData;
   addVideo: VideoData;
+  addAppEmbed: AppEmbedData;
+  addLinkPreview: LinkPreviewData;
 };
 
 type AddTextMap = {

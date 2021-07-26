@@ -8,10 +8,10 @@ import {
 } from '../utils';
 import { transform, isObject, pickBy } from 'lodash';
 import { Node, Decoration, RichContent } from 'ricos-schema';
-import { TO_RICOS_DATA_FIELD } from '../../draft/consts';
+import { TO_RICOS_DATA_FIELD } from 'ricos-content/libs/draftConsts';
+import { fromEntries } from 'ricos-content/libs/utils';
 import { JSONContent } from '@tiptap/core';
 import toCamelCase from 'to-camel-case';
-import { fromEntries } from '../../../utils';
 
 declare const a: RichContent;
 
@@ -61,9 +61,9 @@ const flattenTextData = (node: Node) => {
 };
 
 const moveToData = (node: Node) => {
-  const { style, key, ...rest } = node;
+  const { style, id, ...rest } = node;
   const dataFieldName = DATA_FIELDS_MAP[node.type];
-  const dataField = { ...node[dataFieldName], ...pickBy({ style, key }, x => x !== undefined) };
+  const dataField = { ...node[dataFieldName], ...pickBy({ style, id }, x => x !== undefined) };
   return { ...rest, [dataFieldName]: dataField };
 };
 

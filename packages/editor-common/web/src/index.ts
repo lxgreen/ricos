@@ -95,6 +95,7 @@ export {
 } from './consts';
 
 import './draftTypes';
+export * from './tiptapTypes';
 
 import {
   convertFromRaw as convertFromRawDraft,
@@ -150,3 +151,4 @@ export const emptyDraftContent = {
 };
 
 export { getSelectionStyles } from './Utils/inlineStyleUtils';
+export { createNodeExtension } from './Utils/tiptapUtils';

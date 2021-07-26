@@ -17,8 +17,64 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `html-plugin`
+  - [#2769](https://github.com/wix/ricos/pull/2769) src validation
+- `table`
+  - [#2773](https://github.com/wix/ricos/pull/2773) update table toolbar position
+
+### :house: Internal
+
+- `ui-components`
+  - [#2770](https://github.com/wix/ricos/pull/2770) refactor Button/TextInput/InputWithLabel
+    components
+- `ui-components`
+  - [#2779](https://github.com/wix/ricos/pull/2779 ) revert changes in TextInput/InputWithLabel
+    components
+
 </details>
 <hr/>
+
+## 8.47.7 (July 25, 2021)
+
+### :rocket: New Feature
+
+- `ricos-content`
+  - [#2765](https://github.com/wix/ricos/pull/2765) addAppEmbed, addLinkPreview APIs added to Content Builder
+
+### :nail_care: Polish
+
+- `floadable`
+  - [#2766](https://github.com/wix/ricos/pull/2766) loadable cjs fix
+
+## 8.47.6 (July 21, 2021)
+
+### :house: Internal
+
+- `*`
+  - [#2762](https://github.com/wix/ricos/pull/2762) make downshift external
+
+## 8.47.5 (July 21, 2021)
+
+### :house: Internal
+
+- `file`
+  - [#2761](https://github.com/wix/ricos/pull/2761) loadable support
+
+## 8.47.4 (July 21, 2021)
+
+### :house: Internal
+
+- `ricos-common`
+  - [#2744](https://github.com/wix/ricos/pull/2744) move `imageUtils` from `ricos-content` to `common` package
+
+### :nail_care: Polish
+
+- `ricos-schema`
+  - [#2744](https://github.com/wix/ricos/pull/2744) rename unique node identifier from `key` to `id`
+- `rich-content-common`
+  - [#2755](https://github.com/wix/ricos/pull/2755) `i18next` extranaliziation and version bump (v11)
 
 ## 8.47.3 (July 20, 2021)
 
@@ -26,7 +82,6 @@
 
 - `*`
   - [#2753](https://github.com/wix/ricos/pull/2753) fix webpackChunkName magic comments
-- `*`
   - [#2749](https://github.com/wix/ricos/pull/2749) remove string.matchAll to work in safari 12
 
 ## 8.47.1 (July 19, 2021)

@@ -1,47 +1,34 @@
-import { has, isNumber, isString, isArray } from 'lodash';
+import { isNumber, isString, isArray, isObject } from 'lodash';
 import { flow } from 'fp-ts/lib/function';
 import * as A from 'fp-ts/lib/Array';
 import * as O from 'fp-ts/lib/Option';
 import { ParagraphData, RichContent, TextData, Node } from 'ricos-schema';
-import { task, either, firstResolved } from '../fp-utils';
+import { resolveFirstRight } from '../fp-utils';
 import { ListItemData } from '../types';
+import { modify } from './modify';
 
-// predicates
-const isIndexFound = either(i => i !== -1);
-
-const findIndex = predicate =>
+const isIndexFound = (predicate: (node: Node) => boolean) =>
   flow(
+    (content: RichContent) => content.nodes,
     A.findIndex(predicate),
-    O.getOrElse(() => -1)
+    O.fold(
+      () => false,
+      () => true
+    )
   );
 
-const isIndexInRange = either(
-  ({ content, index }: { content: RichContent; index?: number }) =>
-    isNumber(index) && index >= 0 && index < content.nodes.length
-);
+const isIndexInRange = (index?: number) => (content: RichContent) =>
+  isNumber(index) && index >= 0 && index < content.nodes.length;
 
-// content transformers
-const appendNode = (node: Node, content: RichContent) =>
-  task.of({
-    ...content,
-    nodes: [...content.nodes, node],
-  });
-
-const insertNode = (content: RichContent, node: Node) => (index: number) =>
-  isIndexInRange({ content, index }).map(() => ({
-    ...content,
-    nodes: [...content.nodes.slice(0, index), node, ...content.nodes.slice(index)],
-  }));
-
-const insertNodeByKey = (content: RichContent, node: Node, nodeKey: string, isAfter?: boolean) =>
-  isIndexFound(findIndex(({ key }) => key === nodeKey)(content.nodes))
-    .map((index: number) => (isAfter ? index + 1 : index))
-    .chain(insertNode(content, node));
-
-export const removeNode = (nodeKey: string, content: RichContent) => ({
+const insertNode = (node: Node, index: number) => (content: RichContent) => ({
   ...content,
-  nodes: content.nodes.filter(({ key }) => key !== nodeKey),
+  nodes: [...content.nodes.slice(0, index), node, ...content.nodes.slice(index)],
 });
+
+const insertNodeByKey = (node: Node, nodeKey: string, isAfter = false) => (content: RichContent) =>
+  modify(content)
+    .filter(({ id }) => id === nodeKey)
+    .set(n => (isAfter ? [n, node] : [node, n]));
 
 export function addNode({
   node,
@@ -56,46 +43,56 @@ export function addNode({
   after?: string;
   content: RichContent;
 }): RichContent {
-  return firstResolved([
-    insertNode(content, node)(<number>index),
-    insertNodeByKey(content, node, <string>before),
-    insertNodeByKey(content, node, <string>after, true),
-    appendNode(node, content),
+  return resolveFirstRight(content, { ...content, nodes: [...content.nodes, node] }, [
+    [isIndexInRange(index), insertNode(node, <number>index)],
+    [isIndexFound(({ id }) => id === before), insertNodeByKey(node, <string>before, false)],
+    [isIndexFound(({ id }) => id === after), insertNodeByKey(node, <string>after, true)],
   ]);
 }
 
-const isTextData = text => has(text, 'text') && has(text, 'decorations');
+const isTextData = (text: TextData) => !!text?.text && !!text?.decorations;
 
-const toArray = t => [t];
+const toTextData = (text: string) => ({ text, decorations: [] } as TextData);
 
-const toTextData = text => ({ text, decorations: [] });
+const isListItemData = (item: ListItemData) => isArray(item.text) && isObject(item.data);
 
 const toListItemData = (data: ParagraphData) => (text: TextData[]) => ({ data, text });
 
-export function toListDataArray(
+const emptyListItemData: ListItemData = { text: [], data: {} };
+
+export const toListDataArray = (
   items: string | TextData | ListItemData | (string | TextData | ListItemData)[],
   data: ParagraphData
-): ListItemData[] {
-  return firstResolved([
-    either(isString)(items).map(flow(toTextData, toArray, toListItemData(data), toArray)),
-    either(isTextData)(items).map(flow(toArray, toListItemData(data), toArray)),
-    either(isArray)(items).map(
-      A.map(item =>
-        firstResolved([
-          either(isString)(item).map(flow(toTextData, toArray, toListItemData(data))),
-          either(isTextData)(item).map(flow(toArray, toListItemData(data))),
-          task.of(item),
-        ])
-      )
-    ),
-    task.of([]),
-  ]);
-}
-export function toTextDataArray(text?: string | TextData | (string | TextData)[]): TextData[] {
-  return firstResolved([
-    either(isString)(text).map(flow(toTextData, toArray)),
-    either(isTextData)(text).map(toArray),
-    either(isArray)(text).map(A.map(t => (isString(t) ? toTextData(t) : t))),
-    task.of([]),
-  ]);
-}
+): ListItemData[] =>
+  resolveFirstRight(
+    items,
+    [],
+    [
+      [isString, flow(toTextData, A.of, toListItemData(data), A.of)],
+      [isTextData, flow(A.of, toListItemData(data), A.of)],
+      [isListItemData, i => [i] as ListItemData[]],
+      [
+        isArray,
+        flow(
+          A.map(item =>
+            resolveFirstRight(item, emptyListItemData, [
+              [isString, flow(toTextData, A.of, toListItemData(data))],
+              [isTextData, flow(A.of, toListItemData(data))],
+              [isListItemData, i => i as ListItemData],
+            ])
+          )
+        ),
+      ],
+    ]
+  );
+
+export const toTextDataArray = (text?: string | TextData | (string | TextData)[]): TextData[] =>
+  resolveFirstRight(
+    text,
+    [],
+    [
+      [isString, flow(toTextData, A.of)],
+      [isTextData, t => [t] as TextData[]],
+      [isArray, flow(A.map(t => resolveFirstRight(t, t, [[isString, toTextData]]) as TextData))],
+    ]
+  );
