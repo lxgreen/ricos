@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+  - `ricos-content`
+    - [#2784](https://github.com/wix/ricos/pull/2784) fromHtml: ckeditor parser rules fixed
+
 </details>
 <hr/>
 
