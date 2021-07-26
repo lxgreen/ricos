@@ -1,9 +1,11 @@
 import React, { Component, ReactElement } from 'react';
+import { Pubsub } from 'wix-rich-content-common';
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editorCommands: any;
   children: ReactElement;
   closeModal: () => void;
+  pubsub: Pubsub;
 }
 
 interface State {
@@ -22,6 +24,13 @@ class EditorCommandModalProvider extends Component<Props, State> {
     this.state = { data: this.initialData };
   }
 
+  // Need to remove after toolbars will work with editorCommands !
+  componentWillUnmount() {
+    const { pubsub, editorCommands } = this.props;
+    const componentData = editorCommands.getSelectedData();
+    pubsub.set('componentData', componentData);
+  }
+
   deleteBlock = () =>
     this.props.editorCommands.deleteBlock(this.props.editorCommands.getSelection().focusKey);
 
@@ -32,9 +41,7 @@ class EditorCommandModalProvider extends Component<Props, State> {
     this.setState({ data: newData });
   };
 
-  onSave = () => {
-    this.props.closeModal();
-  };
+  onSave = () => this.props.closeModal();
 
   onCancel = () => {
     this.updateData(this.initialData);
