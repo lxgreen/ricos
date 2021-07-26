@@ -7,7 +7,15 @@ import classNames from 'classnames';
 import { mergeStyles, GlobalContext } from 'wix-rich-content-common';
 import { HEADER_TYPE_MAP } from 'wix-rich-content-plugin-commons';
 
-export const DEFAULT_HEADERS_DROPDOWN_OPTIONS = Object.freeze(['P', 'H2', 'H3', 'H4', 'H5', 'H6']);
+export const DEFAULT_HEADERS_DROPDOWN_OPTIONS = Object.freeze([
+  'P',
+  'H1',
+  'H2',
+  'H3',
+  'H4',
+  'H5',
+  'H6',
+]);
 
 class HeadingsPanel extends Component {
   constructor(props) {
@@ -32,14 +40,10 @@ class HeadingsPanel extends Component {
   };
 
   defaultHeadings = () => {
-    const { experiments } = this.context;
     const defaults = DEFAULT_HEADERS_DROPDOWN_OPTIONS.map(heading => ({
       text: this.props.translateHeading(heading, this.props.t),
       commandKey: HEADER_TYPE_MAP[heading],
     }));
-    if (experiments?.useHeadingOne?.enabled) {
-      defaults.splice(1, 0, HEADER_TYPE_MAP.H1);
-    }
     return defaults;
   };
 
