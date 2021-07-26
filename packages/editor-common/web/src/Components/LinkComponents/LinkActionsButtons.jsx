@@ -54,7 +54,8 @@ class LinkActionsButtons extends PureComponent {
       <div
         className={classNames(styles.LinkButtons_wrapper, {
           [styles.LinkButtons_wrapper_mobile]: isMobile,
-          [styles.multiSelectLinkPanel_Footer]: !basicLinkPanel,
+          [styles.LinkButtons_wrapper_row_reverse]: !showRemoveButton,
+          [styles.multiSelectLinkPanel_wrapper]: !basicLinkPanel,
         })}
       >
         {showRemoveButton && (

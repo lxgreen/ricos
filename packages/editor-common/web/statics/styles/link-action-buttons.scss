@@ -20,13 +20,16 @@
     padding-top: 12px;
     width: 100%;
   }
+  &.LinkButtons_wrapper_row_reverse {
+    flex-direction: row-reverse;
+  }
 }
 
 .LinkButtons_saveButton {
   width: 94px;
 }
 
-.LinkButtons_mobile_header{
+.LinkButtons_mobile_header {
   width: 100%;
   position: relative;
   padding: 0 16px;
