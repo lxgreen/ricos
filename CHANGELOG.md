@@ -20,6 +20,13 @@
 </details>
 <hr/>
 
+## 8.47.9 (July 26, 2021)
+
+### :house: Internal
+
+- `loadable`
+  - [#2782](https://github.com/wix/ricos/pull/2770) add loadable support for atomic plugins
+
 ## 8.47.8 (July 26, 2021)
 
 ### :bug: Bug Fix
