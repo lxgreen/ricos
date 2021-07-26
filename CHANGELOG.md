@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.47.8 (July 26, 2021)
+
 ### :bug: Bug Fix
 
 - `html-plugin`
@@ -29,9 +34,9 @@
 - `ui-components`
   - [#2770](https://github.com/wix/ricos/pull/2770) refactor Button/TextInput/InputWithLabel
     components
-
-</details>
-<hr/>
+- `ui-components`
+  - [#2779](https://github.com/wix/ricos/pull/2779) revert changes in TextInput/InputWithLabel
+    components
 
 ## 8.47.7 (July 25, 2021)
 

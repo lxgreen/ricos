@@ -15,8 +15,8 @@ class InputWithLabel extends Component {
   }
 
   handleOnChange = e => {
-    const { onChange, getEvent } = this.props;
-    onChange(getEvent ? e : e.target.value);
+    const { onChange, getTarget } = this.props;
+    onChange(getTarget ? e.target : e.target.value);
   };
 
   renderInput = () => {
@@ -92,7 +92,7 @@ InputWithLabel.propTypes = {
   t: PropTypes.func,
   isMobile: PropTypes.bool,
   onChange: PropTypes.func,
-  getEvent: PropTypes.bool,
+  getTarget: PropTypes.bool,
 };
 
 InputWithLabel.defaultProps = {
