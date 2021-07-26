@@ -61,8 +61,21 @@ module.exports = {
     'lodash/import-scope': [2, 'member'],
     'operator-linebreak': 'off',
     'no-unused-vars': 'off',
-    // lodash/fp is not supported by yoshi - never remove this rule!
-    'no-restricted-imports': ['error', 'lodash/fp'],
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['lodash/fp'],
+            message: 'lodash/fp is not supported by yoshi -- please use fp-ts instead',
+          },
+          {
+            group: ['fp-ts/lib/*'],
+            message: 'fp-ts/lib/* is not tree-shakable, please import from fp-ts/*',
+          },
+        ],
+      },
+    ],
     indent: 'off',
     curly: 'off',
   },
