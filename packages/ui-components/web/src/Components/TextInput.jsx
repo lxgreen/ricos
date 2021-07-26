@@ -16,7 +16,7 @@ export default class TextInput extends React.Component {
     showTooltip: PropTypes.bool,
     showErrorIcon: PropTypes.bool,
     onChange: PropTypes.func,
-    getEvent: PropTypes.bool,
+    getTarget: PropTypes.bool,
     searchIcon: PropTypes.bool,
     dataHook: PropTypes.string,
   };
@@ -34,8 +34,8 @@ export default class TextInput extends React.Component {
   }
 
   handleOnChange = event => {
-    const { onChange, getEvent } = this.props;
-    onChange(getEvent ? event : event.target.value);
+    const { onChange, getTarget } = this.props;
+    onChange(getTarget ? event.target : event.target.value);
   };
 
   focusSearchIcon = () => {

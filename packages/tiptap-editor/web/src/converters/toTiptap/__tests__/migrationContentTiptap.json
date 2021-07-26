@@ -796,7 +796,7 @@
           "lng": 34.77427,
           "locationName": "Wix HQ, Nemal Tel Aviv Street, Tel Aviv-Yafo, Israel",
           "initialZoom": 18,
-          "mapType": "roadmap"
+          "mapType": "ROADMAP"
         },
         "id": "24"
       }

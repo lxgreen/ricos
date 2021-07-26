@@ -281,7 +281,7 @@ const convertMapData = data => {
   data.mapSettings.isZoomControlShown = zoomControl;
   data.mapSettings.locationDisplayName = locationName;
   data.mapSettings.zoom = initialZoom;
-  data.mapSettings.mode = mapType;
+  data.mapSettings.mode = mapType?.toLowerCase();
   delete data.mapSettings.draggable;
   delete data.mapSettings.marker;
   delete data.mapSettings.streetViewControl;

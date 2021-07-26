@@ -43,8 +43,8 @@ class HtmlEditPanel extends Component {
     this.setState({ srcType });
   };
 
-  handleSrcChange = event => {
-    const { name, value } = event.target;
+  handleSrcChange = target => {
+    const { name, value } = target;
     this.setState({ [name]: value }, () => this.updateComponentData());
   };
 
@@ -83,7 +83,7 @@ class HtmlEditPanel extends Component {
     } = this.props;
     const inputBaseProps = {
       onChange: this.handleSrcChange,
-      getEvent: true,
+      getTarget: true,
       tabIndex,
       theme,
     };
