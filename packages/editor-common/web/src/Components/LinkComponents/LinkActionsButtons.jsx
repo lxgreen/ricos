@@ -14,7 +14,7 @@ class LinkActionsButtons extends PureComponent {
   renderMobileTitle = () => {
     const { t } = this.props;
     return (
-      <div id="mob_link_modal_hdr" className={styles.actionButtons_mobile_title}>
+      <div id="mob_link_modal_hdr" className={styles.LinkButtons_mobile_title}>
         {t('MobileLinkModal_Title')}
       </div>
     );
@@ -33,48 +33,42 @@ class LinkActionsButtons extends PureComponent {
       basicLinkPanel,
       hideUrlInput,
       isMobile,
-      saveBtnOnly,
+      basicDisplay,
     } = this.props;
     const doneButtonText = t('LinkPanelContainer_DoneButton');
     const cancelButtonText = t('LinkPanelContainer_CancelButton');
     const removeButtonText = t('LinkPanelContainer_RemoveButton');
     const showRemoveButton = isActive && !hideUrlInput && !isMobile;
-    const removeButtonClassName = classNames(styles.actionButtons_FooterButton, {
-      [styles.actionButtons_FooterButton_mobile]: isMobile,
-    });
-    return saveBtnOnly && !isMobile ? (
+
+    return basicDisplay && !isMobile ? (
       <Button
-        className={styles.actionButtons_saveOnlyBtn}
+        className={styles.LinkButtons_saveButton}
         dataHook="actionButtonSave"
         disabled={!isDoneButtonEnable}
         text={doneButtonText}
         onClick={onDone}
+        size={BUTTON_SIZE.medium}
         theme={this.theme}
       />
     ) : (
       <div
-        className={classNames(styles.actionButtons_Footer, {
-          [styles.actionButtons_Footer_mobile]: isMobile,
+        className={classNames(styles.LinkButtons_wrapper, {
+          [styles.LinkButtons_wrapper_mobile]: isMobile,
           [styles.multiSelectLinkPanel_Footer]: !basicLinkPanel,
         })}
       >
-        <div className={styles.actionButtons_FooterActions}>
-          {showRemoveButton && (
-            <div className={styles.actionButtons_RemoveContainer}>
-              <Button
-                tabIndex={tabIndex}
-                data-hook="linkPanelContainerRemove"
-                className={removeButtonClassName}
-                text={removeButtonText}
-                onClick={onDelete}
-                theme={this.theme}
-                secondary
-                borderless
-              />
-            </div>
-          )}
-        </div>
-        <div className={isMobile && styles.actionButtons_mobile_title_buttons_wrapper}>
+        {showRemoveButton && (
+          <Button
+            tabIndex={tabIndex}
+            data-hook="linkPanelContainerRemove"
+            text={removeButtonText}
+            onClick={onDelete}
+            theme={this.theme}
+            secondary
+            borderless
+          />
+        )}
+        <div className={isMobile && styles.LinkButtons_mobile_header}>
           {isMobile && this.renderMobileTitle()}
           <div
             className={classNames(styles.actionButtons_wrapper, {
@@ -110,7 +104,7 @@ LinkActionsButtons.propTypes = {
   basicLinkPanel: PropTypes.bool,
   hideUrlInput: PropTypes.bool,
   isMobile: PropTypes.bool,
-  saveBtnOnly: PropTypes.bool,
+  basicDisplay: PropTypes.bool,
 };
 
 export default LinkActionsButtons;

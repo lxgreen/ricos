@@ -62,7 +62,7 @@ class BasicLinkPanel extends PureComponent {
             role="separator"
           />
         )}
-        <LinkActionsButtons basicLinkPanel {...buttonsProps} saveBtnOnly={!hasCheckboxes} />
+        <LinkActionsButtons basicLinkPanel {...buttonsProps} basicDisplay={!hasCheckboxes} />
       </FocusManager>
     );
   }
