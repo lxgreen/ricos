@@ -1,8 +1,8 @@
 import React, { Component, Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { mergeStyles } from 'wix-rich-content-common';
-import styles from '../../../statics/styles/custom-color-picker-dialog.scss';
-import { ActionButtons, BUTTON_SIZE } from 'wix-rich-content-ui-components';
+import styles from '../../../statics/styles/color-picker-styles/custom-color-picker-dialog.scss';
+import { ActionButtons, BUTTON_SIZE } from '../../';
 import classNames from 'classnames';
 
 const CustomColorPicker = lazy(() => import('./CustomColorPicker'));

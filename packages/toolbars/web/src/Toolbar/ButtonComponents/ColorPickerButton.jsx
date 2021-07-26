@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import ClickOutside from 'react-click-outsider';
 import styles from '../Toolbar.scss';
 import ToolbarButton from '../ToolbarButton';
-import { ColorPicker } from 'wix-rich-content-plugin-commons';
+import { ColorPicker } from 'wix-rich-content-ui-components';
 
 class ColorPickerButton extends Component {
   constructor(props) {

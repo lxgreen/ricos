@@ -31,3 +31,5 @@ export { default as SearchIcon } from './SearchIcon';
 export { default as DropdownArrowIcon } from './DropdownArrowIcon';
 export { default as CheckIcon } from './CheckIcon';
 export { default as ErrorIcon } from './ErrorIcon';
+export { default as AddColorIcon } from './AddColorIcon';
+export { default as HashtagIcon } from './HashtagIcon';

@@ -19,15 +19,15 @@
     "libs",
     "viewer"
   ],
-  "main": "dist/module.cjs.js",
+  "main": "dist/cjs/index.js",
   "types": "dist/src/index.d.ts",
-  "module": "dist/module.js",
+  "module": "dist/es/index.js",
   "style": "dist/styles.min.scss",
   "scripts": {
     "clean": "rm -rf dist/",
     "prebuild": "npm run clean",
     "build:rollup": "rollup --environment MODULE_NAME:ui-components -c ../../../rollup.config.js",
-    "build": "npm run build:rollup && node ../../../scripts/cssFix.js",
+    "build": "rollup --environment DYNAMIC_IMPORT,MODULE_NAME:ui-components -c ../../../rollup.config.js",
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "build:analyze:editor": "MODULE_ANALYZE_EDITOR=true npm run build && open stats.html",
     "build:analyze:viewer": "MODULE_ANALYZE_VIEWER=true npm run build && open stats.html",
@@ -35,6 +35,7 @@
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,d.ts}'"
   },
   "dependencies": {
+    "react-colorful": "^4.4.3",
     "focus-trap": "6.4.0",
     "wix-rich-content-common": "8.47.7"
   },

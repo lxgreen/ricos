@@ -39,4 +39,5 @@ export { default as Checkbox } from './Components/Checkbox';
 export { default as RadioGroup } from './Components/RadioGroup';
 export { default as ActionButtons } from './Components/ActionButtons';
 export { default as FocusManager } from './Components/FocusManager';
+export { default as ColorPicker } from './Components/ColorPicker/ColorPicker';
 // export { getSelectionStyles } from './Utils/inlineStyleUtils';
