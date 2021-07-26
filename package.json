@@ -62,7 +62,7 @@
     "lint": "lerna run --stream lint",
     "build:test": "npm run build && npm run build --prefix e2e/test-env",
     "generatePlugin": "node scripts/generatePlugin",
-    "addLoadable": "node scripts/createLoadable",
+    "createLoadable": "node scripts/createLoadable",
     "migrateFixtures": "cd scripts && ts-node --compiler-options={\\\"module\\\":\\\"commonJS\\\"} migrateSchema",
     "toPlainText": "cd scripts && ts-node --compiler-options={\\\"module\\\":\\\"commonJS\\\"} toPlainText",
     "link": "lerna link"
