@@ -24,20 +24,14 @@ class EditorCommandModalProvider extends Component<Props, State> {
     this.state = { data: this.initialData };
   }
 
-  // Need to remove after toolbars will work with editorCommands !
-  componentWillUnmount() {
-    const { pubsub, editorCommands } = this.props;
-    const componentData = editorCommands.getSelectedData();
-    pubsub.set('componentData', componentData);
-  }
-
   deleteBlock = () =>
     this.props.editorCommands.deleteBlock(this.props.editorCommands.getSelection().focusKey);
 
   updateData = data => {
-    const { editorCommands } = this.props;
+    const { editorCommands, pubsub } = this.props;
     const newData = { ...this.state.data, ...data };
     editorCommands.setBlock(editorCommands.getSelection().focusKey, this.pluginType, newData);
+    pubsub.set('componentData', newData); // Need to remove after toolbars will work with editorCommands !
     this.setState({ data: newData });
   };
 
