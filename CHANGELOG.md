@@ -17,6 +17,18 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.47.9 (July 26, 2021)
+
+### :house: Internal
+
+- `loadable`
+  - [#2782](https://github.com/wix/ricos/pull/2770) add loadable support for atomic plugins
+
+## 8.47.8 (July 26, 2021)
+
 ### :bug: Bug Fix
 
 - `html-plugin`
@@ -30,11 +42,8 @@
   - [#2770](https://github.com/wix/ricos/pull/2770) refactor Button/TextInput/InputWithLabel
     components
 - `ui-components`
-  - [#2779](https://github.com/wix/ricos/pull/2779 ) revert changes in TextInput/InputWithLabel
+  - [#2779](https://github.com/wix/ricos/pull/2779) revert changes in TextInput/InputWithLabel
     components
-
-</details>
-<hr/>
 
 ## 8.47.7 (July 25, 2021)
 
