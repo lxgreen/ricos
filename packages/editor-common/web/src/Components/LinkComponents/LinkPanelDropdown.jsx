@@ -66,6 +66,8 @@ export class LinkPanelDropdown extends Component {
     fallbackChanged: false,
   };
 
+  textInput = React.createRef();
+
   styles = mergeStyles({ styles, theme: this.props.theme });
 
   handleDropDownStateChange = changes => {
@@ -87,29 +89,30 @@ export class LinkPanelDropdown extends Component {
 
   componentDidMount() {
     // eslint-disable-next-line react/prop-types
-    this.textInput?.focus();
+    this.textInput.current?.focus();
     if (!this.state.fallbackChanged) {
-      this.textInput?.select(); //select the link in case of edit
+      this.textInput.current?.select(); //select the link in case of edit
     } else {
-      this.textInput.selectionStart = this.textInput?.value.length;
-      this.textInput.selectionEnd = this.textInput?.value.length;
+      this.textInput.current.selectionStart = this.textInput.current?.value.length;
+      this.textInput.current.selectionEnd = this.textInput.current?.value.length;
     }
   }
 
   render() {
     const { itemToString, formatMenuItem, itemHeight, textInputProps, value } = this.props;
     const { selectedItem, items } = this.state;
+    const fallBackOnchange = value => {
+      this.props.onChange(value);
+      this.setState({ fallbackChanged: true });
+    };
     return (
       <Suspense
         fallback={
           <TextInput
             {...textInputProps}
-            inputRef={ref => (this.textInput = ref)}
+            inputRef={this.textInput}
             value={value}
-            onChange={value => {
-              this.props.onChange(value);
-              this.setState({ fallbackChanged: true });
-            }}
+            onChange={fallBackOnchange}
           />
         }
       >
@@ -137,7 +140,7 @@ export class LinkPanelDropdown extends Component {
                 <TextInput
                   {...getInputProps({ ...textInputProps })}
                   onChange={value => textInputProps.onChange({ target: { value } })}
-                  inputRef={ref => (this.textInput = ref)}
+                  inputRef={this.textInput}
                 />
                 {(isOpen || this.props.isOpen) && List && (
                   <Suspense fallback={<div>Loading...</div>}>

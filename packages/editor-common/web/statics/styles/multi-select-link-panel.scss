@@ -107,3 +107,9 @@
     color: $settings-action-color-fallback;
   }
 }
+
+.multiSelectLinkPanel_actionsWrapper_mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}

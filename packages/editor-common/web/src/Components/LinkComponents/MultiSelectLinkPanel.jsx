@@ -66,15 +66,15 @@ class MultiSelectLinkPanel extends PureComponent {
   };
 
   renderMultiSelectActions = () => {
-    const { isMobile } = this.props;
+    const { isMobile, buttonsProps } = this.props;
     return (
-      <div>
-        <LinkActionsButtons {...this.props.buttonsProps} />
+      <div className={isMobile && styles.multiSelectLinkPanel_actionsWrapper_mobile}>
+        <LinkActionsButtons {...buttonsProps} />
         {isMobile && (
-          <>
+          <div>
             {this.renderSeparator()}
             {this.renderMobileTabs()}
-          </>
+          </div>
         )}
       </div>
     );

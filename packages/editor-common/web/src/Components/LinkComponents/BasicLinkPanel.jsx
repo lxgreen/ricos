@@ -39,11 +39,7 @@ class BasicLinkPanel extends PureComponent {
         role="form"
         {...ariaProps}
       >
-        <div
-          className={classNames(styles.linkPanel_wrapper, {
-            [styles.linkPanel_wrapper_mobile]: isMobile,
-          })}
-        >
+        <div className={styles.linkPanel_wrapper}>
           <LinkPanelWrapper
             linkValues={linkPanelValues}
             onChange={onChangeLinkPanel}
@@ -54,14 +50,7 @@ class BasicLinkPanel extends PureComponent {
             {...sharedPanelsProps}
           />
         </div>
-        {showSeparator && (
-          <div
-            className={classNames(styles.linkPanel_actionsDivider, {
-              [styles.linkPanel_actionsDivider_mobile]: isMobile,
-            })}
-            role="separator"
-          />
-        )}
+        {showSeparator && <div className={styles.linkPanel_actionsDivider} role="separator" />}
         <LinkActionsButtons basicLinkPanel {...buttonsProps} basicDisplay={!hasCheckboxes} />
       </FocusManager>
     );

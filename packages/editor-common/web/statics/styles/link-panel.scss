@@ -1,4 +1,5 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
 @import '~wix-rich-content-common/dist/statics/styles/fonts';
 
 $spacing: 12px;
@@ -48,9 +49,12 @@ $spacing: 12px;
 .linkPanel_wrapper {
   padding: 0;
   width: 100%;
-  &.linkPanel_wrapper_mobile {
+  @include phone {
     margin: 0 auto;
     width: calc(100% - 40px);
+  }
+  .basicPanel {
+    height: 40px;
   }
 }
 
@@ -74,7 +78,7 @@ $spacing: 12px;
   // margin: 16px 0 14px 0; // this is the right margin - once radio buttons would be added back
   margin: 0px 0 20px;
   position: relative;
-  &.basicPanel {
+  .basicPanel {
     margin: 0;
   }
 }

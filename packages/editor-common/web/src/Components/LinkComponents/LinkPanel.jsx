@@ -18,12 +18,14 @@ class LinkPanel extends Component {
     isMobile: false,
   };
 
+  textInput = React.createRef();
+
   styles = mergeStyles({ styles, theme: this.props.theme });
 
   componentDidMount() {
     this.onChange({ isValid: this.isValidUrl(this.props.linkValues.url) });
-    this.textInput?.focus();
-    this.textInput?.select(); //select the link in case of edit
+    this.textInput.current?.focus();
+    this.textInput.current?.select(); //select the link in case of edit
   }
 
   handleUrlChange = url => {
@@ -85,7 +87,7 @@ class LinkPanel extends Component {
   getTextInput() {
     return (
       <TextInput
-        inputRef={ref => (this.textInput = ref)}
+        inputRef={this.textInput}
         value={this.props.linkValues.url}
         onChange={this.handleUrlChange}
         {...this.getTextInputProps()}
@@ -134,12 +136,7 @@ class LinkPanel extends Component {
       >
         {!hideUrlInput && (
           /* eslint-disable-next-line jsx-a11y/no-static-element-interactions */
-          <div
-            className={classNames(styles.linkPanel_Input, {
-              [styles.basicPanel]: !hasCheckboxes,
-            })}
-            onKeyDown={this.handleKeyDown}
-          >
+          <div className={styles.linkPanel_Input} onKeyDown={this.handleKeyDown}>
             {this.getInput()}
             {this.hasError() && (
               <Tooltip content={t('LinkPanel_ErrorTooltip')} isError>
