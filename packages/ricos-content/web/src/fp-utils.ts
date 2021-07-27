@@ -1,4 +1,4 @@
-import { identity, flow, pipe } from 'fp-ts/function';
+import { identity, pipe } from 'fp-ts/function';
 import { Eq } from 'fp-ts/Eq';
 import { concatAll, Monoid } from 'fp-ts/Monoid';
 import * as O from 'fp-ts/Option';
@@ -32,6 +32,8 @@ export const resolveFirstRight = <C, T>(
 
 export const split = (splitter: string) => (str: string) => str.split(splitter);
 
+export const trim = (str: string) => str.trim();
+
 export const replace = (replaced: RegExp | string, by: string) => (str: string): string =>
   str.replace(replaced, by);
 
@@ -39,8 +41,6 @@ export const equals = <T>(E: Eq<T>) => (lhs: T) => (rhs: T) => E.equals(lhs, rhs
 
 export const concatApply = <T, D>(m: Monoid<T>) => (fns: ((data: D) => T)[]) => (data: D) =>
   pipe(fns, A.ap(A.of(data)), concatAll(m));
-
-export const not = <T>(predicate: (data: T) => boolean) => (data: T) => !predicate(data);
 
 export const toUpperCase = (str: string) => str.toUpperCase();
 

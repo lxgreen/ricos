@@ -2,7 +2,7 @@ import { flow, pipe } from 'fp-ts/function';
 import * as A from 'fp-ts/Array';
 
 import { Element, DocumentFragment } from 'parse5';
-import { toAst, getChildNodes } from './ast-utils';
+import { toAst, getChildNodes } from './parse5-utils';
 import { RichContent, Node, Decoration, Decoration_Type } from 'ricos-schema';
 import { ContentNode, Context, Rule, ContainerStyle } from './models';
 import { initializeMetadata, createDecoration, reduceDecorations } from '../../../nodeUtils';

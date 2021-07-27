@@ -1,6 +1,7 @@
-import { flow, identity } from 'fp-ts/function';
+import { not, flow, identity } from 'fp-ts/function';
 import { MonoidAll, MonoidAny } from 'fp-ts/boolean';
-
+import * as O from 'fp-ts/Option';
+import * as S from 'fp-ts/string';
 import { Element, TextNode, serialize } from 'parse5';
 import { ContentNode } from '../core/models';
 import {
@@ -9,14 +10,15 @@ import {
   hasDescendant,
   appendChild,
   hasTag,
+  hasParent,
   oneOf,
   AstRule,
   toAst,
   hasChild,
-} from '../core/ast-utils';
+} from '../core/parse5-utils';
 import { partitionBy } from '../../../nodeUtils';
 import traverse from '../core/ast-traversal';
-import { concatApply, not } from '../../../../fp-utils';
+import { concatApply, trim, equals } from '../../../../fp-utils';
 
 const addParagraph = (parentNode: Element) => (): ContentNode => ({
   nodeName: 'p',
@@ -52,13 +54,21 @@ const leafParagraphToDiv: AstRule = [
   }),
 ];
 
-const cleanListItemPadding: AstRule = [
-  hasTag('li'),
-  (node: Element) => ({
+const isWhitespace = flow(
+  (n: TextNode) => O.fromNullable(n.value),
+  O.map(trim),
+  O.fold(() => false, equals(S.Eq)(''))
+);
+
+const collapseWhitespaces: AstRule = [
+  concatApply(MonoidAll)([
+    isText,
+    isWhitespace,
+    hasParent(not(oneOf(['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']))),
+  ]),
+  (node: TextNode) => ({
     ...node,
-    childNodes: (node.childNodes as Element[]).filter(
-      n => !isText(n) || (<TextNode>n).value.trim() !== ''
-    ),
+    value: '',
   }),
 ];
 
@@ -87,9 +97,9 @@ const wrapTextUnderLi: AstRule = [
 export const preprocess = flow(
   toAst,
   traverse(leafParagraphToDiv),
-  traverse(cleanListItemPadding),
   traverse(cleanListPadding),
   traverse(containerPToDiv),
   traverse(wrapTextUnderLi),
+  traverse(collapseWhitespaces),
   serialize
 );

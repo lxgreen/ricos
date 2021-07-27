@@ -2,7 +2,7 @@ import { flow, pipe } from 'fp-ts/function';
 import * as A from 'fp-ts/Array';
 
 import { DocumentFragment } from 'parse5';
-import { getChildNodes, AstRule, toDocumentFragment } from './ast-utils';
+import { getChildNodes, AstRule, toDocumentFragment } from './parse5-utils';
 import { ContentNode } from './models';
 
 const appyRule = (rule: AstRule) => (node: ContentNode): ContentNode => {

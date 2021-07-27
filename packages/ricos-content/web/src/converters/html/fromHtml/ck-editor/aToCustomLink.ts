@@ -4,7 +4,7 @@ import { Link, Decoration_Type } from 'ricos-schema';
 import { Element } from 'parse5';
 import { createLink } from '../../../nodeUtils';
 import { getMatches, replace } from '../../../../fp-utils';
-import { getAttributes } from '../core/ast-utils';
+import { getAttributes } from '../core/parse5-utils';
 import { Rule } from '../core/models';
 import { aToLink } from '../core/rules';
 
