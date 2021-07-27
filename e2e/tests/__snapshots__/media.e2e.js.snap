@@ -115,11 +115,8 @@ exports[`plugins > image > render image toolbar and settings #0`] =
           },
           "showDescription": true,
           "showTitle": true,
-          "size": "fullWidth",
-          "spoiler": {}
+          "size": "fullWidth"
         },
-        "disableDownload": false,
-        "disableExpand": false,
         "metadata": {
           "caption": ""
         },
@@ -3065,8 +3062,7 @@ exports[`plugins > video > should toggle download option #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content",
-          "spoiler": {}
+          "size": "content"
         },
         "disableDownload": true,
         "isCustomVideo": true,
@@ -3523,10 +3519,8 @@ exports[`plugins > image > should disable image expand #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "small",
-          "spoiler": {}
+          "size": "small"
         },
-        "disableDownload": false,
         "disableExpand": true,
         "src": {
           "file_name": "8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg",
@@ -3647,10 +3641,8 @@ exports[`plugins > gallery > settings > should disable gallery expand #0`] =
           "alignment": "center",
           "layout": "small",
           "size": "content",
-          "spacing": 0,
-          "spoiler": {}
+          "spacing": 0
         },
-        "disableDownload": false,
         "disableExpand": true,
         "items": [
           {
