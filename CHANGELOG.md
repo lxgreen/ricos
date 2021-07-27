@@ -17,12 +17,13 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.47.10  (Jul 27, 2021)
 ### :bug: Bug Fix
   - `ricos-content`
     - [#2784](https://github.com/wix/ricos/pull/2784) fromHtml: ckeditor parser rules fixed
-
-</details>
-<hr/>
 
 ## 8.47.9 (July 26, 2021)
 
