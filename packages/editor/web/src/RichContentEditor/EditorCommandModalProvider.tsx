@@ -38,11 +38,11 @@ class EditorCommandModalProvider extends Component<Props, State> {
     this.setState({ data: newData });
   };
 
-  onSave = () => this.props.closeModal();
+  onSave = () => this.props.closeModal?.();
 
   onCancel = () => {
     this.updateData(this.initialData);
-    this.props.closeModal();
+    this.props.closeModal?.();
   };
 
   render() {
@@ -51,7 +51,7 @@ class EditorCommandModalProvider extends Component<Props, State> {
       onCancel: this.onCancel,
       updateData: this.updateData,
       deleteBlock: this.deleteBlock,
-      componentData: this.state.data,
+      componentData: this.state.data || this.props.componentData,
     });
   }
 }
