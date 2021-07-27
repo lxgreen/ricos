@@ -20,12 +20,18 @@
 </details>
 <hr/>
 
+## 8.47.12 (Jul 27, 2021)
+
+### :bug: Bug Fix
+
+- `loadable`
+  - [#2786](https://github.com/wix/ricos/pull/2786) add loadable entry to files and fix createLoadable script
+
 ## 8.47.11 (Jul 27, 2021)
 
 ### :bug: Bug Fix
 
 - `editor`
-
   - [#2659](https://github.com/wix/ricos/pull/2659) close plugin menu on mobile after adding a plugin
 
 ## 8.47.10 (Jul 27, 2021)
