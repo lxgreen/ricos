@@ -1,10 +1,10 @@
 /* eslint-disable fp/no-delete */
+// TODO: purify this module
 import {
   Node,
   Node_Type,
   Decoration_Type,
   Link,
-  Link_Target,
   ImageData,
   Decoration,
   PluginContainerData,
@@ -13,8 +13,9 @@ import {
   MentionData,
   FileData,
   ButtonData,
+  LinkData,
 } from 'ricos-schema';
-import { cloneDeep, has } from 'lodash';
+import { cloneDeep, has, merge } from 'lodash';
 import {
   ENTITY_DECORATION_TO_DATA_FIELD,
   FROM_RICOS_DECORATION_TYPE,
@@ -27,7 +28,10 @@ export const convertNodeToDraftData = (node: Node) => {
   const { type } = node;
   const draftPluginType = FROM_RICOS_ENTITY_TYPE[type];
   const dataFieldName = TO_RICOS_DATA_FIELD[draftPluginType];
-  return convertNodeDataToDraft(type, node[dataFieldName]);
+  if (!dataFieldName) {
+    console.error(`No data field name | Plugin Name: ${draftPluginType}`);
+  }
+  return convertNodeDataToDraft(type, node[dataFieldName] || {});
 };
 
 export const convertDecorationToDraftData = (decoration: Decoration) => {
@@ -37,6 +41,10 @@ export const convertDecorationToDraftData = (decoration: Decoration) => {
 };
 
 export const convertNodeDataToDraft = (nodeType: Node_Type, data) => {
+  if (!data) {
+    console.error(`No data for ${nodeType}`);
+    return {};
+  }
   const newData = cloneDeep(data);
   const converters = {
     [Node_Type.VIDEO]: convertVideoData,
@@ -44,11 +52,12 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data) => {
     [Node_Type.FILE]: convertFileData,
     [Node_Type.IMAGE]: convertImageData,
     [Node_Type.POLL]: convertPollData,
-    [Node_Type.VERTICAL_EMBED]: convertVerticalEmbedData,
+    [Node_Type.APP_EMBED]: convertAppEmbedData,
     [Node_Type.LINK_PREVIEW]: convertLinkPreviewData,
     [Node_Type.BUTTON]: convertButtonData,
     [Node_Type.HTML]: convertHTMLData,
     [Node_Type.MAP]: convertMapData,
+    [Node_Type.EMBED]: convertEmbedData,
   };
   if (newData.containerData && nodeType !== Node_Type.DIVIDER) {
     convertContainerData(newData, nodeType);
@@ -57,12 +66,13 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data) => {
     const convert = converters[nodeType];
     convert(newData);
   }
-  return JSON.parse(JSON.stringify(newData));
+  return JSON.parse(JSON.stringify(newData)); // remove undefined values
 };
 
 export const convertDecorationDataToDraft = (decorationType: Decoration_Type, data) => {
   const converters = {
-    [Decoration_Type.MENTION]: convertMention,
+    [Decoration_Type.MENTION]: convertMentionData,
+    [Decoration_Type.LINK]: convertLinkData,
   };
   if (decorationType in converters) {
     const convert = converters[decorationType];
@@ -78,6 +88,7 @@ const convertContainerData = (
   nodeType: string
 ) => {
   const { width, alignment, spoiler, height } = data.containerData || {};
+  const { enabled = false, description, buttonText } = spoiler || {};
   data.config = Object.assign(
     {},
     data.config,
@@ -87,26 +98,26 @@ const convertContainerData = (
     alignment && { alignment: constantToKebabCase(alignment) },
     spoiler && {
       spoiler: {
-        enabled: true,
-        description: spoiler.description,
-        buttonContent: spoiler.buttonText,
+        enabled,
+        description,
+        buttonContent: buttonText,
       },
     }
   );
   if (nodeType === Node_Type.IMAGE && width?.custom) {
     data.config.size = 'inline';
-  } else if ((nodeType === Node_Type.MAP || nodeType === Node_Type.LINK_PREVIEW) && width?.custom) {
+  } else if (nodeType === Node_Type.MAP && width?.custom) {
     data.config.size = 'content';
   }
   delete data.containerData;
 };
 
-const convertVideoData = (data: VideoData & { src; metadata }) => {
+const convertVideoData = (data: VideoData & { src; metadata; title? }) => {
   const videoSrc = data.video?.src;
   if (videoSrc?.url) {
     data.src = videoSrc.url;
     const { src, width, height } = data.thumbnail || {};
-    data.metadata = { thumbnail_url: src?.url, width, height };
+    data.metadata = { thumbnail_url: src?.url, width, height, title: data.title };
   } else if (videoSrc?.custom) {
     const { src, width, height } = data.thumbnail || {};
     data.src = {
@@ -115,16 +126,19 @@ const convertVideoData = (data: VideoData & { src; metadata }) => {
     };
   }
   delete data.video;
+  delete data.title;
   delete data.thumbnail;
 };
 
 const convertDividerData = (
   data: Partial<DividerData> & {
     type;
+    lineStyle?: string;
     config?: ComponentData['config'];
   }
 ) => {
-  has(data, 'type') && (data.type = data.type.toLowerCase());
+  data.type = data.lineStyle?.toLowerCase();
+  delete data.lineStyle;
   data.config = { textWrap: 'nowrap' };
   if (has(data, 'width')) {
     data.config.size = data.width?.toLowerCase();
@@ -138,13 +152,21 @@ const convertDividerData = (
 };
 
 const convertImageData = (data: ImageData & { src; config; metadata }) => {
-  const { link, config, disableExpand, image, altText, caption } = data;
+  const { link, config, image, altText, caption } = data;
   const { src, width, height } = image || {};
-  data.src = { id: src?.custom, file_name: src?.custom, width, height };
-  const links = link?.anchor ? { anchor: link?.anchor } : { link: link && convertLink(link) };
-  data.config = { ...(config || {}), ...links, disableExpand };
+  data.src = src?.custom
+    ? { id: src?.custom, file_name: src?.custom, width, height }
+    : { url: src?.url, source: 'static' };
+  const links = link?.anchor ? { anchor: link?.anchor } : { link: link && parseLink(link) };
+  if (links.link?.customData) {
+    const parsedCustomData = parseLinkCustomData(links.link?.customData);
+    merge(links.link, parsedCustomData);
+    if (!parsedCustomData.customData) {
+      delete links.link.customData;
+    }
+  }
+  data.config = { ...(config || {}), ...links };
   data.metadata = (altText || caption) && { caption, alt: altText };
-  delete data.disableExpand;
   delete data.image;
   delete data.link;
   delete data.caption;
@@ -157,10 +179,33 @@ const convertPollData = data => {
     (data.layout.poll.direction = data.layout.poll.direction.toLowerCase());
   has(data, 'design.poll.backgroundType') &&
     (data.design.poll.backgroundType = data.design.poll.backgroundType.toLowerCase());
+  has(data, 'poll.pollId') && (data.poll.id = data.poll.pollId);
+  delete data.poll.pollId;
+  has(data, 'poll.options') &&
+    (data.poll.options = data.poll.options.map(({ optionId, ...rest }) => ({
+      id: optionId,
+      ...rest,
+    })));
 };
 
-const convertVerticalEmbedData = data => {
-  has(data, 'type') && (data.type = data.type.toLowerCase());
+const convertAppEmbedData = data => {
+  const { type, itemId, name, imageSrc, url, bookingData, eventData } = data;
+  data.type = type.toLowerCase();
+  const selectedProduct: Record<string, unknown> = {
+    id: itemId,
+    name,
+    imageSrc,
+    pageUrl: url,
+    ...(bookingData || {}),
+    ...(eventData || {}),
+  };
+  data.selectedProduct = selectedProduct;
+  delete data.itemId;
+  delete data.name;
+  delete data.imageSrc;
+  delete data.url;
+  bookingData && delete data.bookingData;
+  eventData && delete data.eventData;
 };
 
 const convertLinkPreviewData = data => {
@@ -169,12 +214,12 @@ const convertLinkPreviewData = data => {
     delete data.thumbnailUrl;
   }
   if (has(data, 'link')) {
-    data.config.link = convertLink(data.link);
+    data.config.link = parseLink(data.link);
     delete data.link;
   }
 };
 
-const convertMention = (data: Partial<MentionData> & { mention }) => {
+const convertMentionData = (data: Partial<MentionData> & { mention }) => {
   data.mention = { slug: data.slug, name: data.name };
   delete data.name;
   delete data.slug;
@@ -190,11 +235,11 @@ const convertFileData = (data: FileData & FileComponentData) => {
 const convertButtonData = (data: Partial<ButtonData> & { button }) => {
   const { link, text, styles } = data;
   const { borderRadius, borderWidth, backgroundColor, textColor, borderColor } = styles || {};
-  const { url, rel, target } = link || {};
+  const convertedLink = link ? parseLink(link) : {};
   data.button = {
     settings: {
       buttonText: text,
-      ...(url ? { url, rel: !!rel?.nofollow, target: target === Link_Target.BLANK } : {}),
+      ...convertedLink,
     },
     design: {
       borderRadius,
@@ -236,7 +281,7 @@ const convertMapData = data => {
   data.mapSettings.isZoomControlShown = zoomControl;
   data.mapSettings.locationDisplayName = locationName;
   data.mapSettings.zoom = initialZoom;
-  data.mapSettings.mode = mapType;
+  data.mapSettings.mode = mapType?.toLowerCase();
   delete data.mapSettings.draggable;
   delete data.mapSettings.marker;
   delete data.mapSettings.streetViewControl;
@@ -251,16 +296,63 @@ const convertMapData = data => {
   }
 };
 
-const convertLink = ({
+const convertEmbedData = data => {
+  data.config = {
+    ...(data?.config || {}),
+    alignment: 'center',
+    size: 'content',
+    link: { url: data.src, target: '_blank', rel: 'noopener' },
+  };
+  const { html, thumbnailUrl, title, description } = data.oembed;
+  data.html = html;
+  thumbnailUrl && (data.thumbnail_url = thumbnailUrl);
+  title && (data.title = title);
+  description && (data.description = description);
+  delete data.oembed;
+  delete data.src;
+};
+
+const convertLinkData = (
+  data: LinkData & { url?: string; target?: string; rel?: string; customData?: string }
+) => {
+  if (data.link) {
+    const { url, target, rel, customData } = parseLink(data.link);
+    data.url = url;
+    if (target) {
+      data.target = target;
+    }
+    if (rel) {
+      data.rel = rel;
+    }
+    if (customData) {
+      const customDataObj = parseLinkCustomData(customData);
+      merge(data, customDataObj);
+    }
+    delete data.link;
+  }
+};
+
+const parseLinkCustomData = (customData: string) => {
+  try {
+    return { customData: JSON.parse(customData) };
+  } catch (e) {
+    console.error('failed to parse customData', customData); // eslint-disable-line
+    return { customData };
+  }
+};
+
+const parseLink = ({
   url,
   rel,
   target,
   anchor,
+  customData,
 }: Link): {
   url?: string;
   rel?: string;
   target?: string;
   anchor?: string;
+  customData?: string;
 } => ({
   anchor,
   url,
@@ -270,6 +362,7 @@ const convertLink = ({
       .flatMap(([key, value]) => (value ? key : []))
       .join(' '),
   target: target && '_' + target.toLowerCase(),
+  customData,
 });
 
 const constantToKebabCase = (str: string) => str.toLowerCase().replace('_', '-');

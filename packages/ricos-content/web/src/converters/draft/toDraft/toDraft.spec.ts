@@ -1,9 +1,9 @@
 import { toDraft, fromDraft, convertNodeDataToDraft, convertDecorationDataToDraft } from '..';
 import { compare } from '../../../comparision/compare';
-import fixture from '../../../../../../../e2e/tests/fixtures/intro.json';
 import complexFixture from '../../../../../../../e2e/tests/fixtures/migration-content.json';
 import anchorBlocksFixture from '../../../../../../../e2e/tests/fixtures/all-blocks-with-anchors.json';
-import { ANCHOR_TYPE } from '../../..';
+import keyAndBulletFixture from './migration-content-with-key-and-bullet.json';
+import { ANCHOR_TYPE } from '../../../consts';
 import {
   Decoration_Type,
   Node_Type,
@@ -12,7 +12,7 @@ import {
 } from 'ricos-schema';
 import { convertDecorationToDraftData, convertNodeToDraftData } from './convertDraftPluginData';
 
-const fixtures = { intro: fixture, complex: complexFixture };
+const fixtures = { complex: complexFixture };
 
 describe('migrate to draft', () => {
   Object.entries(fixtures).forEach(([name, content]) =>
@@ -34,7 +34,7 @@ describe('migrate to draft', () => {
   const imageNodeData = {
     nodes: [],
     type: Node_Type.IMAGE,
-    key: 'eoba3',
+    id: 'eoba3',
     imageData: {
       containerData: {
         width: { size: PluginContainerData_Width_Type.CONTENT },
@@ -55,8 +55,8 @@ describe('migrate to draft', () => {
     config: {
       alignment: 'center',
       size: 'content',
-      disableExpand: false,
     },
+    disableExpand: false,
     src: {
       id: '8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg',
       file_name: '8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg',
@@ -109,6 +109,42 @@ describe('migrate to draft', () => {
     const blockData = convertDecorationToDraftData(mentionDecoration);
 
     expect(blockData).toEqual(expectedMentionBlockData);
+  });
+
+  describe('migrate key and bullet list', () => {
+    it('should not break keys', () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const content: any = {
+        nodes: [
+          {
+            type: 'BULLET_LIST',
+            key: 'foo',
+            nodes: [
+              {
+                type: 'LIST_ITEM',
+                key: 'bar',
+                nodes: [
+                  {
+                    type: 'PARAGRAPH',
+                    key: 'baz',
+                    nodes: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+      const { blocks } = toDraft(content);
+      expect(blocks[0].key).toEqual('bar');
+      expect(blocks[0].type).toEqual('unordered-list-item');
+    });
+
+    it('should fix whole content', () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const converted = toDraft(keyAndBulletFixture as any);
+      expect(compare(converted, complexFixture, { ignoredKeys: ['key'] })).toEqual({});
+    });
   });
 });
 

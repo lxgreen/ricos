@@ -1,22 +1,5 @@
-import { ImageComponentData, VideoComponentData } from 'wix-rich-content-common';
-
 /* eslint-disable camelcase */
-export const GALLERY_LAYOUTS = Object.freeze({
-  EMPTY: -1,
-  COLLAGE: 0,
-  MASONRY: 1,
-  GRID: 2,
-  THUMBNAIL: 3,
-  SLIDER: 4,
-  SLIDESHOW: 5,
-  PANORAMA: 6,
-  COLUMN: 7,
-  MAGIC: 8,
-  FULLSIZE: 9,
-  BRICKS: 10,
-  MIX: 11,
-  ALTERNATE: 12,
-});
+import { GALLERY_LAYOUTS } from '../lib/layout-data-provider';
 
 export const GALLERY_ITEMS_TYPES = Object.freeze({
   IMAGE: 'image',
@@ -79,40 +62,8 @@ export const DEFAULTS = Object.freeze({
     size: 'content',
     layout: 'small',
     spacing: 0,
-    disableExpand: false,
   },
 });
-
-export const createImageItem = (
-  img: ImageComponentData & HTMLImageElement,
-  itemId: string,
-  preloadImage: boolean | undefined
-) => {
-  return {
-    metadata: {
-      type: 'image',
-      height: img.height,
-      width: img.width,
-    },
-    itemId,
-    url: preloadImage ? img.src : img.file_name,
-    tempData: true,
-  };
-};
-
-export const createVideoItem = (video: VideoComponentData, itemId: string) => {
-  return {
-    metadata: {
-      type: 'video',
-      height: video.thumbnail.height,
-      width: video.thumbnail.width,
-      poster: video.thumbnail.pathname,
-    },
-    itemId,
-    url: video.pathname,
-    tempData: true,
-  };
-};
 
 export const isHorizontalLayout = ({ galleryLayout, oneRow }) =>
   HORIZONTAL_LAYOUTS.indexOf(galleryLayout) > -1 || oneRow;

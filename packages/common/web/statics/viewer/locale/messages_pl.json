@@ -14,11 +14,11 @@
   "Poll_Viewer_ShowLess_CTA": "Pokaż mniej",
   "Poll_Viewer_VoteCount_Modal_Voters_Anonymous": "+{{anonNumber}} anonimowych",
   "Poll_Viewer_VoteCount_Modal_Voters_CTA_Follow": "Obserwuj",
-  "AccordionPlugin_ExpandButton_AriaLabel": "Element jest rozwinięty",
+  "CollapsibleListPlugin_ExpandButton_AriaLabel": "Element jest rozwinięty",
   "Poll_Viewer_Toast_Error_ServerDown": "Nie można połączyć się z serwerem. Spróbuj ponownie później.",
   "Poll_Viewer_VoteCount_Modal_Voters_Header": "{{count}} osoba głosowała na tę odpowiedź",
   "Poll_Viewer_VoteCount": "{{number}} głosy(ów)",
-  "AccordionPlugin_CollapseButton_AriaLabel": "Element jest zwinięty",
+  "CollapsibleListPlugin_CollapseButton_AriaLabel": "Element jest zwinięty",
   "Spoiler_Reveal_Image_CTA": "Pokaż obraz",
   "Poll_Viewer_Toast_Error_Connection": "Brak internetu. Sprawdź połączenie.",
   "Poll_Viewer_Visibility_Owner_Footer": "Tylko ty możesz zobaczyć wyniki.",
@@ -26,6 +26,9 @@
   "Spoiler_Reveal_Video_Placeholder": "Ten film zawiera spoiler",
   "Preview_SeeFullPost_Label": "Zobacz cały post",
   "UploadFile_Viewer_Download": "Pobierz {{fileType}}",
-  "Embed_Vertical_Units_Minute": "{{minutes}} min",
-  "Embed_Vertical_Units_Hour": "{{hours}} godz."
+  "VerticalEmbed_Bookings_Button": "Zarezerwuj teraz",
+  "VerticalEmbed_Units_Minute": "{{minutes}}min",
+  "VerticalEmbed_Products_Button": "Kup teraz",
+  "VerticalEmbed_Units_Hour": "{{hours}}h",
+  "VerticalEmbed_Events_Button": "Zarejestruj się teraz"
 }

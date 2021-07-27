@@ -14,11 +14,11 @@
   "Poll_Viewer_ShowLess_CTA": "顯示更少",
   "Poll_Viewer_VoteCount_Modal_Voters_Anonymous": "+ {{anonNumber}} 位無名氏",
   "Poll_Viewer_VoteCount_Modal_Voters_CTA_Follow": "追蹤",
-  "AccordionPlugin_ExpandButton_AriaLabel": "項目已展開",
+  "CollapsibleListPlugin_ExpandButton_AriaLabel": "項目已展開",
   "Poll_Viewer_Toast_Error_ServerDown": "無法連線伺服器。請稍後再試一次。",
   "Poll_Viewer_VoteCount_Modal_Voters_Header": "{{count}} 個人投票給這個答覆",
   "Poll_Viewer_VoteCount": "{{number}} 票",
-  "AccordionPlugin_CollapseButton_AriaLabel": "項目已收起",
+  "CollapsibleListPlugin_CollapseButton_AriaLabel": "項目已收起",
   "Spoiler_Reveal_Image_CTA": "揭示圖片",
   "Poll_Viewer_Toast_Error_Connection": "沒有網路，請檢查您的連線。",
   "Poll_Viewer_Visibility_Owner_Footer": "只有您能查看結果。",
@@ -26,6 +26,9 @@
   "Spoiler_Reveal_Video_Placeholder": "此影片有雷",
   "Preview_SeeFullPost_Label": "查看完整文章",
   "UploadFile_Viewer_Download": "下載 {{fileType}}",
-  "Embed_Vertical_Units_Minute": "{{minutes}} 分鐘",
-  "Embed_Vertical_Units_Hour": "{{hours}}小時"
+  "VerticalEmbed_Bookings_Button": "現在預訂",
+  "VerticalEmbed_Units_Minute": "{{minutes}} 分鐘",
+  "VerticalEmbed_Products_Button": "立即購買",
+  "VerticalEmbed_Units_Hour": "{{hours}} 小時",
+  "VerticalEmbed_Events_Button": "立即報名"
 }

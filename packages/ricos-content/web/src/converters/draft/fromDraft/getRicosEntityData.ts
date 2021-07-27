@@ -1,20 +1,24 @@
 import { pickBy, identity } from 'lodash';
 /* eslint-disable fp/no-delete */
 import { TextStyle, NodeStyle } from 'ricos-schema';
-import { RicosEntityMap, RicosContentBlock } from '../../..';
+import { RicosEntityMap, RicosContentBlock } from '../../../types';
+import { LINK_PREVIEW_TYPE, EMBED_TYPE } from '../../../consts';
 import { TO_RICOS_DATA_FIELD, TO_RICOS_PLUGIN_TYPE } from '../consts';
 import { convertBlockDataToRicos } from './convertRicosPluginData';
 
 export const getEntity = (key: string | number, entityMap: RicosEntityMap) => {
   const { type, data } = entityMap[key];
-  const dataFieldName = TO_RICOS_DATA_FIELD[type];
+  const blockType = type === LINK_PREVIEW_TYPE && data.html ? EMBED_TYPE : type;
+  const dataFieldName = TO_RICOS_DATA_FIELD[blockType];
   if (dataFieldName === undefined) {
-    // eslint-disable-next-line no-console
-    console.error(`ERROR! Unknown entity type "${type}"!`);
-    process.exit(1);
+    console.error(`Unknown entity type "${blockType}"!`);
+    return null;
   }
 
-  return { type: TO_RICOS_PLUGIN_TYPE[type], [dataFieldName]: convertBlockDataToRicos(type, data) };
+  return {
+    type: TO_RICOS_PLUGIN_TYPE[blockType],
+    [dataFieldName]: convertBlockDataToRicos(blockType, data),
+  };
 };
 
 export const getTextStyle = (blockData?: RicosContentBlock['data']): TextStyle => {

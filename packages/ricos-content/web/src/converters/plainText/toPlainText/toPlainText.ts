@@ -7,8 +7,9 @@ import {
   parseListNode,
   parseMap,
   parseTextNodes,
-  parseVerticalEmbed,
+  parseAppEmbed,
   parseVideo,
+  parseEmbed,
 } from './convertNodes';
 
 interface PlainTextOptions {
@@ -33,7 +34,7 @@ export const toPlainText = async (
         plainText += delimiter;
       }
       switch (node.type) {
-        case Node_Type.CODEBLOCK:
+        case Node_Type.CODE_BLOCK:
         case Node_Type.PARAGRAPH:
         case Node_Type.HEADING:
           plainText += parseTextNodes(node);
@@ -42,14 +43,14 @@ export const toPlainText = async (
           plainText += parseTextNodes(getParagraphNode(node));
           break;
         case Node_Type.ORDERED_LIST:
-        case Node_Type.BULLET_LIST:
+        case Node_Type.BULLETED_LIST:
           plainText += parseListNode(node, delimiter);
           break;
         case Node_Type.IMAGE:
           plainText += await parseImage(node, delimiter, urlShortener);
           break;
         case Node_Type.VIDEO:
-          plainText += await parseVideo(node, getVideoUrl);
+          plainText += await parseVideo(node, delimiter, getVideoUrl);
           break;
         case Node_Type.GIPHY:
           plainText += parseGiphy(node);
@@ -57,11 +58,14 @@ export const toPlainText = async (
         case Node_Type.MAP:
           plainText += parseMap(node);
           break;
-        case Node_Type.VERTICAL_EMBED:
-          plainText += parseVerticalEmbed(node, delimiter);
+        case Node_Type.APP_EMBED:
+          plainText += parseAppEmbed(node, delimiter);
           break;
         case Node_Type.LINK_PREVIEW:
           plainText += parseLinkPreview(node);
+          break;
+        case Node_Type.EMBED:
+          plainText += parseEmbed(node);
           break;
         default:
       }

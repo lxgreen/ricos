@@ -1,5 +1,9 @@
 import theme from '../theme/theme';
-import { videoTypeMapper, VIDEO_TYPE, pluginVideo } from 'wix-rich-content-plugin-video/viewer';
+import {
+  videoTypeMapper,
+  VIDEO_TYPE,
+  pluginVideo,
+} from 'wix-rich-content-plugin-video/loadable/viewer';
 import { dividerTypeMapper, pluginDivider } from 'wix-rich-content-plugin-divider/viewer';
 import { htmlTypeMapper, pluginHtml } from 'wix-rich-content-plugin-html/viewer';
 import { soundCloudTypeMapper, pluginSoundCloud } from 'wix-rich-content-plugin-sound-cloud/viewer';
@@ -9,14 +13,14 @@ import {
   LINK_PREVIEW_TYPE,
   pluginLinkPreview,
 } from 'wix-rich-content-plugin-link-preview/viewer';
-import { imageTypeMapper, pluginImage } from 'wix-rich-content-plugin-image/viewer';
+import { imageTypeMapper, pluginImage } from 'wix-rich-content-plugin-image/loadable/viewer';
 import { tableTypeMapper, pluginTable } from 'wix-rich-content-plugin-table/viewer';
 
 import {
   galleryTypeMapper,
   pluginGallery,
   GALLERY_TYPE,
-} from 'wix-rich-content-plugin-gallery/viewer';
+} from 'wix-rich-content-plugin-gallery/loadable/viewer';
 import { mapTypeMapper, pluginMap } from 'wix-rich-content-plugin-map/viewer';
 import { giphyTypeMapper, pluginGiphy, GIPHY_TYPE } from 'wix-rich-content-plugin-giphy/viewer';
 import {
@@ -44,7 +48,7 @@ import {
   fileUploadTypeMapper,
   pluginFileUpload,
   FILE_UPLOAD_TYPE,
-} from 'wix-rich-content-plugin-file-upload/viewer';
+} from 'wix-rich-content-plugin-file-upload/loadable/viewer';
 import {
   textColorInlineStyleMapper,
   TEXT_COLOR_TYPE,
@@ -60,7 +64,10 @@ import {
   SPOILER_TYPE,
   pluginSpoiler,
 } from 'wix-rich-content-plugin-spoiler/viewer';
-import { accordionTypeMapper, pluginAccordion } from 'wix-rich-content-plugin-accordion/viewer';
+import {
+  collapsibleListTypeMapper,
+  pluginCollapsibleList,
+} from 'wix-rich-content-plugin-collapsible-list/viewer';
 
 import {
   viewerCustomForegroundStyleFn,
@@ -91,8 +98,9 @@ import 'wix-rich-content-plugin-file-upload/dist/styles.min.css';
 import 'wix-rich-content-plugin-giphy/dist/styles.min.css';
 import 'wix-rich-content-text-selection-toolbar/dist/styles.min.css';
 import 'wix-rich-content-plugin-social-polls/dist/styles.min.css';
-import 'wix-rich-content-plugin-accordion/dist/styles.min.css';
+import 'wix-rich-content-plugin-collapsible-list/dist/styles.min.css';
 import 'wix-rich-content-plugin-table/dist/styles.min.css';
+import 'wix-rich-content-plugin-vertical-embed/dist/styles.min.css';
 
 import { RichContentViewerProps } from 'wix-rich-content-viewer';
 import {
@@ -130,7 +138,7 @@ export const typeMappers: PluginTypeMapper[] = [
   giphyTypeMapper,
   pollTypeMapper,
   verticalEmbedTypeMapper,
-  accordionTypeMapper,
+  collapsibleListTypeMapper,
 ];
 
 export const uiSettings: UISettings = {
@@ -171,8 +179,7 @@ const config: RichContentViewerProps['config'] = {
     resolveFileUrl: () =>
       new Promise(resolve =>
         setTimeout(
-          () =>
-            resolve('https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf'),
+          () => resolve('https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf'),
           1000
         )
       ),
@@ -213,7 +220,7 @@ export const viewerPlugins: ViewerPlugin[] = [
   pluginGiphy(config[GIPHY_TYPE]),
   pluginPoll(config[POLL_TYPE]),
   pluginVerticalEmbed(),
-  pluginAccordion(),
+  pluginCollapsibleList(),
   pluginHashtag(config[HASHTAG_TYPE]),
   pluginHeadersMarkdown(),
   pluginCodeBlock(),

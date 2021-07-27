@@ -11,11 +11,15 @@ const externals = [
   'wix-rich-content-editor-common',
   'wix-rich-content-common',
   'wix-rich-content-plugin-commons',
+  'wix-rich-content-ui-components',
+  'wix-rich-content-toolbars',
+  'i18next',
   'react-i18next',
   'react-flip-move',
   'image-client-api/dist/imageClientSDK',
+  '@wix/draft-js',
+  'downshift',
   /^punycode$/,
-  /^@wix\/draft-js$/,
   /^jss$/, //issue with ESM in CJS
   /^jss-plugin-camel-case$/, //issue with ESM in CJS
   /^jss-plugin-nested$/, //issue with ESM in CJS
@@ -25,6 +29,8 @@ const externals = [
   /^ricos-content$/,
   /^ricos-content\/libs\/toDraftData$/,
   /^react-player$/,
+  /^@loadable\/component$/,
+  /@babel\/runtime/,
 ];
 
 const excludedExternalsRegexArr = [

@@ -1,12 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InlineToolbarButton, indentSelectedBlocks } from 'wix-rich-content-editor-common';
+import {
+  InlineToolbarButton,
+  indentSelectedBlocks,
+  FORMATTING_BUTTONS,
+} from 'wix-rich-content-editor-common';
 import decreaseIndentPluginIcon from '../icons/decreaseIndentPluginIcon';
 import increaseIndentPluginIcon from '../icons/increaseIndentPluginIcon';
+import { INDENT_TYPE } from '../types';
 
 function indentButton(props) {
   const {
     theme,
+    helpers,
     isMobile,
     t,
     tabIndex,
@@ -17,6 +23,7 @@ function indentButton(props) {
     dataHook,
     icon,
   } = props;
+  const { INCREASE_INDENT, DECREASE_INDENT } = FORMATTING_BUTTONS;
   return (
     <InlineToolbarButton
       onClick={() => {
@@ -26,12 +33,15 @@ function indentButton(props) {
           setEditorState(newState);
         }
       }}
+      helpers={helpers}
       theme={theme}
       isMobile={isMobile}
       tooltipText={t(tooltipKey)}
       dataHook={dataHook}
+      formattingButtonName={adjustment > 0 ? INCREASE_INDENT : DECREASE_INDENT}
       tabIndex={tabIndex}
       icon={icon}
+      pluginType={INDENT_TYPE}
     />
   );
 }

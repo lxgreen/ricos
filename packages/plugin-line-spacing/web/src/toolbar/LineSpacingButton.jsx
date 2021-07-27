@@ -8,6 +8,7 @@ import {
   mergeBlockData,
   EditorState,
   ClickOutside,
+  FORMATTING_BUTTONS,
 } from 'wix-rich-content-editor-common';
 
 import LineSpacingIcon from '../icons/LineSpacingIcon';
@@ -15,6 +16,7 @@ import Modal from 'react-modal';
 import Panel from './LineSpacingPanel';
 import classNames from 'classnames';
 import styles from '../../statics/styles/styles.scss';
+import { LINE_SPACING_TYPE } from '../types';
 
 const lineHeight = 'line-height';
 const spaceBefore = 'padding-top';
@@ -25,6 +27,7 @@ export default class LineSpacingButton extends Component {
     super(props);
     this.state = { showPanel: false };
     this.styles = mergeStyles({ styles, theme: props.theme });
+    this.dataHookName = 'LineSpacingButton';
   }
 
   static getBlockSpacing(editorState) {
@@ -54,9 +57,14 @@ export default class LineSpacingButton extends Component {
 
   updateSpacing = spacing => {
     const dynamicStyles = spacing;
-    const { setEditorState, onUpdate } = this.props;
+    const { setEditorState, onUpdate, helpers } = this.props;
     const newEditorState = mergeBlockData(this.oldEditorState, { dynamicStyles });
     setEditorState(newEditorState);
+    helpers?.onToolbarButtonClick?.({
+      buttonName: FORMATTING_BUTTONS.LINE_SPACING,
+      pluginId: LINE_SPACING_TYPE,
+      value: spacing?.['line-height'],
+    });
     this.currentEditorState = newEditorState;
     onUpdate(dynamicStyles);
   };
@@ -89,6 +97,7 @@ export default class LineSpacingButton extends Component {
   render() {
     const {
       theme,
+      helpers,
       isMobile,
       t,
       tabIndex,
@@ -112,12 +121,15 @@ export default class LineSpacingButton extends Component {
         <InlineToolbarButton
           onClick={this.openPanel}
           isActive={!!isPanelOpen}
+          helpers={helpers}
           theme={theme}
           isMobile={isMobile}
           tooltipText={t('LineSpacingButton_Tooltip')}
-          dataHook={'LineSpacingButton'}
+          dataHook={this.dataHookName}
+          formattingButtonName={FORMATTING_BUTTONS.LINE_SPACING}
           tabIndex={tabIndex}
           icon={icon}
+          pluginType={LINE_SPACING_TYPE}
           ref={ref => (this.buttonRef = ref)}
         >
           <Modal
@@ -154,12 +166,15 @@ export default class LineSpacingButton extends Component {
           <InlineToolbarButton
             onClick={this.openPanel}
             isActive={!!isPanelOpen}
+            helpers={helpers}
             theme={theme}
             isMobile={isMobile}
             tooltipText={t('LineSpacingButton_Tooltip')}
-            dataHook={'LineSpacingButton'}
+            dataHook={this.dataHookName}
+            formattingButtonName={FORMATTING_BUTTONS.LINE_SPACING}
             tabIndex={tabIndex}
             icon={icon}
+            pluginType={LINE_SPACING_TYPE}
             ref={ref => (this.buttonRef = ref)}
           >
             {isPanelOpen && (

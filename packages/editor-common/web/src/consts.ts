@@ -6,7 +6,7 @@ export const COMMANDS = Object.freeze({
   ALIGN_CENTER: 'center',
   JUSTIFY: 'justify',
   NUMBERED_LIST: 'ordered-list-item',
-  BULLET_LIST: 'unordered-list-item',
+  BULLETED_LIST: 'unordered-list-item',
   CODE: 'code-block',
   BLOCKQUOTE: 'blockquote',
   BACKSPACE: 'backspace',
@@ -42,7 +42,6 @@ export {
   ModifierKey as MODIFIERS,
   ToolbarType as TOOLBARS,
   DisplayMode as DISPLAY_MODE,
-  DecorationMode as DECORATION_MODE,
 } from 'wix-rich-content-common';
 
 export const KEYS_CHARCODE = {

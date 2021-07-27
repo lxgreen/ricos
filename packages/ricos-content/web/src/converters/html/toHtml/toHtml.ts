@@ -27,7 +27,7 @@ const nodeToHtml = (node: Node): string | string[] => {
 const createHtmlAttrs = (decoration: Decoration): Record<string, string> => {
   switch (decoration.type) {
     case Decoration_Type.LINK:
-      return decoration.linkData ? { href: decoration.linkData.url } : {};
+      return decoration.linkData?.link?.url ? { href: decoration.linkData.link.url } : {};
     default:
       return {};
   }
@@ -57,7 +57,7 @@ const DECORATION_TO_HTML_TAG = {
   [Decoration_Type.LINK]: 'a',
 };
 const NODE_TO_HTML_TAG = {
-  [Node_Type.BULLET_LIST]: 'ul',
+  [Node_Type.BULLETED_LIST]: 'ul',
   [Node_Type.ORDERED_LIST]: 'ol',
   [Node_Type.LIST_ITEM]: 'li',
   [Node_Type.PARAGRAPH]: 'p',

@@ -1,8 +1,12 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 
 %button {
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
+  border: 1px solid $settings-action-color-fallback;
+  &.borderLess {
+    border: none;
+  }
 }
 
 .button_primary {
@@ -18,12 +22,12 @@
     cursor: auto;
     color: rgba(255, 255, 255, 0.6);
     background-color: rgba(0, 0, 0, 0.4);
+    border: none;
   }
 }
 
 .button_secondary {
   @extend %button;
-  border: 1px solid $settings-action-color-fallback;
   background: #fff;
   color: $settings-action-color-fallback;
   &:hover,
@@ -36,4 +40,21 @@
     color: rgba(0, 0, 0, 0.4);
     background-color: rgba(0, 0, 0, 0.4);
   }
+}
+
+.tiny {
+  font-size: 14px;
+  height: 32px;
+}
+
+.small {
+  height: 36px;
+}
+
+.medium {
+  height: 40px;
+}
+
+.large {
+  height: 48px;
 }

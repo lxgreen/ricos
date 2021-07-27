@@ -32,7 +32,9 @@ module.exports = {
           'plugins_api/LinkPreviewPlugin',
           'plugins_api/UnsupportedBlocksPlugin',
           'plugins_api/TablePlugin',
+          'plugins_api/CollapsibleListPlugin',
           'plugins_api/HeadingsPlugin',
+          'plugins_api/SpoilerPlugin',
         ],
       },
       {
@@ -44,6 +46,7 @@ module.exports = {
           'content_api/extract_media',
           'content_api/ContentBuilder',
           'content_api/content_extract',
+          'content_api/content_modify',
         ],
       },
       {

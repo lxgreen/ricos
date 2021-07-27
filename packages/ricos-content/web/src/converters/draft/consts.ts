@@ -11,17 +11,19 @@ import {
   MAP_TYPE,
   POLL_TYPE,
   VIDEO_TYPE,
-  VERTICAL_EMBED_TYPE,
+  APP_EMBED_TYPE,
   LINK_BUTTON_TYPE,
   ACTION_BUTTON_TYPE,
   IMAGE_TYPE_LEGACY,
   SPOILER_TYPE,
-  ACCORDION_TYPE,
+  COLLAPSIBLE_LIST_TYPE,
   VIDEO_TYPE_LEGACY,
   TABLE_TYPE,
   ANCHOR_TYPE,
+  EMBED_TYPE,
 } from '../../consts';
 import { Decoration_Type, Node_Type } from 'ricos-schema';
+import { fromEntries } from '../../utils';
 
 export enum BlockType {
   Unstyled = 'unstyled',
@@ -48,11 +50,11 @@ export enum HeaderLevel {
 }
 
 export const FROM_DRAFT_LIST_TYPE = {
-  [BlockType.UnorderedListItem]: Node_Type.BULLET_LIST,
+  [BlockType.UnorderedListItem]: Node_Type.BULLETED_LIST,
   [BlockType.OrderedListItem]: Node_Type.ORDERED_LIST,
 };
 
-export const TO_DRAFT_LIST_TYPE = Object.fromEntries(
+export const TO_DRAFT_LIST_TYPE = fromEntries(
   Object.entries(FROM_DRAFT_LIST_TYPE).map(([key, value]) => [value, key])
 );
 
@@ -66,20 +68,21 @@ export const TO_RICOS_NODE_TYPE = {
   [HTML_TYPE]: Node_Type.HTML,
   [IMAGE_TYPE]: Node_Type.IMAGE,
   [IMAGE_TYPE_LEGACY]: Node_Type.IMAGE,
-  [ACCORDION_TYPE]: Node_Type.ACCORDION,
+  [COLLAPSIBLE_LIST_TYPE]: Node_Type.COLLAPSIBLE_LIST,
   [LINK_PREVIEW_TYPE]: Node_Type.LINK_PREVIEW,
   [MAP_TYPE]: Node_Type.MAP,
-  [VERTICAL_EMBED_TYPE]: Node_Type.VERTICAL_EMBED,
+  [APP_EMBED_TYPE]: Node_Type.APP_EMBED,
   [VIDEO_TYPE]: Node_Type.VIDEO,
   [VIDEO_TYPE_LEGACY]: Node_Type.VIDEO,
   [POLL_TYPE]: Node_Type.POLL,
   [TABLE_TYPE]: Node_Type.TABLE,
+  [EMBED_TYPE]: Node_Type.EMBED,
 };
 
 const DUPLICATE_KEYS = [IMAGE_TYPE_LEGACY, VIDEO_TYPE_LEGACY];
 
 // Node_Type.IMAGE: IMAGE_TYPE
-export const FROM_RICOS_ENTITY_TYPE = Object.fromEntries(
+export const FROM_RICOS_ENTITY_TYPE = fromEntries(
   Object.entries(TO_RICOS_NODE_TYPE)
     .filter(([key]) => !DUPLICATE_KEYS.includes(key))
     .map(([key, value]) => [value, key])
@@ -101,7 +104,7 @@ export const TO_RICOS_PLUGIN_TYPE = {
 };
 
 // Decoration_Type.BOLD: BOLD
-export const FROM_RICOS_DECORATION_TYPE = Object.fromEntries(
+export const FROM_RICOS_DECORATION_TYPE = fromEntries(
   Object.entries(TO_RICOS_DECORATION_TYPE).map(([key, value]) => [value, key])
 );
 
@@ -120,18 +123,19 @@ export const RICOS_NODE_TYPE_TO_DATA_FIELD = {
   [Node_Type.GIPHY]: 'giphyData',
   [Node_Type.HTML]: 'htmlData',
   [Node_Type.IMAGE]: 'imageData',
-  [Node_Type.ACCORDION]: 'accordionData',
+  [Node_Type.COLLAPSIBLE_LIST]: 'collapsibleListData',
   [Node_Type.LINK_PREVIEW]: 'linkPreviewData',
   [Node_Type.MAP]: 'mapData',
-  [Node_Type.VERTICAL_EMBED]: 'verticalEmbedData',
+  [Node_Type.APP_EMBED]: 'appEmbedData',
   [Node_Type.VIDEO]: 'videoData',
   [Node_Type.POLL]: 'pollData',
   [Node_Type.TABLE]: 'tableData',
   [Node_Type.PARAGRAPH]: 'paragraphData',
   [Node_Type.LIST_ITEM]: 'paragraphData',
   [Node_Type.HEADING]: 'headingData',
-  [Node_Type.CODEBLOCK]: 'codeData',
+  [Node_Type.CODE_BLOCK]: 'codeBlockData',
   [Node_Type.BLOCKQUOTE]: 'paragraphData',
+  [Node_Type.EMBED]: 'embedData',
 } as const;
 
 export const DRAFT_BLOCK_TYPE_TO_DATA_FIELD = {
@@ -144,12 +148,12 @@ export const DRAFT_BLOCK_TYPE_TO_DATA_FIELD = {
   [BlockType.HeaderFour]: 'headingData',
   [BlockType.HeaderFive]: 'headingData',
   [BlockType.HeaderSix]: 'headingData',
-  [BlockType.CodeBlock]: 'codeData',
+  [BlockType.CodeBlock]: 'codeBlockData',
   [BlockType.Blockquote]: 'paragraphData',
 };
 
-// Node_Type.IMAGE: imageData
-const DRAFT_PLUGIN_TYPE_TO_DATA_FIELD = Object.fromEntries(
+// IMAGE_TYPE: imageData
+const DRAFT_PLUGIN_TYPE_TO_DATA_FIELD = fromEntries(
   Object.entries(TO_RICOS_NODE_TYPE).map(([key, value]) => [
     key,
     RICOS_NODE_TYPE_TO_DATA_FIELD[value],

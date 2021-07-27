@@ -5,7 +5,6 @@ import { get, includes, isEqual, isFunction } from 'lodash';
 import {
   mergeStyles,
   validate,
-  getImageSrc,
   anchorScroll,
   addAnchorTagToUrl,
   GlobalContext,
@@ -14,8 +13,12 @@ import {
   SEOSettings,
   CustomAnchorScroll,
 } from 'wix-rich-content-common';
+
 import { Image, LoadingBehaviorOptions, HoverEffectOptions } from 'wix-ui-tpa/Image';
 // eslint-disable-next-line max-len
+
+import { getImageSrc } from 'wix-rich-content-common/libs/imageUtils';
+
 import pluginImageSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-image.schema.json';
 import { DEFAULTS } from './consts';
 import styles from '../statics/styles/image-viewer.rtlignore.scss';
@@ -47,6 +50,7 @@ interface ImageViewerProps {
   setComponentUrl: (highres?: string) => unknown;
   seoMode: SEOSettings;
   blockKey: string;
+  isLoading: boolean;
   customAnchorScroll?: CustomAnchorScroll;
 }
 
@@ -260,8 +264,10 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
     const { componentData, className, settings, setComponentUrl, helpers } = this.props;
     const { fallbackImageSrc } = this.state;
     const data = componentData || DEFAULTS;
-    const { metadata = {} } = componentData;
-
+    let { metadata } = componentData;
+    if (!metadata) {
+      metadata = {};
+    }
     const itemClassName = classNames(this.styles.imageWrapper, className, {
       [this.styles.pointer]: this.hasExpand() as boolean,
     });

@@ -36,7 +36,7 @@ import 'wix-rich-content-plugin-gallery/dist/styles.min.css';
 
 /* Viewer */
 import { RicosViewer } from 'ricos-viewer';
-import { pluginGallery } from 'wix-rich-content-plugin-gallery/dist/module.viewer';
+import { pluginGallery } from 'wix-rich-content-plugin-gallery/viewer';
 import 'wix-rich-content-plugin-gallery/dist/styles.min.css';
 <RicosViewer plugins={[pluginGallery(GalleryConfig)]} />;
 ```
@@ -122,7 +122,6 @@ Default value:
          size: 'content',
          alignment: 'center',
          spacing: 0,
-         disableExpand: false,
        },
 ```
 

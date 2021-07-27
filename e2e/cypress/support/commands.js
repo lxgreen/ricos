@@ -9,17 +9,16 @@ import {
   HTML_PLUGIN,
   PLUGIN_COMPONENT,
   STATIC_TOOLBAR_BUTTONS,
-  SETTINGS_PANEL,
+  ACTION_BUTTONS,
   TOOLBARS,
   COLOR_PICKER,
-  ACCORDION_SETTINGS,
+  COLLAPSIBLE_LIST_SETTINGS,
 } from '../dataHooks';
 import { defaultConfig } from '../testAppConfig';
 import { fireEvent } from '@testing-library/react';
 import RicosDriver from '../../../packages/ricos-driver/web/src/RicosDriver';
-import { ONCHANGE_DEBOUNCE_TIME } from '../../../packages/ricos-editor/web/src/utils/editorUtils';
 import { merge } from 'lodash';
-
+const ONCHANGE_DEBOUNCE_TIME = 200;
 // Viewport size commands
 const resizeForDesktop = () => cy.viewport('macbook-15');
 const resizeForMobile = () => cy.viewport('iphone-6');
@@ -180,12 +179,12 @@ Cypress.Commands.add('getEditor', () => {
   cy.get(RicosDriver.editor.contentEditable);
 });
 
-Cypress.Commands.add('getAccordion', () => {
-  cy.openPluginToolbar(PLUGIN_COMPONENT.ACCORDION);
+Cypress.Commands.add('getCollapsibleList', () => {
+  cy.openPluginToolbar(PLUGIN_COMPONENT.COLLAPSIBLE_LIST);
 });
 
-Cypress.Commands.add('focusAccordion', idx => {
-  cy.getAccordion()
+Cypress.Commands.add('focusCollapsibleList', idx => {
+  cy.getCollapsibleList()
     .get(RicosDriver.editor.contentEditable)
     .eq(idx)
     .focus();
@@ -272,13 +271,17 @@ Cypress.Commands.add('moveCursorToEnd', () => {
   cy.focusEditor().type('{selectall}{downarrow}');
 });
 
-Cypress.Commands.add('setTextStyle', (buttonSelector, selection) => {
+Cypress.Commands.add('getInlineButton', (buttonSelector, selection) => {
   if (selection) {
     cy.setEditorSelection(selection[0], selection[1]);
   }
   cy.get(
     `[data-hook=${isMobile ? 'mobileToolbar' : 'inlineToolbar'}] [data-hook=${buttonSelector}]`
-  ).click({ force: true });
+  );
+});
+
+Cypress.Commands.add('setTextStyle', (buttonSelector, selection) => {
+  cy.getInlineButton(buttonSelector, selection).click({ force: true });
 });
 
 Cypress.Commands.add('openCustomColorModal', () => {
@@ -433,13 +436,13 @@ Cypress.Commands.add('addImageTitle', () => {
   cy.get(`[data-hook=${IMAGE_SETTINGS.CAPTION}]`)
     .click()
     .type('Title')
-    .get(`[data-hook=${SETTINGS_PANEL.DONE}]`)
+    .get(`[data-hook=${ACTION_BUTTONS.SAVE}]`)
     .click();
 });
 
 Cypress.Commands.add('editImageTitle', () => {
   cy.get(`[data-hook=${PLUGIN_COMPONENT.IMAGE}]:first`)
-    .find('input')
+    .find('textarea')
     .click()
     .type(' - In Plugin Editing')
     .blur();
@@ -449,14 +452,14 @@ Cypress.Commands.add('deleteImageTitle', () => {
   cy.get(`[data-hook=${IMAGE_SETTINGS.CAPTION}]`)
     .click()
     .clear()
-    .get(`[data-hook=${SETTINGS_PANEL.DONE}]`)
+    .get(`[data-hook=${ACTION_BUTTONS.SAVE}]`)
     .click();
 });
 
 Cypress.Commands.add('addGalleryImageTitle', (pluginToClick = null) => {
   cy.get(`[data-hook=${GALLERY_SETTINGS.TITLE}]`).type('Title');
-  cy.get(`[data-hook=${SETTINGS_PANEL.DONE}]:first`).click({ multiple: true });
-  cy.get(`[data-hook=${SETTINGS_PANEL.DONE}]`).click();
+  cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]:first`).click({ multiple: true });
+  cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
   pluginToClick &&
     cy
       .get(`[data-hook=${pluginToClick}]:first`)
@@ -538,8 +541,8 @@ Cypress.Commands.add('redo', () => {
   cy.wait(100);
 });
 
-Cypress.Commands.add('addAccordionPair', () => {
-  cy.get(`[data-hook*=${ACCORDION_SETTINGS.NEW_PAIR}]`).click({ force: true });
+Cypress.Commands.add('addCollapsibleListPair', () => {
+  cy.get(`[data-hook*=${COLLAPSIBLE_LIST_SETTINGS.NEW_PAIR}]`).click({ force: true });
 });
 
 Cypress.Commands.add('openVideoUploadModal', () => {
@@ -562,7 +565,7 @@ Cypress.Commands.add('addSoundCloud', () => {
   cy.get(`[data-hook*=${'soundCloudUploadModalInput'}]`).type(
     'https://soundcloud.com/nlechoppa/camelot'
   );
-  cy.get(`[data-hook*=${SETTINGS_PANEL.DONE}]`).click({ force: true });
+  cy.get(`[data-hook*=${ACTION_BUTTONS.SAVE}]`).click({ force: true });
   cy.get(`[data-hook=${PLUGIN_COMPONENT.SOUND_CLOUD}]:first`)
     .parent()
     .click({ force: true });
@@ -570,7 +573,7 @@ Cypress.Commands.add('addSoundCloud', () => {
 
 Cypress.Commands.add('addSocialEmbed', url => {
   cy.get(`[data-hook*=${'socialEmbedUploadModalInput'}]`).type(url);
-  cy.get(`[data-hook*=${SETTINGS_PANEL.DONE}]`).click();
+  cy.get(`[data-hook*=${ACTION_BUTTONS.SAVE}]`).click();
 });
 
 Cypress.Commands.add('addVideoFromURL', () => {
@@ -669,11 +672,11 @@ Cypress.Commands.add('insertLinkAndEnter', url => {
     .wait(200);
 });
 
-Cypress.Commands.add('insertAccordion', () => {
+Cypress.Commands.add('insertCollapsibleList', () => {
   cy.getEditor()
     .first()
     .focus()
-    .get(`[data-hook*=${'footerToolbar'}] [data-hook*=${'Accordion_InsertButton'}]`)
+    .get(`[data-hook*=${'footerToolbar'}] [data-hook*=${'CollapsibleList_InsertButton'}]`)
     .click({ force: true });
 });
 

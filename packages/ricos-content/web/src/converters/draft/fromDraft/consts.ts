@@ -10,10 +10,11 @@ import {
   IMAGE_TYPE_LEGACY,
   LINK_PREVIEW_TYPE,
   MAP_TYPE,
-  VERTICAL_EMBED_TYPE,
+  APP_EMBED_TYPE,
   VIDEO_TYPE,
   VIDEO_TYPE_LEGACY,
   POLL_TYPE,
+  EMBED_TYPE,
 } from '../../../consts';
 import {
   ButtonData,
@@ -24,10 +25,11 @@ import {
   HTMLData,
   LinkPreviewData,
   MapData,
-  VerticalEmbedData,
+  AppEmbedData,
   VideoData,
   PollData,
   ImageData,
+  EmbedData,
 } from 'ricos-schema';
 
 export const TO_RICOS_DATA = {
@@ -42,8 +44,9 @@ export const TO_RICOS_DATA = {
   [IMAGE_TYPE_LEGACY]: ImageData,
   [LINK_PREVIEW_TYPE]: LinkPreviewData,
   [MAP_TYPE]: MapData,
-  [VERTICAL_EMBED_TYPE]: VerticalEmbedData,
+  [APP_EMBED_TYPE]: AppEmbedData,
   [VIDEO_TYPE]: VideoData,
   [VIDEO_TYPE_LEGACY]: VideoData,
   [POLL_TYPE]: PollData,
+  [EMBED_TYPE]: EmbedData,
 };

@@ -41,14 +41,16 @@ function isChrome() {
 export default function createJustificationFixDecorator(): DraftDecorator {
   const isTextJustified = contentBlock => getTextAlignment(contentBlock) === 'justify';
   const strategy = (contentBlock, callback, contentState) => {
-    if (!isChrome() && isTextJustified(contentBlock)) {
+    if (!isSSR() && !isChrome() && isTextJustified(contentBlock)) {
       const regex = /\s[^\s]/g;
       const str = contentBlock.getText();
-      Array.from(str.matchAll(regex), (match: { index: number }) => match.index).forEach(i => {
-        if (!isInLink(i, contentBlock, contentState)) {
-          callback(i, i + 1);
+      let match;
+      // eslint-disable-next-line fp/no-loops
+      while ((match = regex.exec(str)) !== null) {
+        if (!isInLink(match.index, contentBlock, contentState)) {
+          callback(match.index, match.index + 1);
         }
-      });
+      }
     }
   };
 

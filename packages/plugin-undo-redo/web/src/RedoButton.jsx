@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import redoIcon from './icons/RedoIcon';
-import { InlineToolbarButton, redo } from 'wix-rich-content-editor-common';
+import { InlineToolbarButton, redo, FORMATTING_BUTTONS } from 'wix-rich-content-editor-common';
+import { UNDO_REDO_TYPE } from './types';
 
 const RedoButton = props => {
   const {
     isMobile,
     theme = {},
+    helpers,
     children,
     className,
     config,
@@ -33,10 +35,13 @@ const RedoButton = props => {
         onClick={onClick}
         isActive={false}
         theme={theme}
+        helpers={helpers}
         isMobile={isMobile}
         tooltipText={t('RedoButton_Tooltip')}
         dataHook={'redoButton'}
+        formattingButtonName={FORMATTING_BUTTONS.REDO}
         tabindex={tabIndex}
+        pluginType={UNDO_REDO_TYPE}
         icon={redoIcon}
       >
         {children}
@@ -59,6 +64,7 @@ const RedoButton = props => {
 RedoButton.propTypes = {
   children: PropTypes.node,
   theme: PropTypes.any,
+  helpers: PropTypes.object,
   setEditorState: PropTypes.func,
   isMobile: PropTypes.bool,
   className: PropTypes.string,

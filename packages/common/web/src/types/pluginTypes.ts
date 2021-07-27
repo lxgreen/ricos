@@ -11,8 +11,6 @@ import {
   TextButtonMapper,
   GetEditorState,
   SetEditorState,
-  AnchorTarget,
-  RelValue,
   ThemeGeneratorFunction,
   RichContentTheme,
   ThemeData,
@@ -66,7 +64,7 @@ import {
   VIDEO_TYPE_LEGACY,
   RICOS_POLL_TYPE,
   POLL_TYPE,
-  ACCORDION_TYPE,
+  COLLAPSIBLE_LIST_TYPE,
   TABLE_TYPE,
   UNSUPPORTED_BLOCKS_TYPE,
   RICOS_LINK_TYPE,
@@ -86,6 +84,7 @@ import {
   Node_Type,
   Decoration_Type,
 } from 'ricos-schema';
+import { NodeConfig, ExtensionConfig, MarkConfig } from '@tiptap/core';
 export { Node_Type, Decoration_Type, LinkData };
 
 export type CreatePluginData<PluginData> = (
@@ -117,30 +116,6 @@ export interface CreatePluginsDataMap {
   [LINK_TYPE]?: CreatePluginData<LinkData>;
   [RICOS_MENTION_TYPE]?: CreatePluginData<MentionData>;
   [MENTION_TYPE]?: CreatePluginData<MentionData>;
-}
-
-export interface PluginsDataMap {
-  [RICOS_DIVIDER_TYPE]?: DividerData;
-  [DIVIDER_TYPE]?: any;
-  [RICOS_GIPHY_TYPE]?: GiphyData;
-  [GIPHY_TYPE]?: any;
-  [RICOS_HTML_TYPE]?: HTMLData;
-  [HTML_TYPE]?: any;
-  [RICOS_GALLERY_TYPE]?: GalleryData;
-  [GALLERY_TYPE]?: any;
-  [RICOS_POLL_TYPE]?: PollData;
-  [POLL_TYPE]?: any;
-  [RICOS_VIDEO_TYPE]?: VideoData;
-  [VIDEO_TYPE]?: any;
-  [RICOS_FILE_TYPE]?: FileData;
-  [FILE_UPLOAD_TYPE]?: any;
-  [RICOS_IMAGE_TYPE]?: ImageData;
-  [IMAGE_TYPE]?: any;
-}
-
-export interface DecorationsDataMap {
-  [RICOS_LINK_TYPE]?: LinkData;
-  [RICOS_MENTION_TYPE]?: MentionData;
 }
 
 import { EditorPlugin as DraftEditorPlugin, PluginFunctions } from 'draft-js-plugins-editor';
@@ -192,7 +167,7 @@ export type PluginType =
   | typeof VIDEO_TYPE
   | typeof VIDEO_TYPE_LEGACY
   | typeof POLL_TYPE
-  | typeof ACCORDION_TYPE
+  | typeof COLLAPSIBLE_LIST_TYPE
   | typeof TABLE_TYPE
   | typeof UNSUPPORTED_BLOCKS_TYPE;
 
@@ -252,7 +227,14 @@ export interface EditorPlugin<PluginConfig extends EditorPluginConfig = Record<s
   createPlugin?: CreatePluginFunction<PluginConfig>;
   ModalsMap?: ModalsMap;
   createPluginData?: CreatePluginData<PluginConfig>;
+  tiptapExtension?: () => CreateTiptapExtension<NodeConfig | MarkConfig | ExtensionConfig>;
 }
+
+export type CreateTiptapExtension<T> = (obj: {
+  mergeAttributes;
+  ReactNodeViewRenderer;
+  BaseExtensionComponentHOC;
+}) => T;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface ViewerPlugin<PluginConfig = Record<string, any>> extends BasePluginConfig {
@@ -326,8 +308,11 @@ export interface CreatePluginConfig<PluginConfig extends EditorPluginConfig = Re
 }
 
 export interface LinkPanelSettings {
-  blankTargetToggleVisibilityFn?: (anchorTarget?: AnchorTarget) => boolean;
-  nofollowRelToggleVisibilityFn?: (relValue?: RelValue) => boolean;
+  blankTargetToggleVisibilityFn?: () => boolean;
+  nofollowRelToggleVisibilityFn?: () => boolean;
+  showNewTabCheckbox?: boolean;
+  showNoFollowCheckbox?: boolean;
+  showSponsoredCheckbox?: boolean;
   placeholder?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dropDown?: any;

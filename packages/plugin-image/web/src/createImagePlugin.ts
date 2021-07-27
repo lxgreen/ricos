@@ -3,6 +3,7 @@ import {
   createBasePlugin,
   PLUGIN_DECORATION_PROPS,
   PLUGIN_DECORATIONS,
+  createBaseMediaPlugin,
 } from 'wix-rich-content-plugin-commons';
 import { Component, DEFAULTS } from './image-component';
 import { IMAGE_TYPE, IMAGE_TYPE_LEGACY, ImagePluginEditorConfig } from './types';
@@ -31,11 +32,11 @@ const createImagePlugin: CreatePluginFunction<ImagePluginEditorConfig> = config 
     isMobile,
     innerModal,
     spoilerWrapper,
+    experiments,
     ...rest
   } = config;
-
   return createBasePlugin({
-    component: Component,
+    component: createBaseMediaPlugin(Component),
     type: IMAGE_TYPE,
     legacyType: IMAGE_TYPE_LEGACY,
     pluginDecorationProps: (props, componentData) => {
@@ -85,6 +86,7 @@ const createImagePlugin: CreatePluginFunction<ImagePluginEditorConfig> = config 
       uiSettings,
       isMobile,
       settings,
+      experiments,
     }),
     helpers,
     innerModal,

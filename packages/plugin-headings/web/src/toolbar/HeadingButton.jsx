@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { mergeStyles } from 'wix-rich-content-common';
+import { HEADINGS_DROPDOWN_TYPE, mergeStyles } from 'wix-rich-content-common';
 import { HEADING_TYPE_TO_ELEMENT } from '../constants';
 import {
   ClickOutside,
   InlineToolbarButton,
   EditorState,
   RichUtils,
+  hasBlockType,
+  FORMATTING_BUTTONS,
 } from 'wix-rich-content-editor-common';
 import Modal from 'react-modal';
 import HeadingsDropDownPanel from './HeadingPanel';
@@ -21,6 +23,7 @@ export default class HeadingButton extends Component {
       currentHeading: 'P',
     };
     this.styles = mergeStyles({ styles, theme: props.theme });
+    this.dataHookText = 'headingsDropdownButton';
   }
 
   componentWillReceiveProps() {
@@ -52,9 +55,18 @@ export default class HeadingButton extends Component {
   };
 
   updateHeading = (type, element) => {
-    const { setEditorState, getEditorState } = this.props;
-    const newEditorState = RichUtils.toggleBlockType(getEditorState(), type);
+    const { setEditorState, getEditorState, helpers } = this.props;
+    const editorState = getEditorState();
+    const isAddEvent = !hasBlockType(type, editorState);
+    const newEditorState = RichUtils.toggleBlockType(editorState, type);
+    helpers?.onToolbarButtonClick?.({
+      pluginId: HEADINGS_DROPDOWN_TYPE,
+      buttonName: FORMATTING_BUTTONS.HEADINGS,
+      value: type,
+    });
+    isAddEvent && helpers?.onPluginAdd?.(type, 'FormattingToolbar');
     setEditorState(EditorState.forceSelection(newEditorState, this.selection));
+    isAddEvent && helpers?.onPluginAddSuccess?.(type, 'FormattingToolbar');
     this.currentEditorState = newEditorState;
     this.setState({ currentHeading: element });
   };
@@ -92,9 +104,17 @@ export default class HeadingButton extends Component {
   }
 
   render() {
-    const { theme, isMobile, t, tabIndex, toolbarName, customHeadings, inlinePopups } = this.props;
+    const {
+      theme,
+      helpers,
+      isMobile,
+      t,
+      tabIndex,
+      toolbarName,
+      customHeadings,
+      inlinePopups,
+    } = this.props;
     const tooltipText = t('FormattingToolbar_TextStyleButton_Tooltip');
-    const dataHookText = 'headingsDropdownButton';
     const { isPanelOpen, panelTop, panelLeft, currentHeading } = this.state;
     const { styles } = this;
     const modalStyle = isMobile
@@ -109,13 +129,16 @@ export default class HeadingButton extends Component {
         <InlineToolbarButton
           onClick={this.openPanel}
           isActive={isPanelOpen}
+          helpers={helpers}
           theme={theme}
           isMobile={isMobile}
           tooltipText={tooltipText}
-          dataHook={dataHookText}
+          dataHook={this.dataHookText}
+          formattingButtonName={FORMATTING_BUTTONS.HEADINGS}
           tabIndex={tabIndex}
           buttonContent={buttonContent}
           showArrowIcon
+          pluginType={HEADINGS_DROPDOWN_TYPE}
           ref={ref => (this.buttonRef = ref)}
         >
           <Modal
@@ -151,13 +174,16 @@ export default class HeadingButton extends Component {
           <InlineToolbarButton
             onClick={this.openPanel}
             isActive={isPanelOpen}
+            helpers={helpers}
             theme={theme}
             isMobile={isMobile}
             tooltipText={tooltipText}
-            dataHook={dataHookText}
+            dataHook={this.dataHookText}
+            formattingButtonName={FORMATTING_BUTTONS.HEADINGS}
             tabIndex={tabIndex}
             buttonContent={buttonContent}
             showArrowIcon
+            pluginType={HEADINGS_DROPDOWN_TYPE}
             ref={ref => (this.buttonRef = ref)}
           >
             {isPanelOpen && (

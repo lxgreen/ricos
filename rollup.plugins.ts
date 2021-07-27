@@ -21,6 +21,8 @@ import { Plugin } from 'rollup';
 import libsPackageJsonGeneratorPlugin from './scripts/rollupPlugin-libsPackageJsonGenerator';
 import { writeFileSync, readFileSync } from 'fs';
 import stylable from '@stylable/rollup-plugin';
+import { createFilter } from '@rollup/pluginutils';
+import { DEFAULT_EXTENSIONS } from '@babel/core';
 
 const IS_DEV_ENV = process.env.NODE_ENV === 'development';
 
@@ -77,9 +79,14 @@ const copyAfterBundleWritten = (): Plugin => {
 };
 
 const babel = (): Plugin => {
+  const include = ['packages/**/src/**', 'packages/**/lib/**', '**/@tiptap/**'];
+  const options = {
+    resolve: pathResolve(__dirname),
+  };
   return babelPlugin({
     configFile: pathResolve(__dirname, 'babel.config.js'),
-    include: ['src/**', 'lib/**'],
+    filter: createFilter(include, undefined, options),
+    extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
     babelHelpers: 'runtime',
   });
 };
@@ -105,6 +112,7 @@ const typescript = (): Plugin => {
         'statics/**/*.scss',
         'package.json',
         'lib',
+        'node_modules/@tiptap',
       ].map(path => absPath(path)),
       exclude: ['node_modules', '**/*.spec.*'].map(path => absPath(path)),
     },
@@ -153,13 +161,21 @@ const postcss = (shouldExtract: boolean): Plugin => {
 
 const replace = (): Plugin => {
   return replacePlugin({
-    'process.env.NODE_ENV': JSON.stringify('production'),
+    preventAssignment: true,
+    values: {
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    },
   });
 };
 
 const uglify = (): Plugin => {
   return terser({
     mangle: false,
+    output: {
+      comments: (node, comment) => {
+        return /@preserve|@license|@cc_on|webpackChunkName/i.test(comment.value);
+      },
+    },
   });
 };
 
@@ -197,10 +213,10 @@ let _plugins: Plugin[] = [
   }),
   resolveAlias(),
   resolve(),
+  typescript(),
   babel(),
   commonjsPlugin(),
   json(),
-  typescript(),
 ];
 
 if (!IS_DEV_ENV) {

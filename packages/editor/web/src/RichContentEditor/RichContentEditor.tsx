@@ -22,7 +22,6 @@ import {
   getBlockInfo,
   getFocusedBlockKey,
   createCalcContentDiff,
-  getEditorContentSummary,
   getBlockType,
   COMMANDS,
   MODIFIERS,
@@ -73,6 +72,7 @@ import {
   PluginEventParams,
   OnPluginAction,
   IMAGE_TYPE,
+  EditorCommands,
 } from 'wix-rich-content-common';
 import styles from '../../statics/styles/rich-content-editor.scss';
 import draftStyles from '../../statics/styles/draft.rtlignore.scss';
@@ -80,7 +80,7 @@ import 'wix-rich-content-common/dist/statics/styles/draftDefault.rtlignore.scss'
 import InnerRCE from './InnerRCE';
 import { deprecateHelpers } from 'wix-rich-content-common/libs/deprecateHelpers';
 import InnerModal from './InnerModal';
-import { onCutAndCopy } from './utils/onCutAndCopy';
+import { onCut, onCopy } from './utils/onCutAndCopy';
 import preventWixFocusRingAccessibility from './preventWixFocusRingAccessibility';
 import { ErrorToast } from './Components';
 
@@ -137,6 +137,7 @@ export interface RichContentEditorProps extends PartialDraftEditorProps {
   customAnchorScroll?: CustomAnchorScroll;
   style?: CSSProperties;
   locale: string;
+  localeContent?: string;
   shouldRenderOptimizedImages?: boolean;
   onChange?(editorState: EditorState): void;
   onAtomicBlockFocus?: onAtomicBlockFocus;
@@ -222,7 +223,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
 
   innerRCECustomStyleFn;
 
-  EditorCommands!: ReturnType<typeof createEditorCommands>;
+  EditorCommands!: EditorCommands;
 
   getSelectedText!: (editorState: EditorState) => string;
 
@@ -238,17 +239,12 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     plugins: [],
   };
 
-  static publish = async (
-    postId: number,
-    editorState: EditorState,
-    callBack: (...args) => boolean = () => true
-  ) => {
-    const postSummary = getEditorContentSummary(editorState || {});
-    callBack({ postId, ...postSummary });
-  };
-
   static getDerivedStateFromError(error: string) {
     return { error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error({ error, errorInfo });
   }
 
   constructor(props: RichContentEditorProps) {
@@ -264,7 +260,6 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       undoRedoStackChanged: false,
     };
     this.refId = Math.floor(Math.random() * 9999);
-
     this.commonPubsub = simplePubsub();
     this.handleCallbacks = this.createContentMutationEvents(
       this.state.editorState,
@@ -321,7 +316,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
   preloadLibs() {
     if (this.props.maxTextLength && this.props.maxTextLength > 0) {
       import(
-        /* webpackChunkName: getSelectedText */ 'wix-rich-content-editor-common/libs/getSelectedText'
+        /* webpackChunkName: "getSelectedText" */ 'wix-rich-content-editor-common/libs/getSelectedText'
       ).then(({ getSelectedText }) => (this.getSelectedText = getSelectedText));
     }
   }
@@ -332,7 +327,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     }
     if (/debug/i.test(window.location.search) && !window.__RICOS_INFO__) {
       import(
-        /* webpackChunkName: debugging-info */
+        /* webpackChunkName: "debugging-info" */
         'wix-rich-content-common/libs/debugging-info'
       ).then(({ reportDebuggingInfo }) => {
         reportDebuggingInfo({
@@ -384,6 +379,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       theme,
       t,
       locale,
+      localeContent,
       anchorTarget,
       relValue,
       customAnchorScroll,
@@ -404,6 +400,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       theme: theme || {},
       t,
       locale,
+      localeContent,
       anchorTarget,
       relValue,
       customAnchorScroll,
@@ -458,6 +455,10 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
         onPluginAction,
         onPluginChange: (pluginId: string, changeObj) =>
           helpers.onPluginChange?.(pluginId, changeObj, Version.currentVersion),
+        onToolbarButtonClick: args =>
+          helpers.onToolbarButtonClick?.({ ...args, version: Version.currentVersion }),
+        onInlineToolbarOpen: args =>
+          helpers.onInlineToolbarOpen?.({ ...args, version: Version.currentVersion }),
       },
       config,
       isMobile,
@@ -514,6 +515,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     const { createPluginsDataMap = {} } = this.props;
     this.EditorCommands = createEditorCommands(
       createPluginsDataMap,
+      this.plugins,
       this.getEditorState,
       this.updateEditorState
     );
@@ -858,15 +860,6 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     pubsub: this.commonPubsub,
   });
 
-  // TODO: remove deprecated postId once getContent(postId) is removed (9.0.0)
-  publish = async (postId?: string) => {
-    if (!this.props.helpers?.onPublish) {
-      return;
-    }
-    const { pluginsCount, pluginsDetails } = getEditorContentSummary(this.state.editorState) || {};
-    this.props.helpers.onPublish(postId, pluginsCount, pluginsDetails, Version.currentVersion);
-  };
-
   setEditor = (ref: Editor) => (this.editor = get(ref, 'editor', ref));
 
   inPluginEditingMode = false;
@@ -1029,9 +1022,9 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
         onBlur={onBlur}
         onFocus={onFocus}
         // @ts-ignore
-        onCut={onCutAndCopy}
+        onCut={onCut}
         // @ts-ignore
-        onCopy={onCutAndCopy}
+        onCopy={onCopy}
         textAlignment={textAlignment}
         readOnly={readOnly || this.state.readOnly}
         {...(this.props.experiments?.pastedFilesSupport?.enabled && {
@@ -1174,6 +1167,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
         [styles.desktop]: !isMobile,
         ...themeDesktopStyle,
       });
+
       return (
         <GlobalContext.Provider value={this.state.context}>
           <Measure bounds onResize={this.onResize}>
@@ -1195,6 +1189,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
                   style={editorStyle}
                 >
                   {this.renderAccessibilityListener()}
+
                   {this.renderEditor()}
                   {showToolbars && this.renderToolbars()}
                   {this.renderInlineModals()}

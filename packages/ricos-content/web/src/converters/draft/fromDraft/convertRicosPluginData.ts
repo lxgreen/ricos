@@ -10,9 +10,11 @@ import {
   LINK_PREVIEW_TYPE,
   MENTION_TYPE,
   POLL_TYPE,
-  VERTICAL_EMBED_TYPE,
+  APP_EMBED_TYPE,
   VIDEO_TYPE,
   MAP_TYPE,
+  EMBED_TYPE,
+  LINK_TYPE,
 } from '../../../consts';
 import {
   PluginContainerData_Spoiler,
@@ -20,7 +22,6 @@ import {
   PluginContainerData_Width_Type,
   ButtonData_Type,
   Link,
-  Link_Target,
 } from 'ricos-schema';
 import { TO_RICOS_DATA } from './consts';
 import {
@@ -29,8 +30,9 @@ import {
   ImageComponentData,
   VideoComponentData,
 } from '../../../types';
+import { createLink } from '../../nodeUtils';
 
-export const convertBlockDataToRicos = (blockType: string, data) => {
+export const convertBlockDataToRicos = (type: string, data) => {
   const newData = cloneDeep(data);
   const converters = {
     [VIDEO_TYPE]: convertVideoData,
@@ -38,14 +40,20 @@ export const convertBlockDataToRicos = (blockType: string, data) => {
     [FILE_UPLOAD_TYPE]: convertFileData,
     [IMAGE_TYPE]: convertImageData,
     [POLL_TYPE]: convertPollData,
-    [VERTICAL_EMBED_TYPE]: convertVerticalEmbedData,
+    [APP_EMBED_TYPE]: convertAppEmbedData,
     [LINK_PREVIEW_TYPE]: convertLinkPreviewData,
-    [MENTION_TYPE]: convertMention,
+    [MENTION_TYPE]: convertMentionData,
     [LINK_BUTTON_TYPE]: convertButtonData,
     [ACTION_BUTTON_TYPE]: convertButtonData,
     [HTML_TYPE]: convertHTMLData,
     [MAP_TYPE]: convertMapData,
+    [EMBED_TYPE]: convertEmbedData,
+    [LINK_TYPE]: convertLinkData,
   };
+  let blockType = type;
+  if (type === LINK_PREVIEW_TYPE && data.html) {
+    blockType = EMBED_TYPE;
+  }
   if (newData.config && blockType !== DIVIDER_TYPE) {
     convertContainerData(newData);
   }
@@ -62,11 +70,12 @@ export const convertBlockDataToRicos = (blockType: string, data) => {
 
 const convertContainerData = (data: { config?: ComponentData['config']; containerData }) => {
   const { size, alignment, width, spoiler, height } = data.config || {};
-  let newSpoiler: PluginContainerData_Spoiler | undefined;
-  if (spoiler?.enabled) {
-    const { description, buttonContent } = spoiler;
-    newSpoiler = { description, buttonText: buttonContent };
-  }
+  const { enabled, description, buttonContent } = spoiler || {};
+  const newSpoiler: PluginContainerData_Spoiler | undefined = spoiler && {
+    enabled: enabled || false,
+    description,
+    buttonText: buttonContent,
+  };
   data.containerData = {
     alignment: alignment && kebabToConstantCase(alignment),
     spoiler: newSpoiler,
@@ -79,13 +88,15 @@ const convertContainerData = (data: { config?: ComponentData['config']; containe
 
 const convertVideoData = (data: {
   src?: string | VideoComponentData;
-  metadata?: { thumbnail_url?: string; width?: number; height?: number };
+  metadata?: { thumbnail_url?: string; width?: number; height?: number; title?: string };
   video;
   thumbnail;
+  title?;
 }) => {
   if (typeof data.src === 'string') {
     data.video = { src: { url: data.src } };
-    const { thumbnail_url, width, height } = data.metadata || {};
+    const { thumbnail_url, width, height, title } = data.metadata || {};
+    title && (data.title = title);
     data.thumbnail = {
       src: { url: thumbnail_url },
       width,
@@ -104,11 +115,12 @@ const convertVideoData = (data: {
 const convertDividerData = (data: {
   type?: string;
   config?: ComponentData['config'];
+  lineStyle?: string;
   width;
   alignment;
   containerData;
 }) => {
-  has(data, 'type') && (data.type = data.type?.toUpperCase());
+  has(data, 'type') && (data.lineStyle = data.type?.toUpperCase());
   has(data, 'config.size') && (data.width = data.config?.size?.toUpperCase());
   has(data, 'config.alignment') && (data.alignment = data.config?.alignment?.toUpperCase());
   data.containerData = { width: { size: PluginContainerData_Width_Type.CONTENT } };
@@ -120,29 +132,65 @@ const convertImageData = (data: {
   metadata?: { alt?: string; caption?: string };
   image;
   link;
-  disableExpand;
   altText;
   caption;
 }) => {
   const { file_name, width, height } = data.src || {};
-  const { link, anchor, disableExpand } = data.config || {};
+  const { link, anchor } = data.config || {};
   data.image = { src: { custom: file_name }, width, height };
-  data.link = (link || anchor) && convertLink({ ...link, anchor });
-  data.disableExpand = disableExpand;
+  data.link = (link || anchor) && createLink({ ...link, anchor });
   data.altText = data.metadata?.alt;
   data.caption = data.metadata?.caption;
 };
 
-const convertPollData = (data: { layout; design }) => {
+const convertPollData = (data: { layout; design; poll }) => {
   has(data, 'layout.poll.type') && (data.layout.poll.type = data.layout.poll.type.toUpperCase());
   has(data, 'layout.poll.direction') &&
     (data.layout.poll.direction = data.layout.poll.direction.toUpperCase());
   has(data, 'design.poll.backgroundType') &&
     (data.design.poll.backgroundType = data.design.poll.backgroundType.toUpperCase());
+  has(data, 'poll.id') && (data.poll.pollId = data.poll.id);
+  has(data, 'poll.options') &&
+    (data.poll.options = data.poll.options.map(({ id, ...rest }) => ({
+      optionId: id,
+      ...rest,
+    })));
 };
 
-const convertVerticalEmbedData = (data: { type?: string }) => {
-  has(data, 'type') && (data.type = data.type?.toUpperCase());
+const convertAppEmbedData = (data: {
+  type: string;
+  selectedProduct: Record<string, string>;
+  url;
+  imageSrc;
+  itemId;
+  name;
+  bookingData;
+  eventData;
+}) => {
+  const {
+    id,
+    name,
+    imageSrc,
+    description,
+    pageUrl,
+    scheduling,
+    location,
+    html,
+    durations,
+  } = data.selectedProduct;
+  data.url = pageUrl || (html && (data.url = html.match(/href="[^"]*/g)?.[0]?.slice(6)));
+  data.itemId = id;
+  data.name = name;
+  data.imageSrc = imageSrc;
+  if (data.type === 'booking') {
+    data.bookingData = { durations: durations || description };
+  } else if (data.type === 'event') {
+    data.eventData = {
+      location: location || (description && description.match(/[^|]*$/)?.[0]),
+      scheduling: scheduling || (description && description.match(/[^|]+/)?.[0]),
+    };
+  }
+  data.type = data.type?.toUpperCase();
 };
 
 const convertLinkPreviewData = (data: {
@@ -152,10 +200,10 @@ const convertLinkPreviewData = (data: {
   link;
 }) => {
   has(data, 'thumbnail_url') && (data.thumbnailUrl = data.thumbnail_url);
-  data.config?.link && (data.link = convertLink(data.config?.link));
+  data.config?.link && (data.link = createLink(data.config?.link));
 };
 
-const convertMention = (data: {
+const convertMentionData = (data: {
   mention?: { name?: string; slug?: string };
   name?: string;
   slug?: string;
@@ -187,10 +235,10 @@ const convertButtonData = (
   data.type = blockType === ACTION_BUTTON_TYPE ? ButtonData_Type.ACTION : ButtonData_Type.LINK;
   data.text = buttonText;
   if (url) {
-    data.link = convertLink({
+    data.link = createLink({
       url,
-      rel: rel ? 'nofollow' : undefined,
-      target: target ? '_blank' : '_top',
+      rel,
+      target,
     });
   }
 };
@@ -217,35 +265,35 @@ const convertMapData = data => {
   data.mapSettings.zoomControl = isZoomControlShown;
   data.mapSettings.locationName = locationDisplayName;
   data.mapSettings.initialZoom = zoom;
-  data.mapSettings.mapType = mode;
+  data.mapSettings.mapType = mode?.toUpperCase();
 
   if (has(data.mapSettings, 'isViewControlShown')) {
     data.mapSettings.viewModeControl = isViewControlShown;
   }
 };
 
-const convertLink = ({
-  url,
-  rel,
-  target,
-  anchor,
-}: {
-  url?: string;
-  rel?: string;
-  target?: string;
-  anchor?: string;
-}): Link => {
-  const relValues =
-    rel
-      ?.split(' ')
-      .filter(key => ['nofollow', 'sponsored', 'ugc'].includes(key))
-      .map(key => [key, true]) || [];
-  return {
-    anchor,
-    url,
-    rel: relValues.length > 0 ? Object.fromEntries(relValues) : undefined,
-    target: target?.toUpperCase().substring(1) as Link_Target,
+const convertEmbedData = (data: {
+  html;
+  description?;
+  title?;
+  thumbnail_url?;
+  src;
+  config;
+  oembed;
+}) => {
+  const url = data.config?.link?.url;
+  url && (data.src = url);
+  data.oembed = {
+    type: 'rich',
+    thumbnailUrl: data.thumbnail_url,
+    title: data.title,
+    description: data.description,
+    html: data.html,
   };
+};
+
+const convertLinkData = (data: { url: string; target?: string; rel?: string } & { link: Link }) => {
+  data.link = createLink(data);
 };
 
 const kebabToConstantCase = (str: string) => str.toUpperCase().replace('-', '_');

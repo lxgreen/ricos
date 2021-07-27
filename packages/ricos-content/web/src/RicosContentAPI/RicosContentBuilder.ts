@@ -1,45 +1,25 @@
 import {
   ButtonData,
-  CodeData,
+  CodeBlockData,
   DividerData,
   FileData,
   GalleryData,
-  GiphyData,
   HTMLData,
   HeadingData,
   ImageData,
-  LinkPreviewData,
-  MapData,
   Node,
   Node_Type,
   ParagraphData,
-  PollData,
   RichContent,
   TextData,
   VideoData,
   TextStyle_TextAlignment,
+  AppEmbedData,
+  LinkPreviewData,
 } from 'ricos-schema';
 import { addNode as add, toTextDataArray, toListDataArray } from './builder-utils';
 import { ContentBuilder, ListItemData } from '../types';
-
-const dataByNodeType = (type: Node_Type, data: unknown) =>
-  ({
-    [Node_Type.CODEBLOCK]: { codeData: data as CodeData },
-    [Node_Type.DIVIDER]: { dividerData: data as DividerData },
-    [Node_Type.HEADING]: { headingData: data as HeadingData },
-    [Node_Type.FILE]: { fileData: data as FileData },
-    [Node_Type.GALLERY]: { galleryData: data as GalleryData },
-    [Node_Type.GIPHY]: { giphyData: data as GiphyData },
-    [Node_Type.HTML]: { htmlData: data as HTMLData },
-    [Node_Type.IMAGE]: { imageData: data as ImageData },
-    [Node_Type.BUTTON]: { buttonData: data as ButtonData },
-    [Node_Type.LINK_PREVIEW]: { LinkPreviewData: data as LinkPreviewData },
-    [Node_Type.MAP]: { mapData: data as MapData },
-    [Node_Type.PARAGRAPH]: { paragraphData: data as ParagraphData },
-    [Node_Type.POLL]: { pollData: data as PollData },
-    [Node_Type.TEXT]: { textData: data as TextData },
-    [Node_Type.VIDEO]: { videoData: data as VideoData },
-  }[type]);
+import { dataByNodeType } from '../converters/nodeUtils';
 
 type AddMethodParams<TData> = {
   data: TData;
@@ -56,7 +36,7 @@ type AddTextMethodParams<T> = AddMethodParams<T> & {
 type AddListMethodParams = {
   items: string | TextData | ListItemData | (string | TextData | ListItemData)[];
   data?: ParagraphData;
-  type: Node_Type.ORDERED_LIST | Node_Type.BULLET_LIST;
+  type: Node_Type.ORDERED_LIST | Node_Type.BULLETED_LIST;
   index?: number;
   before?: string;
   after?: string;
@@ -68,19 +48,19 @@ export interface RicosBuilder extends ContentBuilder {
 }
 
 export const setupContentBuilder = (
-  generateKey: () => string
+  generateId: () => string
 ): ContentBuilder & { RicosContentBuilder: RicosBuilder } => {
   function createNode(type: Node_Type, data: unknown): Node {
-    return { key: generateKey(), type, ...dataByNodeType(type, data), nodes: [] };
+    return { id: generateId(), type, ...dataByNodeType(type, data), nodes: [] };
   }
 
   function createListNode(type: Node_Type, items: ListItemData[]) {
     return {
       type,
-      key: generateKey(),
+      id: generateId(),
       nodes: items.map(({ text, data }) => ({
         type: Node_Type.LIST_ITEM,
-        key: generateKey(),
+        id: generateId(),
         nodes: [createTextNode(Node_Type.PARAGRAPH, text, data)],
       })),
     };
@@ -91,7 +71,7 @@ export const setupContentBuilder = (
       ...createNode(type, data),
       nodes: text.map(textData => ({
         nodes: [],
-        key: generateKey(),
+        id: generateId(),
         type: Node_Type.TEXT,
         ...dataByNodeType(Node_Type.TEXT, textData),
       })),
@@ -165,8 +145,7 @@ export const setupContentBuilder = (
   [
     { name: 'Paragraph', type: Node_Type.PARAGRAPH, dataT: {} as ParagraphData },
     { name: 'Heading', type: Node_Type.HEADING, dataT: {} as HeadingData },
-    { name: 'Code', type: Node_Type.CODEBLOCK, dataT: {} as CodeData },
-    { name: 'Blockquote', type: Node_Type.BLOCKQUOTE, dataT: {} as never },
+    { name: 'Code', type: Node_Type.CODE_BLOCK, dataT: {} as CodeBlockData },
   ].forEach(({ name, type, dataT }) => {
     builderApis[`add${name}`] = RicosContentBuilder.prototype[`add${name}`] = function({
       data,
@@ -189,10 +168,10 @@ export const setupContentBuilder = (
   });
 
   [
-    { name: 'BulletList', type: Node_Type.BULLET_LIST },
+    { name: 'BulletList', type: Node_Type.BULLETED_LIST },
     { name: 'OrderedList', type: Node_Type.ORDERED_LIST },
   ].forEach(
-    ({ name, type }: { name: string; type: Node_Type.ORDERED_LIST | Node_Type.BULLET_LIST }) => {
+    ({ name, type }: { name: string; type: Node_Type.ORDERED_LIST | Node_Type.BULLETED_LIST }) => {
       builderApis[`add${name}`] = RicosContentBuilder.prototype[`add${name}`] = function({
         items,
         data,
@@ -207,19 +186,38 @@ export const setupContentBuilder = (
   );
 
   [
-    { name: 'Image', type: Node_Type.IMAGE, dataT: {} as ImageData },
     { name: 'Divider', type: Node_Type.DIVIDER, dataT: {} as DividerData },
-    { name: 'LinkPreview', type: Node_Type.LINK_PREVIEW, dataT: {} as LinkPreviewData },
-    { name: 'Poll', type: Node_Type.POLL, dataT: {} as PollData },
     { name: 'File', type: Node_Type.FILE, dataT: {} as FileData },
     { name: 'Gallery', type: Node_Type.GALLERY, dataT: {} as GalleryData },
-    { name: 'Map', type: Node_Type.MAP, dataT: {} as MapData },
-    { name: 'Video', type: Node_Type.VIDEO, dataT: {} as VideoData },
-    { name: 'Button', type: Node_Type.BUTTON, dataT: {} as ButtonData },
-    { name: 'Giphy', type: Node_Type.GIPHY, dataT: {} as GiphyData },
     { name: 'Html', type: Node_Type.HTML, dataT: {} as HTMLData },
+    { name: 'Image', type: Node_Type.IMAGE, dataT: {} as ImageData },
+    { name: 'Video', type: Node_Type.VIDEO, dataT: {} as VideoData },
+    { name: 'AppEmbed', type: Node_Type.APP_EMBED, dataT: {} as AppEmbedData },
+    { name: 'LinkPreview', type: Node_Type.LINK_PREVIEW, dataT: {} as LinkPreviewData },
   ].forEach(({ name, type, dataT }) => {
     builderApis[`add${name}`] = RicosContentBuilder.prototype[`add${name}`] = function({
+      data,
+      index,
+      before,
+      after,
+      content,
+    }: AddMethodParams<typeof dataT>): RichContent {
+      return addNode({
+        type,
+        data,
+        content,
+        index,
+        before,
+        after,
+      });
+    };
+  });
+
+  [
+    { name: 'addActionButton', type: Node_Type.BUTTON, dataT: {} as ButtonData },
+    { name: 'addLinkButton', type: Node_Type.BUTTON, dataT: {} as ButtonData },
+  ].forEach(({ name, type, dataT }) => {
+    builderApis[name] = RicosContentBuilder.prototype[name] = function({
       data,
       index,
       before,
