@@ -20,10 +20,20 @@
 </details>
 <hr/>
 
-## 8.47.10  (Jul 27, 2021)
+## 8.47.11 (Jul 27, 2021)
+
 ### :bug: Bug Fix
-  - `ricos-content`
-    - [#2784](https://github.com/wix/ricos/pull/2784) fromHtml: ckeditor parser rules fixed
+
+- `editor`
+
+  - [#2659](https://github.com/wix/ricos/pull/2659) close plugin menu on mobile after adding a plugin
+
+## 8.47.10 (Jul 27, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#2784](https://github.com/wix/ricos/pull/2784) fromHtml: ckeditor parser rules fixed
 
 ## 8.47.9 (July 26, 2021)
 
