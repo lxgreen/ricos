@@ -1,11 +1,13 @@
 import React, { Component, ReactElement } from 'react';
 import { Pubsub } from 'wix-rich-content-common';
+import { isEmpty } from 'lodash';
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editorCommands: any;
   children: ReactElement;
   closeModal: () => void;
   pubsub: Pubsub;
+  componentData: Record<string, unknown>;
 }
 
 interface State {
@@ -19,7 +21,8 @@ class EditorCommandModalProvider extends Component<Props, State> {
 
   constructor(props) {
     super(props);
-    this.initialData = props.editorCommands.getSelectedData();
+    const componentData = props.editorCommands.getSelectedData();
+    this.initialData = isEmpty(componentData) ? props.componentData : componentData;
     this.pluginType = props.editorCommands.getSelectedType();
     this.state = { data: this.initialData };
   }
