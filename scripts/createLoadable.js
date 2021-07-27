@@ -30,7 +30,7 @@ const QUESTIONS = [
 inquirer.prompt(QUESTIONS).then(answers => {
   const { pluginName } = answers;
   console.log(chalk.yellow(`Add loadable support to plugin-${pluginName} 🤸‍♂`));
-  const pluginPackagePath = `packages/plugin-${pluginName}`;
+  const pluginPackagePath = `packages/plugin-${pluginName}/web`;
   createDirectoryContents(pluginPackagePath);
 });
 
@@ -46,21 +46,17 @@ function createDirectoryContents(pluginPackagePath) {
   );
 
   console.log(chalk.cyan(`Creating viewer-loadable file`));
-  const viewerContents = fs.readFileSync(`${pluginPackagePath}/web/src/viewer.ts`, 'utf8');
+  const viewerContents = fs.readFileSync(`${pluginPackagePath}/src/viewer.ts`, 'utf8');
   const viewerLoadableContents = viewerContents.replace(
     // eslint-disable-next-line max-len
     /'\.\/typeMapper'/g,
     // eslint-disable-next-line quotes
     () => "'./typeMapper-loadable'"
   );
-  fs.writeFileSync(
-    `${pluginPackagePath}/web/src/viewer-loadable.ts`,
-    viewerLoadableContents,
-    'utf8'
-  );
+  fs.writeFileSync(`${pluginPackagePath}/src/viewer-loadable.ts`, viewerLoadableContents, 'utf8');
 
   console.log(chalk.cyan(`Creating typeMapper-loadable file`));
-  const typeMapperContents = fs.readFileSync(`${pluginPackagePath}/web/src/typeMapper.ts`, 'utf8');
+  const typeMapperContents = fs.readFileSync(`${pluginPackagePath}/src/typeMapper.ts`, 'utf8');
   const componentPath = typeMapperContents
     .match(/import [a-z| A-Z | -]*[v | V]iewer from '.\/[a-z| A-Z | -]*[v|V]iewer'/)[0]
     .match(/'.\/[a-z| A-Z | -]*[v|V]iewer'/)[0];
@@ -72,14 +68,14 @@ function createDirectoryContents(pluginPackagePath) {
       // eslint-disable-next-line quotes
       () => "import loadable from '@loadable/component'"
     )
-    .replace(/{ component: [a-z | A-Z | -]*.*}/g, text =>
+    .replace(/component: [a-z | A-Z | -]*.*/g, text =>
       text.replace(
-        /{ component: [a-z | A-Z | -]*/g,
-        () => `{ component: loadable(() => import(${componentPath}))`
+        /component: [a-z | A-Z | -]*/g,
+        () => `component: loadable(() => import(${componentPath}))`
       )
     );
   fs.writeFileSync(
-    `${pluginPackagePath}/web/src/typeMapper-loadable.ts`,
+    `${pluginPackagePath}/src/typeMapper-loadable.ts`,
     typeMapperLoadableContents,
     'utf8'
   );

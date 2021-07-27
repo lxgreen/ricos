@@ -1,13 +1,22 @@
-import { readFileSync, writeFileSync, truncateSync } from 'fs';
+import { flow, pipe } from 'fp-ts/function';
+import * as A from 'fp-ts/Array';
+import { readFileSync, writeFileSync } from 'fs';
 import { toDraft } from '../../../draft/toDraft/toDraft';
-import { Node_Type } from 'ricos-schema';
+import { Node_Type, RichContent } from 'ricos-schema';
 import { extract } from '../../../../RicosContentAPI/extract';
 import parse from './parser';
+import { DraftContent } from '../../../../../dist/src';
 
-const getHtml = filename => readFileSync(`${__dirname}/../__tests__/${filename}.html`, 'utf8');
+const loadFile = (filename: string) =>
+  readFileSync(`${__dirname}/../__tests__/${filename}`, 'utf8');
+const writeFile = (fileName: string) => (data: RichContent | DraftContent) => {
+  writeFileSync(fileName, JSON.stringify(data), 'utf8');
+  return data;
+};
 
 describe('CKEditor parser', () => {
-  const content = parse(getHtml('FAQContent'));
+  const html = loadFile('FAQContent.html');
+  const content = parse(html);
   it('iframe => video with youtube url', async () => {
     const videos = extract(content.nodes)
       .filter(({ type }) => type === Node_Type.VIDEO)
@@ -30,19 +39,22 @@ describe('CKEditor parser', () => {
     expect(images[0].imageData?.link?.customData).toEqual(
       JSON.stringify({ type: 'pageLink', id: 'eihsd' })
     );
-    // expect(images[2].imageData?.link?.customData).toEqual(
-    //   JSON.stringify({ type: 'pageLink', id: 'eihsd' })
-    // );
   });
 
   it('should output valid content for toDraft', () => {
-    const draft = toDraft(content);
-    // truncateSync('faq-rich.json', 0);
-    // writeFileSync('faq-rich.json', JSON.stringify(content), 'utf8');
-    // truncateSync('faq-draft.json', 0);
-    // writeFileSync('faq-draft.json', JSON.stringify(draft), 'utf8');
-    // console.log('draft written'); // eslint-disable-line no-console
-    expect(draft.blocks.length).toEqual(32);
-    expect(Object.keys(draft.entityMap).length).toEqual(9);
+    const failedContent = pipe(
+      'migration-failures.json',
+      loadFile,
+      JSON.parse,
+      A.map(
+        flow(
+          parse,
+          // writeFile('faq-rich.json'),
+          toDraft
+          // writeFile('faq-draft.json')
+        )
+      )
+    );
+    expect(failedContent.length).toEqual(159);
   });
 });
