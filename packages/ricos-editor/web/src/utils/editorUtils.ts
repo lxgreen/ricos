@@ -124,6 +124,8 @@ export function createDataConverter(
     getEditorState,
     waitForUpdate,
     getContentStatePromise,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     refresh: (editorState, onError) => {
       if (!isSSR()) {
         isUpdated = false;
