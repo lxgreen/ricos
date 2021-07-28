@@ -55,6 +55,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
       uiSettings: { linkPanel: this.props.linkPanelSettings },
       anchorTarget: this.props.linkSettings?.anchorTarget,
       isMobile,
+      customAnchorScroll: this.props.linkSettings?.customAnchorScroll,
     };
     const baseStyles = { flex: 'none' };
     const baseMobileStyles = { ...baseStyles, position: 'sticky', top: 0, zIndex: 9 };

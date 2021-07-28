@@ -8,6 +8,7 @@ import {
   TranslationFunction,
   DesktopTextButtons,
   EditorCommands,
+  CustomAnchorScroll,
 } from 'wix-rich-content-common';
 
 type formattingToolbarButtonsKeysType =
@@ -44,6 +45,7 @@ interface RicosToolbarProps {
       };
     };
     isMobile?: boolean;
+    customAnchorScroll?: CustomAnchorScroll;
   };
   colorPickerData?: any;
   onToolbarButtonClick?: (name: string, value?: any) => void;

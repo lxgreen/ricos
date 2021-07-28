@@ -2,7 +2,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable fp/no-loops */
 import React from 'react';
-import { RICOS_LINK_TYPE, EditorCommands } from 'wix-rich-content-common';
+import {
+  RICOS_LINK_TYPE,
+  EditorCommands,
+  normalizeUrl,
+  getTargetValue,
+  anchorScroll,
+} from 'wix-rich-content-common';
 import { AlignTextCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon } from '../icons';
 import {
   HEADING_TYPE_TO_ELEMENT,
@@ -36,7 +42,7 @@ export const createButtonsList = (
     handleButtonTooltip(buttonsList, index);
     handleButtonLabel(buttonsList, index, editorCommands, t);
     handleButtonArrow(buttonsList, index);
-    handleButtonOnClick(buttonsList, index, editorCommands, openMobileAddPlugin);
+    handleButtonOnClick(buttonsList, index, editorCommands, openMobileAddPlugin, linkPanelData);
     handleButtonIsActive(buttonsList, index, editorCommands);
     handleButtonIsDisabled(buttonsList, index, editorCommands);
     handleButtonModal(buttonsList, index, editorCommands, linkPanelData, t);
@@ -300,7 +306,8 @@ const handleButtonOnClick = (
   buttonsList,
   index,
   editorCommands: editorCommands,
-  openMobileAddPlugin
+  openMobileAddPlugin,
+  linkPanelData
 ) => {
   const buttonName = buttonsList[index].name;
   if (Object.keys(inlineStyleButtons).includes(buttonName)) {
@@ -327,13 +334,8 @@ const handleButtonOnClick = (
   } else if (buttonName === 'REDO') {
     buttonsList[index].onClick = () => editorCommands.redo();
   } else if (buttonName === 'goToLink') {
-    buttonsList[index].onClick = () => {
-      // eslint-disable-next-line no-console
-      console.log('hasLinkInSelection = ', editorCommands.hasLinkInSelection());
-      // eslint-disable-next-line no-console
-      console.log('getLinkDataInSelection = ', editorCommands.getLinkDataInSelection());
-      // console.log('getLinkData = ', getLinkData(editorCommands));
-    };
+    buttonsList[index].onClick = event =>
+      goToLink(event, editorCommands.getLinkDataInSelection(), linkPanelData);
   } else if (buttonName === 'AddPlugin') {
     buttonsList[index].onClick = () => openMobileAddPlugin?.();
   } else {
@@ -466,4 +468,23 @@ const getCurrentHeading = (editorCommands: editorCommands) => {
 const updateSpacing = (type, editorCommands: editorCommands, buttonName) => {
   const dynamicStyles = type;
   editorCommands.insertDecoration(decorationButtons[buttonName], { dynamicStyles });
+};
+
+const goToLink = (event, linkData, linkPanelData) => {
+  const { anchor, url, target } = linkData;
+  if (anchor) {
+    const { customAnchorScroll } = linkPanelData;
+    if (customAnchorScroll) {
+      customAnchorScroll(event, anchor);
+    } else {
+      const nodeListOfAllblocks = document.querySelectorAll(`[data-editor]`);
+      // eslint-disable-next-line prefer-spread
+      const arrayOfAllblocks = Array.apply(null, nodeListOfAllblocks);
+      const element = arrayOfAllblocks.find(block => block.dataset.offsetKey === `${anchor}-0-0`);
+      anchorScroll(element);
+    }
+  } else {
+    const href = url ? normalizeUrl(url) : undefined;
+    window.open(href, getTargetValue(target));
+  }
 };
