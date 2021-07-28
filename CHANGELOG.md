@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+- `ricos-content`
+  - [#2787](https://github.com/wix/ricos/pull/2787) toDraft preprocess => ckeditor parser postprocess
+
 </details>
 <hr/>
 
