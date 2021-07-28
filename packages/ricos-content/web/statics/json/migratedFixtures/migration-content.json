@@ -352,7 +352,7 @@
       "imageData": {
         "containerData": {
           "width": {
-            "size": "CONTENT"
+            "size": "FULL_WIDTH"
           },
           "alignment": "CENTER",
           "spoiler": {

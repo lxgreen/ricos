@@ -17,6 +17,7 @@ import {
   GIFData,
 } from 'ricos-schema';
 import { cloneDeep, has, merge } from 'lodash';
+import toCamelCase from 'to-camel-case';
 import {
   ENTITY_DECORATION_TO_DATA_FIELD,
   FROM_RICOS_DECORATION_TYPE,
@@ -94,10 +95,10 @@ const convertContainerData = (
   data.config = Object.assign(
     {},
     data.config,
-    width?.size && { size: constantToKebabCase(width.size) },
+    width?.size && { size: toCamelCase(width.size) },
     width?.custom && { width: parseInt(width.custom) },
     height?.custom && { height: parseInt(height.custom) },
-    alignment && { alignment: constantToKebabCase(alignment) },
+    alignment && { alignment: alignment?.toLowerCase() },
     spoiler && {
       spoiler: {
         enabled,
@@ -399,5 +400,3 @@ const parseLink = ({
   target: target && '_' + target.toLowerCase(),
   customData,
 });
-
-const constantToKebabCase = (str: string) => str.toLowerCase().replace('_', '-');
