@@ -14,6 +14,7 @@ import {
   FileData,
   ButtonData,
   LinkData,
+  GIFData,
 } from 'ricos-schema';
 import { cloneDeep, has, merge } from 'lodash';
 import {
@@ -50,6 +51,7 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data) => {
     [Node_Type.VIDEO]: convertVideoData,
     [Node_Type.DIVIDER]: convertDividerData,
     [Node_Type.FILE]: convertFileData,
+    [Node_Type.GIF]: convertGIFData,
     [Node_Type.IMAGE]: convertImageData,
     [Node_Type.POLL]: convertPollData,
     [Node_Type.APP_EMBED]: convertAppEmbedData,
@@ -171,6 +173,39 @@ const convertImageData = (data: ImageData & { src; config; metadata }) => {
   delete data.link;
   delete data.caption;
   delete data.altText;
+};
+
+const convertGIFData = (
+  data: GIFData & {
+    gif: {
+      originalUrl;
+      originalMp4;
+      stillUrl;
+      downsizedUrl;
+      downsizedSmallMp4;
+      downsizedStillUrl;
+      height;
+      width;
+    };
+    width;
+    height;
+  }
+) => {
+  const { original = {}, downsized = {}, height, width } = data;
+  data.gif = {
+    originalUrl: original.gif,
+    originalMp4: original.mp4,
+    stillUrl: original.still,
+    downsizedUrl: downsized.gif,
+    downsizedSmallMp4: downsized.mp4,
+    downsizedStillUrl: downsized.still,
+    height,
+    width,
+  };
+  delete data.original;
+  delete data.downsized;
+  delete data.height;
+  delete data.width;
 };
 
 const convertPollData = data => {

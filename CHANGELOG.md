@@ -17,7 +17,13 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `ricos-schema`
+  - [#2777](https://github.com/wix/ricos/pull/2777) gif schema
+
 ### :bug: Bug Fix
+
 - `ricos-content`
   - [#2787](https://github.com/wix/ricos/pull/2787) toDraft preprocess => ckeditor parser postprocess
 

@@ -14,7 +14,7 @@ export const NODE_TYPES = [
   Node_Type.DIVIDER,
   Node_Type.FILE,
   Node_Type.GALLERY,
-  Node_Type.GIPHY,
+  Node_Type.GIF,
   Node_Type.HTML,
   Node_Type.IMAGE,
   Node_Type.LINK_PREVIEW,
