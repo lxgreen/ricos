@@ -51,3 +51,15 @@ export const log = <T>(tag: string, processor: (data: T) => string | T = identit
 
 export const getMatches = (regex: RegExp) => (str: string): O.Option<RegExpExecArray> =>
   pipe(regex.exec(str), O.fromNullable);
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const stringifyWithReplace = (replacer: (key: string, value: any) => any) => <A>(
+  a: A
+): E.Either<unknown, string> =>
+  E.tryCatch(() => {
+    const s = JSON.stringify(a, replacer);
+    if (typeof s !== 'string') {
+      throw new Error('Converting unsupported structure to JSON');
+    }
+    return s;
+  }, identity);
