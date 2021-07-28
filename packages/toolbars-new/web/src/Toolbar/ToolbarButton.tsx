@@ -97,6 +97,7 @@ class ToolbarButton extends Component<ToolbarButtonProps> {
       asGroupButton,
       asContextButton,
       disabledStyle,
+      isMobile,
     } = this.props;
     const { styles } = this;
     const arrowIcon = (
@@ -123,7 +124,7 @@ class ToolbarButton extends Component<ToolbarButtonProps> {
       [Styles.renderAsGroupButton]: asGroupButton || asContextButton,
     });
 
-    const isMenu = !!showArrowIcon;
+    const isMenu = !!showArrowIcon && !isMobile;
     return (
       <Tooltip key={tooltipText} content={tooltipText} tooltipOffset={{ x: 0, y: -8 }}>
         <div className={wrapperClassNames}>
