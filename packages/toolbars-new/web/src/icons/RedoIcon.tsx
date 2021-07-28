@@ -11,7 +11,6 @@ const RedoIcon = props => (
     xmlnsXlink="http://www.w3.org/1999/xlink"
     {...props}
   >
-    <title>redo_icon</title>
     <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g transform="translate(-107.000000, -18.000000)" fill="#000000">
         <g transform="translate(48.000000, 0.000000)">

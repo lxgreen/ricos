@@ -297,6 +297,9 @@ const handleButtonIsActive = (buttonsList, index, editorCommands: editorCommands
   } else if (Object.keys(colorTypes).includes(buttonName)) {
     buttonsList[index].isActive = () =>
       editorCommands.getColor(colorTypes[buttonName]) !== undefined;
+  } else if (buttonName === 'AddPlugin') {
+    buttonsList[index].isActive = () => false;
+    buttonsList[index].iconInActionColor = true;
   } else {
     buttonsList[index].isActive = () => false;
   }

@@ -104,7 +104,8 @@
   @include svg-fill;
 }
 
-.toolbarButton_active {
+.toolbarButton_active,
+.iconInActionColor {
   color: $action-color-fallback;
   fill: $action-color-fallback;
   @include svg-fill;

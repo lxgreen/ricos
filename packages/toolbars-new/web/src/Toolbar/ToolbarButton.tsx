@@ -25,6 +25,7 @@ type ToolbarButtonProps = {
   disabledStyle?: boolean;
   onToolbarButtonClick?: () => void;
   asLink?: boolean;
+  iconInActionColor?: boolean;
 };
 
 class ToolbarButton extends Component<ToolbarButtonProps> {
@@ -98,6 +99,7 @@ class ToolbarButton extends Component<ToolbarButtonProps> {
       asContextButton,
       disabledStyle,
       isMobile,
+      iconInActionColor,
     } = this.props;
     const { styles } = this;
     const arrowIcon = (
@@ -138,6 +140,7 @@ class ToolbarButton extends Component<ToolbarButtonProps> {
             className={classNames(styles.button, {
               [Styles.renderAsContextButton]: asContextButton,
               [Styles.disabled]: disabledStyle,
+              [Styles.iconInActionColor]: iconInActionColor,
             })}
             ref={forwardRef}
             onMouseDown={this.preventDefault}

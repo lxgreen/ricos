@@ -50,7 +50,16 @@ class Toolbar extends Component<ToolbarProps> {
   };
 
   renderButton = buttonProps => {
-    const { onClick, getIcon, dataHook, isDisabled, isActive, tooltip, name } = buttonProps;
+    const {
+      onClick,
+      getIcon,
+      dataHook,
+      isDisabled,
+      isActive,
+      tooltip,
+      name,
+      iconInActionColor,
+    } = buttonProps;
     return (
       <ToolbarButton
         onClick={onClick}
@@ -62,6 +71,7 @@ class Toolbar extends Component<ToolbarProps> {
         icon={getIcon()}
         disabled={isDisabled()}
         onToolbarButtonClick={() => this.props.onToolbarButtonClick?.(name, isActive())}
+        iconInActionColor={iconInActionColor}
       />
     );
   };
