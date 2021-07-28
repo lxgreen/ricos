@@ -30,15 +30,16 @@ class ManageMediaSection extends Component {
     }
   };
 
-  handleFileSelection = (index, multiple, handleFilesAdded, deleteBlock) => {
-    const { helpers, data } = this.props;
+  handleFileSelection = (index, multiple, deleteBlock) => {
+    const { helpers, data, store, updateData } = this.props;
+    const handleFilesAdded = store.getBlockHandler('handleFilesAdded');
     helpers.handleFileSelection(index, multiple, handleFilesAdded, deleteBlock, data);
+    updateData({ items: store.get('componentData').items });
   };
 
   render() {
     const {
       helpers,
-      store,
       t,
       relValue,
       anchorTarget,
@@ -57,7 +58,6 @@ class ManageMediaSection extends Component {
           onItemsChange={this.applyItems}
           handleFileChange={this.handleFileChange}
           handleFileSelection={handleFileSelection && this.handleFileSelection}
-          handleFilesAdded={store.getBlockHandler('handleFilesAdded')}
           deleteBlock={deleteBlock}
           t={t}
           relValue={relValue}

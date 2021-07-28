@@ -493,9 +493,9 @@ export class SortableComponent extends Component {
 
   handleFileSelection = multiple => {
     const { items, editedItem } = this.state;
-    const { handleFileSelection, handleFilesAdded, deleteBlock } = this.props;
+    const { handleFileSelection, deleteBlock } = this.props;
     const index = editedItem ? findIndex(items, i => editedItem.url === i.url) : undefined;
-    handleFileSelection(index, multiple, handleFilesAdded, deleteBlock);
+    handleFileSelection(index, multiple, deleteBlock);
   };
 
   onNextItem = () => {
@@ -638,7 +638,6 @@ SortableComponent.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleFileChange: PropTypes.func,
   handleFileSelection: PropTypes.func,
-  handleFilesAdded: PropTypes.func,
   deleteBlock: PropTypes.func,
   isMobile: PropTypes.bool,
   theme: PropTypes.object.isRequired,
