@@ -164,9 +164,9 @@ const convertGalleryItem = item => {
   return item;
 };
 
-const convertGalleryData = (data: GalleryData & { styles }) => {
+const convertGalleryData = (data: GalleryData) => {
   has(data, 'items') && (data.items = data.items.map(item => convertGalleryItem(item)));
-  has(data, 'styles') && (data.style = convertGalleryStyles(data.styles));
+  has(data, 'styles') && (data.styles = convertGalleryStyles(data.styles));
 };
 
 const convertDividerData = (data: {

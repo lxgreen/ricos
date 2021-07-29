@@ -88,7 +88,7 @@ message GalleryData {
 
   PluginContainerData container_data = 1;
   repeated Item items = 2;
-  GalleryStyle style = 3;
+  GalleryStyle styles = 3;
   google.protobuf.BoolValue disable_expand = 4;
   google.protobuf.BoolValue disable_download = 5;
 }

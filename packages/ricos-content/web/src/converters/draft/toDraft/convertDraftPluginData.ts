@@ -231,8 +231,7 @@ const convertGalleryData = (
   }
 ) => {
   has(data, 'items') && (data.items = data.items.map(item => convertGalleryItem(item)));
-  has(data, 'style') && (data.styles = convertGalleryStyles(data.style));
-  delete data.style;
+  has(data, 'styles') && (data.styles = convertGalleryStyles(data.styles));
 };
 
 const convertImageData = (data: ImageData & { src; config; metadata }) => {

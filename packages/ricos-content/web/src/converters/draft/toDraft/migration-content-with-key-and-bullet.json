@@ -513,7 +513,7 @@
             }
           }
         ],
-        "style": {
+        "styles": {
           "layout": {
             "type": "GRID",
             "horizontalScroll": false,

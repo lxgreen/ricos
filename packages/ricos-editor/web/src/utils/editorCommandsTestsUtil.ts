@@ -234,7 +234,7 @@ const gallery = {
         },
       },
     ],
-    style: {
+    styles: {
       layout: {
         type: 'GRID',
         horizontalScroll: false,
@@ -267,7 +267,7 @@ const gallery = {
         },
       },
     ],
-    style: {
+    styles: {
       layout: {
         type: 'GRID',
         horizontalScroll: false,
