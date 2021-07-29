@@ -154,3 +154,4 @@ HtmlComponent.propTypes = {
 };
 
 export { HtmlComponent as Component, defaults };
+export default HtmlComponent;

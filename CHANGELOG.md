@@ -21,6 +21,8 @@
 
 - `ricos-schema`
   - [#2777](https://github.com/wix/ricos/pull/2777) gif schema
+- `ricos-content`
+  - [#2790](https://github.com/wix/ricos/pull/2790) fix `convertContainerData` converters (from&toDraft)
 
 ### :bug: Bug Fix
 

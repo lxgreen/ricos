@@ -33,6 +33,7 @@ import {
   VideoComponentData,
 } from '../../../types';
 import { createLink } from '../../nodeUtils';
+import toConstantCase from 'to-constant-case';
 
 export const convertBlockDataToRicos = (type: string, data) => {
   const newData = cloneDeep(data);
@@ -80,13 +81,13 @@ const convertContainerData = (data: { config?: ComponentData['config']; containe
     buttonText: buttonContent,
   };
   data.containerData = {
-    alignment: alignment && kebabToConstantCase(alignment),
+    alignment: alignment?.toUpperCase(),
     spoiler: newSpoiler,
   };
   typeof height === 'number' && (data.containerData.height = { custom: height });
   typeof width === 'number'
     ? (data.containerData.width = { custom: width })
-    : size && (data.containerData.width = { size: kebabToConstantCase(size) });
+    : size && (data.containerData.width = { size: toConstantCase(size) });
 };
 
 const convertVideoData = (data: {
@@ -330,5 +331,3 @@ const convertEmbedData = (data: {
 const convertLinkData = (data: { url: string; target?: string; rel?: string } & { link: Link }) => {
   data.link = createLink(data);
 };
-
-const kebabToConstantCase = (str: string) => str.toUpperCase().replace('-', '_');
