@@ -25,6 +25,9 @@ import {
   ButtonData_Type,
   Link,
   GIFData,
+  GalleryStyle,
+  GalleryData,
+  GalleryStyle_Layout_ItemsOrder,
 } from 'ricos-schema';
 import { TO_RICOS_DATA } from './consts';
 import {
@@ -119,21 +122,30 @@ const convertVideoData = (data: {
 };
 
 const convertGalleryStyles = styles => {
-  styles.layout = {};
-  styles.item = {};
-  styles.thumbnails = {};
-  has(styles, 'galleryLayout') && (styles.layout.type = styles.galleryLayout);
-  has(styles, 'oneRow') && (styles.layout.horizontalScroll = styles.oneRow);
-  has(styles, 'isVertical') && (styles.layout.orientation = styles.isVertical ? 'COLUMNS' : 'ROWS');
-  has(styles, 'numberOfImagesPerRow') && (styles.layout.itemsPerRow = styles.numberOfImagesPerRow);
-  has(styles, 'gallerySizePx') && (styles.item.targetSize = styles.gallerySizePx);
-  has(styles, 'cubeRatio') && (styles.item.ratio = styles.cubeRatio);
-  has(styles, 'cubeType') && (styles.item.crop = styles.cubeType.toUpperCase());
-  has(styles, 'imageMargin') && (styles.item.margin = styles.imageMargin);
-  has(styles, 'galleryThumbnailsAlignment') &&
-    (styles.thumbnails.alignment = styles.galleryThumbnailsAlignment.toUpperCase());
-  has(styles, 'thumbnailSpacings') && (styles.thumbnails.spacings = styles.thumbnailSpacings * 2);
-  return styles;
+  const style: GalleryStyle = {
+    layout: {
+      type: has(styles, 'galleryLayout') && styles.galleryLayout,
+      horizontalScroll: has(styles, 'oneRow') && styles.oneRow,
+      itemsOrder:
+        has(styles, 'isVertical') && styles.isVertical
+          ? GalleryStyle_Layout_ItemsOrder.COLUMNS
+          : GalleryStyle_Layout_ItemsOrder.ROWS,
+      itemsPerRow: has(styles, 'numberOfImagesPerRow') && styles.numberOfImagesPerRow,
+    },
+    item: {
+      targetSize: has(styles, 'gallerySizePx') && styles.gallerySizePx,
+      ratio: has(styles, 'cubeRatio') && styles.cubeRatio,
+      crop: has(styles, 'cubeType') && styles.cubeType.toUpperCase(),
+      margin: has(styles, 'imageMargin') && styles.imageMargin,
+    },
+    thumbnails: {
+      alignment:
+        has(styles, 'galleryThumbnailsAlignment') &&
+        styles.galleryThumbnailsAlignment.toUpperCase(),
+      spacings: has(styles, 'thumbnailSpacings') ? styles.thumbnailSpacings * 2 : undefined,
+    },
+  };
+  return style;
 };
 
 const convertGalleryItem = item => {
@@ -152,9 +164,9 @@ const convertGalleryItem = item => {
   return item;
 };
 
-const convertGalleryData = (data: { items; styles }) => {
+const convertGalleryData = (data: GalleryData & { styles }) => {
   has(data, 'items') && (data.items = data.items.map(item => convertGalleryItem(item)));
-  has(data, 'styles') && (data.styles = convertGalleryStyles(data.styles));
+  has(data, 'styles') && (data.style = convertGalleryStyles(data.styles));
 };
 
 const convertDividerData = (data: {

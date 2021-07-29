@@ -234,11 +234,11 @@ const gallery = {
         },
       },
     ],
-    styles: {
+    style: {
       layout: {
         type: 'GRID',
         horizontalScroll: false,
-        orientation: 'ROWS',
+        itemsOrder: 'ROWS',
         itemsPerRow: 3,
       },
       item: {
@@ -267,11 +267,11 @@ const gallery = {
         },
       },
     ],
-    styles: {
+    style: {
       layout: {
         type: 'GRID',
         horizontalScroll: false,
-        orientation: 'ROWS',
+        itemsOrder: 'ROWS',
         itemsPerRow: 3,
       },
       item: {

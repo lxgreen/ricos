@@ -15,7 +15,9 @@ import {
   ButtonData,
   LinkData,
   GalleryData,
+  GalleryStyle,
   GIFData,
+  GalleryStyle_Layout_ItemsOrder,
 } from 'ricos-schema';
 import { cloneDeep, has, merge } from 'lodash';
 import toCamelCase from 'to-camel-case';
@@ -169,22 +171,32 @@ enum GalleryLayout {
   FULLSIZE,
 }
 
-const convertGalleryStyles = styles => {
-  has(styles, 'layout.type') && (styles.galleryLayout = GalleryLayout[styles.layout.type]);
-  has(styles, 'layout.horizontalScroll') && (styles.oneRow = styles.layout.horizontalScroll);
-  has(styles, 'layout.orientation') &&
-    (styles.isVertical = styles.layout.orientation === 'COLUMNS');
-  has(styles, 'layout.itemsPerRow') && (styles.numberOfImagesPerRow = styles.layout.itemsPerRow);
-  has(styles, 'item.targetSize') && (styles.gallerySizePx = styles.item.targetSize);
-  has(styles, 'item.ratio') && (styles.cubeRatio = styles.item.ratio);
-  has(styles, 'item.crop') && (styles.cubeType = styles.item.crop.toLowerCase());
-  has(styles, 'item.margin') && (styles.imageMargin = styles.item.margin);
-  has(styles, 'thumbnails.alignment') &&
-    (styles.galleryThumbnailsAlignment = styles.thumbnails.alignment.toLowerCase());
-  has(styles, 'thumbnails.spacings') && (styles.thumbnailSpacings = styles.thumbnails.spacings / 2);
-  delete styles.layout;
-  delete styles.item;
-  delete styles.thumbnails;
+type DraftGalleryStyles = {
+  galleryLayout?: number;
+  gallerySizePx?: number;
+  oneRow?: boolean;
+  cubeRatio?: number;
+  isVertical?: boolean;
+  numberOfImagesPerRow?: number;
+  cubeType?: string;
+  galleryThumbnailsAlignment?: string;
+  imageMargin?: number;
+  thumbnailSpacings?: number;
+};
+
+const convertGalleryStyles = style => {
+  const styles: DraftGalleryStyles = {};
+  has(style, 'layout.type') && (styles.galleryLayout = parseInt(GalleryLayout[style.layout.type]));
+  has(style, 'layout.horizontalScroll') && (styles.oneRow = style.layout.horizontalScroll);
+  has(style, 'layout.itemsOrder') && (styles.isVertical = style.layout.itemsOrder === 'COLUMNS');
+  has(style, 'layout.itemsPerRow') && (styles.numberOfImagesPerRow = style.layout.itemsPerRow);
+  has(style, 'item.targetSize') && (styles.gallerySizePx = style.item.targetSize);
+  has(style, 'item.ratio') && (styles.cubeRatio = style.item.ratio);
+  has(style, 'item.crop') && (styles.cubeType = style.item.crop.toLowerCase());
+  has(style, 'item.margin') && (styles.imageMargin = style.item.margin);
+  has(style, 'thumbnails.alignment') &&
+    (styles.galleryThumbnailsAlignment = style.thumbnails.alignment.toLowerCase());
+  has(style, 'thumbnails.spacings') && (styles.thumbnailSpacings = style.thumbnails.spacings / 2);
   return styles;
 };
 
@@ -217,20 +229,12 @@ const convertGalleryItem = item => {
 
 const convertGalleryData = (
   data: GalleryData & {
-    styles: {
-      galleryLayout;
-      gallerySizePx;
-      oneRow;
-      cubeRatio;
-      isVertical;
-      numberOfImagesPerRow;
-      cubeType;
-      galleryThumbnailsAlignment;
-    };
+    styles: DraftGalleryStyles;
   }
 ) => {
   has(data, 'items') && (data.items = data.items.map(item => convertGalleryItem(item)));
-  has(data, 'styles') && (data.styles = convertGalleryStyles(data.styles));
+  has(data, 'style') && (data.styles = convertGalleryStyles(data.style));
+  delete data.style;
 };
 
 const convertImageData = (data: ImageData & { src; config; metadata }) => {

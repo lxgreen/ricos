@@ -11,62 +11,62 @@ package wix.rich_content.v1;
 import "wix/rich_content/v1/common.proto";
 import "google/protobuf/wrappers.proto";
 
-message GalleryData {
 
-  message Style {
-    message Layout {
-      enum Type {
-        COLLAGE = 0;
-        MASONRY = 1;
-        GRID = 2;
-        THUMBNAIL = 3;
-        SLIDER = 4;
-        SLIDESHOW = 5;
-        PANORAMA = 6;
-        COLUMN = 7;
-        MAGIC = 8;
-        FULLSIZE = 9;
-      }
-    
-      enum Orientation {
-        ROWS = 0;
-        COLUMNS = 1;
-      }
-    
-      Type type = 1;
-      google.protobuf.BoolValue horizontal_scroll = 2;
-      Orientation orientation = 3;
-      google.protobuf.Int32Value items_per_row = 4;
-    }
-    
-    message ItemStyle {
-      enum Crop {
-        FILL = 0;
-        FIT = 1;
-      }
-      google.protobuf.Int32Value target_size = 1;
-      google.protobuf.DoubleValue ratio = 2;
-      Crop crop = 3;
-      google.protobuf.Int32Value margin = 4;
-    }
-    
-    // relevant only when has thumbnails
-    message Thumbnails {
-      enum Alignment {
-        TOP = 0;
-        RIGHT = 1;
-        BOTTOM = 2;
-        LEFT = 3;
-      }
-      Alignment alignment = 1;
-      google.protobuf.Int32Value spacings = 2;
+message GalleryStyle {
+  message Layout {
+    enum Type {
+      COLLAGE = 0;
+      MASONRY = 1;
+      GRID = 2;
+      THUMBNAIL = 3;
+      SLIDER = 4;
+      SLIDESHOW = 5;
+      PANORAMA = 6;
+      COLUMN = 7;
+      MAGIC = 8;
+      FULLSIZE = 9;
     }
   
-    Layout layout = 1;
-    ItemStyle item = 2;
-    Thumbnails thumbnails = 3;
+    enum ItemsOrder {
+      ROWS = 0;
+      COLUMNS = 1;
+    }
+  
+    Type type = 1;
+    google.protobuf.BoolValue horizontal_scroll = 2;
+    ItemsOrder items_order = 3;
+    google.protobuf.Int32Value items_per_row = 4;
   }
   
+  message ItemStyle {
+    enum Crop {
+      FILL = 0;
+      FIT = 1;
+    }
+    google.protobuf.Int32Value target_size = 1;
+    google.protobuf.DoubleValue ratio = 2;
+    Crop crop = 3;
+    google.protobuf.Int32Value margin = 4;
+  }
+  
+  // relevant only when has thumbnails
+  message Thumbnails {
+    enum Alignment {
+      TOP = 0;
+      RIGHT = 1;
+      BOTTOM = 2;
+      LEFT = 3;
+    }
+    Alignment alignment = 1;
+    google.protobuf.Int32Value spacings = 2;
+  }
+
+  Layout layout = 1;
+  ItemStyle item = 2;
+  Thumbnails thumbnails = 3;
+}
+
+message GalleryData {
   message Item {
     message Video {
       Media media = 1;
@@ -88,7 +88,7 @@ message GalleryData {
 
   PluginContainerData container_data = 1;
   repeated Item items = 2;
-  Style styles = 3;
+  GalleryStyle style = 3;
   google.protobuf.BoolValue disable_expand = 4;
   google.protobuf.BoolValue disable_download = 5;
 }
