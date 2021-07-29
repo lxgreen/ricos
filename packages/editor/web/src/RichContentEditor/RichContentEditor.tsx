@@ -518,7 +518,8 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       createPluginsDataMap,
       this.plugins,
       this.getEditorState,
-      this.updateEditorState
+      this.updateEditorState,
+      { undoExperiment: this.getUndoExperiment() }
     );
     setEditorCommands && setEditorCommands(this.EditorCommands);
   };

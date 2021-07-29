@@ -8,6 +8,7 @@ import {
   setTextAlignment,
   createBlock,
   setEntityData,
+  setBlockNewEntityData,
   blockKeyToEntityKey,
   deleteBlock,
   undo,
@@ -177,7 +178,8 @@ export const createEditorCommands = (
   createPluginsDataMap,
   plugins,
   getEditorState: GetEditorState,
-  setEditorState: SetEditorState
+  setEditorState: SetEditorState,
+  options?: { undoExperiment?: boolean }
 ): EditorCommands => {
   const setBlockType: EditorCommands['setBlockType'] = type => {
     setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
@@ -276,8 +278,11 @@ export const createEditorCommands = (
       const draftType = TO_DRAFT_PLUGIN_TYPE_MAP[type];
       const { [draftType]: createPluginData } = createPluginsDataMap;
       const pluginData = createPluginData(data, settings?.isRicosSchema);
-      const entityKey = blockKeyToEntityKey(getEditorState(), blockKey);
-      const newEditorState = setEntityData(getEditorState(), entityKey, pluginData);
+      const editorState = getEditorState();
+      const entityKey = blockKeyToEntityKey(editorState, blockKey);
+      const newEditorState = options?.undoExperiment
+        ? setEntityData(editorState, entityKey, pluginData)
+        : setBlockNewEntityData(editorState, entityKey, pluginData, type);
       const newSelection = newEditorState.getSelection();
       setEditorState(EditorState.forceSelection(newEditorState, newSelection));
     },
