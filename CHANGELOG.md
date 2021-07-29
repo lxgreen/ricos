@@ -28,6 +28,8 @@
 
 - `ricos-content`
   - [#2787](https://github.com/wix/ricos/pull/2787) toDraft preprocess => ckeditor parser postprocess
+- `editor`
+  - [#2794](https://github.com/wix/ricos/pull/2794) copy/paste supports spacing & indentation
 
 </details>
 <hr/>
