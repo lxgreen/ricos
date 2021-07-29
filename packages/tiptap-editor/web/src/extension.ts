@@ -1,5 +1,5 @@
 import { ReactNodeViewRenderer, Node, mergeAttributes } from '@tiptap/react';
-import { BaseExtensionComponentHOC } from './components/BaseComponent';
+// import { BaseExtensionComponentHOC } from './components/BaseComponent';
 
 export const createNodeExtension = (name, Component, componentDataDefaults) => {
   return Node.create({
@@ -29,7 +29,7 @@ export const createNodeExtension = (name, Component, componentDataDefaults) => {
 
     addNodeView() {
       // eslint-disable-next-line new-cap
-      return ReactNodeViewRenderer(BaseExtensionComponentHOC(Component));
+      return ReactNodeViewRenderer(Component);
     },
   });
 };

@@ -3,7 +3,7 @@ import * as E from 'fp-ts/Either';
 import { VideoData, Node_Type } from 'ricos-schema';
 import { Element } from 'parse5';
 import { createNode } from '../../../nodeUtils';
-import { hasTag, getAttributes } from '../core/ast-utils';
+import { hasTag, getAttributes } from '../core/parse5-utils';
 import { Rule } from '../core/models';
 
 const toURL = (str: string) =>

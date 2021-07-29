@@ -20,6 +20,29 @@ const Toolbar = ({ editor }) => {
         bold
       </button>
       <button
+        onClick={() => {
+          editor
+            .chain()
+            .focus()
+            .setImageLoading(true)
+            .setImageUrl('8bb438_1da83d5d8fcd481ba6bf60b40db869c6.jpg') // base 64 image
+            .run();
+          setTimeout(() => {
+            editor
+              .chain()
+              .focus()
+              .silent()
+              .setImageLoading(false)
+              .setImageUrl('8bb438_8583414cdf6544a191e2b8f678ce7b63.jpg')
+              .run();
+          }, 5000);
+        }}
+        className={editor.isActive('bold') ? 'is-active' : ''}
+      >
+        change image
+      </button>
+
+      <button
         onClick={() =>
           editor
             .chain()
@@ -30,6 +53,19 @@ const Toolbar = ({ editor }) => {
         className={editor.isActive('italic') ? 'is-active' : ''}
       >
         italic
+      </button>
+      <button
+        onClick={() =>
+          editor
+            .chain()
+            .undoable()
+            .focus()
+            .toggleItalic()
+            .run()
+        }
+        className={editor.isActive('italic') ? 'is-active' : ''}
+      >
+        italic silent
       </button>
       <button
         onClick={() =>

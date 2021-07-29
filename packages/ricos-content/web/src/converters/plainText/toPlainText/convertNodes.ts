@@ -75,9 +75,8 @@ export const parseVideo = async (
   return title ? title + delimiter + videoUrl : videoUrl;
 };
 
-export const parseGiphy = ({ giphyData }: Node): string => {
-  const { originalUrl } = giphyData?.gif || {};
-  return originalUrl || '';
+export const parseGiphy = ({ gifData }: Node): string => {
+  return gifData?.original?.gif || '';
 };
 
 export const parseMap = ({ mapData }: Node): string => {

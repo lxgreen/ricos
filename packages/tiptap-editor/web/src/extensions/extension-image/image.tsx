@@ -1,12 +1,11 @@
 import React from 'react';
 import { ImageComponent } from 'wix-rich-content-plugin-image';
 import { ImagePluginEditorConfig } from 'wix-rich-content-plugin-image/src/types';
-import { BlockSpoilerComponent } from 'wix-rich-content-plugin-spoiler';
 import { PluginProps } from '../../types';
 
 const Image: React.FC<PluginProps> = ({ context, componentData, updateAttributes }) => {
   const { isMobile, theme, t } = context;
-
+  // console.log({ componentData });
   const store = {
     update: (propery, data) => {
       // update caption
@@ -45,24 +44,7 @@ const Image: React.FC<PluginProps> = ({ context, componentData, updateAttributes
     />
   );
 
-  if (componentData?.config?.spoiler) {
-    return (
-      <BlockSpoilerComponent
-        theme={theme}
-        isMobile={isMobile}
-        isEditableText
-        t={t}
-        pluginType="Image"
-        handleDescriptionChange={() => {}}
-        setInPluginEditingMode={() => {}}
-        handleButtonContentChange={() => {}}
-      >
-        {imageComponent}
-      </BlockSpoilerComponent>
-    );
-  } else {
-    return imageComponent;
-  }
+  return imageComponent;
 };
 
 export default Image;
