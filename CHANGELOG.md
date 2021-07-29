@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.47.14 (Jul 29, 2021)
+
 ### :bug: Bug Fix
 
 - `hashtag`
   - [#2796](https://github.com/wix/ricos/pull/2796) disable hashtag inside quotes for avoid hashtag in code-snippet selectors
-
-</details>
-<hr/>
 
 ## 8.47.13 (Jul 29, 2021)
 
