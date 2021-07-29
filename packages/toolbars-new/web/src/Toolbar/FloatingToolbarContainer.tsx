@@ -5,7 +5,7 @@ import styles from './ToolbarContainer.scss';
 import { /*getVisibleSelectionRect,*/ KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 import { debounce } from 'lodash';
 
-const TOOLBAR_OFFSET = 5;
+const TOOLBAR_OFFSET = 11;
 
 interface ToolbarContainerProps {
   children: ReactElement;
@@ -70,20 +70,13 @@ class FloatingToolbarContainer extends PureComponent<ToolbarContainerProps, Stat
 
     let top;
     if (!this.props.isMobile) {
-      top =
-        Math.round(selectionRect.top) -
-        Math.round(toolbarParentRect.top) -
-        Math.round(toolbarHeight) -
-        TOOLBAR_OFFSET;
+      top = selectionRect.top - toolbarParentRect.top - toolbarHeight - TOOLBAR_OFFSET;
     } else {
-      top = Math.round(selectionRect.bottom) - Math.round(toolbarParentRect.top) + TOOLBAR_OFFSET;
+      top = selectionRect.bottom - toolbarParentRect.top + TOOLBAR_OFFSET;
     }
 
     let left =
-      Math.round(selectionRect.left) -
-      Math.round(toolbarParentRect.left) +
-      Math.round(selectionRect.width / 2) -
-      Math.round(halfToolbarWidth);
+      selectionRect.left - toolbarParentRect.left + selectionRect.width / 2 - halfToolbarWidth;
     // make sure we're not out of bounds, adjust position if we are
     if (selectionRect.left - toolbarParentRect.left < halfToolbarWidth) {
       left = 0;
@@ -105,16 +98,15 @@ class FloatingToolbarContainer extends PureComponent<ToolbarContainerProps, Stat
     const reactModalElement = document.querySelector('[data-id="rich-content-editor-modal"]');
     const pluginMenuElement = document.querySelector('[data-hook="addPluginMenu"]');
     const toolbarOnFocus = this.isToolbarOnFocus();
-    const positionTopGap = parseFloat(toolbarPosition?.top) - top;
+    const topDiff = Math.abs(parseFloat(toolbarPosition?.top) - top);
+    const leftDiff = Math.abs(parseFloat(toolbarPosition?.left) - left);
 
     if (
       !reactModalElement &&
       !pluginMenuElement &&
-      (`${top}px` !== toolbarPosition?.top || `${left}px` !== toolbarPosition?.left) &&
       !keepOpen &&
       !toolbarOnFocus &&
-      positionTopGap !== 1 &&
-      positionTopGap !== -1
+      (topDiff > 1 || leftDiff > 1)
     ) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ toolbarPosition: { top: `${top}px`, left: `${left}px` } });
