@@ -249,7 +249,7 @@ const gallery = {
       },
       thumbnails: {
         alignment: 'BOTTOM',
-        spacings: 0,
+        spacing: 0,
       },
     },
   }),
@@ -282,7 +282,7 @@ const gallery = {
       },
       thumbnails: {
         alignment: 'BOTTOM',
-        spacings: 0,
+        spacing: 0,
       },
     },
   }),

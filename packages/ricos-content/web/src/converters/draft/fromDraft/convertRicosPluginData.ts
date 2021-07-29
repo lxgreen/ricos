@@ -142,7 +142,7 @@ const convertGalleryStyles = styles => {
       alignment:
         has(styles, 'galleryThumbnailsAlignment') &&
         styles.galleryThumbnailsAlignment.toUpperCase(),
-      spacings: has(styles, 'thumbnailSpacings') ? styles.thumbnailSpacings * 2 : undefined,
+      spacing: has(styles, 'thumbnailSpacings') ? styles.thumbnailSpacings * 2 : undefined,
     },
   };
   return style;

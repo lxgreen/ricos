@@ -194,7 +194,7 @@ const convertGalleryStyles = style => {
   has(style, 'item.margin') && (styles.imageMargin = style.item.margin);
   has(style, 'thumbnails.alignment') &&
     (styles.galleryThumbnailsAlignment = style.thumbnails.alignment.toLowerCase());
-  has(style, 'thumbnails.spacings') && (styles.thumbnailSpacings = style.thumbnails.spacings / 2);
+  has(style, 'thumbnails.spacing') && (styles.thumbnailSpacings = style.thumbnails.spacing / 2);
   return styles;
 };
 

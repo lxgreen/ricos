@@ -58,7 +58,7 @@ message GalleryStyle {
       LEFT = 3;
     }
     Alignment alignment = 1;
-    google.protobuf.Int32Value spacings = 2;
+    google.protobuf.Int32Value spacing = 2;
   }
 
   Layout layout = 1;
