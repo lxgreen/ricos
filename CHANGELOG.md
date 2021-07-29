@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.47.13 (Jul 29, 2021)
+
 ### :house: Internal
 
 - `ricos-schema`
@@ -30,9 +35,6 @@
   - [#2787](https://github.com/wix/ricos/pull/2787) toDraft preprocess => ckeditor parser postprocess
 - `editor`
   - [#2794](https://github.com/wix/ricos/pull/2794) copy/paste supports spacing & indentation
-
-</details>
-<hr/>
 
 ## 8.47.12 (Jul 27, 2021)
 
