@@ -16,7 +16,7 @@ import {
 import {
   DividerData,
   DividerData_LineStyle,
-  GiphyData,
+  GIFData,
   HTMLData,
   GalleryData,
   PollData,
@@ -97,30 +97,34 @@ const divider = {
 
 const giphy = {
   type: RICOS_GIPHY_TYPE,
-  nodeType: Node_Type.GIPHY,
-  data1: GiphyData.fromJSON({
-    gif: {
-      originalUrl: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.gif',
-      originalMp4: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.mp4',
-      stillUrl: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy_s.gif',
-      downsizedUrl: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.gif',
-      downsizedStillUrl: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy_s.gif',
-      downsizedSmallMp4: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy-downsized-small.mp4',
-      height: 500,
-      width: 500,
+  nodeType: Node_Type.GIF,
+  data1: GIFData.fromJSON({
+    original: {
+      gif: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.gif',
+      mp4: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.mp4',
+      still: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy_s.gif',
     },
+    downsized: {
+      gif: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.gif',
+      mp4: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy-downsized-small.mp4',
+      still: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy_s.gif',
+    },
+    height: 500,
+    width: 500,
   }),
-  data2: GiphyData.fromJSON({
-    gif: {
-      originalUrl: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.gif',
-      originalMp4: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.mp4',
-      stillUrl: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy_s.gif',
-      downsizedUrl: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.gif',
-      downsizedStillUrl: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy_s.gif',
-      downsizedSmallMp4: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy-downsized-small.mp4',
-      height: 300,
-      width: 300,
+  data2: GIFData.fromJSON({
+    original: {
+      gif: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.gif',
+      mp4: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.mp4',
+      still: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy_s.gif',
     },
+    downsized: {
+      gif: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.gif',
+      mp4: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy-downsized-small.mp4',
+      still: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy_s.gif',
+    },
+    height: 300,
+    width: 300,
   }),
   expectedData1: {
     config: {

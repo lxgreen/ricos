@@ -14,8 +14,17 @@ import {
 } from 'ricos-schema';
 import { TextNode, Element } from 'parse5';
 import { toUpperCase, replace, concatApply, split } from '../../../../fp-utils';
-import { oneOf, hasTag, hasStyle, getAttributes, hasParent } from '../core/parse5-utils';
+import {
+  oneOf,
+  hasTag,
+  getStyle,
+  hasStyleRule,
+  hasStyleFor,
+  getAttributes,
+  hasParent,
+} from '../core/parse5-utils';
 import { preprocess } from './preprocess';
+import postprocess from './postprocess';
 import parse from '../core/parser';
 import {
   pToParagraph,
@@ -40,18 +49,18 @@ const traverseDiv: Rule = [hasTag('div'), identityRule[1]];
 // const traverseSpan: Rule = [hasTag('span'), identityRule[1]];
 
 const fontStyleToItalic: Rule = [
-  hasStyle({ 'font-style': 'italic' }),
+  hasStyleRule({ 'font-style': 'italic' }),
   ({ addDecoration }) => (el: Element) => addDecoration(Decoration_Type.ITALIC, {}, el),
 ];
 
 const fontWeightToBold: Rule = [
-  hasStyle({ 'font-weight': 'bold' }),
+  hasStyleRule({ 'font-weight': 'bold' }),
   ({ addDecoration }) => (el: Element) => addDecoration(Decoration_Type.BOLD, {}, el),
 ];
 
 type Alignment = 'LEFT' | 'RIGHT' | 'CENTER' | '';
 
-const toTextStyle = (alignment: Alignment): TextStyle => ({
+const alignmentToTextStyle = (alignment: Alignment): Partial<TextStyle> => ({
   textAlignment: alignment as TextStyle_TextAlignment,
 });
 
@@ -78,16 +87,24 @@ const getAlignment = flow(
 const getAlignmentByClass = flow(getAttributes, getAlignment);
 const hasAlignmentClass = flow(getAlignmentByClass, Boolean);
 
-const mergeWithTextStyle = (dataProp: string, textStyle: TextStyle) => (node: Node) => ({
+const mergeWithTextStyle = (dataProp: string, textStyle: Partial<TextStyle>) => (node: Node) => ({
   ...node,
-  [dataProp]: { ...node[dataProp], textStyle },
+  [dataProp]: { ...node[dataProp], textStyle: { ...node[dataProp].textStyle, ...textStyle } },
 });
 
 const mergeWithContainerData = (dataProp: string, containerData: PluginContainerData) => (
   node: Node
 ) => ({ ...node, [dataProp]: { ...node[dataProp], containerData } });
 
-const pToAlignedParagraph: Rule = [
+const lineHeightToTextStyle = (lineHeight?: string): Partial<TextStyle> => ({ lineHeight });
+
+const getLineHeight = flow(
+  getStyle,
+  O.chain(R.lookup('line-height')),
+  O.fold(() => '', identity)
+);
+
+const pToStyledParagraph: Rule = [
   pToParagraph[0],
   context => (element: Element) =>
     pipe(
@@ -95,7 +112,15 @@ const pToAlignedParagraph: Rule = [
       pToParagraph[1](context),
       A.map(
         hasAlignmentClass(element)
-          ? mergeWithTextStyle('paragraphData', pipe(element, getAlignmentByClass, toTextStyle))
+          ? mergeWithTextStyle(
+              'paragraphData',
+              pipe(element, getAlignmentByClass, alignmentToTextStyle)
+            )
+          : identity
+      ),
+      A.map(
+        hasStyleFor('line-height')(element)
+          ? mergeWithTextStyle('paragraphData', pipe(element, getLineHeight, lineHeightToTextStyle))
           : identity
       )
     ),
@@ -109,7 +134,15 @@ const hToAlignedHeading: Rule = [
       hToHeading[1](context),
       A.map(
         hasAlignmentClass(element)
-          ? mergeWithTextStyle('headingData', pipe(element, getAlignmentByClass, toTextStyle))
+          ? mergeWithTextStyle(
+              'headingData',
+              pipe(element, getAlignmentByClass, alignmentToTextStyle)
+            )
+          : identity
+      ),
+      A.map(
+        hasStyleFor('line-height')(element)
+          ? mergeWithTextStyle('paragraphData', pipe(element, getLineHeight, lineHeightToTextStyle))
           : identity
       )
     ),
@@ -167,7 +200,7 @@ export default flow(
   preprocess,
   parse([
     noEmptyLineText,
-    pToAlignedParagraph,
+    pToStyledParagraph,
     brToEmptyParagraph,
     lToList,
     hToAlignedHeading,
@@ -177,5 +210,7 @@ export default flow(
     iframeToAlignedVideo,
     imgToAlignedImage,
     traverseDiv,
-  ])
+    // traverseSpan,
+  ]),
+  postprocess
 );

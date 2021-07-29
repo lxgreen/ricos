@@ -73,7 +73,7 @@ import {
 } from 'ricos-content';
 import {
   DividerData,
-  GiphyData,
+  GIFData,
   HTMLData,
   GalleryData,
   PollData,
@@ -101,8 +101,8 @@ export type MentionData = { mention: MentionPluginData; trigger: string };
 export interface CreatePluginsDataMap {
   [RICOS_DIVIDER_TYPE]?: CreatePluginData<DividerData>;
   [DIVIDER_TYPE]?: CreatePluginData<DividerData>;
-  [RICOS_GIPHY_TYPE]?: CreatePluginData<GiphyData>;
-  [GIPHY_TYPE]?: CreatePluginData<GiphyData>;
+  [RICOS_GIPHY_TYPE]?: CreatePluginData<GIFData>;
+  [GIPHY_TYPE]?: CreatePluginData<GIFData>;
   [RICOS_HTML_TYPE]?: CreatePluginData<HTMLData>;
   [HTML_TYPE]?: CreatePluginData<HTMLData>;
   [RICOS_GALLERY_TYPE]?: CreatePluginData<GalleryData>;

@@ -1,9 +1,8 @@
-import { ExtensionConfig } from '@tiptap/core';
 import { CreateTiptapExtension } from 'wix-rich-content-common';
 import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { DraftContent } from 'ricos-content';
 import { FC } from 'react';
-import { Editor, NodeConfig, MarkConfig } from '@tiptap/react';
+import { Editor, NodeConfig, MarkConfig, ExtensionConfig } from '@tiptap/react';
 
 export interface PluginProps {
   context: {
@@ -28,7 +27,6 @@ export type TiptapConfig = {
 };
 
 export type TiptapAPI = {
-  Editor: FC;
   blur: () => void;
   focus: () => void;
   // eslint-disable-next-line
@@ -38,3 +36,15 @@ export type TiptapAPI = {
   getToolbarProps: () => Record<string, any>; // to be deprecated
   destroy: Editor['destroy'];
 };
+
+export interface RicosNodeConfig extends ExtensionConfig {}
+
+export interface RicosExtensionConfig extends ExtensionConfig {
+  priority: number;
+  addNodeViewHOC?: (
+    Component
+  ) => {
+    nodeTypes: string[];
+    nodeViewHOC: unknown;
+  };
+}

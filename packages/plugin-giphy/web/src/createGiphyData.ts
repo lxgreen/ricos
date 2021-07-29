@@ -8,8 +8,6 @@ export const createGiphyData: CreatePluginsDataMap[typeof RICOS_GIPHY_TYPE] | an
   pluginData = {},
   isRicosSchema = false
 ) => {
-  const giphyData = isRicosSchema
-    ? convertNodeDataToDraft(Node_Type.GIPHY, pluginData)
-    : pluginData;
+  const giphyData = isRicosSchema ? convertNodeDataToDraft(Node_Type.GIF, pluginData) : pluginData;
   return merge({}, DEFAULTS, giphyData);
 };

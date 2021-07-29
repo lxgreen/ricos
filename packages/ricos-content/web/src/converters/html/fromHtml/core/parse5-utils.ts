@@ -85,9 +85,18 @@ const toStyle = flow(
   }))
 );
 
-const getStyle = flow(getAttributes, R.lookup('style'), O.map(toStyle));
+export const getStyle = flow(getAttributes, R.lookup('style'), O.map(toStyle));
 
-export const hasStyle = (style: Record<string, string>) =>
+export const hasStyleFor = (styleRule: string) =>
+  flow(
+    getStyle,
+    O.fold(
+      () => false,
+      (s: Record<string, string>) => R.has(styleRule, s)
+    )
+  );
+
+export const hasStyleRule = (style: Record<string, string>) =>
   flow(
     getStyle,
     O.fold(
