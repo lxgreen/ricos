@@ -15,9 +15,7 @@ import {
   ButtonData,
   LinkData,
   GalleryData,
-  GalleryStyle,
   GIFData,
-  GalleryStyle_Layout_ItemsOrder,
 } from 'ricos-schema';
 import { cloneDeep, has, merge } from 'lodash';
 import toCamelCase from 'to-camel-case';
