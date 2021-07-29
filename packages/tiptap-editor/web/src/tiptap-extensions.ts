@@ -6,7 +6,7 @@
 import Document from '@tiptap/extension-document';
 import Underline from '@tiptap/extension-underline';
 import Text from '@tiptap/extension-text';
-import History from '@tiptap/extension-history';
+// import History from '@tiptap/extension-history';
 import Italic from '@tiptap/extension-italic';
 // import CodeBlock from '@tiptap/extension-code-block';
 import Heading from '@tiptap/extension-heading';
@@ -16,11 +16,13 @@ import OrderedList from '@tiptap/extension-ordered-list';
 import ListItem from '@tiptap/extension-list-item';
 import Paragraph from './extensions/extension-paragraph';
 import Link from '@tiptap/extension-link';
-import { createDivider } from './extensions/extension-divider';
-import { createImage } from './extensions/extension-image';
+// import { createDivider } from './extensions/extension-divider';
 import { createBold } from './extensions/extension-bold';
 import { LinkData, HeadingData } from 'ricos-schema';
-import { MarkConfig, NodeConfig } from '@tiptap/react';
+import { MarkConfig, NodeConfig, Node } from '@tiptap/react';
+import * as TTR from '@tiptap/react';
+import { BaseExtensionComponentHOC } from './components/BaseComponent';
+// import { CreateTiptapExtension } from 'wix-rich-content-common';
 
 const extendedAttrs = (attrs): Partial<NodeConfig & MarkConfig> => ({
   addAttributes() {
@@ -32,7 +34,6 @@ const extendedAttrs = (attrs): Partial<NodeConfig & MarkConfig> => ({
 });
 
 const withKey = extendedAttrs({ key: '' });
-
 export const tiptapExtensions = [
   Blockquote.extend(withKey),
   Underline,
@@ -40,16 +41,27 @@ export const tiptapExtensions = [
   // CodeBlock.extend(withKey),
   Document.extend(extendedAttrs({ metadata: {} })),
   Heading.extend(withKey).extend(extendedAttrs(HeadingData.fromJSON({}))),
-  History,
+  // History,
   Italic,
   ListItem.extend(withKey),
   OrderedList.extend(withKey),
   Paragraph.extend(withKey),
   Text,
   Link.extend(extendedAttrs(LinkData.fromJSON({}))),
-  createDivider().extend(withKey),
+  // createDivider().extend(withKey),
   createBold(),
-  createImage().extend(withKey),
   // Dropcursor,
   // Gapcursor,
 ];
+
+// type Creator = CreateTiptapExtension<NodeConfig | MarkConfig | ExtensionConfig>;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const createExtensions = (ricosExtensions: ((() => any) | undefined)[]) => {
+  const creatorCoreUtils = { ...TTR, BaseExtensionComponentHOC };
+  const extensions = ricosExtensions
+    .map(ext => ext?.()(creatorCoreUtils))
+    .filter(ext => !!ext)
+    .map(ext => Node.create(ext as NodeConfig).extend(withKey));
+  return [...tiptapExtensions, ...extensions];
+};

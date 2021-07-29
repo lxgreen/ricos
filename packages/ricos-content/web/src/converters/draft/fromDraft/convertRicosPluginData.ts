@@ -16,6 +16,7 @@ import {
   EMBED_TYPE,
   LINK_TYPE,
   GALLERY_TYPE,
+  GIPHY_TYPE,
 } from '../../../consts';
 import {
   PluginContainerData_Spoiler,
@@ -23,6 +24,7 @@ import {
   PluginContainerData_Width_Type,
   ButtonData_Type,
   Link,
+  GIFData,
 } from 'ricos-schema';
 import { TO_RICOS_DATA } from './consts';
 import {
@@ -32,6 +34,7 @@ import {
   VideoComponentData,
 } from '../../../types';
 import { createLink } from '../../nodeUtils';
+import toConstantCase from 'to-constant-case';
 
 export const convertBlockDataToRicos = (type: string, data) => {
   const newData = cloneDeep(data);
@@ -39,6 +42,7 @@ export const convertBlockDataToRicos = (type: string, data) => {
     [VIDEO_TYPE]: convertVideoData,
     [DIVIDER_TYPE]: convertDividerData,
     [FILE_UPLOAD_TYPE]: convertFileData,
+    [GIPHY_TYPE]: convertGIFData,
     [IMAGE_TYPE]: convertImageData,
     [POLL_TYPE]: convertPollData,
     [APP_EMBED_TYPE]: convertAppEmbedData,
@@ -79,13 +83,13 @@ const convertContainerData = (data: { config?: ComponentData['config']; containe
     buttonText: buttonContent,
   };
   data.containerData = {
-    alignment: alignment && kebabToConstantCase(alignment),
+    alignment: alignment?.toUpperCase(),
     spoiler: newSpoiler,
   };
   typeof height === 'number' && (data.containerData.height = { custom: height });
   typeof width === 'number'
     ? (data.containerData.width = { custom: width })
-    : size && (data.containerData.width = { size: kebabToConstantCase(size) });
+    : size && (data.containerData.width = { size: toConstantCase(size) });
 };
 
 const convertVideoData = (data: {
@@ -182,6 +186,38 @@ const convertImageData = (data: {
   data.link = (link || anchor) && createLink({ ...link, anchor });
   data.altText = data.metadata?.alt;
   data.caption = data.metadata?.caption;
+};
+
+const convertGIFData = (
+  data: GIFData & {
+    gif?: {
+      originalUrl;
+      originalMp4;
+      stillUrl;
+      downsizedUrl;
+      downsizedSmallMp4;
+      downsizedStillUrl;
+      height;
+      width;
+    };
+  }
+) => {
+  const { gif } = data;
+  const {
+    originalUrl,
+    originalMp4,
+    stillUrl,
+    downsizedUrl,
+    downsizedSmallMp4,
+    downsizedStillUrl,
+    height,
+    width,
+  } = gif || {};
+  data.original = { gif: originalUrl, mp4: originalMp4, still: stillUrl };
+  data.downsized = { gif: downsizedUrl, mp4: downsizedSmallMp4, still: downsizedStillUrl };
+  data.height = height;
+  data.width = width;
+  delete data.gif;
 };
 
 const convertPollData = (data: { layout; design; poll }) => {
@@ -306,7 +342,7 @@ const convertMapData = data => {
   data.mapSettings.zoomControl = isZoomControlShown;
   data.mapSettings.locationName = locationDisplayName;
   data.mapSettings.initialZoom = zoom;
-  data.mapSettings.mapType = mode;
+  data.mapSettings.mapType = mode?.toUpperCase();
 
   if (has(data.mapSettings, 'isViewControlShown')) {
     data.mapSettings.viewModeControl = isViewControlShown;
@@ -336,5 +372,3 @@ const convertEmbedData = (data: {
 const convertLinkData = (data: { url: string; target?: string; rel?: string } & { link: Link }) => {
   data.link = createLink(data);
 };
-
-const kebabToConstantCase = (str: string) => str.toUpperCase().replace('-', '_');

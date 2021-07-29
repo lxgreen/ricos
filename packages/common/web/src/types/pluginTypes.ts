@@ -72,7 +72,7 @@ import {
 } from 'ricos-content';
 import {
   DividerData,
-  GiphyData,
+  GIFData,
   HTMLData,
   GalleryData,
   PollData,
@@ -84,6 +84,7 @@ import {
   Node_Type,
   Decoration_Type,
 } from 'ricos-schema';
+import { NodeConfig, ExtensionConfig, MarkConfig } from '@tiptap/core';
 export { Node_Type, Decoration_Type, LinkData };
 
 export type CreatePluginData<PluginData> = (
@@ -97,8 +98,8 @@ export type MentionData = { mention: MentionPluginData; trigger: string };
 export interface CreatePluginsDataMap {
   [RICOS_DIVIDER_TYPE]?: CreatePluginData<DividerData>;
   [DIVIDER_TYPE]?: CreatePluginData<DividerData>;
-  [RICOS_GIPHY_TYPE]?: CreatePluginData<GiphyData>;
-  [GIPHY_TYPE]?: CreatePluginData<GiphyData>;
+  [RICOS_GIPHY_TYPE]?: CreatePluginData<GIFData>;
+  [GIPHY_TYPE]?: CreatePluginData<GIFData>;
   [RICOS_HTML_TYPE]?: CreatePluginData<HTMLData>;
   [HTML_TYPE]?: CreatePluginData<HTMLData>;
   [RICOS_GALLERY_TYPE]?: CreatePluginData<GalleryData>;
@@ -226,7 +227,14 @@ export interface EditorPlugin<PluginConfig extends EditorPluginConfig = Record<s
   createPlugin?: CreatePluginFunction<PluginConfig>;
   ModalsMap?: ModalsMap;
   createPluginData?: CreatePluginData<PluginConfig>;
+  tiptapExtension?: () => CreateTiptapExtension<NodeConfig | MarkConfig | ExtensionConfig>;
 }
+
+export type CreateTiptapExtension<T> = (obj: {
+  mergeAttributes;
+  ReactNodeViewRenderer;
+  BaseExtensionComponentHOC;
+}) => T;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface ViewerPlugin<PluginConfig = Record<string, any>> extends BasePluginConfig {

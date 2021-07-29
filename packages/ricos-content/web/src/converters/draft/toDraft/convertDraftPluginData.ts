@@ -15,8 +15,10 @@ import {
   ButtonData,
   LinkData,
   GalleryData,
+  GIFData,
 } from 'ricos-schema';
 import { cloneDeep, has, merge } from 'lodash';
+import toCamelCase from 'to-camel-case';
 import {
   ENTITY_DECORATION_TO_DATA_FIELD,
   FROM_RICOS_DECORATION_TYPE,
@@ -51,6 +53,7 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data) => {
     [Node_Type.VIDEO]: convertVideoData,
     [Node_Type.DIVIDER]: convertDividerData,
     [Node_Type.FILE]: convertFileData,
+    [Node_Type.GIF]: convertGIFData,
     [Node_Type.IMAGE]: convertImageData,
     [Node_Type.POLL]: convertPollData,
     [Node_Type.APP_EMBED]: convertAppEmbedData,
@@ -94,10 +97,10 @@ const convertContainerData = (
   data.config = Object.assign(
     {},
     data.config,
-    width?.size && { size: constantToKebabCase(width.size) },
+    width?.size && { size: toCamelCase(width.size) },
     width?.custom && { width: parseInt(width.custom) },
     height?.custom && { height: parseInt(height.custom) },
-    alignment && { alignment: constantToKebabCase(alignment) },
+    alignment && { alignment: alignment?.toLowerCase() },
     spoiler && {
       spoiler: {
         enabled,
@@ -252,6 +255,39 @@ const convertImageData = (data: ImageData & { src; config; metadata }) => {
   delete data.altText;
 };
 
+const convertGIFData = (
+  data: GIFData & {
+    gif: {
+      originalUrl;
+      originalMp4;
+      stillUrl;
+      downsizedUrl;
+      downsizedSmallMp4;
+      downsizedStillUrl;
+      height;
+      width;
+    };
+    width;
+    height;
+  }
+) => {
+  const { original = {}, downsized = {}, height, width } = data;
+  data.gif = {
+    originalUrl: original.gif,
+    originalMp4: original.mp4,
+    stillUrl: original.still,
+    downsizedUrl: downsized.gif,
+    downsizedSmallMp4: downsized.mp4,
+    downsizedStillUrl: downsized.still,
+    height,
+    width,
+  };
+  delete data.original;
+  delete data.downsized;
+  delete data.height;
+  delete data.width;
+};
+
 const convertPollData = data => {
   has(data, 'layout.poll.type') && (data.layout.poll.type = data.layout.poll.type.toLowerCase());
   has(data, 'layout.poll.direction') &&
@@ -360,7 +396,7 @@ const convertMapData = data => {
   data.mapSettings.isZoomControlShown = zoomControl;
   data.mapSettings.locationDisplayName = locationName;
   data.mapSettings.zoom = initialZoom;
-  data.mapSettings.mode = mapType;
+  data.mapSettings.mode = mapType?.toLowerCase();
   delete data.mapSettings.draggable;
   delete data.mapSettings.marker;
   delete data.mapSettings.streetViewControl;
@@ -443,5 +479,3 @@ const parseLink = ({
   target: target && '_' + target.toLowerCase(),
   customData,
 });
-
-const constantToKebabCase = (str: string) => str.toLowerCase().replace('_', '-');
