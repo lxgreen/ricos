@@ -57,11 +57,8 @@ class LayoutControlsSection extends Component {
 
   getValueFromComponentStyles = name => this.props.data.styles[name];
 
-  applyGallerySetting = setting => {
-    const { data, updateData } = this.props;
-    const componentData = { ...data, styles: { ...data.styles, ...setting } };
-    updateData(componentData);
-  };
+  applyGallerySetting = setting =>
+    this.props.updateData({ styles: { ...this.props.data.styles, ...setting } });
 
   getControlData = t => ({
     '|': { component: Separator, props: { type: 'hr' } }, //separator

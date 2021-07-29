@@ -31,10 +31,9 @@ class ManageMediaSection extends Component {
   };
 
   handleFileSelection = (index, multiple, deleteBlock) => {
-    const { helpers, data, store, updateData } = this.props;
+    const { helpers, data, store } = this.props;
     const handleFilesAdded = store.getBlockHandler('handleFilesAdded');
     helpers.handleFileSelection(index, multiple, handleFilesAdded, deleteBlock, data);
-    updateData({ items: store.get('componentData').items });
   };
 
   render() {
@@ -88,11 +87,7 @@ ManageMediaSection.propTypes = {
 };
 
 class AdvancedSettingsSection extends Component {
-  applyGallerySetting = setting => {
-    const { data, updateData } = this.props;
-    const componentData = { ...data, styles: setting };
-    updateData(componentData);
-  };
+  applyGallerySetting = setting => this.props.updateData({ styles: setting });
 
   switchLayout = layout => {
     this.applyGallerySetting({ ...layout, ...layoutData[layout.galleryLayout] });
