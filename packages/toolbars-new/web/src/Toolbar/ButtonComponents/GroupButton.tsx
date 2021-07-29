@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import ClickOutside from 'react-click-outsider';
-import Styles from '../Toolbar.scss';
+import Styles from '../ToolbarNew.scss';
 import ToolbarButton from '../ToolbarButton.jsx';
 import { RichContentTheme } from 'wix-rich-content-common';
 

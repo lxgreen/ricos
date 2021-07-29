@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component } from 'react';
 import ClickOutside from 'react-click-outsider';
-import styles from '../Toolbar.scss';
+import styles from '../ToolbarNew.scss';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
 import { RichContentTheme, TranslationFunction, EditorCommands } from 'wix-rich-content-common';

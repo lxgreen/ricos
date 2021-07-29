@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import ClickOutside from 'react-click-outsider';
-import styles from '../Toolbar.scss';
+import styles from '../ToolbarNew.scss';
 import ToolbarButton from '../ToolbarButton';
 import { ColorPicker } from 'wix-rich-content-plugin-commons';
 import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';

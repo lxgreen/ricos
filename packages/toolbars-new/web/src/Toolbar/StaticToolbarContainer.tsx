@@ -3,7 +3,7 @@
 import React, { Component, ReactElement } from 'react';
 import classNames from 'classnames';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
-import styles from './ToolbarContainer.scss';
+import styles from './ToolbarContainerNew.scss';
 
 interface StaticToolbarContainerProps {
   children: ReactElement;

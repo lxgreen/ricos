@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { PureComponent } from 'react';
 import ClickOutside from 'react-click-outsider';
-import Styles from '../Toolbar.scss';
+import Styles from '../ToolbarNew.scss';
 import ToolbarButton from '../ToolbarButton.jsx';
 import { isElementOutOfWindow } from 'wix-rich-content-editor-common';
 import { RichContentTheme } from 'wix-rich-content-common';

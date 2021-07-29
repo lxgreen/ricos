@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { PureComponent, ReactElement } from 'react';
-import styles from './ToolbarContainer.scss';
+import styles from './ToolbarContainerNew.scss';
 import { /*getVisibleSelectionRect,*/ KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 import { debounce } from 'lodash';
 

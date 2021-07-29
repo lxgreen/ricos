@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import styles from './Toolbar.scss';
+import styles from './ToolbarNew.scss';
 import { TOOLBAR_BUTTON_TYPES } from './consts';
 import GroupButton from './ButtonComponents/GroupButton';
 import DropdownButton from './ButtonComponents/DropdownButton';
