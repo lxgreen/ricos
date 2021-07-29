@@ -17,6 +17,11 @@ export default (
       return (start <= range[0] && end >= range[0]) || (range[0] <= start && range[1] >= start);
     };
 
+    // avoid hashtag in code-snippet selectors
+    isInsideQuotes = (before, after) =>
+      // eslint-disable-next-line quotes
+      (before === "'" || before === '"') && before === after;
+
     getDecorations(block, contentState) {
       const key = block.getKey();
       const text = block.getText();
@@ -28,7 +33,10 @@ export default (
           hashtagRegexes.validHashtag,
           (match, before, hash, hashText, offset, chunk) => {
             const after = chunk.slice(offset + match.length);
-            if (after.match(hashtagRegexes.endHashtagMatch)) {
+            if (
+              after.match(hashtagRegexes.endHashtagMatch) ||
+              this.isInsideQuotes(before, after[0])
+            ) {
               return;
             }
             const start = offset + before.length;
