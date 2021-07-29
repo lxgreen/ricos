@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-plugin-spoiler",
-  "version": "8.47.13",
+  "version": "8.47.13-css",
   "author": {
     "name": "undefined",
     "email": "barb@wix.com"
@@ -35,9 +35,9 @@
     "lint": "eslint 'src/**/*.{js,jsx}'"
   },
   "dependencies": {
-    "wix-rich-content-common": "8.47.13",
-    "wix-rich-content-editor-common": "8.47.13",
-    "wix-rich-content-plugin-commons": "8.47.13"
+    "wix-rich-content-common": "8.47.13-css",
+    "wix-rich-content-editor-common": "8.47.13-css",
+    "wix-rich-content-plugin-commons": "8.47.13-css"
   },
   "unpkg": true,
   "publishConfig": {
