@@ -35,6 +35,8 @@
   - [#2777](https://github.com/wix/ricos/pull/2777) gif schema
 - `ricos-content`
   - [#2790](https://github.com/wix/ricos/pull/2790) fix `convertContainerData` converters (from&toDraft)
+- `image`
+  - [#2793](https://github.com/wix/ricos/pull/2793) merge image quality preload experiment
 
 ### :bug: Bug Fix
 
