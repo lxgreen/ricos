@@ -44,7 +44,7 @@ describe('Content extract API', () => {
         'BUTTON',
         'DIVIDER',
         'CODE_BLOCK',
-        'GIPHY',
+        'GIF',
         'MAP',
         'FILE',
         'APP_EMBED',

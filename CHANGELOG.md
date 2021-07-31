@@ -17,13 +17,41 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `ricos-schema`
+  - [#2777](https://github.com/wix/ricos/pull/2777) gif schema
+- `ricos-content`
+  - [#2790](https://github.com/wix/ricos/pull/2790) fix `convertContainerData` converters (from&toDraft)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#2787](https://github.com/wix/ricos/pull/2787) toDraft preprocess => ckeditor parser postprocess
+
 </details>
 <hr/>
 
-## 8.47.10  (Jul 27, 2021)
+## 8.47.12 (Jul 27, 2021)
+
 ### :bug: Bug Fix
-  - `ricos-content`
-    - [#2784](https://github.com/wix/ricos/pull/2784) fromHtml: ckeditor parser rules fixed
+
+- `loadable`
+  - [#2786](https://github.com/wix/ricos/pull/2786) add loadable entry to files and fix createLoadable script
+
+## 8.47.11 (Jul 27, 2021)
+
+### :bug: Bug Fix
+
+- `editor`
+  - [#2659](https://github.com/wix/ricos/pull/2659) close plugin menu on mobile after adding a plugin
+
+## 8.47.10 (Jul 27, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#2784](https://github.com/wix/ricos/pull/2784) fromHtml: ckeditor parser rules fixed
 
 ## 8.47.9 (July 26, 2021)
 

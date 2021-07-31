@@ -32,6 +32,7 @@ inquirer.prompt(QUESTIONS).then(answers => {
   console.log(chalk.yellow(`Add loadable support to plugin-${pluginName} 🤸‍♂`));
   const pluginPackagePath = `packages/plugin-${pluginName}/web`;
   createDirectoryContents(pluginPackagePath);
+  addLoadableToFilesArr(pluginPackagePath);
 });
 
 function createDirectoryContents(pluginPackagePath) {
@@ -79,4 +80,22 @@ function createDirectoryContents(pluginPackagePath) {
     typeMapperLoadableContents,
     'utf8'
   );
+}
+
+function addLoadableToFilesArr(path) {
+  console.log(chalk.yellow(`Adding loadable to package.json files array`));
+  const filePath = `${path}/package.json`;
+
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      console.log(chalk.red('Fail to read package.json', path, err));
+    } else {
+      const packageJsonObj = JSON.parse(data);
+      packageJsonObj.files.push('loadable');
+      const packageJson = JSON.stringify(packageJsonObj, null, 2);
+      fs.writeFile(filePath, packageJson, 'utf8', () => {
+        console.log(chalk.bold.green(`loadable entry added successfully to package.json 🎉🎊🎉🎊`));
+      });
+    }
+  });
 }
