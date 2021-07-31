@@ -179,7 +179,7 @@
     "react-dom": "^16.13.1",
     "react-svg-loader": "^3.0.3",
     "replace-in-file": "^6.1.0",
-    "rollup": "2.47.0",
+    "rollup": "^2.47.0",
     "rollup-plugin-analyzer": "^4.0.0",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-postcss": "^2.3.0",
