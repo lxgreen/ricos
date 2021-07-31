@@ -1,0 +1,1 @@
+export { createRicosExtensionsConfigs } from './configCreator';

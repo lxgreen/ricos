@@ -1,9 +1,8 @@
 import React from 'react';
-import { ReactNodeViewRenderer, mergeAttributes, NodeViewWrapper } from '@tiptap/react';
+import { CreateTiptapExtensionConfig } from 'wix-rich-content-common';
+import { ReactNodeViewRenderer, mergeAttributes, NodeViewWrapper, NodeConfig } from '@tiptap/react';
 import { RicosNodeConfig } from '../types';
 import { RicosNode } from '../components/RicosNode';
-
-type TiptapExtensionConfigCreator = ({ mergeAttributes }) => RicosNodeConfig;
 
 // RicosNode change it to regular component
 const createRicosNodeHOC = Component => {
@@ -14,13 +13,33 @@ const createRicosNodeHOC = Component => {
   );
 };
 
-export const createRicosNodeConfig = (Component, tiptapExtensionConfigCreator) => {
+type RicosNodeConfigCreator = (
+  Component: React.ComponentType,
+  configCreator: CreateTiptapExtensionConfig<NodeConfig>
+) => RicosNodeConfig;
+
+export const createRicosNodeConfig: RicosNodeConfigCreator = (Component, configCreator) => {
+  const config = configCreator({ mergeAttributes });
+  const { name } = config;
   return {
-    addNodeView: () => {
-      // eslint-disable-next-line new-cap
-      return ReactNodeViewRenderer(createRicosNodeHOC(Component));
+    group: 'block',
+    atom: true,
+    selectable: true,
+    draggable: true,
+
+    parseHTML() {
+      return [
+        {
+          tag: `${name}-component`,
+        },
+      ];
     },
-    ...tiptapExtensionConfigCreator({ mergeAttributes }),
+
+    renderHTML({ HTMLAttributes }) {
+      return [`${name}-component`, mergeAttributes(HTMLAttributes)];
+    },
+    addNodeView: () => ReactNodeViewRenderer(createRicosNodeHOC(Component)),
+    ...config,
     extensionType: 'node',
   };
 };

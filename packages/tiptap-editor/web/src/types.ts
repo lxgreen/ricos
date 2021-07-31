@@ -1,6 +1,4 @@
-import { CreateTiptapExtension } from 'wix-rich-content-common';
 import { Node as ProseMirrorNode } from 'prosemirror-model';
-import { DraftContent } from 'ricos-content';
 import { FC } from 'react';
 import { Editor, NodeConfig, MarkConfig, ExtensionConfig } from '@tiptap/react';
 
@@ -17,15 +15,6 @@ export interface PluginProps {
   updateAttributes: (data: unknown) => null;
 }
 
-export type TiptapConfig = {
-  onUpdate?: ({ content }: { content: DraftContent }) => void;
-  initialContent: DraftContent;
-  ricosExtensions: (
-    | (() => CreateTiptapExtension<NodeConfig | MarkConfig | ExtensionConfig>)
-    | undefined
-  )[];
-};
-
 export type TiptapAPI = {
   blur: () => void;
   focus: () => void;
@@ -37,10 +26,14 @@ export type TiptapAPI = {
   destroy: Editor['destroy'];
 };
 
-export interface RicosNodeConfig extends ExtensionConfig {}
+type ExtensionType = 'node' | 'mark' | 'extension';
 
-export interface RicosExtensionConfig extends ExtensionConfig {
-  priority: number;
+interface RicosConfig<T extends ExtensionType> {
+  extensionType: T;
+}
+export interface RicosNodeConfig extends NodeConfig, RicosConfig<'node'> {}
+export interface RicosMarkConfig extends MarkConfig, RicosConfig<'mark'> {}
+export interface RicosGenericExtensionConfig extends ExtensionConfig, RicosConfig<'extension'> {
   addNodeViewHOC?: (
     Component
   ) => {
