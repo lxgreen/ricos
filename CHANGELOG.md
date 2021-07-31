@@ -22,6 +22,7 @@
   - [#2797](https://github.com/wix/ricos/pull/2797) ckeditor html parser: line-height in lists fixed
   - [#2797](https://github.com/wix/ricos/pull/2797) ckeditor html parser: `<br>` => new line rule fixed
   - [#2797](https://github.com/wix/ricos/pull/2797) ckeditor html parser: image custom width parsing
+  - [#2798](https://github.com/wix/ricos/pull/2798) extract-media: invalid data protected and tested
 
 </details>
 <hr/>
