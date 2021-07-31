@@ -20,7 +20,7 @@
 ### :bug: Bug Fix
 - `ricos-content`
   - [#2797](https://github.com/wix/ricos/pull/2797) ckeditor html parser: line-height in lists fixed
-  - [#2797](https://github.com/wix/ricos/pull/2797) ckeditor html parser: <br> => new line rule fixed
+  - [#2797](https://github.com/wix/ricos/pull/2797) ckeditor html parser: `<br>` => new line rule fixed
   - [#2797](https://github.com/wix/ricos/pull/2797) ckeditor html parser: image custom width parsing
 
 </details>
