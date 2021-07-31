@@ -1,7 +1,13 @@
 import { flow } from 'fp-ts/function';
 
 import { TextNode, Element } from 'parse5';
-import { Node_Type, Decoration_Type, ImageData, Decoration } from 'ricos-schema';
+import {
+  Node_Type,
+  Decoration_Type,
+  ImageData,
+  Decoration,
+  PluginContainerData_Alignment,
+} from 'ricos-schema';
 import { getAttributes, isText, toName, hasTag, oneOf } from './parse5-utils';
 import { Rule } from './models';
 import {
@@ -80,6 +86,14 @@ const toImageData = (decorations: Decoration[], node: Element): ImageData => {
     image: {
       src: { url: attrs.src },
     },
+    ...(attrs.width
+      ? {
+          containerData: {
+            alignment: PluginContainerData_Alignment.CENTER,
+            width: { size: undefined, custom: attrs.width },
+          },
+        }
+      : {}),
     altText: attrs.alt,
     link: decorations
       .filter(({ type }) => type === Decoration_Type.LINK)
