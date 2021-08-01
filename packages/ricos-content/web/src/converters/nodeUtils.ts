@@ -1,3 +1,4 @@
+import * as S from 'fp-ts/string';
 import { pipe } from 'fp-ts/function';
 import { merge } from 'lodash';
 import {
@@ -29,7 +30,6 @@ import {
   AppEmbedData,
 } from 'ricos-schema';
 import { generateId } from './generateRandomId';
-import { toUpperCase, replace } from '../fp-utils';
 import { fromEntries } from '../utils';
 
 export const createNode = <TData>(
@@ -129,7 +129,7 @@ export const reduceDecorations = (decorations: Decoration[]): Decoration[] => {
   return reducedDecorations;
 };
 
-export const toLinkTarget = (target = 'SELF') => pipe(target, toUpperCase, replace('_', ''));
+export const toLinkTarget = (target = 'SELF') => pipe(target, S.toUpperCase, S.replace('_', ''));
 
 export const createLink = ({
   url,

@@ -165,15 +165,9 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
     /**
         PNG files can't reduce quality via Wix services and we want to avoid downloading a big png image that will affect performance.
       **/
-    if (
-      !this.props.isMobile &&
-      !isPNG(src) &&
-      this.context.experiments?.useQualityPreload?.enabled
-    ) {
+    if (!this.props.isMobile && !isPNG(src)) {
       const {
-        componentData: {
-          config: { alignment, width },
-        },
+        componentData: { config: { alignment, width } = {} },
       } = this.props;
       const usePredefinedWidth = (alignment === 'left' || alignment === 'right') && !width;
       imageSrcOpts = {
