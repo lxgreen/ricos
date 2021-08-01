@@ -1,8 +1,8 @@
 import { RichContent } from 'ricos-schema';
-import { compare } from '../../../comparision/compare';
-import preprocess from './preprocess';
+import { compare } from '../../../../comparision/compare';
+import postprocess from './postprocess';
 
-describe('toDraft preprocess', () => {
+describe('CKEditor postprocess', () => {
   it('<li><p><p></li> => <li><p></li>', () => {
     const content: RichContent = RichContent.fromJSON({
       nodes: [
@@ -30,7 +30,8 @@ describe('toDraft preprocess', () => {
                   ],
                   paragraphData: {
                     textStyle: {
-                      textAlignment: 'AUTO',
+                      textAlignment: 'CENTER',
+                      lineHeight: '1.5em',
                     },
                   },
                 },
@@ -51,6 +52,7 @@ describe('toDraft preprocess', () => {
                   paragraphData: {
                     textStyle: {
                       textAlignment: 'RIGHT',
+                      lineHeight: '3em',
                     },
                   },
                 },
@@ -96,7 +98,8 @@ describe('toDraft preprocess', () => {
                   ],
                   paragraphData: {
                     textStyle: {
-                      textAlignment: 'AUTO',
+                      textAlignment: 'CENTER',
+                      lineHeight: '1.5em',
                     },
                   },
                 },
@@ -106,7 +109,7 @@ describe('toDraft preprocess', () => {
         },
       ],
     });
-    const actual = preprocess(content);
+    const actual = postprocess(content);
 
     expect(RichContent.fromJSON(actual)).toStrictEqual(expected);
   });
@@ -372,7 +375,7 @@ describe('toDraft preprocess', () => {
         },
       ],
     });
-    const actual = preprocess(content);
+    const actual = postprocess(content);
     expect(compare(RichContent.fromJSON(actual), expected, { ignoredKeys: ['id'] })).toEqual({});
   });
 });

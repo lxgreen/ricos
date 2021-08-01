@@ -34,7 +34,7 @@ const createUrl = (
     return createPreloadUrl(src, rw, rh, rq);
   }
   if (type === 'quailtyPreload') {
-    return createQuailtyPreloadUrl(src);
+    return createQuailtyPreloadUrl(src, rw, rq);
   }
   return createHiResUrl(src, rw, rh, rq, removeUsm);
 };

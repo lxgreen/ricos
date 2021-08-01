@@ -29,7 +29,7 @@ import {
 } from 'ricos-content';
 import {
   DividerData,
-  GiphyData,
+  GIFData,
   HTMLData,
   GalleryData,
   PollData,
@@ -76,7 +76,7 @@ type draftSelection = {
 interface PluginsDataMap {
   [RICOS_DIVIDER_TYPE]?: DividerData;
   [DIVIDER_TYPE]?: any;
-  [RICOS_GIPHY_TYPE]?: GiphyData;
+  [RICOS_GIPHY_TYPE]?: GIFData;
   [GIPHY_TYPE]?: any;
   [RICOS_HTML_TYPE]?: HTMLData;
   [HTML_TYPE]?: any;

@@ -873,7 +873,7 @@
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content",
+          "size": "fullWidth",
           "link": {
             "url": "www.image-link.com",
             "target": "_blank",
@@ -1370,5 +1370,5 @@
       }
     }
   },
-  "VERSION": "8.46.7"
+  "VERSION": "8.47.12"
 }

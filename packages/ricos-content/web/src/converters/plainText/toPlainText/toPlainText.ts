@@ -52,7 +52,7 @@ export const toPlainText = async (
         case Node_Type.VIDEO:
           plainText += await parseVideo(node, delimiter, getVideoUrl);
           break;
-        case Node_Type.GIPHY:
+        case Node_Type.GIF:
           plainText += parseGiphy(node);
           break;
         case Node_Type.MAP:

@@ -1,3 +1,4 @@
+import * as S from 'fp-ts/string';
 import { pipe } from 'fp-ts/function';
 import { merge } from 'lodash';
 import {
@@ -9,7 +10,7 @@ import {
   DividerData,
   FileData,
   GalleryData,
-  GiphyData,
+  GIFData,
   HTMLData,
   ImageData,
   ButtonData,
@@ -29,7 +30,6 @@ import {
   AppEmbedData,
 } from 'ricos-schema';
 import { generateId } from './generateRandomId';
-import { toUpperCase, replace } from '../fp-utils';
 import { fromEntries } from '../utils';
 
 export const createNode = <TData>(
@@ -60,7 +60,7 @@ export const dataByNodeType = (type: Node_Type, data: unknown) =>
     [Node_Type.HEADING]: { headingData: data as HeadingData },
     [Node_Type.FILE]: { fileData: data as FileData },
     [Node_Type.GALLERY]: { galleryData: data as GalleryData },
-    [Node_Type.GIPHY]: { giphyData: data as GiphyData },
+    [Node_Type.GIF]: { gifData: data as GIFData },
     [Node_Type.HTML]: { htmlData: data as HTMLData },
     [Node_Type.IMAGE]: { imageData: data as ImageData },
     [Node_Type.BUTTON]: { buttonData: data as ButtonData },
@@ -129,7 +129,7 @@ export const reduceDecorations = (decorations: Decoration[]): Decoration[] => {
   return reducedDecorations;
 };
 
-export const toLinkTarget = (target = 'SELF') => pipe(target, toUpperCase, replace('_', ''));
+export const toLinkTarget = (target = 'SELF') => pipe(target, S.toUpperCase, S.replace('_', ''));
 
 export const createLink = ({
   url,

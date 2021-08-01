@@ -118,6 +118,13 @@ describe('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
+  it('remove hashtag inside quotes', function() {
+    cy.loadRicosEditorAndViewer().enterParagraphs([
+      'This is #hashtag! This #is not \'#hashtag\'! This is also not "#hashtag" ! hashtag #Test ',
+    ]);
+    cy.eyesCheckWindow(this.test.title);
+  });
+
   it('allow to create lists', function() {
     cy.loadRicosEditorAndViewer('plain')
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.ORDERED_LIST, [300, 100])
