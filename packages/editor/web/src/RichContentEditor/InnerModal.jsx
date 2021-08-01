@@ -34,7 +34,6 @@ class InnerModal extends Component {
       bottom: bottomAfterOverflowCheck || 'auto',
       border: 'solid 1px #ededed',
       background: 'rgb(255, 255, 255)',
-      borderRadius: '6px',
       maxWidth: '420px',
       zIndex: 6,
       transform: 'none',
