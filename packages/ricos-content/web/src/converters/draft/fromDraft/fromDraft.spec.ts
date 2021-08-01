@@ -1,3 +1,4 @@
+import { FileData } from './../../../../../../ricos-schema/web/src/generated/wix/rich_content/v1/plugin_file';
 /* eslint-disable no-unused-vars */
 
 import { toDraft, fromDraft } from '..';
@@ -7,9 +8,16 @@ import buggy from '../../../../../../../e2e/tests/fixtures/buggy/atomicWithNoEnt
 import polyfills from '../../../../../../../e2e/tests/fixtures/polyfills.json';
 import { getTextNodes } from './getTextNodes';
 import complexRicosFixture from '../../../../statics/json/migratedFixtures/migration-content.json';
-import { Node_Type, Decoration_Type, RichContent } from 'ricos-schema';
+import {
+  Node_Type,
+  Decoration_Type,
+  RichContent,
+  ImageData,
+  PluginContainerData_Width_Type,
+  PluginContainerData_Alignment,
+} from 'ricos-schema';
 import { convertBlockDataToRicos } from './convertRicosPluginData';
-import { IMAGE_TYPE } from '../../../consts';
+import { IMAGE_TYPE, FILE_UPLOAD_TYPE } from '../../../consts';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const filterIds = objArr => objArr.map(({ id, ...rest }) => rest); //disable
@@ -192,10 +200,13 @@ describe('migrate from draft', () => {
       },
     };
 
-    const expectedNodeData = {
-      containerData: { width: { size: 'CONTENT' }, alignment: 'CENTER' },
+    const expectedNodeData: ImageData = {
+      containerData: {
+        width: { size: PluginContainerData_Width_Type.CONTENT },
+        alignment: PluginContainerData_Alignment.CENTER,
+      },
       image: {
-        src: { custom: '8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg' },
+        src: { id: '8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg' },
         width: 2898,
         height: 3354,
       },
@@ -207,7 +218,30 @@ describe('migrate from draft', () => {
 
     const nodeData = convertBlockDataToRicos(IMAGE_TYPE, blockData);
 
-    expect(nodeData).toEqual(expectedNodeData);
+    expect(ImageData.toJSON(nodeData)).toEqual(expectedNodeData);
+  });
+
+  describe('FileSource', () => {
+    describe('privacy', () => {
+      it(`should handle 'public'`, () => {
+        const blockData = { id: 'abcdefg', privacy: 'public' };
+        const expectedNodeData: FileData = { src: { id: 'abcdefg', private: false } };
+        const nodeData = convertBlockDataToRicos(FILE_UPLOAD_TYPE, blockData);
+        expect(FileData.toJSON(nodeData)).toEqual(expectedNodeData);
+      });
+      it(`should handle 'private'`, () => {
+        const blockData = { id: 'abcdefg', privacy: 'private' };
+        const expectedNodeData: FileData = { src: { id: 'abcdefg', private: true } };
+        const nodeData = convertBlockDataToRicos(FILE_UPLOAD_TYPE, blockData);
+        expect(FileData.toJSON(nodeData)).toEqual(expectedNodeData);
+      });
+      it(`should handle undefined`, () => {
+        const blockData = { id: 'abcdefg' };
+        const expectedNodeData: FileData = { src: { id: 'abcdefg' } };
+        const nodeData = convertBlockDataToRicos(FILE_UPLOAD_TYPE, blockData);
+        expect(FileData.toJSON(nodeData)).toEqual(expectedNodeData);
+      });
+    });
   });
 
   it('should convert list styles correctly', () => {

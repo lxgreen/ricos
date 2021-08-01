@@ -34,7 +34,7 @@ schemas.forEach(schema => {
     GENERATED_FILE_PREFIX + readFileSync(`src/main/proto/${PACKAGE_PATH}/${schema}`, 'utf8');
   writeFileSync(
     `${GEN_DIR}/proto/${PACKAGE_PATH}/${schema}`,
-    schemaFile.replace(/ \[.*\];/g, ';').replace('import "wix/api/validations.proto";\n', '')
+    schemaFile.replace(/\s*\[.*wix.*\];/g, ';').replace('import "wix/api/validations.proto";\n', '')
   );
 });
 
