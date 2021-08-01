@@ -146,7 +146,6 @@ export class LinkPanelDropdown extends Component {
                   <Suspense fallback={<div>Loading...</div>}>
                     <List
                       className={styles.linkPanel_dropdownList}
-                      style={{ borderTop: '0', position: 'absolute' }}
                       height={Math.min(items.length * itemHeight + 1, 200)}
                       itemCount={items.length}
                       itemSize={itemHeight}

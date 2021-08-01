@@ -86,17 +86,32 @@ $spacing: 12px;
   margin-left: 0;
 }
 
-.linkPanel_textInput,
-.linkPanel_dropdownList {
+%linkPanel_input_dropdownList {
   color: $modal-input-color;
   width: 100%;
   font-size: 14px;
   border: 1px solid rgba(51, 51, 51, 0.2);
-
   &:focus,
   &:focus + .linkPanel_dropdownList {
     border: 1px solid rgba(51, 51, 51, 0.5);
   }
+}
+
+.linkPanel_textInput {
+  color: $modal-input-color;
+  width: 100%;
+  font-size: 14px;
+  border: 1px solid rgba(51, 51, 51, 0.2);
+  &:focus,
+  &:focus + .linkPanel_dropdownList {
+    border: 1px solid rgba(51, 51, 51, 0.5);
+  }
+}
+
+.linkPanel_dropdownList {
+  @extend .linkPanel_textInput;
+  border-top: 0;
+  position: absolute;
 }
 
 .linkPanel_textInput {
