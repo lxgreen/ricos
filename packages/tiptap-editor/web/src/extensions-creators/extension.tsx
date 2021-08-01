@@ -1,11 +1,14 @@
-import { mergeAttributes } from '@tiptap/react';
-import { RicosExtensionConfig } from '../types';
+import { ExtensionConfig, mergeAttributes } from '@tiptap/react';
+import { CreateTiptapExtensionConfig } from 'wix-rich-content-common';
+import { RicosGenericExtensionConfig } from '../types';
 
-type TiptapExtensionConfigCreator = ({ mergeAttributes }) => RicosExtensionConfig;
+type RicosGenericExtensionConfigCreator = (
+  configCreator: CreateTiptapExtensionConfig<ExtensionConfig>
+) => RicosGenericExtensionConfig;
 
-export const createRicosExtensionConfig = (tiptapExtensionConfigCreator): RicosExtensionConfig => {
+export const createRicosGenericExtensionConfig: RicosGenericExtensionConfigCreator = configCreator => {
   return {
-    ...tiptapExtensionConfigCreator({ mergeAttributes }),
+    ...configCreator({ mergeAttributes }),
     extensionType: 'extension',
   };
 };

@@ -10,7 +10,7 @@ declare module '@tiptap/core' {
       /**
        * Toggle a paragraph
        */
-      setImageUrl: () => ReturnType;
+      setImageUrl: (url: string) => ReturnType;
     };
   }
 }

@@ -1,5 +1,5 @@
 import { flow } from 'fp-ts/function';
-import { replace } from '../../../../fp-utils';
+import { replace } from 'fp-ts/string';
 
 export const preprocess = flow(
   replace(/\s*\n\s*/g, ''), // remove spaces between lines (they count as elements)
