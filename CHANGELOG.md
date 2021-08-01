@@ -17,15 +17,18 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.47.15 (Aug 01, 2021)
+
 ### :bug: Bug Fix
+
 - `ricos-content`
   - [#2797](https://github.com/wix/ricos/pull/2797) ckeditor html parser: line-height in lists fixed
   - [#2797](https://github.com/wix/ricos/pull/2797) ckeditor html parser: `<br>` => new line rule fixed
   - [#2797](https://github.com/wix/ricos/pull/2797) ckeditor html parser: image custom width parsing
   - [#2798](https://github.com/wix/ricos/pull/2798) extract-media: invalid data protected and tested
-
-</details>
-<hr/>
 
 ## 8.47.14 (Jul 29, 2021)
 
