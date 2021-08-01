@@ -84,7 +84,7 @@ const toImageData = (decorations: Decoration[], node: Element): ImageData => {
   const attrs = getAttributes(node);
   return {
     image: {
-      src: { url: attrs.src },
+      src: { url: attrs.src, private: attrs.private === 'true' },
     },
     ...(attrs.width
       ? {

@@ -17,6 +17,12 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+
+- `schema`
+  - [#2662](https://github.com/wix-incubator/rich-content/pull/2662) FileSource contains `privacy`, `id` fields
+  - [#2662](https://github.com/wix-incubator/rich-content/pull/2662) FileSource's `custom` field deprecation
+
 </details>
 <hr/>
 
