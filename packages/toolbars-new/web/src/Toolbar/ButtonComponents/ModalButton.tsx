@@ -7,6 +7,7 @@ import ClickOutside from 'react-click-outsider';
 import styles from '../ToolbarNew.scss';
 import ToolbarButton from '../ToolbarButton';
 import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import { isElementOutOfWindowHeight } from 'wix-rich-content-editor-common';
 
 type dropDownPropsType = {
   isMobile?: boolean;
@@ -41,15 +42,21 @@ interface ModalButtonProps {
 
 interface State {
   isModalOpen: boolean;
+  isModalOverflow: boolean;
 }
 
 class ModalButton extends Component<ModalButtonProps, State> {
+  modalRef?: HTMLDivElement | null;
+
   constructor(props) {
     super(props);
     this.state = {
       isModalOpen: false,
+      isModalOverflow: false,
     };
   }
+
+  setModalRef = ref => (this.modalRef = ref);
 
   toggleModal = () => {
     const { isModalOpen } = this.state;
@@ -57,7 +64,14 @@ class ModalButton extends Component<ModalButtonProps, State> {
       dropDownProps: { saveState, saveSelection },
       setKeepOpen,
     } = this.props;
-    this.setState({ isModalOpen: !isModalOpen });
+    this.setState({ isModalOpen: !isModalOpen }, () => {
+      if (this.state.isModalOpen && this.modalRef) {
+        const isModalOverflow = isElementOutOfWindowHeight(this.modalRef) || false;
+        this.setState({ isModalOverflow });
+      } else {
+        this.setState({ isModalOverflow: false });
+      }
+    });
     if (!isModalOpen) {
       saveSelection?.();
       saveState?.();
@@ -128,7 +142,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
       arrow = false,
       getLabel,
     } = dropDownProps;
-    const { isModalOpen } = this.state;
+    const { isModalOpen, isModalOverflow } = this.state;
     const buttonProps = arrow && getLabel ? { buttonContent: getLabel() } : { icon: getIcon() };
     const mobileStyles = {
       position: 'fixed',
@@ -159,7 +173,12 @@ class ModalButton extends Component<ModalButtonProps, State> {
           {isModalOpen && (
             <div
               data-id="toolbar-modal-button"
-              className={classNames(styles.modal, styles.withoutPadding)}
+              ref={this.setModalRef}
+              className={classNames(
+                styles.modal,
+                styles.withoutPadding,
+                isModalOverflow && styles.modalOverflow
+              )}
               onMouseDown={event => event.preventDefault()}
               style={isMobile ? mobileStyles : {}}
               onClick={isMobile ? this.closeModal : undefined}

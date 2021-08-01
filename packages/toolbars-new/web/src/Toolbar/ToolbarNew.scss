@@ -50,6 +50,10 @@
         // &.alignModalLeft {
         //     left: 0;
         // }
+        &.modalOverflow {
+            top: unset;
+            bottom: 36px;
+        }
         &.withoutTop {
             top: 0;
         }
