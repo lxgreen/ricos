@@ -1,4 +1,4 @@
-import { createRicosExtensionConfig } from '../../extensions-creators/extension';
+import { createRicosGenericExtensionConfig } from '../../extensions-creators/extension';
 import { history, undo, redo } from './lib';
 
 const name = 'ricosHistory';
@@ -9,7 +9,7 @@ declare module '@tiptap/core' {
       /**
        * Toggle a paragraph
        */
-      rebase: () => ReturnType;
+      rebase: (count) => ReturnType;
       silent: () => ReturnType;
       redo: () => ReturnType;
       undo: () => ReturnType;
@@ -18,7 +18,7 @@ declare module '@tiptap/core' {
 }
 
 export const createHistoryConfig = () =>
-  createRicosExtensionConfig(() => {
+  createRicosGenericExtensionConfig(() => {
     return {
       name,
 

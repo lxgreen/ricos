@@ -1,10 +1,11 @@
-import { pipe, flow, identity } from 'fp-ts/function';
+import { pipe, flow } from 'fp-ts/function';
 import * as A from 'fp-ts/Array';
 import * as R from 'fp-ts/Record';
 import * as O from 'fp-ts/Option';
 import * as S from 'fp-ts/string';
 import { MonoidAny } from 'fp-ts/boolean';
 import { concatAll } from 'fp-ts/Monoid';
+import * as RONEA from 'fp-ts/ReadonlyNonEmptyArray';
 
 import {
   parseFragment,
@@ -17,7 +18,7 @@ import {
   CommentNode,
   Attribute,
 } from 'parse5';
-import { equals, split, trim } from '../../../../fp-utils';
+import { equals } from '../../../../fp-utils';
 import { ContentNode } from './models';
 
 export type AstContext = {
@@ -52,7 +53,10 @@ export const getAttributes = (el: Element) =>
 export const getChildNodes = (element: Element | DocumentFragment): ContentNode[] =>
   isLeaf(element) ? [] : (element.childNodes as ContentNode[]);
 
-export const appendChild = (element: Element, node: ContentNode) => element.childNodes.push(node);
+export const appendChild = (element: Element, node: ContentNode) => {
+  node.parentNode = element;
+  element.childNodes.push(node);
+};
 
 export const setParent = (parent: ContentNode) => (child: ContentNode) => ({
   ...child,
@@ -77,12 +81,15 @@ export const hasParent = (
 export const hasTag = (tag: string) => flow(toName, equals(S.Eq)(tag));
 
 const toStyle = flow(
-  split(';'),
-  A.map(flow(split(':'), A.map(trim))),
-  A.reduce({} as Record<string, string>, (style: Record<string, string>, rule: string[]) => ({
-    ...style,
-    [rule[0]]: rule[1],
-  }))
+  S.split(';'),
+  RONEA.map(flow(S.split(':'), RONEA.map(S.trim))),
+  RONEA.reduce(
+    {} as Record<string, string>,
+    (style: Record<string, string>, rule: RONEA.ReadonlyNonEmptyArray<string>) => ({
+      ...style,
+      [rule[0]]: rule[1],
+    })
+  )
 );
 
 export const getStyle = flow(getAttributes, R.lookup('style'), O.map(toStyle));
@@ -104,6 +111,15 @@ export const hasStyleRule = (style: Record<string, string>) =>
       (s: Record<string, string>) => R.isSubrecord(S.Eq)(style, s)
     )
   );
+
+export const getClassNames = flow(
+  getAttributes,
+  R.lookup('class'),
+  O.fold(() => RONEA.of(''), S.split(' '))
+);
+
+export const hasClass = (predicate: (className: string) => boolean) =>
+  flow(getClassNames, RONEA.map(predicate), concatAll(MonoidAny));
 
 export const hasChild = (predicate: (node: ContentNode) => boolean) =>
   flow(getChildNodes, A.map(predicate), concatAll(MonoidAny));

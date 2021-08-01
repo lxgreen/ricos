@@ -115,19 +115,6 @@ function getEmptyChunk() {
   };
 }
 
-function getWhitespaceChunk(inEntity) {
-  const entities = new Array(1);
-  if (inEntity) {
-    entities[0] = inEntity;
-  }
-  return {
-    text: SPACE,
-    inlines: [OrderedSet()],
-    entities,
-    blocks: [],
-  };
-}
-
 function getSoftNewlineChunk(block, depth, flat = false, data = Map()) {
   if (flat === true) {
     return {
@@ -313,9 +300,6 @@ function genFragment(
       return getEmptyChunk();
     }
 
-    if (text.trim() === '' && inBlock !== 'code-block') {
-      return getWhitespaceChunk(inEntity);
-    }
     if (inBlock !== 'code-block') {
       // Can't use empty string because MSWord
       text = text.replace(REGEX_LF, SPACE);

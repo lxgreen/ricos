@@ -17,20 +17,43 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.47.15 (Aug 01, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#2797](https://github.com/wix/ricos/pull/2797) ckeditor html parser: line-height in lists fixed
+  - [#2797](https://github.com/wix/ricos/pull/2797) ckeditor html parser: `<br>` => new line rule fixed
+  - [#2797](https://github.com/wix/ricos/pull/2797) ckeditor html parser: image custom width parsing
+  - [#2798](https://github.com/wix/ricos/pull/2798) extract-media: invalid data protected and tested
+
+## 8.47.14 (Jul 29, 2021)
+
+### :bug: Bug Fix
+
+- `hashtag`
+  - [#2796](https://github.com/wix/ricos/pull/2796) disable hashtag inside quotes for avoid hashtag in code-snippet selectors
+
+## 8.47.13 (Jul 29, 2021)
+
 ### :house: Internal
 
 - `ricos-schema`
   - [#2777](https://github.com/wix/ricos/pull/2777) gif schema
 - `ricos-content`
   - [#2790](https://github.com/wix/ricos/pull/2790) fix `convertContainerData` converters (from&toDraft)
+- `image`
+  - [#2793](https://github.com/wix/ricos/pull/2793) merge image quality preload experiment
 
 ### :bug: Bug Fix
 
 - `ricos-content`
   - [#2787](https://github.com/wix/ricos/pull/2787) toDraft preprocess => ckeditor parser postprocess
-
-</details>
-<hr/>
+- `editor`
+  - [#2794](https://github.com/wix/ricos/pull/2794) copy/paste supports spacing & indentation
 
 ## 8.47.12 (Jul 27, 2021)
 

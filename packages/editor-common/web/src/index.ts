@@ -151,4 +151,4 @@ export const emptyDraftContent = {
 };
 
 export { getSelectionStyles } from './Utils/inlineStyleUtils';
-export { createNodeExtension } from './Utils/tiptapUtils';
+export { createNodeExtension, createMarkExtension, createGenericExtension } from './Utils/tiptap';

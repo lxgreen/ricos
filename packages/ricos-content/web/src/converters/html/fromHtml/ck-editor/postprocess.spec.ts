@@ -30,7 +30,8 @@ describe('CKEditor postprocess', () => {
                   ],
                   paragraphData: {
                     textStyle: {
-                      textAlignment: 'AUTO',
+                      textAlignment: 'CENTER',
+                      lineHeight: '1.5em',
                     },
                   },
                 },
@@ -51,6 +52,7 @@ describe('CKEditor postprocess', () => {
                   paragraphData: {
                     textStyle: {
                       textAlignment: 'RIGHT',
+                      lineHeight: '3em',
                     },
                   },
                 },
@@ -96,7 +98,8 @@ describe('CKEditor postprocess', () => {
                   ],
                   paragraphData: {
                     textStyle: {
-                      textAlignment: 'AUTO',
+                      textAlignment: 'CENTER',
+                      lineHeight: '1.5em',
                     },
                   },
                 },
