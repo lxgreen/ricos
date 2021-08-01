@@ -104,7 +104,6 @@ import {
 } from 'wix-rich-content-plugin-unsupported-blocks';
 import { UNSUPPORTED_BLOCKS_TYPE } from 'wix-rich-content-plugin-commons';
 
-import 'wix-rich-content-toolbars-new/dist/styles.min.css';
 import 'wix-rich-content-editor-common/dist/styles.min.css';
 import 'wix-rich-content-plugin-commons/dist/styles.min.css';
 import 'wix-rich-content-common/dist/styles.min.css';
