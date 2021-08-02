@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+- `ricos-content`
+  - [#2804](https://github.com/wix/ricos/pull/2804) extractAppEmbedData
+
 ### :nail_care: Polish
 
 - `schema`
