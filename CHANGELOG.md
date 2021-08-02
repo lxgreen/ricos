@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+- `ricos-content`
+  - [#2804](https://github.com/wix/ricos/pull/2804) extractAppEmbedData
+
 ### :nail_care: Polish
 
 - `schema`
@@ -26,8 +30,13 @@
 ### :house: Internal
 
 - `ui-components`
- - [#2807](https://github.com/wix/ricos/pull/2807) moved alignment/link icons into
+ - [#2808](https://github.com/wix/ricos/pull/2808) moved alignment/link icons into
     ui-components 
+    
+### :bug: Bug Fix
+
+- `link`
+  - [#2802](https://github.com/wix-incubator/rich-content/pull/2802) fix modal design when opened using external toolbar
 
 </details>
 <hr/>
