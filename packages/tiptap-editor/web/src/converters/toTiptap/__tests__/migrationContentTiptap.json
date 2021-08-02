@@ -513,21 +513,21 @@
             }
           }
         ],
-        "styles": {
+        "options": {
           "layout": {
             "type": "GRID",
             "horizontalScroll": false,
             "itemsOrder": "ROWS",
-            "itemsPerRow": 3
+            "numberOfColumns": 3
           },
           "item": {
             "targetSize": 300,
             "ratio": 1,
             "crop": "FILL",
-            "margin": 20
+            "spacing": 20
           },
           "thumbnails": {
-            "alignment": "BOTTOM",
+            "placement": "BOTTOM",
             "spacing": 0
           }
         },

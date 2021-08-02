@@ -25,9 +25,7 @@ import {
   ButtonData_Type,
   Link,
   GIFData,
-  GalleryStyle,
   GalleryData,
-  GalleryStyle_Layout_ItemsOrder,
 } from 'ricos-schema';
 import { TO_RICOS_DATA } from './consts';
 import {
@@ -38,6 +36,7 @@ import {
 } from '../../../types';
 import { createLink } from '../../nodeUtils';
 import toConstantCase from 'to-constant-case';
+import { DraftGalleryStyles } from '../consts';
 
 export const convertBlockDataToRicos = (type: string, data) => {
   const newData = cloneDeep(data);
@@ -122,30 +121,22 @@ const convertVideoData = (data: {
 };
 
 const convertGalleryStyles = styles => {
-  const style: GalleryStyle = {
-    layout: {
-      type: has(styles, 'galleryLayout') && styles.galleryLayout,
-      horizontalScroll: has(styles, 'oneRow') && styles.oneRow,
-      itemsOrder:
-        has(styles, 'isVertical') && styles.isVertical
-          ? GalleryStyle_Layout_ItemsOrder.COLUMNS
-          : GalleryStyle_Layout_ItemsOrder.ROWS,
-      itemsPerRow: has(styles, 'numberOfImagesPerRow') && styles.numberOfImagesPerRow,
-    },
-    item: {
-      targetSize: has(styles, 'gallerySizePx') && styles.gallerySizePx,
-      ratio: has(styles, 'cubeRatio') && styles.cubeRatio,
-      crop: has(styles, 'cubeType') && styles.cubeType.toUpperCase(),
-      margin: has(styles, 'imageMargin') && styles.imageMargin,
-    },
-    thumbnails: {
-      alignment:
-        has(styles, 'galleryThumbnailsAlignment') &&
-        styles.galleryThumbnailsAlignment.toUpperCase(),
-      spacing: has(styles, 'thumbnailSpacings') ? styles.thumbnailSpacings * 2 : undefined,
-    },
-  };
-  return style;
+  styles.layout = {};
+  styles.item = {};
+  styles.thumbnails = {};
+  has(styles, 'galleryLayout') && (styles.layout.type = styles.galleryLayout);
+  has(styles, 'oneRow') && (styles.layout.horizontalScroll = styles.oneRow);
+  has(styles, 'isVertical') && (styles.layout.itemsOrder = styles.isVertical ? 'COLUMNS' : 'ROWS');
+  has(styles, 'numberOfImagesPerRow') &&
+    (styles.layout.numberOfColumns = styles.numberOfImagesPerRow);
+  has(styles, 'gallerySizePx') && (styles.item.targetSize = styles.gallerySizePx);
+  has(styles, 'cubeRatio') && (styles.item.ratio = styles.cubeRatio);
+  has(styles, 'cubeType') && (styles.item.crop = styles.cubeType.toUpperCase());
+  has(styles, 'imageMargin') && (styles.item.spacing = styles.imageMargin);
+  has(styles, 'galleryThumbnailsAlignment') &&
+    (styles.thumbnails.placement = styles.galleryThumbnailsAlignment.toUpperCase());
+  has(styles, 'thumbnailSpacings') && (styles.thumbnails.spacing = styles.thumbnailSpacings * 2);
+  return styles;
 };
 
 const convertGalleryItem = item => {
@@ -164,9 +155,9 @@ const convertGalleryItem = item => {
   return item;
 };
 
-const convertGalleryData = (data: GalleryData) => {
+const convertGalleryData = (data: GalleryData & { styles: DraftGalleryStyles }) => {
   has(data, 'items') && (data.items = data.items.map(item => convertGalleryItem(item)));
-  has(data, 'styles') && (data.styles = convertGalleryStyles(data.styles));
+  has(data, 'styles') && (data.options = convertGalleryStyles(data.styles));
 };
 
 const convertDividerData = (data: {

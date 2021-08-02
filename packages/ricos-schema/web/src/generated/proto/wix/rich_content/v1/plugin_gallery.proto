@@ -12,7 +12,7 @@ import "wix/rich_content/v1/common.proto";
 import "google/protobuf/wrappers.proto";
 
 
-message GalleryStyle {
+message GalleryOptions {
   message Layout {
     enum Type {
       COLLAGE = 0;
@@ -35,7 +35,7 @@ message GalleryStyle {
     Type type = 1;
     google.protobuf.BoolValue horizontal_scroll = 2;
     ItemsOrder items_order = 3;
-    google.protobuf.Int32Value items_per_row = 4;
+    google.protobuf.Int32Value number_of_columns = 4;
   }
   
   message ItemStyle {
@@ -46,7 +46,7 @@ message GalleryStyle {
     google.protobuf.Int32Value target_size = 1;
     google.protobuf.DoubleValue ratio = 2;
     Crop crop = 3;
-    google.protobuf.Int32Value margin = 4;
+    google.protobuf.Int32Value spacing = 4;
   }
   
   // relevant only when has thumbnails
@@ -57,7 +57,7 @@ message GalleryStyle {
       BOTTOM = 2;
       LEFT = 3;
     }
-    Alignment alignment = 1;
+    Alignment placement = 1;
     google.protobuf.Int32Value spacing = 2;
   }
 
@@ -88,7 +88,7 @@ message GalleryData {
 
   PluginContainerData container_data = 1;
   repeated Item items = 2;
-  GalleryStyle styles = 3;
+  GalleryOptions options = 3;
   google.protobuf.BoolValue disable_expand = 4;
   google.protobuf.BoolValue disable_download = 5;
 }

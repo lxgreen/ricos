@@ -24,6 +24,7 @@ import {
   FROM_RICOS_DECORATION_TYPE,
   FROM_RICOS_ENTITY_TYPE,
   TO_RICOS_DATA_FIELD,
+  DraftGalleryStyles,
 } from '../consts';
 import { ComponentData, FileComponentData } from '../../../types';
 
@@ -169,32 +170,22 @@ enum GalleryLayout {
   FULLSIZE,
 }
 
-type DraftGalleryStyles = {
-  galleryLayout?: number;
-  gallerySizePx?: number;
-  oneRow?: boolean;
-  cubeRatio?: number;
-  isVertical?: boolean;
-  numberOfImagesPerRow?: number;
-  cubeType?: string;
-  galleryThumbnailsAlignment?: string;
-  imageMargin?: number;
-  thumbnailSpacings?: number;
-};
-
-const convertGalleryStyles = style => {
+const convertGalleryStyles = options => {
   const styles: DraftGalleryStyles = {};
-  has(style, 'layout.type') && (styles.galleryLayout = parseInt(GalleryLayout[style.layout.type]));
-  has(style, 'layout.horizontalScroll') && (styles.oneRow = style.layout.horizontalScroll);
-  has(style, 'layout.itemsOrder') && (styles.isVertical = style.layout.itemsOrder === 'COLUMNS');
-  has(style, 'layout.itemsPerRow') && (styles.numberOfImagesPerRow = style.layout.itemsPerRow);
-  has(style, 'item.targetSize') && (styles.gallerySizePx = style.item.targetSize);
-  has(style, 'item.ratio') && (styles.cubeRatio = style.item.ratio);
-  has(style, 'item.crop') && (styles.cubeType = style.item.crop.toLowerCase());
-  has(style, 'item.margin') && (styles.imageMargin = style.item.margin);
-  has(style, 'thumbnails.alignment') &&
-    (styles.galleryThumbnailsAlignment = style.thumbnails.alignment.toLowerCase());
-  has(style, 'thumbnails.spacing') && (styles.thumbnailSpacings = style.thumbnails.spacing / 2);
+  has(options, 'layout.type') &&
+    (styles.galleryLayout = parseInt(GalleryLayout[options.layout.type]));
+  has(options, 'layout.horizontalScroll') && (styles.oneRow = options.layout.horizontalScroll);
+  has(options, 'layout.itemsOrder') &&
+    (styles.isVertical = options.layout.itemsOrder === 'COLUMNS');
+  has(options, 'layout.numberOfColumns') &&
+    (styles.numberOfImagesPerRow = options.layout.numberOfColumns);
+  has(options, 'item.targetSize') && (styles.gallerySizePx = options.item.targetSize);
+  has(options, 'item.ratio') && (styles.cubeRatio = options.item.ratio);
+  has(options, 'item.crop') && (styles.cubeType = options.item.crop.toLowerCase());
+  has(options, 'item.spacing') && (styles.imageMargin = options.item.spacing);
+  has(options, 'thumbnails.placement') &&
+    (styles.galleryThumbnailsAlignment = options.thumbnails.placement.toLowerCase());
+  has(options, 'thumbnails.spacing') && (styles.thumbnailSpacings = options.thumbnails.spacing / 2);
   return styles;
 };
 
@@ -231,7 +222,8 @@ const convertGalleryData = (
   }
 ) => {
   has(data, 'items') && (data.items = data.items.map(item => convertGalleryItem(item)));
-  has(data, 'styles') && (data.styles = convertGalleryStyles(data.styles));
+  has(data, 'options') && (data.styles = convertGalleryStyles(data.options));
+  delete data.options;
 };
 
 const convertImageData = (data: ImageData & { src; config; metadata }) => {

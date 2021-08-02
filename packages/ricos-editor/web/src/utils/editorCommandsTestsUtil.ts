@@ -234,21 +234,21 @@ const gallery = {
         },
       },
     ],
-    styles: {
+    options: {
       layout: {
         type: 'GRID',
         horizontalScroll: false,
         itemsOrder: 'ROWS',
-        itemsPerRow: 3,
+        numberOfColumns: 3,
       },
       item: {
         targetSize: 300,
         ratio: 1,
         crop: 'FILL',
-        margin: 5,
+        spacing: 5,
       },
       thumbnails: {
-        alignment: 'BOTTOM',
+        placement: 'BOTTOM',
         spacing: 0,
       },
     },
@@ -267,21 +267,21 @@ const gallery = {
         },
       },
     ],
-    styles: {
+    options: {
       layout: {
         type: 'GRID',
         horizontalScroll: false,
         itemsOrder: 'ROWS',
-        itemsPerRow: 3,
+        numberOfColumns: 3,
       },
       item: {
         targetSize: 300,
         ratio: 1,
         crop: 'FILL',
-        margin: 5,
+        spacing: 5,
       },
       thumbnails: {
-        alignment: 'BOTTOM',
+        placement: 'BOTTOM',
         spacing: 0,
       },
     },
