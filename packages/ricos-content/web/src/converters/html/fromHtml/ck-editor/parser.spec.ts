@@ -1,18 +1,17 @@
 import { flow, pipe } from 'fp-ts/function';
 import * as A from 'fp-ts/Array';
 import { readFileSync, writeFileSync } from 'fs';
-import { toDraft } from '../../../draft/toDraft/toDraft';
 import { Node_Type, RichContent } from 'ricos-schema';
-import { extract } from '../../../../RicosContentAPI/extract';
 import parse from './parser';
-import { DraftContent } from '../../../../../dist/src';
+import { tap } from '../../../../fp-utils';
+import { toDraft } from '../../../draft/toDraft/toDraft';
+import { extract } from '../../../../RicosContentAPI/extract';
+import { DraftContent } from '../../../../types/contentTypes';
 
 const loadFile = (filename: string) =>
   readFileSync(`${__dirname}/../__tests__/${filename}`, 'utf8');
-const writeFile = (fileName: string) => (data: RichContent | DraftContent) => {
-  writeFileSync(fileName, JSON.stringify(data), 'utf8');
-  return data;
-};
+const _writeFile = (fileName: string) =>
+  tap((data: RichContent | DraftContent) => writeFileSync(fileName, JSON.stringify(data), 'utf8'));
 
 describe('CKEditor parser', () => {
   const html = loadFile('FAQContent.html');
@@ -49,12 +48,12 @@ describe('CKEditor parser', () => {
       A.map(
         flow(
           parse,
-          // writeFile('faq-rich.json'),
+          // _writeFile('faq-rich.json'),
           toDraft
-          // writeFile('faq-draft.json')
+          // _writeFile('faq-draft.json')
         )
       )
     );
-    expect(failedContent.length).toEqual(159);
+    expect(failedContent.length).toEqual(160);
   });
 });
