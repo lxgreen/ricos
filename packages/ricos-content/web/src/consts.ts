@@ -108,6 +108,7 @@ export const RICOS_ANCHOR_TYPE = 'ricos-anchor';
 export const RICOS_COLOR_TYPE = 'ricos-color';
 export const RICOS_LINK_TYPE = 'ricos-link';
 export const RICOS_MENTION_TYPE = 'ricos-mention';
+export const RICOS_FONT_SIZE_TYPE = 'ricos-font-size';
 
 export const RICOS_EXTERNAL_LINK_TYPE = 'ricos-external-link'; // TODO: is this type needed?
 export const RICOS_EXTERNAL_MENTION_TYPE = 'ricos-external-mention'; // TODO: is this type needed?

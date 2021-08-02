@@ -56,7 +56,17 @@ describe('Content extract API', () => {
         'BULLETED_LIST',
         'HEADING',
       ],
-      decorations: ['BOLD', 'UNDERLINE', 'ITALIC', 'LINK', 'SPOILER', 'MENTION', 'COLOR', 'ANCHOR'],
+      decorations: [
+        'BOLD',
+        'FONTSIZE',
+        'UNDERLINE',
+        'ITALIC',
+        'LINK',
+        'SPOILER',
+        'MENTION',
+        'COLOR',
+        'ANCHOR',
+      ],
     };
     expect(actual).toStrictEqual(expected);
   });

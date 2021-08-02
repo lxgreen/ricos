@@ -38,4 +38,5 @@ export const DECORATION_TYPES = [
   Decoration_Type.MENTION,
   Decoration_Type.LINK,
   Decoration_Type.COLOR,
+  Decoration_Type.FONTSIZE,
 ];

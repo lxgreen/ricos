@@ -89,8 +89,11 @@ import {
   RICOS_LINK_TYPE,
   RICOS_MENTION_TYPE,
   RICOS_CODE_BLOCK_TYPE,
+  RICOS_FONT_SIZE_TYPE,
   UNSUPPORTED_BLOCKS_TYPE,
 } from 'wix-rich-content-common';
+
+import { setFontSize, getFontSize } from './utils/fontSizeUtils';
 
 const TO_DRAFT_PLUGIN_TYPE_MAP = {
   [RICOS_DIVIDER_TYPE]: DIVIDER_TYPE,
@@ -161,12 +164,14 @@ const insertDecorationsMap = {
   [RICOS_MENTION_TYPE]: insertMention,
   [RICOS_TEXT_COLOR_TYPE]: setTextColor,
   [RICOS_TEXT_HIGHLIGHT_TYPE]: setHighlightColor,
+  [RICOS_FONT_SIZE_TYPE]: setFontSize,
 };
 
 const deleteDecorationsMapFuncs = {
   [RICOS_LINK_TYPE]: removeLinksInSelection,
   [RICOS_TEXT_COLOR_TYPE]: setTextColor,
   [RICOS_TEXT_HIGHLIGHT_TYPE]: setHighlightColor,
+  [RICOS_FONT_SIZE_TYPE]: setFontSize,
 };
 
 export const createEditorCommands = (
@@ -191,6 +196,7 @@ export const createEditorCommands = (
     getSelection: EditorCommands['getSelection'];
     getAnchorableBlocks: EditorCommands['getAnchorableBlocks'];
     getColor: EditorCommands['getColor'];
+    getFontSize: EditorCommands['getFontSize'];
     getTextAlignment: EditorCommands['getTextAlignment'];
     hasInlineStyle: EditorCommands['hasInlineStyle'];
     isBlockTypeSelected: EditorCommands['isBlockTypeSelected'];
@@ -207,6 +213,7 @@ export const createEditorCommands = (
     },
     getAnchorableBlocks: () => getAnchorableBlocks(getEditorState()),
     getColor: colorType => getColor(getEditorState(), colorType),
+    getFontSize: () => getFontSize(getEditorState()),
     getTextAlignment: () => getTextAlignment(getEditorState()),
     hasInlineStyle: style => hasInlineStyle(style, getEditorState()),
     isBlockTypeSelected: type => getBlockType(getEditorState()) === type,

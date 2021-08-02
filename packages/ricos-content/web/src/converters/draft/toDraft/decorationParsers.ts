@@ -157,7 +157,9 @@ export const getParagraphNode = (node: Node) => {
 };
 
 const convertDecorationTypes = (decorations: Decoration[]): DraftTypedDecoration[] =>
-  decorations.flatMap(decoration => pipe(decoration, toDraftDecorationType, splitColorDecoration));
+  decorations.flatMap(decoration =>
+    pipe(decoration, toDraftDecorationType, convertFontSize, splitColorDecoration)
+  );
 
 const createEmojiDecorations = (text: string) => {
   const result: RangedDecoration[] = [];
@@ -193,6 +195,9 @@ const splitColorDecoration = ({
     .filter(x => x)
     .map(type => ({ ...decoration, type: JSON.stringify(type) }));
 };
+
+const convertFontSize = ({ fontSize, ...decoration }: DraftTypedDecoration): DraftTypedDecoration =>
+  fontSize ? { ...decoration, type: JSON.stringify({ 'font-size': fontSize }) } : decoration;
 
 const decorationComparator = (
   a: RangedDecoration | RangedDecoration[],

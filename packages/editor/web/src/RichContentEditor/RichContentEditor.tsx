@@ -83,6 +83,7 @@ import InnerModal from './InnerModal';
 import { onCut, onCopy } from './utils/onCutAndCopy';
 import preventWixFocusRingAccessibility from './preventWixFocusRingAccessibility';
 import { ErrorToast } from './Components';
+import { customFontSizeStyleFn } from './utils/fontSizeUtils';
 
 type PartialDraftEditorProps = Pick<
   Partial<DraftEditorProps>,
@@ -507,7 +508,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     this.initEditorToolbars(pluginButtons, pluginTextButtons, externalizedButtonProps);
     this.pluginKeyBindings = initPluginKeyBindings(pluginTextButtons);
     this.plugins = [...pluginInstances, ...Object.values(this.toolbars)];
-    this.customStyleFn = combineStyleFns([...pluginStyleFns, customStyleFn]);
+    this.customStyleFn = combineStyleFns([...pluginStyleFns, customStyleFn, customFontSizeStyleFn]);
     this.innerRCECustomStyleFn = combineStyleFns([...pluginStyleFns, customStyleFn]);
   }
 
