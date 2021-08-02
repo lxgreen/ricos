@@ -29,6 +29,8 @@
 
 ### :bug: Bug Fix
 
+- `ricos-content`
+  - [#2812](https://github.com/wix/ricos/pull/2812) fix fromHtml/ck-editor/parser span rules
 - `link`
   - [#2802](https://github.com/wix-incubator/rich-content/pull/2802) fix modal design when opened using external toolbar
   - [#2803](https://github.com/wix-incubator/rich-content/pull/2803) fix default value for newTab checkbox (true by default)
