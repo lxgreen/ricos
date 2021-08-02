@@ -17,6 +17,22 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+- `ricos-content`
+  - [#2804](https://github.com/wix/ricos/pull/2804) extractAppEmbedData
+
+### :nail_care: Polish
+
+- `schema`
+  - [#2662](https://github.com/wix-incubator/rich-content/pull/2662) FileSource contains `privacy`, `id` fields
+  - [#2662](https://github.com/wix-incubator/rich-content/pull/2662) FileSource's `custom` field deprecation
+
+### :bug: Bug Fix
+
+- `link`
+  - [#2802](https://github.com/wix-incubator/rich-content/pull/2802) fix modal design when opened using external toolbar
+  - [#2803](https://github.com/wix-incubator/rich-content/pull/2803) fix default value for newTab checkbox (true by default)
+
 </details>
 <hr/>
 

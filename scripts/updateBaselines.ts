@@ -11,18 +11,25 @@ import { RichContent } from 'ricos-schema';
 
 const stringifyBaseline = obj => {
   let i = 0;
-  const normalizeKeys = (key, val) => {
-    switch (key) {
-      case 'id':
-        return val === '' ? '' : `${i++}`;
-      case 'createdTimestamp':
-      case 'updatedTimestamp':
-        return '2021-07-15T07:42:30.023Z';
-      default:
-        return val;
+  const normalizeKeys = obj => {
+    if (!obj || typeof obj !== 'object') {
+      return;
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Object.entries<any>(obj).forEach(([key, val]) => {
+      if (val && typeof val === 'object') {
+        if (val.id && key !== 'src') {
+          val.id = `${i++}`;
+        }
+        normalizeKeys(val);
+      }
+      if (key === 'createdTimestamp' || key === 'updatedTimestamp') {
+        obj[key] = '2021-07-15T07:42:30.023Z';
+      }
+    });
   };
-  return JSON.stringify(obj, normalizeKeys, 2);
+  normalizeKeys(obj);
+  return JSON.stringify(obj, (_, val) => val, 2);
 };
 
 const writeBaseLine = (path, obj) => writeFileSync(path, stringifyBaseline(obj));
