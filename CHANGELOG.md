@@ -17,8 +17,29 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+
+- `schema`
+  - [#2662](https://github.com/wix-incubator/rich-content/pull/2662) FileSource contains `privacy`, `id` fields
+  - [#2662](https://github.com/wix-incubator/rich-content/pull/2662) FileSource's `custom` field deprecation
+
+### :bug: Bug Fix
+
+- `link`
+  - [#2802](https://github.com/wix-incubator/rich-content/pull/2802) fix modal design when opened using external toolbar
+
 </details>
 <hr/>
+
+## 8.47.15 (Aug 01, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#2797](https://github.com/wix/ricos/pull/2797) ckeditor html parser: line-height in lists fixed
+  - [#2797](https://github.com/wix/ricos/pull/2797) ckeditor html parser: `<br>` => new line rule fixed
+  - [#2797](https://github.com/wix/ricos/pull/2797) ckeditor html parser: image custom width parsing
+  - [#2798](https://github.com/wix/ricos/pull/2798) extract-media: invalid data protected and tested
 
 ## 8.47.14 (Jul 29, 2021)
 

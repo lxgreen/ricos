@@ -76,27 +76,27 @@ const splitUnsupportedLists = (content: RichContent): E.Either<RichContent, Rich
     : E.left(content);
 };
 
-const newLine: Node = {
+const newLineP: Node = {
   type: Node_Type.TEXT,
   id: '',
   nodes: [],
   textData: { text: '\n', decorations: [] },
 };
 
-const mergeAdjacentParagraphs = (node: Node): Node => {
-  return {
-    ...node,
-    nodes: partitionBy<Node>(
-      ({ type }) => type !== Node_Type.PARAGRAPH, // any non-paragraph is separator
-      ({ type }) => type === Node_Type.PARAGRAPH, // paragraph is partition
-      identity, // seprator added as is to result partition array
-      node => ({ ...node, nodes: [] }), // empty paragraph is a new partition
-      // paragraph nodes appended to partition nodes, separated by \n
-      (pred, curr) =>
-        (pred.nodes = pred.nodes.concat(pred.nodes.length > 0 ? [newLine] : []).concat(curr.nodes))
-    )(node.nodes),
-  };
-};
+const mergeAdjacentParagraphs = (listItem: Node): Node => ({
+  ...listItem,
+  nodes: partitionBy<Node>(
+    ({ type }) => type !== Node_Type.PARAGRAPH, // any non-paragraph is separator
+    ({ type }) => type === Node_Type.PARAGRAPH, // paragraph is partition
+    identity, // seprator added as is to result partition array
+    paragraph => ({ ...paragraph, nodes: [] }), // empty paragraph is a new partition
+    // paragraph nodes appended to partition nodes, separated by \n
+    (containerP, mergedP) =>
+      (containerP.nodes = containerP.nodes
+        .concat(containerP.nodes.length > 0 ? [newLineP] : [])
+        .concat(mergedP.nodes))
+  )(listItem.nodes),
+});
 
 // merge any adjacent paragraphs into a single paragraph
 const mergeListParagraphNodes = (content: RichContent) =>

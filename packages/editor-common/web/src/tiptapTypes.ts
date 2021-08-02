@@ -1,5 +1,4 @@
 import { Node as ProseMirrorNode } from 'prosemirror-model';
-import { DraftContent } from 'ricos-content';
 import { FC } from 'react';
 import { Editor } from '@tiptap/react';
 
@@ -15,11 +14,6 @@ export interface PluginProps {
   editorCommands: unknown;
   updateAttributes: (data: unknown) => null;
 }
-
-export type TiptapConfig = {
-  onUpdate?: ({ content }: { content: DraftContent }) => void;
-  initialContent: DraftContent;
-};
 
 export type TiptapAPI = {
   Editor: FC;

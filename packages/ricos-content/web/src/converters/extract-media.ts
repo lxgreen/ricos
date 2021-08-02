@@ -2,13 +2,13 @@ import { DraftContent } from '../types/contentTypes';
 import extractEntityData from '../preview/ContentStateAnalyzer/extractEntityData';
 
 const toSeoImage = entityData => {
-  const { url, width, height, alt = '', caption = '' } = entityData;
-  const imageUrl = `https://static.wixstatic.com/media/${url.replace('media/', '')}`;
+  const { url = '', width, height, alt = '', caption = '' } = entityData;
+  const imageUrl = url ? `https://static.wixstatic.com/media/${url.replace('media/', '')}` : '';
   return { imageUrl, imageWidth: width, imageHeight: height, imageAlt: alt, imageCaption: caption };
 };
 
 const toSeoVideo = entityData => {
-  const { url, thumbnail, caption = '' } = entityData;
+  const { url = '', thumbnail = '', caption = '' } = entityData;
   const videoThumbnailUrl = thumbnail.startsWith('media/')
     ? `https://static.wixstatic.com/${thumbnail}`
     : thumbnail;
@@ -17,7 +17,7 @@ const toSeoVideo = entityData => {
 };
 
 const gifToSeoVideo = entityData => {
-  const { mp4: videoContentUrl, thumbnail: videoThumbnailUrl } = entityData;
+  const { mp4: videoContentUrl = '', thumbnail: videoThumbnailUrl = '' } = entityData;
   return { videoThumbnailUrl, videoContentUrl, videoName: '' };
 };
 

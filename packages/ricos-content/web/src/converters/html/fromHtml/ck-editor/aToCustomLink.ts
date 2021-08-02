@@ -1,15 +1,16 @@
 import { identity, pipe, flow } from 'fp-ts/function';
 import * as E from 'fp-ts/Either';
+import * as S from 'fp-ts/string';
 import { Link, Decoration_Type } from 'ricos-schema';
 import { Element } from 'parse5';
 import { createLink } from '../../../nodeUtils';
-import { getMatches, replace } from '../../../../fp-utils';
+import { getMatches } from '../../../../fp-utils';
 import { getAttributes } from '../core/parse5-utils';
 import { Rule } from '../core/models';
 import { aToLink } from '../core/rules';
 
 const parseNavigationData = flow(
-  replace(/~#~/g, '"'),
+  S.replace(/~#~/g, '"'),
   d =>
     E.tryCatch(
       () => JSON.parse(d),

@@ -12,7 +12,11 @@ const Divider: React.FC<PluginProps> = ({ context, componentData }) => {
   );
 };
 
-export const tiptapExtension = () => {
-  const attrs = DividerData.fromJSON({});
-  return createNodeExtension('divider', Divider, attrs);
-};
+const componentDataDefaults = DividerData.fromJSON({});
+export const tiptapExtension = createNodeExtension({
+  Component: Divider,
+  componentDataDefaults,
+  extensionConfig: () => ({
+    name: 'divider',
+  }),
+});

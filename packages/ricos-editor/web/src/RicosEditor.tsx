@@ -320,7 +320,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       return null;
     }
     const { RicosTiptapEditor, RichContentAdapter } = tiptapEditorModule;
-    const { content, injectedContent } = this.props;
+    const { content, injectedContent, plugins } = this.props;
     const { tiptapToolbar } = this.state;
     const initalContent = tiptapEditorModule.draftToTiptap(
       content ?? injectedContent ?? emptyDraftContent
@@ -335,7 +335,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
             {t => {
               const tiptapEditor = (
                 <RicosTiptapEditor
-                  extensions={[]}
+                  extensions={plugins}
                   content={initalContent}
                   t={t}
                   onLoad={editor => {

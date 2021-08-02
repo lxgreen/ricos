@@ -83,7 +83,7 @@ describe('Content extract API', () => {
   it('should extract first image url', () => {
     const richContent = fromDraft(contentWithImages);
     const actual = extract(richContent.nodes)
-      .map(({ imageData }) => imageData?.image?.src?.url || imageData?.image?.src?.custom)
+      .map(({ imageData }) => imageData?.image?.src?.url || imageData?.image?.src?.id)
       .get()[0];
     const expected = '8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg';
     expect(actual).toEqual(expected);

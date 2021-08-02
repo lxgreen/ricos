@@ -1,11 +1,11 @@
-import { createRicosExtensionConfig } from './../../extensions-creators/extension';
+import { createRicosGenericExtensionConfig } from './../../extensions-creators/extension';
 import React from 'react';
 import { BlockSpoilerComponent } from 'wix-rich-content-plugin-spoiler';
 
 const name = 'spoiler';
 
 export const createSpoilerConfig = () =>
-  createRicosExtensionConfig(() => {
+  createRicosGenericExtensionConfig(() => {
     return {
       name,
       priority: 10,

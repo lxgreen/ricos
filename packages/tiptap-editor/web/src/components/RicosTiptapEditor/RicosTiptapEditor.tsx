@@ -5,33 +5,34 @@ import { EditorContent, Editor } from '@tiptap/react';
 import { RicosExtensionManager } from '../../ricos-extensions-manager';
 import { tiptapExtensions as coreExtensions } from '../../tiptap-extensions';
 import { createImageConfig } from '../../extensions/extension-image';
-import { createDividerConfig } from '../../extensions/extension-divider';
 import { createSpoilerConfig } from '../../extensions/extension-spoiler';
 import { createDraftConfig } from '../../extensions/extension-draft';
 import { createHistoryConfig } from '../../extensions/extension-history';
 import { createStylesConfig } from '../../extensions/extension-styles';
+import { createRicosExtensionsConfigs } from '../../extensions-creators';
 
 function useForceUpdate() {
   const [, setValue] = useState(0);
 
   return () => setValue(value => value + 1);
 }
-const imageExt = createImageConfig();
-const dividerExt = createDividerConfig();
-const spoiler = createSpoilerConfig();
-const draft = createDraftConfig();
-const history = createHistoryConfig();
-const stylesExt = createStylesConfig();
+const imageConfig = createImageConfig();
+const spoilerConfig = createSpoilerConfig();
+const draftConfig = createDraftConfig();
+const historyConfig = createHistoryConfig();
+const stylesConfig = createStylesConfig();
+
 export const RicosTiptapEditor = ({ content, extensions = [], onLoad, ...context }) => {
   const [editor, setEditor] = useState<Editor | null>(null);
   const [nodeViewsHOCs, setNodeViewsHOCs] = useState([]);
   const forceUpdate = useForceUpdate();
-  const allExtensions = [...extensions, imageExt, dividerExt, spoiler, draft, history, stylesExt];
+
+  const extensionsConfigs = [imageConfig, spoilerConfig, draftConfig, historyConfig, stylesConfig];
   useEffect(() => {
-    const tiptapExtensions = RicosExtensionManager.ricosExtensionsTotiptapExtensions(allExtensions);
-    const nodeViewsHOCs = RicosExtensionManager.extractNodeViewsHOCsFromRicosExtensions(
-      allExtensions
-    );
+    const ricosExtensionsConfigs = createRicosExtensionsConfigs(extensions);
+    const allConfigs = [...ricosExtensionsConfigs, ...extensionsConfigs];
+    const tiptapExtensions = RicosExtensionManager.extensionsConfigsToTiptapExtensions(allConfigs);
+    const nodeViewsHOCs = RicosExtensionManager.extractNodeViewsHOCsFromRicosExtensions(allConfigs);
 
     setNodeViewsHOCs(nodeViewsHOCs);
 

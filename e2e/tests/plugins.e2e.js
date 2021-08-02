@@ -639,7 +639,7 @@ describe('plugins', () => {
 
     function selectAnchorAndSave() {
       cy.get(`[data-hook=test-blockKey`).click({ force: true });
-      cy.get(`[data-hook=linkPanelContainerDone]`).click();
+      cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
     }
 
     // before(function() {

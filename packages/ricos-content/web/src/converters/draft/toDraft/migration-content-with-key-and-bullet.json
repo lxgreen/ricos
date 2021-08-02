@@ -825,7 +825,8 @@
           "alignment": "CENTER"
         },
         "src": {
-          "url": "https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+          "url": "https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "private": false
         },
         "name": "image.jpg",
         "type": "jpg",
