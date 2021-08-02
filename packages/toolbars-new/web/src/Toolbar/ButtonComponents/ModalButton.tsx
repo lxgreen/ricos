@@ -7,7 +7,7 @@ import ClickOutside from 'react-click-outsider';
 import styles from '../ToolbarNew.scss';
 import ToolbarButton from '../ToolbarButton';
 import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
-import { isElementOutOfWindowHeight } from 'wix-rich-content-editor-common';
+import { isElementOutOfWindowHeight, isElementOutOfWindow } from 'wix-rich-content-editor-common';
 
 type dropDownPropsType = {
   isMobile?: boolean;
@@ -42,7 +42,8 @@ interface ModalButtonProps {
 
 interface State {
   isModalOpen: boolean;
-  isModalOverflow: boolean;
+  isModalOverflowByHeight: boolean;
+  overflowWidthBy: boolean | number;
 }
 
 class ModalButton extends Component<ModalButtonProps, State> {
@@ -52,7 +53,8 @@ class ModalButton extends Component<ModalButtonProps, State> {
     super(props);
     this.state = {
       isModalOpen: false,
-      isModalOverflow: false,
+      isModalOverflowByHeight: false,
+      overflowWidthBy: false,
     };
   }
 
@@ -66,10 +68,14 @@ class ModalButton extends Component<ModalButtonProps, State> {
     } = this.props;
     this.setState({ isModalOpen: !isModalOpen }, () => {
       if (this.state.isModalOpen && this.modalRef) {
-        const isModalOverflow = isElementOutOfWindowHeight(this.modalRef) || false;
-        this.setState({ isModalOverflow });
+        const overflowWidthBy = isElementOutOfWindow(this.modalRef) || false;
+        const isModalOverflowByHeight = isElementOutOfWindowHeight(this.modalRef) || false;
+        this.setState({
+          isModalOverflowByHeight,
+          overflowWidthBy,
+        });
       } else {
-        this.setState({ isModalOverflow: false });
+        this.setState({ isModalOverflowByHeight: false, overflowWidthBy: false });
       }
     });
     if (!isModalOpen) {
@@ -142,7 +148,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
       arrow = false,
       getLabel,
     } = dropDownProps;
-    const { isModalOpen, isModalOverflow } = this.state;
+    const { isModalOpen, isModalOverflowByHeight, overflowWidthBy } = this.state;
     const buttonProps = arrow && getLabel ? { buttonContent: getLabel() } : { icon: getIcon() };
     const mobileStyles = {
       position: 'fixed',
@@ -177,10 +183,12 @@ class ModalButton extends Component<ModalButtonProps, State> {
               className={classNames(
                 styles.modal,
                 styles.withoutPadding,
-                isModalOverflow && styles.modalOverflow
+                isModalOverflowByHeight && styles.modalOverflow
               )}
               onMouseDown={event => event.preventDefault()}
-              style={isMobile ? mobileStyles : {}}
+              style={
+                isMobile ? mobileStyles : overflowWidthBy ? { left: `-${overflowWidthBy}px` } : {}
+              }
               onClick={isMobile ? this.closeModal : undefined}
             >
               {modal({

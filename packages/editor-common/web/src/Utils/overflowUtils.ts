@@ -29,15 +29,17 @@ const getHeight = (element: HTMLElement): number => {
   return element.clientHeight;
 };
 
-export const isElementOutOfWindow = (element: HTMLElement): boolean | undefined => {
+export const isElementOutOfWindow = (element: HTMLElement): boolean | number | undefined => {
   if (element && document) {
     const modalOffset = getElementCoordsInWindow(element).left;
     const modalWidth = getWidth(element);
-    const rootEditor = element.closest('[data-hook=root-editor]') as HTMLElement; // it will break with toolbars-new
+    const rootEditor = element.closest(
+      '[data-hook=root-editor], [data-hook=ricos-editor]'
+    ) as HTMLElement;
     const editorOffset = rootEditor && getElementCoordsInWindow(rootEditor).left;
     const editorWidth = (rootEditor && rootEditor.getBoundingClientRect().width) || 999999;
     if (modalWidth + (modalOffset - editorOffset) > editorWidth) {
-      return true;
+      return modalWidth + (modalOffset - editorOffset) - editorWidth; // optional: return overflow by
     } else {
       return false;
     }
@@ -50,7 +52,9 @@ export const isElementOutOfWindowHeight = (element: HTMLElement): boolean | unde
   if (element && document) {
     const modalOffset = getElementCoordsInWindow(element).top;
     const modalHeight = getHeight(element);
-    const rootEditor = element.closest('[data-hook=ricos-editor]') as HTMLElement;
+    const rootEditor = element.closest(
+      '[data-hook=root-editor], [data-hook=ricos-editor]'
+    ) as HTMLElement;
     const editorOffset = rootEditor && getElementCoordsInWindow(rootEditor).top;
     const editorHeight = (rootEditor && rootEditor.getBoundingClientRect().height) || 999999;
     if (modalHeight + (modalOffset - editorOffset) > editorHeight) {
