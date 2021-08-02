@@ -21,7 +21,7 @@ import {
   HeightIcon,
   TrashIcon,
 } from '../../Icons';
-import { AlignLeftIcon, AlignTextCenterIcon, AlignRightIcon } from 'wix-rich-content-editor-common';
+import { AlignLeftIcon, AlignTextCenterIcon, AlignRightIcon } from 'wix-rich-content-ui-components';
 
 export { BUTTONS };
 

@@ -1,11 +1,10 @@
+import { getTextAlignment, setTextAlignment } from 'wix-rich-content-editor-common';
 import {
-  getTextAlignment,
-  setTextAlignment,
   AlignLeftIcon,
   AlignTextCenterIcon,
   AlignRightIcon,
   AlignJustifyIcon,
-} from 'wix-rich-content-editor-common';
+} from 'wix-rich-content-ui-components';
 import {
   alignTextLeftButton,
   alignTextCenterButton,

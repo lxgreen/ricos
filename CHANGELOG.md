@@ -23,6 +23,12 @@
   - [#2662](https://github.com/wix-incubator/rich-content/pull/2662) FileSource contains `privacy`, `id` fields
   - [#2662](https://github.com/wix-incubator/rich-content/pull/2662) FileSource's `custom` field deprecation
 
+### :house: Internal
+
+- `ui-components`
+ - [#2807](https://github.com/wix/ricos/pull/2807) moved alignment/link icons into
+    ui-components 
+
 </details>
 <hr/>
 

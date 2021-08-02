@@ -8,7 +8,6 @@ import {
   insertLinkAtCurrentSelection,
   getEntityData,
   insertCustomLink,
-  LinkIcon,
   BUTTON_TYPES,
   FORMATTING_BUTTONS,
   isAtomicBlockInSelection,
@@ -25,6 +24,7 @@ import {
   RichContentTheme,
   UISettings,
 } from 'wix-rich-content-common';
+import { LinkIcon } from 'wix-rich-content-ui-components';
 import { LINK_TYPE, LinkPluginEditorConfig } from '../types';
 import { GetEditorState, SetEditorState } from 'wix-rich-content-common/src';
 

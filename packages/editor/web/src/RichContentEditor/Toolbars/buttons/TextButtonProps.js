@@ -1,11 +1,11 @@
 import { HEADER_BLOCK } from 'wix-rich-content-common';
+import { FORMATTING_BUTTONS } from 'wix-rich-content-editor-common';
 import {
   AlignLeftIcon,
   AlignTextCenterIcon,
   AlignRightIcon,
   AlignJustifyIcon,
-  FORMATTING_BUTTONS,
-} from 'wix-rich-content-editor-common';
+} from 'wix-rich-content-ui-components';
 import {
   BoldIcon,
   ItalicIcon,
