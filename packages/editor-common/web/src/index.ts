@@ -95,6 +95,7 @@ export {
 
 import './draftTypes';
 export * from './tiptapTypes';
+export * from './Utils/tiptap';
 
 import {
   convertFromRaw as convertFromRawDraft,
@@ -150,4 +151,3 @@ export const emptyDraftContent = {
 };
 
 export { getSelectionStyles } from './Utils/inlineStyleUtils';
-export { createNodeExtension, createMarkExtension, createGenericExtension } from './Utils/tiptap';

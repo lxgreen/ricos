@@ -1,4 +1,4 @@
-import { createNodeExtension } from 'wix-rich-content-editor-common';
+import { ExtensionBuilder } from 'wix-rich-content-editor-common';
 import { Image as Component } from './component';
 
 declare module '@tiptap/core' {
@@ -18,26 +18,28 @@ declare module '@tiptap/core' {
 
 const name = 'image';
 
-export const tiptapExtension = createNodeExtension({
-  Component,
-  createComponentDataDefaults: ({ ImageData }) => ({
-    ...ImageData.fromJSON({}),
-    myLoading: {
-      default: false,
-    },
-  }),
-  createConfig: () => ({
-    name,
-    atom: false,
-    addCommands() {
-      return {
-        setImageUrl: url => ({ commands }) => {
-          return commands.updateAttributes(name, { image: { src: { custom: url } } });
-        },
-        setImageLoading: isLoading => ({ commands }) => {
-          return commands.updateAttributes(name, { myLoading: isLoading });
-        },
-      };
-    },
-  }),
-});
+export const tiptapExtensions = new ExtensionBuilder()
+  .addNode({
+    Component,
+    createComponentDataDefaults: ({ ImageData }) => ({
+      ...ImageData.fromJSON({}),
+      myLoading: {
+        default: false,
+      },
+    }),
+    createConfig: () => ({
+      name,
+      atom: false,
+      addCommands() {
+        return {
+          setImageUrl: url => ({ commands }) => {
+            return commands.updateAttributes(name, { image: { src: { custom: url } } });
+          },
+          setImageLoading: isLoading => ({ commands }) => {
+            return commands.updateAttributes(name, { myLoading: isLoading });
+          },
+        };
+      },
+    }),
+  })
+  .build();

@@ -1,5 +1,5 @@
 import { NodeConfig, MarkConfig, ExtensionConfig } from '@tiptap/react';
-import { compact } from 'lodash';
+import { compact, flatten } from 'lodash';
 import { CreateTiptapExtensionConfig, EditorPlugin } from 'wix-rich-content-common';
 import {
   createRicosNodeConfig,
@@ -8,7 +8,9 @@ import {
 } from '..';
 
 export const createRicosExtensionsConfigs = (ricosExtensions: EditorPlugin[]) => {
-  const tiptapExtensions = compact(ricosExtensions.map(extension => extension.tiptapExtension));
+  const tiptapExtensions = flatten(
+    compact(ricosExtensions.map(extension => extension.tiptapExtensions))
+  );
   const configs = tiptapExtensions.map(
     ({ type, Component, createConfig: creator, createComponentDataDefaults }) => {
       let createConfig;

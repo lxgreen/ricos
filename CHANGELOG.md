@@ -26,6 +26,7 @@
 
 - `tiptap`
   - [#2800](https://github.com/wix/ricos/pull/2800) image plugin endpoint for tiptap editor
+  - [#2814](https://github.com/wix/ricos/pull/2814) `ExtensionBuilder` + divider refactor
 - `image`
   - [#2800](https://github.com/wix/ricos/pull/2800) image plugin endpoint for tiptap editor
 
