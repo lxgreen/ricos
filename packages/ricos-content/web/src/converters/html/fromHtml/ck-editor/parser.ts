@@ -54,6 +54,7 @@ const traverseSpan: Rule = [
     hasTag('span'),
     not(hasStyleFor('font-weight')),
     not(hasStyleFor('font-style')),
+    not(hasStyleFor('text-decoration')),
   ]),
   identityRule[1],
 ];
@@ -66,6 +67,11 @@ const fontStyleToItalic: Rule = [
 const fontWeightToBold: Rule = [
   concatApply(MonoidAll)([hasTag('span'), hasStyleRule({ 'font-weight': 'bold' })]),
   ({ addDecoration }) => (el: Element) => addDecoration(Decoration_Type.BOLD, {}, el),
+];
+
+const textDecorationToUnderline: Rule = [
+  concatApply(MonoidAll)([hasTag('span'), hasStyleRule({ 'text-decoration': 'underline' })]),
+  ({ addDecoration }) => (el: Element) => addDecoration(Decoration_Type.UNDERLINE, {}, el),
 ];
 
 type Alignment = 'LEFT' | 'RIGHT' | 'CENTER' | '';
@@ -216,6 +222,7 @@ export default flow(
     aToCustomLink,
     fontWeightToBold,
     fontStyleToItalic,
+    textDecorationToUnderline,
     iframeToAlignedVideo,
     imgToAlignedImage,
     traverseDiv,
