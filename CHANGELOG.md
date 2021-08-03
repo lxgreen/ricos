@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.48.1 (Aug 03, 2021)
+
 ### :bug: Bug Fix
 
 - `editor`
@@ -29,9 +34,8 @@
   - [#2814](https://github.com/wix/ricos/pull/2814) `ExtensionBuilder` + divider refactor
 - `image`
   - [#2800](https://github.com/wix/ricos/pull/2800) image plugin endpoint for tiptap editor
-
-</details>
-<hr/>
+- `social-polls`
+  - [#2809](https://github.com/wix/ricos/pull/2809) revert loadable support (fixes css issues)
 
 ## 8.48.0 (Aug 03, 2021)
 
