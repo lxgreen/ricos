@@ -1,15 +1,7 @@
-import {
-  CreateTiptapExtensionConfig,
-  RicosTiptapExtension,
-  TiptapExtensionConfig,
-} from 'wix-rich-content-common';
+import { RicosTiptapExtension, TiptapExtensionConfig } from 'wix-rich-content-common';
 
-interface CreateExtensionParams<T extends TiptapExtensionConfig> {
-  Component?: React.ComponentType;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  componentDataDefaults: Record<string, any>;
-  extensionConfig: CreateTiptapExtensionConfig<T>;
-}
+export interface CreateExtensionParams<T extends TiptapExtensionConfig>
+  extends Omit<RicosTiptapExtension<T>, 'type'> {}
 
 export type CreateExtension<T extends TiptapExtensionConfig> = (
   params: CreateExtensionParams<T>

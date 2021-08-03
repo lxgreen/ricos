@@ -17,8 +17,14 @@
     Click to see more.
   </summary>
 
-</details>
-<hr/>
+### :house: Internal
+
+- `tiptap`
+  - [#2800](https://github.com/wix/ricos/pull/2800) image plugin endpoint for tiptap editor
+- `image`
+  - [#2800](https://github.com/wix/ricos/pull/2800) image plugin endpoint for tiptap editor
+    </details>
+    <hr/>
 
 ## 8.48.0 (Aug 03, 2021)
 

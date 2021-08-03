@@ -4,7 +4,6 @@ import { EditorContent, Editor } from '@tiptap/react';
 
 import { RicosExtensionManager } from '../../ricos-extensions-manager';
 import { tiptapExtensions as coreExtensions } from '../../tiptap-extensions';
-import { createImageConfig } from '../../extensions/extension-image';
 import { createSpoilerConfig } from '../../extensions/extension-spoiler';
 import { createDraftConfig } from '../../extensions/extension-draft';
 import { createHistoryConfig } from '../../extensions/extension-history';
@@ -16,7 +15,6 @@ function useForceUpdate() {
 
   return () => setValue(value => value + 1);
 }
-const imageConfig = createImageConfig();
 const spoilerConfig = createSpoilerConfig();
 const draftConfig = createDraftConfig();
 const historyConfig = createHistoryConfig();
@@ -27,7 +25,7 @@ export const RicosTiptapEditor = ({ content, extensions = [], onLoad, ...context
   const [nodeViewsHOCs, setNodeViewsHOCs] = useState([]);
   const forceUpdate = useForceUpdate();
 
-  const extensionsConfigs = [imageConfig, spoilerConfig, draftConfig, historyConfig, stylesConfig];
+  const extensionsConfigs = [spoilerConfig, draftConfig, historyConfig, stylesConfig];
   useEffect(() => {
     const ricosExtensionsConfigs = createRicosExtensionsConfigs(extensions);
     const allConfigs = [...ricosExtensionsConfigs, ...extensionsConfigs];

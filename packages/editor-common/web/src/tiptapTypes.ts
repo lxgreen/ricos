@@ -1,6 +1,7 @@
 import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { FC } from 'react';
 import { Editor } from '@tiptap/react';
+export * from './Utils/tiptap/types';
 
 export interface PluginProps {
   context: {

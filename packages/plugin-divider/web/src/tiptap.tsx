@@ -1,6 +1,5 @@
 import React from 'react';
 import { DividerComponent } from '.';
-import { DividerData } from 'ricos-schema';
 import { createNodeExtension, PluginProps } from 'wix-rich-content-editor-common';
 
 const Divider: React.FC<PluginProps> = ({ context, componentData }) => {
@@ -12,11 +11,10 @@ const Divider: React.FC<PluginProps> = ({ context, componentData }) => {
   );
 };
 
-const componentDataDefaults = DividerData.fromJSON({});
 export const tiptapExtension = createNodeExtension({
   Component: Divider,
-  componentDataDefaults,
-  extensionConfig: () => ({
+  createComponentDataDefaults: ({ DividerData }) => DividerData.fromJSON({}),
+  createConfig: () => ({
     name: 'divider',
   }),
 });
