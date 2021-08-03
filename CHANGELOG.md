@@ -17,14 +17,20 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `editor`
+  - [#2813](https://github.com/wix/ricos/pull/2813) fix rel value not applying in link panel by config
+
 ### :house: Internal
 
 - `tiptap`
   - [#2800](https://github.com/wix/ricos/pull/2800) image plugin endpoint for tiptap editor
 - `image`
   - [#2800](https://github.com/wix/ricos/pull/2800) image plugin endpoint for tiptap editor
-    </details>
-    <hr/>
+
+</details>
+<hr/>
 
 ## 8.48.0 (Aug 03, 2021)
 
