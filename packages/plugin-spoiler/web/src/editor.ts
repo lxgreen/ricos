@@ -3,6 +3,7 @@ import { SPOILER_TYPE, SpoilerPluginEditorConfig } from './types';
 import SpoilerEditorWrapper from './Components/Wrappers/SpoilerEditorWrapper';
 import { EditorPluginCreator } from 'wix-rich-content-common';
 import { DEFAULTS } from './defaults';
+import { tiptapExtensions } from './tiptap';
 export { SpoilerEditorWrapper };
 export { default as BlockSpoilerComponent } from './Components/BlockSpoilerComponent';
 export const pluginSpoiler: EditorPluginCreator<SpoilerPluginEditorConfig> = config => {
@@ -11,5 +12,6 @@ export const pluginSpoiler: EditorPluginCreator<SpoilerPluginEditorConfig> = con
     type: SPOILER_TYPE,
     createPlugin: createSpoilerPlugin,
     ModalsMap: {},
+    tiptapExtensions,
   };
 };

@@ -25,8 +25,6 @@ import { TestAppConfig } from '../../src/types';
 // import 'wix-rich-content-toolbars-new/dist/styles.min.css';
 import { RicosEditor, RicosEditorProps, RicosEditorType } from 'ricos-editor';
 
-const anchorTarget = '_blank';
-const rel = { nofollow: true };
 const STATIC_TOOLBAR = 'static';
 
 interface ExampleEditorProps {
@@ -231,7 +229,6 @@ export default class Editor extends PureComponent<ExampleEditorProps, State> {
             onChange={onRicosEditorChange}
             content={contentState}
             injectedContent={injectedContent}
-            linkSettings={{ anchorTarget, rel }}
             locale={locale}
             cssOverride={theme}
             toolbarSettings={{
@@ -242,7 +239,7 @@ export default class Editor extends PureComponent<ExampleEditorProps, State> {
             isMobile={isMobile}
             placeholder={'Add some text!'}
             plugins={this.ricosPlugins}
-            linkPanelSettings={{ ...Plugins.uiSettings.linkPanel, externalPopups }}
+            linkPanelSettings={{ ...(Plugins.uiSettings.linkPanel || {}), externalPopups }}
             _rcProps={{ helpers: this.helpers }}
             experiments={experiments}
           >

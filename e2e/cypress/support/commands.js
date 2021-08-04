@@ -324,7 +324,7 @@ Cypress.Commands.add('setLink', (selection, link) => {
   cy.setTextStyle(INLINE_TOOLBAR_BUTTONS.LINK, selection)
     .get(`[data-hook=linkPanelContainer] [data-hook=linkPanelInput]`)
     .fireEvent('change', link)
-    .get(`[data-hook=linkPanelContainerDone]`)
+    .get(`[data-hook=${ACTION_BUTTONS.SAVE}]`)
     .click()
     .wait(100);
 });
@@ -333,7 +333,7 @@ Cypress.Commands.add('setLinkSettings', () => {
   cy.clickToolbarButton(INLINE_TOOLBAR_BUTTONS.LINK)
     .get(`[data-hook=linkPanelContainer] [data-hook=linkPanelRelCheckbox]`)
     .click()
-    .get(`[data-hook=linkPanelContainerDone]`)
+    .get(`[data-hook=${ACTION_BUTTONS.SAVE}]`)
     .click();
 });
 
@@ -478,7 +478,7 @@ Cypress.Commands.add('addImageLink', () => {
   cy.clickToolbarButton(PLUGIN_TOOLBAR_BUTTONS.LINK)
     .get(`[data-hook=linkPanelContainer] [data-hook=linkPanelInput]`)
     .fireEvent('change', 'www.wix.com')
-    .get(`[data-hook=linkPanelContainerDone]`)
+    .get(`[data-hook=${ACTION_BUTTONS.SAVE}]`)
     .click()
     .wait(200);
   // .get('href=www.wix.com');

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { mergeStyles, isValidUrl } from 'wix-rich-content-common';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
-import { Checkbox, ErrorIcon } from 'wix-rich-content-ui-components';
+import { Checkbox, ErrorIcon, TextInput } from 'wix-rich-content-ui-components';
 import styles from '../../../statics/styles/link-panel.scss';
 import { LinkPanelDropdown } from './LinkPanelDropdown';
 
@@ -14,17 +14,18 @@ class LinkPanel extends Component {
     showNewTabCheckbox: true,
     showNoFollowCheckbox: true,
     showSponsoredCheckbox: false,
+    hasCheckboxes: true,
     isMobile: false,
   };
 
-  styles = mergeStyles({ styles, theme: this.props.theme });
-
   textInput = React.createRef();
+
+  styles = mergeStyles({ styles, theme: this.props.theme });
 
   componentDidMount() {
     this.onChange({ isValid: this.isValidUrl(this.props.linkValues.url) });
-    this.textInput?.current?.focus();
-    this.textInput?.current?.select(); //select the link in case of edit
+    this.textInput.current?.focus();
+    this.textInput.current?.select(); //select the link in case of edit
   }
 
   handleUrlChange = url => {
@@ -85,10 +86,10 @@ class LinkPanel extends Component {
 
   getTextInput() {
     return (
-      <input
-        ref={this.textInput}
+      <TextInput
+        inputRef={this.textInput}
         value={this.props.linkValues.url}
-        onChange={e => this.handleUrlChange(e.target.value)}
+        onChange={this.handleUrlChange}
         {...this.getTextInputProps()}
       />
     );
@@ -120,12 +121,19 @@ class LinkPanel extends Component {
       linkValues,
       hideUrlInput,
       isMobile,
+      hasCheckboxes,
     } = this.props;
 
     const { targetBlank = true, nofollow, sponsored } = linkValues;
 
     return (
-      <div className={styles.linkPanel_Content} {...ariaProps} role="form">
+      <div
+        className={classNames(styles.linkPanel_Content, {
+          [styles.basicPanel]: !hasCheckboxes,
+        })}
+        {...ariaProps}
+        role="form"
+      >
         {!hideUrlInput && (
           /* eslint-disable-next-line jsx-a11y/no-static-element-interactions */
           <div className={styles.linkPanel_Input} onKeyDown={this.handleKeyDown}>
@@ -137,41 +145,43 @@ class LinkPanel extends Component {
             )}
           </div>
         )}
-        <div className={styles.checkboxesContainer}>
-          {showNewTabCheckbox && (
-            <Checkbox
-              label={t('LinkPanel_Target_Checkbox')}
-              theme={theme}
-              checked={targetBlank}
-              dataHook="linkPanelBlankCheckbox"
-              onChange={this.handleTargetChange}
-            />
-          )}
-          {showNoFollowCheckbox && (
-            <Checkbox
-              label={t('LinkPanel_Nofollow_Checkbox')}
-              theme={theme}
-              checked={nofollow}
-              dataHook="linkPanelRelCheckbox"
-              onChange={this.handleNofollowChange}
-              tooltipTextKey={'LinkPanel_Nofollow_Checkbox_Tooltip'}
-              t={t}
-              isMobile={isMobile}
-            />
-          )}
-          {showSponsoredCheckbox && (
-            <Checkbox
-              label={t('LinkPanel_Sponsored_Checkbox')}
-              theme={theme}
-              checked={sponsored}
-              dataHook="linkPanelSponsoredCheckbox"
-              onChange={this.handleSponsoredChange}
-              tooltipTextKey={'LinkPanel_Sponsored_Checkbox_Tooltip'}
-              t={t}
-              isMobile={isMobile}
-            />
-          )}
-        </div>
+        {hasCheckboxes && (
+          <div className={styles.checkboxesContainer}>
+            {showNewTabCheckbox && (
+              <Checkbox
+                label={t('LinkPanel_Target_Checkbox')}
+                theme={theme}
+                checked={targetBlank}
+                dataHook="linkPanelBlankCheckbox"
+                onChange={this.handleTargetChange}
+              />
+            )}
+            {showNoFollowCheckbox && (
+              <Checkbox
+                label={t('LinkPanel_Nofollow_Checkbox')}
+                theme={theme}
+                checked={nofollow}
+                dataHook="linkPanelRelCheckbox"
+                onChange={this.handleNofollowChange}
+                tooltipTextKey={'LinkPanel_Nofollow_Checkbox_Tooltip'}
+                t={t}
+                isMobile={isMobile}
+              />
+            )}
+            {showSponsoredCheckbox && (
+              <Checkbox
+                label={t('LinkPanel_Sponsored_Checkbox')}
+                theme={theme}
+                checked={sponsored}
+                dataHook="linkPanelSponsoredCheckbox"
+                onChange={this.handleSponsoredChange}
+                tooltipTextKey={'LinkPanel_Sponsored_Checkbox_Tooltip'}
+                t={t}
+                isMobile={isMobile}
+              />
+            )}
+          </div>
+        )}
       </div>
     );
   }
@@ -198,6 +208,7 @@ LinkPanel.propTypes = {
   placeholder: PropTypes.string,
   hideUrlInput: PropTypes.bool,
   isMobile: PropTypes.bool,
+  hasCheckboxes: PropTypes.bool,
   anchorTarget: PropTypes.string,
 };
 export default LinkPanel;

@@ -1,20 +1,17 @@
-import { createRicosGenericExtensionConfig } from './../../extensions-creators/extension';
 import React from 'react';
-import { BlockSpoilerComponent } from 'wix-rich-content-plugin-spoiler';
+import { BlockSpoilerComponent } from '..';
+import { createGenericExtension } from 'wix-rich-content-editor-common';
 
 const name = 'spoiler';
 
-export const createSpoilerConfig = () =>
-  createRicosGenericExtensionConfig(() => {
-    return {
-      name,
-      priority: 10,
+export const tiptapExtensions = [
+  createGenericExtension({
+    createConfig: () => {
+      return {
+        name,
+        priority: 10,
 
-      addNodeViewHOC() {
-        // nodeTypes
-        // {types: ['image'],
-
-        return {
+        addNodeViewHOC: () => ({
           nodeTypes: [],
           nodeViewHOC: Component => {
             // should use the new api containerData
@@ -41,7 +38,8 @@ export const createSpoilerConfig = () =>
               }
             };
           },
-        };
-      },
-    };
-  });
+        }),
+      };
+    },
+  }),
+];

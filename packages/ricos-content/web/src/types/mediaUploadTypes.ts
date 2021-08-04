@@ -65,12 +65,14 @@ export interface ImageComponentData {
   width: number;
   original_file_name: string;
   file_name: string;
+  privacy?: MediaPrivacy;
 }
 
 export interface VideoComponentData {
   pathname: string;
   height?: number;
   width?: number;
+  privacy?: MediaPrivacy;
   thumbnail: {
     pathname: string;
     height: number;
@@ -78,9 +80,12 @@ export interface VideoComponentData {
   };
 }
 
+export type MediaPrivacy = 'public' | 'private';
+
 export interface FileComponentData {
   name: string;
   type: string;
   url?: string;
   id?: string;
+  privacy?: MediaPrivacy;
 }

@@ -1,12 +1,15 @@
 import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { FC } from 'react';
 import { Editor } from '@tiptap/react';
+import { LegacyEditorPluginConfig } from 'wix-rich-content-common';
+export * from './Utils/tiptap/types';
 
 export interface PluginProps {
   context: {
     isMobile: boolean;
     theme: string;
     t: (key: string) => string;
+    config: LegacyEditorPluginConfig;
   };
   // eslint-disable-next-line
   componentData: any;
