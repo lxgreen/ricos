@@ -21,6 +21,8 @@
 
 - `tiptap`
   - [#2815](https://github.com/wix/ricos/pull/2815) external `addNodeViewHOC` for generic extensions
+  - [#2823](https://github.com/wix/ricos/pull/2823) `ExtensionBuilder` removed
+  - [#2823](https://github.com/wix/ricos/pull/2823) type fixes
 
 </details>
 <hr/>
