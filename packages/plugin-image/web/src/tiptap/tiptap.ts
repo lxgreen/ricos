@@ -1,4 +1,4 @@
-import { ExtensionBuilder } from 'wix-rich-content-editor-common';
+import { createNodeExtension } from 'wix-rich-content-editor-common';
 import { Image as Component } from './component';
 
 declare module '@tiptap/core' {
@@ -18,8 +18,8 @@ declare module '@tiptap/core' {
 
 const name = 'image';
 
-export const tiptapExtensions = new ExtensionBuilder()
-  .addNode({
+export const tiptapExtensions = [
+  createNodeExtension({
     Component,
     createComponentDataDefaults: ({ ImageData }) => ({
       ...ImageData.fromJSON({}),
@@ -41,5 +41,5 @@ export const tiptapExtensions = new ExtensionBuilder()
         };
       },
     }),
-  })
-  .build();
+  }),
+];
