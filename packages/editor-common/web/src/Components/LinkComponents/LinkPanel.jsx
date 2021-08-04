@@ -79,6 +79,7 @@ class LinkPanel extends Component {
         value={this.props.linkValues.url}
         onChange={this.handleUrlChange}
         textInputProps={this.getTextInputProps()}
+        t={this.props.t}
         {...this.props.dropDown}
       />
     );
@@ -87,6 +88,7 @@ class LinkPanel extends Component {
   getTextInput() {
     return (
       <TextInput
+        placeholder={this.props.t('LinkPanel_InputPlaceholder')}
         inputRef={this.textInput}
         value={this.props.linkValues.url}
         onChange={this.handleUrlChange}

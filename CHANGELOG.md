@@ -22,6 +22,12 @@
 - `tiptap`
   - [#2815](https://github.com/wix/ricos/pull/2815) external `addNodeViewHOC` for generic extensions
   - [#2823](https://github.com/wix/ricos/pull/2823) type fixes
+  - [#2825](https://github.com/wix/ricos/pull/2825) tiptap focus extensions
+
+### :bug: Bug Fix
+
+- `link`
+  - [#2820](https://github.com/wix/ricos/pull/2820) fix default checkboxes and add placeholder to link input
 
 </details>
 <hr/>
