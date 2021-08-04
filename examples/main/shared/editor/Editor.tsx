@@ -9,20 +9,12 @@ import { TOOLBARS } from 'wix-rich-content-editor-common';
 import {
   DraftContent,
   TextToolbarType,
-  TranslationFunction,
   AvailableExperiments,
   EventName,
   PluginEventParams,
   OnPluginAction,
-  // getLangDir,
 } from 'wix-rich-content-common';
 import { TestAppConfig } from '../../src/types';
-// import {
-//   FloatingToolbarContainer,
-//   Toolbar,
-//   StaticToolbarContainer,
-// } from 'wix-rich-content-toolbars-new';
-// import 'wix-rich-content-toolbars-new/dist/styles.min.css';
 import { RicosEditor, RicosEditorProps, RicosEditorType } from 'ricos-editor';
 
 const STATIC_TOOLBAR = 'static';
@@ -30,7 +22,6 @@ const STATIC_TOOLBAR = 'static';
 interface ExampleEditorProps {
   theme?: RichContentEditorProps['theme'];
   isMobile?: boolean;
-  t: TranslationFunction;
   staticToolbar?: boolean;
   externalToolbarToShow: TOOLBARS;
   locale?: string;
@@ -46,18 +37,12 @@ interface ExampleEditorProps {
   externalPopups: boolean;
 }
 
-interface State {
-  // activeEditor?: RicosEditorType | RichContentEditor;
-}
-
-export default class Editor extends PureComponent<ExampleEditorProps, State> {
+export default class Editor extends PureComponent<ExampleEditorProps> {
   getToolbarSettings: RichContentEditorProps['config']['getToolbarSettings'];
-  config: RichContentEditorProps['config'];
   helpers: RichContentEditorProps['helpers'];
   editor: RicosEditorType;
   ricosPlugins: RicosEditorProps['plugins'];
   staticToolbarContainer: HTMLDivElement;
-  staticToolbarRef!: Element;
 
   constructor(props: ExampleEditorProps) {
     super(props);
@@ -82,16 +67,10 @@ export default class Editor extends PureComponent<ExampleEditorProps, State> {
     }
 
     this.getToolbarSettings = pluginsConfig.getToolbarSettings;
-    this.config = pluginsConfig;
     this.ricosPlugins = Object.entries(Plugins.ricosEditorPlugins).map(([pluginType, plugin]) =>
       pluginType in pluginsConfig ? plugin(pluginsConfig[pluginType]) : plugin()
     );
-    // this.state = { activeEditor: null };
   }
-
-  // componentDidMount() {
-  //   this.setState({ activeEditor: this.editor });
-  // }
 
   initEditorProps() {
     const onPluginAction: OnPluginAction = async (
@@ -157,53 +136,6 @@ export default class Editor extends PureComponent<ExampleEditorProps, State> {
     return null;
   }
 
-  // renderTextFormattingToolbar() {
-  //   const { activeEditor } = this.state;
-  //   if (activeEditor) {
-  //     const { buttons } = activeEditor.getToolbarProps(TOOLBARS.FORMATTING);
-  //     const { isMobile, theme, locale, staticToolbar } = this.props;
-  //     const buttonsAsArray = Object.values(buttons);
-  //     const editorCommands = activeEditor.getEditorCommands();
-  //     const selection = (editorCommands as any)._getSelection();
-  //     const showFormattingToolbar = !selection.isCollapsed() && selection.getHasFocus();
-  //     const t = activeEditor.getT();
-  //     const removeToolbarFocus = () => activeEditor.removeToolbarFocus();
-  //     const formattingToolbarButtonsKeys = this.config.formattingToolbarButtons;
-  //     const ToolbarToRender = (
-  //       <Toolbar
-  //         theme={theme}
-  //         isMobile={isMobile}
-  //         t={t}
-  //         buttons={buttonsAsArray}
-  //         editorCommands={editorCommands}
-  //         formattingToolbarButtonsKeys={formattingToolbarButtonsKeys}
-  //       />
-  //     );
-  //     const textToolbarType: TextToolbarType = staticToolbar && !isMobile ? 'static' : null;
-  //     return textToolbarType === 'static' ? (
-  //       <div style={{ flex: 'none' }} dir={getLangDir(locale)}>
-  //         <StaticToolbarContainer>{ToolbarToRender}</StaticToolbarContainer>
-  //       </div>
-  //     ) : (
-  //       <div style={{ flex: 'none' }} dir={getLangDir(locale)}>
-  //         <FloatingToolbarContainer
-  //           isMobile={isMobile}
-  //           showFormattingToolbar={showFormattingToolbar}
-  //           removeToolbarFocus={removeToolbarFocus}
-  //         >
-  //           {ToolbarToRender}
-  //         </FloatingToolbarContainer>
-  //       </div>
-  //     );
-  //   }
-  //   return null;
-  // }
-
-  // setActiveEditor = ref => {
-  //   const activeEditor = ref || this.editor;
-  //   this.setState({ activeEditor });
-  // };
-
   render() {
     const {
       staticToolbar,
@@ -223,7 +155,6 @@ export default class Editor extends PureComponent<ExampleEditorProps, State> {
         {this.renderExternalToolbar()}
         <div ref={ref => (this.staticToolbarContainer = ref)} />
         <div className="editor">
-          {/* {experiments?.newFormattingToolbar?.enabled && this.renderTextFormattingToolbar()} */}
           <RicosEditor
             ref={ref => (this.editor = ref)}
             onChange={onRicosEditorChange}
@@ -243,7 +174,7 @@ export default class Editor extends PureComponent<ExampleEditorProps, State> {
             _rcProps={{ helpers: this.helpers }}
             experiments={experiments}
           >
-            <RichContentEditor /*setActiveEditor={this.setActiveEditor}*/ />
+            <RichContentEditor />
           </RicosEditor>
         </div>
       </div>

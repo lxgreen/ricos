@@ -11,7 +11,7 @@ interface ToolbarContainerProps {
   children: ReactElement;
   isMobile?: boolean;
   showToolbar: boolean;
-  removeToolbarFocus: () => void;
+  focusEditor: () => void;
   onInlineToolbarOpen?: () => void;
 }
 
@@ -130,7 +130,7 @@ class FloatingToolbarContainer extends PureComponent<ToolbarContainerProps, Stat
 
   onKeyDown = e => {
     if (e.keyCode === KEYS_CHARCODE.ESCAPE) {
-      this.props.removeToolbarFocus?.();
+      this.props.focusEditor?.();
     }
   };
 

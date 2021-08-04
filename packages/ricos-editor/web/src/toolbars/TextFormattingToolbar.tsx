@@ -66,7 +66,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
     const selection = editorCommands.getSelection();
     const showFormattingToolbar = !selection.getIsCollapsed && selection.getIsFocused;
     const t = activeEditor.getT();
-    const removeToolbarFocus = () => activeEditor.removeToolbarFocus();
+    const focusEditor = () => activeEditor.focus();
     const textButtons: TextButtons = {
       mobile: mobileTextButtonList,
       desktop: desktopTextButtonList,
@@ -132,7 +132,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
         <ToolbarContainer
           isMobile={isMobile}
           showToolbar={showFormattingToolbar || false}
-          removeToolbarFocus={removeToolbarFocus}
+          focusEditor={focusEditor}
           onInlineToolbarOpen={onInlineToolbarOpen}
         >
           {ToolbarToRender}

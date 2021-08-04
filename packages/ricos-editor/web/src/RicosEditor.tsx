@@ -267,8 +267,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   getT = () => this.editor.getT();
 
-  removeToolbarFocus = () => this.editor.removeToolbarFocus();
-
   renderToolbarPortal(Toolbar) {
     return (
       <StaticToolbarPortal

@@ -48,7 +48,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
     const showLinkToolbar =
       selection.getIsCollapsed && selection.getIsFocused && editorCommands.hasLinkInSelection();
     const t = activeEditor.getT();
-    const removeToolbarFocus = () => activeEditor.removeToolbarFocus();
+    const focusEditor = () => activeEditor.focus();
     const plugins: string[] = this.getPluginsKey();
     const linkPanelData = {
       linkTypes: this.props.plugins?.find(plugin => plugin.type === 'LINK')?.config.linkTypes,
@@ -83,7 +83,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
           <ToolbarContainer
             isMobile={isMobile}
             showToolbar={showLinkToolbar || false}
-            removeToolbarFocus={removeToolbarFocus}
+            focusEditor={focusEditor}
             onInlineToolbarOpen={onInlineToolbarOpen}
           >
             {ToolbarToRender}
