@@ -1,8 +1,11 @@
-import { RicosTiptapExtension, TiptapExtensionConfig } from 'wix-rich-content-common';
+import { RicosTiptapExtension, ExtensionType } from 'wix-rich-content-common';
 
-export interface CreateExtensionParams<T extends TiptapExtensionConfig>
-  extends Omit<RicosTiptapExtension<T>, 'type'> {}
+export type CreateExtensionParams<T extends ExtensionType> = T extends 'node'
+  ? Omit<RicosTiptapExtension<'node'>, 'type'>
+  : T extends 'mark'
+  ? Omit<RicosTiptapExtension<'mark'>, 'type'>
+  : Omit<RicosTiptapExtension<'extension'>, 'type'>;
 
-export type CreateExtension<T extends TiptapExtensionConfig> = (
+export type CreateExtension<T extends ExtensionType> = (
   params: CreateExtensionParams<T>
 ) => RicosTiptapExtension<T>;

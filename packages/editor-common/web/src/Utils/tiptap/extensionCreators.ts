@@ -1,5 +1,5 @@
 import { CreateExtension } from './types';
-import { NodeConfig, MarkConfig, ExtensionConfig } from '@tiptap/core';
+import { ExtensionConfig } from '@tiptap/core';
 import { PluginProps } from '../..';
 
 export interface RicosExtensionConfig extends ExtensionConfig {
@@ -9,17 +9,17 @@ export interface RicosExtensionConfig extends ExtensionConfig {
   };
 }
 
-export const createNodeExtension: CreateExtension<NodeConfig> = params => ({
+export const createNodeExtension: CreateExtension<'node'> = params => ({
   type: 'node',
   ...params,
 });
 
-export const createMarkExtension: CreateExtension<MarkConfig> = params => ({
+export const createMarkExtension: CreateExtension<'mark'> = params => ({
   type: 'mark',
   ...params,
 });
 
-export const createGenericExtension: CreateExtension<RicosExtensionConfig> = params => ({
+export const createGenericExtension: CreateExtension<'extension'> = params => ({
   type: 'extension',
   ...params,
 });
