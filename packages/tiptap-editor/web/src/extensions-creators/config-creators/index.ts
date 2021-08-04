@@ -1,1 +1,1 @@
-export { createRicosExtensionsConfigs } from './configCreator';
+export { createRicosExtensionsConfigs } from './creators';

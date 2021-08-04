@@ -2,28 +2,34 @@ import * as ricosSchema from 'ricos-schema';
 import { NodeConfig, MarkConfig, ExtensionConfig, mergeAttributes } from '@tiptap/core';
 export type TiptapExtensionConfig = NodeConfig | MarkConfig | ExtensionConfig;
 export interface ExtensionTypeToConfig {
-  node: NodeConfig;
-  mark: MarkConfig;
-  extension: ExtensionConfig;
+  node: RicosNodeExtension;
+  mark: RicosMarkExtension;
+  extension: RicosGenericExtension;
 }
 
 export type ExtensionType = 'node' | 'mark' | 'extension';
 
-interface RicosTiptapExtensionBasics<T extends ExtensionType> {
-  type: T;
-  createConfig: CreateTiptapExtensionConfig<ExtensionTypeToConfig[T]>;
+export interface RicosNodeExtension {
+  type: 'node';
+  createConfig: CreateTiptapExtensionConfig<NodeConfig>;
+  Component: React.ComponentType;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  createComponentDataDefaults?: (schema: typeof ricosSchema) => Record<string, any>;
+}
+export interface RicosMarkExtension {
+  type: 'mark';
+  createConfig: CreateTiptapExtensionConfig<MarkConfig>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  createComponentDataDefaults?: (schema: typeof ricosSchema) => Record<string, any>;
+}
+export interface RicosGenericExtension {
+  type: 'extension';
+  createConfig: CreateTiptapExtensionConfig<ExtensionConfig>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createComponentDataDefaults?: (schema: typeof ricosSchema) => Record<string, any>;
 }
 
-interface RicosTiptapExtensionBasicsWithComponent<T extends ExtensionType>
-  extends RicosTiptapExtensionBasics<T> {
-  Component: React.ComponentType;
-}
-
-export type RicosTiptapExtension<T extends ExtensionType> = T extends 'node'
-  ? RicosTiptapExtensionBasicsWithComponent<T>
-  : RicosTiptapExtensionBasics<T>;
+export type RicosTiptapExtension<T extends ExtensionType> = ExtensionTypeToConfig[T];
 
 export type CreateTiptapExtensionConfig<T extends Partial<TiptapExtensionConfig>> = (core: {
   mergeAttributes: typeof mergeAttributes;

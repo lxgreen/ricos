@@ -1,9 +1,9 @@
 import * as ricosSchema from 'ricos-schema';
 import { CreateExtensionParams } from 'wix-rich-content-editor-common';
-import { mergeAttributes, MarkConfig } from '@tiptap/react';
+import { mergeAttributes } from '@tiptap/react';
 import { RicosMarkConfig } from '../types';
 
-type RicosMarkConfigCreator = (params: CreateExtensionParams<MarkConfig>) => RicosMarkConfig;
+type RicosMarkConfigCreator = (params: CreateExtensionParams<'mark'>) => RicosMarkConfig;
 
 export const createRicosMarkConfig: RicosMarkConfigCreator = ({
   createConfig,
