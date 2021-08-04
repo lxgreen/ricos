@@ -1,3 +1,4 @@
+import { ExtensionType } from './tiptapTypes';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ComponentType } from 'react';
 import {
@@ -15,7 +16,6 @@ import {
   RichContentTheme,
   ThemeData,
   RicosTiptapExtension,
-  TiptapExtensionConfig,
 } from '.';
 import {
   ContentBlock,
@@ -228,7 +228,7 @@ export interface EditorPlugin<PluginConfig extends EditorPluginConfig = Record<s
   createPlugin?: CreatePluginFunction<PluginConfig>;
   ModalsMap?: ModalsMap;
   createPluginData?: CreatePluginData<PluginConfig>;
-  tiptapExtensions?: RicosTiptapExtension<TiptapExtensionConfig>[];
+  tiptapExtensions?: RicosTiptapExtension<ExtensionType>[];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
