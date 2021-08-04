@@ -1,1 +1,0 @@
-export { createSpoilerConfig } from './spoiler';
