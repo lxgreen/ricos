@@ -37,6 +37,7 @@ interface ModalButtonProps {
   onSelect: (string) => void;
   onSave?: (any) => void;
   onDone?: (any) => void;
+  isMobile?: boolean;
   dropDownProps: dropDownPropsType;
 }
 
@@ -65,6 +66,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
     const {
       dropDownProps: { saveState, saveSelection },
       setKeepOpen,
+      isMobile,
     } = this.props;
     this.setState({ isModalOpen: !isModalOpen }, () => {
       if (this.state.isModalOpen && this.modalRef) {
@@ -74,6 +76,9 @@ class ModalButton extends Component<ModalButtonProps, State> {
           isModalOverflowByHeight,
           overflowWidthBy,
         });
+        console.log('this.modalRef', isMobile, this.modalRef);
+
+        isMobile && this.modalRef?.focus();
       } else {
         this.setState({ isModalOverflowByHeight: false, overflowWidthBy: false });
       }
@@ -179,6 +184,8 @@ class ModalButton extends Component<ModalButtonProps, State> {
           {isModalOpen && (
             <div
               data-id="toolbar-modal-button"
+              // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+              tabIndex={0}
               ref={this.setModalRef}
               className={classNames(
                 styles.modal,

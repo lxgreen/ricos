@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { Component } from 'react';
+import React, { Component, RefObject } from 'react';
 import classNames from 'classnames';
 import ClickOutside from 'react-click-outsider';
 import styles from '../ToolbarNew.scss';
@@ -45,6 +45,8 @@ interface State {
 }
 
 class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
+  modalRef?: HTMLDivElement | null;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -53,6 +55,8 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
       userColors: props?.getUserColors?.() || [],
     };
   }
+
+  setModalRef = ref => (this.modalRef = ref);
 
   componentWillReceiveProps = nextProps => {
     const currentColor = this.state.currentColor;
@@ -64,9 +68,11 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
 
   toggleModal = () => {
     const { isModalOpen } = this.state;
+    console.log('this.modalRef', isModalOpen, this.modalRef);
     const {
       dropDownProps: { saveSelection },
       setKeepOpen,
+      isMobile,
     } = this.props;
     this.setState({ isModalOpen: !isModalOpen });
     if (!isModalOpen) {
@@ -78,6 +84,7 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
       } = this.props;
       setKeepOpen?.(false);
       loadSelection?.();
+      isMobile && this.modalRef && this.modalRef.focus();
     }
   };
 
@@ -164,6 +171,9 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
         />
         {isModalOpen && (
           <div
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+            tabIndex={0}
+            ref={this.setModalRef}
             className={classNames(
               styles.modal,
               nestedMenu && styles.withoutTop,

@@ -174,6 +174,7 @@ class Toolbar extends Component<ToolbarProps> {
         onDone={buttonProps.onDone}
         dropDownProps={dropDownProps}
         t={t}
+        isMobile={isMobile}
         setKeepOpen={setKeepOpen}
         onToolbarButtonClick={value => this.props.onToolbarButtonClick?.(buttonProps.name, value)}
       />
