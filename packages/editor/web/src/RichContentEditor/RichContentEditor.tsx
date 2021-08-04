@@ -167,7 +167,6 @@ export interface RichContentEditorProps extends PartialDraftEditorProps {
   maxTextLength?: number;
   experiments?: AvailableExperiments;
   disableKeyboardEvents?: (shouldEnable: boolean) => void;
-  // setActiveEditor?(ref: RichContentEditor): void;
   /** This is a legacy API, chagnes should be made also in the new Ricos Editor API **/
 }
 
@@ -1131,7 +1130,6 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
         direction={direction}
         additionalProps={additionalProps}
         setEditorToolbars={this.props.setEditorToolbars}
-        // setActiveEditor={this.props.setActiveEditor}
         toolbarsToIgnore={toolbarsToIgnore}
         handleUndoCommand={this.handleUndoCommand}
         handleRedoCommand={this.handleRedoCommand}
@@ -1192,7 +1190,6 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       if (e.target && !e.target.closest('[data-id=inner-rce], .rich-content-editor-theme_atomic')) {
         this.setInPluginEditingMode(false);
         this.props.setEditorToolbars?.(this);
-        // this.props.setActiveEditor?.(this);
       }
     }
   };
