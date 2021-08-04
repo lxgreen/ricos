@@ -17,6 +17,8 @@ import {
 import { TestAppConfig } from '../../src/types';
 import { RicosEditor, RicosEditorProps, RicosEditorType } from 'ricos-editor';
 
+const anchorTarget = '_blank';
+const rel = {};
 const STATIC_TOOLBAR = 'static';
 
 interface ExampleEditorProps {
