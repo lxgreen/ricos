@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `tiptap`
+  - [#2815](https://github.com/wix/ricos/pull/2815) external `addNodeViewHOC` for generic extensions
+
 </details>
 <hr/>
 

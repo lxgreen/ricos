@@ -1,6 +1,15 @@
 import { RicosTiptapExtension, TiptapExtensionConfig } from 'wix-rich-content-common';
 import { CreateExtension, CreateExtensionParams } from './types';
 import { NodeConfig, MarkConfig, ExtensionConfig } from '@tiptap/core';
+import { PluginProps } from '../..';
+
+interface RicosExtensionConfig extends ExtensionConfig {
+  addNodeViewHOC?: (
+  ) => {
+    nodeTypes: string[];
+    nodeViewHOC: (Component: React.ComponentType) => React.ComponentType<PluginProps>;
+  };
+}
 
 const createNodeExtension: CreateExtension<NodeConfig> = params => ({
   type: 'node',
@@ -12,7 +21,7 @@ const createMarkExtension: CreateExtension<MarkConfig> = params => ({
   ...params,
 });
 
-const createGenericExtension: CreateExtension<ExtensionConfig> = params => ({
+const createGenericExtension: CreateExtension<RicosExtensionConfig> = params => ({
   type: 'extension',
   ...params,
 });
@@ -31,7 +40,7 @@ export class ExtensionBuilder {
     return this;
   }
 
-  addGeneric(params: CreateExtensionParams<ExtensionConfig>) {
+  addGeneric(params: CreateExtensionParams<RicosExtensionConfig>) {
     this.#extensions.push(createGenericExtension(params));
     return this;
   }

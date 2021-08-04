@@ -33,11 +33,4 @@ interface RicosConfig<T extends ExtensionType> {
 }
 export interface RicosNodeConfig extends NodeConfig, RicosConfig<'node'> {}
 export interface RicosMarkConfig extends MarkConfig, RicosConfig<'mark'> {}
-export interface RicosGenericExtensionConfig extends ExtensionConfig, RicosConfig<'extension'> {
-  addNodeViewHOC?: (
-    Component
-  ) => {
-    nodeTypes: string[];
-    nodeViewHOC: unknown;
-  };
-}
+export interface RicosGenericExtensionConfig extends ExtensionConfig, RicosConfig<'extension'> {}
