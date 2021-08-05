@@ -3,7 +3,7 @@ import { compact, flatten } from 'lodash';
 import { EditorPlugin } from 'wix-rich-content-common';
 import { createRicosNodeConfig } from './node';
 import { createRicosMarkConfig } from './mark';
-import { createRicosGenericExtensionConfig } from './extension';
+import { createRicosExtensionConfig } from './extension';
 
 export const createRicosExtensionsConfigs = (ricosExtensions: EditorPlugin[]) => {
   const tiptapExtensions = flatten(
@@ -15,7 +15,7 @@ export const createRicosExtensionsConfigs = (ricosExtensions: EditorPlugin[]) =>
     } else if (isMark(extension)) {
       return createRicosMarkConfig(extension);
     } else if (isGeneric(extension)) {
-      return createRicosGenericExtensionConfig(extension);
+      return createRicosExtensionConfig(extension);
     }
     throw Error('Extension type is unknown');
   });

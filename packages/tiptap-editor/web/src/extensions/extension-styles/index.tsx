@@ -1,11 +1,11 @@
 import { getComponentStyles } from './styles';
-import { createRicosGenericExtensionConfig } from '../../extensions-creators/extension';
+import { createRicosExtensionConfig } from '../../extensions-creators/extension';
 import React from 'react';
 
 const name = 'styles';
 
 export const createStylesConfig = () =>
-  createRicosGenericExtensionConfig({
+  createRicosExtensionConfig({
     createConfig: () => {
       return {
         name,

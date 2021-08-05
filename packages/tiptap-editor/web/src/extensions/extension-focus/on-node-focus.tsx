@@ -1,10 +1,10 @@
-import { createRicosGenericExtensionConfig } from './../../extensions-creators/extension';
+import { createRicosExtensionConfig } from './../../extensions-creators/extension';
 import React, { useEffect, ComponentType } from 'react';
 
 const name = 'on-node-focus';
 
 export const createOnNodeFocusConfig = () =>
-  createRicosGenericExtensionConfig({
+  createRicosExtensionConfig({
     createConfig: () => ({
       name,
       priority: 19,

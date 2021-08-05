@@ -1,11 +1,11 @@
 import React from 'react';
 import { BlockSpoilerComponent } from '..';
-import { createGenericExtension } from 'wix-rich-content-editor-common';
+import { createRicosExtensionConfig } from 'wix-rich-content-editor-common';
 
 const name = 'spoiler';
 
 export const tiptapExtensions = [
-  createGenericExtension({
+  createRicosExtensionConfig({
     createConfig: () => {
       return {
         name,

@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as ricosSchema from 'ricos-schema';
-import { NodeConfig, MarkConfig, ExtensionConfig, mergeAttributes } from '@tiptap/core';
-
-export type ExtensionType = 'node' | 'mark' | 'extension';
+import { AnyConfig, NodeConfig, MarkConfig, ExtensionConfig, mergeAttributes } from '@tiptap/core';
+import { PluginProps } from 'wix-rich-content-editor-common';
 
 /**
  * Following `AnyExtension` terminology
@@ -15,21 +14,28 @@ export type RicosAnyExtensionConfig =
 
 export interface RicosNodeExtensionConfig {
   type: 'node';
-  createConfig: CreateTiptapExtensionConfig<NodeConfig>;
+  createConfig: CreateAnyExtensionConfig<NodeConfig>;
   Component: React.ComponentType;
   createComponentDataDefaults?: (schema: typeof ricosSchema) => Record<string, any>;
 }
 export interface RicosMarkExtensionConfig {
   type: 'mark';
-  createConfig: CreateTiptapExtensionConfig<MarkConfig>;
+  createConfig: CreateAnyExtensionConfig<MarkConfig>;
   createComponentDataDefaults?: (schema: typeof ricosSchema) => Record<string, any>;
 }
 export interface RicosExtensionConfig {
   type: 'extension';
-  createConfig: CreateTiptapExtensionConfig<ExtensionConfig>;
+  createConfig: CreateAnyExtensionConfig<CustomExtensionConfig>;
   createComponentDataDefaults?: (schema: typeof ricosSchema) => Record<string, any>;
 }
 
-export type CreateTiptapExtensionConfig<
-  T extends Partial<NodeConfig | MarkConfig | ExtensionConfig>
-> = (core: { mergeAttributes: typeof mergeAttributes }) => T;
+export type CreateAnyExtensionConfig<T extends AnyConfig> = (core: {
+  mergeAttributes: typeof mergeAttributes;
+}) => T;
+
+interface CustomExtensionConfig extends ExtensionConfig {
+  addNodeViewHOC?: () => {
+    nodeTypes: string[];
+    nodeViewHOC: (Component: React.ComponentType) => React.ComponentType<PluginProps>;
+  };
+}

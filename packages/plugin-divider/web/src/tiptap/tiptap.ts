@@ -1,8 +1,8 @@
-import { createNodeExtension } from 'wix-rich-content-editor-common';
+import { createRicosNodeExtensionConfig } from 'wix-rich-content-editor-common';
 import { Divider as Component } from './component';
 
 export const tiptapExtensions = [
-  createNodeExtension({
+  createRicosNodeExtensionConfig({
     Component,
     createComponentDataDefaults: ({ DividerData }) => DividerData.fromJSON({}),
     createConfig: () => ({

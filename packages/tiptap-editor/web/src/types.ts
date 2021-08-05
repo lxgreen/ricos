@@ -28,9 +28,6 @@ export type TiptapAPI = {
 
 type ExtensionType = 'node' | 'mark' | 'extension';
 
-interface RicosConfig<T extends ExtensionType> {
+export interface RicosConfigWithType<T extends ExtensionType> {
   extensionType: T;
 }
-export interface RicosNodeConfig extends NodeConfig, RicosConfig<'node'> {}
-export interface RicosMarkConfig extends MarkConfig, RicosConfig<'mark'> {}
-export interface RicosGenericExtensionConfig extends ExtensionConfig, RicosConfig<'extension'> {}
