@@ -17,8 +17,13 @@
     Click to see more.
   </summary>
 
-### :house: Internal
 
+### :rocket: New Feature
+- `*`
+  - [#2817](https://github.com/wix/ricos/pull/2817) [performance] add loading=lazy attribute to images and iframes (lazyImagesAndIframes experiment)
+
+
+### :house: Internal
 - `tiptap`
   - [#2815](https://github.com/wix/ricos/pull/2815) external `addNodeViewHOC` for generic extensions
   - [#2825](https://github.com/wix/ricos/pull/2825) tiptap focus extensions
