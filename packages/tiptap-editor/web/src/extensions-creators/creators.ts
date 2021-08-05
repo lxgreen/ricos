@@ -1,11 +1,9 @@
 import { isGeneric, isMark, isNode } from './typeCheckers';
 import { compact, flatten } from 'lodash';
 import { EditorPlugin } from 'wix-rich-content-common';
-import {
-  createRicosNodeConfig,
-  createRicosMarkConfig,
-  createRicosGenericExtensionConfig,
-} from '..';
+import { createRicosNodeConfig } from './node';
+import { createRicosMarkConfig } from './mark';
+import { createRicosGenericExtensionConfig } from './extension';
 
 export const createRicosExtensionsConfigs = (ricosExtensions: EditorPlugin[]) => {
   const tiptapExtensions = flatten(
