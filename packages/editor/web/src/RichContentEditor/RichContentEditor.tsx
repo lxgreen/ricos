@@ -925,16 +925,11 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     this.inPluginEditingMode = shouldEnable;
     const { toolbarsToIgnore: currentToolbarsToIgnore } = this.state;
     const toolbarsToIgnore: ToolbarsToIgnore = currentToolbarsToIgnore;
-    if (shouldEnable) {
-      const index = toolbarsToIgnore.indexOf('SideToolbar');
-      if (index === -1) {
-        toolbarsToIgnore.push('SideToolbar');
-      }
-    } else {
-      const index = toolbarsToIgnore.indexOf('SideToolbar');
-      if (index !== -1) {
-        toolbarsToIgnore.splice(index, 1);
-      }
+    const index = toolbarsToIgnore.indexOf('SideToolbar');
+    if (shouldEnable && index === -1) {
+      toolbarsToIgnore.push('SideToolbar');
+    } else if (index !== -1) {
+      toolbarsToIgnore.splice(index, 1);
     }
     this.setState({ toolbarsToIgnore });
   };
