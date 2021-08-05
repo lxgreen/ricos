@@ -21,14 +21,14 @@ message GalleryOptions {
       FULLSIZE = 9;
     }
   
-    enum ItemsOrder {
+    enum Orientation {
       ROWS = 0;
       COLUMNS = 1;
     }
   
     Type type = 1;
     google.protobuf.BoolValue horizontal_scroll = 2;
-    ItemsOrder items_order = 3;
+    Orientation orientation = 3;
     google.protobuf.Int32Value number_of_columns = 4;
   }
   

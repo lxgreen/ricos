@@ -238,7 +238,7 @@ const gallery = {
       layout: {
         type: 'GRID',
         horizontalScroll: false,
-        itemsOrder: 'ROWS',
+        orientation: 'ROWS',
         numberOfColumns: 3,
       },
       item: {
@@ -271,7 +271,7 @@ const gallery = {
       layout: {
         type: 'GRID',
         horizontalScroll: false,
-        itemsOrder: 'ROWS',
+        orientation: 'ROWS',
         numberOfColumns: 3,
       },
       item: {

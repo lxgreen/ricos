@@ -175,8 +175,8 @@ const convertGalleryStyles = options => {
   has(options, 'layout.type') &&
     (styles.galleryLayout = parseInt(GalleryLayout[options.layout.type]));
   has(options, 'layout.horizontalScroll') && (styles.oneRow = options.layout.horizontalScroll);
-  has(options, 'layout.itemsOrder') &&
-    (styles.isVertical = options.layout.itemsOrder === 'COLUMNS');
+  has(options, 'layout.orientation') &&
+    (styles.isVertical = options.layout.orientation === 'COLUMNS');
   has(options, 'layout.numberOfColumns') &&
     (styles.numberOfImagesPerRow = options.layout.numberOfColumns);
   has(options, 'item.targetSize') && (styles.gallerySizePx = options.item.targetSize);
