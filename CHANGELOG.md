@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+- `*`
+  - [#2817](https://github.com/wix/ricos/pull/2817) [performance] add loading=lazy attribute to images and iframes (lazyImagesAndIframes experiment)
+
 ### :house: Internal
 
 - `tiptap`
@@ -27,7 +32,11 @@
 ### :bug: Bug Fix
 
 - `link`
-  - [#2820](https://github.com/wix/ricos/pull/2820) fix default checkboxes and add placeholder to link input
+  - [#2822](https://github.com/wix/ricos/pull/2822) fix default checkboxes and add placeholder to link input
+- `*`
+  - [#2826](https://github.com/wix/ricos/pull/2826) fix full height modals overrides by bm's header
+- `link-preview`
+  - [#2827](https://github.com/wix/ricos/pull/2827) fix verticals embed svg's width & height
 
 </details>
 <hr/>
