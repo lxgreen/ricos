@@ -1,34 +1,35 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as ricosSchema from 'ricos-schema';
 import { NodeConfig, MarkConfig, ExtensionConfig, mergeAttributes } from '@tiptap/core';
 
 export type ExtensionType = 'node' | 'mark' | 'extension';
 
-export type RicosExtension = RicosNodeExtension | RicosMarkExtension | RicosGenericExtension;
+/**
+ * Following `AnyExtension` terminology
+ * https://github.com/ueberdosis/tiptap/blob/d720edbe2421aa18a2e568bba63622165207c983/packages/core/src/types.ts#L25-L26
+ */
+export type RicosAnyExtensionConfig =
+  | RicosNodeExtensionConfig
+  | RicosMarkExtensionConfig
+  | RicosExtensionConfig;
 
-export type TiptapExtensionConfig = NodeConfig | MarkConfig | ExtensionConfig;
-
-export interface RicosNodeExtension {
+export interface RicosNodeExtensionConfig {
   type: 'node';
   createConfig: CreateTiptapExtensionConfig<NodeConfig>;
   Component: React.ComponentType;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createComponentDataDefaults?: (schema: typeof ricosSchema) => Record<string, any>;
 }
-export interface RicosMarkExtension {
+export interface RicosMarkExtensionConfig {
   type: 'mark';
   createConfig: CreateTiptapExtensionConfig<MarkConfig>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createComponentDataDefaults?: (schema: typeof ricosSchema) => Record<string, any>;
 }
-export interface RicosGenericExtension {
+export interface RicosExtensionConfig {
   type: 'extension';
   createConfig: CreateTiptapExtensionConfig<ExtensionConfig>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createComponentDataDefaults?: (schema: typeof ricosSchema) => Record<string, any>;
 }
 
-export type RicosTiptapExtension<T extends RicosExtension> = T;
-
-export type CreateTiptapExtensionConfig<T extends Partial<TiptapExtensionConfig>> = (core: {
-  mergeAttributes: typeof mergeAttributes;
-}) => T;
+export type CreateTiptapExtensionConfig<
+  T extends Partial<NodeConfig | MarkConfig | ExtensionConfig>
+> = (core: { mergeAttributes: typeof mergeAttributes }) => T;

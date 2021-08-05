@@ -1,7 +1,7 @@
 import {
-  RicosGenericExtension,
-  RicosMarkExtension,
-  RicosNodeExtension,
+  RicosExtensionConfig,
+  RicosMarkExtensionConfig,
+  RicosNodeExtensionConfig,
 } from 'wix-rich-content-common';
 import { CreateExtension } from './types';
 import { ExtensionConfig } from '@tiptap/core';
@@ -14,17 +14,17 @@ export interface RicosGenericExtensionConfig extends ExtensionConfig {
   };
 }
 
-export const createNodeExtension: CreateExtension<RicosNodeExtension> = params => ({
+export const createNodeExtension: CreateExtension<RicosNodeExtensionConfig> = params => ({
   type: 'node',
   ...params,
 });
 
-export const createMarkExtension: CreateExtension<RicosMarkExtension> = params => ({
+export const createMarkExtension: CreateExtension<RicosMarkExtensionConfig> = params => ({
   type: 'mark',
   ...params,
 });
 
-export const createGenericExtension: CreateExtension<RicosGenericExtension> = params => ({
+export const createGenericExtension: CreateExtension<RicosExtensionConfig> = params => ({
   type: 'extension',
   ...params,
 });
