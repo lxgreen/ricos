@@ -1,7 +1,7 @@
 import { pick } from 'lodash';
 import { CreateExtensionParams } from 'wix-rich-content-editor-common';
 import { NodeConfig, mergeAttributes } from '@tiptap/core';
-import { createRicosNodeConfig } from './node';
+import { createRicosNodeConfig } from '../extensions-creators/node';
 import { HTMLAttributes } from 'react';
 const createConfig: CreateExtensionParams<NodeConfig>['createConfig'] = tiptapUtils => ({
   name: 'test',

@@ -1,6 +1,6 @@
 import { CreateExtensionParams } from 'wix-rich-content-editor-common';
 import { MarkConfig, mergeAttributes } from '@tiptap/core';
-import { createRicosGenericExtensionConfig } from './extension';
+import { createRicosGenericExtensionConfig } from '../extensions-creators/extension';
 const createConfig: CreateExtensionParams<MarkConfig>['createConfig'] = tiptapUtils => ({
   name: 'test',
   dummyField: true,
