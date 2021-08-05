@@ -109,6 +109,7 @@ export class LinkPanelDropdown extends Component {
       <Suspense
         fallback={
           <TextInput
+            placeholder={this.props.t('LinkPanel_InputPlaceholder')}
             {...textInputProps}
             inputRef={this.textInput}
             value={value}
@@ -141,6 +142,7 @@ export class LinkPanelDropdown extends Component {
                   {...getInputProps({ ...textInputProps })}
                   onChange={value => textInputProps.onChange({ target: { value } })}
                   inputRef={this.textInput}
+                  placeholder={this.props.t('LinkPanel_InputPlaceholder')}
                 />
                 {(isOpen || this.props.isOpen) && List && (
                   <Suspense fallback={<div>Loading...</div>}>
@@ -175,6 +177,7 @@ export class LinkPanelDropdown extends Component {
     theme: PropTypes.object.isRequired,
     onChange: PropTypes.func,
     getItems: PropTypes.func,
+    t: PropTypes.func,
     itemToString: PropTypes.func,
     value: PropTypes.string,
     formatMenuItem: PropTypes.func,

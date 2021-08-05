@@ -20,6 +20,45 @@
 </details>
 <hr/>
 
+## 8.48.2 (Aug 05, 2021)
+
+### :rocket: New Feature
+
+- `*`
+  - [#2817](https://github.com/wix/ricos/pull/2817) [performance] add loading=lazy attribute to images and iframes (lazyImagesAndIframes experiment)
+
+### :house: Internal
+
+- `tiptap`
+  - [#2815](https://github.com/wix/ricos/pull/2815) external `addNodeViewHOC` for generic extensions
+  - [#2825](https://github.com/wix/ricos/pull/2825) tiptap focus extensions
+
+### :bug: Bug Fix
+
+- `link`
+  - [#2822](https://github.com/wix/ricos/pull/2822) fix default checkboxes and add placeholder to link input
+- `*`
+  - [#2826](https://github.com/wix/ricos/pull/2826) fix full height modals overrides by bm's header
+- `link-preview`
+  - [#2827](https://github.com/wix/ricos/pull/2827) fix verticals embed svg's width & height
+
+## 8.48.1 (Aug 03, 2021)
+
+### :bug: Bug Fix
+
+- `editor`
+  - [#2813](https://github.com/wix/ricos/pull/2813) fix rel value not applying in link panel by config
+
+### :house: Internal
+
+- `tiptap`
+  - [#2800](https://github.com/wix/ricos/pull/2800) image plugin endpoint for tiptap editor
+  - [#2814](https://github.com/wix/ricos/pull/2814) `ExtensionBuilder` + divider refactor
+- `image`
+  - [#2800](https://github.com/wix/ricos/pull/2800) image plugin endpoint for tiptap editor
+- `social-polls`
+  - [#2809](https://github.com/wix/ricos/pull/2809) revert loadable support (fixes css issues)
+
 ## 8.48.0 (Aug 03, 2021)
 
 ### :rocket: New Feature

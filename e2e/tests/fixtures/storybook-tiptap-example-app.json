@@ -141,7 +141,10 @@
           "size": "inline",
           "showTitle": true,
           "showDescription": true,
-          "width": 284
+          "width": 284,
+          "spoiler": {
+            "enabled": true
+          }
         },
         "src": {
           "id": "b5a1eb472c11ff6aa8bc232102e44115",
@@ -149,7 +152,9 @@
           "file_name": "8bb438_df62913570ee4b23bcf2e5b38c85be0f.jpg",
           "width": 1920,
           "height": 1280
-        }
+        },
+        "disableDownload": false,
+        "disableExpand": false
       }
     },
     "1": {
@@ -165,5 +170,5 @@
       }
     }
   },
-  "VERSION": "8.47.9"
+  "VERSION": "8.48.1"
 }

@@ -1,5 +1,5 @@
 import { NodeConfig, MarkConfig, ExtensionConfig } from '@tiptap/react';
-import { compact } from 'lodash';
+import { compact, flatten } from 'lodash';
 import { CreateTiptapExtensionConfig, EditorPlugin } from 'wix-rich-content-common';
 import {
   createRicosNodeConfig,
@@ -8,22 +8,26 @@ import {
 } from '..';
 
 export const createRicosExtensionsConfigs = (ricosExtensions: EditorPlugin[]) => {
-  const tiptapExtensions = compact(ricosExtensions.map(extension => extension.tiptapExtension));
-  const configs = tiptapExtensions.map(({ type, Component, createConfig }) => {
-    let creator;
-    switch (type) {
-      case 'node':
-        creator = createConfig as CreateTiptapExtensionConfig<NodeConfig>;
-        return createRicosNodeConfig(Component as React.ComponentType, creator);
-      case 'mark':
-        creator = createConfig as CreateTiptapExtensionConfig<MarkConfig>;
-        return createRicosMarkConfig(creator);
-      case 'extension':
-        creator = createConfig as CreateTiptapExtensionConfig<ExtensionConfig>;
-        return createRicosGenericExtensionConfig(creator);
-      default:
-        throw Error('Extension type is unknown');
+  const tiptapExtensions = flatten(
+    compact(ricosExtensions.map(extension => extension.tiptapExtensions))
+  );
+  const configs = tiptapExtensions.map(
+    ({ type, Component, createConfig: creator, createComponentDataDefaults }) => {
+      let createConfig;
+      switch (type) {
+        case 'node':
+          createConfig = creator as CreateTiptapExtensionConfig<NodeConfig>;
+          return createRicosNodeConfig({ Component, createConfig, createComponentDataDefaults });
+        case 'mark':
+          createConfig = creator as CreateTiptapExtensionConfig<MarkConfig>;
+          return createRicosMarkConfig({ createConfig, createComponentDataDefaults });
+        case 'extension':
+          createConfig = creator as CreateTiptapExtensionConfig<ExtensionConfig>;
+          return createRicosGenericExtensionConfig({ createConfig, createComponentDataDefaults });
+        default:
+          throw Error('Extension type is unknown');
+      }
     }
-  });
+  );
   return configs;
 };

@@ -580,6 +580,7 @@
 	"UnsupportedPlugin_message": "This content block can only be edited from a browser",
 	"LinkPanel_Sponsored_Checkbox_Tooltip": "Let search engines know this link represents a paid ad, sponsorship, or paid agreement.",
 	"Poll_plugin_search_tags": "vote ballot survey question ask interview opinion polls",
+	"CollapsibleList_plugin_search_tags": "collapsible FAQ questions expandable sections menu Q&A listings items",
 	"Poll_Viewer_VoteCount_Modal_Voters_Header": "{{count}} person voted for this answer",
 	"Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "{{count}} people voted for this answer",
 	"Poll_Viewer_VoteCount_Modal_Voters_Anonymous": "+{{anonNumber}} anonymous",

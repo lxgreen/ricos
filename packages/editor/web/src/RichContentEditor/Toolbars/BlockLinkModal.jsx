@@ -48,6 +48,7 @@ export default class BlockLinkModal extends Component {
       theme,
       isMobile,
       anchorTarget,
+      relValue,
       t,
       uiSettings,
       hideUrlInput,
@@ -55,7 +56,7 @@ export default class BlockLinkModal extends Component {
       editorState,
     } = this.props;
     const componentLink = pubsub.get('componentData')?.config?.link;
-    const { url, anchor, target = anchorTarget, rel } = componentLink || {};
+    const { url, anchor, target = anchorTarget, rel = relValue } = componentLink || {};
     return (
       <LinkModal
         editorState={editorState}
@@ -86,6 +87,7 @@ BlockLinkModal.propTypes = {
   url: PropTypes.string,
   isMobile: PropTypes.bool,
   anchorTarget: PropTypes.string,
+  relValue: PropTypes.string,
   t: PropTypes.func,
   uiSettings: PropTypes.object,
   hideUrlInput: PropTypes.bool,

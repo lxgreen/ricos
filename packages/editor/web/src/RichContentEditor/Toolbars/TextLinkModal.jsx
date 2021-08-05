@@ -124,9 +124,18 @@ export default class TextLinkModal extends Component {
   }
 
   render() {
-    const { getEditorState, theme, isMobile, anchorTarget, t, uiSettings, linkTypes } = this.props;
+    const {
+      getEditorState,
+      theme,
+      isMobile,
+      anchorTarget,
+      relValue,
+      t,
+      uiSettings,
+      linkTypes,
+    } = this.props;
     const linkData = this.getLinkData(getEditorState());
-    const { url, anchor, target = anchorTarget, rel } = linkData || {};
+    const { url, anchor, target = anchorTarget, rel = relValue } = linkData || {};
     return (
       <LinkModal
         editorState={getEditorState()}
@@ -157,6 +166,7 @@ TextLinkModal.propTypes = {
   url: PropTypes.string,
   isMobile: PropTypes.bool,
   anchorTarget: PropTypes.string,
+  relValue: PropTypes.string,
   t: PropTypes.func,
   uiSettings: PropTypes.object,
   insertLinkFn: PropTypes.func,

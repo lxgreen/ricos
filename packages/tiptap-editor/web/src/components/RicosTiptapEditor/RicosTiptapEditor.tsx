@@ -4,9 +4,9 @@ import { EditorContent, Editor } from '@tiptap/react';
 
 import { RicosExtensionManager } from '../../ricos-extensions-manager';
 import { tiptapExtensions as coreExtensions } from '../../tiptap-extensions';
-import { createImageConfig } from '../../extensions/extension-image';
-import { createSpoilerConfig } from '../../extensions/extension-spoiler';
 import { createDraftConfig } from '../../extensions/extension-draft';
+import { createFocusConfig } from '../../extensions/extension-focus/focus';
+import { createOnNodeFocusConfig } from '../../extensions/extension-focus/on-node-focus';
 import { createHistoryConfig } from '../../extensions/extension-history';
 import { createStylesConfig } from '../../extensions/extension-styles';
 import { createRicosExtensionsConfigs } from '../../extensions-creators';
@@ -16,18 +16,19 @@ function useForceUpdate() {
 
   return () => setValue(value => value + 1);
 }
-const imageConfig = createImageConfig();
-const spoilerConfig = createSpoilerConfig();
-const draftConfig = createDraftConfig();
-const historyConfig = createHistoryConfig();
-const stylesConfig = createStylesConfig();
 
 export const RicosTiptapEditor = ({ content, extensions = [], onLoad, ...context }) => {
   const [editor, setEditor] = useState<Editor | null>(null);
   const [nodeViewsHOCs, setNodeViewsHOCs] = useState([]);
   const forceUpdate = useForceUpdate();
 
-  const extensionsConfigs = [imageConfig, spoilerConfig, draftConfig, historyConfig, stylesConfig];
+  const extensionsConfigs = [
+    createDraftConfig(),
+    createHistoryConfig(),
+    createStylesConfig(),
+    createFocusConfig(),
+    createOnNodeFocusConfig(),
+  ];
   useEffect(() => {
     const ricosExtensionsConfigs = createRicosExtensionsConfigs(extensions);
     const allConfigs = [...ricosExtensionsConfigs, ...extensionsConfigs];
