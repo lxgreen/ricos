@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `link`
+  - [#2830](https://github.com/wix-incubator/rich-content/pull/2830) fix modal design when opened using image toolbar
+
 </details>
 <hr/>
 
