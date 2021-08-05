@@ -1,19 +1,5 @@
-import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { FC } from 'react';
-import { Editor, NodeConfig, MarkConfig, ExtensionConfig } from '@tiptap/react';
-
-export interface PluginProps {
-  context: {
-    isMobile: boolean;
-    theme: string;
-    t: (key: string) => string;
-  };
-  // eslint-disable-next-line
-  componentData: any;
-  node: ProseMirrorNode;
-  editorCommands: unknown;
-  updateAttributes: (data: unknown) => null;
-}
+import { Editor } from '@tiptap/react';
 
 export type TiptapAPI = {
   blur: () => void;

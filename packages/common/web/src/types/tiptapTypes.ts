@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { onAtomicBlockFocus } from './commonTypes';
 import * as ricosSchema from 'ricos-schema';
+import { Node as ProseMirrorNode } from 'prosemirror-model';
+import { LegacyEditorPluginConfig } from '..';
 import { AnyConfig, NodeConfig, MarkConfig, ExtensionConfig, mergeAttributes } from '@tiptap/core';
-import { PluginProps } from 'wix-rich-content-editor-common';
+
+// TODO: Move this file to editor-common
 
 /**
  * Following `AnyExtension` terminology
@@ -36,6 +40,24 @@ export type CreateAnyExtensionConfig<T extends AnyConfig> = (core: {
 interface CustomExtensionConfig extends ExtensionConfig {
   addNodeViewHOC?: () => {
     nodeTypes: string[];
-    nodeViewHOC: (Component: React.ComponentType) => React.ComponentType<PluginProps>;
+    nodeViewHOC: (
+      Component: React.ComponentType<TiptapPluginProps>
+    ) => React.ComponentType<TiptapPluginProps>;
   };
+}
+
+export interface TiptapPluginProps extends Record<string, any> {
+  context: {
+    isMobile: boolean;
+    theme: string;
+    t: (key: string) => string;
+    config: LegacyEditorPluginConfig;
+    onAtomicBlockFocus?: onAtomicBlockFocus;
+  };
+  // eslint-disable-next-line
+  componentData: any;
+  isFocused: boolean;
+  node: ProseMirrorNode;
+  editorCommands: unknown;
+  updateAttributes: (data: unknown) => null;
 }

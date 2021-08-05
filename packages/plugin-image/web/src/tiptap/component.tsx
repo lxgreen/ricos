@@ -1,9 +1,13 @@
 import React from 'react';
 import { ImageComponent } from '..';
 import { ImagePluginEditorConfig } from '../types';
-import { PluginProps } from 'wix-rich-content-editor-common';
+import { TiptapPluginProps } from 'wix-rich-content-common';
 
-export const Image: React.FC<PluginProps> = ({ context, componentData, updateAttributes }) => {
+export const Image: React.FC<TiptapPluginProps> = ({
+  context,
+  componentData,
+  updateAttributes,
+}) => {
   const { isMobile, theme, t } = context;
   // console.log({ componentData });
   const store = {

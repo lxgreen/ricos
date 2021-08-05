@@ -1,8 +1,8 @@
 import React from 'react';
 import { DividerComponent } from '..';
-import { PluginProps } from 'wix-rich-content-editor-common';
+import { TiptapPluginProps } from 'wix-rich-content-common';
 
-export const Divider: React.FC<PluginProps> = ({ context, componentData }) => {
+export const Divider: React.FC<TiptapPluginProps> = ({ context, componentData }) => {
   const { isMobile, theme } = context;
   return (
     <div>
