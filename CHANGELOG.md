@@ -31,7 +31,9 @@
 ### :bug: Bug Fix
 
 - `link`
-  - [#2820](https://github.com/wix/ricos/pull/2820) fix default checkboxes and add placeholder to link input
+  - [#2822](https://github.com/wix/ricos/pull/2822) fix default checkboxes and add placeholder to link input
+- `link`
+  - [#2826](https://github.com/wix/ricos/pull/2826) fix full height modals overrides by bm's header
 
 </details>
 <hr/>
