@@ -4,7 +4,7 @@ import {
   createGenericExtension,
 } from './extensionCreators';
 const createConfig = () => ({ name: 'test' });
-describe('Tiptap Extension Creators', () => {
+describe('Ricos Extension Creators', () => {
   it('"createNodeExtension" should add "node" type', () => {
     const x = createNodeExtension({ createConfig });
     expect(x).toStrictEqual({ createConfig, type: 'node' });
