@@ -17,13 +17,13 @@
     Click to see more.
   </summary>
 
-
 ### :rocket: New Feature
+
 - `*`
   - [#2817](https://github.com/wix/ricos/pull/2817) [performance] add loading=lazy attribute to images and iframes (lazyImagesAndIframes experiment)
 
-
 ### :house: Internal
+
 - `tiptap`
   - [#2815](https://github.com/wix/ricos/pull/2815) external `addNodeViewHOC` for generic extensions
   - [#2825](https://github.com/wix/ricos/pull/2825) tiptap focus extensions
@@ -32,8 +32,10 @@
 
 - `link`
   - [#2822](https://github.com/wix/ricos/pull/2822) fix default checkboxes and add placeholder to link input
-- `link`
+- `*`
   - [#2826](https://github.com/wix/ricos/pull/2826) fix full height modals overrides by bm's header
+- `link-preview`
+  - [#2827](https://github.com/wix/ricos/pull/2827) fix verticals embed svg's width & height
 
 </details>
 <hr/>
