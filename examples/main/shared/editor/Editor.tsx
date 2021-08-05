@@ -18,7 +18,7 @@ import { TestAppConfig } from '../../src/types';
 import { RicosEditor, RicosEditorProps, RicosEditorType } from 'ricos-editor';
 
 const anchorTarget = '_blank';
-const rel = { nofollow: true };
+const rel = {};
 const STATIC_TOOLBAR = 'static';
 
 interface ExampleEditorProps {
@@ -162,7 +162,6 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
             onChange={onRicosEditorChange}
             content={contentState}
             injectedContent={injectedContent}
-            linkSettings={{ anchorTarget, rel }}
             locale={locale}
             cssOverride={theme}
             toolbarSettings={{

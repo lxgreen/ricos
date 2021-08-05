@@ -255,6 +255,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
     if (this.shouldUseSrcSet() && useSrcSet) {
       srcSet = replaceUrlFileExtenstion(src, 'webp');
     }
+    const loading = this.context.experiments.lazyImagesAndIframes?.enabled ? 'lazy' : undefined;
     return (
       <img
         {...props}
@@ -267,6 +268,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
         ref={fadeIn ? this.imageRef : this.preloadRef}
         width={width}
         height={height}
+        loading={loading}
       />
     );
   }

@@ -85,7 +85,7 @@ class RichContentViewer extends Component<
     raw?: DraftContent;
     error?: string;
     context: {
-      experiments?: AvailableExperiments;
+      experiments: AvailableExperiments;
       isMobile: boolean;
       t?: TranslationFunction;
     };
@@ -113,7 +113,7 @@ class RichContentViewer extends Component<
     const styles = { ...viewerStyles, ...viewerAlignmentStyles, ...rtlStyle };
     this.styles = mergeStyles({ styles, theme: props.theme });
     this.typeMappers = combineMappers(props.typeMappers);
-    const { experiments, isMobile = false, t } = props;
+    const { experiments = {}, isMobile = false, t } = props;
     this.state = {
       context: { experiments, isMobile, t },
     };
