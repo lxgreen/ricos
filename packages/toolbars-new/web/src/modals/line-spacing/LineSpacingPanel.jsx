@@ -51,11 +51,14 @@ class LineSpacingPanel extends Component {
     const onSaveLineHeight = height => onSave({ 'line-height': height });
     const onChangeLineHeight = height => onChange({ 'line-height': `${height}` });
     const panelHeader = t('LineSpacing_lineSpacing');
+    const initialSelect = Object.keys(currentSelect).length
+      ? currentSelect
+      : { 'line-height': '1' };
 
     const panel = isMobile ? (
       <MobilePanel
         {...{
-          currentSelect,
+          currentSelect: initialSelect,
           panelHeader,
           options: lineHeights,
           onChange: onChangeLineHeight,
@@ -67,7 +70,7 @@ class LineSpacingPanel extends Component {
     ) : (
       <DesktopPanel
         {...{
-          currentSelect,
+          currentSelect: initialSelect,
           options: lineHeights,
           onChange: onSaveLineHeight,
           panelHeader,

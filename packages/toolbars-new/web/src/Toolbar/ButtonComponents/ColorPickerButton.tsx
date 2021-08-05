@@ -68,13 +68,17 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
 
   toggleModal = () => {
     const { isModalOpen } = this.state;
-    console.log('this.modalRef', isModalOpen, this.modalRef);
     const {
       dropDownProps: { saveSelection },
       setKeepOpen,
       isMobile,
     } = this.props;
-    this.setState({ isModalOpen: !isModalOpen });
+    this.setState({ isModalOpen: !isModalOpen }, () => {
+      if (this.state.isModalOpen && this.modalRef) {
+        isMobile && this.modalRef.focus();
+      }
+    });
+
     if (!isModalOpen) {
       saveSelection?.();
       setKeepOpen?.(true);
@@ -84,7 +88,6 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
       } = this.props;
       setKeepOpen?.(false);
       loadSelection?.();
-      isMobile && this.modalRef && this.modalRef.focus();
     }
   };
 
@@ -171,15 +174,15 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
         />
         {isModalOpen && (
           <div
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-            tabIndex={0}
-            ref={this.setModalRef}
             className={classNames(
               styles.modal,
               nestedMenu && styles.withoutTop,
               isMobile && styles.colorPickerMobile
             )}
             data-id={'color-picker-modal'}
+            ref={this.setModalRef}
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+            tabIndex={0}
           >
             <ColorPicker
               color={currentColor}

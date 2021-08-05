@@ -76,8 +76,6 @@ class ModalButton extends Component<ModalButtonProps, State> {
           isModalOverflowByHeight,
           overflowWidthBy,
         });
-        console.log('this.modalRef', isMobile, this.modalRef);
-
         isMobile && this.modalRef?.focus();
       } else {
         this.setState({ isModalOverflowByHeight: false, overflowWidthBy: false });
