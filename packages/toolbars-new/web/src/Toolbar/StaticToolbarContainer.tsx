@@ -8,7 +8,7 @@ import styles from './ToolbarContainerNew.scss';
 interface StaticToolbarContainerProps {
   children: ReactElement;
   isMobile?: boolean;
-  removeToolbarFocus: () => void;
+  focusEditor: () => void;
 }
 
 class StaticToolbarContainer extends Component<StaticToolbarContainerProps> {
@@ -18,7 +18,7 @@ class StaticToolbarContainer extends Component<StaticToolbarContainerProps> {
 
   onKeyDown = e => {
     if (e.keyCode === KEYS_CHARCODE.ESCAPE) {
-      this.props.removeToolbarFocus?.();
+      this.props.focusEditor?.();
     }
   };
 

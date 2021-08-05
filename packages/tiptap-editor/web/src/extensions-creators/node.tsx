@@ -1,5 +1,6 @@
 import React from 'react';
-import { CreateTiptapExtensionConfig } from 'wix-rich-content-common';
+import * as ricosSchema from 'ricos-schema';
+import { CreateExtensionParams } from 'wix-rich-content-editor-common';
 import { ReactNodeViewRenderer, mergeAttributes, NodeViewWrapper, NodeConfig } from '@tiptap/react';
 import { RicosNodeConfig } from '../types';
 import { RicosNode } from '../components/RicosNode';
@@ -13,13 +14,14 @@ const createRicosNodeHOC = Component => {
   );
 };
 
-type RicosNodeConfigCreator = (
-  Component: React.ComponentType,
-  configCreator: CreateTiptapExtensionConfig<NodeConfig>
-) => RicosNodeConfig;
+type RicosNodeConfigCreator = (params: CreateExtensionParams<NodeConfig>) => RicosNodeConfig;
 
-export const createRicosNodeConfig: RicosNodeConfigCreator = (Component, configCreator) => {
-  const config = configCreator({ mergeAttributes });
+export const createRicosNodeConfig: RicosNodeConfigCreator = ({
+  Component,
+  createConfig,
+  createComponentDataDefaults,
+}) => {
+  const config = createConfig({ mergeAttributes });
   const { name } = config;
   return {
     group: 'block',
@@ -39,6 +41,7 @@ export const createRicosNodeConfig: RicosNodeConfigCreator = (Component, configC
       return [`${name}-component`, mergeAttributes(HTMLAttributes)];
     },
     addNodeView: () => ReactNodeViewRenderer(createRicosNodeHOC(Component)),
+    addAttributes: () => createComponentDataDefaults?.(ricosSchema) || {},
     ...config,
     extensionType: 'node',
   };

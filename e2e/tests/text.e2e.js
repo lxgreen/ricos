@@ -1,7 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
 /* eslint-disable max-len */
 /*global cy*/
-import { INLINE_TOOLBAR_BUTTONS } from '../cypress/dataHooks';
+import { INLINE_TOOLBAR_BUTTONS, ACTION_BUTTONS } from '../cypress/dataHooks';
 import { DEFAULT_DESKTOP_BROWSERS, DEFAULT_MOBILE_BROWSERS } from './settings';
 import { usePlugins, usePluginsConfig, plugins } from '../cypress/testAppConfig';
 
@@ -147,7 +147,7 @@ describe('text', () => {
       .click()
       .get(`[data-hook=linkPanelContainer] [data-hook=linkPanelInput]`)
       .type('https://www.google.com/')
-      .get(`[data-hook=linkPanelContainerDone]`)
+      .get(`[data-hook=${ACTION_BUTTONS.SAVE}]`)
       .click();
     // check url button
     cy.setEditorSelection(5, 0)

@@ -9,6 +9,7 @@ import {
 
 const relString = 'nofollow sponsored ugc';
 const relObject = { nofollow: true, sponsored: true, ugc: true };
+let target;
 const target1 = '_blank';
 const target2 = '_top';
 const targetBlank1 = true;
@@ -26,6 +27,11 @@ describe('Test link converters', () => {
   it('should convert rel string to object', () => {
     const converted = convertRelStringToObject(relString);
     expect(converted).toEqual(relObject);
+  });
+
+  it('should convert target undefined to undefined', () => {
+    const converted = convertTargetStringToBoolean(target);
+    expect(converted).toBe(target);
   });
 
   it('should convert target string to boolean', () => {

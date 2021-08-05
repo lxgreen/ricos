@@ -177,10 +177,6 @@ const deleteDecorationsMapFuncs = {
   [RICOS_TEXT_HIGHLIGHT_TYPE]: setHighlightColor,
 };
 
-const lineHeight = 'line-height';
-const spaceBefore = 'padding-top';
-const spaceAfter = 'padding-bottom';
-
 let savedEditorState;
 let savedSelectionState;
 
@@ -201,28 +197,6 @@ export const createEditorCommands = (
         SelectionState.createEmpty(blockKey).merge(selection || {})
       )
     );
-
-  const getBlockSpacing = () => {
-    const { dynamicStyles = {} } = getAnchorBlockData(getEditorState());
-    return pick(dynamicStyles, [lineHeight, spaceBefore, spaceAfter]);
-  };
-
-  const saveEditorState = () => {
-    savedEditorState = getEditorState();
-  };
-
-  const saveSelectionState = () => {
-    savedSelectionState = getEditorState().getSelection();
-  };
-
-  const loadEditorState = () => {
-    const selection = savedEditorState.getSelection();
-    setEditorState(EditorState.forceSelection(savedEditorState, selection));
-  };
-
-  const loadSelectionState = () => {
-    setEditorState(EditorState.forceSelection(getEditorState(), savedSelectionState));
-  };
 
   const editorState: {
     getSelection: EditorCommands['getSelection'];
@@ -257,11 +231,18 @@ export const createEditorCommands = (
     hasLinkInSelection: () => hasLinksInSelection(getEditorState()),
     getLinkDataInSelection: () => getLinkDataInSelection(getEditorState()),
     getSelectedData: () => getEntityData(getEditorState()) || {},
-    getBlockSpacing,
-    saveEditorState,
-    loadEditorState,
-    saveSelectionState,
-    loadSelectionState,
+    getBlockSpacing: () => {
+      const { dynamicStyles = {} } = getAnchorBlockData(getEditorState());
+      return pick(dynamicStyles, ['line-height', 'padding-top', 'padding-bottom']);
+    },
+    saveEditorState: () => (savedEditorState = getEditorState()),
+    loadEditorState: () => {
+      const selection = savedEditorState.getSelection();
+      setEditorState(EditorState.forceSelection(savedEditorState, selection));
+    },
+    saveSelectionState: () => (savedSelectionState = getEditorState().getSelection()),
+    loadSelectionState: () =>
+      setEditorState(EditorState.forceSelection(getEditorState(), savedSelectionState)),
     getPluginsList: settings => {
       const { isRicosSchema } = settings || {};
       const pluginsList = plugins?.map(plugin =>

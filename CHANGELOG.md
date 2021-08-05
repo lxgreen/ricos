@@ -17,8 +17,51 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `tiptap`
+  - [#2815](https://github.com/wix/ricos/pull/2815) external `addNodeViewHOC` for generic extensions
+
 </details>
 <hr/>
+
+## 8.48.1 (Aug 03, 2021)
+
+### :bug: Bug Fix
+
+- `editor`
+  - [#2813](https://github.com/wix/ricos/pull/2813) fix rel value not applying in link panel by config
+
+### :house: Internal
+
+- `tiptap`
+  - [#2800](https://github.com/wix/ricos/pull/2800) image plugin endpoint for tiptap editor
+  - [#2814](https://github.com/wix/ricos/pull/2814) `ExtensionBuilder` + divider refactor
+- `image`
+  - [#2800](https://github.com/wix/ricos/pull/2800) image plugin endpoint for tiptap editor
+- `social-polls`
+  - [#2809](https://github.com/wix/ricos/pull/2809) revert loadable support (fixes css issues)
+
+## 8.48.0 (Aug 03, 2021)
+
+### :rocket: New Feature
+
+- `ricos-content`
+  - [#2804](https://github.com/wix/ricos/pull/2804) extractAppEmbedData
+
+### :nail_care: Polish
+
+- `schema`
+  - [#2662](https://github.com/wix-incubator/rich-content/pull/2662) FileSource contains `privacy`, `id` fields
+  - [#2662](https://github.com/wix-incubator/rich-content/pull/2662) FileSource's `custom` field deprecation
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#2812](https://github.com/wix/ricos/pull/2812) fix fromHtml/ck-editor/parser span rules
+- `link`
+  - [#2802](https://github.com/wix-incubator/rich-content/pull/2802) fix modal design when opened using external toolbar
+  - [#2803](https://github.com/wix-incubator/rich-content/pull/2803) fix default value for newTab checkbox (true by default)
 
 ## 8.47.15 (Aug 01, 2021)
 
