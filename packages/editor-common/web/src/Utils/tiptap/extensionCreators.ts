@@ -7,7 +7,7 @@ import { CreateExtension } from './types';
 import { ExtensionConfig } from '@tiptap/core';
 import { PluginProps } from '../..';
 
-export interface RicosExtensionConfig extends ExtensionConfig {
+export interface RicosGenericExtensionConfig extends ExtensionConfig {
   addNodeViewHOC?: () => {
     nodeTypes: string[];
     nodeViewHOC: (Component: React.ComponentType) => React.ComponentType<PluginProps>;
