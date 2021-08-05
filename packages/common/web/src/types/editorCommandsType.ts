@@ -43,6 +43,8 @@ import {
 } from 'ricos-schema';
 import { MentionData } from './pluginTypes';
 import { TextAlignment, InlineStyle } from './commonTypes';
+import { DocStyle, Header } from './editorTypes';
+import { EditorState } from '@wix/draft-js';
 
 export type ColorType = typeof RICOS_TEXT_COLOR_TYPE | typeof RICOS_TEXT_HIGHLIGHT_TYPE;
 
@@ -109,6 +111,7 @@ export interface EditorCommands {
     anchorableBlocks: any[];
     pluginsIncluded: string[];
   };
+  getDocStyle: () => DocStyle | undefined;
   getColor: (colorType: ColorType) => string | undefined;
   getTextAlignment: () => TextAlignment;
   hasInlineStyle: (style: InlineStyle) => boolean;
@@ -164,4 +167,6 @@ export interface EditorCommands {
   setBlockType: (type: TextBlockType) => void;
   setTextAlignment: (textAlignment: TextAlignment) => void;
   _setSelection: (blockKey: string, selection: draftSelection) => void;
+  setDocStyle: (docStyle: DocStyle) => void;
+  updateDocStyle: (docStyle: DocStyle, editorState: EditorState) => EditorState;
 }

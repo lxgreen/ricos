@@ -124,7 +124,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   }
 
   onUpdate = ({ content }: { content: DraftContent }) => {
-    const editorState = EditorState.createWithContent(convertFromRaw(content));
+    const editorState = createWithContent(convertFromRaw(content));
     this.onChange()(editorState);
   };
 

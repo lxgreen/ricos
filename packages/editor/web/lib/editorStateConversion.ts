@@ -158,19 +158,33 @@ const entityFixersFromRaw = [
   },
 ];
 
+const addDocStyle = (obj, docStyle) => {
+  docStyle && (obj.docStyle = docStyle);
+  return obj;
+};
+
 const convertToRaw = ContentState =>
   addVersion(
-    fixBlockDataImmutableJS(entityMapDataFixer(toRaw(ContentState), entityFixersToRaw)),
+    addDocStyle(
+      fixBlockDataImmutableJS(entityMapDataFixer(toRaw(ContentState), entityFixersToRaw)),
+      ContentState.docStyle
+    ),
     version
   );
 
 const convertFromRaw = rawState =>
-  addVersion(fromRaw(entityMapDataFixer(rawState, entityFixersFromRaw)), rawState.VERSION);
+  addVersion(
+    addDocStyle(fromRaw(entityMapDataFixer(rawState, entityFixersFromRaw)), rawState.docStyle),
+    rawState.VERSION
+  );
 
 const createEmpty = () => addVersion(EditorState.createEmpty(), version);
 const createEmptyContent = () => createEmpty().getCurrentContent();
 const createWithContent = contentState =>
-  addVersion(EditorState.createWithContent(contentState), contentState.VERSION);
+  addVersion(
+    addDocStyle(EditorState.createWithContent(contentState), contentState.docStyle),
+    contentState.VERSION
+  );
 
 export {
   EditorState,

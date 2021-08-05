@@ -30,8 +30,9 @@ import {
   SelectionState,
   setSelectionToBlock,
   emptyDraftContent,
+  ContentState,
 } from 'wix-rich-content-editor-common';
-import { convertFromRaw, convertToRaw } from '../../lib/editorStateConversion';
+import { convertFromRaw, convertToRaw, createWithContent } from '../../lib/editorStateConversion';
 import { EditorProps as DraftEditorProps, DraftHandleValue } from 'draft-js';
 import { createUploadStartBIData, createUploadEndBIData } from './utils/mediaUploadBI';
 import { HEADINGS_DROPDOWN_TYPE, DEFAULT_HEADINGS, DEFAULT_TITLE_HEADINGS } from 'ricos-content';
@@ -73,6 +74,8 @@ import {
   OnPluginAction,
   IMAGE_TYPE,
   EditorCommands,
+  DOC_STYLE_CLASSES,
+  DocStyle,
 } from 'wix-rich-content-common';
 import styles from '../../statics/styles/rich-content-editor.scss';
 import draftStyles from '../../statics/styles/draft.rtlignore.scss';
@@ -565,11 +568,11 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
         disableInlineImages,
         removeInvalidInlinePlugins,
       });
-      return EditorState.createWithContent(convertFromRaw(rawContentState));
+      return createWithContent(convertFromRaw(rawContentState));
     } else {
       //this is needed for ssr. Otherwise the key will be generated randomly on both server and client.
       const emptyContentState = convertFromRaw(emptyDraftContent);
-      return EditorState.createWithContent(emptyContentState);
+      return createWithContent(emptyContentState);
     }
   }
 
@@ -638,7 +641,11 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
 
   updateEditorState = (editorState: EditorState) => {
     const undoRedoStackChanged = this.didUndoRedoStackChange(editorState);
-    this.setState({ editorState, undoRedoStackChanged }, () => {
+    const docStyle = this.EditorCommands.getDocStyle();
+    const newEditorState = docStyle
+      ? this.EditorCommands.updateDocStyle(docStyle, editorState)
+      : editorState;
+    this.setState({ editorState: newEditorState, undoRedoStackChanged }, () => {
       this.handleCallbacks(this.state.editorState, this.props.helpers);
       this.props.onChange?.(this.state.editorState);
     });
@@ -1077,10 +1084,22 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
 
   styleToClass = ([key, val]) => `rich_content_${key}-${val.toString().replace('.', '_')}`;
 
+  addLineHeight = (css: string) => css + ' line-height: normal;';
+
   renderStyleTag = (editorState = this.getEditorState()) => {
     const styleToCss = ([key, val]) => `${key}: ${val};`;
     const blocks = editorState.getCurrentContent().getBlockMap();
     const styles = {};
+    const docStyle = this.EditorCommands.getDocStyle();
+    docStyle &&
+      Object.entries(docStyle).forEach(header => {
+        styles[DOC_STYLE_CLASSES[header[0]]] = this.addLineHeight(
+          Object.entries(header[1])
+            .map(style => styleToCss(style))
+            .join(' ')
+        );
+      });
+
     blocks.forEach(block => {
       const { dynamicStyles = {} } = block?.get('data').toJS();
       Object.entries(dynamicStyles).forEach(

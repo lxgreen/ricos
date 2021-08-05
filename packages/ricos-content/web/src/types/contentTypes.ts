@@ -8,6 +8,7 @@ import {
   RawDraftContentState,
   RawDraftEntityRange,
 } from 'draft-js';
+import { DocStyle } from 'wix-rich-content-common';
 
 export type RicosInlineStyleRange = Overwrite<RawDraftInlineStyleRange, { style: string }>;
 
@@ -31,6 +32,7 @@ export interface RicosContent
       entityMap: RicosEntityMap;
     }
   > {
+  docStyle?: DocStyle;
   VERSION?: string;
 }
 
