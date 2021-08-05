@@ -6,10 +6,10 @@ import { mockPlugins } from './configCreator/mockPlugins';
 import { RicosExtensionManager } from '../ricos-extensions-manager';
 
 const [a, b, c] = mockPlugins;
+const extensionConfigs = createRicosExtensionsConfigs([a, b, c]);
 
 describe('Ricos Extension Manager', () => {
   it('should create extensions', () => {
-    const extensionConfigs = createRicosExtensionsConfigs([a, b, c]);
     const extensions = RicosExtensionManager.extensionsConfigsToTiptapExtensions(extensionConfigs);
     const [node, mark, extension] = extensionConfigs.map(config =>
       omit(config, 'addNodeViewHOC', 'extensionType')
@@ -20,5 +20,17 @@ describe('Ricos Extension Manager', () => {
       Mark.create(mark as RicosMarkConfig),
       Extension.create(extension as RicosGenericExtensionConfig),
     ]);
+  });
+
+  it('should create nodeViewHOCs', () => {
+    const nodeViewHOCs = RicosExtensionManager.extractNodeViewsHOCsFromRicosExtensions(
+      createRicosExtensionsConfigs([a, b, c])
+    );
+
+    expect(nodeViewHOCs).toBeTruthy();
+    expect(nodeViewHOCs).toHaveProperty('test1');
+    expect(nodeViewHOCs.test1).toBeTruthy();
+    expect(nodeViewHOCs.test1[0]).toBeTruthy();
+    //TODO: Should test functionality better
   });
 });

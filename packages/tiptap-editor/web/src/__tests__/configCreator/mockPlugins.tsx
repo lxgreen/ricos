@@ -1,3 +1,4 @@
+import React from 'react';
 import { EditorPlugin } from 'wix-rich-content-common';
 import { ImageComponent } from 'wix-rich-content-plugin-image';
 
@@ -10,7 +11,11 @@ export const mockPlugins: EditorPlugin[] = [
     tiptapExtensions: [
       {
         type: 'node',
-        createConfig: () => ({ name: 'test1', dummy: true, addNodeViewHOC: () => '' }),
+        createConfig: () => ({
+          name: 'test1',
+          dummy: true,
+          priority: 200,
+        }),
         createComponentDataDefaults: ({ ImageData }) => ImageData.fromJSON({}),
         Component: ImageComponent,
       },
@@ -32,7 +37,22 @@ export const mockPlugins: EditorPlugin[] = [
     tiptapExtensions: [
       {
         type: 'extension',
-        createConfig: () => ({ name: 'test3' }),
+        createConfig: () => ({
+          name: 'test3',
+          addNodeViewHOC: () => ({
+            nodeTypes: ['test1'],
+            nodeViewHOC: Component => {
+              // should use the new api containerData
+              return props => {
+                return (
+                  <div>
+                    <Component {...props} />
+                  </div>
+                );
+              };
+            },
+          }),
+        }),
       },
     ],
     config: {},
