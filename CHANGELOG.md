@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.48.2 (Aug 05, 2021)
+
 ### :rocket: New Feature
 
 - `*`
@@ -37,9 +42,6 @@
   - [#2826](https://github.com/wix/ricos/pull/2826) fix full height modals overrides by bm's header
 - `link-preview`
   - [#2827](https://github.com/wix/ricos/pull/2827) fix verticals embed svg's width & height
-
-</details>
-<hr/>
 
 ## 8.48.1 (Aug 03, 2021)
 
