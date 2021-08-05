@@ -258,7 +258,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.editor = ref;
   };
 
-  setEditorAndStaticToolbar = (ref: RichContentEditor) => {
+  setEditor = (ref: RichContentEditor) => {
     this.setEditorRef(ref);
     this.setActiveEditor(ref);
   };
@@ -326,7 +326,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       activeEditor?.getInnerRCERenderedIn() === 'wix-rich-content-plugin-table';
 
     const textToolbarType = StaticToolbar ? 'static' : null;
-    // const textToolbarType = StaticToolbar && !isMobile ? 'static' : null;
 
     let hideFormattingToolbar; //when LinkToolbar is open in mobile
     if (newFormattingToolbar && activeEditor && isMobile) {
@@ -380,7 +379,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         )}
         {this.renderRicosEngine(child, {
           onChange: this.onChange(child.props.onChange),
-          ref: this.setEditorAndStaticToolbar,
+          ref: this.setEditor,
         })}
       </Fragment>
     );
