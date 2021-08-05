@@ -1,13 +1,11 @@
 import * as ricosSchema from 'ricos-schema';
 import { NodeConfig, MarkConfig, ExtensionConfig, mergeAttributes } from '@tiptap/core';
-export type TiptapExtensionConfig = NodeConfig | MarkConfig | ExtensionConfig;
-export interface ExtensionTypeToConfig {
-  node: RicosNodeExtension;
-  mark: RicosMarkExtension;
-  extension: RicosGenericExtension;
-}
 
 export type ExtensionType = 'node' | 'mark' | 'extension';
+
+export type RicosExtension = RicosNodeExtension | RicosMarkExtension | RicosGenericExtension;
+
+export type TiptapExtensionConfig = NodeConfig | MarkConfig | ExtensionConfig;
 
 export interface RicosNodeExtension {
   type: 'node';
@@ -29,7 +27,7 @@ export interface RicosGenericExtension {
   createComponentDataDefaults?: (schema: typeof ricosSchema) => Record<string, any>;
 }
 
-export type RicosTiptapExtension<T extends ExtensionType> = ExtensionTypeToConfig[T];
+export type RicosTiptapExtension<T extends RicosExtension> = T;
 
 export type CreateTiptapExtensionConfig<T extends Partial<TiptapExtensionConfig>> = (core: {
   mergeAttributes: typeof mergeAttributes;

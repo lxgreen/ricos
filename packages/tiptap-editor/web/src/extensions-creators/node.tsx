@@ -1,5 +1,6 @@
 import React from 'react';
 import * as ricosSchema from 'ricos-schema';
+import { RicosNodeExtension } from 'wix-rich-content-common';
 import { CreateExtensionParams } from 'wix-rich-content-editor-common';
 import { ReactNodeViewRenderer, mergeAttributes, NodeViewWrapper } from '@tiptap/react';
 import { RicosNodeConfig } from '../types';
@@ -14,7 +15,9 @@ const createRicosNodeHOC = Component => {
   );
 };
 
-type RicosNodeConfigCreator = (params: CreateExtensionParams<'node'>) => RicosNodeConfig;
+type RicosNodeConfigCreator = (
+  params: CreateExtensionParams<RicosNodeExtension>
+) => RicosNodeConfig;
 
 export const createRicosNodeConfig: RicosNodeConfigCreator = ({
   Component,

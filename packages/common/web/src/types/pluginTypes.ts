@@ -1,4 +1,4 @@
-import { ExtensionType } from './tiptapTypes';
+import { RicosExtension } from './tiptapTypes';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ComponentType } from 'react';
 import {
@@ -228,7 +228,7 @@ export interface EditorPlugin<PluginConfig extends EditorPluginConfig = Record<s
   createPlugin?: CreatePluginFunction<PluginConfig>;
   ModalsMap?: ModalsMap;
   createPluginData?: CreatePluginData<PluginConfig>;
-  tiptapExtensions?: RicosTiptapExtension<ExtensionType>[];
+  tiptapExtensions?: RicosTiptapExtension<RicosExtension>[];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

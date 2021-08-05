@@ -1,19 +1,25 @@
-import { RicosTiptapExtension, ExtensionType } from 'wix-rich-content-common';
+import {
+  RicosTiptapExtension,
+  RicosExtension,
+  RicosNodeExtension,
+  RicosMarkExtension,
+  RicosGenericExtension,
+} from 'wix-rich-content-common';
 
 export function isNode(
-  extension: RicosTiptapExtension<ExtensionType>
-): extension is RicosTiptapExtension<'node'> {
+  extension: RicosTiptapExtension<RicosExtension>
+): extension is RicosTiptapExtension<RicosNodeExtension> {
   return extension.type === 'node';
 }
 
 export function isMark(
-  extension: RicosTiptapExtension<ExtensionType>
-): extension is RicosTiptapExtension<'mark'> {
+  extension: RicosTiptapExtension<RicosExtension>
+): extension is RicosTiptapExtension<RicosMarkExtension> {
   return extension.type === 'mark';
 }
 
 export function isGeneric(
-  extension: RicosTiptapExtension<ExtensionType>
-): extension is RicosTiptapExtension<'extension'> {
+  extension: RicosTiptapExtension<RicosExtension>
+): extension is RicosTiptapExtension<RicosGenericExtension> {
   return extension.type === 'extension';
 }
