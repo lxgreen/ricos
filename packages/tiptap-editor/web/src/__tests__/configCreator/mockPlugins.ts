@@ -1,12 +1,16 @@
 import { EditorPlugin } from 'wix-rich-content-common';
 import { ImageComponent } from 'wix-rich-content-plugin-image';
 
+/**
+ * 4 mock plugins with `tiptapExtensions` attribute.
+ * Items: [Node, Mark, Generic, Error]
+ */
 export const mockPlugins: EditorPlugin[] = [
   {
     tiptapExtensions: [
       {
         type: 'node',
-        createConfig: () => ({ name: 'test1', dummy: true }),
+        createConfig: () => ({ name: 'test1', dummy: true, addNodeViewHOC: () => '' }),
         createComponentDataDefaults: ({ ImageData }) => ImageData.fromJSON({}),
         Component: ImageComponent,
       },
