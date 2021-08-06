@@ -25,6 +25,7 @@ const useIsSelected = (editor: Editor, getPos: () => number) => {
 
 export const createFocusConfig = () =>
   createRicosGenericExtensionConfig({
+    type: 'extension',
     createConfig: () => ({
       name,
       priority: 20,

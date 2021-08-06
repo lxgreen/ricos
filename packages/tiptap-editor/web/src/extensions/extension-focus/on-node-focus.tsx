@@ -5,6 +5,7 @@ const name = 'on-node-focus';
 
 export const createOnNodeFocusConfig = () =>
   createRicosGenericExtensionConfig({
+    type: 'extension',
     createConfig: () => ({
       name,
       priority: 19,

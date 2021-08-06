@@ -95,7 +95,6 @@ export {
 
 import './draftTypes';
 export * from './tiptapTypes';
-export * from './Utils/tiptap';
 
 import {
   convertFromRaw as convertFromRawDraft,
