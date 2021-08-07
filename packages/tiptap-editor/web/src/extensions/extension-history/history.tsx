@@ -19,6 +19,7 @@ declare module '@tiptap/core' {
 
 export const createHistoryConfig = () =>
   createRicosGenericExtensionConfig({
+    type: 'extension',
     createConfig: () => {
       return {
         name,

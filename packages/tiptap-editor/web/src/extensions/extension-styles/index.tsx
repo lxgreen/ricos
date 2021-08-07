@@ -6,6 +6,7 @@ const name = 'styles';
 
 export const createStylesConfig = () =>
   createRicosGenericExtensionConfig({
+    type: 'extension',
     createConfig: () => {
       return {
         name,
