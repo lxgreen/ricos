@@ -639,12 +639,21 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     );
   };
 
+  updateDocStyle = (docStyle: DocStyle, editorState: EditorState) => {
+    const currentContent = editorState.getCurrentContent() as ContentState & {
+      docStyle: DocStyle;
+    };
+    currentContent.docStyle = {
+      ...currentContent.docStyle,
+      ...docStyle,
+    };
+    return editorState;
+  };
+
   updateEditorState = (editorState: EditorState) => {
     const undoRedoStackChanged = this.didUndoRedoStackChange(editorState);
     const docStyle = this.EditorCommands.getDocStyle();
-    const newEditorState = docStyle
-      ? this.EditorCommands.updateDocStyle(docStyle, editorState)
-      : editorState;
+    const newEditorState = docStyle ? this.updateDocStyle(docStyle, editorState) : editorState;
     this.setState({ editorState: newEditorState, undoRedoStackChanged }, () => {
       this.handleCallbacks(this.state.editorState, this.props.helpers);
       this.props.onChange?.(this.state.editorState);

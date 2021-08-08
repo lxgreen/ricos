@@ -220,7 +220,6 @@ export const createEditorCommands = (
     loadSelectionState: EditorCommands['loadSelectionState'];
     getDocStyle: EditorCommands['getDocStyle'];
     setDocStyle: EditorCommands['setDocStyle'];
-    updateDocStyle: EditorCommands['updateDocStyle'];
   } = {
     getSelection: () => {
       const selection = getEditorState().getSelection();
@@ -273,16 +272,6 @@ export const createEditorCommands = (
         ...docStyle,
       };
       setEditorState(editorState);
-    },
-    updateDocStyle: (docStyle: DocStyle, editorState: EditorState) => {
-      const currentContent = editorState.getCurrentContent() as ContentState & {
-        docStyle: DocStyle;
-      };
-      currentContent.docStyle = {
-        ...currentContent.docStyle,
-        ...docStyle,
-      };
-      return editorState;
     },
   };
 

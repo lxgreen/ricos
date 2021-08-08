@@ -29,7 +29,6 @@ import {
   BLOCKQUOTE,
   HEADER_BLOCK,
   DocStyle,
-  Header,
 } from 'ricos-content';
 import {
   DividerData,
@@ -45,7 +44,6 @@ import {
 } from 'ricos-schema';
 import { MentionData } from './pluginTypes';
 import { TextAlignment, InlineStyle } from './commonTypes';
-import { EditorState } from '@wix/draft-js';
 
 export type ColorType = typeof RICOS_TEXT_COLOR_TYPE | typeof RICOS_TEXT_HIGHLIGHT_TYPE;
 
@@ -169,5 +167,4 @@ export interface EditorCommands {
   setTextAlignment: (textAlignment: TextAlignment) => void;
   _setSelection: (blockKey: string, selection: draftSelection) => void;
   setDocStyle: (docStyle: DocStyle) => void;
-  updateDocStyle: (docStyle: DocStyle, editorState: EditorState) => EditorState;
 }
