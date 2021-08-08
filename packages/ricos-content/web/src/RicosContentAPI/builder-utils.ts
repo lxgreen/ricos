@@ -3,7 +3,7 @@ import { flow } from 'fp-ts/function';
 import * as A from 'fp-ts/Array';
 import * as O from 'fp-ts/Option';
 import { ParagraphData, RichContent, TextData, Node } from 'ricos-schema';
-import { resolveFirstRight } from '../fp-utils';
+import { firstRight } from '../fp-utils';
 import { ListItemData } from '../types';
 import { modify } from './modify';
 
@@ -43,7 +43,7 @@ export function addNode({
   after?: string;
   content: RichContent;
 }): RichContent {
-  return resolveFirstRight(content, { ...content, nodes: [...content.nodes, node] }, [
+  return firstRight(content, { ...content, nodes: [...content.nodes, node] }, [
     [isIndexInRange(index), insertNode(node, <number>index)],
     [isIndexFound(({ id }) => id === before), insertNodeByKey(node, <string>before, false)],
     [isIndexFound(({ id }) => id === after), insertNodeByKey(node, <string>after, true)],
@@ -64,7 +64,7 @@ export const toListDataArray = (
   items: string | TextData | ListItemData | (string | TextData | ListItemData)[],
   data: ParagraphData
 ): ListItemData[] =>
-  resolveFirstRight(
+  firstRight(
     items,
     [],
     [
@@ -75,7 +75,7 @@ export const toListDataArray = (
         isArray,
         flow(
           A.map(item =>
-            resolveFirstRight(item, emptyListItemData, [
+            firstRight(item, emptyListItemData, [
               [isString, flow(toTextData, A.of, toListItemData(data))],
               [isTextData, flow(A.of, toListItemData(data))],
               [isListItemData, i => i as ListItemData],
@@ -87,12 +87,12 @@ export const toListDataArray = (
   );
 
 export const toTextDataArray = (text?: string | TextData | (string | TextData)[]): TextData[] =>
-  resolveFirstRight(
+  firstRight(
     text,
     [],
     [
       [isString, flow(toTextData, A.of)],
       [isTextData, t => [t] as TextData[]],
-      [isArray, flow(A.map(t => resolveFirstRight(t, t, [[isString, toTextData]]) as TextData))],
+      [isArray, flow(A.map(t => firstRight(t, t, [[isString, toTextData]]) as TextData))],
     ]
   );
