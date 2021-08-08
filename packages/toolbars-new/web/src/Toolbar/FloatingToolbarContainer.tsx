@@ -134,7 +134,7 @@ class FloatingToolbarContainer extends PureComponent<ToolbarContainerProps, Stat
 
   setKeepOpen = keepOpen => this.setState({ keepOpen });
 
-  setToolbarContainerRef = ref => (this.toolbarContainerRef = ref);
+  // setToolbarContainerRef = ref => (this.toolbarContainerRef = ref);
 
   onKeyDown = e => {
     if (e.keyCode === KEYS_CHARCODE.ESCAPE) {
@@ -145,22 +145,20 @@ class FloatingToolbarContainer extends PureComponent<ToolbarContainerProps, Stat
   render() {
     const { children } = this.props;
     const { toolbarPosition, isVisible } = this.state;
-    return (
+    return isVisible ? (
       <div
         // ref={this.setToolbarContainerRef}
         ref={this.toolbarContainerRef}
         className={styles.container}
         style={{
           ...toolbarPosition,
-          visibility: isVisible ? 'visible' : 'hidden',
-          transform: isVisible ? 'scale(1)' : 'scale(0)',
         }}
         data-id="floating-toolbar"
         onKeyDown={this.onKeyDown}
       >
         {React.cloneElement(React.Children.only(children), { setKeepOpen: this.setKeepOpen })}
       </div>
-    );
+    ) : null;
   }
 }
 
