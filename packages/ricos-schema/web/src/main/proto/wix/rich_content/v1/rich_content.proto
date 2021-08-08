@@ -37,6 +37,7 @@ import "wix/rich_content/v1/plugin_embed.proto";
 message RichContent {
     repeated Node nodes = 1; // List of nodes
     Metadata metadata = 2;
+    DocStyle doc_style = 3;
 }
 
 message Node {
@@ -128,4 +129,18 @@ message Metadata {
     uint32 version = 1 [(wix.api.min) = 1]; // Schema version
     google.protobuf.Timestamp created_timestamp = 2 [(wix.api.readOnly) = true]; // Time content was created
     google.protobuf.Timestamp updated_timestamp = 3; // Time of latest edit
+}
+
+message Header {
+    repeated Decoration decorations = 1;
+}
+
+message DocStyle {
+    Header header_one = 1;
+    Header header_two = 2;
+    Header header_three = 3;
+    Header header_four = 4;
+    Header header_five = 5;
+    Header header_six = 6;
+    Header paragraph = 7;
 }

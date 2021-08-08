@@ -1860,5 +1860,20 @@
     "version": 1,
     "createdTimestamp": "2021-07-15T07:42:30.023Z",
     "updatedTimestamp": "2021-07-15T07:42:30.023Z"
+  },
+  "docStyle": {
+    "headerOne": {
+      "decorations": [
+        {
+          "type": "COLOR",
+          "colorData": {
+            "foreground": "red"
+          }
+        },
+        {
+          "type": "BOLD"
+        }
+      ]
+    }
   }
 }

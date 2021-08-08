@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { Decoration, Node, Node_Type } from 'ricos-schema';
+import { Decoration, Node, Node_Type, Decoration_Type } from 'ricos-schema';
 import { RicosInlineStyleRange, RicosEntityRange, RicosEntityMap } from '../../../types';
 import { FROM_RICOS_DECORATION_TYPE, ENTITY_DECORATION_TO_DATA_FIELD } from '../consts';
 import { emojiRegex } from '../emojiRegex';
@@ -158,6 +158,37 @@ export const getParagraphNode = (node: Node) => {
 
 const convertDecorationTypes = (decorations: Decoration[]): DraftTypedDecoration[] =>
   decorations.flatMap(decoration => pipe(decoration, toDraftDecorationType, splitColorDecoration));
+
+export const convertDocStyleDecorationTypes = (decorations: Decoration[]) => {
+  let draftHeaderStyles = {};
+  decorations.forEach(decoration => {
+    draftHeaderStyles = {
+      ...draftHeaderStyles,
+      ...RICOS_TO_CSS[decoration.type],
+      ...splitColorDecorationToCss(decoration),
+    };
+  });
+  return draftHeaderStyles;
+};
+
+const RICOS_TO_CSS = {
+  [Decoration_Type.BOLD]: { 'font-weight': 'bold' },
+  [Decoration_Type.ITALIC]: { 'font-style': 'italic' },
+  [Decoration_Type.UNDERLINE]: { 'text-decoration': 'underline' },
+};
+
+const splitColorDecorationToCss = (decoration: Decoration) => {
+  const { colorData } = decoration;
+  if (!colorData) {
+    return undefined;
+  }
+  const { foreground, background } = colorData;
+  const colors = {};
+  // eslint-disable-next-line dot-notation
+  foreground && (colors['color'] = foreground);
+  background && (colors['background-color'] = background);
+  return colors;
+};
 
 const createEmojiDecorations = (text: string) => {
   const result: RangedDecoration[] = [];

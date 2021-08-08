@@ -1371,5 +1371,11 @@
       }
     }
   },
+  "docStyle": {
+    "headerOne": {
+      "color": "red",
+      "font-weight": "bold"
+    }
+  },
   "VERSION": "8.47.12"
 }

@@ -47,11 +47,6 @@ export type TextToolbarType = 'inline' | 'static';
 export type SetEditorState = (editorState: EditorState) => void;
 export type GetEditorState = () => EditorState;
 
-export interface Header {
-  'font-size'?: number;
-  color?: string;
-}
-
 export const DOC_STYLE_CLASSES = {
   headerOne: 'rich_content_H1',
   headerTwo: 'rich_content_H2',
@@ -71,13 +66,3 @@ export const DRAFT_TO_RICOS_DOC_TYPE = {
   'header-six': 'headerSix',
   unstyled: 'paragraph',
 };
-
-export interface DocStyle {
-  headerOne?: Header;
-  headerTwo?: Header;
-  headerThree?: Header;
-  headerFour?: Header;
-  headerFive?: Header;
-  headerSix?: Header;
-  paragraph?: Header;
-}

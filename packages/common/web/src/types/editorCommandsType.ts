@@ -28,6 +28,8 @@ import {
   BULLET_LIST_TYPE,
   BLOCKQUOTE,
   HEADER_BLOCK,
+  DocStyle,
+  Header,
 } from 'ricos-content';
 import {
   DividerData,
@@ -43,7 +45,6 @@ import {
 } from 'ricos-schema';
 import { MentionData } from './pluginTypes';
 import { TextAlignment, InlineStyle } from './commonTypes';
-import { DocStyle, Header } from './editorTypes';
 import { EditorState } from '@wix/draft-js';
 
 export type ColorType = typeof RICOS_TEXT_COLOR_TYPE | typeof RICOS_TEXT_HIGHLIGHT_TYPE;
