@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `editor-common`
+  - [#2824](https://github.com/wix/ricos/pull/2824) overflowUtils - support overflow from bottom + change returned value
+
 ### :bug: Bug Fix
 
 - `link`
