@@ -39,7 +39,7 @@ export const createButtonsList = (
     handleButtonType(buttonsList, index);
     handleButtonIcon(buttonsList, index, editorCommands);
     handleButtonDataHook(buttonsList, index);
-    handleButtonTooltip(buttonsList, index);
+    handleButtonTooltip(buttonsList, index, t);
     handleButtonLabel(buttonsList, index, editorCommands, t);
     handleButtonArrow(buttonsList, index);
     handleButtonOnClick(buttonsList, index, editorCommands, openMobileAddPlugin, linkPanelData);
@@ -363,9 +363,9 @@ const handleButtonLabel = (buttonsList, index, editorCommands: editorCommands, t
   }
 };
 
-const handleButtonTooltip = (buttonsList, index) => {
+const handleButtonTooltip = (buttonsList, index, t) => {
   if (buttonsFullData[buttonsList[index].name].tooltip) {
-    buttonsList[index].tooltip = buttonsFullData[buttonsList[index].name].tooltip;
+    buttonsList[index].tooltip = t(buttonsFullData[buttonsList[index].name].tooltip);
   }
 };
 
