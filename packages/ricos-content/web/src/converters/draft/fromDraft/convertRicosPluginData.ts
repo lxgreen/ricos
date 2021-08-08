@@ -111,9 +111,9 @@ const convertVideoData = (data: {
       height,
     };
   } else if (typeof data.src === 'object') {
-    data.video = { src: { custom: data.src.pathname } };
+    data.video = { src: { id: data.src.pathname } };
     data.thumbnail = {
-      src: { custom: data.src.thumbnail.pathname },
+      src: { id: data.src.thumbnail.pathname },
       width: data.src.thumbnail.width,
       height: data.src.thumbnail.height,
     };
@@ -185,7 +185,7 @@ const convertImageData = (data: {
 }) => {
   const { file_name, width, height } = data.src || {};
   const { link, anchor } = data.config || {};
-  data.image = { src: { custom: file_name }, width, height };
+  data.image = { src: { id: file_name }, width, height };
   data.link = (link || anchor) && createLink({ ...link, anchor });
   data.altText = data.metadata?.alt;
   data.caption = data.metadata?.caption;
@@ -294,7 +294,9 @@ const convertMentionData = (data: {
 };
 
 const convertFileData = (data: FileComponentData & { src }) => {
-  const src: FileSource = { url: data.url, custom: data.id };
+  const { url, id, privacy } = data;
+  const isPrivate = typeof privacy !== 'undefined' ? privacy === 'private' : undefined;
+  const src: FileSource = { url, id, private: isPrivate };
   data.src = src;
 };
 

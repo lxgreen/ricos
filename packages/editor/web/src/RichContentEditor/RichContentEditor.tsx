@@ -177,7 +177,7 @@ interface State {
   readOnly: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   context: {
-    experiments?: AvailableExperiments;
+    experiments: AvailableExperiments;
     isMobile: boolean;
     t?: TranslationFunction;
   };
@@ -250,7 +250,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
   constructor(props: RichContentEditorProps) {
     super(props);
     const initialEditorState = this.getInitialEditorState();
-    const { experiments, isMobile = false, t } = props;
+    const { experiments = {}, isMobile = false, t } = props;
     this.state = {
       editorState: initialEditorState,
       innerModal: null,

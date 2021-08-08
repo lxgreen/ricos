@@ -83,9 +83,7 @@ export const strongEmUToDecoration: Rule = [
 const toImageData = (decorations: Decoration[], node: Element): ImageData => {
   const attrs = getAttributes(node);
   return {
-    image: {
-      src: { url: attrs.src },
-    },
+    image: { src: { url: attrs.src } },
     ...(attrs.width
       ? {
           containerData: {

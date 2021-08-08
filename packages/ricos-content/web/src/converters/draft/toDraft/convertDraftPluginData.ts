@@ -1,3 +1,4 @@
+import { updatePrivacyField } from './utils';
 /* eslint-disable fp/no-delete */
 // TODO: purify this module
 import {
@@ -120,15 +121,14 @@ const convertContainerData = (
 
 const convertVideoData = (data: VideoData & { src; metadata; title? }) => {
   const videoSrc = data.video?.src;
+  const { src, width, height } = data.thumbnail || {};
   if (videoSrc?.url) {
     data.src = videoSrc.url;
-    const { src, width, height } = data.thumbnail || {};
     data.metadata = { thumbnail_url: src?.url, width, height, title: data.title };
-  } else if (videoSrc?.custom) {
-    const { src, width, height } = data.thumbnail || {};
+  } else if (videoSrc?.id || videoSrc?.custom) {
     data.src = {
-      pathname: videoSrc.custom,
-      thumbnail: { pathname: src?.custom, width, height },
+      pathname: videoSrc?.id || videoSrc?.custom,
+      thumbnail: { pathname: src?.id || src?.custom, width, height },
     };
   }
   delete data.video;
@@ -229,9 +229,8 @@ const convertGalleryData = (
 const convertImageData = (data: ImageData & { src; config; metadata }) => {
   const { link, config, image, altText, caption } = data;
   const { src, width, height } = image || {};
-  data.src = src?.custom
-    ? { id: src?.custom, file_name: src?.custom, width, height }
-    : { url: src?.url, source: 'static' };
+  const id = src?.id || src?.custom;
+  data.src = id ? { id, file_name: id, width, height } : { url: src?.url, source: 'static' };
   const links = link?.anchor ? { anchor: link?.anchor } : { link: link && parseLink(link) };
   if (links.link?.customData) {
     const parsedCustomData = parseLinkCustomData(links.link?.customData);
@@ -334,9 +333,10 @@ const convertMentionData = (data: Partial<MentionData> & { mention }) => {
 };
 
 const convertFileData = (data: FileData & FileComponentData) => {
-  const { url, custom } = data.src || {};
+  const { url, id, custom, private: isPrivate } = data.src || {};
   data.url = url;
-  data.id = custom;
+  data.id = id || custom;
+  updatePrivacyField(data, isPrivate);
   delete data.src;
 };
 

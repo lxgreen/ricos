@@ -30,8 +30,6 @@ export class PollViewer extends PureComponent {
   }
 }
 
-export default PollViewer;
-
 PollViewer.propTypes = {
   componentData: PropTypes.shape({
     poll: PropTypes.object.isRequired,

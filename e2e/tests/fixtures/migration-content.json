@@ -1148,6 +1148,7 @@
         "name": "image.jpg",
         "type": "jpg",
         "url": "https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+        "privacy": "public",
         "size": 150000
       }
     },

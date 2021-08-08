@@ -106,7 +106,7 @@ export default class EditorModalProvider extends Component<Props, State> {
                   dataHook={'RicosEditorModal'}
                   contentLabel={'RicosModal'}
                   isOpen={showModal}
-                  style={mergeModalStyles(modalStyles, theme)}
+                  style={mergeModalStyles(modalStyles, theme, modalProps?.fullHeight)}
                   role="dialog"
                   onRequestClose={modalProps?.onRequestClose || this.closeModal}
                   modalsMap={ModalsMap}

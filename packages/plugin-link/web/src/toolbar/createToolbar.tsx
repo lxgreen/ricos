@@ -58,7 +58,7 @@ const openLinkModal = ({
     isMobile,
     customStyles: isMobile
       ? { content: { position: 'fixed' } }
-      : { content: { maxWidth: 'max-content', padding: '1px 20px' } },
+      : { content: { maxWidth: 'max-content', padding: 20 } },
   });
   if (helpers && helpers.openModal) {
     const modalProps = {

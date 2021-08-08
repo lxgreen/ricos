@@ -49,7 +49,13 @@ const ButtonViewer: FC<Props> = ({
   );
   const Component = isActionButton ? 'div' : 'a';
   const props = merge(
-    { className: styles.button_container, style },
+    {
+      className: styles.button_container,
+      style,
+      tabIndex: 0,
+      role: 'button',
+      onKeyUp: e => (e.key === ' ' || e.key === 'Enter') && onClickHandler(e),
+    },
     !isActionButton && { href: url, target: getTargetValue(target), rel: getRelValue(rel) }
   );
   return (
