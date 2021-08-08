@@ -1,56 +1,59 @@
-import { omit } from 'lodash';
-import { Node, AnyExtension, Mark, Extension } from '@tiptap/core';
+import * as A from 'fp-ts/Array';
+import * as R from 'fp-ts/Record';
+import * as O from 'fp-ts/Option';
+import * as N from 'fp-ts/number';
+import { flow, pipe } from 'fp-ts/function';
+import { concatAll } from 'fp-ts/Monoid';
+import { contramap } from 'fp-ts/Ord';
+import { firstRight } from 'ricos-content';
+import {
+  NodeViewHoc,
+  NodeViewHocMap,
+  TiptapExtensionConfig,
+  RicosExtensionConfig,
+  isNodeConfig,
+  isMarkConfig,
+  isExtensionConfig,
+} from 'wix-rich-content-common';
+import {
+  Node,
+  AnyExtension,
+  Mark,
+  Extension,
+  NodeConfig,
+  MarkConfig,
+  ExtensionConfig,
+} from '@tiptap/core';
 
-export class RicosExtensionManager {
-  static extensionsConfigsToTiptapExtensions(ricosExtensionsConfigs): AnyExtension[] {
-    return ricosExtensionsConfigs.map(ricosExtensionConfig => {
-      const tiptapConfig = omit(ricosExtensionConfig, 'addNodeViewHOC', 'extensionType');
-      if (ricosExtensionConfig.extensionType === 'node') {
-        return Node.create(tiptapConfig);
-      } else if (ricosExtensionConfig.extensionType === 'mark') {
-        return Mark.create(tiptapConfig);
-      } else if (ricosExtensionConfig.extensionType === 'extension') {
-        return Extension.create(tiptapConfig);
-      }
-      return null;
-    });
-  }
+const toExtension = (config: TiptapExtensionConfig): AnyExtension =>
+  firstRight(config, Extension.create(<ExtensionConfig>config) as AnyExtension, [
+    [isNodeConfig, c => Node.create(<NodeConfig>c)],
+    [isMarkConfig, c => Mark.create(<MarkConfig>c)],
+    [isExtensionConfig, c => Mark.create(<MarkConfig>c)],
+  ]);
 
-  static extractNodeViewsHOCsFromRicosExtensions(ricosExtensionsConfigs) {
-    return ricosExtensionsConfigs
-      .sort((extA, extB) => {
-        const defaultPriority = 100;
-        const extAPriority = extA.priority || defaultPriority;
-        const extBPriority = extB.priority || defaultPriority;
+export const initializeExtensions = A.map(toExtension);
 
-        if (extAPriority > extBPriority) {
-          return -1;
-        }
+const NodeViewHocM = R.getMonoid<string, NodeViewHoc[]>(A.getSemigroup());
 
-        if (extAPriority < extBPriority) {
-          return 1;
-        }
-        return 0;
-      })
-      .filter(ricosExtensionConfig => ricosExtensionConfig.extensionType === 'extension')
-      .filter(ricosExtensionConfig => !!ricosExtensionConfig.addNodeViewHOC)
-      .map(ricosExtensionConfig => {
-        const { nodeViewHOC, nodeTypes } = ricosExtensionConfig.addNodeViewHOC();
-        return {
-          types: nodeTypes,
-          nodeViewHOC,
-        };
-      })
-      .flat()
-      .filter(({ nodeViewHOC }) => !!nodeViewHOC)
-      .reduce((acc, { types, nodeViewHOC }) => {
-        types.forEach(type => {
-          if (!acc[type]) {
-            acc[type] = [];
-          }
-          acc[type].push(nodeViewHOC);
-        });
-        return acc;
-      }, {});
-  }
-}
+const byPriority = pipe(
+  N.Ord,
+  contramap((c: RicosExtensionConfig) => c.priority || 100)
+);
+
+const hasNodeViewHOC = (c: RicosExtensionConfig) => !!c.addNodeViewHOC;
+
+export const extractNodeViewsHOCs = flow(
+  A.filter(hasNodeViewHOC),
+  A.sort(byPriority),
+  A.map((c: RicosExtensionConfig) => (c.addNodeViewHOC ? O.some(c.addNodeViewHOC()) : O.none)),
+  A.compact,
+  A.reduce({} as NodeViewHocMap, (map, { nodeTypes, nodeViewHOC }) =>
+    pipe(
+      nodeTypes,
+      A.map(t => ({ [t]: A.of(nodeViewHOC) })),
+      A.concat(A.of(map)),
+      concatAll(NodeViewHocM)
+    )
+  )
+);

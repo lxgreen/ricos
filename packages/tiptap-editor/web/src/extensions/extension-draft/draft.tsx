@@ -6,6 +6,7 @@ const name = 'draft';
 
 export const createDraftConfig = () =>
   createRicosGenericExtensionConfig({
+    type: 'extension',
     createConfig: () => {
       return {
         name,

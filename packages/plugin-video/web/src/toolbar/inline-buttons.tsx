@@ -51,6 +51,7 @@ const createInlineButtons: CreateInlineButtons = ({
         {
           keyName: 'settings',
           type: BUTTONS.VIDEO_SETTINGS,
+          fullHeight: true,
           icon: PluginSettingsIcon,
           modalName: Modals.VIDEO_SETTINGS,
           modalStyles: getModalStyles({

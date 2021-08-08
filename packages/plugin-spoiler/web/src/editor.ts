@@ -6,6 +6,7 @@ import { DEFAULTS } from './defaults';
 import { tiptapExtensions } from './tiptap';
 export { SpoilerEditorWrapper };
 export { default as BlockSpoilerComponent } from './Components/BlockSpoilerComponent';
+
 export const pluginSpoiler: EditorPluginCreator<SpoilerPluginEditorConfig> = config => {
   return {
     config: { ...DEFAULTS.config, SpoilerEditorWrapper, ...config },

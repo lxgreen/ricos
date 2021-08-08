@@ -95,7 +95,6 @@ export {
 
 import './draftTypes';
 export * from './tiptapTypes';
-export * from './Utils/tiptap';
 
 import {
   convertFromRaw as convertFromRawDraft,
@@ -133,7 +132,7 @@ export {
 import DraftOffsetKey from '@wix/draft-js/lib/DraftOffsetKey';
 export { DraftOffsetKey };
 
-export { isElementOutOfWindow, isElementOutOfWindowHeight } from './Utils/overflowUtils';
+export { elementOverflowWithEditor } from './Utils/overflowUtils';
 
 export const emptyDraftContent = {
   entityMap: {},
