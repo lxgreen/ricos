@@ -129,7 +129,11 @@ const plugins = [
 const getRicosEditor = (ricosEditorProps?: RicosEditorProps) =>
   mount(<RicosEditor {...(ricosEditorProps || {})} />);
 
-const getStaticToolbar = ricosEditor => ricosEditor.children().first();
+const getStaticToolbar = ricosEditor =>
+  ricosEditor
+    .children()
+    .children()
+    .first();
 
 // const getRicosEngine = (ricosEditorProps?: RicosEditorProps) =>
 //   getRicosEditor(ricosEditorProps)
