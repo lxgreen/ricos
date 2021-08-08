@@ -928,7 +928,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     const index = toolbarsToIgnore.indexOf('SideToolbar');
     if (shouldEnable && index === -1) {
       toolbarsToIgnore.push('SideToolbar');
-    } else if (index !== -1) {
+    } else if (!shouldEnable && index !== -1) {
       toolbarsToIgnore.splice(index, 1);
     }
     this.setState({ toolbarsToIgnore });
