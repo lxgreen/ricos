@@ -1,21 +1,19 @@
-import { CreateExtensionParams } from 'wix-rich-content-editor-common';
-import { MarkConfig, mergeAttributes } from '@tiptap/core';
+import { mergeAttributes } from '@tiptap/core';
 import { createRicosMarkConfig } from '../extensions-creators/mark';
-const createConfig: CreateExtensionParams<MarkConfig>['createConfig'] = tiptapUtils => ({
+const createConfig = tiptapUtils => ({
   name: 'test',
   dummyField: true,
   tiptapUtils,
 });
-const createComponentDataDefaults: CreateExtensionParams<
-  MarkConfig
->['createComponentDataDefaults'] = ({ ImageData }) => ImageData.fromJSON({});
+const createComponentDataDefaults = ({ ImageData }) => ImageData.fromJSON({});
 
 describe('Mark', () => {
   const dummyContext = {
     parent: null,
     options: {},
   };
-  const markConfig = createRicosMarkConfig({ createConfig, createComponentDataDefaults });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const markConfig: Record<string, any> = { createConfig, createComponentDataDefaults };
   it('should have name field (required)', () => {
     expect(markConfig.name).toStrictEqual('test');
   });

@@ -1,16 +1,13 @@
 import { pick } from 'lodash';
-import { CreateExtensionParams } from 'wix-rich-content-editor-common';
 import { NodeConfig, mergeAttributes } from '@tiptap/core';
 import { createRicosNodeConfig } from '../extensions-creators/node';
 import { HTMLAttributes } from 'react';
-const createConfig: CreateExtensionParams<NodeConfig>['createConfig'] = tiptapUtils => ({
+const createConfig = tiptapUtils => ({
   name: 'test',
   dummyField: true,
   tiptapUtils,
 });
-const createComponentDataDefaults: CreateExtensionParams<
-  NodeConfig
->['createComponentDataDefaults'] = ({ ImageData }) => ImageData.fromJSON({});
+const createComponentDataDefaults = ({ ImageData }) => ImageData.fromJSON({});
 
 describe('Node', () => {
   const dummyContext = {
@@ -26,7 +23,8 @@ describe('Node', () => {
     draggable: true,
     selectable: true,
   };
-  const nodeConfig = createRicosNodeConfig({ createConfig, createComponentDataDefaults });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const nodeConfig: Record<string, any> = { createConfig, createComponentDataDefaults };
   it('should have name field (required)', () => {
     expect(nodeConfig.name).toStrictEqual('test');
   });
