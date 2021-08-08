@@ -5,7 +5,8 @@ import styles from './ToolbarContainerNew.scss';
 import { /*getVisibleSelectionRect,*/ KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 import { debounce } from 'lodash';
 
-const TOOLBAR_OFFSET = 11;
+const TOOLBAR_OFFSET_TOP = 11;
+const TOOLBAR_OFFSET_Left = 20;
 
 interface ToolbarContainerProps {
   children: ReactElement;
@@ -70,18 +71,25 @@ class FloatingToolbarContainer extends PureComponent<ToolbarContainerProps, Stat
 
     let top;
     if (!this.props.isMobile) {
-      top = selectionRect.top - toolbarParentRect.top - toolbarHeight - TOOLBAR_OFFSET;
+      top = selectionRect.top - toolbarParentRect.top - toolbarHeight - TOOLBAR_OFFSET_TOP;
     } else {
-      top = selectionRect.bottom - toolbarParentRect.top + TOOLBAR_OFFSET;
+      top = selectionRect.bottom - toolbarParentRect.top + TOOLBAR_OFFSET_TOP;
     }
 
     let left =
-      selectionRect.left - toolbarParentRect.left + selectionRect.width / 2 - halfToolbarWidth;
+      selectionRect.left -
+      toolbarParentRect.left +
+      selectionRect.width / 2 -
+      halfToolbarWidth +
+      TOOLBAR_OFFSET_Left;
     // make sure we're not out of bounds, adjust position if we are
     if (selectionRect.left - toolbarParentRect.left < halfToolbarWidth) {
-      left = 0;
+      left = TOOLBAR_OFFSET_Left;
     } else if (left + this.toolbarContainerRef.current.clientWidth > toolbarParentRect.width) {
-      left = toolbarParentRect.width - this.toolbarContainerRef.current.clientWidth;
+      left =
+        toolbarParentRect.width -
+        this.toolbarContainerRef.current.clientWidth -
+        TOOLBAR_OFFSET_Left;
     }
 
     return { top, left };
