@@ -123,6 +123,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
             {
               keyName: 'layout',
               type: BUTTONS.EXTERNAL_MODAL,
+              fullHeight: true,
               modalName: Modals.POLL_SETTINGS,
               children: t('Poll_PollSettings_Tab_Layout_TabName'),
               modalStyles: getModalStyles(modalStyles),
@@ -137,6 +138,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
             {
               keyName: 'design',
               type: BUTTONS.EXTERNAL_MODAL,
+              fullHeight: true,
               modalName: Modals.POLL_SETTINGS,
               children: t('Poll_PollSettings_Tab_Design_TabName'),
               modalStyles: getModalStyles(modalStyles),
@@ -151,6 +153,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
             {
               keyName: 'settings',
               type: BUTTONS.EXTERNAL_MODAL,
+              fullHeight: true,
               modalName: Modals.POLL_SETTINGS,
               children: t('Poll_PollSettings_Tab_Settings_TabName'),
               modalStyles: getModalStyles(modalStyles),

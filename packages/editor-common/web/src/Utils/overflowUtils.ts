@@ -21,48 +21,22 @@ const getElementCoordsInWindow = (elem: HTMLElement): ElementCoords => {
   return { top: Math.round(top), left: Math.round(left) };
 };
 
-const getWidth = (element: HTMLElement): number => {
-  return element.clientWidth;
-};
-
-const getHeight = (element: HTMLElement): number => {
-  return element.clientHeight;
-};
-
-export const isElementOutOfWindow = (element: HTMLElement): boolean | number | undefined => {
-  if (element && document) {
-    const modalOffset = getElementCoordsInWindow(element).left;
-    const modalWidth = getWidth(element);
-    const rootEditor = element.closest(
-      '[data-hook=root-editor], [data-hook=ricos-editor]'
-    ) as HTMLElement;
-    const editorOffset = rootEditor && getElementCoordsInWindow(rootEditor).left;
-    const editorWidth = (rootEditor && rootEditor.getBoundingClientRect().width) || 999999;
-    if (modalWidth + (modalOffset - editorOffset) > editorWidth) {
-      return modalWidth + (modalOffset - editorOffset) - editorWidth; // optional: return overflow by
-    } else {
-      return false;
-    }
-  } else {
-    console.error('window or document not found'); //eslint-disable-line
-  }
-};
-
-export const isElementOutOfWindowHeight = (element: HTMLElement): boolean | undefined => {
-  if (element && document) {
-    const modalOffset = getElementCoordsInWindow(element).top;
-    const modalHeight = getHeight(element);
-    const rootEditor = element.closest(
-      '[data-hook=root-editor], [data-hook=ricos-editor]'
-    ) as HTMLElement;
-    const editorOffset = rootEditor && getElementCoordsInWindow(rootEditor).top;
-    const editorHeight = (rootEditor && rootEditor.getBoundingClientRect().height) || 999999;
-    if (modalHeight + (modalOffset - editorOffset) > editorHeight) {
-      return true;
-    } else {
-      return false;
-    }
-  } else {
-    console.error('window or document not found'); //eslint-disable-line
-  }
+export const elementOverflowWithEditor = (element: HTMLElement): Record<string, number> => {
+  const elementCoordsInWindow = getElementCoordsInWindow(element);
+  const elementOffsetLeft = elementCoordsInWindow.left;
+  const elementOffsetTop = elementCoordsInWindow.top;
+  const elementWidth = element.clientWidth;
+  const elementHeight = element.clientHeight;
+  const rootEditor = element.closest('[data-hook=ricos-editor]') as HTMLElement;
+  const rootEditorCoordsInWindow = rootEditor && getElementCoordsInWindow(rootEditor);
+  const rootEditorOffsetLeft = rootEditorCoordsInWindow.left;
+  const rootEditorOffsetTop = rootEditorCoordsInWindow.top;
+  const editorWidth = (rootEditor && rootEditor.getBoundingClientRect().width) || 999999;
+  const editorHeight = (rootEditor && rootEditor.getBoundingClientRect().height) || 999999;
+  const overflowRight = elementWidth + (elementOffsetLeft - rootEditorOffsetLeft) - editorWidth;
+  const overflowBottom = elementHeight + (elementOffsetTop - rootEditorOffsetTop) - editorHeight;
+  return {
+    overflowRight: overflowRight > 0 ? overflowRight : 0,
+    overflowBottom: overflowBottom > 0 ? overflowBottom : 0,
+  };
 };

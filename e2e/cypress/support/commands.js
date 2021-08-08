@@ -14,10 +14,15 @@ import {
   COLOR_PICKER,
   COLLAPSIBLE_LIST_SETTINGS,
 } from '../dataHooks';
-import { defaultConfig } from '../testAppConfig';
+import { defaultConfig, useExperiments } from '../testAppConfig';
 import { fireEvent } from '@testing-library/react';
 import RicosDriver from '../../../packages/ricos-driver/web/src/RicosDriver';
 import { merge } from 'lodash';
+
+const defaultExperiments = {
+  /*lazyImagesAndIframes: { enabled: true }*/
+};
+
 const ONCHANGE_DEBOUNCE_TIME = 200;
 // Viewport size commands
 const resizeForDesktop = () => cy.viewport('macbook-15');
@@ -38,7 +43,7 @@ const buildQuery = params => {
 const getUrl = (componentId, fixtureName = '', config = {}) => {
   const testAppConfig = JSON.stringify({
     ...defaultConfig,
-    ...config,
+    ...merge({}, useExperiments(defaultExperiments), config),
   });
   return `/${componentId}${fixtureName ? '/' + fixtureName : ''}${buildQuery({
     mobile: isMobile,
@@ -48,8 +53,8 @@ const getUrl = (componentId, fixtureName = '', config = {}) => {
   })}`;
 };
 
-const run = (app, fixtureName, plugins) => {
-  cy.visit(getUrl(app, fixtureName, plugins)).then(contentWindow => {
+const run = (app, fixtureName, config) => {
+  cy.visit(getUrl(app, fixtureName, config)).then(contentWindow => {
     disableTransitions();
     findEditorElement();
     contentWindow.richContentHideTooltips = true;

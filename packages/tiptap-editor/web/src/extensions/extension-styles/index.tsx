@@ -6,6 +6,7 @@ const name = 'styles';
 
 export const createStylesConfig = () =>
   createRicosGenericExtensionConfig({
+    type: 'extension',
     createConfig: () => {
       return {
         name,
@@ -16,8 +17,8 @@ export const createStylesConfig = () =>
             nodeTypes: ['*'],
             nodeViewHOC: Component => {
               return props => {
-                const { context, componentData } = props;
-                const { isMobile, theme, isFocused } = context;
+                const { context, componentData, isFocused } = props;
+                const { isMobile, theme } = context;
                 const componentStyles = getComponentStyles({
                   componentData,
                   theme,

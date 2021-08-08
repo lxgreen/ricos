@@ -19,11 +19,38 @@
 
 ### :house: Internal
 
-- `tiptap`
-  - [#2815](https://github.com/wix/ricos/pull/2815) external `addNodeViewHOC` for generic extensions
+- `editor-common`
+  - [#2824](https://github.com/wix/ricos/pull/2824) overflowUtils - support overflow from bottom + change returned value
+
+### :bug: Bug Fix
+
+- `link`
+  - [#2830](https://github.com/wix-incubator/rich-content/pull/2830) fix modal design when opened using image toolbar
 
 </details>
 <hr/>
+
+## 8.48.2 (Aug 05, 2021)
+
+### :rocket: New Feature
+
+- `*`
+  - [#2817](https://github.com/wix/ricos/pull/2817) [performance] add loading=lazy attribute to images and iframes (lazyImagesAndIframes experiment)
+
+### :house: Internal
+
+- `tiptap`
+  - [#2815](https://github.com/wix/ricos/pull/2815) external `addNodeViewHOC` for generic extensions
+  - [#2825](https://github.com/wix/ricos/pull/2825) tiptap focus extensions
+
+### :bug: Bug Fix
+
+- `link`
+  - [#2822](https://github.com/wix/ricos/pull/2822) fix default checkboxes and add placeholder to link input
+- `*`
+  - [#2826](https://github.com/wix/ricos/pull/2826) fix full height modals overrides by bm's header
+- `link-preview`
+  - [#2827](https://github.com/wix/ricos/pull/2827) fix verticals embed svg's width & height
 
 ## 8.48.1 (Aug 03, 2021)
 

@@ -7,7 +7,7 @@ import ClickOutside from 'react-click-outsider';
 import styles from '../ToolbarNew.scss';
 import ToolbarButton from '../ToolbarButton';
 import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
-import { isElementOutOfWindowHeight, isElementOutOfWindow } from 'wix-rich-content-editor-common';
+import { elementOverflowWithEditor } from 'wix-rich-content-editor-common';
 
 type dropDownPropsType = {
   isMobile?: boolean;
@@ -70,8 +70,12 @@ class ModalButton extends Component<ModalButtonProps, State> {
     } = this.props;
     this.setState({ isModalOpen: !isModalOpen }, () => {
       if (this.state.isModalOpen && this.modalRef) {
-        const overflowWidthBy = isElementOutOfWindow(this.modalRef) || false;
-        const isModalOverflowByHeight = isElementOutOfWindowHeight(this.modalRef) || false;
+        const modalOverflowWithEditor = elementOverflowWithEditor(this.modalRef);
+        const isModalWidthOverflow = !!modalOverflowWithEditor.overflowRight;
+        const isModalOverflowByHeight = !!modalOverflowWithEditor.overflowBottom;
+        const overflowWidthBy = isModalWidthOverflow
+          ? modalOverflowWithEditor.overflowRight
+          : false;
         this.setState({
           isModalOverflowByHeight,
           overflowWidthBy,
