@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+
+- `ricos-viewer` `ricos-editor`
+  - [#2836](https://github.com/wix/ricos/pull/2836) expose `iframeSandboxDomain` prop on editor & viewer
+
 ### :house: Internal
 
 - `editor-common`
@@ -25,7 +30,7 @@
 ### :bug: Bug Fix
 
 - `link`
-  - [#2830](https://github.com/wix-incubator/rich-content/pull/2830) fix modal design when opened using image toolbar
+  - [#2830](https://github.com/wix/ricos/pull/2830) fix modal design when opened using image toolbar
 
 </details>
 <hr/>
@@ -79,16 +84,16 @@
 ### :nail_care: Polish
 
 - `schema`
-  - [#2662](https://github.com/wix-incubator/rich-content/pull/2662) FileSource contains `privacy`, `id` fields
-  - [#2662](https://github.com/wix-incubator/rich-content/pull/2662) FileSource's `custom` field deprecation
+  - [#2662](https://github.com/wix/ricos/pull/2662) FileSource contains `privacy`, `id` fields
+  - [#2662](https://github.com/wix/ricos/pull/2662) FileSource's `custom` field deprecation
 
 ### :bug: Bug Fix
 
 - `ricos-content`
   - [#2812](https://github.com/wix/ricos/pull/2812) fix fromHtml/ck-editor/parser span rules
 - `link`
-  - [#2802](https://github.com/wix-incubator/rich-content/pull/2802) fix modal design when opened using external toolbar
-  - [#2803](https://github.com/wix-incubator/rich-content/pull/2803) fix default value for newTab checkbox (true by default)
+  - [#2802](https://github.com/wix/ricos/pull/2802) fix modal design when opened using external toolbar
+  - [#2803](https://github.com/wix/ricos/pull/2803) fix default value for newTab checkbox (true by default)
 
 ## 8.47.15 (Aug 01, 2021)
 
