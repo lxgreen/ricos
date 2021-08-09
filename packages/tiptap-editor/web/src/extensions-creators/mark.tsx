@@ -5,6 +5,6 @@ import { MarkConfig } from '@tiptap/core';
 
 export const createRicosMarkConfig = (ext: RicosMarkExtension): MarkConfig => ({
   addAttributes: () => ext.createComponentDataDefaults?.(ricosSchema) || {},
-  ...ext.createConfig({ mergeAttributes }),
+  ...ext.createExtensionConfig({ mergeAttributes }),
   type: ext.type,
 });

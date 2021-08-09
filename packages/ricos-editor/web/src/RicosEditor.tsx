@@ -327,8 +327,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     );
     const { localeData } = this.state;
     const { locale, localeResource } = localeData;
-    // TODO: not a complete config
-    const config = plugins?.reduce((prev, curr) => ({ ...prev, [curr.type]: curr.config }), {});
     return (
       <Fragment>
         {tiptapToolbar && this.renderToolbarPortal(tiptapToolbar)}
@@ -339,7 +337,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                 <RicosTiptapEditor
                   extensions={plugins}
                   content={initalContent}
-                  config={config}
                   t={t}
                   onLoad={editor => {
                     const richContentAdapter = new RichContentAdapter(editor);
