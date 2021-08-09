@@ -30,7 +30,10 @@ import {
   SelectionState,
   setSelectionToBlock,
   emptyDraftContent,
+  EditorModals,
+  getModalStyles,
 } from 'wix-rich-content-editor-common';
+import { getPluginMenuTheme } from './Toolbars/SideToolbar/utils';
 import { convertFromRaw, convertToRaw } from '../../lib/editorStateConversion';
 import { EditorProps as DraftEditorProps, DraftHandleValue } from 'draft-js';
 import { createUploadStartBIData, createUploadEndBIData } from './utils/mediaUploadBI';
@@ -118,6 +121,7 @@ type ToolbarsToIgnore = (
   | 'MobileToolbar'
   | 'StaticTextToolbar'
   | 'StaticToolbar'
+  | 'InlinePluginToolbar'
 )[];
 
 export interface RichContentEditorProps extends PartialDraftEditorProps {
@@ -228,6 +232,8 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
 
   getSelectedText!: (editorState: EditorState) => string;
 
+  pluginButtons;
+
   static defaultProps: Partial<RichContentEditorProps> = {
     config: {},
     spellCheck: true,
@@ -255,7 +261,9 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     this.state = {
       editorState: initialEditorState,
       innerModal: null,
-      toolbarsToIgnore: [],
+      toolbarsToIgnore: experiments?.newFormattingToolbar?.enabled
+        ? ['InlineTextToolbar', 'InlinePluginToolbar']
+        : [],
       readOnly: false,
       context: { experiments, isMobile, t },
       undoRedoStackChanged: false,
@@ -505,6 +513,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       commonPubsub: this.commonPubsub,
     });
 
+    this.pluginButtons = pluginButtons;
     this.initEditorToolbars(pluginButtons, pluginTextButtons, externalizedButtonProps);
     this.pluginKeyBindings = initPluginKeyBindings(pluginTextButtons);
     this.plugins = [...pluginInstances, ...Object.values(this.toolbars)];
@@ -547,6 +556,39 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     TextToolbar:
       this.props.textToolbarType === 'static' ? this.toolbars[TOOLBARS.STATIC].Toolbar : null,
   });
+
+  openMobileAddPlugin = () => {
+    const { theme, t, helpers = {}, isMobile, config } = this.props;
+    const addPluginMenuConfig = config
+      ?.getToolbarSettings?.({ textButtons: undefined })
+      .filter(toolbar => toolbar.name === TOOLBARS.MOBILE)[0].addPluginMenuConfig;
+    const structure = this.pluginButtons?.filter(({ buttonSettings }) =>
+      buttonSettings.toolbars.includes(TOOLBARS.MOBILE)
+    );
+    helpers?.openModal?.({
+      modalName: EditorModals.MOBILE_ADD_PLUGIN,
+      modalStyles: getModalStyles({ fullScreen: false, isMobile: true, stickyButtomMobile: true }),
+      plugins: structure.map(({ component, buttonSettings: { name, section } }) => ({
+        component,
+        name,
+        section: section || 'BlockToolbar_Section_Basic',
+      })),
+      theme: getPluginMenuTheme(theme, isMobile),
+      hidePopup: helpers?.closeModal,
+      getEditorState: this.getEditorState,
+      setEditorState: this.setEditorState,
+      pubsub: this.commonPubsub,
+      t,
+      isMobile,
+      addPluginMenuConfig,
+      toolbarName: TOOLBARS.SIDE,
+    });
+  };
+
+  getInnerRCERenderedIn = () => {
+    const { innerRCERenderedIn } = this.props;
+    return innerRCERenderedIn;
+  };
 
   getInitialEditorState() {
     const {
@@ -661,6 +703,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     const formattingToolbar = document.querySelectorAll(
       `[data-hook=inlineToolbar]`
     )[0] as HTMLElement;
+    const newFormattingToolbar = document.querySelectorAll(`[data-id="toolbar"]`)[0] as HTMLElement;
     if (pluginToolbar && pluginToolbar.dataset.hook !== 'linkPluginToolbar') {
       const editorState = this.getEditorState();
       const focusedAtomicPluginKey = editorState.getSelection().getFocusKey();
@@ -668,7 +711,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
         .getCurrentContent()
         .getBlockForKey(focusedAtomicPluginKey);
     }
-    const toolbar = pluginToolbar || formattingToolbar;
+    const toolbar = pluginToolbar || formattingToolbar || newFormattingToolbar;
     if (toolbar) {
       const buttonToFocus = toolbar.querySelectorAll('Button')[0] as HTMLElement;
       buttonToFocus.focus();
@@ -861,6 +904,17 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     pubsub: this.commonPubsub,
   });
 
+  getT = () => {
+    const { t } = this.props;
+    return t;
+  };
+
+  getPlugins = () => {
+    return this.plugins;
+  };
+
+  getEditorCommands = () => this.EditorCommands;
+
   setEditor = (ref: Editor) => (this.editor = get(ref, 'editor', ref));
 
   inPluginEditingMode = false;
@@ -870,7 +924,14 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     const mode = shouldEnable ? 'render' : 'edit';
     this.editor?.setMode(mode);
     this.inPluginEditingMode = shouldEnable;
-    const toolbarsToIgnore: ToolbarsToIgnore = shouldEnable ? ['SideToolbar'] : [];
+    const { toolbarsToIgnore: currentToolbarsToIgnore } = this.state;
+    const toolbarsToIgnore: ToolbarsToIgnore = currentToolbarsToIgnore;
+    const index = toolbarsToIgnore.indexOf('SideToolbar');
+    if (shouldEnable && index === -1) {
+      toolbarsToIgnore.push('SideToolbar');
+    } else if (!shouldEnable && index !== -1) {
+      toolbarsToIgnore.splice(index, 1);
+    }
     this.setState({ toolbarsToIgnore });
   };
 
@@ -900,6 +961,9 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
         plugin.Toolbar || plugin.InlinePluginToolbar || plugin.InlineToolbar || plugin.SideToolbar;
       if (Toolbar) {
         if (includes(toolbarsToIgnore, plugin.name)) {
+          return null;
+        }
+        if (plugin.InlinePluginToolbar && includes(toolbarsToIgnore, 'InlinePluginToolbar')) {
           return null;
         }
         return (
