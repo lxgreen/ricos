@@ -40,6 +40,7 @@ export interface RicosProps {
   textAlignment?: TextAlignment;
   onAtomicBlockFocus?: onAtomicBlockFocus;
   experiments?: AvailableExperiments;
+  iframeSandboxDomain?: string;
   /* Changes to this interface should also be reflected in the API docs */
 }
 
