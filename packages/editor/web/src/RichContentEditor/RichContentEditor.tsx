@@ -30,10 +30,7 @@ import {
   SelectionState,
   setSelectionToBlock,
   emptyDraftContent,
-  EditorModals,
-  getModalStyles,
 } from 'wix-rich-content-editor-common';
-import { getPluginMenuTheme } from './Toolbars/SideToolbar/utils';
 import { convertFromRaw, convertToRaw } from '../../lib/editorStateConversion';
 import { EditorProps as DraftEditorProps, DraftHandleValue } from 'draft-js';
 import { createUploadStartBIData, createUploadEndBIData } from './utils/mediaUploadBI';
@@ -230,8 +227,6 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
   EditorCommands!: EditorCommands;
 
   getSelectedText!: (editorState: EditorState) => string;
-
-  pluginButtons;
 
   static defaultProps: Partial<RichContentEditorProps> = {
     config: {},
@@ -512,7 +507,6 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       commonPubsub: this.commonPubsub,
     });
 
-    this.pluginButtons = pluginButtons;
     this.initEditorToolbars(pluginButtons, pluginTextButtons, externalizedButtonProps);
     this.pluginKeyBindings = initPluginKeyBindings(pluginTextButtons);
     this.plugins = [...pluginInstances, ...Object.values(this.toolbars)];
@@ -555,34 +549,6 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     TextToolbar:
       this.props.textToolbarType === 'static' ? this.toolbars[TOOLBARS.STATIC].Toolbar : null,
   });
-
-  openMobileAddPlugin = () => {
-    const { theme, t, helpers = {}, isMobile, config } = this.props;
-    const addPluginMenuConfig = config
-      ?.getToolbarSettings?.({ textButtons: undefined })
-      .filter(toolbar => toolbar.name === TOOLBARS.MOBILE)[0].addPluginMenuConfig;
-    const structure = this.pluginButtons?.filter(({ buttonSettings }) =>
-      buttonSettings.toolbars.includes(TOOLBARS.MOBILE)
-    );
-    helpers?.openModal?.({
-      modalName: EditorModals.MOBILE_ADD_PLUGIN,
-      modalStyles: getModalStyles({ fullScreen: false, isMobile: true, stickyButtomMobile: true }),
-      plugins: structure.map(({ component, buttonSettings: { name, section } }) => ({
-        component,
-        name,
-        section: section || 'BlockToolbar_Section_Basic',
-      })),
-      theme: getPluginMenuTheme(theme, isMobile),
-      hidePopup: helpers?.closeModal,
-      getEditorState: this.getEditorState,
-      setEditorState: this.setEditorState,
-      pubsub: this.commonPubsub,
-      t,
-      isMobile,
-      addPluginMenuConfig,
-      toolbarName: TOOLBARS.SIDE,
-    });
-  };
 
   getInnerRCERenderedIn = () => {
     const { innerRCERenderedIn } = this.props;
@@ -923,6 +889,10 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     const mode = shouldEnable ? 'render' : 'edit';
     this.editor?.setMode(mode);
     this.inPluginEditingMode = shouldEnable;
+    this.handleSideToolbar(shouldEnable);
+  };
+
+  handleSideToolbar = (shouldEnable: boolean) => {
     const { toolbarsToIgnore: currentToolbarsToIgnore } = this.state;
     const toolbarsToIgnore: ToolbarsToIgnore = currentToolbarsToIgnore;
     const index = toolbarsToIgnore.indexOf('SideToolbar');

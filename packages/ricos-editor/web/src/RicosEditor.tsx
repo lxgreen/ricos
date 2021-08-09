@@ -368,11 +368,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         {newFormattingToolbar && !activeEditorIsTableCell && activeEditor && (
           <>
             {!hideFormattingToolbar && (
-              <TextFormattingToolbar
-                activeEditor={activeEditor}
-                openMobileAddPlugin={isMobile ? activeEditor?.openMobileAddPlugin : undefined}
-                {...toolbarsProps}
-              />
+              <TextFormattingToolbar activeEditor={activeEditor} {...toolbarsProps} />
             )}
             <LinkToolbar activeEditor={activeEditor} {...toolbarsProps} />
           </>

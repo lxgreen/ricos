@@ -33,7 +33,6 @@ interface TextFormattingToolbarProps {
   linkSettings?: LinkSettings;
   onInlineToolbarOpen?: (toolbarType: ToolbarType) => void;
   onToolbarButtonClick?: (name: string, toolbarType: ToolbarType, value?: any) => void;
-  openMobileAddPlugin?: () => void;
 }
 
 interface State {}
@@ -60,7 +59,6 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
       theme,
       locale,
       getToolbarSettings = () => [],
-      openMobileAddPlugin,
     } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
@@ -121,7 +119,6 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
         linkPanelData={linkPanelData}
         colorPickerData={colorPickerData}
         onToolbarButtonClick={onToolbarButtonClick}
-        openMobileAddPlugin={openMobileAddPlugin}
       />
     );
     const ToolbarContainer =
