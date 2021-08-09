@@ -17,6 +17,16 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.48.3 (Aug 09, 2021)
+
+### :bug: Bug Fix
+
+- `link`
+  - [#2830](https://github.com/wix/ricos/pull/2830) fix modal design when opened using image toolbar
+
 ### :nail_care: Polish
 
 - `ricos-viewer` `ricos-editor`
@@ -26,14 +36,6 @@
 
 - `editor-common`
   - [#2824](https://github.com/wix/ricos/pull/2824) overflowUtils - support overflow from bottom + change returned value
-
-### :bug: Bug Fix
-
-- `link`
-  - [#2830](https://github.com/wix/ricos/pull/2830) fix modal design when opened using image toolbar
-
-</details>
-<hr/>
 
 ## 8.48.2 (Aug 05, 2021)
 
