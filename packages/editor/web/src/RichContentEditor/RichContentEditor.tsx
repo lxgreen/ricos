@@ -639,22 +639,23 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     );
   };
 
-  updateDocStyle = (docStyle: DocStyle, editorState: EditorState) => {
-    const currentContent = editorState.getCurrentContent() as ContentState & {
-      docStyle: DocStyle;
-    };
-    currentContent.docStyle = {
-      ...currentContent.docStyle,
-      ...docStyle,
-    };
-    return editorState;
+  updateDocStyle = (editorState: EditorState) => {
+    const docStyle = this.EditorCommands.getDocStyle();
+    if (docStyle) {
+      const currentContent = editorState.getCurrentContent() as ContentState & {
+        docStyle: DocStyle;
+      };
+      currentContent.docStyle = {
+        ...docStyle,
+        ...currentContent.docStyle,
+      };
+    }
   };
 
   updateEditorState = (editorState: EditorState) => {
     const undoRedoStackChanged = this.didUndoRedoStackChange(editorState);
-    const docStyle = this.EditorCommands.getDocStyle();
-    const newEditorState = docStyle ? this.updateDocStyle(docStyle, editorState) : editorState;
-    this.setState({ editorState: newEditorState, undoRedoStackChanged }, () => {
+    this.updateDocStyle(editorState);
+    this.setState({ editorState, undoRedoStackChanged }, () => {
       this.handleCallbacks(this.state.editorState, this.props.helpers);
       this.props.onChange?.(this.state.editorState);
     });
@@ -1093,26 +1094,26 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
 
   styleToClass = ([key, val]) => `rich_content_${key}-${val.toString().replace('.', '_')}`;
 
-  addLineHeight = (css: string) => css + ' line-height: normal;';
+  styleToCss = ([key, val]) => {
+    const cssRule = `${key}: ${val};`;
+    return key === 'font-size' ? cssRule + ' line-height: normal;' : cssRule;
+  };
 
   renderStyleTag = (editorState = this.getEditorState()) => {
-    const styleToCss = ([key, val]) => `${key}: ${val};`;
     const blocks = editorState.getCurrentContent().getBlockMap();
     const styles = {};
     const docStyle = this.EditorCommands.getDocStyle();
     docStyle &&
-      Object.entries(docStyle).forEach(header => {
-        styles[DOC_STYLE_CLASSES[header[0]]] = this.addLineHeight(
-          Object.entries(header[1])
-            .map(style => styleToCss(style))
-            .join(' ')
-        );
+      Object.entries(docStyle).forEach(([key, values]) => {
+        styles[DOC_STYLE_CLASSES[key]] = Object.entries(values)
+          .map(style => this.styleToCss(style))
+          .join(' ');
       });
 
     blocks.forEach(block => {
       const { dynamicStyles = {} } = block?.get('data').toJS();
       Object.entries(dynamicStyles).forEach(
-        style => (styles[this.styleToClass(style)] = styleToCss(style))
+        style => (styles[this.styleToClass(style)] = this.styleToCss(style))
       );
     });
     const css = Object.entries(styles).reduce(
