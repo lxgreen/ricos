@@ -63,6 +63,8 @@
 
 ### :bug: Bug Fix
 
+- `ricos-common`
+  - [#2831](https://github.com/wix/ricos/pull/2831) add collapsible_list plugin to INSERT_PLUGIN_BUTTONS
 - `editor`
   - [#2813](https://github.com/wix/ricos/pull/2813) fix rel value not applying in link panel by config
 
