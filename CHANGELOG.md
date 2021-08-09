@@ -20,6 +20,18 @@
 </details>
 <hr/>
 
+## 8.49.4 (Aug 10, 2021)
+
+### :bug: Bug Fix
+
+- `collapsible-list`
+
+  - [#2831](https://github.com/wix/ricos/pull/2831) add collapsible_list to INSERT_PLUGIN_BUTTONS
+
+- `ricos-viewer` `ricos-editor`
+  - [#2840](https://github.com/wix/ricos/pull/2840) expose `iframeSandboxDomain` prop on editor & viewer fix
+  -
+
 ## 8.48.3 (Aug 09, 2021)
 
 ### :bug: Bug Fix
