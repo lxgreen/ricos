@@ -1,17 +1,17 @@
 import { getComponentStyles } from './styles';
-import { createRicosGenericExtensionConfig } from '../../extensions-creators/extension';
+import { createRicosFunctionalExtensionConfig } from '../../extensions-creators/extension';
 import React from 'react';
 
 const name = 'styles';
 
 export const createStylesConfig = () =>
-  createRicosGenericExtensionConfig({
+  createRicosFunctionalExtensionConfig({
     type: 'extension',
-    createConfig: () => {
+    createExtensionConfig: () => {
       return {
         name,
         priority: 10,
-
+        defaultOptions: {},
         addNodeViewHOC() {
           return {
             nodeTypes: ['*'],

@@ -1,7 +1,6 @@
 import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { FC } from 'react';
 import { Editor } from '@tiptap/react';
-
 export interface PluginProps {
   context: {
     isMobile: boolean;

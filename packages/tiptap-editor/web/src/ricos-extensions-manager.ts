@@ -4,7 +4,7 @@ import * as O from 'fp-ts/Option';
 import * as N from 'fp-ts/number';
 import { flow, pipe } from 'fp-ts/function';
 import { concatAll } from 'fp-ts/Monoid';
-import { contramap } from 'fp-ts/Ord';
+import { contramap, reverse } from 'fp-ts/Ord';
 import { firstRight } from 'ricos-content';
 import {
   NodeViewHoc,
@@ -37,7 +37,7 @@ export const initializeExtensions = A.map(toExtension);
 const NodeViewHocM = R.getMonoid<string, NodeViewHoc[]>(A.getSemigroup());
 
 const byPriority = pipe(
-  N.Ord,
+  reverse(N.Ord),
   contramap((c: RicosExtensionConfig) => c.priority || 100)
 );
 

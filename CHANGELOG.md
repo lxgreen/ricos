@@ -17,18 +17,42 @@
     Click to see more.
   </summary>
 
-### :house: Internal
+### :bug: Bug Fix
 
-- `editor-common`
-  - [#2824](https://github.com/wix/ricos/pull/2824) overflowUtils - support overflow from bottom + change returned value
+- `plugin-common`
+  - [#2842](https://github.com/wix/ricos/pull/2842) fix link toolbar shortcut
+
+</details>
+<hr/>
+
+## 8.48.4 (Aug 10, 2021)
+
+### :bug: Bug Fix
+
+- `collapsible-list`
+
+  - [#2831](https://github.com/wix/ricos/pull/2831) add collapsible_list to INSERT_PLUGIN_BUTTONS
+
+- `ricos-viewer` `ricos-editor`
+  - [#2840](https://github.com/wix/ricos/pull/2840) expose `iframeSandboxDomain` prop on editor & viewer fix
+  -
+
+## 8.48.3 (Aug 09, 2021)
 
 ### :bug: Bug Fix
 
 - `link`
-  - [#2830](https://github.com/wix-incubator/rich-content/pull/2830) fix modal design when opened using image toolbar
+  - [#2830](https://github.com/wix/ricos/pull/2830) fix modal design when opened using image toolbar
 
-</details>
-<hr/>
+### :nail_care: Polish
+
+- `ricos-viewer` `ricos-editor`
+  - [#2836](https://github.com/wix/ricos/pull/2836) expose `iframeSandboxDomain` prop on editor & viewer
+
+### :house: Internal
+
+- `editor-common`
+  - [#2824](https://github.com/wix/ricos/pull/2824) overflowUtils - support overflow from bottom + change returned value
 
 ## 8.48.2 (Aug 05, 2021)
 
@@ -56,6 +80,8 @@
 
 ### :bug: Bug Fix
 
+- `ricos-common`
+  - [#2831](https://github.com/wix/ricos/pull/2831) add collapsible_list plugin to INSERT_PLUGIN_BUTTONS
 - `editor`
   - [#2813](https://github.com/wix/ricos/pull/2813) fix rel value not applying in link panel by config
 
@@ -79,16 +105,16 @@
 ### :nail_care: Polish
 
 - `schema`
-  - [#2662](https://github.com/wix-incubator/rich-content/pull/2662) FileSource contains `privacy`, `id` fields
-  - [#2662](https://github.com/wix-incubator/rich-content/pull/2662) FileSource's `custom` field deprecation
+  - [#2662](https://github.com/wix/ricos/pull/2662) FileSource contains `privacy`, `id` fields
+  - [#2662](https://github.com/wix/ricos/pull/2662) FileSource's `custom` field deprecation
 
 ### :bug: Bug Fix
 
 - `ricos-content`
   - [#2812](https://github.com/wix/ricos/pull/2812) fix fromHtml/ck-editor/parser span rules
 - `link`
-  - [#2802](https://github.com/wix-incubator/rich-content/pull/2802) fix modal design when opened using external toolbar
-  - [#2803](https://github.com/wix-incubator/rich-content/pull/2803) fix default value for newTab checkbox (true by default)
+  - [#2802](https://github.com/wix/ricos/pull/2802) fix modal design when opened using external toolbar
+  - [#2803](https://github.com/wix/ricos/pull/2803) fix default value for newTab checkbox (true by default)
 
 ## 8.47.15 (Aug 01, 2021)
 
