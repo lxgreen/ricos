@@ -143,7 +143,6 @@ class LinkModal extends PureComponent {
     } = this.props;
     const { linkPanel } = uiSettings || {};
     const { showNewTabCheckbox, showNoFollowCheckbox, showSponsoredCheckbox } = linkPanel || {};
-    const hasCheckboxes = showNewTabCheckbox || showNoFollowCheckbox || showSponsoredCheckbox;
     const linkPanelAriaProps = { 'aria-label': 'Link management' };
     const sharedPanelsProps = {
       theme,
@@ -184,7 +183,6 @@ class LinkModal extends PureComponent {
       anchorPanelValues,
       isMobile,
       blockPreview: linkTypes?.anchor?.blockPreview,
-      hasCheckboxes,
     };
     return this.renderBasicLinkPanel ? (
       <BasicLinkPanel {...propsToPass} />
@@ -212,7 +210,6 @@ LinkModal.propTypes = {
   t: PropTypes.func,
   linkTypes: PropTypes.object,
   hideUrlInput: PropTypes.bool,
-  hasCheckboxes: PropTypes.bool,
 };
 
 export default LinkModal;
