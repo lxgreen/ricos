@@ -7,15 +7,15 @@ const ImageSettingsMobileHeader = ({
   saveName,
   cancelName,
   t,
-  save,
-  cancel,
+  onSave,
+  onCancel,
   switchTab,
   otherTab,
 }) => {
   const props = {
     theme,
-    save,
-    cancel,
+    onSave,
+    onCancel,
     switchTab,
     otherTab,
     isMediaSettingsModal: true,
@@ -28,9 +28,9 @@ const ImageSettingsMobileHeader = ({
 };
 
 ImageSettingsMobileHeader.propTypes = {
-  save: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
-  cancel: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
   switchTab: PropTypes.func,
   otherTab: PropTypes.string,
   saveName: PropTypes.string,

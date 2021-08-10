@@ -10,8 +10,9 @@ import {
   InputWithLabel,
   Image,
   Loader,
+  SettingsMobileHeader,
 } from 'wix-rich-content-ui-components';
-import ImageSettingsMobileHeader from './image-settings-mobile-header';
+// import ImageSettingsMobileHeader from './image-settings-mobile-header';
 import styles from '../../statics/styles/image-settings.scss';
 import { DIVIDER } from '../consts';
 
@@ -177,12 +178,13 @@ class ImageSettings extends Component {
     return (
       <div className={this.styles.imageSettings} data-hook="settings" dir={languageDir}>
         {isMobile ? (
-          <ImageSettingsMobileHeader
-            t={t}
+          <SettingsMobileHeader
             theme={theme}
-            cancel={() => this.revertComponentData()}
-            save={() => this.onDoneClick()}
+            onCancel={() => this.revertComponentData()}
+            onSave={() => this.onDoneClick()}
             saveName={this.updateLabel}
+            cancelLabel={t('ImageSettings_MobileHeader_Cancel')}
+            saveLabel={t('ImageSettings_MobileHeader_Save')}
           />
         ) : (
           <h3 className={this.styles.imageSettingsTitle}>{this.headerText}</h3>

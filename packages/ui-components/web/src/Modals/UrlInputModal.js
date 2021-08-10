@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
-import SettingsMobileHeader from './SettingsMobileHeader';
+import SettingsMobileHeader from '../Components/SettingsMobileHeader';
 import { CloseIcon } from '../Icons';
 import TextInput from '../Components/TextInput';
 import SettingsPanelFooter from '../Components/SettingsPanelFooter';
@@ -79,10 +79,10 @@ export default class UrlInputModal extends Component {
         {topControls && (
           <SettingsMobileHeader
             theme={theme}
-            save={() => onConfirm()}
-            cancelLabel="Cancel"
-            saveLabel="Save"
-            cancel={() => onCloseRequested()}
+            onSave={() => onConfirm()}
+            cancelLabel={t('SettingsPanelFooter_Cancel')}
+            saveLabel={t('SettingsPanelFooter_Save')}
+            onCancel={() => onCloseRequested()}
             dataHookPrefix={'UrlInputModalHeader'}
           />
         )}
