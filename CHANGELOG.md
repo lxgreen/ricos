@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `plugin-common`
+  - [#2842](https://github.com/wix/ricos/pull/2842) fix link toolbar shortcut
+
 </details>
 <hr/>
 
