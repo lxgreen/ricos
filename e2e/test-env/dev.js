@@ -1,5 +1,6 @@
 const express = require('express');
 const webpack = require('webpack');
+const path = require('path');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotServerMiddleware = require('webpack-hot-server-middleware');
 const webpackConfig = require('./webpack.config');
@@ -7,12 +8,21 @@ const configureApp = require('./src/server/configure-app');
 
 const start = () => {
   const app = express();
+
+  app.use(express.static(path.join(__dirname, '../../public')));
   const multiCompiler = webpack(webpackConfig);
 
   app.use(
     webpackDevMiddleware(multiCompiler, {
-      publicPath: '/',
+      publicPath: '/dist/client',
       serverSideRender: true,
+      writeToDisk(filePath) {
+        return (
+          /dist\/server\//.test(filePath) ||
+          /dist\/client\//.test(filePath) ||
+          /loadable-stats/.test(filePath)
+        );
+      },
     })
   );
 

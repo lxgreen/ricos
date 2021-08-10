@@ -114,7 +114,15 @@ Cypress.Commands.add('loadTestAppOnSsr', (fixtureName, compName, config) => {
     .its('body')
     .then(html => {
       // remove the application code bundle
-      const _html = html.replace('<script src="/index.bundle.js"></script>', '');
+      const _html = html
+        .replace(
+          '<script async data-chunk="index" src="/dist/client/index.bundle.js"></script>',
+          ''
+        )
+        .replace(
+          '<script async data-chunk="image-viewer" src="/dist/client/image-viewer.bundle.js"></script>',
+          ''
+        );
       cy.state('document').write(_html);
     });
 });

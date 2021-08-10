@@ -1,30 +1,10 @@
 const nodeExternals = require('webpack-node-externals');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HappyPack = require('happypack');
+const LoadablePlugin = require('@loadable/webpack-plugin');
 const path = require('path');
 
-const output = {
-  path: path.resolve(__dirname, 'dist/'),
-  filename: '[name].bundle.js',
-  chunkFilename: '[chunkhash].bundle.js',
-  publicPath: '/',
-};
-
-const common = {
-  mode: 'development',
-  devtool: 'eval-source-map',
-  performance: {
-    hints: false,
-  },
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
-  },
-  optimization: {
-    splitChunks: {
-      automaticNameDelimiter: '~',
-    },
-  },
-};
+const DIST_PATH = path.resolve(__dirname, 'public/dist');
 
 const babelRule = {
   test: /\.js(x)?$/,
@@ -79,6 +59,35 @@ const happyPackPlugin = new HappyPack({
   ],
 });
 
+const getOutput = target => ({
+  path: path.join(DIST_PATH, target),
+  filename: '[name].bundle.js',
+  publicPath: `/dist/${target}/`,
+});
+
+const common = {
+  mode: 'development',
+  devtool: 'eval-source-map',
+  performance: {
+    hints: false,
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+  },
+  optimization: {
+    moduleIds: 'named',
+    chunkIds: 'named',
+  },
+  plugins: [
+    new LoadablePlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
+    happyPackPlugin,
+  ],
+};
+
 const config = [
   {
     ...common,
@@ -86,8 +95,7 @@ const config = [
     entry: {
       index: './src/client/index',
     },
-    output,
-    plugins: [happyPackPlugin],
+    output: getOutput('client'),
     module: {
       rules: [
         babelRule,
@@ -110,19 +118,11 @@ const config = [
       renderer: './src/server/renderer',
     },
     output: {
-      ...output,
+      ...getOutput('server'),
       libraryTarget: 'commonjs2',
-      publicPath: '/static/',
     },
     target: 'node',
-    externals: [nodeExternals({ whitelist: [/.css/, /^wix-rich-content/] })],
-    plugins: [
-      new MiniCssExtractPlugin({
-        filename: '[name].css',
-        chunkFilename: '[id].css',
-      }),
-      happyPackPlugin,
-    ],
+    externals: ['@loadable/component', nodeExternals({ whitelist: [/.css/, /^wix-rich-content/] })],
     module: {
       rules: [
         babelRule,
@@ -134,6 +134,9 @@ const config = [
         },
         typescriptRule,
       ],
+    },
+    node: {
+      __dirname: false,
     },
   },
 ];
