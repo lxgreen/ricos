@@ -32,7 +32,12 @@ interface TextFormattingToolbarProps {
   linkPanelSettings?: LinkPanelSettings;
   linkSettings?: LinkSettings;
   onInlineToolbarOpen?: (toolbarType: ToolbarType) => void;
-  onToolbarButtonClick?: (name: string, toolbarType: ToolbarType, value?: any) => void;
+  onToolbarButtonClick?: (
+    name: string,
+    toolbarType: ToolbarType,
+    value?: any,
+    pluginId?: string
+  ) => void;
 }
 
 interface State {}
@@ -105,8 +110,8 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
     const baseStyles = { flex: 'none' };
     const baseMobileStyles = { ...baseStyles, position: 'sticky', top: 0, zIndex: 9 };
     const onInlineToolbarOpen = () => this.props.onInlineToolbarOpen?.(ToolbarType.FORMATTING);
-    const onToolbarButtonClick = (name, value = undefined) => {
-      this.props.onToolbarButtonClick?.(name, ToolbarType.FORMATTING, value);
+    const onToolbarButtonClick = (name, value = undefined, pluginId = undefined) => {
+      this.props.onToolbarButtonClick?.(name, ToolbarType.FORMATTING, value, pluginId);
     };
     const ToolbarToRender = (
       <RicosToolbar

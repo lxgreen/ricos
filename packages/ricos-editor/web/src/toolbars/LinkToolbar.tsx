@@ -72,7 +72,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
         buttons={['goToLink', '|', 'editLink', '|', 'removeLink']}
         plugins={plugins}
         linkPanelData={linkPanelData}
-        onToolbarButtonClick={onToolbarButtonClick}
+        // onToolbarButtonClick={onToolbarButtonClick}
       />
     );
     const ToolbarContainer = isMobile ? StaticToolbarContainer : FloatingToolbarContainer;
@@ -84,7 +84,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
             isMobile={isMobile}
             showToolbar={showLinkToolbar || false}
             focusEditor={focusEditor}
-            onInlineToolbarOpen={onInlineToolbarOpen}
+            // onInlineToolbarOpen={onInlineToolbarOpen}
           >
             {ToolbarToRender}
           </ToolbarContainer>

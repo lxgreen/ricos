@@ -39,6 +39,7 @@ export const createButtonsList = (
     handleButtonIcon(buttonsList, index, editorCommands);
     handleButtonDataHook(buttonsList, index);
     handleButtonTooltip(buttonsList, index, t);
+    handleButtonPlugin(buttonsList, index);
     handleButtonLabel(buttonsList, index, editorCommands, t);
     handleButtonArrow(buttonsList, index);
     handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData);
@@ -364,6 +365,12 @@ const handleButtonLabel = (buttonsList, index, editorCommands: editorCommands, t
 const handleButtonTooltip = (buttonsList, index, t) => {
   if (buttonsFullData[buttonsList[index].name].tooltip) {
     buttonsList[index].tooltip = t(buttonsFullData[buttonsList[index].name].tooltip);
+  }
+};
+
+const handleButtonPlugin = (buttonsList, index) => {
+  if (buttonsFullData[buttonsList[index].name].plugin) {
+    buttonsList[index].plugin = buttonsFullData[buttonsList[index].name].plugin;
   }
 };
 

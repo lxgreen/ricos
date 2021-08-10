@@ -342,13 +342,23 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         toolbarType,
         version: Version.currentVersion,
       });
-    const onToolbarButtonClick = (name, toolbarType, value = undefined) => {
+    const onToolbarButtonClick = (
+      name: string,
+      toolbarType: ToolbarType,
+      value?: string | boolean,
+      pluginId?: string
+    ) => {
       helpers?.onToolbarButtonClick?.({
         buttonName: name,
+        pluginId,
         type: toolbarType,
         value: value === undefined ? undefined : typeof value === 'boolean' ? `${!value}` : value,
         version: Version.currentVersion,
       });
+      if (pluginId && value && typeof value === 'string') {
+        helpers?.onPluginAdd?.(pluginId, 'FormattingToolbar', Version.currentVersion);
+        helpers?.onPluginAddSuccess?.(pluginId, 'FormattingToolbar', value, Version.currentVersion);
+      }
     };
     const toolbarsProps = {
       textToolbarType,
