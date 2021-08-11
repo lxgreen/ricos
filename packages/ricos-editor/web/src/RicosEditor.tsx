@@ -44,6 +44,7 @@ interface State {
   tiptapEditorModule: Record<string, any> | null;
   tiptapToolbar: unknown;
   error?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   textFormattingToolbarModule?: Record<string, any> | null;
 }
 
