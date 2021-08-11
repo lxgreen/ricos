@@ -370,11 +370,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         return null;
       }
 
-      return (
-        <div data-hook={'ricos-editor'}>
-          {this.useTiptap ? this.renderTiptapEditor() : this.renderDraftEditor()}
-        </div>
-      );
+      return this.useTiptap ? this.renderTiptapEditor() : this.renderDraftEditor();
     } catch (e) {
       this.props.onError?.(e);
       return null;
