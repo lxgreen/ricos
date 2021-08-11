@@ -84,6 +84,7 @@ const createInlineButtons: CreateInlineButtons = ({
     {
       keyName: 'settings',
       type: BUTTONS.EXTERNAL_MODAL,
+      fullHeight: true,
       icon: icons.settings || PluginSettingsIcon,
       modalElement: MapSettingsModal,
       modalStyles: getModalStyles({ isMobile }),

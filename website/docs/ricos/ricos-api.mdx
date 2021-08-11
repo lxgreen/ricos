@@ -138,9 +138,9 @@ mediaSettings?: {
   pauseMedia?: boolean;
   disableDownload?: boolean;
   fullscreenProps?: {
-  backgroundColor?: string;
-  foregroundColor?: string;
-}
+    backgroundColor?: string;
+    foregroundColor?: string;
+  }
 }
 ```
 
@@ -193,6 +193,12 @@ For rendering a viewer, import the plugin from the viewer entry point <br/> `wix
 
 Adding theme to Ricos is possible with providing a `RicosTheme` object.
 Further read in [Theming](./Theming) page.
+
+### `iframeSandboxDomain`
+
+In order for the UGC source code to be rendered in an isolated environment, `iframeSandboxDomain` config on viewer & editor must be supplied, and be easily changed by consumer in case of DDOS on domain or subdomain
+
+
 
 ## Ricos Editor API
 

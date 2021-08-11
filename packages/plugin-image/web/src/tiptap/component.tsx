@@ -1,9 +1,9 @@
 import React from 'react';
-import { ImageComponent } from 'wix-rich-content-plugin-image';
-import { ImagePluginEditorConfig } from 'wix-rich-content-plugin-image/src/types';
-import { PluginProps } from '../../types';
+import { ImageComponent } from '..';
+import { ImagePluginEditorConfig } from '../types';
+import { PluginProps } from 'wix-rich-content-editor-common';
 
-const Image: React.FC<PluginProps> = ({ context, componentData, updateAttributes }) => {
+export const Image: React.FC<PluginProps> = ({ context, componentData, updateAttributes }) => {
   const { isMobile, theme, t } = context;
   // console.log({ componentData });
   const store = {
@@ -27,7 +27,7 @@ const Image: React.FC<PluginProps> = ({ context, componentData, updateAttributes
     },
   };
 
-  const imageComponent = (
+  return (
     <ImageComponent
       componentData={componentData}
       isMobile={isMobile}
@@ -43,8 +43,4 @@ const Image: React.FC<PluginProps> = ({ context, componentData, updateAttributes
       block={block}
     />
   );
-
-  return imageComponent;
 };
-
-export default Image;

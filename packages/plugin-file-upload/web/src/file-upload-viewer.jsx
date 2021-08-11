@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { isEqual, debounce } from 'lodash';
-import { mergeStyles, validate } from 'wix-rich-content-common';
+import { mergeStyles, validate, GlobalContext } from 'wix-rich-content-common';
 import { LoaderIcon, getIcon, DownloadIcon, ErrorIcon, ReadyIcon } from './icons';
 // eslint-disable-next-line max-len
 import pluginFileUploadSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-file-upload.schema.json';
@@ -26,6 +26,8 @@ class FileUploadViewer extends PureComponent {
     resolvingUrl: false,
     currentWidth: 0,
   };
+
+  static contextType = GlobalContext;
 
   constructor(props) {
     super(props);
@@ -255,8 +257,11 @@ class FileUploadViewer extends PureComponent {
     if (!withFileUrlResolver) {
       return null;
     }
+    const loading = this.context.experiments.lazyImagesAndIframes?.enabled ? 'lazy' : undefined;
 
-    return <iframe ref={this.iframeRef} style={{ display: 'none' }} title="file" />;
+    return (
+      <iframe ref={this.iframeRef} style={{ display: 'none' }} title="file" loading={loading} />
+    );
   }
 
   onFileClick = () => this.props.helpers.onViewerAction?.(FILE_UPLOAD_TYPE, 'Click');

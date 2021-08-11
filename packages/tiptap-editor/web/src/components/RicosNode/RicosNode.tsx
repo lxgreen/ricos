@@ -1,41 +1,49 @@
-import React, { useContext, useRef } from 'react';
+import { pipe } from 'fp-ts/function';
+import * as A from 'fp-ts/Array';
+import { concatAll } from 'fp-ts/Monoid';
+import * as E from 'fp-ts/Endomorphism';
+import React, { useContext, useRef, ComponentType } from 'react';
+import { NodeViewWrapper, NodeViewRendererProps } from '@tiptap/react';
+import { NodeViewHoc, NodeViewHocMap, RicosTiptapContextValue } from 'wix-rich-content-common';
 import { RicosTiptapContext } from '../../context';
-import { NodeViewWrapper } from '@tiptap/react';
 
-const pipe = functions => data => {
-  return functions.reduce((value, func) => func(value), data);
-};
+export type RicosNodeProps = NodeViewRendererProps &
+  RicosTiptapContextValue & {
+    componentData: NodeViewRendererProps['node']['attrs'];
+  };
 
-export const RicosNode = ({ component, tiptapNodeProps }) => {
-  const ricosTiptapContext = useContext(RicosTiptapContext) || {};
-  const { nodeViewsHOCs } = ricosTiptapContext;
-  const nodeViewsHOCsByType = nodeViewsHOCs[tiptapNodeProps.node.type.name] || [];
-  const nodeViewsHOCsForAll = nodeViewsHOCs['*'] || [];
-  const nodeViewsHOCsAllAndByType = [...nodeViewsHOCsForAll, ...nodeViewsHOCsByType].sort(
-    (extA, extB) => {
-      const defaultPriority = 100;
-      const extAPriority = extA.priority || defaultPriority;
-      const extBPriority = extB.priority || defaultPriority;
+const composeHocs = (component: ComponentType<RicosNodeProps>) => (
+  hocs: NodeViewHoc<RicosNodeProps>[]
+): ComponentType<RicosNodeProps> =>
+  concatAll(E.getMonoid<ComponentType<RicosNodeProps>>())(hocs)(component);
 
-      if (extAPriority > extBPriority) {
-        return -1;
-      }
+const getHocsByKey = (key: string) => (map: NodeViewHocMap) => map[key] || ([] as NodeViewHoc[]);
 
-      if (extAPriority < extBPriority) {
-        return 1;
-      }
-      return 0;
-    }
+export const RicosNode = ({
+  component,
+  tiptapNodeProps,
+}: {
+  component: ComponentType<RicosNodeProps>;
+  tiptapNodeProps: NodeViewRendererProps;
+}) => {
+  const ricosTiptapContext = useContext(RicosTiptapContext);
+
+  // TODO: merged hoc array cannot be sorted by priority, as it does not exist in NodeViewHoc
+  const componentWithNodeHOCs = pipe(
+    [getHocsByKey('*'), getHocsByKey(tiptapNodeProps.node.type.name)],
+    A.ap(A.of(ricosTiptapContext.nodeViewsHOCs)),
+    concatAll(A.getMonoid<NodeViewHoc>()),
+    A.reverse,
+    composeHocs(component)
   );
 
-  const ComponentWithNodeHOCs = useRef(pipe(nodeViewsHOCsAllAndByType.reverse())(component))
-    .current;
-
-  const componentProps = {
-    ...ricosTiptapContext, // helpes , editor Props
+  const componentProps: RicosNodeProps = {
+    ...ricosTiptapContext,
     componentData: tiptapNodeProps.node.attrs,
     ...tiptapNodeProps,
   };
+
+  const ComponentWithNodeHOCs = useRef(componentWithNodeHOCs).current;
   return (
     <NodeViewWrapper>
       <ComponentWithNodeHOCs {...componentProps} />

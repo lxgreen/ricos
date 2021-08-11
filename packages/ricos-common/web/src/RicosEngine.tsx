@@ -100,6 +100,7 @@ export class RicosEngine extends Component<EngineProps> {
       onAtomicBlockFocus,
       experiments,
       editorCommands,
+      iframeSandboxDomain,
     } = this.props;
 
     const { strategyProps, previewContent, htmls } = this.runStrategies();
@@ -179,6 +180,7 @@ export class RicosEngine extends Component<EngineProps> {
       textAlignment,
       onAtomicBlockFocus,
       experiments,
+      iframeSandboxDomain,
     };
 
     const mergedRCProps = merge(strategyProps, _rcProps, ricosPropsToMerge, children.props);

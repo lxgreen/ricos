@@ -59,7 +59,7 @@
   "LinkPreview_RemovePreview_Tooltip": "Remove preview",
   "LinkPreview_Settings_Tooltip": "Link settings",
   "LineSpacingButton_Tooltip": "Line spacing",
-  "MobileLinkModal_Title": "Add a link",
+  "MobileLinkModal_Title": "Link",
   "Mobile_LinkPreview_Hide": "Hide",
   "SettingsPanelFooter_Save": "Save",
   "SettingsPanelFooter_Done": "Done",
@@ -579,5 +579,6 @@
   "TablePlugin_SettingsModal_CreateTable_Button": "Create Table",
   "UnsupportedPlugin_message": "This content block can only be edited from a browser",
   "LinkPanel_Sponsored_Checkbox_Tooltip": "Let search engines know this link represents a paid ad, sponsorship, or paid agreement.",
-  "Poll_plugin_search_tags": "vote ballot survey question ask interview opinion polls"
+  "Poll_plugin_search_tags": "vote ballot survey question ask interview opinion polls",
+  "CollapsibleList_plugin_search_tags": "collapsible FAQ questions expandable sections menu Q&A listings items answers layouts"
 }
