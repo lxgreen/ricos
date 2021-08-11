@@ -15,7 +15,6 @@ import {
 import { LinkPanelWrapper } from 'wix-rich-content-editor-common';
 import { BackIcon, DeleteIcon, ReplaceIcon, NextIcon, PreviousIcon } from '../../icons';
 import styles from '../../../statics/styles/gallery-image-settings.scss';
-// import GallerySettingsMobileHeader from './gallery-settings-mobile-header';
 
 class ImageSettings extends Component {
   constructor(props) {

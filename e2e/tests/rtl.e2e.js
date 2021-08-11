@@ -98,7 +98,7 @@ describe('rtl', () => {
       cy.loadRicosEditorAndViewer('images')
         .openPluginToolbar(PLUGIN_COMPONENT.IMAGE)
         .openSettings()
-        .get('[data-hook="ImageSettingsMobileHeaderCancel"]')
+        .get('[data-hook="ImageSettingsMobileHeaderCancel"]') //us actionbuttons save
         .blur();
       cy.eyesCheckWindow({ tag: this.test.title, target: 'window', fully: false });
     });

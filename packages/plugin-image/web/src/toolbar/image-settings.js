@@ -12,7 +12,6 @@ import {
   Loader,
   SettingsMobileHeader,
 } from 'wix-rich-content-ui-components';
-// import ImageSettingsMobileHeader from './image-settings-mobile-header';
 import styles from '../../statics/styles/image-settings.scss';
 import { DIVIDER } from '../consts';
 

@@ -19,7 +19,6 @@ import {
 } from 'wix-rich-content-common';
 import DesignComponent from '../components/design-component';
 import SettingsComponent from '../components/settings-component';
-// import Navbar from '../components/navbar';
 import PreviewComponent from '../components/preview-component';
 import { settingsTabValue, designTabValue } from '../constants';
 import styles from '../../statics/styles/button-input-modal.scss';
@@ -209,7 +208,6 @@ export default class ButtonInputModal extends Component {
     if (isMobile) {
       mobileView = (
         <div>
-          {/* <Navbar onConfirm={this.onConfirm} onCancel={this.onCloseRequested} {...this.props} /> */}
           <SettingsMobileHeader
             onSave={this.onConfirm}
             onCancel={this.onCloseRequested}

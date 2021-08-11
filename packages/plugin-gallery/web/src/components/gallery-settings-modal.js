@@ -15,7 +15,6 @@ import styles from '../../statics/styles/gallery-settings-modal.scss';
 import LayoutControlsSection from './layout-controls-section';
 import { SortableComponent } from './gallery-controls/gallery-items-sortable';
 import { layoutData } from '../../lib/layout-data-provider';
-// import GallerySettingsMobileHeader from './gallery-controls/gallery-settings-mobile-header';
 const DIVIDER = 'divider';
 class ManageMediaSection extends Component {
   applyItems = items => {
