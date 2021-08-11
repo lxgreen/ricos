@@ -27,13 +27,12 @@ import {
 import { ToolbarType, Version, RicosTranslate, EditorCommands } from 'wix-rich-content-common';
 import { emptyDraftContent, getEditorContentSummary } from 'wix-rich-content-editor-common';
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
-import TextFormattingToolbar from './toolbars/TextFormattingToolbar';
-import LinkToolbar from './toolbars/LinkToolbar';
 
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
 The getContent(postId, isPublishing) API is deprecated and will be removed in ricos v9.0.0`;
 
+const LinkToolbar = React.lazy(() => import('./toolbars/LinkToolbar'));
 interface State {
   StaticToolbar?: ElementType;
   localeData: { locale?: string; localeResource?: Record<string, string> };
@@ -45,6 +44,7 @@ interface State {
   tiptapEditorModule: Record<string, any> | null;
   tiptapToolbar: unknown;
   error?: string;
+  textFormattingToolbarModule?: Record<string, any> | null;
 }
 
 // controller between tiptap extensions to ricos editor
@@ -57,6 +57,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   editor!: RichContentEditor;
 
   useTiptap = false;
+
+  useNewFormattingToolbar = false;
 
   dataInstance: EditorDataInstance;
 
@@ -85,8 +87,10 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       activeEditor: null,
       tiptapEditorModule: null,
       tiptapToolbar: null,
+      textFormattingToolbarModule: null,
     };
     this.useTiptap = !!props.experiments?.tiptapEditor?.enabled;
+    this.useNewFormattingToolbar = !!props.experiments?.newFormattingToolbar?.enabled;
   }
 
   static defaultProps = {
@@ -107,6 +111,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   componentDidMount() {
     this.updateLocale();
     this.loadEditor();
+    this.loadToolbar();
     const { isMobile, toolbarSettings } = this.props;
     const { useStaticTextToolbar } = toolbarSettings || {};
     this.getBiCallback('onOpenEditorSuccess')?.(
@@ -124,6 +129,17 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         'wix-tiptap-editor'
       ).then(tiptapEditorModule => {
         this.setState({ tiptapEditorModule });
+      });
+    }
+  }
+
+  loadToolbar() {
+    if (this.useNewFormattingToolbar) {
+      import(
+        /* webpackChunkName: "./toolbars/TextFormattingToolbar" */
+        './toolbars/TextFormattingToolbar'
+      ).then(textFormattingToolbarModule => {
+        this.setState({ textFormattingToolbarModule });
       });
     }
   }
@@ -303,7 +319,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   }
 
   renderDraftEditor() {
-    const { StaticToolbar, remountKey, activeEditor } = this.state;
+    const { textFormattingToolbarModule, StaticToolbar, remountKey, activeEditor } = this.state;
+    const TextFormattingToolbar = textFormattingToolbarModule?.default;
     const {
       isMobile,
       theme,
@@ -321,13 +338,12 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         <RichContentEditor />
       );
 
-    const newFormattingToolbar = this.props.experiments?.newFormattingToolbar?.enabled;
     const activeEditorIsTableCell = activeEditor?.isInnerRCERenderedInTable();
 
     const textToolbarType = StaticToolbar ? 'static' : null;
 
     let hideFormattingToolbar; //when LinkToolbar is open in mobile
-    if (newFormattingToolbar && activeEditor && isMobile) {
+    if (this.useNewFormattingToolbar && activeEditor && isMobile) {
       const editorCommands: EditorCommands = activeEditor.getEditorCommands();
       const selection = editorCommands.getSelection();
       if (isMobile) {
@@ -373,10 +389,10 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     };
     return (
       <Fragment key={`${remountKey}`}>
-        {!newFormattingToolbar && this.renderToolbarPortal(StaticToolbar)}
-        {newFormattingToolbar && !activeEditorIsTableCell && activeEditor && (
+        {!this.useNewFormattingToolbar && this.renderToolbarPortal(StaticToolbar)}
+        {this.useNewFormattingToolbar && !activeEditorIsTableCell && activeEditor && (
           <>
-            {!hideFormattingToolbar && (
+            {!hideFormattingToolbar && TextFormattingToolbar && (
               <TextFormattingToolbar activeEditor={activeEditor} {...toolbarsProps} />
             )}
             <LinkToolbar activeEditor={activeEditor} {...toolbarsProps} />

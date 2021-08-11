@@ -40,14 +40,7 @@ interface TextFormattingToolbarProps {
   ) => void;
 }
 
-interface State {}
-
-class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State> {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
+class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
   getPluginsKey = () => {
     const { activeEditor } = this.props;
     const rawPlugins = activeEditor?.getPlugins?.();
