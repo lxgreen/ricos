@@ -80,10 +80,8 @@ export default class UrlInputModal extends Component {
           <SettingsMobileHeader
             theme={theme}
             onSave={() => onConfirm()}
-            cancelLabel={t('SettingsPanelFooter_Cancel')}
-            saveLabel={t('SettingsPanelFooter_Save')}
             onCancel={() => onCloseRequested()}
-            dataHookPrefix={'UrlInputModalHeader'}
+            t={t}
           />
         )}
 

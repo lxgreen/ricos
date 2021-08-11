@@ -94,6 +94,7 @@ class ImageSettings extends Component {
               onSave={onSave}
               cancelLabel={t('GallerySettings_MobileHeader_Cancel')}
               saveLabel={t('GallerySettings_MobileHeader_Save')}
+              t={t}
             />
           ) : (
             <h3

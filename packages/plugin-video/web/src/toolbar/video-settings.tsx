@@ -45,12 +45,8 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
   const mobileSettingsProps = {
     t,
     theme,
-    dataHookPrefix: 'VideoSettingsMobileHeader',
-    cancelLabel: t('SettingsPanelFooter_Cancel'),
-    saveLabel: t('SettingsPanelFooter_Save'),
-    isMediaSettingsModal: true,
-    cancel: closeModal,
-    save: onDoneClick,
+    onCancel: closeModal,
+    onSave: onDoneClick,
   };
 
   const spoilerToggle = {

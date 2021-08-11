@@ -127,7 +127,7 @@ class ImageSettings extends Component {
     this.setState({ src: componentData.src, error: componentData?.error });
   };
 
-  revertComponentData() {
+  revertComponentData = () => {
     const { componentData, helpers, pubsub } = this.props;
     if (this.initialState) {
       const { isExpandEnabled, isDownloadEnabled, ...rest } = this.initialState;
@@ -141,7 +141,7 @@ class ImageSettings extends Component {
       this.setState({ ...this.initialState });
     }
     helpers.closeModal();
-  }
+  };
 
   metadataUpdated = (metadata, value) => {
     this.setState({ metadata: { ...metadata, ...value } });
@@ -180,11 +180,11 @@ class ImageSettings extends Component {
         {isMobile ? (
           <SettingsMobileHeader
             theme={theme}
-            onCancel={() => this.revertComponentData()}
-            onSave={() => this.onDoneClick()}
-            saveName={this.updateLabel}
+            onCancel={this.revertComponentData}
+            onSave={this.onDoneClick}
             cancelLabel={t('ImageSettings_MobileHeader_Cancel')}
             saveLabel={t('ImageSettings_MobileHeader_Save')}
+            t={t}
           />
         ) : (
           <h3 className={this.styles.imageSettingsTitle}>{this.headerText}</h3>
@@ -271,8 +271,8 @@ class ImageSettings extends Component {
           <SettingsPanelFooter
             fixed
             theme={theme}
-            cancel={() => this.revertComponentData()}
-            save={() => this.onDoneClick()}
+            cancel={this.revertComponentData}
+            save={this.onDoneClick}
             t={t}
           />
         )}

@@ -19,11 +19,13 @@ export default () => {
           </Button>
           <div className={styles.section} style={{ position: 'relative' }}>
             <SettingsMobileHeader
+              theme={styles}
               cancelLabel="Cancel"
               saveLabel="Save"
-              otherTab={withMoreTab && 'One more tab'}
               // eslint-disable-next-line no-console
-              switchTab={() => console.log('tab switched')}
+              onCancel={() => console.log('Cancel')}
+              // eslint-disable-next-line no-console
+              onSave={() => console.log('save')}
             />
           </div>
         </div>

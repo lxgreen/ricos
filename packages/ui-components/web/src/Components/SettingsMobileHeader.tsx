@@ -1,16 +1,17 @@
 import React from 'react';
 import { ActionButtons } from '..';
-import { RichContentTheme } from 'wix-rich-content-common';
+import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 
 import styles from '../../statics/styles/settings-mobile-header.scss';
 
 export interface SettingsMobileHeaderProps {
   onCancel: () => void;
   onSave: () => void;
-  cancelLabel: string;
-  saveLabel: string;
+  cancelLabel?: string;
+  saveLabel?: string;
   theme: RichContentTheme;
   title?: string;
+  t?: TranslationFunction;
 }
 
 const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
@@ -20,9 +21,13 @@ const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
   saveLabel,
   cancelLabel,
   title,
+  t,
 }) => {
   // const [menuVisible, toggleMenu] = useState(false);
   // const _styles = mergeStyles({ styles, theme });
+
+  const saveText = saveLabel || t?.('SettingsPanelFooter_Done');
+  const cancelText = cancelLabel || t?.('SettingsPanelFooter_Cancel');
 
   return (
     <div className={styles.setting_mobile_header}>
@@ -31,8 +36,8 @@ const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
         isMobile
         onCancel={onCancel}
         onSave={onSave}
-        cancelText={cancelLabel}
-        saveText={saveLabel}
+        cancelText={cancelText}
+        saveText={saveText}
         theme={theme}
       />
     </div>

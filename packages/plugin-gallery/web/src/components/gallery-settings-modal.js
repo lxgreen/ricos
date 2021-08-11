@@ -360,6 +360,7 @@ export class GallerySettingsModal extends Component {
             onSave={this.onDoneClick}
             cancelLabel={t('GallerySettings_MobileHeader_Cancel')}
             saveLabel={t('GallerySettings_MobileHeader_Save')}
+            t={t}
           />
         )}
         <FocusManager
