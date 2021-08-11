@@ -24,6 +24,7 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
     Component,
     createComponentDataDefaults: ({ ImageData }) => ({
       ...ImageData.fromJSON({}),
+      id: '',
       myLoading: {
         default: false,
       },

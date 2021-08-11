@@ -27,8 +27,8 @@ export type NodeViewHocMap = {
 export type RicosTiptapContextValue = {
   nodeViewsHOCs: NodeViewHocMap;
   context: {
-    config: Record<string, EditorPluginConfig>;
-    t: TranslationFunction;
+    config?: Record<string, EditorPluginConfig>;
+    t?: TranslationFunction;
   };
 };
 

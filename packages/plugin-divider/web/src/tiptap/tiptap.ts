@@ -5,7 +5,7 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
     Component,
-    createComponentDataDefaults: ({ DividerData }) => DividerData.fromJSON({}),
+    createComponentDataDefaults: ({ DividerData }) => ({ ...DividerData.fromJSON({}), id: '' }),
     createExtensionConfig: () => ({
       name: 'divider',
       defaultOptions,
