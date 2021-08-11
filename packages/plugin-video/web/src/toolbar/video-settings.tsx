@@ -103,14 +103,7 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
         ))}
       </SettingsSection>
       {!isMobile && (
-        <SettingsPanelFooter
-          className={styles.videoSettings_footer}
-          fixed
-          theme={theme}
-          cancel={closeModal}
-          save={onDoneClick}
-          t={t}
-        />
+        <SettingsPanelFooter fixed theme={theme} cancel={closeModal} save={onDoneClick} t={t} />
       )}
     </div>
   );
