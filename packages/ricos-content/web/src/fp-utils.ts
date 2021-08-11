@@ -6,7 +6,7 @@ import * as A from 'fp-ts/Array';
 import * as E from 'fp-ts/Either';
 import * as S from 'fp-ts/Semigroup';
 
-export const resolveFirstRight = <C, T>(
+export const firstRight = <C, T>(
   candidate: C,
   defaultT: T,
   resolvers: [(candidate: C) => boolean, (candidate: C) => T][]

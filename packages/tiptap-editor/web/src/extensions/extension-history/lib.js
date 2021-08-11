@@ -405,10 +405,8 @@ export function history(config) {
       },
       apply(tr, hist, state) {
         if(tr.getMeta('skip')){
-          console.log({hist});
           return hist;
         }
-        console.log({hist});
 
         return applyTransaction(hist, state, tr, config)
       }

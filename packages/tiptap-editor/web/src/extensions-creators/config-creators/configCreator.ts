@@ -1,29 +1,39 @@
-import { NodeConfig, MarkConfig, ExtensionConfig } from '@tiptap/react';
-import { compact } from 'lodash';
-import { CreateTiptapExtensionConfig, EditorPlugin } from 'wix-rich-content-common';
+import { flow } from 'fp-ts/function';
+import * as A from 'fp-ts/Array';
+import * as O from 'fp-ts/Option';
+import { ExtensionConfig } from '@tiptap/core';
+import {
+  isRicosNodeExtension,
+  isRicosMarkExtension,
+  isRicosFunctionalExtension,
+  RicosTiptapExtension,
+  EditorPlugin,
+  TiptapExtensionConfig,
+} from 'wix-rich-content-common';
+import { firstRight } from 'ricos-content';
 import {
   createRicosNodeConfig,
   createRicosMarkConfig,
-  createRicosGenericExtensionConfig,
+  createRicosFunctionalExtensionConfig,
 } from '..';
 
-export const createRicosExtensionsConfigs = (ricosExtensions: EditorPlugin[]) => {
-  const tiptapExtensions = compact(ricosExtensions.map(extension => extension.tiptapExtension));
-  const configs = tiptapExtensions.map(({ type, Component, createConfig }) => {
-    let creator;
-    switch (type) {
-      case 'node':
-        creator = createConfig as CreateTiptapExtensionConfig<NodeConfig>;
-        return createRicosNodeConfig(Component as React.ComponentType, creator);
-      case 'mark':
-        creator = createConfig as CreateTiptapExtensionConfig<MarkConfig>;
-        return createRicosMarkConfig(creator);
-      case 'extension':
-        creator = createConfig as CreateTiptapExtensionConfig<ExtensionConfig>;
-        return createRicosGenericExtensionConfig(creator);
-      default:
-        throw Error('Extension type is unknown');
-    }
-  });
-  return configs;
+const identityExtensionConfig: ExtensionConfig = {
+  name: 'identity',
+  type: 'extension',
 };
+
+const toTiptapExtensions = (plugin: EditorPlugin) => O.fromNullable(plugin.tiptapExtensions);
+
+const toExtensionConfig = (ext: RicosTiptapExtension) =>
+  firstRight(ext, identityExtensionConfig as TiptapExtensionConfig, [
+    [isRicosNodeExtension, createRicosNodeConfig],
+    [isRicosMarkExtension, createRicosMarkConfig],
+    [isRicosFunctionalExtension, createRicosFunctionalExtensionConfig],
+  ]);
+
+export const createRicosExtensionsConfigs = flow(
+  A.map(toTiptapExtensions),
+  A.compact,
+  A.flatten,
+  A.map(toExtensionConfig)
+);

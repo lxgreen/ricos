@@ -79,6 +79,7 @@ const createInlineButtons: CreateInlineButtons = ({
     {
       keyName: 'manage_media',
       type: BUTTONS.EXTERNAL_MODAL,
+      fullHeight: true,
       icon: icons.manage_media || ManageMediaIcon,
       modalName: Modals.GALLERY_SETTINGS,
       activeTab: 'manage_media',
@@ -93,6 +94,7 @@ const createInlineButtons: CreateInlineButtons = ({
     {
       keyName: 'advanced_settings',
       type: BUTTONS.EXTERNAL_MODAL,
+      fullHeight: true,
       icon: icons.advanced_settings || PluginSettingsIcon,
       modalName: Modals.GALLERY_SETTINGS,
       activeTab: 'settings',

@@ -1,53 +1,66 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable camelcase */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
-import { mergeStyles, validate, getHost } from 'wix-rich-content-common';
-// eslint-disable-next-line max-len
+import {
+  mergeStyles,
+  validate,
+  getHost,
+  ComponentData,
+  Helpers,
+  RichContentTheme,
+} from 'wix-rich-content-common';
 import pluginLinkPreviewSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-link-preview.schema.json';
 import styles from '../statics/styles/link-preview.scss';
 import HtmlComponent from 'wix-rich-content-plugin-html/libs/HtmlComponent';
-import { LINK_PREVIEW_TYPE } from './types';
+import { LinkPreviewPluginEditorConfig, LINK_PREVIEW_TYPE } from './types';
 
-class LinkPreviewViewer extends Component {
-  static propTypes = {
-    componentData: PropTypes.object.isRequired,
-    settings: PropTypes.shape({
-      enableEmbed: PropTypes.bool,
-    }),
-    theme: PropTypes.object,
-    isMobile: PropTypes.bool.isRequired,
-    iframeSandboxDomain: PropTypes.string,
-    helpers: PropTypes.object,
+interface LinkPreviewViewerProps {
+  componentData: Omit<ComponentData, 'link'> & {
+    link: {
+      url: string;
+      target?: string;
+      rel?: string;
+    };
   };
+  settings: LinkPreviewPluginEditorConfig;
+  theme: RichContentTheme;
+  isMobile: boolean;
+  iframeSandboxDomain: string;
+  helpers?: Helpers;
+}
 
-  constructor(props) {
+class LinkPreviewViewer extends Component<LinkPreviewViewerProps, { imageHeight?: number }> {
+  image: HTMLDivElement | null = null;
+
+  styles: Record<string, string>;
+
+  constructor(props: LinkPreviewViewerProps) {
     super(props);
     const { componentData, theme } = props;
     validate(componentData, pluginLinkPreviewSchema);
     this.state = {};
-    this.styles = this.styles || mergeStyles({ styles, theme });
+    this.styles = mergeStyles({ styles, theme });
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: LinkPreviewViewerProps) {
     if (!isEqual(nextProps.componentData, this.props.componentData)) {
       validate(nextProps.componentData, pluginLinkPreviewSchema);
     }
   }
 
   componentDidMount() {
-    validate(pluginLinkPreviewSchema, this.props.componentData);
+    validate(this.props.componentData, pluginLinkPreviewSchema);
     this.setState({ imageHeight: this.image?.offsetHeight });
   }
 
-  getUrlForDisplay = url => url.replace(/^https?:\/\//, '');
+  getUrlForDisplay = (url: string) => url.replace(/^https?:\/\//, '');
 
   onLinkPreviewClick = () =>
-    this.props.helpers.onViewerAction?.(
+    this.props.helpers?.onViewerAction?.(
       LINK_PREVIEW_TYPE,
       'Click',
-      this.props.componentData.config.link.url
+      this.props.componentData.config.link.url || ''
     );
 
   render() {
@@ -103,6 +116,8 @@ class LinkPreviewViewer extends Component {
                 backgroundImage: `url(${thumbnailUrl})`,
               }}
               className={linkPreviewImage}
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               alt={title}
               ref={ref => (this.image = ref)}
             />

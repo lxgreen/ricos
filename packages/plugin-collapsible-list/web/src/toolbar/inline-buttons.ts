@@ -22,6 +22,7 @@ const createInlineButtons: CreateInlineButtons = ({ t }: { t: TranslationFunctio
     {
       keyName: 'settings',
       type: BUTTONS.EXTERNAL_MODAL,
+      fullHeight: true,
       modalName: Modals.COLLAPSIBLE_LIST_MODAL,
       children: t('CollapsibleList_CollapsibleListSettings_Tab_Settings_TabName'),
       modalStyles: getModalStyles(modalStyles),

@@ -18,3 +18,5 @@ export { isContentStateEmpty } from './contentStateUtils/contentStateUtils';
 export { createContent } from './contentStateUtils/createContent';
 
 export { compare } from './comparision/compare';
+
+export * from './fp-utils';

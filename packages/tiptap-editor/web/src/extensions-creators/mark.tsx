@@ -1,14 +1,10 @@
-import { mergeAttributes, MarkConfig } from '@tiptap/react';
-import { CreateTiptapExtensionConfig } from 'wix-rich-content-common';
-import { RicosMarkConfig } from '../types';
+import * as ricosSchema from 'ricos-schema';
+import { RicosMarkExtension } from 'wix-rich-content-common';
+import { mergeAttributes } from '@tiptap/react';
+import { MarkConfig } from '@tiptap/core';
 
-type RicosMarkConfigCreator = (
-  configCreator: CreateTiptapExtensionConfig<MarkConfig>
-) => RicosMarkConfig;
-
-export const createRicosMarkConfig: RicosMarkConfigCreator = configCreator => {
-  return {
-    ...configCreator({ mergeAttributes }),
-    extensionType: 'mark',
-  };
-};
+export const createRicosMarkConfig = (ext: RicosMarkExtension): MarkConfig => ({
+  addAttributes: () => ext.createComponentDataDefaults?.(ricosSchema) || {},
+  ...ext.createExtensionConfig({ mergeAttributes }),
+  type: ext.type,
+});

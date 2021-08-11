@@ -65,7 +65,7 @@ const collapseWhitespaces: AstRule = [
   concatApply(MonoidAll)([
     isText,
     isWhitespace,
-    hasParent(not(oneOf(['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']))),
+    hasParent(not(oneOf(['p', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']))),
   ]),
   (node: TextNode) => ({
     ...node,
@@ -105,19 +105,31 @@ const wrapTextUnderLi: AstRule = [
   }),
 ];
 
+const nakedSpanToP: AstRule = [
+  concatApply(MonoidAll)([
+    hasTag('span'),
+    hasParent(not(oneOf(['p', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']))),
+  ]),
+  (node: Element) => ({
+    ...node,
+    nodeName: 'p',
+    tagName: 'p',
+  }),
+];
+
 const collapseBreaks = flow(
   S.replace(/(<br \/>\s*){3}/, '<br class="double-break" />'),
   S.replace(/(<br \/>\s*){2}/, '<br class="single-break" />')
 );
 
 export const preprocess = flow(
-  collapseBreaks,
-  toAst,
+  flow(collapseBreaks, toAst),
   traverse(leafParagraphToDiv),
   traverse(cleanListPadding),
   traverse(cleanListItemPadding),
   traverse(containerPToDiv),
   traverse(wrapTextUnderLi),
   traverse(collapseWhitespaces),
+  traverse(nakedSpanToP),
   serialize
 );

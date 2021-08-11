@@ -348,6 +348,7 @@ class EditorWrapper extends React.Component<Props> {
           onChange={onChange}
           experiments={experiments}
           _rcProps={rcProps}
+          onAtomicBlockFocus={d => console.log('onAtomicBlockFocus', d)} // eslint-disable-line
         >
           <RichContentEditor
             onFocus={onFocus}

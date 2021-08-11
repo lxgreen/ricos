@@ -344,6 +344,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                     const TextToolbar = richContentAdapter.getToolbars().TextToolbar;
                     this.setState({ tiptapToolbar: TextToolbar });
                   }}
+                  onUpdate={this.onUpdate}
                 />
               );
               return this.renderRicosEngine(tiptapEditor, {});
