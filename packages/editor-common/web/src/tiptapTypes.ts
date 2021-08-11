@@ -1,28 +1,21 @@
 import { Node as ProseMirrorNode } from 'prosemirror-model';
-import { FC } from 'react';
-import { Editor } from '@tiptap/react';
+import {
+  ComponentData,
+  EditorCommands,
+  LegacyEditorPluginConfig,
+  RichContentTheme,
+} from 'wix-rich-content-common';
 
 export interface PluginProps {
   context: {
     isMobile: boolean;
-    theme: string;
+    theme: RichContentTheme;
     t: (key: string) => string;
+    config: LegacyEditorPluginConfig;
+    iframeSandboxDomain: string;
   };
-  // eslint-disable-next-line
-  componentData: any;
+  componentData: ComponentData;
   node: ProseMirrorNode;
-  editorCommands: unknown;
+  editorCommands: EditorCommands;
   updateAttributes: (data: unknown) => null;
 }
-
-export type TiptapAPI = {
-  Editor: FC;
-  blur: () => void;
-  focus: () => void;
-  // eslint-disable-next-line
-  getEditorCommands: () => any; // EditorCommands;
-  getToolbars: () => Record<string, FC>;
-  // eslint-disable-next-line
-  getToolbarProps: () => Record<string, any>; // to be deprecated
-  destroy: Editor['destroy'];
-};

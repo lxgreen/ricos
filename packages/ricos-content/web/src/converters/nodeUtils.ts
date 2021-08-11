@@ -155,6 +155,30 @@ export const createLink = ({
   };
 };
 
+export const parseLink = ({
+  url,
+  rel,
+  target,
+  anchor,
+  customData,
+}: Link): {
+  url?: string;
+  rel?: string;
+  target?: string;
+  anchor?: string;
+  customData?: string;
+} => ({
+  anchor,
+  url,
+  rel:
+    rel &&
+    Object.entries(rel)
+      .flatMap(([key, value]) => (value ? key : []))
+      .join(' '),
+  target: target && '_' + target.toLowerCase(),
+  customData,
+});
+
 export const createLinkDecoration = (data: { url?: string; rel?: string; target?: string }) =>
   createDecoration(Decoration_Type.LINK, { linkData: { link: createLink(data) } });
 
