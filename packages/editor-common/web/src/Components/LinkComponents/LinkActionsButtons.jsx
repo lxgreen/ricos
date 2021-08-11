@@ -11,15 +11,6 @@ class LinkActionsButtons extends PureComponent {
     this.styles = mergeStyles({ styles, theme: props.theme });
   }
 
-  renderMobileTitle = () => {
-    const { t } = this.props;
-    return (
-      <div id="mob_link_modal_hdr" className={styles.LinkButtons_mobile_title}>
-        {t('MobileLinkModal_Title')}
-      </div>
-    );
-  };
-
   render() {
     const { styles } = this;
     const {
@@ -69,24 +60,22 @@ class LinkActionsButtons extends PureComponent {
             borderless
           />
         )}
-        <div className={isMobile && styles.LinkButtons_mobile_header}>
-          {isMobile && this.renderMobileTitle()}
-          <div
-            className={classNames(styles.actionButtons_wrapper, {
-              [styles.actionButtons_wrapper_mobile]: isMobile,
-            })}
-          >
-            <ActionButtons
-              size={BUTTON_SIZE.tiny}
-              isMobile={isMobile}
-              onCancel={onCancel}
-              onSave={onDone}
-              theme={this.theme}
-              cancelText={cancelButtonText}
-              saveText={doneButtonText}
-              disableSave={!isDoneButtonEnable}
-            />
-          </div>
+
+        <div
+          className={classNames(styles.actionButtons_wrapper, {
+            [styles.actionButtons_wrapper_mobile]: isMobile,
+          })}
+        >
+          <ActionButtons
+            size={BUTTON_SIZE.tiny}
+            isMobile={isMobile}
+            onCancel={onCancel}
+            onSave={onDone}
+            theme={this.theme}
+            cancelText={cancelButtonText}
+            saveText={doneButtonText}
+            disableSave={!isDoneButtonEnable}
+          />
         </div>
       </div>
     );

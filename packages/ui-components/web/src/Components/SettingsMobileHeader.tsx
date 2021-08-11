@@ -23,15 +23,12 @@ const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
   title,
   t,
 }) => {
-  // const [menuVisible, toggleMenu] = useState(false);
-  // const _styles = mergeStyles({ styles, theme });
-
   const saveText = saveLabel || t?.('SettingsPanelFooter_Done');
   const cancelText = cancelLabel || t?.('SettingsPanelFooter_Cancel');
 
   return (
     <div className={styles.setting_mobile_header}>
-      {title && <div className={styles.setting_mobile_header_title}>title</div>}
+      {title && <div className={styles.setting_mobile_header_title}>{title}</div>}
       <ActionButtons
         isMobile
         onCancel={onCancel}
@@ -41,57 +38,6 @@ const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
         theme={theme}
       />
     </div>
-    // <div role="menu" className={classNames(_styles.root)}>
-    //   {!isMediaSettingsModal && <div className={_styles.headerPlaceholder} />}
-    //   <div
-    //     className={classNames(_styles.header, {
-    //       [styles.media]: isMediaSettingsModal,
-    //     })}
-    //   >
-    //     <button
-    //       data-hook={dataHookPrefix + 'Cancel'}
-    //       role="menuitem"
-    //       aria-label={cancelLabel}
-    //       onClick={() => cancel()}
-    //       className={classNames(_styles.button, _styles.cancel)}
-    //     >
-    //       {cancelLabel}
-    //     </button>
-    //     {otherTab ? (
-    //       <button
-    //         role="menuitem"
-    //         aria-label="More"
-    //         data-hook={dataHookPrefix + 'More'}
-    //         onClick={() => toggleMenu(!menuVisible)}
-    //         className={classNames(_styles.button, _styles.menuIcon)}
-    //       >
-    //         <MoreIcon />
-    //       </button>
-    //     ) : null}
-    //     <button
-    //       data-hook={dataHookPrefix + 'Done'}
-    //       onClick={() => save()}
-    //       role="menuitem"
-    //       aria-label={saveLabel}
-    //       className={classNames(_styles.button, _styles.done)}
-    //     >
-    //       {saveLabel}
-    //     </button>
-    //   </div>
-    //   {menuVisible && (
-    //     <div className={_styles.menu}>
-    //       <SelectionList
-    //         theme={theme}
-    //         dataSource={[otherTab]}
-    //         value={''}
-    //         onChange={() => {
-    //           toggleMenu(false);
-    //           switchTab();
-    //         }}
-    //       />
-    //     </div>
-    //   )}
-    // </div>
   );
 };
 
