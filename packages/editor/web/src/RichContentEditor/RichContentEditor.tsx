@@ -550,9 +550,9 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       this.props.textToolbarType === 'static' ? this.toolbars[TOOLBARS.STATIC].Toolbar : null,
   });
 
-  getInnerRCERenderedIn = () => {
+  isInnerRCERenderedInTable = () => {
     const { innerRCERenderedIn } = this.props;
-    return innerRCERenderedIn;
+    return innerRCERenderedIn === 'wix-rich-content-plugin-table';
   };
 
   getInitialEditorState() {

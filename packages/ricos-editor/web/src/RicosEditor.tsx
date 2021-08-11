@@ -322,8 +322,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       );
 
     const newFormattingToolbar = this.props.experiments?.newFormattingToolbar?.enabled;
-    const activeEditorIsTableCell =
-      activeEditor?.getInnerRCERenderedIn() === 'wix-rich-content-plugin-table';
+    const activeEditorIsTableCell = activeEditor?.isInnerRCERenderedInTable();
 
     const textToolbarType = StaticToolbar ? 'static' : null;
 
