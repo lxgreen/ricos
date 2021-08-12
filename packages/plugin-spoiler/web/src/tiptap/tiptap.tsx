@@ -1,12 +1,14 @@
 import React from 'react';
+import { CreateRicosExtensions } from 'wix-rich-content-common';
 import { BlockSpoilerComponent } from '..';
 
-export const tiptapExtensions = [
+export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'extension' as const,
-    createConfig: () => ({
+    createExtensionConfig: () => ({
       name: 'spoiler',
       priority: 10,
+      defaultOptions,
       addNodeViewHOC: () => ({
         nodeTypes: [],
         nodeViewHOC: Component => {

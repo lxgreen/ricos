@@ -1,12 +1,12 @@
-import { createRicosGenericExtensionConfig } from './../../extensions-creators/extension';
+import { createRicosFunctionalExtensionConfig } from './../../extensions-creators/extension';
 import React, { useEffect, ComponentType } from 'react';
 
 const name = 'on-node-focus';
 
 export const createOnNodeFocusConfig = () =>
-  createRicosGenericExtensionConfig({
+  createRicosFunctionalExtensionConfig({
     type: 'extension',
-    createConfig: () => ({
+    createExtensionConfig: () => ({
       name,
       priority: 19,
       addNodeViewHOC: () => ({

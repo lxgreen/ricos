@@ -44,12 +44,21 @@ const pluginTags = [
   { plugin: 'AdSensePlugin_InsertButton', tags: 'Adsense_plugin_search_tags', pluginId: 'adsense' },
   { plugin: 'TablePlugin_InsertButton', tags: 'Table_plugin_search_tags', pluginId: 'table' },
   { plugin: 'Poll', tags: 'Poll_plugin_search_tags', pluginId: 'poll' },
+  {
+    plugin: 'CollapsibleList_InsertButton',
+    tags: 'CollapsibleList_plugin_search_tags',
+    pluginId: 'collapsibleList',
+  },
 ];
 
 const getRelatedPlugins = (searchTag, t) => {
   const relatedPlugins = [];
   pluginTags.map(data => {
-    return t(data.tags).includes(searchTag) && relatedPlugins.push(data);
+    return (
+      t(data.tags)
+        .toLowerCase()
+        .includes(searchTag.toLowerCase()) && relatedPlugins.push(data)
+    );
   });
   return relatedPlugins;
 };

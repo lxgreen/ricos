@@ -247,6 +247,7 @@ class GalleryViewer extends React.Component {
         calculatedStyles.thumbnailSize = 90;
       }
     }
+    calculatedStyles.thumbnailSpacings && (calculatedStyles.thumbnailSpacings /= 2);
     return calculatedStyles;
   };
 

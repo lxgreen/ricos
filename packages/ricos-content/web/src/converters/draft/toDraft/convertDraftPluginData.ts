@@ -5,7 +5,6 @@ import {
   Node,
   Node_Type,
   Decoration_Type,
-  Link,
   ImageData,
   Decoration,
   PluginContainerData,
@@ -28,6 +27,7 @@ import {
   DraftGalleryStyles,
 } from '../consts';
 import { ComponentData, FileComponentData } from '../../../types';
+import { parseLink } from '../../nodeUtils';
 
 export const convertNodeToDraftData = (node: Node) => {
   const { type } = node;
@@ -448,27 +448,3 @@ const parseLinkCustomData = (customData: string) => {
     return { customData };
   }
 };
-
-const parseLink = ({
-  url,
-  rel,
-  target,
-  anchor,
-  customData,
-}: Link): {
-  url?: string;
-  rel?: string;
-  target?: string;
-  anchor?: string;
-  customData?: string;
-} => ({
-  anchor,
-  url,
-  rel:
-    rel &&
-    Object.entries(rel)
-      .flatMap(([key, value]) => (value ? key : []))
-      .join(' '),
-  target: target && '_' + target.toLowerCase(),
-  customData,
-});

@@ -2,16 +2,20 @@ import { transform, isObject, pickBy } from 'lodash';
 import { RichContent, Node } from 'ricos-schema';
 import { JSONContent } from '@tiptap/core';
 import { initializeMetadata } from 'ricos-content/libs/nodeUtils';
-import { DATA_FIELDS_MAP, isDecoration, isNode, isProseContent, isTextNode } from '../utils';
+import { DATA_FIELDS_MAP, isDecoration, isNode, isTiptapContent, isTextNode } from '../utils';
 import toConstantCase from 'to-constant-case';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const fromTiptap = <T extends JSONContent | Record<string, any>>(
-  proseContent: T
+  tiptapContent: T
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): T extends JSONContent ? RichContent | Node : Record<string, any> => {
-  let { richContent } = convertFromProse({ richContent: proseContent });
+  const isDocument = isTiptapContent(tiptapContent);
+  let { richContent } = convertFromProse({ richContent: tiptapContent });
   richContent = removeIdFromData(richContent);
+  if (isDocument) {
+    richContent = RichContent.toJSON(RichContent.fromJSON(richContent));
+  }
   return richContent;
 };
 
@@ -54,7 +58,7 @@ const movefromAttrs = (object: JSONContent) => {
 
 const convertValue = value => {
   let newValue = value;
-  if (isProseContent(newValue)) {
+  if (isTiptapContent(newValue)) {
     newValue = removeDocType(newValue);
     newValue = addMetadata(newValue);
   }

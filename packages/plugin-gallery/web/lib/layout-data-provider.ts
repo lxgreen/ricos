@@ -36,7 +36,7 @@ export const layoutData = {
   },
   [GALLERY_LAYOUTS.THUMBNAIL]: {
     galleryThumbnailsAlignment: 'bottom',
-    thumbnailSpacings: 2.5,
+    thumbnailSpacings: 5,
   },
   [GALLERY_LAYOUTS.SLIDER]: {
     cubeType: 'fit',
