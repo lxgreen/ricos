@@ -14,6 +14,7 @@ const DesktopPanel = ({
   panelHeader,
   theme,
   hasIcons,
+  sizeFitContent,
 }) => {
   const styles = mergeStyles({ styles: Styles, theme });
   const optionElement = (option, isSelected, onClick) => {
@@ -34,6 +35,7 @@ const DesktopPanel = ({
       className={classNames(styles.desktopPanel, {
         [styles.desktopPanel_withIcons]: hasIcons,
         [styles.desktopPanel_withCustomPanel]: showCustomPanel,
+        [styles.desktopPanel_fitContent]: sizeFitContent,
       })}
     >
       {options.map(option =>

@@ -5,6 +5,7 @@ import React, { Component, FC } from 'react';
 import classNames from 'classnames';
 import ClickOutside from 'react-click-outsider';
 import styles from '../ToolbarNew.scss';
+import ToolbarInputButton from '../ToolbarInputButton';
 import ToolbarButton from '../ToolbarButton';
 import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 import { elementOverflowWithEditor } from 'wix-rich-content-editor-common';
@@ -26,6 +27,7 @@ type dropDownPropsType = {
   onChange?: (any) => void;
   onDelete?: () => void;
   loadSelection?: () => void;
+  isInput: boolean;
 };
 
 interface ModalButtonProps {
@@ -143,7 +145,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
   };
 
   render() {
-    const { modal, dropDownProps, onSelect, theme, t } = this.props;
+    const { modal, dropDownProps, onSelect, theme, t, onToolbarButtonClick } = this.props;
     const {
       isActive,
       tooltip,
@@ -154,9 +156,27 @@ class ModalButton extends Component<ModalButtonProps, State> {
       isMobile,
       arrow = false,
       getLabel,
+      isInput,
     } = dropDownProps;
     const { isModalOpen, isModalOverflowByHeight, overflowWidthBy } = this.state;
     const buttonProps = arrow && getLabel ? { buttonContent: getLabel() } : { icon: getIcon() };
+    const toolbarButtonProps = {
+      ...buttonProps,
+      onToolbarButtonClick,
+      isActive: isModalOpen || isActive(),
+      onClick: this.toggleModal,
+      tooltipText: tooltip,
+      dataHook,
+      tabIndex,
+      isMobile,
+      disabled: isDisabled(),
+    };
+    const Button = isInput ? (
+      <ToolbarInputButton onSave={this.onSave} onChange={this.onChange} {...toolbarButtonProps} />
+    ) : (
+      <ToolbarButton {...toolbarButtonProps} showArrowIcon={arrow} icon={getIcon()} />
+    );
+
     const mobileStyles = {
       position: 'fixed',
       top: 0,
@@ -169,20 +189,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
     return (
       <ClickOutside onClickOutside={this.closeModal}>
         <div className={styles.buttonWrapper}>
-          <ToolbarButton
-            onToolbarButtonClick={this.props.onToolbarButtonClick}
-            isActive={isModalOpen || isActive()}
-            onClick={this.toggleModal}
-            showArrowIcon={arrow}
-            tooltipText={tooltip}
-            dataHook={dataHook}
-            tabIndex={tabIndex}
-            isMobile={isMobile}
-            disabled={isDisabled()}
-            icon={getIcon()}
-            theme={theme}
-            {...buttonProps}
-          />
+          {Button}
           {isModalOpen && (
             <div
               data-id="toolbar-modal-button"

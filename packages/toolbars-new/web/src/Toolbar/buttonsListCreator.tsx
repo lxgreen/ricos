@@ -58,9 +58,16 @@ export const createButtonsList = (
     handleButtonLoadSelection(buttonsList, index, editorCommands);
     handleButtonColorPicker(buttonsList, index, editorCommands, colorPickerData);
     handleButtonText(buttonsList, index, editorCommands, t);
+    handleButtonIsInput(buttonsList, index);
   });
   const filteredButtonsList = filterButtonsByPlugins(buttonsList, plugins);
   return filteredButtonsList;
+};
+
+const handleButtonIsInput = (buttonsList, index) => {
+  if (buttonsFullData[buttonsList[index].name].isInput) {
+    buttonsList[index].isInput = buttonsFullData[buttonsList[index].name].isInput;
+  }
 };
 
 const handleButtonText = (buttonsList, index, editorCommands: editorCommands, t) => {
@@ -142,9 +149,9 @@ const handleButtonOnDone = (buttonsList, index, editorCommands: editorCommands) 
 const handleButtonOnChange = (buttonsList, index, editorCommands: editorCommands) => {
   if (buttonsFullData[buttonsList[index].name].onChange) {
     const buttonName = buttonsList[index].name;
-    if (buttonName === 'LINE_SPACING') {
+    if (['LINE_SPACING', 'FONTSIZE'].includes(buttonName)) {
       buttonsList[index].onChange = type => {
-        updateSpacing(type, editorCommands, buttonName);
+        updateDynamicStyles(type, editorCommands, buttonName);
       };
     }
   }
@@ -216,9 +223,9 @@ const handleButtonOnSave = (buttonsList, index, editorCommands: editorCommands) 
       buttonsList[index].onSave = type => editorCommands.setTextAlignment(type);
     } else if (Object.keys(decorationButtons).includes(buttonName)) {
       buttonsList[index].onSave = type => {
-        if (buttonName === 'LINE_SPACING') {
+        if (['LINE_SPACING', 'FONTSIZE'].includes(buttonName)) {
           if (type) {
-            updateSpacing(type, editorCommands, buttonName);
+            updateDynamicStyles(type, editorCommands, buttonName);
             setTimeout(() => editorCommands.loadSelectionState());
           } else {
             editorCommands.loadEditorState();
@@ -266,6 +273,10 @@ const handleButtonModal = (
             anchorableBlocksData={anchorableBlocks}
           />
         );
+    } else if (buttonName === 'FONTSIZE') {
+      const Modal = buttonsFullData[buttonName].modal;
+      buttonsList[index].modal = props =>
+        Modal && <Modal {...props} currentSelect={editorCommands.getFontSize()} />;
     }
   }
 };
@@ -359,6 +370,8 @@ const handleButtonLabel = (buttonsList, index, editorCommands: editorCommands, t
     buttonsList[index].getLabel = () => buttonsFullData[buttonName].label;
     if (buttonName === 'HEADINGS') {
       buttonsList[index].getLabel = () => translateHeading(getCurrentHeading(editorCommands), t);
+    } else if (buttonName === 'FONTSIZE') {
+      buttonsList[index].getLabel = () => editorCommands.getFontSize();
     }
   }
 };
@@ -468,9 +481,12 @@ const getCurrentHeading = (editorCommands: editorCommands) => {
   return currentHeading;
 };
 
-const updateSpacing = (type, editorCommands: editorCommands, buttonName) => {
-  const dynamicStyles = type;
-  editorCommands.insertDecoration(decorationButtons[buttonName], { dynamicStyles });
+const updateDynamicStyles = (type, editorCommands: editorCommands, buttonName) => {
+  const data =
+    buttonName === 'FONTSIZE'
+      ? { fontSize: type < 10 ? 10 : type > 96 ? 96 : type }
+      : { dynamicStyles: type };
+  editorCommands.insertDecoration(decorationButtons[buttonName], { ...data });
 };
 
 const goToLink = (event, linkData, linkPanelData) => {

@@ -316,7 +316,7 @@ export const createEditorCommands = (
     deleteDecoration: EditorCommands['deleteDecoration'];
   } = {
     insertDecoration: (type, data, settings) => {
-      const draftType = TO_DRAFT_PLUGIN_TYPE_MAP[type];
+      const draftType = TO_DRAFT_PLUGIN_TYPE_MAP[type as string];
       const { [draftType]: createPluginData } = createPluginsDataMap;
       const pluginData = createPluginData ? createPluginData(data, settings?.isRicosSchema) : data;
       const newEditorState = insertDecorationsMap[type]?.(getEditorState(), pluginData);

@@ -32,6 +32,16 @@
   }
 }
 
+.desktopPanel_fitContent {
+  width: 100%;
+  align-items: center;
+  * {
+    padding-left: 0px;
+    text-align: center;
+    width: 100% !important;
+  }
+}
+
 .panel_row {
   line-height: 36px;
   width: calc(100% - 20px);

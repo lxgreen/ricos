@@ -1,5 +1,23 @@
-import { EditorState, Modifier, getSelectionStyles } from 'wix-rich-content-editor-common';
+import {
+  EditorState,
+  Modifier,
+  getSelectionStyles,
+  getSelectedBlocks,
+  hasOneStyleInSelection,
+} from 'wix-rich-content-editor-common';
+import { uniq } from 'lodash';
 import { EditorProps } from 'draft-js';
+
+// Temporarily taken from common/statics/styles/consts.scss should replace with themed\docStyle consts when supported
+const defaultFontSizes = {
+  'header-one': '32',
+  'header-two': '28',
+  'header-three': '22',
+  'header-four': '16',
+  'header-five': '13',
+  'header-six': '11',
+  unstyled: 16,
+};
 
 const parseStyle = style => {
   try {
@@ -18,9 +36,19 @@ export const customFontSizeStyleFn: EditorProps['customStyleFn'] = styles =>
     };
   }, {});
 
+const getFontSizesWithDefaults = (editorState: EditorState) => {
+  const currentFontSizes = getSelectionStyles(parseStyle, editorState).map(
+    style => parseStyle(style)?.['font-size']?.split('p')[0]
+  );
+  getSelectedBlocks(editorState)
+    .filter(block => !hasOneStyleInSelection(block, editorState, parseStyle))
+    .forEach(block => currentFontSizes.push(defaultFontSizes[block.getType()]));
+  return currentFontSizes;
+};
+
 export const getFontSize = (editorState: EditorState) => {
-  const currentFontSizes = getSelectionStyles(parseStyle, editorState);
-  return parseInt(parseStyle(currentFontSizes[0])['font-size']?.split('p')[0] || 15);
+  const currentFontSizes = uniq(getFontSizesWithDefaults(editorState));
+  return currentFontSizes.length > 1 || currentFontSizes.length === 0 ? '' : currentFontSizes[0];
 };
 
 const removeCurrentFontSize = (editorState: EditorState) => {
@@ -33,13 +61,12 @@ const removeCurrentFontSize = (editorState: EditorState) => {
   }, editorState);
 };
 
-export const setFontSize = (editorState: EditorState, data: { fontSize?: number }) => {
-  const { fontSize } = data;
+export const setFontSize = (editorState: EditorState, data?: { fontSize?: string }) => {
   const selection = editorState.getSelection();
   const newEditorState = removeCurrentFontSize(editorState);
   let contentState = newEditorState.getCurrentContent();
-  if (fontSize) {
-    const inlineStyle = JSON.stringify({ 'font-size': fontSize + 'px' });
+  if (data?.fontSize) {
+    const inlineStyle = JSON.stringify({ 'font-size': data?.fontSize + 'px' });
     contentState = Modifier.applyInlineStyle(contentState, selection, inlineStyle);
   }
   return EditorState.push(newEditorState, contentState, 'change-inline-style');

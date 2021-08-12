@@ -8,6 +8,7 @@ import {
   BULLET_LIST_TYPE,
   RICOS_INDENT_TYPE,
   RICOS_LINE_SPACING_TYPE,
+  RICOS_FONT_SIZE_TYPE,
   RICOS_LINK_TYPE,
   InlineStyle,
   DecorationsDataMap,
@@ -44,6 +45,7 @@ import LinkModal from '../modals/link/LinkComponents/LinkModal';
 import AlignmentPanel from '../modals/alignment/AlignmentPanel';
 import HeadingsPanel from '../modals/heading/HeadingsPanel';
 import LineSpacingPanel from '../modals/line-spacing/LineSpacingPanel';
+import FontSizePanel from '../modals/fontSize/FontSizePanel';
 
 export const HEADING_TYPE_TO_ELEMENT = Object.freeze({
   'header-one': 'H1',
@@ -77,6 +79,7 @@ type buttonsFullDataType = {
   unstyled?: { icon: any; action: string };
   'header-two'?: { icon: any; action: string };
   'header-three'?: { icon: any; action: string };
+  isInput?: boolean;
 };
 
 export const buttonsFullData: Record<string, buttonsFullDataType> = {
@@ -108,6 +111,18 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     type: 'modal',
     modal: props => <HeadingsPanel {...props} translateHeading={translateHeading} />,
     onSave: 'HEADINGS',
+  },
+  FONTSIZE: {
+    icon: () => null,
+    dataHook: 'customFontSizeButton',
+    tooltip: 'FormattingToolbar_CustomFontSizeButton_Tooltip',
+    arrow: true,
+    type: 'modal',
+    modal: props => <FontSizePanel {...props} />,
+    onSave: 'FONTSIZE',
+    onChange: 'FONTSIZE',
+    label: 'FONTSIZE',
+    isInput: true,
   },
   Separator: {
     type: 'SEPARATOR',
@@ -328,6 +343,7 @@ export const decorationButtons: Record<string, keyof DecorationsDataMap> = {
   LINK: RICOS_LINK_TYPE,
   removeLink: RICOS_LINK_TYPE,
   editLink: RICOS_LINK_TYPE,
+  FONTSIZE: RICOS_FONT_SIZE_TYPE,
 };
 
 export const setTextAlignment: Record<string, TextAlignment> = {
