@@ -16,7 +16,7 @@ const defaultFontSizes = {
   'header-four': '16',
   'header-five': '13',
   'header-six': '11',
-  unstyled: 16,
+  unstyled: '16',
 };
 
 const parseStyle = style => {
