@@ -168,6 +168,8 @@ class LinkModal extends PureComponent {
       isDoneButtonEnable: this.isDoneButtonEnable(),
       hideUrlInput,
       isMobile,
+      saveLabel: t('LinkPanelContainer_DoneButton'),
+      cancelLabel: t('LinkPanelContainer_CancelButton'),
     };
     const propsToPass = {
       theme,

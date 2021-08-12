@@ -25,9 +25,9 @@ class LinkActionsButtons extends PureComponent {
       hideUrlInput,
       isMobile,
       basicDisplay,
+      saveLabel,
+      cancelLabel,
     } = this.props;
-    const doneButtonText = t('LinkPanelContainer_DoneButton');
-    const cancelButtonText = t('LinkPanelContainer_CancelButton');
     const removeButtonText = t('LinkPanelContainer_RemoveButton');
     const showRemoveButton = isActive && !hideUrlInput && !isMobile;
 
@@ -36,7 +36,7 @@ class LinkActionsButtons extends PureComponent {
         className={styles.LinkButtons_saveButton}
         dataHook="actionButtonSave"
         disabled={!isDoneButtonEnable}
-        text={doneButtonText}
+        text={saveLabel}
         onClick={onDone}
         size={BUTTON_SIZE.medium}
         theme={this.theme}
@@ -72,8 +72,8 @@ class LinkActionsButtons extends PureComponent {
             onCancel={onCancel}
             onSave={onDone}
             theme={this.theme}
-            cancelText={cancelButtonText}
-            saveText={doneButtonText}
+            cancelText={cancelLabel}
+            saveText={saveLabel}
             disableSave={!isDoneButtonEnable}
           />
         </div>
@@ -94,6 +94,8 @@ LinkActionsButtons.propTypes = {
   basicLinkPanel: PropTypes.bool,
   hideUrlInput: PropTypes.bool,
   isMobile: PropTypes.bool,
+  cancelLabel: PropTypes.string,
+  saveLabel: PropTypes.string,
   basicDisplay: PropTypes.bool,
 };
 
