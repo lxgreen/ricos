@@ -22,6 +22,11 @@
 - `plugin-common`
   - [#2842](https://github.com/wix/ricos/pull/2842) fix link toolbar shortcut
 
+### :house: Internal
+
+- `gallery`
+  - [#2754](https://github.com/wix/ricos/pull/2754) remove `itemId` from content
+
 </details>
 <hr/>
 
