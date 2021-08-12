@@ -4,7 +4,7 @@
 
 .toolbarButton_wrapper {
   display: flex;
-
+  border: 1px solid rgba($fallbackColorTuple, 0);
   &.toolbarButton_wrapper_mobile:not(.toolbarButton_active) {
     &:hover {
       .toolbarButton {
