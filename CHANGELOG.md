@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.49.0 (Aug 12, 2021)
+
 ### :bug: Bug Fix
 
 - `plugin-common`
@@ -27,9 +32,6 @@
 - `gallery`
   - [#2754](https://github.com/wix/ricos/pull/2754) remove `itemId` from content
   - [#2799](https://github.com/wix/ricos/pull/2799) calculate thumbnail spacings on runtime normalize content before `8.49.0`
-
-</details>
-<hr/>
 
 ## 8.48.4 (Aug 10, 2021)
 
