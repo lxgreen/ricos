@@ -231,9 +231,10 @@ class GalleryViewer extends React.Component {
 
   getStyleParams = () => {
     const {
-      componentData: { styles: styleParams, disableDownload },
+      componentData: { styles, disableDownload },
       isMobile,
     } = this.props;
+    const styleParams = { ...styles };
     if (isMobile && isHorizontalLayout(styleParams)) {
       styleParams.arrowsSize = 20;
       styleParams.imageMargin = 0;
@@ -242,6 +243,7 @@ class GalleryViewer extends React.Component {
       }
     }
     styleParams.allowContextMenu = !disableDownload;
+    styleParams.thumbnailSpacings && (styleParams.thumbnailSpacings /= 2);
     return styleParams;
   };
 

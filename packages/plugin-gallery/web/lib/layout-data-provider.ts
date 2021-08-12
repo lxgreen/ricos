@@ -50,7 +50,7 @@ export const layoutData = {
     arrowsSize: 23,
     galleryThumbnailsAlignment: 'bottom',
     floatingImages: 0,
-    thumbnailSpacings: 2.5,
+    thumbnailSpacings: 5,
     thumbnailSize: 120,
     allowHover: true,
   },
