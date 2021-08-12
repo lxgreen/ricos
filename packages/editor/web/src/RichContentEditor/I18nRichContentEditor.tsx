@@ -19,8 +19,6 @@ export default class I18nRichContentEditor extends Component<Partial<RichContent
 
   getToolbarProps = (type: ToolbarType) => this.editor.getToolbarProps(type);
 
-  openMobileAddPlugin = () => this.editor.openMobileAddPlugin();
-
   getT = () => this.editor.getT();
 
   getPlugins = () => this.editor.getPlugins();
@@ -31,7 +29,7 @@ export default class I18nRichContentEditor extends Component<Partial<RichContent
 
   getEditorCommands = () => this.editor.EditorCommands;
 
-  getInnerRCERenderedIn = () => this.editor.getInnerRCERenderedIn();
+  isInnerRCERenderedInTable = () => this.editor.isInnerRCERenderedInTable();
 
   render() {
     return <WrappedEditor {...this.props} ref={this.setEditorRef} />;

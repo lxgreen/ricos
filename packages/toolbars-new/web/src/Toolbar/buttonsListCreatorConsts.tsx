@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable fp/no-loops */
-import React, { FC } from 'react';
+import React, { FC, Suspense, lazy } from 'react';
 import {
   CODE_BLOCK_TYPE,
   BLOCKQUOTE,
@@ -41,11 +41,13 @@ import {
   RedoIcon,
   PlusIcon,
 } from '../icons';
-import LinkModal from '../modals/link/LinkComponents/LinkModal';
-import AlignmentPanel from '../modals/alignment/AlignmentPanel';
-import HeadingsPanel from '../modals/heading/HeadingsPanel';
-import LineSpacingPanel from '../modals/line-spacing/LineSpacingPanel';
-import FontSizePanel from '../modals/fontSize/FontSizePanel';
+
+const LinkModal = lazy(() => import('../modals/link/LinkComponents/LinkModal'));
+const AlignmentPanel = lazy(() => import('../modals/alignment/AlignmentPanel'));
+const HeadingsPanel = lazy(() => import('../modals/heading/HeadingsPanel'));
+const LineSpacingPanel = lazy(() => import('../modals/line-spacing/LineSpacingPanel'));
+const modalFallback = <div className="placeholder">Loading...</div>;
+const FontSizePanel = lazy(() => import('../modals/fontSize/FontSizePanel'));
 
 export const HEADING_TYPE_TO_ELEMENT = Object.freeze({
   'header-one': 'H1',
@@ -109,7 +111,11 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     label: 'HEADINGS',
     arrow: true,
     type: 'modal',
-    modal: props => <HeadingsPanel {...props} translateHeading={translateHeading} />,
+    modal: props => (
+      <Suspense fallback={modalFallback}>
+        <HeadingsPanel {...props} translateHeading={translateHeading} />
+      </Suspense>
+    ),
     onSave: 'HEADINGS',
   },
   FONTSIZE: {
@@ -195,7 +201,11 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     arrow: true,
     tooltip: 'AlignTextDropdownButton_Tooltip',
     type: 'modal',
-    modal: props => <AlignmentPanel {...props} />,
+    modal: props => (
+      <Suspense fallback={modalFallback}>
+        <AlignmentPanel {...props} />
+      </Suspense>
+    ),
     onSave: 'Alignment',
   },
   // Alignment: {
@@ -266,7 +276,11 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     dataHook: 'LineSpacingButton',
     tooltip: 'LineSpacingButton_Tooltip',
     type: 'modal',
-    modal: props => <LineSpacingPanel {...props} />,
+    modal: props => (
+      <Suspense fallback={modalFallback}>
+        <LineSpacingPanel {...props} />
+      </Suspense>
+    ),
     onSave: 'LINE_SPACING',
     arrow: true,
     saveState: true,
@@ -280,7 +294,11 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     dataHook: 'LinkButton',
     tooltip: 'TextLinkButton_Tooltip',
     type: 'modal',
-    modal: props => <LinkModal {...props} />,
+    modal: props => (
+      <Suspense fallback={modalFallback}>
+        <LinkModal {...props} />
+      </Suspense>
+    ),
     onDone: 'LINK',
     onDelete: 'LINK',
     onCancel: 'LINK',
@@ -298,7 +316,11 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     dataHook: 'LinkButton',
     tooltip: 'LinkTo_Edit_Tooltip',
     type: 'modal',
-    modal: props => <LinkModal {...props} isActive />,
+    modal: props => (
+      <Suspense fallback={modalFallback}>
+        <LinkModal {...props} isActive />
+      </Suspense>
+    ),
     onDone: 'LINK',
     onDelete: 'LINK',
     onCancel: 'LINK',

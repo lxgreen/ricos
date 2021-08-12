@@ -19,7 +19,8 @@ const createRicosNodeHOC = (Component: ComponentType<RicosNodeProps>) => (
   </NodeViewWrapper>
 );
 
-const toExtensionConfig = (ext: RicosNodeExtension) => ext.createConfig({ mergeAttributes });
+const toExtensionConfig = (ext: RicosNodeExtension) =>
+  ext.createExtensionConfig({ mergeAttributes });
 
 const toFullNodeConfig = (ext: RicosNodeExtension) => (config: NodeConfig): NodeConfig => ({
   type: 'node',

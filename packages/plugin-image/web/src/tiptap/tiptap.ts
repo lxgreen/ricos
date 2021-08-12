@@ -1,3 +1,4 @@
+import { CreateRicosExtensions } from 'wix-rich-content-common';
 import { Image as Component } from './component';
 
 declare module '@tiptap/core' {
@@ -17,19 +18,21 @@ declare module '@tiptap/core' {
 
 const name = 'image';
 
-export const tiptapExtensions = [
+export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
     Component,
     createComponentDataDefaults: ({ ImageData }) => ({
       ...ImageData.fromJSON({}),
+      id: '',
       myLoading: {
         default: false,
       },
     }),
-    createConfig: () => ({
+    createExtensionConfig: () => ({
       name,
       atom: false,
+      defaultOptions,
       addCommands() {
         return {
           setImageUrl: url => ({ commands }) => {

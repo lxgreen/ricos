@@ -30,8 +30,7 @@ export const createButtonsList = (
   t,
   plugins,
   linkPanelData,
-  colorPickerData,
-  openMobileAddPlugin
+  colorPickerData
 ) => {
   const buttonsList = [];
   formattingButtonsKeys.forEach((buttonKey, index) => {
@@ -40,9 +39,10 @@ export const createButtonsList = (
     handleButtonIcon(buttonsList, index, editorCommands);
     handleButtonDataHook(buttonsList, index);
     handleButtonTooltip(buttonsList, index, t);
+    handleButtonPlugin(buttonsList, index);
     handleButtonLabel(buttonsList, index, editorCommands, t);
     handleButtonArrow(buttonsList, index);
-    handleButtonOnClick(buttonsList, index, editorCommands, openMobileAddPlugin, linkPanelData);
+    handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData);
     handleButtonIsActive(buttonsList, index, editorCommands);
     handleButtonIsDisabled(buttonsList, index, editorCommands);
     handleButtonModal(buttonsList, index, editorCommands, linkPanelData, t);
@@ -316,13 +316,7 @@ const handleButtonIsActive = (buttonsList, index, editorCommands: editorCommands
   }
 };
 
-const handleButtonOnClick = (
-  buttonsList,
-  index,
-  editorCommands: editorCommands,
-  openMobileAddPlugin,
-  linkPanelData
-) => {
+const handleButtonOnClick = (buttonsList, index, editorCommands: editorCommands, linkPanelData) => {
   const buttonName = buttonsList[index].name;
   if (Object.keys(inlineStyleButtons).includes(buttonName)) {
     buttonsList[index].onClick = () =>
@@ -351,7 +345,12 @@ const handleButtonOnClick = (
     buttonsList[index].onClick = event =>
       goToLink(event, editorCommands.getLinkDataInSelection(), linkPanelData);
   } else if (buttonName === 'AddPlugin') {
-    buttonsList[index].onClick = () => openMobileAddPlugin?.();
+    buttonsList[index].onClick = () => {
+      const addPluginButton = document.querySelector(
+        '[data-hook=addPluginFloatingToolbar]'
+      ) as HTMLElement;
+      addPluginButton?.click();
+    };
   } else {
     // eslint-disable-next-line no-console
     buttonsList[index].onClick = () => console.log('click');
@@ -379,6 +378,12 @@ const handleButtonLabel = (buttonsList, index, editorCommands: editorCommands, t
 const handleButtonTooltip = (buttonsList, index, t) => {
   if (buttonsFullData[buttonsList[index].name].tooltip) {
     buttonsList[index].tooltip = t(buttonsFullData[buttonsList[index].name].tooltip);
+  }
+};
+
+const handleButtonPlugin = (buttonsList, index) => {
+  if (buttonsFullData[buttonsList[index].name].plugin) {
+    buttonsList[index].plugin = buttonsFullData[buttonsList[index].name].plugin;
   }
 };
 

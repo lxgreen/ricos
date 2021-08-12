@@ -49,7 +49,6 @@ interface RicosToolbarProps {
   };
   colorPickerData?: any;
   onToolbarButtonClick?: (name: string, value?: any) => void;
-  openMobileAddPlugin?: () => void;
 }
 
 class RicosToolbar extends Component<RicosToolbarProps> {
@@ -89,7 +88,6 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       setKeepOpen,
       afterClick,
       nestedMenu,
-      openMobileAddPlugin,
     } = this.props;
     const updatedButtons = createButtonsList(
       buttons,
@@ -97,8 +95,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       t,
       plugins,
       linkPanelData,
-      colorPickerData,
-      openMobileAddPlugin
+      colorPickerData
     );
     updatedButtons.length > 0 && this.cleanUnwantedSeparators(updatedButtons);
     const buttonsSeparatedByGaps = this.separateByGaps(updatedButtons);

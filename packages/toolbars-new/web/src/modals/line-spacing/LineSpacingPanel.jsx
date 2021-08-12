@@ -63,7 +63,9 @@ class LineSpacingPanel extends Component {
         }}
       />
     ) : isCustomPanel ? (
-      <CustomPanel {...{ spacing, onChange, onSave, onCancel, t, isMobile, theme }} />
+      <CustomPanel
+        {...{ spacing, onChange, onSave: () => onSave(), onCancel, t, isMobile, theme }}
+      />
     ) : (
       <DesktopPanel
         {...{

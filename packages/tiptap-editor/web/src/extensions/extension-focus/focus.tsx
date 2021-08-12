@@ -1,5 +1,5 @@
 import { pipe } from 'fp-ts/function';
-import { createRicosGenericExtensionConfig } from './../../extensions-creators/extension';
+import { createRicosFunctionalExtensionConfig } from './../../extensions-creators/extension';
 import React, { useState, useEffect, ComponentType } from 'react';
 import { Editor } from '@tiptap/react';
 
@@ -24,9 +24,9 @@ const useIsSelected = (editor: Editor, getPos: () => number) => {
 };
 
 export const createFocusConfig = () =>
-  createRicosGenericExtensionConfig({
+  createRicosFunctionalExtensionConfig({
     type: 'extension',
-    createConfig: () => ({
+    createExtensionConfig: () => ({
       name,
       priority: 20,
       addNodeViewHOC: () => ({

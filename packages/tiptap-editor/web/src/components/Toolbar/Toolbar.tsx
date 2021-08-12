@@ -1,4 +1,5 @@
 import React from 'react';
+import { urlRegexExact } from '../../extensions/extension-link/link';
 
 const Toolbar = ({ editor }) => {
   if (!editor) {
@@ -196,6 +197,28 @@ const Toolbar = ({ editor }) => {
         className={editor.isActive('heading', { level: 6 }) ? 'is-active' : ''}
       >
         h6
+      </button>
+      <button
+        onClick={() => {
+          const {
+            state: { doc, selection },
+          } = editor;
+          const url = doc.textBetween(selection.from, selection.to)?.trim();
+          if (url.match(urlRegexExact)) {
+            editor
+              .chain()
+              .focus()
+              .toggleLink({
+                link: {
+                  url,
+                },
+              })
+              .run();
+          }
+        }}
+        className={editor.isActive('link') ? 'is-active' : ''}
+      >
+        link
       </button>
       <button
         onClick={() =>

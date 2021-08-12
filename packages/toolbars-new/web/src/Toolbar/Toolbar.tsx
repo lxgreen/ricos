@@ -59,6 +59,7 @@ class Toolbar extends Component<ToolbarProps> {
       tooltip,
       name,
       iconInActionColor,
+      plugin,
     } = buttonProps;
     return (
       <ToolbarButton
@@ -70,7 +71,7 @@ class Toolbar extends Component<ToolbarProps> {
         tooltipText={tooltip}
         icon={getIcon()}
         disabled={isDisabled()}
-        onToolbarButtonClick={() => this.props.onToolbarButtonClick?.(name, isActive())}
+        onToolbarButtonClick={() => this.props.onToolbarButtonClick?.(name, isActive(), plugin)}
         iconInActionColor={iconInActionColor}
       />
     );
@@ -137,7 +138,9 @@ class Toolbar extends Component<ToolbarProps> {
         theme={this.theme}
         onResetColor={onResetColor}
         setKeepOpen={setKeepOpen}
-        onToolbarButtonClick={() => this.props.onToolbarButtonClick?.(buttonProps.name)}
+        onToolbarButtonClick={() =>
+          this.props.onToolbarButtonClick?.(buttonProps.name, undefined, buttonProps.plugin)
+        }
       />
     );
   };
@@ -176,7 +179,9 @@ class Toolbar extends Component<ToolbarProps> {
         t={t}
         isMobile={isMobile}
         setKeepOpen={setKeepOpen}
-        onToolbarButtonClick={value => this.props.onToolbarButtonClick?.(buttonProps.name, value)}
+        onToolbarButtonClick={value =>
+          this.props.onToolbarButtonClick?.(buttonProps.name, value, buttonProps.plugin)
+        }
       />
     );
   };
