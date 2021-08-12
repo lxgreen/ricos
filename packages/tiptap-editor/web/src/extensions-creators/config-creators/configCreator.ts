@@ -5,7 +5,7 @@ import { ExtensionConfig } from '@tiptap/core';
 import {
   isRicosNodeExtension,
   isRicosMarkExtension,
-  isRicosGenericExtension,
+  isRicosFunctionalExtension,
   RicosTiptapExtension,
   EditorPlugin,
   TiptapExtensionConfig,
@@ -14,7 +14,7 @@ import { firstRight } from 'ricos-content';
 import {
   createRicosNodeConfig,
   createRicosMarkConfig,
-  createRicosGenericExtensionConfig,
+  createRicosFunctionalExtensionConfig,
 } from '..';
 
 const identityExtensionConfig: ExtensionConfig = {
@@ -28,7 +28,7 @@ const toExtensionConfig = (ext: RicosTiptapExtension) =>
   firstRight(ext, identityExtensionConfig as TiptapExtensionConfig, [
     [isRicosNodeExtension, createRicosNodeConfig],
     [isRicosMarkExtension, createRicosMarkConfig],
-    [isRicosGenericExtension, createRicosGenericExtensionConfig],
+    [isRicosFunctionalExtension, createRicosFunctionalExtensionConfig],
   ]);
 
 export const createRicosExtensionsConfigs = flow(

@@ -388,7 +388,7 @@
   "Poll_Preview_Close_CTA": "關閉預覽",
   "TitleButton_Tooltip": "標題",
   "LinkPanel_Nofollow_Checkbox_Tooltip": "您可以新增不追蹤標籤至連結。搜尋引擎不會將此連結計入他們的 SEO 及網站排名。",
-  "TwitterPlugin_InsertButton_Tooltip": "新增推特文章",
+  "TwitterPlugin_InsertButton_Tooltip": "新增 Twitter 文章",
   "BlockToolbar_Section_Basic": "基本",
   "EmojiPlugin_PoweredBy_label": "技術支援 ",
   "TablePlugin_Toolbar_ContextMenu_InsertBelow_Button": "向下插入 1",
