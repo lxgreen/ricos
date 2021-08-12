@@ -2,7 +2,7 @@
 import React, { Component, ReactElement, ReactNode, Ref, RefObject } from 'react';
 import classNames from 'classnames';
 import DropdownArrowIcon from '../icons/DropdownArrowIcon';
-import Styles from './ToolbarButtonNew.scss';
+import Styles from './ToolbarInputButton.scss';
 import { mergeStyles } from 'wix-rich-content-common';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 
@@ -60,19 +60,8 @@ class ToolbarInputButton extends Component<ToolbarInputButtonProps, ToolbarInput
         // buttonStyles.inlineToolbarButton_active,
         // buttonStyles.pluginToolbarButton_active
       ),
-      menuButton: classNames(
-        styles.toolbarButton_menuButton,
-        styles.toolbarButton_icon
-        // buttonStyles.inlineToolbarButton_icon,
-        // buttonStyles.inlineToolbarButton_menuButton,
-        // buttonStyles.pluginToolbarButton_icon
-      ),
-      arrowIcon: classNames(
-        styles.toolbarButton_icon,
-        styles.toolbarDropdownButton_arrowIcon
-        // buttonStyles.inlineToolbarButton_icon,
-        // buttonStyles.pluginToolbarButton_icon
-      ),
+      arrowIcon: styles.toolbarDropdownButton_arrowIcon,
+      arrowIconActive: styles.arrowIconActive,
     };
   }
 
@@ -108,14 +97,14 @@ class ToolbarInputButton extends Component<ToolbarInputButtonProps, ToolbarInput
     const arrowIcon = (
       <span
         className={classNames(styles.arrowIcon, {
-          [styles.active]: isActive,
+          [styles.arrowIconActive]: isActive,
         })}
       >
         <DropdownArrowIcon />
       </span>
     );
 
-    const menuButtonClassNames = classNames(styles.menuButton, styles.button, {
+    const menuButtonClassNames = classNames(styles.button, {
       [styles.active]: isActive,
     });
 
