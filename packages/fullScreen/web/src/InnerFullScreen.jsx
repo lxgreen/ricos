@@ -218,6 +218,7 @@ export default class InnerFullscreen extends Component {
               allowTitle: true,
               defaultShowInfoExpand: 1,
               showArrows: !isMobile,
+              floatingImages: 0,
               arrowsPosition,
               slideshowInfoSize,
               allowContextMenu: true,

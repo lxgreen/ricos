@@ -1372,9 +1372,7 @@ exports[`insert plugins tests > side toolbar > should insert gallery #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "layout": "small",
-          "size": "content",
-          "spacing": 0
+          "size": "content"
         },
         "items": [
           {
@@ -1482,9 +1480,7 @@ exports[`insert plugins tests > side toolbar > should upload native gallery #0`]
       "data": {
         "config": {
           "alignment": "center",
-          "layout": "small",
-          "size": "content",
-          "spacing": 0
+          "size": "content"
         },
         "items": [],
         "styles": {
@@ -1564,9 +1560,7 @@ exports[`insert plugins tests > footer toolbar > should insert gallery #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "layout": "small",
-          "size": "content",
-          "spacing": 0
+          "size": "content"
         },
         "items": [
           {
@@ -1674,9 +1668,7 @@ exports[`insert plugins tests > footer toolbar > should upload native gallery #0
       "data": {
         "config": {
           "alignment": "center",
-          "layout": "small",
-          "size": "content",
-          "spacing": 0
+          "size": "content"
         },
         "items": [],
         "styles": {

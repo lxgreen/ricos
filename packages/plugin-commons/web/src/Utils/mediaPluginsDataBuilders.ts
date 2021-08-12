@@ -29,14 +29,18 @@ const galleryItemBuilder = {
   },
   [GALLERY_FILE_TYPES.VIDEO]: (video: VideoComponentData, preloadImage?: boolean | undefined) => {
     const {
-      thumbnail: { pathname: poster, width, height },
+      thumbnail: { pathname, width, height },
     } = video;
     return {
       metadata: {
         type: GALLERY_FILE_TYPES.VIDEO,
         height: video.height || height,
         width: video.width || width,
-        poster,
+        poster: {
+          url: pathname,
+          width,
+          height,
+        },
       },
       url: video.pathname,
       tempData: preloadImage,
