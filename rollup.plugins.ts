@@ -19,11 +19,12 @@ import { terser } from 'rollup-plugin-terser';
 import visualizerPlugin from 'rollup-plugin-visualizer';
 import { Plugin } from 'rollup';
 import libsPackageJsonGeneratorPlugin from './scripts/rollupPlugin-libsPackageJsonGenerator';
-import { writeFileSync } from 'fs';
+import fs, { writeFileSync } from 'fs';
 import { createFilter } from '@rollup/pluginutils';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 
 const IS_DEV_ENV = process.env.NODE_ENV === 'development';
+const extractedStylePath = 'dist/styles.min.global.css';
 
 const resolve = (): Plugin => {
   return resolvePlugin({
@@ -144,7 +145,7 @@ const postcss = (shouldExtract: boolean): Plugin => {
     modules: {
       generateScopedName: IS_DEV_ENV ? '[name]__[local]___[hash:base64:5]' : '[hash:base64:5]',
     },
-    extract: shouldExtract && 'dist/styles.min.css',
+    extract: shouldExtract && extractedStylePath,
     plugins: [
       postcssExclude({
         filter: '**/*.rtlignore.scss',
@@ -190,6 +191,35 @@ const createFakeStylesFile = (): Plugin => ({
   },
 });
 
+function addStylesImport() {
+  return {
+    name: 'add-style-import',
+    writeBundle() {
+      const packageName = process.env.MODULE_NAME;
+      if (fs.existsSync(extractedStylePath)) {
+        const cjsImport = `require('${packageName}/${extractedStylePath}')`;
+        const esImport = `import '${packageName}/${extractedStylePath}'`;
+        writeFileSync('dist/styles.min.css', '');
+        const writeContent = (path, content) => {
+          if (fs.existsSync(path)) {
+            const code = fs.readFileSync(path, 'utf8');
+            const result = code.includes(content) ? code : `${content};\n` + code;
+            fs.writeFileSync(path, result, 'utf8');
+          }
+        };
+        writeContent('dist/module.js', esImport);
+        writeContent('dist/module.cjs.js', cjsImport);
+        writeContent('dist/module.viewer.js', esImport);
+        writeContent('dist/module.viewer.cjs.js', cjsImport);
+        writeContent('dist/es/index.js', esImport);
+        writeContent('dist/cjs/index.js', cjsImport);
+        writeContent('dist/loadable/viewer/es/viewer-loadable.js', esImport);
+        writeContent('dist/loadable/viewer/cjs/viewer-loadable.cjs.js', cjsImport);
+      }
+    },
+  };
+}
+
 let _plugins: Plugin[] = [
   svgr(),
   resolveAlias(),
@@ -216,5 +246,10 @@ const plugins = (shouldExtractCss: boolean) => {
   _plugins.push(postcss(shouldExtractCss));
   return _plugins;
 };
-const lastEntryPlugins = [libsPackageJsonGeneratorPlugin(), copy(), copyAfterBundleWritten()];
+const lastEntryPlugins = [
+  libsPackageJsonGeneratorPlugin(),
+  copy(),
+  copyAfterBundleWritten(),
+  addStylesImport(),
+];
 export { plugins, lastEntryPlugins };
