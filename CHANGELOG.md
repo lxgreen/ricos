@@ -17,14 +17,15 @@
     Click to see more.
   </summary>
 
-### :nail_care: Polish
-
-- `ricos-schema`
-  - [#2507](https://github.com/wix/ricos/pull/2507) gallery schema
 
 </details>
 <hr/>
 
+## 8.49.1 (Aug 13, 2021)
+### :nail_care: Polish
+
+- `ricos-schema`
+  - [#2507](https://github.com/wix/ricos/pull/2507) gallery schema
 ## 8.49.0 (Aug 12, 2021)
 
 ### :bug: Bug Fix
