@@ -4687,6 +4687,54 @@ exports[`plugins > verticals embed > verticals embed widget > should replace wid
       "key": 4,
       "text": "",
       "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [
+        {
+          "key": 1,
+          "length": 1,
+          "offset": 0
+        }
+      ],
+      "inlineStyleRanges": [],
+      "key": 5,
+      "text": " ",
+      "type": "atomic"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 6,
+      "text": "",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [
+        {
+          "key": 2,
+          "length": 1,
+          "offset": 0
+        }
+      ],
+      "inlineStyleRanges": [],
+      "key": 7,
+      "text": " ",
+      "type": "atomic"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 8,
+      "text": "",
+      "type": "unstyled"
     }
   ],
   "entityMap": {
@@ -4700,6 +4748,39 @@ exports[`plugins > verticals embed > verticals embed widget > should replace wid
           "pageUrl": "https://www.wix.app/stores/54e7b326-49ec-434f-a7cc-c2ad1eaec049/catalog/265beaf5-3008-c5c2-fa5e-1447e0bebf71?d=https://sapirs0.wixsite.com/mysite/product-page/flowers"
         },
         "type": "product"
+      },
+      "mutability": "IMMUTABLE",
+      "type": "wix-draft-plugin-vertical-embed"
+    },
+    "1": {
+      "data": {
+        "selectedProduct": {
+          "description": 90,
+          "durations": 90,
+          "html": "<a class=\"vertical-embed-link\" href=\"https://www.wix.app/bookings/54e7b326-49ec-434f-a7cc-c2ad1eaec049/service/03ef6546-985d-4739-951e-ca897375b967/details?d=https://sapirs0.wixsite.com/mysite/bookings-checkout/cupcake-master\" target=\"_blank\"><div class=\"vertical-embed-card vertical-embed-ltr vertical-embed-cardLayout\"><div style=\"background-image:url(https://static.wixstatic.com/media/78ccafc88f7fce3e55bd7a33f166704b.jpg)\" class=\"vertical-embed-imageLayout vertical-embed-image\"></div><div class=\"vertical-embed-content\"><div><div class=\"vertical-embed-title\">CUPCAKE MASTER</div><div class=\"vertical-embed-subtitle\">1h 30min</div></div><div class=\"vertical-embed-button\"><div class=\"vertical-embed-buttonText\">Reservar ahora</div></div></div></div></a>",
+          "id": "03ef6546-985d-4739-951e-ca897375b967",
+          "imageSrc": "https://static.wixstatic.com/media/78ccafc88f7fce3e55bd7a33f166704b.jpg",
+          "name": "CUPCAKE MASTER",
+          "pageUrl": "https://www.wix.app/bookings/54e7b326-49ec-434f-a7cc-c2ad1eaec049/service/03ef6546-985d-4739-951e-ca897375b967/details?d=https://sapirs0.wixsite.com/mysite/bookings-checkout/cupcake-master"
+        },
+        "type": "booking"
+      },
+      "mutability": "IMMUTABLE",
+      "type": "wix-draft-plugin-vertical-embed"
+    },
+    "2": {
+      "data": {
+        "selectedProduct": {
+          "description": "28 de diciembre de 2020, 19:00 | Modi'in-Maccabim-Re'ut",
+          "html": "<a class=\"vertical-embed-link\" href=\"https://www.wix.app/events/54e7b326-49ec-434f-a7cc-c2ad1eaec049/0227ed00-697c-42c0-bc12-f84f0ae01a84/details?d=https://sapirs0.wixsite.com/mysite/event-details/roy-birthday-party-1\" target=\"_blank\"><div class=\"vertical-embed-card vertical-embed-ltr vertical-embed-cardLayout\"><div style=\"background-image:url(https://static.wixstatic.com/media/7f8360_274a37551ab54326adb4c50b1e7daaa0~mv2.jpeg)\" class=\"vertical-embed-imageLayout vertical-embed-image\"></div><div class=\"vertical-embed-content\"><div><div class=\"vertical-embed-title\">Roy Birthday Party!!</div><div class=\"vertical-embed-subtitle\">28 de diciembre de 2020, 19:00<span><span class=\"vertical-embed-right\">|</span>Modi&#x27;in-Maccabim-Re&#x27;ut</span></div></div><div class=\"vertical-embed-button\"><div class=\"vertical-embed-buttonText\">Regístrate</div></div></div></div></a>",
+          "id": "0227ed00-697c-42c0-bc12-f84f0ae01a84",
+          "imageSrc": "https://static.wixstatic.com/media/7f8360_274a37551ab54326adb4c50b1e7daaa0~mv2.jpeg",
+          "location": " Modi'in-Maccabim-Re'ut",
+          "name": "Roy Birthday Party!!",
+          "pageUrl": "https://www.wix.app/events/54e7b326-49ec-434f-a7cc-c2ad1eaec049/0227ed00-697c-42c0-bc12-f84f0ae01a84/details?d=https://sapirs0.wixsite.com/mysite/event-details/roy-birthday-party-1",
+          "scheduling": "28 de diciembre de 2020, 19:00 "
+        },
+        "type": "event"
       },
       "mutability": "IMMUTABLE",
       "type": "wix-draft-plugin-vertical-embed"

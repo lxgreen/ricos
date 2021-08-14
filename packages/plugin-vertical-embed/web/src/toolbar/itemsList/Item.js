@@ -16,7 +16,7 @@ class Item extends PureComponent {
 
   render() {
     const { selected, item, t } = this.props;
-    const { name, imageSrc, description } = item;
+    const { name, imageSrc, getDescription } = item;
 
     return (
       <div
@@ -29,7 +29,7 @@ class Item extends PureComponent {
           data-hook="verticalsImage"
         />
         <div className={styles.title}>{name}</div>
-        {description && <div className={styles.description}>{description}</div>}
+        {getDescription && <div className={styles.description}>{getDescription(item)}</div>}
       </div>
     );
   }
