@@ -227,8 +227,11 @@ Cypress.on('window:before:load', win => {
     }
 
     thresholds = [0];
+
     root = win;
+
     rootMargin = '0px';
+
     observe = element =>
       this.cb([
         {
@@ -241,7 +244,9 @@ Cypress.on('window:before:load', win => {
           time: new Date().getTime(),
         },
       ]);
+
     unobserve = () => null;
+
     disconnect = () => {};
   };
 });
@@ -668,13 +673,13 @@ Cypress.Commands.add('waitForHtmlToLoad', () => {
     .wait(4000);
 });
 
-Cypress.Commands.add('insertLinkAndEnter', url => {
+Cypress.Commands.add('insertLinkAndEnter', (url, { isPreview } = {}) => {
   cy.focusEditor();
   cy.moveCursorToEnd()
     .type(url)
     .type('{enter}')
     .moveCursorToEnd()
-    .wait(200);
+    .get(`a[href*="${url}"]${isPreview ? ' figure' : ''}`);
 });
 
 Cypress.Commands.add('insertCollapsibleList', () => {

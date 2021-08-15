@@ -4581,6 +4581,7 @@ exports[`plugins > convert link to preview > with custom config > should not cre
   "entityMap": {
     "0": {
       "data": {
+        "target": "_blank",
         "url": "www.wix.com"
       },
       "mutability": "MUTABLE",
@@ -4626,6 +4627,7 @@ exports[`plugins > convert link to preview > with custom config > should not emb
   "entityMap": {
     "0": {
       "data": {
+        "target": "_blank",
         "url": "www.mockUrl.com"
       },
       "mutability": "MUTABLE",
@@ -5360,6 +5362,7 @@ exports[`plugins > spoiler > check text spoilers in editor and reveal it in view
     "0": {
       "data": {
         "rel": "",
+        "target": "_blank",
         "url": "https://www.wix.com/"
       },
       "mutability": "MUTABLE",
