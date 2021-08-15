@@ -5,7 +5,8 @@
       "allowBranch": [
         "master",
         "release*",
-        "tiptap-image"
+        "tiptap-image",
+        "addStyleImportVersion"
       ],
       "message": "[*] chore(release): %s"
     }
@@ -15,5 +16,5 @@
   "npmClientArgs": [
     "--no-lockfile"
   ],
-  "version": "8.48.4"
+  "version": "8.48.4-import-styles"
 }
