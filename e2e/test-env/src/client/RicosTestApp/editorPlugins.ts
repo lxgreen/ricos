@@ -44,7 +44,7 @@ import { videoHandlers } from '../../../../../examples/main/shared/editor/Editor
 import { MockVerticalSearchModule } from '../../../../../examples/main/shared/utils/verticalEmbedUtil';
 
 const { Instagram, Twitter, TikTok } = LinkPreviewProviders;
-const { product } = verticalEmbedProviders;
+const { product, booking, event } = verticalEmbedProviders;
 
 const onLinkAdd = async (customLinkData, saveData) => {
   const data = await Promise.resolve({ mockURL: 'www.sport5.co.il', mockData: {} });
@@ -67,7 +67,7 @@ const defaultConfigs = {
   verticalEmbed: {
     verticalsApi: type => new MockVerticalSearchModule(type),
     // exposeEmbedButtons: [product, event, booking],
-    exposeEmbedButtons: [product],
+    exposeEmbedButtons: [product, booking, event],
   },
   textHighlight: {
     colorScheme,

@@ -15,8 +15,8 @@ import ImageRatioSelector from './gallery-controls/image-ratio-selector';
 import ThumbnailPlacementSelector from './gallery-controls/thumbnail-placement-selector';
 
 const scrollDirectionOptions = {
-  horizontal: { oneRow: true, showArrows: true, isVertical: false },
-  vertical: { oneRow: false, showArrows: false },
+  horizontal: { oneRow: true },
+  vertical: { oneRow: false },
 };
 
 class Separator extends Component {
@@ -97,8 +97,8 @@ class LayoutControlsSection extends Component {
     thumbnailSpacing: {
       component: Spacing,
       props: {
-        onChange: value => this.applyGallerySetting({ thumbnailSpacings: value / 2 }),
-        defaultValue: this.getValueFromComponentStyles('thumbnailSpacings') * 2,
+        onChange: value => this.applyGallerySetting({ thumbnailSpacings: value }),
+        defaultValue: this.getValueFromComponentStyles('thumbnailSpacings'),
         t,
       },
     },
