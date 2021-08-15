@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+
+- `link`
+  - [#2828](https://github.com/wix/ricos/pull/2828) fix link data values
+
 </details>
 <hr/>
 
@@ -39,6 +44,7 @@
 ### :bug: Bug Fix
 
 - `plugin-common`
+
   - [#2842](https://github.com/wix/ricos/pull/2842) fix link toolbar shortcut
 
 ### :house: Internal

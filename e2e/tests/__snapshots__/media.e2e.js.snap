@@ -111,6 +111,7 @@ exports[`plugins > image > render image toolbar and settings #0`] =
           "alignment": "center",
           "link": {
             "rel": "",
+            "target": "_blank",
             "url": "www.wix.com"
           },
           "showDescription": true,

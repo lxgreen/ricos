@@ -198,8 +198,7 @@ exports[`insert plugins tests > side toolbar > should insert button #0`] =
             "padding": 12
           },
           "settings": {
-            "buttonText": "Click Me",
-            "url": ""
+            "buttonText": "Click Me"
           }
         },
         "config": {
@@ -864,8 +863,7 @@ exports[`insert plugins tests > footer toolbar > should insert button #0`] =
             "padding": 12
           },
           "settings": {
-            "buttonText": "Click Me",
-            "url": ""
+            "buttonText": "Click Me"
           }
         },
         "config": {
