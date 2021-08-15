@@ -24,6 +24,11 @@
 - `plugin-button`
   - [#2856](https://github.com/wix/ricos/pull/2856) refactor SettingsPanelFooter usage and deleted some css
 
+### :bug: Bug Fix
+
+- `link`
+  - [#2855](https://github.com/wix/ricos/pull/2855) fix: shift+enter break link string
+
 </details>
 <hr/>
 

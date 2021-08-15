@@ -187,6 +187,11 @@ describe('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
+  it('should break the link when enter new soft line', function() {
+    cy.loadRicosEditorAndViewer('empty').enterParagraphs(['www.thisIs\nseperateLink.com ']);
+    cy.eyesCheckWindow(this.test.title);
+  });
+
   it('should paste plain text', function() {
     cy.loadRicosEditorAndViewer()
       .focusEditor()
