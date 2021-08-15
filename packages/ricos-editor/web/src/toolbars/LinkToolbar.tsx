@@ -6,7 +6,6 @@ import {
   EditorCommands,
   EditorPlugin,
   LinkPanelSettings,
-  getLangDir,
   ToolbarType,
 } from 'wix-rich-content-common';
 import { LinkSettings } from 'ricos-common';
@@ -21,7 +20,6 @@ interface LinkToolbarProps {
   textToolbarType?: string | null;
   isMobile?: boolean;
   theme?: RichContentTheme;
-  locale?: string;
   getToolbarSettings?: GetToolbarSettings;
   plugins?: EditorPlugin[];
   linkPanelSettings?: LinkPanelSettings;
@@ -42,7 +40,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
   };
 
   render() {
-    const { activeEditor, isMobile, theme, locale } = this.props;
+    const { activeEditor, isMobile, theme } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
     const showLinkToolbar =
@@ -57,8 +55,6 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
       isMobile,
       customAnchorScroll: this.props.linkSettings?.customAnchorScroll,
     };
-    const baseStyles = { flex: 'none' };
-    const baseMobileStyles = { ...baseStyles, position: 'sticky', top: 0, zIndex: 9 };
     const onInlineToolbarOpen = () => this.props.onInlineToolbarOpen?.(ToolbarType.LINK);
     const onToolbarButtonClick = (name, value = undefined) => {
       this.props.onToolbarButtonClick?.(name, ToolbarType.LINK, value);
@@ -78,18 +74,16 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
     const ToolbarContainer = isMobile ? StaticToolbarContainer : FloatingToolbarContainer;
 
     return (
-      <div style={isMobile ? baseMobileStyles : baseStyles} dir={getLangDir(locale)}>
-        {((isMobile && showLinkToolbar) || !isMobile) && (
-          <ToolbarContainer
-            isMobile={isMobile}
-            showToolbar={showLinkToolbar || false}
-            focusEditor={focusEditor}
-            // onInlineToolbarOpen={onInlineToolbarOpen}
-          >
-            {ToolbarToRender}
-          </ToolbarContainer>
-        )}
-      </div>
+      ((isMobile && showLinkToolbar) || !isMobile) && (
+        <ToolbarContainer
+          isMobile={isMobile}
+          showToolbar={showLinkToolbar || false}
+          focusEditor={focusEditor}
+          // onInlineToolbarOpen={onInlineToolbarOpen}
+        >
+          {ToolbarToRender}
+        </ToolbarContainer>
+      )
     );
   }
 }

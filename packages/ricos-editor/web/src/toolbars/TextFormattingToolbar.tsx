@@ -8,7 +8,6 @@ import {
   TextButtons,
   EditorPlugin,
   LinkPanelSettings,
-  getLangDir,
   ToolbarType,
 } from 'wix-rich-content-common';
 import { LinkSettings } from 'ricos-common';
@@ -26,7 +25,6 @@ interface TextFormattingToolbarProps {
   textToolbarType?: string | null;
   isMobile?: boolean;
   theme?: RichContentTheme;
-  locale?: string;
   getToolbarSettings?: GetToolbarSettings;
   plugins?: EditorPlugin[];
   linkPanelSettings?: LinkPanelSettings;
@@ -55,7 +53,6 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
       textToolbarType,
       isMobile,
       theme,
-      locale,
       getToolbarSettings = () => [],
     } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
@@ -100,8 +97,6 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
       anchorTarget: this.props.linkSettings?.anchorTarget,
       isMobile,
     };
-    const baseStyles = { flex: 'none' };
-    const baseMobileStyles = { ...baseStyles, position: 'sticky', top: 0, zIndex: 9 };
     const onInlineToolbarOpen = () => this.props.onInlineToolbarOpen?.(ToolbarType.FORMATTING);
     const onToolbarButtonClick = (name, value = undefined, pluginId = undefined) => {
       this.props.onToolbarButtonClick?.(name, ToolbarType.FORMATTING, value, pluginId);
@@ -123,16 +118,14 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
       textToolbarType === 'static' ? StaticToolbarContainer : FloatingToolbarContainer;
 
     return (
-      <div style={isMobile ? baseMobileStyles : baseStyles} dir={getLangDir(locale)}>
-        <ToolbarContainer
-          isMobile={isMobile}
-          showToolbar={showFormattingToolbar || false}
-          focusEditor={focusEditor}
-          onInlineToolbarOpen={onInlineToolbarOpen}
-        >
-          {ToolbarToRender}
-        </ToolbarContainer>
-      </div>
+      <ToolbarContainer
+        isMobile={isMobile}
+        showToolbar={showFormattingToolbar || false}
+        focusEditor={focusEditor}
+        onInlineToolbarOpen={onInlineToolbarOpen}
+      >
+        {ToolbarToRender}
+      </ToolbarContainer>
     );
   }
 }

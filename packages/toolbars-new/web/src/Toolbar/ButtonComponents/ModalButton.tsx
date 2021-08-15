@@ -69,8 +69,11 @@ class ModalButton extends Component<ModalButtonProps, State> {
       isMobile,
     } = this.props;
     this.setState({ isModalOpen: !isModalOpen }, () => {
-      if (this.state.isModalOpen && this.modalRef) {
-        const modalOverflowWithEditor = elementOverflowWithEditor(this.modalRef);
+      const rootEditorElement = this.modalRef
+        ?.closest('[data-hook=ricos-editor-toolbars]')
+        ?.parentElement?.querySelector('[data-hook=root-editor]') as HTMLElement;
+      if (this.state.isModalOpen && this.modalRef && rootEditorElement) {
+        const modalOverflowWithEditor = elementOverflowWithEditor(this.modalRef, rootEditorElement);
         const isModalWidthOverflow = !!modalOverflowWithEditor.overflowRight;
         const isModalOverflowByHeight = !!modalOverflowWithEditor.overflowBottom;
         const overflowWidthBy = isModalWidthOverflow

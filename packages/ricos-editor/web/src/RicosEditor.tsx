@@ -24,7 +24,13 @@ import {
   EditorEventsContext,
   EditorEvents,
 } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
-import { ToolbarType, Version, RicosTranslate, EditorCommands } from 'wix-rich-content-common';
+import {
+  ToolbarType,
+  Version,
+  RicosTranslate,
+  EditorCommands,
+  getLangDir,
+} from 'wix-rich-content-common';
 import { emptyDraftContent, getEditorContentSummary } from 'wix-rich-content-editor-common';
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
 
@@ -380,7 +386,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       textToolbarType,
       isMobile,
       theme,
-      locale,
       getToolbarSettings,
       plugins,
       linkPanelSettings,
@@ -388,16 +393,22 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       onInlineToolbarOpen,
       onToolbarButtonClick,
     };
+    const baseStyles = { flex: 'none' };
+    const baseMobileStyles = { ...baseStyles, position: 'sticky', top: 0, zIndex: 9 };
     return (
       <Fragment key={`${remountKey}`}>
         {!this.useNewFormattingToolbar && this.renderToolbarPortal(StaticToolbar)}
         {this.useNewFormattingToolbar && !activeEditorIsTableCell && activeEditor && (
-          <>
+          <div
+            data-hook={'ricos-editor-toolbars'}
+            style={isMobile ? baseMobileStyles : baseStyles}
+            dir={getLangDir(locale)}
+          >
             {!hideFormattingToolbar && TextFormattingToolbar && (
               <TextFormattingToolbar activeEditor={activeEditor} {...toolbarsProps} />
             )}
             <LinkToolbar activeEditor={activeEditor} {...toolbarsProps} />
-          </>
+          </div>
         )}
         {this.renderRicosEngine(child, {
           onChange: this.onChange(child.props.onChange),
