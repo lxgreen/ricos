@@ -22,6 +22,11 @@
 - `link`
   - [#2828](https://github.com/wix/ricos/pull/2828) fix link data values
 
+### :bug: Bug Fix
+
+- `link`
+  - [#2855](https://github.com/wix/ricos/pull/2855) fix: shift+enter break link string
+
 </details>
 <hr/>
 
