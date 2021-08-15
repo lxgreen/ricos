@@ -21,6 +21,8 @@
 
 - `link`
   - [#2828](https://github.com/wix/ricos/pull/2828) fix link data values
+- `plugin-button`
+  - [#2855](https://github.com/wix/ricos/pull/2855) refactor SettingsPanelFooter usage and deleted some css
 
 </details>
 <hr/>
