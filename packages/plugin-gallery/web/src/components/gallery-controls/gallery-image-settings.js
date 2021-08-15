@@ -74,6 +74,8 @@ class ImageSettings extends Component {
       visibleRightArrow,
       uiSettings,
       accept,
+      anchorTarget,
+      relValue,
     } = this.props;
 
     const { linkPanel } = uiSettings || {};
@@ -228,6 +230,8 @@ class ImageSettings extends Component {
                       t={t}
                       ariaProps={{ 'aria-labelledby': 'gallery_image_link_lbl' }}
                       placeholder={placeholder}
+                      anchorTarget={anchorTarget}
+                      relValue={relValue}
                     />
                   </SettingsSection>
                 )}
@@ -269,6 +273,7 @@ ImageSettings.propTypes = {
   isMobile: PropTypes.bool,
   t: PropTypes.func,
   anchorTarget: PropTypes.string,
+  relValue: PropTypes.string,
   visibleLeftArrow: PropTypes.bool,
   visibleRightArrow: PropTypes.bool,
   uiSettings: PropTypes.object,

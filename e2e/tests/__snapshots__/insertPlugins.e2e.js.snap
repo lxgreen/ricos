@@ -198,8 +198,7 @@ exports[`insert plugins tests > side toolbar > should insert button #0`] =
             "padding": 12
           },
           "settings": {
-            "buttonText": "Click Me",
-            "url": ""
+            "buttonText": "Click Me"
           }
         },
         "config": {
@@ -864,8 +863,7 @@ exports[`insert plugins tests > footer toolbar > should insert button #0`] =
             "padding": 12
           },
           "settings": {
-            "buttonText": "Click Me",
-            "url": ""
+            "buttonText": "Click Me"
           }
         },
         "config": {
@@ -1372,9 +1370,7 @@ exports[`insert plugins tests > side toolbar > should insert gallery #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "layout": "small",
-          "size": "content",
-          "spacing": 0
+          "size": "content"
         },
         "items": [
           {
@@ -1406,7 +1402,6 @@ exports[`insert plugins tests > side toolbar > should insert gallery #0`] =
           }
         ],
         "styles": {
-          "allowContextMenu": true,
           "allowDownload": false,
           "allowHover": true,
           "allowSocial": false,
@@ -1483,13 +1478,10 @@ exports[`insert plugins tests > side toolbar > should upload native gallery #0`]
       "data": {
         "config": {
           "alignment": "center",
-          "layout": "small",
-          "size": "content",
-          "spacing": 0
+          "size": "content"
         },
         "items": [],
         "styles": {
-          "allowContextMenu": true,
           "allowDownload": false,
           "allowHover": true,
           "allowSocial": false,
@@ -1566,9 +1558,7 @@ exports[`insert plugins tests > footer toolbar > should insert gallery #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "layout": "small",
-          "size": "content",
-          "spacing": 0
+          "size": "content"
         },
         "items": [
           {
@@ -1600,7 +1590,6 @@ exports[`insert plugins tests > footer toolbar > should insert gallery #0`] =
           }
         ],
         "styles": {
-          "allowContextMenu": true,
           "allowDownload": false,
           "allowHover": true,
           "allowSocial": false,
@@ -1677,13 +1666,10 @@ exports[`insert plugins tests > footer toolbar > should upload native gallery #0
       "data": {
         "config": {
           "alignment": "center",
-          "layout": "small",
-          "size": "content",
-          "spacing": 0
+          "size": "content"
         },
         "items": [],
         "styles": {
-          "allowContextMenu": true,
           "allowDownload": false,
           "allowHover": true,
           "allowSocial": false,

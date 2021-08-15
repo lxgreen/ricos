@@ -86,11 +86,6 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
 
     onLoad?.(editorInstance);
 
-    // Display prosemirror dev tools in dev mode
-    import('prosemirror-dev-tools').then(({ applyDevTools }) =>
-      applyDevTools?.(editorInstance.view)
-    );
-
     return () => {
       editorInstance.destroy();
     };

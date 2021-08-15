@@ -17,13 +17,46 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+
+- `link`
+  - [#2828](https://github.com/wix/ricos/pull/2828) fix link data values
+
 ### :bug: Bug Fix
 
-- `plugin-common`
-  - [#2842](https://github.com/wix/ricos/pull/2842) fix link toolbar shortcut
+- `link`
+  - [#2855](https://github.com/wix/ricos/pull/2855) fix: shift+enter break link string
 
 </details>
 <hr/>
+
+## 8.49.2 (Aug 14, 2021)
+
+### :bug: Bug Fix
+
+- `vertical-embed`
+  - [#2852](https://github.com/wix/ricos/pull/2852) fix booking description
+
+## 8.49.1 (Aug 13, 2021)
+
+### :nail_care: Polish
+
+- `ricos-schema`
+  - [#2507](https://github.com/wix/ricos/pull/2507) gallery schema
+
+## 8.49.0 (Aug 12, 2021)
+
+### :bug: Bug Fix
+
+- `plugin-common`
+
+  - [#2842](https://github.com/wix/ricos/pull/2842) fix link toolbar shortcut
+
+### :house: Internal
+
+- `gallery`
+  - [#2754](https://github.com/wix/ricos/pull/2754) remove `itemId` from content
+  - [#2799](https://github.com/wix/ricos/pull/2799) calculate thumbnail spacings on runtime normalize content before `8.49.0`
 
 ## 8.48.4 (Aug 10, 2021)
 

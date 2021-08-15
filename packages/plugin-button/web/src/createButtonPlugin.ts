@@ -13,7 +13,7 @@ import {
   ActionButtonPluginEditorConfig,
   ButtonPluginEditorConfig,
 } from './types';
-import { getDefaultComponentData } from './defaults';
+import { DEFAULTS } from './defaults';
 
 import Styles from '../statics/styles/default-styles.scss';
 import ButtonComponent from './components/button-component';
@@ -67,7 +67,7 @@ const createButtonPlugin = (
     }),
     helpers,
     t,
-    defaultPluginData: getDefaultComponentData(isLinkButton, relValue, anchorTarget),
+    defaultPluginData: DEFAULTS,
     isMobile,
     pluginDecorationProps: (props, componentData) => {
       const width = componentData.config?.width;

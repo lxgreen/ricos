@@ -5,25 +5,24 @@ import {
   convertTargetStringToBoolean,
   convertTargetBooleanToString,
   AnchorTarget,
+  RelValue,
 } from 'wix-rich-content-common';
 import LinkPanel from './LinkPanel';
 import { merge } from 'lodash';
 
 interface LinkPanelWrapperProps {
   anchorTarget: AnchorTarget;
-  linkValues: { url?: string; rel?: string; target?: string };
+  relValue: RelValue;
+  linkValues: { url?: string; rel?: string; target: string };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (changes: any) => void;
 }
 
 class LinkPanelWrapper extends Component<LinkPanelWrapperProps> {
   onChange = changes => {
-    const { anchorTarget, linkValues } = this.props;
+    const { linkValues } = this.props;
     const { targetBlank, nofollow, sponsored, ...rest } = changes;
-    const target =
-      targetBlank !== undefined
-        ? convertTargetBooleanToString(targetBlank, anchorTarget)
-        : linkValues.target;
+    const target = convertTargetBooleanToString(targetBlank);
     const relObject = merge({}, convertRelStringToObject(linkValues.rel), { nofollow, sponsored });
     const rel = convertRelObjectToString(relObject);
     const newLinkValues = { ...linkValues, target, rel, ...rest };
@@ -31,8 +30,8 @@ class LinkPanelWrapper extends Component<LinkPanelWrapperProps> {
   };
 
   render() {
-    const { linkValues } = this.props;
-    const { rel, target, url = '', ...rest } = linkValues;
+    const { linkValues, relValue, anchorTarget } = this.props;
+    const { rel = relValue, target = anchorTarget, url = '', ...rest } = linkValues;
     const { nofollow, sponsored } = convertRelStringToObject(rel) || {};
     const targetBlank = convertTargetStringToBoolean(target);
     const linkPanelValues = { ...rest, targetBlank, nofollow, sponsored, url };

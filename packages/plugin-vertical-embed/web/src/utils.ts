@@ -1,6 +1,8 @@
 import { verticalEmbedProviders } from './constants';
+import { isNumber } from 'lodash';
 
 export const convertDuration = (durationInMinutes, t) => {
+  if (!isNumber(durationInMinutes)) return '';
   if (durationInMinutes < 60) {
     return t('VerticalEmbed_Units_Minute', { minutes: durationInMinutes });
   }
