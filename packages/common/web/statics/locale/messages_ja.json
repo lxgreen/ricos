@@ -485,6 +485,7 @@
 	"BlockToolbar_Section_NoSections_ShortcutToolbar": "その他のブロック",
 	"TablePlugin_InsertButton_Tooltip": "表を追加",
 	"Poll_PollSettings_Tab_Settings_Section_Results_VoteVisibility": "投票数を表示",
+	"CollapsibleList_plugin_search_tags": "collapsible FAQ questions expandable sections menu Q&A listings items answers layouts",
 	"LinkTo_Modal_Section_Filter_Codeblocks": "コードブロック",
 	"Embed_Vertical_Events_EmptyState_NotInstalled_Description": "イベントを主催し記事でシェアするには、Wix App Market で Wix ストアをインストールしてください。",
 	"ColorPicker_SetToDefault_ButtonLabel": "初期設定に戻す",
