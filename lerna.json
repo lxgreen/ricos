@@ -16,5 +16,5 @@
   "npmClientArgs": [
     "--no-lockfile"
   ],
-  "version": "8.49.2"
+  "version": "8.49.2-import-css-in-js"
 }
