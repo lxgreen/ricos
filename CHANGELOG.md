@@ -20,6 +20,45 @@
 </details>
 <hr/>
 
+## 8.49.2 (Aug 14, 2021)
+
+### :bug: Bug Fix
+
+- `vertical-embed`
+  - [#2852](https://github.com/wix/ricos/pull/2852) fix booking description
+
+## 8.49.1 (Aug 13, 2021)
+
+### :nail_care: Polish
+
+- `ricos-schema`
+  - [#2507](https://github.com/wix/ricos/pull/2507) gallery schema
+
+## 8.49.0 (Aug 12, 2021)
+
+### :bug: Bug Fix
+
+- `plugin-common`
+  - [#2842](https://github.com/wix/ricos/pull/2842) fix link toolbar shortcut
+
+### :house: Internal
+
+- `gallery`
+  - [#2754](https://github.com/wix/ricos/pull/2754) remove `itemId` from content
+  - [#2799](https://github.com/wix/ricos/pull/2799) calculate thumbnail spacings on runtime normalize content before `8.49.0`
+
+## 8.48.4 (Aug 10, 2021)
+
+### :bug: Bug Fix
+
+- `collapsible-list`
+
+  - [#2831](https://github.com/wix/ricos/pull/2831) add collapsible_list to INSERT_PLUGIN_BUTTONS
+
+- `ricos-viewer` `ricos-editor`
+  - [#2840](https://github.com/wix/ricos/pull/2840) expose `iframeSandboxDomain` prop on editor & viewer fix
+  -
+
 ## 8.48.3 (Aug 09, 2021)
 
 ### :bug: Bug Fix
@@ -63,6 +102,8 @@
 
 ### :bug: Bug Fix
 
+- `ricos-common`
+  - [#2831](https://github.com/wix/ricos/pull/2831) add collapsible_list plugin to INSERT_PLUGIN_BUTTONS
 - `editor`
   - [#2813](https://github.com/wix/ricos/pull/2813) fix rel value not applying in link panel by config
 

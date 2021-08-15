@@ -172,3 +172,16 @@ export const TO_RICOS_DATA_FIELD = {
   ...DRAFT_PLUGIN_TYPE_TO_DATA_FIELD,
   ...DRAFT_BLOCK_TYPE_TO_DATA_FIELD,
 };
+
+export type DraftGalleryStyles = {
+  galleryLayout?: number;
+  gallerySizePx?: number;
+  oneRow?: boolean;
+  cubeRatio?: number;
+  isVertical?: boolean;
+  numberOfImagesPerRow?: number;
+  cubeType?: string;
+  galleryThumbnailsAlignment?: string;
+  imageMargin?: number;
+  thumbnailSpacings?: number;
+};
