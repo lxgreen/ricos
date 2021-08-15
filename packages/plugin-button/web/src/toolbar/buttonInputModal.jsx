@@ -282,7 +282,8 @@ export default class ButtonInputModal extends Component {
               </FocusManager>
             </div>
             <SettingsPanelFooter
-              className={styles.button_inputModal_modal_footer}
+              // className={styles.button_inputModal_modal_footer}
+              // fixed
               save={() => this.onConfirm()}
               cancel={() => this.onCloseRequested()}
               saveLabel={doneLabel}
