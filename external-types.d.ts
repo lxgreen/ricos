@@ -18,8 +18,3 @@ declare module '!!raw-loader!*' {
   const contents: string;
   export = contents;
 }
-
-declare module 'prosemirror-dev-tools' {
-  import { EditorView } from 'prosemirror-view';
-  export function applyDevTools(editorView: EditorView): void;
-}

@@ -15,6 +15,7 @@ import {
   MAP_TYPE,
   EMBED_TYPE,
   LINK_TYPE,
+  GALLERY_TYPE,
   GIPHY_TYPE,
 } from '../../../consts';
 import {
@@ -24,6 +25,7 @@ import {
   ButtonData_Type,
   Link,
   GIFData,
+  GalleryData,
 } from 'ricos-schema';
 import { TO_RICOS_DATA } from './consts';
 import {
@@ -34,6 +36,7 @@ import {
 } from '../../../types';
 import { createLink } from '../../nodeUtils';
 import toConstantCase from 'to-constant-case';
+import { DraftGalleryStyles } from '../consts';
 
 export const convertBlockDataToRicos = (type: string, data) => {
   const newData = cloneDeep(data);
@@ -53,6 +56,7 @@ export const convertBlockDataToRicos = (type: string, data) => {
     [MAP_TYPE]: convertMapData,
     [EMBED_TYPE]: convertEmbedData,
     [LINK_TYPE]: convertLinkData,
+    [GALLERY_TYPE]: convertGalleryData,
   };
   let blockType = type;
   if (type === LINK_PREVIEW_TYPE && data.html) {
@@ -114,6 +118,46 @@ const convertVideoData = (data: {
       height: data.src.thumbnail.height,
     };
   }
+};
+
+const convertGalleryStyles = styles => {
+  styles.layout = {};
+  styles.item = {};
+  styles.thumbnails = {};
+  has(styles, 'galleryLayout') && (styles.layout.type = styles.galleryLayout);
+  has(styles, 'oneRow') && (styles.layout.horizontalScroll = styles.oneRow);
+  has(styles, 'isVertical') && (styles.layout.orientation = styles.isVertical ? 'COLUMNS' : 'ROWS');
+  has(styles, 'numberOfImagesPerRow') &&
+    (styles.layout.numberOfColumns = styles.numberOfImagesPerRow);
+  has(styles, 'gallerySizePx') && (styles.item.targetSize = styles.gallerySizePx);
+  has(styles, 'cubeRatio') && (styles.item.ratio = styles.cubeRatio);
+  has(styles, 'cubeType') && (styles.item.crop = styles.cubeType.toUpperCase());
+  has(styles, 'imageMargin') && (styles.item.spacing = styles.imageMargin);
+  has(styles, 'galleryThumbnailsAlignment') &&
+    (styles.thumbnails.placement = styles.galleryThumbnailsAlignment.toUpperCase());
+  has(styles, 'thumbnailSpacings') && (styles.thumbnails.spacing = styles.thumbnailSpacings * 2);
+  return styles;
+};
+
+const convertGalleryItem = item => {
+  const {
+    url,
+    metadata: { type, poster, height, width, link, title, altText },
+  } = item;
+  item[type] = { media: { src: { url }, height, width } };
+  title && (item.title = title);
+  altText && (item.altText = altText);
+  if (type === 'video' && poster) {
+    const src = { url: poster.url || poster };
+    item.video.thumbnail = { src, height: poster.height || height, width: poster.width || width };
+  }
+  type === 'image' && link && (item.image.link = link);
+  return item;
+};
+
+const convertGalleryData = (data: GalleryData & { styles: DraftGalleryStyles }) => {
+  has(data, 'items') && (data.items = data.items.map(item => convertGalleryItem(item)));
+  has(data, 'styles') && (data.options = convertGalleryStyles(data.styles));
 };
 
 const convertDividerData = (data: {

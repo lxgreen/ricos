@@ -16,5 +16,5 @@
   "npmClientArgs": [
     "--no-lockfile"
   ],
-  "version": "8.48.4-import-styles"
+  "version": "8.49.2"
 }
