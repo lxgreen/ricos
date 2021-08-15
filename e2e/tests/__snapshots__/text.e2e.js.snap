@@ -2684,6 +2684,7 @@ exports[`text > should break the link when enter new soft line #0`] =
   "entityMap": {
     "0": {
       "data": {
+        "target": "_blank",
         "url": "seperateLink.com"
       },
       "mutability": "MUTABLE",
