@@ -195,7 +195,7 @@ function addStylesImport() {
   return {
     name: 'add-style-import',
     writeBundle() {
-      const packageName = process.env.MODULE_NAME;
+      const packageName = require(process.cwd() + '/package.json').name;
       if (fs.existsSync(extractedStylePath)) {
         const cjsImport = `require('${packageName}/${extractedStylePath}')`;
         const esImport = `import '${packageName}/${extractedStylePath}'`;
