@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+- `[ui-components]`
+  - [#2839](https://github.com/wix/ricos/pull/2839) refactor SettingsMobileHeader component and consume it in Button/CollapsibleList/Map/Link-modal/UrlInputModal
+
 ### :nail_care: Polish
 
 - `link`

@@ -161,7 +161,7 @@ class LinkModal extends PureComponent {
       relValue,
     };
     const buttonsProps = {
-      onDone: this.onDone,
+      onSave: this.onDone,
       onCancel: this.onCancel,
       onDelete: this.onDelete,
       isActive,
@@ -170,6 +170,8 @@ class LinkModal extends PureComponent {
       isDoneButtonEnable: this.isDoneButtonEnable(),
       hideUrlInput,
       isMobile,
+      saveLabel: t('LinkPanelContainer_DoneButton'),
+      cancelLabel: t('LinkPanelContainer_CancelButton'),
     };
     const propsToPass = {
       theme,

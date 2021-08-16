@@ -11,15 +11,6 @@ class LinkActionsButtons extends PureComponent {
     this.styles = mergeStyles({ styles, theme: props.theme });
   }
 
-  renderMobileTitle = () => {
-    const { t } = this.props;
-    return (
-      <div id="mob_link_modal_hdr" className={styles.LinkButtons_mobile_title}>
-        {t('MobileLinkModal_Title')}
-      </div>
-    );
-  };
-
   render() {
     const { styles } = this;
     const {
@@ -29,14 +20,14 @@ class LinkActionsButtons extends PureComponent {
       isDoneButtonEnable,
       onCancel,
       onDelete,
-      onDone,
+      onSave,
       basicLinkPanel,
       hideUrlInput,
       isMobile,
       basicDisplay,
+      saveLabel,
+      cancelLabel,
     } = this.props;
-    const doneButtonText = t('LinkPanelContainer_DoneButton');
-    const cancelButtonText = t('LinkPanelContainer_CancelButton');
     const removeButtonText = t('LinkPanelContainer_RemoveButton');
     const showRemoveButton = isActive && !hideUrlInput && !isMobile;
 
@@ -45,8 +36,8 @@ class LinkActionsButtons extends PureComponent {
         className={styles.LinkButtons_saveButton}
         dataHook="actionButtonSave"
         disabled={!isDoneButtonEnable}
-        text={doneButtonText}
-        onClick={onDone}
+        text={saveLabel}
+        onClick={onSave}
         size={BUTTON_SIZE.medium}
         theme={this.theme}
       />
@@ -69,24 +60,22 @@ class LinkActionsButtons extends PureComponent {
             borderless
           />
         )}
-        <div className={isMobile && styles.LinkButtons_mobile_header}>
-          {isMobile && this.renderMobileTitle()}
-          <div
-            className={classNames(styles.actionButtons_wrapper, {
-              [styles.actionButtons_wrapper_mobile]: isMobile,
-            })}
-          >
-            <ActionButtons
-              size={BUTTON_SIZE.tiny}
-              isMobile={isMobile}
-              onCancel={onCancel}
-              onSave={onDone}
-              theme={this.theme}
-              cancelText={cancelButtonText}
-              saveText={doneButtonText}
-              disableSave={!isDoneButtonEnable}
-            />
-          </div>
+
+        <div
+          className={classNames(styles.actionButtons_wrapper, {
+            [styles.actionButtons_wrapper_mobile]: isMobile,
+          })}
+        >
+          <ActionButtons
+            size={BUTTON_SIZE.tiny}
+            isMobile={isMobile}
+            onCancel={onCancel}
+            onSave={onSave}
+            theme={this.theme}
+            cancelText={cancelLabel}
+            saveText={saveLabel}
+            disableSave={!isDoneButtonEnable}
+          />
         </div>
       </div>
     );
@@ -94,7 +83,7 @@ class LinkActionsButtons extends PureComponent {
 }
 
 LinkActionsButtons.propTypes = {
-  onDone: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   isActive: PropTypes.bool,
@@ -105,6 +94,8 @@ LinkActionsButtons.propTypes = {
   basicLinkPanel: PropTypes.bool,
   hideUrlInput: PropTypes.bool,
   isMobile: PropTypes.bool,
+  cancelLabel: PropTypes.string,
+  saveLabel: PropTypes.string,
   basicDisplay: PropTypes.bool,
 };
 
