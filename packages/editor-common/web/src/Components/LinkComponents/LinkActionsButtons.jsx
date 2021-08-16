@@ -20,7 +20,7 @@ class LinkActionsButtons extends PureComponent {
       isDoneButtonEnable,
       onCancel,
       onDelete,
-      onSave,
+      onDone,
       basicLinkPanel,
       hideUrlInput,
       isMobile,
@@ -37,7 +37,7 @@ class LinkActionsButtons extends PureComponent {
         dataHook="actionButtonSave"
         disabled={!isDoneButtonEnable}
         text={saveLabel}
-        onClick={onSave}
+        onClick={onDone}
         size={BUTTON_SIZE.medium}
         theme={this.theme}
       />
@@ -70,7 +70,7 @@ class LinkActionsButtons extends PureComponent {
             size={BUTTON_SIZE.tiny}
             isMobile={isMobile}
             onCancel={onCancel}
-            onSave={onSave}
+            onSave={onDone}
             theme={this.theme}
             cancelText={cancelLabel}
             saveText={saveLabel}
@@ -83,7 +83,7 @@ class LinkActionsButtons extends PureComponent {
 }
 
 LinkActionsButtons.propTypes = {
-  onSave: PropTypes.func.isRequired,
+  onDone: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   isActive: PropTypes.bool,

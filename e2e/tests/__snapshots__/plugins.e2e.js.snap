@@ -6011,20 +6011,8 @@ exports[`plugins > anchor > anchor mobile > should create anchor in text #0`] =
     {
       "data": {},
       "depth": 0,
-      "entityRanges": [
-        {
-          "key": 0,
-          "length": 6,
-          "offset": 0
-        }
-      ],
-      "inlineStyleRanges": [
-        {
-          "length": 6,
-          "offset": 0,
-          "style": "UNDERLINE"
-        }
-      ],
+      "entityRanges": [],
+      "inlineStyleRanges": [],
       "key": 0,
       "text": "anchor",
       "type": "unstyled"
@@ -6052,7 +6040,7 @@ exports[`plugins > anchor > anchor mobile > should create anchor in text #0`] =
       "depth": 0,
       "entityRanges": [
         {
-          "key": 1,
+          "key": 0,
           "length": 1,
           "offset": 0
         }
@@ -6076,7 +6064,7 @@ exports[`plugins > anchor > anchor mobile > should create anchor in text #0`] =
       "depth": 0,
       "entityRanges": [
         {
-          "key": 2,
+          "key": 1,
           "length": 1,
           "offset": 0
         }
@@ -6099,13 +6087,6 @@ exports[`plugins > anchor > anchor mobile > should create anchor in text #0`] =
   "entityMap": {
     "0": {
       "data": {
-        "anchor": "test-blockKey"
-      },
-      "mutability": "MUTABLE",
-      "type": "ANCHOR"
-    },
-    "1": {
-      "data": {
         "config": {
           "alignment": "center",
           "showDescription": true,
@@ -6123,7 +6104,7 @@ exports[`plugins > anchor > anchor mobile > should create anchor in text #0`] =
       "mutability": "IMMUTABLE",
       "type": "wix-draft-plugin-image"
     },
-    "2": {
+    "1": {
       "data": {
         "config": {
           "alignment": "center",
@@ -6229,7 +6210,6 @@ exports[`plugins > anchor > anchor mobile > should create anchor in image #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "anchor": "test-blockKey",
           "showDescription": true,
           "showTitle": true,
           "size": "content"

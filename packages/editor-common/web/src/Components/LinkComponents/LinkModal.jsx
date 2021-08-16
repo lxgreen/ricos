@@ -161,7 +161,7 @@ class LinkModal extends PureComponent {
       relValue,
     };
     const buttonsProps = {
-      onSave: this.onDone,
+      onDone: this.onDone,
       onCancel: this.onCancel,
       onDelete: this.onDelete,
       isActive,
