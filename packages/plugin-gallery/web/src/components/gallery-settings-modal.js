@@ -373,8 +373,6 @@ export class GallerySettingsModal extends Component {
             theme={theme}
             onCancel={this.revertComponentData}
             onSave={this.onDoneClick}
-            cancelLabel={t('GallerySettings_MobileHeader_Cancel')}
-            saveLabel={t('GallerySettings_MobileHeader_Save')}
             t={t}
           />
         )}

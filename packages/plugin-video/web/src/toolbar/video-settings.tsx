@@ -42,12 +42,6 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
     closeModal();
   };
   const isCustomVideo = !!componentData.isCustomVideo;
-  const mobileSettingsProps = {
-    t,
-    theme,
-    onCancel: closeModal,
-    onSave: onDoneClick,
-  };
 
   const spoilerToggle = {
     toggleKey: 'isSpoilerEnabled',
@@ -82,7 +76,7 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
       })}
     >
       {isMobile ? (
-        <SettingsMobileHeader {...mobileSettingsProps} />
+        <SettingsMobileHeader t={t} theme={theme} onCancel={closeModal} onSave={onDoneClick} />
       ) : (
         <>
           <div className={styles.videoSettingsTitle}>{t('VideoPlugin_Settings_Header')}</div>

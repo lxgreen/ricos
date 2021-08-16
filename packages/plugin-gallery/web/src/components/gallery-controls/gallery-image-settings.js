@@ -89,14 +89,7 @@ class ImageSettings extends Component {
       <FocusManager className={styles.galleryImageSettings}>
         <div className={styles.galleryImageSettings_content}>
           {isMobile ? (
-            <SettingsMobileHeader
-              theme={theme}
-              onCancel={onCancel}
-              onSave={onSave}
-              cancelLabel={t('GallerySettings_MobileHeader_Cancel')}
-              saveLabel={t('GallerySettings_MobileHeader_Save')}
-              t={t}
-            />
+            <SettingsMobileHeader theme={theme} onCancel={onCancel} onSave={onSave} t={t} />
           ) : (
             <h3
               className={classNames(
@@ -240,14 +233,7 @@ class ImageSettings extends Component {
             )}
           </div>
           {isMobile ? null : (
-            <SettingsPanelFooter
-              fixed
-              theme={theme}
-              className={styles.galleryImageSettings_footer}
-              cancel={onCancel}
-              save={onSave}
-              t={t}
-            />
+            <SettingsPanelFooter fixed theme={theme} cancel={onCancel} save={onSave} t={t} />
           )}
         </div>
       </FocusManager>

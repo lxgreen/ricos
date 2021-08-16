@@ -181,8 +181,6 @@ class ImageSettings extends Component {
             theme={theme}
             onCancel={this.revertComponentData}
             onSave={this.onDoneClick}
-            cancelLabel={t('ImageSettings_MobileHeader_Cancel')}
-            saveLabel={t('ImageSettings_MobileHeader_Save')}
             t={t}
           />
         ) : (
