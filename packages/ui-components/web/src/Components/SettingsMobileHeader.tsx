@@ -23,7 +23,7 @@ const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
   title,
   t,
 }) => {
-  const saveText = saveLabel || t?.('SettingsPanelFooter_Done');
+  const saveText = saveLabel || t?.('SettingsPanelFooter_Save');
   const cancelText = cancelLabel || t?.('SettingsPanelFooter_Cancel');
 
   return (

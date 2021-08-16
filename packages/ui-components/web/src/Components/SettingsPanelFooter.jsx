@@ -28,7 +28,7 @@ class SettingsPanelFooter extends Component {
     } = this.props;
     const { isModal, buttonAlignment = FOOTER_BUTTON_ALIGNMENT.CENTER } = layoutOptions;
     const endAlignment = buttonAlignment === FOOTER_BUTTON_ALIGNMENT.END;
-    const saveText = saveLabel || t('SettingsPanelFooter_Done');
+    const saveText = saveLabel || t('SettingsPanelFooter_Save');
     const cancelText = cancelLabel || t('SettingsPanelFooter_Cancel');
 
     return (
