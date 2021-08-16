@@ -18,6 +18,7 @@
   </summary>
 
 ### :house: Internal
+
 - `[ui-components]`
   - [#2839](https://github.com/wix/ricos/pull/2839) refactor SettingsMobileHeader component and consume it in Button/CollapsibleList/Map/Link-modal/UrlInputModal
 
@@ -34,6 +35,10 @@
 
 - `link`
   - [#2855](https://github.com/wix/ricos/pull/2855) fix: shift+enter break link string
+
+### :book: Documentation
+
+- `extractAppEmbedData` API docs added
 
 </details>
 <hr/>
