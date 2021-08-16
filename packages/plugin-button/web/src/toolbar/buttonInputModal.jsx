@@ -211,8 +211,6 @@ export default class ButtonInputModal extends Component {
           <SettingsMobileHeader
             onSave={this.onConfirm}
             onCancel={this.onCloseRequested}
-            saveLabel={doneLabel}
-            cancelLabel={cancelLabel}
             theme={styles}
             t={t}
           />
@@ -290,10 +288,8 @@ export default class ButtonInputModal extends Component {
             </div>
             <SettingsPanelFooter
               fixed
-              save={() => this.onConfirm()}
-              cancel={() => this.onCloseRequested()}
-              saveLabel={doneLabel}
-              cancelLabel={cancelLabel}
+              save={this.onConfirm}
+              cancel={this.onCloseRequested}
               theme={styles}
               t={t}
               buttonSize={BUTTON_SIZE.small}
