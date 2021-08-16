@@ -51,9 +51,8 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
     const linkPanelData = {
       linkTypes: this.props.plugins?.find(plugin => plugin.type === 'LINK')?.config.linkTypes,
       uiSettings: { linkPanel: this.props.linkPanelSettings },
-      anchorTarget: this.props.linkSettings?.anchorTarget,
+      linkSettings: this.props.linkSettings,
       isMobile,
-      customAnchorScroll: this.props.linkSettings?.customAnchorScroll,
     };
     const onInlineToolbarOpen = () => this.props.onInlineToolbarOpen?.(ToolbarType.LINK);
     const onToolbarButtonClick = (name, value = undefined) => {

@@ -140,6 +140,7 @@ class LinkModal extends PureComponent {
       hideUrlInput,
       linkTypes,
       anchorTarget,
+      relValue,
     } = this.props;
     const { linkPanel } = uiSettings || {};
     const { showNewTabCheckbox, showNoFollowCheckbox, showSponsoredCheckbox } = linkPanel || {};
@@ -154,6 +155,7 @@ class LinkModal extends PureComponent {
       hideUrlInput,
       ...uiSettings?.linkPanel,
       anchorTarget,
+      relValue,
     };
     const buttonsProps = {
       onDone: this.onDone,
@@ -205,6 +207,7 @@ LinkModal.propTypes = {
   isActive: PropTypes.bool,
   isMobile: PropTypes.bool,
   anchorTarget: PropTypes.string,
+  relValue: PropTypes.string,
   onDone: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,

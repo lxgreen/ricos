@@ -94,7 +94,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
     const linkPanelData = {
       linkTypes: this.props.plugins?.find(plugin => plugin.type === 'LINK')?.config.linkTypes,
       uiSettings: { linkPanel: this.props.linkPanelSettings },
-      anchorTarget: this.props.linkSettings?.anchorTarget,
+      linkSettings: this.props.linkSettings,
       isMobile,
     };
     const onInlineToolbarOpen = () => this.props.onInlineToolbarOpen?.(ToolbarType.FORMATTING);

@@ -48,7 +48,7 @@ class LinkPanel extends Component {
     this.onChange({ sponsored: event.target.checked });
   };
 
-  onChange = changes => this.props.onChange(changes);
+  onChange = changes => this.props.onChange({ ...this.props.linkValues, ...changes });
 
   handleKeyDown = e => {
     const { onEnter, onEscape } = this.props;
@@ -126,7 +126,7 @@ class LinkPanel extends Component {
       hasCheckboxes,
     } = this.props;
 
-    const { targetBlank = true, nofollow, sponsored } = linkValues;
+    const { targetBlank, nofollow, sponsored } = linkValues;
 
     return (
       <div
