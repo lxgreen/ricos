@@ -91,6 +91,9 @@
   "yoshi": {
     "hmr": "auto"
   },
+  "eslintConfig":{
+    "extends": "../../.eslintrc.js"
+  },
   "babel": {
     "presets": [
       [

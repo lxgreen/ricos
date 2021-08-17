@@ -1,7 +1,6 @@
-/*global cy*/
 import { DEFAULT_DESKTOP_BROWSERS, DEFAULT_MOBILE_BROWSERS } from './settings';
 import { getFooterToolbarConfig } from '../cypress/testAppConfig';
-import { PLUGIN_COMPONENT } from '../cypress/dataHooks';
+import { PLUGIN_COMPONENT, ACTION_BUTTONS } from '../cypress/dataHooks';
 
 describe('rtl', () => {
   beforeEach(() => cy.switchToHebrew());
@@ -98,7 +97,7 @@ describe('rtl', () => {
       cy.loadRicosEditorAndViewer('images')
         .openPluginToolbar(PLUGIN_COMPONENT.IMAGE)
         .openSettings()
-        .get('[data-hook="ImageSettingsMobileHeaderCancel"]')
+        .get(`[data-hook=${ACTION_BUTTONS.CANCEL}]`)
         .blur();
       cy.eyesCheckWindow({ tag: this.test.title, target: 'window', fully: false });
     });

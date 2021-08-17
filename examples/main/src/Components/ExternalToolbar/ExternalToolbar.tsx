@@ -14,6 +14,8 @@ class ExternalToolbar extends Component<{
   tabIndex?: number;
 }> {
   theme: RichContentTheme;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   buttonRef: RefObject<any>;
 
   constructor(props) {
@@ -118,12 +120,14 @@ class ExternalToolbar extends Component<{
   render() {
     const { buttons = {} } = this.props;
     return (
+      /* eslint-disable @typescript-eslint/no-explicit-any */
       <div className={styles.toolbar}>
         {Object.values(buttons).map((buttonProps: any, i) => {
           const Button = this.buttonMap[buttonProps.type];
           return <Button {...buttonProps} key={i} />;
         })}
       </div>
+      /* eslint-enable @typescript-eslint/no-explicit-any */
     );
   }
 }

@@ -16,7 +16,7 @@ import { DraftContent, ToolbarType } from 'wix-rich-content-common';
 import ContentStateEditorType from './Components/ContentStateEditor';
 import { ensureDraftContent } from 'ricos-content/libs/migrateSchema';
 import { themeStrategy } from 'ricos-common';
-import { FONTS, EXPERIMENTS, ricosPalettes } from '../../../e2e/tests/resources';
+import { FONTS, EXPERIMENTS, ricosPalettes } from '../../storybook/src/resources';
 
 const ContentStateEditor = React.lazy(() => import('./Components/ContentStateEditor'));
 const Editor = React.lazy(() => import('../shared/editor/Editor'));

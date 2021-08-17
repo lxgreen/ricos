@@ -1,4 +1,4 @@
-require('cypress-plugin-tab');
+import 'cypress-plugin-tab';
 import './commands';
 import './tableCommands';
 import '@applitools/eyes-cypress/commands';

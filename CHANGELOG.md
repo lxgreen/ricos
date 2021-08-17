@@ -17,15 +17,32 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `[ui-components]`
+  - [#2839](https://github.com/wix/ricos/pull/2839) refactor SettingsMobileHeader component and consume it in Button/CollapsibleList/Map/Link-modal/UrlInputModal
+- `[e2e]`
+  - [#2860](https://github.com/wix/ricos/pull/2860) add TypeScript support for Cypress
+- `[examples]`
+  - [#2862](https://github.com/wix/ricos/pull/2862) add eslint support
+
 ### :nail_care: Polish
 
 - `link`
   - [#2828](https://github.com/wix/ricos/pull/2828) fix link data values
+- `plugin-button`
+  - [#2856](https://github.com/wix/ricos/pull/2856) refactor SettingsPanelFooter usage and deleted some css
+- `Tooltip`
+  - [#2839](https://github.com/wix/ricos/pull/2839) refactor tooltip style
 
 ### :bug: Bug Fix
 
 - `link`
   - [#2855](https://github.com/wix/ricos/pull/2855) fix: shift+enter break link string
+
+### :book: Documentation
+
+- `extractAppEmbedData` API docs added
 
 </details>
 <hr/>

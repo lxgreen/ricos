@@ -8,7 +8,6 @@ class PluginToolbarDecoration extends Component<{
 
   render() {
     const { style, className, children, ...props } = this.props;
-    console.log('PluginToolbarDecoration rendered');
     return (
       <div style={style} className={className} {...props}>
         {children}

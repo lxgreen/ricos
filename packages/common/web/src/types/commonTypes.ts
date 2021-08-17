@@ -122,9 +122,9 @@ export interface ViewerContextType extends CommonContextType {
 }
 
 export type Experiment = {
-  value: string;
   enabled: boolean;
-  namespace: string;
+  value?: string;
+  namespace?: string;
 };
 
 export type AvailableExperiments = Record<string, Experiment>;
