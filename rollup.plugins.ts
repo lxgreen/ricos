@@ -24,7 +24,8 @@ import { createFilter } from '@rollup/pluginutils';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 
 const IS_DEV_ENV = process.env.NODE_ENV === 'development';
-const extractedStylePath = 'dist/styles.min.global.css';
+const editorExtractedStylePath = 'dist/styles.min.global.css';
+const viewerExtractedStylePath = 'dist/styles.viewer.min.global.css';
 
 const resolve = (): Plugin => {
   return resolvePlugin({
@@ -134,7 +135,7 @@ const json = (): Plugin => {
   });
 };
 
-const postcss = (shouldExtract: boolean): Plugin => {
+const postcss = (shouldExtract: boolean, viewer?: boolean): Plugin => {
   return postcssPlugin({
     minimize: {
       // reduceIdents: false,
@@ -145,7 +146,7 @@ const postcss = (shouldExtract: boolean): Plugin => {
     modules: {
       generateScopedName: IS_DEV_ENV ? '[name]__[local]___[hash:base64:5]' : '[hash:base64:5]',
     },
-    extract: shouldExtract && extractedStylePath,
+    extract: shouldExtract && (viewer ? viewerExtractedStylePath : editorExtractedStylePath),
     plugins: [
       postcssExclude({
         filter: '**/*.rtlignore.scss',
@@ -195,27 +196,36 @@ function addStylesImport() {
   return {
     name: 'add-style-import',
     writeBundle() {
-      if (fs.existsSync(extractedStylePath)) {
-        const packageJson = require(process.cwd() + '/package.json');
+      const packageJson = require(process.cwd() + '/package.json');
+      const packageName = packageJson.name;
+
+      const getExtractedCssCjsFile = path => `require('${packageName}/${path}')`;
+      const getExtractedCssEsFile = path => `import '${packageName}/${path}'`;
+
+      const writeContent = (path, content) => {
+        if (fs.existsSync(path)) {
+          const code = fs.readFileSync(path, 'utf8');
+          const result = code.includes(content) ? code : `${content};\n` + code;
+          fs.writeFileSync(path, result, 'utf8');
+        }
+      };
+
+      const isExistEditorStyles = fs.existsSync(editorExtractedStylePath);
+      const isExistViewerStyles = fs.existsSync(viewerExtractedStylePath);
+
+      if (isExistEditorStyles) {
+        writeContent(packageJson.module, getExtractedCssEsFile(editorExtractedStylePath));
+        writeContent(packageJson.main, getExtractedCssCjsFile(editorExtractedStylePath));
+      }
+      if (isExistViewerStyles) {
         let loadablePackageJson;
         try {
           loadablePackageJson = require(process.cwd() + '/loadable/viewer/package.json');
         } catch {}
 
-        const packageName = packageJson.name;
-        const extactedCssCjsPath = `require('${packageName}/${extractedStylePath}')`;
-        const extactedCssEsPath = `import '${packageName}/${extractedStylePath}'`;
+        const extactedCssCjsPath = getExtractedCssCjsFile(viewerExtractedStylePath);
+        const extactedCssEsPath = getExtractedCssEsFile(viewerExtractedStylePath);
 
-        writeFileSync('dist/styles.min.css', '');
-        const writeContent = (path, content) => {
-          if (fs.existsSync(path)) {
-            const code = fs.readFileSync(path, 'utf8');
-            const result = code.includes(content) ? code : `${content};\n` + code;
-            fs.writeFileSync(path, result, 'utf8');
-          }
-        };
-        writeContent(packageJson.module, extactedCssEsPath);
-        writeContent(packageJson.main, extactedCssCjsPath);
         writeContent('dist/module.viewer.js', extactedCssEsPath);
         writeContent('dist/module.viewer.cjs.js', extactedCssCjsPath);
         if (loadablePackageJson) {
@@ -223,11 +233,13 @@ function addStylesImport() {
           writeContent(loadablePackageJson.main.match(/dist.*/)[0], extactedCssCjsPath);
         }
       }
+
+      (isExistEditorStyles || isExistViewerStyles) && writeFileSync('dist/styles.min.css', '');
     },
   };
 }
 
-let _plugins: Plugin[] = [
+let plugins: Plugin[] = [
   svgr(),
   resolveAlias(),
   resolve(),
@@ -238,25 +250,21 @@ let _plugins: Plugin[] = [
 ];
 
 if (!IS_DEV_ENV) {
-  _plugins = [..._plugins, replace(), uglify()];
+  plugins = [...plugins, replace(), uglify()];
 }
 
 if (process.env.MODULE_ANALYZE_EDITOR || process.env.MODULE_ANALYZE_VIEWER) {
-  _plugins = [..._plugins, visualizer()];
+  plugins = [...plugins, visualizer()];
 }
 
 if (process.env.EXTRACT_CSS === 'false') {
-  _plugins = [..._plugins, createFakeStylesFile()];
+  plugins = [...plugins, createFakeStylesFile()];
 }
 
-const plugins = (shouldExtractCss: boolean) => {
-  _plugins.push(postcss(shouldExtractCss));
-  return _plugins;
-};
 const lastEntryPlugins = [
   libsPackageJsonGeneratorPlugin(),
   copy(),
   copyAfterBundleWritten(),
   addStylesImport(),
 ];
-export { plugins, lastEntryPlugins };
+export { plugins, postcss, lastEntryPlugins };
