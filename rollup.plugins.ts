@@ -195,10 +195,17 @@ function addStylesImport() {
   return {
     name: 'add-style-import',
     writeBundle() {
-      const packageName = require(process.cwd() + '/package.json').name;
       if (fs.existsSync(extractedStylePath)) {
-        const cjsImport = `require('${packageName}/${extractedStylePath}')`;
-        const esImport = `import '${packageName}/${extractedStylePath}'`;
+        const packageJson = require(process.cwd() + '/package.json');
+        let loadablePackageJson;
+        try {
+          loadablePackageJson = require(process.cwd() + '/loadable/viewer/package.json');
+        } catch {}
+
+        const packageName = packageJson.name;
+        const extactedCssCjsPath = `require('${packageName}/${extractedStylePath}')`;
+        const extactedCssEsPath = `import '${packageName}/${extractedStylePath}'`;
+
         writeFileSync('dist/styles.min.css', '');
         const writeContent = (path, content) => {
           if (fs.existsSync(path)) {
@@ -207,14 +214,14 @@ function addStylesImport() {
             fs.writeFileSync(path, result, 'utf8');
           }
         };
-        writeContent('dist/module.js', esImport);
-        writeContent('dist/module.cjs.js', cjsImport);
-        writeContent('dist/module.viewer.js', esImport);
-        writeContent('dist/module.viewer.cjs.js', cjsImport);
-        writeContent('dist/es/index.js', esImport);
-        writeContent('dist/cjs/index.js', cjsImport);
-        writeContent('dist/loadable/viewer/es/viewer-loadable.js', esImport);
-        writeContent('dist/loadable/viewer/cjs/viewer-loadable.cjs.js', cjsImport);
+        writeContent(packageJson.module, extactedCssEsPath);
+        writeContent(packageJson.main, extactedCssCjsPath);
+        writeContent('dist/module.viewer.js', extactedCssEsPath);
+        writeContent('dist/module.viewer.cjs.js', extactedCssCjsPath);
+        if (loadablePackageJson) {
+          writeContent(loadablePackageJson.module.match(/dist.*/)[0], extactedCssEsPath);
+          writeContent(loadablePackageJson.main.match(/dist.*/)[0], extactedCssCjsPath);
+        }
       }
     },
   };
