@@ -1,52 +1,25 @@
-import { pipe } from 'fp-ts/function';
-import * as A from 'fp-ts/Array';
-import { concatAll } from 'fp-ts/Monoid';
-import * as E from 'fp-ts/Endomorphism';
-import React, { useContext, useRef, ComponentType } from 'react';
-import { NodeViewWrapper, NodeViewRendererProps } from '@tiptap/react';
-import { NodeViewHoc, NodeViewHocMap, RicosTiptapContextValue } from 'wix-rich-content-common';
+import React, { useContext } from 'react';
+import { NodeViewRendererProps, NodeViewWrapper } from '@tiptap/react';
 import { RicosTiptapContext } from '../../context';
+import { RicosTiptapContextValue } from 'wix-rich-content-common';
 
 export type RicosNodeProps = NodeViewRendererProps &
   RicosTiptapContextValue & {
     componentData: NodeViewRendererProps['node']['attrs'];
   };
 
-const composeHocs = (component: ComponentType<RicosNodeProps>) => (
-  hocs: NodeViewHoc<RicosNodeProps>[]
-): ComponentType<RicosNodeProps> =>
-  concatAll(E.getMonoid<ComponentType<RicosNodeProps>>())(hocs)(component);
+export const RicosNode = ({ Component, tiptapNodeProps }) => {
+  const ricosTiptapContext = useContext(RicosTiptapContext) || {};
 
-const getHocsByKey = (key: string) => (map: NodeViewHocMap) => map[key] || ([] as NodeViewHoc[]);
-
-export const RicosNode = ({
-  component,
-  tiptapNodeProps,
-}: {
-  component: ComponentType<RicosNodeProps>;
-  tiptapNodeProps: NodeViewRendererProps;
-}) => {
-  const ricosTiptapContext = useContext(RicosTiptapContext);
-
-  // TODO: merged hoc array cannot be sorted by priority, as it does not exist in NodeViewHoc
-  const componentWithNodeHOCs = pipe(
-    [getHocsByKey('*'), getHocsByKey(tiptapNodeProps.node.type.name)],
-    A.ap(A.of(ricosTiptapContext.nodeViewsHOCs)),
-    concatAll(A.getMonoid<NodeViewHoc>()),
-    A.reverse,
-    composeHocs(component)
-  );
-
-  const componentProps: RicosNodeProps = {
-    ...ricosTiptapContext,
+  const componentProps = {
+    ...ricosTiptapContext, // helpes , editor Props
     componentData: tiptapNodeProps.node.attrs,
     ...tiptapNodeProps,
   };
-
-  const ComponentWithNodeHOCs = useRef(componentWithNodeHOCs).current;
+  console.log({ Component });
   return (
     <NodeViewWrapper>
-      <ComponentWithNodeHOCs {...componentProps} />
+      <Component {...componentProps} />
     </NodeViewWrapper>
   );
 };

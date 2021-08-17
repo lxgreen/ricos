@@ -10,12 +10,17 @@ import {
 } from '@tiptap/react';
 import { RicosNode, RicosNodeProps } from '../components/RicosNode/RicosNode';
 import { RicosNodeExtension } from 'wix-rich-content-common';
+import { RicosNodeHOCComposer } from '../components/RicosNodeHOCComposer/RicosNodeHOCComposer';
 
 const createRicosNodeHOC = (Component: ComponentType<RicosNodeProps>) => (
   props: NodeViewRendererProps
 ) => (
   <NodeViewWrapper as="div">
-    <RicosNode component={Component} tiptapNodeProps={props} />
+    <RicosNodeHOCComposer Component={Component} nodeName={props.node.type.name}>
+      {ComponentWithNodeHOCs => {
+        return <RicosNode Component={ComponentWithNodeHOCs} tiptapNodeProps={props} />;
+      }}
+    </RicosNodeHOCComposer>
   </NodeViewWrapper>
 );
 
@@ -35,5 +40,5 @@ const toFullNodeConfig = (ext: RicosNodeExtension) => (config: NodeConfig): Node
   ...config,
 });
 
-export const createRicosNodeConfig = (ext: RicosNodeExtension): NodeConfig =>
+export const createRicosNodeConfig = (ext: RicosNodeExtension): any =>
   pipe(ext, toExtensionConfig, toFullNodeConfig(ext));

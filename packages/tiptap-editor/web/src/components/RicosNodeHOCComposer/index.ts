@@ -1,0 +1,1 @@
+export { RicosNodeHOCComposer } from './RicosNodeHOCComposer';
