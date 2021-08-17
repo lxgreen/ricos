@@ -38,7 +38,6 @@ class BasicLinkPanel extends PureComponent {
         data-hook="linkPanelContainer"
         role="form"
         {...ariaProps}
-        style={{ padding: 20 }}
       >
         <div className={styles.linkPanel_wrapper}>
           <LinkPanelWrapper

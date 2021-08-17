@@ -160,15 +160,19 @@ class ModalButton extends Component<ModalButtonProps, State> {
     } = dropDownProps;
     const { isModalOpen, isModalOverflowByHeight, overflowWidthBy } = this.state;
     const buttonProps = arrow && getLabel ? { buttonContent: getLabel() } : { icon: getIcon() };
-    const mobileStyles = {
-      position: 'fixed',
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-      width: '100%',
-      background: 'transparent',
-    } as React.CSSProperties;
+    const isLinkButton = dataHook === 'LinkButton';
+    const onModalWrapperClick = isMobile && !isLinkButton ? this.closeModal : undefined;
+    const mobileStyles = isLinkButton
+      ? {}
+      : ({
+          position: 'fixed',
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          width: '100%',
+          background: 'transparent',
+        } as React.CSSProperties);
     return (
       <ClickOutside onClickOutside={this.closeModal}>
         <div className={styles.buttonWrapper}>
@@ -201,7 +205,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
               style={
                 isMobile ? mobileStyles : overflowWidthBy ? { left: `-${overflowWidthBy}px` } : {}
               }
-              onClick={isMobile ? this.closeModal : undefined}
+              onClick={onModalWrapperClick}
             >
               {modal({
                 closeCustomModal: this.closeModal,

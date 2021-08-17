@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { Component, RefObject } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import ClickOutside from 'react-click-outsider';
 import styles from '../ToolbarNew.scss';

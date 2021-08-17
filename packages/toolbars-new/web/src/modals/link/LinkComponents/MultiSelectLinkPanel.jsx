@@ -145,7 +145,6 @@ class MultiSelectLinkPanel extends PureComponent {
         data-hook="linkPanelContainer"
         role="form"
         {...ariaProps}
-        style={{ padding: 20 }}
       >
         {!isMobile && this.renderDesktopHeader()}
 
