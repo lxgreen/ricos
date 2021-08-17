@@ -65,7 +65,8 @@
     "test": "echo 'There are no tests configured for this project!' && exit 0",
     "build:dev": "webpack --config ./config/webpack.dev.js",
     "build": "webpack --config ./config/webpack.prod.js",
-    "analyze": "npm run build -- --progress --env.analyzeBundle"
+    "analyze": "npm run build -- --progress --env.analyzeBundle",
+    "lint": "eslint '{src,shared}/**/*.{js,jsx,ts,tsx,d.ts}'"
   },
   "devDependencies": {
     "babel-plugin-preval": "^3.0.1",
@@ -76,7 +77,7 @@
     "wix-statics-parent": "*"
   },
   "eslintConfig": {
-    "extends": "react-app",
+    "extends": "../../.eslintrc.js",
     "rules": {
       "jsx-a11y/href-no-hash": "off"
     }

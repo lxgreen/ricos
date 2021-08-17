@@ -13,6 +13,7 @@ export const mockImageNativeUploadFunc = (files, updateEntity) => {
   };
   setTimeout(() => {
     updateEntity({ data, files });
+    // eslint-disable-next-line no-console
     console.log('consumer uploaded', data);
   }, 2000);
 };
@@ -75,6 +76,7 @@ export const mockFileUploadFunc = updateEntity => {
 };
 
 export const mockCustomVideoUploadFunc = (updateEntity, removeEntity) => {
+  // eslint-disable-next-line no-console
   console.log('consumer wants to upload custom video');
   const videoToUpload = getVideoToUpload(
     '11062b_a552731f40854d16a91627687fb8d1a6',
@@ -82,17 +84,20 @@ export const mockCustomVideoUploadFunc = (updateEntity, removeEntity) => {
   );
   setTimeout(() => {
     updateEntity({ data: videoToUpload });
+    // eslint-disable-next-line no-console
     console.log('consumer uploaded ', videoToUpload);
   }, 500);
 };
 
 export const mockVideoNativeUploadFunc = (file, updateEntity, removeEntity) => {
+  // eslint-disable-next-line no-console
   console.log('consumer wants to upload custom video', file);
   const mockVideoIndex = Math.floor(Math.random() * testWixVideos.length);
   const testVideo = testWixVideos[mockVideoIndex];
   const videoToUpload = getVideoToUpload(testVideo.url, testVideo.metadata.posters[0].url);
   setTimeout(() => {
     updateEntity({ data: videoToUpload });
+    // eslint-disable-next-line no-console
     console.log('consumer uploaded ', videoToUpload);
   }, 5000);
 };

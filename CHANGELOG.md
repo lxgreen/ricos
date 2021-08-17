@@ -23,6 +23,8 @@
   - [#2839](https://github.com/wix/ricos/pull/2839) refactor SettingsMobileHeader component and consume it in Button/CollapsibleList/Map/Link-modal/UrlInputModal
 - `[e2e]`
   - [#2860](https://github.com/wix/ricos/pull/2860) add TypeScript support for Cypress
+- `[examples]`
+  - [#2862](https://github.com/wix/ricos/pull/2862) add eslint support
 
 ### :nail_care: Polish
 
