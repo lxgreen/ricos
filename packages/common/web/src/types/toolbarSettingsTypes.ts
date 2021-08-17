@@ -23,20 +23,24 @@ export interface ToolbarSettingsFunctions {
   getInstance?: (config: any) => any;
   getDisplayOptions?: () => PlatformSettings<any>;
   getToolbarDecorationFn?: () => PlatformSettings<any>;
-  addPluginMenuConfig?: {
-    showSearch?: boolean;
-    splitToSections?: boolean;
-    tablePluginMenu?: boolean;
-    horizontalMenuLayout?: boolean;
-  };
-  footerToolbarConfig?: {
-    morePluginsMenu?: {
-      splitToSections: boolean;
-      showSearch: boolean;
-    };
-    pluginsToDisplayInToolbar?: string[];
-  };
+  addPluginMenuConfig?: AddPluginMenuConfig;
+  footerToolbarConfig?: FooterToolbarConfig;
   onClick?: () => void;
+}
+
+export interface AddPluginMenuConfig {
+  showSearch?: boolean;
+  splitToSections?: boolean;
+  tablePluginMenu?: boolean;
+  horizontalMenuLayout?: boolean;
+}
+
+export interface FooterToolbarConfig {
+  morePluginsMenu?: {
+    splitToSections?: boolean;
+    showSearch?: boolean;
+  };
+  pluginsToDisplayInToolbar?: string[];
 }
 
 export type TextButtons = {

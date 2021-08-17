@@ -42,6 +42,8 @@ import { videoHandlers } from '../../../../../examples/main/shared/editor/Editor
 
 // eslint-disable-next-line max-len
 import { MockVerticalSearchModule } from '../../../../../examples/main/shared/utils/verticalEmbedUtil';
+import { TestAppConfig } from '../../types';
+import { EditorPlugin } from 'wix-rich-content-common';
 
 const { Instagram, Twitter, TikTok } = LinkPreviewProviders;
 const { product, booking, event } = verticalEmbedProviders;
@@ -51,7 +53,7 @@ const onLinkAdd = async (customLinkData, saveData) => {
   saveData(data);
 };
 
-const defaultConfigs = {
+const defaultConfigs: TestAppConfig['pluginsConfig'] = {
   fileUpload: {
     accept: '*',
   },
@@ -90,7 +92,7 @@ const defaultConfigs = {
   },
 };
 
-const normalizeConfigs = configs => {
+const normalizeConfigs = (configs: TestAppConfig['pluginsConfig']) => {
   if (configs.link?.isCustomModal) {
     configs.link.onLinkAdd = onLinkAdd;
   }
@@ -98,7 +100,9 @@ const normalizeConfigs = configs => {
   return configs;
 };
 
-const createPlugins = externalConfigs => {
+const createPlugins = (
+  externalConfigs: TestAppConfig['pluginsConfig']
+): Record<string, EditorPlugin> => {
   const configs = normalizeConfigs(merge(defaultConfigs, externalConfigs));
 
   return {
@@ -133,7 +137,10 @@ const createPlugins = externalConfigs => {
   };
 };
 
-export default (pluginsPreset, externalPluginsConfigs = {}) => {
+export default (
+  pluginsPreset: TestAppConfig['plugins'],
+  externalPluginsConfigs: TestAppConfig['pluginsConfig'] = {}
+): EditorPlugin[] => {
   const presets = createPresets(createPlugins(externalPluginsConfigs));
 
   return pluginsPreset

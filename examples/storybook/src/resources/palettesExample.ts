@@ -1,5 +1,7 @@
-/* eslint-disable no-unused-vars */
-const TemplateExample = [
+import { PaletteColors } from 'wix-rich-content-common';
+import { WixColor } from 'ricos-common';
+
+const TEMPLATE_EXAMPLE: Omit<WixColor, 'value'>[] = [
   {
     name: 'color_1',
     reference: 'white/black',
@@ -122,7 +124,7 @@ const TemplateExample = [
   },
 ];
 
-const ricosPalettes = [
+const ricosPalettes: PaletteColors[] = [
   {
     bgColor: '#FFFFFF',
     textColor: '#414141',
@@ -175,8 +177,10 @@ const ricosPalettes = [
   },
 ];
 
-const baseToWixColors = ({ bgColor, textColor, actionColor }) => {
-  const palette = new Array(30).fill('#FFFFFF');
+type BaseColors = Pick<Required<PaletteColors>, 'bgColor' | 'textColor' | 'actionColor'>;
+
+const baseToWixColors = ({ bgColor, textColor, actionColor }: BaseColors) => {
+  const palette = new Array<string>(30).fill('#FFFFFF');
   palette[5] = bgColor;
   palette[9] = textColor;
   palette[12] = actionColor;
@@ -185,10 +189,11 @@ const baseToWixColors = ({ bgColor, textColor, actionColor }) => {
 
 const wixColors = ricosPalettes.map(baseToWixColors);
 
-const paletteToWixPalette = palette =>
-  palette.map((color, i) => ({ ...TemplateExample[i], value: color }));
+const paletteToWixPalette = (palette: string[]): WixColor[] =>
+  palette.map((color, i) => ({ ...TEMPLATE_EXAMPLE[i], value: color }));
 
-const wixPalettes = wixColors.map(palette => paletteToWixPalette(palette));
-const baseColorsToWixPalette = baseColors => paletteToWixPalette(baseToWixColors(baseColors));
+const wixPalettes: WixColor[][] = wixColors.map(palette => paletteToWixPalette(palette));
+const baseColorsToWixPalette = (baseColors: BaseColors) =>
+  paletteToWixPalette(baseToWixColors(baseColors));
 
 export { wixPalettes, ricosPalettes, baseColorsToWixPalette };

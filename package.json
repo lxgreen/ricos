@@ -71,7 +71,9 @@
     "link": "lerna link"
   },
   "ultra": {
-    "concurrent": ["lint"]
+    "concurrent": [
+      "lint"
+    ]
   },
   "husky": {
     "hooks": {
@@ -149,6 +151,7 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-wix": "^2.0.0",
     "eslint-import-resolver-lerna": "^1.0.0",
+    "eslint-plugin-cypress": "^2.11.3",
     "eslint-plugin-fp": "^2.3.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",

@@ -1,9 +1,7 @@
-/*global cy*/
 import { useTheming, getPluginMenuConfig, usePlugins, plugins } from '../cypress/testAppConfig';
-
 import { DEFAULT_DESKTOP_BROWSERS, DEFAULT_MOBILE_BROWSERS } from './settings';
 
-function testFlow(isDesktop, title) {
+function testFlow(isDesktop: boolean, title: string) {
   if (isDesktop) {
     cy.setEditorSelection(111, 7);
     cy.wait(200);
@@ -15,14 +13,13 @@ function testFlow(isDesktop, title) {
   }
 }
 
-function tests({ isDesktop }) {
+function tests({ isDesktop }: { isDesktop?: boolean }) {
   it('no palette, no cssOverride', function() {
-    cy.loadRicosEditorAndViewer(
-      'storybook-example-app',
-      useTheming({ skipCssOverride: true }),
-      usePlugins(plugins.all),
-      getPluginMenuConfig()
-    ).focusEditor();
+    cy.loadRicosEditorAndViewer('storybook-example-app', {
+      ...useTheming({ skipCssOverride: true }),
+      ...usePlugins(plugins.all),
+      ...getPluginMenuConfig(),
+    }).focusEditor();
     cy.wait(2000);
     cy.eyesCheckWindow(this.test.title);
     testFlow(isDesktop, this.test.title);
@@ -36,119 +33,110 @@ function tests({ isDesktop }) {
   });
 
   it('palette, no cssOverride', function() {
-    cy.loadRicosEditorAndViewer(
-      'storybook-example-app',
-      usePlugins(plugins.all),
-      useTheming({
+    cy.loadRicosEditorAndViewer('storybook-example-app', {
+      ...usePlugins(plugins.all),
+      ...useTheming({
         skipCssOverride: true,
         paletteType: 'light',
-      })
-    ).focusEditor();
+      }),
+    }).focusEditor();
     cy.wait(2000);
     cy.eyesCheckWindow(this.test.title);
     testFlow(isDesktop, this.test.title);
   });
 
   it('palette, cssOverride', function() {
-    cy.loadRicosEditorAndViewer(
-      'storybook-example-app',
-      usePlugins(plugins.all),
-      useTheming({ paletteType: 'light' })
-    ).focusEditor();
+    cy.loadRicosEditorAndViewer('storybook-example-app', {
+      ...usePlugins(plugins.all),
+      ...useTheming({ paletteType: 'light' }),
+    }).focusEditor();
     cy.wait(2000);
     cy.eyesCheckWindow(this.test.title);
     testFlow(isDesktop, this.test.title);
   });
 
   it('dark palette, no cssOverride', function() {
-    cy.loadRicosEditorAndViewer(
-      'storybook-example-app',
-      usePlugins(plugins.all),
-      useTheming({
+    cy.loadRicosEditorAndViewer('storybook-example-app', {
+      ...usePlugins(plugins.all),
+      ...useTheming({
         skipCssOverride: true,
         paletteType: 'dark',
-      })
-    ).focusEditor();
+      }),
+    }).focusEditor();
     cy.wait(2000);
     cy.eyesCheckWindow(this.test.title);
     testFlow(isDesktop, this.test.title);
   });
 
   it('dark palette, no cssOverride, no container', function() {
-    cy.loadRicosEditorAndViewer(
-      'storybook-example-app',
-      usePlugins(plugins.all),
-      useTheming({
+    cy.loadRicosEditorAndViewer('storybook-example-app', {
+      ...usePlugins(plugins.all),
+      ...useTheming({
         skipCssOverride: true,
         paletteType: 'dark',
         disableContainer: true,
-      })
-    ).focusEditor();
+      }),
+    }).focusEditor();
     cy.wait(2000);
     cy.eyesCheckWindow(this.test.title);
     testFlow(isDesktop, this.test.title);
   });
 
   it('dark palette, no cssOverride, no container, contentBgColor', function() {
-    cy.loadRicosEditorAndViewer(
-      'storybook-example-app',
-      usePlugins(plugins.all),
-      useTheming({
+    cy.loadRicosEditorAndViewer('storybook-example-app', {
+      ...usePlugins(plugins.all),
+      ...useTheming({
         skipCssOverride: true,
         paletteType: 'dark',
         disableContainer: true,
         contentBgColor: true,
-      })
-    ).focusEditor();
+      }),
+    }).focusEditor();
     cy.wait(2000);
     cy.eyesCheckWindow(this.test.title);
     testFlow(isDesktop, this.test.title);
   });
 
   it('dark palette, cssOverride', function() {
-    cy.loadRicosEditorAndViewer(
-      'storybook-example-app',
-      usePlugins(plugins.all),
-      useTheming({ paletteType: 'dark' })
-    ).focusEditor();
+    cy.loadRicosEditorAndViewer('storybook-example-app', {
+      ...usePlugins(plugins.all),
+      ...useTheming({ paletteType: 'dark' }),
+    }).focusEditor();
     cy.wait(2000);
     cy.eyesCheckWindow(this.test.title);
     testFlow(isDesktop, this.test.title);
   });
 
   it('dark palette, no cssOverride, fallbackColor=red', function() {
-    cy.loadRicosEditorAndViewer(
-      'storybook-example-app',
-      usePlugins(plugins.all),
-      useTheming({ paletteType: 'dark', skipCssOverride: true, fallbackColor: '%23FF0000' })
-    ).focusEditor();
+    cy.loadRicosEditorAndViewer('storybook-example-app', {
+      ...usePlugins(plugins.all),
+      ...useTheming({ paletteType: 'dark', skipCssOverride: true, fallbackColor: '%23FF0000' }),
+    }).focusEditor();
     cy.wait(2000);
     cy.eyesCheckWindow(this.test.title);
     testFlow(isDesktop, this.test.title);
   });
 
   it('dark palette, no cssOverride, settingsActionColor=blue', function() {
-    cy.loadRicosEditorAndViewer(
-      'storybook-example-app',
-      usePlugins(plugins.all),
-      useTheming({
+    cy.loadRicosEditorAndViewer('storybook-example-app', {
+      ...usePlugins(plugins.all),
+      ...useTheming({
         paletteType: 'dark',
         skipCssOverride: true,
         settingsActionColor: '%233899EC',
         focusActionColor: '%233899EC',
-      })
-    ).focusEditor();
+      }),
+    }).focusEditor();
     cy.wait(2000);
     cy.eyesCheckWindow(this.test.title);
     testFlow(isDesktop, this.test.title);
   });
 
   it('customStyles', function() {
-    cy.loadRicosEditorAndViewer(
-      'storybook-example-app',
-      usePlugins(plugins.all),
-      useTheming({ useCustomStyles: true, skipCssOverride: true })
-    ).focusEditor();
+    cy.loadRicosEditorAndViewer('storybook-example-app', {
+      ...usePlugins(plugins.all),
+      ...useTheming({ useCustomStyles: true, skipCssOverride: true }),
+    }).focusEditor();
     cy.wait(2000);
     cy.eyesCheckWindow(this.test.title);
     testFlow(isDesktop, this.test.title);

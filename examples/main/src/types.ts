@@ -1,4 +1,4 @@
-import { PluginType, AvailableExperiments } from 'wix-rich-content-common';
+import { AvailableExperiments, AddPluginMenuConfig, FooterToolbarConfig } from 'wix-rich-content-common';
 
 export type OnVisibilityChanged = (sectionName: string, isVisible: boolean) => void;
 
@@ -11,26 +11,13 @@ export interface SectionSettings {
   items?: string[];
 }
 
-export interface AddPluginMenuConfig {
-  showSearch: boolean;
-  splitToSections: boolean;
-}
-
-export interface FooterToolbarConfig {
-  morePluginsMenu?: {
-    splitToSections: boolean;
-    showSearch: boolean;
-  };
-  pluginsToDisplayInToolbar?: string[];
-}
-
 export interface TestAppConfig {
   plugins?: string[];
   toolbarConfig?: {
     addPluginMenuConfig?: AddPluginMenuConfig;
     footerToolbarConfig?: FooterToolbarConfig;
   };
-  pluginsConfig?: Record<PluginType, Record<string, string>>;
+  pluginsConfig?: Record<string, Record<string, any>>;
   consumer?: string;
   applyOuterStyle?: boolean;
   theme?: {

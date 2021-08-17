@@ -1,4 +1,3 @@
-/*global cy Cypress*/
 import { DEFAULT_MOBILE_BROWSERS } from './settings';
 import { testFixtures } from './testFixtures';
 

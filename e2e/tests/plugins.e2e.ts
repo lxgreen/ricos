@@ -1,11 +1,8 @@
-/* eslint-disable max-len */
-/*global cy*/
 import {
   PLUGIN_COMPONENT,
   PLUGIN_TOOLBAR_BUTTONS,
   DIVIDER_DROPDOWN_OPTIONS,
   STATIC_TOOLBAR_BUTTONS,
-  BUTTON_PLUGIN_MODAL,
   INLINE_TOOLBAR_BUTTONS,
   COLLAPSIBLE_LIST_SETTINGS,
   ACTION_BUTTONS,
@@ -17,7 +14,7 @@ const eyesOpen = ({
   test: {
     parent: { title },
   },
-}) =>
+}: Mocha.Context) =>
   cy.eyesOpen({
     appName: 'Plugins',
     testName: title,
@@ -69,7 +66,7 @@ describe('plugins', () => {
     it(`check text spoilers in editor and reveal it in viewer`, () => {
       cy.loadRicosEditorAndViewer('empty', usePlugins(plugins.spoilerPreset)).enterParagraphs([
         'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
-        'Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition.',
+        'Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition.', // eslint-disable-line max-len
       ]);
 
       cy.setTextStyle('textSpoilerButton', [15, 5]);
@@ -265,7 +262,7 @@ describe('plugins', () => {
 
     after(() => cy.eyesClose());
 
-    function testAtomicBlockAlignment(align) {
+    function testAtomicBlockAlignment(align: 'left' | 'right' | 'center') {
       it('align atomic block ' + align, function() {
         cy.loadRicosEditorAndViewer('images').alignImage(align);
         cy.eyesCheckWindow(this.test.title);

@@ -1,16 +1,16 @@
-/*global cy*/
 import { DEFAULT_DESKTOP_BROWSERS } from './settings';
 import { getPluginMenuConfig, getFooterToolbarConfig, plugins } from '../cypress/testAppConfig';
 import { STATIC_TOOLBAR_BUTTONS } from '../cypress/dataHooks';
+import { TestAppConfig } from '../../examples/main/src/types';
 
-const pluginMenuRenderer = (title, config) => {
+const pluginMenuRenderer = (title: string, config?: TestAppConfig) => {
   cy.loadRicosEditorAndViewer('newLines', config)
     .focusEditor()
     .openSideToolbar();
   cy.eyesCheckWindow(title);
 };
 
-const footerPluginMenuRenderer = (title, config) => {
+const footerPluginMenuRenderer = (title: string, config?: TestAppConfig) => {
   cy.loadRicosEditorAndViewer('newLines', config)
     .focusEditor()
     .openFooterPluginMenu();

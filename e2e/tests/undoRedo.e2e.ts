@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/*global cy*/
 import { IMAGE_SETTINGS, PLUGIN_COMPONENT, STATIC_TOOLBAR_BUTTONS } from '../cypress/dataHooks';
 import { DEFAULT_DESKTOP_BROWSERS } from './settings';
 import { usePlugins, plugins, useExperiments } from '../cypress/testAppConfig';
@@ -8,7 +6,7 @@ const eyesOpen = ({
   test: {
     parent: { title },
   },
-}) =>
+}: Mocha.Context) =>
   cy.eyesOpen({
     appName: 'Plugins',
     testName: title,

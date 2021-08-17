@@ -1,8 +1,7 @@
-/*global cy Cypress*/
 import { fixturesToTestOnSeo, DEFAULT_DESKTOP_BROWSERS } from './settings';
 import { usePluginsConfig } from '../cypress/testAppConfig';
 
-const testFixtureOnSsr = fixture =>
+const testFixtureOnSsr = (fixture: string) =>
   it(`render ${fixture} in ssr`, function() {
     const testAppConfig = {
       ...usePluginsConfig({
@@ -11,7 +10,7 @@ const testFixtureOnSsr = fixture =>
         },
       }),
     };
-    cy.loadTestAppOnSsr(fixture, 'ricos', testAppConfig);
+    cy.loadTestAppOnSsr('ricos', fixture, testAppConfig);
     cy.eyesCheckWindow(this.test.title);
   });
 
