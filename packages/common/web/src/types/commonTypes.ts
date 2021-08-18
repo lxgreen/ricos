@@ -110,6 +110,7 @@ export interface EditorContextType extends CommonContextType {
   innerRCERenderedIn?: string;
   disableKeyboardEvents?: (shouldEnable: boolean) => void;
   experiments?: AvailableExperiments;
+  textWrap: boolean;
 }
 
 export interface ViewerContextType extends CommonContextType {

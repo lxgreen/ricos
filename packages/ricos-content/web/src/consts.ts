@@ -26,6 +26,8 @@ export const BLOCK_TYPES = Object.freeze([
   'unstyled',
 ]);
 
+export const WRAP = 'wrap';
+export const NO_WRAP = 'nowrap';
 export const UNSTYLED = 'unstyled';
 export const BLOCKQUOTE = 'blockquote';
 export const NUMBERED_LIST_TYPE = 'ordered-list-item';

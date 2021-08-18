@@ -163,6 +163,7 @@ export interface RichContentEditorProps extends PartialDraftEditorProps {
   maxTextLength?: number;
   experiments?: AvailableExperiments;
   disableKeyboardEvents?: (shouldEnable: boolean) => void;
+  textWrap: boolean;
   /** This is a legacy API, chagnes should be made also in the new Ricos Editor API **/
 }
 
@@ -391,6 +392,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       iframeSandboxDomain,
       innerRCERenderedIn,
       experiments,
+      textWrap,
     } = this.props;
 
     this.fixHelpers(helpers);
@@ -478,6 +480,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       innerRCERenderedIn,
       disableKeyboardEvents: this.disableKeyboardEvents,
       experiments,
+      textWrap,
     };
   };
 

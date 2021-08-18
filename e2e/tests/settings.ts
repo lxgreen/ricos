@@ -75,6 +75,7 @@ export const fixtures: Fixture[] = [
     fixture: 'poll',
     config: usePlugins(plugins.poll),
   },
+  'nowrap-plugins-and-text',
 ];
 
 export const fixturesToTestOnSeo: Fixture[] = ['images'];

@@ -294,7 +294,8 @@ exports[`preview > desktop > ReadMore + 1x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_b2d862605f684658926e6ee05e954880.jpg",
@@ -466,7 +467,8 @@ exports[`preview > desktop > ReadMore + 2x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_b2d862605f684658926e6ee05e954880.jpg",
@@ -485,7 +487,8 @@ exports[`preview > desktop > ReadMore + 2x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_17a7e143ea0148959ef6c5663158ade0.jpg",
@@ -756,7 +759,8 @@ exports[`preview > desktop > ReadMore + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_b2d862605f684658926e6ee05e954880.jpg",
@@ -775,7 +779,8 @@ exports[`preview > desktop > ReadMore + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_17a7e143ea0148959ef6c5663158ade0.jpg",
@@ -794,7 +799,8 @@ exports[`preview > desktop > ReadMore + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_215d5a60549f49fdb8fe2afe5ae2019e.jpg",
@@ -813,7 +819,8 @@ exports[`preview > desktop > ReadMore + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_a8a7ff22738445faa74cf7f68866f4d8.jpg",
@@ -832,7 +839,8 @@ exports[`preview > desktop > ReadMore + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_2a22b3e85bb1434e81f6fbd4878fb4ae.jpg",
@@ -1103,7 +1111,8 @@ exports[`preview > desktop > ReadMore + 5x Image + Text in-between #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_b2d862605f684658926e6ee05e954880.jpg",
@@ -1122,7 +1131,8 @@ exports[`preview > desktop > ReadMore + 5x Image + Text in-between #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_17a7e143ea0148959ef6c5663158ade0.jpg",
@@ -1141,7 +1151,8 @@ exports[`preview > desktop > ReadMore + 5x Image + Text in-between #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_215d5a60549f49fdb8fe2afe5ae2019e.jpg",
@@ -1160,7 +1171,8 @@ exports[`preview > desktop > ReadMore + 5x Image + Text in-between #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_a8a7ff22738445faa74cf7f68866f4d8.jpg",
@@ -1179,7 +1191,8 @@ exports[`preview > desktop > ReadMore + 5x Image + Text in-between #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_2a22b3e85bb1434e81f6fbd4878fb4ae.jpg",
@@ -1499,7 +1512,8 @@ exports[`preview > desktop > ReadMore + 1x Gif + 5x Image #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "configViewer": {
           "sizes": {
@@ -1527,7 +1541,8 @@ exports[`preview > desktop > ReadMore + 1x Gif + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_b2d862605f684658926e6ee05e954880.jpg",
@@ -1546,7 +1561,8 @@ exports[`preview > desktop > ReadMore + 1x Gif + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_17a7e143ea0148959ef6c5663158ade0.jpg",
@@ -1565,7 +1581,8 @@ exports[`preview > desktop > ReadMore + 1x Gif + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_215d5a60549f49fdb8fe2afe5ae2019e.jpg",
@@ -1584,7 +1601,8 @@ exports[`preview > desktop > ReadMore + 1x Gif + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_a8a7ff22738445faa74cf7f68866f4d8.jpg",
@@ -1603,7 +1621,8 @@ exports[`preview > desktop > ReadMore + 1x Gif + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_2a22b3e85bb1434e81f6fbd4878fb4ae.jpg",
@@ -1947,7 +1966,8 @@ exports[`preview > desktop > ReadMore + 1x Vid + 1x Gif + 5x Image #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "metadata": {
           "author_name": "Wix.com",
@@ -1975,7 +1995,8 @@ exports[`preview > desktop > ReadMore + 1x Vid + 1x Gif + 5x Image #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "configViewer": {
           "sizes": {
@@ -2003,7 +2024,8 @@ exports[`preview > desktop > ReadMore + 1x Vid + 1x Gif + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_b2d862605f684658926e6ee05e954880.jpg",
@@ -2022,7 +2044,8 @@ exports[`preview > desktop > ReadMore + 1x Vid + 1x Gif + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_17a7e143ea0148959ef6c5663158ade0.jpg",
@@ -2041,7 +2064,8 @@ exports[`preview > desktop > ReadMore + 1x Vid + 1x Gif + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_215d5a60549f49fdb8fe2afe5ae2019e.jpg",
@@ -2060,7 +2084,8 @@ exports[`preview > desktop > ReadMore + 1x Vid + 1x Gif + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_a8a7ff22738445faa74cf7f68866f4d8.jpg",
@@ -2079,7 +2104,8 @@ exports[`preview > desktop > ReadMore + 1x Vid + 1x Gif + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_2a22b3e85bb1434e81f6fbd4878fb4ae.jpg",
@@ -2447,7 +2473,8 @@ exports[`preview > desktop > ReadMore + 2x Vid + 1x Gif + 5x Image #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "isCustomVideo": true,
         "src": {
@@ -2466,7 +2493,8 @@ exports[`preview > desktop > ReadMore + 2x Vid + 1x Gif + 5x Image #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "metadata": {
           "author_name": "Wix.com",
@@ -2494,7 +2522,8 @@ exports[`preview > desktop > ReadMore + 2x Vid + 1x Gif + 5x Image #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "configViewer": {
           "sizes": {
@@ -2522,7 +2551,8 @@ exports[`preview > desktop > ReadMore + 2x Vid + 1x Gif + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_b2d862605f684658926e6ee05e954880.jpg",
@@ -2541,7 +2571,8 @@ exports[`preview > desktop > ReadMore + 2x Vid + 1x Gif + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_17a7e143ea0148959ef6c5663158ade0.jpg",
@@ -2560,7 +2591,8 @@ exports[`preview > desktop > ReadMore + 2x Vid + 1x Gif + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_215d5a60549f49fdb8fe2afe5ae2019e.jpg",
@@ -2579,7 +2611,8 @@ exports[`preview > desktop > ReadMore + 2x Vid + 1x Gif + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_a8a7ff22738445faa74cf7f68866f4d8.jpg",
@@ -2598,7 +2631,8 @@ exports[`preview > desktop > ReadMore + 2x Vid + 1x Gif + 5x Image #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_2a22b3e85bb1434e81f6fbd4878fb4ae.jpg",
@@ -2691,7 +2725,8 @@ exports[`preview > desktop > Text Fragmentation Example #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_b2d862605f684658926e6ee05e954880.jpg",
@@ -2710,7 +2745,8 @@ exports[`preview > desktop > Text Fragmentation Example #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_17a7e143ea0148959ef6c5663158ade0.jpg",

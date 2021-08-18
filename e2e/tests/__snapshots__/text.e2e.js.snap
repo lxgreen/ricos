@@ -2189,7 +2189,8 @@ exports[`text > indentation > allow to apply indent only on text blocks #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "small"
+          "size": "small",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_92b217c36c98400a82e5c59bf131d957.jpg",
