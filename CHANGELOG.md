@@ -17,6 +17,16 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.49.3 (Aug 18, 2021)
+
+### :rocket: New Feature
+
+- `*`
+  - [#2850](https://github.com/wix/ricos/pull/2850) textWrap
+
 ### :house: Internal
 
 - `ricos-schema`
@@ -51,9 +61,6 @@
 ### :book: Documentation
 
 - `extractAppEmbedData` API docs added
-
-</details>
-<hr/>
 
 ## 8.49.2 (Aug 14, 2021)
 
