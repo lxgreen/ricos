@@ -1,8 +1,10 @@
-/*global cy Cypress*/
 import { DEFAULT_DESKTOP_BROWSERS } from './settings';
 import { testSeoFixtures, testFixtures } from './testFixtures';
 
-const eyesOpener = (testName, browser = DEFAULT_DESKTOP_BROWSERS) => {
+const eyesOpener = (
+  testName: string,
+  browser: Eyes.Open.Options['browser'] = DEFAULT_DESKTOP_BROWSERS
+) => {
   cy.eyesOpen({
     appName: 'Rendering',
     testName,

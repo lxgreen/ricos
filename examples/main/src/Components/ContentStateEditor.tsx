@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { debounce, isEqual } from 'lodash';
-import { getContentStateSchema, isSSR, DraftContent } from 'wix-rich-content-common';
+import { debounce } from 'lodash';
+import { getContentStateSchema, DraftContent } from 'wix-rich-content-common';
 
 import dividerSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-divider.schema.json';
 import imageSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-image.schema.json';
@@ -58,6 +58,7 @@ class ContentStateEditor extends PureComponent<Props> {
         : this.props.contentState
     ),
   };
+
   editorOptions = {
     codeLens: false,
     formatOnType: true,
@@ -67,6 +68,7 @@ class ContentStateEditor extends PureComponent<Props> {
       enabled: false,
     },
   };
+
   monaco: MonacoEditor;
 
   componentWillReceiveProps(nextProps: Props) {

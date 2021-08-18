@@ -1,5 +1,5 @@
-const { initPlugin: initSnapshotsPlugin } = require('cypress-plugin-snapshots/plugin');
-const { merge } = require('lodash');
+import { initPlugin as initSnapshotsPlugin } from 'cypress-plugin-snapshots/plugin';
+import { merge } from 'lodash';
 
 module.exports = (on, initialConfig) => {
   const config = enhanceConfig(initialConfig);

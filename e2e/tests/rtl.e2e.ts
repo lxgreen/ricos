@@ -1,4 +1,3 @@
-/*global cy*/
 import { DEFAULT_DESKTOP_BROWSERS, DEFAULT_MOBILE_BROWSERS } from './settings';
 import { getFooterToolbarConfig } from '../cypress/testAppConfig';
 import { PLUGIN_COMPONENT, ACTION_BUTTONS } from '../cypress/dataHooks';

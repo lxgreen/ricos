@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AugmentedRequired } from 'utility-types/dist/mapped-types';
-import * as ricosSchema from 'ricos-schema';
 import {
   NodeConfig,
   ExtensionConfig,
@@ -45,7 +43,7 @@ export type RicosNodeExtension = {
     mergeAttributes: typeof mergeAttributesFn;
   }) => NodeConfig;
   Component: React.ComponentType;
-  createComponentDataDefaults?: (schema: typeof ricosSchema) => any;
+  componentDataDefaults?: any;
 };
 
 export type RicosMarkExtension = {
@@ -55,7 +53,7 @@ export type RicosMarkExtension = {
   }: {
     mergeAttributes: typeof mergeAttributesFn;
   }) => MarkConfig;
-  createComponentDataDefaults?: (schema: typeof ricosSchema) => any;
+  componentDataDefaults?: any;
 };
 
 export type RicosFunctionalExtension = {
@@ -65,7 +63,6 @@ export type RicosFunctionalExtension = {
   }: {
     mergeAttributes: typeof mergeAttributesFn;
   }) => RicosExtensionConfig;
-  createComponentDataDefaults?: (schema: typeof ricosSchema) => any;
 };
 
 export const isRicosNodeExtension = (ext: RicosTiptapExtension): ext is RicosNodeExtension =>

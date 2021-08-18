@@ -18,8 +18,17 @@
   </summary>
 
 ### :house: Internal
-- `[ui-components]`
+
+- `ricos-schema`
+  - [#2864](https://github.com/wix/ricos/pull/2864) generate plugin defaults in build time
+
+- `ui-components`
   - [#2839](https://github.com/wix/ricos/pull/2839) refactor SettingsMobileHeader component and consume it in Button/CollapsibleList/Map/Link-modal/UrlInputModal
+- `e2e`
+  - [#2860](https://github.com/wix/ricos/pull/2860) add TypeScript support for Cypress
+  - [#2863](https://github.com/wix/ricos/pull/2863) update Cypress to v8
+- `example`
+  - [#2862](https://github.com/wix/ricos/pull/2862) add eslint support
 
 ### :nail_care: Polish
 
@@ -34,6 +43,10 @@
 
 - `link`
   - [#2855](https://github.com/wix/ricos/pull/2855) fix: shift+enter break link string
+
+### :book: Documentation
+
+- `extractAppEmbedData` API docs added
 
 </details>
 <hr/>

@@ -1,29 +1,35 @@
-export const pluginsType = {
-  linkPreview: 'wix-draft-plugin-link-preview',
-  html: 'wix-draft-plugin-html',
-  video: 'wix-draft-plugin-video',
-};
+import { HTML_TYPE, VIDEO_TYPE } from 'ricos-content';
+import {
+  AvailableExperiments,
+  AddPluginMenuConfig,
+  FooterToolbarConfig,
+} from 'wix-rich-content-common';
+import { TestAppConfig } from '../../examples/main/src/types';
 
-export const defaultConfig = {
+export const defaultConfig: TestAppConfig = {
   plugins: ['partialPreset'],
   toolbarConfig: {},
   pluginsConfig: {
-    [pluginsType.html]: {
+    [HTML_TYPE]: {
       exposeButtons: ['html'],
     },
-    [pluginsType.video]: {
+    [VIDEO_TYPE]: {
       exposeButtons: ['video', 'soundCloud'],
     },
   },
 };
 
-export const getPluginMenuConfig = (addPluginMenuConfig = {}) => {
+export const getPluginMenuConfig = (
+  addPluginMenuConfig: AddPluginMenuConfig = {}
+): TestAppConfig => {
   return {
     toolbarConfig: { addPluginMenuConfig },
   };
 };
 
-export const getFooterToolbarConfig = (footerToolbarConfig = {}) => {
+export const getFooterToolbarConfig = (
+  footerToolbarConfig: FooterToolbarConfig = {}
+): TestAppConfig => {
   return {
     toolbarConfig: { footerToolbarConfig },
   };
@@ -38,7 +44,7 @@ export const useTheming = ({
   contentBgColor,
   settingsActionColor,
   focusActionColor,
-}) => {
+}: TestAppConfig['theme']): TestAppConfig => {
   return {
     theme: {
       paletteType,
@@ -53,18 +59,18 @@ export const useTheming = ({
   };
 };
 
-export const useConsumerTheming = (consumer, applyOuterStyle) => {
+export const useConsumerTheming = (consumer: string, applyOuterStyle?: boolean): TestAppConfig => {
   return {
     consumer,
     applyOuterStyle,
   };
 };
 
-export const usePlugins = plugin => {
+export const usePlugins = (plugin: string): TestAppConfig => {
   return { plugins: [plugin] };
 };
 
-export const usePluginsConfig = pluginsConfig => {
+export const usePluginsConfig = (pluginsConfig: TestAppConfig['pluginsConfig']): TestAppConfig => {
   return {
     pluginsConfig,
   };
@@ -91,6 +97,6 @@ export const plugins = {
   video: 'video',
 };
 
-export const useExperiments = experiment => {
+export const useExperiments = (experiment: AvailableExperiments): TestAppConfig => {
   return { experiments: experiment };
 };

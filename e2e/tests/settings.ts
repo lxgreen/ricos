@@ -1,7 +1,15 @@
+import { TestAppConfig } from '../../examples/main/src/types';
 import { usePlugins, plugins, useConsumerTheming } from '../cypress/testAppConfig';
 
-// eslint-disable-next-line prettier/prettier
-export const fixtures = [
+export interface FixtureConfig {
+  fixture: string;
+  config?: TestAppConfig;
+  additionalCommands?: (cy: Cypress.cy) => void;
+}
+
+export type Fixture = string | FixtureConfig;
+
+export const fixtures: Fixture[] = [
   'headers',
   'images',
   'inline-styles',
@@ -65,8 +73,13 @@ export const fixtures = [
   },
 ];
 
-export const fixturesToTestOnSeo = ['images'];
+export const fixturesToTestOnSeo: Fixture[] = ['images'];
 
-export const DEFAULT_DESKTOP_BROWSERS = [{ width: 1440, height: 900, name: 'chrome' }];
+export const DEFAULT_DESKTOP_BROWSERS: Eyes.Open.Options['browser'] = [
+  { width: 1440, height: 900, name: 'chrome' },
+];
 
-export const DEFAULT_MOBILE_BROWSERS = [{ deviceName: 'iPhone X' }, { deviceName: 'iPad' }];
+export const DEFAULT_MOBILE_BROWSERS: Eyes.Open.Options['browser'] = [
+  { deviceName: 'iPhone X' },
+  { deviceName: 'iPad' },
+];

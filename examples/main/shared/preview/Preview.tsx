@@ -28,8 +28,11 @@ interface State {
 }
 
 export default class Preview extends PureComponent<Props, State> {
-  expandModeData: { images: any; imageMap: {} };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  expandModeData: { images: any; imageMap: Record<string, number> };
+
   config;
+
   shouldRenderFullscreen: boolean;
 
   constructor(props) {
@@ -67,6 +70,7 @@ export default class Preview extends PureComponent<Props, State> {
         expandModeIndex: this.expandModeData.imageMap[blockKey] + innerIndex,
       });
     };
+    // eslint-disable-next-line no-console
     const onPreviewExpand = () => console.log('preview expanded');
     const additionalConfig = {
       [GALLERY_TYPE]: { onExpand },
@@ -79,6 +83,7 @@ export default class Preview extends PureComponent<Props, State> {
   render() {
     const { expandModeIsOpen, expandModeIndex } = this.state;
     const helpers = {
+      // eslint-disable-next-line no-console
       onViewerLoaded: async (...args) => console.log('onViewerLoaded', ...args),
     };
     return (
@@ -87,6 +92,7 @@ export default class Preview extends PureComponent<Props, State> {
           <RichContentPreview
             locale={this.props.locale}
             typeMappers={Plugins.typeMappers}
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             inlineStyleMappers={Plugins.getInlineStyleMappers(this.props.initialState)}
             decorators={Plugins.decorators}

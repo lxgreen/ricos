@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/*global cy*/
 import { DEFAULT_DESKTOP_BROWSERS } from './settings';
 import fixturesNames from './fixtures/preview';
 
