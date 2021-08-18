@@ -21,6 +21,7 @@ export default () => {
               onCancel={() => console.log('Cancel')}
               // eslint-disable-next-line no-console
               onSave={() => console.log('save')}
+              t={() => null}
             />
           </div>
           <Section title="Mobile Setting Header">
