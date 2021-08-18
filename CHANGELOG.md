@@ -20,6 +20,15 @@
 </details>
 <hr/>
 
+## 8.49.4 (Aug 18, 2021)
+
+### :bug: Bug Fix
+
+- `table`
+  - [#2871](https://github.com/wix/ricos/pull/2871) fix: wiring table theme on biz manager
+- `table`
+  - [#2869](https://github.com/wix/ricos/pull/2869) fix: add overlay to table external modal
+
 ## 8.49.3 (Aug 18, 2021)
 
 ### :rocket: New Feature
