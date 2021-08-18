@@ -40,5 +40,6 @@ const toFullNodeConfig = (ext: RicosNodeExtension) => (config: NodeConfig): Node
   ...config,
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createRicosNodeConfig = (ext: RicosNodeExtension): any =>
   pipe(ext, toExtensionConfig, toFullNodeConfig(ext));

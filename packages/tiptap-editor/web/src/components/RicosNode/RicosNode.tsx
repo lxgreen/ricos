@@ -16,7 +16,6 @@ export const RicosNode = ({ Component, tiptapNodeProps }) => {
     componentData: tiptapNodeProps.node.attrs,
     ...tiptapNodeProps,
   };
-  console.log({ Component });
   return (
     <NodeViewWrapper>
       <Component {...componentProps} />
