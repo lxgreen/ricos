@@ -21,6 +21,8 @@
 
 - `[ui-components]`
   - [#2839](https://github.com/wix/ricos/pull/2839) refactor SettingsMobileHeader component and consume it in Button/CollapsibleList/Map/Link-modal/UrlInputModal
+- `[ui-components]`
+  - [#2865](https://github.com/wix/ricos/pull/2865) refactor ActionButtons and SettingsMobileHeader components
 - `[e2e]`
   - [#2860](https://github.com/wix/ricos/pull/2860) add TypeScript support for Cypress
 - `[examples]`
