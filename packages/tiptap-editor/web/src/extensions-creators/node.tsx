@@ -1,6 +1,5 @@
 import { pipe } from 'fp-ts/function';
 import React, { ComponentType } from 'react';
-import * as ricosSchema from 'ricos-schema';
 import { NodeConfig } from '@tiptap/core';
 import {
   ReactNodeViewRenderer,
@@ -31,7 +30,7 @@ const toFullNodeConfig = (ext: RicosNodeExtension) => (config: NodeConfig): Node
   parseHTML: () => [{ tag: `${config.name}-component` }],
   renderHTML: ({ HTMLAttributes }) => [`${config.name}-component`, mergeAttributes(HTMLAttributes)],
   addNodeView: () => pipe(ext.Component, createRicosNodeHOC, ReactNodeViewRenderer),
-  addAttributes: () => ext.createComponentDataDefaults?.(ricosSchema) || {},
+  addAttributes: () => ext.componentDataDefaults || {},
   ...config,
 });
 
