@@ -20,6 +20,7 @@
 ### :house: Internal
 
 - `ricos-schema`
+
   - [#2864](https://github.com/wix/ricos/pull/2864) generate plugin defaults in build time
 
 - `ui-components`
@@ -29,6 +30,8 @@
   - [#2863](https://github.com/wix/ricos/pull/2863) update Cypress to v8
 - `example`
   - [#2862](https://github.com/wix/ricos/pull/2862) add eslint support
+- `poll`
+  - [#2024](https://github.com/wix/ricos/pull/2024) add Poll story & rendering tests
 
 ### :nail_care: Polish
 

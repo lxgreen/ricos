@@ -27,6 +27,7 @@ import {
   styleSelectionPredicate,
   viewerCustomBackgroundStyleFn,
 } from '../../../../../examples/main/src/text-color-style-fn';
+import { pluginPoll } from 'wix-rich-content-plugin-social-polls/viewer';
 import { pluginCollapsibleList } from 'wix-rich-content-plugin-collapsible-list/viewer';
 import { pluginTable } from 'wix-rich-content-plugin-table/viewer';
 import { mockFileUploadFunc } from '../../../../../examples/main/shared/utils/fileUploadUtil';
@@ -90,6 +91,7 @@ const plugins = {
   highlight: pluginTextHighlight(configs.textHighlight),
   textColor: pluginTextColor(configs.textColor),
   spoiler: pluginSpoiler(),
+  poll: pluginPoll(),
   collapsibleList: pluginCollapsibleList(),
   table: pluginTable(),
   emoji: pluginEmoji(),
