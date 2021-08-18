@@ -35,6 +35,8 @@ const toFullNodeConfig = (ext: RicosNodeExtension) => (config: NodeConfig): Node
   parseHTML: () => [{ tag: `${config.name}-component` }],
   renderHTML: ({ HTMLAttributes }) => [`${config.name}-component`, mergeAttributes(HTMLAttributes)],
   addNodeView: () => pipe(ext.Component, createRicosNodeHOC, ReactNodeViewRenderer),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
   addAttributes: () => ext.componentDataDefaults || {},
   ...config,
 });
