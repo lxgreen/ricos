@@ -116,7 +116,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
           lodash: '_',
         },
       },
-      ...getCommonOptions(),
+      ...getCommonOptions('mobile'),
       external: source => ['lodash', 'react', 'react-dom'].includes(source),
     });
   }

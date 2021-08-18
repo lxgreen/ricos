@@ -209,13 +209,16 @@ function addStylesImport() {
           writeFileSync(path, result, 'utf8');
         }
       };
+      const writeCjsAndEsContent = (cjsPath, esPath, cssPath) => {
+        writeContent(esPath, getExtractedCssEsFile(cssPath));
+        writeContent(cjsPath, getExtractedCssCjsFile(cssPath));
+      };
       const viewerExtractedStylePath = getExtractedCssPath('viewer');
       const isExistEditorStyles = existsSync(editorExtractedStylePath);
       const isExistViewerStyles = existsSync(viewerExtractedStylePath);
 
       if (isExistEditorStyles) {
-        writeContent(packageJson.module, getExtractedCssEsFile(editorExtractedStylePath));
-        writeContent(packageJson.main, getExtractedCssCjsFile(editorExtractedStylePath));
+        writeCjsAndEsContent(packageJson.main, packageJson.module, editorExtractedStylePath);
       }
       if (isExistViewerStyles) {
         let loadablePackageJson;
@@ -223,14 +226,18 @@ function addStylesImport() {
           loadablePackageJson = require(process.cwd() + '/loadable/viewer/package.json');
         } catch {}
 
-        const extactedCssCjsPath = getExtractedCssCjsFile(viewerExtractedStylePath);
-        const extactedCssEsPath = getExtractedCssEsFile(viewerExtractedStylePath);
+        writeCjsAndEsContent(
+          'dist/module.viewer.cjs.js',
+          'dist/module.viewer.js',
+          viewerExtractedStylePath
+        );
 
-        writeContent('dist/module.viewer.js', extactedCssEsPath);
-        writeContent('dist/module.viewer.cjs.js', extactedCssCjsPath);
         if (loadablePackageJson) {
-          writeContent(loadablePackageJson.module.match(/dist.*/)[0], extactedCssEsPath);
-          writeContent(loadablePackageJson.main.match(/dist.*/)[0], extactedCssCjsPath);
+          writeCjsAndEsContent(
+            loadablePackageJson.main.match(/dist.*/)[0],
+            loadablePackageJson.module.match(/dist.*/)[0],
+            viewerExtractedStylePath
+          );
         }
       }
       if (existsSync('./lib/')) {
@@ -238,10 +245,13 @@ function addStylesImport() {
           const fileName = file.split('.')[0];
           const cssPath = getExtractedCssPath(fileName);
           if (existsSync(cssPath)) {
-            writeContent(`dist/lib/${fileName}.cjs.js`, getExtractedCssCjsFile(cssPath));
-            writeContent(`dist/lib/${fileName}.js`, getExtractedCssEsFile(cssPath));
+            writeCjsAndEsContent(`dist/lib/${fileName}.cjs.js`, `dist/lib/${fileName}.js`, cssPath);
           }
         });
+      }
+      const cssMobilePath = getExtractedCssPath('mobile');
+      if (existsSync(cssMobilePath)) {
+        writeContent('dist/mobileNativeLoader.js', getExtractedCssEsFile(cssMobilePath));
       }
       (isExistEditorStyles || isExistViewerStyles) && writeFileSync('dist/styles.min.css', '');
     },
