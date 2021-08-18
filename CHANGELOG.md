@@ -32,6 +32,7 @@
   - [#2862](https://github.com/wix/ricos/pull/2862) add eslint support
 - `poll`
   - [#2024](https://github.com/wix/ricos/pull/2024) add Poll story & rendering tests
+  - [#2870](https://github.com/wix/ricos/pull/2870) loadable support
 
 ### :nail_care: Polish
 
