@@ -35,6 +35,7 @@ module.exports = {
           'plugins_api/CollapsibleListPlugin',
           'plugins_api/HeadingsPlugin',
           'plugins_api/SpoilerPlugin',
+          'plugins_api/LoadablePlugins',
         ],
       },
       {
