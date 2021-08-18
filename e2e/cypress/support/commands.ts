@@ -18,10 +18,10 @@ import { fireEvent as testFireEvent } from '@testing-library/react';
 import RicosDriver from '../../../packages/ricos-driver/web/src/RicosDriver';
 import { merge } from 'lodash';
 import { TestAppConfig } from '../../../examples/main/src/types';
-import { ChainableTableCommands, TABLE_COMMANDS } from './tableCommands'; // eslint-disable-line @typescript-eslint/no-unused-vars
+import { TABLE_COMMANDS } from './tableCommands'; // eslint-disable-line @typescript-eslint/no-unused-vars
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ToCommand<F extends (...args: any) => any> = (
+type ToCommand<F extends (...args: any) => any> = (
   ...args: Parameters<F>
 ) => Cypress.Chainable<ReturnType<F>>;
 
@@ -36,10 +36,7 @@ declare global {
   }
   // eslint-disable-next-line @typescript-eslint/no-namespace, no-redeclare
   namespace Cypress {
-    interface Chainable
-      extends ChainableCommands,
-        ChainableCommandsWithSubject,
-        ChainableTableCommands {}
+    interface Chainable extends ChainableCommands, ChainableCommandsWithSubject {}
   }
 }
 
