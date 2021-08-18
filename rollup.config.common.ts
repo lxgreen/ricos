@@ -16,8 +16,9 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
     exclude: ['node_modules/**'],
     clearScreen: false,
   };
-  const getCommonOptions = (viewer?: boolean) => ({
-    plugins: [...plugins, postcss(shouldExtractCss, viewer)],
+
+  const getCommonOptions = (entry?: string) => ({
+    plugins: [...plugins, postcss(shouldExtractCss, entry)],
     external,
     watch,
   });
@@ -51,7 +52,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
           format,
           file: `dist/lib/${fileName}${format === 'cjs' ? '.cjs.js' : '.js'}`,
         })),
-        ...getCommonOptions(),
+        ...getCommonOptions(fileName),
       });
     });
   } catch (_) {}
@@ -67,7 +68,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
         }
         return o;
       }),
-      ...getCommonOptions(true),
+      ...getCommonOptions('viewer'),
     });
   }
 
@@ -89,7 +90,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
     viewerEntry.push({
       input: viewerLoadablePath,
       output: viewerLoadableOutput,
-      ...getCommonOptions(true),
+      ...getCommonOptions('viewer'),
     });
   }
 
