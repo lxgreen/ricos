@@ -1,20 +1,9 @@
 import {
   EditorState,
   SelectionState,
-  DraftOffsetKey,
+  setNativeSelectionToBlock,
   Modifier,
 } from 'wix-rich-content-editor-common';
-
-function setNativeSelectionToBlock(block) {
-  const offsetKey = DraftOffsetKey.encode(block.getKey(), 0, 0);
-  const node = document.querySelectorAll(`[data-offset-key="${offsetKey}"]`)[0];
-  const selection = window.getSelection();
-  const range = document.createRange();
-  range.setStart(node, 0);
-  range.setEnd(node, 0);
-  selection.removeAllRanges();
-  selection.addRange(range);
-}
 
 function getNewBlockMap(content, startKey, edgeBlockKey) {
   let newBlockMap = content.getBlockMap();

@@ -71,6 +71,11 @@ export const fixtures: Fixture[] = [
     fixture: 'blog-fixture',
     config: useConsumerTheming('blog'),
   },
+  {
+    fixture: 'poll',
+    config: usePlugins(plugins.poll),
+  },
+  'nowrap-plugins-and-text',
 ];
 
 export const fixturesToTestOnSeo: Fixture[] = ['images'];

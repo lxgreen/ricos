@@ -1,11 +1,6 @@
 import 'cypress-plugin-snapshots/commands';
 import { PLUGIN_COMPONENT, TABLE_PLUGIN } from '../dataHooks';
-import { setSelection, ToCommand } from './commands';
-
-// Computed command types
-export type ChainableTableCommands = {
-  [key in keyof typeof TABLE_COMMANDS]: ToCommand<typeof TABLE_COMMANDS[key]>;
-};
+import { setSelection } from './commands';
 
 export const TABLE_COMMANDS = {
   setTableCellEditingSelection: (start: number, offset: number, cellIndex: number) => {

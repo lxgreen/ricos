@@ -12,6 +12,8 @@ import {
   RICOS_MENTION_TYPE,
   RICOS_TEXT_COLOR_TYPE,
   RICOS_TEXT_HIGHLIGHT_TYPE,
+  WRAP,
+  NO_WRAP,
 } from 'ricos-content';
 import {
   DividerData,
@@ -87,11 +89,11 @@ const divider = {
   }),
   expectedData1: {
     type: 'double',
-    config: { size: 'large', alignment: 'center', textWrap: 'nowrap' },
+    config: { size: 'large', alignment: 'center', textWrap: NO_WRAP },
   },
   expectedData2: {
     type: 'dashed',
-    config: { size: 'large', alignment: 'center', textWrap: 'nowrap' },
+    config: { size: 'large', alignment: 'center', textWrap: NO_WRAP },
   },
 };
 
@@ -130,6 +132,7 @@ const giphy = {
     config: {
       alignment: 'center',
       size: 'content',
+      textWrap: WRAP,
     },
     configViewer: {
       sizes: {
@@ -152,6 +155,7 @@ const giphy = {
     config: {
       alignment: 'center',
       size: 'content',
+      textWrap: WRAP,
     },
     configViewer: {
       sizes: {
@@ -182,6 +186,7 @@ const html = {
       alignment: 'center',
       height: 550,
       width: 0,
+      textWrap: WRAP,
     },
     src: 'www.wix.com',
     srcType: 'url',
@@ -189,6 +194,7 @@ const html = {
   expectedData2: {
     config: {
       alignment: 'center',
+      textWrap: WRAP,
     },
     src: 'www.sport5.co.il',
     srcType: 'url',
@@ -290,6 +296,7 @@ const gallery = {
     config: {
       alignment: 'center',
       size: 'content',
+      textWrap: WRAP,
     },
     items: [
       {
@@ -334,6 +341,7 @@ const gallery = {
     config: {
       alignment: 'center',
       size: 'content',
+      textWrap: WRAP,
     },
     items: [
       {
@@ -419,6 +427,7 @@ const file = {
     config: {
       size: 'small',
       alignment: 'left',
+      textWrap: WRAP,
     },
     configViewer: {
       downloadTarget: '_blank',
@@ -430,6 +439,7 @@ const file = {
     config: {
       size: 'content',
       alignment: 'right',
+      textWrap: WRAP,
     },
     configViewer: {
       downloadTarget: '_blank',
@@ -463,6 +473,7 @@ const image = {
       showDescription: true,
       showTitle: true,
       size: 'content',
+      textWrap: WRAP,
     },
     src: {
       file_name: '8bb438_1b73a6b067b24175bd087e86613bd00c.jpg',
@@ -477,6 +488,7 @@ const image = {
       showDescription: true,
       showTitle: true,
       size: 'content',
+      textWrap: WRAP,
     },
     src: {
       file_name: '8bb438_92b217c36c98400a82e5c59bf131d957.jpg',

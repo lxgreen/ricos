@@ -359,7 +359,8 @@
             "enabled": true,
             "description": "SPOILER ALERT!!!",
             "buttonText": "What's behind door number 1?"
-          }
+          },
+          "textWrap": true
         },
         "image": {
           "src": {
@@ -395,7 +396,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "video": {
           "src": {
@@ -432,7 +434,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "video": {
           "src": {
@@ -469,7 +472,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "items": [
           {
@@ -478,8 +482,8 @@
                 "src": {
                   "url": "8bb438_0ab44689f626435c94b9a5b996524aba.jpg"
                 },
-                "height": 3733,
-                "width": 5600
+                "width": 5600,
+                "height": 3733
               }
             }
           },
@@ -489,8 +493,8 @@
                 "src": {
                   "url": "8bb438_6a7159be0f944dde9098fe566bf22831.jpg"
                 },
-                "height": 1922,
-                "width": 1920
+                "width": 1920,
+                "height": 1922
               }
             }
           },
@@ -507,8 +511,8 @@
                 "src": {
                   "url": "8bb438_cabd67053eae45e7ab273832504717ff.jpg"
                 },
-                "height": 3727,
-                "width": 5600
+                "width": 5600,
+                "height": 3727
               }
             }
           }
@@ -557,7 +561,8 @@
           "alignment": "CENTER",
           "height": {
             "custom": "490"
-          }
+          },
+          "textWrap": true
         },
         "html": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">How we cut cost on 55% of our storage without deleting a single file? We understood that NOT all files should be treated equally. <br><br>Here’s the full story:<a href=\"https://t.co/zC3d0uBkEA\">https://t.co/zC3d0uBkEA</a> <a href=\"https://t.co/j8ND7GfOEg\">pic.twitter.com/j8ND7GfOEg</a></p>&mdash; Wix Engineering (@WixEng) <a href=\"https://twitter.com/WixEng/status/1348206215336259584?ref_src=twsrc%5Etfw\">January 10, 2021</a></blockquote> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>",
         "id": "10"
@@ -582,7 +587,8 @@
           "width": {
             "custom": "350"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "oembed": {
           "type": "rich",
@@ -611,7 +617,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "type": "link",
         "styles": {
@@ -651,7 +658,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "type": "ACTION",
         "styles": {
@@ -684,7 +692,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": false
         },
         "lineStyle": "DOUBLE",
         "width": "MEDIUM",
@@ -742,7 +751,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "original": {
           "gif": "https://media1.giphy.com/media/Cn44PUsTVimwBAtIRx/giphy.gif?cid=558f2fbejldbq3cgzrasbh2j4z47w8nn51qcbjzc6dg7g7af&rid=giphy.gif",
@@ -781,7 +791,8 @@
           "alignment": "CENTER",
           "height": {
             "custom": "271"
-          }
+          },
+          "textWrap": true
         },
         "mapSettings": {
           "address": "Wix HQ, Nemal Tel Aviv Street, Tel Aviv-Yafo, Israel",
@@ -817,7 +828,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "src": {
           "url": "https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
@@ -924,7 +936,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "link": {
           "url": "www.wix.com",
@@ -1842,7 +1855,8 @@
           "alignment": "RIGHT",
           "spoiler": {
             "enabled": true
-          }
+          },
+          "textWrap": true
         },
         "image": {
           "src": {

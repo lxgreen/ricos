@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { PollContextProvider } from './poll-context';
-import { RCEHelpersContext } from './rce-helpers-context';
-import { Poll } from './Poll';
+import { PollContextProvider } from './components/poll-context';
+import { RCEHelpersContext } from './components/rce-helpers-context';
+import { Poll } from './components/Poll';
 
 export class PollViewer extends PureComponent {
   render() {
@@ -42,3 +42,5 @@ PollViewer.propTypes = {
   theme: PropTypes.object.isRequired,
   isMobile: PropTypes.bool.isRequired,
 };
+
+export default PollViewer;

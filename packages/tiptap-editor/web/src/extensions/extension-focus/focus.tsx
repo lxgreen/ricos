@@ -23,17 +23,16 @@ const useIsSelected = (editor: Editor, getPos: () => number) => {
   return isSelected;
 };
 
-export const createFocusConfig = () =>
-  createRicosFunctionalExtensionConfig({
-    type: 'extension',
-    createExtensionConfig: () => ({
-      name,
-      priority: 20,
-      addNodeViewHOC: () => ({
-        nodeTypes: ['*'],
-        nodeViewHOC: (Component: ComponentType) => props => (
-          <Component {...props} isFocused={useIsSelected(props.editor, props.getPos)} />
-        ),
-      }),
+export const createFocusConfig = () => ({
+  type: 'extension',
+  createExtensionConfig: () => ({
+    name,
+    priority: 20,
+    addNodeViewHOC: () => ({
+      nodeTypes: ['*'],
+      nodeViewHOC: (Component: ComponentType) => props => (
+        <Component {...props} isFocused={useIsSelected(props.editor, props.getPos)} />
+      ),
     }),
-  });
+  }),
+});
