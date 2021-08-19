@@ -20,6 +20,13 @@
 </details>
 <hr/>
 
+## 8.49.5 (Aug 19, 2021)
+
+### :bug: Bug Fix
+
+- `table`
+  - [#2874](https://github.com/wix/ricos/pull/2874) override sideToolbar onClick config when use it from table
+
 ## 8.49.4 (Aug 18, 2021)
 
 ### :bug: Bug Fix
