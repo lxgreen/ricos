@@ -8,7 +8,7 @@ import { compare } from 'ricos-content/lib/comparision';
 import { RichContent } from 'ricos-schema';
 import { pluginImage } from 'wix-rich-content-plugin-image';
 import { pluginDivider } from 'wix-rich-content-plugin-divider';
-import { tiptapExtensions as coreExtensions } from '../../tiptap-extensions';
+import { compact } from 'lodash';
 
 let editor: Editor | null = null;
 
@@ -27,8 +27,9 @@ jest.mock('@tiptap/react', () => {
 describe('tiptap editor', () => {
   it('should not change content', async () => {
     const content = toTiptap(RichContent.fromJSON(supportedPluginsContent));
-    const plugins = [...coreExtensions, pluginImage(), pluginDivider()];
-    render(<RicosTiptapEditor content={content} extensions={plugins} t={() => ''} />);
+    const plugins = [pluginImage(), pluginDivider()];
+    const extensions = compact(plugins?.flatMap(plugin => plugin.tiptapExtensions)) || [];
+    render(<RicosTiptapEditor content={content} extensions={extensions} t={() => ''} />);
     const newContent = editor?.getJSON();
     const richContent = fromTiptap(newContent as JSONContent);
     expect(compare(richContent, supportedPluginsContent, { verbose: true })).toEqual({});

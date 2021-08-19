@@ -19,7 +19,7 @@ import {
   convertFromRaw,
   createWithContent,
 } from 'wix-rich-content-editor/libs/editorStateConversion';
-import { isEqual } from 'lodash';
+import { isEqual, compact } from 'lodash';
 import {
   EditorEventsContext,
   EditorEvents,
@@ -327,6 +327,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     );
     const { localeData } = this.state;
     const { locale, localeResource } = localeData;
+    const extensions = compact(plugins?.flatMap(plugin => plugin.tiptapExtensions)) || [];
     return (
       <Fragment>
         {tiptapToolbar && this.renderToolbarPortal(tiptapToolbar)}
@@ -335,7 +336,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
             {t => {
               const tiptapEditor = (
                 <RicosTiptapEditor
-                  extensions={plugins}
+                  extensions={extensions}
                   content={initalContent}
                   t={t}
                   onLoad={editor => {
