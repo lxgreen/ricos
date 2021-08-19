@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+- `general`
+  - [#2859](https://github.com/wix/ricos/pull/2859) wire button/link-preview/file-upload font family  
+ 
 </details>
 <hr/>
 
