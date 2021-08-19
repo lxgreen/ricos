@@ -8,9 +8,8 @@ const Hashtag = props => {
   const text = decoratedText.slice(1);
   const href = createHref ? createHref(text) : null;
   const Component = href ? 'a' : 'span';
-  const className = classNames(styles.hashtag, theme && theme.hashtag, {
-    [styles.hashtag_hover]: !!href,
-    [theme.hashtag_hover]: theme && theme.hashtag_hover && !!href,
+  const className = classNames(theme.hashtag || styles.hashtag, {
+    [theme.hashtag_hover || styles.hashtag_hover]: !!href,
   });
 
   const decoratedOnClick = onClick ? event => onClick(event, text) : null;
