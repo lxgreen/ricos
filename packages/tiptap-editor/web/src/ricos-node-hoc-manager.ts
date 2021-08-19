@@ -1,6 +1,7 @@
 import { NodeViewHoc } from 'wix-rich-content-common';
 import React from 'react';
 import { isArray } from 'lodash';
+
 const pipe = functions => data => {
   return functions.reduce((value, func) => func(value), data);
 };
@@ -65,6 +66,6 @@ export class RicosNodeHOCManager {
 
   applyNodeHOCs = (nodeName, Component) => {
     const nodeHOCs = this.getHOCsByNodeName(nodeName);
-    return pipe(nodeHOCs.reverse())(Component);
+    return pipe(nodeHOCs.slice().reverse())(Component);
   };
 }
