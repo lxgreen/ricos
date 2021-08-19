@@ -50,5 +50,5 @@ class TraversalExtractor<DT> implements Extractor<DT> {
   }
 }
 
-export const extract = (nodes: Node | Node[]): Extractor<Node> =>
-  new TraversalExtractor<Node>(fromTraversable(T.tree)<Node>(), unfoldTree(nodes));
+export const extract = <T extends Node>(nodes: T | T[]): Extractor<T> =>
+  new TraversalExtractor<T>(fromTraversable(T.tree)<T>(), unfoldTree(nodes));

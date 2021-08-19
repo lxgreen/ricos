@@ -21,6 +21,7 @@ import {
   TABLE_TYPE,
   ANCHOR_TYPE,
   EMBED_TYPE,
+  RICOS_NODE_TYPE_TO_DATA_FIELD,
 } from '../../consts';
 import { Decoration_Type, Node_Type } from 'ricos-schema';
 import { fromEntries } from '../../utils';
@@ -115,29 +116,6 @@ export const ENTITY_DECORATION_TO_MUTABILITY = {
   EMOJI_TYPE: 'IMMUTABLE',
 };
 
-export const RICOS_NODE_TYPE_TO_DATA_FIELD = {
-  [Node_Type.BUTTON]: 'buttonData',
-  [Node_Type.DIVIDER]: 'dividerData',
-  [Node_Type.FILE]: 'fileData',
-  [Node_Type.GALLERY]: 'galleryData',
-  [Node_Type.GIF]: 'gifData',
-  [Node_Type.HTML]: 'htmlData',
-  [Node_Type.IMAGE]: 'imageData',
-  [Node_Type.COLLAPSIBLE_LIST]: 'collapsibleListData',
-  [Node_Type.LINK_PREVIEW]: 'linkPreviewData',
-  [Node_Type.MAP]: 'mapData',
-  [Node_Type.APP_EMBED]: 'appEmbedData',
-  [Node_Type.VIDEO]: 'videoData',
-  [Node_Type.POLL]: 'pollData',
-  [Node_Type.TABLE]: 'tableData',
-  [Node_Type.PARAGRAPH]: 'paragraphData',
-  [Node_Type.LIST_ITEM]: 'paragraphData',
-  [Node_Type.HEADING]: 'headingData',
-  [Node_Type.CODE_BLOCK]: 'codeBlockData',
-  [Node_Type.BLOCKQUOTE]: 'paragraphData',
-  [Node_Type.EMBED]: 'embedData',
-} as const;
-
 export const DRAFT_BLOCK_TYPE_TO_DATA_FIELD = {
   [BlockType.Unstyled]: 'paragraphData',
   [BlockType.UnorderedListItem]: 'paragraphData',
@@ -185,3 +163,5 @@ export type DraftGalleryStyles = {
   imageMargin?: number;
   thumbnailSpacings?: number;
 };
+
+export { RICOS_NODE_TYPE_TO_DATA_FIELD }; // exists here to avoid breaking API
