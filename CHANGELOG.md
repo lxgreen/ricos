@@ -19,7 +19,8 @@
 
 ### :bug: Bug Fix
 - `general`
-  - [#2859](https://github.com/wix/ricos/pull/2859) wire button/link-preview/file-upload font family  
+  - [#2859](https://github.com/wix/ricos/pull/2859) wire button/link-preview/file-upload font family
+  - [#2877](https://github.com/wix/ricos/pull/2877) fix webpackChunkName syntax
  
 </details>
 <hr/>
