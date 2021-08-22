@@ -69,13 +69,13 @@ class LinkViewer extends Component {
   getHref = (url, anchor) => (url ? normalizeUrl(url) : `#viewer-${anchor}`);
 
   render() {
-    const { componentData, anchorTarget, children, isInEditor } = this.props;
+    const { componentData, anchorTarget, children, isInEditor, theme } = this.props;
     const { url, anchor, target = anchorTarget, rel } = componentData;
     const anchorProps = {
       href: this.getHref(url, anchor),
       target: anchor ? '_self' : target,
       rel: getRelValue(rel),
-      className: classNames(this.styles.link, {
+      className: classNames(theme.link || styles.link, {
         [this.styles.linkInEditor]: isInEditor,
         [this.styles.linkInViewer]: !isInEditor,
       }),
