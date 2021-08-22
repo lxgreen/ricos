@@ -95,6 +95,7 @@ import {
   RICOS_CODE_BLOCK_TYPE,
   RICOS_FONT_SIZE_TYPE,
   UNSUPPORTED_BLOCKS_TYPE,
+  ThemeData,
 } from 'wix-rich-content-common';
 
 import { setFontSize, getFontSize } from './utils/fontSizeUtils';
@@ -189,7 +190,8 @@ export const createEditorCommands = (
   createPluginsDataMap,
   plugins,
   getEditorState: GetEditorState,
-  setEditorState: SetEditorState
+  setEditorState: SetEditorState,
+  themeData?: ThemeData
 ): EditorCommands => {
   const setBlockType: EditorCommands['setBlockType'] = type => {
     setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
@@ -229,7 +231,7 @@ export const createEditorCommands = (
     },
     getAnchorableBlocks: () => getAnchorableBlocks(getEditorState()),
     getColor: colorType => getColor(getEditorState(), colorType),
-    getFontSize: () => getFontSize(getEditorState()),
+    getFontSize: () => getFontSize(getEditorState(), themeData),
     getTextAlignment: () => getTextAlignment(getEditorState()),
     hasInlineStyle: style => hasInlineStyle(style, getEditorState()),
     isBlockTypeSelected: type => getBlockType(getEditorState()) === type,
@@ -316,7 +318,7 @@ export const createEditorCommands = (
     deleteDecoration: EditorCommands['deleteDecoration'];
   } = {
     insertDecoration: (type, data, settings) => {
-      const draftType = TO_DRAFT_PLUGIN_TYPE_MAP[type];
+      const draftType = TO_DRAFT_PLUGIN_TYPE_MAP[type as string];
       const { [draftType]: createPluginData } = createPluginsDataMap;
       const pluginData = createPluginData ? createPluginData(data, settings?.isRicosSchema) : data;
       const newEditorState = insertDecorationsMap[type]?.(getEditorState(), pluginData);
@@ -325,7 +327,7 @@ export const createEditorCommands = (
       }
     },
     triggerDecoration: type => {
-      const newEditorState = triggerDecorationsMap[type]?.(getEditorState());
+      const newEditorState = triggerDecorationsMap[type as string]?.(getEditorState());
       if (newEditorState) {
         setEditorState(newEditorState);
       }
