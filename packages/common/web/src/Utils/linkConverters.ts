@@ -47,18 +47,8 @@ export const convertRelStringToObject = (rel?: string) => {
   return relObject;
 };
 
-export const convertTargetStringToBoolean = (target?: string) => target && target === BLANK;
+export const convertTargetStringToBoolean = (target: string) => target === BLANK;
 
-export const convertTargetBooleanToString = (targetBlank?: boolean, anchorTarget?: string) => {
-  if (targetBlank) {
-    return BLANK;
-  }
-  if (!anchorTarget || anchorTarget === BLANK) {
-    return TOP;
-  }
-  return anchorTarget;
-};
+export const convertTargetBooleanToString = (targetBlank: boolean) => (targetBlank ? BLANK : TOP);
 
 export const getRelValue = (rel?: string) => `noopener noreferrer ${rel || ''}`.trim();
-
-export const getTargetValue = (target?: string) => target || TOP;

@@ -15,6 +15,7 @@ import FileUploadStory from './FileUpload';
 import MapPluginStory from './Map';
 import TablePluginStory from './Table';
 import LinkPluginStory from './Link';
+import PollPluginStory from './Poll';
 
 storiesOf('Plugins', module)
   .add('Divider', DividerPluginStory)
@@ -32,4 +33,5 @@ storiesOf('Plugins', module)
   .add('File Upload', FileUploadStory)
   .add('Map', MapPluginStory)
   .add('Table', TablePluginStory)
-  .add('Link', LinkPluginStory);
+  .add('Link', LinkPluginStory)
+  .add('Poll', PollPluginStory);

@@ -7,7 +7,6 @@ export {
 
 // Modals
 export { default as UrlInputModal } from './Modals/UrlInputModal';
-export { default as SettingsMobileHeader } from './Modals/SettingsMobileHeader';
 export { default as RichContentModal } from './Modals/RichContentModal';
 
 export * from './Icons';
@@ -39,4 +38,5 @@ export { default as Checkbox } from './Components/Checkbox';
 export { default as RadioGroup } from './Components/RadioGroup';
 export { default as ActionButtons } from './Components/ActionButtons';
 export { default as FocusManager } from './Components/FocusManager';
+export { default as SettingsMobileHeader } from './Components/SettingsMobileHeader';
 // export { getSelectionStyles } from './Utils/inlineStyleUtils';

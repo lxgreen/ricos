@@ -14,12 +14,6 @@ import { mapTypeMapper } from 'wix-rich-content-plugin-map/viewer';
 import { giphyTypeMapper, GIPHY_TYPE } from 'wix-rich-content-plugin-giphy/viewer';
 import { buttonTypeMapper } from 'wix-rich-content-plugin-button/viewer';
 import { HashtagDecorator } from 'wix-rich-content-plugin-hashtag/viewer';
-
-import {
-  createHeadersMarkdownDecorator,
-  HEADERS_MARKDOWN_TYPE,
-} from 'wix-rich-content-plugin-headers-markdown';
-import { CodeBlockDecorator } from 'wix-rich-content-plugin-code-block/viewer';
 import { MENTION_TYPE, mentionsTypeMapper } from 'wix-rich-content-plugin-mentions/viewer';
 import { fileUploadTypeMapper, FILE_UPLOAD_TYPE } from 'wix-rich-content-plugin-file-upload/viewer';
 import {
@@ -63,18 +57,14 @@ import 'wix-rich-content-plugin-file-upload/dist/styles.min.css';
 import 'wix-rich-content-plugin-giphy/dist/styles.min.css';
 import 'wix-rich-content-text-selection-toolbar/dist/styles.min.css';
 import 'wix-rich-content-plugin-spoiler/dist/styles.min.css';
-
-import { getBaseUrl } from '../../src/utils';
-import {
-  InlineStyleMapper,
-  InlineStyleMapperFunction,
-  DraftContent,
-} from 'wix-rich-content-common';
+import { DraftContent } from 'wix-rich-content-common';
 
 const linkPluginSettings = {
+  // eslint-disable-next-line no-console
   onClick: (event, url) => console.log('link clicked!', url),
 };
 const mentionsPluginSettings = {
+  // eslint-disable-next-line no-console
   onMentionClick: mention => console.log('mention clicked!', mention),
   getMentionLink: () => '/link/to/mention',
 };
@@ -122,8 +112,7 @@ export const config = {
     resolveFileUrl: () =>
       new Promise(resolve =>
         setTimeout(
-          () =>
-            resolve('https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf'),
+          () => resolve('https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf'),
           1000
         )
       ),
@@ -141,7 +130,7 @@ export const getInlineStyleMappers = (raw: DraftContent) => [
 ];
 
 export const getConfig = (additionalConfig = {}) => {
-  let _config = { ...config };
+  const _config = { ...config };
   Object.keys(additionalConfig).forEach(key => {
     _config[key] = { ...(_config[key] || {}), ...(additionalConfig[key] || {}) };
   });
@@ -154,6 +143,7 @@ export const decorators = [
     theme,
     onClick: (event, text) => {
       event.preventDefault();
+      // eslint-disable-next-line no-console
       console.log(`'${text}' hashtag clicked!`);
     },
     createHref: decoratedText => `/search/posts?query=${encodeURIComponent('#')}${decoratedText}`,

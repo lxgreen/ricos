@@ -76,6 +76,7 @@ message PluginContainerData {
     Alignment alignment = 2;
     Spoiler spoiler = 3;
     Height height = 4;
+    google.protobuf.BoolValue text_wrap = 5; 
 }
 
 message FileSource {

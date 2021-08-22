@@ -30,7 +30,7 @@ export const isDecoration = (object): object is Decoration =>
 
 export const isRichContent = (object): object is RichContent => !!object?.nodes && !isNode(object);
 
-export const isProseContent = (object): object is JSONContent =>
+export const isTiptapContent = (object): object is JSONContent =>
   !!object?.content && !isNode(object);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

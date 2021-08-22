@@ -19,7 +19,7 @@ import {
   convertFromRaw,
   createWithContent,
 } from 'wix-rich-content-editor/libs/editorStateConversion';
-import { isEqual } from 'lodash';
+import { isEqual, compact } from 'lodash';
 import {
   EditorEventsContext,
   EditorEvents,
@@ -327,8 +327,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     );
     const { localeData } = this.state;
     const { locale, localeResource } = localeData;
-    // TODO: not a complete config
-    const config = plugins?.reduce((prev, curr) => ({ ...prev, [curr.type]: curr.config }), {});
+    const extensions = compact(plugins?.flatMap(plugin => plugin.tiptapExtensions)) || [];
     return (
       <Fragment>
         {tiptapToolbar && this.renderToolbarPortal(tiptapToolbar)}
@@ -337,9 +336,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
             {t => {
               const tiptapEditor = (
                 <RicosTiptapEditor
-                  extensions={plugins}
+                  extensions={extensions}
                   content={initalContent}
-                  config={config}
                   t={t}
                   onLoad={editor => {
                     const richContentAdapter = new RichContentAdapter(editor);
@@ -347,6 +345,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                     const TextToolbar = richContentAdapter.getToolbars().TextToolbar;
                     this.setState({ tiptapToolbar: TextToolbar });
                   }}
+                  onUpdate={this.onUpdate}
                 />
               );
               return this.renderRicosEngine(tiptapEditor, {});
@@ -372,11 +371,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         return null;
       }
 
-      return (
-        <div data-hook={'ricos-editor'}>
-          {this.useTiptap ? this.renderTiptapEditor() : this.renderDraftEditor()}
-        </div>
-      );
+      return this.useTiptap ? this.renderTiptapEditor() : this.renderDraftEditor();
     } catch (e) {
       this.props.onError?.(e);
       return null;

@@ -17,6 +17,125 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+- `ricos-content`
+  - [#2844](https://github.com/wix/ricos/pull/2844) Translatables API
+
+### :bug: Bug Fix
+
+- `general`
+  - [#2859](https://github.com/wix/ricos/pull/2859) wire button/link-preview/file-upload font family
+  - [#2877](https://github.com/wix/ricos/pull/2877) fix webpackChunkName syntax
+
+</details>
+<hr/>
+
+## 8.49.5 (Aug 19, 2021)
+
+### :bug: Bug Fix
+
+- `table`
+  - [#2874](https://github.com/wix/ricos/pull/2874) override sideToolbar onClick config when use it from table
+
+## 8.49.4 (Aug 18, 2021)
+
+### :bug: Bug Fix
+
+- `table`
+  - [#2871](https://github.com/wix/ricos/pull/2871) fix: wiring table theme on biz manager
+- `table`
+  - [#2869](https://github.com/wix/ricos/pull/2869) fix: add overlay to table external modal
+
+## 8.49.3 (Aug 18, 2021)
+
+### :rocket: New Feature
+
+- `*`
+  - [#2850](https://github.com/wix/ricos/pull/2850) textWrap
+
+### :house: Internal
+
+- `ricos-schema`
+
+  - [#2864](https://github.com/wix/ricos/pull/2864) generate plugin defaults in build time
+
+- `ui-components`
+  - [#2839](https://github.com/wix/ricos/pull/2839) refactor SettingsMobileHeader component and consume it in Button/CollapsibleList/Map/Link-modal/UrlInputModal
+- `e2e`
+  - [#2860](https://github.com/wix/ricos/pull/2860) add TypeScript support for Cypress
+  - [#2863](https://github.com/wix/ricos/pull/2863) update Cypress to v8
+- `example`
+  - [#2862](https://github.com/wix/ricos/pull/2862) add eslint support
+- `poll`
+  - [#2024](https://github.com/wix/ricos/pull/2024) add Poll story & rendering tests
+  - [#2870](https://github.com/wix/ricos/pull/2870) loadable support
+
+### :nail_care: Polish
+
+- `link`
+  - [#2828](https://github.com/wix/ricos/pull/2828) fix link data values
+- `plugin-button`
+  - [#2856](https://github.com/wix/ricos/pull/2856) refactor SettingsPanelFooter usage and deleted some css
+- `Tooltip`
+  - [#2839](https://github.com/wix/ricos/pull/2839) refactor tooltip style
+
+### :bug: Bug Fix
+
+- `link`
+  - [#2855](https://github.com/wix/ricos/pull/2855) fix: shift+enter break link string
+
+### :book: Documentation
+
+- `extractAppEmbedData` API docs added
+
+## 8.49.2 (Aug 14, 2021)
+
+### :bug: Bug Fix
+
+- `vertical-embed`
+  - [#2852](https://github.com/wix/ricos/pull/2852) fix booking description
+
+## 8.49.1 (Aug 13, 2021)
+
+### :nail_care: Polish
+
+- `ricos-schema`
+  - [#2507](https://github.com/wix/ricos/pull/2507) gallery schema
+
+## 8.49.0 (Aug 12, 2021)
+
+### :bug: Bug Fix
+
+- `plugin-common`
+
+  - [#2842](https://github.com/wix/ricos/pull/2842) fix link toolbar shortcut
+
+### :house: Internal
+
+- `gallery`
+  - [#2754](https://github.com/wix/ricos/pull/2754) remove `itemId` from content
+  - [#2799](https://github.com/wix/ricos/pull/2799) calculate thumbnail spacings on runtime normalize content before `8.49.0`
+
+## 8.48.4 (Aug 10, 2021)
+
+### :bug: Bug Fix
+
+- `collapsible-list`
+
+  - [#2831](https://github.com/wix/ricos/pull/2831) add collapsible_list to INSERT_PLUGIN_BUTTONS
+
+- `ricos-viewer` `ricos-editor`
+  - [#2840](https://github.com/wix/ricos/pull/2840) expose `iframeSandboxDomain` prop on editor & viewer fix
+  -
+
+## 8.48.3 (Aug 09, 2021)
+
+### :bug: Bug Fix
+
+- `link`
+  - [#2830](https://github.com/wix/ricos/pull/2830) fix modal design when opened using image toolbar
+
 ### :nail_care: Polish
 
 - `ricos-viewer` `ricos-editor`
@@ -26,14 +145,6 @@
 
 - `editor-common`
   - [#2824](https://github.com/wix/ricos/pull/2824) overflowUtils - support overflow from bottom + change returned value
-
-### :bug: Bug Fix
-
-- `link`
-  - [#2830](https://github.com/wix/ricos/pull/2830) fix modal design when opened using image toolbar
-
-</details>
-<hr/>
 
 ## 8.48.2 (Aug 05, 2021)
 
@@ -61,6 +172,8 @@
 
 ### :bug: Bug Fix
 
+- `ricos-common`
+  - [#2831](https://github.com/wix/ricos/pull/2831) add collapsible_list plugin to INSERT_PLUGIN_BUTTONS
 - `editor`
   - [#2813](https://github.com/wix/ricos/pull/2813) fix rel value not applying in link panel by config
 

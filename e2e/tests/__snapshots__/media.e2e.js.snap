@@ -111,12 +111,14 @@ exports[`plugins > image > render image toolbar and settings #0`] =
           "alignment": "center",
           "link": {
             "rel": "",
+            "target": "_blank",
             "url": "www.wix.com"
           },
           "showDescription": true,
           "showTitle": true,
           "size": "fullWidth",
-          "spoiler": {}
+          "spoiler": {},
+          "textWrap": "wrap"
         },
         "disableDownload": false,
         "disableExpand": false,
@@ -140,7 +142,8 @@ exports[`plugins > image > render image toolbar and settings #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_83e03311e53a47ce9ba8bda910fdad88.jpg",
@@ -269,7 +272,8 @@ exports[`plugins > full screen > image full screen > expand image on full screen
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "small"
+          "size": "small",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg",
@@ -288,7 +292,8 @@ exports[`plugins > full screen > image full screen > expand image on full screen
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_83e03311e53a47ce9ba8bda910fdad88.jpg",
@@ -390,7 +395,8 @@ exports[`plugins > full screen > gallery full screen > expand gallery image on f
           "alignment": "center",
           "layout": "small",
           "size": "content",
-          "spacing": 0
+          "spacing": 0,
+          "textWrap": "wrap"
         },
         "items": [
           {
@@ -411,7 +417,6 @@ exports[`plugins > full screen > gallery full screen > expand gallery image on f
           }
         ],
         "styles": {
-          "allowContextMenu": true,
           "allowDownload": false,
           "allowHover": true,
           "allowSocial": false,
@@ -448,7 +453,8 @@ exports[`plugins > full screen > gallery full screen > expand gallery image on f
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_4a6550d4df364f9890180f52243fb396.jpg",
@@ -550,7 +556,8 @@ exports[`plugins > gallery > render gallery plugin #0`] =
           "alignment": "center",
           "layout": "small",
           "size": "small",
-          "spacing": 0
+          "spacing": 0,
+          "textWrap": "wrap"
         },
         "items": [
           {
@@ -571,7 +578,6 @@ exports[`plugins > gallery > render gallery plugin #0`] =
           }
         ],
         "styles": {
-          "allowContextMenu": true,
           "allowDownload": false,
           "allowHover": true,
           "allowSocial": false,
@@ -608,7 +614,8 @@ exports[`plugins > gallery > render gallery plugin #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_4a6550d4df364f9890180f52243fb396.jpg",
@@ -1265,7 +1272,8 @@ exports[`plugins > gallery > render gallery out of view #0`] =
           "alignment": "center",
           "layout": "small",
           "size": "content",
-          "spacing": 0
+          "spacing": 0,
+          "textWrap": "wrap"
         },
         "items": [
           {
@@ -1294,7 +1302,6 @@ exports[`plugins > gallery > render gallery out of view #0`] =
           }
         ],
         "styles": {
-          "allowContextMenu": true,
           "allowHover": true,
           "cropOnlyFill": false,
           "cubeImages": true,
@@ -1328,7 +1335,8 @@ exports[`plugins > gallery > render gallery out of view #0`] =
           "alignment": "center",
           "layout": "small",
           "size": "content",
-          "spacing": 0
+          "spacing": 0,
+          "textWrap": "wrap"
         },
         "items": [
           {
@@ -1349,7 +1357,6 @@ exports[`plugins > gallery > render gallery out of view #0`] =
           }
         ],
         "styles": {
-          "allowContextMenu": true,
           "allowDownload": false,
           "allowHover": true,
           "allowSocial": false,
@@ -1386,7 +1393,8 @@ exports[`plugins > gallery > render gallery out of view #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_4a6550d4df364f9890180f52243fb396.jpg",
@@ -1488,11 +1496,11 @@ exports[`plugins > gallery > organize media > allow to manipulate the media item
           "alignment": "center",
           "layout": "small",
           "size": "small",
-          "spacing": 0
+          "spacing": 0,
+          "textWrap": "wrap"
         },
         "items": [],
         "styles": {
-          "allowContextMenu": true,
           "allowDownload": false,
           "allowHover": true,
           "allowSocial": false,
@@ -1529,7 +1537,8 @@ exports[`plugins > gallery > organize media > allow to manipulate the media item
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_4a6550d4df364f9890180f52243fb396.jpg",
@@ -1631,11 +1640,11 @@ exports[`plugins > gallery > media settings > allow to update media content #0`]
           "alignment": "center",
           "layout": "small",
           "size": "small",
-          "spacing": 0
+          "spacing": 0,
+          "textWrap": "wrap"
         },
         "items": [],
         "styles": {
-          "allowContextMenu": true,
           "allowDownload": false,
           "allowHover": true,
           "allowSocial": false,
@@ -1672,7 +1681,8 @@ exports[`plugins > gallery > media settings > allow to update media content #0`]
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_4a6550d4df364f9890180f52243fb396.jpg",
@@ -1746,7 +1756,8 @@ exports[`plugins > video > add a video from URL #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "small"
+          "size": "small",
+          "textWrap": "wrap"
         },
         "metadata": {
           "author_name": "Wix.com",
@@ -1815,7 +1826,8 @@ exports[`plugins > video > add a custom video #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "small"
+          "size": "small",
+          "textWrap": "wrap"
         },
         "isCustomVideo": true,
         "src": {
@@ -1959,7 +1971,8 @@ exports[`plugins > giphy > render giphy plugin toolbar #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "small"
+          "size": "small",
+          "textWrap": "wrap"
         },
         "gif": {
           "height": 400,
@@ -2143,7 +2156,8 @@ exports[`plugins > image > render image with link #0`] =
           },
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_ea26cc9ae0ce440bbc4cfaaa8864c5e6.jpg",
@@ -2203,7 +2217,8 @@ exports[`plugins > image > render image with loader - loading in component data 
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "loading": true,
         "src": {
@@ -2902,6 +2917,7 @@ exports[`plugins > full screen > innerRCE images full screen > expand inner-rce 
                             "showDescription": true,
                             "showTitle": true,
                             "size": "inline",
+                            "textWrap": "wrap",
                             "width": 156
                           },
                           "src": {
@@ -2924,7 +2940,8 @@ exports[`plugins > full screen > innerRCE images full screen > expand inner-rce 
           "rowsHeight": [
             47,
             47
-          ]
+          ],
+          "textWrap": "nowrap"
         },
         "type": "wix-rich-content-plugin-table"
       },
@@ -2936,7 +2953,8 @@ exports[`plugins > full screen > innerRCE images full screen > expand inner-rce 
         "config": {
           "direction": "ltr",
           "expandOnlyOne": false,
-          "expandState": "first_expanded"
+          "expandState": "first_expanded",
+          "textWrap": "nowrap"
         },
         "pairs": [
           {
@@ -2984,6 +3002,7 @@ exports[`plugins > full screen > innerRCE images full screen > expand inner-rce 
                       "showDescription": true,
                       "showTitle": true,
                       "size": "inline",
+                      "textWrap": "wrap",
                       "width": 301
                     },
                     "src": {
@@ -3066,7 +3085,8 @@ exports[`plugins > video > should toggle download option #0`] =
         "config": {
           "alignment": "center",
           "size": "content",
-          "spoiler": {}
+          "spoiler": {},
+          "textWrap": "wrap"
         },
         "disableDownload": true,
         "isCustomVideo": true,
@@ -3198,7 +3218,8 @@ exports[`plugins > full screen > image full screen in hebrew > expand image on f
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "small"
+          "size": "small",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg",
@@ -3217,7 +3238,8 @@ exports[`plugins > full screen > image full screen in hebrew > expand image on f
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_83e03311e53a47ce9ba8bda910fdad88.jpg",
@@ -3524,7 +3546,8 @@ exports[`plugins > image > should disable image expand #0`] =
           "showDescription": true,
           "showTitle": true,
           "size": "small",
-          "spoiler": {}
+          "spoiler": {},
+          "textWrap": "wrap"
         },
         "disableDownload": false,
         "disableExpand": true,
@@ -3545,7 +3568,8 @@ exports[`plugins > image > should disable image expand #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_83e03311e53a47ce9ba8bda910fdad88.jpg",
@@ -3648,7 +3672,8 @@ exports[`plugins > gallery > settings > should disable gallery expand #0`] =
           "layout": "small",
           "size": "content",
           "spacing": 0,
-          "spoiler": {}
+          "spoiler": {},
+          "textWrap": "wrap"
         },
         "disableDownload": false,
         "disableExpand": true,
@@ -3671,7 +3696,6 @@ exports[`plugins > gallery > settings > should disable gallery expand #0`] =
           }
         ],
         "styles": {
-          "allowContextMenu": true,
           "allowDownload": false,
           "allowHover": true,
           "allowSocial": false,
@@ -3708,7 +3732,8 @@ exports[`plugins > gallery > settings > should disable gallery expand #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_4a6550d4df364f9890180f52243fb396.jpg",

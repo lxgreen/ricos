@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports = function configure(app) {
+module.exports = function(app) {
   app.set('views', path.resolve(__dirname, 'views'));
   app.set('view engine', 'ejs');
 

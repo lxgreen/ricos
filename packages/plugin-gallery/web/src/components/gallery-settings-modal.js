@@ -8,18 +8,21 @@ import {
   SettingsSection,
   SettingsPanelFooter,
   FocusManager,
+  SettingsMobileHeader,
 } from 'wix-rich-content-ui-components';
 import LayoutSelector from './gallery-controls/layouts-selector';
 import styles from '../../statics/styles/gallery-settings-modal.scss';
 import LayoutControlsSection from './layout-controls-section';
 import { SortableComponent } from './gallery-controls/gallery-items-sortable';
 import { layoutData } from '../../lib/layout-data-provider';
-import GallerySettingsMobileHeader from './gallery-controls/gallery-settings-mobile-header';
 const DIVIDER = 'divider';
 class ManageMediaSection extends Component {
   applyItems = items => {
     const { data, store } = this.props;
-    const componentData = { ...data, items };
+    const componentData = {
+      ...data,
+      items,
+    };
     store.set('componentData', componentData);
   };
 
@@ -173,8 +176,9 @@ export class GallerySettingsModal extends Component {
 
   componentDidMount() {
     this.props.pubsub.subscribe('componentData', this.onComponentUpdate);
+    const componentData = this.props.pubsub.get('componentData');
     this.setState({
-      initComponentData: this.props.pubsub.get('componentData'),
+      initComponentData: { ...componentData, items: this.getItems(componentData.items) },
     });
   }
 
@@ -187,7 +191,10 @@ export class GallerySettingsModal extends Component {
   revertComponentData = () => {
     const { pubsub, helpers } = this.props;
     if (this.state.initComponentData) {
-      pubsub.set('componentData', this.state.initComponentData);
+      pubsub.set('componentData', {
+        ...this.state.initComponentData,
+        items: this.getItems(this.state.initComponentData.items),
+      });
     }
 
     helpers.closeModal();
@@ -217,11 +224,20 @@ export class GallerySettingsModal extends Component {
     }[tab];
   }
 
+  getItems = items => {
+    return items.map(item => {
+      // eslint-disable-next-line fp/no-delete
+      delete item.selected;
+      return item;
+    });
+  };
+
   onDoneClick = () => {
     const { helpers, pubsub } = this.props;
     const componentData = pubsub.get('componentData');
     const newComponentData = {
       ...componentData,
+      items: this.getItems(componentData.items),
       ...this.getSpoilerConfig(this.state.isSpoilerEnabled),
       disableDownload: !this.state.isDownloadEnabled,
       disableExpand: !this.state.isExpandEnabled,
@@ -346,19 +362,17 @@ export class GallerySettingsModal extends Component {
 
   render() {
     const styles = this.styles;
-    const { t, isMobile, languageDir, pubsub } = this.props;
+    const { t, isMobile, languageDir, pubsub, theme } = this.props;
     const { activeTab } = this.state;
     this.componentData = pubsub.get('componentData');
 
     return (
       <div data-hook="settings" dir={languageDir}>
         {isMobile && (
-          <GallerySettingsMobileHeader
-            theme={this.props.theme}
-            cancel={this.revertComponentData}
-            save={this.onDoneClick}
-            switchTab={this.switchTab}
-            otherTab={this.tabName(this.otherTab(), t)}
+          <SettingsMobileHeader
+            theme={theme}
+            onCancel={this.revertComponentData}
+            onSave={this.onDoneClick}
             t={t}
           />
         )}

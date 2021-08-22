@@ -135,7 +135,7 @@ export default class TextLinkModal extends Component {
       linkTypes,
     } = this.props;
     const linkData = this.getLinkData(getEditorState());
-    const { url, anchor, target = anchorTarget, rel = relValue } = linkData || {};
+    const { url, anchor, target, rel } = linkData || {};
     return (
       <LinkModal
         editorState={getEditorState()}
@@ -147,6 +147,7 @@ export default class TextLinkModal extends Component {
         isActive={!isEmpty(linkData)}
         isMobile={isMobile}
         anchorTarget={anchorTarget}
+        relValue={relValue}
         onDone={this.createLinkEntity}
         onCancel={this.onCancel}
         onDelete={this.deleteLink}

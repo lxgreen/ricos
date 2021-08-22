@@ -2,9 +2,10 @@ import classNames from 'classnames';
 import { camelCase, upperFirst } from 'lodash';
 import generalStyles from 'wix-rich-content-editor-common/dist/statics/styles/general.scss';
 import generalRTLIgnoredStyles from 'wix-rich-content-common/dist/statics/styles/general.rtlignore.scss';
+import { RichContentTheme } from 'wix-rich-content-common';
 
 const stylesWithRTL = { ...generalStyles, ...generalRTLIgnoredStyles };
-export const getAlignmentClassName = (styles, alignment, theme) => {
+export const getAlignmentClassName = (styles, alignment, theme: RichContentTheme = {}) => {
   if (!alignment) {
     return '';
   }
@@ -12,7 +13,7 @@ export const getAlignmentClassName = (styles, alignment, theme) => {
   return classNames(styles[key], theme[key]);
 };
 
-export const getSizeClassName = (styles, size, theme) => {
+export const getSizeClassName = (styles, size, theme: RichContentTheme = {}) => {
   if (!size) {
     return '';
   }
@@ -20,7 +21,7 @@ export const getSizeClassName = (styles, size, theme) => {
   return classNames(styles[key], theme[key]);
 };
 
-export const getFocusClassName = (styles, theme, isFocused) => {
+export const getFocusClassName = (styles, theme: RichContentTheme = {}, isFocused) => {
   return classNames({
     [styles.hasFocus]: isFocused,
     [theme.hasFocus]: isFocused,
@@ -28,7 +29,7 @@ export const getFocusClassName = (styles, theme, isFocused) => {
   });
 };
 
-export const getTextWrapClassName = (styles, theme, textWrap) => {
+export const getTextWrapClassName = (styles, theme: RichContentTheme = {}, textWrap) => {
   if (!textWrap) {
     return '';
   }
@@ -36,7 +37,7 @@ export const getTextWrapClassName = (styles, theme, textWrap) => {
   return classNames(styles[key], theme[key]);
 };
 
-export const getPluginContainerClassName = (styles, theme, isMobile) => {
+export const getPluginContainerClassName = (styles, theme: RichContentTheme = {}, isMobile) => {
   return classNames(styles.pluginContainer, theme.pluginContainer, theme.pluginContainerWrapper, {
     [styles.pluginContainerMobile]: isMobile,
     [theme.pluginContainerMobile]: isMobile,

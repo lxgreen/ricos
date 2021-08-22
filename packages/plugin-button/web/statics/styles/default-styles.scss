@@ -28,7 +28,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   white-space: nowrap;
-
+  font-family: var(--ricos-custom-p-font-family);
   @include phone {
     max-width: calc(100vw - 89px);
   }
