@@ -4,12 +4,8 @@ import { RichContent, Node, Node_Type, Header } from 'ricos-schema';
 import { DraftContent, RicosContentBlock } from '../../../types';
 import { Version } from '../../../version';
 import { generateId } from '../../generateRandomId';
-import {
-  BlockType,
-  HeaderLevel,
-  RICOS_NODE_TYPE_TO_DATA_FIELD,
-  TO_DRAFT_LIST_TYPE,
-} from '../consts';
+import { BlockType, HeaderLevel, TO_DRAFT_LIST_TYPE } from '../consts';
+import { RICOS_NODE_TYPE_TO_DATA_FIELD } from '../../../consts';
 import { DraftBlockType } from 'draft-js';
 import { merge } from 'lodash';
 import { createTextBlockData, createAtomicEntityData } from './getDraftEntityData';
@@ -30,6 +26,7 @@ const convert = (ricosContent: RichContent): DraftContent => {
     entityMap: {},
   };
   let latestEntityKey = -1;
+  const usedKeys: Record<string, boolean> = {};
 
   const parseNodes = (index = 0) => {
     const node = nodes[index];
@@ -129,6 +126,10 @@ const convert = (ricosContent: RichContent): DraftContent => {
       },
       blockProps
     );
+    if (usedKeys[newBlock.key] && newBlock.key !== '') {
+      throw Error(`ERROR! Duplicate block key "${newBlock.key}"!`);
+    }
+    usedKeys[newBlock.key] = true;
     draftContent.blocks = [...draftContent.blocks, newBlock];
   };
 

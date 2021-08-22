@@ -42,16 +42,6 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
     closeModal();
   };
   const isCustomVideo = !!componentData.isCustomVideo;
-  const mobileSettingsProps = {
-    t,
-    theme,
-    dataHookPrefix: 'VideoSettingsMobileHeader',
-    cancelLabel: t('SettingsPanelFooter_Cancel'),
-    saveLabel: t('SettingsPanelFooter_Save'),
-    isMediaSettingsModal: true,
-    cancel: closeModal,
-    save: onDoneClick,
-  };
 
   const spoilerToggle = {
     toggleKey: 'isSpoilerEnabled',
@@ -86,7 +76,7 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
       })}
     >
       {isMobile ? (
-        <SettingsMobileHeader {...mobileSettingsProps} />
+        <SettingsMobileHeader t={t} theme={theme} onCancel={closeModal} onSave={onDoneClick} />
       ) : (
         <>
           <div className={styles.videoSettingsTitle}>{t('VideoPlugin_Settings_Header')}</div>
@@ -107,14 +97,7 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
         ))}
       </SettingsSection>
       {!isMobile && (
-        <SettingsPanelFooter
-          className={styles.videoSettings_footer}
-          fixed
-          theme={theme}
-          cancel={closeModal}
-          save={onDoneClick}
-          t={t}
-        />
+        <SettingsPanelFooter fixed theme={theme} cancel={closeModal} save={onDoneClick} t={t} />
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import * as ricosSchema from 'ricos-schema';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   NodeConfig,
   ExtensionConfig,
@@ -7,7 +7,7 @@ import {
 } from '@tiptap/core';
 import { ComponentType } from 'react';
 import { TranslationFunction } from './commonTypes';
-import { EditorPluginConfig } from './pluginTypes';
+import { EditorPluginConfig, LegacyEditorPluginConfig } from './pluginTypes';
 
 export type TiptapExtensionConfig = NodeConfig | MarkConfig | RicosExtensionConfig;
 
@@ -16,7 +16,6 @@ export const isMarkConfig = (c: TiptapExtensionConfig): c is MarkConfig => c.typ
 export const isExtensionConfig = (c: TiptapExtensionConfig): c is RicosExtensionConfig =>
   c.type === 'extension';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type NodeViewHoc<T = any> = (Component: ComponentType<T>) => ComponentType<T>;
 
 export type NodeViewHocMap = {
@@ -24,10 +23,8 @@ export type NodeViewHocMap = {
 };
 
 export type RicosTiptapContextValue = {
-  nodeViewsHOCs: NodeViewHocMap;
   context: {
-    config: Record<string, EditorPluginConfig>;
-    t: TranslationFunction;
+    t?: TranslationFunction;
   };
 };
 
@@ -40,32 +37,47 @@ export interface RicosExtensionConfig extends ExtensionConfig {
 
 export type RicosNodeExtension = {
   type: 'node';
-  createConfig: ({ mergeAttributes }: { mergeAttributes: typeof mergeAttributesFn }) => NodeConfig;
+  createExtensionConfig: ({
+    mergeAttributes,
+  }: {
+    mergeAttributes: typeof mergeAttributesFn;
+  }) => NodeConfig;
   Component: React.ComponentType;
-  createComponentDataDefaults?: <DT>(schema: typeof ricosSchema) => Record<string, DT>;
+  componentDataDefaults?: any;
 };
 
 export type RicosMarkExtension = {
   type: 'mark';
-  createConfig: ({ mergeAttributes }: { mergeAttributes: typeof mergeAttributesFn }) => MarkConfig;
-  createComponentDataDefaults?: <DT>(schema: typeof ricosSchema) => Record<string, DT>;
+  createExtensionConfig: ({
+    mergeAttributes,
+  }: {
+    mergeAttributes: typeof mergeAttributesFn;
+  }) => MarkConfig;
+  componentDataDefaults?: any;
 };
 
-export type RicosGenericExtension = {
+export type RicosFunctionalExtension = {
   type: 'extension';
-  createConfig: ({
+  createExtensionConfig: ({
     mergeAttributes,
   }: {
     mergeAttributes: typeof mergeAttributesFn;
   }) => RicosExtensionConfig;
-  createComponentDataDefaults?: <DT>(schema: typeof ricosSchema) => Record<string, DT>;
 };
 
 export const isRicosNodeExtension = (ext: RicosTiptapExtension): ext is RicosNodeExtension =>
   ext.type === 'node';
 export const isRicosMarkExtension = (ext: RicosTiptapExtension): ext is RicosMarkExtension =>
   ext.type === 'mark';
-export const isRicosGenericExtension = (ext: RicosTiptapExtension): ext is RicosGenericExtension =>
-  ext.type === 'extension';
+export const isRicosFunctionalExtension = (
+  ext: RicosTiptapExtension
+): ext is RicosFunctionalExtension => ext.type === 'extension';
 
-export type RicosTiptapExtension = RicosNodeExtension | RicosMarkExtension | RicosGenericExtension;
+export type RicosTiptapExtension =
+  | RicosNodeExtension
+  | RicosMarkExtension
+  | RicosFunctionalExtension;
+
+export type CreateRicosExtensions = <PluginType extends keyof LegacyEditorPluginConfig>(
+  config: LegacyEditorPluginConfig[PluginType]
+) => RicosTiptapExtension[];

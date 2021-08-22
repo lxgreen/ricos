@@ -359,7 +359,8 @@
             "enabled": true,
             "description": "SPOILER ALERT!!!",
             "buttonText": "What's behind door number 1?"
-          }
+          },
+          "textWrap": true
         },
         "image": {
           "src": {
@@ -395,7 +396,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "video": {
           "src": {
@@ -432,7 +434,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "video": {
           "src": {
@@ -469,72 +472,68 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "items": [
           {
-            "metadata": {
-              "height": 3733,
-              "width": 5600,
-              "type": "image"
-            },
-            "itemId": "2c2698b83ba64574db5e28ed54064081",
-            "url": "8bb438_0ab44689f626435c94b9a5b996524aba.jpg",
-            "selected": false
+            "image": {
+              "media": {
+                "src": {
+                  "url": "8bb438_0ab44689f626435c94b9a5b996524aba.jpg"
+                },
+                "width": 5600,
+                "height": 3733
+              }
+            }
           },
           {
-            "metadata": {
-              "height": 1922,
-              "width": 1920,
-              "type": "image"
-            },
-            "itemId": "a327950f89cc4994f34a0cd0d4a71473",
-            "url": "8bb438_6a7159be0f944dde9098fe566bf22831.jpg",
-            "selected": false
+            "image": {
+              "media": {
+                "src": {
+                  "url": "8bb438_6a7159be0f944dde9098fe566bf22831.jpg"
+                },
+                "width": 1920,
+                "height": 1922
+              }
+            }
           },
           {
-            "metadata": {
-              "height": 3727,
-              "width": 5600,
-              "type": "image"
-            },
-            "itemId": "f6db1b532552aa00e9549b5c97e6770a",
-            "url": "8bb438_cabd67053eae45e7ab273832504717ff.jpg",
-            "selected": false
+            "video": {
+              "media": {
+                "src": {
+                  "url": "0d72ac_31569a98fd8d436f98ae9c827c216443"
+                },
+                "width": 1920,
+                "height": 1080
+              },
+              "thumbnail": {
+                "src": {
+                  "url": "8bb438_cabd67053eae45e7ab273832504717ff.jpg"
+                },
+                "width": 5600,
+                "height": 3727
+              }
+            }
           }
         ],
-        "styles": {
-          "galleryLayout": 2,
-          "gallerySizeType": "px",
-          "gallerySizePx": 300,
-          "oneRow": false,
-          "cubeRatio": 1,
-          "galleryThumbnailsAlignment": "bottom",
-          "isVertical": false,
-          "numberOfImagesPerRow": 3,
-          "imageMargin": 20,
-          "thumbnailSpacings": 0,
-          "cubeType": "fill",
-          "enableInfiniteScroll": true,
-          "titlePlacement": "SHOW_ON_HOVER",
-          "allowHover": true,
-          "itemClick": "link",
-          "showArrows": false,
-          "gridStyle": 1,
-          "loveButton": false,
-          "allowSocial": false,
-          "allowDownload": false,
-          "galleryMargin": 0,
-          "fullscreen": false,
-          "mobileSwipeAnimation": "NO_EFFECT",
-          "thumbnailSize": 120,
-          "gotStyleParams": true,
-          "showVideoPlayButton": true,
-          "videoPlay": "onClick"
-        },
-        "config": {
-          "layout": "small",
-          "spacing": 0
+        "options": {
+          "layout": {
+            "type": "GRID",
+            "horizontalScroll": false,
+            "orientation": "ROWS",
+            "numberOfColumns": 3
+          },
+          "item": {
+            "targetSize": 300,
+            "ratio": 1,
+            "crop": "FILL",
+            "spacing": 20
+          },
+          "thumbnails": {
+            "placement": "BOTTOM",
+            "spacing": 0
+          }
         },
         "disableExpand": false,
         "id": "8"
@@ -562,7 +561,8 @@
           "alignment": "CENTER",
           "height": {
             "custom": "490"
-          }
+          },
+          "textWrap": true
         },
         "html": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">How we cut cost on 55% of our storage without deleting a single file? We understood that NOT all files should be treated equally. <br><br>Here’s the full story:<a href=\"https://t.co/zC3d0uBkEA\">https://t.co/zC3d0uBkEA</a> <a href=\"https://t.co/j8ND7GfOEg\">pic.twitter.com/j8ND7GfOEg</a></p>&mdash; Wix Engineering (@WixEng) <a href=\"https://twitter.com/WixEng/status/1348206215336259584?ref_src=twsrc%5Etfw\">January 10, 2021</a></blockquote> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>",
         "id": "10"
@@ -587,7 +587,8 @@
           "width": {
             "custom": "350"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "oembed": {
           "type": "rich",
@@ -616,7 +617,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "type": "link",
         "styles": {
@@ -656,7 +658,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "type": "ACTION",
         "styles": {
@@ -689,7 +692,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": false
         },
         "lineStyle": "DOUBLE",
         "width": "MEDIUM",
@@ -747,7 +751,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "original": {
           "gif": "https://media1.giphy.com/media/Cn44PUsTVimwBAtIRx/giphy.gif?cid=558f2fbejldbq3cgzrasbh2j4z47w8nn51qcbjzc6dg7g7af&rid=giphy.gif",
@@ -786,7 +791,8 @@
           "alignment": "CENTER",
           "height": {
             "custom": "271"
-          }
+          },
+          "textWrap": true
         },
         "mapSettings": {
           "address": "Wix HQ, Nemal Tel Aviv Street, Tel Aviv-Yafo, Israel",
@@ -822,7 +828,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "src": {
           "url": "https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
@@ -929,7 +936,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "link": {
           "url": "www.wix.com",
@@ -1847,7 +1855,8 @@
           "alignment": "RIGHT",
           "spoiler": {
             "enabled": true
-          }
+          },
+          "textWrap": true
         },
         "image": {
           "src": {

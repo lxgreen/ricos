@@ -1,0 +1,208 @@
+{
+  "blocks": [
+    {
+      "key": "50k2j",
+      "text": "Please be aware that for now,",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [
+        {
+          "offset": 0,
+          "length": 15,
+          "style": "BOLD"
+        }
+      ],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "padding-top": "0px",
+          "padding-bottom": "0px"
+        },
+        "textAlignment": "left"
+      }
+    },
+    {
+      "key": "f0o4i",
+      "text": "Polls plugin works properly only under WixRicos components (ricos-tpa)",
+      "type": "header-two",
+      "depth": 0,
+      "inlineStyleRanges": [
+        {
+          "offset": 0,
+          "length": 70,
+          "style": "BOLD"
+        },
+        {
+          "offset": 60,
+          "length": 9,
+          "style": "UNDERLINE"
+        }
+      ],
+      "entityRanges": [
+        {
+          "offset": 60,
+          "length": 9,
+          "key": 0
+        }
+      ],
+      "data": {
+        "dynamicStyles": {
+          "padding-top": "0px",
+          "padding-bottom": "0px"
+        },
+        "textAlignment": "left"
+      }
+    },
+    {
+      "key": "8rhfj",
+      "text": "This story is only to show you how cool it is!",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [
+        {
+          "offset": 34,
+          "length": 12,
+          "style": "BOLD"
+        }
+      ],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "padding-top": "0px",
+          "padding-bottom": "0px"
+        },
+        "textAlignment": "left"
+      }
+    },
+    {
+      "key": "9n8s7",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "padding-top": "0px",
+          "padding-bottom": "0px"
+        },
+        "textAlignment": "left"
+      }
+    },
+    {
+      "key": "71t86",
+      "text": " ",
+      "type": "atomic",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [
+        {
+          "offset": 0,
+          "length": 1,
+          "key": 1
+        }
+      ],
+      "data": {}
+    },
+    {
+      "key": "1f60i",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    }
+  ],
+  "entityMap": {
+    "0": {
+      "type": "LINK",
+      "mutability": "MUTABLE",
+      "data": {
+        "url": "https://avivm6.wixsite.com/ricos-tpa/ricos-tpa",
+        "target": "_blank",
+        "rel": ""
+      }
+    },
+    "1": {
+      "type": "wix-draft-plugin-poll",
+      "mutability": "IMMUTABLE",
+      "data": {
+        "config": {
+          "size": "large",
+          "width": "full-width",
+          "alignment": "center",
+          "enableVoteRole": false
+        },
+        "poll": {
+          "id": "24035f02-b39e-47e0-bbdc-242242f22c69",
+          "title": "Is RiCos the GREATEST?",
+          "mediaId": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg",
+          "createdBy": "d0d683f9-81b1-4ec2-84ee-7f49c5245148",
+          "count": 1,
+          "anonymousCount": 0,
+          "ownVotes": [
+            "abec1e2a-23fb-4d6b-85bf-f5e74202e6cb"
+          ],
+          "settings": {
+            "multipleVotes": true,
+            "voteRole": "SITE_MEMBERS",
+            "resultsVisibility": "VOTERS_ONLY",
+            "votersDisplay": true,
+            "votesDisplay": true
+          },
+          "options": [
+            {
+              "id": "86c4e437-b285-477a-8640-9a877c8608ff",
+              "title": "Yes",
+              "mediaId": "https://static.wixstatic.com/media/fb62d9f8e7824b2e90b13b971e700b92.jpg",
+              "count": 0,
+              "anonymousCount": 0,
+              "rating": 0,
+              "latestVoters": []
+            },
+            {
+              "id": "abec1e2a-23fb-4d6b-85bf-f5e74202e6cb",
+              "title": "Hell YES!!!",
+              "mediaId": "https://static.wixstatic.com/media/3a27828e768344158489df4f2c03cfb2.jpg",
+              "count": 1,
+              "anonymousCount": 0,
+              "rating": 100,
+              "latestVoters": [
+                "d0d683f9-81b1-4ec2-84ee-7f49c5245148"
+              ]
+            }
+          ],
+          "creatorFlag": true
+        },
+        "size": "large",
+        "width": "full-width",
+        "design": {
+          "poll": {
+            "background": "https://static.wixstatic.com/media/2dfdd3_0b440a1138ba4c99bc954eb4d06ec0ad~mv2.jpg",
+            "borderRadius": 0,
+            "backgroundType": "image"
+          },
+          "option": {
+            "borderRadius": 0
+          }
+        },
+        "layout": {
+          "poll": {
+            "type": "list",
+            "direction": "ltr",
+            "enableImage": true
+          },
+          "option": {
+            "enableImage": true
+          }
+        },
+        "spoiler": true,
+        "alignment": "center",
+        "siteToken": "ge0OxYJEVEMyxJ2LVarJCyEgR_rkmLS9GV2TysuaSAs.eyJpbnN0YW5jZUlkIjoiYWJmNTFkZmQtYjY1ZC00NGRlLWI3ZDMtNTU0MzBlNjkxZDk1IiwiYXBwRGVmSWQiOiIzZTFkYzdlOC0zNDQ0LTQ1YmEtYTU0Yi04ODQ0NjZjN2RhMGUiLCJtZXRhU2l0ZUlkIjoiYjNlOTVlNzgtNDg5MC00YzY1LTg0YmMtODllM2YyZGYzZjIxIiwic2lnbkRhdGUiOiIyMDIxLTA4LTAyVDEzOjMxOjQxLjQ2MloiLCJ1aWQiOiJkMGQ2ODNmOS04MWIxLTRlYzItODRlZS03ZjQ5YzUyNDUxNDgiLCJwZXJtaXNzaW9ucyI6Ik9XTkVSIiwiZGVtb01vZGUiOmZhbHNlLCJhaWQiOiI3MWZhM2U1NC0xNzk1LTQ4NGYtYmE4NS1hZTk4Njc4OTQzMzciLCJiaVRva2VuIjoiMTgxYzQzODUtZmVjZC0wOGJiLTMzNmYtZGNhMGZjYjYyMmI0Iiwic2l0ZU93bmVySWQiOiJkMGQ2ODNmOS04MWIxLTRlYzItODRlZS03ZjQ5YzUyNDUxNDgiLCJleHBpcmF0aW9uRGF0ZSI6IjIwMjEtMDgtMDJUMTc6MzE6NDEuNDYyWiIsImhhc1VzZXJSb2xlIjp0cnVlfQ",
+        "enableVoteRole": true
+      }
+    }
+  },
+  "VERSION": "8.49.2"
+}

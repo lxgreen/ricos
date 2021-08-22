@@ -4,7 +4,7 @@ import { compare } from '../../../comparision/compare';
 import complexFixture from '../../../../../../../e2e/tests/fixtures/migration-content.json';
 import anchorBlocksFixture from '../../../../../../../e2e/tests/fixtures/all-blocks-with-anchors.json';
 import keyAndBulletFixture from './migration-content-with-key-and-bullet.json';
-import { ANCHOR_TYPE } from '../../../consts';
+import { ANCHOR_TYPE, WRAP } from '../../../consts';
 import {
   Decoration_Type,
   FileData,
@@ -42,6 +42,7 @@ describe('migrate to draft', () => {
       containerData: {
         width: { size: PluginContainerData_Width_Type.CONTENT },
         alignment: PluginContainerData_Alignment.CENTER,
+        textWrap: true,
       },
       image: {
         src: {
@@ -61,6 +62,7 @@ describe('migrate to draft', () => {
     config: {
       alignment: 'center',
       size: 'content',
+      textWrap: WRAP,
     },
     disableExpand: false,
     src: {

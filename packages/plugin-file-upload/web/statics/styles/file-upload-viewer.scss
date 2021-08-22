@@ -8,6 +8,7 @@
   width: 100%;
   height: 84px;
   box-sizing: border-box;
+  font-family: var(--ricos-custom-p-font-family);
   border: 1px solid rgba($color: $primary-text-color-tuple, $alpha: 0.2);
   &:hover {
     border: 1px solid rgba($color: $primary-text-color-tuple, $alpha: 0.6);
@@ -116,7 +117,6 @@
   font-size: 14px;
   color: $primary-text-color;
   opacity: 0.6;
-  font-family: $ricos-font-family !important;
   text-align: initial;
 }
 
@@ -124,7 +124,6 @@
   letter-spacing: 0;
   font-size: 14px;
   color: #f64d43;
-  font-family: $ricos-font-family !important;
 }
 
 .file_upload_icon_frame {

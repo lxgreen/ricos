@@ -29,5 +29,8 @@ export default (componentData, normalizerConfig, stateVersion: string) => {
     });
     componentData.items = items;
   }
+  if (Version.lessThan(stateVersion, '8.49.0')) {
+    componentData.styles.thumbnailSpacings && (componentData.styles.thumbnailSpacings *= 2);
+  }
   return componentData;
 };
