@@ -5,7 +5,6 @@ import {
   Node,
   Node_Type,
   Decoration_Type,
-  Link,
   ImageData,
   Decoration,
   PluginContainerData,
@@ -15,6 +14,7 @@ import {
   FileData,
   ButtonData,
   LinkData,
+  GalleryData,
   GIFData,
 } from 'ricos-schema';
 import { cloneDeep, has, merge } from 'lodash';
@@ -24,8 +24,10 @@ import {
   FROM_RICOS_DECORATION_TYPE,
   FROM_RICOS_ENTITY_TYPE,
   TO_RICOS_DATA_FIELD,
+  DraftGalleryStyles,
 } from '../consts';
 import { ComponentData, FileComponentData } from '../../../types';
+import { parseLink } from '../../nodeUtils';
 
 export const convertNodeToDraftData = (node: Node) => {
   const { type } = node;
@@ -62,6 +64,7 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data) => {
     [Node_Type.HTML]: convertHTMLData,
     [Node_Type.MAP]: convertMapData,
     [Node_Type.EMBED]: convertEmbedData,
+    [Node_Type.GALLERY]: convertGalleryData,
   };
   if (newData.containerData && nodeType !== Node_Type.DIVIDER) {
     convertContainerData(newData, nodeType);
@@ -152,6 +155,75 @@ const convertDividerData = (
     delete data.alignment;
   }
   delete data.containerData;
+};
+
+enum GalleryLayout {
+  COLLAGE = 0,
+  MASONRY,
+  GRID,
+  THUMBNAIL,
+  SLIDER,
+  SLIDESHOW,
+  PANORAMA,
+  COLUMN,
+  MAGIC,
+  FULLSIZE,
+}
+
+const convertGalleryStyles = options => {
+  const styles: DraftGalleryStyles = {};
+  has(options, 'layout.type') &&
+    (styles.galleryLayout = parseInt(GalleryLayout[options.layout.type]));
+  has(options, 'layout.horizontalScroll') && (styles.oneRow = options.layout.horizontalScroll);
+  has(options, 'layout.orientation') &&
+    (styles.isVertical = options.layout.orientation === 'COLUMNS');
+  has(options, 'layout.numberOfColumns') &&
+    (styles.numberOfImagesPerRow = options.layout.numberOfColumns);
+  has(options, 'item.targetSize') && (styles.gallerySizePx = options.item.targetSize);
+  has(options, 'item.ratio') && (styles.cubeRatio = options.item.ratio);
+  has(options, 'item.crop') && (styles.cubeType = options.item.crop.toLowerCase());
+  has(options, 'item.spacing') && (styles.imageMargin = options.item.spacing);
+  has(options, 'thumbnails.placement') &&
+    (styles.galleryThumbnailsAlignment = options.thumbnails.placement.toLowerCase());
+  has(options, 'thumbnails.spacing') && (styles.thumbnailSpacings = options.thumbnails.spacing / 2);
+  return styles;
+};
+
+const convertGalleryItem = item => {
+  const type = has(item, 'image') ? 'image' : 'video';
+  const {
+    src: { url },
+    height,
+    width,
+  } = item[type].media;
+  item.url = url;
+  item.metadata = { height, width, type };
+  has(item, 'title') && (item.metadata.title = item.title);
+  has(item, 'altText') && (item.metadata.altText = item.altText);
+  if (has(item, 'video.thumbnail')) {
+    const {
+      src: { url },
+      height,
+      width,
+    } = item.video.thumbnail;
+    item.metadata.poster = { url, height, width };
+  }
+  has(item, 'image.link') && (item.metadata.link = item.image.link);
+  delete item.video;
+  delete item.image;
+  delete item.title;
+  delete item.altText;
+  return item;
+};
+
+const convertGalleryData = (
+  data: GalleryData & {
+    styles: DraftGalleryStyles;
+  }
+) => {
+  has(data, 'items') && (data.items = data.items.map(item => convertGalleryItem(item)));
+  has(data, 'options') && (data.styles = convertGalleryStyles(data.options));
+  delete data.options;
 };
 
 const convertImageData = (data: ImageData & { src; config; metadata }) => {
@@ -376,27 +448,3 @@ const parseLinkCustomData = (customData: string) => {
     return { customData };
   }
 };
-
-const parseLink = ({
-  url,
-  rel,
-  target,
-  anchor,
-  customData,
-}: Link): {
-  url?: string;
-  rel?: string;
-  target?: string;
-  anchor?: string;
-  customData?: string;
-} => ({
-  anchor,
-  url,
-  rel:
-    rel &&
-    Object.entries(rel)
-      .flatMap(([key, value]) => (value ? key : []))
-      .join(' '),
-  target: target && '_' + target.toLowerCase(),
-  customData,
-});

@@ -19,9 +19,9 @@ export const createHeadersMarkdownDecorator = (
 };
 
 export const pluginHeadersMarkdown: ViewerPluginCreator<HeadersMarkdownPluginViewerConfig> = config => {
-  const finalConfig = { ...DEFAULTS.configViewer, ...config };
+  const pluginConfig = { ...DEFAULTS.configViewer, ...config };
   return {
-    config: finalConfig,
+    config: pluginConfig,
     type,
     decorator: (theme, config) => createHeadersMarkdownDecorator({ [type]: { ...config } }),
   };

@@ -56,7 +56,7 @@ export default class BlockLinkModal extends Component {
       editorState,
     } = this.props;
     const componentLink = pubsub.get('componentData')?.config?.link;
-    const { url, anchor, target = anchorTarget, rel = relValue } = componentLink || {};
+    const { url, anchor, target, rel } = componentLink || {};
     return (
       <LinkModal
         editorState={editorState}
@@ -68,6 +68,7 @@ export default class BlockLinkModal extends Component {
         isActive={!!componentLink}
         isMobile={isMobile}
         anchorTarget={anchorTarget}
+        relValue={relValue}
         onDone={this.setLinkInBlockData}
         onCancel={this.hidePopup}
         onDelete={this.deleteLink}

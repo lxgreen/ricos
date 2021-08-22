@@ -1,6 +1,6 @@
 import { INSERT_PLUGIN_BUTTONS, TOOLBARS, BUTTON_TYPES } from 'wix-rich-content-editor-common';
 import { InsertPluginIcon } from '../icons';
-import { getDefaultComponentData } from '../defaults';
+import { DEFAULTS } from '../defaults';
 import {
   CreateInsertButtons,
   TranslationFunction,
@@ -13,8 +13,6 @@ const createInsertButtons: CreateInsertButtons = ({
   t,
   settings,
   customTooltip,
-  relValue,
-  anchorTarget,
 }: {
   t: TranslationFunction;
   settings: ButtonPluginEditorConfig;
@@ -23,7 +21,6 @@ const createInsertButtons: CreateInsertButtons = ({
   anchorTarget: AnchorTarget;
 }) => {
   const icon = settings?.toolbar?.icons?.InsertPluginButtonIcon || InsertPluginIcon;
-  const isLinkButton = !settings.isActionButton;
   return [
     {
       type: BUTTON_TYPES.BUTTON,
@@ -31,7 +28,7 @@ const createInsertButtons: CreateInsertButtons = ({
       tooltip: customTooltip || t('ButtonPlugin_InsertButton_Tooltip'),
       getIcon: () => icon,
       toolbars: [TOOLBARS.INSERT_PLUGIN, TOOLBARS.MOBILE, TOOLBARS.FOOTER, TOOLBARS.SIDE],
-      componentData: getDefaultComponentData(isLinkButton, relValue, anchorTarget),
+      componentData: DEFAULTS,
       section: 'BlockToolbar_Section_Advanced',
     },
   ];

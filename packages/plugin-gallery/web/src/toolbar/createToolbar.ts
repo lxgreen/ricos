@@ -38,6 +38,7 @@ const createToolbar: CreatePluginToolbar = ({
       relValue,
       isMobile,
       experiments,
+      uiSettings,
     }),
     InsertButtons: createInsertButtons({ settings, t, disableDownload, disableExpand }),
     name: 'gallery',

@@ -6,6 +6,7 @@ export const EXPERIMENTS = [
   { name: 'UseUndoForPlugins', scope: 'ricos' },
   { name: 'spoilerInSettings', scope: 'ricos' },
   { name: 'removeUsmFromImageUrls', scope: 'ricos' },
+  { name: 'newFormattingToolbar', scope: 'ricos' },
   { name: 'tiptapEditor', scope: 'ricos' },
   { name: 'lazyImagesAndIframes', scope: 'ricos' },
 ];

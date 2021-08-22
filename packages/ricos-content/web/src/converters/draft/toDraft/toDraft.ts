@@ -30,6 +30,7 @@ const convert = (ricosContent: RichContent): DraftContent => {
     entityMap: {},
   };
   let latestEntityKey = -1;
+  const usedKeys: Record<string, boolean> = {};
 
   const parseNodes = (index = 0) => {
     const node = nodes[index];
@@ -129,6 +130,10 @@ const convert = (ricosContent: RichContent): DraftContent => {
       },
       blockProps
     );
+    if (usedKeys[newBlock.key] && newBlock.key !== '') {
+      throw Error(`ERROR! Duplicate block key "${newBlock.key}"!`);
+    }
+    usedKeys[newBlock.key] = true;
     draftContent.blocks = [...draftContent.blocks, newBlock];
   };
 

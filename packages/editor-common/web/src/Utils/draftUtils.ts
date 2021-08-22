@@ -22,7 +22,6 @@ import {
   TextAlignment,
   InlineStyle,
   RelValue,
-  getTargetValue,
   SPOILER_TYPE,
 } from 'wix-rich-content-common';
 import { Optional } from 'utility-types';
@@ -682,7 +681,7 @@ export function fixPastedLinks(
     if (url) {
       content.replaceEntityData(entityKey, {
         url,
-        target: getTargetValue(anchorTarget),
+        target: anchorTarget,
         rel: relValue,
       });
     }

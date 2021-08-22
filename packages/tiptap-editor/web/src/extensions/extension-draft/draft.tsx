@@ -1,13 +1,13 @@
-import { createRicosGenericExtensionConfig } from './../../extensions-creators/extension';
+import { createRicosFunctionalExtensionConfig } from './../../extensions-creators/extension';
 import React from 'react';
 import { tiptapNodeDataToDraft } from '../../converters';
 
 const name = 'draft';
 
 export const createDraftConfig = () =>
-  createRicosGenericExtensionConfig({
+  createRicosFunctionalExtensionConfig({
     type: 'extension',
-    createConfig: () => {
+    createExtensionConfig: () => {
       return {
         name,
         priority: 100000,
