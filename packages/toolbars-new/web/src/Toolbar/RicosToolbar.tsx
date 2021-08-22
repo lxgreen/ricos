@@ -8,6 +8,9 @@ import {
   TranslationFunction,
   DesktopTextButtons,
   EditorCommands,
+  AnchorTarget,
+  RelValue,
+  Link_Rel,
   CustomAnchorScroll,
 } from 'wix-rich-content-common';
 
@@ -33,8 +36,6 @@ interface RicosToolbarProps {
   theme?: RichContentTheme;
   linkPanelData?: {
     linkTypes?: any;
-    anchorTarget?: string;
-    rel?: { nofollow?: boolean };
     uiSettings?: {
       linkPanel?: {
         dropDown?: any;
@@ -45,7 +46,12 @@ interface RicosToolbarProps {
       };
     };
     isMobile?: boolean;
-    customAnchorScroll?: CustomAnchorScroll;
+    linkSettings?: {
+      anchorTarget?: AnchorTarget;
+      relValue?: RelValue;
+      rel?: Link_Rel;
+      customAnchorScroll?: CustomAnchorScroll;
+    };
   };
   colorPickerData?: any;
   onToolbarButtonClick?: (name: string, value?: any) => void;

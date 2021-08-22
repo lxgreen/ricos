@@ -14,7 +14,6 @@ import {
   ACTION_BUTTON_TYPE,
   LINK_BUTTON_TYPE,
   getRelValue,
-  getTargetValue,
 } from 'wix-rich-content-common';
 import { getBlockIndex } from './utils/draftUtils';
 import RichContentViewer from './RichContentViewer';
@@ -117,7 +116,7 @@ class PluginViewer extends PureComponent {
           const { url, target = anchorTarget, rel } = config.link;
           containerProps = {
             href: normalizeUrl(url),
-            target: getTargetValue(target),
+            target,
             rel: getRelValue(rel),
           };
         }

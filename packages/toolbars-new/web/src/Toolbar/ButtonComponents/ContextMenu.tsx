@@ -43,8 +43,11 @@ class ContextMenu extends PureComponent<ContextMenuProps, State> {
 
   toggleOptions = () => {
     this.setState({ isOpen: !this.state.isOpen }, () => {
-      if (this.state.isOpen && this.modalRef) {
-        const modalOverflowWithEditor = elementOverflowWithEditor(this.modalRef);
+      const rootEditorElement = this.modalRef
+        ?.closest('[data-hook=ricos-editor-toolbars]')
+        ?.parentElement?.querySelector('[data-hook=root-editor]') as HTMLElement;
+      if (this.state.isOpen && this.modalRef && rootEditorElement) {
+        const modalOverflowWithEditor = elementOverflowWithEditor(this.modalRef, rootEditorElement);
         const isModalOverflow = !!modalOverflowWithEditor.overflowRight;
         this.setState({ position: isModalOverflow ? { right: 0 } : { left: 0 } });
       } else {

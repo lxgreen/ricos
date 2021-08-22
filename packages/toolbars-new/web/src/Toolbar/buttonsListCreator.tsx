@@ -6,7 +6,6 @@ import {
   RICOS_LINK_TYPE,
   EditorCommands,
   normalizeUrl,
-  getTargetValue,
   anchorScroll,
 } from 'wix-rich-content-common';
 import { AlignTextCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon } from '../icons';
@@ -21,6 +20,10 @@ import {
   translateHeading,
 } from './buttonsListCreatorConsts';
 import { HEADER_TYPE_MAP } from 'wix-rich-content-plugin-commons';
+import {
+  convertRelStringToObject,
+  convertRelObjectToString,
+} from 'wix-rich-content-common/libs/linkConverters';
 
 type editorCommands = EditorCommands;
 
@@ -263,11 +266,14 @@ const handleButtonModal = (
       const Modal = buttonsFullData[buttonName].modal;
       const linkData = editorCommands.getLinkDataInSelection();
       const anchorableBlocks = editorCommands.getAnchorableBlocks();
+      const { linkSettings = {}, ...rest } = linkPanelData;
+      const linkSettingsData = handleLinkSettings(linkSettings);
       buttonsList[index].modal = props =>
         Modal && (
           <Modal
             {...props}
-            {...linkPanelData}
+            {...rest}
+            {...linkSettingsData}
             {...linkData}
             t={t}
             anchorableBlocksData={anchorableBlocks}
@@ -509,6 +515,21 @@ const goToLink = (event, linkData, linkPanelData) => {
     }
   } else {
     const href = url ? normalizeUrl(url) : undefined;
-    window.open(href, getTargetValue(target));
+    window.open(href, target);
   }
+};
+
+const handleLinkSettings = linkSettings => {
+  const { anchorTarget = '_blank', customAnchorScroll } = linkSettings;
+  let { relValue, rel } = linkSettings;
+  if (relValue) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      // eslint-disable-next-line max-len
+      `relValue is deprecated, Please use rel prop instead.`
+    );
+    rel = convertRelStringToObject(relValue) || rel;
+  }
+  relValue = convertRelObjectToString(rel);
+  return { relValue, anchorTarget, customAnchorScroll };
 };

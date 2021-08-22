@@ -592,13 +592,16 @@
 	"UploadFile_Viewer_Loader": "Se încarcă {{fileType}}",
 	"Preview_ReadMore_Label": "Citește mai mult",
 	"Spoiler_Reveal_Gallery_Placeholder": "Această galerie conține un spoiler",
+	"VerticalEmbed_Bookings_Button": "Rezervă acum",
 	"Spoiler_Reveal_Gallery_CTA": "Afișează Galeria",
 	"Poll_Viewer_ShowLess_CTA": "Afișează mai puțin",
 	"Poll_Viewer_VoteCount_Modal_Voters_Anonymous": "+ {{anonNumber}} anonimi",
 	"Poll_Viewer_VoteCount_Modal_Voters_CTA_Follow": "Urmărește",
+	"VerticalEmbed_Products_Button": "Cumpără acum",
 	"Poll_Viewer_Toast_Error_ServerDown": "Nu s-a putut conecta la server. Încearcă mai târziu.",
 	"Poll_Viewer_VoteCount_Modal_Voters_Header": "{{count}} persoană a votat pentru acest răspuns",
 	"Poll_Viewer_VoteCount": "{{number}} voturi",
+	"VerticalEmbed_Events_Button": "Înregistrează-te acum",
 	"Spoiler_Reveal_Image_CTA": "Afișează imaginea",
 	"Poll_Viewer_Toast_Error_Connection": "Fără conexiune la internet. Verifică-ți conexiunea.",
 	"Poll_Viewer_Visibility_Owner_Footer": "Doar tu poți vedea rezultatele.",
@@ -607,9 +610,6 @@
 	"Spoiler_Reveal_Video_Placeholder": "Acest videoclip conține un spoiler",
 	"Preview_SeeFullPost_Label": "Vezi toată postarea",
 	"UploadFile_Viewer_Download": "Descarcă {{fileType}}",
-	"VerticalEmbed_Bookings_Button": "Rezervă acum",
-	"VerticalEmbed_Units_Minute": "{{minutes}} min",
-	"VerticalEmbed_Products_Button": "Cumpără acum",
-	"VerticalEmbed_Units_Hour": "{{hours}}h",
-	"VerticalEmbed_Events_Button": "Înregistrează-te acum"
+	"VerticalEmbed_Units_Hour": "{{hours}} h",
+	"VerticalEmbed_Units_Minute": "{{minutes}} min"
 }

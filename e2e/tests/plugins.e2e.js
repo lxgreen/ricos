@@ -332,7 +332,7 @@ describe('plugins', () => {
       beforeEach('load editor', () => cy.loadRicosEditorAndViewer('empty', testAppConfig));
 
       it('should create link preview from link after enter key', function() {
-        cy.insertLinkAndEnter('www.wix.com');
+        cy.insertLinkAndEnter('www.wix.com', { isPreview: true });
         cy.eyesCheckWindow(this.test.title);
       });
 
@@ -438,13 +438,16 @@ describe('plugins', () => {
         cy.loadRicosEditorAndViewer('empty', usePlugins(plugins.verticalEmbed));
       });
       // const embedTypes = ['EVENT', 'PRODUCT', 'BOOKING'];
-      const embedTypes = ['PRODUCT'];
+      const embedTypes = ['PRODUCT', 'BOOKING', 'EVENT'];
       it('render upload modals', function() {
         embedTypes.forEach(embedType => {
           cy.openEmbedModal(STATIC_TOOLBAR_BUTTONS[embedType]);
-          cy.get(`[data-hook=verticalsImage]`).eq(3);
           cy.eyesCheckWindow(this.test.title);
-          cy.get(`[data-hook*=${ACTION_BUTTONS.CANCEL}][tabindex!=-1]`).click();
+          cy.get(`[data-hook*=verticalsItemsList]`)
+            .children()
+            .first()
+            .click();
+          cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
         });
       });
     });

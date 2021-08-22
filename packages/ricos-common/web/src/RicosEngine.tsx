@@ -114,7 +114,7 @@ export class RicosEngine extends Component<EngineProps> {
       onModalClose,
     } = modalSettings;
     const { pauseMedia, disableRightClick, fullscreenProps } = mediaSettings;
-    const { anchorTarget, customAnchorScroll } = linkSettings;
+    const { anchorTarget = '_blank', customAnchorScroll } = linkSettings;
     let { relValue, rel } = linkSettings;
     const {
       blankTargetToggleVisibilityFn,

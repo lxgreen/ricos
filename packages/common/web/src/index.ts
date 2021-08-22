@@ -20,7 +20,6 @@ export {
   convertTargetStringToBoolean,
   convertTargetBooleanToString,
   getRelValue,
-  getTargetValue,
 } from './Utils/linkConverters';
 
 export { anchorScroll, addAnchorTagToUrl, isNewTab } from './Utils/anchor';
