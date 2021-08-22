@@ -32,10 +32,7 @@ const mergeColorDecorations = (decorations: Decoration[]): Decoration[] => {
 const isDecorationType = (decorationType: string) =>
   TO_RICOS_DECORATION_TYPE[decorationType] !== undefined;
 
-const isComplexDecorationType = (decorationType: string) =>
-  ['FG', 'BG', 'font-size'].includes(decorationType);
-
-const getComplexDecoration = {
+const dynamicDecorationGetters = {
   FG: (value: string) => {
     return {
       type: Decoration_Type.COLOR,
@@ -89,10 +86,7 @@ export const getTextNodes = (block: RicosContentBlock, entityMap: RicosEntityMap
       const styleObj = JSON.parse(style);
       const type = Object.keys(styleObj)[0];
       const value = Object.values<string>(styleObj)[0];
-      if (!isComplexDecorationType(type)) {
-        throw Error(`Unknown decoration type "${type}"!`);
-      }
-      decoration = getComplexDecoration[type](value);
+      decoration = dynamicDecorationGetters[type](value);
     } catch {
       if (!isDecorationType(style)) {
         throw Error(`Unknown decoration type "${style}"!`);
