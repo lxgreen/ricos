@@ -4,9 +4,11 @@ import {
   getSelectionStyles,
   getSelectedBlocks,
   hasOneStyleInSelection,
+  ContentState,
 } from 'wix-rich-content-editor-common';
 import { uniq } from 'lodash';
 import { EditorProps } from 'draft-js';
+import { ThemeData, DocStyle, DRAFT_TO_RICOS_DOC_TYPE } from 'wix-rich-content-common';
 
 // Temporarily taken from common/statics/styles/consts.scss should replace with themed\docStyle consts when supported
 const defaultFontSizes = {
@@ -17,6 +19,28 @@ const defaultFontSizes = {
   'header-five': '13',
   'header-six': '11',
   unstyled: '16',
+};
+
+const draftToRicosCustomStyles = {
+  'header-one': 'h1',
+  'header-two': 'h2',
+  'header-three': 'h3',
+  'header-four': 'h4',
+  'header-five': 'h5',
+  'header-six': 'h6',
+  unstyled: 'p',
+};
+
+const getFontNumberFromStyles = (styles?: Record<string, string>) =>
+  styles?.['font-size']?.split('p')[0];
+
+const getBlockFontSizeByType = (editorState: EditorState, type: string, themeData?: ThemeData) => {
+  const docStyle = getDocStyle(editorState);
+  return (
+    getFontNumberFromStyles(docStyle?.[DRAFT_TO_RICOS_DOC_TYPE[type]]) ||
+    themeData?.customStyles?.[draftToRicosCustomStyles[type]] ||
+    defaultFontSizes[type]
+  );
 };
 
 const parseStyle = style => {
@@ -36,18 +60,20 @@ export const customFontSizeStyleFn: EditorProps['customStyleFn'] = styles =>
     };
   }, {});
 
-const getFontSizesWithDefaults = (editorState: EditorState) => {
-  const currentFontSizes = getSelectionStyles(parseStyle, editorState).map(
-    style => parseStyle(style)?.['font-size']?.split('p')[0]
+const getFontSizesWithDefaults = (editorState: EditorState, themeData?: ThemeData) => {
+  const currentFontSizes = getSelectionStyles(parseStyle, editorState).map(style =>
+    getFontNumberFromStyles(parseStyle(style))
   );
   getSelectedBlocks(editorState)
     .filter(block => !hasOneStyleInSelection(block, editorState, parseStyle))
-    .forEach(block => currentFontSizes.push(defaultFontSizes[block.getType()]));
+    .forEach(block =>
+      currentFontSizes.push(getBlockFontSizeByType(editorState, block.getType(), themeData))
+    );
   return currentFontSizes;
 };
 
-export const getFontSize = (editorState: EditorState) => {
-  const currentFontSizes = uniq(getFontSizesWithDefaults(editorState));
+export const getFontSize = (editorState: EditorState, themeData?: ThemeData) => {
+  const currentFontSizes = uniq(getFontSizesWithDefaults(editorState, themeData));
   return currentFontSizes.length > 1 || currentFontSizes.length === 0 ? '' : currentFontSizes[0];
 };
 
@@ -70,4 +96,22 @@ export const setFontSize = (editorState: EditorState, data?: { fontSize?: string
     contentState = Modifier.applyInlineStyle(contentState, selection, inlineStyle);
   }
   return EditorState.push(newEditorState, contentState, 'change-inline-style');
+};
+
+export const getDocStyle = (editorState: EditorState) => {
+  const currentContent = editorState.getCurrentContent() as ContentState & {
+    docStyle: DocStyle;
+  };
+  return currentContent.docStyle;
+};
+
+export const setDocStyle = (editorState: EditorState, docStyle: DocStyle) => {
+  const currentContent = editorState.getCurrentContent() as ContentState & {
+    docStyle: DocStyle;
+  };
+  currentContent.docStyle = {
+    ...currentContent.docStyle,
+    ...docStyle,
+  };
+  return editorState;
 };

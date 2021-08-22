@@ -97,9 +97,10 @@ import {
   RICOS_FONT_SIZE_TYPE,
   UNSUPPORTED_BLOCKS_TYPE,
   DocStyle,
+  ThemeData,
 } from 'wix-rich-content-common';
 
-import { setFontSize, getFontSize } from './utils/fontSizeUtils';
+import { setFontSize, getFontSize, getDocStyle, setDocStyle } from './utils/fontSizeUtils';
 
 const TO_DRAFT_PLUGIN_TYPE_MAP = {
   [RICOS_DIVIDER_TYPE]: DIVIDER_TYPE,
@@ -191,7 +192,8 @@ export const createEditorCommands = (
   createPluginsDataMap,
   plugins,
   getEditorState: GetEditorState,
-  setEditorState: SetEditorState
+  setEditorState: SetEditorState,
+  themeData?: ThemeData
 ): EditorCommands => {
   const setBlockType: EditorCommands['setBlockType'] = type => {
     setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
@@ -233,7 +235,7 @@ export const createEditorCommands = (
     },
     getAnchorableBlocks: () => getAnchorableBlocks(getEditorState()),
     getColor: colorType => getColor(getEditorState(), colorType),
-    getFontSize: () => getFontSize(getEditorState()),
+    getFontSize: () => getFontSize(getEditorState(), themeData),
     getTextAlignment: () => getTextAlignment(getEditorState()),
     hasInlineStyle: style => hasInlineStyle(style, getEditorState()),
     isBlockTypeSelected: type => getBlockType(getEditorState()) === type,
@@ -263,22 +265,10 @@ export const createEditorCommands = (
         (pluginName: string) => pluginName && !PluginsToExclude.includes[pluginName]
       );
     },
-    getDocStyle: () => {
-      const currentContent = getEditorState().getCurrentContent() as ContentState & {
-        docStyle: DocStyle;
-      };
-      return currentContent.docStyle;
-    },
+    getDocStyle: () => getDocStyle(getEditorState()),
     setDocStyle: (docStyle: DocStyle) => {
-      const editorState = getEditorState();
-      const currentContent = editorState.getCurrentContent() as ContentState & {
-        docStyle: DocStyle;
-      };
-      currentContent.docStyle = {
-        ...currentContent.docStyle,
-        ...docStyle,
-      };
-      setEditorState(editorState);
+      const newEditorState = setDocStyle(getEditorState(), docStyle);
+      setEditorState(newEditorState);
     },
   };
 

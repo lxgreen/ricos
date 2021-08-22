@@ -524,7 +524,8 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       createPluginsDataMap,
       this.plugins,
       this.getEditorState,
-      this.updateEditorState
+      this.updateEditorState,
+      this.contextualData.config.themeData
     );
   };
 
