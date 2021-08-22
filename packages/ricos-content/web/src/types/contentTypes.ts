@@ -9,6 +9,24 @@ import {
   RawDraftEntityRange,
 } from 'draft-js';
 
+export interface Header {
+  'font-size'?: number;
+  color?: string;
+  'background-color'?: string;
+  'font-weight'?: string;
+  'font-style'?: string;
+  'text-decoration'?: string;
+}
+export interface DocStyle {
+  headerOne?: Header;
+  headerTwo?: Header;
+  headerThree?: Header;
+  headerFour?: Header;
+  headerFive?: Header;
+  headerSix?: Header;
+  paragraph?: Header;
+}
+
 export type RicosInlineStyleRange = Overwrite<RawDraftInlineStyleRange, { style: string }>;
 
 export type RicosEntityRange = Overwrite<RawDraftEntityRange, { key: string | number }>;
@@ -31,6 +49,7 @@ export interface RicosContent
       entityMap: RicosEntityMap;
     }
   > {
+  docStyle?: DocStyle;
   VERSION?: string;
 }
 

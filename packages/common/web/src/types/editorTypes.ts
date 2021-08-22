@@ -46,3 +46,23 @@ export type TextToolbarType = 'inline' | 'static';
 
 export type SetEditorState = (editorState: EditorState) => void;
 export type GetEditorState = () => EditorState;
+
+export const DOC_STYLE_CLASSES = {
+  headerOne: 'rich_content_H1',
+  headerTwo: 'rich_content_H2',
+  headerThree: 'rich_content_H3',
+  headerFour: 'rich_content_H4',
+  headerFive: 'rich_content_H5',
+  headerSix: 'rich_content_H6',
+  paragraph: 'rich_content_P',
+};
+
+export const DRAFT_TO_RICOS_DOC_TYPE = {
+  'header-one': 'headerOne',
+  'header-two': 'headerTwo',
+  'header-three': 'headerThree',
+  'header-four': 'headerFour',
+  'header-five': 'headerFive',
+  'header-six': 'headerSix',
+  unstyled: 'paragraph',
+};

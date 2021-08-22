@@ -59,7 +59,12 @@ const getInline = (contentState, inlineStyleMappers, mergedStyles) =>
     mergedStyles
   );
 
-const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix) => {
+const getBlockStyle = (blockData, style) => {
+  const headerStyle = style ? kebabToCamelObjectKeys({ ...style, 'line-height': 'normal' }) : {};
+  return { ...blockDataToStyle(blockData), ...headerStyle };
+};
+
+const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix, docStyle) => {
   const getList = ordered => (items, blockProps) => {
     const fixedItems = items.map(item => (item.length ? item : [' ']));
 
@@ -115,7 +120,7 @@ const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix) => {
                 isPaywallSeo(context.seoMode) &&
                   getPaywallSeoClass(context.seoMode.paywall, blockIndex)
               )}
-              style={blockDataToStyle(blockProps.data[i])}
+              style={getBlockStyle(blockProps.data[i], docStyle?.[style])}
             >
               <span
                 className={classNames(
@@ -279,12 +284,13 @@ const convertToReact = (
     : normalizedContentState;
 
   const addAnchorsPrefix = addAnchors && (addAnchors === true ? 'rcv-block' : addAnchors);
+  const docStyle = newContentState?.docStyle;
 
   let result = redraft(
     newContentState,
     {
       inline: getInline(newContentState, inlineStyleMappers, mergedStyles),
-      blocks: getBlocks(mergedStyles, textDirection, context, addAnchorsPrefix),
+      blocks: getBlocks(mergedStyles, textDirection, context, addAnchorsPrefix, docStyle),
       entities: getEntities(
         typeMappers,
         context,

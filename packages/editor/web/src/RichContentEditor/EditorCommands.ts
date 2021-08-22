@@ -28,6 +28,7 @@ import {
   mergeBlockData,
   getAnchorBlockData,
   getAnchorableBlocks,
+  ContentState,
 } from 'wix-rich-content-editor-common';
 import {
   EditorCommands,
@@ -95,6 +96,7 @@ import {
   RICOS_CODE_BLOCK_TYPE,
   RICOS_FONT_SIZE_TYPE,
   UNSUPPORTED_BLOCKS_TYPE,
+  DocStyle,
 } from 'wix-rich-content-common';
 
 import { setFontSize, getFontSize } from './utils/fontSizeUtils';
@@ -222,6 +224,8 @@ export const createEditorCommands = (
     loadEditorState: EditorCommands['loadEditorState'];
     saveSelectionState: EditorCommands['saveSelectionState'];
     loadSelectionState: EditorCommands['loadSelectionState'];
+    getDocStyle: EditorCommands['getDocStyle'];
+    setDocStyle: EditorCommands['setDocStyle'];
   } = {
     getSelection: () => {
       const selection = getEditorState().getSelection();
@@ -258,6 +262,23 @@ export const createEditorCommands = (
       return pluginsList.filter(
         (pluginName: string) => pluginName && !PluginsToExclude.includes[pluginName]
       );
+    },
+    getDocStyle: () => {
+      const currentContent = getEditorState().getCurrentContent() as ContentState & {
+        docStyle: DocStyle;
+      };
+      return currentContent.docStyle;
+    },
+    setDocStyle: (docStyle: DocStyle) => {
+      const editorState = getEditorState();
+      const currentContent = editorState.getCurrentContent() as ContentState & {
+        docStyle: DocStyle;
+      };
+      currentContent.docStyle = {
+        ...currentContent.docStyle,
+        ...docStyle,
+      };
+      setEditorState(editorState);
     },
   };
 

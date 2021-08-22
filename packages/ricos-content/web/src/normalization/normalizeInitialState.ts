@@ -156,10 +156,11 @@ const convertAnchorToLinkToUndoOneAppFix = (newEntity: RicosEntity) => {
 };
 
 export default (content: DraftContent, config: NormalizeConfig = {}): DraftContent => {
-  const { blocks, entityMap, VERSION } = processContentState(cloneDeep(content), config);
+  const { blocks, entityMap, docStyle, VERSION } = processContentState(cloneDeep(content), config);
   return {
     blocks,
     entityMap: normalizeEntityMap(entityMap, config, content.VERSION || '0.0.0'),
+    docStyle,
     VERSION,
   };
 };

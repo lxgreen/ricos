@@ -109,7 +109,7 @@ export const processContentState = (contentState: DraftContent, config: Normaliz
     config
   );
 
-  const { blocks, entityMap } = processedState as DraftContent;
+  const { blocks, entityMap, docStyle } = processedState as DraftContent;
 
   return {
     blocks: blocks.map((block: RicosContentBlock) => {
@@ -145,6 +145,7 @@ export const processContentState = (contentState: DraftContent, config: Normaliz
       return processedBlock;
     }),
     entityMap,
+    docStyle,
     VERSION: Version.lessThan(contentStateVersion, Version.currentVersion)
       ? Version.currentVersion
       : contentStateVersion,

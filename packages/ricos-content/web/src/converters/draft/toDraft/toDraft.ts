@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { flow } from 'fp-ts/function';
-import { RichContent, Node, Node_Type } from 'ricos-schema';
+import { RichContent, Node, Node_Type, Header } from 'ricos-schema';
 import { DraftContent, RicosContentBlock } from '../../../types';
 import { Version } from '../../../version';
 import { generateId } from '../../generateRandomId';
@@ -19,11 +19,12 @@ import {
   parseDecorations,
   parseInlineStyleDecorations,
   parseEntityDecorations,
+  convertDocStyleDecorationTypes,
 } from './decorationParsers';
 import preprocess from './preprocess';
 
 const convert = (ricosContent: RichContent): DraftContent => {
-  const { nodes } = RichContent.toJSON(RichContent.fromJSON(ricosContent)) as RichContent; // using toJSON to remove undefined fields
+  const { nodes, docStyle } = RichContent.toJSON(RichContent.fromJSON(ricosContent)) as RichContent; // using toJSON to remove undefined fields
   const draftContent: DraftContent = {
     blocks: [],
     entityMap: {},
@@ -136,8 +137,17 @@ const convert = (ricosContent: RichContent): DraftContent => {
     draftContent.blocks = [...draftContent.blocks, newBlock];
   };
 
-  parseNodes();
+  const parseDocStyle = docStyle => {
+    const draftDocStyle = {};
+    Object.entries(docStyle).forEach(([header, values]) => {
+      const { decorations } = values as Header;
+      draftDocStyle[header as string] = convertDocStyleDecorationTypes(decorations);
+    });
+    return draftDocStyle;
+  };
 
+  parseNodes();
+  docStyle && (draftContent.docStyle = parseDocStyle(docStyle));
   draftContent.VERSION = Version.currentVersion;
   return draftContent;
 };
