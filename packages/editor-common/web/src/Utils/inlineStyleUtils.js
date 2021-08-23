@@ -71,7 +71,7 @@ export const removeCurrentInlineStyle = (editorState, styleSelectionPredicate) =
     const nextContentState = Modifier.removeInlineStyle(contentState, selection, FontSize);
     return EditorState.push(nextEditorState, nextContentState, 'change-inline-style');
   }, editorState);
-  return EditorState.forceSelection(editorState, selection);
+  return EditorState.forceSelection(newEditorState, selection);
 };
 
 export const setInlineStyle = (editorState, inlineStyle) => {
