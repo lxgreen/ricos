@@ -28,13 +28,11 @@ export const hasOneStyleInSelection = (block, editorState, styleSelectionPredica
   const blockStyleRanges = getBlockStyleRanges(block, styleSelectionPredicate).filter(range =>
     isInSelectionRange(blockSelectionRange, [range.start, range.end])
   );
-  if (blockStyleRanges.length === 1) {
-    return (
-      blockStyleRanges[0].end - blockStyleRanges[0].start >=
-      blockSelectionRange[1] - blockSelectionRange[0]
-    );
-  }
-  return false;
+  return (
+    blockStyleRanges.length === 1 &&
+    blockStyleRanges[0].start <= blockSelectionRange[0] &&
+    blockStyleRanges[0].end >= blockSelectionRange[1]
+  );
 };
 
 /**
