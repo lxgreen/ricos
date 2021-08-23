@@ -150,4 +150,9 @@ export const emptyDraftContent = {
   ],
 };
 
-export { getSelectionStyles, hasOneStyleInSelection } from './Utils/inlineStyleUtils';
+export {
+  getSelectionStyles,
+  hasOneStyleInSelection,
+  setInlineStyle,
+  removeCurrentInlineStyle,
+} from './Utils/inlineStyleUtils';

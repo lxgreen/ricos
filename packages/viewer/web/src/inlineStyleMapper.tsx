@@ -1,24 +1,19 @@
 import React from 'react';
-import { InlineStyleMapper, getBlocksFromContentState } from 'wix-rich-content-common';
-
-const parseStyle = style => {
-  try {
-    const rule = JSON.parse(style);
-    return rule['font-size'] ? rule : undefined;
-  } catch (e) {
-    return undefined;
-  }
-};
+import {
+  InlineStyleMapper,
+  getBlocksFromContentState,
+  safeJsonParse,
+} from 'wix-rich-content-common';
 
 const fontSizeInlineStyleMapper = raw => {
   const rawBlocks = getBlocksFromContentState(raw);
   const mapper = rawBlocks.reduce<InlineStyleMapper>((map, block) => {
     if (block.inlineStyleRanges) {
       block.inlineStyleRanges
-        .filter(range => !!parseStyle(range.style))
+        .filter(range => !!safeJsonParse(range.style)?.['font-size'])
         .forEach(range => {
           map[range.style] = (children, { key }) => (
-            <span key={key} style={parseStyle(range.style)}>
+            <span key={key} style={safeJsonParse(range.style)}>
               {children}
             </span>
           );
