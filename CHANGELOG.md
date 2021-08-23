@@ -21,6 +21,11 @@
 - `ui-components`
   - [#2865](https://github.com/wix/ricos/pull/2865) refactor ActionButtons and SettingsMobileHeader components
   
+</details>
+<hr/>
+
+## 8.49.6 (Aug 23, 2021)
+
 ### :rocket: New Feature
 
 - `ricos-content`
@@ -29,11 +34,12 @@
 ### :bug: Bug Fix
 
 - `general`
+
   - [#2859](https://github.com/wix/ricos/pull/2859) wire button/link-preview/file-upload font family
   - [#2877](https://github.com/wix/ricos/pull/2877) fix webpackChunkName syntax
 
-</details>
-<hr/>
+- `gif`
+  - [#1102d70](https://github.com/wix/ricos/commit/1102d70e51d5ada621b7cbccfc7bcb1159c2d459) toolbar crush when downsized_small is null
 
 ## 8.49.5 (Aug 19, 2021)
 
