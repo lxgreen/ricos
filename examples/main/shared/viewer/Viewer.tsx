@@ -14,7 +14,7 @@ interface ExampleViewerProps {
   initialState?: DraftContent;
   isMobile?: boolean;
   locale: string;
-  scrollingElementFn?: any;
+  scrollingElementFn?: () => Element;
   seoMode?: SEOSettings;
   experiments: AvailableExperiments;
 }
@@ -24,6 +24,7 @@ interface ExampleViewerState {
 }
 
 export default class Viewer extends PureComponent<ExampleViewerProps, ExampleViewerState> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   viewerRef: RefObject<any>;
 
   constructor(props: ExampleViewerProps) {
@@ -48,7 +49,9 @@ export default class Viewer extends PureComponent<ExampleViewerProps, ExampleVie
     const helpers = {
       // This is for debugging only
       onViewerAction: async (pluginId, actionName, value) =>
+        // eslint-disable-next-line no-console
         console.log('onViewerAction', pluginId, actionName, value),
+      // eslint-disable-next-line no-console
       onViewerLoaded: async (...args) => console.log('onViewerLoaded', ...args),
     };
 

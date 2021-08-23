@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 export const mockFetchUrlPreviewData = () => {
   let index = 0;
   return async url => {

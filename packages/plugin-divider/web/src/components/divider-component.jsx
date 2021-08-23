@@ -7,9 +7,12 @@ import pluginDividerSchema from 'wix-rich-content-common/dist/statics/schemas/pl
 import { isEqual } from 'lodash';
 import { Divider } from '../domain/divider';
 import DividerLine from './divider-line';
+import { sizeClassName } from '../classNameStrategies';
 import styles from '../../statics/styles/divider-viewer.rtlignore.scss';
 
 class DividerComponent extends PureComponent {
+  static sizeClassName = (componentData, theme) => sizeClassName(componentData, theme);
+
   constructor(props) {
     super(props);
     validate(props.componentData, pluginDividerSchema);

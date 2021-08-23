@@ -5,29 +5,35 @@ import { Button } from 'wix-style-react';
 import { Section, Page } from '../Components/StoryParts';
 import styles from './TextInputStory.scss';
 export default () => {
-  const [withMoreTab, setMoreTab] = useState(false);
+  const [withTitle, setWithTitle] = useState(false);
 
   return (
-    <Page title="Mobile Setting Header">
+    <Page>
       <Section>
-        <div className={styles.container} dir="ltr">
-          <div>
-            import {'{ SettingsMobileHeader }'} from &apos;wix-rich-content-plugin-commons&apos;;
-          </div>
-          <Button onClick={() => setMoreTab(!withMoreTab)}>
-            {withMoreTab ? 'Without' : 'With'} More Tab
-          </Button>
-          <div className={styles.section} style={{ position: 'relative' }}>
+        <div dir="ltr">
+          <div className={styles.SettingsMobileHeader_wrapper}>
             <SettingsMobileHeader
+              theme={styles}
               cancelLabel="Cancel"
               saveLabel="Save"
-              otherTab={withMoreTab && 'One more tab'}
+              title={withTitle ? 'PluginName' : ''}
               // eslint-disable-next-line no-console
-              switchTab={() => console.log('tab switched')}
+              onCancel={() => console.log('Cancel')}
+              // eslint-disable-next-line no-console
+              onSave={() => console.log('save')}
+              t={() => null}
             />
           </div>
+          <Section title="Mobile Setting Header">
+            import {'{ SettingsMobileHeader }'} from &apos;wix-rich-content-ui-components&apos;;
+          </Section>
         </div>
       </Section>
+      <div className={styles.SettingsMobileHeader_titleButton}>
+        <Button onClick={() => setWithTitle(!withTitle)}>
+          {withTitle ? 'With' : 'Without'} Settings Title
+        </Button>
+      </div>
     </Page>
   );
 };

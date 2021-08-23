@@ -17,7 +17,7 @@ import {
   PluginContainerData_Alignment,
 } from 'ricos-schema';
 import { convertBlockDataToRicos } from './convertRicosPluginData';
-import { IMAGE_TYPE, FILE_UPLOAD_TYPE } from '../../../consts';
+import { IMAGE_TYPE, FILE_UPLOAD_TYPE, WRAP } from '../../../consts';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const filterIds = objArr => objArr.map(({ id, ...rest }) => rest); //disable
@@ -184,6 +184,7 @@ describe('migrate from draft', () => {
         size: 'content',
         showTitle: true,
         showDescription: true,
+        textWrap: WRAP,
       },
       src: {
         id: '036c6bf6cef5e4409848eb4eb6f80de1',
@@ -204,6 +205,7 @@ describe('migrate from draft', () => {
       containerData: {
         width: { size: PluginContainerData_Width_Type.CONTENT },
         alignment: PluginContainerData_Alignment.CENTER,
+        textWrap: true,
       },
       image: {
         src: { id: '8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg' },
