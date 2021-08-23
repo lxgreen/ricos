@@ -41,6 +41,7 @@ export interface RicosProps {
   onAtomicBlockFocus?: onAtomicBlockFocus;
   experiments?: AvailableExperiments;
   iframeSandboxDomain?: string;
+  textWrap?: boolean;
   /* Changes to this interface should also be reflected in the API docs */
 }
 

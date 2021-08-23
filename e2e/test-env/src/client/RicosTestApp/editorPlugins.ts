@@ -30,6 +30,7 @@ import {
 import { mockFetchUrlPreviewData } from '../../../../../examples/main/shared/utils/linkPreviewUtil';
 import { pluginTextColor, pluginTextHighlight } from 'wix-rich-content-plugin-text-color';
 import { pluginUnsupportedBlocks } from 'wix-rich-content-plugin-unsupported-blocks';
+import { pluginPoll } from 'wix-rich-content-plugin-social-polls';
 
 import { createPresets } from './utils';
 import {
@@ -134,6 +135,7 @@ const createPlugins = (
     table: pluginTable(),
     verticalEmbed: pluginVerticalEmbed(configs.verticalEmbed),
     unsupportedBlocks: pluginUnsupportedBlocks(),
+    poll: pluginPoll(),
   };
 };
 

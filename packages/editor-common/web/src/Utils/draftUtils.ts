@@ -845,3 +845,14 @@ export function selectAllContent(editorState, forceSelection) {
   const newEditorState = setSelectionFunction(editorState, selection);
   return newEditorState;
 }
+
+export function setNativeSelectionToBlock(block) {
+  const offsetKey = DraftOffsetKey.encode(block.getKey(), 0, 0);
+  const node = document.querySelectorAll(`[data-offset-key="${offsetKey}"]`)[0];
+  const selection = window.getSelection();
+  const range = document.createRange();
+  range.setStart(node, 0);
+  range.setEnd(node, 0);
+  selection?.removeAllRanges();
+  selection?.addRange(range);
+}

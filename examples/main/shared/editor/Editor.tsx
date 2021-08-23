@@ -35,6 +35,7 @@ interface ExampleEditorProps {
   onRicosEditorChange?: RicosEditorProps['onChange'];
   experiments?: AvailableExperiments;
   externalPopups: boolean;
+  textWrap?: boolean;
 }
 
 export default class Editor extends PureComponent<ExampleEditorProps> {
@@ -154,6 +155,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       onRicosEditorChange,
       experiments,
       externalPopups,
+      textWrap,
     } = this.props;
     const textToolbarType: TextToolbarType = staticToolbar && !isMobile ? STATIC_TOOLBAR : null;
     const useStaticTextToolbar = textToolbarType === STATIC_TOOLBAR;
@@ -180,6 +182,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
             plugins={this.ricosPlugins}
             linkPanelSettings={{ ...(Plugins.uiSettings.linkPanel || {}), externalPopups }}
             experiments={experiments}
+            textWrap={textWrap}
           >
             <RichContentEditor helpers={this.helpers} />
           </RicosEditor>

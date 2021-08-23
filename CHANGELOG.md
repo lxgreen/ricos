@@ -17,9 +17,47 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+- `ricos-content`
+  - [#2844](https://github.com/wix/ricos/pull/2844) Translatables API
+
+### :bug: Bug Fix
+
+- `general`
+  - [#2859](https://github.com/wix/ricos/pull/2859) wire button/link-preview/file-upload font family
+  - [#2877](https://github.com/wix/ricos/pull/2877) fix webpackChunkName syntax
+
+</details>
+<hr/>
+
+## 8.49.5 (Aug 19, 2021)
+
+### :bug: Bug Fix
+
+- `table`
+  - [#2874](https://github.com/wix/ricos/pull/2874) override sideToolbar onClick config when use it from table
+
+## 8.49.4 (Aug 18, 2021)
+
+### :bug: Bug Fix
+
+- `table`
+  - [#2871](https://github.com/wix/ricos/pull/2871) fix: wiring table theme on biz manager
+- `table`
+  - [#2869](https://github.com/wix/ricos/pull/2869) fix: add overlay to table external modal
+
+## 8.49.3 (Aug 18, 2021)
+
+### :rocket: New Feature
+
+- `*`
+  - [#2850](https://github.com/wix/ricos/pull/2850) textWrap
+
 ### :house: Internal
 
 - `ricos-schema`
+
   - [#2864](https://github.com/wix/ricos/pull/2864) generate plugin defaults in build time
 
 - `ui-components`
@@ -31,6 +69,9 @@
   - [#2863](https://github.com/wix/ricos/pull/2863) update Cypress to v8
 - `example`
   - [#2862](https://github.com/wix/ricos/pull/2862) add eslint support
+- `poll`
+  - [#2024](https://github.com/wix/ricos/pull/2024) add Poll story & rendering tests
+  - [#2870](https://github.com/wix/ricos/pull/2870) loadable support
 
 ### :nail_care: Polish
 
@@ -49,9 +90,6 @@
 ### :book: Documentation
 
 - `extractAppEmbedData` API docs added
-
-</details>
-<hr/>
 
 ## 8.49.2 (Aug 14, 2021)
 

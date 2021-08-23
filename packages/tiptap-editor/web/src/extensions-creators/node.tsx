@@ -9,12 +9,17 @@ import {
 } from '@tiptap/react';
 import { RicosNode, RicosNodeProps } from '../components/RicosNode/RicosNode';
 import { RicosNodeExtension } from 'wix-rich-content-common';
+import { RicosNodeHOCComposer } from '../components/RicosNodeHOCComposer/RicosNodeHOCComposer';
 
 const createRicosNodeHOC = (Component: ComponentType<RicosNodeProps>) => (
   props: NodeViewRendererProps
 ) => (
   <NodeViewWrapper as="div">
-    <RicosNode component={Component} tiptapNodeProps={props} />
+    <RicosNodeHOCComposer Component={Component} nodeName={props.node.type.name}>
+      {ComponentWithNodeHOCs => {
+        return <RicosNode Component={ComponentWithNodeHOCs} tiptapNodeProps={props} />;
+      }}
+    </RicosNodeHOCComposer>
   </NodeViewWrapper>
 );
 
@@ -30,9 +35,12 @@ const toFullNodeConfig = (ext: RicosNodeExtension) => (config: NodeConfig): Node
   parseHTML: () => [{ tag: `${config.name}-component` }],
   renderHTML: ({ HTMLAttributes }) => [`${config.name}-component`, mergeAttributes(HTMLAttributes)],
   addNodeView: () => pipe(ext.Component, createRicosNodeHOC, ReactNodeViewRenderer),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //@ts-ignore
   addAttributes: () => ext.componentDataDefaults || {},
   ...config,
 });
 
-export const createRicosNodeConfig = (ext: RicosNodeExtension): NodeConfig =>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const createRicosNodeConfig = (ext: RicosNodeExtension): any =>
   pipe(ext, toExtensionConfig, toFullNodeConfig(ext));

@@ -81,6 +81,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
       styleElement: this.getInitialStyleElement(),
       experiments: get('experiments') || {},
       externalToolbarToShow: ToolbarType.FORMATTING,
+      textWrap: true,
       ...localState,
     };
   }
@@ -136,6 +137,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
       shouldNativeUpload,
       shouldUseNewContent,
       externalPopups,
+      textWrap,
     } = this.state;
     this.editorSettings = [
       {
@@ -187,6 +189,15 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
         action: () =>
           this.setState(state => ({
             externalPopups: !state.externalPopups,
+            editorResetKey: state.editorResetKey + 1,
+          })),
+      },
+      {
+        name: 'TextWrap',
+        active: textWrap,
+        action: () =>
+          this.setState(state => ({
+            textWrap: !state.textWrap,
             editorResetKey: state.editorResetKey + 1,
           })),
       },
@@ -293,6 +304,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
       experiments,
       styleElement,
       externalPopups,
+      textWrap,
     } = this.state;
 
     return (
@@ -322,6 +334,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
                 injectedContent={injectedContent}
                 onRicosEditorChange={onRicosEditorChange}
                 experiments={experiments}
+                textWrap={textWrap}
               />
             </ErrorBoundary>
           </SectionContent>

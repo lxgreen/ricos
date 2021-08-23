@@ -1,4 +1,4 @@
-import { ThemeGeneratorFunction } from 'wix-rich-content-common';
+import { ThemeGeneratorFunction, NO_WRAP } from 'wix-rich-content-common';
 import { COLORS } from './consts';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -14,5 +14,7 @@ export const theme: ThemeGeneratorFunction = ({ colors, utils }) => {
 };
 
 export const DEFAULTS = Object.freeze({
-  config: {},
+  config: {
+    textWrap: NO_WRAP,
+  },
 });

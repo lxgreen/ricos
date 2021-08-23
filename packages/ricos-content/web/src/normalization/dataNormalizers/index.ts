@@ -3,3 +3,5 @@ export { default as linkDataNormalizer } from './linkDataNormalizer';
 export { default as galleryDataNormalizer } from './galleryDataNormalizer';
 export { default as videoDataNormalizer } from './videoDataNormalizer';
 export { default as verticalEmbedDataNormalizer } from './verticalEmbedDataNormalizer';
+export { default as collapsibleListDataNormalizer } from './collapsibleListDataNormalizer';
+export { default as tableDataNormalizer } from './tableDataNormalizer';

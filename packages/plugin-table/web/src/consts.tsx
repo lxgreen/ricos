@@ -1,22 +1,30 @@
 import { ModalStyles } from 'wix-rich-content-common';
 
+const commonDesktopModalStyles: React.CSSProperties = {
+  width: '362px',
+  boxSizing: 'border-box',
+  height: 'max-content',
+  minHeight: '209px',
+  overflow: 'visible',
+  border: 'solid 1px rgba(51, 51, 51, 0.1)',
+  display: 'block',
+  position: 'absolute',
+  zIndex: 6,
+  padding: '20px',
+};
+
+export const externalPopupStyles: ModalStyles = Object.freeze({
+  content: commonDesktopModalStyles,
+});
+
 export const DesktopFlyOutModalStyles: ModalStyles = Object.freeze({
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, 0)',
     zIndex: 5,
   },
   content: {
-    width: '362px',
-    boxSizing: 'border-box',
-    height: 'max-content',
-    minHeight: '209px',
-    overflow: 'visible',
-    border: 'solid 1px rgba(51, 51, 51, 0.1)',
-    display: 'block',
+    ...commonDesktopModalStyles,
     borderRadius: '2px',
-    position: 'absolute',
-    zIndex: 6,
-    padding: '20px',
     boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.06)',
   },
 });

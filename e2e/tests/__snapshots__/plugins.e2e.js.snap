@@ -1116,6 +1116,7 @@ exports[`plugins > html > render html plugin toolbar #0`] =
         "config": {
           "alignment": "center",
           "height": 470,
+          "textWrap": "wrap",
           "width": 350
         },
         "src": "<blockquote class=\"twitter-tweet\" data-lang=\"en\"><p lang=\"en\" dir=\"ltr\">The updates, insights and stories of the engineering challenges we encounter, and our way of solving them. Subscribe to our fresh, monthly newsletter and get these goodies right to your e-mail:<a href=\"https://t.co/0ziRSJJAxK\">https://t.co/0ziRSJJAxK</a> <a href=\"https://t.co/nTHlsG5z2a\">pic.twitter.com/nTHlsG5z2a</a></p>&mdash; Wix Engineering (@WixEng) <a href=\"https://twitter.com/WixEng/status/1076810144774868992?ref_src=twsrc%5Etfw\">December 23, 2018</a></blockquote> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>",
@@ -1332,6 +1333,7 @@ exports[`plugins > map > render map plugin toolbar and settings #0`] =
           "alignment": "center",
           "height": 400,
           "size": "content",
+          "textWrap": "wrap",
           "width": 400
         },
         "mapSettings": {
@@ -1395,7 +1397,8 @@ exports[`plugins > file-upload > render file-upload plugin toolbar #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "small"
+          "size": "small",
+          "textWrap": "wrap"
         },
         "name": "receipt.pdf",
         "type": "pdf",
@@ -1589,7 +1592,8 @@ exports[`plugins > alignment > align atomic block left #0`] =
           "alignment": "left",
           "showDescription": true,
           "showTitle": true,
-          "size": "small"
+          "size": "small",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg",
@@ -1608,7 +1612,8 @@ exports[`plugins > alignment > align atomic block left #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_83e03311e53a47ce9ba8bda910fdad88.jpg",
@@ -1737,7 +1742,8 @@ exports[`plugins > alignment > align atomic block center #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "small"
+          "size": "small",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg",
@@ -1756,7 +1762,8 @@ exports[`plugins > alignment > align atomic block center #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_83e03311e53a47ce9ba8bda910fdad88.jpg",
@@ -1885,7 +1892,8 @@ exports[`plugins > alignment > align atomic block right #0`] =
           "alignment": "right",
           "showDescription": true,
           "showTitle": true,
-          "size": "small"
+          "size": "small",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg",
@@ -1904,7 +1912,8 @@ exports[`plugins > alignment > align atomic block right #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_83e03311e53a47ce9ba8bda910fdad88.jpg",
@@ -2821,7 +2830,8 @@ exports[`plugins > link preview > change link preview settings #0`] =
             "target": "_blank",
             "url": "wix.com"
           },
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "description": "\tCreate a free website with Wix.com. Choose a stunning template and customize anything with the Wix website builder—no coding skills needed. Create yours today!",
         "provider_url": "www.wix.com",
@@ -2838,7 +2848,8 @@ exports[`plugins > link preview > change link preview settings #0`] =
           "link": {
             "url": "wix.com"
           },
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "provider_url": "https://www.youtube.com",
         "thumbnail_url": "https://static.wixstatic.com/media/8bb438_603549efcb714170bb71fe0757f37561.jpg/v1/fill/w_125,h_51,fp_0.50_0.50,q_10/8bb438_603549efcb714170bb71fe0757f37561.webp",
@@ -2855,6 +2866,7 @@ exports[`plugins > link preview > change link preview settings #0`] =
             "url": "mockUrl.com"
           },
           "size": "content",
+          "textWrap": "wrap",
           "width": 350
         },
         "html": "<div style=\"background-color: black; border: 10px solid pink; height: 400px; text-align: center; color: white;\">This is a mock embed</div>",
@@ -3011,7 +3023,8 @@ exports[`plugins > link preview > convert link preview to regular link #0`] =
           "link": {
             "url": "wix.com"
           },
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "provider_url": "https://www.youtube.com",
         "thumbnail_url": "https://static.wixstatic.com/media/8bb438_603549efcb714170bb71fe0757f37561.jpg/v1/fill/w_125,h_51,fp_0.50_0.50,q_10/8bb438_603549efcb714170bb71fe0757f37561.webp",
@@ -3028,6 +3041,7 @@ exports[`plugins > link preview > convert link preview to regular link #0`] =
             "url": "mockUrl.com"
           },
           "size": "content",
+          "textWrap": "wrap",
           "width": 350
         },
         "html": "<div style=\"background-color: black; border: 10px solid pink; height: 400px; text-align: center; color: white;\">This is a mock embed</div>",
@@ -3355,7 +3369,8 @@ exports[`plugins > link preview > backspace key should convert link preview to r
           "link": {
             "url": "wix.com"
           },
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "provider_url": "https://www.youtube.com",
         "thumbnail_url": "https://static.wixstatic.com/media/8bb438_603549efcb714170bb71fe0757f37561.jpg/v1/fill/w_125,h_51,fp_0.50_0.50,q_10/8bb438_603549efcb714170bb71fe0757f37561.webp",
@@ -3372,6 +3387,7 @@ exports[`plugins > link preview > backspace key should convert link preview to r
             "url": "mockUrl.com"
           },
           "size": "content",
+          "textWrap": "wrap",
           "width": 350
         },
         "html": "<div style=\"background-color: black; border: 10px solid pink; height: 400px; text-align: center; color: white;\">This is a mock embed</div>",
@@ -3570,7 +3586,8 @@ exports[`plugins > link preview > delete link preview #0`] =
           "link": {
             "url": "wix.com"
           },
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "provider_url": "https://www.youtube.com",
         "thumbnail_url": "https://static.wixstatic.com/media/8bb438_603549efcb714170bb71fe0757f37561.jpg/v1/fill/w_125,h_51,fp_0.50_0.50,q_10/8bb438_603549efcb714170bb71fe0757f37561.webp",
@@ -3587,6 +3604,7 @@ exports[`plugins > link preview > delete link preview #0`] =
             "url": "mockUrl.com"
           },
           "size": "content",
+          "textWrap": "wrap",
           "width": 350
         },
         "html": "<div style=\"background-color: black; border: 10px solid pink; height: 400px; text-align: center; color: white;\">This is a mock embed</div>",
@@ -4417,6 +4435,7 @@ exports[`plugins > action button > create action button & click it #0`] =
         "config": {
           "alignment": "center",
           "size": "small",
+          "textWrap": "wrap",
           "width": "fit-content"
         }
       },
@@ -4473,7 +4492,8 @@ exports[`plugins > convert link to preview > with default config > should create
             "target": "_blank",
             "url": "www.wix.com"
           },
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "description": "A mock description",
         "thumbnail_url": "https://image.insider.com/5de5784979d757159d0b6838?width=1100&format=jpeg&auto=webp",
@@ -4533,6 +4553,7 @@ exports[`plugins > convert link to preview > with default config > should embed 
             "url": "www.mockUrl.com"
           },
           "size": "content",
+          "textWrap": "wrap",
           "width": 350
         },
         "html": "<div style=\"background-color: black; border: 10px solid pink; height: 400px; text-align: center; color: white;\">This is a mock embed</div>",
@@ -4979,6 +5000,7 @@ exports[`plugins > social embed > render twitter upload modals #0`] =
             "url": "www.mockUrl.com"
           },
           "size": "content",
+          "textWrap": "wrap",
           "width": 350
         },
         "html": "<div style=\"background-color: black; border: 10px solid pink; height: 400px; text-align: center; color: white;\">This is a mock embed</div>"
@@ -5037,6 +5059,7 @@ exports[`plugins > social embed > render instagram upload modals #0`] =
             "url": "www.mockUrl.com"
           },
           "size": "content",
+          "textWrap": "wrap",
           "width": 350
         },
         "html": "<div style=\"background-color: black; border: 10px solid pink; height: 400px; text-align: center; color: white;\">This is a mock embed</div>"
@@ -5489,7 +5512,8 @@ exports[`plugins > spoiler > check spoilers on an image in editor and reveal it 
             "buttonContent": "Reveal Image - In Plugin Editin",
             "description": "This image contains a spoiler - In Plugin Editing",
             "enabled": true
-          }
+          },
+          "textWrap": "wrap"
         },
         "disableDownload": false,
         "disableExpand": false,
@@ -5510,7 +5534,8 @@ exports[`plugins > spoiler > check spoilers on an image in editor and reveal it 
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_83e03311e53a47ce9ba8bda910fdad88.jpg",
@@ -5617,7 +5642,8 @@ exports[`plugins > spoiler > check spoilers on a gallery in editor and reveal it
             "buttonContent": "Reveal Gallery - In Plugin Editin",
             "description": "This gallery contains a spoiler - In Plugin Editing",
             "enabled": true
-          }
+          },
+          "textWrap": "wrap"
         },
         "disableDownload": false,
         "disableExpand": false,
@@ -5653,7 +5679,8 @@ exports[`plugins > spoiler > check spoilers on a gallery in editor and reveal it
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_4a6550d4df364f9890180f52243fb396.jpg",
@@ -5848,7 +5875,8 @@ exports[`plugins > anchor > anchor desktop > should create anchor in text #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_281af3d3281f4584a5a864c6c60f3a00.jpg",
@@ -5865,7 +5893,8 @@ exports[`plugins > anchor > anchor desktop > should create anchor in text #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "isCustomVideo": true,
         "src": {
@@ -5970,7 +5999,8 @@ exports[`plugins > anchor > anchor desktop > should create anchor in image #0`] 
           "anchor": "test-blockKey",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_281af3d3281f4584a5a864c6c60f3a00.jpg",
@@ -5987,7 +6017,8 @@ exports[`plugins > anchor > anchor desktop > should create anchor in image #0`] 
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "isCustomVideo": true,
         "src": {
@@ -6110,7 +6141,8 @@ exports[`plugins > anchor > anchor mobile > should create anchor in text #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_281af3d3281f4584a5a864c6c60f3a00.jpg",
@@ -6127,7 +6159,8 @@ exports[`plugins > anchor > anchor mobile > should create anchor in text #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "isCustomVideo": true,
         "src": {
@@ -6232,7 +6265,8 @@ exports[`plugins > anchor > anchor mobile > should create anchor in image #0`] =
           "anchor": "test-blockKey",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_281af3d3281f4584a5a864c6c60f3a00.jpg",
@@ -6249,7 +6283,8 @@ exports[`plugins > anchor > anchor mobile > should create anchor in image #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "isCustomVideo": true,
         "src": {
@@ -6310,6 +6345,7 @@ exports[`plugins > html > render html plugin with url #0`] =
         "config": {
           "alignment": "center",
           "height": 550,
+          "textWrap": "wrap",
           "width": 350
         },
         "src": "https://cdn.bitdegree.org/learn/test-iframe.htm",
@@ -6354,7 +6390,8 @@ exports[`plugins > collapsible list > should change collapsible list settings #0
       "data": {
         "config": {
           "direction": "rtl",
-          "expandState": "expanded"
+          "expandState": "expanded",
+          "textWrap": "nowrap"
         },
         "pairs": [
           {
@@ -6851,7 +6888,8 @@ exports[`plugins > collapsible list > should focus & type #0`] =
         "config": {
           "direction": "ltr",
           "expandOnlyOne": false,
-          "expandState": "first_expanded"
+          "expandState": "first_expanded",
+          "textWrap": "nowrap"
         },
         "pairs": [
           {
@@ -6967,7 +7005,8 @@ exports[`plugins > collapsible list > should collapse first pair #0`] =
         "config": {
           "direction": "ltr",
           "expandOnlyOne": false,
-          "expandState": "first_expanded"
+          "expandState": "first_expanded",
+          "textWrap": "nowrap"
         },
         "pairs": [
           {
@@ -7083,7 +7122,8 @@ exports[`plugins > collapsible list > should have only one expanded pair #0`] =
         "config": {
           "direction": "ltr",
           "expandOnlyOne": true,
-          "expandState": "first_expanded"
+          "expandState": "first_expanded",
+          "textWrap": "nowrap"
         },
         "pairs": [
           {
@@ -7199,7 +7239,8 @@ exports[`plugins > collapsible list > should delete second pair #0`] =
         "config": {
           "direction": "ltr",
           "expandOnlyOne": false,
-          "expandState": "first_expanded"
+          "expandState": "first_expanded",
+          "textWrap": "nowrap"
         },
         "pairs": [
           {
@@ -7300,7 +7341,8 @@ exports[`plugins > collapsible list > should insert image in collapsible list #0
         "config": {
           "direction": "ltr",
           "expandOnlyOne": false,
-          "expandState": "first_expanded"
+          "expandState": "first_expanded",
+          "textWrap": "nowrap"
         },
         "pairs": [
           {
@@ -7347,7 +7389,8 @@ exports[`plugins > collapsible list > should insert image in collapsible list #0
                       "alignment": "center",
                       "showDescription": true,
                       "showTitle": true,
-                      "size": "content"
+                      "size": "content",
+                      "textWrap": "wrap"
                     },
                     "src": {
                       "file_name": "8bb438_1b73a6b067b24175bd087e86613bd00c.jpg",

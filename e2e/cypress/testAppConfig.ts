@@ -95,6 +95,7 @@ export const plugins = {
   collapsibleList: 'collapsibleList',
   table: 'table',
   video: 'video',
+  poll: 'poll',
 };
 
 export const useExperiments = (experiment: AvailableExperiments): TestAppConfig => {
