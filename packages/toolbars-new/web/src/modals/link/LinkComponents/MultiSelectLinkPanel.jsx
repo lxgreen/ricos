@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import LinkPanelWrapper from './LinkPanelWrapper';
 import AnchorPanel from '../AnchorComponents/AnchorPanel';
 import { mergeStyles } from 'wix-rich-content-common';
-import { RadioGroup, FocusManager } from 'wix-rich-content-ui-components';
+import { RadioGroup, FocusManager, SettingsMobileHeader } from 'wix-rich-content-ui-components';
 import styles from '../multi-select-link-panel.scss';
 import LinkActionsButtons from './LinkActionsButtons';
 import { RADIO_GROUP_VALUES } from '../AnchorComponents/consts';
@@ -66,15 +66,16 @@ class MultiSelectLinkPanel extends PureComponent {
   };
 
   renderMultiSelectActions = () => {
-    const { isMobile, buttonsProps } = this.props;
+    const { isMobile, buttonsProps, t } = this.props;
     return (
       <div className={isMobile && styles.multiSelectLinkPanel_actionsWrapper_mobile}>
-        <LinkActionsButtons {...buttonsProps} />
-        {isMobile && (
+        {isMobile ? (
           <div>
-            {this.renderSeparator()}
+            <SettingsMobileHeader {...buttonsProps} title={t('MobileLinkModal_Title')} />
             {this.renderMobileTabs()}
           </div>
+        ) : (
+          <LinkActionsButtons {...buttonsProps} />
         )}
       </div>
     );

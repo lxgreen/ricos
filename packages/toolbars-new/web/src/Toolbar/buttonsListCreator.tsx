@@ -41,6 +41,7 @@ export const createButtonsList = (
     handleButtonType(buttonsList, index);
     handleButtonIcon(buttonsList, index, editorCommands);
     handleButtonDataHook(buttonsList, index);
+    handleButtIsMobileModalFullscreen(buttonsList, index);
     handleButtonTooltip(buttonsList, index, t);
     handleButtonPlugin(buttonsList, index);
     handleButtonLabel(buttonsList, index, editorCommands, t);
@@ -270,6 +271,7 @@ const handleButtonModal = (
             {...linkData}
             t={t}
             anchorableBlocksData={anchorableBlocks}
+            isMobileModalFullscreen
           />
         );
     }
@@ -383,6 +385,13 @@ const handleButtonPlugin = (buttonsList, index) => {
 const handleButtonDataHook = (buttonsList, index) => {
   if (buttonsFullData[buttonsList[index].name].dataHook) {
     buttonsList[index].dataHook = buttonsFullData[buttonsList[index].name].dataHook;
+  }
+};
+
+const handleButtIsMobileModalFullscreen = (buttonsList, index) => {
+  if (buttonsFullData[buttonsList[index].name].isMobileModalFullscreen) {
+    buttonsList[index].isMobileModalFullscreen =
+      buttonsFullData[buttonsList[index].name].isMobileModalFullscreen;
   }
 };
 

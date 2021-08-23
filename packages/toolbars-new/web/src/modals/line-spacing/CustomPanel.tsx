@@ -69,6 +69,7 @@ const CustomPanel = ({ spacing, onChange, onSave, onCancel, t, theme }) => {
           cancelText={t('LineSpacing_cancel')}
           saveText={t('LineSpacing_save')}
           theme={theme}
+          t={t}
         />
       </div>
     </div>

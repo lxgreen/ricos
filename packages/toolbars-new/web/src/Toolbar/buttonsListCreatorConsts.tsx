@@ -75,6 +75,7 @@ type buttonsFullDataType = {
   onDelete?: string;
   saveSelection?: boolean;
   loadSelection?: boolean;
+  isMobileModalFullscreen?: boolean;
   colorPickerHeaderKey?: string;
   unstyled?: { icon: any; action: string };
   'header-two'?: { icon: any; action: string };
@@ -277,8 +278,9 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     plugin: 'LINK',
     icon: LinkIcon,
     dataHook: 'LinkButton',
-    tooltip: 'TextLinkButton_Tooltip',
+    // tooltip: 'TextLinkButton_Tooltip',
     type: 'modal',
+    isMobileModalFullscreen: true,
     modal: props => (
       <Suspense fallback={modalFallback}>
         <LinkModal {...props} />
@@ -301,6 +303,7 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     dataHook: 'LinkButton',
     tooltip: 'LinkTo_Edit_Tooltip',
     type: 'modal',
+    isMobileModalFullscreen: true,
     modal: props => (
       <Suspense fallback={modalFallback}>
         <LinkModal {...props} isActive />

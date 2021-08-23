@@ -19,6 +19,7 @@ type dropDownPropsType = {
   isDisabled: () => boolean;
   getLabel?: () => string;
   arrow?: boolean;
+  isMobileModalFullscreen?: boolean;
   getIcon: () => any;
   saveState?: () => void;
   saveSelection?: () => void;
@@ -157,22 +158,23 @@ class ModalButton extends Component<ModalButtonProps, State> {
       isMobile,
       arrow = false,
       getLabel,
+      isMobileModalFullscreen = false,
     } = dropDownProps;
     const { isModalOpen, isModalOverflowByHeight, overflowWidthBy } = this.state;
     const buttonProps = arrow && getLabel ? { buttonContent: getLabel() } : { icon: getIcon() };
-    const isLinkButton = dataHook === 'LinkButton';
-    const onModalWrapperClick = isMobile && !isLinkButton ? this.closeModal : undefined;
-    const mobileStyles = isLinkButton
-      ? {}
-      : ({
-          position: 'fixed',
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          width: '100%',
-          background: 'transparent',
-        } as React.CSSProperties);
+    const onModalWrapperClick = isMobile && !isMobileModalFullscreen ? this.closeModal : undefined;
+    const defaultStyles = {
+      position: 'fixed',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      width: '100%',
+    } as React.CSSProperties;
+    const mobileStyles = isMobileModalFullscreen
+      ? { ...defaultStyles, height: '100%' }
+      : { ...defaultStyles, background: 'transparent' };
+
     return (
       <ClickOutside onClickOutside={this.closeModal}>
         <div className={styles.buttonWrapper}>
