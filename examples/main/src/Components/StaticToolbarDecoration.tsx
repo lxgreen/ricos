@@ -8,7 +8,6 @@ class StaticToolbarDecoration extends Component<{
 
   render() {
     const { style, className, children, ...props } = this.props;
-    console.log('StaticToolbarDecoration rendered');
     return (
       <div style={style} className={className} {...props}>
         {children}

@@ -17,8 +17,6 @@ import {
 import { TestAppConfig } from '../../src/types';
 import { RicosEditor, RicosEditorProps, RicosEditorType } from 'ricos-editor';
 
-const anchorTarget = '_blank';
-const rel = {};
 const STATIC_TOOLBAR = 'static';
 
 interface ExampleEditorProps {
@@ -29,7 +27,7 @@ interface ExampleEditorProps {
   locale?: string;
   externalToolbar?: ElementType;
   shouldNativeUpload?: boolean;
-  scrollingElementFn?: any;
+  scrollingElementFn?: () => Element;
   testAppConfig?: TestAppConfig;
   mockImageIndex?: number;
   contentState?: DraftContent;
@@ -37,13 +35,18 @@ interface ExampleEditorProps {
   onRicosEditorChange?: RicosEditorProps['onChange'];
   experiments?: AvailableExperiments;
   externalPopups: boolean;
+  textWrap?: boolean;
 }
 
 export default class Editor extends PureComponent<ExampleEditorProps> {
   getToolbarSettings: RichContentEditorProps['config']['getToolbarSettings'];
+
   helpers: RichContentEditorProps['helpers'];
+
   editor: RicosEditorType;
+
   ricosPlugins: RicosEditorProps['plugins'];
+
   staticToolbarContainer: HTMLDivElement;
 
   constructor(props: ExampleEditorProps) {
@@ -75,6 +78,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
   }
 
   initEditorProps() {
+    /* eslint-disable no-console */
     const onPluginAction: OnPluginAction = async (
       eventName: EventName,
       params: PluginEventParams
@@ -112,6 +116,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       },
       onPluginAction,
     };
+    /* eslint-enable no-console */
     this.setImageUploadHelper();
   }
 
@@ -119,9 +124,11 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
     const { shouldNativeUpload } = this.props;
     if (shouldNativeUpload) {
       this.helpers.handleFileUpload = mockImageNativeUploadFunc;
+      // eslint-disable-next-line fp/no-delete
       delete this.helpers.handleFileSelection;
     } else {
       this.helpers.handleFileSelection = mockImageUploadFunc;
+      // eslint-disable-next-line fp/no-delete
       delete this.helpers.handleFileUpload;
     }
   };
@@ -148,6 +155,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       onRicosEditorChange,
       experiments,
       externalPopups,
+      textWrap,
     } = this.props;
     const textToolbarType: TextToolbarType = staticToolbar && !isMobile ? STATIC_TOOLBAR : null;
     const useStaticTextToolbar = textToolbarType === STATIC_TOOLBAR;
@@ -165,7 +173,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
             locale={locale}
             cssOverride={theme}
             toolbarSettings={{
-              useStaticTextToolbar: useStaticTextToolbar,
+              useStaticTextToolbar,
               textToolbarContainer: useStaticTextToolbar && this.staticToolbarContainer,
               getToolbarSettings: this.getToolbarSettings,
             }}
@@ -175,6 +183,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
             linkPanelSettings={{ ...(Plugins.uiSettings.linkPanel || {}), externalPopups }}
             _rcProps={{ helpers: this.helpers }}
             experiments={experiments}
+            textWrap={textWrap}
           >
             <RichContentEditor />
           </RicosEditor>

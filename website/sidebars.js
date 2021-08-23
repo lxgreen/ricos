@@ -35,6 +35,7 @@ module.exports = {
           'plugins_api/CollapsibleListPlugin',
           'plugins_api/HeadingsPlugin',
           'plugins_api/SpoilerPlugin',
+          'plugins_api/LoadablePlugins',
         ],
       },
       {
@@ -44,9 +45,11 @@ module.exports = {
           'content_api/TruncateContent',
           'content_api/converters',
           'content_api/extract_media',
+          'content_api/appembed_extract',
           'content_api/ContentBuilder',
           'content_api/content_extract',
           'content_api/content_modify',
+          'content_api/translatables_api',
         ],
       },
       {

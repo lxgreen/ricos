@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
 import { CollapsibleList } from '../domain/collapsibleList';
-import { SettingsPanelFooter } from 'wix-rich-content-ui-components';
+import { SettingsPanelFooter, SettingsMobileHeader } from 'wix-rich-content-ui-components';
 import CollapsibleListSettings from './CollapsibleListSettings';
-import CollapsibleListMobileHeader from './CollapsibleListMobileHeader';
 import styles from '../../../statics/styles/collapsible-list-modal.scss';
 
 class CollapsibleListModal extends Component {
@@ -66,7 +65,7 @@ class CollapsibleListModal extends Component {
     const { t, theme } = this.props;
 
     return (
-      <CollapsibleListMobileHeader
+      <SettingsMobileHeader
         t={t}
         theme={theme}
         onCancel={this.revertComponentData}

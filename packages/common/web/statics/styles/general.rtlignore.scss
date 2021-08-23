@@ -1,15 +1,16 @@
-@import "./consts";
-@import "./mixins";
+@import './consts';
+@import './mixins';
 
 .alignLeft {
   /* rtl:ignore */
   z-index: 1;
+  margin-right: auto;
+  margin-left: 0;
 
   &:not(.textWrapNowrap) {
     /* rtl:begin:ignore */
     float: left;
     margin-right: $innerSpacing;
-    margin-left: 0;
     /* rtl:end:ignore */
   }
 }
@@ -17,12 +18,13 @@
 .alignRight {
   /* rtl:ignore */
   z-index: 1;
+  margin-left: auto;
+  margin-right: 0;
 
   &:not(.textWrapNowrap) {
     /* rtl:begin:ignore */
     float: right;
     margin-left: $innerSpacing;
-    margin-right: 0;
     /* rtl:end:ignore */
   }
 }
@@ -30,7 +32,7 @@
 .alignCenter {
   display: block;
 
-  &:not(.textWrapNowrap):not(.sizeFullWidth) {
+  &:not(.sizeFullWidth) {
     margin-left: auto;
     margin-right: auto;
     max-width: 100%;
@@ -47,30 +49,24 @@
 }
 
 .sizeContent {
-  &:not(.textWrapNowrap) {
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .sizeSmall {
-  &:not(.textWrapNowrap) {
-    width: 350px;
-    .renderedInTable & {
-      width: 50%;
-    }
+  width: 350px;
+  .renderedInTable & {
+    width: 50%;
   }
 }
 
 .sizeSmallCenter {
-  &:not(.textWrapNowrap) {
-    width: 350px;
-    margin-left: auto;
-    margin-right: auto;
-    .renderedInTable & {
-      width: 150px;
-    }
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  .renderedInTable & {
+    width: 150px;
   }
 }
 

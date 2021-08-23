@@ -9,7 +9,11 @@ import {
 import { InsertPluginIcon } from '../icons';
 import { CreateInsertButtons, TranslationFunction } from 'wix-rich-content-common';
 import tableSettingsModal from './tableSettingsModal';
-import { DesktopFlyOutModalStyles, MOBILE_FULL_SCREEN_CUSTOM_STYLE } from '../consts';
+import {
+  DesktopFlyOutModalStyles,
+  externalPopupStyles,
+  MOBILE_FULL_SCREEN_CUSTOM_STYLE,
+} from '../consts';
 import { TablePluginEditorConfig } from '../types';
 
 const createInsertButtons: CreateInsertButtons = ({
@@ -59,7 +63,7 @@ const createInsertButtons: CreateInsertButtons = ({
     {
       ...buttonProps,
       modalStyles: getModalStyles({
-        customStyles: isMobile ? {} : DesktopFlyOutModalStyles,
+        customStyles: isMobile ? {} : externalPopupStyles,
         fullScreen: false,
         isMobile,
       }),

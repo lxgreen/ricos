@@ -32,18 +32,19 @@ export default ({ style, Icon, tooltipTextKey, buttonName }) =>
       }
     };
 
+    onClick = e => {
+      this.props.helpers?.onToolbarButtonClick?.({
+        buttonName,
+        value: String(!this.isActive()),
+      });
+      this.toggleStyle(e);
+    };
+
     render() {
       const { theme, helpers, isMobile, t, tabIndex } = this.props;
       const tooltipText = t(tooltipTextKey);
       const textForHooks = tooltipText.replace(/\s+/, '');
       const dataHookText = `textInlineStyleButton_${textForHooks}`;
-      const onClick = e => {
-        helpers?.onToolbarButtonClick?.({
-          buttonName: buttonName || textForHooks,
-          value: String(!this.isActive()),
-        });
-        this.toggleStyle(e);
-      };
 
       return (
         <TextButton
@@ -51,7 +52,7 @@ export default ({ style, Icon, tooltipTextKey, buttonName }) =>
           theme={theme}
           isMobile={isMobile}
           isActive={this.isActive}
-          onClick={onClick}
+          onClick={this.onClick}
           tooltipText={tooltipText}
           dataHook={dataHookText}
           tabIndex={tabIndex}

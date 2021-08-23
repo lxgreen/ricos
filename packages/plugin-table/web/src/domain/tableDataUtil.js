@@ -347,7 +347,8 @@ export class TableDataUtil {
   getCellBorders = (selection, row, col, color) => {
     const range = getRange(selection);
     const { rowSpan = 1, colSpan = 1 } = this.getCellMergeData(row, col) || {};
-    const borderColor = color || getColors().color8;
+    const borderColor =
+      color || 'var(--ricos-settings-action-color, var(--ricos-action-color, #0261ff))';
     const borders = {};
 
     if (!range.find(({ i, j }) => i === row && j === col - 1)) {

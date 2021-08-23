@@ -3,11 +3,13 @@ import { getVisibleSelectionRect } from 'wix-rich-content-editor-common';
 import styles from './InlineToolbarDecoration.scss';
 
 class InlineToolbarDecoration extends Component<{
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   style?: any;
   className?: string;
   refCallback?: (node) => void;
 }> {
   static displayName = 'InlineToolbarDecoration';
+
   element: Element;
 
   handleRef = el => {
@@ -16,7 +18,7 @@ class InlineToolbarDecoration extends Component<{
   };
 
   render() {
-    const { style, className, refCallback, children, ...props } = this.props;
+    const { style, className, children, ...props } = this.props;
     const alteredStyle = style;
     if (alteredStyle.top) {
       alteredStyle.top -= 10;
@@ -24,6 +26,7 @@ class InlineToolbarDecoration extends Component<{
 
     const selectionRect = getVisibleSelectionRect(window);
     const toolbarRect: Partial<DOMRect> = this.element ? this.element.getBoundingClientRect() : {};
+    // eslint-disable-next-line no-console
     console.log('TCL: InlineToolbarDecoration -> render -> toolbarRect', toolbarRect);
     const relLeft = selectionRect ? selectionRect.left + selectionRect.width / 2 : 0;
     const toolbarLeft = toolbarRect.left || 0;

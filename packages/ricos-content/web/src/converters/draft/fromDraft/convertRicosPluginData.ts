@@ -17,6 +17,8 @@ import {
   LINK_TYPE,
   GALLERY_TYPE,
   GIPHY_TYPE,
+  WRAP,
+  NO_WRAP,
 } from '../../../consts';
 import {
   PluginContainerData_Spoiler,
@@ -62,7 +64,7 @@ export const convertBlockDataToRicos = (type: string, data) => {
   if (type === LINK_PREVIEW_TYPE && data.html) {
     blockType = EMBED_TYPE;
   }
-  if (newData.config && blockType !== DIVIDER_TYPE) {
+  if (newData.config) {
     convertContainerData(newData);
   }
   if (blockType in converters) {
@@ -77,7 +79,7 @@ export const convertBlockDataToRicos = (type: string, data) => {
 };
 
 const convertContainerData = (data: { config?: ComponentData['config']; containerData }) => {
-  const { size, alignment, width, spoiler, height } = data.config || {};
+  const { size, alignment, width, spoiler, height, textWrap = WRAP } = data.config || {};
   const { enabled, description, buttonContent } = spoiler || {};
   const newSpoiler: PluginContainerData_Spoiler | undefined = spoiler && {
     enabled: enabled || false,
@@ -87,6 +89,7 @@ const convertContainerData = (data: { config?: ComponentData['config']; containe
   data.containerData = {
     alignment: alignment?.toUpperCase(),
     spoiler: newSpoiler,
+    textWrap: textWrap !== NO_WRAP,
   };
   typeof height === 'number' && (data.containerData.height = { custom: height });
   typeof width === 'number'
@@ -171,7 +174,7 @@ const convertDividerData = (data: {
   has(data, 'type') && (data.lineStyle = data.type?.toUpperCase());
   has(data, 'config.size') && (data.width = data.config?.size?.toUpperCase());
   has(data, 'config.alignment') && (data.alignment = data.config?.alignment?.toUpperCase());
-  data.containerData = { width: { size: PluginContainerData_Width_Type.CONTENT } };
+  data.containerData.width = { size: PluginContainerData_Width_Type.CONTENT };
 };
 
 const convertImageData = (data: {

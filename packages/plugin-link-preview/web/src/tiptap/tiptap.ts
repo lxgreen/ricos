@@ -1,3 +1,4 @@
+import linkPreviewDataDefaults from 'ricos-schema/dist/statics/link_preview.defaults.json';
 import { CreateRicosExtensions } from 'wix-rich-content-common';
 import { LinkPreview as Component } from './component';
 
@@ -13,7 +14,7 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
     Component,
-    createComponentDataDefaults: ({ LinkPreviewData }) => LinkPreviewData.fromJSON({}),
+    componentDataDefaults: { ...linkPreviewDataDefaults, id: '' },
     createExtensionConfig: () => ({
       name,
       atom: false,

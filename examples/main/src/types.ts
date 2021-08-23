@@ -1,7 +1,12 @@
-import { PluginType, AvailableExperiments } from 'wix-rich-content-common';
+import {
+  AvailableExperiments,
+  AddPluginMenuConfig,
+  FooterToolbarConfig,
+} from 'wix-rich-content-common';
 
 export type OnVisibilityChanged = (sectionName: string, isVisible: boolean) => void;
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface SectionSettings {
   name: string;
   active?: any;
@@ -10,19 +15,7 @@ export interface SectionSettings {
   action: (item?: any, value?: any) => void;
   items?: string[];
 }
-
-export interface AddPluginMenuConfig {
-  showSearch: boolean;
-  splitToSections: boolean;
-}
-
-export interface FooterToolbarConfig {
-  morePluginsMenu?: {
-    splitToSections: boolean;
-    showSearch: boolean;
-  };
-  pluginsToDisplayInToolbar?: string[];
-}
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export interface TestAppConfig {
   plugins?: string[];
@@ -30,7 +23,8 @@ export interface TestAppConfig {
     addPluginMenuConfig?: AddPluginMenuConfig;
     footerToolbarConfig?: FooterToolbarConfig;
   };
-  pluginsConfig?: Record<PluginType, Record<string, string>>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  pluginsConfig?: Record<string, Record<string, any>>;
   consumer?: string;
   applyOuterStyle?: boolean;
   theme?: {

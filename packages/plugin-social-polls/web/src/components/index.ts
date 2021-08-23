@@ -1,2 +1,2 @@
 export * from './PollEditor';
-export * from './PollViewer';
+export * from '../PollViewer';

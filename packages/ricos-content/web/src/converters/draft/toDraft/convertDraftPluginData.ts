@@ -26,6 +26,7 @@ import {
   TO_RICOS_DATA_FIELD,
   DraftGalleryStyles,
 } from '../consts';
+import { WRAP, NO_WRAP } from '../../../consts';
 import { ComponentData, FileComponentData } from '../../../types';
 import { parseLink } from '../../nodeUtils';
 
@@ -66,7 +67,7 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data) => {
     [Node_Type.EMBED]: convertEmbedData,
     [Node_Type.GALLERY]: convertGalleryData,
   };
-  if (newData.containerData && nodeType !== Node_Type.DIVIDER) {
+  if (newData.containerData) {
     convertContainerData(newData, nodeType);
   }
   if (nodeType in converters) {
@@ -94,7 +95,7 @@ const convertContainerData = (
   data: { containerData?: PluginContainerData; config },
   nodeType: string
 ) => {
-  const { width, alignment, spoiler, height } = data.containerData || {};
+  const { width, alignment, spoiler, height, textWrap = true } = data.containerData || {};
   const { enabled = false, description, buttonText } = spoiler || {};
   data.config = Object.assign(
     {},
@@ -109,7 +110,8 @@ const convertContainerData = (
         description,
         buttonContent: buttonText,
       },
-    }
+    },
+    { textWrap: textWrap ? WRAP : NO_WRAP }
   );
   if (nodeType === Node_Type.IMAGE && width?.custom) {
     data.config.size = 'inline';
@@ -141,11 +143,12 @@ const convertDividerData = (
     type;
     lineStyle?: string;
     config?: ComponentData['config'];
+    containerData?: PluginContainerData;
   }
 ) => {
   data.type = data.lineStyle?.toLowerCase();
   delete data.lineStyle;
-  data.config = { textWrap: 'nowrap' };
+  data.config = data.config || {};
   if (has(data, 'width')) {
     data.config.size = data.width?.toLowerCase();
     delete data.width;
