@@ -17,18 +17,83 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.49.6 (Aug 23, 2021)
+
+### :rocket: New Feature
+
+- `ricos-content`
+  - [#2844](https://github.com/wix/ricos/pull/2844) Translatables API
+
+### :bug: Bug Fix
+
+- `general`
+
+  - [#2859](https://github.com/wix/ricos/pull/2859) wire button/link-preview/file-upload font family
+  - [#2877](https://github.com/wix/ricos/pull/2877) fix webpackChunkName syntax
+
+- `gif`
+  - [#1102d70](https://github.com/wix/ricos/commit/1102d70e51d5ada621b7cbccfc7bcb1159c2d459) toolbar crush when downsized_small is null
+
+## 8.49.5 (Aug 19, 2021)
+
+### :bug: Bug Fix
+
+- `table`
+  - [#2874](https://github.com/wix/ricos/pull/2874) override sideToolbar onClick config when use it from table
+
+## 8.49.4 (Aug 18, 2021)
+
+### :bug: Bug Fix
+
+- `table`
+  - [#2871](https://github.com/wix/ricos/pull/2871) fix: wiring table theme on biz manager
+- `table`
+  - [#2869](https://github.com/wix/ricos/pull/2869) fix: add overlay to table external modal
+
+## 8.49.3 (Aug 18, 2021)
+
+### :rocket: New Feature
+
+- `*`
+  - [#2850](https://github.com/wix/ricos/pull/2850) textWrap
+
+### :house: Internal
+
+- `ricos-schema`
+
+  - [#2864](https://github.com/wix/ricos/pull/2864) generate plugin defaults in build time
+
+- `ui-components`
+  - [#2839](https://github.com/wix/ricos/pull/2839) refactor SettingsMobileHeader component and consume it in Button/CollapsibleList/Map/Link-modal/UrlInputModal
+- `e2e`
+  - [#2860](https://github.com/wix/ricos/pull/2860) add TypeScript support for Cypress
+  - [#2863](https://github.com/wix/ricos/pull/2863) update Cypress to v8
+- `example`
+  - [#2862](https://github.com/wix/ricos/pull/2862) add eslint support
+- `poll`
+  - [#2024](https://github.com/wix/ricos/pull/2024) add Poll story & rendering tests
+  - [#2870](https://github.com/wix/ricos/pull/2870) loadable support
+
 ### :nail_care: Polish
 
 - `link`
   - [#2828](https://github.com/wix/ricos/pull/2828) fix link data values
+- `plugin-button`
+  - [#2856](https://github.com/wix/ricos/pull/2856) refactor SettingsPanelFooter usage and deleted some css
+- `Tooltip`
+  - [#2839](https://github.com/wix/ricos/pull/2839) refactor tooltip style
 
 ### :bug: Bug Fix
 
 - `link`
   - [#2855](https://github.com/wix/ricos/pull/2855) fix: shift+enter break link string
 
-</details>
-<hr/>
+### :book: Documentation
+
+- `extractAppEmbedData` API docs added
 
 ## 8.49.2 (Aug 14, 2021)
 

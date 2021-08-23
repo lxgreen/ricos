@@ -8,13 +8,13 @@ import {
   SettingsSection,
   SettingsPanelFooter,
   FocusManager,
+  SettingsMobileHeader,
 } from 'wix-rich-content-ui-components';
 import LayoutSelector from './gallery-controls/layouts-selector';
 import styles from '../../statics/styles/gallery-settings-modal.scss';
 import LayoutControlsSection from './layout-controls-section';
 import { SortableComponent } from './gallery-controls/gallery-items-sortable';
 import { layoutData } from '../../lib/layout-data-provider';
-import GallerySettingsMobileHeader from './gallery-controls/gallery-settings-mobile-header';
 const DIVIDER = 'divider';
 class ManageMediaSection extends Component {
   applyItems = items => {
@@ -362,19 +362,17 @@ export class GallerySettingsModal extends Component {
 
   render() {
     const styles = this.styles;
-    const { t, isMobile, languageDir, pubsub } = this.props;
+    const { t, isMobile, languageDir, pubsub, theme } = this.props;
     const { activeTab } = this.state;
     this.componentData = pubsub.get('componentData');
 
     return (
       <div data-hook="settings" dir={languageDir}>
         {isMobile && (
-          <GallerySettingsMobileHeader
-            theme={this.props.theme}
-            cancel={this.revertComponentData}
-            save={this.onDoneClick}
-            switchTab={this.switchTab}
-            otherTab={this.tabName(this.otherTab(), t)}
+          <SettingsMobileHeader
+            theme={theme}
+            onCancel={this.revertComponentData}
+            onSave={this.onDoneClick}
             t={t}
           />
         )}

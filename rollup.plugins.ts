@@ -108,6 +108,7 @@ const typescript = (): Plugin => {
         'src/**/*.scss',
         'statics/**/*.json',
         'statics/**/*.schema.json',
+        'statics/**/*.defaults.json',
         'statics/**/*.scss',
         'package.json',
         'lib',
@@ -129,6 +130,7 @@ const json = (): Plugin => {
       '../../../node_modules/**',
       '../../../packages/**/package.json',
       '../../common/web/dist/statics/schemas/*.schema.json',
+      '../../ricos-schema/web/dist/statics/*.defaults.json',
     ],
   });
 };

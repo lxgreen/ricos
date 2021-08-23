@@ -10,11 +10,11 @@ import {
   FileInput,
   SettingsPanelFooter,
   FocusManager,
+  SettingsMobileHeader,
 } from 'wix-rich-content-ui-components';
 import { LinkPanelWrapper } from 'wix-rich-content-editor-common';
 import { BackIcon, DeleteIcon, ReplaceIcon, NextIcon, PreviousIcon } from '../../icons';
 import styles from '../../../statics/styles/gallery-image-settings.scss';
-import GallerySettingsMobileHeader from './gallery-settings-mobile-header';
 
 class ImageSettings extends Component {
   constructor(props) {
@@ -89,13 +89,7 @@ class ImageSettings extends Component {
       <FocusManager className={styles.galleryImageSettings}>
         <div className={styles.galleryImageSettings_content}>
           {isMobile ? (
-            <GallerySettingsMobileHeader
-              theme={theme}
-              cancel={onCancel}
-              save={onSave}
-              saveName={this.updateLabel}
-              t={t}
-            />
+            <SettingsMobileHeader theme={theme} onCancel={onCancel} onSave={onSave} t={t} />
           ) : (
             <h3
               className={classNames(
@@ -239,14 +233,7 @@ class ImageSettings extends Component {
             )}
           </div>
           {isMobile ? null : (
-            <SettingsPanelFooter
-              fixed
-              theme={theme}
-              className={styles.galleryImageSettings_footer}
-              cancel={onCancel}
-              save={onSave}
-              t={t}
-            />
+            <SettingsPanelFooter fixed theme={theme} cancel={onCancel} save={onSave} t={t} />
           )}
         </div>
       </FocusManager>

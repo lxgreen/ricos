@@ -18,6 +18,7 @@ export class MockVerticalSearchModule {
   constructor(verticalType) {
     this.items = mockFetchVerticalEmbed(verticalType);
   }
+
   search(searchInput) {
     return this.items.then(res =>
       res.filter(item => item.name.toLowerCase().includes(searchInput.toLowerCase()))

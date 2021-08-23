@@ -1,9 +1,8 @@
 import { mergeAttributes } from '@tiptap/react';
 import { RicosFunctionalExtension, RicosExtensionConfig } from 'wix-rich-content-common';
 
-export const createRicosFunctionalExtensionConfig = (
-  ext: RicosFunctionalExtension
-): RicosExtensionConfig => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const createRicosFunctionalExtensionConfig = (ext: RicosFunctionalExtension): any => {
   return {
     ...ext.createExtensionConfig({ mergeAttributes }),
     type: ext.type,

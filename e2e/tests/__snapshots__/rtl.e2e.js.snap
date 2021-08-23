@@ -240,7 +240,8 @@ exports[`rtl > desktop > render external modal in rtl #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "small"
+          "size": "small",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg",
@@ -259,7 +260,8 @@ exports[`rtl > desktop > render external modal in rtl #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_83e03311e53a47ce9ba8bda910fdad88.jpg",
@@ -438,7 +440,8 @@ exports[`rtl > mobile > render external modal in rtl #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "small"
+          "size": "small",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg",
@@ -457,7 +460,8 @@ exports[`rtl > mobile > render external modal in rtl #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_83e03311e53a47ce9ba8bda910fdad88.jpg",

@@ -141,7 +141,6 @@ const tiptapContent = {
     },
   ],
 };
-import { RicosTiptapEditor } from 'wix-tiptap-editor';
 
 const { Instagram, Twitter, TikTok } = LinkPreviewProviders;
 const { event, booking, product } = verticalEmbedProviders;
@@ -296,8 +295,6 @@ interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   experiments?: Record<string, any>;
 }
-
-const MiniEditor = props => {};
 
 class EditorWrapper extends React.Component<Props> {
   static defaultProps = {

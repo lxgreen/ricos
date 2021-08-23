@@ -2,10 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
-import SettingsMobileHeader from './SettingsMobileHeader';
-import { CloseIcon } from '../Icons';
-import TextInput from '../Components/TextInput';
-import SettingsPanelFooter from '../Components/SettingsPanelFooter';
+import { SettingsPanelFooter, SettingsMobileHeader, TextInput, CloseIcon } from '../';
 import { FOOTER_BUTTON_ALIGNMENT, MODAL_CONTROLS_POSITION, KEYS_CHARCODE } from '../consts';
 import styles from '../../statics/styles/url-input-modal.scss';
 
@@ -71,63 +68,63 @@ export default class UrlInputModal extends Component {
     const topControls = controlsPosition === MODAL_CONTROLS_POSITION.TOP;
     const { styles, classes } = this;
     return (
-      <div
-        className={classNames(classes.container, { [classes.topControls]: topControls })}
-        data-hook={dataHook}
-        dir={languageDir}
-      >
+      <>
         {topControls && (
           <SettingsMobileHeader
             theme={theme}
-            save={() => onConfirm()}
-            cancelLabel="Cancel"
-            saveLabel="Save"
-            cancel={() => onCloseRequested()}
-            dataHookPrefix={'UrlInputModalHeader'}
-          />
-        )}
-
-        {!topControls && <CloseIcon className={classes.closeBtn} onClick={onCloseRequested} />}
-        <div className={classes.header}>
-          <div className={classes.headerText}>{title}</div>
-        </div>
-        <div className={classes.input}>
-          {textInput && (
-            <TextInput
-              onClick={() => this.setState({ isDropdownOpen: true })}
-              inputRef={ref => {
-                this.input = ref;
-              }}
-              type="url"
-              id="dropdown-text-input"
-              onKeyPress={this.handleKeyPress}
-              onChange={this.onUrlChange}
-              value={input}
-              error={submittedInvalidUrl && errorMessage}
-              placeholder={placeholder}
-              theme={styles}
-              data-hook={`${dataHook}Input`}
-              autoComplete="off"
-              searchIcon={textInput?.searchIcon}
-            />
-          )}
-          {children}
-        </div>
-        {!topControls && (
-          <SettingsPanelFooter
-            className={styles.urlInput_modal_footer}
-            save={() => onConfirm()}
-            cancel={onCloseRequested}
             saveLabel={t('EmbedURL_Common_CTA_Primary')}
             cancelLabel={t('EmbedURL_Common_CTA_Secondary')}
-            theme={theme}
-            layoutOptions={{ isModal: true, buttonAlignment }}
+            onSave={() => onConfirm()}
+            onCancel={() => onCloseRequested()}
             t={t}
-            selected={selected}
-            buttonSize={buttonSize}
           />
         )}
-      </div>
+        <div
+          className={classNames(classes.container, { [classes.topControls]: topControls })}
+          data-hook={dataHook}
+          dir={languageDir}
+        >
+          {!topControls && <CloseIcon className={classes.closeBtn} onClick={onCloseRequested} />}
+          <div className={classes.header}>
+            <div className={classes.headerText}>{title}</div>
+          </div>
+          <div className={classes.input}>
+            {textInput && (
+              <TextInput
+                onClick={() => this.setState({ isDropdownOpen: true })}
+                inputRef={ref => {
+                  this.input = ref;
+                }}
+                type="url"
+                id="dropdown-text-input"
+                onKeyPress={this.handleKeyPress}
+                onChange={this.onUrlChange}
+                value={input}
+                error={submittedInvalidUrl && errorMessage}
+                placeholder={placeholder}
+                theme={styles}
+                data-hook={`${dataHook}Input`}
+                autoComplete="off"
+                searchIcon={textInput?.searchIcon}
+              />
+            )}
+            {children}
+          </div>
+          {!topControls && (
+            <SettingsPanelFooter
+              save={() => onConfirm()}
+              cancel={onCloseRequested}
+              saveLabel={t('EmbedURL_Common_CTA_Primary')}
+              cancelLabel={t('EmbedURL_Common_CTA_Secondary')}
+              theme={theme}
+              layoutOptions={{ isModal: true, buttonAlignment }}
+              t={t}
+              selected={selected}
+              buttonSize={buttonSize}
+            />
+          )}
+        </div>
+      </>
     );
   }
 }
