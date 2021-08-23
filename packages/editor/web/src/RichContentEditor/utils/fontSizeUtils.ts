@@ -8,7 +8,7 @@ import {
 } from 'wix-rich-content-editor-common';
 import { uniq } from 'lodash';
 import { EditorProps } from 'draft-js';
-import { ThemeData, safeJsonParse } from 'wix-rich-content-common';
+import { RicosCustomStyles, safeJsonParse } from 'wix-rich-content-common';
 
 // Temporarily taken from common/statics/styles/consts.scss should replace with themed\docStyle consts when supported
 const defaultFontSizes = {
@@ -31,10 +31,8 @@ const draftToRicosCustomStyles = {
   unstyled: 'p',
 };
 
-const getBlockFontSizeByType = (type: string, themeData?: ThemeData) => {
-  return (
-    themeData?.customStyles?.[draftToRicosCustomStyles[type]]?.fontSize || defaultFontSizes[type]
-  );
+const getBlockFontSizeByType = (type: string, customStyles?: RicosCustomStyles) => {
+  return customStyles?.[draftToRicosCustomStyles[type]]?.fontSize || defaultFontSizes[type];
 };
 
 const parseFontSize = style => {
@@ -50,18 +48,18 @@ export const customFontSizeStyleFn: EditorProps['customStyleFn'] = styles =>
     };
   }, {});
 
-const getFontSizesWithDefaults = (editorState: EditorState, themeData?: ThemeData) => {
+const getFontSizesWithDefaults = (editorState: EditorState, customStyles?: RicosCustomStyles) => {
   const currentFontSizes = getSelectionStyles(parseFontSize, editorState).map(
     style => parseFontSize(style)['font-size']
   );
   getSelectedBlocks(editorState)
     .filter(block => !hasOneStyleInSelection(block, editorState, parseFontSize))
-    .forEach(block => currentFontSizes.push(getBlockFontSizeByType(block.getType(), themeData)));
+    .forEach(block => currentFontSizes.push(getBlockFontSizeByType(block.getType(), customStyles)));
   return currentFontSizes;
 };
 
-export const getFontSize = (editorState: EditorState, themeData?: ThemeData) => {
-  const currentFontSizes = uniq(getFontSizesWithDefaults(editorState, themeData));
+export const getFontSize = (editorState: EditorState, customStyles?: RicosCustomStyles) => {
+  const currentFontSizes = uniq(getFontSizesWithDefaults(editorState, customStyles));
   return currentFontSizes.length > 1 || currentFontSizes.length === 0 ? '' : currentFontSizes[0];
 };
 

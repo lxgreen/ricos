@@ -522,7 +522,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       this.plugins,
       this.getEditorState,
       this.updateEditorState,
-      this.contextualData.config.themeData
+      this.contextualData.config.themeData?.customStyles
     );
   };
 

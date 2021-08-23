@@ -95,7 +95,7 @@ import {
   RICOS_CODE_BLOCK_TYPE,
   RICOS_FONT_SIZE_TYPE,
   UNSUPPORTED_BLOCKS_TYPE,
-  ThemeData,
+  RicosCustomStyles,
 } from 'wix-rich-content-common';
 
 import { setFontSize, getFontSize } from './utils/fontSizeUtils';
@@ -191,7 +191,7 @@ export const createEditorCommands = (
   plugins,
   getEditorState: GetEditorState,
   setEditorState: SetEditorState,
-  themeData?: ThemeData
+  customStyles?: RicosCustomStyles
 ): EditorCommands => {
   const setBlockType: EditorCommands['setBlockType'] = type => {
     setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
@@ -231,7 +231,7 @@ export const createEditorCommands = (
     },
     getAnchorableBlocks: () => getAnchorableBlocks(getEditorState()),
     getColor: colorType => getColor(getEditorState(), colorType),
-    getFontSize: () => getFontSize(getEditorState(), themeData),
+    getFontSize: () => getFontSize(getEditorState(), customStyles),
     getTextAlignment: () => getTextAlignment(getEditorState()),
     hasInlineStyle: style => hasInlineStyle(style, getEditorState()),
     isBlockTypeSelected: type => getBlockType(getEditorState()) === type,
