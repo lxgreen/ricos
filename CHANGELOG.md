@@ -65,8 +65,7 @@
   - [#2864](https://github.com/wix/ricos/pull/2864) generate plugin defaults in build time
 
 - `ui-components`
-  - [#2839](https://github.com/wix/ricos/pull/2839) refactor SettingsMobileHeader component and 
-- `[e2e]`
+  - [#2839](https://github.com/wix/ricos/pull/2839) refactor SettingsMobileHeader component and consume it in Button/CollapsibleList/Map/Link-modal/UrlInputModal
 - `e2e`
   - [#2860](https://github.com/wix/ricos/pull/2860) add TypeScript support for Cypress
   - [#2863](https://github.com/wix/ricos/pull/2863) update Cypress to v8
