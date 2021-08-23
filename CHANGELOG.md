@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+- `ui-components`
+  - [#2865](https://github.com/wix/ricos/pull/2865) refactor ActionButtons and SettingsMobileHeader components
+  
 ### :rocket: New Feature
 
 - `ricos-content`
@@ -61,8 +65,7 @@
   - [#2864](https://github.com/wix/ricos/pull/2864) generate plugin defaults in build time
 
 - `ui-components`
-  - [#2839](https://github.com/wix/ricos/pull/2839) refactor SettingsMobileHeader component and consume it in Button/CollapsibleList/Map/Link-modal/UrlInputModal
-  - [#2865](https://github.com/wix/ricos/pull/2865) refactor ActionButtons and SettingsMobileHeader components
+  - [#2839](https://github.com/wix/ricos/pull/2839) refactor SettingsMobileHeader component and 
 - `[e2e]`
 - `e2e`
   - [#2860](https://github.com/wix/ricos/pull/2860) add TypeScript support for Cypress
