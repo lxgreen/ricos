@@ -26,6 +26,7 @@ class PluginViewer extends PureComponent {
       componentData,
       styles,
       context: { theme, isMobile },
+      type,
     } = this.props;
     const { size, alignment, textWrap, custom } = pluginComponent.classNameStrategies || {};
     const hasLink = this.componentHasLink();

@@ -359,6 +359,7 @@
             "size": "FULL_WIDTH"
           },
           "alignment": "CENTER",
+          "textWrap": true,
           "spoiler": {
             "enabled": true,
             "description": "SPOILER ALERT!!!",
@@ -399,7 +400,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "video": {
           "src": {
@@ -436,7 +438,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "video": {
           "src": {
@@ -473,7 +476,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "items": [
           {
@@ -559,6 +563,7 @@
             "custom": "350"
           },
           "alignment": "CENTER",
+          "textWrap": true,
           "height": {
             "custom": "490"
           }
@@ -586,7 +591,8 @@
           "width": {
             "custom": "350"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "oembed": {
           "type": "rich",
@@ -615,7 +621,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "type": "LINK",
         "styles": {
@@ -655,7 +662,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "type": "ACTION",
         "styles": {
@@ -688,7 +696,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": false
         },
         "lineStyle": "DOUBLE",
         "width": "MEDIUM",
@@ -746,7 +755,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "original": {
           "gif": "https://media1.giphy.com/media/Cn44PUsTVimwBAtIRx/giphy.gif?cid=558f2fbejldbq3cgzrasbh2j4z47w8nn51qcbjzc6dg7g7af&rid=giphy.gif",
@@ -783,6 +793,7 @@
             "custom": "286"
           },
           "alignment": "CENTER",
+          "textWrap": true,
           "height": {
             "custom": "271"
           }
@@ -821,7 +832,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "src": {
           "url": "https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
@@ -928,7 +940,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "link": {
           "url": "www.wix.com",
@@ -1786,6 +1799,7 @@
             "custom": "300"
           },
           "alignment": "RIGHT",
+          "textWrap": true,
           "spoiler": {
             "enabled": true
           }

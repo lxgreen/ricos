@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import Button from './Button';
-import { RichContentTheme } from 'wix-rich-content-common';
+import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 import styles from '../../statics/styles/action-buttons.scss';
 import { BUTTON_SIZE } from '../consts';
 
@@ -16,6 +16,8 @@ export interface ActionButtonsProps {
   isMobile?: boolean;
   disableSave?: boolean;
   theme: RichContentTheme;
+  t: TranslationFunction;
+  children?: React.ReactNode;
 }
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({
@@ -27,6 +29,8 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   isMobile = false,
   theme,
   disableSave = false,
+  children,
+  t,
 }) => (
   <div className={classNames(styles.action_buttons, { [styles.mobile]: isMobile })}>
     <Button
@@ -39,8 +43,9 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
         [styles.mobile]: isMobile,
       })}
       secondary
-      text={cancelText}
+      text={cancelText || t('SettingsPanelFooter_Cancel')}
     />
+    {children}
     <Button
       size={size}
       ariaLabel={saveText}
@@ -54,7 +59,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
       )}
       dataHook="actionButtonSave"
       onClick={onSave}
-      text={saveText}
+      text={saveText || t('SettingsPanelFooter_Save')}
     />
   </div>
 );

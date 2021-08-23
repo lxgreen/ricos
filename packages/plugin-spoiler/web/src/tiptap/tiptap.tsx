@@ -10,7 +10,7 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
       priority: 10,
       defaultOptions,
       addNodeViewHOC: () => ({
-        nodeTypes: [],
+        nodeTypes: ['image'],
         nodeViewHOC: Component => {
           // should use the new api containerData
           return props => {

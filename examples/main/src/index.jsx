@@ -7,6 +7,7 @@ import './styles.global.scss';
 import ExampleApp from './ExampleApp';
 import { isMobile } from './utils';
 
+// eslint-disable-next-line no-undef
 const allLocales = preval`module.exports = require('./getAllLocales')`;
 
 ReactDOM.render(

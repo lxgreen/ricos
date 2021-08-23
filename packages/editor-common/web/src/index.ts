@@ -75,6 +75,7 @@ export {
   isAtomicBlockInSelection,
   setSelectionToBlock,
   hasBlockType,
+  setNativeSelectionToBlock,
 } from './Utils/draftUtils';
 export { getColor, setTextColor, setHighlightColor } from './Utils/colorUtils';
 export { triggerMention, insertMention } from './Utils/mentionUtils';

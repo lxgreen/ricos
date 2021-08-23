@@ -1,4 +1,4 @@
-@import "~wix-rich-content-common/dist/statics/styles/mixins";
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
 
 .option {
   position: relative;
@@ -43,7 +43,7 @@
   padding-top: 9 / 16 * 100%;
 }
 
-.input {
+.option .input {
   line-height: 1;
   padding: 15px 35px 15px 25px;
   background-color: rgba(0, 0, 0, 0.2);
@@ -65,7 +65,7 @@
   @include phone {
     font-size: 14px;
     padding: 10px;
-    
+
     &.with_result {
       padding-right: 35px;
     }
@@ -106,16 +106,16 @@
       visibility: visible;
     }
   }
-} 
+}
 
 .title {
   position: relative;
 }
 
 .progress {
-  content: " ";
+  content: ' ';
   position: absolute;
-  background-color: rgba(0, 0, 0, .2);
+  background-color: rgba(0, 0, 0, 0.2);
   height: 100%;
   top: 0;
   left: 0;
@@ -153,7 +153,8 @@
   margin: 0;
 }
 
-.cta:hover, .cta:focus {
+.cta:hover,
+.cta:focus {
   background-color: rgba(0, 0, 0, 0.3);
   outline: 0;
 }
@@ -195,12 +196,13 @@
   .input {
     background-color: rgba(255, 255, 255, 0.2);
   }
-  
+
   .overlay {
     background: rgba(255, 255, 255, 0.3);
   }
 
-  &.cta:hover, &.cta:focus {
+  &.cta:hover,
+  &.cta:focus {
     background-color: rgba(255, 255, 255, 0.3);
   }
 

@@ -261,11 +261,10 @@ class BaseToolbarButton extends React.Component {
     } = this.props;
 
     const tooltipText = t(tooltipTextKey);
-    const textForHooks = tooltipText.replace(/\s+/, '');
     const onToolbarButtonClick = value =>
       helpers?.onToolbarButtonClick?.({
         type: 'PLUGIN',
-        buttonName: textForHooks,
+        buttonName: this.props.keyName,
         pluginId: pluginType,
         value,
       });
