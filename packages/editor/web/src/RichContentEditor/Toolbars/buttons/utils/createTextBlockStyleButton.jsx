@@ -73,7 +73,7 @@ export default ({ blockTypes, Icons, InactiveIcon = null, tooltipTextKey, button
       return nextBlockTypeIndex > -1 ? nextBlockTypeIndex : undefined;
     };
 
-    setBlockStyle = (event, textForHooks) => {
+    setBlockStyle = event => {
       event.preventDefault();
       const { getEditorState, setEditorState, helpers } = this.props;
       const blockTypeIndex = this.nextBlockTypeIndex();
@@ -81,7 +81,7 @@ export default ({ blockTypes, Icons, InactiveIcon = null, tooltipTextKey, button
         const blockType = this.activeBlockType;
         const isAddEvent = blockType !== 'unstyled';
         helpers?.onToolbarButtonClick?.({
-          buttonName: buttonName || textForHooks,
+          buttonName,
           value: String(isAddEvent),
           pluginId: isAddEvent ? blockType : this.selectionBlockType,
         });
@@ -102,7 +102,7 @@ export default ({ blockTypes, Icons, InactiveIcon = null, tooltipTextKey, button
       const tooltipText = t(tooltipTextKey);
       const textForHooks = tooltipText.replace(/\s+/, '');
       const dataHookText = `textBlockStyleButton_${textForHooks}`;
-      const onClick = e => this.setBlockStyle(e, textForHooks);
+      const onClick = e => this.setBlockStyle(e);
       return (
         <TextButton
           icon={Icon}

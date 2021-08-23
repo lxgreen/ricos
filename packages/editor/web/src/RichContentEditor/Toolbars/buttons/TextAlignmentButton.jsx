@@ -50,5 +50,6 @@ export default icons => {
       setEditorState(newEditorState);
     },
     tooltipTextKey: 'AlignTextDropdownButton_Tooltip',
+    buttonName: 'Alignment',
   });
 };

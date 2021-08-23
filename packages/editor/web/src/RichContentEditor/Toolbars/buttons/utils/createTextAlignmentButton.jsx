@@ -20,11 +20,7 @@ export default ({ alignment, Icon, tooltipTextKey }) =>
     isActive = () => this.props.alignment === alignment;
 
     handleClick = () => {
-      const { onClick, helpers, getEditorState, setEditorState } = this.props;
-      helpers?.onToolbarButtonClick?.({
-        buttonName: 'Alignment',
-        value: alignment,
-      });
+      const { onClick, getEditorState, setEditorState } = this.props;
       if (onClick) {
         onClick(alignment);
       } else {
