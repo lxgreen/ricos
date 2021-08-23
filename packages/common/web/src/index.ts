@@ -21,6 +21,7 @@ export {
   convertTargetBooleanToString,
   getRelValue,
 } from './Utils/linkConverters';
+export { safeJsonParse } from './Utils/jsonUtils';
 
 export { anchorScroll, addAnchorTagToUrl, isNewTab } from './Utils/anchor';
 

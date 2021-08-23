@@ -2,6 +2,8 @@ import {
   getSelectedBlocks,
   getSelectionRange,
   isInSelectionRange,
+  EditorState,
+  Modifier,
 } from 'wix-rich-content-editor-common';
 import { uniq } from 'lodash';
 
@@ -59,4 +61,25 @@ export const getSelectionStyles = (styleSelectionPredicate, editorState) => {
       ];
     }, [])
   );
+};
+
+export const removeCurrentInlineStyle = (editorState, styleSelectionPredicate) => {
+  const selection = editorState.getSelection();
+  const currentFontSizes = getSelectionStyles(styleSelectionPredicate, editorState);
+  const newEditorState = currentFontSizes.reduce((nextEditorState, FontSize) => {
+    const contentState = nextEditorState.getCurrentContent();
+    const nextContentState = Modifier.removeInlineStyle(contentState, selection, FontSize);
+    return EditorState.push(nextEditorState, nextContentState, 'change-inline-style');
+  }, editorState);
+  return EditorState.forceSelection(editorState, selection);
+};
+
+export const setInlineStyle = (editorState, inlineStyle) => {
+  const selection = editorState.getSelection();
+  const contentState = Modifier.applyInlineStyle(
+    editorState.getCurrentContent(),
+    selection,
+    inlineStyle
+  );
+  return EditorState.push(editorState, contentState, 'change-inline-style');
 };

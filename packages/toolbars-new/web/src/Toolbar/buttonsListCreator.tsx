@@ -282,7 +282,7 @@ const handleButtonModal = (
     } else if (buttonName === 'FONTSIZE') {
       const Modal = buttonsFullData[buttonName].modal;
       buttonsList[index].modal = props =>
-        Modal && <Modal {...props} currentSelect={editorCommands.getFontSize()} />;
+        Modal && <Modal {...props} currentSelect={getFontSize(editorCommands)} />;
     }
   }
 };
@@ -369,6 +369,18 @@ const handleButtonArrow = (buttonsList, index) => {
   }
 };
 
+const getFontSize = (editorCommands: editorCommands) => {
+  const fontSize = editorCommands.getFontSize() || '';
+  const pxRegex = new RegExp('[0-9]*[px]');
+  const emRegex = new RegExp('[0-9]*[em]');
+  if (pxRegex.exec(fontSize)) {
+    return fontSize.split('p')[0];
+  } else if (emRegex.exec(fontSize)) {
+    return Math.round(parseFloat(fontSize.split('e')[0]) * 16).toString();
+  }
+  return '';
+};
+
 const handleButtonLabel = (buttonsList, index, editorCommands: editorCommands, t) => {
   const buttonName = buttonsList[index].name;
   if (buttonsFullData[buttonName].label) {
@@ -376,7 +388,7 @@ const handleButtonLabel = (buttonsList, index, editorCommands: editorCommands, t
     if (buttonName === 'HEADINGS') {
       buttonsList[index].getLabel = () => translateHeading(getCurrentHeading(editorCommands), t);
     } else if (buttonName === 'FONTSIZE') {
-      buttonsList[index].getLabel = () => editorCommands.getFontSize();
+      buttonsList[index].getLabel = () => getFontSize(editorCommands);
     }
   }
 };
