@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+- `ui-components`
+  - [#2865](https://github.com/wix/ricos/pull/2865) refactor ActionButtons and SettingsMobileHeader components
+  
 </details>
 <hr/>
 
