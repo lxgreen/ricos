@@ -6,7 +6,7 @@ import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../../../../statics/styles/inline-toolbar-dropdown-button.scss';
 import ClickOutside from 'react-click-outsider';
 
-export default ({ buttons, activeItem, onChange, tooltipTextKey }) =>
+export default ({ buttons, activeItem, onChange, tooltipTextKey, buttonName }) =>
   class TextDropdownButton extends PureComponent {
     static propTypes = {
       getEditorState: PropTypes.func.isRequired,
@@ -18,6 +18,7 @@ export default ({ buttons, activeItem, onChange, tooltipTextKey }) =>
       t: PropTypes.func,
       tabIndex: PropTypes.number,
       helpers: PropTypes.object,
+      buttonName: PropTypes.string,
     };
 
     constructor(props) {
@@ -63,13 +64,11 @@ export default ({ buttons, activeItem, onChange, tooltipTextKey }) =>
     showOptions = () => this.setState({ isOpen: true });
 
     renderOptions = () => {
-      const { getEditorState, setEditorState, t, helpers } = this.props;
+      const { getEditorState, setEditorState, helpers } = this.props;
       const { selected } = this.state;
       const onClick = value => {
-        const tooltipText = t(tooltipTextKey);
-        const textForHooks = tooltipText.replace(/\s+/, '');
         helpers?.onToolbarButtonClick?.({
-          buttonName: textForHooks,
+          buttonName,
           value,
         });
         onChange(getEditorState, setEditorState, value);
@@ -105,9 +104,7 @@ export default ({ buttons, activeItem, onChange, tooltipTextKey }) =>
       const textForHooks = tooltipText.replace(/\s+/, '');
       const dataHookText = `textDropDownButton_${textForHooks}`;
       const onClick = () => {
-        helpers?.onToolbarButtonClick?.({
-          buttonName: textForHooks,
-        });
+        helpers?.onToolbarButtonClick?.({ buttonName });
         this.showOptions();
       };
 
