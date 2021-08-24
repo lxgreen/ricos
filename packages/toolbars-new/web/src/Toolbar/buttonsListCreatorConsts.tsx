@@ -44,7 +44,7 @@ import {
 
 const LinkModal = lazy(() => import('../modals/link/LinkComponents/LinkModal'));
 const AlignmentPanel = lazy(() => import('../modals/alignment/AlignmentPanel'));
-const HeadingsPanel = lazy(() => import('../modals/heading/HeadingsPanel'));
+const HeadingsPanelNew = lazy(() => import('../modals/heading/HeadingsPanelNew'));
 const LineSpacingPanel = lazy(() => import('../modals/line-spacing/LineSpacingPanel'));
 const modalFallback = <div className="placeholder">Loading...</div>;
 const FontSizePanel = lazy(() => import('../modals/fontSize/FontSizePanel'));
@@ -77,6 +77,7 @@ type buttonsFullDataType = {
   onDelete?: string;
   saveSelection?: boolean;
   loadSelection?: boolean;
+  isMobileModalFullscreen?: boolean;
   colorPickerHeaderKey?: string;
   unstyled?: { icon: any; action: string };
   'header-two'?: { icon: any; action: string };
@@ -113,7 +114,7 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     type: 'modal',
     modal: props => (
       <Suspense fallback={modalFallback}>
-        <HeadingsPanel {...props} translateHeading={translateHeading} />
+        <HeadingsPanelNew {...props} translateHeading={translateHeading} />
       </Suspense>
     ),
     onSave: 'HEADINGS',
@@ -292,8 +293,9 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     plugin: 'LINK',
     icon: LinkIcon,
     dataHook: 'LinkButton',
-    tooltip: 'TextLinkButton_Tooltip',
+    // tooltip: 'TextLinkButton_Tooltip',
     type: 'modal',
+    isMobileModalFullscreen: true,
     modal: props => (
       <Suspense fallback={modalFallback}>
         <LinkModal {...props} />
@@ -316,6 +318,7 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     dataHook: 'LinkButton',
     tooltip: 'LinkTo_Edit_Tooltip',
     type: 'modal',
+    isMobileModalFullscreen: true,
     modal: props => (
       <Suspense fallback={modalFallback}>
         <LinkModal {...props} isActive />

@@ -26,7 +26,10 @@ const DesktopPanel = ({
         key={option.commandKey}
         onClick={() => onClick(option.commandKey)}
       >
-        {hasIcons ? option.icon : option.text}
+        <div className={styles.panel_row_text_container}>
+          {hasIcons ? option.icon : <div className={styles.panel_row_text}>{option.text} </div>}
+          {option.subText && <div className={styles.panel_row_subtext}>{option.subText}</div>}
+        </div>
       </div>
     );
   };

@@ -88,10 +88,27 @@ export const setFontSize = (editorState: EditorState, data?: { fontSize?: string
   return newEditorState;
 };
 
-export const getDocStyle = (editorState: EditorState) => {
+export const getDocStyle = (
+  editorState: EditorState,
+  shouldIncludeDefaults = false,
+  customStyles?: RicosCustomStyles
+) => {
   const currentContent = editorState.getCurrentContent() as ContentState & {
     docStyle: DocStyle;
   };
+  const docStyle = currentContent.docStyle;
+  if (shouldIncludeDefaults) {
+    Object.entries(DRAFT_TO_RICOS_DOC_TYPE).forEach(([draftHeader, ricosHeader]) => {
+      if (!docStyle[ricosHeader] || !docStyle[ricosHeader]['font-size']) {
+        docStyle[ricosHeader] = {
+          ...docStyle[ricosHeader],
+          'font-size':
+            customStyles?.[draftToRicosCustomStyles[draftHeader]]?.fontSize ||
+            defaultFontSizes[draftHeader],
+        };
+      }
+    });
+  }
   return currentContent.docStyle;
 };
 

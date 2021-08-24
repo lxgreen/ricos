@@ -12,6 +12,7 @@
   font-weight: 300;
   font-stretch: normal;
   font-style: normal;
+  padding: 20px;
 }
 .multiSelectLinkPanel_container_mobile {
   font-family: $ricos-font-family;
@@ -21,6 +22,7 @@
   font-style: normal;
   display: flex;
   flex-direction: column-reverse;
+  justify-content: flex-end;
 }
 
 .multiSelectLinkPanel_content {

@@ -265,7 +265,8 @@ export const createEditorCommands = (
         (pluginName: string) => pluginName && !PluginsToExclude.includes[pluginName]
       );
     },
-    getDocStyle: () => getDocStyle(getEditorState()),
+    getDocStyle: (shouldIncludeDefaults = false) =>
+      getDocStyle(getEditorState(), shouldIncludeDefaults, customStyles),
     setDocStyle: (docStyle: DocStyle) => {
       const newEditorState = setDocStyle(getEditorState(), docStyle);
       setEditorState(newEditorState);

@@ -43,14 +43,47 @@
 }
 
 .panel_row {
-  line-height: 36px;
   width: calc(100% - 20px);
+  display: flex;
+  flex-flow: column-reverse;
+  justify-content: center;
+  align-items: flex-end;
+  height: 36px;
   &.panel_selectedRow {
     @extend %active;
     color: $settings-action-color-fallback;
   }
   @include phone {
     height: 39px;
+  }
+}
+
+.panel_row_text_container {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  padding-left: 0px;
+  &:hover {
+    background-color: transparent !important;
+  }
+}
+
+.panel_row_text {
+  width: 100%;
+  padding-left: 0px;
+  &:hover {
+    background-color: transparent !important;
+  }
+}
+
+.panel_row_subtext {
+  padding-left: 0px;
+  width: 100%;
+  font-size: 10px;
+  color: #757575;
+  &:hover {
+    background-color: transparent !important;
   }
 }
 

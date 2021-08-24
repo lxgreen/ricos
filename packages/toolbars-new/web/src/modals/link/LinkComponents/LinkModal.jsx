@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+// import { getAnchorableBlocks } from '../AnchorComponents/anchorUtils';
 import { RADIO_GROUP_VALUES } from '../AnchorComponents/consts';
 import BasicLinkPanel from './BasicLinkPanel';
 import MultiSelectLinkPanel from './MultiSelectLinkPanel';
@@ -158,7 +159,7 @@ class LinkModal extends PureComponent {
       relValue,
     };
     const buttonsProps = {
-      onDone: this.onDone,
+      onSave: this.onDone,
       onCancel: this.onCancel,
       onDelete: this.onDelete,
       isActive,

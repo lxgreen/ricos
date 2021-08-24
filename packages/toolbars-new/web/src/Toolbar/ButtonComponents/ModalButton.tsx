@@ -20,6 +20,7 @@ type dropDownPropsType = {
   isDisabled: () => boolean;
   getLabel?: () => string;
   arrow?: boolean;
+  isMobileModalFullscreen?: boolean;
   getIcon: () => any;
   saveState?: () => void;
   saveSelection?: () => void;
@@ -160,9 +161,11 @@ class ModalButton extends Component<ModalButtonProps, State> {
       arrow = false,
       getLabel,
       isInput,
+      isMobileModalFullscreen = false,
     } = dropDownProps;
     const { isModalOpen, isModalOverflowByHeight, overflowWidthBy } = this.state;
     const buttonProps = arrow && getLabel ? { buttonContent: getLabel() } : { icon: getIcon() };
+    const onModalWrapperClick = isMobile && !isMobileModalFullscreen ? this.closeModal : undefined;
     const toolbarButtonProps = {
       ...buttonProps,
       onToolbarButtonClick,
@@ -180,15 +183,18 @@ class ModalButton extends Component<ModalButtonProps, State> {
       <ToolbarButton {...toolbarButtonProps} showArrowIcon={arrow} icon={getIcon()} />
     );
 
-    const mobileStyles = {
+    const defaultStyles = {
       position: 'fixed',
       top: 0,
       bottom: 0,
       left: 0,
       right: 0,
       width: '100%',
-      background: 'transparent',
     } as React.CSSProperties;
+    const mobileStyles = isMobileModalFullscreen
+      ? { ...defaultStyles, height: '100%' }
+      : { ...defaultStyles, background: 'transparent' };
+
     return (
       <ClickOutside onClickOutside={this.closeModal}>
         <div className={styles.buttonWrapper}>
@@ -208,7 +214,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
               style={
                 isMobile ? mobileStyles : overflowWidthBy ? { left: `-${overflowWidthBy}px` } : {}
               }
-              onClick={isMobile ? this.closeModal : undefined}
+              onClick={onModalWrapperClick}
             >
               {modal({
                 closeCustomModal: this.closeModal,

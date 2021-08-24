@@ -41,6 +41,7 @@ export const createButtonsList = (
     handleButtonType(buttonsList, index);
     handleButtonIcon(buttonsList, index, editorCommands);
     handleButtonDataHook(buttonsList, index);
+    handleButtIsMobileModalFullscreen(buttonsList, index);
     handleButtonTooltip(buttonsList, index, t);
     handleButtonPlugin(buttonsList, index);
     handleButtonLabel(buttonsList, index, editorCommands, t);
@@ -253,7 +254,13 @@ const handleButtonModal = (
       const Modal = buttonsFullData[buttonName].modal;
       const currentHeading = HEADER_TYPE_MAP[getCurrentHeading(editorCommands)];
       buttonsList[index].modal = props =>
-        Modal && <Modal {...props} currentSelect={currentHeading} />;
+        Modal && (
+          <Modal
+            {...props}
+            currentSelect={currentHeading}
+            docStyle={editorCommands.getDocStyle(true)}
+          />
+        );
     } else if (buttonName === 'Alignment') {
       const alignment = editorCommands.getTextAlignment();
       const Modal = buttonsFullData[buttonName].modal;
@@ -277,6 +284,7 @@ const handleButtonModal = (
             {...linkData}
             t={t}
             anchorableBlocksData={anchorableBlocks}
+            isMobileModalFullscreen
           />
         );
     } else if (buttonName === 'FONTSIZE') {
@@ -408,6 +416,13 @@ const handleButtonPlugin = (buttonsList, index) => {
 const handleButtonDataHook = (buttonsList, index) => {
   if (buttonsFullData[buttonsList[index].name].dataHook) {
     buttonsList[index].dataHook = buttonsFullData[buttonsList[index].name].dataHook;
+  }
+};
+
+const handleButtIsMobileModalFullscreen = (buttonsList, index) => {
+  if (buttonsFullData[buttonsList[index].name].isMobileModalFullscreen) {
+    buttonsList[index].isMobileModalFullscreen =
+      buttonsFullData[buttonsList[index].name].isMobileModalFullscreen;
   }
 };
 

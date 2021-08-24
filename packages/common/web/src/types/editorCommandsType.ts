@@ -111,7 +111,7 @@ export interface EditorCommands {
     anchorableBlocks: any[];
     pluginsIncluded: string[];
   };
-  getDocStyle: () => DocStyle | undefined;
+  getDocStyle: (shouldIncludeDefaults: boolean) => DocStyle | undefined;
   getColor: (colorType: ColorType) => string | undefined;
   getFontSize: () => string | undefined;
   getTextAlignment: () => TextAlignment;

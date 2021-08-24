@@ -27,6 +27,7 @@ $spacing: 12px;
   font-weight: 300;
   font-stretch: normal;
   font-style: normal;
+  padding: 20px;
   &.basicPanel {
     @extend %flex_with_gap;
     align-items: center;
@@ -40,7 +41,8 @@ $spacing: 12px;
   padding: 0;
   min-width: 0;
   flex-direction: column-reverse;
-  width: 100%;
+  justify-content: flex-end;
+  background-color: white;
   &.basicPanel {
     width: 100%;
   }
