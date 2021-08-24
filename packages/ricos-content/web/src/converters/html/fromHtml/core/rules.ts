@@ -1,4 +1,7 @@
-import { flow } from 'fp-ts/function';
+import { pipe, flow } from 'fp-ts/function';
+import { MonoidAll } from 'fp-ts/boolean';
+import * as O from 'fp-ts/Option';
+import * as R from 'fp-ts/Record';
 
 import { TextNode, Element } from 'parse5';
 import {
@@ -7,9 +10,19 @@ import {
   ImageData,
   Decoration,
   PluginContainerData_Alignment,
+  ColorData,
 } from 'ricos-schema';
-import { getAttributes, isText, toName, hasTag, oneOf } from './parse5-utils';
-import { Rule } from './models';
+import {
+  getAttributes,
+  getStyle,
+  hasStyleFor,
+  isText,
+  toName,
+  hasTag,
+  oneOf,
+} from './parse5-utils';
+import { concatApply } from '../../../../fp-utils';
+import { Context, Rule } from './models';
 import {
   createTextNode,
   createParagraphNode,
@@ -77,6 +90,41 @@ export const strongEmUToDecoration: Rule = [
       ],
       {},
       node
+    ),
+];
+
+const toForegroundData = (color: string): Decoration['colorData'] => ({
+  foreground: color,
+});
+
+const toBackgroundData = (color: string): Decoration['colorData'] => ({
+  background: color,
+});
+
+const toColorDecoration = (ctx: Context, el: Element) => (colorData: ColorData) =>
+  ctx.addDecoration(Decoration_Type.COLOR, { colorData }, el);
+
+export const colorStyleToTextColor: Rule = [
+  concatApply(MonoidAll)([hasTag('span'), hasStyleFor('color')]),
+  context => (el: Element) =>
+    pipe(
+      el,
+      getStyle,
+      O.chain(R.lookup('color')),
+      O.map(toForegroundData),
+      O.fold(() => [], toColorDecoration(context, el))
+    ),
+];
+
+export const backgroundStyleToTextHighlight: Rule = [
+  concatApply(MonoidAll)([hasTag('span'), hasStyleFor('background-color')]),
+  context => (el: Element) =>
+    pipe(
+      el,
+      getStyle,
+      O.chain(R.lookup('background-color')),
+      O.map(toBackgroundData),
+      O.fold(() => [], toColorDecoration(context, el))
     ),
 ];
 

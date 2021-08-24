@@ -2,7 +2,7 @@
   {
     "id": "0",
     "type": "PARAGRAPH",
-    "text": "<p><strong>Lorem ipsum dolor sit amet</strong> 😎, <u>consectetur adipiscing</u> elit. Quisque quis ex <em>auctor</em>, facilisis lectus id, sodales ipsum. In <strong>sagittis </strong><u><strong>ultrices</strong></u><u> sem</u> ac elementum. Ut <u><a href=\"www.google.com\">ut</a></u> iaculis ex. Lorem ipsum dolor sit @amet, consectetur adipiscing elit. In hac habitasse platea dictumst. Aenean placerat, quam eget vestibulum <u><a href=\"www.link.com\">varius</a></u>, nisl ligula vulputate <u>tortor</u>, id lacinia odio magna eu arcu.</p>"
+    "text": "<p><strong>Lorem ipsum dolor sit amet</strong> 😎, <u>consectetur adipiscing</u> elit. Quisque quis ex <em>auctor</em>, facilisis lectus id, sodales ipsum. In <strong>sagittis </strong><u><strong>ultrices</strong></u><u> sem</u> ac elementum. Ut <u><a href=\"www.google.com\">ut</a></u> iaculis ex. Lorem ipsum dolor sit @amet, consectetur adipiscing elit. In hac <span style=\"color: color4;\">habitasse </span><span style=\"color: color4;\"><span style=\"background-color: color3;\">platea</span></span><span style=\"background-color: color3;\"> dictumst</span>. Aenean placerat, quam eget vestibulum <u><a href=\"www.link.com\">varius</a></u>, nisl ligula vulputate <u>tortor</u>, id lacinia odio magna eu arcu.</p>"
   },
   {
     "id": "2",
@@ -109,7 +109,7 @@
   {
     "id": "38",
     "type": "PARAGRAPH",
-    "text": "<p>Nunc eros ante , porttitor <strong>sed</strong> tempor nec, sagittis non mi. Nulla non <u>vulputate</u> magna, semper convallis sapien.</p>"
+    "text": "<p>Nunc eros ante , porttitor <strong>sed</strong> tempor nec, sagittis non mi. Nulla non <u>vulputate</u> <span style=\"background-color: color4;\">magna</span>, semper convallis sapien.</p>"
   },
   {
     "id": "41",
