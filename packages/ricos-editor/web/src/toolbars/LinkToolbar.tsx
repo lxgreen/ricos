@@ -43,8 +43,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
     const { activeEditor, isMobile, theme } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
-    const showLinkToolbar =
-      selection.getIsCollapsed && selection.getIsFocused && editorCommands.hasLinkInSelection();
+    const showLinkToolbar = selection.getIsCollapsed && editorCommands.hasLinkInSelection();
     const t = activeEditor.getT();
     const focusEditor = () => activeEditor.focus();
     const plugins: string[] = this.getPluginsKey();
