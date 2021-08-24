@@ -45,7 +45,9 @@ const LinkModal = lazy(() => import('../modals/link/LinkComponents/LinkModal'));
 const AlignmentPanel = lazy(() => import('../modals/alignment/AlignmentPanel'));
 const HeadingsPanel = lazy(() => import('../modals/heading/HeadingsPanel'));
 const LineSpacingPanel = lazy(() => import('../modals/line-spacing/LineSpacingPanel'));
-const modalFallback = <div className="placeholder">Loading...</div>;
+const modalFallback = (
+  <div style={{ textAlign: 'center', fontSize: 14, padding: 5 }}>Loading...</div>
+);
 
 export const HEADING_TYPE_TO_ELEMENT = Object.freeze({
   'header-one': 'H1',
