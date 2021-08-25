@@ -52,7 +52,7 @@ export const customFontSizeStyleFn: EditorProps['customStyleFn'] = styles =>
   }, {});
 
 const getFontSizesWithDefaults = (editorState: EditorState) => {
-  let currentFontSizes: string[] = getSelectionStyles(parseFontSize, editorState).map(
+  let currentFontSizes: string[] = getSelectionStyles(editorState, parseFontSize).map(
     style => parseFontSize(style)['font-size']
   );
   getSelectedBlocks(editorState)

@@ -4,26 +4,34 @@ import {
   isInSelectionRange,
   EditorState,
   Modifier,
-} from 'wix-rich-content-editor-common';
+} from '../index';
 import { uniq } from 'lodash';
 
-const getBlockStyleRanges = (block, styleSelectionPredicate) => {
-  const styleRanges = [];
+const getBlockStyleRanges = (block, styleSelectionPredicate?: (style: string) => unknown) => {
+  const styleRanges: { start: number; end: number; style: string }[] = [];
 
   block.findStyleRanges(
     character => {
       const styles = character.getStyle();
-      return styles.toArray().filter(style => styleSelectionPredicate(style));
+      return styles
+        .toArray()
+        .filter(style => (styleSelectionPredicate ? styleSelectionPredicate(style) : style));
     },
     (start, end) => {
-      const styles = block.getInlineStyleAt(start).filter(style => styleSelectionPredicate(style));
+      const styles = block
+        .getInlineStyleAt(start)
+        .filter(style => (styleSelectionPredicate ? styleSelectionPredicate(style) : style));
       styles.toArray().forEach(style => styleRanges.push({ start, end, style }));
     }
   );
   return styleRanges;
 };
 
-export const hasOneStyleInSelection = (block, editorState, styleSelectionPredicate) => {
+export const hasOneStyleInSelection = (
+  block,
+  editorState: EditorState,
+  styleSelectionPredicate?: (style: string) => unknown
+) => {
   const blockSelectionRange = getSelectionRange(editorState, block);
   const blockStyleRanges = getBlockStyleRanges(block, styleSelectionPredicate).filter(range =>
     isInSelectionRange(blockSelectionRange, [range.start, range.end])
@@ -35,13 +43,10 @@ export const hasOneStyleInSelection = (block, editorState, styleSelectionPredica
   );
 };
 
-/**
- * getSelectionStyles
- *
- * @param {function} styleSelectionPredicate - style selection criteria
- * @returns {string[]} a set of relevant styles found in selection
- */
-export const getSelectionStyles = (styleSelectionPredicate, editorState) => {
+export const getSelectionStyles = (
+  editorState: EditorState,
+  styleSelectionPredicate?: (style: string) => unknown
+) => {
   const selectedBlocks = getSelectedBlocks(editorState);
   return uniq(
     selectedBlocks.reduce((selectedStyles, block) => {
@@ -61,9 +66,12 @@ export const getSelectionStyles = (styleSelectionPredicate, editorState) => {
   );
 };
 
-export const removeCurrentInlineStyle = (editorState, styleSelectionPredicate) => {
+export const removeCurrentInlineStyle = (
+  editorState: EditorState,
+  styleSelectionPredicate?: (style: string) => unknown
+) => {
   const selection = editorState.getSelection();
-  const currentFontSizes = getSelectionStyles(styleSelectionPredicate, editorState);
+  const currentFontSizes = getSelectionStyles(editorState, styleSelectionPredicate);
   const newEditorState = currentFontSizes.reduce((nextEditorState, FontSize) => {
     const contentState = nextEditorState.getCurrentContent();
     const nextContentState = Modifier.removeInlineStyle(contentState, selection, FontSize);

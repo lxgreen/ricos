@@ -362,6 +362,19 @@ export const decorationButtons: Record<string, keyof DecorationsDataMap> = {
   FONTSIZE: RICOS_FONT_SIZE_TYPE,
 };
 
+export const deleteDecorationButtons: Record<
+  string,
+  | typeof RICOS_FONT_SIZE_TYPE
+  | typeof RICOS_TEXT_COLOR_TYPE
+  | typeof RICOS_TEXT_HIGHLIGHT_TYPE
+  | typeof RICOS_LINK_TYPE
+> = {
+  FONTSIZE: RICOS_FONT_SIZE_TYPE,
+  TEXT_COLOR: RICOS_TEXT_COLOR_TYPE,
+  TEXT_HIGHLIGHT: RICOS_TEXT_HIGHLIGHT_TYPE,
+  LINK: RICOS_LINK_TYPE,
+};
+
 export const setTextAlignment: Record<string, TextAlignment> = {
   AlignCenter: 'center',
   AlignLeft: 'left',

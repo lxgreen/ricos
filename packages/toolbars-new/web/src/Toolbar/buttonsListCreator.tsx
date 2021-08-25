@@ -220,9 +220,13 @@ const handleTitleButton = (buttonsList, index, editorCommands: editorCommands) =
 const handleButtonOnSave = (buttonsList, index, editorCommands: editorCommands) => {
   if (buttonsFullData[buttonsList[index].name].onSave) {
     const buttonName = buttonsList[index].name;
-
     if (Object.keys(textBlockButtons).includes(buttonName)) {
-      buttonsList[index].onSave = type => editorCommands.setBlockType(type);
+      buttonsList[index].onSave = type => {
+        buttonName === 'HEADINGS_NEW' && editorCommands.removeDecorations();
+        setTimeout(() => {
+          editorCommands.setBlockType(type);
+        });
+      };
     } else if (buttonName === 'Alignment') {
       buttonsList[index].onSave = type => editorCommands.setTextAlignment(type);
     } else if (Object.keys(decorationButtons).includes(buttonName)) {

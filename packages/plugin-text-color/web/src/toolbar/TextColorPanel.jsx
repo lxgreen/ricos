@@ -21,7 +21,7 @@ export default class TextColorPanel extends Component {
     if (props.settings.colorScheme && !validateColorScheme(props.settings.colorScheme)) {
       console.error('Error: colorScheme is not valid'); // eslint-disable-line no-console
     }
-    this.currentColors = getSelectionStyles(this.styleSelectionPredicate, props.editorState);
+    this.currentColors = getSelectionStyles(props.editorState, this.styleSelectionPredicate);
     this.state = {
       currentColor:
         this.currentColors.length > 0
@@ -156,7 +156,7 @@ export const getInlineColorState = (color, editorState, settings, styleMapper, p
     (settings && settings.styleSelectionPredicate) || DEFAULT_STYLE_SELECTION_PREDICATE
   );
   const selection = editorState.getSelection();
-  const currentColors = getSelectionStyles(styleSelectionPredicate, editorState);
+  const currentColors = getSelectionStyles(editorState, styleSelectionPredicate);
   const newEditorState = currentColors.reduce((nextEditorState, prevColor) => {
     const contentState = nextEditorState.getCurrentContent();
     const nextContentState = Modifier.removeInlineStyle(contentState, selection, prevColor);

@@ -29,6 +29,7 @@ import {
   getAnchorBlockData,
   getAnchorableBlocks,
   ContentState,
+  removeCurrentInlineStyle,
 } from 'wix-rich-content-editor-common';
 import {
   EditorCommands,
@@ -326,6 +327,7 @@ export const createEditorCommands = (
     insertDecoration: EditorCommands['insertDecoration'];
     triggerDecoration: EditorCommands['triggerDecoration'];
     deleteDecoration: EditorCommands['deleteDecoration'];
+    removeDecorations: EditorCommands['removeDecorations'];
   } = {
     insertDecoration: (type, data, settings) => {
       const draftType = TO_DRAFT_PLUGIN_TYPE_MAP[type as string];
@@ -348,6 +350,7 @@ export const createEditorCommands = (
         setEditorState(newEditorState);
       }
     },
+    removeDecorations: () => setEditorState(removeCurrentInlineStyle(getEditorState())),
   };
 
   const editorCommands = {

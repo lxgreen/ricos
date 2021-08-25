@@ -169,4 +169,5 @@ export interface EditorCommands {
   setTextAlignment: (textAlignment: TextAlignment) => void;
   _setSelection: (blockKey: string, selection: draftSelection) => void;
   setDocStyle: (docStyle: DocStyle) => void;
+  removeDecorations: () => void;
 }

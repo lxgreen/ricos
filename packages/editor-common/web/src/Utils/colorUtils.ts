@@ -30,7 +30,7 @@ const getCurrentColors = (editorState: EditorState, colorType: ColorType) => {
   const styleSelectionPredicate = isTextColor(colorType)
     ? textForegroundPredicate
     : textBackgroundPredicate;
-  const currentColors = getSelectionStyles(styleSelectionPredicate, editorState);
+  const currentColors = getSelectionStyles(editorState, styleSelectionPredicate);
   return currentColors;
 };
 

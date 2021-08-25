@@ -182,7 +182,7 @@ export const getButtonProps = ({ config, type }) => {
       const predicate = pluginSettings.predicate(
         settings?.styleSelectionPredicate || DEFAULT_STYLE_SELECTION_PREDICATE
       );
-      return getSelectionStyles(predicate, config.getEditorState()).length > 0;
+      return getSelectionStyles(config.getEditorState(), predicate).length > 0;
     },
     getIcon: () => settings?.toolbar?.icons?.InsertPluginButtonIcon || pluginSettings.icon,
     tooltip: config.t(pluginSettings.tooltipKey),
