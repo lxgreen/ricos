@@ -1106,17 +1106,20 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     const blocks = editorState.getCurrentContent().getBlockMap();
     const styles = {};
     const docStyle = this.EditorCommands.getDocStyle();
+    const styleToCss = ([key, val]) => `${key}: ${val};`;
     docStyle &&
       Object.entries(docStyle).forEach(([key, values]) => {
         styles[DOC_STYLE_CLASSES[key]] = Object.entries(values)
-          .map(style => this.styleToCss(style))
+          .map(style => styleToCss(style))
           .join(' ');
+        !styles[DOC_STYLE_CLASSES[key]].includes('line-height') &&
+          (styles[DOC_STYLE_CLASSES[key]] += ' line-height: 1.5;');
       });
 
     blocks.forEach(block => {
       const { dynamicStyles = {} } = block?.get('data').toJS();
       Object.entries(dynamicStyles).forEach(
-        style => (styles[this.styleToClass(style)] = this.styleToCss(style))
+        style => (styles[this.styleToClass(style)] = styleToCss(style))
       );
     });
     const css = Object.entries(styles).reduce(
