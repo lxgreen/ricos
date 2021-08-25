@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.49.8 (Aug 25, 2021)
+
 ### :bug: Bug Fix
 
 - `collapsible-list`
@@ -26,9 +31,6 @@
 
 - `ricos-schema`
   - [#2680](https://github.com/wix/ricos/pull/2680) collapsible list schema
-
-</details>
-<hr/>
 
 ## 8.49.7 (Aug 25, 2021)
 
