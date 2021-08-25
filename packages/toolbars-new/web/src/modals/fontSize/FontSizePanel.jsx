@@ -43,7 +43,7 @@ class FontSizePanel extends Component {
 
   defaultFontSizes = () => {
     const insertSorted = (array, value) => {
-      if (!array.includes(value)) {
+      if (!array.includes(value) && value !== '') {
         array.push(value);
         array.sort((a, b) => parseInt(a) - parseInt(b));
       }

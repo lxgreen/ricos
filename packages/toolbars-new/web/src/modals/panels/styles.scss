@@ -8,24 +8,15 @@
   padding: 8px 0;
   width: 143px;
 
-  * {
-    border: none;
-    font-size: 14px;
-    text-align: left;
-    padding-left: 20px;
-
-    &:hover {
-      @extend %hover;
-    }
-
-    &:active {
-      @extend %active;
-    }
-  }
   .showCustomPanel_button {
     height: 36px;
     width: 100%;
     background-color: transparent;
+    border: none;
+    font-size: 14px;
+    text-align: center;
+    padding: 0;
+    margin-top: 8px;
     &:hover {
       @extend %hover;
     }
@@ -35,19 +26,35 @@
 .desktopPanel_fitContent {
   width: 100%;
   align-items: center;
-  * {
+  .panel_row_desktop {
     padding-left: 0px;
     text-align: center;
     width: 100% !important;
   }
 }
 
-.panel_row {
-  width: calc(100% - 20px);
+.panel_row_desktop {
+  border: none;
+  font-size: 14px;
+  text-align: left;
+  padding-left: 20px;
   display: flex;
   flex-flow: column-reverse;
   justify-content: center;
   align-items: flex-end;
+
+  &:hover {
+    @extend %hover;
+  }
+
+  &:active {
+    @extend %active;
+  }
+}
+
+.panel_row,
+.panel_row_desktop {
+  width: calc(100% - 20px);
   height: 36px;
   &.panel_selectedRow {
     @extend %active;
@@ -63,28 +70,16 @@
   display: flex;
   flex-flow: column;
   align-items: flex-start;
-  padding-left: 0px;
-  &:hover {
-    background-color: transparent !important;
-  }
 }
 
 .panel_row_text {
   width: 100%;
-  padding-left: 0px;
-  &:hover {
-    background-color: transparent !important;
-  }
 }
 
 .panel_row_subtext {
-  padding-left: 0px;
   width: 100%;
   font-size: 10px;
   color: #757575;
-  &:hover {
-    background-color: transparent !important;
-  }
 }
 
 %active {
@@ -98,20 +93,10 @@
 
 .desktopPanel_withIcons {
   width: 40px;
-  * {
+  .panel_row_desktop {
     width: 100%;
     text-align: center;
     padding: 0;
-  }
-}
-
-.desktopPanel_withCustomPanel {
-  * {
-    &:last-of-type {
-      text-align: center;
-      padding: 0;
-      margin-top: 8px;
-    }
   }
 }
 
@@ -202,7 +187,7 @@
   height: 1px;
   background-color: rgba(51, 51, 51, 0.2);
   width: calc(100% - 24px);
-  margin: 0 auto;
+  margin: 8px auto 0;
   @include phone {
     width: 100%;
   }

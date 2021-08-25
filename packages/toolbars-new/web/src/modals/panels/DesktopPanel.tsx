@@ -13,21 +13,20 @@ const DesktopPanel = ({
   showCustomPanel,
   panelHeader,
   theme,
-  hasIcons,
   sizeFitContent,
 }) => {
   const styles = mergeStyles({ styles: Styles, theme });
   const optionElement = (option, isSelected, onClick) => {
     return (
       <div
-        className={classNames(styles.panel_row, {
+        className={classNames(styles.panel_row_desktop, {
           [styles.panel_selectedRow]: isSelected,
         })}
         key={option.commandKey}
         onClick={() => onClick(option.commandKey)}
       >
         <div className={styles.panel_row_text_container}>
-          {hasIcons ? option.icon : <div className={styles.panel_row_text}>{option.text} </div>}
+          <div className={styles.panel_row_text}>{option.icon ? option.icon : option.text} </div>
           {option.subText && <div className={styles.panel_row_subtext}>{option.subText}</div>}
         </div>
       </div>
@@ -36,8 +35,6 @@ const DesktopPanel = ({
   return (
     <div
       className={classNames(styles.desktopPanel, {
-        [styles.desktopPanel_withIcons]: hasIcons,
-        [styles.desktopPanel_withCustomPanel]: showCustomPanel,
         [styles.desktopPanel_fitContent]: sizeFitContent,
       })}
     >
