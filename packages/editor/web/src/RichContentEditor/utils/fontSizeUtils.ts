@@ -6,8 +6,9 @@ import {
   hasOneStyleInSelection,
   setInlineStyle,
   removeCurrentInlineStyle,
+  DraftOffsetKey,
 } from 'wix-rich-content-editor-common';
-import { uniq } from 'lodash';
+import { uniq, cloneDeep } from 'lodash';
 import { EditorProps } from 'draft-js';
 import {
   RicosCustomStyles,
@@ -37,18 +38,6 @@ const draftToRicosCustomStyles = {
   unstyled: 'p',
 };
 
-const getBlockFontSizeByType = (
-  editorState: EditorState,
-  type: string,
-  customStyles?: RicosCustomStyles
-) => {
-  return (
-    getDocStyle(editorState)?.[DRAFT_TO_RICOS_DOC_TYPE[type]]?.['font-size'] ||
-    customStyles?.[draftToRicosCustomStyles[type]]?.fontSize ||
-    defaultFontSizes[type]
-  );
-};
-
 const parseFontSize = style => {
   const cssRule = safeJsonParse(style);
   return cssRule?.['font-size'] ? cssRule : undefined;
@@ -62,20 +51,27 @@ export const customFontSizeStyleFn: EditorProps['customStyleFn'] = styles =>
     };
   }, {});
 
-const getFontSizesWithDefaults = (editorState: EditorState, customStyles?: RicosCustomStyles) => {
-  const currentFontSizes = getSelectionStyles(parseFontSize, editorState).map(
+const getFontSizesWithDefaults = (editorState: EditorState) => {
+  let currentFontSizes: string[] = getSelectionStyles(parseFontSize, editorState).map(
     style => parseFontSize(style)['font-size']
   );
   getSelectedBlocks(editorState)
     .filter(block => !hasOneStyleInSelection(block, editorState, parseFontSize))
-    .forEach(block =>
-      currentFontSizes.push(getBlockFontSizeByType(editorState, block.getType(), customStyles))
-    );
+    .forEach(block => {
+      const offsetKey = DraftOffsetKey.encode(block.getKey(), 0, 0);
+      const nodes = document.querySelectorAll(`[data-offset-key="${offsetKey}"]`);
+      currentFontSizes = [
+        ...currentFontSizes,
+        ...Array.from(nodes).map(node =>
+          window.getComputedStyle(node).getPropertyValue('font-size')
+        ),
+      ];
+    });
   return currentFontSizes;
 };
 
-export const getFontSize = (editorState: EditorState, customStyles?: RicosCustomStyles) => {
-  const currentFontSizes = uniq(getFontSizesWithDefaults(editorState, customStyles));
+export const getFontSize = (editorState: EditorState) => {
+  const currentFontSizes = uniq(getFontSizesWithDefaults(editorState));
   return currentFontSizes.length > 1 || currentFontSizes.length === 0 ? '' : currentFontSizes[0];
 };
 
@@ -96,7 +92,7 @@ export const getDocStyle = (
   const currentContent = editorState.getCurrentContent() as ContentState & {
     docStyle: DocStyle;
   };
-  const docStyle = currentContent.docStyle;
+  const docStyle = cloneDeep(currentContent.docStyle);
   if (shouldIncludeDefaults) {
     Object.entries(DRAFT_TO_RICOS_DOC_TYPE).forEach(([draftHeader, ricosHeader]) => {
       if (!docStyle[ricosHeader] || !docStyle[ricosHeader]['font-size']) {
@@ -109,7 +105,7 @@ export const getDocStyle = (
       }
     });
   }
-  return currentContent.docStyle;
+  return docStyle;
 };
 
 export const setDocStyle = (editorState: EditorState, docStyle: DocStyle) => {

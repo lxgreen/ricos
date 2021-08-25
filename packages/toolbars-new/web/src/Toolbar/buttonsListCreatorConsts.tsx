@@ -44,6 +44,7 @@ import {
 import LinkModal from '../modals/link/LinkComponents/LinkModal';
 import AlignmentPanel from '../modals/alignment/AlignmentPanel';
 import HeadingsPanelNew from '../modals/heading/HeadingsPanelNew';
+import HeadingsPanel from '../modals/heading/HeadingsPanel';
 import LineSpacingPanel from '../modals/line-spacing/LineSpacingPanel';
 import FontSizePanel from '../modals/fontSize/FontSizePanel';
 
@@ -110,8 +111,19 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     label: 'HEADINGS',
     arrow: true,
     type: 'modal',
-    modal: props => <HeadingsPanelNew {...props} translateHeading={translateHeading} />,
+    modal: props => <HeadingsPanel {...props} translateHeading={translateHeading} />,
     onSave: 'HEADINGS',
+  },
+  HEADINGS_NEW: {
+    plugin: 'wix-rich-content-plugin-headings',
+    icon: () => null,
+    dataHook: 'headingsDropdownButton',
+    tooltip: 'FormattingToolbar_TextStyleButton_Tooltip',
+    label: 'HEADINGS',
+    arrow: true,
+    type: 'modal',
+    modal: props => <HeadingsPanelNew {...props} translateHeading={translateHeading} />,
+    onSave: 'HEADINGS_NEW',
   },
   FONTSIZE: {
     icon: () => null,
@@ -337,6 +349,7 @@ export const textBlockButtons: Record<string, string> = {
   OrderedList: NUMBERED_LIST_TYPE,
   UnorderedList: BULLET_LIST_TYPE,
   HEADINGS: 'HEADINGS',
+  HEADINGS_NEW: 'HEADINGS_NEW',
 };
 
 export const decorationButtons: Record<string, keyof DecorationsDataMap> = {

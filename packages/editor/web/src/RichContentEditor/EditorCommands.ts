@@ -235,7 +235,7 @@ export const createEditorCommands = (
     },
     getAnchorableBlocks: () => getAnchorableBlocks(getEditorState()),
     getColor: colorType => getColor(getEditorState(), colorType),
-    getFontSize: () => getFontSize(getEditorState(), customStyles),
+    getFontSize: () => getFontSize(getEditorState()),
     getTextAlignment: () => getTextAlignment(getEditorState()),
     hasInlineStyle: style => hasInlineStyle(style, getEditorState()),
     isBlockTypeSelected: type => getBlockType(getEditorState()) === type,

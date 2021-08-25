@@ -250,7 +250,7 @@ const handleButtonModal = (
   const buttonName = buttonsList[index].name;
   if (buttonsFullData[buttonName].modal) {
     buttonsList[index].modal = buttonsFullData[buttonName].modal;
-    if (buttonName === 'HEADINGS') {
+    if (['HEADINGS', 'HEADINGS_NEW'].includes(buttonName)) {
       const Modal = buttonsFullData[buttonName].modal;
       const currentHeading = HEADER_TYPE_MAP[getCurrentHeading(editorCommands)];
       buttonsList[index].modal = props =>
@@ -393,7 +393,7 @@ const handleButtonLabel = (buttonsList, index, editorCommands: editorCommands, t
   const buttonName = buttonsList[index].name;
   if (buttonsFullData[buttonName].label) {
     buttonsList[index].getLabel = () => buttonsFullData[buttonName].label;
-    if (buttonName === 'HEADINGS') {
+    if (['HEADINGS', 'HEADINGS_NEW'].includes(buttonName)) {
       buttonsList[index].getLabel = () => translateHeading(getCurrentHeading(editorCommands), t);
     } else if (buttonName === 'FONTSIZE') {
       buttonsList[index].getLabel = () => getFontSize(editorCommands);
