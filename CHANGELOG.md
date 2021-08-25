@@ -22,6 +22,11 @@
 - `collapsible-list`
   - [#2889](https://github.com/wix/ricos/pull/2889) fix editor stuck (read-only mode) when deleting collapsible
 
+### :house: Internal
+
+- `ricos-schema`
+  - [#2680](https://github.com/wix/ricos/pull/2680) collapsible list schema
+
 </details>
 <hr/>
 

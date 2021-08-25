@@ -1922,6 +1922,184 @@
         "indentation": 0,
         "id": "93"
       }
+    },
+    {
+      "type": "paragraph",
+      "content": [],
+      "attrs": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0,
+        "id": "94"
+      }
+    },
+    {
+      "type": "collapsibleList",
+      "content": [
+        {
+          "type": "collapsibleItem",
+          "content": [
+            {
+              "type": "collapsibleItemTitle",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "content": [],
+                      "text": "Collapsible List",
+                      "marks": [
+                        {
+                          "type": "color",
+                          "colorData": {
+                            "foreground": "color4"
+                          }
+                        }
+                      ],
+                      "attrs": {
+                        "id": ""
+                      }
+                    }
+                  ],
+                  "attrs": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0,
+                    "id": "95"
+                  }
+                }
+              ],
+              "attrs": {
+                "id": "96"
+              }
+            },
+            {
+              "type": "collapsibleItemBody",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [],
+                  "attrs": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0,
+                    "id": "97"
+                  }
+                }
+              ],
+              "attrs": {
+                "id": "98"
+              }
+            }
+          ],
+          "attrs": {
+            "id": "99"
+          }
+        },
+        {
+          "type": "collapsibleItem",
+          "content": [
+            {
+              "type": "collapsibleItemTitle",
+              "content": [
+                {
+                  "type": "blockquote",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "content": [],
+                          "text": "#LivingTheDream",
+                          "marks": [],
+                          "attrs": {
+                            "id": ""
+                          }
+                        }
+                      ],
+                      "attrs": {
+                        "textStyle": {
+                          "textAlignment": "AUTO"
+                        },
+                        "indentation": 0,
+                        "id": "100"
+                      }
+                    }
+                  ],
+                  "attrs": {
+                    "id": "101"
+                  }
+                }
+              ],
+              "attrs": {
+                "id": "102"
+              }
+            },
+            {
+              "type": "collapsibleItemBody",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "content": [],
+                      "text": "Yo yo yo!",
+                      "marks": [
+                        {
+                          "type": "bold"
+                        }
+                      ],
+                      "attrs": {
+                        "id": ""
+                      }
+                    }
+                  ],
+                  "attrs": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0,
+                    "id": "103"
+                  }
+                }
+              ],
+              "attrs": {
+                "id": "104"
+              }
+            }
+          ],
+          "attrs": {
+            "id": "105"
+          }
+        }
+      ],
+      "attrs": {
+        "containerData": {
+          "alignment": "CENTER",
+          "textWrap": false
+        },
+        "expandOnlyOne": false,
+        "initialExpandedItems": "FIRST",
+        "direction": "LTR",
+        "id": "106"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [],
+      "attrs": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0,
+        "id": "107"
+      }
     }
   ],
   "attrs": {

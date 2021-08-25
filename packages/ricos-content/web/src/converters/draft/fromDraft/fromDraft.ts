@@ -59,13 +59,36 @@ export const fromDraft = (draftJSON: DraftContent): RichContent => {
     }
   };
 
+  const parseCollapsiblePairs = (entity): Node | undefined =>
+    entity?.collapsibleListData?.pairs?.map(
+      (pair: { key: string; title: DraftContent; content: DraftContent }) => ({
+        id: pair.key,
+        type: Node_Type.COLLAPSIBLE_ITEM,
+        nodes: [
+          {
+            id: generateId(),
+            type: Node_Type.COLLAPSIBLE_ITEM_TITLE,
+            nodes: fromDraft(pair.title).nodes,
+          },
+          {
+            id: generateId(),
+            type: Node_Type.COLLAPSIBLE_ITEM_BODY,
+            nodes: fromDraft(pair.content).nodes,
+          },
+        ],
+      })
+    );
+
+  const nestedNodesConverters = { [Node_Type.COLLAPSIBLE_LIST]: parseCollapsiblePairs };
+
   const parseAtomicBlock = ({ key, data, entityRanges }: RicosContentBlock): Node | null => {
     if (entityRanges && entityRanges.length) {
       const entity = getEntity(entityRanges[0].key, entityMap);
       if (entity) {
+        const nodes = nestedNodesConverters[entity.type]?.(entity) || [];
         return {
           id: key,
-          nodes: [],
+          nodes,
           style: getNodeStyle(data),
           ...entity,
         };

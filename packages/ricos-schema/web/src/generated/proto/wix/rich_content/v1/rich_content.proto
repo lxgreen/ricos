@@ -37,6 +37,7 @@ import "wix/rich_content/v1/plugin_map.proto";
 import "wix/rich_content/v1/plugin_poll.proto";
 import "wix/rich_content/v1/plugin_app_embed.proto";
 import "wix/rich_content/v1/plugin_video.proto";
+import "wix/rich_content/v1/plugin_collapsible_list.proto";
 import "wix/rich_content/v1/plugin_embed.proto";
 
 message RichContent {
@@ -69,6 +70,9 @@ message Node {
         COLLAPSIBLE_LIST = 20;
         TABLE = 21;
         EMBED = 22;
+        COLLAPSIBLE_ITEM = 23;
+        COLLAPSIBLE_ITEM_TITLE = 24;
+        COLLAPSIBLE_ITEM_BODY = 25;
     }
 
     Type type = 1; // Node type
@@ -93,6 +97,7 @@ message Node {
         AppEmbedData app_embed_data = 19;
         VideoData video_data = 20;
         EmbedData embed_data = 21;
+        CollapsibleListData collapsible_list_data = 22;
     }
 }
 
