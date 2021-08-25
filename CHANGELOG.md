@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.49.7 (Aug 25, 2021)
+
 ### :nail_care: Polish
 
 - `ricos-content`
@@ -28,9 +33,6 @@
 
 - `scripts`
   - [#2885](https://github.com/wix/ricos/pull/2885) `updateBaselines` updates translatablesMock.json according to changes
-
-</details>
-<hr/>
 
 ## 8.49.6 (Aug 23, 2021)
 
