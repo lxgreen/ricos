@@ -11,7 +11,7 @@ export interface SettingsMobileHeaderProps {
   saveLabel?: string;
   theme: RichContentTheme;
   title?: string;
-  t?: TranslationFunction;
+  t: TranslationFunction;
 }
 
 const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
@@ -23,12 +23,11 @@ const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
   title,
   t,
 }) => {
-  const saveText = saveLabel || t?.('SettingsPanelFooter_Save');
-  const cancelText = cancelLabel || t?.('SettingsPanelFooter_Cancel');
+  const saveText = saveLabel || t('SettingsPanelFooter_Save');
+  const cancelText = cancelLabel || t('SettingsPanelFooter_Cancel');
 
   return (
     <div className={styles.setting_mobile_header}>
-      {title && <div className={styles.setting_mobile_header_title}>{title}</div>}
       <ActionButtons
         isMobile
         onCancel={onCancel}
@@ -36,7 +35,10 @@ const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
         cancelText={cancelText}
         saveText={saveText}
         theme={theme}
-      />
+        t={t}
+      >
+        {title && <div className={styles.setting_mobile_header_title}>{title}</div>}
+      </ActionButtons>
     </div>
   );
 };

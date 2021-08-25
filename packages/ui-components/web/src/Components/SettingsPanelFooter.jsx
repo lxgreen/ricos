@@ -57,6 +57,7 @@ class SettingsPanelFooter extends Component {
             cancelText={cancelText}
             saveText={saveText}
             disableSave={!selected}
+            t={t}
           />
         </div>
       </div>
