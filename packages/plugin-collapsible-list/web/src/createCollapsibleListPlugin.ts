@@ -12,6 +12,7 @@ const createCollapsibleListPlugin: CreatePluginFunction<CollapsibleListPluginEdi
     t,
     [COLLAPSIBLE_LIST_TYPE]: settings = {},
     isMobile,
+    disableKeyboardEvents,
     ...rest
   } = config;
 
@@ -24,6 +25,7 @@ const createCollapsibleListPlugin: CreatePluginFunction<CollapsibleListPluginEdi
       settings,
       isMobile,
       locale: localeContent || locale,
+      disableKeyboardEvents,
     }),
     helpers,
     settings,
@@ -33,6 +35,7 @@ const createCollapsibleListPlugin: CreatePluginFunction<CollapsibleListPluginEdi
     noPluginBorder: true,
     noPointerEventsOnFocus: true,
     locale: localeContent || locale,
+    disableKeyboardEvents,
     ...rest,
   });
 };

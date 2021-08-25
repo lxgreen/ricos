@@ -14,7 +14,7 @@ import poll from '../../../__tests__/toTranslatables/poll.json';
 import gallery from '../../../__tests__/toTranslatables/gallery.json';
 
 describe('toTranslatables', () => {
-  it('should create translatables for our migration-content.json', () => {
+  it('should create translatables of migration-content.json', () => {
     const content = RichContent.fromJSON(migrationContent);
     expect(toTranslatables(content)).toStrictEqual(translatablesMock);
   });

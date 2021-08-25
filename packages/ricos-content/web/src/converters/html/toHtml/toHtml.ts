@@ -1,4 +1,12 @@
+import { flow, pipe } from 'fp-ts/function';
+import * as M from 'fp-ts/Monoid';
+import * as E from 'fp-ts/Either';
+import * as S from 'fp-ts/string';
+import * as A from 'fp-ts/Array';
+import * as O from 'fp-ts/Option';
+
 import { RichContent, Node, Decoration_Type, Node_Type, Decoration, TextData } from 'ricos-schema';
+import { compact } from 'lodash';
 
 export const toHtml = (content: RichContent): string => `${nodeArrayToHtml(content.nodes, '\n')}`;
 
@@ -28,6 +36,15 @@ const createHtmlAttrs = (decoration: Decoration): Record<string, string> => {
   switch (decoration.type) {
     case Decoration_Type.LINK:
       return decoration.linkData?.link?.url ? { href: decoration.linkData.link.url } : {};
+    case Decoration_Type.COLOR: {
+      const { foreground, background } = decoration.colorData || {};
+      const style = pipe(
+        [foreground && `color: ${foreground};`, background && `background-color: ${background};`],
+        compact,
+        M.concatAll(S.Monoid)
+      );
+      return style ? { style } : {};
+    }
     default:
       return {};
   }
@@ -44,13 +61,37 @@ const attrsToString = (attrs: Record<string, string>): string =>
     .map(([key, value]) => ` ${key}="${value}"`)
     .join('');
 
-const decorateTextElement = ({ text, decorations }: TextData): string =>
-  decorations.reduce((child, decoration) => {
+const toForegroundDecoration = (d: Decoration): O.Option<Decoration> =>
+  d.colorData?.foreground
+    ? O.some({ type: Decoration_Type.COLOR, colorData: { foreground: d.colorData.foreground } })
+    : O.none;
+
+const toBackgroundDecoration = (d: Decoration): O.Option<Decoration> =>
+  d.colorData?.background
+    ? O.some({ type: Decoration_Type.COLOR, colorData: { background: d.colorData.background } })
+    : O.none;
+
+const expandColorDecoration = (decoration: Decoration): Decoration[] =>
+  pipe([toBackgroundDecoration, toForegroundDecoration], A.ap(A.of(decoration)), A.compact);
+
+const eitherColorDecoration = (d: Decoration): E.Either<Decoration, Decoration> =>
+  d.type === Decoration_Type.COLOR ? E.right(d) : E.left(d);
+
+const normalizeDecorations: (decorations: Decoration[]) => Decoration[] = flow(
+  A.map(flow(eitherColorDecoration, E.fold(A.of, expandColorDecoration))),
+  A.flatten
+);
+
+const decorateTextElement = ({ text, decorations }: TextData): string => {
+  const normalizedDecorations = normalizeDecorations(decorations);
+  return normalizedDecorations.reduce((child, decoration) => {
     const tag = DECORATION_TO_HTML_TAG[decoration.type];
     return tag ? createHtmlTag(tag, child, createHtmlAttrs(decoration)) : child;
   }, text);
+};
 
 const DECORATION_TO_HTML_TAG = {
+  [Decoration_Type.COLOR]: 'span',
   [Decoration_Type.BOLD]: 'strong',
   [Decoration_Type.ITALIC]: 'em',
   [Decoration_Type.UNDERLINE]: 'u',

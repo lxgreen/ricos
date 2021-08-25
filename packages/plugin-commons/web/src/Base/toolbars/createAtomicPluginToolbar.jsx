@@ -217,6 +217,7 @@ export default function createAtomicPluginToolbar({
         pubsub,
         helpers,
         keyName: button.keyName,
+        beforeOnClickDelete: button?.beforeOnClickDelete,
       };
 
       const editorState = getEditorState();
@@ -320,7 +321,10 @@ export default function createAtomicPluginToolbar({
           const DeleteButtonComponent = deleteButton(icons.delete);
           return (
             <DeleteButtonComponent
-              onClick={pubsub.get('deleteBlock')}
+              onClick={() => {
+                buttonProps?.beforeOnClickDelete?.();
+                pubsub.get('deleteBlock')();
+              }}
               icon={icons.delete}
               {...buttonProps}
             />
