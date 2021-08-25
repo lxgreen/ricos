@@ -38,6 +38,8 @@ interface TextFormattingToolbarProps {
   ) => void;
 }
 
+export type TextFormattingToolbarType = typeof TextFormattingToolbar;
+
 class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
   getPluginsKey = () => {
     const { activeEditor } = this.props;

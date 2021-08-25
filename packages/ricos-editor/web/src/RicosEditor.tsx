@@ -33,6 +33,7 @@ import {
 } from 'wix-rich-content-common';
 import { emptyDraftContent, getEditorContentSummary } from 'wix-rich-content-editor-common';
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
+import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
 
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
@@ -51,7 +52,7 @@ interface State {
   tiptapToolbar: unknown;
   error?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  textFormattingToolbarModule?: Record<string, any> | null;
+  TextFormattingToolbar?: TextFormattingToolbarType | null; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 // controller between tiptap extensions to ricos editor
@@ -94,7 +95,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       activeEditor: null,
       tiptapEditorModule: null,
       tiptapToolbar: null,
-      textFormattingToolbarModule: null,
+      TextFormattingToolbar: null,
     };
     this.useTiptap = !!props.experiments?.tiptapEditor?.enabled;
     this.useNewFormattingToolbar = !!props.experiments?.newFormattingToolbar?.enabled;
@@ -146,7 +147,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         /* webpackChunkName: "./toolbars/TextFormattingToolbar" */
         './toolbars/TextFormattingToolbar'
       ).then(textFormattingToolbarModule => {
-        this.setState({ textFormattingToolbarModule });
+        this.setState({ TextFormattingToolbar: textFormattingToolbarModule?.default });
       });
     }
   }
@@ -184,14 +185,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   publish = async () => {
     const publishResponse = await this.onPublish();
     return publishResponse.data;
-  };
-
-  setActiveEditor = ref => {
-    if (ref && ref !== this.currentEditorRef) {
-      this.currentEditorRef = ref;
-      const { MobileToolbar, TextToolbar } = ref.getToolbars();
-      this.setState({ StaticToolbar: MobileToolbar || TextToolbar, activeEditor: ref });
-    }
   };
 
   componentWillReceiveProps(newProps: RicosEditorProps) {
@@ -277,12 +270,16 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     }
   };
 
-  setEditorRef = ref => {
-    this.editor = ref;
+  setActiveEditor = ref => {
+    const { activeEditor } = this.state;
+    if (ref && ref !== activeEditor) {
+      const { MobileToolbar, TextToolbar } = ref.getToolbars();
+      this.setState({ StaticToolbar: MobileToolbar || TextToolbar, activeEditor: ref });
+    }
   };
 
-  setEditor = (ref: RichContentEditor) => {
-    this.setEditorRef(ref);
+  setEditorRef = ref => {
+    this.editor = ref;
     this.setActiveEditor(ref);
   };
 
@@ -325,40 +322,19 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     );
   }
 
-  renderDraftEditor() {
-    const { textFormattingToolbarModule, StaticToolbar, remountKey, activeEditor } = this.state;
-    const TextFormattingToolbar = textFormattingToolbarModule?.default;
-    const {
-      isMobile,
-      theme,
-      locale,
-      toolbarSettings: { getToolbarSettings = () => [] } = {},
-      _rcProps: { helpers } = {},
-      plugins,
-      linkPanelSettings,
-      linkSettings,
-    } = this.props;
-    const child =
-      this.props.children && shouldRenderChild('RichContentEditor', this.props.children) ? (
-        this.props.children
-      ) : (
-        <RichContentEditor />
-      );
-
-    const activeEditorIsTableCell = activeEditor?.isInnerRCERenderedInTable();
-
-    const textToolbarType = StaticToolbar ? 'static' : null;
-
-    let hideFormattingToolbar; //when LinkToolbar is open in mobile
+  isLinkToolbarOpenOnMobile() {
+    const { activeEditor } = this.state;
+    const { isMobile } = this.props;
     if (this.useNewFormattingToolbar && activeEditor && isMobile) {
       const editorCommands: EditorCommands = activeEditor.getEditorCommands();
-      const selection = editorCommands.getSelection();
-      if (isMobile) {
-        hideFormattingToolbar = selection.getIsCollapsed && editorCommands.hasLinkInSelection();
-      } else {
-        hideFormattingToolbar = false;
-      }
+      return editorCommands.getSelection().getIsCollapsed && editorCommands.hasLinkInSelection();
+    } else {
+      return false;
     }
+  }
+
+  getBiFunctions() {
+    const { _rcProps: { helpers } = {} } = this.props;
     const onInlineToolbarOpen = toolbarType =>
       helpers?.onInlineToolbarOpen?.({
         toolbarType,
@@ -382,6 +358,32 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         helpers?.onPluginAddSuccess?.(pluginId, 'FormattingToolbar', value, Version.currentVersion);
       }
     };
+    return { onInlineToolbarOpen, onToolbarButtonClick };
+  }
+
+  renderDraftEditor() {
+    const { TextFormattingToolbar, StaticToolbar, remountKey, activeEditor } = this.state;
+    const {
+      isMobile,
+      theme,
+      locale,
+      toolbarSettings: { getToolbarSettings = () => [] } = {},
+      plugins,
+      linkPanelSettings,
+      linkSettings,
+    } = this.props;
+    const child =
+      this.props.children && shouldRenderChild('RichContentEditor', this.props.children) ? (
+        this.props.children
+      ) : (
+        <RichContentEditor />
+      );
+
+    const activeEditorIsTableCell = activeEditor?.isInnerRCERenderedInTable();
+    const textToolbarType = StaticToolbar ? 'static' : null;
+    const hideFormattingToolbar = this.isLinkToolbarOpenOnMobile();
+    const biFunctions = this.getBiFunctions();
+
     const toolbarsProps = {
       textToolbarType,
       isMobile,
@@ -390,8 +392,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       plugins,
       linkPanelSettings,
       linkSettings,
-      onInlineToolbarOpen,
-      onToolbarButtonClick,
+      ...biFunctions,
     };
     const baseStyles = { flex: 'none' };
     const baseMobileStyles = { ...baseStyles, position: 'sticky', top: 0, zIndex: 9 };
@@ -412,7 +413,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         )}
         {this.renderRicosEngine(child, {
           onChange: this.onChange(child.props.onChange),
-          ref: this.setEditor,
+          ref: this.setEditorRef,
         })}
       </Fragment>
     );
