@@ -71,10 +71,10 @@ export const removeCurrentInlineStyle = (
   styleSelectionPredicate?: (style: string) => unknown
 ) => {
   const selection = editorState.getSelection();
-  const currentFontSizes = getSelectionStyles(editorState, styleSelectionPredicate);
-  const newEditorState = currentFontSizes.reduce((nextEditorState, FontSize) => {
+  const currentStyles = getSelectionStyles(editorState, styleSelectionPredicate);
+  const newEditorState = currentStyles.reduce((nextEditorState, style) => {
     const contentState = nextEditorState.getCurrentContent();
-    const nextContentState = Modifier.removeInlineStyle(contentState, selection, FontSize);
+    const nextContentState = Modifier.removeInlineStyle(contentState, selection, style);
     return EditorState.push(nextEditorState, nextContentState, 'change-inline-style');
   }, editorState);
   return EditorState.acceptSelection(newEditorState, selection);
