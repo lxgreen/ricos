@@ -11,7 +11,7 @@ module.exports = {
   },
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/__mocks__/fileMock.js',
-    '\\.(css|scss)$': '<rootDir>/__mocks__/styleMock.js',
+    '.*(?<!(st)\\.|^.)(css|scss)$': '<rootDir>/__mocks__/styleMock.js',
   },
   transformIgnorePatterns: [
     '/node_modules/(?!(.*?\\.st\\.css$))', // libraries publish .st.css files in their dist
