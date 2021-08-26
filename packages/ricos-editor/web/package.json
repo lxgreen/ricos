@@ -52,25 +52,6 @@
     "wix-rich-content-editor-common": "8.48.4",
     "wix-tiptap-editor": "8.48.4"
   },
-  "jest": {
-    "globals": {
-      "NODE_ENV": "test"
-    },
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "testMatch": [
-      "**/?(*.)+(spec|test).+(ts|tsx|js)"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx)?$": "ts-jest",
-      "^.+\\.jsx?$": "<rootDir>/../../../babel.jest.monorepo.js"
-    },
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js"
-    }
-  },
   "unpkg": true,
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
