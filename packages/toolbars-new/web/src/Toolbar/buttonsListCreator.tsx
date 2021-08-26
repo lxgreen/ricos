@@ -33,7 +33,8 @@ export const createButtonsList = (
   t,
   plugins,
   linkPanelData,
-  colorPickerData
+  colorPickerData,
+  experiments
 ) => {
   const buttonsList = [];
   formattingButtonsKeys.forEach((buttonKey, index) => {
@@ -46,7 +47,7 @@ export const createButtonsList = (
     handleButtonPlugin(buttonsList, index);
     handleButtonLabel(buttonsList, index, editorCommands, t);
     handleButtonArrow(buttonsList, index);
-    handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData);
+    handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData, experiments);
     handleButtonIsActive(buttonsList, index, editorCommands);
     handleButtonIsDisabled(buttonsList, index, editorCommands);
     handleButtonModal(buttonsList, index, editorCommands, linkPanelData, t);
@@ -313,7 +314,13 @@ const handleButtonIsActive = (buttonsList, index, editorCommands: editorCommands
   }
 };
 
-const handleButtonOnClick = (buttonsList, index, editorCommands: editorCommands, linkPanelData) => {
+const handleButtonOnClick = (
+  buttonsList,
+  index,
+  editorCommands: editorCommands,
+  linkPanelData,
+  experiments
+) => {
   const buttonName = buttonsList[index].name;
   if (Object.keys(inlineStyleButtons).includes(buttonName)) {
     buttonsList[index].onClick = () =>
@@ -340,7 +347,7 @@ const handleButtonOnClick = (buttonsList, index, editorCommands: editorCommands,
     buttonsList[index].onClick = () => editorCommands.redo();
   } else if (buttonName === 'goToLink') {
     buttonsList[index].onClick = event =>
-      goToLink(event, editorCommands.getLinkDataInSelection(), linkPanelData);
+      goToLink(event, editorCommands.getLinkDataInSelection(), linkPanelData, experiments);
   } else if (buttonName === 'AddPlugin') {
     buttonsList[index].onClick = () => {
       const addPluginButton = document.querySelector(
@@ -493,7 +500,7 @@ const updateSpacing = (type, editorCommands: editorCommands, buttonName) => {
   editorCommands.insertDecoration(decorationButtons[buttonName], { dynamicStyles });
 };
 
-const goToLink = (event, linkData, linkPanelData) => {
+const goToLink = (event, linkData, linkPanelData, experiments) => {
   const { anchor, url, target } = linkData;
   if (anchor) {
     const { customAnchorScroll } = linkPanelData;
@@ -504,7 +511,7 @@ const goToLink = (event, linkData, linkPanelData) => {
       // eslint-disable-next-line prefer-spread
       const arrayOfAllblocks = Array.apply(null, nodeListOfAllblocks);
       const element = arrayOfAllblocks.find(block => block.dataset.offsetKey === `${anchor}-0-0`);
-      anchorScroll(element);
+      anchorScroll(element, experiments);
     }
   } else {
     const href = url ? normalizeUrl(url) : undefined;

@@ -7,6 +7,7 @@ import {
   EditorPlugin,
   LinkPanelSettings,
   ToolbarType,
+  AvailableExperiments,
 } from 'wix-rich-content-common';
 import { LinkSettings } from 'ricos-common';
 import {
@@ -26,6 +27,7 @@ interface LinkToolbarProps {
   linkSettings?: LinkSettings;
   onInlineToolbarOpen?: (toolbarType: ToolbarType) => void;
   onToolbarButtonClick?: (name: string, toolbarType: ToolbarType, value?: boolean | string) => void;
+  experiments?: AvailableExperiments;
 }
 
 interface State {}
@@ -40,7 +42,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
   };
 
   render() {
-    const { activeEditor, isMobile, theme } = this.props;
+    const { activeEditor, isMobile, theme, experiments } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
     const showLinkToolbar = selection.getIsCollapsed && editorCommands.hasLinkInSelection();
@@ -67,6 +69,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
         plugins={plugins}
         linkPanelData={linkPanelData}
         // onToolbarButtonClick={onToolbarButtonClick}
+        experiments={experiments}
       />
     );
     const ToolbarContainer = isMobile ? StaticToolbarContainer : FloatingToolbarContainer;

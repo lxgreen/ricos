@@ -9,6 +9,7 @@ import {
   EditorPlugin,
   LinkPanelSettings,
   ToolbarType,
+  AvailableExperiments,
 } from 'wix-rich-content-common';
 import { LinkSettings } from 'ricos-common';
 import { isiOS } from 'wix-rich-content-editor-common';
@@ -36,6 +37,7 @@ interface TextFormattingToolbarProps {
     value?: any,
     pluginId?: string
   ) => void;
+  experiments?: AvailableExperiments;
 }
 
 export type TextFormattingToolbarType = typeof TextFormattingToolbar;
@@ -56,6 +58,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
       isMobile,
       theme,
       getToolbarSettings = () => [],
+      experiments,
     } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
@@ -114,6 +117,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
         linkPanelData={linkPanelData}
         colorPickerData={colorPickerData}
         onToolbarButtonClick={onToolbarButtonClick}
+        experiments={experiments}
       />
     );
     const ToolbarContainer =

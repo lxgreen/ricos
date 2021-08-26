@@ -339,6 +339,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       plugins,
       linkPanelSettings,
       linkSettings,
+      experiments,
     } = this.props;
     const activeEditorIsTableCell = activeEditor?.isInnerRCERenderedInTable();
     const textToolbarType = StaticToolbar ? 'static' : null;
@@ -353,6 +354,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       linkPanelSettings,
       linkSettings,
       ...biFunctions,
+      experiments,
     };
     const baseStyles = { flex: 'none' };
     const baseMobileStyles = { ...baseStyles, position: 'sticky', top: 0, zIndex: 9 };
