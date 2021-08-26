@@ -1097,11 +1097,6 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
 
   styleToClass = ([key, val]) => `rich_content_${key}-${val.toString().replace('.', '_')}`;
 
-  styleToCss = ([key, val]) => {
-    const cssRule = `${key}: ${val};`;
-    return key === 'font-size' ? cssRule + ' line-height: normal;' : cssRule;
-  };
-
   renderStyleTag = (editorState = this.getEditorState()) => {
     const blocks = editorState.getCurrentContent().getBlockMap();
     const styles = {};
