@@ -16,7 +16,10 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
+### :rocket: New Feature
 
+- `link-preview-popover`
+  - [#2881](https://github.com/wix/ricos/pull/2881) Link Preview Popover
 </details>
 <hr/>
 
