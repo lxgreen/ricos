@@ -18,7 +18,7 @@ import {
   StaticToolbarContainer,
 } from 'wix-rich-content-toolbars-new';
 import { get } from 'lodash';
-import { mobileTextButtonList, desktopTextButtonList } from '../';
+import { mobileTextButtonList, desktopTextButtonList } from './utils/defaultTextFormattingButtons';
 
 interface TextFormattingToolbarProps {
   activeEditor: RichContentEditor;
