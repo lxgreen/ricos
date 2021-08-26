@@ -1,4 +1,5 @@
 import { Node, Node_Type } from 'ricos-schema';
+import { toPlainText } from '..';
 import { LINK_TYPE } from '../../../consts';
 import { mergeTextNodes, RangedDecoration } from '../../draft/toDraft/decorationParsers';
 
@@ -99,3 +100,12 @@ export const parseLinkPreview = ({ linkPreviewData }: Node): string => {
 export const parseEmbed = ({ embedData }: Node, delimiter?: string): string => {
   return [embedData?.oembed?.title, embedData?.src].filter(Boolean).join(delimiter);
 };
+
+export const parseCollapsible = async (node: Node, delimiter?: string): Promise<string> =>
+  (
+    await Promise.all(
+      node.nodes.map(async node =>
+        [await toPlainText(node.nodes[0]), await toPlainText(node.nodes[1])].join(delimiter)
+      )
+    )
+  ).join(delimiter);

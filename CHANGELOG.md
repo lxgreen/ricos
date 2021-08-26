@@ -17,13 +17,20 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.49.8 (Aug 25, 2021)
+
 ### :bug: Bug Fix
 
 - `collapsible-list`
   - [#2889](https://github.com/wix/ricos/pull/2889) fix editor stuck (read-only mode) when deleting collapsible
 
-</details>
-<hr/>
+### :house: Internal
+
+- `ricos-schema`
+  - [#2680](https://github.com/wix/ricos/pull/2680) collapsible list schema
 
 ## 8.49.7 (Aug 25, 2021)
 

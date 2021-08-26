@@ -16,6 +16,7 @@ import {
   LinkData,
   GalleryData,
   GIFData,
+  CollapsibleListData_InitialExpandedItems,
 } from 'ricos-schema';
 import { cloneDeep, has, merge } from 'lodash';
 import toCamelCase from 'to-camel-case';
@@ -29,6 +30,7 @@ import {
 import { WRAP, NO_WRAP } from '../../../consts';
 import { ComponentData, FileComponentData } from '../../../types';
 import { parseLink } from '../../nodeUtils';
+import { toDraft } from './toDraft';
 
 export const convertNodeToDraftData = (node: Node) => {
   const { type } = node;
@@ -37,7 +39,7 @@ export const convertNodeToDraftData = (node: Node) => {
   if (!dataFieldName) {
     console.error(`No data field name | Plugin Name: ${draftPluginType}`);
   }
-  return convertNodeDataToDraft(type, node[dataFieldName] || {});
+  return convertNodeDataToDraft(type, node[dataFieldName] || {}, node.nodes);
 };
 
 export const convertDecorationToDraftData = (decoration: Decoration) => {
@@ -46,7 +48,7 @@ export const convertDecorationToDraftData = (decoration: Decoration) => {
   return convertDecorationDataToDraft(type, decoration[dataFieldName]);
 };
 
-export const convertNodeDataToDraft = (nodeType: Node_Type, data) => {
+export const convertNodeDataToDraft = (nodeType: Node_Type, data, nodes?: Node[]) => {
   if (!data) {
     console.error(`No data for ${nodeType}`);
     return {};
@@ -62,6 +64,7 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data) => {
     [Node_Type.APP_EMBED]: convertAppEmbedData,
     [Node_Type.LINK_PREVIEW]: convertLinkPreviewData,
     [Node_Type.BUTTON]: convertButtonData,
+    [Node_Type.COLLAPSIBLE_LIST]: convertCollapsibleListData,
     [Node_Type.HTML]: convertHTMLData,
     [Node_Type.MAP]: convertMapData,
     [Node_Type.EMBED]: convertEmbedData,
@@ -72,7 +75,7 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data) => {
   }
   if (nodeType in converters) {
     const convert = converters[nodeType];
-    convert(newData);
+    convert(newData, nodes);
   }
   return JSON.parse(JSON.stringify(newData)); // remove undefined values
 };
@@ -310,6 +313,7 @@ const convertAppEmbedData = data => {
     ...(eventData || {}),
   };
   data.selectedProduct = selectedProduct;
+  delete data.id;
   delete data.itemId;
   delete data.name;
   delete data.imageSrc;
@@ -341,6 +345,54 @@ const convertFileData = (data: FileData & FileComponentData) => {
   data.id = id || custom;
   updatePrivacyField(data, isPrivate);
   delete data.src;
+};
+
+const convertCollapsibleListData = (
+  data: {
+    config: {
+      expandState?: string;
+      expandOnlyOne?: boolean;
+      direction?: string;
+      alignment?: string;
+    };
+    initialExpandedItems?: CollapsibleListData_InitialExpandedItems;
+    expandOnlyOne?: boolean;
+    direction?: string;
+    pairs;
+  },
+  nodes: Node[]
+) => {
+  const { initialExpandedItems, expandOnlyOne, direction } = data || {};
+
+  const getExpandState = (initialExpandedItems?: CollapsibleListData_InitialExpandedItems) => {
+    if (initialExpandedItems === 'ALL') {
+      return 'expanded';
+    }
+    if (initialExpandedItems === 'NONE') {
+      return 'collapsed';
+    }
+    return 'first_expanded';
+  };
+
+  const config = {
+    expandState: getExpandState(initialExpandedItems),
+    expandOnlyOne,
+    direction: direction?.toLowerCase(),
+  };
+  data.config = { ...data.config, ...config };
+  data.pairs = nodes.map(node => {
+    const { VERSION: _, ...title } = toDraft(node.nodes[0]);
+    const { VERSION: __, ...content } = toDraft(node.nodes[1]);
+    return {
+      key: node.id,
+      title,
+      content,
+    };
+  });
+  delete data.initialExpandedItems;
+  delete data.expandOnlyOne;
+  delete data.direction;
+  delete data.config.alignment;
 };
 
 const convertButtonData = (data: Partial<ButtonData> & { button }) => {

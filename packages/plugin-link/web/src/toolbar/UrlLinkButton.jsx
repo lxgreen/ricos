@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { getLinkDataInSelection } from 'wix-rich-content-editor-common';
 import styles from '../../statics/link-viewer.scss';
-import { normalizeUrl, mergeStyles, anchorScroll, getRelValue } from 'wix-rich-content-common';
+import {
+  normalizeUrl,
+  mergeStyles,
+  anchorScroll,
+  getRelValue,
+  GlobalContext,
+} from 'wix-rich-content-common';
 
 export default class UrlLinkButton extends Component {
   constructor(props) {
@@ -11,6 +17,8 @@ export default class UrlLinkButton extends Component {
     const { theme } = this.props;
     this.styles = mergeStyles({ styles, theme });
   }
+
+  static contextType = GlobalContext;
 
   handleClick = event => {
     const { getEditorState, customAnchorScroll } = this.props;
@@ -22,7 +30,7 @@ export default class UrlLinkButton extends Component {
       const nodeListOfAllblocks = document.querySelectorAll(`[data-editor]`);
       const arrayOfAllblocks = Array.apply(null, nodeListOfAllblocks);
       const element = arrayOfAllblocks.find(block => block.dataset.offsetKey === `${anchor}-0-0`);
-      anchorScroll(element);
+      anchorScroll(element, this.context.experiments);
     }
   };
 

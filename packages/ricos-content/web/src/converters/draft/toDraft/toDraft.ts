@@ -19,7 +19,8 @@ import {
 import preprocess from './preprocess';
 
 const convert = (ricosContent: RichContent): DraftContent => {
-  const { nodes } = RichContent.toJSON(RichContent.fromJSON(ricosContent)) as RichContent; // using toJSON to remove undefined fields
+  const { nodes } = ricosContent;
+
   const draftContent: DraftContent = {
     blocks: [],
     entityMap: {},

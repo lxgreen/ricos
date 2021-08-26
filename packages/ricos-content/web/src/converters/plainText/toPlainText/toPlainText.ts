@@ -10,6 +10,7 @@ import {
   parseAppEmbed,
   parseVideo,
   parseEmbed,
+  parseCollapsible,
 } from './convertNodes';
 
 interface PlainTextOptions {
@@ -66,6 +67,9 @@ export const toPlainText = async (
           break;
         case Node_Type.EMBED:
           plainText += parseEmbed(node);
+          break;
+        case Node_Type.COLLAPSIBLE_LIST:
+          plainText += await parseCollapsible(node, delimiter);
           break;
         default:
       }
