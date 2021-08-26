@@ -17,15 +17,17 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.50.1 (Aug 26, 2021)
+
 ### :bug: Bug Fix
 
 - `*`
   - [#2891](https://github.com/wix/ricos/pull/2891) fix textWrap in content
 
-</details>
-<hr/>
-
-## 8.50.0 (Aug 25, 2021)
+## 8.50.0 (Aug 26, 2021)
 
 ### :rocket: New Feature
 
