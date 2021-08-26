@@ -17,12 +17,27 @@
     Click to see more.
   </summary>
 
-### :nail_care: Polish
-- `ui-components`
-  - [#2865](https://github.com/wix/ricos/pull/2865) refactor ActionButtons and SettingsMobileHeader components
-  
+### :bug: Bug Fix
+
+- `collapsible-list`
+  - [#2889](https://github.com/wix/ricos/pull/2889) fix editor stuck (read-only mode) when deleting collapsible
+
 </details>
 <hr/>
+
+## 8.49.7 (Aug 25, 2021)
+
+### :nail_care: Polish
+
+- `ricos-content`
+  - [#2876](https://github.com/wix/ricos/pull/2876) html convertor now preserves text formatting (highlight & color)
+- `ui-components`
+  - [#2865](https://github.com/wix/ricos/pull/2865) refactor ActionButtons and SettingsMobileHeader components
+
+### :house: Internal
+
+- `scripts`
+  - [#2885](https://github.com/wix/ricos/pull/2885) `updateBaselines` updates translatablesMock.json according to changes
 
 ## 8.49.6 (Aug 23, 2021)
 
