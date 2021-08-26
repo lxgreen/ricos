@@ -55,6 +55,10 @@ describe('Content extract API', () => {
         'LIST_ITEM',
         'BULLETED_LIST',
         'HEADING',
+        'COLLAPSIBLE_LIST',
+        'COLLAPSIBLE_ITEM',
+        'COLLAPSIBLE_ITEM_TITLE',
+        'COLLAPSIBLE_ITEM_BODY',
       ],
       decorations: ['BOLD', 'UNDERLINE', 'ITALIC', 'LINK', 'SPOILER', 'MENTION', 'COLOR', 'ANCHOR'],
     };

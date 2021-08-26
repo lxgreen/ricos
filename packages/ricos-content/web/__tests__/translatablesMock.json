@@ -217,6 +217,21 @@
     "text": "<p>בראיט ולחת צורק מונחף, בגורמי מגמש.\n</p>"
   },
   {
+    "id": "98",
+    "type": "PARAGRAPH",
+    "text": "<p><span style=\"color: color4;\">Collapsible List</span></p>"
+  },
+  {
+    "id": "104",
+    "type": "PARAGRAPH",
+    "text": "<p>#LivingTheDream</p>"
+  },
+  {
+    "id": "106",
+    "type": "PARAGRAPH",
+    "text": "<p><strong>Yo yo yo!</strong></p>"
+  },
+  {
     "id": "2",
     "text": "What's behind door number 1?",
     "type": "IMAGE",

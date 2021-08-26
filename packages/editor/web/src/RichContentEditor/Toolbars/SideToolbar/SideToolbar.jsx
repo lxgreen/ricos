@@ -81,7 +81,7 @@ export default class SideToolbar extends PureComponent {
     setTimeout(() => {
       if (displayOptions.displayMode === DISPLAY_MODE.NORMAL) {
         const node = document.querySelectorAll(`[data-offset-key="${offsetKey}"]`)[0];
-        if (node) {
+        if (node && node.offsetParent) {
           const top = node.getBoundingClientRect().top;
           const fontSize = window.getComputedStyle(node).getPropertyValue('font-size');
           const parentTop = node.offsetParent.getBoundingClientRect().top;

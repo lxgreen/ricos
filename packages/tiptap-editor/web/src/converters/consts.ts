@@ -23,6 +23,9 @@ export const NODE_TYPES = [
   Node_Type.APP_EMBED,
   Node_Type.BUTTON,
   Node_Type.COLLAPSIBLE_LIST,
+  Node_Type.COLLAPSIBLE_ITEM,
+  Node_Type.COLLAPSIBLE_ITEM_TITLE,
+  Node_Type.COLLAPSIBLE_ITEM_BODY,
   Node_Type.TABLE,
   Node_Type.EMBED,
 ];

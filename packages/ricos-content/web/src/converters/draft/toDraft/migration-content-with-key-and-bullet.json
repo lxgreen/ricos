@@ -1863,12 +1863,176 @@
         },
         "indentation": 0
       }
+    },
+    {
+      "type": "PARAGRAPH",
+      "key": "61edh",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "COLLAPSIBLE_LIST",
+      "key": "dmubi",
+      "nodes": [
+        {
+          "type": "COLLAPSIBLE_ITEM",
+          "key": "un62p5uut",
+          "nodes": [
+            {
+              "type": "COLLAPSIBLE_ITEM_TITLE",
+              "key": "23qu9",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "7eq8v",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "key": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "Collapsible List",
+                        "decorations": [
+                          {
+                            "type": "COLOR",
+                            "colorData": {
+                              "foreground": "color4"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ]
+            },
+            {
+              "type": "COLLAPSIBLE_ITEM_BODY",
+              "key": "66ki0",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "bi78",
+                  "nodes": [],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "COLLAPSIBLE_ITEM",
+          "key": "k2ah5xmy2",
+          "nodes": [
+            {
+              "type": "COLLAPSIBLE_ITEM_TITLE",
+              "key": "b21hn",
+              "nodes": [
+                {
+                  "type": "BLOCKQUOTE",
+                  "key": "b7bim",
+                  "nodes": [
+                    {
+                      "type": "PARAGRAPH",
+                      "key": "ddv6q",
+                      "nodes": [
+                        {
+                          "type": "TEXT",
+                          "key": "",
+                          "nodes": [],
+                          "textData": {
+                            "text": "#LivingTheDream",
+                            "decorations": []
+                          }
+                        }
+                      ],
+                      "paragraphData": {
+                        "textStyle": {
+                          "textAlignment": "AUTO"
+                        },
+                        "indentation": 0
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "COLLAPSIBLE_ITEM_BODY",
+              "key": "6mh4u",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "7gvho",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "key": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "Yo yo yo!",
+                        "decorations": [
+                          {
+                            "type": "BOLD"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "collapsibleListData": {
+        "initialExpandedItems": "FIRST",
+        "direction": "LTR",
+        "containerData": {
+          "alignment": "CENTER",
+          "textWrap": false
+        },
+        "expandOnlyOne": false
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "key": "e7k0e",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
     }
   ],
   "metadata": {
     "version": 1,
-    "createdTimestamp": "2021-07-15T07:42:30.023Z",
-    "updatedTimestamp": "2021-07-15T07:42:30.023Z"
+    "createdTimestamp": "2021-08-22T08:38:01.194Z",
+    "updatedTimestamp": "2021-08-22T08:38:01.194Z"
   },
   "docStyle": {
     "headerOne": {

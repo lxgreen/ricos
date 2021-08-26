@@ -8,4 +8,5 @@ export const EXPERIMENTS = [
   { name: 'removeUsmFromImageUrls', scope: 'ricos' },
   { name: 'tiptapEditor', scope: 'ricos' },
   { name: 'lazyImagesAndIframes', scope: 'ricos' },
+  { name: 'anchorScrollWithoutScrollIntoView', scope: 'ricos' },
 ];
