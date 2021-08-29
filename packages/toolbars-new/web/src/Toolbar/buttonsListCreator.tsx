@@ -33,7 +33,8 @@ export const createButtonsList = (
   t,
   plugins,
   linkPanelData,
-  colorPickerData
+  colorPickerData,
+  headingsData
 ) => {
   const buttonsList = [];
   formattingButtonsKeys.forEach((buttonKey, index) => {
@@ -49,7 +50,7 @@ export const createButtonsList = (
     handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData);
     handleButtonIsActive(buttonsList, index, editorCommands);
     handleButtonIsDisabled(buttonsList, index, editorCommands);
-    handleButtonModal(buttonsList, index, editorCommands, linkPanelData, t);
+    handleButtonModal(buttonsList, index, editorCommands, linkPanelData, headingsData, t);
     handleButtonOnSave(buttonsList, index, editorCommands);
     handleButtonOnCancel(buttonsList, index, editorCommands);
     handleButtonOnChange(buttonsList, index, editorCommands);
@@ -249,6 +250,7 @@ const handleButtonModal = (
   index,
   editorCommands: editorCommands,
   linkPanelData,
+  headingsData,
   t
 ) => {
   const buttonName = buttonsList[index].name;
@@ -263,6 +265,8 @@ const handleButtonModal = (
             {...props}
             currentSelect={currentHeading}
             docStyle={editorCommands.getDocStyle(true)}
+            customHeadings={headingsData?.customHeadings}
+            allowHeadingCustomization={headingsData?.allowHeadingCustomization}
           />
         );
     } else if (buttonName === 'Alignment') {

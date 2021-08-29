@@ -73,7 +73,7 @@ class LineSpacingPanel extends Component {
           options: lineHeights,
           onChange: onSaveLineHeight,
           panelHeader,
-          showCustomPanel,
+          customPanelOptions: { inline: false, onOpen: showCustomPanel },
         }}
       />
     );

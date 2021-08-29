@@ -1,0 +1,72 @@
+@import '~wix-rich-content-common/dist/statics/styles/palette';
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
+
+.panel {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  padding: 8px 0;
+  width: 163px;
+  margin-right: 8px;
+  height: fit-content;
+  position: fixed;
+  left: 150px;
+  top: 0px;
+  background-color: white;
+  border: solid 1px #ededed;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  position: absolute;
+}
+
+.panel_row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: none;
+  font-size: 14px;
+  text-align: left;
+  padding-left: 20px;
+  width: calc(100% - 20px);
+  height: 36px;
+  &.panel_selectedRow {
+    @extend %active;
+    color: $settings-action-color-fallback;
+  }
+  @include phone {
+    height: 39px;
+  }
+
+  &:hover {
+    @extend %hover;
+  }
+
+  &:active {
+    @extend %active;
+  }
+}
+
+%active {
+  background-color: rgba($action-color-fallback-tuple, 0.1);
+}
+
+%hover {
+  cursor: pointer;
+  background-color: rgba($fallbackColorTuple, 0.05);
+}
+
+.panel_Container {
+  border: solid 1px #ededed;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  svg {
+    height: unset;
+    width: unset;
+  }
+}
+
+.separator {
+  height: 1px;
+  background-color: rgba(51, 51, 51, 0.2);
+  width: calc(100% - 24px);
+  margin: 8px 0 8px;
+  align-self: center;
+}

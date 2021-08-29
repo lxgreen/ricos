@@ -99,6 +99,10 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
       linkSettings: this.props.linkSettings,
       isMobile,
     };
+    const headingsData = {
+      ...this.props.plugins?.find(plugin => plugin.type === 'wix-rich-content-plugin-headings')
+        ?.config,
+    };
     const onInlineToolbarOpen = () => this.props.onInlineToolbarOpen?.(ToolbarType.FORMATTING);
     const onToolbarButtonClick = (name, value = undefined, pluginId = undefined) => {
       this.props.onToolbarButtonClick?.(name, ToolbarType.FORMATTING, value, pluginId);
@@ -113,6 +117,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
         plugins={plugins}
         linkPanelData={linkPanelData}
         colorPickerData={colorPickerData}
+        headingsData={headingsData}
         onToolbarButtonClick={onToolbarButtonClick}
       />
     );

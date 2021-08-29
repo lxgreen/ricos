@@ -10,7 +10,7 @@ const DesktopPanel = ({
   currentSelect,
   options,
   onChange,
-  showCustomPanel,
+  customPanelOptions,
   panelHeader,
   theme,
   sizeFitContent,
@@ -18,17 +18,20 @@ const DesktopPanel = ({
   const styles = mergeStyles({ styles: Styles, theme });
   const optionElement = (option, isSelected, onClick) => {
     return (
-      <div
-        className={classNames(styles.panel_row_desktop, {
-          [styles.panel_selectedRow]: isSelected,
-        })}
-        key={option.commandKey}
-        onClick={() => onClick(option.commandKey)}
-      >
-        <div className={styles.panel_row_text_container}>
-          <div className={styles.panel_row_text}>{option.icon ? option.icon : option.text} </div>
-          {option.subText && <div className={styles.panel_row_subtext}>{option.subText}</div>}
+      <div className={styles.panel_row_container}>
+        <div
+          className={classNames(styles.panel_row_desktop, {
+            [styles.panel_selectedRow]: isSelected,
+          })}
+          key={option.commandKey}
+          onClick={() => onClick(option.commandKey)}
+        >
+          <div className={styles.panel_row_text_container}>
+            <div className={styles.panel_row_text}>{option.icon ? option.icon : option.text} </div>
+            {option.subText && <div className={styles.panel_row_subtext}>{option.subText}</div>}
+          </div>
         </div>
+        {option.modal && customPanelOptions?.openOption === option.commandKey && option.modal}
       </div>
     );
   };
@@ -42,13 +45,13 @@ const DesktopPanel = ({
         optionElement(
           option,
           (currentSelect['line-height'] ?? currentSelect) === option.commandKey,
-          onChange
+          customPanelOptions?.inline ? customPanelOptions.onOpen : onChange
         )
       )}
-      {showCustomPanel && (
+      {customPanelOptions && !customPanelOptions.inline && (
         <>
           <div className={styles.separator} />
-          <button className={styles.showCustomPanel_button} onClick={showCustomPanel}>
+          <button className={styles.showCustomPanel_button} onClick={customPanelOptions.onOpen}>
             {panelHeader}
           </button>
         </>

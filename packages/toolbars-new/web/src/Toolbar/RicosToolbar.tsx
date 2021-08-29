@@ -54,6 +54,7 @@ interface RicosToolbarProps {
     };
   };
   colorPickerData?: any;
+  headingsData?: any;
   onToolbarButtonClick?: (name: string, value?: any) => void;
 }
 
@@ -88,6 +89,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       plugins,
       linkPanelData,
       colorPickerData,
+      headingsData,
       isMobile,
       theme,
       vertical,
@@ -101,7 +103,8 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       t,
       plugins,
       linkPanelData,
-      colorPickerData
+      colorPickerData,
+      headingsData
     );
     updatedButtons.length > 0 && this.cleanUnwantedSeparators(updatedButtons);
     const buttonsSeparatedByGaps = this.separateByGaps(updatedButtons);

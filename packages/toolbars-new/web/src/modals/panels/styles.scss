@@ -23,6 +23,11 @@
   }
 }
 
+.panel_row_container {
+  width: inherit;
+  position: relative;
+}
+
 .desktopPanel_fitContent {
   width: 100%;
   align-items: center;

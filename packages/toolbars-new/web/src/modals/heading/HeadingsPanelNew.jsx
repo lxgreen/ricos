@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
-import styles from '../panels/styles.scss';
+import styles from './customPanelStyles.scss';
 import MobilePanel from '../panels/MobilePanel';
 import DesktopPanel from '../panels/DesktopPanel';
+import UpdateHeadingPanel from './UpdateHeadingPanel';
 import classNames from 'classnames';
 import { mergeStyles, GlobalContext } from 'wix-rich-content-common';
 import { HEADER_TYPE_MAP } from 'wix-rich-content-plugin-commons';
@@ -27,10 +28,19 @@ const DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE = {
   H6: 'headerSix',
 };
 
+const DRAFT_TYPE_TO_NUMNER = {
+  'header-one': 1,
+  'header-two': 2,
+  'header-three': 3,
+  'header-four': 4,
+  'header-five': 5,
+  'header-six': 6,
+};
+
 class HeadingsPanelNew extends Component {
   constructor(props) {
     super(props);
-    this.state = { heading: props.currentSelect };
+    this.state = { heading: props.currentSelect, openOption: '' };
     this.styles = mergeStyles({ styles, theme: props.theme });
   }
 
@@ -46,16 +56,36 @@ class HeadingsPanelNew extends Component {
 
   onSaveHeading = type => {
     this.props?.onToolbarButtonClick?.(type);
+    this.setState({ openOption: '' });
     return this.props.onSave(type);
   };
 
-  defaultHeadings = () => {
-    const defaults = DEFAULT_HEADERS_DROPDOWN_OPTIONS.map(heading => ({
-      text: this.props.translateHeading(heading, this.props.t),
-      commandKey: HEADER_TYPE_MAP[heading],
-      subText: this.props.docStyle[DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE[heading]]['font-size'],
-    }));
-    return defaults;
+  getUpdatePanelModal = heading => {
+    return (
+      <UpdateHeadingPanel
+        optionName={this.props.translateHeading(heading, this.props.t)}
+        onApply={() => this.onSaveHeading(HEADER_TYPE_MAP[heading])}
+        onReset={() => this.onSaveHeading(HEADER_TYPE_MAP[heading])}
+        onUpdate={() => this.onSaveHeading(HEADER_TYPE_MAP[heading])}
+        t={this.props.t}
+      />
+    );
+  };
+
+  getHeadingsOptions = () => {
+    return (this.props.customHeadings || DEFAULT_HEADERS_DROPDOWN_OPTIONS).map(heading => {
+      const customizeOptions = this.props.allowHeadingCustomization
+        ? {
+            subText: this.props.docStyle[DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE[heading]]['font-size'],
+            modal: this.getUpdatePanelModal(heading),
+          }
+        : {};
+      return {
+        text: this.props.translateHeading(heading, this.props.t),
+        commandKey: HEADER_TYPE_MAP[heading],
+        ...customizeOptions,
+      };
+    });
   };
 
   onBlur = e => {
@@ -65,8 +95,13 @@ class HeadingsPanelNew extends Component {
     }
   };
 
+  onUpdateModalOpen = type => {
+    this.setState({ openOption: type });
+  };
+
   render() {
     const { isMobile, t, currentSelect, onCancel } = this.props;
+    const { openOption } = this.state;
     const panelHeader = t('Headings');
 
     const panel = isMobile ? (
@@ -74,14 +109,18 @@ class HeadingsPanelNew extends Component {
         {...{
           currentSelect,
           panelHeader,
-          options: this.defaultHeadings(),
+          options: this.getHeadingsOptions(),
           onChange: this.onSaveHeading,
           onCancel,
         }}
       />
     ) : (
       <DesktopPanel
-        {...{ currentSelect, options: this.defaultHeadings(), onChange: this.onSaveHeading }}
+        {...{
+          currentSelect,
+          options: this.getHeadingsOptions(),
+          customPanelOptions: { openOption, inline: true, onOpen: this.onUpdateModalOpen },
+        }}
       />
     );
     return (
