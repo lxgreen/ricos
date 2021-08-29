@@ -27,6 +27,8 @@ import {
   GetEditorState,
   SetEditorState,
   UnderlyingPlugin,
+  WRAP,
+  NO_WRAP,
 } from 'wix-rich-content-common';
 import { CSSProperties, ComponentType } from 'react';
 import { UNSUPPORTED_BLOCKS_TYPE } from '../consts';
@@ -103,6 +105,7 @@ interface CreateBasePluginConfig extends CreatePluginConfig {
   textWrap: boolean;
 }
 
+// eslint-disable-next-line complexity
 const createBasePlugin = (
   config: CreateBasePluginConfig,
   underlyingPlugin?: UnderlyingPlugin
@@ -138,9 +141,26 @@ const createBasePlugin = (
     withHorizontalScroll,
     innerRCERenderedIn,
     disableKeyboardEvents,
-    textWrap,
+    textWrap: textWrapBoolean,
   } = config;
-  defaultPluginData && (pluginDefaults[config.type] = defaultPluginData);
+  const textWrap = textWrapBoolean ? WRAP : NO_WRAP;
+
+  const ensureTextWrap = config => (config && !config?.textWrap ? { ...config, textWrap } : config);
+
+  defaultPluginData &&
+    (pluginDefaults[config.type] = {
+      ...defaultPluginData,
+      config: ensureTextWrap(defaultPluginData.config),
+    });
+
+  const insertButtons = config?.toolbar?.InsertButtons?.map(button => ({
+    ...button,
+    componentData: {
+      ...button?.componentData,
+      config: ensureTextWrap(button?.componentData?.config),
+    },
+  }));
+
   const toolbarTheme = { ...getToolbarTheme(config.theme, 'plugin'), ...config.theme };
   const InlinePluginToolbar =
     config.toolbar?.InlinePluginToolbarButtons &&
@@ -183,9 +203,7 @@ const createBasePlugin = (
       innerRCERenderedIn,
     });
 
-  const externalizedButtonProps:
-    | ToolbarButtonProps[]
-    | undefined = config?.toolbar?.InsertButtons?.map(button =>
+  const externalizedButtonProps: ToolbarButtonProps[] | undefined = insertButtons?.map(button =>
     generateInsertPluginButtonProps({
       blockType: config.type,
       button,
@@ -205,7 +223,7 @@ const createBasePlugin = (
   );
   const InsertPluginButtons: Omit<PluginButton, 'blockType'>[] =
     (settings.showInsertButtons &&
-      config?.toolbar?.InsertButtons?.map(button => ({
+      insertButtons?.map(button => ({
         buttonSettings: button,
         component: createInsertPluginButton({
           blockType: config.type,
@@ -255,7 +273,6 @@ const createBasePlugin = (
       withHorizontalScroll,
       disableKeyboardEvents,
       type: config.type,
-      textWrap,
     });
 
   const DecoratedCompWithBase: ComponentType | undefined =

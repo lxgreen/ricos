@@ -1867,6 +1867,170 @@
         },
         "indentation": 0
       }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "94",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "COLLAPSIBLE_LIST",
+      "id": "95",
+      "nodes": [
+        {
+          "type": "COLLAPSIBLE_ITEM",
+          "id": "96",
+          "nodes": [
+            {
+              "type": "COLLAPSIBLE_ITEM_TITLE",
+              "id": "97",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "id": "98",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "id": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "Collapsible List",
+                        "decorations": [
+                          {
+                            "type": "COLOR",
+                            "colorData": {
+                              "foreground": "color4"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ]
+            },
+            {
+              "type": "COLLAPSIBLE_ITEM_BODY",
+              "id": "99",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "id": "100",
+                  "nodes": [],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "COLLAPSIBLE_ITEM",
+          "id": "101",
+          "nodes": [
+            {
+              "type": "COLLAPSIBLE_ITEM_TITLE",
+              "id": "102",
+              "nodes": [
+                {
+                  "type": "BLOCKQUOTE",
+                  "id": "103",
+                  "nodes": [
+                    {
+                      "type": "PARAGRAPH",
+                      "id": "104",
+                      "nodes": [
+                        {
+                          "type": "TEXT",
+                          "id": "",
+                          "nodes": [],
+                          "textData": {
+                            "text": "#LivingTheDream",
+                            "decorations": []
+                          }
+                        }
+                      ],
+                      "paragraphData": {
+                        "textStyle": {
+                          "textAlignment": "AUTO"
+                        },
+                        "indentation": 0
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "COLLAPSIBLE_ITEM_BODY",
+              "id": "105",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "id": "106",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "id": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "Yo yo yo!",
+                        "decorations": [
+                          {
+                            "type": "BOLD"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "collapsibleListData": {
+        "containerData": {
+          "alignment": "CENTER",
+          "textWrap": false
+        },
+        "expandOnlyOne": false,
+        "initialExpandedItems": "FIRST",
+        "direction": "LTR"
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "107",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
     }
   ],
   "metadata": {

@@ -17,13 +17,34 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.50.1 (Aug 26, 2021)
+
+### :bug: Bug Fix
+
+- `*`
+  - [#2891](https://github.com/wix/ricos/pull/2891) fix textWrap in content
+
+## 8.50.0 (Aug 26, 2021)
+
+### :rocket: New Feature
+
+- `link-preview-popover`
+  - [#2881](https://github.com/wix/ricos/pull/2881) Link Preview Popover
+
+## 8.49.8 (Aug 25, 2021)
+
 ### :bug: Bug Fix
 
 - `collapsible-list`
   - [#2889](https://github.com/wix/ricos/pull/2889) fix editor stuck (read-only mode) when deleting collapsible
 
-</details>
-<hr/>
+### :house: Internal
+
+- `ricos-schema`
+  - [#2680](https://github.com/wix/ricos/pull/2680) collapsible list schema
 
 ## 8.49.7 (Aug 25, 2021)
 
@@ -82,9 +103,7 @@
 ### :house: Internal
 
 - `ricos-schema`
-
   - [#2864](https://github.com/wix/ricos/pull/2864) generate plugin defaults in build time
-
 - `ui-components`
   - [#2839](https://github.com/wix/ricos/pull/2839) refactor SettingsMobileHeader component and consume it in Button/CollapsibleList/Map/Link-modal/UrlInputModal
 - `e2e`
@@ -147,12 +166,9 @@
 ### :bug: Bug Fix
 
 - `collapsible-list`
-
   - [#2831](https://github.com/wix/ricos/pull/2831) add collapsible_list to INSERT_PLUGIN_BUTTONS
-
 - `ricos-viewer` `ricos-editor`
   - [#2840](https://github.com/wix/ricos/pull/2840) expose `iframeSandboxDomain` prop on editor & viewer fix
-  -
 
 ## 8.48.3 (Aug 09, 2021)
 

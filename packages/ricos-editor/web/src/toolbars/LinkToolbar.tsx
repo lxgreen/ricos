@@ -7,6 +7,7 @@ import {
   EditorPlugin,
   LinkPanelSettings,
   ToolbarType,
+  AvailableExperiments,
 } from 'wix-rich-content-common';
 import { LinkSettings } from 'ricos-common';
 import {
@@ -14,6 +15,7 @@ import {
   RicosToolbar,
   StaticToolbarContainer,
 } from 'wix-rich-content-toolbars-new';
+import { getPluginsKey } from './utils/toolbarsUtils';
 
 interface LinkToolbarProps {
   activeEditor: RichContentEditor;
@@ -26,27 +28,20 @@ interface LinkToolbarProps {
   linkSettings?: LinkSettings;
   onInlineToolbarOpen?: (toolbarType: ToolbarType) => void;
   onToolbarButtonClick?: (name: string, toolbarType: ToolbarType, value?: boolean | string) => void;
+  experiments?: AvailableExperiments;
 }
 
 interface State {}
 
 class LinkToolbar extends Component<LinkToolbarProps, State> {
-  getPluginsKey = () => {
-    const { activeEditor } = this.props;
-    const rawPlugins = activeEditor?.getPlugins?.();
-    const plugins = rawPlugins.filter(plugin => plugin?.blockType !== undefined);
-    const pluginsKeys = plugins.map(plugin => plugin.blockType);
-    return pluginsKeys;
-  };
-
   render() {
-    const { activeEditor, isMobile, theme } = this.props;
+    const { activeEditor, isMobile, theme, experiments } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
     const showLinkToolbar = selection.getIsCollapsed && editorCommands.hasLinkInSelection();
     const t = activeEditor.getT();
     const focusEditor = () => activeEditor.focus();
-    const plugins: string[] = this.getPluginsKey();
+    const plugins: string[] = getPluginsKey(activeEditor);
     const linkPanelData = {
       linkTypes: this.props.plugins?.find(plugin => plugin.type === 'LINK')?.config.linkTypes,
       uiSettings: { linkPanel: this.props.linkPanelSettings },
@@ -67,6 +62,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
         plugins={plugins}
         linkPanelData={linkPanelData}
         // onToolbarButtonClick={onToolbarButtonClick}
+        experiments={experiments}
       />
     );
     const ToolbarContainer = isMobile ? StaticToolbarContainer : FloatingToolbarContainer;

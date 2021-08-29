@@ -13,6 +13,7 @@ import {
   APP_EMBED_TYPE,
   VIDEO_TYPE,
   MAP_TYPE,
+  COLLAPSIBLE_LIST_TYPE,
   EMBED_TYPE,
   LINK_TYPE,
   GALLERY_TYPE,
@@ -54,6 +55,7 @@ export const convertBlockDataToRicos = (type: string, data) => {
     [MENTION_TYPE]: convertMentionData,
     [LINK_BUTTON_TYPE]: convertButtonData,
     [ACTION_BUTTON_TYPE]: convertButtonData,
+    [COLLAPSIBLE_LIST_TYPE]: convertCollapsibleListData,
     [HTML_TYPE]: convertHTMLData,
     [MAP_TYPE]: convertMapData,
     [EMBED_TYPE]: convertEmbedData,
@@ -301,6 +303,31 @@ const convertFileData = (data: FileComponentData & { src }) => {
   const isPrivate = typeof privacy !== 'undefined' ? privacy === 'private' : undefined;
   const src: FileSource = { url, id, private: isPrivate };
   data.src = src;
+};
+
+const convertCollapsibleListData = (data: {
+  config?: { expandState: string; expandOnlyOne: boolean; direction: string };
+  initialExpandedItems?: string;
+  expandOnlyOne?: boolean;
+  direction?: string;
+}) => {
+  const { config } = data || {};
+  const { expandState, expandOnlyOne, direction } = config || {};
+
+  const getInitialExpandedItems = (expandState?: string) => {
+    if (expandState === 'expanded') {
+      return 'ALL';
+    }
+    if (expandState === 'collapsed') {
+      return 'NONE';
+    }
+    return 'FIRST';
+  };
+
+  data.initialExpandedItems = getInitialExpandedItems(expandState);
+  data.expandOnlyOne = expandOnlyOne;
+  data.direction = direction?.toUpperCase();
+  delete data.config;
 };
 
 const convertButtonData = (

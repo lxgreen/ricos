@@ -14,3 +14,6 @@ export { default as AnchorInImageContentState } from './AnchorInImageContentStat
 export { default as imageGalleryContentState } from './imageGalleryContentState';
 
 export { default as videoInitialContentState } from './videoInitialContentState';
+
+export { default as textWrapContentState } from './textWrapContentState';
+export { default as textWrapContentStateExpected } from './textWrapContentStateExpected';

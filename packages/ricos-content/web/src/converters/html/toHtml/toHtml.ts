@@ -51,9 +51,12 @@ const createHtmlAttrs = (decoration: Decoration): Record<string, string> => {
 };
 
 const createHtmlTag = (tag: string, child: string, attrs: Record<string, string> = {}): string => {
+  const isFragment = tag === 'fragment';
   const prefix = tag === 'li' ? '\n  ' : '';
   const suffix = ['ul', 'ol'].includes(tag) ? '\n' : '';
-  return `${prefix}<${tag}${attrsToString(attrs)}>${child}${suffix}</${tag}>`;
+  return isFragment
+    ? `${child}${suffix}`
+    : `${prefix}<${tag}${attrsToString(attrs)}>${child}${suffix}</${tag}>`;
 };
 
 const attrsToString = (attrs: Record<string, string>): string =>
@@ -99,8 +102,12 @@ const DECORATION_TO_HTML_TAG = {
 };
 const NODE_TO_HTML_TAG = {
   [Node_Type.BULLETED_LIST]: 'ul',
+  [Node_Type.COLLAPSIBLE_LIST]: 'ul',
   [Node_Type.ORDERED_LIST]: 'ol',
   [Node_Type.LIST_ITEM]: 'li',
+  [Node_Type.COLLAPSIBLE_ITEM]: 'li',
+  [Node_Type.COLLAPSIBLE_ITEM_TITLE]: 'fragment',
+  [Node_Type.COLLAPSIBLE_ITEM_BODY]: 'fragment',
   [Node_Type.PARAGRAPH]: 'p',
 };
 

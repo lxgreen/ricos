@@ -12,6 +12,7 @@ import {
   RelValue,
   Link_Rel,
   CustomAnchorScroll,
+  AvailableExperiments,
 } from 'wix-rich-content-common';
 
 type formattingToolbarButtonsKeysType =
@@ -56,6 +57,7 @@ interface RicosToolbarProps {
   colorPickerData?: any;
   headingsData?: any;
   onToolbarButtonClick?: (name: string, value?: any) => void;
+  experiments?: AvailableExperiments;
 }
 
 class RicosToolbar extends Component<RicosToolbarProps> {
@@ -96,6 +98,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       setKeepOpen,
       afterClick,
       nestedMenu,
+      experiments,
     } = this.props;
     const updatedButtons = createButtonsList(
       buttons,
@@ -104,7 +107,8 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       plugins,
       linkPanelData,
       colorPickerData,
-      headingsData
+      headingsData,
+      experiments
     );
     updatedButtons.length > 0 && this.cleanUnwantedSeparators(updatedButtons);
     const buttonsSeparatedByGaps = this.separateByGaps(updatedButtons);

@@ -1,4 +1,4 @@
-import { generateKey, NO_WRAP } from 'wix-rich-content-common';
+import { generateKey } from 'wix-rich-content-common';
 export { COLLAPSIBLE_LIST_TYPE } from './types';
 export const COMPONENT_DATA = 'componentData';
 
@@ -15,7 +15,6 @@ export const DEFAULTS = Object.freeze({
   config: {
     expandState: FIRST_EXPANDED,
     expandOnlyOne: false,
-    textWrap: NO_WRAP,
   },
   pairs: [
     {

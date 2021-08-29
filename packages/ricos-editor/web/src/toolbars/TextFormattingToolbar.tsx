@@ -9,6 +9,7 @@ import {
   EditorPlugin,
   LinkPanelSettings,
   ToolbarType,
+  AvailableExperiments,
 } from 'wix-rich-content-common';
 import { LinkSettings } from 'ricos-common';
 import { isiOS } from 'wix-rich-content-editor-common';
@@ -18,7 +19,8 @@ import {
   StaticToolbarContainer,
 } from 'wix-rich-content-toolbars-new';
 import { get } from 'lodash';
-import { mobileTextButtonList, desktopTextButtonList } from '../';
+import { mobileTextButtonList, desktopTextButtonList } from './utils/defaultTextFormattingButtons';
+import { getPluginsKey } from './utils/toolbarsUtils';
 
 interface TextFormattingToolbarProps {
   activeEditor: RichContentEditor;
@@ -36,19 +38,12 @@ interface TextFormattingToolbarProps {
     value?: any,
     pluginId?: string
   ) => void;
+  experiments?: AvailableExperiments;
 }
 
 export type TextFormattingToolbarType = typeof TextFormattingToolbar;
 
 class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
-  getPluginsKey = () => {
-    const { activeEditor } = this.props;
-    const rawPlugins = activeEditor?.getPlugins?.();
-    const plugins = rawPlugins.filter(plugin => plugin?.blockType !== undefined);
-    const pluginsKeys = plugins.map(plugin => plugin.blockType);
-    return pluginsKeys;
-  };
-
   render() {
     const {
       activeEditor,
@@ -56,6 +51,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
       isMobile,
       theme,
       getToolbarSettings = () => [],
+      experiments,
     } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
@@ -85,7 +81,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
     } else {
       formattingToolbarButtons = isMobile ? textButtons.mobile : textButtons.desktop;
     }
-    const plugins: string[] = this.getPluginsKey();
+    const plugins: string[] = getPluginsKey(activeEditor);
     const colorPickerData = {
       TEXT_COLOR: this.props.plugins?.find(plugin => plugin.type === 'wix-rich-content-text-color')
         ?.config,
@@ -119,6 +115,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
         colorPickerData={colorPickerData}
         headingsData={headingsData}
         onToolbarButtonClick={onToolbarButtonClick}
+        experiments={experiments}
       />
     );
     const ToolbarContainer =

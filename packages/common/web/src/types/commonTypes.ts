@@ -129,3 +129,11 @@ export type Experiment = {
 };
 
 export type AvailableExperiments = Record<string, Experiment>;
+
+export type LinkPreviewData = {
+  title?: string;
+  description?: string;
+  thumbnail_url?: string;
+  provider_url?: string;
+  html?: string;
+};

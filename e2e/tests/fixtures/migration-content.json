@@ -828,6 +828,39 @@
       "inlineStyleRanges": [],
       "entityRanges": [],
       "data": {}
+    },
+    {
+      "key": "61edh",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "dmubi",
+      "text": " ",
+      "type": "atomic",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [
+        {
+          "offset": 0,
+          "length": 1,
+          "key": 24
+        }
+      ],
+      "data": {}
+    },
+    {
+      "key": "e7k0e",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
     }
   ],
   "entityMap": {
@@ -861,8 +894,8 @@
       "type": "LINK",
       "mutability": "MUTABLE",
       "data": {
-        "url": "www.link.com",
-        "target": "_blank"
+        "target": "_blank",
+        "url": "www.link.com"
       }
     },
     "4": {
@@ -1367,6 +1400,94 @@
         "disableDownload": false,
         "disableExpand": false
       }
+    },
+    "24": {
+      "type": "wix-rich-content-plugin-collapsible-list",
+      "mutability": "IMMUTABLE",
+      "data": {
+        "config": {
+          "expandState": "first_expanded",
+          "expandOnlyOne": false,
+          "textWrap": "nowrap",
+          "direction": "ltr"
+        },
+        "pairs": [
+          {
+            "key": "un62p5uut",
+            "title": {
+              "blocks": [
+                {
+                  "key": "7eq8v",
+                  "text": "Collapsible List",
+                  "type": "unstyled",
+                  "depth": 0,
+                  "inlineStyleRanges": [
+                    {
+                      "offset": 0,
+                      "length": 16,
+                      "style": "{\"FG\":\"color4\"}"
+                    }
+                  ],
+                  "entityRanges": [],
+                  "data": {}
+                }
+              ],
+              "entityMap": {}
+            },
+            "content": {
+              "blocks": [
+                {
+                  "key": "bi78",
+                  "text": "",
+                  "type": "unstyled",
+                  "depth": 0,
+                  "inlineStyleRanges": [],
+                  "entityRanges": [],
+                  "data": {}
+                }
+              ],
+              "entityMap": {}
+            }
+          },
+          {
+            "key": "k2ah5xmy2",
+            "title": {
+              "blocks": [
+                {
+                  "key": "b7bim",
+                  "text": "#LivingTheDream",
+                  "type": "blockquote",
+                  "depth": 0,
+                  "inlineStyleRanges": [],
+                  "entityRanges": [],
+                  "data": {}
+                }
+              ],
+              "entityMap": {}
+            },
+            "content": {
+              "blocks": [
+                {
+                  "key": "7gvho",
+                  "text": "Yo yo yo!",
+                  "type": "unstyled",
+                  "depth": 0,
+                  "inlineStyleRanges": [
+                    {
+                      "offset": 0,
+                      "length": 9,
+                      "style": "BOLD"
+                    }
+                  ],
+                  "entityRanges": [],
+                  "data": {}
+                }
+              ],
+              "entityMap": {}
+            }
+          }
+        ]
+      }
     }
   },
   "docStyle": {
@@ -1375,5 +1496,5 @@
       "font-weight": "bold"
     }
   },
-  "VERSION": "8.47.12"
+  "VERSION": "8.49.5"
 }

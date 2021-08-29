@@ -21,6 +21,7 @@ export default {
           showDescription: true,
           showTitle: true,
           size: 'content',
+          textWrap: 'wrap',
         },
         src: {
           file_name: '7f96510c9da54d598aa90350b9f5958c.jpg',
@@ -35,7 +36,14 @@ export default {
     },
     '1': {
       data: {
-        config: { alignment: 'center', key: 'cbi6h', layout: 'small', size: 'content', spacing: 0 },
+        config: {
+          alignment: 'center',
+          key: 'cbi6h',
+          layout: 'small',
+          size: 'content',
+          spacing: 0,
+          textWrap: 'wrap',
+        },
         items: [
           {
             itemId: 'd70f8f24435d48b9be40de85ed60dee1.jpg',

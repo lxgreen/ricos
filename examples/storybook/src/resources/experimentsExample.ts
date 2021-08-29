@@ -9,4 +9,5 @@ export const EXPERIMENTS = [
   { name: 'newFormattingToolbar', scope: 'ricos' },
   { name: 'tiptapEditor', scope: 'ricos' },
   { name: 'lazyImagesAndIframes', scope: 'ricos' },
+  { name: 'anchorScrollWithoutScrollIntoView', scope: 'ricos' },
 ];
