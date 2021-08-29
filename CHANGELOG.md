@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+- `toolbars`
+  - [#2328](https://github.com/wix/ricos/pull/2328) new formatting toolbar & link toolbar (under experiment)
+
 </details>
 <hr/>
 
