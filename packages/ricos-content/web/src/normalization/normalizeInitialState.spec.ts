@@ -854,7 +854,7 @@ describe('normalizeInitialState', () => {
       ).toStrictEqual({});
     });
 
-    it('should add textWrap wrap to plugins', () => {
+    it('should add textWrap wrap to plugins without config (should normalize the config first)', () => {
       expect(
         compare(normalizeInitialState(noConfigContentState), noConfigContentStateExpected)
       ).toStrictEqual({});
