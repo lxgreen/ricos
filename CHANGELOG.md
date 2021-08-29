@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.50.2 (Aug 29, 2021)
+
 ### :bug: Bug Fix
 
 - `ricos-content`
   - [#9542a83](https://github.com/wix/ricos/commit/9542a831953185d665b98b13f02b1315cef948b3) fix textWrap normalize when plugin's config is undefined
-
-</details>
-<hr/>
 
 ## 8.50.1 (Aug 26, 2021)
 
