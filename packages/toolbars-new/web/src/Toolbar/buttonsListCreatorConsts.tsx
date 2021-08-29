@@ -124,6 +124,7 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     type: 'modal',
     modal: props => <HeadingsPanelNew {...props} translateHeading={translateHeading} />,
     onSave: 'HEADINGS_NEW',
+    onChange: 'HEADINGS_NEW',
   },
   FONTSIZE: {
     icon: () => null,

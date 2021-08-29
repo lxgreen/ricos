@@ -8,15 +8,7 @@ import classNames from 'classnames';
 import { mergeStyles, GlobalContext } from 'wix-rich-content-common';
 import { HEADER_TYPE_MAP } from 'wix-rich-content-plugin-commons';
 
-export const DEFAULT_HEADERS_DROPDOWN_OPTIONS = Object.freeze([
-  'P',
-  'H1',
-  'H2',
-  'H3',
-  'H4',
-  'H5',
-  'H6',
-]);
+const DEFAULT_HEADERS_DROPDOWN_OPTIONS = Object.freeze(['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6']);
 
 const DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE = {
   P: 'paragraph',
@@ -60,13 +52,27 @@ class HeadingsPanelNew extends Component {
     return this.props.onSave(type);
   };
 
+  onUpdateHeading = type => {
+    this.props?.onToolbarButtonClick?.('Update ' + type);
+    this.setState({ openOption: '' });
+    return this.props.onChange({
+      [type]: { ...this.props.docStyle[type], ...this.props.currentInlineStyles },
+    });
+  };
+
+  onResetHeading = type => {
+    this.props?.onToolbarButtonClick?.('Reset ' + type);
+    this.setState({ openOption: '' });
+    return this.props.onChange({ [type]: {} });
+  };
+
   getUpdatePanelModal = heading => {
     return (
       <UpdateHeadingPanel
         optionName={this.props.translateHeading(heading, this.props.t)}
         onApply={() => this.onSaveHeading(HEADER_TYPE_MAP[heading])}
-        onReset={() => this.onSaveHeading(HEADER_TYPE_MAP[heading])}
-        onUpdate={() => this.onSaveHeading(HEADER_TYPE_MAP[heading])}
+        onReset={() => this.onResetHeading(DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE[heading])}
+        onUpdate={() => this.onUpdateHeading(DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE[heading])}
         t={this.props.t}
       />
     );

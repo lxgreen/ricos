@@ -159,6 +159,11 @@ const handleButtonOnChange = (buttonsList, index, editorCommands: editorCommands
       buttonsList[index].onChange = type => {
         updateDynamicStyles(type, editorCommands, buttonName);
       };
+    } else if (buttonName === 'HEADINGS_NEW') {
+      buttonsList[index].onChange = docStyle => {
+        editorCommands.removeDecorations();
+        setTimeout(() => editorCommands.setDocStyle(docStyle));
+      };
     }
   }
 };
@@ -236,7 +241,7 @@ const handleButtonOnSave = (buttonsList, index, editorCommands: editorCommands) 
         if (['LINE_SPACING', 'FONTSIZE'].includes(buttonName)) {
           if (type) {
             updateDynamicStyles(type, editorCommands, buttonName);
-            setTimeout(() => editorCommands.loadSelectionState());
+            buttonName === 'LINE_SPACING' && setTimeout(() => editorCommands.loadSelectionState());
           } else {
             editorCommands.loadEditorState();
           }
@@ -268,6 +273,7 @@ const handleButtonModal = (
             docStyle={editorCommands.getDocStyle(true)}
             customHeadings={headingsData?.customHeadings}
             allowHeadingCustomization={headingsData?.allowHeadingCustomization}
+            currentInlineStyles={editorCommands.getAnchorBlockInlineStyles()}
           />
         );
     } else if (buttonName === 'Alignment') {

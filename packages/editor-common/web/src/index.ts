@@ -155,4 +155,5 @@ export {
   hasOneStyleInSelection,
   setInlineStyle,
   removeCurrentInlineStyle,
+  getAnchorBlockInlineStyles,
 } from './Utils/inlineStyleUtils';

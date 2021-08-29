@@ -30,6 +30,7 @@ import {
   getAnchorableBlocks,
   ContentState,
   removeCurrentInlineStyle,
+  getAnchorBlockInlineStyles,
 } from 'wix-rich-content-editor-common';
 import {
   EditorCommands,
@@ -229,6 +230,7 @@ export const createEditorCommands = (
     loadSelectionState: EditorCommands['loadSelectionState'];
     getDocStyle: EditorCommands['getDocStyle'];
     setDocStyle: EditorCommands['setDocStyle'];
+    getAnchorBlockInlineStyles: EditorCommands['getAnchorBlockInlineStyles'];
   } = {
     getSelection: () => {
       const selection = getEditorState().getSelection();
@@ -272,6 +274,7 @@ export const createEditorCommands = (
       const newEditorState = setDocStyle(getEditorState(), docStyle);
       setEditorState(newEditorState);
     },
+    getAnchorBlockInlineStyles: () => getAnchorBlockInlineStyles(getEditorState()),
   };
 
   const textFormattingCommands: {
