@@ -117,9 +117,6 @@ const normalizeEntityMap = (
 
   return mapValues(entityMap, entity => {
     let newEntity = entity;
-    if (entity?.data?.config && !entity?.data?.config?.textWrap) {
-      entity.data.config.textWrap = WRAP;
-    }
     if (shouldNormalizeEntityConfig(entity)) {
       newEntity = {
         ...entity,
@@ -132,6 +129,9 @@ const normalizeEntityMap = (
         type: normalizeType(entity.type, entityTypeMap.dataNormalization),
         data: normalizeComponentData(entity.type, entity.data, config, stateVersion),
       };
+    }
+    if (newEntity?.data?.config && !newEntity?.data?.config?.textWrap) {
+      newEntity.data.config.textWrap = WRAP;
     }
     convertAnchorToLinkToUndoOneAppFix(newEntity);
     return newEntity;
