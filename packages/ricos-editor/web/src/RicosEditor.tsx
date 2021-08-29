@@ -24,17 +24,12 @@ import {
   EditorEventsContext,
   EditorEvents,
 } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
-import {
-  ToolbarType,
-  Version,
-  RicosTranslate,
-  EditorCommands,
-  getLangDir,
-} from 'wix-rich-content-common';
+import { ToolbarType, Version, RicosTranslate, getLangDir } from 'wix-rich-content-common';
 import { emptyDraftContent, getEditorContentSummary } from 'wix-rich-content-editor-common';
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
 import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
 import { getBiFunctions } from './toolbars/utils/biUtils';
+import { isLinkToolbarOpen } from './toolbars/utils/toolbarsUtils';
 
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
@@ -47,7 +42,7 @@ interface State {
   remountKey: boolean;
   editorState?: EditorState;
   initialContentChanged: boolean;
-  activeEditor?: RichContentEditor | null;
+  activeEditor: RichContentEditor | null;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tiptapEditorModule: Record<string, any> | null;
   tiptapToolbar: unknown;
@@ -322,12 +317,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     );
   }
 
-  isLinkToolbarOpen() {
-    const { activeEditor } = this.state;
-    const editorCommands: EditorCommands | undefined = activeEditor?.getEditorCommands();
-    return editorCommands?.getSelection().getIsCollapsed && editorCommands?.hasLinkInSelection();
-  }
-
   renderNewToolbars() {
     const { TextFormattingToolbar, StaticToolbar, activeEditor } = this.state;
     const {
@@ -343,7 +332,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     } = this.props;
     const activeEditorIsTableCell = activeEditor?.isInnerRCERenderedInTable();
     const textToolbarType = StaticToolbar ? 'static' : null;
-    const hideFormattingToolbar = isMobile && this.isLinkToolbarOpen();
+    const hideFormattingToolbar = isMobile && isLinkToolbarOpen(activeEditor);
     const biFunctions = helpers && getBiFunctions(helpers);
     const toolbarsProps = {
       textToolbarType,
