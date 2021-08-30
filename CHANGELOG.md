@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.51.1 (Aug 30, 2021)
+
 ### :house: Internal
 
 - `ricos-schema`
   - [#2705](https://github.com/wix/ricos/pull/2705) table schema
-
-</details>
-<hr/>
 
 ## 8.51.0 (Aug 30, 2021)
 
