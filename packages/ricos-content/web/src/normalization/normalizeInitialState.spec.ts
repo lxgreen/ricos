@@ -14,6 +14,8 @@ import {
   videoInitialContentState,
   textWrapContentState,
   textWrapContentStateExpected,
+  noConfigContentState,
+  noConfigContentStateExpected,
 } from './Fixtures';
 import { WRAP } from '..';
 import { compare } from '../comparision/compare';
@@ -849,6 +851,12 @@ describe('normalizeInitialState', () => {
     it('should add textWrap wrap to plugins', () => {
       expect(
         compare(normalizeInitialState(textWrapContentState), textWrapContentStateExpected)
+      ).toStrictEqual({});
+    });
+
+    it('should add textWrap wrap to plugins without config (should normalize the config first)', () => {
+      expect(
+        compare(normalizeInitialState(noConfigContentState), noConfigContentStateExpected)
       ).toStrictEqual({});
     });
   });
