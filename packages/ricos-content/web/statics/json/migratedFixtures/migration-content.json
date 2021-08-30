@@ -2010,7 +2010,7 @@
       "collapsibleListData": {
         "containerData": {
           "alignment": "CENTER",
-          "textWrap": false
+          "textWrap": true
         },
         "expandOnlyOne": false,
         "initialExpandedItems": "FIRST",
@@ -2020,6 +2020,219 @@
     {
       "type": "PARAGRAPH",
       "id": "107",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "TABLE",
+      "id": "108",
+      "nodes": [
+        {
+          "type": "TABLE_ROW",
+          "id": "109",
+          "nodes": [
+            {
+              "type": "TABLE_CELL",
+              "id": "110",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "id": "111",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "id": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "​",
+                        "decorations": []
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ],
+              "tableCellData": {
+                "cellStyle": {
+                  "verticalAlignment": "TOP",
+                  "backgroundColor": "#FF0000"
+                },
+                "borderColors": {}
+              }
+            },
+            {
+              "type": "TABLE_CELL",
+              "id": "112",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "id": "113",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "id": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "Yo yo yo!",
+                        "decorations": [
+                          {
+                            "type": "BOLD"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ],
+              "tableCellData": {
+                "cellStyle": {
+                  "verticalAlignment": "TOP"
+                },
+                "borderColors": {
+                  "left": "#3A54B4",
+                  "right": "#3A54B4",
+                  "top": "#3A54B4",
+                  "bottom": "#3A54B4"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "TABLE_ROW",
+          "id": "114",
+          "nodes": [
+            {
+              "type": "TABLE_CELL",
+              "id": "115",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "id": "116",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "id": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "​SPOILER ALERT!",
+                        "decorations": [
+                          {
+                            "type": "SPOILER"
+                          },
+                          {
+                            "type": "COLOR",
+                            "colorData": {
+                              "foreground": "color3"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 1
+                  }
+                }
+              ],
+              "tableCellData": {
+                "cellStyle": {
+                  "verticalAlignment": "TOP"
+                },
+                "borderColors": {}
+              }
+            },
+            {
+              "type": "TABLE_CELL",
+              "id": "117",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "id": "118",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "id": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "​",
+                        "decorations": []
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ],
+              "tableCellData": {
+                "cellStyle": {
+                  "verticalAlignment": "TOP"
+                },
+                "borderColors": {}
+              }
+            }
+          ]
+        }
+      ],
+      "tableData": {
+        "containerData": {
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "dimensions": {
+          "colsWidthRatio": [
+            10,
+            10
+          ],
+          "rowsHeight": [
+            47,
+            47
+          ],
+          "colsMinWidth": [
+            120,
+            120
+          ]
+        },
+        "header": true
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "119",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "120",
       "nodes": [],
       "paragraphData": {
         "textStyle": {

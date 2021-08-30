@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
 
+- `ricos-schema`
+  - [#2705](https://github.com/wix/ricos/pull/2705) table schema
 
 </details>
 <hr/>

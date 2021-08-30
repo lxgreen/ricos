@@ -232,6 +232,26 @@
     "text": "<p><strong>Yo yo yo!</strong></p>"
   },
   {
+    "id": "111",
+    "type": "PARAGRAPH",
+    "text": "<p>​</p>"
+  },
+  {
+    "id": "113",
+    "type": "PARAGRAPH",
+    "text": "<p><strong>Yo yo yo!</strong></p>"
+  },
+  {
+    "id": "116",
+    "type": "PARAGRAPH",
+    "text": "<p><span style=\"color: color3;\">​SPOILER ALERT!</span></p>"
+  },
+  {
+    "id": "118",
+    "type": "PARAGRAPH",
+    "text": "<p>​</p>"
+  },
+  {
     "id": "2",
     "text": "What's behind door number 1?",
     "type": "IMAGE",
