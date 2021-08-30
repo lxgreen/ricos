@@ -17,13 +17,17 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.51.0 (Aug 30, 2021)
+
 ### :rocket: New Feature
 
 - `toolbars`
   - [#2328](https://github.com/wix/ricos/pull/2328) new formatting toolbar & link toolbar (under experiment)
-
-</details>
-<hr/>
 
 ## 8.50.2 (Aug 29, 2021)
 
