@@ -181,10 +181,11 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
             placeholder={'Add some text!'}
             plugins={this.ricosPlugins}
             linkPanelSettings={{ ...(Plugins.uiSettings.linkPanel || {}), externalPopups }}
+            _rcProps={{ helpers: this.helpers }}
             experiments={experiments}
             textWrap={textWrap}
           >
-            <RichContentEditor helpers={this.helpers} />
+            <RichContentEditor />
           </RicosEditor>
         </div>
       </div>
