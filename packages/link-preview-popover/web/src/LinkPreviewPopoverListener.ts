@@ -1,13 +1,19 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export default function addLinkPreviewPopoverListener(container, callback) {
-  const onLinkHover = (linkNode: any) => {
+import { Position } from './types';
+
+type Callback = (url: string, position?: Position) => void;
+
+export default function addLinkPreviewPopoverListener(container: HTMLElement, callback: Callback) {
+  const onLinkHover = (linkNode: HTMLLinkElement) => {
     const url = linkNode.href;
     const linkNodeRect = linkNode.getBoundingClientRect();
-    const position = { top: linkNodeRect.top + linkNodeRect.height + 4, left: linkNodeRect.left };
+    const position: Position = {
+      top: linkNodeRect.top + linkNodeRect.height + 4,
+      left: linkNodeRect.left,
+    };
     callback(url, position);
   };
 
-  const onStopLinkHover = () => callback(undefined);
+  const onStopLinkHover = () => callback('');
 
   const handleMouseOver = event => {
     switch (event.target.tagName) {

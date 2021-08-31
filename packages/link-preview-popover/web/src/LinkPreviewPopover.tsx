@@ -1,14 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styles from '../statics/styles/link-preview-popover.rtlignore.scss';
 import addLinkPreviewPopoverListener from './LinkPreviewPopoverListener';
 import LinkPreviewPopoverViewer from './LinkPreviewPopoverViewer';
 import { LinkPreviewData } from 'wix-rich-content-common';
-
-interface Position {
-  top: number;
-  left: number;
-}
+import { Position } from './types';
 
 type LinkNodePreviewData = {
   position: Position;
@@ -22,19 +18,16 @@ interface Props {
 
 export const LinkPreviewPopover: FC<Props> = ({ container, fetchUrlPreviewData }) => {
   const [linkPreviewData, setLinkPreviewData] = useState<LinkNodePreviewData | null>(null);
-  const onPreview = useMemo(
-    () => (url: string, position?: Position) => {
-      position
-        ? fetchUrlPreviewData(url).then(data => setLinkPreviewData({ position, data }))
-        : setLinkPreviewData(null);
-    },
+  useEffect(
+    () =>
+      container &&
+      addLinkPreviewPopoverListener(container, (url, position) =>
+        position
+          ? fetchUrlPreviewData(url).then(data => setLinkPreviewData({ position, data }))
+          : setLinkPreviewData(null)
+      ),
     []
   );
-  useEffect(() => {
-    if (container) {
-      return addLinkPreviewPopoverListener(container, onPreview);
-    }
-  }, []);
 
   return (
     linkPreviewData && (
