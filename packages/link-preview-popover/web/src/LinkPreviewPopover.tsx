@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC, useEffect, useState } from 'react';
 import styles from '../statics/styles/link-preview-popover.rtlignore.scss';
 import addLinkPreviewPopoverListener from './LinkPreviewPopoverListener';
