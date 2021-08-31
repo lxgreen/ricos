@@ -20,6 +20,11 @@
 </details>
 <hr/>
 
+### :house: Internal
+
+- `social-polls`
+  - [#2900](https://github.com/wix/ricos/pull/2900) remove settings from data (siteToken)
+
 ## 8.51.1 (Aug 30, 2021)
 
 ### :house: Internal
@@ -132,7 +137,7 @@
   - [#2863](https://github.com/wix/ricos/pull/2863) update Cypress to v8
 - `example`
   - [#2862](https://github.com/wix/ricos/pull/2862) add eslint support
-- `poll`
+- `social-polls`
   - [#2024](https://github.com/wix/ricos/pull/2024) add Poll story & rendering tests
   - [#2870](https://github.com/wix/ricos/pull/2870) loadable support
 
