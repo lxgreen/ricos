@@ -1,64 +1,44 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import styles from '../statics/styles/link-preview-popover.rtlignore.scss';
 import addLinkPreviewPopoverListener from './LinkPreviewPopoverListener';
 import LinkPreviewPopoverViewer from './LinkPreviewPopoverViewer';
 import { LinkPreviewData } from 'wix-rich-content-common';
 
-export type LinkNodePreviewData = {
-  position: { top: number; left: number };
+interface Position {
+  top: number;
+  left: number;
+}
+
+type LinkNodePreviewData = {
+  position: Position;
   data: LinkPreviewData;
 };
 
-export class LinkPreviewPopover extends React.Component<
-  {
-    container: HTMLElement;
-    fetchUrlPreviewData: (url: string) => Promise<LinkPreviewData>;
-  },
-  { linkPreviewData?: LinkNodePreviewData }
-> {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+interface Props {
+  container: HTMLElement;
+  fetchUrlPreviewData: (url: string) => Promise<LinkPreviewData>;
+}
 
-  removeLinkPreviewPopoverListener!: () => void | null;
+export const LinkPreviewPopover: FC<Props> = ({ container, fetchUrlPreviewData }) => {
+  const [linkPreviewData, setLinkPreviewData] = useState<LinkNodePreviewData | null>(null);
 
-  componentDidMount() {
-    this.addLinkPreviewPopoverListener(this.props.container);
-  }
-
-  componentWillUnmount() {
-    this.removeLinkPreviewPopoverListener();
-  }
-
-  onPreview = (url: string, position?: { top: number; left: number }) => {
-    if (!position) {
-      return this.setState({ linkPreviewData: undefined });
-    }
-    this.props
-      .fetchUrlPreviewData(url)
-      .then(data => this.setState({ linkPreviewData: { position, data } }));
+  const onPreview = (url: string, position?: Position) => {
+    position
+      ? fetchUrlPreviewData(url).then(data => setLinkPreviewData({ position, data }))
+      : setLinkPreviewData(null);
   };
-
-  addLinkPreviewPopoverListener = container => {
-    if (container && !this.removeLinkPreviewPopoverListener) {
-      this.removeLinkPreviewPopoverListener = addLinkPreviewPopoverListener(
-        container,
-        this.onPreview
-      );
+  useEffect(() => {
+    if (container) {
+      return addLinkPreviewPopoverListener(container, onPreview);
     }
-  };
+  }, []);
 
-  setLinkPreviewData = linkPreviewData => this.setState({ linkPreviewData });
-
-  render() {
-    const { linkPreviewData } = this.state;
-
-    return linkPreviewData ? (
+  return (
+    linkPreviewData && (
       <div className={styles.container} style={linkPreviewData.position}>
         <LinkPreviewPopoverViewer {...linkPreviewData.data} />
       </div>
-    ) : null;
-  }
-}
+    )
+  );
+};
