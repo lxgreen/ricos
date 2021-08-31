@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import styles from '../statics/styles/link-preview-popover.rtlignore.scss';
 import addLinkPreviewPopoverListener from './LinkPreviewPopoverListener';
 import LinkPreviewPopoverViewer from './LinkPreviewPopoverViewer';
@@ -22,12 +22,14 @@ interface Props {
 
 export const LinkPreviewPopover: FC<Props> = ({ container, fetchUrlPreviewData }) => {
   const [linkPreviewData, setLinkPreviewData] = useState<LinkNodePreviewData | null>(null);
-
-  const onPreview = (url: string, position?: Position) => {
-    position
-      ? fetchUrlPreviewData(url).then(data => setLinkPreviewData({ position, data }))
-      : setLinkPreviewData(null);
-  };
+  const onPreview = useMemo(
+    () => (url: string, position?: Position) => {
+      position
+        ? fetchUrlPreviewData(url).then(data => setLinkPreviewData({ position, data }))
+        : setLinkPreviewData(null);
+    },
+    []
+  );
   useEffect(() => {
     if (container) {
       return addLinkPreviewPopoverListener(container, onPreview);
