@@ -11,6 +11,8 @@ import {
   backgroundStyleToTextHighlight,
   aToLink,
   textToText,
+  spanToMention,
+  spanToSpoiler,
 } from '../core/rules';
 import { Rule } from '../core/models';
 
@@ -29,6 +31,8 @@ export default flow(
     aToLink,
     strongEmUToDecoration,
     colorStyleToTextColor,
+    spanToMention,
+    spanToSpoiler,
     backgroundStyleToTextHighlight,
   ])
 );

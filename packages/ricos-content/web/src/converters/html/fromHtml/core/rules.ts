@@ -56,9 +56,12 @@ export const aToLink: Rule = [
   hasTag('a'),
   context => (node: Element) => {
     const attrs = getAttributes(node);
+    const isAnchor = attrs.href.startsWith('#');
     return context.addDecoration(
-      Decoration_Type.LINK,
-      { linkData: { link: createLink({ ...attrs, url: attrs.href }) } },
+      isAnchor ? Decoration_Type.ANCHOR : Decoration_Type.LINK,
+      isAnchor
+        ? { anchorData: { ...attrs, anchor: attrs.href.substr(1) } }
+        : { linkData: { link: createLink({ ...attrs, url: attrs.href }) } },
       node
     );
   },
@@ -114,6 +117,26 @@ export const colorStyleToTextColor: Rule = [
       O.map(toForegroundData),
       O.fold(() => [], toColorDecoration(context, el))
     ),
+];
+
+// NOTE: Created for translations functionality.
+// Not applicable for display.
+export const spanToMention: Rule = [
+  concatApply(MonoidAll)([
+    hasTag('span'),
+    flow(getAttributes, attrs => !!attrs['data-mention-name']),
+  ]),
+  context => (node: Element) => {
+    const { 'data-mention-name': name, 'data-mention-slug': slug } = getAttributes(node);
+    return context.addDecoration(Decoration_Type.MENTION, { mentionData: { name, slug } }, node);
+  },
+];
+
+// NOTE: Created for translations functionality.
+// Not applicable for display.
+export const spanToSpoiler: Rule = [
+  concatApply(MonoidAll)([hasTag('span'), flow(getAttributes, attrs => !!attrs.spoiler)]),
+  context => (node: Element) => context.addDecoration(Decoration_Type.SPOILER, {}, node),
 ];
 
 export const backgroundStyleToTextHighlight: Rule = [
