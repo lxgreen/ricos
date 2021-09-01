@@ -25,6 +25,39 @@
 </details>
 <hr/>
 
+## 8.52.0 (Sep 1, 2021)
+
+### :rocket: New Feature
+
+- `ricos-common`
+  - [#2890](https://github.com/wix/ricos/pull/2890) Theme - `settingsStyles`
+
+### :house: Internal
+
+- `ricos-content`
+  - [#2901](https://github.com/wix/ricos/pull/2901) refactor of html convertor
+
+## 8.51.2 (Aug 31, 2021)
+
+### :house: Internal
+
+- `social-polls`
+  - [#2900](https://github.com/wix/ricos/pull/2900) remove settings from data (siteToken)
+
+## 8.51.1 (Aug 30, 2021)
+
+### :house: Internal
+
+- `ricos-schema`
+  - [#2705](https://github.com/wix/ricos/pull/2705) table schema
+
+## 8.51.0 (Aug 30, 2021)
+
+### :rocket: New Feature
+
+- `toolbars`
+  - [#2328](https://github.com/wix/ricos/pull/2328) new formatting toolbar & link toolbar (under experiment)
+
 ## 8.50.2 (Aug 29, 2021)
 
 ### :bug: Bug Fix
@@ -123,7 +156,7 @@
   - [#2863](https://github.com/wix/ricos/pull/2863) update Cypress to v8
 - `example`
   - [#2862](https://github.com/wix/ricos/pull/2862) add eslint support
-- `poll`
+- `social-polls`
   - [#2024](https://github.com/wix/ricos/pull/2024) add Poll story & rendering tests
   - [#2870](https://github.com/wix/ricos/pull/2870) loadable support
 

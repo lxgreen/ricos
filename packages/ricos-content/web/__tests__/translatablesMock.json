@@ -2,7 +2,7 @@
   {
     "id": "0",
     "type": "PARAGRAPH",
-    "text": "<p><strong>Lorem ipsum dolor sit amet</strong> 😎, <u>consectetur adipiscing</u> elit. Quisque quis ex <em>auctor</em>, facilisis lectus id, sodales ipsum. In <strong>sagittis </strong><u><strong>ultrices</strong></u><u> sem</u> ac elementum. Ut <u><a href=\"www.google.com\">ut</a></u> iaculis ex. Lorem ipsum dolor sit @amet, consectetur adipiscing elit. In hac <span style=\"color: color4;\">habitasse </span><span style=\"color: color4;\"><span style=\"background-color: color3;\">platea</span></span><span style=\"background-color: color3;\"> dictumst</span>. Aenean placerat, quam eget vestibulum <u><a href=\"www.link.com\">varius</a></u>, nisl ligula vulputate <u>tortor</u>, id lacinia odio magna eu arcu.</p>"
+    "text": "<p><strong>Lorem ipsum dolor sit amet</strong> 😎, <u>consectetur adipiscing</u> elit. Quisque quis ex <em>auctor</em>, facilisis lectus id, sodales ipsum. In <strong>sagittis </strong><u><strong>ultrices</strong></u><u> sem</u> ac elementum. Ut <u><a href=\"www.google.com\" rel=\"nofollow sponsored ugc\" target=\"_blank\">ut</a></u> iaculis ex. <span data-spoiler=\"true\">Lorem ipsum</span> dolor sit <span role=\"link\" data-mention-name=\"amet\" data-mention-slug=\"amet\">@amet</span>, consectetur adipiscing elit. In hac <span style=\"color: color4;\">habitasse </span><span style=\"color: color4;\"><span style=\"background-color: color3;\">platea</span></span><span style=\"background-color: color3;\"> dictumst</span>. Aenean placerat, quam eget vestibulum <u><a href=\"www.link.com\" target=\"_blank\">varius</a></u>, nisl ligula vulputate <u><a href=\"#98ccj\" rel=\"noopener noreferrer\">tortor</a></u>, id lacinia odio magna eu arcu.</p>"
   },
   {
     "id": "2",
@@ -230,6 +230,26 @@
     "id": "106",
     "type": "PARAGRAPH",
     "text": "<p><strong>Yo yo yo!</strong></p>"
+  },
+  {
+    "id": "111",
+    "type": "PARAGRAPH",
+    "text": "<p>​</p>"
+  },
+  {
+    "id": "113",
+    "type": "PARAGRAPH",
+    "text": "<p><strong>Yo yo yo!</strong></p>"
+  },
+  {
+    "id": "116",
+    "type": "PARAGRAPH",
+    "text": "<p><span style=\"color: color3;\"><span data-spoiler=\"true\">​SPOILER ALERT!</span></span></p>"
+  },
+  {
+    "id": "118",
+    "type": "PARAGRAPH",
+    "text": "<p>​</p>"
   },
   {
     "id": "2",

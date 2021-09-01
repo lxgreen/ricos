@@ -59,6 +59,9 @@ describe('Content extract API', () => {
         'COLLAPSIBLE_ITEM',
         'COLLAPSIBLE_ITEM_TITLE',
         'COLLAPSIBLE_ITEM_BODY',
+        'TABLE',
+        'TABLE_ROW',
+        'TABLE_CELL',
       ],
       decorations: [
         'BOLD',

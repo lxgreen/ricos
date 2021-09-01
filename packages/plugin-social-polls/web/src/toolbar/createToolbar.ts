@@ -70,13 +70,13 @@ const externalToolbarStyles: ModalStyles = {
   },
 };
 
-export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) => {
+export const createToolbar: CreatePluginToolbar = ({ isMobile, t }) => {
   const buttonProps = {
     type: BUTTON_TYPES.MODAL,
     name: INSERT_PLUGIN_BUTTONS.POLLS,
     tooltip: t('Poll_InsertPoll_Tooltip'),
     getIcon: () => InsertPluginIcon,
-    componentData: { ...DEFAULT_COMPONENT_DATA, ...{ ...settings, getSiteMembers: undefined } }, //Temporary fix until refactor of settings & componentData usage
+    componentData: DEFAULT_COMPONENT_DATA,
     modalElement: decorateComponentWithProps(PollPresetSelector),
   };
 

@@ -1189,6 +1189,36 @@
           "textAlignment": "AUTO"
         }
       }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "76",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "77",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "78",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
     }
   ],
   "metadata": {

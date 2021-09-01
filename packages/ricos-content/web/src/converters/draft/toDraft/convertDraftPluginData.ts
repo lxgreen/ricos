@@ -69,6 +69,7 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data, nodes?: Node[]
     [Node_Type.MAP]: convertMapData,
     [Node_Type.EMBED]: convertEmbedData,
     [Node_Type.GALLERY]: convertGalleryData,
+    [Node_Type.TABLE]: convertTableData,
   };
   if (newData.containerData) {
     convertContainerData(newData, nodeType);
@@ -502,4 +503,51 @@ const parseLinkCustomData = (customData: string) => {
     console.error('failed to parse customData', customData); // eslint-disable-line
     return { customData };
   }
+};
+
+const convertTableData = (
+  data: {
+    dimensions;
+    header;
+    config: {
+      colsWidth;
+      rowsHeight;
+      colsMinWidth;
+      alignment?;
+      rows;
+      rowHeader;
+    };
+  },
+  nodes
+) => {
+  const {
+    dimensions: { colsWidthRatio, rowsHeight, colsMinWidth },
+    header,
+  } = data || {};
+  const { alignment: _, ...rest } = data.config;
+  data.config = { ...rest, colsWidth: colsWidthRatio, rowsHeight, colsMinWidth, rowHeader: header };
+  const rows = {};
+  nodes.forEach((row, i) => {
+    rows[i] = { columns: {} };
+    row.nodes.forEach((cell, j) => {
+      const { VERSION: _, ...content } = toDraft(cell);
+      const { cellStyle = {}, borderColors = {} } = cell.tableCellData || {};
+      rows[i].columns[j] = {
+        content,
+        style: {
+          verticalAlign: cellStyle.verticalAlignment?.toLowerCase(),
+          backgroundColor: cellStyle.backgroundColor?.toLowerCase(),
+        },
+        border: {
+          top: borderColors.top?.toLowerCase(),
+          left: borderColors.left?.toLowerCase(),
+          right: borderColors.right?.toLowerCase(),
+          bottom: borderColors.bottom?.toLowerCase(),
+        },
+      };
+    });
+  });
+  data.config.rows = rows;
+  delete data.dimensions;
+  delete data.header;
 };

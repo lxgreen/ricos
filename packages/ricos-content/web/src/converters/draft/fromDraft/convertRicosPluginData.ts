@@ -16,6 +16,7 @@ import {
   COLLAPSIBLE_LIST_TYPE,
   EMBED_TYPE,
   LINK_TYPE,
+  TABLE_TYPE,
   GALLERY_TYPE,
   GIPHY_TYPE,
   WRAP,
@@ -60,6 +61,7 @@ export const convertBlockDataToRicos = (type: string, data) => {
     [MAP_TYPE]: convertMapData,
     [EMBED_TYPE]: convertEmbedData,
     [LINK_TYPE]: convertLinkData,
+    [TABLE_TYPE]: convertTableData,
     [GALLERY_TYPE]: convertGalleryData,
   };
   let blockType = type;
@@ -327,7 +329,6 @@ const convertCollapsibleListData = (data: {
   data.initialExpandedItems = getInitialExpandedItems(expandState);
   data.expandOnlyOne = expandOnlyOne;
   data.direction = direction?.toUpperCase();
-  delete data.config;
 };
 
 const convertButtonData = (
@@ -406,4 +407,12 @@ const convertEmbedData = (data: {
 
 const convertLinkData = (data: { url: string; target?: string; rel?: string } & { link: Link }) => {
   data.link = createLink(data);
+};
+
+const convertTableData = data => {
+  const {
+    config: { colsWidth, rowsHeight, colsMinWidth, rowHeader },
+  } = data;
+  data.dimensions = { colsWidthRatio: colsWidth, rowsHeight, colsMinWidth };
+  data.header = rowHeader;
 };
