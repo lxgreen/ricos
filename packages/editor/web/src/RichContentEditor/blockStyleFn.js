@@ -5,8 +5,6 @@ import {
   depthClassName,
   getTextDirection,
   getDirectionFromAlignmentAndTextDirection,
-  DRAFT_TO_RICOS_DOC_TYPE,
-  DOC_STYLE_CLASSES,
 } from 'wix-rich-content-common';
 import { isListType } from 'ricos-content';
 
@@ -59,7 +57,7 @@ export default (theme, styleToClass, defaultTextAlignment) => {
       );
     }
 
-    const dynamicClasses = [...Object.entries(dynamicStyles).map(styleToClass)];
+    const dynamicClasses = Object.entries(dynamicStyles).map(styleToClass);
 
     return classNames(...classList, ...dynamicClasses);
   };

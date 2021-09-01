@@ -571,8 +571,7 @@ const config: RichContentEditorProps['config'] = {
     innerRCEPlugins,
   },
   [HEADINGS_DROPDOWN_TYPE]: {
-    customHeadings: ['P', 'H1', 'H2', 'H3', 'H4', 'H5'],
-    allowHeadingCustomization: true,
+    // customHeadings: ['H2', 'H3'],
   },
   [LINE_SPACING_TYPE]: {
     // toolbar: {
