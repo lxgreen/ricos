@@ -15,6 +15,8 @@ import {
   VIDEO_TYPE_LEGACY,
   POLL_TYPE,
   EMBED_TYPE,
+  COLLAPSIBLE_LIST_TYPE,
+  TABLE_TYPE,
 } from '../../../consts';
 import {
   ButtonData,
@@ -30,6 +32,8 @@ import {
   PollData,
   ImageData,
   EmbedData,
+  CollapsibleListData,
+  TableData,
 } from 'ricos-schema';
 
 export const TO_RICOS_DATA = {
@@ -49,4 +53,6 @@ export const TO_RICOS_DATA = {
   [VIDEO_TYPE_LEGACY]: VideoData,
   [POLL_TYPE]: PollData,
   [EMBED_TYPE]: EmbedData,
+  [COLLAPSIBLE_LIST_TYPE]: CollapsibleListData,
+  [TABLE_TYPE]: TableData,
 };

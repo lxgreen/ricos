@@ -27,6 +27,8 @@ export const NODE_TYPES = [
   Node_Type.COLLAPSIBLE_ITEM_TITLE,
   Node_Type.COLLAPSIBLE_ITEM_BODY,
   Node_Type.TABLE,
+  Node_Type.TABLE_ROW,
+  Node_Type.TABLE_CELL,
   Node_Type.EMBED,
 ];
 

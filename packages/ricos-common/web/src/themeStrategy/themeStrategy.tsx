@@ -11,13 +11,23 @@ import { isDefined } from 'ts-is-present';
 export default function themeStrategy(args: ThemeStrategyArgs): ThemeStrategyResult {
   const { buildCssVars } = utils;
   const { ricosTheme = {}, plugins = [], cssOverride = {} } = args;
-  const { parentClass = '', palette, paletteConfig, typography, customStyles } = ricosTheme;
+  const {
+    parentClass = '',
+    palette,
+    paletteConfig,
+    typography,
+    customStyles,
+    settingsStyles,
+  } = ricosTheme;
   const themeGeneratorFunctions = plugins.map(plugin => plugin.theme).filter(isDefined);
 
   // Create CSS Vars
   const { paletteVarsObject, colors } = createPalette(palette, paletteConfig);
   const typographyVarsObject = createTypography(typography);
-  const customsVarsObject = createCustomStyles(customStyles);
+  const customsVarsObject = createCustomStyles({
+    customStyles,
+    settingsStyles,
+  });
 
   const themeData: ThemeData = {
     colors,

@@ -20,6 +20,67 @@
 </details>
 <hr/>
 
+## 8.52.1 (Sep 1, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-editor`
+  - [#2898](https://github.com/wix/ricos/pull/2898) update new toolbars on editor changed
+
+## 8.52.0 (Sep 1, 2021)
+
+### :rocket: New Feature
+
+- `ricos-common`
+  - [#2890](https://github.com/wix/ricos/pull/2890) Theme - `settingsStyles`
+
+### :house: Internal
+
+- `ricos-content`
+  - [#2901](https://github.com/wix/ricos/pull/2901) refactor of html convertor
+
+## 8.51.2 (Aug 31, 2021)
+
+### :house: Internal
+
+- `social-polls`
+  - [#2900](https://github.com/wix/ricos/pull/2900) remove settings from data (siteToken)
+
+## 8.51.1 (Aug 30, 2021)
+
+### :house: Internal
+
+- `ricos-schema`
+  - [#2705](https://github.com/wix/ricos/pull/2705) table schema
+
+## 8.51.0 (Aug 30, 2021)
+
+### :rocket: New Feature
+
+- `toolbars`
+  - [#2328](https://github.com/wix/ricos/pull/2328) new formatting toolbar & link toolbar (under experiment)
+
+## 8.50.2 (Aug 29, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#9542a83](https://github.com/wix/ricos/commit/9542a831953185d665b98b13f02b1315cef948b3) fix textWrap normalize when plugin's config is undefined
+
+## 8.50.1 (Aug 26, 2021)
+
+### :bug: Bug Fix
+
+- `*`
+  - [#2891](https://github.com/wix/ricos/pull/2891) fix textWrap in content
+
+## 8.50.0 (Aug 26, 2021)
+
+### :rocket: New Feature
+
+- `link-preview-popover`
+  - [#2881](https://github.com/wix/ricos/pull/2881) Link Preview Popover
+
 ## 8.49.8 (Aug 25, 2021)
 
 ### :bug: Bug Fix
@@ -89,9 +150,7 @@
 ### :house: Internal
 
 - `ricos-schema`
-
   - [#2864](https://github.com/wix/ricos/pull/2864) generate plugin defaults in build time
-
 - `ui-components`
   - [#2839](https://github.com/wix/ricos/pull/2839) refactor SettingsMobileHeader component and consume it in Button/CollapsibleList/Map/Link-modal/UrlInputModal
 - `e2e`
@@ -99,7 +158,7 @@
   - [#2863](https://github.com/wix/ricos/pull/2863) update Cypress to v8
 - `example`
   - [#2862](https://github.com/wix/ricos/pull/2862) add eslint support
-- `poll`
+- `social-polls`
   - [#2024](https://github.com/wix/ricos/pull/2024) add Poll story & rendering tests
   - [#2870](https://github.com/wix/ricos/pull/2870) loadable support
 
@@ -154,12 +213,9 @@
 ### :bug: Bug Fix
 
 - `collapsible-list`
-
   - [#2831](https://github.com/wix/ricos/pull/2831) add collapsible_list to INSERT_PLUGIN_BUTTONS
-
 - `ricos-viewer` `ricos-editor`
   - [#2840](https://github.com/wix/ricos/pull/2840) expose `iframeSandboxDomain` prop on editor & viewer fix
-  -
 
 ## 8.48.3 (Aug 09, 2021)
 

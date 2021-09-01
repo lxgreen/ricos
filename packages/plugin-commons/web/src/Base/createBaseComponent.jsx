@@ -9,8 +9,6 @@ import {
   sizeClassName,
   textWrapClassName,
   createHocName,
-  WRAP,
-  NO_WRAP,
 } from 'wix-rich-content-common';
 import styles from 'wix-rich-content-editor-common/dist/statics/styles/general.scss';
 import rtlIgnoredStyles from 'wix-rich-content-common/dist/statics/styles/general.rtlignore.scss';
@@ -50,7 +48,6 @@ const createBaseComponent = ({
   withHorizontalScroll,
   disableKeyboardEvents,
   type,
-  textWrap,
 }) => {
   return class WrappedComponent extends Component {
     static propTypes = {
@@ -127,9 +124,6 @@ const createBaseComponent = ({
       const data = getData() || { config: DEFAULTS };
       if (settings?.defaultData) {
         merge(data, settings.defaultData);
-      }
-      if (data.config && !data.config.textWrap) {
-        data.config.textWrap = textWrap ? WRAP : NO_WRAP;
       }
       return data;
     }

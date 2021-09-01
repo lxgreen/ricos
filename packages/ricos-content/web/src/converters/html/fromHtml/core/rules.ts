@@ -53,12 +53,27 @@ export const hToHeading: Rule = [
 ];
 
 export const aToLink: Rule = [
-  hasTag('a'),
+  concatApply(MonoidAll)([hasTag('a'), flow(getAttributes, ({ href }) => !href?.startsWith('#'))]),
   context => (node: Element) => {
     const attrs = getAttributes(node);
     return context.addDecoration(
       Decoration_Type.LINK,
       { linkData: { link: createLink({ ...attrs, url: attrs.href }) } },
+      node
+    );
+  },
+];
+
+export const aToAnchor: Rule = [
+  concatApply(MonoidAll)([
+    hasTag('a'),
+    flow(getAttributes, ({ href }) => !!href && href.startsWith('#')),
+  ]),
+  context => (node: Element) => {
+    const attrs = getAttributes(node);
+    return context.addDecoration(
+      Decoration_Type.ANCHOR,
+      { anchorData: { ...attrs, anchor: attrs.href.substr(1) } },
       node
     );
   },
@@ -114,6 +129,24 @@ export const colorStyleToTextColor: Rule = [
       O.map(toForegroundData),
       O.fold(() => [], toColorDecoration(context, el))
     ),
+];
+
+// NOTE: Mention's HTML representation is not interactive. Might be fixed in the future
+export const spanToMention: Rule = [
+  concatApply(MonoidAll)([
+    hasTag('span'),
+    flow(getAttributes, attrs => !!attrs['data-mention-name']),
+  ]),
+  context => (node: Element) => {
+    const { 'data-mention-name': name, 'data-mention-slug': slug } = getAttributes(node);
+    return context.addDecoration(Decoration_Type.MENTION, { mentionData: { name, slug } }, node);
+  },
+];
+
+// NOTE: Spoiler's HTML representation is not interactive. Might be fixed in the future
+export const spanToSpoiler: Rule = [
+  concatApply(MonoidAll)([hasTag('span'), flow(getAttributes, attrs => !!attrs['data-spoiler'])]),
+  context => (node: Element) => context.addDecoration(Decoration_Type.SPOILER, {}, node),
 ];
 
 export const backgroundStyleToTextHighlight: Rule = [

@@ -570,7 +570,7 @@
   "TitleButton_label": "כותרת",
   "LinkTo_Modal_Section_Item_Button": "כפתור",
   "ImagePlugin_InsertButton_Tooltip": "הוספת תמונה",
-  "Mobile_LinkPreview_Hide": "הסתר",
+  "Mobile_LinkPreview_Hide": "הסתירו",
   "ButtonComponent_Error_Overlay": "הזן כתובת אתר תקינה בשביל הכפתור",
   "TablePlugin_Toolbar_ContextMenu_SplitCells_Button": "Split cells",
   "GIFPlugin_InsertButton": "GIF"

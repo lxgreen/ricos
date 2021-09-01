@@ -5,8 +5,17 @@ import * as S from 'fp-ts/string';
 import * as A from 'fp-ts/Array';
 import * as O from 'fp-ts/Option';
 
-import { RichContent, Node, Decoration_Type, Node_Type, Decoration, TextData } from 'ricos-schema';
-import { compact } from 'lodash';
+import {
+  RichContent,
+  Node,
+  Decoration_Type,
+  Node_Type,
+  Decoration,
+  TextData,
+  Link_Target,
+} from 'ricos-schema';
+import { compact, identity, pickBy } from 'lodash';
+import { firstRight } from '../../../fp-utils';
 
 export const toHtml = (content: RichContent): string => `${nodeArrayToHtml(content.nodes, '\n')}`;
 
@@ -32,23 +41,56 @@ const nodeToHtml = (node: Node): string | string[] => {
   return [];
 };
 
-const createHtmlAttrs = (decoration: Decoration): Record<string, string> => {
-  switch (decoration.type) {
-    case Decoration_Type.LINK:
-      return decoration.linkData?.link?.url ? { href: decoration.linkData.link.url } : {};
-    case Decoration_Type.COLOR: {
-      const { foreground, background } = decoration.colorData || {};
-      const style = pipe(
-        [foreground && `color: ${foreground};`, background && `background-color: ${background};`],
-        compact,
-        M.concatAll(S.Monoid)
-      );
-      return style ? { style } : {};
-    }
-    default:
-      return {};
-  }
+const createLinkAttrs = (decoration: Decoration): Record<string, string> => {
+  const rel = Object.entries(decoration.linkData?.link?.rel || {})
+    .filter(([_, value]) => !!value)
+    .map(([key]) => key)
+    .join(' ');
+  const targetRaw = decoration.linkData?.link?.target;
+  const ignoreTarget = [undefined, Link_Target.UNRECOGNIZED, Link_Target.SELF].includes(targetRaw);
+  const target = ignoreTarget ? '' : `_${targetRaw?.toLowerCase()}`;
+  const anchor = decoration.linkData?.link?.anchor || '';
+  const href = decoration.linkData?.link?.url || '';
+  return pickBy({ href, rel, anchor, target }, identity);
 };
+
+const createAnchorAttrs = (decoration: Decoration): Record<string, string> => {
+  const anchor = decoration.anchorData?.anchor || '';
+  return { href: `#${anchor}`, rel: 'noopener noreferrer' };
+};
+
+// NOTE: Mention's HTML representation is not interactive. Might be fixed in the future
+const createMentionAttrs = (decoration: Decoration): Record<string, string> => {
+  const { name = '', slug = '' } = decoration.mentionData || {};
+  if (!name && !slug) {
+    return {};
+  }
+  return pickBy({ role: 'link', 'data-mention-name': name, 'data-mention-slug': slug }, identity);
+};
+
+// NOTE: Spoiler's HTML representation is not interactive. Might be fixed in the future
+const createSpoilerAttrs = () => ({ 'data-spoiler': 'true' });
+
+const createColorAttrs = (decoration: Decoration) => {
+  const { foreground, background } = decoration.colorData || {};
+  const style = pipe(
+    [foreground && `color: ${foreground};`, background && `background-color: ${background};`],
+    compact,
+    M.concatAll(S.Monoid)
+  );
+  return pickBy({ style }, identity);
+};
+
+const isType = (type: Decoration_Type) => (decoration: Decoration) => decoration.type === type;
+
+const createHtmlAttrs = (decoration: Decoration): Record<string, string> =>
+  firstRight(decoration, {}, [
+    [isType(Decoration_Type.LINK), createLinkAttrs],
+    [isType(Decoration_Type.ANCHOR), createAnchorAttrs],
+    [isType(Decoration_Type.MENTION), createMentionAttrs],
+    [isType(Decoration_Type.SPOILER), createSpoilerAttrs],
+    [isType(Decoration_Type.COLOR), createColorAttrs],
+  ]);
 
 const createHtmlTag = (tag: string, child: string, attrs: Record<string, string> = {}): string => {
   const isFragment = tag === 'fragment';
@@ -95,10 +137,13 @@ const decorateTextElement = ({ text, decorations }: TextData): string => {
 
 const DECORATION_TO_HTML_TAG = {
   [Decoration_Type.COLOR]: 'span',
+  [Decoration_Type.MENTION]: 'span',
+  [Decoration_Type.SPOILER]: 'span',
   [Decoration_Type.BOLD]: 'strong',
   [Decoration_Type.ITALIC]: 'em',
   [Decoration_Type.UNDERLINE]: 'u',
   [Decoration_Type.LINK]: 'a',
+  [Decoration_Type.ANCHOR]: 'a',
 };
 const NODE_TO_HTML_TAG = {
   [Node_Type.BULLETED_LIST]: 'ul',

@@ -17,6 +17,7 @@ import ContentStateEditorType from './Components/ContentStateEditor';
 import { ensureDraftContent } from 'ricos-content/libs/migrateSchema';
 import { themeStrategy } from 'ricos-common';
 import { FONTS, EXPERIMENTS, ricosPalettes } from '../../storybook/src/resources';
+import { mockFetchUrlPreviewData } from '../shared/utils/linkPreviewUtil';
 
 const ContentStateEditor = React.lazy(() => import('./Components/ContentStateEditor'));
 const Editor = React.lazy(() => import('../shared/editor/Editor'));
@@ -405,6 +406,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
                 locale={locale}
                 scrollingElementFn={this.viewerScrollingElementFn}
                 experiments={experiments}
+                linkPreviewPopoverFetchData={mockFetchUrlPreviewData()}
               />
             </ErrorBoundary>
           </SectionContent>
