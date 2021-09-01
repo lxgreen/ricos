@@ -50,7 +50,9 @@ export interface CustomTextualStyle {
   minHeight?: CSSProperties['minHeight'];
   color?: CSSProperties['color'];
 }
+
 export interface RicosCustomStyles {
+  h1?: CustomTextualStyle;
   h2?: CustomTextualStyle;
   h3?: CustomTextualStyle;
   h4?: CustomTextualStyle;
@@ -61,4 +63,30 @@ export interface RicosCustomStyles {
   link?: CustomTextualStyle;
   hashtag?: CustomTextualStyle;
   button?: Pick<CustomTextualStyle, 'color'>;
+}
+
+export interface RicosSettingsStyles {
+  text?: {
+    fontFamily?: CSSProperties['fontFamily'];
+    color?: CSSProperties['color'];
+  };
+  whitebox?: {
+    borderRadius?: CSSProperties['borderRadius'];
+    boxShadow?: CSSProperties['boxShadow'];
+  };
+  buttons?: {
+    borderRadius?: CSSProperties['borderRadius'];
+    textColor?: CSSProperties['color'];
+  };
+  inputs?: {
+    borderColor?: CSSProperties['borderColor'];
+    borderRadius?: CSSProperties['borderRadius'];
+    placeholderColor?: CSSProperties['color'];
+  };
+  icons?: {
+    color?: CSSProperties['color'];
+  };
+  dividers?: {
+    color?: CSSProperties['color'];
+  };
 }

@@ -22,6 +22,7 @@ theme?: {
   palette?: PaletteColors | PalettePreset;
   paletteConfig?: PaletteConfig;
   customStyles?: RicosCustomStyles;
+  settingsStyles?: RicosSettingsStyles;
   parentClass?: string;
 }
 ```
@@ -122,7 +123,8 @@ Only applicable for `RicosEditor`
 
 ## Custom Styles
 
-Ricos allows you to customize several font and color properties. The `font-family` of a text content within Ricos is inherited from that component's wrapper, while other typography properties like `font-size` are defined within Ricos. These properties can be overridden via `customStyles`:
+Ricos allows you to customize several font and color properties of the content.
+The `font-family` of a text content within Ricos is inherited from that component's wrapper, while other typography properties like `font-size` are defined within Ricos. These properties can be overridden via `customStyles`:
 
 ```tsx
 const customStyles: RicosCustomStyles = {
@@ -214,6 +216,40 @@ and the accepted CSS properties are
 :::note
 `quote` also supports `borderColor` for its indented quote border effect
 :::
+
+## Custom Editor Styles
+The editor panels' styles can be modified according to your choice.
+
+```tsx
+const settingsStyles: RicosSettingsStyles = {
+  buttons: {
+    borderRadius: '18px',
+    textColor: '#FFFFFF',
+  },
+  dividers: {
+    color: '#DFE5EB',
+  },
+  icons: {
+    color: '#32536A',
+  },
+  inputs: {
+    borderColor: '#C1E4FE',
+    borderRadius: '6px',
+    placeholderColor: '#7A92A5',
+  },
+  text: {
+    color: '#32536A',
+    fontFamily: 'Madefor',
+  },
+  whitebox: {
+    borderRadius: '8px',
+    boxShadow: '0 8px 8px 0 rgba(22, 45, 61, 0.12), 0 3px 24px 0 rgba(22, 45, 61, 0.18)',
+  },
+};
+
+// Example 1
+<RicosEditor theme={{ settingsStyles }} />;
+```
 
 ## parentClass
 
