@@ -20,6 +20,13 @@
 </details>
 <hr/>
 
+## 8.52.1 (Sep 1, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-editor`
+  - [#2898](https://github.com/wix/ricos/pull/2898) update new toolbars on editor changed
+
 ## 8.52.0 (Sep 1, 2021)
 
 ### :rocket: New Feature
