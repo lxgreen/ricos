@@ -5,10 +5,10 @@ import { mergeStyles, validate } from 'wix-rich-content-common';
 // eslint-disable-next-line max-len
 import pluginDividerSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-divider.schema.json';
 import { isEqual } from 'lodash';
-import { Divider } from '../domain/divider';
-import DividerLine from './divider-line';
-import { sizeClassName } from '../classNameStrategies';
-import styles from '../../statics/styles/divider-viewer.rtlignore.scss';
+import { Divider } from './domain/divider';
+import DividerLine from './components/divider-line';
+import { sizeClassName } from './classNameStrategies';
+import styles from '../statics/styles/divider-viewer.rtlignore.scss';
 
 class DividerComponent extends PureComponent {
   static sizeClassName = (componentData, theme) => sizeClassName(componentData, theme);

@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `divider`
+  - [#2903](https://github.com/wix/ricos/pull/2903) move `divider-component` to fix Loadable support
+
 </details>
 <hr/>
 
