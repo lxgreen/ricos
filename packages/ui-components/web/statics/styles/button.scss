@@ -4,8 +4,15 @@
   font-size: 16px;
   cursor: pointer;
   border: 1px solid $settings-action-color-fallback;
+  width: 100%;
   &.borderLess {
     border: none;
+  }
+  &.mobile {
+    color: $fallbackColor;
+    background: transparent;
+    border: none;
+    width: 50px;
   }
 }
 
@@ -23,6 +30,10 @@
     color: rgba(255, 255, 255, 0.6);
     background-color: rgba(0, 0, 0, 0.4);
     border: none;
+  }
+
+  &.mobile {
+    color: $settings-action-color-fallback;
   }
 }
 

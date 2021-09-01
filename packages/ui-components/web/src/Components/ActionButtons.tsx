@@ -39,9 +39,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
       ariaLabel={cancelText}
       dataHook="actionButtonCancel"
       onClick={onCancel}
-      className={classNames(styles.action_buttons_button, {
-        [styles.mobile]: isMobile,
-      })}
+      isMobile={isMobile}
       secondary
       text={cancelText || t('SettingsPanelFooter_Cancel')}
     />
@@ -51,12 +49,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
       ariaLabel={saveText}
       disabled={disableSave}
       theme={theme}
-      className={classNames(
-        styles.action_buttons_button,
-        styles.action_buttons_button_primary,
-        { [styles.mobile]: isMobile },
-        { [styles.disabled]: disableSave }
-      )}
+      isMobile={isMobile}
       dataHook="actionButtonSave"
       onClick={onSave}
       text={saveText || t('SettingsPanelFooter_Save')}
