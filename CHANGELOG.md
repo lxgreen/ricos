@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.52.2 (Sep 1, 2021)
+
 ### :bug: Bug Fix
 
 - `toolbars-new`
@@ -25,13 +30,11 @@
   - [#2902](https://github.com/wix/ricos/pull/2902) fix link-modal input behavior on focus
 - `divider`
   - [#2903](https://github.com/wix/ricos/pull/2903) move `divider-component` to fix Loadable support
-  
+
 ### :house: Internal
+
 - `general`
   - [#2911](https://github.com/wix/ricos/pull/2911) fix rollup-externals (tiptap-react excluded)
-
-</details>
-<hr/>
 
 ## 8.52.1 (Sep 1, 2021)
 
