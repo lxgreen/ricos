@@ -36,6 +36,7 @@ const externals = [
 
 const excludedExternalsRegexArr = [
   /react-click-outsider/,
+  /@tiptap\/react/,
   /wix-rich-content-editor-common\/.*?\.scss/,
   /wix-rich-content-common\/.*?\.scss/,
 ];

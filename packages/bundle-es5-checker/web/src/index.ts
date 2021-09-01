@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { RicosEditor } from 'ricos-editor';
+import { RicosViewer } from 'ricos-viewer';
 import { pluginCodeBlock, createCodeBlockPlugin } from 'wix-rich-content-plugin-code-block';
 import { pluginDivider, createDividerPlugin } from 'wix-rich-content-plugin-divider';
 import { pluginEmoji, createEmojiPlugin } from 'wix-rich-content-plugin-emoji';
@@ -23,9 +24,11 @@ import { pluginMentions } from 'wix-rich-content-plugin-mentions';
 import { pluginUndoRedo } from 'wix-rich-content-plugin-undo-redo';
 import { pluginVideo, createVideoPlugin, videoButtonsTypes } from 'wix-rich-content-plugin-video';
 import { pluginTable } from 'wix-rich-content-plugin-table';
+import './loadable';
 // eslint-disable-next-line no-console
 console.log(
-  'yaron123',
+  'packages',
+  RicosViewer,
   RicosEditor,
   pluginCodeBlock,
   pluginDivider,
