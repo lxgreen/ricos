@@ -1,5 +1,10 @@
-import { CustomTextualStyle, RicosCustomStyles } from 'wix-rich-content-common';
+import {
+  CustomTextualStyle,
+  RicosSettingsStyles,
+  RicosCustomStyles,
+} from 'wix-rich-content-common';
 import { CssVarsObject } from '../themeTypes';
+import { merge } from 'lodash';
 
 /**
  * Sets `lineHeight` to `1.5` when `fontSize` is provided without `lineHeight`.
@@ -15,14 +20,19 @@ const lineHeightFix = ({
   lineHeight: lineHeight || (fontSize !== undefined ? 1.5 : undefined),
 });
 
-const toVars = (customStyles: RicosCustomStyles) =>
+type ToVars = (
+  customStyles: RicosCustomStyles | RicosSettingsStyles,
+  prefix: string,
+  withLineHeightFix?: boolean
+) => CssVarsObject;
+const toVars: ToVars = (customStyles, prefix, fix = false) =>
   Object.entries(customStyles).reduce(
     (prev, [fieldName, customStyle]) => ({
       ...prev,
-      ...Object.entries(lineHeightFix(customStyle)).reduce(
+      ...Object.entries(fix ? lineHeightFix(customStyle) : customStyle).reduce(
         (prevStyle, styleName) => ({
           ...prevStyle,
-          [`custom-${fieldName.toLowerCase()}-${styleName[0]}`]: styleName[1],
+          [`${prefix}-${fieldName.toLowerCase()}-${styleName[0]}`]: styleName[1],
         }),
         {}
       ),
@@ -30,10 +40,13 @@ const toVars = (customStyles: RicosCustomStyles) =>
     {}
   );
 
-export default function createCustomStyles(customStyles?: RicosCustomStyles): CssVarsObject {
-  if (!customStyles) {
-    return {};
-  }
-  const customsVars: CssVarsObject = customStyles ? toVars(customStyles) : {};
-  return customsVars;
-}
+type CreateCustomStyles = (param: {
+  customStyles?: RicosCustomStyles;
+  settingsStyles?: RicosSettingsStyles;
+}) => CssVarsObject;
+
+const createCustomStyles: CreateCustomStyles = ({ customStyles = {}, settingsStyles = {} }) => {
+  return merge({}, toVars(customStyles, 'custom', true), toVars(settingsStyles, 'settings'));
+};
+
+export default createCustomStyles;

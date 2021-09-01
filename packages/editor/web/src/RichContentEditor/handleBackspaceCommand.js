@@ -5,8 +5,16 @@ import {
   replaceWithEmptyBlock,
   indentSelectedBlocks,
   getSelectedBlocks,
+  SelectionState,
+  setNativeSelectionToBlock,
 } from 'wix-rich-content-editor-common';
 import removeBlockAdjacentToAtomic from './atomicBlockRemovalUtil';
+
+const setSelectionToBlock = (editorState, block) => {
+  const selection = SelectionState.createEmpty(block.getKey());
+  setNativeSelectionToBlock(block);
+  return EditorState.forceSelection(editorState, selection);
+};
 
 export default editorState => {
   const selection = editorState.getSelection();
@@ -23,8 +31,13 @@ export default editorState => {
   const content = editorState.getCurrentContent();
   const startKey = selection.getStartKey();
   const blockBefore = content.getBlockBefore(startKey);
+  const cursorAtStartOfBlock = selection.isCollapsed() && selection.getAnchorOffset() === 0;
 
   if (blockBefore && blockBefore.getType() === 'atomic') {
+    if (cursorAtStartOfBlock) {
+      return setSelectionToBlock(editorState, blockBefore);
+    }
+
     const withoutCurrentBlock = removeBlockAdjacentToAtomic(editorState, false);
 
     if (withoutCurrentBlock) {
@@ -40,7 +53,7 @@ export default editorState => {
   }
 
   // cases where cursor is at start of block
-  if (selection.isCollapsed() && selection.getAnchorOffset() === 0) {
+  if (cursorAtStartOfBlock) {
     // try to decrease indentation
     const depth = getSelectedBlocks(editorState)[0].getDepth();
     if (depth > 0) {

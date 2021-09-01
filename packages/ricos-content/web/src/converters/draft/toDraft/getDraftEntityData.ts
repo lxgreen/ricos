@@ -1,7 +1,6 @@
 /* eslint-disable fp/no-delete */
 import { Node, Node_Type, ButtonData_Type } from 'ricos-schema';
 import {
-  RICOS_NODE_TYPE_TO_DATA_FIELD,
   ENTITY_DECORATION_TO_MUTABILITY,
   FROM_RICOS_ENTITY_TYPE,
   TO_RICOS_DECORATION_TYPE,
@@ -10,9 +9,9 @@ import {
   ACTION_BUTTON_TYPE,
   LINK_BUTTON_TYPE,
   LINK_PREVIEW_TYPE,
-  RicosEntity,
-  RicosEntityMap,
-} from '../../..';
+  RICOS_NODE_TYPE_TO_DATA_FIELD,
+} from '../../../consts';
+import { RicosEntity, RicosEntityMap } from '../../../types';
 import { DraftTypedDecoration } from './decorationParsers';
 import { convertDecorationToDraftData, convertNodeToDraftData } from './convertDraftPluginData';
 

@@ -13,8 +13,14 @@ import {
   APP_EMBED_TYPE,
   VIDEO_TYPE,
   MAP_TYPE,
+  COLLAPSIBLE_LIST_TYPE,
   EMBED_TYPE,
   LINK_TYPE,
+  TABLE_TYPE,
+  GALLERY_TYPE,
+  GIPHY_TYPE,
+  WRAP,
+  NO_WRAP,
 } from '../../../consts';
 import {
   PluginContainerData_Spoiler,
@@ -22,6 +28,8 @@ import {
   PluginContainerData_Width_Type,
   ButtonData_Type,
   Link,
+  GIFData,
+  GalleryData,
 } from 'ricos-schema';
 import { TO_RICOS_DATA } from './consts';
 import {
@@ -31,6 +39,8 @@ import {
   VideoComponentData,
 } from '../../../types';
 import { createLink } from '../../nodeUtils';
+import toConstantCase from 'to-constant-case';
+import { DraftGalleryStyles } from '../consts';
 
 export const convertBlockDataToRicos = (type: string, data) => {
   const newData = cloneDeep(data);
@@ -38,6 +48,7 @@ export const convertBlockDataToRicos = (type: string, data) => {
     [VIDEO_TYPE]: convertVideoData,
     [DIVIDER_TYPE]: convertDividerData,
     [FILE_UPLOAD_TYPE]: convertFileData,
+    [GIPHY_TYPE]: convertGIFData,
     [IMAGE_TYPE]: convertImageData,
     [POLL_TYPE]: convertPollData,
     [APP_EMBED_TYPE]: convertAppEmbedData,
@@ -45,16 +56,19 @@ export const convertBlockDataToRicos = (type: string, data) => {
     [MENTION_TYPE]: convertMentionData,
     [LINK_BUTTON_TYPE]: convertButtonData,
     [ACTION_BUTTON_TYPE]: convertButtonData,
+    [COLLAPSIBLE_LIST_TYPE]: convertCollapsibleListData,
     [HTML_TYPE]: convertHTMLData,
     [MAP_TYPE]: convertMapData,
     [EMBED_TYPE]: convertEmbedData,
     [LINK_TYPE]: convertLinkData,
+    [TABLE_TYPE]: convertTableData,
+    [GALLERY_TYPE]: convertGalleryData,
   };
   let blockType = type;
   if (type === LINK_PREVIEW_TYPE && data.html) {
     blockType = EMBED_TYPE;
   }
-  if (newData.config && blockType !== DIVIDER_TYPE) {
+  if (newData.config) {
     convertContainerData(newData);
   }
   if (blockType in converters) {
@@ -69,7 +83,7 @@ export const convertBlockDataToRicos = (type: string, data) => {
 };
 
 const convertContainerData = (data: { config?: ComponentData['config']; containerData }) => {
-  const { size, alignment, width, spoiler, height } = data.config || {};
+  const { size, alignment, width, spoiler, height, textWrap = WRAP } = data.config || {};
   const { enabled, description, buttonContent } = spoiler || {};
   const newSpoiler: PluginContainerData_Spoiler | undefined = spoiler && {
     enabled: enabled || false,
@@ -77,13 +91,14 @@ const convertContainerData = (data: { config?: ComponentData['config']; containe
     buttonText: buttonContent,
   };
   data.containerData = {
-    alignment: alignment && kebabToConstantCase(alignment),
+    alignment: alignment?.toUpperCase(),
     spoiler: newSpoiler,
+    textWrap: textWrap !== NO_WRAP,
   };
   typeof height === 'number' && (data.containerData.height = { custom: height });
   typeof width === 'number'
     ? (data.containerData.width = { custom: width })
-    : size && (data.containerData.width = { size: kebabToConstantCase(size) });
+    : size && (data.containerData.width = { size: toConstantCase(size) });
 };
 
 const convertVideoData = (data: {
@@ -103,13 +118,53 @@ const convertVideoData = (data: {
       height,
     };
   } else if (typeof data.src === 'object') {
-    data.video = { src: { custom: data.src.pathname } };
+    data.video = { src: { id: data.src.pathname } };
     data.thumbnail = {
-      src: { custom: data.src.thumbnail.pathname },
+      src: { id: data.src.thumbnail.pathname },
       width: data.src.thumbnail.width,
       height: data.src.thumbnail.height,
     };
   }
+};
+
+const convertGalleryStyles = styles => {
+  styles.layout = {};
+  styles.item = {};
+  styles.thumbnails = {};
+  has(styles, 'galleryLayout') && (styles.layout.type = styles.galleryLayout);
+  has(styles, 'oneRow') && (styles.layout.horizontalScroll = styles.oneRow);
+  has(styles, 'isVertical') && (styles.layout.orientation = styles.isVertical ? 'COLUMNS' : 'ROWS');
+  has(styles, 'numberOfImagesPerRow') &&
+    (styles.layout.numberOfColumns = styles.numberOfImagesPerRow);
+  has(styles, 'gallerySizePx') && (styles.item.targetSize = styles.gallerySizePx);
+  has(styles, 'cubeRatio') && (styles.item.ratio = styles.cubeRatio);
+  has(styles, 'cubeType') && (styles.item.crop = styles.cubeType.toUpperCase());
+  has(styles, 'imageMargin') && (styles.item.spacing = styles.imageMargin);
+  has(styles, 'galleryThumbnailsAlignment') &&
+    (styles.thumbnails.placement = styles.galleryThumbnailsAlignment.toUpperCase());
+  has(styles, 'thumbnailSpacings') && (styles.thumbnails.spacing = styles.thumbnailSpacings * 2);
+  return styles;
+};
+
+const convertGalleryItem = item => {
+  const {
+    url,
+    metadata: { type, poster, height, width, link, title, altText },
+  } = item;
+  item[type] = { media: { src: { url }, height, width } };
+  title && (item.title = title);
+  altText && (item.altText = altText);
+  if (type === 'video' && poster) {
+    const src = { url: poster.url || poster };
+    item.video.thumbnail = { src, height: poster.height || height, width: poster.width || width };
+  }
+  type === 'image' && link && (item.image.link = link);
+  return item;
+};
+
+const convertGalleryData = (data: GalleryData & { styles: DraftGalleryStyles }) => {
+  has(data, 'items') && (data.items = data.items.map(item => convertGalleryItem(item)));
+  has(data, 'styles') && (data.options = convertGalleryStyles(data.styles));
 };
 
 const convertDividerData = (data: {
@@ -123,7 +178,7 @@ const convertDividerData = (data: {
   has(data, 'type') && (data.lineStyle = data.type?.toUpperCase());
   has(data, 'config.size') && (data.width = data.config?.size?.toUpperCase());
   has(data, 'config.alignment') && (data.alignment = data.config?.alignment?.toUpperCase());
-  data.containerData = { width: { size: PluginContainerData_Width_Type.CONTENT } };
+  data.containerData.width = { size: PluginContainerData_Width_Type.CONTENT };
 };
 
 const convertImageData = (data: {
@@ -137,18 +192,56 @@ const convertImageData = (data: {
 }) => {
   const { file_name, width, height } = data.src || {};
   const { link, anchor } = data.config || {};
-  data.image = { src: { custom: file_name }, width, height };
+  data.image = { src: { id: file_name }, width, height };
   data.link = (link || anchor) && createLink({ ...link, anchor });
   data.altText = data.metadata?.alt;
   data.caption = data.metadata?.caption;
 };
 
-const convertPollData = (data: { layout; design }) => {
+const convertGIFData = (
+  data: GIFData & {
+    gif?: {
+      originalUrl;
+      originalMp4;
+      stillUrl;
+      downsizedUrl;
+      downsizedSmallMp4;
+      downsizedStillUrl;
+      height;
+      width;
+    };
+  }
+) => {
+  const { gif } = data;
+  const {
+    originalUrl,
+    originalMp4,
+    stillUrl,
+    downsizedUrl,
+    downsizedSmallMp4,
+    downsizedStillUrl,
+    height,
+    width,
+  } = gif || {};
+  data.original = { gif: originalUrl, mp4: originalMp4, still: stillUrl };
+  data.downsized = { gif: downsizedUrl, mp4: downsizedSmallMp4, still: downsizedStillUrl };
+  data.height = height;
+  data.width = width;
+  delete data.gif;
+};
+
+const convertPollData = (data: { layout; design; poll }) => {
   has(data, 'layout.poll.type') && (data.layout.poll.type = data.layout.poll.type.toUpperCase());
   has(data, 'layout.poll.direction') &&
     (data.layout.poll.direction = data.layout.poll.direction.toUpperCase());
   has(data, 'design.poll.backgroundType') &&
     (data.design.poll.backgroundType = data.design.poll.backgroundType.toUpperCase());
+  has(data, 'poll.id') && (data.poll.pollId = data.poll.id);
+  has(data, 'poll.options') &&
+    (data.poll.options = data.poll.options.map(({ id, ...rest }) => ({
+      optionId: id,
+      ...rest,
+    })));
 };
 
 const convertAppEmbedData = (data: {
@@ -156,7 +249,7 @@ const convertAppEmbedData = (data: {
   selectedProduct: Record<string, string>;
   url;
   imageSrc;
-  id;
+  itemId;
   name;
   bookingData;
   eventData;
@@ -173,7 +266,7 @@ const convertAppEmbedData = (data: {
     durations,
   } = data.selectedProduct;
   data.url = pageUrl || (html && (data.url = html.match(/href="[^"]*/g)?.[0]?.slice(6)));
-  data.id = id;
+  data.itemId = id;
   data.name = name;
   data.imageSrc = imageSrc;
   if (data.type === 'booking') {
@@ -208,8 +301,34 @@ const convertMentionData = (data: {
 };
 
 const convertFileData = (data: FileComponentData & { src }) => {
-  const src: FileSource = { url: data.url, custom: data.id };
+  const { url, id, privacy } = data;
+  const isPrivate = typeof privacy !== 'undefined' ? privacy === 'private' : undefined;
+  const src: FileSource = { url, id, private: isPrivate };
   data.src = src;
+};
+
+const convertCollapsibleListData = (data: {
+  config?: { expandState: string; expandOnlyOne: boolean; direction: string };
+  initialExpandedItems?: string;
+  expandOnlyOne?: boolean;
+  direction?: string;
+}) => {
+  const { config } = data || {};
+  const { expandState, expandOnlyOne, direction } = config || {};
+
+  const getInitialExpandedItems = (expandState?: string) => {
+    if (expandState === 'expanded') {
+      return 'ALL';
+    }
+    if (expandState === 'collapsed') {
+      return 'NONE';
+    }
+    return 'FIRST';
+  };
+
+  data.initialExpandedItems = getInitialExpandedItems(expandState);
+  data.expandOnlyOne = expandOnlyOne;
+  data.direction = direction?.toUpperCase();
 };
 
 const convertButtonData = (
@@ -259,7 +378,7 @@ const convertMapData = data => {
   data.mapSettings.zoomControl = isZoomControlShown;
   data.mapSettings.locationName = locationDisplayName;
   data.mapSettings.initialZoom = zoom;
-  data.mapSettings.mapType = mode;
+  data.mapSettings.mapType = mode?.toUpperCase();
 
   if (has(data.mapSettings, 'isViewControlShown')) {
     data.mapSettings.viewModeControl = isViewControlShown;
@@ -290,4 +409,10 @@ const convertLinkData = (data: { url: string; target?: string; rel?: string } & 
   data.link = createLink(data);
 };
 
-const kebabToConstantCase = (str: string) => str.toUpperCase().replace('-', '_');
+const convertTableData = data => {
+  const {
+    config: { colsWidth, rowsHeight, colsMinWidth, rowHeader },
+  } = data;
+  data.dimensions = { colsWidthRatio: colsWidth, rowsHeight, colsMinWidth };
+  data.header = rowHeader;
+};

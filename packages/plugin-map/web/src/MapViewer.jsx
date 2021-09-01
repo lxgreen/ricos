@@ -137,3 +137,5 @@ MapViewer.propTypes = {
   }).isRequired,
   helpers: PropTypes.object,
 };
+
+export default MapViewer;

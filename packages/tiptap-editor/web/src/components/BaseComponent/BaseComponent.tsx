@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { EditorPropsContext } from '../../context';
-import { NodeViewWrapper } from '@tiptap-es5/react';
+import { NodeViewWrapper } from '@tiptap/react';
 import {
   getAlignmentClassName,
   getFocusClassName,
@@ -10,7 +10,7 @@ import {
 } from './styles';
 import generalStyles from 'wix-rich-content-editor-common/dist/statics/styles/general.scss';
 import generalRTLIgnoredStyles from 'wix-rich-content-common/dist/statics/styles/general.rtlignore.scss';
-import { tiptapNodeDataToDraft, toTiptap } from 'ricos-content/libs/tiptap';
+import { tiptapNodeDataToDraft, toTiptap } from '../../converters';
 
 const stylesWithRTL = { ...generalStyles, ...generalRTLIgnoredStyles };
 const EditorContextConsumer = ({ children }) => {

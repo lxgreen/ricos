@@ -6,9 +6,6 @@ import {
   mergeStyles,
   validate,
   isSSR,
-  getImageSrc,
-  isPNG,
-  WIX_MEDIA_DEFAULT,
   anchorScroll,
   addAnchorTagToUrl,
   GlobalContext,
@@ -17,7 +14,7 @@ import {
   SEOSettings,
   CustomAnchorScroll,
 } from 'wix-rich-content-common';
-// eslint-disable-next-line max-len
+import { getImageSrc, isPNG, WIX_MEDIA_DEFAULT } from 'wix-rich-content-common/libs/imageUtils';
 import pluginImageSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-image.schema.json';
 import { DEFAULTS, SEO_IMAGE_WIDTH } from './consts';
 import styles from '../statics/styles/image-viewer.rtlignore.scss';
@@ -168,15 +165,9 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
     /**
         PNG files can't reduce quality via Wix services and we want to avoid downloading a big png image that will affect performance.
       **/
-    if (
-      !this.props.isMobile &&
-      !isPNG(src) &&
-      this.context.experiments?.useQualityPreload?.enabled
-    ) {
+    if (!this.props.isMobile && !isPNG(src)) {
       const {
-        componentData: {
-          config: { alignment, width },
-        },
+        componentData: { config: { alignment, width } = {} },
       } = this.props;
       const usePredefinedWidth = (alignment === 'left' || alignment === 'right') && !width;
       imageSrcOpts = {
@@ -264,6 +255,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
     if (this.shouldUseSrcSet() && useSrcSet) {
       srcSet = replaceUrlFileExtenstion(src, 'webp');
     }
+    const loading = this.context.experiments.lazyImagesAndIframes?.enabled ? 'lazy' : undefined;
     return (
       <img
         {...props}
@@ -276,6 +268,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
         ref={fadeIn ? this.imageRef : this.preloadRef}
         width={width}
         height={height}
+        loading={loading}
       />
     );
   }
@@ -370,7 +363,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       const anchorString = `viewer-${anchor}`;
       const element = document.getElementById(anchorString);
       addAnchorTagToUrl(anchorString);
-      anchorScroll(element);
+      anchorScroll(element, this.context.experiments);
     }
   };
 

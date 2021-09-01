@@ -38,6 +38,18 @@ $ricos-quote-color: var(--ricos-custom-quote-color, unset);
 $ricos-link-color: var(--ricos-custom-link-color, $action-color);
 $ricos-hashtag-color: var(--ricos-custom-hashtag-color, $action-color);
 
+// Settings Styles (panels & editor elements only)
+$settings-buttons-border-radius: var(--ricos-settings-buttons-border-radius, 0px);
+$settings-buttons-text-color: var(--ricos-settings-buttons-text-color, #ffffff);
+$settings-dividers-color: var(--ricos-settings-dividers-color, #000000);
+$settings-icons-color: var(--ricos-settings-icons-color, #000000);
+$settings-inputs-border-color: var(--ricos-settings-inputs-border-color, #000000);
+$settings-inputs-border-radius: var(--ricos-settings-inputs-border-radius, 0px);
+$settings-inputs-placeholder-color: var(--ricos-settings-inputs-placeholder-color, #000000);
+$settings-text-color: var(--ricos-settings-text-color, #333333);
+$settings-whitebox-border-radius: var(--ricos-settings-whitebox-border-radius, 0px);
+$settings-whitebox-box-shadow: var(--ricos-settings-whitebox-box-shadow);
+
 $modal-input-color: #333333;
 $toolbar-font-color: #333333;
 $toolbar-border-color: #ededed;

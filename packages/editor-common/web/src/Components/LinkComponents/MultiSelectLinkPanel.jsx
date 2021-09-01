@@ -6,10 +6,9 @@ import PropTypes from 'prop-types';
 import LinkPanelWrapper from './LinkPanelWrapper';
 import AnchorPanel from '../AnchorComponents/AnchorPanel';
 import { mergeStyles } from 'wix-rich-content-common';
-import { RadioGroup, FocusManager } from 'wix-rich-content-ui-components';
+import { RadioGroup, FocusManager, SettingsMobileHeader } from 'wix-rich-content-ui-components';
 import styles from '../../../statics/styles/multi-select-link-panel.scss';
 import LinkActionsButtons from './LinkActionsButtons';
-import { LinkIcon } from '../../Icons';
 import { RADIO_GROUP_VALUES } from '../AnchorComponents/consts';
 
 class MultiSelectLinkPanel extends PureComponent {
@@ -42,6 +41,18 @@ class MultiSelectLinkPanel extends PureComponent {
     );
   };
 
+  renderSeparator = () => {
+    const { isMobile } = this.props;
+    return (
+      <div
+        className={classNames(styles.multiSelectLinkPanel_actionsDivider, {
+          [styles.multiSelectLinkPanel_actionsDivider_mobile]: isMobile,
+        })}
+        role="separator"
+      />
+    );
+  };
+
   renderDesktopHeader = () => {
     const { t } = this.props;
     return (
@@ -49,33 +60,24 @@ class MultiSelectLinkPanel extends PureComponent {
         <div className={styles.multiSelectLinkPanel_header}>
           <div>{t('LinkTo_Modal_Header')}</div>
         </div>
-        <div className={styles.multiSelectLinkPanel_actionsDivider} role="separator" />
+        {this.renderSeparator()}
       </>
     );
   };
 
-  renderDesktopLinkActionsButtons = () => {
-    const { buttonsProps } = this.props;
+  renderMultiSelectActions = () => {
+    const { isMobile, buttonsProps, t } = this.props;
     return (
-      <>
-        <div className={styles.multiSelectLinkPanel_actionsDivider} role="separator" />
-        <LinkActionsButtons {...buttonsProps} />
-      </>
-    );
-  };
-
-  renderMobileHeader = () => {
-    const { buttonsProps, t } = this.props;
-    return (
-      <>
-        <LinkActionsButtons {...buttonsProps} />
-        <div className={styles.multiSelectLinkPanel_header_mobile}>
-          <LinkIcon className={styles.multiSelectLinkPanel_mobileHeaderIcon} />
-          <div>{t('LinkTo_Modal_Header')}</div>
-        </div>
-
-        {this.renderMobileTabs()}
-      </>
+      <div className={isMobile && styles.multiSelectLinkPanel_actionsWrapper_mobile}>
+        {isMobile ? (
+          <div>
+            <SettingsMobileHeader {...buttonsProps} title={t('MobileLinkModal_Title')} />
+            {this.renderMobileTabs()}
+          </div>
+        ) : (
+          <LinkActionsButtons {...buttonsProps} />
+        )}
+      </div>
     );
   };
 
@@ -123,6 +125,7 @@ class MultiSelectLinkPanel extends PureComponent {
       anchorableBlocksData,
       anchorPanelValues,
       blockPreview,
+      hasCheckboxes = true,
     } = this.props;
 
     const containerClassName = !isMobile
@@ -144,7 +147,7 @@ class MultiSelectLinkPanel extends PureComponent {
         role="form"
         {...ariaProps}
       >
-        {!isMobile ? this.renderDesktopHeader() : this.renderMobileHeader()}
+        {!isMobile && this.renderDesktopHeader()}
 
         <div className={contentClassName}>
           {!isMobile && (
@@ -161,6 +164,7 @@ class MultiSelectLinkPanel extends PureComponent {
                 showNewTabCheckbox={showNewTabCheckbox}
                 showNoFollowCheckbox={showNoFollowCheckbox}
                 showSponsoredCheckbox={showSponsoredCheckbox}
+                hasCheckboxes={hasCheckboxes}
                 {...sharedPanelsProps}
               />
             </div>
@@ -175,8 +179,8 @@ class MultiSelectLinkPanel extends PureComponent {
             />
           )}
         </div>
-
-        {!isMobile && this.renderDesktopLinkActionsButtons()}
+        {!isMobile && this.renderSeparator()}
+        {this.renderMultiSelectActions()}
       </FocusManager>
     );
   }
@@ -199,6 +203,7 @@ MultiSelectLinkPanel.propTypes = {
   anchorableBlocksData: PropTypes.object,
   anchorPanelValues: PropTypes.object,
   isMobile: PropTypes.bool,
+  hasCheckboxes: PropTypes.bool,
   blockPreview: PropTypes.func,
 };
 

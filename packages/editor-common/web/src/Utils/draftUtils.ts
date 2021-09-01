@@ -22,7 +22,6 @@ import {
   TextAlignment,
   InlineStyle,
   RelValue,
-  getTargetValue,
   SPOILER_TYPE,
 } from 'wix-rich-content-common';
 import { Optional } from 'utility-types';
@@ -682,7 +681,7 @@ export function fixPastedLinks(
     if (url) {
       content.replaceEntityData(entityKey, {
         url,
-        target: getTargetValue(anchorTarget),
+        target: anchorTarget,
         rel: relValue,
       });
     }
@@ -702,7 +701,7 @@ export function getBlockEntityType(editorState: EditorState, blockKey: string) {
 function getBlockEntity(editorState: EditorState, blockKey: string) {
   const contentState = editorState.getCurrentContent();
   const block = contentState.getBlockForKey(blockKey);
-  const entityKey = block.getEntityAt(0);
+  const entityKey = block?.getEntityAt(0);
   return entityKey ? contentState.getEntity(entityKey) : undefined;
 }
 
@@ -845,4 +844,15 @@ export function selectAllContent(editorState, forceSelection) {
     : EditorState.acceptSelection;
   const newEditorState = setSelectionFunction(editorState, selection);
   return newEditorState;
+}
+
+export function setNativeSelectionToBlock(block) {
+  const offsetKey = DraftOffsetKey.encode(block.getKey(), 0, 0);
+  const node = document.querySelectorAll(`[data-offset-key="${offsetKey}"]`)[0];
+  const selection = window.getSelection();
+  const range = document.createRange();
+  range.setStart(node, 0);
+  range.setEnd(node, 0);
+  selection?.removeAllRanges();
+  selection?.addRange(range);
 }

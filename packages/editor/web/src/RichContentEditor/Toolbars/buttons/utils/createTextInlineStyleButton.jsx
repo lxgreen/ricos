@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { RichUtils } from 'wix-rich-content-editor-common';
 import TextButton from '../TextButton';
 
-export default ({ style, Icon, tooltipTextKey }) =>
+export default ({ style, Icon, tooltipTextKey, buttonName }) =>
   class TextInlineStyleButton extends Component {
     static propTypes = {
       getEditorState: PropTypes.func.isRequired,
@@ -32,18 +32,19 @@ export default ({ style, Icon, tooltipTextKey }) =>
       }
     };
 
+    onClick = e => {
+      this.props.helpers?.onToolbarButtonClick?.({
+        buttonName,
+        value: String(!this.isActive()),
+      });
+      this.toggleStyle(e);
+    };
+
     render() {
       const { theme, helpers, isMobile, t, tabIndex } = this.props;
       const tooltipText = t(tooltipTextKey);
       const textForHooks = tooltipText.replace(/\s+/, '');
       const dataHookText = `textInlineStyleButton_${textForHooks}`;
-      const onClick = e => {
-        helpers?.onToolbarButtonClick?.({
-          buttonName: textForHooks,
-          value: String(!this.isActive()),
-        });
-        this.toggleStyle(e);
-      };
 
       return (
         <TextButton
@@ -51,7 +52,7 @@ export default ({ style, Icon, tooltipTextKey }) =>
           theme={theme}
           isMobile={isMobile}
           isActive={this.isActive}
-          onClick={onClick}
+          onClick={this.onClick}
           tooltipText={tooltipText}
           dataHook={dataHookText}
           tabIndex={tabIndex}

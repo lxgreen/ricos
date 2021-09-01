@@ -1,4 +1,3 @@
-const isSSR = typeof window === 'undefined';
 const requireAllScssFiles = require.context('./', true, /\.scss$/);
 const resolvedThemes = requireAllScssFiles
   .keys()

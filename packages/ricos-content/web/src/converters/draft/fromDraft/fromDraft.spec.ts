@@ -1,3 +1,4 @@
+import { FileData } from './../../../../../../ricos-schema/web/src/generated/wix/rich_content/v1/plugin_file';
 /* eslint-disable no-unused-vars */
 
 import { toDraft, fromDraft } from '..';
@@ -7,12 +8,19 @@ import buggy from '../../../../../../../e2e/tests/fixtures/buggy/atomicWithNoEnt
 import polyfills from '../../../../../../../e2e/tests/fixtures/polyfills.json';
 import { getTextNodes } from './getTextNodes';
 import complexRicosFixture from '../../../../statics/json/migratedFixtures/migration-content.json';
-import { Node_Type, Decoration_Type, RichContent } from 'ricos-schema';
+import {
+  Node_Type,
+  Decoration_Type,
+  RichContent,
+  ImageData,
+  PluginContainerData_Width_Type,
+  PluginContainerData_Alignment,
+} from 'ricos-schema';
 import { convertBlockDataToRicos } from './convertRicosPluginData';
-import { IMAGE_TYPE } from '../../../consts';
+import { IMAGE_TYPE, FILE_UPLOAD_TYPE, WRAP } from '../../../consts';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const filterKeys = objArr => objArr.map(({ key, ...rest }) => rest); //disable
+const filterIds = objArr => objArr.map(({ id, ...rest }) => rest); //disable
 describe('migrate from draft', () => {
   const fixtures = { buggy, polyfills };
   Object.entries(fixtures).forEach(([name, content]) =>
@@ -27,7 +35,7 @@ describe('migrate from draft', () => {
   it('should migrate complex fixture', () => {
     expect(
       compare(fromDraft(complexFixture), RichContent.fromJSON(complexRicosFixture), {
-        ignoredKeys: ['key'],
+        ignoredKeys: ['id'],
       })
     ).toEqual({});
   });
@@ -60,19 +68,19 @@ describe('migrate from draft', () => {
 
     const expectedResults = [
       {
-        key: '2k4v1',
+        id: '2k4v1',
         nodes: [],
         textData: { decorations: [], text: 'bla' },
         type: Node_Type.TEXT,
       },
       {
-        key: '1ba7b',
+        id: '1ba7b',
         nodes: [],
         textData: { decorations: [{ type: Decoration_Type.ITALIC }], text: 'h ' },
         type: Node_Type.TEXT,
       },
       {
-        key: '59lhm',
+        id: '59lhm',
         nodes: [],
         textData: {
           decorations: [{ type: Decoration_Type.ITALIC }, { type: Decoration_Type.UNDERLINE }],
@@ -81,13 +89,13 @@ describe('migrate from draft', () => {
         type: Node_Type.TEXT,
       },
       {
-        key: '1agl0',
+        id: '1agl0',
         nodes: [],
         textData: { decorations: [{ type: Decoration_Type.UNDERLINE }], text: 'la' },
         type: Node_Type.TEXT,
       },
       {
-        key: '1m39g',
+        id: '1m39g',
         nodes: [],
         textData: {
           decorations: [{ type: Decoration_Type.UNDERLINE }, { type: Decoration_Type.BOLD }],
@@ -96,13 +104,13 @@ describe('migrate from draft', () => {
         type: Node_Type.TEXT,
       },
       {
-        key: '8cr95',
+        id: '8cr95',
         nodes: [],
         textData: { decorations: [{ type: Decoration_Type.BOLD }], text: 'bl' },
         type: Node_Type.TEXT,
       },
       {
-        key: 'dkn86',
+        id: 'dkn86',
         nodes: [],
         textData: { decorations: [], text: 'ah' },
         type: Node_Type.TEXT,
@@ -110,7 +118,7 @@ describe('migrate from draft', () => {
     ];
 
     const entityMap = {};
-    expect(filterKeys(getTextNodes(block, entityMap))).toEqual(filterKeys(expectedResults));
+    expect(filterIds(getTextNodes(block, entityMap))).toEqual(filterIds(expectedResults));
   });
 
   it('should detect mentions', () => {
@@ -166,7 +174,7 @@ describe('migrate from draft', () => {
       },
       { nodes: [], textData: { decorations: [], text: ' ' }, type: Node_Type.TEXT },
     ];
-    expect(filterKeys(getTextNodes(block, entityMap))).toEqual(expectedResult);
+    expect(filterIds(getTextNodes(block, entityMap))).toEqual(expectedResult);
   });
 
   it('should convert block data', () => {
@@ -176,6 +184,7 @@ describe('migrate from draft', () => {
         size: 'content',
         showTitle: true,
         showDescription: true,
+        textWrap: WRAP,
       },
       src: {
         id: '036c6bf6cef5e4409848eb4eb6f80de1',
@@ -192,10 +201,14 @@ describe('migrate from draft', () => {
       },
     };
 
-    const expectedNodeData = {
-      containerData: { width: { size: 'CONTENT' }, alignment: 'CENTER' },
+    const expectedNodeData: ImageData = {
+      containerData: {
+        width: { size: PluginContainerData_Width_Type.CONTENT },
+        alignment: PluginContainerData_Alignment.CENTER,
+        textWrap: true,
+      },
       image: {
-        src: { custom: '8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg' },
+        src: { id: '8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg' },
         width: 2898,
         height: 3354,
       },
@@ -207,7 +220,30 @@ describe('migrate from draft', () => {
 
     const nodeData = convertBlockDataToRicos(IMAGE_TYPE, blockData);
 
-    expect(nodeData).toEqual(expectedNodeData);
+    expect(ImageData.toJSON(nodeData)).toEqual(expectedNodeData);
+  });
+
+  describe('FileSource', () => {
+    describe('privacy', () => {
+      it(`should handle 'public'`, () => {
+        const blockData = { id: 'abcdefg', privacy: 'public' };
+        const expectedNodeData: FileData = { src: { id: 'abcdefg', private: false } };
+        const nodeData = convertBlockDataToRicos(FILE_UPLOAD_TYPE, blockData);
+        expect(FileData.toJSON(nodeData)).toEqual(expectedNodeData);
+      });
+      it(`should handle 'private'`, () => {
+        const blockData = { id: 'abcdefg', privacy: 'private' };
+        const expectedNodeData: FileData = { src: { id: 'abcdefg', private: true } };
+        const nodeData = convertBlockDataToRicos(FILE_UPLOAD_TYPE, blockData);
+        expect(FileData.toJSON(nodeData)).toEqual(expectedNodeData);
+      });
+      it(`should handle undefined`, () => {
+        const blockData = { id: 'abcdefg' };
+        const expectedNodeData: FileData = { src: { id: 'abcdefg' } };
+        const nodeData = convertBlockDataToRicos(FILE_UPLOAD_TYPE, blockData);
+        expect(FileData.toJSON(nodeData)).toEqual(expectedNodeData);
+      });
+    });
   });
 
   it('should convert list styles correctly', () => {
@@ -235,19 +271,19 @@ describe('migrate from draft', () => {
       nodes: [
         {
           type: 'ORDERED_LIST',
-          key: '4kh4d',
+          id: '4kh4d',
           nodes: [
             {
               type: 'LIST_ITEM',
-              key: '80vi2',
+              id: '80vi2',
               nodes: [
                 {
                   type: 'PARAGRAPH',
-                  key: 'copbt',
+                  id: 'copbt',
                   nodes: [
                     {
                       type: 'TEXT',
-                      key: '4vn2p',
+                      id: '4vn2p',
                       nodes: [],
                       textData: { text: 'xbxvbcvb', decorations: [] },
                     },
@@ -267,7 +303,7 @@ describe('migrate from draft', () => {
       },
     };
     expect(
-      compare(fromDraft(draftContent), RichContent.fromJSON(expected), { ignoredKeys: ['key'] })
+      compare(fromDraft(draftContent), RichContent.fromJSON(expected), { ignoredKeys: ['id'] })
     ).toEqual({});
   });
 });

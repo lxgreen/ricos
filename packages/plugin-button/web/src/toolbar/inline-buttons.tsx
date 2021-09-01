@@ -38,6 +38,7 @@ const createInlineButtons: CreateInlineButtons = ({
     {
       keyName: 'advanced_settings',
       type: BUTTONS.EXTERNAL_MODAL,
+      fullHeight: true,
       icon,
       modalName: Modals.BUTTON_INPUT,
       activeTab: 'advanced_settings',

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import redoIcon from './icons/RedoIcon';
-import { InlineToolbarButton, redo } from 'wix-rich-content-editor-common';
+import { InlineToolbarButton, redo, FORMATTING_BUTTONS } from 'wix-rich-content-editor-common';
 import { UNDO_REDO_TYPE } from './types';
 
 const RedoButton = props => {
@@ -39,6 +39,7 @@ const RedoButton = props => {
         isMobile={isMobile}
         tooltipText={t('RedoButton_Tooltip')}
         dataHook={'redoButton'}
+        formattingButtonName={FORMATTING_BUTTONS.REDO}
         tabindex={tabIndex}
         pluginType={UNDO_REDO_TYPE}
         icon={redoIcon}

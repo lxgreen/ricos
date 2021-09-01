@@ -42,7 +42,7 @@ class BlockLinkButton extends Component {
       isEmpty(linkTypes) ||
       !Object.values(linkTypes).find(addon => !!addon) ||
       hideUrlInput;
-    const { externalPopups = false } = uiSettings.linkPanel;
+    const { externalPopups = false } = uiSettings.linkPanel || {};
     const customStyles =
       !isMobile && !OriginalLinkPanel
         ? {
@@ -53,7 +53,7 @@ class BlockLinkButton extends Component {
               border: '1px solid rgb(237, 237, 237)',
               borderRadius: '6px',
               boxShadow: 'rgba(0, 0, 0, 0.07) 0px 4px 8px 0px',
-              padding: '0px 19px',
+              padding: 20,
             },
           }
         : {
@@ -97,7 +97,7 @@ class BlockLinkButton extends Component {
         hidePopup: innerModal.closeInnerModal,
         top: toolbarOffsetTop,
         left: toolbarOffsetLeft,
-        modalStyles: OriginalLinkPanel ? null : { maxWidth: 'none', padding: '0 19px' },
+        modalStyles: OriginalLinkPanel ? null : { maxWidth: 'none', padding: 20 },
         ...commonPanelProps,
       };
       innerModal.openInnerModal(modalProps);

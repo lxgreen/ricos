@@ -2,13 +2,13 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 
 .container {
-    padding: 0;
-    height: 20px;
-    position: relative;
-    &.selected {
-        border-right: 1px solid $action-color;
-    }
-    &.selectAll {
-        border: none !important;
-    }
+  padding: 0;
+  height: 20px;
+  position: relative;
+  &.selected {
+    border-right: 1px solid $settings-action-color;
+  }
+  &.selectAll {
+    border: none !important;
+  }
 }

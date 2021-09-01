@@ -8,6 +8,9 @@ import {
   ParagraphData,
   TextStyle_TextAlignment,
   Decoration_Type,
+  AppEmbedData,
+  AppEmbedData_AppType,
+  AppEmbedData_EventData,
 } from 'ricos-schema';
 
 describe('Ricos Content Builder', () => {
@@ -26,7 +29,7 @@ describe('Ricos Content Builder', () => {
           type: Node_Type.IMAGE,
           imageData,
           nodes: [],
-          key: 'foo',
+          id: 'foo',
         },
       ],
     };
@@ -46,11 +49,11 @@ describe('Ricos Content Builder', () => {
       nodes: [
         {
           type: Node_Type.PARAGRAPH,
-          key: 'foo',
+          id: 'foo',
           paragraphData,
           nodes: [
             {
-              key: 'foo',
+              id: 'foo',
               type: Node_Type.TEXT,
               textData: {
                 text: 'test paragraph',
@@ -81,20 +84,20 @@ describe('Ricos Content Builder', () => {
     const expected: RichContent = {
       nodes: [
         {
-          type: Node_Type.BULLET_LIST,
-          key: 'foo',
+          type: Node_Type.BULLETED_LIST,
+          id: 'foo',
           nodes: [
             {
               type: Node_Type.LIST_ITEM,
-              key: 'foo',
+              id: 'foo',
               nodes: [
                 {
                   type: Node_Type.PARAGRAPH,
-                  key: 'foo',
+                  id: 'foo',
                   paragraphData,
                   nodes: [
                     {
-                      key: 'foo',
+                      id: 'foo',
                       type: Node_Type.TEXT,
                       textData: {
                         text: 'item1',
@@ -108,15 +111,15 @@ describe('Ricos Content Builder', () => {
             },
             {
               type: Node_Type.LIST_ITEM,
-              key: 'foo',
+              id: 'foo',
               nodes: [
                 {
                   type: Node_Type.PARAGRAPH,
-                  key: 'foo',
+                  id: 'foo',
                   paragraphData,
                   nodes: [
                     {
-                      key: 'foo',
+                      id: 'foo',
                       type: Node_Type.TEXT,
                       textData: {
                         text: 'item2',
@@ -160,19 +163,19 @@ describe('Ricos Content Builder', () => {
       nodes: [
         {
           type: Node_Type.ORDERED_LIST,
-          key: 'foo',
+          id: 'foo',
           nodes: [
             {
               type: Node_Type.LIST_ITEM,
-              key: 'foo',
+              id: 'foo',
               nodes: [
                 {
                   type: Node_Type.PARAGRAPH,
-                  key: 'foo',
+                  id: 'foo',
                   paragraphData,
                   nodes: [
                     {
-                      key: 'foo',
+                      id: 'foo',
                       type: Node_Type.TEXT,
                       textData: {
                         text: 'item1',
@@ -186,18 +189,18 @@ describe('Ricos Content Builder', () => {
             },
             {
               type: Node_Type.LIST_ITEM,
-              key: 'foo',
+              id: 'foo',
               nodes: [
                 {
                   type: Node_Type.PARAGRAPH,
-                  key: 'foo',
+                  id: 'foo',
                   paragraphData: {
                     textStyle: { textAlignment: TextStyle_TextAlignment.AUTO },
                     indentation: 2,
                   },
                   nodes: [
                     {
-                      key: 'foo',
+                      id: 'foo',
                       type: Node_Type.TEXT,
                       textData: {
                         text: 'item2',
@@ -211,15 +214,15 @@ describe('Ricos Content Builder', () => {
             },
             {
               type: Node_Type.LIST_ITEM,
-              key: 'foo',
+              id: 'foo',
               nodes: [
                 {
                   type: Node_Type.PARAGRAPH,
-                  key: 'foo',
+                  id: 'foo',
                   paragraphData,
                   nodes: [
                     {
-                      key: 'foo',
+                      id: 'foo',
                       type: Node_Type.TEXT,
                       textData: {
                         text: 'item3',
@@ -240,6 +243,25 @@ describe('Ricos Content Builder', () => {
       data: paragraphData,
       content: { nodes: [] },
     });
+    expect(actual).toEqual(expected);
+  });
+
+  it('should add AppEmbed to content', () => {
+    const content = { nodes: [] };
+    const appEmbedData: AppEmbedData = {
+      type: AppEmbedData_AppType.EVENT,
+      itemId: 'assa',
+      name: 'Birthday party',
+      imageSrc: 'https://static.wixstatic.com/media/8bb438_8307fc32bdf4455ab3033c542da4c6c7.jpg',
+      url: 'https://static.wixstatic.com/media/8bb438_8307fc32bdf4455ab3033c542da4c6c7.jpg',
+      eventData: { scheduling: 'now', location: 'home' },
+    };
+
+    const expected = { nodes: [{ type: Node_Type.APP_EMBED, id: 'foo', appEmbedData, nodes: [] }] };
+
+    const generateKey = () => 'foo';
+    const api = setupContentBuilder(generateKey);
+    const actual = api.addAppEmbed({ data: appEmbedData, content });
     expect(actual).toEqual(expected);
   });
 });

@@ -4,28 +4,38 @@ import chalk from 'chalk';
 import { writeFileSync, readFileSync } from 'fs';
 import { fromDraft } from '../packages/ricos-content/web/src/converters/draft';
 import { fromPlainText, toPlainText } from '../packages/ricos-content/web/src/converters/plainText';
-import { fromHtml, toHtml } from '../packages/ricos-content/web/src/converters/html';
-import { toTiptap } from '../packages/ricos-content/web/src/converters/tiptap';
+import { fromRichTextHtml, toHtml } from '../packages/ricos-content/web/src/converters/html';
+import { toTranslatables } from '../packages/ricos-content/web/src/TranslatableAPI/extract/toTranslatables';
+import { toTiptap } from '../packages/tiptap-editor/web/src/converters';
 import migrationContent from '../e2e/tests/fixtures/migration-content.json';
 import { RichContent } from 'ricos-schema';
 
-const stringifyBaseLine = obj => {
+const prettifyJSON = obj => JSON.stringify(obj, (_, val) => val, 2);
+
+const stringifyBaseline = obj => {
   let i = 0;
-  const normalizeKeys = (key, val) => {
-    switch (key) {
-      case 'key':
-        return val === '' ? '' : `${i++}`;
-      case 'createdTimestamp':
-      case 'updatedTimestamp':
-        return '2021-07-15T07:42:30.023Z';
-      default:
-        return val;
+  const normalizeKeys = obj => {
+    if (!obj || typeof obj !== 'object') {
+      return;
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Object.entries<any>(obj).forEach(([key, val]) => {
+      if (val && typeof val === 'object') {
+        if (val.id && key !== 'src') {
+          val.id = `${i++}`;
+        }
+        normalizeKeys(val);
+      }
+      if (key === 'createdTimestamp' || key === 'updatedTimestamp') {
+        obj[key] = '2021-07-15T07:42:30.023Z';
+      }
+    });
   };
-  return JSON.stringify(obj, normalizeKeys, 2);
+  normalizeKeys(obj);
+  return prettifyJSON(obj);
 };
 
-const writeBaseLine = (path, obj) => writeFileSync(path, stringifyBaseLine(obj));
+const writeBaseLine = (path, obj) => writeFileSync(path, stringifyBaseline(obj));
 
 const getAbsPath = (relPath: string) => path.resolve(__dirname, relPath);
 
@@ -52,7 +62,10 @@ const FROM_HTML_BASELINE = getAbsPath(
   '../packages/ricos-content/web/src/converters/html/fromHtml/__tests__/richTextContent.json'
 );
 const TIPTAP_BASELINE = getAbsPath(
-  '../packages/ricos-content/web/src/converters/tiptap/toTiptap/__tests__/migrationContentTiptap.json'
+  '../packages/tiptap-editor/web/src/converters/toTiptap/__tests__/migrationContentTiptap.json'
+);
+const TRANSLATABLES_BASELINE = getAbsPath(
+  '../packages/ricos-content/web/__tests__/translatablesMock.json'
 );
 
 enum Target {
@@ -82,7 +95,7 @@ const convertToHtml = () => {
 };
 
 const convertFromHtml = () => {
-  const content = fromHtml(HTML_CONTENT);
+  const content = fromRichTextHtml(HTML_CONTENT);
   const contentJSON = RichContent.toJSON(content);
   writeBaseLine(FROM_HTML_BASELINE, contentJSON);
 };
@@ -116,32 +129,46 @@ const convertToTiptap = async () => {
   console.log('Saved tiptap baseline ⚪️\n');
 };
 
+const updateTranslatables = async () => {
+  console.log(`Updating ${chalk.green('translatables')}...`);
+  const content = require(RICH_CONTENT_BASELINE);
+  const translatables = toTranslatables(content);
+  writeFileSync(TRANSLATABLES_BASELINE, prettifyJSON(translatables));
+  console.log('Saved translatables baseline 🗣\n');
+};
+
 const target = process.argv[2]?.toLowerCase();
 const richContent = fromDraft(migrationContent);
 
-const conversions: Promise<void>[] = [];
+const updateTasks: Promise<void>[] = [];
 switch (target) {
   case Target.RICOS:
-    conversions.push(convertToRichContent());
+    updateTasks.push(convertToRichContent());
     break;
   case Target.HTML:
-    conversions.push(convertHtml());
+    updateTasks.push(convertHtml());
     break;
   case Target.TIPTAP:
-    conversions.push(convertToTiptap());
+    updateTasks.push(convertToTiptap());
     break;
   case Target.TEXT:
-    conversions.push(convertPlainText());
+    updateTasks.push(convertPlainText());
     break;
   case undefined:
-    conversions.push(convertToRichContent(), convertHtml(), convertToTiptap(), convertPlainText());
+    updateTasks.push(
+      convertToRichContent(),
+      convertHtml(),
+      convertToTiptap(),
+      convertPlainText(),
+      updateTranslatables()
+    );
     break;
   default:
     console.error(chalk.red(`Target "${target}" should be one of ${Object.values(Target)}`));
 }
 
-if (conversions.length > 0) {
-  Promise.all(conversions).then(() => {
+if (updateTasks.length > 0) {
+  Promise.all(updateTasks).then(() => {
     console.warn(
       chalk.yellow('Please make sure all changes to baselines are required before comitting\n')
     );

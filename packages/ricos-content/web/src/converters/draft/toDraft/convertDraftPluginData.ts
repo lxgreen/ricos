@@ -1,9 +1,10 @@
+import { updatePrivacyField } from './utils';
 /* eslint-disable fp/no-delete */
+// TODO: purify this module
 import {
   Node,
   Node_Type,
   Decoration_Type,
-  Link,
   ImageData,
   Decoration,
   PluginContainerData,
@@ -13,15 +14,23 @@ import {
   FileData,
   ButtonData,
   LinkData,
+  GalleryData,
+  GIFData,
+  CollapsibleListData_InitialExpandedItems,
 } from 'ricos-schema';
-import { cloneDeep, has } from 'lodash';
+import { cloneDeep, has, merge } from 'lodash';
+import toCamelCase from 'to-camel-case';
 import {
   ENTITY_DECORATION_TO_DATA_FIELD,
   FROM_RICOS_DECORATION_TYPE,
   FROM_RICOS_ENTITY_TYPE,
   TO_RICOS_DATA_FIELD,
+  DraftGalleryStyles,
 } from '../consts';
+import { WRAP, NO_WRAP } from '../../../consts';
 import { ComponentData, FileComponentData } from '../../../types';
+import { parseLink } from '../../nodeUtils';
+import { toDraft } from './toDraft';
 
 export const convertNodeToDraftData = (node: Node) => {
   const { type } = node;
@@ -30,7 +39,7 @@ export const convertNodeToDraftData = (node: Node) => {
   if (!dataFieldName) {
     console.error(`No data field name | Plugin Name: ${draftPluginType}`);
   }
-  return convertNodeDataToDraft(type, node[dataFieldName] || {});
+  return convertNodeDataToDraft(type, node[dataFieldName] || {}, node.nodes);
 };
 
 export const convertDecorationToDraftData = (decoration: Decoration) => {
@@ -39,7 +48,7 @@ export const convertDecorationToDraftData = (decoration: Decoration) => {
   return convertDecorationDataToDraft(type, decoration[dataFieldName]);
 };
 
-export const convertNodeDataToDraft = (nodeType: Node_Type, data) => {
+export const convertNodeDataToDraft = (nodeType: Node_Type, data, nodes?: Node[]) => {
   if (!data) {
     console.error(`No data for ${nodeType}`);
     return {};
@@ -49,21 +58,25 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data) => {
     [Node_Type.VIDEO]: convertVideoData,
     [Node_Type.DIVIDER]: convertDividerData,
     [Node_Type.FILE]: convertFileData,
+    [Node_Type.GIF]: convertGIFData,
     [Node_Type.IMAGE]: convertImageData,
     [Node_Type.POLL]: convertPollData,
     [Node_Type.APP_EMBED]: convertAppEmbedData,
     [Node_Type.LINK_PREVIEW]: convertLinkPreviewData,
     [Node_Type.BUTTON]: convertButtonData,
+    [Node_Type.COLLAPSIBLE_LIST]: convertCollapsibleListData,
     [Node_Type.HTML]: convertHTMLData,
     [Node_Type.MAP]: convertMapData,
     [Node_Type.EMBED]: convertEmbedData,
+    [Node_Type.GALLERY]: convertGalleryData,
+    [Node_Type.TABLE]: convertTableData,
   };
-  if (newData.containerData && nodeType !== Node_Type.DIVIDER) {
+  if (newData.containerData) {
     convertContainerData(newData, nodeType);
   }
   if (nodeType in converters) {
     const convert = converters[nodeType];
-    convert(newData);
+    convert(newData, nodes);
   }
   return JSON.parse(JSON.stringify(newData)); // remove undefined values
 };
@@ -86,22 +99,23 @@ const convertContainerData = (
   data: { containerData?: PluginContainerData; config },
   nodeType: string
 ) => {
-  const { width, alignment, spoiler, height } = data.containerData || {};
+  const { width, alignment, spoiler, height, textWrap = true } = data.containerData || {};
   const { enabled = false, description, buttonText } = spoiler || {};
   data.config = Object.assign(
     {},
     data.config,
-    width?.size && { size: constantToKebabCase(width.size) },
+    width?.size && { size: toCamelCase(width.size) },
     width?.custom && { width: parseInt(width.custom) },
     height?.custom && { height: parseInt(height.custom) },
-    alignment && { alignment: constantToKebabCase(alignment) },
+    alignment && { alignment: alignment?.toLowerCase() },
     spoiler && {
       spoiler: {
         enabled,
         description,
         buttonContent: buttonText,
       },
-    }
+    },
+    { textWrap: textWrap ? WRAP : NO_WRAP }
   );
   if (nodeType === Node_Type.IMAGE && width?.custom) {
     data.config.size = 'inline';
@@ -113,15 +127,14 @@ const convertContainerData = (
 
 const convertVideoData = (data: VideoData & { src; metadata; title? }) => {
   const videoSrc = data.video?.src;
+  const { src, width, height } = data.thumbnail || {};
   if (videoSrc?.url) {
     data.src = videoSrc.url;
-    const { src, width, height } = data.thumbnail || {};
     data.metadata = { thumbnail_url: src?.url, width, height, title: data.title };
-  } else if (videoSrc?.custom) {
-    const { src, width, height } = data.thumbnail || {};
+  } else if (videoSrc?.id || videoSrc?.custom) {
     data.src = {
-      pathname: videoSrc.custom,
-      thumbnail: { pathname: src?.custom, width, height },
+      pathname: videoSrc?.id || videoSrc?.custom,
+      thumbnail: { pathname: src?.id || src?.custom, width, height },
     };
   }
   delete data.video;
@@ -134,11 +147,12 @@ const convertDividerData = (
     type;
     lineStyle?: string;
     config?: ComponentData['config'];
+    containerData?: PluginContainerData;
   }
 ) => {
   data.type = data.lineStyle?.toLowerCase();
   delete data.lineStyle;
-  data.config = { textWrap: 'nowrap' };
+  data.config = data.config || {};
   if (has(data, 'width')) {
     data.config.size = data.width?.toLowerCase();
     delete data.width;
@@ -150,11 +164,88 @@ const convertDividerData = (
   delete data.containerData;
 };
 
+enum GalleryLayout {
+  COLLAGE = 0,
+  MASONRY,
+  GRID,
+  THUMBNAIL,
+  SLIDER,
+  SLIDESHOW,
+  PANORAMA,
+  COLUMN,
+  MAGIC,
+  FULLSIZE,
+}
+
+const convertGalleryStyles = options => {
+  const styles: DraftGalleryStyles = {};
+  has(options, 'layout.type') &&
+    (styles.galleryLayout = parseInt(GalleryLayout[options.layout.type]));
+  has(options, 'layout.horizontalScroll') && (styles.oneRow = options.layout.horizontalScroll);
+  has(options, 'layout.orientation') &&
+    (styles.isVertical = options.layout.orientation === 'COLUMNS');
+  has(options, 'layout.numberOfColumns') &&
+    (styles.numberOfImagesPerRow = options.layout.numberOfColumns);
+  has(options, 'item.targetSize') && (styles.gallerySizePx = options.item.targetSize);
+  has(options, 'item.ratio') && (styles.cubeRatio = options.item.ratio);
+  has(options, 'item.crop') && (styles.cubeType = options.item.crop.toLowerCase());
+  has(options, 'item.spacing') && (styles.imageMargin = options.item.spacing);
+  has(options, 'thumbnails.placement') &&
+    (styles.galleryThumbnailsAlignment = options.thumbnails.placement.toLowerCase());
+  has(options, 'thumbnails.spacing') && (styles.thumbnailSpacings = options.thumbnails.spacing / 2);
+  return styles;
+};
+
+const convertGalleryItem = item => {
+  const type = has(item, 'image') ? 'image' : 'video';
+  const {
+    src: { url },
+    height,
+    width,
+  } = item[type].media;
+  item.url = url;
+  item.metadata = { height, width, type };
+  has(item, 'title') && (item.metadata.title = item.title);
+  has(item, 'altText') && (item.metadata.altText = item.altText);
+  if (has(item, 'video.thumbnail')) {
+    const {
+      src: { url },
+      height,
+      width,
+    } = item.video.thumbnail;
+    item.metadata.poster = { url, height, width };
+  }
+  has(item, 'image.link') && (item.metadata.link = item.image.link);
+  delete item.video;
+  delete item.image;
+  delete item.title;
+  delete item.altText;
+  return item;
+};
+
+const convertGalleryData = (
+  data: GalleryData & {
+    styles: DraftGalleryStyles;
+  }
+) => {
+  has(data, 'items') && (data.items = data.items.map(item => convertGalleryItem(item)));
+  has(data, 'options') && (data.styles = convertGalleryStyles(data.options));
+  delete data.options;
+};
+
 const convertImageData = (data: ImageData & { src; config; metadata }) => {
   const { link, config, image, altText, caption } = data;
   const { src, width, height } = image || {};
-  data.src = { id: src?.custom, file_name: src?.custom, width, height };
+  const id = src?.id || src?.custom;
+  data.src = id ? { id, file_name: id, width, height } : { url: src?.url, source: 'static' };
   const links = link?.anchor ? { anchor: link?.anchor } : { link: link && parseLink(link) };
+  if (links.link?.customData) {
+    const parsedCustomData = parseLinkCustomData(links.link?.customData);
+    merge(links.link, parsedCustomData);
+    if (!parsedCustomData.customData) {
+      delete links.link.customData;
+    }
+  }
   data.config = { ...(config || {}), ...links };
   data.metadata = (altText || caption) && { caption, alt: altText };
   delete data.image;
@@ -163,19 +254,59 @@ const convertImageData = (data: ImageData & { src; config; metadata }) => {
   delete data.altText;
 };
 
+const convertGIFData = (
+  data: GIFData & {
+    gif: {
+      originalUrl;
+      originalMp4;
+      stillUrl;
+      downsizedUrl;
+      downsizedSmallMp4;
+      downsizedStillUrl;
+      height;
+      width;
+    };
+    width;
+    height;
+  }
+) => {
+  const { original = {}, downsized = {}, height, width } = data;
+  data.gif = {
+    originalUrl: original.gif,
+    originalMp4: original.mp4,
+    stillUrl: original.still,
+    downsizedUrl: downsized.gif,
+    downsizedSmallMp4: downsized.mp4,
+    downsizedStillUrl: downsized.still,
+    height,
+    width,
+  };
+  delete data.original;
+  delete data.downsized;
+  delete data.height;
+  delete data.width;
+};
+
 const convertPollData = data => {
   has(data, 'layout.poll.type') && (data.layout.poll.type = data.layout.poll.type.toLowerCase());
   has(data, 'layout.poll.direction') &&
     (data.layout.poll.direction = data.layout.poll.direction.toLowerCase());
   has(data, 'design.poll.backgroundType') &&
     (data.design.poll.backgroundType = data.design.poll.backgroundType.toLowerCase());
+  has(data, 'poll.pollId') && (data.poll.id = data.poll.pollId);
+  delete data.poll.pollId;
+  has(data, 'poll.options') &&
+    (data.poll.options = data.poll.options.map(({ optionId, ...rest }) => ({
+      id: optionId,
+      ...rest,
+    })));
 };
 
 const convertAppEmbedData = data => {
-  const { type, id, name, imageSrc, url, bookingData, eventData } = data;
+  const { type, itemId, name, imageSrc, url, bookingData, eventData } = data;
   data.type = type.toLowerCase();
   const selectedProduct: Record<string, unknown> = {
-    id,
+    id: itemId,
     name,
     imageSrc,
     pageUrl: url,
@@ -184,6 +315,7 @@ const convertAppEmbedData = data => {
   };
   data.selectedProduct = selectedProduct;
   delete data.id;
+  delete data.itemId;
   delete data.name;
   delete data.imageSrc;
   delete data.url;
@@ -209,10 +341,59 @@ const convertMentionData = (data: Partial<MentionData> & { mention }) => {
 };
 
 const convertFileData = (data: FileData & FileComponentData) => {
-  const { url, custom } = data.src || {};
+  const { url, id, custom, private: isPrivate } = data.src || {};
   data.url = url;
-  data.id = custom;
+  data.id = id || custom;
+  updatePrivacyField(data, isPrivate);
   delete data.src;
+};
+
+const convertCollapsibleListData = (
+  data: {
+    config: {
+      expandState?: string;
+      expandOnlyOne?: boolean;
+      direction?: string;
+      alignment?: string;
+    };
+    initialExpandedItems?: CollapsibleListData_InitialExpandedItems;
+    expandOnlyOne?: boolean;
+    direction?: string;
+    pairs;
+  },
+  nodes: Node[]
+) => {
+  const { initialExpandedItems, expandOnlyOne, direction } = data || {};
+
+  const getExpandState = (initialExpandedItems?: CollapsibleListData_InitialExpandedItems) => {
+    if (initialExpandedItems === 'ALL') {
+      return 'expanded';
+    }
+    if (initialExpandedItems === 'NONE') {
+      return 'collapsed';
+    }
+    return 'first_expanded';
+  };
+
+  const config = {
+    expandState: getExpandState(initialExpandedItems),
+    expandOnlyOne,
+    direction: direction?.toLowerCase(),
+  };
+  data.config = { ...data.config, ...config };
+  data.pairs = nodes.map(node => {
+    const { VERSION: _, ...title } = toDraft(node.nodes[0]);
+    const { VERSION: __, ...content } = toDraft(node.nodes[1]);
+    return {
+      key: node.id,
+      title,
+      content,
+    };
+  });
+  delete data.initialExpandedItems;
+  delete data.expandOnlyOne;
+  delete data.direction;
+  delete data.config.alignment;
 };
 
 const convertButtonData = (data: Partial<ButtonData> & { button }) => {
@@ -264,7 +445,7 @@ const convertMapData = data => {
   data.mapSettings.isZoomControlShown = zoomControl;
   data.mapSettings.locationDisplayName = locationName;
   data.mapSettings.zoom = initialZoom;
-  data.mapSettings.mode = mapType;
+  data.mapSettings.mode = mapType?.toLowerCase();
   delete data.mapSettings.draggable;
   delete data.mapSettings.marker;
   delete data.mapSettings.streetViewControl;
@@ -295,35 +476,78 @@ const convertEmbedData = data => {
   delete data.src;
 };
 
-const convertLinkData = (data: LinkData & { url?: string; target?: string; rel?: string }) => {
+const convertLinkData = (
+  data: LinkData & { url?: string; target?: string; rel?: string; customData?: string }
+) => {
   if (data.link) {
-    const { url, target, rel } = parseLink(data.link);
+    const { url, target, rel, customData } = parseLink(data.link);
     data.url = url;
-    if (target) data.target = target;
-    if (rel) data.rel = rel;
+    if (target) {
+      data.target = target;
+    }
+    if (rel) {
+      data.rel = rel;
+    }
+    if (customData) {
+      const customDataObj = parseLinkCustomData(customData);
+      merge(data, customDataObj);
+    }
     delete data.link;
   }
 };
 
-const parseLink = ({
-  url,
-  rel,
-  target,
-  anchor,
-}: Link): {
-  url?: string;
-  rel?: string;
-  target?: string;
-  anchor?: string;
-} => ({
-  anchor,
-  url,
-  rel:
-    rel &&
-    Object.entries(rel)
-      .flatMap(([key, value]) => (value ? key : []))
-      .join(' '),
-  target: target && '_' + target.toLowerCase(),
-});
+const parseLinkCustomData = (customData: string) => {
+  try {
+    return { customData: JSON.parse(customData) };
+  } catch (e) {
+    console.error('failed to parse customData', customData); // eslint-disable-line
+    return { customData };
+  }
+};
 
-const constantToKebabCase = (str: string) => str.toLowerCase().replace('_', '-');
+const convertTableData = (
+  data: {
+    dimensions;
+    header;
+    config: {
+      colsWidth;
+      rowsHeight;
+      colsMinWidth;
+      alignment?;
+      rows;
+      rowHeader;
+    };
+  },
+  nodes
+) => {
+  const {
+    dimensions: { colsWidthRatio, rowsHeight, colsMinWidth },
+    header,
+  } = data || {};
+  const { alignment: _, ...rest } = data.config;
+  data.config = { ...rest, colsWidth: colsWidthRatio, rowsHeight, colsMinWidth, rowHeader: header };
+  const rows = {};
+  nodes.forEach((row, i) => {
+    rows[i] = { columns: {} };
+    row.nodes.forEach((cell, j) => {
+      const { VERSION: _, ...content } = toDraft(cell);
+      const { cellStyle = {}, borderColors = {} } = cell.tableCellData || {};
+      rows[i].columns[j] = {
+        content,
+        style: {
+          verticalAlign: cellStyle.verticalAlignment?.toLowerCase(),
+          backgroundColor: cellStyle.backgroundColor?.toLowerCase(),
+        },
+        border: {
+          top: borderColors.top?.toLowerCase(),
+          left: borderColors.left?.toLowerCase(),
+          right: borderColors.right?.toLowerCase(),
+          bottom: borderColors.bottom?.toLowerCase(),
+        },
+      };
+    });
+  });
+  data.config.rows = rows;
+  delete data.dimensions;
+  delete data.header;
+};

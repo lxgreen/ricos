@@ -10,6 +10,7 @@ export * from './themeTypes';
 export * from './commonTypes';
 export * from './editorTypes';
 export * from './pluginTypes';
+export * from './tiptapTypes';
 export * from './biCallbacksTypes';
 export * from './toolbarEnums';
 export * from './toolbarSettingsTypes';

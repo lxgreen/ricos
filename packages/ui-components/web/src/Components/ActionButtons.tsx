@@ -1,11 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
 import Button from './Button';
-import { RichContentTheme } from 'wix-rich-content-common';
+import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 import styles from '../../statics/styles/action-buttons.scss';
 import { BUTTON_SIZE } from '../consts';
 
 type ButtonSizeKeys = keyof typeof BUTTON_SIZE;
+
 export interface ActionButtonsProps {
   size?: typeof BUTTON_SIZE[ButtonSizeKeys];
   onCancel: () => void;
@@ -13,10 +14,10 @@ export interface ActionButtonsProps {
   cancelText: string;
   saveText: string;
   isMobile?: boolean;
-  saveBtnDataHook?: string;
-  cancelBtnDataHook?: string;
   disableSave?: boolean;
-  theme?: RichContentTheme;
+  theme: RichContentTheme;
+  t: TranslationFunction;
+  children?: React.ReactNode;
 }
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({
@@ -28,23 +29,27 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   isMobile = false,
   theme,
   disableSave = false,
+  children,
+  t,
 }) => (
   <div className={classNames(styles.action_buttons, { [styles.mobile]: isMobile })}>
     <Button
       size={size}
       theme={theme}
-      ariaProps={{ 'aria-label': cancelText }}
+      ariaLabel={cancelText}
       dataHook="actionButtonCancel"
       onClick={onCancel}
       className={classNames(styles.action_buttons_button, {
         [styles.mobile]: isMobile,
       })}
-      type={'secondary'}
-      text={cancelText}
+      secondary
+      text={cancelText || t('SettingsPanelFooter_Cancel')}
     />
+    {children}
     <Button
       size={size}
-      ariaProps={{ 'aria-label': saveText } && disableSave && { disabled: 'disabled' }}
+      ariaLabel={saveText}
+      disabled={disableSave}
       theme={theme}
       className={classNames(
         styles.action_buttons_button,
@@ -54,8 +59,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
       )}
       dataHook="actionButtonSave"
       onClick={onSave}
-      type={'primary'}
-      text={saveText}
+      text={saveText || t('SettingsPanelFooter_Save')}
     />
   </div>
 );

@@ -16,7 +16,6 @@ const createPollPlugin: CreatePluginFunction<PollPluginEditorConfig> = config =>
     type: POLL_TYPE,
     toolbar: createToolbar({
       helpers,
-      settings,
       isMobile,
       theme,
       t,

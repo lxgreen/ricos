@@ -3,6 +3,10 @@
 %button {
   font-size: 16px;
   cursor: pointer;
+  border: 1px solid $settings-action-color-fallback;
+  &.borderLess {
+    border: none;
+  }
 }
 
 .button_primary {
@@ -24,7 +28,6 @@
 
 .button_secondary {
   @extend %button;
-  border: 1px solid $settings-action-color-fallback;
   background: #fff;
   color: $settings-action-color-fallback;
   &:hover,

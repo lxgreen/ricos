@@ -1,5 +1,9 @@
 import theme from '../theme/theme';
-import { videoTypeMapper, VIDEO_TYPE, pluginVideo } from 'wix-rich-content-plugin-video/viewer';
+import {
+  videoTypeMapper,
+  VIDEO_TYPE,
+  pluginVideo,
+} from 'wix-rich-content-plugin-video/loadable/viewer';
 import { dividerTypeMapper, pluginDivider } from 'wix-rich-content-plugin-divider/viewer';
 import { htmlTypeMapper, pluginHtml } from 'wix-rich-content-plugin-html/viewer';
 import { soundCloudTypeMapper, pluginSoundCloud } from 'wix-rich-content-plugin-sound-cloud/viewer';
@@ -9,14 +13,14 @@ import {
   LINK_PREVIEW_TYPE,
   pluginLinkPreview,
 } from 'wix-rich-content-plugin-link-preview/viewer';
-import { imageTypeMapper, pluginImage } from 'wix-rich-content-plugin-image/viewer';
+import { imageTypeMapper, pluginImage } from 'wix-rich-content-plugin-image/loadable/viewer';
 import { tableTypeMapper, pluginTable } from 'wix-rich-content-plugin-table/viewer';
 
 import {
   galleryTypeMapper,
   pluginGallery,
   GALLERY_TYPE,
-} from 'wix-rich-content-plugin-gallery/viewer';
+} from 'wix-rich-content-plugin-gallery/loadable/viewer';
 import { mapTypeMapper, pluginMap } from 'wix-rich-content-plugin-map/viewer';
 import { giphyTypeMapper, pluginGiphy, GIPHY_TYPE } from 'wix-rich-content-plugin-giphy/viewer';
 import {
@@ -44,7 +48,7 @@ import {
   fileUploadTypeMapper,
   pluginFileUpload,
   FILE_UPLOAD_TYPE,
-} from 'wix-rich-content-plugin-file-upload/viewer';
+} from 'wix-rich-content-plugin-file-upload/loadable/viewer';
 import {
   textColorInlineStyleMapper,
   TEXT_COLOR_TYPE,
@@ -93,6 +97,7 @@ import 'wix-rich-content-plugin-map/dist/styles.min.css';
 import 'wix-rich-content-plugin-file-upload/dist/styles.min.css';
 import 'wix-rich-content-plugin-giphy/dist/styles.min.css';
 import 'wix-rich-content-text-selection-toolbar/dist/styles.min.css';
+import 'wix-rich-content-link-preview-popover/dist/styles.min.css';
 import 'wix-rich-content-plugin-social-polls/dist/styles.min.css';
 import 'wix-rich-content-plugin-collapsible-list/dist/styles.min.css';
 import 'wix-rich-content-plugin-table/dist/styles.min.css';
@@ -109,10 +114,12 @@ import {
 } from 'wix-rich-content-common';
 
 const linkPluginSettings = {
+  // eslint-disable-next-line no-console
   onClick: (event, url) => console.log('link clicked!', url),
   siteUrl: 'http://localhost:3000/', //siteUrl is for anchor SEO
 };
 const mentionsPluginSettings = {
+  // eslint-disable-next-line no-console
   onMentionClick: mention => console.log('mention clicked!', mention),
   getMentionLink: () => '/link/to/mention',
 };
@@ -187,12 +194,14 @@ const config: RichContentViewerProps['config'] = {
   uiSettings,
   [ACTION_BUTTON_TYPE]: {
     onClick: () => {
+      // eslint-disable-next-line no-alert
       window.alert('onClick event..');
     },
   },
   [HASHTAG_TYPE]: {
     onClick: (event, text) => {
       event.preventDefault();
+      // eslint-disable-next-line no-console
       console.log(`'${text}' hashtag clicked!`);
     },
     createHref: decoratedText => `/search/posts?query=${encodeURIComponent('#')}${decoratedText}`,
@@ -226,7 +235,7 @@ export const viewerPlugins: ViewerPlugin[] = [
 ];
 
 export const getConfig = (additionalConfig = {}): RichContentViewerProps['config'] => {
-  let _config = { ...config };
+  const _config = { ...config };
   Object.keys(additionalConfig).forEach(key => {
     if (additionalConfig[key]) {
       const orgConfig = config[key] || {};

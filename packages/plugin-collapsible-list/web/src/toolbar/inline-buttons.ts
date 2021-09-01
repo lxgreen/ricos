@@ -1,7 +1,11 @@
 import { BUTTONS } from 'wix-rich-content-plugin-commons';
 import { getModalStyles } from 'wix-rich-content-editor-common';
 import { Modals } from '../modals';
-import { CreateInlineButtons, TranslationFunction } from 'wix-rich-content-common';
+import {
+  CreateInlineButtons,
+  TranslationFunction,
+  EditorContextType,
+} from 'wix-rich-content-common';
 import { COLLAPSIBLE_LIST_TYPE } from '../types';
 
 const modalStyles = {
@@ -17,11 +21,18 @@ const modalStyles = {
   },
 };
 
-const createInlineButtons: CreateInlineButtons = ({ t }: { t: TranslationFunction }) => {
+const createInlineButtons: CreateInlineButtons = ({
+  t,
+  disableKeyboardEvents,
+}: {
+  t: TranslationFunction;
+  disableKeyboardEvents: EditorContextType['disableKeyboardEvents'];
+}) => {
   return [
     {
       keyName: 'settings',
       type: BUTTONS.EXTERNAL_MODAL,
+      fullHeight: true,
       modalName: Modals.COLLAPSIBLE_LIST_MODAL,
       children: t('CollapsibleList_CollapsibleListSettings_Tab_Settings_TabName'),
       modalStyles: getModalStyles(modalStyles),
@@ -31,7 +42,14 @@ const createInlineButtons: CreateInlineButtons = ({ t }: { t: TranslationFunctio
       pluginId: COLLAPSIBLE_LIST_TYPE,
     },
     { keyName: 'separator', mobile: false, type: BUTTONS.SEPARATOR },
-    { keyName: 'delete', type: BUTTONS.DELETE, mobile: true },
+    {
+      keyName: 'delete',
+      type: BUTTONS.DELETE,
+      mobile: true,
+      beforeOnClickDelete: () => {
+        disableKeyboardEvents?.(false);
+      },
+    },
   ];
 };
 

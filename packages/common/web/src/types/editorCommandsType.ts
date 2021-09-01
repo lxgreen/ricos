@@ -20,6 +20,8 @@ import {
   RICOS_LINK_TYPE,
   RICOS_MENTION_TYPE,
   RICOS_TEXT_HIGHLIGHT_TYPE,
+  RICOS_INDENT_TYPE,
+  RICOS_LINE_SPACING_TYPE,
   RICOS_TEXT_COLOR_TYPE,
   UNSTYLED,
   NUMBERED_LIST_TYPE,
@@ -29,7 +31,7 @@ import {
 } from 'ricos-content';
 import {
   DividerData,
-  GiphyData,
+  GIFData,
   HTMLData,
   GalleryData,
   PollData,
@@ -42,7 +44,7 @@ import {
 import { MentionData } from './pluginTypes';
 import { TextAlignment, InlineStyle } from './commonTypes';
 
-type ColorType = typeof RICOS_TEXT_COLOR_TYPE | typeof RICOS_TEXT_HIGHLIGHT_TYPE;
+export type ColorType = typeof RICOS_TEXT_COLOR_TYPE | typeof RICOS_TEXT_HIGHLIGHT_TYPE;
 
 type PluginsList = string[];
 
@@ -60,8 +62,8 @@ type TextBlockType =
   | typeof HEADER_BLOCK.SIX;
 
 type Selection = {
-  getIsFocused?: () => boolean;
-  getIsCollapsed?: () => boolean;
+  getIsFocused?: boolean;
+  getIsCollapsed?: boolean;
 };
 
 type draftSelection = {
@@ -76,7 +78,7 @@ type draftSelection = {
 interface PluginsDataMap {
   [RICOS_DIVIDER_TYPE]?: DividerData;
   [DIVIDER_TYPE]?: any;
-  [RICOS_GIPHY_TYPE]?: GiphyData;
+  [RICOS_GIPHY_TYPE]?: GIFData;
   [GIPHY_TYPE]?: any;
   [RICOS_HTML_TYPE]?: HTMLData;
   [HTML_TYPE]?: any;
@@ -92,11 +94,13 @@ interface PluginsDataMap {
   [IMAGE_TYPE]?: any;
 }
 
-interface DecorationsDataMap {
+export interface DecorationsDataMap {
   [RICOS_LINK_TYPE]?: LinkData;
   [RICOS_MENTION_TYPE]?: MentionData;
   [RICOS_TEXT_COLOR_TYPE]?: { color?: ColorData['foreground'] };
   [RICOS_TEXT_HIGHLIGHT_TYPE]?: { color?: ColorData['background'] };
+  [RICOS_INDENT_TYPE]?: number;
+  [RICOS_LINE_SPACING_TYPE]?: any;
 }
 
 export interface EditorCommands {
@@ -115,6 +119,11 @@ export interface EditorCommands {
   getLinkDataInSelection: () => any;
   getSelectedData: () => any;
   getPluginsList: (settings?: { isRicosSchema?: boolean }) => PluginsList;
+  getBlockSpacing: () => any;
+  saveEditorState: () => void;
+  loadEditorState: () => void;
+  saveSelectionState: () => void;
+  loadSelectionState: () => void;
   insertDecoration: <K extends keyof DecorationsDataMap>(
     type: K,
     data?: DecorationsDataMap[K],
@@ -125,7 +134,12 @@ export interface EditorCommands {
   triggerDecoration: <K extends keyof Pick<DecorationsDataMap, typeof RICOS_MENTION_TYPE>>(
     type: K
   ) => void;
-  deleteDecoration: <K extends keyof Omit<DecorationsDataMap, typeof RICOS_MENTION_TYPE>>(
+  deleteDecoration: <
+    K extends keyof Omit<
+      DecorationsDataMap,
+      typeof RICOS_MENTION_TYPE | typeof RICOS_INDENT_TYPE | typeof RICOS_LINE_SPACING_TYPE
+    >
+  >(
     type: K
   ) => void;
   insertBlock: <K extends keyof PluginsDataMap>(

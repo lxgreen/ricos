@@ -1,3 +1,4 @@
+import { pick } from 'lodash';
 import {
   EditorState,
   getColor,
@@ -23,6 +24,9 @@ import {
   removeLinksInSelection,
   triggerMention,
   insertMention,
+  indentSelectedBlocks,
+  mergeBlockData,
+  getAnchorBlockData,
   getAnchorableBlocks,
 } from 'wix-rich-content-editor-common';
 import {
@@ -115,6 +119,8 @@ const TO_DRAFT_PLUGIN_TYPE_MAP = {
   [POLL_TYPE]: POLL_TYPE,
   [TEXT_HIGHLIGHT_TYPE]: TEXT_HIGHLIGHT_TYPE,
   [TEXT_COLOR_TYPE]: TEXT_COLOR_TYPE,
+  [RICOS_INDENT_TYPE]: RICOS_INDENT_TYPE,
+  [RICOS_LINE_SPACING_TYPE]: RICOS_LINE_SPACING_TYPE,
 };
 
 const TO_RICOS_PLUGIN_TYPE_MAP = {
@@ -161,6 +167,8 @@ const insertDecorationsMap = {
   [RICOS_MENTION_TYPE]: insertMention,
   [RICOS_TEXT_COLOR_TYPE]: setTextColor,
   [RICOS_TEXT_HIGHLIGHT_TYPE]: setHighlightColor,
+  [RICOS_INDENT_TYPE]: indentSelectedBlocks,
+  [RICOS_LINE_SPACING_TYPE]: mergeBlockData,
 };
 
 const deleteDecorationsMapFuncs = {
@@ -168,6 +176,9 @@ const deleteDecorationsMapFuncs = {
   [RICOS_TEXT_COLOR_TYPE]: setTextColor,
   [RICOS_TEXT_HIGHLIGHT_TYPE]: setHighlightColor,
 };
+
+let savedEditorState;
+let savedSelectionState;
 
 export const createEditorCommands = (
   createPluginsDataMap,
@@ -200,10 +211,15 @@ export const createEditorCommands = (
     getLinkDataInSelection: EditorCommands['getLinkDataInSelection'];
     getSelectedData: EditorCommands['getSelectedData'];
     getPluginsList: EditorCommands['getPluginsList'];
+    getBlockSpacing: EditorCommands['getBlockSpacing'];
+    saveEditorState: EditorCommands['saveEditorState'];
+    loadEditorState: EditorCommands['loadEditorState'];
+    saveSelectionState: EditorCommands['saveSelectionState'];
+    loadSelectionState: EditorCommands['loadSelectionState'];
   } = {
     getSelection: () => {
-      const { isCollapsed, getHasFocus } = getEditorState().getSelection();
-      return { getIsCollapsed: isCollapsed, getIsFocused: getHasFocus };
+      const selection = getEditorState().getSelection();
+      return { getIsCollapsed: selection.isCollapsed(), getIsFocused: selection.getHasFocus() };
     },
     getAnchorableBlocks: () => getAnchorableBlocks(getEditorState()),
     getColor: colorType => getColor(getEditorState(), colorType),
@@ -215,6 +231,18 @@ export const createEditorCommands = (
     hasLinkInSelection: () => hasLinksInSelection(getEditorState()),
     getLinkDataInSelection: () => getLinkDataInSelection(getEditorState()),
     getSelectedData: () => getEntityData(getEditorState()) || {},
+    getBlockSpacing: () => {
+      const { dynamicStyles = {} } = getAnchorBlockData(getEditorState());
+      return pick(dynamicStyles, ['line-height', 'padding-top', 'padding-bottom']);
+    },
+    saveEditorState: () => (savedEditorState = getEditorState()),
+    loadEditorState: () => {
+      const selection = savedEditorState.getSelection();
+      setEditorState(EditorState.forceSelection(savedEditorState, selection));
+    },
+    saveSelectionState: () => (savedSelectionState = getEditorState().getSelection()),
+    loadSelectionState: () =>
+      setEditorState(EditorState.forceSelection(getEditorState(), savedSelectionState)),
     getPluginsList: settings => {
       const { isRicosSchema } = settings || {};
       const pluginsList = plugins?.map(plugin =>

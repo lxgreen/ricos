@@ -1,4 +1,4 @@
-import { PollViewer } from './components/PollViewer';
+import { PollViewer } from './PollViewer';
 import { POLL_TYPE } from './types';
 import { PluginTypeMapper } from 'wix-rich-content-common';
 

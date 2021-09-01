@@ -19,15 +19,15 @@ message AppEmbedData {
         google.protobuf.StringValue scheduling = 1;
         google.protobuf.StringValue location = 2;
     }
-    
+
     enum AppType {
         PRODUCT = 0;
         EVENT = 1;
         BOOKING = 2;
     }
-    
+
     AppType type = 1;
-    google.protobuf.StringValue id = 2;
+    google.protobuf.StringValue item_id = 2;
     google.protobuf.StringValue name = 3;
     google.protobuf.StringValue image_src = 4;
     google.protobuf.StringValue url = 5;
@@ -35,5 +35,5 @@ message AppEmbedData {
     oneof appData {
         BookingData booking_data = 6;
         EventData event_data = 7;
-    } 
+    }
 }

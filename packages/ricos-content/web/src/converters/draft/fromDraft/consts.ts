@@ -15,13 +15,15 @@ import {
   VIDEO_TYPE_LEGACY,
   POLL_TYPE,
   EMBED_TYPE,
+  COLLAPSIBLE_LIST_TYPE,
+  TABLE_TYPE,
 } from '../../../consts';
 import {
   ButtonData,
   DividerData,
   FileData,
   GalleryData,
-  GiphyData,
+  GIFData,
   HTMLData,
   LinkPreviewData,
   MapData,
@@ -30,6 +32,8 @@ import {
   PollData,
   ImageData,
   EmbedData,
+  CollapsibleListData,
+  TableData,
 } from 'ricos-schema';
 
 export const TO_RICOS_DATA = {
@@ -38,7 +42,7 @@ export const TO_RICOS_DATA = {
   [DIVIDER_TYPE]: DividerData,
   [FILE_UPLOAD_TYPE]: FileData,
   [GALLERY_TYPE]: GalleryData,
-  [GIPHY_TYPE]: GiphyData,
+  [GIPHY_TYPE]: GIFData,
   [HTML_TYPE]: HTMLData,
   [IMAGE_TYPE]: ImageData,
   [IMAGE_TYPE_LEGACY]: ImageData,
@@ -49,4 +53,6 @@ export const TO_RICOS_DATA = {
   [VIDEO_TYPE_LEGACY]: VideoData,
   [POLL_TYPE]: PollData,
   [EMBED_TYPE]: EmbedData,
+  [COLLAPSIBLE_LIST_TYPE]: CollapsibleListData,
+  [TABLE_TYPE]: TableData,
 };

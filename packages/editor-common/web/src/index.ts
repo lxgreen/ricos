@@ -75,6 +75,7 @@ export {
   isAtomicBlockInSelection,
   setSelectionToBlock,
   hasBlockType,
+  setNativeSelectionToBlock,
 } from './Utils/draftUtils';
 export { getColor, setTextColor, setHighlightColor } from './Utils/colorUtils';
 export { triggerMention, insertMention } from './Utils/mentionUtils';
@@ -94,6 +95,7 @@ export {
 } from './consts';
 
 import './draftTypes';
+export * from './tiptapTypes';
 
 import {
   convertFromRaw as convertFromRawDraft,
@@ -131,7 +133,7 @@ export {
 import DraftOffsetKey from '@wix/draft-js/lib/DraftOffsetKey';
 export { DraftOffsetKey };
 
-export { isElementOutOfWindow } from './Utils/overflowUtils';
+export { elementOverflowWithEditor } from './Utils/overflowUtils';
 
 export const emptyDraftContent = {
   entityMap: {},

@@ -20,6 +20,7 @@ import visualizerPlugin from 'rollup-plugin-visualizer';
 import { Plugin } from 'rollup';
 import libsPackageJsonGeneratorPlugin from './scripts/rollupPlugin-libsPackageJsonGenerator';
 import { writeFileSync } from 'fs';
+import { createFilter } from '@rollup/pluginutils';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 
 const IS_DEV_ENV = process.env.NODE_ENV === 'development';
@@ -77,9 +78,13 @@ const copyAfterBundleWritten = (): Plugin => {
 };
 
 const babel = (): Plugin => {
+  const include = ['packages/**/src/**', 'packages/**/lib/**', '**/@tiptap/**'];
+  const options = {
+    resolve: pathResolve(__dirname),
+  };
   return babelPlugin({
     configFile: pathResolve(__dirname, 'babel.config.js'),
-    include: ['src/**', 'lib/**', 'node_modules/@tiptap'],
+    filter: createFilter(include, undefined, options),
     extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
     babelHelpers: 'runtime',
   });
@@ -103,6 +108,7 @@ const typescript = (): Plugin => {
         'src/**/*.scss',
         'statics/**/*.json',
         'statics/**/*.schema.json',
+        'statics/**/*.defaults.json',
         'statics/**/*.scss',
         'package.json',
         'lib',
@@ -124,6 +130,7 @@ const json = (): Plugin => {
       '../../../node_modules/**',
       '../../../packages/**/package.json',
       '../../common/web/dist/statics/schemas/*.schema.json',
+      '../../ricos-schema/web/dist/statics/*.defaults.json',
     ],
   });
 };
@@ -138,6 +145,7 @@ const postcss = (shouldExtract: boolean): Plugin => {
     },
     modules: {
       generateScopedName: IS_DEV_ENV ? '[name]__[local]___[hash:base64:5]' : '[hash:base64:5]',
+      hashPrefix: process.env.MODULE_NAME,
     },
     extract: shouldExtract && 'dist/styles.min.css',
     plugins: [

@@ -70,13 +70,13 @@ const externalToolbarStyles: ModalStyles = {
   },
 };
 
-export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) => {
+export const createToolbar: CreatePluginToolbar = ({ isMobile, t }) => {
   const buttonProps = {
     type: BUTTON_TYPES.MODAL,
     name: INSERT_PLUGIN_BUTTONS.POLLS,
     tooltip: t('Poll_InsertPoll_Tooltip'),
     getIcon: () => InsertPluginIcon,
-    componentData: { ...DEFAULT_COMPONENT_DATA, ...{ ...settings, getSiteMembers: undefined } }, //Temporary fix until refactor of settings & componentData usage
+    componentData: DEFAULT_COMPONENT_DATA,
     modalElement: decorateComponentWithProps(PollPresetSelector),
   };
 
@@ -123,6 +123,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
             {
               keyName: 'layout',
               type: BUTTONS.EXTERNAL_MODAL,
+              fullHeight: true,
               modalName: Modals.POLL_SETTINGS,
               children: t('Poll_PollSettings_Tab_Layout_TabName'),
               modalStyles: getModalStyles(modalStyles),
@@ -137,6 +138,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
             {
               keyName: 'design',
               type: BUTTONS.EXTERNAL_MODAL,
+              fullHeight: true,
               modalName: Modals.POLL_SETTINGS,
               children: t('Poll_PollSettings_Tab_Design_TabName'),
               modalStyles: getModalStyles(modalStyles),
@@ -151,6 +153,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
             {
               keyName: 'settings',
               type: BUTTONS.EXTERNAL_MODAL,
+              fullHeight: true,
               modalName: Modals.POLL_SETTINGS,
               children: t('Poll_PollSettings_Tab_Settings_TabName'),
               modalStyles: getModalStyles(modalStyles),

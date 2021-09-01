@@ -1,12 +1,12 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['lodash', 'fp', 'jsx-a11y', 'prettier'],
+  plugins: ['lodash', 'fp', 'jsx-a11y', 'prettier', 'cypress'],
   env: {
     browser: true,
     node: true,
     jest: true,
   },
-  extends: ['wix/react', 'plugin:jsx-a11y/strict'],
+  extends: ['wix/react', 'plugin:jsx-a11y/strict', 'plugin:cypress/recommended'],
   settings: {
     react: {
       version: '16.6.3',
@@ -21,6 +21,7 @@ module.exports = {
         allowTemplateLiterals: true,
       },
     ],
+    'new-cap': 'off',
     'lines-between-class-members': ['error', 'always'],
     'quote-props': 'off',
     'react/jsx-closing-tag-location': 'error',
@@ -60,7 +61,23 @@ module.exports = {
     'lodash/import-scope': [2, 'member'],
     'operator-linebreak': 'off',
     'no-unused-vars': 'off',
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['lodash/fp'],
+            message: 'lodash/fp is not supported by yoshi -- please use fp-ts instead',
+          },
+          {
+            group: ['fp-ts/lib/*'],
+            message: 'fp-ts/lib/* is not tree-shakable, please import from fp-ts/*',
+          },
+        ],
+      },
+    ],
     indent: 'off',
     curly: 'off',
+    'cypress/no-unnecessary-waiting': 'warn',
   },
 };

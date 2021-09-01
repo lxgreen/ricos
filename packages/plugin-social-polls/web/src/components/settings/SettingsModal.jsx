@@ -21,7 +21,7 @@ import { DesignSettingsSection } from './design-settings-section';
 import { LayoutSettingsSection } from './layout-settings-section';
 import { PollSettingsSection } from './poll-settings-section';
 import { EditPollSection } from './edit-poll-section';
-import { PollViewer } from '../PollViewer';
+import { PollViewer } from '../../PollViewer';
 
 import styles from './poll-settings-modal.scss';
 

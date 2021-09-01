@@ -1,4 +1,5 @@
 import { Node, Node_Type } from 'ricos-schema';
+import { toPlainText } from '..';
 import { LINK_TYPE } from '../../../consts';
 import { mergeTextNodes, RangedDecoration } from '../../draft/toDraft/decorationParsers';
 
@@ -55,7 +56,8 @@ export const parseImage = async (
 ): Promise<string> => {
   const { caption } = imageData || {};
   const { src, width, height } = imageData?.image || {};
-  let url = `https://static.wixstatic.com/media/${src?.custom?.replace('media/', '')}`;
+  const id = src?.id || src?.custom;
+  let url = `https://static.wixstatic.com/media/${id?.replace('media/', '')}`;
   if (urlShortener) {
     url = await urlShortener(url);
   }
@@ -70,14 +72,14 @@ export const parseVideo = async (
   getVideoUrl: (fileId: string) => Promise<string> = getDefaultVideoUrl
 ): Promise<string> => {
   const { video, title } = videoData || {};
-  const { custom, url } = video?.src || {};
-  const videoUrl = (custom ? getVideoUrl(custom) : url) || '';
+  const { custom, id, url } = video?.src || {};
+  const vidId = id || custom;
+  const videoUrl = (vidId ? getVideoUrl(vidId) : url) || '';
   return title ? title + delimiter + videoUrl : videoUrl;
 };
 
-export const parseGiphy = ({ giphyData }: Node): string => {
-  const { originalUrl } = giphyData?.gif || {};
-  return originalUrl || '';
+export const parseGiphy = ({ gifData }: Node): string => {
+  return gifData?.original?.gif || '';
 };
 
 export const parseMap = ({ mapData }: Node): string => {
@@ -98,3 +100,12 @@ export const parseLinkPreview = ({ linkPreviewData }: Node): string => {
 export const parseEmbed = ({ embedData }: Node, delimiter?: string): string => {
   return [embedData?.oembed?.title, embedData?.src].filter(Boolean).join(delimiter);
 };
+
+export const parseCollapsible = async (node: Node, delimiter?: string): Promise<string> =>
+  (
+    await Promise.all(
+      node.nodes.map(async node =>
+        [await toPlainText(node.nodes[0]), await toPlainText(node.nodes[1])].join(delimiter)
+      )
+    )
+  ).join(delimiter);

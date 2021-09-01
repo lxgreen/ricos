@@ -127,8 +127,9 @@ export function generateInsertPluginButtonProps({
 
   function onClick(event: MouseEvent) {
     event.preventDefault();
-    const { name, componentData } = button;
-    switch (button.type) {
+    const { name, componentData, type } = button;
+    const shouldClosePluginMenu = !isMobile || (isMobile && type !== 'modal');
+    switch (type) {
       case 'file':
         toggleFileSelection();
         break;
@@ -151,7 +152,7 @@ export function generateInsertPluginButtonProps({
         addBlock({ name, componentData });
         break;
     }
-    closePluginMenu?.();
+    shouldClosePluginMenu && closePluginMenu?.();
   }
 
   function shouldCreateGallery(files) {

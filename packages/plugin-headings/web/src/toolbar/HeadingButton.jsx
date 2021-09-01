@@ -8,6 +8,7 @@ import {
   EditorState,
   RichUtils,
   hasBlockType,
+  FORMATTING_BUTTONS,
 } from 'wix-rich-content-editor-common';
 import Modal from 'react-modal';
 import HeadingsDropDownPanel from './HeadingPanel';
@@ -60,7 +61,7 @@ export default class HeadingButton extends Component {
     const newEditorState = RichUtils.toggleBlockType(editorState, type);
     helpers?.onToolbarButtonClick?.({
       pluginId: HEADINGS_DROPDOWN_TYPE,
-      buttonName: this.dataHookText,
+      buttonName: FORMATTING_BUTTONS.HEADINGS,
       value: type,
     });
     isAddEvent && helpers?.onPluginAdd?.(type, 'FormattingToolbar');
@@ -133,6 +134,7 @@ export default class HeadingButton extends Component {
           isMobile={isMobile}
           tooltipText={tooltipText}
           dataHook={this.dataHookText}
+          formattingButtonName={FORMATTING_BUTTONS.HEADINGS}
           tabIndex={tabIndex}
           buttonContent={buttonContent}
           showArrowIcon
@@ -177,6 +179,7 @@ export default class HeadingButton extends Component {
             isMobile={isMobile}
             tooltipText={tooltipText}
             dataHook={this.dataHookText}
+            formattingButtonName={FORMATTING_BUTTONS.HEADINGS}
             tabIndex={tabIndex}
             buttonContent={buttonContent}
             showArrowIcon

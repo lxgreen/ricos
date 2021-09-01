@@ -9,6 +9,7 @@ import {
   AnchorTarget,
   RelValue,
   AvailableExperiments,
+  UISettings,
 } from 'wix-rich-content-common';
 import { GalleryPluginEditorConfig, GALLERY_TYPE } from '../types';
 
@@ -19,6 +20,7 @@ const createInlineButtons: CreateInlineButtons = ({
   settings,
   experiments = {},
   isMobile,
+  uiSettings,
 }: {
   t: TranslationFunction;
   settings: GalleryPluginEditorConfig;
@@ -26,6 +28,7 @@ const createInlineButtons: CreateInlineButtons = ({
   relValue: RelValue;
   experiments: AvailableExperiments;
   isMobile: boolean;
+  uiSettings: UISettings;
 }) => {
   const modalStyles = getModalStyles({ isMobile });
   const icons = settings?.toolbar?.icons || {};
@@ -79,6 +82,7 @@ const createInlineButtons: CreateInlineButtons = ({
     {
       keyName: 'manage_media',
       type: BUTTONS.EXTERNAL_MODAL,
+      fullHeight: true,
       icon: icons.manage_media || ManageMediaIcon,
       modalName: Modals.GALLERY_SETTINGS,
       activeTab: 'manage_media',
@@ -89,10 +93,12 @@ const createInlineButtons: CreateInlineButtons = ({
       anchorTarget,
       relValue,
       accept: settings.accept,
+      uiSettings,
     },
     {
       keyName: 'advanced_settings',
       type: BUTTONS.EXTERNAL_MODAL,
+      fullHeight: true,
       icon: icons.advanced_settings || PluginSettingsIcon,
       modalName: Modals.GALLERY_SETTINGS,
       activeTab: 'settings',
@@ -104,6 +110,7 @@ const createInlineButtons: CreateInlineButtons = ({
       anchorTarget,
       relValue,
       accept: settings.accept,
+      uiSettings,
       triggerSettingsBi: true,
       pluginId: GALLERY_TYPE,
       shouldShowSpoiler: settings.spoiler,

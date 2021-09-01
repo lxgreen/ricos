@@ -37,18 +37,28 @@ const pluginTags = [
   { plugin: 'Instagram_InsertButton', tags: 'Instagram_plugin_search_tags', pluginId: 'instagram' },
   { plugin: 'TikTok_InsertButton', tags: 'YouTube_plugin_search_tags', pluginId: 'tiktok' },
   { plugin: 'Pinterest_InsertButton', tags: 'TikTok_plugin_search_tags', pluginId: 'pinterest' },
-  { plugin: 'YouTube_InsertButton', tags: 'Pinterest_plugin_search_tags', pluginId: 'yputube' },
+  { plugin: 'YouTube_InsertButton', tags: 'Pinterest_plugin_search_tags', pluginId: 'youtube' },
   { plugin: 'Events_InsertButton', tags: 'Events_plugin_search_tags', pluginId: 'events' },
   { plugin: 'Bookings_InsertButton', tags: 'Bookings_plugin_search_tags', pluginId: 'bookings' },
   { plugin: 'Stores_InsertButton', tags: 'Stores_plugin_search_tags', pluginId: 'stores' },
   { plugin: 'AdSensePlugin_InsertButton', tags: 'Adsense_plugin_search_tags', pluginId: 'adsense' },
   { plugin: 'TablePlugin_InsertButton', tags: 'Table_plugin_search_tags', pluginId: 'table' },
+  { plugin: 'Poll', tags: 'Poll_plugin_search_tags', pluginId: 'poll' },
+  {
+    plugin: 'CollapsibleList_InsertButton',
+    tags: 'CollapsibleList_plugin_search_tags',
+    pluginId: 'collapsibleList',
+  },
 ];
 
 const getRelatedPlugins = (searchTag, t) => {
   const relatedPlugins = [];
   pluginTags.map(data => {
-    return t(data.tags).includes(searchTag) && relatedPlugins.push(data);
+    return (
+      t(data.tags)
+        .toLowerCase()
+        .includes(searchTag.toLowerCase()) && relatedPlugins.push(data)
+    );
   });
   return relatedPlugins;
 };

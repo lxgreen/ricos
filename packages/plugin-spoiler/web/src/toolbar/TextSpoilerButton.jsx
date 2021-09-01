@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { SPOILER_TYPE } from '../types';
-import { InlineToolbarButton, RichUtils } from 'wix-rich-content-editor-common';
+import { InlineToolbarButton, RichUtils, FORMATTING_BUTTONS } from 'wix-rich-content-editor-common';
 import { SpoilerButtonIcon } from 'wix-rich-content-plugin-commons';
 
 export default class TextSpoilerButton extends PureComponent {
@@ -44,6 +44,7 @@ export default class TextSpoilerButton extends PureComponent {
         isMobile={isMobile}
         tooltipText={t('Spoiler_Insert_Tooltip')}
         dataHook={'textSpoilerButton'}
+        formattingButtonName={FORMATTING_BUTTONS.SPOILER}
         tabIndex={tabIndex}
         icon={SpoilerButtonIcon}
         isActive={isActive}

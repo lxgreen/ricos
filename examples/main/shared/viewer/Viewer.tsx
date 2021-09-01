@@ -1,6 +1,11 @@
 import React, { PureComponent, RefObject } from 'react';
 import { RichContentViewer } from 'wix-rich-content-viewer';
-import { DraftContent, SEOSettings, AvailableExperiments } from 'wix-rich-content-common';
+import {
+  DraftContent,
+  SEOSettings,
+  AvailableExperiments,
+  LinkPreviewData,
+} from 'wix-rich-content-common';
 import * as Plugins from './ViewerPlugins';
 import theme from '../theme/theme'; // must import after custom styles
 import { TextSelectionToolbar, TwitterButton } from 'wix-rich-content-text-selection-toolbar';
@@ -14,9 +19,10 @@ interface ExampleViewerProps {
   initialState?: DraftContent;
   isMobile?: boolean;
   locale: string;
-  scrollingElementFn?: any;
+  scrollingElementFn?: () => Element;
   seoMode?: SEOSettings;
   experiments: AvailableExperiments;
+  linkPreviewPopoverFetchData?: (url: string) => Promise<LinkPreviewData>;
 }
 
 interface ExampleViewerState {
@@ -24,6 +30,7 @@ interface ExampleViewerState {
 }
 
 export default class Viewer extends PureComponent<ExampleViewerProps, ExampleViewerState> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   viewerRef: RefObject<any>;
 
   constructor(props: ExampleViewerProps) {
@@ -43,12 +50,21 @@ export default class Viewer extends PureComponent<ExampleViewerProps, ExampleVie
   };
 
   render() {
-    const { isMobile, initialState, locale, seoMode, experiments } = this.props;
+    const {
+      isMobile,
+      initialState,
+      locale,
+      seoMode,
+      experiments,
+      linkPreviewPopoverFetchData,
+    } = this.props;
     const { disabled } = this.state;
     const helpers = {
       // This is for debugging only
       onViewerAction: async (pluginId, actionName, value) =>
+        // eslint-disable-next-line no-console
         console.log('onViewerAction', pluginId, actionName, value),
+      // eslint-disable-next-line no-console
       onViewerLoaded: async (...args) => console.log('onViewerLoaded', ...args),
     };
 
@@ -65,6 +81,7 @@ export default class Viewer extends PureComponent<ExampleViewerProps, ExampleVie
             mediaSettings={{ pauseMedia: disabled }}
             seoSettings={seoMode}
             experiments={experiments}
+            linkPreviewPopoverFetchData={linkPreviewPopoverFetchData}
           >
             <RichContentViewer helpers={helpers} />
           </RicosViewer>

@@ -11,7 +11,9 @@ interface State {
   isPreviewExpanded: boolean;
   localeData: { locale?: string; localeResource?: Record<string, string> };
   remountKey: boolean;
+  error?: string;
   TextSelectionToolbar?;
+  LinkPreviewPopover?;
 }
 
 export class RicosViewer extends Component<RicosViewerProps, State> {
@@ -19,6 +21,14 @@ export class RicosViewer extends Component<RicosViewerProps, State> {
   viewerRef!: HTMLElement;
 
   getBiCallback: typeof getCallback;
+
+  static getDerivedStateFromError(error: string) {
+    return { error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error({ error, errorInfo });
+  }
 
   constructor(props: RicosViewerProps) {
     super(props);
@@ -30,7 +40,12 @@ export class RicosViewer extends Component<RicosViewerProps, State> {
     };
   }
 
-  static defaultProps = { locale: 'en' };
+  static defaultProps = {
+    onError: err => {
+      throw err;
+    },
+    locale: 'en',
+  };
 
   getLocale = () => {
     const { children, locale } = this.props;
@@ -66,39 +81,70 @@ export class RicosViewer extends Component<RicosViewerProps, State> {
     }
   };
 
+  loadLinkPreviewPopover = () => {
+    const { linkPreviewPopoverFetchData, isMobile } = this.props;
+    const needLoadLinkPreviewPopover = linkPreviewPopoverFetchData && !isMobile;
+    if (needLoadLinkPreviewPopover && !this.state.LinkPreviewPopover) {
+      const LinkPreviewPopover = React.lazy(() => import('./LinkPreviewPopover'));
+      this.setState({ LinkPreviewPopover });
+    }
+  };
+
+  onMouseOver = () => {
+    this.loadTextSelection();
+    this.loadLinkPreviewPopover();
+  };
+
   render() {
-    const { children, seoSettings, ...props } = this.props;
-    const { isPreviewExpanded, localeData, TextSelectionToolbar } = this.state;
-    const child =
-      children && shouldRenderChild('RichContentViewer', children) ? (
-        children
-      ) : (
-        <RichContentViewer />
-      );
-    return [
-      <RicosEngine
-        key="viewer"
-        RicosModal={RicosModal}
-        isPreviewExpanded={isPreviewExpanded}
-        onPreviewExpand={this.onPreviewExpand}
-        isViewer
-        {...props}
-      >
-        {React.cloneElement(child, {
-          seoMode: seoSettings,
-          setRef: this.setRef,
-          onMouseOver: this.loadTextSelection,
-          ...localeData,
-        })}
-      </RicosEngine>,
-      TextSelectionToolbar ? (
-        <Suspense fallback={<div />}>
-          <TextSelectionToolbar
-            onButtonClick={this.getBiCallback('onViewerAction')}
-            container={this.viewerRef}
-          />
-        </Suspense>
-      ) : null,
-    ];
+    const { children, seoSettings, linkPreviewPopoverFetchData, ...props } = this.props;
+    const { isPreviewExpanded, localeData, TextSelectionToolbar, LinkPreviewPopover } = this.state;
+    try {
+      if (this.state.error) {
+        this.props.onError?.(this.state.error);
+        return null;
+      }
+      const child =
+        children && shouldRenderChild('RichContentViewer', children) ? (
+          children
+        ) : (
+          <RichContentViewer />
+        );
+      return [
+        <RicosEngine
+          key="viewer"
+          RicosModal={RicosModal}
+          isPreviewExpanded={isPreviewExpanded}
+          onPreviewExpand={this.onPreviewExpand}
+          isViewer
+          {...props}
+        >
+          {React.cloneElement(child, {
+            seoMode: seoSettings,
+            setRef: this.setRef,
+            onMouseOver: this.onMouseOver,
+            ...localeData,
+          })}
+        </RicosEngine>,
+        TextSelectionToolbar ? (
+          <Suspense fallback={<div />}>
+            <TextSelectionToolbar
+              onButtonClick={this.getBiCallback('onViewerAction')}
+              container={this.viewerRef}
+            />
+          </Suspense>
+        ) : null,
+        LinkPreviewPopover ? (
+          <Suspense fallback={<div />}>
+            <LinkPreviewPopover
+              fetchUrlPreviewData={linkPreviewPopoverFetchData}
+              container={this.viewerRef}
+            />
+          </Suspense>
+        ) : null,
+      ];
+    } catch (e) {
+      this.props.onError?.(e);
+      return null;
+    }
   }
 }

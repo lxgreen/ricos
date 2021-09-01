@@ -6,7 +6,7 @@ export const COMMANDS = Object.freeze({
   ALIGN_CENTER: 'center',
   JUSTIFY: 'justify',
   NUMBERED_LIST: 'ordered-list-item',
-  BULLET_LIST: 'unordered-list-item',
+  BULLETED_LIST: 'unordered-list-item',
   CODE: 'code-block',
   BLOCKQUOTE: 'blockquote',
   BACKSPACE: 'backspace',
@@ -61,6 +61,7 @@ export const FORMATTING_BUTTONS = Object.freeze({
   UNDERLINE: 'Underline',
   TITLE: 'Title',
   BLOCKQUOTE: 'Blockquote',
+  ALIGNMENT: 'Alignment',
   ALIGN_LEFT,
   ALIGN_RIGHT,
   ALIGN_CENTER,
@@ -111,6 +112,7 @@ export const INSERT_PLUGIN_BUTTONS = Object.freeze({
   UNDO: 'UndoPlugin_InsertButton',
   REDO: 'RedoPlugin_InsertButton',
   TABLE: 'TablePlugin_InsertButton',
+  COLLAPSIBLE_LIST: 'CollapsibleList_InsertButton',
 });
 
 export const BUTTON_TYPES = Object.freeze({

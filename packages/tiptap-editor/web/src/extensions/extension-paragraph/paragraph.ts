@@ -1,19 +1,20 @@
-import { Command, Node, mergeAttributes } from '@tiptap-es5/core';
+import { Node, mergeAttributes } from '@tiptap/core';
 import { ParagraphData } from 'ricos-schema';
 
 export interface ParagraphOptions {
   HTMLAttributes: Record<string, unknown>;
 }
 
-interface Commands {
-  paragraph: {
-    /**
-     * Toggle a paragraph
-     */
-    setParagraph: () => Command;
-  };
+declare module '@tiptap/core' {
+  interface Commands<ReturnType> {
+    paragraph: {
+      /**
+       * Toggle a paragraph
+       */
+      setParagraph: () => ReturnType;
+    };
+  }
 }
-
 export const Paragraph = Node.create<ParagraphOptions>({
   name: 'paragraph',
 
@@ -39,8 +40,6 @@ export const Paragraph = Node.create<ParagraphOptions>({
   renderHTML({ HTMLAttributes }) {
     return ['div', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
   },
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore-next-line
   addCommands() {
     return {
       setParagraph: () => ({ commands }) => {

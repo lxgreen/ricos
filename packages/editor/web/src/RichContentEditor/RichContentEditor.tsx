@@ -117,6 +117,7 @@ type ToolbarsToIgnore = (
   | 'MobileToolbar'
   | 'StaticTextToolbar'
   | 'StaticToolbar'
+  | 'InlinePluginToolbar'
 )[];
 
 export interface RichContentEditorProps extends PartialDraftEditorProps {
@@ -163,6 +164,7 @@ export interface RichContentEditorProps extends PartialDraftEditorProps {
   maxTextLength?: number;
   experiments?: AvailableExperiments;
   disableKeyboardEvents?: (shouldEnable: boolean) => void;
+  textWrap: boolean;
   /** This is a legacy API, chagnes should be made also in the new Ricos Editor API **/
 }
 
@@ -177,7 +179,7 @@ interface State {
   readOnly: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   context: {
-    experiments?: AvailableExperiments;
+    experiments: AvailableExperiments;
     isMobile: boolean;
     t?: TranslationFunction;
   };
@@ -250,11 +252,13 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
   constructor(props: RichContentEditorProps) {
     super(props);
     const initialEditorState = this.getInitialEditorState();
-    const { experiments, isMobile = false, t } = props;
+    const { experiments = {}, isMobile = false, t } = props;
     this.state = {
       editorState: initialEditorState,
       innerModal: null,
-      toolbarsToIgnore: [],
+      toolbarsToIgnore: experiments?.newFormattingToolbar?.enabled
+        ? ['InlineTextToolbar', 'InlinePluginToolbar']
+        : [],
       readOnly: false,
       context: { experiments, isMobile, t },
       undoRedoStackChanged: false,
@@ -316,7 +320,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
   preloadLibs() {
     if (this.props.maxTextLength && this.props.maxTextLength > 0) {
       import(
-        /* webpackChunkName: getSelectedText */ 'wix-rich-content-editor-common/libs/getSelectedText'
+        /* webpackChunkName: "getSelectedText" */ 'wix-rich-content-editor-common/libs/getSelectedText'
       ).then(({ getSelectedText }) => (this.getSelectedText = getSelectedText));
     }
   }
@@ -327,7 +331,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     }
     if (/debug/i.test(window.location.search) && !window.__RICOS_INFO__) {
       import(
-        /* webpackChunkName: debugging-info */
+        /* webpackChunkName: "debugging-info" */
         'wix-rich-content-common/libs/debugging-info'
       ).then(({ reportDebuggingInfo }) => {
         reportDebuggingInfo({
@@ -391,6 +395,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       iframeSandboxDomain,
       innerRCERenderedIn,
       experiments,
+      textWrap,
     } = this.props;
 
     this.fixHelpers(helpers);
@@ -457,6 +462,8 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
           helpers.onPluginChange?.(pluginId, changeObj, Version.currentVersion),
         onToolbarButtonClick: args =>
           helpers.onToolbarButtonClick?.({ ...args, version: Version.currentVersion }),
+        onInlineToolbarOpen: args =>
+          helpers.onInlineToolbarOpen?.({ ...args, version: Version.currentVersion }),
       },
       config,
       isMobile,
@@ -476,6 +483,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       innerRCERenderedIn,
       disableKeyboardEvents: this.disableKeyboardEvents,
       experiments,
+      textWrap,
     };
   };
 
@@ -544,6 +552,11 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     TextToolbar:
       this.props.textToolbarType === 'static' ? this.toolbars[TOOLBARS.STATIC].Toolbar : null,
   });
+
+  isInnerRCERenderedInTable = () => {
+    const { innerRCERenderedIn } = this.props;
+    return innerRCERenderedIn === 'wix-rich-content-plugin-table';
+  };
 
   getInitialEditorState() {
     const {
@@ -658,6 +671,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     const formattingToolbar = document.querySelectorAll(
       `[data-hook=inlineToolbar]`
     )[0] as HTMLElement;
+    const newFormattingToolbar = document.querySelectorAll(`[data-id="toolbar"]`)[0] as HTMLElement;
     if (pluginToolbar && pluginToolbar.dataset.hook !== 'linkPluginToolbar') {
       const editorState = this.getEditorState();
       const focusedAtomicPluginKey = editorState.getSelection().getFocusKey();
@@ -665,7 +679,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
         .getCurrentContent()
         .getBlockForKey(focusedAtomicPluginKey);
     }
-    const toolbar = pluginToolbar || formattingToolbar;
+    const toolbar = pluginToolbar || formattingToolbar || newFormattingToolbar;
     if (toolbar) {
       const buttonToFocus = toolbar.querySelectorAll('Button')[0] as HTMLElement;
       buttonToFocus.focus();
@@ -858,6 +872,17 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     pubsub: this.commonPubsub,
   });
 
+  getT = () => {
+    const { t } = this.props;
+    return t;
+  };
+
+  getPlugins = () => {
+    return this.plugins;
+  };
+
+  getEditorCommands = () => this.EditorCommands;
+
   setEditor = (ref: Editor) => (this.editor = get(ref, 'editor', ref));
 
   inPluginEditingMode = false;
@@ -867,7 +892,18 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     const mode = shouldEnable ? 'render' : 'edit';
     this.editor?.setMode(mode);
     this.inPluginEditingMode = shouldEnable;
-    const toolbarsToIgnore: ToolbarsToIgnore = shouldEnable ? ['SideToolbar'] : [];
+    this.handleSideToolbar(shouldEnable);
+  };
+
+  handleSideToolbar = (shouldEnable: boolean) => {
+    const { toolbarsToIgnore: currentToolbarsToIgnore } = this.state;
+    const toolbarsToIgnore: ToolbarsToIgnore = currentToolbarsToIgnore;
+    const index = toolbarsToIgnore.indexOf('SideToolbar');
+    if (shouldEnable && index === -1) {
+      toolbarsToIgnore.push('SideToolbar');
+    } else if (!shouldEnable && index !== -1) {
+      toolbarsToIgnore.splice(index, 1);
+    }
     this.setState({ toolbarsToIgnore });
   };
 
@@ -897,6 +933,9 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
         plugin.Toolbar || plugin.InlinePluginToolbar || plugin.InlineToolbar || plugin.SideToolbar;
       if (Toolbar) {
         if (includes(toolbarsToIgnore, plugin.name)) {
+          return null;
+        }
+        if (plugin.InlinePluginToolbar && includes(toolbarsToIgnore, 'InlinePluginToolbar')) {
           return null;
         }
         return (

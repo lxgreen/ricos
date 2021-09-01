@@ -13,6 +13,7 @@ import {
   CustomAnchorScroll,
   Link_Rel,
   AvailableExperiments,
+  LinkPreviewData,
 } from 'wix-rich-content-common';
 import { EditorState, EditorProps } from 'draft-js';
 import { PreviewConfig } from 'wix-rich-content-preview';
@@ -40,6 +41,8 @@ export interface RicosProps {
   textAlignment?: TextAlignment;
   onAtomicBlockFocus?: onAtomicBlockFocus;
   experiments?: AvailableExperiments;
+  iframeSandboxDomain?: string;
+  textWrap?: boolean;
   /* Changes to this interface should also be reflected in the API docs */
 }
 
@@ -74,6 +77,7 @@ export interface RicosViewerProps extends RicosProps, Pick<RichContentViewerProp
   preview?: PreviewConfig;
   seoSettings?: boolean | SEOSettings;
   textSelectionToolbar?: boolean;
+  linkPreviewPopoverFetchData?: (url: string) => Promise<LinkPreviewData>;
   /* Changes to this interface should also be reflected in the API docs */
 }
 
@@ -91,7 +95,7 @@ export interface EditorDataInstance {
     isLastChangeEdit: boolean;
   };
   getEditorState: () => EditorState;
-  refresh: (editorState: EditorState) => void;
+  refresh: (editorState: EditorState, onError?: OnErrorFunction | undefined) => void;
   waitForUpdate: () => void;
   getContentStatePromise: () => Promise<DraftContent>;
 }

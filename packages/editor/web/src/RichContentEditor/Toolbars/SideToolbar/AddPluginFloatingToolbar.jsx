@@ -6,7 +6,7 @@ import {
   EditorModals,
   getModalStyles,
   TOOLBARS,
-  isElementOutOfWindow,
+  elementOverflowWithEditor,
 } from 'wix-rich-content-editor-common';
 import { isSSR, Version } from 'wix-rich-content-common';
 import { PlusIcon, PlusIconSmall } from '../../Icons';
@@ -68,7 +68,7 @@ export default class AddPluginFloatingToolbar extends PureComponent {
       version: Version.currentVersion,
       menu: 'SIDE',
     });
-    if (onClick) {
+    if (onClick && !event.target.closest('[data-hook=TableComponent]')) {
       onClick();
     } else if (!isMobile) {
       this.togglePopup();
@@ -116,7 +116,8 @@ export default class AddPluginFloatingToolbar extends PureComponent {
     const { addPluginMenuConfig } = this.props;
     const smallPlusIcon = addPluginMenuConfig?.tablePluginMenu;
     if (smallPlusIcon && this.popupRef) {
-      const isToolbarOverflow = isElementOutOfWindow(this.popupRef);
+      const toolbarOverflowWithEditor = elementOverflowWithEditor(this.popupRef);
+      const isToolbarOverflow = !!toolbarOverflowWithEditor.overflowRight;
       const editorWidth = this.popupRef.closest('[data-id=rce]').getBoundingClientRect().width;
       return {
         left: isToolbarOverflow ? editorWidth - width / 2 + 25 : width / 2 + 22,

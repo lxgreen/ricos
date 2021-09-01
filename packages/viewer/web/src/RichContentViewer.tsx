@@ -85,7 +85,7 @@ class RichContentViewer extends Component<
     raw?: DraftContent;
     error?: string;
     context: {
-      experiments?: AvailableExperiments;
+      experiments: AvailableExperiments;
       isMobile: boolean;
       t?: TranslationFunction;
     };
@@ -113,7 +113,7 @@ class RichContentViewer extends Component<
     const styles = { ...viewerStyles, ...viewerAlignmentStyles, ...rtlStyle };
     this.styles = mergeStyles({ styles, theme: props.theme });
     this.typeMappers = combineMappers(props.typeMappers);
-    const { experiments, isMobile = false, t } = props;
+    const { experiments = {}, isMobile = false, t } = props;
     this.state = {
       context: { experiments, isMobile, t },
     };
@@ -210,7 +210,7 @@ class RichContentViewer extends Component<
     }
     if (/debug/i.test(window.location.search) && !window.__RICOS_INFO__) {
       import(
-        /* webpackChunkName: debugging-info */
+        /* webpackChunkName: "debugging-info" */
         'wix-rich-content-common/libs/debugging-info'
       ).then(({ reportDebuggingInfo }) => {
         reportDebuggingInfo({

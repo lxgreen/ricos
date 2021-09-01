@@ -2,6 +2,65 @@
   "blocks": [
     {
       "key": "81ob3",
+      "text": "hello world",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "line-height": "20px"
+        },
+        "textAlignment": "left"
+      }
+    },
+    {
+      "key": "4r0ek",
+      "text": "this is bold ",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [
+        {
+          "offset": 0,
+          "length": 13,
+          "style": "BOLD"
+        }
+      ],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "line-height": "20px"
+        },
+        "textAlignment": "left"
+      }
+    },
+    {
+      "key": "crqp0",
+      "text": "this is italic and bold",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [
+        {
+          "offset": 0,
+          "length": 23,
+          "style": "BOLD"
+        },
+        {
+          "offset": 0,
+          "length": 23,
+          "style": "ITALIC"
+        }
+      ],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "line-height": "20px"
+        },
+        "textAlignment": "left"
+      }
+    },
+    {
+      "key": "dvgus",
       "text": "",
       "type": "unstyled",
       "depth": 0,
@@ -10,11 +69,12 @@
       "data": {
         "dynamicStyles": {
           "line-height": "20px"
-        }
+        },
+        "textAlignment": "left"
       }
     },
     {
-      "key": "1uttj",
+      "key": "d8q7l",
       "text": " ",
       "type": "atomic",
       "depth": 0,
@@ -29,7 +89,7 @@
       "data": {}
     },
     {
-      "key": "7n447",
+      "key": "dd5od",
       "text": "",
       "type": "unstyled",
       "depth": 0,
@@ -38,7 +98,16 @@
       "data": {}
     },
     {
-      "key": "6hrme",
+      "key": "354h",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "55abu",
       "text": " ",
       "type": "atomic",
       "depth": 0,
@@ -53,8 +122,8 @@
       "data": {}
     },
     {
-      "key": "8p260",
-      "text": "",
+      "key": "fruvh",
+      "text": "end of text",
       "type": "unstyled",
       "depth": 0,
       "inlineStyleRanges": [],
@@ -64,43 +133,42 @@
   ],
   "entityMap": {
     "0": {
-      "type": "wix-draft-plugin-divider",
-      "mutability": "IMMUTABLE",
-      "data": {
-        "type": "single",
-        "config": {
-          "size": "large",
-          "alignment": "center",
-          "textWrap": "nowrap"
-        }
-      }
-    },
-    "1": {
       "type": "wix-draft-plugin-image",
       "mutability": "IMMUTABLE",
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content",
+          "size": "inline",
           "showTitle": true,
           "showDescription": true,
-          "disableExpand": false,
+          "width": 284,
           "spoiler": {
-            "enabled": false,
-            "description": "ffd"
+            "enabled": true
           }
         },
-        "disableExpand": false,
         "src": {
-          "id": "0db65a80624a2e0b8c71e553b6f4b3f6",
-          "original_file_name": "8bb438_f4f7fa31c5364557af0da7c4fd543cc9.jpg",
-          "file_name": "8bb438_f4f7fa31c5364557af0da7c4fd543cc9.jpg",
-          "width": 5600,
-          "height": 3737
+          "id": "b5a1eb472c11ff6aa8bc232102e44115",
+          "original_file_name": "8bb438_df62913570ee4b23bcf2e5b38c85be0f.jpg",
+          "file_name": "8bb438_df62913570ee4b23bcf2e5b38c85be0f.jpg",
+          "width": 1920,
+          "height": 1280
         },
-        "disableDownload": false
+        "disableDownload": false,
+        "disableExpand": false
+      }
+    },
+    "1": {
+      "type": "wix-draft-plugin-divider",
+      "mutability": "IMMUTABLE",
+      "data": {
+        "config": {
+          "size": "medium",
+          "alignment": "center",
+          "textWrap": "nowrap"
+        },
+        "type": "double"
       }
     }
   },
-  "VERSION": "8.45.2"
+  "VERSION": "8.48.1"
 }

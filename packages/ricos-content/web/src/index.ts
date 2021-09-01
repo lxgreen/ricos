@@ -17,6 +17,6 @@ export { isContentStateEmpty } from './contentStateUtils/contentStateUtils';
 
 export { createContent } from './contentStateUtils/createContent';
 
-export { isPNG, getImageSrc, WIX_MEDIA_DEFAULT } from './imageUtils';
-
 export { compare } from './comparision/compare';
+
+export * from './fp-utils';

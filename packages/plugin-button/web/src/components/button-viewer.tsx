@@ -6,7 +6,6 @@ import {
   RichContentTheme,
   AnchorTarget,
   getRelValue,
-  getTargetValue,
 } from 'wix-rich-content-common';
 import Styles from '../../statics/styles/default-styles.scss';
 import { ACTION_BUTTON_TYPE, LINK_BUTTON_TYPE } from '../types';
@@ -49,8 +48,14 @@ const ButtonViewer: FC<Props> = ({
   );
   const Component = isActionButton ? 'div' : 'a';
   const props = merge(
-    { className: styles.button_container, style },
-    !isActionButton && { href: url, target: getTargetValue(target), rel: getRelValue(rel) }
+    {
+      className: styles.button_container,
+      style,
+      tabIndex: 0,
+      role: 'button',
+      onKeyUp: e => (e.key === ' ' || e.key === 'Enter') && onClickHandler(e),
+    },
+    !isActionButton && { href: url, target, rel: getRelValue(rel) }
   );
   return (
     <Component {...props} data-hook="buttonViewer" onClick={onClickHandler}>

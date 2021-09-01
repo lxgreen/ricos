@@ -18,7 +18,7 @@ import {
 } from '../../../../../examples/main/shared/utils/fileUploadUtil';
 import { createPreview } from 'wix-rich-content-preview';
 import { TOOLBARS } from 'wix-rich-content-editor-common';
-import { ricosPalettes } from '../../../../tests/resources/palettesExample';
+import { ricosPalettes } from '../../../../../examples/storybook/src/resources/palettesExample';
 import { themes } from '../consumersThemes/themes';
 import { PaletteColors, DraftContent, SEOSettings } from 'wix-rich-content-common';
 import { EditorState } from '@wix/draft-js';
@@ -144,7 +144,7 @@ class RicosTestApp extends PureComponent<RicosTestAppProps> {
         cssOverride={consumerTheme ? consumerTheme : !skipCssOverride && theme}
         toolbarSettings={createToolbarSettings(addPluginMenuConfig, footerToolbarConfig)}
         onChange={onRicosEditorChange}
-        _rcProps={{ experiments: testAppConfig.experiments }}
+        experiments={testAppConfig.experiments}
       >
         <RichContentEditor
           helpers={{
@@ -187,6 +187,7 @@ class RicosTestApp extends PureComponent<RicosTestAppProps> {
         seoSettings={seoMode}
         preview={testAppConfig.showDefaultPreview && createPreview()}
         textSelectionToolbar
+        experiments={testAppConfig.experiments}
       />
     );
   };

@@ -1,4 +1,4 @@
-import { mkdirSync, readdirSync, writeFileSync, readFileSync, existsSync } from 'fs';
+import { mkdirSync, readdirSync, writeFileSync, readFileSync } from 'fs';
 import { execSync } from 'child_process';
 import { LATEST_VERSION } from './consts';
 
@@ -12,20 +12,7 @@ const GENERATED_FILE_PREFIX = `/**
 * It is generated from the main/proto version by removing Wix specific features.
 */\n\n`;
 
-const mkdirSyncDeep = (...[path, options]: Parameters<typeof mkdirSync>): void => {
-  path
-    .toString()
-    .split('/')
-    .reduce((deepDir, dir) => {
-      const newDir = deepDir ? deepDir + '/' + dir : dir;
-      if (!existsSync(newDir)) {
-        mkdirSync(newDir, options);
-      }
-      return newDir;
-    }, '');
-};
-
-mkdirSyncDeep(`${GEN_DIR}/proto/${PACKAGE_PATH}`);
+mkdirSync(`${GEN_DIR}/proto/${PACKAGE_PATH}`, { recursive: true });
 
 const schemas = readdirSync(`./src/main/proto/${PACKAGE_PATH}`);
 
@@ -34,7 +21,7 @@ schemas.forEach(schema => {
     GENERATED_FILE_PREFIX + readFileSync(`src/main/proto/${PACKAGE_PATH}/${schema}`, 'utf8');
   writeFileSync(
     `${GEN_DIR}/proto/${PACKAGE_PATH}/${schema}`,
-    schemaFile.replace(/ \[.*\];/g, ';').replace('import "wix/api/validations.proto";\n', '')
+    schemaFile.replace(/\s*\[.*wix.*\];/g, ';').replace('import "wix/api/validations.proto";\n', '')
   );
 });
 
