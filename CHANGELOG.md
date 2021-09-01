@@ -19,6 +19,8 @@
 
 ### :bug: Bug Fix
 
+- `editor-common/toolbars-new`
+  - [#2902](https://github.com/wix/ricos/pull/2902) fix link-modal input behavior on focus
 - `divider`
   - [#2903](https://github.com/wix/ricos/pull/2903) move `divider-component` to fix Loadable support
 

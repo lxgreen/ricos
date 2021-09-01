@@ -87,33 +87,22 @@ export class LinkPanelDropdown extends Component {
     }
   };
 
-  componentDidMount() {
-    // eslint-disable-next-line react/prop-types
-    this.textInput.current?.focus();
-    if (!this.state.fallbackChanged) {
-      this.textInput.current?.select(); //select the link in case of edit
-    } else {
-      this.textInput.current.selectionStart = this.textInput.current?.value.length;
-      this.textInput.current.selectionEnd = this.textInput.current?.value.length;
-    }
-  }
-
   render() {
-    const { itemToString, formatMenuItem, itemHeight, textInputProps, value } = this.props;
-    const { selectedItem, items } = this.state;
-    const fallBackOnchange = value => {
-      this.props.onChange(value);
-      this.setState({ fallbackChanged: true });
-    };
+    const { itemToString, formatMenuItem, itemHeight, textInputProps, value, t } = this.props;
+    const { selectedItem, items, fallbackChanged } = this.state;
+
     return (
       <Suspense
         fallback={
-          <TextInput
-            placeholder={this.props.t('LinkPanel_InputPlaceholder')}
+          <Input
             {...textInputProps}
-            inputRef={this.textInput}
             value={value}
-            onChange={fallBackOnchange}
+            onChange={e => {
+              this.props.onChange(e.target.value);
+              this.setState({ fallbackChanged: true });
+            }}
+            placeholder={t('LinkPanel_InputPlaceholder')}
+            selectText
           />
         }
       >
@@ -137,12 +126,10 @@ export class LinkPanelDropdown extends Component {
             });
             return (
               <div>
-                {/*<label {...getLabelProps()}>Enter a fruit</label>*/}
-                <TextInput
+                <Input
                   {...getInputProps({ ...textInputProps })}
-                  onChange={value => textInputProps.onChange({ target: { value } })}
-                  inputRef={this.textInput}
-                  placeholder={this.props.t('LinkPanel_InputPlaceholder')}
+                  selectText={!fallbackChanged}
+                  placeholder={t('LinkPanel_InputPlaceholder')}
                 />
                 {(isOpen || this.props.isOpen) && List && (
                   <Suspense fallback={<div>Loading...</div>}>
@@ -185,4 +172,33 @@ export class LinkPanelDropdown extends Component {
     textInputProps: PropTypes.object,
     isOpen: PropTypes.bool,
   };
+}
+
+class Input extends Component {
+  textInput = React.createRef();
+
+  componentDidMount() {
+    // eslint-disable-next-line react/prop-types
+    const { selectText } = this.props;
+    const ref = this.textInput.current;
+    ref.focus();
+    if (selectText) {
+      ref.select(); //select the link in case of edit
+    } else {
+      ref.selectionStart = ref.selectionEnd = ref.value.length; //move cursor to end
+    }
+  }
+
+  render() {
+    // eslint-disable-next-line react/prop-types, no-unused-vars
+    const { placeholder, selectText, ...inputProps } = this.props;
+    return (
+      <TextInput
+        {...inputProps}
+        inputRef={this.textInput}
+        onChange={value => inputProps.onChange({ target: { value } })}
+        placeholder={placeholder}
+      />
+    );
+  }
 }
