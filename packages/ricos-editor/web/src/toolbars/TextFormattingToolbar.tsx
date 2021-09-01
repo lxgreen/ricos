@@ -44,6 +44,10 @@ interface TextFormattingToolbarProps {
 export type TextFormattingToolbarType = typeof TextFormattingToolbar;
 
 class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
+  updateToolbar = () => {
+    this.forceUpdate();
+  };
+
   render() {
     const {
       activeEditor,

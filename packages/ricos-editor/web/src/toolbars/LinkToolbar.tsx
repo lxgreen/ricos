@@ -34,6 +34,10 @@ interface LinkToolbarProps {
 interface State {}
 
 class LinkToolbar extends Component<LinkToolbarProps, State> {
+  updateToolbar = () => {
+    this.forceUpdate();
+  };
+
   render() {
     const { activeEditor, isMobile, theme, experiments } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();

@@ -20,10 +20,25 @@
 ### :house: Internal
 
 - `ui-components`
+
   - [#2908](https://github.com/wix/ricos/pull/2908) refactor button component - removed classname prop
+
+### :bug: Bug Fix
+
+- `editor-common/toolbars-new`
+  - [#2902](https://github.com/wix/ricos/pull/2902) fix link-modal input behavior on focus
+- `divider`
+  - [#2903](https://github.com/wix/ricos/pull/2903) move `divider-component` to fix Loadable support
 
 </details>
 <hr/>
+
+## 8.52.1 (Sep 1, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-editor`
+  - [#2898](https://github.com/wix/ricos/pull/2898) update new toolbars on editor changed
 
 ## 8.52.0 (Sep 1, 2021)
 
