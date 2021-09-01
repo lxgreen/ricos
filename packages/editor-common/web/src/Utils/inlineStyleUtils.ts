@@ -4,10 +4,8 @@ import {
   isInSelectionRange,
   EditorState,
   Modifier,
-  getAnchorBlockData,
 } from '../index';
-import { uniq, pick } from 'lodash';
-import { safeJsonParse } from 'wix-rich-content-common';
+import { uniq } from 'lodash';
 
 const getBlockStyleRanges = (block, styleSelectionPredicate?: (style: string) => unknown) => {
   const styleRanges: { start: number; end: number; style: string }[] = [];
@@ -89,44 +87,4 @@ export const setInlineStyle = (editorState: EditorState, inlineStyle: string) =>
     inlineStyle
   );
   return EditorState.push(editorState, contentState, 'change-inline-style');
-};
-
-const dynamicDecorationGetters = {
-  FG: (value: string) => {
-    return {
-      color: value,
-    };
-  },
-  BG: (value: string) => {
-    return {
-      'background-color': value,
-    };
-  },
-  'font-size': (value: string) => {
-    return {
-      'font-size': value,
-    };
-  },
-};
-
-const draftDecorationsToCss = {
-  BOLD: { 'font-weight': 'bold' },
-  ITALIC: { 'font-style': 'italic' },
-  UNDERLINE: { 'font-decoration': 'underline' },
-};
-
-export const getAnchorBlockInlineStyles = (editorState: EditorState) => {
-  const { dynamicStyles = {} } = getAnchorBlockData(editorState);
-  let inlineStyles = pick(dynamicStyles, ['line-height', 'padding-top', 'padding-bottom']);
-  const anchorKey = editorState.getSelection().getAnchorKey();
-  const block = editorState.getCurrentContent().getBlockForKey(anchorKey);
-  getBlockStyleRanges(block).forEach(range => {
-    const [key, value] = Object.entries(safeJsonParse(range.style) || { key: '' })?.[0];
-    inlineStyles = {
-      ...inlineStyles,
-      ...draftDecorationsToCss[range.style],
-      ...dynamicDecorationGetters[key]?.(value),
-    };
-  });
-  return inlineStyles;
 };

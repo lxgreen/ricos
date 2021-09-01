@@ -59,8 +59,7 @@ export default (theme, styleToClass, defaultTextAlignment) => {
       );
     }
 
-    const docStyleClass = DOC_STYLE_CLASSES[DRAFT_TO_RICOS_DOC_TYPE[type]];
-    const dynamicClasses = [...Object.entries(dynamicStyles).map(styleToClass), docStyleClass];
+    const dynamicClasses = [...Object.entries(dynamicStyles).map(styleToClass)];
 
     return classNames(...classList, ...dynamicClasses);
   };

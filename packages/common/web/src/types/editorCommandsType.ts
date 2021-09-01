@@ -29,7 +29,6 @@ import {
   BLOCKQUOTE,
   HEADER_BLOCK,
   RICOS_FONT_SIZE_TYPE,
-  DocStyle,
 } from 'ricos-content';
 import {
   DividerData,
@@ -111,11 +110,9 @@ export interface EditorCommands {
     anchorableBlocks: any[];
     pluginsIncluded: string[];
   };
-  getDocStyle: (shouldIncludeDefaults?: boolean) => DocStyle | undefined;
   getColor: (colorType: ColorType) => string | undefined;
   getFontSize: () => string | undefined;
   getTextAlignment: () => TextAlignment;
-  getAnchorBlockInlineStyles: () => Record<string, string>;
   hasInlineStyle: (style: InlineStyle) => boolean;
   isBlockTypeSelected: (type: TextBlockType) => boolean;
   isUndoStackEmpty: () => boolean;
@@ -169,6 +166,5 @@ export interface EditorCommands {
   setBlockType: (type: TextBlockType) => void;
   setTextAlignment: (textAlignment: TextAlignment) => void;
   _setSelection: (blockKey: string, selection: draftSelection) => void;
-  setDocStyle: (docStyle: DocStyle) => void;
   removeDecorations: () => void;
 }

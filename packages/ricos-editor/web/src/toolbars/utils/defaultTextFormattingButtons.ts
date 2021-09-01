@@ -6,7 +6,7 @@ const ALIGN_CENTER = 'AlignCenter';
 const ALIGN_JUSTIFY = 'Justify';
 
 export const desktopTextButtonList = [
-  FORMATTING_BUTTONS.HEADINGS_NEW,
+  FORMATTING_BUTTONS.HEADINGS,
   '|',
   FORMATTING_BUTTONS.FONTSIZE,
   '|',

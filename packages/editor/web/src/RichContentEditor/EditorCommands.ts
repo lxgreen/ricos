@@ -28,9 +28,7 @@ import {
   mergeBlockData,
   getAnchorBlockData,
   getAnchorableBlocks,
-  ContentState,
   removeCurrentInlineStyle,
-  getAnchorBlockInlineStyles,
 } from 'wix-rich-content-editor-common';
 import {
   EditorCommands,
@@ -98,11 +96,10 @@ import {
   RICOS_CODE_BLOCK_TYPE,
   RICOS_FONT_SIZE_TYPE,
   UNSUPPORTED_BLOCKS_TYPE,
-  DocStyle,
   RicosCustomStyles,
 } from 'wix-rich-content-common';
 
-import { setFontSize, getFontSize, getDocStyle, setDocStyle } from './utils/fontSizeUtils';
+import { setFontSize, getFontSize } from './utils/fontSizeUtils';
 
 const TO_DRAFT_PLUGIN_TYPE_MAP = {
   [RICOS_DIVIDER_TYPE]: DIVIDER_TYPE,
@@ -194,8 +191,7 @@ export const createEditorCommands = (
   createPluginsDataMap,
   plugins,
   getEditorState: GetEditorState,
-  setEditorState: SetEditorState,
-  customStyles?: RicosCustomStyles
+  setEditorState: SetEditorState
 ): EditorCommands => {
   const setBlockType: EditorCommands['setBlockType'] = type => {
     setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
@@ -228,9 +224,6 @@ export const createEditorCommands = (
     loadEditorState: EditorCommands['loadEditorState'];
     saveSelectionState: EditorCommands['saveSelectionState'];
     loadSelectionState: EditorCommands['loadSelectionState'];
-    getDocStyle: EditorCommands['getDocStyle'];
-    setDocStyle: EditorCommands['setDocStyle'];
-    getAnchorBlockInlineStyles: EditorCommands['getAnchorBlockInlineStyles'];
   } = {
     getSelection: () => {
       const selection = getEditorState().getSelection();
@@ -268,13 +261,6 @@ export const createEditorCommands = (
         (pluginName: string) => pluginName && !PluginsToExclude.includes[pluginName]
       );
     },
-    getDocStyle: (shouldIncludeDefaults = false) =>
-      getDocStyle(getEditorState(), shouldIncludeDefaults, customStyles),
-    setDocStyle: (docStyle: DocStyle) => {
-      const newEditorState = setDocStyle(getEditorState(), docStyle);
-      setEditorState(newEditorState);
-    },
-    getAnchorBlockInlineStyles: () => getAnchorBlockInlineStyles(getEditorState()),
   };
 
   const textFormattingCommands: {

@@ -161,46 +161,6 @@ const convertDecorationTypes = (decorations: Decoration[]): DraftTypedDecoration
     pipe(decoration, toDraftDecorationType, convertFontSize, splitColorDecoration)
   );
 
-export const convertDocStyleDecorationTypes = (decorations: Decoration[]) => {
-  let draftHeaderStyles = {};
-  decorations.forEach(decoration => {
-    draftHeaderStyles = {
-      ...draftHeaderStyles,
-      ...RICOS_TO_CSS[decoration.type],
-      ...splitColorDecorationToCss(decoration),
-      ...fontSizeToCss(decoration),
-    };
-  });
-  return draftHeaderStyles;
-};
-
-const RICOS_TO_CSS = {
-  [Decoration_Type.BOLD]: { 'font-weight': 'bold' },
-  [Decoration_Type.ITALIC]: { 'font-style': 'italic' },
-  [Decoration_Type.UNDERLINE]: { 'text-decoration': 'underline' },
-};
-
-const fontSizeToCss = (decoration: Decoration) => {
-  const { fontSize } = decoration;
-  if (!fontSize) {
-    return undefined;
-  }
-  return { 'font-size': fontSize };
-};
-
-const splitColorDecorationToCss = (decoration: Decoration) => {
-  const { colorData } = decoration;
-  if (!colorData) {
-    return undefined;
-  }
-  const { foreground, background } = colorData;
-  const colors = {};
-  // eslint-disable-next-line dot-notation
-  foreground && (colors['color'] = foreground);
-  background && (colors['background-color'] = background);
-  return colors;
-};
-
 const createEmojiDecorations = (text: string) => {
   const result: RangedDecoration[] = [];
   let match;

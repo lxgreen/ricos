@@ -1,6 +1,5 @@
 import {
   EditorState,
-  ContentState,
   getSelectionStyles,
   getSelectedBlocks,
   hasOneStyleInSelection,
@@ -8,35 +7,9 @@ import {
   removeCurrentInlineStyle,
   DraftOffsetKey,
 } from 'wix-rich-content-editor-common';
-import { uniq, cloneDeep } from 'lodash';
+import { uniq } from 'lodash';
 import { EditorProps } from 'draft-js';
-import {
-  RicosCustomStyles,
-  safeJsonParse,
-  DocStyle,
-  DRAFT_TO_RICOS_DOC_TYPE,
-} from 'wix-rich-content-common';
-
-// Temporarily taken from common/statics/styles/consts.scss should replace with themed\docStyle consts when supported
-const defaultFontSizes = {
-  'header-one': '32px',
-  'header-two': '28px',
-  'header-three': '22px',
-  'header-four': '1em',
-  'header-five': '0.83em',
-  'header-six': '0.67em',
-  unstyled: '16px',
-};
-
-const draftToRicosCustomStyles = {
-  'header-one': 'h1',
-  'header-two': 'h2',
-  'header-three': 'h3',
-  'header-four': 'h4',
-  'header-five': 'h5',
-  'header-six': 'h6',
-  unstyled: 'p',
-};
+import { safeJsonParse } from 'wix-rich-content-common';
 
 const parseFontSize = style => {
   const cssRule = safeJsonParse(style);
@@ -82,39 +55,4 @@ export const setFontSize = (editorState: EditorState, data?: { fontSize?: string
     newEditorState = setInlineStyle(newEditorState, inlineStyle);
   }
   return newEditorState;
-};
-
-export const getDocStyle = (
-  editorState: EditorState,
-  shouldIncludeDefaults = false,
-  customStyles?: RicosCustomStyles
-) => {
-  const currentContent = editorState.getCurrentContent() as ContentState & {
-    docStyle: DocStyle;
-  };
-  const docStyle = cloneDeep(currentContent.docStyle);
-  if (shouldIncludeDefaults) {
-    Object.entries(DRAFT_TO_RICOS_DOC_TYPE).forEach(([draftHeader, ricosHeader]) => {
-      if (!docStyle[ricosHeader] || !docStyle[ricosHeader]['font-size']) {
-        docStyle[ricosHeader] = {
-          ...docStyle[ricosHeader],
-          'font-size':
-            customStyles?.[draftToRicosCustomStyles[draftHeader]]?.fontSize ||
-            defaultFontSizes[draftHeader],
-        };
-      }
-    });
-  }
-  return docStyle;
-};
-
-export const setDocStyle = (editorState: EditorState, docStyle: DocStyle) => {
-  const currentContent = editorState.getCurrentContent() as ContentState & {
-    docStyle: DocStyle;
-  };
-  currentContent.docStyle = {
-    ...currentContent.docStyle,
-    ...docStyle,
-  };
-  return editorState;
 };

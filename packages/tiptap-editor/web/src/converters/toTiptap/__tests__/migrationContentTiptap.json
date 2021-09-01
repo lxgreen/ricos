@@ -2329,20 +2329,5 @@
       "createdTimestamp": "2021-07-15T07:42:30.023Z",
       "updatedTimestamp": "2021-07-15T07:42:30.023Z"
     }
-  },
-  "docStyle": {
-    "headerOne": {
-      "marks": [
-        {
-          "type": "color",
-          "colorData": {
-            "foreground": "red"
-          }
-        },
-        {
-          "type": "bold"
-        }
-      ]
-    }
   }
 }

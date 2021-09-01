@@ -75,7 +75,6 @@ import {
   IMAGE_TYPE,
   EditorCommands,
   DOC_STYLE_CLASSES,
-  DocStyle,
 } from 'wix-rich-content-common';
 import styles from '../../statics/styles/rich-content-editor.scss';
 import draftStyles from '../../statics/styles/draft.rtlignore.scss';
@@ -527,8 +526,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       createPluginsDataMap,
       this.plugins,
       this.getEditorState,
-      this.updateEditorState,
-      this.contextualData.config.themeData?.customStyles
+      this.updateEditorState
     );
   };
 
@@ -652,22 +650,8 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     );
   };
 
-  updateDocStyle = (editorState: EditorState) => {
-    const docStyle = this.EditorCommands.getDocStyle();
-    if (docStyle) {
-      const currentContent = editorState.getCurrentContent() as ContentState & {
-        docStyle: DocStyle;
-      };
-      currentContent.docStyle = {
-        ...docStyle,
-        ...currentContent.docStyle,
-      };
-    }
-  };
-
   updateEditorState = (editorState: EditorState) => {
     const undoRedoStackChanged = this.didUndoRedoStackChange(editorState);
-    this.updateDocStyle(editorState);
     this.setState({ editorState, undoRedoStackChanged }, () => {
       this.handleCallbacks(this.state.editorState, this.props.helpers);
       this.props.onChange?.(this.state.editorState);
@@ -1133,26 +1117,14 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
 
   styleToClass = ([key, val]) => `rich_content_${key}-${val.toString().replace('.', '_')}`;
 
-  styleToCss = ([key, val]) => {
-    const cssRule = `${key}: ${val};`;
-    return key === 'font-size' ? cssRule + ' line-height: normal;' : cssRule;
-  };
-
   renderStyleTag = (editorState = this.getEditorState()) => {
     const blocks = editorState.getCurrentContent().getBlockMap();
     const styles = {};
-    const docStyle = this.EditorCommands.getDocStyle();
-    docStyle &&
-      Object.entries(docStyle).forEach(([key, values]) => {
-        styles[DOC_STYLE_CLASSES[key]] = Object.entries(values)
-          .map(style => this.styleToCss(style))
-          .join(' ');
-      });
-
+    const styleToCss = ([key, val]) => `${key}: ${val};`;
     blocks.forEach(block => {
       const { dynamicStyles = {} } = block?.get('data').toJS();
       Object.entries(dynamicStyles).forEach(
-        style => (styles[this.styleToClass(style)] = this.styleToCss(style))
+        style => (styles[this.styleToClass(style)] = styleToCss(style))
       );
     });
     const css = Object.entries(styles).reduce(

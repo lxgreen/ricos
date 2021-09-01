@@ -159,11 +159,6 @@ const handleButtonOnChange = (buttonsList, index, editorCommands: editorCommands
       buttonsList[index].onChange = type => {
         updateDynamicStyles(type, editorCommands, buttonName);
       };
-    } else if (buttonName === 'HEADINGS_NEW') {
-      buttonsList[index].onChange = docStyle => {
-        editorCommands.removeDecorations();
-        setTimeout(() => editorCommands.setDocStyle(docStyle));
-      };
     }
   }
 };
@@ -229,10 +224,7 @@ const handleButtonOnSave = (buttonsList, index, editorCommands: editorCommands) 
     const buttonName = buttonsList[index].name;
     if (Object.keys(textBlockButtons).includes(buttonName)) {
       buttonsList[index].onSave = type => {
-        buttonName === 'HEADINGS_NEW' && editorCommands.removeDecorations();
-        setTimeout(() => {
-          editorCommands.setBlockType(type);
-        });
+        editorCommands.setBlockType(type);
       };
     } else if (buttonName === 'Alignment') {
       buttonsList[index].onSave = type => editorCommands.setTextAlignment(type);
@@ -262,20 +254,11 @@ const handleButtonModal = (
   const buttonName = buttonsList[index].name;
   if (buttonsFullData[buttonName].modal) {
     buttonsList[index].modal = buttonsFullData[buttonName].modal;
-    if (['HEADINGS', 'HEADINGS_NEW'].includes(buttonName)) {
+    if (buttonName === 'HEADINGS') {
       const Modal = buttonsFullData[buttonName].modal;
       const currentHeading = HEADER_TYPE_MAP[getCurrentHeading(editorCommands)];
       buttonsList[index].modal = props =>
-        Modal && (
-          <Modal
-            {...props}
-            currentSelect={currentHeading}
-            docStyle={editorCommands.getDocStyle(true)}
-            customHeadings={headingsData?.customHeadings}
-            allowHeadingCustomization={headingsData?.allowHeadingCustomization}
-            currentInlineStyles={editorCommands.getAnchorBlockInlineStyles()}
-          />
-        );
+        Modal && <Modal {...props} currentSelect={currentHeading} />;
     } else if (buttonName === 'Alignment') {
       const alignment = editorCommands.getTextAlignment();
       const Modal = buttonsFullData[buttonName].modal;
@@ -414,7 +397,7 @@ const handleButtonLabel = (buttonsList, index, editorCommands: editorCommands, t
   const buttonName = buttonsList[index].name;
   if (buttonsFullData[buttonName].label) {
     buttonsList[index].getLabel = () => buttonsFullData[buttonName].label;
-    if (['HEADINGS', 'HEADINGS_NEW'].includes(buttonName)) {
+    if (buttonName === 'HEADINGS') {
       buttonsList[index].getLabel = () => translateHeading(getCurrentHeading(editorCommands), t);
     } else if (buttonName === 'FONTSIZE') {
       buttonsList[index].getLabel = () => getFontSize(editorCommands);
