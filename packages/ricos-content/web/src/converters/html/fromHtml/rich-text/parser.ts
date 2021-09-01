@@ -13,6 +13,7 @@ import {
   textToText,
   spanToMention,
   spanToSpoiler,
+  aToAnchor,
 } from '../core/rules';
 import { Rule } from '../core/models';
 
@@ -29,6 +30,7 @@ export default flow(
     lToList,
     hToHeading,
     aToLink,
+    aToAnchor,
     strongEmUToDecoration,
     colorStyleToTextColor,
     spanToMention,

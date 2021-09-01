@@ -53,15 +53,27 @@ export const hToHeading: Rule = [
 ];
 
 export const aToLink: Rule = [
-  hasTag('a'),
+  concatApply(MonoidAll)([hasTag('a'), flow(getAttributes, ({ href }) => !href?.startsWith('#'))]),
   context => (node: Element) => {
     const attrs = getAttributes(node);
-    const isAnchor = attrs.href.startsWith('#');
     return context.addDecoration(
-      isAnchor ? Decoration_Type.ANCHOR : Decoration_Type.LINK,
-      isAnchor
-        ? { anchorData: { ...attrs, anchor: attrs.href.substr(1) } }
-        : { linkData: { link: createLink({ ...attrs, url: attrs.href }) } },
+      Decoration_Type.LINK,
+      { linkData: { link: createLink({ ...attrs, url: attrs.href }) } },
+      node
+    );
+  },
+];
+
+export const aToAnchor: Rule = [
+  concatApply(MonoidAll)([
+    hasTag('a'),
+    flow(getAttributes, ({ href }) => !!href && href.startsWith('#')),
+  ]),
+  context => (node: Element) => {
+    const attrs = getAttributes(node);
+    return context.addDecoration(
+      Decoration_Type.ANCHOR,
+      { anchorData: { ...attrs, anchor: attrs.href.substr(1) } },
       node
     );
   },
@@ -119,8 +131,7 @@ export const colorStyleToTextColor: Rule = [
     ),
 ];
 
-// NOTE: Created for translations functionality.
-// Not applicable for display.
+// NOTE: Mention's HTML representation is not interactive. Might be fixed in the future
 export const spanToMention: Rule = [
   concatApply(MonoidAll)([
     hasTag('span'),
@@ -132,10 +143,9 @@ export const spanToMention: Rule = [
   },
 ];
 
-// NOTE: Created for translations functionality.
-// Not applicable for display.
+// NOTE: Spoiler's HTML representation is not interactive. Might be fixed in the future
 export const spanToSpoiler: Rule = [
-  concatApply(MonoidAll)([hasTag('span'), flow(getAttributes, attrs => !!attrs.spoiler)]),
+  concatApply(MonoidAll)([hasTag('span'), flow(getAttributes, attrs => !!attrs['data-spoiler'])]),
   context => (node: Element) => context.addDecoration(Decoration_Type.SPOILER, {}, node),
 ];
 

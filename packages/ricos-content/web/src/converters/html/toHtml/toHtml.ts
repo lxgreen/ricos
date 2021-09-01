@@ -46,10 +46,9 @@ const createLinkAttrs = (decoration: Decoration): Record<string, string> => {
     .filter(([_, value]) => !!value)
     .map(([key]) => key)
     .join(' ');
-  const m_target = decoration.linkData?.link?.target;
-  const target = [undefined, Link_Target.UNRECOGNIZED, Link_Target.SELF].includes(m_target)
-    ? ''
-    : `_${m_target?.toLowerCase()}`;
+  const targetRaw = decoration.linkData?.link?.target;
+  const ignoreTarget = [undefined, Link_Target.UNRECOGNIZED, Link_Target.SELF].includes(targetRaw);
+  const target = ignoreTarget ? '' : `_${targetRaw?.toLowerCase()}`;
   const anchor = decoration.linkData?.link?.anchor || '';
   const href = decoration.linkData?.link?.url || '';
   return pickBy({ href, rel, anchor, target }, identity);
@@ -60,8 +59,7 @@ const createAnchorAttrs = (decoration: Decoration): Record<string, string> => {
   return { href: `#${anchor}`, rel: 'noopener noreferrer' };
 };
 
-// NOTE: Created for translations functionality.
-// Not applicable for display.
+// NOTE: Mention's HTML representation is not interactive. Might be fixed in the future
 const createMentionAttrs = (decoration: Decoration): Record<string, string> => {
   const { name = '', slug = '' } = decoration.mentionData || {};
   if (!name && !slug) {
@@ -70,9 +68,8 @@ const createMentionAttrs = (decoration: Decoration): Record<string, string> => {
   return pickBy({ role: 'link', 'data-mention-name': name, 'data-mention-slug': slug }, identity);
 };
 
-// NOTE: Created for translations functionality.
-// Not applicable for display.
-const createSpoilerAttrs = () => ({ spoiler: 'true' });
+// NOTE: Spoiler's HTML representation is not interactive. Might be fixed in the future
+const createSpoilerAttrs = () => ({ 'data-spoiler': 'true' });
 
 const createColorAttrs = (decoration: Decoration) => {
   const { foreground, background } = decoration.colorData || {};
