@@ -1,4 +1,11 @@
-import React, { Component, Fragment, ElementType, FunctionComponent, forwardRef } from 'react';
+import React, {
+  Component,
+  Fragment,
+  ElementType,
+  FunctionComponent,
+  forwardRef,
+  Suspense,
+} from 'react';
 import {
   RicosEngine,
   shouldRenderChild,
@@ -47,8 +54,7 @@ interface State {
   tiptapEditorModule: Record<string, any> | null;
   tiptapToolbar: unknown;
   error?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  TextFormattingToolbar?: TextFormattingToolbarType | null; // eslint-disable-line @typescript-eslint/no-explicit-any
+  TextFormattingToolbar?: TextFormattingToolbarType | null;
 }
 
 // controller between tiptap extensions to ricos editor
@@ -71,6 +77,10 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   getBiCallback: typeof getCallback;
 
   currentEditorRef!: ElementType;
+
+  textFormattingToolbarRef!: Record<'updateToolbar', () => void>;
+
+  linkToolbarRef!: Record<'updateToolbar', () => void>;
 
   static getDerivedStateFromError(error: string) {
     return { error };
@@ -215,6 +225,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       }
       childOnChange?.(editorState);
       this.onBusyChange(editorState.getCurrentContent());
+      this.useNewFormattingToolbar && this.updateToolbars();
     } catch (err) {
       this.setState({ error: err });
     }
@@ -317,6 +328,15 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     );
   }
 
+  setTextFormattingToolbarRef = ref => (this.textFormattingToolbarRef = ref);
+
+  setLinkToolbarRef = ref => (this.linkToolbarRef = ref);
+
+  updateToolbars = () => {
+    this.textFormattingToolbarRef?.updateToolbar();
+    this.linkToolbarRef?.updateToolbar();
+  };
+
   renderNewToolbars() {
     const { TextFormattingToolbar, StaticToolbar, activeEditor } = this.state;
     const {
@@ -356,9 +376,19 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
           dir={getLangDir(locale)}
         >
           {!hideFormattingToolbar && TextFormattingToolbar && (
-            <TextFormattingToolbar activeEditor={activeEditor} {...toolbarsProps} />
+            <TextFormattingToolbar
+              ref={this.setTextFormattingToolbarRef}
+              activeEditor={activeEditor}
+              {...toolbarsProps}
+            />
           )}
-          <LinkToolbar activeEditor={activeEditor} {...toolbarsProps} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <LinkToolbar
+              ref={this.setLinkToolbarRef}
+              activeEditor={activeEditor}
+              {...toolbarsProps}
+            />
+          </Suspense>
         </div>
       )
     );
