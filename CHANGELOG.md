@@ -20,6 +20,18 @@
 </details>
 <hr/>
 
+## 8.52.0 (Sep 1, 2021)
+
+### :rocket: New Feature
+
+- `ricos-common`
+  - [#2890](https://github.com/wix/ricos/pull/2890) Theme - `settingsStyles`
+
+### :house: Internal
+
+- `ricos-content`
+  - [#2901](https://github.com/wix/ricos/pull/2901) refactor of html convertor
+
 ## 8.51.2 (Aug 31, 2021)
 
 ### :house: Internal
