@@ -45,10 +45,6 @@ class Toolbar extends Component<ToolbarProps> {
     this.theme = { ...props.theme, buttonStyles };
   }
 
-  onMouseDown = event => {
-    event.preventDefault();
-  };
-
   renderButton = buttonProps => {
     const {
       onClick,

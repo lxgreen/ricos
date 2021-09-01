@@ -109,6 +109,8 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     type: 'modal',
     modal: props => <HeadingsPanel {...props} translateHeading={translateHeading} />,
     onSave: 'HEADINGS',
+    saveSelection: true,
+    loadSelection: true,
   },
   Separator: {
     type: 'SEPARATOR',
@@ -183,6 +185,8 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     type: 'modal',
     modal: props => <AlignmentPanel {...props} />,
     onSave: 'Alignment',
+    saveSelection: true,
+    loadSelection: true,
   },
   // Alignment: {
   //   dataHook: 'Alignment',

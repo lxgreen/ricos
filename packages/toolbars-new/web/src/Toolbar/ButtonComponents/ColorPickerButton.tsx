@@ -91,7 +91,7 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
     }
   };
 
-  closeModal = () => {
+  closeModal = (loadSelectionOnClose = true) => {
     if (this.state.isModalOpen) {
       const {
         setKeepOpen,
@@ -99,7 +99,7 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
       } = this.props;
       this.setState({ isModalOpen: false });
       setKeepOpen?.(false);
-      loadSelection?.();
+      loadSelectionOnClose && loadSelection?.();
     }
   };
 
@@ -137,6 +137,10 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
       .map((entry: any) => entry.color);
   };
 
+  onClickOutside = e => {
+    this.closeModal(e.target.closest('[data-hook=ricos-editor-toolbars]'));
+  };
+
   render() {
     const { settings, t, isMobile, dropDownProps, theme, nestedMenu } = this.props;
     const { isActive, getIcon, tooltip, colorPickerHeaderKey, withColoredIcon } = dropDownProps;
@@ -161,7 +165,7 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
       icon = <Icon />;
     }
     return (
-      <ClickOutside onClickOutside={this.closeModal}>
+      <ClickOutside onClickOutside={this.onClickOutside}>
         <ToolbarButton
           {...dropDownProps}
           isActive={withColoredIcon ? false : isActive()}
