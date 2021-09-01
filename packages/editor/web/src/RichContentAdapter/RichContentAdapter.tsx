@@ -1,12 +1,13 @@
 import React from 'react';
-import { TiptapAPI } from '../../types';
-import Toolbar from '../../components/Toolbar';
-import { capitalize } from 'lodash';
+// import Toolbar from '../../../../tiptap-editor/web/src/components/Toolbar';
+import { capitalize, camelCase } from 'lodash';
 import { RICOS_DIVIDER_TYPE, DIVIDER_TYPE } from 'wix-rich-content-common';
-import { draftBlockDataToTiptap } from '../../converters';
+import { draftBlockDataToTiptap } from '../../../../tiptap-editor/web/src/converters';
+import { TO_RICOS_PLUGIN_TYPE_MAP } from '../RichContentEditor/EditorCommands';
 
-// todo : should change to RichContentInterface
-export class RichContentAdapter implements TiptapAPI {
+// TODO: should change to RichContentInterface
+// TODO: this class should move out from this package (maybe to editor package)
+export class RichContentAdapter {
   constructor(private editor) {
     this.editor = editor;
   }
@@ -28,14 +29,12 @@ export class RichContentAdapter implements TiptapAPI {
         editorCommand[styleName]().run();
       },
       insertBlock: (pluginType, data) => {
-        if (pluginType === RICOS_DIVIDER_TYPE || pluginType === DIVIDER_TYPE) {
-          const attrs = draftBlockDataToTiptap(DIVIDER_TYPE, data);
-          this.editor.commands.insertContent({
-            type: DIVIDER_TYPE.toLowerCase(),
-            attrs,
-            content: [],
-          });
-        }
+        const attrs = draftBlockDataToTiptap(pluginType, data);
+        this.editor.commands.insertContent({
+          type: camelCase(TO_RICOS_PLUGIN_TYPE_MAP[pluginType]),
+          attrs,
+          content: [],
+        });
       },
       findNodeByKey() {},
       // setBlock: (blockKey, pluginType, data) => {
@@ -46,8 +45,10 @@ export class RichContentAdapter implements TiptapAPI {
 
   getToolbars() {
     return {
-      MobileToolbar: () => <Toolbar editor={this.editor} />,
-      TextToolbar: () => <Toolbar editor={this.editor} />,
+      // MobileToolbar: () => <Toolbar editor={this.editor} />,
+      // TextToolbar: () => <Toolbar editor={this.editor} />,
+      MobileToolbar: () => null,
+      TextToolbar: () => null,
     };
   }
 

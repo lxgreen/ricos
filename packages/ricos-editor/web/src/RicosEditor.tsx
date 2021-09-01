@@ -6,7 +6,11 @@ import {
   getBiCallback as getCallback,
 } from 'ricos-common';
 import { DraftContent } from 'ricos-content';
-import { RichContentEditor, RichContentEditorProps } from 'wix-rich-content-editor';
+import {
+  RichContentEditor,
+  RichContentEditorProps,
+  RichContentAdapter,
+} from 'wix-rich-content-editor';
 import { createDataConverter, filterDraftEditorSettings } from './utils/editorUtils';
 import ReactDOM from 'react-dom';
 import { EditorState, ContentState } from 'draft-js';
@@ -30,6 +34,7 @@ import englishResources from 'wix-rich-content-common/dist/statics/locale/messag
 import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
 import { getBiFunctions } from './toolbars/utils/biUtils';
 import { isLinkToolbarOpen } from './toolbars/utils/toolbarsUtils';
+import toConstantCase from 'to-constant-case';
 
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
@@ -317,6 +322,47 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     );
   }
 
+  renderTiptapToolbar() {
+    const { experiments } = this.props;
+    if (this.editor && experiments?.tiptapEditorDebugMode?.enabled) {
+      const editorCommands = this.editor.getEditorCommands();
+      console.log({ editorCommands });
+      const style = {
+        border: '1px solid #AAA',
+      };
+
+      const dividerDefault = {
+        type: 'wix-draft-plugin-divider',
+        data: {
+          config: {
+            size: 'medium',
+            alignment: 'center',
+            textWrap: 'nowrap',
+          },
+          type: 'double',
+        },
+      };
+      const Divider = () => (
+        <button
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-ignore
+          onClick={() =>
+            editorCommands.insertBlock('wix-draft-plugin-divider', dividerDefault.data)
+          }
+        >
+          Add Divder
+        </button>
+      );
+
+      return (
+        <div style={style}>
+          <Divider />
+          <button onClick={() => editorCommands.toggleInlineStyle('bold')}> Toggle Bold</button>
+        </div>
+      );
+    }
+  }
+
   renderNewToolbars() {
     const { TextFormattingToolbar, StaticToolbar, activeEditor } = this.state;
     const {
@@ -396,8 +442,15 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     if (!tiptapEditorModule) {
       return null;
     }
-    const { RicosTiptapEditor, RichContentAdapter } = tiptapEditorModule;
-    const { content, injectedContent, plugins } = this.props;
+    const { RicosTiptapEditor } = tiptapEditorModule;
+    const {
+      content,
+      injectedContent,
+      plugins,
+      onAtomicBlockFocus,
+      isMobile,
+      experiments,
+    } = this.props;
     const { tiptapToolbar } = this.state;
     const initalContent = tiptapEditorModule.draftToTiptap(
       content ?? injectedContent ?? emptyDraftContent
@@ -420,12 +473,27 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                     const richContentAdapter = new RichContentAdapter(editor);
                     this.setEditorRef(richContentAdapter);
                     const TextToolbar = richContentAdapter.getToolbars().TextToolbar;
-                    this.setState({ tiptapToolbar: TextToolbar });
+                    if (experiments?.tiptapEditorDebugMode?.enabled) {
+                      this.setState({ tiptapToolbar: TextToolbar });
+                    }
+                  }}
+                  onSelectionUpdate={selectedNodes => {
+                    if (selectedNodes.length === 1 && selectedNodes[0].isBlock) {
+                      const blockKey = selectedNodes[0].attrs.id;
+                      const type = toConstantCase(selectedNodes[0].type.name);
+                      const data = selectedNodes[0].attrs;
+                      onAtomicBlockFocus?.({ blockKey, type, data });
+                    }
                   }}
                   onUpdate={this.onUpdate}
                 />
               );
-              return this.renderRicosEngine(tiptapEditor, {});
+              return (
+                <>
+                  {this.renderTiptapToolbar()}
+                  {this.renderRicosEngine(tiptapEditor, {})}
+                </>
+              );
             }}
           </RicosTranslate>
         }

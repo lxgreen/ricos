@@ -9,6 +9,12 @@ export default () => {
       tiptapEditor: {
         enabled: true,
       },
+      tiptapEditorDebugMode: {
+        enabled: true,
+      },
+      newFormattingToolbar: {
+        enabled: true,
+      },
     },
   };
   return (

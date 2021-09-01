@@ -4,7 +4,7 @@ import generalStyles from 'wix-rich-content-editor-common/dist/statics/styles/ge
 import generalRTLIgnoredStyles from 'wix-rich-content-common/dist/statics/styles/general.rtlignore.scss';
 import { RichContentTheme } from 'wix-rich-content-common';
 
-const stylesWithRTL = { ...generalStyles, ...generalRTLIgnoredStyles };
+export const stylesWithRTL = { ...generalStyles, ...generalRTLIgnoredStyles };
 export const getAlignmentClassName = (styles, alignment, theme: RichContentTheme = {}) => {
   if (!alignment) {
     return '';
@@ -44,7 +44,7 @@ export const getPluginContainerClassName = (styles, theme: RichContentTheme = {}
   });
 };
 
-export const getComponentStyles = ({ componentData, theme, isFocused, isMobile }) => {
+export const getComponentStyles = ({ componentData, theme, isMobile }) => {
   const alignment = componentData?.config?.alignment;
   const size = componentData?.config?.size;
   const textWrap = componentData?.config?.textWrap;
@@ -52,7 +52,7 @@ export const getComponentStyles = ({ componentData, theme, isFocused, isMobile }
   return {
     alignmentClassName: getAlignmentClassName(stylesWithRTL, alignment, theme),
     sizeClassName: getSizeClassName(stylesWithRTL, size, theme),
-    focusClassName: getFocusClassName(stylesWithRTL, theme, isFocused),
+    // focusClassName: getFocusClassName(stylesWithRTL, theme, isFocused),
     textWrapClassName: getTextWrapClassName(stylesWithRTL, theme, textWrap),
     pluginContainerClassName: getPluginContainerClassName(stylesWithRTL, theme, isMobile),
   };

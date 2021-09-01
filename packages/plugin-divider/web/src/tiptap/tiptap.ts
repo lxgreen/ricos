@@ -8,7 +8,7 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
     Component,
     componentDataDefaults: { ...dividerDataDefaults, id: '' },
     createExtensionConfig: () => ({
-      name: 'divider',
+      name: 'ricosDivider',
       defaultOptions,
     }),
   },

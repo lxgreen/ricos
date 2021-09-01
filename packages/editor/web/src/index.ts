@@ -13,3 +13,4 @@ export {
 export { RichContentEditorProps } from './RichContentEditor/RichContentEditor';
 
 export { RichContentEditorModal, RichContentEditor };
+export { RichContentAdapter } from './RichContentAdapter';

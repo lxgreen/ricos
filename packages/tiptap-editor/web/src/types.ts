@@ -52,4 +52,6 @@ export interface RicosTiptapEditorProps {
   onUpdate?: ({ content }: { content: DraftContent }) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onSelectionUpdate: any;
 }
