@@ -225,28 +225,6 @@ class Toolbar extends Component<ToolbarProps> {
     [TOOLBAR_BUTTON_TYPES.CONTEXT_MENU]: this.renderContextMenu,
   };
 
-  separateByGaps = buttons => {
-    const separatedButtons: any = [[]];
-    buttons.forEach(button => {
-      if (button.type !== TOOLBAR_BUTTON_TYPES.GAP) {
-        separatedButtons[separatedButtons.length - 1].push(button);
-      } else {
-        separatedButtons.push([]);
-      }
-    });
-    return separatedButtons;
-  };
-
-  cleanUnwantedSeparators = buttons => {
-    if (buttons[0].type === 'SEPARATOR') {
-      buttons.shift();
-    }
-    if (buttons[buttons.length - 1].type === 'SEPARATOR') {
-      buttons.pop();
-    }
-    return buttons;
-  };
-
   render() {
     const { buttons, vertical } = this.props;
     return buttons.map((buttonsWithoutGaps, index) => {

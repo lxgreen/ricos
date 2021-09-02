@@ -25,6 +25,8 @@
 ### :bug: Bug Fix
 
 - `toolbars-new`
+  - [#2910](https://github.com/wix/ricos/pull/2910) filter separators from buttons list
+- `toolbars-new`
   - [#2906](https://github.com/wix/ricos/pull/2906) link input - cleanup preventDefault
 - `editor-common/toolbars-new`
   - [#2902](https://github.com/wix/ricos/pull/2902) fix link-modal input behavior on focus
