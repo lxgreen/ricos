@@ -15,7 +15,7 @@ import {
   RicosToolbar,
   StaticToolbarContainer,
 } from 'wix-rich-content-toolbars-new';
-import { getPluginsKey } from './utils/toolbarsUtils';
+import { filterButtons } from './utils/toolbarsUtils';
 
 interface LinkToolbarProps {
   activeEditor: RichContentEditor;
@@ -45,7 +45,8 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
     const showLinkToolbar = selection.getIsCollapsed && editorCommands.hasLinkInSelection();
     const t = activeEditor.getT();
     const focusEditor = () => activeEditor.focus();
-    const plugins: string[] = getPluginsKey(activeEditor);
+    const rawButtons = ['goToLink', '|', 'editLink', '|', 'removeLink'];
+    const filteredFormattingToolbarButtons = filterButtons(rawButtons, activeEditor);
     const linkPanelData = {
       linkTypes: this.props.plugins?.find(plugin => plugin.type === 'LINK')?.config.linkTypes,
       uiSettings: { linkPanel: this.props.linkPanelSettings },
@@ -62,8 +63,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
         isMobile={isMobile}
         t={t}
         editorCommands={editorCommands}
-        buttons={['goToLink', '|', 'editLink', '|', 'removeLink']}
-        plugins={plugins}
+        buttons={filteredFormattingToolbarButtons}
         linkPanelData={linkPanelData}
         // onToolbarButtonClick={onToolbarButtonClick}
         experiments={experiments}

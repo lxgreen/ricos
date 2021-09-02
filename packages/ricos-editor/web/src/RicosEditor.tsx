@@ -367,6 +367,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     };
     const baseStyles = { flex: 'none' };
     const baseMobileStyles = { ...baseStyles, position: 'sticky', top: 0, zIndex: 9 };
+    const linkPluginInstalled = !!plugins?.find(plugin => plugin.type === 'LINK');
     return (
       !activeEditorIsTableCell &&
       activeEditor && (
@@ -382,13 +383,15 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
               {...toolbarsProps}
             />
           )}
-          <Suspense fallback={<div>Loading...</div>}>
-            <LinkToolbar
-              ref={this.setLinkToolbarRef}
-              activeEditor={activeEditor}
-              {...toolbarsProps}
-            />
-          </Suspense>
+          {linkPluginInstalled && (
+            <Suspense fallback={<div>Loading...</div>}>
+              <LinkToolbar
+                ref={this.setLinkToolbarRef}
+                activeEditor={activeEditor}
+                {...toolbarsProps}
+              />
+            </Suspense>
+          )}
         </div>
       )
     );

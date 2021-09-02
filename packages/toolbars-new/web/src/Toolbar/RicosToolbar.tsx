@@ -30,7 +30,6 @@ interface RicosToolbarProps {
   vertical?: boolean;
   buttons?: formattingToolbarButtonsKeysType;
   editorCommands: EditorCommands;
-  plugins?: string[];
   setKeepOpen?: (boolean) => void;
   afterClick?: () => void;
   nestedMenu?: boolean;
@@ -73,17 +72,20 @@ class RicosToolbar extends Component<RicosToolbarProps> {
   };
 
   cleanUnwantedSeparators = buttons => {
-    // eslint-disable-next-line fp/no-loops
-    while (buttons[0].type === 'SEPARATOR') {
-      buttons.shift();
-    }
-    // eslint-disable-next-line fp/no-loops
-    while (buttons[buttons.length - 1].type === 'SEPARATOR') {
-      buttons.pop();
-    }
-    return buttons.filter((button, index) => {
-      return !(button.type === 'SEPARATOR' && buttons[index + 1].type === 'SEPARATOR');
+    const cleanedButtons: any = [];
+    buttons.forEach((button, index) => {
+      if (
+        (cleanedButtons.length !== 0 || button.type !== 'SEPARATOR') &&
+        !(button.type === 'SEPARATOR' && buttons[index - 1].type === 'SEPARATOR')
+      ) {
+        cleanedButtons.push(button);
+      }
     });
+    // eslint-disable-next-line fp/no-loops
+    while (cleanedButtons[cleanedButtons.length - 1].type === 'SEPARATOR') {
+      cleanedButtons.pop();
+    }
+    return cleanedButtons;
   };
 
   render() {
@@ -91,7 +93,6 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       buttons,
       editorCommands,
       t,
-      plugins,
       linkPanelData,
       colorPickerData,
       isMobile,
@@ -106,7 +107,6 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       buttons,
       editorCommands,
       t,
-      plugins,
       linkPanelData,
       colorPickerData,
       experiments

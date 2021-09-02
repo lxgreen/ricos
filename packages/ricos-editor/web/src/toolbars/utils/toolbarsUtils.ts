@@ -6,9 +6,52 @@ export const isLinkToolbarOpen = (activeEditor: RichContentEditor | null) => {
   return editorCommands?.getSelection().getIsCollapsed && editorCommands?.hasLinkInSelection();
 };
 
-export const getPluginsKey = (activeEditor: RichContentEditor | null) => {
+const getPluginsKey = (activeEditor: RichContentEditor | null) => {
   const rawPlugins = activeEditor?.getPlugins?.();
   const plugins = rawPlugins.filter(plugin => plugin?.blockType !== undefined);
   const pluginsKeys = plugins.map(plugin => plugin.blockType);
   return pluginsKeys;
+};
+
+export const filterButtons = (buttonsList, activeEditor) => {
+  const buttonsFilteredFromUninstalledPlugins = filterButtonsByImportedPlugins(
+    buttonsList,
+    activeEditor
+  );
+  const filteredButtonsList = filterButtonsByProduct(buttonsFilteredFromUninstalledPlugins);
+  return filteredButtonsList;
+};
+
+const filterButtonsByProduct = buttonsList => {
+  if (
+    buttonsList.some(button => button === 'HEADINGS') &&
+    buttonsList.some(button => button === 'Title')
+  ) {
+    return buttonsList.filter(button => button !== 'Title');
+  } else {
+    return buttonsList;
+  }
+};
+
+const filterButtonsByImportedPlugins = (buttonsList, activeEditor) => {
+  const importedPlugins = getPluginsKey(activeEditor);
+  return buttonsList.filter(button => {
+    if (buttonByPluginMapper[button]) {
+      return importedPlugins.includes(buttonByPluginMapper[button]);
+    } else {
+      return true;
+    }
+  });
+};
+
+const buttonByPluginMapper = {
+  HEADINGS: 'wix-rich-content-plugin-headings',
+  TEXT_COLOR: 'wix-rich-content-text-color',
+  TEXT_HIGHLIGHT: 'wix-rich-content-text-highlight',
+  DECREASE_INDENT: 'wix-rich-content-plugin-indent',
+  INCREASE_INDENT: 'wix-rich-content-plugin-indent',
+  SPOILER: 'wix-rich-content-plugin-spoiler',
+  LINE_SPACING: 'line-spacing',
+  LINK: 'LINK',
+  CODE_BLOCK: 'code-block',
 };

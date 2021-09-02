@@ -20,7 +20,7 @@ import {
 } from 'wix-rich-content-toolbars-new';
 import { get } from 'lodash';
 import { mobileTextButtonList, desktopTextButtonList } from './utils/defaultTextFormattingButtons';
-import { getPluginsKey } from './utils/toolbarsUtils';
+import { filterButtons } from './utils/toolbarsUtils';
 
 interface TextFormattingToolbarProps {
   activeEditor: RichContentEditor;
@@ -85,7 +85,9 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
     } else {
       formattingToolbarButtons = isMobile ? textButtons.mobile : textButtons.desktop;
     }
-    const plugins: string[] = getPluginsKey(activeEditor);
+
+    const filteredFormattingToolbarButtons = filterButtons(formattingToolbarButtons, activeEditor);
+
     const colorPickerData = {
       TEXT_COLOR: this.props.plugins?.find(plugin => plugin.type === 'wix-rich-content-text-color')
         ?.config,
@@ -109,8 +111,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
         isMobile={isMobile}
         t={t}
         editorCommands={editorCommands}
-        buttons={formattingToolbarButtons}
-        plugins={plugins}
+        buttons={filteredFormattingToolbarButtons}
         linkPanelData={linkPanelData}
         colorPickerData={colorPickerData}
         onToolbarButtonClick={onToolbarButtonClick}
