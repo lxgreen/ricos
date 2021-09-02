@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+  ### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2913](https://github.com/wix/ricos/pull/2913) improve buttons filters (separators, installed plugins, headings/title
+
 </details>
 <hr/>
 
