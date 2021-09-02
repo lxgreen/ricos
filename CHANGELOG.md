@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.52.3 (Sep 2, 2021)
+
 ### :bug: Bug Fix
 
 - `social-polls`
   - [#2912](https://github.com/wix/ricos/pull/2912) `enableVoteRole` config
-
-</details>
-<hr/>
 
 ## 8.52.2 (Sep 1, 2021)
 
