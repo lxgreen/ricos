@@ -49,15 +49,17 @@ class LinkActionsButtons extends PureComponent {
         })}
       >
         {showRemoveButton && (
-          <Button
-            tabIndex={tabIndex}
-            data-hook="linkPanelContainerRemove"
-            text={removeButtonText}
-            onClick={onDelete}
-            theme={this.theme}
-            secondary
-            borderless
-          />
+          <div>
+            <Button
+              tabIndex={tabIndex}
+              data-hook="linkPanelContainerRemove"
+              text={removeButtonText}
+              onClick={onDelete}
+              theme={this.theme}
+              secondary
+              borderless
+            />
+          </div>
         )}
 
         <div
