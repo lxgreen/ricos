@@ -31,7 +31,6 @@ export const createButtonsList = (
   formattingButtonsKeys,
   editorCommands: editorCommands,
   t,
-  plugins,
   linkPanelData,
   colorPickerData,
   experiments
@@ -64,8 +63,7 @@ export const createButtonsList = (
     handleButtonColorPicker(buttonsList, index, editorCommands, colorPickerData);
     handleButtonText(buttonsList, index, editorCommands, t);
   });
-  const filteredButtonsList = filterButtonsByPlugins(buttonsList, plugins);
-  return filteredButtonsList;
+  return buttonsList;
 };
 
 const handleButtonText = (buttonsList, index, editorCommands: editorCommands, t) => {
@@ -108,16 +106,6 @@ const handleButtonColorPicker = (
     buttonsList[index].colorPickerHeaderKey = buttonsFullData[buttonName].colorPickerHeaderKey;
     buttonsList[index].withColoredIcon = true;
   }
-};
-
-const filterButtonsByPlugins = (buttonsList, plugins) => {
-  return buttonsList.filter(button => {
-    if (buttonsFullData[button.name].plugin) {
-      return plugins.includes(buttonsFullData[button.name].plugin);
-    } else {
-      return true;
-    }
-  });
 };
 
 const handleButtonOnDelete = (buttonsList, index, editorCommands: editorCommands) => {
