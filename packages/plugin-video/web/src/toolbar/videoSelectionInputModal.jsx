@@ -205,14 +205,16 @@ export default class VideoSelectionInputModal extends Component {
                 data-hook="videoUploadModalInput"
               />
             </div>
-            <Button
-              disabled={!this.state.url}
-              theme={{ ...styles, ...theme }}
-              dataHook="videoUploadModalAddButton"
-              onClick={this.onUrlVideoSelection}
-              text={t('VideoUploadModal_AddButtonText')}
-              size={isMobile ? BUTTON_SIZE.medium : BUTTON_SIZE.small}
-            />
+            <div className={styles.video_modal_add_button_wrapper}>
+              <Button
+                disabled={!this.state.url}
+                theme={{ ...styles, ...theme }}
+                dataHook="videoUploadModalAddButton"
+                onClick={this.onUrlVideoSelection}
+                text={t('VideoUploadModal_AddButtonText')}
+                size={isMobile ? BUTTON_SIZE.medium : BUTTON_SIZE.small}
+              />
+            </div>
           </div>
           {(!isMobile || enableCustomUploadOnMobile) && hasCustomFileUpload && uploadVideoSection}
         </div>

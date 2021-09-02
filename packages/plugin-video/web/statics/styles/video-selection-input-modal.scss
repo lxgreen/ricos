@@ -121,9 +121,13 @@
     flex-direction: column;
     gap: 24px;
     margin-bottom: 0;
-    button {
-      width: 45%;
-    }
+  }
+}
+
+.video_modal_add_button_wrapper {
+  width: 100%;
+  @include phone {
+    width: 45%;
   }
 }
 
