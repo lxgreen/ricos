@@ -20,18 +20,28 @@
 ### :house: Internal
 
 - `ui-components`
-
   - [#2908](https://github.com/wix/ricos/pull/2908) refactor button component - removed classname prop
+  
+</details>
+<hr/>
+
+## 8.52.2 (Sep 1, 2021)
 
 ### :bug: Bug Fix
 
+- `toolbars-new`
+  - [#2910](https://github.com/wix/ricos/pull/2910) filter separators from buttons list
+- `toolbars-new`
+  - [#2906](https://github.com/wix/ricos/pull/2906) link input - cleanup preventDefault
 - `editor-common/toolbars-new`
   - [#2902](https://github.com/wix/ricos/pull/2902) fix link-modal input behavior on focus
 - `divider`
   - [#2903](https://github.com/wix/ricos/pull/2903) move `divider-component` to fix Loadable support
 
-</details>
-<hr/>
+### :house: Internal
+
+- `general`
+  - [#2911](https://github.com/wix/ricos/pull/2911) fix rollup-externals (tiptap-react excluded)
 
 ## 8.52.1 (Sep 1, 2021)
 

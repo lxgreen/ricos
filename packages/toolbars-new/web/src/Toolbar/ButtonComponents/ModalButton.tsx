@@ -64,49 +64,55 @@ class ModalButton extends Component<ModalButtonProps, State> {
 
   toggleModal = () => {
     const { isModalOpen } = this.state;
-    const {
-      dropDownProps: { saveState, saveSelection },
-      setKeepOpen,
-      isMobile,
-    } = this.props;
-    this.setState({ isModalOpen: !isModalOpen }, () => {
-      const rootEditorElement = this.modalRef
-        ?.closest('[data-hook=ricos-editor-toolbars]')
-        ?.parentElement?.querySelector('[data-hook=root-editor]') as HTMLElement;
-      if (this.state.isModalOpen && this.modalRef && rootEditorElement) {
-        const modalOverflowWithEditor = elementOverflowWithEditor(this.modalRef, rootEditorElement);
-        const isModalWidthOverflow = !!modalOverflowWithEditor.overflowRight;
-        const isModalOverflowByHeight = !!modalOverflowWithEditor.overflowBottom;
-        const overflowWidthBy = isModalWidthOverflow
-          ? modalOverflowWithEditor.overflowRight
-          : false;
-        this.setState({
-          isModalOverflowByHeight,
-          overflowWidthBy,
-        });
-        isMobile && this.modalRef?.focus();
-      } else {
-        this.setState({ isModalOverflowByHeight: false, overflowWidthBy: false });
-      }
-    });
     if (!isModalOpen) {
-      saveSelection?.();
-      saveState?.();
-      setKeepOpen?.(true);
+      this.openModal();
     } else {
-      const {
-        dropDownProps: { loadSelection },
-      } = this.props;
-      setKeepOpen?.(false);
-      loadSelection?.();
+      this.closeModal();
     }
   };
 
-  closeModal = () => {
+  handleOverflow = () => {
+    const { isMobile } = this.props;
+    const rootEditorElement = this.modalRef
+      ?.closest('[data-hook=ricos-editor-toolbars]')
+      ?.parentElement?.querySelector('[data-hook=root-editor]') as HTMLElement;
+    if (this.modalRef && rootEditorElement) {
+      const modalOverflowWithEditor = elementOverflowWithEditor(this.modalRef, rootEditorElement);
+      const isModalWidthOverflow = !!modalOverflowWithEditor.overflowRight;
+      const isModalOverflowByHeight = !!modalOverflowWithEditor.overflowBottom;
+      const overflowWidthBy = isModalWidthOverflow ? modalOverflowWithEditor.overflowRight : false;
+      this.setState({
+        isModalOverflowByHeight,
+        overflowWidthBy,
+      });
+      isMobile && this.modalRef?.focus();
+    } else {
+      this.setState({ isModalOverflowByHeight: false, overflowWidthBy: false });
+    }
+  };
+
+  openModal = () => {
+    if (!this.state.isModalOpen) {
+      const {
+        dropDownProps: { saveState, saveSelection },
+        setKeepOpen,
+      } = this.props;
+      this.setState({ isModalOpen: true }, this.handleOverflow);
+      saveSelection?.();
+      saveState?.();
+      setKeepOpen?.(true);
+    }
+  };
+
+  closeModal = (loadSelectionOnClose = true) => {
     if (this.state.isModalOpen) {
-      const { setKeepOpen } = this.props;
+      const {
+        setKeepOpen,
+        dropDownProps: { loadSelection },
+      } = this.props;
       this.setState({ isModalOpen: false });
       setKeepOpen?.(false);
+      loadSelectionOnClose && loadSelection?.();
     }
   };
 
@@ -146,6 +152,10 @@ class ModalButton extends Component<ModalButtonProps, State> {
     onChange?.(...args);
   };
 
+  onClickOutside = e => {
+    this.closeModal(e.target.closest('[data-hook=ricos-editor-toolbars]'));
+  };
+
   render() {
     const { modal, dropDownProps, onSelect, theme, t } = this.props;
     const {
@@ -162,7 +172,8 @@ class ModalButton extends Component<ModalButtonProps, State> {
     } = dropDownProps;
     const { isModalOpen, isModalOverflowByHeight, overflowWidthBy } = this.state;
     const buttonProps = arrow && getLabel ? { buttonContent: getLabel() } : { icon: getIcon() };
-    const onModalWrapperClick = isMobile && !isMobileModalFullscreen ? this.closeModal : undefined;
+    const onModalWrapperClick =
+      isMobile && !isMobileModalFullscreen ? () => this.closeModal() : undefined;
     const defaultStyles = {
       position: 'fixed',
       top: 0,
@@ -176,7 +187,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
       : { ...defaultStyles, background: 'transparent' };
 
     return (
-      <ClickOutside onClickOutside={this.closeModal}>
+      <ClickOutside onClickOutside={this.onClickOutside}>
         <div className={styles.buttonWrapper}>
           <ToolbarButton
             onToolbarButtonClick={this.props.onToolbarButtonClick}
@@ -203,7 +214,6 @@ class ModalButton extends Component<ModalButtonProps, State> {
                 styles.withoutPadding,
                 isModalOverflowByHeight && styles.modalOverflow
               )}
-              onMouseDown={event => event.preventDefault()}
               style={
                 isMobile ? mobileStyles : overflowWidthBy ? { left: `-${overflowWidthBy}px` } : {}
               }

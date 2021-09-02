@@ -73,13 +73,17 @@ class RicosToolbar extends Component<RicosToolbarProps> {
   };
 
   cleanUnwantedSeparators = buttons => {
-    if (buttons[0].type === 'SEPARATOR') {
+    // eslint-disable-next-line fp/no-loops
+    while (buttons[0].type === 'SEPARATOR') {
       buttons.shift();
     }
-    if (buttons[buttons.length - 1].type === 'SEPARATOR') {
+    // eslint-disable-next-line fp/no-loops
+    while (buttons[buttons.length - 1].type === 'SEPARATOR') {
       buttons.pop();
     }
-    return buttons;
+    return buttons.filter((button, index) => {
+      return !(button.type === 'SEPARATOR' && buttons[index + 1].type === 'SEPARATOR');
+    });
   };
 
   render() {
@@ -107,8 +111,9 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       colorPickerData,
       experiments
     );
-    updatedButtons.length > 0 && this.cleanUnwantedSeparators(updatedButtons);
-    const buttonsSeparatedByGaps = this.separateByGaps(updatedButtons);
+    const buttonsWithoutUnwantedSeparators =
+      updatedButtons.length > 0 && this.cleanUnwantedSeparators(updatedButtons);
+    const buttonsSeparatedByGaps = this.separateByGaps(buttonsWithoutUnwantedSeparators);
 
     return (
       <Toolbar

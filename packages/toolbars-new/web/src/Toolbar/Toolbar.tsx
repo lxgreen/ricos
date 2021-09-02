@@ -45,10 +45,6 @@ class Toolbar extends Component<ToolbarProps> {
     this.theme = { ...props.theme, buttonStyles };
   }
 
-  onMouseDown = event => {
-    event.preventDefault();
-  };
-
   renderButton = buttonProps => {
     const {
       onClick,
@@ -227,28 +223,6 @@ class Toolbar extends Component<ToolbarProps> {
     [TOOLBAR_BUTTON_TYPES.MODAL]: this.renderModal,
     [TOOLBAR_BUTTON_TYPES.COMPONENT]: this.renderComponent,
     [TOOLBAR_BUTTON_TYPES.CONTEXT_MENU]: this.renderContextMenu,
-  };
-
-  separateByGaps = buttons => {
-    const separatedButtons: any = [[]];
-    buttons.forEach(button => {
-      if (button.type !== TOOLBAR_BUTTON_TYPES.GAP) {
-        separatedButtons[separatedButtons.length - 1].push(button);
-      } else {
-        separatedButtons.push([]);
-      }
-    });
-    return separatedButtons;
-  };
-
-  cleanUnwantedSeparators = buttons => {
-    if (buttons[0].type === 'SEPARATOR') {
-      buttons.shift();
-    }
-    if (buttons[buttons.length - 1].type === 'SEPARATOR') {
-      buttons.pop();
-    }
-    return buttons;
   };
 
   render() {

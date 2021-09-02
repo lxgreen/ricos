@@ -42,10 +42,6 @@ class NestedMenu extends Component<NestedMenuProps, State> {
     this.setState({ isModalOpen: false });
   };
 
-  onMouseDown = event => {
-    event.preventDefault();
-  };
-
   render() {
     const { dropDownProps, theme, editorCommands } = this.props;
     const { tooltip, dataHook, getIcon, isMobile, t, buttonList, isActive } = dropDownProps;
