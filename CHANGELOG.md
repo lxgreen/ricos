@@ -22,6 +22,11 @@
 - `ui-components`
   - [#2908](https://github.com/wix/ricos/pull/2908) refactor button component - removed classname prop
   
+  ### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2913](https://github.com/wix/ricos/pull/2913) improve buttons filters (separators, installed plugins, headings/title
+
 </details>
 <hr/>
 
