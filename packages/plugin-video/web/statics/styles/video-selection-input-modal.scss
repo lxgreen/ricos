@@ -60,10 +60,11 @@
 .video_modal_textInput_customWidth {
   @extend %video_modal_textInput;
   width: calc(100% - 120px);
-  margin: 0px 0 48px 0px;
+  min-width: 340px;
   @include phone {
     width: 100%;
-    margin: 0px 0 24px 0px;
+    min-width: 100%;
+    // margin-bottom: 24px;
   }
 }
 
@@ -112,36 +113,36 @@
   cursor: pointer;
 }
 
-%video_modal_add_button {
-  width: 108px;
-  display: inline-block;
-  border: none;
-  padding-left: 24px;
-  padding-right: 24px;
-  margin-left: 12px;
-  height: 40px;
-}
+// %video_modal_add_button {
+//   width: 108px;
+//   display: inline-block;
+//   border: none;
+//   padding-left: 24px;
+//   padding-right: 24px;
+//   margin-left: 12px;
+//   height: 40px;
+// }
 
-.video_modal_add_button_inline {
-  @extend %video_modal_add_button;
-  @include phone {
-    width: 45%;
-    margin-left: 27.5%;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-}
+// .video_modal_add_button_inline {
+//   @extend %video_modal_add_button;
+//   @include phone {
+//     width: 45%;
+//     margin-left: 27.5%;
+//     padding-left: 10px;
+//     padding-right: 10px;
+//   }
+// }
 
-.video_modal_add_button_inMiddle {
-  @extend %video_modal_add_button;
-  margin-left: 38.5%;
-  @include phone {
-    width: 45%;
-    margin-left: 27.5%;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-}
+// .video_modal_add_button_inMiddle {
+//   @extend %video_modal_add_button;
+//   margin-left: 38.5%;
+//   @include phone {
+//     width: 45%;
+//     margin-left: 27.5%;
+//     padding-left: 10px;
+//     padding-right: 10px;
+//   }
+// }
 
 .video_modal_add_button_inline:disabled {
   opacity: 0.5;
@@ -180,4 +181,19 @@
 .fileInputLabel:focus {
   outline: 1px dotted #000;
   outline: -webkit-focus-ring-color auto 5px;
+}
+
+.video_modal_input_button_wrapper {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 48px;
+  @include phone {
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 0;
+    button {
+      width: 45%;
+    }
+  }
 }
