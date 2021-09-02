@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `social-polls`
+  - [#2912](https://github.com/wix/ricos/pull/2912) `enableVoteRole` config
+
 </details>
 <hr/>
 
