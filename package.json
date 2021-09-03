@@ -102,6 +102,7 @@
     "@rollup/plugin-commonjs": "^18.1.0",
     "@rollup/plugin-json": "^4.0.0",
     "@stylable/rollup-plugin": "4.2.3",
+    "@stylable/jest": "4.2.3",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@rollup/plugin-replace": "^2.4.2",
     "@svgr/rollup": "^5.4.0",
