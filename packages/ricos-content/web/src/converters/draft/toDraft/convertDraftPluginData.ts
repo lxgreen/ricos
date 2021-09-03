@@ -14,7 +14,9 @@ import {
   FileData,
   ButtonData,
   LinkData,
+  GalleryData,
   GIFData,
+  CollapsibleListData_InitialExpandedItems,
 } from 'ricos-schema';
 import { cloneDeep, has, merge } from 'lodash';
 import toCamelCase from 'to-camel-case';
@@ -23,9 +25,12 @@ import {
   FROM_RICOS_DECORATION_TYPE,
   FROM_RICOS_ENTITY_TYPE,
   TO_RICOS_DATA_FIELD,
+  DraftGalleryStyles,
 } from '../consts';
+import { WRAP, NO_WRAP } from '../../../consts';
 import { ComponentData, FileComponentData } from '../../../types';
 import { parseLink } from '../../nodeUtils';
+import { toDraft } from './toDraft';
 
 export const convertNodeToDraftData = (node: Node) => {
   const { type } = node;
@@ -34,7 +39,7 @@ export const convertNodeToDraftData = (node: Node) => {
   if (!dataFieldName) {
     console.error(`No data field name | Plugin Name: ${draftPluginType}`);
   }
-  return convertNodeDataToDraft(type, node[dataFieldName] || {});
+  return convertNodeDataToDraft(type, node[dataFieldName] || {}, node.nodes);
 };
 
 export const convertDecorationToDraftData = (decoration: Decoration) => {
@@ -43,7 +48,7 @@ export const convertDecorationToDraftData = (decoration: Decoration) => {
   return convertDecorationDataToDraft(type, decoration[dataFieldName]);
 };
 
-export const convertNodeDataToDraft = (nodeType: Node_Type, data) => {
+export const convertNodeDataToDraft = (nodeType: Node_Type, data, nodes?: Node[]) => {
   if (!data) {
     console.error(`No data for ${nodeType}`);
     return {};
@@ -59,16 +64,19 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data) => {
     [Node_Type.APP_EMBED]: convertAppEmbedData,
     [Node_Type.LINK_PREVIEW]: convertLinkPreviewData,
     [Node_Type.BUTTON]: convertButtonData,
+    [Node_Type.COLLAPSIBLE_LIST]: convertCollapsibleListData,
     [Node_Type.HTML]: convertHTMLData,
     [Node_Type.MAP]: convertMapData,
     [Node_Type.EMBED]: convertEmbedData,
+    [Node_Type.GALLERY]: convertGalleryData,
+    [Node_Type.TABLE]: convertTableData,
   };
-  if (newData.containerData && nodeType !== Node_Type.DIVIDER) {
+  if (newData.containerData) {
     convertContainerData(newData, nodeType);
   }
   if (nodeType in converters) {
     const convert = converters[nodeType];
-    convert(newData);
+    convert(newData, nodes);
   }
   return JSON.parse(JSON.stringify(newData)); // remove undefined values
 };
@@ -91,7 +99,7 @@ const convertContainerData = (
   data: { containerData?: PluginContainerData; config },
   nodeType: string
 ) => {
-  const { width, alignment, spoiler, height } = data.containerData || {};
+  const { width, alignment, spoiler, height, textWrap = true } = data.containerData || {};
   const { enabled = false, description, buttonText } = spoiler || {};
   data.config = Object.assign(
     {},
@@ -106,7 +114,8 @@ const convertContainerData = (
         description,
         buttonContent: buttonText,
       },
-    }
+    },
+    { textWrap: textWrap ? WRAP : NO_WRAP }
   );
   if (nodeType === Node_Type.IMAGE && width?.custom) {
     data.config.size = 'inline';
@@ -138,11 +147,12 @@ const convertDividerData = (
     type;
     lineStyle?: string;
     config?: ComponentData['config'];
+    containerData?: PluginContainerData;
   }
 ) => {
   data.type = data.lineStyle?.toLowerCase();
   delete data.lineStyle;
-  data.config = { textWrap: 'nowrap' };
+  data.config = data.config || {};
   if (has(data, 'width')) {
     data.config.size = data.width?.toLowerCase();
     delete data.width;
@@ -152,6 +162,75 @@ const convertDividerData = (
     delete data.alignment;
   }
   delete data.containerData;
+};
+
+enum GalleryLayout {
+  COLLAGE = 0,
+  MASONRY,
+  GRID,
+  THUMBNAIL,
+  SLIDER,
+  SLIDESHOW,
+  PANORAMA,
+  COLUMN,
+  MAGIC,
+  FULLSIZE,
+}
+
+const convertGalleryStyles = options => {
+  const styles: DraftGalleryStyles = {};
+  has(options, 'layout.type') &&
+    (styles.galleryLayout = parseInt(GalleryLayout[options.layout.type]));
+  has(options, 'layout.horizontalScroll') && (styles.oneRow = options.layout.horizontalScroll);
+  has(options, 'layout.orientation') &&
+    (styles.isVertical = options.layout.orientation === 'COLUMNS');
+  has(options, 'layout.numberOfColumns') &&
+    (styles.numberOfImagesPerRow = options.layout.numberOfColumns);
+  has(options, 'item.targetSize') && (styles.gallerySizePx = options.item.targetSize);
+  has(options, 'item.ratio') && (styles.cubeRatio = options.item.ratio);
+  has(options, 'item.crop') && (styles.cubeType = options.item.crop.toLowerCase());
+  has(options, 'item.spacing') && (styles.imageMargin = options.item.spacing);
+  has(options, 'thumbnails.placement') &&
+    (styles.galleryThumbnailsAlignment = options.thumbnails.placement.toLowerCase());
+  has(options, 'thumbnails.spacing') && (styles.thumbnailSpacings = options.thumbnails.spacing / 2);
+  return styles;
+};
+
+const convertGalleryItem = item => {
+  const type = has(item, 'image') ? 'image' : 'video';
+  const {
+    src: { url },
+    height,
+    width,
+  } = item[type].media;
+  item.url = url;
+  item.metadata = { height, width, type };
+  has(item, 'title') && (item.metadata.title = item.title);
+  has(item, 'altText') && (item.metadata.altText = item.altText);
+  if (has(item, 'video.thumbnail')) {
+    const {
+      src: { url },
+      height,
+      width,
+    } = item.video.thumbnail;
+    item.metadata.poster = { url, height, width };
+  }
+  has(item, 'image.link') && (item.metadata.link = item.image.link);
+  delete item.video;
+  delete item.image;
+  delete item.title;
+  delete item.altText;
+  return item;
+};
+
+const convertGalleryData = (
+  data: GalleryData & {
+    styles: DraftGalleryStyles;
+  }
+) => {
+  has(data, 'items') && (data.items = data.items.map(item => convertGalleryItem(item)));
+  has(data, 'options') && (data.styles = convertGalleryStyles(data.options));
+  delete data.options;
 };
 
 const convertImageData = (data: ImageData & { src; config; metadata }) => {
@@ -235,6 +314,7 @@ const convertAppEmbedData = data => {
     ...(eventData || {}),
   };
   data.selectedProduct = selectedProduct;
+  delete data.id;
   delete data.itemId;
   delete data.name;
   delete data.imageSrc;
@@ -266,6 +346,54 @@ const convertFileData = (data: FileData & FileComponentData) => {
   data.id = id || custom;
   updatePrivacyField(data, isPrivate);
   delete data.src;
+};
+
+const convertCollapsibleListData = (
+  data: {
+    config: {
+      expandState?: string;
+      expandOnlyOne?: boolean;
+      direction?: string;
+      alignment?: string;
+    };
+    initialExpandedItems?: CollapsibleListData_InitialExpandedItems;
+    expandOnlyOne?: boolean;
+    direction?: string;
+    pairs;
+  },
+  nodes: Node[]
+) => {
+  const { initialExpandedItems, expandOnlyOne, direction } = data || {};
+
+  const getExpandState = (initialExpandedItems?: CollapsibleListData_InitialExpandedItems) => {
+    if (initialExpandedItems === 'ALL') {
+      return 'expanded';
+    }
+    if (initialExpandedItems === 'NONE') {
+      return 'collapsed';
+    }
+    return 'first_expanded';
+  };
+
+  const config = {
+    expandState: getExpandState(initialExpandedItems),
+    expandOnlyOne,
+    direction: direction?.toLowerCase(),
+  };
+  data.config = { ...data.config, ...config };
+  data.pairs = nodes.map(node => {
+    const { VERSION: _, ...title } = toDraft(node.nodes[0]);
+    const { VERSION: __, ...content } = toDraft(node.nodes[1]);
+    return {
+      key: node.id,
+      title,
+      content,
+    };
+  });
+  delete data.initialExpandedItems;
+  delete data.expandOnlyOne;
+  delete data.direction;
+  delete data.config.alignment;
 };
 
 const convertButtonData = (data: Partial<ButtonData> & { button }) => {
@@ -375,4 +503,51 @@ const parseLinkCustomData = (customData: string) => {
     console.error('failed to parse customData', customData); // eslint-disable-line
     return { customData };
   }
+};
+
+const convertTableData = (
+  data: {
+    dimensions;
+    header;
+    config: {
+      colsWidth;
+      rowsHeight;
+      colsMinWidth;
+      alignment?;
+      rows;
+      rowHeader;
+    };
+  },
+  nodes
+) => {
+  const {
+    dimensions: { colsWidthRatio, rowsHeight, colsMinWidth },
+    header,
+  } = data || {};
+  const { alignment: _, ...rest } = data.config;
+  data.config = { ...rest, colsWidth: colsWidthRatio, rowsHeight, colsMinWidth, rowHeader: header };
+  const rows = {};
+  nodes.forEach((row, i) => {
+    rows[i] = { columns: {} };
+    row.nodes.forEach((cell, j) => {
+      const { VERSION: _, ...content } = toDraft(cell);
+      const { cellStyle = {}, borderColors = {} } = cell.tableCellData || {};
+      rows[i].columns[j] = {
+        content,
+        style: {
+          verticalAlign: cellStyle.verticalAlignment?.toLowerCase(),
+          backgroundColor: cellStyle.backgroundColor?.toLowerCase(),
+        },
+        border: {
+          top: borderColors.top?.toLowerCase(),
+          left: borderColors.left?.toLowerCase(),
+          right: borderColors.right?.toLowerCase(),
+          bottom: borderColors.bottom?.toLowerCase(),
+        },
+      };
+    });
+  });
+  data.config.rows = rows;
+  delete data.dimensions;
+  delete data.header;
 };

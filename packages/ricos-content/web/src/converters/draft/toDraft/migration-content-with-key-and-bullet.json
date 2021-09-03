@@ -355,6 +355,7 @@
             "size": "FULL_WIDTH"
           },
           "alignment": "CENTER",
+          "textWrap": true,
           "spoiler": {
             "enabled": true,
             "description": "SPOILER ALERT!!!",
@@ -395,7 +396,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "video": {
           "src": {
@@ -432,7 +434,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "video": {
           "src": {
@@ -462,79 +465,75 @@
     },
     {
       "type": "GALLERY",
-      "key": "8",
+      "id": "8",
       "nodes": [],
       "galleryData": {
         "containerData": {
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "items": [
           {
-            "metadata": {
-              "height": 3733,
-              "width": 5600,
-              "type": "image"
-            },
-            "itemId": "2c2698b83ba64574db5e28ed54064081",
-            "url": "8bb438_0ab44689f626435c94b9a5b996524aba.jpg",
-            "selected": false
+            "image": {
+              "media": {
+                "src": {
+                  "url": "8bb438_0ab44689f626435c94b9a5b996524aba.jpg"
+                },
+                "height": 3733,
+                "width": 5600
+              }
+            }
           },
           {
-            "metadata": {
-              "height": 1922,
-              "width": 1920,
-              "type": "image"
-            },
-            "itemId": "a327950f89cc4994f34a0cd0d4a71473",
-            "url": "8bb438_6a7159be0f944dde9098fe566bf22831.jpg",
-            "selected": false
+            "image": {
+              "media": {
+                "src": {
+                  "url": "8bb438_6a7159be0f944dde9098fe566bf22831.jpg"
+                },
+                "height": 1922,
+                "width": 1920
+              }
+            }
           },
           {
-            "metadata": {
-              "height": 3727,
-              "width": 5600,
-              "type": "image"
-            },
-            "itemId": "f6db1b532552aa00e9549b5c97e6770a",
-            "url": "8bb438_cabd67053eae45e7ab273832504717ff.jpg",
-            "selected": false
+            "video": {
+              "media": {
+                "src": {
+                  "url": "0d72ac_31569a98fd8d436f98ae9c827c216443"
+                },
+                "width": 1920,
+                "height": 1080
+              },
+              "thumbnail": {
+                "src": {
+                  "url": "8bb438_cabd67053eae45e7ab273832504717ff.jpg"
+                },
+                "height": 3727,
+                "width": 5600
+              }
+            }
           }
         ],
-        "styles": {
-          "galleryLayout": 2,
-          "gallerySizeType": "px",
-          "gallerySizePx": 300,
-          "oneRow": false,
-          "cubeRatio": 1,
-          "galleryThumbnailsAlignment": "bottom",
-          "isVertical": false,
-          "numberOfImagesPerRow": 3,
-          "imageMargin": 20,
-          "thumbnailSpacings": 0,
-          "cubeType": "fill",
-          "enableInfiniteScroll": true,
-          "titlePlacement": "SHOW_ON_HOVER",
-          "allowHover": true,
-          "itemClick": "link",
-          "showArrows": false,
-          "gridStyle": 1,
-          "loveButton": false,
-          "allowSocial": false,
-          "allowDownload": false,
-          "galleryMargin": 0,
-          "fullscreen": false,
-          "mobileSwipeAnimation": "NO_EFFECT",
-          "thumbnailSize": 120,
-          "gotStyleParams": true,
-          "showVideoPlayButton": true,
-          "videoPlay": "onClick"
-        },
-        "config": {
-          "layout": "small",
-          "spacing": 0
+        "options": {
+          "layout": {
+            "type": "GRID",
+            "horizontalScroll": false,
+            "orientation": "ROWS",
+            "numberOfColumns": 3
+          },
+          "item": {
+            "targetSize": 300,
+            "ratio": 1,
+            "crop": "FILL",
+            "spacing": 20
+          },
+          "thumbnails": {
+            "placement": "BOTTOM",
+            "spacing": 0
+          }
         },
         "disableExpand": false
       }
@@ -560,6 +559,7 @@
             "custom": "350"
           },
           "alignment": "CENTER",
+          "textWrap": true,
           "height": {
             "custom": "490"
           }
@@ -587,7 +587,8 @@
           "width": {
             "custom": "350"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "oembed": {
           "type": "rich",
@@ -616,7 +617,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "type": "LINK",
         "styles": {
@@ -656,7 +658,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "type": "ACTION",
         "styles": {
@@ -689,7 +692,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": false
         },
         "lineStyle": "DOUBLE",
         "width": "MEDIUM",
@@ -747,7 +751,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "original": {
           "gif": "https://media1.giphy.com/media/Cn44PUsTVimwBAtIRx/giphy.gif?cid=558f2fbejldbq3cgzrasbh2j4z47w8nn51qcbjzc6dg7g7af&rid=giphy.gif",
@@ -784,6 +789,7 @@
             "custom": "286"
           },
           "alignment": "CENTER",
+          "textWrap": true,
           "height": {
             "custom": "271"
           }
@@ -822,7 +828,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "src": {
           "url": "https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
@@ -929,7 +936,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "link": {
           "url": "www.wix.com",
@@ -1787,6 +1795,7 @@
             "custom": "300"
           },
           "alignment": "RIGHT",
+          "textWrap": true,
           "spoiler": {
             "enabled": true
           }
@@ -1847,6 +1856,383 @@
     {
       "type": "PARAGRAPH",
       "key": "93",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "key": "61edh",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "COLLAPSIBLE_LIST",
+      "key": "dmubi",
+      "nodes": [
+        {
+          "type": "COLLAPSIBLE_ITEM",
+          "key": "un62p5uut",
+          "nodes": [
+            {
+              "type": "COLLAPSIBLE_ITEM_TITLE",
+              "key": "23qu9",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "7eq8v",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "key": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "Collapsible List",
+                        "decorations": [
+                          {
+                            "type": "COLOR",
+                            "colorData": {
+                              "foreground": "color4"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ]
+            },
+            {
+              "type": "COLLAPSIBLE_ITEM_BODY",
+              "key": "66ki0",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "bi78",
+                  "nodes": [],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "COLLAPSIBLE_ITEM",
+          "key": "k2ah5xmy2",
+          "nodes": [
+            {
+              "type": "COLLAPSIBLE_ITEM_TITLE",
+              "key": "b21hn",
+              "nodes": [
+                {
+                  "type": "BLOCKQUOTE",
+                  "key": "b7bim",
+                  "nodes": [
+                    {
+                      "type": "PARAGRAPH",
+                      "key": "ddv6q",
+                      "nodes": [
+                        {
+                          "type": "TEXT",
+                          "key": "",
+                          "nodes": [],
+                          "textData": {
+                            "text": "#LivingTheDream",
+                            "decorations": []
+                          }
+                        }
+                      ],
+                      "paragraphData": {
+                        "textStyle": {
+                          "textAlignment": "AUTO"
+                        },
+                        "indentation": 0
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "COLLAPSIBLE_ITEM_BODY",
+              "key": "6mh4u",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "7gvho",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "key": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "Yo yo yo!",
+                        "decorations": [
+                          {
+                            "type": "BOLD"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "collapsibleListData": {
+        "initialExpandedItems": "FIRST",
+        "direction": "LTR",
+        "containerData": {
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "expandOnlyOne": false
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "key": "107",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "TABLE",
+      "key": "108",
+      "nodes": [
+        {
+          "type": "TABLE_ROW",
+          "key": "109",
+          "nodes": [
+            {
+              "type": "TABLE_CELL",
+              "key": "110",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "111",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "key": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "​",
+                        "decorations": []
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ],
+              "tableCellData": {
+                "cellStyle": {
+                  "verticalAlignment": "TOP",
+                  "backgroundColor": "#ff0000"
+                },
+                "borderColors": {}
+              }
+            },
+            {
+              "type": "TABLE_CELL",
+              "key": "112",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "113",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "key": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "Yo yo yo!",
+                        "decorations": [
+                          {
+                            "type": "BOLD"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ],
+              "tableCellData": {
+                "cellStyle": {
+                  "verticalAlignment": "TOP"
+                },
+                "borderColors": {
+                  "left": "#3a54b4",
+                  "right": "#3a54b4",
+                  "top": "#3a54b4",
+                  "bottom": "#3a54b4"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "TABLE_ROW",
+          "key": "114",
+          "nodes": [
+            {
+              "type": "TABLE_CELL",
+              "key": "115",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "116",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "key": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "​SPOILER ALERT!",
+                        "decorations": [
+                          {
+                            "type": "SPOILER"
+                          },
+                          {
+                            "type": "COLOR",
+                            "colorData": {
+                              "foreground": "color3"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 1
+                  }
+                }
+              ],
+              "tableCellData": {
+                "cellStyle": {
+                  "verticalAlignment": "TOP"
+                },
+                "borderColors": {}
+              }
+            },
+            {
+              "type": "TABLE_CELL",
+              "key": "117",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "118",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "key": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "​",
+                        "decorations": []
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ],
+              "tableCellData": {
+                "cellStyle": {
+                  "verticalAlignment": "TOP"
+                },
+                "borderColors": {}
+              }
+            }
+          ]
+        }
+      ],
+      "tableData": {
+        "containerData": {
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "dimensions": {
+          "colsWidthRatio": [
+            10,
+            10
+          ],
+          "rowsHeight": [
+            47,
+            47
+          ],
+          "colsMinWidth": [
+            120,
+            120
+          ]
+        },
+        "header": true
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "key": "119",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "key": "120",
       "nodes": [],
       "paragraphData": {
         "textStyle": {

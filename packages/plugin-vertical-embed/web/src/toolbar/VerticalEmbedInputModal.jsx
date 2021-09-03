@@ -64,8 +64,8 @@ export default class VerticalEmbedInputModal extends Component {
     helpers.closeModal();
   };
 
-  onItemClick = item => {
-    const { selectedProduct } = this.state;
+  onItemClick = ({ getDescription, ...item }) => {
+    const { selectedProduct, items } = this.state;
     if (item.id === selectedProduct?.id) {
       this.onConfirm();
     } else {
@@ -79,15 +79,13 @@ export default class VerticalEmbedInputModal extends Component {
       t,
     } = this.props;
     const { items } = this.state;
-    let getDescriptionFunc;
+    let getDescription;
     if (type === verticalEmbedProviders.booking) {
-      getDescriptionFunc = product => convertDuration(product.durations, t);
+      getDescription = product => convertDuration(product.durations, t);
     } else if (type === verticalEmbedProviders.event) {
-      getDescriptionFunc = product => `${product.scheduling} | ${product.location}`;
+      getDescription = product => `${product.scheduling} | ${product.location}`;
     }
-    return getDescriptionFunc
-      ? items.map(product => ({ ...product, description: getDescriptionFunc(product) }))
-      : items;
+    return getDescription ? items.map(product => ({ ...product, getDescription })) : items;
   };
 
   render() {

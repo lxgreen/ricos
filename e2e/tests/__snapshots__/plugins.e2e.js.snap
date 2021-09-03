@@ -410,7 +410,6 @@ exports[`plugins > full screen > gallery full screen > expand gallery image on f
           }
         ],
         "styles": {
-          "allowContextMenu": true,
           "allowDownload": false,
           "allowHover": true,
           "allowSocial": false,
@@ -570,7 +569,6 @@ exports[`plugins > gallery > render gallery plugin #0`] =
           }
         ],
         "styles": {
-          "allowContextMenu": true,
           "allowDownload": false,
           "allowHover": true,
           "allowSocial": false,
@@ -713,7 +711,6 @@ exports[`plugins > gallery > organize media > allow to manipulate the media item
         },
         "items": [],
         "styles": {
-          "allowContextMenu": true,
           "allowDownload": false,
           "allowHover": true,
           "allowSocial": false,
@@ -856,7 +853,6 @@ exports[`plugins > gallery > media settings > allow to update media content #0`]
         },
         "items": [],
         "styles": {
-          "allowContextMenu": true,
           "allowDownload": false,
           "allowHover": true,
           "allowSocial": false,
@@ -1120,6 +1116,7 @@ exports[`plugins > html > render html plugin toolbar #0`] =
         "config": {
           "alignment": "center",
           "height": 470,
+          "textWrap": "wrap",
           "width": 350
         },
         "src": "<blockquote class=\"twitter-tweet\" data-lang=\"en\"><p lang=\"en\" dir=\"ltr\">The updates, insights and stories of the engineering challenges we encounter, and our way of solving them. Subscribe to our fresh, monthly newsletter and get these goodies right to your e-mail:<a href=\"https://t.co/0ziRSJJAxK\">https://t.co/0ziRSJJAxK</a> <a href=\"https://t.co/nTHlsG5z2a\">pic.twitter.com/nTHlsG5z2a</a></p>&mdash; Wix Engineering (@WixEng) <a href=\"https://twitter.com/WixEng/status/1076810144774868992?ref_src=twsrc%5Etfw\">December 23, 2018</a></blockquote> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>",
@@ -1336,6 +1333,7 @@ exports[`plugins > map > render map plugin toolbar and settings #0`] =
           "alignment": "center",
           "height": 400,
           "size": "content",
+          "textWrap": "wrap",
           "width": 400
         },
         "mapSettings": {
@@ -1399,7 +1397,8 @@ exports[`plugins > file-upload > render file-upload plugin toolbar #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "small"
+          "size": "small",
+          "textWrap": "wrap"
         },
         "name": "receipt.pdf",
         "type": "pdf",
@@ -1593,7 +1592,8 @@ exports[`plugins > alignment > align atomic block left #0`] =
           "alignment": "left",
           "showDescription": true,
           "showTitle": true,
-          "size": "small"
+          "size": "small",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg",
@@ -1612,7 +1612,8 @@ exports[`plugins > alignment > align atomic block left #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_83e03311e53a47ce9ba8bda910fdad88.jpg",
@@ -1741,7 +1742,8 @@ exports[`plugins > alignment > align atomic block center #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "small"
+          "size": "small",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg",
@@ -1760,7 +1762,8 @@ exports[`plugins > alignment > align atomic block center #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_83e03311e53a47ce9ba8bda910fdad88.jpg",
@@ -1889,7 +1892,8 @@ exports[`plugins > alignment > align atomic block right #0`] =
           "alignment": "right",
           "showDescription": true,
           "showTitle": true,
-          "size": "small"
+          "size": "small",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg",
@@ -1908,7 +1912,8 @@ exports[`plugins > alignment > align atomic block right #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_83e03311e53a47ce9ba8bda910fdad88.jpg",
@@ -2648,7 +2653,6 @@ exports[`plugins > gallery > render gallery out of view #0`] =
           }
         ],
         "styles": {
-          "allowContextMenu": true,
           "allowDownload": false,
           "allowHover": true,
           "allowSocial": false,
@@ -2826,7 +2830,8 @@ exports[`plugins > link preview > change link preview settings #0`] =
             "target": "_blank",
             "url": "wix.com"
           },
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "description": "\tCreate a free website with Wix.com. Choose a stunning template and customize anything with the Wix website builder—no coding skills needed. Create yours today!",
         "provider_url": "www.wix.com",
@@ -2843,7 +2848,8 @@ exports[`plugins > link preview > change link preview settings #0`] =
           "link": {
             "url": "wix.com"
           },
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "provider_url": "https://www.youtube.com",
         "thumbnail_url": "https://static.wixstatic.com/media/8bb438_603549efcb714170bb71fe0757f37561.jpg/v1/fill/w_125,h_51,fp_0.50_0.50,q_10/8bb438_603549efcb714170bb71fe0757f37561.webp",
@@ -2860,6 +2866,7 @@ exports[`plugins > link preview > change link preview settings #0`] =
             "url": "mockUrl.com"
           },
           "size": "content",
+          "textWrap": "wrap",
           "width": 350
         },
         "html": "<div style=\"background-color: black; border: 10px solid pink; height: 400px; text-align: center; color: white;\">This is a mock embed</div>",
@@ -3016,7 +3023,8 @@ exports[`plugins > link preview > convert link preview to regular link #0`] =
           "link": {
             "url": "wix.com"
           },
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "provider_url": "https://www.youtube.com",
         "thumbnail_url": "https://static.wixstatic.com/media/8bb438_603549efcb714170bb71fe0757f37561.jpg/v1/fill/w_125,h_51,fp_0.50_0.50,q_10/8bb438_603549efcb714170bb71fe0757f37561.webp",
@@ -3033,6 +3041,7 @@ exports[`plugins > link preview > convert link preview to regular link #0`] =
             "url": "mockUrl.com"
           },
           "size": "content",
+          "textWrap": "wrap",
           "width": 350
         },
         "html": "<div style=\"background-color: black; border: 10px solid pink; height: 400px; text-align: center; color: white;\">This is a mock embed</div>",
@@ -3360,7 +3369,8 @@ exports[`plugins > link preview > backspace key should convert link preview to r
           "link": {
             "url": "wix.com"
           },
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "provider_url": "https://www.youtube.com",
         "thumbnail_url": "https://static.wixstatic.com/media/8bb438_603549efcb714170bb71fe0757f37561.jpg/v1/fill/w_125,h_51,fp_0.50_0.50,q_10/8bb438_603549efcb714170bb71fe0757f37561.webp",
@@ -3377,6 +3387,7 @@ exports[`plugins > link preview > backspace key should convert link preview to r
             "url": "mockUrl.com"
           },
           "size": "content",
+          "textWrap": "wrap",
           "width": 350
         },
         "html": "<div style=\"background-color: black; border: 10px solid pink; height: 400px; text-align: center; color: white;\">This is a mock embed</div>",
@@ -3575,7 +3586,8 @@ exports[`plugins > link preview > delete link preview #0`] =
           "link": {
             "url": "wix.com"
           },
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "provider_url": "https://www.youtube.com",
         "thumbnail_url": "https://static.wixstatic.com/media/8bb438_603549efcb714170bb71fe0757f37561.jpg/v1/fill/w_125,h_51,fp_0.50_0.50,q_10/8bb438_603549efcb714170bb71fe0757f37561.webp",
@@ -3592,6 +3604,7 @@ exports[`plugins > link preview > delete link preview #0`] =
             "url": "mockUrl.com"
           },
           "size": "content",
+          "textWrap": "wrap",
           "width": 350
         },
         "html": "<div style=\"background-color: black; border: 10px solid pink; height: 400px; text-align: center; color: white;\">This is a mock embed</div>",
@@ -4422,6 +4435,7 @@ exports[`plugins > action button > create action button & click it #0`] =
         "config": {
           "alignment": "center",
           "size": "small",
+          "textWrap": "wrap",
           "width": "fit-content"
         }
       },
@@ -4478,7 +4492,8 @@ exports[`plugins > convert link to preview > with default config > should create
             "target": "_blank",
             "url": "www.wix.com"
           },
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "description": "A mock description",
         "thumbnail_url": "https://image.insider.com/5de5784979d757159d0b6838?width=1100&format=jpeg&auto=webp",
@@ -4538,6 +4553,7 @@ exports[`plugins > convert link to preview > with default config > should embed 
             "url": "www.mockUrl.com"
           },
           "size": "content",
+          "textWrap": "wrap",
           "width": 350
         },
         "html": "<div style=\"background-color: black; border: 10px solid pink; height: 400px; text-align: center; color: white;\">This is a mock embed</div>",
@@ -4586,6 +4602,7 @@ exports[`plugins > convert link to preview > with custom config > should not cre
   "entityMap": {
     "0": {
       "data": {
+        "target": "_blank",
         "url": "www.wix.com"
       },
       "mutability": "MUTABLE",
@@ -4631,6 +4648,7 @@ exports[`plugins > convert link to preview > with custom config > should not emb
   "entityMap": {
     "0": {
       "data": {
+        "target": "_blank",
         "url": "www.mockUrl.com"
       },
       "mutability": "MUTABLE",
@@ -4692,6 +4710,54 @@ exports[`plugins > verticals embed > verticals embed widget > should replace wid
       "key": 4,
       "text": "",
       "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [
+        {
+          "key": 1,
+          "length": 1,
+          "offset": 0
+        }
+      ],
+      "inlineStyleRanges": [],
+      "key": 5,
+      "text": " ",
+      "type": "atomic"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 6,
+      "text": "",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [
+        {
+          "key": 2,
+          "length": 1,
+          "offset": 0
+        }
+      ],
+      "inlineStyleRanges": [],
+      "key": 7,
+      "text": " ",
+      "type": "atomic"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 8,
+      "text": "",
+      "type": "unstyled"
     }
   ],
   "entityMap": {
@@ -4705,6 +4771,39 @@ exports[`plugins > verticals embed > verticals embed widget > should replace wid
           "pageUrl": "https://www.wix.app/stores/54e7b326-49ec-434f-a7cc-c2ad1eaec049/catalog/265beaf5-3008-c5c2-fa5e-1447e0bebf71?d=https://sapirs0.wixsite.com/mysite/product-page/flowers"
         },
         "type": "product"
+      },
+      "mutability": "IMMUTABLE",
+      "type": "wix-draft-plugin-vertical-embed"
+    },
+    "1": {
+      "data": {
+        "selectedProduct": {
+          "description": 90,
+          "durations": 90,
+          "html": "<a class=\"vertical-embed-link\" href=\"https://www.wix.app/bookings/54e7b326-49ec-434f-a7cc-c2ad1eaec049/service/03ef6546-985d-4739-951e-ca897375b967/details?d=https://sapirs0.wixsite.com/mysite/bookings-checkout/cupcake-master\" target=\"_blank\"><div class=\"vertical-embed-card vertical-embed-ltr vertical-embed-cardLayout\"><div style=\"background-image:url(https://static.wixstatic.com/media/78ccafc88f7fce3e55bd7a33f166704b.jpg)\" class=\"vertical-embed-imageLayout vertical-embed-image\"></div><div class=\"vertical-embed-content\"><div><div class=\"vertical-embed-title\">CUPCAKE MASTER</div><div class=\"vertical-embed-subtitle\">1h 30min</div></div><div class=\"vertical-embed-button\"><div class=\"vertical-embed-buttonText\">Reservar ahora</div></div></div></div></a>",
+          "id": "03ef6546-985d-4739-951e-ca897375b967",
+          "imageSrc": "https://static.wixstatic.com/media/78ccafc88f7fce3e55bd7a33f166704b.jpg",
+          "name": "CUPCAKE MASTER",
+          "pageUrl": "https://www.wix.app/bookings/54e7b326-49ec-434f-a7cc-c2ad1eaec049/service/03ef6546-985d-4739-951e-ca897375b967/details?d=https://sapirs0.wixsite.com/mysite/bookings-checkout/cupcake-master"
+        },
+        "type": "booking"
+      },
+      "mutability": "IMMUTABLE",
+      "type": "wix-draft-plugin-vertical-embed"
+    },
+    "2": {
+      "data": {
+        "selectedProduct": {
+          "description": "28 de diciembre de 2020, 19:00 | Modi'in-Maccabim-Re'ut",
+          "html": "<a class=\"vertical-embed-link\" href=\"https://www.wix.app/events/54e7b326-49ec-434f-a7cc-c2ad1eaec049/0227ed00-697c-42c0-bc12-f84f0ae01a84/details?d=https://sapirs0.wixsite.com/mysite/event-details/roy-birthday-party-1\" target=\"_blank\"><div class=\"vertical-embed-card vertical-embed-ltr vertical-embed-cardLayout\"><div style=\"background-image:url(https://static.wixstatic.com/media/7f8360_274a37551ab54326adb4c50b1e7daaa0~mv2.jpeg)\" class=\"vertical-embed-imageLayout vertical-embed-image\"></div><div class=\"vertical-embed-content\"><div><div class=\"vertical-embed-title\">Roy Birthday Party!!</div><div class=\"vertical-embed-subtitle\">28 de diciembre de 2020, 19:00<span><span class=\"vertical-embed-right\">|</span>Modi&#x27;in-Maccabim-Re&#x27;ut</span></div></div><div class=\"vertical-embed-button\"><div class=\"vertical-embed-buttonText\">Regístrate</div></div></div></div></a>",
+          "id": "0227ed00-697c-42c0-bc12-f84f0ae01a84",
+          "imageSrc": "https://static.wixstatic.com/media/7f8360_274a37551ab54326adb4c50b1e7daaa0~mv2.jpeg",
+          "location": " Modi'in-Maccabim-Re'ut",
+          "name": "Roy Birthday Party!!",
+          "pageUrl": "https://www.wix.app/events/54e7b326-49ec-434f-a7cc-c2ad1eaec049/0227ed00-697c-42c0-bc12-f84f0ae01a84/details?d=https://sapirs0.wixsite.com/mysite/event-details/roy-birthday-party-1",
+          "scheduling": "28 de diciembre de 2020, 19:00 "
+        },
+        "type": "event"
       },
       "mutability": "IMMUTABLE",
       "type": "wix-draft-plugin-vertical-embed"
@@ -4901,6 +5000,7 @@ exports[`plugins > social embed > render twitter upload modals #0`] =
             "url": "www.mockUrl.com"
           },
           "size": "content",
+          "textWrap": "wrap",
           "width": 350
         },
         "html": "<div style=\"background-color: black; border: 10px solid pink; height: 400px; text-align: center; color: white;\">This is a mock embed</div>"
@@ -4959,6 +5059,7 @@ exports[`plugins > social embed > render instagram upload modals #0`] =
             "url": "www.mockUrl.com"
           },
           "size": "content",
+          "textWrap": "wrap",
           "width": 350
         },
         "html": "<div style=\"background-color: black; border: 10px solid pink; height: 400px; text-align: center; color: white;\">This is a mock embed</div>"
@@ -5038,9 +5139,87 @@ exports[`plugins > verticals embed > verticals embed modal > render upload modal
       "key": 0,
       "text": "",
       "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 1,
+      "text": "",
+      "type": "atomic"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 2,
+      "text": "",
+      "type": "atomic"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [
+        {
+          "key": 0,
+          "length": 1,
+          "offset": 0
+        }
+      ],
+      "inlineStyleRanges": [],
+      "key": 3,
+      "text": " ",
+      "type": "atomic"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 4,
+      "text": "",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 5,
+      "text": "",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 6,
+      "text": "",
+      "type": "unstyled"
     }
   ],
-  "entityMap": {}
+  "entityMap": {
+    "0": {
+      "data": {
+        "selectedProduct": {
+          "description": "13 de octubre de 2020 19:00–27 de octubre de 2020 23:00 | Suzanna Baby Shop",
+          "html": "<a class=\"vertical-embed-link\" href=\"https://www.wix.app/events/54e7b326-49ec-434f-a7cc-c2ad1eaec049/65129504-3bfc-44c8-90cc-f9eedfea9321/details?d=https://sapirs0.wixsite.com/mysite/event-details/2-week-course-of-intensive-physical-research-with-a-sense-of-plenty-of-time-for-process-and-discovery-rooted-in-ohad-n\" target=\"_blank\"><div class=\"vertical-embed-card vertical-embed-ltr vertical-embed-cardLayout\"><div style=\"background-image:url(https://static.wixstatic.com/media/2571849c6b0749a4bbd008a06fd65762.jpg)\" class=\"vertical-embed-imageLayout vertical-embed-image\"></div><div class=\"vertical-embed-content\"><div><div class=\"vertical-embed-title\">2-week course of intensive physical research, with a sense of plenty of time for...</div><div class=\"vertical-embed-subtitle\">13 de octubre de 2020 19:00–27 de octubre de 2020 23:00<span><span class=\"vertical-embed-right\">|</span>Suzanna Baby Shop</span></div></div><div class=\"vertical-embed-button\"><div class=\"vertical-embed-buttonText\">Regístrate</div></div></div></div></a>",
+          "id": "65129504-3bfc-44c8-90cc-f9eedfea9321",
+          "imageSrc": "https://static.wixstatic.com/media/2571849c6b0749a4bbd008a06fd65762.jpg",
+          "location": " Suzanna Baby Shop",
+          "name": "2-week course of intensive physical research, with a sense of plenty of time for process and discovery. Rooted in Ohad N",
+          "pageUrl": "https://www.wix.app/events/54e7b326-49ec-434f-a7cc-c2ad1eaec049/65129504-3bfc-44c8-90cc-f9eedfea9321/details?d=https://sapirs0.wixsite.com/mysite/event-details/2-week-course-of-intensive-physical-research-with-a-sense-of-plenty-of-time-for-process-and-discovery-rooted-in-ohad-n",
+          "scheduling": "13 de octubre de 2020 19:00–27 de octubre de 2020 23:00 "
+        },
+        "type": "event"
+      },
+      "mutability": "IMMUTABLE",
+      "type": "wix-draft-plugin-vertical-embed"
+    }
+  }
 };
 
 exports[`plugins > spoiler > check spoilers in editor #0`] =
@@ -5206,6 +5385,7 @@ exports[`plugins > spoiler > check text spoilers in editor and reveal it in view
     "0": {
       "data": {
         "rel": "",
+        "target": "_blank",
         "url": "https://www.wix.com/"
       },
       "mutability": "MUTABLE",
@@ -5332,7 +5512,8 @@ exports[`plugins > spoiler > check spoilers on an image in editor and reveal it 
             "buttonContent": "Reveal Image - In Plugin Editin",
             "description": "This image contains a spoiler - In Plugin Editing",
             "enabled": true
-          }
+          },
+          "textWrap": "wrap"
         },
         "disableDownload": false,
         "disableExpand": false,
@@ -5353,7 +5534,8 @@ exports[`plugins > spoiler > check spoilers on an image in editor and reveal it 
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_83e03311e53a47ce9ba8bda910fdad88.jpg",
@@ -5460,7 +5642,8 @@ exports[`plugins > spoiler > check spoilers on a gallery in editor and reveal it
             "buttonContent": "Reveal Gallery - In Plugin Editin",
             "description": "This gallery contains a spoiler - In Plugin Editing",
             "enabled": true
-          }
+          },
+          "textWrap": "wrap"
         },
         "disableDownload": false,
         "disableExpand": false,
@@ -5483,14 +5666,8 @@ exports[`plugins > spoiler > check spoilers on a gallery in editor and reveal it
           }
         ],
         "styles": {
-          "allowContextMenu": true,
-          "allowHover": true,
-          "arrowsSize": 23,
           "cubeType": "fill",
-          "floatingImages": 0,
-          "galleryLayout": 9,
-          "showArrows": true,
-          "slideshowInfoSize": 0
+          "galleryLayout": 9
         }
       },
       "mutability": "IMMUTABLE",
@@ -5502,7 +5679,8 @@ exports[`plugins > spoiler > check spoilers on a gallery in editor and reveal it
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_4a6550d4df364f9890180f52243fb396.jpg",
@@ -5697,7 +5875,8 @@ exports[`plugins > anchor > anchor desktop > should create anchor in text #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_281af3d3281f4584a5a864c6c60f3a00.jpg",
@@ -5714,7 +5893,8 @@ exports[`plugins > anchor > anchor desktop > should create anchor in text #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "isCustomVideo": true,
         "src": {
@@ -5819,7 +5999,8 @@ exports[`plugins > anchor > anchor desktop > should create anchor in image #0`] 
           "anchor": "test-blockKey",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_281af3d3281f4584a5a864c6c60f3a00.jpg",
@@ -5836,7 +6017,8 @@ exports[`plugins > anchor > anchor desktop > should create anchor in image #0`] 
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "isCustomVideo": true,
         "src": {
@@ -5959,7 +6141,8 @@ exports[`plugins > anchor > anchor mobile > should create anchor in text #0`] =
           "alignment": "center",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_281af3d3281f4584a5a864c6c60f3a00.jpg",
@@ -5976,7 +6159,8 @@ exports[`plugins > anchor > anchor mobile > should create anchor in text #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "isCustomVideo": true,
         "src": {
@@ -6081,7 +6265,8 @@ exports[`plugins > anchor > anchor mobile > should create anchor in image #0`] =
           "anchor": "test-blockKey",
           "showDescription": true,
           "showTitle": true,
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "src": {
           "file_name": "8bb438_281af3d3281f4584a5a864c6c60f3a00.jpg",
@@ -6098,7 +6283,8 @@ exports[`plugins > anchor > anchor mobile > should create anchor in image #0`] =
       "data": {
         "config": {
           "alignment": "center",
-          "size": "content"
+          "size": "content",
+          "textWrap": "wrap"
         },
         "isCustomVideo": true,
         "src": {
@@ -6159,6 +6345,7 @@ exports[`plugins > html > render html plugin with url #0`] =
         "config": {
           "alignment": "center",
           "height": 550,
+          "textWrap": "wrap",
           "width": 350
         },
         "src": "https://cdn.bitdegree.org/learn/test-iframe.htm",
@@ -6203,7 +6390,8 @@ exports[`plugins > collapsible list > should change collapsible list settings #0
       "data": {
         "config": {
           "direction": "rtl",
-          "expandState": "expanded"
+          "expandState": "expanded",
+          "textWrap": "nowrap"
         },
         "pairs": [
           {
@@ -6700,7 +6888,8 @@ exports[`plugins > collapsible list > should focus & type #0`] =
         "config": {
           "direction": "ltr",
           "expandOnlyOne": false,
-          "expandState": "first_expanded"
+          "expandState": "first_expanded",
+          "textWrap": "nowrap"
         },
         "pairs": [
           {
@@ -6816,7 +7005,8 @@ exports[`plugins > collapsible list > should collapse first pair #0`] =
         "config": {
           "direction": "ltr",
           "expandOnlyOne": false,
-          "expandState": "first_expanded"
+          "expandState": "first_expanded",
+          "textWrap": "nowrap"
         },
         "pairs": [
           {
@@ -6932,7 +7122,8 @@ exports[`plugins > collapsible list > should have only one expanded pair #0`] =
         "config": {
           "direction": "ltr",
           "expandOnlyOne": true,
-          "expandState": "first_expanded"
+          "expandState": "first_expanded",
+          "textWrap": "nowrap"
         },
         "pairs": [
           {
@@ -7048,7 +7239,8 @@ exports[`plugins > collapsible list > should delete second pair #0`] =
         "config": {
           "direction": "ltr",
           "expandOnlyOne": false,
-          "expandState": "first_expanded"
+          "expandState": "first_expanded",
+          "textWrap": "nowrap"
         },
         "pairs": [
           {
@@ -7149,7 +7341,8 @@ exports[`plugins > collapsible list > should insert image in collapsible list #0
         "config": {
           "direction": "ltr",
           "expandOnlyOne": false,
-          "expandState": "first_expanded"
+          "expandState": "first_expanded",
+          "textWrap": "nowrap"
         },
         "pairs": [
           {
@@ -7196,7 +7389,8 @@ exports[`plugins > collapsible list > should insert image in collapsible list #0
                       "alignment": "center",
                       "showDescription": true,
                       "showTitle": true,
-                      "size": "content"
+                      "size": "content",
+                      "textWrap": "wrap"
                     },
                     "src": {
                       "file_name": "8bb438_1b73a6b067b24175bd087e86613bd00c.jpg",

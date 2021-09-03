@@ -71,12 +71,14 @@ const externalToolbarStyles: ModalStyles = {
 };
 
 export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) => {
+  const { enableVoteRole } = settings || {};
+  const config = { ...DEFAULT_COMPONENT_DATA.config, enableVoteRole };
   const buttonProps = {
     type: BUTTON_TYPES.MODAL,
     name: INSERT_PLUGIN_BUTTONS.POLLS,
     tooltip: t('Poll_InsertPoll_Tooltip'),
     getIcon: () => InsertPluginIcon,
-    componentData: { ...DEFAULT_COMPONENT_DATA, ...{ ...settings, getSiteMembers: undefined } }, //Temporary fix until refactor of settings & componentData usage
+    componentData: { ...DEFAULT_COMPONENT_DATA, config },
     modalElement: decorateComponentWithProps(PollPresetSelector),
   };
 

@@ -28,38 +28,31 @@ export const MOBILE_FULL_SCREEN_CUSTOM_STYLE: ModalStyles = Object.freeze({
   },
 });
 
+const commonDesktopModalStyles: React.CSSProperties = {
+  width: '320px',
+  boxSizing: 'border-box',
+  height: '364px',
+  overflow: 'visible',
+  paddingRight: '12px',
+  paddingLeft: '12px',
+  display: 'block',
+  position: 'absolute',
+  zIndex: 6,
+  paddingTop: '12px',
+};
+
 export const DESKTOP_FLY_OUT_MODAL_STYLES: ModalStyles = Object.freeze({
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, 0)',
     zIndex: 5,
   },
   content: {
-    width: '320px',
-    boxSizing: 'border-box',
-    height: '364px',
-    overflow: 'visible',
+    ...commonDesktopModalStyles,
     border: 'solid 1px rgba(51, 51, 51, 0.1)',
     boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.06)',
-    paddingRight: '12px',
-    paddingLeft: '12px',
-    display: 'block',
-    position: 'absolute',
-    zIndex: 6,
-    paddingTop: '12px',
   },
 });
 
 export const EXTERNAL_POPUP_STYLES: ModalStyles = Object.freeze({
-  content: {
-    width: '320px',
-    boxSizing: 'border-box',
-    height: '364px',
-    overflow: 'visible',
-    paddingRight: '12px',
-    paddingLeft: '12px',
-    display: 'block',
-    position: 'absolute',
-    zIndex: 6,
-    paddingTop: '12px',
-  },
+  content: commonDesktopModalStyles,
 });

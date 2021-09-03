@@ -8,7 +8,6 @@ class SideToolbarDecoration extends Component<{
 
   render() {
     const { style, className, children, ...props } = this.props;
-    console.log('SideToolbarDecoration rendered');
     return (
       <div style={style} className={className} {...props}>
         {children}

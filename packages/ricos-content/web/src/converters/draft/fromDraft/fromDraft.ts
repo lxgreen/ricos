@@ -7,6 +7,7 @@ import { generateId } from '../../generateRandomId';
 import { getTextNodes } from './getTextNodes';
 import { getEntity, getNodeStyle, getTextStyle } from './getRicosEntityData';
 import { createParagraphNode, initializeMetadata } from '../../nodeUtils';
+import { nestedNodesConverters } from './nestedNodesUtils';
 
 export const ensureRicosContent = (content: RichContent | DraftContent): RichContent =>
   'blocks' in content ? fromDraft(content) : content;
@@ -63,9 +64,10 @@ export const fromDraft = (draftJSON: DraftContent): RichContent => {
     if (entityRanges && entityRanges.length) {
       const entity = getEntity(entityRanges[0].key, entityMap);
       if (entity) {
+        const nodes = nestedNodesConverters[entity.type]?.(entity) || [];
         return {
           id: key,
-          nodes: [],
+          nodes,
           style: getNodeStyle(data),
           ...entity,
         };

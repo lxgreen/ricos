@@ -37,6 +37,7 @@ export default {
         config: {
           size: 'content',
           alignment: 'center',
+          textWrap: 'wrap',
         },
       },
     },

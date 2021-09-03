@@ -1,5 +1,7 @@
+/* eslint-disable jsx-a11y/accessible-emoji */
 import React, { PureComponent, ErrorInfo } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export default class ErrorBoundary extends PureComponent<{}, { error?: Error; info?: ErrorInfo }> {
   constructor(props) {
     super(props);

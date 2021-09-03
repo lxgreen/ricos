@@ -98,6 +98,7 @@ export class RicosEngine extends Component<EngineProps> {
       onAtomicBlockFocus,
       experiments,
       iframeSandboxDomain,
+      textWrap = true,
     } = this.props;
 
     const { strategyProps, previewContent, htmls } = this.runStrategies();
@@ -114,7 +115,7 @@ export class RicosEngine extends Component<EngineProps> {
       onModalClose,
     } = modalSettings;
     const { pauseMedia, disableRightClick, fullscreenProps } = mediaSettings;
-    const { anchorTarget, customAnchorScroll } = linkSettings;
+    const { anchorTarget = '_blank', customAnchorScroll } = linkSettings;
     let { relValue, rel } = linkSettings;
     const {
       blankTargetToggleVisibilityFn,
@@ -178,6 +179,7 @@ export class RicosEngine extends Component<EngineProps> {
       onAtomicBlockFocus,
       experiments,
       iframeSandboxDomain,
+      textWrap,
     };
 
     const mergedRCProps = merge(strategyProps, _rcProps, ricosPropsToMerge, children.props);

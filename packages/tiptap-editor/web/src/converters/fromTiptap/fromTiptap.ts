@@ -52,7 +52,7 @@ const convertDataField = object => {
 const movefromAttrs = (object: JSONContent) => {
   const { attrs, ...newValue } = object;
   const { style, id, ...rest } = attrs || {};
-  const newAttrs = Object.keys(rest).length > 0 ? rest : undefined;
+  const newAttrs = Object.keys(rest).length > 0 ? rest : {};
   return pickBy({ ...newValue, attrs: newAttrs, style, id }, x => x !== undefined);
 };
 

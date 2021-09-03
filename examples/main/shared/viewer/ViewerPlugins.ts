@@ -97,6 +97,7 @@ import 'wix-rich-content-plugin-map/dist/styles.min.css';
 import 'wix-rich-content-plugin-file-upload/dist/styles.min.css';
 import 'wix-rich-content-plugin-giphy/dist/styles.min.css';
 import 'wix-rich-content-text-selection-toolbar/dist/styles.min.css';
+import 'wix-rich-content-link-preview-popover/dist/styles.min.css';
 import 'wix-rich-content-plugin-social-polls/dist/styles.min.css';
 import 'wix-rich-content-plugin-collapsible-list/dist/styles.min.css';
 import 'wix-rich-content-plugin-table/dist/styles.min.css';
@@ -113,10 +114,12 @@ import {
 } from 'wix-rich-content-common';
 
 const linkPluginSettings = {
+  // eslint-disable-next-line no-console
   onClick: (event, url) => console.log('link clicked!', url),
   siteUrl: 'http://localhost:3000/', //siteUrl is for anchor SEO
 };
 const mentionsPluginSettings = {
+  // eslint-disable-next-line no-console
   onMentionClick: mention => console.log('mention clicked!', mention),
   getMentionLink: () => '/link/to/mention',
 };
@@ -191,12 +194,14 @@ const config: RichContentViewerProps['config'] = {
   uiSettings,
   [ACTION_BUTTON_TYPE]: {
     onClick: () => {
+      // eslint-disable-next-line no-alert
       window.alert('onClick event..');
     },
   },
   [HASHTAG_TYPE]: {
     onClick: (event, text) => {
       event.preventDefault();
+      // eslint-disable-next-line no-console
       console.log(`'${text}' hashtag clicked!`);
     },
     createHref: decoratedText => `/search/posts?query=${encodeURIComponent('#')}${decoratedText}`,
@@ -230,7 +235,7 @@ export const viewerPlugins: ViewerPlugin[] = [
 ];
 
 export const getConfig = (additionalConfig = {}): RichContentViewerProps['config'] => {
-  let _config = { ...config };
+  const _config = { ...config };
   Object.keys(additionalConfig).forEach(key => {
     if (additionalConfig[key]) {
       const orgConfig = config[key] || {};

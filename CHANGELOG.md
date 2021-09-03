@@ -17,25 +17,240 @@
     Click to see more.
   </summary>
 
-### :bug: Bug Fix
+### :house: Internal
 
-- `plugin-common`
-  - [#2842](https://github.com/wix/ricos/pull/2842) fix link toolbar shortcut
+- `ui-components`
+  - [#2908](https://github.com/wix/ricos/pull/2908) refactor button component - removed classname prop
+  
+  ### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2913](https://github.com/wix/ricos/pull/2913) improve buttons filters (separators, installed plugins, headings/title
 
 </details>
 <hr/>
+
+## 8.52.3 (Sep 2, 2021)
+
+### :bug: Bug Fix
+
+- `social-polls`
+  - [#2912](https://github.com/wix/ricos/pull/2912) `enableVoteRole` config
+
+## 8.52.2 (Sep 1, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2910](https://github.com/wix/ricos/pull/2910) filter separators from buttons list
+- `toolbars-new`
+  - [#2906](https://github.com/wix/ricos/pull/2906) link input - cleanup preventDefault
+- `editor-common/toolbars-new`
+  - [#2902](https://github.com/wix/ricos/pull/2902) fix link-modal input behavior on focus
+- `divider`
+  - [#2903](https://github.com/wix/ricos/pull/2903) move `divider-component` to fix Loadable support
+
+### :house: Internal
+
+- `general`
+  - [#2911](https://github.com/wix/ricos/pull/2911) fix rollup-externals (tiptap-react excluded)
+
+## 8.52.1 (Sep 1, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-editor`
+  - [#2898](https://github.com/wix/ricos/pull/2898) update new toolbars on editor changed
+
+## 8.52.0 (Sep 1, 2021)
+
+### :rocket: New Feature
+
+- `ricos-common`
+  - [#2890](https://github.com/wix/ricos/pull/2890) Theme - `settingsStyles`
+
+### :house: Internal
+
+- `ricos-content`
+  - [#2901](https://github.com/wix/ricos/pull/2901) refactor of html convertor
+
+## 8.51.2 (Aug 31, 2021)
+
+### :house: Internal
+
+- `social-polls`
+  - [#2900](https://github.com/wix/ricos/pull/2900) remove settings from data (siteToken)
+
+## 8.51.1 (Aug 30, 2021)
+
+### :house: Internal
+
+- `ricos-schema`
+  - [#2705](https://github.com/wix/ricos/pull/2705) table schema
+
+## 8.51.0 (Aug 30, 2021)
+
+### :rocket: New Feature
+
+- `toolbars`
+  - [#2328](https://github.com/wix/ricos/pull/2328) new formatting toolbar & link toolbar (under experiment)
+
+## 8.50.2 (Aug 29, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#9542a83](https://github.com/wix/ricos/commit/9542a831953185d665b98b13f02b1315cef948b3) fix textWrap normalize when plugin's config is undefined
+
+## 8.50.1 (Aug 26, 2021)
+
+### :bug: Bug Fix
+
+- `*`
+  - [#2891](https://github.com/wix/ricos/pull/2891) fix textWrap in content
+
+## 8.50.0 (Aug 26, 2021)
+
+### :rocket: New Feature
+
+- `link-preview-popover`
+  - [#2881](https://github.com/wix/ricos/pull/2881) Link Preview Popover
+
+## 8.49.8 (Aug 25, 2021)
+
+### :bug: Bug Fix
+
+- `collapsible-list`
+  - [#2889](https://github.com/wix/ricos/pull/2889) fix editor stuck (read-only mode) when deleting collapsible
+
+### :house: Internal
+
+- `ricos-schema`
+  - [#2680](https://github.com/wix/ricos/pull/2680) collapsible list schema
+
+## 8.49.7 (Aug 25, 2021)
+
+### :nail_care: Polish
+
+- `ricos-content`
+  - [#2876](https://github.com/wix/ricos/pull/2876) html convertor now preserves text formatting (highlight & color)
+- `ui-components`
+  - [#2865](https://github.com/wix/ricos/pull/2865) refactor ActionButtons and SettingsMobileHeader components
+
+### :house: Internal
+
+- `scripts`
+  - [#2885](https://github.com/wix/ricos/pull/2885) `updateBaselines` updates translatablesMock.json according to changes
+
+## 8.49.6 (Aug 23, 2021)
+
+### :rocket: New Feature
+
+- `ricos-content`
+  - [#2844](https://github.com/wix/ricos/pull/2844) Translatables API
+
+### :bug: Bug Fix
+
+- `general`
+
+  - [#2859](https://github.com/wix/ricos/pull/2859) wire button/link-preview/file-upload font family
+  - [#2877](https://github.com/wix/ricos/pull/2877) fix webpackChunkName syntax
+
+- `gif`
+  - [#1102d70](https://github.com/wix/ricos/commit/1102d70e51d5ada621b7cbccfc7bcb1159c2d459) toolbar crush when downsized_small is null
+
+## 8.49.5 (Aug 19, 2021)
+
+### :bug: Bug Fix
+
+- `table`
+  - [#2874](https://github.com/wix/ricos/pull/2874) override sideToolbar onClick config when use it from table
+
+## 8.49.4 (Aug 18, 2021)
+
+### :bug: Bug Fix
+
+- `table`
+  - [#2871](https://github.com/wix/ricos/pull/2871) fix: wiring table theme on biz manager
+- `table`
+  - [#2869](https://github.com/wix/ricos/pull/2869) fix: add overlay to table external modal
+
+## 8.49.3 (Aug 18, 2021)
+
+### :rocket: New Feature
+
+- `*`
+  - [#2850](https://github.com/wix/ricos/pull/2850) textWrap
+
+### :house: Internal
+
+- `ricos-schema`
+  - [#2864](https://github.com/wix/ricos/pull/2864) generate plugin defaults in build time
+- `ui-components`
+  - [#2839](https://github.com/wix/ricos/pull/2839) refactor SettingsMobileHeader component and consume it in Button/CollapsibleList/Map/Link-modal/UrlInputModal
+- `e2e`
+  - [#2860](https://github.com/wix/ricos/pull/2860) add TypeScript support for Cypress
+  - [#2863](https://github.com/wix/ricos/pull/2863) update Cypress to v8
+- `example`
+  - [#2862](https://github.com/wix/ricos/pull/2862) add eslint support
+- `social-polls`
+  - [#2024](https://github.com/wix/ricos/pull/2024) add Poll story & rendering tests
+  - [#2870](https://github.com/wix/ricos/pull/2870) loadable support
+
+### :nail_care: Polish
+
+- `link`
+  - [#2828](https://github.com/wix/ricos/pull/2828) fix link data values
+- `plugin-button`
+  - [#2856](https://github.com/wix/ricos/pull/2856) refactor SettingsPanelFooter usage and deleted some css
+- `Tooltip`
+  - [#2839](https://github.com/wix/ricos/pull/2839) refactor tooltip style
+
+### :bug: Bug Fix
+
+- `link`
+  - [#2855](https://github.com/wix/ricos/pull/2855) fix: shift+enter break link string
+
+### :book: Documentation
+
+- `extractAppEmbedData` API docs added
+
+## 8.49.2 (Aug 14, 2021)
+
+### :bug: Bug Fix
+
+- `vertical-embed`
+  - [#2852](https://github.com/wix/ricos/pull/2852) fix booking description
+
+## 8.49.1 (Aug 13, 2021)
+
+### :nail_care: Polish
+
+- `ricos-schema`
+  - [#2507](https://github.com/wix/ricos/pull/2507) gallery schema
+
+## 8.49.0 (Aug 12, 2021)
+
+### :bug: Bug Fix
+
+- `plugin-common`
+
+  - [#2842](https://github.com/wix/ricos/pull/2842) fix link toolbar shortcut
+
+### :house: Internal
+
+- `gallery`
+  - [#2754](https://github.com/wix/ricos/pull/2754) remove `itemId` from content
+  - [#2799](https://github.com/wix/ricos/pull/2799) calculate thumbnail spacings on runtime normalize content before `8.49.0`
 
 ## 8.48.4 (Aug 10, 2021)
 
 ### :bug: Bug Fix
 
 - `collapsible-list`
-
   - [#2831](https://github.com/wix/ricos/pull/2831) add collapsible_list to INSERT_PLUGIN_BUTTONS
-
 - `ricos-viewer` `ricos-editor`
   - [#2840](https://github.com/wix/ricos/pull/2840) expose `iframeSandboxDomain` prop on editor & viewer fix
-  -
 
 ## 8.48.3 (Aug 09, 2021)
 

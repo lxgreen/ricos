@@ -4,12 +4,8 @@ import { RichContent, Node, Node_Type } from 'ricos-schema';
 import { DraftContent, RicosContentBlock } from '../../../types';
 import { Version } from '../../../version';
 import { generateId } from '../../generateRandomId';
-import {
-  BlockType,
-  HeaderLevel,
-  RICOS_NODE_TYPE_TO_DATA_FIELD,
-  TO_DRAFT_LIST_TYPE,
-} from '../consts';
+import { BlockType, HeaderLevel, TO_DRAFT_LIST_TYPE } from '../consts';
+import { RICOS_NODE_TYPE_TO_DATA_FIELD } from '../../../consts';
 import { DraftBlockType } from 'draft-js';
 import { merge } from 'lodash';
 import { createTextBlockData, createAtomicEntityData } from './getDraftEntityData';
@@ -23,7 +19,8 @@ import {
 import preprocess from './preprocess';
 
 const convert = (ricosContent: RichContent): DraftContent => {
-  const { nodes } = RichContent.toJSON(RichContent.fromJSON(ricosContent)) as RichContent; // using toJSON to remove undefined fields
+  const { nodes } = ricosContent;
+
   const draftContent: DraftContent = {
     blocks: [],
     entityMap: {},

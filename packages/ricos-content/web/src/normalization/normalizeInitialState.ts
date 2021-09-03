@@ -8,6 +8,7 @@ import {
   VIDEO_TYPE_LEGACY,
   IMAGE_TYPE_LEGACY,
   VERTICAL_EMBED_TYPE,
+  WRAP,
 } from '../consts';
 import {
   linkDataNormalizer,
@@ -128,6 +129,9 @@ const normalizeEntityMap = (
         type: normalizeType(entity.type, entityTypeMap.dataNormalization),
         data: normalizeComponentData(entity.type, entity.data, config, stateVersion),
       };
+    }
+    if (newEntity?.data?.config && !newEntity?.data?.config?.textWrap) {
+      newEntity.data.config.textWrap = WRAP;
     }
     convertAnchorToLinkToUndoOneAppFix(newEntity);
     return newEntity;
