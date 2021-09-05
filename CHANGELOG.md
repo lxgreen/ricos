@@ -17,10 +17,14 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2915](https://github.com/wix/ricos/pull/2915) fix modals border-radius, buttons font-family wiring and custom-line-spacing inputs width
 
 
 </details>
-<hr/>
+<hr/> 
 
 ## 8.52.4 (Sep 5, 2021)
 
