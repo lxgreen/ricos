@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.52.4 (Sep 5, 2021)
+
 ### :house: Internal
 
 - `ui-components`
@@ -26,9 +33,6 @@
 
 - `toolbars-new`
   - [#2913](https://github.com/wix/ricos/pull/2913) improve buttons filters (separators, installed plugins, headings/title
-
-</details>
-<hr/>
 
 ## 8.52.3 (Sep 2, 2021)
 
