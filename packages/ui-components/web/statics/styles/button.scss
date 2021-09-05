@@ -1,10 +1,12 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
 
 %button {
   font-size: 16px;
   cursor: pointer;
   border: 1px solid $settings-action-color-fallback;
   width: 100%;
+  font-family: $ricos-font-family;
   &.borderLess {
     border: none;
   }
