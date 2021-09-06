@@ -19,7 +19,8 @@ import { terser } from 'rollup-plugin-terser';
 import visualizerPlugin from 'rollup-plugin-visualizer';
 import { Plugin } from 'rollup';
 import libsPackageJsonGeneratorPlugin from './scripts/rollupPlugin-libsPackageJsonGenerator';
-import { writeFileSync } from 'fs';
+import { writeFileSync, readFileSync } from 'fs';
+import stylable from '@stylable/rollup-plugin';
 import { createFilter } from '@rollup/pluginutils';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 
@@ -143,6 +144,7 @@ const postcss = (shouldExtract: boolean): Plugin => {
       /*  @ts-ignore: cssnanoOptions typing is wrong */
       normalizeWhitespace: false,
     },
+    exclude: /\.st\.css$/i,
     modules: {
       generateScopedName: IS_DEV_ENV ? '[name]__[local]___[hash:base64:5]' : '[hash:base64:5]',
       hashPrefix: process.env.MODULE_NAME,
@@ -193,8 +195,25 @@ const createFakeStylesFile = (): Plugin => ({
   },
 });
 
+const mergeStyleable = (): Plugin => ({
+  name: 'merge-styleable',
+  writeBundle() {
+    try {
+      const stylable = readFileSync('dist/stylable.css', 'utf8');
+      const css = readFileSync('dist/styles.min.css', 'utf8');
+      writeFileSync('dist/styles.min.css', stylable + css);
+    } catch (e) {
+      if (e.code !== 'ENOENT') {
+        throw e;
+      }
+    }
+  },
+});
 let _plugins: Plugin[] = [
-  svgr(),
+  stylable(),
+  svgr({
+    include: /\.svg$/i,
+  }),
   resolveAlias(),
   resolve(),
   typescript(),
@@ -211,12 +230,14 @@ if (process.env.MODULE_ANALYZE_EDITOR || process.env.MODULE_ANALYZE_VIEWER) {
   _plugins = [..._plugins, visualizer()];
 }
 
-if (process.env.EXTRACT_CSS === 'false') {
-  _plugins = [..._plugins, createFakeStylesFile()];
-}
-
 const plugins = (shouldExtractCss: boolean) => {
+  if (!shouldExtractCss) {
+    _plugins = [..._plugins, createFakeStylesFile()];
+  }
   _plugins.push(postcss(shouldExtractCss));
+  if (shouldExtractCss) {
+    _plugins.push(mergeStyleable());
+  }
   return _plugins;
 };
 const lastEntryPlugins = [libsPackageJsonGeneratorPlugin(), copy(), copyAfterBundleWritten()];
