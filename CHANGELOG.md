@@ -22,6 +22,13 @@
 </details>
 <hr/>
 
+## 8.52.5 (Sep 7, 2021)
+
+### :bug: Bug Fix
+
+- `giphy`
+  - [#b93796e](https://github.com/wix/ricos/commit/b93796e3336b848ee830ba3285bf4453817bb393) handle crush when downsized & downsized_still are null
+
 ## 8.52.4 (Sep 5, 2021)
 
 ### :house: Internal
