@@ -4,7 +4,7 @@ import { PluginTypeMapper } from 'wix-rich-content-common';
 import loadable from '@loadable/component';
 
 const imageRenderDescriptor = {
-  component: loadable(() => import('./image-viewer')),
+  component: loadable(() => import('./image-viewer-ui-tpa')),
   classNameStrategies: {
     size: sizeClassName,
     alignment: alignmentClassName,
