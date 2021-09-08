@@ -1,2 +1,1 @@
-const DUMMY_EXPORT = 1;
-export { DUMMY_EXPORT };
+export { default as ImageViewer } from './image-viewer-ui-tpa';
