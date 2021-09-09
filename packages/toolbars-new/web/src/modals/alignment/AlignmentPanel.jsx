@@ -7,10 +7,10 @@ import { AlignTextCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon } 
 import classNames from 'classnames';
 
 const alignments = [
-  { tooltip: 'Align left', commandKey: 'left', icon: <AlignLeftIcon /> },
-  { tooltip: 'Align center', commandKey: 'center', icon: <AlignTextCenterIcon /> },
-  { tooltip: 'Align right', commandKey: 'right', icon: <AlignRightIcon /> },
-  { tooltip: 'Justify', commandKey: 'justify', icon: <AlignJustifyIcon /> },
+  { tooltip: 'AlignObject_Left_Tooltip', commandKey: 'left', icon: <AlignLeftIcon /> },
+  { tooltip: 'AlignObject_Center_Tooltip', commandKey: 'center', icon: <AlignTextCenterIcon /> },
+  { tooltip: 'AlignObject_Right_Tooltip', commandKey: 'right', icon: <AlignRightIcon /> },
+  { tooltip: 'AlignTextJustifyButton_Tooltip', commandKey: 'justify', icon: <AlignJustifyIcon /> },
 ];
 
 const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, onCancel, ...props }) => {
@@ -39,7 +39,7 @@ const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, onCancel, .
       }}
     />
   ) : (
-    <DesktopPanel {...{ currentSelect, options: alignments, onChange, theme, hasIcons }} />
+    <DesktopPanel {...{ currentSelect, options: alignments, onChange, theme, hasIcons, t }} />
   );
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions

@@ -15,12 +15,13 @@ const DesktopPanel = ({
   panelHeader,
   theme,
   hasIcons,
+  t,
 }) => {
   const styles = mergeStyles({ styles: Styles, theme });
   const optionElement = (option, isSelected, onClick) => {
     const content = hasIcons ? option.icon : option.text;
     return (
-      <Tooltip content={option.tooltip}>
+      <Tooltip content={t?.(option.tooltip)}>
         <div
           className={classNames(styles.panel_row, {
             [styles.panel_selectedRow]: isSelected,
