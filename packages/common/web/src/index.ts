@@ -51,4 +51,5 @@ export {
   INLINE_STYLE_TYPES,
   defaultStyleFnMapper,
   dynamicStyleParsers,
+  getDynamicInlineStyleMapper,
 } from './Utils/viewerUtils';
