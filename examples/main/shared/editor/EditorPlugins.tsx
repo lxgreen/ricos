@@ -524,7 +524,7 @@ const config: RichContentEditorProps['config'] = {
     width: 350,
     minHeight: 50,
     maxHeight: 1200,
-    // exposeButtons: [html, adsense],
+    exposeButtons: ['html', 'adsense'],
     siteDomain: 'https://www.wix.com',
     // toolbar: {
     //   icons: {
