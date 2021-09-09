@@ -7,10 +7,10 @@ import { AlignTextCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon } 
 import classNames from 'classnames';
 
 const alignments = [
-  { text: 'Align left', commandKey: 'left', icon: <AlignLeftIcon /> },
-  { text: 'Align center', commandKey: 'center', icon: <AlignTextCenterIcon /> },
-  { text: 'Align right', commandKey: 'right', icon: <AlignRightIcon /> },
-  { text: 'Justify', commandKey: 'justify', icon: <AlignJustifyIcon /> },
+  { tooltip: 'Align left', commandKey: 'left', icon: <AlignLeftIcon /> },
+  { tooltip: 'Align center', commandKey: 'center', icon: <AlignTextCenterIcon /> },
+  { tooltip: 'Align right', commandKey: 'right', icon: <AlignRightIcon /> },
+  { tooltip: 'Justify', commandKey: 'justify', icon: <AlignJustifyIcon /> },
 ];
 
 const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, onCancel, ...props }) => {
