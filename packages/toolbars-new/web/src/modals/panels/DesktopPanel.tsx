@@ -4,6 +4,7 @@
 import React from 'react';
 import Styles from './styles.scss';
 import { mergeStyles } from 'wix-rich-content-common';
+import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 import classNames from 'classnames';
 
 const DesktopPanel = ({
@@ -14,19 +15,23 @@ const DesktopPanel = ({
   panelHeader,
   theme,
   hasIcons,
+  t,
 }) => {
   const styles = mergeStyles({ styles: Styles, theme });
   const optionElement = (option, isSelected, onClick) => {
+    const content = hasIcons ? option.icon : option.text;
     return (
-      <div
-        className={classNames(styles.panel_row, {
-          [styles.panel_selectedRow]: isSelected,
-        })}
-        key={option.commandKey}
-        onClick={() => onClick(option.commandKey)}
-      >
-        {hasIcons ? option.icon : option.text}
-      </div>
+      <Tooltip content={t?.(option.tooltip)}>
+        <div
+          className={classNames(styles.panel_row, {
+            [styles.panel_selectedRow]: isSelected,
+          })}
+          key={option.commandKey}
+          onClick={() => onClick(option.commandKey)}
+        >
+          {content}
+        </div>
+      </Tooltip>
     );
   };
   return (

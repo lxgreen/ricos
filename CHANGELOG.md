@@ -24,6 +24,8 @@
 
 ### :bug: Bug Fix
 
+- `toolbars-new`
+  - [#2915](https://github.com/wix/ricos/pull/2915) fix modals border-radius, buttons font-family wiring, custom-line-spacing inputs width and added alignments-tooltip
 - `*`
   - [#2919](https://github.com/wix/ricos/pull/2919) missing plugin buttons in toolbar
 
