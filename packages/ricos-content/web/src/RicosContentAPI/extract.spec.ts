@@ -63,7 +63,17 @@ describe('Content extract API', () => {
         'TABLE_ROW',
         'TABLE_CELL',
       ],
-      decorations: ['BOLD', 'UNDERLINE', 'ITALIC', 'LINK', 'SPOILER', 'MENTION', 'COLOR', 'ANCHOR'],
+      decorations: [
+        'BOLD',
+        'FONTSIZE',
+        'UNDERLINE',
+        'ITALIC',
+        'LINK',
+        'SPOILER',
+        'MENTION',
+        'COLOR',
+        'ANCHOR',
+      ],
     };
     expect(actual).toStrictEqual(expected);
   });

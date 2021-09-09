@@ -1,9 +1,6 @@
 import { pick } from 'lodash';
 import {
   EditorState,
-  getColor,
-  setTextColor,
-  setHighlightColor,
   SelectionState,
   RichUtils,
   setTextAlignment,
@@ -28,6 +25,11 @@ import {
   mergeBlockData,
   getAnchorBlockData,
   getAnchorableBlocks,
+  setFontSize,
+  getFontSize,
+  getColor,
+  setHighlightColor,
+  setTextColor,
 } from 'wix-rich-content-editor-common';
 import {
   EditorCommands,
@@ -93,6 +95,7 @@ import {
   RICOS_LINK_TYPE,
   RICOS_MENTION_TYPE,
   RICOS_CODE_BLOCK_TYPE,
+  RICOS_FONT_SIZE_TYPE,
   UNSUPPORTED_BLOCKS_TYPE,
 } from 'wix-rich-content-common';
 
@@ -167,6 +170,7 @@ const insertDecorationsMap = {
   [RICOS_MENTION_TYPE]: insertMention,
   [RICOS_TEXT_COLOR_TYPE]: setTextColor,
   [RICOS_TEXT_HIGHLIGHT_TYPE]: setHighlightColor,
+  [RICOS_FONT_SIZE_TYPE]: setFontSize,
   [RICOS_INDENT_TYPE]: indentSelectedBlocks,
   [RICOS_LINE_SPACING_TYPE]: mergeBlockData,
 };
@@ -175,6 +179,7 @@ const deleteDecorationsMapFuncs = {
   [RICOS_LINK_TYPE]: removeLinksInSelection,
   [RICOS_TEXT_COLOR_TYPE]: setTextColor,
   [RICOS_TEXT_HIGHLIGHT_TYPE]: setHighlightColor,
+  [RICOS_FONT_SIZE_TYPE]: setFontSize,
 };
 
 let savedEditorState;
@@ -202,6 +207,7 @@ export const createEditorCommands = (
     getSelection: EditorCommands['getSelection'];
     getAnchorableBlocks: EditorCommands['getAnchorableBlocks'];
     getColor: EditorCommands['getColor'];
+    getFontSize: EditorCommands['getFontSize'];
     getTextAlignment: EditorCommands['getTextAlignment'];
     hasInlineStyle: EditorCommands['hasInlineStyle'];
     isBlockTypeSelected: EditorCommands['isBlockTypeSelected'];
@@ -223,6 +229,7 @@ export const createEditorCommands = (
     },
     getAnchorableBlocks: () => getAnchorableBlocks(getEditorState()),
     getColor: colorType => getColor(getEditorState(), colorType),
+    getFontSize: () => getFontSize(getEditorState()),
     getTextAlignment: () => getTextAlignment(getEditorState()),
     hasInlineStyle: style => hasInlineStyle(style, getEditorState()),
     isBlockTypeSelected: type => getBlockType(getEditorState()) === type,
@@ -308,7 +315,7 @@ export const createEditorCommands = (
     triggerDecoration: EditorCommands['triggerDecoration'];
     deleteDecoration: EditorCommands['deleteDecoration'];
   } = {
-    insertDecoration: (type, data, settings) => {
+    insertDecoration: (type: string, data, settings) => {
       const draftType = TO_DRAFT_PLUGIN_TYPE_MAP[type];
       const { [draftType]: createPluginData } = createPluginsDataMap;
       const pluginData = createPluginData ? createPluginData(data, settings?.isRicosSchema) : data;
@@ -317,7 +324,7 @@ export const createEditorCommands = (
         setEditorState(newEditorState);
       }
     },
-    triggerDecoration: type => {
+    triggerDecoration: (type: string) => {
       const newEditorState = triggerDecorationsMap[type]?.(getEditorState());
       if (newEditorState) {
         setEditorState(newEditorState);

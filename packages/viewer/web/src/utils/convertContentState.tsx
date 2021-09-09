@@ -20,7 +20,7 @@ import List from '../List';
 import { isPaywallSeo, getPaywallSeoClass } from './paywallSeo';
 import getPluginViewers from '../getPluginViewers';
 import { kebabToCamelObjectKeys, hasText } from './textUtils';
-import { staticInlineStyleMapper } from '../staticInlineStyleMapper';
+import { getViewerInlineStyleMappers } from '../inlineStyleMapper';
 import { combineMappers } from './combineMappers';
 import Anchor from '../components/Anchor';
 import styles from '../../statics/rich-content-viewer.scss';
@@ -53,8 +53,11 @@ const getBlockStyleClasses = (
 
 const blockDataToStyle = ({ dynamicStyles }) => kebabToCamelObjectKeys(dynamicStyles);
 
-const getInline = (inlineStyleMappers, mergedStyles) =>
-  combineMappers([...inlineStyleMappers, staticInlineStyleMapper], mergedStyles);
+const getInline = (contentState, config, inlineStyleMappers, mergedStyles) =>
+  combineMappers(
+    [...inlineStyleMappers, ...getViewerInlineStyleMappers(contentState, config)],
+    mergedStyles
+  );
 
 const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix) => {
   const getList = ordered => (items, blockProps) => {
@@ -254,6 +257,7 @@ const convertToReact = (
   context: ViewerContextType,
   decorators: Decorator[],
   inlineStyleMappers: InlineStyleMapperFunction[],
+  config: LegacyViewerPluginConfig,
   initSpoilers: (content?: DraftContent) => DraftContent | undefined,
   SpoilerViewerWrapper: unknown,
   options: { addAnchors?: boolean | string; [key: string]: unknown } = {},
@@ -280,7 +284,7 @@ const convertToReact = (
   let result = redraft(
     newContentState,
     {
-      inline: getInline(inlineStyleMappers, mergedStyles),
+      inline: getInline(newContentState, config, inlineStyleMappers, mergedStyles),
       blocks: getBlocks(mergedStyles, textDirection, context, addAnchorsPrefix),
       entities: getEntities(
         typeMappers,

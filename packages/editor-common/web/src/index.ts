@@ -77,7 +77,6 @@ export {
   hasBlockType,
   setNativeSelectionToBlock,
 } from './Utils/draftUtils';
-export { getColor, setTextColor, setHighlightColor } from './Utils/colorUtils';
 export { triggerMention, insertMention } from './Utils/mentionUtils';
 export { isiOS } from './Utils/isiOS';
 export { mergeToolbarSettings } from './Utils/mergeToolbarSettings';
@@ -150,4 +149,17 @@ export const emptyDraftContent = {
   ],
 };
 
-export { getSelectionStyles } from './Utils/inlineStyleUtils';
+export {
+  getSelectionStyles,
+  hasOneStyleInSelection,
+  setInlineStyle,
+  removeCurrentInlineStyle,
+  getDefaultStyleFn,
+  getCustomStyleFn,
+  getCustomStyleFns,
+  getColor,
+  getFontSize,
+  setHighlightColor,
+  setTextColor,
+  setFontSize,
+} from './Utils/inlineStyleUtils';

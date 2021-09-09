@@ -30,6 +30,7 @@ import {
   SelectionState,
   setSelectionToBlock,
   emptyDraftContent,
+  getCustomStyleFns,
 } from 'wix-rich-content-editor-common';
 import { convertFromRaw, convertToRaw } from '../../lib/editorStateConversion';
 import { EditorProps as DraftEditorProps, DraftHandleValue } from 'draft-js';
@@ -513,7 +514,11 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     this.initEditorToolbars(pluginButtons, pluginTextButtons, externalizedButtonProps);
     this.pluginKeyBindings = initPluginKeyBindings(pluginTextButtons);
     this.plugins = [...pluginInstances, ...Object.values(this.toolbars)];
-    this.customStyleFn = combineStyleFns([...pluginStyleFns, customStyleFn]);
+    this.customStyleFn = combineStyleFns([
+      ...pluginStyleFns,
+      customStyleFn,
+      ...getCustomStyleFns(this.props.config),
+    ]);
     this.innerRCECustomStyleFn = combineStyleFns([...pluginStyleFns, customStyleFn]);
   }
 
