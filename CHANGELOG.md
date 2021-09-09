@@ -40,7 +40,7 @@
 
 - `ui-components`
   - [#2908](https://github.com/wix/ricos/pull/2908) refactor button component - removed classname prop
-  
+
   ### :bug: Bug Fix
 
 - `toolbars-new`
