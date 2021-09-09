@@ -22,6 +22,14 @@
 - `*`
   - [#2919](https://github.com/wix/ricos/pull/2919) missing plugin buttons in toolbar
 
+### :house: Internal
+
+- `editor viewer common`
+  - [#2811](https://github.com/wix/ricos/pull/2811) custom draft inline styles infra and custom font size editor viewer support
+
+- `color`
+  - [#2920](https://github.com/wix/ricos/pull/2920) fix text color\highlight inline mappers exports
+
 </details>
 <hr/>
 
@@ -31,14 +39,6 @@
 
 - `giphy`
   - [#b93796e](https://github.com/wix/ricos/commit/b93796e3336b848ee830ba3285bf4453817bb393) handle crush when downsized & downsized_still are null
-
-### :house: Internal
-
-- `editor viewer common`
-  - [#2811](https://github.com/wix/ricos/pull/2811) custom draft inline styles infra and custom font size editor viewer support
-
-- `color`
-  - [#2920](https://github.com/wix/ricos/pull/2920) fix text color\highlight inline mappers exports
 
 ## 8.52.4 (Sep 5, 2021)
 
