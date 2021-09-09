@@ -14,6 +14,7 @@ import {
   RICOS_TEXT_HIGHLIGHT_TYPE,
   WRAP,
   NO_WRAP,
+  RICOS_FONT_SIZE_TYPE,
 } from 'ricos-content';
 import {
   DividerData,
@@ -569,6 +570,16 @@ const highlightColor = {
   expectedData2: 'color1',
 };
 
+const fontSize = {
+  type: RICOS_FONT_SIZE_TYPE,
+  data1: { fontSize: 30 },
+  selection1: selection,
+  data2: { fontSize: 20 },
+  selection2: selectionCollapsed,
+  expectedData1: '30px',
+  expectedData2: '20px',
+};
+
 export const inlineStylesTestConfig = ['bold', 'italic', 'underline', 'spoiler'];
 
 export const pluginsTestConfig = {
@@ -582,4 +593,4 @@ export const pluginsTestConfig = {
   image,
 };
 
-export const decorationsTestConfig = { link, mention, textColor, highlightColor };
+export const decorationsTestConfig = { link, mention, textColor, highlightColor, fontSize };

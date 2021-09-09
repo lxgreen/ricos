@@ -11,6 +11,10 @@
           "marks": [
             {
               "type": "bold"
+            },
+            {
+              "type": "fontsize",
+              "fontSize": "20px"
             }
           ],
           "attrs": {

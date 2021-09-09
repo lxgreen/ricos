@@ -32,6 +32,27 @@ const mergeColorDecorations = (decorations: Decoration[]): Decoration[] => {
 const isDecorationType = (decorationType: string) =>
   TO_RICOS_DECORATION_TYPE[decorationType] !== undefined;
 
+const dynamicDecorationGetters = {
+  FG: (value: string) => {
+    return {
+      type: Decoration_Type.COLOR,
+      colorData: { foreground: value },
+    };
+  },
+  BG: (value: string) => {
+    return {
+      type: Decoration_Type.COLOR,
+      colorData: { background: value },
+    };
+  },
+  'font-size': (value: string) => {
+    return {
+      type: Decoration_Type.FONTSIZE,
+      fontSize: value,
+    };
+  },
+};
+
 export const getTextNodes = (block: RicosContentBlock, entityMap: RicosEntityMap): Node[] => {
   const createTextNodeWithDecorations = ({
     text,
@@ -65,13 +86,7 @@ export const getTextNodes = (block: RicosContentBlock, entityMap: RicosEntityMap
       const styleObj = JSON.parse(style);
       const type = Object.keys(styleObj)[0];
       const value = Object.values<string>(styleObj)[0];
-      if (type !== 'FG' && type !== 'BG') {
-        throw Error(`Unknown decoration type "${type}"!`);
-      }
-      decoration = {
-        type: Decoration_Type.COLOR,
-        colorData: { [type === 'FG' ? 'foreground' : 'background']: value },
-      };
+      decoration = dynamicDecorationGetters[type](value);
     } catch {
       if (!isDecorationType(style)) {
         throw Error(`Unknown decoration type "${style}"!`);

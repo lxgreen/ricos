@@ -113,6 +113,7 @@ export const INSERT_PLUGIN_BUTTONS = Object.freeze({
   REDO: 'RedoPlugin_InsertButton',
   TABLE: 'TablePlugin_InsertButton',
   COLLAPSIBLE_LIST: 'CollapsibleList_InsertButton',
+  ADSENSE: 'AdSensePlugin_InsertButton',
 });
 
 export const BUTTON_TYPES = Object.freeze({

@@ -1,5 +1,5 @@
 import { DEFAULTS } from '../collapsible-list-component';
-import { TOOLBARS, BUTTON_TYPES } from 'wix-rich-content-editor-common';
+import { TOOLBARS, BUTTON_TYPES, INSERT_PLUGIN_BUTTONS } from 'wix-rich-content-editor-common';
 import InsertPluginIcon from '../icons/InsertPluginIcon';
 import { CreateInsertButtons, TranslationFunction, isRtl } from 'wix-rich-content-common';
 import { CollapsibleListPluginEditorConfig } from '../types';
@@ -23,7 +23,7 @@ const createInsertButtons: CreateInsertButtons = ({
   return [
     {
       type: BUTTON_TYPES.BUTTON,
-      name: 'CollapsibleList_InsertButton',
+      name: INSERT_PLUGIN_BUTTONS.COLLAPSIBLE_LIST,
       getLabel: () => t('CollapsibleList_InsertButton'),
       tooltip: t('CollapsibleListPlugin_InsertButton_Tooltip'),
       getIcon: () => icon,

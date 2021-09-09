@@ -51,6 +51,7 @@ import {
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { default as hebResource } from 'wix-rich-content-common/dist/statics/locale/messages_he.json';
+import { RICOS_FONT_SIZE_TYPE } from '../../../common/web/src';
 
 const expectedPluginsList = [
   DIVIDER_TYPE,
@@ -219,6 +220,8 @@ const insertDecorationTest = (settings: Settings) => ([
     setSelection(ricosEditor, blockKey, selection2);
     if (type === RICOS_TEXT_COLOR_TYPE || type === RICOS_TEXT_HIGHLIGHT_TYPE) {
       expect(ricosEditor.getEditorCommands().getColor(type)).toEqual(expectedData1);
+    } else if (type === RICOS_FONT_SIZE_TYPE) {
+      expect(ricosEditor.getEditorCommands().getFontSize()).toEqual(expectedData1);
     } else {
       expect(ricosEditor.getEditorCommands().getSelectedData()).toEqual(expectedData1);
     }
@@ -238,6 +241,8 @@ const setDecorationTest = (settings: Settings) => ([
     setSelection(ricosEditor, blockKey, selection2);
     if (type === RICOS_TEXT_COLOR_TYPE || type === RICOS_TEXT_HIGHLIGHT_TYPE) {
       expect(ricosEditor.getEditorCommands().getColor(type)).toEqual(expectedData2);
+    } else if (type === RICOS_FONT_SIZE_TYPE) {
+      expect(ricosEditor.getEditorCommands().getFontSize()).toEqual(expectedData2);
     } else {
       expect(ricosEditor.getEditorCommands().getSelectedData()).toEqual(expectedData2);
     }

@@ -21,6 +21,8 @@
 
 - `toolbars-new`
   - [#2915](https://github.com/wix/ricos/pull/2915) fix modals border-radius, buttons font-family wiring, custom-line-spacing inputs width and added alignments-tooltip
+- `*`
+  - [#2919](https://github.com/wix/ricos/pull/2919) missing plugin buttons in toolbar
 
 </details>
 <hr/>
@@ -37,9 +39,8 @@
 ### :house: Internal
 
 - `ui-components`
-
   - [#2908](https://github.com/wix/ricos/pull/2908) refactor button component - removed classname prop
-
+  
   ### :bug: Bug Fix
 
 - `toolbars-new`
