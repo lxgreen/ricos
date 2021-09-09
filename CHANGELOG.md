@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.52.6 (Sep 9, 2021)
+
 ### :bug: Bug Fix
 
 - `*`
@@ -25,13 +30,11 @@
 ### :house: Internal
 
 - `editor viewer common`
+
   - [#2811](https://github.com/wix/ricos/pull/2811) custom draft inline styles infra and custom font size editor viewer support
 
 - `color`
   - [#2920](https://github.com/wix/ricos/pull/2920) fix text color\highlight inline mappers exports
-
-</details>
-<hr/>
 
 ## 8.52.5 (Sep 7, 2021)
 
