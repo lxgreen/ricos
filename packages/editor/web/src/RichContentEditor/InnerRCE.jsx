@@ -102,7 +102,6 @@ class InnerRCE extends PureComponent {
   };
 
   shouldTriggerOnChange = editorState =>
-    !this.props.experiments?.UseUndoForPlugins?.enabled ||
     !['undo', 'redo'].includes(editorState.getLastChangeType());
 
   onChange = editorState => {
