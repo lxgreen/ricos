@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  BUTTON_TYPES,
-  FORMATTING_BUTTONS,
-  undo,
-  redo,
-  pluginsUndo,
-} from 'wix-rich-content-editor-common';
+import { BUTTON_TYPES, FORMATTING_BUTTONS, undo, redo } from 'wix-rich-content-editor-common';
 import UndoIcon from './icons/UndoIcon';
 import RedoIcon from './icons/RedoIcon';
 import UndoButton from './UndoButton';
@@ -33,7 +27,6 @@ const createToolbar: CreatePluginToolbar = ({
   settings: UndoRedoPluginEditorConfig;
   commonPubsub: Pubsub;
 }) => {
-  const isPluginExperiment = commonPubsub.get('undoExperiment')?.();
   return {
     TextButtonMapper: () => ({
       [FORMATTING_BUTTONS.UNDO]: {
@@ -50,9 +43,7 @@ const createToolbar: CreatePluginToolbar = ({
           getIcon: () => settings?.toolbars?.icons?.Undo || UndoIcon,
           onClick: e => {
             e.preventDefault();
-            setEditorState(
-              isPluginExperiment ? pluginsUndo(getEditorState()) : undo(getEditorState())
-            );
+            setEditorState(undo(getEditorState()));
           },
         },
       },
@@ -80,7 +71,6 @@ const createToolbar: CreatePluginToolbar = ({
       getEditorState,
       setEditorState,
       settings,
-      isPluginExperiment,
     }),
     name: 'undo-redo',
   };

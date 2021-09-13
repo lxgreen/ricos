@@ -25,7 +25,7 @@ import {
   getBlockType,
   COMMANDS,
   MODIFIERS,
-  pluginsUndo,
+  undo,
   redo,
   SelectionState,
   setSelectionToBlock,
@@ -297,7 +297,6 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     this.reportDebuggingInfo();
     this.preloadLibs();
     document?.addEventListener('beforeinput', this.preventDefaultKeyCommands);
-    this.commonPubsub.set('undoExperiment', this.getUndoExperiment);
   }
 
   componentWillMount() {
@@ -766,14 +765,12 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     event?.preventDefault();
   };
 
-  getUndoExperiment = () => this.props.experiments?.UseUndoForPlugins?.enabled;
-
   handleUndoCommand = (editorState: EditorState, event) => {
     event?.preventDefault();
     if (this.props.isInnerRCE) {
       this.props.handleUndoCommand?.();
     } else {
-      this.updateEditorState(pluginsUndo(editorState || this.state.editorState));
+      this.updateEditorState(undo(editorState || this.state.editorState));
       this.setState({ readOnly: false });
     }
     return 'handled';
@@ -823,20 +820,16 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       modifiers: [],
       key: 'Escape',
     },
-    this.getUndoExperiment()
-      ? {
-          command: COMMANDS.UNDO,
-          modifiers: [MODIFIERS.COMMAND],
-          key: 'z',
-        }
-      : {},
-    this.getUndoExperiment()
-      ? {
-          command: COMMANDS.REDO,
-          modifiers: [MODIFIERS.COMMAND, MODIFIERS.SHIFT],
-          key: 'z',
-        }
-      : {},
+    {
+      command: COMMANDS.UNDO,
+      modifiers: [MODIFIERS.COMMAND],
+      key: 'z',
+    },
+    {
+      command: COMMANDS.REDO,
+      modifiers: [MODIFIERS.COMMAND, MODIFIERS.SHIFT],
+      key: 'z',
+    },
     this.props.experiments?.barrelRoll?.enabled && typeof window !== 'undefined'
       ? {
           command: 'cmdShift7',
@@ -851,9 +844,8 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     tab: this.handleTabCommand,
     shiftTab: this.handleTabCommand,
     esc: this.handleEscCommand,
-    ...(this.getUndoExperiment()
-      ? { ricosUndo: this.handleUndoCommand, ricosRedo: this.handleRedoCommand }
-      : {}),
+    ricosUndo: this.handleUndoCommand,
+    ricosRedo: this.handleRedoCommand,
     ...(this.props.experiments?.barrelRoll?.enabled && typeof window !== 'undefined'
       ? { cmdShift7: makeBarrelRoll }
       : {}),
