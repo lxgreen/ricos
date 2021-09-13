@@ -28,7 +28,7 @@ const addLinkPreview = async (
 ) => {
   const { enableEmbed = true, enableLinkPreview = true, fetchData } =
     config[LINK_PREVIEW_TYPE] || {};
-  const linkPreview = (await fetchLinkPreview(fetchData, linkData)) || {};
+  const linkPreview = (await fetchLinkPreview(fetchData, linkData.url)) || {};
   const { title, html, fixedUrl } = linkPreview;
   if (
     shouldAddEmbed(html, enableEmbed, fixedUrl) ||
@@ -43,20 +43,16 @@ const addLinkPreview = async (
   }
 };
 
-const fetchLinkPreview = async (
+export const fetchLinkPreview = async (
   fetchData: LinkPreviewPluginEditorConfig['fetchData'],
-  linkData: {
-    url: string;
-    target?: string;
-    rel?: string;
-  }
+  url: string
 ): Promise<LinkPreviewData & { fixedUrl: string }> => {
-  const fixedUrl = linkData.url.split('\u21b5').join(''); //remove {enter} char
+  const fixedUrl = url.split('\u21b5').join(''); //remove {enter} char
   const { thumbnail_url, title, description, html } = (await fetchData?.(fixedUrl)) || {};
   return { thumbnailUrl: thumbnail_url, title, description, html, fixedUrl };
 };
 
-const createLinkPreviewData = async (
+export const createLinkPreviewData = async (
   linkData: {
     url: string;
     target?: string;
@@ -108,10 +104,14 @@ const isValidImgSrc = (url: string): Promise<boolean> => {
   });
 };
 
-const shouldAddLinkPreview = (title?: string, enableLinkPreview?: boolean) =>
+export const shouldAddLinkPreview = (title?: string, enableLinkPreview?: boolean) =>
   enableLinkPreview && title;
 
-const shouldAddEmbed = (html, enableEmbed: boolean | LinkPreviewProviders[], url: string) => {
+export const shouldAddEmbed = (
+  html: string | undefined,
+  enableEmbed: boolean | LinkPreviewProviders[],
+  url: string
+) => {
   if (Array.isArray(enableEmbed)) {
     return (
       enableEmbed.filter(whiteListType => url.toLowerCase().includes(whiteListType.toLowerCase()))

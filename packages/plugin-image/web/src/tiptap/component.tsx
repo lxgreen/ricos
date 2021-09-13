@@ -5,7 +5,6 @@ import { PluginProps } from 'wix-rich-content-editor-common';
 
 export const Image: React.FC<PluginProps> = ({ context, componentData, updateAttributes }) => {
   const { isMobile, theme, t } = context;
-  // console.log({ componentData });
   const store = {
     update: (propery, data) => {
       // update caption
