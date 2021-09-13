@@ -6,7 +6,7 @@ import DesktopPanel from '../panels/DesktopPanel';
 import CustomPanel from './CustomPanel';
 import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
-import lineHeights from './consts';
+import { lineSpacingModalData as lineHeights } from '../../Toolbar/buttonsListCreatorConsts';
 class LineSpacingPanel extends Component {
   constructor(props) {
     super(props);

@@ -4,7 +4,7 @@ import styles from '../panels/styles.scss';
 import MobilePanel from '../panels/MobilePanel';
 import DesktopPanel from '../panels/DesktopPanel';
 import classNames from 'classnames';
-import alignments from './consts';
+import { alignmentsModalData as alignments } from '../../Toolbar/buttonsListCreatorConsts';
 
 const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, onCancel, ...props }) => {
   const panelHeader = t('Alignment');
