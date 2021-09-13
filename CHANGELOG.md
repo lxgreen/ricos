@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+  ### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2924](https://github.com/wix/ricos/pull/2924) fix alignment modal display in mobile
+
 </details>
 <hr/>
 
