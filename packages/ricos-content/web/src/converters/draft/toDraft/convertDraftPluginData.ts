@@ -324,11 +324,11 @@ const convertAppEmbedData = data => {
 };
 
 const convertLinkPreviewData = data => {
-  if (has(data, 'thumbnailUrl')) {
+  if (data.thumbnailUrl) {
     data.thumbnail_url = data.thumbnailUrl;
     delete data.thumbnailUrl;
   }
-  if (has(data, 'link')) {
+  if (data.link) {
     data.config.link = parseLink(data.link);
     delete data.link;
   }

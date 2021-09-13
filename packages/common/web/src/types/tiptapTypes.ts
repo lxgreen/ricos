@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   NodeConfig,
   ExtensionConfig,
@@ -7,7 +6,7 @@ import {
 } from '@tiptap/core';
 import { ComponentType } from 'react';
 import { TranslationFunction } from './commonTypes';
-import { EditorPluginConfig, LegacyEditorPluginConfig } from './pluginTypes';
+import { EditorPluginConfig } from './pluginTypes';
 
 export type TiptapExtensionConfig = NodeConfig | MarkConfig | RicosExtensionConfig;
 
@@ -16,6 +15,7 @@ export const isMarkConfig = (c: TiptapExtensionConfig): c is MarkConfig => c.typ
 export const isExtensionConfig = (c: TiptapExtensionConfig): c is RicosExtensionConfig =>
   c.type === 'extension';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type NodeViewHoc<T = any> = (Component: ComponentType<T>) => ComponentType<T>;
 
 export type NodeViewHocMap = {
@@ -43,6 +43,7 @@ export type RicosNodeExtension = {
     mergeAttributes: typeof mergeAttributesFn;
   }) => NodeConfig;
   Component: React.ComponentType;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   componentDataDefaults?: any;
 };
 
@@ -53,6 +54,7 @@ export type RicosMarkExtension = {
   }: {
     mergeAttributes: typeof mergeAttributesFn;
   }) => MarkConfig;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   componentDataDefaults?: any;
 };
 
@@ -78,6 +80,7 @@ export type RicosTiptapExtension =
   | RicosMarkExtension
   | RicosFunctionalExtension;
 
-export type CreateRicosExtensions = <PluginType extends keyof LegacyEditorPluginConfig>(
-  config: LegacyEditorPluginConfig[PluginType]
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type CreateRicosExtensions<PluginConfig extends EditorPluginConfig = Record<string, any>> = (
+  config: PluginConfig
 ) => RicosTiptapExtension[];
