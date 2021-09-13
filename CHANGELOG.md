@@ -25,6 +25,15 @@
 </details>
 <hr/>
 
+## 8.52.7 (Sep 13, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2924](https://github.com/wix/ricos/pull/2924) fix alignment modal display in mobile
+- `editor-common`
+  - [#2923](https://github.com/wix/ricos/pull/2923) fix missing values of rel object
+
 ## 8.52.6 (Sep 9, 2021)
 
 ### :bug: Bug Fix

@@ -3,15 +3,8 @@ import React from 'react';
 import styles from '../panels/styles.scss';
 import MobilePanel from '../panels/MobilePanel';
 import DesktopPanel from '../panels/DesktopPanel';
-import { AlignTextCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon } from '../../icons';
 import classNames from 'classnames';
-
-const alignments = [
-  { tooltip: 'AlignObject_Left_Tooltip', commandKey: 'left', icon: <AlignLeftIcon /> },
-  { tooltip: 'AlignObject_Center_Tooltip', commandKey: 'center', icon: <AlignTextCenterIcon /> },
-  { tooltip: 'AlignObject_Right_Tooltip', commandKey: 'right', icon: <AlignRightIcon /> },
-  { tooltip: 'AlignTextJustifyButton_Tooltip', commandKey: 'justify', icon: <AlignJustifyIcon /> },
-];
+import { alignmentsModalData as alignments } from '../../Toolbar/buttonsListCreatorConsts';
 
 const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, onCancel, ...props }) => {
   const panelHeader = t('Alignment');
@@ -36,6 +29,7 @@ const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, onCancel, .
         onChange,
         hasIcons,
         onCancel,
+        t,
       }}
     />
   ) : (

@@ -66,11 +66,12 @@ class HeadingsPanel extends Component {
           options: this.defaultHeadings(),
           onChange: this.onSaveHeading,
           onCancel,
+          t,
         }}
       />
     ) : (
       <DesktopPanel
-        {...{ currentSelect, options: this.defaultHeadings(), onChange: this.onSaveHeading }}
+        {...{ currentSelect, options: this.defaultHeadings(), onChange: this.onSaveHeading, t }}
       />
     );
     return (
