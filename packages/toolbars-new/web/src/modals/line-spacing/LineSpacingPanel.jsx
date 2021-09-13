@@ -6,13 +6,7 @@ import DesktopPanel from '../panels/DesktopPanel';
 import CustomPanel from './CustomPanel';
 import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
-
-const lineHeights = [
-  { text: '1', commandKey: '1' },
-  { text: '2', commandKey: '2' },
-  { text: '2.5', commandKey: '2.5' },
-  { text: '3', commandKey: '3' },
-];
+import lineHeights from './consts';
 class LineSpacingPanel extends Component {
   constructor(props) {
     super(props);
@@ -60,6 +54,7 @@ class LineSpacingPanel extends Component {
           options: lineHeights,
           onChange: onChangeLineHeight,
           onCancel,
+          t,
         }}
       />
     ) : isCustomPanel ? (
@@ -74,6 +69,7 @@ class LineSpacingPanel extends Component {
           onChange: onSaveLineHeight,
           panelHeader,
           showCustomPanel,
+          t,
         }}
       />
     );

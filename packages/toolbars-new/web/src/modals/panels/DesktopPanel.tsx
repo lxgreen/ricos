@@ -19,7 +19,7 @@ const DesktopPanel = ({
 }) => {
   const styles = mergeStyles({ styles: Styles, theme });
   const optionElement = (option, isSelected, onClick) => {
-    const content = hasIcons ? option.icon : option.text;
+    const content = hasIcons ? option.icon : t(option.text);
     return (
       <Tooltip content={t?.(option.tooltip)}>
         <div
