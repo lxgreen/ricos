@@ -17,10 +17,12 @@
     Click to see more.
   </summary>
 
-  ### :bug: Bug Fix
+### :bug: Bug Fix
 
 - `toolbars-new`
   - [#2924](https://github.com/wix/ricos/pull/2924) fix alignment modal display in mobile
+- `editor-common`
+  - [#2923](https://github.com/wix/ricos/pull/2923) fix missing values of rel object
 
 </details>
 <hr/>
