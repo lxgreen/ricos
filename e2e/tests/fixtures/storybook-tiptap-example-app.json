@@ -107,6 +107,15 @@
       "data": {}
     },
     {
+      "key": "4nk0h",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
       "key": "55abu",
       "text": " ",
       "type": "atomic",
@@ -144,7 +153,8 @@
           "width": 284,
           "spoiler": {
             "enabled": true
-          }
+          },
+          "textWrap": "wrap"
         },
         "src": {
           "id": "b5a1eb472c11ff6aa8bc232102e44115",
@@ -170,5 +180,5 @@
       }
     }
   },
-  "VERSION": "8.48.1"
+  "VERSION": "8.49.6"
 }
