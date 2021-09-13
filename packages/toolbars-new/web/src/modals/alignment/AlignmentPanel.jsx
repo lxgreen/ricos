@@ -29,6 +29,7 @@ const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, onCancel, .
         onChange,
         hasIcons,
         onCancel,
+        t,
       }}
     />
   ) : (
