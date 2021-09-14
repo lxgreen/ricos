@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+
+</details>
+<hr/>
+
+## 8.52.8 (Sep 14, 2021)
 ### :house: Internal
 
 - `editor`
   - [#2922](https://github.com/wix/ricos/pull/2922) remove `UseUndoForPlugins` experiment, enable undo-redo for plugins out of the box
-
-</details>
-<hr/>
 
 ## 8.52.7 (Sep 13, 2021)
 
