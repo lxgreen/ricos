@@ -17,15 +17,19 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.53.1 (Sep 19, 2021)
+
 ### :bug: Bug Fix
 
 - `toolbars-new`
   - [#2931](https://github.com/wix/ricos/pull/2931) fix mobile scroll behavior + fix separator height bug in ios safari
 - `link`
   - [#2929](https://github.com/wix/ricos/pull/2929) fix a11y in link modal
-
-</details>
-<hr/>
 
 ## 8.53.0 (Sep 14, 2021)
 
