@@ -61,26 +61,42 @@ export const HEADING_TYPE_TO_ELEMENT = Object.freeze({
 
 export const alignmentsModalData = [
   {
-    text: 'AlignObject_Left_Tooltip',
-    tooltip: 'AlignObject_Left_Tooltip',
+    text: 'AlignTextLeftButton_Tooltip',
+    tooltip: 'AlignTextLeftButton_Tooltip',
+    tooltipShortcut: {
+      MacOS: ' (⌘⇧L)',
+      Windows: ' (Ctrl+⇧+L)',
+    },
     commandKey: 'left',
     icon: AlignLeftIcon,
   },
   {
-    text: 'AlignObject_Center_Tooltip',
-    tooltip: 'AlignObject_Center_Tooltip',
+    text: 'AlignTextCenterButton_Tooltip',
+    tooltip: 'AlignTextCenterButton_Tooltip',
+    tooltipShortcut: {
+      MacOS: ' (⌘⇧E)',
+      Windows: ' (Ctrl+⇧+E)',
+    },
     commandKey: 'center',
     icon: AlignTextCenterIcon,
   },
   {
-    text: 'AlignObject_Right_Tooltip',
-    tooltip: 'AlignObject_Right_Tooltip',
+    text: 'AlignTextRightButton_Tooltip',
+    tooltip: 'AlignTextRightButton_Tooltip',
+    tooltipShortcut: {
+      MacOS: ' (⌘⇧R)',
+      Windows: ' (Ctrl+⇧+R)',
+    },
     commandKey: 'right',
     icon: AlignRightIcon,
   },
   {
     text: 'AlignTextJustifyButton_Tooltip',
     tooltip: 'AlignTextJustifyButton_Tooltip',
+    tooltipShortcut: {
+      MacOS: ' (⌘⇧J)',
+      Windows: ' (Ctrl+⇧+J)',
+    },
     commandKey: 'justify',
     icon: AlignJustifyIcon,
   },
@@ -99,6 +115,7 @@ type buttonsFullDataType = {
   icon?: any;
   dataHook?: string;
   tooltip?: string;
+  tooltipShortcut?: Record<'MacOS' | 'Windows', string>;
   label?: string;
   arrow?: boolean;
   action?: string;
@@ -157,18 +174,30 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     icon: BoldIcon,
     dataHook: 'textInlineStyleButton_BOLD',
     tooltip: 'BoldButton_Tooltip',
+    tooltipShortcut: {
+      MacOS: ' (⌘B)',
+      Windows: ' (Ctrl+B)',
+    },
     type: 'button',
   },
   Italic: {
     icon: ItalicIcon,
     dataHook: 'textInlineStyleButton_ITALIC',
     tooltip: 'ItalicButton_Tooltip',
+    tooltipShortcut: {
+      MacOS: ' (⌘I)',
+      Windows: ' (Ctrl+I)',
+    },
     type: 'button',
   },
   Underline: {
     icon: UnderlineIcon,
     dataHook: 'textInlineStyleButton_UNDERLINE',
     tooltip: 'UnderlineButton_Tooltip',
+    tooltipShortcut: {
+      MacOS: ' (⌘U)',
+      Windows: ' (Ctrl+U)',
+    },
     type: 'button',
   },
   TEXT_COLOR: {
@@ -214,6 +243,10 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     icon: BlockQuoteIcon,
     dataHook: 'textBlockStyleButton_Quote',
     tooltip: 'QuoteButton_Tooltip',
+    tooltipShortcut: {
+      MacOS: ' (⌘⇧9)',
+      Windows: ' (Ctrl+⇧+9)',
+    },
     type: 'button',
   },
   Alignment: {
@@ -259,12 +292,20 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     icon: OrderedListIcon,
     dataHook: 'textBlockStyleButton_NumberedList',
     tooltip: 'OrderedListButton_Tooltip',
+    tooltipShortcut: {
+      MacOS: ' (⌘⇧7)',
+      Windows: ' (Ctrl+⇧+7)',
+    },
     type: 'button',
   },
   UnorderedList: {
     icon: UnorderedListIcon,
     dataHook: 'textBlockStyleButton_BulletedList',
     tooltip: 'UnorderedListButton_Tooltip',
+    tooltipShortcut: {
+      MacOS: ' (⌘⇧8)',
+      Windows: ' (Ctrl+⇧+8)',
+    },
     type: 'button',
   },
   DECREASE_INDENT: {
@@ -272,6 +313,10 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     icon: decreaseIndentPluginIcon,
     dataHook: 'decreaseIndentButton',
     tooltip: 'decreaseIndentButton_Tooltip',
+    tooltipShortcut: {
+      MacOS: ' (⌘⇧M)',
+      Windows: ' (Ctrl+⇧+M)',
+    },
     type: 'button',
   },
   INCREASE_INDENT: {
@@ -279,6 +324,10 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     icon: increaseIndentPluginIcon,
     dataHook: 'increaseIndentButton',
     tooltip: 'increaseIndentButton_Tooltip',
+    tooltipShortcut: {
+      MacOS: ' (⌘M)',
+      Windows: ' (Ctrl+M)',
+    },
     type: 'button',
   },
   SPOILER: {
@@ -306,7 +355,11 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     plugin: 'LINK',
     icon: LinkIcon,
     dataHook: 'LinkButton',
-    // tooltip: 'TextLinkButton_Tooltip',
+    tooltip: 'TextLinkButton_Tooltip',
+    tooltipShortcut: {
+      MacOS: ' (⌘K)',
+      Windows: ' (Ctrl+K)',
+    },
     type: 'modal',
     isMobileModalFullscreen: true,
     modal: props => <LinkModal {...props} />,
@@ -346,6 +399,10 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     plugin: 'code-block',
     icon: CodeBlockIcon,
     dataHook: 'TextCodeBlockButton',
+    tooltipShortcut: {
+      MacOS: ' (⌘⇧C)',
+      Windows: ' (Ctrl+⇧+C)',
+    },
     tooltip: 'TextCodeBlockButton_Tooltip',
     type: 'button',
   },
@@ -391,4 +448,10 @@ export const translateHeading = (option = 'P', t) => {
   return option === 'P'
     ? t('FormattingToolbar_TextStyle_Paragraph')
     : t('FormattingToolbar_TextStyle_Heading', { number: option.slice(-1) });
+};
+
+export const findOsName = () => {
+  if (navigator.userAgent.indexOf('Win') !== -1) return 'Windows';
+  if (navigator.userAgent.indexOf('Mac') !== -1) return 'MacOS';
+  return null;
 };

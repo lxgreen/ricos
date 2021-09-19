@@ -66,7 +66,7 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
     }
   };
 
-  toggleModal = () => {
+  toggleModal = e => {
     const { isModalOpen } = this.state;
     const {
       dropDownProps: { saveSelection },
@@ -87,7 +87,7 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
         dropDownProps: { loadSelection },
       } = this.props;
       setKeepOpen?.(false);
-      loadSelection?.();
+      e.detail && loadSelection?.(); //do not load selection on shortcuts
     }
   };
 

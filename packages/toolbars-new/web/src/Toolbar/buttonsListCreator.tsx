@@ -18,6 +18,7 @@ import {
   setTextAlignment,
   colorTypes,
   translateHeading,
+  findOsName,
 } from './buttonsListCreatorConsts';
 import { HEADER_TYPE_MAP } from 'wix-rich-content-plugin-commons';
 import {
@@ -36,13 +37,14 @@ export const createButtonsList = (
   experiments
 ) => {
   const buttonsList = [];
+  const osName: string | null = findOsName();
   formattingButtonsKeys.forEach((buttonKey, index) => {
     handleButtonName(buttonsList, buttonKey, index);
     handleButtonType(buttonsList, index);
     handleButtonIcon(buttonsList, index, editorCommands);
     handleButtonDataHook(buttonsList, index);
     handleButtIsMobileModalFullscreen(buttonsList, index);
-    handleButtonTooltip(buttonsList, index, t);
+    handleButtonTooltip(buttonsList, index, t, osName);
     handleButtonPlugin(buttonsList, index);
     handleButtonLabel(buttonsList, index, editorCommands, t);
     handleButtonArrow(buttonsList, index);
@@ -365,9 +367,16 @@ const handleButtonLabel = (buttonsList, index, editorCommands: editorCommands, t
   }
 };
 
-const handleButtonTooltip = (buttonsList, index, t) => {
+const handleButtonTooltip = (buttonsList, index, t, osName) => {
   if (buttonsFullData[buttonsList[index].name].tooltip) {
-    buttonsList[index].tooltip = t(buttonsFullData[buttonsList[index].name].tooltip);
+    const tooltipShortcut = buttonsFullData[buttonsList[index].name].tooltipShortcut;
+    buttonsList[index].tooltip = t(
+      buttonsFullData[buttonsList[index].name].tooltip,
+      tooltipShortcut &&
+        osName && {
+          shortcut: tooltipShortcut[osName],
+        }
+    );
   }
 };
 

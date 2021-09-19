@@ -62,12 +62,12 @@ class ModalButton extends Component<ModalButtonProps, State> {
 
   setModalRef = ref => (this.modalRef = ref);
 
-  toggleModal = () => {
+  toggleModal = e => {
     const { isModalOpen } = this.state;
     if (!isModalOpen) {
       this.openModal();
     } else {
-      this.closeModal();
+      this.closeModal(e.detail); //do not load selection on shortcuts
     }
   };
 
