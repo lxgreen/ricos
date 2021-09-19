@@ -17,11 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
 
-- `link`
-  - [#2929](https://github.com/wix/ricos/pull/2929) fix a11y in link modal
 - `toolbars-new`
-  - [#2932](https://github.com/wix/ricos/pull/2932) fix modals keyboard navigation (accessibility) 
+  - [#2932](https://github.com/wix/ricos/pull/2932) fix modals keyboard navigation (accessibility)
 
 </details>
 <hr/>
