@@ -4,8 +4,8 @@ import Toolbar from '../../components/Toolbar';
 import { capitalize } from 'lodash';
 import { RICOS_DIVIDER_TYPE, DIVIDER_TYPE } from 'wix-rich-content-common';
 import { draftBlockDataToTiptap } from '../../converters';
-
 import { Editor } from '@tiptap/core';
+import { TextAlignment } from 'ricos-common';
 
 // todo : should change to RichContentInterface
 export class RichContentAdapter implements TiptapAPI {
@@ -23,7 +23,7 @@ export class RichContentAdapter implements TiptapAPI {
 
   getEditorCommands() {
     return {
-      ...this.editor.commands,
+      ...this.editorMocks,
       toggleInlineStyle: inlineStyle => {
         const editorCommand = this.editor.chain().focus();
         const styleName = `toggle${capitalize(inlineStyle)}`;
@@ -38,15 +38,16 @@ export class RichContentAdapter implements TiptapAPI {
             content: [],
           });
         }
+        return 'result!';
       },
       findNodeByKey() {},
       // setBlock: (blockKey, pluginType, data) => {
       //   editor.commands.updateAttributes('heading', { level: 1 })
       // },
-      getSelection: {
+      getSelection: () => ({
         getIsFocused: this.editor.isFocused,
         getIsCollapsed: this.editor.state.selection.empty,
-      },
+      }),
     };
   }
 
@@ -62,4 +63,37 @@ export class RichContentAdapter implements TiptapAPI {
   }
 
   destroy!: () => null;
+
+  editorMocks = {
+    getAnchorableBlocks: () => ({
+      anchorableBlocks: [],
+      pluginsIncluded: [],
+    }),
+    getColor: () => 'color',
+    getFontSize: () => 'big',
+    getTextAlignment: (): TextAlignment => 'left',
+    hasInlineStyle: () => false,
+    isBlockTypeSelected: () => false,
+    isUndoStackEmpty: () => false,
+    isRedoStackEmpty: () => false,
+    hasLinkInSelection: () => false,
+    getLinkDataInSelection: () => 'im a link!',
+    getSelectedData: () => 'blah',
+    getPluginsList: () => [],
+    getBlockSpacing: () => 5,
+    saveEditorState: () => {},
+    loadEditorState: () => {},
+    saveSelectionState: () => {},
+    loadSelectionState: () => {},
+    insertDecoration: () => {},
+    triggerDecoration: () => {},
+    deleteDecoration: () => {},
+    setBlock: () => {},
+    deleteBlock: () => {},
+    undo: () => {},
+    redo: () => {},
+    setBlockType: () => {},
+    setTextAlignment: () => {},
+    _setSelection: () => {},
+  };
 }

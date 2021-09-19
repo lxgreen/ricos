@@ -111,7 +111,7 @@ export interface EditorCommands {
   };
   getColor: (colorType: ColorType) => string | undefined;
   getFontSize: () => string | undefined;
-  getTextAlignment: () => TextAlignment;
+  getTextAlignment: () => 'left';
   hasInlineStyle: (style: InlineStyle) => boolean;
   isBlockTypeSelected: (type: TextBlockType) => boolean;
   isUndoStackEmpty: () => boolean;
