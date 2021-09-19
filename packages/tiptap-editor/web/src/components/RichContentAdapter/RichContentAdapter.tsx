@@ -5,7 +5,6 @@ import { capitalize } from 'lodash';
 import { RICOS_DIVIDER_TYPE, DIVIDER_TYPE } from 'wix-rich-content-common';
 import { draftBlockDataToTiptap } from '../../converters';
 import { Editor } from '@tiptap/core';
-import { TextAlignment } from 'ricos-common';
 
 // todo : should change to RichContentInterface
 export class RichContentAdapter implements TiptapAPI {
@@ -71,7 +70,7 @@ export class RichContentAdapter implements TiptapAPI {
     }),
     getColor: () => 'color',
     getFontSize: () => 'big',
-    getTextAlignment: (): TextAlignment => 'left',
+    getTextAlignment: () => 'center',
     hasInlineStyle: () => false,
     isBlockTypeSelected: () => false,
     isUndoStackEmpty: () => false,

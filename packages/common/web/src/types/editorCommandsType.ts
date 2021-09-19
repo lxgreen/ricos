@@ -110,8 +110,7 @@ export interface EditorCommands {
     pluginsIncluded: string[];
   };
   getColor: (colorType: ColorType) => string | undefined;
-  getFontSize: () => string | undefined;
-  getTextAlignment: () => 'left';
+  getTextAlignment: () => string;
   hasInlineStyle: (style: InlineStyle) => boolean;
   isBlockTypeSelected: (type: TextBlockType) => boolean;
   isUndoStackEmpty: () => boolean;
