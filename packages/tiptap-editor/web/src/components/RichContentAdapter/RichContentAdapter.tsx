@@ -5,9 +5,11 @@ import { capitalize } from 'lodash';
 import { RICOS_DIVIDER_TYPE, DIVIDER_TYPE } from 'wix-rich-content-common';
 import { draftBlockDataToTiptap } from '../../converters';
 
+import { Editor } from '@tiptap/core';
+
 // todo : should change to RichContentInterface
 export class RichContentAdapter implements TiptapAPI {
-  constructor(private editor) {
+  constructor(private editor: Editor) {
     this.editor = editor;
   }
 
@@ -41,6 +43,10 @@ export class RichContentAdapter implements TiptapAPI {
       // setBlock: (blockKey, pluginType, data) => {
       //   editor.commands.updateAttributes('heading', { level: 1 })
       // },
+      getSelection: {
+        getIsFocused: this.editor.isFocused,
+        getIsCollapsed: this.editor.state.selection.empty,
+      },
     };
   }
 
