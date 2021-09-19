@@ -17,15 +17,23 @@
     Click to see more.
   </summary>
 
-### :bug: Bug Fix
 
 - `link`
   - [#2929](https://github.com/wix/ricos/pull/2929) fix a11y in link modal
 - `toolbars-new`
-  - [#2931](https://github.com/wix/ricos/pull/2931) fix modals keyboard navigation (accessibility) 
+  - [#2932](https://github.com/wix/ricos/pull/2932) fix modals keyboard navigation (accessibility) 
 
 </details>
 <hr/>
+
+## 8.53.1 (Sep 19, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2931](https://github.com/wix/ricos/pull/2931) fix mobile scroll behavior + fix separator height bug in ios safari
+- `link`
+  - [#2929](https://github.com/wix/ricos/pull/2929) fix a11y in link modal
 
 ## 8.53.0 (Sep 14, 2021)
 

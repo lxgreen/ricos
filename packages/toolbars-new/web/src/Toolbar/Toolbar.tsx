@@ -73,7 +73,11 @@ class Toolbar extends Component<ToolbarProps> {
     );
   };
 
-  renderSeparator = () => <div className={styles.separator} />;
+  renderSeparator = () => (
+    <div
+      className={classNames(styles.separator, { [styles.mobileSeparator]: this.props.isMobile })}
+    />
+  );
 
   // handleDropDownClick = onClick => () => {
   //   if (this.buttonRef) {
