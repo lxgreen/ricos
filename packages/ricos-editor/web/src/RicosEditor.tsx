@@ -350,7 +350,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       linkSettings,
       experiments,
     } = this.props;
-    const activeEditorIsTableCell = activeEditor?.isInnerRCERenderedInTable();
+    const activeEditorIsTableCell = !this.useTiptap && activeEditor?.isInnerRCERenderedInTable();
     const textToolbarType = StaticToolbar ? 'static' : null;
     const hideFormattingToolbar = isMobile && isLinkToolbarOpen(activeEditor);
     const biFunctions = helpers && getBiFunctions(helpers);
