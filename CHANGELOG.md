@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+  ### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2931](https://github.com/wix/ricos/pull/2931) fix modals keyboard navigation (accessibility)  
+
 </details>
 <hr/>
 
