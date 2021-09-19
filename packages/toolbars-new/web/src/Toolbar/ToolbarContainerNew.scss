@@ -1,4 +1,6 @@
 .container {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    border: solid 1px rgba(51, 51, 51, 0.1);
     font-family: HelveticaNeue;
     z-index: 4;
     position: absolute;
@@ -14,6 +16,9 @@
         width: fit-content;
 
         &.staticContainerMobile {
+            background-color: #ffffff;
+            border-left: none;
+            border-right: none;
             height: 100%;
             width: 100%;
             overflow: scroll;

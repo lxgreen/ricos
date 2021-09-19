@@ -19,6 +19,8 @@
 
 ### :bug: Bug Fix
 
+- `toolbars-new`
+  - [#2931](https://github.com/wix/ricos/pull/2931) fix mobile scroll behavior + fix separator height bug in ios safari
 - `link`
   - [#2929](https://github.com/wix/ricos/pull/2929) fix a11y in link modal
 
