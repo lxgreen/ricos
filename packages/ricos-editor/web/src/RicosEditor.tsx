@@ -440,6 +440,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     const extensions = compact(plugins?.flatMap(plugin => plugin.tiptapExtensions)) || [];
     return (
       <Fragment>
+        {this.renderToolbars()}
         {tiptapToolbar && this.renderToolbarPortal(tiptapToolbar)}
         {
           <RicosTranslate locale={locale} localeResource={localeResource || englishResources}>
