@@ -87,7 +87,7 @@ class RadioGroup extends Component {
           return (
             <label // eslint-disable-line
               htmlFor={inputId}
-              tabIndex={i === 0 ? 0 : -1}
+              tabIndex={0}
               name={`${this.id}`}
               key={option.value}
               ref={el => this.saveInputRef(el, inputId)}
@@ -103,7 +103,7 @@ class RadioGroup extends Component {
                 type={'radio'}
                 checked={checked}
               />
-              <span className={styles.radioGroup_button} tabIndex="0" />
+              <span className={styles.radioGroup_button} />
               <span className={styles.radioGroup_label}>{option.labelText}</span>
             </label>
           );

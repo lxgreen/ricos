@@ -1,5 +1,6 @@
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -10,6 +11,7 @@ import {
   GALLERY_TYPE,
   GIPHY_TYPE,
 } from 'wix-rich-content-common';
+import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 import { getImageSrc } from 'wix-rich-content-common/libs/imageUtils';
 import styles from '../anchor-panel.scss';
 import { ANCHORABLE_BLOCKS } from './consts';
@@ -130,9 +132,20 @@ class AnchorableElement extends PureComponent {
     this.setState({ iconThumbnail: null });
   };
 
+  onKeyDown = e => {
+    if (e.keyCode === KEYS_CHARCODE.ENTER) {
+      this.onClick();
+      e.preventDefault();
+    }
+  };
+
+  onClick = () => {
+    this.props.onClick({ defaultName: this.getContent() });
+  };
+
   render() {
     const { styles } = this;
-    const { dataHook, onClick, isSelected, blockPreview, block, t } = this.props;
+    const { dataHook, isSelected, blockPreview, block, t } = this.props;
     const { iconThumbnail, preview } = this.state;
     const blockPreviewElements = blockPreview?.({
       type: block.anchorType,
@@ -156,11 +169,13 @@ class AnchorableElement extends PureComponent {
     const contentToRender = blockPreviewElements ? blockPreviewElements.content : this.getContent();
     return (
       <div
+        tabindex="0"
         data-hook={dataHook}
         className={classNames(styles.AnchorableElement_container, {
           [styles.AnchorableElement_selected]: isSelected,
         })}
-        onClick={() => onClick({ defaultName: this.getContent() })}
+        onKeyDown={this.onKeyDown}
+        onClick={this.onClick}
       >
         {thumbnailToRender}
         <div className={styles.AnchorableElement_contentContainer}>
