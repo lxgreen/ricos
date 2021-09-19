@@ -207,7 +207,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
             <div
               data-id="toolbar-modal-button"
               // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-              tabIndex={0}
+              tabIndex={-1}
               ref={this.setModalRef}
               className={classNames(
                 styles.modal,

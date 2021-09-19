@@ -133,13 +133,6 @@ export default class Panel extends Component {
     this.setState({ isCustomPanel: true });
   };
 
-  onBlur = e => {
-    const { target, relatedTarget, currentTarget } = e;
-    if (!currentTarget.contains(relatedTarget)) {
-      setTimeout(() => target.focus());
-    }
-  };
-
   onChange = spacing => {
     const merged = { ...this.state.spacing, ...spacing };
     this.setState({ spacing: merged });
@@ -180,7 +173,6 @@ export default class Panel extends Component {
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
-        onBlur={this.onBlur}
         className={classNames(styles.lineSpacingContainer, {
           [styles.lineSpacingContainer_mobile]: isMobile,
         })}

@@ -13,12 +13,6 @@ const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, onCancel, .
     props?.onToolbarButtonClick?.(alignment);
     onSave(alignment);
   };
-  const onBlur = e => {
-    const { target, relatedTarget, currentTarget } = e;
-    if (!currentTarget.contains(relatedTarget)) {
-      setTimeout(() => target.focus());
-    }
-  };
 
   const panel = isMobile ? (
     <MobilePanel
@@ -38,7 +32,6 @@ const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, onCancel, .
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
-      onBlur={onBlur}
       className={classNames(styles.panel_Container, {
         [styles.mobile_Container]: isMobile,
       })}

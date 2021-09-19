@@ -47,13 +47,6 @@ class HeadingsPanel extends Component {
     return defaults;
   };
 
-  onBlur = e => {
-    const { target, relatedTarget, currentTarget } = e;
-    if (!currentTarget.contains(relatedTarget)) {
-      setTimeout(() => target.focus());
-    }
-  };
-
   render() {
     const { isMobile, t, currentSelect, onCancel } = this.props;
     const panelHeader = t('Headings');
@@ -77,7 +70,6 @@ class HeadingsPanel extends Component {
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
-        onBlur={this.onBlur}
         className={classNames(styles.panel_Container, {
           [styles.mobile_Container]: isMobile,
         })}
