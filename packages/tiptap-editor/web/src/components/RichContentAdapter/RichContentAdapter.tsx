@@ -29,6 +29,23 @@ export class RichContentAdapter implements TiptapAPI {
         const styleName = `toggle${capitalize(inlineStyle)}`;
         editorCommand[styleName]().run();
       },
+      hasInlineStyle: style => {
+        const {
+          state: {
+            doc,
+            selection: { $from, $to },
+          },
+        } = this.editor;
+
+        const marks = {};
+        doc.nodesBetween($from.pos, $to.pos, node => {
+          node.marks.forEach(({ type: { name } }) => {
+            marks[name] = true;
+          });
+        });
+
+        return marks[style];
+      },
       insertBlock: (pluginType, data) => {
         if (pluginType === RICOS_DIVIDER_TYPE || pluginType === DIVIDER_TYPE) {
           const attrs = draftBlockDataToTiptap(DIVIDER_TYPE, data);
@@ -76,7 +93,6 @@ export class RichContentAdapter implements TiptapAPI {
     getColor: () => 'color',
     getFontSize: () => 'big',
     getTextAlignment: () => 'center',
-    hasInlineStyle: () => false,
     isBlockTypeSelected: () => false,
     isUndoStackEmpty: () => false,
     isRedoStackEmpty: () => false,
