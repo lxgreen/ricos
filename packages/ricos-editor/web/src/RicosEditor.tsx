@@ -451,12 +451,15 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                   content={initalContent}
                   t={t}
                   onLoad={editor => {
-                    const richContentAdapter = new RichContentAdapter(editor);
+                    const richContentAdapter = new RichContentAdapter(editor, t);
                     this.setEditorRef(richContentAdapter);
                     const TextToolbar = richContentAdapter.getToolbars().TextToolbar;
                     this.setState({ tiptapToolbar: TextToolbar });
                   }}
                   onUpdate={this.onUpdate}
+                  onSelectionUpdate={() => {
+                    this.useNewFormattingToolbar && this.updateToolbars();
+                  }}
                 />
               );
               return this.renderRicosEngine(tiptapEditor, {});

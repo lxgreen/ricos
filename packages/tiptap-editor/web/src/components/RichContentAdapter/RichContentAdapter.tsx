@@ -2,14 +2,15 @@ import React from 'react';
 import { TiptapAPI } from '../../types';
 import Toolbar from '../../components/Toolbar';
 import { capitalize } from 'lodash';
-import { RICOS_DIVIDER_TYPE, DIVIDER_TYPE } from 'wix-rich-content-common';
+import { RICOS_DIVIDER_TYPE, DIVIDER_TYPE, TranslationFunction } from 'wix-rich-content-common';
 import { draftBlockDataToTiptap } from '../../converters';
 import { Editor } from '@tiptap/core';
 
 // todo : should change to RichContentInterface
 export class RichContentAdapter implements TiptapAPI {
-  constructor(private editor: Editor) {
+  constructor(private editor: Editor, private t: TranslationFunction) {
     this.editor = editor;
+    this.t = t;
   }
 
   focus() {
@@ -52,8 +53,8 @@ export class RichContentAdapter implements TiptapAPI {
 
   getToolbars() {
     return {
-      MobileToolbar: () => <Toolbar editor={this.editor} />,
-      TextToolbar: () => <Toolbar editor={this.editor} />,
+      // MobileToolbar: () => <Toolbar editor={this.editor} />,
+      // TextToolbar: () => <Toolbar editor={this.editor} />,
     };
   }
 
@@ -62,6 +63,10 @@ export class RichContentAdapter implements TiptapAPI {
   }
 
   destroy!: () => null;
+
+  getT() {
+    return this.t;
+  }
 
   editorMocks = {
     getAnchorableBlocks: () => ({
