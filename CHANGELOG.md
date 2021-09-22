@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
 
+- `html plugin`
+  - [#2934](https://github.com/wix/ricos/pull/2934) `forceIframeSandboxDomain` experiment (for debugging)
 
 </details>
 <hr/>
