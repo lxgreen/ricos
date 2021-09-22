@@ -119,7 +119,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
       />
     );
     const ToolbarContainer =
-      textToolbarType === 'static' ? StaticToolbarContainer : FloatingToolbarContainer;
+      isMobile || textToolbarType === 'static' ? StaticToolbarContainer : FloatingToolbarContainer;
 
     return (
       <ToolbarContainer
