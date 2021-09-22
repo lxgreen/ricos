@@ -20,7 +20,11 @@
 ### :house: Internal
 
 - `html plugin`
+
   - [#2934](https://github.com/wix/ricos/pull/2934) `forceIframeSandboxDomain` experiment (for debugging)
+
+- `a11y`
+  - [#2935](https://github.com/wix/ricos/pull/2935) add presentation role to empty lines to skip reading by screen readers
 
 </details>
 <hr/>
