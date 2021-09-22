@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { mergeStyles, normalizeUrl, isValidUrl, validate } from 'wix-rich-content-common';
+import {
+  mergeStyles,
+  normalizeUrl,
+  isValidUrl,
+  validate,
+  GlobalContext,
+} from 'wix-rich-content-common';
 // eslint-disable-next-line max-len
 import pluginHtmlSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-html.schema.json';
 
@@ -23,6 +29,8 @@ const getPageURL = siteDomain => {
 };
 
 class HtmlComponent extends Component {
+  static contextType = GlobalContext;
+
   state = {
     siteDomain: undefined,
   };
@@ -115,7 +123,11 @@ class HtmlComponent extends Component {
       >
         {srcType === SRC_TYPE_HTML && src && (
           <IframeHtml
-            iframeSandboxDomain={iframeSandboxDomain}
+            iframeSandboxDomain={
+              iframeSandboxDomain ||
+              (this.context.experiments.forceIframeSandboxDomain?.enabled &&
+                'https://www.filesusr.com')
+            }
             key={SRC_TYPE_HTML}
             tabIndex={0}
             html={html}
