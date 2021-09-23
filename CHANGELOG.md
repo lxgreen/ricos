@@ -19,6 +19,11 @@
 
 ### :house: Internal
 
+</details>
+<hr/>
+
+## 8.53.2 (Sep 23, 2021)
+
 - `ricos-schema`
   - [#2759](https://github.com/wix/ricos/pull/2759) button schema
   - [#2928](https://github.com/wix/ricos/pull/2928) disable polls from schema & content api until schema is final
@@ -26,9 +31,6 @@
   - [#2934](https://github.com/wix/ricos/pull/2934) `forceIframeSandboxDomain` experiment (for debugging)
 - `a11y`
   - [#2935](https://github.com/wix/ricos/pull/2935) add presentation role to empty lines to skip reading by screen readers
-
-</details>
-<hr/>
 
 ## 8.53.1 (Sep 19, 2021)
 
