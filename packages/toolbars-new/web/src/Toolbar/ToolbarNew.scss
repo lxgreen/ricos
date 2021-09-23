@@ -1,11 +1,8 @@
 .toolbar {
-    width: fit-content;
     display: grid;
     grid-auto-flow: column;
     grid-column-gap: 4px;
     padding: 4px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
-    border: solid 1px rgba(51, 51, 51, 0.1);
     background-color: #ffffff;
     border-radius: 2px;
     font-size: 12px;
@@ -22,9 +19,14 @@
     }
 
     .separator {
-        height: 120%;
+        height: 30px;
+        padding: 4px 0;
+        margin: -4px 0;
         width: 1px;
         background-color: #ededed;
+        &.mobileSeparator {
+            height: 40px;
+        }
     }
 
     .buttonWrapper {
