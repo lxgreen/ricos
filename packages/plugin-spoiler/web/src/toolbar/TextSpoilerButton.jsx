@@ -34,7 +34,7 @@ export default class TextSpoilerButton extends PureComponent {
   };
 
   render() {
-    const { theme, helpers, isMobile, tabIndex, t } = this.props;
+    const { theme, helpers, isMobile, tabIndex, t, disabled } = this.props;
     const { isActive } = this.state;
     return (
       <InlineToolbarButton
@@ -49,6 +49,7 @@ export default class TextSpoilerButton extends PureComponent {
         icon={SpoilerButtonIcon}
         isActive={isActive}
         pluginType={SPOILER_TYPE}
+        disabled={disabled}
       />
     );
   }
@@ -67,4 +68,5 @@ TextSpoilerButton.propTypes = {
   tooltipKey: PropTypes.string,
   dataHook: PropTypes.string,
   icon: PropTypes.object,
+  disabled: PropTypes.bool,
 };
