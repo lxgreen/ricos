@@ -97,7 +97,7 @@ const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix) => {
         const blockIndex = blockProps.data[i].index;
         const { interactions } = blockProps.data[i];
 
-        const _child = isEmptyBlock(child) ? <br /> : child;
+        const _child = isEmptyBlock(child) ? <br role="presentation" /> : child;
 
         const inner = (
           <React.Fragment key={blockProps.keys[i]}>
