@@ -193,10 +193,8 @@ exports[`insert plugins tests > side toolbar > should insert button #0`] =
       "data": {
         "button": {
           "design": {
-            "activeButton": 0,
             "borderRadius": 0,
             "borderWidth": 0,
-            "padding": 12
           },
           "settings": {
             "buttonText": "Click Me"
@@ -862,10 +860,8 @@ exports[`insert plugins tests > footer toolbar > should insert button #0`] =
       "data": {
         "button": {
           "design": {
-            "activeButton": 0,
             "borderRadius": 0,
             "borderWidth": 0,
-            "padding": 12
           },
           "settings": {
             "buttonText": "Click Me"

@@ -1199,16 +1199,6 @@
           "textAlignment": "AUTO"
         }
       }
-    },
-    {
-      "type": "PARAGRAPH",
-      "id": "77",
-      "nodes": [],
-      "paragraphData": {
-        "textStyle": {
-          "textAlignment": "AUTO"
-        }
-      }
     }
   ],
   "metadata": {

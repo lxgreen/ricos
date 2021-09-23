@@ -815,7 +815,7 @@
       "data": {}
     },
     {
-      "key": "61edh",
+      "key": "2297h",
       "text": "",
       "type": "unstyled",
       "depth": 0,
@@ -824,7 +824,7 @@
       "data": {}
     },
     {
-      "key": "dmubi",
+      "key": "cbo6p",
       "text": " ",
       "type": "atomic",
       "depth": 0,
@@ -864,15 +864,6 @@
     },
     {
       "key": "b7hf8",
-      "text": "",
-      "type": "unstyled",
-      "depth": 0,
-      "inlineStyleRanges": [],
-      "entityRanges": [],
-      "data": {}
-    },
-    {
-      "key": "1qgmm",
       "text": "",
       "type": "unstyled",
       "depth": 0,
@@ -1098,7 +1089,8 @@
       "data": {
         "config": {
           "alignment": "center",
-          "size": "small",
+          "size": "inline",
+          "width": 212,
           "textWrap": "wrap"
         },
         "button": {
@@ -1109,10 +1101,8 @@
             "target": "_blank"
           },
           "design": {
-            "activeButton": 4,
             "borderRadius": 5,
             "borderWidth": 7,
-            "padding": 8.5,
             "background": "#FEFDFD",
             "color": "#0261FF",
             "borderColor": "#0261FF"
@@ -1125,8 +1115,9 @@
       "mutability": "IMMUTABLE",
       "data": {
         "config": {
-          "alignment": "center",
+          "alignment": "left",
           "size": "small",
+          "width": "fit-content",
           "textWrap": "wrap"
         },
         "button": {
@@ -1134,10 +1125,8 @@
             "buttonText": "Action Button"
           },
           "design": {
-            "activeButton": 0,
             "borderRadius": 15,
             "borderWidth": 0,
-            "padding": 12,
             "background": "#81B0FF",
             "color": "#FEFDFD",
             "borderColor": "#0261FF"
@@ -1535,5 +1524,5 @@
       }
     }
   },
-  "VERSION": "8.53.0"
+  "VERSION": "8.53.1"
 }

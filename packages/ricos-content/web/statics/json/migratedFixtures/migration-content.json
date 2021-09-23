@@ -619,18 +619,22 @@
       "buttonData": {
         "containerData": {
           "width": {
-            "size": "SMALL"
+            "custom": "212"
           },
           "alignment": "CENTER",
           "textWrap": true
         },
         "type": "LINK",
         "styles": {
-          "borderWidth": 7,
-          "borderRadius": 5,
-          "textColor": "#0261FF",
-          "borderColor": "#0261FF",
-          "backgroundColor": "#FEFDFD"
+          "border": {
+            "width": 7,
+            "radius": 5
+          },
+          "colors": {
+            "text": "#0261FF",
+            "border": "#0261FF",
+            "background": "#FEFDFD"
+          }
         },
         "text": "Link Button",
         "link": {
@@ -660,18 +664,22 @@
       "buttonData": {
         "containerData": {
           "width": {
-            "size": "SMALL"
+            "size": "ORIGINAL"
           },
-          "alignment": "CENTER",
+          "alignment": "LEFT",
           "textWrap": true
         },
         "type": "ACTION",
         "styles": {
-          "borderWidth": 0,
-          "borderRadius": 15,
-          "textColor": "#FEFDFD",
-          "borderColor": "#0261FF",
-          "backgroundColor": "#81B0FF"
+          "border": {
+            "width": 0,
+            "radius": 15
+          },
+          "colors": {
+            "text": "#FEFDFD",
+            "border": "#0261FF",
+            "background": "#81B0FF"
+          }
         },
         "text": "Action Button"
       }
@@ -2120,17 +2128,6 @@
     {
       "type": "PARAGRAPH",
       "id": "118",
-      "nodes": [],
-      "paragraphData": {
-        "textStyle": {
-          "textAlignment": "AUTO"
-        },
-        "indentation": 0
-      }
-    },
-    {
-      "type": "PARAGRAPH",
-      "id": "119",
       "nodes": [],
       "paragraphData": {
         "textStyle": {

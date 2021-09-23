@@ -9,10 +9,8 @@ export const DEFAULTS = {
       buttonText: 'Click Me',
     },
     design: {
-      activeButton: 0,
       borderRadius: 0,
       borderWidth: 0,
-      padding: 12,
     },
   },
 };

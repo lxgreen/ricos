@@ -20,6 +20,7 @@
 ### :house: Internal
 
 - `ricos-schema`
+  - [#2759](https://github.com/wix/ricos/pull/2759) button schema
   - [#2928](https://github.com/wix/ricos/pull/2928) disable polls from schema & content api until schema is final
 - `html plugin`
   - [#2934](https://github.com/wix/ricos/pull/2934) `forceIframeSandboxDomain` experiment (for debugging)

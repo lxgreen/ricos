@@ -28,6 +28,7 @@ import {
   PluginContainerData_Width_Type,
   ButtonData_Type,
   Link,
+  ButtonData,
   GIFData,
   GalleryData,
 } from 'ricos-schema';
@@ -69,7 +70,7 @@ export const convertBlockDataToRicos = (type: string, data) => {
     blockType = EMBED_TYPE;
   }
   if (newData.config) {
-    convertContainerData(newData);
+    convertContainerData(newData, blockType);
   }
   if (blockType in converters) {
     const convert = converters[blockType];
@@ -82,7 +83,10 @@ export const convertBlockDataToRicos = (type: string, data) => {
   return fromJSON(newData);
 };
 
-const convertContainerData = (data: { config?: ComponentData['config']; containerData }) => {
+const convertContainerData = (
+  data: { config?: ComponentData['config']; containerData },
+  blockType: string
+) => {
   const { size, alignment, width, spoiler, height, textWrap = WRAP } = data.config || {};
   const { enabled, description, buttonContent } = spoiler || {};
   const newSpoiler: PluginContainerData_Spoiler | undefined = spoiler && {
@@ -99,6 +103,12 @@ const convertContainerData = (data: { config?: ComponentData['config']; containe
   typeof width === 'number'
     ? (data.containerData.width = { custom: width })
     : size && (data.containerData.width = { size: toConstantCase(size) });
+  if (
+    (blockType === ACTION_BUTTON_TYPE || blockType === LINK_BUTTON_TYPE) &&
+    data.containerData.width.size
+  ) {
+    data.containerData.width.size = 'ORIGINAL';
+  }
 };
 
 const convertVideoData = (data: {
@@ -332,18 +342,15 @@ const convertCollapsibleListData = (data: {
 };
 
 const convertButtonData = (
-  data: { button?: { settings; design }; styles; type; text; link },
+  data: { button?: { settings; design } } & ButtonData,
   blockType: string
 ) => {
   const { settings, design } = data.button || {};
   const { borderRadius, borderWidth, background, color, borderColor } = design || {};
   const { buttonText, url, rel, target } = settings || {};
   data.styles = {
-    borderRadius,
-    borderWidth,
-    backgroundColor: background,
-    textColor: color,
-    borderColor,
+    colors: { text: color, border: borderColor, background },
+    border: { radius: borderRadius, width: borderWidth },
   };
   data.type = blockType === ACTION_BUTTON_TYPE ? ButtonData_Type.ACTION : ButtonData_Type.LINK;
   data.text = buttonText;

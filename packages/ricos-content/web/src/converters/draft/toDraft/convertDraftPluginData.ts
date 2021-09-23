@@ -117,8 +117,11 @@ const convertContainerData = (
     },
     { textWrap: textWrap ? WRAP : NO_WRAP }
   );
-  if (nodeType === Node_Type.IMAGE && width?.custom) {
+  if ((nodeType === Node_Type.IMAGE || nodeType === Node_Type.BUTTON) && width?.custom) {
     data.config.size = 'inline';
+  } else if (nodeType === Node_Type.BUTTON) {
+    data.config.size = 'small';
+    data.config.width = 'fit-content';
   } else if (nodeType === Node_Type.MAP && width?.custom) {
     data.config.size = 'content';
   }
@@ -398,7 +401,8 @@ const convertCollapsibleListData = (
 
 const convertButtonData = (data: Partial<ButtonData> & { button }) => {
   const { link, text, styles } = data;
-  const { borderRadius, borderWidth, backgroundColor, textColor, borderColor } = styles || {};
+  const { colors, border } = styles || {};
+  const { width, radius } = border || {};
   const convertedLink = link ? parseLink(link) : {};
   data.button = {
     settings: {
@@ -406,11 +410,11 @@ const convertButtonData = (data: Partial<ButtonData> & { button }) => {
       ...convertedLink,
     },
     design: {
-      borderRadius,
-      borderWidth,
-      background: backgroundColor,
-      color: textColor,
-      borderColor,
+      borderRadius: radius,
+      borderWidth: width,
+      background: colors?.background,
+      color: colors?.text,
+      borderColor: colors?.border,
     },
   };
   delete data.link;
