@@ -49,7 +49,7 @@ describe('Content extract API', () => {
         'FILE',
         'APP_EMBED',
         'LINK_PREVIEW',
-        'POLL',
+        // 'POLL',
         'BLOCKQUOTE',
         'ORDERED_LIST',
         'LIST_ITEM',

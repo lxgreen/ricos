@@ -60,7 +60,7 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data, nodes?: Node[]
     [Node_Type.FILE]: convertFileData,
     [Node_Type.GIF]: convertGIFData,
     [Node_Type.IMAGE]: convertImageData,
-    [Node_Type.POLL]: convertPollData,
+    // [Node_Type.POLL]: convertPollData,
     [Node_Type.APP_EMBED]: convertAppEmbedData,
     [Node_Type.LINK_PREVIEW]: convertLinkPreviewData,
     [Node_Type.BUTTON]: convertButtonData,
@@ -287,20 +287,20 @@ const convertGIFData = (
   delete data.width;
 };
 
-const convertPollData = data => {
-  has(data, 'layout.poll.type') && (data.layout.poll.type = data.layout.poll.type.toLowerCase());
-  has(data, 'layout.poll.direction') &&
-    (data.layout.poll.direction = data.layout.poll.direction.toLowerCase());
-  has(data, 'design.poll.backgroundType') &&
-    (data.design.poll.backgroundType = data.design.poll.backgroundType.toLowerCase());
-  has(data, 'poll.pollId') && (data.poll.id = data.poll.pollId);
-  delete data.poll.pollId;
-  has(data, 'poll.options') &&
-    (data.poll.options = data.poll.options.map(({ optionId, ...rest }) => ({
-      id: optionId,
-      ...rest,
-    })));
-};
+// const convertPollData = data => {
+//   has(data, 'layout.poll.type') && (data.layout.poll.type = data.layout.poll.type.toLowerCase());
+//   has(data, 'layout.poll.direction') &&
+//     (data.layout.poll.direction = data.layout.poll.direction.toLowerCase());
+//   has(data, 'design.poll.backgroundType') &&
+//     (data.design.poll.backgroundType = data.design.poll.backgroundType.toLowerCase());
+//   has(data, 'poll.pollId') && (data.poll.id = data.poll.pollId);
+//   delete data.poll.pollId;
+//   has(data, 'poll.options') &&
+//     (data.poll.options = data.poll.options.map(({ optionId, ...rest }) => ({
+//       id: optionId,
+//       ...rest,
+//     })));
+// };
 
 const convertAppEmbedData = data => {
   const { type, itemId, name, imageSrc, url, bookingData, eventData } = data;

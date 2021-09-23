@@ -964,118 +964,12 @@
       }
     },
     {
-      "type": "POLL",
-      "id": "36",
-      "nodes": [],
-      "pollData": {
-        "config": {
-          "enableVoteRole": false
-        },
-        "poll": {
-          "anonymousCount": 0,
-          "count": 13,
-          "createdBy": "3efa7e86-fc25-4ef1-a002-19769b84202f",
-          "creatorFlag": true,
-          "pollId": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
-          "mediaId": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg",
-          "options": [
-            {
-              "anonymousCount": 0,
-              "count": 5,
-              "optionId": "067ed3b5-f19d-4886-8f23-acd84a586522",
-              "latestVoters": [
-                "84856a9a-f25f-4d8f-a774-56e0b8927bbe",
-                "15c6f37e-c980-46ba-b450-11415ca5b4fe",
-                "2bff5b99-e56c-421d-b5ec-cd432a5b6961",
-                "3efa7e86-fc25-4ef1-a002-19769b84202f",
-                "28ba5b75-0c82-4239-86e3-131879cb96e7"
-              ],
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png",
-              "rating": 38,
-              "title": "Cafe Nordoy"
-            },
-            {
-              "anonymousCount": 0,
-              "count": 4,
-              "optionId": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
-              "latestVoters": [
-                "3efa7e86-fc25-4ef1-a002-19769b84202f",
-                "dd0d2b42-ba5f-47e9-8a53-26c61c08f9ec",
-                "3f3fa379-9a5a-4306-8a95-f79915ef479d",
-                "7b3cad1d-bce1-4529-b402-d1e1e74962f1"
-              ],
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg",
-              "rating": 31,
-              "title": "קפה רוטשילד 65"
-            },
-            {
-              "anonymousCount": 0,
-              "count": 3,
-              "optionId": "41679bf9-89ba-41f2-81d3-832d567531da",
-              "latestVoters": [
-                "15c6f37e-c980-46ba-b450-11415ca5b4fe",
-                "13633644-d00c-4456-a189-1575ea044f10",
-                "7b3cad1d-bce1-4529-b402-d1e1e74962f1"
-              ],
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg",
-              "rating": 23,
-              "title": "האחים"
-            },
-            {
-              "anonymousCount": 0,
-              "count": 1,
-              "optionId": "378c6042-55cc-4e4a-9f0c-77824bee4964",
-              "latestVoters": [
-                "dd0d2b42-ba5f-47e9-8a53-26c61c08f9ec"
-              ],
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg",
-              "rating": 8,
-              "title": "הוטל מונטיפיורי"
-            }
-          ],
-          "ownVotes": [
-            "067ed3b5-f19d-4886-8f23-acd84a586522",
-            "ee32a57f-bf6c-425a-a20c-e678bcf4a73b"
-          ],
-          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
-          "settings": {
-            "multipleVotes": true,
-            "resultsVisibility": "VOTERS_ONLY",
-            "voteRole": "SITE_MEMBERS",
-            "votersDisplay": true,
-            "votesDisplay": true
-          }
-        },
-        "layout": {
-          "poll": {
-            "type": "GRID",
-            "direction": "LTR",
-            "enableImage": false
-          },
-          "option": {
-            "enableImage": true
-          }
-        },
-        "design": {
-          "poll": {
-            "backgroundType": "IMAGE",
-            "background": "https://static.wixstatic.com/media/2dfdd3_b120b7d9cffd4645bb143beadef13c56~mv2.jpg",
-            "borderRadius": 0
-          },
-          "option": {
-            "borderRadius": 0
-          }
-        },
-        "siteToken": "VBLuQllkHnrmBH_7O0-Xmzek4kW6U1qHy5-p36Rfkys.eyJpbnN0YW5jZUlkIjoiYTE2NDRiZmUtNzFmOC00MDFiLWI3YWEtNTgwYzkxMDBmMDk3IiwiYXBwRGVmSWQiOiIxNDhjMjI4Ny1jNjY5LWQ4NDktZDE1My00NjNjNzQ4NmE2OTQiLCJtZXRhU2l0ZUlkIjoiMzlkNjk1MTYtYWYwNC00ZTQ1LWE2NjAtMzQwNjIwZWQ0NGNkIiwic2lnbkRhdGUiOiIyMDIwLTA3LTMwVDA4OjQyOjQ2LjQ2MVoiLCJ1aWQiOiIzZWZhN2U4Ni1mYzI1LTRlZjEtYTAwMi0xOTc2OWI4NDIwMmYiLCJwZXJtaXNzaW9ucyI6Ik9XTkVSIiwiZGVtb01vZGUiOmZhbHNlLCJhaWQiOiIzYTk1MzMzMS1hZGU4LTQzMDMtOWM5NC04NmIzNmU0ZDAzMzIiLCJiaVRva2VuIjoiOThiMmRlZTgtZGVmYy0wZTVlLTExY2EtNmMwYWIxZWRiNDVhIiwic2l0ZU93bmVySWQiOiIzZWZhN2U4Ni1mYzI1LTRlZjEtYTAwMi0xOTc2OWI4NDIwMmYiLCJleHBpcmF0aW9uRGF0ZSI6IjIwMjAtMDctMzBUMTI6NDI6NDYuNDYxWiIsImhhc1VzZXJSb2xlIjp0cnVlfQ"
-      }
-    },
-    {
       "type": "BLOCKQUOTE",
-      "id": "37",
+      "id": "36",
       "nodes": [
         {
           "type": "PARAGRAPH",
-          "id": "38",
+          "id": "37",
           "nodes": [
             {
               "type": "TEXT",
@@ -1167,15 +1061,15 @@
     },
     {
       "type": "ORDERED_LIST",
-      "id": "39",
+      "id": "38",
       "nodes": [
         {
           "type": "LIST_ITEM",
-          "id": "40",
+          "id": "39",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "id": "41",
+              "id": "40",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -1196,15 +1090,15 @@
             },
             {
               "type": "ORDERED_LIST",
-              "id": "42",
+              "id": "41",
               "nodes": [
                 {
                   "type": "LIST_ITEM",
-                  "id": "43",
+                  "id": "42",
                   "nodes": [
                     {
                       "type": "PARAGRAPH",
-                      "id": "44",
+                      "id": "43",
                       "nodes": [
                         {
                           "type": "TEXT",
@@ -1225,15 +1119,15 @@
                     },
                     {
                       "type": "ORDERED_LIST",
-                      "id": "45",
+                      "id": "44",
                       "nodes": [
                         {
                           "type": "LIST_ITEM",
-                          "id": "46",
+                          "id": "45",
                           "nodes": [
                             {
                               "type": "PARAGRAPH",
-                              "id": "47",
+                              "id": "46",
                               "nodes": [
                                 {
                                   "type": "TEXT",
@@ -1254,15 +1148,15 @@
                             },
                             {
                               "type": "ORDERED_LIST",
-                              "id": "48",
+                              "id": "47",
                               "nodes": [
                                 {
                                   "type": "LIST_ITEM",
-                                  "id": "49",
+                                  "id": "48",
                                   "nodes": [
                                     {
                                       "type": "PARAGRAPH",
-                                      "id": "50",
+                                      "id": "49",
                                       "nodes": [
                                         {
                                           "type": "TEXT",
@@ -1283,15 +1177,15 @@
                                     },
                                     {
                                       "type": "ORDERED_LIST",
-                                      "id": "51",
+                                      "id": "50",
                                       "nodes": [
                                         {
                                           "type": "LIST_ITEM",
-                                          "id": "52",
+                                          "id": "51",
                                           "nodes": [
                                             {
                                               "type": "PARAGRAPH",
-                                              "id": "53",
+                                              "id": "52",
                                               "nodes": [
                                                 {
                                                   "type": "TEXT",
@@ -1314,11 +1208,11 @@
                                         },
                                         {
                                           "type": "LIST_ITEM",
-                                          "id": "54",
+                                          "id": "53",
                                           "nodes": [
                                             {
                                               "type": "PARAGRAPH",
-                                              "id": "55",
+                                              "id": "54",
                                               "nodes": [
                                                 {
                                                   "type": "TEXT",
@@ -1357,11 +1251,11 @@
         },
         {
           "type": "LIST_ITEM",
-          "id": "56",
+          "id": "55",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "id": "57",
+              "id": "56",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -1382,15 +1276,15 @@
             },
             {
               "type": "BULLETED_LIST",
-              "id": "58",
+              "id": "57",
               "nodes": [
                 {
                   "type": "LIST_ITEM",
-                  "id": "59",
+                  "id": "58",
                   "nodes": [
                     {
                       "type": "PARAGRAPH",
-                      "id": "60",
+                      "id": "59",
                       "nodes": [
                         {
                           "type": "TEXT",
@@ -1417,11 +1311,11 @@
         },
         {
           "type": "LIST_ITEM",
-          "id": "61",
+          "id": "60",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "id": "62",
+              "id": "61",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -1446,7 +1340,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "id": "63",
+      "id": "62",
       "nodes": [],
       "paragraphData": {
         "textStyle": {
@@ -1457,15 +1351,15 @@
     },
     {
       "type": "BULLETED_LIST",
-      "id": "64",
+      "id": "63",
       "nodes": [
         {
           "type": "LIST_ITEM",
-          "id": "65",
+          "id": "64",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "id": "66",
+              "id": "65",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -1486,15 +1380,15 @@
             },
             {
               "type": "BULLETED_LIST",
-              "id": "67",
+              "id": "66",
               "nodes": [
                 {
                   "type": "LIST_ITEM",
-                  "id": "68",
+                  "id": "67",
                   "nodes": [
                     {
                       "type": "PARAGRAPH",
-                      "id": "69",
+                      "id": "68",
                       "nodes": [
                         {
                           "type": "TEXT",
@@ -1515,15 +1409,15 @@
                     },
                     {
                       "type": "BULLETED_LIST",
-                      "id": "70",
+                      "id": "69",
                       "nodes": [
                         {
                           "type": "LIST_ITEM",
-                          "id": "71",
+                          "id": "70",
                           "nodes": [
                             {
                               "type": "PARAGRAPH",
-                              "id": "72",
+                              "id": "71",
                               "nodes": [
                                 {
                                   "type": "TEXT",
@@ -1544,15 +1438,15 @@
                             },
                             {
                               "type": "BULLETED_LIST",
-                              "id": "73",
+                              "id": "72",
                               "nodes": [
                                 {
                                   "type": "LIST_ITEM",
-                                  "id": "74",
+                                  "id": "73",
                                   "nodes": [
                                     {
                                       "type": "PARAGRAPH",
-                                      "id": "75",
+                                      "id": "74",
                                       "nodes": [
                                         {
                                           "type": "TEXT",
@@ -1573,15 +1467,15 @@
                                     },
                                     {
                                       "type": "BULLETED_LIST",
-                                      "id": "76",
+                                      "id": "75",
                                       "nodes": [
                                         {
                                           "type": "LIST_ITEM",
-                                          "id": "77",
+                                          "id": "76",
                                           "nodes": [
                                             {
                                               "type": "PARAGRAPH",
-                                              "id": "78",
+                                              "id": "77",
                                               "nodes": [
                                                 {
                                                   "type": "TEXT",
@@ -1604,11 +1498,11 @@
                                         },
                                         {
                                           "type": "LIST_ITEM",
-                                          "id": "79",
+                                          "id": "78",
                                           "nodes": [
                                             {
                                               "type": "PARAGRAPH",
-                                              "id": "80",
+                                              "id": "79",
                                               "nodes": [
                                                 {
                                                   "type": "TEXT",
@@ -1647,11 +1541,11 @@
         },
         {
           "type": "LIST_ITEM",
-          "id": "81",
+          "id": "80",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "id": "82",
+              "id": "81",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -1674,11 +1568,11 @@
         },
         {
           "type": "LIST_ITEM",
-          "id": "83",
+          "id": "82",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "id": "84",
+              "id": "83",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -1703,7 +1597,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "id": "85",
+      "id": "84",
       "nodes": [],
       "paragraphData": {
         "textStyle": {
@@ -1714,7 +1608,7 @@
     },
     {
       "type": "HEADING",
-      "id": "86",
+      "id": "85",
       "nodes": [
         {
           "type": "TEXT",
@@ -1739,7 +1633,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "id": "87",
+      "id": "86",
       "nodes": [],
       "style": {
         "paddingTop": "0px",
@@ -1754,7 +1648,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "id": "88",
+      "id": "87",
       "nodes": [
         {
           "type": "TEXT",
@@ -1780,7 +1674,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "id": "89",
+      "id": "88",
       "nodes": [],
       "paragraphData": {
         "textStyle": {
@@ -1791,7 +1685,7 @@
     },
     {
       "type": "IMAGE",
-      "id": "90",
+      "id": "89",
       "nodes": [],
       "imageData": {
         "containerData": {
@@ -1817,7 +1711,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "id": "91",
+      "id": "90",
       "nodes": [
         {
           "type": "TEXT",
@@ -1838,7 +1732,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "id": "92",
+      "id": "91",
       "nodes": [
         {
           "type": "TEXT",
@@ -1859,7 +1753,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "id": "93",
+      "id": "92",
       "nodes": [],
       "paragraphData": {
         "textStyle": {
@@ -1870,7 +1764,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "id": "94",
+      "id": "93",
       "nodes": [],
       "paragraphData": {
         "textStyle": {
@@ -1881,19 +1775,19 @@
     },
     {
       "type": "COLLAPSIBLE_LIST",
-      "id": "95",
+      "id": "94",
       "nodes": [
         {
           "type": "COLLAPSIBLE_ITEM",
-          "id": "96",
+          "id": "95",
           "nodes": [
             {
               "type": "COLLAPSIBLE_ITEM_TITLE",
-              "id": "97",
+              "id": "96",
               "nodes": [
                 {
                   "type": "PARAGRAPH",
-                  "id": "98",
+                  "id": "97",
                   "nodes": [
                     {
                       "type": "TEXT",
@@ -1923,11 +1817,11 @@
             },
             {
               "type": "COLLAPSIBLE_ITEM_BODY",
-              "id": "99",
+              "id": "98",
               "nodes": [
                 {
                   "type": "PARAGRAPH",
-                  "id": "100",
+                  "id": "99",
                   "nodes": [],
                   "paragraphData": {
                     "textStyle": {
@@ -1942,19 +1836,19 @@
         },
         {
           "type": "COLLAPSIBLE_ITEM",
-          "id": "101",
+          "id": "100",
           "nodes": [
             {
               "type": "COLLAPSIBLE_ITEM_TITLE",
-              "id": "102",
+              "id": "101",
               "nodes": [
                 {
                   "type": "BLOCKQUOTE",
-                  "id": "103",
+                  "id": "102",
                   "nodes": [
                     {
                       "type": "PARAGRAPH",
-                      "id": "104",
+                      "id": "103",
                       "nodes": [
                         {
                           "type": "TEXT",
@@ -1979,11 +1873,11 @@
             },
             {
               "type": "COLLAPSIBLE_ITEM_BODY",
-              "id": "105",
+              "id": "104",
               "nodes": [
                 {
                   "type": "PARAGRAPH",
-                  "id": "106",
+                  "id": "105",
                   "nodes": [
                     {
                       "type": "TEXT",
@@ -2023,7 +1917,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "id": "107",
+      "id": "106",
       "nodes": [],
       "paragraphData": {
         "textStyle": {
@@ -2034,19 +1928,19 @@
     },
     {
       "type": "TABLE",
-      "id": "108",
+      "id": "107",
       "nodes": [
         {
           "type": "TABLE_ROW",
-          "id": "109",
+          "id": "108",
           "nodes": [
             {
               "type": "TABLE_CELL",
-              "id": "110",
+              "id": "109",
               "nodes": [
                 {
                   "type": "PARAGRAPH",
-                  "id": "111",
+                  "id": "110",
                   "nodes": [
                     {
                       "type": "TEXT",
@@ -2076,11 +1970,11 @@
             },
             {
               "type": "TABLE_CELL",
-              "id": "112",
+              "id": "111",
               "nodes": [
                 {
                   "type": "PARAGRAPH",
-                  "id": "113",
+                  "id": "112",
                   "nodes": [
                     {
                       "type": "TEXT",
@@ -2120,15 +2014,15 @@
         },
         {
           "type": "TABLE_ROW",
-          "id": "114",
+          "id": "113",
           "nodes": [
             {
               "type": "TABLE_CELL",
-              "id": "115",
+              "id": "114",
               "nodes": [
                 {
                   "type": "PARAGRAPH",
-                  "id": "116",
+                  "id": "115",
                   "nodes": [
                     {
                       "type": "TEXT",
@@ -2167,11 +2061,11 @@
             },
             {
               "type": "TABLE_CELL",
-              "id": "117",
+              "id": "116",
               "nodes": [
                 {
                   "type": "PARAGRAPH",
-                  "id": "118",
+                  "id": "117",
                   "nodes": [
                     {
                       "type": "TEXT",
@@ -2225,7 +2119,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "id": "119",
+      "id": "118",
       "nodes": [],
       "paragraphData": {
         "textStyle": {
@@ -2236,7 +2130,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "id": "120",
+      "id": "119",
       "nodes": [],
       "paragraphData": {
         "textStyle": {

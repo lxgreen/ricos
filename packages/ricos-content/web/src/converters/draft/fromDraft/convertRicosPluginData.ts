@@ -9,7 +9,7 @@ import {
   LINK_BUTTON_TYPE,
   LINK_PREVIEW_TYPE,
   MENTION_TYPE,
-  POLL_TYPE,
+  // POLL_TYPE,
   APP_EMBED_TYPE,
   VIDEO_TYPE,
   MAP_TYPE,
@@ -50,7 +50,7 @@ export const convertBlockDataToRicos = (type: string, data) => {
     [FILE_UPLOAD_TYPE]: convertFileData,
     [GIPHY_TYPE]: convertGIFData,
     [IMAGE_TYPE]: convertImageData,
-    [POLL_TYPE]: convertPollData,
+    // [POLL_TYPE]: convertPollData,
     [APP_EMBED_TYPE]: convertAppEmbedData,
     [LINK_PREVIEW_TYPE]: convertLinkPreviewData,
     [MENTION_TYPE]: convertMentionData,
@@ -230,19 +230,19 @@ const convertGIFData = (
   delete data.gif;
 };
 
-const convertPollData = (data: { layout; design; poll }) => {
-  has(data, 'layout.poll.type') && (data.layout.poll.type = data.layout.poll.type.toUpperCase());
-  has(data, 'layout.poll.direction') &&
-    (data.layout.poll.direction = data.layout.poll.direction.toUpperCase());
-  has(data, 'design.poll.backgroundType') &&
-    (data.design.poll.backgroundType = data.design.poll.backgroundType.toUpperCase());
-  has(data, 'poll.id') && (data.poll.pollId = data.poll.id);
-  has(data, 'poll.options') &&
-    (data.poll.options = data.poll.options.map(({ id, ...rest }) => ({
-      optionId: id,
-      ...rest,
-    })));
-};
+// const convertPollData = (data: { layout; design; poll }) => {
+//   has(data, 'layout.poll.type') && (data.layout.poll.type = data.layout.poll.type.toUpperCase());
+//   has(data, 'layout.poll.direction') &&
+//     (data.layout.poll.direction = data.layout.poll.direction.toUpperCase());
+//   has(data, 'design.poll.backgroundType') &&
+//     (data.design.poll.backgroundType = data.design.poll.backgroundType.toUpperCase());
+//   has(data, 'poll.id') && (data.poll.pollId = data.poll.id);
+//   has(data, 'poll.options') &&
+//     (data.poll.options = data.poll.options.map(({ id, ...rest }) => ({
+//       optionId: id,
+//       ...rest,
+//     })));
+// };
 
 const convertAppEmbedData = (data: {
   type: string;

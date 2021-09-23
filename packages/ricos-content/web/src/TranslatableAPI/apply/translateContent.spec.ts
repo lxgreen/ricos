@@ -236,56 +236,56 @@ describe('translateContent', () => {
     });
   });
 
-  describe('poll', () => {
-    const content = RichContent.fromJSON(poll);
-    const mockTranslatable: Translatable[] = [
-      {
-        id: '36',
-        path: 'pollData.poll.title',
-        text: 'Where do you want to have breakfast tomorrow to use the monthly budget?',
-        type: Node_Type.POLL,
-      },
-      {
-        id: '36',
-        path: 'pollData.poll.options[0].title',
-        text: 'Cafe Nordoy',
-        type: Node_Type.POLL,
-      },
-      {
-        id: '36',
-        path: 'pollData.poll.options[1].title',
-        text: 'קפה רוטשילד 65',
-        type: Node_Type.POLL,
-      },
-    ];
-    const diffTranslations = differentiate(mockTranslatable);
+  // describe('poll', () => {
+  //   const content = RichContent.fromJSON(poll);
+  //   const mockTranslatable: Translatable[] = [
+  //     {
+  //       id: '36',
+  //       path: 'pollData.poll.title',
+  //       text: 'Where do you want to have breakfast tomorrow to use the monthly budget?',
+  //       type: Node_Type.POLL,
+  //     },
+  //     {
+  //       id: '36',
+  //       path: 'pollData.poll.options[0].title',
+  //       text: 'Cafe Nordoy',
+  //       type: Node_Type.POLL,
+  //     },
+  //     {
+  //       id: '36',
+  //       path: 'pollData.poll.options[1].title',
+  //       text: 'קפה רוטשילד 65',
+  //       type: Node_Type.POLL,
+  //     },
+  //   ];
+  //   const diffTranslations = differentiate(mockTranslatable);
 
-    it('should not make change if source = translations', () => {
-      const result = translateContent(content, mockTranslatable);
-      expect(result).toStrictEqual(content);
-    });
+  //   it('should not make change if source = translations', () => {
+  //     const result = translateContent(content, mockTranslatable);
+  //     expect(result).toStrictEqual(content);
+  //   });
 
-    it('should change text attributes', () => {
-      const result = translateContent(content, diffTranslations);
-      expect(compare(result, content)).toStrictEqual<DeepPartial<Node>>({
-        nodes: [
-          {
-            pollData: {
-              poll: {
-                title: 'abc',
-                options: [
-                  {
-                    title: 'abc',
-                  },
-                  {
-                    title: 'abc',
-                  },
-                ],
-              },
-            },
-          },
-        ],
-      });
-    });
-  });
+  //   it('should change text attributes', () => {
+  //     const result = translateContent(content, diffTranslations);
+  //     expect(compare(result, content)).toStrictEqual<DeepPartial<Node>>({
+  //       nodes: [
+  //         {
+  //           pollData: {
+  //             poll: {
+  //               title: 'abc',
+  //               options: [
+  //                 {
+  //                   title: 'abc',
+  //                 },
+  //                 {
+  //                   title: 'abc',
+  //                 },
+  //               ],
+  //             },
+  //           },
+  //         },
+  //       ],
+  //     });
+  //   });
+  // });
 });
