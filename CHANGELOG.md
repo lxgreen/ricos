@@ -22,6 +22,13 @@
 </details>
 <hr/>
 
+## 8.53.3 (Sep 23, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2937](https://github.com/wix/ricos/pull/2937) mobile flaky switching between text and link toolbar + remove dependent in old toolbars logic
+
 ## 8.53.2 (Sep 23, 2021)
 
 - `ricos-schema`
