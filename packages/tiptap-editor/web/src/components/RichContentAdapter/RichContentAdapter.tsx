@@ -78,7 +78,6 @@ export class RichContentAdapter implements TiptapAPI {
       }),
 
       insertDecoration: (type, data) => {
-        console.log({ type, data });
         if (type !== RICOS_LINK_TYPE) {
           console.error(`${type} decoration not supported`);
         } else {
