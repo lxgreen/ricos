@@ -21,9 +21,7 @@ class DesignComponent extends PureComponent {
     this.state = {
       design: {
         borderWidth: designObj.borderWidth,
-        padding: designObj.padding,
         borderRadius: designObj.borderRadius,
-        activeButton: designObj.activeButton,
         color: designObj?.color || colors?.color1 || bgColor,
         borderColor: designObj?.borderColor || colors?.color8 || actionColor,
         background: designObj?.background || colors?.color8 || actionColor,
@@ -121,7 +119,7 @@ class DesignComponent extends PureComponent {
   };
 
   onBorderWidthChange = value => {
-    const design = { ...this.state.design, borderWidth: value, padding: 12 - value / 2 };
+    const design = { ...this.state.design, borderWidth: value };
     this.setState({ design });
   };
 

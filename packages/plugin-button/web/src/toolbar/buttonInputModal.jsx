@@ -148,7 +148,6 @@ export default class ButtonInputModal extends Component {
       borderWidth: design.borderWidth,
       padding: design.padding,
       borderRadius: design.borderRadius,
-      activeButton: design.activeButton,
     };
     const componentDataToSave = pubsub.get('componentData');
     componentDataToSave.button.design = designToSave;

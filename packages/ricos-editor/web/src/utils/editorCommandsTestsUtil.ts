@@ -374,24 +374,24 @@ const gallery = {
 };
 
 // TODO: check about expected data
-const poll = {
-  type: RICOS_POLL_TYPE,
-  nodeType: Node_Type.POLL,
-  data1: PollData.fromJSON({
-    config: { enableVoteRole: true },
-    poll: {},
-    design: {},
-    layout: {},
-  }),
-  data2: PollData.fromJSON({
-    config: { enableVoteRole: false },
-    poll: {},
-    design: {},
-    layout: {},
-  }),
-  expectedData1: {},
-  expectedData2: {},
-};
+// const poll = {
+//   type: RICOS_POLL_TYPE,
+//   nodeType: Node_Type.POLL,
+//   data1: PollData.fromJSON({
+//     config: { enableVoteRole: true },
+//     poll: {},
+//     design: {},
+//     layout: {},
+//   }),
+//   data2: PollData.fromJSON({
+//     config: { enableVoteRole: false },
+//     poll: {},
+//     design: {},
+//     layout: {},
+//   }),
+//   expectedData1: {},
+//   expectedData2: {},
+// };
 
 // TODO: check about expected data
 const video = {

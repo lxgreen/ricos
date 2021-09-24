@@ -4125,13 +4125,11 @@ exports[`plugins > link button > create link button #0`] =
       "data": {
         "button": {
           "design": {
-            "activeButton": 3,
             "background": "#81B0FF",
             "borderColor": "#0261FF",
             "borderRadius": 10,
             "borderWidth": 1,
             "color": "#0261FF",
-            "padding": 12
           },
           "settings": {
             "buttonText": "Click Me",
@@ -4196,13 +4194,11 @@ exports[`plugins > action button > create action button #0`] =
       "data": {
         "button": {
           "design": {
-            "activeButton": 3,
             "background": "#81B0FF",
             "borderColor": "#0261FF",
             "borderRadius": 10,
             "borderWidth": 1,
             "color": "#0261FF",
-            "padding": 12
           },
           "settings": {
             "buttonText": "Click Me",
@@ -4267,13 +4263,11 @@ exports[`plugins > link button > create link button & customize it #0`] =
       "data": {
         "button": {
           "design": {
-            "activeButton": 3,
             "background": "#81B0FF",
             "borderColor": "#0261FF",
             "borderRadius": 10,
             "borderWidth": 1,
             "color": "#0261FF",
-            "padding": 12
           },
           "settings": {
             "buttonText": "Click Me",
@@ -4345,13 +4339,11 @@ exports[`plugins > action button > create action button & customize it #0`] =
       "data": {
         "button": {
           "design": {
-            "activeButton": 3,
             "background": "#81B0FF",
             "borderColor": "#0261FF",
             "borderRadius": 10,
             "borderWidth": 1,
             "color": "#0261FF",
-            "padding": 12
           },
           "settings": {
             "buttonText": "Click Me"
@@ -4420,13 +4412,11 @@ exports[`plugins > action button > create action button & click it #0`] =
       "data": {
         "button": {
           "design": {
-            "activeButton": 0,
             "background": "#0261FF",
             "borderColor": "#0261FF",
             "borderRadius": 0,
             "borderWidth": 0,
             "color": "#FFFFFF",
-            "padding": 12
           },
           "settings": {
             "buttonText": "Click Me"

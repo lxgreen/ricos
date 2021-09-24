@@ -619,18 +619,22 @@
       "attrs": {
         "containerData": {
           "width": {
-            "size": "SMALL"
+            "custom": "212"
           },
           "alignment": "CENTER",
           "textWrap": true
         },
         "type": "link",
         "styles": {
-          "borderWidth": 7,
-          "borderRadius": 5,
-          "textColor": "#0261FF",
-          "borderColor": "#0261FF",
-          "backgroundColor": "#FEFDFD"
+          "border": {
+            "width": 7,
+            "radius": 5
+          },
+          "colors": {
+            "text": "#0261FF",
+            "border": "#0261FF",
+            "background": "#FEFDFD"
+          }
         },
         "text": "Link Button",
         "link": {
@@ -660,18 +664,22 @@
       "attrs": {
         "containerData": {
           "width": {
-            "size": "SMALL"
+            "size": "ORIGINAL"
           },
-          "alignment": "CENTER",
+          "alignment": "LEFT",
           "textWrap": true
         },
         "type": "ACTION",
         "styles": {
-          "borderWidth": 0,
-          "borderRadius": 15,
-          "textColor": "#FEFDFD",
-          "borderColor": "#0261FF",
-          "backgroundColor": "#81B0FF"
+          "border": {
+            "width": 0,
+            "radius": 15
+          },
+          "colors": {
+            "text": "#FEFDFD",
+            "border": "#0261FF",
+            "background": "#81B0FF"
+          }
         },
         "text": "Action Button",
         "id": "16"
@@ -965,112 +973,6 @@
       }
     },
     {
-      "type": "poll",
-      "content": [],
-      "attrs": {
-        "config": {
-          "enableVoteRole": false
-        },
-        "poll": {
-          "anonymousCount": 0,
-          "count": 13,
-          "createdBy": "3efa7e86-fc25-4ef1-a002-19769b84202f",
-          "creatorFlag": true,
-          "pollId": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
-          "mediaId": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg",
-          "options": [
-            {
-              "anonymousCount": 0,
-              "count": 5,
-              "optionId": "067ed3b5-f19d-4886-8f23-acd84a586522",
-              "latestVoters": [
-                "84856a9a-f25f-4d8f-a774-56e0b8927bbe",
-                "15c6f37e-c980-46ba-b450-11415ca5b4fe",
-                "2bff5b99-e56c-421d-b5ec-cd432a5b6961",
-                "3efa7e86-fc25-4ef1-a002-19769b84202f",
-                "28ba5b75-0c82-4239-86e3-131879cb96e7"
-              ],
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png",
-              "rating": 38,
-              "title": "Cafe Nordoy"
-            },
-            {
-              "anonymousCount": 0,
-              "count": 4,
-              "optionId": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
-              "latestVoters": [
-                "3efa7e86-fc25-4ef1-a002-19769b84202f",
-                "dd0d2b42-ba5f-47e9-8a53-26c61c08f9ec",
-                "3f3fa379-9a5a-4306-8a95-f79915ef479d",
-                "7b3cad1d-bce1-4529-b402-d1e1e74962f1"
-              ],
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg",
-              "rating": 31,
-              "title": "קפה רוטשילד 65"
-            },
-            {
-              "anonymousCount": 0,
-              "count": 3,
-              "optionId": "41679bf9-89ba-41f2-81d3-832d567531da",
-              "latestVoters": [
-                "15c6f37e-c980-46ba-b450-11415ca5b4fe",
-                "13633644-d00c-4456-a189-1575ea044f10",
-                "7b3cad1d-bce1-4529-b402-d1e1e74962f1"
-              ],
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg",
-              "rating": 23,
-              "title": "האחים"
-            },
-            {
-              "anonymousCount": 0,
-              "count": 1,
-              "optionId": "378c6042-55cc-4e4a-9f0c-77824bee4964",
-              "latestVoters": [
-                "dd0d2b42-ba5f-47e9-8a53-26c61c08f9ec"
-              ],
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg",
-              "rating": 8,
-              "title": "הוטל מונטיפיורי"
-            }
-          ],
-          "ownVotes": [
-            "067ed3b5-f19d-4886-8f23-acd84a586522",
-            "ee32a57f-bf6c-425a-a20c-e678bcf4a73b"
-          ],
-          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
-          "settings": {
-            "multipleVotes": true,
-            "resultsVisibility": "VOTERS_ONLY",
-            "voteRole": "SITE_MEMBERS",
-            "votersDisplay": true,
-            "votesDisplay": true
-          }
-        },
-        "layout": {
-          "poll": {
-            "type": "GRID",
-            "direction": "LTR",
-            "enableImage": false
-          },
-          "option": {
-            "enableImage": true
-          }
-        },
-        "design": {
-          "poll": {
-            "backgroundType": "IMAGE",
-            "background": "https://static.wixstatic.com/media/2dfdd3_b120b7d9cffd4645bb143beadef13c56~mv2.jpg",
-            "borderRadius": 0
-          },
-          "option": {
-            "borderRadius": 0
-          }
-        },
-        "siteToken": "VBLuQllkHnrmBH_7O0-Xmzek4kW6U1qHy5-p36Rfkys.eyJpbnN0YW5jZUlkIjoiYTE2NDRiZmUtNzFmOC00MDFiLWI3YWEtNTgwYzkxMDBmMDk3IiwiYXBwRGVmSWQiOiIxNDhjMjI4Ny1jNjY5LWQ4NDktZDE1My00NjNjNzQ4NmE2OTQiLCJtZXRhU2l0ZUlkIjoiMzlkNjk1MTYtYWYwNC00ZTQ1LWE2NjAtMzQwNjIwZWQ0NGNkIiwic2lnbkRhdGUiOiIyMDIwLTA3LTMwVDA4OjQyOjQ2LjQ2MVoiLCJ1aWQiOiIzZWZhN2U4Ni1mYzI1LTRlZjEtYTAwMi0xOTc2OWI4NDIwMmYiLCJwZXJtaXNzaW9ucyI6Ik9XTkVSIiwiZGVtb01vZGUiOmZhbHNlLCJhaWQiOiIzYTk1MzMzMS1hZGU4LTQzMDMtOWM5NC04NmIzNmU0ZDAzMzIiLCJiaVRva2VuIjoiOThiMmRlZTgtZGVmYy0wZTVlLTExY2EtNmMwYWIxZWRiNDVhIiwic2l0ZU93bmVySWQiOiIzZWZhN2U4Ni1mYzI1LTRlZjEtYTAwMi0xOTc2OWI4NDIwMmYiLCJleHBpcmF0aW9uRGF0ZSI6IjIwMjAtMDctMzBUMTI6NDI6NDYuNDYxWiIsImhhc1VzZXJSb2xlIjp0cnVlfQ",
-        "id": "36"
-      }
-    },
-    {
       "type": "blockquote",
       "content": [
         {
@@ -1160,12 +1062,12 @@
               "textAlignment": "AUTO"
             },
             "indentation": 0,
-            "id": "37"
+            "id": "36"
           }
         }
       ],
       "attrs": {
-        "id": "38"
+        "id": "37"
       }
     },
     {
@@ -1192,7 +1094,7 @@
                   "textAlignment": "AUTO"
                 },
                 "indentation": 0,
-                "id": "39"
+                "id": "38"
               }
             },
             {
@@ -1219,7 +1121,7 @@
                           "textAlignment": "AUTO"
                         },
                         "indentation": 1,
-                        "id": "40"
+                        "id": "39"
                       }
                     },
                     {
@@ -1246,7 +1148,7 @@
                                   "textAlignment": "AUTO"
                                 },
                                 "indentation": 2,
-                                "id": "41"
+                                "id": "40"
                               }
                             },
                             {
@@ -1273,7 +1175,7 @@
                                           "textAlignment": "AUTO"
                                         },
                                         "indentation": 3,
-                                        "id": "42"
+                                        "id": "41"
                                       }
                                     },
                                     {
@@ -1300,12 +1202,12 @@
                                                   "textAlignment": "AUTO"
                                                 },
                                                 "indentation": 4,
-                                                "id": "43"
+                                                "id": "42"
                                               }
                                             }
                                           ],
                                           "attrs": {
-                                            "id": "44"
+                                            "id": "43"
                                           }
                                         },
                                         {
@@ -1329,52 +1231,52 @@
                                                   "textAlignment": "AUTO"
                                                 },
                                                 "indentation": 4,
-                                                "id": "45"
+                                                "id": "44"
                                               }
                                             }
                                           ],
                                           "attrs": {
-                                            "id": "46"
+                                            "id": "45"
                                           }
                                         }
                                       ],
                                       "attrs": {
-                                        "id": "47"
+                                        "id": "46"
                                       }
                                     }
                                   ],
                                   "attrs": {
-                                    "id": "48"
+                                    "id": "47"
                                   }
                                 }
                               ],
                               "attrs": {
-                                "id": "49"
+                                "id": "48"
                               }
                             }
                           ],
                           "attrs": {
-                            "id": "50"
+                            "id": "49"
                           }
                         }
                       ],
                       "attrs": {
-                        "id": "51"
+                        "id": "50"
                       }
                     }
                   ],
                   "attrs": {
-                    "id": "52"
+                    "id": "51"
                   }
                 }
               ],
               "attrs": {
-                "id": "53"
+                "id": "52"
               }
             }
           ],
           "attrs": {
-            "id": "54"
+            "id": "53"
           }
         },
         {
@@ -1398,7 +1300,7 @@
                   "textAlignment": "AUTO"
                 },
                 "indentation": 0,
-                "id": "55"
+                "id": "54"
               }
             },
             {
@@ -1425,22 +1327,22 @@
                           "textAlignment": "AUTO"
                         },
                         "indentation": 1,
-                        "id": "56"
+                        "id": "55"
                       }
                     }
                   ],
                   "attrs": {
-                    "id": "57"
+                    "id": "56"
                   }
                 }
               ],
               "attrs": {
-                "id": "58"
+                "id": "57"
               }
             }
           ],
           "attrs": {
-            "id": "59"
+            "id": "58"
           }
         },
         {
@@ -1464,17 +1366,17 @@
                   "textAlignment": "AUTO"
                 },
                 "indentation": 0,
-                "id": "60"
+                "id": "59"
               }
             }
           ],
           "attrs": {
-            "id": "61"
+            "id": "60"
           }
         }
       ],
       "attrs": {
-        "id": "62"
+        "id": "61"
       }
     },
     {
@@ -1485,7 +1387,7 @@
           "textAlignment": "AUTO"
         },
         "indentation": 0,
-        "id": "63"
+        "id": "62"
       }
     },
     {
@@ -1512,7 +1414,7 @@
                   "textAlignment": "AUTO"
                 },
                 "indentation": 0,
-                "id": "64"
+                "id": "63"
               }
             },
             {
@@ -1539,7 +1441,7 @@
                           "textAlignment": "AUTO"
                         },
                         "indentation": 1,
-                        "id": "65"
+                        "id": "64"
                       }
                     },
                     {
@@ -1566,7 +1468,7 @@
                                   "textAlignment": "AUTO"
                                 },
                                 "indentation": 2,
-                                "id": "66"
+                                "id": "65"
                               }
                             },
                             {
@@ -1593,7 +1495,7 @@
                                           "textAlignment": "AUTO"
                                         },
                                         "indentation": 3,
-                                        "id": "67"
+                                        "id": "66"
                                       }
                                     },
                                     {
@@ -1620,12 +1522,12 @@
                                                   "textAlignment": "AUTO"
                                                 },
                                                 "indentation": 4,
-                                                "id": "68"
+                                                "id": "67"
                                               }
                                             }
                                           ],
                                           "attrs": {
-                                            "id": "69"
+                                            "id": "68"
                                           }
                                         },
                                         {
@@ -1649,52 +1551,52 @@
                                                   "textAlignment": "AUTO"
                                                 },
                                                 "indentation": 4,
-                                                "id": "70"
+                                                "id": "69"
                                               }
                                             }
                                           ],
                                           "attrs": {
-                                            "id": "71"
+                                            "id": "70"
                                           }
                                         }
                                       ],
                                       "attrs": {
-                                        "id": "72"
+                                        "id": "71"
                                       }
                                     }
                                   ],
                                   "attrs": {
-                                    "id": "73"
+                                    "id": "72"
                                   }
                                 }
                               ],
                               "attrs": {
-                                "id": "74"
+                                "id": "73"
                               }
                             }
                           ],
                           "attrs": {
-                            "id": "75"
+                            "id": "74"
                           }
                         }
                       ],
                       "attrs": {
-                        "id": "76"
+                        "id": "75"
                       }
                     }
                   ],
                   "attrs": {
-                    "id": "77"
+                    "id": "76"
                   }
                 }
               ],
               "attrs": {
-                "id": "78"
+                "id": "77"
               }
             }
           ],
           "attrs": {
-            "id": "79"
+            "id": "78"
           }
         },
         {
@@ -1718,12 +1620,12 @@
                   "textAlignment": "RIGHT"
                 },
                 "indentation": 0,
-                "id": "80"
+                "id": "79"
               }
             }
           ],
           "attrs": {
-            "id": "81"
+            "id": "80"
           }
         },
         {
@@ -1747,17 +1649,17 @@
                   "textAlignment": "AUTO"
                 },
                 "indentation": 0,
-                "id": "82"
+                "id": "81"
               }
             }
           ],
           "attrs": {
-            "id": "83"
+            "id": "82"
           }
         }
       ],
       "attrs": {
-        "id": "84"
+        "id": "83"
       }
     },
     {
@@ -1768,7 +1670,7 @@
           "textAlignment": "AUTO"
         },
         "indentation": 0,
-        "id": "85"
+        "id": "84"
       }
     },
     {
@@ -1793,7 +1695,7 @@
           "paddingTop": "0px",
           "paddingBottom": "0px"
         },
-        "id": "86"
+        "id": "85"
       }
     },
     {
@@ -1808,7 +1710,7 @@
           "paddingTop": "0px",
           "paddingBottom": "0px"
         },
-        "id": "87"
+        "id": "86"
       }
     },
     {
@@ -1834,7 +1736,7 @@
           "paddingTop": "0px",
           "paddingBottom": "0px"
         },
-        "id": "88"
+        "id": "87"
       }
     },
     {
@@ -1845,7 +1747,7 @@
           "textAlignment": "AUTO"
         },
         "indentation": 1,
-        "id": "89"
+        "id": "88"
       }
     },
     {
@@ -1871,7 +1773,7 @@
         },
         "disableExpand": false,
         "disableDownload": false,
-        "id": "90"
+        "id": "89"
       }
     },
     {
@@ -1892,7 +1794,7 @@
           "textAlignment": "AUTO"
         },
         "indentation": 0,
-        "id": "91"
+        "id": "90"
       }
     },
     {
@@ -1913,6 +1815,17 @@
           "textAlignment": "AUTO"
         },
         "indentation": 0,
+        "id": "91"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [],
+      "attrs": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0,
         "id": "92"
       }
     },
@@ -1925,17 +1838,6 @@
         },
         "indentation": 0,
         "id": "93"
-      }
-    },
-    {
-      "type": "paragraph",
-      "content": [],
-      "attrs": {
-        "textStyle": {
-          "textAlignment": "AUTO"
-        },
-        "indentation": 0,
-        "id": "94"
       }
     },
     {
@@ -1972,12 +1874,12 @@
                       "textAlignment": "AUTO"
                     },
                     "indentation": 0,
-                    "id": "95"
+                    "id": "94"
                   }
                 }
               ],
               "attrs": {
-                "id": "96"
+                "id": "95"
               }
             },
             {
@@ -1991,17 +1893,17 @@
                       "textAlignment": "AUTO"
                     },
                     "indentation": 0,
-                    "id": "97"
+                    "id": "96"
                   }
                 }
               ],
               "attrs": {
-                "id": "98"
+                "id": "97"
               }
             }
           ],
           "attrs": {
-            "id": "99"
+            "id": "98"
           }
         },
         {
@@ -2031,17 +1933,17 @@
                           "textAlignment": "AUTO"
                         },
                         "indentation": 0,
-                        "id": "100"
+                        "id": "99"
                       }
                     }
                   ],
                   "attrs": {
-                    "id": "101"
+                    "id": "100"
                   }
                 }
               ],
               "attrs": {
-                "id": "102"
+                "id": "101"
               }
             },
             {
@@ -2069,17 +1971,17 @@
                       "textAlignment": "AUTO"
                     },
                     "indentation": 0,
-                    "id": "103"
+                    "id": "102"
                   }
                 }
               ],
               "attrs": {
-                "id": "104"
+                "id": "103"
               }
             }
           ],
           "attrs": {
-            "id": "105"
+            "id": "104"
           }
         }
       ],
@@ -2091,7 +1993,7 @@
         "expandOnlyOne": false,
         "initialExpandedItems": "FIRST",
         "direction": "LTR",
-        "id": "106"
+        "id": "105"
       }
     },
     {
@@ -2102,7 +2004,7 @@
           "textAlignment": "AUTO"
         },
         "indentation": 0,
-        "id": "107"
+        "id": "106"
       }
     },
     {
@@ -2132,7 +2034,7 @@
                       "textAlignment": "AUTO"
                     },
                     "indentation": 0,
-                    "id": "108"
+                    "id": "107"
                   }
                 }
               ],
@@ -2142,7 +2044,7 @@
                   "backgroundColor": "#FF0000"
                 },
                 "borderColors": {},
-                "id": "109"
+                "id": "108"
               }
             },
             {
@@ -2170,7 +2072,7 @@
                       "textAlignment": "AUTO"
                     },
                     "indentation": 0,
-                    "id": "110"
+                    "id": "109"
                   }
                 }
               ],
@@ -2184,12 +2086,12 @@
                   "top": "#3A54B4",
                   "bottom": "#3A54B4"
                 },
-                "id": "111"
+                "id": "110"
               }
             }
           ],
           "attrs": {
-            "id": "112"
+            "id": "111"
           }
         },
         {
@@ -2226,7 +2128,7 @@
                       "textAlignment": "AUTO"
                     },
                     "indentation": 1,
-                    "id": "113"
+                    "id": "112"
                   }
                 }
               ],
@@ -2235,7 +2137,7 @@
                   "verticalAlignment": "TOP"
                 },
                 "borderColors": {},
-                "id": "114"
+                "id": "113"
               }
             },
             {
@@ -2259,7 +2161,7 @@
                       "textAlignment": "AUTO"
                     },
                     "indentation": 0,
-                    "id": "115"
+                    "id": "114"
                   }
                 }
               ],
@@ -2268,12 +2170,12 @@
                   "verticalAlignment": "TOP"
                 },
                 "borderColors": {},
-                "id": "116"
+                "id": "115"
               }
             }
           ],
           "attrs": {
-            "id": "117"
+            "id": "116"
           }
         }
       ],
@@ -2297,29 +2199,18 @@
           ]
         },
         "header": true,
+        "id": "117"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [],
+      "attrs": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0,
         "id": "118"
-      }
-    },
-    {
-      "type": "paragraph",
-      "content": [],
-      "attrs": {
-        "textStyle": {
-          "textAlignment": "AUTO"
-        },
-        "indentation": 0,
-        "id": "119"
-      }
-    },
-    {
-      "type": "paragraph",
-      "content": [],
-      "attrs": {
-        "textStyle": {
-          "textAlignment": "AUTO"
-        },
-        "indentation": 0,
-        "id": "120"
       }
     }
   ],
