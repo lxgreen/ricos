@@ -8,6 +8,7 @@ import {
   RICOS_LINK_TYPE,
   TranslationFunction,
   EditorPlugin,
+  TextAlignment,
 } from 'wix-rich-content-common';
 import { draftBlockDataToTiptap } from '../../converters';
 import { Editor } from '@tiptap/core';
@@ -153,7 +154,7 @@ export class RichContentAdapter implements TiptapAPI {
     }),
     getColor: () => 'unset',
     getFontSize: () => 'big',
-    getTextAlignment: () => 'center',
+    getTextAlignment: (): TextAlignment => 'center',
     isBlockTypeSelected: () => false,
     isUndoStackEmpty: () => false,
     isRedoStackEmpty: () => false,
