@@ -40,6 +40,7 @@ import {
   LinkData,
   ImageData,
   ColorData,
+  Link,
 } from 'ricos-schema';
 import { MentionData } from './pluginTypes';
 import { TextAlignment, InlineStyle } from './commonTypes';
@@ -117,7 +118,7 @@ export interface EditorCommands {
   isUndoStackEmpty: () => boolean;
   isRedoStackEmpty: () => boolean;
   hasLinkInSelection: () => boolean;
-  getLinkDataInSelection: () => any;
+  getLinkDataInSelection: () => Link | undefined;
   getSelectedData: () => any;
   getPluginsList: (settings?: { isRicosSchema?: boolean }) => PluginsList;
   getBlockSpacing: () => any;

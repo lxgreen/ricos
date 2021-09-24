@@ -5,6 +5,7 @@ import { capitalize } from 'lodash';
 import {
   RICOS_DIVIDER_TYPE,
   DIVIDER_TYPE,
+  RICOS_LINK_TYPE,
   TranslationFunction,
   EditorPlugin,
 } from 'wix-rich-content-common';
@@ -75,6 +76,53 @@ export class RichContentAdapter implements TiptapAPI {
         getIsFocused: this.editor.isFocused,
         getIsCollapsed: this.editor.state.selection.empty,
       }),
+
+      insertDecoration: (type, data) => {
+        console.log({ type, data });
+        if (type !== RICOS_LINK_TYPE) {
+          console.error(`${type} decoration not supported`);
+        } else {
+          this.editor.commands.setLink({ link: data });
+        }
+      },
+      hasLinkInSelection: () => {
+        const {
+          state: {
+            doc,
+            selection: { from, to },
+          },
+        } = this.editor;
+
+        const marks: Record<string, boolean> = {};
+        doc.nodesBetween(from, to, node => {
+          node.marks.forEach(({ type: { name } }) => {
+            marks[name] = true;
+          });
+        });
+        return marks.link;
+      },
+
+      getLinkDataInSelection: () => {
+        const {
+          state: {
+            doc,
+            selection: { from, to },
+          },
+        } = this.editor;
+
+        let link;
+        doc.nodesBetween(from, to, node => {
+          node.marks.forEach(mark => {
+            const {
+              type: { name },
+            } = mark;
+            if (name === 'link') {
+              link = mark.attrs.link;
+            }
+          });
+        });
+        return link;
+      },
     };
   }
 
@@ -110,8 +158,6 @@ export class RichContentAdapter implements TiptapAPI {
     isBlockTypeSelected: () => false,
     isUndoStackEmpty: () => false,
     isRedoStackEmpty: () => false,
-    hasLinkInSelection: () => false,
-    getLinkDataInSelection: () => 'im a link!',
     getSelectedData: () => 'blah',
     getPluginsList: () => [],
     getBlockSpacing: () => 5,
@@ -119,7 +165,6 @@ export class RichContentAdapter implements TiptapAPI {
     loadEditorState: () => {},
     saveSelectionState: () => {},
     loadSelectionState: () => {},
-    insertDecoration: () => {},
     triggerDecoration: () => {},
     deleteDecoration: () => {},
     setBlock: () => {},
