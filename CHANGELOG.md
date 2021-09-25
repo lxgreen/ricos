@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.53.4 (Sep 25, 2021)
+
 ### :house: Internal
 
 - `tiptap`
   - [#2930](https://github.com/wix/ricos/pull/2930) Tiptap & new toolbars integration (formatting & link)
-
-</details>
-<hr/>
 
 ## 8.53.3 (Sep 23, 2021)
 
