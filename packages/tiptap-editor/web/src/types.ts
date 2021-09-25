@@ -31,8 +31,8 @@ export type TiptapAPI = {
   focus: () => void;
   getEditorCommands: () => EditorCommands;
   getToolbars: () => {
-    MobileToolbar: ElementType;
-    TextToolbar: ElementType;
+    MobileToolbar?: ElementType;
+    TextToolbar?: ElementType;
   };
   getToolbarProps: (
     type: ToolbarType

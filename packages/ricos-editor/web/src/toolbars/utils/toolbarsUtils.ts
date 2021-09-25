@@ -7,10 +7,8 @@ export const isLinkToolbarOpen = (activeEditor: RichContentEditor | null) => {
 };
 
 const getPluginsKey = (activeEditor: RichContentEditor | null) => {
-  const rawPlugins = activeEditor?.getPlugins?.();
-  const plugins = rawPlugins.filter(plugin => plugin?.blockType !== undefined);
-  const pluginsKeys = plugins.map(plugin => plugin.blockType);
-  return pluginsKeys;
+  const rawPlugins = activeEditor?.getPlugins?.() || [];
+  return rawPlugins.map(plugin => plugin.blockType || plugin.type).filter(x => x);
 };
 
 export const filterButtons = (buttonsList, activeEditor) => {

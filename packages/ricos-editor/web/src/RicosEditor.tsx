@@ -351,7 +351,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       toolbarSettings,
     } = this.props;
     const { useStaticTextToolbar } = toolbarSettings || {};
-    const activeEditorIsTableCell = activeEditor?.isInnerRCERenderedInTable();
+    const activeEditorIsTableCell = !this.useTiptap && activeEditor?.isInnerRCERenderedInTable();
     const textToolbarType = isMobile
       ? ToolbarType.MOBILE
       : useStaticTextToolbar
@@ -444,6 +444,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     const extensions = compact(plugins?.flatMap(plugin => plugin.tiptapExtensions)) || [];
     return (
       <Fragment>
+        {this.renderToolbars()}
         {tiptapToolbar && this.renderToolbarPortal(tiptapToolbar)}
         {
           <RicosTranslate locale={locale} localeResource={localeResource || englishResources}>
@@ -454,12 +455,15 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                   content={initalContent}
                   t={t}
                   onLoad={editor => {
-                    const richContentAdapter = new RichContentAdapter(editor);
+                    const richContentAdapter = new RichContentAdapter(editor, t, plugins);
                     this.setEditorRef(richContentAdapter);
                     const TextToolbar = richContentAdapter.getToolbars().TextToolbar;
                     this.setState({ tiptapToolbar: TextToolbar });
                   }}
                   onUpdate={this.onUpdate}
+                  onSelectionUpdate={() => {
+                    this.useNewFormattingToolbar && this.updateToolbars();
+                  }}
                 />
               );
               return this.renderRicosEngine(tiptapEditor, {});

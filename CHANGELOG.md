@@ -19,6 +19,9 @@
 
 ### :house: Internal
 
+- `tiptap`
+  - [#2930](https://github.com/wix/ricos/pull/2930) Tiptap & new toolbars integration (formatting & link)
+
 </details>
 <hr/>
 
