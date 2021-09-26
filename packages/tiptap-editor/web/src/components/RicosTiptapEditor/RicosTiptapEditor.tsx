@@ -14,6 +14,7 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   extensions = [],
   onLoad,
   onUpdate,
+  onSelectionUpdate,
   ...context
 }) => {
   const forceUpdate = useForceUpdate();
@@ -35,6 +36,12 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
         const newContent = editor.getJSON();
         const convertedContent = tiptapToDraft(newContent as JSONContent);
         onUpdate?.({ content: convertedContent });
+      },
+      onSelectionUpdate: () => {
+        onSelectionUpdate?.();
+      },
+      onBlur: () => {
+        onSelectionUpdate?.();
       },
     });
 

@@ -25,6 +25,30 @@
 </details>
 <hr/>
 
+## 8.53.4 (Sep 25, 2021)
+
+### :house: Internal
+
+- `tiptap`
+  - [#2930](https://github.com/wix/ricos/pull/2930) Tiptap & new toolbars integration (formatting & link)
+
+## 8.53.3 (Sep 23, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2937](https://github.com/wix/ricos/pull/2937) mobile flaky switching between text and link toolbar + remove dependent in old toolbars logic
+
+## 8.53.2 (Sep 23, 2021)
+
+- `ricos-schema`
+  - [#2759](https://github.com/wix/ricos/pull/2759) button schema
+  - [#2928](https://github.com/wix/ricos/pull/2928) disable polls from schema & content api until schema is final
+- `html plugin`
+  - [#2934](https://github.com/wix/ricos/pull/2934) `forceIframeSandboxDomain` experiment (for debugging)
+- `a11y`
+  - [#2935](https://github.com/wix/ricos/pull/2935) add presentation role to empty lines to skip reading by screen readers
+
 ## 8.53.1 (Sep 19, 2021)
 
 ### :bug: Bug Fix

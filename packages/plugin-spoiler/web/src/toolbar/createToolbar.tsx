@@ -1,4 +1,10 @@
-import { RichUtils, BUTTON_TYPES, FORMATTING_BUTTONS } from 'wix-rich-content-editor-common';
+import React from 'react';
+import {
+  RichUtils,
+  BUTTON_TYPES,
+  FORMATTING_BUTTONS,
+  isAtomicBlockInSelection,
+} from 'wix-rich-content-editor-common';
 import TextSpoilerButton from './TextSpoilerButton';
 import { SPOILER_TYPE } from '../types';
 import { SpoilerButtonIcon } from 'wix-rich-content-plugin-commons';
@@ -18,11 +24,13 @@ const createToolbar: CreatePluginToolbar = ({
   getEditorState: GetEditorState;
   setEditorState: SetEditorState;
 }) => {
+  const isDisabled = () => isAtomicBlockInSelection(getEditorState());
+
   return {
     //TODO: isMobile: true?
     TextButtonMapper: () => ({
       [FORMATTING_BUTTONS.SPOILER]: {
-        component: TextSpoilerButton,
+        component: props => <TextSpoilerButton disabled={isDisabled()} {...props} />,
         externalizedButtonProps: {
           dataHook: 'spoilerButton',
           type: BUTTON_TYPES.BUTTON,

@@ -71,7 +71,7 @@ export const createButtonsList = (
 const handleButtonText = (buttonsList, index, editorCommands: editorCommands, t) => {
   if (buttonsList[index].name === 'goToLink') {
     const linkData = editorCommands.getLinkDataInSelection();
-    buttonsList[index].text = linkData.url || t('LinkTo_Toolbar_GoTo');
+    buttonsList[index].text = linkData?.url || t('LinkTo_Toolbar_GoTo');
     buttonsList[index].asLink = true;
   }
 };

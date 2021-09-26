@@ -18,7 +18,7 @@ import {
   toHtmlTranslatable,
   toImageTranslatable,
   toLinkPreviewTranslatable,
-  toPollTranslatable,
+  // toPollTranslatable,
   toVideoTranslatable,
 } from './pluginsToTranslatables';
 import { firstRight } from '../../fp-utils';
@@ -40,7 +40,7 @@ const nodeDataTranslatables = (nodes: Node[]): Translatable[] =>
         [isType(Node_Type.HTML), toHtmlTranslatable],
         [isType(Node_Type.IMAGE), toImageTranslatable],
         [isType(Node_Type.LINK_PREVIEW), toLinkPreviewTranslatable],
-        [isType(Node_Type.POLL), toPollTranslatable],
+        // [isType(Node_Type.POLL), toPollTranslatable],
         [isType(Node_Type.VIDEO), toVideoTranslatable],
       ])
     )

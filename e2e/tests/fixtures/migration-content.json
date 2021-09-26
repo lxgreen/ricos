@@ -514,21 +514,6 @@
       "data": {}
     },
     {
-      "key": "9qfd3",
-      "text": " ",
-      "type": "atomic",
-      "depth": 0,
-      "inlineStyleRanges": [],
-      "entityRanges": [
-        {
-          "offset": 0,
-          "length": 1,
-          "key": 21
-        }
-      ],
-      "data": {}
-    },
-    {
       "key": "f5rqu",
       "text": "Nunc eros ante , porttitor sed tempor nec, sagittis non mi. Nulla non vulputate magna, semper convallis sapien.",
       "type": "blockquote",
@@ -766,7 +751,7 @@
         {
           "offset": 99,
           "length": 7,
-          "key": 22
+          "key": 21
         }
       ],
       "data": {
@@ -797,7 +782,7 @@
         {
           "offset": 0,
           "length": 1,
-          "key": 23
+          "key": 22
         }
       ],
       "data": {}
@@ -830,7 +815,7 @@
       "data": {}
     },
     {
-      "key": "61edh",
+      "key": "2297h",
       "text": "",
       "type": "unstyled",
       "depth": 0,
@@ -839,7 +824,7 @@
       "data": {}
     },
     {
-      "key": "dmubi",
+      "key": "cbo6p",
       "text": " ",
       "type": "atomic",
       "depth": 0,
@@ -848,7 +833,7 @@
         {
           "offset": 0,
           "length": 1,
-          "key": 24
+          "key": 23
         }
       ],
       "data": {}
@@ -872,22 +857,13 @@
         {
           "offset": 0,
           "length": 1,
-          "key": 25
+          "key": 24
         }
       ],
       "data": {}
     },
     {
       "key": "b7hf8",
-      "text": "",
-      "type": "unstyled",
-      "depth": 0,
-      "inlineStyleRanges": [],
-      "entityRanges": [],
-      "data": {}
-    },
-    {
-      "key": "1qgmm",
       "text": "",
       "type": "unstyled",
       "depth": 0,
@@ -1113,7 +1089,8 @@
       "data": {
         "config": {
           "alignment": "center",
-          "size": "small",
+          "size": "inline",
+          "width": 212,
           "textWrap": "wrap"
         },
         "button": {
@@ -1124,10 +1101,8 @@
             "target": "_blank"
           },
           "design": {
-            "activeButton": 4,
             "borderRadius": 5,
             "borderWidth": 7,
-            "padding": 8.5,
             "background": "#FEFDFD",
             "color": "#0261FF",
             "borderColor": "#0261FF"
@@ -1140,8 +1115,9 @@
       "mutability": "IMMUTABLE",
       "data": {
         "config": {
-          "alignment": "center",
+          "alignment": "left",
           "size": "small",
+          "width": "fit-content",
           "textWrap": "wrap"
         },
         "button": {
@@ -1149,10 +1125,8 @@
             "buttonText": "Action Button"
           },
           "design": {
-            "activeButton": 0,
             "borderRadius": 15,
             "borderWidth": 0,
-            "padding": 12,
             "background": "#81B0FF",
             "color": "#FEFDFD",
             "borderColor": "#0261FF"
@@ -1296,121 +1270,13 @@
       }
     },
     "21": {
-      "type": "wix-draft-plugin-poll",
-      "mutability": "IMMUTABLE",
-      "data": {
-        "config": {
-          "alignment": "center",
-          "size": "large",
-          "width": "full-width",
-          "enableVoteRole": false
-        },
-        "poll": {
-          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
-          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
-          "mediaId": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg",
-          "createdBy": "3efa7e86-fc25-4ef1-a002-19769b84202f",
-          "count": 13,
-          "anonymousCount": 0,
-          "ownVotes": [
-            "067ed3b5-f19d-4886-8f23-acd84a586522",
-            "ee32a57f-bf6c-425a-a20c-e678bcf4a73b"
-          ],
-          "settings": {
-            "multipleVotes": true,
-            "voteRole": "SITE_MEMBERS",
-            "resultsVisibility": "VOTERS_ONLY",
-            "votersDisplay": true,
-            "votesDisplay": true
-          },
-          "options": [
-            {
-              "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
-              "title": "Cafe Nordoy",
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png",
-              "count": 5,
-              "anonymousCount": 0,
-              "rating": 38,
-              "latestVoters": [
-                "84856a9a-f25f-4d8f-a774-56e0b8927bbe",
-                "15c6f37e-c980-46ba-b450-11415ca5b4fe",
-                "2bff5b99-e56c-421d-b5ec-cd432a5b6961",
-                "3efa7e86-fc25-4ef1-a002-19769b84202f",
-                "28ba5b75-0c82-4239-86e3-131879cb96e7"
-              ]
-            },
-            {
-              "id": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
-              "title": "קפה רוטשילד 65",
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg",
-              "count": 4,
-              "anonymousCount": 0,
-              "rating": 31,
-              "latestVoters": [
-                "3efa7e86-fc25-4ef1-a002-19769b84202f",
-                "dd0d2b42-ba5f-47e9-8a53-26c61c08f9ec",
-                "3f3fa379-9a5a-4306-8a95-f79915ef479d",
-                "7b3cad1d-bce1-4529-b402-d1e1e74962f1"
-              ]
-            },
-            {
-              "id": "41679bf9-89ba-41f2-81d3-832d567531da",
-              "title": "האחים",
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg",
-              "count": 3,
-              "anonymousCount": 0,
-              "rating": 23,
-              "latestVoters": [
-                "15c6f37e-c980-46ba-b450-11415ca5b4fe",
-                "13633644-d00c-4456-a189-1575ea044f10",
-                "7b3cad1d-bce1-4529-b402-d1e1e74962f1"
-              ]
-            },
-            {
-              "id": "378c6042-55cc-4e4a-9f0c-77824bee4964",
-              "title": "הוטל מונטיפיורי",
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg",
-              "count": 1,
-              "anonymousCount": 0,
-              "rating": 8,
-              "latestVoters": [
-                "dd0d2b42-ba5f-47e9-8a53-26c61c08f9ec"
-              ]
-            }
-          ],
-          "creatorFlag": true
-        },
-        "layout": {
-          "poll": {
-            "type": "grid",
-            "direction": "ltr",
-            "enableImage": false
-          },
-          "option": {
-            "enableImage": true
-          }
-        },
-        "design": {
-          "poll": {
-            "backgroundType": "image",
-            "background": "https://static.wixstatic.com/media/2dfdd3_b120b7d9cffd4645bb143beadef13c56~mv2.jpg",
-            "borderRadius": 0
-          },
-          "option": {
-            "borderRadius": 0
-          }
-        },
-        "siteToken": "VBLuQllkHnrmBH_7O0-Xmzek4kW6U1qHy5-p36Rfkys.eyJpbnN0YW5jZUlkIjoiYTE2NDRiZmUtNzFmOC00MDFiLWI3YWEtNTgwYzkxMDBmMDk3IiwiYXBwRGVmSWQiOiIxNDhjMjI4Ny1jNjY5LWQ4NDktZDE1My00NjNjNzQ4NmE2OTQiLCJtZXRhU2l0ZUlkIjoiMzlkNjk1MTYtYWYwNC00ZTQ1LWE2NjAtMzQwNjIwZWQ0NGNkIiwic2lnbkRhdGUiOiIyMDIwLTA3LTMwVDA4OjQyOjQ2LjQ2MVoiLCJ1aWQiOiIzZWZhN2U4Ni1mYzI1LTRlZjEtYTAwMi0xOTc2OWI4NDIwMmYiLCJwZXJtaXNzaW9ucyI6Ik9XTkVSIiwiZGVtb01vZGUiOmZhbHNlLCJhaWQiOiIzYTk1MzMzMS1hZGU4LTQzMDMtOWM5NC04NmIzNmU0ZDAzMzIiLCJiaVRva2VuIjoiOThiMmRlZTgtZGVmYy0wZTVlLTExY2EtNmMwYWIxZWRiNDVhIiwic2l0ZU93bmVySWQiOiIzZWZhN2U4Ni1mYzI1LTRlZjEtYTAwMi0xOTc2OWI4NDIwMmYiLCJleHBpcmF0aW9uRGF0ZSI6IjIwMjAtMDctMzBUMTI6NDI6NDYuNDYxWiIsImhhc1VzZXJSb2xlIjp0cnVlfQ"
-      }
-    },
-    "22": {
       "type": "EMOJI_TYPE",
       "mutability": "IMMUTABLE",
       "data": {
         "emojiUnicode": "👨‍👩‍👦‍👦"
       }
     },
-    "23": {
+    "22": {
       "type": "wix-draft-plugin-image",
       "mutability": "IMMUTABLE",
       "data": {
@@ -1434,7 +1300,7 @@
         "disableExpand": false
       }
     },
-    "24": {
+    "23": {
       "type": "wix-rich-content-plugin-collapsible-list",
       "mutability": "IMMUTABLE",
       "data": {
@@ -1522,7 +1388,7 @@
         ]
       }
     },
-    "25": {
+    "24": {
       "type": "wix-rich-content-plugin-table",
       "mutability": "IMMUTABLE",
       "data": {
@@ -1658,5 +1524,5 @@
       }
     }
   },
-  "VERSION": "8.50.2"
+  "VERSION": "8.53.1"
 }

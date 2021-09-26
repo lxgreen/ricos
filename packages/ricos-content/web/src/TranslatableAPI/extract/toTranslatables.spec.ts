@@ -130,41 +130,41 @@ describe('toTranslatables', () => {
       },
     ]);
   });
-  it('should create translatables for poll', () => {
-    const content = RichContent.fromJSON(poll);
-    expect(toTranslatables(content)).toStrictEqual([
-      {
-        id: '36',
-        path: 'pollData.poll.title',
-        text: 'Where do you want to have breakfast tomorrow to use the monthly budget?',
-        type: 'POLL',
-      },
-      {
-        id: '36',
-        path: 'pollData.poll.options[0].title',
-        text: 'Cafe Nordoy',
-        type: 'POLL',
-      },
-      {
-        id: '36',
-        path: 'pollData.poll.options[1].title',
-        text: 'קפה רוטשילד 65',
-        type: 'POLL',
-      },
-      {
-        id: '36',
-        path: 'pollData.poll.options[2].title',
-        text: 'האחים',
-        type: 'POLL',
-      },
-      {
-        id: '36',
-        path: 'pollData.poll.options[3].title',
-        text: 'הוטל מונטיפיורי',
-        type: 'POLL',
-      },
-    ]);
-  });
+  // it('should create translatables for poll', () => {
+  //   const content = RichContent.fromJSON(poll);
+  //   expect(toTranslatables(content)).toStrictEqual([
+  //     {
+  //       id: '36',
+  //       path: 'pollData.poll.title',
+  //       text: 'Where do you want to have breakfast tomorrow to use the monthly budget?',
+  //       type: 'POLL',
+  //     },
+  //     {
+  //       id: '36',
+  //       path: 'pollData.poll.options[0].title',
+  //       text: 'Cafe Nordoy',
+  //       type: 'POLL',
+  //     },
+  //     {
+  //       id: '36',
+  //       path: 'pollData.poll.options[1].title',
+  //       text: 'קפה רוטשילד 65',
+  //       type: 'POLL',
+  //     },
+  //     {
+  //       id: '36',
+  //       path: 'pollData.poll.options[2].title',
+  //       text: 'האחים',
+  //       type: 'POLL',
+  //     },
+  //     {
+  //       id: '36',
+  //       path: 'pollData.poll.options[3].title',
+  //       text: 'הוטל מונטיפיורי',
+  //       type: 'POLL',
+  //     },
+  //   ]);
+  // });
   it('should create translatables for gallery', () => {
     const content = RichContent.fromJSON(gallery);
     expect(toTranslatables(content)).toStrictEqual([

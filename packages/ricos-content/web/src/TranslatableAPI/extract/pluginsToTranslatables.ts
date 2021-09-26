@@ -28,14 +28,14 @@ export const toAppEmbedTranslatable: PluginToTranslatables = node => [
   ...fieldsToTranslatables(node, ['appEmbedData', 'eventData', 'location']),
 ];
 
-export const toPollTranslatable: PluginToTranslatables = node => {
-  const { pollData } = node;
-  const options = pollData?.poll?.options || [];
-  const titles = options.map((_, idx) =>
-    fieldsToTranslatables(node, ['pollData', 'poll', 'options', idx, 'title'])
-  );
-  return [fieldsToTranslatables(node, ['pollData', 'poll', 'title']), ...titles].flat();
-};
+// export const toPollTranslatable: PluginToTranslatables = node => {
+//   const { pollData } = node;
+//   const options = pollData?.poll?.options || [];
+//   const titles = options.map((_, idx) =>
+//     fieldsToTranslatables(node, ['pollData', 'poll', 'options', idx, 'title'])
+//   );
+//   return [fieldsToTranslatables(node, ['pollData', 'poll', 'title']), ...titles].flat();
+// };
 
 export const toGalleryTranslatable: PluginToTranslatables = node => {
   const { galleryData } = node;

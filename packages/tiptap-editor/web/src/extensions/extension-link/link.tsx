@@ -181,7 +181,7 @@ const linkifyLastWord: KeyboardShortcutCommand = ({ editor }) => {
   const { nodeBefore, pos } = editor.state.selection.$from;
   const { text, nodeSize: nodeBeforeSize } = nodeBefore || {};
   const url = text?.match(urlRegex)?.[0];
-  const urlIndex: number = text?.search(urlRegex) || -1;
+  const urlIndex: number = text ? text.search(urlRegex) : -1;
   if (nodeBeforeSize && url && urlIndex !== -1) {
     const from = pos - nodeBeforeSize + urlIndex;
     editor
