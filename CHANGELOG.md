@@ -21,6 +21,11 @@
   - `ricos-content`
     - [#2945](https://github.com/wix/ricos/pull/2945) Content API: Table, CollapsibleList, Gif, Map, Embed builders
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2932](https://github.com/wix/ricos/pull/2932) fix modals keyboard navigation (accessibility)
+
 </details>
 <hr/>
 

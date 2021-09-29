@@ -7,6 +7,7 @@ import { mergeStyles } from 'wix-rich-content-common';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 import classNames from 'classnames';
 import { findOsName } from '../../Toolbar/buttonsListCreatorConsts';
+import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 
 const DesktopPanel = ({
   currentSelect,
@@ -20,7 +21,13 @@ const DesktopPanel = ({
 }) => {
   const styles = mergeStyles({ styles: Styles, theme });
   const osName = findOsName();
+
   const optionElement = (option, isSelected, onClick) => {
+    const onKeyDown = e => {
+      if (e.keyCode === KEYS_CHARCODE.ENTER) {
+        onClick(option.commandKey);
+      }
+    };
     const content = hasIcons ? option.icon() : t(option.text);
     return (
       <Tooltip
@@ -33,6 +40,9 @@ const DesktopPanel = ({
         )}
       >
         <div
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+          tabIndex={0}
+          onKeyDown={onKeyDown}
           className={classNames(styles.panel_row, {
             [styles.panel_selectedRow]: isSelected,
           })}
