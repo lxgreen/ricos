@@ -21,8 +21,6 @@
 
 - `toolbars-new`
   - [#2932](https://github.com/wix/ricos/pull/2932) fix modals keyboard navigation (accessibility)
-- `link`
-  - [#2929](https://github.com/wix/ricos/pull/2929) fix a11y in link modal
 
 </details>
 <hr/>
