@@ -1,9 +1,9 @@
-import { identity, pipe } from 'fp-ts/function';
-import { Eq } from 'fp-ts/Eq';
-import { concatAll, Monoid } from 'fp-ts/Monoid';
-import * as O from 'fp-ts/Option';
 import * as A from 'fp-ts/Array';
 import * as E from 'fp-ts/Either';
+import { Eq } from 'fp-ts/Eq';
+import { identity, pipe } from 'fp-ts/function';
+import { concatAll, Monoid } from 'fp-ts/Monoid';
+import * as O from 'fp-ts/Option';
 import * as S from 'fp-ts/Semigroup';
 
 export const firstRight = <C, T>(
@@ -42,18 +42,22 @@ export const tap = <F extends (data: D) => any, D>(f: F) => (data: D): D => {
 };
 
 const logWithTag = <T>(tag: string) => (data: T) => console.log(tag, data); // eslint-disable-line no-console
+const stringifyWithTag = <T>(tag: string) => (data: T) =>
+  console.log(tag, JSON.stringify(data, null, 2)); // eslint-disable-line no-console
 
 export const log = <T>(tag: string) => tap(logWithTag<T>(tag));
+
+export const deepLog = <T>(tag: string) => tap(stringifyWithTag<T>(tag));
 
 export const getMatches = (regex: RegExp) => (str: string): O.Option<RegExpExecArray> =>
   pipe(regex.exec(str), O.fromNullable);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const stringifyWithReplace = (replacer: (key: string, value: any) => any) => <A>(
+export const stringifyWithReplace = (replacer: (key: string, value: any) => any, space = 2) => <A>(
   a: A
 ): E.Either<unknown, string> =>
   E.tryCatch(() => {
-    const s = JSON.stringify(a, replacer);
+    const s = JSON.stringify(a, replacer, space);
     if (typeof s !== 'string') {
       throw new Error('Converting unsupported structure to JSON');
     }

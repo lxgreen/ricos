@@ -30,11 +30,11 @@ const parseCollapsible = (entity): Node | undefined =>
   }));
 
 const parseTable = entity =>
-  Object.entries(entity.rows).map(([id, row]: [string, Row]) => ({
-    id,
+  Object.entries(entity.rows).map(([, row]: [string, Row]) => ({
+    id: generateId(),
     type: Node_Type.TABLE_ROW,
-    nodes: Object.entries(row.columns).map(([id, cell]: [string, Cell]) => ({
-      id,
+    nodes: Object.entries(row.columns).map(([, cell]: [string, Cell]) => ({
+      id: generateId(),
       type: Node_Type.TABLE_CELL,
       tableCellData: {
         cellStyle: {

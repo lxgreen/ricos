@@ -1,19 +1,26 @@
 import {
-  RichContent,
-  ImageData,
-  DividerData,
-  ParagraphData,
-  TextData,
-  HTMLData,
-  VideoData,
-  FileData,
-  ButtonData,
-  GalleryData,
-  CodeBlockData,
-  HeadingData,
   AppEmbedData,
+  EmbedData,
+  ButtonData,
+  CodeBlockData,
+  DividerData,
+  FileData,
+  GalleryData,
+  GIFData,
+  HeadingData,
+  HTMLData,
+  ImageData,
   LinkPreviewData,
+  MapData,
+  ParagraphData,
+  RichContent,
+  TableData,
+  TextData,
+  VideoData,
+  TableCellData,
+  CollapsibleListData,
 } from 'ricos-schema';
+import { RichText } from './node-refined-types';
 
 export type PartialDeep<T> = {
   [P in keyof T]?: T[P] extends (infer U)[]
@@ -79,15 +86,17 @@ type AddTextMethod<T> = {
 };
 
 type AddMap = {
-  addLinkButton: ButtonData;
-  addActionButton: ButtonData;
+  addButton: ButtonData;
   addDivider: DividerData;
   addFile: FileData;
   addGallery: GalleryData;
+  addGif: GIFData;
+  addMap: MapData;
   addHtml: HTMLData;
   addImage: ImageData;
   addVideo: VideoData;
   addAppEmbed: AppEmbedData;
+  addEmbed: EmbedData;
   addLinkPreview: LinkPreviewData;
 };
 
@@ -102,6 +111,50 @@ export type ListItemData = {
   data: ParagraphData;
 };
 
-type ContentBuilderType = AddMethod<AddMap> & AddTextMethod<AddTextMap> & AddLists;
+export type TableCell = {
+  data?: TableCellData;
+  content: RichContent;
+};
+
+export type CollapsibleListItem = {
+  title: RichText;
+  content: RichContent;
+};
+
+type ContentBuilderType = AddMethod<AddMap> &
+  AddTextMethod<AddTextMap> &
+  AddLists & {
+    addTable: ({
+      cells,
+      data,
+      index,
+      before,
+      after,
+      content,
+    }: {
+      cells: TableCell[][];
+      data?: TableData;
+      index?: number;
+      before?: string;
+      after?: string;
+      content: RichContent;
+    }) => RichContent;
+  } & {
+    addCollapsibleList: ({
+      items,
+      data,
+      index,
+      before,
+      after,
+      content,
+    }: {
+      items: CollapsibleListItem[];
+      data?: CollapsibleListData;
+      index?: number;
+      before?: string;
+      after?: string;
+      content: RichContent;
+    }) => RichContent;
+  };
 
 export interface ContentBuilder extends ContentBuilderType {}

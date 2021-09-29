@@ -43,7 +43,7 @@ export function addNode({
   after?: string;
   content: RichContent;
 }): RichContent {
-  return firstRight(content, { ...content, nodes: [...content.nodes, node] }, [
+  return firstRight(content, { ...content, nodes: [...content.nodes, node] as Node[] }, [
     [isIndexInRange(index), insertNode(node, <number>index)],
     [isIndexFound(({ id }) => id === before), insertNodeByKey(node, <string>before, false)],
     [isIndexFound(({ id }) => id === after), insertNodeByKey(node, <string>after, true)],

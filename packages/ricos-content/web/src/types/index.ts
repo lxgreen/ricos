@@ -40,3 +40,4 @@ export type NormalizationProcessor<T> = (processed: T, ...args: any[]) => T;
 export * from './contentTypes';
 export * from './contentApi';
 export * from './mediaUploadTypes';
+export * from './node-refined-types';
