@@ -42,6 +42,7 @@
   "GallerySettings_Image_Ratio": "Proporção da imagem",
   "GallerySettings_Sort_Items": "Reordenar mídia",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Tooltip": "Os leitores poderão fazer download das imagens clicando com o botão direito sobre elas e selecionando salvar imagem como.",
+  "VideoCustomUploadModal_Title": "Upload video from your computer",
   "TablePlugin_Toolbar_ContextMenu_DeleteRow_Button": "Excluir linha",
   "GallerySettings_Finish_Sorting": "Salvar",
   "Poll_PollSettings_Tab_Layout_Section_TextDirection_RTL": "Direita para esquerda",
@@ -144,6 +145,7 @@
   "Poll_Editor_Answer_AddAnswer": "Adicionar resposta",
   "GallerySettings_Tab_AdvancedSettings": "Layout",
   "LineSpacing_save": "Salvar",
+  "VideoCustomUploadModal_MobileHeader": "Video",
   "UploadFile_Error_StorageExceeded_SiteOwner": "Você excedeu o limite de armazenamento do seu site. Para salvar mais mídias no seu site, <1>faça upgrade agora</1>.",
   "decreaseIndentButton_Tooltip": "Diminuir recuo",
   "GallerySettings_Tab_ManageMedia": "Mídia",
@@ -266,6 +268,7 @@
   "MobileLinkModal_Title": "Adicione um link",
   "Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title": "Quem pode votar?",
   "ImageSettings_Alt_Label": "Alt Text",
+  "VideoModal_Embed_Title": "Paste a URL From YouTube, Vimeo or Facebook",
   "LineSpacing_cancel": "Cancelar",
   "LinkTo_Modal_Section_Filter_Buttons": "Botões",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Label": "Opção de download",
@@ -573,5 +576,6 @@
   "Mobile_LinkPreview_Hide": "Ocultar",
   "ButtonComponent_Error_Overlay": "Insira um URL válido para o botão",
   "TablePlugin_Toolbar_ContextMenu_SplitCells_Button": "Dividir células",
-  "GIFPlugin_InsertButton": "GIF"
+  "GIFPlugin_InsertButton": "GIF",
+  "EmbedURL_MobileHeader": "Embed"
 }

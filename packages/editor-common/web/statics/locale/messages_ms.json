@@ -42,6 +42,7 @@
   "GallerySettings_Image_Ratio": "Nisbah Imej",
   "GallerySettings_Sort_Items": "Susun semula Media",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Tooltip": "Your readers will be able to download your images.",
+  "VideoCustomUploadModal_Title": "Upload video from your computer",
   "TablePlugin_Toolbar_ContextMenu_DeleteRow_Button": "Delete row",
   "GallerySettings_Finish_Sorting": "Simpan",
   "Poll_PollSettings_Tab_Layout_Section_TextDirection_RTL": "Kanan ke kiri",
@@ -144,6 +145,7 @@
   "Poll_Editor_Answer_AddAnswer": "Tambah jawapan",
   "GallerySettings_Tab_AdvancedSettings": "Susun atur",
   "LineSpacing_save": "Simpan",
+  "VideoCustomUploadModal_MobileHeader": "Video",
   "UploadFile_Error_StorageExceeded_SiteOwner": "Anda telah melebihi had penyimpanan laman web anda. Untuk menyimpan lebih banyak media di laman web anda, <1>naik taraf sekarang</1> .",
   "decreaseIndentButton_Tooltip": "Kurangkan inden",
   "GallerySettings_Tab_ManageMedia": "Susun Media",
@@ -266,6 +268,7 @@
   "MobileLinkModal_Title": "Tambahkan pautan",
   "Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title": "Siapa yang boleh mengundi?",
   "ImageSettings_Alt_Label": "Teks Alt",
+  "VideoModal_Embed_Title": "Paste a URL From YouTube, Vimeo or Facebook",
   "LineSpacing_cancel": "Batal",
   "LinkTo_Modal_Section_Filter_Buttons": "Butang",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Label": "Images can be downloaded",
@@ -573,5 +576,6 @@
   "Mobile_LinkPreview_Hide": "Sembunyi",
   "ButtonComponent_Error_Overlay": "Masukkan URL yang sah untuk butang",
   "TablePlugin_Toolbar_ContextMenu_SplitCells_Button": "Split cells",
-  "GIFPlugin_InsertButton": "GIF"
+  "GIFPlugin_InsertButton": "GIF",
+  "EmbedURL_MobileHeader": "Embed"
 }

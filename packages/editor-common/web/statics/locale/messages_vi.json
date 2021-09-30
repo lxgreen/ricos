@@ -42,6 +42,7 @@
   "GallerySettings_Image_Ratio": "Tỷ lệ hình ảnh",
   "GallerySettings_Sort_Items": "Sắp xếp lại phương tiện",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Tooltip": "Người đọc có thể tải hình ảnh này về bằng cách nhấp chuột phải vào nó và chọn lưu hình ảnh dưới dạng.",
+  "VideoCustomUploadModal_Title": "Upload video from your computer",
   "TablePlugin_Toolbar_ContextMenu_DeleteRow_Button": "Xóa hàng",
   "GallerySettings_Finish_Sorting": "Lưu",
   "Poll_PollSettings_Tab_Layout_Section_TextDirection_RTL": "Phải sang trái",
@@ -144,6 +145,7 @@
   "Poll_Editor_Answer_AddAnswer": "Thêm câu trả lời",
   "GallerySettings_Tab_AdvancedSettings": "Bố cục",
   "LineSpacing_save": "Lưu",
+  "VideoCustomUploadModal_MobileHeader": "Video",
   "UploadFile_Error_StorageExceeded_SiteOwner": "Bạn đã vượt quá giới hạn dung lượng trang web của mình. Để lưu thêm phương tiện trên trang web của bạn, hãy <1>nâng cấp ngay bây giờ</1>.",
   "decreaseIndentButton_Tooltip": "Giảm thụt lề",
   "GallerySettings_Tab_ManageMedia": "Phương tiện",
@@ -266,6 +268,7 @@
   "MobileLinkModal_Title": "Thêm liên kết",
   "Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title": "Ai có thể bình chọn?",
   "ImageSettings_Alt_Label": "Văn bản thay thế",
+  "VideoModal_Embed_Title": "Paste a URL From YouTube, Vimeo or Facebook",
   "LineSpacing_cancel": "Hủy",
   "LinkTo_Modal_Section_Filter_Buttons": "Nút",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Label": "Tùy chọn tải về",
@@ -573,5 +576,6 @@
   "Mobile_LinkPreview_Hide": "Ẩn",
   "ButtonComponent_Error_Overlay": "Nhập URL hợp lệ cho nút",
   "TablePlugin_Toolbar_ContextMenu_SplitCells_Button": "Tách ô",
-  "GIFPlugin_InsertButton": "GIF"
+  "GIFPlugin_InsertButton": "GIF",
+  "EmbedURL_MobileHeader": "Embed"
 }

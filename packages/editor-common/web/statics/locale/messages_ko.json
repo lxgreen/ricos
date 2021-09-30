@@ -42,6 +42,7 @@
   "GallerySettings_Image_Ratio": "이미지 비율",
   "GallerySettings_Sort_Items": "미디어 순서 변경",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Tooltip": "이미지에서 마우스 오른쪽 버튼을 클릭한 다음 다른 이름으로 이미지 저장을 선택하면 해당 이미지를 다운로드할 수 있습니다.",
+  "VideoCustomUploadModal_Title": "Upload video from your computer",
   "TablePlugin_Toolbar_ContextMenu_DeleteRow_Button": "행 삭제",
   "GallerySettings_Finish_Sorting": "저장",
   "Poll_PollSettings_Tab_Layout_Section_TextDirection_RTL": "왼쪽으로",
@@ -144,6 +145,7 @@
   "Poll_Editor_Answer_AddAnswer": "답변 추가",
   "GallerySettings_Tab_AdvancedSettings": "레이아웃",
   "LineSpacing_save": "저장",
+  "VideoCustomUploadModal_MobileHeader": "Video",
   "UploadFile_Error_StorageExceeded_SiteOwner": "사이트 저장용량 한도를 초과하였습니다. 사이트에 미디어를 저장하려면, <1>업그레이드/1>를 실행하세요.",
   "decreaseIndentButton_Tooltip": "내어쓰기",
   "GallerySettings_Tab_ManageMedia": "미디어",
@@ -266,6 +268,7 @@
   "MobileLinkModal_Title": "링크를 추가하세요.",
   "Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title": "투표 권한",
   "ImageSettings_Alt_Label": "대체 텍스트",
+  "VideoModal_Embed_Title": "Paste a URL From YouTube, Vimeo or Facebook",
   "LineSpacing_cancel": "취소",
   "LinkTo_Modal_Section_Filter_Buttons": "버튼",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Label": "다운로드 옵션",
@@ -573,5 +576,6 @@
   "Mobile_LinkPreview_Hide": "비공개",
   "ButtonComponent_Error_Overlay": "유효한 URL 버튼 링크를 입력하세요.",
   "TablePlugin_Toolbar_ContextMenu_SplitCells_Button": "셀 분할",
-  "GIFPlugin_InsertButton": "GIF"
+  "GIFPlugin_InsertButton": "GIF",
+  "EmbedURL_MobileHeader": "Embed"
 }

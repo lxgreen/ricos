@@ -42,6 +42,7 @@
   "GallerySettings_Image_Ratio": "Relació d’imatge",
   "GallerySettings_Sort_Items": "Reordena el contingut multimèdia",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Tooltip": "Els lectors es podran baixar les imatges fent clic amb el botó dret sobre elles i seleccionant Desa la imatge com a.",
+  "VideoCustomUploadModal_Title": "Upload video from your computer",
   "TablePlugin_Toolbar_ContextMenu_DeleteRow_Button": "Suprimeix la fila",
   "GallerySettings_Finish_Sorting": "Desa",
   "Poll_PollSettings_Tab_Layout_Section_TextDirection_RTL": "De dreta a esquerra",
@@ -144,6 +145,7 @@
   "Poll_Editor_Answer_AddAnswer": "Afegeix una resposta",
   "GallerySettings_Tab_AdvancedSettings": "Disposició",
   "LineSpacing_save": "Desa",
+  "VideoCustomUploadModal_MobileHeader": "Video",
   "UploadFile_Error_StorageExceeded_SiteOwner": "Has superat el límit d'emmagatzematge del teu lloc. Per desar més contingut multimèdia al teu lloc, <1>actualitza ara</1>.",
   "decreaseIndentButton_Tooltip": "Disminueix la sagnia",
   "GallerySettings_Tab_ManageMedia": "Contingut multimèdia",
@@ -266,6 +268,7 @@
   "MobileLinkModal_Title": "Afegeix un enllaç",
   "Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title": "Qui pot votar?",
   "ImageSettings_Alt_Label": "Text alternatiu",
+  "VideoModal_Embed_Title": "Paste a URL From YouTube, Vimeo or Facebook",
   "LineSpacing_cancel": "Cancel·la",
   "LinkTo_Modal_Section_Filter_Buttons": "Botons",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Label": "Opció de baixada",
@@ -573,5 +576,6 @@
   "Mobile_LinkPreview_Hide": "Amaga",
   "ButtonComponent_Error_Overlay": "Introdueix una URL vàlida per al botó",
   "TablePlugin_Toolbar_ContextMenu_SplitCells_Button": "Divideix les cel·les",
-  "GIFPlugin_InsertButton": "GIF"
+  "GIFPlugin_InsertButton": "GIF",
+  "EmbedURL_MobileHeader": "Embed"
 }

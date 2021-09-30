@@ -42,6 +42,7 @@
   "GallerySettings_Image_Ratio": "Razmerje slike",
   "GallerySettings_Sort_Items": "Prerazporedi medije",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Tooltip": "Bralci bodo te slike lahko prenesli z desnim klikom miške in izbiro možnosti shranjevanja slik kot ...",
+  "VideoCustomUploadModal_Title": "Upload video from your computer",
   "TablePlugin_Toolbar_ContextMenu_DeleteRow_Button": "Izbriši vrstico",
   "GallerySettings_Finish_Sorting": "Shrani",
   "Poll_PollSettings_Tab_Layout_Section_TextDirection_RTL": "Z desne proti levi",
@@ -144,6 +145,7 @@
   "Poll_Editor_Answer_AddAnswer": "Dodaj odgovor",
   "GallerySettings_Tab_AdvancedSettings": "Postavitev",
   "LineSpacing_save": "Shrani",
+  "VideoCustomUploadModal_MobileHeader": "Video",
   "UploadFile_Error_StorageExceeded_SiteOwner": "Presegli ste omejitev velikosti shrambe spletnega mesta. Če želite v svoje spletno mesto shraniti dodatne medije, <1>nadgradite zdaj</1>.",
   "decreaseIndentButton_Tooltip": "Zmanjšaj zamik",
   "GallerySettings_Tab_ManageMedia": "Mediji",
@@ -266,6 +268,7 @@
   "MobileLinkModal_Title": "Add a link",
   "Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title": "Kdo lahko glasuje?",
   "ImageSettings_Alt_Label": "Besedilo Alt",
+  "VideoModal_Embed_Title": "Paste a URL From YouTube, Vimeo or Facebook",
   "LineSpacing_cancel": "Prekliči",
   "LinkTo_Modal_Section_Filter_Buttons": "Gumbi",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Label": "Možnost prenosa",
@@ -573,5 +576,6 @@
   "Mobile_LinkPreview_Hide": "Skrij",
   "ButtonComponent_Error_Overlay": "Vnesite veljaven URL za gumb",
   "TablePlugin_Toolbar_ContextMenu_SplitCells_Button": "Razdeli celice",
-  "GIFPlugin_InsertButton": "GIF"
+  "GIFPlugin_InsertButton": "GIF",
+  "EmbedURL_MobileHeader": "Embed"
 }

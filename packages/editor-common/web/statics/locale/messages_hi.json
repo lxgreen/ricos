@@ -42,6 +42,7 @@
   "GallerySettings_Image_Ratio": "छवि अनुपात",
   "GallerySettings_Sort_Items": "मीडिया को फिर से व्यवस्थित करें",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Tooltip": "पाठक इमेजेज को उन पर राइट क्लिक करके डाउनलोड कर सकेंगे और इमेज को इस तरह सेव करें का चयन कर सकेंगे।",
+  "VideoCustomUploadModal_Title": "Upload video from your computer",
   "TablePlugin_Toolbar_ContextMenu_DeleteRow_Button": "पंक्ति हटाएं",
   "GallerySettings_Finish_Sorting": "सेव करें",
   "Poll_PollSettings_Tab_Layout_Section_TextDirection_RTL": "दाएं से बाएं",
@@ -144,6 +145,7 @@
   "Poll_Editor_Answer_AddAnswer": "उत्तर जोड़ें",
   "GallerySettings_Tab_AdvancedSettings": "लेआउट",
   "LineSpacing_save": "सेव करें",
+  "VideoCustomUploadModal_MobileHeader": "Video",
   "UploadFile_Error_StorageExceeded_SiteOwner": "आपकी साइट की स्टोरेज सीमा पूरी हो गई है। अपनी साइट पर अधिक मीडिया स्टोर करने के लिए <1>अभी अपग्रेड करें</1>।",
   "decreaseIndentButton_Tooltip": "इंडेंट घटाएँ",
   "GallerySettings_Tab_ManageMedia": "मीडिया",
@@ -266,6 +268,7 @@
   "MobileLinkModal_Title": "लिंक जोडे",
   "Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title": "मतदान कौन कर सकता है?",
   "ImageSettings_Alt_Label": "Alt पाठ",
+  "VideoModal_Embed_Title": "Paste a URL From YouTube, Vimeo or Facebook",
   "LineSpacing_cancel": "रद करें",
   "LinkTo_Modal_Section_Filter_Buttons": "बटन",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Label": "डाउनलोड विकल्प",
@@ -573,5 +576,6 @@
   "Mobile_LinkPreview_Hide": "छिपाएं",
   "ButtonComponent_Error_Overlay": "बटन के लिए एक मान्य URL दर्ज करें",
   "TablePlugin_Toolbar_ContextMenu_SplitCells_Button": "सेल स्प्लिट करें",
-  "GIFPlugin_InsertButton": "GIF"
+  "GIFPlugin_InsertButton": "GIF",
+  "EmbedURL_MobileHeader": "Embed"
 }
