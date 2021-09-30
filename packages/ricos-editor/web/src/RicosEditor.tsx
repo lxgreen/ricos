@@ -369,7 +369,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       ...biFunctions,
       experiments,
     };
-    const baseStyles = { flex: 'none' };
+    const baseStyles = { flex: 'none', webkitTapHighlightColor: 'transparent' };
     const baseMobileStyles = { ...baseStyles, position: 'sticky', top: 0, zIndex: 9 };
     const linkPluginInstalled = !!plugins?.find(plugin => plugin.type === 'LINK');
     return (
