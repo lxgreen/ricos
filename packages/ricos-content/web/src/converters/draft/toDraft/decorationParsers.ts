@@ -196,8 +196,18 @@ const splitColorDecoration = ({
     .map(type => ({ ...decoration, type: JSON.stringify(type) }));
 };
 
-const convertFontSize = ({ fontSize, ...decoration }: DraftTypedDecoration): DraftTypedDecoration =>
-  fontSize ? { ...decoration, type: JSON.stringify({ 'font-size': fontSize }) } : decoration;
+const convertFontSize = ({
+  fontSizeData,
+  ...decoration
+}: DraftTypedDecoration): DraftTypedDecoration =>
+  fontSizeData
+    ? {
+        ...decoration,
+        type: JSON.stringify({
+          'font-size': fontSizeData.value?.toString() + (fontSizeData.unit?.toLowerCase() || 'px'),
+        }),
+      }
+    : decoration;
 
 const decorationComparator = (
   a: RangedDecoration | RangedDecoration[],
