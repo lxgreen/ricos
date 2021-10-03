@@ -16,8 +16,14 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-  
+
+</details>
+<hr/>
+
+## 8.54.0 (Oct 3, 2021)
+
 ### :rocket: New Feature
+
 - `ricos-content`
   - [#2945](https://github.com/wix/ricos/pull/2945) Content API: Table, CollapsibleList, Gif, Map, Embed builders
 
@@ -27,9 +33,6 @@
   - [#2932](https://github.com/wix/ricos/pull/2932) fix modals keyboard navigation (accessibility)
 - `plugin-commons`
   - [#2950](https://github.com/wix/ricos/pull/2950) fix color picker modal crashing when color isn't defined
-
-</details>
-<hr/>
 
 ## 8.53.4 (Sep 25, 2021)
 
