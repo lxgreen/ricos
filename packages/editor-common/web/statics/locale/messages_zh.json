@@ -42,6 +42,7 @@
   "GallerySettings_Image_Ratio": "圖片比例",
   "GallerySettings_Sort_Items": "再次訂購媒體",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Tooltip": "如需儲存圖片，讀者可在圖片按一下滑鼠右鍵，然後選取儲存圖片為。",
+  "VideoCustomUploadModal_Title": "Upload video from your computer",
   "TablePlugin_Toolbar_ContextMenu_DeleteRow_Button": "刪除列",
   "GallerySettings_Finish_Sorting": "保存",
   "Poll_PollSettings_Tab_Layout_Section_TextDirection_RTL": "右到左",
@@ -144,6 +145,7 @@
   "Poll_Editor_Answer_AddAnswer": "新增答案",
   "GallerySettings_Tab_AdvancedSettings": "版面配置",
   "LineSpacing_save": "保存",
+  "VideoCustomUploadModal_MobileHeader": "Video",
   "UploadFile_Error_StorageExceeded_SiteOwner": "您已經超過了您的網站儲存限制。若要在您的網站儲存更多媒體，<1>請立即升級</1>。",
   "decreaseIndentButton_Tooltip": "減少縮排",
   "GallerySettings_Tab_ManageMedia": "媒體",
@@ -266,6 +268,7 @@
   "MobileLinkModal_Title": "新增連結",
   "Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title": "誰可以投票？",
   "ImageSettings_Alt_Label": "替代文字",
+  "VideoModal_Embed_Title": "Paste a URL From YouTube, Vimeo or Facebook",
   "LineSpacing_cancel": "取消",
   "LinkTo_Modal_Section_Filter_Buttons": "按鈕",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Label": "下載選項",
@@ -573,5 +576,6 @@
   "Mobile_LinkPreview_Hide": "隱藏",
   "ButtonComponent_Error_Overlay": "為按鈕輸入有效網址",
   "TablePlugin_Toolbar_ContextMenu_SplitCells_Button": "分割儲存格",
-  "GIFPlugin_InsertButton": "GIF"
+  "GIFPlugin_InsertButton": "GIF",
+  "EmbedURL_MobileHeader": "Embed"
 }

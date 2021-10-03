@@ -42,6 +42,7 @@
   "GallerySettings_Image_Ratio": "Kuvasuhde",
   "GallerySettings_Sort_Items": "Järjestä media uudelleen",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Tooltip": "Lukijat voivat ladata kuvat napsauttamalla niitä oikealla painikkeella ja valitsemalla Tallenna nimellä.",
+  "VideoCustomUploadModal_Title": "Upload video from your computer",
   "TablePlugin_Toolbar_ContextMenu_DeleteRow_Button": "Delete row",
   "GallerySettings_Finish_Sorting": "Tallenna",
   "Poll_PollSettings_Tab_Layout_Section_TextDirection_RTL": "Oikealta vasemmalle",
@@ -144,6 +145,7 @@
   "Poll_Editor_Answer_AddAnswer": "Lisää vastaus",
   "GallerySettings_Tab_AdvancedSettings": "Ulkoasu",
   "LineSpacing_save": "Tallenna",
+  "VideoCustomUploadModal_MobileHeader": "Video",
   "UploadFile_Error_StorageExceeded_SiteOwner": "Olet ylittänyt sivustosi tallennustilan. Jos haluat tallentaa lisää mediaa sivustollesi, <1>päivitä nyt</1>.",
   "decreaseIndentButton_Tooltip": "Vähennä sisennystä",
   "GallerySettings_Tab_ManageMedia": "Media",
@@ -266,6 +268,7 @@
   "MobileLinkModal_Title": "Lisää linkki",
   "Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title": "Ketkä voivat äänestää?",
   "ImageSettings_Alt_Label": "Alt-teksti",
+  "VideoModal_Embed_Title": "Paste a URL From YouTube, Vimeo or Facebook",
   "LineSpacing_cancel": "Peruuta",
   "LinkTo_Modal_Section_Filter_Buttons": "Painikkeet",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Label": "Latausvalinta",
@@ -573,5 +576,6 @@
   "Mobile_LinkPreview_Hide": "Piilota",
   "ButtonComponent_Error_Overlay": "Anna painikkeelle kelvollinen URL",
   "TablePlugin_Toolbar_ContextMenu_SplitCells_Button": "Split cells",
-  "GIFPlugin_InsertButton": "GIF"
+  "GIFPlugin_InsertButton": "GIF",
+  "EmbedURL_MobileHeader": "Embed"
 }

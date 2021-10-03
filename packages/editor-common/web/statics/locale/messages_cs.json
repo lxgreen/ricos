@@ -42,6 +42,7 @@
   "GallerySettings_Image_Ratio": "Poměr stran obrázku",
   "GallerySettings_Sort_Items": "Změnit pořadí médií",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Tooltip": "Čtenáři si budou moct stáhnout obrázky pravým kliknutím a výběrem uložit obrázek jako.",
+  "VideoCustomUploadModal_Title": "Upload video from your computer",
   "TablePlugin_Toolbar_ContextMenu_DeleteRow_Button": "Odstranit řádek",
   "GallerySettings_Finish_Sorting": "Uložit",
   "Poll_PollSettings_Tab_Layout_Section_TextDirection_RTL": "Zprava doleva",
@@ -144,6 +145,7 @@
   "Poll_Editor_Answer_AddAnswer": "Přidat odpověď",
   "GallerySettings_Tab_AdvancedSettings": "Rozvržení",
   "LineSpacing_save": "Uložit",
+  "VideoCustomUploadModal_MobileHeader": "Video",
   "UploadFile_Error_StorageExceeded_SiteOwner": "Překročili jste limit úložného prostoru na webu. Chcete-li na web uložit další média, <1>upgradujte</1>.",
   "decreaseIndentButton_Tooltip": "Zmenšit odsazení",
   "GallerySettings_Tab_ManageMedia": "Média",
@@ -266,6 +268,7 @@
   "MobileLinkModal_Title": "Přidejte odkaz",
   "Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title": "Kdo může hlasovat?",
   "ImageSettings_Alt_Label": "Alt text",
+  "VideoModal_Embed_Title": "Paste a URL From YouTube, Vimeo or Facebook",
   "LineSpacing_cancel": "Zpět",
   "LinkTo_Modal_Section_Filter_Buttons": "Tlačítka",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Label": "Možnosti stahování",
@@ -573,5 +576,6 @@
   "Mobile_LinkPreview_Hide": "Skrýt",
   "ButtonComponent_Error_Overlay": "Zadejte platnou URL tlačítka",
   "TablePlugin_Toolbar_ContextMenu_SplitCells_Button": "Rozdělit buňky",
-  "GIFPlugin_InsertButton": "GIF"
+  "GIFPlugin_InsertButton": "GIF",
+  "EmbedURL_MobileHeader": "Embed"
 }

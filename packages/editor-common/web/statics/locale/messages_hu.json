@@ -42,6 +42,7 @@
   "GallerySettings_Image_Ratio": "Képarány",
   "GallerySettings_Sort_Items": "Média rendezése",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Tooltip": "Az olvasók letölthetik a képeket, ha a jobb egérgombbal rájuk kattintanak, majd a „Kép mentése másként” lehetőséget választják.",
+  "VideoCustomUploadModal_Title": "Upload video from your computer",
   "TablePlugin_Toolbar_ContextMenu_DeleteRow_Button": "Delete row",
   "GallerySettings_Finish_Sorting": "Mentés",
   "Poll_PollSettings_Tab_Layout_Section_TextDirection_RTL": "Jobbról balra",
@@ -144,6 +145,7 @@
   "Poll_Editor_Answer_AddAnswer": "Válasz megadása",
   "GallerySettings_Tab_AdvancedSettings": "Elrendezés",
   "LineSpacing_save": "Mentés",
+  "VideoCustomUploadModal_MobileHeader": "Video",
   "UploadFile_Error_StorageExceeded_SiteOwner": "Túllépted a webhelyed tárhelykorlátját. Ha további médiát szeretnél tárolni a webhelyeden, <1>vásárolj előfizetést most</1>!",
   "decreaseIndentButton_Tooltip": "Behúzás csökkentése",
   "GallerySettings_Tab_ManageMedia": "Média",
@@ -266,6 +268,7 @@
   "MobileLinkModal_Title": "Link hozzáadása",
   "Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title": "Ki szavazhat?",
   "ImageSettings_Alt_Label": "Helyettesítő (Alt) szöveg",
+  "VideoModal_Embed_Title": "Paste a URL From YouTube, Vimeo or Facebook",
   "LineSpacing_cancel": "Mégse",
   "LinkTo_Modal_Section_Filter_Buttons": "Gombok",
   "GalleryPlugin_Settings_ImagesCanBeDownloaded_Label": "Letöltés (beállítás)",
@@ -573,5 +576,6 @@
   "Mobile_LinkPreview_Hide": "Elrejt",
   "ButtonComponent_Error_Overlay": "Adj meg egy érvényes URL-t a gombnak!",
   "TablePlugin_Toolbar_ContextMenu_SplitCells_Button": "Split cells",
-  "GIFPlugin_InsertButton": "GIF"
+  "GIFPlugin_InsertButton": "GIF",
+  "EmbedURL_MobileHeader": "Embed"
 }
