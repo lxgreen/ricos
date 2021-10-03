@@ -17,14 +17,16 @@
     Click to see more.
   </summary>
   
-  ### :rocket: New Feature
-  - `ricos-content`
-    - [#2945](https://github.com/wix/ricos/pull/2945) Content API: Table, CollapsibleList, Gif, Map, Embed builders
+### :rocket: New Feature
+- `ricos-content`
+  - [#2945](https://github.com/wix/ricos/pull/2945) Content API: Table, CollapsibleList, Gif, Map, Embed builders
 
 ### :bug: Bug Fix
 
 - `toolbars-new`
   - [#2932](https://github.com/wix/ricos/pull/2932) fix modals keyboard navigation (accessibility)
+- `plugin-commons`
+  - [#2950](https://github.com/wix/ricos/pull/2950) fix color picker modal crashing when color isn't defined
 
 </details>
 <hr/>
