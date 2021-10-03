@@ -126,6 +126,7 @@
   "VideoCustomUploadModal_MobileHeader": "Video",
   "VideoCustomUploadModal_Title": "Upload video from your computer",
   "VideoModal_Embed_Title": "Paste a URL From YouTube, Vimeo or Facebook",
+  "VideoModal_Embed_ButtonText": "Embed Video",
   "VideoUploadModal_Title": "Add a Video",
   "VideoUploadModal_AddButtonText": "Add",
   "VideoUploadModal_CustomVideoHeader": "Or, upload a video from your computer",
