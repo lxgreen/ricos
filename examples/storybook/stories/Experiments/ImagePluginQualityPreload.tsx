@@ -10,12 +10,6 @@ const ImagePluginStory = () => {
   const [experimentEnabled, setExperimentEnabled] = useState(false);
   const [viewerKey, setViewerKey] = useState(1);
 
-  const experiments = parseExperiments({
-    'specs.ricos.useSrcSet': 'true',
-  });
-  // eslint-disable-next-line no-console
-  console.log({ experiments });
-
   return (
     <Page title="Image Plugin With Thumbnail experiment">
       <ActionButton
