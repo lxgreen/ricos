@@ -22,6 +22,10 @@
 - `editor`
   - [#2954](https://github.com/wix/ricos/pull/2954) support editor shortcuts with keyCode
 
+### :nail_care: Polish
+- `ricos-schema`
+  - [#2948](https://github.com/wix/ricos/pull/2948) font size schema
+
 </details>
 <hr/>
 
