@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `editor`
+  - [#2954](https://github.com/wix/ricos/pull/2954) support editor shortcuts with keyCode
+
 </details>
 <hr/>
 

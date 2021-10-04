@@ -68,7 +68,11 @@ function getModifiers(e) {
 
 function getCommandByShortcut(shortcut, bindingMap) {
   const commands = bindingMap
-    .filter(mapped => mapped.key === shortcut.key && isEqual(mapped.modifiers, shortcut.modifiers))
+    .filter(
+      mapped =>
+        (mapped.key === shortcut.key || mapped.keyCode === shortcut.keyCode) &&
+        isEqual(mapped.modifiers, shortcut.modifiers)
+    )
     .map(mapped => mapped.command);
 
   return commands.length > 0 ? commands[0] : undefined;
@@ -77,7 +81,7 @@ function getCommandByShortcut(shortcut, bindingMap) {
 export const createKeyBindingFn = customCommands => {
   const bindingMap = [...COMMAND_BY_SHORTCUT, ...customCommands];
   return e => {
-    const shortcut = { modifiers: getModifiers(e), key: e.key };
+    const shortcut = { modifiers: getModifiers(e), key: e.key, keyCode: e.keyCode };
     return getCommandByShortcut(shortcut, bindingMap);
   };
 };
