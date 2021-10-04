@@ -52,7 +52,7 @@ class ManageMediaSection extends Component {
     } = this.props;
     const { handleFileSelection } = helpers;
     return (
-      <div dir={languageDir}>
+      <div dir={languageDir} className={styles.gallerySettings_tab_section}>
         <SortableComponent
           theme={this.props.theme}
           items={this.props.data.items}
@@ -116,7 +116,7 @@ class AdvancedSettingsSection extends Component {
           className={
             isMobile
               ? styles.gallerySettings_settingsContainerMobile
-              : styles.gallerySettings_settingsContainer
+              : styles.gallerySettings_tab_section
           }
           dir={languageDir}
         >
@@ -299,7 +299,9 @@ export class GallerySettingsModal extends Component {
         value={'settings'}
         theme={this.props.theme}
       >
-        {this.toggleData.map(toggle => this.renderToggle(toggle))}
+        <div className={this.styles.gallerySettings_tab_section}>
+          {this.toggleData.map(this.renderToggle)}
+        </div>
       </Tab>
     ),
   });
