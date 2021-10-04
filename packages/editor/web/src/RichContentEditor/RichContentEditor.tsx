@@ -807,12 +807,12 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     {
       command: COMMANDS.FOCUS_TOOLBAR,
       modifiers: [MODIFIERS.ALT],
-      key: 't',
+      keyCode: 84,
     },
     {
       command: COMMANDS.FOCUS_TOOLBAR,
       modifiers: [MODIFIERS.CTRL],
-      key: 't',
+      keyCode: 84,
     },
     ...this.getTabCommands(),
     {

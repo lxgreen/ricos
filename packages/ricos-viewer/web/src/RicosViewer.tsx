@@ -126,7 +126,7 @@ export class RicosViewer extends Component<RicosViewerProps, State> {
           })}
         </RicosEngine>,
         TextSelectionToolbar ? (
-          <Suspense fallback={<div />}>
+          <Suspense key="TextSelectionToolbar" fallback={<div />}>
             <TextSelectionToolbar
               onButtonClick={this.getBiCallback('onViewerAction')}
               container={this.viewerRef}
@@ -134,7 +134,7 @@ export class RicosViewer extends Component<RicosViewerProps, State> {
           </Suspense>
         ) : null,
         LinkPreviewPopover ? (
-          <Suspense fallback={<div />}>
+          <Suspense key="LinkPreviewPopover" fallback={<div />}>
             <LinkPreviewPopover
               fetchUrlPreviewData={linkPreviewPopoverFetchData}
               container={this.viewerRef}

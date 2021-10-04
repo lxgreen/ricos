@@ -19,7 +19,7 @@ export default class TextInput extends React.Component {
     getTarget: PropTypes.bool,
     searchIcon: PropTypes.bool,
     dataHook: PropTypes.string,
-    placeHolder: PropTypes.string,
+    placeholder: PropTypes.string,
   };
 
   static defaultProps = {
@@ -56,7 +56,7 @@ export default class TextInput extends React.Component {
       searchIcon = false,
       dataHook,
       showErrorIcon,
-      placeHolder,
+      placeholder,
       ...otherProps
     } = this.props;
     const inputProps = omit(otherProps, ['onChange']);
@@ -73,7 +73,7 @@ export default class TextInput extends React.Component {
           />
         )}
         <input
-          placeHolder={placeHolder}
+          placeholder={placeholder}
           ref={inputRef}
           className={classNames(styles.textInput_input, {
             [styles.textInput_input_invalid]: error,
