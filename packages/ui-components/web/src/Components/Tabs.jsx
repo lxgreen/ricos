@@ -31,7 +31,6 @@ export class Tab extends Component {
         key={this.props.value}
         aria-labelledby={`${this.props.value}_header`}
         id={`${this.props.value}_panel`}
-        className={this.styles.tabs_panel}
       >
         {this.props.children}
       </div>
