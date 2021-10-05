@@ -9,6 +9,8 @@ import {
   addAnchorTagToUrl,
   getRelValue,
   GlobalContext,
+  LINK_VIEWER_DATA_HOOK,
+  ANCHOR_VIEWER_DATA_HOOK,
 } from 'wix-rich-content-common';
 import pluginLinkSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-link.schema.json';
 import { isEqual } from 'lodash';
@@ -84,7 +86,12 @@ class LinkViewer extends Component {
       }),
       onClick: this.handleClick,
     };
-    return <a {...anchorProps}>{children}</a>;
+    const dataHook = anchor ? ANCHOR_VIEWER_DATA_HOOK : LINK_VIEWER_DATA_HOOK;
+    return (
+      <a data-hook={dataHook} {...anchorProps}>
+        {children}
+      </a>
+    );
   }
 }
 
