@@ -46,9 +46,13 @@ const dynamicDecorationGetters = {
     };
   },
   'font-size': (value: string) => {
+    const values = value.split(/(px)/g).length >= 2 ? value.split(/(px)/g) : value.split(/(em)/g);
     return {
-      type: Decoration_Type.FONTSIZE,
-      fontSize: value,
+      type: Decoration_Type.FONT_SIZE,
+      fontSizeData: {
+        unit: values[1].toUpperCase(),
+        value: parseInt(values[0]),
+      },
     };
   },
 };

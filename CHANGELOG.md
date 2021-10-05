@@ -21,11 +21,12 @@
 
 - `editor`
   - [#2954](https://github.com/wix/ricos/pull/2954) support editor shortcuts with keyCode
-
-### :bug: Bug Fix
-
 - `ui-components`
   - [#2917](https://github.com/wix/ricos/pull/2917) refactor tabs component style
+
+### :nail_care: Polish
+- `ricos-schema`
+  - [#2948](https://github.com/wix/ricos/pull/2948) font size schema
 
 </details>
 <hr/>

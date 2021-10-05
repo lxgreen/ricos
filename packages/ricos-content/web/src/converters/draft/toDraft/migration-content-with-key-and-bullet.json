@@ -15,8 +15,11 @@
                 "type": "BOLD"
               },
               {
-                "type": "FONTSIZE",
-                "fontSize": "20px"
+                "type": "FONT_SIZE",
+                "fontSizeData": {
+                  "unit": "PX",
+                  "value": 20
+                }
               }
             ]
           }
