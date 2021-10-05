@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.54.1 (Oct 3, 2021)
+
 ### :bug: Bug Fix
 
 - `editor`
@@ -25,11 +30,9 @@
   - [#2917](https://github.com/wix/ricos/pull/2917) refactor tabs component style
 
 ### :nail_care: Polish
+
 - `ricos-schema`
   - [#2948](https://github.com/wix/ricos/pull/2948) font size schema
-
-</details>
-<hr/>
 
 ## 8.54.0 (Oct 3, 2021)
 
