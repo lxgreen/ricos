@@ -103,13 +103,13 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
     }
   };
 
-  onColorAdded = color => {
+  onColorAdded = ({ color }) => {
     this.props.onColorAdded(color);
     const userColors = this.props?.getUserColors?.() || [...this.state.userColors, color];
     this.setState({ userColors });
   };
 
-  onChange = color => {
+  onChange = ({ color }) => {
     this.props.onChange(color);
     this.setState({ currentColor: color });
     this.closeModal();
@@ -122,7 +122,7 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
       onResetColor();
     } else {
       const defaultColors = getDefaultColors?.();
-      this.onChange(defaultColors);
+      this.onChange({ color: defaultColors });
     }
     this.closeModal();
     this.props.afterClick && this.props.afterClick();

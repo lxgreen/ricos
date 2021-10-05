@@ -82,7 +82,7 @@ class DesignComponent extends PureComponent {
     this.props.onDesignChange(this.state.design);
   };
 
-  onBackgroundColorAdded = color => {
+  onBackgroundColorAdded = ({ color }) => {
     const {
       settings: { getBackgroundColors, onBackgroundColorAdded },
     } = this.props;
@@ -94,7 +94,7 @@ class DesignComponent extends PureComponent {
     this.setState({ customBackgroundColors });
   };
 
-  onBorderColorAdded = color => {
+  onBorderColorAdded = ({ color }) => {
     const {
       settings: { getBorderColors, onBorderColorAdded },
     } = this.props;
@@ -106,7 +106,7 @@ class DesignComponent extends PureComponent {
     this.setState({ customBorderColors });
   };
 
-  onTextColorAdded = color => {
+  onTextColorAdded = ({ color }) => {
     const {
       settings: { getTextColors, onTextColorAdded },
     } = this.props;
@@ -128,17 +128,17 @@ class DesignComponent extends PureComponent {
     this.setState({ design });
   };
 
-  onTextColorChange = color => {
+  onTextColorChange = ({ color }) => {
     const design = { ...this.state.design, color };
     this.setState({ design });
   };
 
-  onBorderColorChange = color => {
+  onBorderColorChange = ({ color }) => {
     const design = { ...this.state.design, borderColor: color };
     this.setState({ design });
   };
 
-  onBackgroundColorChange = color => {
+  onBackgroundColorChange = ({ color }) => {
     const design = { ...this.state.design, background: color };
     this.setState({ design });
   };

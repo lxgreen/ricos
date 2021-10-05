@@ -22,6 +22,11 @@
 - `fullscreen`
   - [#2946](https://github.com/wix/ricos/pull/2946) fix a11y keyboard navigation (desktop) and screen reader
 
+### :house: Internal
+
+- `color-picker`
+  - [#2961](https://github.com/wix/ricos/pull/2961) refactor: send arguments in object (in ColorPicker props function)
+
 </details>
 <hr/>
 
