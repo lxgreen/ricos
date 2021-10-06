@@ -15,7 +15,11 @@ import {
   ColorType,
   RICOS_TEXT_COLOR_TYPE,
   RICOS_TEXT_HIGHLIGHT_TYPE,
+  PluginsDataMap,
+  RICOS_DIVIDER_TYPE,
+  RICOS_VIDEO_TYPE,
 } from 'wix-rich-content-common';
+import { DividerData, DividerData_LineStyle, VideoData } from 'ricos-schema';
 import {
   BoldIcon,
   ItalicIcon,
@@ -43,6 +47,8 @@ import {
   AlignJustifyIcon,
   AlignLeftIcon,
   AlignRightIcon,
+  DividerIcon,
+  VideoIcon,
 } from '../icons';
 import LinkModal from '../modals/link/LinkComponents/LinkModal';
 import AlignmentPanel from '../modals/alignment/AlignmentPanel';
@@ -133,9 +139,28 @@ type buttonsFullDataType = {
   unstyled?: { icon: any; action: string };
   'header-two'?: { icon: any; action: string };
   'header-three'?: { icon: any; action: string };
+  defaultData?: any;
 };
 
 export const buttonsFullData: Record<string, buttonsFullDataType> = {
+  Video: {
+    icon: VideoIcon,
+    dataHook: 'VideoPlugin_InsertButton',
+    tooltip: 'VideoPlugin_InsertButton_Tooltip',
+    defaultData: VideoData.fromJSON({
+      url: 'https://www.youtube.com/watch?v=2iDTAGKkixE&ab_channel=QueenClub',
+    }),
+    type: 'button',
+  },
+  Divider: {
+    icon: DividerIcon,
+    dataHook: 'DividerPlugin_InsertButton',
+    tooltip: 'DividerPlugin_InsertButton_Tooltip',
+    defaultData: DividerData.fromJSON({
+      lineStyle: DividerData_LineStyle.SINGLE,
+    }),
+    type: 'button',
+  },
   AddPlugin: {
     icon: PlusIcon,
     dataHook: 'textInlineStyleButton_AddPlugin',
@@ -406,6 +431,11 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     tooltip: 'TextCodeBlockButton_Tooltip',
     type: 'button',
   },
+};
+
+export const insertBlockButtons: Record<string, keyof PluginsDataMap> = {
+  Divider: RICOS_DIVIDER_TYPE,
+  Video: RICOS_VIDEO_TYPE,
 };
 
 export const inlineStyleButtons: Record<string, InlineStyle> = {

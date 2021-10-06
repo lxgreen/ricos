@@ -76,7 +76,7 @@ type draftSelection = {
   hasFocus?: boolean;
 };
 
-interface PluginsDataMap {
+export interface PluginsDataMap {
   [RICOS_DIVIDER_TYPE]?: DividerData;
   [DIVIDER_TYPE]?: any;
   [RICOS_GIPHY_TYPE]?: GIFData;

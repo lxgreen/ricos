@@ -19,6 +19,7 @@ import {
   colorTypes,
   translateHeading,
   findOsName,
+  insertBlockButtons,
 } from './buttonsListCreatorConsts';
 import { HEADER_TYPE_MAP } from 'wix-rich-content-plugin-commons';
 import {
@@ -345,6 +346,13 @@ const handleButtonOnClick = (
       ) as HTMLElement;
       addPluginButton?.click();
     };
+  } else if (Object.keys(insertBlockButtons).includes(buttonName)) {
+    buttonsList[index].onClick = () =>
+      editorCommands.insertBlock(
+        insertBlockButtons[buttonName],
+        buttonsFullData[buttonName].defaultData,
+        { isRicosSchema: true }
+      );
   } else {
     // eslint-disable-next-line no-console
     buttonsList[index].onClick = () => console.log('click');

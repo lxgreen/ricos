@@ -36,6 +36,7 @@ import { emptyDraftContent, getEditorContentSummary } from 'wix-rich-content-edi
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
 import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
 import { getBiFunctions } from './toolbars/utils/biUtils';
+import { RicosToolbar, StaticToolbarContainer } from 'wix-rich-content-toolbars-new';
 
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
@@ -424,6 +425,23 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
           onChange: this.onChange(child.props.onChange),
           ref: this.setEditorRef,
         })}
+        {this.useNewFormattingToolbar && !this.props.isMobile && this.state.activeEditor && (
+          <div
+            data-hook={'ricos-editor-footer-toolbars'}
+            style={{ flex: 'none', marginTop: '60px' }}
+            dir={getLangDir(this.props.locale)}
+          >
+            <StaticToolbarContainer>
+              <RicosToolbar
+                theme={this.props.theme}
+                isMobile={this.props.isMobile}
+                t={this.state.activeEditor.getT()}
+                editorCommands={this.state.activeEditor.getEditorCommands()}
+                buttons={['Divider', '|', 'Video']}
+              />
+            </StaticToolbarContainer>
+          </div>
+        )}
       </Fragment>
     );
   }

@@ -8,7 +8,7 @@ import styles from './ToolbarContainerNew.scss';
 interface StaticToolbarContainerProps {
   children: ReactElement;
   isMobile?: boolean;
-  focusEditor: () => void;
+  focusEditor?: () => void;
 }
 
 class StaticToolbarContainer extends Component<StaticToolbarContainerProps> {
