@@ -107,17 +107,17 @@ class ColorPicker extends PureComponent {
         className={styles.colorPicker_add_color_button}
         data-hook="addColor"
       >
-        <button
-          id={`add_color_button_${this.id}`}
-          className={styles.colorPicker_color_button_hidden}
-          onClick={this.toggleCustomColorPicker}
-        />
         <label // eslint-disable-line
           onClick={this.toggleCustomColorPicker}
-          tabIndex={0} // eslint-disable-line
+          tabIndex={-1} // eslint-disable-line
           className={styles.colorPicker_add_color_label}
           htmlFor={`add_color_button_${this.id}`}
         >
+          <button
+            id={`add_color_button_${this.id}`}
+            className={styles.colorPicker_color_button_hidden}
+            onClick={() => this.toggleCustomColorPicker}
+          />
           <AddColorIcon />
         </label>
       </div>
@@ -129,19 +129,19 @@ class ColorPicker extends PureComponent {
     const { t } = this.props;
     return (
       <div key={`reset_color_button_${this.id}`} className={styles.colorPicker_reset_color_button}>
-        <button
-          id={`reset_color_button_${this.id}`}
-          className={styles.colorPicker_color_button_hidden}
-          onClick={this.resetColor}
-        />
         <label // eslint-disable-line
           onClick={this.resetColor}
           data-hook="resetColor"
-          tabIndex={0} // eslint-disable-line
+          tabIndex={-1} // eslint-disable-line
           className={styles.colorPicker_reset_color_label}
           htmlFor={`reset_color_button_${this.id}`}
         >
           {t('ColorPicker_SetToDefault_ButtonLabel')}
+          <button
+            id={`reset_color_button_${this.id}`}
+            className={styles.colorPicker_color_button_hidden}
+            onClick={this.resetColor}
+          />
         </label>
       </div>
     );

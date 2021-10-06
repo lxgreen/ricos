@@ -10,6 +10,7 @@ import ColorPickerButton from './ButtonComponents/ColorPickerButton';
 import ToolbarButton from './ToolbarButton';
 import ContextMenu from './ButtonComponents/ContextMenu';
 import { RichContentTheme, TranslationFunction, DesktopTextButtons } from 'wix-rich-content-common';
+import { FocusManager } from 'wix-rich-content-ui-components';
 
 type formattingToolbarButtonsKeysType =
   | DesktopTextButtons

@@ -91,6 +91,7 @@ class ColorPickerButton extends Component {
           <div
             className={classNames(styles.modal, nestedMenu && styles.withoutTop)}
             data-id={'color-picker-modal'}
+            tabIndex={-1}
           >
             <ColorPicker
               color={currentColor}

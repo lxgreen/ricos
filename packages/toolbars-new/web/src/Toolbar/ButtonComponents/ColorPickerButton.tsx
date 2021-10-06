@@ -194,8 +194,7 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
             )}
             data-id={'color-picker-modal'}
             ref={this.setModalRef}
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-            tabIndex={0}
+            tabIndex={-1}
           >
             <ColorPicker
               color={currentColor}

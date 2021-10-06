@@ -23,6 +23,8 @@
   - [#2946](https://github.com/wix/ricos/pull/2946) fix a11y keyboard navigation (desktop) and screen reader
 - `external-toolbar`
   - [#2947](https://github.com/wix/ricos/pull/2947) new icons for external toolbar (under specs.ricos.newFormattingToolbar experiment)
+- `toolbars-new`
+  - [#2958](https://github.com/wix/ricos/pull/2958) fix color-picker/modals a11y
 
 ### :house: Internal
 
