@@ -61,12 +61,12 @@ class AnchorPanel extends Component {
     );
   };
 
-  anchorableElementClicked = (block, { defaultName }) => {
+  anchorableElementClicked = (block, { defaultName }, e) => {
     const { anchorValues } = this.props;
     const isSelected = anchorValues.anchor === block.key;
     if (isSelected) {
       const { onEnter } = this.props;
-      onEnter && onEnter();
+      onEnter && onEnter(e);
     } else {
       this.onChange(block, { defaultName });
     }
@@ -106,7 +106,7 @@ class AnchorPanel extends Component {
                 dataHook={block.key}
                 block={block}
                 theme={styles}
-                onClick={args => this.anchorableElementClicked(block, { ...args })}
+                onClick={(args, e) => this.anchorableElementClicked(block, { ...args }, e)}
                 isSelected={anchorValues.anchor === block.key}
                 t={t}
                 blockPreview={blockPreview}

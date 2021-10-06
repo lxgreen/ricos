@@ -8,6 +8,7 @@ import styles from '../ToolbarNew.scss';
 import ToolbarButton from '../ToolbarButton';
 import { ColorPicker } from 'wix-rich-content-plugin-commons';
 import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 
 type dropDownPropsType = {
   tooltip: string;
@@ -42,6 +43,7 @@ interface State {
   isModalOpen: boolean;
   currentColor: string;
   userColors: string[];
+  lastFocusedButton: HTMLElement | null;
 }
 
 class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
@@ -53,6 +55,7 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
       isModalOpen: false,
       currentColor: props.getCurrentColor() || 'unset',
       userColors: props?.getUserColors?.() || [],
+      lastFocusedButton: null,
     };
   }
 
@@ -82,24 +85,28 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
     if (!isModalOpen) {
       saveSelection?.();
       setKeepOpen?.(true);
+      const lastFocusedButton = document.activeElement as HTMLElement;
+      this.setState({ lastFocusedButton });
     } else {
       const {
         dropDownProps: { loadSelection },
       } = this.props;
       setKeepOpen?.(false);
       e.detail && loadSelection?.(); //do not load selection on shortcuts
+      !e.detail && setTimeout(() => this.state.lastFocusedButton?.focus());
     }
   };
 
-  closeModal = (loadSelectionOnClose = true) => {
+  closeModal = ({ loadSelectionOnClose = true, clickFromKeyboard = false } = {}) => {
     if (this.state.isModalOpen) {
       const {
         setKeepOpen,
         dropDownProps: { loadSelection },
       } = this.props;
-      this.setState({ isModalOpen: false });
       setKeepOpen?.(false);
-      loadSelectionOnClose && loadSelection?.();
+      !clickFromKeyboard && loadSelectionOnClose && loadSelection?.();
+      clickFromKeyboard && setTimeout(() => this.state.lastFocusedButton?.focus());
+      this.setState({ isModalOpen: false });
     }
   };
 
@@ -109,22 +116,22 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
     this.setState({ userColors });
   };
 
-  onChange = ({ color }) => {
+  onChange = ({ color, event }) => {
     this.props.onChange(color);
     this.setState({ currentColor: color });
-    this.closeModal();
+    this.closeModal({ clickFromKeyboard: !event?.detail });
     this.props.afterClick && this.props.afterClick();
   };
 
-  onResetColor = () => {
+  onResetColor = ({ event }) => {
     const { getDefaultColors, onResetColor } = this.props;
     if (onResetColor) {
       onResetColor();
     } else {
       const defaultColors = getDefaultColors?.();
-      this.onChange({ color: defaultColors });
+      this.onChange({ color: defaultColors, event: null });
     }
-    this.closeModal();
+    this.closeModal({ clickFromKeyboard: !event?.detail });
     this.props.afterClick && this.props.afterClick();
   };
 
@@ -138,7 +145,9 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
   };
 
   onClickOutside = e => {
-    this.closeModal(e.target.closest('[data-hook=ricos-editor-toolbars]'));
+    this.closeModal({
+      loadSelectionOnClose: e.target.closest('[data-hook=ricos-editor-toolbars]'),
+    });
   };
 
   render() {

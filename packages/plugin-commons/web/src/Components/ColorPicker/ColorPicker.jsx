@@ -36,15 +36,15 @@ class ColorPicker extends PureComponent {
 
   onColorButtonClicked(color, e) {
     if (e.target.dataset.schemeColor) {
-      this.setColor(e.target.dataset.schemeColor);
+      this.setColor(e.target.dataset.schemeColor, e);
     } else {
-      this.setColor(color);
+      this.setColor(color, e);
     }
   }
 
-  setColor = color => {
+  setColor = (color, e) => {
     this.setState({ color });
-    this.props.onChange({ color });
+    this.props.onChange({ color, event: e });
   };
 
   onCustomColorPicked = color => {
@@ -69,8 +69,8 @@ class ColorPicker extends PureComponent {
     }));
   }
 
-  resetColor = () => {
-    this.props.onResetColor();
+  resetColor = e => {
+    this.props.onResetColor({ event: e });
   };
 
   renderColorButtons(colors, attributes) {

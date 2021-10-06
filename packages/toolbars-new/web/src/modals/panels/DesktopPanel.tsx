@@ -25,7 +25,7 @@ const DesktopPanel = ({
   const optionElement = (option, isSelected, onClick) => {
     const onKeyDown = e => {
       if (e.keyCode === KEYS_CHARCODE.ENTER) {
-        onClick(option.commandKey);
+        onClick(option.commandKey, true);
       }
     };
     const content = hasIcons ? option.icon() : t(option.text);

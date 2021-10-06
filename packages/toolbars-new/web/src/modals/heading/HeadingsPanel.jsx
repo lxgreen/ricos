@@ -34,9 +34,9 @@ class HeadingsPanel extends Component {
 
   static contextType = GlobalContext;
 
-  onSaveHeading = type => {
+  onSaveHeading = (type, clickFromKeyboard) => {
     this.props?.onToolbarButtonClick?.(type);
-    return this.props.onSave(type);
+    return this.props.onSave({ clickFromKeyboard, data: type });
   };
 
   defaultHeadings = () => {
