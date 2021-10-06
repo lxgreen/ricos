@@ -28,12 +28,13 @@ export default {
     setEditorState,
     externalOnClick,
     alignment,
+    newFormattingToolbar,
   }) =>
     generateTextButtonProps({
       name: FORMATTING_BUTTONS.BOLD,
       styles: ['BOLD'],
       type: BUTTON_STYLES.INLINE,
-      icons: [icon || BoldIcon],
+      icons: [icon || (() => BoldIcon({ newFormattingToolbar }))],
       tooltipTextKey: 'BoldButton_Tooltip',
       t,
       getEditorState,
@@ -48,12 +49,13 @@ export default {
     setEditorState,
     externalOnClick,
     alignment,
+    newFormattingToolbar,
   }) =>
     generateTextButtonProps({
       name: FORMATTING_BUTTONS.ITALIC,
       styles: ['ITALIC'],
       type: BUTTON_STYLES.INLINE,
-      icons: [icon || ItalicIcon],
+      icons: [icon || (() => ItalicIcon({ newFormattingToolbar }))],
       tooltipTextKey: 'ItalicButton_Tooltip',
       t,
       getEditorState,
@@ -68,12 +70,13 @@ export default {
     setEditorState,
     externalOnClick,
     alignment,
+    newFormattingToolbar,
   }) =>
     generateTextButtonProps({
       name: FORMATTING_BUTTONS.UNDERLINE,
       styles: ['UNDERLINE'],
       type: BUTTON_STYLES.INLINE,
-      icons: [icon || UnderlineIcon],
+      icons: [icon || (() => UnderlineIcon({ newFormattingToolbar }))],
       tooltipTextKey: 'UnderlineButton_Tooltip',
       t,
       getEditorState,
@@ -88,15 +91,16 @@ export default {
     setEditorState,
     externalOnClick,
     alignment,
+    newFormattingToolbar,
   }) =>
     generateTextButtonProps({
       name: FORMATTING_BUTTONS.TITLE,
       styles: ['unstyled', HEADER_BLOCK.TWO, HEADER_BLOCK.THREE],
       type: BUTTON_STYLES.BLOCK,
       icons: [
-        icons.inactiveIconTitle || TitleIcon,
-        icons.iconForTitleOne || TitleOneIcon,
-        icons.iconForTitleTwo || TitleTwoIcon,
+        icons.inactiveIconTitle || (() => TitleIcon({ newFormattingToolbar })),
+        icons.iconForTitleOne || (() => TitleOneIcon({ newFormattingToolbar })),
+        icons.iconForTitleTwo || (() => TitleTwoIcon({ newFormattingToolbar })),
       ],
       tooltipTextKey: 'TitleButton_Tooltip',
       t,
@@ -112,12 +116,13 @@ export default {
     setEditorState,
     externalOnClick,
     alignment,
+    newFormattingToolbar,
   }) =>
     generateTextButtonProps({
       name: 'Quote',
       styles: ['blockquote'],
       type: BUTTON_STYLES.BLOCK,
-      icons: [icon || BlockQuoteIcon],
+      icons: [icon || (() => BlockQuoteIcon({ newFormattingToolbar }))],
       tooltipTextKey: 'QuoteButton_Tooltip',
       t,
       getEditorState,
@@ -132,12 +137,13 @@ export default {
     setEditorState,
     externalOnClick,
     alignment,
+    newFormattingToolbar,
   }) =>
     generateTextButtonProps({
       name: FORMATTING_BUTTONS.ALIGN_LEFT,
       type: BUTTON_STYLES.ALIGNMENT,
       styles: ['left'],
-      icons: [icon || AlignLeftIcon],
+      icons: [icon || (() => AlignLeftIcon({ newFormattingToolbar }))],
       tooltipTextKey: 'AlignTextLeftButton_Tooltip',
       t,
       getEditorState,
@@ -152,12 +158,13 @@ export default {
     setEditorState,
     externalOnClick,
     alignment,
+    newFormattingToolbar,
   }) =>
     generateTextButtonProps({
       name: FORMATTING_BUTTONS.ALIGN_CENTER,
       type: BUTTON_STYLES.ALIGNMENT,
       styles: ['center'],
-      icons: [icon || AlignTextCenterIcon],
+      icons: [icon || (() => AlignTextCenterIcon({ newFormattingToolbar }))],
       tooltipTextKey: 'AlignTextCenterButton_Tooltip',
       t,
       getEditorState,
@@ -172,12 +179,13 @@ export default {
     setEditorState,
     externalOnClick,
     alignment,
+    newFormattingToolbar,
   }) =>
     generateTextButtonProps({
       name: FORMATTING_BUTTONS.ALIGN_RIGHT,
       type: BUTTON_STYLES.ALIGNMENT,
       styles: ['right'],
-      icons: [icon || AlignRightIcon],
+      icons: [icon || (() => AlignRightIcon({ newFormattingToolbar }))],
       tooltipTextKey: 'AlignTextRightButton_Tooltip',
       t,
       getEditorState,
@@ -192,12 +200,13 @@ export default {
     setEditorState,
     externalOnClick,
     alignment,
+    newFormattingToolbar,
   }) =>
     generateTextButtonProps({
       name: FORMATTING_BUTTONS.ALIGN_JUSTIFY,
       styles: ['justify'],
       type: BUTTON_STYLES.ALIGNMENT,
-      icons: [icon || AlignJustifyIcon],
+      icons: [icon || (() => AlignJustifyIcon({ newFormattingToolbar }))],
       tooltipTextKey: 'AlignTextJustifyButton_Tooltip',
       t,
       getEditorState,
@@ -212,12 +221,13 @@ export default {
     setEditorState,
     externalOnClick,
     alignment,
+    newFormattingToolbar,
   }) =>
     generateTextButtonProps({
       name: 'NumberedList',
       styles: ['ordered-list-item'],
       type: BUTTON_STYLES.BLOCK,
-      icons: [icon || OrderedListIcon],
+      icons: [icon || (() => OrderedListIcon({ newFormattingToolbar }))],
       tooltipTextKey: 'OrderedListButton_Tooltip',
       t,
       getEditorState,
@@ -232,12 +242,13 @@ export default {
     setEditorState,
     externalOnClick,
     alignment,
+    newFormattingToolbar,
   }) =>
     generateTextButtonProps({
       name: 'BulletedList',
       styles: ['unordered-list-item'],
       type: BUTTON_STYLES.BLOCK,
-      icons: [icon || UnorderedListIcon],
+      icons: [icon || (() => UnorderedListIcon({ newFormattingToolbar }))],
       tooltipTextKey: 'UnorderedListButton_Tooltip',
       t,
       getEditorState,

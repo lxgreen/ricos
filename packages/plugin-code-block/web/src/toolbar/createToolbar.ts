@@ -14,7 +14,10 @@ import { getButtonProps } from './getCodeBlockButtonProps';
 import { CreatePluginToolbar } from 'wix-rich-content-common';
 
 const codeBlockTexButtontMapper: CreatePluginToolbar = config => {
-  const icon = config[CODE_BLOCK_TYPE]?.toolbar?.icons?.InsertPluginButtonIcon || CodeBlockIcon;
+  const icon =
+    config[CODE_BLOCK_TYPE]?.toolbar?.icons?.InsertPluginButtonIcon ||
+    (() =>
+      CodeBlockIcon({ newFormattingToolbar: config?.experiments?.newFormattingToolbar?.enabled }));
   const commandHandler = (editorState: EditorState) => {
     config.setEditorState(toggleBlockTypeAndEnsureSpaces(CODE_BLOCK_TYPE, editorState));
   };

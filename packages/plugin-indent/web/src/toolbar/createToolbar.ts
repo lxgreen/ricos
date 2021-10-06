@@ -15,6 +15,7 @@ import {
   SetEditorState,
   GetEditorState,
   TranslationFunction,
+  AvailableExperiments,
 } from 'wix-rich-content-common';
 import { IndentPluginEditorConfig } from '../types';
 
@@ -23,11 +24,13 @@ const createToolbar: CreatePluginToolbar = ({
   settings,
   setEditorState,
   t,
+  experiments,
 }: {
   getEditorState: GetEditorState;
   setEditorState: SetEditorState;
   settings: IndentPluginEditorConfig;
   t: TranslationFunction;
+  experiments?: AvailableExperiments;
 }) => {
   const getIconByDirection = (type: 'indent' | 'unindent') => {
     const editorState = getEditorState();
@@ -35,14 +38,23 @@ const createToolbar: CreatePluginToolbar = ({
     const key = editorState.getSelection().getStartKey();
     const selectedBlockKey = content.getBlockForKey(key).getKey();
     const directionMap = editorState.getDirectionMap();
+    const newFormattingToolbar = experiments?.newFormattingToolbar?.enabled;
     return {
       LTR: {
-        indent: settings?.toolbar?.icons?.IncreaseIndent || increaseIndentPluginIcon,
-        unindent: settings?.toolbar?.icons?.DecreaseIndent || decreaseIndentPluginIcon,
+        indent:
+          settings?.toolbar?.icons?.IncreaseIndent ||
+          (() => increaseIndentPluginIcon({ newFormattingToolbar })),
+        unindent:
+          settings?.toolbar?.icons?.DecreaseIndent ||
+          (() => decreaseIndentPluginIcon({ newFormattingToolbar })),
       },
       RTL: {
-        unindent: settings?.toolbar?.icons?.IncreaseIndent || increaseIndentPluginIcon,
-        indent: settings?.toolbar?.icons?.DecreaseIndent || decreaseIndentPluginIcon,
+        unindent:
+          settings?.toolbar?.icons?.IncreaseIndent ||
+          (() => increaseIndentPluginIcon({ newFormattingToolbar })),
+        indent:
+          settings?.toolbar?.icons?.DecreaseIndent ||
+          (() => decreaseIndentPluginIcon({ newFormattingToolbar })),
       },
     }[directionMap.get(selectedBlockKey)][type];
   };

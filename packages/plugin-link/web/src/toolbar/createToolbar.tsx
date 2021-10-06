@@ -24,6 +24,7 @@ import {
   RelValue,
   RichContentTheme,
   UISettings,
+  AvailableExperiments,
 } from 'wix-rich-content-common';
 import { LINK_TYPE, LinkPluginEditorConfig } from '../types';
 import { GetEditorState, SetEditorState } from 'wix-rich-content-common/src';
@@ -100,6 +101,7 @@ const createToolbar: CreatePluginToolbar = (config: {
   closeInlinePluginToolbar: () => void;
   t: TranslationFunction;
   innerModal: InnerModalType;
+  experiments?: AvailableExperiments;
 }) => {
   const isDisabled = () => isAtomicBlockInSelection(config.getEditorState());
   const getTooltip = () =>
@@ -146,7 +148,12 @@ const createToolbar: CreatePluginToolbar = (config: {
           },
           isActive: () => hasLinksInSelection(config.getEditorState()),
           isDisabled,
-          getIcon: () => config[LINK_TYPE]?.toolbar?.icons?.InsertPluginButtonIcon || LinkIcon,
+          getIcon: () =>
+            config[LINK_TYPE]?.toolbar?.icons?.InsertPluginButtonIcon ||
+            (() =>
+              LinkIcon({
+                newFormattingToolbar: config?.experiments?.newFormattingToolbar?.enabled,
+              })),
           tooltip: getTooltip(),
           getLabel: () => '', // new key needed?
           type: BUTTON_TYPES.BUTTON,

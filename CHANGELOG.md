@@ -21,6 +21,8 @@
 
 - `fullscreen`
   - [#2946](https://github.com/wix/ricos/pull/2946) fix a11y keyboard navigation (desktop) and screen reader
+- `external-toolbar`
+  - [#2947](https://github.com/wix/ricos/pull/2947) new icons for external toolbar (under specs.ricos.newFormattingToolbar experiment)
 
 ### :house: Internal
 

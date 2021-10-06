@@ -18,6 +18,7 @@ export const createFormattingToolbarButtonProps = ({
   config,
   setEditorState,
   getEditorState,
+  experiments,
 }) =>
   createTextButtonProps({
     buttons,
@@ -27,4 +28,5 @@ export const createFormattingToolbarButtonProps = ({
     config,
     setEditorState,
     getEditorState,
+    experiments,
   });

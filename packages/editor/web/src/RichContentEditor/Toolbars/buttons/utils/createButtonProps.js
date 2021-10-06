@@ -10,6 +10,7 @@ export const createTextButtonProps = ({
   config,
   setEditorState,
   getEditorState,
+  experiments,
 }) => {
   const customSettings = config
     ?.getToolbarSettings?.({})
@@ -35,6 +36,7 @@ export const createTextButtonProps = ({
         setEditorState,
         getEditorState,
         alignment: defaultTextAlignment,
+        newFormattingToolbar: experiments?.newFormattingToolbar?.enabled,
       }),
     }),
     {}
@@ -46,6 +48,7 @@ export const createTextButtonProps = ({
     getEditorState,
     setEditorState,
     alignment: defaultTextAlignment,
+    newFormattingToolbar: experiments?.newFormattingToolbar?.enabled,
   });
 
   buttonPropsByName['|'] = {

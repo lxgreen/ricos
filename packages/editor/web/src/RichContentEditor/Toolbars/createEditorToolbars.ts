@@ -17,6 +17,7 @@ import {
   ToolbarButtonProps,
   TextButtons,
   Pubsub,
+  AvailableExperiments,
 } from 'wix-rich-content-common';
 import { EditorProps } from 'draft-js';
 
@@ -29,6 +30,7 @@ const createEditorToolbars = ({
   isInnerRCE,
   tablePluginMenu,
   pubsub,
+  experiments,
 }: {
   buttons: {
     pluginButtons: PluginButton[];
@@ -41,6 +43,7 @@ const createEditorToolbars = ({
   isInnerRCE?: boolean;
   tablePluginMenu?: boolean;
   pubsub: Pubsub;
+  experiments?: AvailableExperiments;
 }) => {
   const { uiSettings = {}, getToolbarSettings = () => [] } = context.config;
   const { pluginButtons, pluginTextButtons } = buttons;
@@ -124,6 +127,7 @@ const createEditorToolbars = ({
           addPluginMenuConfig,
           footerToolbarConfig,
           onClick,
+          experiments,
         });
       }
     );

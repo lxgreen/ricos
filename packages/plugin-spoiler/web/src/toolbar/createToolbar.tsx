@@ -13,16 +13,19 @@ import {
   TranslationFunction,
   GetEditorState,
   SetEditorState,
+  AvailableExperiments,
 } from 'wix-rich-content-common';
 
 const createToolbar: CreatePluginToolbar = ({
   t,
   getEditorState,
   setEditorState,
+  experiments,
 }: {
   t: TranslationFunction;
   getEditorState: GetEditorState;
   setEditorState: SetEditorState;
+  experiments?: AvailableExperiments;
 }) => {
   const isDisabled = () => isAtomicBlockInSelection(getEditorState());
 
@@ -36,7 +39,10 @@ const createToolbar: CreatePluginToolbar = ({
           type: BUTTON_TYPES.BUTTON,
           tooltip: t('Spoiler_Insert_Tooltip'),
           getLabel: () => t('Spoiler_Insert_Tooltip'), // TODO: need another key?
-          getIcon: () => SpoilerButtonIcon,
+          getIcon: () => () =>
+            SpoilerButtonIcon({
+              newFormattingToolbar: experiments?.newFormattingToolbar?.enabled,
+            }),
           onClick: () =>
             setEditorState(RichUtils.toggleInlineStyle(getEditorState(), SPOILER_TYPE)),
           isActive: () =>

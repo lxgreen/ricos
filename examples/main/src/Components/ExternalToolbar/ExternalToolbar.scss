@@ -26,6 +26,11 @@
         align-items: center;
       }
     }
+
+    svg {
+      width: unset;
+      height: unset;
+    }
   }
 
   & > button,
