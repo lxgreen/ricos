@@ -1,13 +1,15 @@
-import { FileData } from './../../../../../../ricos-schema/web/src/generated/wix/rich_content/v1/plugin_file';
+import { FileData } from 'ricos-schema/src/generated/wix/rich_content/v1/plugin_file';
 /* eslint-disable no-unused-vars */
 
-import { toDraft, fromDraft } from '..';
-import { compare } from '../../../comparision/compare';
-import complexFixture from '../../../../../../../e2e/tests/fixtures/migration-content.json';
-import buggy from '../../../../../../../e2e/tests/fixtures/buggy/atomicWithNoEntityRanges.json';
-import polyfills from '../../../../../../../e2e/tests/fixtures/polyfills.json';
-import { getTextNodes } from './getTextNodes';
-import complexRicosFixture from '../../../../statics/json/migratedFixtures/migration-content.json';
+import { toDraft, fromDraft } from '../..';
+import { compare } from '../../../../comparision/compare';
+import complexFixture from '../../../../../../../../e2e/tests/fixtures/migration-content.json';
+import buggy from '../../../../../../../../e2e/tests/fixtures/buggy/atomicWithNoEntityRanges.json';
+import unsupported from './unsupported-blocks-and-decorations.json';
+import unsupportedMigrated from './unsupported-blocks-and-decorations-migrated.json';
+import polyfills from '../../../../../../../../e2e/tests/fixtures/polyfills.json';
+import { getTextNodes } from '../getTextNodes';
+import complexRicosFixture from '../../../../../statics/json/migratedFixtures/migration-content.json';
 import {
   Node_Type,
   Decoration_Type,
@@ -16,8 +18,8 @@ import {
   PluginContainerData_Width_Type,
   PluginContainerData_Alignment,
 } from 'ricos-schema';
-import { convertBlockDataToRicos } from './convertRicosPluginData';
-import { IMAGE_TYPE, FILE_UPLOAD_TYPE, WRAP } from '../../../consts';
+import { convertBlockDataToRicos } from '../convertRicosPluginData';
+import { IMAGE_TYPE, FILE_UPLOAD_TYPE, WRAP } from '../../../../consts';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const filterIds = objArr => objArr.map(({ id, ...rest }) => rest); //disable
@@ -304,6 +306,18 @@ describe('migrate from draft', () => {
     };
     expect(
       compare(fromDraft(draftContent), RichContent.fromJSON(expected), { ignoredKeys: ['id'] })
+    ).toEqual({});
+  });
+
+  it('should ignore unsupported blocks and decorations', () => {
+    expect(
+      compare(
+        fromDraft(unsupported, { ignoreUnsupportedValues: true }),
+        RichContent.fromJSON(unsupportedMigrated),
+        {
+          ignoredKeys: ['id'],
+        }
+      )
     ).toEqual({});
   });
 });
