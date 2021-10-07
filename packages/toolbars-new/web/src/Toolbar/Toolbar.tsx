@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component } from 'react';
 import classNames from 'classnames';
@@ -10,7 +11,6 @@ import ColorPickerButton from './ButtonComponents/ColorPickerButton';
 import ToolbarButton from './ToolbarButton';
 import ContextMenu from './ButtonComponents/ContextMenu';
 import { RichContentTheme, TranslationFunction, DesktopTextButtons } from 'wix-rich-content-common';
-import { FocusManager } from 'wix-rich-content-ui-components';
 
 type formattingToolbarButtonsKeysType =
   | DesktopTextButtons
@@ -35,6 +35,12 @@ interface ToolbarProps {
 class Toolbar extends Component<ToolbarProps> {
   theme: RichContentTheme;
 
+  toolbarRef!: HTMLElement;
+
+  firstButton!: HTMLElement | null;
+
+  lastButton!: HTMLElement | null;
+
   constructor(props) {
     super(props);
     const buttonTheme = props.theme?.buttonStyles || {};
@@ -44,6 +50,13 @@ class Toolbar extends Component<ToolbarProps> {
       inlineToolbarButton_icon: buttonTheme.textToolbarButton_icon,
     };
     this.theme = { ...props.theme, buttonStyles };
+  }
+
+  componentDidMount() {
+    const firstChild = this.toolbarRef?.firstChild as HTMLElement;
+    this.firstButton = firstChild?.querySelector?.('button');
+    const lastChild = this.toolbarRef?.lastChild as HTMLElement;
+    this.lastButton = lastChild?.querySelector?.('button');
   }
 
   renderButton = buttonProps => {
@@ -230,6 +243,22 @@ class Toolbar extends Component<ToolbarProps> {
     [TOOLBAR_BUTTON_TYPES.CONTEXT_MENU]: this.renderContextMenu,
   };
 
+  onKeyDown = e => {
+    if (e.shiftKey && e.keyCode === 9) {
+      if (document.activeElement === this.firstButton) {
+        this.lastButton?.focus();
+        e.preventDefault();
+      }
+    } else if (e.keyCode === 9) {
+      if (document.activeElement === this.lastButton) {
+        this.firstButton?.focus();
+        e.preventDefault();
+      }
+    }
+  };
+
+  setToolbarRef = ref => (this.toolbarRef = ref);
+
   render() {
     const { buttons, vertical } = this.props;
     return buttons.map((buttonsWithoutGaps, index) => {
@@ -237,6 +266,8 @@ class Toolbar extends Component<ToolbarProps> {
         <div
           data-id="toolbar"
           key={index}
+          onKeyDown={this.onKeyDown}
+          ref={this.setToolbarRef}
           className={classNames(styles.toolbar, { [styles.vertical]: vertical })}
         >
           {buttonsWithoutGaps.map((buttonProps, i) => {
