@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `editor viewer`
+  - [#2969](https://github.com/wix/ricos/pull/2969) fix text highlight parsing issue
+
 </details>
 <hr/>
 

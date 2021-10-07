@@ -35,31 +35,45 @@ export const parseStyleByType = (style: string, type: CustomInlineStyleType) => 
 };
 
 export const dynamicStyleParsers = {
-  [RICOS_TEXT_COLOR_TYPE]: (style: string, styleSelectionPredicate?: (style: string) => boolean) =>
-    parseStyleByType(style, RICOS_TEXT_COLOR_TYPE) ||
-    ((styleSelectionPredicate?.(style) || isHexColor(style)) && style),
+  [RICOS_TEXT_COLOR_TYPE]: (
+    style: string,
+    styleSelectionPredicate?: (style: string) => boolean
+  ) => {
+    const color = parseStyleByType(style, RICOS_TEXT_COLOR_TYPE);
+    if (styleSelectionPredicate) {
+      const parsedStyle = color || style;
+      return styleSelectionPredicate(parsedStyle) && parsedStyle;
+    } else {
+      return color || (isHexColor(style) && style);
+    }
+  },
   [RICOS_TEXT_HIGHLIGHT_TYPE]: (
     style: string,
     styleSelectionPredicate?: (style: string) => boolean
-  ) =>
-    parseStyleByType(style, RICOS_TEXT_HIGHLIGHT_TYPE) ||
-    (styleSelectionPredicate?.(style) && style),
+  ) => {
+    const color = parseStyleByType(style, RICOS_TEXT_HIGHLIGHT_TYPE);
+    return styleSelectionPredicate ? styleSelectionPredicate(color) && color : color;
+  },
   [RICOS_FONT_SIZE_TYPE]: (style: string) => parseStyleByType(style, RICOS_FONT_SIZE_TYPE),
 };
 
 export const defaultStyleFnMapper = {
   [RICOS_TEXT_COLOR_TYPE]: (style: string) => {
-    const parsedStyle = dynamicStyleParsers[RICOS_TEXT_COLOR_TYPE](style);
+    const parsedStyle = dynamicStyleParsers[RICOS_TEXT_COLOR_TYPE](style, isHexColor);
     return parsedStyle ? { color: parsedStyle } : undefined;
   },
   [RICOS_TEXT_HIGHLIGHT_TYPE]: (style: string) => {
-    const parsedStyle = dynamicStyleParsers[RICOS_TEXT_HIGHLIGHT_TYPE](style, isHexColor);
+    const parsedStyle = dynamicStyleParsers[RICOS_TEXT_HIGHLIGHT_TYPE](style);
     return parsedStyle ? { backgroundColor: parsedStyle } : undefined;
   },
   [RICOS_FONT_SIZE_TYPE]: (style: string) => {
     const parsedStyle = dynamicStyleParsers[RICOS_FONT_SIZE_TYPE](style);
     return parsedStyle ? { fontSize: parsedStyle } : undefined;
   },
+};
+
+const defaultStyleSelectionPredicates = {
+  [RICOS_TEXT_COLOR_TYPE]: isHexColor,
 };
 
 export const getDynamicInlineStyleMapper = (
@@ -69,8 +83,8 @@ export const getDynamicInlineStyleMapper = (
     const settings = config[RICOS_TO_DRAFT_TYPE[type] || ''] || {};
     const styleParser = dynamicStyleParsers[type];
     const styleSelectionPredicate = settings.styleSelectionPredicate
-      ? (style: string) => styleParser(style, settings.styleSelectionPredicate)
-      : (style: string) => !!styleParser(style);
+      ? (style: string) => !!styleParser(style, settings.styleSelectionPredicate)
+      : (style: string) => !!styleParser(style, defaultStyleSelectionPredicates[type]);
     const customStyleFn = settings.customStyleFn
       ? (style: string) =>
           settings.customStyleFn(styleParser(style, settings.styleSelectionPredicate))
