@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.54.2 (Oct 7, 2021)
+
 ### :bug: Bug Fix
 
 - `fullscreen`
@@ -36,9 +41,6 @@
 
 - `color-picker`
   - [#2961](https://github.com/wix/ricos/pull/2961) refactor: send arguments in object (in ColorPicker props function)
-
-</details>
-<hr/>
 
 ## 8.54.1 (Oct 3, 2021)
 
