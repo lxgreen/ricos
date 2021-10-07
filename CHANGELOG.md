@@ -25,6 +25,12 @@
   - [#2947](https://github.com/wix/ricos/pull/2947) new icons for external toolbar (under specs.ricos.newFormattingToolbar experiment)
 - `toolbars-new`
   - [#2958](https://github.com/wix/ricos/pull/2958) fix color-picker/modals a11y
+- `video-plugin`
+  - [#2963](https://github.com/wix/ricos/pull/2963) add spoiler to url video settings modal
+- `link-preview-popover`
+  - [#2956](https://github.com/wix/ricos/pull/2956) display link preview popover only on external links
+- `schema-validations`
+  - [#2957](https://github.com/wix/ricos/pull/2957) cleanup schema validation errors
 
 ### :house: Internal
 
