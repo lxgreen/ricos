@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+
+</details>
+<hr/>
+
+## 8.54.3 (Oct 10, 2021)
 ### :bug: Bug Fix
 
 - `editor viewer`
   - [#2969](https://github.com/wix/ricos/pull/2969) fix text highlight parsing issue
-
-</details>
-<hr/>
 
 ## 8.54.2 (Oct 7, 2021)
 
