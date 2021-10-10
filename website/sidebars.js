@@ -73,6 +73,7 @@ module.exports = {
     'For Developers': [
       'dev/bundle_analyzer',
       'dev/plugin_structure',
+      'dev/plugin_dod',
       'dev/theming',
       'dev/release_instructions',
       'dev/testing',
