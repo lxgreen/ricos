@@ -17,20 +17,54 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+- `ui-components`
+  - [#2955](https://github.com/wix/ricos/pull/2955) new text-input-modal (url/search) component
+
+### :bug: Bug Fix
+
+- `table-plugin`
+  - [#2972](https://github.com/wix/ricos/pull/2972) fix columns width on SSR
+- `viewer`
+  - [#2962](https://github.com/wix/ricos/pull/2962) fix alignment position of Map plugin
+
+### :house: Internal
+
+- `tiptap-editor`
+  - [#2971](https://github.com/wix/ricos/pull/2971) refactor according to domain model
+
+</details>
+<hr/>
+
+## 8.54.3 (Oct 10, 2021)
+
+### :bug: Bug Fix
+
+- `editor viewer`
+  - [#2969](https://github.com/wix/ricos/pull/2969) fix text highlight parsing issue
+
+## 8.54.2 (Oct 7, 2021)
+
 ### :bug: Bug Fix
 
 - `fullscreen`
   - [#2946](https://github.com/wix/ricos/pull/2946) fix a11y keyboard navigation (desktop) and screen reader
 - `external-toolbar`
   - [#2947](https://github.com/wix/ricos/pull/2947) new icons for external toolbar (under specs.ricos.newFormattingToolbar experiment)
+- `toolbars-new`
+  - [#2958](https://github.com/wix/ricos/pull/2958) fix color-picker/modals a11y
+- `video-plugin`
+  - [#2963](https://github.com/wix/ricos/pull/2963) add spoiler to url video settings modal
+- `link-preview-popover`
+  - [#2956](https://github.com/wix/ricos/pull/2956) display link preview popover only on external links
+- `schema-validations`
+  - [#2957](https://github.com/wix/ricos/pull/2957) cleanup schema validation errors
 
 ### :house: Internal
 
 - `color-picker`
   - [#2961](https://github.com/wix/ricos/pull/2961) refactor: send arguments in object (in ColorPicker props function)
-
-</details>
-<hr/>
 
 ## 8.54.1 (Oct 3, 2021)
 

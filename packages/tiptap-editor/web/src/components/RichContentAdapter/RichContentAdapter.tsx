@@ -6,12 +6,24 @@ import {
   RICOS_DIVIDER_TYPE,
   DIVIDER_TYPE,
   RICOS_LINK_TYPE,
+  IMAGE_TYPE,
+  RICOS_IMAGE_TYPE,
   TranslationFunction,
   EditorPlugin,
   TextAlignment,
 } from 'wix-rich-content-common';
-import { draftBlockDataToTiptap } from '../../converters';
+import { toTiptap } from '../../converters';
 import { Editor } from '@tiptap/core';
+
+const TIPTAP_DIVIDER_TYPE = 'divider'; //should be taken from tip-tap common
+const TIPTAP_IMAGE_TYPE = 'image';
+
+const PLUGIN_TYPE_MAP = {
+  [RICOS_DIVIDER_TYPE]: TIPTAP_DIVIDER_TYPE,
+  [DIVIDER_TYPE]: TIPTAP_DIVIDER_TYPE,
+  [RICOS_IMAGE_TYPE]: TIPTAP_IMAGE_TYPE,
+  [IMAGE_TYPE]: TIPTAP_IMAGE_TYPE,
+};
 
 // todo : should change to RichContentInterface
 export class RichContentAdapter implements TiptapAPI {
@@ -59,13 +71,16 @@ export class RichContentAdapter implements TiptapAPI {
         return marks[style];
       },
       insertBlock: (pluginType, data) => {
-        if (pluginType === RICOS_DIVIDER_TYPE || pluginType === DIVIDER_TYPE) {
-          const attrs = draftBlockDataToTiptap(DIVIDER_TYPE, data);
+        const type = PLUGIN_TYPE_MAP[pluginType];
+        if (type) {
+          const attrs = toTiptap(data);
           this.editor.commands.insertContent({
-            type: DIVIDER_TYPE.toLowerCase(),
+            type,
             attrs,
             content: [],
           });
+        } else {
+          console.error(`No such plugin type ${pluginType}`);
         }
         return 'result!';
       },

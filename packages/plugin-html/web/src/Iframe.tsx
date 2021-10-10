@@ -6,7 +6,7 @@ const Iframe: FunctionComponent<{ iframeRef?: Ref<HTMLIFrameElement>; [key: stri
   iframeRef,
   ...otherProps
 }) => {
-  const context = useContext(GlobalContext)!;
+  const context = useContext(GlobalContext);
   const loading = context.experiments.lazyImagesAndIframes?.enabled ? 'lazy' : undefined;
   return (
     <iframe

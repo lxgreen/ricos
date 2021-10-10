@@ -25,17 +25,20 @@ class LineSpacingPanel extends Component {
     this.props.onChange(merged);
   };
 
-  onSave = spacing => {
+  onSave = (spacing, clickFromKeyboard) => {
     const merged = { ...this.state.spacing, ...spacing };
     this.props?.onToolbarButtonClick?.(merged['line-height']);
-    this.props.onSave(merged);
+    this.props.onSave({ data: merged, clickFromKeyboard });
   };
 
+  onCancel = e => this.props.onCancel({ clickFromKeyboard: !e.detail });
+
   render() {
-    const { onCancel, t, isMobile, currentSelect, theme } = this.props;
+    const { t, isMobile, currentSelect, theme } = this.props;
     const { isCustomPanel, spacing } = this.state;
-    const { styles, showCustomPanel, onChange, onSave } = this;
-    const onSaveLineHeight = height => onSave({ 'line-height': height });
+    const { styles, showCustomPanel, onChange, onSave, onCancel } = this;
+    const onSaveLineHeight = (height, clickFromKeyboard) =>
+      onSave({ 'line-height': height }, clickFromKeyboard);
     const onChangeLineHeight = height => onChange({ 'line-height': `${height}` });
     const panelHeader = t('LineSpacing_lineSpacing');
 
@@ -52,7 +55,7 @@ class LineSpacingPanel extends Component {
       />
     ) : isCustomPanel ? (
       <CustomPanel
-        {...{ spacing, onChange, onSave: () => onSave(), onCancel, t, isMobile, theme }}
+        {...{ spacing, onChange, onSave: e => onSave({}, !e.detail), onCancel, t, isMobile, theme }}
       />
     ) : (
       <DesktopPanel

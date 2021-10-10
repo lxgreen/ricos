@@ -46,6 +46,7 @@ interface State {
   isModalOpen: boolean;
   isModalOverflowByHeight: boolean;
   overflowWidthBy: boolean | number;
+  lastFocusedButton: HTMLElement | null;
 }
 
 class ModalButton extends Component<ModalButtonProps, State> {
@@ -57,6 +58,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
       isModalOpen: false,
       isModalOverflowByHeight: false,
       overflowWidthBy: false,
+      lastFocusedButton: null,
     };
   }
 
@@ -97,52 +99,54 @@ class ModalButton extends Component<ModalButtonProps, State> {
         dropDownProps: { saveState, saveSelection },
         setKeepOpen,
       } = this.props;
-      this.setState({ isModalOpen: true }, this.handleOverflow);
+      const lastFocusedButton = document.activeElement as HTMLElement;
+      this.setState({ isModalOpen: true, lastFocusedButton }, this.handleOverflow);
       saveSelection?.();
       saveState?.();
       setKeepOpen?.(true);
     }
   };
 
-  closeModal = (loadSelectionOnClose = true) => {
+  closeModal = ({ loadSelectionOnClose = true, clickFromKeyboard = false } = {}) => {
     if (this.state.isModalOpen) {
       const {
         setKeepOpen,
         dropDownProps: { loadSelection },
       } = this.props;
-      this.setState({ isModalOpen: false });
       setKeepOpen?.(false);
-      loadSelectionOnClose && loadSelection?.();
+      !clickFromKeyboard && loadSelectionOnClose && loadSelection?.();
+      clickFromKeyboard && setTimeout(() => this.state.lastFocusedButton?.focus());
+      this.setState({ isModalOpen: false });
     }
   };
 
-  onSave = (...args: [any]) => {
-    this.props.onSave?.(...args);
+  onSave = ({ clickFromKeyboard = false, data }) => {
+    this.props.onSave?.(data);
     const {
       dropDownProps: { isMobile },
     } = this.props;
-    !isMobile && this.closeModal();
+    !isMobile && this.closeModal({ clickFromKeyboard });
   };
 
-  onDone = (...args: [any]) => {
-    this.props.onDone?.(...args);
-    this.closeModal();
+  onDone = ({ clickFromKeyboard = false, data }) => {
+    this.props.onDone?.(data);
+    this.closeModal({ clickFromKeyboard });
   };
 
-  onDelete = () => {
+  onDelete = ({ clickFromKeyboard = false }) => {
     const {
       dropDownProps: { onDelete },
     } = this.props;
     onDelete?.();
-    this.closeModal();
+    this.closeModal({ clickFromKeyboard });
   };
 
-  onCancel = () => {
+  onCancel = ({ clickFromKeyboard = false }) => {
     const {
       dropDownProps: { onCancel },
     } = this.props;
     onCancel?.();
-    this.closeModal();
+    this.closeModal({ clickFromKeyboard });
   };
 
   onChange = (...args: [any]) => {
@@ -153,7 +157,9 @@ class ModalButton extends Component<ModalButtonProps, State> {
   };
 
   onClickOutside = e => {
-    this.closeModal(e.target.closest('[data-hook=ricos-editor-toolbars]'));
+    this.closeModal({
+      loadSelectionOnClose: e.target.closest('[data-hook=ricos-editor-toolbars]'),
+    });
   };
 
   render() {

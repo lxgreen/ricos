@@ -141,9 +141,11 @@
 
 .colorPicker_color_button_hidden {
   position: absolute;
-  opacity: 0;
-  width: 0.1px;
-  height: 0.1px;
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  left: 0;
+  height: 23px;
   overflow: hidden;
   z-index: -1;
 }
@@ -161,6 +163,7 @@
   letter-spacing: normal;
   color: $settings-action-color-fallback;
   cursor: pointer;
+  position: relative;
   .mobile & {
     font-size: 16px;
   }

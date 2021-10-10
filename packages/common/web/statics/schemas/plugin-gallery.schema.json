@@ -80,7 +80,7 @@
           },
           "gallerySizePx": {
             "$id": "/properties/styles/properties/gallerySizePx",
-            "type": "integer",
+            "type": ["integer", "string"],
             "title": "The Gallerysizepx Schema ",
             "default": 0,
             "examples": [213]
@@ -94,7 +94,7 @@
           },
           "cubeRatio": {
             "$id": "/properties/styles/properties/cubeRatio",
-            "type": ["number", "null"],
+            "type": ["number", "null", "string"],
             "title": "The Cuberatio Schema",
             "default": 0,
             "examples": [1]

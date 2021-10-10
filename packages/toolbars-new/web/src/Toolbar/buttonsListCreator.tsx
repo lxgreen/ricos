@@ -151,8 +151,6 @@ const handleButtonOnCancel = (buttonsList, index, editorCommands: editorCommands
     const buttonName = buttonsList[index].name;
     if (buttonName === 'LINE_SPACING') {
       buttonsList[index].onCancel = () => editorCommands.loadEditorState();
-    } else if (buttonName === 'LINK' || buttonName === 'editLink') {
-      buttonsList[index].onCancel = () => editorCommands.loadSelectionState();
     }
   }
 };
