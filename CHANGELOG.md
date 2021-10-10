@@ -19,6 +19,8 @@
 
 ### :bug: Bug Fix
 
+- `table-plugin`
+  - [#2972](https://github.com/wix/ricos/pull/2972) fix columns width on SSR
 - `viewer`
   - [#2962](https://github.com/wix/ricos/pull/2962) fix alignment position of Map plugin
 
