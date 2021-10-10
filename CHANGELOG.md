@@ -34,6 +34,9 @@
 - `tiptap-editor`
   - [#2971](https://github.com/wix/ricos/pull/2971) refactor according to domain model
 
+### :book: Documentation
+- [#2976](https://github.com/wix/ricos/pull/2976) plugin DoD
+
 </details>
 <hr/>
 
