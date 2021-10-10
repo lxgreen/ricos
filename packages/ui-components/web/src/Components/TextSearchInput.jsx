@@ -43,6 +43,7 @@ export default class TextSearchInput extends Component {
           onKeyPress={this.handleKeyPress}
           onChange={this.onChange}
           value={value}
+          {...this.props}
         />
         {value && <ClearIcon className={styles.suffixIcon} onClick={this.handleClearText} />}
       </div>

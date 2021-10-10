@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+- `ui-components`
+  - [#2955](https://github.com/wix/ricos/pull/2955) new text-input-modal (url/search) component
+
 ### :bug: Bug Fix
 
 - `table-plugin`
