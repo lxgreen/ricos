@@ -1,5 +1,5 @@
 // import linkPreviewDataDefaults from 'ricos-schema/dist/statics/link_preview.defaults.json';
-import { CreateRicosExtensions } from 'wix-rich-content-common';
+import { CreateRicosExtensions } from 'wix-tiptap-editor';
 import { LinkPreview as Component } from './component';
 import { Editor } from '@tiptap/core';
 import { KeyboardShortcutCommand } from '@tiptap/react';
@@ -87,7 +87,7 @@ const addLinkPreview = (config: LinkPreviewPluginEditorConfig): KeyboardShortcut
   return false;
 };
 
-export const createRicosExtensions: CreateRicosExtensions<LinkPreviewPluginEditorConfig> = config => [
+export const createRicosExtensions: CreateRicosExtensions = config => [
   {
     type: 'node' as const,
     Component,

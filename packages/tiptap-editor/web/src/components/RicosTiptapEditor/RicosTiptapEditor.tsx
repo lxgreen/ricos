@@ -1,12 +1,11 @@
-import React, { useEffect, useState, FunctionComponent } from 'react';
-import { RicosTiptapContext } from '../../context';
-import { EditorContent, Editor, JSONContent } from '@tiptap/react';
-import { tiptapExtensions as coreExtensions } from '../../tiptap-extensions';
+import { Editor, EditorContent, JSONContent } from '@tiptap/react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { tiptapToDraft } from '../..';
-import { RicosTiptapEditorProps } from '../../types';
+import { RicosTiptapContext } from '../../context';
 import { useForceUpdate } from '../../lib/useForceUpdate';
-import { ExtensionManager } from '../../ricos-extensions-manager';
-import { NodeHOCsContext, RicosNodeHOCManager } from '../../ricos-node-hoc-manager';
+import { Extensions } from '../../models/Extensions';
+import { tiptapExtensions as coreExtensions } from '../../tiptap-extensions';
+import { RicosTiptapEditorProps } from '../../types';
 import { coreConfigs } from './core-configs';
 
 export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
@@ -18,16 +17,11 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   ...context
 }) => {
   const forceUpdate = useForceUpdate();
-  const [editor, setEditor] = useState<Editor | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [ricosNodeHOCManager, setRicosNodeHOCManager] = useState<any>();
+  const [editor, setEditor] = useState<Editor>((null as unknown) as Editor);
+  const mergedExtensions = Extensions.of([...coreConfigs, ...extensions]);
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    const extensionManager = new ExtensionManager([...coreConfigs, ...extensions]);
-    const ricosNodeHOCManager = new RicosNodeHOCManager(extensionManager.nodeHOCs);
-    const tiptapExtensions = extensionManager.getTiptapExtensions();
+    const tiptapExtensions = mergedExtensions.getTiptapExtensions();
     const editorInstance = new Editor({
       extensions: [...coreExtensions, ...tiptapExtensions],
       content,
@@ -47,14 +41,11 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
 
     editorInstance.on('transaction', forceUpdate);
 
-    setRicosNodeHOCManager(ricosNodeHOCManager);
     setEditor(editorInstance);
 
     onLoad?.(editorInstance);
 
-    return () => {
-      editorInstance.destroy();
-    };
+    return () => editorInstance.destroy();
   }, []);
 
   return (
@@ -65,11 +56,9 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
         },
       }}
     >
-      <NodeHOCsContext.Provider value={ricosNodeHOCManager}>
-        <div dir="">
-          <EditorContent editor={editor} />
-        </div>
-      </NodeHOCsContext.Provider>
+      <div dir="">
+        <EditorContent editor={editor} />
+      </div>
     </RicosTiptapContext.Provider>
   );
 };

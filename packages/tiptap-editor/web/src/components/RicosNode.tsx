@@ -1,12 +1,6 @@
+import { NodeViewWrapper } from '@tiptap/react';
 import React, { useContext } from 'react';
-import { NodeViewRendererProps, NodeViewWrapper } from '@tiptap/react';
-import { RicosTiptapContext } from '../../context';
-import { RicosTiptapContextValue } from 'wix-rich-content-common';
-
-export type RicosNodeProps = NodeViewRendererProps &
-  RicosTiptapContextValue & {
-    componentData: NodeViewRendererProps['node']['attrs'];
-  };
+import { RicosTiptapContext } from '../context';
 
 export const RicosNode = ({ Component, tiptapNodeProps }) => {
   const ricosTiptapContext = useContext(RicosTiptapContext) || {};

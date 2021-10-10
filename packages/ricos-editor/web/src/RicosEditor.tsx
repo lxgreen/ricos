@@ -36,6 +36,7 @@ import { emptyDraftContent, getEditorContentSummary } from 'wix-rich-content-edi
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
 import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
 import { getBiFunctions } from './toolbars/utils/biUtils';
+import { TiptapEditorPlugin } from 'wix-tiptap-editor';
 
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
@@ -441,7 +442,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     );
     const { localeData } = this.state;
     const { locale, localeResource } = localeData;
-    const extensions = compact(plugins?.flatMap(plugin => plugin.tiptapExtensions)) || [];
+    const extensions =
+      compact(plugins?.flatMap((plugin: TiptapEditorPlugin) => plugin.tiptapExtensions)) || [];
     return (
       <Fragment>
         {this.renderToolbars()}

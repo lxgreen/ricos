@@ -1,7 +1,7 @@
-import { pipe } from 'fp-ts/function';
-import { createRicosFunctionalExtensionConfig } from './../../extensions-creators/extension';
-import React, { useState, useEffect, ComponentType } from 'react';
 import { Editor } from '@tiptap/react';
+import { pipe } from 'fp-ts/function';
+import React, { ComponentType, useEffect, useState } from 'react';
+import { RicosFunctionalExtension } from '../../models/extension-types';
 
 const name = 'focus';
 
@@ -23,16 +23,23 @@ const useIsSelected = (editor: Editor, getPos: () => number) => {
   return isSelected;
 };
 
-export const createFocusConfig = () => ({
+const FocusHoc = (Component: ComponentType) => {
+  const Focus = props => (
+    <Component {...props} isFocused={useIsSelected(props.editor, props.getPos)} />
+  );
+  Focus.displayName = 'FocusHoc';
+  return Focus;
+};
+
+export const createFocusConfig = (): RicosFunctionalExtension => ({
   type: 'extension',
   createExtensionConfig: () => ({
     name,
     priority: 20,
-    addNodeViewHOC: () => ({
+    addNodeHoc: () => ({
+      priority: 100,
       nodeTypes: ['*'],
-      nodeViewHOC: (Component: ComponentType) => props => (
-        <Component {...props} isFocused={useIsSelected(props.editor, props.getPos)} />
-      ),
+      nodeHoc: FocusHoc,
     }),
   }),
 });

@@ -1,12 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  NodeConfig,
   ExtensionConfig,
   MarkConfig,
   mergeAttributes as mergeAttributesFn,
+  NodeConfig,
+  NodeViewRendererProps,
 } from '@tiptap/core';
 import { ComponentType } from 'react';
-import { TranslationFunction } from './commonTypes';
-import { EditorPluginConfig } from './pluginTypes';
+import { TranslationFunction, EditorPlugin, EditorPluginCreator } from 'wix-rich-content-common';
+
+export type RicosNodeProps = NodeViewRendererProps &
+  RicosTiptapContextValue & {
+    componentData: NodeViewRendererProps['node']['attrs'];
+  };
 
 export type TiptapExtensionConfig = NodeConfig | MarkConfig | RicosExtensionConfig;
 
@@ -15,11 +21,10 @@ export const isMarkConfig = (c: TiptapExtensionConfig): c is MarkConfig => c.typ
 export const isExtensionConfig = (c: TiptapExtensionConfig): c is RicosExtensionConfig =>
   c.type === 'extension';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type NodeViewHoc<T = any> = (Component: ComponentType<T>) => ComponentType<T>;
+export type NodeHoc<T = any> = (Component: ComponentType<T>) => ComponentType<T>;
 
 export type NodeViewHocMap = {
-  [type: string]: NodeViewHoc[];
+  [type: string]: NodeHoc[];
 };
 
 export type RicosTiptapContextValue = {
@@ -29,11 +34,14 @@ export type RicosTiptapContextValue = {
 };
 
 export interface RicosExtensionConfig extends ExtensionConfig {
-  addNodeViewHOC?: () => {
-    nodeTypes: string[];
-    nodeViewHOC: NodeViewHoc;
-  };
+  addNodeHoc?: () => NodeHocDescriptor;
 }
+
+export type NodeHocDescriptor = {
+  nodeTypes: string[];
+  nodeHoc: NodeHoc;
+  priority: number;
+};
 
 export type RicosNodeExtension = {
   type: 'node';
@@ -42,8 +50,7 @@ export type RicosNodeExtension = {
   }: {
     mergeAttributes: typeof mergeAttributesFn;
   }) => NodeConfig;
-  Component: React.ComponentType;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Component: ComponentType;
   componentDataDefaults?: any;
 };
 
@@ -54,7 +61,6 @@ export type RicosMarkExtension = {
   }: {
     mergeAttributes: typeof mergeAttributesFn;
   }) => MarkConfig;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   componentDataDefaults?: any;
 };
 
@@ -67,20 +73,15 @@ export type RicosFunctionalExtension = {
   }) => RicosExtensionConfig;
 };
 
-export const isRicosNodeExtension = (ext: RicosTiptapExtension): ext is RicosNodeExtension =>
+export const isRicosNodeExtension = (ext: RicosExtension): ext is RicosNodeExtension =>
   ext.type === 'node';
-export const isRicosMarkExtension = (ext: RicosTiptapExtension): ext is RicosMarkExtension =>
+export const isRicosMarkExtension = (ext: RicosExtension): ext is RicosMarkExtension =>
   ext.type === 'mark';
-export const isRicosFunctionalExtension = (
-  ext: RicosTiptapExtension
-): ext is RicosFunctionalExtension => ext.type === 'extension';
+export const isRicosFunctionalExtension = (ext: RicosExtension): ext is RicosFunctionalExtension =>
+  ext.type === 'extension';
 
-export type RicosTiptapExtension =
-  | RicosNodeExtension
-  | RicosMarkExtension
-  | RicosFunctionalExtension;
+export type RicosExtension = RicosNodeExtension | RicosMarkExtension | RicosFunctionalExtension;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type CreateRicosExtensions<PluginConfig extends EditorPluginConfig = Record<string, any>> = (
-  config: PluginConfig
-) => RicosTiptapExtension[];
+export interface TiptapEditorPlugin extends EditorPlugin {
+  tiptapExtensions: RicosExtension[];
+}
