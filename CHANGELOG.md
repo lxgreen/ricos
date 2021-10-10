@@ -17,6 +17,9 @@
     Click to see more.
   </summary>
 
+  ### :house: Internal
+  - `tiptap-editor` 
+    - [#2971](https://github.com/wix/ricos/pull/2971) refactor according to domain model 
 
 </details>
 <hr/>
