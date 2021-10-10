@@ -44,7 +44,8 @@
   },
   "dependencies": {
     "wix-redraft": "^1.1.2",
-    "wix-rich-content-common": "8.54.3"
+    "wix-rich-content-common": "8.54.3",
+    "@loadable/component": "^5.14.1"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.2.0",
