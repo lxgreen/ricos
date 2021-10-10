@@ -17,14 +17,21 @@
     Click to see more.
   </summary>
 
-  ### :house: Internal
-  - `tiptap-editor` 
-    - [#2971](https://github.com/wix/ricos/pull/2971) refactor according to domain model 
+### :bug: Bug Fix
+
+- `viewer`
+  - [#2962](https://github.com/wix/ricos/pull/2962) fix alignment position of Map plugin
+
+### :house: Internal
+
+- `tiptap-editor`
+  - [#2971](https://github.com/wix/ricos/pull/2971) refactor according to domain model
 
 </details>
 <hr/>
 
 ## 8.54.3 (Oct 10, 2021)
+
 ### :bug: Bug Fix
 
 - `editor viewer`
