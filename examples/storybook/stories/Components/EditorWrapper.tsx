@@ -36,7 +36,7 @@ import {
   pluginVerticalEmbed,
   verticalEmbedProviders,
 } from 'wix-rich-content-plugin-vertical-embed';
-import { mockFetchUrlPreviewData } from '../../../main/shared/utils/linkPreviewUtil';
+import { mockFetchUrlPreviewData } from '../../src/shared/utils/linkPreviewUtil';
 import {
   pluginTextColor,
   pluginTextHighlight,
@@ -47,8 +47,8 @@ import '../styles.global.scss';
 import {
   mockFileUploadFunc,
   mockImageNativeUploadFunc,
-} from '../../../main/shared/utils/fileUploadUtil';
-import { MockVerticalSearchModule } from '../../../main/shared/utils/verticalEmbedUtil';
+} from '../../src/shared/utils/fileUploadUtil';
+import { MockVerticalSearchModule } from '../../src/shared/utils/verticalEmbedUtil';
 const tiptapContent = {
   type: 'doc',
   attrs: {

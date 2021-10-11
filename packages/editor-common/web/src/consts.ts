@@ -1,4 +1,6 @@
-export const COMMANDS = Object.freeze({
+import { DraftEditorCommand } from '@wix/draft-js';
+
+export const COMMANDS: Record<string, DraftCommand> = {
   TITLE: 'header-two',
   SUBTITLE: 'header-three',
   ALIGN_LEFT: 'left',
@@ -19,7 +21,34 @@ export const COMMANDS = Object.freeze({
   FOCUS_TOOLBAR: 'focusToolbar',
   INCREASE_INDENT: 'increase-indent',
   DECREASE_INDENT: 'decrease-indent',
-});
+  REMOVE_LINK_PREVIEW: 'remove-link-preview',
+  LINK: 'link',
+} as const;
+
+export type DraftCommand =
+  | DraftEditorCommand
+  | 'header-two'
+  | 'header-three'
+  | 'left'
+  | 'right'
+  | 'center'
+  | 'justify'
+  | 'ordered-list-item'
+  | 'unordered-list-item'
+  | 'code-block'
+  | 'blockquote'
+  | 'backspace'
+  | 'delete'
+  | 'tab'
+  | 'shiftTab'
+  | 'esc'
+  | 'ricosUndo'
+  | 'ricosRedo'
+  | 'focusToolbar'
+  | 'increase-indent'
+  | 'decrease-indent'
+  | 'remove-link-preview'
+  | 'link';
 
 export const TEXT_TYPES = Object.freeze([
   'unstyled',

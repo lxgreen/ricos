@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
 import React from 'react';
 
-const redoIcon = props => (
-  <svg width="19px" height="19px" viewBox="0 0 19 19" {...props}>
+const redoIcon = () => (
+  <svg width="19px" height="19px" viewBox="0 0 19 19">
     <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g
         transform="translate(9.000000, 9.500000) scale(-1, 1) translate(-9.000000, -9.500000) translate(3.000000, 3.000000)"

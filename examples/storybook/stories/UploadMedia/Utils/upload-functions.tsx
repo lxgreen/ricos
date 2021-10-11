@@ -1,5 +1,5 @@
-import { getVideoToUpload } from '../../../../main/shared/utils/fileUploadUtil';
-import { testImages, testWixVideos } from '../../../../main/shared/utils/mock';
+import { getVideoToUpload } from '../../../src/shared/utils/fileUploadUtil';
+import { testImages, testWixVideos } from '../../../src/shared/utils/mock';
 
 const errors = [
   { key: 0 },

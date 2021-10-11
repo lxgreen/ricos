@@ -20,7 +20,7 @@
     "precommit": "lint-staged",
     "lint": "eslint '{src,stories}/**/*.{js,jsx,ts,tsx,d.ts}'",
     "pretest": "yoshi build",
-    "test": "echo 'There are no tests configured for this project!' && exit 0",
+    "test": ":",
     "release": "yoshi release",
     "storybook": "start-storybook -p 6006",
     "clean": "rm -rf dist storybook-static",

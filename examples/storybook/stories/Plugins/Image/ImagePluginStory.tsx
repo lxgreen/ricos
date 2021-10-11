@@ -12,7 +12,7 @@ import editorSourcecode from '!!raw-loader!./ImageEditor.tsx';
 import ImageViewer from './ImageViewer';
 import viewerSourcecode from '!!raw-loader!./ImageViewer.tsx';
 import SyntaxHighlighter from '../../Components/SyntaxHighlighter';
-import { mockImageNativeUploadFunc } from '../../../../main/shared/utils/fileUploadUtil';
+import { mockImageNativeUploadFunc } from '../../../src/shared/utils/fileUploadUtil';
 import ActionButton from '../../Components/ActionButton';
 
 const mockErrorMsg = 'file too large';

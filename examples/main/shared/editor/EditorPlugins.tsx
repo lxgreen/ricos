@@ -87,7 +87,7 @@ import {
 } from 'wix-rich-content-plugin-button';
 import Highlighter from 'react-highlight-words';
 import casual from 'casual-browserify';
-import { mockFetchUrlPreviewData } from '../utils/linkPreviewUtil';
+import { mockFetchUrlPreviewData } from '../../../storybook/src/shared/utils/linkPreviewUtil';
 import { createIndentPlugin, pluginIndent, INDENT_TYPE } from 'wix-rich-content-plugin-indent';
 import { createTablePlugin, pluginTable, TABLE_TYPE } from 'wix-rich-content-plugin-table';
 import {
@@ -141,13 +141,16 @@ import { FORMATTING_BUTTONS, TOOLBARS } from 'wix-rich-content-editor-common';
 // import StaticToolbarDecoration from './Components/StaticToolbarDecoration';
 // import SideToolbarDecoration from './Components/SideToolbarDecoration';
 // import PluginToolbarDecoration from './Components/PluginToolbarDecoration';
-import { MockVerticalSearchModule, MockGetIsVisiblePromise } from '../utils/verticalEmbedUtil';
+import {
+  MockVerticalSearchModule,
+  MockGetIsVisiblePromise,
+} from '../../../storybook/src/shared/utils/verticalEmbedUtil';
 import {
   mockFileUploadFunc,
   mockFileNativeUploadFunc,
   mockVideoNativeUploadFunc,
   mockCustomVideoUploadFunc,
-} from '../utils/fileUploadUtil';
+} from '../../../storybook/src/shared/utils/fileUploadUtil';
 import { CreatePluginFunction, EditorPluginCreator, UISettings } from 'wix-rich-content-common';
 import { RichContentEditorProps } from 'wix-rich-content-editor';
 
