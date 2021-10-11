@@ -43,6 +43,7 @@ const SearchInputModal = props => {
       <>
         <TextSearchInput
           id="dropdown-text-input"
+          onClose={onCloseRequested}
           onKeyPress={handleKeyPress}
           onChange={onTextChange}
           value={input}

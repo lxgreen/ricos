@@ -5,9 +5,13 @@ import { KEYS_CHARCODE } from '../consts';
 
 interface TextSearchInputProps {
   placeHolder?: string;
-  onClose: () => void;
+  onClose?: () => void;
   onChange: (value: string) => void;
-  value: string;
+  value?: string;
+  id?: string;
+  onKeyPress: (e) => void;
+  theme?: Record<string, string>;
+  autoComplete?: string;
 }
 
 export default class TextSearchInput extends Component<TextSearchInputProps> {
@@ -23,7 +27,7 @@ export default class TextSearchInput extends Component<TextSearchInputProps> {
   onChange = e => this.props.onChange(e.target.value);
 
   onCloseRequested = () => {
-    this.props.onClose();
+    this.props.onClose?.();
   };
 
   handleKeyPress = e => {

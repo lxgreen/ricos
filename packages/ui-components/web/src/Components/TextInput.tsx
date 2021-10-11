@@ -17,6 +17,11 @@ interface TextInputProps {
   searchIcon?: boolean;
   dataHook?: string;
   placeholder?: string;
+  type?: string; // TODO: ensure type specifity
+  id?: string; // TODO: ensure type specifity
+  onKeyPress?: (e) => void;
+  value?: string;
+  autoComplete?: string;
 }
 export default class TextInput extends Component<TextInputProps, { focusSearchIcon: boolean }> {
   static defaultProps = {
