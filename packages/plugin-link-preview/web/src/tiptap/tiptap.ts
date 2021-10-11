@@ -55,9 +55,9 @@ const addLinkPreview = (config: LinkPreviewPluginEditorConfig): KeyboardShortcut
   editor,
 }) => {
   const pos = editor.state.selection.$anchor;
-  if (pos.nodeBefore?.text && isLinkOnlyBlock(pos)) {
-    const { enableEmbed = true, enableLinkPreview = true, fetchData, link: linkConfig } =
-      config || {};
+  const { enableEmbed = true, enableLinkPreview = true, fetchData, link: linkConfig } =
+    config || {};
+  if (pos.nodeBefore?.text && isLinkOnlyBlock(pos) && fetchData) {
     const { target, rel } = linkConfig || {};
     const url = pos.nodeBefore?.text;
     fetchLinkPreview(fetchData, url)

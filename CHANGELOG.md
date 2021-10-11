@@ -17,10 +17,17 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.55.0 (Oct 11, 2021)
+
 ### :rocket: New Feature
 
 - `ui-components`
   - [#2955](https://github.com/wix/ricos/pull/2955) new text-input-modal (url/search) component
+- `ricos-content`
+  - [#2966](https://github.com/wix/ricos/pull/2966) ContentAPI adapter for simplified builder API
 
 ### :bug: Bug Fix
 
@@ -34,8 +41,9 @@
 - `tiptap-editor`
   - [#2971](https://github.com/wix/ricos/pull/2971) refactor according to domain model
 
-</details>
-<hr/>
+### :book: Documentation
+
+- [#2976](https://github.com/wix/ricos/pull/2976) plugin DoD
 
 ## 8.54.3 (Oct 10, 2021)
 
