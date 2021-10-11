@@ -20,6 +20,15 @@
 </details>
 <hr/>
 
+## 8.55.2 (Oct 11, 2021)
+
+### :house: Internal
+
+- `*`
+  - [#2933](https://github.com/wix/ricos/pull/2933) JS to TS conversion + rollup configuration
+- `common`
+  - [#2980](https://github.com/wix/ricos/pull/2980) cleanup schema errors
+
 ## 8.55.1 (Oct 11, 2021)
 
 ### :rocket: New Feature
