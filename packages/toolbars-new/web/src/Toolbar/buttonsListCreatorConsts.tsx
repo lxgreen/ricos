@@ -18,8 +18,9 @@ import {
   PluginsDataMap,
   RICOS_DIVIDER_TYPE,
   RICOS_VIDEO_TYPE,
+  RICOS_IMAGE_TYPE,
 } from 'wix-rich-content-common';
-import { DividerData, DividerData_LineStyle, VideoData } from 'ricos-schema';
+import { DividerData, ImageData, DividerData_LineStyle, VideoData } from 'ricos-schema';
 import {
   BoldIcon,
   ItalicIcon,
@@ -49,6 +50,7 @@ import {
   AlignRightIcon,
   DividerIcon,
   VideoIcon,
+  ImageIcon,
 } from '../icons';
 import LinkModal from '../modals/link/LinkComponents/LinkModal';
 import AlignmentPanel from '../modals/alignment/AlignmentPanel';
@@ -158,6 +160,21 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     tooltip: 'DividerPlugin_InsertButton_Tooltip',
     defaultData: DividerData.fromJSON({
       lineStyle: DividerData_LineStyle.SINGLE,
+    }),
+    type: 'button',
+  },
+  Image: {
+    icon: ImageIcon,
+    dataHook: 'ImagePlugin_InsertButton',
+    tooltip: 'ImagePlugin_InsertButton_Tooltip',
+    defaultData: ImageData.fromJSON({
+      image: {
+        src: {
+          id: '8bb438_67a68c0652d740bab508f68662acc882.jpg',
+        },
+        width: 3192,
+        height: 2124,
+      },
     }),
     type: 'button',
   },
@@ -436,6 +453,7 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
 export const insertBlockButtons: Record<string, keyof PluginsDataMap> = {
   Divider: RICOS_DIVIDER_TYPE,
   Video: RICOS_VIDEO_TYPE,
+  Image: RICOS_IMAGE_TYPE,
 };
 
 export const inlineStyleButtons: Record<string, InlineStyle> = {

@@ -27,3 +27,4 @@ export { default as UndoIcon } from './UndoIcon';
 export { default as PlusIcon } from './PlusIcon';
 export { default as DividerIcon } from './DividerIcon';
 export { default as VideoIcon } from './VideoIcon';
+export { default as ImageIcon } from './ImageIcon';
