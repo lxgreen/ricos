@@ -12,4 +12,5 @@ export const EXPERIMENTS = [
   { name: 'anchorScrollWithoutScrollIntoView', scope: 'ricos' },
   { name: 'useSrcSet', scope: 'ricos' },
   { name: 'pastedFilesSupport', scope: 'ricos' },
+  { name: 'normalizePoll', scope: 'ricos' },
 ];

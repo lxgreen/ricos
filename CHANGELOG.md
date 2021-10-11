@@ -17,6 +17,16 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+- `social-polls`
+  - [#2964](https://github.com/wix/ricos/pull/2964) `pollServiceApi` config
+
+### :house: Internal
+
+- `social-polls`
+  - [#2964](https://github.com/wix/ricos/pull/2964) add `PollsServiceMock` and normalize polls data under `normalizePoll` experiment
+
 </details>
 <hr/>
 
