@@ -20,6 +20,13 @@
 </details>
 <hr/>
 
+## 8.55.3 (Oct 11, 2021)
+
+### :house: Internal
+
+- `[ui-components]`
+  - [#2984](https://github.com/wix/ricos/pull/2984) Fix Typescript issue
+
 ## 8.55.2 (Oct 11, 2021)
 
 ### :house: Internal
