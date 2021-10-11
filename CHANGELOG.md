@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.55.1 (Oct 11, 2021)
+
 ### :rocket: New Feature
 
 - `social-polls`
@@ -26,9 +31,6 @@
 
 - `social-polls`
   - [#2964](https://github.com/wix/ricos/pull/2964) add `PollsServiceMock` and normalize polls data under `normalizePoll` experiment
-
-</details>
-<hr/>
 
 ## 8.55.0 (Oct 11, 2021)
 
