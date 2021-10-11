@@ -184,6 +184,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
             _rcProps={{ helpers: this.helpers }}
             experiments={experiments}
             textWrap={textWrap}
+            onAtomicBlockFocus={d => console.log('onAtomicBlockFocus', d)} // eslint-disable-line
           >
             <RichContentEditor />
           </RicosEditor>
