@@ -20,6 +20,8 @@ No hard-coded strings should be found in plugin code. Every textual content shal
 
 The plugin definition should contain the default data that is added to content upon plugin insertion. The defaults should be used by both plugin component in editor, and Builder API method.
 
+#### UI for Mobile and Desktop
+
 #### Accessibility
 
 ##### Keyboard Shortcuts
@@ -135,6 +137,10 @@ In some cases, SVG files provided by UI designers contain conflicting ids which 
 ##### Module Structure
 
 ##### Tiptap Extensions
+
+##### Cross Browser Checks
+
+###### Mobile vs Desktop
 
 #### Toolbars and Settings
 
