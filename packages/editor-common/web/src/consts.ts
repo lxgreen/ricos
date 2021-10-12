@@ -103,6 +103,7 @@ export const FORMATTING_BUTTONS = Object.freeze({
   },
   ORDERED_LIST: 'OrderedList',
   UNORDERED_LIST: 'UnorderedList',
+  FONT_SIZE: 'FONT_SIZE',
   // plugins
   SPOILER: 'SPOILER',
   LINK: 'LINK',

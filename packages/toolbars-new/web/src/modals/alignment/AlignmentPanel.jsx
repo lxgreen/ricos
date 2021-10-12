@@ -27,7 +27,9 @@ const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, onCancel, .
       }}
     />
   ) : (
-    <DesktopPanel {...{ currentSelect, options: alignments, onChange, theme, hasIcons, t }} />
+    <DesktopPanel
+      {...{ currentSelect, options: alignments, onChange, theme, sizeFitContent: true, t }}
+    />
   );
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions

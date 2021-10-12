@@ -31,7 +31,7 @@ import {
   emptyDraftContent,
   getCustomStyleFns,
 } from 'wix-rich-content-editor-common';
-import { convertFromRaw, convertToRaw } from '../../lib/editorStateConversion';
+import { convertFromRaw, convertToRaw, createWithContent } from '../../lib/editorStateConversion';
 import { EditorProps as DraftEditorProps, DraftHandleValue } from 'draft-js';
 import { createUploadStartBIData, createUploadEndBIData } from './utils/mediaUploadBI';
 import { HEADINGS_DROPDOWN_TYPE, DEFAULT_HEADINGS, DEFAULT_TITLE_HEADINGS } from 'ricos-content';
@@ -583,11 +583,11 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
         disableInlineImages,
         removeInvalidInlinePlugins,
       });
-      return EditorState.createWithContent(convertFromRaw(rawContentState));
+      return createWithContent(convertFromRaw(rawContentState));
     } else {
       //this is needed for ssr. Otherwise the key will be generated randomly on both server and client.
       const emptyContentState = convertFromRaw(emptyDraftContent);
-      return EditorState.createWithContent(emptyContentState);
+      return createWithContent(emptyContentState);
     }
   }
 
@@ -1124,9 +1124,9 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
   styleToClass = ([key, val]) => `rich_content_${key}-${val.toString().replace('.', '_')}`;
 
   renderStyleTag = (editorState = this.getEditorState()) => {
-    const styleToCss = ([key, val]) => `${key}: ${val};`;
     const blocks = editorState.getCurrentContent().getBlockMap();
     const styles = {};
+    const styleToCss = ([key, val]) => `${key}: ${val};`;
     blocks.forEach(block => {
       const { dynamicStyles = {} } = block?.get('data').toJS();
       Object.entries(dynamicStyles).forEach(

@@ -54,6 +54,7 @@ interface RicosToolbarProps {
     };
   };
   colorPickerData?: any;
+  headingsData?: any;
   onToolbarButtonClick?: (name: string, value?: any) => void;
   experiments?: AvailableExperiments;
 }
@@ -95,6 +96,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       t,
       linkPanelData,
       colorPickerData,
+      headingsData,
       isMobile,
       theme,
       vertical,
@@ -109,6 +111,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       t,
       linkPanelData,
       colorPickerData,
+      headingsData,
       experiments
     );
     const buttonsWithoutUnwantedSeparators =

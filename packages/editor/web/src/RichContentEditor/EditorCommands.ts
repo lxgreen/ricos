@@ -165,12 +165,24 @@ const triggerDecorationsMap = {
   [RICOS_MENTION_TYPE]: triggerMention,
 };
 
+const setFontSizeWithColor = (editorState: EditorState, data?: { fontSize?: string }) => {
+  const highlightColor = getColor(editorState, RICOS_TEXT_HIGHLIGHT_TYPE);
+  if (highlightColor !== undefined) {
+    return setHighlightColor(setFontSize(setHighlightColor(editorState), data), {
+      color: highlightColor,
+    });
+  }
+};
+
 const insertDecorationsMap = {
   [RICOS_LINK_TYPE]: insertLinkAtCurrentSelection,
   [RICOS_MENTION_TYPE]: insertMention,
   [RICOS_TEXT_COLOR_TYPE]: setTextColor,
   [RICOS_TEXT_HIGHLIGHT_TYPE]: setHighlightColor,
-  [RICOS_FONT_SIZE_TYPE]: setFontSize,
+  [RICOS_FONT_SIZE_TYPE]: (editorState: EditorState, data?: { fontSize?: string }) => {
+    const editorStateWithColor = setFontSizeWithColor(editorState, data); // draft highlight <-> font size mismatch bug fix
+    return editorStateWithColor || setFontSize(editorState, data);
+  },
   [RICOS_INDENT_TYPE]: indentSelectedBlocks,
   [RICOS_LINE_SPACING_TYPE]: mergeBlockData,
 };

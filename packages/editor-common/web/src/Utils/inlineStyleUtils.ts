@@ -39,15 +39,32 @@ const getBlockStyleRanges = (block, styleSelectionPredicate?: (style: string) =>
   return styleRanges;
 };
 
+const flatStyleRanges = (
+  blockStyleRanges: { start: number; end: number; style: string }[] = []
+) => {
+  const ranges = [blockStyleRanges[0]];
+  blockStyleRanges.slice(1).forEach(range => {
+    const index = ranges.length - 1;
+    if (ranges[index].end === range?.start && ranges[index].style === range.style) {
+      ranges[index].end = range.end;
+    } else {
+      ranges.push(range);
+    }
+  });
+  return ranges;
+};
+
 export const hasOneStyleInSelection = (block, editorState, styleSelectionPredicate) => {
   const blockSelectionRange = getSelectionRange(editorState, block);
-  const blockStyleRanges = getBlockStyleRanges(block, styleSelectionPredicate).filter(range =>
-    isInSelectionRange(blockSelectionRange, [range.start, range.end])
+  const blockStyleRanges = flatStyleRanges(
+    getBlockStyleRanges(block, styleSelectionPredicate).filter(range =>
+      isInSelectionRange(blockSelectionRange, [range.start, range.end])
+    )
   );
   return (
     blockStyleRanges.length === 1 &&
-    blockStyleRanges[0].start <= blockSelectionRange[0] &&
-    blockStyleRanges[0].end >= blockSelectionRange[1]
+    blockStyleRanges[0]?.start <= blockSelectionRange[0] &&
+    blockStyleRanges[0]?.end >= blockSelectionRange[1]
   );
 };
 
@@ -77,7 +94,7 @@ export const getSelectionStyles = (styleSelectionPredicate, editorState) => {
   );
 };
 
-export const removeCurrentInlineStyle = (editorState, styleSelectionPredicate) => {
+export const removeCurrentInlineStyle = (editorState: EditorState, styleSelectionPredicate) => {
   const selection = editorState.getSelection();
   const currentStyles = getSelectionStyles(styleSelectionPredicate, editorState);
   return currentStyles.reduce((nextEditorState, style) => {
@@ -87,7 +104,7 @@ export const removeCurrentInlineStyle = (editorState, styleSelectionPredicate) =
   }, editorState);
 };
 
-export const setInlineStyle = (editorState, inlineStyle) => {
+export const setInlineStyle = (editorState: EditorState, inlineStyle: string) => {
   const selection = editorState.getSelection();
   const contentState = Modifier.applyInlineStyle(
     editorState.getCurrentContent(),

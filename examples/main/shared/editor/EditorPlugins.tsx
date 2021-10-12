@@ -743,6 +743,8 @@ const config: RichContentEditorProps['config'] = {
         const desktopButtons = [
           FORMATTING_BUTTONS.HEADINGS,
           '|',
+          FORMATTING_BUTTONS.FONT_SIZE,
+          '|',
           FORMATTING_BUTTONS.BOLD,
           FORMATTING_BUTTONS.ITALIC,
           FORMATTING_BUTTONS.UNDERLINE,

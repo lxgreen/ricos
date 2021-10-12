@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+- `toolbars-new`
+  - [#2921](https://github.com/wix/ricos/pull/2921) custom font size dropdown and `toolbarInputButton`
+
 </details>
 <hr/>
 
