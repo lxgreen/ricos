@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable fp/no-loops */
 import React, { FC } from 'react';
@@ -19,8 +20,19 @@ import {
   RICOS_DIVIDER_TYPE,
   RICOS_VIDEO_TYPE,
   RICOS_IMAGE_TYPE,
+  RICOS_GALLERY_TYPE,
+  RICOS_GIPHY_TYPE,
+  RICOS_FILE_TYPE,
 } from 'wix-rich-content-common';
-import { DividerData, ImageData, DividerData_LineStyle, VideoData } from 'ricos-schema';
+import {
+  DividerData,
+  ImageData,
+  DividerData_LineStyle,
+  VideoData,
+  GalleryData,
+  GIFData,
+  FileData,
+} from 'ricos-schema';
 import {
   BoldIcon,
   ItalicIcon,
@@ -51,6 +63,9 @@ import {
   DividerIcon,
   VideoIcon,
   ImageIcon,
+  GalleryIcon,
+  GifIcon,
+  FileIcon,
 } from '../icons';
 import LinkModal from '../modals/link/LinkComponents/LinkModal';
 import AlignmentPanel from '../modals/alignment/AlignmentPanel';
@@ -150,7 +165,11 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     dataHook: 'VideoPlugin_InsertButton',
     tooltip: 'VideoPlugin_InsertButton_Tooltip',
     defaultData: VideoData.fromJSON({
-      url: 'https://www.youtube.com/watch?v=2iDTAGKkixE&ab_channel=QueenClub',
+      video: {
+        src: {
+          url: 'https://www.youtube.com/watch?v=2iDTAGKkixE&ab_channel=QueenClub',
+        },
+      },
     }),
     type: 'button',
   },
@@ -175,6 +194,104 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
         width: 3192,
         height: 2124,
       },
+    }),
+    type: 'button',
+  },
+  Gallery: {
+    icon: GalleryIcon,
+    dataHook: 'GalleryPlugin_InsertButton',
+    tooltip: 'GalleryPlugin_InsertButton_Tooltip',
+    defaultData: GalleryData.fromJSON({
+      options: {
+        layout: {
+          type: 'GRID',
+          orientation: 'COLUMNS',
+          horizontalScroll: false,
+          numberOfColumns: 3,
+        },
+        item: {
+          crop: 'FILL',
+          ratio: 1,
+        },
+        thumbnails: {
+          placement: 'TOP',
+        },
+      },
+      items: [
+        {
+          image: {
+            media: {
+              src: {
+                url: '8bb438_51948835adb84e0dbcca54ce99b48999.jpg',
+              },
+              width: 1920,
+              height: 1000,
+            },
+          },
+        },
+        {
+          image: {
+            media: {
+              src: {
+                url: '8bb438_78ff5e32500d48cdaa22a3f446d68216.jpg',
+              },
+              width: 3737,
+              height: 5600,
+            },
+          },
+        },
+        {
+          image: {
+            media: {
+              src: {
+                url: '8bb438_0795e40ac4db438a8a723ea98dbeda10.jpg',
+              },
+              width: 1621,
+              height: 1081,
+            },
+          },
+        },
+      ],
+    }),
+    type: 'button',
+  },
+  Gif: {
+    icon: GifIcon,
+    dataHook: 'GiphyPlugin_InsertButton',
+    tooltip: 'GiphyPlugin_InsertButton_Tooltip',
+    defaultData: GIFData.fromJSON({
+      height: 600,
+      width: 600,
+      original: {
+        gif:
+          'https://media2.giphy.com/media/dZ8nmFzPpqAb2RGYYC/giphy.gif?cid=558f2fbe74zmeco1rabqx0r4xywpsey7s0vpoq64yqxq5w2j&rid=giphy.gif&ct=g',
+        mp4:
+          'https://media2.giphy.com/media/dZ8nmFzPpqAb2RGYYC/giphy.mp4?cid=558f2fbe74zmeco1rabqx0r4xywpsey7s0vpoq64yqxq5w2j&rid=giphy.mp4&ct=g',
+        still:
+          'https://media2.giphy.com/media/dZ8nmFzPpqAb2RGYYC/giphy_s.gif?cid=558f2fbe74zmeco1rabqx0r4xywpsey7s0vpoq64yqxq5w2j&rid=giphy_s.gif&ct=g',
+      },
+      downsized: {
+        gif:
+          'https://media2.giphy.com/media/dZ8nmFzPpqAb2RGYYC/giphy.gif?cid=558f2fbe74zmeco1rabqx0r4xywpsey7s0vpoq64yqxq5w2j&rid=giphy.gif&ct=g',
+        mp4:
+          'https://media2.giphy.com/media/dZ8nmFzPpqAb2RGYYC/giphy-downsized-small.mp4?cid=558f2fbe74zmeco1rabqx0r4xywpsey7s0vpoq64yqxq5w2j&rid=giphy-downsized-small.mp4&ct=g',
+        still:
+          'https://media2.giphy.com/media/dZ8nmFzPpqAb2RGYYC/giphy_s.gif?cid=558f2fbe74zmeco1rabqx0r4xywpsey7s0vpoq64yqxq5w2j&rid=giphy_s.gif&ct=g',
+      },
+    }),
+    type: 'button',
+  },
+  File: {
+    icon: FileIcon,
+    dataHook: 'FileUploadInsertButton',
+    tooltip: 'FileUploadInsertButton_tooltip',
+    defaultData: FileData.fromJSON({
+      src: {
+        url: 'https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      },
+      name: 'music.mp3',
+      type: 'mp3',
+      size: 150000,
     }),
     type: 'button',
   },
@@ -454,6 +571,9 @@ export const insertBlockButtons: Record<string, keyof PluginsDataMap> = {
   Divider: RICOS_DIVIDER_TYPE,
   Video: RICOS_VIDEO_TYPE,
   Image: RICOS_IMAGE_TYPE,
+  Gallery: RICOS_GALLERY_TYPE,
+  Gif: RICOS_GIPHY_TYPE,
+  File: RICOS_FILE_TYPE,
 };
 
 export const inlineStyleButtons: Record<string, InlineStyle> = {

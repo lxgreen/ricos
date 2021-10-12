@@ -11,18 +11,38 @@ import {
   TranslationFunction,
   EditorPlugin,
   TextAlignment,
+  GALLERY_TYPE,
+  RICOS_GALLERY_TYPE,
+  FILE_UPLOAD_TYPE,
+  RICOS_FILE_TYPE,
+  GIPHY_TYPE,
+  RICOS_GIPHY_TYPE,
+  VIDEO_TYPE,
+  RICOS_VIDEO_TYPE,
 } from 'wix-rich-content-common';
 import { toTiptap } from '../../converters';
 import { Editor } from '@tiptap/core';
 
 const TIPTAP_DIVIDER_TYPE = 'divider'; //should be taken from tip-tap common
 const TIPTAP_IMAGE_TYPE = 'image';
+const TIPTAP_GALLERY_TYPE = 'gallery';
+const TIPTAP_FILE_TYPE = 'file';
+const TIPTAP_GIF_TYPE = 'gif';
+const TIPTAP_VIDEO_TYPE = 'video';
 
 const PLUGIN_TYPE_MAP = {
   [RICOS_DIVIDER_TYPE]: TIPTAP_DIVIDER_TYPE,
   [DIVIDER_TYPE]: TIPTAP_DIVIDER_TYPE,
   [RICOS_IMAGE_TYPE]: TIPTAP_IMAGE_TYPE,
   [IMAGE_TYPE]: TIPTAP_IMAGE_TYPE,
+  [GALLERY_TYPE]: TIPTAP_GALLERY_TYPE,
+  [RICOS_GALLERY_TYPE]: TIPTAP_GALLERY_TYPE,
+  [FILE_UPLOAD_TYPE]: TIPTAP_FILE_TYPE,
+  [RICOS_FILE_TYPE]: TIPTAP_FILE_TYPE,
+  [GIPHY_TYPE]: TIPTAP_GIF_TYPE,
+  [RICOS_GIPHY_TYPE]: TIPTAP_GIF_TYPE,
+  [VIDEO_TYPE]: TIPTAP_VIDEO_TYPE,
+  [RICOS_VIDEO_TYPE]: TIPTAP_VIDEO_TYPE,
 };
 
 // todo : should change to RichContentInterface
