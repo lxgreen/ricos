@@ -1,5 +1,5 @@
 import imageDataDefaults from 'ricos-schema/dist/statics/image.defaults.json';
-import { CreateRicosExtensions } from 'wix-tiptap-editor';
+import { CreateRicosExtensions, TIPTAP_IMAGE_TYPE } from 'wix-tiptap-editor';
 import { Image as Component } from './component';
 
 declare module '@tiptap/core' {
@@ -17,7 +17,7 @@ declare module '@tiptap/core' {
   }
 }
 
-const name = 'image';
+const name = TIPTAP_IMAGE_TYPE;
 
 export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {

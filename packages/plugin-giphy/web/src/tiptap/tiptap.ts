@@ -1,8 +1,8 @@
-import { CreateRicosExtensions } from 'wix-tiptap-editor';
+import { CreateRicosExtensions, TIPTAP_GIF_TYPE } from 'wix-tiptap-editor';
 import { Gif as Component } from './component';
 import { GIFData } from 'ricos-schema';
 
-const name = 'gif';
+const name = TIPTAP_GIF_TYPE;
 
 export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {

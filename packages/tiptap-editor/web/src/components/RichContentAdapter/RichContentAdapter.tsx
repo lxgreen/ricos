@@ -22,13 +22,14 @@ import {
 } from 'wix-rich-content-common';
 import { toTiptap } from '../../converters';
 import { Editor } from '@tiptap/core';
-
-const TIPTAP_DIVIDER_TYPE = 'divider'; //should be taken from tip-tap common
-const TIPTAP_IMAGE_TYPE = 'image';
-const TIPTAP_GALLERY_TYPE = 'gallery';
-const TIPTAP_FILE_TYPE = 'file';
-const TIPTAP_GIF_TYPE = 'gif';
-const TIPTAP_VIDEO_TYPE = 'video';
+import {
+  TIPTAP_DIVIDER_TYPE,
+  TIPTAP_IMAGE_TYPE,
+  TIPTAP_GALLERY_TYPE,
+  TIPTAP_FILE_TYPE,
+  TIPTAP_GIF_TYPE,
+  TIPTAP_VIDEO_TYPE,
+} from '../../consts';
 
 const PLUGIN_TYPE_MAP = {
   [RICOS_DIVIDER_TYPE]: TIPTAP_DIVIDER_TYPE,
