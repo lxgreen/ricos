@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { UrlInputModal, BUTTON_SIZE } from 'wix-rich-content-ui-components';
+import { UrlInputModal, NewUrlInputModal, BUTTON_SIZE } from 'wix-rich-content-ui-components';
 import { DEFAULTS } from '../defaults';
 
 export default class EmbedURLInputModal extends Component {
@@ -43,16 +43,19 @@ export default class EmbedURLInputModal extends Component {
 
   render() {
     const { url, submittedInvalidUrl } = this.state;
-    const { t, languageDir, socialType, helpers } = this.props;
+    const { t, languageDir, socialType, helpers, isMobile, experiments } = this.props;
+    const useNewModal = experiments?.newSocialAndVerticalEmbedModal?.enabled;
+    const UrlInputModalComponent = useNewModal ? NewUrlInputModal : UrlInputModal;
 
     return (
-      <UrlInputModal
+      <UrlInputModalComponent
         onConfirm={this.onConfirm}
         helpers={helpers}
         input={url}
         t={t}
         languageDir={languageDir}
         title={t(`EmbedURL_Social_${socialType}_Title`)}
+        saveLabel={t('VideoModal_Embed_ButtonText')}
         submittedInvalidUrl={submittedInvalidUrl}
         dataHook={'socialEmbedUploadModal'}
         onInputChange={url => this.setState({ url })}
@@ -60,6 +63,7 @@ export default class EmbedURLInputModal extends Component {
         placeholder={t(`EmbedURL_Social_${socialType}_Placeholder`)}
         onCloseRequested={helpers.closeModal}
         buttonSize={BUTTON_SIZE.medium}
+        isMobile={isMobile}
       />
     );
   }
@@ -74,4 +78,6 @@ EmbedURLInputModal.propTypes = {
   languageDir: PropTypes.string,
   fetchData: PropTypes.func,
   socialType: PropTypes.string,
+  isMobile: PropTypes.bool,
+  experiments: PropTypes.object,
 };

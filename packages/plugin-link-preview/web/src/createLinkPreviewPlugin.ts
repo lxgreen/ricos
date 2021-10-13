@@ -25,6 +25,7 @@ const createLinkPreviewPlugin: CreatePluginFunction<LinkPreviewPluginEditorConfi
     helpers,
     isMobile,
     t,
+    experiments,
     ...rest
   } = config;
   const toolbar = createLinkPreviewToolbar({
@@ -34,6 +35,7 @@ const createLinkPreviewPlugin: CreatePluginFunction<LinkPreviewPluginEditorConfi
     helpers,
     isMobile,
     t,
+    experiments,
   });
 
   const keyBindingFn = (event, { getEditorState }: { getEditorState: GetEditorState }) => {

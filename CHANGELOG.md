@@ -19,6 +19,10 @@
 
 ### :nail_care: Polish
 
+- `social-embed`
+  - [#2986](https://github.com/wix/ricos/pull/2986) social-embed modal new design
+  
+### :bug: Bug Fix
 - `[toolbars-new]`
   - [#2982](https://github.com/wix/ricos/pull/2982) fix Link-modal style
 
