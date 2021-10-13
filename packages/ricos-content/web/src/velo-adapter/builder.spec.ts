@@ -10,9 +10,32 @@ import {
 } from 'ricos-schema';
 import { compare } from 'wix-rich-content-common';
 import { createBuilder } from './builder';
+import { emptyContent } from './consts';
 import { ImageElement } from './types';
 
-const builder = createBuilder();
+const builder = createBuilder(emptyContent);
+
+const imageUrlMock = [
+  {
+    input: { data: 'http://www.wix.com' },
+    expected: {
+      nodes: [
+        {
+          id: '27u2t',
+          imageData: {
+            image: {
+              src: {
+                url: 'http://www.wix.com',
+              },
+            },
+          },
+          nodes: [],
+          type: Node_Type.IMAGE,
+        },
+      ],
+    },
+  },
+];
 
 describe('general', () => {
   it('should chain additions', () => {
@@ -65,28 +88,36 @@ describe('general', () => {
     };
     expect(compare(result, expected, { ignoredKeys: ['id'] })).toStrictEqual({});
   });
+
+  it('should activate callback if provided', () => {
+    let content: RichContent = emptyContent;
+    const mockFunction = (newContent: RichContent) => (content = newContent);
+    const func = jest.fn(mockFunction);
+    let customBuilder = createBuilder(content, func);
+
+    expect(func).toBeCalledTimes(0);
+    expect(content).toStrictEqual(emptyContent);
+
+    customBuilder = customBuilder.addImage(imageUrlMock[0].input);
+    expect(func).toBeCalledTimes(1);
+    expect(compare(content, imageUrlMock[0].expected, { ignoredKeys: ['id'] })).toStrictEqual({});
+
+    customBuilder = customBuilder.addDivider();
+    expect(func).toBeCalledTimes(2);
+
+    customBuilder = customBuilder.addButton();
+    expect(func).toBeCalledTimes(3);
+
+    const finalContent = customBuilder.get();
+    expect(func).toBeCalledTimes(3); // `get()` shouldn't trigger the callback
+    expect(finalContent).toStrictEqual(content);
+  });
 });
 
 describe('addImage', () => {
   it('should work with URL', () => {
-    const expected: RichContent = {
-      nodes: [
-        {
-          id: '27u2t',
-          imageData: {
-            image: {
-              src: {
-                url: 'http://www.wix.com',
-              },
-            },
-          },
-          nodes: [],
-          type: Node_Type.IMAGE,
-        },
-      ],
-    };
-    const result = builder.addImage({ data: 'http://www.wix.com' }).get();
-    expect(compare(result, expected, { ignoredKeys: ['id'] })).toStrictEqual({});
+    const result = builder.addImage(imageUrlMock[0].input).get();
+    expect(compare(result, imageUrlMock[0].expected, { ignoredKeys: ['id'] })).toStrictEqual({});
   });
 
   it('should work with ImageElement', () => {

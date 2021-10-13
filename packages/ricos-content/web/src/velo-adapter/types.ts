@@ -29,3 +29,8 @@ export type ContentBuilderAdapter = {
   addImage: (params: AddImageParams) => ContentBuilderAdapter;
   get: () => RichContent;
 };
+
+export type CreateBuilder = (
+  content: RichContent,
+  callback?: (content: RichContent) => void
+) => ContentBuilderAdapter;
