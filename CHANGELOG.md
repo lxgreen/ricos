@@ -19,19 +19,25 @@
 
 ### :nail_care: Polish
 
-- `[plugin-video]`
+- `plugin-video`
   - [#2985](https://github.com/wix/ricos/pull/2985) video modal new design
 - `social-embed`
   - [#2986](https://github.com/wix/ricos/pull/2986) social-embed modal new design
   
 ### :bug: Bug Fix
-- `[toolbars-new]`
+
+- `toolbars-new`
   - [#2982](https://github.com/wix/ricos/pull/2982) fix Link-modal style
 
 ### :rocket: New Feature
 
 - `toolbars-new`
   - [#2921](https://github.com/wix/ricos/pull/2921) custom font size dropdown and `toolbarInputButton`
+
+  ### :house: Internal
+  
+  - `toolbars-new` 
+    - [#2968](https://github.com/wix/ricos/pull/2968) refactor line-spacing (set to default when there is no line-spacing) 
 
 </details>
 <hr/>

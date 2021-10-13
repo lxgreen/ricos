@@ -45,7 +45,7 @@ class LineSpacingPanel extends Component {
     const panel = isMobile ? (
       <MobilePanel
         {...{
-          currentSelect,
+          currentSelect: this.state.spacing,
           panelHeader,
           options: lineHeights,
           onChange: onChangeLineHeight,
@@ -60,7 +60,7 @@ class LineSpacingPanel extends Component {
     ) : (
       <DesktopPanel
         {...{
-          currentSelect,
+          currentSelect: this.state.spacing,
           options: lineHeights,
           onChange: onSaveLineHeight,
           panelHeader,
@@ -70,7 +70,6 @@ class LineSpacingPanel extends Component {
       />
     );
     return (
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
         className={classNames(styles.panel_Container, {
           [styles.mobile_Container]: isMobile,

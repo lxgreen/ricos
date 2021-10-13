@@ -106,10 +106,17 @@ export const alignmentsModalData = [
 
 export const lineSpacingModalData = [
   { text: '1', commandKey: '1' },
+  { text: '1.5', commandKey: '1.5' },
   { text: '2', commandKey: '2' },
   { text: '2.5', commandKey: '2.5' },
   { text: '3', commandKey: '3' },
 ];
+
+export const defaultLineSpacing = {
+  'line-height': '1.5',
+  'padding-top': '2px',
+  'padding-bottom': '3px',
+};
 
 type buttonsFullDataType = {
   type: string;
@@ -485,4 +492,11 @@ export const findOsName = () => {
   if (navigator.userAgent.indexOf('Win') !== -1) return 'Windows';
   if (navigator.userAgent.indexOf('Mac') !== -1) return 'MacOS';
   return null;
+};
+
+export const getSpacing = (currentSpacing, userDefaultSpacing) => {
+  const hasCurrentSpacing = Object.keys(currentSpacing).length !== 0;
+  const hasDefaultSpacing = Object.keys(userDefaultSpacing).length !== 0;
+  const defaultSpacing = hasDefaultSpacing ? userDefaultSpacing : defaultLineSpacing;
+  return hasCurrentSpacing ? currentSpacing : defaultSpacing;
 };
