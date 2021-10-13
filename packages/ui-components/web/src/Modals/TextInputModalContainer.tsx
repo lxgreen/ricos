@@ -20,7 +20,7 @@ interface TextInputModalContainerProps {
   children?: React.ReactNode;
   title?: string;
   isMobile?: boolean;
-  hasMobileSettings?: boolean;
+  withMobileHeader?: boolean;
   selected?: boolean;
   onConfirm: () => void;
   onCloseRequested: (() => void) | undefined;
@@ -43,7 +43,7 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
   children,
   title,
   isMobile,
-  hasMobileSettings = true,
+  withMobileHeader = true,
   selected = true,
   onConfirm,
   onCloseRequested,
@@ -86,7 +86,7 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
         [styles.inlineModal]: isInlineModal,
       })}
     >
-      {isMobile && hasMobileSettings && renderMobileHeader()}
+      {isMobile && withMobileHeader && renderMobileHeader()}
       <div className={styles.inputModal_content} data-hook={dataHook} dir={languageDir}>
         {title && renderTitle()}
         <div className={styles.inputModal_textInput}>{children}</div>

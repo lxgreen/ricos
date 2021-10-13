@@ -19,6 +19,8 @@
 
 ### :nail_care: Polish
 
+- `[plugin-video]`
+  - [#2985](https://github.com/wix/ricos/pull/2985) video modal new design
 - `social-embed`
   - [#2986](https://github.com/wix/ricos/pull/2986) social-embed modal new design
   
