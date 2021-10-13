@@ -27,8 +27,8 @@ class BasicLinkPanel extends PureComponent {
       isMobile,
       hasCheckboxes = true,
     } = this.props;
-    const linkPanelContainerClassName = classNames(styles.linkPanel_container, {
-      [styles.linkPanel_container_isMobile]: isMobile,
+    const linkPanelContainerClassName = classNames(styles.basic_linkPanel_container, {
+      [styles.basic_linkPanel_container_isMobile]: isMobile,
       [styles.basicPanel]: !hasCheckboxes,
     });
     const showSeparator = hasCheckboxes && !isMobile;

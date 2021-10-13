@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+
+- `[toolbars-new]`
+  - [#2982](https://github.com/wix/ricos/pull/2982) fix Link-modal style
+
 ### :rocket: New Feature
 
 - `toolbars-new`
