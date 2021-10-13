@@ -101,6 +101,7 @@ const typescript = (): Plugin => {
         declarationDir: absPath('dist'),
         rootDir: absPath(''),
         sourceMap: true,
+        allowJs: process.env.ALLOW_JS === 'true',
       },
       include: [
         'src',

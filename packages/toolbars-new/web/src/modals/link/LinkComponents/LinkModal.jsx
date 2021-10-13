@@ -72,15 +72,15 @@ class LinkModal extends PureComponent {
     }
   };
 
-  onDone = () => {
+  onDone = e => {
     const { radioGroupValue } = this.state;
     if (radioGroupValue) {
       switch (radioGroupValue) {
         case RADIO_GROUP_VALUES.EXTERNAL_LINK:
-          this.onDoneLink();
+          this.onDoneLink(e);
           break;
         case RADIO_GROUP_VALUES.ANCHOR:
-          this.onDoneAnchor();
+          this.onDoneAnchor(e);
           break;
         default:
           // eslint-disable-next-line no-console
@@ -88,34 +88,37 @@ class LinkModal extends PureComponent {
           break;
       }
     } else {
-      this.onDoneLink();
+      this.onDoneLink(e);
     }
   };
 
-  onDoneAnchor = () => {
+  onDoneAnchor = e => {
     const { anchorPanelValues } = this.state;
     if (anchorPanelValues.anchor) {
       this.props.onDone({
-        ...anchorPanelValues,
-        anchor: anchorPanelValues.anchor,
+        data: {
+          ...anchorPanelValues,
+          anchor: anchorPanelValues.anchor,
+        },
+        clickFromKeyboard: !e.detail,
       });
     }
   };
 
-  onDoneLink = () => {
+  onDoneLink = e => {
     const { linkPanelValues } = this.state;
     if ((linkPanelValues.isValid && linkPanelValues.url) || this.props.hideUrlInput) {
-      this.props.onDone(linkPanelValues);
+      this.props.onDone({ data: linkPanelValues, clickFromKeyboard: !e.detail });
     } else if (linkPanelValues.url === '') {
-      this.onDelete();
+      this.onDelete(e);
     }
   };
 
-  onDelete = () => {
-    this.props.onDelete();
+  onDelete = e => {
+    this.props.onDelete({ clickFromKeyboard: !e.detail });
   };
 
-  onCancel = () => this.props.onCancel();
+  onCancel = e => this.props.onCancel({ clickFromKeyboard: !e.detail });
 
   changeRadioGroup = value => {
     this.setState({ radioGroupValue: value });

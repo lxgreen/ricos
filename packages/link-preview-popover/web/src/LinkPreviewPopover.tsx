@@ -50,8 +50,6 @@ export class LinkPreviewPopover extends React.Component<
     }
   };
 
-  setLinkPreviewData = linkPreviewData => this.setState({ linkPreviewData });
-
   render() {
     const { linkPreviewData } = this.state;
 

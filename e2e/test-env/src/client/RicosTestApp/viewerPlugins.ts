@@ -30,7 +30,7 @@ import {
 import { pluginPoll } from 'wix-rich-content-plugin-social-polls/viewer';
 import { pluginCollapsibleList } from 'wix-rich-content-plugin-collapsible-list/viewer';
 import { pluginTable } from 'wix-rich-content-plugin-table/viewer';
-import { mockFileUploadFunc } from '../../../../../examples/main/shared/utils/fileUploadUtil';
+import { mockFileUploadFunc } from '../../../../../examples/storybook/src/shared/utils/fileUploadUtil';
 import { TestAppConfig } from '../../types';
 import { ViewerPlugin } from 'wix-rich-content-common';
 

@@ -13,7 +13,7 @@ export interface SectionSettings {
   getActive?: any;
   itemsType?: string;
   action: (item?: any, value?: any) => void;
-  items?: string[];
+  items?: any[];
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
 

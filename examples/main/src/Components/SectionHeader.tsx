@@ -80,11 +80,12 @@ const Experiments = ({ items, active, action }) =>
         <div className="scope">{scope}</div>
         <div className="experimentTitle">{`specs.${scope}.${name}`}</div>
         <div className="options">
-          {input.map(value => (
+          {input.map((value, index) => (
             /* eslint-disable */
             <div
-            className={`option ${active?.[name]?.value === value ? 'active' : null}`}
-            onClick={() => action(name, value)}
+              key={index}
+              className={`option ${active?.[name]?.value === value ? 'active' : null}`}
+              onClick={() => action(name, value)}
             >
               {value}
             </div>

@@ -3,10 +3,15 @@ export {
   MODAL_CONTROLS_POSITION,
   BUTTON_SIZE,
   DECORATION_MODE,
+  DesktopFlyOutModalStyles,
+  MOBILE_FULL_SCREEN_CUSTOM_STYLE,
+  DesktopOverlayModalStyles,
 } from './consts';
 
 // Modals
 export { default as UrlInputModal } from './Modals/UrlInputModal';
+export { default as NewUrlInputModal } from './Modals/NewUrlInputModal';
+export { default as SearchInputModal } from './Modals/SearchInputModal';
 export { default as RichContentModal } from './Modals/RichContentModal';
 
 export * from './Icons';

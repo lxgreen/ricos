@@ -12,6 +12,7 @@ import {
   styleMapper,
   textForegroundPredicate,
   textBackgroundPredicate,
+  getColor,
 } from '../text-decorations-utils';
 import TextColorIcon from './TextColorIcon';
 import TextHighlightIcon from './TextHighlightIcon';
@@ -20,6 +21,7 @@ import {
   DEFAULT_COLOR,
   DEFAULT_HIGHLIGHT_COLOR,
 } from '../constants';
+import { extractColor } from '../color-scheme-utils';
 
 const pluginSettingsByType = {
   [TEXT_COLOR_TYPE]: {
@@ -48,6 +50,7 @@ export const getButtonProps = ({ config, type }) => {
     helpers,
     uiSettings,
     [type]: settings,
+    experiments,
   } = config;
 
   const pluginSettings = pluginSettingsByType[type];
@@ -170,13 +173,27 @@ export const getButtonProps = ({ config, type }) => {
     }
   };
 
+  const getCurrentColor = () => {
+    const editorState = getEditorState();
+    const { predicate, defaultColor } = pluginSettings;
+    const styleSelectionPredicate = predicate(
+      settings.styleSelectionPredicate || DEFAULT_STYLE_SELECTION_PREDICATE
+    );
+    const currentColors = getSelectionStyles(styleSelectionPredicate, editorState);
+    return currentColors.length > 0
+      ? extractColor(settings.colorScheme, getColor(currentColors[0]))
+      : defaultColor;
+  };
+
+  const isDisabled = () =>
+    getEditorState()
+      .getSelection()
+      .isCollapsed() || isAtomicBlockFocused(getEditorState());
+
   return {
     onClose: () => {},
     onClick: ({ ref, render }) => openTextColorModal({ ref, render }),
-    isDisabled: () =>
-      getEditorState()
-        .getSelection()
-        .isCollapsed() || isAtomicBlockFocused(getEditorState()),
+    isDisabled,
     arrow: false,
     isActive: () => {
       const predicate = pluginSettings.predicate(
@@ -184,7 +201,14 @@ export const getButtonProps = ({ config, type }) => {
       );
       return getSelectionStyles(predicate, config.getEditorState()).length > 0;
     },
-    getIcon: () => settings?.toolbar?.icons?.InsertPluginButtonIcon || pluginSettings.icon,
+    getIcon: () =>
+      settings?.toolbar?.icons?.InsertPluginButtonIcon ||
+      (() =>
+        pluginSettings.icon({
+          newFormattingToolbar: experiments?.newFormattingToolbar?.enabled,
+          currentColor: getCurrentColor(),
+          isDisabled: isDisabled(),
+        })),
     tooltip: config.t(pluginSettings.tooltipKey),
     getLabel: () => '',
     type: BUTTON_TYPES.DROPDOWN,

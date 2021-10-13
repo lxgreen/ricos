@@ -13,6 +13,7 @@ import {
   HTML_TYPE,
   ACTION_BUTTON_TYPE,
   LINK_BUTTON_TYPE,
+  MAP_TYPE,
   getRelValue,
 } from 'wix-rich-content-common';
 import { getBlockIndex } from './utils/draftUtils';
@@ -132,7 +133,7 @@ class PluginViewer extends PureComponent {
 
         // TODO: more generic logic?
         let customStyles;
-        if (config.size === 'inline' || type === HTML_TYPE) {
+        if (config.size === 'inline' || type === HTML_TYPE || type === MAP_TYPE) {
           customStyles = { width: config.width };
         }
         if (type === IMAGE_TYPE) {

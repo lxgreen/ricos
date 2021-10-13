@@ -17,8 +17,109 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+- `toolbars-new`
+  - [#2921](https://github.com/wix/ricos/pull/2921) custom font size dropdown and `toolbarInputButton`
+
 </details>
 <hr/>
+
+## 8.55.3 (Oct 11, 2021)
+
+### :house: Internal
+
+- `[ui-components]`
+  - [#2984](https://github.com/wix/ricos/pull/2984) Fix Typescript issue
+
+## 8.55.2 (Oct 11, 2021)
+
+### :house: Internal
+
+- `*`
+  - [#2933](https://github.com/wix/ricos/pull/2933) JS to TS conversion + rollup configuration
+- `common`
+  - [#2980](https://github.com/wix/ricos/pull/2980) cleanup schema errors
+
+## 8.55.1 (Oct 11, 2021)
+
+### :rocket: New Feature
+
+- `social-polls`
+  - [#2964](https://github.com/wix/ricos/pull/2964) `pollServiceApi` config
+
+### :house: Internal
+
+- `social-polls`
+  - [#2964](https://github.com/wix/ricos/pull/2964) add `PollsServiceMock` and normalize polls data under `normalizePoll` experiment
+
+## 8.55.0 (Oct 11, 2021)
+
+### :rocket: New Feature
+
+- `ui-components`
+  - [#2955](https://github.com/wix/ricos/pull/2955) new text-input-modal (url/search) component
+- `ricos-content`
+  - [#2966](https://github.com/wix/ricos/pull/2966) ContentAPI adapter for simplified builder API
+
+### :bug: Bug Fix
+
+- `table-plugin`
+  - [#2972](https://github.com/wix/ricos/pull/2972) fix columns width on SSR
+- `viewer`
+  - [#2962](https://github.com/wix/ricos/pull/2962) fix alignment position of Map plugin
+
+### :house: Internal
+
+- `tiptap-editor`
+  - [#2971](https://github.com/wix/ricos/pull/2971) refactor according to domain model
+
+### :book: Documentation
+
+- [#2976](https://github.com/wix/ricos/pull/2976) plugin DoD
+
+## 8.54.3 (Oct 10, 2021)
+
+### :bug: Bug Fix
+
+- `editor viewer`
+  - [#2969](https://github.com/wix/ricos/pull/2969) fix text highlight parsing issue
+
+## 8.54.2 (Oct 7, 2021)
+
+### :bug: Bug Fix
+
+- `fullscreen`
+  - [#2946](https://github.com/wix/ricos/pull/2946) fix a11y keyboard navigation (desktop) and screen reader
+- `external-toolbar`
+  - [#2947](https://github.com/wix/ricos/pull/2947) new icons for external toolbar (under specs.ricos.newFormattingToolbar experiment)
+- `toolbars-new`
+  - [#2958](https://github.com/wix/ricos/pull/2958) fix color-picker/modals a11y
+- `video-plugin`
+  - [#2963](https://github.com/wix/ricos/pull/2963) add spoiler to url video settings modal
+- `link-preview-popover`
+  - [#2956](https://github.com/wix/ricos/pull/2956) display link preview popover only on external links
+- `schema-validations`
+  - [#2957](https://github.com/wix/ricos/pull/2957) cleanup schema validation errors
+
+### :house: Internal
+
+- `color-picker`
+  - [#2961](https://github.com/wix/ricos/pull/2961) refactor: send arguments in object (in ColorPicker props function)
+
+## 8.54.1 (Oct 3, 2021)
+
+### :bug: Bug Fix
+
+- `editor`
+  - [#2954](https://github.com/wix/ricos/pull/2954) support editor shortcuts with keyCode
+- `ui-components`
+  - [#2917](https://github.com/wix/ricos/pull/2917) refactor tabs component style
+
+### :nail_care: Polish
+
+- `ricos-schema`
+  - [#2948](https://github.com/wix/ricos/pull/2948) font size schema
 
 ## 8.54.0 (Oct 3, 2021)
 

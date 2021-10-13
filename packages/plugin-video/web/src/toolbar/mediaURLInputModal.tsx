@@ -10,11 +10,12 @@ import {
   TextDirection,
 } from 'wix-rich-content-common';
 import { videoButtonsTypes } from '../types';
+import { Required } from 'utility-types';
 
 interface Props {
   onConfirm?: OnConfirmFunction;
   pubsub: Pubsub;
-  helpers: Helpers;
+  helpers: Required<Helpers, 'closeModal'>;
   componentData: ComponentData;
   t: TranslationFunction;
   isMobile?: boolean;
@@ -73,7 +74,11 @@ export default class MediaURLInputModal extends Component<Props, State> {
     const placeholder = isYouTube
       ? t('EmbedURL_Social_YouTube_Placeholder')
       : isSoundCloud && t('SoundCloudUploadModal_Input_Placeholder');
-    const dataHook = isYouTube ? 'socialEmbedUploadModal' : isSoundCloud && 'soundCloudUploadModal';
+    const dataHook = isYouTube
+      ? 'socialEmbedUploadModal'
+      : isSoundCloud
+      ? 'soundCloudUploadModal'
+      : '';
     return { title, placeholder, dataHook };
   };
 
@@ -84,7 +89,6 @@ export default class MediaURLInputModal extends Component<Props, State> {
     return (
       <UrlInputModal
         onConfirm={this.onConfirm}
-        helpers={helpers}
         input={url}
         t={t}
         languageDir={languageDir}

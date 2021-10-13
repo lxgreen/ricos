@@ -1,6 +1,34 @@
 import React from 'react';
-import { CreateRicosExtensions } from 'wix-rich-content-common';
+import { CreateRicosExtensions } from 'wix-tiptap-editor';
 import { BlockSpoilerComponent } from '..';
+
+const SpoilerHoc = Component => {
+  // should use the new api containerData
+  const Spoiler = props => {
+    const { context, componentData } = props;
+    const { isMobile, theme, t } = context;
+    if (componentData?.config?.spoiler) {
+      return (
+        <BlockSpoilerComponent
+          theme={theme}
+          isMobile={isMobile}
+          isEditableText
+          t={t}
+          pluginType="Image"
+          handleDescriptionChange={() => {}}
+          setInPluginEditingMode={() => {}}
+          handleButtonContentChange={() => {}}
+        >
+          <Component {...props} />
+        </BlockSpoilerComponent>
+      );
+    } else {
+      return <Component {...props} />;
+    }
+  };
+  Spoiler.displayName = 'SpoilerHoc';
+  return Spoiler;
+};
 
 export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
   {
@@ -9,33 +37,10 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
       name: 'spoiler',
       priority: 10,
       defaultOptions,
-      addNodeViewHOC: () => ({
+      addNodeHoc: () => ({
         nodeTypes: ['image'],
-        nodeViewHOC: Component => {
-          // should use the new api containerData
-          return props => {
-            const { context, componentData } = props;
-            const { isMobile, theme, t } = context;
-            if (componentData?.config?.spoiler) {
-              return (
-                <BlockSpoilerComponent
-                  theme={theme}
-                  isMobile={isMobile}
-                  isEditableText
-                  t={t}
-                  pluginType="Image"
-                  handleDescriptionChange={() => {}}
-                  setInPluginEditingMode={() => {}}
-                  handleButtonContentChange={() => {}}
-                >
-                  <Component {...props} />
-                </BlockSpoilerComponent>
-              );
-            } else {
-              return <Component {...props} />;
-            }
-          };
-        },
+        priority: 10,
+        nodeHoc: SpoilerHoc,
       }),
     }),
   },

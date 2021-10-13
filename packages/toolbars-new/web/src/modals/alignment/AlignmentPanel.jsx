@@ -9,9 +9,9 @@ import { alignmentsModalData as alignments } from '../../Toolbar/buttonsListCrea
 const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, onCancel, ...props }) => {
   const panelHeader = t('Alignment');
   const hasIcons = true;
-  const onChange = alignment => {
+  const onChange = (alignment, clickFromKeyboard) => {
     props?.onToolbarButtonClick?.(alignment);
-    onSave(alignment);
+    onSave({ data: alignment, clickFromKeyboard });
   };
 
   const panel = isMobile ? (
@@ -27,7 +27,9 @@ const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, onCancel, .
       }}
     />
   ) : (
-    <DesktopPanel {...{ currentSelect, options: alignments, onChange, theme, hasIcons, t }} />
+    <DesktopPanel
+      {...{ currentSelect, options: alignments, onChange, theme, sizeFitContent: true, t }}
+    />
   );
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions

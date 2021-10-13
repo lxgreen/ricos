@@ -13,8 +13,11 @@
               "type": "bold"
             },
             {
-              "type": "fontsize",
-              "fontSize": "20px"
+              "type": "fontSize",
+              "fontSizeData": {
+                "unit": "PX",
+                "value": 20
+              }
             }
           ],
           "attrs": {

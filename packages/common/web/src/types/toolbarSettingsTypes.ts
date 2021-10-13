@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { EditorState } from 'draft-js';
 import { ComponentType } from 'react';
-import { ToolbarType, InsertButton, ToolbarButtonProps, TextButtonMapping } from '.';
+import {
+  ToolbarType,
+  InsertButton,
+  ToolbarButtonProps,
+  TextButtonMapping,
+  PluginTextButtons,
+} from '.';
 
 interface PlatformSettings<T> {
   desktop?: T;
@@ -23,6 +29,7 @@ export interface ToolbarSettingsFunctions {
   getInstance?: (config: any) => any;
   getDisplayOptions?: () => PlatformSettings<any>;
   getToolbarDecorationFn?: () => PlatformSettings<any>;
+  getIcons?: () => Record<string, (props: any) => JSX.Element>;
   addPluginMenuConfig?: AddPluginMenuConfig;
   footerToolbarConfig?: FooterToolbarConfig;
   onClick?: () => void;
@@ -60,8 +67,6 @@ export type PluginButton = {
   component: ComponentType;
   blockType: string;
 };
-
-export type PluginTextButtons = { [key: string]: ComponentType };
 
 export type GetToolbarSettings = ({
   textButtons,

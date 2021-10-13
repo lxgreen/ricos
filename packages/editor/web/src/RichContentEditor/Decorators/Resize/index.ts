@@ -1,7 +1,19 @@
 import createDecorator from './createDecorator';
-import { EditorPlugin, PluginFunctions } from 'draft-js-plugins-editor';
+import { PluginFunctions } from 'draft-js-plugins-editor';
+import {
+  default as ResizableDecoratorType,
+  ResizeablePluginConfig,
+} from '@draft-js-plugins/resizeable';
+import { RichContentTheme } from 'wix-rich-content-common';
 
-export default (config): EditorPlugin & { decorator } => {
+export interface ExtendedResizeablePluginConfig extends ResizeablePluginConfig {
+  minWidth?: number;
+  theme: RichContentTheme;
+  isMobile: boolean;
+}
+const ResizableDecorator = (
+  config: ExtendedResizeablePluginConfig
+): ReturnType<typeof ResizableDecoratorType> => {
   const store: Partial<PluginFunctions> = {
     getEditorRef: undefined,
     getEditorState: undefined,
@@ -16,3 +28,5 @@ export default (config): EditorPlugin & { decorator } => {
     decorator: createDecorator({ config, store }),
   };
 };
+
+export default ResizableDecorator;

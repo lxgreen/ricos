@@ -27,7 +27,7 @@ import {
   pluginVerticalEmbed,
   verticalEmbedProviders,
 } from 'wix-rich-content-plugin-vertical-embed';
-import { mockFetchUrlPreviewData } from '../../../../../examples/main/shared/utils/linkPreviewUtil';
+import { mockFetchUrlPreviewData } from '../../../../../examples/storybook/src/shared/utils/linkPreviewUtil';
 import { pluginTextColor, pluginTextHighlight } from 'wix-rich-content-plugin-text-color';
 import { pluginUnsupportedBlocks } from 'wix-rich-content-plugin-unsupported-blocks';
 import { pluginPoll } from 'wix-rich-content-plugin-social-polls';
@@ -42,7 +42,7 @@ import {
 import { videoHandlers } from '../../../../../examples/main/shared/editor/EditorPlugins';
 
 // eslint-disable-next-line max-len
-import { MockVerticalSearchModule } from '../../../../../examples/main/shared/utils/verticalEmbedUtil';
+import { MockVerticalSearchModule } from '../../../../../examples/storybook/src/shared/utils/verticalEmbedUtil';
 import { TestAppConfig } from '../../types';
 import { EditorPlugin } from 'wix-rich-content-common';
 

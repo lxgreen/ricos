@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-plugin-link-preview",
-  "version": "8.54.0",
+  "version": "8.55.3",
   "author": {
     "name": "Alex Greenstein",
     "email": "alexgr@wix.com"
@@ -27,7 +27,7 @@
   "scripts": {
     "clean": "rm -rf dist/",
     "prebuild": "npm run clean",
-    "build:rollup": "rollup --environment MODULE_NAME:plugin-link-preview -c ../../../rollup.config.js",
+    "build:rollup": "rollup --environment MODULE_NAME:plugin-link-preview,ALLOW_JS -c ../../../rollup.config.js",
     "build": "npm run build:rollup && node ../../../scripts/cssFix.js",
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "build:analyze:editor": "npm run build -- --environment MODULE_ANALYZE_EDITOR  && open stats.html",
@@ -36,11 +36,11 @@
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,d.ts}'"
   },
   "dependencies": {
-    "wix-rich-content-common": "8.54.0",
-    "wix-rich-content-editor-common": "8.54.0",
-    "wix-rich-content-plugin-commons": "8.54.0",
-    "wix-rich-content-plugin-html": "8.54.0",
-    "wix-rich-content-ui-components": "8.54.0"
+    "wix-rich-content-common": "8.55.3",
+    "wix-rich-content-editor-common": "8.55.3",
+    "wix-rich-content-plugin-commons": "8.55.3",
+    "wix-rich-content-plugin-html": "8.55.3",
+    "wix-rich-content-ui-components": "8.55.3"
   },
   "unpkg": true,
   "publishConfig": {

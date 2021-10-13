@@ -134,13 +134,13 @@ class AnchorableElement extends PureComponent {
 
   onKeyDown = e => {
     if (e.keyCode === KEYS_CHARCODE.ENTER) {
-      this.onClick();
+      this.onClick(e);
       e.preventDefault();
     }
   };
 
-  onClick = () => {
-    this.props.onClick({ defaultName: this.getContent() });
+  onClick = e => {
+    this.props.onClick({ defaultName: this.getContent() }, e);
   };
 
   render() {
