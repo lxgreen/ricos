@@ -9,7 +9,7 @@ export interface Modifier {
   set: (setter: (node: Node) => Node | Node[]) => RichContent;
 }
 
-const unfoldTree = (nodes: Node | Node[]) => {
+export const unfoldTree = (nodes: Node | Node[]) => {
   const root = isArray(nodes) ? { id: 'root', type: Node_Type.UNRECOGNIZED, nodes } : nodes;
   return T.unfoldTree<Node, Node>(root, n => [n, n.nodes]);
 };
@@ -31,7 +31,7 @@ const foldTree = (tree: T.Tree<Node>, setter: (node: Node) => Node | Node[], ids
     ),
   }))(tree);
 
-class TraversalModifier implements Modifier {
+export class TraversalModifier implements Modifier {
   content: RichContent;
 
   traversal: Traversal<T.Tree<Node>, Node>;
