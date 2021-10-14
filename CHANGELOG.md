@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.56.1 (Oct 14, 2021)
+
 ### :nail_care: Polish
 
 - `social-polls`
   - [#2899](https://github.com/wix/ricos/pull/2899) polls schema
-
-</details>
-<hr/>
 
 ## 8.56.0 (Oct 14, 2021)
 
