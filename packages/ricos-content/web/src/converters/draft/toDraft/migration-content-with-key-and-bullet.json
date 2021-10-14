@@ -975,12 +975,109 @@
       }
     },
     {
-      "type": "BLOCKQUOTE",
+      "type": "POLL",
       "key": "36",
+      "nodes": [],
+      "pollData": {
+        "containerData": {
+          "width": {
+            "size": "CONTENT"
+          },
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "poll": {
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "image": {
+            "src": {
+              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
+            }
+          },
+          "options": [
+            {
+              "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
+              "title": "Cafe Nordoy",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png"
+                }
+              }
+            },
+            {
+              "id": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
+              "title": "קפה רוטשילד 65",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "41679bf9-89ba-41f2-81d3-832d567531da",
+              "title": "האחים",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "378c6042-55cc-4e4a-9f0c-77824bee4964",
+              "title": "הוטל מונטיפיורי",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg"
+                }
+              }
+            }
+          ],
+          "settings": {
+            "permissions": {
+              "view": "VOTERS",
+              "vote": "SITE_MEMBERS",
+              "allowMultipleVotes": true
+            },
+            "showVoters": true,
+            "showVotesCount": true
+          }
+        },
+        "layout": {
+          "poll": {
+            "type": "GRID",
+            "direction": "LTR",
+            "enableImage": false
+          },
+          "options": {
+            "enableImage": true
+          }
+        },
+        "design": {
+          "poll": {
+            "background": {
+              "type": "IMAGE",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/2dfdd3_b120b7d9cffd4645bb143beadef13c56~mv2.jpg"
+                }
+              }
+            },
+            "borderRadius": 0
+          },
+          "options": {
+            "borderRadius": 0
+          }
+        }
+      }
+    },
+    {
+      "type": "BLOCKQUOTE",
+      "key": "37",
       "nodes": [
         {
           "type": "PARAGRAPH",
-          "key": "37",
+          "key": "38",
           "nodes": [
             {
               "type": "TEXT",
@@ -1072,15 +1169,15 @@
     },
     {
       "type": "ORDERED_LIST",
-      "key": "38",
+      "key": "39",
       "nodes": [
         {
           "type": "LIST_ITEM",
-          "key": "39",
+          "key": "40",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "key": "40",
+              "key": "41",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -1101,15 +1198,15 @@
             },
             {
               "type": "ORDERED_LIST",
-              "key": "41",
+              "key": "42",
               "nodes": [
                 {
                   "type": "LIST_ITEM",
-                  "key": "42",
+                  "key": "43",
                   "nodes": [
                     {
                       "type": "PARAGRAPH",
-                      "key": "43",
+                      "key": "44",
                       "nodes": [
                         {
                           "type": "TEXT",
@@ -1130,15 +1227,15 @@
                     },
                     {
                       "type": "ORDERED_LIST",
-                      "key": "44",
+                      "key": "45",
                       "nodes": [
                         {
                           "type": "LIST_ITEM",
-                          "key": "45",
+                          "key": "46",
                           "nodes": [
                             {
                               "type": "PARAGRAPH",
-                              "key": "46",
+                              "key": "47",
                               "nodes": [
                                 {
                                   "type": "TEXT",
@@ -1159,15 +1256,15 @@
                             },
                             {
                               "type": "ORDERED_LIST",
-                              "key": "47",
+                              "key": "48",
                               "nodes": [
                                 {
                                   "type": "LIST_ITEM",
-                                  "key": "48",
+                                  "key": "49",
                                   "nodes": [
                                     {
                                       "type": "PARAGRAPH",
-                                      "key": "49",
+                                      "key": "50",
                                       "nodes": [
                                         {
                                           "type": "TEXT",
@@ -1188,15 +1285,15 @@
                                     },
                                     {
                                       "type": "ORDERED_LIST",
-                                      "key": "50",
+                                      "key": "51",
                                       "nodes": [
                                         {
                                           "type": "LIST_ITEM",
-                                          "key": "51",
+                                          "key": "52",
                                           "nodes": [
                                             {
                                               "type": "PARAGRAPH",
-                                              "key": "52",
+                                              "key": "53",
                                               "nodes": [
                                                 {
                                                   "type": "TEXT",
@@ -1219,11 +1316,11 @@
                                         },
                                         {
                                           "type": "LIST_ITEM",
-                                          "key": "53",
+                                          "key": "54",
                                           "nodes": [
                                             {
                                               "type": "PARAGRAPH",
-                                              "key": "54",
+                                              "key": "55",
                                               "nodes": [
                                                 {
                                                   "type": "TEXT",
@@ -1262,11 +1359,11 @@
         },
         {
           "type": "LIST_ITEM",
-          "key": "55",
+          "key": "56",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "key": "56",
+              "key": "57",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -1287,15 +1384,15 @@
             },
             {
               "type": "BULLETED_LIST",
-              "key": "57",
+              "key": "58",
               "nodes": [
                 {
                   "type": "LIST_ITEM",
-                  "key": "58",
+                  "key": "59",
                   "nodes": [
                     {
                       "type": "PARAGRAPH",
-                      "key": "59",
+                      "key": "60",
                       "nodes": [
                         {
                           "type": "TEXT",
@@ -1322,11 +1419,11 @@
         },
         {
           "type": "LIST_ITEM",
-          "key": "60",
+          "key": "61",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "key": "61",
+              "key": "62",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -1351,7 +1448,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "key": "62",
+      "key": "63",
       "nodes": [],
       "paragraphData": {
         "textStyle": {
@@ -1362,15 +1459,15 @@
     },
     {
       "type": "BULLETED_LIST",
-      "key": "63",
+      "key": "64",
       "nodes": [
         {
           "type": "LIST_ITEM",
-          "key": "64",
+          "key": "65",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "key": "65",
+              "key": "66",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -1391,15 +1488,15 @@
             },
             {
               "type": "BULLETED_LIST",
-              "key": "66",
+              "key": "67",
               "nodes": [
                 {
                   "type": "LIST_ITEM",
-                  "key": "67",
+                  "key": "68",
                   "nodes": [
                     {
                       "type": "PARAGRAPH",
-                      "key": "68",
+                      "key": "69",
                       "nodes": [
                         {
                           "type": "TEXT",
@@ -1420,15 +1517,15 @@
                     },
                     {
                       "type": "BULLETED_LIST",
-                      "key": "69",
+                      "key": "70",
                       "nodes": [
                         {
                           "type": "LIST_ITEM",
-                          "key": "70",
+                          "key": "71",
                           "nodes": [
                             {
                               "type": "PARAGRAPH",
-                              "key": "71",
+                              "key": "72",
                               "nodes": [
                                 {
                                   "type": "TEXT",
@@ -1449,15 +1546,15 @@
                             },
                             {
                               "type": "BULLETED_LIST",
-                              "key": "72",
+                              "key": "73",
                               "nodes": [
                                 {
                                   "type": "LIST_ITEM",
-                                  "key": "73",
+                                  "key": "74",
                                   "nodes": [
                                     {
                                       "type": "PARAGRAPH",
-                                      "key": "74",
+                                      "key": "75",
                                       "nodes": [
                                         {
                                           "type": "TEXT",
@@ -1478,15 +1575,15 @@
                                     },
                                     {
                                       "type": "BULLETED_LIST",
-                                      "key": "75",
+                                      "key": "76",
                                       "nodes": [
                                         {
                                           "type": "LIST_ITEM",
-                                          "key": "76",
+                                          "key": "77",
                                           "nodes": [
                                             {
                                               "type": "PARAGRAPH",
-                                              "key": "77",
+                                              "key": "78",
                                               "nodes": [
                                                 {
                                                   "type": "TEXT",
@@ -1509,11 +1606,11 @@
                                         },
                                         {
                                           "type": "LIST_ITEM",
-                                          "key": "78",
+                                          "key": "79",
                                           "nodes": [
                                             {
                                               "type": "PARAGRAPH",
-                                              "key": "79",
+                                              "key": "80",
                                               "nodes": [
                                                 {
                                                   "type": "TEXT",
@@ -1552,11 +1649,11 @@
         },
         {
           "type": "LIST_ITEM",
-          "key": "80",
+          "key": "81",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "key": "81",
+              "key": "82",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -1579,11 +1676,11 @@
         },
         {
           "type": "LIST_ITEM",
-          "key": "82",
+          "key": "83",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "key": "83",
+              "key": "84",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -1608,7 +1705,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "key": "84",
+      "key": "85",
       "nodes": [],
       "paragraphData": {
         "textStyle": {
@@ -1619,7 +1716,7 @@
     },
     {
       "type": "HEADING",
-      "key": "85",
+      "key": "86",
       "nodes": [
         {
           "type": "TEXT",
@@ -1644,7 +1741,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "key": "86",
+      "key": "87",
       "nodes": [],
       "style": {
         "paddingTop": "0px",
@@ -1659,7 +1756,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "key": "87",
+      "key": "88",
       "nodes": [
         {
           "type": "TEXT",
@@ -1685,7 +1782,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "key": "88",
+      "key": "89",
       "nodes": [],
       "paragraphData": {
         "textStyle": {
@@ -1696,7 +1793,7 @@
     },
     {
       "type": "IMAGE",
-      "key": "89",
+      "key": "90",
       "nodes": [],
       "imageData": {
         "containerData": {
@@ -1704,14 +1801,14 @@
             "custom": "300"
           },
           "alignment": "RIGHT",
+          "textWrap": true,
           "spoiler": {
             "enabled": true
-          },
-          "textWrap": true
+          }
         },
         "image": {
           "src": {
-            "key": "8bb438_35ed730d87524b1a88179adc18ed9cd4.jpg"
+            "custom": "8bb438_35ed730d87524b1a88179adc18ed9cd4.jpg"
           },
           "width": 1920,
           "height": 1280
@@ -1722,7 +1819,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "key": "90",
+      "key": "91",
       "nodes": [
         {
           "type": "TEXT",
@@ -1743,7 +1840,7 @@
     },
     {
       "type": "PARAGRAPH",
-      "key": "91",
+      "key": "92",
       "nodes": [
         {
           "type": "TEXT",
@@ -1764,17 +1861,6 @@
     },
     {
       "type": "PARAGRAPH",
-      "key": "92",
-      "nodes": [],
-      "paragraphData": {
-        "textStyle": {
-          "textAlignment": "AUTO"
-        },
-        "indentation": 0
-      }
-    },
-    {
-      "type": "PARAGRAPH",
       "key": "93",
       "nodes": [],
       "paragraphData": {
@@ -1785,20 +1871,31 @@
       }
     },
     {
-      "type": "COLLAPSIBLE_LIST",
+      "type": "PARAGRAPH",
       "key": "94",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "COLLAPSIBLE_LIST",
+      "key": "95",
       "nodes": [
         {
           "type": "COLLAPSIBLE_ITEM",
-          "key": "95",
+          "key": "96",
           "nodes": [
             {
               "type": "COLLAPSIBLE_ITEM_TITLE",
-              "key": "96",
+              "key": "97",
               "nodes": [
                 {
                   "type": "PARAGRAPH",
-                  "key": "97",
+                  "key": "98",
                   "nodes": [
                     {
                       "type": "TEXT",
@@ -1828,11 +1925,11 @@
             },
             {
               "type": "COLLAPSIBLE_ITEM_BODY",
-              "key": "98",
+              "key": "99",
               "nodes": [
                 {
                   "type": "PARAGRAPH",
-                  "key": "99",
+                  "key": "100",
                   "nodes": [],
                   "paragraphData": {
                     "textStyle": {
@@ -1847,19 +1944,19 @@
         },
         {
           "type": "COLLAPSIBLE_ITEM",
-          "key": "100",
+          "key": "101",
           "nodes": [
             {
               "type": "COLLAPSIBLE_ITEM_TITLE",
-              "key": "101",
+              "key": "102",
               "nodes": [
                 {
                   "type": "BLOCKQUOTE",
-                  "key": "102",
+                  "key": "103",
                   "nodes": [
                     {
                       "type": "PARAGRAPH",
-                      "key": "103",
+                      "key": "104",
                       "nodes": [
                         {
                           "type": "TEXT",
@@ -1884,11 +1981,11 @@
             },
             {
               "type": "COLLAPSIBLE_ITEM_BODY",
-              "key": "104",
+              "key": "105",
               "nodes": [
                 {
                   "type": "PARAGRAPH",
-                  "key": "105",
+                  "key": "106",
                   "nodes": [
                     {
                       "type": "TEXT",
@@ -1917,18 +2014,18 @@
         }
       ],
       "collapsibleListData": {
+        "initialExpandedItems": "FIRST",
+        "direction": "LTR",
         "containerData": {
           "alignment": "CENTER",
           "textWrap": true
         },
-        "expandOnlyOne": false,
-        "initialExpandedItems": "FIRST",
-        "direction": "LTR"
+        "expandOnlyOne": false
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "106",
+      "key": "107",
       "nodes": [],
       "paragraphData": {
         "textStyle": {
@@ -1939,19 +2036,19 @@
     },
     {
       "type": "TABLE",
-      "key": "107",
+      "key": "108",
       "nodes": [
         {
           "type": "TABLE_ROW",
-          "key": "108",
+          "key": "109",
           "nodes": [
             {
               "type": "TABLE_CELL",
-              "key": "109",
+              "key": "110",
               "nodes": [
                 {
                   "type": "PARAGRAPH",
-                  "key": "110",
+                  "key": "111",
                   "nodes": [
                     {
                       "type": "TEXT",
@@ -1981,11 +2078,11 @@
             },
             {
               "type": "TABLE_CELL",
-              "key": "111",
+              "key": "112",
               "nodes": [
                 {
                   "type": "PARAGRAPH",
-                  "key": "112",
+                  "key": "113",
                   "nodes": [
                     {
                       "type": "TEXT",
@@ -2025,15 +2122,15 @@
         },
         {
           "type": "TABLE_ROW",
-          "key": "113",
+          "key": "114",
           "nodes": [
             {
               "type": "TABLE_CELL",
-              "key": "114",
+              "key": "115",
               "nodes": [
                 {
                   "type": "PARAGRAPH",
-                  "key": "115",
+                  "key": "116",
                   "nodes": [
                     {
                       "type": "TEXT",
@@ -2072,11 +2169,11 @@
             },
             {
               "type": "TABLE_CELL",
-              "key": "116",
+              "key": "117",
               "nodes": [
                 {
                   "type": "PARAGRAPH",
-                  "key": "117",
+                  "key": "118",
                   "nodes": [
                     {
                       "type": "TEXT",
@@ -2130,7 +2227,230 @@
     },
     {
       "type": "PARAGRAPH",
-      "key": "118",
+      "key": "119",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "key": "120",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "POLL",
+      "key": "121",
+      "nodes": [],
+      "pollData": {
+        "containerData": {
+          "width": {
+            "size": "CONTENT"
+          },
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "poll": {
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "image": {
+            "src": {
+              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
+            }
+          },
+          "options": [
+            {
+              "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
+              "title": "Cafe Nordoy",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png"
+                }
+              }
+            },
+            {
+              "id": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
+              "title": "קפה רוטשילד 65",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "41679bf9-89ba-41f2-81d3-832d567531da",
+              "title": "האחים",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "378c6042-55cc-4e4a-9f0c-77824bee4964",
+              "title": "הוטל מונטיפיורי",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg"
+                }
+              }
+            }
+          ],
+          "settings": {
+            "permissions": {
+              "view": "EVERYONE",
+              "vote": "SITE_MEMBERS",
+              "allowMultipleVotes": true
+            },
+            "showVoters": false,
+            "showVotesCount": false
+          }
+        },
+        "layout": {
+          "poll": {
+            "type": "GRID",
+            "direction": "LTR",
+            "enableImage": false
+          },
+          "options": {
+            "enableImage": true
+          }
+        },
+        "design": {
+          "poll": {
+            "background": {
+              "type": "GRADIENT",
+              "gradient": {
+                "angle": 45,
+                "startColor": "#EF4538",
+                "lastColor": "#488FFE"
+              }
+            },
+            "borderRadius": 5
+          },
+          "options": {
+            "borderRadius": 5
+          }
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "key": "122",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "POLL",
+      "key": "123",
+      "nodes": [],
+      "pollData": {
+        "containerData": {
+          "width": {
+            "size": "CONTENT"
+          },
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "poll": {
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "image": {
+            "src": {
+              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
+            }
+          },
+          "options": [
+            {
+              "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
+              "title": "Cafe Nordoy",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png"
+                }
+              }
+            },
+            {
+              "id": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
+              "title": "קפה רוטשילד 65",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "41679bf9-89ba-41f2-81d3-832d567531da",
+              "title": "האחים",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "378c6042-55cc-4e4a-9f0c-77824bee4964",
+              "title": "הוטל מונטיפיורי",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg"
+                }
+              }
+            }
+          ],
+          "settings": {
+            "permissions": {
+              "view": "CREATOR",
+              "vote": "SITE_MEMBERS",
+              "allowMultipleVotes": false
+            },
+            "showVoters": true,
+            "showVotesCount": true
+          }
+        },
+        "layout": {
+          "poll": {
+            "type": "GRID",
+            "direction": "RTL",
+            "enableImage": true
+          },
+          "options": {
+            "enableImage": true
+          }
+        },
+        "design": {
+          "poll": {
+            "background": {
+              "type": "COLOR",
+              "color": "#EF4538"
+            },
+            "borderRadius": 8
+          },
+          "options": {
+            "borderRadius": 2
+          }
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "key": "124",
       "nodes": [],
       "paragraphData": {
         "textStyle": {

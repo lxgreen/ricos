@@ -514,6 +514,21 @@
       "data": {}
     },
     {
+      "key": "9qfd3",
+      "text": " ",
+      "type": "atomic",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [
+        {
+          "offset": 0,
+          "length": 1,
+          "key": 21
+        }
+      ],
+      "data": {}
+    },
+    {
       "key": "f5rqu",
       "text": "Nunc eros ante , porttitor sed tempor nec, sagittis non mi. Nulla non vulputate magna, semper convallis sapien.",
       "type": "blockquote",
@@ -751,7 +766,7 @@
         {
           "offset": 99,
           "length": 7,
-          "key": 21
+          "key": 22
         }
       ],
       "data": {
@@ -782,7 +797,7 @@
         {
           "offset": 0,
           "length": 1,
-          "key": 22
+          "key": 23
         }
       ],
       "data": {}
@@ -833,7 +848,7 @@
         {
           "offset": 0,
           "length": 1,
-          "key": 23
+          "key": 24
         }
       ],
       "data": {}
@@ -857,13 +872,70 @@
         {
           "offset": 0,
           "length": 1,
-          "key": 24
+          "key": 25
         }
       ],
       "data": {}
     },
     {
       "key": "b7hf8",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "1qgmm",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "2c300",
+      "text": " ",
+      "type": "atomic",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [
+        {
+          "offset": 0,
+          "length": 1,
+          "key": 26
+        }
+      ],
+      "data": {}
+    },
+    {
+      "key": "1sus1",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "d007p",
+      "text": " ",
+      "type": "atomic",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [
+        {
+          "offset": 0,
+          "length": 1,
+          "key": 27
+        }
+      ],
+      "data": {}
+    },
+    {
+      "key": "3bca3",
       "text": "",
       "type": "unstyled",
       "depth": 0,
@@ -1270,13 +1342,80 @@
       }
     },
     "21": {
+      "type": "wix-draft-plugin-poll",
+      "mutability": "IMMUTABLE",
+      "data": {
+        "config": {
+          "alignment": "center",
+          "size": "large",
+          "width": "full-width",
+          "textWrap": "wrap"
+        },
+        "poll": {
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "mediaId": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg",
+          "createdBy": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "settings": {
+            "multipleVotes": true,
+            "voteRole": "SITE_MEMBERS",
+            "resultsVisibility": "VOTERS_ONLY",
+            "votersDisplay": true,
+            "votesDisplay": true
+          },
+          "options": [
+            {
+              "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
+              "title": "Cafe Nordoy",
+              "mediaId": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png"
+            },
+            {
+              "id": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
+              "title": "קפה רוטשילד 65",
+              "mediaId": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg"
+            },
+            {
+              "id": "41679bf9-89ba-41f2-81d3-832d567531da",
+              "title": "האחים",
+              "mediaId": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg"
+            },
+            {
+              "id": "378c6042-55cc-4e4a-9f0c-77824bee4964",
+              "title": "הוטל מונטיפיורי",
+              "mediaId": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg"
+            }
+          ]
+        },
+        "layout": {
+          "poll": {
+            "type": "grid",
+            "direction": "ltr",
+            "enableImage": false
+          },
+          "option": {
+            "enableImage": true
+          }
+        },
+        "design": {
+          "poll": {
+            "backgroundType": "image",
+            "background": "https://static.wixstatic.com/media/2dfdd3_b120b7d9cffd4645bb143beadef13c56~mv2.jpg",
+            "borderRadius": "0px"
+          },
+          "option": {
+            "borderRadius": "0px"
+          }
+        }
+      }
+    },
+    "22": {
       "type": "EMOJI_TYPE",
       "mutability": "IMMUTABLE",
       "data": {
         "emojiUnicode": "👨‍👩‍👦‍👦"
       }
     },
-    "22": {
+    "23": {
       "type": "wix-draft-plugin-image",
       "mutability": "IMMUTABLE",
       "data": {
@@ -1300,7 +1439,7 @@
         "disableExpand": false
       }
     },
-    "23": {
+    "24": {
       "type": "wix-rich-content-plugin-collapsible-list",
       "mutability": "IMMUTABLE",
       "data": {
@@ -1388,7 +1527,7 @@
         ]
       }
     },
-    "24": {
+    "25": {
       "type": "wix-rich-content-plugin-table",
       "mutability": "IMMUTABLE",
       "data": {
@@ -1520,6 +1659,144 @@
             120
           ],
           "rowHeader": true
+        }
+      }
+    },
+    "26": {
+      "type": "wix-draft-plugin-poll",
+      "mutability": "IMMUTABLE",
+      "data": {
+        "config": {
+          "alignment": "center",
+          "size": "large",
+          "width": "full-width",
+          "textWrap": "wrap"
+        },
+        "poll": {
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "mediaId": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg",
+          "createdBy": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "settings": {
+            "multipleVotes": true,
+            "voteRole": "SITE_MEMBERS",
+            "resultsVisibility": "ALWAYS",
+            "votersDisplay": false,
+            "votesDisplay": false
+          },
+          "options": [
+            {
+              "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
+              "title": "Cafe Nordoy",
+              "mediaId": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png"
+            },
+            {
+              "id": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
+              "title": "קפה רוטשילד 65",
+              "mediaId": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg"
+            },
+            {
+              "id": "41679bf9-89ba-41f2-81d3-832d567531da",
+              "title": "האחים",
+              "mediaId": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg"
+            },
+            {
+              "id": "378c6042-55cc-4e4a-9f0c-77824bee4964",
+              "title": "הוטל מונטיפיורי",
+              "mediaId": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg"
+            }
+          ]
+        },
+        "layout": {
+          "poll": {
+            "type": "grid",
+            "direction": "ltr",
+            "enableImage": false
+          },
+          "option": {
+            "enableImage": true
+          }
+        },
+        "design": {
+          "poll": {
+            "backgroundType": "gradient",
+            "background": {
+              "angle": 45,
+              "start": "#EF4538",
+              "end": "#488FFE"
+            },
+            "borderRadius": "5px"
+          },
+          "option": {
+            "borderRadius": "5px"
+          }
+        }
+      }
+    },
+    "27": {
+      "type": "wix-draft-plugin-poll",
+      "mutability": "IMMUTABLE",
+      "data": {
+        "config": {
+          "alignment": "center",
+          "size": "large",
+          "width": "full-width",
+          "textWrap": "wrap"
+        },
+        "poll": {
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "mediaId": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg",
+          "createdBy": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "settings": {
+            "multipleVotes": false,
+            "voteRole": "SITE_MEMBERS",
+            "resultsVisibility": "ONLY_ME",
+            "votersDisplay": true,
+            "votesDisplay": true
+          },
+          "options": [
+            {
+              "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
+              "title": "Cafe Nordoy",
+              "mediaId": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png"
+            },
+            {
+              "id": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
+              "title": "קפה רוטשילד 65",
+              "mediaId": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg"
+            },
+            {
+              "id": "41679bf9-89ba-41f2-81d3-832d567531da",
+              "title": "האחים",
+              "mediaId": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg"
+            },
+            {
+              "id": "378c6042-55cc-4e4a-9f0c-77824bee4964",
+              "title": "הוטל מונטיפיורי",
+              "mediaId": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg"
+            }
+          ]
+        },
+        "layout": {
+          "poll": {
+            "type": "grid",
+            "direction": "rtl",
+            "enableImage": true
+          },
+          "option": {
+            "enableImage": true
+          }
+        },
+        "design": {
+          "poll": {
+            "backgroundType": "color",
+            "background": "#EF4538",
+            "borderRadius": "8px"
+          },
+          "option": {
+            "borderRadius": "2px"
+          }
         }
       }
     }

@@ -29,7 +29,7 @@ import "wix/rich_content/v1/plugin_html.proto";
 import "wix/rich_content/v1/plugin_image.proto";
 import "wix/rich_content/v1/plugin_link_preview.proto";
 import "wix/rich_content/v1/plugin_map.proto";
-// import "wix/rich_content/v1/plugin_poll.proto";
+import "wix/rich_content/v1/plugin_poll.proto";
 import "wix/rich_content/v1/plugin_app_embed.proto";
 import "wix/rich_content/v1/plugin_video.proto";
 import "wix/rich_content/v1/plugin_collapsible_list.proto";
@@ -62,7 +62,7 @@ message Node {
         IMAGE = 14;
         LINK_PREVIEW = 15;
         MAP = 16;
-        // POLL = 17; // Will be added when schema is final
+        POLL = 17;
         APP_EMBED = 18;
         BUTTON = 19;
         COLLAPSIBLE_LIST = 20;
@@ -92,7 +92,7 @@ message Node {
         LinkPreviewData link_preview_data = 14;
         MapData map_data = 15;
         ParagraphData paragraph_data = 16;
-        // PollData poll_data = 17;
+        PollData poll_data = 17;
         TextData text_data = 18;
         AppEmbedData app_embed_data = 19;
         VideoData video_data = 20;

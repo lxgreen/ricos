@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+
+- `social-polls`
+  - [#2899](https://github.com/wix/ricos/pull/2899) polls schema
+
 </details>
 <hr/>
 
@@ -27,7 +32,6 @@
 - `plugin-video`
   - [#2985](https://github.com/wix/ricos/pull/2985) video modal new design
 - `social-embed`
-
   - [#2986](https://github.com/wix/ricos/pull/2986) social-embed modal new design
 
 ### :bug: Bug Fix
@@ -179,7 +183,9 @@
   - [#2759](https://github.com/wix/ricos/pull/2759) button schema
   - [#2928](https://github.com/wix/ricos/pull/2928) disable polls from schema & content api until schema is final
 - `html plugin`
+
   - [#2934](https://github.com/wix/ricos/pull/2934) `forceIframeSandboxDomain` experiment (for debugging)
+
 - `a11y`
   - [#2935](https://github.com/wix/ricos/pull/2935) add presentation role to empty lines to skip reading by screen readers
 

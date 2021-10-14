@@ -198,6 +198,7 @@ export class SettingsModal extends Component {
                   store={pubsub.store}
                   componentData={componentData}
                   t={t}
+                  settings={settings}
                 />
               </Tab>
             </Tabs>
