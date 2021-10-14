@@ -17,13 +17,19 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.56.0 (Oct 14, 2021)
+
 ### :nail_care: Polish
 
 - `plugin-video`
   - [#2985](https://github.com/wix/ricos/pull/2985) video modal new design
 - `social-embed`
+
   - [#2986](https://github.com/wix/ricos/pull/2986) social-embed modal new design
-  
+
 ### :bug: Bug Fix
 
 - `toolbars-new`
@@ -33,14 +39,15 @@
 
 - `toolbars-new`
   - [#2921](https://github.com/wix/ricos/pull/2921) custom font size dropdown and `toolbarInputButton`
+- `ricos-content`
+  - [#2994](https://github.com/wix/ricos/pull/2994) velo adapter: modify functionality with callback support
 
-  ### :house: Internal
-  
-  - `toolbars-new` 
-    - [#2968](https://github.com/wix/ricos/pull/2968) refactor line-spacing (set to default when there is no line-spacing) 
+### :house: Internal
 
-</details>
-<hr/>
+- `toolbars-new`
+  - [#2968](https://github.com/wix/ricos/pull/2968) refactor line-spacing (set to default when there is no line-spacing)
+- `ricos-content`
+  - [#2992](https://github.com/wix/ricos/pull/2992) velo adapter: refactoring + folder lib rename
 
 ## 8.55.3 (Oct 11, 2021)
 
