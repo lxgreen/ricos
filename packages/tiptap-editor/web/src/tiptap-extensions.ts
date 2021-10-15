@@ -16,6 +16,7 @@ import ListItem from '@tiptap/extension-list-item';
 import Paragraph from './extensions/extension-paragraph';
 import { createLink } from './extensions/extension-link';
 import { createBold } from './extensions/extension-bold';
+import { createColor } from './extensions/extension-color';
 import { createBulletedList } from './extensions/extension-bulleted-list';
 import { HeadingData } from 'ricos-schema';
 import { Attributes, Extensions, MarkConfig, NodeConfig } from '@tiptap/react';
@@ -51,4 +52,5 @@ export const tiptapExtensions: Extensions = [
   ...createLink(),
   createBulletedList().extend(withID),
   createBold(),
+  createColor(),
 ];

@@ -19,6 +19,7 @@ import {
   RICOS_GIPHY_TYPE,
   VIDEO_TYPE,
   RICOS_VIDEO_TYPE,
+  RICOS_TEXT_COLOR_TYPE,
 } from 'wix-rich-content-common';
 import { toTiptap } from '../../converters';
 import { Editor } from '@tiptap/core';
@@ -51,11 +52,17 @@ export class RichContentAdapter implements TiptapAPI {
   constructor(
     private editor: Editor,
     private t: TranslationFunction,
-    private plugins: EditorPlugin[]
+    private plugins: EditorPlugin[],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    private decorationCommandMap: Record<string, any>
   ) {
     this.editor = editor;
     this.t = t;
     this.plugins = plugins;
+    this.decorationCommandMap = {
+      [RICOS_LINK_TYPE]: data => this.editor.commands.setLink({ link: data }),
+      [RICOS_TEXT_COLOR_TYPE]: data => this.editor.commands.setColor(data.color),
+    };
   }
 
   focus() {
@@ -115,10 +122,10 @@ export class RichContentAdapter implements TiptapAPI {
       }),
 
       insertDecoration: (type, data) => {
-        if (type !== RICOS_LINK_TYPE) {
-          console.error(`${type} decoration not supported`);
+        if (this.decorationCommandMap[type]) {
+          this.decorationCommandMap[type](data);
         } else {
-          this.editor.commands.setLink({ link: data });
+          console.error(`${type} decoration not supported`);
         }
       },
       hasLinkInSelection: () => {
