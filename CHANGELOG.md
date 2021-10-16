@@ -20,6 +20,13 @@
 </details>
 <hr/>
 
+## 8.56.2 (Oct 16, 2021)
+
+### :house: Internal
+
+- `ricos-content`
+  - [#3000](https://github.com/wix/ricos/pull/3000) velo adapter: fix `parseImageElement` scoped variable
+
 ## 8.56.1 (Oct 14, 2021)
 
 ### :nail_care: Polish
