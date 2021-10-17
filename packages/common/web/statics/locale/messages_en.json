@@ -256,6 +256,8 @@
 	"FormattingToolbar_TextStyle_Heading_Update": "Update '{{optionName}}'",
 	"FormattingToolbar_TextStyle_Heading_Reset": "Reset to default",
 	"FormattingToolbar_TextStyle_Paragraph": "Paragraph",
+	"FormattingToolbar_CustomFontSizeButton_Tooltip": "Font Size",
+	"FormattingToolbar_TextStyle_Update_Heading_Tooltip": "Updates to this heading apply only for this post",
 	"BoldButton_Tooltip": "Bold{{shortcut}}",
 	"ItalicButton_Tooltip": "Italic{{shortcut}}",
 	"UnderlineButton_Tooltip": "Underline{{shortcut}}",
