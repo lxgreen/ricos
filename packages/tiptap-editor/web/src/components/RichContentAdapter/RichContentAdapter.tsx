@@ -65,7 +65,9 @@ export class RichContentAdapter implements TiptapAPI {
     private t: TranslationFunction,
     private plugins: EditorPlugin[],
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    private decorationCommandMap: Record<string, any>
+    private decorationCommandMap: Record<string, any>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    private blockTypeCommandMap: Record<string, any>
   ) {
     this.editor = editor;
     this.t = t;
@@ -74,6 +76,11 @@ export class RichContentAdapter implements TiptapAPI {
       [RICOS_LINK_TYPE]: data => this.editor.commands.setLink({ link: data }),
       [RICOS_TEXT_COLOR_TYPE]: data => this.editor.commands.setColor(data.color),
       [RICOS_TEXT_HIGHLIGHT_TYPE]: data => this.editor.commands.setHighlight(data.color),
+    };
+    this.blockTypeCommandMap = {
+      [UNSTYLED]: () => this.editor.commands.setParagraph(),
+      headings: level => this.editor.commands.toggleHeading({ level }),
+      blockquote: () => this.editor.commands.toggleBlockquote(),
     };
   }
 
@@ -179,10 +186,10 @@ export class RichContentAdapter implements TiptapAPI {
         return link;
       },
       setBlockType: type => {
-        if (type === UNSTYLED) {
-          this.editor.commands.setParagraph();
-        } else if (Object.values(HEADER_BLOCK).includes(type)) {
-          this.editor.commands.toggleHeading({ level: headingTypeToLevelMap[type] });
+        if (Object.values(HEADER_BLOCK).includes(type)) {
+          this.blockTypeCommandMap.headings(headingTypeToLevelMap[type]);
+        } else if (this.blockTypeCommandMap[type]) {
+          this.blockTypeCommandMap[type]();
         }
       },
     };
