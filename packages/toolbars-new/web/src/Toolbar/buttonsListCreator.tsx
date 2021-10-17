@@ -134,7 +134,6 @@ const handleButtonOnDelete = (buttonsList, index, editorCommands: editorCommands
     if (buttonName === 'LINK' || buttonName === 'editLink') {
       buttonsList[index].onDelete = () => {
         editorCommands.deleteDecoration(decorationButtons[buttonName] as typeof RICOS_LINK_TYPE);
-        setTimeout(() => editorCommands.loadSelectionState());
       };
     }
   }
@@ -146,7 +145,6 @@ const handleButtonOnDone = (buttonsList, index, editorCommands: editorCommands) 
     if (buttonName === 'LINK' || buttonName === 'editLink') {
       buttonsList[index].onDone = data => {
         editorCommands.insertDecoration(decorationButtons[buttonName], data);
-        setTimeout(() => editorCommands.loadSelectionState());
       };
     }
   }
@@ -231,9 +229,6 @@ const handleButtonOnSave = (buttonsList, index, editorCommands: editorCommands) 
         if (['LINE_SPACING', 'FONT_SIZE'].includes(buttonName)) {
           if (value) {
             updateDynamicStyles(value, editorCommands, buttonName);
-            setTimeout(() => editorCommands.loadSelectionState());
-          } else {
-            editorCommands.loadEditorState();
           }
         }
       };

@@ -6,7 +6,7 @@ import DesktopPanel from '../panels/DesktopPanel';
 import classNames from 'classnames';
 import { alignmentsModalData as alignments } from '../../Toolbar/buttonsListCreatorConsts';
 
-const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, onCancel, ...props }) => {
+const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, ...props }) => {
   const panelHeader = t('Alignment');
   const hasIcons = true;
   const onChange = (alignment, clickFromKeyboard) => {
@@ -22,17 +22,22 @@ const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, onCancel, .
         options: alignments,
         onChange,
         hasIcons,
-        onCancel,
         t,
       }}
     />
   ) : (
     <DesktopPanel
-      {...{ currentSelect, options: alignments, onChange, theme, sizeFitContent: true, t }}
+      {...{
+        currentSelect,
+        options: alignments,
+        onChange,
+        theme,
+        sizeFitContent: true,
+        t,
+      }}
     />
   );
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       className={classNames(styles.panel_Container, {
         [styles.mobile_Container]: isMobile,

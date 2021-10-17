@@ -34,7 +34,7 @@ class LineSpacingPanel extends Component {
   onCancel = e => this.props.onCancel({ clickFromKeyboard: !e.detail });
 
   render() {
-    const { t, isMobile, currentSelect, theme } = this.props;
+    const { t, isMobile, theme } = this.props;
     const { isCustomPanel, spacing } = this.state;
     const { styles, showCustomPanel, onChange, onSave, onCancel } = this;
     const onSaveLineHeight = (height, clickFromKeyboard) =>
@@ -49,7 +49,6 @@ class LineSpacingPanel extends Component {
           panelHeader,
           options: lineHeights,
           onChange: onChangeLineHeight,
-          onCancel,
           t,
         }}
       />

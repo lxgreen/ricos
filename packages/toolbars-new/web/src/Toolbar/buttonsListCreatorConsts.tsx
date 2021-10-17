@@ -374,6 +374,7 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     onCancel: 'LINE_SPACING',
     onChange: 'LINE_SPACING',
     saveSelection: true,
+    loadSelection: true,
   },
   LINK: {
     plugin: 'LINK',

@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `[toolbars-new]`
+  - [#2991](https://github.com/wix/ricos/pull/2991) close modals on escape
 </details>
 <hr/>
 

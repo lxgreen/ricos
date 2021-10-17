@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import styles from '../panels/styles.scss';
-import MobilePanel from '../panels/MobilePanel';
 import DesktopPanel from '../panels/DesktopPanel';
 import classNames from 'classnames';
 import { mergeStyles, GlobalContext } from 'wix-rich-content-common';
@@ -53,19 +52,10 @@ class FontSizePanel extends Component {
     return options;
   };
 
-  onBlur = e => {
-    const { target, relatedTarget, currentTarget } = e;
-    if (!currentTarget.contains(relatedTarget)) {
-      setTimeout(() => target.focus());
-    }
-  };
-
   render() {
-    const { t, currentSelect, onCancel } = this.props;
-    const panelHeader = t?.('FontSize_Panel');
+    const { t, currentSelect } = this.props;
     return (
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-      <div onBlur={this.onBlur} className={classNames(styles.panel_Container)}>
+      <div className={classNames(styles.panel_Container)}>
         <DesktopPanel
           {...{
             currentSelect,

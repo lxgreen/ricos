@@ -73,7 +73,6 @@ const DesktopPanel = ({
 
   const dropDownPanel = (
     <div
-      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
       tabIndex={-1}
       ref={panelRef}
       className={classNames(styles.desktopPanel, {
