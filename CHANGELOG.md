@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.56.3 (Oct 17, 2021)
+
 ### :nail_care: Polish
 
 - `social-polls`
   - [#2899](https://github.com/wix/ricos/pull/2899) fix missing import wix validations for polls schema
-
-</details>
-<hr/>
 
 ## 8.56.2 (Oct 16, 2021)
 
