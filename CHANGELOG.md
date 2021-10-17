@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+
+- `ui-components`
+  - [#2999](https://github.com/wix/ricos/pull/2999) fix action buttons keyboard navigation order
+
 </details>
 <hr/>
 
