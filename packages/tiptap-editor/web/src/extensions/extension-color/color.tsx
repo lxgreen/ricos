@@ -16,6 +16,14 @@ declare module '@tiptap/core' {
        * Unset a color mark
        */
       unsetColor: () => ReturnType;
+      /**
+       * Set a color mark
+       */
+      setHighlight: (color: string) => ReturnType;
+      /**
+       * Unset a color mark
+       */
+      unsetHighlight: () => ReturnType;
     };
   }
 }
@@ -35,13 +43,22 @@ export const Color = Mark.create<ColorOptions>({
     return [
       {
         tag: 'span',
-        getAttrs: element => ((element as HTMLElement).style?.color ? {} : false),
+        getAttrs: element => {
+          const { color, backgroundColor } = (element as HTMLElement).style || {};
+          return color || backgroundColor ? {} : false;
+        },
       },
     ];
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ['span', { style: `color: ${HTMLAttributes.foreground}` }, 0];
+    return [
+      'span',
+      {
+        style: `color: ${HTMLAttributes.foreground}; background-color: ${HTMLAttributes.background}`,
+      },
+      0,
+    ];
   },
 
   addCommands() {
@@ -51,6 +68,9 @@ export const Color = Mark.create<ColorOptions>({
       },
       unsetColor: () => ({ commands }) => {
         return commands.unsetMark('color');
+      },
+      setHighlight: color => ({ commands }) => {
+        return commands.setMark('color', { background: color });
       },
     };
   },

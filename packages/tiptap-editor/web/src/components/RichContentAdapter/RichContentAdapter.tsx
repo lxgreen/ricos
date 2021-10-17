@@ -20,6 +20,7 @@ import {
   VIDEO_TYPE,
   RICOS_VIDEO_TYPE,
   RICOS_TEXT_COLOR_TYPE,
+  RICOS_TEXT_HIGHLIGHT_TYPE,
 } from 'wix-rich-content-common';
 import { toTiptap } from '../../converters';
 import { Editor } from '@tiptap/core';
@@ -62,6 +63,7 @@ export class RichContentAdapter implements TiptapAPI {
     this.decorationCommandMap = {
       [RICOS_LINK_TYPE]: data => this.editor.commands.setLink({ link: data }),
       [RICOS_TEXT_COLOR_TYPE]: data => this.editor.commands.setColor(data.color),
+      [RICOS_TEXT_HIGHLIGHT_TYPE]: data => this.editor.commands.setHighlight(data.color),
     };
   }
 
