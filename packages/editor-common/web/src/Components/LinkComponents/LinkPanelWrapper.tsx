@@ -16,6 +16,7 @@ interface LinkPanelWrapperProps {
   linkValues: { url?: string; rel?: string; target: string };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (changes: any) => void;
+  t: (key: string) => string;
 }
 
 class LinkPanelWrapper extends Component<LinkPanelWrapperProps> {

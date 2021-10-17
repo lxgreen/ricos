@@ -1,28 +1,30 @@
 import React from 'react';
 import LinkPanelWrapper from './LinkPanelWrapper';
 import { render } from '@testing-library/react';
-import i18next from 'i18next';
-
-// jest.mock('react-i18next', () => ({
-//   // this mock makes sure any components using the translate HoC receive the t function as a prop
-//   withTranslation: () => Component => {
-//     Component.defaultProps = { ...Component.defaultProps, t: () => '' };
-//     return Component;
-//   },
-// }));
 
 describe('LinkPanelWrapper', () => {
   it('should render LinkWrapper', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let args: any = {};
+
+    const onChangeMock = params => (args = params);
+    const fn = jest.fn(onChangeMock);
     const { container } = render(
       <LinkPanelWrapper
-        t={key => key} // @ts-ignore : handling of t internally should be used with jest.mock
+        t={key => key}
         anchorTarget={'anchorTarget'}
-        relValue={'relValue'}
+        relValue={'nofollow ugc'}
         linkValues={{ target: 'target' }}
-        onChange={() => {}}
+        onChange={fn}
       />
     );
-    // expect(container.querySelectorAll('[class*="paywallSeo"]').length).toBe(0);
-    expect(true).toBe(true);
+    const FOLLOW_DATA_HOOK = 'linkPanelRelCheckbox';
+    const checkbox: HTMLInputElement | null = container.querySelector(
+      `input[data-hook="${FOLLOW_DATA_HOOK}"]`
+    );
+
+    expect(checkbox?.checked).toBe(true);
+
+    expect(args.rel).toEqual('nofollow ugc');
   });
 });
