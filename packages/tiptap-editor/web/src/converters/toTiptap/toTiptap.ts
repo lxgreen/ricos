@@ -8,11 +8,10 @@ import {
 } from '../utils';
 import { transform, isObject, pickBy } from 'lodash';
 import { Node, Decoration, RichContent } from 'ricos-schema';
-import { TO_RICOS_DATA_FIELD } from 'ricos-content/libs/draftConsts';
+import { TO_RICOS_DATA_FIELD, DECORATION_TO_DATA_FIELD } from 'ricos-content/libs/draftConsts';
 import { fromEntries } from 'ricos-content/libs/utils';
 import { JSONContent } from '@tiptap/core';
 import toCamelCase from 'to-camel-case';
-import { DECORATION_TO_DATA_FIELD } from 'ricos-content';
 
 declare const a: RichContent;
 
@@ -33,10 +32,7 @@ export const toTiptap = <T extends RichContent | Node | Record<string, any>>(
 const PROSE_DATA_FIELDS_MAP = fromEntries(
   Object.values(TO_RICOS_DATA_FIELD)
     .concat('textData')
-    .map(
-      value =>
-        !Object.values(DECORATION_TO_DATA_FIELD).includes(value as string) && [value, 'attrs']
-    )
+    .map(value => [value, 'attrs'])
 );
 const FIELDS_MAP = {
   nodes: 'content',
