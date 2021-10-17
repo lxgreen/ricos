@@ -82,6 +82,7 @@ export { isiOS } from './Utils/isiOS';
 export { mergeToolbarSettings } from './Utils/mergeToolbarSettings';
 export {
   COMMANDS,
+  DraftCommand,
   TEXT_TYPES,
   MODIFIERS,
   TOOLBARS,

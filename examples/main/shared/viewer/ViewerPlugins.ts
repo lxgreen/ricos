@@ -76,6 +76,7 @@ import {
 } from '../../src/text-color-style-fn';
 
 import { pollTypeMapper, pluginPoll, POLL_TYPE } from 'wix-rich-content-plugin-social-polls/viewer';
+import { SocialPollsServiceMock } from '../../src/Components/SocialPollsServiceMock/SocialPollsServiceMock';
 
 import 'wix-rich-content-editor-common/dist/styles.min.css';
 import 'wix-rich-content-common/dist/styles.min.css';
@@ -150,8 +151,7 @@ export const uiSettings: UISettings = {
 
 const config: RichContentViewerProps['config'] = {
   [POLL_TYPE]: {
-    siteToken: process.env.POLLS_API_KEY,
-    isWebView: false,
+    pollServiceApi: new SocialPollsServiceMock(),
   },
   [GALLERY_TYPE]: {},
   [SPOILER_TYPE]: { initSpoilersContentState, SpoilerViewerWrapper },

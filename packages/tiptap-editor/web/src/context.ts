@@ -1,5 +1,5 @@
 import React from 'react';
-import { RicosTiptapContextValue } from 'wix-rich-content-common';
+import { RicosTiptapContextValue } from './models/extension-types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const EditorPropsContext = React.createContext<Record<string, any> | null>(null);

@@ -42,7 +42,7 @@ export const elementOverflowWithEditor = (
     const overflowBottom = elementHeight + (elementOffsetTop - rootEditorOffsetTop) - editorHeight;
     return {
       overflowRight: overflowRight > 0 ? overflowRight : 0,
-      overflowBottom: overflowBottom > 0 ? overflowBottom : 0,
+      overflowBottom: overflowBottom > 0 && elementHeight < editorHeight ? overflowBottom : 0,
     };
   } else {
     return {

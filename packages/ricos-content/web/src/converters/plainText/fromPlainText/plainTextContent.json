@@ -1219,6 +1219,46 @@
           "textAlignment": "AUTO"
         }
       }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "79",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "80",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "81",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "82",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
     }
   ],
   "metadata": {

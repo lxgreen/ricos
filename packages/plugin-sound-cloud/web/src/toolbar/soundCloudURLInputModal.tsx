@@ -9,11 +9,12 @@ import {
   TranslationFunction,
   TextDirection,
 } from 'wix-rich-content-common';
+import { Required } from 'utility-types';
 
 interface Props {
   onConfirm?: OnConfirmFunction;
   pubsub: Pubsub;
-  helpers: Helpers;
+  helpers: Required<Helpers, 'closeModal'>;
   componentData: ComponentData;
   t: TranslationFunction;
   isMobile?: boolean;
@@ -64,7 +65,6 @@ export default class SoundCloudURLInputModal extends Component<Props, State> {
     return (
       <UrlInputModal
         onConfirm={this.onConfirm}
-        helpers={helpers}
         input={url}
         t={t}
         languageDir={languageDir}

@@ -4,7 +4,7 @@ import {
   pluginVerticalEmbed,
   verticalEmbedProviders,
 } from 'wix-rich-content-plugin-vertical-embed';
-import { MockVerticalSearchModule } from '../../../../main/shared/utils/verticalEmbedUtil';
+import { MockVerticalSearchModule } from '../../../src/shared/utils/verticalEmbedUtil';
 
 const { event, booking, product } = verticalEmbedProviders;
 

@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { LINK_VIEWER_DATA_HOOK } from 'wix-rich-content-common';
+
 export default function addLinkPreviewPopoverListener(container, callback) {
   const onLinkHover = (linkNode: any) => {
     const url = linkNode.href;
@@ -10,13 +12,8 @@ export default function addLinkPreviewPopoverListener(container, callback) {
   const onStopLinkHover = () => callback(undefined);
 
   const handleMouseOver = event => {
-    switch (event.target.tagName) {
-      case 'A':
-      case 'U':
-        return onLinkHover(event.target.closest('a'));
-      default:
-        return onStopLinkHover();
-    }
+    const isLink = event.target?.parentNode?.dataset?.hook === LINK_VIEWER_DATA_HOOK;
+    return isLink ? onLinkHover(event.target.closest('a')) : onStopLinkHover();
   };
 
   container.addEventListener('mouseover', handleMouseOver);

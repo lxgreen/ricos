@@ -65,7 +65,7 @@ describe('Content extract API', () => {
       ],
       decorations: [
         'BOLD',
-        'FONTSIZE',
+        'FONT_SIZE',
         'UNDERLINE',
         'ITALIC',
         'LINK',

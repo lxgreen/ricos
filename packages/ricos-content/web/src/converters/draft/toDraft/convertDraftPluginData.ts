@@ -117,8 +117,11 @@ const convertContainerData = (
     },
     { textWrap: textWrap ? WRAP : NO_WRAP }
   );
-  if (nodeType === Node_Type.IMAGE && width?.custom) {
+  if ((nodeType === Node_Type.IMAGE || nodeType === Node_Type.BUTTON) && width?.custom) {
     data.config.size = 'inline';
+  } else if (nodeType === Node_Type.BUTTON) {
+    data.config.size = 'small';
+    data.config.width = 'fit-content';
   } else if (nodeType === Node_Type.MAP && width?.custom) {
     data.config.size = 'content';
   }
@@ -291,15 +294,60 @@ const convertPollData = data => {
   has(data, 'layout.poll.type') && (data.layout.poll.type = data.layout.poll.type.toLowerCase());
   has(data, 'layout.poll.direction') &&
     (data.layout.poll.direction = data.layout.poll.direction.toLowerCase());
-  has(data, 'design.poll.backgroundType') &&
-    (data.design.poll.backgroundType = data.design.poll.backgroundType.toLowerCase());
+  if (has(data, 'layout.options')) {
+    data.layout.option = data.layout.options;
+    delete data.layout.options;
+  }
+  if (has(data, 'design')) {
+    const { poll = {}, options = {} } = data.design;
+    const { background, borderRadius } = poll;
+    const getBackground = background =>
+      background?.gradient
+        ? {
+            angle: background?.gradient?.angle,
+            start: background?.gradient?.startColor,
+            end: background?.gradient?.lastColor,
+          }
+        : background?.color?.charAt?.(0) === '#'
+        ? background?.color
+        : background?.image?.src?.url;
+    data.design = {
+      poll: {
+        backgroundType: background?.type?.toLowerCase(),
+        background: getBackground(background),
+        borderRadius: `${borderRadius}px`,
+      },
+      option: { borderRadius: `${options.borderRadius}px` },
+    };
+  }
   has(data, 'poll.pollId') && (data.poll.id = data.poll.pollId);
   delete data.poll.pollId;
+  has(data, 'poll.creatorId') && (data.poll.createdBy = data.poll.creatorId);
+  delete data.poll.creatorId;
+  has(data, 'poll.image.src.url') && (data.poll.mediaId = data.poll.image.src.url);
+  delete data.poll.image;
   has(data, 'poll.options') &&
-    (data.poll.options = data.poll.options.map(({ optionId, ...rest }) => ({
-      id: optionId,
+    (data.poll.options = data.poll.options.map(({ image, ...rest }) => ({
+      mediaId: image?.src?.url,
       ...rest,
     })));
+  if (has(data, 'poll.settings')) {
+    const { showVotesCount, showVoters, permissions } = data.poll.settings;
+    const { view, vote, allowMultipleVotes } = permissions || {};
+
+    const getResultsVisibility = view =>
+      view === 'EVERYONE' ? 'ALWAYS' : view === 'VOTERS' ? 'VOTERS_ONLY' : 'ONLY_ME';
+
+    data.poll.settings = {
+      resultsVisibility: getResultsVisibility(view),
+      multipleVotes: allowMultipleVotes,
+      voteRole: vote,
+      votersDisplay: showVoters,
+      votesDisplay: showVotesCount,
+    };
+  }
+  data.config.size = 'large';
+  data.config.width = 'full-width';
 };
 
 const convertAppEmbedData = data => {
@@ -398,7 +446,8 @@ const convertCollapsibleListData = (
 
 const convertButtonData = (data: Partial<ButtonData> & { button }) => {
   const { link, text, styles } = data;
-  const { borderRadius, borderWidth, backgroundColor, textColor, borderColor } = styles || {};
+  const { colors, border } = styles || {};
+  const { width, radius } = border || {};
   const convertedLink = link ? parseLink(link) : {};
   data.button = {
     settings: {
@@ -406,11 +455,11 @@ const convertButtonData = (data: Partial<ButtonData> & { button }) => {
       ...convertedLink,
     },
     design: {
-      borderRadius,
-      borderWidth,
-      background: backgroundColor,
-      color: textColor,
-      borderColor,
+      borderRadius: radius,
+      borderWidth: width,
+      background: colors?.background,
+      color: colors?.text,
+      borderColor: colors?.border,
     },
   };
   delete data.link;

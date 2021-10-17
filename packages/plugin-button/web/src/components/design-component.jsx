@@ -21,9 +21,7 @@ class DesignComponent extends PureComponent {
     this.state = {
       design: {
         borderWidth: designObj.borderWidth,
-        padding: designObj.padding,
         borderRadius: designObj.borderRadius,
-        activeButton: designObj.activeButton,
         color: designObj?.color || colors?.color1 || bgColor,
         borderColor: designObj?.borderColor || colors?.color8 || actionColor,
         background: designObj?.background || colors?.color8 || actionColor,
@@ -84,7 +82,7 @@ class DesignComponent extends PureComponent {
     this.props.onDesignChange(this.state.design);
   };
 
-  onBackgroundColorAdded = color => {
+  onBackgroundColorAdded = ({ color }) => {
     const {
       settings: { getBackgroundColors, onBackgroundColorAdded },
     } = this.props;
@@ -96,7 +94,7 @@ class DesignComponent extends PureComponent {
     this.setState({ customBackgroundColors });
   };
 
-  onBorderColorAdded = color => {
+  onBorderColorAdded = ({ color }) => {
     const {
       settings: { getBorderColors, onBorderColorAdded },
     } = this.props;
@@ -108,7 +106,7 @@ class DesignComponent extends PureComponent {
     this.setState({ customBorderColors });
   };
 
-  onTextColorAdded = color => {
+  onTextColorAdded = ({ color }) => {
     const {
       settings: { getTextColors, onTextColorAdded },
     } = this.props;
@@ -121,7 +119,7 @@ class DesignComponent extends PureComponent {
   };
 
   onBorderWidthChange = value => {
-    const design = { ...this.state.design, borderWidth: value, padding: 12 - value / 2 };
+    const design = { ...this.state.design, borderWidth: value };
     this.setState({ design });
   };
 
@@ -130,17 +128,17 @@ class DesignComponent extends PureComponent {
     this.setState({ design });
   };
 
-  onTextColorChange = color => {
+  onTextColorChange = ({ color }) => {
     const design = { ...this.state.design, color };
     this.setState({ design });
   };
 
-  onBorderColorChange = color => {
+  onBorderColorChange = ({ color }) => {
     const design = { ...this.state.design, borderColor: color };
     this.setState({ design });
   };
 
-  onBackgroundColorChange = color => {
+  onBackgroundColorChange = ({ color }) => {
     const design = { ...this.state.design, background: color };
     this.setState({ design });
   };

@@ -13,8 +13,11 @@
               "type": "bold"
             },
             {
-              "type": "fontsize",
-              "fontSize": "20px"
+              "type": "fontSize",
+              "fontSizeData": {
+                "unit": "PX",
+                "value": 20
+              }
             }
           ],
           "attrs": {
@@ -619,18 +622,22 @@
       "attrs": {
         "containerData": {
           "width": {
-            "size": "SMALL"
+            "custom": "212"
           },
           "alignment": "CENTER",
           "textWrap": true
         },
         "type": "link",
         "styles": {
-          "borderWidth": 7,
-          "borderRadius": 5,
-          "textColor": "#0261FF",
-          "borderColor": "#0261FF",
-          "backgroundColor": "#FEFDFD"
+          "border": {
+            "width": 7,
+            "radius": 5
+          },
+          "colors": {
+            "text": "#0261FF",
+            "border": "#0261FF",
+            "background": "#FEFDFD"
+          }
         },
         "text": "Link Button",
         "link": {
@@ -660,18 +667,22 @@
       "attrs": {
         "containerData": {
           "width": {
-            "size": "SMALL"
+            "size": "ORIGINAL"
           },
-          "alignment": "CENTER",
+          "alignment": "LEFT",
           "textWrap": true
         },
         "type": "ACTION",
         "styles": {
-          "borderWidth": 0,
-          "borderRadius": 15,
-          "textColor": "#FEFDFD",
-          "borderColor": "#0261FF",
-          "backgroundColor": "#81B0FF"
+          "border": {
+            "width": 0,
+            "radius": 15
+          },
+          "colors": {
+            "text": "#FEFDFD",
+            "border": "#0261FF",
+            "background": "#81B0FF"
+          }
         },
         "text": "Action Button",
         "id": "16"
@@ -968,82 +979,68 @@
       "type": "poll",
       "content": [],
       "attrs": {
-        "config": {
-          "enableVoteRole": false
+        "containerData": {
+          "width": {
+            "size": "CONTENT"
+          },
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "poll": {
-          "anonymousCount": 0,
-          "count": 13,
-          "createdBy": "3efa7e86-fc25-4ef1-a002-19769b84202f",
-          "creatorFlag": true,
-          "pollId": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
-          "mediaId": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg",
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "image": {
+            "src": {
+              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
+            }
+          },
           "options": [
             {
-              "anonymousCount": 0,
-              "count": 5,
-              "optionId": "067ed3b5-f19d-4886-8f23-acd84a586522",
-              "latestVoters": [
-                "84856a9a-f25f-4d8f-a774-56e0b8927bbe",
-                "15c6f37e-c980-46ba-b450-11415ca5b4fe",
-                "2bff5b99-e56c-421d-b5ec-cd432a5b6961",
-                "3efa7e86-fc25-4ef1-a002-19769b84202f",
-                "28ba5b75-0c82-4239-86e3-131879cb96e7"
-              ],
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png",
-              "rating": 38,
-              "title": "Cafe Nordoy"
+              "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
+              "title": "Cafe Nordoy",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png"
+                }
+              }
             },
             {
-              "anonymousCount": 0,
-              "count": 4,
-              "optionId": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
-              "latestVoters": [
-                "3efa7e86-fc25-4ef1-a002-19769b84202f",
-                "dd0d2b42-ba5f-47e9-8a53-26c61c08f9ec",
-                "3f3fa379-9a5a-4306-8a95-f79915ef479d",
-                "7b3cad1d-bce1-4529-b402-d1e1e74962f1"
-              ],
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg",
-              "rating": 31,
-              "title": "קפה רוטשילד 65"
+              "id": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
+              "title": "קפה רוטשילד 65",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg"
+                }
+              }
             },
             {
-              "anonymousCount": 0,
-              "count": 3,
-              "optionId": "41679bf9-89ba-41f2-81d3-832d567531da",
-              "latestVoters": [
-                "15c6f37e-c980-46ba-b450-11415ca5b4fe",
-                "13633644-d00c-4456-a189-1575ea044f10",
-                "7b3cad1d-bce1-4529-b402-d1e1e74962f1"
-              ],
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg",
-              "rating": 23,
-              "title": "האחים"
+              "id": "41679bf9-89ba-41f2-81d3-832d567531da",
+              "title": "האחים",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg"
+                }
+              }
             },
             {
-              "anonymousCount": 0,
-              "count": 1,
-              "optionId": "378c6042-55cc-4e4a-9f0c-77824bee4964",
-              "latestVoters": [
-                "dd0d2b42-ba5f-47e9-8a53-26c61c08f9ec"
-              ],
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg",
-              "rating": 8,
-              "title": "הוטל מונטיפיורי"
+              "id": "378c6042-55cc-4e4a-9f0c-77824bee4964",
+              "title": "הוטל מונטיפיורי",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg"
+                }
+              }
             }
           ],
-          "ownVotes": [
-            "067ed3b5-f19d-4886-8f23-acd84a586522",
-            "ee32a57f-bf6c-425a-a20c-e678bcf4a73b"
-          ],
-          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
           "settings": {
-            "multipleVotes": true,
-            "resultsVisibility": "VOTERS_ONLY",
-            "voteRole": "SITE_MEMBERS",
-            "votersDisplay": true,
-            "votesDisplay": true
+            "permissions": {
+              "view": "VOTERS",
+              "vote": "SITE_MEMBERS",
+              "allowMultipleVotes": true
+            },
+            "showVoters": true,
+            "showVotesCount": true
           }
         },
         "layout": {
@@ -1052,21 +1049,26 @@
             "direction": "LTR",
             "enableImage": false
           },
-          "option": {
+          "options": {
             "enableImage": true
           }
         },
         "design": {
           "poll": {
-            "backgroundType": "IMAGE",
-            "background": "https://static.wixstatic.com/media/2dfdd3_b120b7d9cffd4645bb143beadef13c56~mv2.jpg",
+            "background": {
+              "type": "IMAGE",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/2dfdd3_b120b7d9cffd4645bb143beadef13c56~mv2.jpg"
+                }
+              }
+            },
             "borderRadius": 0
           },
-          "option": {
+          "options": {
             "borderRadius": 0
           }
         },
-        "siteToken": "VBLuQllkHnrmBH_7O0-Xmzek4kW6U1qHy5-p36Rfkys.eyJpbnN0YW5jZUlkIjoiYTE2NDRiZmUtNzFmOC00MDFiLWI3YWEtNTgwYzkxMDBmMDk3IiwiYXBwRGVmSWQiOiIxNDhjMjI4Ny1jNjY5LWQ4NDktZDE1My00NjNjNzQ4NmE2OTQiLCJtZXRhU2l0ZUlkIjoiMzlkNjk1MTYtYWYwNC00ZTQ1LWE2NjAtMzQwNjIwZWQ0NGNkIiwic2lnbkRhdGUiOiIyMDIwLTA3LTMwVDA4OjQyOjQ2LjQ2MVoiLCJ1aWQiOiIzZWZhN2U4Ni1mYzI1LTRlZjEtYTAwMi0xOTc2OWI4NDIwMmYiLCJwZXJtaXNzaW9ucyI6Ik9XTkVSIiwiZGVtb01vZGUiOmZhbHNlLCJhaWQiOiIzYTk1MzMzMS1hZGU4LTQzMDMtOWM5NC04NmIzNmU0ZDAzMzIiLCJiaVRva2VuIjoiOThiMmRlZTgtZGVmYy0wZTVlLTExY2EtNmMwYWIxZWRiNDVhIiwic2l0ZU93bmVySWQiOiIzZWZhN2U4Ni1mYzI1LTRlZjEtYTAwMi0xOTc2OWI4NDIwMmYiLCJleHBpcmF0aW9uRGF0ZSI6IjIwMjAtMDctMzBUMTI6NDI6NDYuNDYxWiIsImhhc1VzZXJSb2xlIjp0cnVlfQ",
         "id": "36"
       }
     },
@@ -2320,6 +2322,218 @@
         },
         "indentation": 0,
         "id": "120"
+      }
+    },
+    {
+      "type": "poll",
+      "content": [],
+      "attrs": {
+        "containerData": {
+          "width": {
+            "size": "CONTENT"
+          },
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "poll": {
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "image": {
+            "src": {
+              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
+            }
+          },
+          "options": [
+            {
+              "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
+              "title": "Cafe Nordoy",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png"
+                }
+              }
+            },
+            {
+              "id": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
+              "title": "קפה רוטשילד 65",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "41679bf9-89ba-41f2-81d3-832d567531da",
+              "title": "האחים",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "378c6042-55cc-4e4a-9f0c-77824bee4964",
+              "title": "הוטל מונטיפיורי",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg"
+                }
+              }
+            }
+          ],
+          "settings": {
+            "permissions": {
+              "view": "EVERYONE",
+              "vote": "SITE_MEMBERS",
+              "allowMultipleVotes": true
+            },
+            "showVoters": false,
+            "showVotesCount": false
+          }
+        },
+        "layout": {
+          "poll": {
+            "type": "GRID",
+            "direction": "LTR",
+            "enableImage": false
+          },
+          "options": {
+            "enableImage": true
+          }
+        },
+        "design": {
+          "poll": {
+            "background": {
+              "type": "GRADIENT",
+              "gradient": {
+                "angle": 45,
+                "startColor": "#EF4538",
+                "lastColor": "#488FFE"
+              }
+            },
+            "borderRadius": 5
+          },
+          "options": {
+            "borderRadius": 5
+          }
+        },
+        "id": "121"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [],
+      "attrs": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0,
+        "id": "122"
+      }
+    },
+    {
+      "type": "poll",
+      "content": [],
+      "attrs": {
+        "containerData": {
+          "width": {
+            "size": "CONTENT"
+          },
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "poll": {
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "image": {
+            "src": {
+              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
+            }
+          },
+          "options": [
+            {
+              "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
+              "title": "Cafe Nordoy",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png"
+                }
+              }
+            },
+            {
+              "id": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
+              "title": "קפה רוטשילד 65",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "41679bf9-89ba-41f2-81d3-832d567531da",
+              "title": "האחים",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "378c6042-55cc-4e4a-9f0c-77824bee4964",
+              "title": "הוטל מונטיפיורי",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg"
+                }
+              }
+            }
+          ],
+          "settings": {
+            "permissions": {
+              "view": "CREATOR",
+              "vote": "SITE_MEMBERS",
+              "allowMultipleVotes": false
+            },
+            "showVoters": true,
+            "showVotesCount": true
+          }
+        },
+        "layout": {
+          "poll": {
+            "type": "GRID",
+            "direction": "RTL",
+            "enableImage": true
+          },
+          "options": {
+            "enableImage": true
+          }
+        },
+        "design": {
+          "poll": {
+            "background": {
+              "type": "color",
+              "color": "#EF4538"
+            },
+            "borderRadius": 8
+          },
+          "options": {
+            "borderRadius": 2
+          }
+        },
+        "id": "123"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [],
+      "attrs": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0,
+        "id": "124"
       }
     }
   ],

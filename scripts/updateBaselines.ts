@@ -21,7 +21,10 @@ const stringifyBaseline = obj => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Object.entries<any>(obj).forEach(([key, val]) => {
       if (val && typeof val === 'object') {
-        if (val.id && key !== 'src') {
+        // Override id for nodes only
+        // val.nodes - ricos schema
+        // key === 'attrs' - tiptap schema
+        if (val.id && (val.nodes || key === 'attrs')) {
           val.id = `${i++}`;
         }
         normalizeKeys(val);

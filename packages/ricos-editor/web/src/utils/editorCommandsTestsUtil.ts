@@ -378,13 +378,13 @@ const poll = {
   type: RICOS_POLL_TYPE,
   nodeType: Node_Type.POLL,
   data1: PollData.fromJSON({
-    config: { enableVoteRole: true },
+    config: {},
     poll: {},
     design: {},
     layout: {},
   }),
   data2: PollData.fromJSON({
-    config: { enableVoteRole: false },
+    config: {},
     poll: {},
     design: {},
     layout: {},

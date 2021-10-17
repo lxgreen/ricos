@@ -470,9 +470,7 @@
           },
           "design": {
             "borderWidth": 0,
-            "padding": 12,
-            "borderRadius": 0,
-            "activeButton": 0
+            "borderRadius": 0
           }
         }
       }

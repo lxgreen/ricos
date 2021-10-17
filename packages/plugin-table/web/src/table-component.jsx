@@ -16,10 +16,13 @@ import classNames from 'classnames';
 import './styles.css';
 import { TABLE_TYPE } from './types';
 import { SOURCE, LOCATION, CATEGORY, ACTION, ACTION_NAME } from './consts';
+import pluginTableSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-table.schema.json';
+import { validate } from 'wix-rich-content-common';
 
 class TableComponent extends React.Component {
   constructor(props) {
     super(props);
+    validate(props.componentData, pluginTableSchema);
     this.rowsRefs = [];
     this.state = {
       isEditingActive: false,

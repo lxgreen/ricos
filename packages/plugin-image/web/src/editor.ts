@@ -5,6 +5,7 @@ import { DEFAULTS } from './consts';
 import { EditorPluginCreator } from 'wix-rich-content-common';
 import { createImageData } from './createImageData';
 import { createRicosExtensions } from './tiptap';
+import { TiptapEditorPlugin } from 'wix-tiptap-editor';
 
 export const pluginImage: EditorPluginCreator<ImagePluginEditorConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };
@@ -15,5 +16,5 @@ export const pluginImage: EditorPluginCreator<ImagePluginEditorConfig> = config 
     ModalsMap,
     createPluginData: createImageData,
     tiptapExtensions: createRicosExtensions(pluginConfig),
-  };
+  } as TiptapEditorPlugin;
 };

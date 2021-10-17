@@ -41,10 +41,8 @@ const withID = extendedAttrs({
 export const tiptapExtensions: Extensions = [
   Blockquote.extend(withID),
   Underline,
-  // CodeBlock.extend(withID),
   Document.extend(extendedAttrs({ metadata: {} })),
   Heading.extend(withID).extend(extendedAttrs(HeadingData.fromJSON({}))),
-  // History,
   Italic,
   ListItem.extend(withID),
   OrderedList.extend(withID),
@@ -52,8 +50,5 @@ export const tiptapExtensions: Extensions = [
   Text,
   ...createLink(),
   createBulletedList().extend(withID),
-  // createDivider().extend(withID),
   createBold(),
-  // Dropcursor,
-  // Gapcursor,
 ];

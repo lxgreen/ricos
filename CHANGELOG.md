@@ -19,11 +19,208 @@
 
 ### :bug: Bug Fix
 
-- `link`
-  - [#2929](https://github.com/wix/ricos/pull/2929) fix a11y in link modal
+- `viewer`
+  - [#3004](https://github.com/wix/ricos/pull/3004) fix ios text highlight on blankspaces
+- `[toolbars-new]`
+  - [#2991](https://github.com/wix/ricos/pull/2991) close modals on escape
+
 
 </details>
 <hr/>
+
+## 8.56.3 (Oct 17, 2021)
+
+### :nail_care: Polish
+
+- `social-polls`
+  - [#2899](https://github.com/wix/ricos/pull/2899) fix missing import wix validations for polls schema
+
+## 8.56.2 (Oct 16, 2021)
+
+### :house: Internal
+
+- `ricos-content`
+  - [#3000](https://github.com/wix/ricos/pull/3000) velo adapter: fix `parseImageElement` scoped variable
+
+## 8.56.1 (Oct 14, 2021)
+
+### :nail_care: Polish
+
+- `social-polls`
+  - [#2899](https://github.com/wix/ricos/pull/2899) polls schema
+
+## 8.56.0 (Oct 14, 2021)
+
+### :nail_care: Polish
+
+- `plugin-video`
+  - [#2985](https://github.com/wix/ricos/pull/2985) video modal new design
+- `social-embed`
+  - [#2986](https://github.com/wix/ricos/pull/2986) social-embed modal new design
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2982](https://github.com/wix/ricos/pull/2982) fix Link-modal style
+
+### :rocket: New Feature
+
+- `toolbars-new`
+  - [#2921](https://github.com/wix/ricos/pull/2921) custom font size dropdown and `toolbarInputButton`
+- `ricos-content`
+  - [#2994](https://github.com/wix/ricos/pull/2994) velo adapter: modify functionality with callback support
+
+### :house: Internal
+
+- `toolbars-new`
+  - [#2968](https://github.com/wix/ricos/pull/2968) refactor line-spacing (set to default when there is no line-spacing)
+- `ricos-content`
+  - [#2992](https://github.com/wix/ricos/pull/2992) velo adapter: refactoring + folder lib rename
+
+## 8.55.3 (Oct 11, 2021)
+
+### :house: Internal
+
+- `[ui-components]`
+  - [#2984](https://github.com/wix/ricos/pull/2984) Fix Typescript issue
+
+## 8.55.2 (Oct 11, 2021)
+
+### :house: Internal
+
+- `*`
+  - [#2933](https://github.com/wix/ricos/pull/2933) JS to TS conversion + rollup configuration
+- `common`
+  - [#2980](https://github.com/wix/ricos/pull/2980) cleanup schema errors
+
+## 8.55.1 (Oct 11, 2021)
+
+### :rocket: New Feature
+
+- `social-polls`
+  - [#2964](https://github.com/wix/ricos/pull/2964) `pollServiceApi` config
+
+### :house: Internal
+
+- `social-polls`
+  - [#2964](https://github.com/wix/ricos/pull/2964) add `PollsServiceMock` and normalize polls data under `normalizePoll` experiment
+
+## 8.55.0 (Oct 11, 2021)
+
+### :rocket: New Feature
+
+- `ui-components`
+  - [#2955](https://github.com/wix/ricos/pull/2955) new text-input-modal (url/search) component
+- `ricos-content`
+  - [#2966](https://github.com/wix/ricos/pull/2966) ContentAPI adapter for simplified builder API
+
+### :bug: Bug Fix
+
+- `table-plugin`
+  - [#2972](https://github.com/wix/ricos/pull/2972) fix columns width on SSR
+- `viewer`
+  - [#2962](https://github.com/wix/ricos/pull/2962) fix alignment position of Map plugin
+
+### :house: Internal
+
+- `tiptap-editor`
+  - [#2971](https://github.com/wix/ricos/pull/2971) refactor according to domain model
+
+### :book: Documentation
+
+- [#2976](https://github.com/wix/ricos/pull/2976) plugin DoD
+
+## 8.54.3 (Oct 10, 2021)
+
+### :bug: Bug Fix
+
+- `editor viewer`
+  - [#2969](https://github.com/wix/ricos/pull/2969) fix text highlight parsing issue
+
+## 8.54.2 (Oct 7, 2021)
+
+### :bug: Bug Fix
+
+- `fullscreen`
+  - [#2946](https://github.com/wix/ricos/pull/2946) fix a11y keyboard navigation (desktop) and screen reader
+- `external-toolbar`
+  - [#2947](https://github.com/wix/ricos/pull/2947) new icons for external toolbar (under specs.ricos.newFormattingToolbar experiment)
+- `toolbars-new`
+  - [#2958](https://github.com/wix/ricos/pull/2958) fix color-picker/modals a11y
+- `video-plugin`
+  - [#2963](https://github.com/wix/ricos/pull/2963) add spoiler to url video settings modal
+- `link-preview-popover`
+  - [#2956](https://github.com/wix/ricos/pull/2956) display link preview popover only on external links
+- `schema-validations`
+  - [#2957](https://github.com/wix/ricos/pull/2957) cleanup schema validation errors
+
+### :house: Internal
+
+- `color-picker`
+  - [#2961](https://github.com/wix/ricos/pull/2961) refactor: send arguments in object (in ColorPicker props function)
+
+## 8.54.1 (Oct 3, 2021)
+
+### :bug: Bug Fix
+
+- `editor`
+  - [#2954](https://github.com/wix/ricos/pull/2954) support editor shortcuts with keyCode
+- `ui-components`
+  - [#2917](https://github.com/wix/ricos/pull/2917) refactor tabs component style
+
+### :nail_care: Polish
+
+- `ricos-schema`
+  - [#2948](https://github.com/wix/ricos/pull/2948) font size schema
+
+## 8.54.0 (Oct 3, 2021)
+
+### :rocket: New Feature
+
+- `ricos-content`
+  - [#2945](https://github.com/wix/ricos/pull/2945) Content API: Table, CollapsibleList, Gif, Map, Embed builders
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2932](https://github.com/wix/ricos/pull/2932) fix modals keyboard navigation (accessibility)
+- `plugin-commons`
+  - [#2950](https://github.com/wix/ricos/pull/2950) fix color picker modal crashing when color isn't defined
+
+## 8.53.4 (Sep 25, 2021)
+
+### :house: Internal
+
+- `tiptap`
+  - [#2930](https://github.com/wix/ricos/pull/2930) Tiptap & new toolbars integration (formatting & link)
+
+## 8.53.3 (Sep 23, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2937](https://github.com/wix/ricos/pull/2937) mobile flaky switching between text and link toolbar + remove dependent in old toolbars logic
+
+## 8.53.2 (Sep 23, 2021)
+
+- `ricos-schema`
+  - [#2759](https://github.com/wix/ricos/pull/2759) button schema
+  - [#2928](https://github.com/wix/ricos/pull/2928) disable polls from schema & content api until schema is final
+- `html plugin`
+
+  - [#2934](https://github.com/wix/ricos/pull/2934) `forceIframeSandboxDomain` experiment (for debugging)
+
+- `a11y`
+  - [#2935](https://github.com/wix/ricos/pull/2935) add presentation role to empty lines to skip reading by screen readers
+
+## 8.53.1 (Sep 19, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2931](https://github.com/wix/ricos/pull/2931) fix mobile scroll behavior + fix separator height bug in ios safari
+- `link`
+  - [#2929](https://github.com/wix/ricos/pull/2929) fix a11y in link modal
 
 ## 8.53.0 (Sep 14, 2021)
 

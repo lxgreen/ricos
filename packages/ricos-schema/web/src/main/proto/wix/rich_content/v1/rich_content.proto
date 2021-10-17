@@ -36,6 +36,7 @@ import "wix/rich_content/v1/plugin_collapsible_list.proto";
 import "wix/rich_content/v1/plugin_embed.proto";
 import "wix/rich_content/v1/plugin_table.proto";
 import "wix/rich_content/v1/plugin_table_cell.proto";
+import "wix/rich_content/v1/decoration_fontsize.proto";
 
 message RichContent {
     repeated Node nodes = 1; // List of nodes
@@ -124,7 +125,7 @@ message Decoration {
         MENTION = 5;
         LINK = 6;
         COLOR = 7;
-        FONTSIZE = 8;
+        FONT_SIZE = 8;
     }
 
     Type type = 1; // Decoration type
@@ -133,7 +134,7 @@ message Decoration {
         ColorData color_data = 3;
         LinkData link_data = 4;
         MentionData mention_data = 5;
-        google.protobuf.StringValue font_size = 6;
+        FontSizeData font_size_data = 6;
     }
 }
 

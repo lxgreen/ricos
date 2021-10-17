@@ -252,6 +252,66 @@
     "text": "<p>​</p>"
   },
   {
+    "id": "121",
+    "text": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+    "type": "POLL",
+    "path": "pollData.poll.title"
+  },
+  {
+    "id": "121",
+    "text": "Cafe Nordoy",
+    "type": "POLL",
+    "path": "pollData.poll.options[0].title"
+  },
+  {
+    "id": "121",
+    "text": "קפה רוטשילד 65",
+    "type": "POLL",
+    "path": "pollData.poll.options[1].title"
+  },
+  {
+    "id": "121",
+    "text": "האחים",
+    "type": "POLL",
+    "path": "pollData.poll.options[2].title"
+  },
+  {
+    "id": "121",
+    "text": "הוטל מונטיפיורי",
+    "type": "POLL",
+    "path": "pollData.poll.options[3].title"
+  },
+  {
+    "id": "123",
+    "text": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+    "type": "POLL",
+    "path": "pollData.poll.title"
+  },
+  {
+    "id": "123",
+    "text": "Cafe Nordoy",
+    "type": "POLL",
+    "path": "pollData.poll.options[0].title"
+  },
+  {
+    "id": "123",
+    "text": "קפה רוטשילד 65",
+    "type": "POLL",
+    "path": "pollData.poll.options[1].title"
+  },
+  {
+    "id": "123",
+    "text": "האחים",
+    "type": "POLL",
+    "path": "pollData.poll.options[2].title"
+  },
+  {
+    "id": "123",
+    "text": "הוטל מונטיפיורי",
+    "type": "POLL",
+    "path": "pollData.poll.options[3].title"
+  },
+  {
     "id": "2",
     "text": "What's behind door number 1?",
     "type": "IMAGE",

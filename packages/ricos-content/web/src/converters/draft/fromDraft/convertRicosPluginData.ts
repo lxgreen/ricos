@@ -28,6 +28,7 @@ import {
   PluginContainerData_Width_Type,
   ButtonData_Type,
   Link,
+  ButtonData,
   GIFData,
   GalleryData,
 } from 'ricos-schema';
@@ -69,7 +70,7 @@ export const convertBlockDataToRicos = (type: string, data) => {
     blockType = EMBED_TYPE;
   }
   if (newData.config) {
-    convertContainerData(newData);
+    convertContainerData(newData, blockType);
   }
   if (blockType in converters) {
     const convert = converters[blockType];
@@ -82,7 +83,10 @@ export const convertBlockDataToRicos = (type: string, data) => {
   return fromJSON(newData);
 };
 
-const convertContainerData = (data: { config?: ComponentData['config']; containerData }) => {
+const convertContainerData = (
+  data: { config?: ComponentData['config']; containerData },
+  blockType: string
+) => {
   const { size, alignment, width, spoiler, height, textWrap = WRAP } = data.config || {};
   const { enabled, description, buttonContent } = spoiler || {};
   const newSpoiler: PluginContainerData_Spoiler | undefined = spoiler && {
@@ -99,6 +103,12 @@ const convertContainerData = (data: { config?: ComponentData['config']; containe
   typeof width === 'number'
     ? (data.containerData.width = { custom: width })
     : size && (data.containerData.width = { size: toConstantCase(size) });
+  if (
+    (blockType === ACTION_BUTTON_TYPE || blockType === LINK_BUTTON_TYPE) &&
+    data.containerData.width.size
+  ) {
+    data.containerData.width.size = 'ORIGINAL';
+  }
 };
 
 const convertVideoData = (data: {
@@ -230,18 +240,76 @@ const convertGIFData = (
   delete data.gif;
 };
 
-const convertPollData = (data: { layout; design; poll }) => {
+const convertPollData = (data: { containerData; layout; design; poll }) => {
   has(data, 'layout.poll.type') && (data.layout.poll.type = data.layout.poll.type.toUpperCase());
   has(data, 'layout.poll.direction') &&
     (data.layout.poll.direction = data.layout.poll.direction.toUpperCase());
-  has(data, 'design.poll.backgroundType') &&
-    (data.design.poll.backgroundType = data.design.poll.backgroundType.toUpperCase());
+  if (has(data, 'layout.option')) {
+    data.layout.options = data.layout.option;
+    delete data.layout.option;
+  }
+  if (has(data, 'design')) {
+    const { poll = {}, option = {} } = data.design;
+    const { backgroundType, background } = poll;
+    const regex = /(\d*)px/;
+    const getBackground = background =>
+      background?.angle
+        ? {
+            gradient: {
+              angle: background.angle,
+              startColor: background?.start?.toUpperCase(),
+              lastColor: background.end?.toUpperCase(),
+            },
+          }
+        : background?.charAt?.(0) === '#'
+        ? { color: background?.toUpperCase() }
+        : { image: { src: { url: background } } };
+    data.design = {
+      poll: {
+        background: {
+          type: backgroundType?.toUpperCase(),
+          ...getBackground(background),
+        },
+        borderRadius: parseInt(regex.exec(poll.borderRadius)?.[1] || '0'),
+      },
+      options: { borderRadius: parseInt(regex.exec(option.borderRadius)?.[1] || '0') },
+    };
+  }
   has(data, 'poll.id') && (data.poll.pollId = data.poll.id);
+  has(data, 'poll.createdBy') && (data.poll.creatorId = data.poll.createdBy);
+  has(data, 'poll.mediaId') && (data.poll.image = { src: { url: data.poll.mediaId } });
   has(data, 'poll.options') &&
-    (data.poll.options = data.poll.options.map(({ id, ...rest }) => ({
-      optionId: id,
+    (data.poll.options = data.poll.options.map(({ mediaId, ...rest }) => ({
+      image: { src: { url: mediaId } },
       ...rest,
     })));
+  if (has(data, 'poll.settings')) {
+    const {
+      multipleVotes,
+      voteRole,
+      resultsVisibility,
+      votersDisplay,
+      votesDisplay,
+    } = data.poll.settings;
+
+    const getViewRole = resultsVisibility =>
+      resultsVisibility === 'ALWAYS'
+        ? 'EVERYONE'
+        : resultsVisibility === 'VOTERS_ONLY'
+        ? 'VOTERS'
+        : 'CREATOR';
+
+    data.poll.settings = {
+      permissions: {
+        view: getViewRole(resultsVisibility),
+        vote: voteRole,
+        allowMultipleVotes: multipleVotes,
+      },
+      showVoters: votersDisplay,
+      showVotesCount: votesDisplay,
+    };
+  }
+  has(data, 'containerData.width.size') && (data.containerData.width.size = 'CONTENT');
 };
 
 const convertAppEmbedData = (data: {
@@ -332,18 +400,15 @@ const convertCollapsibleListData = (data: {
 };
 
 const convertButtonData = (
-  data: { button?: { settings; design }; styles; type; text; link },
+  data: { button?: { settings; design } } & ButtonData,
   blockType: string
 ) => {
   const { settings, design } = data.button || {};
   const { borderRadius, borderWidth, background, color, borderColor } = design || {};
   const { buttonText, url, rel, target } = settings || {};
   data.styles = {
-    borderRadius,
-    borderWidth,
-    backgroundColor: background,
-    textColor: color,
-    borderColor,
+    colors: { text: color, border: borderColor, background },
+    border: { radius: borderRadius, width: borderWidth },
   };
   data.type = blockType === ACTION_BUTTON_TYPE ? ButtonData_Type.ACTION : ButtonData_Type.LINK;
   data.text = buttonText;

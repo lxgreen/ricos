@@ -1,5 +1,6 @@
 import { getComponentStyles } from './styles';
 import React from 'react';
+import { RicosFunctionalExtension } from '../../models/extension-types';
 
 const name = 'styles';
 
@@ -20,21 +21,23 @@ const StylesHOC = Component => {
       </div>
     );
   };
+  Styles.displayName = 'StylesHoc';
 
   return Styles;
 };
 
-export const createStylesConfig = () => ({
+export const createStylesConfig = (): RicosFunctionalExtension => ({
   type: 'extension',
   createExtensionConfig: () => {
     return {
       name,
       priority: 30,
       defaultOptions: {},
-      addNodeViewHOC() {
+      addNodeHoc() {
         return {
           nodeTypes: ['*'],
-          nodeViewHOC: StylesHOC,
+          nodeHoc: StylesHOC,
+          priority: 100,
         };
       },
     };

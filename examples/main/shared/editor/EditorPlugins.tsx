@@ -87,7 +87,7 @@ import {
 } from 'wix-rich-content-plugin-button';
 import Highlighter from 'react-highlight-words';
 import casual from 'casual-browserify';
-import { mockFetchUrlPreviewData } from '../utils/linkPreviewUtil';
+import { mockFetchUrlPreviewData } from '../../../storybook/src/shared/utils/linkPreviewUtil';
 import { createIndentPlugin, pluginIndent, INDENT_TYPE } from 'wix-rich-content-plugin-indent';
 import { createTablePlugin, pluginTable, TABLE_TYPE } from 'wix-rich-content-plugin-table';
 import {
@@ -100,6 +100,7 @@ import {
   pluginUnsupportedBlocks,
 } from 'wix-rich-content-plugin-unsupported-blocks';
 import { UNSUPPORTED_BLOCKS_TYPE } from 'wix-rich-content-plugin-commons';
+import { SocialPollsServiceMock } from '../../src/Components/SocialPollsServiceMock/SocialPollsServiceMock';
 
 import 'ricos-editor/dist/styles.min.css';
 import 'wix-rich-content-plugin-commons/dist/styles.min.css';
@@ -140,13 +141,16 @@ import { FORMATTING_BUTTONS, TOOLBARS } from 'wix-rich-content-editor-common';
 // import StaticToolbarDecoration from './Components/StaticToolbarDecoration';
 // import SideToolbarDecoration from './Components/SideToolbarDecoration';
 // import PluginToolbarDecoration from './Components/PluginToolbarDecoration';
-import { MockVerticalSearchModule, MockGetIsVisiblePromise } from '../utils/verticalEmbedUtil';
+import {
+  MockVerticalSearchModule,
+  MockGetIsVisiblePromise,
+} from '../../../storybook/src/shared/utils/verticalEmbedUtil';
 import {
   mockFileUploadFunc,
   mockFileNativeUploadFunc,
   mockVideoNativeUploadFunc,
   mockCustomVideoUploadFunc,
-} from '../utils/fileUploadUtil';
+} from '../../../storybook/src/shared/utils/fileUploadUtil';
 import { CreatePluginFunction, EditorPluginCreator, UISettings } from 'wix-rich-content-common';
 import { RichContentEditorProps } from 'wix-rich-content-editor';
 
@@ -430,7 +434,7 @@ const config: RichContentEditorProps['config'] = {
     // supportedPlugins: [GALLERY_TYPE, IMAGE_TYPE, VIDEO_TYPE],
   },
   [POLL_TYPE]: {
-    siteToken: process.env.POLLS_API_KEY,
+    pollServiceApi: new SocialPollsServiceMock(),
   },
   [LINK_PREVIEW_TYPE]: {
     enableEmbed: true, // [Twitter, TikTok]
@@ -738,6 +742,8 @@ const config: RichContentEditorProps['config'] = {
       getButtons: () => {
         const desktopButtons = [
           FORMATTING_BUTTONS.HEADINGS,
+          '|',
+          FORMATTING_BUTTONS.FONT_SIZE,
           '|',
           FORMATTING_BUTTONS.BOLD,
           FORMATTING_BUTTONS.ITALIC,

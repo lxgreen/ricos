@@ -59,7 +59,7 @@ const defaultContent = {
     { type: 'PARAGRAPH', paragraphData: { textStyle: {} } },
     {
       type: 'POLL',
-      pollData: { containerData, config: {}, design: {}, layout: {}, poll: {} },
+      pollData: { containerData, design: {}, layout: {}, poll: {} },
     },
     { type: 'TEXT', textData: {} },
     { type: 'VIDEO', videoData: { containerData, thumbnail: {}, video: {} } },

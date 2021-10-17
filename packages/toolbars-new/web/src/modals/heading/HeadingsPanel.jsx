@@ -34,9 +34,9 @@ class HeadingsPanel extends Component {
 
   static contextType = GlobalContext;
 
-  onSaveHeading = type => {
+  onSaveHeading = (type, clickFromKeyboard) => {
     this.props?.onToolbarButtonClick?.(type);
-    return this.props.onSave(type);
+    return this.props.onSave({ clickFromKeyboard, data: type });
   };
 
   defaultHeadings = () => {
@@ -47,15 +47,8 @@ class HeadingsPanel extends Component {
     return defaults;
   };
 
-  onBlur = e => {
-    const { target, relatedTarget, currentTarget } = e;
-    if (!currentTarget.contains(relatedTarget)) {
-      setTimeout(() => target.focus());
-    }
-  };
-
   render() {
-    const { isMobile, t, currentSelect, onCancel } = this.props;
+    const { isMobile, t, currentSelect } = this.props;
     const panelHeader = t('Headings');
 
     const panel = isMobile ? (
@@ -65,19 +58,22 @@ class HeadingsPanel extends Component {
           panelHeader,
           options: this.defaultHeadings(),
           onChange: this.onSaveHeading,
-          onCancel,
+
           t,
         }}
       />
     ) : (
       <DesktopPanel
-        {...{ currentSelect, options: this.defaultHeadings(), onChange: this.onSaveHeading, t }}
+        {...{
+          currentSelect,
+          options: this.defaultHeadings(),
+          onChange: this.onSaveHeading,
+          t,
+        }}
       />
     );
     return (
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
-        onBlur={this.onBlur}
         className={classNames(styles.panel_Container, {
           [styles.mobile_Container]: isMobile,
         })}

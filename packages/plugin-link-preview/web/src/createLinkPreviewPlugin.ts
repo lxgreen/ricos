@@ -3,6 +3,7 @@ import {
   getBlockAtStartOfSelection,
   EditorState,
   getDefaultKeyBinding,
+  DraftCommand,
 } from 'wix-rich-content-editor-common';
 import { LINK_PREVIEW_TYPE, LinkPreviewPluginEditorConfig } from './types';
 import LinkPreviewComponent from './LinkPreviewComponent';
@@ -11,7 +12,6 @@ import { convertLinkPreviewToLink } from '../lib/utils';
 import { REMOVE_LINK_PREVIEW } from './consts';
 import { CreatePluginFunction, GetEditorState, SetEditorState } from 'wix-rich-content-common';
 import { DEFAULTS } from './defaults';
-import { DraftEditorCommand } from 'draft-js';
 
 const createLinkPreviewPlugin: CreatePluginFunction<LinkPreviewPluginEditorConfig> = config => {
   const type = LINK_PREVIEW_TYPE;
@@ -25,6 +25,7 @@ const createLinkPreviewPlugin: CreatePluginFunction<LinkPreviewPluginEditorConfi
     helpers,
     isMobile,
     t,
+    experiments,
     ...rest
   } = config;
   const toolbar = createLinkPreviewToolbar({
@@ -34,6 +35,7 @@ const createLinkPreviewPlugin: CreatePluginFunction<LinkPreviewPluginEditorConfi
     helpers,
     isMobile,
     t,
+    experiments,
   });
 
   const keyBindingFn = (event, { getEditorState }: { getEditorState: GetEditorState }) => {
@@ -55,7 +57,7 @@ const createLinkPreviewPlugin: CreatePluginFunction<LinkPreviewPluginEditorConfi
   };
 
   const handleKeyCommand = (
-    command: DraftEditorCommand | typeof REMOVE_LINK_PREVIEW,
+    command: DraftCommand,
     editorState: EditorState,
     timestamp: number,
     { setEditorState }: { setEditorState: SetEditorState }

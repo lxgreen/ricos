@@ -77,7 +77,7 @@ export class PollSettingsSection extends Component {
   }
 
   render() {
-    const { componentData, t } = this.props;
+    const { componentData, t, settings = {} } = this.props;
 
     const {
       votersDisplay,
@@ -87,7 +87,7 @@ export class PollSettingsSection extends Component {
       voteRole,
     } = componentData.poll.settings;
 
-    const { enableVoteRole } = componentData.config || {};
+    const { enableVoteRole } = settings;
 
     return (
       <section className={styles.section}>
@@ -170,4 +170,5 @@ PollSettingsSection.propTypes = {
   componentData: PropTypes.object.isRequired,
   store: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
+  settings: PropTypes.object.isRequired,
 };

@@ -1,14 +1,15 @@
-import React from 'react';
 import { render } from '@testing-library/react';
-import { RicosTiptapEditor } from './RicosTiptapEditor';
 import { Editor, EditorOptions, JSONContent } from '@tiptap/react';
-import supportedPluginsContent from '../../__tests__/supportedPluginsContent.json';
-import { fromTiptap, toTiptap } from '../../converters';
+import { compact } from 'lodash';
+import React from 'react';
 import { compare } from 'ricos-content/lib/comparision';
 import { RichContent } from 'ricos-schema';
-import { pluginImage } from 'wix-rich-content-plugin-image';
 import { pluginDivider } from 'wix-rich-content-plugin-divider';
-import { compact } from 'lodash';
+import { pluginImage } from 'wix-rich-content-plugin-image';
+import { fromTiptap, toTiptap } from '../../converters';
+import supportedPluginsContent from '../../__tests__/supportedPluginsContent.json';
+import { RicosTiptapEditor } from './RicosTiptapEditor';
+import { TiptapEditorPlugin } from '../../models/extension-types';
 
 let editor: Editor | null = null;
 
@@ -28,7 +29,8 @@ describe('tiptap editor', () => {
   it('should not change content', async () => {
     const content = toTiptap(RichContent.fromJSON(supportedPluginsContent));
     const plugins = [pluginImage(), pluginDivider()];
-    const extensions = compact(plugins?.flatMap(plugin => plugin.tiptapExtensions)) || [];
+    const extensions =
+      compact(plugins?.flatMap((plugin: TiptapEditorPlugin) => plugin.tiptapExtensions)) || [];
     render(<RicosTiptapEditor content={content} extensions={extensions} t={() => ''} />);
     const newContent = editor?.getJSON();
     const richContent = fromTiptap(newContent as JSONContent);

@@ -97,7 +97,7 @@
         "properties": {
           "width": {
             "$id": "/properties/config/properties/width",
-            "type": "string",
+            "type": ["string", "number"],
             "title": "width",
             "default": "fit-content"
           },
@@ -110,7 +110,6 @@
           }
         }
       }
-    },
-    "required": ["url", "rel", "target"]
+    }
   }
   

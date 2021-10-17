@@ -33,8 +33,8 @@ class SettingsComponent extends PureComponent {
 
   onTextChanged = buttonText => this.setState({ buttonText });
 
-  onLinkPanelChange = linkPanelValues => {
-    this.setState(linkPanelValues);
+  onLinkPanelChange = ({ url, rel, target }) => {
+    this.setState({ url, rel, target });
   };
 
   render() {

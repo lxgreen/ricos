@@ -40,6 +40,10 @@ export class DesignSettingsSection extends Component {
     this.updateDesign({ poll: { background, backgroundType } });
   };
 
+  handleBackgroundColorChange = ({ color }) => {
+    this.handleBackgroundChange(color);
+  };
+
   handlePollBorderRadiusChange = borderRadius =>
     this.updateDesign({ poll: { borderRadius: `${borderRadius}px` } });
 
@@ -123,7 +127,7 @@ export class DesignSettingsSection extends Component {
           color={this.getBackgroundColorValue()}
           palette={this.getColorPalettePreset()}
           schemeAttributes={BACKGROUND_PRESETS[backgroundType]}
-          onChange={this.handleBackgroundChange}
+          onChange={this.handleBackgroundColorChange}
           theme={this.styles}
           t={t}
         >

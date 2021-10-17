@@ -5,9 +5,10 @@ import React, { Component, FC } from 'react';
 import classNames from 'classnames';
 import ClickOutside from 'react-click-outsider';
 import styles from '../ToolbarNew.scss';
+import ToolbarInputButton from '../ToolbarInputButton';
 import ToolbarButton from '../ToolbarButton';
 import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
-import { elementOverflowWithEditor } from 'wix-rich-content-editor-common';
+import { elementOverflowWithEditor, KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 
 type dropDownPropsType = {
   isMobile?: boolean;
@@ -27,6 +28,7 @@ type dropDownPropsType = {
   onChange?: (any) => void;
   onDelete?: () => void;
   loadSelection?: () => void;
+  isInput: boolean;
 };
 
 interface ModalButtonProps {
@@ -46,6 +48,7 @@ interface State {
   isModalOpen: boolean;
   isModalOverflowByHeight: boolean;
   overflowWidthBy: boolean | number;
+  lastFocusedButton: HTMLElement | null;
 }
 
 class ModalButton extends Component<ModalButtonProps, State> {
@@ -57,6 +60,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
       isModalOpen: false,
       isModalOverflowByHeight: false,
       overflowWidthBy: false,
+      lastFocusedButton: null,
     };
   }
 
@@ -67,7 +71,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
     if (!isModalOpen) {
       this.openModal();
     } else {
-      this.closeModal(e.detail); //do not load selection on shortcuts
+      this.closeModal();
     }
   };
 
@@ -97,52 +101,54 @@ class ModalButton extends Component<ModalButtonProps, State> {
         dropDownProps: { saveState, saveSelection },
         setKeepOpen,
       } = this.props;
-      this.setState({ isModalOpen: true }, this.handleOverflow);
+      const lastFocusedButton = document.activeElement as HTMLElement;
+      this.setState({ isModalOpen: true, lastFocusedButton }, this.handleOverflow);
       saveSelection?.();
       saveState?.();
       setKeepOpen?.(true);
     }
   };
 
-  closeModal = (loadSelectionOnClose = true) => {
+  closeModal = ({ loadSelectionOnClose = true, clickFromKeyboard = false } = {}) => {
     if (this.state.isModalOpen) {
       const {
         setKeepOpen,
         dropDownProps: { loadSelection },
       } = this.props;
-      this.setState({ isModalOpen: false });
       setKeepOpen?.(false);
-      loadSelectionOnClose && loadSelection?.();
+      !clickFromKeyboard && loadSelectionOnClose && loadSelection?.();
+      clickFromKeyboard && setTimeout(() => this.state.lastFocusedButton?.focus());
+      this.setState({ isModalOpen: false });
     }
   };
 
-  onSave = (...args: [any]) => {
-    this.props.onSave?.(...args);
+  onSave = ({ clickFromKeyboard = false, data }) => {
+    this.props.onSave?.(data);
     const {
       dropDownProps: { isMobile },
     } = this.props;
-    !isMobile && this.closeModal();
+    !isMobile && this.closeModal({ clickFromKeyboard });
   };
 
-  onDone = (...args: [any]) => {
-    this.props.onDone?.(...args);
-    this.closeModal();
+  onDone = ({ clickFromKeyboard = false, data }) => {
+    this.props.onDone?.(data);
+    this.closeModal({ clickFromKeyboard });
   };
 
-  onDelete = () => {
+  onDelete = ({ clickFromKeyboard = false }) => {
     const {
       dropDownProps: { onDelete },
     } = this.props;
     onDelete?.();
-    this.closeModal();
+    this.closeModal({ clickFromKeyboard });
   };
 
-  onCancel = () => {
+  onCancel = ({ clickFromKeyboard = false }) => {
     const {
       dropDownProps: { onCancel },
     } = this.props;
     onCancel?.();
-    this.closeModal();
+    this.closeModal({ clickFromKeyboard });
   };
 
   onChange = (...args: [any]) => {
@@ -153,11 +159,15 @@ class ModalButton extends Component<ModalButtonProps, State> {
   };
 
   onClickOutside = e => {
-    this.closeModal(e.target.closest('[data-hook=ricos-editor-toolbars]'));
+    const clickFromInsideTheToolbar = !!e.target.closest('[data-hook=ricos-editor-toolbars]');
+    !clickFromInsideTheToolbar &&
+      this.closeModal({
+        loadSelectionOnClose: e.target.closest('[data-hook=ricos-editor-toolbars]'),
+      });
   };
 
   render() {
-    const { modal, dropDownProps, onSelect, theme, t } = this.props;
+    const { modal, dropDownProps, onSelect, theme, t, onToolbarButtonClick } = this.props;
     const {
       isActive,
       tooltip,
@@ -168,12 +178,30 @@ class ModalButton extends Component<ModalButtonProps, State> {
       isMobile,
       arrow = false,
       getLabel,
+      isInput,
       isMobileModalFullscreen = false,
     } = dropDownProps;
     const { isModalOpen, isModalOverflowByHeight, overflowWidthBy } = this.state;
     const buttonProps = arrow && getLabel ? { buttonContent: getLabel() } : { icon: getIcon() };
     const onModalWrapperClick =
       isMobile && !isMobileModalFullscreen ? () => this.closeModal() : undefined;
+    const toolbarButtonProps = {
+      ...buttonProps,
+      onToolbarButtonClick,
+      isActive: isModalOpen || isActive(),
+      onClick: this.toggleModal,
+      tooltipText: tooltip,
+      dataHook,
+      tabIndex,
+      isMobile,
+      disabled: isDisabled(),
+    };
+    const Button = isInput ? (
+      <ToolbarInputButton onChange={this.onChange} {...toolbarButtonProps} />
+    ) : (
+      <ToolbarButton {...toolbarButtonProps} showArrowIcon={arrow} icon={getIcon()} />
+    );
+
     const defaultStyles = {
       position: 'fixed',
       top: 0,
@@ -186,28 +214,22 @@ class ModalButton extends Component<ModalButtonProps, State> {
       ? { ...defaultStyles, height: '100%' }
       : { ...defaultStyles, background: 'transparent' };
 
+    const onKeyDown = e => {
+      if (e.keyCode === KEYS_CHARCODE.ESCAPE) {
+        this.closeModal({ clickFromKeyboard: true });
+        e.stopPropagation();
+      }
+    };
+
     return (
       <ClickOutside onClickOutside={this.onClickOutside}>
         <div className={styles.buttonWrapper}>
-          <ToolbarButton
-            onToolbarButtonClick={this.props.onToolbarButtonClick}
-            isActive={isModalOpen || isActive()}
-            onClick={this.toggleModal}
-            showArrowIcon={arrow}
-            tooltipText={tooltip}
-            dataHook={dataHook}
-            tabIndex={tabIndex}
-            isMobile={isMobile}
-            disabled={isDisabled()}
-            icon={getIcon()}
-            theme={theme}
-            {...buttonProps}
-          />
+          {Button}
           {isModalOpen && (
             <div
               data-id="toolbar-modal-button"
               // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-              tabIndex={0}
+              tabIndex={-1}
               ref={this.setModalRef}
               className={classNames(
                 styles.modal,
@@ -218,6 +240,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
                 isMobile ? mobileStyles : overflowWidthBy ? { left: `-${overflowWidthBy}px` } : {}
               }
               onClick={onModalWrapperClick}
+              onKeyDown={onKeyDown}
             >
               {modal({
                 closeCustomModal: this.closeModal,

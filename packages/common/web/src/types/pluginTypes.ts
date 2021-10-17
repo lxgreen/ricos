@@ -14,8 +14,6 @@ import {
   ThemeGeneratorFunction,
   RichContentTheme,
   ThemeData,
-  RicosTiptapExtension,
-  TiptapExtensionConfig,
 } from '.';
 import {
   ContentBlock,
@@ -228,7 +226,6 @@ export interface EditorPlugin<PluginConfig extends EditorPluginConfig = Record<s
   createPlugin?: CreatePluginFunction<PluginConfig>;
   ModalsMap?: ModalsMap;
   createPluginData?: CreatePluginData<PluginConfig>;
-  tiptapExtensions?: RicosTiptapExtension[];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

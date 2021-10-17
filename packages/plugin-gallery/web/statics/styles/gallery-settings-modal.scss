@@ -3,10 +3,6 @@
 $TITLE_HEIGHT: 0px;
 $FOOTER_HEIGHT: 100px;
 
-.gallerySettings_settingsContainer {
-  padding: 0;
-}
-
 .gallerySettings_settingsContainerMobile {
   padding: 18px;
 }
@@ -58,4 +54,8 @@ $FOOTER_HEIGHT: 100px;
   margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.gallerySettings_tab_section {
+  padding: 24px 30px 30px;
 }
