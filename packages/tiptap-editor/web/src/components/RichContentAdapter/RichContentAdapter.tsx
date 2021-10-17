@@ -32,6 +32,7 @@ import {
   TIPTAP_GIF_TYPE,
   TIPTAP_VIDEO_TYPE,
 } from '../../consts';
+import { HEADER_BLOCK, UNSTYLED } from 'ricos-content';
 
 const PLUGIN_TYPE_MAP = {
   [RICOS_DIVIDER_TYPE]: TIPTAP_DIVIDER_TYPE,
@@ -46,6 +47,15 @@ const PLUGIN_TYPE_MAP = {
   [RICOS_GIPHY_TYPE]: TIPTAP_GIF_TYPE,
   [VIDEO_TYPE]: TIPTAP_VIDEO_TYPE,
   [RICOS_VIDEO_TYPE]: TIPTAP_VIDEO_TYPE,
+};
+
+const headingTypeToLevelMap = {
+  'header-one': 1,
+  'header-two': 2,
+  'header-three': 3,
+  'header-four': 4,
+  'header-five': 5,
+  'header-six': 6,
 };
 
 // todo : should change to RichContentInterface
@@ -167,6 +177,13 @@ export class RichContentAdapter implements TiptapAPI {
           });
         });
         return link;
+      },
+      setBlockType: type => {
+        if (type === UNSTYLED) {
+          this.editor.commands.setParagraph();
+        } else if (Object.values(HEADER_BLOCK).includes(type)) {
+          this.editor.commands.toggleHeading({ level: headingTypeToLevelMap[type] });
+        }
       },
     };
   }
