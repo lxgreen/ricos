@@ -19,8 +19,12 @@
 
 ### :bug: Bug Fix
 
+- `viewer`
+  - [#3004](https://github.com/wix/ricos/pull/3004) fix ios text highlight on blankspaces
 - `[toolbars-new]`
   - [#2991](https://github.com/wix/ricos/pull/2991) close modals on escape
+
+
 </details>
 <hr/>
 

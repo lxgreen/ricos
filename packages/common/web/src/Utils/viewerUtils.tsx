@@ -63,7 +63,7 @@ export const defaultStyleFnMapper = {
     return parsedStyle ? { color: parsedStyle } : undefined;
   },
   [RICOS_TEXT_HIGHLIGHT_TYPE]: (style: string) => {
-    const parsedStyle = dynamicStyleParsers[RICOS_TEXT_HIGHLIGHT_TYPE](style);
+    const parsedStyle = dynamicStyleParsers[RICOS_TEXT_HIGHLIGHT_TYPE](style, isHexColor);
     return parsedStyle ? { backgroundColor: parsedStyle } : undefined;
   },
   [RICOS_FONT_SIZE_TYPE]: (style: string) => {
@@ -74,6 +74,7 @@ export const defaultStyleFnMapper = {
 
 const defaultStyleSelectionPredicates = {
   [RICOS_TEXT_COLOR_TYPE]: isHexColor,
+  [RICOS_TEXT_HIGHLIGHT_TYPE]: isHexColor,
 };
 
 export const getDynamicInlineStyleMapper = (
