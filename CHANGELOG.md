@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+
+- `social-polls`
+  - [#2899](https://github.com/wix/ricos/pull/2899) fix missing import wix validations for polls schema
+
 </details>
 <hr/>
 
