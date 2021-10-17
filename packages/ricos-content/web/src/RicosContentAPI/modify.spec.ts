@@ -1,42 +1,35 @@
 import { modify } from './modify';
-import { modify as modifyForAdapter } from '../velo-adapter/modify';
 import { Node_Type, RichContent } from 'ricos-schema';
 import rawContent from '../../tests/modifyFixtures/images-dividers.json';
 import rawContentAltText from '../../tests/modifyFixtures/images-dividers-with-alt-text.json';
 import rawContentDoubleDividers from '../../tests/modifyFixtures/images-dividers2x.json';
 
-const modifiers: [string, typeof modify | typeof modifyForAdapter][] = [
-  ['Main API', modify],
-  ['Adapter API', modifyForAdapter],
-];
-modifiers.forEach(([name, modify]) => {
-  describe(`Content modify - ${name}`, () => {
-    it('Should add alt text for images', () => {
-      const content = RichContent.fromJSON(rawContent);
-      const expected = RichContent.fromJSON(rawContentAltText);
+describe('Content modify', () => {
+  it('Should add alt text for images', () => {
+    const content = RichContent.fromJSON(rawContent);
+    const expected = RichContent.fromJSON(rawContentAltText);
 
-      const actual = modify(content)
-        .filter(n => n.type === Node_Type.IMAGE)
-        .set(n => ({
-          ...n,
-          imageData: {
-            ...n.imageData,
-            altText: n.imageData?.altText || 'Custom alt text',
-          },
-        }));
+    const actual = modify(content)
+      .filter(n => n.type === Node_Type.IMAGE)
+      .set(n => ({
+        ...n,
+        imageData: {
+          ...n.imageData,
+          altText: n.imageData?.altText || 'Custom alt text',
+        },
+      }));
 
-      expect(actual).toStrictEqual(expected);
-    });
+    expect(actual).toStrictEqual(expected);
+  });
 
-    it('Should duplicate all dividers', () => {
-      const content = RichContent.fromJSON(rawContent);
-      const expected = RichContent.fromJSON(rawContentDoubleDividers);
+  it('Should duplicate all dividers', () => {
+    const content = RichContent.fromJSON(rawContent);
+    const expected = RichContent.fromJSON(rawContentDoubleDividers);
 
-      const actual = modify(content)
-        .filter(({ type }) => type === Node_Type.DIVIDER)
-        .set(n => [n, n]);
+    const actual = modify(content)
+      .filter(({ type }) => type === Node_Type.DIVIDER)
+      .set(n => [n, n]);
 
-      expect(actual).toEqual(expected);
-    });
+    expect(actual).toEqual(expected);
   });
 });

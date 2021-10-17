@@ -8,8 +8,8 @@ const imageElementRegex = /^wix:image:\/\/v1\/(.+)\/(.+)#originWidth=(\d+)&origi
 const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/g;
 
 const parseImageElement = (data: ImageElement) => {
-  let vars: RegExpExecArray | null;
-  if (typeof data.src !== 'string' || (vars = imageElementRegex.exec(data.src)) === null) {
+  const vars = imageElementRegex.exec(data.src);
+  if (typeof data.src !== 'string' || vars === null) {
     throw new Error('Source format is invalid. Received:\n' + JSON.stringify(data));
   }
   const { alt } = data;
