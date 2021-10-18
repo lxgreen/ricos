@@ -160,10 +160,11 @@ class ModalButton extends Component<ModalButtonProps, State> {
 
   onClickOutside = e => {
     const clickFromInsideTheToolbar = !!e.target.closest('[data-hook=ricos-editor-toolbars]');
-    !clickFromInsideTheToolbar &&
-      this.closeModal({
-        loadSelectionOnClose: e.target.closest('[data-hook=ricos-editor-toolbars]'),
-      });
+    return !clickFromInsideTheToolbar
+      ? this.closeModal({
+          loadSelectionOnClose: e.target.closest('[data-hook=ricos-editor-toolbars]'),
+        })
+      : this.closeModal();
   };
 
   render() {

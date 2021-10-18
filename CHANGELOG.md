@@ -17,12 +17,29 @@
     Click to see more.
   </summary>
 
-### :bug: Bug Fix
-
-- `[toolbars-new]`
-  - [#2991](https://github.com/wix/ricos/pull/2991) close modals on escape
 </details>
 <hr/>
+
+## 8.56.4 (Oct 18, 2021)
+
+### :house: Internal
+
+- `video/linkpreview/ui-components`
+  - [#3010](https://github.com/wix/ricos/pull/3010) new modals general refactor
+- `ricos-content`
+  - [#3007](https://github.com/wix/ricos/pull/3007) velo adapter bundle size improvement
+
+### :nail_care: Polish
+
+- `common/toolbars-new`
+  - [#2996](https://github.com/wix/ricos/pull/2996) created border-box mixin and used it in the new toolbar modals
+
+### :bug: Bug Fix
+
+- `viewer`
+  - [#3004](https://github.com/wix/ricos/pull/3004) fix ios text highlight on blankspaces
+- `[toolbars-new]`
+  - [#2991](https://github.com/wix/ricos/pull/2991) close modals on escape
 
 ## 8.56.3 (Oct 17, 2021)
 

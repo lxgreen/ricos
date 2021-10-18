@@ -318,6 +318,7 @@
   "GalleryImageSettings_Update": "保存する",
   "LinkTo_Modal_Sidebar_Section": "セクション",
   "LinkTo_Modal_Section_Filter_All": "全て",
+  "Embed_Add_Button_Label": "Add Now",
   "UploadFile_Error_Corrupt_File": "ファイルが破損しているため、アップロードされませんでした。別のファイルをアップロードしてください。",
   "TablePlugin_Toolbar_ContextMenu_MergeCells_Button": "セルを結合",
   "BlockToolbar_Section_Embed_Social": "SNS から埋め込む",
