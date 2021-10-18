@@ -39,6 +39,7 @@ import {
   CODE_BLOCK_TYPE,
   BLOCKQUOTE,
   HEADINGS_TYPE,
+  NUMBERED_LIST_TYPE,
 } from 'ricos-content';
 
 const PLUGIN_TYPE_MAP = {
@@ -90,6 +91,7 @@ export class RichContentAdapter implements TiptapAPI {
       [BLOCKQUOTE]: () => this.editor.commands.toggleBlockquote(),
       [CODE_BLOCK_TYPE]: () => this.editor.commands.toggleCodeBlock(),
       [BULLET_LIST_TYPE]: () => this.editor.commands.toggleBulletList(),
+      [NUMBERED_LIST_TYPE]: () => this.editor.commands.toggleOrderedList(),
     };
   }
 
