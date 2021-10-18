@@ -67,10 +67,13 @@ export const Color = Mark.create<ColorOptions>({
         return commands.setMark('color', { foreground: color });
       },
       unsetColor: () => ({ commands }) => {
-        return commands.unsetMark('color');
+        return commands.setMark('color', { foreground: null });
       },
       setHighlight: color => ({ commands }) => {
         return commands.setMark('color', { background: color });
+      },
+      unsetHighlight: () => ({ commands }) => {
+        return commands.setMark('color', { background: null });
       },
     };
   },
