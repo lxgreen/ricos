@@ -9,12 +9,7 @@ import { parseExperiments } from 'wix-rich-content-common/libs/experiments';
 const ImagePluginStory = () => {
   const [experimentEnabled, setExperimentEnabled] = useState(false);
   const [viewerKey, setViewerKey] = useState(1);
-
-  const experiments = parseExperiments({
-    'specs.ricos.useSrcSet': 'true',
-  });
-  // eslint-disable-next-line no-console
-  console.log({ experiments });
+  const experiments = parseExperiments({});
 
   return (
     <Page title="Image Plugin With Thumbnail experiment">
