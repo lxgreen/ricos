@@ -9,6 +9,7 @@ import { parseExperiments } from 'wix-rich-content-common/libs/experiments';
 const ImagePluginStory = () => {
   const [experimentEnabled, setExperimentEnabled] = useState(false);
   const [viewerKey, setViewerKey] = useState(1);
+  const experiments = parseExperiments({});
 
   return (
     <Page title="Image Plugin With Thumbnail experiment">
