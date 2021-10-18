@@ -17,6 +17,12 @@
     Click to see more.
   </summary>
 
+
+### :nail_care: Polish
+
+- `line-spacing`
+  - [#3009](https://github.com/wix/ricos/pull/3009) add custom line-height selection to the line-heights options display
+
 </details>
 <hr/>
 

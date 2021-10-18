@@ -14,6 +14,16 @@ class LineSpacingPanel extends Component {
     this.styles = mergeStyles({ styles, theme: props.theme });
   }
 
+  generateOptions = () => {
+    const current = this.props.currentSelect['line-height'];
+    const isCurrentInOptions = lineHeights.some(lineHeight => lineHeight.text === current);
+    return isCurrentInOptions
+      ? lineHeights
+      : [...lineHeights, { text: current, commandKey: current }].sort(
+          (a, b) => Number(a.commandKey) - Number(b.commandKey)
+        );
+  };
+
   showCustomPanel = () => {
     this.setState({ isCustomPanel: true });
   };
@@ -36,7 +46,7 @@ class LineSpacingPanel extends Component {
   render() {
     const { t, isMobile, theme } = this.props;
     const { isCustomPanel, spacing } = this.state;
-    const { styles, showCustomPanel, onChange, onSave, onCancel } = this;
+    const { styles, showCustomPanel, onChange, onSave, onCancel, generateOptions } = this;
     const onSaveLineHeight = (height, clickFromKeyboard) =>
       onSave({ 'line-height': height }, clickFromKeyboard);
     const onChangeLineHeight = height => onChange({ 'line-height': `${height}` });
@@ -47,7 +57,7 @@ class LineSpacingPanel extends Component {
         {...{
           currentSelect: this.state.spacing,
           panelHeader,
-          options: lineHeights,
+          options: generateOptions(),
           onChange: onChangeLineHeight,
           t,
         }}
@@ -60,7 +70,7 @@ class LineSpacingPanel extends Component {
       <DesktopPanel
         {...{
           currentSelect: this.state.spacing,
-          options: lineHeights,
+          options: generateOptions(),
           onChange: onSaveLineHeight,
           panelHeader,
           customPanelOptions: { inline: false, onOpen: showCustomPanel },
