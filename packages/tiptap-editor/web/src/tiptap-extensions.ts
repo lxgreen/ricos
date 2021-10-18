@@ -18,6 +18,7 @@ import { createLink } from './extensions/extension-link';
 import { createBold } from './extensions/extension-bold';
 import { createColor } from './extensions/extension-color';
 import { createBulletedList } from './extensions/extension-bulleted-list';
+import { createSpoiler } from './extensions/extension-spoiler';
 import { HeadingData } from 'ricos-schema';
 import { Attributes, Extensions, MarkConfig, NodeConfig } from '@tiptap/react';
 import styles from './statics/styles.scss';
@@ -63,4 +64,5 @@ export const tiptapExtensions: Extensions = [
       class: styles.code,
     },
   }).extend(withID),
+  createSpoiler(),
 ];
