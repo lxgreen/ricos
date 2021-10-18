@@ -32,7 +32,14 @@ import {
   TIPTAP_GIF_TYPE,
   TIPTAP_VIDEO_TYPE,
 } from '../../consts';
-import { HEADER_BLOCK, UNSTYLED } from 'ricos-content';
+import {
+  HEADER_BLOCK,
+  UNSTYLED,
+  BULLET_LIST_TYPE,
+  CODE_BLOCK_TYPE,
+  BLOCKQUOTE,
+  HEADINGS_TYPE,
+} from 'ricos-content';
 
 const PLUGIN_TYPE_MAP = {
   [RICOS_DIVIDER_TYPE]: TIPTAP_DIVIDER_TYPE,
@@ -79,9 +86,10 @@ export class RichContentAdapter implements TiptapAPI {
     };
     this.blockTypeCommandMap = {
       [UNSTYLED]: () => this.editor.commands.setParagraph(),
-      headings: level => this.editor.commands.toggleHeading({ level }),
-      blockquote: () => this.editor.commands.toggleBlockquote(),
-      'code-block': () => this.editor.commands.toggleCodeBlock(),
+      [HEADINGS_TYPE]: level => this.editor.commands.toggleHeading({ level }),
+      [BLOCKQUOTE]: () => this.editor.commands.toggleBlockquote(),
+      [CODE_BLOCK_TYPE]: () => this.editor.commands.toggleCodeBlock(),
+      [BULLET_LIST_TYPE]: () => this.editor.commands.toggleBulletList(),
     };
   }
 
@@ -191,6 +199,8 @@ export class RichContentAdapter implements TiptapAPI {
           this.blockTypeCommandMap.headings(headingTypeToLevelMap[type]);
         } else if (this.blockTypeCommandMap[type]) {
           this.blockTypeCommandMap[type]();
+        } else {
+          console.error(`${type} block type not supported`);
         }
       },
     };
