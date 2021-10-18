@@ -1,0 +1,25 @@
+@import '~wix-rich-content-common/dist/statics/styles/palette';
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
+@import '~wix-rich-content-common/dist/statics/styles/consts';
+
+.blockStyleSpacing {
+  margin: 15px 18px;
+
+  @include phone {
+    margin: 15px calc((18px + (100% - #{$textMobileWidth}) / 2));
+  }
+}
+
+.code {
+  composes: blockStyleSpacing;
+  background-color: rgba($primary-text-color-tuple, 0.06);
+  font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
+  font-size: 16px;
+  line-height: 26px;
+  padding: 2px 25px;
+  white-space: pre-wrap;
+
+  .renderedInTable & {
+    margin: 0;
+  }
+}

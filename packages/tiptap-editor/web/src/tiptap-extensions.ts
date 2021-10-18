@@ -8,7 +8,7 @@ import Underline from '@tiptap/extension-underline';
 import Text from '@tiptap/extension-text';
 // import History from '@tiptap/extension-history';
 import Italic from '@tiptap/extension-italic';
-// import CodeBlock from '@tiptap/extension-code-block';
+import CodeBlock from '@tiptap/extension-code-block';
 import Heading from '@tiptap/extension-heading';
 import Blockquote from '@tiptap/extension-blockquote';
 import OrderedList from '@tiptap/extension-ordered-list';
@@ -20,6 +20,7 @@ import { createColor } from './extensions/extension-color';
 import { createBulletedList } from './extensions/extension-bulleted-list';
 import { HeadingData } from 'ricos-schema';
 import { Attributes, Extensions, MarkConfig, NodeConfig } from '@tiptap/react';
+import styles from './statics/styles.scss';
 
 const extendedAttrs = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -53,4 +54,9 @@ export const tiptapExtensions: Extensions = [
   createBulletedList().extend(withID),
   createBold(),
   createColor(),
+  CodeBlock.configure({
+    HTMLAttributes: {
+      class: styles.code,
+    },
+  }).extend(withID),
 ];

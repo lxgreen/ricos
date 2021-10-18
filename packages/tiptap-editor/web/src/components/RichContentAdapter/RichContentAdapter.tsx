@@ -81,6 +81,7 @@ export class RichContentAdapter implements TiptapAPI {
       [UNSTYLED]: () => this.editor.commands.setParagraph(),
       headings: level => this.editor.commands.toggleHeading({ level }),
       blockquote: () => this.editor.commands.toggleBlockquote(),
+      'code-block': () => this.editor.commands.toggleCodeBlock(),
     };
   }
 
