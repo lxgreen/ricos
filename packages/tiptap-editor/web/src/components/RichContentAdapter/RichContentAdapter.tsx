@@ -75,7 +75,9 @@ export class RichContentAdapter implements TiptapAPI {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private decorationCommandMap: Record<string, any>,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    private blockTypeCommandMap: Record<string, any>
+    private blockTypeCommandMap: Record<string, any>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    private deleteDecorationCommandMap: Record<string, any>
   ) {
     this.editor = editor;
     this.t = t;
@@ -92,6 +94,9 @@ export class RichContentAdapter implements TiptapAPI {
       [CODE_BLOCK_TYPE]: () => this.editor.commands.toggleCodeBlock(),
       [BULLET_LIST_TYPE]: () => this.editor.commands.toggleBulletList(),
       [NUMBERED_LIST_TYPE]: () => this.editor.commands.toggleOrderedList(),
+    };
+    this.deleteDecorationCommandMap = {
+      [RICOS_LINK_TYPE]: () => this.editor.commands.unsetLink(),
     };
   }
 
@@ -205,6 +210,13 @@ export class RichContentAdapter implements TiptapAPI {
           console.error(`${type} block type not supported`);
         }
       },
+      deleteDecoration: type => {
+        if (this.deleteDecorationCommandMap[type]) {
+          this.deleteDecorationCommandMap[type]();
+        } else {
+          console.error(`delete ${type} decoration type not supported`);
+        }
+      },
     };
   }
 
@@ -248,7 +260,6 @@ export class RichContentAdapter implements TiptapAPI {
     saveSelectionState: () => {},
     loadSelectionState: () => {},
     triggerDecoration: () => {},
-    deleteDecoration: () => {},
     setBlock: () => {},
     deleteBlock: () => {},
     undo: () => {},
