@@ -19,6 +19,7 @@ import {
   colorTypes,
   translateHeading,
   findOsName,
+  getSpacing,
 } from './buttonsListCreatorConsts';
 import { HEADER_TYPE_MAP } from 'wix-rich-content-plugin-commons';
 import {
@@ -34,6 +35,7 @@ export const createButtonsList = (
   t,
   linkPanelData,
   colorPickerData,
+  defaultLineSpacing,
   headingsData,
   experiments
 ) => {
@@ -52,7 +54,15 @@ export const createButtonsList = (
     handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData, experiments);
     handleButtonIsActive(buttonsList, index, editorCommands);
     handleButtonIsDisabled(buttonsList, index, editorCommands);
-    handleButtonModal(buttonsList, index, editorCommands, linkPanelData, headingsData, t);
+    handleButtonModal(
+      buttonsList,
+      index,
+      editorCommands,
+      linkPanelData,
+      headingsData,
+      t,
+      defaultLineSpacing
+    );
     handleButtonOnSave(buttonsList, index, editorCommands);
     handleButtonOnCancel(buttonsList, index, editorCommands);
     handleButtonOnChange(buttonsList, index, editorCommands);
@@ -124,7 +134,6 @@ const handleButtonOnDelete = (buttonsList, index, editorCommands: editorCommands
     if (buttonName === 'LINK' || buttonName === 'editLink') {
       buttonsList[index].onDelete = () => {
         editorCommands.deleteDecoration(decorationButtons[buttonName] as typeof RICOS_LINK_TYPE);
-        setTimeout(() => editorCommands.loadSelectionState());
       };
     }
   }
@@ -136,7 +145,6 @@ const handleButtonOnDone = (buttonsList, index, editorCommands: editorCommands) 
     if (buttonName === 'LINK' || buttonName === 'editLink') {
       buttonsList[index].onDone = data => {
         editorCommands.insertDecoration(decorationButtons[buttonName], data);
-        setTimeout(() => editorCommands.loadSelectionState());
       };
     }
   }
@@ -221,9 +229,6 @@ const handleButtonOnSave = (buttonsList, index, editorCommands: editorCommands) 
         if (['LINE_SPACING', 'FONT_SIZE'].includes(buttonName)) {
           if (value) {
             updateDynamicStyles(value, editorCommands, buttonName);
-            setTimeout(() => editorCommands.loadSelectionState());
-          } else {
-            editorCommands.loadEditorState();
           }
         }
       };
@@ -237,7 +242,8 @@ const handleButtonModal = (
   editorCommands: editorCommands,
   linkPanelData,
   headingsData,
-  t
+  t,
+  defaultLineSpacing
 ) => {
   const buttonName = buttonsList[index].name;
   if (buttonsFullData[buttonName].modal) {
@@ -253,7 +259,8 @@ const handleButtonModal = (
       buttonsList[index].modal = props => Modal && <Modal {...props} currentSelect={alignment} />;
     } else if (buttonName === 'LINE_SPACING') {
       const Modal = buttonsFullData[buttonName].modal;
-      const spacing = editorCommands.getBlockSpacing();
+      const currentSpacing = editorCommands.getBlockSpacing();
+      const spacing = getSpacing(currentSpacing, defaultLineSpacing);
       buttonsList[index].modal = props => Modal && <Modal {...props} currentSelect={spacing} />;
     } else if (buttonName === 'LINK' || buttonName === 'editLink') {
       const Modal = buttonsFullData[buttonName].modal;

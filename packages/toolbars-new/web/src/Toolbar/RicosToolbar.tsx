@@ -57,6 +57,11 @@ interface RicosToolbarProps {
   headingsData?: any;
   onToolbarButtonClick?: (name: string, value?: any) => void;
   experiments?: AvailableExperiments;
+  defaultLineSpacing?: {
+    'line-height'?: string;
+    'padding-top'?: string;
+    'padding-bottom'?: string;
+  };
 }
 
 class RicosToolbar extends Component<RicosToolbarProps> {
@@ -104,6 +109,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       afterClick,
       nestedMenu,
       experiments,
+      defaultLineSpacing,
     } = this.props;
     const updatedButtons = createButtonsList(
       buttons,
@@ -112,7 +118,8 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       linkPanelData,
       colorPickerData,
       headingsData,
-      experiments
+      experiments,
+      defaultLineSpacing
     );
     const buttonsWithoutUnwantedSeparators =
       updatedButtons.length > 0 && this.cleanUnwantedSeparators(updatedButtons);

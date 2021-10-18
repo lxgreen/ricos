@@ -17,13 +17,78 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.56.4 (Oct 18, 2021)
+
+### :house: Internal
+
+- `video/linkpreview/ui-components`
+  - [#3010](https://github.com/wix/ricos/pull/3010) new modals general refactor
+- `ricos-content`
+  - [#3007](https://github.com/wix/ricos/pull/3007) velo adapter bundle size improvement
+
+### :nail_care: Polish
+
+- `common/toolbars-new`
+  - [#2996](https://github.com/wix/ricos/pull/2996) created border-box mixin and used it in the new toolbar modals
+
+### :bug: Bug Fix
+
+- `viewer`
+  - [#3004](https://github.com/wix/ricos/pull/3004) fix ios text highlight on blankspaces
+- `[toolbars-new]`
+  - [#2991](https://github.com/wix/ricos/pull/2991) close modals on escape
+
+## 8.56.3 (Oct 17, 2021)
+
+### :nail_care: Polish
+
+- `social-polls`
+  - [#2899](https://github.com/wix/ricos/pull/2899) fix missing import wix validations for polls schema
+
+## 8.56.2 (Oct 16, 2021)
+
+### :house: Internal
+
+- `ricos-content`
+  - [#3000](https://github.com/wix/ricos/pull/3000) velo adapter: fix `parseImageElement` scoped variable
+
+## 8.56.1 (Oct 14, 2021)
+
+### :nail_care: Polish
+
+- `social-polls`
+  - [#2899](https://github.com/wix/ricos/pull/2899) polls schema
+
+## 8.56.0 (Oct 14, 2021)
+
+### :nail_care: Polish
+
+- `plugin-video`
+  - [#2985](https://github.com/wix/ricos/pull/2985) video modal new design
+- `social-embed`
+  - [#2986](https://github.com/wix/ricos/pull/2986) social-embed modal new design
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2982](https://github.com/wix/ricos/pull/2982) fix Link-modal style
+
 ### :rocket: New Feature
 
 - `toolbars-new`
   - [#2921](https://github.com/wix/ricos/pull/2921) custom font size dropdown and `toolbarInputButton`
+- `ricos-content`
+  - [#2994](https://github.com/wix/ricos/pull/2994) velo adapter: modify functionality with callback support
 
-</details>
-<hr/>
+### :house: Internal
+
+- `toolbars-new`
+  - [#2968](https://github.com/wix/ricos/pull/2968) refactor line-spacing (set to default when there is no line-spacing)
+- `ricos-content`
+  - [#2992](https://github.com/wix/ricos/pull/2992) velo adapter: refactoring + folder lib rename
 
 ## 8.55.3 (Oct 11, 2021)
 
@@ -155,7 +220,9 @@
   - [#2759](https://github.com/wix/ricos/pull/2759) button schema
   - [#2928](https://github.com/wix/ricos/pull/2928) disable polls from schema & content api until schema is final
 - `html plugin`
+
   - [#2934](https://github.com/wix/ricos/pull/2934) `forceIframeSandboxDomain` experiment (for debugging)
+
 - `a11y`
   - [#2935](https://github.com/wix/ricos/pull/2935) add presentation role to empty lines to skip reading by screen readers
 

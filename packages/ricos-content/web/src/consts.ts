@@ -130,7 +130,7 @@ export const RICOS_NODE_TYPE_TO_DATA_FIELD = {
   [Node_Type.MAP]: 'mapData',
   [Node_Type.APP_EMBED]: 'appEmbedData',
   [Node_Type.VIDEO]: 'videoData',
-  // [Node_Type.POLL]: 'pollData',
+  [Node_Type.POLL]: 'pollData',
   [Node_Type.TABLE]: 'tableData',
   [Node_Type.TABLE_CELL]: 'tableCellData',
   [Node_Type.PARAGRAPH]: 'paragraphData',

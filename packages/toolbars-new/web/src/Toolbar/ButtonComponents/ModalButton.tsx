@@ -8,7 +8,7 @@ import styles from '../ToolbarNew.scss';
 import ToolbarInputButton from '../ToolbarInputButton';
 import ToolbarButton from '../ToolbarButton';
 import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
-import { elementOverflowWithEditor } from 'wix-rich-content-editor-common';
+import { elementOverflowWithEditor, KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 
 type dropDownPropsType = {
   isMobile?: boolean;
@@ -71,7 +71,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
     if (!isModalOpen) {
       this.openModal();
     } else {
-      this.closeModal(e.detail); //do not load selection on shortcuts
+      this.closeModal();
     }
   };
 
@@ -159,9 +159,12 @@ class ModalButton extends Component<ModalButtonProps, State> {
   };
 
   onClickOutside = e => {
-    this.closeModal({
-      loadSelectionOnClose: e.target.closest('[data-hook=ricos-editor-toolbars]'),
-    });
+    const clickFromInsideTheToolbar = !!e.target.closest('[data-hook=ricos-editor-toolbars]');
+    return !clickFromInsideTheToolbar
+      ? this.closeModal({
+          loadSelectionOnClose: e.target.closest('[data-hook=ricos-editor-toolbars]'),
+        })
+      : this.closeModal();
   };
 
   render() {
@@ -212,6 +215,13 @@ class ModalButton extends Component<ModalButtonProps, State> {
       ? { ...defaultStyles, height: '100%' }
       : { ...defaultStyles, background: 'transparent' };
 
+    const onKeyDown = e => {
+      if (e.keyCode === KEYS_CHARCODE.ESCAPE) {
+        this.closeModal({ clickFromKeyboard: true });
+        e.stopPropagation();
+      }
+    };
+
     return (
       <ClickOutside onClickOutside={this.onClickOutside}>
         <div className={styles.buttonWrapper}>
@@ -231,6 +241,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
                 isMobile ? mobileStyles : overflowWidthBy ? { left: `-${overflowWidthBy}px` } : {}
               }
               onClick={onModalWrapperClick}
+              onKeyDown={onKeyDown}
             >
               {modal({
                 closeCustomModal: this.closeModal,

@@ -34,7 +34,7 @@ class LineSpacingPanel extends Component {
   onCancel = e => this.props.onCancel({ clickFromKeyboard: !e.detail });
 
   render() {
-    const { t, isMobile, currentSelect, theme } = this.props;
+    const { t, isMobile, theme } = this.props;
     const { isCustomPanel, spacing } = this.state;
     const { styles, showCustomPanel, onChange, onSave, onCancel } = this;
     const onSaveLineHeight = (height, clickFromKeyboard) =>
@@ -45,11 +45,10 @@ class LineSpacingPanel extends Component {
     const panel = isMobile ? (
       <MobilePanel
         {...{
-          currentSelect,
+          currentSelect: this.state.spacing,
           panelHeader,
           options: lineHeights,
           onChange: onChangeLineHeight,
-          onCancel,
           t,
         }}
       />
@@ -60,7 +59,7 @@ class LineSpacingPanel extends Component {
     ) : (
       <DesktopPanel
         {...{
-          currentSelect,
+          currentSelect: this.state.spacing,
           options: lineHeights,
           onChange: onSaveLineHeight,
           panelHeader,
@@ -70,7 +69,6 @@ class LineSpacingPanel extends Component {
       />
     );
     return (
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
         className={classNames(styles.panel_Container, {
           [styles.mobile_Container]: isMobile,

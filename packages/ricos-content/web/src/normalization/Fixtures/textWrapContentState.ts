@@ -269,7 +269,6 @@ export default {
           alignment: 'center',
           size: 'large',
           width: 'full-width',
-          enableVoteRole: false,
         },
       },
     },

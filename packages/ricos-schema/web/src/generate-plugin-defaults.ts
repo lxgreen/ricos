@@ -28,7 +28,7 @@ const dataPropByType = {
   [Node_Type.LINK_PREVIEW]: 'linkPreviewData',
   [Node_Type.MAP]: 'mapData',
   [Node_Type.PARAGRAPH]: 'paragraphData',
-  // [Node_Type.POLL]: 'pollData',
+  [Node_Type.POLL]: 'pollData',
   [Node_Type.TEXT]: 'textData',
   [Node_Type.VIDEO]: 'videoData',
 };
@@ -57,10 +57,10 @@ const defaultContent = {
     { type: 'LINK_PREVIEW', linkPreviewData: { containerData, link: {} } },
     { type: 'MAP', mapData: { containerData, mapSettings: {} } },
     { type: 'PARAGRAPH', paragraphData: { textStyle: {} } },
-    // {
-    //   type: 'POLL',
-    //   pollData: { containerData, config: {}, design: {}, layout: {}, poll: {} },
-    // },
+    {
+      type: 'POLL',
+      pollData: { containerData, design: {}, layout: {}, poll: {} },
+    },
     { type: 'TEXT', textData: {} },
     { type: 'VIDEO', videoData: { containerData, thumbnail: {}, video: {} } },
   ],

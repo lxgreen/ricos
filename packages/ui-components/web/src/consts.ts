@@ -70,11 +70,13 @@ export const DesktopFlyOutModalStyles: ModalStyles = Object.freeze({
     zIndex: 5,
   },
   content: {
-    width: 360,
     boxSizing: 'border-box',
+    height: 'fit-content',
     minHeight: 165,
-    maxHeight: 230,
-    height: 'max-content',
+    width: 'fit-content',
+    minWidth: 363,
+    maxHeight: '100%',
+    maxWidth: '100%',
     overflow: 'visible',
     border: 'solid 1px rgba(51, 51, 51, 0.1)',
     display: 'block',
@@ -98,6 +100,7 @@ export const MOBILE_FULL_SCREEN_CUSTOM_STYLE: ModalStyles = Object.freeze({
     display: 'flex',
     width: '100vw',
     justifyContent: 'center',
+    boxSizing: 'border-box',
   },
 });
 

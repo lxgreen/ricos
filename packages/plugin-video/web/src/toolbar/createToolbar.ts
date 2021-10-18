@@ -22,7 +22,7 @@ const createToolbar: CreatePluginToolbar = ({
 }) => {
   return {
     InlineButtons: createInlineButtons({ t, settings, isMobile, experiments }),
-    InsertButtons: createInsertButtons({ t, settings, isMobile, disableDownload }),
+    InsertButtons: createInsertButtons({ t, settings, isMobile, disableDownload, experiments }),
     name: 'video',
   };
 };

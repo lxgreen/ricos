@@ -1,3 +1,5 @@
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
+
 .toolbar {
   display: grid;
   grid-auto-flow: column;
@@ -47,6 +49,11 @@
     padding: 8px 0;
     width: max-content;
     min-width: 42px;
+    @include border-box;
+    @include phone {
+      height: 100vh;
+      max-height: 100vh;
+    }    
     // &.alignModalCenter {
     //     left: 50%;
     //     transform: translateX(-50%);

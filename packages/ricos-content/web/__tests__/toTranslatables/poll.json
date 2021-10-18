@@ -5,8 +5,12 @@
       "id": "36",
       "nodes": [],
       "pollData": {
-        "config": {
-          "enableVoteRole": false
+        "containerData": {
+          "alignment": "CENTER",
+          "width": {
+            "size": "CONTENT"
+          },
+          "textWrap": true
         },
         "poll": {
           "options": [
@@ -102,14 +106,13 @@
           "option": {
             "borderRadius": 0
           }
-        },
-        "siteToken": "VBLuQllkHnrmBH_7O0-Xmzek4kW6U1qHy5-p36Rfkys.eyJpbnN0YW5jZUlkIjoiYTE2NDRiZmUtNzFmOC00MDFiLWI3YWEtNTgwYzkxMDBmMDk3IiwiYXBwRGVmSWQiOiIxNDhjMjI4Ny1jNjY5LWQ4NDktZDE1My00NjNjNzQ4NmE2OTQiLCJtZXRhU2l0ZUlkIjoiMzlkNjk1MTYtYWYwNC00ZTQ1LWE2NjAtMzQwNjIwZWQ0NGNkIiwic2lnbkRhdGUiOiIyMDIwLTA3LTMwVDA4OjQyOjQ2LjQ2MVoiLCJ1aWQiOiIzZWZhN2U4Ni1mYzI1LTRlZjEtYTAwMi0xOTc2OWI4NDIwMmYiLCJwZXJtaXNzaW9ucyI6Ik9XTkVSIiwiZGVtb01vZGUiOmZhbHNlLCJhaWQiOiIzYTk1MzMzMS1hZGU4LTQzMDMtOWM5NC04NmIzNmU0ZDAzMzIiLCJiaVRva2VuIjoiOThiMmRlZTgtZGVmYy0wZTVlLTExY2EtNmMwYWIxZWRiNDVhIiwic2l0ZU93bmVySWQiOiIzZWZhN2U4Ni1mYzI1LTRlZjEtYTAwMi0xOTc2OWI4NDIwMmYiLCJleHBpcmF0aW9uRGF0ZSI6IjIwMjAtMDctMzBUMTI6NDI6NDYuNDYxWiIsImhhc1VzZXJSb2xlIjp0cnVlfQ"
+        }
       }
     }
   ],
   "metadata": {
     "version": 1,
-    "createdTimestamp": "2021-08-16T13:12:44.987Z",
-    "updatedTimestamp": "2021-08-16T13:12:44.987Z"
+    "createdTimestamp": "2021-08-31T13:53:26.531Z",
+    "updatedTimestamp": "2021-08-31T13:53:26.531Z"
   }
 }

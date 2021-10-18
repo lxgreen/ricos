@@ -173,6 +173,12 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
       const Icon = getIcon();
       icon = <Icon />;
     }
+    const onKeyDown = e => {
+      if (e.keyCode === KEYS_CHARCODE.ESCAPE) {
+        this.closeModal({ clickFromKeyboard: true });
+        e.stopPropagation();
+      }
+    };
     return (
       <ClickOutside onClickOutside={this.onClickOutside}>
         <ToolbarButton
@@ -195,6 +201,7 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
             data-id={'color-picker-modal'}
             ref={this.setModalRef}
             tabIndex={-1}
+            onKeyDown={onKeyDown}
           >
             <ColorPicker
               color={currentColor}

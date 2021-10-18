@@ -1,9 +1,16 @@
 import { BUTTONS, PluginSettingsIcon } from 'wix-rich-content-plugin-commons';
-import { getModalStyles, decorateComponentWithProps } from 'wix-rich-content-editor-common';
+import {
+  getModalStyles,
+  decorateComponentWithProps,
+  getBottomToolbarModalStyles,
+} from 'wix-rich-content-editor-common';
 import { MediaReplaceIcon } from '../icons';
 import { Modals } from '../modals';
 import VideoModal from './videoModal';
-
+import {
+  DesktopFlyOutModalStyles,
+  MOBILE_FULL_SCREEN_CUSTOM_STYLE,
+} from 'wix-rich-content-ui-components';
 import {
   SelectionModalCustomStyle,
   ExtendedSelectionModalCustomStyle,
@@ -28,14 +35,19 @@ const createInlineButtons: CreateInlineButtons = ({
 }) => {
   //apply the extended input modal styles if handleFileSelection is avilable in plugin config
   //& on mobile if enableCustomUploadOnMobile is set to true, otherwise the normal modal styles is applied
+  const { spoilerInInlineToolbar, newVideoModal } = experiments;
+  const useNewModal = newVideoModal?.enabled;
   const icon = settings?.toolbar?.icons?.replace || MediaReplaceIcon;
-  const customStyles =
+
+  const defaultStyles =
     (!isMobile || settings.enableCustomUploadOnMobile) &&
     (settings.handleFileSelection || settings.handleFileUpload)
       ? ExtendedSelectionModalCustomStyle
       : SelectionModalCustomStyle;
 
-  const { spoilerInInlineToolbar } = experiments;
+  const newModalStyles = isMobile ? MOBILE_FULL_SCREEN_CUSTOM_STYLE : DesktopFlyOutModalStyles;
+  const customStyles = useNewModal ? newModalStyles : defaultStyles;
+
   const spoilerButton =
     settings.spoiler && spoilerInInlineToolbar?.enabled
       ? [
@@ -83,11 +95,22 @@ const createInlineButtons: CreateInlineButtons = ({
       modalElement: decorateComponentWithProps(VideoModal, {
         ...settings,
       }),
-      modalStyles: getModalStyles({
-        customStyles,
-        fullScreen: false,
-        isMobile,
-      }),
+      modalStylesFn: ({ buttonRef, toolbarName }) => {
+        return getBottomToolbarModalStyles(
+          buttonRef,
+          {
+            customStyles,
+          },
+          toolbarName
+        );
+      },
+      modalStyles: isMobile
+        ? getModalStyles({
+            customStyles: MOBILE_FULL_SCREEN_CUSTOM_STYLE,
+            fullScreen: true,
+            isMobile,
+          })
+        : undefined,
       mobile: true,
       tooltipTextKey: 'ReplaceVideoButton_Tooltip',
       t,

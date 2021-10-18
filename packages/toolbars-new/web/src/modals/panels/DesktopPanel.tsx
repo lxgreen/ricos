@@ -31,7 +31,7 @@ const DesktopPanel = ({
   }, []);
 
   const optionElement = (option, isSelected, onClick) => {
-    const content = option.icon ? option.icon : t(option.text);
+    const content = option.icon ? option.icon() : t(option.text);
     const onKeyDown = e => {
       if (e.keyCode === KEYS_CHARCODE.ENTER) {
         onClick(option.commandKey, true);
@@ -73,7 +73,6 @@ const DesktopPanel = ({
 
   const dropDownPanel = (
     <div
-      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
       tabIndex={-1}
       ref={panelRef}
       className={classNames(styles.desktopPanel, {
