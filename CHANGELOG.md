@@ -17,10 +17,17 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.56.4 (Oct 18, 2021)
+
 ### :house: Internal
 
 - `video/linkpreview/ui-components`
   - [#3010](https://github.com/wix/ricos/pull/3010) new modals general refactor
+- `ricos-content`
+  - [#3007](https://github.com/wix/ricos/pull/3007) velo adapter bundle size improvement
 
 ### :nail_care: Polish
 
@@ -33,10 +40,6 @@
   - [#3004](https://github.com/wix/ricos/pull/3004) fix ios text highlight on blankspaces
 - `[toolbars-new]`
   - [#2991](https://github.com/wix/ricos/pull/2991) close modals on escape
-
-
-</details>
-<hr/>
 
 ## 8.56.3 (Oct 17, 2021)
 
