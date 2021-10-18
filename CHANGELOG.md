@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+  ### :nail_care: Polish
+
+- `common/toolbars-new`
+  - [#2996](https://github.com/wix/ricos/pull/2996) created border-box mixin and used it in the new toolbar modals
+
 ### :bug: Bug Fix
 
 - `viewer`
