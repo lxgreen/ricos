@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import classNames from 'classnames';
 import {
   mergeStyles,
   TranslationFunction,
@@ -27,7 +26,6 @@ interface TextInputModalContainerProps {
   submittedInvalidUrl?: any;
   errorMessage: string;
   placeholder: string;
-  isInlineModal?: boolean;
   buttonAlignment?: string;
   saveLabel?: string;
   onInputChange: (text) => void;
@@ -47,7 +45,6 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
   selected = true,
   onConfirm,
   onCloseRequested,
-  isInlineModal = true,
   saveLabel,
 }) => {
   const styles = mergeStyles({ styles: Styles, theme });
@@ -81,11 +78,7 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
   );
 
   return (
-    <div
-      className={classNames(styles.inputModal_container, {
-        [styles.inlineModal]: isInlineModal,
-      })}
-    >
+    <div className={styles.inputModal_container}>
       {isMobile && withMobileHeader && renderMobileHeader()}
       <div className={styles.inputModal_content} data-hook={dataHook} dir={languageDir}>
         {title && renderTitle()}

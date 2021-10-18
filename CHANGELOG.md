@@ -17,9 +17,9 @@
     Click to see more.
   </summary>
 
-
 ### :nail_care: Polish
-
+- `vertical-embed`
+  - [#3005](https://github.com/wix/ricos/pull/3005) vertical-embed modal new design
 - `line-spacing`
   - [#3009](https://github.com/wix/ricos/pull/3009) add custom line-height selection to the line-heights options display
 

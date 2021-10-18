@@ -14,6 +14,7 @@ const createVerticalEmbedPlugin: CreatePluginFunction<VerticalEmbedPluginEditorC
     isMobile,
     locale,
     localeContent,
+    experiments,
     ...rest
   } = config;
 
@@ -28,6 +29,7 @@ const createVerticalEmbedPlugin: CreatePluginFunction<VerticalEmbedPluginEditorC
       t,
       isMobile,
       locale: localeContent || locale,
+      experiments,
     }),
     helpers,
     t,

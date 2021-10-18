@@ -124,6 +124,9 @@
   }
   .textSearchInput_container {
     width: 400px;
+    @include phone {
+      width: 100%;
+    }
   }
 
   @include phone {
