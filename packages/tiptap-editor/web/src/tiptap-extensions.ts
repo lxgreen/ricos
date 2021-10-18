@@ -41,7 +41,11 @@ const withID = extendedAttrs({
   },
 });
 export const tiptapExtensions: Extensions = [
-  Blockquote.extend(withID),
+  Blockquote.configure({
+    HTMLAttributes: {
+      class: styles.quote,
+    },
+  }).extend(withID),
   Underline,
   Document.extend(extendedAttrs({ metadata: {} })),
   Heading.extend(withID).extend(extendedAttrs(HeadingData.fromJSON({}))),

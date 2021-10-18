@@ -1,6 +1,7 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 @import '~wix-rich-content-common/dist/statics/styles/consts';
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
 
 .blockStyleSpacing {
   margin: 15px 18px;
@@ -22,4 +23,20 @@
   .renderedInTable & {
     margin: 0;
   }
+}
+
+.quote {
+  composes: blockStyleSpacing;
+  border-inline-start-width: 3px;
+  border-inline-start-style: solid;
+  font-size: $quoteFontSize;
+  line-height: $quoteLineHeight;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-inline-start: 18px;
+  font-style: normal;
+  border-left-color: $ricos-quote-border-color;
+  border-right-color: $ricos-quote-border-color;
+  color: $ricos-quote-color;
+  @include ricosTypography('quote', false);
 }
