@@ -17,7 +17,12 @@
     Click to see more.
   </summary>
 
-  ### :nail_care: Polish
+### :house: Internal
+
+- `video/linkpreview/ui-components`
+  - [#3010](https://github.com/wix/ricos/pull/3010) new modals general refactor
+
+### :nail_care: Polish
 
 - `common/toolbars-new`
   - [#2996](https://github.com/wix/ricos/pull/2996) created border-box mixin and used it in the new toolbar modals
