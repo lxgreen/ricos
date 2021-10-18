@@ -18,6 +18,7 @@
   </summary>
 
 ### :nail_care: Polish
+
 - `vertical-embed`
   - [#3005](https://github.com/wix/ricos/pull/3005) vertical-embed modal new design
 - `line-spacing`
@@ -25,6 +26,13 @@
 
 </details>
 <hr/>
+
+## 8.56.5 (Oct 18, 2021)
+
+### :house: Internal
+
+- `ricos-content`
+  - [#96dce6a](https://github.com/wix/ricos/commit/96dce6a93b8f4227dfa86c801b77b349049a4ee0)velo adapter - image element source's regex fix
 
 ## 8.56.4 (Oct 18, 2021)
 
