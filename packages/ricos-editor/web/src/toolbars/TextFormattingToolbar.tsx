@@ -20,7 +20,7 @@ import {
 } from 'wix-rich-content-toolbars-new';
 import { get } from 'lodash';
 import { mobileTextButtonList, desktopTextButtonList } from './utils/defaultTextFormattingButtons';
-import { filterButtons, isLinkToolbarOpen } from './utils/toolbarsUtils';
+import { filterButtons, isLinkToolbarOpen, addConfigButtons } from './utils/toolbarsUtils';
 
 interface TextFormattingToolbarProps {
   activeEditor: RichContentEditor;
@@ -69,16 +69,22 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
     const formattingToolbarSetting = getToolbarSettings({ textButtons }).find(
       toolbar => toolbar?.name === textToolbarType
     );
+    const deviceName = !isMobile ? 'desktop' : isiOS() ? 'mobile.ios' : 'mobile.android';
     let formattingToolbarButtons;
     if (formattingToolbarSetting?.getButtons) {
       const allFormattingToolbarButtons = formattingToolbarSetting?.getButtons?.() as TextButtons;
-      const deviceName = !isMobile ? 'desktop' : isiOS() ? 'mobile.ios' : 'mobile.android';
       formattingToolbarButtons = get(allFormattingToolbarButtons, deviceName, []);
     } else {
       formattingToolbarButtons = isMobile ? textButtons.mobile : textButtons.desktop;
     }
 
     const filteredFormattingToolbarButtons = filterButtons(formattingToolbarButtons, activeEditor);
+
+    const configButtonMap = formattingToolbarSetting?.getTextPluginButtons?.();
+
+    const buttonsWithConfigButtons = configButtonMap
+      ? addConfigButtons(filteredFormattingToolbarButtons, get(configButtonMap, deviceName, []))
+      : filteredFormattingToolbarButtons;
 
     const getPluginConfig = pluginType =>
       this.props.plugins?.find(plugin => plugin.type === pluginType)?.config;
@@ -109,7 +115,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
         isMobile={isMobile}
         t={t}
         editorCommands={editorCommands}
-        buttons={filteredFormattingToolbarButtons}
+        buttons={buttonsWithConfigButtons}
         linkPanelData={linkPanelData}
         colorPickerData={colorPickerData}
         headingsData={headingsData}

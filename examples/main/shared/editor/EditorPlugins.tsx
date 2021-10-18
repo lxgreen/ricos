@@ -850,6 +850,15 @@ const config: RichContentEditorProps['config'] = {
           android: [],
         },
       }),
+      // getTextPluginButtons: () => {
+      //   return {
+      //     desktop: {
+      //       MY_BUTTON: {
+      //         component: () => <div onClick={() => console.log('my button clicked!!')}>My Button</div>,
+      //       },
+      //     },
+      //   };
+      // },
     },
   ],
 };
