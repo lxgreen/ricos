@@ -7,6 +7,7 @@ import { Extensions } from '../../models/Extensions';
 import { tiptapExtensions as coreExtensions } from '../../tiptap-extensions';
 import { RicosTiptapEditorProps } from '../../types';
 import { coreConfigs } from './core-configs';
+import { getLangDir } from 'wix-rich-content-common';
 
 export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   content,
@@ -14,6 +15,7 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   onLoad,
   onUpdate,
   onSelectionUpdate,
+  locale,
   ...context
 }) => {
   const forceUpdate = useForceUpdate();
@@ -56,7 +58,7 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
         },
       }}
     >
-      <div dir="">
+      <div dir={getLangDir(locale)}>
         <EditorContent editor={editor} />
       </div>
     </RicosTiptapContext.Provider>

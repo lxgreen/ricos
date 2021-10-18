@@ -423,7 +423,19 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
             isMobile={this.props.isMobile}
             t={this.state.activeEditor.getT()}
             editorCommands={this.state.activeEditor.getEditorCommands()}
-            buttons={['Divider', '|', 'Image', '|', 'Video']}
+            buttons={[
+              'Divider',
+              '|',
+              'Image',
+              '|',
+              'Video',
+              '|',
+              'Gallery',
+              '|',
+              'Gif',
+              '|',
+              'File',
+            ]}
           />
         </StaticToolbarContainer>
       </div>

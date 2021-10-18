@@ -28,3 +28,6 @@ export { default as PlusIcon } from './PlusIcon';
 export { default as DividerIcon } from './DividerIcon';
 export { default as VideoIcon } from './VideoIcon';
 export { default as ImageIcon } from './ImageIcon';
+export { default as GalleryIcon } from './GalleryIcon';
+export { default as FileIcon } from './FileIcon';
+export { default as GifIcon } from './GifIcon';

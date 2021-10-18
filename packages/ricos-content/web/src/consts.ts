@@ -34,6 +34,7 @@ export const UNSTYLED = 'unstyled';
 export const BLOCKQUOTE = 'blockquote';
 export const NUMBERED_LIST_TYPE = 'ordered-list-item';
 export const BULLET_LIST_TYPE = 'unordered-list-item';
+export const HEADINGS_TYPE = 'headings';
 
 export const isListType = (type: string): boolean =>
   type === 'ordered-list-item' || type === 'unordered-list-item';
