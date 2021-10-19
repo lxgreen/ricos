@@ -11,9 +11,10 @@ interface MediaURLInputModalProps {
   url: string;
   submittedInvalidUrl: boolean;
   setUrl: (url) => void;
-  isYouTube: boolean;
-  isSoundCloud: boolean;
   withMobileHeader?: boolean;
+  dataHook?: string;
+  title?: string;
+  subTitle?: string;
 }
 
 const MediaURLInputModal: React.FC<MediaURLInputModalProps> = ({
@@ -24,24 +25,12 @@ const MediaURLInputModal: React.FC<MediaURLInputModalProps> = ({
   url,
   submittedInvalidUrl,
   setUrl,
-  isYouTube,
-  isSoundCloud,
   withMobileHeader = false,
   onConfirm,
+  dataHook,
+  title,
+  subTitle,
 }) => {
-  const dataHook = isYouTube
-    ? 'socialEmbedUploadModal'
-    : isSoundCloud
-    ? 'soundCloudUploadModal'
-    : 'videoMediaUrlModal';
-  const title = isYouTube
-    ? t('EmbedURL_Social_YouTube_Title')
-    : isSoundCloud
-    ? isMobile
-      ? t('SoundCloudUploadModal_Header_Mobile')
-      : t('SoundCloudUploadModal_Header')
-    : t('VideoModal_Embed_Title');
-
   return (
     <NewUrlInputModal
       onConfirm={onConfirm}
@@ -49,7 +38,8 @@ const MediaURLInputModal: React.FC<MediaURLInputModalProps> = ({
       input={url}
       t={t}
       languageDir={languageDir}
-      title={t(`${title}`)}
+      title={title}
+      subTitle={subTitle}
       submittedInvalidUrl={submittedInvalidUrl}
       dataHook={dataHook}
       saveLabel={t('VideoModal_Embed_ButtonText')}

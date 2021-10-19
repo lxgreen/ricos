@@ -18,6 +18,7 @@ interface TextInputModalContainerProps {
   dataHook: string;
   children?: React.ReactNode;
   title?: string;
+  subTitle?: string;
   isMobile?: boolean;
   withMobileHeader?: boolean;
   selected?: boolean;
@@ -40,6 +41,7 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
   dataHook,
   children,
   title,
+  subTitle,
   isMobile,
   withMobileHeader = true,
   selected = true,
@@ -60,11 +62,9 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
     />
   );
 
-  const renderTitle = () => (
-    <div className={styles.input_header}>
-      <div className={styles.input_header_text}>{title}</div>
-    </div>
-  );
+  const renderTitle = () => <div className={styles.input_header_title}>{title}</div>;
+
+  const renderSubTitle = () => <div className={styles.input_header_subTitle}>{subTitle}</div>;
 
   const renderDesktopFooter = () => (
     <Button
@@ -82,6 +82,7 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
       {isMobile && withMobileHeader && renderMobileHeader()}
       <div className={styles.inputModal_content} data-hook={dataHook} dir={languageDir}>
         {title && renderTitle()}
+        {subTitle && renderSubTitle()}
         <div className={styles.inputModal_textInput}>{children}</div>
         {!isMobile && renderDesktopFooter()}
       </div>

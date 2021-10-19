@@ -60,7 +60,8 @@
   color: #333333;
 }
 
-.input_header_text,
+.input_header_title,
+.input_header_subTitle,
 .urlInput_header_text {
   line-height: 28px;
   font-size: 20px;
@@ -114,11 +115,22 @@
   .input_header {
     border: none;
   }
-  .input_header_text {
-    color: #757575;
+
+  %input_header_text {
     font-size: 14px;
     text-align: left;
   }
+
+  .input_header_subTitle {
+    color: #757575;
+    @extend %input_header_text;
+  }
+
+  .input_header_title {
+    color: #000;
+    @extend %input_header_text;
+  }
+
   .inputModal_textInput {
     margin: 14px 0;
   }
