@@ -30,6 +30,7 @@ import {
   DEFAULT_CODE_DATA,
   DEFAULT_HEADING_DATA,
   DEFAULT_MAP_DATA,
+  DEFAULT_POLL_DATA,
 } from './node-builder-methods';
 import { addTable } from './table-builder-api';
 
@@ -112,6 +113,7 @@ export const setupContentBuilder = (
     { name: 'addButton', type: Node_Type.BUTTON, dataT: DEFAULT_BUTTON_DATA },
     { name: 'addGif', type: Node_Type.GIF, dataT: {} as GIFData },
     { name: 'addMap', type: Node_Type.MAP, dataT: DEFAULT_MAP_DATA },
+    { name: 'addPoll', type: Node_Type.POLL, dataT: DEFAULT_POLL_DATA },
   ].forEach(({ name, type, dataT }) => {
     builderApis[name] = RicosContentBuilder.prototype[name] = function({
       data = dataT,
