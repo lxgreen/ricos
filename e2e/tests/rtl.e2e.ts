@@ -97,7 +97,7 @@ describe('rtl', () => {
       cy.loadRicosEditorAndViewer('images')
         .openPluginToolbar(PLUGIN_COMPONENT.IMAGE)
         .openSettings()
-        .get(`[data-hook=${ACTION_BUTTONS.CANCEL}]`)
+        .get(`[data-hook=${ACTION_BUTTONS.SAVE}]`)
         .blur();
       cy.eyesCheckWindow({ tag: this.test.title, target: 'window', fully: false });
     });
