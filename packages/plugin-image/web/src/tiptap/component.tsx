@@ -15,7 +15,6 @@ export const Image: React.FC<PluginProps> = ({ context, componentData, updateAtt
   const helpers = {};
   const componentState = {};
   const settings: ImagePluginEditorConfig = {};
-  const disableRightClick = settings?.uiSettings?.disableRightClick;
   const blockProps = {
     setFocusToBlock: () => null,
   };
@@ -36,7 +35,6 @@ export const Image: React.FC<PluginProps> = ({ context, componentData, updateAtt
       componentState={componentState}
       t={t}
       settings={settings}
-      disableRightClick={disableRightClick}
       blockProps={blockProps}
       setComponentUrl={setComponentUrl}
       block={block}
