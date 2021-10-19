@@ -4,10 +4,9 @@ import { GalleryPluginEditorConfig } from '../types';
 import { PluginProps } from 'wix-rich-content-editor-common';
 
 export const Gallery: React.FC<PluginProps> = ({ context, componentData }) => {
-  const { isMobile, theme, t } = context;
+  const { isMobile, theme, t, anchorTarget, relValue } = context;
   const helpers = {};
   const settings: GalleryPluginEditorConfig = {};
-  const disableRightClick = settings?.uiSettings?.disableRightClick;
   const block = {
     getKey: () => {
       return '';
@@ -22,12 +21,9 @@ export const Gallery: React.FC<PluginProps> = ({ context, componentData }) => {
       helpers={helpers}
       t={t}
       settings={settings}
-      disableRightClick={disableRightClick}
       block={block}
-      onClick={() => {}}
-      className=""
-      anchorTarget={context.anchorTarget}
-      relValue={context.relValue}
+      anchorTarget={anchorTarget}
+      relValue={relValue}
     />
   );
 };
