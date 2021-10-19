@@ -54,9 +54,6 @@ class DividerComponent extends PureComponent {
 
 DividerComponent.propTypes = {
   componentData: PropTypes.object.isRequired,
-  componentState: PropTypes.object,
-  store: PropTypes.object,
-  blockProps: PropTypes.object,
   className: PropTypes.string,
   theme: PropTypes.object.isRequired,
   getEditorBounds: PropTypes.func.isRequired,
