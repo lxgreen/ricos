@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import styles from './ToolbarNew.scss';
+import toolbarButtonStyles from './ToolbarButtonNew.scss';
 import { TOOLBAR_BUTTON_TYPES } from './consts';
 import GroupButton from './ButtonComponents/GroupButton';
 import DropdownButton from './ButtonComponents/DropdownButton';
@@ -200,9 +201,17 @@ class Toolbar extends Component<ToolbarProps> {
     );
   };
 
+  preventDefault = event => event.preventDefault();
+
   renderComponent = buttonProps => {
     const { Component } = buttonProps;
-    return <Component />;
+    return (
+      <div className={toolbarButtonStyles.toolbarButton_wrapper}>
+        <button className={toolbarButtonStyles.toolbarButton} onMouseDown={this.preventDefault}>
+          <Component />
+        </button>
+      </div>
+    );
   };
 
   // renderNestedMenu = buttonProps => {

@@ -28,7 +28,7 @@ const NewUrlInputModal = props => {
     onInputChange,
     input,
   }: ModalProps = props;
-  const InputRef = useRef<HTMLInputElement>();
+  const InputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const input = InputRef.current as HTMLInputElement;

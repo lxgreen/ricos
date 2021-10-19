@@ -85,11 +85,6 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
 
   static contextType = GlobalContext;
 
-  shouldUseSrcSet() {
-    const { experiments } = this.context;
-    return experiments?.useSrcSet?.enabled;
-  }
-
   componentDidMount() {
     this.setState({ ssrDone: true });
     if (isSafari()) {
@@ -233,8 +228,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       classNames(imageClassName, this.styles.imagePreload),
       imageSrc.preload,
       alt,
-      { 'aria-hidden': true, ...props },
-      { useSrcSet: true }
+      { 'aria-hidden': true, ...props }
     );
   };
 
@@ -247,21 +241,15 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       fadeIn?: boolean;
       width?: number | string;
       height?: number | string;
-      useSrcSet?: boolean;
     } = {}
   ) {
-    const { fadeIn = false, width, height, useSrcSet } = opts;
-    let srcSet;
-    if (this.shouldUseSrcSet() && useSrcSet) {
-      srcSet = replaceUrlFileExtenstion(src, 'webp');
-    }
+    const { fadeIn = false, width, height } = opts;
     const loading = this.context.experiments.lazyImagesAndIframes?.enabled ? 'lazy' : undefined;
     return (
       <img
         {...props}
         className={imageClassNames}
         src={src}
-        srcSet={srcSet}
         alt={alt}
         onError={this.onImageLoadError}
         onLoad={fadeIn ? e => this.onImageLoad(e.target) : undefined}

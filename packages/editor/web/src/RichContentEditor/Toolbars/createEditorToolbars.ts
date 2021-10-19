@@ -12,11 +12,11 @@ import { reducePluginTextButtons } from './buttons/utils';
 import { get } from 'lodash';
 import {
   PluginButton,
-  TextButtonMapping,
   EditorContextType,
   ToolbarButtonProps,
   TextButtons,
   Pubsub,
+  PluginTextButtons,
   AvailableExperiments,
 } from 'wix-rich-content-common';
 import { EditorProps } from 'draft-js';
@@ -34,7 +34,7 @@ const createEditorToolbars = ({
 }: {
   buttons: {
     pluginButtons: PluginButton[];
-    pluginTextButtons: TextButtonMapping[];
+    pluginTextButtons: PluginTextButtons[];
   };
   textAlignment: EditorProps['textAlignment'];
   refId: number;

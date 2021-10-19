@@ -11,7 +11,7 @@ import {
   mockFileNativeUploadFunc,
   mockImageNativeUploadFunc,
   mockVideoNativeUploadFunc,
-} from '../../../main/shared/utils/fileUploadUtil';
+} from '../../src/shared/utils/fileUploadUtil';
 import ActionButton from '../Components/ActionButton';
 
 const mobileDetect = new MobileDetect(window.navigator.userAgent);

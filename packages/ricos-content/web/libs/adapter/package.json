@@ -1,5 +1,0 @@
-{
-    "main": "../../dist/lib/adapter.cjs.js",
-    "module": "../../dist/lib/adapter.js",
-    "types": "../../dist/lib/adapter.d.ts"
-}

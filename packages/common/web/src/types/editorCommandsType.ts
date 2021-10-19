@@ -28,6 +28,7 @@ import {
   BULLET_LIST_TYPE,
   BLOCKQUOTE,
   HEADER_BLOCK,
+  RICOS_FONT_SIZE_TYPE,
 } from 'ricos-content';
 import {
   DividerData,
@@ -44,7 +45,6 @@ import {
 } from 'ricos-schema';
 import { MentionData } from './pluginTypes';
 import { TextAlignment, InlineStyle } from './commonTypes';
-
 export type ColorType = typeof RICOS_TEXT_COLOR_TYPE | typeof RICOS_TEXT_HIGHLIGHT_TYPE;
 
 type PluginsList = string[];
@@ -102,6 +102,7 @@ export interface DecorationsDataMap {
   [RICOS_TEXT_HIGHLIGHT_TYPE]?: { color?: ColorData['background'] };
   [RICOS_INDENT_TYPE]?: number;
   [RICOS_LINE_SPACING_TYPE]?: any;
+  [RICOS_FONT_SIZE_TYPE]?: string;
 }
 
 export interface EditorCommands {

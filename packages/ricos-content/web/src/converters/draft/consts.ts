@@ -75,7 +75,7 @@ export const TO_RICOS_NODE_TYPE = {
   [APP_EMBED_TYPE]: Node_Type.APP_EMBED,
   [VIDEO_TYPE]: Node_Type.VIDEO,
   [VIDEO_TYPE_LEGACY]: Node_Type.VIDEO,
-  // [POLL_TYPE]: Node_Type.POLL,
+  [POLL_TYPE]: Node_Type.POLL,
   [TABLE_TYPE]: Node_Type.TABLE,
   [EMBED_TYPE]: Node_Type.EMBED,
 };

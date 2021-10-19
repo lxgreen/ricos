@@ -48,7 +48,7 @@ class HeadingsPanel extends Component {
   };
 
   render() {
-    const { isMobile, t, currentSelect, onCancel } = this.props;
+    const { isMobile, t, currentSelect } = this.props;
     const panelHeader = t('Headings');
 
     const panel = isMobile ? (
@@ -58,17 +58,21 @@ class HeadingsPanel extends Component {
           panelHeader,
           options: this.defaultHeadings(),
           onChange: this.onSaveHeading,
-          onCancel,
+
           t,
         }}
       />
     ) : (
       <DesktopPanel
-        {...{ currentSelect, options: this.defaultHeadings(), onChange: this.onSaveHeading, t }}
+        {...{
+          currentSelect,
+          options: this.defaultHeadings(),
+          onChange: this.onSaveHeading,
+          t,
+        }}
       />
     );
     return (
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
         className={classNames(styles.panel_Container, {
           [styles.mobile_Container]: isMobile,

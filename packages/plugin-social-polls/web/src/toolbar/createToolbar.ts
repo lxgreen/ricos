@@ -71,14 +71,12 @@ const externalToolbarStyles: ModalStyles = {
 };
 
 export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) => {
-  const { enableVoteRole } = settings || {};
-  const config = { ...DEFAULT_COMPONENT_DATA.config, enableVoteRole };
   const buttonProps = {
     type: BUTTON_TYPES.MODAL,
     name: INSERT_PLUGIN_BUTTONS.POLLS,
     tooltip: t('Poll_InsertPoll_Tooltip'),
     getIcon: () => InsertPluginIcon,
-    componentData: { ...DEFAULT_COMPONENT_DATA, config },
+    componentData: DEFAULT_COMPONENT_DATA,
     modalElement: decorateComponentWithProps(PollPresetSelector),
   };
 
@@ -108,6 +106,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
               t,
               activeTab: TABS.EDIT,
               mobile: true,
+              settings,
             },
 
             {
@@ -119,6 +118,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
               t,
               activeTab: TABS.DESIGN,
               mobile: true,
+              settings,
             },
           ]
         : [
@@ -133,6 +133,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
               tooltipTextKey: 'Poll_PollSettings_Common_Header',
               activeTab: TABS.LAYOUT,
               mobile: false,
+              settings,
             },
 
             { keyName: 'separator', mobile: false, type: BUTTONS.SEPARATOR },
@@ -148,6 +149,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
               tooltipTextKey: 'Poll_PollSettings_Common_Header',
               activeTab: TABS.DESIGN,
               mobile: false,
+              settings,
             },
 
             { keyName: 'separator', mobile: false, type: BUTTONS.SEPARATOR },
@@ -163,6 +165,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
               tooltipTextKey: 'Poll_FormatToolbar_Settings_Tooltip',
               activeTab: TABS.SETTINGS,
               mobile: false,
+              settings,
             },
           ]),
 

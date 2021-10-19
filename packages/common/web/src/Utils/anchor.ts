@@ -1,13 +1,30 @@
+import scrollIntoView from 'smooth-scroll-into-view-if-needed';
+
 export const anchorScroll = (element, experiments) => {
   const stickyHeaderHeight = document.querySelector('[id="SITE_HEADER"]')?.clientHeight || 0;
   const stickyAd = document.querySelector('[id="WIX_ADS"]')?.clientHeight || 0;
-  const mobileToolbar = document.querySelector('[data-hook="mobileToolbar"]')?.clientHeight || 0;
+  const mobileToolbar =
+    document.querySelector('[data-hook="mobileToolbar"]')?.clientHeight ||
+    document.querySelector('[data-hook="ricos-editor-toolbars"]')?.clientHeight ||
+    0;
   const fixedElementsOffset = stickyHeaderHeight + stickyAd + mobileToolbar;
-  if (experiments?.anchorScrollWithoutScrollIntoView?.enabled) {
-    anchorScrollUsingScrollTo(element, fixedElementsOffset);
+  if (experiments?.anchorScrollWithSmoothScrollIntoViewIfNeeded?.enabled) {
+    anchorScrollUsingSmoothScrollIntoViewIfNeeded(element, fixedElementsOffset);
   } else {
     anchorScrollUsingScrollIntoView(element, fixedElementsOffset);
   }
+};
+
+const anchorScrollUsingSmoothScrollIntoViewIfNeeded = (element, fixedElementsOffset) => {
+  const { paddingTop, marginTop } = element.style;
+  element.style.marginTop = `-${fixedElementsOffset}px`;
+  element.style.paddingTop = `${fixedElementsOffset}px`;
+  scrollIntoView(element, {
+    block: 'start',
+    inline: 'start',
+  });
+  element.style.marginTop = marginTop;
+  element.style.paddingTop = paddingTop;
 };
 
 const anchorScrollUsingScrollIntoView = (element, fixedElementsOffset) => {

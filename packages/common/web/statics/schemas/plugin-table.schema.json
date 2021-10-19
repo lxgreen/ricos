@@ -1,5 +1,5 @@
 {
-    "$id": "http://path/to/schema.json",
+    "$id": "https://wix-rich-content/table-content-data-schema.json",
     "type": "object",
     "properties": {
       "config": {

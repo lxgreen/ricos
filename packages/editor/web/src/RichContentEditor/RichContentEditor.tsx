@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component, CSSProperties, FocusEvent } from 'react';
 import classNames from 'classnames';
@@ -32,7 +31,7 @@ import {
   emptyDraftContent,
   getCustomStyleFns,
 } from 'wix-rich-content-editor-common';
-import { convertFromRaw, convertToRaw } from '../../lib/editorStateConversion';
+import { convertFromRaw, convertToRaw, createWithContent } from '../../lib/editorStateConversion';
 import { EditorProps as DraftEditorProps, DraftHandleValue } from 'draft-js';
 import { createUploadStartBIData, createUploadEndBIData } from './utils/mediaUploadBI';
 import { HEADINGS_DROPDOWN_TYPE, DEFAULT_HEADINGS, DEFAULT_TITLE_HEADINGS } from 'ricos-content';
@@ -60,7 +59,7 @@ import {
   CustomAnchorScroll,
   EditorContextType,
   PluginButton,
-  TextButtonMapping,
+  PluginTextButtons,
   ToolbarButtonProps,
   TextToolbarType,
   simplePubsub,
@@ -74,6 +73,9 @@ import {
   OnPluginAction,
   IMAGE_TYPE,
   EditorCommands,
+  PluginKeyBindings,
+  CommandHandler,
+  KeyCommand,
 } from 'wix-rich-content-common';
 import styles from '../../statics/styles/rich-content-editor.scss';
 import draftStyles from '../../statics/styles/draft.rtlignore.scss';
@@ -169,7 +171,7 @@ export interface RichContentEditorProps extends PartialDraftEditorProps {
   /** This is a legacy API, chagnes should be made also in the new Ricos Editor API **/
 }
 
-interface State {
+interface RichContentEditorState {
   editorState: EditorState;
   editorBounds?: BoundingRect;
   innerModal: { modalProps: Record<string, unknown>; modalStyles?: ModalStyles } | null;
@@ -196,7 +198,7 @@ function makeBarrelRoll() {
   );
 }
 
-class RichContentEditor extends Component<RichContentEditorProps, State> {
+class RichContentEditor extends Component<RichContentEditorProps, RichContentEditorState> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   refId: number;
 
@@ -218,7 +220,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
 
   focusedBlockKey!: string;
 
-  pluginKeyBindings;
+  pluginKeyBindings!: PluginKeyBindings;
 
   customStyleFn: DraftEditorProps['customStyleFn'];
 
@@ -533,7 +535,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
 
   initEditorToolbars(
     pluginButtons: PluginButton[],
-    pluginTextButtons: TextButtonMapping[],
+    pluginTextButtons: PluginTextButtons[],
     pluginButtonProps: ToolbarButtonProps[]
   ) {
     const { textAlignment, isInnerRCE, tablePluginMenu, experiments } = this.props;
@@ -581,11 +583,11 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
         disableInlineImages,
         removeInvalidInlinePlugins,
       });
-      return EditorState.createWithContent(convertFromRaw(rawContentState));
+      return createWithContent(convertFromRaw(rawContentState));
     } else {
       //this is needed for ssr. Otherwise the key will be generated randomly on both server and client.
       const emptyContentState = convertFromRaw(emptyDraftContent);
-      return EditorState.createWithContent(emptyContentState);
+      return createWithContent(emptyContentState);
     }
   }
 
@@ -766,7 +768,9 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     event?.preventDefault();
   };
 
-  handleUndoCommand = (editorState: EditorState, event) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore: should be a CommandHandler
+  handleUndoCommand: CommandHandler = (editorState: EditorState, event) => {
     event?.preventDefault();
     if (this.props.isInnerRCE) {
       this.props.handleUndoCommand?.();
@@ -777,7 +781,9 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     return 'handled';
   };
 
-  handleRedoCommand = (editorState: EditorState, event) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore: should be a CommandHandler
+  handleRedoCommand: CommandHandler = (editorState: EditorState, event) => {
     event?.preventDefault();
     if (this.props.isInnerRCE) {
       this.props.handleRedoCommand?.();
@@ -788,7 +794,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
     return 'handled';
   };
 
-  getTabCommands = () =>
+  getTabCommands = (): KeyCommand[] =>
     !this.props.isInnerRCE
       ? [
           {
@@ -804,7 +810,7 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
         ]
       : [];
 
-  customCommands = [
+  customCommands: KeyCommand[] = [
     {
       command: COMMANDS.FOCUS_TOOLBAR,
       modifiers: [MODIFIERS.ALT],
@@ -838,9 +844,9 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
           key: '7',
         }
       : {},
-  ];
+  ] as KeyCommand[];
 
-  customCommandHandlers = {
+  customCommandHandlers: Record<string, CommandHandler> = {
     focusToolbar: this.focusOnToolbar,
     tab: this.handleTabCommand,
     shiftTab: this.handleTabCommand,
@@ -852,7 +858,10 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
       : {}),
   };
 
-  getCustomCommandHandlers = () => ({
+  getCustomCommandHandlers = (): {
+    commands: KeyCommand[];
+    commandHandlers: Record<string, CommandHandler>;
+  } => ({
     commands: [...this.pluginKeyBindings.commands, ...this.customCommands],
     commandHandlers: {
       ...this.pluginKeyBindings.commandHandlers,
@@ -1057,8 +1066,10 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
         ariaMultiline={ariaMultiline}
         onBlur={onBlur}
         onFocus={onFocus}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         onCut={onCut}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         onCopy={onCopy}
         textAlignment={textAlignment}
@@ -1114,9 +1125,9 @@ class RichContentEditor extends Component<RichContentEditorProps, State> {
   styleToClass = ([key, val]) => `rich_content_${key}-${val.toString().replace('.', '_')}`;
 
   renderStyleTag = (editorState = this.getEditorState()) => {
-    const styleToCss = ([key, val]) => `${key}: ${val};`;
     const blocks = editorState.getCurrentContent().getBlockMap();
     const styles = {};
+    const styleToCss = ([key, val]) => `${key}: ${val};`;
     blocks.forEach(block => {
       const { dynamicStyles = {} } = block?.get('data').toJS();
       Object.entries(dynamicStyles).forEach(

@@ -28,3 +28,15 @@ $phone: 640px;
   color: $settings-action-color-fallback;
   fill: $settings-action-color-fallback;
 }
+
+@mixin border-box {
+  box-sizing: border-box;
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+  input {
+    box-sizing: border-box;
+  }
+}

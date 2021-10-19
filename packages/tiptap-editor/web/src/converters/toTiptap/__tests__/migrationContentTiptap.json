@@ -976,6 +976,103 @@
       }
     },
     {
+      "type": "poll",
+      "content": [],
+      "attrs": {
+        "containerData": {
+          "width": {
+            "size": "CONTENT"
+          },
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "poll": {
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "image": {
+            "src": {
+              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
+            }
+          },
+          "options": [
+            {
+              "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
+              "title": "Cafe Nordoy",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png"
+                }
+              }
+            },
+            {
+              "id": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
+              "title": "קפה רוטשילד 65",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "41679bf9-89ba-41f2-81d3-832d567531da",
+              "title": "האחים",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "378c6042-55cc-4e4a-9f0c-77824bee4964",
+              "title": "הוטל מונטיפיורי",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg"
+                }
+              }
+            }
+          ],
+          "settings": {
+            "permissions": {
+              "view": "VOTERS",
+              "vote": "SITE_MEMBERS",
+              "allowMultipleVotes": true
+            },
+            "showVoters": true,
+            "showVotesCount": true
+          }
+        },
+        "layout": {
+          "poll": {
+            "type": "GRID",
+            "direction": "LTR",
+            "enableImage": false
+          },
+          "options": {
+            "enableImage": true
+          }
+        },
+        "design": {
+          "poll": {
+            "background": {
+              "type": "IMAGE",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/2dfdd3_b120b7d9cffd4645bb143beadef13c56~mv2.jpg"
+                }
+              }
+            },
+            "borderRadius": 0
+          },
+          "options": {
+            "borderRadius": 0
+          }
+        },
+        "id": "36"
+      }
+    },
+    {
       "type": "blockquote",
       "content": [
         {
@@ -1065,12 +1162,12 @@
               "textAlignment": "AUTO"
             },
             "indentation": 0,
-            "id": "36"
+            "id": "37"
           }
         }
       ],
       "attrs": {
-        "id": "37"
+        "id": "38"
       }
     },
     {
@@ -1097,7 +1194,7 @@
                   "textAlignment": "AUTO"
                 },
                 "indentation": 0,
-                "id": "38"
+                "id": "39"
               }
             },
             {
@@ -1124,7 +1221,7 @@
                           "textAlignment": "AUTO"
                         },
                         "indentation": 1,
-                        "id": "39"
+                        "id": "40"
                       }
                     },
                     {
@@ -1151,7 +1248,7 @@
                                   "textAlignment": "AUTO"
                                 },
                                 "indentation": 2,
-                                "id": "40"
+                                "id": "41"
                               }
                             },
                             {
@@ -1178,7 +1275,7 @@
                                           "textAlignment": "AUTO"
                                         },
                                         "indentation": 3,
-                                        "id": "41"
+                                        "id": "42"
                                       }
                                     },
                                     {
@@ -1205,12 +1302,12 @@
                                                   "textAlignment": "AUTO"
                                                 },
                                                 "indentation": 4,
-                                                "id": "42"
+                                                "id": "43"
                                               }
                                             }
                                           ],
                                           "attrs": {
-                                            "id": "43"
+                                            "id": "44"
                                           }
                                         },
                                         {
@@ -1234,52 +1331,52 @@
                                                   "textAlignment": "AUTO"
                                                 },
                                                 "indentation": 4,
-                                                "id": "44"
+                                                "id": "45"
                                               }
                                             }
                                           ],
                                           "attrs": {
-                                            "id": "45"
+                                            "id": "46"
                                           }
                                         }
                                       ],
                                       "attrs": {
-                                        "id": "46"
+                                        "id": "47"
                                       }
                                     }
                                   ],
                                   "attrs": {
-                                    "id": "47"
+                                    "id": "48"
                                   }
                                 }
                               ],
                               "attrs": {
-                                "id": "48"
+                                "id": "49"
                               }
                             }
                           ],
                           "attrs": {
-                            "id": "49"
+                            "id": "50"
                           }
                         }
                       ],
                       "attrs": {
-                        "id": "50"
+                        "id": "51"
                       }
                     }
                   ],
                   "attrs": {
-                    "id": "51"
+                    "id": "52"
                   }
                 }
               ],
               "attrs": {
-                "id": "52"
+                "id": "53"
               }
             }
           ],
           "attrs": {
-            "id": "53"
+            "id": "54"
           }
         },
         {
@@ -1303,7 +1400,7 @@
                   "textAlignment": "AUTO"
                 },
                 "indentation": 0,
-                "id": "54"
+                "id": "55"
               }
             },
             {
@@ -1330,22 +1427,22 @@
                           "textAlignment": "AUTO"
                         },
                         "indentation": 1,
-                        "id": "55"
+                        "id": "56"
                       }
                     }
                   ],
                   "attrs": {
-                    "id": "56"
+                    "id": "57"
                   }
                 }
               ],
               "attrs": {
-                "id": "57"
+                "id": "58"
               }
             }
           ],
           "attrs": {
-            "id": "58"
+            "id": "59"
           }
         },
         {
@@ -1369,17 +1466,17 @@
                   "textAlignment": "AUTO"
                 },
                 "indentation": 0,
-                "id": "59"
+                "id": "60"
               }
             }
           ],
           "attrs": {
-            "id": "60"
+            "id": "61"
           }
         }
       ],
       "attrs": {
-        "id": "61"
+        "id": "62"
       }
     },
     {
@@ -1390,7 +1487,7 @@
           "textAlignment": "AUTO"
         },
         "indentation": 0,
-        "id": "62"
+        "id": "63"
       }
     },
     {
@@ -1417,7 +1514,7 @@
                   "textAlignment": "AUTO"
                 },
                 "indentation": 0,
-                "id": "63"
+                "id": "64"
               }
             },
             {
@@ -1444,7 +1541,7 @@
                           "textAlignment": "AUTO"
                         },
                         "indentation": 1,
-                        "id": "64"
+                        "id": "65"
                       }
                     },
                     {
@@ -1471,7 +1568,7 @@
                                   "textAlignment": "AUTO"
                                 },
                                 "indentation": 2,
-                                "id": "65"
+                                "id": "66"
                               }
                             },
                             {
@@ -1498,7 +1595,7 @@
                                           "textAlignment": "AUTO"
                                         },
                                         "indentation": 3,
-                                        "id": "66"
+                                        "id": "67"
                                       }
                                     },
                                     {
@@ -1525,12 +1622,12 @@
                                                   "textAlignment": "AUTO"
                                                 },
                                                 "indentation": 4,
-                                                "id": "67"
+                                                "id": "68"
                                               }
                                             }
                                           ],
                                           "attrs": {
-                                            "id": "68"
+                                            "id": "69"
                                           }
                                         },
                                         {
@@ -1554,52 +1651,52 @@
                                                   "textAlignment": "AUTO"
                                                 },
                                                 "indentation": 4,
-                                                "id": "69"
+                                                "id": "70"
                                               }
                                             }
                                           ],
                                           "attrs": {
-                                            "id": "70"
+                                            "id": "71"
                                           }
                                         }
                                       ],
                                       "attrs": {
-                                        "id": "71"
+                                        "id": "72"
                                       }
                                     }
                                   ],
                                   "attrs": {
-                                    "id": "72"
+                                    "id": "73"
                                   }
                                 }
                               ],
                               "attrs": {
-                                "id": "73"
+                                "id": "74"
                               }
                             }
                           ],
                           "attrs": {
-                            "id": "74"
+                            "id": "75"
                           }
                         }
                       ],
                       "attrs": {
-                        "id": "75"
+                        "id": "76"
                       }
                     }
                   ],
                   "attrs": {
-                    "id": "76"
+                    "id": "77"
                   }
                 }
               ],
               "attrs": {
-                "id": "77"
+                "id": "78"
               }
             }
           ],
           "attrs": {
-            "id": "78"
+            "id": "79"
           }
         },
         {
@@ -1623,12 +1720,12 @@
                   "textAlignment": "RIGHT"
                 },
                 "indentation": 0,
-                "id": "79"
+                "id": "80"
               }
             }
           ],
           "attrs": {
-            "id": "80"
+            "id": "81"
           }
         },
         {
@@ -1652,17 +1749,17 @@
                   "textAlignment": "AUTO"
                 },
                 "indentation": 0,
-                "id": "81"
+                "id": "82"
               }
             }
           ],
           "attrs": {
-            "id": "82"
+            "id": "83"
           }
         }
       ],
       "attrs": {
-        "id": "83"
+        "id": "84"
       }
     },
     {
@@ -1673,7 +1770,7 @@
           "textAlignment": "AUTO"
         },
         "indentation": 0,
-        "id": "84"
+        "id": "85"
       }
     },
     {
@@ -1698,7 +1795,7 @@
           "paddingTop": "0px",
           "paddingBottom": "0px"
         },
-        "id": "85"
+        "id": "86"
       }
     },
     {
@@ -1713,7 +1810,7 @@
           "paddingTop": "0px",
           "paddingBottom": "0px"
         },
-        "id": "86"
+        "id": "87"
       }
     },
     {
@@ -1739,7 +1836,7 @@
           "paddingTop": "0px",
           "paddingBottom": "0px"
         },
-        "id": "87"
+        "id": "88"
       }
     },
     {
@@ -1750,7 +1847,7 @@
           "textAlignment": "AUTO"
         },
         "indentation": 1,
-        "id": "88"
+        "id": "89"
       }
     },
     {
@@ -1776,7 +1873,7 @@
         },
         "disableExpand": false,
         "disableDownload": false,
-        "id": "89"
+        "id": "90"
       }
     },
     {
@@ -1797,7 +1894,7 @@
           "textAlignment": "AUTO"
         },
         "indentation": 0,
-        "id": "90"
+        "id": "91"
       }
     },
     {
@@ -1818,17 +1915,6 @@
           "textAlignment": "AUTO"
         },
         "indentation": 0,
-        "id": "91"
-      }
-    },
-    {
-      "type": "paragraph",
-      "content": [],
-      "attrs": {
-        "textStyle": {
-          "textAlignment": "AUTO"
-        },
-        "indentation": 0,
         "id": "92"
       }
     },
@@ -1841,6 +1927,17 @@
         },
         "indentation": 0,
         "id": "93"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [],
+      "attrs": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0,
+        "id": "94"
       }
     },
     {
@@ -1877,12 +1974,12 @@
                       "textAlignment": "AUTO"
                     },
                     "indentation": 0,
-                    "id": "94"
+                    "id": "95"
                   }
                 }
               ],
               "attrs": {
-                "id": "95"
+                "id": "96"
               }
             },
             {
@@ -1896,17 +1993,17 @@
                       "textAlignment": "AUTO"
                     },
                     "indentation": 0,
-                    "id": "96"
+                    "id": "97"
                   }
                 }
               ],
               "attrs": {
-                "id": "97"
+                "id": "98"
               }
             }
           ],
           "attrs": {
-            "id": "98"
+            "id": "99"
           }
         },
         {
@@ -1936,17 +2033,17 @@
                           "textAlignment": "AUTO"
                         },
                         "indentation": 0,
-                        "id": "99"
+                        "id": "100"
                       }
                     }
                   ],
                   "attrs": {
-                    "id": "100"
+                    "id": "101"
                   }
                 }
               ],
               "attrs": {
-                "id": "101"
+                "id": "102"
               }
             },
             {
@@ -1974,17 +2071,17 @@
                       "textAlignment": "AUTO"
                     },
                     "indentation": 0,
-                    "id": "102"
+                    "id": "103"
                   }
                 }
               ],
               "attrs": {
-                "id": "103"
+                "id": "104"
               }
             }
           ],
           "attrs": {
-            "id": "104"
+            "id": "105"
           }
         }
       ],
@@ -1996,7 +2093,7 @@
         "expandOnlyOne": false,
         "initialExpandedItems": "FIRST",
         "direction": "LTR",
-        "id": "105"
+        "id": "106"
       }
     },
     {
@@ -2007,7 +2104,7 @@
           "textAlignment": "AUTO"
         },
         "indentation": 0,
-        "id": "106"
+        "id": "107"
       }
     },
     {
@@ -2037,7 +2134,7 @@
                       "textAlignment": "AUTO"
                     },
                     "indentation": 0,
-                    "id": "107"
+                    "id": "108"
                   }
                 }
               ],
@@ -2047,7 +2144,7 @@
                   "backgroundColor": "#FF0000"
                 },
                 "borderColors": {},
-                "id": "108"
+                "id": "109"
               }
             },
             {
@@ -2075,7 +2172,7 @@
                       "textAlignment": "AUTO"
                     },
                     "indentation": 0,
-                    "id": "109"
+                    "id": "110"
                   }
                 }
               ],
@@ -2089,12 +2186,12 @@
                   "top": "#3A54B4",
                   "bottom": "#3A54B4"
                 },
-                "id": "110"
+                "id": "111"
               }
             }
           ],
           "attrs": {
-            "id": "111"
+            "id": "112"
           }
         },
         {
@@ -2131,7 +2228,7 @@
                       "textAlignment": "AUTO"
                     },
                     "indentation": 1,
-                    "id": "112"
+                    "id": "113"
                   }
                 }
               ],
@@ -2140,7 +2237,7 @@
                   "verticalAlignment": "TOP"
                 },
                 "borderColors": {},
-                "id": "113"
+                "id": "114"
               }
             },
             {
@@ -2164,7 +2261,7 @@
                       "textAlignment": "AUTO"
                     },
                     "indentation": 0,
-                    "id": "114"
+                    "id": "115"
                   }
                 }
               ],
@@ -2173,12 +2270,12 @@
                   "verticalAlignment": "TOP"
                 },
                 "borderColors": {},
-                "id": "115"
+                "id": "116"
               }
             }
           ],
           "attrs": {
-            "id": "116"
+            "id": "117"
           }
         }
       ],
@@ -2202,7 +2299,7 @@
           ]
         },
         "header": true,
-        "id": "117"
+        "id": "118"
       }
     },
     {
@@ -2213,7 +2310,230 @@
           "textAlignment": "AUTO"
         },
         "indentation": 0,
-        "id": "118"
+        "id": "119"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [],
+      "attrs": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0,
+        "id": "120"
+      }
+    },
+    {
+      "type": "poll",
+      "content": [],
+      "attrs": {
+        "containerData": {
+          "width": {
+            "size": "CONTENT"
+          },
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "poll": {
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "image": {
+            "src": {
+              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
+            }
+          },
+          "options": [
+            {
+              "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
+              "title": "Cafe Nordoy",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png"
+                }
+              }
+            },
+            {
+              "id": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
+              "title": "קפה רוטשילד 65",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "41679bf9-89ba-41f2-81d3-832d567531da",
+              "title": "האחים",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "378c6042-55cc-4e4a-9f0c-77824bee4964",
+              "title": "הוטל מונטיפיורי",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg"
+                }
+              }
+            }
+          ],
+          "settings": {
+            "permissions": {
+              "view": "EVERYONE",
+              "vote": "SITE_MEMBERS",
+              "allowMultipleVotes": true
+            },
+            "showVoters": false,
+            "showVotesCount": false
+          }
+        },
+        "layout": {
+          "poll": {
+            "type": "GRID",
+            "direction": "LTR",
+            "enableImage": false
+          },
+          "options": {
+            "enableImage": true
+          }
+        },
+        "design": {
+          "poll": {
+            "background": {
+              "type": "GRADIENT",
+              "gradient": {
+                "angle": 45,
+                "startColor": "#EF4538",
+                "lastColor": "#488FFE"
+              }
+            },
+            "borderRadius": 5
+          },
+          "options": {
+            "borderRadius": 5
+          }
+        },
+        "id": "121"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [],
+      "attrs": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0,
+        "id": "122"
+      }
+    },
+    {
+      "type": "poll",
+      "content": [],
+      "attrs": {
+        "containerData": {
+          "width": {
+            "size": "CONTENT"
+          },
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "poll": {
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "image": {
+            "src": {
+              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
+            }
+          },
+          "options": [
+            {
+              "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
+              "title": "Cafe Nordoy",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png"
+                }
+              }
+            },
+            {
+              "id": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
+              "title": "קפה רוטשילד 65",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "41679bf9-89ba-41f2-81d3-832d567531da",
+              "title": "האחים",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "378c6042-55cc-4e4a-9f0c-77824bee4964",
+              "title": "הוטל מונטיפיורי",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg"
+                }
+              }
+            }
+          ],
+          "settings": {
+            "permissions": {
+              "view": "CREATOR",
+              "vote": "SITE_MEMBERS",
+              "allowMultipleVotes": false
+            },
+            "showVoters": true,
+            "showVotesCount": true
+          }
+        },
+        "layout": {
+          "poll": {
+            "type": "GRID",
+            "direction": "RTL",
+            "enableImage": true
+          },
+          "options": {
+            "enableImage": true
+          }
+        },
+        "design": {
+          "poll": {
+            "background": {
+              "type": "color",
+              "color": "#EF4538"
+            },
+            "borderRadius": 8
+          },
+          "options": {
+            "borderRadius": 2
+          }
+        },
+        "id": "123"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [],
+      "attrs": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0,
+        "id": "124"
       }
     }
   ],

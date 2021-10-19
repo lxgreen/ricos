@@ -830,7 +830,7 @@ export const hasBlockType = (blockType: string, editorState: EditorState) => {
   return blockType === currentBlockType;
 };
 
-export function selectAllContent(editorState, forceSelection) {
+export function selectAllContent(editorState: EditorState, forceSelection: boolean) {
   const currentContent = editorState.getCurrentContent();
   const selection = editorState.getSelection().merge({
     anchorKey: currentContent.getFirstBlock().getKey(),
@@ -846,7 +846,7 @@ export function selectAllContent(editorState, forceSelection) {
   return newEditorState;
 }
 
-export function setNativeSelectionToBlock(block) {
+export function setNativeSelectionToBlock(block: ContentBlock) {
   const offsetKey = DraftOffsetKey.encode(block.getKey(), 0, 0);
   const node = document.querySelectorAll(`[data-offset-key="${offsetKey}"]`)[0];
   const selection = window.getSelection();

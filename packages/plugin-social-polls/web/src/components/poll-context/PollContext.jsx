@@ -30,6 +30,7 @@ export class PollContextProvider extends PureComponent {
       siteToken: PropTypes.string,
       isWebView: PropTypes.bool,
       getSiteMembers: PropTypes.func,
+      pollServiceApi: PropTypes.object,
     }),
     poll: PropTypes.shape(PollPropTypes),
     setPoll: PropTypes.func,
@@ -52,11 +53,15 @@ export class PollContextProvider extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.pollApiClient = new SocialPollsService(props.settings.siteToken);
+    this.pollApiClient =
+      props.settings?.pollServiceApi || new SocialPollsService(props.settings.siteToken);
   }
 
   componentWillReceiveProps(props) {
-    if (props.settings.siteToken !== this.props.settings.siteToken) {
+    if (
+      !props.settings?.pollServiceApi &&
+      props.settings.siteToken !== this.props.settings.siteToken
+    ) {
       this.pollApiClient = new SocialPollsService(props.settings.siteToken);
       this.fetchPoll();
     }

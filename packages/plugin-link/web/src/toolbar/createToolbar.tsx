@@ -12,6 +12,8 @@ import {
   BUTTON_TYPES,
   FORMATTING_BUTTONS,
   isAtomicBlockInSelection,
+  EditorState,
+  COMMANDS,
 } from 'wix-rich-content-editor-common';
 import createInlineButtons from './inline-buttons';
 import TextLinkButton from './TextLinkButton';
@@ -127,11 +129,11 @@ const createToolbar: CreatePluginToolbar = (config: {
         keyBindings: [
           {
             keyCommand: {
-              command: 'link',
+              command: COMMANDS.LINK,
               modifiers: [MODIFIERS.COMMAND],
               key: 'k',
             },
-            commandHandler: editorState => {
+            commandHandler: (editorState: EditorState) => {
               if (hasLinksInSelection(editorState)) {
                 config.closeInlinePluginToolbar();
                 return removeLinksInSelection(editorState);

@@ -23,7 +23,7 @@ import { pluginLinkPreview } from 'wix-rich-content-plugin-link-preview/viewer';
 import { pluginVerticalEmbed } from 'wix-rich-content-plugin-vertical-embed/viewer';
 import { pluginTextColor, pluginTextHighlight } from 'wix-rich-content-plugin-text-color/viewer';
 import MobileDetect from 'mobile-detect';
-import { mockFileUploadFunc } from '../../../main/shared/utils/fileUploadUtil';
+import { mockFileUploadFunc } from '../../src/shared/utils/fileUploadUtil';
 
 const configs = {
   fileUpload: {

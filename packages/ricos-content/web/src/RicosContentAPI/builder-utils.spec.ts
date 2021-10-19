@@ -6,7 +6,7 @@ describe('addNode util', () => {
     const content = Object.freeze({
       nodes: [
         { id: 'foo', nodes: [], type: Node_Type.PARAGRAPH },
-        // { id: 'bar', nodes: [], type: Node_Type.POLL },
+        { id: 'bar', nodes: [], type: Node_Type.POLL },
       ],
     });
     const node = Object.freeze({ id: 'foo', nodes: [], type: Node_Type.PARAGRAPH });
@@ -18,7 +18,7 @@ describe('addNode util', () => {
     const content = Object.freeze({
       nodes: [
         { id: 'foo', nodes: [], type: Node_Type.PARAGRAPH },
-        // { id: 'bar', nodes: [], type: Node_Type.POLL },
+        { id: 'bar', nodes: [], type: Node_Type.POLL },
       ],
     });
     const node = Object.freeze({ id: 'new', nodes: [], type: Node_Type.DIVIDER });
@@ -26,7 +26,7 @@ describe('addNode util', () => {
       nodes: [
         { id: 'foo', nodes: [], type: Node_Type.PARAGRAPH },
         { id: 'new', nodes: [], type: Node_Type.DIVIDER },
-        // { id: 'bar', nodes: [], type: Node_Type.POLL },
+        { id: 'bar', nodes: [], type: Node_Type.POLL },
       ],
     };
     const actual = addNode({ node, content, index: 1 });
@@ -36,7 +36,7 @@ describe('addNode util', () => {
     const content = Object.freeze({
       nodes: [
         { id: 'foo', nodes: [], type: Node_Type.PARAGRAPH },
-        // { id: 'bar', nodes: [], type: Node_Type.POLL },
+        { id: 'bar', nodes: [], type: Node_Type.POLL },
       ],
     });
     const node = Object.freeze({ id: 'new', nodes: [], type: Node_Type.DIVIDER });
@@ -44,7 +44,7 @@ describe('addNode util', () => {
       nodes: [
         { id: 'foo', nodes: [], type: Node_Type.PARAGRAPH },
         { id: 'new', nodes: [], type: Node_Type.DIVIDER },
-        // { id: 'bar', nodes: [], type: Node_Type.POLL },
+        { id: 'bar', nodes: [], type: Node_Type.POLL },
       ],
     };
     const actual = addNode({ node, content, after: 'foo' });
@@ -54,7 +54,7 @@ describe('addNode util', () => {
     const content = Object.freeze({
       nodes: [
         { id: 'foo', nodes: [], type: Node_Type.PARAGRAPH },
-        // { id: 'bar', nodes: [], type: Node_Type.POLL },
+        { id: 'bar', nodes: [], type: Node_Type.POLL },
       ],
     });
     const node = Object.freeze({ id: 'new', nodes: [], type: Node_Type.DIVIDER });
@@ -62,7 +62,7 @@ describe('addNode util', () => {
       nodes: [
         { id: 'new', nodes: [], type: Node_Type.DIVIDER },
         { id: 'foo', nodes: [], type: Node_Type.PARAGRAPH },
-        // { id: 'bar', nodes: [], type: Node_Type.POLL },
+        { id: 'bar', nodes: [], type: Node_Type.POLL },
       ],
     };
     const actual = addNode({ node, content, before: 'foo' });

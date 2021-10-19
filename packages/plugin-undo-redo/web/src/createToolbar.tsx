@@ -19,7 +19,6 @@ const createToolbar: CreatePluginToolbar = ({
   getEditorState,
   setEditorState,
   settings,
-  commonPubsub,
 }: {
   t: TranslationFunction;
   getEditorState: GetEditorState;
@@ -30,7 +29,14 @@ const createToolbar: CreatePluginToolbar = ({
   return {
     TextButtonMapper: () => ({
       [FORMATTING_BUTTONS.UNDO]: {
-        component: props => <UndoButton t={t} commonPubsub={commonPubsub} {...props} />,
+        component: props => (
+          <UndoButton
+            t={t}
+            getEditorState={getEditorState}
+            setEditorState={setEditorState}
+            {...props}
+          />
+        ),
         externalizedButtonProps: {
           type: BUTTON_TYPES.BUTTON,
           getLabel: () => '',
@@ -48,7 +54,14 @@ const createToolbar: CreatePluginToolbar = ({
         },
       },
       [FORMATTING_BUTTONS.REDO]: {
-        component: props => <RedoButton t={t} {...props} />,
+        component: props => (
+          <RedoButton
+            t={t}
+            getEditorState={getEditorState}
+            setEditorState={setEditorState}
+            {...props}
+          />
+        ),
         externalizedButtonProps: {
           getLabel: () => '',
           type: BUTTON_TYPES.BUTTON,

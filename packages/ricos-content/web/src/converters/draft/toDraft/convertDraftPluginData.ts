@@ -60,7 +60,7 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data, nodes?: Node[]
     [Node_Type.FILE]: convertFileData,
     [Node_Type.GIF]: convertGIFData,
     [Node_Type.IMAGE]: convertImageData,
-    // [Node_Type.POLL]: convertPollData,
+    [Node_Type.POLL]: convertPollData,
     [Node_Type.APP_EMBED]: convertAppEmbedData,
     [Node_Type.LINK_PREVIEW]: convertLinkPreviewData,
     [Node_Type.BUTTON]: convertButtonData,
@@ -290,20 +290,65 @@ const convertGIFData = (
   delete data.width;
 };
 
-// const convertPollData = data => {
-//   has(data, 'layout.poll.type') && (data.layout.poll.type = data.layout.poll.type.toLowerCase());
-//   has(data, 'layout.poll.direction') &&
-//     (data.layout.poll.direction = data.layout.poll.direction.toLowerCase());
-//   has(data, 'design.poll.backgroundType') &&
-//     (data.design.poll.backgroundType = data.design.poll.backgroundType.toLowerCase());
-//   has(data, 'poll.pollId') && (data.poll.id = data.poll.pollId);
-//   delete data.poll.pollId;
-//   has(data, 'poll.options') &&
-//     (data.poll.options = data.poll.options.map(({ optionId, ...rest }) => ({
-//       id: optionId,
-//       ...rest,
-//     })));
-// };
+const convertPollData = data => {
+  has(data, 'layout.poll.type') && (data.layout.poll.type = data.layout.poll.type.toLowerCase());
+  has(data, 'layout.poll.direction') &&
+    (data.layout.poll.direction = data.layout.poll.direction.toLowerCase());
+  if (has(data, 'layout.options')) {
+    data.layout.option = data.layout.options;
+    delete data.layout.options;
+  }
+  if (has(data, 'design')) {
+    const { poll = {}, options = {} } = data.design;
+    const { background, borderRadius } = poll;
+    const getBackground = background =>
+      background?.gradient
+        ? {
+            angle: background?.gradient?.angle,
+            start: background?.gradient?.startColor,
+            end: background?.gradient?.lastColor,
+          }
+        : background?.color?.charAt?.(0) === '#'
+        ? background?.color
+        : background?.image?.src?.url;
+    data.design = {
+      poll: {
+        backgroundType: background?.type?.toLowerCase(),
+        background: getBackground(background),
+        borderRadius: `${borderRadius}px`,
+      },
+      option: { borderRadius: `${options.borderRadius}px` },
+    };
+  }
+  has(data, 'poll.pollId') && (data.poll.id = data.poll.pollId);
+  delete data.poll.pollId;
+  has(data, 'poll.creatorId') && (data.poll.createdBy = data.poll.creatorId);
+  delete data.poll.creatorId;
+  has(data, 'poll.image.src.url') && (data.poll.mediaId = data.poll.image.src.url);
+  delete data.poll.image;
+  has(data, 'poll.options') &&
+    (data.poll.options = data.poll.options.map(({ image, ...rest }) => ({
+      mediaId: image?.src?.url,
+      ...rest,
+    })));
+  if (has(data, 'poll.settings')) {
+    const { showVotesCount, showVoters, permissions } = data.poll.settings;
+    const { view, vote, allowMultipleVotes } = permissions || {};
+
+    const getResultsVisibility = view =>
+      view === 'EVERYONE' ? 'ALWAYS' : view === 'VOTERS' ? 'VOTERS_ONLY' : 'ONLY_ME';
+
+    data.poll.settings = {
+      resultsVisibility: getResultsVisibility(view),
+      multipleVotes: allowMultipleVotes,
+      voteRole: vote,
+      votersDisplay: showVoters,
+      votesDisplay: showVotesCount,
+    };
+  }
+  data.config.size = 'large';
+  data.config.width = 'full-width';
+};
 
 const convertAppEmbedData = data => {
   const { type, itemId, name, imageSrc, url, bookingData, eventData } = data;

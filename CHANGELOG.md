@@ -17,8 +17,124 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+
+- `vertical-embed`
+  - [#3005](https://github.com/wix/ricos/pull/3005) vertical-embed modal new design
+- `line-spacing`
+  - [#3009](https://github.com/wix/ricos/pull/3009) add custom line-height selection to the line-heights options display
+  
+### :house: Internal
+- `schema`
+  - [#3013](https://github.com/wix/ricos/pull/3013) undefined fields added to plugin defaults JSON
+
 </details>
 <hr/>
+
+## 8.56.5 (Oct 18, 2021)
+
+### :house: Internal
+
+- `ricos-content`
+  - [#96dce6a](https://github.com/wix/ricos/commit/96dce6a93b8f4227dfa86c801b77b349049a4ee0)velo adapter - image element source's regex fix
+
+## 8.56.4 (Oct 18, 2021)
+
+### :house: Internal
+
+- `video/linkpreview/ui-components`
+  - [#3010](https://github.com/wix/ricos/pull/3010) new modals general refactor
+- `ricos-content`
+  - [#3007](https://github.com/wix/ricos/pull/3007) velo adapter bundle size improvement
+
+### :nail_care: Polish
+
+- `common/toolbars-new`
+  - [#2996](https://github.com/wix/ricos/pull/2996) created border-box mixin and used it in the new toolbar modals
+
+### :bug: Bug Fix
+
+- `viewer`
+  - [#3004](https://github.com/wix/ricos/pull/3004) fix ios text highlight on blankspaces
+- `[toolbars-new]`
+  - [#2991](https://github.com/wix/ricos/pull/2991) close modals on escape
+
+## 8.56.3 (Oct 17, 2021)
+
+### :nail_care: Polish
+
+- `social-polls`
+  - [#2899](https://github.com/wix/ricos/pull/2899) fix missing import wix validations for polls schema
+
+## 8.56.2 (Oct 16, 2021)
+
+### :house: Internal
+
+- `ricos-content`
+  - [#3000](https://github.com/wix/ricos/pull/3000) velo adapter: fix `parseImageElement` scoped variable
+
+## 8.56.1 (Oct 14, 2021)
+
+### :nail_care: Polish
+
+- `social-polls`
+  - [#2899](https://github.com/wix/ricos/pull/2899) polls schema
+
+## 8.56.0 (Oct 14, 2021)
+
+### :nail_care: Polish
+
+- `plugin-video`
+  - [#2985](https://github.com/wix/ricos/pull/2985) video modal new design
+- `social-embed`
+  - [#2986](https://github.com/wix/ricos/pull/2986) social-embed modal new design
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2982](https://github.com/wix/ricos/pull/2982) fix Link-modal style
+
+### :rocket: New Feature
+
+- `toolbars-new`
+  - [#2921](https://github.com/wix/ricos/pull/2921) custom font size dropdown and `toolbarInputButton`
+- `ricos-content`
+  - [#2994](https://github.com/wix/ricos/pull/2994) velo adapter: modify functionality with callback support
+
+### :house: Internal
+
+- `toolbars-new`
+  - [#2968](https://github.com/wix/ricos/pull/2968) refactor line-spacing (set to default when there is no line-spacing)
+- `ricos-content`
+  - [#2992](https://github.com/wix/ricos/pull/2992) velo adapter: refactoring + folder lib rename
+
+## 8.55.3 (Oct 11, 2021)
+
+### :house: Internal
+
+- `[ui-components]`
+  - [#2984](https://github.com/wix/ricos/pull/2984) Fix Typescript issue
+
+## 8.55.2 (Oct 11, 2021)
+
+### :house: Internal
+
+- `*`
+  - [#2933](https://github.com/wix/ricos/pull/2933) JS to TS conversion + rollup configuration
+- `common`
+  - [#2980](https://github.com/wix/ricos/pull/2980) cleanup schema errors
+
+## 8.55.1 (Oct 11, 2021)
+
+### :rocket: New Feature
+
+- `social-polls`
+  - [#2964](https://github.com/wix/ricos/pull/2964) `pollServiceApi` config
+
+### :house: Internal
+
+- `social-polls`
+  - [#2964](https://github.com/wix/ricos/pull/2964) add `PollsServiceMock` and normalize polls data under `normalizePoll` experiment
 
 ## 8.55.0 (Oct 11, 2021)
 
@@ -122,7 +238,9 @@
   - [#2759](https://github.com/wix/ricos/pull/2759) button schema
   - [#2928](https://github.com/wix/ricos/pull/2928) disable polls from schema & content api until schema is final
 - `html plugin`
+
   - [#2934](https://github.com/wix/ricos/pull/2934) `forceIframeSandboxDomain` experiment (for debugging)
+
 - `a11y`
   - [#2935](https://github.com/wix/ricos/pull/2935) add presentation role to empty lines to skip reading by screen readers
 

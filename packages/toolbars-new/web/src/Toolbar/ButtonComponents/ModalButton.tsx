@@ -5,9 +5,10 @@ import React, { Component, FC } from 'react';
 import classNames from 'classnames';
 import ClickOutside from 'react-click-outsider';
 import styles from '../ToolbarNew.scss';
+import ToolbarInputButton from '../ToolbarInputButton';
 import ToolbarButton from '../ToolbarButton';
 import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
-import { elementOverflowWithEditor } from 'wix-rich-content-editor-common';
+import { elementOverflowWithEditor, KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 
 type dropDownPropsType = {
   isMobile?: boolean;
@@ -27,6 +28,7 @@ type dropDownPropsType = {
   onChange?: (any) => void;
   onDelete?: () => void;
   loadSelection?: () => void;
+  isInput: boolean;
 };
 
 interface ModalButtonProps {
@@ -69,7 +71,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
     if (!isModalOpen) {
       this.openModal();
     } else {
-      this.closeModal(e.detail); //do not load selection on shortcuts
+      this.closeModal();
     }
   };
 
@@ -157,13 +159,16 @@ class ModalButton extends Component<ModalButtonProps, State> {
   };
 
   onClickOutside = e => {
-    this.closeModal({
-      loadSelectionOnClose: e.target.closest('[data-hook=ricos-editor-toolbars]'),
-    });
+    const clickFromInsideTheToolbar = !!e.target.closest('[data-hook=ricos-editor-toolbars]');
+    return !clickFromInsideTheToolbar
+      ? this.closeModal({
+          loadSelectionOnClose: e.target.closest('[data-hook=ricos-editor-toolbars]'),
+        })
+      : this.closeModal();
   };
 
   render() {
-    const { modal, dropDownProps, onSelect, theme, t } = this.props;
+    const { modal, dropDownProps, onSelect, theme, t, onToolbarButtonClick } = this.props;
     const {
       isActive,
       tooltip,
@@ -174,12 +179,30 @@ class ModalButton extends Component<ModalButtonProps, State> {
       isMobile,
       arrow = false,
       getLabel,
+      isInput,
       isMobileModalFullscreen = false,
     } = dropDownProps;
     const { isModalOpen, isModalOverflowByHeight, overflowWidthBy } = this.state;
     const buttonProps = arrow && getLabel ? { buttonContent: getLabel() } : { icon: getIcon() };
     const onModalWrapperClick =
       isMobile && !isMobileModalFullscreen ? () => this.closeModal() : undefined;
+    const toolbarButtonProps = {
+      ...buttonProps,
+      onToolbarButtonClick,
+      isActive: isModalOpen || isActive(),
+      onClick: this.toggleModal,
+      tooltipText: tooltip,
+      dataHook,
+      tabIndex,
+      isMobile,
+      disabled: isDisabled(),
+    };
+    const Button = isInput ? (
+      <ToolbarInputButton onChange={this.onChange} {...toolbarButtonProps} />
+    ) : (
+      <ToolbarButton {...toolbarButtonProps} showArrowIcon={arrow} icon={getIcon()} />
+    );
+
     const defaultStyles = {
       position: 'fixed',
       top: 0,
@@ -192,23 +215,17 @@ class ModalButton extends Component<ModalButtonProps, State> {
       ? { ...defaultStyles, height: '100%' }
       : { ...defaultStyles, background: 'transparent' };
 
+    const onKeyDown = e => {
+      if (e.keyCode === KEYS_CHARCODE.ESCAPE) {
+        this.closeModal({ clickFromKeyboard: true });
+        e.stopPropagation();
+      }
+    };
+
     return (
       <ClickOutside onClickOutside={this.onClickOutside}>
         <div className={styles.buttonWrapper}>
-          <ToolbarButton
-            onToolbarButtonClick={this.props.onToolbarButtonClick}
-            isActive={isModalOpen || isActive()}
-            onClick={this.toggleModal}
-            showArrowIcon={arrow}
-            tooltipText={tooltip}
-            dataHook={dataHook}
-            tabIndex={tabIndex}
-            isMobile={isMobile}
-            disabled={isDisabled()}
-            icon={getIcon()}
-            theme={theme}
-            {...buttonProps}
-          />
+          {Button}
           {isModalOpen && (
             <div
               data-id="toolbar-modal-button"
@@ -224,6 +241,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
                 isMobile ? mobileStyles : overflowWidthBy ? { left: `-${overflowWidthBy}px` } : {}
               }
               onClick={onModalWrapperClick}
+              onKeyDown={onKeyDown}
             >
               {modal({
                 closeCustomModal: this.closeModal,

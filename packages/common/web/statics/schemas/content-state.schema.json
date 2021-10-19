@@ -99,7 +99,8 @@
             "wix-draft-plugin-vertical-embed",
             "wix-draft-plugin-poll",
             "wix-draft-plugin-link-preview",
-            "ANCHOR"
+            "ANCHOR",
+            "wix-rich-content-plugin-table"
           ],
           "title": "entity type",
           "examples": ["wix-draft-plugin-image"]
@@ -150,7 +151,7 @@
             "title": "text",
             "default": "",
             "examples": ["test"],
-            "pattern": "^(.|\n)*$"
+            "pattern": "^(.|[\n\r])*$"
           },
           "type": {
             "$id": "#/properties/blocks/items/properties/type",
@@ -170,7 +171,8 @@
               "ordered-list-item",
               "blockquote",
               "atomic",
-              "code-block"
+              "code-block",
+              "figure"
             ]
           },
           "depth": {

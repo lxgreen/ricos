@@ -77,149 +77,239 @@
     "path": "linkPreviewData.description"
   },
   {
-    "id": "37",
+    "id": "36",
+    "text": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+    "type": "POLL",
+    "path": "pollData.poll.title"
+  },
+  {
+    "id": "36",
+    "text": "Cafe Nordoy",
+    "type": "POLL",
+    "path": "pollData.poll.options[0].title"
+  },
+  {
+    "id": "36",
+    "text": "קפה רוטשילד 65",
+    "type": "POLL",
+    "path": "pollData.poll.options[1].title"
+  },
+  {
+    "id": "36",
+    "text": "האחים",
+    "type": "POLL",
+    "path": "pollData.poll.options[2].title"
+  },
+  {
+    "id": "36",
+    "text": "הוטל מונטיפיורי",
+    "type": "POLL",
+    "path": "pollData.poll.options[3].title"
+  },
+  {
+    "id": "38",
     "type": "PARAGRAPH",
     "text": "<p>Nunc eros ante , porttitor <strong>sed</strong> tempor nec, sagittis non mi. Nulla non <u>vulputate</u> <span style=\"background-color: color4;\">magna</span>, semper convallis sapien.</p>"
   },
   {
-    "id": "40",
+    "id": "41",
     "type": "PARAGRAPH",
     "text": "<p>In imperdiet eros elementum nulla fringilla sollicitudin.</p>"
   },
   {
-    "id": "43",
+    "id": "44",
     "type": "PARAGRAPH",
     "text": "<p>Proin dictum aliquam sapien at pretium.</p>"
   },
   {
-    "id": "46",
+    "id": "47",
     "type": "PARAGRAPH",
     "text": "<p>Quisque pulvinar ac erat vitae imperdiet.</p>"
   },
   {
-    "id": "49",
+    "id": "50",
     "type": "PARAGRAPH",
     "text": "<p>Phasellus ultricies urna ut ultrices imperdiet.</p>"
   },
   {
-    "id": "52",
+    "id": "53",
     "type": "PARAGRAPH",
     "text": "<p>Nulla non varius ipsum, sit amet consectetur quam.</p>"
   },
   {
-    "id": "54",
+    "id": "55",
     "type": "PARAGRAPH",
     "text": "<p>Nunc scelerisque fringilla aliquet.</p>"
   },
   {
-    "id": "56",
+    "id": "57",
     "type": "PARAGRAPH",
     "text": "<p>Praesent purus nibh, sodales</p>"
   },
   {
-    "id": "59",
+    "id": "60",
     "type": "PARAGRAPH",
     "text": "<p>non efficitur a</p>"
   },
   {
-    "id": "61",
+    "id": "62",
     "type": "PARAGRAPH",
     "text": "<p>consequat ac ante.</p>"
   },
   {
-    "id": "65",
+    "id": "66",
     "type": "PARAGRAPH",
     "text": "<p>Aenean sed posuere odio.</p>"
   },
   {
-    "id": "68",
+    "id": "69",
     "type": "PARAGRAPH",
     "text": "<p>Pellentesque imperdiet maximus turpis nec faucibus.</p>"
   },
   {
-    "id": "71",
+    "id": "72",
     "type": "PARAGRAPH",
     "text": "<p>Nulla at tempus lectus,</p>"
   },
   {
-    "id": "74",
+    "id": "75",
     "type": "PARAGRAPH",
     "text": "<p>non tempor tortor.</p>"
   },
   {
-    "id": "77",
+    "id": "78",
     "type": "PARAGRAPH",
     "text": "<p>Vivamus mauris</p>"
   },
   {
-    "id": "79",
+    "id": "80",
     "type": "PARAGRAPH",
     "text": "<p>diam</p>"
   },
   {
-    "id": "81",
+    "id": "82",
     "type": "PARAGRAPH",
     "text": "<p>Auctor in sollicitudin eget, suscipit sed nulla.</p>"
   },
   {
-    "id": "83",
+    "id": "84",
     "type": "PARAGRAPH",
     "text": "<p>Aenean sapien lectus, interdum ultrices enim a, sodales ultrices mi. Quisque ut mi metus.</p>"
   },
   {
-    "id": "85",
+    "id": "86",
     "type": "HEADING",
     "text": "<h3>Donec sit amet sapien quis velit ultrices sollicitudin id facilisis ligula.</h3>"
   },
   {
-    "id": "87",
+    "id": "88",
     "type": "PARAGRAPH",
     "text": "<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In hac 👨‍👩‍👦‍👦 habitasse platea dictumst. In hac habitasse platea dictumst. Cras porta dolor lorem, ac luctus justo pretium quis. Vestibulum et lacinia tortor, in viverra ipsum.</p>"
   },
   {
-    "id": "90",
+    "id": "91",
     "type": "PARAGRAPH",
     "text": "<p>לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק.</p>"
   },
   {
-    "id": "91",
+    "id": "92",
     "type": "PARAGRAPH",
     "text": "<p>בראיט ולחת צורק מונחף, בגורמי מגמש.\n</p>"
   },
   {
-    "id": "97",
+    "id": "98",
     "type": "PARAGRAPH",
     "text": "<p><span style=\"color: color4;\">Collapsible List</span></p>"
   },
   {
-    "id": "103",
+    "id": "104",
     "type": "PARAGRAPH",
     "text": "<p>#LivingTheDream</p>"
   },
   {
-    "id": "105",
+    "id": "106",
     "type": "PARAGRAPH",
     "text": "<p><strong>Yo yo yo!</strong></p>"
   },
   {
-    "id": "110",
+    "id": "111",
     "type": "PARAGRAPH",
     "text": "<p>​</p>"
   },
   {
-    "id": "112",
+    "id": "113",
     "type": "PARAGRAPH",
     "text": "<p><strong>Yo yo yo!</strong></p>"
   },
   {
-    "id": "115",
+    "id": "116",
     "type": "PARAGRAPH",
     "text": "<p><span style=\"color: color3;\"><span data-spoiler=\"true\">​SPOILER ALERT!</span></span></p>"
   },
   {
-    "id": "117",
+    "id": "118",
     "type": "PARAGRAPH",
     "text": "<p>​</p>"
+  },
+  {
+    "id": "121",
+    "text": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+    "type": "POLL",
+    "path": "pollData.poll.title"
+  },
+  {
+    "id": "121",
+    "text": "Cafe Nordoy",
+    "type": "POLL",
+    "path": "pollData.poll.options[0].title"
+  },
+  {
+    "id": "121",
+    "text": "קפה רוטשילד 65",
+    "type": "POLL",
+    "path": "pollData.poll.options[1].title"
+  },
+  {
+    "id": "121",
+    "text": "האחים",
+    "type": "POLL",
+    "path": "pollData.poll.options[2].title"
+  },
+  {
+    "id": "121",
+    "text": "הוטל מונטיפיורי",
+    "type": "POLL",
+    "path": "pollData.poll.options[3].title"
+  },
+  {
+    "id": "123",
+    "text": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+    "type": "POLL",
+    "path": "pollData.poll.title"
+  },
+  {
+    "id": "123",
+    "text": "Cafe Nordoy",
+    "type": "POLL",
+    "path": "pollData.poll.options[0].title"
+  },
+  {
+    "id": "123",
+    "text": "קפה רוטשילד 65",
+    "type": "POLL",
+    "path": "pollData.poll.options[1].title"
+  },
+  {
+    "id": "123",
+    "text": "האחים",
+    "type": "POLL",
+    "path": "pollData.poll.options[2].title"
+  },
+  {
+    "id": "123",
+    "text": "הוטל מונטיפיורי",
+    "type": "POLL",
+    "path": "pollData.poll.options[3].title"
   },
   {
     "id": "2",

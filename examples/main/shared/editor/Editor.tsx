@@ -1,10 +1,13 @@
 import React, { ElementType, PureComponent } from 'react';
 import { RichContentEditor, RichContentEditorProps } from 'wix-rich-content-editor';
-import { testVideos } from '../utils/mock';
+import { testVideos } from '../../../storybook/src/shared/utils/mock';
 import * as Plugins from './EditorPlugins';
 import theme from '../theme/theme'; // must import after custom styles
 import { GALLERY_TYPE } from 'wix-rich-content-plugin-gallery';
-import { mockImageUploadFunc, mockImageNativeUploadFunc } from '../utils/fileUploadUtil';
+import {
+  mockImageUploadFunc,
+  mockImageNativeUploadFunc,
+} from '../../../storybook/src/shared/utils/fileUploadUtil';
 import { TOOLBARS } from 'wix-rich-content-editor-common';
 import {
   DraftContent,

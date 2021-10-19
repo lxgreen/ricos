@@ -20,7 +20,7 @@ import {
 } from 'wix-rich-content-toolbars-new';
 import { get } from 'lodash';
 import { mobileTextButtonList, desktopTextButtonList } from './utils/defaultTextFormattingButtons';
-import { filterButtons, isLinkToolbarOpen } from './utils/toolbarsUtils';
+import { filterButtons, isLinkToolbarOpen, addConfigButtons } from './utils/toolbarsUtils';
 
 interface TextFormattingToolbarProps {
   activeEditor: RichContentEditor;
@@ -69,10 +69,10 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
     const formattingToolbarSetting = getToolbarSettings({ textButtons }).find(
       toolbar => toolbar?.name === textToolbarType
     );
+    const deviceName = !isMobile ? 'desktop' : isiOS() ? 'mobile.ios' : 'mobile.android';
     let formattingToolbarButtons;
     if (formattingToolbarSetting?.getButtons) {
       const allFormattingToolbarButtons = formattingToolbarSetting?.getButtons?.() as TextButtons;
-      const deviceName = !isMobile ? 'desktop' : isiOS() ? 'mobile.ios' : 'mobile.android';
       formattingToolbarButtons = get(allFormattingToolbarButtons, deviceName, []);
     } else {
       formattingToolbarButtons = isMobile ? textButtons.mobile : textButtons.desktop;
@@ -80,18 +80,29 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
 
     const filteredFormattingToolbarButtons = filterButtons(formattingToolbarButtons, activeEditor);
 
+    const configButtonMap = formattingToolbarSetting?.getTextPluginButtons?.();
+
+    const buttonsWithConfigButtons = configButtonMap
+      ? addConfigButtons(filteredFormattingToolbarButtons, get(configButtonMap, deviceName, []))
+      : filteredFormattingToolbarButtons;
+
+    const getPluginConfig = pluginType =>
+      this.props.plugins?.find(plugin => plugin.type === pluginType)?.config;
+
     const colorPickerData = {
-      TEXT_COLOR: this.props.plugins?.find(plugin => plugin.type === 'wix-rich-content-text-color')
-        ?.config,
-      TEXT_HIGHLIGHT: this.props.plugins?.find(
-        plugin => plugin.type === 'wix-rich-content-text-highlight'
-      )?.config,
+      TEXT_COLOR: getPluginConfig('wix-rich-content-text-color'),
+      TEXT_HIGHLIGHT: getPluginConfig('wix-rich-content-text-highlight'),
     };
     const linkPanelData = {
-      linkTypes: this.props.plugins?.find(plugin => plugin.type === 'LINK')?.config.linkTypes,
+      linkTypes: getPluginConfig('LINK')?.linkTypes,
       uiSettings: { linkPanel: this.props.linkPanelSettings },
       linkSettings: this.props.linkSettings,
       isMobile,
+    };
+    const defaultLineSpacing = getPluginConfig('line-spacing')?.defaultSpacing;
+
+    const headingsData = {
+      ...getPluginConfig('wix-rich-content-plugin-headings'),
     };
     const onInlineToolbarOpen = () => this.props.onInlineToolbarOpen?.(ToolbarType.FORMATTING);
     const onToolbarButtonClick = (name, value = undefined, pluginId = undefined) => {
@@ -104,11 +115,13 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
         isMobile={isMobile}
         t={t}
         editorCommands={editorCommands}
-        buttons={filteredFormattingToolbarButtons}
+        buttons={buttonsWithConfigButtons}
         linkPanelData={linkPanelData}
         colorPickerData={colorPickerData}
+        headingsData={headingsData}
         onToolbarButtonClick={onToolbarButtonClick}
         experiments={experiments}
+        defaultLineSpacing={defaultLineSpacing}
       />
     );
     const ToolbarContainer =

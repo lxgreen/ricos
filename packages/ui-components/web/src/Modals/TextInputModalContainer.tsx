@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import classNames from 'classnames';
 import {
   mergeStyles,
   TranslationFunction,
@@ -20,14 +19,13 @@ interface TextInputModalContainerProps {
   children?: React.ReactNode;
   title?: string;
   isMobile?: boolean;
-  hasMobileSettings?: boolean;
+  withMobileHeader?: boolean;
   selected?: boolean;
   onConfirm: () => void;
   onCloseRequested: (() => void) | undefined;
   submittedInvalidUrl?: any;
   errorMessage: string;
   placeholder: string;
-  isInlineModal?: boolean;
   buttonAlignment?: string;
   saveLabel?: string;
   onInputChange: (text) => void;
@@ -43,11 +41,10 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
   children,
   title,
   isMobile,
-  hasMobileSettings = true,
+  withMobileHeader = true,
   selected = true,
   onConfirm,
   onCloseRequested,
-  isInlineModal = true,
   saveLabel,
 }) => {
   const styles = mergeStyles({ styles: Styles, theme });
@@ -81,12 +78,8 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
   );
 
   return (
-    <div
-      className={classNames(styles.inputModal_container, {
-        [styles.inlineModal]: isInlineModal,
-      })}
-    >
-      {isMobile && hasMobileSettings && renderMobileHeader()}
+    <div className={styles.inputModal_container}>
+      {isMobile && withMobileHeader && renderMobileHeader()}
       <div className={styles.inputModal_content} data-hook={dataHook} dir={languageDir}>
         {title && renderTitle()}
         <div className={styles.inputModal_textInput}>{children}</div>

@@ -14,6 +14,16 @@ class LineSpacingPanel extends Component {
     this.styles = mergeStyles({ styles, theme: props.theme });
   }
 
+  generateOptions = () => {
+    const current = this.props.currentSelect['line-height'];
+    const isCurrentInOptions = lineHeights.some(lineHeight => lineHeight.text === current);
+    return isCurrentInOptions
+      ? lineHeights
+      : [...lineHeights, { text: current, commandKey: current }].sort(
+          (a, b) => Number(a.commandKey) - Number(b.commandKey)
+        );
+  };
+
   showCustomPanel = () => {
     this.setState({ isCustomPanel: true });
   };
@@ -34,9 +44,9 @@ class LineSpacingPanel extends Component {
   onCancel = e => this.props.onCancel({ clickFromKeyboard: !e.detail });
 
   render() {
-    const { t, isMobile, currentSelect, theme } = this.props;
+    const { t, isMobile, theme } = this.props;
     const { isCustomPanel, spacing } = this.state;
-    const { styles, showCustomPanel, onChange, onSave, onCancel } = this;
+    const { styles, showCustomPanel, onChange, onSave, onCancel, generateOptions } = this;
     const onSaveLineHeight = (height, clickFromKeyboard) =>
       onSave({ 'line-height': height }, clickFromKeyboard);
     const onChangeLineHeight = height => onChange({ 'line-height': `${height}` });
@@ -45,11 +55,10 @@ class LineSpacingPanel extends Component {
     const panel = isMobile ? (
       <MobilePanel
         {...{
-          currentSelect,
+          currentSelect: this.state.spacing,
           panelHeader,
-          options: lineHeights,
+          options: generateOptions(),
           onChange: onChangeLineHeight,
-          onCancel,
           t,
         }}
       />
@@ -60,17 +69,16 @@ class LineSpacingPanel extends Component {
     ) : (
       <DesktopPanel
         {...{
-          currentSelect,
-          options: lineHeights,
+          currentSelect: this.state.spacing,
+          options: generateOptions(),
           onChange: onSaveLineHeight,
           panelHeader,
-          showCustomPanel,
+          customPanelOptions: { inline: false, onOpen: showCustomPanel },
           t,
         }}
       />
     );
     return (
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
         className={classNames(styles.panel_Container, {
           [styles.mobile_Container]: isMobile,
