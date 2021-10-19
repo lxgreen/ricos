@@ -38,8 +38,8 @@ const createInsertButtons: CreateInsertButtons = ({
   isMobile: boolean;
   experiments: AvailableExperiments;
 }) => {
-  const { newSocialAndVerticalEmbedModal } = experiments;
-  const useNewModal = newSocialAndVerticalEmbedModal?.enabled;
+  const { newSocialEmbedModal } = experiments;
+  const useNewModal = newSocialEmbedModal?.enabled;
   const content = isMobile
     ? {
         maxWidth: 580,
@@ -102,14 +102,18 @@ const createInsertButtons: CreateInsertButtons = ({
     }),
   });
 
+  const toolbars = useNewModal
+    ? [TOOLBARS.MOBILE, TOOLBARS.FOOTER, TOOLBARS.SIDE]
+    : [TOOLBARS.INSERT_PLUGIN, TOOLBARS.MOBILE, TOOLBARS.FOOTER, TOOLBARS.SIDE];
+
   let socialButtons = exposeEmbedButtons.map(socialType => ({
     ...baseButtonsProps(socialType),
-    toolbars: [TOOLBARS.MOBILE, TOOLBARS.FOOTER, TOOLBARS.SIDE],
+    toolbars,
     modalStyles,
   }));
 
   if (useNewModal) {
-    const externalButtons = exposeEmbedButtons.map(socialType => ({
+    const externalToolbarButtons = exposeEmbedButtons.map(socialType => ({
       ...baseButtonsProps(socialType),
       toolbars: [TOOLBARS.INSERT_PLUGIN],
       modalStyles: getModalStyles({
@@ -122,7 +126,7 @@ const createInsertButtons: CreateInsertButtons = ({
       }),
     }));
 
-    socialButtons = [...socialButtons, ...externalButtons];
+    socialButtons = [...socialButtons, ...externalToolbarButtons];
   }
 
   return socialButtons;

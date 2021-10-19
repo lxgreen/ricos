@@ -106,41 +106,26 @@
 
 .inputModal_container {
   .inputModal_content {
-    padding: 80px 120px;
-  }
-
-  &.inlineModal {
-    .inputModal_content {
-      padding: 0;
-      @include phone {
-        padding: 16px 20px;
-      }
-    }
-    .input_header {
-      border: none;
-    }
-    .input_header_text {
-      color: #757575;
-      font-size: 14px;
-      text-align: left;
-    }
-    .inputModal_textInput {
-      margin: 14px 0;
+    padding: 0;
+    @include phone {
+      padding: 16px 20px;
     }
   }
-
-  &:not(.inlineModal) {
-    .inputModal_content {
-      padding: 24px;
-    }
-    .input_header {
-      margin: 0 -24px;
-      align-items: start;
-      height: 48px;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    }
-    .inputModal_textInput {
-      margin-top: 28px;
+  .input_header {
+    border: none;
+  }
+  .input_header_text {
+    color: #757575;
+    font-size: 14px;
+    text-align: left;
+  }
+  .inputModal_textInput {
+    margin: 14px 0;
+  }
+  .textSearchInput_container {
+    width: 400px;
+    @include phone {
+      width: 100%;
     }
   }
 

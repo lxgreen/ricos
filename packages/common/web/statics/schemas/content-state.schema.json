@@ -151,7 +151,7 @@
             "title": "text",
             "default": "",
             "examples": ["test"],
-            "pattern": "^(.|\n)*$"
+            "pattern": "^(.|[\n\r])*$"
           },
           "type": {
             "$id": "#/properties/blocks/items/properties/type",
@@ -171,7 +171,8 @@
               "ordered-list-item",
               "blockquote",
               "atomic",
-              "code-block"
+              "code-block",
+              "figure"
             ]
           },
           "depth": {

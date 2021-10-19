@@ -112,9 +112,13 @@ const createInsertButtons: CreateInsertButtons = ({
     },
   };
 
+  const toolbars = useNewModal
+    ? [TOOLBARS.MOBILE, TOOLBARS.FOOTER, TOOLBARS.SIDE]
+    : [TOOLBARS.INSERT_PLUGIN, TOOLBARS.MOBILE, TOOLBARS.FOOTER, TOOLBARS.SIDE];
+
   let videoButtons = exposeButtons.map(buttonType => ({
     ...buttonsMap[buttonType],
-    toolbars: [TOOLBARS.MOBILE, TOOLBARS.FOOTER, TOOLBARS.SIDE],
+    toolbars,
     modalStylesFn,
     modalStyles,
     ...baseButtonProps,

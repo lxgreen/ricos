@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActionButtons, BUTTON_SIZE } from 'wix-rich-content-ui-components';
+import { ActionButtons, BUTTON_SIZE, FocusManager } from 'wix-rich-content-ui-components';
 import styles from './custom-panel.scss';
 
 const LabeledInput = ({
@@ -32,47 +32,49 @@ const LabeledInput = ({
 
 const CustomPanel = ({ spacing, onChange, onSave, onCancel, t, theme }) => {
   return (
-    <div className={styles.customSpacingPanel}>
-      <LabeledInput
-        label={t('LineSpacing_lineSpacing')}
-        name="line-height"
-        defaultValue={1.5}
-        onChange={onChange}
-        spacing={spacing}
-        min={1}
-        max={100}
-      />
-      <div className={styles.separator} />
-      <LabeledInput
-        label={t('LineSpacing_beforeParagraph')}
-        name="padding-top"
-        unit="px"
-        onChange={onChange}
-        spacing={spacing}
-        min={0}
-        max={250}
-      />
-      <LabeledInput
-        label={t('LineSpacing_afterParagraph')}
-        name="padding-bottom"
-        unit="px"
-        onChange={onChange}
-        spacing={spacing}
-        min={0}
-        max={250}
-      />
-      <div className={styles.customSpacingPanel_buttons}>
-        <ActionButtons
-          size={BUTTON_SIZE.tiny}
-          onCancel={onCancel}
-          onSave={onSave}
-          cancelText={t('LineSpacing_cancel')}
-          saveText={t('LineSpacing_save')}
-          theme={theme}
-          t={t}
+    <FocusManager>
+      <div className={styles.customSpacingPanel}>
+        <LabeledInput
+          label={t('LineSpacing_lineSpacing')}
+          name="line-height"
+          defaultValue={1.5}
+          onChange={onChange}
+          spacing={spacing}
+          min={1}
+          max={100}
         />
+        <div className={styles.separator} />
+        <LabeledInput
+          label={t('LineSpacing_beforeParagraph')}
+          name="padding-top"
+          unit="px"
+          onChange={onChange}
+          spacing={spacing}
+          min={0}
+          max={250}
+        />
+        <LabeledInput
+          label={t('LineSpacing_afterParagraph')}
+          name="padding-bottom"
+          unit="px"
+          onChange={onChange}
+          spacing={spacing}
+          min={0}
+          max={250}
+        />
+        <div className={styles.customSpacingPanel_buttons}>
+          <ActionButtons
+            size={BUTTON_SIZE.tiny}
+            onCancel={onCancel}
+            onSave={onSave}
+            cancelText={t('LineSpacing_cancel')}
+            saveText={t('LineSpacing_save')}
+            theme={theme}
+            t={t}
+          />
+        </div>
       </div>
-    </div>
+    </FocusManager>
   );
 };
 
