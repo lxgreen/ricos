@@ -19,6 +19,8 @@
 
 ### :nail_care: Polish
 
+- `ui-components`
+  - [#2999](https://github.com/wix/ricos/pull/2999) fix action buttons keyboard navigation order
 - `vertical-embed`
   - [#3005](https://github.com/wix/ricos/pull/3005) vertical-embed modal new design
 - `line-spacing`
