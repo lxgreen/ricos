@@ -2,7 +2,6 @@
  * This script generates the empty RichContent object and writes specific plugin portions to dedicated json files
  * residing in ricos-schema/dist/statics/. These files then define tiptap schemas for RicosExtensions.
  */
-import * as J from 'fp-ts/Json';
 import * as E from 'fp-ts/Either';
 import * as T from 'fp-ts/Tuple';
 import * as A from 'fp-ts/Array';
@@ -66,6 +65,18 @@ const defaultContent = {
   ],
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const stringify = (replacer: (key: string, value: any) => any, space = 0) => <A>(
+  a: A
+): E.Either<unknown, string> =>
+  E.tryCatch(() => {
+    const s = JSON.stringify(a, replacer, space);
+    if (typeof s !== 'string') {
+      throw new Error('Converting unsupported structure to JSON');
+    }
+    return s;
+  }, identity);
+
 const writeStaticsEntry = ([type, defaults]) => {
   const entryPath = resolve(__dirname, '..', 'statics', `${type}.defaults.json`);
   writeFileSync(entryPath, defaults, { encoding: 'utf8', flag: 'w+' });
@@ -73,6 +84,7 @@ const writeStaticsEntry = ([type, defaults]) => {
 
 const toNodes = (content: RichContent) => content.nodes;
 const toPluginDataTuple = (n: Node): [string, unknown] => [n.type, n[dataPropByType[n.type]]];
+const nullReplacer = (_: string, value: unknown) => (typeof value === 'undefined' ? null : value);
 
 const generateDefaults = flow(
   RichContent.fromJSON, // content with default values
@@ -83,7 +95,7 @@ const generateDefaults = flow(
       T.bimap(
         // [TYPE, pluginData] => [type, "pluginData"]
         flow(
-          J.stringify,
+          stringify(nullReplacer),
           E.fold(() => 'data stringify error', identity)
         ),
         S.toLowerCase
