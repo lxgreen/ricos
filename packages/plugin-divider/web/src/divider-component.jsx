@@ -27,8 +27,6 @@ class DividerComponent extends PureComponent {
   render() {
     this.styles = this.styles || mergeStyles({ styles, theme: this.props.theme });
     // NOTE: editor-only logic in viewer component
-    const editorBounds = this.props.getEditorBounds?.();
-    const editorWidth = editorBounds && editorBounds.width ? editorBounds.width : '100%';
     const divider = new Divider(this.props.componentData);
     const { type, size, alignment } = divider;
     const className = classNames(
@@ -41,7 +39,7 @@ class DividerComponent extends PureComponent {
       <div className={className} data-hook={`divider-${type}`}>
         <DividerLine
           type={type}
-          width={editorWidth}
+          width={'100%'}
           size={size}
           alignment={alignment}
           styles={this.styles}
@@ -56,7 +54,6 @@ DividerComponent.propTypes = {
   componentData: PropTypes.object.isRequired,
   className: PropTypes.string,
   theme: PropTypes.object.isRequired,
-  getEditorBounds: PropTypes.func.isRequired,
   isMobile: PropTypes.bool.isRequired,
 };
 
