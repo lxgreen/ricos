@@ -7,7 +7,7 @@ import {
   Tabs,
   Tab,
   SettingsPanelFooter,
-  Separator,
+  SettingsMobileHeader,
   FocusManager,
 } from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
@@ -103,38 +103,12 @@ export class SettingsModal extends Component {
       <div ref={$container}>
         <FocusManager dir={languageDir}>
           {isMobile ? (
-            <div className={this.styles.header}>
-              <button
-                className={cls(
-                  this.styles.poll_header_button,
-                  this.styles.poll_header_button_secondary
-                )}
-                onClick={this.restoreChanges}
-              >
-                {t('Poll_PollSettings_Common_CTA_Secondary')}
-              </button>
-              <div className={this.styles.header_button_list}>
-                <button
-                  className={cls(
-                    this.styles.poll_header_button,
-                    this.styles.poll_header_button_primary
-                  )}
-                  onClick={this.openPreview}
-                >
-                  {t('Poll_FormatToolbar_Preview_Tooltip')}
-                </button>
-                <Separator className={this.styles.separator_vertical} />
-                <button
-                  className={cls(
-                    this.styles.poll_header_button,
-                    this.styles.poll_header_button_primary
-                  )}
-                  onClick={helpers.closeModal}
-                >
-                  {t('Poll_PollSettings_Common_CTA_Primary')}
-                </button>
-              </div>
-            </div>
+            <SettingsMobileHeader
+              onCancel={this.restoreChanges}
+              onSave={helpers.closeModal}
+              theme={this.props.theme}
+              t={t}
+            />
           ) : (
             <div className={this.styles.header}>
               <h3 className={this.styles.title}>{t('Poll_PollSettings_Common_Header')}</h3>

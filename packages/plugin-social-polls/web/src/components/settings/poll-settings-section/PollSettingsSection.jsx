@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Separator, LabeledToggle, InfoIcon, RadioGroup } from 'wix-rich-content-ui-components';
+import {
+  SettingsSeparator,
+  LabeledToggle,
+  InfoIcon,
+  RadioGroup,
+} from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 
 import { MEMBER_ROLES, VISIBILITY } from '../../../defaults';
@@ -117,7 +122,7 @@ export class PollSettingsSection extends Component {
           theme={this.styles}
         />
 
-        <Separator horizontal className={styles.separator} />
+        <SettingsSeparator />
 
         <h3 className={styles.title}>
           {t('Poll_PollSettings_Tab_Settings_Section_Results_Header')}

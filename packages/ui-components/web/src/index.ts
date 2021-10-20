@@ -44,4 +44,5 @@ export { default as RadioGroup } from './Components/RadioGroup';
 export { default as ActionButtons } from './Components/ActionButtons';
 export { default as FocusManager } from './Components/FocusManager';
 export { default as SettingsMobileHeader } from './Components/SettingsMobileHeader';
+export { default as SettingsSeparator } from './Components/SettingsSeparator';
 // export { getSelectionStyles } from './Utils/inlineStyleUtils';
