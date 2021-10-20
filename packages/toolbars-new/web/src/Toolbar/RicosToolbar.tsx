@@ -65,17 +65,17 @@ interface RicosToolbarProps {
 }
 
 class RicosToolbar extends Component<RicosToolbarProps> {
-  separateByGaps = buttons => {
-    const separatedButtons: any = [[]];
-    buttons.forEach(button => {
-      if (button.type !== TOOLBAR_BUTTON_TYPES.GAP) {
-        separatedButtons[separatedButtons.length - 1].push(button);
-      } else {
-        separatedButtons.push([]);
-      }
-    });
-    return separatedButtons;
-  };
+  // separateByGaps = buttons => {
+  //   const separatedButtons: any = [[]];
+  //   buttons.forEach(button => {
+  //     if (button.type !== TOOLBAR_BUTTON_TYPES.GAP) {
+  //       separatedButtons[separatedButtons.length - 1].push(button);
+  //     } else {
+  //       separatedButtons.push([]);
+  //     }
+  //   });
+  //   return separatedButtons;
+  // };
 
   cleanUnwantedSeparators = buttons => {
     const cleanedButtons: any = [];
@@ -123,11 +123,11 @@ class RicosToolbar extends Component<RicosToolbarProps> {
     );
     const buttonsWithoutUnwantedSeparators =
       updatedButtons.length > 0 && this.cleanUnwantedSeparators(updatedButtons);
-    const buttonsSeparatedByGaps = this.separateByGaps(buttonsWithoutUnwantedSeparators);
+    // const buttonsSeparatedByGaps = this.separateByGaps(buttonsWithoutUnwantedSeparators);
 
     return (
       <Toolbar
-        buttons={buttonsSeparatedByGaps}
+        buttons={buttonsWithoutUnwantedSeparators}
         t={t}
         isMobile={isMobile}
         theme={theme}
