@@ -1,10 +1,15 @@
 import React from 'react';
 import { ImageComponent } from '..';
-import { ImagePluginEditorConfig } from '../types';
+import { IMAGE_TYPE } from '../types';
 import { PluginProps } from 'wix-rich-content-editor-common';
 
-export const Image: React.FC<PluginProps> = ({ context, componentData, updateAttributes }) => {
-  const { isMobile, theme, t } = context;
+export const Image: React.FC<PluginProps> = ({
+  context,
+  componentData,
+  updateAttributes,
+  node,
+}) => {
+  const { isMobile, theme, t, config } = context;
   const store = {
     update: (propery, data) => {
       // update caption
@@ -14,15 +19,13 @@ export const Image: React.FC<PluginProps> = ({ context, componentData, updateAtt
   };
   const helpers = {};
   const componentState = {};
-  const settings: ImagePluginEditorConfig = {};
+  const settings = config[IMAGE_TYPE];
   const blockProps = {
     setFocusToBlock: () => null,
   };
   const setComponentUrl = () => null;
   const block = {
-    getKey: () => {
-      return '';
-    },
+    getKey: () => node.attrs.id,
   };
 
   return (

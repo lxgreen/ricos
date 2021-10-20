@@ -1,11 +1,11 @@
 import React from 'react';
 import { Component as VideoComponent } from '../video-component';
-import { VideoPluginEditorConfig } from '../types';
+import { VIDEO_TYPE } from '../types';
 import { PluginProps } from 'wix-rich-content-editor-common';
 
-export const Video: React.FC<PluginProps> = ({ context, componentData, updateAttributes }) => {
-  const { theme, t } = context;
-  const settings: VideoPluginEditorConfig = {};
+export const Video: React.FC<PluginProps> = ({ context, componentData }) => {
+  const { theme, t, config } = context;
+  const settings = config[VIDEO_TYPE];
   const blockProps = {
     setFocusToBlock: () => null,
   };
