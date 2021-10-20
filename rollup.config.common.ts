@@ -24,7 +24,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
   };
 
   output = output.map(o => ({ ...o, sourcemap: true }));
-  if (!process.env.BUILD_CJS) {
+  if (process.env.MODULE_WATCH && !process.env.BUILD_CJS) {
     output = output.filter(o => o.format === 'es');
   }
 
@@ -33,7 +33,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
     fileName = `${fileName.slice(0, anchor)}.${fileNamePart}${fileName.slice(anchor)}`;
     return fileName;
   };
-  console.log({output});
+
   const editorEntry: RollupOptions = {
     input: 'src/index.ts',
     output: cloneDeep(output),
@@ -141,7 +141,10 @@ const output: OutputOptions[] = process.env.DYNAMIC_IMPORT
         file: 'dist/module.js',
         format: 'es',
       },
-   
+      {
+        file: 'dist/module.cjs.js',
+        format: 'cjs',
+      },
     ];
 
 export default commonConfig(output, process.env.EXTRACT_CSS !== 'false');

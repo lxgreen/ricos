@@ -215,8 +215,5 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
-  },
-  "dependencies": {
-    "trash-cli": "^4.0.0"
   }
 }
