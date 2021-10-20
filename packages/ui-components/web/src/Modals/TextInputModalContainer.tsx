@@ -22,6 +22,7 @@ interface TextInputModalContainerProps {
   isMobile?: boolean;
   withMobileHeader?: boolean;
   selected?: boolean;
+  showTitle?: boolean;
   onConfirm: () => void;
   onCloseRequested: (() => void) | undefined;
   submittedInvalidUrl?: any;
@@ -45,6 +46,7 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
   isMobile,
   withMobileHeader = true,
   selected = true,
+  showTitle = true,
   onConfirm,
   onCloseRequested,
   saveLabel,
@@ -81,7 +83,7 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
     <div className={styles.inputModal_container}>
       {isMobile && withMobileHeader && renderMobileHeader()}
       <div className={styles.inputModal_content} data-hook={dataHook} dir={languageDir}>
-        {title && renderTitle()}
+        {title && showTitle && renderTitle()}
         {subTitle && renderSubTitle()}
         <div className={styles.inputModal_textInput}>{children}</div>
         {!isMobile && renderDesktopFooter()}

@@ -117,22 +117,33 @@
   }
 
   %input_header_text {
-    font-size: 14px;
     text-align: left;
+    @include phone {
+      margin-bottom: 7px;
+    }
   }
 
   .input_header_subTitle {
+    font-size: 14px;
     color: #757575;
     @extend %input_header_text;
   }
 
   .input_header_title {
+    font-size: 16px;
     color: #000;
     @extend %input_header_text;
   }
 
   .inputModal_textInput {
     margin: 14px 0;
+    @include phone {
+      margin: 0;
+    }
+  }
+
+  input::placeholder {
+    font-size: 16px;
   }
 
   @include phone {

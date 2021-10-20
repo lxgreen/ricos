@@ -122,6 +122,9 @@ const createInsertButtons: CreateInsertButtons = ({
     },
   };
 
+  const videoStyle = { ...customStyles, content: modalContentStyles };
+  const embedStyle = { ...customStyles, content: { ...modalContentStyles, height: 180 } };
+
   const toolbars = useNewModal
     ? [TOOLBARS.MOBILE, TOOLBARS.FOOTER, TOOLBARS.SIDE]
     : [TOOLBARS.INSERT_PLUGIN, TOOLBARS.MOBILE, TOOLBARS.FOOTER, TOOLBARS.SIDE];
@@ -134,10 +137,7 @@ const createInsertButtons: CreateInsertButtons = ({
           return getBottomToolbarModalStyles(
             buttonRef,
             {
-              customStyles:
-                buttonType !== videoButtonsTypes.video
-                  ? { ...customStyles, content: { ...modalContentStyles, height: 180 } }
-                  : { ...customStyles, content: modalContentStyles },
+              customStyles: buttonType !== videoButtonsTypes.video ? embedStyle : videoStyle,
             },
             toolbarName
           );
