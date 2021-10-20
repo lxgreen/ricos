@@ -19,6 +19,7 @@ import {
   VideoData,
   TableCellData,
   CollapsibleListData,
+  PollData,
 } from 'ricos-schema';
 import { RichText } from './node-refined-types';
 
@@ -98,6 +99,7 @@ type AddMap = {
   addAppEmbed: AppEmbedData;
   addEmbed: EmbedData;
   addLinkPreview: LinkPreviewData;
+  addPoll: PollData;
 };
 
 type AddTextMap = {

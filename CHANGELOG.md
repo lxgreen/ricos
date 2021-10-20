@@ -24,11 +24,17 @@
 - `vertical-embed`
   - [#3005](https://github.com/wix/ricos/pull/3005) vertical-embed modal new design
 - `line-spacing`
+
   - [#3009](https://github.com/wix/ricos/pull/3009) add custom line-height selection to the line-heights options display
-  
+- `ricos-content`
+  - [#3016](https://github.com/wix/ricos/pull/3016) Polls Content Builder API support
+
 ### :house: Internal
+
 - `schema`
   - [#3013](https://github.com/wix/ricos/pull/3013) undefined fields added to plugin defaults JSON
+- `divider`
+  - [#3017](https://github.com/wix/ricos/pull/3017) set divider width to 100% and remove editor bounds consideration
 
 </details>
 <hr/>

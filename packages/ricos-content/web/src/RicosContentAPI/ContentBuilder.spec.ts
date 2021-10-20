@@ -10,6 +10,7 @@ import {
   Decoration_Type,
   AppEmbedData,
   AppEmbedData_AppType,
+  PollData,
 } from 'ricos-schema';
 import { TableCell } from '../types/contentApi';
 import { RichText } from '../types/node-refined-types';
@@ -35,7 +36,7 @@ describe('Ricos Content Builder', () => {
     expect(api.addMap).toBeDefined(); // TODO: API should accept address
     expect(api.addOrderedList).toBeDefined();
     expect(api.addParagraph).toBeDefined();
-    // expect(api.addPoll).toBeDefined();
+    expect(api.addPoll).toBeDefined();
     expect(api.addTable).toBeDefined();
     expect(api.addVideo).toBeDefined(); // TODO: API should accept url
   });
@@ -748,6 +749,68 @@ describe('Ricos Content Builder', () => {
       ],
       content: { nodes: [] },
     });
+    expect(actual).toEqual(expected);
+  });
+
+  it('should add Poll to content', () => {
+    const content = { nodes: [] };
+
+    const expected = {
+      nodes: [
+        {
+          type: Node_Type.POLL,
+          id: 'foo',
+          pollData: {
+            containerData: {
+              alignment: 'CENTER',
+              textWrap: true,
+              width: {
+                size: 'CONTENT',
+              },
+            },
+            design: {
+              options: {
+                borderRadius: 0,
+              },
+              poll: {
+                background: {
+                  type: 'IMAGE',
+                },
+                borderRadius: 0,
+              },
+            },
+            layout: {
+              options: {
+                enableImage: false,
+              },
+              poll: {
+                direction: 'LTR',
+                enableImage: false,
+                type: 'LIST',
+              },
+            },
+            poll: {
+              options: [],
+              settings: {
+                permissions: {
+                  allowMultipleVotes: false,
+                  view: 'VOTERS',
+                  vote: 'SITE_MEMBERS',
+                },
+                showVoters: true,
+                showVotesCount: true,
+              },
+              title: '',
+            },
+          },
+          nodes: [],
+        },
+      ],
+    };
+
+    const generateKey = () => 'foo';
+    const api = setupContentBuilder(generateKey);
+    const actual = api.addPoll({ content });
     expect(actual).toEqual(expected);
   });
 });

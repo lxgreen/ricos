@@ -31,3 +31,4 @@ export { default as ImageIcon } from './ImageIcon';
 export { default as GalleryIcon } from './GalleryIcon';
 export { default as FileIcon } from './FileIcon';
 export { default as GifIcon } from './GifIcon';
+export { default as ContextMenuIcon } from './ContextMenuIcon';

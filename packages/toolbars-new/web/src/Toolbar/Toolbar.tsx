@@ -11,7 +11,9 @@ import ModalButton from './ButtonComponents/ModalButton';
 import ColorPickerButton from './ButtonComponents/ColorPickerButton';
 import ToolbarButton from './ToolbarButton';
 import ContextMenu from './ButtonComponents/ContextMenu';
+import NestedMenu from './ButtonComponents/NestedMenu';
 import { RichContentTheme, TranslationFunction, DesktopTextButtons } from 'wix-rich-content-common';
+import { ContextMenuIcon } from '../icons';
 
 type formattingToolbarButtonsKeysType =
   | DesktopTextButtons
@@ -33,7 +35,12 @@ interface ToolbarProps {
   onToolbarButtonClick?: any;
 }
 
-class Toolbar extends Component<ToolbarProps> {
+interface State {
+  buttons: any;
+  overflowedButtons: any;
+}
+
+class Toolbar extends Component<ToolbarProps, State> {
   theme: RichContentTheme;
 
   toolbarRef!: HTMLElement;
@@ -51,14 +58,44 @@ class Toolbar extends Component<ToolbarProps> {
       inlineToolbarButton_icon: buttonTheme.textToolbarButton_icon,
     };
     this.theme = { ...props.theme, buttonStyles };
+    this.state = { buttons: props.buttons, overflowedButtons: [] };
   }
 
   componentDidMount() {
+    const { nestedMenu } = this.props;
+    nestedMenu && this.setFirstAndLastButtons();
+  }
+
+  setFirstAndLastButtons = () => {
     const firstChild = this.toolbarRef?.firstChild as HTMLElement;
     this.firstButton = firstChild?.querySelector?.('button');
     const lastChild = this.toolbarRef?.lastChild as HTMLElement;
     this.lastButton = lastChild?.querySelector?.('button');
-  }
+  };
+
+  handleToolbarOverflow = () => {
+    const { buttons, overflowedButtons } = this.state;
+    if (this.toolbarOverflowWithEditorWidth()) {
+      if (buttons[buttons.length - 1].name !== 'overflow') {
+        buttons.push({
+          name: 'overflow',
+          type: TOOLBAR_BUTTON_TYPES.NESTED_MENU,
+          getIcon: () => ContextMenuIcon,
+          buttonList: overflowedButtons,
+        });
+      }
+      const currentOverflowedButton = buttons.splice(-2, 1);
+      overflowedButtons.unshift(...currentOverflowedButton);
+      this.setState({ buttons, overflowedButtons });
+    }
+  };
+
+  toolbarOverflowWithEditorWidth = () => {
+    const rootEditorElement = this.toolbarRef
+      ?.closest('[data-hook=ricos-editor-toolbars]')
+      ?.parentElement?.querySelector('[data-hook=root-editor]') as HTMLElement;
+    return rootEditorElement.clientWidth < this.toolbarRef.clientWidth;
+  };
 
   renderButton = buttonProps => {
     const {
@@ -214,18 +251,16 @@ class Toolbar extends Component<ToolbarProps> {
     );
   };
 
-  // renderNestedMenu = buttonProps => {
-  //   const { isMobile, tabIndex, t, theme, editorCommands } = this.props;
-  //   const dropDownProps = {
-  //     tabIndex,
-  //     isMobile,
-  //     t,
-  //     ...buttonProps,
-  //   };
-  //   return (
-  //     <NestedMenu dropDownProps={dropDownProps} theme={theme} editorCommands={editorCommands} />
-  //   );
-  // };
+  renderNestedMenu = buttonProps => {
+    const { isMobile, tabIndex, t, theme } = this.props;
+    const dropDownProps = {
+      tabIndex,
+      isMobile,
+      t,
+      ...buttonProps,
+    };
+    return <NestedMenu dropDownProps={dropDownProps} theme={theme} />;
+  };
 
   renderContextMenu = buttonProps => {
     const { isMobile, tabIndex, t } = this.props;
@@ -250,6 +285,7 @@ class Toolbar extends Component<ToolbarProps> {
     [TOOLBAR_BUTTON_TYPES.MODAL]: this.renderModal,
     [TOOLBAR_BUTTON_TYPES.COMPONENT]: this.renderComponent,
     [TOOLBAR_BUTTON_TYPES.CONTEXT_MENU]: this.renderContextMenu,
+    [TOOLBAR_BUTTON_TYPES.NESTED_MENU]: this.renderNestedMenu,
   };
 
   onKeyDown = e => {
@@ -269,23 +305,26 @@ class Toolbar extends Component<ToolbarProps> {
   setToolbarRef = ref => (this.toolbarRef = ref);
 
   render() {
-    const { buttons, vertical } = this.props;
-    return buttons.map((buttonsWithoutGaps, index) => {
-      return (
-        <div
-          data-id="toolbar"
-          key={index}
-          onKeyDown={this.onKeyDown}
-          ref={this.setToolbarRef}
-          className={classNames(styles.toolbar, { [styles.vertical]: vertical })}
-        >
-          {buttonsWithoutGaps.map((buttonProps, i) => {
-            const Button = this.buttonMap[buttonProps.type];
-            return <Button {...buttonProps} key={i} />;
-          })}
-        </div>
-      );
-    });
+    const { isMobile, vertical, nestedMenu } = this.props;
+    const { buttons } = this.state;
+    !isMobile && this.toolbarRef && !nestedMenu && this.handleToolbarOverflow();
+    this.toolbarRef && !this.toolbarOverflowWithEditorWidth() && this.setFirstAndLastButtons();
+
+    // return buttons.map((buttonsWithoutGaps, index) => {
+    return (
+      <div
+        data-id="toolbar"
+        onKeyDown={this.onKeyDown}
+        ref={this.setToolbarRef}
+        className={classNames(styles.toolbar, { [styles.vertical]: vertical })}
+      >
+        {buttons.map((buttonProps, i) => {
+          const Button = this.buttonMap[buttonProps.type];
+          return <Button {...buttonProps} key={i} />;
+        })}
+      </div>
+    );
+    // });
   }
 }
 
