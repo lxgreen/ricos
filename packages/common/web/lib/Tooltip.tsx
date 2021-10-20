@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { ReactElement, Suspense } from 'react';
+import { debounce } from 'lodash';
 import { getTooltipStyles } from './tooltipStyles';
 import { GlobalContext } from '../src/Utils/contexts';
 
@@ -108,6 +109,11 @@ class Tooltip extends React.Component<Props> {
     ...this.wrappChildrenProp('onMouseMove', this.onMouseMove),
   };
 
+  sendBiEvent = debounce(() => {
+    const { content } = this.props;
+    console.log('tooltip bi - ', { content });
+  }, 40);
+
   render() {
     const { children, content, isError, place, tooltipOffset, followMouse, hideArrow } = this.props;
     const { tooltipVisible } = this.state;
@@ -119,6 +125,11 @@ class Tooltip extends React.Component<Props> {
       : this.wrapperProps;
 
     const tooltipArrow = hideArrow ? null : 'center';
+
+    if (!isMobile && !this.disabled && content && tooltipVisible) {
+      this.sendBiEvent();
+    }
+
     return isMobile || this.disabled || !content ? (
       children
     ) : (
