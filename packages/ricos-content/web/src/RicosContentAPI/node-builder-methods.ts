@@ -19,6 +19,12 @@ import {
   RichContent,
   TextData,
   TextStyle_TextAlignment,
+  PollData,
+  PollData_Poll_Settings_Permissions_ViewRole,
+  PollData_Poll_Settings_Permissions_VoteRole,
+  PollData_Layout_PollLayout_Type,
+  PollData_Layout_PollLayout_Direction,
+  PollData_Design_PollDesign_Background_Type,
 } from 'ricos-schema';
 import { dataByNodeType } from '../converters/nodeUtils';
 import { ListItemData } from '../types/contentApi';
@@ -96,6 +102,44 @@ export const DEFAULT_HTML_DATA: HTMLData = {
   containerData: DEFAULT_CONTAINER_DATA,
   html: '<div/>',
   url: undefined,
+};
+
+export const DEFAULT_POLL_DATA: PollData = {
+  containerData: DEFAULT_CONTAINER_DATA,
+  poll: {
+    options: [],
+    title: '',
+    settings: {
+      permissions: {
+        view: PollData_Poll_Settings_Permissions_ViewRole.VOTERS,
+        vote: PollData_Poll_Settings_Permissions_VoteRole.SITE_MEMBERS,
+        allowMultipleVotes: false,
+      },
+      showVoters: true,
+      showVotesCount: true,
+    },
+  },
+  layout: {
+    poll: {
+      type: PollData_Layout_PollLayout_Type.LIST,
+      direction: PollData_Layout_PollLayout_Direction.LTR,
+      enableImage: false,
+    },
+    options: {
+      enableImage: false,
+    },
+  },
+  design: {
+    poll: {
+      background: {
+        type: PollData_Design_PollDesign_Background_Type.IMAGE,
+      },
+      borderRadius: 0,
+    },
+    options: {
+      borderRadius: 0,
+    },
+  },
 };
 
 export const createNode = <T = Node, NT = Node[]>(generateId: () => string) => (
