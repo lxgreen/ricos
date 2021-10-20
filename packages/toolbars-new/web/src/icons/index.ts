@@ -25,3 +25,4 @@ export { default as TrashIcon } from './TrashIcon';
 export { default as RedoIcon } from './RedoIcon';
 export { default as UndoIcon } from './UndoIcon';
 export { default as PlusIcon } from './PlusIcon';
+export { default as ContextMenuIcon } from './ContextMenuIcon';
