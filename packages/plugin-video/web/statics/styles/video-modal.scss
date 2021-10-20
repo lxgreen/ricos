@@ -1,16 +1,25 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 
 .video_modal_container {
-  width: calc(100% + 40px);
-  margin-left: -20px;
   position: relative;
-  top: -15px;
+  height: 100%;
+  margin-top: -15px;
   @include phone {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
     height: 100vh;
+    width: 100%;
+    margin: 0;
+  }
+}
+
+.video_modal_content {
+  width: calc(100% + 40px);
+  margin-left: -20px;
+  position: relative;
+  @include phone {
+    width: 100%;
     margin: 0;
   }
 }

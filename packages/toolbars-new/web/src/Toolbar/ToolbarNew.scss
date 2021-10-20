@@ -49,11 +49,14 @@
     padding: 8px 0;
     width: max-content;
     min-width: 42px;
-    max-height: 414px;
-    box-sizing: inherit;
-    @include phone{
-        height:100vh;
-        max-height: 100vh;
+    @include border-box;
+    @include phone {
+      height: 100vh;
+      max-height: 100vh;
+    }
+    &.nestedMenu {
+      right: 0;
+      padding: 0;
     }
     // &.alignModalCenter {
     //     left: 50%;

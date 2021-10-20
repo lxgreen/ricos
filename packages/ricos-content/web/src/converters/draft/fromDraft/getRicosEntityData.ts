@@ -7,6 +7,10 @@ import { TO_RICOS_DATA_FIELD, TO_RICOS_PLUGIN_TYPE } from '../consts';
 import { convertBlockDataToRicos } from './convertRicosPluginData';
 
 export const getEntity = (key: string | number, entityMap: RicosEntityMap) => {
+  if (!entityMap[key]) {
+    console.error(`Invalid entity key '${key}' -- entry does not exist.`);
+    return null;
+  }
   const { type, data } = entityMap[key];
   const blockType = type === LINK_PREVIEW_TYPE && data.html ? EMBED_TYPE : type;
   const dataFieldName = TO_RICOS_DATA_FIELD[blockType];

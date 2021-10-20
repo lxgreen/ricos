@@ -39,43 +39,47 @@ export const createButtonsList = (
   headingsData,
   experiments
 ) => {
-  const buttonsList = [];
+  const buttonsList: any[] = [];
   const osName: string | null = findOsName();
   formattingButtonsKeys.forEach((buttonKey, index) => {
-    handleButtonName(buttonsList, buttonKey, index);
-    handleButtonType(buttonsList, index);
-    handleButtonIcon(buttonsList, index, editorCommands);
-    handleButtonDataHook(buttonsList, index);
-    handleButtIsMobileModalFullscreen(buttonsList, index);
-    handleButtonTooltip(buttonsList, index, t, osName);
-    handleButtonPlugin(buttonsList, index);
-    handleButtonLabel(buttonsList, index, editorCommands, t);
-    handleButtonArrow(buttonsList, index);
-    handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData, experiments);
-    handleButtonIsActive(buttonsList, index, editorCommands);
-    handleButtonIsDisabled(buttonsList, index, editorCommands);
-    handleButtonModal(
-      buttonsList,
-      index,
-      editorCommands,
-      linkPanelData,
-      headingsData,
-      t,
-      defaultLineSpacing
-    );
-    handleButtonOnSave(buttonsList, index, editorCommands);
-    handleButtonOnCancel(buttonsList, index, editorCommands);
-    handleButtonOnChange(buttonsList, index, editorCommands);
-    handleButtonOnDone(buttonsList, index, editorCommands);
-    handleButtonOnDelete(buttonsList, index, editorCommands);
-    // handleGroupButtons(buttonsList, buttonKey, index, editorCommands);
-    buttonKey === 'Title' && handleTitleButton(buttonsList, index, editorCommands);
-    handleButtonSaveState(buttonsList, index, editorCommands);
-    handleButtonSaveSelection(buttonsList, index, editorCommands);
-    handleButtonLoadSelection(buttonsList, index, editorCommands);
-    handleButtonColorPicker(buttonsList, index, editorCommands, colorPickerData);
-    handleButtonText(buttonsList, index, editorCommands, t);
-    handleButtonIsInput(buttonsList, index);
+    if (buttonKey?.type === 'component') {
+      buttonsList.push(buttonKey);
+    } else {
+      handleButtonName(buttonsList, buttonKey, index);
+      handleButtonType(buttonsList, index);
+      handleButtonIcon(buttonsList, index, editorCommands);
+      handleButtonDataHook(buttonsList, index);
+      handleButtIsMobileModalFullscreen(buttonsList, index);
+      handleButtonTooltip(buttonsList, index, t, osName);
+      handleButtonPlugin(buttonsList, index);
+      handleButtonLabel(buttonsList, index, editorCommands, t);
+      handleButtonArrow(buttonsList, index);
+      handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData, experiments);
+      handleButtonIsActive(buttonsList, index, editorCommands);
+      handleButtonIsDisabled(buttonsList, index, editorCommands);
+      handleButtonModal(
+        buttonsList,
+        index,
+        editorCommands,
+        linkPanelData,
+        headingsData,
+        t,
+        defaultLineSpacing
+      );
+      handleButtonOnSave(buttonsList, index, editorCommands);
+      handleButtonOnCancel(buttonsList, index, editorCommands);
+      handleButtonOnChange(buttonsList, index, editorCommands);
+      handleButtonOnDone(buttonsList, index, editorCommands);
+      handleButtonOnDelete(buttonsList, index, editorCommands);
+      // handleGroupButtons(buttonsList, buttonKey, index, editorCommands);
+      buttonKey === 'Title' && handleTitleButton(buttonsList, index, editorCommands);
+      handleButtonSaveState(buttonsList, index, editorCommands);
+      handleButtonSaveSelection(buttonsList, index, editorCommands);
+      handleButtonLoadSelection(buttonsList, index, editorCommands);
+      handleButtonColorPicker(buttonsList, index, editorCommands, colorPickerData);
+      handleButtonText(buttonsList, index, editorCommands, t);
+      handleButtonIsInput(buttonsList, index);
+    }
   });
   return buttonsList;
 };
@@ -456,8 +460,12 @@ const handleAlignmentIcon = editorCommands => {
 };
 
 const handleButtonType = (buttonsList, index) => {
-  if (buttonsFullData[buttonsList[index].name].type) {
+  if (buttonsFullData[buttonsList[index].name]?.type) {
     buttonsList[index].type = buttonsFullData[buttonsList[index].name].type;
+  } else {
+    console.error(
+      `${buttonsList[index].name} button not found (need to be declared in buttonsListCreatorConsts.tsx)`
+    );
   }
 };
 

@@ -72,14 +72,7 @@ class VideoComponent extends React.Component {
   };
 
   renderPlayer = () => {
-    const {
-      theme,
-      componentData,
-      disabled,
-      disableRightClick,
-      settings,
-      setComponentUrl,
-    } = this.props;
+    const { theme, componentData, disabled, settings, setComponentUrl } = this.props;
     return (
       <VideoViewer
         ref={this.setPlayer}
@@ -87,7 +80,6 @@ class VideoComponent extends React.Component {
         settings={settings}
         onReady={this.handleReady}
         disabled={disabled}
-        disableRightClick={disableRightClick}
         theme={theme}
         setComponentUrl={setComponentUrl}
         onReload={this.onReload}
@@ -134,14 +126,11 @@ class VideoComponent extends React.Component {
 VideoComponent.propTypes = {
   componentData: PropTypes.object.isRequired,
   settings: PropTypes.object.isRequired,
-  componentState: PropTypes.object.isRequired,
-  store: PropTypes.object.isRequired,
   blockProps: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
   theme: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
-  disableRightClick: PropTypes.bool,
   disabled: PropTypes.bool,
   setComponentUrl: PropTypes.func,
 };

@@ -67,25 +67,27 @@ const VideoModal = props => {
     renderMediaUrlInputModal()
   ) : (
     <div className={styles.video_modal_container}>
-      {isMobile && (
-        <SettingsMobileHeader
-          theme={theme}
-          onSave={onConfirm}
-          onCancel={() => closeModal()}
-          t={t}
-          title={t('VideoCustomUploadModal_MobileHeader')}
-        />
-      )}
-      <Tabs value={activeTab} className={styles.video_modal_tabs_header} theme={theme}>
-        <Tab label={videoTabs.embed} value={videoTabs.embed} theme={theme}>
-          <div className={styles.video_modal_tab}>{renderMediaUrlInputModal()}</div>
-        </Tab>
-        <Tab label={videoTabs.upload} value={videoTabs.upload} theme={theme}>
-          <div className={classNames(styles.video_modal_tab, styles.video_upload_tab)}>
-            <VideoUploadModal {...props} />
-          </div>
-        </Tab>
-      </Tabs>
+      <div className={styles.video_modal_content}>
+        {isMobile && (
+          <SettingsMobileHeader
+            theme={theme}
+            onSave={onConfirm}
+            onCancel={() => closeModal()}
+            t={t}
+            title={t('VideoModal_MobileHeader')}
+          />
+        )}
+        <Tabs value={activeTab} className={styles.video_modal_tabs_header} theme={theme}>
+          <Tab label={videoTabs.embed} value={videoTabs.embed} theme={theme}>
+            <div className={styles.video_modal_tab}>{renderMediaUrlInputModal()}</div>
+          </Tab>
+          <Tab label={videoTabs.upload} value={videoTabs.upload} theme={theme}>
+            <div className={classNames(styles.video_modal_tab, styles.video_upload_tab)}>
+              <VideoUploadModal {...props} />
+            </div>
+          </Tab>
+        </Tabs>
+      </div>
     </div>
   );
 };

@@ -134,7 +134,6 @@ VideoViewer.propTypes = {
   settings: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   disabled: PropTypes.bool,
-  disableRightClick: PropTypes.bool,
   setComponentUrl: PropTypes.func,
   onReady: PropTypes.func,
   isLoaded: PropTypes.bool,

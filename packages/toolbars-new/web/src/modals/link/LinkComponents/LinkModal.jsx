@@ -219,7 +219,6 @@ LinkModal.propTypes = {
   t: PropTypes.func,
   linkTypes: PropTypes.object,
   hideUrlInput: PropTypes.bool,
-  hasCheckboxes: PropTypes.bool,
 };
 
 export default LinkModal;
