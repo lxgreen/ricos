@@ -134,12 +134,6 @@
   .inputModal_textInput {
     margin: 14px 0;
   }
-  .textSearchInput_container {
-    width: 400px;
-    @include phone {
-      width: 100%;
-    }
-  }
 
   @include phone {
     width: 100vw;

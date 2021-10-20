@@ -20,6 +20,7 @@ import {
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,
   DesktopOverlayModalStyles,
 } from 'wix-rich-content-ui-components';
+import { modalContentStyles } from '../constants';
 
 const createInsertButtons: CreateInsertButtons = ({
   t,
@@ -41,6 +42,12 @@ const createInsertButtons: CreateInsertButtons = ({
   };
   const useNewModal = experiments?.newVerticalEmbedModal?.enabled;
 
+  const newModalCustomStyles = isMobile
+    ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
+    : { ...DesktopFlyOutModalStyles, content: modalContentStyles };
+
+  const customStyles = useNewModal ? newModalCustomStyles : getModalCustomStyles(isMobile);
+
   const modalStylesFn = useNewModal
     ? ({ buttonRef, toolbarName }) => {
         return getBottomToolbarModalStyles(
@@ -52,12 +59,6 @@ const createInsertButtons: CreateInsertButtons = ({
         );
       }
     : undefined;
-
-  const newModalCustomStyles = isMobile
-    ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
-    : DesktopFlyOutModalStyles;
-
-  const customStyles = useNewModal ? newModalCustomStyles : getModalCustomStyles(isMobile);
 
   const defaultModalStyles = getModalStyles({
     customStyles,

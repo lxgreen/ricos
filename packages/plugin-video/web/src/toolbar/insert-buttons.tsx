@@ -24,6 +24,7 @@ import {
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,
   DesktopOverlayModalStyles,
 } from 'wix-rich-content-ui-components';
+import { modalContentStyles } from '../constants';
 
 const createInsertButtons: CreateInsertButtons = ({
   t,
@@ -53,9 +54,11 @@ const createInsertButtons: CreateInsertButtons = ({
   } = settings || {};
   const icon = toolbar?.icons?.InsertPluginButtonIcon || VideoInsertPluginIcon;
 
+  const newModalContentStyle = modalContentStyles;
+
   const newModalCustomStyles = isMobile
     ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
-    : DesktopFlyOutModalStyles;
+    : { ...DesktopFlyOutModalStyles, content: newModalContentStyle };
 
   const defaultCustomStyles =
     (!isMobile || enableCustomUploadOnMobile) && (handleFileSelection || handleFileUpload)
@@ -71,19 +74,26 @@ const createInsertButtons: CreateInsertButtons = ({
   });
 
   const newModalStyles = isMobile ? modalsStyle : undefined;
+
   const modalStyles = useNewModal ? newModalStyles : modalsStyle;
 
-  const modalStylesFn = useNewModal
-    ? ({ buttonRef, toolbarName }) => {
-        return getBottomToolbarModalStyles(
-          buttonRef,
-          {
-            customStyles,
-          },
-          toolbarName
-        );
-      }
-    : undefined;
+  // // const generateModalStyles = type => {
+  // //   return type !== videoButtonsTypes.video && useNewModal
+  // //     ? { ...modalStyles, content: { ...modalStyles?.content, height: 180 } }
+  // //     : modalStyles;
+  // // };
+
+  // const modalStylesFn = useNewModal
+  //   ? ({ buttonRef, toolbarName }) => {
+  //       return getBottomToolbarModalStyles(
+  //         buttonRef,
+  //         {
+  //           customStyles,
+  //         },
+  //         toolbarName
+  //       );
+  //     }
+  //   : undefined;
 
   const baseButtonProps = {
     type: BUTTON_TYPES.MODAL,
@@ -119,7 +129,20 @@ const createInsertButtons: CreateInsertButtons = ({
   let videoButtons = exposeButtons.map(buttonType => ({
     ...buttonsMap[buttonType],
     toolbars,
-    modalStylesFn,
+    modalStylesFn: useNewModal
+      ? ({ buttonRef, toolbarName }) => {
+          return getBottomToolbarModalStyles(
+            buttonRef,
+            {
+              customStyles:
+                buttonType !== videoButtonsTypes.video
+                  ? { ...customStyles, content: { ...modalContentStyles, height: 180 } }
+                  : { ...customStyles, content: modalContentStyles },
+            },
+            toolbarName
+          );
+        }
+      : undefined,
     modalStyles,
     ...baseButtonProps,
   }));

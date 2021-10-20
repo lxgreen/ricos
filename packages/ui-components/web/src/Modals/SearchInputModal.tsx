@@ -41,20 +41,18 @@ const SearchInputModal = props => {
 
   return (
     <ModalContainer {...props}>
-      <div className={styles.textSearchInput_container}>
-        <TextSearchInput
-          id="dropdown-text-input"
-          onClose={onCloseRequested}
-          onKeyPress={handleKeyPress}
-          onChange={onTextChange}
-          value={input}
-          placeHolder={placeholder}
-          theme={props.theme}
-          data-hook={`${dataHook}Input`}
-          autoComplete="off"
-        />
-        {children}
-      </div>
+      <TextSearchInput
+        id="dropdown-text-input"
+        onClose={onCloseRequested}
+        onKeyPress={handleKeyPress}
+        onChange={onTextChange}
+        value={input}
+        placeHolder={placeholder}
+        theme={props.theme}
+        data-hook={`${dataHook}Input`}
+        autoComplete="off"
+      />
+      {children}
     </ModalContainer>
   );
 };

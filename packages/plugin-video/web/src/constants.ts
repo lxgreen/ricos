@@ -1,15 +1,7 @@
-export const REMOVE_LINK_PREVIEW = 'remove-link-preview';
-
-export enum LinkPreviewProviders {
-  Instagram = 'Instagram',
-  Twitter = 'Twitter',
-  YouTube = 'YouTube',
-  TikTok = 'TikTok',
-}
-
 export const modalContentStyles: React.CSSProperties = {
   width: 363,
-  height: 180,
+  height: 232,
+  minHeight: 165,
   padding: 20,
   boxSizing: 'border-box',
   border: 'solid 1px rgba(51, 51, 51, 0.1)',
