@@ -6,7 +6,7 @@ import {
   convertTargetBooleanToString,
   AnchorTarget,
   RelValue,
-  TranslationFunction
+  TranslationFunction,
 } from 'wix-rich-content-common';
 import LinkPanel from './LinkPanel';
 import { merge } from 'lodash';

@@ -6,6 +6,7 @@ import {
   convertTargetBooleanToString,
   AnchorTarget,
   RelValue,
+  TranslationFunction,
 } from 'wix-rich-content-common';
 import LinkPanel from './LinkPanel';
 import { merge } from 'lodash';
@@ -16,6 +17,7 @@ interface LinkPanelWrapperProps {
   linkValues: { url?: string; rel?: string; target: string };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (changes: any) => void;
+  t: TranslationFunction;
 }
 
 class LinkPanelWrapper extends Component<LinkPanelWrapperProps> {
