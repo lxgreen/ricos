@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `polls`
+  - [#3019](https://github.com/wix/ricos/pull/3019) fix settings separator style and consume settingsMobileHeader component
+
 ### :nail_care: Polish
 
 - `ui-components`
