@@ -16,6 +16,11 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
+  
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3019](https://github.com/wix/ricos/pull/3019) fromDraft: Invalid entity key protected
 
 ### :nail_care: Polish
 
