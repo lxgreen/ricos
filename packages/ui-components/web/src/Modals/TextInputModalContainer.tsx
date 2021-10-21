@@ -53,6 +53,8 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
 }) => {
   const styles = mergeStyles({ styles: Styles, theme });
   const saveLabelText = saveLabel || t('EmbedURL_Common_CTA_Primary');
+  const modalTitle = title && showTitle && <div className={styles.input_header_title}>{title}</div>;
+  const modalSubTitle = subTitle && <div className={styles.input_header_subTitle}>{subTitle}</div>;
 
   const renderMobileHeader = () => (
     <SettingsMobileHeader
@@ -63,10 +65,6 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
       title={t('EmbedURL_MobileHeader')}
     />
   );
-
-  const renderTitle = () => <div className={styles.input_header_title}>{title}</div>;
-
-  const renderSubTitle = () => <div className={styles.input_header_subTitle}>{subTitle}</div>;
 
   const renderDesktopFooter = () => (
     <Button
@@ -83,8 +81,8 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
     <div className={styles.inputModal_container}>
       {isMobile && withMobileHeader && renderMobileHeader()}
       <div className={styles.inputModal_content} data-hook={dataHook} dir={languageDir}>
-        {title && showTitle && renderTitle()}
-        {subTitle && renderSubTitle()}
+        {modalTitle}
+        {modalSubTitle}
         <div className={styles.inputModal_textInput}>{children}</div>
         {!isMobile && renderDesktopFooter()}
       </div>

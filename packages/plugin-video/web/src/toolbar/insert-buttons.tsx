@@ -24,7 +24,7 @@ import {
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,
   DesktopOverlayModalStyles,
 } from 'wix-rich-content-ui-components';
-import { modalContentStyles } from '../constants';
+import { videoModalContentStyles, embedModalContentStyles } from '../constants';
 
 const createInsertButtons: CreateInsertButtons = ({
   t,
@@ -52,25 +52,23 @@ const createInsertButtons: CreateInsertButtons = ({
     handleFileSelection,
     handleFileUpload,
   } = settings || {};
+
   const icon = toolbar?.icons?.InsertPluginButtonIcon || VideoInsertPluginIcon;
 
-  const newModalContentStyle = modalContentStyles;
-
-  const newModalCustomStyles = isMobile
+  const videoModalCustomStyles = isMobile
     ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
-    : { ...DesktopFlyOutModalStyles, content: newModalContentStyle };
+    : { ...DesktopFlyOutModalStyles, content: videoModalContentStyles };
 
-  const embedModalCustomStyles = {
-    ...DesktopFlyOutModalStyles,
-    content: { ...modalContentStyles, height: 180 },
-  };
+  const embedModalCustomStyles = isMobile
+    ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
+    : { ...DesktopFlyOutModalStyles, content: embedModalContentStyles };
 
   const defaultCustomStyles =
     (!isMobile || enableCustomUploadOnMobile) && (handleFileSelection || handleFileUpload)
       ? ExtendedSelectionModalCustomStyle
       : SelectionModalCustomStyle;
 
-  const customStyles = useNewModal ? newModalCustomStyles : defaultCustomStyles;
+  const customStyles = useNewModal ? videoModalCustomStyles : defaultCustomStyles;
 
   const modalsStyle = getModalStyles({
     customStyles,
@@ -122,7 +120,7 @@ const createInsertButtons: CreateInsertButtons = ({
           return getBottomToolbarModalStyles(
             buttonRef,
             {
-              customStyles: isEmbedType ? embedModalCustomStyles : newModalCustomStyles,
+              customStyles: isEmbedType ? embedModalCustomStyles : videoModalCustomStyles,
             },
             toolbarName
           );

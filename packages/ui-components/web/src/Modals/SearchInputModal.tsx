@@ -4,7 +4,6 @@ import { RichContentTheme } from 'wix-rich-content-common';
 import { TextSearchInput } from '../';
 import { KEYS_CHARCODE } from '../consts';
 import ModalContainer from './TextInputModalContainer';
-import styles from '../../statics/styles/url-input-modal.scss';
 
 const SearchInputModal = props => {
   interface ModalProps {
