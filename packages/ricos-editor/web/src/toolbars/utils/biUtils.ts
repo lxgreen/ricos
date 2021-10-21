@@ -24,5 +24,8 @@ export const getBiFunctions = (helpers: Helpers) => {
       helpers?.onPluginAddSuccess?.(pluginId, 'FormattingToolbar', value, Version.currentVersion);
     }
   };
-  return { onInlineToolbarOpen, onToolbarButtonClick };
+  const onTooltipOpen = (tooltipKey: string) => {
+    console.log('onTooltipOpen - ', { tooltipKey });
+  };
+  return { onInlineToolbarOpen, onToolbarButtonClick, onTooltipOpen };
 };

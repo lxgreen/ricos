@@ -26,6 +26,7 @@ type ToolbarButtonProps = {
   onToolbarButtonClick?: () => void;
   asLink?: boolean;
   iconInActionColor?: boolean;
+  onTooltipOpen?: () => void;
 };
 
 class ToolbarButton extends Component<ToolbarButtonProps> {
@@ -128,7 +129,12 @@ class ToolbarButton extends Component<ToolbarButtonProps> {
 
     const isMenu = !!showArrowIcon && !isMobile;
     return (
-      <Tooltip key={tooltipText} content={tooltipText} tooltipOffset={{ x: 0, y: -8 }}>
+      <Tooltip
+        onTooltipOpen={this.props.onTooltipOpen}
+        key={tooltipText}
+        content={tooltipText}
+        tooltipOffset={{ x: 0, y: -8 }}
+      >
         <div className={wrapperClassNames}>
           <button
             disabled={disabled}

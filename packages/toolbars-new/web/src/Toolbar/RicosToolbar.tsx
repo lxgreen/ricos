@@ -56,6 +56,7 @@ interface RicosToolbarProps {
   colorPickerData?: any;
   headingsData?: any;
   onToolbarButtonClick?: (name: string, value?: any) => void;
+  onTooltipOpen?: (tooltipKey: string) => void;
   experiments?: AvailableExperiments;
   defaultLineSpacing?: {
     'line-height'?: string;
@@ -136,6 +137,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
         afterClick={afterClick}
         nestedMenu={nestedMenu}
         onToolbarButtonClick={this.props.onToolbarButtonClick}
+        onTooltipOpen={this.props.onTooltipOpen}
       />
     );
   }

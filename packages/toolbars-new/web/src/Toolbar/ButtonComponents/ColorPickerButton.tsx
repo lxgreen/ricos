@@ -22,6 +22,7 @@ type dropDownPropsType = {
 
 interface ColorPickerButtonProps {
   onToolbarButtonClick?: () => void;
+  onTooltipOpen?: () => void;
   theme?: RichContentTheme;
   t: TranslationFunction;
   dropDownProps: dropDownPropsType;
@@ -190,6 +191,7 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
           icon={() => icon}
           theme={theme}
           onToolbarButtonClick={this.props.onToolbarButtonClick}
+          onTooltipOpen={this.props.onTooltipOpen}
         />
         {isModalOpen && (
           <div

@@ -38,6 +38,7 @@ interface TextFormattingToolbarProps {
     value?: any,
     pluginId?: string
   ) => void;
+  onTooltipOpen?: (tooltipKey: string) => void;
   experiments?: AvailableExperiments;
 }
 
@@ -120,6 +121,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
         colorPickerData={colorPickerData}
         headingsData={headingsData}
         onToolbarButtonClick={onToolbarButtonClick}
+        onTooltipOpen={this.props.onTooltipOpen}
         experiments={experiments}
         defaultLineSpacing={defaultLineSpacing}
       />

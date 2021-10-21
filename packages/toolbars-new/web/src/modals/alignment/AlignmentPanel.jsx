@@ -6,7 +6,7 @@ import DesktopPanel from '../panels/DesktopPanel';
 import classNames from 'classnames';
 import { alignmentsModalData as alignments } from '../../Toolbar/buttonsListCreatorConsts';
 
-const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, ...props }) => {
+const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, onTooltipOpen, ...props }) => {
   const panelHeader = t('Alignment');
   const hasIcons = true;
   const onChange = (alignment, clickFromKeyboard) => {
@@ -34,6 +34,7 @@ const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, ...props })
         theme,
         sizeFitContent: true,
         t,
+        onTooltipOpen,
       }}
     />
   );

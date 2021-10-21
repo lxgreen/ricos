@@ -33,6 +33,7 @@ interface ToolbarProps {
   nestedMenu?: boolean;
   theme?: RichContentTheme;
   onToolbarButtonClick?: any;
+  onTooltipOpen?: (tooltipKey: string) => void;
 }
 
 interface State {
@@ -108,6 +109,7 @@ class Toolbar extends Component<ToolbarProps, State> {
       name,
       iconInActionColor,
       plugin,
+      tooltipKey,
     } = buttonProps;
     return (
       <ToolbarButton
@@ -120,6 +122,7 @@ class Toolbar extends Component<ToolbarProps, State> {
         icon={getIcon()}
         disabled={isDisabled()}
         onToolbarButtonClick={() => this.props.onToolbarButtonClick?.(name, isActive(), plugin)}
+        onTooltipOpen={() => this.props.onTooltipOpen?.(tooltipKey)}
         iconInActionColor={iconInActionColor}
       />
     );
@@ -193,6 +196,7 @@ class Toolbar extends Component<ToolbarProps, State> {
         onToolbarButtonClick={() =>
           this.props.onToolbarButtonClick?.(buttonProps.name, undefined, buttonProps.plugin)
         }
+        onTooltipOpen={() => this.props.onTooltipOpen?.(buttonProps.tooltipKey)}
       />
     );
   };
@@ -234,6 +238,7 @@ class Toolbar extends Component<ToolbarProps, State> {
         onToolbarButtonClick={value =>
           this.props.onToolbarButtonClick?.(buttonProps.name, value, buttonProps.plugin)
         }
+        onTooltipOpen={tooltipKey => this.props.onTooltipOpen?.(tooltipKey)}
       />
     );
   };

@@ -20,6 +20,7 @@ const DesktopPanel = ({
   sizeFitContent,
   t,
   externalFocus,
+  onTooltipOpen,
 }) => {
   const styles = mergeStyles({ styles: Styles, theme });
   const osName = findOsName();
@@ -39,6 +40,7 @@ const DesktopPanel = ({
     };
     return (
       <Tooltip
+        onTooltipOpen={() => onTooltipOpen(option?.tooltip)}
         content={t?.(
           option?.tooltip,
           option?.tooltipShortcut &&

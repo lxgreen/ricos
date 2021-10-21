@@ -18,6 +18,7 @@ interface Props {
   place?: 'top' | 'bottom' | 'left' | 'right';
   followMouse?: boolean;
   hideArrow?: boolean;
+  onTooltipOpen?: () => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -109,9 +110,9 @@ class Tooltip extends React.Component<Props> {
     ...this.wrappChildrenProp('onMouseMove', this.onMouseMove),
   };
 
-  sendBiEvent = debounce(() => {
-    const { content } = this.props;
-    console.log('tooltip bi - ', { content });
+  tooltipOpen = debounce(() => {
+    const { onTooltipOpen } = this.props;
+    onTooltipOpen?.();
   }, 40);
 
   render() {
@@ -127,7 +128,7 @@ class Tooltip extends React.Component<Props> {
     const tooltipArrow = hideArrow ? null : 'center';
 
     if (!isMobile && !this.disabled && content && tooltipVisible) {
-      this.sendBiEvent();
+      this.tooltipOpen();
     }
 
     return isMobile || this.disabled || !content ? (

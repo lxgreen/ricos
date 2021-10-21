@@ -408,6 +408,7 @@ const handleButtonTooltip = (buttonsList, index, t, osName) => {
           shortcut: tooltipShortcut[osName],
         }
     );
+    buttonsList[index].tooltipKey = buttonsFullData[buttonsList[index].name].tooltip;
   }
 };
 

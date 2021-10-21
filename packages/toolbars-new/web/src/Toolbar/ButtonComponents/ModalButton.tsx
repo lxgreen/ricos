@@ -29,10 +29,12 @@ type dropDownPropsType = {
   onDelete?: () => void;
   loadSelection?: () => void;
   isInput: boolean;
+  tooltipKey: string;
 };
 
 interface ModalButtonProps {
   onToolbarButtonClick?: any;
+  onTooltipOpen?: any;
   theme?: RichContentTheme;
   setKeepOpen?: (boolean) => void;
   t: TranslationFunction;
@@ -168,10 +170,19 @@ class ModalButton extends Component<ModalButtonProps, State> {
   };
 
   render() {
-    const { modal, dropDownProps, onSelect, theme, t, onToolbarButtonClick } = this.props;
+    const {
+      modal,
+      dropDownProps,
+      onSelect,
+      theme,
+      t,
+      onToolbarButtonClick,
+      onTooltipOpen,
+    } = this.props;
     const {
       isActive,
       tooltip,
+      tooltipKey,
       dataHook,
       getIcon,
       isDisabled,
@@ -189,6 +200,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
     const toolbarButtonProps = {
       ...buttonProps,
       onToolbarButtonClick,
+      onTooltipOpen: () => onTooltipOpen(tooltipKey),
       isActive: isModalOpen || isActive(),
       onClick: this.toggleModal,
       tooltipText: tooltip,
@@ -256,6 +268,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
                 isActive: isActive(),
                 onDelete: this.onDelete,
                 onToolbarButtonClick: this.props.onToolbarButtonClick,
+                onTooltipOpen: this.props.onTooltipOpen,
               })}
             </div>
           )}
