@@ -7,7 +7,7 @@ import {
 } from 'wix-rich-content-editor-common';
 import { EventIcon, ProductIcon, BookingIcon } from '../icons';
 import VerticalEmbedInputModal from './VerticalEmbedInputModal';
-import { contentTypeMap } from '../constants';
+import { contentTypeMap, modalContentStyles } from '../constants';
 import getModalCustomStyles from './ModalCustomStyles';
 import {
   AvailableExperiments,
@@ -20,7 +20,6 @@ import {
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,
   DesktopOverlayModalStyles,
 } from 'wix-rich-content-ui-components';
-import { modalContentStyles } from '../constants';
 
 const createInsertButtons: CreateInsertButtons = ({
   t,
