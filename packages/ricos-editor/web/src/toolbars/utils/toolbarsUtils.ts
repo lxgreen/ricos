@@ -53,3 +53,11 @@ const buttonByPluginMapper = {
   LINK: 'LINK',
   CODE_BLOCK: 'code-block',
 };
+
+export const addConfigButtons = (buttonsList, configButtonsMap) => {
+  return buttonsList.map(button =>
+    configButtonsMap[button]
+      ? { name: button, type: 'component', Component: configButtonsMap[button].component }
+      : button
+  );
+};

@@ -46,7 +46,6 @@ interface ImageViewerProps {
   setFocusToBlock: () => void;
   theme: RichContentTheme;
   helpers: Helpers;
-  disableRightClick: boolean;
   getInPluginEditingMode: () => unknown;
   setInPluginEditingMode: () => unknown;
   isMobile: boolean;

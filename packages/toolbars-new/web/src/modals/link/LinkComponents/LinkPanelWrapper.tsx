@@ -20,10 +20,17 @@ interface LinkPanelWrapperProps {
 
 class LinkPanelWrapper extends Component<LinkPanelWrapperProps> {
   onChange = changes => {
-    const { linkValues } = this.props;
+    const { linkValues, relValue } = this.props;
     const { targetBlank, nofollow, sponsored, ...rest } = changes;
     const target = convertTargetBooleanToString(targetBlank);
-    const relObject = merge({}, convertRelStringToObject(linkValues.rel), { nofollow, sponsored });
+    const relObject = merge(
+      convertRelStringToObject(relValue),
+      convertRelStringToObject(linkValues.rel),
+      {
+        nofollow,
+        sponsored,
+      }
+    );
     const rel = convertRelObjectToString(relObject);
     const newLinkValues = { ...linkValues, target, rel, ...rest };
     this.props.onChange(newLinkValues);

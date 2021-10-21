@@ -4,7 +4,7 @@ import { AddImageParams, ImageElement, OriginalAddImageParams } from './types';
 import { ImageData } from 'ricos-schema';
 
 // https://www.wix.com/velo/reference/$w/image/src
-const imageElementRegex = /^wix:image:\/\/v1\/(.+)\/(.+)#originWidth=(\d+)&originHeight=(\d+)/g;
+const imageElementRegex = /^wix:image:\/\/v1\/(.+)\/(.+)#originWidth=(\d+)&originHeight=(\d+)/i;
 const urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/g;
 
 const parseImageElement = (data: ImageElement) => {
