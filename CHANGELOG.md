@@ -25,7 +25,7 @@
 ### :bug: Bug Fix
 
 - `polls`
-  - [#3020](https://github.com/wix/ricos/pull/3020) fix settings separator style and consume settingsMobileHeader component
+  - [#3020](https://github.com/wix/ricos/pull/3020) fix settings separator style
 
 ### :nail_care: Polish
 
