@@ -33,6 +33,8 @@
   - [#3009](https://github.com/wix/ricos/pull/3009) add custom line-height selection to the line-heights options display
 - `ricos-content`
   - [#3016](https://github.com/wix/ricos/pull/3016) Polls Content Builder API support
+- `ui-components/video/vertical-social-embed`
+  - [#3018](https://github.com/wix/ricos/pull/3018) new modals general code / style refactor
 
 ### :house: Internal
 
