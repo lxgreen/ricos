@@ -135,7 +135,7 @@ const createInsertButtons: CreateInsertButtons = ({
       ...buttonsMap[buttonType],
       modalStyles: getModalStyles({
         customStyles: {
-          ...customStyles,
+          ...DesktopFlyOutModalStyles,
           ...DesktopOverlayModalStyles,
         },
         fullScreen: false,
