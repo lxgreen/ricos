@@ -1,7 +1,6 @@
 export const modalContentStyles: React.CSSProperties = {
   width: 363,
-  height: 232,
-  minHeight: 165,
+  height: 230,
   padding: 20,
   boxSizing: 'border-box',
   border: 'solid 1px rgba(51, 51, 51, 0.1)',

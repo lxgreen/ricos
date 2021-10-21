@@ -60,6 +60,11 @@ const createInsertButtons: CreateInsertButtons = ({
     ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
     : { ...DesktopFlyOutModalStyles, content: newModalContentStyle };
 
+  const embedModalCustomStyles = {
+    ...DesktopFlyOutModalStyles,
+    content: { ...modalContentStyles, height: 180 },
+  };
+
   const defaultCustomStyles =
     (!isMobile || enableCustomUploadOnMobile) && (handleFileSelection || handleFileUpload)
       ? ExtendedSelectionModalCustomStyle
@@ -74,26 +79,7 @@ const createInsertButtons: CreateInsertButtons = ({
   });
 
   const newModalStyles = isMobile ? modalsStyle : undefined;
-
   const modalStyles = useNewModal ? newModalStyles : modalsStyle;
-
-  // // const generateModalStyles = type => {
-  // //   return type !== videoButtonsTypes.video && useNewModal
-  // //     ? { ...modalStyles, content: { ...modalStyles?.content, height: 180 } }
-  // //     : modalStyles;
-  // // };
-
-  // const modalStylesFn = useNewModal
-  //   ? ({ buttonRef, toolbarName }) => {
-  //       return getBottomToolbarModalStyles(
-  //         buttonRef,
-  //         {
-  //           customStyles,
-  //         },
-  //         toolbarName
-  //       );
-  //     }
-  //   : undefined;
 
   const baseButtonProps = {
     type: BUTTON_TYPES.MODAL,
@@ -122,9 +108,6 @@ const createInsertButtons: CreateInsertButtons = ({
     },
   };
 
-  const videoStyle = { ...customStyles, content: modalContentStyles };
-  const embedStyle = { ...customStyles, content: { ...modalContentStyles, height: 180 } };
-
   const toolbars = useNewModal
     ? [TOOLBARS.MOBILE, TOOLBARS.FOOTER, TOOLBARS.SIDE]
     : [TOOLBARS.INSERT_PLUGIN, TOOLBARS.MOBILE, TOOLBARS.FOOTER, TOOLBARS.SIDE];
@@ -132,18 +115,19 @@ const createInsertButtons: CreateInsertButtons = ({
   let videoButtons = exposeButtons.map(buttonType => ({
     ...buttonsMap[buttonType],
     toolbars,
+    modalStyles,
     modalStylesFn: useNewModal
       ? ({ buttonRef, toolbarName }) => {
+          const isEmbedType = buttonType !== videoButtonsTypes.video;
           return getBottomToolbarModalStyles(
             buttonRef,
             {
-              customStyles: buttonType !== videoButtonsTypes.video ? embedStyle : videoStyle,
+              customStyles: isEmbedType ? embedModalCustomStyles : newModalCustomStyles,
             },
             toolbarName
           );
         }
       : undefined,
-    modalStyles,
     ...baseButtonProps,
   }));
 
