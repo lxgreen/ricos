@@ -122,7 +122,7 @@ export class PollSettingsSection extends Component {
           theme={this.styles}
         />
 
-        <SettingsSeparator />
+        <SettingsSeparator top bottom />
 
         <h3 className={styles.title}>
           {t('Poll_PollSettings_Tab_Settings_Section_Results_Header')}

@@ -133,7 +133,7 @@ export class DesignSettingsSection extends Component {
         >
           {({ renderPalette }) => <div>{renderPalette()}</div>}
         </ColorPicker>
-        <SettingsSeparator />
+        <SettingsSeparator top bottom />
         <p className={styles.title}>
           {t('Poll_PollSettings_Tab_Design_Section_CornerRadius_Header')}
         </p>

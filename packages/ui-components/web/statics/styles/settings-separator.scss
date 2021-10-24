@@ -1,4 +1,9 @@
 .settingsSeparator {
   border-bottom: 1px solid #ededed;
-  margin: 24px 0;
+  &.settingsSeparator_top {
+    margin-top: 24px;
+  }
+  &.settingsSeparator_bottom {
+    margin-bottom: 24px;
+  }
 }

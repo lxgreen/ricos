@@ -73,7 +73,7 @@ export class PollPresetSelector extends PureComponent {
                 className={styles.close_icon}
               />
             </div>
-            <SettingsSeparator />
+            <SettingsSeparator top bottom />
           </>
         ) : (
           <>

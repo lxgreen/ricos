@@ -66,7 +66,7 @@ export class LayoutSettingsSection extends Component {
               theme={this.props.theme}
             />
 
-            <SettingsSeparator />
+            <SettingsSeparator top bottom />
           </>
         )}
 
@@ -104,7 +104,7 @@ export class LayoutSettingsSection extends Component {
           />
         )}
 
-        <SettingsSeparator />
+        <SettingsSeparator top bottom />
 
         <p className={styles.title}>
           {t('Poll_PollSettings_Tab_Layout_Section_TextDirection_Header')}
