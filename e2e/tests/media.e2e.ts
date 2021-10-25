@@ -331,6 +331,17 @@ describe('plugins', () => {
     });
 
     context('settings', () => {
+      it('should render all tabs', function() {
+        cy.loadRicosEditorAndViewer('gallery')
+          .openPluginToolbar(PLUGIN_COMPONENT.GALLERY)
+          .openGalleryAdvancedSettings();
+        cy.eyesCheckWindow(this.test.parent.title + ' - render settings tab');
+        cy.get(`[data-hook=advanced_settings_Tab]:first`).click();
+        cy.eyesCheckWindow(this.test.parent.title + ' - render layout tab');
+        cy.get(`[data-hook=manage_media_Tab]:first`).click();
+        cy.eyesCheckWindow(this.test.parent.title + ' - render manage media tab');
+      });
+
       it('should disable gallery expand', () => {
         cy.loadRicosEditorAndViewer('gallery');
         cy.openPluginToolbar(PLUGIN_COMPONENT.GALLERY);
