@@ -36,7 +36,7 @@ class Separator extends Component {
         return <div className={this.styles.gallerySettings_spacer} />;
       case 'hr':
       default:
-        return <SettingsSeparator top />;
+        return <SettingsSeparator top bottom />;
     }
   };
 }
