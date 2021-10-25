@@ -358,7 +358,7 @@
   "ImagePlugin_InsertButton": "Image",
   "GalleryPlugin_InsertButton": "Gallery",
   "VideoPlugin_InsertButton": "Video",
-  "CodeblockPlugin_InsertButton": "Code block",
+  "CodeblockPlugin_InsertButton": "Code Block",
   "SoundcloudPlugin_InsertButton": "SoundCloud",
   "GIFPlugin_InsertButton": "GIF",
   "MapPlugin_InsertButton": "Map",
