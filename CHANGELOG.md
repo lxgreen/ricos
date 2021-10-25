@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
  
+### :bug: Bug Fix
+
+- `polls`
+  - [#3020](https://github.com/wix/ricos/pull/3020) fix settings separator style
 
 
 </details>
