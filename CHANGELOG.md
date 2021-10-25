@@ -21,6 +21,8 @@
 
 - `polls`
   - [#3020](https://github.com/wix/ricos/pull/3020) fix settings separator style
+- `gallery`
+  - [#3033](https://github.com/wix/ricos/pull/3033) fix settings separator style
 
 ### :house: Internal
 - `editor-common`
