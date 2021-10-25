@@ -16,40 +16,39 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-  
-### :bug: Bug Fix
-
-- `ricos-content`
-  - [#3019](https://github.com/wix/ricos/pull/3019) fromDraft: Invalid entity key protected
-
+ 
 ### :bug: Bug Fix
 
 - `polls`
   - [#3020](https://github.com/wix/ricos/pull/3020) fix settings separator style
 
-### :nail_care: Polish
 
+</details>
+<hr/>
+
+## 8.57.0 (Oct 25, 2021)
+### :rocket: New Feature
+- `viewer`
+  - [#3012](https://github.com/wix/ricos/pull/3012) print mode - fix page break in the middle of list item
+### :bug: Bug Fix
+- `ricos-content`
+  - [#3019](https://github.com/wix/ricos/pull/3019) fromDraft: Invalid entity key protected
+### :nail_care: Polish
 - `ui-components`
   - [#2999](https://github.com/wix/ricos/pull/2999) fix action buttons keyboard navigation order
 - `vertical-embed`
   - [#3005](https://github.com/wix/ricos/pull/3005) vertical-embed modal new design
 - `line-spacing`
-
   - [#3009](https://github.com/wix/ricos/pull/3009) add custom line-height selection to the line-heights options display
 - `ricos-content`
   - [#3016](https://github.com/wix/ricos/pull/3016) Polls Content Builder API support
 - `ui-components/video/vertical-social-embed`
   - [#3018](https://github.com/wix/ricos/pull/3018) new modals general code / style refactor
-
 ### :house: Internal
-
 - `schema`
   - [#3013](https://github.com/wix/ricos/pull/3013) undefined fields added to plugin defaults JSON
 - `divider`
   - [#3017](https://github.com/wix/ricos/pull/3017) set divider width to 100% and remove editor bounds consideration
-
-</details>
-<hr/>
 
 ## 8.56.5 (Oct 18, 2021)
 
