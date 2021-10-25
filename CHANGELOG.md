@@ -22,7 +22,7 @@
 </details>
 <hr/>
 
-## 8.57.0 (Oct 18, 2021)
+## 8.57.0 (Oct 25, 2021)
 ### :rocket: New Feature
 - `viewer`
   - [#3012](https://github.com/wix/ricos/pull/3012) print mode - fix page break in the middle of list item
