@@ -64,6 +64,7 @@ export const STATIC_TOOLBAR_BUTTONS_EMBED = {
   EVENT: 'Events_InsertButton',
   PRODUCT: 'Stores_InsertButton',
   BOOKING: 'Bookings_InsertButton',
+  SOUNDCLOUD: 'SoundcloudPlugin_InsertButton',
 };
 
 export const STATIC_TOOLBAR_BUTTONS_WITHOUT_EMBED = {

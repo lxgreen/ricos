@@ -8,7 +8,7 @@ import {
   ACTION_BUTTONS,
 } from '../cypress/dataHooks';
 import { DEFAULT_DESKTOP_BROWSERS, DEFAULT_MOBILE_BROWSERS } from './settings';
-import { usePlugins, plugins, usePluginsConfig } from '../cypress/testAppConfig';
+import { usePlugins, plugins, usePluginsConfig, useExperiments } from '../cypress/testAppConfig';
 
 const eyesOpen = ({
   test: {
@@ -457,6 +457,38 @@ describe('plugins', () => {
       it('should replace widget', () => {
         cy.openPluginToolbar(PLUGIN_COMPONENT.VERTICAL_EMBED);
         cy.clickToolbarButton('baseToolbarButton_replace');
+        cy.get(`[data-hook*=verticalsItemsList]`)
+          .children()
+          .first()
+          .click();
+        cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
+      });
+    });
+  });
+
+  context('New Vertical Embed', () => {
+    before(function() {
+      eyesOpen(this);
+    });
+
+    const testAppConfig = {
+      ...useExperiments({
+        newVerticalEmbedModal: { namespace: 'ricos', value: 'true', enabled: true },
+      }),
+      ...usePlugins(plugins.verticalEmbed),
+    };
+
+    beforeEach('load editor', () => {
+      cy.switchToDesktop();
+      cy.loadRicosEditorAndViewer('empty', testAppConfig);
+    });
+    after(() => cy.eyesClose());
+
+    const embedTypes = ['PRODUCT', 'BOOKING', 'EVENT'];
+    it('render upload modals', function() {
+      embedTypes.forEach(embedType => {
+        cy.openEmbedModal(STATIC_TOOLBAR_BUTTONS[embedType]);
+        cy.eyesCheckWindow(this.test.title);
         cy.get(`[data-hook*=verticalsItemsList]`)
           .children()
           .first()

@@ -449,16 +449,20 @@ const COMMANDS = {
     cy.clickOnStaticButton(STATIC_TOOLBAR_BUTTONS.VIDEO);
   },
 
+  typeWhileVideoUpload: () => {
+    cy.openPluginToolbar(PLUGIN_COMPONENT.VIDEO).shrinkPlugin(PLUGIN_COMPONENT.VIDEO);
+    cy.focusEditor()
+      .type('{uparrow}') //try to fix bug where sometimes it doesn't type
+      .type('{uparrow}')
+      .type('Will this fix the flakiness?');
+    cy.waitForVideoToLoad();
+  },
+
   openEmbedModal: (modalType: string) => cy.clickOnStaticButton(modalType),
 
-  addSoundCloud: () => {
-    cy.get(`[data-hook*=${'soundCloudUploadModalInput'}]`).type(
-      'https://soundcloud.com/nlechoppa/camelot'
-    );
+  embedUrl: (dataHook, url) => {
+    cy.get(`[data-hook*=${dataHook}]`).type(url);
     cy.get(`[data-hook*=${ACTION_BUTTONS.SAVE}]`).click({ force: true });
-    cy.get(`[data-hook=${PLUGIN_COMPONENT.SOUND_CLOUD}]:first`)
-      .parent()
-      .click({ force: true });
   },
 
   addSocialEmbed: (url: string) => {

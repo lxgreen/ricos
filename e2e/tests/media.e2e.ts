@@ -362,8 +362,6 @@ describe('plugins', () => {
   });
 
   context('video', () => {
-    // console.log('newVideoModal', ));
-
     before(function() {
       eyesOpen(this);
     });
@@ -381,23 +379,13 @@ describe('plugins', () => {
 
     it('add a video from URL', function() {
       cy.openVideoUploadModal().addVideoFromURL();
-      cy.openPluginToolbar(PLUGIN_COMPONENT.VIDEO).shrinkPlugin(PLUGIN_COMPONENT.VIDEO);
-      cy.focusEditor()
-        .type('{uparrow}') //try to fix bug where sometimes it doesn't type
-        .type('{uparrow}')
-        .type('Will this fix the flakiness?');
-      cy.waitForVideoToLoad();
+      cy.typeWhileVideoUpload();
       cy.eyesCheckWindow(this.test.title);
     });
 
     it('add a custom video', function() {
       cy.openVideoUploadModal().addCustomVideo();
-      cy.openPluginToolbar(PLUGIN_COMPONENT.VIDEO).shrinkPlugin(PLUGIN_COMPONENT.VIDEO);
-      cy.focusEditor()
-        .type('{uparrow}') //try to fix bug where sometimes it doesn't type
-        .type('{uparrow}')
-        .type('Will this fix the flakiness?');
-      cy.waitForVideoToLoad();
+      cy.typeWhileVideoUpload();
       cy.eyesCheckWindow(this.test.title);
     });
 
@@ -428,7 +416,6 @@ describe('plugins', () => {
     after(() => cy.eyesClose());
 
     it(`new modal add a video from URL`, function() {
-      // videoMediaUrlModalInput move to commands
       cy.openVideoUploadModal()
         .get(`[data-hook*=videoMediaUrlModalInput]`)
         .type('https://youtu.be/BBu5codsO6Y');
@@ -436,12 +423,7 @@ describe('plugins', () => {
       cy.get(`[data-hook=${PLUGIN_COMPONENT.VIDEO}]:first`)
         .parent()
         .click();
-      cy.openPluginToolbar(PLUGIN_COMPONENT.VIDEO).shrinkPlugin(PLUGIN_COMPONENT.VIDEO);
-      cy.focusEditor()
-        .type('{uparrow}') //try to fix bug where sometimes it doesn't type
-        .type('{uparrow}')
-        .type('Will this fix the flakiness?');
-      cy.waitForVideoToLoad();
+      cy.typeWhileVideoUpload();
       cy.eyesCheckWindow(this.test.title);
     });
 
@@ -449,26 +431,21 @@ describe('plugins', () => {
       cy.openVideoUploadModal();
       cy.get(`[data-hook=Upload_Tab]`).click();
       cy.get('[data-hook=videoUploadModalCustomVideo]').click();
-      cy.openPluginToolbar(PLUGIN_COMPONENT.VIDEO).shrinkPlugin(PLUGIN_COMPONENT.VIDEO);
-      cy.focusEditor()
-        .type('{uparrow}') //try to fix bug where sometimes it doesn't type
-        .type('{uparrow}')
-        .type('Will this fix the flakiness?');
-      cy.waitForVideoToLoad();
+      cy.typeWhileVideoUpload();
       cy.eyesCheckWindow(this.test.title);
     });
   });
 
-  context.only('Social Embed', () => {
+  context('Social Embed', () => {
     before(function() {
       eyesOpen(this);
     });
     const testAppConfig = {
-      // ...useExperiments({
-      //   newVideoModal: { namespace: 'ricos', value: 'true', enabled: true },
-      //   newSocialEmbedModal: { namespace: 'ricos', value: 'true', enabled: true },
-      // }),
-      ...usePlugins(plugins.video),
+      ...useExperiments({
+        newVideoModal: { namespace: 'ricos', value: 'true', enabled: true },
+        newSocialEmbedModal: { namespace: 'ricos', value: 'true', enabled: true },
+      }),
+      ...usePlugins(plugins.all),
       ...usePluginsConfig({
         video: {
           exposeButtons: ['video', 'soundCloud', 'youTube'],
@@ -480,23 +457,36 @@ describe('plugins', () => {
       cy.switchToDesktop();
       cy.loadRicosEditorAndViewer('empty', testAppConfig);
     });
+
     after(() => cy.eyesClose());
 
-    it(`open youTube modal`, function() {
-      cy.openEmbedModal(STATIC_TOOLBAR_BUTTONS.YOUTUBE);
+    it('should embed soundCloud', function() {
+      const dataHook = 'soundCloudUploadModalInput';
+      const url = 'https://soundcloud.com/shifka-100/shifka-the-great-denzel-curry-type-beat';
+      cy.openEmbedModal(STATIC_TOOLBAR_BUTTONS.SOUNDCLOUD);
+      cy.embedUrl(dataHook, url);
+      cy.typeWhileVideoUpload();
       cy.eyesCheckWindow(this.test.title);
     });
-    // it('new modal should embed soundCloud', function() {
-      // cy.openVideoUploadModal();
-      // cy.get(`[data-hook=Upload_Tab]`).click();
-      // cy.get('[data-hook=videoUploadModalCustomVideo]').click();
-      // cy.openPluginToolbar(PLUGIN_COMPONENT.VIDEO).shrinkPlugin(PLUGIN_COMPONENT.VIDEO);
-      // cy.focusEditor()
-      //   .type('{uparrow}') //try to fix bug where sometimes it doesn't type
-      //   .type('{uparrow}')
-      //   .type('Will this fix the flakiness?');
-      // cy.waitForVideoToLoad();
-      // cy.eyesCheckWindow(this.test.title);
+
+    it('should embed youTube', function() {
+      const dataHook = 'socialEmbedUploadModalInput';
+      const url = 'https://www.youtube.com/watch?v=CWzrABouyeE&ab_channel=letecheurChristophe';
+      cy.openEmbedModal(STATIC_TOOLBAR_BUTTONS.YOUTUBE);
+      cy.embedUrl(dataHook, url);
+      cy.typeWhileVideoUpload();
+      cy.eyesCheckWindow(this.test.title);
+    });
+
+    it('should embed INSTAGRAM, TWITTER and TIKTOK', function() {
+      const embedTypes = ['TWITTER', 'INSTAGRAM', 'TIKTOK'];
+      embedTypes.forEach(embedType => {
+        cy.openEmbedModal(STATIC_TOOLBAR_BUTTONS[embedType]);
+        cy.eyesCheckWindow(this.test.title + ' modal');
+        cy.addSocialEmbed('www.mockUrl.com').waitForHtmlToLoad();
+        cy.get(`#RicosViewerContainer [data-hook=HtmlComponent]`);
+        cy.eyesCheckWindow(this.test.title + ' added');
+      });
     });
   });
 
