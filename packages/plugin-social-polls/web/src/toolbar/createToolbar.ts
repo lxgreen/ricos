@@ -10,11 +10,12 @@ import {
 } from 'wix-rich-content-editor-common';
 
 import { TABS } from '../components/settings';
-import { DEFAULT_COMPONENT_DATA } from '../defaults';
+import { DEFAULT_COMPONENT_DATA, MEMBER_ROLES } from '../defaults';
 import { InsertPluginIcon } from '../assets/icons';
 import { Modals } from '../modals';
 import { PollPresetSelector, Arrow } from '../components/settings/preset-selector';
 import { ModalStyles, CreatePluginToolbar } from 'wix-rich-content-common';
+import { merge } from 'lodash';
 
 export const MobileFullScreenCustomStyle = Object.freeze({
   overlay: {
@@ -76,7 +77,9 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
     name: INSERT_PLUGIN_BUTTONS.POLLS,
     tooltip: t('Poll_InsertPoll_Tooltip'),
     getIcon: () => InsertPluginIcon,
-    componentData: DEFAULT_COMPONENT_DATA,
+    componentData: merge(DEFAULT_COMPONENT_DATA, {
+      poll: { settings: { voteRole: settings?.voteRole || MEMBER_ROLES.ALL } },
+    }),
     modalElement: decorateComponentWithProps(PollPresetSelector),
   };
 

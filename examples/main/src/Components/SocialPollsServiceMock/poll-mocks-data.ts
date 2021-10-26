@@ -8,7 +8,7 @@ const poll = {
   ownVotes: [],
   settings: {
     multipleVotes: false,
-    voteRole: 'SITE_MEMBERS',
+    voteRole: 'ALL',
     resultsVisibility: 'ALWAYS',
     votersDisplay: true,
     votesDisplay: true,

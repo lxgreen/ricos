@@ -16,15 +16,21 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
- 
+
+### :rocket: New Feature
+
+- `social-polls`
+  - [#3025](https://github.com/wix/ricos/pull/3025) refactor polls config API & normalize poll data
+
 ### :bug: Bug Fix
 
-- `polls`
+- `social-polls`
   - [#3020](https://github.com/wix/ricos/pull/3020) fix settings separator style
 - `gallery`
   - [#3033](https://github.com/wix/ricos/pull/3033) fix settings separator style
 
 ### :house: Internal
+
 - `editor-common`
   - [#3030](https://github.com/wix/ricos/pull/3030) refactor getModalStyles (changed modal position when opened from plugin menu)
 
@@ -32,13 +38,19 @@
 <hr/>
 
 ## 8.57.0 (Oct 25, 2021)
+
 ### :rocket: New Feature
+
 - `viewer`
   - [#3012](https://github.com/wix/ricos/pull/3012) print mode - fix page break in the middle of list item
+
 ### :bug: Bug Fix
+
 - `ricos-content`
   - [#3019](https://github.com/wix/ricos/pull/3019) fromDraft: Invalid entity key protected
+
 ### :nail_care: Polish
+
 - `ui-components`
   - [#2999](https://github.com/wix/ricos/pull/2999) fix action buttons keyboard navigation order
 - `vertical-embed`
@@ -49,7 +61,9 @@
   - [#3016](https://github.com/wix/ricos/pull/3016) Polls Content Builder API support
 - `ui-components/video/vertical-social-embed`
   - [#3018](https://github.com/wix/ricos/pull/3018) new modals general code / style refactor
+
 ### :house: Internal
+
 - `schema`
   - [#3013](https://github.com/wix/ricos/pull/3013) undefined fields added to plugin defaults JSON
 - `divider`
