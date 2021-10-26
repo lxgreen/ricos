@@ -18,9 +18,11 @@ interface TextInputModalContainerProps {
   dataHook: string;
   children?: React.ReactNode;
   title?: string;
+  subTitle?: string;
   isMobile?: boolean;
   withMobileHeader?: boolean;
   selected?: boolean;
+  showTitle?: boolean;
   onConfirm: () => void;
   onCloseRequested: (() => void) | undefined;
   submittedInvalidUrl?: any;
@@ -40,15 +42,19 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
   dataHook,
   children,
   title,
+  subTitle,
   isMobile,
   withMobileHeader = true,
   selected = true,
+  showTitle = true,
   onConfirm,
   onCloseRequested,
   saveLabel,
 }) => {
   const styles = mergeStyles({ styles: Styles, theme });
   const saveLabelText = saveLabel || t('EmbedURL_Common_CTA_Primary');
+  const modalTitle = title && showTitle && <div className={styles.input_header_title}>{title}</div>;
+  const modalSubTitle = subTitle && <div className={styles.input_header_subTitle}>{subTitle}</div>;
 
   const renderMobileHeader = () => (
     <SettingsMobileHeader
@@ -58,12 +64,6 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
       t={t}
       title={t('EmbedURL_MobileHeader')}
     />
-  );
-
-  const renderTitle = () => (
-    <div className={styles.input_header}>
-      <div className={styles.input_header_text}>{title}</div>
-    </div>
   );
 
   const renderDesktopFooter = () => (
@@ -81,7 +81,8 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
     <div className={styles.inputModal_container}>
       {isMobile && withMobileHeader && renderMobileHeader()}
       <div className={styles.inputModal_content} data-hook={dataHook} dir={languageDir}>
-        {title && renderTitle()}
+        {modalTitle}
+        {modalSubTitle}
         <div className={styles.inputModal_textInput}>{children}</div>
         {!isMobile && renderDesktopFooter()}
       </div>

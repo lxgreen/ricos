@@ -7,7 +7,7 @@ import {
 } from 'wix-rich-content-editor-common';
 import { EventIcon, ProductIcon, BookingIcon } from '../icons';
 import VerticalEmbedInputModal from './VerticalEmbedInputModal';
-import { contentTypeMap } from '../constants';
+import { contentTypeMap, modalContentStyles } from '../constants';
 import getModalCustomStyles from './ModalCustomStyles';
 import {
   AvailableExperiments,
@@ -41,6 +41,12 @@ const createInsertButtons: CreateInsertButtons = ({
   };
   const useNewModal = experiments?.newVerticalEmbedModal?.enabled;
 
+  const newModalCustomStyles = isMobile
+    ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
+    : { ...DesktopFlyOutModalStyles, content: modalContentStyles };
+
+  const customStyles = useNewModal ? newModalCustomStyles : getModalCustomStyles(isMobile);
+
   const modalStylesFn = useNewModal
     ? ({ buttonRef, toolbarName }) => {
         return getBottomToolbarModalStyles(
@@ -52,12 +58,6 @@ const createInsertButtons: CreateInsertButtons = ({
         );
       }
     : undefined;
-
-  const newModalCustomStyles = isMobile
-    ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
-    : DesktopFlyOutModalStyles;
-
-  const customStyles = useNewModal ? newModalCustomStyles : getModalCustomStyles(isMobile);
 
   const defaultModalStyles = getModalStyles({
     customStyles,

@@ -26,6 +26,7 @@ import {
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,
   DesktopOverlayModalStyles,
 } from 'wix-rich-content-ui-components';
+import { modalContentStyles } from '../consts';
 
 const createInsertButtons: CreateInsertButtons = ({
   t,
@@ -54,7 +55,7 @@ const createInsertButtons: CreateInsertButtons = ({
 
   const newModalCustomStyles = isMobile
     ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
-    : DesktopFlyOutModalStyles;
+    : { ...DesktopFlyOutModalStyles, content: modalContentStyles };
 
   const customStyles = useNewModal ? newModalCustomStyles : { content };
 

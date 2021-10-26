@@ -30,6 +30,8 @@
     "build-slow": "lerna run --concurrency 2 --stream --ignore 'wix-rich-content-@(test-env|example|storybook)' build",
     "build:dev": "lerna run --stream --ignore 'wix-rich-content-@(test-env|example|storybook)' build:dev",
     "build:core": "npm run build:dev -- --scope 'ricos-content' && npm run build:dev -- --scope 'wix-rich-content-@(common|editor|viewer)'",
+    "build:core:fast": "ultra --filter '+wix-rich-content-@(common|editor|viewer)' --color=false -r build",
+    "build:core:watch": "ultra --filter '+wix-rich-content-@(common|editor|viewer)' --color=false -r watch",
     "prewatch": "lerna run build --scope wix-rich-content-*common* && lerna run build --scope wix-rich-content-editor && lerna run build --scope ricos-common",
     "prebuild": "node scripts/mergeTranslations",
     "watch": "lerna run --parallel --ignore ${LERNA_IGNORE:-'wix-rich-content-@(test-env|example|storybook)'}  watch",
@@ -202,6 +204,7 @@
     "ts-node": "^9.0.0",
     "ts-proto": "1.72.0",
     "typescript": "^3.8.3",
+    "ultra-runner": "^3.10.5",
     "url-loader": "^4.1.0",
     "wait-on": "^4.0.2",
     "webpack": "^4.38.0",
@@ -213,6 +216,5 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
-  },
-  "dependencies": {}
+  }
 }
