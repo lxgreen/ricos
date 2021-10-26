@@ -434,6 +434,7 @@ const config: RichContentEditorProps['config'] = {
     // supportedPlugins: [GALLERY_TYPE, IMAGE_TYPE, VIDEO_TYPE],
   },
   [POLL_TYPE]: {
+    showVoteRoleSetting: true,
     pollServiceApi: new SocialPollsServiceMock(),
   },
   [LINK_PREVIEW_TYPE]: {
