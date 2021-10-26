@@ -34,6 +34,10 @@
 - `editor-common`
   - [#3030](https://github.com/wix/ricos/pull/3030) refactor getModalStyles (changed modal position when opened from plugin menu)
 
+### :book: Documentation
+
+- [#3037](https://github.com/wix/ricos/pull/3037) FromDraftOptions
+
 </details>
 <hr/>
 
