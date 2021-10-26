@@ -2,12 +2,6 @@
 import React from 'react';
 
 const TextHighlightIcon = props => {
-  const currentColor =
-    props.currentColor === '#fff' ||
-    props.currentColor === '#ffffff' ||
-    props.currentColor === 'white'
-      ? '#000'
-      : props.currentColor;
   return props.newFormattingToolbar ? (
     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16" {...props}>
       <path
@@ -23,7 +17,7 @@ const TextHighlightIcon = props => {
         width="12"
         height="3"
         viewBox="0 0 12 3"
-        fill={props.isDisabled ? 'graytext' : `${currentColor}`}
+        fill={props.isDisabled ? 'graytext' : `${props.currentColor}`}
         id="Fill"
         fillRule="nonzero"
         d="M0 15.689L12 15.689 12 12.689 0 12.689z"
