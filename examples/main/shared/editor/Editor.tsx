@@ -101,6 +101,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       onOpenEditorSuccess: async (...args) => console.log('onOpenEditorSuccess', ...args),
       onContentEdited: async params => console.log('onContentEdited', params),
       onToolbarButtonClick: async params => console.log('onToolbarButtonClick', params),
+      onKeyboardShortcutAction: async params => console.log('onKeyboardShortcutAction', params),
       onPluginModalOpened: async params => console.log('onPluginModalOpened', params),
       onMenuLoad: async params => console.log('onMenuLoad', params),
       onInlineToolbarOpen: async params => console.log('onInlineToolbarOpen', params),

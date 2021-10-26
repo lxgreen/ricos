@@ -33,6 +33,8 @@
 
 - `editor-common`
   - [#3030](https://github.com/wix/ricos/pull/3030) refactor getModalStyles (changed modal position when opened from plugin menu)
+- `general`
+  - [#3023](https://github.com/wix/ricos/pull/3023) add BI events to formatting shortcuts
 
 ### :book: Documentation
 

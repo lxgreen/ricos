@@ -86,6 +86,7 @@ import InnerModal from './InnerModal';
 import { onCut, onCopy } from './utils/onCutAndCopy';
 import preventWixFocusRingAccessibility from './preventWixFocusRingAccessibility';
 import { ErrorToast } from './Components';
+import { getBiButtonName } from './utils/biUtils';
 
 type PartialDraftEditorProps = Pick<
   Partial<DraftEditorProps>,
@@ -486,6 +487,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       disableKeyboardEvents: this.disableKeyboardEvents,
       experiments,
       textWrap,
+      onKeyboardShortcutClick: this.onKeyboardShortcutClick,
     };
   };
 
@@ -999,6 +1001,31 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     return handled || 'not-handled';
   };
 
+  onKeyboardShortcutClick = ({
+    buttonName,
+    pluginId,
+  }: {
+    buttonName: string;
+    pluginId?: string;
+  }) => {
+    const { helpers = {} } = this.props;
+    const alignmentKeys = ['left', 'right', 'center', 'justify'];
+    const biButtonName = getBiButtonName(buttonName);
+    if (alignmentKeys.includes(buttonName)) {
+      helpers.onKeyboardShortcutAction?.({
+        buttonName: 'Alignment',
+        value: buttonName,
+        version: Version.currentVersion,
+      });
+    } else if (biButtonName) {
+      helpers.onKeyboardShortcutAction?.({
+        buttonName: biButtonName,
+        pluginId,
+        version: Version.currentVersion,
+      });
+    }
+  };
+
   renderEditor = () => {
     const {
       editorKey,
@@ -1044,6 +1071,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
           this.updateEditorState,
           this.getCustomCommandHandlers().commandHandlers,
           getBlockType(editorState),
+          this.onKeyboardShortcutClick,
           onBackspace
         )}
         editorKey={editorKey}

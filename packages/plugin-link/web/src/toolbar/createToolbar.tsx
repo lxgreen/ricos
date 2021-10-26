@@ -27,6 +27,7 @@ import {
   RichContentTheme,
   UISettings,
   AvailableExperiments,
+  OnKeyboardShortcutClick,
 } from 'wix-rich-content-common';
 import { LINK_TYPE, LinkPluginEditorConfig } from '../types';
 import { GetEditorState, SetEditorState } from 'wix-rich-content-common/src';
@@ -103,6 +104,7 @@ const createToolbar: CreatePluginToolbar = (config: {
   closeInlinePluginToolbar: () => void;
   t: TranslationFunction;
   innerModal: InnerModalType;
+  onKeyboardShortcutClick: OnKeyboardShortcutClick;
   experiments?: AvailableExperiments;
 }) => {
   const isDisabled = () => isAtomicBlockInSelection(config.getEditorState());
@@ -134,6 +136,7 @@ const createToolbar: CreatePluginToolbar = (config: {
               key: 'k',
             },
             commandHandler: (editorState: EditorState) => {
+              config.onKeyboardShortcutClick({ buttonName: COMMANDS.LINK, pluginId: LINK_TYPE });
               if (hasLinksInSelection(editorState)) {
                 config.closeInlinePluginToolbar();
                 return removeLinksInSelection(editorState);
