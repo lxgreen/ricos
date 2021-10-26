@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CollapsibleListPairs from './components/CollapsibleListPairs';
-import { mergeStyles } from 'wix-rich-content-common';
+import { mergeStyles, GlobalContext } from 'wix-rich-content-common';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { CollapsibleList } from './components/domain/collapsibleList';
 import NewPairButton from './components/NewPairButton';
@@ -21,6 +21,8 @@ class CollapsibleListComponent extends React.Component {
     this.addNewPairLabel = t('CollapsibleList_ShownText_Add_Placeholder');
     this.collapsibleListRef = React.createRef();
   }
+
+  static contextType = GlobalContext;
 
   focusPair = pair =>
     setTimeout(() => {
@@ -106,6 +108,7 @@ class CollapsibleListComponent extends React.Component {
       toolbarsToIgnore,
       onFocus: () => this.props.disableKeyboardEvents(true),
       onBlur: () => this.props.disableKeyboardEvents(false),
+      tablePluginMenu: this.context.experiments?.collapsibleWithTablePluginMenu?.enabled,
     });
   };
 

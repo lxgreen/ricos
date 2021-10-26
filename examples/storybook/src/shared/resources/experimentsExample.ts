@@ -15,4 +15,5 @@ export const EXPERIMENTS = [
   { name: 'useSrcSet', scope: 'ricos' },
   { name: 'pastedFilesSupport', scope: 'ricos' },
   { name: 'normalizePoll', scope: 'ricos' },
+  { name: 'collapsibleWithTablePluginMenu', scope: 'ricos' },
 ];
