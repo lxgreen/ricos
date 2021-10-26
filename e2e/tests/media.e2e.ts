@@ -10,7 +10,7 @@ import {
   STATIC_TOOLBAR_BUTTONS,
 } from '../cypress/dataHooks';
 import { DEFAULT_DESKTOP_BROWSERS } from './settings';
-import { usePlugins, plugins, usePluginsConfig } from '../cypress/testAppConfig';
+import { usePlugins, plugins, usePluginsConfig, useExperiments } from '../cypress/testAppConfig';
 
 const eyesOpen = ({
   test: {
@@ -362,10 +362,11 @@ describe('plugins', () => {
   });
 
   context('video', () => {
+    // console.log('newVideoModal', ));
+
     before(function() {
       eyesOpen(this);
     });
-
     beforeEach('load editor', () => {
       cy.switchToDesktop();
       cy.loadRicosEditorAndViewer('empty');
@@ -409,6 +410,93 @@ describe('plugins', () => {
       cy.get(`[data-hook=${VIDEO_SETTINGS.DOWNLOAD_TOGGLE}]`).click();
       cy.eyesCheckWindow();
       cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
+    });
+  });
+
+  context('new video modal', () => {
+    before(function() {
+      eyesOpen(this);
+    });
+    beforeEach('load editor', () => {
+      cy.switchToDesktop();
+      cy.loadRicosEditorAndViewer(
+        'empty',
+        useExperiments({ newVideoModal: { namespace: 'ricos', value: 'true', enabled: true } })
+      );
+    });
+
+    after(() => cy.eyesClose());
+
+    it(`new modal add a video from URL`, function() {
+      // videoMediaUrlModalInput move to commands
+      cy.openVideoUploadModal()
+        .get(`[data-hook*=videoMediaUrlModalInput]`)
+        .type('https://youtu.be/BBu5codsO6Y');
+      cy.get(`[data-hook*=${ACTION_BUTTONS.SAVE}]`).click();
+      cy.get(`[data-hook=${PLUGIN_COMPONENT.VIDEO}]:first`)
+        .parent()
+        .click();
+      cy.openPluginToolbar(PLUGIN_COMPONENT.VIDEO).shrinkPlugin(PLUGIN_COMPONENT.VIDEO);
+      cy.focusEditor()
+        .type('{uparrow}') //try to fix bug where sometimes it doesn't type
+        .type('{uparrow}')
+        .type('Will this fix the flakiness?');
+      cy.waitForVideoToLoad();
+      cy.eyesCheckWindow(this.test.title);
+    });
+
+    it('new modal add a custom video', function() {
+      cy.openVideoUploadModal();
+      cy.get(`[data-hook=Upload_Tab]`).click();
+      cy.get('[data-hook=videoUploadModalCustomVideo]').click();
+      cy.openPluginToolbar(PLUGIN_COMPONENT.VIDEO).shrinkPlugin(PLUGIN_COMPONENT.VIDEO);
+      cy.focusEditor()
+        .type('{uparrow}') //try to fix bug where sometimes it doesn't type
+        .type('{uparrow}')
+        .type('Will this fix the flakiness?');
+      cy.waitForVideoToLoad();
+      cy.eyesCheckWindow(this.test.title);
+    });
+  });
+
+  context.only('Social Embed', () => {
+    before(function() {
+      eyesOpen(this);
+    });
+    const testAppConfig = {
+      // ...useExperiments({
+      //   newVideoModal: { namespace: 'ricos', value: 'true', enabled: true },
+      //   newSocialEmbedModal: { namespace: 'ricos', value: 'true', enabled: true },
+      // }),
+      ...usePlugins(plugins.video),
+      ...usePluginsConfig({
+        video: {
+          exposeButtons: ['video', 'soundCloud', 'youTube'],
+        },
+      }),
+    };
+
+    beforeEach('load editor', () => {
+      cy.switchToDesktop();
+      cy.loadRicosEditorAndViewer('empty', testAppConfig);
+    });
+    after(() => cy.eyesClose());
+
+    it(`open youTube modal`, function() {
+      cy.openEmbedModal(STATIC_TOOLBAR_BUTTONS.YOUTUBE);
+      cy.eyesCheckWindow(this.test.title);
+    });
+    // it('new modal should embed soundCloud', function() {
+      // cy.openVideoUploadModal();
+      // cy.get(`[data-hook=Upload_Tab]`).click();
+      // cy.get('[data-hook=videoUploadModalCustomVideo]').click();
+      // cy.openPluginToolbar(PLUGIN_COMPONENT.VIDEO).shrinkPlugin(PLUGIN_COMPONENT.VIDEO);
+      // cy.focusEditor()
+      //   .type('{uparrow}') //try to fix bug where sometimes it doesn't type
+      //   .type('{uparrow}')
+      //   .type('Will this fix the flakiness?');
+      // cy.waitForVideoToLoad();
+      // cy.eyesCheckWindow(this.test.title);
     });
   });
 
