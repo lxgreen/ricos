@@ -110,6 +110,8 @@ export interface EditorContextType extends CommonContextType {
   innerRCERenderedIn?: string;
   disableKeyboardEvents?: (shouldEnable: boolean) => void;
   experiments?: AvailableExperiments;
+  textWrap: boolean;
+  onKeyboardShortcutClick: OnKeyboardShortcutClick;
 }
 
 export interface ViewerContextType extends CommonContextType {
@@ -122,9 +124,19 @@ export interface ViewerContextType extends CommonContextType {
 }
 
 export type Experiment = {
-  value: string;
   enabled: boolean;
-  namespace: string;
+  value?: string;
+  namespace?: string;
 };
 
 export type AvailableExperiments = Record<string, Experiment>;
+
+export type LinkPreviewData = {
+  title?: string;
+  description?: string;
+  thumbnail_url?: string;
+  provider_url?: string;
+  html?: string;
+};
+
+export type OnKeyboardShortcutClick = (param: { buttonName: string; pluginId?: string }) => void;

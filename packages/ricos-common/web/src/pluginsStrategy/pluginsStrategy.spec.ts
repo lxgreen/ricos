@@ -69,6 +69,5 @@ describe('PluginsStrategy', () => {
       'themeData',
     ]);
     expect(result.typeMappers.length).toEqual(2);
-    expect(result.inlineStyleMappers.length).toEqual(1);
   });
 });

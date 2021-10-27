@@ -1,4 +1,6 @@
-export const COMMANDS = Object.freeze({
+import { DraftEditorCommand } from '@wix/draft-js';
+
+export const COMMANDS: Record<string, DraftCommand> = {
   TITLE: 'header-two',
   SUBTITLE: 'header-three',
   ALIGN_LEFT: 'left',
@@ -19,7 +21,36 @@ export const COMMANDS = Object.freeze({
   FOCUS_TOOLBAR: 'focusToolbar',
   INCREASE_INDENT: 'increase-indent',
   DECREASE_INDENT: 'decrease-indent',
-});
+  REMOVE_LINK_PREVIEW: 'remove-link-preview',
+  LINK: 'link',
+  OPEN_PLUGIN_MENU: 'openPluginMenu',
+} as const;
+
+export type DraftCommand =
+  | DraftEditorCommand
+  | 'header-two'
+  | 'header-three'
+  | 'left'
+  | 'right'
+  | 'center'
+  | 'justify'
+  | 'ordered-list-item'
+  | 'unordered-list-item'
+  | 'code-block'
+  | 'blockquote'
+  | 'backspace'
+  | 'delete'
+  | 'tab'
+  | 'shiftTab'
+  | 'esc'
+  | 'ricosUndo'
+  | 'ricosRedo'
+  | 'focusToolbar'
+  | 'increase-indent'
+  | 'decrease-indent'
+  | 'remove-link-preview'
+  | 'link'
+  | 'openPluginMenu';
 
 export const TEXT_TYPES = Object.freeze([
   'unstyled',
@@ -61,6 +92,7 @@ export const FORMATTING_BUTTONS = Object.freeze({
   UNDERLINE: 'Underline',
   TITLE: 'Title',
   BLOCKQUOTE: 'Blockquote',
+  ALIGNMENT: 'Alignment',
   ALIGN_LEFT,
   ALIGN_RIGHT,
   ALIGN_CENTER,
@@ -73,6 +105,7 @@ export const FORMATTING_BUTTONS = Object.freeze({
   },
   ORDERED_LIST: 'OrderedList',
   UNORDERED_LIST: 'UnorderedList',
+  FONT_SIZE: 'FONT_SIZE',
   // plugins
   SPOILER: 'SPOILER',
   LINK: 'LINK',
@@ -111,6 +144,8 @@ export const INSERT_PLUGIN_BUTTONS = Object.freeze({
   UNDO: 'UndoPlugin_InsertButton',
   REDO: 'RedoPlugin_InsertButton',
   TABLE: 'TablePlugin_InsertButton',
+  COLLAPSIBLE_LIST: 'CollapsibleList_InsertButton',
+  ADSENSE: 'AdSensePlugin_InsertButton',
 });
 
 export const BUTTON_TYPES = Object.freeze({

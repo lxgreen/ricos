@@ -1,6 +1,6 @@
 import { pickBy } from 'lodash';
 import { DEFAULTS } from '../src/defaults';
-import { LINK_PREVIEW_TYPE } from '../src/types';
+import { LinkPreviewPluginEditorConfig, LINK_PREVIEW_TYPE } from '../src/types';
 import {
   getBlockAtStartOfSelection,
   replaceWithEmptyBlock,
@@ -13,10 +13,12 @@ import {
   ContentBlock,
 } from 'wix-rich-content-editor-common';
 import { CreatePluginConfig } from 'wix-rich-content-common';
+import { LinkPreviewData } from 'ricos-schema';
+import { LinkPreviewProviders } from '../src/consts';
 
 const addLinkPreview = async (
   editorState: EditorState,
-  config: CreatePluginConfig,
+  config: CreatePluginConfig<LinkPreviewPluginEditorConfig>,
   blockKey: string,
   linkData: {
     url: string;
@@ -24,37 +26,73 @@ const addLinkPreview = async (
     rel?: string;
   }
 ) => {
-  const fixedUrl = linkData.url.split('\u21b5').join(''); //remove {enter} char
-  const settings = config[LINK_PREVIEW_TYPE] || {};
-  const { fetchData, enableEmbed = true, enableLinkPreview = true } = settings;
-  const { setEditorState } = config;
-  const linkPreviewData = await fetchData(fixedUrl);
-  const { thumbnail_url, title, description, html } = linkPreviewData;
+  const { enableEmbed = true, enableLinkPreview = true, fetchData } =
+    config[LINK_PREVIEW_TYPE] || {};
+  const linkPreview = (await fetchLinkPreview(fetchData, linkData.url)) || {};
+  const { title, html, fixedUrl } = linkPreview;
   if (
     shouldAddEmbed(html, enableEmbed, fixedUrl) ||
-    shouldAddLinkPreview(title, thumbnail_url, enableLinkPreview)
+    shouldAddLinkPreview(title, enableLinkPreview)
   ) {
-    const withoutLinkBlock = deleteBlockText(editorState, blockKey);
-    const currentConfig = { ...DEFAULTS, ...settings }.config;
-    const data = {
-      config: {
-        ...currentConfig,
-        link: { ...currentConfig.link, ...pickBy(linkData), url: fixedUrl },
-        width: html && 350,
-      },
-      thumbnail_url,
-      title,
-      description,
-      html,
-    };
-    isValidImgSrc(thumbnail_url) && (data.thumbnail_url = thumbnail_url);
-    const { newEditorState } = createBlock(withoutLinkBlock, data, LINK_PREVIEW_TYPE);
-    setEditorState(newEditorState);
+    const linkPreviewData = await createLinkPreviewData(
+      linkData,
+      linkPreview,
+      config[LINK_PREVIEW_TYPE]
+    );
+    addLinkPreviewBlock(editorState, config, blockKey, linkPreviewData);
   }
 };
 
-const isValidImgSrc = (url: string) => {
-  return new Promise(resolve => {
+export const fetchLinkPreview = async (
+  fetchData: LinkPreviewPluginEditorConfig['fetchData'],
+  url: string
+): Promise<LinkPreviewData & { fixedUrl: string }> => {
+  const fixedUrl = url.split('\u21b5').join(''); //remove {enter} char
+  const { thumbnail_url, title, description, html } = (await fetchData?.(fixedUrl)) || {};
+  return { thumbnailUrl: thumbnail_url, title, description, html, fixedUrl };
+};
+
+export const createLinkPreviewData = async (
+  linkData: {
+    url: string;
+    target?: string;
+    rel?: string;
+  },
+  { thumbnailUrl, title, description, html, fixedUrl }: LinkPreviewData & { fixedUrl: string },
+  linkPreviewConfig?: LinkPreviewPluginEditorConfig
+) => {
+  const currentConfig = { ...DEFAULTS, ...linkPreviewConfig }.config;
+  const data = {
+    config: {
+      ...currentConfig,
+      link: { ...currentConfig.link, ...pickBy(linkData), url: fixedUrl },
+      width: html && 350,
+    },
+    thumbnail_url: thumbnailUrl,
+    title,
+    description,
+    html,
+  };
+  if (thumbnailUrl && (await isValidImgSrc(thumbnailUrl))) {
+    data.thumbnail_url = thumbnailUrl;
+  }
+  return data;
+};
+
+const addLinkPreviewBlock = async (
+  editorState: EditorState,
+  config: CreatePluginConfig,
+  blockKey: string,
+  linkPreviewData
+) => {
+  const { setEditorState } = config;
+  const withoutLinkBlock = deleteBlockText(editorState, blockKey);
+  const { newEditorState } = createBlock(withoutLinkBlock, linkPreviewData, LINK_PREVIEW_TYPE);
+  setEditorState(newEditorState);
+};
+
+const isValidImgSrc = (url: string): Promise<boolean> => {
+  return new Promise<boolean>(resolve => {
     const image = document.createElement('img');
     image.src = url;
     image.onload = () => {
@@ -66,10 +104,14 @@ const isValidImgSrc = (url: string) => {
   });
 };
 
-const shouldAddLinkPreview = (title: string, thumbnail_url: string, enableLinkPreview: boolean) =>
+export const shouldAddLinkPreview = (title?: string, enableLinkPreview?: boolean) =>
   enableLinkPreview && title;
 
-const shouldAddEmbed = (html, enableEmbed: boolean, url: string) => {
+export const shouldAddEmbed = (
+  html: string | undefined,
+  enableEmbed: boolean | LinkPreviewProviders[],
+  url: string
+) => {
   if (Array.isArray(enableEmbed)) {
     return (
       enableEmbed.filter(whiteListType => url.toLowerCase().includes(whiteListType.toLowerCase()))

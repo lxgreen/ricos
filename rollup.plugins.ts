@@ -101,6 +101,7 @@ const typescript = (): Plugin => {
         declarationDir: absPath('dist'),
         rootDir: absPath(''),
         sourceMap: true,
+        allowJs: process.env.ALLOW_JS === 'true',
       },
       include: [
         'src',
@@ -108,6 +109,7 @@ const typescript = (): Plugin => {
         'src/**/*.scss',
         'statics/**/*.json',
         'statics/**/*.schema.json',
+        'statics/**/*.defaults.json',
         'statics/**/*.scss',
         'package.json',
         'lib',
@@ -129,6 +131,7 @@ const json = (): Plugin => {
       '../../../node_modules/**',
       '../../../packages/**/package.json',
       '../../common/web/dist/statics/schemas/*.schema.json',
+      '../../ricos-schema/web/dist/statics/*.defaults.json',
     ],
   });
 };
@@ -143,6 +146,7 @@ const postcss = (shouldExtract: boolean): Plugin => {
     },
     modules: {
       generateScopedName: IS_DEV_ENV ? '[name]__[local]___[hash:base64:5]' : '[hash:base64:5]',
+      hashPrefix: process.env.MODULE_NAME,
     },
     extract: shouldExtract && 'dist/styles.min.css',
     plugins: [

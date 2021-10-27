@@ -1,7 +1,8 @@
 import { PaletteColors } from 'wix-rich-content-common';
+import { WixColor } from '../src/themeStrategy/themeTypes';
 
 /* eslint-disable no-unused-vars */
-const TemplateExample = [
+const TEMPLATE_EXAMPLE: Omit<WixColor, 'value'>[] = [
   {
     name: 'color_1',
     reference: 'white/black',
@@ -177,8 +178,10 @@ const ricosPalettes: PaletteColors[] = [
   },
 ];
 
-const baseToWixColors = ({ bgColor, textColor, actionColor }) => {
-  const palette = new Array(30).fill('#FFFFFF');
+type BaseColors = Pick<Required<PaletteColors>, 'bgColor' | 'textColor' | 'actionColor'>;
+
+const baseToWixColors = ({ bgColor, textColor, actionColor }: BaseColors) => {
+  const palette = new Array<string>(30).fill('#FFFFFF');
   palette[5] = bgColor;
   palette[9] = textColor;
   palette[12] = actionColor;
@@ -187,8 +190,8 @@ const baseToWixColors = ({ bgColor, textColor, actionColor }) => {
 
 const wixColors = ricosPalettes.map(baseToWixColors);
 
-const paletteToWixPalette = palette =>
-  palette.map((color, i) => ({ ...TemplateExample[i], value: color }));
+const paletteToWixPalette = (palette: string[]) =>
+  palette.map((color, i) => ({ ...TEMPLATE_EXAMPLE[i], value: color }));
 
 const wixPalettes = wixColors.map(palette => paletteToWixPalette(palette));
 

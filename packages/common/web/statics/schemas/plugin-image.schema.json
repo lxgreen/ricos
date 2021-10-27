@@ -93,7 +93,7 @@
           },
           "width": {
             "$id": "/properties/src/properties/width",
-            "type": "integer",
+            "type": ["integer", "string"],
             "title": "image width",
             "default": 0,
             "examples": [1621]

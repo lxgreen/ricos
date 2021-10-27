@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { PureComponent } from 'react';
 import { MdClose, MdSettings, MdInvertColors } from 'react-icons/md';
 import { SectionSettings, OnVisibilityChanged } from '../types';
@@ -78,13 +80,16 @@ const Experiments = ({ items, active, action }) =>
         <div className="scope">{scope}</div>
         <div className="experimentTitle">{`specs.${scope}.${name}`}</div>
         <div className="options">
-          {input.map(value => (
+          {input.map((value, index) => (
+            /* eslint-disable */
             <div
+              key={index}
               className={`option ${active?.[name]?.value === value ? 'active' : null}`}
               onClick={() => action(name, value)}
             >
               {value}
             </div>
+            /* eslint-enable */
           ))}
         </div>
       </div>
@@ -93,6 +98,7 @@ const Experiments = ({ items, active, action }) =>
 
 const Palettes = ({ items, active, action }) =>
   items.map(({ bgColor, textColor, actionColor }, i) => (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <li
       key={i}
       className={`paletteContainer ${active === i ? 'active' : null}`}
@@ -112,6 +118,7 @@ const Palettes = ({ items, active, action }) =>
 
 const Fonts = ({ items, active, action }) =>
   items.map(({ h2, p }, i) => (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <li onClick={() => action(i)} key={i} className={`fontContainer ${active === i && 'active'}`}>
       <div>
         <span>H2: </span>

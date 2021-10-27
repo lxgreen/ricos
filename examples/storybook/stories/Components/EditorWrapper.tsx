@@ -36,7 +36,7 @@ import {
   pluginVerticalEmbed,
   verticalEmbedProviders,
 } from 'wix-rich-content-plugin-vertical-embed';
-import { mockFetchUrlPreviewData } from '../../../main/shared/utils/linkPreviewUtil';
+import { mockFetchUrlPreviewData } from '../../src/shared/utils/linkPreviewUtil';
 import {
   pluginTextColor,
   pluginTextHighlight,
@@ -47,8 +47,8 @@ import '../styles.global.scss';
 import {
   mockFileUploadFunc,
   mockImageNativeUploadFunc,
-} from '../../../main/shared/utils/fileUploadUtil';
-import { MockVerticalSearchModule } from '../../../main/shared/utils/verticalEmbedUtil';
+} from '../../src/shared/utils/fileUploadUtil';
+import { MockVerticalSearchModule } from '../../src/shared/utils/verticalEmbedUtil';
 const tiptapContent = {
   type: 'doc',
   attrs: {
@@ -141,7 +141,6 @@ const tiptapContent = {
     },
   ],
 };
-import { RicosTiptapEditor } from 'wix-tiptap-editor';
 
 const { Instagram, Twitter, TikTok } = LinkPreviewProviders;
 const { event, booking, product } = verticalEmbedProviders;
@@ -296,8 +295,6 @@ interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   experiments?: Record<string, any>;
 }
-
-const MiniEditor = props => {};
 
 class EditorWrapper extends React.Component<Props> {
   static defaultProps = {

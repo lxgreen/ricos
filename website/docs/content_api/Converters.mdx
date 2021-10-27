@@ -9,13 +9,19 @@ sidebar_label: Content Converters
 Ricos is in the preparation phase of migrating from a [draft-js](https://draftjs.org) based content to our new [Ricos](https://github.com/wix/ricos/tree/master/packages/ricos-schema/web) schema. To support this we provide conversion functions to & from draft.
 
 ```tsx
-fromDraft: (content: DraftContent) => RichContent;
+fromDraft: (draftJSON: DraftContent, opts: FromDraftOptions = {}) => RichContent;
 toDraft: (content: RichContent) => DraftContent;
 ensureRicosContent: (content: RichContent | DraftContent) => RichContent;
 ensureDraftContent: (content: RichContent | DraftContent) => DraftContent;
 ```
 
-#### Example
+### FromDraftOptions
+
+By default, the `fromDraft` API throws error when it encounters invalid `DraftContent`. Sometimes, this behavior is not desired. 
+
+The `opts: FromDraftOptions` parameter allows to alter it, by setting `{ ignoreUnsupportedValues: true }`. In this case, any invalid values are gracefully ignored.
+
+### Example
 
 ```tsx
 import { fromDraft, toDraft } from 'ricos-content/libs/migrateSchema';
@@ -135,47 +141,4 @@ import ricosContent from './ricosCotnent.json';
 const html: string = toHtml(ricosContent);
 
 document.body.innerHTML = html;
-```
-
-## Tiptap
-
-The following functions allow converting rich content to and from Tiptap.
-
-### HTML to rich content
-
-```tsx
-fromTiptap: (content: ProseContent) => RichContent;
-fromTiptap: (node: ProseContent) => Node; // Convert a single node
-fromTiptap: (data: Record<string, any>) => Record<string, any>; // Convert a node's data
-```
-
-#### Example
-
-```tsx
-import { fromTiptap } from 'ricos-content/libs/converters';
-import { RichContent } from 'ricos-schema';
-import { RicosEditor, DraftContent } from 'ricos-editor';
-import proseContent from './proseContent.json';
-
-const content: RichContent = fromTiptap(proseContent);
-const draftContent: DraftContent = toDraft(content);
-
-<RicosEditor content={draftContent} />;
-```
-
-### Rich content to plain text
-
-```tsx
-toTiptap: (content: RichContent) => ProseContent;
-toTiptap: (node: Node) => ProseContent; // Convert a single node
-toTiptap: (data: Record<string, any>) => Record<string, any>; // Convert a node's data
-```
-
-#### Example
-
-```tsx
-import { toTiptap } from 'ricos-content/libs/converters';
-import ricosContent from './ricosCotnent.json';
-
-const content: ProseContent = toTiptap(ricosContent);
 ```

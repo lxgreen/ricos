@@ -1,47 +1,38 @@
 import {
-  ButtonData,
+  AppEmbedData,
   CodeBlockData,
-  DividerData,
   FileData,
   GalleryData,
-  HTMLData,
   HeadingData,
   ImageData,
-  Node,
+  LinkPreviewData,
   Node_Type,
   ParagraphData,
   RichContent,
-  TextData,
   VideoData,
-  TextStyle_TextAlignment,
-  AppEmbedData,
-  LinkPreviewData,
+  GIFData,
+  EmbedData,
 } from 'ricos-schema';
-import { addNode as add, toTextDataArray, toListDataArray } from './builder-utils';
-import { ContentBuilder, ListItemData } from '../types';
-import { dataByNodeType } from '../converters/nodeUtils';
-
-type AddMethodParams<TData> = {
-  data: TData;
-  index?: number;
-  before?: string;
-  after?: string;
-  content: RichContent;
-};
-
-type AddTextMethodParams<T> = AddMethodParams<T> & {
-  text?: string | TextData | (string | TextData)[];
-};
-
-type AddListMethodParams = {
-  items: string | TextData | ListItemData | (string | TextData | ListItemData)[];
-  data?: ParagraphData;
-  type: Node_Type.ORDERED_LIST | Node_Type.BULLETED_LIST;
-  index?: number;
-  before?: string;
-  after?: string;
-  content: RichContent;
-};
+import { ContentBuilder } from '../types';
+import { ListNode, RichTextNode } from '../types/node-refined-types';
+import { addCollapsibleList } from './collapsible-list-builder-api';
+import {
+  AddListMethodParams,
+  addListNode,
+  AddMethodParams,
+  addNode,
+  AddTextMethodParams,
+  addTextNode,
+  DEFAULT_DIVIDER_DATA,
+  DEFAULT_PARAGRAPH_DATA,
+  DEFAULT_HTML_DATA,
+  DEFAULT_BUTTON_DATA,
+  DEFAULT_CODE_DATA,
+  DEFAULT_HEADING_DATA,
+  DEFAULT_MAP_DATA,
+  DEFAULT_POLL_DATA,
+} from './node-builder-methods';
+import { addTable } from './table-builder-api';
 
 export interface RicosBuilder extends ContentBuilder {
   new (): ContentBuilder;
@@ -50,159 +41,88 @@ export interface RicosBuilder extends ContentBuilder {
 export const setupContentBuilder = (
   generateId: () => string
 ): ContentBuilder & { RicosContentBuilder: RicosBuilder } => {
-  function createNode(type: Node_Type, data: unknown): Node {
-    return { id: generateId(), type, ...dataByNodeType(type, data), nodes: [] };
-  }
-
-  function createListNode(type: Node_Type, items: ListItemData[]) {
-    return {
-      type,
-      id: generateId(),
-      nodes: items.map(({ text, data }) => ({
-        type: Node_Type.LIST_ITEM,
-        id: generateId(),
-        nodes: [createTextNode(Node_Type.PARAGRAPH, text, data)],
-      })),
-    };
-  }
-
-  function createTextNode(type: Node_Type, text: TextData[], data: unknown): Node {
-    return {
-      ...createNode(type, data),
-      nodes: text.map(textData => ({
-        nodes: [],
-        id: generateId(),
-        type: Node_Type.TEXT,
-        ...dataByNodeType(Node_Type.TEXT, textData),
-      })),
-    };
-  }
-
-  function addNode({
-    data,
-    type,
-    index,
-    before,
-    after,
-    content,
-  }: {
-    data: unknown;
-    type: Node_Type;
-    index?: number;
-    before?: string;
-    after?: string;
-    content: RichContent;
-  }): RichContent {
-    const node = createNode(type, data);
-    return add({ node, index, before, after, content });
-  }
-
-  function addTextNode({
-    text,
-    data,
-    type,
-    index,
-    before,
-    after,
-    content,
-  }: {
-    text?: string | TextData | (string | TextData)[];
-    data: unknown;
-    type: Node_Type;
-    index?: number;
-    before?: string;
-    after?: string;
-    content: RichContent;
-  }): RichContent {
-    const textData = toTextDataArray(text);
-    const node = createTextNode(type, textData, data);
-    return add({ node, index, before, after, content });
-  }
-
-  const defaultParagraphData = {
-    textStyle: { textAlignment: TextStyle_TextAlignment.AUTO },
-    indentation: 0,
-  };
-
-  function addListNode({
-    items,
-    data = defaultParagraphData,
-    type,
-    index,
-    before,
-    after,
-    content,
-  }: AddListMethodParams): RichContent {
-    const listItemData = toListDataArray(items, data);
-    const node = createListNode(type, listItemData);
-    return add({ node, index, before, after, content });
-  }
-
   class RicosContentBuilder {}
 
   const builderApis = {};
 
   [
-    { name: 'Paragraph', type: Node_Type.PARAGRAPH, dataT: {} as ParagraphData },
-    { name: 'Heading', type: Node_Type.HEADING, dataT: {} as HeadingData },
-    { name: 'Code', type: Node_Type.CODE_BLOCK, dataT: {} as CodeBlockData },
-  ].forEach(({ name, type, dataT }) => {
-    builderApis[`add${name}`] = RicosContentBuilder.prototype[`add${name}`] = function({
-      data,
-      text,
-      index,
-      before,
-      after,
-      content,
-    }: AddTextMethodParams<typeof dataT>): RichContent {
-      return addTextNode({
-        text,
-        type,
-        data,
-        content,
-        index,
-        before,
-        after,
-      });
-    };
-  });
-
-  [
-    { name: 'BulletList', type: Node_Type.BULLETED_LIST },
-    { name: 'OrderedList', type: Node_Type.ORDERED_LIST },
+    {
+      name: 'addParagraph',
+      type: Node_Type.PARAGRAPH,
+      dataT: DEFAULT_PARAGRAPH_DATA,
+    },
+    { name: 'addHeading', type: Node_Type.HEADING, dataT: DEFAULT_HEADING_DATA },
+    { name: 'addCode', type: Node_Type.CODE_BLOCK, dataT: DEFAULT_CODE_DATA },
   ].forEach(
-    ({ name, type }: { name: string; type: Node_Type.ORDERED_LIST | Node_Type.BULLETED_LIST }) => {
-      builderApis[`add${name}`] = RicosContentBuilder.prototype[`add${name}`] = function({
-        items,
-        data,
+    ({
+      name,
+      type,
+      dataT,
+    }: {
+      name: string;
+      type: RichTextNode['type'];
+      dataT: ParagraphData | CodeBlockData | HeadingData;
+    }) => {
+      builderApis[name] = RicosContentBuilder.prototype[name] = function({
+        data = dataT,
+        text,
         index,
         before,
         after,
         content,
-      }: AddListMethodParams): RichContent {
-        return addListNode({ items, data, type, index, before, after, content });
+      }: AddTextMethodParams<typeof dataT>): RichContent {
+        return addTextNode(generateId)({
+          text,
+          type,
+          data,
+          content,
+          index,
+          before,
+          after,
+        });
       };
     }
   );
 
   [
-    { name: 'Divider', type: Node_Type.DIVIDER, dataT: {} as DividerData },
-    { name: 'File', type: Node_Type.FILE, dataT: {} as FileData },
-    { name: 'Gallery', type: Node_Type.GALLERY, dataT: {} as GalleryData },
-    { name: 'Html', type: Node_Type.HTML, dataT: {} as HTMLData },
-    { name: 'Image', type: Node_Type.IMAGE, dataT: {} as ImageData },
-    { name: 'Video', type: Node_Type.VIDEO, dataT: {} as VideoData },
-    { name: 'AppEmbed', type: Node_Type.APP_EMBED, dataT: {} as AppEmbedData },
-    { name: 'LinkPreview', type: Node_Type.LINK_PREVIEW, dataT: {} as LinkPreviewData },
-  ].forEach(({ name, type, dataT }) => {
-    builderApis[`add${name}`] = RicosContentBuilder.prototype[`add${name}`] = function({
+    { name: 'addBulletList', type: Node_Type.BULLETED_LIST },
+    { name: 'addOrderedList', type: Node_Type.ORDERED_LIST },
+  ].forEach(({ name, type }: { name: string; type: ListNode['type'] }) => {
+    builderApis[name] = RicosContentBuilder.prototype[name] = function({
+      items,
       data,
       index,
       before,
       after,
       content,
+    }: AddListMethodParams): RichContent {
+      return addListNode(generateId)({ items, data, type, index, before, after, content });
+    };
+  });
+
+  [
+    { name: 'addDivider', type: Node_Type.DIVIDER, dataT: DEFAULT_DIVIDER_DATA },
+    { name: 'addFile', type: Node_Type.FILE, dataT: {} as FileData },
+    { name: 'addGallery', type: Node_Type.GALLERY, dataT: {} as GalleryData },
+    { name: 'addHtml', type: Node_Type.HTML, dataT: DEFAULT_HTML_DATA },
+    { name: 'addImage', type: Node_Type.IMAGE, dataT: {} as ImageData },
+    { name: 'addVideo', type: Node_Type.VIDEO, dataT: {} as VideoData },
+    { name: 'addAppEmbed', type: Node_Type.APP_EMBED, dataT: {} as AppEmbedData },
+    { name: 'addEmbed', type: Node_Type.EMBED, dataT: {} as EmbedData },
+    { name: 'addLinkPreview', type: Node_Type.LINK_PREVIEW, dataT: {} as LinkPreviewData },
+    { name: 'addButton', type: Node_Type.BUTTON, dataT: DEFAULT_BUTTON_DATA },
+    { name: 'addGif', type: Node_Type.GIF, dataT: {} as GIFData },
+    { name: 'addMap', type: Node_Type.MAP, dataT: DEFAULT_MAP_DATA },
+    { name: 'addPoll', type: Node_Type.POLL, dataT: DEFAULT_POLL_DATA },
+  ].forEach(({ name, type, dataT }) => {
+    builderApis[name] = RicosContentBuilder.prototype[name] = function({
+      data = dataT,
+      index,
+      before,
+      after,
+      content,
     }: AddMethodParams<typeof dataT>): RichContent {
-      return addNode({
+      return addNode(generateId)({
         type,
         data,
         content,
@@ -213,27 +133,10 @@ export const setupContentBuilder = (
     };
   });
 
-  [
-    { name: 'addActionButton', type: Node_Type.BUTTON, dataT: {} as ButtonData },
-    { name: 'addLinkButton', type: Node_Type.BUTTON, dataT: {} as ButtonData },
-  ].forEach(({ name, type, dataT }) => {
-    builderApis[name] = RicosContentBuilder.prototype[name] = function({
-      data,
-      index,
-      before,
-      after,
-      content,
-    }: AddMethodParams<typeof dataT>): RichContent {
-      return addNode({
-        type,
-        data,
-        content,
-        index,
-        before,
-        after,
-      });
-    };
-  });
+  Object.entries({ addTable, addCollapsibleList }).forEach(
+    ([name, method]) =>
+      (builderApis[name] = RicosContentBuilder.prototype[name] = method(generateId))
+  );
 
   return {
     RicosContentBuilder: (RicosContentBuilder as unknown) as RicosBuilder,

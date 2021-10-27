@@ -19,6 +19,7 @@ const getStateKeysToStore = () => {
 export const getStorageKey = () =>
   !isMobile() ? CONSTS.LOCAL_STORAGE_KEY : CONSTS.LOCAL_STORAGE_MOBILE_KEY;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const loadStateFromStorage = () => get<Record<string, any>>(getStorageKey());
 
 export const saveStateToStorage = debounce(state => {
@@ -45,13 +46,13 @@ export const getBaseUrl = () => {
 
 export const getRequestedLocale = () => getUrlParameter('locale') || 'en';
 
-function getUrlParameter(name) {
+function getUrlParameter(name: string) {
   if (isSSR()) {
     return '';
   }
-  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-  var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-  var results = regex.exec(window.location.search);
+  const newName = name.replace(/[[]/, '\\[').replace(/[\]]/, '\\]');
+  const regex = new RegExp('[\\?&]' + newName + '=([^&#]*)');
+  const results = regex.exec(window.location.search);
   return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
 
@@ -60,12 +61,12 @@ export function disableBrowserBackButton() {
     if (typeof global === 'undefined') {
       throw new Error('window is undefined');
     }
-    var _hash = '!';
-    var noBackPlease = function() {
+    const _hash = '!';
+    const noBackPlease = function() {
       global.location.href = '#';
 
       // making sure we have the fruit available for juice (^__^)
-      global.setTimeout(function() {
+      global.setTimeout(() => {
         global.location.href += '!';
       }, 50);
     };

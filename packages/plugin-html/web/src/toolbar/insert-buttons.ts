@@ -31,7 +31,7 @@ const createInsertButtons: CreateInsertButtons = ({
     },
     [htmlButtonsTypes.adsense]: {
       type: BUTTON_TYPES.BUTTON,
-      name: 'AdSensePlugin_InsertButton',
+      name: INSERT_PLUGIN_BUTTONS.ADSENSE,
       componentData: adsenseDefaults(),
       helpers,
       toolbars: [TOOLBARS.INSERT_PLUGIN, TOOLBARS.MOBILE, TOOLBARS.FOOTER, TOOLBARS.SIDE],

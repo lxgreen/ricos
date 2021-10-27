@@ -12,6 +12,9 @@ import {
   RICOS_MENTION_TYPE,
   RICOS_TEXT_COLOR_TYPE,
   RICOS_TEXT_HIGHLIGHT_TYPE,
+  WRAP,
+  NO_WRAP,
+  RICOS_FONT_SIZE_TYPE,
 } from 'ricos-content';
 import {
   DividerData,
@@ -87,11 +90,11 @@ const divider = {
   }),
   expectedData1: {
     type: 'double',
-    config: { size: 'large', alignment: 'center', textWrap: 'nowrap' },
+    config: { size: 'large', alignment: 'center', textWrap: NO_WRAP },
   },
   expectedData2: {
     type: 'dashed',
-    config: { size: 'large', alignment: 'center', textWrap: 'nowrap' },
+    config: { size: 'large', alignment: 'center', textWrap: NO_WRAP },
   },
 };
 
@@ -99,6 +102,7 @@ const giphy = {
   type: RICOS_GIPHY_TYPE,
   nodeType: Node_Type.GIF,
   data1: GIFData.fromJSON({
+    containerData: {},
     original: {
       gif: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.gif',
       mp4: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.mp4',
@@ -113,6 +117,7 @@ const giphy = {
     width: 500,
   }),
   data2: GIFData.fromJSON({
+    containerData: {},
     original: {
       gif: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.gif',
       mp4: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.mp4',
@@ -130,6 +135,7 @@ const giphy = {
     config: {
       alignment: 'center',
       size: 'content',
+      textWrap: WRAP,
     },
     configViewer: {
       sizes: {
@@ -152,6 +158,7 @@ const giphy = {
     config: {
       alignment: 'center',
       size: 'content',
+      textWrap: WRAP,
     },
     configViewer: {
       sizes: {
@@ -175,13 +182,14 @@ const giphy = {
 const html = {
   type: RICOS_HTML_TYPE,
   nodeType: Node_Type.HTML,
-  data1: HTMLData.fromJSON({ url: 'www.wix.com' }),
-  data2: HTMLData.fromJSON({ url: 'www.sport5.co.il' }),
+  data1: HTMLData.fromJSON({ url: 'www.wix.com', containerData: {} }),
+  data2: HTMLData.fromJSON({ url: 'www.sport5.co.il', containerData: {} }),
   expectedData1: {
     config: {
       alignment: 'center',
       height: 550,
       width: 0,
+      textWrap: WRAP,
     },
     src: 'www.wix.com',
     srcType: 'url',
@@ -189,6 +197,7 @@ const html = {
   expectedData2: {
     config: {
       alignment: 'center',
+      textWrap: WRAP,
     },
     src: 'www.sport5.co.il',
     srcType: 'url',
@@ -199,59 +208,103 @@ const gallery = {
   type: RICOS_GALLERY_TYPE,
   nodeType: Node_Type.GALLERY,
   data1: GalleryData.fromJSON({
+    containerData: {},
     items: [
       {
-        metadata: {
-          type: 'image',
-          height: 3497,
-          width: 5000,
+        image: {
+          media: {
+            src: {
+              url: '8bb438_a3a11b05e3f54f77ba1c04dfba22c99c.jpg',
+            },
+            height: 3497,
+            width: 5000,
+          },
         },
-        itemId: 'be4312f031f9850a825b2064b9c92d72',
-        url: '8bb438_a3a11b05e3f54f77ba1c04dfba22c99c.jpg',
       },
       {
-        metadata: {
-          type: 'image',
-          height: 3733,
-          width: 5600,
+        image: {
+          media: {
+            src: {
+              url: '8bb438_f89f7e8aac574a0f962437d4f369b37a.jpg',
+            },
+            height: 3733,
+            width: 5600,
+          },
         },
-        itemId: '682b2132c2697fb0e467e21977beeaa2',
-        url: '8bb438_f89f7e8aac574a0f962437d4f369b37a.jpg',
       },
       {
-        metadata: {
-          type: 'image',
-          height: 3727,
-          width: 5600,
+        image: {
+          media: {
+            src: {
+              url: '8bb438_a132b18dea524d48a68a37f0075fcc1e.jpg',
+            },
+            height: 3727,
+            width: 5600,
+          },
         },
-        itemId: '0ee95e519c2e1274c30f56e3c098ec86',
-        url: '8bb438_a132b18dea524d48a68a37f0075fcc1e.jpg',
       },
     ],
+    options: {
+      layout: {
+        type: 'GRID',
+        horizontalScroll: false,
+        orientation: 'ROWS',
+        numberOfColumns: 3,
+      },
+      item: {
+        targetSize: 300,
+        ratio: 1,
+        crop: 'FILL',
+        spacing: 5,
+      },
+      thumbnails: {
+        placement: 'BOTTOM',
+        spacing: 0,
+      },
+    },
   }),
   data2: GalleryData.fromJSON({
+    containerData: {},
     items: [
       {
-        metadata: {
-          type: 'image',
-          height: 3727,
-          width: 5600,
+        image: {
+          media: {
+            src: {
+              url: '8bb438_a132b18dea524d48a68a37f0075fcc1e.jpg',
+            },
+            height: 3727,
+            width: 5600,
+          },
         },
-        itemId: '0ee95e519c2e1274c30f56e3c098ec86',
-        url: '8bb438_a132b18dea524d48a68a37f0075fcc1e.jpg',
       },
     ],
+    options: {
+      layout: {
+        type: 'GRID',
+        horizontalScroll: false,
+        orientation: 'ROWS',
+        numberOfColumns: 3,
+      },
+      item: {
+        targetSize: 300,
+        ratio: 1,
+        crop: 'FILL',
+        spacing: 5,
+      },
+      thumbnails: {
+        placement: 'BOTTOM',
+        spacing: 0,
+      },
+    },
   }),
   expectedData1: {
     config: {
       alignment: 'center',
-      layout: 'small',
       size: 'content',
-      spacing: 0,
+      textWrap: WRAP,
     },
     items: [
       {
-        itemId: 'be4312f031f9850a825b2064b9c92d72',
         metadata: {
           height: 3497,
           type: 'image',
@@ -260,7 +313,6 @@ const gallery = {
         url: '8bb438_a3a11b05e3f54f77ba1c04dfba22c99c.jpg',
       },
       {
-        itemId: '682b2132c2697fb0e467e21977beeaa2',
         metadata: {
           height: 3733,
           type: 'image',
@@ -269,7 +321,6 @@ const gallery = {
         url: '8bb438_f89f7e8aac574a0f962437d4f369b37a.jpg',
       },
       {
-        itemId: '0ee95e519c2e1274c30f56e3c098ec86',
         metadata: {
           height: 3727,
           type: 'image',
@@ -279,45 +330,26 @@ const gallery = {
       },
     ],
     styles: {
-      allowContextMenu: true,
-      allowDownload: false,
-      allowHover: true,
-      allowSocial: false,
       cubeRatio: 1,
       cubeType: 'fill',
-      enableInfiniteScroll: true,
-      fullscreen: false,
       galleryLayout: 2,
-      galleryMargin: 0,
       gallerySizePx: 300,
-      gallerySizeType: 'px',
       galleryThumbnailsAlignment: 'bottom',
-      gotStyleParams: true,
-      gridStyle: 1,
+      numberOfImagesPerRow: 3,
       imageMargin: 5,
       isVertical: false,
-      itemClick: 'link',
-      loveButton: false,
-      mobileSwipeAnimation: 'NO_EFFECT',
       oneRow: false,
-      showArrows: false,
-      showVideoPlayButton: true,
-      thumbnailSize: 120,
       thumbnailSpacings: 0,
-      titlePlacement: 'SHOW_ON_HOVER',
-      videoPlay: 'onClick',
     },
   },
   expectedData2: {
     config: {
       alignment: 'center',
-      layout: 'small',
       size: 'content',
-      spacing: 0,
+      textWrap: WRAP,
     },
     items: [
       {
-        itemId: '0ee95e519c2e1274c30f56e3c098ec86',
         metadata: {
           height: 3727,
           type: 'image',
@@ -327,33 +359,16 @@ const gallery = {
       },
     ],
     styles: {
-      allowContextMenu: true,
-      allowDownload: false,
-      allowHover: true,
-      allowSocial: false,
       cubeRatio: 1,
       cubeType: 'fill',
-      enableInfiniteScroll: true,
-      fullscreen: false,
       galleryLayout: 2,
-      galleryMargin: 0,
       gallerySizePx: 300,
-      gallerySizeType: 'px',
       galleryThumbnailsAlignment: 'bottom',
-      gotStyleParams: true,
-      gridStyle: 1,
+      numberOfImagesPerRow: 3,
       imageMargin: 5,
       isVertical: false,
-      itemClick: 'link',
-      loveButton: false,
-      mobileSwipeAnimation: 'NO_EFFECT',
       oneRow: false,
-      showArrows: false,
-      showVideoPlayButton: true,
-      thumbnailSize: 120,
       thumbnailSpacings: 0,
-      titlePlacement: 'SHOW_ON_HOVER',
-      videoPlay: 'onClick',
     },
   },
 };
@@ -363,13 +378,13 @@ const poll = {
   type: RICOS_POLL_TYPE,
   nodeType: Node_Type.POLL,
   data1: PollData.fromJSON({
-    config: { enableVoteRole: true },
+    config: {},
     poll: {},
     design: {},
     layout: {},
   }),
   data2: PollData.fromJSON({
-    config: { enableVoteRole: false },
+    config: {},
     poll: {},
     design: {},
     layout: {},
@@ -417,6 +432,7 @@ const file = {
     config: {
       size: 'small',
       alignment: 'left',
+      textWrap: WRAP,
     },
     configViewer: {
       downloadTarget: '_blank',
@@ -428,6 +444,7 @@ const file = {
     config: {
       size: 'content',
       alignment: 'right',
+      textWrap: WRAP,
     },
     configViewer: {
       downloadTarget: '_blank',
@@ -439,6 +456,7 @@ const image = {
   type: RICOS_IMAGE_TYPE,
   nodeType: Node_Type.IMAGE,
   data1: ImageData.fromJSON({
+    containerData: {},
     image: {
       src: { custom: '8bb438_1b73a6b067b24175bd087e86613bd00c.jpg' },
       width: 1920,
@@ -461,6 +479,7 @@ const image = {
       showDescription: true,
       showTitle: true,
       size: 'content',
+      textWrap: WRAP,
     },
     src: {
       file_name: '8bb438_1b73a6b067b24175bd087e86613bd00c.jpg',
@@ -475,6 +494,7 @@ const image = {
       showDescription: true,
       showTitle: true,
       size: 'content',
+      textWrap: WRAP,
     },
     src: {
       file_name: '8bb438_92b217c36c98400a82e5c59bf131d957.jpg',
@@ -550,6 +570,16 @@ const highlightColor = {
   expectedData2: 'color1',
 };
 
+const fontSize = {
+  type: RICOS_FONT_SIZE_TYPE,
+  data1: { fontSize: 30 },
+  selection1: selection,
+  data2: { fontSize: 20 },
+  selection2: selectionCollapsed,
+  expectedData1: '30px',
+  expectedData2: '20px',
+};
+
 export const inlineStylesTestConfig = ['bold', 'italic', 'underline', 'spoiler'];
 
 export const pluginsTestConfig = {
@@ -563,4 +593,4 @@ export const pluginsTestConfig = {
   image,
 };
 
-export const decorationsTestConfig = { link, mention, textColor, highlightColor };
+export const decorationsTestConfig = { link, mention, textColor, highlightColor, fontSize };

@@ -1,6 +1,6 @@
 import { JSONContent } from '@tiptap/core';
 import { capitalize } from 'lodash';
-import { Decoration, Node, Node_Type, RichContent } from 'ricos-schema';
+import { Decoration, Node, Node_Type, RichContent, Decoration_Type } from 'ricos-schema';
 import { IMAGE_TYPE, DraftContent } from 'ricos-content';
 import { RICOS_NODE_TYPE_TO_DATA_FIELD } from 'ricos-content/libs/draftConsts';
 import { DECORATION_TYPES, NODE_MAP, NODE_TYPES } from './consts';
@@ -26,11 +26,11 @@ export const isNode = (object): object is Node =>
   isTextNode(object) || isParagraphNode(object) || hasChildrenOrData(object);
 
 export const isDecoration = (object): object is Decoration =>
-  DECORATION_TYPES.includes(object?.type?.toUpperCase());
+  DECORATION_TYPES.includes(object?.type && (toConstantCase(object.type) as Decoration_Type));
 
 export const isRichContent = (object): object is RichContent => !!object?.nodes && !isNode(object);
 
-export const isProseContent = (object): object is JSONContent =>
+export const isTiptapContent = (object): object is JSONContent =>
   !!object?.content && !isNode(object);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

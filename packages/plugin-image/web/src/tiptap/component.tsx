@@ -5,7 +5,6 @@ import { PluginProps } from 'wix-rich-content-editor-common';
 
 export const Image: React.FC<PluginProps> = ({ context, componentData, updateAttributes }) => {
   const { isMobile, theme, t } = context;
-  // console.log({ componentData });
   const store = {
     update: (propery, data) => {
       // update caption
@@ -16,7 +15,6 @@ export const Image: React.FC<PluginProps> = ({ context, componentData, updateAtt
   const helpers = {};
   const componentState = {};
   const settings: ImagePluginEditorConfig = {};
-  const disableRightClick = settings?.uiSettings?.disableRightClick;
   const blockProps = {
     setFocusToBlock: () => null,
   };
@@ -37,7 +35,6 @@ export const Image: React.FC<PluginProps> = ({ context, componentData, updateAtt
       componentState={componentState}
       t={t}
       settings={settings}
-      disableRightClick={disableRightClick}
       blockProps={blockProps}
       setComponentUrl={setComponentUrl}
       block={block}

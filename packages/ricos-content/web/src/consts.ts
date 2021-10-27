@@ -1,3 +1,5 @@
+import { Node_Type } from 'ricos-schema';
+
 export const HEADER_BLOCK = Object.freeze({
   ONE: 'header-one',
   TWO: 'header-two',
@@ -26,6 +28,8 @@ export const BLOCK_TYPES = Object.freeze([
   'unstyled',
 ]);
 
+export const WRAP = 'wrap';
+export const NO_WRAP = 'nowrap';
 export const UNSTYLED = 'unstyled';
 export const BLOCKQUOTE = 'blockquote';
 export const NUMBERED_LIST_TYPE = 'ordered-list-item';
@@ -108,6 +112,31 @@ export const RICOS_ANCHOR_TYPE = 'ricos-anchor';
 export const RICOS_COLOR_TYPE = 'ricos-color';
 export const RICOS_LINK_TYPE = 'ricos-link';
 export const RICOS_MENTION_TYPE = 'ricos-mention';
+export const RICOS_FONT_SIZE_TYPE = 'ricos-font-size';
 
 export const RICOS_EXTERNAL_LINK_TYPE = 'ricos-external-link'; // TODO: is this type needed?
 export const RICOS_EXTERNAL_MENTION_TYPE = 'ricos-external-mention'; // TODO: is this type needed?
+
+export const RICOS_NODE_TYPE_TO_DATA_FIELD = {
+  [Node_Type.BUTTON]: 'buttonData',
+  [Node_Type.DIVIDER]: 'dividerData',
+  [Node_Type.FILE]: 'fileData',
+  [Node_Type.GALLERY]: 'galleryData',
+  [Node_Type.GIF]: 'gifData',
+  [Node_Type.HTML]: 'htmlData',
+  [Node_Type.IMAGE]: 'imageData',
+  [Node_Type.COLLAPSIBLE_LIST]: 'collapsibleListData',
+  [Node_Type.LINK_PREVIEW]: 'linkPreviewData',
+  [Node_Type.MAP]: 'mapData',
+  [Node_Type.APP_EMBED]: 'appEmbedData',
+  [Node_Type.VIDEO]: 'videoData',
+  [Node_Type.POLL]: 'pollData',
+  [Node_Type.TABLE]: 'tableData',
+  [Node_Type.TABLE_CELL]: 'tableCellData',
+  [Node_Type.PARAGRAPH]: 'paragraphData',
+  [Node_Type.LIST_ITEM]: 'paragraphData',
+  [Node_Type.HEADING]: 'headingData',
+  [Node_Type.CODE_BLOCK]: 'codeBlockData',
+  [Node_Type.BLOCKQUOTE]: 'paragraphData',
+  [Node_Type.EMBED]: 'embedData',
+} as const;

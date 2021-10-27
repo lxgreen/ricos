@@ -1,29 +1,35 @@
-import { createRicosGenericExtensionConfig } from './../../extensions-creators/extension';
 import React, { useEffect, ComponentType } from 'react';
+import { RicosFunctionalExtension } from '../../models/extension-types';
 
 const name = 'on-node-focus';
 
-export const createOnNodeFocusConfig = () =>
-  createRicosGenericExtensionConfig({
-    type: 'extension',
-    createConfig: () => ({
-      name,
-      priority: 19,
-      addNodeViewHOC: () => ({
-        nodeTypes: ['*'],
-        nodeViewHOC: (Component: ComponentType) => props => {
-          const { node, componentData, context, isFocused } = props;
-          useEffect(() => {
-            if (isFocused && context.onAtomicBlockFocus) {
-              context.onAtomicBlockFocus({
-                blockKey: node.attrs.id, // TODO: id is missing
-                type: node.type.name,
-                data: componentData,
-              });
-            }
-          }, [props.isFocused]);
-          return <Component {...props} />;
-        },
-      }),
+const OnNodeFocusHoc = (Component: ComponentType) => {
+  const onNodeFocus = props => {
+    const { node, componentData, context, isFocused } = props;
+    useEffect(() => {
+      if (isFocused && context.onAtomicBlockFocus) {
+        context.onAtomicBlockFocus({
+          blockKey: node.attrs.id,
+          type: node.type.name,
+          data: componentData,
+        });
+      }
+    }, [props.isFocused]);
+    return <Component {...props} />;
+  };
+  onNodeFocus.displayName = 'OnNodeFocusHoc';
+  return onNodeFocus;
+};
+
+export const createOnNodeFocusConfig = (): RicosFunctionalExtension => ({
+  type: 'extension',
+  createExtensionConfig: () => ({
+    name,
+    priority: 19,
+    addNodeHoc: () => ({
+      priority: 100,
+      nodeTypes: ['*'],
+      nodeHoc: OnNodeFocusHoc,
     }),
-  });
+  }),
+});

@@ -217,6 +217,7 @@ export default function createAtomicPluginToolbar({
         pubsub,
         helpers,
         keyName: button.keyName,
+        beforeOnClickDelete: button?.beforeOnClickDelete,
       };
 
       const editorState = getEditorState();
@@ -297,12 +298,13 @@ export default function createAtomicPluginToolbar({
             <BlockSpoilerButton {...commonButtonProps} tooltipText={t('Spoiler_Insert_Tooltip')} />
           );
         case BUTTONS.VIDEO_SETTINGS: {
-          const isCustomVideo = !!this.state.componentData.isCustomVideo;
+          const isCustomVideo = this.state.componentData.isCustomVideo;
+          const shouldShowSettingsButton = button.settings.spoiler || isCustomVideo;
           const videoSettingsProps = {
             ...defaultButtonProps,
             type: BUTTONS.EXTERNAL_MODAL,
           };
-          return isCustomVideo ? <Button {...videoSettingsProps} /> : null;
+          return shouldShowSettingsButton ? <Button {...videoSettingsProps} /> : null;
         }
         case BUTTONS.LINK_PREVIEW: {
           return (
@@ -320,7 +322,10 @@ export default function createAtomicPluginToolbar({
           const DeleteButtonComponent = deleteButton(icons.delete);
           return (
             <DeleteButtonComponent
-              onClick={pubsub.get('deleteBlock')}
+              onClick={() => {
+                buttonProps?.beforeOnClickDelete?.();
+                pubsub.get('deleteBlock')();
+              }}
               icon={icons.delete}
               {...buttonProps}
             />

@@ -12,6 +12,8 @@ import {
   BUTTON_TYPES,
   FORMATTING_BUTTONS,
   isAtomicBlockInSelection,
+  EditorState,
+  COMMANDS,
 } from 'wix-rich-content-editor-common';
 import createInlineButtons from './inline-buttons';
 import TextLinkButton from './TextLinkButton';
@@ -24,6 +26,8 @@ import {
   RelValue,
   RichContentTheme,
   UISettings,
+  AvailableExperiments,
+  OnKeyboardShortcutClick,
 } from 'wix-rich-content-common';
 import { LINK_TYPE, LinkPluginEditorConfig } from '../types';
 import { GetEditorState, SetEditorState } from 'wix-rich-content-common/src';
@@ -100,6 +104,8 @@ const createToolbar: CreatePluginToolbar = (config: {
   closeInlinePluginToolbar: () => void;
   t: TranslationFunction;
   innerModal: InnerModalType;
+  onKeyboardShortcutClick: OnKeyboardShortcutClick;
+  experiments?: AvailableExperiments;
 }) => {
   const isDisabled = () => isAtomicBlockInSelection(config.getEditorState());
   const getTooltip = () =>
@@ -125,11 +131,12 @@ const createToolbar: CreatePluginToolbar = (config: {
         keyBindings: [
           {
             keyCommand: {
-              command: 'link',
+              command: COMMANDS.LINK,
               modifiers: [MODIFIERS.COMMAND],
               key: 'k',
             },
-            commandHandler: editorState => {
+            commandHandler: (editorState: EditorState) => {
+              config.onKeyboardShortcutClick({ buttonName: COMMANDS.LINK, pluginId: LINK_TYPE });
               if (hasLinksInSelection(editorState)) {
                 config.closeInlinePluginToolbar();
                 return removeLinksInSelection(editorState);
@@ -146,7 +153,12 @@ const createToolbar: CreatePluginToolbar = (config: {
           },
           isActive: () => hasLinksInSelection(config.getEditorState()),
           isDisabled,
-          getIcon: () => config[LINK_TYPE]?.toolbar?.icons?.InsertPluginButtonIcon || LinkIcon,
+          getIcon: () =>
+            config[LINK_TYPE]?.toolbar?.icons?.InsertPluginButtonIcon ||
+            (() =>
+              LinkIcon({
+                newFormattingToolbar: config?.experiments?.newFormattingToolbar?.enabled,
+              })),
           tooltip: getTooltip(),
           getLabel: () => '', // new key needed?
           type: BUTTON_TYPES.BUTTON,

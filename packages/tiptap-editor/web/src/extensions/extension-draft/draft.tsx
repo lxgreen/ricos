@@ -1,32 +1,40 @@
-import { createRicosGenericExtensionConfig } from './../../extensions-creators/extension';
 import React from 'react';
 import { tiptapNodeDataToDraft } from '../../converters';
+import { RicosFunctionalExtension } from '../../models/extension-types';
+import toConstantCase from 'to-constant-case';
+import { Node_Type } from 'ricos-schema';
 
 const name = 'draft';
 
-export const createDraftConfig = () =>
-  createRicosGenericExtensionConfig({
-    type: 'extension',
-    createConfig: () => {
-      return {
-        name,
-        priority: 100000,
-        addNodeViewHOC() {
-          return {
-            nodeTypes: ['*'],
-            nodeViewHOC: Component => {
-              return props => {
-                const { componentData, node } = props;
-                const data = tiptapNodeDataToDraft(node.type.name.toUpperCase(), componentData);
-                const newProps = {
-                  ...props,
-                  componentData: data,
-                };
-                return <Component {...newProps} />;
-              };
-            },
-          };
-        },
-      };
-    },
-  });
+const DraftHOC = Component => {
+  const Draft = props => {
+    const { componentData, node } = props;
+    const ricosNodeType = toConstantCase(node.type.name) as Node_Type;
+    const data = tiptapNodeDataToDraft(ricosNodeType, componentData);
+    const newProps = {
+      ...props,
+      componentData: data,
+    };
+    return <Component {...newProps} />;
+  };
+
+  Draft.displayName = 'ToDraftHoc';
+  return Draft;
+};
+
+export const createDraftConfig = (): RicosFunctionalExtension => ({
+  type: 'extension',
+  createExtensionConfig: () => {
+    return {
+      name,
+      priority: 1,
+      addNodeHoc() {
+        return {
+          priority: 100,
+          nodeTypes: ['*'],
+          nodeHoc: DraftHOC,
+        };
+      },
+    };
+  },
+});

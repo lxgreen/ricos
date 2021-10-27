@@ -13,6 +13,7 @@ stats.html
 .env
 applitools.private.config.js
 tsconfig.tsbuildinfo
+.ultra.cache.json
 
 #Webstorm
 **/.idea/*

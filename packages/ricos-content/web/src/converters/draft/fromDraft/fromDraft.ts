@@ -7,11 +7,16 @@ import { generateId } from '../../generateRandomId';
 import { getTextNodes } from './getTextNodes';
 import { getEntity, getNodeStyle, getTextStyle } from './getRicosEntityData';
 import { createParagraphNode, initializeMetadata } from '../../nodeUtils';
+import { nestedNodesConverters } from './nestedNodesUtils';
+
+export interface FromDraftOptions {
+  ignoreUnsupportedValues?: boolean;
+}
 
 export const ensureRicosContent = (content: RichContent | DraftContent): RichContent =>
   'blocks' in content ? fromDraft(content) : content;
 
-export const fromDraft = (draftJSON: DraftContent): RichContent => {
+export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}): RichContent => {
   const { blocks, entityMap } = cloneDeep(draftJSON);
   const nodes: Node[] = [];
 
@@ -54,7 +59,11 @@ export const fromDraft = (draftJSON: DraftContent): RichContent => {
           parseBlocks(index + 1);
           break;
         default:
-          throw Error(`ERROR! Unknown block type "${block.type}"!`);
+          if (opts.ignoreUnsupportedValues) {
+            parseBlocks(index + 1);
+          } else {
+            throw Error(`ERROR! Unknown block type "${block.type}"!`);
+          }
       }
     }
   };
@@ -63,9 +72,10 @@ export const fromDraft = (draftJSON: DraftContent): RichContent => {
     if (entityRanges && entityRanges.length) {
       const entity = getEntity(entityRanges[0].key, entityMap);
       if (entity) {
+        const nodes = nestedNodesConverters[entity.type]?.(entity) || [];
         return {
           id: key,
-          nodes: [],
+          nodes,
           style: getNodeStyle(data),
           ...entity,
         };
@@ -84,7 +94,7 @@ export const fromDraft = (draftJSON: DraftContent): RichContent => {
   const parseCodeBlock = (block: RicosContentBlock): Node => ({
     id: block.key,
     type: Node_Type.CODE_BLOCK,
-    nodes: getTextNodes(block, entityMap),
+    nodes: getTextNodes(block, entityMap, opts),
     style: getNodeStyle(block.data),
     codeBlockData: {
       textStyle: getTextStyle(block.data),
@@ -106,7 +116,7 @@ export const fromDraft = (draftJSON: DraftContent): RichContent => {
         indentation: block.depth || undefined,
         textStyle: getTextStyle(block.data),
       },
-      nodes: getTextNodes(block, entityMap),
+      nodes: getTextNodes(block, entityMap, opts),
       style: getNodeStyle(block.data),
     };
   };
@@ -132,7 +142,7 @@ export const fromDraft = (draftJSON: DraftContent): RichContent => {
       default:
     }
 
-    const nodes = getTextNodes(block, entityMap);
+    const nodes = getTextNodes(block, entityMap, opts);
 
     if (!isEmpty(nodes)) {
       paragraphNode.nodes = nodes;

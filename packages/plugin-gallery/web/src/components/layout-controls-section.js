@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { mergeStyles } from 'wix-rich-content-common';
-import { SettingsSection } from 'wix-rich-content-ui-components';
+import { SettingsSection, SettingsSeparator } from 'wix-rich-content-ui-components';
 import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
 import styles from '../../statics/styles/gallery-settings-modal.scss';
 import { Spacing, ItemsPerRow, ThumbnailSize } from './gallery-controls/sliders';
@@ -15,8 +15,8 @@ import ImageRatioSelector from './gallery-controls/image-ratio-selector';
 import ThumbnailPlacementSelector from './gallery-controls/thumbnail-placement-selector';
 
 const scrollDirectionOptions = {
-  horizontal: { oneRow: true, showArrows: true, isVertical: false },
-  vertical: { oneRow: false, showArrows: false },
+  horizontal: { oneRow: true },
+  vertical: { oneRow: false },
 };
 
 class Separator extends Component {
@@ -36,7 +36,7 @@ class Separator extends Component {
         return <div className={this.styles.gallerySettings_spacer} />;
       case 'hr':
       default:
-        return <hr className={this.styles.gallerySettings_divider} />;
+        return <SettingsSeparator top bottom />;
     }
   };
 }
@@ -97,8 +97,8 @@ class LayoutControlsSection extends Component {
     thumbnailSpacing: {
       component: Spacing,
       props: {
-        onChange: value => this.applyGallerySetting({ thumbnailSpacings: value / 2 }),
-        defaultValue: this.getValueFromComponentStyles('thumbnailSpacings') * 2,
+        onChange: value => this.applyGallerySetting({ thumbnailSpacings: value }),
+        defaultValue: this.getValueFromComponentStyles('thumbnailSpacings'),
         t,
       },
     },

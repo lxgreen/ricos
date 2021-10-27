@@ -15,19 +15,25 @@ import {
   SetEditorState,
   GetEditorState,
   TranslationFunction,
+  AvailableExperiments,
+  OnKeyboardShortcutClick,
 } from 'wix-rich-content-common';
-import { IndentPluginEditorConfig } from '../types';
+import { IndentPluginEditorConfig, INDENT_TYPE } from '../types';
 
 const createToolbar: CreatePluginToolbar = ({
   getEditorState,
   settings,
   setEditorState,
   t,
+  experiments,
+  onKeyboardShortcutClick,
 }: {
   getEditorState: GetEditorState;
   setEditorState: SetEditorState;
   settings: IndentPluginEditorConfig;
   t: TranslationFunction;
+  onKeyboardShortcutClick: OnKeyboardShortcutClick;
+  experiments?: AvailableExperiments;
 }) => {
   const getIconByDirection = (type: 'indent' | 'unindent') => {
     const editorState = getEditorState();
@@ -35,14 +41,23 @@ const createToolbar: CreatePluginToolbar = ({
     const key = editorState.getSelection().getStartKey();
     const selectedBlockKey = content.getBlockForKey(key).getKey();
     const directionMap = editorState.getDirectionMap();
+    const newFormattingToolbar = experiments?.newFormattingToolbar?.enabled;
     return {
       LTR: {
-        indent: settings?.toolbar?.icons?.IncreaseIndent || increaseIndentPluginIcon,
-        unindent: settings?.toolbar?.icons?.DecreaseIndent || decreaseIndentPluginIcon,
+        indent:
+          settings?.toolbar?.icons?.IncreaseIndent ||
+          (() => increaseIndentPluginIcon({ newFormattingToolbar })),
+        unindent:
+          settings?.toolbar?.icons?.DecreaseIndent ||
+          (() => decreaseIndentPluginIcon({ newFormattingToolbar })),
       },
       RTL: {
-        unindent: settings?.toolbar?.icons?.IncreaseIndent || increaseIndentPluginIcon,
-        indent: settings?.toolbar?.icons?.DecreaseIndent || decreaseIndentPluginIcon,
+        unindent:
+          settings?.toolbar?.icons?.IncreaseIndent ||
+          (() => increaseIndentPluginIcon({ newFormattingToolbar })),
+        indent:
+          settings?.toolbar?.icons?.DecreaseIndent ||
+          (() => decreaseIndentPluginIcon({ newFormattingToolbar })),
       },
     }[directionMap.get(selectedBlockKey)][type];
   };
@@ -71,7 +86,13 @@ const createToolbar: CreatePluginToolbar = ({
               modifiers: [MODIFIERS.COMMAND, MODIFIERS.SHIFT],
               key: 'm',
             },
-            commandHandler: (editorState: EditorState) => indentSelectedBlocks(editorState, -1),
+            commandHandler: (editorState: EditorState) => {
+              onKeyboardShortcutClick({
+                buttonName: COMMANDS.DECREASE_INDENT,
+                pluginId: INDENT_TYPE,
+              });
+              return indentSelectedBlocks(editorState, -1);
+            },
           },
         ],
       },
@@ -98,7 +119,13 @@ const createToolbar: CreatePluginToolbar = ({
               modifiers: [MODIFIERS.COMMAND],
               key: 'm',
             },
-            commandHandler: (editorState: EditorState) => indentSelectedBlocks(editorState, 1),
+            commandHandler: (editorState: EditorState) => {
+              onKeyboardShortcutClick({
+                buttonName: COMMANDS.INCREASE_INDENT,
+                pluginId: INDENT_TYPE,
+              });
+              return indentSelectedBlocks(editorState, 1);
+            },
           },
         ],
       },

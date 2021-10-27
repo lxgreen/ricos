@@ -10,8 +10,9 @@ import {
   InputWithLabel,
   Image,
   Loader,
+  SettingsMobileHeader,
+  SettingsSeparator,
 } from 'wix-rich-content-ui-components';
-import ImageSettingsMobileHeader from './image-settings-mobile-header';
 import styles from '../../statics/styles/image-settings.scss';
 import { DIVIDER } from '../consts';
 
@@ -62,7 +63,7 @@ class ImageSettings extends Component {
 
   renderToggle = ({ toggleKey, labelKey, dataHook, tooltipText, onToggle, type }) => {
     return type === DIVIDER ? (
-      <div className={this.styles.divider} />
+      <SettingsSeparator top />
     ) : (
       <div key={toggleKey} className={this.styles.imageSettings_toggleContainer}>
         <LabeledToggle
@@ -126,7 +127,7 @@ class ImageSettings extends Component {
     this.setState({ src: componentData.src, error: componentData?.error });
   };
 
-  revertComponentData() {
+  revertComponentData = () => {
     const { componentData, helpers, pubsub } = this.props;
     if (this.initialState) {
       const { isExpandEnabled, isDownloadEnabled, ...rest } = this.initialState;
@@ -140,7 +141,7 @@ class ImageSettings extends Component {
       this.setState({ ...this.initialState });
     }
     helpers.closeModal();
-  }
+  };
 
   metadataUpdated = (metadata, value) => {
     this.setState({ metadata: { ...metadata, ...value } });
@@ -177,12 +178,11 @@ class ImageSettings extends Component {
     return (
       <div className={this.styles.imageSettings} data-hook="settings" dir={languageDir}>
         {isMobile ? (
-          <ImageSettingsMobileHeader
-            t={t}
+          <SettingsMobileHeader
             theme={theme}
-            cancel={() => this.revertComponentData()}
-            save={() => this.onDoneClick()}
-            saveName={this.updateLabel}
+            onCancel={this.revertComponentData}
+            onSave={this.onDoneClick}
+            t={t}
           />
         ) : (
           <h3 className={this.styles.imageSettingsTitle}>{this.headerText}</h3>
@@ -269,8 +269,8 @@ class ImageSettings extends Component {
           <SettingsPanelFooter
             fixed
             theme={theme}
-            cancel={() => this.revertComponentData()}
-            save={() => this.onDoneClick()}
+            cancel={this.revertComponentData}
+            save={this.onDoneClick}
             t={t}
           />
         )}

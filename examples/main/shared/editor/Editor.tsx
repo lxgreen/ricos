@@ -1,10 +1,13 @@
 import React, { ElementType, PureComponent } from 'react';
 import { RichContentEditor, RichContentEditorProps } from 'wix-rich-content-editor';
-import { testVideos } from '../utils/mock';
+import { testVideos } from '../../../storybook/src/shared/utils/mock';
 import * as Plugins from './EditorPlugins';
 import theme from '../theme/theme'; // must import after custom styles
 import { GALLERY_TYPE } from 'wix-rich-content-plugin-gallery';
-import { mockImageUploadFunc, mockImageNativeUploadFunc } from '../utils/fileUploadUtil';
+import {
+  mockImageUploadFunc,
+  mockImageNativeUploadFunc,
+} from '../../../storybook/src/shared/utils/fileUploadUtil';
 import { TOOLBARS } from 'wix-rich-content-editor-common';
 import {
   DraftContent,
@@ -17,8 +20,6 @@ import {
 import { TestAppConfig } from '../../src/types';
 import { RicosEditor, RicosEditorProps, RicosEditorType } from 'ricos-editor';
 
-const anchorTarget = '_blank';
-const rel = {};
 const STATIC_TOOLBAR = 'static';
 
 interface ExampleEditorProps {
@@ -29,7 +30,7 @@ interface ExampleEditorProps {
   locale?: string;
   externalToolbar?: ElementType;
   shouldNativeUpload?: boolean;
-  scrollingElementFn?: any;
+  scrollingElementFn?: () => Element;
   testAppConfig?: TestAppConfig;
   mockImageIndex?: number;
   contentState?: DraftContent;
@@ -37,13 +38,18 @@ interface ExampleEditorProps {
   onRicosEditorChange?: RicosEditorProps['onChange'];
   experiments?: AvailableExperiments;
   externalPopups: boolean;
+  textWrap?: boolean;
 }
 
 export default class Editor extends PureComponent<ExampleEditorProps> {
   getToolbarSettings: RichContentEditorProps['config']['getToolbarSettings'];
+
   helpers: RichContentEditorProps['helpers'];
+
   editor: RicosEditorType;
+
   ricosPlugins: RicosEditorProps['plugins'];
+
   staticToolbarContainer: HTMLDivElement;
 
   constructor(props: ExampleEditorProps) {
@@ -75,6 +81,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
   }
 
   initEditorProps() {
+    /* eslint-disable no-console */
     const onPluginAction: OnPluginAction = async (
       eventName: EventName,
       params: PluginEventParams
@@ -94,6 +101,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       onOpenEditorSuccess: async (...args) => console.log('onOpenEditorSuccess', ...args),
       onContentEdited: async params => console.log('onContentEdited', params),
       onToolbarButtonClick: async params => console.log('onToolbarButtonClick', params),
+      onKeyboardShortcutAction: async params => console.log('onKeyboardShortcutAction', params),
       onPluginModalOpened: async params => console.log('onPluginModalOpened', params),
       onMenuLoad: async params => console.log('onMenuLoad', params),
       onInlineToolbarOpen: async params => console.log('onInlineToolbarOpen', params),
@@ -112,6 +120,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       },
       onPluginAction,
     };
+    /* eslint-enable no-console */
     this.setImageUploadHelper();
   }
 
@@ -119,9 +128,11 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
     const { shouldNativeUpload } = this.props;
     if (shouldNativeUpload) {
       this.helpers.handleFileUpload = mockImageNativeUploadFunc;
+      // eslint-disable-next-line fp/no-delete
       delete this.helpers.handleFileSelection;
     } else {
       this.helpers.handleFileSelection = mockImageUploadFunc;
+      // eslint-disable-next-line fp/no-delete
       delete this.helpers.handleFileUpload;
     }
   };
@@ -148,6 +159,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       onRicosEditorChange,
       experiments,
       externalPopups,
+      textWrap,
     } = this.props;
     const textToolbarType: TextToolbarType = staticToolbar && !isMobile ? STATIC_TOOLBAR : null;
     const useStaticTextToolbar = textToolbarType === STATIC_TOOLBAR;
@@ -165,7 +177,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
             locale={locale}
             cssOverride={theme}
             toolbarSettings={{
-              useStaticTextToolbar: useStaticTextToolbar,
+              useStaticTextToolbar,
               textToolbarContainer: useStaticTextToolbar && this.staticToolbarContainer,
               getToolbarSettings: this.getToolbarSettings,
             }}
@@ -173,10 +185,11 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
             placeholder={'Add some text!'}
             plugins={this.ricosPlugins}
             linkPanelSettings={{ ...(Plugins.uiSettings.linkPanel || {}), externalPopups }}
+            _rcProps={{ helpers: this.helpers }}
             experiments={experiments}
-          >
-            <RichContentEditor helpers={this.helpers} />
-          </RicosEditor>
+            textWrap={textWrap}
+            onAtomicBlockFocus={d => console.log('onAtomicBlockFocus', d)} // eslint-disable-line
+          />
         </div>
       </div>
     );

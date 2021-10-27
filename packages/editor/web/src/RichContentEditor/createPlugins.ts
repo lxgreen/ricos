@@ -14,7 +14,7 @@ import {
   Pubsub,
   PluginsDecorator,
   ToolbarButtonProps,
-  TextButtonMapping,
+  PluginTextButtons,
   PluginButton,
 } from 'wix-rich-content-common';
 import { SPOILER_TYPE } from 'ricos-content';
@@ -49,7 +49,7 @@ const createPlugins = ({
     | ReturnType<CreatePluginFunction>
   )[];
   pluginButtons: PluginButton[];
-  pluginTextButtons: TextButtonMapping[];
+  pluginTextButtons: PluginTextButtons[];
   pluginStyleFns: EditorProps['customStyleFn'][];
   externalizedButtonProps: ToolbarButtonProps[];
 } => {
@@ -65,7 +65,7 @@ const createPlugins = ({
   const supportedBlockTypes = Object.entries(context.config).map(([key]) => key);
 
   const dndPlugin = createBlockDndPlugin();
-  const handleDrop = dndPlugin.handleDrop;
+  const handleDrop = dndPlugin.handleDrop as Required<EditorPlugin>['handleDrop'];
   dndPlugin.handleDrop = createHandleDrop(handleDrop);
 
   const wixPluginsDecorators = (composeDecorators(
@@ -97,7 +97,7 @@ const createPlugins = ({
 
   let pluginButtons: PluginButton[] = [];
   let externalizedButtonProps: ToolbarButtonProps[] = [];
-  let pluginTextButtons: TextButtonMapping[] = [];
+  let pluginTextButtons: PluginTextButtons[] = [];
   let pluginStyleFns: EditorProps['customStyleFn'][] = [];
   wixPlugins.forEach(wixPlugin => {
     const InsertPluginButtons: PluginButton[] = wixPlugin.InsertPluginButtons?.map(

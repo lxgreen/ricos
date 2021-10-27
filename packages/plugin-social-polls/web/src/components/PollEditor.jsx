@@ -9,6 +9,8 @@ import {
 import { Poll } from './Poll';
 import { PollContextProvider } from './poll-context';
 import { RCEHelpersContext } from './rce-helpers-context';
+import { GlobalContext } from 'wix-rich-content-common';
+import { normalizePoll as fixPollServerData } from 'wix-rich-content-common/libs/normalization';
 
 class PollEditorComponent extends PureComponent {
   static propTypes = {
@@ -41,6 +43,20 @@ class PollEditorComponent extends PureComponent {
     ...WithEditorEventsProps,
   };
 
+  static contextType = GlobalContext;
+
+  shouldNormalizePoll() {
+    const { experiments } = this.context;
+    return experiments?.normalizePoll?.enabled;
+  }
+
+  fixPollServerData = poll => {
+    if (!this.shouldNormalizePoll()) {
+      return poll;
+    }
+    return fixPollServerData(poll);
+  };
+
   setPoll = poll => {
     const { componentData, store } = this.props;
 
@@ -48,7 +64,7 @@ class PollEditorComponent extends PureComponent {
       'componentData',
       {
         ...componentData,
-        poll,
+        poll: this.fixPollServerData(poll),
       },
       this.props.block.getKey()
     );

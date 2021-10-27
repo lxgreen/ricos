@@ -2,19 +2,18 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 
 .urlInput_container {
-
   padding: 80px 120px;
 
-  &.endAlignment, &.urlInputModal_topControls {    
+  &.endAlignment,
+  &.urlInputModal_topControls {
     padding: 24px;
   }
-  
-  &:not(.urlInputModal_topControls) {    
+
+  &:not(.urlInputModal_topControls) {
     @include phone {
       padding: 160px 33px !important;
     }
   }
-
 
   .urlInput_closeIcon {
     position: absolute;
@@ -33,9 +32,6 @@
   }
 
   .urlInput_header {
-    display: grid;
-    align-items: center;
-    color: #333333;
     &.endAlignment {
       margin: 0 -24px;
       align-items: start;
@@ -44,54 +40,114 @@
     }
   }
 
-  .urlInput_header_text {
-    line-height: 28px;
-    font-size: 20px;  
-    text-align: center;
-  }
-
   &:not(.urlInputModal_topControls) .urlInput_header_text.endAlignment {
     padding-left: 24px;
     text-align: left;
   }
 
-
-  .urlInput_header_subtitle {
-    font-size: 16px;
-    line-height: 24px;
-    color: rgba(0, 0, 0, 0.6);
-    padding-top: 32px;
-  }
-
   .urlInputModal_textInput {
-    margin-top: 36px;
-    margin-bottom: 42px;
     &.endAlignment {
       margin-top: 28px;
-    }
-    @include phone {
-      margin-top: 32px;
-      margin-bottom: 33px;
-    }
-  }
-
-  .textInput_input {
-    &::placeholder {
-      color: rgba(0, 0, 0, 0.4);
-    }
-    &:focus,
-    &:hover {
-      border-color: black;
-    }
-  }
-
-  .textInput_input_invalid {
-    border-color: #ee5951;
-    &:focus,
-    &:hover {
-      border-color: #ee5951;
     }
   }
 }
 
+//! New/Old Modal Combined Css
+.input_header,
+.urlInput_header {
+  display: grid;
+  align-items: center;
+  color: #333333;
+}
 
+.input_header_title,
+.input_header_subTitle,
+.urlInput_header_text {
+  line-height: 28px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.input_header_subtitle,
+.urlInput_header_subtitle {
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.6);
+  padding-top: 32px;
+}
+
+.inputModal_textInput,
+.urlInputModal_textInput {
+  margin-top: 36px;
+  margin-bottom: 42px;
+  @include phone {
+    margin-top: 32px;
+    margin-bottom: 33px;
+  }
+}
+
+.textInput_input {
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.4);
+  }
+  &:focus,
+  &:hover {
+    border-color: black;
+  }
+}
+
+.textInput_input_invalid {
+  border-color: #ee5951;
+  &:focus,
+  &:hover {
+    border-color: #ee5951;
+  }
+}
+//! New/Old Modal Combined Css
+
+.inputModal_container {
+  .inputModal_content {
+    padding: 0;
+    @include phone {
+      padding: 16px 20px;
+    }
+  }
+  .input_header {
+    border: none;
+  }
+
+  %input_header_text {
+    text-align: left;
+    @include phone {
+      margin-bottom: 7px;
+    }
+  }
+
+  .input_header_subTitle {
+    font-size: 14px;
+    color: #757575;
+    @extend %input_header_text;
+  }
+
+  .input_header_title {
+    font-size: 16px;
+    color: #000;
+    @extend %input_header_text;
+  }
+
+  .inputModal_textInput {
+    margin: 14px 0;
+    @include phone {
+      margin: 0;
+    }
+  }
+
+  input::placeholder {
+    font-size: 16px;
+  }
+
+  @include phone {
+    width: 100vw;
+    height: 100vh;
+  }
+}

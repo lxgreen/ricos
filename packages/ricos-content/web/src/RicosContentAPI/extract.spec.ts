@@ -55,8 +55,25 @@ describe('Content extract API', () => {
         'LIST_ITEM',
         'BULLETED_LIST',
         'HEADING',
+        'COLLAPSIBLE_LIST',
+        'COLLAPSIBLE_ITEM',
+        'COLLAPSIBLE_ITEM_TITLE',
+        'COLLAPSIBLE_ITEM_BODY',
+        'TABLE',
+        'TABLE_ROW',
+        'TABLE_CELL',
       ],
-      decorations: ['BOLD', 'UNDERLINE', 'ITALIC', 'LINK', 'SPOILER', 'MENTION', 'COLOR', 'ANCHOR'],
+      decorations: [
+        'BOLD',
+        'FONT_SIZE',
+        'UNDERLINE',
+        'ITALIC',
+        'LINK',
+        'SPOILER',
+        'MENTION',
+        'COLOR',
+        'ANCHOR',
+      ],
     };
     expect(actual).toStrictEqual(expected);
   });
@@ -96,15 +113,10 @@ describe('Content extract API', () => {
       .get().length;
     const galleryImageCount = extract(richContent.nodes)
       .map(({ galleryData }) => galleryData?.items || [])
-      .map(
-        items =>
-          items.filter(
-            ({ metadata }) => (!!metadata && metadata?.type === 'image') || !metadata?.type
-          ).length
-      )
+      .map(items => items.filter(({ image }) => !!image).length)
       .get()
       .reduce((sum, count) => sum + count, 0);
-    expect(imageCount + galleryImageCount).toEqual(5);
+    expect(imageCount + galleryImageCount).toEqual(4);
   });
 
   it('should extract all node keys of images with empty alt text', () => {

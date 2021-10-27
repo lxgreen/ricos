@@ -3,7 +3,7 @@ import React from 'react';
 
 const InsertPluginIcon = props => (
   <svg
-    width="23px"
+    width="19px"
     height="12px"
     viewBox="0 0 23 12"
     version="1.1"

@@ -27,11 +27,14 @@ import {
   styleSelectionPredicate,
   viewerCustomBackgroundStyleFn,
 } from '../../../../../examples/main/src/text-color-style-fn';
+import { pluginPoll } from 'wix-rich-content-plugin-social-polls/viewer';
 import { pluginCollapsibleList } from 'wix-rich-content-plugin-collapsible-list/viewer';
 import { pluginTable } from 'wix-rich-content-plugin-table/viewer';
-import { mockFileUploadFunc } from '../../../../../examples/main/shared/utils/fileUploadUtil';
+import { mockFileUploadFunc } from '../../../../../examples/storybook/src/shared/utils/fileUploadUtil';
+import { TestAppConfig } from '../../types';
+import { ViewerPlugin } from 'wix-rich-content-common';
 
-const configs = {
+const configs: TestAppConfig['pluginsConfig'] = {
   fileUpload: {
     accept: '*',
     handleFileSelection: mockFileUploadFunc,
@@ -88,6 +91,7 @@ const plugins = {
   highlight: pluginTextHighlight(configs.textHighlight),
   textColor: pluginTextColor(configs.textColor),
   spoiler: pluginSpoiler(),
+  poll: pluginPoll(),
   collapsibleList: pluginCollapsibleList(),
   table: pluginTable(),
   emoji: pluginEmoji(),
@@ -96,7 +100,7 @@ const plugins = {
 
 const presets = createPresets(plugins);
 
-export default pluginsPreset =>
+export default (pluginsPreset: TestAppConfig['plugins']): ViewerPlugin[] =>
   pluginsPreset
     ? pluginsPreset
         .map(plugin => presets[plugin])

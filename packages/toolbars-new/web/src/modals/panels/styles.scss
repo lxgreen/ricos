@@ -1,0 +1,235 @@
+@import '~wix-rich-content-common/dist/statics/styles/palette';
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
+
+.desktopPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 8px 0;
+  width: 143px;
+
+  .showCustomPanel_button {
+    height: 36px;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    text-align: center;
+    padding: 0;
+    margin-top: 8px;
+    &:hover {
+      @extend %hover;
+    }
+  }
+}
+
+.panel_row_container {
+  width: inherit;
+  position: relative;
+}
+
+.desktopPanel_fitContent {
+  width: 100%;
+  align-items: center;
+  .panel_row_desktop {
+    padding-left: 0px;
+    text-align: center;
+    width: 100% !important;
+  }
+}
+
+.panel_row_desktop {
+  border: none;
+  font-size: 14px;
+  text-align: left;
+  padding-left: 20px;
+  display: flex;
+  flex-flow: column-reverse;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+  &:hover {
+    @extend %hover;
+  }
+
+  &:active {
+    @extend %active;
+  }
+}
+
+.panel_row,
+.panel_row_desktop {
+  height: 36px;
+  &.panel_selectedRow {
+    @extend %active;
+    color: $settings-action-color-fallback;
+  }
+  @include phone {
+    height: 39px;
+  }
+}
+
+.panel_row_text_container {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+}
+
+.panel_row_text {
+  width: 100%;
+}
+
+.panel_row_subtext {
+  width: 100%;
+  font-size: 10px;
+  color: #757575;
+}
+
+%active {
+  background-color: rgba($action-color-fallback-tuple, 0.1);
+}
+
+%hover {
+  cursor: pointer;
+  background-color: rgba($fallbackColorTuple, 0.05);
+}
+
+.desktopPanel_withIcons {
+  width: 40px;
+  .panel_row_desktop {
+    width: 100%;
+    text-align: center;
+    padding: 0;
+  }
+}
+
+%mobilePanel_AlignContent {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.mobilePanel {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  .mobilePanel_header {
+    @extend %mobilePanel_AlignContent;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    .closeIcon {
+      height: 20px;
+    }
+  }
+
+  * {
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+  }
+}
+
+.mobilePanel_rows {
+  display: flex;
+  flex-direction: column;
+  * {
+    flex: 1;
+    text-align: left;
+    width: 100%;
+  }
+}
+
+.mobilePanel_buttons {
+  display: flex;
+  justify-content: space-between;
+
+  * {
+    padding: 0;
+  }
+
+  :nth-child(2) {
+    color: $settings-action-color-fallback;
+  }
+}
+
+.panel_Container {
+  border: solid 1px #ededed;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  border-radius: inherit;
+  svg {
+    height: unset;
+    width: unset;
+  }
+}
+
+.mobile_Container {
+  border: solid 1px #ededed;
+  border-radius: unset;
+  box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.1), 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+}
+
+.modal {
+  position: fixed;
+  right: initial;
+  bottom: initial;
+  padding: 0;
+  background: #fff;
+}
+
+.modal_mobile {
+  border-radius: unset;
+  box-shadow: unset;
+}
+
+.separator {
+  height: 1px;
+  background-color: rgba(51, 51, 51, 0.2);
+  width: calc(100% - 24px);
+  margin: 8px auto 0;
+  @include phone {
+    margin: 0;
+    width: 100%;
+  }
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+  z-index: 40;
+}
+
+.mobile_contentWrapper_withIcon {
+  height: 100%;
+  @extend %mobilePanel_AlignContent;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  height: 100%;
+  :nth-child(1) {
+    max-width: 12px;
+    display: inherit;
+    align-items: center;
+  }
+}
+
+.mobile_contentWrapper {
+  height: 100%;
+  * {
+    @extend %mobilePanel_AlignContent;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+}

@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Layout, Palette, ToggleSwitch } from 'wix-style-react';
 import { Page, Section, ContentState } from '../Components/StoryParts';
 import exapmleState from '../../../../e2e/tests/fixtures/storybook-example-app.json';
-import { wixPalettes, ricosPalettes } from '../../../../e2e/tests/resources/palettesExample';
-import { FONTS } from '../../../../e2e/tests/resources/fontsExample';
+import { wixPalettes, ricosPalettes } from '../../src/shared/resources/palettesExample';
+import { FONTS } from '../../src/shared/resources/fontsExample';
 import ExampleApplication from '../Components/ExampleApplication';
 import { SelectorCell } from './SelectorCell';
+import { RicosTheme } from 'ricos-common';
+import { withWixStyle } from './wixStyle';
+
 const palettes = Object.keys(wixPalettes);
 
 const ThemeSelector = () => {
@@ -14,7 +17,9 @@ const ThemeSelector = () => {
   const [isFallback, setFallback] = useState(false);
   const [isFloatingBM, setFloatingBM] = useState(false);
   const fallbackColor = isFallback ? '#FF0000' : undefined;
-  const settingsActionColor = isFloatingBM ? '#3899EC' : undefined;
+  const palette = ricosPalettes[palettePage];
+  const values = Object.values(palette);
+  const createTheme = (theme: RicosTheme) => (isFloatingBM ? withWixStyle(theme) : theme);
 
   useEffect(() => {
     document.onkeyup = event => {
@@ -31,9 +36,6 @@ const ThemeSelector = () => {
       }
     };
   }, [fontPage, palettePage]);
-
-  const palette = ricosPalettes[palettePage];
-  const values = Object.values(palette);
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore: https://github.com/wix-private/wix-design-systems/pull/7554
@@ -79,14 +81,10 @@ const ThemeSelector = () => {
         <ExampleApplication
           key={palettePage}
           initialState={exapmleState}
-          theme={{
+          theme={createTheme({
             palette: { ...palette, fallbackColor },
-            paletteConfig: {
-              settingsActionColor,
-              focusActionColor: settingsActionColor,
-            },
             customStyles: FONTS[fontPage],
-          }}
+          })}
         />
       </div>
     </>

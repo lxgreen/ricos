@@ -14,6 +14,7 @@ import mentionsSchema from '../statics/schemas/plugin-mentions.schema.json';
 import soundCloudSchema from '../statics/schemas/plugin-sound-cloud.schema.json';
 import videoSchema from '../statics/schemas/plugin-video.schema.json';
 import anchorSchema from '../statics/schemas/anchor.schema.json';
+import tableSchema from '../statics/schemas/plugin-table.schema.json';
 import {
   LINK_BUTTON_TYPE,
   ACTION_BUTTON_TYPE,
@@ -30,6 +31,7 @@ import {
   MENTION_TYPE,
   SOUND_CLOUD_TYPE,
   VIDEO_TYPE,
+  TABLE_TYPE,
 } from 'ricos-content';
 
 export const isValidEditorData = payload => {
@@ -50,6 +52,7 @@ export const isValidEditorData = payload => {
     [GALLERY_TYPE]: gallerySchema,
     [MENTION_TYPE]: mentionsSchema,
     ANCHOR: anchorSchema,
+    [TABLE_TYPE]: tableSchema,
   });
   return checkValidity(payload, schema);
 };

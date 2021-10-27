@@ -2,11 +2,15 @@ import { pickBy, identity } from 'lodash';
 /* eslint-disable fp/no-delete */
 import { TextStyle, NodeStyle } from 'ricos-schema';
 import { RicosEntityMap, RicosContentBlock } from '../../../types';
-import { LINK_PREVIEW_TYPE, EMBED_TYPE } from '../../../consts';
+import { LINK_PREVIEW_TYPE, EMBED_TYPE, COLLAPSIBLE_LIST_TYPE, TABLE_TYPE } from '../../../consts';
 import { TO_RICOS_DATA_FIELD, TO_RICOS_PLUGIN_TYPE } from '../consts';
 import { convertBlockDataToRicos } from './convertRicosPluginData';
 
 export const getEntity = (key: string | number, entityMap: RicosEntityMap) => {
+  if (!entityMap[key]) {
+    console.error(`Invalid entity key '${key}' -- entry does not exist.`);
+    return null;
+  }
   const { type, data } = entityMap[key];
   const blockType = type === LINK_PREVIEW_TYPE && data.html ? EMBED_TYPE : type;
   const dataFieldName = TO_RICOS_DATA_FIELD[blockType];
@@ -15,9 +19,15 @@ export const getEntity = (key: string | number, entityMap: RicosEntityMap) => {
     return null;
   }
 
+  const advancedPluginsAdditionalData = {
+    [COLLAPSIBLE_LIST_TYPE]: { pairs: data?.pairs },
+    [TABLE_TYPE]: { rows: data?.config?.rows },
+  };
+
   return {
     type: TO_RICOS_PLUGIN_TYPE[blockType],
     [dataFieldName]: convertBlockDataToRicos(blockType, data),
+    ...(advancedPluginsAdditionalData[blockType] || {}),
   };
 };
 

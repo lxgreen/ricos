@@ -21,7 +21,7 @@ import { DesignSettingsSection } from './design-settings-section';
 import { LayoutSettingsSection } from './layout-settings-section';
 import { PollSettingsSection } from './poll-settings-section';
 import { EditPollSection } from './edit-poll-section';
-import { PollViewer } from '../PollViewer';
+import { PollViewer } from '../../PollViewer';
 
 import styles from './poll-settings-modal.scss';
 
@@ -37,6 +37,7 @@ export class SettingsModal extends Component {
     relValue: PropTypes.string,
     anchorTarget: PropTypes.string,
     languageDir: PropTypes.string,
+    settings: PropTypes.object.isRequired,
   };
 
   static defaultProps = {
@@ -94,7 +95,7 @@ export class SettingsModal extends Component {
 
   render() {
     const { activeTab, $container, isPreviewOpen } = this.state;
-    const { pubsub, helpers, t, languageDir, theme, isMobile } = this.props;
+    const { pubsub, helpers, t, languageDir, theme, isMobile, settings } = this.props;
 
     const componentData = pubsub.store.get('componentData');
 
@@ -152,7 +153,7 @@ export class SettingsModal extends Component {
               }}
             >
               <PollContextProvider
-                settings={{}}
+                settings={settings}
                 poll={componentData.poll}
                 setPoll={this.setPoll}
                 t={t}
@@ -197,6 +198,7 @@ export class SettingsModal extends Component {
                   store={pubsub.store}
                   componentData={componentData}
                   t={t}
+                  settings={settings}
                 />
               </Tab>
             </Tabs>

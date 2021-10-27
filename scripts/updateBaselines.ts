@@ -5,9 +5,12 @@ import { writeFileSync, readFileSync } from 'fs';
 import { fromDraft } from '../packages/ricos-content/web/src/converters/draft';
 import { fromPlainText, toPlainText } from '../packages/ricos-content/web/src/converters/plainText';
 import { fromRichTextHtml, toHtml } from '../packages/ricos-content/web/src/converters/html';
+import { toTranslatables } from '../packages/ricos-content/web/src/TranslatableAPI/extract/toTranslatables';
 import { toTiptap } from '../packages/tiptap-editor/web/src/converters';
 import migrationContent from '../e2e/tests/fixtures/migration-content.json';
 import { RichContent } from 'ricos-schema';
+
+const prettifyJSON = obj => JSON.stringify(obj, (_, val) => val, 2);
 
 const stringifyBaseline = obj => {
   let i = 0;
@@ -18,7 +21,10 @@ const stringifyBaseline = obj => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Object.entries<any>(obj).forEach(([key, val]) => {
       if (val && typeof val === 'object') {
-        if (val.id && key !== 'src') {
+        // Override id for nodes only
+        // val.nodes - ricos schema
+        // key === 'attrs' - tiptap schema
+        if (val.id && (val.nodes || key === 'attrs')) {
           val.id = `${i++}`;
         }
         normalizeKeys(val);
@@ -29,7 +35,7 @@ const stringifyBaseline = obj => {
     });
   };
   normalizeKeys(obj);
-  return JSON.stringify(obj, (_, val) => val, 2);
+  return prettifyJSON(obj);
 };
 
 const writeBaseLine = (path, obj) => writeFileSync(path, stringifyBaseline(obj));
@@ -60,6 +66,9 @@ const FROM_HTML_BASELINE = getAbsPath(
 );
 const TIPTAP_BASELINE = getAbsPath(
   '../packages/tiptap-editor/web/src/converters/toTiptap/__tests__/migrationContentTiptap.json'
+);
+const TRANSLATABLES_BASELINE = getAbsPath(
+  '../packages/ricos-content/web/__tests__/translatablesMock.json'
 );
 
 enum Target {
@@ -123,32 +132,46 @@ const convertToTiptap = async () => {
   console.log('Saved tiptap baseline ⚪️\n');
 };
 
+const updateTranslatables = async () => {
+  console.log(`Updating ${chalk.green('translatables')}...`);
+  const content = require(RICH_CONTENT_BASELINE);
+  const translatables = toTranslatables(content);
+  writeFileSync(TRANSLATABLES_BASELINE, prettifyJSON(translatables));
+  console.log('Saved translatables baseline 🗣\n');
+};
+
 const target = process.argv[2]?.toLowerCase();
 const richContent = fromDraft(migrationContent);
 
-const conversions: Promise<void>[] = [];
+const updateTasks: Promise<void>[] = [];
 switch (target) {
   case Target.RICOS:
-    conversions.push(convertToRichContent());
+    updateTasks.push(convertToRichContent());
     break;
   case Target.HTML:
-    conversions.push(convertHtml());
+    updateTasks.push(convertHtml());
     break;
   case Target.TIPTAP:
-    conversions.push(convertToTiptap());
+    updateTasks.push(convertToTiptap());
     break;
   case Target.TEXT:
-    conversions.push(convertPlainText());
+    updateTasks.push(convertPlainText());
     break;
   case undefined:
-    conversions.push(convertToRichContent(), convertHtml(), convertToTiptap(), convertPlainText());
+    updateTasks.push(
+      convertToRichContent(),
+      convertHtml(),
+      convertToTiptap(),
+      convertPlainText(),
+      updateTranslatables()
+    );
     break;
   default:
     console.error(chalk.red(`Target "${target}" should be one of ${Object.values(Target)}`));
 }
 
-if (conversions.length > 0) {
-  Promise.all(conversions).then(() => {
+if (updateTasks.length > 0) {
+  Promise.all(updateTasks).then(() => {
     console.warn(
       chalk.yellow('Please make sure all changes to baselines are required before comitting\n')
     );

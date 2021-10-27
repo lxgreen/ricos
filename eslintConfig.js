@@ -1,12 +1,12 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['lodash', 'fp', 'jsx-a11y', 'prettier'],
+  plugins: ['lodash', 'fp', 'jsx-a11y', 'prettier', 'cypress'],
   env: {
     browser: true,
     node: true,
     jest: true,
   },
-  extends: ['wix/react', 'plugin:jsx-a11y/strict'],
+  extends: ['wix/react', 'plugin:jsx-a11y/strict', 'plugin:cypress/recommended'],
   settings: {
     react: {
       version: '16.6.3',
@@ -78,5 +78,6 @@ module.exports = {
     ],
     indent: 'off',
     curly: 'off',
+    'cypress/no-unnecessary-waiting': 'warn',
   },
 };

@@ -62,6 +62,8 @@ class RichContentModal extends Component<Props> {
       .map(({ decorator }) => decorator);
 
     return (
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore: dir has no effect here since it's not a prop in FocusManager
       <FocusManager dir={getLangDir(locale)}>
         {prepended?.map((Prepended, index) => (
           <Prepended key={`prepended_decorator_${index}`} {...modalProps} />

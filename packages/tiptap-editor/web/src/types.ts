@@ -1,11 +1,22 @@
+import { Editor, JSONContent } from '@tiptap/react';
 import { Node as ProseMirrorNode } from 'prosemirror-model';
-import { FC } from 'react';
-import { Editor } from '@tiptap/react';
+import { ElementType } from 'react';
+import {
+  DraftContent,
+  EditorCommands,
+  EditorContextType,
+  LegacyEditorPluginConfig,
+  Pubsub,
+  ToolbarType,
+  TranslationFunction,
+  RichContentTheme,
+} from 'wix-rich-content-common';
+import { createEditorStyles } from 'wix-rich-content-editor-common';
+import { RicosExtension } from './models/extension-types';
 
 export interface PluginProps {
   context: {
     isMobile: boolean;
-    theme: string;
     t: (key: string) => string;
   };
   // eslint-disable-next-line
@@ -18,10 +29,32 @@ export interface PluginProps {
 export type TiptapAPI = {
   blur: () => void;
   focus: () => void;
-  // eslint-disable-next-line
-  getEditorCommands: () => any; // EditorCommands;
-  getToolbars: () => Record<string, FC>;
-  // eslint-disable-next-line
-  getToolbarProps: () => Record<string, any>; // to be deprecated
+  getEditorCommands: () => EditorCommands;
+  getToolbars: () => {
+    MobileToolbar?: ElementType;
+    TextToolbar?: ElementType;
+  };
+  getToolbarProps: (
+    type: ToolbarType
+  ) => {
+    buttons?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    context?: EditorContextType;
+    pubsub?: Pubsub;
+  }; // to be deprecated
   destroy: Editor['destroy'];
 };
+
+export interface RicosTiptapEditorProps {
+  content?: JSONContent;
+  extensions?: RicosExtension[];
+  onLoad?: (editor: Editor) => void;
+  t: TranslationFunction;
+  onUpdate?: ({ content }: { content: DraftContent }) => void;
+  theme?: RichContentTheme;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+}
+
+export type CreateRicosExtensions = <PluginType extends keyof LegacyEditorPluginConfig>(
+  config: LegacyEditorPluginConfig[PluginType]
+) => RicosExtension[];

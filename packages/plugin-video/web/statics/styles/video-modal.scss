@@ -1,0 +1,93 @@
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
+
+.video_modal_container {
+  position: relative;
+  height: 100%;
+  margin-top: -15px;
+  @include phone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+  }
+}
+
+.video_modal_content {
+  width: calc(100% + 40px);
+  margin-left: -20px;
+  position: relative;
+  @include phone {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+.video_modal_tab {
+  padding: 16px 20px 0;
+  &.video_upload_tab {
+    height: 58px;
+    @include phone {
+      padding: 20px;
+    }
+  }
+  @include phone {
+    padding: 0;
+  }
+}
+
+.video_modal_add_a_Video_new_modal {
+  color: #757575;
+  font-size: 14px;
+  padding-bottom: 15px;
+}
+
+.video_modal_upload_video_new_modal {
+  background-color: $settings-action-color-fallback;
+  color: $fallbackColorBright;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background-color: rgba($settings-action-color-fallback-tuple, 0.8);
+  }
+}
+
+.fileInput {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+%video_modal_add_button {
+  width: 108px;
+  display: inline-block;
+  border: none;
+  padding-left: 24px;
+  padding-right: 24px;
+  margin-left: 12px;
+  height: 40px;
+}
+
+.video_modal_add_button_inline {
+  @extend %video_modal_add_button;
+  @include phone {
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 0;
+  }
+}
+
+.fileInputLabel {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

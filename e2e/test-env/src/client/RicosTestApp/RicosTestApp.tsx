@@ -8,17 +8,17 @@ import { default as viewerPlugins } from './viewerPlugins';
 import './styles.global.scss';
 import 'wix-rich-content-plugin-commons/dist/styles.min.css';
 import theme from '../../../../../examples/main/shared/theme/theme';
-import { testVideos } from '../../../../../examples/main/shared/utils/mock';
+import { testVideos } from '../../../../../examples/storybook/src/shared/utils/mock';
 import { TestAppConfig } from '../../../../../examples/main/src/types';
 import {
   mockTestImageUpload,
   mockTestImageNativeUpload,
   mockTestFileUpload,
   mockTestFileNativeUpload,
-} from '../../../../../examples/main/shared/utils/fileUploadUtil';
+} from '../../../../../examples/storybook/src/shared/utils/fileUploadUtil';
 import { createPreview } from 'wix-rich-content-preview';
 import { TOOLBARS } from 'wix-rich-content-editor-common';
-import { ricosPalettes } from '../../../../tests/resources/palettesExample';
+import { ricosPalettes } from '../../../../../examples/storybook/src/shared/resources/palettesExample';
 import { themes } from '../consumersThemes/themes';
 import { PaletteColors, DraftContent, SEOSettings } from 'wix-rich-content-common';
 import { EditorState } from '@wix/draft-js';

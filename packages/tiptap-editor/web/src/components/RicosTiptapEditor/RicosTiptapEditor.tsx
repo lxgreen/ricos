@@ -1,96 +1,73 @@
-import { pipe } from 'fp-ts/function';
-import * as A from 'fp-ts/Array';
-import React, { useEffect, useState } from 'react';
-import { EditorContent, Editor, JSONContent } from '@tiptap/react';
-import {
-  NodeViewHocMap,
-  EditorPlugin,
-  EditorPluginConfig,
-  TranslationFunction,
-  RicosExtensionConfig,
-  TiptapExtensionConfig,
-} from 'wix-rich-content-common';
-
-import { initializeExtensions, extractNodeViewsHOCs } from '../../ricos-extensions-manager';
-import { tiptapExtensions as coreExtensions } from '../../tiptap-extensions';
+import { Editor, EditorContent, JSONContent } from '@tiptap/react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import editorStyles from '../../statics/styles/tiptap-editor-styles.scss';
+import { createEditorStyles } from 'wix-rich-content-editor-common';
+import { tiptapToDraft } from '../..';
 import { RicosTiptapContext } from '../../context';
-import { createDraftConfig } from '../../extensions/extension-draft';
-import { createFocusConfig } from '../../extensions/extension-focus/focus';
-import { createOnNodeFocusConfig } from '../../extensions/extension-focus/on-node-focus';
-import { createHistoryConfig } from '../../extensions/extension-history';
-import { createStylesConfig } from '../../extensions/extension-styles';
-import { createRicosExtensionsConfigs } from '../../extensions-creators';
+import { useForceUpdate } from '../../lib/useForceUpdate';
+import { Extensions } from '../../models/Extensions';
+import { tiptapExtensions as coreExtensions } from '../../tiptap-extensions';
+import { RicosTiptapEditorProps } from '../../types';
+import { coreConfigs } from './core-configs';
 
-function useForceUpdate() {
-  const [, setValue] = useState(0);
-  return () => setValue(value => value + 1);
-}
-
-const getEditorExtensionConfigs = (): TiptapExtensionConfig[] => [
-  createDraftConfig(),
-  createHistoryConfig(),
-  createStylesConfig(),
-  createFocusConfig(),
-  createOnNodeFocusConfig(),
-];
-
-export const RicosTiptapEditor = ({
+export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   content,
   extensions = [],
   onLoad,
+  onUpdate,
+  onSelectionUpdate,
+  theme,
   ...context
-}: {
-  content: JSONContent;
-  extensions: EditorPlugin[];
-  onLoad: (editor: Editor) => void;
-  config: Record<string, EditorPluginConfig>;
-  t: TranslationFunction;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  context: any; // TODO: context type
 }) => {
   const forceUpdate = useForceUpdate();
-  const [editor, setEditor] = useState<Editor | null>(null);
-  const [nodeViewsHOCs, setNodeViewsHOCs] = useState<NodeViewHocMap>(
-    (null as unknown) as NodeViewHocMap
-  );
+  const [editor, setEditor] = useState<Editor>((null as unknown) as Editor);
+  const mergedExtensions = Extensions.of([...coreConfigs, ...extensions]);
 
   useEffect(() => {
-    const extensionConfigs = pipe(
-      extensions,
-      createRicosExtensionsConfigs,
-      A.concat(getEditorExtensionConfigs())
-    );
-
-    const nodeViewsHOCs = extractNodeViewsHOCs(extensionConfigs as RicosExtensionConfig[]);
-    setNodeViewsHOCs(nodeViewsHOCs);
-
-    const tiptapExtensions = initializeExtensions(extensionConfigs);
+    const tiptapExtensions = mergedExtensions.getTiptapExtensions();
     const editorInstance = new Editor({
       extensions: [...coreExtensions, ...tiptapExtensions],
       content,
       injectCSS: true,
+      onUpdate: ({ editor }) => {
+        const newContent = editor.getJSON();
+        const convertedContent = tiptapToDraft(newContent as JSONContent);
+        onUpdate?.({ content: convertedContent });
+      },
+      onSelectionUpdate: () => {
+        onSelectionUpdate?.();
+      },
+      onBlur: () => {
+        onSelectionUpdate?.();
+      },
     });
 
-    setEditor(editorInstance);
     editorInstance.on('transaction', forceUpdate);
-    onLoad(editorInstance);
 
-    return () => {
-      editorInstance.destroy();
-    };
+    setEditor(editorInstance);
+
+    onLoad?.(editorInstance);
+
+    return () => editorInstance.destroy();
   }, []);
+
+  const { isMobile } = context;
+  const { containerClassName, containerStyle, editorClassName, editorStyle } = createEditorStyles({
+    isMobile,
+    theme,
+    editorStyles,
+  });
 
   return (
     <RicosTiptapContext.Provider
       value={{
-        nodeViewsHOCs,
         context: {
           ...context,
         },
       }}
     >
-      <div dir="">
-        <EditorContent editor={editor} />
+      <div dir="" className={containerClassName} style={containerStyle}>
+        <EditorContent editor={editor} className={editorClassName} style={editorStyle} />
       </div>
     </RicosTiptapContext.Provider>
   );

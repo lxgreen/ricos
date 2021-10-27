@@ -33,12 +33,12 @@ class SettingsComponent extends PureComponent {
 
   onTextChanged = buttonText => this.setState({ buttonText });
 
-  onLinkPanelChange = linkPanelValues => {
-    this.setState(linkPanelValues);
+  onLinkPanelChange = ({ url, rel, target }) => {
+    this.setState({ url, rel, target });
   };
 
   render() {
-    const { t, showLinkPanel, uiSettings, theme } = this.props;
+    const { t, showLinkPanel, uiSettings, theme, anchorTarget, relValue } = this.props;
     const { buttonText, url, target, rel } = this.state;
     const linkValues = { url, target, rel };
     const { linkPanel } = uiSettings || {};
@@ -79,6 +79,8 @@ class SettingsComponent extends PureComponent {
               showSponsoredCheckbox={showSponsoredCheckbox}
               theme={theme}
               t={t}
+              anchorTarget={anchorTarget}
+              relValue={relValue}
             />
           </>
         )}
@@ -98,8 +100,9 @@ SettingsComponent.propTypes = {
   onKeyPress: PropTypes.func,
   onBlur: PropTypes.func,
   showLinkPanel: PropTypes.bool,
-  anchorTarget: PropTypes.string,
   uiSettings: PropTypes.object,
+  anchorTarget: PropTypes.string,
+  relValue: PropTypes.string,
 };
 
 export default SettingsComponent;

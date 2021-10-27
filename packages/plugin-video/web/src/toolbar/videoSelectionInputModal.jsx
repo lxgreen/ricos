@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { TextInput, Button, CloseIcon } from 'wix-rich-content-ui-components';
+import { TextInput, Button, CloseIcon, BUTTON_SIZE } from 'wix-rich-content-ui-components';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 import { mergeStyles, isValidExactUrl } from 'wix-rich-content-common';
 import styles from '../../statics/styles/video-selection-input-modal.scss';
@@ -184,7 +184,7 @@ export default class VideoSelectionInputModal extends Component {
               {t('VideoUploadModal_Header')}
             </h3>
           </div>
-          <div>
+          <div className={styles.video_modal_input_button_wrapper}>
             <div
               className={
                 styles[`video_modal_textInput_${hasCustomFileUpload ? 'customWidth' : 'fullWidth'}`]
@@ -205,16 +205,16 @@ export default class VideoSelectionInputModal extends Component {
                 data-hook="videoUploadModalInput"
               />
             </div>
-            <Button
-              disabled={!this.state.url}
-              theme={{ ...styles, ...theme }}
-              className={
-                styles[`video_modal_add_button_${hasCustomFileUpload ? 'inline' : 'inMiddle'}`]
-              }
-              dataHook="videoUploadModalAddButton"
-              onClick={this.onUrlVideoSelection}
-              text={t('VideoUploadModal_AddButtonText')}
-            />
+            <div className={styles.video_modal_add_button_wrapper}>
+              <Button
+                disabled={!this.state.url}
+                theme={{ ...styles, ...theme }}
+                dataHook="videoUploadModalAddButton"
+                onClick={this.onUrlVideoSelection}
+                text={t('VideoUploadModal_AddButtonText')}
+                size={isMobile ? BUTTON_SIZE.medium : BUTTON_SIZE.small}
+              />
+            </div>
           </div>
           {(!isMobile || enableCustomUploadOnMobile) && hasCustomFileUpload && uploadVideoSection}
         </div>

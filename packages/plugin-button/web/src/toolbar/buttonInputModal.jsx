@@ -8,6 +8,7 @@ import {
   Tab,
   FocusManager,
   BUTTON_SIZE,
+  SettingsMobileHeader,
 } from 'wix-rich-content-ui-components';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 import {
@@ -18,7 +19,6 @@ import {
 } from 'wix-rich-content-common';
 import DesignComponent from '../components/design-component';
 import SettingsComponent from '../components/settings-component';
-import Navbar from '../components/navbar';
 import PreviewComponent from '../components/preview-component';
 import { settingsTabValue, designTabValue } from '../constants';
 import styles from '../../statics/styles/button-input-modal.scss';
@@ -148,7 +148,6 @@ export default class ButtonInputModal extends Component {
       borderWidth: design.borderWidth,
       padding: design.padding,
       borderRadius: design.borderRadius,
-      activeButton: design.activeButton,
     };
     const componentDataToSave = pubsub.get('componentData');
     componentDataToSave.button.design = designToSave;
@@ -208,7 +207,12 @@ export default class ButtonInputModal extends Component {
     if (isMobile) {
       mobileView = (
         <div>
-          <Navbar onConfirm={this.onConfirm} onCancel={this.onCloseRequested} {...this.props} />
+          <SettingsMobileHeader
+            onSave={this.onConfirm}
+            onCancel={this.onCloseRequested}
+            theme={styles}
+            t={t}
+          />
           <PreviewComponent buttonObj={this.state} {...this.props} />
           <div className={styles.button_inputModal_scroll} ref={this.setScrollbarRef}>
             <div className={styles.button_inputModal_container} data-hook="ButtonInputModal">
@@ -253,6 +257,7 @@ export default class ButtonInputModal extends Component {
                   <Tabs value={this.state.activeTab} theme={this.styles}>
                     <Tab label={settingTabLabel} value={settingsTabValue} theme={this.styles}>
                       <div
+                        className={styles.button_tab_section}
                         role="button"
                         tabIndex="0"
                         onMouseEnter={this.handleOnMouseEnterSettings}
@@ -261,32 +266,32 @@ export default class ButtonInputModal extends Component {
                       </div>
                     </Tab>
                     <Tab label={designTabLabel} value={designTabValue} theme={this.styles}>
-                      <Scrollbars
-                        ref={this.setScrollbarRef}
-                        renderThumbVertical={() =>
-                          this.state.isHover ? (
-                            <div className={styles.button_inputModal_scrollbar_thumb} />
-                          ) : (
-                            <div />
-                          )
-                        }
-                        className={styles.button_inputModal_customize_scrollbar_container}
-                        onMouseEnter={this.handleOnMouseEnterDesign}
-                        onMouseLeave={this.handleOnMouseLeaveDesign}
-                      >
-                        {designComponent}
-                      </Scrollbars>
+                      <div className={styles.button_tab_section}>
+                        <Scrollbars
+                          ref={this.setScrollbarRef}
+                          renderThumbVertical={() =>
+                            this.state.isHover ? (
+                              <div className={styles.button_inputModal_scrollbar_thumb} />
+                            ) : (
+                              <div />
+                            )
+                          }
+                          className={styles.button_inputModal_customize_scrollbar_container}
+                          onMouseEnter={this.handleOnMouseEnterDesign}
+                          onMouseLeave={this.handleOnMouseLeaveDesign}
+                        >
+                          {designComponent}
+                        </Scrollbars>
+                      </div>
                     </Tab>
                   </Tabs>
                 </div>
               </FocusManager>
             </div>
             <SettingsPanelFooter
-              className={styles.button_inputModal_modal_footer}
-              save={() => this.onConfirm()}
-              cancel={() => this.onCloseRequested()}
-              saveLabel={doneLabel}
-              cancelLabel={cancelLabel}
+              fixed
+              save={this.onConfirm}
+              cancel={this.onCloseRequested}
               theme={styles}
               t={t}
               buttonSize={BUTTON_SIZE.small}

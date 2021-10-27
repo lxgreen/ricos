@@ -8,7 +8,7 @@ import {
   mergeStyles,
   anchorScroll,
   getRelValue,
-  getTargetValue,
+  GlobalContext,
 } from 'wix-rich-content-common';
 
 export default class UrlLinkButton extends Component {
@@ -17,6 +17,8 @@ export default class UrlLinkButton extends Component {
     const { theme } = this.props;
     this.styles = mergeStyles({ styles, theme });
   }
+
+  static contextType = GlobalContext;
 
   handleClick = event => {
     const { getEditorState, customAnchorScroll } = this.props;
@@ -28,7 +30,7 @@ export default class UrlLinkButton extends Component {
       const nodeListOfAllblocks = document.querySelectorAll(`[data-editor]`);
       const arrayOfAllblocks = Array.apply(null, nodeListOfAllblocks);
       const element = arrayOfAllblocks.find(block => block.dataset.offsetKey === `${anchor}-0-0`);
-      anchorScroll(element);
+      anchorScroll(element, this.context.experiments);
     }
   };
 
@@ -42,7 +44,7 @@ export default class UrlLinkButton extends Component {
     const href = url ? normalizeUrl(url) : undefined;
     const anchorProps = {
       href,
-      target: getTargetValue(target),
+      target,
       rel: getRelValue(rel),
       className: classNames(styles.toolbarUrl, { [styles.toolbarUrlAnchor]: anchor }),
       onMouseDown: this.preventDefault,

@@ -50,6 +50,7 @@
 
 .section {
   margin: 0 -10px;
+  padding: 24px 30px 30px;
 }
 
 .title {
@@ -133,15 +134,6 @@
 
 .selectionListOption_selected {
   background-color: rgba(2, 97, 255, 0.2);
-}
-
-.separator {
-  margin: 20px 0;
-}
-
-.separator_vertical {
-  height: 26px;
-  margin: 0 15px;
 }
 
 .labeled_toggle_root {

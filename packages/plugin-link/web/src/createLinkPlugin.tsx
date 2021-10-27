@@ -131,7 +131,7 @@ const createLinkPlugin: CreatePluginFunction<LinkPluginEditorConfig> = config =>
   };
 
   const getLinkifyData = (editorState: EditorState) => {
-    const strData = findLastStringWithNoSpaces(editorState);
+    const strData = findLastStringWithNoSpacesAndSoftLines(editorState);
     return shouldLinkify(strData) ? strData : undefined;
   };
 
@@ -141,13 +141,15 @@ const createLinkPlugin: CreatePluginFunction<LinkPluginEditorConfig> = config =>
     !(rangeContainsEntity(consecutiveString) && blockContainsPlainText(consecutiveString)) &&
     !settings?.disableAutoLink;
 
-  const findLastStringWithNoSpaces = (editorState: EditorState): LinkifyData => {
+  const findLastStringWithNoSpacesAndSoftLines = (editorState: EditorState): LinkifyData => {
     const selection = editorState.getSelection();
     const blockKey = selection.getAnchorKey();
     const block = editorState.getCurrentContent().getBlockForKey(blockKey);
     const text = block.getText();
     const endIndex = selection.getEndOffset();
-    const index = text.lastIndexOf(' ', endIndex) + 1;
+    const spaceIndex = text.lastIndexOf(' ', endIndex) + 1;
+    const softLineIndex = text.lastIndexOf('\n', endIndex) + 1;
+    const index = Math.max(spaceIndex, softLineIndex);
     const string = text.slice(index, endIndex);
     return { string, block, blockKey, index, endIndex };
   };

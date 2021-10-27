@@ -13,6 +13,13 @@
             "decorations": [
               {
                 "type": "BOLD"
+              },
+              {
+                "type": "FONT_SIZE",
+                "fontSizeData": {
+                  "unit": "PX",
+                  "value": 20
+                }
               }
             ]
           }
@@ -355,6 +362,7 @@
             "size": "FULL_WIDTH"
           },
           "alignment": "CENTER",
+          "textWrap": true,
           "spoiler": {
             "enabled": true,
             "description": "SPOILER ALERT!!!",
@@ -395,7 +403,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "video": {
           "src": {
@@ -432,7 +441,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "video": {
           "src": {
@@ -469,72 +479,68 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "items": [
           {
-            "metadata": {
-              "height": 3733,
-              "width": 5600,
-              "type": "image"
-            },
-            "itemId": "2c2698b83ba64574db5e28ed54064081",
-            "url": "8bb438_0ab44689f626435c94b9a5b996524aba.jpg",
-            "selected": false
+            "image": {
+              "media": {
+                "src": {
+                  "url": "8bb438_0ab44689f626435c94b9a5b996524aba.jpg"
+                },
+                "height": 3733,
+                "width": 5600
+              }
+            }
           },
           {
-            "metadata": {
-              "height": 1922,
-              "width": 1920,
-              "type": "image"
-            },
-            "itemId": "a327950f89cc4994f34a0cd0d4a71473",
-            "url": "8bb438_6a7159be0f944dde9098fe566bf22831.jpg",
-            "selected": false
+            "image": {
+              "media": {
+                "src": {
+                  "url": "8bb438_6a7159be0f944dde9098fe566bf22831.jpg"
+                },
+                "height": 1922,
+                "width": 1920
+              }
+            }
           },
           {
-            "metadata": {
-              "height": 3727,
-              "width": 5600,
-              "type": "image"
-            },
-            "itemId": "f6db1b532552aa00e9549b5c97e6770a",
-            "url": "8bb438_cabd67053eae45e7ab273832504717ff.jpg",
-            "selected": false
+            "video": {
+              "media": {
+                "src": {
+                  "url": "0d72ac_31569a98fd8d436f98ae9c827c216443"
+                },
+                "width": 1920,
+                "height": 1080
+              },
+              "thumbnail": {
+                "src": {
+                  "url": "8bb438_cabd67053eae45e7ab273832504717ff.jpg"
+                },
+                "height": 3727,
+                "width": 5600
+              }
+            }
           }
         ],
-        "styles": {
-          "galleryLayout": 2,
-          "gallerySizeType": "px",
-          "gallerySizePx": 300,
-          "oneRow": false,
-          "cubeRatio": 1,
-          "galleryThumbnailsAlignment": "bottom",
-          "isVertical": false,
-          "numberOfImagesPerRow": 3,
-          "imageMargin": 20,
-          "thumbnailSpacings": 0,
-          "cubeType": "fill",
-          "enableInfiniteScroll": true,
-          "titlePlacement": "SHOW_ON_HOVER",
-          "allowHover": true,
-          "itemClick": "link",
-          "showArrows": false,
-          "gridStyle": 1,
-          "loveButton": false,
-          "allowSocial": false,
-          "allowDownload": false,
-          "galleryMargin": 0,
-          "fullscreen": false,
-          "mobileSwipeAnimation": "NO_EFFECT",
-          "thumbnailSize": 120,
-          "gotStyleParams": true,
-          "showVideoPlayButton": true,
-          "videoPlay": "onClick"
-        },
-        "config": {
-          "layout": "small",
-          "spacing": 0
+        "options": {
+          "layout": {
+            "type": "GRID",
+            "horizontalScroll": false,
+            "orientation": "ROWS",
+            "numberOfColumns": 3
+          },
+          "item": {
+            "targetSize": 300,
+            "ratio": 1,
+            "crop": "FILL",
+            "spacing": 20
+          },
+          "thumbnails": {
+            "placement": "BOTTOM",
+            "spacing": 0
+          }
         },
         "disableExpand": false
       }
@@ -560,6 +566,7 @@
             "custom": "350"
           },
           "alignment": "CENTER",
+          "textWrap": true,
           "height": {
             "custom": "490"
           }
@@ -587,7 +594,8 @@
           "width": {
             "custom": "350"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "oembed": {
           "type": "rich",
@@ -614,17 +622,22 @@
       "buttonData": {
         "containerData": {
           "width": {
-            "size": "SMALL"
+            "custom": "212"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "type": "LINK",
         "styles": {
-          "borderWidth": 7,
-          "borderRadius": 5,
-          "textColor": "#0261FF",
-          "borderColor": "#0261FF",
-          "backgroundColor": "#FEFDFD"
+          "border": {
+            "width": 7,
+            "radius": 5
+          },
+          "colors": {
+            "text": "#0261FF",
+            "border": "#0261FF",
+            "background": "#FEFDFD"
+          }
         },
         "text": "Link Button",
         "link": {
@@ -654,17 +667,22 @@
       "buttonData": {
         "containerData": {
           "width": {
-            "size": "SMALL"
+            "size": "ORIGINAL"
           },
-          "alignment": "CENTER"
+          "alignment": "LEFT",
+          "textWrap": true
         },
         "type": "ACTION",
         "styles": {
-          "borderWidth": 0,
-          "borderRadius": 15,
-          "textColor": "#FEFDFD",
-          "borderColor": "#0261FF",
-          "backgroundColor": "#81B0FF"
+          "border": {
+            "width": 0,
+            "radius": 15
+          },
+          "colors": {
+            "text": "#FEFDFD",
+            "border": "#0261FF",
+            "background": "#81B0FF"
+          }
         },
         "text": "Action Button"
       }
@@ -689,7 +707,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": false
         },
         "lineStyle": "DOUBLE",
         "width": "MEDIUM",
@@ -747,7 +766,8 @@
           "width": {
             "size": "SMALL"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "original": {
           "gif": "https://media1.giphy.com/media/Cn44PUsTVimwBAtIRx/giphy.gif?cid=558f2fbejldbq3cgzrasbh2j4z47w8nn51qcbjzc6dg7g7af&rid=giphy.gif",
@@ -784,6 +804,7 @@
             "custom": "286"
           },
           "alignment": "CENTER",
+          "textWrap": true,
           "height": {
             "custom": "271"
           }
@@ -822,7 +843,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "src": {
           "url": "https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
@@ -929,7 +951,8 @@
           "width": {
             "size": "CONTENT"
           },
-          "alignment": "CENTER"
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "link": {
           "url": "www.wix.com",
@@ -956,82 +979,68 @@
       "key": "36",
       "nodes": [],
       "pollData": {
-        "config": {
-          "enableVoteRole": false
+        "containerData": {
+          "width": {
+            "size": "CONTENT"
+          },
+          "alignment": "CENTER",
+          "textWrap": true
         },
         "poll": {
-          "anonymousCount": 0,
-          "count": 13,
-          "createdBy": "3efa7e86-fc25-4ef1-a002-19769b84202f",
-          "creatorFlag": true,
           "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
-          "mediaId": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "image": {
+            "src": {
+              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
+            }
+          },
           "options": [
             {
-              "anonymousCount": 0,
-              "count": 5,
               "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
-              "latestVoters": [
-                "84856a9a-f25f-4d8f-a774-56e0b8927bbe",
-                "15c6f37e-c980-46ba-b450-11415ca5b4fe",
-                "2bff5b99-e56c-421d-b5ec-cd432a5b6961",
-                "3efa7e86-fc25-4ef1-a002-19769b84202f",
-                "28ba5b75-0c82-4239-86e3-131879cb96e7"
-              ],
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png",
-              "rating": 38,
-              "title": "Cafe Nordoy"
+              "title": "Cafe Nordoy",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png"
+                }
+              }
             },
             {
-              "anonymousCount": 0,
-              "count": 4,
               "id": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
-              "latestVoters": [
-                "3efa7e86-fc25-4ef1-a002-19769b84202f",
-                "dd0d2b42-ba5f-47e9-8a53-26c61c08f9ec",
-                "3f3fa379-9a5a-4306-8a95-f79915ef479d",
-                "7b3cad1d-bce1-4529-b402-d1e1e74962f1"
-              ],
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg",
-              "rating": 31,
-              "title": "קפה רוטשילד 65"
+              "title": "קפה רוטשילד 65",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg"
+                }
+              }
             },
             {
-              "anonymousCount": 0,
-              "count": 3,
               "id": "41679bf9-89ba-41f2-81d3-832d567531da",
-              "latestVoters": [
-                "15c6f37e-c980-46ba-b450-11415ca5b4fe",
-                "13633644-d00c-4456-a189-1575ea044f10",
-                "7b3cad1d-bce1-4529-b402-d1e1e74962f1"
-              ],
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg",
-              "rating": 23,
-              "title": "האחים"
+              "title": "האחים",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg"
+                }
+              }
             },
             {
-              "anonymousCount": 0,
-              "count": 1,
               "id": "378c6042-55cc-4e4a-9f0c-77824bee4964",
-              "latestVoters": [
-                "dd0d2b42-ba5f-47e9-8a53-26c61c08f9ec"
-              ],
-              "mediaId": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg",
-              "rating": 8,
-              "title": "הוטל מונטיפיורי"
+              "title": "הוטל מונטיפיורי",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg"
+                }
+              }
             }
           ],
-          "ownVotes": [
-            "067ed3b5-f19d-4886-8f23-acd84a586522",
-            "ee32a57f-bf6c-425a-a20c-e678bcf4a73b"
-          ],
-          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
           "settings": {
-            "multipleVotes": true,
-            "resultsVisibility": "VOTERS_ONLY",
-            "voteRole": "SITE_MEMBERS",
-            "votersDisplay": true,
-            "votesDisplay": true
+            "permissions": {
+              "view": "VOTERS",
+              "vote": "SITE_MEMBERS",
+              "allowMultipleVotes": true
+            },
+            "showVoters": true,
+            "showVotesCount": true
           }
         },
         "layout": {
@@ -1040,21 +1049,26 @@
             "direction": "LTR",
             "enableImage": false
           },
-          "option": {
+          "options": {
             "enableImage": true
           }
         },
         "design": {
           "poll": {
-            "backgroundType": "IMAGE",
-            "background": "https://static.wixstatic.com/media/2dfdd3_b120b7d9cffd4645bb143beadef13c56~mv2.jpg",
+            "background": {
+              "type": "IMAGE",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/2dfdd3_b120b7d9cffd4645bb143beadef13c56~mv2.jpg"
+                }
+              }
+            },
             "borderRadius": 0
           },
-          "option": {
+          "options": {
             "borderRadius": 0
           }
-        },
-        "siteToken": "VBLuQllkHnrmBH_7O0-Xmzek4kW6U1qHy5-p36Rfkys.eyJpbnN0YW5jZUlkIjoiYTE2NDRiZmUtNzFmOC00MDFiLWI3YWEtNTgwYzkxMDBmMDk3IiwiYXBwRGVmSWQiOiIxNDhjMjI4Ny1jNjY5LWQ4NDktZDE1My00NjNjNzQ4NmE2OTQiLCJtZXRhU2l0ZUlkIjoiMzlkNjk1MTYtYWYwNC00ZTQ1LWE2NjAtMzQwNjIwZWQ0NGNkIiwic2lnbkRhdGUiOiIyMDIwLTA3LTMwVDA4OjQyOjQ2LjQ2MVoiLCJ1aWQiOiIzZWZhN2U4Ni1mYzI1LTRlZjEtYTAwMi0xOTc2OWI4NDIwMmYiLCJwZXJtaXNzaW9ucyI6Ik9XTkVSIiwiZGVtb01vZGUiOmZhbHNlLCJhaWQiOiIzYTk1MzMzMS1hZGU4LTQzMDMtOWM5NC04NmIzNmU0ZDAzMzIiLCJiaVRva2VuIjoiOThiMmRlZTgtZGVmYy0wZTVlLTExY2EtNmMwYWIxZWRiNDVhIiwic2l0ZU93bmVySWQiOiIzZWZhN2U4Ni1mYzI1LTRlZjEtYTAwMi0xOTc2OWI4NDIwMmYiLCJleHBpcmF0aW9uRGF0ZSI6IjIwMjAtMDctMzBUMTI6NDI6NDYuNDYxWiIsImhhc1VzZXJSb2xlIjp0cnVlfQ"
+        }
       }
     },
     {
@@ -1369,7 +1383,7 @@
               }
             },
             {
-              "type": "BULLET_LIST",
+              "type": "BULLETED_LIST",
               "key": "58",
               "nodes": [
                 {
@@ -1444,7 +1458,7 @@
       }
     },
     {
-      "type": "BULLET_LIST",
+      "type": "BULLETED_LIST",
       "key": "64",
       "nodes": [
         {
@@ -1473,7 +1487,7 @@
               }
             },
             {
-              "type": "BULLET_LIST",
+              "type": "BULLETED_LIST",
               "key": "67",
               "nodes": [
                 {
@@ -1502,7 +1516,7 @@
                       }
                     },
                     {
-                      "type": "BULLET_LIST",
+                      "type": "BULLETED_LIST",
                       "key": "70",
                       "nodes": [
                         {
@@ -1531,7 +1545,7 @@
                               }
                             },
                             {
-                              "type": "BULLET_LIST",
+                              "type": "BULLETED_LIST",
                               "key": "73",
                               "nodes": [
                                 {
@@ -1560,7 +1574,7 @@
                                       }
                                     },
                                     {
-                                      "type": "BULLET_LIST",
+                                      "type": "BULLETED_LIST",
                                       "key": "76",
                                       "nodes": [
                                         {
@@ -1787,6 +1801,7 @@
             "custom": "300"
           },
           "alignment": "RIGHT",
+          "textWrap": true,
           "spoiler": {
             "enabled": true
           }
@@ -1847,6 +1862,595 @@
     {
       "type": "PARAGRAPH",
       "key": "93",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "key": "94",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "COLLAPSIBLE_LIST",
+      "key": "95",
+      "nodes": [
+        {
+          "type": "COLLAPSIBLE_ITEM",
+          "key": "96",
+          "nodes": [
+            {
+              "type": "COLLAPSIBLE_ITEM_TITLE",
+              "key": "97",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "98",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "key": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "Collapsible List",
+                        "decorations": [
+                          {
+                            "type": "COLOR",
+                            "colorData": {
+                              "foreground": "color4"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ]
+            },
+            {
+              "type": "COLLAPSIBLE_ITEM_BODY",
+              "key": "99",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "100",
+                  "nodes": [],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "COLLAPSIBLE_ITEM",
+          "key": "101",
+          "nodes": [
+            {
+              "type": "COLLAPSIBLE_ITEM_TITLE",
+              "key": "102",
+              "nodes": [
+                {
+                  "type": "BLOCKQUOTE",
+                  "key": "103",
+                  "nodes": [
+                    {
+                      "type": "PARAGRAPH",
+                      "key": "104",
+                      "nodes": [
+                        {
+                          "type": "TEXT",
+                          "key": "",
+                          "nodes": [],
+                          "textData": {
+                            "text": "#LivingTheDream",
+                            "decorations": []
+                          }
+                        }
+                      ],
+                      "paragraphData": {
+                        "textStyle": {
+                          "textAlignment": "AUTO"
+                        },
+                        "indentation": 0
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "COLLAPSIBLE_ITEM_BODY",
+              "key": "105",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "106",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "key": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "Yo yo yo!",
+                        "decorations": [
+                          {
+                            "type": "BOLD"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "collapsibleListData": {
+        "initialExpandedItems": "FIRST",
+        "direction": "LTR",
+        "containerData": {
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "expandOnlyOne": false
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "key": "107",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "TABLE",
+      "key": "108",
+      "nodes": [
+        {
+          "type": "TABLE_ROW",
+          "key": "109",
+          "nodes": [
+            {
+              "type": "TABLE_CELL",
+              "key": "110",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "111",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "key": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "​",
+                        "decorations": []
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ],
+              "tableCellData": {
+                "cellStyle": {
+                  "verticalAlignment": "TOP",
+                  "backgroundColor": "#FF0000"
+                },
+                "borderColors": {}
+              }
+            },
+            {
+              "type": "TABLE_CELL",
+              "key": "112",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "113",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "key": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "Yo yo yo!",
+                        "decorations": [
+                          {
+                            "type": "BOLD"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ],
+              "tableCellData": {
+                "cellStyle": {
+                  "verticalAlignment": "TOP"
+                },
+                "borderColors": {
+                  "left": "#3A54B4",
+                  "right": "#3A54B4",
+                  "top": "#3A54B4",
+                  "bottom": "#3A54B4"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "TABLE_ROW",
+          "key": "114",
+          "nodes": [
+            {
+              "type": "TABLE_CELL",
+              "key": "115",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "116",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "key": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "​SPOILER ALERT!",
+                        "decorations": [
+                          {
+                            "type": "SPOILER"
+                          },
+                          {
+                            "type": "COLOR",
+                            "colorData": {
+                              "foreground": "color3"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 1
+                  }
+                }
+              ],
+              "tableCellData": {
+                "cellStyle": {
+                  "verticalAlignment": "TOP"
+                },
+                "borderColors": {}
+              }
+            },
+            {
+              "type": "TABLE_CELL",
+              "key": "117",
+              "nodes": [
+                {
+                  "type": "PARAGRAPH",
+                  "key": "118",
+                  "nodes": [
+                    {
+                      "type": "TEXT",
+                      "key": "",
+                      "nodes": [],
+                      "textData": {
+                        "text": "​",
+                        "decorations": []
+                      }
+                    }
+                  ],
+                  "paragraphData": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0
+                  }
+                }
+              ],
+              "tableCellData": {
+                "cellStyle": {
+                  "verticalAlignment": "TOP"
+                },
+                "borderColors": {}
+              }
+            }
+          ]
+        }
+      ],
+      "tableData": {
+        "containerData": {
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "dimensions": {
+          "colsWidthRatio": [
+            10,
+            10
+          ],
+          "rowsHeight": [
+            47,
+            47
+          ],
+          "colsMinWidth": [
+            120,
+            120
+          ]
+        },
+        "header": true
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "key": "119",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "key": "120",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "POLL",
+      "key": "121",
+      "nodes": [],
+      "pollData": {
+        "containerData": {
+          "width": {
+            "size": "CONTENT"
+          },
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "poll": {
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "image": {
+            "src": {
+              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
+            }
+          },
+          "options": [
+            {
+              "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
+              "title": "Cafe Nordoy",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png"
+                }
+              }
+            },
+            {
+              "id": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
+              "title": "קפה רוטשילד 65",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "41679bf9-89ba-41f2-81d3-832d567531da",
+              "title": "האחים",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "378c6042-55cc-4e4a-9f0c-77824bee4964",
+              "title": "הוטל מונטיפיורי",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg"
+                }
+              }
+            }
+          ],
+          "settings": {
+            "permissions": {
+              "view": "EVERYONE",
+              "vote": "SITE_MEMBERS",
+              "allowMultipleVotes": true
+            },
+            "showVoters": false,
+            "showVotesCount": false
+          }
+        },
+        "layout": {
+          "poll": {
+            "type": "GRID",
+            "direction": "LTR",
+            "enableImage": false
+          },
+          "options": {
+            "enableImage": true
+          }
+        },
+        "design": {
+          "poll": {
+            "background": {
+              "type": "GRADIENT",
+              "gradient": {
+                "angle": 45,
+                "startColor": "#EF4538",
+                "lastColor": "#488FFE"
+              }
+            },
+            "borderRadius": 5
+          },
+          "options": {
+            "borderRadius": 5
+          }
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "key": "122",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    },
+    {
+      "type": "POLL",
+      "key": "123",
+      "nodes": [],
+      "pollData": {
+        "containerData": {
+          "width": {
+            "size": "CONTENT"
+          },
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "poll": {
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "image": {
+            "src": {
+              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
+            }
+          },
+          "options": [
+            {
+              "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
+              "title": "Cafe Nordoy",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png"
+                }
+              }
+            },
+            {
+              "id": "ee32a57f-bf6c-425a-a20c-e678bcf4a73b",
+              "title": "קפה רוטשילד 65",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "41679bf9-89ba-41f2-81d3-832d567531da",
+              "title": "האחים",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg"
+                }
+              }
+            },
+            {
+              "id": "378c6042-55cc-4e4a-9f0c-77824bee4964",
+              "title": "הוטל מונטיפיורי",
+              "image": {
+                "src": {
+                  "url": "https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg"
+                }
+              }
+            }
+          ],
+          "settings": {
+            "permissions": {
+              "view": "CREATOR",
+              "vote": "SITE_MEMBERS",
+              "allowMultipleVotes": false
+            },
+            "showVoters": true,
+            "showVotesCount": true
+          }
+        },
+        "layout": {
+          "poll": {
+            "type": "GRID",
+            "direction": "RTL",
+            "enableImage": true
+          },
+          "options": {
+            "enableImage": true
+          }
+        },
+        "design": {
+          "poll": {
+            "background": {
+              "type": "COLOR",
+              "color": "#EF4538"
+            },
+            "borderRadius": 8
+          },
+          "options": {
+            "borderRadius": 2
+          }
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "key": "124",
       "nodes": [],
       "paragraphData": {
         "textStyle": {

@@ -13,6 +13,7 @@ interface State {
   remountKey: boolean;
   error?: string;
   TextSelectionToolbar?;
+  LinkPreviewPopover?;
 }
 
 export class RicosViewer extends Component<RicosViewerProps, State> {
@@ -80,9 +81,23 @@ export class RicosViewer extends Component<RicosViewerProps, State> {
     }
   };
 
+  loadLinkPreviewPopover = () => {
+    const { linkPreviewPopoverFetchData, isMobile } = this.props;
+    const needLoadLinkPreviewPopover = linkPreviewPopoverFetchData && !isMobile;
+    if (needLoadLinkPreviewPopover && !this.state.LinkPreviewPopover) {
+      const LinkPreviewPopover = React.lazy(() => import('./LinkPreviewPopover'));
+      this.setState({ LinkPreviewPopover });
+    }
+  };
+
+  onMouseOver = () => {
+    this.loadTextSelection();
+    this.loadLinkPreviewPopover();
+  };
+
   render() {
-    const { children, seoSettings, ...props } = this.props;
-    const { isPreviewExpanded, localeData, TextSelectionToolbar } = this.state;
+    const { children, seoSettings, linkPreviewPopoverFetchData, ...props } = this.props;
+    const { isPreviewExpanded, localeData, TextSelectionToolbar, LinkPreviewPopover } = this.state;
     try {
       if (this.state.error) {
         this.props.onError?.(this.state.error);
@@ -106,14 +121,22 @@ export class RicosViewer extends Component<RicosViewerProps, State> {
           {React.cloneElement(child, {
             seoMode: seoSettings,
             setRef: this.setRef,
-            onMouseOver: this.loadTextSelection,
+            onMouseOver: this.onMouseOver,
             ...localeData,
           })}
         </RicosEngine>,
         TextSelectionToolbar ? (
-          <Suspense fallback={<div />}>
+          <Suspense key="TextSelectionToolbar" fallback={<div />}>
             <TextSelectionToolbar
               onButtonClick={this.getBiCallback('onViewerAction')}
+              container={this.viewerRef}
+            />
+          </Suspense>
+        ) : null,
+        LinkPreviewPopover ? (
+          <Suspense key="LinkPreviewPopover" fallback={<div />}>
+            <LinkPreviewPopover
+              fetchUrlPreviewData={linkPreviewPopoverFetchData}
               container={this.viewerRef}
             />
           </Suspense>

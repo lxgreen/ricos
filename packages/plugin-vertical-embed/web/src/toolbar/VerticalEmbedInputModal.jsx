@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { LoaderIcon } from 'wix-rich-content-plugin-commons';
 import {
   UrlInputModal,
+  SearchInputModal,
   FOOTER_BUTTON_ALIGNMENT,
   MODAL_CONTROLS_POSITION,
   BUTTON_SIZE,
@@ -64,8 +65,8 @@ export default class VerticalEmbedInputModal extends Component {
     helpers.closeModal();
   };
 
-  onItemClick = item => {
-    const { selectedProduct } = this.state;
+  onItemClick = ({ getDescription, ...item }) => {
+    const { selectedProduct, items } = this.state;
     if (item.id === selectedProduct?.id) {
       this.onConfirm();
     } else {
@@ -79,15 +80,13 @@ export default class VerticalEmbedInputModal extends Component {
       t,
     } = this.props;
     const { items } = this.state;
-    let getDescriptionFunc;
+    let getDescription;
     if (type === verticalEmbedProviders.booking) {
-      getDescriptionFunc = product => convertDuration(product.durations, t);
+      getDescription = product => convertDuration(product.durations, t);
     } else if (type === verticalEmbedProviders.event) {
-      getDescriptionFunc = product => `${product.scheduling} | ${product.location}`;
+      getDescription = product => `${product.scheduling} | ${product.location}`;
     }
-    return getDescriptionFunc
-      ? items.map(product => ({ ...product, description: getDescriptionFunc(product) }))
-      : items;
+    return getDescription ? items.map(product => ({ ...product, getDescription })) : items;
   };
 
   render() {
@@ -97,6 +96,7 @@ export default class VerticalEmbedInputModal extends Component {
       componentData: { type },
       helpers,
       isMobile,
+      experiments,
     } = this.props;
     const contentType = contentTypeMap[type];
     const selected = selectedProduct !== null;
@@ -112,15 +112,19 @@ export default class VerticalEmbedInputModal extends Component {
     );
     const show = status !== NO_ITEMS;
     const textInput = show ? { searchIcon: true } : false;
+    //! Needs to be removed when old UrlInputModal is not used
+    const useNewModal = experiments?.newVerticalEmbedModal?.enabled;
+    const UrlInputModalComponent = useNewModal ? SearchInputModal : UrlInputModal;
 
     return (
-      <UrlInputModal
+      <UrlInputModalComponent
         onConfirm={this.onConfirm}
         helpers={helpers}
         t={t}
         title={t(`Embed_Vertical_${contentType}_Title`)}
         dataHook={'verticalEmbedModal'}
         placeholder={t(`Embed_Vertical_${contentType}_Placeholder`)}
+        saveLabel={t('Embed_Add_Button_Label')}
         onCloseRequested={helpers.closeModal}
         onInputChange={this.onInputChange}
         input={inputString}
@@ -130,6 +134,7 @@ export default class VerticalEmbedInputModal extends Component {
         selected={selected}
         textInput={textInput}
         buttonSize={BUTTON_SIZE.small}
+        showTitle={!isMobile}
       >
         <div className={styles.itemsWrapper}>
           {status === LOADING ? (
@@ -149,7 +154,7 @@ export default class VerticalEmbedInputModal extends Component {
             />
           )}
         </div>
-      </UrlInputModal>
+      </UrlInputModalComponent>
     );
   }
 }
@@ -163,4 +168,5 @@ VerticalEmbedInputModal.propTypes = {
   isMobile: PropTypes.bool,
   verticalsApi: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
+  experiments: PropTypes.object,
 };

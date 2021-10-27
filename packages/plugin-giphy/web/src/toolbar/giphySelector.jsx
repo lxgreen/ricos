@@ -90,9 +90,9 @@ class GiphySelector extends Component {
       originalUrl: giphy.images.original.url,
       originalMp4: giphy.images.original.mp4,
       stillUrl: giphy.images.original_still.url,
-      downsizedUrl: giphy.images.downsized.url,
-      downsizedStillUrl: giphy.images.downsized_still.url,
-      downsizedSmallMp4: giphy.images.downsized_small.mp4,
+      downsizedUrl: giphy.images.downsized?.url || giphy.images.original.url,
+      downsizedStillUrl: giphy.images.downsized_still?.url || giphy.images.original.url,
+      downsizedSmallMp4: giphy.images.downsized_small?.mp4 || giphy.images.original.mp4,
       height: parseInt(giphy.images.original.height, 10),
       width: parseInt(giphy.images.original.width, 10),
     };
