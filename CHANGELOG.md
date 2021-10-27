@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
 
+- `social-polls`
+  - [#3041](https://github.com/wix/ricos/pull/3041) fallback user
 
 </details>
 <hr/>
@@ -50,6 +53,7 @@
 - [#3037](https://github.com/wix/ricos/pull/3037) FromDraftOptions
 
 ### :nail_care: Polish
+
 - `ricos-schema`
   - [#2927](https://github.com/wix/ricos/pull/2927) text decorations and `documentStyle` schema
 
