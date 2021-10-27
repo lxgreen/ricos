@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component, CSSProperties, FocusEvent } from 'react';
-import classNames from 'classnames';
 import Editor from 'draft-js-plugins-editor';
 import { get, includes, debounce, cloneDeep } from 'lodash';
 import Measure, { BoundingRect, ContentRect } from 'react-measure';
@@ -21,6 +20,7 @@ import {
   getBlockInfo,
   getFocusedBlockKey,
   createCalcContentDiff,
+  createEditorStyles,
   getBlockType,
   COMMANDS,
   MODIFIERS,
@@ -77,7 +77,7 @@ import {
   CommandHandler,
   KeyCommand,
 } from 'wix-rich-content-common';
-import styles from '../../statics/styles/rich-content-editor.scss';
+import editorStyles from '../../statics/styles/rich-content-editor.scss';
 import draftStyles from '../../statics/styles/draft.rtlignore.scss';
 import 'wix-rich-content-common/dist/statics/styles/draftDefault.rtlignore.scss';
 import InnerRCE from './InnerRCE';
@@ -1242,23 +1242,35 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
   setEditorWrapper = ref => ref && (this.editorWrapper = ref);
 
   render() {
-    const { onError, locale, direction, showToolbars = true, isInnerRCE } = this.props;
+    const {
+      onError,
+      locale,
+      direction,
+      showToolbars = true,
+      isInnerRCE,
+      isMobile = false,
+    } = this.props;
     const { innerModal } = this.state;
-    const editorStyle = isInnerRCE ? { backgroundColor: 'transparent' } : {};
 
     try {
       if (this.state.error) {
         onError(this.state.error);
         return null;
       }
-      const { isMobile = false } = this.props;
       const { theme } = this.contextualData;
-      const themeDesktopStyle = theme.desktop
-        ? { [theme.desktop]: !isMobile && theme && theme.desktop }
-        : {};
-      const wrapperClassName = classNames(draftStyles.wrapper, styles.wrapper, theme.wrapper, {
-        [styles.desktop]: !isMobile,
-        ...themeDesktopStyle,
+
+      const {
+        containerStyle,
+        containerClassName,
+        editorStyle,
+        editorClassName,
+      } = createEditorStyles({
+        isInnerRCE,
+        isMobile,
+        containerStyle: this.props.style,
+        theme,
+        draftStyles,
+        editorStyles,
       });
 
       return (
@@ -1268,19 +1280,15 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
               <div
                 onFocus={this.onFocus}
                 onBlur={this.onBlur}
-                style={this.props.style}
+                style={containerStyle}
                 ref={measureRef}
-                className={wrapperClassName}
+                className={containerClassName}
                 dir={direction || getLangDir(this.props.locale)}
                 data-id={'rce'}
                 data-hook={!isInnerRCE ? 'root-editor' : 'inner-editor'}
               >
                 {this.renderStyleTag()}
-                <div
-                  ref={this.setEditorWrapper}
-                  className={classNames(styles.editor, theme.editor)}
-                  style={editorStyle}
-                >
+                <div ref={this.setEditorWrapper} className={editorClassName} style={editorStyle}>
                   {this.renderAccessibilityListener()}
 
                   {this.renderEditor()}

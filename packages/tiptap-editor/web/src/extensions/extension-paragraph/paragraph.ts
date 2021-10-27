@@ -37,8 +37,10 @@ export const Paragraph = Node.create<ParagraphOptions>({
     return [{ tag: 'div' }];
   },
 
-  renderHTML({ HTMLAttributes }) {
-    return ['div', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
+  renderHTML({ HTMLAttributes, node }) {
+    const lineHeight = node.attrs.textStyle?.lineHeight;
+    const style = lineHeight ? `line-height: ${lineHeight};` : '';
+    return ['div', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, { style }), 0];
   },
   addCommands() {
     return {

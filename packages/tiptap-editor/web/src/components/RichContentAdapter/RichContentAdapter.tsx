@@ -1,6 +1,4 @@
-import React from 'react';
 import { TiptapAPI } from '../../types';
-import Toolbar from '../../components/Toolbar';
 import { capitalize } from 'lodash';
 import {
   RICOS_DIVIDER_TYPE,
