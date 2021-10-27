@@ -68,7 +68,11 @@ export default class AddPluginFloatingToolbar extends PureComponent {
       version: Version.currentVersion,
       menu: 'SIDE',
     });
-    if (onClick && !event.target.closest('[data-hook=TableComponent]')) {
+    if (
+      onClick &&
+      !event.target.closest('[data-hook=TableComponent]') &&
+      !event.target.closest('[data-hook=collapsibleListComponent]')
+    ) {
       onClick();
     } else if (!isMobile) {
       this.togglePopup();
