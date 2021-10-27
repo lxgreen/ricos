@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.58.1 (Oct 27, 2021)
+
 ### :rocket: New Feature
 
 - `social-polls`
   - [#3041](https://github.com/wix/ricos/pull/3041) fallback user
-
-</details>
-<hr/>
 
 ## 8.58.0 (Oct 27, 2021)
 
