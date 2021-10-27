@@ -42,6 +42,11 @@
 
 - [#3037](https://github.com/wix/ricos/pull/3037) FromDraftOptions
 
+### :nail_care: Polish
+- `ricos-schema`
+  - [#2927](https://github.com/wix/ricos/pull/2927) text decorations and `documentStyle` schema
+
+
 </details>
 <hr/>
 
