@@ -1,4 +1,5 @@
 {
+  "Poll_Viewer_VoteCount_Modal_Voters_Private_Voter": "Private User",
   "Poll_Viewer_ShowAllOptions_CTA": "Ver todas las opciones",
   "Spoiler_Reveal_Tooltip": "Haz clic para revelar",
   "Viewer_Toolbar_Twitter_Tooltip": "Tuitea esto",
@@ -11,13 +12,16 @@
   "Preview_ReadMore_Label": "Leer más",
   "Spoiler_Insert_Tooltip": "Spoiler",
   "Spoiler_Reveal_Gallery_Placeholder": "Esta galería contiene un spoiler",
+  "VerticalEmbed_Bookings_Button": "Reservar ahora",
   "Spoiler_Reveal_Gallery_CTA": "Mostrar galería",
   "Poll_Viewer_ShowLess_CTA": "Mostrar menos",
   "Poll_Viewer_VoteCount_Modal_Voters_Anonymous": "+{{anonNumber}} anónimos",
   "Poll_Viewer_VoteCount_Modal_Voters_CTA_Follow": "Seguir",
+  "VerticalEmbed_Products_Button": "Comprar ahora",
   "Poll_Viewer_Toast_Error_ServerDown": "No se pudo conectar al servidor. Inténtalo de nuevo más tarde.",
   "Poll_Viewer_VoteCount_Modal_Voters_Header": "{{count}} personas votaron por esta respuesta",
   "Poll_Viewer_VoteCount": "{{number}} votos",
+  "VerticalEmbed_Events_Button": "Regístrate ahora",
   "Spoiler_Reveal_Image_CTA": "Mostrar imagen",
   "Poll_Viewer_Toast_Error_Connection": "No hay internet. Verifica tu conexión.",
   "Poll_Viewer_Visibility_Owner_Footer": "Solo tú puedes ver los resultados.",
@@ -26,9 +30,6 @@
   "Spoiler_Reveal_Video_Placeholder": "Este vídeo contiene un spoiler",
   "Preview_SeeFullPost_Label": "Ver la entrada completa",
   "UploadFile_Viewer_Download": "Descargar {{fileType}}",
-  "VerticalEmbed_Bookings_Button": "Reservar ahora",
-  "VerticalEmbed_Units_Minute": "{{minutes}} min",
-  "VerticalEmbed_Products_Button": "Comprar ahora",
   "VerticalEmbed_Units_Hour": "{{hours}} h",
-  "VerticalEmbed_Events_Button": "Regístrate ahora"
+  "VerticalEmbed_Units_Minute": "{{minutes}} min"
 }
