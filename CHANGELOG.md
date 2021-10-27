@@ -21,6 +21,8 @@
 
 - `social-polls`
   - [#3025](https://github.com/wix/ricos/pull/3025) refactor polls config API & normalize poll data
+- `editor`
+  - [#3028](https://github.com/wix/ricos/pull/3028) plugin menu shortcuts
 
 ### :bug: Bug Fix
 

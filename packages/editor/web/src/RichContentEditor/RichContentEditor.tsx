@@ -553,6 +553,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       tablePluginMenu,
       pubsub: this.commonPubsub,
       experiments,
+      focusEditor: this.focus,
     });
   }
 
@@ -701,6 +702,13 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     }
   };
 
+  openPluginMenu = () => {
+    const pluginMenuButton = this.editorWrapper.querySelectorAll(
+      `[data-hook="addPluginFloatingToolbar"]`
+    )[0] as HTMLElement;
+    pluginMenuButton?.click?.();
+  };
+
   getHeadings = config => {
     const { [HEADINGS_DROPDOWN_TYPE]: headingsPluginSettings } = config;
 
@@ -814,6 +822,16 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
 
   customCommands: KeyCommand[] = [
     {
+      command: COMMANDS.OPEN_PLUGIN_MENU,
+      modifiers: [MODIFIERS.CTRL, MODIFIERS.ALT],
+      keyCode: 80,
+    },
+    {
+      command: COMMANDS.OPEN_PLUGIN_MENU,
+      modifiers: [MODIFIERS.COMMAND, MODIFIERS.CTRL],
+      keyCode: 80,
+    },
+    {
       command: COMMANDS.FOCUS_TOOLBAR,
       modifiers: [MODIFIERS.ALT],
       keyCode: 84,
@@ -849,6 +867,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
   ] as KeyCommand[];
 
   customCommandHandlers: Record<string, CommandHandler> = {
+    openPluginMenu: this.openPluginMenu,
     focusToolbar: this.focusOnToolbar,
     tab: this.handleTabCommand,
     shiftTab: this.handleTabCommand,

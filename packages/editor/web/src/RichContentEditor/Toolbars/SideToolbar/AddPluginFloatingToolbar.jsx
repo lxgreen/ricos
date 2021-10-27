@@ -81,6 +81,7 @@ export default class AddPluginFloatingToolbar extends PureComponent {
     switch (event.key) {
       case 'Escape':
         this.hidePopup();
+        this.props.focusEditor();
         break;
       default:
         break;
@@ -250,4 +251,5 @@ AddPluginFloatingToolbar.propTypes = {
   t: PropTypes.func,
   addPluginMenuConfig: PropTypes.object,
   onClick: PropTypes.func,
+  focusEditor: PropTypes.func,
 };
