@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.58.0 (Oct 27, 2021)
+
 ### :rocket: New Feature
 
 - `social-polls`
@@ -45,10 +52,6 @@
 ### :nail_care: Polish
 - `ricos-schema`
   - [#2927](https://github.com/wix/ricos/pull/2927) text decorations and `documentStyle` schema
-
-
-</details>
-<hr/>
 
 ## 8.57.0 (Oct 25, 2021)
 
