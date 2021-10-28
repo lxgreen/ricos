@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import editorStyles from '../../statics/styles/editor-styles.scss';
 import { CSSProperties } from 'react';
 
 interface EditorStyleCreatorArgs {
@@ -7,7 +8,6 @@ interface EditorStyleCreatorArgs {
   isInnerRCE?: boolean;
   containerStyle?: CSSProperties;
   draftStyles?;
-  editorStyles?;
 }
 
 export const createEditorStyles = ({
@@ -16,7 +16,6 @@ export const createEditorStyles = ({
   containerStyle,
   theme = {},
   draftStyles = {},
-  editorStyles = {},
 }: EditorStyleCreatorArgs) => {
   const editorStyle = isInnerRCE ? { backgroundColor: 'transparent' } : {};
   const themeDesktopStyle = theme.desktop

@@ -1,6 +1,5 @@
 import { Editor, EditorContent, JSONContent } from '@tiptap/react';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import editorStyles from '../../statics/styles/tiptap-editor-styles.scss';
 import { createEditorStyles } from 'wix-rich-content-editor-common';
 import { tiptapToDraft } from '../..';
 import { RicosTiptapContext } from '../../context';
@@ -55,7 +54,6 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   const { containerClassName, containerStyle, editorClassName, editorStyle } = createEditorStyles({
     isMobile,
     theme,
-    editorStyles,
   });
 
   return (

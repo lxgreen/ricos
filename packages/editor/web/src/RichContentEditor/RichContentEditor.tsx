@@ -77,7 +77,6 @@ import {
   CommandHandler,
   KeyCommand,
 } from 'wix-rich-content-common';
-import editorStyles from '../../statics/styles/rich-content-editor.scss';
 import draftStyles from '../../statics/styles/draft.rtlignore.scss';
 import 'wix-rich-content-common/dist/statics/styles/draftDefault.rtlignore.scss';
 import InnerRCE from './InnerRCE';
@@ -1270,7 +1269,6 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
         containerStyle: this.props.style,
         theme,
         draftStyles,
-        editorStyles,
       });
 
       return (
