@@ -229,7 +229,7 @@
       "ricos-driver": ["packages/ricos-driver/web/src"],
       "ricos-editor": ["packages/ricos-editor/web/src"],
       "ricos-schema": ["packages/ricos-schema/web/src/generated/wix/rich_content/v1"],
-      "ricos-schema/dist/*": ["packages/ricos-schema/web/*"],
+      "ricos-schema/dist/statics/*": ["packages/ricos-schema/web/dist/statics/*"],
       "ricos-viewer": ["packages/ricos-viewer/web/src"],
       "wix-rich-content-text-selection-toolbar": ["packages/text-selection-toolbar/web/src"],
       "wix-tiptap-editor": ["packages/tiptap-editor/web/src"],
