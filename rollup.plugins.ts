@@ -99,7 +99,7 @@ const typescript = (): Plugin => {
     tsconfigOverride: {
       compilerOptions: {
         declarationDir: absPath('dist'),
-        rootDir: absPath(''),
+        // rootDir: absPath(''),
         sourceMap: true,
         allowJs: process.env.ALLOW_JS === 'true',
       },
