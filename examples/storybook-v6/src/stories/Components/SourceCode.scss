@@ -1,0 +1,12 @@
+
+.sourcecode {
+  margin-top: 20px;
+  transition: max-height 1s linear;
+  overflow: hidden;
+  max-height: 0;
+
+  &.open {
+    transition: max-height 1s linear;
+    max-height: 2000px;
+  }
+};
