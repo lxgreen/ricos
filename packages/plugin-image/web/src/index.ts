@@ -4,3 +4,4 @@ export { IMAGE_TYPE_LEGACY, IMAGE_TYPE } from './types';
 export { Modals, ModalsMap } from './modals';
 export { pluginImage } from './editor';
 export { Component as ImageComponent } from './image-component';
+export { typeMapper as imageTypeMapper } from './typeMapper';

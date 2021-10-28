@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
     "typeRoots": ["./node_modules/@types", "./external-types.d.ts"],
-    "composite": true,
+    "composite": false,
+    "outDir": "./dist",
     "declaration": true,
     "declarationMap": true,
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
     "module": "ESNext",
@@ -16,9 +18,236 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "preserveConstEnums": false,
-    "allowJs": true
+    "types": ["googlemaps", "cypress"],
+    "allowJs": true,
+    "baseUrl": "./",
+    "paths": {
+      "wix-rich-content-common": ["packages/common/web/src"],
+      "wix-rich-content-common/libs/*": ["packages/common/web/lib/*"],
+      "wix-rich-content-common/dist/*": ["packages/common/web/*"],
+      "wix-rich-content-editor": ["packages/editor/web/src"],
+      "wix-rich-content-editor/libs/*": ["packages/editor/web/lib/*"],
+      "wix-rich-content-editor-common": ["packages/editor-common/web/src"],
+      "wix-rich-content-editor-common/libs/*": ["packages/editor-common/web/lib/*"],
+      "wix-rich-content-fullscreen": ["packages/fullScreen/web/src"],
+      "wix-rich-content-fullscreen/libs/*": ["packages/fullScreen/web/lib/*"],
+      "wix-rich-content-link-preview-popover": ["packages/link-preview-popover/web/src"],
+      "wix-rich-content-plugin-commons": ["packages/plugin-commons/web/src"],
+      "wix-rich-content-plugin-button": ["packages/plugin-button/web/src"],
+      "wix-rich-content-plugin-button/viewer": ["packages/plugin-button/web/src/viewer"],
+      "wix-rich-content-plugin-button/loadable/viewer": [
+        "packages/plugin-button/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-button/libs/*": ["packages/plugin-button/web/lib/*"],
+      "wix-rich-content-plugin-code-block": ["packages/plugin-code-block/web/src"],
+      "wix-rich-content-plugin-code-block/viewer": ["packages/plugin-code-block/web/src/viewer"],
+      "wix-rich-content-plugin-code-block/loadable/viewer": [
+        "packages/plugin-code-block/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-code-block/libs/*": ["packages/plugin-code-block/web/lib/*"],
+      "wix-rich-content-plugin-collapsible-list": ["packages/plugin-collapsible-list/web/src"],
+      "wix-rich-content-plugin-collapsible-list/viewer": [
+        "packages/plugin-collapsible-list/web/src/viewer"
+      ],
+      "wix-rich-content-plugin-collapsible-list/loadable/viewer": [
+        "packages/plugin-collapsible-list/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-collapsible-list/libs/*": [
+        "packages/plugin-collapsible-list/web/lib/*"
+      ],
+      "wix-rich-content-plugin-divider": ["packages/plugin-divider/web/src"],
+      "wix-rich-content-plugin-divider/viewer": ["packages/plugin-divider/web/src/viewer"],
+      "wix-rich-content-plugin-divider/loadable/viewer": [
+        "packages/plugin-divider/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-divider/libs/*": ["packages/plugin-divider/web/lib/*"],
+      "wix-rich-content-plugin-emoji": ["packages/plugin-emoji/web/src"],
+      "wix-rich-content-plugin-emoji/viewer": ["packages/plugin-emoji/web/src/viewer"],
+      "wix-rich-content-plugin-emoji/loadable/viewer": [
+        "packages/plugin-emoji/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-emoji/libs/*": ["packages/plugin-emoji/web/lib/*"],
+      "wix-rich-content-plugin-file-upload": ["packages/plugin-file-upload/web/src"],
+      "wix-rich-content-plugin-file-upload/viewer": ["packages/plugin-file-upload/web/src/viewer"],
+      "wix-rich-content-plugin-file-upload/loadable/viewer": [
+        "packages/plugin-file-upload/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-file-upload/libs/*": ["packages/plugin-file-upload/web/lib/*"],
+      "wix-rich-content-plugin-gallery": ["packages/plugin-gallery/web/src"],
+      "wix-rich-content-plugin-gallery/viewer": ["packages/plugin-gallery/web/src/viewer"],
+      "wix-rich-content-plugin-gallery/loadable/viewer": [
+        "packages/plugin-gallery/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-gallery/libs/*": ["packages/plugin-gallery/web/lib/*"],
+      "wix-rich-content-plugin-giphy": ["packages/plugin-giphy/web/src"],
+      "wix-rich-content-plugin-giphy/viewer": ["packages/plugin-giphy/web/src/viewer"],
+      "wix-rich-content-plugin-giphy/loadable/viewer": [
+        "packages/plugin-giphy/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-giphy/libs/*": ["packages/plugin-giphy/web/lib/*"],
+      "wix-rich-content-plugin-hashtag": ["packages/plugin-hashtag/web/src"],
+      "wix-rich-content-plugin-hashtag/viewer": ["packages/plugin-hashtag/web/src/viewer"],
+      "wix-rich-content-plugin-hashtag/loadable/viewer": [
+        "packages/plugin-hashtag/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-hashtag/libs/*": ["packages/plugin-hashtag/web/lib/*"],
+      "wix-rich-content-plugin-headers-markdown": ["packages/plugin-headers-markdown/web/src"],
+      "wix-rich-content-plugin-headers-markdown/viewer": [
+        "packages/plugin-headers-markdown/web/src/viewer"
+      ],
+      "wix-rich-content-plugin-headers-markdown/loadable/viewer": [
+        "packages/plugin-headers-markdown/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-headers-markdown/libs/*": [
+        "packages/plugin-headers-markdown/web/lib/*"
+      ],
+      "wix-rich-content-plugin-headings": ["packages/plugin-headings/web/src"],
+      "wix-rich-content-plugin-headings/viewer": ["packages/plugin-headings/web/src/viewer"],
+      "wix-rich-content-plugin-headings/loadable/viewer": [
+        "packages/plugin-headings/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-headings/libs/*": ["packages/plugin-headings/web/lib/*"],
+      "wix-rich-content-plugin-html": ["packages/plugin-html/web/src"],
+      "wix-rich-content-plugin-html/viewer": ["packages/plugin-html/web/src/viewer"],
+      "wix-rich-content-plugin-html/loadable/viewer": [
+        "packages/plugin-html/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-html/libs/*": ["packages/plugin-html/web/lib/*"],
+      "wix-rich-content-plugin-image": ["packages/plugin-image/web/src"],
+      "wix-rich-content-plugin-image/viewer": ["packages/plugin-image/web/src/viewer"],
+      "wix-rich-content-plugin-image/loadable/viewer": [
+        "packages/plugin-image/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-image/libs/*": ["packages/plugin-image/web/lib/*"],
+      "wix-rich-content-plugin-indent": ["packages/plugin-indent/web/src"],
+      "wix-rich-content-plugin-indent/viewer": ["packages/plugin-indent/web/src/viewer"],
+      "wix-rich-content-plugin-indent/loadable/viewer": [
+        "packages/plugin-indent/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-indent/libs/*": ["packages/plugin-indent/web/lib/*"],
+      "wix-rich-content-plugin-line-spacing": ["packages/plugin-line-spacing/web/src"],
+      "wix-rich-content-plugin-line-spacing/viewer": [
+        "packages/plugin-line-spacing/web/src/viewer"
+      ],
+      "wix-rich-content-plugin-line-spacing/loadable/viewer": [
+        "packages/plugin-line-spacing/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-line-spacing/libs/*": ["packages/plugin-line-spacing/web/lib/*"],
+      "wix-rich-content-plugin-link": ["packages/plugin-link/web/src"],
+      "wix-rich-content-plugin-link/viewer": ["packages/plugin-link/web/src/viewer"],
+      "wix-rich-content-plugin-link/loadable/viewer": [
+        "packages/plugin-link/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-link/libs/*": ["packages/plugin-link/web/lib/*"],
+      "wix-rich-content-plugin-link-preview": ["packages/plugin-link-preview/web/src"],
+      "wix-rich-content-plugin-link-preview/viewer": [
+        "packages/plugin-link-preview/web/src/viewer"
+      ],
+      "wix-rich-content-plugin-link-preview/loadable/viewer": [
+        "packages/plugin-link-preview/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-link-preview/libs/*": ["packages/plugin-link-preview/web/lib/*"],
+      "wix-rich-content-plugin-map": ["packages/plugin-map/web/src"],
+      "wix-rich-content-plugin-map/viewer": ["packages/plugin-map/web/src/viewer"],
+      "wix-rich-content-plugin-map/loadable/viewer": [
+        "packages/plugin-map/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-map/libs/*": ["packages/plugin-map/web/lib/*"],
+      "wix-rich-content-plugin-mentions": ["packages/plugin-mentions/web/src"],
+      "wix-rich-content-plugin-mentions/viewer": ["packages/plugin-mentions/web/src/viewer"],
+      "wix-rich-content-plugin-mentions/loadable/viewer": [
+        "packages/plugin-mentions/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-mentions/libs/*": ["packages/plugin-mentions/web/lib/*"],
+      "wix-rich-content-plugin-social-polls": ["packages/plugin-social-polls/web/src"],
+      "wix-rich-content-plugin-social-polls/viewer": [
+        "packages/plugin-social-polls/web/src/viewer"
+      ],
+      "wix-rich-content-plugin-social-polls/loadable/viewer": [
+        "packages/plugin-social-polls/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-social-polls/libs/*": ["packages/plugin-social-polls/web/lib/*"],
+      "wix-rich-content-plugin-sound-cloud": ["packages/plugin-sound-cloud/web/src"],
+      "wix-rich-content-plugin-sound-cloud/viewer": ["packages/plugin-sound-cloud/web/src/viewer"],
+      "wix-rich-content-plugin-sound-cloud/loadable/viewer": [
+        "packages/plugin-sound-cloud/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-sound-cloud/libs/*": ["packages/plugin-sound-cloud/web/lib/*"],
+      "wix-rich-content-plugin-spoiler": ["packages/plugin-spoiler/web/src"],
+      "wix-rich-content-plugin-spoiler/viewer": ["packages/plugin-spoiler/web/src/viewer"],
+      "wix-rich-content-plugin-spoiler/loadable/viewer": [
+        "packages/plugin-spoiler/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-spoiler/libs/*": ["packages/plugin-spoiler/web/lib/*"],
+      "wix-rich-content-plugin-table": ["packages/plugin-table/web/src"],
+      "wix-rich-content-plugin-table/viewer": ["packages/plugin-table/web/src/viewer"],
+      "wix-rich-content-plugin-table/loadable/viewer": [
+        "packages/plugin-table/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-table/libs/*": ["packages/plugin-table/web/lib/*"],
+      "wix-rich-content-plugin-text-color": ["packages/plugin-text-color/web/src"],
+      "wix-rich-content-plugin-text-color/viewer": ["packages/plugin-text-color/web/src/viewer"],
+      "wix-rich-content-plugin-text-color/loadable/viewer": [
+        "packages/plugin-text-color/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-text-color/libs/*": ["packages/plugin-text-color/web/lib/*"],
+      "wix-rich-content-plugin-undo-redo": ["packages/plugin-undo-redo/web/src"],
+      "wix-rich-content-plugin-undo-redo/viewer": ["packages/plugin-undo-redo/web/src/viewer"],
+      "wix-rich-content-plugin-undo-redo/loadable/viewer": [
+        "packages/plugin-undo-redo/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-undo-redo/libs/*": ["packages/plugin-undo-redo/web/lib/*"],
+      "wix-rich-content-plugin-unsupported-blocks": ["packages/plugin-unsupported-blocks/web/src"],
+      "wix-rich-content-plugin-unsupported-blocks/viewer": [
+        "packages/plugin-unsupported-blocks/web/src/viewer"
+      ],
+      "wix-rich-content-plugin-unsupported-blocks/loadable/viewer": [
+        "packages/plugin-unsupported-blocks/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-unsupported-blocks/libs/*": [
+        "packages/plugin-unsupported-blocks/web/lib/*"
+      ],
+      "wix-rich-content-plugin-vertical-embed": ["packages/plugin-vertical-embed/web/src"],
+      "wix-rich-content-plugin-vertical-embed/viewer": [
+        "packages/plugin-vertical-embed/web/src/viewer"
+      ],
+      "wix-rich-content-plugin-vertical-embed/loadable/viewer": [
+        "packages/plugin-vertical-embed/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-vertical-embed/libs/*": ["packages/plugin-vertical-embed/web/lib/*"],
+      "wix-rich-content-plugin-video": ["packages/plugin-video/web/src"],
+      "wix-rich-content-plugin-video/viewer": ["packages/plugin-video/web/src/viewer"],
+      "wix-rich-content-plugin-video/loadable/viewer": [
+        "packages/plugin-video/web/src/viewer-loadable"
+      ],
+      "wix-rich-content-plugin-video/libs/*": ["packages/plugin-video/web/lib/*"],
+      "wix-rich-content-preview": ["packages/preview/web/src"],
+      "ricos": ["packages/ricos/web/src"],
+      "ricos-common": ["packages/ricos-common/web/src"],
+      "ricos-content": ["packages/ricos-content/web/src"],
+      "ricos-content/libs/*": ["packages/ricos-content/web/lib/*"],
+      "ricos-driver": ["packages/ricos-driver/web/src"],
+      "ricos-editor": ["packages/ricos-editor/web/src"],
+      "ricos-schema": ["packages/ricos-schema/web/src/generated/wix/rich_content/v1"],
+      "ricos-schema/dist/*": ["packages/ricos-schema/web/*"],
+      "ricos-viewer": ["packages/ricos-viewer/web/src"],
+      "wix-rich-content-text-selection-toolbar": ["packages/text-selection-toolbar/web/src"],
+      "wix-tiptap-editor": ["packages/tiptap-editor/web/src"],
+      "wix-rich-content-toolbars": ["packages/toolbars/web/src"],
+      "wix-rich-content-toolbars-new": ["packages/toolbars-new/web/src"],
+      "wix-rich-content-ui-components": ["packages/ui-components/web/src"],
+      "wix-rich-content-viewer": ["packages/viewer/web/src"]
+    }
   },
   "files": ["external-types.d.ts"],
-  "include": ["packages", "packages/**/*.json", "*.ts", "scripts"],
-  "exclude": ["**/node_modules/*", "**/dist/*"]
+  "include": ["packages", "packages/**/*.json", "e2e/**/*.json", "scripts", "*.json"],
+  "exclude": [
+    "**/node_modules/*",
+    "**/dist/*",
+    "**/*.e2e.ts",
+    "packages/**/*.spec.ts",
+    "packages/**/*.spec.tsx",
+    "packages/**/*.spec.js",
+    "packages/**/*.spec.jsx"
+  ]
 }
