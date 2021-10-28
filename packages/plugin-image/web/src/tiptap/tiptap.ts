@@ -21,7 +21,7 @@ const name = 'image';
 
 export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {
-    type: 'node' as const,
+    type: 'node',
     Component,
     componentDataDefaults: {
       ...imageDataDefaults,
