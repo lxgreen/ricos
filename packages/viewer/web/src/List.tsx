@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { hasText } from './utils/textUtils';
@@ -6,6 +6,7 @@ import { isPaywallSeo, getPaywallSeoClass } from './utils/paywallSeo';
 import { getDirectionFromAlignmentAndTextDirection } from 'wix-rich-content-common';
 import styles from '../statics/rich-content-viewer.scss';
 import { withInteraction } from './withInteraction';
+import { ViewerContextType } from '../../../common/web/src';
 
 const draftPublic = 'public-DraftStyleDefault';
 const draftClassNames = (listType, depth, textDirection) =>
@@ -21,7 +22,7 @@ const getBlockClassName = (isNewList, direction, listType, depth) => {
   return className;
 };
 
-const List = ({
+const List: FC<ListProps> = ({
   ordered,
   items,
   mergedStyles,
@@ -113,29 +114,15 @@ const List = ({
   );
 };
 
-List.propTypes = {
-  blockDataToStyle: PropTypes.func,
-  blockProps: PropTypes.object,
-  getBlockStyleClasses: PropTypes.func,
-  items: PropTypes.array,
-  mergedStyles: PropTypes.object,
-  ordered: PropTypes.bool,
-  textDirection: PropTypes.oneOf(['rtl', 'ltr']),
-  context: PropTypes.shape({
-    theme: PropTypes.object.isRequired,
-    anchorTarget: PropTypes.string.isRequired,
-    relValue: PropTypes.string.isRequired,
-    config: PropTypes.object.isRequired,
-    isMobile: PropTypes.bool.isRequired,
-    helpers: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired,
-    locale: PropTypes.string.isRequired,
-    disabled: PropTypes.bool,
-    seoMode: PropTypes.bool,
-    contentState: PropTypes.object,
-    disableRightClick: PropTypes.bool,
-    textAlignment: PropTypes.oneOf(['left', 'right']),
-  }).isRequired,
+type ListProps = {
+  blockDataToStyle: () => void;
+  blockProps: Record<string, unknown>;
+  getBlockStyleClasses: () => string;
+  items: string[];
+  mergedStyles: Record<string, string>;
+  ordered?: boolean;
+  textDirection?: 'rtl' | 'ltr';
+  context: ViewerContextType;
 };
 
 export default List;
