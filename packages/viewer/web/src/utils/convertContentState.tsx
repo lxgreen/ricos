@@ -6,6 +6,7 @@ import {
   getDirectionFromAlignmentAndTextDirection,
   DraftContent,
   TextDirection,
+  TextAlignment,
   PluginMapping,
   ViewerContextType,
   Decorator,
@@ -37,7 +38,7 @@ const isEmptyBlock = ([_, data]) => data && data.length === 0;
 const getBlockStyleClasses = (
   mergedStyles: Record<string, string>,
   textDirection: TextDirection,
-  textAlignment: 'left' | 'right',
+  textAlignment: TextAlignment,
   classes?: string,
   isListItem?: boolean
 ) => {

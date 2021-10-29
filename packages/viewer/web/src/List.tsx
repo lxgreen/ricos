@@ -1,20 +1,31 @@
-import React, { FC } from 'react';
-import PropTypes from 'prop-types';
+import React, { FC, ReactElement } from 'react';
 import classNames from 'classnames';
 import { hasText } from './utils/textUtils';
 import { isPaywallSeo, getPaywallSeoClass } from './utils/paywallSeo';
-import { getDirectionFromAlignmentAndTextDirection } from 'wix-rich-content-common';
+import {
+  ViewerContextType,
+  TextDirection,
+  TextAlignment,
+  getDirectionFromAlignmentAndTextDirection,
+} from 'wix-rich-content-common';
 import styles from '../statics/rich-content-viewer.scss';
 import { withInteraction } from './withInteraction';
-import { ViewerContextType } from '../../../common/web/src';
+import { ViewerBlockProps, ViewerBlockData } from './types';
+
+type ListType = 'ordered' | 'unordered';
 
 const draftPublic = 'public-DraftStyleDefault';
-const draftClassNames = (listType, depth, textDirection) =>
+const draftClassNames = (listType: ListType, depth: number, textDirection: TextDirection): string =>
   `${draftPublic}-${listType}ListItem
    ${draftPublic}-depth${depth}
    ${draftPublic}-list-${textDirection}`;
 
-const getBlockClassName = (isNewList, direction, listType, depth) => {
+const getBlockClassName = (
+  isNewList: boolean,
+  direction: TextDirection,
+  listType: ListType,
+  depth: number
+) => {
   let className = draftClassNames(listType, depth, direction);
   if (isNewList) {
     className += ` ${draftPublic}-reset`;
@@ -31,7 +42,7 @@ const List: FC<ListProps> = ({
   getBlockStyleClasses,
   blockDataToStyle,
   context,
-}) => {
+}: ListProps) => {
   const Component = ordered ? 'ol' : 'ul';
   const listType = ordered ? 'ordered' : 'unordered';
   const containerClassName = `${draftPublic}-${Component}`;
@@ -45,8 +56,8 @@ const List: FC<ListProps> = ({
 
         const { interactions } = blockProps.data[childIndex];
 
-        let paragraphGroup = [];
-        const result = [];
+        let paragraphGroup: ReactElement[] = [];
+        const result: ReactElement[] = [];
         const alignment = dataEntry?.textAlignment || context.textAlignment;
         const textClassName = getBlockStyleClasses(
           mergedStyles,
@@ -54,17 +65,17 @@ const List: FC<ListProps> = ({
           alignment
         );
         const hasJustifyText = alignment === 'justify' && hasText(children);
-        const elementProps = key => ({
+        const elementProps = (key: number | string) => ({
           className: classNames(mergedStyles.elementSpacing, textClassName, {
             [styles.hasJustifyText]: hasJustifyText,
             [styles.contentCenterAlignment]: alignment === 'center',
           }),
           key,
         });
-        React.Children.forEach(children, (child, i) => {
+        React.Children.forEach(children, (child: ReactElement, i: number) => {
           if (child) {
             if (typeof child.type === 'string' && /h\d/.exec(child.type)) {
-              if (paragraphGroup.length) {
+              if (paragraphGroup.length > 0) {
                 result.push(<p {...elementProps(i)}>{paragraphGroup}</p>);
                 paragraphGroup = [];
               }
@@ -74,7 +85,7 @@ const List: FC<ListProps> = ({
             }
           }
         });
-        if (paragraphGroup.length) {
+        if (paragraphGroup.length > 0) {
           result.push(<p {...elementProps('just_some_key')}>{paragraphGroup}</p>);
         }
 
@@ -115,13 +126,19 @@ const List: FC<ListProps> = ({
 };
 
 type ListProps = {
-  blockDataToStyle: () => void;
-  blockProps: Record<string, unknown>;
-  getBlockStyleClasses: () => string;
-  items: string[];
+  blockDataToStyle: (blockData: ViewerBlockData) => Record<string, unknown>;
+  blockProps: ViewerBlockProps;
+  getBlockStyleClasses: (
+    mergedStyles: Record<string, string>,
+    textDirection: TextDirection,
+    textAlignment: TextAlignment,
+    classes?: string,
+    isListItem?: boolean
+  ) => string;
+  items: ReactElement[];
   mergedStyles: Record<string, string>;
   ordered?: boolean;
-  textDirection?: 'rtl' | 'ltr';
+  textDirection?: TextDirection;
   context: ViewerContextType;
 };
 
