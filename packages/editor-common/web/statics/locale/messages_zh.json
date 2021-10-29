@@ -36,7 +36,7 @@
   "CollapsibleListPlugin_InsertButton_Tooltip": "新增折疊清單",
   "UploadImage_Error_Corrupted_Image": "此圖片已毀損故無法上傳。請嘗試其他檔案。",
   "ButtonModal_Settings_Tab": "設定",
-  "CodeblockPlugin_InsertButton": "程式碼方塊",
+  "CodeblockPlugin_InsertButton": "程式碼區塊",
   "TablePlugin_Toolbar_ContextMenu_InsertLeft_Button": "向左插入 1",
   "UploadVideo_Error_MP4_Unsupported_Format": "不支援此檔案的 MP4 格式而無法上傳。請嘗試其他檔案。",
   "GallerySettings_Image_Ratio": "圖片比例",
