@@ -25,7 +25,7 @@ type InlineToolbarButtonProps = {
   formattingButtonName?: string;
 };
 
-class InlineToolbarButton extends Component<InlineToolbarButtonProps> {
+export class InlineToolbarButton extends Component<InlineToolbarButtonProps> {
   styles: Record<string, string>;
 
   constructor(props) {
