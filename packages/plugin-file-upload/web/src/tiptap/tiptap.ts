@@ -11,7 +11,6 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
     componentDataDefaults: { ...fileDataDefaults, id: '' },
     createExtensionConfig: () => ({
       name,
-      atom: false,
       defaultOptions,
       addCommands() {
         return {};

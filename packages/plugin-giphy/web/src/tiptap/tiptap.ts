@@ -11,7 +11,6 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
     componentDataDefaults: { ...gifDataDefaults, id: '' },
     createExtensionConfig: () => ({
       name,
-      atom: false,
       defaultOptions,
       addCommands() {
         return {};

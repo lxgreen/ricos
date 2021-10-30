@@ -94,7 +94,6 @@ export const createRicosExtensions: CreateRicosExtensions = config => [
     componentDataDefaults: { ...LinkPreviewData.fromJSON({}), id: '' },
     createExtensionConfig: () => ({
       name,
-      atom: false,
       addCommands() {
         return {
           setLinkPreview: attributes => ({ commands }) => {
