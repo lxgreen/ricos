@@ -42,7 +42,7 @@ export const getMediaUploadErrorFunctions = () => {
   const handleFileUpload = updateEntity => {
     const multiple = false;
     const count = multiple ? [1, 2, 3] : [1];
-    const data: unknown[] = [];
+    const data = [];
     const filenames = ['image.jpg', 'document.pdf', 'music.mp3'];
     count.forEach(_ => {
       const name = filenames[Math.floor(Math.random() * filenames.length)];

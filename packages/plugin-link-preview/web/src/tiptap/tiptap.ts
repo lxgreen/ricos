@@ -89,7 +89,7 @@ const addLinkPreview = (config: LinkPreviewPluginEditorConfig): KeyboardShortcut
 
 export const createRicosExtensions: CreateRicosExtensions = config => [
   {
-    type: 'node',
+    type: 'node' as const,
     Component,
     componentDataDefaults: { ...LinkPreviewData.fromJSON({}), id: '' },
     createExtensionConfig: () => ({

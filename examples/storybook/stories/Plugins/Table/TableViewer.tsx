@@ -1,9 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { DraftContent, RicosViewer } from 'ricos-viewer';
 import { pluginImage } from 'wix-rich-content-plugin-image/viewer';
-import { pluginTable } from 'wix-rich-content-plugin-table/viewer';
-import { pluginLineSpacing } from 'wix-rich-content-plugin-line-spacing/viewer';
-import { pluginTextColor, pluginTextHighlight } from 'wix-rich-content-plugin-text-color/viewer';
+import { pluginTable } from 'wix-rich-content-plugin-table/dist/module.viewer';
+import { pluginLineSpacing } from 'wix-rich-content-plugin-line-spacing/dist/module.viewer';
+import {
+  pluginTextColor,
+  pluginTextHighlight,
+} from 'wix-rich-content-plugin-text-color/dist/module.viewer';
 
 const plugins = [
   pluginTable(),

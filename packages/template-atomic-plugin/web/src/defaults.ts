@@ -10,7 +10,10 @@
 import { YOUR_PLUGIN_NAME_TYPE as type } from './types';
 export const DEFAULTS = Object.freeze({
   type,
-  config: {},
+  config: {
+    size: 'content',
+    alignment: 'center',
+  },
 });
 
 // export const theme = (

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { DraftContent, RicosViewer } from 'ricos-viewer';
-import { pluginActionButton } from 'wix-rich-content-plugin-button/viewer';
+import { pluginActionButton } from 'wix-rich-content-plugin-button/dist/module.viewer';
 
 const buttonConfig = {
   onClick: () => {

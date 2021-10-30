@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { DraftContent, RicosViewer } from 'ricos-viewer';
-import { pluginGallery } from 'wix-rich-content-plugin-gallery/viewer';
+import { pluginGallery } from 'wix-rich-content-plugin-gallery/dist/module.viewer';
 
 const GalleryViewer: FunctionComponent<{
   content?: DraftContent;
