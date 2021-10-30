@@ -30,7 +30,9 @@ describe('tiptap editor', () => {
     const content = toTiptap(RichContent.fromJSON(supportedPluginsContent));
     const plugins = [pluginImage(), pluginDivider()];
     const extensions =
-      compact(plugins?.flatMap((plugin: TiptapEditorPlugin) => plugin.tiptapExtensions)) || [];
+      compact(
+        plugins?.flatMap((plugin: TiptapEditorPlugin) => plugin.tiptapExtensions(plugin.config))
+      ) || [];
     render(<RicosTiptapEditor content={content} extensions={extensions} t={() => ''} />);
     const newContent = editor?.getJSON();
     const richContent = fromTiptap(newContent as JSONContent);

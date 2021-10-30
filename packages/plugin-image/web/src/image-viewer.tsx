@@ -1,6 +1,6 @@
 import React, { RefObject } from 'react';
 import classNames from 'classnames';
-import { IMAGE_TYPE, ImagePluginViewerConfig, ImageConfig } from './types';
+import { IMAGE_TYPE, ImagePluginViewerConfig, ImageData } from './types';
 import { get, includes, isEqual, isFunction } from 'lodash';
 import {
   mergeStyles,
@@ -29,28 +29,20 @@ const replaceUrlFileExtenstion = (url, extensionTarget) => {
 };
 
 interface ImageViewerProps {
-  componentData: {
-    config: ImageConfig;
-    src: { fallback: string; width: number };
-    metadata?: { caption?: unknown; alt?: string | undefined };
-    [key: string]: unknown;
-    disableDownload?: boolean;
-    disableExpand?: boolean;
-  };
-  className: string;
+  componentData: ImageData;
+  className?: string;
   dataUrl: string;
   settings: ImagePluginViewerConfig;
   defaultCaption: string;
-  entityIndex: number;
-  onCaptionChange: () => void;
+  onCaptionChange: (caption: string) => void;
   setFocusToBlock: () => void;
   theme: RichContentTheme;
   helpers: Helpers;
-  getInPluginEditingMode: () => unknown;
-  setInPluginEditingMode: () => unknown;
+  getInPluginEditingMode?: () => unknown;
+  setInPluginEditingMode?: () => unknown;
   isMobile: boolean;
   setComponentUrl: (highres?: string) => unknown;
-  seoMode: SEOSettings;
+  seoMode?: SEOSettings;
   blockKey: string;
   isLoading: boolean;
   customAnchorScroll?: CustomAnchorScroll;

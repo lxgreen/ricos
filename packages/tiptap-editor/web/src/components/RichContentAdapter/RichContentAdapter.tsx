@@ -111,6 +111,7 @@ export class RichContentAdapter implements TiptapAPI {
   getEditorCommands() {
     return {
       ...this.editorMocks,
+      ...this.editor.commands,
       toggleInlineStyle: inlineStyle => {
         const editorCommand = this.editor.chain().focus();
         const styleName = `toggle${capitalize(inlineStyle)}`;
@@ -148,9 +149,23 @@ export class RichContentAdapter implements TiptapAPI {
         return 'result!';
       },
       findNodeByKey() {},
-      // setBlock: (blockKey, pluginType, data) => {
-      //   editor.commands.updateAttributes('heading', { level: 1 })
-      // },
+      setBlock: (blockKey, pluginType, data) => ({ tr, state }) => {
+        let nodeRef, nodePos;
+        state.doc.descendants((node, pos) => {
+          if (node.attrs.id === blockKey) {
+            nodeRef = node;
+            nodePos = pos;
+          }
+        });
+        if (nodeRef && nodePos) {
+          tr.setNodeMarkup(nodePos, pluginType, {
+            ...nodeRef.attrs,
+            ...data,
+          });
+        } else {
+          console.error('Failed to find node by blockKey');
+        }
+      },
       getSelection: () => ({
         getIsFocused: this.editor.isFocused,
         getIsCollapsed: this.editor.state.selection.empty,
@@ -260,7 +275,6 @@ export class RichContentAdapter implements TiptapAPI {
     saveSelectionState: () => {},
     loadSelectionState: () => {},
     triggerDecoration: () => {},
-    setBlock: () => {},
     deleteBlock: () => {},
     undo: () => {},
     redo: () => {},

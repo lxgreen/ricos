@@ -15,6 +15,6 @@ export const pluginGiphy: EditorPluginCreator<GiphyPluginEditorConfig> = config 
     createPlugin: createGiphyPlugin,
     ModalsMap,
     createPluginData: createGiphyData,
-    tiptapExtensions: createRicosExtensions(pluginConfig),
+    tiptapExtensions: (config = {}) => createRicosExtensions({ ...pluginConfig, ...config }),
   } as TiptapEditorPlugin;
 };

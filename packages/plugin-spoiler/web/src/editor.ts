@@ -15,6 +15,6 @@ export const pluginSpoiler: EditorPluginCreator<SpoilerPluginEditorConfig> = con
     type: SPOILER_TYPE,
     createPlugin: createSpoilerPlugin,
     ModalsMap: {},
-    tiptapExtensions: createTiptapExtensions(pluginConfig),
+    tiptapExtensions: (config = {}) => createTiptapExtensions({ ...pluginConfig, ...config }),
   } as TiptapEditorPlugin;
 };

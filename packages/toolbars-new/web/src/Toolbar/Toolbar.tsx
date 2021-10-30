@@ -94,7 +94,7 @@ class Toolbar extends Component<ToolbarProps, State> {
     const rootEditorElement = this.toolbarRef
       ?.closest('[data-hook=ricos-editor-toolbars]')
       ?.parentElement?.querySelector('[data-hook=root-editor]') as HTMLElement;
-    return rootEditorElement.clientWidth < this.toolbarRef.clientWidth;
+    return rootEditorElement?.clientWidth < this.toolbarRef.clientWidth;
   };
 
   renderButton = buttonProps => {

@@ -15,6 +15,6 @@ export const pluginImage: EditorPluginCreator<ImagePluginEditorConfig> = config 
     createPlugin: createImagePlugin,
     ModalsMap,
     createPluginData: createImageData,
-    tiptapExtensions: createRicosExtensions(pluginConfig),
+    tiptapExtensions: (config = {}) => createRicosExtensions({ ...pluginConfig, ...config }),
   } as TiptapEditorPlugin;
 };

@@ -15,6 +15,6 @@ export const pluginVideo: EditorPluginCreator<VideoPluginEditorConfig> = config 
     createPlugin: createVideoPlugin,
     ModalsMap,
     createPluginData: createVideoData,
-    tiptapExtensions: createRicosExtensions(pluginConfig),
+    tiptapExtensions: (config = {}) => createRicosExtensions({ ...pluginConfig, ...config }),
   } as TiptapEditorPlugin;
 };

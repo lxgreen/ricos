@@ -14,6 +14,6 @@ export const pluginFileUpload: EditorPluginCreator<FilePluginEditorConfig> = con
     createPlugin: createFileUploadPlugin,
     ModalsMap: {},
     createPluginData: createFileData,
-    tiptapExtensions: createRicosExtensions(pluginConfig),
+    tiptapExtensions: (config = {}) => createRicosExtensions({ ...pluginConfig, ...config }),
   } as TiptapEditorPlugin;
 };

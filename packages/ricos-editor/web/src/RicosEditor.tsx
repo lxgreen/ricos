@@ -31,7 +31,17 @@ import {
   EditorEventsContext,
   EditorEvents,
 } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
-import { ToolbarType, Version, RicosTranslate, getLangDir } from 'wix-rich-content-common';
+import {
+  ToolbarType,
+  Version,
+  RicosTranslate,
+  getLangDir,
+  EditorPlugin,
+  IMAGE_TYPE,
+  GALLERY_TYPE,
+  FILE_UPLOAD_TYPE,
+  VIDEO_TYPE,
+} from 'wix-rich-content-common';
 import { emptyDraftContent, getEditorContentSummary } from 'wix-rich-content-editor-common';
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
 import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
@@ -83,6 +93,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   linkToolbarRef!: Record<'updateToolbar', () => void>;
 
+  tiptapPlugins?: EditorPlugin[];
+
   static getDerivedStateFromError(error: string) {
     return { error };
   }
@@ -105,6 +117,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       TextFormattingToolbar: null,
     };
     this.useTiptap = !!props.experiments?.tiptapEditor?.enabled;
+    this.useTiptap && (this.tiptapPlugins = this.initTiptapPlugins());
     this.useNewFormattingToolbar = !!props.experiments?.newFormattingToolbar?.enabled;
   }
 
@@ -113,6 +126,26 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       throw err;
     },
     locale: 'en',
+  };
+
+  initTiptapPlugins = () => {
+    const { _rcProps, plugins } = this.props;
+    const uploadFunctionGetter = settings => ({
+      [IMAGE_TYPE]: _rcProps?.helpers?.handleFileSelection || _rcProps?.helpers?.handleFileUpload,
+      [VIDEO_TYPE]: settings?.handleFileUpload || settings?.handleFileSelection,
+      [FILE_UPLOAD_TYPE]: settings?.onFileSelected || settings?.handleFileSelection,
+      [GALLERY_TYPE]: _rcProps?.helpers?.handleFileSelection,
+    });
+    return plugins?.map(plugin => {
+      const _plugin = { ...plugin };
+      const uploadFunction = uploadFunctionGetter(plugin.config)[plugin.type];
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if (uploadFunction && (plugin as any).tiptapExtensions) {
+        !_plugin.config && (_plugin.config = {});
+        _plugin.config.uploadFunction = uploadFunction;
+      }
+      return _plugin;
+    });
   };
 
   updateLocale = async () => {
@@ -411,6 +444,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   }
 
   renderNewFooterToolbar() {
+    const { _rcProps } = this.props;
     return this.useNewFormattingToolbar && !this.props.isMobile && this.state.activeEditor ? (
       <div
         data-hook={'ricos-editor-footer-toolbars'}
@@ -423,6 +457,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
             isMobile={this.props.isMobile}
             t={this.state.activeEditor.getT()}
             editorCommands={this.state.activeEditor.getEditorCommands()}
+            handleFileUpload={_rcProps?.helpers?.handleFileSelection}
             buttons={[
               'Divider',
               '|',
@@ -477,7 +512,11 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     const { localeData } = this.state;
     const { locale, localeResource } = localeData;
     const extensions =
-      compact(plugins?.flatMap((plugin: TiptapEditorPlugin) => plugin.tiptapExtensions)) || [];
+      compact(
+        this.tiptapPlugins?.flatMap((plugin: TiptapEditorPlugin) =>
+          plugin.tiptapExtensions?.(plugin.config)
+        )
+      ) || [];
     return (
       <Fragment>
         {this.renderToolbars()}

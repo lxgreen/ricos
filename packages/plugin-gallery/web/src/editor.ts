@@ -15,6 +15,6 @@ export const pluginGallery: EditorPluginCreator<GalleryPluginEditorConfig> = con
     createPlugin: createGalleryPlugin,
     ModalsMap,
     createPluginData: createGalleryData,
-    tiptapExtensions: createRicosExtensions(pluginConfig),
+    tiptapExtensions: (config = {}) => createRicosExtensions({ ...pluginConfig, ...config }),
   } as TiptapEditorPlugin;
 };

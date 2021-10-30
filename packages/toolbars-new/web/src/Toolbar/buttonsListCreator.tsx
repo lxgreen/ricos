@@ -20,6 +20,7 @@ import {
   translateHeading,
   findOsName,
   insertBlockButtons,
+  fileUploadButtons,
   getSpacing,
 } from './buttonsListCreatorConsts';
 import { HEADER_TYPE_MAP } from 'wix-rich-content-plugin-commons';
@@ -38,7 +39,8 @@ export const createButtonsList = (
   colorPickerData,
   defaultLineSpacing,
   headingsData,
-  experiments
+  experiments,
+  handleFileUpload
 ) => {
   const buttonsList: any[] = [];
   const osName: string | null = findOsName();
@@ -55,7 +57,14 @@ export const createButtonsList = (
       handleButtonPlugin(buttonsList, index);
       handleButtonLabel(buttonsList, index, editorCommands, t);
       handleButtonArrow(buttonsList, index);
-      handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData, experiments);
+      handleButtonOnClick(
+        buttonsList,
+        index,
+        editorCommands,
+        linkPanelData,
+        experiments,
+        handleFileUpload
+      );
       handleButtonIsActive(buttonsList, index, editorCommands);
       handleButtonIsDisabled(buttonsList, index, editorCommands);
       handleButtonModal(
@@ -65,7 +74,8 @@ export const createButtonsList = (
         linkPanelData,
         headingsData,
         t,
-        defaultLineSpacing
+        defaultLineSpacing,
+        handleFileUpload
       );
       handleButtonOnSave(buttonsList, index, editorCommands);
       handleButtonOnCancel(buttonsList, index, editorCommands);
@@ -248,7 +258,8 @@ const handleButtonModal = (
   linkPanelData,
   headingsData,
   t,
-  defaultLineSpacing
+  defaultLineSpacing,
+  handleFileUpload
 ) => {
   const buttonName = buttonsList[index].name;
   if (buttonsFullData[buttonName].modal) {
@@ -289,6 +300,23 @@ const handleButtonModal = (
       const Modal = buttonsFullData[buttonName].modal;
       buttonsList[index].modal = props =>
         Modal && <Modal {...props} currentSelect={getFontSize(editorCommands)} t={t} />;
+    } else if (buttonName === 'Image') {
+      const Modal = buttonsFullData[buttonName].modal;
+      const onChange = e => {
+        Array.from(e.target.files || [])
+          .filter((file: File) => file.type.startsWith('image'))
+          .forEach((file: File) => {
+            editorCommands.addImage(file);
+          });
+
+        e.target.value = null;
+      };
+      if (handleFileUpload) {
+        buttonsList[index].modal = undefined;
+        buttonsList[index].type = 'button';
+      } else {
+        buttonsList[index].modal = props => Modal && <Modal {...props} onChange={onChange} />;
+      }
     }
   }
 };
@@ -333,7 +361,8 @@ const handleButtonOnClick = (
   index,
   editorCommands: editorCommands,
   linkPanelData,
-  experiments
+  experiments,
+  handleFileUpload
 ) => {
   const buttonName = buttonsList[index].name;
   if (Object.keys(inlineStyleButtons).includes(buttonName)) {
@@ -376,6 +405,24 @@ const handleButtonOnClick = (
         buttonsFullData[buttonName].defaultData,
         { isRicosSchema: true }
       );
+  } else if (Object.keys(fileUploadButtons).includes(buttonName)) {
+    if (handleFileUpload) {
+      buttonsList[index].onClick = () =>
+        handleFileUpload(
+          0,
+          false,
+          data =>
+            editorCommands.insertBlock(
+              fileUploadButtons[buttonName],
+              buttonsFullData[buttonName].defaultData,
+              { isRicosSchema: true }
+            ),
+          () => {},
+          buttonsFullData[buttonName].defaultData
+        );
+    } else {
+      buttonsList[index].type = 'modal';
+    }
   } else {
     // eslint-disable-next-line no-console
     buttonsList[index].onClick = () => console.log('click');

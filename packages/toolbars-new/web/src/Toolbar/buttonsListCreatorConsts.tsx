@@ -205,7 +205,14 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
         height: 2124,
       },
     }),
-    type: 'button',
+    type: 'modal',
+    modal: props => (
+      <input
+        type={'file'}
+        onChange={props.onChange}
+        accept={'.jpg,.png,.gif,.jpeg,.jpe,.jfif,.bmp,.heic,.heif,.tfif,.tif,.webp'}
+      />
+    ),
   },
   Gallery: {
     icon: GalleryIcon,
@@ -595,10 +602,13 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
 export const insertBlockButtons: Record<string, keyof PluginsDataMap> = {
   Divider: RICOS_DIVIDER_TYPE,
   Video: RICOS_VIDEO_TYPE,
-  Image: RICOS_IMAGE_TYPE,
   Gallery: RICOS_GALLERY_TYPE,
   Gif: RICOS_GIPHY_TYPE,
   File: RICOS_FILE_TYPE,
+};
+
+export const fileUploadButtons: Record<string, keyof PluginsDataMap> = {
+  Image: RICOS_IMAGE_TYPE,
 };
 
 export const inlineStyleButtons: Record<string, InlineStyle> = {

@@ -13,6 +13,7 @@ import {
   Link_Rel,
   CustomAnchorScroll,
   AvailableExperiments,
+  UpdateEntityFunc,
 } from 'wix-rich-content-common';
 
 type formattingToolbarButtonsKeysType =
@@ -62,6 +63,13 @@ interface RicosToolbarProps {
     'padding-top'?: string;
     'padding-bottom'?: string;
   };
+  handleFileUpload?: (
+    index: number,
+    multiple: boolean,
+    updateEntity: UpdateEntityFunc<unknown>,
+    removeEntity,
+    componentData
+  ) => void;
 }
 
 class RicosToolbar extends Component<RicosToolbarProps> {
@@ -110,6 +118,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       nestedMenu,
       experiments,
       defaultLineSpacing,
+      handleFileUpload,
     } = this.props;
     const updatedButtons = createButtonsList(
       buttons,
@@ -119,7 +128,8 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       colorPickerData,
       headingsData,
       experiments,
-      defaultLineSpacing
+      defaultLineSpacing,
+      handleFileUpload
     );
     const buttonsWithoutUnwantedSeparators =
       updatedButtons.length > 0 && this.cleanUnwantedSeparators(updatedButtons);

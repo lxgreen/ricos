@@ -12,6 +12,6 @@ export const pluginLinkPreview: EditorPluginCreator<LinkPreviewPluginEditorConfi
     type: LINK_PREVIEW_TYPE,
     createPlugin: createLinkPreviewPlugin,
     ModalsMap: {},
-    tiptapExtensions: createRicosExtensions(pluginConfig),
+    tiptapExtensions: (config = {}) => createRicosExtensions({ ...pluginConfig, ...config }),
   } as TiptapEditorPlugin;
 };

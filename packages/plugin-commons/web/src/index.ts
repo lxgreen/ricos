@@ -30,6 +30,7 @@ export {
   createBaseMediaPlugin,
 } from './Base/createBaseMediaPlugin';
 
+export { uploadFile } from './Utils/fileUploadUtil';
 // Components
 export { default as ColorPicker } from './Components/ColorPicker/ColorPicker';
 
