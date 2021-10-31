@@ -20,7 +20,7 @@
 ### :house: Internal
 
 - `schema`
-  - [#3049](https://github.com/wix/ricos/pull/3049) generate-plugin-defaults generates decoration defaults
+  - [#3049](https://github.com/wix/ricos/pull/3049) generate-plugin-defaults generates link decoration defaults
 
 </details>
 <hr/>
