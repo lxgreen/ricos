@@ -152,7 +152,7 @@ const COMMANDS = {
   blurEditor: () => {
     cy.getEditor()
       .blur()
-      .get('[data-hook=inlineToolbar]')
+      .get('[data-hook=floating-toolbar]')
       .should('not.exist');
   },
 
@@ -190,7 +190,7 @@ const COMMANDS = {
       cy.setEditorSelection(selection[0], selection[1]);
     }
     cy.get(
-      `[data-hook=${isMobile ? 'mobileToolbar' : 'inlineToolbar'}] [data-hook=${buttonSelector}]`
+      `[data-hook=${isMobile ? 'mobileToolbar' : 'floating-toolbar'}] [data-hook=${buttonSelector}]`
     );
   },
 
