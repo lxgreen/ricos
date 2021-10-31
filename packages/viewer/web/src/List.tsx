@@ -99,6 +99,8 @@ const List: FC<ListProps> = ({
         prevDepth = depth;
         const blockIndex = dataEntry.index;
         const wrappedBlock = withInteraction(
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           result.length === 0 ? ' ' : result,
           interactions,
           context

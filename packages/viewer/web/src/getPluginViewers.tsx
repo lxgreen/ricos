@@ -1,5 +1,4 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent, ComponentType } from 'react';
 import classNames from 'classnames';
 import { isFunction, isNumber } from 'lodash';
 import { isPaywallSeo, getPaywallSeoClass } from './utils/paywallSeo';
@@ -15,19 +14,21 @@ import {
   LINK_BUTTON_TYPE,
   MAP_TYPE,
   getRelValue,
+  ViewerContextType,
+  PluginTypeMapper,
 } from 'wix-rich-content-common';
 import { getBlockIndex } from './utils/draftUtils';
-import RichContentViewer from './RichContentViewer';
+import RichContentViewer, { RichContentViewerProps } from './RichContentViewer';
 import { withInteraction } from './withInteraction';
-import Anchor from './components/Anchor.tsx';
-class PluginViewer extends PureComponent {
+import Anchor from './components/Anchor';
+
+class PluginViewer extends PureComponent<PluginViewerProps> {
   getContainerClassNames = () => {
     const {
       pluginComponent,
       componentData,
       styles,
       context: { theme, isMobile },
-      type,
     } = this.props;
     const { size, alignment, textWrap, custom } = pluginComponent.classNameStrategies || {};
     const hasLink = this.componentHasLink();
@@ -113,7 +114,7 @@ class PluginViewer extends PureComponent {
         const hasLink = this.componentHasLink();
         const hasAnchor = this.componentHasAnchor();
         const ContainerElement = hasLink || hasAnchor ? 'a' : 'div';
-        let containerProps = {};
+        let containerProps = { href: '', target: '', style = {} };
         if (hasLink) {
           const { url, target = anchorTarget, rel } = config.link;
           containerProps = {
@@ -205,35 +206,18 @@ class PluginViewer extends PureComponent {
   /* eslint-enable complexity */
 }
 
-PluginViewer.propTypes = {
-  SpoilerViewerWrapper: PropTypes.func,
-  id: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  componentData: PropTypes.object.isRequired,
-  pluginComponent: PropTypes.object.isRequired,
-  entityIndex: PropTypes.number.isRequired,
-  children: PropTypes.node,
-  styles: PropTypes.object,
-  context: PropTypes.shape({
-    theme: PropTypes.object.isRequired,
-    anchorTarget: PropTypes.string.isRequired,
-    config: PropTypes.object.isRequired,
-    isMobile: PropTypes.bool.isRequired,
-    helpers: PropTypes.object.isRequired,
-    t: PropTypes.func.isRequired,
-    locale: PropTypes.string.isRequired,
-    disabled: PropTypes.bool,
-    seoMode: PropTypes.bool,
-    iframeSandboxDomain: PropTypes.string,
-    disableRightClick: PropTypes.bool,
-  }).isRequired,
-  innerRCEViewerProps: PropTypes.object,
-  blockIndex: PropTypes.number,
-  blockKey: PropTypes.string,
-};
-
-PluginViewer.defaultProps = {
-  styles: {},
+type PluginViewerProps = {
+  SpoilerViewerWrapper: ComponentType;
+  pluginComponent: PluginTypeMapper;
+  innerRCEViewerProps: RichContentViewerProps;
+  context: ViewerContextType;
+  id: string;
+  type: string;
+  componentData: Record<string, unknown>;
+  entityIndex: number;
+  styles: Record<string, string>;
+  blockIndex: number;
+  blockKey: string;
 };
 
 //return a list of types with a function that wraps the viewer
