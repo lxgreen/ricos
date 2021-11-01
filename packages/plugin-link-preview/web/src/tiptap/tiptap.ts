@@ -1,5 +1,5 @@
 // import linkPreviewDataDefaults from 'ricos-schema/dist/statics/link_preview.defaults.json';
-import { CreateRicosExtensions, TIPTAP_LINK_PREVIEW_TYPE } from 'wix-tiptap-editor';
+import { CreateRicosExtensions } from 'wix-tiptap-editor';
 import { LinkPreview as Component } from './component';
 import { Editor } from '@tiptap/core';
 import { KeyboardShortcutCommand } from '@tiptap/react';

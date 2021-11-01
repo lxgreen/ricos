@@ -1,5 +1,5 @@
 import imageDataDefaults from 'ricos-schema/dist/statics/image.defaults.json';
-import { CreateRicosExtensions, TIPTAP_IMAGE_TYPE } from 'wix-tiptap-editor';
+import { CreateRicosExtensions } from 'wix-tiptap-editor';
 import { Image as Component } from './component';
 import { TIPTAP_IMAGE_TYPE } from 'ricos-content';
 
