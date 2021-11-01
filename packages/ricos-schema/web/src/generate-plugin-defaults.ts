@@ -123,7 +123,9 @@ const toDecorationDataDefaults = <T>(fromJSON: () => T) =>
 const generateDecorationDefaults = () =>
   pipe(
     {
-      [Decoration_Type.LINK]: () => ({ linkData: LinkData.fromJSON({ link: {} }) }),
+      [Decoration_Type.LINK]: () => ({
+        linkData: LinkData.fromJSON({ link: { url: '', anchor: '', rel: {} } }),
+      }),
     },
     Object.entries,
     A.map(flow(T.bimap(toDecorationDataDefaults, S.toLowerCase), writeStaticsEntry))
