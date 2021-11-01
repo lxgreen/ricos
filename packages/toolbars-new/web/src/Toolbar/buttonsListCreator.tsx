@@ -306,7 +306,7 @@ const handleButtonModal = (
         Array.from(e.target.files || [])
           .filter((file: File) => file.type.startsWith('image'))
           .forEach((file: File) => {
-            editorCommands.addImage(file);
+            editorCommands.addImage?.(file);
           });
 
         e.target.value = null;

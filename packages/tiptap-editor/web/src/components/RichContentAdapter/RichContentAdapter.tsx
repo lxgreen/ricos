@@ -23,6 +23,7 @@ import {
 import { toTiptap } from '../../converters';
 import { Editor } from '@tiptap/core';
 import {
+  generateId,
   HEADER_BLOCK,
   UNSTYLED,
   BULLET_LIST_TYPE,
@@ -132,8 +133,10 @@ export class RichContentAdapter implements TiptapAPI {
       },
       insertBlock: (pluginType, data) => {
         const type = PLUGIN_TYPE_MAP[pluginType];
+        let id = '';
         if (type) {
-          const attrs = toTiptap(data);
+          id = generateId();
+          const attrs = { ...toTiptap(data), id };
           this.editor.commands.insertContent({
             type,
             attrs,
@@ -142,25 +145,11 @@ export class RichContentAdapter implements TiptapAPI {
         } else {
           console.error(`No such plugin type ${pluginType}`);
         }
-        return 'result!';
+        return id;
       },
       findNodeByKey() {},
-      setBlock: (blockKey, pluginType, data) => ({ tr, state }) => {
-        let nodeRef, nodePos;
-        state.doc.descendants((node, pos) => {
-          if (node.attrs.id === blockKey) {
-            nodeRef = node;
-            nodePos = pos;
-          }
-        });
-        if (nodeRef && nodePos) {
-          tr.setNodeMarkup(nodePos, pluginType, {
-            ...nodeRef.attrs,
-            ...data,
-          });
-        } else {
-          console.error('Failed to find node by blockKey');
-        }
+      setBlock: (blockKey, pluginType, data) => {
+        return this.editor.commands.updateNodeAttrsById(blockKey, toTiptap(data));
       },
       getSelection: () => ({
         getIsFocused: this.editor.isFocused,
