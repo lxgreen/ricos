@@ -21,6 +21,8 @@
 
 - `tiptap plugins`
   - [#3047](https://github.com/wix/ricos/pull/3047) add plugins to tiptap [video, gif, file, gallery, code-block, spoiler, color]
+- `video`
+  - [#3050](https://github.com/wix/ricos/pull/3050) open video modal when embed from youtube
 
 </details>
 <hr/>
