@@ -49,19 +49,35 @@ const VideoModal = props => {
       setSubmittedInvalidUrl(true);
     }
   };
+  const dataHook = isYoutubeType
+    ? 'socialEmbedUploadModal'
+    : isSoundCloud
+    ? 'soundCloudUploadModal'
+    : 'videoMediaUrlModal';
 
-  const renderMediaUrlInputModal = () => (
-    <NewMediaURLInputModal
-      {...props}
-      onConfirm={onConfirm}
-      url={url}
-      setUrl={setUrl}
-      submittedInvalidUrl={submittedInvalidUrl}
-      isYoutubeType={isYoutubeType}
-      isSoundCloud={isSoundCloud}
-      withMobileHeader={isEmbedType}
-    />
-  );
+  const title = isYoutubeType
+    ? t('EmbedURL_Social_YouTube_Title')
+    : isSoundCloud
+    ? isMobile
+      ? t('SoundCloudUploadModal_Header_Mobile')
+      : t('SoundCloudUploadModal_Header')
+    : null;
+
+  const renderMediaUrlInputModal = () => {
+    return (
+      <NewMediaURLInputModal
+        {...props}
+        onConfirm={onConfirm}
+        url={url}
+        setUrl={setUrl}
+        submittedInvalidUrl={submittedInvalidUrl}
+        withMobileHeader={isEmbedType}
+        dataHook={dataHook}
+        title={isEmbedType && title}
+        subTitle={!isEmbedType && t('VideoModal_Embed_Title')}
+      />
+    );
+  };
 
   return isEmbedType ? (
     renderMediaUrlInputModal()

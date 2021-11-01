@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageViewer } from '..';
-import { IMAGE_TYPE, ImagePluginViewerConfig, ImageData } from '../types';
+import { IMAGE_TYPE, ImageData } from '../types';
 import { PluginProps } from 'wix-rich-content-editor-common';
 import { MediaItemErrorMsg, Loader } from 'wix-rich-content-ui-components';
 
@@ -10,9 +10,16 @@ export const Image: React.FC<PluginProps> = ({
   node,
   updateAttributes,
 }) => {
-  const { isMobile, theme, t, config } = context;
+  const { isMobile, theme, t, config = {} } = context;
+  const store = {
+    update: (propery, data) => {
+      // update caption
+      updateAttributes({ caption: data.config.caption });
+    },
+    setBlockHandler: () => null,
+  };
   const helpers = {};
-  const settings: ImagePluginViewerConfig = config[IMAGE_TYPE] || {};
+  const settings = config[IMAGE_TYPE] || {};
   const blockProps = {
     setFocusToBlock: () => null,
   };

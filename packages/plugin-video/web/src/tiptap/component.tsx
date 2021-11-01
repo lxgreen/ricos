@@ -4,8 +4,8 @@ import { VIDEO_TYPE } from '../types';
 import { PluginProps } from 'wix-rich-content-editor-common';
 
 export const Video: React.FC<PluginProps> = ({ context, componentData }) => {
-  const { theme, t, config } = context;
-  const settings = config[VIDEO_TYPE];
+  const { theme, t, config = {} } = context;
+  const settings = config[VIDEO_TYPE] || {};
   const blockProps = {
     setFocusToBlock: () => null,
   };

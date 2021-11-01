@@ -1,6 +1,7 @@
-import { CreateRicosExtensions, TIPTAP_GALLERY_TYPE } from 'wix-tiptap-editor';
+import { CreateRicosExtensions } from 'wix-tiptap-editor';
 import { Gallery as Component } from './component';
 import galleryDataDefaults from 'ricos-schema/dist/statics/gallery.defaults.json';
+import { TIPTAP_GALLERY_TYPE } from 'ricos-content';
 
 const name = TIPTAP_GALLERY_TYPE;
 
@@ -17,7 +18,6 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
     },
     createExtensionConfig: () => ({
       name,
-      atom: false,
       defaultOptions,
       addCommands() {
         return {};

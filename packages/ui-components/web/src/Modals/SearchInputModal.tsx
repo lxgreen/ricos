@@ -4,7 +4,6 @@ import { RichContentTheme } from 'wix-rich-content-common';
 import { TextSearchInput } from '../';
 import { KEYS_CHARCODE } from '../consts';
 import ModalContainer from './TextInputModalContainer';
-import styles from '../../statics/styles/url-input-modal.scss';
 
 const SearchInputModal = props => {
   interface ModalProps {
@@ -41,20 +40,18 @@ const SearchInputModal = props => {
 
   return (
     <ModalContainer {...props}>
-      <div className={styles.textSearchInput_container}>
-        <TextSearchInput
-          id="dropdown-text-input"
-          onClose={onCloseRequested}
-          onKeyPress={handleKeyPress}
-          onChange={onTextChange}
-          value={input}
-          placeHolder={placeholder}
-          theme={props.theme}
-          data-hook={`${dataHook}Input`}
-          autoComplete="off"
-        />
-        {children}
-      </div>
+      <TextSearchInput
+        id="dropdown-text-input"
+        onClose={onCloseRequested}
+        onKeyPress={handleKeyPress}
+        onChange={onTextChange}
+        value={input}
+        placeHolder={placeholder}
+        theme={props.theme}
+        data-hook={`${dataHook}Input`}
+        autoComplete="off"
+      />
+      {children}
     </ModalContainer>
   );
 };

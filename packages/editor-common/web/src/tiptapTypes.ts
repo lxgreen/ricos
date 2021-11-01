@@ -13,8 +13,6 @@ export interface PluginProps {
     t: (key: string) => string;
     config: LegacyEditorPluginConfig;
     iframeSandboxDomain: string;
-    anchorTarget?: string;
-    relValue?: string;
   };
   componentData: ComponentData;
   node: ProseMirrorNode;

@@ -9,13 +9,19 @@ sidebar_label: Content Converters
 Ricos is in the preparation phase of migrating from a [draft-js](https://draftjs.org) based content to our new [Ricos](https://github.com/wix/ricos/tree/master/packages/ricos-schema/web) schema. To support this we provide conversion functions to & from draft.
 
 ```tsx
-fromDraft: (content: DraftContent) => RichContent;
+fromDraft: (draftJSON: DraftContent, opts: FromDraftOptions = {}) => RichContent;
 toDraft: (content: RichContent) => DraftContent;
 ensureRicosContent: (content: RichContent | DraftContent) => RichContent;
 ensureDraftContent: (content: RichContent | DraftContent) => DraftContent;
 ```
 
-#### Example
+### FromDraftOptions
+
+By default, the `fromDraft` API throws error when it encounters invalid `DraftContent`. Sometimes, this behavior is not desired. 
+
+The `opts: FromDraftOptions` parameter allows to alter it, by setting `{ ignoreUnsupportedValues: true }`. In this case, any invalid values are gracefully ignored.
+
+### Example
 
 ```tsx
 import { fromDraft, toDraft } from 'ricos-content/libs/migrateSchema';

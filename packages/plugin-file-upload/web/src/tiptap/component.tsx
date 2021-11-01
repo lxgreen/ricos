@@ -1,11 +1,11 @@
 import React from 'react';
 import { Component as FileUploadComponent } from '../file-upload-component';
-import { FilePluginEditorConfig } from '../types';
+import { FILE_UPLOAD_TYPE } from '../types';
 import { PluginProps } from 'wix-rich-content-editor-common';
 
 export const File: React.FC<PluginProps> = ({ context, componentData }) => {
-  const { isMobile, theme, t } = context;
-  const settings: FilePluginEditorConfig = {};
+  const { isMobile, theme, t, config = {} } = context;
+  const settings = config[FILE_UPLOAD_TYPE] || {};
   const setComponentUrl = () => null;
 
   return (

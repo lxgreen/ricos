@@ -134,6 +134,7 @@ export default class VerticalEmbedInputModal extends Component {
         selected={selected}
         textInput={textInput}
         buttonSize={BUTTON_SIZE.small}
+        showTitle={!isMobile}
       >
         <div className={styles.itemsWrapper}>
           {status === LOADING ? (

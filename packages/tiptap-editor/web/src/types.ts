@@ -9,13 +9,14 @@ import {
   Pubsub,
   ToolbarType,
   TranslationFunction,
+  RichContentTheme,
 } from 'wix-rich-content-common';
+import { createEditorStyles } from 'wix-rich-content-editor-common';
 import { RicosExtension } from './models/extension-types';
 
 export interface PluginProps {
   context: {
     isMobile: boolean;
-    theme: string;
     t: (key: string) => string;
   };
   // eslint-disable-next-line
@@ -49,6 +50,7 @@ export interface RicosTiptapEditorProps {
   onLoad?: (editor: Editor) => void;
   t: TranslationFunction;
   onUpdate?: ({ content }: { content: DraftContent }) => void;
+  theme?: RichContentTheme;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }

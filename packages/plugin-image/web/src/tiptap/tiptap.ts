@@ -1,9 +1,10 @@
 import imageDataDefaults from 'ricos-schema/dist/statics/image.defaults.json';
-import { CreateRicosExtensions, TIPTAP_IMAGE_TYPE } from 'wix-tiptap-editor';
+import { CreateRicosExtensions } from 'wix-tiptap-editor';
 import { Image as Component } from './component';
 import { Plugin, PluginKey } from 'prosemirror-state';
 import { uploadFile } from 'wix-rich-content-plugin-commons';
 import { generateId } from 'ricos-content';
+import { TIPTAP_IMAGE_TYPE } from 'ricos-content';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {

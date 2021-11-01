@@ -19,3 +19,4 @@ export { default as textWrapContentState } from './textWrapContentState';
 export { default as textWrapContentStateExpected } from './textWrapContentStateExpected';
 export { default as noConfigContentState } from './noConfigContentState';
 export { default as noConfigContentStateExpected } from './noConfigContentStateExpected';
+export { default as pollContent } from './pollContent';

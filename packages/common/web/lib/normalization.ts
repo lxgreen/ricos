@@ -1,1 +1,1 @@
-export { normalizeInitialState } from 'ricos-content';
+export { normalizeInitialState, normalizePoll } from 'ricos-content';

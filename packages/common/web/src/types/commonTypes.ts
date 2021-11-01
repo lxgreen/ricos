@@ -111,6 +111,7 @@ export interface EditorContextType extends CommonContextType {
   disableKeyboardEvents?: (shouldEnable: boolean) => void;
   experiments?: AvailableExperiments;
   textWrap: boolean;
+  onKeyboardShortcutClick: OnKeyboardShortcutClick;
 }
 
 export interface ViewerContextType extends CommonContextType {
@@ -137,3 +138,5 @@ export type LinkPreviewData = {
   provider_url?: string;
   html?: string;
 };
+
+export type OnKeyboardShortcutClick = (param: { buttonName: string; pluginId?: string }) => void;

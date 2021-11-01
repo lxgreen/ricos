@@ -1,5 +1,5 @@
 // import linkPreviewDataDefaults from 'ricos-schema/dist/statics/link_preview.defaults.json';
-import { CreateRicosExtensions, TIPTAP_LINK_PREVIEW_TYPE } from 'wix-tiptap-editor';
+import { CreateRicosExtensions } from 'wix-tiptap-editor';
 import { LinkPreview as Component } from './component';
 import { Editor } from '@tiptap/core';
 import { KeyboardShortcutCommand } from '@tiptap/react';
@@ -14,6 +14,7 @@ import {
 import { convertBlockDataToRicos } from 'ricos-content/libs/migrateSchema';
 import { DeepPartial } from 'utility-types';
 import { ResolvedPos } from 'prosemirror-model';
+import { TIPTAP_LINK_PREVIEW_TYPE } from 'ricos-content';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -94,7 +95,6 @@ export const createRicosExtensions: CreateRicosExtensions = config => [
     componentDataDefaults: { ...LinkPreviewData.fromJSON({}), id: '' },
     createExtensionConfig: () => ({
       name,
-      atom: false,
       addCommands() {
         return {
           setLinkPreview: attributes => ({ commands }) => {

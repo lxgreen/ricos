@@ -6,8 +6,8 @@ import { withRCEHelpers } from '../rce-helpers-context';
 
 import { VotedUsersProps } from './types';
 import { VotedUsersModal } from './VotedUsersModal';
-
 import styles from './voted-users.scss';
+import VoterAvatar from './VoterAvatar';
 
 class VotedUsersComponent extends PureComponent {
   static propTypes = {
@@ -43,11 +43,9 @@ class VotedUsersComponent extends PureComponent {
     }
 
     return (
-      <li
-        key={member.siteMemberId}
-        className={styles.avatar}
-        style={{ backgroundImage: `url('${member.imageUrl}')` }}
-      />
+      <li key={member.siteMemberId} className={styles.avatar}>
+        <VoterAvatar className={styles.avatar} src={member.imageUrl} />
+      </li>
     );
   }
 
