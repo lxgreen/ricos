@@ -17,13 +17,20 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.58.2 (Nov 1, 2021)
+
 ### :house: Internal
 
 - `schema`
   - [#3049](https://github.com/wix/ricos/pull/3049) generate-plugin-defaults generates link decoration defaults
 
-</details>
-<hr/>
+### :bug: Bug Fix
+
+- `schema`
+  - add verticala embed schema to content state schemas
 
 ## 8.58.1 (Oct 27, 2021)
 
