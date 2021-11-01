@@ -19,6 +19,10 @@ const codeBlockTexButtontMapper: CreatePluginToolbar = config => {
     (() =>
       CodeBlockIcon({ newFormattingToolbar: config?.experiments?.newFormattingToolbar?.enabled }));
   const commandHandler: CommandHandler = (editorState: EditorState) => {
+    config.onKeyboardShortcutClick({
+      buttonName: COMMANDS.CODE,
+      pluginId: CODE_BLOCK_TYPE,
+    });
     config.setEditorState(toggleBlockTypeAndEnsureSpaces(CODE_BLOCK_TYPE, editorState));
   };
 

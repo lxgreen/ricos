@@ -10,7 +10,7 @@ import { Poll } from './Poll';
 import { PollContextProvider } from './poll-context';
 import { RCEHelpersContext } from './rce-helpers-context';
 import { GlobalContext } from 'wix-rich-content-common';
-import { omit } from 'lodash';
+import { normalizePoll as fixPollServerData } from 'wix-rich-content-common/libs/normalization';
 
 class PollEditorComponent extends PureComponent {
   static propTypes = {
@@ -50,21 +50,11 @@ class PollEditorComponent extends PureComponent {
     return experiments?.normalizePoll?.enabled;
   }
 
-  normalizePoll = poll => {
+  fixPollServerData = poll => {
     if (!this.shouldNormalizePoll()) {
       return poll;
     }
-    const blackList = [
-      'anonymousCount',
-      'count',
-      'creatorFlag',
-      'ownVotes',
-      'latestVoters',
-      'rating',
-    ];
-    const normalizedPoll = omit(poll, blackList);
-    normalizedPoll.options = poll.options.map(option => omit(option, blackList));
-    return normalizedPoll;
+    return fixPollServerData(poll);
   };
 
   setPoll = poll => {
@@ -74,7 +64,7 @@ class PollEditorComponent extends PureComponent {
       'componentData',
       {
         ...componentData,
-        poll: this.normalizePoll(poll),
+        poll: this.fixPollServerData(poll),
       },
       this.props.block.getKey()
     );

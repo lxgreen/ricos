@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component, CSSProperties, FocusEvent } from 'react';
-import classNames from 'classnames';
 import Editor from 'draft-js-plugins-editor';
 import { get, includes, debounce, cloneDeep } from 'lodash';
 import Measure, { BoundingRect, ContentRect } from 'react-measure';
@@ -21,6 +20,7 @@ import {
   getBlockInfo,
   getFocusedBlockKey,
   createCalcContentDiff,
+  createEditorStyles,
   getBlockType,
   COMMANDS,
   MODIFIERS,
@@ -77,7 +77,7 @@ import {
   CommandHandler,
   KeyCommand,
 } from 'wix-rich-content-common';
-import styles from '../../statics/styles/rich-content-editor.scss';
+import editorStyles from '../../statics/styles/rich-content-editor.scss';
 import draftStyles from '../../statics/styles/draft.rtlignore.scss';
 import 'wix-rich-content-common/dist/statics/styles/draftDefault.rtlignore.scss';
 import InnerRCE from './InnerRCE';
@@ -86,6 +86,7 @@ import InnerModal from './InnerModal';
 import { onCut, onCopy } from './utils/onCutAndCopy';
 import preventWixFocusRingAccessibility from './preventWixFocusRingAccessibility';
 import { ErrorToast } from './Components';
+import { getBiButtonName } from './utils/biUtils';
 
 type PartialDraftEditorProps = Pick<
   Partial<DraftEditorProps>,
@@ -486,6 +487,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       disableKeyboardEvents: this.disableKeyboardEvents,
       experiments,
       textWrap,
+      onKeyboardShortcutClick: this.onKeyboardShortcutClick,
     };
   };
 
@@ -551,6 +553,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       tablePluginMenu,
       pubsub: this.commonPubsub,
       experiments,
+      focusEditor: this.focus,
     });
   }
 
@@ -699,6 +702,13 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     }
   };
 
+  openPluginMenu = () => {
+    const pluginMenuButton = this.editorWrapper.querySelectorAll(
+      `[data-hook="addPluginFloatingToolbar"]`
+    )[0] as HTMLElement;
+    pluginMenuButton?.click?.();
+  };
+
   getHeadings = config => {
     const { [HEADINGS_DROPDOWN_TYPE]: headingsPluginSettings } = config;
 
@@ -812,6 +822,16 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
 
   customCommands: KeyCommand[] = [
     {
+      command: COMMANDS.OPEN_PLUGIN_MENU,
+      modifiers: [MODIFIERS.CTRL, MODIFIERS.ALT],
+      keyCode: 80,
+    },
+    {
+      command: COMMANDS.OPEN_PLUGIN_MENU,
+      modifiers: [MODIFIERS.COMMAND, MODIFIERS.CTRL],
+      keyCode: 80,
+    },
+    {
       command: COMMANDS.FOCUS_TOOLBAR,
       modifiers: [MODIFIERS.ALT],
       keyCode: 84,
@@ -847,6 +867,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
   ] as KeyCommand[];
 
   customCommandHandlers: Record<string, CommandHandler> = {
+    openPluginMenu: this.openPluginMenu,
     focusToolbar: this.focusOnToolbar,
     tab: this.handleTabCommand,
     shiftTab: this.handleTabCommand,
@@ -1000,6 +1021,31 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     return handled || 'not-handled';
   };
 
+  onKeyboardShortcutClick = ({
+    buttonName,
+    pluginId,
+  }: {
+    buttonName: string;
+    pluginId?: string;
+  }) => {
+    const { helpers = {} } = this.props;
+    const alignmentKeys = ['left', 'right', 'center', 'justify'];
+    const biButtonName = getBiButtonName(buttonName);
+    if (alignmentKeys.includes(buttonName)) {
+      helpers.onKeyboardShortcutAction?.({
+        buttonName: 'Alignment',
+        value: buttonName,
+        version: Version.currentVersion,
+      });
+    } else if (biButtonName) {
+      helpers.onKeyboardShortcutAction?.({
+        buttonName: biButtonName,
+        pluginId,
+        version: Version.currentVersion,
+      });
+    }
+  };
+
   renderEditor = () => {
     const {
       editorKey,
@@ -1045,6 +1091,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
           this.updateEditorState,
           this.getCustomCommandHandlers().commandHandlers,
           getBlockType(editorState),
+          this.onKeyboardShortcutClick,
           onBackspace
         )}
         editorKey={editorKey}
@@ -1196,23 +1243,35 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
   setEditorWrapper = ref => ref && (this.editorWrapper = ref);
 
   render() {
-    const { onError, locale, direction, showToolbars = true, isInnerRCE } = this.props;
+    const {
+      onError,
+      locale,
+      direction,
+      showToolbars = true,
+      isInnerRCE,
+      isMobile = false,
+    } = this.props;
     const { innerModal } = this.state;
-    const editorStyle = isInnerRCE ? { backgroundColor: 'transparent' } : {};
 
     try {
       if (this.state.error) {
         onError(this.state.error);
         return null;
       }
-      const { isMobile = false } = this.props;
       const { theme } = this.contextualData;
-      const themeDesktopStyle = theme.desktop
-        ? { [theme.desktop]: !isMobile && theme && theme.desktop }
-        : {};
-      const wrapperClassName = classNames(draftStyles.wrapper, styles.wrapper, theme.wrapper, {
-        [styles.desktop]: !isMobile,
-        ...themeDesktopStyle,
+
+      const {
+        containerStyle,
+        containerClassName,
+        editorStyle,
+        editorClassName,
+      } = createEditorStyles({
+        isInnerRCE,
+        isMobile,
+        containerStyle: this.props.style,
+        theme,
+        draftStyles,
+        editorStyles,
       });
 
       return (
@@ -1222,19 +1281,15 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
               <div
                 onFocus={this.onFocus}
                 onBlur={this.onBlur}
-                style={this.props.style}
+                style={containerStyle}
                 ref={measureRef}
-                className={wrapperClassName}
+                className={containerClassName}
                 dir={direction || getLangDir(this.props.locale)}
                 data-id={'rce'}
                 data-hook={!isInnerRCE ? 'root-editor' : 'inner-editor'}
               >
                 {this.renderStyleTag()}
-                <div
-                  ref={this.setEditorWrapper}
-                  className={classNames(styles.editor, theme.editor)}
-                  style={editorStyle}
-                >
+                <div ref={this.setEditorWrapper} className={editorClassName} style={editorStyle}>
                   {this.renderAccessibilityListener()}
 
                   {this.renderEditor()}

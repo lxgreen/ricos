@@ -1,6 +1,4 @@
-import React from 'react';
 import { TiptapAPI } from '../../types';
-import Toolbar from '../../components/Toolbar';
 import { capitalize } from 'lodash';
 import {
   RICOS_DIVIDER_TYPE,
@@ -25,14 +23,6 @@ import {
 import { toTiptap } from '../../converters';
 import { Editor } from '@tiptap/core';
 import {
-  TIPTAP_DIVIDER_TYPE,
-  TIPTAP_IMAGE_TYPE,
-  TIPTAP_GALLERY_TYPE,
-  TIPTAP_FILE_TYPE,
-  TIPTAP_GIF_TYPE,
-  TIPTAP_VIDEO_TYPE,
-} from '../../consts';
-import {
   HEADER_BLOCK,
   UNSTYLED,
   BULLET_LIST_TYPE,
@@ -40,6 +30,12 @@ import {
   BLOCKQUOTE,
   HEADINGS_TYPE,
   NUMBERED_LIST_TYPE,
+  TIPTAP_DIVIDER_TYPE,
+  TIPTAP_IMAGE_TYPE,
+  TIPTAP_GALLERY_TYPE,
+  TIPTAP_FILE_TYPE,
+  TIPTAP_GIF_TYPE,
+  TIPTAP_VIDEO_TYPE,
 } from 'ricos-content';
 
 const PLUGIN_TYPE_MAP = {

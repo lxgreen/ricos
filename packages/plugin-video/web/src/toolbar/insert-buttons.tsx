@@ -24,6 +24,7 @@ import {
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,
   DesktopOverlayModalStyles,
 } from 'wix-rich-content-ui-components';
+import { videoModalContentStyles, embedModalContentStyles } from '../constants';
 
 const createInsertButtons: CreateInsertButtons = ({
   t,
@@ -51,18 +52,23 @@ const createInsertButtons: CreateInsertButtons = ({
     handleFileSelection,
     handleFileUpload,
   } = settings || {};
+
   const icon = toolbar?.icons?.InsertPluginButtonIcon || VideoInsertPluginIcon;
 
-  const newModalCustomStyles = isMobile
+  const videoModalCustomStyles = isMobile
     ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
-    : DesktopFlyOutModalStyles;
+    : { ...DesktopFlyOutModalStyles, content: videoModalContentStyles };
+
+  const embedModalCustomStyles = isMobile
+    ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
+    : { ...DesktopFlyOutModalStyles, content: embedModalContentStyles };
 
   const defaultCustomStyles =
     (!isMobile || enableCustomUploadOnMobile) && (handleFileSelection || handleFileUpload)
       ? ExtendedSelectionModalCustomStyle
       : SelectionModalCustomStyle;
 
-  const customStyles = useNewModal ? newModalCustomStyles : defaultCustomStyles;
+  const customStyles = useNewModal ? videoModalCustomStyles : defaultCustomStyles;
 
   const modalsStyle = getModalStyles({
     customStyles,
@@ -72,18 +78,6 @@ const createInsertButtons: CreateInsertButtons = ({
 
   const newModalStyles = isMobile ? modalsStyle : undefined;
   const modalStyles = useNewModal ? newModalStyles : modalsStyle;
-
-  const modalStylesFn = useNewModal
-    ? ({ buttonRef, toolbarName }) => {
-        return getBottomToolbarModalStyles(
-          buttonRef,
-          {
-            customStyles,
-          },
-          toolbarName
-        );
-      }
-    : undefined;
 
   const baseButtonProps = {
     type: BUTTON_TYPES.MODAL,
@@ -119,8 +113,19 @@ const createInsertButtons: CreateInsertButtons = ({
   let videoButtons = exposeButtons.map(buttonType => ({
     ...buttonsMap[buttonType],
     toolbars,
-    modalStylesFn,
     modalStyles,
+    modalStylesFn: useNewModal
+      ? ({ buttonRef, toolbarName }) => {
+          const isEmbedType = buttonType !== videoButtonsTypes.video;
+          return getBottomToolbarModalStyles(
+            buttonRef,
+            {
+              customStyles: isEmbedType ? embedModalCustomStyles : videoModalCustomStyles,
+            },
+            toolbarName
+          );
+        }
+      : undefined,
     ...baseButtonProps,
   }));
 
@@ -130,7 +135,7 @@ const createInsertButtons: CreateInsertButtons = ({
       ...buttonsMap[buttonType],
       modalStyles: getModalStyles({
         customStyles: {
-          ...customStyles,
+          ...DesktopFlyOutModalStyles,
           ...DesktopOverlayModalStyles,
         },
         fullScreen: false,

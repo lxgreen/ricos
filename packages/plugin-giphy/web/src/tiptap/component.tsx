@@ -4,8 +4,8 @@ import { GIPHY_TYPE } from '../types';
 import { PluginProps } from 'wix-rich-content-editor-common';
 
 export const Gif: React.FC<PluginProps> = ({ context, componentData }) => {
-  const { isMobile, theme, config } = context;
-  const settings = config[GIPHY_TYPE];
+  const { isMobile, theme, config = {} } = context;
+  const settings = config[GIPHY_TYPE] || {};
 
   const setComponentUrl = () => null;
 

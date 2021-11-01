@@ -118,6 +118,15 @@ export const RICOS_FONT_SIZE_TYPE = 'ricos-font-size';
 export const RICOS_EXTERNAL_LINK_TYPE = 'ricos-external-link'; // TODO: is this type needed?
 export const RICOS_EXTERNAL_MENTION_TYPE = 'ricos-external-mention'; // TODO: is this type needed?
 
+// tiptap plugins types
+export const TIPTAP_DIVIDER_TYPE = 'divider';
+export const TIPTAP_IMAGE_TYPE = 'image';
+export const TIPTAP_GALLERY_TYPE = 'gallery';
+export const TIPTAP_FILE_TYPE = 'file';
+export const TIPTAP_GIF_TYPE = 'gif';
+export const TIPTAP_VIDEO_TYPE = 'video';
+export const TIPTAP_LINK_PREVIEW_TYPE = 'linkPreview';
+
 export const RICOS_NODE_TYPE_TO_DATA_FIELD = {
   [Node_Type.BUTTON]: 'buttonData',
   [Node_Type.DIVIDER]: 'dividerData',

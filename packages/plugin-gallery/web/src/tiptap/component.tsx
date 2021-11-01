@@ -4,12 +4,14 @@ import { GALLERY_TYPE } from '../types';
 import { PluginProps } from 'wix-rich-content-editor-common';
 
 export const Gallery: React.FC<PluginProps> = ({ context, componentData, node }) => {
-  const { isMobile, theme, t, anchorTarget, relValue, config } = context;
+  const { isMobile, theme, t, config = {} } = context;
   const helpers = {};
-  const settings = config[GALLERY_TYPE];
+  const settings = config[GALLERY_TYPE] || {};
   const block = {
     getKey: () => node.attrs.id,
   };
+  const anchorTarget = '';
+  const relValue = '';
 
   return (
     <GalleryComponent

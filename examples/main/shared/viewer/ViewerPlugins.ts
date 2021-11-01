@@ -152,6 +152,18 @@ export const uiSettings: UISettings = {
 const config: RichContentViewerProps['config'] = {
   [POLL_TYPE]: {
     pollServiceApi: new SocialPollsServiceMock(),
+    getSiteMembers: () => [
+      // Public user
+      {
+        siteMemberId: 'd0d683f9-81b1-4ec2-84ee-7f49c5245148',
+        name: { nick: 'User 1' },
+        imageUrl: 'https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg',
+      },
+      // Private user
+      {
+        siteMemberId: 'd0d683f9-81b1-4ec2-84ee-7f49c5245149',
+      },
+    ],
   },
   [GALLERY_TYPE]: {},
   [SPOILER_TYPE]: { initSpoilersContentState, SpoilerViewerWrapper },

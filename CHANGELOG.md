@@ -17,6 +17,77 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `tiptap plugins`
+  - [#3047](https://github.com/wix/ricos/pull/3047) add plugins to tiptap [video, gif, file, gallery, code-block, spoiler, color]
+
+</details>
+<hr/>
+
+## 8.58.2 (Nov 1, 2021)
+
+### :house: Internal
+
+- `schema`
+  - [#3049](https://github.com/wix/ricos/pull/3049) generate-plugin-defaults generates link decoration defaults
+
+### :bug: Bug Fix
+
+- `schema`
+  - add verticala embed schema to content state schemas
+
+## 8.58.1 (Oct 27, 2021)
+
+### :rocket: New Feature
+
+- `social-polls`
+  - [#3041](https://github.com/wix/ricos/pull/3041) fallback user
+
+## 8.58.0 (Oct 27, 2021)
+
+### :rocket: New Feature
+
+- `social-polls`
+  - [#3025](https://github.com/wix/ricos/pull/3025) refactor polls config API & normalize poll data
+- `editor`
+  - [#3028](https://github.com/wix/ricos/pull/3028) plugin menu shortcuts
+
+### :bug: Bug Fix
+
+- `social-polls`
+  - [#3020](https://github.com/wix/ricos/pull/3020) fix settings separator style
+- `gallery`
+  - [#3033](https://github.com/wix/ricos/pull/3033) fix settings separator style
+
+### :house: Internal
+
+- `editor-common`
+  - [#3030](https://github.com/wix/ricos/pull/3030) refactor getModalStyles (changed modal position when opened from plugin menu)
+- `general`
+  - [#3023](https://github.com/wix/ricos/pull/3023) add BI events to formatting shortcuts
+
+### :book: Documentation
+
+- [#3037](https://github.com/wix/ricos/pull/3037) FromDraftOptions
+
+### :nail_care: Polish
+
+- `ricos-schema`
+  - [#2927](https://github.com/wix/ricos/pull/2927) text decorations and `documentStyle` schema
+
+## 8.57.0 (Oct 25, 2021)
+
+### :rocket: New Feature
+
+- `viewer`
+  - [#3012](https://github.com/wix/ricos/pull/3012) print mode - fix page break in the middle of list item
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3019](https://github.com/wix/ricos/pull/3019) fromDraft: Invalid entity key protected
+
 ### :nail_care: Polish
 
 - `ui-components`
@@ -24,10 +95,11 @@
 - `vertical-embed`
   - [#3005](https://github.com/wix/ricos/pull/3005) vertical-embed modal new design
 - `line-spacing`
-
   - [#3009](https://github.com/wix/ricos/pull/3009) add custom line-height selection to the line-heights options display
 - `ricos-content`
   - [#3016](https://github.com/wix/ricos/pull/3016) Polls Content Builder API support
+- `ui-components/video/vertical-social-embed`
+  - [#3018](https://github.com/wix/ricos/pull/3018) new modals general code / style refactor
 
 ### :house: Internal
 
@@ -35,9 +107,6 @@
   - [#3013](https://github.com/wix/ricos/pull/3013) undefined fields added to plugin defaults JSON
 - `divider`
   - [#3017](https://github.com/wix/ricos/pull/3017) set divider width to 100% and remove editor bounds consideration
-
-</details>
-<hr/>
 
 ## 8.56.5 (Oct 18, 2021)
 

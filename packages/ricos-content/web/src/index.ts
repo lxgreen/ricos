@@ -1,4 +1,4 @@
-export { normalizeInitialState } from './normalization';
+export * from './normalization';
 export {
   isValidExactUrl,
   isValidUrl,

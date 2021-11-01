@@ -114,7 +114,7 @@ export const DEFAULT_COMPONENT_DATA = {
       multipleVotes: false,
       votesDisplay: true,
       votersDisplay: true,
-      voteRole: MEMBER_ROLES.SITE_MEMBERS,
+      voteRole: MEMBER_ROLES.ALL,
       resultsVisibility: VISIBILITY.VOTERS,
     },
     options: [],

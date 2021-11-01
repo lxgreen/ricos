@@ -14,6 +14,7 @@ import {
 import { convertBlockDataToRicos } from 'ricos-content/libs/migrateSchema';
 import { DeepPartial } from 'utility-types';
 import { ResolvedPos } from 'prosemirror-model';
+import { TIPTAP_LINK_PREVIEW_TYPE } from 'ricos-content';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {

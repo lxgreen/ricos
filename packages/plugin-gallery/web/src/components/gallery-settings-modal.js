@@ -9,6 +9,7 @@ import {
   SettingsPanelFooter,
   FocusManager,
   SettingsMobileHeader,
+  SettingsSeparator,
 } from 'wix-rich-content-ui-components';
 import LayoutSelector from './gallery-controls/layouts-selector';
 import styles from '../../statics/styles/gallery-settings-modal.scss';
@@ -313,7 +314,7 @@ export class GallerySettingsModal extends Component {
 
   renderToggle = ({ toggleKey, labelKey, tooltipText, dataHook, onToggle, type }) =>
     type === DIVIDER ? (
-      <div className={this.styles.divider} />
+      <SettingsSeparator top />
     ) : (
       <LabeledToggle
         key={toggleKey}

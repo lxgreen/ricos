@@ -6,13 +6,19 @@ import * as E from 'fp-ts/Either';
 import * as T from 'fp-ts/Tuple';
 import * as A from 'fp-ts/Array';
 import * as S from 'fp-ts/string';
-import { identity, flow } from 'fp-ts/function';
+import { identity, flow, pipe } from 'fp-ts/function';
 
 import { mkdirSync, writeFileSync, copySync } from 'fs-extra';
 import { resolve } from 'path';
-import { RichContent, Node, Node_Type } from '../src/generated/wix/rich_content/v1/';
+import {
+  RichContent,
+  Node,
+  Node_Type,
+  Decoration_Type,
+  LinkData,
+} from '../src/generated/wix/rich_content/v1/';
 
-const dataPropByType = {
+const pluginDataPropByType = {
   [Node_Type.APP_EMBED]: 'appEmbedData',
   [Node_Type.BUTTON]: 'buttonData',
   [Node_Type.CODE_BLOCK]: 'codeBlockData',
@@ -83,10 +89,10 @@ const writeStaticsEntry = ([type, defaults]) => {
 };
 
 const toNodes = (content: RichContent) => content.nodes;
-const toPluginDataTuple = (n: Node): [string, unknown] => [n.type, n[dataPropByType[n.type]]];
+const toPluginDataTuple = (n: Node): [string, unknown] => [n.type, n[pluginDataPropByType[n.type]]];
 const nullReplacer = (_: string, value: unknown) => (typeof value === 'undefined' ? null : value);
 
-const generateDefaults = flow(
+const generatePluginDefaults = flow(
   RichContent.fromJSON, // content with default values
   toNodes, // map nodes
   A.map(
@@ -105,6 +111,25 @@ const generateDefaults = flow(
   )
 );
 
+const toDecorationDataDefaults = <T>(fromJSON: () => T) =>
+  pipe(
+    fromJSON(),
+    flow(
+      stringify(nullReplacer),
+      E.fold(() => 'data stringify error', identity)
+    )
+  );
+
+const generateDecorationDefaults = () =>
+  pipe(
+    {
+      [Decoration_Type.LINK]: () => ({ linkData: LinkData.fromJSON({ link: {} }) }),
+    },
+    Object.entries,
+    A.map(flow(T.bimap(toDecorationDataDefaults, S.toLowerCase), writeStaticsEntry))
+  );
+
 mkdirSync('statics', { recursive: true });
-generateDefaults(defaultContent);
+generatePluginDefaults(defaultContent);
+generateDecorationDefaults();
 copySync(resolve(__dirname, '..', 'statics'), resolve(__dirname, '..', 'dist', 'statics'));

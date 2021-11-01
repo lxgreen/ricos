@@ -9,7 +9,7 @@ export const Image: React.FC<PluginProps> = ({
   updateAttributes,
   node,
 }) => {
-  const { isMobile, theme, t, config } = context;
+  const { isMobile, theme, t, config = {} } = context;
   const store = {
     update: (propery, data) => {
       // update caption
@@ -19,7 +19,7 @@ export const Image: React.FC<PluginProps> = ({
   };
   const helpers = {};
   const componentState = {};
-  const settings = config[IMAGE_TYPE];
+  const settings = config[IMAGE_TYPE] || {};
   const blockProps = {
     setFocusToBlock: () => null,
   };
