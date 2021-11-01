@@ -65,7 +65,8 @@ const headingTypeToLevelMap = {
 // todo : should change to RichContentInterface
 export class RichContentAdapter implements TiptapAPI {
   constructor(
-    private editor: Editor,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    private editor: any,
     private t: TranslationFunction,
     private plugins: EditorPlugin[],
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -107,7 +108,6 @@ export class RichContentAdapter implements TiptapAPI {
   getEditorCommands() {
     return {
       ...this.editorMocks,
-      ...this.editor.commands,
       toggleInlineStyle: inlineStyle => {
         const editorCommand = this.editor.chain().focus();
         const styleName = `toggle${capitalize(inlineStyle)}`;
@@ -228,6 +228,7 @@ export class RichContentAdapter implements TiptapAPI {
           console.error(`delete ${type} decoration type not supported`);
         }
       },
+      addImage: file => this.editor.commands.addImage(file),
     };
   }
 
