@@ -1,4 +1,4 @@
-const devConfig = require('./webpack.config');
+const devConfig = require('./webpack.dev');
 const WebpackCdnPlugin = require('webpack-cdn-plugin');
 module.exports = {
   ...devConfig,
