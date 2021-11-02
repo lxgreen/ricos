@@ -14,7 +14,6 @@ import Blockquote from '@tiptap/extension-blockquote';
 import OrderedList from '@tiptap/extension-ordered-list';
 import ListItem from '@tiptap/extension-list-item';
 import Paragraph from './extensions/extension-paragraph';
-import { createLink } from './extensions/extension-link';
 import { createBold } from './extensions/extension-bold';
 import { createColor } from './extensions/extension-color';
 import { createBulletedList } from './extensions/extension-bulleted-list';
@@ -57,7 +56,6 @@ export const tiptapExtensions: Extensions = [
   OrderedList.extend(withID),
   Paragraph.extend(withID),
   Text,
-  ...createLink(),
   createBulletedList().extend(withID),
   createBold(),
   createColor(),

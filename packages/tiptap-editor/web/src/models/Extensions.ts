@@ -19,7 +19,7 @@ import { IExtensionAggregate } from './IExtensionAggregate';
 import { MarkExtension } from './MarkExtension';
 import { MarkExtensions } from './MarkExtensions';
 import { NodeExtension } from './NodeExtension';
-import { NodeExtensions, DecoratedNodeExtensions } from './NodeExtensions';
+import { NodeExtensions } from './NodeExtensions';
 
 const defaultIExtension = {
   toTiptapExtension: Extension.create,

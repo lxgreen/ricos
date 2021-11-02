@@ -116,11 +116,11 @@ const createInsertButtons: CreateInsertButtons = ({
     modalStyles,
     modalStylesFn: useNewModal
       ? ({ buttonRef, toolbarName }) => {
-          const isEmbedType = buttonType !== videoButtonsTypes.video;
+          const isSoundCloud = buttonType === videoButtonsTypes.soundCloud;
           return getBottomToolbarModalStyles(
             buttonRef,
             {
-              customStyles: isEmbedType ? embedModalCustomStyles : videoModalCustomStyles,
+              customStyles: isSoundCloud ? embedModalCustomStyles : videoModalCustomStyles,
             },
             toolbarName
           );

@@ -17,13 +17,19 @@
     Click to see more.
   </summary>
 
+  
+
+</details>
+<hr/>
+
+## 8.58.3 (Nov 2, 2021)
+
 ### :house: Internal
 
 - `tiptap plugins`
   - [#3047](https://github.com/wix/ricos/pull/3047) add plugins to tiptap [video, gif, file, gallery, code-block, spoiler, color]
-
-</details>
-<hr/>
+- `video`
+  - [#3050](https://github.com/wix/ricos/pull/3050) open video modal when embed from youtube
 
 ## 8.58.2 (Nov 1, 2021)
 
