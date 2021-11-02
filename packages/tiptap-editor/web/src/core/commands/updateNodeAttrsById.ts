@@ -13,11 +13,12 @@ declare module '@tiptap/core' {
 
 export const updateNodeAttrsById: RawCommands['updateNodeAttrsById'] = (id, attrs = {}) => ({
   view,
+  tr,
 }) => {
   const nodeWithPos = findChildren(view.state.doc, node => node.attrs.id === id);
   const { pos } = nodeWithPos?.[0] || {};
   if (pos) {
-    view.dispatch(view.state.tr.setNodeMarkup(pos, undefined, attrs));
+    tr.setNodeMarkup(pos, undefined, attrs);
     return true;
   } else {
     console.error('Failed to find node by blockKey');
