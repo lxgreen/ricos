@@ -17,7 +17,12 @@
     Click to see more.
   </summary>
 
-  
+### :rocket: New Feature
+
+- `ricos-schema` 
+  - [#3054](https://github.com/wix/ricos/pull/3054) EXTERNAL type
+- `ricos-content`
+  - [#3054](https://github.com/wix/ricos/pull/3054) to/fromDraft: EXTERNAL type supported
 
 </details>
 <hr/>
