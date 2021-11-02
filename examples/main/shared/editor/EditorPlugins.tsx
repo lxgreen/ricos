@@ -861,6 +861,30 @@ const config: RichContentEditorProps['config'] = {
       //   };
       // },
     },
+    // {
+    //   name: TOOLBARS.STATIC,
+    //   getButtons: () => ({
+    //     desktop: [
+    //       ...(textButtons?.desktop?.filter?.(button => button !== FORMATTING_BUTTONS.CODE_BLOCK) ??
+    //         []),
+    //       '|',
+    //       'FULLSCREEN_TOGGLE',
+    //     ],
+    //   }),
+    //   getTextPluginButtons: () => {
+    //     return {
+    //       desktop: {
+    //         FULLSCREEN_TOGGLE: {
+    //           component: () => (
+    //             <div onClick={() => console.log('blabla')} data-hook="blabla">
+    //               blabla
+    //             </div>
+    //           ),
+    //         },
+    //       },
+    //     };
+    //   },
+    // },
   ],
 };
 
