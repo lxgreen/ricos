@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "module": "ESNext",
+    "noImplicitAny": true,
+    "outDir": "./dist/",
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "target": "ESNext",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["./src/index.tsx"]
+}
