@@ -79,6 +79,7 @@ export const ANCHOR_TYPE = 'ANCHOR';
 export const PREVIEW = 'PREVIEW';
 export const UNSUPPORTED_BLOCKS_TYPE = 'unsupported-blocks';
 export const EMBED_TYPE = 'EMBED';
+export const EXTERNAL = 'EXTERNAL';
 
 // ricos plugin types
 export const RICOS_COLLAPSIBLE_LIST_TYPE = 'ricos-collapsible-list';
@@ -149,4 +150,5 @@ export const RICOS_NODE_TYPE_TO_DATA_FIELD = {
   [Node_Type.CODE_BLOCK]: 'codeBlockData',
   [Node_Type.BLOCKQUOTE]: 'paragraphData',
   [Node_Type.EMBED]: 'embedData',
+  [Node_Type.EXTERNAL]: 'externalData',
 } as const;
