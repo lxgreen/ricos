@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { RichContentEditor } from 'wix-rich-content-editor';
 import {
   RichContentTheme,
-  GetToolbarSettings,
   EditorCommands,
   TextButtons,
   EditorPlugin,
   LinkPanelSettings,
   ToolbarType,
   AvailableExperiments,
+  getLangDir,
 } from 'wix-rich-content-common';
-import { LinkSettings } from 'ricos-common';
+import { LinkSettings, ToolbarSettings } from 'ricos-common';
 import { isiOS } from 'wix-rich-content-editor-common';
 import {
   FloatingToolbarContainer,
@@ -27,7 +28,8 @@ interface TextFormattingToolbarProps {
   textToolbarType?: string | null;
   isMobile?: boolean;
   theme?: RichContentTheme;
-  getToolbarSettings?: GetToolbarSettings;
+  toolbarSettings?: ToolbarSettings;
+  locale?: string;
   plugins?: EditorPlugin[];
   linkPanelSettings?: LinkPanelSettings;
   linkSettings?: LinkSettings;
@@ -54,7 +56,8 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
       textToolbarType,
       isMobile,
       theme,
-      getToolbarSettings = () => [],
+      toolbarSettings = {},
+      locale,
       experiments,
     } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
@@ -66,9 +69,9 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
       mobile: mobileTextButtonList,
       desktop: desktopTextButtonList,
     };
-    const formattingToolbarSetting = getToolbarSettings({ textButtons }).find(
-      toolbar => toolbar?.name === textToolbarType
-    );
+    const formattingToolbarSetting = toolbarSettings
+      ?.getToolbarSettings?.({ textButtons })
+      .find(toolbar => toolbar?.name === textToolbarType);
     const deviceName = !isMobile ? 'desktop' : isiOS() ? 'mobile.ios' : 'mobile.android';
     let formattingToolbarButtons;
     if (formattingToolbarSetting?.getButtons) {
@@ -128,8 +131,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
       textToolbarType === ToolbarType.MOBILE || textToolbarType === ToolbarType.STATIC
         ? StaticToolbarContainer
         : FloatingToolbarContainer;
-
-    return !hideFormattingToolbar ? (
+    const ToolbarWithContainerToRender = (
       <ToolbarContainer
         isMobile={isMobile}
         showToolbar={showFormattingToolbar || false}
@@ -138,7 +140,16 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
       >
         {ToolbarToRender}
       </ToolbarContainer>
-    ) : null;
+    );
+
+    const textToolbarContainer = this.props.toolbarSettings?.textToolbarContainer;
+    if (textToolbarContainer) {
+      //render static toolbar inside provided container
+      const staticToolbar = <div dir={getLangDir(locale)}>{ToolbarWithContainerToRender}</div>;
+      return ReactDOM.createPortal(staticToolbar, textToolbarContainer);
+    } else {
+      return !hideFormattingToolbar ? ToolbarWithContainerToRender : null;
+    }
   }
 }
 

@@ -1,6 +1,4 @@
-import React from 'react';
 import { TiptapAPI } from '../../types';
-import Toolbar from '../../components/Toolbar';
 import { capitalize } from 'lodash';
 import {
   RICOS_DIVIDER_TYPE,
@@ -11,18 +9,57 @@ import {
   TranslationFunction,
   EditorPlugin,
   TextAlignment,
+  GALLERY_TYPE,
+  RICOS_GALLERY_TYPE,
+  FILE_UPLOAD_TYPE,
+  RICOS_FILE_TYPE,
+  GIPHY_TYPE,
+  RICOS_GIPHY_TYPE,
+  VIDEO_TYPE,
+  RICOS_VIDEO_TYPE,
+  RICOS_TEXT_COLOR_TYPE,
+  RICOS_TEXT_HIGHLIGHT_TYPE,
 } from 'wix-rich-content-common';
 import { toTiptap } from '../../converters';
 import { Editor } from '@tiptap/core';
-
-const TIPTAP_DIVIDER_TYPE = 'divider'; //should be taken from tip-tap common
-const TIPTAP_IMAGE_TYPE = 'image';
+import {
+  HEADER_BLOCK,
+  UNSTYLED,
+  BULLET_LIST_TYPE,
+  CODE_BLOCK_TYPE,
+  BLOCKQUOTE,
+  HEADINGS_TYPE,
+  NUMBERED_LIST_TYPE,
+  TIPTAP_DIVIDER_TYPE,
+  TIPTAP_IMAGE_TYPE,
+  TIPTAP_GALLERY_TYPE,
+  TIPTAP_FILE_TYPE,
+  TIPTAP_GIF_TYPE,
+  TIPTAP_VIDEO_TYPE,
+} from 'ricos-content';
 
 const PLUGIN_TYPE_MAP = {
   [RICOS_DIVIDER_TYPE]: TIPTAP_DIVIDER_TYPE,
   [DIVIDER_TYPE]: TIPTAP_DIVIDER_TYPE,
   [RICOS_IMAGE_TYPE]: TIPTAP_IMAGE_TYPE,
   [IMAGE_TYPE]: TIPTAP_IMAGE_TYPE,
+  [GALLERY_TYPE]: TIPTAP_GALLERY_TYPE,
+  [RICOS_GALLERY_TYPE]: TIPTAP_GALLERY_TYPE,
+  [FILE_UPLOAD_TYPE]: TIPTAP_FILE_TYPE,
+  [RICOS_FILE_TYPE]: TIPTAP_FILE_TYPE,
+  [GIPHY_TYPE]: TIPTAP_GIF_TYPE,
+  [RICOS_GIPHY_TYPE]: TIPTAP_GIF_TYPE,
+  [VIDEO_TYPE]: TIPTAP_VIDEO_TYPE,
+  [RICOS_VIDEO_TYPE]: TIPTAP_VIDEO_TYPE,
+};
+
+const headingTypeToLevelMap = {
+  'header-one': 1,
+  'header-two': 2,
+  'header-three': 3,
+  'header-four': 4,
+  'header-five': 5,
+  'header-six': 6,
 };
 
 // todo : should change to RichContentInterface
@@ -30,11 +67,33 @@ export class RichContentAdapter implements TiptapAPI {
   constructor(
     private editor: Editor,
     private t: TranslationFunction,
-    private plugins: EditorPlugin[]
+    private plugins: EditorPlugin[],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    private decorationCommandMap: Record<string, any>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    private blockTypeCommandMap: Record<string, any>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    private deleteDecorationCommandMap: Record<string, any>
   ) {
     this.editor = editor;
     this.t = t;
     this.plugins = plugins;
+    this.decorationCommandMap = {
+      [RICOS_LINK_TYPE]: data => this.editor.commands.setLink({ link: data }),
+      [RICOS_TEXT_COLOR_TYPE]: data => this.editor.commands.setColor(data.color),
+      [RICOS_TEXT_HIGHLIGHT_TYPE]: data => this.editor.commands.setHighlight(data.color),
+    };
+    this.blockTypeCommandMap = {
+      [UNSTYLED]: () => this.editor.commands.setParagraph(),
+      [HEADINGS_TYPE]: level => this.editor.commands.toggleHeading({ level }),
+      [BLOCKQUOTE]: () => this.editor.commands.toggleBlockquote(),
+      [CODE_BLOCK_TYPE]: () => this.editor.commands.toggleCodeBlock(),
+      [BULLET_LIST_TYPE]: () => this.editor.commands.toggleBulletList(),
+      [NUMBERED_LIST_TYPE]: () => this.editor.commands.toggleOrderedList(),
+    };
+    this.deleteDecorationCommandMap = {
+      [RICOS_LINK_TYPE]: () => this.editor.commands.unsetLink(),
+    };
   }
 
   focus() {
@@ -94,10 +153,10 @@ export class RichContentAdapter implements TiptapAPI {
       }),
 
       insertDecoration: (type, data) => {
-        if (type !== RICOS_LINK_TYPE) {
-          console.error(`${type} decoration not supported`);
+        if (this.decorationCommandMap[type]) {
+          this.decorationCommandMap[type](data);
         } else {
-          this.editor.commands.setLink({ link: data });
+          console.error(`${type} decoration not supported`);
         }
       },
       hasLinkInSelection: () => {
@@ -137,6 +196,22 @@ export class RichContentAdapter implements TiptapAPI {
           });
         });
         return link;
+      },
+      setBlockType: type => {
+        if (Object.values(HEADER_BLOCK).includes(type)) {
+          this.blockTypeCommandMap.headings(headingTypeToLevelMap[type]);
+        } else if (this.blockTypeCommandMap[type]) {
+          this.blockTypeCommandMap[type]();
+        } else {
+          console.error(`${type} block type not supported`);
+        }
+      },
+      deleteDecoration: type => {
+        if (this.deleteDecorationCommandMap[type]) {
+          this.deleteDecorationCommandMap[type]();
+        } else {
+          console.error(`delete ${type} decoration type not supported`);
+        }
       },
     };
   }
@@ -181,7 +256,6 @@ export class RichContentAdapter implements TiptapAPI {
     saveSelectionState: () => {},
     loadSelectionState: () => {},
     triggerDecoration: () => {},
-    deleteDecoration: () => {},
     setBlock: () => {},
     deleteBlock: () => {},
     undo: () => {},

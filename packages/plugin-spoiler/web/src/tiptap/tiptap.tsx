@@ -7,7 +7,7 @@ const SpoilerHoc = Component => {
   const Spoiler = props => {
     const { context, componentData } = props;
     const { isMobile, theme, t } = context;
-    if (componentData?.config?.spoiler) {
+    if (componentData?.containerData?.spoiler?.enabled) {
       return (
         <BlockSpoilerComponent
           theme={theme}

@@ -31,6 +31,7 @@ const createEditorToolbars = ({
   tablePluginMenu,
   pubsub,
   experiments,
+  focusEditor,
 }: {
   buttons: {
     pluginButtons: PluginButton[];
@@ -44,6 +45,7 @@ const createEditorToolbars = ({
   tablePluginMenu?: boolean;
   pubsub: Pubsub;
   experiments?: AvailableExperiments;
+  focusEditor?: () => void;
 }) => {
   const { uiSettings = {}, getToolbarSettings = () => [] } = context.config;
   const { pluginButtons, pluginTextButtons } = buttons;
@@ -128,6 +130,7 @@ const createEditorToolbars = ({
           footerToolbarConfig,
           onClick,
           experiments,
+          focusEditor,
         });
       }
     );

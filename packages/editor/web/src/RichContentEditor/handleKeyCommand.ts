@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import { DraftHandleValue, EditorProps } from '@wix/draft-js';
-import { CommandHandler } from 'wix-rich-content-common';
+import { CommandHandler, OnKeyboardShortcutClick } from 'wix-rich-content-common';
 import { COMMANDS, EditorState, mergeBlockData, RichUtils } from 'wix-rich-content-editor-common';
 import handleBackspaceCommand from './handleBackspaceCommand';
 import handleDeleteCommand from './handleDeleteCommand';
@@ -14,6 +14,7 @@ export default (
   updateEditorState: (editorState: EditorState) => void,
   customHandlers: Record<string, CommandHandler>,
   blockType: string,
+  onKeyboardShortcutClick: OnKeyboardShortcutClick,
   onBackspace?: (editorState: EditorState) => void
 ): EditorProps['handleKeyCommand'] => (command, editorState) => {
   let newState: EditorState | null;
@@ -33,6 +34,7 @@ export default (
       case COMMANDS.ALIGN_LEFT:
       case COMMANDS.ALIGN_CENTER:
       case COMMANDS.JUSTIFY:
+        onKeyboardShortcutClick({ buttonName: command });
         newState = mergeBlockData(editorState, { textAlignment: command });
         break;
       case COMMANDS.TITLE:
@@ -41,6 +43,7 @@ export default (
       case COMMANDS.BULLETED_LIST:
       case COMMANDS.BLOCKQUOTE:
       case COMMANDS.CODE:
+        onKeyboardShortcutClick({ buttonName: command });
         newState = RichUtils.toggleBlockType(editorState, command);
         break;
       case COMMANDS.BACKSPACE:
@@ -52,6 +55,7 @@ export default (
         break;
       default:
         newState = RichUtils.handleKeyCommand(editorState, command);
+        onKeyboardShortcutClick({ buttonName: command });
         break;
     }
   }

@@ -60,7 +60,8 @@
   color: #333333;
 }
 
-.input_header_text,
+.input_header_title,
+.input_header_subTitle,
 .urlInput_header_text {
   line-height: 28px;
   font-size: 20px;
@@ -114,19 +115,35 @@
   .input_header {
     border: none;
   }
-  .input_header_text {
-    color: #757575;
-    font-size: 14px;
+
+  %input_header_text {
     text-align: left;
+    @include phone {
+      margin-bottom: 7px;
+    }
   }
+
+  .input_header_subTitle {
+    font-size: 14px;
+    color: #757575;
+    @extend %input_header_text;
+  }
+
+  .input_header_title {
+    font-size: 16px;
+    color: #000;
+    @extend %input_header_text;
+  }
+
   .inputModal_textInput {
     margin: 14px 0;
-  }
-  .textSearchInput_container {
-    width: 400px;
     @include phone {
-      width: 100%;
+      margin: 0;
     }
+  }
+
+  input::placeholder {
+    font-size: 16px;
   }
 
   @include phone {

@@ -171,12 +171,6 @@ export default {
           title: 'Where do you want to have breakfast tomorrow to use the monthly budget?',
           mediaId: 'https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg',
           createdBy: '3efa7e86-fc25-4ef1-a002-19769b84202f',
-          count: 13,
-          anonymousCount: 0,
-          ownVotes: [
-            '067ed3b5-f19d-4886-8f23-acd84a586522',
-            'ee32a57f-bf6c-425a-a20c-e678bcf4a73b',
-          ],
           settings: {
             multipleVotes: true,
             voteRole: 'SITE_MEMBERS',
@@ -190,58 +184,26 @@ export default {
               title: 'Cafe Nordoy',
               mediaId:
                 'https://static.wixstatic.com/media/3efa7e_f12aec64c02f464c9d3f0f6d62ec7384~mv2.png',
-              count: 5,
-              anonymousCount: 0,
-              rating: 38,
-              latestVoters: [
-                '84856a9a-f25f-4d8f-a774-56e0b8927bbe',
-                '15c6f37e-c980-46ba-b450-11415ca5b4fe',
-                '2bff5b99-e56c-421d-b5ec-cd432a5b6961',
-                '3efa7e86-fc25-4ef1-a002-19769b84202f',
-                '28ba5b75-0c82-4239-86e3-131879cb96e7',
-              ],
             },
             {
               id: 'ee32a57f-bf6c-425a-a20c-e678bcf4a73b',
               title: 'קפה רוטשילד 65',
               mediaId:
                 'https://static.wixstatic.com/media/3efa7e_c6ebbeecf9b4494f91244656beee6e78~mv2.jpg',
-              count: 4,
-              anonymousCount: 0,
-              rating: 31,
-              latestVoters: [
-                '3efa7e86-fc25-4ef1-a002-19769b84202f',
-                'dd0d2b42-ba5f-47e9-8a53-26c61c08f9ec',
-                '3f3fa379-9a5a-4306-8a95-f79915ef479d',
-                '7b3cad1d-bce1-4529-b402-d1e1e74962f1',
-              ],
             },
             {
               id: '41679bf9-89ba-41f2-81d3-832d567531da',
               title: 'האחים',
               mediaId:
                 'https://static.wixstatic.com/media/3efa7e_26d7f9c215944dbcb783c6b16f536c33~mv2.jpg',
-              count: 3,
-              anonymousCount: 0,
-              rating: 23,
-              latestVoters: [
-                '15c6f37e-c980-46ba-b450-11415ca5b4fe',
-                '13633644-d00c-4456-a189-1575ea044f10',
-                '7b3cad1d-bce1-4529-b402-d1e1e74962f1',
-              ],
             },
             {
               id: '378c6042-55cc-4e4a-9f0c-77824bee4964',
               title: 'הוטל מונטיפיורי',
               mediaId:
                 'https://static.wixstatic.com/media/3efa7e_d9b16be508ce41aa8e635d0e9e97b923~mv2.jpeg',
-              count: 1,
-              anonymousCount: 0,
-              rating: 8,
-              latestVoters: ['dd0d2b42-ba5f-47e9-8a53-26c61c08f9ec'],
             },
           ],
-          creatorFlag: true,
         },
         layout: {
           poll: {
@@ -264,8 +226,6 @@ export default {
             borderRadius: 0,
           },
         },
-        siteToken:
-          'VBLuQllkHnrmBH_7O0-Xmzek4kW6U1qHy5-p36Rfkys.eyJpbnN0YW5jZUlkIjoiYTE2NDRiZmUtNzFmOC00MDFiLWI3YWEtNTgwYzkxMDBmMDk3IiwiYXBwRGVmSWQiOiIxNDhjMjI4Ny1jNjY5LWQ4NDktZDE1My00NjNjNzQ4NmE2OTQiLCJtZXRhU2l0ZUlkIjoiMzlkNjk1MTYtYWYwNC00ZTQ1LWE2NjAtMzQwNjIwZWQ0NGNkIiwic2lnbkRhdGUiOiIyMDIwLTA3LTMwVDA4OjQyOjQ2LjQ2MVoiLCJ1aWQiOiIzZWZhN2U4Ni1mYzI1LTRlZjEtYTAwMi0xOTc2OWI4NDIwMmYiLCJwZXJtaXNzaW9ucyI6Ik9XTkVSIiwiZGVtb01vZGUiOmZhbHNlLCJhaWQiOiIzYTk1MzMzMS1hZGU4LTQzMDMtOWM5NC04NmIzNmU0ZDAzMzIiLCJiaVRva2VuIjoiOThiMmRlZTgtZGVmYy0wZTVlLTExY2EtNmMwYWIxZWRiNDVhIiwic2l0ZU93bmVySWQiOiIzZWZhN2U4Ni1mYzI1LTRlZjEtYTAwMi0xOTc2OWI4NDIwMmYiLCJleHBpcmF0aW9uRGF0ZSI6IjIwMjAtMDctMzBUMTI6NDI6NDYuNDYxWiIsImhhc1VzZXJSb2xlIjp0cnVlfQ',
         config: {
           alignment: 'center',
           size: 'large',

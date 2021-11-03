@@ -14,6 +14,7 @@ type dropDownPropsType = {
   tooltip: string;
   isActive: () => boolean;
   getIcon: () => any;
+  name: string;
   loadSelection?: () => void;
   saveSelection?: () => void;
   colorPickerHeaderKey: string;
@@ -152,7 +153,14 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
 
   render() {
     const { settings, t, isMobile, dropDownProps, theme, nestedMenu } = this.props;
-    const { isActive, getIcon, tooltip, colorPickerHeaderKey, withColoredIcon } = dropDownProps;
+    const {
+      isActive,
+      getIcon,
+      tooltip,
+      colorPickerHeaderKey,
+      withColoredIcon,
+      name,
+    } = dropDownProps;
     const { currentColor, userColors } = this.state;
     const { isModalOpen } = this.state;
     const { colorScheme } = settings;
@@ -161,14 +169,15 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
     let icon;
     if (withColoredIcon) {
       const Icon = getIcon();
-      let coloredIcon;
-      if (currentColor[0] === '#' || currentColor === 'unset') {
-        coloredIcon = <Icon style={{ color: currentColor }} />;
+      let color;
+      if (currentColor[0] === '#') {
+        color = currentColor;
+      } else if (currentColor === 'unset') {
+        color = name === 'TEXT_HIGHLIGHT' ? '#fff' : currentColor;
       } else {
-        const color = colorScheme[currentColor].color;
-        coloredIcon = <Icon style={{ color }} />;
+        color = colorScheme[currentColor].color;
       }
-      icon = coloredIcon;
+      icon = <Icon style={{ color }} />;
     } else {
       const Icon = getIcon();
       icon = <Icon />;

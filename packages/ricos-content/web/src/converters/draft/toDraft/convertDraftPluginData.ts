@@ -21,7 +21,7 @@ import {
 import { cloneDeep, has, merge } from 'lodash';
 import toCamelCase from 'to-camel-case';
 import {
-  ENTITY_DECORATION_TO_DATA_FIELD,
+  TO_RICOS_DECORATION_DATA_FIELD,
   FROM_RICOS_DECORATION_TYPE,
   FROM_RICOS_ENTITY_TYPE,
   TO_RICOS_DATA_FIELD,
@@ -44,7 +44,7 @@ export const convertNodeToDraftData = (node: Node) => {
 
 export const convertDecorationToDraftData = (decoration: Decoration) => {
   const { type } = decoration;
-  const dataFieldName = ENTITY_DECORATION_TO_DATA_FIELD[FROM_RICOS_DECORATION_TYPE[type]];
+  const dataFieldName = TO_RICOS_DECORATION_DATA_FIELD[FROM_RICOS_DECORATION_TYPE[type]];
   return convertDecorationDataToDraft(type, decoration[dataFieldName]);
 };
 

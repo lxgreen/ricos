@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { mergeStyles } from 'wix-rich-content-common';
-import { SettingsSection } from 'wix-rich-content-ui-components';
+import { SettingsSection, SettingsSeparator } from 'wix-rich-content-ui-components';
 import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
 import styles from '../../statics/styles/gallery-settings-modal.scss';
 import { Spacing, ItemsPerRow, ThumbnailSize } from './gallery-controls/sliders';
@@ -36,7 +36,7 @@ class Separator extends Component {
         return <div className={this.styles.gallerySettings_spacer} />;
       case 'hr':
       default:
-        return <hr className={this.styles.gallerySettings_divider} />;
+        return <SettingsSeparator top bottom />;
     }
   };
 }

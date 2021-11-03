@@ -14,6 +14,8 @@ import {
   Node,
 } from 'ricos-schema';
 import { convertDecorationToDraftData, convertNodeToDraftData } from './convertDraftPluginData';
+import external from './__tests__/external-blocks-and-decorations.json';
+import externalMigrated from './__tests__/external-blocks-and-decorations-migrated.json';
 
 const fixtures = { complex: complexFixture };
 
@@ -204,6 +206,12 @@ describe('migrate to draft', () => {
       const converted = toDraft(keyAndBulletFixture as any);
       expect(compare(converted, complexFixture, { ignoredKeys: ['key'] })).toEqual({});
     });
+  });
+});
+
+describe('toDraft EXTERNAL', () => {
+  it('should migrate external node and decoration', () => {
+    expect(compare(toDraft(external), externalMigrated)).toEqual({});
   });
 });
 
