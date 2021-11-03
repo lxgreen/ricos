@@ -56,9 +56,8 @@ describe.only('text', () => {
       'Leverage agile frameworks',
       'to provide a robust synopsis for high level overviews.',
     ])
-      .wait(150)
-      .setEditorSelection(0, 0);
-    // .blurEditor();
+      .setEditorSelection(0, 0)
+      .blurEditor();
     cy.eyesCheckWindow(this.test.title);
   });
 
@@ -66,7 +65,7 @@ describe.only('text', () => {
     changeTextColor(this.test.title);
   });
 
-  it.only('allow to apply inline styles and links', function() {
+  it('allow to apply inline styles and links', function() {
     cy.loadRicosEditorAndViewer(
       'plain',
       useExperiments({
@@ -109,30 +108,7 @@ describe.only('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
-  it('allow to apply inline styles and links - isolated', function() {
-    // cy.loadIsolatedEditorAndViewer('plain')
-    cy.setTextStyle(INLINE_TOOLBAR_BUTTONS.BOLD, [40, 10])
-      .setTextStyle(INLINE_TOOLBAR_BUTTONS.UNDERLINE, [10, 5])
-      .setTextStyle(INLINE_TOOLBAR_BUTTONS.ITALIC, [20, 5])
-      .setTextStyle(INLINE_TOOLBAR_BUTTONS.BOLD, [30, 5])
-      .setTextStyle(INLINE_TOOLBAR_BUTTONS.UNDERLINE)
-      .setTextStyle(INLINE_TOOLBAR_BUTTONS.ITALIC)
-      .setAlignment(INLINE_TOOLBAR_BUTTONS.TEXT_ALIGN_CENTER)
-      .setAlignment(INLINE_TOOLBAR_BUTTONS.TEXT_ALIGN_RIGHT)
-      .setAlignment(INLINE_TOOLBAR_BUTTONS.TEXT_ALIGN_LEFT)
-      .setTextStyle(INLINE_TOOLBAR_BUTTONS.QUOTE, [30, 170])
-      .setTextStyle(INLINE_TOOLBAR_BUTTONS.TITLE, [250, 260])
-      .setTextStyle(INLINE_TOOLBAR_BUTTONS.QUOTE, [250, 260])
-      .setTextStyle(INLINE_TOOLBAR_BUTTONS.ORDERED_LIST)
-      .setTextStyle(INLINE_TOOLBAR_BUTTONS.UNORDERED_LIST)
-      .setEditorSelection(0, 0)
-      .enterParagraphs(['#LIVING THE DREAM\n'])
-      .setEditorSelection(0, 0)
-      .blurEditor();
-    cy.eyesCheckWindow(this.test.title);
-  });
-
-  it('allow to enter hashtag with link', function() {
+  it.only('allow to enter hashtag with link', function() {
     // cy.loadRicosEditorAndViewer()
     cy.enterParagraphs([
       '#wix.com wix.com #this_is_not_a_link #will_be_a_link thisislink#youknow.com ',

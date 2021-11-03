@@ -95,8 +95,6 @@ const COMMANDS = {
   loadEditorAndViewer: (fixtureName?: string, config?: TestAppConfig) =>
     run('rce', fixtureName, config),
 
-  loadIsolatedEditorAndViewer: (fixtureName?: string) => run('rce-isolated', fixtureName),
-
   loadRicosEditorAndViewer: (fixtureName?: string, config?: TestAppConfig) =>
     run('ricos', fixtureName, config),
 
@@ -154,7 +152,7 @@ const COMMANDS = {
     cy.getEditor()
       .blur()
       .get('[data-hook=floating-toolbar]')
-      .should('not.exist');
+      .should('be.hidden');
   },
 
   getEditor: () => cy.get(RicosDriver.editor.contentEditable),
