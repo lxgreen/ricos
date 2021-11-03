@@ -20,6 +20,11 @@ export const INLINE_TOOLBAR_BUTTONS = {
   CODE_BLOCK: 'TextCodeBlockButton',
 };
 
+export const TOOLBAR_MODALS = {
+  TOOLBAR_MODAL: 'toolbars-modal-desktopPanel',
+  COLOR_PICKER_MODAL: 'color-picker-modal',
+};
+
 export const ACTION_BUTTONS = {
   SAVE: 'actionButtonSave',
   CANCEL: 'actionButtonCancel',

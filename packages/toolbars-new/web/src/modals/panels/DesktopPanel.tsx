@@ -59,6 +59,7 @@ const DesktopPanel = ({
             })}
             key={option.commandKey}
             onClick={() => onClick(option.commandKey)}
+            data-hook={option.dataHook || 'modal-option'}
           >
             <div className={styles.panel_row_text_container}>
               <div className={styles.panel_row_text}>{content} </div>
@@ -75,6 +76,7 @@ const DesktopPanel = ({
     <div
       tabIndex={-1}
       ref={panelRef}
+      data-hook="toolbars-modal-desktopPanel"
       className={classNames(styles.desktopPanel, {
         [styles.desktopPanel_fitContent]: sizeFitContent,
       })}

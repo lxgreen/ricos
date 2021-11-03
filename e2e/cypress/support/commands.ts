@@ -12,6 +12,7 @@ import {
   TOOLBARS,
   COLOR_PICKER,
   COLLAPSIBLE_LIST_SETTINGS,
+  TOOLBAR_MODALS,
 } from '../dataHooks';
 import { defaultConfig, useExperiments } from '../testAppConfig';
 import { fireEvent as testFireEvent } from '@testing-library/react';
@@ -255,7 +256,12 @@ const COMMANDS = {
   },
 
   setColor: (buttonIndex = 3, selection: [number, number]) => {
-    setInlineToolbarMenuItem(INLINE_TOOLBAR_BUTTONS.COLOR, selection, buttonIndex);
+    setInlineToolbarMenuItem(
+      INLINE_TOOLBAR_BUTTONS.COLOR,
+      selection,
+      buttonIndex,
+      TOOLBAR_MODALS.COLOR_PICKER_MODAL
+    );
   },
 
   setLineSpacing: (buttonIndex = 3, selection: [number, number]) => {
@@ -766,10 +772,15 @@ function getTextElements(rootElement: HTMLElement) {
 }
 /* eslint-enable */
 
-function setInlineToolbarMenuItem(item: string, selection: [number, number], buttonIndex: number) {
+function setInlineToolbarMenuItem(
+  item: string,
+  selection: [number, number],
+  buttonIndex: number,
+  modalHook: string = TOOLBAR_MODALS.TOOLBAR_MODAL
+) {
   cy.setTextStyle(item, selection)
-    .get('.ReactModalPortal')
-    .find('button')
+    .get(`[data-hook="${modalHook}"]`)
+    .find('[data-hook="modal-option"]') //datahook option
     .eq(buttonIndex)
     .click();
 }

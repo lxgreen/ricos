@@ -8,9 +8,8 @@ const changeTextColor = (title: string) => {
     useExperiments({
       newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
     })
-  )
-    .setTextStyle(INLINE_TOOLBAR_BUTTONS.COLOR, [20, 15])
-    .openCustomColorModal();
+  );
+  cy.setTextStyle(INLINE_TOOLBAR_BUTTONS.COLOR, [20, 15]).openCustomColorModal();
   cy.eyesCheckWindow(title);
   cy.setColorByHex('d932c3');
   cy.updateTextColor();
@@ -21,7 +20,7 @@ const changeTextColor = (title: string) => {
   }
 };
 
-describe('text', () => {
+describe.only('text', () => {
   before(function() {
     cy.eyesOpen({
       appName: 'Text',
@@ -52,13 +51,14 @@ describe('text', () => {
   after(() => cy.eyesClose());
 
   it('allow to enter text', function() {
-    // cy.loadRicosEditorAndViewer('empty', testAppConfig);
+    // cy.loadRicosEditorAndViewer('empty', testAppConfig); //!No Experiment
     cy.enterParagraphs([
       'Leverage agile frameworks',
       'to provide a robust synopsis for high level overviews.',
     ])
-      .setEditorSelection(0, 0)
-      .blurEditor();
+      .wait(150)
+      .setEditorSelection(0, 0);
+    // .blurEditor();
     cy.eyesCheckWindow(this.test.title);
   });
 
@@ -66,7 +66,7 @@ describe('text', () => {
     changeTextColor(this.test.title);
   });
 
-  it('allow to apply inline styles and links', function() {
+  it.only('allow to apply inline styles and links', function() {
     cy.loadRicosEditorAndViewer(
       'plain',
       useExperiments({
@@ -84,6 +84,7 @@ describe('text', () => {
       .setAlignment(INLINE_TOOLBAR_BUTTONS.TEXT_ALIGN_CENTER)
       .setAlignment(INLINE_TOOLBAR_BUTTONS.TEXT_ALIGN_RIGHT)
       .setAlignment(INLINE_TOOLBAR_BUTTONS.TEXT_ALIGN_LEFT)
+      .setAlignment(INLINE_TOOLBAR_BUTTONS.TEXT_ALIGN_JUSTIFY)
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.QUOTE, [30, 170])
       .setLink([0, 10], 'https://www.wix.com/')
       .setLink([50, 65], 'https://www.one.co.il/')
