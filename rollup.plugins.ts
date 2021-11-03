@@ -146,7 +146,7 @@ const postcss = (shouldExtract: boolean): Plugin => {
     },
     modules: {
       generateScopedName: IS_DEV_ENV ? '[name]__[local]___[hash:base64:5]' : '[hash:base64:5]',
-      hashPrefix: process.env.MODULE_NAME,
+      // hashPrefix: process.env.MODULE_NAME,
     },
     extract: shouldExtract && 'dist/styles.min.css',
     plugins: [
