@@ -1,6 +1,6 @@
 <div align="center">
   <img width=100 src="logo.png"/>
-</div>
+</div>asasdasd
 <h2>A React-based, supercharged rich content editor with an extensible plugin system</h2>
 
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lernajs.io/)
