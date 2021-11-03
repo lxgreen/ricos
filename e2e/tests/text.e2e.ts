@@ -108,7 +108,7 @@ describe.only('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
-  it.only('allow to enter hashtag with link', function() {
+  it('allow to enter hashtag with link', function() {
     // cy.loadRicosEditorAndViewer()
     cy.enterParagraphs([
       '#wix.com wix.com #this_is_not_a_link #will_be_a_link thisislink#youknow.com ',
@@ -116,7 +116,7 @@ describe.only('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
-  it('remove hashtag inside quotes', function() {
+  it.only('remove hashtag inside quotes', function() {
     // cy.loadRicosEditorAndViewer()
     cy.enterParagraphs([
       'This is #hashtag! This #is not \'#hashtag\'! This is also not "#hashtag" ! hashtag #Test ',
@@ -124,18 +124,18 @@ describe.only('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
-  it('allow to create lists', function() {
-    // cy.loadRicosEditorAndViewer('plain')
-    cy.setTextStyle(INLINE_TOOLBAR_BUTTONS.ORDERED_LIST, [300, 100])
+  it.only('allow to create lists', function() {
+    cy.loadRicosEditorAndViewer('plain', testAppConfig)
+      .setTextStyle(INLINE_TOOLBAR_BUTTONS.ORDERED_LIST, [300, 100])
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.UNORDERED_LIST, [550, 1])
       .blurEditor();
     cy.eyesCheckWindow(this.test.title);
   });
 
-  it('open link toolbar (InlinePluginToolbar)', function() {
+  it.only('open link toolbar (InlinePluginToolbar)', function() {
     // set link
-    // cy.loadRicosEditorAndViewer('plain')
-    cy.setLink([0, 10], 'https://www.wix.com/')
+    cy.loadRicosEditorAndViewer('plain', testAppConfig)
+      .setLink([0, 10], 'https://www.wix.com/')
       // set cursor on link
       .setEditorSelection(5, 0)
       .wait(200);
