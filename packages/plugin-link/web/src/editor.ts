@@ -14,6 +14,6 @@ export const pluginLink: EditorPluginCreator<LinkPluginEditorConfig> = config =>
     createPlugin: createLinkPlugin,
     ModalsMap: {},
     createPluginData: createLinkData,
-    tiptapExtensions: createTiptapExtensions(pluginConfig),
+    tiptapExtensions: config => createTiptapExtensions({ ...pluginConfig, ...config }),
   } as TiptapEditorPlugin;
 };
