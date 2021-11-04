@@ -254,7 +254,12 @@ describe.only('text', () => {
   });
 
   it('should enter link and further text in next block has no inline style', function() {
-    cy.loadRicosEditorAndViewer();
+    cy.loadRicosEditorAndViewer(
+      'empty',
+      useExperiments({
+        newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
+      })
+    );
     cy.enterParagraphs(['wix.com'])
       .type('{enter}')
       .enterParagraphs(['no inline style'])
@@ -262,8 +267,14 @@ describe.only('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
-  it.only('should not allow applying link to atomic blocks in selection', function() {
-    cy.loadRicosEditorAndViewer('content-with-video', testAppConfig);
+  it('should not allow applying link to atomic blocks in selection', function() {
+    cy.loadRicosEditorAndViewer(
+      //! BUG Should be Resolved
+      'content-with-video',
+      useExperiments({
+        newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
+      })
+    );
     cy.waitForVideoToLoad();
     cy.setEditorSelection(0, 5);
     cy.getInlineButton(INLINE_TOOLBAR_BUTTONS.LINK).should('not.be.disabled');
@@ -274,9 +285,9 @@ describe.only('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
-  context('indentation', () => {
+  context.only('indentation', () => {
     it('allow to apply indent on a single block with inline styling', function() {
-      // cy.loadRicosEditorAndViewer('plain', usePlugins(plugins.textPlugins))
+      cy.loadRicosEditorAndViewer('plain', testAppConfig);
       cy.setTextStyle(INLINE_TOOLBAR_BUTTONS.BOLD, [40, 10])
         .setTextStyle(INLINE_TOOLBAR_BUTTONS.UNDERLINE, [10, 5])
         .setTextStyle(INLINE_TOOLBAR_BUTTONS.ITALIC, [20, 5])
@@ -294,7 +305,7 @@ describe.only('text', () => {
     });
 
     it('allow to apply indent on multiple text blocks', function() {
-      // cy.loadRicosEditorAndViewer('text-blocks', usePlugins(plugins.textPlugins))
+      cy.loadRicosEditorAndViewer('text-blocks', testAppConfig);
       cy.increaseIndent([0, 550])
         .increaseIndent([0, 550])
         .increaseIndent([0, 550])
@@ -305,7 +316,7 @@ describe.only('text', () => {
     });
 
     it('allow to apply indent only on text blocks', function() {
-      // cy.loadRicosEditorAndViewer('non-text-only-blocks', usePlugins(plugins.textPlugins));
+      cy.loadRicosEditorAndViewer('non-text-only-blocks', testAppConfig);
       cy.increaseIndent([0, 550])
         .increaseIndent([0, 550])
         .increaseIndent([0, 550])
