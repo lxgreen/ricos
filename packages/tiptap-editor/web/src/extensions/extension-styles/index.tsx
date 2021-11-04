@@ -1,5 +1,5 @@
 import { getComponentStyles } from './styles';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { RicosFunctionalExtension } from '../../models/extension-types';
 
 const name = 'styles';
@@ -15,8 +15,13 @@ const StylesHOC = Component => {
       isMobile,
     });
 
+    const customWidth = componentData?.containerData?.width?.custom;
+    const style: CSSProperties = {
+      width: customWidth && `${customWidth}px`,
+    };
+
     return (
-      <div className={Object.values(componentStyles).join(' ')}>
+      <div className={Object.values(componentStyles).join(' ')} style={style}>
         <Component {...props} />
       </div>
     );

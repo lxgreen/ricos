@@ -25,9 +25,7 @@ const VideoModal = props => {
     helpers: { closeModal },
   } = props;
 
-  const isYoutubeType = type === videoButtonsTypes.youTube;
   const isSoundCloud = type === videoButtonsTypes.soundCloud;
-  const isEmbedType = isYoutubeType || isSoundCloud;
 
   const onConfirm = () => {
     if (url && ReactPlayer.canPlay(url)) {
@@ -49,15 +47,9 @@ const VideoModal = props => {
       setSubmittedInvalidUrl(true);
     }
   };
-  const dataHook = isYoutubeType
-    ? 'socialEmbedUploadModal'
-    : isSoundCloud
-    ? 'soundCloudUploadModal'
-    : 'videoMediaUrlModal';
+  const dataHook = isSoundCloud ? 'soundCloudUploadModal' : 'videoMediaUrlModal';
 
-  const title = isYoutubeType
-    ? t('EmbedURL_Social_YouTube_Title')
-    : isSoundCloud
+  const title = isSoundCloud
     ? isMobile
       ? t('SoundCloudUploadModal_Header_Mobile')
       : t('SoundCloudUploadModal_Header')
@@ -71,15 +63,15 @@ const VideoModal = props => {
         url={url}
         setUrl={setUrl}
         submittedInvalidUrl={submittedInvalidUrl}
-        withMobileHeader={isEmbedType}
+        withMobileHeader={isSoundCloud}
         dataHook={dataHook}
-        title={isEmbedType && title}
-        subTitle={!isEmbedType && t('VideoModal_Embed_Title')}
+        title={isSoundCloud && title}
+        subTitle={!isSoundCloud && t('VideoModal_Embed_Title')}
       />
     );
   };
 
-  return isEmbedType ? (
+  return isSoundCloud ? (
     renderMediaUrlInputModal()
   ) : (
     <div className={styles.video_modal_container}>

@@ -17,8 +17,36 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+- `ricos-schema` 
+  - [#3054](https://github.com/wix/ricos/pull/3054) EXTERNAL type
+- `ricos-content`
+  - [#3054](https://github.com/wix/ricos/pull/3054) to/fromDraft: EXTERNAL type supported
+
 </details>
 <hr/>
+
+## 8.58.3 (Nov 2, 2021)
+
+### :house: Internal
+
+- `tiptap plugins`
+  - [#3047](https://github.com/wix/ricos/pull/3047) add plugins to tiptap [video, gif, file, gallery, code-block, spoiler, color]
+- `video`
+  - [#3050](https://github.com/wix/ricos/pull/3050) open video modal when embed from youtube
+
+## 8.58.2 (Nov 1, 2021)
+
+### :house: Internal
+
+- `schema`
+  - [#3049](https://github.com/wix/ricos/pull/3049) generate-plugin-defaults generates link decoration defaults
+
+### :bug: Bug Fix
+
+- `schema`
+  - add verticala embed schema to content state schemas
 
 ## 8.58.1 (Oct 27, 2021)
 

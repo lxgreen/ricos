@@ -219,7 +219,7 @@
           "marks": [
             {
               "type": "color",
-              "colorData": {
+              "attrs": {
                 "foreground": "color4"
               }
             }
@@ -235,7 +235,7 @@
           "marks": [
             {
               "type": "color",
-              "colorData": {
+              "attrs": {
                 "background": "color3",
                 "foreground": "color4"
               }
@@ -252,7 +252,7 @@
           "marks": [
             {
               "type": "color",
-              "colorData": {
+              "attrs": {
                 "background": "color3"
               }
             }
@@ -1138,7 +1138,7 @@
               "marks": [
                 {
                   "type": "color",
-                  "colorData": {
+                  "attrs": {
                     "background": "color4"
                   }
                 }
@@ -1959,7 +1959,7 @@
                       "marks": [
                         {
                           "type": "color",
-                          "colorData": {
+                          "attrs": {
                             "foreground": "color4"
                           }
                         }
@@ -2213,7 +2213,7 @@
                         },
                         {
                           "type": "color",
-                          "colorData": {
+                          "attrs": {
                             "foreground": "color3"
                           }
                         }

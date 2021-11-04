@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { Decoration, Node, Node_Type } from 'ricos-schema';
 import { RicosInlineStyleRange, RicosEntityRange, RicosEntityMap } from '../../../types';
-import { FROM_RICOS_DECORATION_TYPE, ENTITY_DECORATION_TO_DATA_FIELD } from '../consts';
+import { FROM_RICOS_DECORATION_TYPE, TO_RICOS_DECORATION_DATA_FIELD } from '../consts';
 import { emojiRegex } from '../emojiRegex';
 import { createDecorationEntityData } from './getDraftEntityData';
 
@@ -20,7 +20,7 @@ interface RangedDecorationMap {
 }
 
 const isInlineStyleDecoration = (decorationType: string) =>
-  ENTITY_DECORATION_TO_DATA_FIELD[decorationType] === undefined;
+  TO_RICOS_DECORATION_DATA_FIELD[decorationType] === undefined;
 
 const pipe = (arg, ...fns: ((arg) => unknown)[]) => {
   return fns.reduce((v, fn) => fn(v), arg);
