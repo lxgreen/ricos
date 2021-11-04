@@ -53,15 +53,17 @@ const rules = [
   },
 ];
 export const getWebpackConfig = (
-  entry: string,
-  output: string,
+  entry: string | Record<string, string>,
+  output?: string,
   { plugins = [] }: { plugins?: BundleAnalyzerPlugin[] } = {}
 ): Configuration => {
   return {
     entry,
     mode: 'production',
     output: {
-      filename: `${output}.js`,
+      filename: `[name].js`,
+      // eslint-disable-next-line no-path-concat
+      path: __dirname + '/dist',
     },
     module: {
       rules,
@@ -94,4 +96,8 @@ export const getWebpackPluginConfig = (
   { plugins = [] }: { plugins?: BundleAnalyzerPlugin[] } = {}
 ): Configuration => {
   return getWebpackConfig(`./src/bundles/${pkgName}.tsx`, pkgName, { plugins });
+};
+
+export const getWebpackPluginsConfig = (entires: Record<string, string>): Configuration => {
+  return getWebpackConfig(entires);
 };

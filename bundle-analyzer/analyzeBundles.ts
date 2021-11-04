@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import chalk from 'chalk';
 import webpack from 'webpack';
-import { getWebpackPluginConfig } from './webpack.common';
+import { getWebpackPluginsConfig } from './webpack.common';
 import { argv } from 'yargs';
 const fs = require('fs');
 
@@ -33,39 +33,39 @@ export async function analyze() {
   console.log(chalk.magenta('Analyzing plugins...'));
   const pkgNames = await getAllPluginsNames(options);
 
-  const bundleResultsPromise = pkgNames.map(pkgName => {
-    return new Promise(resolve => {
-      webpack(getWebpackPluginConfig(pkgName), (err, stats) => {
-        // Stats Object
-        if (err || stats.hasErrors()) {
-          const _err: string = err || stats.compilation.errors[0];
-          console.error(chalk.red(_err));
-          resolve({ name: pkgName, error: _err });
-        } else {
-          resolve({
-            name: pkgName,
-            size: Math.ceil(
-              stats.toJson(true).assets.find(({ name }) => name === `${pkgName}.js`).size / 1024
-            ),
-          });
-        }
-      });
+  const entries = {};
+  pkgNames.forEach(p => (entries[p] = `./src/bundles/${p}.tsx`));
+  const results: Record<string, unknown>[] = await new Promise((res, rej) => {
+    webpack(getWebpackPluginsConfig(entries), (err, stats) => {
+      if (err || stats.hasErrors()) {
+        const _err: string = err || stats.compilation.errors[0];
+        console.error(chalk.red(_err));
+        rej({ error: _err });
+      } else {
+        res(
+          stats
+            .toJson(true)
+            .assets.filter(a => pkgNames.indexOf(a.name.slice(0, -3)) >= 0)
+            .map(asset => ({
+              ...asset,
+              size: Math.ceil(asset.size / 1024),
+            }))
+        );
+      }
     });
   });
 
-  await Promise.all(bundleResultsPromise).then(results => {
-    results.forEach((result: { name: string; size?: number; error?: string }) => {
-      const { size, name, error } = result;
-      const prefix = chalk.cyan(`[${name}]`);
-      if (error) {
-        console.log(prefix, chalk.red(`Error! ${error}`));
-        process.exit(1);
-      } else {
-        const chlk = size > 500 ? warning : size > 250 ? chalk.yellow : chalk.green;
-        console.log(prefix, chlk(`${size}KB`));
-        sizesObject[name] = size;
-      }
-    });
+  results.forEach((result: { name: string; size?: number; error?: string }) => {
+    const { size, name, error } = result;
+    const prefix = chalk.cyan(`[${name}]`);
+    if (error) {
+      console.log(prefix, chalk.red(`Error! ${error}`));
+      process.exit(1);
+    } else {
+      const chlk = size > 500 ? warning : size > 250 ? chalk.yellow : chalk.green;
+      console.log(prefix, chlk(`${size}KB`));
+      sizesObject[name.slice(0, -3)] = size;
+    }
   });
 
   return sizesObject;
