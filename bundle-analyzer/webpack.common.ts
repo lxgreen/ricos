@@ -93,5 +93,5 @@ export const getWebpackPluginConfig = (
   pkgName: string,
   { plugins = [] }: { plugins?: BundleAnalyzerPlugin[] } = {}
 ): Configuration => {
-  return getWebpackConfig(`./src/${pkgName}.tsx`, pkgName, { plugins });
+  return getWebpackConfig(`./src/bundles/${pkgName}.tsx`, pkgName, { plugins });
 };
