@@ -12,7 +12,7 @@ import {
   TOOLBARS,
   COLOR_PICKER,
   COLLAPSIBLE_LIST_SETTINGS,
-  TOOLBAR_MODALS,
+  FLOATING_TOOLBAR,
 } from '../dataHooks';
 import { defaultConfig, useExperiments } from '../testAppConfig';
 import { fireEvent as testFireEvent } from '@testing-library/react';
@@ -151,7 +151,7 @@ const COMMANDS = {
   blurEditor: () => {
     cy.getEditor()
       .blur()
-      .get('[data-hook=floating-toolbar]')
+      .get(`[data-hook=${FLOATING_TOOLBAR.TOOLBAR}]`)
       .should('be.hidden');
   },
 
@@ -189,7 +189,9 @@ const COMMANDS = {
       cy.setEditorSelection(selection[0], selection[1]);
     }
     cy.get(
-      `[data-hook=${isMobile ? 'mobileToolbar' : 'floating-toolbar'}] [data-hook=${buttonSelector}]`
+      `[data-hook=${
+        isMobile ? 'mobileToolbar' : FLOATING_TOOLBAR.TOOLBAR
+      }] [data-hook=${buttonSelector}]`
     );
   },
 
@@ -258,7 +260,7 @@ const COMMANDS = {
       INLINE_TOOLBAR_BUTTONS.COLOR,
       selection,
       buttonIndex,
-      TOOLBAR_MODALS.COLOR_PICKER_MODAL
+      FLOATING_TOOLBAR.COLOR_PICKER_MODAL
     );
   },
 
@@ -774,7 +776,7 @@ function setInlineToolbarMenuItem(
   item: string,
   selection: [number, number],
   buttonIndex: number,
-  modalHook: string = TOOLBAR_MODALS.TOOLBAR_MODAL
+  modalHook: string = FLOATING_TOOLBAR.TOOLBAR_MODAL
 ) {
   cy.setTextStyle(item, selection)
     .get(`[data-hook="${modalHook}"]`)

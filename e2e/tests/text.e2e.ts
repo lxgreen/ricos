@@ -1,4 +1,4 @@
-import { INLINE_TOOLBAR_BUTTONS, ACTION_BUTTONS } from '../cypress/dataHooks';
+import { INLINE_TOOLBAR_BUTTONS, ACTION_BUTTONS, FLOATING_TOOLBAR } from '../cypress/dataHooks';
 import { DEFAULT_DESKTOP_BROWSERS, DEFAULT_MOBILE_BROWSERS } from './settings';
 import { usePlugins, usePluginsConfig, plugins, useExperiments } from '../cypress/testAppConfig';
 
@@ -30,11 +30,6 @@ describe.only('text', () => {
   });
 
   const testAppConfig = {
-    ...usePluginsConfig({
-      link: {
-        isCustomModal: true,
-      },
-    }),
     ...useExperiments({
       newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
     }),
@@ -116,7 +111,7 @@ describe.only('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
-  it.only('remove hashtag inside quotes', function() {
+  it('remove hashtag inside quotes', function() {
     // cy.loadRicosEditorAndViewer()
     cy.enterParagraphs([
       'This is #hashtag! This #is not \'#hashtag\'! This is also not "#hashtag" ! hashtag #Test ',
@@ -124,7 +119,7 @@ describe.only('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
-  it.only('allow to create lists', function() {
+  it('allow to create lists', function() {
     cy.loadRicosEditorAndViewer('plain', testAppConfig)
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.ORDERED_LIST, [300, 100])
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.UNORDERED_LIST, [550, 1])
@@ -132,7 +127,7 @@ describe.only('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
-  it.only('open link toolbar (InlinePluginToolbar)', function() {
+  it('open link toolbar (InlinePluginToolbar)', function() {
     // set link
     cy.loadRicosEditorAndViewer('plain', testAppConfig)
       .setLink([0, 10], 'https://www.wix.com/')
@@ -142,7 +137,7 @@ describe.only('text', () => {
     // take snapshot of the toolbar
     cy.eyesCheckWindow(this.test.title);
     // edit link
-    cy.get(`[data-hook=linkPluginToolbar] [data-hook=LinkButton]`)
+    cy.get(`[data-hook=${FLOATING_TOOLBAR.TOOLBAR}] [data-hook=LinkButton]`)
       .click()
       .get(`[data-hook=linkPanelContainer] [data-hook=linkPanelInput]`)
       .type('https://www.google.com/')
@@ -150,36 +145,41 @@ describe.only('text', () => {
       .click();
     // check url button
     cy.setEditorSelection(5, 0)
-      .get(`[data-hook=linkPluginToolbar] a`)
-      .should('have.attr', 'href', 'https://www.google.com/');
+      .get(`[data-hook=GoToLinkButton]`)
+      .contains('https://www.google.com/');
     // remove link
-    cy.get(`[data-hook=linkPluginToolbar] [data-hook=RemoveLinkButton]`).click();
+    cy.get(`[data-hook=${FLOATING_TOOLBAR.TOOLBAR}] [data-hook=RemoveLinkButton]`).click();
     cy.blurEditor();
   });
 
   it('should insert custom link', function() {
-    // const testAppConfig = {
-    //   ...usePluginsConfig({
-    //     link: {
-    //       isCustomModal: true,
-    //     },
-    //   }),
-    // };
+    //!compare with master isCustomModal
+    const testAppConfig = {
+      ...usePluginsConfig({
+        link: {
+          isCustomModal: true,
+        },
+      }),
+      ...useExperiments({
+        newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
+      }),
+    };
     const selection: [number, number] = [0, 11];
-    // cy.loadRicosEditorAndViewer('empty', testAppConfig)
+    cy.loadRicosEditorAndViewer('empty', testAppConfig);
     cy.enterParagraphs(['Custom link.']).setTextStyle(INLINE_TOOLBAR_BUTTONS.LINK, selection);
     cy.eyesCheckWindow(this.test.title);
   });
 
   it('should enter text without linkify links (disableAutoLink set to true)', function() {
-    // const testAppConfig = {
-    //   ...usePluginsConfig({
-    //     link: {
-    //       disableAutoLink: true,
-    //     },
-    //   }),
-    // };
-    // cy.loadRicosEditorAndViewer('empty', testAppConfig)
+    //!No Experiment
+    const testAppConfig = {
+      ...usePluginsConfig({
+        link: {
+          disableAutoLink: true,
+        },
+      }),
+    };
+    cy.loadRicosEditorAndViewer('empty', testAppConfig);
     cy.enterParagraphs(['www.wix.com\nwww.wix.com ']);
     cy.eyesCheckWindow(this.test.title);
   });
@@ -249,21 +249,21 @@ describe.only('text', () => {
     // cy.loadRicosEditorAndViewer()
     cy.enterParagraphs(['wix.com '])
       .enterParagraphs(['no inline style'])
-      .blurEditor();
+      .blurEditor(); //! No EXPERIMENTS REFACTOR
     cy.eyesCheckWindow(this.test.title);
   });
 
   it('should enter link and further text in next block has no inline style', function() {
-    // cy.loadRicosEditorAndViewer()
+    cy.loadRicosEditorAndViewer();
     cy.enterParagraphs(['wix.com'])
       .type('{enter}')
       .enterParagraphs(['no inline style'])
-      .blurEditor();
+      .blurEditor(); //! No EXPERIMENTS REFACTOR
     cy.eyesCheckWindow(this.test.title);
   });
 
-  it('should not allow applying link to atomic blocks in selection', function() {
-    // cy.loadRicosEditorAndViewer('content-with-video');
+  it.only('should not allow applying link to atomic blocks in selection', function() {
+    cy.loadRicosEditorAndViewer('content-with-video', testAppConfig);
     cy.waitForVideoToLoad();
     cy.setEditorSelection(0, 5);
     cy.getInlineButton(INLINE_TOOLBAR_BUTTONS.LINK).should('not.be.disabled');

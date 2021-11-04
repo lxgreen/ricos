@@ -20,7 +20,8 @@ export const INLINE_TOOLBAR_BUTTONS = {
   CODE_BLOCK: 'TextCodeBlockButton',
 };
 
-export const TOOLBAR_MODALS = {
+export const FLOATING_TOOLBAR = {
+  TOOLBAR: 'floating-toolbar',
   TOOLBAR_MODAL: 'toolbars-modal-desktopPanel',
   COLOR_PICKER_MODAL: 'color-picker-modal',
 };
