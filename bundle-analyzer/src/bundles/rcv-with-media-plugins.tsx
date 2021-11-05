@@ -1,13 +1,18 @@
-import { createViewerBundle } from '../createViewerBundle';
+import React from 'react';
+import { RichContentViewer } from 'wix-rich-content-viewer';
+import 'wix-rich-content-viewer/dist/styles.min.css';
 import 'wix-rich-content-plugin-commons/dist/styles.min.css';
-import { pluginImage } from 'wix-rich-content-plugin-image/viewer';
+import { imageTypeMapper } from 'wix-rich-content-plugin-image/viewer';
 import 'wix-rich-content-plugin-image/dist/styles.min.css';
-import { pluginGallery } from 'wix-rich-content-plugin-gallery/viewer';
+import { galleryTypeMapper } from 'wix-rich-content-plugin-gallery/viewer';
 import 'wix-rich-content-plugin-gallery/dist/styles.min.css';
-import { pluginVideo } from 'wix-rich-content-plugin-video/viewer';
+import { videoTypeMapper } from 'wix-rich-content-plugin-video/viewer';
 import 'wix-rich-content-plugin-video/dist/styles.min.css';
-import { pluginSoundCloud } from 'wix-rich-content-plugin-sound-cloud/viewer';
+import { soundCloudTypeMapper } from 'wix-rich-content-plugin-sound-cloud/viewer';
 import 'wix-rich-content-plugin-sound-cloud/dist/styles.min.css';
 
-export default () =>
-  createViewerBundle([pluginImage(), pluginGallery(), pluginVideo(), pluginSoundCloud()]);
+const typeMappers = [imageTypeMapper, galleryTypeMapper, videoTypeMapper, soundCloudTypeMapper];
+
+export default () => {
+  return <RichContentViewer typeMappers={typeMappers} />;
+};
