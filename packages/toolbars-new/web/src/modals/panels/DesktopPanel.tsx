@@ -91,7 +91,11 @@ const DesktopPanel = ({
       {customPanelOptions && !customPanelOptions.inline && (
         <>
           <div className={styles.separator} />
-          <button className={styles.showCustomPanel_button} onClick={customPanelOptions.onOpen}>
+          <button
+            className={styles.showCustomPanel_button}
+            data-hook={'modal-option'}
+            onClick={customPanelOptions.onOpen}
+          >
             {panelHeader}
           </button>
         </>

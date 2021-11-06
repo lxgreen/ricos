@@ -13,6 +13,7 @@ import {
   COLOR_PICKER,
   COLLAPSIBLE_LIST_SETTINGS,
   FLOATING_TOOLBAR,
+  ACTION_BUTTONS,
 } from '../dataHooks';
 import { defaultConfig, useExperiments } from '../testAppConfig';
 import { fireEvent as testFireEvent } from '@testing-library/react';
@@ -189,9 +190,7 @@ const COMMANDS = {
       cy.setEditorSelection(selection[0], selection[1]);
     }
     cy.get(
-      `[data-hook=${
-        isMobile ? 'mobileToolbar' : FLOATING_TOOLBAR.TOOLBAR
-      }] [data-hook=${buttonSelector}]`
+      `[data-hook=${isMobile ? 'toolbar' : FLOATING_TOOLBAR.TOOLBAR}] [data-hook=${buttonSelector}]`
     );
   },
 
@@ -266,6 +265,15 @@ const COMMANDS = {
 
   setLineSpacing: (buttonIndex = 3, selection: [number, number]) => {
     setInlineToolbarMenuItem(INLINE_TOOLBAR_BUTTONS.LINE_SPACING, selection, buttonIndex);
+  },
+
+  setCustomLineSpacing: (selection: [number, number]) => {
+    cy.setLineSpacing(5, selection)
+      .get('input')
+      .eq(0)
+      .type('5')
+      .get(`[data-hook=${ACTION_BUTTONS.SAVE}]`)
+      .click();
   },
 
   openSideToolbar: () => {

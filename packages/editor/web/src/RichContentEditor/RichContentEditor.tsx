@@ -681,7 +681,9 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     const formattingToolbar = document.querySelectorAll(
       `[data-hook=inlineToolbar]`
     )[0] as HTMLElement;
-    const newFormattingToolbar = document.querySelectorAll(`[data-id="toolbar"]`)[0] as HTMLElement;
+    const newFormattingToolbar = document.querySelectorAll(
+      `[data-hook="toolbar"]`
+    )[0] as HTMLElement;
     if (pluginToolbar && pluginToolbar.dataset.hook !== 'linkPluginToolbar') {
       const editorState = this.getEditorState();
       const focusedAtomicPluginKey = editorState.getSelection().getFocusKey();
