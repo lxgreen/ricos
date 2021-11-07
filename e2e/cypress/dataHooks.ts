@@ -18,6 +18,7 @@ export const INLINE_TOOLBAR_BUTTONS = {
   LINE_SPACING: 'LineSpacingButton',
   LINK: 'LinkButton',
   CODE_BLOCK: 'TextCodeBlockButton',
+  HEADINGS: 'headingsDropdownButton',
 };
 
 export const FLOATING_TOOLBAR = {

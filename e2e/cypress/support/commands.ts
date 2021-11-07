@@ -267,6 +267,10 @@ const COMMANDS = {
     setInlineToolbarMenuItem(INLINE_TOOLBAR_BUTTONS.LINE_SPACING, selection, buttonIndex);
   },
 
+  setHeading: (buttonIndex = 3, selection: [number, number]) => {
+    setInlineToolbarMenuItem(INLINE_TOOLBAR_BUTTONS.HEADINGS, selection, buttonIndex);
+  },
+
   setCustomLineSpacing: (selection: [number, number]) => {
     cy.setLineSpacing(5, selection)
       .get('input')

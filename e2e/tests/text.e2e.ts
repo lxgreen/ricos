@@ -28,11 +28,6 @@ describe('text', () => {
     });
   });
 
-  // const testAppConfig = {
-  //   ...useNewToolbar,
-  //   // ...usePlugins(plugins.textPlugins),
-  // };
-
   beforeEach('load editor', () => {
     cy.switchToDesktop();
     cy.loadRicosEditorAndViewer('empty', useNewToolbar);
@@ -43,7 +38,6 @@ describe('text', () => {
   after(() => cy.eyesClose());
 
   it('allow to enter text', function() {
-    // cy.loadRicosEditorAndViewer('empty', testAppConfig); //!No Experiment
     cy.enterParagraphs([
       'Leverage agile frameworks',
       'to provide a robust synopsis for high level overviews.',
@@ -112,7 +106,6 @@ describe('text', () => {
   });
 
   it('allow to enter hashtag with link', function() {
-    // cy.loadRicosEditorAndViewer()
     cy.enterParagraphs([
       '#wix.com wix.com #this_is_not_a_link #will_be_a_link thisislink#youknow.com ',
     ]).setLink([37, 15], 'https://www.wix.com/');
@@ -120,7 +113,6 @@ describe('text', () => {
   });
 
   it('remove hashtag inside quotes', function() {
-    // cy.loadRicosEditorAndViewer()
     cy.enterParagraphs([
       'This is #hashtag! This #is not \'#hashtag\'! This is also not "#hashtag" ! hashtag #Test ',
     ]);
@@ -192,19 +184,16 @@ describe('text', () => {
   });
 
   it('should break the link when enter new soft line', function() {
-    // cy.loadRicosEditorAndViewer('empty')
     cy.enterParagraphs(['www.thisIs\nseperateLink.com ']);
     cy.eyesCheckWindow(this.test.title);
   });
 
   it('should paste plain text', function() {
-    // cy.loadRicosEditorAndViewer()
     cy.focusEditor().paste('This is pasted text');
     cy.eyesCheckWindow(this.test.title);
   });
 
   it('should paste html correctly', function() {
-    // cy.loadRicosEditorAndViewer()
     cy.focusEditor().paste(
       // eslint-disable-next-line max-len
       `<meta charset='utf-8'><span style="color: rgb(32, 33, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">called<span> </span></span><a href="https://en.wikipedia.org/wiki/Anchor_text" title="Anchor text" style="text-decoration: none; color: rgb(11, 0, 128); background: none rgb(255, 255, 255); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">anchor text</a><span style="color: rgb(32, 33, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">.<span> </span></span>`
@@ -213,7 +202,6 @@ describe('text', () => {
   });
 
   it('allow to enter tab character', function() {
-    // cy.loadRicosEditorAndViewer()
     cy.focusEditor()
       .tab()
       .enterParagraphs(['How to eat healthy is a good question.'])
@@ -222,7 +210,6 @@ describe('text', () => {
   });
 
   it('allow to enter tab character and delete it using shift+tab', function() {
-    // cy.loadRicosEditorAndViewer()
     cy.focusEditor()
       .tab()
       .moveCursorToStart()
@@ -234,7 +221,6 @@ describe('text', () => {
   });
 
   it('Enter click should create new block with the same alignment', function() {
-    // cy.loadRicosEditorAndViewer()
     cy.enterParagraphs(['Hey, next line should be centered!'])
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.BOLD, [0, 33])
       .setAlignment(INLINE_TOOLBAR_BUTTONS.TEXT_ALIGN_CENTER)
@@ -247,13 +233,11 @@ describe('text', () => {
   });
 
   it('esc key event should make editor blurred', function() {
-    // cy.loadRicosEditorAndViewer()
     cy.enterParagraphs(['Magic! I am blurred.']).type('{esc}');
     cy.eyesCheckWindow(this.test.title);
   });
 
   it('should enter link and further text in current block has no inline style', function() {
-    // cy.loadRicosEditorAndViewer()
     cy.enterParagraphs(['wix.com '])
       .enterParagraphs(['no inline style'])
       .blurEditor(); //! No EXPERIMENTS REFACTOR
@@ -261,12 +245,7 @@ describe('text', () => {
   });
 
   it('should enter link and further text in next block has no inline style', function() {
-    cy.loadRicosEditorAndViewer(
-      'empty',
-      useExperiments({
-        newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
-      })
-    );
+    cy.loadRicosEditorAndViewer('empty', useNewToolbar);
     cy.enterParagraphs(['wix.com'])
       .type('{enter}')
       .enterParagraphs(['no inline style'])
@@ -275,11 +254,8 @@ describe('text', () => {
   });
 
   it.skip('should not allow applying link to atomic blocks in selection', function() {
-    cy.loadRicosEditorAndViewer(
-      //! BUG Should be Resolved
-      'content-with-video',
-      useNewToolbar
-    );
+    //! BUG Should be Resolved
+    cy.loadRicosEditorAndViewer('content-with-video', useNewToolbar);
     cy.waitForVideoToLoad();
     cy.setEditorSelection(0, 5);
     cy.getInlineButton(INLINE_TOOLBAR_BUTTONS.LINK).should('not.be.disabled');
@@ -287,6 +263,16 @@ describe('text', () => {
     cy.setEditorSelection(0, 40)
       .getInlineButton(INLINE_TOOLBAR_BUTTONS.LINK)
       .should('be.disabled');
+    cy.eyesCheckWindow(this.test.title);
+  });
+
+  it('should apply headings', function() {
+    const testAppConfig = {
+      ...useNewToolbar,
+      ...usePlugins(plugins.headings),
+    };
+    cy.loadRicosEditorAndViewer('plain', testAppConfig);
+    cy.setHeading(3, [10, 50]).blurEditor();
     cy.eyesCheckWindow(this.test.title);
   });
 
