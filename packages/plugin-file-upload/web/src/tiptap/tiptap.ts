@@ -27,7 +27,7 @@ export const createRicosExtensions: CreateRicosExtensions = ({
     Component,
     componentDataDefaults: {
       ...fileDataDefaults,
-      myLoading: {
+      loading: {
         default: false,
       },
       id: '',
@@ -43,7 +43,7 @@ export const createRicosExtensions: CreateRicosExtensions = ({
               editor.commands.updateNodeAttrsById(id, {
                 ...fileDataDefaults,
                 src: { url },
-                myLoading: false,
+                loading: false,
                 name,
                 type,
                 size,
@@ -53,7 +53,7 @@ export const createRicosExtensions: CreateRicosExtensions = ({
             editor.commands.insertNode(TIPTAP_FILE_TYPE, {
               id,
               ...fileDataDefaults,
-              myLoading: true,
+              loading: true,
             });
 
             files.forEach(file => {

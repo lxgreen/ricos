@@ -7,7 +7,7 @@ export const File: React.FC<PluginProps> = ({ context, componentData, node }) =>
   const { isMobile, theme, t, config = {} } = context;
   const settings = config[FILE_UPLOAD_TYPE] || {};
   const setComponentUrl = () => null;
-  const isLoading = node.attrs.myLoading;
+  const isLoading = node.attrs.loading;
   const error = node.attrs.error;
   if (error) {
     componentData.error = error;

@@ -114,12 +114,8 @@ export class RichContentAdapter implements TiptapAPI {
         let id = '';
         if (type) {
           id = generateId();
-          const attrs = { ...toTiptap(data), id };
-          this.editor.commands.insertContent({
-            type,
-            attrs,
-            content: [],
-          });
+          const attrs = { ...data, id };
+          this.editor.commands.insertNode(type, attrs);
         } else {
           console.error(`No such plugin type ${pluginType}`);
         }
@@ -127,7 +123,7 @@ export class RichContentAdapter implements TiptapAPI {
       },
       findNodeByKey() {},
       setBlock: (blockKey, pluginType, data) => {
-        return this.editor.commands.updateNodeAttrsById(blockKey, toTiptap(data));
+        return this.editor.commands.updateNodeAttrsById(blockKey, data);
       },
       getSelection: () => ({
         getIsFocused: this.editor.isFocused,

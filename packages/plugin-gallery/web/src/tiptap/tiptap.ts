@@ -28,7 +28,7 @@ export const createRicosExtensions: CreateRicosExtensions = ({
     componentDataDefaults: {
       ...galleryDataDefaults,
       id: '',
-      myLoading: {
+      loading: {
         default: false,
       },
     },
@@ -73,7 +73,7 @@ export const createRicosExtensions: CreateRicosExtensions = ({
                 editor.commands.updateNodeAttrsById(id, {
                   ...galleryDefault,
                   items,
-                  myLoading: false,
+                  loading: false,
                 });
               }
             };
@@ -82,7 +82,7 @@ export const createRicosExtensions: CreateRicosExtensions = ({
             editor.commands.insertNode(TIPTAP_GALLERY_TYPE, {
               id,
               ...galleryDefault,
-              myLoading: true,
+              loading: true,
             });
 
             files.forEach((file, index) => {

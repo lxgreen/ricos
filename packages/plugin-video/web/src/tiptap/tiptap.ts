@@ -12,7 +12,7 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
     componentDataDefaults: {
       ...videoDataDefaults,
       id: '',
-      myLoading: {
+      loading: {
         default: false,
       },
     },

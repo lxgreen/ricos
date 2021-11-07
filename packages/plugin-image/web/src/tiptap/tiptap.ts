@@ -37,7 +37,7 @@ export const createRicosExtensions: CreateRicosExtensions = ({
     componentDataDefaults: {
       ...imageDataDefaults,
       id: '',
-      myLoading: {
+      loading: {
         default: false,
       },
     },
@@ -81,7 +81,7 @@ export const createRicosExtensions: CreateRicosExtensions = ({
                   width: data.width,
                   height: data.height,
                 },
-                myLoading: false,
+                loading: false,
               });
             };
 
@@ -89,7 +89,7 @@ export const createRicosExtensions: CreateRicosExtensions = ({
               editor.commands.insertNode(TIPTAP_IMAGE_TYPE, {
                 id,
                 image: { src: { url } },
-                myLoading: true,
+                loading: true,
               });
             };
             files.forEach(file => {
@@ -106,8 +106,8 @@ export const createRicosExtensions: CreateRicosExtensions = ({
           setImage: (url, width, height) => ({ commands }) => {
             return commands.updateAttributes(name, { image: { src: { id: url }, width, height } });
           },
-          setImageLoading: isLoading => ({ commands }) => {
-            return commands.updateAttributes(name, { myLoading: isLoading });
+          setImageLoading: loading => ({ commands }) => {
+            return commands.updateAttributes(name, { loading });
           },
         };
       },

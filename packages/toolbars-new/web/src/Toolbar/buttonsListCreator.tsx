@@ -346,7 +346,7 @@ const handleButtonModal = (
           if (shouldBehaveLikeNativeApp) {
             const id = editorCommands.insertBlock(
               fileUploadButtons[buttonName],
-              { ...convertBlockDataToRicos(type, tempData), myLoading: true },
+              { ...convertBlockDataToRicos(type, tempData), loading: true },
               {
                 isRicosSchema: true,
               }

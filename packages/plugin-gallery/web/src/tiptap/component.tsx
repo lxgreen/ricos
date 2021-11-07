@@ -10,7 +10,7 @@ export const Gallery: React.FC<PluginProps> = ({ context, componentData, node })
   const block = {
     getKey: () => node.attrs.id,
   };
-  const isLoading = node.attrs.myLoading;
+  const isLoading = node.attrs.loading;
   const error = node.attrs.error;
   const anchorTarget = '';
   const relValue = '';

@@ -24,7 +24,7 @@ export const Image: React.FC<PluginProps> = ({
     setFocusToBlock: () => null,
   };
   const setComponentUrl = () => null;
-  const isLoading = node.attrs.myLoading;
+  const isLoading = node.attrs.loading;
   const error = node.attrs.error;
 
   const handleCaptionChange = caption => {
