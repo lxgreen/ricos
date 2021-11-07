@@ -51,8 +51,10 @@
     min-width: 42px;
     @include border-box;
     @include phone {
-      height: 100vh;
-      max-height: 100vh;
+      &:not(.colorPickerMobile) {
+        height: 100vh;
+        max-height: 100vh;
+      }
     }
     &.nestedMenu {
       right: 0;
