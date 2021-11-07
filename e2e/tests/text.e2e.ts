@@ -123,9 +123,9 @@ describe('text', () => {
       })
     );
     cy.viewport(1000, 650);
-    cy.setTextStyle('toolbar-nestedMenu', [10, 50])
-      .setLineSpacing(3, [10, 50])
-      .blurEditor();
+    cy.setTextStyle('toolbar-nestedMenu', [10, 50]);
+    cy.eyesCheckWindow('collapsed toolbar');
+    cy.setLineSpacing(3, [10, 50]).blurEditor();
     cy.eyesCheckWindow(this.test.title);
   });
 
@@ -345,8 +345,9 @@ describe('text', () => {
       cy.loadRicosEditorAndViewer('non-text-only-blocks', testAppConfig);
       cy.increaseIndent([0, 550])
         .increaseIndent([0, 550])
-        .increaseIndent([0, 550]);
-      aaa.moveCursorToStart().blurEditor();
+        .increaseIndent([0, 550])
+        .moveCursorToStart()
+        .blurEditor();
       cy.eyesCheckWindow(this.test.title);
     });
 
