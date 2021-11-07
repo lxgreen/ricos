@@ -29,6 +29,7 @@ import {
   BLOCKQUOTE,
   HEADER_BLOCK,
   RICOS_FONT_SIZE_TYPE,
+  EXTERNAL,
 } from 'ricos-content';
 import {
   DividerData,
@@ -93,6 +94,7 @@ interface PluginsDataMap {
   [FILE_UPLOAD_TYPE]?: any;
   [RICOS_IMAGE_TYPE]?: ImageData;
   [IMAGE_TYPE]?: any;
+  [EXTERNAL]?: any;
 }
 
 export interface DecorationsDataMap {
