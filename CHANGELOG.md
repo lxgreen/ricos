@@ -23,6 +23,7 @@
   - [#3054](https://github.com/wix/ricos/pull/3054) EXTERNAL type
 - `ricos-content`
   - [#3054](https://github.com/wix/ricos/pull/3054) to/fromDraft: EXTERNAL type supported
+  - [#3056](https://github.com/wix/ricos/pull/3056) EXTERNAL type in EditorCommands
 
 ### :bug: Bug Fix
 
