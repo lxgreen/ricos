@@ -23,6 +23,17 @@
   - [#3054](https://github.com/wix/ricos/pull/3054) EXTERNAL type
 - `ricos-content`
   - [#3054](https://github.com/wix/ricos/pull/3054) to/fromDraft: EXTERNAL type supported
+  - [#3056](https://github.com/wix/ricos/pull/3056) EXTERNAL type in EditorCommands
+
+### :bug: Bug Fix
+
+- `toolbar-new`
+  - [#3066](https://github.com/wix/ricos/pull/3066) fix color-picker modal style for mobile devices
+
+### :bug: Bug Fix
+
+- `toolbars`
+  - [#3063](https://github.com/wix/ricos/pull/3063) ui changes in static text toolbars (old/new toolbar) 
 
 </details>
 <hr/>

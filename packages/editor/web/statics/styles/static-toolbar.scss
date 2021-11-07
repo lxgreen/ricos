@@ -12,6 +12,12 @@
   direction: ltr;
   position: relative;
   background-color: $background-color;
+  &.staticTextToolbar {
+    padding: 0 15px;
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box; 
+  }
 }
 
 .staticToolbar_scrollableContainer {
