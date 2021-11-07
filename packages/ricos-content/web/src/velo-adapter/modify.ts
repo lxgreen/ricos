@@ -1,38 +1,27 @@
-import * as T from 'fp-ts/Tree';
-import { Modifier, TraversalModifier, unfoldTree } from '../RicosContentAPI/modify';
-import { fromTraversable, Prism } from 'monocle-ts';
-import { RichContent, Node } from 'ricos-schema';
+import { pipe } from 'fp-ts/function';
+import { Node, RichContent } from 'ricos-schema';
+import { Modifier } from '../modifier-infra';
+import { modify as richContentModify, RichContentModifier } from '../RicosContentAPI/modify';
 
-type Callback = (content: RichContent) => void;
+const toAdapterModifier = (onSet: (content: RichContent) => void, content: RichContent) =>
+  function(modifier: RichContentModifier): RichContentModifier {
+    const self: { modifier: RichContentModifier } = { modifier };
+    return {
+      filter(predicate: Parameters<Modifier<Node>['filter']>[0]) {
+        self.modifier = modifier.filter.bind(self.modifier)(predicate);
+        self.modifier.set = this.set;
+        return self.modifier;
+      },
+      set(setter: Parameters<Modifier<Node>['set']>[0]) {
+        const root = modifier.set.bind(self.modifier)(setter);
+        const modifiedContent = { ...content, nodes: root.nodes };
+        onSet(modifiedContent);
+        return modifiedContent;
+      },
+    };
+  };
 
-class TraversalModifierForAdapter extends TraversalModifier {
-  callback?: Callback;
-
-  constructor(callback?: Callback, ...args: ConstructorParameters<typeof TraversalModifier>) {
-    super(...args);
-    this.callback = callback;
-  }
-
-  filter(predicate: (node: Node) => boolean) {
-    return new TraversalModifierForAdapter(
-      this.callback,
-      this.traversal.composePrism(Prism.fromPredicate(predicate)),
-      this.tree,
-      this.content
-    );
-  }
-
-  set(setter: (node: Node) => Node | Node[]) {
-    const content = super.set(setter);
-    this.callback?.(content);
-    return content;
-  }
-}
-
-export const modify = (content: RichContent, callback?: Callback): Modifier =>
-  new TraversalModifierForAdapter(
-    callback,
-    fromTraversable(T.tree)<Node>(),
-    unfoldTree(content.nodes),
-    content
-  );
+export const modify = (
+  content: RichContent,
+  onSet: (content: RichContent) => void
+): RichContentModifier => pipe(content, richContentModify, toAdapterModifier(onSet, content));

@@ -434,12 +434,10 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     if (!tiptapEditorModule) {
       return null;
     }
-    const { RicosTiptapEditor, RichContentAdapter } = tiptapEditorModule;
+    const { RicosTiptapEditor, RichContentAdapter, draftToTiptap } = tiptapEditorModule;
     const { content, injectedContent, plugins } = this.props;
     const { tiptapToolbar } = this.state;
-    const initialContent = tiptapEditorModule.draftToTiptap(
-      content ?? injectedContent ?? emptyDraftContent
-    );
+    const initialContent = draftToTiptap(content ?? injectedContent ?? emptyDraftContent);
     const { localeData } = this.state;
     const { locale, localeResource } = localeData;
     const extensions =

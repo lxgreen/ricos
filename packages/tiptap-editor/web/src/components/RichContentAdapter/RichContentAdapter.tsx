@@ -20,7 +20,7 @@ import {
   RICOS_TEXT_COLOR_TYPE,
   RICOS_TEXT_HIGHLIGHT_TYPE,
 } from 'wix-rich-content-common';
-import { toTiptap } from '../../converters';
+import { toTiptap } from '../../content-utils';
 import { Editor } from '@tiptap/core';
 import {
   HEADER_BLOCK,

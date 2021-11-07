@@ -1,23 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { toTiptap } from './toTiptap/toTiptap';
-import { fromTiptap } from './fromTiptap/fromTiptap';
+import { JSONContent } from '@tiptap/core';
+import { flow } from 'fp-ts/function';
 import { DraftContent } from 'ricos-content';
 import { fromDraft, toDraft } from 'ricos-content/libs/converters';
-import { convertNodeDataToDraft } from 'ricos-content/libs/toDraftData';
 import { convertBlockDataToRicos } from 'ricos-content/libs/migrateSchema';
-import { JSONContent } from '@tiptap/core';
+import { convertNodeDataToDraft } from 'ricos-content/libs/toDraftData';
 import { Node_Type } from 'ricos-schema';
+import { fromTiptap } from './fromTiptap/fromTiptap';
+import { toTiptap } from './toTiptap/toTiptap';
 
-export const draftToTiptap = (draftContent: DraftContent): JSONContent =>
-  toTiptap(fromDraft(draftContent));
+export { extract } from './extract';
+export { modify } from './modify';
+
+export const draftToTiptap: (draftContent: DraftContent) => JSONContent = flow(fromDraft, toTiptap);
 
 export const draftBlockDataToTiptap = (
   blockType: string,
   draftBlockData: Record<string, any>
 ): Record<string, any> => toTiptap(convertBlockDataToRicos(blockType, draftBlockData));
 
-export const tiptapToDraft = (proseContent: JSONContent): DraftContent =>
-  toDraft(fromTiptap(proseContent));
+export const tiptapToDraft: (proseContent: JSONContent) => DraftContent = flow(fromTiptap, toDraft);
 
 export const tiptapNodeDataToDraft = (
   nodeType: Node_Type,
