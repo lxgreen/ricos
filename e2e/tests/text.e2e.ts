@@ -2,13 +2,12 @@ import { INLINE_TOOLBAR_BUTTONS, ACTION_BUTTONS, FLOATING_TOOLBAR } from '../cyp
 import { DEFAULT_DESKTOP_BROWSERS, DEFAULT_MOBILE_BROWSERS } from './settings';
 import { usePlugins, usePluginsConfig, plugins, useExperiments } from '../cypress/testAppConfig';
 
+const useNewToolbar = useExperiments({
+  newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
+});
+
 const changeTextColor = (title: string) => {
-  cy.loadRicosEditorAndViewer(
-    'plain',
-    useExperiments({
-      newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
-    })
-  );
+  cy.loadRicosEditorAndViewer('plain', useNewToolbar);
   cy.setTextStyle(INLINE_TOOLBAR_BUTTONS.COLOR, [20, 15]).openCustomColorModal();
   cy.eyesCheckWindow(title);
   cy.setColorByHex('d932c3');
@@ -29,16 +28,14 @@ describe('text', () => {
     });
   });
 
-  const testAppConfig = {
-    ...useExperiments({
-      newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
-    }),
-    ...usePlugins(plugins.textPlugins),
-  };
+  // const testAppConfig = {
+  //   ...useNewToolbar,
+  //   // ...usePlugins(plugins.textPlugins),
+  // };
 
   beforeEach('load editor', () => {
     cy.switchToDesktop();
-    cy.loadRicosEditorAndViewer('empty', testAppConfig);
+    cy.loadRicosEditorAndViewer('empty', useNewToolbar);
   });
 
   afterEach(() => cy.matchContentSnapshot());
@@ -61,13 +58,8 @@ describe('text', () => {
   });
 
   it('allow to apply inline styles and links', function() {
-    cy.loadRicosEditorAndViewer(
-      //! Check again Compare with master
-      'plain',
-      useExperiments({
-        newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
-      })
-    );
+    //! Check again Compare with master
+    cy.loadRicosEditorAndViewer('plain', useNewToolbar);
     cy.setTextStyle(INLINE_TOOLBAR_BUTTONS.BOLD, [40, 10])
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.UNDERLINE, [10, 5])
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.ITALIC, [20, 5])
@@ -105,23 +97,13 @@ describe('text', () => {
   });
 
   it('should apply custom line spacing', function() {
-    cy.loadRicosEditorAndViewer(
-      'plain',
-      useExperiments({
-        newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
-      })
-    );
+    cy.loadRicosEditorAndViewer('plain', useNewToolbar);
     cy.setCustomLineSpacing([10, 50]);
     cy.eyesCheckWindow(this.test.title);
   });
 
   it('toolbar should be responsive', function() {
-    cy.loadRicosEditorAndViewer(
-      'plain',
-      useExperiments({
-        newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
-      })
-    );
+    cy.loadRicosEditorAndViewer('plain', useNewToolbar);
     cy.viewport(1000, 650);
     cy.setTextStyle('toolbar-nestedMenu', [10, 50]);
     cy.eyesCheckWindow('collapsed toolbar');
@@ -146,7 +128,7 @@ describe('text', () => {
   });
 
   it('allow to create lists', function() {
-    cy.loadRicosEditorAndViewer('plain', testAppConfig)
+    cy.loadRicosEditorAndViewer('plain', useNewToolbar)
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.ORDERED_LIST, [300, 100])
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.UNORDERED_LIST, [550, 1])
       .blurEditor();
@@ -155,7 +137,7 @@ describe('text', () => {
 
   it('open link toolbar (InlinePluginToolbar)', function() {
     // set link
-    cy.loadRicosEditorAndViewer('plain', testAppConfig)
+    cy.loadRicosEditorAndViewer('plain', useNewToolbar)
       .setLink([0, 10], 'https://www.wix.com/')
       // set cursor on link
       .setEditorSelection(5, 0)
@@ -186,9 +168,7 @@ describe('text', () => {
           isCustomModal: true,
         },
       }),
-      ...useExperiments({
-        newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
-      }),
+      ...useNewToolbar,
     };
     const selection: [number, number] = [0, 11];
     cy.loadRicosEditorAndViewer('empty', testAppConfig);
@@ -204,6 +184,7 @@ describe('text', () => {
           disableAutoLink: true,
         },
       }),
+      useNewToolbar,
     };
     cy.loadRicosEditorAndViewer('empty', testAppConfig);
     cy.enterParagraphs(['www.wix.com\nwww.wix.com ']);
@@ -297,9 +278,7 @@ describe('text', () => {
     cy.loadRicosEditorAndViewer(
       //! BUG Should be Resolved
       'content-with-video',
-      useExperiments({
-        newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
-      })
+      useNewToolbar
     );
     cy.waitForVideoToLoad();
     cy.setEditorSelection(0, 5);
@@ -312,6 +291,10 @@ describe('text', () => {
   });
 
   context('indentation', () => {
+    const testAppConfig = {
+      ...useNewToolbar,
+      ...usePlugins(plugins.textPlugins),
+    };
     it('allow to apply indent on a single block with inline styling', function() {
       cy.loadRicosEditorAndViewer('plain', testAppConfig);
       cy.setTextStyle(INLINE_TOOLBAR_BUTTONS.BOLD, [40, 10])
@@ -352,7 +335,7 @@ describe('text', () => {
     });
 
     it('allow to apply indent and delete it when clicking backspace where cursor is at start of block', function() {
-      // cy.loadRicosEditorAndViewer('', usePlugins(plugins.textPlugins))
+      cy.loadRicosEditorAndViewer('', testAppConfig);
       cy.enterParagraphs(['Text should have depth 1.'])
         .increaseIndent([0, 20])
         .increaseIndent([0, 20])
