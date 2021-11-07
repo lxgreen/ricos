@@ -7,6 +7,9 @@ import {
   EditorCommands,
   normalizeUrl,
   anchorScroll,
+  IMAGE_TYPE,
+  GALLERY_TYPE,
+  FILE_UPLOAD_TYPE,
 } from 'wix-rich-content-common';
 import { AlignTextCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon } from '../icons';
 import {
@@ -28,8 +31,19 @@ import {
   convertRelStringToObject,
   convertRelObjectToString,
 } from 'wix-rich-content-common/libs/linkConverters';
+import { convertBlockDataToRicos } from 'ricos-content/libs/migrateSchema';
+import {
+  imageTempData,
+  imageData,
+  galleryTempData,
+  galleryData,
+  fileTempData,
+  fileData,
+} from './mockData';
 
 type editorCommands = EditorCommands;
+
+const shouldBehaveLikeNativeApp = false;
 
 export const createButtonsList = (
   formattingButtonsKeys,
@@ -300,16 +314,55 @@ const handleButtonModal = (
       const Modal = buttonsFullData[buttonName].modal;
       buttonsList[index].modal = props =>
         Modal && <Modal {...props} currentSelect={getFontSize(editorCommands)} t={t} />;
-    } else if (buttonName === 'Image') {
+    } else if (Object.keys(fileUploadButtons).includes(buttonName)) {
       const Modal = buttonsFullData[buttonName].modal;
+      const typeDataMap = {
+        Image: {
+          type: IMAGE_TYPE,
+          tempData: imageTempData,
+          data: imageData,
+          uploadFunc: editorCommands.addImage,
+        },
+        Gallery: {
+          type: GALLERY_TYPE,
+          tempData: galleryTempData,
+          data: galleryData,
+          uploadFunc: editorCommands.addGallery,
+        },
+        File: {
+          type: FILE_UPLOAD_TYPE,
+          tempData: fileTempData,
+          data: fileData,
+          uploadFunc: editorCommands.addFile,
+        },
+      };
+      const { type, tempData, data, uploadFunc } = typeDataMap[buttonName];
       const onChange = e => {
-        Array.from(e.target.files || [])
-          .filter((file: File) => file.type.startsWith('image'))
-          .forEach((file: File) => {
-            editorCommands.addImage?.(file);
-          });
-
-        e.target.value = null;
+        if (e.target.files) {
+          const files = Array.from(e.target.files as File[]).filter((file: File) =>
+            file.type.startsWith('image')
+          );
+          //With insertBlock & setBlock commands
+          if (shouldBehaveLikeNativeApp) {
+            const id = editorCommands.insertBlock(
+              fileUploadButtons[buttonName],
+              { ...convertBlockDataToRicos(type, tempData), myLoading: true },
+              {
+                isRicosSchema: true,
+              }
+            );
+            setTimeout(() => {
+              editorCommands.setBlock(
+                id,
+                fileUploadButtons[buttonName],
+                convertBlockDataToRicos(type, data)
+              );
+            }, 2000);
+          } else {
+            uploadFunc?.(files);
+          }
+          e.target.value = null;
+        }
       };
       if (handleFileUpload) {
         buttonsList[index].modal = undefined;

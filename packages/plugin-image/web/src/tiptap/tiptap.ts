@@ -3,8 +3,7 @@ import { CreateRicosExtensions } from 'wix-tiptap-editor';
 import { Image as Component } from './component';
 import { Plugin, PluginKey } from 'prosemirror-state';
 import { uploadFile } from 'wix-rich-content-plugin-commons';
-import { generateId } from 'ricos-content';
-import { TIPTAP_IMAGE_TYPE } from 'ricos-content';
+import { generateId, TIPTAP_IMAGE_TYPE } from 'ricos-content';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -20,7 +19,7 @@ declare module '@tiptap/core' {
       /**
        * Upload image
        */
-      addImage: (file: File) => void;
+      addImage: (files: File[]) => void;
     };
   }
 }
@@ -74,9 +73,8 @@ export const createRicosExtensions: CreateRicosExtensions = ({
       },
       addCommands() {
         return {
-          addImage: file => ({ editor }) => {
-            const id = generateId();
-            const onSuccess = data => {
+          addImage: files => ({ editor }) => {
+            const onSuccess = (data, id) => {
               editor.commands.updateNodeAttrsById(id, {
                 image: {
                   src: { id: data.file_name },
@@ -87,14 +85,23 @@ export const createRicosExtensions: CreateRicosExtensions = ({
               });
             };
 
-            const onFileResolve = url => {
-              return editor.commands.insertNode(TIPTAP_IMAGE_TYPE, {
+            const onFileResolve = (url, id) => {
+              editor.commands.insertNode(TIPTAP_IMAGE_TYPE, {
                 id,
                 image: { src: { url } },
                 myLoading: true,
               });
             };
-            uploadFile({ file, uploadFunction, onError, onSuccess, onFileResolve });
+            files.forEach(file => {
+              const id = generateId();
+              uploadFile({
+                file,
+                uploadFunction,
+                onError,
+                onSuccess: data => onSuccess(data, id),
+                onFileResolve: url => onFileResolve(url, id),
+              });
+            });
           },
           setImage: (url, width, height) => ({ commands }) => {
             return commands.updateAttributes(name, { image: { src: { id: url }, width, height } });

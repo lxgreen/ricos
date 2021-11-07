@@ -69,33 +69,11 @@ export class RichContentAdapter implements TiptapAPI {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private editor: any,
     private t: TranslationFunction,
-    private plugins: EditorPlugin[],
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    private decorationCommandMap: Record<string, any>,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    private blockTypeCommandMap: Record<string, any>,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    private deleteDecorationCommandMap: Record<string, any>
+    private plugins: EditorPlugin[]
   ) {
     this.editor = editor;
     this.t = t;
     this.plugins = plugins;
-    this.decorationCommandMap = {
-      [RICOS_LINK_TYPE]: data => this.editor.commands.setLink({ link: data }),
-      [RICOS_TEXT_COLOR_TYPE]: data => this.editor.commands.setColor(data.color),
-      [RICOS_TEXT_HIGHLIGHT_TYPE]: data => this.editor.commands.setHighlight(data.color),
-    };
-    this.blockTypeCommandMap = {
-      [UNSTYLED]: () => this.editor.commands.setParagraph(),
-      [HEADINGS_TYPE]: level => this.editor.commands.toggleHeading({ level }),
-      [BLOCKQUOTE]: () => this.editor.commands.toggleBlockquote(),
-      [CODE_BLOCK_TYPE]: () => this.editor.commands.toggleCodeBlock(),
-      [BULLET_LIST_TYPE]: () => this.editor.commands.toggleBulletList(),
-      [NUMBERED_LIST_TYPE]: () => this.editor.commands.toggleOrderedList(),
-    };
-    this.deleteDecorationCommandMap = {
-      [RICOS_LINK_TYPE]: () => this.editor.commands.unsetLink(),
-    };
   }
 
   focus() {
@@ -157,8 +135,13 @@ export class RichContentAdapter implements TiptapAPI {
       }),
 
       insertDecoration: (type, data) => {
-        if (this.decorationCommandMap[type]) {
-          this.decorationCommandMap[type](data);
+        const decorationCommandMap = {
+          [RICOS_LINK_TYPE]: data => this.editor.commands.setLink({ link: data }),
+          [RICOS_TEXT_COLOR_TYPE]: data => this.editor.commands.setColor(data.color),
+          [RICOS_TEXT_HIGHLIGHT_TYPE]: data => this.editor.commands.setHighlight(data.color),
+        };
+        if (decorationCommandMap[type]) {
+          decorationCommandMap[type](data);
         } else {
           console.error(`${type} decoration not supported`);
         }
@@ -202,22 +185,35 @@ export class RichContentAdapter implements TiptapAPI {
         return link;
       },
       setBlockType: type => {
+        const blockTypeCommandMap = {
+          [UNSTYLED]: () => this.editor.commands.setParagraph(),
+          [HEADINGS_TYPE]: level => this.editor.commands.toggleHeading({ level }),
+          [BLOCKQUOTE]: () => this.editor.commands.toggleBlockquote(),
+          [CODE_BLOCK_TYPE]: () => this.editor.commands.toggleCodeBlock(),
+          [BULLET_LIST_TYPE]: () => this.editor.commands.toggleBulletList(),
+          [NUMBERED_LIST_TYPE]: () => this.editor.commands.toggleOrderedList(),
+        };
         if (Object.values(HEADER_BLOCK).includes(type)) {
-          this.blockTypeCommandMap.headings(headingTypeToLevelMap[type]);
-        } else if (this.blockTypeCommandMap[type]) {
-          this.blockTypeCommandMap[type]();
+          blockTypeCommandMap.headings(headingTypeToLevelMap[type]);
+        } else if (blockTypeCommandMap[type]) {
+          blockTypeCommandMap[type]();
         } else {
           console.error(`${type} block type not supported`);
         }
       },
       deleteDecoration: type => {
-        if (this.deleteDecorationCommandMap[type]) {
-          this.deleteDecorationCommandMap[type]();
+        const deleteDecorationCommandMap = {
+          [RICOS_LINK_TYPE]: () => this.editor.commands.unsetLink(),
+        };
+        if (deleteDecorationCommandMap[type]) {
+          deleteDecorationCommandMap[type]();
         } else {
           console.error(`delete ${type} decoration type not supported`);
         }
       },
-      addImage: file => this.editor.commands.addImage(file),
+      addImage: files => this.editor.commands.addImage(files),
+      addGallery: files => this.editor.commands.addGallery(files),
+      addFile: files => this.editor.commands.addFile(files),
     };
   }
 

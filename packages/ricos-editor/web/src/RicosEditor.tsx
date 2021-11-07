@@ -134,7 +134,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       [IMAGE_TYPE]: _rcProps?.helpers?.handleFileSelection || _rcProps?.helpers?.handleFileUpload,
       [VIDEO_TYPE]: settings?.handleFileUpload || settings?.handleFileSelection,
       [FILE_UPLOAD_TYPE]: settings?.onFileSelected || settings?.handleFileSelection,
-      [GALLERY_TYPE]: _rcProps?.helpers?.handleFileSelection,
+      [GALLERY_TYPE]: _rcProps?.helpers?.handleFileSelection || _rcProps?.helpers?.handleFileUpload,
     });
     return plugins?.map(plugin => {
       const _plugin = { ...plugin };

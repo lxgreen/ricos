@@ -167,5 +167,7 @@ export interface EditorCommands {
   setBlockType: (type: TextBlockType) => void;
   setTextAlignment: (textAlignment: TextAlignment) => void;
   _setSelection: (blockKey: string, selection: draftSelection) => void;
-  addImage?: (file: File) => void;
+  addImage?: (files: File[]) => void;
+  addGallery?: (files: File[]) => void;
+  addFile?: (files: File[]) => void;
 }

@@ -270,7 +270,15 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
         },
       ],
     }),
-    type: 'button',
+    type: 'modal',
+    modal: props => (
+      <input
+        type={'file'}
+        onChange={props.onChange}
+        multiple
+        accept={'.jpg,.png,.gif,.jpeg,.jpe,.jfif,.bmp,.heic,.heif,.tfif,.tif,.webp'}
+      />
+    ),
   },
   Gif: {
     icon: GifIcon,
@@ -310,7 +318,14 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
       type: 'mp3',
       size: 150000,
     }),
-    type: 'button',
+    type: 'modal',
+    modal: props => (
+      <input
+        type={'file'}
+        onChange={props.onChange}
+        accept={'.jpg,.png,.gif,.jpeg,.jpe,.jfif,.bmp,.heic,.heif,.tfif,.tif,.webp'}
+      />
+    ),
   },
   AddPlugin: {
     icon: PlusIcon,
@@ -609,6 +624,8 @@ export const insertBlockButtons: Record<string, keyof PluginsDataMap> = {
 
 export const fileUploadButtons: Record<string, keyof PluginsDataMap> = {
   Image: RICOS_IMAGE_TYPE,
+  Gallery: RICOS_GALLERY_TYPE,
+  File: RICOS_FILE_TYPE,
 };
 
 export const inlineStyleButtons: Record<string, InlineStyle> = {
