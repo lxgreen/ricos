@@ -115,6 +115,19 @@ describe('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
+  it.only('toolbar should be responsive', function() {
+    cy.loadRicosEditorAndViewer(
+      'plain',
+      useExperiments({
+        newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
+      })
+    );
+    cy.viewport(900, 600);
+    // cy.get('[data-hook]="ricos-editor"]').
+    cy.setCustomLineSpacing([10, 50]);
+    cy.eyesCheckWindow(this.test.title);
+  });
+
   it('allow to enter hashtag with link', function() {
     // cy.loadRicosEditorAndViewer()
     cy.enterParagraphs([
@@ -279,7 +292,7 @@ describe('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
-  it('should not allow applying link to atomic blocks in selection', function() {
+  it.skip('should not allow applying link to atomic blocks in selection', function() {
     cy.loadRicosEditorAndViewer(
       //! BUG Should be Resolved
       'content-with-video',
@@ -331,9 +344,8 @@ describe('text', () => {
       cy.loadRicosEditorAndViewer('non-text-only-blocks', testAppConfig);
       cy.increaseIndent([0, 550])
         .increaseIndent([0, 550])
-        .increaseIndent([0, 550])
-        .moveCursorToStart()
-        .blurEditor();
+        .increaseIndent([0, 550]);
+      aaa.moveCursorToStart().blurEditor();
       cy.eyesCheckWindow(this.test.title);
     });
 

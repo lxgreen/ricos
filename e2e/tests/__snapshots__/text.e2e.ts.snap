@@ -1535,3 +1535,19 @@ exports[`text > should apply custom line spacing #0`] =
   ],
   "entityMap": {}
 };
+
+exports[`text > toolbar should be responsive #0`] =
+{
+  "blocks": [
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 0,
+      "text": "",
+      "type": "unstyled"
+    }
+  ],
+  "entityMap": {}
+};
