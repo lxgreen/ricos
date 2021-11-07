@@ -22,6 +22,7 @@ const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
   cancelLabel,
   title,
   t,
+  children,
 }) => {
   const saveText = saveLabel || t('SettingsPanelFooter_Save');
   const cancelText = cancelLabel || t('SettingsPanelFooter_Cancel');
@@ -37,7 +38,10 @@ const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
         theme={theme}
         t={t}
       >
-        {title && <div className={styles.setting_mobile_header_title}>{title}</div>}
+        <>
+          {title && <div className={styles.setting_mobile_header_title}>{title}</div>}
+          {children}
+        </>
       </ActionButtons>
     </div>
   );

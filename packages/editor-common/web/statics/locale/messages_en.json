@@ -402,8 +402,6 @@
   "Poll_PollSettings_Tab_Layout_TabName": "Layout",
   "Poll_PollSettings_Tab_Design_TabName": "Design",
   "Poll_PollSettings_Tab_Settings_TabName": "Settings",
-  "Poll_PollSettings_Common_CTA_Secondary": "Cancel",
-  "Poll_PollSettings_Common_CTA_Primary": "Save",
   "Poll_PollSettings_Tab_Layout_Section_Question_Header": "Question",
   "Poll_PollSettings_Tab_Layout_Section_Question_Image": "Add an image to the question",
   "Poll_PollSettings_Tab_Layout_Section_Answers_Header": "Answers",

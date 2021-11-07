@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+
+- `polls`
+  - [#3026](https://github.com/wix/ricos/pull/3026) refactor settings mobile header / add polls to plugin menu 
+
 ### :rocket: New Feature
 
 - `ricos-schema` 

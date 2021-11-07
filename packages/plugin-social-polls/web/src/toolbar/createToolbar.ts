@@ -1,5 +1,4 @@
 import { BUTTONS } from 'wix-rich-content-plugin-commons';
-import { DECORATION_MODE } from 'wix-rich-content-ui-components';
 import {
   BUTTON_TYPES,
   TOOLBARS,
@@ -13,7 +12,7 @@ import { TABS } from '../components/settings';
 import { DEFAULT_COMPONENT_DATA, MEMBER_ROLES } from '../defaults';
 import { InsertPluginIcon } from '../assets/icons';
 import { Modals } from '../modals';
-import { PollPresetSelector, Arrow } from '../components/settings/preset-selector';
+import { PollPresetSelector } from '../components/settings/preset-selector';
 import { ModalStyles, CreatePluginToolbar } from 'wix-rich-content-common';
 import { merge } from 'lodash';
 
@@ -38,12 +37,12 @@ export const DesktopFlyOutModalStyles: ModalStyles = {
     boxSizing: 'border-box',
     height: '220px',
     overflow: 'visible',
-    border: '1px solid #ccc',
     padding: '20px 25px 25px 25px',
     display: 'block',
     borderRadius: '2px',
     position: 'absolute',
-    margin: '0 0 0 20px',
+    border: 'solid 1px rgba(51, 51, 51, 0.1)',
+    boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.06)',
     zIndex: 6,
   },
 };
@@ -68,6 +67,7 @@ const externalToolbarStyles: ModalStyles = {
     height: '220px',
     overflow: 'visible',
     display: 'block',
+    padding: 20,
   },
 };
 
@@ -179,21 +179,19 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
     InsertButtons: [
       {
         ...buttonProps,
-        toolbars: [TOOLBARS.FOOTER],
+        toolbars: [TOOLBARS.FOOTER, TOOLBARS.SIDE],
         modalStyles: modalStylesByToolbar[TOOLBARS.FOOTER],
-        modalStylesFn: ({ buttonRef }) => {
-          return getBottomToolbarModalStyles(buttonRef, {
-            customStyles: DesktopFlyOutModalStyles,
-            centered: true,
-            isMobile,
-          });
+        modalStylesFn: ({ buttonRef, toolbarName }) => {
+          return getBottomToolbarModalStyles(
+            buttonRef,
+            {
+              customStyles: DesktopFlyOutModalStyles,
+              centered: true,
+              isMobile,
+            },
+            toolbarName
+          );
         },
-        modalDecorations: [
-          {
-            decorationMode: DECORATION_MODE.APPEND,
-            decorator: Arrow,
-          },
-        ],
       },
       {
         ...buttonProps,
