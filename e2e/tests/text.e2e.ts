@@ -115,16 +115,17 @@ describe('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
-  it.only('toolbar should be responsive', function() {
+  it('toolbar should be responsive', function() {
     cy.loadRicosEditorAndViewer(
       'plain',
       useExperiments({
         newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
       })
     );
-    cy.viewport(900, 600);
-    // cy.get('[data-hook]="ricos-editor"]').
-    cy.setCustomLineSpacing([10, 50]);
+    cy.viewport(1000, 650);
+    cy.setTextStyle('toolbar-nestedMenu', [10, 50])
+      .setLineSpacing(3, [10, 50])
+      .blurEditor();
     cy.eyesCheckWindow(this.test.title);
   });
 
