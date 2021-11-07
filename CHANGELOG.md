@@ -24,6 +24,11 @@
 - `ricos-content`
   - [#3054](https://github.com/wix/ricos/pull/3054) to/fromDraft: EXTERNAL type supported
 
+### :bug: Bug Fix
+
+- `toolbar-new`
+  - [#3066](https://github.com/wix/ricos/pull/3066) fix color-picker modal style for mobile devices
+
 </details>
 <hr/>
 
