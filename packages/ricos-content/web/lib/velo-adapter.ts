@@ -1,1 +1,1 @@
-export * from '../src/velo-adapter/adapter';
+export * from '../src/velo-adapter';

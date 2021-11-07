@@ -290,11 +290,13 @@ class Toolbar extends Component<ToolbarProps, State> {
   renderComponent = buttonProps => {
     const { Component } = buttonProps;
     return (
-      <div className={toolbarButtonStyles.toolbarButton_wrapper}>
-        <button className={toolbarButtonStyles.toolbarButton} onMouseDown={this.preventDefault}>
-          <Component />
-        </button>
-      </div>
+      Component && (
+        <div className={toolbarButtonStyles.toolbarButton_wrapper}>
+          <button className={toolbarButtonStyles.toolbarButton} onMouseDown={this.preventDefault}>
+            <Component />
+          </button>
+        </div>
+      )
     );
   };
 

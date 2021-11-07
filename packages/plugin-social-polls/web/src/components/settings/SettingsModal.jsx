@@ -7,8 +7,9 @@ import {
   Tabs,
   Tab,
   SettingsPanelFooter,
-  Separator,
   FocusManager,
+  SettingsMobileHeader,
+  Button,
 } from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 
@@ -103,38 +104,21 @@ export class SettingsModal extends Component {
       <div ref={$container}>
         <FocusManager dir={languageDir}>
           {isMobile ? (
-            <div className={this.styles.header}>
-              <button
-                className={cls(
-                  this.styles.poll_header_button,
-                  this.styles.poll_header_button_secondary
-                )}
-                onClick={this.restoreChanges}
-              >
-                {t('Poll_PollSettings_Common_CTA_Secondary')}
-              </button>
-              <div className={this.styles.header_button_list}>
-                <button
-                  className={cls(
-                    this.styles.poll_header_button,
-                    this.styles.poll_header_button_primary
-                  )}
+            <SettingsMobileHeader
+              onSave={helpers.closeModal}
+              onCancel={this.restoreChanges}
+              theme={styles}
+              t={t}
+            >
+              <div className={this.styles.preview_button}>
+                <Button
+                  borderless
+                  isMobile
+                  text={t('Poll_FormatToolbar_Preview_Tooltip')}
                   onClick={this.openPreview}
-                >
-                  {t('Poll_FormatToolbar_Preview_Tooltip')}
-                </button>
-                <Separator className={this.styles.separator_vertical} />
-                <button
-                  className={cls(
-                    this.styles.poll_header_button,
-                    this.styles.poll_header_button_primary
-                  )}
-                  onClick={helpers.closeModal}
-                >
-                  {t('Poll_PollSettings_Common_CTA_Primary')}
-                </button>
+                />
               </div>
-            </div>
+            </SettingsMobileHeader>
           ) : (
             <div className={this.styles.header}>
               <h3 className={this.styles.title}>{t('Poll_PollSettings_Common_Header')}</h3>

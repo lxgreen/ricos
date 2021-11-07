@@ -73,7 +73,7 @@
       "$id": "https://wix-rich-content/entity-range.json",
       "type": "object",
       "title": "entity",
-      "required": ["type", "mutability", "data"],
+      "required": ["type", "data"],
       "properties": {
         "type": {
           "$id": "#/properties/type",
@@ -150,8 +150,7 @@
             "type": "string",
             "title": "text",
             "default": "",
-            "examples": ["test"],
-            "pattern": "^(.|[\n\r])*$"
+            "examples": ["test"]
           },
           "type": {
             "$id": "#/properties/blocks/items/properties/type",

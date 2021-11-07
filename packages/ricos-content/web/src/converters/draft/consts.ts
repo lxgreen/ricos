@@ -22,6 +22,7 @@ import {
   ANCHOR_TYPE,
   EMBED_TYPE,
   RICOS_NODE_TYPE_TO_DATA_FIELD,
+  EXTERNAL,
 } from '../../consts';
 import { Decoration_Type, Node_Type } from 'ricos-schema';
 import { fromEntries } from '../../utils';
@@ -78,6 +79,7 @@ export const TO_RICOS_NODE_TYPE = {
   [POLL_TYPE]: Node_Type.POLL,
   [TABLE_TYPE]: Node_Type.TABLE,
   [EMBED_TYPE]: Node_Type.EMBED,
+  [EXTERNAL]: Node_Type.EXTERNAL,
 };
 
 const DUPLICATE_KEYS = [IMAGE_TYPE_LEGACY, VIDEO_TYPE_LEGACY];
@@ -97,6 +99,7 @@ export const TO_RICOS_DECORATION_TYPE = {
   [ANCHOR_TYPE]: Decoration_Type.ANCHOR,
   [MENTION_TYPE]: Decoration_Type.MENTION,
   [LINK_TYPE]: Decoration_Type.LINK,
+  [EXTERNAL]: Decoration_Type.EXTERNAL,
 };
 
 export const TO_RICOS_PLUGIN_TYPE = {
