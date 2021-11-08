@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { RichContentEditor } from 'wix-rich-content-editor';
 import {
   RichContentTheme,
-  GetToolbarSettings,
   EditorCommands,
   EditorPlugin,
   LinkPanelSettings,
@@ -22,7 +21,6 @@ interface LinkToolbarProps {
   textToolbarType?: string | null;
   isMobile?: boolean;
   theme?: RichContentTheme;
-  getToolbarSettings?: GetToolbarSettings;
   plugins?: EditorPlugin[];
   linkPanelSettings?: LinkPanelSettings;
   linkSettings?: LinkSettings;

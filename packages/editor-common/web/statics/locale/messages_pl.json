@@ -36,7 +36,7 @@
   "CollapsibleListPlugin_InsertButton_Tooltip": "Dodaj listę zwijaną",
   "UploadImage_Error_Corrupted_Image": "Obraz jest uszkodzony i nie można go przesłać. Spróbuj użyć innego pliku.",
   "ButtonModal_Settings_Tab": "Ustawienia",
-  "CodeblockPlugin_InsertButton": "Blok kodu",
+  "CodeblockPlugin_InsertButton": "Code Block",
   "TablePlugin_Toolbar_ContextMenu_InsertLeft_Button": "Wstaw 1 z lewej",
   "UploadVideo_Error_MP4_Unsupported_Format": "Plik nie ma obsługiwanego formatu MP4 i nie można go przesłać. Spróbuj użyć innego pliku.",
   "GallerySettings_Image_Ratio": "Proporcje obrazu",

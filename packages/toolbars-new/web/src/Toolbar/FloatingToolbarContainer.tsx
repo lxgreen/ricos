@@ -155,7 +155,7 @@ class FloatingToolbarContainer extends PureComponent<ToolbarContainerProps, Stat
           visibility: isVisible ? 'visible' : 'hidden',
           transform: isVisible ? 'scale(1)' : 'scale(0)',
         }}
-        data-id="floating-toolbar"
+        data-hook="floating-toolbar"
         onKeyDown={this.onKeyDown}
       >
         {isVisible &&

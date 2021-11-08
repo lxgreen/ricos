@@ -17,8 +17,66 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `toolbars-new`
+  - [#3073](https://github.com/wix/ricos/pull/3073) update and add datahooks to the new-toolbar testing
+
+### :nail_care: Polish
+
+- `polls`
+  - [#3026](https://github.com/wix/ricos/pull/3026) refactor settings mobile header / add polls to plugin menu 
+
+### :rocket: New Feature
+
+- `ricos-schema` 
+  - [#3054](https://github.com/wix/ricos/pull/3054) EXTERNAL type
+- `ricos-content`
+  - [#3054](https://github.com/wix/ricos/pull/3054) to/fromDraft: EXTERNAL type supported
+  - [#3056](https://github.com/wix/ricos/pull/3056) EXTERNAL type in EditorCommands
+
+### :bug: Bug Fix
+
+- `toolbar-new`
+  - [#3066](https://github.com/wix/ricos/pull/3066) fix color-picker modal style for mobile devices
+- `toolbars`
+  - [#3063](https://github.com/wix/ricos/pull/3063) ui changes in static text toolbars (old/new toolbar)
+  - `toolbar-new`
+  - [#3078](https://github.com/wix/ricos/pull/3078) refactor toolbar modals position and width
+
+### :house: Internal
+
+- `ricos-content`  
+  - [#3071](https://github.com/wix/ricos/pull/3071) Content API: generic modifier and extractor
+
+### :nail_care: Polish
+
+- `polls`
+  - [#3026](https://github.com/wix/ricos/pull/3026) refactor settings mobile header / add polls to plugin menu 
+
 </details>
 <hr/>
+
+## 8.58.3 (Nov 2, 2021)
+
+### :house: Internal
+
+- `tiptap plugins`
+  - [#3047](https://github.com/wix/ricos/pull/3047) add plugins to tiptap [video, gif, file, gallery, code-block, spoiler, color]
+- `video`
+  - [#3050](https://github.com/wix/ricos/pull/3050) open video modal when embed from youtube
+
+## 8.58.2 (Nov 1, 2021)
+
+### :house: Internal
+
+- `schema`
+  - [#3049](https://github.com/wix/ricos/pull/3049) generate-plugin-defaults generates link decoration defaults
+
+### :bug: Bug Fix
+
+- `schema`
+  - add verticala embed schema to content state schemas
 
 ## 8.58.1 (Oct 27, 2021)
 

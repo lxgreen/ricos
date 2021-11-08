@@ -45,7 +45,7 @@ export type TiptapAPI = {
 };
 
 export interface RicosTiptapEditorProps {
-  content?: JSONContent;
+  content: JSONContent;
   extensions?: RicosExtension[];
   onLoad?: (editor: Editor) => void;
   t: TranslationFunction;

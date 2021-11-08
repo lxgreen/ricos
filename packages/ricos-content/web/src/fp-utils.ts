@@ -6,6 +6,23 @@ import { concatAll, Monoid } from 'fp-ts/Monoid';
 import * as O from 'fp-ts/Option';
 import * as S from 'fp-ts/Semigroup';
 
+/**
+ *
+ * Functional switch/case analogue:
+ *
+ *  switch(candidate) {
+ *    case(predicate(candidate)) => resolution(candidate);
+ *    ...
+ *    default: defaultT
+ *  }
+ *
+ * @template C examination candidate type
+ * @template T resolution result type
+ * @param {C} candidate
+ * @param {T} defaultT fallback value
+ * @param {[(candidate: C) => boolean, (candidate: C) => T][]} resolvers [predicate, resolution] tuples
+ * @returns  {T}
+ */
 export const firstRight = <C, T>(
   candidate: C,
   defaultT: T,
