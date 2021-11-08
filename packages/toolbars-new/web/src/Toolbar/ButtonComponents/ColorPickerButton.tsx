@@ -207,7 +207,6 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
               nestedMenu && styles.withoutTop,
               isMobile && styles.colorPickerMobile
             )}
-            // data-id={'color-picker-modal'}
             data-hook="color-picker-modal"
             ref={this.setModalRef}
             tabIndex={-1}

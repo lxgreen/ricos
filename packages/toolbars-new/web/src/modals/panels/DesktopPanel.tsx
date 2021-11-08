@@ -31,6 +31,7 @@ const DesktopPanel = ({
   }, []);
 
   const optionElement = (option, isSelected, onClick) => {
+    const dataHook = option.dataHook || 'modal-option';
     const content = option.icon ? option.icon() : t(option.text);
     const onKeyDown = e => {
       if (e.keyCode === KEYS_CHARCODE.ENTER) {
@@ -59,7 +60,11 @@ const DesktopPanel = ({
             })}
             key={option.commandKey}
             onClick={() => onClick(option.commandKey)}
+<<<<<<< HEAD
             data-hook={option.dataHook || 'modal-option'}
+=======
+            data-hook={dataHook}
+>>>>>>> master
           >
             <div className={styles.panel_row_text_container}>
               <div className={styles.panel_row_text}>{content} </div>
@@ -93,7 +98,7 @@ const DesktopPanel = ({
           <div className={styles.separator} />
           <button
             className={styles.showCustomPanel_button}
-            data-hook={'modal-option'}
+            data-hook="modal-option"
             onClick={customPanelOptions.onOpen}
           >
             {panelHeader}

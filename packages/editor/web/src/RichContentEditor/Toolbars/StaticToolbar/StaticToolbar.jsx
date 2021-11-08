@@ -241,6 +241,7 @@ export default class StaticToolbar extends React.PureComponent {
       locale,
       setEditorState,
       config,
+      name,
     } = this.props;
     const { extendContent: ExtendContent } = this.state;
 
@@ -270,7 +271,8 @@ export default class StaticToolbar extends React.PureComponent {
       className: classNames(
         Styles.staticToolbar,
         toolbarStyles.toolbar,
-        toolbarStyles.staticToolbar
+        toolbarStyles.staticToolbar,
+        name === 'StaticTextToolbar' && Styles.staticTextToolbar
       ),
       role: 'toolbar',
       'aria-orientation': 'horizontal',
