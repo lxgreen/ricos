@@ -12,6 +12,8 @@ export {
 export * from './consts';
 export * from './types';
 export * from './version';
+export { DECORATION_TO_DATA_FIELD } from './converters/draft';
+export { generateId } from './converters/generateRandomId';
 
 export { isContentStateEmpty } from './contentStateUtils/contentStateUtils';
 
