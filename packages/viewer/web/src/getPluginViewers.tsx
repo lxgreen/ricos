@@ -15,7 +15,7 @@ import {
   MAP_TYPE,
   getRelValue,
   ViewerContextType,
-  PluginTypeMapper,
+  PluginMapping,
 } from 'wix-rich-content-common';
 import { getBlockIndex } from './utils/draftUtils';
 import RichContentViewer, { RichContentViewerProps } from './RichContentViewer';
@@ -44,7 +44,7 @@ class PluginViewer extends PureComponent<PluginViewerProps> {
       },
       isFunction(alignment)
         ? alignment(componentData, theme, styles, isMobile)
-        : alignmentClassName(componentData, theme, styles, isMobile),
+        : alignmentClassName(componentData, theme, styles),
       isFunction(size)
         ? size(componentData, theme, styles, isMobile)
         : sizeClassName(componentData, theme, styles, isMobile),
@@ -208,7 +208,7 @@ class PluginViewer extends PureComponent<PluginViewerProps> {
 
 type PluginViewerProps = {
   SpoilerViewerWrapper: ComponentType;
-  pluginComponent: PluginTypeMapper;
+  pluginComponent: PluginMapping;
   innerRCEViewerProps: RichContentViewerProps;
   context: ViewerContextType;
   id: string;
@@ -223,7 +223,7 @@ type PluginViewerProps = {
 //return a list of types with a function that wraps the viewer
 const getPluginViewers = (
   SpoilerViewerWrapper,
-  typeMappers,
+  typeMappers: PluginMapping,
   context,
   styles,
   addAnchorsPrefix,

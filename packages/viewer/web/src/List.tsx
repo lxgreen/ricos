@@ -114,7 +114,7 @@ const List: FC<ListProps> = ({
               styles[alignment],
               getBlockStyleClasses(mergedStyles, listItemDirection, alignment, className, true),
               isPaywallSeo(context.seoMode) &&
-                getPaywallSeoClass(context.seoMode.paywall, blockIndex)
+                getPaywallSeoClass(context.seoMode?.paywall, blockIndex)
             )}
             key={blockProps.keys[childIndex]}
             style={blockDataToStyle(blockProps.data[childIndex])}

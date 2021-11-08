@@ -172,7 +172,7 @@ const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix) => {
 };
 
 const getEntities = (
-  typeMappers,
+  typeMappers: PluginTypeMapper[],
   context,
   styles,
   addAnchorsPrefix,
@@ -254,7 +254,7 @@ const redraftOptions = {
 const convertToReact = (
   mergedStyles: Record<string, string>,
   textDirection: TextDirection | undefined,
-  typeMappers: PluginMapping,
+  typeMappers: PluginTypeMapper[],
   context: ViewerContextType,
   decorators: Decorator[],
   inlineStyleMappers: InlineStyleMapperFunction[],
