@@ -12,7 +12,7 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
     componentDataDefaults: {
       ...galleryDataDefaults,
       id: '',
-      myLoading: {
+      loading: {
         default: false,
       },
     },

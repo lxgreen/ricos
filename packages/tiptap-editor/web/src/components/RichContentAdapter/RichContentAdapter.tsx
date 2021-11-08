@@ -20,9 +20,9 @@ import {
   RICOS_TEXT_COLOR_TYPE,
   RICOS_TEXT_HIGHLIGHT_TYPE,
 } from 'wix-rich-content-common';
-import { toTiptap } from '../../content-utils';
 import { Editor } from '@tiptap/core';
 import {
+  generateId,
   HEADER_BLOCK,
   UNSTYLED,
   BULLET_LIST_TYPE,
@@ -109,22 +109,20 @@ export class RichContentAdapter implements TiptapAPI {
       },
       insertBlock: (pluginType, data) => {
         const type = PLUGIN_TYPE_MAP[pluginType];
+        let id = '';
         if (type) {
-          const attrs = toTiptap(data);
-          this.editor.commands.insertContent({
-            type,
-            attrs,
-            content: [],
-          });
+          id = generateId();
+          const attrs = { ...data, id };
+          this.editor.commands.insertNode(type, attrs);
         } else {
           console.error(`No such plugin type ${pluginType}`);
         }
-        return 'result!';
+        return id;
       },
       findNodeByKey() {},
-      // setBlock: (blockKey, pluginType, data) => {
-      //   editor.commands.updateAttributes('heading', { level: 1 })
-      // },
+      setBlock: (blockKey, pluginType, data) => {
+        return this.editor.commands.updateNodeById(blockKey, data);
+      },
       getSelection: () => ({
         getIsFocused: this.editor.isFocused,
         getIsCollapsed: this.editor.state.selection.empty,
@@ -250,7 +248,6 @@ export class RichContentAdapter implements TiptapAPI {
     saveSelectionState: () => {},
     loadSelectionState: () => {},
     triggerDecoration: () => {},
-    setBlock: () => {},
     deleteBlock: () => {},
     undo: () => {},
     redo: () => {},
