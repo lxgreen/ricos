@@ -27,6 +27,7 @@ const toRichContentModifier = (content: RichContent) =>
       filter(predicate: Parameters<Modifier<Node>['filter']>[0]) {
         self.modifier = modifier.filter.bind(self.modifier)(predicate);
         self.modifier.set = this.set;
+        self.modifier.filter = this.filter;
         return self.modifier;
       },
       set(setter: Parameters<Modifier<Node>['set']>[0]) {

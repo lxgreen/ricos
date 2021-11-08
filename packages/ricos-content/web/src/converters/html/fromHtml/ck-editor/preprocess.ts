@@ -16,6 +16,7 @@ import {
   AstRule,
   toAst,
   hasChild,
+  hasClass,
 } from '../core/parse5-utils';
 import { partitionBy } from '../../../nodeUtils';
 import traverse from '../core/ast-traversal';
@@ -91,6 +92,18 @@ const cleanListItemPadding: AstRule = [
   }),
 ];
 
+const cleanInvalidVideos: AstRule = [
+  concatApply(MonoidAll)([
+    hasTag('div'),
+    hasClass(c => c === 'container-video'),
+    not(hasDescendant(hasTag('iframe'))),
+  ]),
+  (node: Element) => ({
+    ...node,
+    childNodes: [],
+  }),
+];
+
 const wrapTextUnderLi: AstRule = [
   concatApply(MonoidAll)([hasTag('li'), hasChild(isText)]),
   (node: Element) => ({
@@ -117,6 +130,20 @@ const nakedSpanToP: AstRule = [
   }),
 ];
 
+const textInDivToP: AstRule = [
+  concatApply(MonoidAll)([hasTag('div'), hasChild(isText)]),
+  (node: Element) => ({
+    ...node,
+    childNodes: partitionBy<ContentNode>(
+      concatApply(MonoidAll)([not(isText), not(hasTag('p'))]),
+      hasTag('p'),
+      identity,
+      addParagraph(node),
+      appendChild
+    )(node.childNodes),
+  }),
+];
+
 const collapseBreaks = flow(
   S.replace(/(<br \/>\s*){3}/, '<br class="double-break" />'),
   S.replace(/(<br \/>\s*){2}/, '<br class="single-break" />')
@@ -124,12 +151,12 @@ const collapseBreaks = flow(
 
 export const preprocess = flow(
   flow(collapseBreaks, toAst),
-  traverse(leafParagraphToDiv),
-  traverse(cleanListPadding),
-  traverse(cleanListItemPadding),
+  flow(traverse(leafParagraphToDiv), traverse(cleanListPadding), traverse(cleanListItemPadding)),
+  traverse(cleanInvalidVideos),
   traverse(containerPToDiv),
   traverse(wrapTextUnderLi),
   traverse(collapseWhitespaces),
   traverse(nakedSpanToP),
+  traverse(textInDivToP),
   serialize
 );
