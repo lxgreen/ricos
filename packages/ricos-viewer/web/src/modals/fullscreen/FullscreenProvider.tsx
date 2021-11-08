@@ -1,6 +1,6 @@
 import React, { Component, Fragment, Children, ReactElement, Suspense } from 'react';
 import { emptyState } from 'ricos-common';
-import { Helpers } from 'wix-rich-content-common';
+import { Helpers, AvailableExperiments } from 'wix-rich-content-common';
 import getImagesData from 'wix-rich-content-fullscreen/libs/getImagesData';
 import { DraftContent, FullscreenProps } from '../../index';
 
@@ -12,7 +12,7 @@ interface Props {
   isMobile: boolean;
   fullscreenProps?: FullscreenProps;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  experiments?: any;
+  experiments?: AvailableExperiments;
 }
 
 interface State {
@@ -44,15 +44,15 @@ export default class FullscreenProvider extends Component<Props, State> {
   componentDidMount() {
     const { experiments } = this.props;
     const imagesData = getImagesData(this.props.initialState || emptyState);
+
     if (imagesData.images.length > 0) {
       this.setState({ expandModeData: imagesData });
       this.lazyLoadFullscreen();
-      if (experiments?.optimizeFullScreenModal?.enabled && this.props.isMobile) {
+      if (this.props.isMobile) {
+        const timeout = experiments?.optimizeFullScreenModal?.enabled ? 2000 : 0;
         this._renderFullscreenInterval = setTimeout(() => {
           this.renderFullScreenModal();
-        }, 2000);
-      } else {
-        this.props.isMobile && this.renderFullScreenModal();
+        }, timeout);
       }
     }
   }

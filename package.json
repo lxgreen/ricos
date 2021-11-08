@@ -27,7 +27,6 @@
     "postinstall": "touch .env",
     "build:scope": "lerna run build --scope ",
     "build": "lerna run --stream --ignore 'wix-rich-content-@(test-env|example|storybook)' build",
-    "build-slow": "lerna run --concurrency 2 --stream --ignore 'wix-rich-content-@(test-env|example|storybook)' build",
     "build:dev": "lerna run --stream --ignore 'wix-rich-content-@(test-env|example|storybook)' build:dev",
     "build:core": "npm run build:dev -- --scope 'ricos-content' && npm run build:dev -- --scope 'wix-rich-content-@(common|editor|viewer)'",
     "build:core:fast": "ultra --filter '+wix-rich-content-@(common|editor|viewer)' --color=false -r build",
