@@ -14,6 +14,6 @@ declare module '@tiptap/core' {
 }
 
 export const insertNode: RawCommands['insertNode'] = (type, attrs = {}) => ({ commands }) => {
-  const id = generateId();
-  return commands.insertContent({ type, attrs: { id, ...toTiptap(attrs) } });
+const { id, rest } = toTiptap(attrs)
+return commands.insertContent({ type, attrs: { id: id || generateId(), ...rest } });
 };
