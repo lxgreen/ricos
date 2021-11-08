@@ -153,7 +153,6 @@ describe('text', () => {
   });
 
   it.skip('should insert custom link', function() {
-    //!compare with master isCustomModal fix bug
     const testAppConfig = {
       ...usePluginsConfig({
         link: {
@@ -169,7 +168,6 @@ describe('text', () => {
   });
 
   it('should enter text without linkify links (disableAutoLink set to true)', function() {
-    //!No Experiment
     const testAppConfig = {
       ...usePluginsConfig({
         link: {
@@ -240,7 +238,7 @@ describe('text', () => {
   it('should enter link and further text in current block has no inline style', function() {
     cy.enterParagraphs(['wix.com '])
       .enterParagraphs(['no inline style'])
-      .blurEditor(); //! No EXPERIMENTS REFACTOR
+      .blurEditor();
     cy.eyesCheckWindow(this.test.title);
   });
 
@@ -249,7 +247,7 @@ describe('text', () => {
     cy.enterParagraphs(['wix.com'])
       .type('{enter}')
       .enterParagraphs(['no inline style'])
-      .blurEditor(); //! No EXPERIMENTS REFACTOR
+      .blurEditor();
     cy.eyesCheckWindow(this.test.title);
   });
 
