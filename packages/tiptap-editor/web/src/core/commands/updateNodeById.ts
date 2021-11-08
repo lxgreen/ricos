@@ -1,5 +1,5 @@
 import { RawCommands, findChildren } from '@tiptap/core';
-import { toTiptap } from '../../converters';
+import { toTiptap } from '../../content-utils';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {

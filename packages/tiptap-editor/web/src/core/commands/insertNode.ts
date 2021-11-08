@@ -1,6 +1,6 @@
 import { RawCommands } from '@tiptap/core';
 import { generateId } from 'ricos-content';
-import { toTiptap } from '../../converters';
+import { toTiptap } from '../../content-utils';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -14,6 +14,6 @@ declare module '@tiptap/core' {
 }
 
 export const insertNode: RawCommands['insertNode'] = (type, attrs = {}) => ({ commands }) => {
-const { id, rest } = toTiptap(attrs)
-return commands.insertContent({ type, attrs: { id: id || generateId(), ...rest } });
+  const { id, rest } = toTiptap(attrs);
+  return commands.insertContent({ type, attrs: { id: id || generateId(), ...rest } });
 };
