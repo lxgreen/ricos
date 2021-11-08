@@ -16,6 +16,11 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
+  
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3083](https://github.com/wix/ricos/pull/3083) Fix fromHtml parser rules 
 
 </details>
 <hr/>
