@@ -53,6 +53,7 @@ const interactionDataMerger = ({
     };
   } else {
     const lastBlockEntityKey = lastBlock.entityRanges.length > 0 && lastBlock.entityRanges[0].key;
+
     if (lastBlockEntityKey !== false) {
       const lastBlockEntity = contentState.entityMap[lastBlockEntityKey];
       const modifiedEntity = {

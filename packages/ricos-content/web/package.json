@@ -21,7 +21,7 @@
   ],
   "main": "dist/cjs/index.js",
   "types": "dist/src/index.d.ts",
-  "module": "dist/es/index.js",
+  "module": "dist/src/index.js",
   "style": "dist/styles.min.css",
   "scripts": {
     "clean": "rm -rf dist/",

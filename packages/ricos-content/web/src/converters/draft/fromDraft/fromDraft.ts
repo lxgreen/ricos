@@ -129,6 +129,7 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
     );
 
     switch (block.type) {
+      //@ts-ignore
       case BlockType.Unstyled:
         paragraphNode.id = block.key;
       // falls through

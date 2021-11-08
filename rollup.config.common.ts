@@ -35,7 +35,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
   };
 
   const editorEntry: RollupOptions = {
-    input: 'src/index.ts',
+    input: 'dist/index.ts',
     output: cloneDeep(output),
     ...commonOptions,
   };
