@@ -78,6 +78,7 @@ class ColorPicker extends PureComponent {
     const { schemeColor } = this.props;
     return colors.map((color, index) => (
       <button
+        data-hook="modal-option"
         data-scheme-color={attributes ? attributes[index] : ''}
         title={color}
         key={`${color}_${index}`}

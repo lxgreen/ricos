@@ -77,6 +77,7 @@ const DesktopPanel = ({
     <div
       tabIndex={-1}
       ref={panelRef}
+      data-hook="toolbars-modal-desktopPanel"
       className={classNames(styles.desktopPanel, {
         [styles.desktopPanel_fitContent]: sizeFitContent,
       })}
