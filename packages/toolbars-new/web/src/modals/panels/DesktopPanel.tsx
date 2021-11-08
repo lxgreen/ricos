@@ -60,11 +60,7 @@ const DesktopPanel = ({
             })}
             key={option.commandKey}
             onClick={() => onClick(option.commandKey)}
-<<<<<<< HEAD
-            data-hook={option.dataHook || 'modal-option'}
-=======
             data-hook={dataHook}
->>>>>>> master
           >
             <div className={styles.panel_row_text_container}>
               <div className={styles.panel_row_text}>{content} </div>
