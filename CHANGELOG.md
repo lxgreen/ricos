@@ -22,18 +22,6 @@
 
 ## 8.59.0 (Nov 8, 2021)
 
-### :house: Internal
-
-- `toolbars-new`
-  - [#3073](https://github.com/wix/ricos/pull/3073) update and add datahooks to the new-toolbar testing
-- `tiptap`
-  - [#3080](https://github.com/wix/ricos/pull/3080) add insertNode, updateNodeById, and setNode core commands
-
-### :nail_care: Polish
-
-- `polls`
-  - [#3026](https://github.com/wix/ricos/pull/3026) refactor settings mobile header / add polls to plugin menu
-
 ### :rocket: New Feature
 
 - `ricos-schema`
@@ -55,6 +43,10 @@
 
 - `ricos-content`
   - [#3071](https://github.com/wix/ricos/pull/3071) Content API: generic modifier and extractor
+- `toolbars-new`
+  - [#3073](https://github.com/wix/ricos/pull/3073) update and add datahooks to the new-toolbar testing
+- `tiptap`
+  - [#3080](https://github.com/wix/ricos/pull/3080) add insertNode, updateNodeById, and setNode core commands
 
 ### :nail_care: Polish
 
