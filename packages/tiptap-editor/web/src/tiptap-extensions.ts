@@ -18,6 +18,7 @@ import { createBold } from './extensions/extension-bold';
 import { createColor } from './extensions/extension-color';
 import { createBulletedList } from './extensions/extension-bulleted-list';
 import { createSpoiler } from './extensions/extension-spoiler';
+import { CoreCommands } from './core/extensions';
 import { HeadingData } from 'ricos-schema';
 import { Attributes, Extensions, MarkConfig, NodeConfig } from '@tiptap/react';
 import styles from './statics/styles.scss';
@@ -41,6 +42,7 @@ const withID = extendedAttrs({
   },
 });
 export const tiptapExtensions: Extensions = [
+  CoreCommands,
   Blockquote.configure({
     HTMLAttributes: {
       class: styles.quote,

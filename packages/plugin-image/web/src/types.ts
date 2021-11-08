@@ -47,3 +47,12 @@ export interface ImagePluginViewerConfig extends ViewerPluginConfig, ImageConfig
   disableExpand?: boolean;
   imageProps?: ((src: ImageSrc) => HTMLImageElement) | HTMLImageElement;
 }
+
+export interface ImageData {
+  config: ImageConfig;
+  src: { fallback: string; width: number };
+  metadata?: { caption?: unknown; alt?: string | undefined };
+  [key: string]: unknown;
+  disableDownload?: boolean;
+  disableExpand?: boolean;
+}
