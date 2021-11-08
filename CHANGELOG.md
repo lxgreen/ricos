@@ -17,16 +17,6 @@
     Click to see more.
   </summary>
   
-### :bug: Bug Fix
-
-- `ricos-content`
-  - [#3083](https://github.com/wix/ricos/pull/3083) Fix fromHtml parser rules 
-
-</details>
-<hr/>
-
-## 8.59.0 (Nov 8, 2021)
-
 ### :rocket: New Feature
 
 - `ricos-schema`
@@ -39,10 +29,12 @@
 
 - `toolbar-new`
   - [#3066](https://github.com/wix/ricos/pull/3066) fix color-picker modal style for mobile devices
+  - [#3078](https://github.com/wix/ricos/pull/3078) refactor toolbar modals position and width
 - `toolbars`
   - [#3063](https://github.com/wix/ricos/pull/3063) ui changes in static text toolbars (old/new toolbar)
-  - `toolbar-new`
-  - [#3078](https://github.com/wix/ricos/pull/3078) refactor toolbar modals position and width
+- `ricos-content`
+  - [#3083](https://github.com/wix/ricos/pull/3083) Fix fromHtml parser rules 
+
 
 ### :house: Internal
 
@@ -57,6 +49,9 @@
 
 - `polls`
   - [#3026](https://github.com/wix/ricos/pull/3026) refactor settings mobile header / add polls to plugin menu
+
+</details>
+<hr/>
 
 ## 8.58.3 (Nov 2, 2021)
 
