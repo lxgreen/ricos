@@ -41,6 +41,8 @@
   - [#3066](https://github.com/wix/ricos/pull/3066) fix color-picker modal style for mobile devices
 - `toolbars`
   - [#3063](https://github.com/wix/ricos/pull/3063) ui changes in static text toolbars (old/new toolbar)
+  - `toolbar-new`
+  - [#3078](https://github.com/wix/ricos/pull/3078) refactor toolbar modals position and width
 
 ### :house: Internal
 
