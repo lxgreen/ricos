@@ -23,6 +23,7 @@ export const COMMANDS: Record<string, DraftCommand> = {
   DECREASE_INDENT: 'decrease-indent',
   REMOVE_LINK_PREVIEW: 'remove-link-preview',
   LINK: 'link',
+  OPEN_PLUGIN_MENU: 'openPluginMenu',
 } as const;
 
 export type DraftCommand =
@@ -48,7 +49,8 @@ export type DraftCommand =
   | 'increase-indent'
   | 'decrease-indent'
   | 'remove-link-preview'
-  | 'link';
+  | 'link'
+  | 'openPluginMenu';
 
 export const TEXT_TYPES = Object.freeze([
   'unstyled',

@@ -134,6 +134,7 @@ import DraftOffsetKey from '@wix/draft-js/lib/DraftOffsetKey';
 export { DraftOffsetKey };
 
 export { elementOverflowWithEditor } from './Utils/overflowUtils';
+export { createEditorStyles } from './Utils/createEditorStyles';
 
 export const emptyDraftContent = {
   entityMap: {},

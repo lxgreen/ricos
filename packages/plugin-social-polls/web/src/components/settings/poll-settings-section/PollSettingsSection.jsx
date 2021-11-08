@@ -92,14 +92,14 @@ export class PollSettingsSection extends Component {
       voteRole,
     } = componentData.poll.settings;
 
-    const { enableVoteRole } = settings;
+    const { showVoteRoleSetting } = settings;
 
     return (
       <section className={styles.section}>
         <h3 className={styles.title}>
           {t('Poll_PollSettings_Tab_Settings_Section_Voting_Header')}
         </h3>
-        {enableVoteRole && (
+        {showVoteRoleSetting && (
           <>
             <p className={styles.label}>
               {t('Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title')}

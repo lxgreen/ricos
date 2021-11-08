@@ -14,6 +14,7 @@ import {
 import { convertBlockDataToRicos } from 'ricos-content/libs/migrateSchema';
 import { DeepPartial } from 'utility-types';
 import { ResolvedPos } from 'prosemirror-model';
+import { TIPTAP_LINK_PREVIEW_TYPE } from 'ricos-content';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -26,7 +27,7 @@ declare module '@tiptap/core' {
   }
 }
 
-const name = 'linkPreview';
+const name = TIPTAP_LINK_PREVIEW_TYPE;
 
 //// Regexes should be shared with link extension
 
@@ -94,7 +95,6 @@ export const createRicosExtensions: CreateRicosExtensions = config => [
     componentDataDefaults: { ...LinkPreviewData.fromJSON({}), id: '' },
     createExtensionConfig: () => ({
       name,
-      atom: false,
       addCommands() {
         return {
           setLinkPreview: attributes => ({ commands }) => {

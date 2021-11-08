@@ -5,6 +5,8 @@ import { toDraft, fromDraft } from '../..';
 import { compare } from '../../../../comparision/compare';
 import complexFixture from '../../../../../../../../e2e/tests/fixtures/migration-content.json';
 import buggy from '../../../../../../../../e2e/tests/fixtures/buggy/atomicWithNoEntityRanges.json';
+import external from './external-blocks-and-decorations.json';
+import externalMigrated from './external-blocks-and-decorations-migrated.json';
 import unsupported from './unsupported-blocks-and-decorations.json';
 import unsupportedMigrated from './unsupported-blocks-and-decorations-migrated.json';
 import polyfills from '../../../../../../../../e2e/tests/fixtures/polyfills.json';
@@ -318,6 +320,14 @@ describe('migrate from draft', () => {
           ignoredKeys: ['id'],
         }
       )
+    ).toEqual({});
+  });
+
+  it('should convert external block', () => {
+    expect(
+      compare(fromDraft(external), RichContent.fromJSON(externalMigrated), {
+        ignoredKeys: ['id'],
+      })
     ).toEqual({});
   });
 });

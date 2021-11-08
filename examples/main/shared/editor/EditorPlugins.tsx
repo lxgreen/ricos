@@ -434,6 +434,7 @@ const config: RichContentEditorProps['config'] = {
     // supportedPlugins: [GALLERY_TYPE, IMAGE_TYPE, VIDEO_TYPE],
   },
   [POLL_TYPE]: {
+    showVoteRoleSetting: true,
     pollServiceApi: new SocialPollsServiceMock(),
   },
   [LINK_PREVIEW_TYPE]: {
@@ -854,12 +855,41 @@ const config: RichContentEditorProps['config'] = {
       //   return {
       //     desktop: {
       //       MY_BUTTON: {
-      //         component: () => <div onClick={() => console.log('my button clicked!!')}>My Button</div>,
+      //         component: () => (
+      //           <div onClick={() => console.log('my button clicked!!')}>My Button</div>
+      //         ),
+      //       },
+      //       Bold: {
+      //         component: () => <div onClick={() => console.log('my custom bold')}>My Bold</div>,
       //       },
       //     },
       //   };
       // },
     },
+    // {
+    //   name: TOOLBARS.STATIC,
+    //   getButtons: () => ({
+    //     desktop: [
+    //       ...(textButtons?.desktop?.filter?.(button => button !== FORMATTING_BUTTONS.CODE_BLOCK) ??
+    //         []),
+    //       '|',
+    //       'FULLSCREEN_TOGGLE',
+    //     ],
+    //   }),
+    //   getTextPluginButtons: () => {
+    //     return {
+    //       desktop: {
+    //         FULLSCREEN_TOGGLE: {
+    //           component: () => (
+    //             <div onClick={() => console.log('blabla')} data-hook="blabla">
+    //               blabla
+    //             </div>
+    //           ),
+    //         },
+    //       },
+    //     };
+    //   },
+    // },
   ],
 };
 

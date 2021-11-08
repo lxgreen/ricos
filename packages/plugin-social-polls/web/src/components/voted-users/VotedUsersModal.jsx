@@ -7,6 +7,7 @@ import { LoaderIcon, RemoveIcon } from '../../assets/icons';
 import { withRCEHelpers, RCEHelpersPropTypes } from '../rce-helpers-context';
 
 import styles from './voted-users.scss';
+import VoterAvatar from './VoterAvatar';
 
 export class VotedUsersModalComponent extends Component {
   static propTypes = {
@@ -69,11 +70,10 @@ export class VotedUsersModalComponent extends Component {
               member ? (
                 <li key={member.siteMemberId}>
                   <div className={styles.user_card}>
-                    <span
-                      className={styles.user_avatar}
-                      style={{ backgroundImage: `url(${member.imageUrl})` }}
-                    />
-                    <span className={styles.user_name}>{member.name?.nick}</span>
+                    <VoterAvatar className={styles.user_avatar} src={member.imageUrl} />
+                    <span className={styles.user_name}>
+                      {member.name?.nick || t('Poll_Viewer_VoteCount_Modal_Voters_Private_Voter')}
+                    </span>
                   </div>
                 </li>
               ) : null

@@ -101,6 +101,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       onOpenEditorSuccess: async (...args) => console.log('onOpenEditorSuccess', ...args),
       onContentEdited: async params => console.log('onContentEdited', params),
       onToolbarButtonClick: async params => console.log('onToolbarButtonClick', params),
+      onKeyboardShortcutAction: async params => console.log('onKeyboardShortcutAction', params),
       onPluginModalOpened: async params => console.log('onPluginModalOpened', params),
       onMenuLoad: async params => console.log('onMenuLoad', params),
       onInlineToolbarOpen: async params => console.log('onInlineToolbarOpen', params),
@@ -188,9 +189,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
             experiments={experiments}
             textWrap={textWrap}
             onAtomicBlockFocus={d => console.log('onAtomicBlockFocus', d)} // eslint-disable-line
-          >
-            <RichContentEditor />
-          </RicosEditor>
+          />
         </div>
       </div>
     );

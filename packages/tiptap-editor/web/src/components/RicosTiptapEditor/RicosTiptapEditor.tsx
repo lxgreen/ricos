@@ -1,5 +1,7 @@
 import { Editor, EditorContent, JSONContent } from '@tiptap/react';
 import React, { FunctionComponent, useEffect, useState } from 'react';
+import editorStyles from '../../statics/styles/tiptap-editor-styles.scss';
+import { createEditorStyles } from 'wix-rich-content-editor-common';
 import { tiptapToDraft } from '../..';
 import { RicosTiptapContext } from '../../context';
 import { useForceUpdate } from '../../lib/useForceUpdate';
@@ -14,6 +16,7 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   onLoad,
   onUpdate,
   onSelectionUpdate,
+  theme,
   ...context
 }) => {
   const forceUpdate = useForceUpdate();
@@ -48,6 +51,13 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
     return () => editorInstance.destroy();
   }, []);
 
+  const { isMobile } = context;
+  const { containerClassName, containerStyle, editorClassName, editorStyle } = createEditorStyles({
+    isMobile,
+    theme,
+    editorStyles,
+  });
+
   return (
     <RicosTiptapContext.Provider
       value={{
@@ -56,8 +66,8 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
         },
       }}
     >
-      <div dir="">
-        <EditorContent editor={editor} />
+      <div dir="" className={containerClassName} style={containerStyle}>
+        <EditorContent editor={editor} className={editorClassName} style={editorStyle} />
       </div>
     </RicosTiptapContext.Provider>
   );

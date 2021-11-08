@@ -89,7 +89,7 @@ class NestedMenu extends Component<NestedMenuProps, State> {
             isActive={isModalOpen}
             onClick={e => this.toggleModal(e)}
             tooltipText={tooltip}
-            dataHook={dataHook}
+            dataHook={dataHook || 'toolbar-nestedMenu'}
             isMobile={isMobile}
             icon={getIcon()}
             theme={theme}

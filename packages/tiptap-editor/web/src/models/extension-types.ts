@@ -3,11 +3,14 @@ import {
   ExtensionConfig,
   MarkConfig,
   mergeAttributes as mergeAttributesFn,
+  markPasteRule as markPasteRuleFn,
+  markInputRule as markInputRuleFn,
   NodeConfig,
   NodeViewRendererProps,
 } from '@tiptap/core';
+import { Plugin as IPlugin, PluginKey as IPluginKey } from 'prosemirror-state';
 import { ComponentType } from 'react';
-import { TranslationFunction, EditorPlugin, EditorPluginCreator } from 'wix-rich-content-common';
+import { TranslationFunction, EditorPlugin } from 'wix-rich-content-common';
 
 export type RicosNodeProps = NodeViewRendererProps &
   RicosTiptapContextValue & {
@@ -58,8 +61,16 @@ export type RicosMarkExtension = {
   type: 'mark';
   createExtensionConfig: ({
     mergeAttributes,
+    markPasteRule,
+    markInputRule,
+    Plugin,
+    PluginKey,
   }: {
     mergeAttributes: typeof mergeAttributesFn;
+    markPasteRule: typeof markPasteRuleFn;
+    markInputRule: typeof markInputRuleFn;
+    Plugin: typeof IPlugin;
+    PluginKey: typeof IPluginKey;
   }) => MarkConfig;
   componentDataDefaults?: any;
 };

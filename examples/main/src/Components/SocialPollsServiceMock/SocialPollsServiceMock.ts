@@ -1,44 +1,42 @@
-import { merge } from 'lodash';
-import { poll, voters } from './poll-mocks-data';
+import { merge, cloneDeep } from 'lodash';
+import { poll, votes, voter } from './poll-mocks-data';
 
 export class SocialPollsServiceMock {
-  fetchPoll(_pollId) {
-    return Promise.resolve(poll);
-  }
+  private poll = poll;
 
-  createPoll(question) {
-    return Promise.resolve(merge(poll, question));
+  private votes = votes;
+
+  fetchPoll(_pollId) {
+    return Promise.resolve(this.poll);
   }
 
   updatePoll(question) {
-    return Promise.resolve(merge(poll, question));
+    this.poll = merge(this.poll, question);
+    return Promise.resolve(this.poll);
   }
 
   vote(_pollId, optionId) {
-    const { count, options } = poll;
-    const pollCount = count + 1 || 1;
-    const updatedOptions = options.map(option =>
-      option.id === optionId
-        ? { ...option, count: option.count + 1, rating: ((option.count + 1) / pollCount) * 100 }
-        : option
-    );
-    const updatedPoll = { ...poll, count: pollCount, options: updatedOptions };
-    return Promise.resolve(updatedPoll);
-  }
-
-  unvote(_pollId, optionId) {
-    const { count, options } = poll;
-    const pollCount = count - 1 || 1;
-    const updatedOptions = options.map(option =>
-      option.id === optionId
-        ? { ...option, count: option.count - 1, rating: ((option.count - 1) / pollCount) * 100 }
-        : option
-    );
-    const updatedPoll = { ...poll, count: pollCount, options: updatedOptions };
-    return Promise.resolve(updatedPoll);
+    if (optionId) {
+      this.votes = cloneDeep(votes);
+      const { count, options } = poll;
+      const pollCount = count + 1;
+      const updatedOptions = options.map(option =>
+        option.id === optionId
+          ? {
+              ...option,
+              count: option.count + 1,
+              rating: ((option.count + 1) / pollCount) * 100,
+              latestVoters: option.latestVoters.concat([poll.createdBy]),
+            }
+          : { ...option, count: option.count, rating: (option.count / pollCount) * 100 }
+      );
+      this.poll = { ...this.poll, count: pollCount, options: updatedOptions };
+      this.votes[optionId].voters.push(voter);
+    }
+    return Promise.resolve(this.poll);
   }
 
   getVoters(_pollId, _optionId, _params) {
-    return Promise.resolve(voters);
+    return Promise.resolve(this.votes[_optionId]);
   }
 }

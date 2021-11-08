@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-editor-common",
-  "version": "8.57.0",
+  "version": "8.58.3",
   "author": {
     "name": "Matan Harsat",
     "email": "matanha@wix.com"
@@ -33,14 +33,15 @@
     "build:analyze:viewer": "npm run build -- --environment MODULE_ANALYZE_VIEWER && open stats.html",
     "watch": "cross-env NODE_ENV=development MODULE_WATCH=1 npm run build:rollup -- --watch.chokidar",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,d.ts}'",
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "test:watchAll": "jest --verbose --watchAll"
   },
   "dependencies": {
     "@wix/draft-js": "0.0.11",
     "downshift": "3.2.12",
     "react-window": "~1.5.0",
-    "wix-rich-content-common": "8.57.0",
-    "wix-rich-content-ui-components": "8.57.0"
+    "wix-rich-content-common": "8.58.3",
+    "wix-rich-content-ui-components": "8.58.3"
   },
   "unpkg": true,
   "publishConfig": {

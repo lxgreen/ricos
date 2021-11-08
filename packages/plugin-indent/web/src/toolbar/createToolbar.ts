@@ -16,8 +16,9 @@ import {
   GetEditorState,
   TranslationFunction,
   AvailableExperiments,
+  OnKeyboardShortcutClick,
 } from 'wix-rich-content-common';
-import { IndentPluginEditorConfig } from '../types';
+import { IndentPluginEditorConfig, INDENT_TYPE } from '../types';
 
 const createToolbar: CreatePluginToolbar = ({
   getEditorState,
@@ -25,11 +26,13 @@ const createToolbar: CreatePluginToolbar = ({
   setEditorState,
   t,
   experiments,
+  onKeyboardShortcutClick,
 }: {
   getEditorState: GetEditorState;
   setEditorState: SetEditorState;
   settings: IndentPluginEditorConfig;
   t: TranslationFunction;
+  onKeyboardShortcutClick: OnKeyboardShortcutClick;
   experiments?: AvailableExperiments;
 }) => {
   const getIconByDirection = (type: 'indent' | 'unindent') => {
@@ -83,7 +86,13 @@ const createToolbar: CreatePluginToolbar = ({
               modifiers: [MODIFIERS.COMMAND, MODIFIERS.SHIFT],
               key: 'm',
             },
-            commandHandler: (editorState: EditorState) => indentSelectedBlocks(editorState, -1),
+            commandHandler: (editorState: EditorState) => {
+              onKeyboardShortcutClick({
+                buttonName: COMMANDS.DECREASE_INDENT,
+                pluginId: INDENT_TYPE,
+              });
+              return indentSelectedBlocks(editorState, -1);
+            },
           },
         ],
       },
@@ -110,7 +119,13 @@ const createToolbar: CreatePluginToolbar = ({
               modifiers: [MODIFIERS.COMMAND],
               key: 'm',
             },
-            commandHandler: (editorState: EditorState) => indentSelectedBlocks(editorState, 1),
+            commandHandler: (editorState: EditorState) => {
+              onKeyboardShortcutClick({
+                buttonName: COMMANDS.INCREASE_INDENT,
+                pluginId: INDENT_TYPE,
+              });
+              return indentSelectedBlocks(editorState, 1);
+            },
           },
         ],
       },

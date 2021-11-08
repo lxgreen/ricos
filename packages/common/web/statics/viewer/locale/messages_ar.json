@@ -1,4 +1,5 @@
 {
+  "Poll_Viewer_VoteCount_Modal_Voters_Private_Voter": "Private User",
   "Poll_Viewer_ShowAllOptions_CTA": "اطلع على كل الخيارات",
   "Spoiler_Reveal_Tooltip": "انقر للعرض",
   "Viewer_Toolbar_Twitter_Tooltip": "تغريد هذا",
@@ -11,13 +12,16 @@
   "Preview_ReadMore_Label": "اقرأ المزيد",
   "Spoiler_Insert_Tooltip": "إفصاح معلومات",
   "Spoiler_Reveal_Gallery_Placeholder": "يحتوي هذا المعرض على سبويلر",
+  "VerticalEmbed_Bookings_Button": "حجز الآن",
   "Spoiler_Reveal_Gallery_CTA": "كشف المعرض",
   "Poll_Viewer_ShowLess_CTA": "إظهار أقل",
   "Poll_Viewer_VoteCount_Modal_Voters_Anonymous": "+{{anonNumber}} غير معروفين",
   "Poll_Viewer_VoteCount_Modal_Voters_CTA_Follow": "تابع",
+  "VerticalEmbed_Products_Button": "شراء الآن",
   "Poll_Viewer_Toast_Error_ServerDown": "لا يمكن الاتصال بالخادم. أعد المحاولة لاحقًا.",
   "Poll_Viewer_VoteCount_Modal_Voters_Header": "{{count}} أشخاص صوتوا لهذه الإجابة",
   "Poll_Viewer_VoteCount": "{{number}} أصوات",
+  "VerticalEmbed_Events_Button": "تسجيل الآن",
   "Spoiler_Reveal_Image_CTA": "كشف الصورة",
   "Poll_Viewer_Toast_Error_Connection": "لا يوجد اتصال بالإنترنت. تحقق من الاتصال.",
   "Poll_Viewer_Visibility_Owner_Footer": "يمكنك رؤية النتائج فقط.",
@@ -26,9 +30,6 @@
   "Spoiler_Reveal_Video_Placeholder": "يحتوي هذا الفيديو على سبويلر",
   "Preview_SeeFullPost_Label": "عرض المنشور كاملاً",
   "UploadFile_Viewer_Download": "تنزيل {{fileType}}",
-  "VerticalEmbed_Bookings_Button": "حجز الآن",
-  "VerticalEmbed_Units_Minute": "{{minutes}} د",
-  "VerticalEmbed_Products_Button": "شراء الآن",
   "VerticalEmbed_Units_Hour": "{{hours}} س",
-  "VerticalEmbed_Events_Button": "تسجيل الآن"
+  "VerticalEmbed_Units_Minute": "{{minutes}} د"
 }

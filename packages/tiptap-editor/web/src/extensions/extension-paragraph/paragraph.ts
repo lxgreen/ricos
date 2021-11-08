@@ -1,4 +1,5 @@
 import { Node, mergeAttributes } from '@tiptap/core';
+import { Node as ProsemirrorNode } from 'prosemirror-model';
 import { ParagraphData } from 'ricos-schema';
 
 export interface ParagraphOptions {
@@ -15,6 +16,16 @@ declare module '@tiptap/core' {
     };
   }
 }
+
+const createStyleAttribute = (node: ProsemirrorNode) => {
+  const attrLineHeight = node.attrs.textStyle?.lineHeight;
+  const attrTextAlign = node.attrs.textStyle?.textAlignment;
+  const textAlign =
+    attrTextAlign && attrTextAlign !== 'AUTO' ? `text-align: ${attrTextAlign.toLowerCase()};` : '';
+  const lineHeight = attrLineHeight ? `line-height: ${attrLineHeight};` : '';
+  const style = textAlign.concat(lineHeight);
+  return { style };
+};
 export const Paragraph = Node.create<ParagraphOptions>({
   name: 'paragraph',
 
@@ -37,8 +48,9 @@ export const Paragraph = Node.create<ParagraphOptions>({
     return [{ tag: 'div' }];
   },
 
-  renderHTML({ HTMLAttributes }) {
-    return ['div', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
+  renderHTML({ HTMLAttributes, node }) {
+    const styles = createStyleAttribute(node);
+    return ['div', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, styles), 0];
   },
   addCommands() {
     return {
