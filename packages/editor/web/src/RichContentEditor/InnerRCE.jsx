@@ -158,7 +158,7 @@ class InnerRCE extends PureComponent {
       !e.target.closest('[class=ReactModalPortal]') &&
       !this.editorWrapper.contains(e.target) &&
       !e.target.closest('[data-hook=table-plugin-cell]') &&
-      !e.target.closest('[data-id="toolbar"]')
+      !e.target.closest('[data-hook="toolbar"]')
     ) {
       this.setState({ showToolbars: false });
     }

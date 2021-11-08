@@ -17,6 +17,16 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `toolbars-new`
+  - [#3073](https://github.com/wix/ricos/pull/3073) update and add datahooks to the new-toolbar testing
+
+### :nail_care: Polish
+
+- `polls`
+  - [#3026](https://github.com/wix/ricos/pull/3026) refactor settings mobile header / add polls to plugin menu 
+
 ### :rocket: New Feature
 
 - `ricos-schema` 

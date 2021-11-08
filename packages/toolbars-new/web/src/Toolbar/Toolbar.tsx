@@ -360,7 +360,7 @@ class Toolbar extends Component<ToolbarProps, State> {
     // return buttons.map((buttonsWithoutGaps, index) => {
     return (
       <div
-        data-id="toolbar"
+        data-hook="toolbar"
         onKeyDown={this.onKeyDown}
         ref={this.setToolbarRef}
         className={classNames(styles.toolbar, { [styles.vertical]: vertical })}

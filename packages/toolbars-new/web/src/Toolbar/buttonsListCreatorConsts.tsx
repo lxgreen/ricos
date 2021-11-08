@@ -71,6 +71,7 @@ export const alignmentsModalData = [
     },
     commandKey: 'left',
     icon: AlignLeftIcon,
+    dataHook: 'textAlignmentButton_left',
   },
   {
     text: 'AlignTextCenterButton_Tooltip',
@@ -81,6 +82,7 @@ export const alignmentsModalData = [
     },
     commandKey: 'center',
     icon: AlignTextCenterIcon,
+    dataHook: 'textAlignmentButton_center',
   },
   {
     text: 'AlignTextRightButton_Tooltip',
@@ -91,6 +93,7 @@ export const alignmentsModalData = [
     },
     commandKey: 'right',
     icon: AlignRightIcon,
+    dataHook: 'textAlignmentButton_right',
   },
   {
     text: 'AlignTextJustifyButton_Tooltip',
@@ -101,6 +104,7 @@ export const alignmentsModalData = [
     },
     commandKey: 'justify',
     icon: AlignJustifyIcon,
+    dataHook: 'textAlignmentButton_justify',
   },
 ];
 
@@ -196,7 +200,7 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
   },
   Bold: {
     icon: BoldIcon,
-    dataHook: 'textInlineStyleButton_BOLD',
+    dataHook: 'textInlineStyleButton_Bold',
     tooltip: 'BoldButton_Tooltip',
     tooltipShortcut: {
       MacOS: ' (⌘B)',
@@ -206,7 +210,7 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
   },
   Italic: {
     icon: ItalicIcon,
-    dataHook: 'textInlineStyleButton_ITALIC',
+    dataHook: 'textInlineStyleButton_Italic',
     tooltip: 'ItalicButton_Tooltip',
     tooltipShortcut: {
       MacOS: ' (⌘I)',
@@ -216,7 +220,7 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
   },
   Underline: {
     icon: UnderlineIcon,
-    dataHook: 'textInlineStyleButton_UNDERLINE',
+    dataHook: 'textInlineStyleButton_Underline',
     tooltip: 'UnderlineButton_Tooltip',
     tooltipShortcut: {
       MacOS: ' (⌘U)',
@@ -274,7 +278,7 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     type: 'button',
   },
   Alignment: {
-    dataHook: 'Alignment',
+    dataHook: 'textDropDownButton_Alignment',
     arrow: true,
     tooltip: 'AlignTextDropdownButton_Tooltip',
     type: 'modal',
