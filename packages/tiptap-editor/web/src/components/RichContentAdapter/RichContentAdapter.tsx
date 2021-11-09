@@ -254,5 +254,6 @@ export class RichContentAdapter implements TiptapAPI {
     setBlockType: () => {},
     setTextAlignment: () => {},
     _setSelection: () => {},
+    isAtomicBlockInSelection: () => false,
   };
 }

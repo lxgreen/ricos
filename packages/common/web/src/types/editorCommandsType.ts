@@ -169,4 +169,5 @@ export interface EditorCommands {
   setBlockType: (type: TextBlockType) => void;
   setTextAlignment: (textAlignment: TextAlignment) => void;
   _setSelection: (blockKey: string, selection: draftSelection) => void;
+  isAtomicBlockInSelection: () => boolean;
 }
