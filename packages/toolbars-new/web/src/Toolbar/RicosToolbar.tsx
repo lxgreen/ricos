@@ -62,6 +62,7 @@ interface RicosToolbarProps {
     'padding-top'?: string;
     'padding-bottom'?: string;
   };
+  editorContainer: HTMLElement;
 }
 
 class RicosToolbar extends Component<RicosToolbarProps> {
@@ -110,6 +111,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       nestedMenu,
       experiments,
       defaultLineSpacing,
+      editorContainer,
     } = this.props;
     const updatedButtons = createButtonsList(
       buttons,
@@ -136,6 +138,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
         afterClick={afterClick}
         nestedMenu={nestedMenu}
         onToolbarButtonClick={this.props.onToolbarButtonClick}
+        editorContainer={editorContainer}
       />
     );
   }
