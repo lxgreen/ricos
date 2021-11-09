@@ -16,7 +16,12 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-  
+
+</details>
+<hr/>
+
+## 8.59.0 (Nov 9, 2021)
+
 ### :rocket: New Feature
 
 - `ricos-schema`
@@ -33,8 +38,7 @@
 - `toolbars`
   - [#3063](https://github.com/wix/ricos/pull/3063) ui changes in static text toolbars (old/new toolbar)
 - `ricos-content`
-  - [#3083](https://github.com/wix/ricos/pull/3083) Fix fromHtml parser rules 
-
+  - [#3083](https://github.com/wix/ricos/pull/3083) Fix fromHtml parser rules
 
 ### :house: Internal
 
@@ -49,9 +53,6 @@
 
 - `polls`
   - [#3026](https://github.com/wix/ricos/pull/3026) refactor settings mobile header / add polls to plugin menu
-
-</details>
-<hr/>
 
 ## 8.58.3 (Nov 2, 2021)
 
