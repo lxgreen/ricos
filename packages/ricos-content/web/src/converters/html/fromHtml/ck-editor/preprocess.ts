@@ -8,6 +8,7 @@ import { ContentNode } from '../core/models';
 import {
   isText,
   isLeaf,
+  isWhitespace,
   hasDescendant,
   appendChild,
   hasTag,
@@ -55,12 +56,6 @@ const leafParagraphToDiv: AstRule = [
     nodeName: 'div',
   }),
 ];
-
-const isWhitespace = flow(
-  (n: TextNode) => O.fromNullable(n.value),
-  O.map(S.trim),
-  O.fold(() => false, equals(S.Eq)(''))
-);
 
 const collapseWhitespaces: AstRule = [
   concatApply(MonoidAll)([
