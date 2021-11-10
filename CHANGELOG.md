@@ -26,7 +26,8 @@
 
 - `toolbar-new`
   - [#3075](https://github.com/wix/ricos/pull/3075) disable link when atomic block is selected
-
+- `ricos-content`
+  - [#3092](https://github.com/wix/ricos/pull/3092) ckeditor parser: text-in-root rule
 </details>
 <hr/>
 
