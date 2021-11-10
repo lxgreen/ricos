@@ -1,6 +1,5 @@
 import { flow, identity } from 'fp-ts/function';
 import { not } from 'fp-ts/Predicate';
-import { MonoidAll, MonoidAny } from 'fp-ts/boolean';
 import * as O from 'fp-ts/Option';
 import * as S from 'fp-ts/string';
 import { Element, TextNode, serialize } from 'parse5';
@@ -21,7 +20,7 @@ import {
 } from '../core/parse5-utils';
 import { partitionBy } from '../../../nodeUtils';
 import traverse from '../core/ast-traversal';
-import { concatApply, equals } from '../../../../fp-utils';
+import { and, or, equals } from '../../../../fp-utils';
 
 const addParagraph = (parentNode: Element) => (): ContentNode => ({
   nodeName: 'p',
@@ -33,7 +32,7 @@ const addParagraph = (parentNode: Element) => (): ContentNode => ({
 });
 
 const containerPToDiv: AstRule = [
-  concatApply(MonoidAll)([hasTag('p'), hasDescendant(oneOf(['img', 'iframe', 'ol', 'ul']))]),
+  and([hasTag('p'), hasDescendant(oneOf(['img', 'iframe', 'ol', 'ul']))]),
   (node: Element) => ({
     ...node,
     tagName: 'div',
@@ -49,7 +48,7 @@ const containerPToDiv: AstRule = [
 ];
 
 const leafParagraphToDiv: AstRule = [
-  concatApply(MonoidAll)([isLeaf, hasTag('p')]),
+  and([isLeaf, hasTag('p')]),
   (node: Element) => ({
     ...node,
     tagName: 'div',
@@ -58,7 +57,7 @@ const leafParagraphToDiv: AstRule = [
 ];
 
 const collapseWhitespaces: AstRule = [
-  concatApply(MonoidAll)([
+  and([
     isText,
     isWhitespace,
     hasParent(not(oneOf(['p', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']))),
@@ -81,14 +80,12 @@ const cleanListItemPadding: AstRule = [
   hasTag('li'),
   (el: Element) => ({
     ...el,
-    childNodes: (el.childNodes as Element[]).filter(
-      concatApply(MonoidAll)([not(hasTag('br')), not(isWhitespace)])
-    ),
+    childNodes: (el.childNodes as Element[]).filter(and([not(hasTag('br')), not(isWhitespace)])),
   }),
 ];
 
 const cleanInvalidVideos: AstRule = [
-  concatApply(MonoidAll)([
+  and([
     hasTag('div'),
     hasClass(c => c === 'container-video'),
     not(hasDescendant(hasTag('iframe'))),
@@ -100,11 +97,11 @@ const cleanInvalidVideos: AstRule = [
 ];
 
 const wrapTextUnderLi: AstRule = [
-  concatApply(MonoidAll)([hasTag('li'), hasChild(isText)]),
+  and([hasTag('li'), hasChild(isText)]),
   (node: Element) => ({
     ...node,
     childNodes: partitionBy<ContentNode>(
-      concatApply(MonoidAny)([hasTag('p'), hasDescendant(oneOf(['img', 'iframe', 'ol', 'ul']))]),
+      or([hasTag('p'), hasDescendant(oneOf(['img', 'iframe', 'ol', 'ul']))]),
       hasTag('p'),
       identity,
       addParagraph(node),
@@ -114,10 +111,7 @@ const wrapTextUnderLi: AstRule = [
 ];
 
 const nakedSpanToP: AstRule = [
-  concatApply(MonoidAll)([
-    hasTag('span'),
-    hasParent(not(oneOf(['p', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']))),
-  ]),
+  and([hasTag('span'), hasParent(not(oneOf(['p', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'])))]),
   (node: Element) => ({
     ...node,
     nodeName: 'p',
@@ -126,11 +120,11 @@ const nakedSpanToP: AstRule = [
 ];
 
 const textInDivToP: AstRule = [
-  concatApply(MonoidAll)([hasTag('div'), hasChild(isText)]),
+  and([hasTag('div'), hasChild(isText)]),
   (node: Element) => ({
     ...node,
     childNodes: partitionBy<ContentNode>(
-      concatApply(MonoidAll)([not(isText), not(hasTag('p'))]),
+      and([not(isText), not(hasTag('p'))]),
       hasTag('p'),
       identity,
       addParagraph(node),

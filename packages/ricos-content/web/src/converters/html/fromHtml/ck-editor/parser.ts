@@ -1,5 +1,4 @@
 import * as A from 'fp-ts/Array';
-import { MonoidAll } from 'fp-ts/boolean';
 import { flow, identity, pipe } from 'fp-ts/function';
 import * as O from 'fp-ts/Option';
 import { not } from 'fp-ts/Predicate';
@@ -15,9 +14,8 @@ import {
   TextStyle,
   TextStyle_TextAlignment,
 } from 'ricos-schema';
-import { concatApply } from '../../../../fp-utils';
+import { and } from '../../../../fp-utils';
 import { createParagraphNode } from '../../../nodeUtils';
-import { Rule } from '../core/models';
 import {
   getClassNames,
   getStyle,
@@ -41,25 +39,26 @@ import {
   textToText,
 } from '../core/rules';
 import { aToCustomLink } from './aToCustomLink';
+import { Rule } from '../core/models';
 import { iframeToVideo } from './iframeToVideo';
 import postprocess from './postprocess';
 import { preprocess } from './preprocess';
 
 const noEmptyLineText: Rule = [
-  concatApply(MonoidAll)([isText, not(isWhitespace), not(hasParent(isRoot))]),
+  and([isText, not(isWhitespace), not(hasParent(isRoot))]),
   textToText[1],
 ];
 
 // TODO: remove direct nodeUtils usage
 const rootTextToP: Rule = [
-  concatApply(MonoidAll)([isText, hasParent(isRoot)]),
+  and([isText, hasParent(isRoot)]),
   ctx => el => [createParagraphNode(textToText[1](ctx)(el))],
 ];
 
 const traverseDiv: Rule = [hasTag('div'), identityRule[1]];
 
 const traverseSpan: Rule = [
-  concatApply(MonoidAll)([
+  and([
     hasTag('span'),
     not(hasStyleFor('font-weight')),
     not(hasStyleFor('font-style')),
@@ -69,17 +68,17 @@ const traverseSpan: Rule = [
 ];
 
 const fontStyleToItalic: Rule = [
-  concatApply(MonoidAll)([hasTag('span'), hasStyleRule({ 'font-style': 'italic' })]),
+  and([hasTag('span'), hasStyleRule({ 'font-style': 'italic' })]),
   ({ addDecoration }) => (el: Element) => addDecoration(Decoration_Type.ITALIC, {}, el),
 ];
 
 const fontWeightToBold: Rule = [
-  concatApply(MonoidAll)([hasTag('span'), hasStyleRule({ 'font-weight': 'bold' })]),
+  and([hasTag('span'), hasStyleRule({ 'font-weight': 'bold' })]),
   ({ addDecoration }) => (el: Element) => addDecoration(Decoration_Type.BOLD, {}, el),
 ];
 
 const textDecorationToUnderline: Rule = [
-  concatApply(MonoidAll)([hasTag('span'), hasStyleRule({ 'text-decoration': 'underline' })]),
+  and([hasTag('span'), hasStyleRule({ 'text-decoration': 'underline' })]),
   ({ addDecoration }) => (el: Element) => addDecoration(Decoration_Type.UNDERLINE, {}, el),
 ];
 
@@ -209,7 +208,7 @@ const imgToAlignedImage: Rule = [
 ];
 
 const brToEmptyParagraph: Rule = [
-  concatApply(MonoidAll)([
+  and([
     hasTag('br'),
     hasParent(not(oneOf(['ol', 'ul', 'li']))),
     hasClass(c => c === 'single-break' || c === 'double-break'),
