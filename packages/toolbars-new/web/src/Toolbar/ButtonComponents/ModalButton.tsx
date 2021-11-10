@@ -114,7 +114,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
         dropDownProps: { loadSelection },
       } = this.props;
       setKeepOpen?.(false);
-      !clickFromKeyboard && loadSelectionOnClose && loadSelection?.();
+      loadSelectionOnClose && loadSelection?.();
       clickFromKeyboard && setTimeout(() => this.state.lastFocusedButton?.focus());
       this.setState({ isModalOpen: false, isModalOverflowByHeight: false, overflowWidthBy: false });
     }
