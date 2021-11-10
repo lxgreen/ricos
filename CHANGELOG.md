@@ -30,6 +30,9 @@
   - [#3091](https://github.com/wix/ricos/pull/3091) clean unwanted separators from toolbar
 - `ricos-content`
   - [#3092](https://github.com/wix/ricos/pull/3092) ckeditor parser: text-in-root rule
+- `editor-common`
+  - [#3094](https://github.com/wix/ricos/pull/3094) anchor in new toolbar on mobile
+
 </details>
 <hr/>
 
