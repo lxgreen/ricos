@@ -4,7 +4,6 @@ import Toolbar from './Toolbar';
 import { TOOLBAR_BUTTON_TYPES } from './consts';
 import { createButtonsList } from './buttonsListCreator';
 import {
-  RichContentTheme,
   TranslationFunction,
   DesktopTextButtons,
   EditorCommands,
@@ -15,6 +14,7 @@ import {
   AvailableExperiments,
   UpdateEntityFunc,
 } from 'wix-rich-content-common';
+import { RicosCssOverride, RicosTheme } from 'ricos-common';
 
 type formattingToolbarButtonsKeysType =
   | DesktopTextButtons
@@ -34,7 +34,7 @@ interface RicosToolbarProps {
   setKeepOpen?: (boolean) => void;
   afterClick?: () => void;
   nestedMenu?: boolean;
-  theme?: RichContentTheme;
+  theme?: RicosTheme;
   linkPanelData?: {
     linkTypes?: any;
     uiSettings?: {
@@ -71,6 +71,7 @@ interface RicosToolbarProps {
     componentData
   ) => void;
   editorContainer: HTMLElement;
+  cssOverride?: RicosCssOverride;
 }
 
 class RicosToolbar extends Component<RicosToolbarProps> {
@@ -121,6 +122,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       defaultLineSpacing,
       handleFileUpload,
       editorContainer,
+      cssOverride,
     } = this.props;
     const updatedButtons = createButtonsList(
       buttons,
@@ -129,8 +131,9 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       linkPanelData,
       colorPickerData,
       headingsData,
-      experiments,
       defaultLineSpacing,
+      experiments,
+      theme,
       handleFileUpload
     );
     const buttonsWithoutUnwantedSeparators =
@@ -142,7 +145,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
         buttons={buttonsWithoutUnwantedSeparators}
         t={t}
         isMobile={isMobile}
-        theme={theme}
+        theme={cssOverride}
         vertical={vertical}
         setKeepOpen={setKeepOpen}
         afterClick={afterClick}

@@ -1,29 +1,17 @@
 /* eslint-disable max-len */
-import { getMedia, getPluginData, getText } from './extract';
+import { getMedia, getPluginData, getText } from './extract-by-type';
 import { RichContent, Node_Type } from 'ricos-schema';
 import adapterExtractMock from '../../__tests__/adapterExtractMock.json';
 
 const content = RichContent.fromJSON(adapterExtractMock);
 
-describe('extract', () => {
+describe('Extract by Types', () => {
   it('should run getText', () => {
     expect(getText(content)).toStrictEqual([
-      {
-        decorations: [],
-        text: 'This is heading 1',
-      },
-      {
-        decorations: [],
-        text: 'This is heading 3',
-      },
-      {
-        decorations: [],
-        text: 'This is a paragraph.',
-      },
-      {
-        decorations: [],
-        text: 'This one is also a paragraph.',
-      },
+      'This is heading 1',
+      'This is heading 3',
+      'This is a paragraph.',
+      'This one is also a paragraph.',
     ]);
   });
   it('should run getPluginData', () => {

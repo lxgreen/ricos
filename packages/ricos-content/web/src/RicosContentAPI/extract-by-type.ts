@@ -2,21 +2,13 @@ import * as A from 'fp-ts/Array';
 import { pipe } from 'fp-ts/function';
 import * as M from 'fp-ts/Monoid';
 import { fromNullable } from 'fp-ts/Option';
-import {
-  GalleryData,
-  ImageData,
-  Media,
-  Node_Type,
-  RichContent,
-  TextData,
-  VideoData,
-} from 'ricos-schema';
+import { GalleryData, ImageData, Media, Node_Type, RichContent, VideoData } from 'ricos-schema';
 import { RICOS_NODE_TYPE_TO_DATA_FIELD } from '../consts';
-import { extract } from '../RicosContentAPI/extract';
+import { extract } from './extract';
 
-export const getText = (content: RichContent): TextData[] =>
+export const getText = (content: RichContent): string[] =>
   extract(content.nodes)
-    .map(({ textData }) => (textData?.text ? textData : ((null as unknown) as TextData)))
+    .map(({ textData }) => textData?.text || '')
     .get();
 
 export const getPluginData = <T>(content: RichContent, type: Node_Type) =>

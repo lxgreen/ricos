@@ -51,11 +51,14 @@ export const createButtonsList = (
   t,
   linkPanelData,
   colorPickerData,
-  defaultLineSpacing,
   headingsData,
+  defaultLineSpacing,
   experiments,
+  theme,
   handleFileUpload
 ) => {
+  // eslint-disable-next-line no-console
+  console.log({ theme });
   const buttonsList: any[] = [];
   const osName: string | null = findOsName();
   formattingButtonsKeys.forEach((buttonKey, index) => {
