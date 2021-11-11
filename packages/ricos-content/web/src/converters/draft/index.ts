@@ -9,4 +9,4 @@ export {
   convertDecorationToDraftData,
 } from './toDraft/convertDraftPluginData';
 
-export { TO_RICOS_NODE_TYPE, DECORATION_TO_DATA_FIELD } from './consts';
+export { TO_RICOS_NODE_TYPE } from './consts';
