@@ -28,6 +28,8 @@ import {
   BULLET_LIST_TYPE,
   BLOCKQUOTE,
   HEADER_BLOCK,
+  RICOS_FONT_SIZE_TYPE,
+  EXTERNAL,
 } from 'ricos-content';
 import {
   DividerData,
@@ -40,10 +42,10 @@ import {
   LinkData,
   ImageData,
   ColorData,
+  Link,
 } from 'ricos-schema';
 import { MentionData } from './pluginTypes';
 import { TextAlignment, InlineStyle } from './commonTypes';
-
 export type ColorType = typeof RICOS_TEXT_COLOR_TYPE | typeof RICOS_TEXT_HIGHLIGHT_TYPE;
 
 type PluginsList = string[];
@@ -92,6 +94,7 @@ interface PluginsDataMap {
   [FILE_UPLOAD_TYPE]?: any;
   [RICOS_IMAGE_TYPE]?: ImageData;
   [IMAGE_TYPE]?: any;
+  [EXTERNAL]?: any;
 }
 
 export interface DecorationsDataMap {
@@ -101,6 +104,7 @@ export interface DecorationsDataMap {
   [RICOS_TEXT_HIGHLIGHT_TYPE]?: { color?: ColorData['background'] };
   [RICOS_INDENT_TYPE]?: number;
   [RICOS_LINE_SPACING_TYPE]?: any;
+  [RICOS_FONT_SIZE_TYPE]?: string;
 }
 
 export interface EditorCommands {
@@ -110,13 +114,14 @@ export interface EditorCommands {
     pluginsIncluded: string[];
   };
   getColor: (colorType: ColorType) => string | undefined;
+  getFontSize: () => string | undefined;
   getTextAlignment: () => TextAlignment;
   hasInlineStyle: (style: InlineStyle) => boolean;
   isBlockTypeSelected: (type: TextBlockType) => boolean;
   isUndoStackEmpty: () => boolean;
   isRedoStackEmpty: () => boolean;
   hasLinkInSelection: () => boolean;
-  getLinkDataInSelection: () => any;
+  getLinkDataInSelection: () => Link | undefined;
   getSelectedData: () => any;
   getPluginsList: (settings?: { isRicosSchema?: boolean }) => PluginsList;
   getBlockSpacing: () => any;
@@ -164,4 +169,5 @@ export interface EditorCommands {
   setBlockType: (type: TextBlockType) => void;
   setTextAlignment: (textAlignment: TextAlignment) => void;
   _setSelection: (blockKey: string, selection: draftSelection) => void;
+  isAtomicBlockInSelection: () => boolean;
 }

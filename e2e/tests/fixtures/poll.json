@@ -131,8 +131,7 @@
         "config": {
           "size": "large",
           "width": "full-width",
-          "alignment": "center",
-          "enableVoteRole": false
+          "alignment": "center"
         },
         "poll": {
           "id": "24035f02-b39e-47e0-bbdc-242242f22c69",
@@ -175,8 +174,6 @@
           ],
           "creatorFlag": true
         },
-        "size": "large",
-        "width": "full-width",
         "design": {
           "poll": {
             "background": "https://static.wixstatic.com/media/2dfdd3_0b440a1138ba4c99bc954eb4d06ec0ad~mv2.jpg",
@@ -196,13 +193,9 @@
           "option": {
             "enableImage": true
           }
-        },
-        "spoiler": true,
-        "alignment": "center",
-        "siteToken": "ge0OxYJEVEMyxJ2LVarJCyEgR_rkmLS9GV2TysuaSAs.eyJpbnN0YW5jZUlkIjoiYWJmNTFkZmQtYjY1ZC00NGRlLWI3ZDMtNTU0MzBlNjkxZDk1IiwiYXBwRGVmSWQiOiIzZTFkYzdlOC0zNDQ0LTQ1YmEtYTU0Yi04ODQ0NjZjN2RhMGUiLCJtZXRhU2l0ZUlkIjoiYjNlOTVlNzgtNDg5MC00YzY1LTg0YmMtODllM2YyZGYzZjIxIiwic2lnbkRhdGUiOiIyMDIxLTA4LTAyVDEzOjMxOjQxLjQ2MloiLCJ1aWQiOiJkMGQ2ODNmOS04MWIxLTRlYzItODRlZS03ZjQ5YzUyNDUxNDgiLCJwZXJtaXNzaW9ucyI6Ik9XTkVSIiwiZGVtb01vZGUiOmZhbHNlLCJhaWQiOiI3MWZhM2U1NC0xNzk1LTQ4NGYtYmE4NS1hZTk4Njc4OTQzMzciLCJiaVRva2VuIjoiMTgxYzQzODUtZmVjZC0wOGJiLTMzNmYtZGNhMGZjYjYyMmI0Iiwic2l0ZU93bmVySWQiOiJkMGQ2ODNmOS04MWIxLTRlYzItODRlZS03ZjQ5YzUyNDUxNDgiLCJleHBpcmF0aW9uRGF0ZSI6IjIwMjEtMDgtMDJUMTc6MzE6NDEuNDYyWiIsImhhc1VzZXJSb2xlIjp0cnVlfQ",
-        "enableVoteRole": true
+        }
       }
     }
   },
-  "VERSION": "8.49.2"
+  "VERSION": "8.51.2"
 }

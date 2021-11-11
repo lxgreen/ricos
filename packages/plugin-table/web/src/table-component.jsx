@@ -16,10 +16,13 @@ import classNames from 'classnames';
 import './styles.css';
 import { TABLE_TYPE } from './types';
 import { SOURCE, LOCATION, CATEGORY, ACTION, ACTION_NAME } from './consts';
+import pluginTableSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-table.schema.json';
+import { validate } from 'wix-rich-content-common';
 
 class TableComponent extends React.Component {
   constructor(props) {
     super(props);
+    validate(props.componentData, pluginTableSchema);
     this.rowsRefs = [];
     this.state = {
       isEditingActive: false,
@@ -270,7 +273,7 @@ class TableComponent extends React.Component {
 
   shouldHandleKeyDown = e => {
     const { selected, isEditingActive } = this.state;
-    const isColorPickerModalOpen = e.target.closest('[data-id=color-picker-modal]');
+    const isColorPickerModalOpen = e.target.closest('[data-hook=color-picker-modal]');
     return (
       isPluginFocused(this.props.block, this.props.selection) &&
       selected &&

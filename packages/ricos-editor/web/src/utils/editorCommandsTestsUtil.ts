@@ -14,6 +14,7 @@ import {
   RICOS_TEXT_HIGHLIGHT_TYPE,
   WRAP,
   NO_WRAP,
+  RICOS_FONT_SIZE_TYPE,
 } from 'ricos-content';
 import {
   DividerData,
@@ -101,6 +102,7 @@ const giphy = {
   type: RICOS_GIPHY_TYPE,
   nodeType: Node_Type.GIF,
   data1: GIFData.fromJSON({
+    containerData: {},
     original: {
       gif: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.gif',
       mp4: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.mp4',
@@ -115,6 +117,7 @@ const giphy = {
     width: 500,
   }),
   data2: GIFData.fromJSON({
+    containerData: {},
     original: {
       gif: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.gif',
       mp4: 'https://media2.giphy.com/media/wZcio4ufvvdde/giphy.mp4',
@@ -179,8 +182,8 @@ const giphy = {
 const html = {
   type: RICOS_HTML_TYPE,
   nodeType: Node_Type.HTML,
-  data1: HTMLData.fromJSON({ url: 'www.wix.com' }),
-  data2: HTMLData.fromJSON({ url: 'www.sport5.co.il' }),
+  data1: HTMLData.fromJSON({ url: 'www.wix.com', containerData: {} }),
+  data2: HTMLData.fromJSON({ url: 'www.sport5.co.il', containerData: {} }),
   expectedData1: {
     config: {
       alignment: 'center',
@@ -205,6 +208,7 @@ const gallery = {
   type: RICOS_GALLERY_TYPE,
   nodeType: Node_Type.GALLERY,
   data1: GalleryData.fromJSON({
+    containerData: {},
     items: [
       {
         image: {
@@ -260,6 +264,7 @@ const gallery = {
     },
   }),
   data2: GalleryData.fromJSON({
+    containerData: {},
     items: [
       {
         image: {
@@ -373,13 +378,13 @@ const poll = {
   type: RICOS_POLL_TYPE,
   nodeType: Node_Type.POLL,
   data1: PollData.fromJSON({
-    config: { enableVoteRole: true },
+    config: {},
     poll: {},
     design: {},
     layout: {},
   }),
   data2: PollData.fromJSON({
-    config: { enableVoteRole: false },
+    config: {},
     poll: {},
     design: {},
     layout: {},
@@ -451,6 +456,7 @@ const image = {
   type: RICOS_IMAGE_TYPE,
   nodeType: Node_Type.IMAGE,
   data1: ImageData.fromJSON({
+    containerData: {},
     image: {
       src: { custom: '8bb438_1b73a6b067b24175bd087e86613bd00c.jpg' },
       width: 1920,
@@ -564,6 +570,16 @@ const highlightColor = {
   expectedData2: 'color1',
 };
 
+const fontSize = {
+  type: RICOS_FONT_SIZE_TYPE,
+  data1: { fontSize: 30 },
+  selection1: selection,
+  data2: { fontSize: 20 },
+  selection2: selectionCollapsed,
+  expectedData1: '30px',
+  expectedData2: '20px',
+};
+
 export const inlineStylesTestConfig = ['bold', 'italic', 'underline', 'spoiler'];
 
 export const pluginsTestConfig = {
@@ -577,4 +593,4 @@ export const pluginsTestConfig = {
   image,
 };
 
-export const decorationsTestConfig = { link, mention, textColor, highlightColor };
+export const decorationsTestConfig = { link, mention, textColor, highlightColor, fontSize };

@@ -103,6 +103,7 @@ const typescript = (): Plugin => {
         declarationDir: absPath('dist'),
         rootDir: absPath(''),
         sourceMap: true,
+        allowJs: process.env.ALLOW_JS === 'true',
       },
       include: [
         'src',
@@ -147,6 +148,7 @@ const postcss = (shouldExtract: boolean, entry?: string): Plugin => {
     },
     modules: {
       generateScopedName: IS_DEV_ENV ? '[name]__[local]___[hash:base64:5]' : '[hash:base64:5]',
+      hashPrefix: process.env.MODULE_NAME,
     },
     extract: shouldExtract && (entry ? getExtractedCssPath(entry) : editorExtractedStylePath),
     plugins: [

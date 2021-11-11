@@ -8,6 +8,9 @@ import {
   anchorScroll,
   addAnchorTagToUrl,
   getRelValue,
+  GlobalContext,
+  LINK_VIEWER_DATA_HOOK,
+  ANCHOR_VIEWER_DATA_HOOK,
 } from 'wix-rich-content-common';
 import pluginLinkSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-link.schema.json';
 import { isEqual } from 'lodash';
@@ -35,6 +38,8 @@ class LinkViewer extends Component {
     this.styles = mergeStyles({ styles, theme });
   }
 
+  static contextType = GlobalContext;
+
   componentWillReceiveProps(nextProps) {
     if (!isEqual(nextProps.componentData, this.props.componentData)) {
       validate(nextProps.componentData, pluginLinkSchema);
@@ -59,7 +64,7 @@ class LinkViewer extends Component {
             const anchorString = `viewer-${anchor}`;
             const element = document.getElementById(anchorString);
             addAnchorTagToUrl(anchorString);
-            anchorScroll(element);
+            anchorScroll(element, this.context.experiments);
           }
         }
       }
@@ -69,19 +74,24 @@ class LinkViewer extends Component {
   getHref = (url, anchor) => (url ? normalizeUrl(url) : `#viewer-${anchor}`);
 
   render() {
-    const { componentData, anchorTarget, children, isInEditor, theme } = this.props;
+    const { componentData, anchorTarget, children, isInEditor } = this.props;
     const { url, anchor, target = anchorTarget, rel } = componentData;
     const anchorProps = {
       href: this.getHref(url, anchor),
       target: anchor ? '_self' : target,
       rel: getRelValue(rel),
-      className: classNames(theme.link || styles.link, {
+      className: classNames(this.styles.link, {
         [this.styles.linkInEditor]: isInEditor,
         [this.styles.linkInViewer]: !isInEditor,
       }),
       onClick: this.handleClick,
     };
-    return <a {...anchorProps}>{children}</a>;
+    const dataHook = anchor ? ANCHOR_VIEWER_DATA_HOOK : LINK_VIEWER_DATA_HOOK;
+    return (
+      <a data-hook={dataHook} {...anchorProps}>
+        {children}
+      </a>
+    );
   }
 }
 

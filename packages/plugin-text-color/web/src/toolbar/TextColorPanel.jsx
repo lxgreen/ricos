@@ -38,7 +38,7 @@ export default class TextColorPanel extends Component {
     this.props.setKeepToolbarOpen(false);
   }
 
-  setColor(colorName) {
+  setColor({ color: colorName } = {}) {
     let { editorState, settings, defaultColor, onSelect, styleMapper, predicate } = this.props;
     const newColorHex = colorName && extractColor(settings.colorScheme, colorName);
     editorState = getInlineColorState(colorName, editorState, settings, styleMapper, predicate);
@@ -50,7 +50,7 @@ export default class TextColorPanel extends Component {
     onSelect && onSelect(colorName);
   }
 
-  onColorAdded(color) {
+  onColorAdded({ color }) {
     this.props.settings.onColorAdded(color);
     this.setState({
       userColors: this.props.settings.getUserColors() || [],

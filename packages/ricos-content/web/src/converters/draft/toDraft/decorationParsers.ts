@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { Decoration, Node, Node_Type } from 'ricos-schema';
 import { RicosInlineStyleRange, RicosEntityRange, RicosEntityMap } from '../../../types';
-import { FROM_RICOS_DECORATION_TYPE, ENTITY_DECORATION_TO_DATA_FIELD } from '../consts';
+import { FROM_RICOS_DECORATION_TYPE, TO_RICOS_DECORATION_DATA_FIELD } from '../consts';
 import { emojiRegex } from '../emojiRegex';
 import { createDecorationEntityData } from './getDraftEntityData';
 
@@ -20,7 +20,7 @@ interface RangedDecorationMap {
 }
 
 const isInlineStyleDecoration = (decorationType: string) =>
-  ENTITY_DECORATION_TO_DATA_FIELD[decorationType] === undefined;
+  TO_RICOS_DECORATION_DATA_FIELD[decorationType] === undefined;
 
 const pipe = (arg, ...fns: ((arg) => unknown)[]) => {
   return fns.reduce((v, fn) => fn(v), arg);
@@ -157,7 +157,9 @@ export const getParagraphNode = (node: Node) => {
 };
 
 const convertDecorationTypes = (decorations: Decoration[]): DraftTypedDecoration[] =>
-  decorations.flatMap(decoration => pipe(decoration, toDraftDecorationType, splitColorDecoration));
+  decorations.flatMap(decoration =>
+    pipe(decoration, toDraftDecorationType, convertFontSize, splitColorDecoration)
+  );
 
 const createEmojiDecorations = (text: string) => {
   const result: RangedDecoration[] = [];
@@ -193,6 +195,19 @@ const splitColorDecoration = ({
     .filter(x => x)
     .map(type => ({ ...decoration, type: JSON.stringify(type) }));
 };
+
+const convertFontSize = ({
+  fontSizeData,
+  ...decoration
+}: DraftTypedDecoration): DraftTypedDecoration =>
+  fontSizeData
+    ? {
+        ...decoration,
+        type: JSON.stringify({
+          'font-size': fontSizeData.value?.toString() + (fontSizeData.unit?.toLowerCase() || 'px'),
+        }),
+      }
+    : decoration;
 
 const decorationComparator = (
   a: RangedDecoration | RangedDecoration[],

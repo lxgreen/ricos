@@ -13,7 +13,7 @@ class CustomColorPickerDialog extends Component {
     this.styles = mergeStyles({ styles, theme: props.theme });
     this.initialColor = props.color;
     this.state = {
-      color: props.color[0] === '#' ? props.color : '#ffffff',
+      color: props.color?.[0] === '#' ? props.color : '#ffffff',
     };
     this.onCancel = this.onCancel.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
@@ -47,8 +47,7 @@ class CustomColorPickerDialog extends Component {
           onCancel={this.onCancel}
           onSave={this.onUpdate}
           theme={theme}
-          cancelText={t('ColorPickerButtonLabel_Cancel')}
-          saveText={t('ColorPickerButtonLabel_Update')}
+          t={t}
         />
       </div>
     );

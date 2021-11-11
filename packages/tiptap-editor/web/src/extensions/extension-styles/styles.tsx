@@ -9,7 +9,7 @@ export const getAlignmentClassName = (styles, alignment, theme: RichContentTheme
   if (!alignment) {
     return '';
   }
-  const key = `align${upperFirst(alignment)}`;
+  const key = `align${upperFirst(alignment.toLowerCase())}`;
   return classNames(styles[key], theme[key]);
 };
 
@@ -45,9 +45,9 @@ export const getPluginContainerClassName = (styles, theme: RichContentTheme = {}
 };
 
 export const getComponentStyles = ({ componentData, theme, isFocused, isMobile }) => {
-  const alignment = componentData?.config?.alignment;
-  const size = componentData?.config?.size;
-  const textWrap = componentData?.config?.textWrap;
+  const alignment = componentData?.containerData?.alignment;
+  const size = componentData?.containerData?.width?.size;
+  const textWrap = componentData?.containerData?.textWrap;
 
   return {
     alignmentClassName: getAlignmentClassName(stylesWithRTL, alignment, theme),

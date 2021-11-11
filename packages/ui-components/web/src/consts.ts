@@ -1,3 +1,4 @@
+import { ModalStyles } from 'wix-rich-content-common';
 // export const HEADER_TYPE_MAP = {
 //   H1: 'header-one',
 //   H2: 'header-two',
@@ -53,6 +54,7 @@ export const BUTTON_SIZE = {
   large: 'large',
 };
 
+// eslint-disable-next-line no-duplicate-imports
 export {
   // ModifierKey as MODIFIERS,
   // ToolbarType as TOOLBARS,
@@ -61,3 +63,49 @@ export {
 } from 'wix-rich-content-common';
 
 // export const UNSUPPORTED_BLOCKS_TYPE = 'unsupported-blocks';
+
+export const DesktopFlyOutModalStyles: ModalStyles = Object.freeze({
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    zIndex: 5,
+  },
+  content: {
+    boxSizing: 'border-box',
+    height: 'fit-content',
+    minHeight: 165,
+    width: 'fit-content',
+    minWidth: 363,
+    maxHeight: '100%',
+    maxWidth: '100%',
+    overflow: 'visible',
+    border: 'solid 1px rgba(51, 51, 51, 0.1)',
+    display: 'block',
+    borderRadius: 2,
+    position: 'absolute',
+    zIndex: 6,
+    padding: 20,
+    boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.06)',
+  },
+});
+
+export const MOBILE_FULL_SCREEN_CUSTOM_STYLE: ModalStyles = Object.freeze({
+  overlay: {
+    backgroundColor: 'transparent',
+  },
+  content: {
+    top: 0,
+    left: 0,
+    overflow: 'hidden',
+    alignItems: 'center',
+    display: 'flex',
+    width: '100vw',
+    justifyContent: 'center',
+    boxSizing: 'border-box',
+  },
+});
+
+export const DesktopOverlayModalStyles: ModalStyles = Object.freeze({
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+  },
+});

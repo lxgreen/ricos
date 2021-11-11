@@ -148,7 +148,6 @@ export default class ButtonInputModal extends Component {
       borderWidth: design.borderWidth,
       padding: design.padding,
       borderRadius: design.borderRadius,
-      activeButton: design.activeButton,
     };
     const componentDataToSave = pubsub.get('componentData');
     componentDataToSave.button.design = designToSave;
@@ -258,6 +257,7 @@ export default class ButtonInputModal extends Component {
                   <Tabs value={this.state.activeTab} theme={this.styles}>
                     <Tab label={settingTabLabel} value={settingsTabValue} theme={this.styles}>
                       <div
+                        className={styles.button_tab_section}
                         role="button"
                         tabIndex="0"
                         onMouseEnter={this.handleOnMouseEnterSettings}
@@ -266,21 +266,23 @@ export default class ButtonInputModal extends Component {
                       </div>
                     </Tab>
                     <Tab label={designTabLabel} value={designTabValue} theme={this.styles}>
-                      <Scrollbars
-                        ref={this.setScrollbarRef}
-                        renderThumbVertical={() =>
-                          this.state.isHover ? (
-                            <div className={styles.button_inputModal_scrollbar_thumb} />
-                          ) : (
-                            <div />
-                          )
-                        }
-                        className={styles.button_inputModal_customize_scrollbar_container}
-                        onMouseEnter={this.handleOnMouseEnterDesign}
-                        onMouseLeave={this.handleOnMouseLeaveDesign}
-                      >
-                        {designComponent}
-                      </Scrollbars>
+                      <div className={styles.button_tab_section}>
+                        <Scrollbars
+                          ref={this.setScrollbarRef}
+                          renderThumbVertical={() =>
+                            this.state.isHover ? (
+                              <div className={styles.button_inputModal_scrollbar_thumb} />
+                            ) : (
+                              <div />
+                            )
+                          }
+                          className={styles.button_inputModal_customize_scrollbar_container}
+                          onMouseEnter={this.handleOnMouseEnterDesign}
+                          onMouseLeave={this.handleOnMouseLeaveDesign}
+                        >
+                          {designComponent}
+                        </Scrollbars>
+                      </div>
                     </Tab>
                   </Tabs>
                 </div>

@@ -18,7 +18,7 @@ export { default as EditorModals } from './Modals/EditorModals';
 export { default as decorateComponentWithProps } from './Utils/decorateComponentWithProps';
 export { getToolbarTheme } from './Utils/getToolbarTheme';
 export { getModalStyles, getBottomToolbarModalStyles } from './Utils/getModalStyles';
-export { undo, redo, pluginsUndo } from './Utils/handleUndoRedoCommands';
+export { undo, redo } from './Utils/handleUndoRedoCommands';
 export { getAnchorableBlocks } from './Components/AnchorComponents/anchorUtils';
 
 export {
@@ -77,12 +77,12 @@ export {
   hasBlockType,
   setNativeSelectionToBlock,
 } from './Utils/draftUtils';
-export { getColor, setTextColor, setHighlightColor } from './Utils/colorUtils';
 export { triggerMention, insertMention } from './Utils/mentionUtils';
 export { isiOS } from './Utils/isiOS';
 export { mergeToolbarSettings } from './Utils/mergeToolbarSettings';
 export {
   COMMANDS,
+  DraftCommand,
   TEXT_TYPES,
   MODIFIERS,
   TOOLBARS,
@@ -134,6 +134,7 @@ import DraftOffsetKey from '@wix/draft-js/lib/DraftOffsetKey';
 export { DraftOffsetKey };
 
 export { elementOverflowWithEditor } from './Utils/overflowUtils';
+export { createEditorStyles } from './Utils/createEditorStyles';
 
 export const emptyDraftContent = {
   entityMap: {},
@@ -150,4 +151,17 @@ export const emptyDraftContent = {
   ],
 };
 
-export { getSelectionStyles } from './Utils/inlineStyleUtils';
+export {
+  getSelectionStyles,
+  hasOneStyleInSelection,
+  setInlineStyle,
+  removeCurrentInlineStyle,
+  getDefaultStyleFn,
+  getCustomStyleFn,
+  getCustomStyleFns,
+  getColor,
+  getFontSize,
+  setHighlightColor,
+  setTextColor,
+  setFontSize,
+} from './Utils/inlineStyleUtils';

@@ -1,63 +1,46 @@
-import * as T from 'fp-ts/Tree';
 import { pipe } from 'fp-ts/function';
-import { compact, isArray } from 'lodash';
-import { Prism, fromTraversable, Traversal } from 'monocle-ts';
-import { RichContent, Node, Node_Type } from 'ricos-schema';
+import { Node, Node_Type, RichContent } from 'ricos-schema';
+import { getModifier, Modifier } from '../modifier-infra';
 
-export interface Modifier {
-  filter: (pred: (node: Node) => boolean) => Modifier;
+export type RichContentModifier = {
+  filter: (predicate: (node: Node) => boolean) => RichContentModifier;
   set: (setter: (node: Node) => Node | Node[]) => RichContent;
-}
-
-const unfoldTree = (nodes: Node | Node[]) => {
-  const root = isArray(nodes) ? { id: 'root', type: Node_Type.UNRECOGNIZED, nodes } : nodes;
-  return T.unfoldTree<Node, Node>(root, n => [n, n.nodes]);
 };
 
-const toArray = item => (isArray(item) ? item : [item]);
+const nodesAccessor = (node: Node) => node.nodes;
 
-const modifyById = (idsToSet: string[], setter: (node: Node) => Node | Node[]) => (node: Node) =>
-  idsToSet.includes(node.id) ? setter(node) : node;
+const nodesSetter = (nodes: Node[]) => ({ nodes });
 
-const mergeWith = (prefix: Node[]) => (suffix: Node[]) => [...prefix, ...suffix];
+const getRootNode = (content: RichContent): Node => ({
+  id: 'root',
+  type: Node_Type.UNRECOGNIZED,
+  nodes: content.nodes,
+});
 
-const foldTree = (tree: T.Tree<Node>, setter: (node: Node) => Node | Node[], idsToSet: string[]) =>
-  T.fold<Node, Node>((root, forest) => ({
-    ...root,
-    nodes: forest.reduce(
-      (modifiedForest, node) =>
-        pipe(node, modifyById(idsToSet, setter), toArray, mergeWith(modifiedForest)),
-      []
-    ),
-  }))(tree);
+/**
+ * Utilizes function binding and scope to override Modifier.set behavior
+ */
+const toRichContentModifier = (content: RichContent) =>
+  function(modifier: Modifier<Node>): RichContentModifier {
+    const self: { modifier: RichContentModifier } = { modifier };
+    return {
+      filter(predicate: Parameters<Modifier<Node>['filter']>[0]) {
+        self.modifier = modifier.filter.bind(self.modifier)(predicate);
+        self.modifier.set = this.set;
+        self.modifier.filter = this.filter;
+        return self.modifier;
+      },
+      set(setter: Parameters<Modifier<Node>['set']>[0]) {
+        const root = modifier.set.bind(self.modifier)(setter);
+        return { ...content, nodes: root.nodes };
+      },
+    };
+  };
 
-class TraversalModifier implements Modifier {
-  content: RichContent;
-
-  traversal: Traversal<T.Tree<Node>, Node>;
-
-  tree: T.Tree<Node>;
-
-  constructor(traversal: Traversal<T.Tree<Node>, Node>, tree: T.Tree<Node>, content: RichContent) {
-    this.traversal = traversal;
-    this.content = content;
-    this.tree = tree;
-  }
-
-  filter(predicate: (node: Node) => boolean) {
-    return new TraversalModifier(
-      this.traversal.composePrism(Prism.fromPredicate(predicate)),
-      this.tree,
-      this.content
-    );
-  }
-
-  set(setter: (node: Node) => Node | Node[]) {
-    const idsToSet = compact(this.traversal.asFold().getAll(this.tree)).map(({ id }) => id);
-    const root = foldTree(this.tree, setter, idsToSet);
-    return { ...this.content, nodes: root.nodes };
-  }
-}
-
-export const modify = (content: RichContent): Modifier =>
-  new TraversalModifier(fromTraversable(T.tree)<Node>(), unfoldTree(content.nodes), content);
+export const modify = (content: RichContent): RichContentModifier =>
+  pipe(
+    content,
+    getRootNode,
+    getModifier<Node>(nodesAccessor, nodesSetter),
+    toRichContentModifier(content)
+  );

@@ -1,46 +1,48 @@
 import React from 'react';
-import { ImageComponent } from '..';
-import { ImagePluginEditorConfig } from '../types';
+import { ImageViewer } from '..';
+import { IMAGE_TYPE, ImageData } from '../types';
 import { PluginProps } from 'wix-rich-content-editor-common';
+import { MediaItemErrorMsg, Loader } from 'wix-rich-content-ui-components';
 
-export const Image: React.FC<PluginProps> = ({ context, componentData, updateAttributes }) => {
-  const { isMobile, theme, t } = context;
-  // console.log({ componentData });
-  const store = {
-    update: (propery, data) => {
-      // update caption
-      updateAttributes({ caption: data.config.caption });
-    },
-    setBlockHandler: () => null,
-  };
+export const Image: React.FC<PluginProps> = ({
+  context,
+  componentData,
+  updateAttributes,
+  node,
+}) => {
+  const { isMobile, theme, t, config = {} } = context;
   const helpers = {};
-  const componentState = {};
-  const settings: ImagePluginEditorConfig = {};
-  const disableRightClick = settings?.uiSettings?.disableRightClick;
+  const settings = config[IMAGE_TYPE] || {};
   const blockProps = {
     setFocusToBlock: () => null,
   };
   const setComponentUrl = () => null;
-  const block = {
-    getKey: () => {
-      return '';
-    },
+  const isLoading = node.attrs.loading;
+  const error = node.attrs.error;
+
+  const handleCaptionChange = caption => {
+    updateAttributes({ caption });
   };
+  const blockKey = node.attrs.id;
 
   return (
-    <ImageComponent
-      componentData={componentData}
-      isMobile={isMobile}
-      theme={theme}
-      store={store}
-      helpers={helpers}
-      componentState={componentState}
-      t={t}
-      settings={settings}
-      disableRightClick={disableRightClick}
-      blockProps={blockProps}
-      setComponentUrl={setComponentUrl}
-      block={block}
-    />
+    <>
+      <ImageViewer
+        theme={theme}
+        isMobile={isMobile}
+        helpers={helpers}
+        componentData={componentData as ImageData}
+        isLoading={isLoading}
+        dataUrl={isLoading && node.attrs.image.src.url}
+        settings={settings}
+        defaultCaption={t('ImageViewer_Caption')}
+        onCaptionChange={handleCaptionChange}
+        setFocusToBlock={blockProps.setFocusToBlock}
+        setComponentUrl={setComponentUrl}
+        blockKey={blockKey}
+      />
+      {(isLoading || componentData.loading) && <Loader theme={theme} type={'medium'} />}
+      {error && <MediaItemErrorMsg error={error} t={t} />}
+    </>
   );
 };

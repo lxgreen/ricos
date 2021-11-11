@@ -1,11 +1,22 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
 
 %button {
   font-size: 16px;
   cursor: pointer;
   border: 1px solid $settings-action-color-fallback;
+  width: 100%;
+  font-family: $ricos-font-family;
   &.borderLess {
     border: none;
+  }
+  &.mobile {
+    color: $fallbackColor;
+    background: transparent;
+    border: none;
+    width: 50px;
+    padding: 0;
   }
 }
 
@@ -16,6 +27,9 @@
 
   &:hover:not([disabled]) {
     background-color: rgba($settings-action-color-fallback-tuple, 0.8);
+    @include phone {
+      background-color: transparent;
+    }
   }
 
   &:disabled {
@@ -23,6 +37,10 @@
     color: rgba(255, 255, 255, 0.6);
     background-color: rgba(0, 0, 0, 0.4);
     border: none;
+  }
+
+  &.mobile {
+    color: $settings-action-color-fallback;
   }
 }
 

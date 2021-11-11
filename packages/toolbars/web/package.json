@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-toolbars",
-  "version": "8.49.5",
+  "version": "8.59.0",
   "author": {
     "name": "Noam Tayri",
     "email": "noamt@wix.com"
@@ -24,7 +24,7 @@
   "scripts": {
     "clean": "rm -rf dist/",
     "prebuild": "npm run clean",
-    "build:rollup": "rollup --environment MODULE_NAME:toolbars -c ../../../rollup.config.js",
+    "build:rollup": "rollup --environment MODULE_NAME:toolbars,ALLOW_JS -c ../../../rollup.config.js",
     "build": "npm run build:rollup && node ../../../scripts/cssFix.js",
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "build:analyze:editor": "npm run build -- --environment MODULE_ANALYZE_EDITOR  && open stats.html",
@@ -34,9 +34,9 @@
     "test": "jest --verbose"
   },
   "dependencies": {
-    "wix-rich-content-common": "8.49.5",
-    "wix-rich-content-editor-common": "8.49.5",
-    "wix-rich-content-plugin-commons": "8.49.5"
+    "wix-rich-content-common": "8.59.0",
+    "wix-rich-content-editor-common": "8.59.0",
+    "wix-rich-content-plugin-commons": "8.59.0"
   },
   "unpkg": true,
   "publishConfig": {

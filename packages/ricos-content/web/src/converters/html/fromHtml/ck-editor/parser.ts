@@ -1,56 +1,64 @@
-import { identity, pipe, flow } from 'fp-ts/function';
-import { not } from 'fp-ts/Predicate';
 import * as A from 'fp-ts/Array';
-import * as R from 'fp-ts/Record';
+import { flow, identity, pipe } from 'fp-ts/function';
 import * as O from 'fp-ts/Option';
-import * as S from 'fp-ts/string';
+import { not } from 'fp-ts/Predicate';
 import * as RONEA from 'fp-ts/ReadonlyNonEmptyArray';
-
+import * as R from 'fp-ts/Record';
+import * as S from 'fp-ts/string';
+import { Element } from 'parse5';
 import {
+  Decoration_Type,
   Node,
-  TextStyle_TextAlignment,
-  TextStyle,
   PluginContainerData,
   PluginContainerData_Alignment,
-  Decoration_Type,
+  TextStyle,
+  TextStyle_TextAlignment,
 } from 'ricos-schema';
-import { TextNode, Element } from 'parse5';
-import { concatApply } from '../../../../fp-utils';
+import { and } from '../../../../fp-utils';
+import { createParagraphNode } from '../../../nodeUtils';
 import {
-  oneOf,
-  hasTag,
-  getStyle,
   getClassNames,
-  hasStyleRule,
-  hasStyleFor,
+  getStyle,
   hasClass,
   hasParent,
+  hasStyleFor,
+  hasStyleRule,
+  hasTag,
+  isRoot,
+  isText,
+  isWhitespace,
+  oneOf,
 } from '../core/parse5-utils';
-import { preprocess } from './preprocess';
-import postprocess from './postprocess';
 import parse from '../core/parser';
 import {
-  pToParagraph,
-  lToList,
   hToHeading,
-  textToText,
-  imgToImage,
   identityRule,
+  imgToImage,
+  lToList,
+  pToParagraph,
+  textToText,
 } from '../core/rules';
-import { iframeToVideo } from './iframeToVideo';
 import { aToCustomLink } from './aToCustomLink';
 import { Rule } from '../core/models';
-import { MonoidAll } from 'fp-ts/boolean';
+import { iframeToVideo } from './iframeToVideo';
+import postprocess from './postprocess';
+import { preprocess } from './preprocess';
 
 const noEmptyLineText: Rule = [
-  node => textToText[0](node) && (node as TextNode).value !== '\n',
+  and([isText, not(isWhitespace), not(hasParent(isRoot))]),
   textToText[1],
+];
+
+// TODO: remove direct nodeUtils usage
+const rootTextToP: Rule = [
+  and([isText, hasParent(isRoot)]),
+  ctx => el => [createParagraphNode(textToText[1](ctx)(el))],
 ];
 
 const traverseDiv: Rule = [hasTag('div'), identityRule[1]];
 
 const traverseSpan: Rule = [
-  concatApply(MonoidAll)([
+  and([
     hasTag('span'),
     not(hasStyleFor('font-weight')),
     not(hasStyleFor('font-style')),
@@ -60,17 +68,17 @@ const traverseSpan: Rule = [
 ];
 
 const fontStyleToItalic: Rule = [
-  concatApply(MonoidAll)([hasTag('span'), hasStyleRule({ 'font-style': 'italic' })]),
+  and([hasTag('span'), hasStyleRule({ 'font-style': 'italic' })]),
   ({ addDecoration }) => (el: Element) => addDecoration(Decoration_Type.ITALIC, {}, el),
 ];
 
 const fontWeightToBold: Rule = [
-  concatApply(MonoidAll)([hasTag('span'), hasStyleRule({ 'font-weight': 'bold' })]),
+  and([hasTag('span'), hasStyleRule({ 'font-weight': 'bold' })]),
   ({ addDecoration }) => (el: Element) => addDecoration(Decoration_Type.BOLD, {}, el),
 ];
 
 const textDecorationToUnderline: Rule = [
-  concatApply(MonoidAll)([hasTag('span'), hasStyleRule({ 'text-decoration': 'underline' })]),
+  and([hasTag('span'), hasStyleRule({ 'text-decoration': 'underline' })]),
   ({ addDecoration }) => (el: Element) => addDecoration(Decoration_Type.UNDERLINE, {}, el),
 ];
 
@@ -200,7 +208,7 @@ const imgToAlignedImage: Rule = [
 ];
 
 const brToEmptyParagraph: Rule = [
-  concatApply(MonoidAll)([
+  and([
     hasTag('br'),
     hasParent(not(oneOf(['ol', 'ul', 'li']))),
     hasClass(c => c === 'single-break' || c === 'double-break'),
@@ -215,6 +223,7 @@ export default flow(
   preprocess,
   parse([
     noEmptyLineText,
+    rootTextToP,
     pToStyledParagraph,
     brToEmptyParagraph,
     lToList,

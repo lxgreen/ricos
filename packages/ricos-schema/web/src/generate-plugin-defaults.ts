@@ -2,18 +2,23 @@
  * This script generates the empty RichContent object and writes specific plugin portions to dedicated json files
  * residing in ricos-schema/dist/statics/. These files then define tiptap schemas for RicosExtensions.
  */
-import * as J from 'fp-ts/Json';
 import * as E from 'fp-ts/Either';
 import * as T from 'fp-ts/Tuple';
 import * as A from 'fp-ts/Array';
 import * as S from 'fp-ts/string';
-import { identity, flow } from 'fp-ts/function';
+import { identity, flow, pipe } from 'fp-ts/function';
 
 import { mkdirSync, writeFileSync, copySync } from 'fs-extra';
 import { resolve } from 'path';
-import { RichContent, Node, Node_Type } from '../src/generated/wix/rich_content/v1/';
+import {
+  RichContent,
+  Node,
+  Node_Type,
+  Decoration_Type,
+  LinkData,
+} from '../src/generated/wix/rich_content/v1/';
 
-const dataPropByType = {
+const pluginDataPropByType = {
   [Node_Type.APP_EMBED]: 'appEmbedData',
   [Node_Type.BUTTON]: 'buttonData',
   [Node_Type.CODE_BLOCK]: 'codeBlockData',
@@ -59,12 +64,24 @@ const defaultContent = {
     { type: 'PARAGRAPH', paragraphData: { textStyle: {} } },
     {
       type: 'POLL',
-      pollData: { containerData, config: {}, design: {}, layout: {}, poll: {} },
+      pollData: { containerData, design: {}, layout: {}, poll: {} },
     },
     { type: 'TEXT', textData: {} },
     { type: 'VIDEO', videoData: { containerData, thumbnail: {}, video: {} } },
   ],
 };
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const stringify = (replacer: (key: string, value: any) => any, space = 0) => <A>(
+  a: A
+): E.Either<unknown, string> =>
+  E.tryCatch(() => {
+    const s = JSON.stringify(a, replacer, space);
+    if (typeof s !== 'string') {
+      throw new Error('Converting unsupported structure to JSON');
+    }
+    return s;
+  }, identity);
 
 const writeStaticsEntry = ([type, defaults]) => {
   const entryPath = resolve(__dirname, '..', 'statics', `${type}.defaults.json`);
@@ -72,9 +89,10 @@ const writeStaticsEntry = ([type, defaults]) => {
 };
 
 const toNodes = (content: RichContent) => content.nodes;
-const toPluginDataTuple = (n: Node): [string, unknown] => [n.type, n[dataPropByType[n.type]]];
+const toPluginDataTuple = (n: Node): [string, unknown] => [n.type, n[pluginDataPropByType[n.type]]];
+const nullReplacer = (_: string, value: unknown) => (typeof value === 'undefined' ? null : value);
 
-const generateDefaults = flow(
+const generatePluginDefaults = flow(
   RichContent.fromJSON, // content with default values
   toNodes, // map nodes
   A.map(
@@ -83,7 +101,7 @@ const generateDefaults = flow(
       T.bimap(
         // [TYPE, pluginData] => [type, "pluginData"]
         flow(
-          J.stringify,
+          stringify(nullReplacer),
           E.fold(() => 'data stringify error', identity)
         ),
         S.toLowerCase
@@ -93,6 +111,27 @@ const generateDefaults = flow(
   )
 );
 
+const toDecorationDataDefaults = <T>(fromJSON: () => T) =>
+  pipe(
+    fromJSON(),
+    flow(
+      stringify(nullReplacer),
+      E.fold(() => 'data stringify error', identity)
+    )
+  );
+
+const generateDecorationDefaults = () =>
+  pipe(
+    {
+      [Decoration_Type.LINK]: () => ({
+        linkData: LinkData.fromJSON({ link: { url: '', anchor: '', rel: {} } }),
+      }),
+    },
+    Object.entries,
+    A.map(flow(T.bimap(toDecorationDataDefaults, S.toLowerCase), writeStaticsEntry))
+  );
+
 mkdirSync('statics', { recursive: true });
-generateDefaults(defaultContent);
+generatePluginDefaults(defaultContent);
+generateDecorationDefaults();
 copySync(resolve(__dirname, '..', 'statics'), resolve(__dirname, '..', 'dist', 'statics'));

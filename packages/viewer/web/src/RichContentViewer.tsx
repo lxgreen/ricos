@@ -282,6 +282,7 @@ class RichContentViewer extends Component<
         contextualData,
         decorators,
         inlineStyleMappers,
+        config,
         initSpoilers,
         SpoilerViewerWrapper,
         { addAnchors },

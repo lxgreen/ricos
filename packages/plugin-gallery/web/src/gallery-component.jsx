@@ -18,12 +18,9 @@ function GalleryComponent(props) {
     <>
       <GalleryViewer
         componentData={props.componentData}
-        onClick={props.onClick}
-        className={props.className}
         settings={props.settings}
         theme={props.theme}
         helpers={props.helpers}
-        disableRightClick={props.disableRightClick}
         isMobile={props.isMobile}
         anchorTarget={props.anchorTarget}
         relValue={props.relValue}
@@ -39,15 +36,12 @@ function GalleryComponent(props) {
 GalleryComponent.propTypes = {
   componentData: PropTypes.object.isRequired,
   block: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
   settings: PropTypes.object,
   helpers: PropTypes.object.isRequired,
-  disableRightClick: PropTypes.bool,
   theme: PropTypes.object.isRequired,
   isMobile: PropTypes.bool.isRequired,
-  anchorTarget: PropTypes.string.isRequired,
-  relValue: PropTypes.string.isRequired,
+  anchorTarget: PropTypes.string,
+  relValue: PropTypes.string,
   error: PropTypes.object,
   t: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,

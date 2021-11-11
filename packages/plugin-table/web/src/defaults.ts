@@ -1,5 +1,6 @@
-import { ThemeGeneratorFunction, NO_WRAP } from 'wix-rich-content-common';
+import { ThemeGeneratorFunction } from 'wix-rich-content-common';
 import { COLORS } from './consts';
+import { TablePluginViewerConfig } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const WRAPPER_PALETTE: any = {};
@@ -13,8 +14,4 @@ export const theme: ThemeGeneratorFunction = ({ colors, utils }) => {
   WRAPPER_PALETTE.color8 = actionColor;
 };
 
-export const DEFAULTS = Object.freeze({
-  config: {
-    textWrap: NO_WRAP,
-  },
-});
+export const DEFAULTS: TablePluginViewerConfig = Object.freeze({});

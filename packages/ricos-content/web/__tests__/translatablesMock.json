@@ -2,7 +2,7 @@
   {
     "id": "0",
     "type": "PARAGRAPH",
-    "text": "<p><strong>Lorem ipsum dolor sit amet</strong> 😎, <u>consectetur adipiscing</u> elit. Quisque quis ex <em>auctor</em>, facilisis lectus id, sodales ipsum. In <strong>sagittis </strong><u><strong>ultrices</strong></u><u> sem</u> ac elementum. Ut <u><a href=\"www.google.com\">ut</a></u> iaculis ex. Lorem ipsum dolor sit @amet, consectetur adipiscing elit. In hac habitasse platea dictumst. Aenean placerat, quam eget vestibulum <u><a href=\"www.link.com\">varius</a></u>, nisl ligula vulputate <u>tortor</u>, id lacinia odio magna eu arcu.</p>"
+    "text": "<p><strong>Lorem ipsum dolor sit amet</strong> 😎, <u>consectetur adipiscing</u> elit. Quisque quis ex <em>auctor</em>, facilisis lectus id, sodales ipsum. In <strong>sagittis </strong><u><strong>ultrices</strong></u><u> sem</u> ac elementum. Ut <u><a href=\"www.google.com\" rel=\"nofollow sponsored ugc\" target=\"_blank\">ut</a></u> iaculis ex. <span data-spoiler=\"true\">Lorem ipsum</span> dolor sit <span role=\"link\" data-mention-name=\"amet\" data-mention-slug=\"amet\">@amet</span>, consectetur adipiscing elit. In hac <span style=\"color: color4;\">habitasse </span><span style=\"color: color4;\"><span style=\"background-color: color3;\">platea</span></span><span style=\"background-color: color3;\"> dictumst</span>. Aenean placerat, quam eget vestibulum <u><a href=\"www.link.com\" target=\"_blank\">varius</a></u>, nisl ligula vulputate <u><a href=\"#98ccj\" rel=\"noopener noreferrer\">tortor</a></u>, id lacinia odio magna eu arcu.</p>"
   },
   {
     "id": "2",
@@ -109,7 +109,7 @@
   {
     "id": "38",
     "type": "PARAGRAPH",
-    "text": "<p>Nunc eros ante , porttitor <strong>sed</strong> tempor nec, sagittis non mi. Nulla non <u>vulputate</u> magna, semper convallis sapien.</p>"
+    "text": "<p>Nunc eros ante , porttitor <strong>sed</strong> tempor nec, sagittis non mi. Nulla non <u>vulputate</u> <span style=\"background-color: color4;\">magna</span>, semper convallis sapien.</p>"
   },
   {
     "id": "41",
@@ -146,8 +146,16 @@
     "type": "PARAGRAPH",
     "text": "<p>Praesent purus nibh, sodales</p>"
   },
-  { "id": "60", "type": "PARAGRAPH", "text": "<p>non efficitur a</p>" },
-  { "id": "62", "type": "PARAGRAPH", "text": "<p>consequat ac ante.</p>" },
+  {
+    "id": "60",
+    "type": "PARAGRAPH",
+    "text": "<p>non efficitur a</p>"
+  },
+  {
+    "id": "62",
+    "type": "PARAGRAPH",
+    "text": "<p>consequat ac ante.</p>"
+  },
   {
     "id": "66",
     "type": "PARAGRAPH",
@@ -163,9 +171,21 @@
     "type": "PARAGRAPH",
     "text": "<p>Nulla at tempus lectus,</p>"
   },
-  { "id": "75", "type": "PARAGRAPH", "text": "<p>non tempor tortor.</p>" },
-  { "id": "78", "type": "PARAGRAPH", "text": "<p>Vivamus mauris</p>" },
-  { "id": "80", "type": "PARAGRAPH", "text": "<p>diam</p>" },
+  {
+    "id": "75",
+    "type": "PARAGRAPH",
+    "text": "<p>non tempor tortor.</p>"
+  },
+  {
+    "id": "78",
+    "type": "PARAGRAPH",
+    "text": "<p>Vivamus mauris</p>"
+  },
+  {
+    "id": "80",
+    "type": "PARAGRAPH",
+    "text": "<p>diam</p>"
+  },
   {
     "id": "82",
     "type": "PARAGRAPH",
@@ -195,6 +215,101 @@
     "id": "92",
     "type": "PARAGRAPH",
     "text": "<p>בראיט ולחת צורק מונחף, בגורמי מגמש.\n</p>"
+  },
+  {
+    "id": "98",
+    "type": "PARAGRAPH",
+    "text": "<p><span style=\"color: color4;\">Collapsible List</span></p>"
+  },
+  {
+    "id": "104",
+    "type": "PARAGRAPH",
+    "text": "<p>#LivingTheDream</p>"
+  },
+  {
+    "id": "106",
+    "type": "PARAGRAPH",
+    "text": "<p><strong>Yo yo yo!</strong></p>"
+  },
+  {
+    "id": "111",
+    "type": "PARAGRAPH",
+    "text": "<p>​</p>"
+  },
+  {
+    "id": "113",
+    "type": "PARAGRAPH",
+    "text": "<p><strong>Yo yo yo!</strong></p>"
+  },
+  {
+    "id": "116",
+    "type": "PARAGRAPH",
+    "text": "<p><span style=\"color: color3;\"><span data-spoiler=\"true\">​SPOILER ALERT!</span></span></p>"
+  },
+  {
+    "id": "118",
+    "type": "PARAGRAPH",
+    "text": "<p>​</p>"
+  },
+  {
+    "id": "121",
+    "text": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+    "type": "POLL",
+    "path": "pollData.poll.title"
+  },
+  {
+    "id": "121",
+    "text": "Cafe Nordoy",
+    "type": "POLL",
+    "path": "pollData.poll.options[0].title"
+  },
+  {
+    "id": "121",
+    "text": "קפה רוטשילד 65",
+    "type": "POLL",
+    "path": "pollData.poll.options[1].title"
+  },
+  {
+    "id": "121",
+    "text": "האחים",
+    "type": "POLL",
+    "path": "pollData.poll.options[2].title"
+  },
+  {
+    "id": "121",
+    "text": "הוטל מונטיפיורי",
+    "type": "POLL",
+    "path": "pollData.poll.options[3].title"
+  },
+  {
+    "id": "123",
+    "text": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+    "type": "POLL",
+    "path": "pollData.poll.title"
+  },
+  {
+    "id": "123",
+    "text": "Cafe Nordoy",
+    "type": "POLL",
+    "path": "pollData.poll.options[0].title"
+  },
+  {
+    "id": "123",
+    "text": "קפה רוטשילד 65",
+    "type": "POLL",
+    "path": "pollData.poll.options[1].title"
+  },
+  {
+    "id": "123",
+    "text": "האחים",
+    "type": "POLL",
+    "path": "pollData.poll.options[2].title"
+  },
+  {
+    "id": "123",
+    "text": "הוטל מונטיפיורי",
+    "type": "POLL",
+    "path": "pollData.poll.options[3].title"
   },
   {
     "id": "2",

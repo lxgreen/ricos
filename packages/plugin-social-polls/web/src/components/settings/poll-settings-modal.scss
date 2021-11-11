@@ -50,6 +50,7 @@
 
 .section {
   margin: 0 -10px;
+  padding: 24px 30px 30px;
 }
 
 .title {
@@ -135,15 +136,6 @@
   background-color: rgba(2, 97, 255, 0.2);
 }
 
-.separator {
-  margin: 20px 0;
-}
-
-.separator_vertical {
-  height: 26px;
-  margin: 0 15px;
-}
-
 .labeled_toggle_root {
   padding: 0;
   margin: 15px 0;
@@ -177,4 +169,12 @@
   align-items: center;
   justify-content: center;
   cursor: auto;
+}
+
+.preview_button {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  border-right: 1px solid #ededed;
+  padding-right: 15px;
 }

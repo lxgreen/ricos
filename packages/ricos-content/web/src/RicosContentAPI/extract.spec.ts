@@ -55,8 +55,25 @@ describe('Content extract API', () => {
         'LIST_ITEM',
         'BULLETED_LIST',
         'HEADING',
+        'COLLAPSIBLE_LIST',
+        'COLLAPSIBLE_ITEM',
+        'COLLAPSIBLE_ITEM_TITLE',
+        'COLLAPSIBLE_ITEM_BODY',
+        'TABLE',
+        'TABLE_ROW',
+        'TABLE_CELL',
       ],
-      decorations: ['BOLD', 'UNDERLINE', 'ITALIC', 'LINK', 'SPOILER', 'MENTION', 'COLOR', 'ANCHOR'],
+      decorations: [
+        'BOLD',
+        'FONT_SIZE',
+        'UNDERLINE',
+        'ITALIC',
+        'LINK',
+        'SPOILER',
+        'MENTION',
+        'COLOR',
+        'ANCHOR',
+      ],
     };
     expect(actual).toStrictEqual(expected);
   });

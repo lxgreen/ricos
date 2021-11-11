@@ -4,6 +4,7 @@ import { DIVIDER_TYPE, DividerPluginEditorConfig } from './types';
 import { EditorPluginCreator } from 'wix-rich-content-common';
 import { createDividerData } from './createDividerData';
 import { createTiptapExtensions } from './tiptap';
+import { TiptapEditorPlugin } from 'wix-tiptap-editor';
 
 export const pluginDivider: EditorPluginCreator<DividerPluginEditorConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };
@@ -14,5 +15,5 @@ export const pluginDivider: EditorPluginCreator<DividerPluginEditorConfig> = con
     ModalsMap: {},
     createPluginData: createDividerData,
     tiptapExtensions: createTiptapExtensions(pluginConfig),
-  };
+  } as TiptapEditorPlugin;
 };

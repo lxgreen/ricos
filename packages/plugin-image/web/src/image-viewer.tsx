@@ -1,6 +1,6 @@
 import React, { RefObject } from 'react';
 import classNames from 'classnames';
-import { IMAGE_TYPE, ImagePluginViewerConfig, ImageConfig } from './types';
+import { IMAGE_TYPE, ImagePluginViewerConfig, ImageData } from './types';
 import { get, includes, isEqual, isFunction } from 'lodash';
 import {
   mergeStyles,
@@ -29,29 +29,20 @@ const replaceUrlFileExtenstion = (url, extensionTarget) => {
 };
 
 interface ImageViewerProps {
-  componentData: {
-    config: ImageConfig;
-    src: { fallback: string; width: number };
-    metadata?: { caption?: unknown; alt?: string | undefined };
-    [key: string]: unknown;
-    disableDownload?: boolean;
-    disableExpand?: boolean;
-  };
-  className: string;
+  componentData: ImageData;
+  className?: string;
   dataUrl: string;
   settings: ImagePluginViewerConfig;
   defaultCaption: string;
-  entityIndex: number;
-  onCaptionChange: () => void;
+  onCaptionChange: (caption: string) => void;
   setFocusToBlock: () => void;
   theme: RichContentTheme;
   helpers: Helpers;
-  disableRightClick: boolean;
-  getInPluginEditingMode: () => unknown;
-  setInPluginEditingMode: () => unknown;
+  getInPluginEditingMode?: () => unknown;
+  setInPluginEditingMode?: () => unknown;
   isMobile: boolean;
   setComponentUrl: (highres?: string) => unknown;
-  seoMode: SEOSettings;
+  seoMode?: SEOSettings;
   blockKey: string;
   isLoading: boolean;
   customAnchorScroll?: CustomAnchorScroll;
@@ -84,11 +75,6 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
   }
 
   static contextType = GlobalContext;
-
-  shouldUseSrcSet() {
-    const { experiments } = this.context;
-    return experiments?.useSrcSet?.enabled;
-  }
 
   componentDidMount() {
     this.setState({ ssrDone: true });
@@ -233,8 +219,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       classNames(imageClassName, this.styles.imagePreload),
       imageSrc.preload,
       alt,
-      { 'aria-hidden': true, ...props },
-      { useSrcSet: true }
+      { 'aria-hidden': true, ...props }
     );
   };
 
@@ -247,21 +232,15 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       fadeIn?: boolean;
       width?: number | string;
       height?: number | string;
-      useSrcSet?: boolean;
     } = {}
   ) {
-    const { fadeIn = false, width, height, useSrcSet } = opts;
-    let srcSet;
-    if (this.shouldUseSrcSet() && useSrcSet) {
-      srcSet = replaceUrlFileExtenstion(src, 'webp');
-    }
+    const { fadeIn = false, width, height } = opts;
     const loading = this.context.experiments.lazyImagesAndIframes?.enabled ? 'lazy' : undefined;
     return (
       <img
         {...props}
         className={imageClassNames}
         src={src}
-        srcSet={srcSet}
         alt={alt}
         onError={this.onImageLoadError}
         onLoad={fadeIn ? e => this.onImageLoad(e.target) : undefined}
@@ -363,7 +342,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       const anchorString = `viewer-${anchor}`;
       const element = document.getElementById(anchorString);
       addAnchorTagToUrl(anchorString);
-      anchorScroll(element);
+      anchorScroll(element, this.context.experiments);
     }
   };
 

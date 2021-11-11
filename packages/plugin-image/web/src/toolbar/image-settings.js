@@ -11,6 +11,7 @@ import {
   Image,
   Loader,
   SettingsMobileHeader,
+  SettingsSeparator,
 } from 'wix-rich-content-ui-components';
 import styles from '../../statics/styles/image-settings.scss';
 import { DIVIDER } from '../consts';
@@ -62,7 +63,7 @@ class ImageSettings extends Component {
 
   renderToggle = ({ toggleKey, labelKey, dataHook, tooltipText, onToggle, type }) => {
     return type === DIVIDER ? (
-      <div className={this.styles.divider} />
+      <SettingsSeparator top />
     ) : (
       <div key={toggleKey} className={this.styles.imageSettings_toggleContainer}>
         <LabeledToggle

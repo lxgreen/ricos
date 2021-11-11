@@ -5,7 +5,7 @@ import loadable from '@loadable/component';
 
 export const typeMapper: PluginTypeMapper = () => ({
   [DIVIDER_TYPE]: {
-    component: loadable(() => import('./components/divider-component')),
+    component: loadable(() => import('./divider-component')),
     classNameStrategies: { size: sizeClassName },
   },
 });

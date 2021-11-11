@@ -10,7 +10,7 @@ declare global {
 }
 
 interface Props {
-  content: string;
+  content?: string;
   tooltipOffset?: { x: number; y: number };
   children: ReactElement;
   isError?: boolean;

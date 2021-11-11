@@ -1,10 +1,13 @@
 import React, { ElementType, PureComponent } from 'react';
 import { RichContentEditor, RichContentEditorProps } from 'wix-rich-content-editor';
-import { testVideos } from '../utils/mock';
+import { testVideos } from '../../../storybook/src/shared/utils/mock';
 import * as Plugins from './EditorPlugins';
 import theme from '../theme/theme'; // must import after custom styles
 import { GALLERY_TYPE } from 'wix-rich-content-plugin-gallery';
-import { mockImageUploadFunc, mockImageNativeUploadFunc } from '../utils/fileUploadUtil';
+import {
+  mockImageUploadFunc,
+  mockImageNativeUploadFunc,
+} from '../../../storybook/src/shared/utils/fileUploadUtil';
 import { TOOLBARS } from 'wix-rich-content-editor-common';
 import {
   DraftContent,
@@ -98,6 +101,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       onOpenEditorSuccess: async (...args) => console.log('onOpenEditorSuccess', ...args),
       onContentEdited: async params => console.log('onContentEdited', params),
       onToolbarButtonClick: async params => console.log('onToolbarButtonClick', params),
+      onKeyboardShortcutAction: async params => console.log('onKeyboardShortcutAction', params),
       onPluginModalOpened: async params => console.log('onPluginModalOpened', params),
       onMenuLoad: async params => console.log('onMenuLoad', params),
       onInlineToolbarOpen: async params => console.log('onInlineToolbarOpen', params),
@@ -181,11 +185,11 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
             placeholder={'Add some text!'}
             plugins={this.ricosPlugins}
             linkPanelSettings={{ ...(Plugins.uiSettings.linkPanel || {}), externalPopups }}
+            _rcProps={{ helpers: this.helpers }}
             experiments={experiments}
             textWrap={textWrap}
-          >
-            <RichContentEditor helpers={this.helpers} />
-          </RicosEditor>
+            onAtomicBlockFocus={d => console.log('onAtomicBlockFocus', d)} // eslint-disable-line
+          />
         </div>
       </div>
     );

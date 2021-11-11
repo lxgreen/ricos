@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { LoaderIcon } from 'wix-rich-content-plugin-commons';
 import {
   UrlInputModal,
+  SearchInputModal,
   FOOTER_BUTTON_ALIGNMENT,
   MODAL_CONTROLS_POSITION,
   BUTTON_SIZE,
@@ -95,6 +96,7 @@ export default class VerticalEmbedInputModal extends Component {
       componentData: { type },
       helpers,
       isMobile,
+      experiments,
     } = this.props;
     const contentType = contentTypeMap[type];
     const selected = selectedProduct !== null;
@@ -110,15 +112,19 @@ export default class VerticalEmbedInputModal extends Component {
     );
     const show = status !== NO_ITEMS;
     const textInput = show ? { searchIcon: true } : false;
+    //! Needs to be removed when old UrlInputModal is not used
+    const useNewModal = experiments?.newVerticalEmbedModal?.enabled;
+    const UrlInputModalComponent = useNewModal ? SearchInputModal : UrlInputModal;
 
     return (
-      <UrlInputModal
+      <UrlInputModalComponent
         onConfirm={this.onConfirm}
         helpers={helpers}
         t={t}
         title={t(`Embed_Vertical_${contentType}_Title`)}
         dataHook={'verticalEmbedModal'}
         placeholder={t(`Embed_Vertical_${contentType}_Placeholder`)}
+        saveLabel={t('Embed_Add_Button_Label')}
         onCloseRequested={helpers.closeModal}
         onInputChange={this.onInputChange}
         input={inputString}
@@ -128,6 +134,7 @@ export default class VerticalEmbedInputModal extends Component {
         selected={selected}
         textInput={textInput}
         buttonSize={BUTTON_SIZE.small}
+        showTitle={!isMobile}
       >
         <div className={styles.itemsWrapper}>
           {status === LOADING ? (
@@ -147,7 +154,7 @@ export default class VerticalEmbedInputModal extends Component {
             />
           )}
         </div>
-      </UrlInputModal>
+      </UrlInputModalComponent>
     );
   }
 }
@@ -161,4 +168,5 @@ VerticalEmbedInputModal.propTypes = {
   isMobile: PropTypes.bool,
   verticalsApi: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
+  experiments: PropTypes.object,
 };

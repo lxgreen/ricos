@@ -1,5 +1,10 @@
 /* eslint-disable no-console, fp/no-loops, no-case-declarations */
-import { RicosContentBlock, RicosEntityMap, RicosEntityRange } from '../../../types';
+import {
+  RicosContentBlock,
+  RicosEntityMap,
+  RicosEntityRange,
+  RicosInlineStyleRange,
+} from '../../../types';
 import { EMOJI_TYPE } from '../../../consts';
 import { Decoration, Decoration_Type, Node } from 'ricos-schema';
 import { TO_RICOS_DECORATION_TYPE } from '../consts';
@@ -7,6 +12,7 @@ import { TO_RICOS_DECORATION_TYPE } from '../consts';
 import { isEmpty, merge } from 'lodash';
 import { getEntity } from './getRicosEntityData';
 import { createTextNode } from '../../nodeUtils';
+import { FromDraftOptions } from './fromDraft';
 
 type KeyType = string | number;
 type StyleType = string;
@@ -16,6 +22,10 @@ const removeEmojiEntities = (
   entityMap: RicosEntityMap
 ): RicosEntityRange[] =>
   entityRanges.filter(range => !['EMOJI_TYPE', EMOJI_TYPE].includes(entityMap[range.key].type));
+
+const removeUnsupportedDecorations = (
+  inlineStyleRanges: RicosInlineStyleRange[]
+): RicosInlineStyleRange[] => inlineStyleRanges.filter(range => isDecorationType(range.style));
 
 const mergeColorDecorations = (decorations: Decoration[]): Decoration[] => {
   const colorDecorations = decorations.filter(
@@ -30,9 +40,39 @@ const mergeColorDecorations = (decorations: Decoration[]): Decoration[] => {
 };
 
 const isDecorationType = (decorationType: string) =>
-  TO_RICOS_DECORATION_TYPE[decorationType] !== undefined;
+  TO_RICOS_DECORATION_TYPE[decorationType] !== undefined ||
+  Object.keys(dynamicDecorationGetters).some(dynamicType => decorationType.includes(dynamicType));
 
-export const getTextNodes = (block: RicosContentBlock, entityMap: RicosEntityMap): Node[] => {
+const dynamicDecorationGetters = {
+  FG: (value: string) => {
+    return {
+      type: Decoration_Type.COLOR,
+      colorData: { foreground: value },
+    };
+  },
+  BG: (value: string) => {
+    return {
+      type: Decoration_Type.COLOR,
+      colorData: { background: value },
+    };
+  },
+  'font-size': (value: string) => {
+    const values = value.split(/(px)/g).length >= 2 ? value.split(/(px)/g) : value.split(/(em)/g);
+    return {
+      type: Decoration_Type.FONT_SIZE,
+      fontSizeData: {
+        unit: values[1].toUpperCase(),
+        value: parseInt(values[0]),
+      },
+    };
+  },
+};
+
+export const getTextNodes = (
+  block: RicosContentBlock,
+  entityMap: RicosEntityMap,
+  { ignoreUnsupportedValues }: FromDraftOptions = {}
+): Node[] => {
   const createTextNodeWithDecorations = ({
     text,
     styles = [],
@@ -65,15 +105,9 @@ export const getTextNodes = (block: RicosContentBlock, entityMap: RicosEntityMap
       const styleObj = JSON.parse(style);
       const type = Object.keys(styleObj)[0];
       const value = Object.values<string>(styleObj)[0];
-      if (type !== 'FG' && type !== 'BG') {
-        throw Error(`Unknown decoration type "${type}"!`);
-      }
-      decoration = {
-        type: Decoration_Type.COLOR,
-        colorData: { [type === 'FG' ? 'foreground' : 'background']: value },
-      };
+      decoration = dynamicDecorationGetters[type](value);
     } catch {
-      if (!isDecorationType(style)) {
+      if (!isDecorationType(style) && !ignoreUnsupportedValues) {
         throw Error(`Unknown decoration type "${style}"!`);
       }
       decoration = {
@@ -87,8 +121,11 @@ export const getTextNodes = (block: RicosContentBlock, entityMap: RicosEntityMap
   if (text.length === 0) {
     return [];
   }
+  const supportedInlineStyleRanges = ignoreUnsupportedValues
+    ? removeUnsupportedDecorations(inlineStyleRanges)
+    : inlineStyleRanges;
   const rangeMap = {};
-  [...inlineStyleRanges, ...removeEmojiEntities(entityRanges, entityMap)].forEach(
+  [...supportedInlineStyleRanges, ...removeEmojiEntities(entityRanges, entityMap)].forEach(
     ({ offset, length, ...props }) => {
       rangeMap[offset] = [...(rangeMap[offset] || []), { action: 'start', ...props }];
       rangeMap[offset + length] = [

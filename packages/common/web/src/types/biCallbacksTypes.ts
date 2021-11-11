@@ -83,6 +83,17 @@ export interface onToolbarButtonClickArgs extends biCallbackParams {
   pluginDetails?: string;
 }
 
+export interface onKeyboardShortcutActionArgs extends biCallbackParams {
+  /** The name of the button the user clicked on (`Bold`, `Italic`, `SpoilerButton`, ...) */
+  buttonName: string;
+  /** The new value that was changed (center, right...) */
+  value?: string;
+  /** Plugin's Type (e.g. values of `LINK_TYPE`, `HASHTAG_TYPE`...) */
+  pluginId?: string;
+  /** Ricos version */
+  version?: string;
+}
+
 export interface BICallbacks {
   onPluginAdd?(pluginId: string, entryPoint: string, version: string): void;
   onPluginAddSuccess?(
@@ -111,6 +122,7 @@ export interface BICallbacks {
   onContentEdited?(params: onContentEditedArgs): void;
   /** evid: 3 - 'changePlugin' */
   onToolbarButtonClick?(params: onToolbarButtonClickArgs): void;
+  onKeyboardShortcutAction?(params: onKeyboardShortcutActionArgs): void;
   onPluginChange?(
     pluginId: string,
     changeObject: { from: string; to: string },

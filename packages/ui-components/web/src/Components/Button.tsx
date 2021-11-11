@@ -21,7 +21,6 @@ export interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({
   onClick,
-  className,
   dataHook,
   ariaLabel,
   size = BUTTON_SIZE.small,
@@ -31,6 +30,7 @@ const Button: React.FC<ButtonProps> = ({
   secondary = false,
   borderless = false,
   theme,
+  isMobile = false,
 }) => {
   const styles = mergeStyles({ styles: Styles, theme });
   const buttonStyle = secondary ? styles.button_secondary : styles.button_primary;
@@ -41,8 +41,9 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       tabIndex={tabIndex}
       disabled={disabled}
-      className={classNames(buttonStyle, styles[size], className, {
+      className={classNames(buttonStyle, styles[size], {
         [styles.borderLess]: borderless,
+        [styles.mobile]: isMobile,
       })}
     >
       {text}

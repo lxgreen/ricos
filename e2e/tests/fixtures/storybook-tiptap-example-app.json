@@ -60,6 +60,56 @@
       }
     },
     {
+      "key": "ovai",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "line-height": "20px"
+        },
+        "textAlignment": "left"
+      }
+    },
+    {
+      "key": "dttag",
+      "text": "This is a link",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [
+        {
+          "offset": 0,
+          "length": 14,
+          "style": "BOLD"
+        },
+        {
+          "offset": 0,
+          "length": 14,
+          "style": "ITALIC"
+        },
+        {
+          "offset": 0,
+          "length": 14,
+          "style": "UNDERLINE"
+        }
+      ],
+      "entityRanges": [
+        {
+          "offset": 0,
+          "length": 14,
+          "key": 0
+        }
+      ],
+      "data": {
+        "dynamicStyles": {
+          "line-height": "20px"
+        },
+        "textAlignment": "left"
+      }
+    },
+    {
       "key": "dvgus",
       "text": "",
       "type": "unstyled",
@@ -74,6 +124,48 @@
       }
     },
     {
+      "key": "elgkh",
+      "text": "Left alignment",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "line-height": "20px"
+        },
+        "textAlignment": "left"
+      }
+    },
+    {
+      "key": "dt3el",
+      "text": "Right alignment",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "line-height": "20px"
+        },
+        "textAlignment": "right"
+      }
+    },
+    {
+      "key": "csnpv",
+      "text": "Center alignment",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "line-height": "20px"
+        },
+        "textAlignment": "center"
+      }
+    },
+    {
       "key": "d8q7l",
       "text": " ",
       "type": "atomic",
@@ -83,7 +175,7 @@
         {
           "offset": 0,
           "length": 1,
-          "key": 0
+          "key": 1
         }
       ],
       "data": {}
@@ -107,6 +199,15 @@
       "data": {}
     },
     {
+      "key": "4nk0h",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
       "key": "55abu",
       "text": " ",
       "type": "atomic",
@@ -116,7 +217,7 @@
         {
           "offset": 0,
           "length": 1,
-          "key": 1
+          "key": 2
         }
       ],
       "data": {}
@@ -133,6 +234,15 @@
   ],
   "entityMap": {
     "0": {
+      "type": "LINK",
+      "mutability": "MUTABLE",
+      "data": {
+        "url": "www.wix.com",
+        "target": "_blank",
+        "rel": ""
+      }
+    },
+    "1": {
       "type": "wix-draft-plugin-image",
       "mutability": "IMMUTABLE",
       "data": {
@@ -144,7 +254,8 @@
           "width": 284,
           "spoiler": {
             "enabled": true
-          }
+          },
+          "textWrap": "wrap"
         },
         "src": {
           "id": "b5a1eb472c11ff6aa8bc232102e44115",
@@ -157,7 +268,7 @@
         "disableExpand": false
       }
     },
-    "1": {
+    "2": {
       "type": "wix-draft-plugin-divider",
       "mutability": "IMMUTABLE",
       "data": {
@@ -170,5 +281,5 @@
       }
     }
   },
-  "VERSION": "8.48.1"
+  "VERSION": "8.58.1"
 }

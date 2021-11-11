@@ -1,12 +1,49 @@
-export const anchorScroll = element => {
-  const { paddingTop, marginTop } = element.style;
+import scrollIntoView from 'smooth-scroll-into-view-if-needed';
+
+export const anchorScroll = (element, experiments) => {
   const stickyHeaderHeight = document.querySelector('[id="SITE_HEADER"]')?.clientHeight || 0;
-  const stickyAdd = document.querySelector('[id="WIX_ADS"]')?.clientHeight || 0;
-  element.style.marginTop = `-${stickyHeaderHeight + stickyAdd}px`;
-  element.style.paddingTop = `${stickyHeaderHeight + stickyAdd}px`;
+  const stickyAd = document.querySelector('[id="WIX_ADS"]')?.clientHeight || 0;
+  const mobileToolbar =
+    document.querySelector('[data-hook="mobileToolbar"]')?.clientHeight ||
+    document.querySelector('[data-hook="ricos-editor-toolbars"]')?.clientHeight ||
+    0;
+  const fixedElementsOffset = stickyHeaderHeight + stickyAd + mobileToolbar;
+  if (experiments?.anchorScrollWithSmoothScrollIntoViewIfNeeded?.enabled) {
+    anchorScrollUsingSmoothScrollIntoViewIfNeeded(element, fixedElementsOffset);
+  } else {
+    anchorScrollUsingScrollIntoView(element, fixedElementsOffset);
+  }
+};
+
+const anchorScrollUsingSmoothScrollIntoViewIfNeeded = (element, fixedElementsOffset) => {
+  const { paddingTop, marginTop } = element.style;
+  element.style.marginTop = `-${fixedElementsOffset}px`;
+  element.style.paddingTop = `${fixedElementsOffset}px`;
+  scrollIntoView(element, {
+    block: 'start',
+    inline: 'start',
+  });
+  element.style.marginTop = marginTop;
+  element.style.paddingTop = paddingTop;
+};
+
+const anchorScrollUsingScrollIntoView = (element, fixedElementsOffset) => {
+  const { paddingTop, marginTop } = element.style;
+  element.style.marginTop = `-${fixedElementsOffset}px`;
+  element.style.paddingTop = `${fixedElementsOffset}px`;
   element.scrollIntoView({ behavior: 'smooth' });
   element.style.marginTop = marginTop;
   element.style.paddingTop = paddingTop;
+};
+
+const anchorScrollUsingScrollTo = (element, fixedElementsOffset) => {
+  const elementPosition = element.getBoundingClientRect().top;
+  const offsetPosition = elementPosition - fixedElementsOffset;
+  const scrollParent = findScrollableParent(element) || window;
+  scrollParent.scrollTo({
+    top: offsetPosition,
+    behavior: 'smooth',
+  });
 };
 
 export const addAnchorTagToUrl = anchorString => {
@@ -16,3 +53,16 @@ export const addAnchorTagToUrl = anchorString => {
 };
 
 export const isNewTab = target => target === '_blank';
+
+const findScrollableParent = node => {
+  if (node === null) {
+    return null;
+  }
+  const overflowY = window.getComputedStyle(node).overflowY;
+  const isScrollable = overflowY !== 'visible' && overflowY !== 'hidden';
+  if (isScrollable && node.scrollHeight > node.clientHeight) {
+    return node;
+  } else {
+    return findScrollableParent(node.parentNode);
+  }
+};

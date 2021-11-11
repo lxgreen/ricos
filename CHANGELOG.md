@@ -18,11 +18,560 @@
   </summary>
 
 ### :bug: Bug Fix
-- `general`
-  - [#2859](https://github.com/wix/ricos/pull/2859) wire button/link-preview/file-upload font family  
- 
+
+- `toolbar-new`
+  - [#3075](https://github.com/wix/ricos/pull/3075) disable link when atomic block is selected
+- `table`
+  - [#3091](https://github.com/wix/ricos/pull/3091) clean unwanted separators from toolbar
+- `ricos-content`
+  - [#3092](https://github.com/wix/ricos/pull/3092) ckeditor parser: text-in-root rule
+  - [#3095](https://github.com/wix/ricos/pull/3095) EXTERNAL type mapped to plugin data
+- `editor-common`
+  - [#3094](https://github.com/wix/ricos/pull/3094) anchor in new toolbar on mobile
+
+### :house: Internal
+
+- `example`
+  - [#3076](https://github.com/wix/ricos/pull/3076) new toolbar - default in example + add dedicated button in settings
+
+### :nail_care: Polish
+
+- `toolbars-new`
+  - [#3097](https://github.com/wix/ricos/pull/3097) refactor new toolbar modals position
+
 </details>
 <hr/>
+
+## 8.59.0 (Nov 9, 2021)
+
+### :rocket: New Feature
+
+- `ricos-schema`
+  - [#3054](https://github.com/wix/ricos/pull/3054) EXTERNAL type
+- `ricos-content`
+  - [#3054](https://github.com/wix/ricos/pull/3054) to/fromDraft: EXTERNAL type supported
+  - [#3056](https://github.com/wix/ricos/pull/3056) EXTERNAL type in EditorCommands
+
+### :bug: Bug Fix
+
+- `toolbar-new`
+  - [#3066](https://github.com/wix/ricos/pull/3066) fix color-picker modal style for mobile devices
+  - [#3078](https://github.com/wix/ricos/pull/3078) refactor toolbar modals position and width
+- `toolbars`
+  - [#3063](https://github.com/wix/ricos/pull/3063) ui changes in static text toolbars (old/new toolbar)
+- `ricos-content`
+  - [#3083](https://github.com/wix/ricos/pull/3083) Fix fromHtml parser rules
+
+### :house: Internal
+
+- `ricos-content`
+  - [#3071](https://github.com/wix/ricos/pull/3071) Content API: generic modifier and extractor
+- `toolbars-new`
+  - [#3073](https://github.com/wix/ricos/pull/3073) update and add datahooks to the new-toolbar testing
+- `tiptap`
+  - [#3080](https://github.com/wix/ricos/pull/3080) add insertNode, updateNodeById, and setNode core commands
+
+### :nail_care: Polish
+
+- `polls`
+  - [#3026](https://github.com/wix/ricos/pull/3026) refactor settings mobile header / add polls to plugin menu
+
+## 8.58.3 (Nov 2, 2021)
+
+### :house: Internal
+
+- `tiptap plugins`
+  - [#3047](https://github.com/wix/ricos/pull/3047) add plugins to tiptap [video, gif, file, gallery, code-block, spoiler, color]
+- `video`
+  - [#3050](https://github.com/wix/ricos/pull/3050) open video modal when embed from youtube
+
+## 8.58.2 (Nov 1, 2021)
+
+### :house: Internal
+
+- `schema`
+  - [#3049](https://github.com/wix/ricos/pull/3049) generate-plugin-defaults generates link decoration defaults
+
+### :bug: Bug Fix
+
+- `schema`
+  - add verticala embed schema to content state schemas
+
+## 8.58.1 (Oct 27, 2021)
+
+### :rocket: New Feature
+
+- `social-polls`
+  - [#3041](https://github.com/wix/ricos/pull/3041) fallback user
+
+## 8.58.0 (Oct 27, 2021)
+
+### :rocket: New Feature
+
+- `social-polls`
+  - [#3025](https://github.com/wix/ricos/pull/3025) refactor polls config API & normalize poll data
+- `editor`
+  - [#3028](https://github.com/wix/ricos/pull/3028) plugin menu shortcuts
+
+### :bug: Bug Fix
+
+- `social-polls`
+  - [#3020](https://github.com/wix/ricos/pull/3020) fix settings separator style
+- `gallery`
+  - [#3033](https://github.com/wix/ricos/pull/3033) fix settings separator style
+
+### :house: Internal
+
+- `editor-common`
+  - [#3030](https://github.com/wix/ricos/pull/3030) refactor getModalStyles (changed modal position when opened from plugin menu)
+- `general`
+  - [#3023](https://github.com/wix/ricos/pull/3023) add BI events to formatting shortcuts
+
+### :book: Documentation
+
+- [#3037](https://github.com/wix/ricos/pull/3037) FromDraftOptions
+
+### :nail_care: Polish
+
+- `ricos-schema`
+  - [#2927](https://github.com/wix/ricos/pull/2927) text decorations and `documentStyle` schema
+
+## 8.57.0 (Oct 25, 2021)
+
+### :rocket: New Feature
+
+- `viewer`
+  - [#3012](https://github.com/wix/ricos/pull/3012) print mode - fix page break in the middle of list item
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3019](https://github.com/wix/ricos/pull/3019) fromDraft: Invalid entity key protected
+
+### :nail_care: Polish
+
+- `ui-components`
+  - [#2999](https://github.com/wix/ricos/pull/2999) fix action buttons keyboard navigation order
+- `vertical-embed`
+  - [#3005](https://github.com/wix/ricos/pull/3005) vertical-embed modal new design
+- `line-spacing`
+  - [#3009](https://github.com/wix/ricos/pull/3009) add custom line-height selection to the line-heights options display
+- `ricos-content`
+  - [#3016](https://github.com/wix/ricos/pull/3016) Polls Content Builder API support
+- `ui-components/video/vertical-social-embed`
+  - [#3018](https://github.com/wix/ricos/pull/3018) new modals general code / style refactor
+
+### :house: Internal
+
+- `schema`
+  - [#3013](https://github.com/wix/ricos/pull/3013) undefined fields added to plugin defaults JSON
+- `divider`
+  - [#3017](https://github.com/wix/ricos/pull/3017) set divider width to 100% and remove editor bounds consideration
+
+## 8.56.5 (Oct 18, 2021)
+
+### :house: Internal
+
+- `ricos-content`
+  - [#96dce6a](https://github.com/wix/ricos/commit/96dce6a93b8f4227dfa86c801b77b349049a4ee0)velo adapter - image element source's regex fix
+
+## 8.56.4 (Oct 18, 2021)
+
+### :house: Internal
+
+- `video/linkpreview/ui-components`
+  - [#3010](https://github.com/wix/ricos/pull/3010) new modals general refactor
+- `ricos-content`
+  - [#3007](https://github.com/wix/ricos/pull/3007) velo adapter bundle size improvement
+
+### :nail_care: Polish
+
+- `common/toolbars-new`
+  - [#2996](https://github.com/wix/ricos/pull/2996) created border-box mixin and used it in the new toolbar modals
+
+### :bug: Bug Fix
+
+- `viewer`
+  - [#3004](https://github.com/wix/ricos/pull/3004) fix ios text highlight on blankspaces
+- `[toolbars-new]`
+  - [#2991](https://github.com/wix/ricos/pull/2991) close modals on escape
+
+## 8.56.3 (Oct 17, 2021)
+
+### :nail_care: Polish
+
+- `social-polls`
+  - [#2899](https://github.com/wix/ricos/pull/2899) fix missing import wix validations for polls schema
+
+## 8.56.2 (Oct 16, 2021)
+
+### :house: Internal
+
+- `ricos-content`
+  - [#3000](https://github.com/wix/ricos/pull/3000) velo adapter: fix `parseImageElement` scoped variable
+
+## 8.56.1 (Oct 14, 2021)
+
+### :nail_care: Polish
+
+- `social-polls`
+  - [#2899](https://github.com/wix/ricos/pull/2899) polls schema
+
+## 8.56.0 (Oct 14, 2021)
+
+### :nail_care: Polish
+
+- `plugin-video`
+  - [#2985](https://github.com/wix/ricos/pull/2985) video modal new design
+- `social-embed`
+  - [#2986](https://github.com/wix/ricos/pull/2986) social-embed modal new design
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2982](https://github.com/wix/ricos/pull/2982) fix Link-modal style
+
+### :rocket: New Feature
+
+- `toolbars-new`
+  - [#2921](https://github.com/wix/ricos/pull/2921) custom font size dropdown and `toolbarInputButton`
+- `ricos-content`
+  - [#2994](https://github.com/wix/ricos/pull/2994) velo adapter: modify functionality with callback support
+
+### :house: Internal
+
+- `toolbars-new`
+  - [#2968](https://github.com/wix/ricos/pull/2968) refactor line-spacing (set to default when there is no line-spacing)
+- `ricos-content`
+  - [#2992](https://github.com/wix/ricos/pull/2992) velo adapter: refactoring + folder lib rename
+
+## 8.55.3 (Oct 11, 2021)
+
+### :house: Internal
+
+- `[ui-components]`
+  - [#2984](https://github.com/wix/ricos/pull/2984) Fix Typescript issue
+
+## 8.55.2 (Oct 11, 2021)
+
+### :house: Internal
+
+- `*`
+  - [#2933](https://github.com/wix/ricos/pull/2933) JS to TS conversion + rollup configuration
+- `common`
+  - [#2980](https://github.com/wix/ricos/pull/2980) cleanup schema errors
+
+## 8.55.1 (Oct 11, 2021)
+
+### :rocket: New Feature
+
+- `social-polls`
+  - [#2964](https://github.com/wix/ricos/pull/2964) `pollServiceApi` config
+
+### :house: Internal
+
+- `social-polls`
+  - [#2964](https://github.com/wix/ricos/pull/2964) add `PollsServiceMock` and normalize polls data under `normalizePoll` experiment
+
+## 8.55.0 (Oct 11, 2021)
+
+### :rocket: New Feature
+
+- `ui-components`
+  - [#2955](https://github.com/wix/ricos/pull/2955) new text-input-modal (url/search) component
+- `ricos-content`
+  - [#2966](https://github.com/wix/ricos/pull/2966) ContentAPI adapter for simplified builder API
+
+### :bug: Bug Fix
+
+- `table-plugin`
+  - [#2972](https://github.com/wix/ricos/pull/2972) fix columns width on SSR
+- `viewer`
+  - [#2962](https://github.com/wix/ricos/pull/2962) fix alignment position of Map plugin
+
+### :house: Internal
+
+- `tiptap-editor`
+  - [#2971](https://github.com/wix/ricos/pull/2971) refactor according to domain model
+
+### :book: Documentation
+
+- [#2976](https://github.com/wix/ricos/pull/2976) plugin DoD
+
+## 8.54.3 (Oct 10, 2021)
+
+### :bug: Bug Fix
+
+- `editor viewer`
+  - [#2969](https://github.com/wix/ricos/pull/2969) fix text highlight parsing issue
+
+## 8.54.2 (Oct 7, 2021)
+
+### :bug: Bug Fix
+
+- `fullscreen`
+  - [#2946](https://github.com/wix/ricos/pull/2946) fix a11y keyboard navigation (desktop) and screen reader
+- `external-toolbar`
+  - [#2947](https://github.com/wix/ricos/pull/2947) new icons for external toolbar (under specs.ricos.newFormattingToolbar experiment)
+- `toolbars-new`
+  - [#2958](https://github.com/wix/ricos/pull/2958) fix color-picker/modals a11y
+- `video-plugin`
+  - [#2963](https://github.com/wix/ricos/pull/2963) add spoiler to url video settings modal
+- `link-preview-popover`
+  - [#2956](https://github.com/wix/ricos/pull/2956) display link preview popover only on external links
+- `schema-validations`
+  - [#2957](https://github.com/wix/ricos/pull/2957) cleanup schema validation errors
+
+### :house: Internal
+
+- `color-picker`
+  - [#2961](https://github.com/wix/ricos/pull/2961) refactor: send arguments in object (in ColorPicker props function)
+
+## 8.54.1 (Oct 3, 2021)
+
+### :bug: Bug Fix
+
+- `editor`
+  - [#2954](https://github.com/wix/ricos/pull/2954) support editor shortcuts with keyCode
+- `ui-components`
+  - [#2917](https://github.com/wix/ricos/pull/2917) refactor tabs component style
+
+### :nail_care: Polish
+
+- `ricos-schema`
+  - [#2948](https://github.com/wix/ricos/pull/2948) font size schema
+
+## 8.54.0 (Oct 3, 2021)
+
+### :rocket: New Feature
+
+- `ricos-content`
+  - [#2945](https://github.com/wix/ricos/pull/2945) Content API: Table, CollapsibleList, Gif, Map, Embed builders
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2932](https://github.com/wix/ricos/pull/2932) fix modals keyboard navigation (accessibility)
+- `plugin-commons`
+  - [#2950](https://github.com/wix/ricos/pull/2950) fix color picker modal crashing when color isn't defined
+
+## 8.53.4 (Sep 25, 2021)
+
+### :house: Internal
+
+- `tiptap`
+  - [#2930](https://github.com/wix/ricos/pull/2930) Tiptap & new toolbars integration (formatting & link)
+
+## 8.53.3 (Sep 23, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2937](https://github.com/wix/ricos/pull/2937) mobile flaky switching between text and link toolbar + remove dependent in old toolbars logic
+
+## 8.53.2 (Sep 23, 2021)
+
+- `ricos-schema`
+  - [#2759](https://github.com/wix/ricos/pull/2759) button schema
+  - [#2928](https://github.com/wix/ricos/pull/2928) disable polls from schema & content api until schema is final
+- `html plugin`
+
+  - [#2934](https://github.com/wix/ricos/pull/2934) `forceIframeSandboxDomain` experiment (for debugging)
+
+- `a11y`
+  - [#2935](https://github.com/wix/ricos/pull/2935) add presentation role to empty lines to skip reading by screen readers
+
+## 8.53.1 (Sep 19, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2931](https://github.com/wix/ricos/pull/2931) fix mobile scroll behavior + fix separator height bug in ios safari
+- `link`
+  - [#2929](https://github.com/wix/ricos/pull/2929) fix a11y in link modal
+
+## 8.53.0 (Sep 14, 2021)
+
+### :house: Internal
+
+- `editor`
+  - [#2922](https://github.com/wix/ricos/pull/2922) deprecate `UseUndoForPlugins` experiment, enable undo-redo for plugins out of the box
+
+## 8.52.7 (Sep 13, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2924](https://github.com/wix/ricos/pull/2924) fix alignment modal display in mobile
+- `editor-common`
+  - [#2923](https://github.com/wix/ricos/pull/2923) fix missing values of rel object
+
+## 8.52.6 (Sep 9, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2915](https://github.com/wix/ricos/pull/2915) fix modals border-radius, buttons font-family wiring, custom-line-spacing inputs width and added alignments-tooltip
+- `*`
+  - [#2919](https://github.com/wix/ricos/pull/2919) missing plugin buttons in toolbar
+
+### :house: Internal
+
+- `editor viewer common`
+
+  - [#2811](https://github.com/wix/ricos/pull/2811) custom draft inline styles infra and custom font size editor viewer support
+
+- `color`
+  - [#2920](https://github.com/wix/ricos/pull/2920) fix text color\highlight inline mappers exports
+
+## 8.52.5 (Sep 7, 2021)
+
+### :bug: Bug Fix
+
+- `giphy`
+  - [#b93796e](https://github.com/wix/ricos/commit/b93796e3336b848ee830ba3285bf4453817bb393) handle crush when downsized & downsized_still are null
+
+## 8.52.4 (Sep 5, 2021)
+
+### :house: Internal
+
+- `ui-components`
+
+  - [#2908](https://github.com/wix/ricos/pull/2908) refactor button component - removed classname prop
+
+  ### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2913](https://github.com/wix/ricos/pull/2913) improve buttons filters (separators, installed plugins, headings/title
+
+## 8.52.3 (Sep 2, 2021)
+
+### :bug: Bug Fix
+
+- `social-polls`
+  - [#2912](https://github.com/wix/ricos/pull/2912) `enableVoteRole` config
+
+## 8.52.2 (Sep 1, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#2910](https://github.com/wix/ricos/pull/2910) filter separators from buttons list
+- `toolbars-new`
+  - [#2906](https://github.com/wix/ricos/pull/2906) link input - cleanup preventDefault
+- `editor-common/toolbars-new`
+  - [#2902](https://github.com/wix/ricos/pull/2902) fix link-modal input behavior on focus
+- `divider`
+  - [#2903](https://github.com/wix/ricos/pull/2903) move `divider-component` to fix Loadable support
+
+### :house: Internal
+
+- `general`
+  - [#2911](https://github.com/wix/ricos/pull/2911) fix rollup-externals (tiptap-react excluded)
+
+## 8.52.1 (Sep 1, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-editor`
+  - [#2898](https://github.com/wix/ricos/pull/2898) update new toolbars on editor changed
+
+## 8.52.0 (Sep 1, 2021)
+
+### :rocket: New Feature
+
+- `ricos-common`
+  - [#2890](https://github.com/wix/ricos/pull/2890) Theme - `settingsStyles`
+
+### :house: Internal
+
+- `ricos-content`
+  - [#2901](https://github.com/wix/ricos/pull/2901) refactor of html convertor
+
+## 8.51.2 (Aug 31, 2021)
+
+### :house: Internal
+
+- `social-polls`
+  - [#2900](https://github.com/wix/ricos/pull/2900) remove settings from data (siteToken)
+
+## 8.51.1 (Aug 30, 2021)
+
+### :house: Internal
+
+- `ricos-schema`
+  - [#2705](https://github.com/wix/ricos/pull/2705) table schema
+
+## 8.51.0 (Aug 30, 2021)
+
+### :rocket: New Feature
+
+- `toolbars`
+  - [#2328](https://github.com/wix/ricos/pull/2328) new formatting toolbar & link toolbar (under experiment)
+
+## 8.50.2 (Aug 29, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#9542a83](https://github.com/wix/ricos/commit/9542a831953185d665b98b13f02b1315cef948b3) fix textWrap normalize when plugin's config is undefined
+
+## 8.50.1 (Aug 26, 2021)
+
+### :bug: Bug Fix
+
+- `*`
+  - [#2891](https://github.com/wix/ricos/pull/2891) fix textWrap in content
+
+## 8.50.0 (Aug 26, 2021)
+
+### :rocket: New Feature
+
+- `link-preview-popover`
+  - [#2881](https://github.com/wix/ricos/pull/2881) Link Preview Popover
+
+## 8.49.8 (Aug 25, 2021)
+
+### :bug: Bug Fix
+
+- `collapsible-list`
+  - [#2889](https://github.com/wix/ricos/pull/2889) fix editor stuck (read-only mode) when deleting collapsible
+
+### :house: Internal
+
+- `ricos-schema`
+  - [#2680](https://github.com/wix/ricos/pull/2680) collapsible list schema
+
+## 8.49.7 (Aug 25, 2021)
+
+### :nail_care: Polish
+
+- `ricos-content`
+  - [#2876](https://github.com/wix/ricos/pull/2876) html convertor now preserves text formatting (highlight & color)
+- `ui-components`
+  - [#2865](https://github.com/wix/ricos/pull/2865) refactor ActionButtons and SettingsMobileHeader components
+
+### :house: Internal
+
+- `scripts`
+  - [#2885](https://github.com/wix/ricos/pull/2885) `updateBaselines` updates translatablesMock.json according to changes
+
+## 8.49.6 (Aug 23, 2021)
+
+### :rocket: New Feature
+
+- `ricos-content`
+  - [#2844](https://github.com/wix/ricos/pull/2844) Translatables API
+
+### :bug: Bug Fix
+
+- `general`
+
+  - [#2859](https://github.com/wix/ricos/pull/2859) wire button/link-preview/file-upload font family
+  - [#2877](https://github.com/wix/ricos/pull/2877) fix webpackChunkName syntax
+
+- `gif`
+  - [#1102d70](https://github.com/wix/ricos/commit/1102d70e51d5ada621b7cbccfc7bcb1159c2d459) toolbar crush when downsized_small is null
 
 ## 8.49.5 (Aug 19, 2021)
 
@@ -50,9 +599,7 @@
 ### :house: Internal
 
 - `ricos-schema`
-
   - [#2864](https://github.com/wix/ricos/pull/2864) generate plugin defaults in build time
-
 - `ui-components`
   - [#2839](https://github.com/wix/ricos/pull/2839) refactor SettingsMobileHeader component and consume it in Button/CollapsibleList/Map/Link-modal/UrlInputModal
 - `e2e`
@@ -60,7 +607,7 @@
   - [#2863](https://github.com/wix/ricos/pull/2863) update Cypress to v8
 - `example`
   - [#2862](https://github.com/wix/ricos/pull/2862) add eslint support
-- `poll`
+- `social-polls`
   - [#2024](https://github.com/wix/ricos/pull/2024) add Poll story & rendering tests
   - [#2870](https://github.com/wix/ricos/pull/2870) loadable support
 
@@ -115,12 +662,9 @@
 ### :bug: Bug Fix
 
 - `collapsible-list`
-
   - [#2831](https://github.com/wix/ricos/pull/2831) add collapsible_list to INSERT_PLUGIN_BUTTONS
-
 - `ricos-viewer` `ricos-editor`
   - [#2840](https://github.com/wix/ricos/pull/2840) expose `iframeSandboxDomain` prop on editor & viewer fix
-  -
 
 ## 8.48.3 (Aug 09, 2021)
 

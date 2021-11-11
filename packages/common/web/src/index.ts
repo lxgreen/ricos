@@ -21,6 +21,7 @@ export {
   convertTargetBooleanToString,
   getRelValue,
 } from './Utils/linkConverters';
+export { safeJsonParse } from './Utils/jsonUtils';
 
 export { anchorScroll, addAnchorTagToUrl, isNewTab } from './Utils/anchor';
 
@@ -43,3 +44,12 @@ export { getBlocksFromContentState } from './Utils/innerRCEBlocksUtils';
 export * from './consts';
 
 export { default as createJustificationFixDecorator } from './draftDecorators/createJustificationFixDecorator';
+
+export {
+  parseStyleByType,
+  CustomInlineStyleType,
+  INLINE_STYLE_TYPES,
+  defaultStyleFnMapper,
+  dynamicStyleParsers,
+  getDynamicInlineStyleMapper,
+} from './Utils/viewerUtils';

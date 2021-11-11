@@ -3,6 +3,7 @@ import {
   RichContentTheme,
   PaletteColors,
   RicosCustomStyles,
+  RicosSettingsStyles,
   ThemeData,
 } from 'wix-rich-content-common';
 import { CSSProperties, ReactElement } from 'react';
@@ -74,6 +75,7 @@ export interface RicosTheme {
   paletteConfig?: PaletteConfig;
   typography?: RicosTypography;
   customStyles?: RicosCustomStyles;
+  settingsStyles?: RicosSettingsStyles;
 }
 
 export interface PaletteConfig {

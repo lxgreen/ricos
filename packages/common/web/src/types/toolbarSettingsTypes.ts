@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { EditorState } from 'draft-js';
 import { ComponentType } from 'react';
-import { ToolbarType, InsertButton, ToolbarButtonProps, TextButtonMapping } from '.';
+import {
+  ToolbarType,
+  InsertButton,
+  ToolbarButtonProps,
+  TextButtonMapping,
+  PluginTextButtons,
+} from '.';
 
 interface PlatformSettings<T> {
   desktop?: T;
@@ -23,6 +29,7 @@ export interface ToolbarSettingsFunctions {
   getInstance?: (config: any) => any;
   getDisplayOptions?: () => PlatformSettings<any>;
   getToolbarDecorationFn?: () => PlatformSettings<any>;
+  getIcons?: () => Record<string, (props: any) => JSX.Element>;
   addPluginMenuConfig?: AddPluginMenuConfig;
   footerToolbarConfig?: FooterToolbarConfig;
   onClick?: () => void;
@@ -43,8 +50,15 @@ export interface FooterToolbarConfig {
   pluginsToDisplayInToolbar?: string[];
 }
 
+export type TextGroupButtons = {
+  name: string;
+  buttons: string[];
+};
+
+export type DesktopTextButtons = (string | TextGroupButtons)[];
+
 export type TextButtons = {
-  desktop: string[];
+  desktop: DesktopTextButtons;
   mobile: string[];
 };
 
@@ -54,8 +68,6 @@ export type PluginButton = {
   blockType: string;
 };
 
-export type PluginTextButtons = { [key: string]: ComponentType };
-
 export type GetToolbarSettings = ({
   textButtons,
   pluginButtons,
@@ -64,10 +76,10 @@ export type GetToolbarSettings = ({
   pluginButtonProps,
   tablePluginMenu,
 }: {
-  textButtons: TextButtons;
-  pluginButtons: PluginButton[];
-  pluginButtonNames: string[];
-  pluginTextButtons: PluginTextButtons;
-  pluginButtonProps: ToolbarButtonProps[];
+  textButtons?: TextButtons;
+  pluginButtons?: PluginButton[];
+  pluginButtonNames?: string[];
+  pluginTextButtons?: PluginTextButtons;
+  pluginButtonProps?: ToolbarButtonProps[];
   tablePluginMenu?: boolean;
 }) => ToolbarSettingsFunctions[];

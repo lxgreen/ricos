@@ -12,8 +12,13 @@ import {
   AnchorInImageContentState,
   imageGalleryContentState,
   videoInitialContentState,
+  textWrapContentState,
+  textWrapContentStateExpected,
+  noConfigContentState,
+  noConfigContentStateExpected,
 } from './Fixtures';
-
+import { WRAP } from '..';
+import { compare } from '../comparision/compare';
 import { RicosInlineStyleRange, RicosEntityRange, DraftContent, RicosContentBlock } from '../types';
 
 const createState = ({
@@ -583,6 +588,7 @@ describe('normalizeInitialState', () => {
           size: 'inline',
           showTitle: true,
           showDescription: true,
+          textWrap: WRAP,
         },
         src: {
           id: '599ada_e9c9134635b544f0857ccc3ce9e0fa68~mv2.jpg',
@@ -661,7 +667,7 @@ describe('normalizeInitialState', () => {
         },
       ],
       styles: {},
-      config: {},
+      config: { textWrap: WRAP },
     });
 
     const initialState = (VERSION: string, titleString: string): DraftContent => ({
@@ -838,6 +844,20 @@ describe('normalizeInitialState', () => {
         disableDownload: true,
       });
       expect(actual.entityMap['0'].data.disableDownload).toBeFalsy();
+    });
+  });
+
+  describe('TextWrap normalizer', () => {
+    it('should add textWrap wrap to plugins', () => {
+      expect(
+        compare(normalizeInitialState(textWrapContentState), textWrapContentStateExpected)
+      ).toStrictEqual({});
+    });
+
+    it('should add textWrap wrap to plugins without config (should normalize the config first)', () => {
+      expect(
+        compare(normalizeInitialState(noConfigContentState), noConfigContentStateExpected)
+      ).toStrictEqual({});
     });
   });
 });

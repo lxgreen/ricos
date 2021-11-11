@@ -38,13 +38,11 @@ class ImageComponent extends React.Component {
     const {
       settings,
       componentData,
-      onClick,
       className,
       blockProps,
       theme,
       isMobile,
       helpers,
-      disableRightClick,
       getInPluginEditingMode,
       setInPluginEditingMode,
       setComponentUrl,
@@ -59,11 +57,9 @@ class ImageComponent extends React.Component {
           theme={theme}
           isMobile={isMobile}
           helpers={helpers}
-          disableRightClick={disableRightClick}
           getInPluginEditingMode={getInPluginEditingMode}
           setInPluginEditingMode={setInPluginEditingMode}
           componentData={componentData}
-          onClick={onClick}
           className={className}
           isLoading={this.props.isLoading}
           dataUrl={this.props.tempData?.dataUrl}
@@ -85,13 +81,11 @@ ImageComponent.propTypes = {
   store: PropTypes.object.isRequired,
   blockProps: PropTypes.object.isRequired,
   block: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
   settings: PropTypes.object,
   helpers: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
-  disableRightClick: PropTypes.bool,
   getInPluginEditingMode: PropTypes.func,
   setInPluginEditingMode: PropTypes.func,
   isMobile: PropTypes.bool.isRequired,

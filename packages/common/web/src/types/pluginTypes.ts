@@ -14,8 +14,6 @@ import {
   ThemeGeneratorFunction,
   RichContentTheme,
   ThemeData,
-  RicosTiptapExtension,
-  TiptapExtensionConfig,
 } from '.';
 import {
   ContentBlock,
@@ -71,6 +69,7 @@ import {
   UNSUPPORTED_BLOCKS_TYPE,
   RICOS_LINK_TYPE,
   RICOS_MENTION_TYPE,
+  EXTERNAL,
 } from 'ricos-content';
 import {
   DividerData,
@@ -117,6 +116,7 @@ export interface CreatePluginsDataMap {
   [LINK_TYPE]?: CreatePluginData<LinkData>;
   [RICOS_MENTION_TYPE]?: CreatePluginData<MentionData>;
   [MENTION_TYPE]?: CreatePluginData<MentionData>;
+  [EXTERNAL]?: CreatePluginData<Record<string, any>>;
 }
 
 import { EditorPlugin as DraftEditorPlugin, PluginFunctions } from 'draft-js-plugins-editor';
@@ -228,7 +228,6 @@ export interface EditorPlugin<PluginConfig extends EditorPluginConfig = Record<s
   createPlugin?: CreatePluginFunction<PluginConfig>;
   ModalsMap?: ModalsMap;
   createPluginData?: CreatePluginData<PluginConfig>;
-  tiptapExtensions?: RicosTiptapExtension[];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

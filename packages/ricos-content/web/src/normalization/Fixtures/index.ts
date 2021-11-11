@@ -14,3 +14,9 @@ export { default as AnchorInImageContentState } from './AnchorInImageContentStat
 export { default as imageGalleryContentState } from './imageGalleryContentState';
 
 export { default as videoInitialContentState } from './videoInitialContentState';
+
+export { default as textWrapContentState } from './textWrapContentState';
+export { default as textWrapContentStateExpected } from './textWrapContentStateExpected';
+export { default as noConfigContentState } from './noConfigContentState';
+export { default as noConfigContentStateExpected } from './noConfigContentStateExpected';
+export { default as pollContent } from './pollContent';

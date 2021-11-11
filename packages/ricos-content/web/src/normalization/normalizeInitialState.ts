@@ -8,8 +8,8 @@ import {
   VIDEO_TYPE_LEGACY,
   IMAGE_TYPE_LEGACY,
   VERTICAL_EMBED_TYPE,
-  COLLAPSIBLE_LIST_TYPE,
-  TABLE_TYPE,
+  WRAP,
+  POLL_TYPE,
 } from '../consts';
 import {
   linkDataNormalizer,
@@ -17,8 +17,7 @@ import {
   galleryDataNormalizer,
   videoDataNormalizer,
   verticalEmbedDataNormalizer,
-  collapsibleListDataNormalizer,
-  tableDataNormalizer,
+  pollsDataNormalizer,
 } from './dataNormalizers';
 import { ComponentData, DraftContent, NormalizeConfig, RicosEntity } from '../types';
 
@@ -35,8 +34,7 @@ const dataNormalizers: {
   [GALLERY_TYPE]: galleryDataNormalizer,
   [VIDEO_TYPE]: videoDataNormalizer,
   [VERTICAL_EMBED_TYPE]: verticalEmbedDataNormalizer,
-  [COLLAPSIBLE_LIST_TYPE]: collapsibleListDataNormalizer,
-  [TABLE_TYPE]: tableDataNormalizer,
+  [POLL_TYPE]: pollsDataNormalizer,
 };
 
 const normalizeComponentData = (
@@ -99,8 +97,7 @@ const entityTypeMap = {
     [GALLERY_TYPE]: GALLERY_TYPE,
     [VIDEO_TYPE]: VIDEO_TYPE,
     [VERTICAL_EMBED_TYPE]: VERTICAL_EMBED_TYPE,
-    [COLLAPSIBLE_LIST_TYPE]: COLLAPSIBLE_LIST_TYPE,
-    [TABLE_TYPE]: TABLE_TYPE,
+    [POLL_TYPE]: POLL_TYPE,
   },
 };
 
@@ -136,6 +133,9 @@ const normalizeEntityMap = (
         type: normalizeType(entity.type, entityTypeMap.dataNormalization),
         data: normalizeComponentData(entity.type, entity.data, config, stateVersion),
       };
+    }
+    if (newEntity?.data?.config && !newEntity?.data?.config?.textWrap) {
+      newEntity.data.config.textWrap = WRAP;
     }
     convertAnchorToLinkToUndoOneAppFix(newEntity);
     return newEntity;

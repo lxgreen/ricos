@@ -7,8 +7,13 @@ import {
   lToList,
   hToHeading,
   strongEmUToDecoration,
+  colorStyleToTextColor,
+  backgroundStyleToTextHighlight,
   aToLink,
   textToText,
+  spanToMention,
+  spanToSpoiler,
+  aToAnchor,
 } from '../core/rules';
 import { Rule } from '../core/models';
 
@@ -19,5 +24,17 @@ const noEmptyLineText: Rule = [
 
 export default flow(
   preprocess,
-  parse([noEmptyLineText, pToParagraph, lToList, hToHeading, aToLink, strongEmUToDecoration])
+  parse([
+    noEmptyLineText,
+    pToParagraph,
+    lToList,
+    hToHeading,
+    aToLink,
+    aToAnchor,
+    strongEmUToDecoration,
+    colorStyleToTextColor,
+    spanToMention,
+    spanToSpoiler,
+    backgroundStyleToTextHighlight,
+  ])
 );

@@ -17,7 +17,7 @@
           },
           "alignment": {
             "$id": "/properties/config/properties/alignment",
-            "enum": ["left", "right", "center"],
+            "enum": ["left", "right", "center", ""],
             "title": "alignment",
             "examples": ["left", "right", "center"]
           },
@@ -93,14 +93,14 @@
           },
           "width": {
             "$id": "/properties/src/properties/width",
-            "type": "integer",
+            "type": ["integer", "string"],
             "title": "image width",
             "default": 0,
             "examples": [1621]
           },
           "height": {
             "$id": "/properties/src/properties/height",
-            "type": "integer",
+            "type": ["integer", "string"],
             "title": "image height",
             "default": 0,
             "examples": [1081]

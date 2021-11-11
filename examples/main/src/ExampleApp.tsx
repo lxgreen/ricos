@@ -16,7 +16,8 @@ import { DraftContent, ToolbarType } from 'wix-rich-content-common';
 import ContentStateEditorType from './Components/ContentStateEditor';
 import { ensureDraftContent } from 'ricos-content/libs/migrateSchema';
 import { themeStrategy } from 'ricos-common';
-import { FONTS, EXPERIMENTS, ricosPalettes } from '../../storybook/src/resources';
+import { FONTS, EXPERIMENTS, ricosPalettes } from '../../storybook/src/shared/resources';
+import { mockFetchUrlPreviewData } from '../../storybook/src/shared/utils/linkPreviewUtil';
 
 const ContentStateEditor = React.lazy(() => import('./Components/ContentStateEditor'));
 const Editor = React.lazy(() => import('../shared/editor/Editor'));
@@ -96,6 +97,9 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
     if (contentState) {
       this.props.onContentStateChange(contentState);
     }
+    if (this.getExperiments()?.newFormattingToolbar?.value === undefined) {
+      this.onSetExperiment('newFormattingToolbar', 'true');
+    }
   }
 
   componentWillUnmount() {
@@ -150,15 +154,6 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
           })),
       },
       {
-        name: 'Native Upload Mock',
-        active: shouldNativeUpload,
-        action: () =>
-          this.setState(state => ({
-            shouldNativeUpload: !state.shouldNativeUpload,
-            editorResetKey: state.editorResetKey + 1,
-          })),
-      },
-      {
         name: 'Use New Content',
         active: shouldUseNewContent,
         action: () => {
@@ -166,6 +161,15 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
             shouldUseNewContent: !state.shouldUseNewContent,
           }));
         },
+      },
+      {
+        name: 'New Formatting Toolbar',
+        active: this.getExperiments()?.newFormattingToolbar?.value === 'true',
+        action: () =>
+          this.onSetExperiment(
+            'newFormattingToolbar',
+            this.getExperiments()?.newFormattingToolbar?.value === 'true' ? 'false' : 'true'
+          ),
       },
       {
         name: 'Static Toolbar',
@@ -182,6 +186,15 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
         action: selectedExternalToolbar =>
           this.setState({ externalToolbarToShow: selectedExternalToolbar }),
         items: [ToolbarType.FORMATTING, ToolbarType.INSERT_PLUGIN],
+      },
+      {
+        name: 'Native Upload Mock',
+        active: shouldNativeUpload,
+        action: () =>
+          this.setState(state => ({
+            shouldNativeUpload: !state.shouldNativeUpload,
+            editorResetKey: state.editorResetKey + 1,
+          })),
       },
       {
         name: 'External Link Popups',
@@ -405,6 +418,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
                 locale={locale}
                 scrollingElementFn={this.viewerScrollingElementFn}
                 experiments={experiments}
+                linkPreviewPopoverFetchData={mockFetchUrlPreviewData()}
               />
             </ErrorBoundary>
           </SectionContent>

@@ -16,11 +16,12 @@ import {
   LinkData,
   GalleryData,
   GIFData,
+  CollapsibleListData_InitialExpandedItems,
 } from 'ricos-schema';
 import { cloneDeep, has, merge } from 'lodash';
 import toCamelCase from 'to-camel-case';
 import {
-  ENTITY_DECORATION_TO_DATA_FIELD,
+  TO_RICOS_DECORATION_DATA_FIELD,
   FROM_RICOS_DECORATION_TYPE,
   FROM_RICOS_ENTITY_TYPE,
   TO_RICOS_DATA_FIELD,
@@ -29,6 +30,7 @@ import {
 import { WRAP, NO_WRAP } from '../../../consts';
 import { ComponentData, FileComponentData } from '../../../types';
 import { parseLink } from '../../nodeUtils';
+import { toDraft } from './toDraft';
 
 export const convertNodeToDraftData = (node: Node) => {
   const { type } = node;
@@ -37,16 +39,16 @@ export const convertNodeToDraftData = (node: Node) => {
   if (!dataFieldName) {
     console.error(`No data field name | Plugin Name: ${draftPluginType}`);
   }
-  return convertNodeDataToDraft(type, node[dataFieldName] || {});
+  return convertNodeDataToDraft(type, node[dataFieldName] || {}, node.nodes);
 };
 
 export const convertDecorationToDraftData = (decoration: Decoration) => {
   const { type } = decoration;
-  const dataFieldName = ENTITY_DECORATION_TO_DATA_FIELD[FROM_RICOS_DECORATION_TYPE[type]];
+  const dataFieldName = TO_RICOS_DECORATION_DATA_FIELD[FROM_RICOS_DECORATION_TYPE[type]];
   return convertDecorationDataToDraft(type, decoration[dataFieldName]);
 };
 
-export const convertNodeDataToDraft = (nodeType: Node_Type, data) => {
+export const convertNodeDataToDraft = (nodeType: Node_Type, data, nodes?: Node[]) => {
   if (!data) {
     console.error(`No data for ${nodeType}`);
     return {};
@@ -62,17 +64,19 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data) => {
     [Node_Type.APP_EMBED]: convertAppEmbedData,
     [Node_Type.LINK_PREVIEW]: convertLinkPreviewData,
     [Node_Type.BUTTON]: convertButtonData,
+    [Node_Type.COLLAPSIBLE_LIST]: convertCollapsibleListData,
     [Node_Type.HTML]: convertHTMLData,
     [Node_Type.MAP]: convertMapData,
     [Node_Type.EMBED]: convertEmbedData,
     [Node_Type.GALLERY]: convertGalleryData,
+    [Node_Type.TABLE]: convertTableData,
   };
   if (newData.containerData) {
     convertContainerData(newData, nodeType);
   }
   if (nodeType in converters) {
     const convert = converters[nodeType];
-    convert(newData);
+    convert(newData, nodes);
   }
   return JSON.parse(JSON.stringify(newData)); // remove undefined values
 };
@@ -113,8 +117,11 @@ const convertContainerData = (
     },
     { textWrap: textWrap ? WRAP : NO_WRAP }
   );
-  if (nodeType === Node_Type.IMAGE && width?.custom) {
+  if ((nodeType === Node_Type.IMAGE || nodeType === Node_Type.BUTTON) && width?.custom) {
     data.config.size = 'inline';
+  } else if (nodeType === Node_Type.BUTTON) {
+    data.config.size = 'small';
+    data.config.width = 'fit-content';
   } else if (nodeType === Node_Type.MAP && width?.custom) {
     data.config.size = 'content';
   }
@@ -287,15 +294,60 @@ const convertPollData = data => {
   has(data, 'layout.poll.type') && (data.layout.poll.type = data.layout.poll.type.toLowerCase());
   has(data, 'layout.poll.direction') &&
     (data.layout.poll.direction = data.layout.poll.direction.toLowerCase());
-  has(data, 'design.poll.backgroundType') &&
-    (data.design.poll.backgroundType = data.design.poll.backgroundType.toLowerCase());
+  if (has(data, 'layout.options')) {
+    data.layout.option = data.layout.options;
+    delete data.layout.options;
+  }
+  if (has(data, 'design')) {
+    const { poll = {}, options = {} } = data.design;
+    const { background, borderRadius } = poll;
+    const getBackground = background =>
+      background?.gradient
+        ? {
+            angle: background?.gradient?.angle,
+            start: background?.gradient?.startColor,
+            end: background?.gradient?.lastColor,
+          }
+        : background?.color?.charAt?.(0) === '#'
+        ? background?.color
+        : background?.image?.src?.url;
+    data.design = {
+      poll: {
+        backgroundType: background?.type?.toLowerCase(),
+        background: getBackground(background),
+        borderRadius: `${borderRadius}px`,
+      },
+      option: { borderRadius: `${options.borderRadius}px` },
+    };
+  }
   has(data, 'poll.pollId') && (data.poll.id = data.poll.pollId);
   delete data.poll.pollId;
+  has(data, 'poll.creatorId') && (data.poll.createdBy = data.poll.creatorId);
+  delete data.poll.creatorId;
+  has(data, 'poll.image.src.url') && (data.poll.mediaId = data.poll.image.src.url);
+  delete data.poll.image;
   has(data, 'poll.options') &&
-    (data.poll.options = data.poll.options.map(({ optionId, ...rest }) => ({
-      id: optionId,
+    (data.poll.options = data.poll.options.map(({ image, ...rest }) => ({
+      mediaId: image?.src?.url,
       ...rest,
     })));
+  if (has(data, 'poll.settings')) {
+    const { showVotesCount, showVoters, permissions } = data.poll.settings;
+    const { view, vote, allowMultipleVotes } = permissions || {};
+
+    const getResultsVisibility = view =>
+      view === 'EVERYONE' ? 'ALWAYS' : view === 'VOTERS' ? 'VOTERS_ONLY' : 'ONLY_ME';
+
+    data.poll.settings = {
+      resultsVisibility: getResultsVisibility(view),
+      multipleVotes: allowMultipleVotes,
+      voteRole: vote,
+      votersDisplay: showVoters,
+      votesDisplay: showVotesCount,
+    };
+  }
+  data.config.size = 'large';
+  data.config.width = 'full-width';
 };
 
 const convertAppEmbedData = data => {
@@ -310,6 +362,7 @@ const convertAppEmbedData = data => {
     ...(eventData || {}),
   };
   data.selectedProduct = selectedProduct;
+  delete data.id;
   delete data.itemId;
   delete data.name;
   delete data.imageSrc;
@@ -319,11 +372,11 @@ const convertAppEmbedData = data => {
 };
 
 const convertLinkPreviewData = data => {
-  if (has(data, 'thumbnailUrl')) {
+  if (data.thumbnailUrl) {
     data.thumbnail_url = data.thumbnailUrl;
     delete data.thumbnailUrl;
   }
-  if (has(data, 'link')) {
+  if (data.link) {
     data.config.link = parseLink(data.link);
     delete data.link;
   }
@@ -343,9 +396,58 @@ const convertFileData = (data: FileData & FileComponentData) => {
   delete data.src;
 };
 
+const convertCollapsibleListData = (
+  data: {
+    config: {
+      expandState?: string;
+      expandOnlyOne?: boolean;
+      direction?: string;
+      alignment?: string;
+    };
+    initialExpandedItems?: CollapsibleListData_InitialExpandedItems;
+    expandOnlyOne?: boolean;
+    direction?: string;
+    pairs;
+  },
+  nodes: Node[]
+) => {
+  const { initialExpandedItems, expandOnlyOne, direction } = data || {};
+
+  const getExpandState = (initialExpandedItems?: CollapsibleListData_InitialExpandedItems) => {
+    if (initialExpandedItems === 'ALL') {
+      return 'expanded';
+    }
+    if (initialExpandedItems === 'NONE') {
+      return 'collapsed';
+    }
+    return 'first_expanded';
+  };
+
+  const config = {
+    expandState: getExpandState(initialExpandedItems),
+    expandOnlyOne,
+    direction: direction?.toLowerCase(),
+  };
+  data.config = { ...data.config, ...config };
+  data.pairs = nodes.map(node => {
+    const { VERSION: _, ...title } = toDraft(node.nodes[0]);
+    const { VERSION: __, ...content } = toDraft(node.nodes[1]);
+    return {
+      key: node.id,
+      title,
+      content,
+    };
+  });
+  delete data.initialExpandedItems;
+  delete data.expandOnlyOne;
+  delete data.direction;
+  delete data.config.alignment;
+};
+
 const convertButtonData = (data: Partial<ButtonData> & { button }) => {
   const { link, text, styles } = data;
-  const { borderRadius, borderWidth, backgroundColor, textColor, borderColor } = styles || {};
+  const { colors, border } = styles || {};
+  const { width, radius } = border || {};
   const convertedLink = link ? parseLink(link) : {};
   data.button = {
     settings: {
@@ -353,11 +455,11 @@ const convertButtonData = (data: Partial<ButtonData> & { button }) => {
       ...convertedLink,
     },
     design: {
-      borderRadius,
-      borderWidth,
-      background: backgroundColor,
-      color: textColor,
-      borderColor,
+      borderRadius: radius,
+      borderWidth: width,
+      background: colors?.background,
+      color: colors?.text,
+      borderColor: colors?.border,
     },
   };
   delete data.link;
@@ -450,4 +552,51 @@ const parseLinkCustomData = (customData: string) => {
     console.error('failed to parse customData', customData); // eslint-disable-line
     return { customData };
   }
+};
+
+const convertTableData = (
+  data: {
+    dimensions;
+    header;
+    config: {
+      colsWidth;
+      rowsHeight;
+      colsMinWidth;
+      alignment?;
+      rows;
+      rowHeader;
+    };
+  },
+  nodes
+) => {
+  const {
+    dimensions: { colsWidthRatio, rowsHeight, colsMinWidth },
+    header,
+  } = data || {};
+  const { alignment: _, ...rest } = data.config;
+  data.config = { ...rest, colsWidth: colsWidthRatio, rowsHeight, colsMinWidth, rowHeader: header };
+  const rows = {};
+  nodes.forEach((row, i) => {
+    rows[i] = { columns: {} };
+    row.nodes.forEach((cell, j) => {
+      const { VERSION: _, ...content } = toDraft(cell);
+      const { cellStyle = {}, borderColors = {} } = cell.tableCellData || {};
+      rows[i].columns[j] = {
+        content,
+        style: {
+          verticalAlign: cellStyle.verticalAlignment?.toLowerCase(),
+          backgroundColor: cellStyle.backgroundColor?.toLowerCase(),
+        },
+        border: {
+          top: borderColors.top?.toLowerCase(),
+          left: borderColors.left?.toLowerCase(),
+          right: borderColors.right?.toLowerCase(),
+          bottom: borderColors.bottom?.toLowerCase(),
+        },
+      };
+    });
+  });
+  data.config.rows = rows;
+  delete data.dimensions;
+  delete data.header;
 };

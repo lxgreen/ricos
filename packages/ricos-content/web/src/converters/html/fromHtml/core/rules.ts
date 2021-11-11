@@ -1,4 +1,6 @@
-import { flow } from 'fp-ts/function';
+import { pipe, flow } from 'fp-ts/function';
+import * as O from 'fp-ts/Option';
+import * as R from 'fp-ts/Record';
 
 import { TextNode, Element } from 'parse5';
 import {
@@ -7,9 +9,19 @@ import {
   ImageData,
   Decoration,
   PluginContainerData_Alignment,
+  ColorData,
 } from 'ricos-schema';
-import { getAttributes, isText, toName, hasTag, oneOf } from './parse5-utils';
-import { Rule } from './models';
+import {
+  getAttributes,
+  getStyle,
+  hasStyleFor,
+  isText,
+  toName,
+  hasTag,
+  oneOf,
+} from './parse5-utils';
+import { and } from '../../../../fp-utils';
+import { Context, Rule } from './models';
 import {
   createTextNode,
   createParagraphNode,
@@ -40,12 +52,24 @@ export const hToHeading: Rule = [
 ];
 
 export const aToLink: Rule = [
-  hasTag('a'),
+  and([hasTag('a'), flow(getAttributes, ({ href }) => !href?.startsWith('#'))]),
   context => (node: Element) => {
     const attrs = getAttributes(node);
     return context.addDecoration(
       Decoration_Type.LINK,
       { linkData: { link: createLink({ ...attrs, url: attrs.href }) } },
+      node
+    );
+  },
+];
+
+export const aToAnchor: Rule = [
+  and([hasTag('a'), flow(getAttributes, ({ href }) => !!href && href.startsWith('#'))]),
+  context => (node: Element) => {
+    const attrs = getAttributes(node);
+    return context.addDecoration(
+      Decoration_Type.ANCHOR,
+      { anchorData: { ...attrs, anchor: attrs.href.substr(1) } },
       node
     );
   },
@@ -77,6 +101,56 @@ export const strongEmUToDecoration: Rule = [
       ],
       {},
       node
+    ),
+];
+
+const toForegroundData = (color: string): Decoration['colorData'] => ({
+  foreground: color,
+});
+
+const toBackgroundData = (color: string): Decoration['colorData'] => ({
+  background: color,
+});
+
+const toColorDecoration = (ctx: Context, el: Element) => (colorData: ColorData) =>
+  ctx.addDecoration(Decoration_Type.COLOR, { colorData }, el);
+
+export const colorStyleToTextColor: Rule = [
+  and([hasTag('span'), hasStyleFor('color')]),
+  context => (el: Element) =>
+    pipe(
+      el,
+      getStyle,
+      O.chain(R.lookup('color')),
+      O.map(toForegroundData),
+      O.fold(() => [], toColorDecoration(context, el))
+    ),
+];
+
+// NOTE: Mention's HTML representation is not interactive. Might be fixed in the future
+export const spanToMention: Rule = [
+  and([hasTag('span'), flow(getAttributes, attrs => !!attrs['data-mention-name'])]),
+  context => (node: Element) => {
+    const { 'data-mention-name': name, 'data-mention-slug': slug } = getAttributes(node);
+    return context.addDecoration(Decoration_Type.MENTION, { mentionData: { name, slug } }, node);
+  },
+];
+
+// NOTE: Spoiler's HTML representation is not interactive. Might be fixed in the future
+export const spanToSpoiler: Rule = [
+  and([hasTag('span'), flow(getAttributes, attrs => !!attrs['data-spoiler'])]),
+  context => (node: Element) => context.addDecoration(Decoration_Type.SPOILER, {}, node),
+];
+
+export const backgroundStyleToTextHighlight: Rule = [
+  and([hasTag('span'), hasStyleFor('background-color')]),
+  context => (el: Element) =>
+    pipe(
+      el,
+      getStyle,
+      O.chain(R.lookup('background-color')),
+      O.map(toBackgroundData),
+      O.fold(() => [], toColorDecoration(context, el))
     ),
 ];
 

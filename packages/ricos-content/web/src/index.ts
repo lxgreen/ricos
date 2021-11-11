@@ -1,4 +1,4 @@
-export { normalizeInitialState } from './normalization';
+export * from './normalization';
 export {
   isValidExactUrl,
   isValidUrl,
@@ -12,6 +12,7 @@ export {
 export * from './consts';
 export * from './types';
 export * from './version';
+export { generateId } from './converters/generateRandomId';
 
 export { isContentStateEmpty } from './contentStateUtils/contentStateUtils';
 

@@ -25,11 +25,10 @@ class LinkActionsButtons extends PureComponent {
       hideUrlInput,
       isMobile,
       basicDisplay,
-      saveLabel,
-      cancelLabel,
     } = this.props;
     const removeButtonText = t('LinkPanelContainer_RemoveButton');
     const showRemoveButton = isActive && !hideUrlInput && !isMobile;
+    const saveLabel = t('SettingsPanelFooter_Save');
 
     return basicDisplay && !isMobile ? (
       <Button
@@ -50,15 +49,17 @@ class LinkActionsButtons extends PureComponent {
         })}
       >
         {showRemoveButton && (
-          <Button
-            tabIndex={tabIndex}
-            data-hook="linkPanelContainerRemove"
-            text={removeButtonText}
-            onClick={onDelete}
-            theme={this.theme}
-            secondary
-            borderless
-          />
+          <div>
+            <Button
+              tabIndex={tabIndex}
+              data-hook="linkPanelContainerRemove"
+              text={removeButtonText}
+              onClick={onDelete}
+              theme={this.theme}
+              secondary
+              borderless
+            />
+          </div>
         )}
 
         <div
@@ -72,9 +73,8 @@ class LinkActionsButtons extends PureComponent {
             onCancel={onCancel}
             onSave={onSave}
             theme={this.theme}
-            cancelText={cancelLabel}
-            saveText={saveLabel}
             disableSave={!isDoneButtonEnable}
+            t={t}
           />
         </div>
       </div>

@@ -1,6 +1,7 @@
 import imageDataDefaults from 'ricos-schema/dist/statics/image.defaults.json';
-import { CreateRicosExtensions } from 'wix-rich-content-common';
+import { CreateRicosExtensions } from 'wix-tiptap-editor';
 import { Image as Component } from './component';
+import { TIPTAP_IMAGE_TYPE } from 'ricos-content';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -17,7 +18,7 @@ declare module '@tiptap/core' {
   }
 }
 
-const name = 'image';
+const name = TIPTAP_IMAGE_TYPE;
 
 export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {
@@ -26,7 +27,7 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
     componentDataDefaults: {
       ...imageDataDefaults,
       id: '',
-      myLoading: {
+      loading: {
         default: false,
       },
     },
@@ -39,8 +40,8 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
           setImageUrl: url => ({ commands }) => {
             return commands.updateAttributes(name, { image: { src: { custom: url } } });
           },
-          setImageLoading: isLoading => ({ commands }) => {
-            return commands.updateAttributes(name, { myLoading: isLoading });
+          setImageLoading: loading => ({ commands }) => {
+            return commands.updateAttributes(name, { loading });
           },
         };
       },

@@ -87,7 +87,7 @@ import {
 } from 'wix-rich-content-plugin-button';
 import Highlighter from 'react-highlight-words';
 import casual from 'casual-browserify';
-import { mockFetchUrlPreviewData } from '../utils/linkPreviewUtil';
+import { mockFetchUrlPreviewData } from '../../../storybook/src/shared/utils/linkPreviewUtil';
 import { createIndentPlugin, pluginIndent, INDENT_TYPE } from 'wix-rich-content-plugin-indent';
 import { createTablePlugin, pluginTable, TABLE_TYPE } from 'wix-rich-content-plugin-table';
 import {
@@ -100,11 +100,10 @@ import {
   pluginUnsupportedBlocks,
 } from 'wix-rich-content-plugin-unsupported-blocks';
 import { UNSUPPORTED_BLOCKS_TYPE } from 'wix-rich-content-plugin-commons';
+import { SocialPollsServiceMock } from '../../src/Components/SocialPollsServiceMock/SocialPollsServiceMock';
 
-import 'wix-rich-content-editor-common/dist/styles.min.css';
+import 'ricos-editor/dist/styles.min.css';
 import 'wix-rich-content-plugin-commons/dist/styles.min.css';
-import 'wix-rich-content-common/dist/styles.min.css';
-import 'wix-rich-content-editor/dist/styles.min.css';
 import 'wix-rich-content-plugin-button/dist/styles.min.css';
 // import 'wix-rich-content-plugin-code-block/dist/styles.min.css';
 import 'wix-rich-content-plugin-divider/dist/styles.min.css';
@@ -142,13 +141,16 @@ import { FORMATTING_BUTTONS, TOOLBARS } from 'wix-rich-content-editor-common';
 // import StaticToolbarDecoration from './Components/StaticToolbarDecoration';
 // import SideToolbarDecoration from './Components/SideToolbarDecoration';
 // import PluginToolbarDecoration from './Components/PluginToolbarDecoration';
-import { MockVerticalSearchModule, MockGetIsVisiblePromise } from '../utils/verticalEmbedUtil';
+import {
+  MockVerticalSearchModule,
+  MockGetIsVisiblePromise,
+} from '../../../storybook/src/shared/utils/verticalEmbedUtil';
 import {
   mockFileUploadFunc,
   mockFileNativeUploadFunc,
   mockVideoNativeUploadFunc,
   mockCustomVideoUploadFunc,
-} from '../utils/fileUploadUtil';
+} from '../../../storybook/src/shared/utils/fileUploadUtil';
 import { CreatePluginFunction, EditorPluginCreator, UISettings } from 'wix-rich-content-common';
 import { RichContentEditorProps } from 'wix-rich-content-editor';
 
@@ -432,7 +434,8 @@ const config: RichContentEditorProps['config'] = {
     // supportedPlugins: [GALLERY_TYPE, IMAGE_TYPE, VIDEO_TYPE],
   },
   [POLL_TYPE]: {
-    siteToken: process.env.POLLS_API_KEY,
+    showVoteRoleSetting: true,
+    pollServiceApi: new SocialPollsServiceMock(),
   },
   [LINK_PREVIEW_TYPE]: {
     enableEmbed: true, // [Twitter, TikTok]
@@ -526,7 +529,7 @@ const config: RichContentEditorProps['config'] = {
     width: 350,
     minHeight: 50,
     maxHeight: 1200,
-    // exposeButtons: [html, adsense],
+    exposeButtons: ['html', 'adsense'],
     siteDomain: 'https://www.wix.com',
     // toolbar: {
     //   icons: {
@@ -741,6 +744,8 @@ const config: RichContentEditorProps['config'] = {
         const desktopButtons = [
           FORMATTING_BUTTONS.HEADINGS,
           '|',
+          FORMATTING_BUTTONS.FONT_SIZE,
+          '|',
           FORMATTING_BUTTONS.BOLD,
           FORMATTING_BUTTONS.ITALIC,
           FORMATTING_BUTTONS.UNDERLINE,
@@ -846,7 +851,45 @@ const config: RichContentEditorProps['config'] = {
           android: [],
         },
       }),
+      // getTextPluginButtons: () => {
+      //   return {
+      //     desktop: {
+      //       MY_BUTTON: {
+      //         component: () => (
+      //           <div onClick={() => console.log('my button clicked!!')}>My Button</div>
+      //         ),
+      //       },
+      //       Bold: {
+      //         component: () => <div onClick={() => console.log('my custom bold')}>My Bold</div>,
+      //       },
+      //     },
+      //   };
+      // },
     },
+    // {
+    //   name: TOOLBARS.STATIC,
+    //   getButtons: () => ({
+    //     desktop: [
+    //       ...(textButtons?.desktop?.filter?.(button => button !== FORMATTING_BUTTONS.CODE_BLOCK) ??
+    //         []),
+    //       '|',
+    //       'FULLSCREEN_TOGGLE',
+    //     ],
+    //   }),
+    //   getTextPluginButtons: () => {
+    //     return {
+    //       desktop: {
+    //         FULLSCREEN_TOGGLE: {
+    //           component: () => (
+    //             <div onClick={() => console.log('blabla')} data-hook="blabla">
+    //               blabla
+    //             </div>
+    //           ),
+    //         },
+    //       },
+    //     };
+    //   },
+    // },
   ],
 };
 
