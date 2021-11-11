@@ -1,21 +1,30 @@
 {
   "extends": "./tsconfig.base.json",
-  "include": [
-    // "packages/ricos-content/**/*.ts",
-    // "packages/ricos-content/**/*.tsx"
-  ],
   "strictFunctionTypes": false,
   "strict": false,
+  "exclude": [
+    "node_modules",
+    "**/dist/*",
+    "**/*.e2e.ts",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/*.spec.js",
+    "**/*.spec.jsx",
+    "__tests__"
+  ],
+  "include": [
+    "./packages/ricos-content/web"
+  ],
   "references": [
     {
       "path": "./packages/ricos-content/web"
     },
-    {
-      "path": "./packages/ricos-common/web/src"
-    },
-    {
-      "path": "./packages/plugin-link/web/src"
-    },
+    // {
+    //   "path": "./packages/ricos-common/web/src"
+    // },
+    // {
+    //   "path": "./packages/plugin-link/web/src"
+    // },
     // {
     //     "path": "./packages/core/test"
     // },

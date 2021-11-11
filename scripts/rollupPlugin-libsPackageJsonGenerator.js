@@ -1,4 +1,6 @@
-function writePackageJson(packagePath: string, filePath: string) {
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+function writePackageJson(packagePath, filePath) {
   const fs = require('fs');
   fs.mkdirSync(packagePath, { recursive: true });
   fs.writeFile(
@@ -16,15 +18,13 @@ function writePackageJson(packagePath: string, filePath: string) {
     }
   );
 }
-
-function removeExtension(fileName: string) {
+function removeExtension(fileName) {
   return fileName
     .split('.')
     .slice(0, -1)
     .join('.');
 }
-
-export default function createLibsPackageJsons() {
+function createLibsPackageJsons() {
   return {
     name: 'copy-and-watch',
     async writeBundle() {
@@ -42,3 +42,4 @@ export default function createLibsPackageJsons() {
     },
   };
 }
+exports.default = createLibsPackageJsons;

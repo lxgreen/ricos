@@ -51,3 +51,6 @@ applitools.config.js
 # Generated Merged Translations
 packages/common/web/statics/locale
 .ultraignore
+
+# build
+temp

@@ -1,5 +1,6 @@
-import { IsExternal } from 'rollup';
-
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+exports.isExternal = void 0;
 const externals = [
   'assert',
   'axios',
@@ -21,10 +22,10 @@ const externals = [
   '@wix/draft-js',
   'downshift',
   /^punycode$/,
-  /^jss$/, //issue with ESM in CJS
-  /^jss-plugin-camel-case$/, //issue with ESM in CJS
-  /^jss-plugin-nested$/, //issue with ESM in CJS
-  /^jss-plugin-props-sort$/, //issue with ESM in CJS
+  /^jss$/,
+  /^jss-plugin-camel-case$/,
+  /^jss-plugin-nested$/,
+  /^jss-plugin-props-sort$/,
   /^wix-rich-content-editor$/,
   /^wix-rich-content-viewer$/,
   /^ricos-content$/,
@@ -33,7 +34,6 @@ const externals = [
   /^@loadable\/component$/,
   /@babel\/runtime/,
 ];
-
 const excludedExternalsRegexArr = [
   /react-click-outsider/,
   /@tiptap\/react/,
@@ -41,15 +41,14 @@ const excludedExternalsRegexArr = [
   /wix-rich-content-editor-common\/.*?\.scss/,
   /wix-rich-content-common\/.*?\.scss/,
 ];
-
 const localPrefixes = ['\0', '.', '/'];
-const testRegex = (regex: RegExp, source: string) =>
+const testRegex = (regex, source) =>
   typeof regex === 'string' ? regex === source : regex.test(source);
-
-export const isExternal: IsExternal = source => {
+const isExternal = source => {
   return (
     !localPrefixes.some(prefix => source.startsWith(prefix)) &&
     !excludedExternalsRegexArr.some(regex => testRegex(regex, source)) &&
     externals.some(externalName => new RegExp(externalName).test(source))
   );
 };
+exports.isExternal = isExternal;
