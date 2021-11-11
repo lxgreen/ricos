@@ -119,6 +119,9 @@ export class RichContentAdapter implements TiptapAPI {
         }
         return id;
       },
+      deleteBlock: blockKey => {
+        return this.editor.commands.deleteNode(blockKey);
+      },
       findNodeByKey() {},
       setBlock: (blockKey, pluginType, data) => {
         return this.editor.commands.updateNodeById(blockKey, data);
@@ -248,7 +251,6 @@ export class RichContentAdapter implements TiptapAPI {
     saveSelectionState: () => {},
     loadSelectionState: () => {},
     triggerDecoration: () => {},
-    deleteBlock: () => {},
     undo: () => {},
     redo: () => {},
     setBlockType: () => {},
