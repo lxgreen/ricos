@@ -42,6 +42,7 @@ interface ModalButtonProps {
   onDone?: (any) => void;
   isMobile?: boolean;
   dropDownProps: dropDownPropsType;
+  editorContainer: HTMLElement;
 }
 
 interface State {
@@ -76,12 +77,9 @@ class ModalButton extends Component<ModalButtonProps, State> {
   };
 
   handleOverflow = () => {
-    const { isMobile } = this.props;
-    const rootEditorElement = this.modalRef
-      ?.closest('[data-hook=ricos-editor-toolbars]')
-      ?.parentElement?.querySelector('[data-hook=root-editor]') as HTMLElement;
-    if (this.modalRef && rootEditorElement) {
-      const modalOverflowWithEditor = elementOverflowWithEditor(this.modalRef, rootEditorElement);
+    const { isMobile, editorContainer } = this.props;
+    if (this.modalRef) {
+      const modalOverflowWithEditor = elementOverflowWithEditor(this.modalRef, editorContainer);
       const isModalWidthOverflow = !!modalOverflowWithEditor.overflowRight;
       const isModalOverflowByHeight = !!modalOverflowWithEditor.overflowBottom;
       const overflowWidthBy = isModalWidthOverflow ? modalOverflowWithEditor.overflowRight : false;
@@ -116,9 +114,9 @@ class ModalButton extends Component<ModalButtonProps, State> {
         dropDownProps: { loadSelection },
       } = this.props;
       setKeepOpen?.(false);
-      !clickFromKeyboard && loadSelectionOnClose && loadSelection?.();
+      loadSelectionOnClose && loadSelection?.();
       clickFromKeyboard && setTimeout(() => this.state.lastFocusedButton?.focus());
-      this.setState({ isModalOpen: false });
+      this.setState({ isModalOpen: false, isModalOverflowByHeight: false, overflowWidthBy: false });
     }
   };
 

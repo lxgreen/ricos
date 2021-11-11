@@ -30,6 +30,7 @@ import {
   getColor,
   setHighlightColor,
   setTextColor,
+  isAtomicBlockInSelection,
 } from 'wix-rich-content-editor-common';
 import {
   EditorCommands,
@@ -236,6 +237,7 @@ export const createEditorCommands = (
     loadEditorState: EditorCommands['loadEditorState'];
     saveSelectionState: EditorCommands['saveSelectionState'];
     loadSelectionState: EditorCommands['loadSelectionState'];
+    isAtomicBlockInSelection: EditorCommands['isAtomicBlockInSelection'];
   } = {
     getSelection: () => {
       const selection = getEditorState().getSelection();
@@ -273,6 +275,7 @@ export const createEditorCommands = (
         (pluginName: string) => pluginName && !PluginsToExclude.includes[pluginName]
       );
     },
+    isAtomicBlockInSelection: () => isAtomicBlockInSelection(getEditorState()),
   };
 
   const textFormattingCommands: {

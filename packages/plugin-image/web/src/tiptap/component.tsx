@@ -11,13 +11,6 @@ export const Image: React.FC<PluginProps> = ({
   updateAttributes,
 }) => {
   const { isMobile, theme, t, config = {} } = context;
-  const store = {
-    update: (propery, data) => {
-      // update caption
-      updateAttributes({ caption: data.config.caption });
-    },
-    setBlockHandler: () => null,
-  };
   const helpers = {};
   const settings = config[IMAGE_TYPE] || {};
   const blockProps = {

@@ -60,84 +60,84 @@ describe('extract', () => {
   it('should run getMedia on all plugins', () => {
     expect(getMedia(content)).toStrictEqual([
       {
-        height: 5577,
         src: {
+          url: undefined,
           custom: undefined,
           id: '8bb438_ff1da0eb6547419fbac324f3a7e6a16c.jpg',
           private: undefined,
-          url: undefined,
         },
         width: 3718,
+        height: 5577,
       },
       {
-        height: undefined,
         src: {
-          custom: undefined,
-          id: 'video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4',
-          private: undefined,
           url: undefined,
-        },
-        width: undefined,
-      },
-      {
-        height: 3737,
-        src: {
-          custom: undefined,
-          id: undefined,
-          private: undefined,
-          url: '8bb438_2ecb6a1a9d5b4e148bd83a1ea3920860.jpg',
-        },
-        width: 5600,
-      },
-      {
-        height: 1081,
-        src: {
-          custom: undefined,
-          id: undefined,
-          private: undefined,
-          url: '8bb438_131e9bbd900c42a29ed2db01d18256e5.jpg',
-        },
-        width: 1621,
-      },
-      {
-        height: 3727,
-        src: {
-          custom: undefined,
-          id: undefined,
-          private: undefined,
-          url: '8bb438_a132b18dea524d48a68a37f0075fcc1e.jpg',
-        },
-        width: 5600,
-      },
-      {
-        height: 3727,
-        src: {
           custom: undefined,
           id: '8bb438_8583414cdf6544a191e2b8f678ce7b63.jpg',
           private: undefined,
-          url: undefined,
         },
         width: 5600,
+        height: 3727,
       },
       {
-        height: undefined,
         src: {
-          custom: undefined,
-          id: undefined,
-          private: undefined,
-          url: 'https://www.youtube.com/watch?v=iecNmOXDOHM',
-        },
-        width: undefined,
-      },
-      {
-        height: undefined,
-        src: {
+          url: undefined,
           custom: undefined,
           id: 'video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4',
           private: undefined,
-          url: undefined,
         },
         width: undefined,
+        height: undefined,
+      },
+      {
+        src: {
+          url: 'https://www.youtube.com/watch?v=iecNmOXDOHM',
+          custom: undefined,
+          id: undefined,
+          private: undefined,
+        },
+        width: undefined,
+        height: undefined,
+      },
+      {
+        src: {
+          url: undefined,
+          custom: undefined,
+          id: 'video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4',
+          private: undefined,
+        },
+        width: undefined,
+        height: undefined,
+      },
+      {
+        src: {
+          url: '8bb438_2ecb6a1a9d5b4e148bd83a1ea3920860.jpg',
+          custom: undefined,
+          id: undefined,
+          private: undefined,
+        },
+        width: 5600,
+        height: 3737,
+      },
+      {
+        src: {
+          url: '8bb438_131e9bbd900c42a29ed2db01d18256e5.jpg',
+          custom: undefined,
+          id: undefined,
+          private: undefined,
+        },
+        width: 1621,
+        height: 1081,
+      },
+      {
+        src: {
+          url: '8bb438_a132b18dea524d48a68a37f0075fcc1e.jpg',
+          custom: undefined,
+          id: undefined,
+          private: undefined,
+        },
+        width: 5600,
+        height: 3727,
       },
     ]);
   });

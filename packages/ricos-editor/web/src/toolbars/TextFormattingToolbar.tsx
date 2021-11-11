@@ -41,11 +41,29 @@ interface TextFormattingToolbarProps {
     pluginId?: string
   ) => void;
   experiments?: AvailableExperiments;
+  editorContainer: HTMLElement;
 }
 
 export type TextFormattingToolbarType = typeof TextFormattingToolbar;
 
-class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
+interface State {
+  keyForRerender: boolean;
+}
+
+class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State> {
+  constructor(props) {
+    super(props);
+    this.state = { keyForRerender: true };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.activeEditor !== prevProps.activeEditor) {
+      const { keyForRerender } = this.state;
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ keyForRerender: !keyForRerender });
+    }
+  }
+
   updateToolbar = () => {
     this.forceUpdate();
   };
@@ -59,6 +77,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
       toolbarSettings = {},
       locale,
       experiments,
+      editorContainer,
     } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
@@ -125,6 +144,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
         onToolbarButtonClick={onToolbarButtonClick}
         experiments={experiments}
         defaultLineSpacing={defaultLineSpacing}
+        editorContainer={editorContainer}
       />
     );
     const ToolbarContainer =
@@ -145,7 +165,15 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
     const textToolbarContainer = this.props.toolbarSettings?.textToolbarContainer;
     if (textToolbarContainer) {
       //render static toolbar inside provided container
-      const staticToolbar = <div dir={getLangDir(locale)}>{ToolbarWithContainerToRender}</div>;
+      const staticToolbar = (
+        <div
+          key={`${this.state.keyForRerender}`}
+          data-hook={'provided-container-toolbar'}
+          dir={getLangDir(locale)}
+        >
+          {ToolbarWithContainerToRender}
+        </div>
+      );
       return ReactDOM.createPortal(staticToolbar, textToolbarContainer);
     } else {
       return !hideFormattingToolbar ? ToolbarWithContainerToRender : null;

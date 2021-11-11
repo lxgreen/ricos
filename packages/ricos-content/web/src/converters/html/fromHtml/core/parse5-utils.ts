@@ -31,6 +31,12 @@ export const isComment = (node: Node): node is CommentNode => node.nodeName === 
 export const isLeaf = (node: Node): boolean =>
   isText(node) || isComment(node) || (node as Element).childNodes.length === 0;
 
+export const isWhitespace = flow(
+  (n: TextNode) => O.fromNullable(n.value),
+  O.map(S.trim),
+  O.fold(() => false, equals(S.Eq)(''))
+);
+
 export const hasDescendant = (predicate: (child: Node) => boolean) => (node: Node): boolean =>
   predicate(node) ||
   (!isLeaf(node) &&
@@ -62,6 +68,9 @@ export const setParent = (parent: ContentNode) => (child: ContentNode) => ({
   ...child,
   parentNode: parent,
 });
+
+export const isRoot = (node: Node): node is DocumentFragment =>
+  node.nodeName === '#document-fragment';
 
 export const toDocumentFragment = (nodes: ChildNode[]): DocumentFragment => {
   const fragment: DocumentFragment = {

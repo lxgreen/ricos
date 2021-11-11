@@ -20,7 +20,6 @@ import {
   RICOS_TEXT_COLOR_TYPE,
   RICOS_TEXT_HIGHLIGHT_TYPE,
 } from 'wix-rich-content-common';
-import { toTiptap } from '../../converters';
 import { Editor } from '@tiptap/core';
 import {
   generateId,
@@ -123,7 +122,7 @@ export class RichContentAdapter implements TiptapAPI {
       },
       findNodeByKey() {},
       setBlock: (blockKey, pluginType, data) => {
-        return this.editor.commands.updateNodeAttrsById(blockKey, data);
+        return this.editor.commands.updateNodeById(blockKey, data);
       },
       getSelection: () => ({
         getIsFocused: this.editor.isFocused,
@@ -259,5 +258,6 @@ export class RichContentAdapter implements TiptapAPI {
     setBlockType: () => {},
     setTextAlignment: () => {},
     _setSelection: () => {},
+    isAtomicBlockInSelection: () => false,
   };
 }

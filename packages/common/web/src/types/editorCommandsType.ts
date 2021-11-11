@@ -172,4 +172,5 @@ export interface EditorCommands {
   addImage?: (files: File[]) => void;
   addGallery?: (files: File[]) => void;
   addFile?: (files: File[]) => void;
+  isAtomicBlockInSelection: () => boolean;
 }
