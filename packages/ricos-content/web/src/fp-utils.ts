@@ -3,6 +3,7 @@ import * as E from 'fp-ts/Either';
 import { Eq } from 'fp-ts/Eq';
 import { identity, pipe } from 'fp-ts/function';
 import { concatAll, Monoid } from 'fp-ts/Monoid';
+import { MonoidAll, MonoidAny } from 'fp-ts/boolean';
 import * as O from 'fp-ts/Option';
 import * as S from 'fp-ts/Semigroup';
 
@@ -51,6 +52,9 @@ export const equals = <T>(E: Eq<T>) => (lhs: T) => (rhs: T) => E.equals(lhs, rhs
 
 export const concatApply = <T, D>(m: Monoid<T>) => (fns: ((data: D) => T)[]) => (data: D) =>
   pipe(fns, A.ap(A.of(data)), concatAll(m));
+
+export const and = concatApply(MonoidAll);
+export const or = concatApply(MonoidAny);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const tap = <F extends (data: D) => any, D>(f: F) => (data: D): D => {

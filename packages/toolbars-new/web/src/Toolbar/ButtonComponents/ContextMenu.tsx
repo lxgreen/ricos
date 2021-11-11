@@ -16,6 +16,7 @@ interface ContextMenuProps {
   getIcon: () => any;
   theme: RichContentTheme;
   buttonList: any[];
+  editorContainer: HTMLElement;
 }
 
 interface State {
@@ -43,11 +44,11 @@ class ContextMenu extends PureComponent<ContextMenuProps, State> {
 
   toggleOptions = () => {
     this.setState({ isOpen: !this.state.isOpen }, () => {
-      const rootEditorElement = this.modalRef
-        ?.closest('[data-hook=ricos-editor-toolbars]')
-        ?.parentElement?.querySelector('[data-hook=root-editor]') as HTMLElement;
-      if (this.state.isOpen && this.modalRef && rootEditorElement) {
-        const modalOverflowWithEditor = elementOverflowWithEditor(this.modalRef, rootEditorElement);
+      if (this.state.isOpen && this.modalRef) {
+        const modalOverflowWithEditor = elementOverflowWithEditor(
+          this.modalRef,
+          this.props.editorContainer
+        );
         const isModalOverflow = !!modalOverflowWithEditor.overflowRight;
         this.setState({ position: isModalOverflow ? { right: 0 } : { left: 0 } });
       } else {

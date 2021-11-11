@@ -298,6 +298,8 @@ const handleButtonIsDisabled = (buttonsList, index, editorCommands: editorComman
     buttonsList[index].isDisabled = () => editorCommands.isUndoStackEmpty();
   } else if (buttonName === 'REDO') {
     buttonsList[index].isDisabled = () => editorCommands.isRedoStackEmpty();
+  } else if (buttonName === 'LINK') {
+    buttonsList[index].isDisabled = () => editorCommands.isAtomicBlockInSelection();
   } else {
     buttonsList[index].isDisabled = () => false;
   }

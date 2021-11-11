@@ -21,6 +21,7 @@ type dropDownPropsType = {
 interface NestedMenuProps {
   theme?: RichContentTheme;
   dropDownProps: dropDownPropsType;
+  editorContainer: HTMLElement;
 }
 
 interface State {
@@ -79,7 +80,7 @@ class NestedMenu extends Component<NestedMenuProps, State> {
   };
 
   render() {
-    const { dropDownProps, theme } = this.props;
+    const { dropDownProps, theme, editorContainer } = this.props;
     const { tooltip, dataHook, getIcon, isMobile, t, buttonList } = dropDownProps;
     const { isModalOpen } = this.state;
     return (
@@ -109,6 +110,7 @@ class NestedMenu extends Component<NestedMenuProps, State> {
                 nestedMenu
                 // vertical
                 // afterClick={this.toggleModal}
+                editorContainer={editorContainer}
               />
             </div>
           )}

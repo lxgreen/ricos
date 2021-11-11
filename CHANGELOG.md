@@ -17,22 +17,27 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `example`
+  - [#3076](https://github.com/wix/ricos/pull/3076) new toolbar - default in example + add dedicated button in settings
+
+### :bug: Bug Fix
+
+- `toolbar-new`
+  - [#3075](https://github.com/wix/ricos/pull/3075) disable link when atomic block is selected
+- `table`
+  - [#3091](https://github.com/wix/ricos/pull/3091) clean unwanted separators from toolbar
+- `ricos-content`
+  - [#3092](https://github.com/wix/ricos/pull/3092) ckeditor parser: text-in-root rule
+  - [#3095](https://github.com/wix/ricos/pull/3095) EXTERNAL type mapped to plugin data
+- `editor-common`
+  - [#3094](https://github.com/wix/ricos/pull/3094) anchor in new toolbar on mobile
+
 </details>
 <hr/>
 
-## 8.59.0 (Nov 8, 2021)
-
-### :house: Internal
-
-- `toolbars-new`
-  - [#3073](https://github.com/wix/ricos/pull/3073) update and add datahooks to the new-toolbar testing
-- `tiptap`
-  - [#3080](https://github.com/wix/ricos/pull/3080) add insertNode, updateNodeById, and setNode core commands
-
-### :nail_care: Polish
-
-- `polls`
-  - [#3026](https://github.com/wix/ricos/pull/3026) refactor settings mobile header / add polls to plugin menu
+## 8.59.0 (Nov 9, 2021)
 
 ### :rocket: New Feature
 
@@ -46,15 +51,20 @@
 
 - `toolbar-new`
   - [#3066](https://github.com/wix/ricos/pull/3066) fix color-picker modal style for mobile devices
+  - [#3078](https://github.com/wix/ricos/pull/3078) refactor toolbar modals position and width
 - `toolbars`
   - [#3063](https://github.com/wix/ricos/pull/3063) ui changes in static text toolbars (old/new toolbar)
-  - `toolbar-new`
-  - [#3078](https://github.com/wix/ricos/pull/3078) refactor toolbar modals position and width
+- `ricos-content`
+  - [#3083](https://github.com/wix/ricos/pull/3083) Fix fromHtml parser rules
 
 ### :house: Internal
 
 - `ricos-content`
   - [#3071](https://github.com/wix/ricos/pull/3071) Content API: generic modifier and extractor
+- `toolbars-new`
+  - [#3073](https://github.com/wix/ricos/pull/3073) update and add datahooks to the new-toolbar testing
+- `tiptap`
+  - [#3080](https://github.com/wix/ricos/pull/3080) add insertNode, updateNodeById, and setNode core commands
 
 ### :nail_care: Polish
 

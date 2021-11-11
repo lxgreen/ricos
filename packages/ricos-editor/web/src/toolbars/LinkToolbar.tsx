@@ -27,6 +27,7 @@ interface LinkToolbarProps {
   onInlineToolbarOpen?: (toolbarType: ToolbarType) => void;
   onToolbarButtonClick?: (name: string, toolbarType: ToolbarType, value?: boolean | string) => void;
   experiments?: AvailableExperiments;
+  editorContainer: HTMLElement;
 }
 
 interface State {}
@@ -37,7 +38,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
   };
 
   render() {
-    const { activeEditor, isMobile, theme, experiments } = this.props;
+    const { activeEditor, isMobile, theme, experiments, editorContainer } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
     const showLinkToolbar =
@@ -66,6 +67,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
         linkPanelData={linkPanelData}
         // onToolbarButtonClick={onToolbarButtonClick}
         experiments={experiments}
+        editorContainer={editorContainer}
       />
     );
     const ToolbarContainer = isMobile ? StaticToolbarContainer : FloatingToolbarContainer;
