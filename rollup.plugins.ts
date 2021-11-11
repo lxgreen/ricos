@@ -257,7 +257,8 @@ function addStylesImport() {
       if (existsSync(cssMobilePath)) {
         writeContent('dist/mobileNativeLoader.js', getExtractedCssEsFile(cssMobilePath));
       }
-      (isExistEditorStyles || isExistViewerStyles) && writeFileSync('dist/styles.min.css', '');
+      // deprecated: create empty styles files for non breaking changes
+      writeFileSync('dist/styles.min.css', '');
     },
   };
 }
