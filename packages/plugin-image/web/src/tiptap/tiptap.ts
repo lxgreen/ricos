@@ -75,7 +75,7 @@ export const createRicosExtensions: CreateRicosExtensions = ({
         return {
           addImage: files => ({ editor }) => {
             const onSuccess = (data, id) => {
-              editor.commands.updateNodeAttrsById(id, {
+              editor.commands.updateNodeById(id, {
                 image: {
                   src: { id: data.file_name },
                   width: data.width,

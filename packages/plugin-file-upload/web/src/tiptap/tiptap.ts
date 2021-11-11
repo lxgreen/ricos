@@ -40,7 +40,7 @@ export const createRicosExtensions: CreateRicosExtensions = ({
           addFile: files => ({ editor }) => {
             const id = generateId();
             const onSuccess = ({ name, type, url, size }) => {
-              editor.commands.updateNodeAttrsById(id, {
+              editor.commands.updateNodeById(id, {
                 ...fileDataDefaults,
                 src: { url },
                 loading: false,

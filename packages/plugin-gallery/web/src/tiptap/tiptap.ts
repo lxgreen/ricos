@@ -70,7 +70,7 @@ export const createRicosExtensions: CreateRicosExtensions = ({
                 },
               });
               if (index === files.length - 1) {
-                editor.commands.updateNodeAttrsById(id, {
+                editor.commands.updateNodeById(id, {
                   ...galleryDefault,
                   items,
                   loading: false,
