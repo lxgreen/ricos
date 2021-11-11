@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { RichContentEditor } from 'wix-rich-content-editor';
 import {
-  RichContentTheme,
   EditorCommands,
   TextButtons,
   EditorPlugin,
@@ -12,7 +11,7 @@ import {
   AvailableExperiments,
   getLangDir,
 } from 'wix-rich-content-common';
-import { LinkSettings, ToolbarSettings } from 'ricos-common';
+import { LinkSettings, ToolbarSettings, RicosCssOverride, RicosTheme } from 'ricos-common';
 import { isiOS } from 'wix-rich-content-editor-common';
 import {
   FloatingToolbarContainer,
@@ -27,7 +26,7 @@ interface TextFormattingToolbarProps {
   activeEditor: RichContentEditor;
   textToolbarType?: string | null;
   isMobile?: boolean;
-  theme?: RichContentTheme;
+  theme?: RicosTheme;
   toolbarSettings?: ToolbarSettings;
   locale?: string;
   plugins?: EditorPlugin[];
@@ -42,6 +41,7 @@ interface TextFormattingToolbarProps {
   ) => void;
   experiments?: AvailableExperiments;
   editorContainer: HTMLElement;
+  cssOverride?: RicosCssOverride;
 }
 
 export type TextFormattingToolbarType = typeof TextFormattingToolbar;
@@ -78,6 +78,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
       locale,
       experiments,
       editorContainer,
+      cssOverride,
     } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
@@ -145,6 +146,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
         experiments={experiments}
         defaultLineSpacing={defaultLineSpacing}
         editorContainer={editorContainer}
+        cssOverride={cssOverride}
       />
     );
     const ToolbarContainer =

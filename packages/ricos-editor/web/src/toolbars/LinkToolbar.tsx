@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { RichContentEditor } from 'wix-rich-content-editor';
 import {
-  RichContentTheme,
   EditorCommands,
   EditorPlugin,
   LinkPanelSettings,
   ToolbarType,
   AvailableExperiments,
 } from 'wix-rich-content-common';
-import { LinkSettings } from 'ricos-common';
+import { LinkSettings, RicosCssOverride, RicosTheme } from 'ricos-common';
 import {
   FloatingToolbarContainer,
   RicosToolbar,
@@ -20,7 +19,7 @@ interface LinkToolbarProps {
   activeEditor: RichContentEditor;
   textToolbarType?: string | null;
   isMobile?: boolean;
-  theme?: RichContentTheme;
+  theme?: RicosTheme;
   plugins?: EditorPlugin[];
   linkPanelSettings?: LinkPanelSettings;
   linkSettings?: LinkSettings;
@@ -28,6 +27,7 @@ interface LinkToolbarProps {
   onToolbarButtonClick?: (name: string, toolbarType: ToolbarType, value?: boolean | string) => void;
   experiments?: AvailableExperiments;
   editorContainer: HTMLElement;
+  cssOverride?: RicosCssOverride;
 }
 
 interface State {}
@@ -38,7 +38,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
   };
 
   render() {
-    const { activeEditor, isMobile, theme, experiments, editorContainer } = this.props;
+    const { activeEditor, isMobile, theme, experiments, editorContainer, cssOverride } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
     const showLinkToolbar =
@@ -68,6 +68,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
         // onToolbarButtonClick={onToolbarButtonClick}
         experiments={experiments}
         editorContainer={editorContainer}
+        cssOverride={cssOverride}
       />
     );
     const ToolbarContainer = isMobile ? StaticToolbarContainer : FloatingToolbarContainer;
