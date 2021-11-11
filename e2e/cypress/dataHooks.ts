@@ -24,6 +24,7 @@ export const INLINE_TOOLBAR_BUTTONS = {
 export const FLOATING_TOOLBAR = {
   TOOLBAR: 'floating-toolbar',
   TOOLBAR_MODAL: 'toolbars-modal-desktopPanel',
+  TOOLBAR_MOBILE_MODAL_CLOSE_ICON: 'toolbar-modal-close-icon',
   COLOR_PICKER_MODAL: 'color-picker-modal',
 };
 

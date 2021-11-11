@@ -252,9 +252,7 @@ describe('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
-  // eslint-disable-next-line mocha/no-skipped-tests
-  it.skip('should not allow applying link to atomic blocks in selection', function() {
-    //! BUG Should be Resolved
+  it('should not allow applying link to atomic blocks in selection', function() {
     cy.loadRicosEditorAndViewer('content-with-video', useNewToolbar);
     cy.waitForVideoToLoad();
     cy.setEditorSelection(0, 5);
@@ -347,7 +345,7 @@ describe('text', () => {
   });
 });
 
-describe('text color mobile', () => {
+describe('text - mobile', () => {
   before(function() {
     cy.eyesOpen({
       appName: 'Text',
@@ -361,5 +359,17 @@ describe('text color mobile', () => {
 
   it('allow to change text color on mobile', function() {
     changeTextColor(this.test.title);
+  });
+
+  it('should render toolbar modals on mobile', () => {
+    cy.loadRicosEditorAndViewer('plain', {
+      ...useNewToolbar,
+    });
+    cy.setTextStyle(INLINE_TOOLBAR_BUTTONS.ALIGNMENT, [20, 30]);
+    cy.eyesCheckWindow('alignment modal');
+    cy.get(`[data-hook=${FLOATING_TOOLBAR.TOOLBAR_MOBILE_MODAL_CLOSE_ICON}]`).click();
+    cy.setTextStyle(INLINE_TOOLBAR_BUTTONS.LINE_SPACING, [20, 30]);
+    cy.get(`[data-hook=${FLOATING_TOOLBAR.TOOLBAR_MOBILE_MODAL_CLOSE_ICON}]`).click();
+    cy.eyesCheckWindow('lineSpacing modal');
   });
 });
