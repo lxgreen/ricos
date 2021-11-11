@@ -40,7 +40,7 @@ interface TextFormattingToolbarProps {
     pluginId?: string
   ) => void;
   experiments?: AvailableExperiments;
-  editorContainer: HTMLElement;
+  getEditorContainer: () => Element;
   cssOverride?: RicosCssOverride;
 }
 
@@ -77,7 +77,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
       toolbarSettings = {},
       locale,
       experiments,
-      editorContainer,
+      getEditorContainer,
       cssOverride,
     } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
@@ -145,7 +145,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
         onToolbarButtonClick={onToolbarButtonClick}
         experiments={experiments}
         defaultLineSpacing={defaultLineSpacing}
-        editorContainer={editorContainer}
+        getEditorContainer={getEditorContainer}
         cssOverride={cssOverride}
       />
     );

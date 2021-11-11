@@ -74,6 +74,10 @@ export class RichContentAdapter implements TiptapAPI {
     this.plugins = plugins;
   }
 
+  getContainer = () => {
+    return this.editor?.options?.element;
+  };
+
   focus() {
     this.editor.commands.focus();
   }

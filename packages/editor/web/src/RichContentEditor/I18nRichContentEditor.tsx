@@ -21,7 +21,7 @@ export default class I18nRichContentEditor extends Component<Partial<RichContent
 
   getT = () => this.editor.getT();
 
-  getEditorContainer = () => this.editor.getEditorContainer();
+  getContainer = () => this.editor.getContainer();
 
   getPlugins = () => this.editor.getPlugins();
 
