@@ -33,11 +33,14 @@
 
 - `example`
   - [#3076](https://github.com/wix/ricos/pull/3076) new toolbar - default in example + add dedicated button in settings
+- `toolbars-new`
+  - [#3099](https://github.com/wix/ricos/pull/3099) added datahooks
 
 ### :nail_care: Polish
 
 - `toolbars-new`
   - [#3097](https://github.com/wix/ricos/pull/3097) refactor new toolbar modals position
+
 
 </details>
 <hr/>
