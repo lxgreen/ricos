@@ -17,11 +17,6 @@
     Click to see more.
   </summary>
 
-### :house: Internal
-
-- `example`
-  - [#3076](https://github.com/wix/ricos/pull/3076) new toolbar - default in example + add dedicated button in settings
-
 ### :bug: Bug Fix
 
 - `toolbar-new`
@@ -33,6 +28,16 @@
   - [#3095](https://github.com/wix/ricos/pull/3095) EXTERNAL type mapped to plugin data
 - `editor-common`
   - [#3094](https://github.com/wix/ricos/pull/3094) anchor in new toolbar on mobile
+
+### :house: Internal
+
+- `example`
+  - [#3076](https://github.com/wix/ricos/pull/3076) new toolbar - default in example + add dedicated button in settings
+
+### :nail_care: Polish
+
+- `toolbars-new`
+  - [#3097](https://github.com/wix/ricos/pull/3097) refactor new toolbar modals position
 
 </details>
 <hr/>
