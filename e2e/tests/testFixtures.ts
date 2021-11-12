@@ -5,6 +5,7 @@ const testFixture = (fixture: Fixture) => {
   const { fixture: fixtureName, config, additionalCommands } = fixtureConfig;
   it(`render ${fixtureName}`, function() {
     cy.loadRicosEditorAndViewer(fixtureName, config);
+    cy.focusEditor().wait(200);
     if (additionalCommands) {
       additionalCommands(cy);
     }

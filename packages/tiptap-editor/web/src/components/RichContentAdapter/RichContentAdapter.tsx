@@ -74,6 +74,10 @@ export class RichContentAdapter implements TiptapAPI {
     this.plugins = plugins;
   }
 
+  getContainer = () => {
+    return this.editor?.options?.element;
+  };
+
   focus() {
     this.editor.commands.focus();
   }
@@ -118,6 +122,9 @@ export class RichContentAdapter implements TiptapAPI {
           console.error(`No such plugin type ${pluginType}`);
         }
         return id;
+      },
+      deleteBlock: blockKey => {
+        return this.editor.commands.deleteNode(blockKey);
       },
       findNodeByKey() {},
       setBlock: (blockKey, pluginType, data) => {
@@ -248,7 +255,6 @@ export class RichContentAdapter implements TiptapAPI {
     saveSelectionState: () => {},
     loadSelectionState: () => {},
     triggerDecoration: () => {},
-    deleteBlock: () => {},
     undo: () => {},
     redo: () => {},
     setBlockType: () => {},

@@ -33,7 +33,7 @@ interface ToolbarProps {
   nestedMenu?: boolean;
   theme?: RichContentTheme;
   onToolbarButtonClick?: any;
-  editorContainer: HTMLElement;
+  getEditorContainer: () => Element;
 }
 
 interface State {
@@ -139,8 +139,8 @@ class Toolbar extends Component<ToolbarProps, State> {
   };
 
   toolbarOverflowWithEditorWidth = () => {
-    const { editorContainer } = this.props;
-    return editorContainer?.clientWidth - this.toolbarRef?.clientWidth;
+    const { getEditorContainer } = this.props;
+    return getEditorContainer?.().clientWidth - this.toolbarRef?.clientWidth;
   };
 
   renderButton = buttonProps => {
@@ -260,7 +260,7 @@ class Toolbar extends Component<ToolbarProps, State> {
   };
 
   renderModal = buttonProps => {
-    const { theme, isMobile, tabIndex, t, setKeepOpen, editorContainer } = this.props;
+    const { theme, isMobile, tabIndex, t, setKeepOpen, getEditorContainer } = this.props;
     const dropDownProps = {
       tabIndex,
       isMobile,
@@ -280,7 +280,7 @@ class Toolbar extends Component<ToolbarProps, State> {
         onToolbarButtonClick={value =>
           this.props.onToolbarButtonClick?.(buttonProps.name, value, buttonProps.plugin)
         }
-        editorContainer={editorContainer}
+        getEditorContainer={getEditorContainer}
       />
     );
   };
@@ -301,7 +301,7 @@ class Toolbar extends Component<ToolbarProps, State> {
   };
 
   renderNestedMenu = buttonProps => {
-    const { isMobile, tabIndex, t, theme, editorContainer } = this.props;
+    const { isMobile, tabIndex, t, theme, getEditorContainer } = this.props;
     const dropDownProps = {
       tabIndex,
       isMobile,
@@ -309,12 +309,16 @@ class Toolbar extends Component<ToolbarProps, State> {
       ...buttonProps,
     };
     return (
-      <NestedMenu dropDownProps={dropDownProps} theme={theme} editorContainer={editorContainer} />
+      <NestedMenu
+        dropDownProps={dropDownProps}
+        theme={theme}
+        getEditorContainer={getEditorContainer}
+      />
     );
   };
 
   renderContextMenu = buttonProps => {
-    const { isMobile, tabIndex, t, editorContainer } = this.props;
+    const { isMobile, tabIndex, t, getEditorContainer } = this.props;
     const dropDownProps = {
       tabIndex,
       isMobile,
@@ -322,7 +326,7 @@ class Toolbar extends Component<ToolbarProps, State> {
       theme: this.theme,
       ...buttonProps,
     };
-    return <ContextMenu {...dropDownProps} editorContainer={editorContainer} />;
+    return <ContextMenu {...dropDownProps} getEditorContainer={getEditorContainer} />;
   };
 
   buttonMap = {

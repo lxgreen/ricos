@@ -174,7 +174,11 @@ const COMMANDS = {
       .click();
   },
 
-  focusEditor: () => cy.getEditor().focus(),
+  focusEditor: () =>
+    cy
+      .getEditor()
+      .first()
+      .focus(),
 
   moveCursorToStart: () => {
     cy.focusEditor().type('{selectall}{uparrow}');
