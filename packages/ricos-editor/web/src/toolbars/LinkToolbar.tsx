@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component } from 'react';
 import { RichContentEditor } from 'wix-rich-content-editor';
 import {
@@ -26,7 +27,7 @@ interface LinkToolbarProps {
   onInlineToolbarOpen?: (toolbarType: ToolbarType) => void;
   onToolbarButtonClick?: (name: string, toolbarType: ToolbarType, value?: boolean | string) => void;
   experiments?: AvailableExperiments;
-  editorContainer: HTMLElement;
+  getEditorContainer: () => Element;
   cssOverride?: RicosCssOverride;
 }
 
@@ -38,7 +39,14 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
   };
 
   render() {
-    const { activeEditor, isMobile, theme, experiments, editorContainer, cssOverride } = this.props;
+    const {
+      activeEditor,
+      isMobile,
+      theme,
+      experiments,
+      getEditorContainer,
+      cssOverride,
+    } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
     const showLinkToolbar =
@@ -67,7 +75,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
         linkPanelData={linkPanelData}
         // onToolbarButtonClick={onToolbarButtonClick}
         experiments={experiments}
-        editorContainer={editorContainer}
+        getEditorContainer={getEditorContainer}
         cssOverride={cssOverride}
       />
     );

@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.59.1 (Nov 10, 2021)\
+
 ### :bug: Bug Fix
 
 - `toolbar-new`
@@ -40,10 +45,6 @@
 
 - `toolbars-new`
   - [#3097](https://github.com/wix/ricos/pull/3097) refactor new toolbar modals position
-
-
-</details>
-<hr/>
 
 ## 8.59.0 (Nov 9, 2021)
 

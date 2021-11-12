@@ -401,7 +401,7 @@
   "GallerySettings_Expand_Mode_Toggle": "Clicar nas imagens irá expandi-las.",
   "MapSettings_MapOption_Show_Street_View_Label": "Mostrar visualização da rua",
   "AlignTextDropdownButton_Tooltip": "Alinhamento",
-  "LinkPanel_Nofollow_Checkbox": "Diga ao Google para ignorar esse link (nofollow)",
+  "LinkPanel_Nofollow_Checkbox": "Diga ao Google para ignorar esse link",
   "ImageSettings_Link_RedirectToToolbar": "Para atualizar o link da imagem, vá para a barra de ferramentas da imagem e abra as configurações do link.",
   "GallerySettings_Radios_Thumbnail_Resize_Tooltip": "Escolha 'Recortar' para selecionar o que seus visitantes podem ver, ou escolha 'Ajustar' para usar a foto inteira como miniatura.",
   "GallerySettings_Select_All": "Selecionar tudo",

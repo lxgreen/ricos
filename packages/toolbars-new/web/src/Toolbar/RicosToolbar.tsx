@@ -70,7 +70,7 @@ interface RicosToolbarProps {
     removeEntity,
     componentData
   ) => void;
-  editorContainer: HTMLElement;
+  getEditorContainer: () => Element;
   cssOverride?: RicosCssOverride;
 }
 
@@ -121,7 +121,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       experiments,
       defaultLineSpacing,
       handleFileUpload,
-      editorContainer,
+      getEditorContainer,
       cssOverride,
     } = this.props;
     const updatedButtons = createButtonsList(
@@ -151,7 +151,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
         afterClick={afterClick}
         nestedMenu={nestedMenu}
         onToolbarButtonClick={this.props.onToolbarButtonClick}
-        editorContainer={editorContainer}
+        getEditorContainer={getEditorContainer}
       />
     );
   }

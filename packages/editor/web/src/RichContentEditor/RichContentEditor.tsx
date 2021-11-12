@@ -907,7 +907,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     return t;
   };
 
-  getEditorContainer = () => {
+  getContainer = () => {
     return this.editorWrapper;
   };
 

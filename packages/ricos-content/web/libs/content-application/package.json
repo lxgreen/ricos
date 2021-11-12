@@ -1,5 +1,5 @@
 {
-    "main": "../../dist/lib/contentApplicationAPI.cjs.js",
-    "module": "../../dist/lib/contentApplicationAPI.js",
-    "types": "../../dist/lib/contentApplicationAPI.d.ts"
+    "main": "../../dist/lib/content-application.cjs.js",
+    "module": "../../dist/lib/content-application.js",
+    "types": "../../dist/lib/content-application.d.ts"
 }
