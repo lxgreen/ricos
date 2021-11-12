@@ -1,5 +1,4 @@
 import { pipe, flow } from 'fp-ts/function';
-import { MonoidAll } from 'fp-ts/boolean';
 import * as O from 'fp-ts/Option';
 import * as R from 'fp-ts/Record';
 
@@ -21,7 +20,7 @@ import {
   hasTag,
   oneOf,
 } from './parse5-utils';
-import { concatApply } from '../../../../fp-utils';
+import { and } from '../../../../fp-utils';
 import { Context, Rule } from './models';
 import {
   createTextNode,
@@ -53,7 +52,7 @@ export const hToHeading: Rule = [
 ];
 
 export const aToLink: Rule = [
-  concatApply(MonoidAll)([hasTag('a'), flow(getAttributes, ({ href }) => !href?.startsWith('#'))]),
+  and([hasTag('a'), flow(getAttributes, ({ href }) => !href?.startsWith('#'))]),
   context => (node: Element) => {
     const attrs = getAttributes(node);
     return context.addDecoration(
@@ -65,10 +64,7 @@ export const aToLink: Rule = [
 ];
 
 export const aToAnchor: Rule = [
-  concatApply(MonoidAll)([
-    hasTag('a'),
-    flow(getAttributes, ({ href }) => !!href && href.startsWith('#')),
-  ]),
+  and([hasTag('a'), flow(getAttributes, ({ href }) => !!href && href.startsWith('#'))]),
   context => (node: Element) => {
     const attrs = getAttributes(node);
     return context.addDecoration(
@@ -120,7 +116,7 @@ const toColorDecoration = (ctx: Context, el: Element) => (colorData: ColorData) 
   ctx.addDecoration(Decoration_Type.COLOR, { colorData }, el);
 
 export const colorStyleToTextColor: Rule = [
-  concatApply(MonoidAll)([hasTag('span'), hasStyleFor('color')]),
+  and([hasTag('span'), hasStyleFor('color')]),
   context => (el: Element) =>
     pipe(
       el,
@@ -133,10 +129,7 @@ export const colorStyleToTextColor: Rule = [
 
 // NOTE: Mention's HTML representation is not interactive. Might be fixed in the future
 export const spanToMention: Rule = [
-  concatApply(MonoidAll)([
-    hasTag('span'),
-    flow(getAttributes, attrs => !!attrs['data-mention-name']),
-  ]),
+  and([hasTag('span'), flow(getAttributes, attrs => !!attrs['data-mention-name'])]),
   context => (node: Element) => {
     const { 'data-mention-name': name, 'data-mention-slug': slug } = getAttributes(node);
     return context.addDecoration(Decoration_Type.MENTION, { mentionData: { name, slug } }, node);
@@ -145,12 +138,12 @@ export const spanToMention: Rule = [
 
 // NOTE: Spoiler's HTML representation is not interactive. Might be fixed in the future
 export const spanToSpoiler: Rule = [
-  concatApply(MonoidAll)([hasTag('span'), flow(getAttributes, attrs => !!attrs['data-spoiler'])]),
+  and([hasTag('span'), flow(getAttributes, attrs => !!attrs['data-spoiler'])]),
   context => (node: Element) => context.addDecoration(Decoration_Type.SPOILER, {}, node),
 ];
 
 export const backgroundStyleToTextHighlight: Rule = [
-  concatApply(MonoidAll)([hasTag('span'), hasStyleFor('background-color')]),
+  and([hasTag('span'), hasStyleFor('background-color')]),
   context => (el: Element) =>
     pipe(
       el,

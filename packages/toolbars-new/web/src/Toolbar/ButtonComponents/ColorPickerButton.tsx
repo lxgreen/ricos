@@ -105,7 +105,7 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
         dropDownProps: { loadSelection },
       } = this.props;
       setKeepOpen?.(false);
-      !clickFromKeyboard && loadSelectionOnClose && loadSelection?.();
+      loadSelectionOnClose && loadSelection?.();
       clickFromKeyboard && setTimeout(() => this.state.lastFocusedButton?.focus());
       this.setState({ isModalOpen: false });
     }

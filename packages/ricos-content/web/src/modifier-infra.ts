@@ -20,7 +20,7 @@ type ModTreeNode<T> = T & {
 };
 
 /**
- *
+ * Creates a tree modifier parametrized by node type
  *
  * @template NodeT tree node type
  * @param {(node: NodeT) => NodeT[]} nodesAccessor how to get to child nodes

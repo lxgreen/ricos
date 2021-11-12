@@ -349,7 +349,9 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       linkSettings,
       experiments,
       toolbarSettings,
+      cssOverride,
     } = this.props;
+    const getEditorContainer = this.editor?.getContainer;
     const { useStaticTextToolbar } = toolbarSettings || {};
     const activeEditorIsTableCell = !this.useTiptap && activeEditor?.isInnerRCERenderedInTable();
     const textToolbarType = isMobile
@@ -369,6 +371,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       linkSettings,
       ...biFunctions,
       experiments,
+      cssOverride,
+      getEditorContainer,
     };
     const baseStyles = { flex: 'none', webkitTapHighlightColor: 'transparent' };
     const baseMobileStyles = { ...baseStyles, position: 'sticky', top: 0, zIndex: 9 };

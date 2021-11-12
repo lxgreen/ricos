@@ -49,7 +49,7 @@ export default class FullscreenProvider extends Component<Props, State> {
       this.setState({ expandModeData: imagesData });
       this.lazyLoadFullscreen();
       if (this.props.isMobile) {
-        const timeout = experiments?.optimizeFullScreenModal?.enabled ? 2000 : 0;
+        const timeout = parseInt(experiments?.optimizeFullScreenModal?.value || '0');
         this._renderFullscreenInterval = setTimeout(() => {
           this.renderFullScreenModal();
         }, timeout);

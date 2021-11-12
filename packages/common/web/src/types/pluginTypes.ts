@@ -69,6 +69,7 @@ import {
   UNSUPPORTED_BLOCKS_TYPE,
   RICOS_LINK_TYPE,
   RICOS_MENTION_TYPE,
+  EXTERNAL,
 } from 'ricos-content';
 import {
   DividerData,
@@ -115,6 +116,7 @@ export interface CreatePluginsDataMap {
   [LINK_TYPE]?: CreatePluginData<LinkData>;
   [RICOS_MENTION_TYPE]?: CreatePluginData<MentionData>;
   [MENTION_TYPE]?: CreatePluginData<MentionData>;
+  [EXTERNAL]?: CreatePluginData<Record<string, any>>;
 }
 
 import { EditorPlugin as DraftEditorPlugin, PluginFunctions } from 'draft-js-plugins-editor';

@@ -21,7 +21,7 @@ const decomposeListItem = (node: Node): Node[] =>
   )(node.nodes[0]?.nodes || []);
 
 // decompose list items resulted by splitUnsupportedLists
-const decomposeUnsupportedListItems = (content: RichContent) =>
+const decomposeUnsupportedListItems = (content: RichContent): RichContent =>
   modify(content)
     .filter(({ type }) => type === Node_Type.ORDERED_LIST)
     .filter(
@@ -49,7 +49,7 @@ const splitList = (list: Node): Node[] =>
   )(list.nodes);
 
 // find lists whose items contain some non-paragraphs or non-lists
-const getListToSplitIds = (content: RichContent) =>
+const getListToSplitIds = (content: RichContent): string[] =>
   extract(content.nodes)
     .filter(({ type }) => type === Node_Type.BULLETED_LIST || type === Node_Type.ORDERED_LIST)
     .map(({ id, nodes }) => ({ id, nodes: nodes.flatMap(n => n.nodes) }))
@@ -99,7 +99,7 @@ const mergeAdjacentParagraphs = (listItem: Node): Node => ({
 });
 
 // merge any adjacent paragraphs into a single paragraph
-const mergeListParagraphNodes = (content: RichContent) =>
+const mergeListParagraphNodes = (content: RichContent): RichContent =>
   modify(content)
     .filter(({ type }) => type === Node_Type.LIST_ITEM)
     .filter(({ nodes }) => nodes.filter(({ type }) => type === Node_Type.PARAGRAPH).length > 1)
