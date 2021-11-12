@@ -12,15 +12,20 @@
     transition: transform .15s cubic-bezier(.3,1.2,.2,1);
 
     &.staticContainer {
+        box-shadow: none;
+        padding: 4px 15px;
         position: static;
-        width: fit-content;
+        min-width: fit-content;
 
         &.staticContainerMobile {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+            padding: 0;
             background-color: #ffffff;
             border-left: none;
             border-right: none;
             height: 100%;
             width: 100%;
+            min-width: 100%;
             overflow: scroll;
             &::-webkit-scrollbar {
                 display: none;

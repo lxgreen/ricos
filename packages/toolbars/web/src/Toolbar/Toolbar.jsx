@@ -193,13 +193,31 @@ class Toolbar extends Component {
     return separatedButtons;
   };
 
+  cleanUnwantedSeparators = buttons => {
+    const cleanedButtons = [];
+    buttons.forEach((button, index) => {
+      if (
+        (cleanedButtons.length !== 0 || button.type !== 'SEPARATOR') &&
+        !(button.type === 'SEPARATOR' && buttons[index - 1].type === 'SEPARATOR')
+      ) {
+        cleanedButtons.push(button);
+      }
+    });
+    // eslint-disable-next-line fp/no-loops
+    while (cleanedButtons[cleanedButtons.length - 1].type === 'SEPARATOR') {
+      cleanedButtons.pop();
+    }
+    return cleanedButtons;
+  };
+
   render() {
     const { buttons, vertical } = this.props;
     const buttonsSeparatedByGaps = this.separateByGaps(buttons);
     return buttonsSeparatedByGaps.map((buttonsWithoutGaps, index) => {
+      const buttonsWithoutUnwantedSeparators = this.cleanUnwantedSeparators(buttonsWithoutGaps);
       return (
         <div key={index} className={classNames(styles.toolbar, { [styles.vertical]: vertical })}>
-          {buttonsWithoutGaps.map((buttonProps, i) => {
+          {buttonsWithoutUnwantedSeparators.map((buttonProps, i) => {
             const Button = this.buttonMap[buttonProps.type];
             return <Button {...buttonProps} key={i} />;
           })}

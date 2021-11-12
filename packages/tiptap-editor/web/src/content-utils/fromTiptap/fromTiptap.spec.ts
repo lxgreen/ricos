@@ -1,9 +1,9 @@
 import { Node_Type, RichContent } from 'ricos-schema';
 import migrationContent from 'ricos-content/statics/json/migratedFixtures/migration-content.json';
-import migrationContentTiptap from '../../toTiptap/__tests__/migrationContentTiptap.json';
-import draftMigrationContent from '../../../../../../../e2e/tests/fixtures/migration-content.json';
-import { toTiptap, fromTiptap, tiptapToDraft, tiptapNodeDataToDraft } from '../..';
-import { getImageBlockData, getImageNode } from '../../utils';
+import migrationContentTiptap from '../__tests__/migrationContentTiptap.json';
+import draftMigrationContent from '../../../../../../e2e/tests/fixtures/migration-content.json';
+import { toTiptap, fromTiptap, tiptapToDraft, tiptapNodeDataToDraft } from '../';
+import { getImageBlockData, getImageNode } from '../utils';
 import { compare } from 'ricos-content/src/comparision/compare';
 import { JSONContent } from '@tiptap/core';
 

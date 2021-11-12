@@ -855,7 +855,12 @@ const config: RichContentEditorProps['config'] = {
       //   return {
       //     desktop: {
       //       MY_BUTTON: {
-      //         component: () => <div onClick={() => console.log('my button clicked!!')}>My Button</div>,
+      //         component: () => (
+      //           <div onClick={() => console.log('my button clicked!!')}>My Button</div>
+      //         ),
+      //       },
+      //       Bold: {
+      //         component: () => <div onClick={() => console.log('my custom bold')}>My Bold</div>,
       //       },
       //     },
       //   };

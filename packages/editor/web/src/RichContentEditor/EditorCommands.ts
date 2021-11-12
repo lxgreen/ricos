@@ -30,6 +30,7 @@ import {
   getColor,
   setHighlightColor,
   setTextColor,
+  isAtomicBlockInSelection,
 } from 'wix-rich-content-editor-common';
 import {
   EditorCommands,
@@ -97,6 +98,7 @@ import {
   RICOS_CODE_BLOCK_TYPE,
   RICOS_FONT_SIZE_TYPE,
   UNSUPPORTED_BLOCKS_TYPE,
+  EXTERNAL,
 } from 'wix-rich-content-common';
 
 const TO_DRAFT_PLUGIN_TYPE_MAP = {
@@ -124,6 +126,7 @@ const TO_DRAFT_PLUGIN_TYPE_MAP = {
   [TEXT_COLOR_TYPE]: TEXT_COLOR_TYPE,
   [RICOS_INDENT_TYPE]: RICOS_INDENT_TYPE,
   [RICOS_LINE_SPACING_TYPE]: RICOS_LINE_SPACING_TYPE,
+  [EXTERNAL]: EXTERNAL,
 };
 
 const TO_RICOS_PLUGIN_TYPE_MAP = {
@@ -234,6 +237,7 @@ export const createEditorCommands = (
     loadEditorState: EditorCommands['loadEditorState'];
     saveSelectionState: EditorCommands['saveSelectionState'];
     loadSelectionState: EditorCommands['loadSelectionState'];
+    isAtomicBlockInSelection: EditorCommands['isAtomicBlockInSelection'];
   } = {
     getSelection: () => {
       const selection = getEditorState().getSelection();
@@ -271,6 +275,7 @@ export const createEditorCommands = (
         (pluginName: string) => pluginName && !PluginsToExclude.includes[pluginName]
       );
     },
+    isAtomicBlockInSelection: () => isAtomicBlockInSelection(getEditorState()),
   };
 
   const textFormattingCommands: {

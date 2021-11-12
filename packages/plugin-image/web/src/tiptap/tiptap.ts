@@ -27,7 +27,7 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
     componentDataDefaults: {
       ...imageDataDefaults,
       id: '',
-      myLoading: {
+      loading: {
         default: false,
       },
     },
@@ -40,8 +40,8 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
           setImageUrl: url => ({ commands }) => {
             return commands.updateAttributes(name, { image: { src: { custom: url } } });
           },
-          setImageLoading: isLoading => ({ commands }) => {
-            return commands.updateAttributes(name, { myLoading: isLoading });
+          setImageLoading: loading => ({ commands }) => {
+            return commands.updateAttributes(name, { loading });
           },
         };
       },

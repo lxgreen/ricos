@@ -148,7 +148,7 @@ export const ENTITY_DECORATION_TO_DATA_FIELD = {
   EMOJI_TYPE: 'emojiData',
 };
 
-export const DECORATION_TO_DATA_FIELD = {
+const DECORATION_TO_DATA_FIELD = {
   COLOR: 'colorData',
 };
 
