@@ -59,9 +59,9 @@ export const galleryTempData = {
     spacing: 0,
   },
   items: [
-    { metadata: { type: 'image' }, uploadId: 'E0F767E7-91AB-4A23-88B4-CC35AE4F76F8' },
-    { metadata: { type: 'image' }, uploadId: 'ECA7B761-AAEF-457A-A18E-333E18F22793' },
-    { metadata: { type: 'image' }, uploadId: 'D5B78591-8B25-4C05-B81C-FEBD4C919D14' },
+    { metadata: {}, uploadId: 'E0F767E7-91AB-4A23-88B4-CC35AE4F76F8' },
+    { metadata: {}, uploadId: 'ECA7B761-AAEF-457A-A18E-333E18F22793' },
+    { metadata: {}, uploadId: 'D5B78591-8B25-4C05-B81C-FEBD4C919D14' },
   ],
   styles: {
     gallertLayout: 2,

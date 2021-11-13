@@ -449,6 +449,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   renderNewFooterToolbar() {
     const { _rcProps } = this.props;
+    const getEditorContainer = () => document.createElement('div');
     return this.useNewFormattingToolbar && !this.props.isMobile && this.state.activeEditor ? (
       <div
         data-hook={'ricos-editor-footer-toolbars'}
@@ -475,6 +476,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
               '|',
               'File',
             ]}
+            getEditorContainer={getEditorContainer}
           />
         </StaticToolbarContainer>
       </div>

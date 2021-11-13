@@ -121,7 +121,7 @@ class Toolbar extends Component<ToolbarProps, State> {
         difference += lastButtonElement?.clientWidth + 4;
         index--;
       }
-      if (newButtons[newButtons.length - 1].name !== 'Separator') {
+      if (newButtons[newButtons.length - 1]?.name !== 'Separator') {
         const currentOverflowedButton = newButtons.splice(-1);
         overflowedButtons.unshift(...currentOverflowedButton);
       }
