@@ -159,7 +159,7 @@ const convertGalleryStyles = styles => {
 const convertGalleryItem = item => {
   const {
     url,
-    metadata: { type, poster, height, width, link, title, altText },
+    metadata: { type = 'image', poster, height, width, link, title, altText },
   } = item;
   item[type] = { media: { src: { url }, height, width } };
   title && (item.title = title);
