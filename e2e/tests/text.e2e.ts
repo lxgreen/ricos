@@ -152,8 +152,7 @@ describe('text', () => {
     cy.blurEditor();
   });
 
-  // eslint-disable-next-line mocha/no-skipped-tests
-  it.skip('should insert custom link', function() {
+  it('should insert custom link', function() {
     const testAppConfig = {
       ...usePluginsConfig({
         link: {
@@ -252,7 +251,6 @@ describe('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
-  // eslint-disable-next-line mocha/no-skipped-tests
   it('should not allow applying link to atomic blocks in selection', function() {
     cy.loadRicosEditorAndViewer('content-with-video', useNewToolbar);
     cy.waitForVideoToLoad();
