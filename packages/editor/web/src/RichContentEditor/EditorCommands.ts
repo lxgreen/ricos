@@ -31,6 +31,7 @@ import {
   setHighlightColor,
   setTextColor,
   isAtomicBlockInSelection,
+  insertCustomLink,
 } from 'wix-rich-content-editor-common';
 import {
   EditorCommands,
@@ -99,6 +100,7 @@ import {
   RICOS_FONT_SIZE_TYPE,
   UNSUPPORTED_BLOCKS_TYPE,
   EXTERNAL,
+  CUSTOM_LINK,
 } from 'wix-rich-content-common';
 
 const TO_DRAFT_PLUGIN_TYPE_MAP = {
@@ -179,6 +181,7 @@ const setFontSizeWithColor = (editorState: EditorState, data?: { fontSize?: stri
 
 const insertDecorationsMap = {
   [RICOS_LINK_TYPE]: insertLinkAtCurrentSelection,
+  [CUSTOM_LINK]: insertCustomLink,
   [RICOS_MENTION_TYPE]: insertMention,
   [RICOS_TEXT_COLOR_TYPE]: setTextColor,
   [RICOS_TEXT_HIGHLIGHT_TYPE]: setHighlightColor,

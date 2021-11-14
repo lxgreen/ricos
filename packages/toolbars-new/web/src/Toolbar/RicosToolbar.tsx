@@ -52,6 +52,7 @@ interface RicosToolbarProps {
       rel?: Link_Rel;
       customAnchorScroll?: CustomAnchorScroll;
     };
+    onLinkAdd?: any;
   };
   colorPickerData?: any;
   headingsData?: any;

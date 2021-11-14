@@ -16,7 +16,7 @@ export const updateNodeById: RawCommands['updateNodeById'] = (id, attrs = {}) =>
   const nodeWithPos = findChildren(view.state.doc, node => node.attrs.id === id);
   const { pos } = nodeWithPos?.[0] || {};
   if (pos) {
-    tr.setNodeMarkup(pos, undefined, toTiptap(attrs));
+    tr.setNodeMarkup(pos, undefined, { id, ...attrs });
     return true;
   } else {
     console.error('Failed to find node by blockKey');

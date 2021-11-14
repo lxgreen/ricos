@@ -84,7 +84,7 @@ export class RichContentAdapter implements TiptapAPI {
         let id = '';
         if (type) {
           id = generateId();
-          const attrs = { ...data, id };
+          const attrs = { id, ...data };
           this.editor.commands.insertNode(type, attrs);
         } else {
           console.error(`No such plugin type ${pluginType}`);
