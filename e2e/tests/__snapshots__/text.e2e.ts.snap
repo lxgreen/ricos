@@ -20,6 +20,7 @@ exports[`text > allow to enter text #0`] =
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {}
 };
 
@@ -105,6 +106,7 @@ exports[`text > allow to change text color #0`] =
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {}
 };
 
@@ -329,6 +331,7 @@ exports[`text > allow to apply inline styles and links #0`] =
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {
     "0": {
       "data": {
@@ -369,61 +372,32 @@ exports[`text > allow to apply inline styles and links #0`] =
   }
 };
 
-exports[`text > allow to apply inline styles and links - isolated #0`] =
+exports[`text > should apply custom line spacing #0`] =
 {
   "blocks": [
     {
       "data": {
-        "textAlignment": "left"
+        "dynamicStyles": {
+          "line-height": "5",
+          "padding-bottom": "3px",
+          "padding-top": "2px"
+        }
       },
       "depth": 0,
       "entityRanges": [],
       "inlineStyleRanges": [],
       "key": 0,
-      "text": "#LIVING THE DREAM",
-      "type": "blockquote"
+      "text": "Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. ",
+      "type": "unstyled"
     },
     {
-      "data": {
-        "textAlignment": "left"
-      },
+      "data": {},
       "depth": 0,
       "entityRanges": [],
-      "inlineStyleRanges": [
-        {
-          "length": 5,
-          "offset": 10,
-          "style": "UNDERLINE"
-        },
-        {
-          "length": 5,
-          "offset": 30,
-          "style": "UNDERLINE"
-        },
-        {
-          "length": 5,
-          "offset": 20,
-          "style": "ITALIC"
-        },
-        {
-          "length": 5,
-          "offset": 30,
-          "style": "ITALIC"
-        },
-        {
-          "length": 5,
-          "offset": 30,
-          "style": "BOLD"
-        },
-        {
-          "length": 10,
-          "offset": 40,
-          "style": "BOLD"
-        }
-      ],
+      "inlineStyleRanges": [],
       "key": 1,
-      "text": "Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. ",
-      "type": "blockquote"
+      "text": "Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.",
+      "type": "unstyled"
     },
     {
       "data": {},
@@ -431,8 +405,8 @@ exports[`text > allow to apply inline styles and links - isolated #0`] =
       "entityRanges": [],
       "inlineStyleRanges": [],
       "key": 2,
-      "text": "Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.",
-      "type": "unordered-list-item"
+      "text": "Bring to the table win-win survival strategies to ensure proactive domination.",
+      "type": "unstyled"
     },
     {
       "data": {},
@@ -440,8 +414,8 @@ exports[`text > allow to apply inline styles and links - isolated #0`] =
       "entityRanges": [],
       "inlineStyleRanges": [],
       "key": 3,
-      "text": "Bring to the table win-win survival strategies to ensure proactive domination.",
-      "type": "unordered-list-item"
+      "text": "At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. ",
+      "type": "unstyled"
     },
     {
       "data": {},
@@ -449,15 +423,6 @@ exports[`text > allow to apply inline styles and links - isolated #0`] =
       "entityRanges": [],
       "inlineStyleRanges": [],
       "key": 4,
-      "text": "At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. ",
-      "type": "unordered-list-item"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 5,
       "text": "User generated content in real-time will have multiple touchpoints for offshoring.",
       "type": "unstyled"
     },
@@ -466,7 +431,7 @@ exports[`text > allow to apply inline styles and links - isolated #0`] =
       "depth": 0,
       "entityRanges": [],
       "inlineStyleRanges": [],
-      "key": 6,
+      "key": 5,
       "text": "Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. ",
       "type": "unstyled"
     },
@@ -475,7 +440,7 @@ exports[`text > allow to apply inline styles and links - isolated #0`] =
       "depth": 0,
       "entityRanges": [],
       "inlineStyleRanges": [],
-      "key": 7,
+      "key": 6,
       "text": "Override the digital divide with additional clickthroughs from DevOps.",
       "type": "unstyled"
     },
@@ -484,11 +449,98 @@ exports[`text > allow to apply inline styles and links - isolated #0`] =
       "depth": 0,
       "entityRanges": [],
       "inlineStyleRanges": [],
-      "key": 8,
+      "key": 7,
       "text": "Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.",
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
+  "entityMap": {}
+};
+
+exports[`text > toolbar should be responsive #0`] =
+{
+  "blocks": [
+    {
+      "data": {
+        "dynamicStyles": {
+          "line-height": "2.5",
+          "padding-bottom": "3px",
+          "padding-top": "2px"
+        }
+      },
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 0,
+      "text": "Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. ",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 1,
+      "text": "Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 2,
+      "text": "Bring to the table win-win survival strategies to ensure proactive domination.",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 3,
+      "text": "At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. ",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 4,
+      "text": "User generated content in real-time will have multiple touchpoints for offshoring.",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 5,
+      "text": "Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. ",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 6,
+      "text": "Override the digital divide with additional clickthroughs from DevOps.",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 7,
+      "text": "Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.",
+      "type": "unstyled"
+    }
+  ],
+  "documentStyle": {},
   "entityMap": {}
 };
 
@@ -537,6 +589,7 @@ exports[`text > allow to enter hashtag with link #0`] =
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {
     "0": {
       "data": {
@@ -579,6 +632,7 @@ exports[`text > remove hashtag inside quotes #0`] =
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {}
 };
 
@@ -658,6 +712,7 @@ exports[`text > allow to create lists #0`] =
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {}
 };
 
@@ -737,6 +792,7 @@ exports[`text > open link toolbar (InlinePluginToolbar) #0`] =
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {}
 };
 
@@ -765,6 +821,7 @@ exports[`text > should insert custom link #0`] =
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {
     "0": {
       "data": {
@@ -801,6 +858,7 @@ exports[`text > should enter text without linkify links (disableAutoLink set to 
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {}
 };
 
@@ -838,6 +896,7 @@ exports[`text > should break the link when enter new soft line #0`] =
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {
     "0": {
       "data": {
@@ -863,6 +922,7 @@ exports[`text > should paste plain text #0`] =
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {}
 };
 
@@ -885,6 +945,7 @@ exports[`text > should paste html correctly #0`] =
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {
     "0": {
       "data": {
@@ -909,6 +970,7 @@ exports[`text > allow to enter tab character #0`] =
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {}
 };
 
@@ -925,6 +987,7 @@ exports[`text > allow to enter tab character and delete it using shift+tab #0`] 
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {}
 };
 
@@ -960,6 +1023,7 @@ exports[`text > Enter click should create new block with the same alignment #0`]
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {}
 };
 
@@ -976,6 +1040,7 @@ exports[`text > esc key event should make editor blurred #0`] =
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {}
 };
 
@@ -1004,6 +1069,7 @@ exports[`text > should enter link and further text in current block has no inlin
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {
     "0": {
       "data": {
@@ -1050,6 +1116,7 @@ exports[`text > should enter link and further text in next block has no inline s
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {
     "0": {
       "data": {
@@ -1108,6 +1175,7 @@ exports[`text > should not allow applying link to atomic blocks in selection #0`
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {
     "0": {
       "data": {
@@ -1130,6 +1198,86 @@ exports[`text > should not allow applying link to atomic blocks in selection #0`
       "type": "wix-draft-plugin-video"
     }
   }
+};
+
+exports[`text > should apply headings #0`] =
+{
+  "blocks": [
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 0,
+      "text": "Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. ",
+      "type": "header-three"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 1,
+      "text": "Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 2,
+      "text": "Bring to the table win-win survival strategies to ensure proactive domination.",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 3,
+      "text": "At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. ",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 4,
+      "text": "User generated content in real-time will have multiple touchpoints for offshoring.",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 5,
+      "text": "Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. ",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 6,
+      "text": "Override the digital divide with additional clickthroughs from DevOps.",
+      "type": "unstyled"
+    },
+    {
+      "data": {},
+      "depth": 0,
+      "entityRanges": [],
+      "inlineStyleRanges": [],
+      "key": 7,
+      "text": "Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.",
+      "type": "unstyled"
+    }
+  ],
+  "documentStyle": {},
+  "entityMap": {}
 };
 
 exports[`text > indentation > allow to apply indent on a single block with inline styling #0`] =
@@ -1229,6 +1377,7 @@ exports[`text > indentation > allow to apply indent on a single block with inlin
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {}
 };
 
@@ -1308,6 +1457,7 @@ exports[`text > indentation > allow to apply indent on multiple text blocks #0`]
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {}
 };
 
@@ -1411,6 +1561,7 @@ exports[`text > indentation > allow to apply indent only on text blocks #0`] =
       "type": "unstyled"
     }
   ],
+  "documentStyle": {},
   "entityMap": {
     "0": {
       "data": {
@@ -1448,254 +1599,6 @@ exports[`text > indentation > allow to apply indent and delete it when clicking 
       "type": "unstyled"
     }
   ],
-  "entityMap": {}
-};
-
-exports[`text > should apply custom line spacing #0`] =
-{
-  "blocks": [
-    {
-      "data": {
-        "dynamicStyles": {
-          "line-height": "5",
-          "padding-bottom": "3px",
-          "padding-top": "2px"
-        }
-      },
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 0,
-      "text": "Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. ",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 1,
-      "text": "Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 2,
-      "text": "Bring to the table win-win survival strategies to ensure proactive domination.",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 3,
-      "text": "At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. ",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 4,
-      "text": "User generated content in real-time will have multiple touchpoints for offshoring.",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 5,
-      "text": "Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. ",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 6,
-      "text": "Override the digital divide with additional clickthroughs from DevOps.",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 7,
-      "text": "Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.",
-      "type": "unstyled"
-    }
-  ],
-  "entityMap": {}
-};
-
-exports[`text > toolbar should be responsive #0`] =
-{
-  "blocks": [
-    {
-      "data": {
-        "dynamicStyles": {
-          "line-height": "2.5",
-          "padding-bottom": "3px",
-          "padding-top": "2px"
-        }
-      },
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 0,
-      "text": "Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. ",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 1,
-      "text": "Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 2,
-      "text": "Bring to the table win-win survival strategies to ensure proactive domination.",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 3,
-      "text": "At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. ",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 4,
-      "text": "User generated content in real-time will have multiple touchpoints for offshoring.",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 5,
-      "text": "Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. ",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 6,
-      "text": "Override the digital divide with additional clickthroughs from DevOps.",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 7,
-      "text": "Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.",
-      "type": "unstyled"
-    }
-  ],
-  "entityMap": {}
-};
-
-exports[`text > should apply headings #0`] =
-{
-  "blocks": [
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 0,
-      "text": "Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. ",
-      "type": "header-three"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 1,
-      "text": "Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 2,
-      "text": "Bring to the table win-win survival strategies to ensure proactive domination.",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 3,
-      "text": "At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. ",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 4,
-      "text": "User generated content in real-time will have multiple touchpoints for offshoring.",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 5,
-      "text": "Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. ",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 6,
-      "text": "Override the digital divide with additional clickthroughs from DevOps.",
-      "type": "unstyled"
-    },
-    {
-      "data": {},
-      "depth": 0,
-      "entityRanges": [],
-      "inlineStyleRanges": [],
-      "key": 7,
-      "text": "Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.",
-      "type": "unstyled"
-    }
-  ],
+  "documentStyle": {},
   "entityMap": {}
 };
