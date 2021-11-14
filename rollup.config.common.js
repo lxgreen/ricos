@@ -30,13 +30,13 @@ const commonConfig = (output, shouldExtractCss) => {
         return fileName;
     };
     const editorEntry = {
-        input: 'temp/src/index.js',
+        input: 'dist/src/index.js',
         output: (0, lodash_1.cloneDeep)(output),
         ...commonOptions,
     };
     const libEntries = [];
     try {
-        let libEntriesPath = 'temp/lib/';
+        let libEntriesPath = 'dist/lib/';
         (0, fs_1.readdirSync)(`./${libEntriesPath}`)
             .filter(file => !file.endsWith('.map'))
             .filter(file => !file.endsWith('.ts'))
@@ -79,7 +79,7 @@ const commonConfig = (output, shouldExtractCss) => {
             chunkFileNames: '[name].cjs.js',
         },
     ];
-    const viewerLoadablePath = 'temp/src/viewer-loadable.js';
+    const viewerLoadablePath = 'dist/src/viewer-loadable.js';
     if ((0, fs_1.existsSync)(`./${viewerLoadablePath}`)) {
         viewerEntry.push({
             input: viewerLoadablePath,
@@ -97,7 +97,7 @@ const commonConfig = (output, shouldExtractCss) => {
     else {
         entries = [editorEntry, ...viewerEntry, ...libEntries];
     }
-    const mobileNativeLoaderPath = 'temp/src/mobileNativeLoader.js';
+    const mobileNativeLoaderPath = 'dist/src/mobileNativeLoader.js';
     if ((0, fs_1.existsSync)(`./${mobileNativeLoaderPath}`)) {
         entries.push({
             input: mobileNativeLoaderPath,
@@ -124,19 +124,19 @@ const output = process.env.DYNAMIC_IMPORT
             dir: 'dist/es',
             format: 'es',
         },
-        // {
-        //     dir: 'dist/cjs/',
-        //     format: 'cjs',
-        // },
+        {
+            dir: 'dist/cjs/',
+            format: 'cjs',
+        },
     ]
     : [
         {
             file: 'dist/module.js',
             format: 'es',
         },
-        // {
-        //     file: 'dist/module.cjs.js',
-        //     format: 'cjs',
-        // },
+        {
+            file: 'dist/module.cjs.js',
+            format: 'cjs',
+        },
     ];
 exports.default = commonConfig(output, process.env.EXTRACT_CSS !== 'false');

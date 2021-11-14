@@ -24,7 +24,7 @@
   "module": "dist/module.js",
   "style": "dist/styles.min.scss",
   "scripts": {
-    "clean": "rm -rf dist/",
+    "clean": "#",
     "prebuild": "npm run clean",
     "build:rollup": "rollup --environment MODULE_NAME:common -c ../../../rollup.config.js",
     "build": "npm run build:rollup && node ../../../scripts/cssFix.js",

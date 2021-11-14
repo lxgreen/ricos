@@ -20,5 +20,6 @@
         "**/*.spec.js",
         "**/*.spec.jsx",
         "__tests__"
-    ]
+    ],
+    "references": []
 }

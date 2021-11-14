@@ -21,7 +21,8 @@
     "url": "git+https://github.com/wix/ricos.git"
   },
   "scripts": {
-    "build:tsc": "rm -rf packages/ricos-content/web/temp && rm -rf packages/ricos-content/web/dist && tsc --build",
+    "build:tsc2": "find . -name 'dist' -type d -prune -exec rm -rf '{}' + && lerna run --stream --scope 'ricos-schema' build && tsc --build",
+    "build:tsc": "tsc --build",
     "clean": "lerna clean --yes && rm -rf node_modules && rm -f package-lock.json && rm -f yarn.lock",
     "reinstall": "yarn clean && npx midgard-yarn install",
     "rebuild": "npm run reinstall && npm run build",

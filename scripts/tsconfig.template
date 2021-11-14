@@ -9,7 +9,8 @@
     "include": [
         "**/*.ts",
         "**/*.tsx",
-        "**/*.json"
+        "**/*.json",
+        "**/*.scss",
     ],
     "exclude": [
         "**/node_modules/*",
@@ -20,5 +21,7 @@
         "**/*.spec.js",
         "**/*.spec.jsx",
         "__tests__"
+    ],
+    "references": [${refreference}]
     ]
 }

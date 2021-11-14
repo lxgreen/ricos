@@ -24,7 +24,7 @@
   "module": "dist/es/index.js",
   "style": "dist/styles.min.css",
   "scripts": {
-    "clean": "rm -rf dist/",
+    "clean": "#",
     "prebuild": "npm run clean",
     "build:rollup": "rollup --environment DYNAMIC_IMPORT,MODULE_NAME:ricos-common -c ../../../rollup.config.js",
     "build": "npm run build:rollup && node ../../../scripts/cssFix.js",
