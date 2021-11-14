@@ -15,27 +15,41 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - name: cache
-        id: cache
-        uses: actions/cache@master
+      - name: cache-node_modules
+        id: cache-modules
+        uses: actions/cache@v2
         with:
           path: |
             node_modules
             */*/node_modules
             ~/.cache
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+      - name: npm install + bootstrap
+        if: steps.cache-modules.outputs.cache-hit != 'true'
+        run: npx midgard-yarn install --frozen-lockfile
+      - name: lerna link
+        if: steps.cache-modules.outputs.cache-hit == 'true'
+        run: npm run link
+
+      - name: cache-schema
+        id: cache-schema
+        uses: actions/cache@master
+        with:
+          path: |
+            packages/ricos-schema/web/dist
+            packages/ricos-schema/web/src/generated
+          key: ${{ runner.os }}-schema-${{ hashFiles('packages/ricos-schema/web/src') }}
       - name: Install Protoc
+        if: steps.cache-schema.outputs.cache-hit != 'true'
         uses: arduino/setup-protoc@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: npm install + bootstrap
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npx midgard-yarn install --frozen-lockfile
-      - name: lerna link
-        if: steps.cache.outputs.cache-hit == 'true'
-        run: npm run link
+      - name: build schema
+        if: steps.cache-schema.outputs.cache-hit != 'true'
+        run: npm run build:schema
 
-      - run: npm run build
+      - run: npm run build:ci
+
       - run: npm run deploy
       - run: npm run deployPRComment
     env:
