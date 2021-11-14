@@ -3,7 +3,7 @@ import { RichContentEditor } from 'wix-rich-content-editor';
 
 export const isLinkToolbarOpen = (activeEditor: RichContentEditor | null) => {
   const editorCommands: EditorCommands | undefined = activeEditor?.getEditorCommands();
-  return editorCommands?.getSelection().getIsCollapsed && editorCommands?.hasLinkInSelection();
+  return editorCommands?.getSelection().isCollapsed && editorCommands?.hasLinkInSelection();
 };
 
 const getPluginsKey = (activeEditor: RichContentEditor | null) => {

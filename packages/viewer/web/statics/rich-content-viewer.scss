@@ -76,6 +76,10 @@
     clear: both;
     line-height: 0;
   }
+
+  @include phone {
+    font-size: $paragraphFontSizeMobile;
+  }
 }
 
 .atomic {
@@ -131,9 +135,11 @@
 }
 
 /*! rtl:ignore */
-.orderedList, .unorderedList {
+.orderedList,
+.unorderedList {
   /*! rtl:ignore */
-  &::before, &::marker {
+  &::before,
+  &::marker {
     /*! rtl:ignore */
     @include ricosTypography('p', true);
   }
@@ -143,11 +149,11 @@
   }
 }
 
-.unorderedList.center{
+.unorderedList.center {
   list-style-position: inside;
 }
 
-.contentCenterAlignment{
+.contentCenterAlignment {
   display: inline;
 }
 
@@ -235,7 +241,7 @@
 .horizontalScrollbar::-webkit-scrollbar-thumb {
   border-radius: 8px;
   border: 2px solid white;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .horizontalScrollbar::-webkit-scrollbar:horizontal {

@@ -16,6 +16,7 @@ import { getStaticTextToolbarId } from './Toolbars/toolbar-id';
 import { ContentBlock } from '@wix/draft-js';
 import {
   EditorState,
+  ContentState,
   TOOLBARS,
   getBlockInfo,
   getFocusedBlockKey,
@@ -73,6 +74,7 @@ import {
   OnPluginAction,
   IMAGE_TYPE,
   EditorCommands,
+  DocumentStyle,
   PluginKeyBindings,
   CommandHandler,
   KeyCommand,
@@ -87,6 +89,7 @@ import { onCut, onCopy } from './utils/onCutAndCopy';
 import preventWixFocusRingAccessibility from './preventWixFocusRingAccessibility';
 import { ErrorToast } from './Components';
 import { getBiButtonName } from './utils/biUtils';
+import { DOC_STYLE_CLASSES } from './utils/consts';
 
 type PartialDraftEditorProps = Pick<
   Partial<DraftEditorProps>,
@@ -169,6 +172,8 @@ export interface RichContentEditorProps extends PartialDraftEditorProps {
   experiments?: AvailableExperiments;
   disableKeyboardEvents?: (shouldEnable: boolean) => void;
   textWrap: boolean;
+  getDocumentStyle?: EditorCommands['getDocumentStyle'];
+  updateDocumentStyle?: EditorCommands['updateDocumentStyle'];
   /** This is a legacy API, chagnes should be made also in the new Ricos Editor API **/
 }
 
@@ -526,12 +531,22 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
   }
 
   initEditorCommands = () => {
-    const { createPluginsDataMap = {} } = this.props;
+    const {
+      createPluginsDataMap = {},
+      getDocumentStyle,
+      updateDocumentStyle,
+      experiments,
+    } = this.props;
     this.EditorCommands = createEditorCommands(
       createPluginsDataMap,
       this.plugins,
       this.getEditorState,
-      this.updateEditorState
+      this.updateEditorState,
+      {
+        getDocumentStyle,
+        updateDocumentStyle,
+      },
+      experiments
     );
   };
 
@@ -657,8 +672,22 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     );
   };
 
+  updateDocumentStyle = (editorState: EditorState) => {
+    const documentStyle = this.EditorCommands.getDocumentStyle();
+    if (documentStyle) {
+      const currentContent = editorState.getCurrentContent() as ContentState & {
+        documentStyle: DocumentStyle;
+      };
+      currentContent.documentStyle = {
+        ...documentStyle,
+        ...currentContent.documentStyle,
+      };
+    }
+  };
+
   updateEditorState = (editorState: EditorState) => {
     const undoRedoStackChanged = this.didUndoRedoStackChange(editorState);
+    this.updateDocumentStyle(editorState);
     this.setState({ editorState, undoRedoStackChanged }, () => {
       this.handleCallbacks(this.state.editorState, this.props.helpers);
       this.props.onChange?.(this.state.editorState);
@@ -1166,6 +1195,10 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
         tablePluginMenu={tablePluginMenu}
         onFocus={onFocus}
         onBlur={onBlur}
+        getDocumentStyle={this.props.getDocumentStyle || this.EditorCommands.getDocumentStyle}
+        updateDocumentStyle={
+          this.props.updateDocumentStyle || this.EditorCommands.updateDocumentStyle
+        }
       />
     );
   };
@@ -1179,7 +1212,15 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
   renderStyleTag = (editorState = this.getEditorState()) => {
     const blocks = editorState.getCurrentContent().getBlockMap();
     const styles = {};
+    const documentStyle = this.EditorCommands.getDocumentStyle();
     const styleToCss = ([key, val]) => `${key}: ${val};`;
+    documentStyle &&
+      Object.entries(documentStyle).forEach(([key, values]) => {
+        styles[DOC_STYLE_CLASSES[key] + ' > div > span'] = Object.entries(values)
+          .map(style => styleToCss(style))
+          .join(' ');
+      });
+
     blocks.forEach(block => {
       const { dynamicStyles = {} } = block?.get('data').toJS();
       Object.entries(dynamicStyles).forEach(

@@ -17,6 +17,18 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+- `ricos-editor`
+  - [#3068](https://github.com/wix/ricos/pull/3068) **beta** Editor Commands API support for Notes
+
+### :house: Internal
+- `editor viewer`
+  - [#3006](https://github.com/wix/ricos/pull/3006) `documentStyle` and headings customization support
+
+</details>
+<hr/>
+
 </details>
 <hr/>
 

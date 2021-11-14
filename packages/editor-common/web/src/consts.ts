@@ -3,6 +3,15 @@ import { DraftEditorCommand } from '@wix/draft-js';
 export const COMMANDS: Record<string, DraftCommand> = {
   TITLE: 'header-two',
   SUBTITLE: 'header-three',
+  PARAGRAPH: 'unstyled',
+  H1: 'header-one',
+  H2: 'header-two',
+  H3: 'header-three',
+  H4: 'header-four',
+  H5: 'header-five',
+  H6: 'header-six',
+  INCREASE_FONT_SIZE: 'increase-font-size',
+  DECREASE_FONT_SIZE: 'decrease-font-size',
   ALIGN_LEFT: 'left',
   ALIGN_RIGHT: 'right',
   ALIGN_CENTER: 'center',
@@ -28,8 +37,15 @@ export const COMMANDS: Record<string, DraftCommand> = {
 
 export type DraftCommand =
   | DraftEditorCommand
+  | 'unstyled'
+  | 'header-one'
   | 'header-two'
   | 'header-three'
+  | 'header-four'
+  | 'header-five'
+  | 'header-six'
+  | 'increase-font-size'
+  | 'decrease-font-size'
   | 'left'
   | 'right'
   | 'center'
