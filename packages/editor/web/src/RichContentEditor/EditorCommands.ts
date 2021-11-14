@@ -12,7 +12,6 @@ import {
   redo,
   getTextAlignment,
   hasInlineStyle,
-  getDraftInlineStyle,
   getBlockType,
   hasLinksInSelection,
   getLinkDataInSelection,
@@ -25,11 +24,7 @@ import {
   mergeBlockData,
   getAnchorBlockData,
   getAnchorableBlocks,
-  setFontSize,
-  getFontSize,
-  getColor,
-  setHighlightColor,
-  setTextColor,
+  removeCurrentInlineStyle,
   isAtomicBlockInSelection,
   scrollToBlock,
   insertCustomLink,
@@ -101,9 +96,24 @@ import {
   RICOS_CODE_BLOCK_TYPE,
   RICOS_FONT_SIZE_TYPE,
   UNSUPPORTED_BLOCKS_TYPE,
+  DocumentStyle,
+  RicosCustomStyles,
   EXTERNAL,
   CUSTOM_LINK,
 } from 'wix-rich-content-common';
+
+import {
+  getDocumentStyle,
+  getWiredFontStyles,
+  updateDocumentStyle,
+  getAnchorBlockInlineStyles,
+  setFontSize,
+  getFontSize,
+  getColor,
+  setHighlightColor,
+  setTextColor,
+  toggleInlineStyle,
+} from './utils/editorCommandsUtils';
 
 const TO_DRAFT_PLUGIN_TYPE_MAP = {
   [RICOS_DIVIDER_TYPE]: DIVIDER_TYPE,
@@ -210,6 +220,7 @@ export const createEditorCommands = (
   plugins,
   getEditorState: GetEditorState,
   setEditorState: SetEditorState,
+  externalEditorProps,
   experiments?: AvailableExperiments
 ): EditorCommands => {
   const setBlockType: EditorCommands['setBlockType'] = type => {
@@ -223,6 +234,10 @@ export const createEditorCommands = (
         SelectionState.createEmpty(blockKey).merge(selection || {})
       )
     );
+
+  const documentStyleGetter = externalEditorProps.getDocumentStyle
+    ? externalEditorProps.getDocumentStyle
+    : () => getDocumentStyle(getEditorState());
 
   const editorState: {
     getSelection: EditorCommands['getSelection'];
@@ -245,6 +260,10 @@ export const createEditorCommands = (
     loadEditorState: EditorCommands['loadEditorState'];
     saveSelectionState: EditorCommands['saveSelectionState'];
     loadSelectionState: EditorCommands['loadSelectionState'];
+    getDocumentStyle: EditorCommands['getDocumentStyle'];
+    updateDocumentStyle: EditorCommands['updateDocumentStyle'];
+    getAnchorBlockInlineStyles: EditorCommands['getAnchorBlockInlineStyles'];
+    getWiredFontStyles: EditorCommands['getWiredFontStyles'];
     isAtomicBlockInSelection: EditorCommands['isAtomicBlockInSelection'];
   } = {
     getSelection: () => {
@@ -288,6 +307,18 @@ export const createEditorCommands = (
         (pluginName: string) => pluginName && !PluginsToExclude.includes[pluginName]
       );
     },
+    getDocumentStyle: () => documentStyleGetter(),
+    updateDocumentStyle: (documentStyle: DocumentStyle) => {
+      if (externalEditorProps.updateDocumentStyle) {
+        externalEditorProps.updateDocumentStyle(documentStyle);
+      } else {
+        const newEditorState = updateDocumentStyle(getEditorState(), documentStyle);
+        setEditorState(newEditorState);
+      }
+    },
+    getAnchorBlockInlineStyles: () => getAnchorBlockInlineStyles(getEditorState()),
+    getWiredFontStyles: (customStyles?: RicosCustomStyles, isMobile?: boolean) =>
+      getWiredFontStyles(documentStyleGetter(), customStyles, isMobile),
     scrollToBlock: blockKey => scrollToBlock(blockKey, experiments),
     isBlockInContent: blockKey => {
       const blocks = getEditorState()
@@ -318,9 +349,7 @@ export const createEditorCommands = (
     undo: () => setEditorState(undo(getEditorState())),
     redo: () => setEditorState(redo(getEditorState())),
     toggleInlineStyle: inlineStyle =>
-      setEditorState(
-        RichUtils.toggleInlineStyle(getEditorState(), getDraftInlineStyle(inlineStyle))
-      ),
+      setEditorState(toggleInlineStyle(getEditorState(), inlineStyle)),
     setBlockType,
     setTextAlignment: textAlignment =>
       setEditorState(setTextAlignment(getEditorState(), textAlignment)),
@@ -368,6 +397,7 @@ export const createEditorCommands = (
     insertDecoration: EditorCommands['insertDecoration'];
     triggerDecoration: EditorCommands['triggerDecoration'];
     deleteDecoration: EditorCommands['deleteDecoration'];
+    clearSelectedBlocksInlineStyles: EditorCommands['clearSelectedBlocksInlineStyles'];
   } = {
     insertDecoration: (type: string, data, settings) => {
       const draftType = TO_DRAFT_PLUGIN_TYPE_MAP[type];
@@ -389,6 +419,10 @@ export const createEditorCommands = (
       if (newEditorState) {
         setEditorState(newEditorState);
       }
+    },
+    clearSelectedBlocksInlineStyles: (exclude?: string[]) => {
+      const styleSelectionPredicate = style => !exclude?.includes(style);
+      setEditorState(removeCurrentInlineStyle(getEditorState(), styleSelectionPredicate));
     },
   };
 

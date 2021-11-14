@@ -22,6 +22,7 @@ import {
   RICOS_TEXT_HIGHLIGHT_TYPE,
   TEXT_COLOR_TYPE,
   TEXT_HIGHLIGHT_TYPE,
+  InlineStyle,
 } from 'wix-rich-content-common';
 import introState from '../../../../e2e/tests/fixtures/intro.json';
 import { pluginHashtag, HASHTAG_TYPE } from '../../../plugin-hashtag/web/src';
@@ -47,6 +48,7 @@ import {
   inlineStylesTestConfig,
   pluginsTestConfig,
   decorationsTestConfig,
+  contentWithDocumentStyleTest,
 } from './utils/editorCommandsTestsUtil';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -487,6 +489,28 @@ describe('RicosEditor', () => {
       Object.entries(pluginsTestConfig).forEach(insertPluginTest(settings));
       Object.entries(pluginsTestConfig).forEach(setPluginTest(settings));
       Object.entries(pluginsTestConfig).forEach(deletePluginTest(settings));
+    });
+    describe('Editor DocumentStyle API', () => {
+      it('should apply decorations and set document style', () => {
+        const ricosEditor = getRicosEditorInstance({ plugins, content }) as RicosEditor;
+        setSelection(ricosEditor, blockKey, selection);
+        ['bold', 'italic'].forEach((inlineStyle: InlineStyle) =>
+          ricosEditor.getEditorCommands().toggleInlineStyle(inlineStyle)
+        );
+        ricosEditor
+          .getEditorCommands()
+          .insertDecoration(RICOS_TEXT_COLOR_TYPE, { color: 'color3' });
+        ricosEditor
+          .getEditorCommands()
+          .insertDecoration(RICOS_TEXT_HIGHLIGHT_TYPE, { color: 'color2' });
+        const paragraph = ricosEditor.getEditorCommands().getAnchorBlockInlineStyles();
+        ricosEditor.getEditorCommands().updateDocumentStyle({ paragraph });
+        expect(ricosEditor.getEditorCommands().getDocumentStyle()).toEqual({ paragraph });
+        ricosEditor.getEditorCommands().clearSelectedBlocksInlineStyles();
+        ricosEditor
+          .getContentPromise()
+          .then(currentContent => expect(currentContent).toEqual(contentWithDocumentStyleTest));
+      });
     });
   });
 });

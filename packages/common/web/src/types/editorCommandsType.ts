@@ -29,6 +29,7 @@ import {
   BLOCKQUOTE,
   HEADER_BLOCK,
   RICOS_FONT_SIZE_TYPE,
+  DocumentStyle,
   EXTERNAL,
 } from 'ricos-content';
 import {
@@ -46,6 +47,7 @@ import {
 } from 'ricos-schema';
 import { MentionData } from './pluginTypes';
 import { TextAlignment, InlineStyle } from './commonTypes';
+import { RicosCustomStyles } from './themeTypes';
 export type ColorType = typeof RICOS_TEXT_COLOR_TYPE | typeof RICOS_TEXT_HIGHLIGHT_TYPE;
 
 type PluginsList = string[];
@@ -120,9 +122,11 @@ export interface EditorCommands {
     anchorableBlocks: any[];
     pluginsIncluded: string[];
   };
+  getDocumentStyle: () => DocumentStyle | undefined;
   getColor: (colorType: ColorType) => string | undefined;
   getFontSize: () => string | undefined;
   getTextAlignment: () => TextAlignment;
+  getAnchorBlockInlineStyles: () => Record<string, string>;
   hasInlineStyle: (style: InlineStyle) => boolean;
   isBlockTypeSelected: (type: TextBlockType) => boolean;
   isUndoStackEmpty: () => boolean;
@@ -182,5 +186,11 @@ export interface EditorCommands {
   setBlockType: (type: TextBlockType) => void;
   setTextAlignment: (textAlignment: TextAlignment) => void;
   _setSelection: (blockKey: BlockKey, selection: draftSelection) => void;
+  updateDocumentStyle: (documentStyle: DocumentStyle) => void;
+  clearSelectedBlocksInlineStyles: (exclude?: string[]) => void;
+  getWiredFontStyles: (
+    customStyles?: RicosCustomStyles,
+    isMobile?: boolean
+  ) => Record<string, string> | undefined;
   isAtomicBlockInSelection: () => boolean;
 }

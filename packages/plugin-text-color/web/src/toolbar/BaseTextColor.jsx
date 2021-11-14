@@ -66,7 +66,7 @@ export default class BaseTextColor extends Component {
     const styleSelectionPredicate = pluginParams.predicate(
       settings.styleSelectionPredicate || DEFAULT_STYLE_SELECTION_PREDICATE
     );
-    return getSelectionStyles(styleSelectionPredicate, getEditorState()).length > 0;
+    return getSelectionStyles(getEditorState(), styleSelectionPredicate).length > 0;
   }
 
   render() {

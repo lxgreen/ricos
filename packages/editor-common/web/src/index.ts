@@ -159,11 +159,7 @@ export {
   getDefaultStyleFn,
   getCustomStyleFn,
   getCustomStyleFns,
-  getColor,
-  getFontSize,
-  setHighlightColor,
-  setTextColor,
-  setFontSize,
+  getBlockStyleRanges,
 } from './Utils/inlineStyleUtils';
 
 export { scrollToBlock } from './Utils/scrollToBlock';
