@@ -23,6 +23,6 @@
         "__tests__"
     ],
     "references": [{
-              "path": "../../common/web"
+              "path": "../../ricos-common/web"
           }]
 }

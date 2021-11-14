@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import { mergeStyles, RichContentTheme, TranslationFunction } from 'wix-rich-content-common';

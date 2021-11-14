@@ -71,22 +71,30 @@ const getReferencesFromPackage = (packages, imports) => {
 
 const build = async () => {
   const packageJsonFiles = await globby(
-    ['packages/**/web/package.json', '!packages/template-atomic-plugin/'],
+    [
+      'packages/**/web/package.json',
+      '!packages/template-atomic-plugin/',
+      '!packages/ricos-schema/',
+    ],
     { realpath: true }
   );
   const pkgFolderNameMap = {};
   const packages = getFolderNamePkgMap(packageJsonFiles);
-  const singlePkg = [packages[5]];
-  console.log(singlePkg);
+  // console.log(
+  //   packages
+  //     .map(pkg => `./packages/${pkg.folderName}/web`)
+  //     .map(pkg => {
+  //       return `{"path": "${pkg}"}`;
+  //     })
+  // );
+  // const singlePkg = [packages[5]];
+  // console.log(singlePkg);
   packages.forEach(async pkg => {
     const imports = await getImportFromPackage(pkg);
     // console.log(imports, packages);
     const references = getReferencesFromPackage(packages, imports);
     writeFileTsFile(pkg, union(references.map(reference => reference.folderName)));
   });
-
-  //   packages.forEach(packages => {
-  //   });
 };
 
 build();

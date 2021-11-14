@@ -1,0 +1,41 @@
+{
+    "compilerOptions": {
+        "typeRoots": [
+            "./node_modules/@types",
+            "./external-types.d.ts"
+        ],
+        "composite": true,
+        "declaration": true,
+        "declarationMap": true,
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": false,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "target": "ESNext",
+        "jsx": "react",
+        "lib": [
+            "dom",
+            "ESNext"
+        ],
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "preserveConstEnums": false,
+        "allowJs": true
+    },
+    "files": [
+        "external-types.d.ts"
+    ],
+    "include": [
+        "packages",
+        "packages/**/*.json",
+        "*.ts",
+        "scripts"
+    ],
+    "exclude": [
+        "**/node_modules/*",
+        "**/dist/*",
+        "**/temp/*"
+    ]
+}

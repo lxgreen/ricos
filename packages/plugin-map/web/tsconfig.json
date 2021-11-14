@@ -23,6 +23,8 @@
         "__tests__"
     ],
     "references": [{
+              "path": "../../plugin-commons/web"
+          },{
               "path": "../../common/web"
           }]
 }

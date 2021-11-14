@@ -3,10 +3,14 @@
     "compilerOptions": {
         "outDir": "./dist"
     },
+    "files": [
+        "../../../external-types.d.ts"
+    ],
     "include": [
         "**/*.ts",
         "**/*.tsx",
-        "**/*.json"
+        "**/*.json",
+        "**/*.scss",
     ],
     "exclude": [
         "**/node_modules/*",
@@ -18,18 +22,19 @@
         "**/*.spec.jsx",
         "__tests__"
     ],
-    "references": [
-        {
-            "path": "../../ricos-content/web"
-        },
-        {
-            "path": "../../common/web"
-        },
-        {
-            "path": "../../preview/web"
-        },
-        {
-            "path": "../../editor/web"
-        }
-    ]
+    "references": [{
+              "path": "../../common/web"
+          },{
+              "path": "../../preview/web"
+          },{
+              "path": "../../editor/web"
+          },{
+              "path": "../../viewer/web"
+          },{
+              "path": "../../plugin-image/web"
+          },{
+              "path": "../../plugin-gallery/web"
+          },{
+              "path": "../../plugin-video/web"
+          }]
 }

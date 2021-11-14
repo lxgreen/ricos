@@ -17,22 +17,7 @@
   ],
   "references": [
     {
-      "path": "./packages/ricos-content/web"
-    },
-    {
-      "path": "./packages/ricos-common/web"
-    },
-    {
       "path": "./packages/common/web"
-    },
-    {
-      "path": "./packages/editor/web"
-    },
-    {
-      "path": "./packages/preview/web"
-    },
-    {
-      "path": "./packages/viewer/web"
     },
     {
       "path": "./packages/editor/web"
@@ -40,107 +25,128 @@
     {
       "path": "./packages/editor-common/web"
     },
-    // {
-    //     "path": "./packages/runtime-node/test"
-    // },
-    // {
-    //     "path": "./packages/dashboard/src"
-    // },
-    // {
-    //     "path": "./packages/engineer/src"
-    // },
-    // {
-    //     "path": "./packages/engineer/test"
-    // },
-    // {
-    //     "path": "./packages/scripts/src"
-    // },
-    // {
-    //     "path": "./packages/scripts/test"
-    // },
-    // {
-    //     "path": "./packages/test-kit/src"
-    // },
-    // {
-    //     "path": "./packages/test-kit/test"
-    // },
-    // {
-    //     "path": "./examples/dashboard-extention/src"
-    // },
-    // {
-    //     "path": "./examples/file-server/src"
-    // },
-    // {
-    //     "path": "./examples/multi-env/src"
-    // },
-    // {
-    //     "path": "./examples/node-only/src"
-    // },
-    // {
-    //     "path": "./examples/playground/src"
-    // },
-    // {
-    //     "path": "./examples/preload/src"
-    // },
-    // {
-    //     "path": "./examples/react/src"
-    // },
-    // {
-    //     "path": "./examples/reloaded-iframe/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/3rd-party/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/application-external/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/base-web-application/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/contextual/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/engine-config/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/engine-single-feature/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/engine-feature-roots/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/engine-multi-feature/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/engine-run-options/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/multi-node/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/multi-socket-node/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/node-env/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/static-application-external/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/static-base-web-application/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/using-config/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/with-iframe/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/workspace/packages/a/src"
-    // },
-    // {
-    //     "path": "./test-fixtures/workspace/packages/b/src"
-    // }
+    {
+      "path": "./packages/fullScreen/web"
+    },
+    {
+      "path": "./packages/link-preview-popover/web"
+    },
+    {
+      "path": "./packages/plugin-button/web"
+    },
+    {
+      "path": "./packages/plugin-code-block/web"
+    },
+    {
+      "path": "./packages/plugin-collapsible-list/web"
+    },
+    {
+      "path": "./packages/plugin-divider/web"
+    },
+    {
+      "path": "./packages/plugin-commons/web"
+    },
+    {
+      "path": "./packages/plugin-giphy/web"
+    },
+    {
+      "path": "./packages/plugin-emoji/web"
+    },
+    {
+      "path": "./packages/plugin-gallery/web"
+    },
+    {
+      "path": "./packages/plugin-file-upload/web"
+    },
+    {
+      "path": "./packages/plugin-hashtag/web"
+    },
+    {
+      "path": "./packages/plugin-headers-markdown/web"
+    },
+    {
+      "path": "./packages/plugin-headings/web"
+    },
+    {
+      "path": "./packages/plugin-html/web"
+    },
+    {
+      "path": "./packages/plugin-image/web"
+    },
+    {
+      "path": "./packages/plugin-indent/web"
+    },
+    {
+      "path": "./packages/plugin-line-spacing/web"
+    },
+    {
+      "path": "./packages/plugin-map/web"
+    },
+    {
+      "path": "./packages/plugin-mentions/web"
+    },
+    {
+      "path": "./packages/plugin-sound-cloud/web"
+    },
+    {
+      "path": "./packages/plugin-spoiler/web"
+    },
+    {
+      "path": "./packages/plugin-table/web"
+    },
+    {
+      "path": "./packages/plugin-text-color/web"
+    },
+    {
+      "path": "./packages/plugin-undo-redo/web"
+    },
+    {
+      "path": "./packages/plugin-unsupported-blocks/web"
+    },
+    {
+      "path": "./packages/plugin-vertical-embed/web"
+    },
+    {
+      "path": "./packages/plugin-video/web"
+    },
+    {
+      "path": "./packages/preview/web"
+    },
+    {
+      "path": "./packages/ricos/web"
+    },
+    {
+      "path": "./packages/ricos-common/web"
+    },
+    {
+      "path": "./packages/ricos-content/web"
+    },
+    {
+      "path": "./packages/ricos-driver/web"
+    },
+    {
+      "path": "./packages/ricos-editor/web"
+    },
+    {
+      "path": "./packages/ricos-viewer/web"
+    },
+    {
+      "path": "./packages/text-selection-toolbar/web"
+    },
+    {
+      "path": "./packages/tiptap-editor/web"
+    },
+    {
+      "path": "./packages/toolbars/web"
+    },
+    {
+      "path": "./packages/toolbars-new/web"
+    },
+    {
+      "path": "./packages/ui-components/web"
+    },
+    {
+      "path": "./packages/viewer/web"
+    }
   ]
 }

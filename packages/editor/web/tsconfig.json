@@ -22,9 +22,13 @@
         "**/*.spec.jsx",
         "__tests__"
     ],
-    "references": [
-        {
-            "path": "../../editor-common/web"
-        }
-    ]
+    "references": [{
+              "path": "../../editor-common/web"
+          },{
+              "path": "../../common/web"
+          },{
+              "path": "../../ricos-content/web"
+          },{
+              "path": "../../ui-components/web"
+          }]
 }

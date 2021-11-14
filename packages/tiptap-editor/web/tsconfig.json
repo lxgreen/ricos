@@ -24,5 +24,9 @@
     ],
     "references": [{
               "path": "../../common/web"
+          },{
+              "path": "../../editor-common/web"
+          },{
+              "path": "../../ricos-content/web"
           }]
 }
