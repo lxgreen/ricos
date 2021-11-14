@@ -225,10 +225,11 @@ function addStylesImport() {
         writeCjsAndEsContent(packageJson.main, packageJson.module, editorExtractedStylePath);
       }
       if (isExistViewerStyles) {
-        let loadablePackageJson;
-        try {
-          loadablePackageJson = require(process.cwd() + '/loadable/viewer/package.json');
-        } catch {}
+        let dynamicLoadableChunkName;
+        readdirSync('dist/loadable/viewer/es').forEach(file => {
+          const fileName = file.split('.')[0];
+          !fileName.includes('viewer-loadable') && (dynamicLoadableChunkName = fileName);
+        });
 
         writeCjsAndEsContent(
           'dist/module.viewer.cjs.js',
@@ -236,10 +237,10 @@ function addStylesImport() {
           viewerExtractedStylePath
         );
 
-        if (loadablePackageJson) {
+        if (dynamicLoadableChunkName) {
           writeCjsAndEsContent(
-            loadablePackageJson.main.match(/dist.*/)[0],
-            loadablePackageJson.module.match(/dist.*/)[0],
+            `dist/loadable/viewer/cjs/${dynamicLoadableChunkName}.cjs.js`,
+            `dist/loadable/viewer/es/${dynamicLoadableChunkName}.js`,
             viewerExtractedStylePath
           );
         }
