@@ -13,21 +13,24 @@ const getFolderNamePkgMap = packageJsonFiles => {
     folderNamePkgMap.push({
       folderAbsolutePath: path.dirname(absolutePath),
       folderName: packageFolderName,
-      packageName: packageFolderName,
+      packageName: pkgJson.name,
     });
   });
   return folderNamePkgMap;
 };
 
-const writeFileTsFile = (folderName, references = []) => {
+const writeFileTsFile = (pkg, references = []) => {
   const tsConfigTemplate = fs.readFileSync(path.join(__dirname, 'tsconfig.template'));
-  const referenceStr = references.map(reference => {
-    return `{
-              "path": "../../web/${reference}"
+  console.log(pkg.folderAbsolutePath, references);
+  const referenceStr = references
+    .filter(reference => reference !== pkg.folderName)
+    .map(reference => {
+      return `{
+              "path": "../../${reference}/web"
           }`;
-  });
+    });
   const tsConfigFile = tsConfigTemplate.toString().replace('${references}', referenceStr);
-  fs.writeFileSync(`${folderName}/tsconfig.json`, tsConfigFile);
+  fs.writeFileSync(`${pkg.folderAbsolutePath}/tsconfig.json`, tsConfigFile);
   //   console.log(tsConfigTemplate.toString().replace('${references}', referenceStr));
 };
 
@@ -54,7 +57,10 @@ const getReferencesFromPackage = (packages, imports) => {
   union(imports).forEach(importItem => {
     const pkgs = packages.find(pkg => {
       //   console.log(importItem);
-      return importItem.includes(`${pkg.packageName}`) && importItem.indexOf('..') === -1;
+      // if (importItem.includes('wix')) {
+      //   console.log(importItem);
+      // }
+      return importItem === pkg.packageName && importItem.indexOf('..') === -1;
     });
     if (pkgs) {
       foundPkgs.push(pkgs);
@@ -70,15 +76,13 @@ const build = async () => {
   );
   const pkgFolderNameMap = {};
   const packages = getFolderNamePkgMap(packageJsonFiles);
-  const singlePkg = packages[5];
+  const singlePkg = [packages[5]];
   console.log(singlePkg);
   packages.forEach(async pkg => {
     const imports = await getImportFromPackage(pkg);
+    // console.log(imports, packages);
     const references = getReferencesFromPackage(packages, imports);
-    writeFileTsFile(
-      pkg.folderAbsolutePath,
-      union(references.map(reference => reference.packageName))
-    );
+    writeFileTsFile(pkg, union(references.map(reference => reference.folderName)));
   });
 
   //   packages.forEach(packages => {
