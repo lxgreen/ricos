@@ -8,7 +8,11 @@ import {
   ACTION_BUTTONS,
 } from '../cypress/dataHooks';
 import { DEFAULT_DESKTOP_BROWSERS, DEFAULT_MOBILE_BROWSERS } from './settings';
-import { usePlugins, plugins, usePluginsConfig } from '../cypress/testAppConfig';
+import { usePlugins, plugins, usePluginsConfig, useExperiments } from '../cypress/testAppConfig';
+
+const useNewToolbar = useExperiments({
+  newFormattingToolbar: { namespace: 'ricos', value: 'true', enabled: true },
+});
 
 const eyesOpen = ({
   test: {
@@ -53,7 +57,7 @@ describe('plugins', () => {
     });
   });
 
-  context('spoiler', () => {
+  context.only('spoiler', () => {
     before(function() {
       eyesOpen(this);
     });
@@ -62,9 +66,11 @@ describe('plugins', () => {
       cy.switchToDesktop();
     });
 
+    const testAppConfig = { ...useNewToolbar, ...usePlugins(plugins.spoilerPreset) };
+
     after(() => cy.eyesClose());
     it(`check text spoilers in editor and reveal it in viewer`, () => {
-      cy.loadRicosEditorAndViewer('empty', usePlugins(plugins.spoilerPreset)).enterParagraphs([
+      cy.loadRicosEditorAndViewer('empty', testAppConfig).enterParagraphs([
         'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
         'Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition.', // eslint-disable-line max-len
       ]);
