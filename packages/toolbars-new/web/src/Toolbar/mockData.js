@@ -8,6 +8,7 @@ export const imageTempData = {
   },
   metadata: {},
   loading: true,
+  src: '',
 };
 export const imageData = {
   config: {
@@ -52,7 +53,6 @@ export const fileData = {
   type: 'jpg',
 };
 
-//I added type to metadata or native need to do this
 export const galleryTempData = {
   config: {
     alignment: 'center',

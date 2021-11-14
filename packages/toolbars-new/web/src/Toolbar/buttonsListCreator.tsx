@@ -43,7 +43,7 @@ import {
 
 type editorCommands = EditorCommands;
 
-const shouldBehaveLikeNativeApp = false;
+const shouldBehaveLikeNativeApp = true;
 
 export const createButtonsList = (
   formattingButtonsKeys,
