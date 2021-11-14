@@ -31,9 +31,11 @@ import {
   setHighlightColor,
   setTextColor,
   isAtomicBlockInSelection,
+  scrollToBlock,
   insertCustomLink,
 } from 'wix-rich-content-editor-common';
 import {
+  AvailableExperiments,
   EditorCommands,
   GetEditorState,
   SetEditorState,
@@ -207,7 +209,8 @@ export const createEditorCommands = (
   createPluginsDataMap,
   plugins,
   getEditorState: GetEditorState,
-  setEditorState: SetEditorState
+  setEditorState: SetEditorState,
+  experiments?: AvailableExperiments
 ): EditorCommands => {
   const setBlockType: EditorCommands['setBlockType'] = type => {
     setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
@@ -235,6 +238,8 @@ export const createEditorCommands = (
     getLinkDataInSelection: EditorCommands['getLinkDataInSelection'];
     getSelectedData: EditorCommands['getSelectedData'];
     getPluginsList: EditorCommands['getPluginsList'];
+    scrollToBlock: EditorCommands['scrollToBlock'];
+    isBlockInContent: EditorCommands['isBlockInContent'];
     getBlockSpacing: EditorCommands['getBlockSpacing'];
     saveEditorState: EditorCommands['saveEditorState'];
     loadEditorState: EditorCommands['loadEditorState'];
@@ -244,7 +249,12 @@ export const createEditorCommands = (
   } = {
     getSelection: () => {
       const selection = getEditorState().getSelection();
-      return { getIsCollapsed: selection.isCollapsed(), getIsFocused: selection.getHasFocus() };
+      return {
+        isCollapsed: selection.isCollapsed(),
+        isFocused: selection.getHasFocus(),
+        startKey: selection.getStartKey(),
+        endKey: selection.getEndKey(),
+      };
     },
     getAnchorableBlocks: () => getAnchorableBlocks(getEditorState()),
     getColor: colorType => getColor(getEditorState(), colorType),
@@ -278,7 +288,22 @@ export const createEditorCommands = (
         (pluginName: string) => pluginName && !PluginsToExclude.includes[pluginName]
       );
     },
+    scrollToBlock: blockKey => scrollToBlock(blockKey, experiments),
+    isBlockInContent: blockKey => {
+      const blocks = getEditorState()
+        .getCurrentContent()
+        .getBlocksAsArray();
+      return blocks.some(block => block.getKey() === blockKey);
+    },
     isAtomicBlockInSelection: () => isAtomicBlockInSelection(getEditorState()),
+  };
+
+  const toggleOverlayBGColor = (element: HTMLElement) => {
+    if (!element.style.backgroundColor) {
+      element.style.backgroundColor = 'rgba(var(--ricos-text-color-tuple, 33, 33, 33), 0.1)';
+    } else {
+      element.style.backgroundColor = '';
+    }
   };
 
   const textFormattingCommands: {
@@ -288,6 +313,7 @@ export const createEditorCommands = (
     setBlockType: EditorCommands['setBlockType'];
     setTextAlignment: EditorCommands['setTextAlignment'];
     _setSelection: EditorCommands['_setSelection'];
+    toggleBlockOverlay: EditorCommands['toggleBlockOverlay'];
   } = {
     undo: () => setEditorState(undo(getEditorState())),
     redo: () => setEditorState(redo(getEditorState())),
@@ -299,6 +325,14 @@ export const createEditorCommands = (
     setTextAlignment: textAlignment =>
       setEditorState(setTextAlignment(getEditorState(), textAlignment)),
     _setSelection,
+    toggleBlockOverlay: blockKey => {
+      const blockElement = document.querySelector(`[data-offset-key="${blockKey}-0-0"]`);
+      const elementOverlay = blockElement?.querySelector(`[data-hook="componentOverlay"]`);
+      const element = elementOverlay
+        ? blockElement?.querySelector(`[data-hook="componentOverlay"]`)
+        : blockElement;
+      toggleOverlayBGColor(element as HTMLElement);
+    },
   };
 
   const pluginsCommands: {
@@ -364,5 +398,6 @@ export const createEditorCommands = (
     ...decorationsCommands,
     ...editorState,
   };
+
   return editorCommands;
 };

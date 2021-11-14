@@ -82,7 +82,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
     } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
-    const showFormattingToolbar = !selection.getIsCollapsed && selection.getIsFocused;
+    const showFormattingToolbar = !selection.isCollapsed && selection.isFocused;
     const t = activeEditor.getT();
     const focusEditor = () => activeEditor.focus();
     const textButtons: TextButtons = {

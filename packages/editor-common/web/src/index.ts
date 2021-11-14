@@ -165,3 +165,5 @@ export {
   setTextColor,
   setFontSize,
 } from './Utils/inlineStyleUtils';
+
+export { scrollToBlock } from './Utils/scrollToBlock';

@@ -526,12 +526,13 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
   }
 
   initEditorCommands = () => {
-    const { createPluginsDataMap = {} } = this.props;
+    const { createPluginsDataMap = {}, experiments } = this.props;
     this.EditorCommands = createEditorCommands(
       createPluginsDataMap,
       this.plugins,
       this.getEditorState,
-      this.updateEditorState
+      this.updateEditorState,
+      experiments
     );
   };
 

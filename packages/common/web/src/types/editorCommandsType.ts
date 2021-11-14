@@ -50,6 +50,8 @@ export type ColorType = typeof RICOS_TEXT_COLOR_TYPE | typeof RICOS_TEXT_HIGHLIG
 
 type PluginsList = string[];
 
+type BlockKey = string;
+
 type TextBlockType =
   | typeof UNSTYLED
   | typeof NUMBERED_LIST_TYPE
@@ -64,8 +66,10 @@ type TextBlockType =
   | typeof HEADER_BLOCK.SIX;
 
 type Selection = {
-  getIsFocused?: boolean;
-  getIsCollapsed?: boolean;
+  isFocused?: boolean;
+  isCollapsed?: boolean;
+  startKey?: string;
+  endKey?: string;
 };
 
 type draftSelection = {
@@ -127,6 +131,9 @@ export interface EditorCommands {
   getLinkDataInSelection: () => Link | undefined;
   getSelectedData: () => any;
   getPluginsList: (settings?: { isRicosSchema?: boolean }) => PluginsList;
+  scrollToBlock: (blockKey: BlockKey) => void;
+  isBlockInContent: (blockKey: BlockKey) => boolean;
+  toggleBlockOverlay: (blockKey: BlockKey) => void;
   getBlockSpacing: () => any;
   saveEditorState: () => void;
   loadEditorState: () => void;
@@ -161,19 +168,19 @@ export interface EditorCommands {
     }
   ) => string;
   setBlock: <K extends keyof PluginsDataMap>(
-    blockKey: string,
+    blockKey: BlockKey,
     type: K,
     data?: PluginsDataMap[K],
     settings?: {
       isRicosSchema?: boolean;
     }
   ) => void;
-  deleteBlock: (blockKey: string) => void;
+  deleteBlock: (blockKey: BlockKey) => void;
   undo: () => void;
   redo: () => void;
   toggleInlineStyle: (inlineStyle: InlineStyle) => void;
   setBlockType: (type: TextBlockType) => void;
   setTextAlignment: (textAlignment: TextAlignment) => void;
-  _setSelection: (blockKey: string, selection: draftSelection) => void;
+  _setSelection: (blockKey: BlockKey, selection: draftSelection) => void;
   isAtomicBlockInSelection: () => boolean;
 }

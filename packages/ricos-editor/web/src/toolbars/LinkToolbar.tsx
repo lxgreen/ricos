@@ -50,7 +50,7 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
     const showLinkToolbar =
-      selection.getIsCollapsed && selection.getIsFocused && editorCommands.hasLinkInSelection();
+      selection.isCollapsed && selection.isFocused && editorCommands.hasLinkInSelection();
     const t = activeEditor.getT();
     const focusEditor = () => activeEditor.focus();
     const rawButtons = ['goToLink', '|', 'editLink', '|', 'removeLink'];
