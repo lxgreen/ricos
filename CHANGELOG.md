@@ -19,8 +19,16 @@
 
 </details>
 <hr/>
+## 8.59.2 (Nov 10, 2021)
 
-## 8.59.1 (Nov 10, 2021)\
+## 8.59.2 (Nov 13, 2021)
+
+- `viewer`
+  - [#3011](https://github.com/wix/ricos/pull/3011) Full Screen Optmization - a11y & mobile experiment
+- `tiptap`
+  - [#3104](https://github.com/wix/ricos/pull/3104) support on atomic block focus callback
+
+## 8.59.1 (Nov 10, 2021)
 
 ### :bug: Bug Fix
 
