@@ -97,8 +97,11 @@ export interface PluginsDataMap {
   [EXTERNAL]?: any;
 }
 
+export const CUSTOM_LINK = 'custom-link';
+
 export interface DecorationsDataMap {
   [RICOS_LINK_TYPE]?: LinkData;
+  [CUSTOM_LINK]?: LinkData;
   [RICOS_MENTION_TYPE]?: MentionData;
   [RICOS_TEXT_COLOR_TYPE]?: { color?: ColorData['foreground'] };
   [RICOS_TEXT_HIGHLIGHT_TYPE]?: { color?: ColorData['background'] };
@@ -142,7 +145,10 @@ export interface EditorCommands {
   deleteDecoration: <
     K extends keyof Omit<
       DecorationsDataMap,
-      typeof RICOS_MENTION_TYPE | typeof RICOS_INDENT_TYPE | typeof RICOS_LINE_SPACING_TYPE
+      | typeof RICOS_MENTION_TYPE
+      | typeof RICOS_INDENT_TYPE
+      | typeof RICOS_LINE_SPACING_TYPE
+      | typeof CUSTOM_LINK
     >
   >(
     type: K

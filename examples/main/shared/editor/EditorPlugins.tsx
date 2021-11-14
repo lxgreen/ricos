@@ -610,6 +610,10 @@ const config: RichContentEditorProps['config'] = {
     //     },
     //   },
     // },
+    // onLinkAdd: (customLinkData, saveData) => {
+    //   const data = { mockURL: 'www.sport5.co.il', mockData: {} };
+    //   saveData(data);
+    // },
   },
   [CODE_BLOCK_TYPE]: {
     // toolbar: {

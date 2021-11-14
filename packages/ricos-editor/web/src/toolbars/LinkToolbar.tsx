@@ -55,8 +55,10 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
     const focusEditor = () => activeEditor.focus();
     const rawButtons = ['goToLink', '|', 'editLink', '|', 'removeLink'];
     const filteredFormattingToolbarButtons = filterButtons(rawButtons, activeEditor);
+    const linkConfig = this.props.plugins?.find(plugin => plugin.type === 'LINK')?.config;
     const linkPanelData = {
-      linkTypes: this.props.plugins?.find(plugin => plugin.type === 'LINK')?.config.linkTypes,
+      linkTypes: linkConfig?.linkTypes,
+      onLinkAdd: linkConfig?.onLinkAdd,
       uiSettings: { linkPanel: this.props.linkPanelSettings },
       linkSettings: this.props.linkSettings,
       isMobile,

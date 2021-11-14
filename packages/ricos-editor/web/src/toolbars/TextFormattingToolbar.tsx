@@ -116,8 +116,10 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
       TEXT_COLOR: getPluginConfig('wix-rich-content-text-color'),
       TEXT_HIGHLIGHT: getPluginConfig('wix-rich-content-text-highlight'),
     };
+    const linkConfig = getPluginConfig('LINK');
     const linkPanelData = {
-      linkTypes: getPluginConfig('LINK')?.linkTypes,
+      linkTypes: linkConfig?.linkTypes,
+      onLinkAdd: linkConfig?.onLinkAdd,
       uiSettings: { linkPanel: this.props.linkPanelSettings },
       linkSettings: this.props.linkSettings,
       isMobile,

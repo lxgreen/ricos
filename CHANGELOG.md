@@ -17,14 +17,26 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix  
+
+- `toolbars-new`
+  - [#3090](https://github.com/wix/ricos/pull/3090) support custom link config
+
 </details>
 <hr/>
 
-## 8.59.1 (Nov 10, 2021)\
+## 8.59.2 (Nov 13, 2021)
+
+- `viewer`
+  - [#3011](https://github.com/wix/ricos/pull/3011) Full Screen Optmization - a11y & mobile experiment
+- `tiptap`
+  - [#3104](https://github.com/wix/ricos/pull/3104) support on atomic block focus callback
+
+## 8.59.1 (Nov 10, 2021)
 
 ### :bug: Bug Fix
 
-- `toolbar-new`
+- `toolbars-new`
   - [#3075](https://github.com/wix/ricos/pull/3075) disable link when atomic block is selected
 - `table`
   - [#3091](https://github.com/wix/ricos/pull/3091) clean unwanted separators from toolbar
