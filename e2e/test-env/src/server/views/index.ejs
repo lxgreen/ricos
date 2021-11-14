@@ -7,6 +7,29 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no"
     />
+    <style>
+      /* Disable CSS transitions. */
+      * {
+        -webkit-transition: 0ms !important;
+        -moz-transition: 0ms !important;
+        -o-transition: 0ms !important;
+        transition: 0ms !important;
+      }
+      /* Disable CSS animations. */
+      * {
+        -webkit-animation: 0ms !important;
+        -moz-animation: 0ms !important;
+        -o-animation: 0ms !important;
+        animation: 0ms !important;
+      }
+      /* Reset values on non-opaque/offscreen framer-motion components. */
+      /* *[style*='opacity'] {
+        opacity: 1 !important;
+      }
+      *[style*='transform'] {
+        transform: unset !important;
+      } */
+    </style>
   </head>
 
   <body>

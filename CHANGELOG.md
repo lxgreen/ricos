@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
-### :bug: Bug Fix  
+</details>
+<hr/>
+
+## 8.59.3 (Nov 14, 2021)
+
+### :bug: Bug Fix
 
 - `toolbars-new`
   - [#3090](https://github.com/wix/ricos/pull/3090) support custom link config
-
-</details>
-<hr/>
 
 ## 8.59.2 (Nov 13, 2021)
 
