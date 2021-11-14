@@ -46,10 +46,11 @@
     flex-direction: column;
     position: absolute;
     top: 36px;
+    left: -5px;
     z-index: 10;
     padding: 8px 0;
     width: max-content;
-    min-width: 42px;
+    min-width: 54px;
     @include border-box;
     @include phone {
       &:not(.colorPickerMobile) {
