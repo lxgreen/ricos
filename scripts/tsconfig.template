@@ -22,6 +22,5 @@
         "**/*.spec.jsx",
         "__tests__"
     ],
-    "references": [${refreference}]
-    ]
+    "references": [${references}]
 }
