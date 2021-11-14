@@ -368,7 +368,8 @@ describe('text on mobile', () => {
     cy.eyesCheckWindow('should render alignment modal');
     cy.get(`[data-hook=${FLOATING_TOOLBAR.TOOLBAR_MOBILE_MODAL_CLOSE_ICON}]`).click();
     cy.setTextStyle(INLINE_TOOLBAR_BUTTONS.LINE_SPACING, [20, 30]);
-    cy.get(`[data-hook=${FLOATING_TOOLBAR.TOOLBAR_MOBILE_MODAL_CLOSE_ICON}]`).click();
     cy.eyesCheckWindow('should render lineSpacing modal');
+    cy.get(`[data-hook=${FLOATING_TOOLBAR.TOOLBAR_MOBILE_MODAL_CLOSE_ICON}]`).click();
+    cy.eyesCheckWindow('should close lineSpacing modal');
   });
 });
