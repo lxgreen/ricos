@@ -499,9 +499,9 @@ export const findOsName = () => {
   return null;
 };
 
-export const getSpacing = (currentSpacing, userDefaultSpacing) => {
+export const getSpacing = (currentSpacing = {}, userDefaultSpacing = {}) => {
   const hasCurrentSpacing = Object.keys(currentSpacing).length !== 0;
-  const hasDefaultSpacing = Object.keys(userDefaultSpacing).length !== 0;
+  const hasDefaultSpacing = Object?.keys(userDefaultSpacing).length !== 0;
   const defaultSpacing = hasDefaultSpacing ? userDefaultSpacing : defaultLineSpacing;
   return hasCurrentSpacing ? currentSpacing : defaultSpacing;
 };
