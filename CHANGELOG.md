@@ -22,6 +22,11 @@
 - `ricos-editor`
   - [#3068](https://github.com/wix/ricos/pull/3068) **beta** Editor Commands API support for Notes
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3108](https://github.com/wix/ricos/pull/3108) Fix getsSpacing function to operate when the default line spacing is not defined
+
 ### :house: Internal
 - `editor viewer`
   - [#3006](https://github.com/wix/ricos/pull/3006) `documentStyle` and headings customization support
