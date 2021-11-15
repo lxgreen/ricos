@@ -51,6 +51,10 @@
           "size": "large",
           "alignment": "center",
           "textWrap": "nowrap"
+        },
+        "price": {
+          "amount": 100,
+          "currency": "USD"
         }
       }
     }
