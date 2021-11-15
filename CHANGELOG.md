@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.60.0 (Nov 15, 2021)
+
 ### :rocket: New Feature
 
 - `ricos-editor`
@@ -30,12 +37,6 @@
 ### :house: Internal
 - `editor viewer`
   - [#3006](https://github.com/wix/ricos/pull/3006) `documentStyle` and headings customization support
-
-</details>
-<hr/>
-
-</details>
-<hr/>
 
 ## 8.59.3 (Nov 14, 2021)
 
