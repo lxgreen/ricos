@@ -2,11 +2,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable fp/no-loops */
 import React from 'react';
+import { scrollToBlock } from 'wix-rich-content-editor-common';
 import {
   RICOS_LINK_TYPE,
   EditorCommands,
   normalizeUrl,
-  anchorScroll,
   IMAGE_TYPE,
   GALLERY_TYPE,
   FILE_UPLOAD_TYPE,
@@ -664,11 +664,7 @@ const goToLink = (event, linkData, linkPanelData, experiments) => {
     if (customAnchorScroll) {
       customAnchorScroll(event, anchor);
     } else {
-      const nodeListOfAllblocks = document.querySelectorAll(`[data-editor]`);
-      // eslint-disable-next-line prefer-spread
-      const arrayOfAllblocks = Array.apply(null, nodeListOfAllblocks);
-      const element = arrayOfAllblocks.find(block => block.dataset.offsetKey === `${anchor}-0-0`);
-      anchorScroll(element, experiments);
+      scrollToBlock(anchor, experiments);
     }
   } else {
     const href = url ? normalizeUrl(url) : undefined;

@@ -100,8 +100,8 @@ export class RichContentAdapter implements TiptapAPI {
         return this.editor.commands.updateNodeById(blockKey, data);
       },
       getSelection: () => ({
-        getIsFocused: this.editor.isFocused,
-        getIsCollapsed: this.editor.state.selection.empty,
+        isFocused: this.editor.isFocused,
+        isCollapsed: this.editor.state.selection.empty,
       }),
 
       insertDecoration: (type, data) => {
@@ -221,6 +221,9 @@ export class RichContentAdapter implements TiptapAPI {
     isRedoStackEmpty: () => false,
     getSelectedData: () => 'blah',
     getPluginsList: () => [],
+    scrollToBlock: _blockKey => {},
+    isBlockInContent: _blockKey => false,
+    toggleBlockOverlay: _blockKey => false,
     getBlockSpacing: () => 5,
     saveEditorState: () => {},
     loadEditorState: () => {},
@@ -232,6 +235,13 @@ export class RichContentAdapter implements TiptapAPI {
     setBlockType: () => {},
     setTextAlignment: () => {},
     _setSelection: () => {},
+    getDocumentStyle: () => undefined,
+    getAnchorBlockInlineStyles: () => {
+      return {};
+    },
+    updateDocumentStyle: () => {},
+    clearSelectedBlocksInlineStyles: () => {},
+    getWiredFontStyles: () => undefined,
     isAtomicBlockInSelection: () => false,
   };
 }

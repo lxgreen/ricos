@@ -42,7 +42,8 @@
               "text": "already",
               "decorations": [
                 {
-                  "type": "UNDERLINE"
+                  "type": "UNDERLINE",
+                  "underlineData": true
                 }
               ]
             }

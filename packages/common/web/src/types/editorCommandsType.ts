@@ -29,6 +29,7 @@ import {
   BLOCKQUOTE,
   HEADER_BLOCK,
   RICOS_FONT_SIZE_TYPE,
+  DocumentStyle,
   EXTERNAL,
 } from 'ricos-content';
 import {
@@ -46,9 +47,12 @@ import {
 } from 'ricos-schema';
 import { MentionData } from './pluginTypes';
 import { TextAlignment, InlineStyle } from './commonTypes';
+import { RicosCustomStyles } from './themeTypes';
 export type ColorType = typeof RICOS_TEXT_COLOR_TYPE | typeof RICOS_TEXT_HIGHLIGHT_TYPE;
 
 type PluginsList = string[];
+
+type BlockKey = string;
 
 type TextBlockType =
   | typeof UNSTYLED
@@ -64,8 +68,10 @@ type TextBlockType =
   | typeof HEADER_BLOCK.SIX;
 
 type Selection = {
-  getIsFocused?: boolean;
-  getIsCollapsed?: boolean;
+  isFocused?: boolean;
+  isCollapsed?: boolean;
+  startKey?: string;
+  endKey?: string;
 };
 
 type draftSelection = {
@@ -116,9 +122,11 @@ export interface EditorCommands {
     anchorableBlocks: any[];
     pluginsIncluded: string[];
   };
+  getDocumentStyle: () => DocumentStyle | undefined;
   getColor: (colorType: ColorType) => string | undefined;
   getFontSize: () => string | undefined;
   getTextAlignment: () => TextAlignment;
+  getAnchorBlockInlineStyles: () => Record<string, string>;
   hasInlineStyle: (style: InlineStyle) => boolean;
   isBlockTypeSelected: (type: TextBlockType) => boolean;
   isUndoStackEmpty: () => boolean;
@@ -127,6 +135,9 @@ export interface EditorCommands {
   getLinkDataInSelection: () => Link | undefined;
   getSelectedData: () => any;
   getPluginsList: (settings?: { isRicosSchema?: boolean }) => PluginsList;
+  scrollToBlock: (blockKey: BlockKey) => void;
+  isBlockInContent: (blockKey: BlockKey) => boolean;
+  toggleBlockOverlay: (blockKey: BlockKey) => void;
   getBlockSpacing: () => any;
   saveEditorState: () => void;
   loadEditorState: () => void;
@@ -161,22 +172,28 @@ export interface EditorCommands {
     }
   ) => string;
   setBlock: <K extends keyof PluginsDataMap>(
-    blockKey: string,
+    blockKey: BlockKey,
     type: K,
     data?: PluginsDataMap[K],
     settings?: {
       isRicosSchema?: boolean;
     }
   ) => void;
-  deleteBlock: (blockKey: string) => void;
+  deleteBlock: (blockKey: BlockKey) => void;
   undo: () => void;
   redo: () => void;
   toggleInlineStyle: (inlineStyle: InlineStyle) => void;
   setBlockType: (type: TextBlockType) => void;
   setTextAlignment: (textAlignment: TextAlignment) => void;
-  _setSelection: (blockKey: string, selection: draftSelection) => void;
+  _setSelection: (blockKey: BlockKey, selection: draftSelection) => void;
+  updateDocumentStyle: (documentStyle: DocumentStyle) => void;
+  clearSelectedBlocksInlineStyles: (exclude?: string[]) => void;
+  getWiredFontStyles: (
+    customStyles?: RicosCustomStyles,
+    isMobile?: boolean
+  ) => Record<string, string> | undefined;
+  isAtomicBlockInSelection: () => boolean;
   addImage?: (files: File[]) => void;
   addGallery?: (files: File[]) => void;
   addFile?: (files: File[]) => void;
-  isAtomicBlockInSelection: () => boolean;
 }

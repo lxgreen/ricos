@@ -17,13 +17,33 @@
     Click to see more.
   </summary>
 
-### :bug: Bug Fix  
 
-- `toolbars-new`
-  - [#3090](https://github.com/wix/ricos/pull/3090) support custom link config
 
 </details>
 <hr/>
+
+## 8.60.0 (Nov 15, 2021)
+
+### :rocket: New Feature
+
+- `ricos-editor`
+  - [#3068](https://github.com/wix/ricos/pull/3068) **beta** Editor Commands API support for Notes
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3108](https://github.com/wix/ricos/pull/3108) Fix getsSpacing function to operate when the default line spacing is not defined
+
+### :house: Internal
+- `editor viewer`
+  - [#3006](https://github.com/wix/ricos/pull/3006) `documentStyle` and headings customization support
+
+## 8.59.3 (Nov 14, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3090](https://github.com/wix/ricos/pull/3090) support custom link config
 
 ## 8.59.2 (Nov 13, 2021)
 

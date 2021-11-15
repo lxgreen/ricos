@@ -7,6 +7,7 @@ export const HEADER_BLOCK = Object.freeze({
   FOUR: 'header-four',
   FIVE: 'header-five',
   SIX: 'header-six',
+  PARAGRAPH: 'unstyled',
 });
 
 export const DEFAULT_TITLE_HEADINGS = ['h2', 'h3'];
@@ -115,6 +116,8 @@ export const RICOS_COLOR_TYPE = 'ricos-color';
 export const RICOS_LINK_TYPE = 'ricos-link';
 export const RICOS_MENTION_TYPE = 'ricos-mention';
 export const RICOS_FONT_SIZE_TYPE = 'ricos-font-size';
+export const RICOS_BOLD_TYPE = 'ricos-bold';
+export const RICOS_ITALIC_TYPE = 'ricos-italic';
 
 export const RICOS_EXTERNAL_LINK_TYPE = 'ricos-external-link'; // TODO: is this type needed?
 export const RICOS_EXTERNAL_MENTION_TYPE = 'ricos-external-mention'; // TODO: is this type needed?
