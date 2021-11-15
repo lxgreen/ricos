@@ -7,13 +7,13 @@ import { createTiptapExtensions } from './tiptap';
 import { TiptapEditorPlugin } from 'wix-tiptap-editor';
 
 export const pluginLink: EditorPluginCreator<LinkPluginEditorConfig> = config => {
-  const pluginConfig = { ...DEFAULTS.config, ...config };
+  const pluginConfig: Record<string, unknown> = { ...DEFAULTS.config, ...config };
   return {
     config: pluginConfig,
     type: LINK_TYPE,
     createPlugin: createLinkPlugin,
     ModalsMap: {},
     createPluginData: createLinkData,
-    tiptapExtensions: config => createTiptapExtensions({ ...pluginConfig, ...config }),
+    tiptapExtensions: createTiptapExtensions(pluginConfig),
   } as TiptapEditorPlugin;
 };

@@ -8,13 +8,13 @@ import { createRicosExtensions } from './tiptap';
 import { TiptapEditorPlugin } from 'wix-tiptap-editor';
 
 export const pluginGiphy: EditorPluginCreator<GiphyPluginEditorConfig> = config => {
-  const pluginConfig = { ...DEFAULTS.config, ...config };
+  const pluginConfig: Record<string, unknown> = { ...DEFAULTS.config, ...config };
   return {
     config: pluginConfig,
     type: GIPHY_TYPE,
     createPlugin: createGiphyPlugin,
     ModalsMap,
     createPluginData: createGiphyData,
-    tiptapExtensions: (config = {}) => createRicosExtensions({ ...pluginConfig, ...config }),
+    tiptapExtensions: createRicosExtensions(pluginConfig),
   } as TiptapEditorPlugin;
 };

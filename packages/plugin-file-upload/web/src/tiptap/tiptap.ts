@@ -17,11 +17,7 @@ declare module '@tiptap/core' {
 
 const name = TIPTAP_FILE_TYPE;
 
-export const createRicosExtensions: CreateRicosExtensions = ({
-  uploadFunction,
-  onError,
-  ...defaultOptions
-}) => [
+export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
     Component,
@@ -59,8 +55,8 @@ export const createRicosExtensions: CreateRicosExtensions = ({
             files.forEach(file => {
               uploadFile({
                 file,
-                uploadFunction,
-                onError,
+                uploadHandler: defaultOptions.uploadHandler,
+                onError: defaultOptions.onError,
                 onSuccess,
                 onFileResolve: () => {},
               });

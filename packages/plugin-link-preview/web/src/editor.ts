@@ -6,12 +6,12 @@ import { createRicosExtensions } from './tiptap';
 import { TiptapEditorPlugin } from 'wix-tiptap-editor';
 
 export const pluginLinkPreview: EditorPluginCreator<LinkPreviewPluginEditorConfig> = config => {
-  const pluginConfig = { ...DEFAULTS.config, ...config };
+  const pluginConfig: Record<string, unknown> = { ...DEFAULTS.config, ...config };
   return {
     config: pluginConfig,
     type: LINK_PREVIEW_TYPE,
     createPlugin: createLinkPreviewPlugin,
     ModalsMap: {},
-    tiptapExtensions: (config = {}) => createRicosExtensions({ ...pluginConfig, ...config }),
+    tiptapExtensions: createRicosExtensions(pluginConfig),
   } as TiptapEditorPlugin;
 };

@@ -7,13 +7,16 @@ import { createRicosExtensions } from './tiptap';
 import { TiptapEditorPlugin } from 'wix-tiptap-editor';
 
 export const pluginFileUpload: EditorPluginCreator<FilePluginEditorConfig> = config => {
-  const pluginConfig = { ...DEFAULTS.config, ...config };
+  const pluginConfig: Record<string, unknown> = { ...DEFAULTS.config, ...config };
   return {
     config: pluginConfig,
     type: FILE_UPLOAD_TYPE,
     createPlugin: createFileUploadPlugin,
     ModalsMap: {},
     createPluginData: createFileData,
-    tiptapExtensions: (config = {}) => createRicosExtensions({ ...pluginConfig, ...config }),
+    configFixer: () =>
+      (pluginConfig.uploadHandler =
+        pluginConfig.onFileSelected || pluginConfig.handleFileSelection),
+    tiptapExtensions: createRicosExtensions(pluginConfig),
   } as TiptapEditorPlugin;
 };

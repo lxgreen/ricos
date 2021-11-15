@@ -94,5 +94,5 @@ export const isRicosFunctionalExtension = (ext: RicosExtension): ext is RicosFun
 export type RicosExtension = RicosNodeExtension | RicosMarkExtension | RicosFunctionalExtension;
 
 export interface TiptapEditorPlugin extends EditorPlugin {
-  tiptapExtensions: (config: Record<string, any>) => RicosExtension[];
+  tiptapExtensions: RicosExtension[];
 }

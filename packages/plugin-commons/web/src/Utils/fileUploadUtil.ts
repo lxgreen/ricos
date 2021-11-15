@@ -6,20 +6,20 @@ const fileReader = file => {
 
 export const uploadFile = ({
   file,
-  uploadFunction,
+  uploadHandler,
   onFileResolve,
   onSuccess,
   onError,
 }: {
   file: File;
-  uploadFunction: (file: File, callback: ({ data, error }) => void) => void;
+  uploadHandler: (file: File, callback: ({ data, error }) => void) => void;
   onFileResolve: (url: string) => void;
   onSuccess: (data) => void;
   onError?: (error: Error) => void;
 }) => {
   fileReader(file).then((url: string) => {
     onFileResolve(url);
-    uploadFunction(file, ({ data, error }) => {
+    uploadHandler(file, ({ data, error }) => {
       if (error) {
         onError?.(error);
       } else {

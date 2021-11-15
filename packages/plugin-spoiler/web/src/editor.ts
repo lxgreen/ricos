@@ -9,12 +9,16 @@ export { SpoilerEditorWrapper };
 export { default as BlockSpoilerComponent } from './Components/BlockSpoilerComponent';
 
 export const pluginSpoiler: EditorPluginCreator<SpoilerPluginEditorConfig> = config => {
-  const pluginConfig = { ...DEFAULTS.config, SpoilerEditorWrapper, ...config };
+  const pluginConfig: Record<string, unknown> = {
+    ...DEFAULTS.config,
+    SpoilerEditorWrapper,
+    ...config,
+  };
   return {
     config: pluginConfig,
     type: SPOILER_TYPE,
     createPlugin: createSpoilerPlugin,
     ModalsMap: {},
-    tiptapExtensions: (config = {}) => createTiptapExtensions({ ...pluginConfig, ...config }),
+    tiptapExtensions: createTiptapExtensions(pluginConfig),
   } as TiptapEditorPlugin;
 };
