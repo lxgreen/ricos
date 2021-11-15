@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-plugin-vertical-embed",
-  "version": "8.59.3-loadable",
+  "version": "8.60.0-loadable",
   "author": {
     "name": "Tomas Kirklys",
     "email": "tomaski@wix.com"
@@ -36,10 +36,10 @@
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,d.ts}'"
   },
   "dependencies": {
-    "wix-rich-content-common": "8.59.3-loadable",
-    "wix-rich-content-editor-common": "8.59.3-loadable",
-    "wix-rich-content-plugin-commons": "8.59.3-loadable",
-    "wix-rich-content-ui-components": "8.59.3-loadable"
+    "wix-rich-content-common": "8.60.0-loadable",
+    "wix-rich-content-editor-common": "8.60.0-loadable",
+    "wix-rich-content-plugin-commons": "8.60.0-loadable",
+    "wix-rich-content-ui-components": "8.60.0-loadable"
   },
   "unpkg": true,
   "publishConfig": {

@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-plugin-headings",
-  "version": "8.59.3-loadable",
+  "version": "8.60.0-loadable",
   "author": {
     "name": "Bar Boaron",
     "email": "barb@wix.com"
@@ -36,9 +36,9 @@
   },
   "dependencies": {
     "react-modal": "~3.4.1",
-    "wix-rich-content-common": "8.59.3-loadable",
-    "wix-rich-content-editor-common": "8.59.3-loadable",
-    "wix-rich-content-plugin-commons": "8.59.3-loadable"
+    "wix-rich-content-common": "8.60.0-loadable",
+    "wix-rich-content-editor-common": "8.60.0-loadable",
+    "wix-rich-content-plugin-commons": "8.60.0-loadable"
   },
   "unpkg": true,
   "publishConfig": {
