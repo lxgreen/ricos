@@ -11,6 +11,8 @@
         "**/*.tsx",
         "**/*.json",
         "**/*.scss",
+        "**/**/*.scss",
+        "statics"
     ],
     "exclude": [
         "**/node_modules/*",
@@ -22,11 +24,15 @@
         "**/*.spec.jsx",
         "__tests__"
     ],
-    "references": [{
-              "path": "../../common/web"
-          },{
-              "path": "../../editor-common/web"
-          },{
-              "path": "../../ricos-content/web"
-          }]
+    "references": [
+        {
+            "path": "../../common/web"
+        },
+        {
+            "path": "../../editor-common/web"
+        },
+        {
+            "path": "../../ricos-content/web"
+        }
+    ]
 }

@@ -23,6 +23,8 @@
         "__tests__"
     ],
     "references": [
-        {}
+        {
+            "path": "../../ricos-content/web"
+        },
     ]
 }

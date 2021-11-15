@@ -22,5 +22,9 @@
         "**/*.spec.jsx",
         "__tests__"
     ],
-    "references": []
+    "references": [
+        {
+            "path": "../../ui-components/web"
+        },
+    ]
 }

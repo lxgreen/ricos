@@ -69,6 +69,16 @@ const getReferencesFromPackage = (packages, imports) => {
   return foundPkgs;
 };
 
+const createAllReferences = packages => {
+  console.log(
+    packages
+      .map(pkg => `./packages/${pkg.folderName}/web`)
+      .map(pkg => {
+        return `{"path": "${pkg}"}`;
+      })
+  );
+};
+
 const build = async () => {
   const packageJsonFiles = await globby(
     [
@@ -87,6 +97,7 @@ const build = async () => {
   //       return `{"path": "${pkg}"}`;
   //     })
   // );
+
   // const singlePkg = [packages[5]];
   // console.log(singlePkg);
   packages.forEach(async pkg => {

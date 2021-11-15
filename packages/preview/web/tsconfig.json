@@ -22,5 +22,18 @@
         "**/*.spec.jsx",
         "__tests__"
     ],
-    "references": []
+    "references": [
+        {
+            "path": "../../common/web"
+        },
+        {
+            "path": "../../plugin-commons/web"
+        },
+        {
+            "path": "../../tiptap-editor/web"
+        },
+        {
+            "path": "../../ricos-content/web"
+        }
+    ]
 }

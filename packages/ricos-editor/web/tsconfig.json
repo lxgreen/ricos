@@ -22,15 +22,24 @@
         "**/*.spec.jsx",
         "__tests__"
     ],
-    "references": [{
-              "path": "../../ricos-common/web"
-          },{
-              "path": "../../ricos-content/web"
-          },{
-              "path": "../../common/web"
-          },{
-              "path": "../../editor-common/web"
-          },{
-              "path": "../../editor/web"
-          }]
+    "references": [
+        {
+            "path": "../../ricos-common/web"
+        },
+        {
+            "path": "../../ricos-content/web"
+        },
+        {
+            "path": "../../common/web"
+        },
+        {
+            "path": "../../editor-common/web"
+        },
+        {
+            "path": "../../editor/web"
+        },
+        {
+            "path": "../../toolbars-new/web"
+        }
+    ]
 }

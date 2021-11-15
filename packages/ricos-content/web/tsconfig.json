@@ -22,7 +22,5 @@
         "**/*.spec.jsx",
         "__tests__"
     ],
-    "references": [{
-              "path": "../../common/web"
-          }]
+    "references": []
 }
