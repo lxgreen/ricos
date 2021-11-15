@@ -47,6 +47,10 @@
       "mutability": "IMMUTABLE",
       "data": {
         "type": "section",
+        "price": {
+          "amount": 100,
+          "currency": "USD"
+        },
         "config": {
           "size": "large",
           "alignment": "center",

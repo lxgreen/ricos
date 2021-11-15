@@ -17,9 +17,51 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.60.0 (Nov 15, 2021)
+
+### :rocket: New Feature
+
+- `ricos-editor`
+  - [#3068](https://github.com/wix/ricos/pull/3068) **beta** Editor Commands API support for Notes
+
 ### :bug: Bug Fix
 
-- `toolbar-new`
+- `toolbars-new`
+
+  - [#3108](https://github.com/wix/ricos/pull/3108) Fix getsSpacing function to operate when the default line spacing is not defined
+
+- `image-plugin`
+  - [#3112](https://github.com/wix/ricos/pull/3112) fix a11y on enter
+
+### :house: Internal
+
+- `editor viewer`
+  - [#3006](https://github.com/wix/ricos/pull/3006) `documentStyle` and headings customization support
+
+## 8.59.3 (Nov 14, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3090](https://github.com/wix/ricos/pull/3090) support custom link config
+
+## 8.59.2 (Nov 13, 2021)
+
+- `viewer`
+  - [#3011](https://github.com/wix/ricos/pull/3011) Full Screen Optmization - a11y & mobile experiment
+- `tiptap`
+  - [#3104](https://github.com/wix/ricos/pull/3104) support on atomic block focus callback
+
+## 8.59.1 (Nov 10, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
   - [#3075](https://github.com/wix/ricos/pull/3075) disable link when atomic block is selected
 - `table`
   - [#3091](https://github.com/wix/ricos/pull/3091) clean unwanted separators from toolbar
@@ -33,14 +75,13 @@
 
 - `example`
   - [#3076](https://github.com/wix/ricos/pull/3076) new toolbar - default in example + add dedicated button in settings
+- `toolbars-new`
+  - [#3099](https://github.com/wix/ricos/pull/3099) added datahooks
 
 ### :nail_care: Polish
 
 - `toolbars-new`
   - [#3097](https://github.com/wix/ricos/pull/3097) refactor new toolbar modals position
-
-</details>
-<hr/>
 
 ## 8.59.0 (Nov 9, 2021)
 

@@ -10,6 +10,10 @@
           "size": "large",
           "alignment": "center",
           "textWrap": "nowrap"
+        },
+        "price": {
+          "amount": 100,
+          "currency": "USD"
         }
       }
     },
@@ -23,9 +27,11 @@
           "nodes": [],
           "textData": {
             "text": "A",
-            "decorations": [{
-              "type": "EXTERNAL"
-            }]
+            "decorations": [
+              {
+                "type": "EXTERNAL"
+              }
+            ]
           }
         },
         {
@@ -36,7 +42,8 @@
             "text": "B",
             "decorations": [
               {
-                "type": "BOLD"
+                "type": "BOLD",
+                "fontWeightValue": 700
               }
             ]
           }
@@ -47,9 +54,12 @@
           "nodes": [],
           "textData": {
             "text": "C",
-            "decorations": [{
-              "type": "UNDERLINE"
-            }]
+            "decorations": [
+              {
+                "type": "UNDERLINE",
+                "underlineData": true
+              }
+            ]
           }
         }
       ],
@@ -67,4 +77,3 @@
     "updatedTimestamp": "2021-10-05T10:02:38.502Z"
   }
 }
-

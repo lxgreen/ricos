@@ -102,6 +102,15 @@ export const TO_RICOS_DECORATION_TYPE = {
   [EXTERNAL]: Decoration_Type.EXTERNAL,
 };
 
+export const TO_RICOS_INLINE_STYLE_TYPE = {
+  BOLD: { type: Decoration_Type.BOLD, fontWeightValue: 700 },
+  NOT_BOLD: { type: Decoration_Type.BOLD, fontWeightValue: 400 },
+  ITALIC: { type: Decoration_Type.ITALIC, italicData: true },
+  NOT_ITALIC: { type: Decoration_Type.ITALIC, italicData: false },
+  UNDERLINE: { type: Decoration_Type.UNDERLINE, underlineData: true },
+  NOT_UNDERLINE: { type: Decoration_Type.UNDERLINE, underlineData: false },
+};
+
 export const TO_RICOS_PLUGIN_TYPE = {
   ...TO_RICOS_NODE_TYPE,
   ...TO_RICOS_DECORATION_TYPE,

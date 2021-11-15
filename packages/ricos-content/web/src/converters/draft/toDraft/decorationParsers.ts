@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
-import { Decoration, Node, Node_Type } from 'ricos-schema';
+import { Decoration, Node, Node_Type, Decoration_Type } from 'ricos-schema';
 import { RicosInlineStyleRange, RicosEntityRange, RicosEntityMap } from '../../../types';
 import { FROM_RICOS_DECORATION_TYPE, TO_RICOS_DECORATION_DATA_FIELD } from '../consts';
 import { emojiRegex } from '../emojiRegex';
 import { createDecorationEntityData } from './getDraftEntityData';
+import { omit } from 'lodash';
 
 export interface DraftTypedDecoration extends Omit<Decoration, 'type'> {
   type: string;
@@ -158,8 +159,53 @@ export const getParagraphNode = (node: Node) => {
 
 const convertDecorationTypes = (decorations: Decoration[]): DraftTypedDecoration[] =>
   decorations.flatMap(decoration =>
-    pipe(decoration, toDraftDecorationType, convertFontSize, splitColorDecoration)
+    pipe(
+      decoration,
+      toDraftDecorationType,
+      convertFontSize,
+      convertFontWeight,
+      convertItalic,
+      convertUnderline,
+      splitColorDecoration
+    )
   );
+
+export const convertDocumentStyleDecorationTypes = (decorations: Decoration[]) => {
+  let draftBlockStyles = {};
+  decorations.forEach(decoration => {
+    draftBlockStyles = {
+      ...draftBlockStyles,
+      ...ricosDecorationToCss[decoration.type](decoration),
+    };
+  });
+  return draftBlockStyles;
+};
+
+const ricosDecorationToCss = {
+  [Decoration_Type.BOLD]: ({ fontWeightValue }) => {
+    return { 'font-weight': !fontWeightValue || fontWeightValue >= 700 ? 'bold' : 'normal' };
+  },
+  [Decoration_Type.ITALIC]: ({ italicData }) => {
+    return { 'font-style': italicData || typeof italicData === 'undefined' ? 'italic' : 'normal' };
+  },
+  [Decoration_Type.UNDERLINE]: ({ underlineData }) => {
+    return {
+      'text-decoration':
+        underlineData || typeof underlineData === 'undefined' ? 'underline' : 'none',
+    };
+  },
+  [Decoration_Type.FONT_SIZE]: ({ fontSizeData }) => {
+    return { 'font-size': fontSizeData.value + (fontSizeData.unit || 'px') };
+  },
+  [Decoration_Type.COLOR]: ({ colorData }) => {
+    const { foreground, background } = colorData;
+    const colors = {};
+    // eslint-disable-next-line dot-notation
+    foreground && (colors['color'] = foreground);
+    background && (colors['background-color'] = background);
+    return colors;
+  },
+};
 
 const createEmojiDecorations = (text: string) => {
   const result: RangedDecoration[] = [];
@@ -178,10 +224,14 @@ const createEmojiDecorations = (text: string) => {
   return result;
 };
 
-const toDraftDecorationType = (decoration: Decoration): DraftTypedDecoration => ({
-  ...decoration,
-  type: FROM_RICOS_DECORATION_TYPE[decoration.type],
-});
+const toDraftDecorationType = (decoration: Decoration): DraftTypedDecoration => {
+  const type = omit(FROM_RICOS_DECORATION_TYPE, [
+    Decoration_Type.BOLD,
+    Decoration_Type.ITALIC,
+    Decoration_Type.UNDERLINE,
+  ])[decoration.type];
+  return type ? { ...decoration, type } : decoration;
+};
 
 const splitColorDecoration = ({
   colorData,
@@ -208,6 +258,43 @@ const convertFontSize = ({
         }),
       }
     : decoration;
+
+const convertFontWeight = ({
+  fontWeightValue,
+  ...decoration
+}: DraftTypedDecoration): DraftTypedDecoration =>
+  decoration.type === Decoration_Type.BOLD
+    ? {
+        ...decoration,
+        type: !fontWeightValue || fontWeightValue >= 700 ? 'BOLD' : 'NOT_BOLD',
+      }
+    : decoration;
+
+const convertItalic = ({
+  italicData,
+  ...decoration
+}: DraftTypedDecoration): DraftTypedDecoration => {
+  const isItalicDataUndefined = typeof italicData === 'undefined';
+  return decoration.type === Decoration_Type.ITALIC
+    ? {
+        ...decoration,
+        type: isItalicDataUndefined || italicData ? 'ITALIC' : 'NOT_ITALIC',
+      }
+    : decoration;
+};
+
+const convertUnderline = ({
+  underlineData,
+  ...decoration
+}: DraftTypedDecoration): DraftTypedDecoration => {
+  const isUnerlineDataUndefined = typeof underlineData === 'undefined';
+  return decoration.type === Decoration_Type.UNDERLINE
+    ? {
+        ...decoration,
+        type: isUnerlineDataUndefined || underlineData ? 'UNDERLINE' : 'NOT_UNDERLINE',
+      }
+    : decoration;
+};
 
 const decorationComparator = (
   a: RangedDecoration | RangedDecoration[],

@@ -21,6 +21,60 @@ const COMMAND_BY_SHORTCUT: KeyCommand[] = [
     key: '2',
   },
   {
+    command: COMMANDS.PARAGRAPH,
+    modifiers: [MODIFIERS.COMMAND, MODIFIERS.ALT],
+    keyCode: 48,
+    key: '0',
+  },
+  {
+    command: COMMANDS.H1,
+    modifiers: [MODIFIERS.COMMAND, MODIFIERS.ALT],
+    keyCode: 49,
+    key: '1',
+  },
+  {
+    command: COMMANDS.H2,
+    modifiers: [MODIFIERS.COMMAND, MODIFIERS.ALT],
+    keyCode: 50,
+    key: '2',
+  },
+  {
+    command: COMMANDS.H3,
+    modifiers: [MODIFIERS.COMMAND, MODIFIERS.ALT],
+    keyCode: 51,
+    key: '3',
+  },
+  {
+    command: COMMANDS.H4,
+    modifiers: [MODIFIERS.COMMAND, MODIFIERS.ALT],
+    keyCode: 52,
+    key: '4',
+  },
+  {
+    command: COMMANDS.H5,
+    modifiers: [MODIFIERS.COMMAND, MODIFIERS.ALT],
+    keyCode: 53,
+    key: '5',
+  },
+  {
+    command: COMMANDS.H6,
+    modifiers: [MODIFIERS.COMMAND, MODIFIERS.ALT],
+    keyCode: 54,
+    key: '6',
+  },
+  {
+    command: COMMANDS.INCREASE_FONT_SIZE,
+    modifiers: [MODIFIERS.COMMAND, MODIFIERS.ALT],
+    keyCode: 190,
+    key: '.',
+  },
+  {
+    command: COMMANDS.DECREASE_FONT_SIZE,
+    modifiers: [MODIFIERS.COMMAND, MODIFIERS.ALT],
+    keyCode: 188,
+    key: ',',
+  },
+  {
     command: COMMANDS.ALIGN_LEFT,
     modifiers: [MODIFIERS.COMMAND, MODIFIERS.SHIFT],
     key: 'l',
@@ -57,19 +111,13 @@ const COMMAND_BY_SHORTCUT: KeyCommand[] = [
   },
 ];
 
-const {
-  hasCommandModifier,
-  usesMacOSHeuristics,
-  isCtrlKeyCommand,
-  isOptionKeyCommand,
-} = KeyBindingUtil;
+const { hasCommandModifier, usesMacOSHeuristics, isCtrlKeyCommand } = KeyBindingUtil;
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 function getModifiers(e: React.KeyboardEvent<{}>): ModifierKey[] {
   return [
-    ...(hasCommandModifier(e) ? [MODIFIERS.COMMAND] : []),
+    ...(hasCommandModifier(e) || e.metaKey ? [MODIFIERS.COMMAND] : []),
     ...(usesMacOSHeuristics() && isCtrlKeyCommand(e) ? [MODIFIERS.CTRL] : []),
-    ...(isOptionKeyCommand(e) ? [MODIFIERS.OPTION] : []),
     ...(e.shiftKey ? [MODIFIERS.SHIFT] : []),
     ...(e.altKey ? [MODIFIERS.ALT] : []),
   ];

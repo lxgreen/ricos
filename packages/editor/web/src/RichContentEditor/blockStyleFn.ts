@@ -10,6 +10,7 @@ import {
 } from 'wix-rich-content-common';
 import { isListType } from 'ricos-content';
 import { ContentBlock, EditorProps } from '@wix/draft-js';
+import { DOC_STYLE_CLASSES, DRAFT_TO_RICOS_DOC_TYPE } from './utils/consts';
 
 const styles = { ...editorStyles, ...alignmentStyles };
 const types = {
@@ -71,7 +72,8 @@ export default (
       );
     }
 
-    const dynamicClasses = Object.entries(dynamicStyles).map(styleToClass);
+    const docStyleClass = DOC_STYLE_CLASSES[DRAFT_TO_RICOS_DOC_TYPE[type]];
+    const dynamicClasses = [...Object.entries(dynamicStyles).map(styleToClass), docStyleClass];
 
     return classNames(...classList, ...dynamicClasses);
   };

@@ -1,6 +1,6 @@
 import { IMAGE_SETTINGS, PLUGIN_COMPONENT, STATIC_TOOLBAR_BUTTONS } from '../cypress/dataHooks';
 import { DEFAULT_DESKTOP_BROWSERS } from './settings';
-import { usePlugins, plugins, useExperiments } from '../cypress/testAppConfig';
+import { usePlugins, plugins } from '../cypress/testAppConfig';
 
 const eyesOpen = ({
   test: {
@@ -68,23 +68,20 @@ describe('plugins', () => {
         .eq(1)
         .should('not.exist');
       cy.wait(100);
-      cy.undo().undo();
-      cy.get('.public-DraftStyleDefault-block > span').should('have.text', 'Ye');
-      cy.undo();
-      cy.get('.public-DraftStyleDefault-block > span').should('have.text', 'Y');
-      cy.undo();
-      cy.get('.public-DraftStyleDefault-block > span').should('not.have.text', 'Yes');
+      cy.undo()
+        .undo()
+        .undo()
+        .undo();
+      cy.eyesCheckWindow('should be an empty collapsible list');
       cy.undo();
       cy.get(`[data-hook=${PLUGIN_COMPONENT.COLLAPSIBLE_LIST}]:first`).should('not.exist');
       cy.redo();
       cy.get(`[data-hook=${PLUGIN_COMPONENT.COLLAPSIBLE_LIST}]:first`).should('exist');
-      cy.redo();
-      cy.get('.public-DraftStyleDefault-block > span').should('have.text', 'Y');
-      cy.redo();
-      cy.get('.public-DraftStyleDefault-block > span').should('have.text', 'Ye');
-      cy.redo();
-      cy.get('.public-DraftStyleDefault-block > span').should('have.text', 'Yes');
-      cy.redo().redo();
+      cy.redo()
+        .redo()
+        .redo()
+        .redo()
+        .redo();
       cy.get(`[data-rbd-draggable-context-id=${1}]`)
         .eq(1)
         .should('exist');

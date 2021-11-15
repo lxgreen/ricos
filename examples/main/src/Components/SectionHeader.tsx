@@ -40,7 +40,7 @@ export default class SectionHeader extends PureComponent<{
                   >
                     <span>{name}</span>
                     {items && (
-                      <ul>
+                      <ul className={itemsType || ''}>
                         {!itemsType ? (
                           items.map(item => (
                             <li

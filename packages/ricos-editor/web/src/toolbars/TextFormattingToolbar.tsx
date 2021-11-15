@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { RichContentEditor } from 'wix-rich-content-editor';
 import {
-  RichContentTheme,
   EditorCommands,
   TextButtons,
   EditorPlugin,
@@ -12,7 +11,7 @@ import {
   AvailableExperiments,
   getLangDir,
 } from 'wix-rich-content-common';
-import { LinkSettings, ToolbarSettings } from 'ricos-common';
+import { LinkSettings, ToolbarSettings, RicosCssOverride, RicosTheme } from 'ricos-common';
 import { isiOS } from 'wix-rich-content-editor-common';
 import {
   FloatingToolbarContainer,
@@ -27,7 +26,7 @@ interface TextFormattingToolbarProps {
   activeEditor: RichContentEditor;
   textToolbarType?: string | null;
   isMobile?: boolean;
-  theme?: RichContentTheme;
+  theme?: RicosTheme;
   toolbarSettings?: ToolbarSettings;
   locale?: string;
   plugins?: EditorPlugin[];
@@ -41,7 +40,8 @@ interface TextFormattingToolbarProps {
     pluginId?: string
   ) => void;
   experiments?: AvailableExperiments;
-  editorContainer: HTMLElement;
+  getEditorContainer: () => Element;
+  cssOverride?: RicosCssOverride;
 }
 
 export type TextFormattingToolbarType = typeof TextFormattingToolbar;
@@ -77,11 +77,12 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
       toolbarSettings = {},
       locale,
       experiments,
-      editorContainer,
+      getEditorContainer,
+      cssOverride,
     } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
-    const showFormattingToolbar = !selection.getIsCollapsed && selection.getIsFocused;
+    const showFormattingToolbar = !selection.isCollapsed && selection.isFocused;
     const t = activeEditor.getT();
     const focusEditor = () => activeEditor.focus();
     const textButtons: TextButtons = {
@@ -115,8 +116,10 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
       TEXT_COLOR: getPluginConfig('wix-rich-content-text-color'),
       TEXT_HIGHLIGHT: getPluginConfig('wix-rich-content-text-highlight'),
     };
+    const linkConfig = getPluginConfig('LINK');
     const linkPanelData = {
-      linkTypes: getPluginConfig('LINK')?.linkTypes,
+      linkTypes: linkConfig?.linkTypes,
+      onLinkAdd: linkConfig?.onLinkAdd,
       uiSettings: { linkPanel: this.props.linkPanelSettings },
       linkSettings: this.props.linkSettings,
       isMobile,
@@ -144,7 +147,8 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
         onToolbarButtonClick={onToolbarButtonClick}
         experiments={experiments}
         defaultLineSpacing={defaultLineSpacing}
-        editorContainer={editorContainer}
+        getEditorContainer={getEditorContainer}
+        cssOverride={cssOverride}
       />
     );
     const ToolbarContainer =

@@ -42,7 +42,7 @@ interface ModalButtonProps {
   onDone?: (any) => void;
   isMobile?: boolean;
   dropDownProps: dropDownPropsType;
-  editorContainer: HTMLElement;
+  getEditorContainer: () => Element;
 }
 
 interface State {
@@ -77,9 +77,12 @@ class ModalButton extends Component<ModalButtonProps, State> {
   };
 
   handleOverflow = () => {
-    const { isMobile, editorContainer } = this.props;
+    const { isMobile, getEditorContainer } = this.props;
     if (this.modalRef) {
-      const modalOverflowWithEditor = elementOverflowWithEditor(this.modalRef, editorContainer);
+      const modalOverflowWithEditor = elementOverflowWithEditor(
+        this.modalRef,
+        getEditorContainer() as HTMLElement
+      );
       const isModalWidthOverflow = !!modalOverflowWithEditor.overflowRight;
       const isModalOverflowByHeight = !!modalOverflowWithEditor.overflowBottom;
       const overflowWidthBy = isModalWidthOverflow ? modalOverflowWithEditor.overflowRight : false;
