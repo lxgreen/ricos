@@ -225,7 +225,7 @@ function addStylesImport() {
       if (isExistEditorStyles) {
         writeCjsAndEsContent(packageJson.main, packageJson.module, editorExtractedStylePath);
       }
-      if (existsSync(loadableViewerPath) && isExistViewerStyles) {
+      if (existsSync(`${loadableViewerPath}/es`) && isExistViewerStyles) {
         let dynamicLoadableChunkName;
         readdirSync(`${loadableViewerPath}/es`).forEach(file => {
           const fileName = file.split('.')[0];
