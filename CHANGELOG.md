@@ -17,10 +17,15 @@
     Click to see more.
   </summary>
 
-
-
 </details>
 <hr/>
+
+## 8.60.1 (Nov 15, 2021)
+
+### :bug: Bug Fix
+
+- `more-menu`
+  - [#1513](https://github.com/wix/ricos/pull/1513) fix more menu position
 
 ## 8.60.0 (Nov 15, 2021)
 
@@ -32,9 +37,14 @@
 ### :bug: Bug Fix
 
 - `toolbars-new`
+
   - [#3108](https://github.com/wix/ricos/pull/3108) Fix getsSpacing function to operate when the default line spacing is not defined
 
+- `image-plugin`
+  - [#3112](https://github.com/wix/ricos/pull/3112) fix a11y on enter
+
 ### :house: Internal
+
 - `editor viewer`
   - [#3006](https://github.com/wix/ricos/pull/3006) `documentStyle` and headings customization support
 

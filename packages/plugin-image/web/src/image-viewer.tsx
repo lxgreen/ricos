@@ -436,6 +436,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
         className={this.styles.imageContainer}
         ref={this.handleRef}
         onContextMenu={this.handleContextMenu}
+        onKeyDown={this.onKeyDown}
         {...accesibilityProps}
       >
         <div
