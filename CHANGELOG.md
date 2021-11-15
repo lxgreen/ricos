@@ -32,9 +32,14 @@
 ### :bug: Bug Fix
 
 - `toolbars-new`
+
   - [#3108](https://github.com/wix/ricos/pull/3108) Fix getsSpacing function to operate when the default line spacing is not defined
 
+- `image-plugin`
+  - [#3112](https://github.com/wix/ricos/pull/3112) fix a11y on enter
+
 ### :house: Internal
+
 - `editor viewer`
   - [#3006](https://github.com/wix/ricos/pull/3006) `documentStyle` and headings customization support
 
