@@ -60,7 +60,7 @@ import {
   toggleInlineStyle,
 } from './utils/editorCommandsUtils';
 
-import { TO_DRAFT_PLUGIN_TYPE_MAP, TO_RICOS_PLUGIN_TYPE_MAP } from 'ricos-content/libs/converters';
+import { TO_DRAFT_PLUGIN_TYPE_MAP, TO_RICOS_PLUGIN_TYPE_MAP } from 'ricos-content/libs/draftConsts';
 
 export const PluginsToExclude = [UNSUPPORTED_BLOCKS_TYPE];
 
