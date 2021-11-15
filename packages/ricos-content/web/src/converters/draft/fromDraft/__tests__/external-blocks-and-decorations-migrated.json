@@ -56,7 +56,8 @@
             "text": "C",
             "decorations": [
               {
-                "type": "UNDERLINE"
+                "type": "UNDERLINE",
+                "underlineData": true
               }
             ]
           }
