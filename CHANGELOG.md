@@ -17,10 +17,15 @@
     Click to see more.
   </summary>
 
-
-
 </details>
 <hr/>
+
+## 8.60.1 (Nov 15, 2021)
+
+### :bug: Bug Fix
+
+- `more-menu`
+  - [#1513](https://github.com/wix/ricos/pull/1513) fix more menu position
 
 ## 8.60.0 (Nov 15, 2021)
 

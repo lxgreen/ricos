@@ -1,7 +1,7 @@
 import { default as CodeBlockDecorator } from './PrismDecorator';
-export { CodeBlockDecorator };
 
 import { CODE_BLOCK_TYPE, CodeBlockPluginViewerConfig } from './types';
+export { CodeBlockDecorator, CODE_BLOCK_TYPE };
 import { DEFAULTS } from './defaults';
 import { ViewerPluginCreator } from 'wix-rich-content-common';
 
