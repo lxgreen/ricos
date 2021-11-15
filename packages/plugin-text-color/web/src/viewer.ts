@@ -1,26 +1,23 @@
-import { TEXT_COLOR_TYPE, TEXT_HIGHLIGHT_TYPE } from './types';
-import { default as textColorInlineStyleMapper } from './textColorInlineStyleMapper';
-import { default as textHighlightInlineStyleMapper } from './textHighlightInlineStyleMapper';
-import { DEFAULTS } from './constants';
-export {
+import {
   TEXT_COLOR_TYPE,
   TEXT_HIGHLIGHT_TYPE,
-  textColorInlineStyleMapper,
-  textHighlightInlineStyleMapper,
-};
+  TextColorPluginViewerConfig,
+  TextHighlightPluginViewerConfig,
+} from './types';
+import { DEFAULTS } from './constants';
+import { ViewerPluginCreator } from 'wix-rich-content-common';
+export { TEXT_COLOR_TYPE, TEXT_HIGHLIGHT_TYPE };
 
-export const pluginTextColor = (config = {}) => {
+export const pluginTextColor: ViewerPluginCreator<TextColorPluginViewerConfig> = config => {
   return {
     config: { ...DEFAULTS.configTextColor.viewer, ...config },
     type: TEXT_COLOR_TYPE,
-    inlineStyleMapper: textColorInlineStyleMapper,
   };
 };
 
-export const pluginTextHighlight = (config = {}) => {
+export const pluginTextHighlight: ViewerPluginCreator<TextHighlightPluginViewerConfig> = config => {
   return {
     config: { ...DEFAULTS.configTextHighlight.viewer, ...config },
     type: TEXT_HIGHLIGHT_TYPE,
-    inlineStyleMapper: textHighlightInlineStyleMapper,
   };
 };

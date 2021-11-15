@@ -1,8 +1,6 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 
-
-
 .container {
   height: 100%;
   .moreButton {
@@ -13,16 +11,16 @@
     cursor: pointer;
     border-left: 1px solid #ededed;
     padding-left: 24px;
-    color: $secondary-text-color;
+    color: $settings-action-color;
     height: 100%;
-  
+
     &:hover,
     &:focus {
-        color: #0661ff;
-        @include svg-fill;
+      color: rgba($settings-action-color-tuple, 0.7);
+      @include svg-fill;
     }
     &.active {
-      color: #0661ff;
+      color: $settings-action-color;
     }
     .buttonText {
       padding-left: 4px;
@@ -40,6 +38,8 @@
     width: 320px;
     height: max-content;
   }
+  &.forceDisabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
 }
-
-

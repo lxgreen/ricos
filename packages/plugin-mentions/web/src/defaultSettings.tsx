@@ -1,5 +1,5 @@
 import React from 'react';
-import { PaletteColors } from 'wix-rich-content-common';
+import { Mention } from './createMentionsPlugin';
 
 export const DEFAULT_SETTINGS = {
   mentionPrefix: '@',
@@ -12,10 +12,10 @@ export const DEFAULT_SETTINGS = {
   visibleItemsBeforeOverflow: 5,
   popoverComponent: <div />,
   handleDropdownOpen: () => true,
-  onMentionClick: mention => mention,
+  onMentionClick: (mention: Mention) => mention,
   handleDropdownClose: () => true,
-  getMentions: searchQuery =>
-    new Promise(resolve =>
+  getMentions: (searchQuery: string) =>
+    new Promise<Mention[]>(resolve =>
       setTimeout(
         () =>
           resolve([
@@ -42,25 +42,4 @@ export const DEFAULT_SETTINGS = {
 
 export const DEFAULTS = {
   config: { ...DEFAULT_SETTINGS },
-};
-
-export const theme = (colors: PaletteColors) => {
-  const themeHoverFocus = {
-    color: colors.actionColor,
-    background: 'transparent',
-    outline: 0 /* reset for :focus */,
-    textDecoration: 'underline',
-  };
-  return {
-    mentionPalette: {
-      '&$mention': {
-        background: 'transparent',
-        color: colors.actionColor,
-        '&:hover': themeHoverFocus,
-        '&:focus': themeHoverFocus,
-        '&:active': { color: colors.actionColor, background: 'transparent' },
-      },
-    },
-    mention: {},
-  };
 };

@@ -1,0 +1,31 @@
+.root {
+  background: #eee;
+  padding: 20px;
+  margin: 20x;
+  text-align: center;
+}
+.container {
+  text-align: center;
+}
+
+.section {
+  width: 500px;
+  margin: auto;
+  padding: 50px;
+}
+
+.SettingsMobileHeader_alignment {
+  position: relative;
+  width: 100vw;
+  left: -40px;
+}
+
+.SettingsMobileHeader_wrapper {
+  @extend .SettingsMobileHeader_alignment;
+  top: -44px;
+}
+
+.SettingsMobileHeader_titleButton {
+  @extend .SettingsMobileHeader_alignment;
+  text-align: center;
+}

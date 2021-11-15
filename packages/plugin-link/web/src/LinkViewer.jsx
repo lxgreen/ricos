@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { normalizeUrl, mergeStyles, validate } from 'wix-rich-content-common';
+import {
+  normalizeUrl,
+  mergeStyles,
+  validate,
+  anchorScroll,
+  addAnchorTagToUrl,
+  getRelValue,
+  GlobalContext,
+  LINK_VIEWER_DATA_HOOK,
+  ANCHOR_VIEWER_DATA_HOOK,
+} from 'wix-rich-content-common';
 import pluginLinkSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-link.schema.json';
 import { isEqual } from 'lodash';
 import styles from '../statics/link-viewer.scss';
+import { LINK_TYPE } from './types';
 
 class LinkViewer extends Component {
   static propTypes = {
@@ -13,8 +24,11 @@ class LinkViewer extends Component {
     children: PropTypes.node,
     anchorTarget: PropTypes.string,
     relValue: PropTypes.string,
+    customAnchorScroll: PropTypes.func,
     settings: PropTypes.object,
     isInEditor: PropTypes.bool,
+    config: PropTypes.object,
+    helpers: PropTypes.object,
   };
 
   constructor(props) {
@@ -24,6 +38,8 @@ class LinkViewer extends Component {
     this.styles = mergeStyles({ styles, theme });
   }
 
+  static contextType = GlobalContext;
+
   componentWillReceiveProps(nextProps) {
     if (!isEqual(nextProps.componentData, this.props.componentData)) {
       validate(nextProps.componentData, pluginLinkSchema);
@@ -31,32 +47,51 @@ class LinkViewer extends Component {
   }
 
   handleClick = event => {
-    const { componentData, isInEditor } = this.props;
-    const { anchor } = componentData;
-    this.props?.settings?.onClick?.(event, anchor || this.getHref());
-    if (anchor && !isInEditor) {
-      const element = document.getElementById(`viewer-${anchor}`);
-      element.scrollIntoView({ behavior: 'smooth' });
+    const { componentData, isInEditor, config, helpers, customAnchorScroll } = this.props;
+    const settings = config?.[LINK_TYPE];
+    if (settings) {
+      const { onClick } = settings;
+      const { anchor, url } = componentData;
+      helpers?.onViewerAction?.(LINK_TYPE, 'Click', componentData);
+      onClick?.(event, componentData?.customData || this.getHref(url, anchor));
+      if (anchor) {
+        event.stopPropagation(); // fix problem with wix platform, where it wouldn't scroll and sometimes jump to different page
+        if (!isInEditor) {
+          event.preventDefault();
+          if (customAnchorScroll) {
+            customAnchorScroll(event, anchor);
+          } else {
+            const anchorString = `viewer-${anchor}`;
+            const element = document.getElementById(anchorString);
+            addAnchorTagToUrl(anchorString);
+            anchorScroll(element, this.context.experiments);
+          }
+        }
+      }
     }
   };
 
-  getHref() {
-    return normalizeUrl(this.props.componentData.url);
-  }
+  getHref = (url, anchor) => (url ? normalizeUrl(url) : `#viewer-${anchor}`);
 
   render() {
-    const { componentData, anchorTarget, relValue, children, isInEditor } = this.props;
-    const { url, anchor, target, rel } = componentData;
+    const { componentData, anchorTarget, children, isInEditor } = this.props;
+    const { url, anchor, target = anchorTarget, rel } = componentData;
     const anchorProps = {
-      href: url && this.getHref(),
-      target: target ? target : anchorTarget || '_self',
-      rel: rel ? rel : relValue || 'noopener',
+      href: this.getHref(url, anchor),
+      target: anchor ? '_self' : target,
+      rel: getRelValue(rel),
       className: classNames(this.styles.link, {
-        [this.styles.linkToAnchorInViewer]: anchor && !isInEditor,
+        [this.styles.linkInEditor]: isInEditor,
+        [this.styles.linkInViewer]: !isInEditor,
       }),
       onClick: this.handleClick,
     };
-    return <a {...anchorProps}>{children}</a>;
+    const dataHook = anchor ? ANCHOR_VIEWER_DATA_HOOK : LINK_VIEWER_DATA_HOOK;
+    return (
+      <a data-hook={dataHook} {...anchorProps}>
+        {children}
+      </a>
+    );
   }
 }
 

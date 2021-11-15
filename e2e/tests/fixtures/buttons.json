@@ -3,7 +3,7 @@
     {
       "key": "92stb",
       "text": "",
-      "type": "atomic",
+      "type": "unstyled",
       "depth": 0,
       "inlineStyleRanges": [],
       "entityRanges": [],
@@ -85,10 +85,8 @@
             "target": true
           },
           "design": {
-            "activeButton": 3,
             "borderRadius": 10,
             "borderWidth": 1,
-            "padding": 12,
             "background": "#81B0FF",
             "color": "#0261FF",
             "borderColor": "#0261FF"
@@ -113,10 +111,8 @@
             "target": true
           },
           "design": {
-            "activeButton": 0,
             "borderRadius": 0,
             "borderWidth": 0,
-            "padding": 12,
             "background": "#0261FF",
             "color": "#FFFFFF",
             "borderColor": "#0261FF"

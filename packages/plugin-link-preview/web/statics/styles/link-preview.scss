@@ -1,11 +1,17 @@
+@import '~wix-rich-content-common/dist/statics/styles/palette';
+
 .linkPreview {
   margin: 0;
   width: 100%;
   display: flex;
   flex-direction: row;
   cursor: pointer;
-  border: 1px solid #ededed;
+  border: 1px solid rgba($primary-text-color-tuple, 0.2);
+  background-color: $background-color;
   max-height: 170px;
+  &:hover {
+    border-color: rgba($primary-text-color-tuple, 0.6);
+  }
 }
 
 .linkPreviewImage {
@@ -13,6 +19,7 @@
   background-repeat: no-repeat;
   background-position: center center;
   border-right: solid 1px #ededed;
+  border-color: $primary-text-color;
   flex: 0 0 auto;
 }
 
@@ -24,6 +31,7 @@
   vertical-align: middle;
   overflow: hidden;
   color: black;
+  font-family: var(--ricos-custom-p-font-family);
 }
 
 .linkPreviewTitle {
@@ -35,6 +43,8 @@
   max-height: 68px;
   min-height: 26px;
   display: flex;
+  color: $primary-text-color;
+  font-family: var(--ricos-custom-h2-font-family);
 }
 
 .ellipsis {
@@ -56,11 +66,13 @@
 }
 
 .linkPreviewUrl {
-  color: #969696;
+  color: $ricos-text-color-low;
+  text-align: left;
 }
 
 .linkPreviewDescription {
   padding-top: 8px;
+  color: $primary-text-color;
 }
 
 @media only screen and (max-width: 800px) {

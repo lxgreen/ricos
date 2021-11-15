@@ -9,21 +9,27 @@ class Item extends PureComponent {
     item: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired,
     selected: PropTypes.bool,
+    t: PropTypes.func.isRequired,
   };
 
   handleClick = () => this.props.onClick(this.props.item);
 
   render() {
-    const { selected, item } = this.props;
-    const { name, imageSrc, description } = item;
+    const { selected, item, t } = this.props;
+    const { name, imageSrc, getDescription } = item;
+
     return (
       <div
         className={classnames(styles.container, selected && styles.selected)}
         onClick={this.handleClick}
       >
-        <div style={{ backgroundImage: `url(${imageSrc})` }} className={styles.image} />
+        <div
+          style={{ backgroundImage: `url(${imageSrc})` }}
+          className={styles.image}
+          data-hook="verticalsImage"
+        />
         <div className={styles.title}>{name}</div>
-        <div className={styles.description}>{description}</div>
+        {getDescription && <div className={styles.description}>{getDescription(item)}</div>}
       </div>
     );
   }

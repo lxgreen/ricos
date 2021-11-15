@@ -1,4 +1,5 @@
-@import "~wix-rich-content-common/dist/statics/styles/mixins";
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
+@import '~wix-rich-content-common/dist/statics/styles/palette';
 
 .header {
   padding: 0 20px;
@@ -39,9 +40,9 @@
   align-items: center;
 
   &.poll_header_button_primary {
-    color: #0261ff;
+    color: $settings-action-color-fallback;
   }
-  
+
   &.poll_header_button_secondary {
     color: inherit;
   }
@@ -49,6 +50,7 @@
 
 .section {
   margin: 0 -10px;
+  padding: 24px 30px 30px;
 }
 
 .title {
@@ -102,7 +104,7 @@
   flex-direction: row;
   align-items: center;
   margin: 5px 0;
-  
+
   &.radioPanel {
     margin: 10px 0 20px;
     display: flex;
@@ -127,20 +129,11 @@
 }
 
 .selectionListOption:hover:not(.selectionListOption_selected) {
-  background-color: rgba(2, 97, 255, 0.05);
+  background-color: rgba(2, 97, 255, 0.06);
 }
 
 .selectionListOption_selected {
   background-color: rgba(2, 97, 255, 0.2);
-}
-
-.separator {
-  margin: 20px 0;
-}
-
-.separator_vertical {
-  height: 26px;
-  margin: 0 15px;
 }
 
 .labeled_toggle_root {
@@ -176,4 +169,12 @@
   align-items: center;
   justify-content: center;
   cursor: auto;
+}
+
+.preview_button {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  border-right: 1px solid #ededed;
+  padding-right: 15px;
 }

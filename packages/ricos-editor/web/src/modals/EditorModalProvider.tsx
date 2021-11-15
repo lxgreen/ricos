@@ -1,8 +1,16 @@
-import React, { Children, Component, ReactElement, Suspense, Fragment } from 'react';
+import React, {
+  Children,
+  Component,
+  ReactElement,
+  Suspense,
+  Fragment,
+  FunctionComponent,
+} from 'react';
 import mergeModalStyles from './mergeModalStyles';
-import { ModalStyles } from 'wix-rich-content-common';
-import { ModalsMap, ModalSettings } from '../index';
+import { ModalStyles, ModalsMap, AvailableExperiments } from 'wix-rich-content-common';
+import { ModalSettings } from 'ricos-common';
 import { merge } from 'lodash';
+import ReactDOM from 'react-dom';
 
 interface Props {
   children: ReactElement;
@@ -10,6 +18,10 @@ interface Props {
   theme: Record<string, unknown>;
   locale: string;
   ariaHiddenId?: ModalSettings['ariaHiddenId'];
+  container?: HTMLElement;
+  experiments?: AvailableExperiments;
+  onModalOpen: (modalProps: Record<string, unknown>) => void;
+  onModalClose: () => void;
 }
 
 type ModalProps = {
@@ -61,7 +73,7 @@ export default class EditorModalProvider extends Component<Props, State> {
 
   openModal = (data: ModalProps) => {
     const { modalStyles, ...modalProps } = data;
-
+    this.props.onModalOpen?.(modalProps);
     this.setState({
       showModal: true,
       modalProps,
@@ -70,6 +82,7 @@ export default class EditorModalProvider extends Component<Props, State> {
   };
 
   closeModal = () => {
+    this.props.onModalClose?.();
     this.setState({
       showModal: false,
       modalProps: undefined,
@@ -79,32 +92,45 @@ export default class EditorModalProvider extends Component<Props, State> {
 
   render() {
     const { EditorModal, showModal, modalProps, modalStyles, editorModalId } = this.state;
-    const { children, ModalsMap, locale, theme, ariaHiddenId } = this.props;
+    const { children, ModalsMap, locale, theme, ariaHiddenId, container, experiments } = this.props;
     const childProps = merge(children.props, this.modalHandlers);
     return (
       <Fragment>
         {Children.only(React.cloneElement(children, childProps))}
-        <div>
-          <div id={editorModalId} />
-          {EditorModal && (
-            <Suspense fallback={<div />}>
-              <EditorModal
-                ariaHiddenId={ariaHiddenId}
-                dataHook={'RicosEditorModal'}
-                contentLabel={'RicosModal'}
-                isOpen={showModal}
-                style={mergeModalStyles(modalStyles, theme)}
-                role="dialog"
-                onRequestClose={modalProps?.onRequestClose || this.closeModal}
-                modalsMap={ModalsMap}
-                locale={locale}
-                target={editorModalId}
-                {...modalProps}
-              />
-            </Suspense>
-          )}
-        </div>
+        <MaybePortal container={container}>
+          <div className="ricos-editor-modal">
+            <div id={editorModalId} />
+            {EditorModal && (
+              <Suspense fallback={<div />}>
+                <EditorModal
+                  ariaHiddenId={ariaHiddenId}
+                  dataHook={'RicosEditorModal'}
+                  contentLabel={'RicosModal'}
+                  isOpen={showModal}
+                  style={mergeModalStyles(modalStyles, theme, modalProps?.fullHeight)}
+                  role="dialog"
+                  onRequestClose={modalProps?.onRequestClose || this.closeModal}
+                  modalsMap={ModalsMap}
+                  locale={locale}
+                  target={editorModalId}
+                  experiments={experiments}
+                  {...modalProps}
+                />
+              </Suspense>
+            )}
+          </div>
+        </MaybePortal>
       </Fragment>
     );
   }
 }
+
+const MaybePortal: FunctionComponent<{
+  children: ReactElement;
+  container?: HTMLElement;
+}> = ({ children, container }) => {
+  if (container) {
+    return ReactDOM.createPortal(children, container);
+  }
+  return children;
+};

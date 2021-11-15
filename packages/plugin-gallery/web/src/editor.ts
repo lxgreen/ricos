@@ -1,14 +1,20 @@
 import { createGalleryPlugin } from './createGalleryPlugin';
-import { GALLERY_TYPE } from './types';
+import { GALLERY_TYPE, GalleryPluginEditorConfig } from './types';
 import { ModalsMap } from './modals';
-import { DEFAULTS, theme } from './defaults';
+import { DEFAULTS } from './defaults';
+import { EditorPluginCreator } from 'wix-rich-content-common';
+import { createGalleryData } from './createGalleryData';
+import { createRicosExtensions } from './tiptap';
+import { TiptapEditorPlugin } from 'wix-tiptap-editor';
 
-export const pluginGallery = (config = {}) => {
+export const pluginGallery: EditorPluginCreator<GalleryPluginEditorConfig> = config => {
+  const pluginConfig = { ...DEFAULTS.config, ...config };
   return {
-    config: { ...DEFAULTS.config, ...config },
+    config: pluginConfig,
     type: GALLERY_TYPE,
     createPlugin: createGalleryPlugin,
     ModalsMap,
-    theme,
-  };
+    createPluginData: createGalleryData,
+    tiptapExtensions: createRicosExtensions(pluginConfig),
+  } as TiptapEditorPlugin;
 };

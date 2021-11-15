@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
 import runStrategy from './previewStrategy';
-import { PreviewSettings } from '../types';
+import { PreviewConfig } from 'wix-rich-content-preview';
 import intro from '../../../../../e2e/tests/fixtures/very-big-post.json';
-import { previewSettings as createPreviewSettings } from '../../../../preview/web/src/';
+import { createPreview } from '../../../../preview/web/src/';
 import { interactionMap } from '../../../../preview/web/src/Interactions/interactionMap';
 import { defaultTransformation } from '../../../../preview/web/src/Components/default-transformation';
 
@@ -12,24 +12,47 @@ const initConfig = {
   contentInteractionMappers: [interactionMap],
   transformation: defaultTransformation,
 };
-const previewSettings = createPreviewSettings(initConfig) as PreviewSettings;
+
+const previewConfig = createPreview(initConfig) as PreviewConfig;
 describe('Preview Strategy', () => {
   describe('Required Props', () => {
     it('isViewer', () => {
-      const strategy = runStrategy(false, false, () => true, previewSettings, intro);
+      const strategy = runStrategy({
+        isViewer: false,
+        isPreviewExpanded: false,
+        onPreviewExpand: () => true,
+        previewConfig,
+        content: intro,
+      });
       expect(strategy).toEqual({});
     });
     it('content', () => {
-      const strategy = runStrategy(true, false, () => true, previewSettings, undefined);
+      const strategy = runStrategy({
+        isViewer: true,
+        isPreviewExpanded: false,
+        onPreviewExpand: () => true,
+        previewConfig,
+      });
       expect(strategy).toEqual({});
     });
     it('preview', () => {
-      const strategy = runStrategy(true, false, () => true, undefined, intro);
+      const strategy = runStrategy({
+        isViewer: true,
+        isPreviewExpanded: false,
+        onPreviewExpand: () => true,
+        content: intro,
+      });
       expect(strategy).toEqual({});
     });
   });
 
-  const strategy = runStrategy(true, false, () => true, previewSettings, intro);
+  const strategy = runStrategy({
+    isViewer: true,
+    isPreviewExpanded: false,
+    onPreviewExpand: () => true,
+    previewConfig,
+    content: intro,
+  });
   it('should create a different initialState (very-big-post.json)', () => {
     expect(strategy).toHaveProperty('initialState');
     expect(strategy.initialState).not.toStrictEqual(intro);

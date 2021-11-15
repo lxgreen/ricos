@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign, camelcase */
 
-import imageClientAPI from 'image-client-api';
+import imageClientAPI from 'image-client-api/dist/imageClientSDK';
 import { getWixFilename, getAbsoluteUrl, isAbsoluteUrl } from './baseUrlConverter';
+import { GALLERY_ITEMS_TYPES } from '../src/defaults';
 
 const getResizedImageUrl = (
   item,
@@ -128,6 +129,9 @@ export const resizeMediaUrl = (
   allowWatermark = false,
   focalPoint
 ) => {
+  // assign default parameters
+  originalUrl = originalUrl || '';
+  sharpParams = sharpParams || {};
   if (originalUrl.indexOf('base64') !== -1) {
     return originalUrl;
   }
@@ -136,10 +140,11 @@ export const resizeMediaUrl = (
   requiredHeight = Math.ceil(requiredHeight);
   /* eslint-enable no-param-reassign */
 
-  if (resizeMethod === 'video') {
-    return getAbsoluteUrl(originalUrl, 'video');
+  if (resizeMethod === GALLERY_ITEMS_TYPES.VIDEO) {
+    return getAbsoluteUrl(originalUrl, GALLERY_ITEMS_TYPES.VIDEO);
   } else if (requiredWidth >= item.maxWidth && requiredHeight >= item.maxHeight) {
-    return getAbsoluteUrl(item.url, 'image');
+    const url = item.dto.metaData.type === GALLERY_ITEMS_TYPES.VIDEO ? originalUrl : item.url;
+    return getAbsoluteUrl(url, GALLERY_ITEMS_TYPES.IMAGE);
   } else {
     return getResizedImageUrl(
       item,

@@ -1,14 +1,18 @@
 import React, { Component, Fragment, Children, ReactElement, Suspense } from 'react';
 import { emptyState } from 'ricos-common';
-import { Helpers } from 'wix-rich-content-common';
-import { RicosContent } from '../../index';
+import { Helpers, AvailableExperiments } from 'wix-rich-content-common';
+import getImagesData from 'wix-rich-content-fullscreen/libs/getImagesData';
+import { DraftContent, FullscreenProps } from '../../index';
 
 interface Props {
   children: ReactElement;
   helpers?: Helpers;
-  initialState?: RicosContent;
+  initialState?: DraftContent;
   isModalSuspended: boolean;
   isMobile: boolean;
+  fullscreenProps?: FullscreenProps;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  experiments?: AvailableExperiments;
 }
 
 interface State {
@@ -33,35 +37,73 @@ export default class FullscreenProvider extends Component<Props, State> {
     };
   }
 
-  componentDidMount() {
-    this.loadEditorModalAfterLocaleResourceIsLoadedToPreventRemountHackFromBreakingModal();
-  }
+  _FullscreenModal;
 
-  loadEditorModalAfterLocaleResourceIsLoadedToPreventRemountHackFromBreakingModal() {
-    const { locale, localeResource } = this.props.children.props;
-    if (locale === 'en' || localeResource) {
-      const FullscreenModal = React.lazy(() =>
-        import(/* webpackChunkName: "RicosEditorModal"  */ './FullscreenModal')
-      );
-      this.setState({ FullscreenModal });
+  _renderFullscreenInterval;
+
+  componentDidMount() {
+    const { experiments } = this.props;
+    const imagesData = getImagesData(this.props.initialState || emptyState);
+
+    if (imagesData.images.length > 0) {
+      this.setState({ expandModeData: imagesData });
+      this.lazyLoadFullscreen();
+      if (this.props.isMobile) {
+        const timeout = parseInt(experiments?.optimizeFullScreenModal?.value || '0');
+        this._renderFullscreenInterval = setTimeout(() => {
+          this.renderFullScreenModal();
+        }, timeout);
+      }
     }
   }
 
-  onClose = () => this.setState({ isExpanded: false });
+  renderFullScreenModal() {
+    this.setState({ FullscreenModal: this._FullscreenModal });
+  }
 
-  setExpandModeData = expandModeData => this.setState({ expandModeData });
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.initialState !== this.props.initialState) {
+      const imagesData = getImagesData(nextProps.initialState || emptyState);
+      if (!this._FullscreenModal && imagesData.images.length > 0) {
+        this.lazyLoadFullscreen();
+      }
+      this.setState({ expandModeData: imagesData });
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this._renderFullscreenInterval);
+  }
+
+  lazyLoadFullscreen() {
+    const FullscreenModal = React.lazy(() =>
+      import(/* webpackChunkName: "FullscreenModalViewer"  */ './FullscreenModal')
+    );
+    this._FullscreenModal = FullscreenModal;
+  }
+
+  onClose = () => this.setState({ isExpanded: false });
 
   addExpand = config => {
     const { isModalSuspended } = this.props;
     if (isModalSuspended) {
       return config;
     }
-    const onExpand = (entityIndex: number, innerIndex = 0) => {
-      const { expandModeData } = this.state;
+    const onExpand = (blockKey: string, innerIndex = 0) => {
+      const { expandModeData, FullscreenModal } = this.state;
+      // protective code in case that image was clicked before fullscreen is set
+      if (!FullscreenModal && !this._FullscreenModal) {
+        return false;
+      }
+
+      if (!FullscreenModal && this._FullscreenModal) {
+        this.renderFullScreenModal();
+      }
+
       this.setState({
         isExpanded: true,
         // if expandModeData is not defined - expand the first image
-        index: expandModeData ? expandModeData.imageMap[entityIndex] + innerIndex : 0,
+        index: expandModeData ? expandModeData.imageMap[blockKey] + innerIndex : 0,
       });
     };
     const imageConfig = config['wix-draft-plugin-image'];
@@ -75,14 +117,20 @@ export default class FullscreenProvider extends Component<Props, State> {
     return config;
   };
 
-  render() {
-    const { FullscreenModal, isExpanded, index, expandModeData } = this.state;
-    const { children, initialState, isModalSuspended, isMobile } = this.props;
-    const config = this.addExpand(children.props.config);
+  onChildHover = () => {
+    const { FullscreenModal } = this.state;
+    if (!FullscreenModal && this._FullscreenModal) {
+      this.renderFullScreenModal();
+    }
+  };
 
+  render() {
+    const { isExpanded, index, expandModeData, FullscreenModal } = this.state;
+    const { children, initialState, isModalSuspended, isMobile, fullscreenProps } = this.props;
+    const config = this.addExpand(children.props.config);
     return (
       <Fragment>
-        {Children.only(React.cloneElement(children, { config }))}
+        {Children.only(React.cloneElement(children, { config, onHover: this.onChildHover }))}
         {FullscreenModal && (
           <Suspense fallback={<div />}>
             <FullscreenModal
@@ -93,7 +141,7 @@ export default class FullscreenProvider extends Component<Props, State> {
               onClose={this.onClose}
               index={index}
               isMobile={isMobile}
-              setExpandModeData={this.setExpandModeData}
+              {...fullscreenProps}
             />
           </Suspense>
         )}

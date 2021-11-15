@@ -1,5 +1,3 @@
-import { PaletteColors, ThemeUtils } from 'wix-rich-content-common';
-
 export const SRC_TYPE_HTML = 'html';
 export const SRC_TYPE_URL = 'url';
 
@@ -22,18 +20,12 @@ export const adsenseDefaults = () => {
   return defaults(true);
 };
 
-export const defaults = (isAdsense: boolean) => {
+export const defaults = (isAdsense?: boolean) => {
   return {
     srcType: SRC_TYPE_HTML,
     src: '',
     config: { ...DEFAULTS_CONFIG, ...(isAdsense && { isAdsense }) },
   };
 };
-
-export const theme = (colors: PaletteColors, utils: ThemeUtils) => ({
-  htmlEditPanel_primaryButton: {
-    color: utils.adaptForeground(colors.actionColor),
-  },
-});
 
 export const DEFAULTS_VIEWER = {};

@@ -1,7 +1,4 @@
-import { PaletteColors, ThemeUtils } from 'wix-rich-content-common';
-
-export const DIVIDER_TYPE = 'wix-draft-plugin-divider';
-
+import { NO_WRAP } from 'wix-rich-content-common';
 export const LINE_SINGLE = 'single';
 export const LINE_DOUBLE = 'double';
 export const LINE_DASHED = 'dashed';
@@ -19,7 +16,6 @@ export const SIZE_LARGE = 'large';
 
 export const SIZES = Object.freeze([SIZE_LARGE, SIZE_MEDIUM, SIZE_SMALL]);
 export const ALIGNMENTS = [ALIGN_LEFT, ALIGN_CENTER, ALIGN_RIGHT];
-export const NO_WRAP = 'nowrap';
 
 export const DEFAULTS = Object.freeze({
   type: LINE_SINGLE,
@@ -30,18 +26,14 @@ export const DEFAULTS = Object.freeze({
   },
 });
 
-export const theme = (colors: PaletteColors, utils: ThemeUtils) => ({
-  divider: {
-    color: colors.textColor,
-  },
-  'Dropdown-control': {
-    '& $divider': {
-      color: utils.fallbackColor,
+export const newDefaults = {
+  type: LINE_SINGLE,
+  width: 'LARGE',
+  alignment: 'LEFT',
+  containerData: {
+    alignment: 'CENTER',
+    width: {
+      type: 'CONTENT',
     },
   },
-  'Dropdown-option': {
-    '& $divider': {
-      color: utils.fallbackColor,
-    },
-  },
-});
+};

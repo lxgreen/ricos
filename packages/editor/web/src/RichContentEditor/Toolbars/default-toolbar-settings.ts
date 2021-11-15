@@ -1,5 +1,5 @@
 import { TOOLBARS, DISPLAY_MODE } from 'wix-rich-content-editor-common';
-import { createSideToolbar } from './SideToolbar';
+import createSideToolbar from './SideToolbar/createSideToolbar';
 import { createMobileToolbar, createFooterToolbar, createStaticTextToolbar } from './StaticToolbar';
 import { createInlineTextToolbar } from './InlineToolbar';
 import {
@@ -68,6 +68,7 @@ export const getDefaultToolbarSettings: GetToolbarSettings = ({
   textButtons,
   pluginTextButtons,
   pluginButtonProps,
+  tablePluginMenu,
 }) => {
   return [
     {
@@ -99,10 +100,10 @@ export const getDefaultToolbarSettings: GetToolbarSettings = ({
       shouldCreate: () => defaultShouldCreate,
       getInstance: createFormattingToolbarButtonProps,
       getButtons: () => ({
-        desktop: textButtons.desktop,
+        desktop: textButtons?.desktop,
         mobile: {
-          android: textButtons.mobile,
-          ios: textButtons.mobile,
+          android: textButtons?.mobile,
+          ios: textButtons?.mobile,
         },
       }),
       getTextPluginButtons: () => ({
@@ -128,6 +129,7 @@ export const getDefaultToolbarSettings: GetToolbarSettings = ({
       name: TOOLBARS.SIDE,
       shouldCreate: () => {
         const shouldCreate =
+          pluginButtons &&
           pluginButtons.filter(({ buttonSettings }) =>
             buttonSettings.toolbars?.includes(TOOLBARS.SIDE)
           ).length > 0;
@@ -140,7 +142,7 @@ export const getDefaultToolbarSettings: GetToolbarSettings = ({
         };
       },
       getPositionOffset: () => ({
-        desktop: { x: -40, y: 0 },
+        desktop: { x: tablePluginMenu ? -23 : -40, y: tablePluginMenu ? 3 : 0 },
         mobile: {
           ios: { x: 0, y: 0 },
           android: { x: 0, y: 0 },
@@ -149,11 +151,13 @@ export const getDefaultToolbarSettings: GetToolbarSettings = ({
       getDisplayOptions: () => defaultDisplayOptions,
       getToolbarDecorationFn: () => defaultToolbarDecorationFn,
       getButtons: () => {
-        const buttons = pluginButtons
-          .filter(({ buttonSettings }) => buttonSettings.toolbars?.includes(TOOLBARS.SIDE))
-          .map(({ component, buttonSettings: { name, section } }) => {
-            return { component, name, section };
-          });
+        const buttons =
+          pluginButtons &&
+          pluginButtons
+            .filter(({ buttonSettings }) => buttonSettings.toolbars?.includes(TOOLBARS.SIDE))
+            .map(({ component, buttonSettings: { name, section } }) => {
+              return { component, name, section };
+            });
         return {
           desktop: buttons,
           mobile: {
@@ -188,8 +192,8 @@ export const getDefaultToolbarSettings: GetToolbarSettings = ({
         return {
           desktop: [],
           mobile: {
-            ios: textButtons.mobile,
-            android: textButtons.mobile,
+            ios: textButtons?.mobile,
+            android: textButtons?.mobile,
           },
         };
       },
@@ -213,6 +217,7 @@ export const getDefaultToolbarSettings: GetToolbarSettings = ({
       name: TOOLBARS.FOOTER,
       shouldCreate: () => ({
         desktop:
+          pluginButtons &&
           pluginButtons.filter(({ buttonSettings }) =>
             buttonSettings.toolbars?.includes(TOOLBARS.FOOTER)
           ).length > 0,
@@ -225,11 +230,13 @@ export const getDefaultToolbarSettings: GetToolbarSettings = ({
       getDisplayOptions: () => defaultDisplayOptions,
       getToolbarDecorationFn: () => defaultToolbarDecorationFn,
       getButtons: () => {
-        const buttons = pluginButtons
-          .filter(({ buttonSettings }) => buttonSettings.toolbars?.includes(TOOLBARS.FOOTER))
-          .map(({ component, buttonSettings: { name, section }, blockType }) => {
-            return { component, name, section, blockType };
-          });
+        const buttons =
+          pluginButtons &&
+          pluginButtons
+            .filter(({ buttonSettings }) => buttonSettings.toolbars?.includes(TOOLBARS.FOOTER))
+            .map(({ component, buttonSettings: { name, section }, blockType }) => {
+              return { component, name, section, blockType };
+            });
         return {
           desktop: buttons,
           mobile: {
@@ -261,7 +268,7 @@ export const getDefaultToolbarSettings: GetToolbarSettings = ({
       getDisplayOptions: () => defaultDisplayOptions,
       getToolbarDecorationFn: () => defaultToolbarDecorationFn,
       getButtons: () => ({
-        desktop: textButtons.desktop,
+        desktop: textButtons?.desktop,
         mobile: {
           ios: [],
           android: [],
@@ -296,9 +303,9 @@ export const getDefaultToolbarSettings: GetToolbarSettings = ({
       getDisplayOptions: () => defaultDisplayOptions,
       getToolbarDecorationFn: () => defaultToolbarDecorationFn,
       getButtons: () => ({
-        desktop: textButtons.desktop,
+        desktop: textButtons?.desktop,
         mobile: {
-          ios: textButtons.mobile,
+          ios: textButtons?.mobile,
           android: [],
         },
       }),

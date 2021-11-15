@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { EditorModals, getModalStyles, LinkButton } from 'wix-rich-content-editor-common';
+import { ADD_PLUGIN_LINK_BI } from 'wix-rich-content-common';
 import { isEmpty } from 'lodash';
 
 //Atomic Blocks Link Button
@@ -9,6 +10,12 @@ class BlockLinkButton extends Component {
     const componentData = this.props.pubsub.get('componentData');
     return !!componentData?.config?.link;
   }
+
+  triggerBi = biParams =>
+    this.props.helpers?.onPluginAction?.(ADD_PLUGIN_LINK_BI, {
+      plugin_id: this.props.pluginType,
+      ...biParams,
+    });
 
   showLinkPanel = () => {
     document.activeElement.blur();
@@ -23,7 +30,7 @@ class BlockLinkButton extends Component {
       relValue,
       t,
       uiSettings,
-      unchangedUrl,
+      hideUrlInput,
       innerModal,
       toolbarOffsetTop,
       toolbarOffsetLeft,
@@ -34,8 +41,27 @@ class BlockLinkButton extends Component {
       !linkTypes ||
       isEmpty(linkTypes) ||
       !Object.values(linkTypes).find(addon => !!addon) ||
-      unchangedUrl;
-    const modalStyles = getModalStyles({ fullScreen: !OriginalLinkPanel, isMobile });
+      hideUrlInput;
+    const { externalPopups = false } = uiSettings.linkPanel || {};
+    const customStyles =
+      !isMobile && !OriginalLinkPanel
+        ? {
+            content: {
+              width: 512,
+              maxWidth: 512,
+              height: 390,
+              border: '1px solid rgb(237, 237, 237)',
+              borderRadius: '6px',
+              boxShadow: 'rgba(0, 0, 0, 0.07) 0px 4px 8px 0px',
+              padding: 20,
+            },
+          }
+        : {
+            content: {
+              position: 'fixed',
+            },
+          };
+    const modalStyles = getModalStyles({ fullScreen: isMobile, isMobile, customStyles });
     const commonPanelProps = {
       componentState,
       helpers,
@@ -46,11 +72,12 @@ class BlockLinkButton extends Component {
       relValue,
       modalName: EditorModals.BLOCK_LINK_MODAL,
       uiSettings,
-      unchangedUrl,
+      hideUrlInput,
       linkTypes,
       editorState,
+      triggerBi: this.triggerBi,
     };
-    if (isMobile) {
+    if (isMobile || externalPopups) {
       if (helpers && helpers.openModal) {
         const modalProps = {
           modalStyles,
@@ -70,7 +97,7 @@ class BlockLinkButton extends Component {
         hidePopup: innerModal.closeInnerModal,
         top: toolbarOffsetTop,
         left: toolbarOffsetLeft,
-        modalStyles: OriginalLinkPanel ? null : { maxWidth: 'fit-content', padding: '0 19px' },
+        modalStyles: OriginalLinkPanel ? null : { maxWidth: 'none', padding: 20 },
         ...commonPanelProps,
       };
       innerModal.openInnerModal(modalProps);
@@ -78,15 +105,17 @@ class BlockLinkButton extends Component {
   };
 
   render() {
-    const { theme, isMobile, tabIndex, icons, tooltipText } = this.props;
+    const { theme, isMobile, tabIndex, icons, tooltipText, helpers, pluginType } = this.props;
     return (
       <LinkButton
         onClick={this.showLinkPanel}
+        helpers={helpers}
         isActive={this.isActive}
         theme={theme}
         isMobile={isMobile}
         tooltipText={tooltipText}
         tabIndex={tabIndex}
+        pluginType={pluginType}
         icon={icons}
       />
     );
@@ -106,13 +135,14 @@ BlockLinkButton.propTypes = {
   tabIndex: PropTypes.number,
   uiSettings: PropTypes.object,
   icons: PropTypes.object,
-  unchangedUrl: PropTypes.bool,
+  hideUrlInput: PropTypes.bool,
   tooltipText: PropTypes.string,
   innerModal: PropTypes.object,
   toolbarOffsetTop: PropTypes.string,
   toolbarOffsetLeft: PropTypes.string,
   linkTypes: PropTypes.object,
   editorState: PropTypes.object,
+  pluginType: PropTypes.string,
 };
 
 export default BlockLinkButton;

@@ -1,0 +1,41 @@
+import React, { FunctionComponent } from 'react';
+import SliderWithInput, { SliderWithInputProps } from './SliderWithInput';
+import styles from '../../statics/styles/slider-panel.scss';
+import { GetEditorBounds, RichContentTheme } from 'wix-rich-content-common';
+
+interface SliderPanelProps {
+  getValue: (props: SliderPanelProps) => number;
+  onChange: (props: SliderPanelProps) => (value: number) => void;
+  theme: RichContentTheme;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  mapStoreDataToPanelProps?: (props: any) => SliderWithInputProps;
+  getEditorBounds?: GetEditorBounds;
+}
+
+const SliderPanel: FunctionComponent<SliderPanelProps> = props => {
+  const {
+    theme,
+    getValue,
+    onChange,
+    mapStoreDataToPanelProps,
+    getEditorBounds,
+    ...otherProps
+  } = props;
+
+  const mappedProps = { ...otherProps, ...mapStoreDataToPanelProps?.(otherProps) };
+
+  return (
+    <div className={styles.sliderPanel} data-hook="sliderPanel">
+      <SliderWithInput
+        {...mappedProps}
+        theme={theme}
+        defaultValue={getValue(props)}
+        onChange={onChange({ ...props, getEditorBounds })}
+        sliderDataHook="sliderPanel_Slider"
+        inputDataHook="sliderPanel_Input"
+      />
+    </div>
+  );
+};
+
+export default SliderPanel;

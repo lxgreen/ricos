@@ -1,21 +1,40 @@
 .toolbar {
   display: flex;
-  height: 40px;
+  height: 36px;
 
   button,
   label {
     background: #fff;
-    border: 1px solid #666;
+    border: 1px solid #fff;
     cursor: pointer;
-    height: 40px;
+    height: 36px;
     opacity: 1 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:disabled {
       color: graytext;
     }
+
+    > div {
+      display: flex;
+      align-items: center;
+
+      > span {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    svg {
+      width: unset;
+      height: unset;
+    }
   }
 
-  & > button, label {
+  & > button,
+  label {
     width: 40px;
   }
 

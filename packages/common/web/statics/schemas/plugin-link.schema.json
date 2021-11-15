@@ -32,7 +32,6 @@
         "default": "",
         "examples": ["wix.com"]
       }
-    },
-    "required": ["url"]
+    }
   }
   

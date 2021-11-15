@@ -1,4 +1,5 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
+@import '~wix-rich-content-common/dist/statics/styles/palette';
 
 .map_settings_modal_main_content_block {
   padding: 0px 24px;
@@ -56,38 +57,6 @@
   }
 }
 
-.map_settings_modal_mobile_navbar {
-  display: flex;
-  flex-direction: row;
-  padding: 0px 20px;
-  min-height: 50px;
-  background-color: #0261ff;
-  color: #fff;
-}
-
-.map_settings_modal_mobile_navbar_wrapper {
-  display: flex;
-}
-
-.map_settings_modal_mobile_navbar p {
-  margin: 0px;
-}
-
-.map_settings_modal_mobile_navbar_button {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.map_settings_modal_mobile_navbar_save_button {
-  @extend .map_settings_modal_mobile_navbar_button;
-  margin-left: auto;
-}
-
-.map_settings_modal_mobile_navbar_cancel_button {
-  @extend .map_settings_modal_mobile_navbar_button;
-}
-
 .map_settings_modal_location_suggestion {
   font-size: 16px;
   line-height: 24px;
@@ -132,7 +101,7 @@
 .map_settings_modal_divider {
   height: 1px;
   opacity: 0.2;
-  background-color: #000;
+  background-color: $primary-text-color;
 }
 
 .map_settings_modal_map_modes {

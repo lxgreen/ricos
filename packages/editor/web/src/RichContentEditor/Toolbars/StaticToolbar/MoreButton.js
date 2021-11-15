@@ -5,9 +5,9 @@ import Styles from '../../../../statics/styles/static-toolbar-more-button.scss';
 import AddPluginMenu from '../SideToolbar/AddPluginMenu';
 import classnames from 'classnames';
 import { ShortcutIcon } from '../../Icons';
-import ClickOutside from 'react-click-outside';
+import ClickOutside from 'react-click-outsider';
 import { TOOLBARS } from 'wix-rich-content-editor-common';
-import { mergeStyles } from 'wix-rich-content-common';
+import { mergeStyles, Version } from 'wix-rich-content-common';
 
 class MoreButton extends Component {
   constructor(props) {
@@ -46,12 +46,19 @@ class MoreButton extends Component {
 
   handleClick = () => {
     const { showPluginMenu } = this.state;
+    const { helpers } = this.props;
     this.calculatePluginMenuPosition();
+    if (!showPluginMenu) {
+      helpers.onMenuLoad?.({
+        version: Version.currentVersion,
+        menu: 'SHORTCUT',
+      });
+    }
     this.togglePopup(!showPluginMenu);
   };
 
   render() {
-    const { addPluginMenuProps, isActive, t, theme } = this.props;
+    const { addPluginMenuProps, isActive, t, theme, forceDisabled } = this.props;
     const { pluginMenuPosition, showPluginMenu } = this.state;
     return (
       <div className={this.styles.container}>
@@ -83,6 +90,7 @@ class MoreButton extends Component {
                 hidePopup={() => this.togglePopup(false)}
                 pluginMenuButtonRef={this.moreButton}
                 toolbarName={TOOLBARS.SHORTCUT}
+                isMoreMenu
               />
             </div>
           </ClickOutside>
@@ -94,6 +102,8 @@ class MoreButton extends Component {
 
 MoreButton.propTypes = {
   addPluginMenuProps: PropTypes.object.isRequired,
+  forceDisabled: PropTypes.bool,
+  helpers: PropTypes.object,
 };
 
 export default MoreButton;

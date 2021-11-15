@@ -1,11 +1,12 @@
 import React from 'react';
 import { RicosViewer, RicosViewerProps } from './index';
 import { RichContentViewer } from 'wix-rich-content-viewer';
-import { pluginHashtag } from '../../../plugin-hashtag/web/src/editor';
+import { BICallbacks } from 'wix-rich-content-common';
+import { pluginHashtag, HASHTAG_TYPE } from '../../../plugin-hashtag/web/src';
+import { version } from '../package.json';
 import introState from '../../../../e2e/tests/fixtures/intro.json';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { createTheme } from 'ricos-theme';
 
 Enzyme.configure({ adapter: new Adapter() });
 const { mount, shallow } = Enzyme;
@@ -24,6 +25,7 @@ const getRCV = (ricosViewerProps?: RicosViewerProps, asWrapper?: boolean) => {
     </RicosViewer>
   );
   const element = shallow(toRender)
+    .find('RicosEngine')
     .dive()
     .children();
 
@@ -51,7 +53,7 @@ describe('RicosViewer', () => {
     expect(rcvProps.config).toHaveProperty('wix-draft-plugin-hashtag');
   });
   it('should render with themeStrategy output', () => {
-    const rcvProps = getRCV({ theme: createTheme() }).props();
+    const rcvProps = getRCV({ theme: { palette: 'darkTheme' } }).props();
 
     expect(rcvProps).toHaveProperty('theme');
     expect(rcvProps).toHaveProperty('decorators');
@@ -59,13 +61,13 @@ describe('RicosViewer', () => {
   });
   it('should create same props with & without a wrapping component', () => {
     const props: RicosViewerProps = {
-      theme: createTheme({ palette: 'darkTheme' }),
+      theme: { palette: 'darkTheme' },
       locale: 'fr',
       content: introState,
       isMobile: true,
       _rcProps: {
         helpers: { dummyFunction: () => true },
-        config: { dummyPluginJustForThisTest: {} },
+        config: { [HASHTAG_TYPE]: {} },
       },
       plugins,
       onError: () => true,
@@ -75,7 +77,31 @@ describe('RicosViewer', () => {
     // hashed theme classnames can be different; assert keys only.
     const themeKeys = Object.keys(rcvProps.theme);
     const themeKeys_wrapped = Object.keys(rcvPropsWrapped.theme);
-    expect(themeKeys).toStrictEqual(themeKeys_wrapped);
-    expect({ ...rcvProps, theme: {} }).toStrictEqual({ ...rcvPropsWrapped, theme: {} });
+    expect(JSON.stringify(themeKeys)).toStrictEqual(JSON.stringify(themeKeys_wrapped));
+    expect(JSON.stringify({ ...rcvProps, theme: {} })).toStrictEqual(
+      JSON.stringify({ ...rcvPropsWrapped, theme: {} })
+    );
+  });
+  it('should trigger onViewerLoaded upon mount', () => {
+    let args = {};
+    const onViewerLoadedMock: BICallbacks['onViewerLoaded'] = params => (args = params);
+    const fn = jest.fn(onViewerLoadedMock);
+    getRicosViewer({ _rcProps: { helpers: { onViewerLoaded: fn } } });
+    expect(fn).toBeCalledTimes(1);
+    expect(args).toStrictEqual({
+      isPreview: false,
+      pluginsCount: {
+        EMOJI_TYPE: 2,
+        LINK: 2,
+        blockquote: 1,
+        'code-block': 1,
+        'header-three': 2,
+        'wix-draft-plugin-divider': 1,
+        'wix-draft-plugin-gallery': 1,
+        'wix-draft-plugin-giphy': 1,
+      },
+      url: 'http://localhost/',
+      version,
+    });
   });
 });

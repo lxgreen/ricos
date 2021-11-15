@@ -52,16 +52,18 @@ const rules = [
     loader: 'happypack/loader?id=ts',
   },
 ];
-
 export const getWebpackConfig = (
-  pkgName: string,
+  entry: string | Record<string, string>,
+  output?: string,
   { plugins = [] }: { plugins?: BundleAnalyzerPlugin[] } = {}
 ): Configuration => {
   return {
-    entry: `./src/${pkgName}.tsx`,
+    entry,
     mode: 'production',
     output: {
-      filename: `${pkgName}.js`,
+      filename: `[name].js`,
+      // eslint-disable-next-line no-path-concat
+      path: __dirname + '/dist',
     },
     module: {
       rules,
@@ -87,4 +89,15 @@ export const getWebpackConfig = (
       extensions: ['.tsx', '.ts', '.js'],
     },
   };
+};
+
+export const getWebpackPluginConfig = (
+  pkgName: string,
+  { plugins = [] }: { plugins?: BundleAnalyzerPlugin[] } = {}
+): Configuration => {
+  return getWebpackConfig(`./src/bundles/${pkgName}.tsx`, pkgName, { plugins });
+};
+
+export const getWebpackPluginsConfig = (entires: Record<string, string>): Configuration => {
+  return getWebpackConfig(entires);
 };

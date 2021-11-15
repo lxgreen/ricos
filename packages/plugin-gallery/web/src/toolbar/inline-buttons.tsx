@@ -2,18 +2,48 @@ import { BUTTONS, PluginSettingsIcon } from 'wix-rich-content-plugin-commons';
 import { getModalStyles } from 'wix-rich-content-editor-common';
 import { Modals } from '../modals';
 import { ManageMediaIcon, UploadIcon } from '../icons';
-import { galleryLayoutsDropdown, switchLayout, getCurrentLayout } from '../layout-helper';
-import { CreateInlineButtons } from 'wix-rich-content-common';
+import { getGalleryLayoutsDropdown, switchLayout, getCurrentLayout } from '../layout-helper';
+import {
+  CreateInlineButtons,
+  TranslationFunction,
+  AnchorTarget,
+  RelValue,
+  AvailableExperiments,
+  UISettings,
+} from 'wix-rich-content-common';
+import { GalleryPluginEditorConfig, GALLERY_TYPE } from '../types';
 
-const modalStyles = getModalStyles({});
-
-const createInlineButtons: CreateInlineButtons<'t' | 'anchorTarget' | 'relValue' | 'settings'> = ({
+const createInlineButtons: CreateInlineButtons = ({
   t,
   anchorTarget,
   relValue,
   settings,
+  experiments = {},
+  isMobile,
+  uiSettings,
+}: {
+  t: TranslationFunction;
+  settings: GalleryPluginEditorConfig;
+  anchorTarget: AnchorTarget;
+  relValue: RelValue;
+  experiments: AvailableExperiments;
+  isMobile: boolean;
+  uiSettings: UISettings;
 }) => {
+  const modalStyles = getModalStyles({ isMobile });
   const icons = settings?.toolbar?.icons || {};
+  const { spoilerInInlineToolbar } = experiments;
+  const spoilerButton =
+    settings.spoiler && spoilerInInlineToolbar?.enabled
+      ? [
+          {
+            keyName: 'spoiler',
+            type: BUTTONS.SPOILER,
+            mobile: true,
+          },
+        ]
+      : [];
+
   return [
     {
       keyName: 'add',
@@ -33,7 +63,7 @@ const createInlineButtons: CreateInlineButtons<'t' | 'anchorTarget' | 'relValue'
     {
       keyName: 'layout',
       type: BUTTONS.DROPDOWN,
-      options: galleryLayoutsDropdown(t),
+      options: getGalleryLayoutsDropdown(t),
       onChange: switchLayout,
       getValue: getCurrentLayout,
       mobile: true,
@@ -48,9 +78,11 @@ const createInlineButtons: CreateInlineButtons<'t' | 'anchorTarget' | 'relValue'
     { keyName: 'sizeSmallLeft', type: BUTTONS.SIZE_SMALL_LEFT, mobile: false },
     { keyName: 'sizeSmallRight', type: BUTTONS.SIZE_SMALL_RIGHT, mobile: false },
     { keyName: 'separator3', type: BUTTONS.SEPARATOR, mobile: true },
+    ...spoilerButton,
     {
       keyName: 'manage_media',
       type: BUTTONS.EXTERNAL_MODAL,
+      fullHeight: true,
       icon: icons.manage_media || ManageMediaIcon,
       modalName: Modals.GALLERY_SETTINGS,
       activeTab: 'manage_media',
@@ -61,20 +93,27 @@ const createInlineButtons: CreateInlineButtons<'t' | 'anchorTarget' | 'relValue'
       anchorTarget,
       relValue,
       accept: settings.accept,
+      uiSettings,
     },
     {
       keyName: 'advanced_settings',
       type: BUTTONS.EXTERNAL_MODAL,
+      fullHeight: true,
       icon: icons.advanced_settings || PluginSettingsIcon,
       modalName: Modals.GALLERY_SETTINGS,
-      activeTab: 'advanced_settings',
+      activeTab: 'settings',
       modalStyles,
       switchLayout,
       t,
-      mobile: false,
+      mobile: true,
       tooltipTextKey: 'SettingsButton_Tooltip',
       anchorTarget,
       relValue,
+      accept: settings.accept,
+      uiSettings,
+      triggerSettingsBi: true,
+      pluginId: GALLERY_TYPE,
+      shouldShowSpoiler: settings.spoiler,
     },
     { keyName: 'delete', type: BUTTONS.DELETE, mobile: true },
   ];

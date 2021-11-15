@@ -1,16 +1,19 @@
 .DS_Store
 dist
+**/generated/wix/rich_content
+**/generated/google
 node_modules
 *npm-debug.log
 lerna-debug.log
 yarn-error.log
-yarn.lock
 */**/package-lock.json
 target
 maven
 stats.html
 .env
 applitools.private.config.js
+tsconfig.tsbuildinfo
+.ultra.cache.json
 
 #Webstorm
 **/.idea/*
@@ -37,4 +40,14 @@ applitools.config.js
 
 # docs
 **/.docusaurus
-**/docs/build/
+**/website/build/
+
+# ricos content migration
+**/migratedFixtures/**
+!intro.json
+!migration-content.json
+**/reverseMigratedFixtures
+
+# Generated Merged Translations
+packages/common/web/statics/locale
+.ultraignore

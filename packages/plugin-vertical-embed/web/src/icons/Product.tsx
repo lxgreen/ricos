@@ -5,8 +5,8 @@ const Product = props => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
-    width="25"
-    height="24"
+    width="19"
+    height="19"
     viewBox="0 0 25 24"
     {...props}
   >

@@ -8,7 +8,7 @@ export const HEADER_TYPE_MAP = {
   P: 'unstyled',
 };
 
-export const DEFAULT_HEADERS_DROPDOWN_OPTIONS = ['P', 'H2', 'H3', 'H4', 'H5', 'H6'];
+export const DEFAULT_HEADERS_DROPDOWN_OPTIONS = ['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'];
 
 export const PLUGIN_DECORATIONS = Object.freeze({
   RESIZEABLE: 'RESIZEABLE',
@@ -30,7 +30,4 @@ export const TOOLBAR_OFFSETS = Object.freeze({
   left: 15,
 });
 
-export const FOOTER_BUTTON_ALIGNMENT = Object.freeze({
-  CENTER: 'center',
-  END: 'end',
-});
+export const UNSUPPORTED_BLOCKS_TYPE = 'unsupported-blocks';

@@ -1,4 +1,3 @@
-import { translate } from 'react-i18next';
 import {
   BUTTONS,
   SizeSmallLeftIcon,
@@ -17,7 +16,8 @@ import {
   SRC_TYPE_URL,
 } from '../defaults';
 import EditPanel from './HtmlEditPanel';
-import { CreateInlineButtons } from 'wix-rich-content-common';
+import { CreateInlineButtons, GetEditorBounds, translate } from 'wix-rich-content-common';
+import { HtmlPluginEditorConfig } from '../types';
 
 const getAlignmentButtonPropsFn = getEditorBounds => ({ componentData }) => {
   const editorBounds = getEditorBounds?.();
@@ -32,9 +32,12 @@ const TOOLTIP_TEXT_BY_SRC_TYPE = {
   [SRC_TYPE_URL]: 'HtmlPlugin_EditUrl_Tooltip',
 };
 
-const createInlineButtons: CreateInlineButtons<'settings' | 'getEditorBounds'> = ({
+const createInlineButtons: CreateInlineButtons = ({
   settings = {},
   getEditorBounds,
+}: {
+  settings: HtmlPluginEditorConfig;
+  getEditorBounds: GetEditorBounds;
 }) => {
   const {
     maxWidth,

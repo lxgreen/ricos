@@ -1,0 +1,72 @@
+{
+  "nodes": [
+    {
+      "id": "5nmng",
+      "type": "EXTERNAL",
+      "nodes": [],
+      "externalData": {
+        "type": "section",
+        "config": {
+          "size": "large",
+          "alignment": "center",
+          "textWrap": "nowrap"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "bh5fg",
+      "nodes": [
+        {
+          "type": "TEXT",
+          "id": "",
+          "nodes": [],
+          "textData": {
+            "text": "A",
+            "decorations": [{
+              "type": "EXTERNAL"
+            }]
+          }
+        },
+        {
+          "type": "TEXT",
+          "id": "",
+          "nodes": [],
+          "textData": {
+            "text": "B",
+            "decorations": [
+              {
+                "type": "BOLD",
+                "fontWeightValue": 700
+              }
+            ]
+          }
+        },
+        {
+          "type": "TEXT",
+          "id": "",
+          "nodes": [],
+          "textData": {
+            "text": "C",
+            "decorations": [{
+              "type": "UNDERLINE",
+              "underlineData": true
+            }]
+          }
+        }
+      ],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
+    }
+  ],
+  "metadata": {
+    "version": 1,
+    "createdTimestamp": "2021-10-05T10:02:38.502Z",
+    "updatedTimestamp": "2021-10-05T10:02:38.502Z"
+  }
+}
+

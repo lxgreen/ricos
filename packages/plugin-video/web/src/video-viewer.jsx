@@ -44,6 +44,7 @@ class VideoViewer extends Component {
       this.props.onReload?.();
     }
   };
+
   componentDidMount() {
     this.setState({ key: 'mounted' }); //remounts reactPlayer after ssr. Fixes bug where internal player id changes in client
   }
@@ -74,13 +75,32 @@ class VideoViewer extends Component {
     }
   };
 
-  handleContextMenu = e => this.props.disableRightClick && e.preventDefault();
+  handleContextMenu = e => this.props.componentData.disableDownload && e.preventDefault();
+
+  disableDownloadProps = () => {
+    const { componentData, settings } = this.props;
+    const disableProps = {
+      config: {
+        file: {
+          attributes: {
+            controlsList: 'nodownload',
+          },
+        },
+      },
+    };
+    let disable = {};
+    if (componentData.disableDownload !== undefined) {
+      disable = componentData.disableDownload ? disableProps : {};
+    } else if (settings.disableDownload !== undefined) {
+      disable = settings.disableDownload ? disableProps : {};
+    }
+    return disable;
+  };
 
   render() {
     const { theme, width, height, disabled, setComponentUrl } = this.props;
     this.styles = this.styles || mergeStyles({ styles, theme });
     const { url, key } = this.state;
-
     setComponentUrl?.(url);
     const props = {
       url,
@@ -89,6 +109,7 @@ class VideoViewer extends Component {
       width,
       height,
       key,
+      ...this.disableDownloadProps(),
     };
 
     const isLoaded = this.props.isLoaded || this.state.isLoaded;
@@ -105,7 +126,6 @@ class VideoViewer extends Component {
     );
   }
 }
-
 VideoViewer.propTypes = {
   componentData: PropTypes.object.isRequired,
   onStart: PropTypes.func,
@@ -114,16 +134,13 @@ VideoViewer.propTypes = {
   settings: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   disabled: PropTypes.bool,
-  disableRightClick: PropTypes.bool,
   setComponentUrl: PropTypes.func,
   onReady: PropTypes.func,
   isLoaded: PropTypes.bool,
   onReload: PropTypes.func,
 };
-
 VideoViewer.defaultProps = {
   width: '100%',
   height: '100%',
 };
-
 export default VideoViewer;

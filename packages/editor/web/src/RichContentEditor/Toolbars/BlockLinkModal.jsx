@@ -1,22 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import MobileLinkModal from './MobileLinkModal';
+import { LinkModal } from 'wix-rich-content-editor-common';
+import { ANCHOR_CATEGORY, WEB_ADDRESS_CATEGORY, isNewTab } from 'wix-rich-content-common';
 
 export default class BlockLinkModal extends Component {
   hidePopup = () => this.props.hidePopup();
 
-  setLinkInBlockData = ({ url, anchor, targetBlank, nofollow }) => {
-    const { pubsub, anchorTarget, relValue, unchangedUrl } = this.props;
-    let target = '_blank',
-      rel = 'nofollow';
-    if (!targetBlank) {
-      target = anchorTarget !== '_blank' ? anchorTarget : '_self';
-    }
-    if (!nofollow) {
-      rel = relValue !== 'nofollow' ? relValue : 'noopener';
-    }
-    if (!isEmpty(url) || !isEmpty(anchor) || unchangedUrl) {
+  setLinkInBlockData = ({ url, anchor, target, rel }) => {
+    const { pubsub, hideUrlInput, triggerBi } = this.props;
+    if (!isEmpty(url) || !isEmpty(anchor) || hideUrlInput) {
       const item = anchor
         ? { anchor }
         : {
@@ -28,6 +21,16 @@ export default class BlockLinkModal extends Component {
         key: 'componentLink',
         item,
       });
+
+      const biData = anchor
+        ? { anchor, category: ANCHOR_CATEGORY }
+        : {
+            link: item.url,
+            rel,
+            newTab: isNewTab(target),
+            category: WEB_ADDRESS_CATEGORY,
+          };
+      triggerBi({ params: biData });
     } else {
       pubsub.setBlockData({ key: 'componentLink', item: null });
     }
@@ -48,20 +51,19 @@ export default class BlockLinkModal extends Component {
       relValue,
       t,
       uiSettings,
-      unchangedUrl,
+      hideUrlInput,
       linkTypes,
       editorState,
     } = this.props;
     const componentLink = pubsub.get('componentData')?.config?.link;
     const { url, anchor, target, rel } = componentLink || {};
-    const targetBlank = target ? target === '_blank' : anchorTarget === '_blank';
-    const nofollow = rel ? rel === 'nofollow' : relValue === 'nofollow';
     return (
-      <MobileLinkModal
+      <LinkModal
+        editorState={editorState}
         url={url}
         anchor={anchor}
-        targetBlank={targetBlank}
-        nofollow={nofollow}
+        target={target}
+        rel={rel}
         theme={theme}
         isActive={!!componentLink}
         isMobile={isMobile}
@@ -72,9 +74,8 @@ export default class BlockLinkModal extends Component {
         onDelete={this.deleteLink}
         uiSettings={uiSettings}
         t={t}
-        unchangedUrl={unchangedUrl}
         linkTypes={linkTypes}
-        editorState={editorState}
+        hideUrlInput={hideUrlInput}
       />
     );
   }
@@ -86,13 +87,12 @@ BlockLinkModal.propTypes = {
   theme: PropTypes.object.isRequired,
   url: PropTypes.string,
   isMobile: PropTypes.bool,
-  targetBlank: PropTypes.bool,
-  nofollow: PropTypes.bool,
   anchorTarget: PropTypes.string,
   relValue: PropTypes.string,
   t: PropTypes.func,
   uiSettings: PropTypes.object,
-  unchangedUrl: PropTypes.bool,
+  hideUrlInput: PropTypes.bool,
   linkTypes: PropTypes.object,
   editorState: PropTypes.object,
+  triggerBi: PropTypes.func,
 };

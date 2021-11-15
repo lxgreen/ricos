@@ -30,6 +30,7 @@ export class PollContextProvider extends PureComponent {
       siteToken: PropTypes.string,
       isWebView: PropTypes.bool,
       getSiteMembers: PropTypes.func,
+      pollServiceApi: PropTypes.object,
     }),
     poll: PropTypes.shape(PollPropTypes),
     setPoll: PropTypes.func,
@@ -52,11 +53,15 @@ export class PollContextProvider extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.pollApiClient = new SocialPollsService(props.settings.siteToken);
+    this.pollApiClient =
+      props.settings?.pollServiceApi || new SocialPollsService(props.settings.siteToken);
   }
 
   componentWillReceiveProps(props) {
-    if (props.settings.siteToken !== this.props.settings.siteToken) {
+    if (
+      !props.settings?.pollServiceApi &&
+      props.settings.siteToken !== this.props.settings.siteToken
+    ) {
       this.pollApiClient = new SocialPollsService(props.settings.siteToken);
       this.fetchPoll();
     }
@@ -69,11 +74,11 @@ export class PollContextProvider extends PureComponent {
   componentDidMount() {
     const { editorEvents } = this.props;
 
-    editorEvents?.subscribe('rce:publish', this.syncPoll);
+    editorEvents?.subscribe('plugin:publish', this.syncPoll);
   }
 
   componentWillUnmount() {
-    this.props.editorEvents?.unsubscribe('rce:publish', this.syncPoll);
+    this.props.editorEvents?.unsubscribe('plugin:publish', this.syncPoll);
   }
 
   async fetchPoll() {
@@ -110,6 +115,7 @@ export class PollContextProvider extends PureComponent {
     }
 
     this.props.setPoll(dto);
+    console.debug('polls publish callback'); // eslint-disable-line
   };
 
   updatePoll(poll) {

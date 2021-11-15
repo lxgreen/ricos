@@ -1,33 +1,77 @@
 import { BUTTONS } from 'wix-rich-content-plugin-commons';
-import { getModalStyles, decorateComponentWithProps } from 'wix-rich-content-editor-common';
+import {
+  getModalStyles,
+  decorateComponentWithProps,
+  getBottomToolbarModalStyles,
+} from 'wix-rich-content-editor-common';
 import { ReplaceIcon } from '../icons';
 import getModalCustomStyles from './ModalCustomStyles';
-import PostSelectionInputModal from './postSelectionInputModal';
-import { CreateInlineButtons } from 'wix-rich-content-common';
+import VerticalEmbedInputModal from './VerticalEmbedInputModal';
+import {
+  AvailableExperiments,
+  CreateInlineButtons,
+  TranslationFunction,
+} from 'wix-rich-content-common';
+import { VerticalEmbedPluginEditorConfig } from '../types';
+import {
+  DesktopFlyOutModalStyles,
+  MOBILE_FULL_SCREEN_CUSTOM_STYLE,
+} from 'wix-rich-content-ui-components';
 
-const createInlineButtons: CreateInlineButtons<'t' | 'isMobile' | 'settings'> = ({
+const createInlineButtons: CreateInlineButtons = ({
   t,
   isMobile,
   settings,
+  locale,
+  experiments = {},
+}: {
+  t: TranslationFunction;
+  settings: VerticalEmbedPluginEditorConfig;
+  isMobile: boolean;
+  locale: string;
+  experiments: AvailableExperiments;
 }) => {
+  const { newVerticalEmbedModal } = experiments;
+  const useNewModal = newVerticalEmbedModal?.enabled;
+
+  const modalStylesFn = useNewModal
+    ? ({ buttonRef, toolbarName }) => {
+        return getBottomToolbarModalStyles(
+          buttonRef,
+          {
+            customStyles,
+          },
+          toolbarName
+        );
+      }
+    : undefined;
+
+  const newModalCustomStyles = isMobile
+    ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
+    : DesktopFlyOutModalStyles;
+
+  const customStyles = useNewModal ? newModalCustomStyles : getModalCustomStyles(isMobile);
+
+  const defaultModalStyles = getModalStyles({
+    customStyles,
+    fullScreen: !!useNewModal,
+    isMobile,
+  });
+
+  const newModalStyles = isMobile ? defaultModalStyles : undefined;
+  const modalStyles = useNewModal ? newModalStyles : defaultModalStyles;
+
   return [
-    { keyName: 'alignLeft', type: BUTTONS.SIZE_SMALL_LEFT, mobile: false },
-    { keyName: 'alignCenter', type: BUTTONS.SIZE_CONTENT_CENTER, mobile: false },
-    { keyName: 'alignRight', type: BUTTONS.SIZE_SMALL_RIGHT, mobile: false },
-    { keyName: 'separator1', type: BUTTONS.SEPARATOR, mobile: false },
     {
       keyName: 'replace',
       type: BUTTONS.EXTERNAL_MODAL,
       icon: ReplaceIcon,
-      modalElement: decorateComponentWithProps(PostSelectionInputModal, settings),
-      modalStyles: getModalStyles({
-        fullScreen: false,
-        isMobile,
-        customStyles: getModalCustomStyles(isMobile),
-      }),
+      modalElement: decorateComponentWithProps(VerticalEmbedInputModal, { ...settings, locale }),
+      modalStyles,
       mobile: true,
       tooltipTextKey: 'Replace product',
       t,
+      modalStylesFn,
     },
     { keyName: 'delete', type: BUTTONS.DELETE, mobile: true },
   ];

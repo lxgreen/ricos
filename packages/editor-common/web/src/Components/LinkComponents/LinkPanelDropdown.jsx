@@ -1,6 +1,7 @@
 import React, { Component, PureComponent, Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../../../statics/styles/link-panel.scss';
+import { TextInput } from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 import { isUndefined } from 'lodash';
 
@@ -9,8 +10,7 @@ const List = lazy(() =>
     default: FixedSizeList,
   }))
 );
-const dummy = '';
-const Downshift = lazy(() => import(/* webpackChunkName: "downshift" */ `downshift${dummy}`));
+const Downshift = lazy(() => import('downshift'));
 
 function isSubString(str, subStr) {
   return str.toLowerCase().includes(subStr.toLowerCase());
@@ -65,6 +65,9 @@ export class LinkPanelDropdown extends Component {
     items: this.props.getItems(),
     fallbackChanged: false,
   };
+
+  textInput = React.createRef();
+
   styles = mergeStyles({ styles, theme: this.props.theme });
 
   handleDropDownStateChange = changes => {
@@ -85,8 +88,9 @@ export class LinkPanelDropdown extends Component {
   };
 
   render() {
-    const { itemToString, formatMenuItem, itemHeight, textInputProps, value } = this.props;
+    const { itemToString, formatMenuItem, itemHeight, textInputProps, value, t } = this.props;
     const { selectedItem, items, fallbackChanged } = this.state;
+
     return (
       <Suspense
         fallback={
@@ -97,6 +101,7 @@ export class LinkPanelDropdown extends Component {
               this.props.onChange(e.target.value);
               this.setState({ fallbackChanged: true });
             }}
+            placeholder={t('LinkPanel_InputPlaceholder')}
             selectText
           />
         }
@@ -115,34 +120,41 @@ export class LinkPanelDropdown extends Component {
             isOpen,
             highlightedIndex,
             inputValue,
-          }) => (
-            <div>
-              {/*<label {...getLabelProps()}>Enter a fruit</label>*/}
-              <Input {...getInputProps({ ...textInputProps })} selectText={!fallbackChanged} />
-              {(isOpen || this.props.isOpen) && List && (
-                <Suspense fallback={<div>Loading...</div>}>
-                  <List
-                    className={styles.linkPanel_dropdownList}
-                    style={{ borderTop: '0', position: 'absolute' }}
-                    height={Math.min(items.length * itemHeight + 1, 200)}
-                    itemCount={items.length}
-                    itemSize={itemHeight}
-                    itemData={{
-                      items,
-                      getItemProps,
-                      highlightedIndex,
-                      selectedItem,
-                      formatMenuItem,
-                      inputValue,
-                    }}
-                    {...getMenuProps()}
-                  >
-                    {ItemRenderer}
-                  </List>
-                </Suspense>
-              )}
-            </div>
-          )}
+          }) => {
+            const textInputProps = getInputProps({
+              ...textInputProps,
+            });
+            return (
+              <div>
+                <Input
+                  {...getInputProps({ ...textInputProps })}
+                  selectText={!fallbackChanged}
+                  placeholder={t('LinkPanel_InputPlaceholder')}
+                />
+                {(isOpen || this.props.isOpen) && List && (
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <List
+                      className={styles.linkPanel_dropdownList}
+                      height={Math.min(items.length * itemHeight + 1, 200)}
+                      itemCount={items.length}
+                      itemSize={itemHeight}
+                      itemData={{
+                        items,
+                        getItemProps,
+                        highlightedIndex,
+                        selectedItem,
+                        formatMenuItem,
+                        inputValue,
+                      }}
+                      {...getMenuProps()}
+                    >
+                      {ItemRenderer}
+                    </List>
+                  </Suspense>
+                )}
+              </div>
+            );
+          }}
         </Downshift>
       </Suspense>
     );
@@ -152,6 +164,7 @@ export class LinkPanelDropdown extends Component {
     theme: PropTypes.object.isRequired,
     onChange: PropTypes.func,
     getItems: PropTypes.func,
+    t: PropTypes.func,
     itemToString: PropTypes.func,
     value: PropTypes.string,
     formatMenuItem: PropTypes.func,
@@ -163,20 +176,29 @@ export class LinkPanelDropdown extends Component {
 
 class Input extends Component {
   textInput = React.createRef();
+
   componentDidMount() {
     // eslint-disable-next-line react/prop-types
     const { selectText } = this.props;
-    this.textInput.current.focus();
+    const ref = this.textInput.current;
+    ref.focus();
     if (selectText) {
-      this.textInput.current.select(); //select the link in case of edit
+      ref.select(); //select the link in case of edit
     } else {
-      this.textInput.current.selectionStart = this.textInput.current.value.length;
-      this.textInput.current.selectionEnd = this.textInput.current.value.length;
+      ref.selectionStart = ref.selectionEnd = ref.value.length; //move cursor to end
     }
   }
+
   render() {
     // eslint-disable-next-line react/prop-types, no-unused-vars
-    const { selectText, ...inputProps } = this.props;
-    return <input {...inputProps} ref={this.textInput} />;
+    const { placeholder, selectText, ...inputProps } = this.props;
+    return (
+      <TextInput
+        {...inputProps}
+        inputRef={this.textInput}
+        onChange={value => inputProps.onChange({ target: { value } })}
+        placeholder={placeholder}
+      />
+    );
   }
 }

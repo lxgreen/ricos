@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-storybook",
-  "version": "7.18.3",
+  "version": "8.60.0",
   "license": "UNLICENSED",
   "private": true,
   "author": {
@@ -11,71 +11,71 @@
   "module": "dist/es/src/index.js",
   "sideEffects": false,
   "files": [
-    "dist"
+    "dist",
+    "libs",
+    "viewer"
   ],
   "scripts": {
     "start": "npm run storybook",
     "precommit": "lint-staged",
+    "lint": "eslint '{src,stories}/**/*.{js,jsx,ts,tsx,d.ts}'",
     "pretest": "yoshi build",
-    "test": "echo 'There are no tests configured for this project!' && exit 0",
+    "test": ":",
     "release": "yoshi release",
     "storybook": "start-storybook -p 6006",
     "clean": "rm -rf dist storybook-static",
     "build": "build-storybook"
   },
   "dependencies": {
-    "@babel/core": "7.2.2",
-    "@babel/runtime": "7.2.0",
     "@storybook/react": "^5.3.1",
-    "@testing-library/react": "^9.4.0",
-    "babel-jest": "^25.1.0",
-    "classnames": "^2.0.0",
-    "jest": "^26.0.1",
-    "jest-yoshi-preset": "4.31.0",
+    "jest-yoshi-preset": "4.87.0",
     "lint-staged": "^7.2.2",
-    "lodash": "^4.17.15",
     "mobile-detect": "^1.4.1",
-    "prop-types": "^15.6.2",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
     "react-json-view": "^1.19.1",
     "react-syntax-highlighter": "12.2.1",
-    "ricos-editor": "7.18.3",
-    "ricos-viewer": "7.18.3",
-    "ricos-theme": "7.18.3",
-    "wix-rich-content-common": "7.18.3",
-    "wix-rich-content-editor": "7.18.3",
-    "wix-rich-content-editor-common": "7.18.3",
-    "wix-rich-content-fullscreen": "7.18.3",
-    "wix-rich-content-plugin-commons": "7.18.3",
-    "wix-rich-content-plugin-button": "7.18.3",
-    "wix-rich-content-plugin-code-block": "7.18.3",
-    "wix-rich-content-plugin-divider": "7.18.3",
-    "wix-rich-content-plugin-emoji": "7.18.3",
-    "wix-rich-content-plugin-file-upload": "7.18.3",
-    "wix-rich-content-plugin-gallery": "7.18.3",
-    "wix-rich-content-plugin-giphy": "7.18.3",
-    "wix-rich-content-plugin-hashtag": "7.18.3",
-    "wix-rich-content-plugin-headers-markdown": "7.18.3",
-    "wix-rich-content-plugin-headings": "7.18.3",
-    "wix-rich-content-plugin-html": "7.18.3",
-    "wix-rich-content-plugin-image": "7.18.3",
-    "wix-rich-content-plugin-indent": "7.18.3",
-    "wix-rich-content-plugin-line-spacing": "7.18.3",
-    "wix-rich-content-plugin-link": "7.18.3",
-    "wix-rich-content-plugin-link-preview": "7.18.3",
-    "wix-rich-content-plugin-map": "7.18.3",
-    "wix-rich-content-plugin-mentions": "7.18.3",
-    "wix-rich-content-plugin-social-polls": "7.18.3",
-    "wix-rich-content-plugin-sound-cloud": "7.18.3",
-    "wix-rich-content-plugin-spoiler": "7.18.3",
-    "wix-rich-content-plugin-text-color": "7.18.3",
-    "wix-rich-content-plugin-undo-redo": "7.18.3",
-    "wix-rich-content-plugin-vertical-embed": "7.18.3",
-    "wix-rich-content-plugin-video": "7.18.3",
-    "wix-rich-content-preview": "7.18.3",
-    "wix-rich-content-viewer": "7.18.3",
-    "wix-style-react": "8.17.0"
+    "ricos-content": "8.60.0",
+    "ricos-editor": "8.60.0",
+    "ricos-schema": "8.60.0",
+    "ricos-viewer": "8.60.0",
+    "thread-loader": "^3.0.0",
+    "ts-loader": "^8.0.4",
+    "wix-rich-content-common": "8.60.0",
+    "wix-rich-content-editor": "8.60.0",
+    "wix-rich-content-editor-common": "8.60.0",
+    "wix-rich-content-fullscreen": "8.60.0",
+    "wix-rich-content-plugin-button": "8.60.0",
+    "wix-rich-content-plugin-code-block": "8.60.0",
+    "wix-rich-content-plugin-collapsible-list": "8.60.0",
+    "wix-rich-content-plugin-commons": "8.60.0",
+    "wix-rich-content-plugin-divider": "8.60.0",
+    "wix-rich-content-plugin-emoji": "8.60.0",
+    "wix-rich-content-plugin-file-upload": "8.60.0",
+    "wix-rich-content-plugin-gallery": "8.60.0",
+    "wix-rich-content-plugin-giphy": "8.60.0",
+    "wix-rich-content-plugin-hashtag": "8.60.0",
+    "wix-rich-content-plugin-headers-markdown": "8.60.0",
+    "wix-rich-content-plugin-headings": "8.60.0",
+    "wix-rich-content-plugin-html": "8.60.0",
+    "wix-rich-content-plugin-image": "8.60.0",
+    "wix-rich-content-plugin-indent": "8.60.0",
+    "wix-rich-content-plugin-line-spacing": "8.60.0",
+    "wix-rich-content-plugin-link": "8.60.0",
+    "wix-rich-content-plugin-link-preview": "8.60.0",
+    "wix-rich-content-plugin-map": "8.60.0",
+    "wix-rich-content-plugin-mentions": "8.60.0",
+    "wix-rich-content-plugin-social-polls": "8.60.0",
+    "wix-rich-content-plugin-sound-cloud": "8.60.0",
+    "wix-rich-content-plugin-spoiler": "8.60.0",
+    "wix-rich-content-plugin-table": "8.60.0",
+    "wix-rich-content-plugin-text-color": "8.60.0",
+    "wix-rich-content-plugin-undo-redo": "8.60.0",
+    "wix-rich-content-plugin-vertical-embed": "8.60.0",
+    "wix-rich-content-plugin-video": "8.60.0",
+    "wix-rich-content-preview": "8.60.0",
+    "wix-rich-content-ui-components": "8.60.0",
+    "wix-rich-content-viewer": "8.60.0",
+    "wix-style-react": "9.116.0",
+    "wix-ui-icons-common": "^2.0.313"
   },
   "devDependencies": {
     "@storybook/addon-viewport": "^5.3.18",
@@ -91,6 +91,9 @@
   "yoshi": {
     "hmr": "auto"
   },
+  "eslintConfig": {
+    "extends": "../../.eslintrc.js"
+  },
   "babel": {
     "presets": [
       [
@@ -100,11 +103,5 @@
         }
       ]
     ]
-  },
-  "eslintConfig": {
-    "extends": "yoshi",
-    "rules": {
-      "import/no-unresolved": "off"
-    }
   }
 }

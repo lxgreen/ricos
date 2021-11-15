@@ -1,11 +1,16 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-
-import { WithEditorEventsProps, withEditorEvents } from 'wix-rich-content-plugin-commons';
+import { isPluginFocused } from 'wix-rich-content-editor-common';
+import {
+  WithEditorEventsProps,
+  withEditorEvents,
+} from 'wix-rich-content-editor-common/libs/EditorEventsContext';
 
 import { Poll } from './Poll';
 import { PollContextProvider } from './poll-context';
 import { RCEHelpersContext } from './rce-helpers-context';
+import { GlobalContext } from 'wix-rich-content-common';
+import { normalizePoll as fixPollServerData } from 'wix-rich-content-common/libs/normalization';
 
 class PollEditorComponent extends PureComponent {
   static propTypes = {
@@ -38,6 +43,20 @@ class PollEditorComponent extends PureComponent {
     ...WithEditorEventsProps,
   };
 
+  static contextType = GlobalContext;
+
+  shouldNormalizePoll() {
+    const { experiments } = this.context;
+    return experiments?.normalizePoll?.enabled;
+  }
+
+  fixPollServerData = poll => {
+    if (!this.shouldNormalizePoll()) {
+      return poll;
+    }
+    return fixPollServerData(poll);
+  };
+
   setPoll = poll => {
     const { componentData, store } = this.props;
 
@@ -45,18 +64,11 @@ class PollEditorComponent extends PureComponent {
       'componentData',
       {
         ...componentData,
-        poll,
+        poll: this.fixPollServerData(poll),
       },
       this.props.block.getKey()
     );
   };
-
-  isPluginFocused() {
-    const blockKey = this.props.block.getKey();
-    const selectedBlockKey = this.props.selection.getAnchorKey();
-
-    return blockKey === selectedBlockKey;
-  }
 
   render() {
     const {
@@ -73,7 +85,8 @@ class PollEditorComponent extends PureComponent {
     return (
       <RCEHelpersContext.Provider
         value={{
-          isViewMode: settings.isWebView || !this.isPluginFocused(),
+          isViewMode:
+            settings.isWebView || !isPluginFocused(this.props.block, this.props.selection),
           setInPluginEditingMode,
           layout: componentData.layout,
           design: componentData.design,

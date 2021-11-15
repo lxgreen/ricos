@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-viewer",
-  "version": "7.18.3",
+  "version": "8.60.0",
   "author": {
     "name": "Jonathan Bachman",
     "email": "jonathanb@wix.com"
@@ -10,12 +10,14 @@
   "module": "dist/module.js",
   "style": "dist/styles.min.scss",
   "files": [
-    "dist"
+    "dist",
+    "libs",
+    "viewer"
   ],
   "scripts": {
     "clean": "rm -rf dist/",
     "prebuild": "npm run clean",
-    "build:rollup": "rollup --environment MODULE_NAME:viewer -c ../../../rollup.config.js",
+    "build:rollup": "rollup --environment MODULE_NAME:viewer,ALLOW_JS -c ../../../rollup.config.js",
     "build": "npm run build:rollup && node ../../../scripts/cssFix.js",
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "build:analyze:editor": "npm run build -- --environment MODULE_ANALYZE_EDITOR  && open stats.html",
@@ -41,28 +43,16 @@
     }
   },
   "dependencies": {
-    "classnames": "^2.0.0",
+    "@loadable/component": "^5.14.1",
     "wix-redraft": "^1.1.2",
-    "wix-rich-content-common": "7.18.3"
+    "wix-rich-content-common": "8.60.0"
   },
   "peerDependencies": {
-    "@babel/runtime": "7.2.0",
+    "@babel/runtime": "^7.2.0",
+    "classnames": "^2.0.0",
     "lodash": "^4.0.0",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3"
-  },
-  "devDependencies": {
-    "@babel/runtime": "7.2.0",
-    "concurrently": "^5.2.0",
-    "cross-env": "^5.2.0",
-    "jest": "^26.0.1",
-    "lodash": "^4.17.15",
-    "prop-types": "^15.6.2",
-    "react": "16.6.3",
-    "react-dom": "16.6.3",
-    "react-test-renderer": "16.6.3",
-    "rollup": "1.31.1",
-    "wix-rich-content-plugin-image": "7.18.3"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "unpkg": true,
   "publishConfig": {

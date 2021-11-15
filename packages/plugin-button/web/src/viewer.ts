@@ -1,6 +1,12 @@
 import { typeMapper } from './typeMapper';
-import { LINK_BUTTON_TYPE, ACTION_BUTTON_TYPE, DEFAULT_CONFIG } from './constants';
-import { theme } from './defaults';
+import { DEFAULT_CONFIG } from './constants';
+import {
+  LINK_BUTTON_TYPE,
+  ACTION_BUTTON_TYPE,
+  LinkButtonPluginEditorConfig,
+  ActionButtonPluginEditorConfig,
+} from './types';
+import { ViewerPluginCreator } from 'wix-rich-content-common';
 export { typeMapper as buttonTypeMapper, LINK_BUTTON_TYPE, ACTION_BUTTON_TYPE };
 
 const pluginButton = (type, config) => {
@@ -8,14 +14,13 @@ const pluginButton = (type, config) => {
     config: { ...DEFAULT_CONFIG, ...config },
     type,
     typeMapper,
-    theme,
   };
 };
 
-export const pluginLinkButton = (config = {}) => {
+export const pluginLinkButton: ViewerPluginCreator<LinkButtonPluginEditorConfig> = config => {
   return pluginButton(LINK_BUTTON_TYPE, config);
 };
 
-export const pluginActionButton = (config = {}) => {
+export const pluginActionButton: ViewerPluginCreator<ActionButtonPluginEditorConfig> = config => {
   return pluginButton(ACTION_BUTTON_TYPE, config);
 };

@@ -1,3 +1,6 @@
+@import '~wix-rich-content-common/dist/statics/styles/mixins.scss';
+@import '~wix-rich-content-common/dist/statics/styles/palette.scss';
+
 .sideToolbarPanelWrapper {
   display: flex;
   padding: 0px 12px;
@@ -92,6 +95,9 @@
       &.horizontalMenu {
         height: 38px;
       }
+      &.smallPlusIcon {
+        height: 32px;
+      }
       .pluginName {
         font-size: 12px;
         line-height: 16px;
@@ -99,7 +105,7 @@
       }
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.06);
+        background-color: rgba($fallbackColorTuple, 0.06);
       }
     }
   }

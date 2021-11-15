@@ -1,11 +1,15 @@
-import { convertToRaw } from '../lib/editorStateConversion';
-import { mergeBlockData, convertFromRaw, EditorState } from 'wix-rich-content-editor-common';
+import { convertToRaw, convertFromRaw } from '../lib/editorStateConversion';
+import { mergeBlockData, EditorState } from 'wix-rich-content-editor-common';
 import {
   raw,
   rawWithAnchorsInText,
   dynamicStyles,
   rawWithAnchorsInImage,
+  rawWithOldSoundCloudVersion,
 } from './TestData/conversion-content-state';
+import collapsibleListRawData from './TestData/collapsible-list-raw-data.json';
+import { VIDEO_TYPE } from 'ricos-content';
+import { cloneDeep } from 'lodash';
 
 describe('ContentState conversion', () => {
   it('should convert correctly', () => {
@@ -28,5 +32,21 @@ describe('ContentState conversion', () => {
     const newRaw = convertToRaw(editorState.getCurrentContent());
     expect(newRaw.entityMap['0'].data.config.link).toEqual(undefined);
     expect(newRaw.entityMap['1'].data.config.link).toEqual(undefined);
+  });
+
+  it('should convert Collapsible List from raw & convert it back to raw correctly', () => {
+    const { VERSION: _, ...raw } = collapsibleListRawData;
+    const rawCopy = cloneDeep(raw);
+    const editorState = EditorState.createWithContent(convertFromRaw(rawCopy));
+    // eslint-disable-next-line no-unused-vars
+    const { VERSION: __, ...rawData } = convertToRaw(editorState.getCurrentContent());
+    expect(rawData).toEqual(raw);
+  });
+
+  it('should convert old version of sound-cloud plugin correctly', () => {
+    const editorState = EditorState.createWithContent(convertFromRaw(rawWithOldSoundCloudVersion));
+    const newRaw = convertToRaw(editorState.getCurrentContent());
+    expect(newRaw.entityMap['0'].type).toEqual(VIDEO_TYPE);
+    expect(newRaw.entityMap['0'].data.type).toEqual('soundCloud');
   });
 });

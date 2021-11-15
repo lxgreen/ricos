@@ -1,12 +1,19 @@
-import createInlineButtons from './inline-buttons';
 import createInsertButtons from './insert-buttons';
-import { CreatePluginToolbar } from 'wix-rich-content-common';
+import { CreatePluginToolbar, TranslationFunction } from 'wix-rich-content-common';
+import { TablePluginEditorConfig, TABLE_TYPE } from '../types';
 
-const createToolbar: CreatePluginToolbar = ({ t, settings, isMobile }) => {
+const createToolbar: CreatePluginToolbar = ({
+  t,
+  settings,
+  isMobile,
+}: {
+  t: TranslationFunction;
+  settings: TablePluginEditorConfig;
+  isMobile: boolean;
+}) => {
   return {
-    InlineButtons: createInlineButtons({ t, settings, isMobile }),
     InsertButtons: createInsertButtons({ t, settings, isMobile }),
-    name: 'table',
+    name: TABLE_TYPE,
   };
 };
 

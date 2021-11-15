@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -23,6 +24,10 @@ class ColorPicker extends PureComponent {
     this.onCustomColorPicked = this.onCustomColorPicked.bind(this);
   }
 
+  componentDidMount() {
+    import('./CustomColorPicker'); //prefetch
+  }
+
   componentWillReceiveProps(props) {
     if (this.props.color !== props.color) {
       this.setState({ color: props.color });
@@ -31,15 +36,15 @@ class ColorPicker extends PureComponent {
 
   onColorButtonClicked(color, e) {
     if (e.target.dataset.schemeColor) {
-      this.setColor(e.target.dataset.schemeColor);
+      this.setColor(e.target.dataset.schemeColor, e);
     } else {
-      this.setColor(color);
+      this.setColor(color, e);
     }
   }
 
-  setColor = color => {
+  setColor = (color, e) => {
     this.setState({ color });
-    this.props.onChange(color);
+    this.props.onChange({ color, event: e });
   };
 
   onCustomColorPicked = color => {
@@ -48,14 +53,13 @@ class ColorPicker extends PureComponent {
 
   onCustomColorUpdate(color) {
     if (color !== this.state.color) {
-      this.props.onColorAdded(color);
+      this.props.onColorAdded({ color });
     }
     this.setColor(color);
     this.toggleCustomColorPicker();
   }
 
-  onCustomColorCancel(color) {
-    this.setColor(color);
+  onCustomColorCancel() {
     this.toggleCustomColorPicker();
   }
 
@@ -65,8 +69,8 @@ class ColorPicker extends PureComponent {
     }));
   }
 
-  resetColor = () => {
-    this.props.onResetColor();
+  resetColor = e => {
+    this.props.onResetColor({ event: e });
   };
 
   renderColorButtons(colors, attributes) {
@@ -74,6 +78,7 @@ class ColorPicker extends PureComponent {
     const { schemeColor } = this.props;
     return colors.map((color, index) => (
       <button
+        data-hook="modal-option"
         data-scheme-color={attributes ? attributes[index] : ''}
         title={color}
         key={`${color}_${index}`}
@@ -82,8 +87,9 @@ class ColorPicker extends PureComponent {
           [styles.colorPicker_button_selected]:
             this.state.color === color &&
             (!schemeColor || !attributes || attributes[index] === schemeColor),
+          [styles.colorPicker_button_transparent]: color === 'transparent',
         })}
-        style={{ background: color }}
+        style={color !== 'transparent' ? { background: color } : {}}
         onClick={e => this.onColorButtonClicked(color, e)}
       />
     ));
@@ -97,19 +103,23 @@ class ColorPicker extends PureComponent {
   renderAddColorButton = () => {
     const { styles } = this;
     return (
-      <div key={`add_color_button_${this.id}`} className={styles.colorPicker_add_color_button}>
-        <button
-          id={`add_color_button_${this.id}`}
-          className={styles.colorPicker_color_button_hidden}
-          onClick={this.toggleCustomColorPicker}
-        />
+      <div
+        key={`add_color_button_${this.id}`}
+        className={styles.colorPicker_add_color_button}
+        data-hook="addColor"
+      >
         <label // eslint-disable-line
           onClick={this.toggleCustomColorPicker}
-          tabIndex={0} // eslint-disable-line
+          tabIndex={-1} // eslint-disable-line
           className={styles.colorPicker_add_color_label}
           htmlFor={`add_color_button_${this.id}`}
         >
-          <AddColorIcon style={{ transform: 'scale(0.72)' }} />
+          <button
+            id={`add_color_button_${this.id}`}
+            className={styles.colorPicker_color_button_hidden}
+            onClick={() => this.toggleCustomColorPicker}
+          />
+          <AddColorIcon />
         </label>
       </div>
     );
@@ -120,24 +130,26 @@ class ColorPicker extends PureComponent {
     const { t } = this.props;
     return (
       <div key={`reset_color_button_${this.id}`} className={styles.colorPicker_reset_color_button}>
-        <button
-          id={`reset_color_button_${this.id}`}
-          className={styles.colorPicker_color_button_hidden}
-          onClick={this.resetColor}
-        />
         <label // eslint-disable-line
           onClick={this.resetColor}
-          tabIndex={0} // eslint-disable-line
+          data-hook="resetColor"
+          tabIndex={-1} // eslint-disable-line
           className={styles.colorPicker_reset_color_label}
           htmlFor={`reset_color_button_${this.id}`}
         >
           {t('ColorPicker_SetToDefault_ButtonLabel')}
+          <button
+            id={`reset_color_button_${this.id}`}
+            className={styles.colorPicker_color_button_hidden}
+            onClick={this.resetColor}
+          />
         </label>
       </div>
     );
   };
 
   renderPalette = () => this.renderColorButtons(this.props.palette, this.props.schemeAttributes);
+
   renderUserColors = () => this.renderColorButtons(this.props.userColors);
 
   render() {
@@ -150,7 +162,7 @@ class ColorPicker extends PureComponent {
     } = this;
     const { t, isMobile, theme, children } = this.props;
     return (
-      <div className={styles.colorPicker}>
+      <div className={classNames(styles.colorPicker, { [styles.mobile]: isMobile })} tabIndex={0}>
         {this.state.isCustomColorPickerOpened
           ? this.props.onCustomPickerToggle({
               color: this.state.color,

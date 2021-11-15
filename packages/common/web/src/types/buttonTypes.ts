@@ -1,23 +1,25 @@
-import { ButtonType, ModifierKey, ToolbarType } from './toolbarEnums';
-import { BoundingRect } from 'react-measure';
 import { ComponentType } from 'react';
 import { EditorState } from 'draft-js';
 import {
   ComponentData,
   ModalStyles,
-  TranslateFunction,
-  Styles,
-  RichContentTheme,
-  Helpers,
+  TranslationFunction,
   Pubsub,
-} from './index';
-
-export type GetEditorBounds = () => BoundingRect;
+  GetEditorBounds,
+  ButtonType,
+  ModifierKey,
+  ToolbarType,
+  ModalDecorations,
+  LegacyEditorPluginConfig,
+  SetEditorState,
+  GetEditorState,
+  AvailableExperiments,
+} from '.';
 
 export type InlineButton = {
   type: ButtonType;
   keyName: string;
-  icon?: ComponentType;
+  icon?: (props) => JSX.Element;
   mobile?: boolean;
   mapComponentDataToButtonProps?: (componentData: ComponentData) => Partial<InlineButton>;
   tooltipTextKey?: string;
@@ -29,7 +31,7 @@ export type InlineButton = {
   inputMax?: number;
   modalName?: string;
   modalStyles?: ModalStyles;
-  t?: TranslateFunction;
+  t?: TranslationFunction;
   anchorTarget?: string;
   relValue?: string;
   disabled?: boolean;
@@ -38,75 +40,60 @@ export type InlineButton = {
 };
 
 export type ToolbarButtonProps = {
-  type: string;
-  name?: string;
-  tooltip: string;
+  type?: string;
+  tooltip?: string;
   toolbars?: ToolbarType[];
   getIcon?: () => ComponentType;
   getLabel?: () => string;
-  onClick?: (args?: any) => void; // eslint-disable-line
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onClick?: (e: any & { ref?: any; render?: any }) => void;
   isActive?: () => boolean;
   isDisabled?: () => boolean;
-  onChange?: (e: Event) => void;
+  onChange?: (files: File[]) => void;
   accept?: string;
   multiple?: boolean;
+  dataHook?: string;
+  name?: string;
 };
 
 export type InsertButton = ToolbarButtonProps & {
+  name: string;
   componentData?: ComponentData;
   modalElement?: ComponentType;
   modalStyles?: ModalStyles;
-  modalStylesFn?: ({ buttonRef: any, toolbarName: string }) => ModalStyles;
+  modalStylesFn?: (params: {
+    buttonRef: HTMLElement;
+    toolbarName: ToolbarType;
+    pubsub?: Pubsub;
+  }) => ModalStyles;
   section?: string;
+  modalName?: string;
+  modalDecorations?: ModalDecorations;
+  multi?: boolean;
+  addBlockHandler?: (editorState: EditorState) => void;
 };
 
-interface CreateButtonsParams {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  settings: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  uiSettings: any;
-  t: TranslateFunction;
-  styles: Styles;
-  anchorTarget: string;
-  relValue: string;
-  isMobile: boolean;
-  helpers: Helpers;
-  closeInlinePluginToolbar: () => void;
-  getEditorBounds: GetEditorBounds;
-  getEditorState: () => EditorState;
-  setEditorState: (editorState: EditorState) => void;
-  customTooltip: string;
-  UndoButton: ComponentType;
-  RedoButton: ComponentType;
-  addBlockHandler: (editorState: EditorState) => void;
-  icon: ComponentType;
-  theme: RichContentTheme;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  LINK: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  innerModal: any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type CreateInlineButtons = (config?: any) => InlineButton[];
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type CreateInsertButtons = (config?: any) => InsertButton[];
+
+export type CommandHandler = (editorState: EditorState, event?: Event) => EditorState | void;
+
+export interface KeyCommand {
+  command: string;
+  modifiers?: ModifierKey[];
+  key: string;
+  keyCode?: number;
 }
 
-export type CreateInlineButtons<K extends keyof CreateButtonsParams = keyof CreateButtonsParams> = (
-  config: Pick<CreateButtonsParams, K>
-) => InlineButton[];
-
-export type CreateInsertButtons<K extends keyof CreateButtonsParams = keyof CreateButtonsParams> = (
-  config: Pick<CreateButtonsParams, K>
-) => InsertButton[];
-
-type CommandHandler = (editorState: EditorState) => unknown;
-
-type KeyBinding = {
-  keyCommand: {
-    command: string;
-    modifiers?: ModifierKey[];
-    key: string;
-  };
+export type KeyBinding = {
+  keyCommand: KeyCommand;
   commandHandler: CommandHandler;
 };
 
-type TextButtonMapping = {
+export interface TextButtonMapping {
   component?: ComponentType;
   isMobile?: boolean;
   position?: {
@@ -114,16 +101,36 @@ type TextButtonMapping = {
     desktop?: number;
   };
   keyBindings?: KeyBinding[];
-  externalizedButtonProps: ToolbarButtonProps;
-};
+  externalizedButtonProps?: ToolbarButtonProps;
+}
 
-export type TextButtonMapper = (pubsub?: Pubsub) => { [type: string]: TextButtonMapping };
+export type PluginTextButtons = { [buttonName: string]: TextButtonMapping };
 
-export type CreatePluginToolbar<K extends keyof CreateButtonsParams = keyof CreateButtonsParams> = (
-  config: Pick<CreateButtonsParams, K>
+export type TextButtonMapper = (pubsub?: Pubsub) => PluginTextButtons;
+
+export interface PluginKeyBindings {
+  commands: KeyCommand[];
+  commandHandlers: Record<string, CommandHandler>;
+}
+
+export type CreatePluginToolbar = (
+  config
 ) => {
   name: string;
   InlineButtons?: InlineButton[];
+  InlinePluginToolbarButtons?: InlineButton[]; // TODO: this looks like a duplicate. Should be removed.
   InsertButtons?: InsertButton[];
   TextButtonMapper?: TextButtonMapper;
+  isMobile?: boolean;
 };
+
+export interface ButtonProps {
+  buttons: string[];
+  textPluginButtons: TextButtonMapping[];
+  defaultTextAlignment: string;
+  t: TranslationFunction;
+  config: LegacyEditorPluginConfig;
+  setEditorState: SetEditorState;
+  getEditorState: GetEditorState;
+  experiments: AvailableExperiments;
+}

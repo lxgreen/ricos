@@ -1,12 +1,12 @@
 /* eslint-disable react/no-find-dom-node */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Measure from 'react-measure';
 import toolbarStyles from '../../../statics/styles/plugin-toolbar.scss';
 import buttonStyles from '../../../statics/styles/plugin-toolbar-button.scss';
 
-export default class ToolbarContent extends Component {
+export default class ToolbarContent extends PureComponent {
   static propTypes = {
     overrideContent: PropTypes.any,
     tabIndex: PropTypes.number,
@@ -14,12 +14,15 @@ export default class ToolbarContent extends Component {
     PluginToolbarButton: PropTypes.elementType,
     structure: PropTypes.object,
     onOverrideContent: PropTypes.func,
+    componentData: PropTypes.object,
+    triggerOnLoadBi: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
     this.state = { showLeftArrow: false, showRightArrow: false };
   }
+
   scrollToolbar(event, leftDirection) {
     event.preventDefault();
     const { clientWidth, scrollWidth } = this.scrollContainer;
@@ -38,6 +41,10 @@ export default class ToolbarContent extends Component {
     });
   };
 
+  componentDidMount() {
+    this.props.triggerOnLoadBi?.();
+  }
+
   render() {
     const { showLeftArrow, showRightArrow } = this.state;
     const {
@@ -47,6 +54,7 @@ export default class ToolbarContent extends Component {
       PluginToolbarButton,
       structure,
       onOverrideContent,
+      componentData,
     } = this.props;
     const hasArrow = showLeftArrow || showRightArrow;
     const { toolbarStyles: toolbarTheme } = theme || {};
@@ -128,6 +136,7 @@ export default class ToolbarContent extends Component {
                     separatorClassNames={separatorClassNames}
                     tabIndex={tabIndex}
                     index={index}
+                    componentData={componentData}
                   />
                 ))
               )}

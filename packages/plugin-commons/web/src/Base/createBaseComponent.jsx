@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { merge, compact, debounce } from 'lodash';
 import classNames from 'classnames';
+import '../styles.scss';
 import {
   alignmentClassName,
   sizeClassName,
@@ -28,8 +29,8 @@ const createBaseComponent = ({
   helpers,
   t,
   isMobile,
-  pluginDecorationProps = () => ({}),
-  componentWillReceiveDecorationProps = () => {},
+  pluginDecorationProps,
+  componentWillReceiveDecorationProps,
   getEditorBounds,
   onOverlayClick,
   disableRightClick,
@@ -42,6 +43,11 @@ const createBaseComponent = ({
   anchorTarget,
   relValue,
   renderInnerRCE,
+  noPluginBorder,
+  noPointerEventsOnFocus,
+  withHorizontalScroll,
+  disableKeyboardEvents,
+  type,
 }) => {
   return class WrappedComponent extends Component {
     static propTypes = {
@@ -52,19 +58,41 @@ const createBaseComponent = ({
       onClick: PropTypes.func,
       onDragStart: PropTypes.func,
     };
+
     static displayName = createHocName('BaseComponent', PluginComponent);
 
     constructor(props) {
       super(props);
       this.state = { componentState: {}, ...this.stateFromProps(props) };
       this.styles = { ...styles, ...rtlIgnoredStyles };
+
       this.containerRef = React.createRef();
     }
 
     componentWillReceiveProps(nextProps) {
-      componentWillReceiveDecorationProps(this.props, nextProps, this.updateComponentConfig);
+      componentWillReceiveDecorationProps?.(this.props, nextProps, this.updateComponentConfig);
       this.setState(this.stateFromProps(nextProps));
     }
+
+    isInViewport = boundingRect => {
+      const { top, left, bottom, right } = boundingRect;
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      const width = window.innerWidth || document.documentElement.clientWidth;
+      return top >= 0 && left >= 0 && bottom <= windowHeight && right <= width;
+    };
+
+    scrollIntoViewIfNeeded = (blockKey, threshold = 0) => {
+      if (this.containerRef.current) {
+        const boundingRect = this.getBoundingClientRectAsObject(this.containerRef.current);
+        const focusedBlock = pubsub.get('focusedBlock');
+        if (boundingRect.height === 0 && threshold < 500) {
+          // Required in order to wait for images to load their source
+          setTimeout(() => this.scrollIntoViewIfNeeded(blockKey, threshold + 1), 100);
+        } else if (focusedBlock === blockKey && !this.isInViewport(boundingRect)) {
+          setTimeout(() => this.containerRef.current.scrollIntoView(), 100);
+        }
+      }
+    };
 
     onResizeElement = blockKey => element => {
       const boundingRect = this.getBoundingClientRectAsObject(element[0].target);
@@ -111,6 +139,7 @@ const createBaseComponent = ({
       this.subscriptionsOnBlock = [
         { key: 'htmlPluginMaxHeight', callback: this.onHtmlPluginMaxHeightChange },
         { key: 'componentLink', callback: this.onComponentLinkChange },
+        { key: 'componentSpoiler', callback: this.onComponentSpoilerChange },
       ].map(({ key, callback }) => pubsub.subscribeOnBlock({ key, callback, blockKey }));
       const { componentData } = this.state;
       const e = { preventDefault: () => {} };
@@ -119,6 +148,7 @@ const createBaseComponent = ({
         this.resizeObserver = new ResizeObserver(debounce(this.onResizeElement(blockKey), 40));
         this.resizeObserver?.observe(this.containerRef.current);
       }
+      this.scrollIntoViewIfNeeded(blockKey);
     }
 
     componentDidUpdate() {
@@ -172,7 +202,7 @@ const createBaseComponent = ({
 
     onComponentLinkChange = linkData => {
       if (!linkData) {
-        this.updateLinkData(null);
+        this.removeLinkData();
         return;
       }
       const { url, anchor, target, rel } = linkData;
@@ -187,6 +217,19 @@ const createBaseComponent = ({
         this.updateLinkData(link);
       }
     };
+
+    onComponentSpoilerChange = data => {
+      if (this.isMeAndIdle()) {
+        this.updateComponentConfig({ spoiler: data });
+      }
+    };
+
+    removeLinkData() {
+      const componentData = pubsub.get('componentData');
+      const { config } = componentData;
+      const { link: _, ...rest } = config;
+      pubsub.set('componentData', { ...componentData, config: { ...rest } });
+    }
 
     updateLinkData = link => {
       pubsub.update('componentData', { config: { link: null } }); // clean the link data (prevent deep merging bug with anchor/link)
@@ -260,18 +303,20 @@ const createBaseComponent = ({
       event.dataTransfer.setData('url', this.url || window?.location?.href);
     };
 
+    // eslint-disable-next-line complexity
     render = () => {
       const { blockProps, className, selection } = this.props;
       const { componentData } = this.state;
-      const { containerClassName, ...decorationProps } = pluginDecorationProps(
-        this.props,
-        componentData
-      );
+      const { containerClassName, ...decorationProps } =
+        pluginDecorationProps?.(this.props, componentData) || {};
       const { width: currentWidth, height: currentHeight } = componentData.config || {};
       const { width: initialWidth, height: initialHeight } = settings || {};
       const isEditorFocused = selection.getHasFocus();
+      const isOneBlockSelected = selection.getStartKey() === selection.getEndKey();
+      const isPartOfSelection = blockProps.isFocused && !isOneBlockSelected;
+      blockProps.isFocused = blockProps.isFocused && isOneBlockSelected;
+
       const { isFocused } = blockProps;
-      const isActive = isFocused && isEditorFocused;
 
       const classNameStrategies = compact([
         PluginComponent.alignmentClassName || alignmentClassName,
@@ -280,10 +325,14 @@ const createBaseComponent = ({
         PluginComponent.customClassName,
       ]).map(strategy => strategy(this.state.componentData, theme, this.styles, isMobile));
 
+      const hasFocus = (isFocused ? !noPluginBorder : isPartOfSelection) && isEditorFocused;
+
       const ContainerClassNames = classNames(
         this.styles.pluginContainer,
         theme.pluginContainer,
         theme.pluginContainerWrapper,
+        withHorizontalScroll && this.styles.horizontalScrollbar,
+        !isPartOfSelection && noPluginBorder && this.styles.noBorder,
         {
           [this.styles.pluginContainerMobile]: isMobile,
           [theme.pluginContainerMobile]: isMobile,
@@ -292,57 +341,62 @@ const createBaseComponent = ({
         classNameStrategies,
         className || '',
         {
-          [this.styles.hasFocus]: isActive,
-          [theme.hasFocus]: isActive,
+          [this.styles.hasFocus]: hasFocus,
+          [theme.hasFocus]: hasFocus,
+          [this.styles.hideTextSelection]: !isFocused,
         }
       );
 
-      const overlayClassNames = classNames(this.styles.overlay, theme.overlay);
-
-      const sizeStyles = {
-        width: currentWidth || initialWidth,
-        height: currentHeight || initialHeight,
-        maxHeight: this.state.htmlPluginMaxHeight,
-      };
-
-      const component = (
-        <PluginComponent
-          {...this.props}
-          isMobile={isMobile}
-          settings={settings}
-          store={pubsub.store}
-          commonPubsub={commonPubsub}
-          theme={theme}
-          componentData={this.state.componentData}
-          componentState={this.state.componentState}
-          helpers={helpers}
-          t={t}
-          editorBounds={getEditorBounds()}
-          disableRightClick={disableRightClick}
-          anchorTarget={anchorTarget}
-          relValue={relValue}
-          locale={locale}
-          shouldRenderOptimizedImages={shouldRenderOptimizedImages}
-          iframeSandboxDomain={iframeSandboxDomain}
-          setInPluginEditingMode={setInPluginEditingMode}
-          getInPluginEditingMode={getInPluginEditingMode}
-          setComponentUrl={this.setComponentUrl}
-          renderInnerRCE={renderInnerRCE}
-        />
+      const overlayClassNames = classNames(
+        this.styles.overlay,
+        theme.overlay,
+        isFocused && noPointerEventsOnFocus && this.styles.noPointerEventsOnFocus
       );
 
-      return (
+      const sizeStyles = withHorizontalScroll
+        ? { position: 'unset' }
+        : {
+            width: currentWidth || initialWidth,
+            height: currentHeight || initialHeight,
+            maxHeight: this.state.htmlPluginMaxHeight,
+          };
+
+      const component = (
         <div
           ref={this.containerRef}
           role="none"
           style={sizeStyles}
           className={ContainerClassNames}
-          data-focus={isActive}
+          data-focus={hasFocus}
           onDragStart={this.onDragStart}
           onContextMenu={this.handleContextMenu}
           {...decorationProps}
         >
-          {component}
+          <PluginComponent
+            {...this.props}
+            isMobile={isMobile}
+            settings={settings}
+            store={pubsub.store}
+            commonPubsub={commonPubsub}
+            theme={theme}
+            componentData={this.state.componentData}
+            componentState={this.state.componentState}
+            helpers={helpers}
+            t={t}
+            editorBounds={getEditorBounds()}
+            disableRightClick={disableRightClick}
+            anchorTarget={anchorTarget}
+            relValue={relValue}
+            locale={locale}
+            shouldRenderOptimizedImages={shouldRenderOptimizedImages}
+            iframeSandboxDomain={iframeSandboxDomain}
+            setInPluginEditingMode={setInPluginEditingMode}
+            getInPluginEditingMode={getInPluginEditingMode}
+            setComponentUrl={this.setComponentUrl}
+            renderInnerRCE={renderInnerRCE}
+            disableKeyboardEvents={disableKeyboardEvents}
+            type={type}
+          />
           <div
             role="none"
             data-hook={'componentOverlay'}
@@ -352,7 +406,21 @@ const createBaseComponent = ({
           />
         </div>
       );
-      /* eslint-enable jsx-a11y/anchor-has-content */
+      return withHorizontalScroll ? (
+        <div className={styles.horizontalScrollbarWrapper}>
+          <div
+            data-id={'horizontal-scrollbar-element'}
+            className={classNames(
+              styles.pluginWithHorizontalScrollbar,
+              blockProps.isFocused ? styles.show : styles.hide
+            )}
+          >
+            {component}
+          </div>
+        </div>
+      ) : (
+        component
+      );
     };
   };
 };

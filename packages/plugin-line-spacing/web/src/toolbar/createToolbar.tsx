@@ -2,7 +2,7 @@ import React from 'react';
 import { pick } from 'lodash';
 import LineSpacingButton from './LineSpacingButton';
 import { LINE_SPACING_TYPE } from '../types';
-import { LineSpacingIcon } from '../icons';
+import LineSpacingIcon from '../icons/LineSpacingIcon';
 import Panel from './LineSpacingPanel';
 import {
   getAnchorBlockData,
@@ -13,7 +13,7 @@ import {
   getModalStyles,
   isAtomicBlockFocused,
 } from 'wix-rich-content-editor-common';
-import { CreatePluginToolbar } from 'wix-rich-content-common';
+import { CreatePluginToolbar, ModalStyles } from 'wix-rich-content-common';
 
 const lineHeight = 'line-height';
 const spaceBefore = 'padding-top';
@@ -29,7 +29,7 @@ const createToolbar: CreatePluginToolbar = config => {
 
   const updateSpacing = spacing => {
     const dynamicStyles = spacing;
-    const newEditorState = mergeBlockData(oldEditorState, { dynamicStyles });
+    const newEditorState = mergeBlockData(oldEditorState || getEditorState(), { dynamicStyles });
     setEditorState(newEditorState);
   };
 
@@ -52,21 +52,31 @@ const createToolbar: CreatePluginToolbar = config => {
     setEditorState(oldEditorState);
   };
 
-  const LineSpacingPanel = () => {
+  const LineSpacingPanel = ({ closeCustomModal, onSelect }) => {
     oldEditorState = getEditorState();
     spacing = getBlockSpacing(oldEditorState);
     return (
       <Panel
-        onChange={updateSpacing}
-        onSave={save}
-        onCancel={cancel}
+        onChange={args => {
+          updateSpacing(args);
+          onSelect && onSelect(args);
+        }}
+        onSave={args => {
+          save(args);
+          onSelect && onSelect(args);
+          closeCustomModal && closeCustomModal();
+        }}
+        onCancel={() => {
+          cancel();
+          closeCustomModal && closeCustomModal();
+        }}
         spacing={spacing}
         {...config}
       />
     );
   };
 
-  const modalStylesFn = ref => {
+  const modalStylesFn = (ref: HTMLElement): ModalStyles => {
     const { bottom, left } = ref.getBoundingClientRect();
     return isMobile
       ? {
@@ -81,7 +91,7 @@ const createToolbar: CreatePluginToolbar = config => {
             outline: 'none',
             padding: '0px',
             width: '100%',
-            zIndex: '6',
+            zIndex: 6,
             top: 'auto',
             transform: 'translateY(0)',
             margin: 0,
@@ -138,10 +148,16 @@ const createToolbar: CreatePluginToolbar = config => {
           isActive: () => false,
           isDisabled: () => isAtomicBlockFocused(config.getEditorState()),
           getIcon: () =>
-            config[LINE_SPACING_TYPE]?.toolbar?.icons?.InsertPluginButtonIcon || LineSpacingIcon,
+            config[LINE_SPACING_TYPE]?.toolbar?.icons?.InsertPluginButtonIcon ||
+            (() =>
+              LineSpacingIcon({
+                newFormattingToolbar: config?.experiments?.newFormattingToolbar?.enabled,
+              })),
           tooltip: config.t('LineSpacingButton_Tooltip'),
           getLabel: () => '',
           type: BUTTON_TYPES.DROPDOWN,
+          modal: LineSpacingPanel,
+          onSelect: updateSpacing,
         },
       },
     }),

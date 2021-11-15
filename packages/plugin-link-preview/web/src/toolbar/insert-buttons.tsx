@@ -1,5 +1,11 @@
 import { DEFAULTS } from '../defaults';
-import { getModalStyles, TOOLBARS, BUTTON_TYPES } from 'wix-rich-content-editor-common';
+import {
+  getModalStyles,
+  TOOLBARS,
+  BUTTON_TYPES,
+  decorateComponentWithProps,
+  getBottomToolbarModalStyles,
+} from 'wix-rich-content-editor-common';
 import {
   TwitterIcon,
   InstagramIcon,
@@ -9,13 +15,32 @@ import {
   YoutubeIcon,
 } from '../icons';
 import EmbedURLInputModal from './embedURLInputModal';
-import { CreateInsertButtons } from 'wix-rich-content-common';
+import {
+  CreateInsertButtons,
+  TranslationFunction,
+  AvailableExperiments,
+} from 'wix-rich-content-common';
+import { LinkPreviewPluginEditorConfig } from '../types';
+import {
+  DesktopFlyOutModalStyles,
+  MOBILE_FULL_SCREEN_CUSTOM_STYLE,
+  DesktopOverlayModalStyles,
+} from 'wix-rich-content-ui-components';
+import { modalContentStyles } from '../consts';
 
-const createInsertButtons: CreateInsertButtons<'t' | 'settings' | 'isMobile'> = ({
+const createInsertButtons: CreateInsertButtons = ({
   t,
   settings,
   isMobile,
+  experiments = {},
+}: {
+  t: TranslationFunction;
+  settings: LinkPreviewPluginEditorConfig;
+  isMobile: boolean;
+  experiments: AvailableExperiments;
 }) => {
+  const { newSocialEmbedModal } = experiments;
+  const useNewModal = newSocialEmbedModal?.enabled;
   const content = isMobile
     ? {
         maxWidth: 580,
@@ -27,6 +52,33 @@ const createInsertButtons: CreateInsertButtons<'t' | 'settings' | 'isMobile'> = 
         transform: 'none',
       }
     : { maxWidth: 580, minHeight: 348 };
+
+  const newModalCustomStyles = isMobile
+    ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
+    : { ...DesktopFlyOutModalStyles, content: modalContentStyles };
+
+  const customStyles = useNewModal ? newModalCustomStyles : { content };
+
+  const defaultModalStyles = getModalStyles({
+    customStyles,
+    fullScreen: !!useNewModal,
+    isMobile,
+  });
+
+  const newModalStyles = isMobile ? defaultModalStyles : undefined;
+  const modalStyles = useNewModal ? newModalStyles : defaultModalStyles;
+  const modalStylesFn = useNewModal
+    ? ({ buttonRef, toolbarName }) => {
+        return getBottomToolbarModalStyles(
+          buttonRef,
+          {
+            customStyles,
+          },
+          toolbarName
+        );
+      }
+    : undefined;
+
   const { exposeEmbedButtons = [] } = settings;
   const socialIconsMap = {
     Instagram: InstagramIcon,
@@ -37,19 +89,48 @@ const createInsertButtons: CreateInsertButtons<'t' | 'settings' | 'isMobile'> = 
     YouTube: YoutubeIcon,
   };
 
-  return exposeEmbedButtons.map(socialType => {
-    return {
-      type: BUTTON_TYPES.MODAL,
-      name: `${socialType}_InsertButton`,
-      tooltip: t(`EmbedURL_Social_${socialType}_Title`),
-      getIcon: () => socialIconsMap[socialType],
-      componentData: { ...DEFAULTS, socialType, fetchData: settings.fetchData },
-      toolbars: [TOOLBARS.INSERT_PLUGIN, TOOLBARS.MOBILE, TOOLBARS.FOOTER, TOOLBARS.SIDE],
-      modalElement: EmbedURLInputModal,
-      modalStyles: getModalStyles({ customStyles: { content }, fullScreen: false, isMobile }),
-      section: 'BlockToolbar_Section_Embed_Anywhere',
-    };
+  const baseButtonsProps = socialType => ({
+    type: BUTTON_TYPES.MODAL,
+    modalStylesFn,
+    section: 'BlockToolbar_Section_Embed_Anywhere',
+    componentData: DEFAULTS,
+    name: `${socialType}_InsertButton`,
+    tooltip: t(`EmbedURL_Social_${socialType}_Title`),
+    getIcon: () => socialIconsMap[socialType],
+    modalElement: decorateComponentWithProps(EmbedURLInputModal, {
+      fetchData: settings.fetchData,
+      socialType,
+    }),
   });
+
+  const toolbars = useNewModal
+    ? [TOOLBARS.MOBILE, TOOLBARS.FOOTER, TOOLBARS.SIDE]
+    : [TOOLBARS.INSERT_PLUGIN, TOOLBARS.MOBILE, TOOLBARS.FOOTER, TOOLBARS.SIDE];
+
+  let socialButtons = exposeEmbedButtons.map(socialType => ({
+    ...baseButtonsProps(socialType),
+    toolbars,
+    modalStyles,
+  }));
+
+  if (useNewModal) {
+    const externalToolbarButtons = exposeEmbedButtons.map(socialType => ({
+      ...baseButtonsProps(socialType),
+      toolbars: [TOOLBARS.INSERT_PLUGIN],
+      modalStyles: getModalStyles({
+        customStyles: {
+          ...customStyles,
+          ...DesktopOverlayModalStyles,
+        },
+        fullScreen: false,
+        isMobile,
+      }),
+    }));
+
+    socialButtons = [...socialButtons, ...externalToolbarButtons];
+  }
+
+  return socialButtons;
 };
 
 export default createInsertButtons;

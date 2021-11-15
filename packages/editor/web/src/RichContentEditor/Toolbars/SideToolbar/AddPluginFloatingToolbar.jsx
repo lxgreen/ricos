@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { FocusManager } from 'wix-rich-content-ui-components';
 import {
-  FocusManager,
   EditorModals,
   getModalStyles,
   TOOLBARS,
+  elementOverflowWithEditor,
 } from 'wix-rich-content-editor-common';
-import { isSSR } from 'wix-rich-content-common';
-import { PlusIcon, PlusActiveIcon } from '../../Icons';
+import { isSSR, Version } from 'wix-rich-content-common';
+import { PlusIcon, PlusIconSmall } from '../../Icons';
 import Styles from '../../../../statics/styles/side-toolbar.scss';
 import AddPluginMenu from './AddPluginMenu';
 import PopupOffsetnHoc from './PopupOffsetnHoc';
 
-export default class AddPluginFloatingToolbar extends Component {
+export default class AddPluginFloatingToolbar extends PureComponent {
   state = {
     isPopupOpen: false,
   };
@@ -62,8 +63,18 @@ export default class AddPluginFloatingToolbar extends Component {
   onClick = event => {
     event.preventDefault();
     event.stopPropagation();
-    const { isMobile } = this.props;
-    if (!isMobile) {
+    const { isMobile, onClick, helpers } = this.props;
+    helpers.onMenuLoad?.({
+      version: Version.currentVersion,
+      menu: 'SIDE',
+    });
+    if (
+      onClick &&
+      !event.target.closest('[data-hook=TableComponent]') &&
+      !event.target.closest('[data-hook=collapsibleListComponent]')
+    ) {
+      onClick();
+    } else if (!isMobile) {
       this.togglePopup();
     } else {
       this.openAddPluginModal();
@@ -74,6 +85,7 @@ export default class AddPluginFloatingToolbar extends Component {
     switch (event.key) {
       case 'Escape':
         this.hidePopup();
+        this.props.focusEditor();
         break;
       default:
         break;
@@ -106,12 +118,26 @@ export default class AddPluginFloatingToolbar extends Component {
   };
 
   getStyle(width, top) {
-    return {
-      left: width / 2 + 30,
-      right: width / 2 + 30,
-      width,
-      top,
-    };
+    const { addPluginMenuConfig } = this.props;
+    const smallPlusIcon = addPluginMenuConfig?.tablePluginMenu;
+    if (smallPlusIcon && this.popupRef) {
+      const toolbarOverflowWithEditor = elementOverflowWithEditor(this.popupRef);
+      const isToolbarOverflow = !!toolbarOverflowWithEditor.overflowRight;
+      const editorWidth = this.popupRef.closest('[data-id=rce]').getBoundingClientRect().width;
+      return {
+        left: isToolbarOverflow ? editorWidth - width / 2 + 25 : width / 2 + 22,
+        right: isToolbarOverflow ? -(width / 2) + 15 : width / 2 + 22,
+        width,
+        top,
+      };
+    } else {
+      return {
+        left: width / 2 + 30,
+        right: width / 2 + 30,
+        width,
+        top,
+      };
+    }
   }
 
   SideToolbarPanel = ({ top }) => {
@@ -123,6 +149,7 @@ export default class AddPluginFloatingToolbar extends Component {
       t,
       addPluginMenuConfig,
       isMobile,
+      helpers,
     } = this.props;
     const { toolbarStyles } = theme || {};
     const popoupClassNames = classNames(
@@ -130,8 +157,11 @@ export default class AddPluginFloatingToolbar extends Component {
       toolbarStyles && toolbarStyles.sideToolbar
     );
     const { isPopupOpen } = this.state;
-    const horizontalMenuWidth = structure.length * 39;
-    const style = this.getStyle(addPluginMenuConfig ? 320 : horizontalMenuWidth, top);
+    const smallPlusIcon = addPluginMenuConfig?.tablePluginMenu;
+    const horizontalMenuWidthOffset = smallPlusIcon ? 34 : 39;
+    const horizontalMenuWidth = structure.length * horizontalMenuWidthOffset;
+    const horizontalMenu = !addPluginMenuConfig || addPluginMenuConfig?.horizontalMenuLayout;
+    const style = this.getStyle(horizontalMenu ? horizontalMenuWidth : 320, top);
     return (
       <div
         className={popoupClassNames}
@@ -153,6 +183,7 @@ export default class AddPluginFloatingToolbar extends Component {
           theme={theme}
           pluginMenuButtonRef={this.selectButton}
           toolbarName={TOOLBARS.SIDE}
+          helpers={helpers}
         />
       </div>
     );
@@ -166,10 +197,14 @@ export default class AddPluginFloatingToolbar extends Component {
       Styles.sideToolbar_floatingContainer,
       toolbarStyles && toolbarStyles.sideToolbar_floatingContainer
     );
+    const smallPlusIcon = addPluginMenuConfig?.tablePluginMenu;
     const floatingIconClassNames = classNames(
       Styles.sideToolbar_floatingIcon,
-      toolbarStyles && toolbarStyles.sideToolbar_floatingIcon
+      toolbarStyles && toolbarStyles.sideToolbar_floatingIcon,
+      isPopupOpen && Styles.sideToolbar_popupOpen,
+      smallPlusIcon && Styles.sideToolbar_smallPlusIcon
     );
+    const Icon = smallPlusIcon ? PlusIconSmall : PlusIcon;
 
     return (
       <FocusManager
@@ -187,17 +222,17 @@ export default class AddPluginFloatingToolbar extends Component {
           aria-label={'Plugin Toolbar'}
           aria-pressed={isPopupOpen}
           tabIndex="0"
-          className={floatingIconClassNames}
+          className={classNames(floatingIconClassNames, 'has-custom-focus')}
           data-hook={'addPluginFloatingToolbar'}
           onClick={this.onClick}
           ref={el => (this.selectButton = el)}
         >
-          {!isPopupOpen ? <PlusIcon /> : <PlusActiveIcon />}
+          <Icon className={Styles.plusIcon} />
         </button>
         {!isSSR() && isPopupOpen && (
           <PopupOffsetnHoc
             elementHeight={this.popupRef?.offsetHeight}
-            elementMarginTop={addPluginMenuConfig ? -20 : -15}
+            elementMarginTop={smallPlusIcon ? -14 : addPluginMenuConfig ? -20 : -15}
             elementMarginBottom={45}
             targetElement={this.selectButton}
           >
@@ -219,4 +254,6 @@ AddPluginFloatingToolbar.propTypes = {
   helpers: PropTypes.object,
   t: PropTypes.func,
   addPluginMenuConfig: PropTypes.object,
+  onClick: PropTypes.func,
+  focusEditor: PropTypes.func,
 };

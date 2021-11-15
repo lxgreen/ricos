@@ -3,11 +3,20 @@
 @import '~wix-rich-content-common/dist/statics/styles/consts';
 
 .pluginToolbarButton_wrapper {
-  display: inline-block;
+  display: flex;
   padding: 10px 0;
   margin-right: 10px;
   &:last-child {
     margin-right: 0;
+  }
+
+  &:hover .pluginToolbarButton:not(.pluginToolbarButton_disabled):not(.pluginToolbarButton_active) {
+    background-color: rgba($fallbackColorTuple, 0.06);
+  }
+
+  .pluginToolbarButton_active {
+    background-color: rgba($settings-action-color-fallback-tuple, 0.1);
+    @include fillWithSettingsActionColor();
   }
 }
 
@@ -36,10 +45,9 @@
   }
 
   &:not(.pluginToolbarButton_disabled) {
-    &:hover,
-    &:focus,
     &.pluginToolbarButton_active {
-      color: $accent-color;
+      color: $settings-action-color-fallback;
+      @include fillWithSettingsActionColor();
       @include svg-fill;
     }
   }

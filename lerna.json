@@ -4,20 +4,16 @@
     "version": {
       "allowBranch": [
         "master",
-        "release*"
+        "release*",
+        "tiptap-image"
       ],
       "message": "[*] chore(release): %s"
     }
   },
-  "packages": [
-    "e2e/test-env",
-    "examples/main",
-    "examples/storybook",
-    "packages/**/*",
-    "bundle-analyzer"
-  ],
+  "npmClient": "yarn",
+  "useWorkspaces": true,
   "npmClientArgs": [
     "--no-lockfile"
   ],
-  "version": "7.18.3"
+  "version": "8.60.0"
 }

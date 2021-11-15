@@ -5,7 +5,7 @@ import Measure from 'react-measure';
 import { debounce } from 'lodash';
 import { DISPLAY_MODE, TOOLBARS } from 'wix-rich-content-editor-common';
 import Styles from '../../../../statics/styles/static-toolbar.scss';
-import MoreButton from './MoreButton.js';
+import MoreButton from './MoreButton';
 
 const displayOptionStyles = {
   [DISPLAY_MODE.NORMAL]: {},
@@ -40,6 +40,9 @@ export default class StaticToolbar extends React.PureComponent {
     setEditorState: PropTypes.func,
     config: PropTypes.object,
     footerToolbarConfig: PropTypes.object,
+    forceDisabled: PropTypes.bool,
+    name: PropTypes.string,
+    shouldUpdate: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -116,7 +119,17 @@ export default class StaticToolbar extends React.PureComponent {
   onExtendContent = extendContent => this.setState({ extendContent });
 
   renderToolbarContent(childrenProps) {
-    const { theme, isMobile, footerToolbarConfig, pubsub, t } = this.props;
+    const {
+      theme,
+      isMobile,
+      name,
+      footerToolbarConfig,
+      pubsub,
+      t,
+      forceDisabled,
+      shouldUpdate,
+      helpers,
+    } = this.props;
     const { toolbarStyles } = theme || {};
     const { showLeftArrow, showRightArrow, overrideContent: OverrideContent } = this.state;
     const hasArrow = showLeftArrow || showRightArrow;
@@ -142,12 +155,13 @@ export default class StaticToolbar extends React.PureComponent {
       }
     );
 
-    childrenProps.toolbarName = TOOLBARS.FOOTER;
+    childrenProps.toolbarName = name || TOOLBARS.FOOTER;
     const addPluginMenuProps = {
       getEditorState: pubsub.get('getEditorState'),
       setEditorState: pubsub.get('setEditorState'),
       isMobile,
       searchablePlugins: this.props.structure,
+      helpers,
     };
     return (
       <div className={buttonClassNames}>
@@ -165,7 +179,12 @@ export default class StaticToolbar extends React.PureComponent {
                 <OverrideContent {...childrenProps} />
               ) : (
                 this.structure.map(({ component: Component }, index) => (
-                  <Component key={index} {...childrenProps} />
+                  <Component
+                    key={index}
+                    {...childrenProps}
+                    shouldUpdate={shouldUpdate}
+                    forceDisabled={forceDisabled}
+                  />
                 ))
               )}
             </div>
@@ -174,10 +193,12 @@ export default class StaticToolbar extends React.PureComponent {
         {this.shouldShowSortcut ? (
           <MoreButton
             t={t}
+            helpers={helpers}
             theme={theme}
             addPluginMenuProps={addPluginMenuProps}
             footerToolbarConfig={footerToolbarConfig}
             structure={this.pluginMenuPlugins}
+            forceDisabled={forceDisabled}
           />
         ) : (
           hasArrow && (
@@ -220,6 +241,7 @@ export default class StaticToolbar extends React.PureComponent {
       locale,
       setEditorState,
       config,
+      name,
     } = this.props;
     const { extendContent: ExtendContent } = this.state;
 
@@ -249,7 +271,8 @@ export default class StaticToolbar extends React.PureComponent {
       className: classNames(
         Styles.staticToolbar,
         toolbarStyles.toolbar,
-        toolbarStyles.staticToolbar
+        toolbarStyles.staticToolbar,
+        name === 'StaticTextToolbar' && Styles.staticTextToolbar
       ),
       role: 'toolbar',
       'aria-orientation': 'horizontal',

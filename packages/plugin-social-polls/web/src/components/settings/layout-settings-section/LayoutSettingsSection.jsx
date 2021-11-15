@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { SelectionList, LabeledToggle } from 'wix-rich-content-plugin-commons';
-import { Separator, InfoIcon } from 'wix-rich-content-editor-common';
+import { LTRIcon, RTLIcon } from 'wix-rich-content-plugin-commons';
+import {
+  SettingsSeparator,
+  SelectionList,
+  LabeledToggle,
+  InfoIcon,
+} from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 
 import { LAYOUT, DIRECTION } from '../../../defaults';
-import { LayoutGridIcon, LayoutListIcon, LTRIcon, RTLIcon } from '../../../assets/icons';
+import { LayoutGridIcon, LayoutListIcon } from '../../../assets/icons';
 
 import styles from './layout-settings-section.scss';
 
@@ -61,7 +66,7 @@ export class LayoutSettingsSection extends Component {
               theme={this.props.theme}
             />
 
-            <Separator horizontal className={styles.separator} />
+            <SettingsSeparator top bottom />
           </>
         )}
 
@@ -99,7 +104,7 @@ export class LayoutSettingsSection extends Component {
           />
         )}
 
-        <Separator horizontal className={styles.separator} />
+        <SettingsSeparator top bottom />
 
         <p className={styles.title}>
           {t('Poll_PollSettings_Tab_Layout_Section_TextDirection_Header')}

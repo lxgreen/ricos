@@ -1,19 +1,28 @@
 import {
   MODIFIERS,
+  COMMANDS,
   FORMATTING_BUTTONS,
   TOOLBARS,
   BUTTON_TYPES,
+  EditorState,
 } from 'wix-rich-content-editor-common';
 import TextCodeBlockButton from './TextCodeBlockButton';
 import { CODE_BLOCK_TYPE } from '../types';
 import { toggleBlockTypeAndEnsureSpaces } from './blockTypeModifiers';
 import CodeBlockIcon from '../icons/CodeBlockIcon';
 import { getButtonProps } from './getCodeBlockButtonProps';
-import { CreatePluginToolbar } from 'wix-rich-content-common';
+import { CommandHandler, CreatePluginToolbar } from 'wix-rich-content-common';
 
 const codeBlockTexButtontMapper: CreatePluginToolbar = config => {
-  const icon = config[CODE_BLOCK_TYPE]?.toolbar?.icons?.InsertPluginButtonIcon || CodeBlockIcon;
-  const commandHandler = editorState => {
+  const icon =
+    config[CODE_BLOCK_TYPE]?.toolbar?.icons?.InsertPluginButtonIcon ||
+    (() =>
+      CodeBlockIcon({ newFormattingToolbar: config?.experiments?.newFormattingToolbar?.enabled }));
+  const commandHandler: CommandHandler = (editorState: EditorState) => {
+    config.onKeyboardShortcutClick({
+      buttonName: COMMANDS.CODE,
+      pluginId: CODE_BLOCK_TYPE,
+    });
     config.setEditorState(toggleBlockTypeAndEnsureSpaces(CODE_BLOCK_TYPE, editorState));
   };
 
@@ -25,9 +34,9 @@ const codeBlockTexButtontMapper: CreatePluginToolbar = config => {
         keyBindings: [
           {
             keyCommand: {
-              command: 'code-block',
-              modifiers: [MODIFIERS.COMMAND],
-              key: '0',
+              command: COMMANDS.CODE,
+              modifiers: [MODIFIERS.COMMAND, MODIFIERS.SHIFT],
+              key: 'c',
             },
             commandHandler,
           },
@@ -41,6 +50,7 @@ const codeBlockTexButtontMapper: CreatePluginToolbar = config => {
         addBlockHandler: commandHandler,
         type: BUTTON_TYPES.CUSTOM_BLOCK,
         tooltip: config.t('TextCodeBlock_InsertButton_Tooltip'),
+        section: 'BlockToolbar_Section_Advanced',
       },
     ],
     name: CODE_BLOCK_TYPE,

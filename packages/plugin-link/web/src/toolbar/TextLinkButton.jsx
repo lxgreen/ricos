@@ -11,6 +11,21 @@ import { isEmpty } from 'lodash';
 
 export default class TextLinkButton extends Component {
   showLinkPanel = () => {
+    const { getEditorState, setEditorState, getEntityData, insertCustomLink, config } = this.props;
+    const settings = config[LINK_TYPE];
+    const onLinkAdd = settings?.onLinkAdd;
+    const isCustomLinkHandling = onLinkAdd;
+
+    if (isCustomLinkHandling) {
+      const customLinkData = getEntityData(getEditorState())?.customData;
+      const callback = data => setEditorState(insertCustomLink(getEditorState(), data));
+      onLinkAdd(customLinkData, callback);
+    } else {
+      this.openLinkPanel();
+    }
+  };
+
+  openLinkPanel = () => {
     const {
       getEditorState,
       setEditorState,
@@ -30,17 +45,34 @@ export default class TextLinkButton extends Component {
       toolbarOffsetTop,
       toolbarOffsetLeft,
     } = this.props;
-    const linkTypes = config[LINK_TYPE]?.linkTypes;
+    const settings = config[LINK_TYPE];
+    const linkTypes = settings?.linkTypes;
+
     const OriginalLinkPanel =
       !linkTypes || isEmpty(linkTypes) || !Object.values(linkTypes).find(addon => !!addon);
+    const { externalPopups = false } = uiSettings.linkPanel || {};
+    const customStyles =
+      !isMobile && !OriginalLinkPanel
+        ? {
+            content: {
+              width: 512,
+              maxWidth: 512,
+              height: 390,
+              border: '1px solid rgb(237, 237, 237)',
+              borderRadius: '6px',
+              boxShadow: 'rgba(0, 0, 0, 0.07) 0px 4px 8px 0px',
+              padding: 20,
+            },
+          }
+        : {
+            content: {
+              position: 'fixed',
+            },
+          };
     const modalStyles = getModalStyles({
-      fullScreen: !OriginalLinkPanel,
+      fullScreen: isMobile,
       isMobile,
-      customStyles: {
-        content: {
-          position: 'fixed',
-        },
-      },
+      customStyles,
     });
     const commonPanelProps = {
       helpers,
@@ -54,9 +86,9 @@ export default class TextLinkButton extends Component {
       setEditorState,
       insertLinkFn,
       closeInlinePluginToolbar,
-      linkTypes: config[LINK_TYPE]?.linkTypes,
+      linkTypes,
     };
-    if (isMobile || linkModal) {
+    if (externalPopups || isMobile || linkModal) {
       if (helpers && helpers.openModal) {
         const modalProps = {
           modalStyles,
@@ -76,7 +108,7 @@ export default class TextLinkButton extends Component {
         hidePopup: innerModal.closeInnerModal,
         top: toolbarOffsetTop,
         left: toolbarOffsetLeft,
-        modalStyles: OriginalLinkPanel ? null : { maxWidth: 'fit-content', padding: '0 19px' },
+        modalStyles: OriginalLinkPanel ? null : { maxWidth: 'none', padding: 20 },
         ...commonPanelProps,
       };
       innerModal.openInnerModal(modalProps);
@@ -88,7 +120,17 @@ export default class TextLinkButton extends Component {
   }
 
   render() {
-    const { theme, isMobile, tabIndex, config, isActive, icon, tooltipText } = this.props;
+    const {
+      theme,
+      helpers,
+      isMobile,
+      tabIndex,
+      config,
+      isActive,
+      icon,
+      tooltipText,
+      disabled,
+    } = this.props;
     const buttonStyles = {
       button: theme.inlineToolbarButton,
       buttonWrapper: theme.inlineToolbarButton_wrapper,
@@ -100,11 +142,14 @@ export default class TextLinkButton extends Component {
       <LinkButton
         onClick={this.showLinkPanel}
         isActive={isActive}
+        helpers={helpers}
         theme={{ ...theme, ...buttonStyles }}
         isMobile={isMobile}
         tooltipText={tooltipText}
         tabIndex={tabIndex}
+        pluginType={LINK_TYPE}
         icon={insertLinkIcon}
+        disabled={disabled}
       />
     );
   }
@@ -132,4 +177,7 @@ TextLinkButton.propTypes = {
   innerModal: PropTypes.object,
   toolbarOffsetTop: PropTypes.string,
   toolbarOffsetLeft: PropTypes.string,
+  getEntityData: PropTypes.func,
+  insertCustomLink: PropTypes.func,
+  disabled: PropTypes.bool,
 };

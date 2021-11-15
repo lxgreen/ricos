@@ -1,21 +1,22 @@
 {
   "chromeWebSecurity": false,
   "baseUrl": "http://localhost:3002",
-  "testFiles": "**/*.e2e.js",
+  "testFiles": "**/*.e2e.ts",
   "ignoreTestFiles": [
     "**/__snapshots__/*",
     "**/__image_snapshots__/*"
   ],
   "integrationFolder": "e2e",
   "fixturesFolder": "e2e/cypress/fixtures",
-  "pluginsFile": "e2e/cypress/plugins/index.js",
+  "pluginsFile": "e2e/cypress/plugins/index.ts",
   "screenshotsFolder": "e2e/cypress/screenshots",
-  "supportFile": "e2e/cypress/support/index.js",
+  "supportFile": "e2e/cypress/support/index.ts",
   "video": true,
   "videoUploadOnPasses": false,
   "videoCompression": false,
   "videosFolder": "e2e/cypress/videos",
   "trashAssetsBeforeRuns": false,
+  "eyesTimeout": 220000,
   "env": {},
   "projectId": "6yj6sr"
 }

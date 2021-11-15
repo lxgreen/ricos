@@ -1,21 +1,23 @@
 {
   "name": "wix-rich-content-plugin-text-color",
-  "version": "7.18.3",
+  "version": "8.60.0",
   "author": {
     "name": "Alex Greenstein",
     "email": "alexgr@wix.com"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wix-incubator/rich-content.git"
+    "url": "git+https://github.com/wix/ricos.git"
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wix-incubator/rich-content/issues"
+    "url": "https://github.com/wix/ricos/issues"
   },
-  "homepage": "https://github.com/wix-incubator/rich-content/tree/master/rich-content-plugin-text-color",
+  "homepage": "https://github.com/wix/ricos/tree/master/rich-content-plugin-text-color",
   "files": [
-    "dist"
+    "dist",
+    "libs",
+    "viewer"
   ],
   "main": "dist/module.cjs.js",
   "types": "dist/src/index.d.ts",
@@ -24,7 +26,7 @@
   "scripts": {
     "clean": "rm -rf dist/",
     "prebuild": "npm run clean",
-    "build:rollup": "rollup --environment MODULE_NAME:plugin-text-color -c ../../../rollup.config.js",
+    "build:rollup": "rollup --environment MODULE_NAME:plugin-text-color,ALLOW_JS -c ../../../rollup.config.js",
     "build": "npm run build:rollup && node ../../../scripts/cssFix.js",
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "build:analyze:editor": "npm run build -- --environment MODULE_ANALYZE_EDITOR  && open stats.html",
@@ -32,30 +34,11 @@
     "watch": "cross-env NODE_ENV=development MODULE_WATCH=1 npm run build:rollup -- --watch.chokidar",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,d.ts}'"
   },
-  "peerDependencies": {
-    "@babel/runtime": "7.2.0",
-    "classnames": "^2.0.0",
-    "lodash": "^4.0.0",
-    "prop-types": "^15.0.0",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3"
-  },
-  "devDependencies": {
-    "@babel/runtime": "7.2.0",
-    "classnames": "^2.0.0",
-    "concurrently": "^5.2.0",
-    "cross-env": "^5.2.0",
-    "lodash": "^4.17.15",
-    "prop-types": "^15.6.2",
-    "react": "16.6.3",
-    "react-dom": "16.6.3",
-    "rollup": "1.31.1"
-  },
   "dependencies": {
     "react-modal": "~3.4.1",
-    "wix-rich-content-common": "7.18.3",
-    "wix-rich-content-plugin-commons": "7.18.3",
-    "wix-rich-content-editor-common": "7.18.3"
+    "wix-rich-content-common": "8.60.0",
+    "wix-rich-content-editor-common": "8.60.0",
+    "wix-rich-content-plugin-commons": "8.60.0"
   },
   "unpkg": true,
   "publishConfig": {

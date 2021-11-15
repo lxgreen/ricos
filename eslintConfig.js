@@ -1,12 +1,12 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['lodash', 'fp', 'jsx-a11y', 'prettier'],
+  plugins: ['lodash', 'fp', 'jsx-a11y', 'prettier', 'cypress'],
   env: {
     browser: true,
     node: true,
     jest: true,
   },
-  extends: ['wix/react', 'plugin:jsx-a11y/strict'],
+  extends: ['wix/react', 'plugin:jsx-a11y/strict', 'plugin:cypress/recommended'],
   settings: {
     react: {
       version: '16.6.3',
@@ -21,6 +21,8 @@ module.exports = {
         allowTemplateLiterals: true,
       },
     ],
+    'new-cap': 'off',
+    'lines-between-class-members': ['error', 'always'],
     'quote-props': 'off',
     'react/jsx-closing-tag-location': 'error',
     'react/jsx-closing-bracket-location': [1, 'line-aligned'],
@@ -30,9 +32,11 @@ module.exports = {
     'react/jsx-handler-names': 'off',
     camelcase: 'off',
     'max-params': 'off',
-    'no-console': 'error',
+    'no-console': ['error', { allow: ['warn', 'error'] }],
     'no-use-before-define': 'off',
     'no-mixed-operators': 'off',
+    'no-mixed-spaces-and-tabs': 'error',
+    'no-tabs': 'error',
     'space-before-function-paren': 'off',
     'object-curly-spacing': ['error', 'always'],
     'max-len': [
@@ -56,7 +60,24 @@ module.exports = {
     'prettier/prettier': 'error',
     'lodash/import-scope': [2, 'member'],
     'operator-linebreak': 'off',
+    'no-unused-vars': 'off',
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['lodash/fp'],
+            message: 'lodash/fp is not supported by yoshi -- please use fp-ts instead',
+          },
+          {
+            group: ['fp-ts/lib/*'],
+            message: 'fp-ts/lib/* is not tree-shakable, please import from fp-ts/*',
+          },
+        ],
+      },
+    ],
     indent: 'off',
     curly: 'off',
+    'cypress/no-unnecessary-waiting': 'warn',
   },
 };

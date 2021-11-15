@@ -4,14 +4,15 @@ import {
   getModalStyles,
   EditorState,
   isAtomicBlockFocused,
+  getSelectionStyles,
 } from 'wix-rich-content-editor-common';
-import { getSelectionStyles } from 'wix-rich-content-plugin-commons';
-import TextColorPanel from './TextColorPanel';
+import TextColorPanel, { getInlineColorState } from './TextColorPanel';
 import { TEXT_COLOR_TYPE, TEXT_HIGHLIGHT_TYPE } from '../types';
 import {
   styleMapper,
   textForegroundPredicate,
   textBackgroundPredicate,
+  getColor,
 } from '../text-decorations-utils';
 import TextColorIcon from './TextColorIcon';
 import TextHighlightIcon from './TextHighlightIcon';
@@ -20,6 +21,7 @@ import {
   DEFAULT_COLOR,
   DEFAULT_HIGHLIGHT_COLOR,
 } from '../constants';
+import { extractColor } from '../color-scheme-utils';
 
 const pluginSettingsByType = {
   [TEXT_COLOR_TYPE]: {
@@ -27,12 +29,14 @@ const pluginSettingsByType = {
     icon: TextColorIcon,
     predicate: textForegroundPredicate,
     tooltipKey: 'TextColorButton_Tooltip',
+    colorPickerHeaderKey: 'Color_Picker_TextColorButton_Header',
   },
   [TEXT_HIGHLIGHT_TYPE]: {
     defaultColor: DEFAULT_HIGHLIGHT_COLOR,
     icon: TextHighlightIcon,
     predicate: textBackgroundPredicate,
     tooltipKey: 'TextHighlightButton_Tooltip',
+    colorPickerHeaderKey: 'Color_Picker_TextHighlightButton_Header',
   },
 };
 
@@ -46,6 +50,7 @@ export const getButtonProps = ({ config, type }) => {
     helpers,
     uiSettings,
     [type]: settings,
+    experiments,
   } = config;
 
   const pluginSettings = pluginSettingsByType[type];
@@ -89,15 +94,15 @@ export const getButtonProps = ({ config, type }) => {
           content: {
             display: 'inline-table',
             transform: 'translateY(0)',
-            minHeight: '116px',
-            height: 'auto',
+            minHeight: '88px',
             position: 'absolute',
-            minWidth: '216px',
-            maxWidth: '360px',
-            width: 'auto',
+            minWidth: '89px',
+            maxWidth: '184',
+            width: '182px',
+            height: '86px',
             top: bottom,
             left: left - 15,
-            borderRadius: '6px',
+            borderRadius: '2px',
             border: '1px solid #ededed',
             margin: '0',
             background: '#fff',
@@ -108,13 +113,30 @@ export const getButtonProps = ({ config, type }) => {
         };
   };
 
-  const TextColorModal = () => {
+  const onSelect = color => {
+    const editorState = getEditorState();
+    const selection = editorState.getSelection();
+    const coloredEditorState = getInlineColorState(
+      color,
+      getEditorState(),
+      settings,
+      styleMap,
+      pluginSettings.predicate
+    );
+    setEditorState(EditorState.forceSelection(coloredEditorState || editorState, selection));
+  };
+
+  // eslint-disable-next-line react/prop-types
+  const TextColorModal = ({ closeCustomModal, onSelect }) => {
     return (
       <TextColorPanel
         t={t}
         isMobile={isMobile}
         theme={theme}
-        closeModal={closePanel}
+        closeModal={args => {
+          closePanel(args);
+          closeCustomModal && closeCustomModal();
+        }}
         editorState={getEditorState()}
         setEditorState={setEditorState}
         settings={settings}
@@ -123,6 +145,8 @@ export const getButtonProps = ({ config, type }) => {
         predicate={pluginSettings.predicate}
         defaultColor={pluginSettings.defaultColor}
         setKeepToolbarOpen={noop}
+        onSelect={onSelect}
+        colorPickerHeaderKey={pluginSettings.colorPickerHeaderKey}
       />
     );
   };
@@ -149,24 +173,47 @@ export const getButtonProps = ({ config, type }) => {
     }
   };
 
+  const getCurrentColor = () => {
+    const editorState = getEditorState();
+    const { predicate, defaultColor } = pluginSettings;
+    const styleSelectionPredicate = predicate(
+      settings.styleSelectionPredicate || DEFAULT_STYLE_SELECTION_PREDICATE
+    );
+    const currentColors = getSelectionStyles(editorState, styleSelectionPredicate);
+    return currentColors.length > 0
+      ? extractColor(settings.colorScheme, getColor(currentColors[0]))
+      : defaultColor;
+  };
+
+  const isDisabled = () =>
+    getEditorState()
+      .getSelection()
+      .isCollapsed() || isAtomicBlockFocused(getEditorState());
+
   return {
     onClose: () => {},
     onClick: ({ ref, render }) => openTextColorModal({ ref, render }),
-    isDisabled: () =>
-      getEditorState()
-        .getSelection()
-        .isCollapsed() || isAtomicBlockFocused(getEditorState()),
+    isDisabled,
     arrow: false,
     isActive: () => {
       const predicate = pluginSettings.predicate(
         settings?.styleSelectionPredicate || DEFAULT_STYLE_SELECTION_PREDICATE
       );
-      return getSelectionStyles(predicate, config.getEditorState()).length > 0;
+      return getSelectionStyles(config.getEditorState(), predicate).length > 0;
     },
-    getIcon: () => settings?.toolbar?.icons?.InsertPluginButtonIcon || pluginSettings.icon,
+    getIcon: () =>
+      settings?.toolbar?.icons?.InsertPluginButtonIcon ||
+      (() =>
+        pluginSettings.icon({
+          newFormattingToolbar: experiments?.newFormattingToolbar?.enabled,
+          currentColor: getCurrentColor(),
+          isDisabled: isDisabled(),
+        })),
     tooltip: config.t(pluginSettings.tooltipKey),
     getLabel: () => '',
     type: BUTTON_TYPES.DROPDOWN,
-    dataHook: '', // TODO: set datahook
+    dataHook: `${type.replace(/\s+/g, '-').toLowerCase()}-button`,
+    modal: TextColorModal,
+    onSelect,
   };
 };

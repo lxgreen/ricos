@@ -73,7 +73,7 @@
       "$id": "https://wix-rich-content/entity-range.json",
       "type": "object",
       "title": "entity",
-      "required": ["type", "mutability", "data"],
+      "required": ["type", "data"],
       "properties": {
         "type": {
           "$id": "#/properties/type",
@@ -99,7 +99,8 @@
             "wix-draft-plugin-vertical-embed",
             "wix-draft-plugin-poll",
             "wix-draft-plugin-link-preview",
-            "ANCHOR"
+            "ANCHOR",
+            "wix-rich-content-plugin-table"
           ],
           "title": "entity type",
           "examples": ["wix-draft-plugin-image"]
@@ -149,8 +150,7 @@
             "type": "string",
             "title": "text",
             "default": "",
-            "examples": ["test"],
-            "pattern": "^(.|\n)*$"
+            "examples": ["test"]
           },
           "type": {
             "$id": "#/properties/blocks/items/properties/type",
@@ -170,7 +170,8 @@
               "ordered-list-item",
               "blockquote",
               "atomic",
-              "code-block"
+              "code-block",
+              "figure"
             ]
           },
           "depth": {

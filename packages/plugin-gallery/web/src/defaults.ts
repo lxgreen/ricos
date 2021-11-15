@@ -1,21 +1,9 @@
-import { PaletteColors, ThemeUtils } from 'wix-rich-content-common';
-
 /* eslint-disable camelcase */
-const GALLERY_LAYOUTS = Object.freeze({
-  EMPTY: -1,
-  COLLAGE: 0,
-  MASONRY: 1,
-  GRID: 2,
-  THUMBNAIL: 3,
-  SLIDER: 4,
-  SLIDESHOW: 5,
-  PANORAMA: 6,
-  COLUMN: 7,
-  MAGIC: 8,
-  FULLSIZE: 9,
-  BRICKS: 10,
-  MIX: 11,
-  ALTERNATE: 12,
+import { GALLERY_LAYOUTS, layoutData } from '../lib/layout-data-provider';
+
+export const GALLERY_ITEMS_TYPES = Object.freeze({
+  IMAGE: 'image',
+  VIDEO: 'video',
 });
 
 const HORIZONTAL_LAYOUTS = Object.freeze([
@@ -42,86 +30,82 @@ export const sampleItems = [1, 2, 3].map(i => {
 export const DEFAULTS = Object.freeze({
   items: [],
   styles: {
-    galleryLayout: 2,
-    gallerySizeType: 'px',
-    gallerySizePx: 300,
-    galleryMargin: 0,
-    oneRow: false,
-    cubeRatio: 1,
-    galleryThumbnailsAlignment: 'bottom',
-    isVertical: false,
-    imageMargin: 20,
-    thumbnailSpacings: 0,
-    cubeType: 'fill',
-    enableInfiniteScroll: true,
-    titlePlacement: 'SHOW_ON_HOVER',
-    allowHover: false,
-    itemClick: 'link',
-    fullscreen: false,
-    showArrows: false,
-    gridStyle: 1,
-    loveButton: false,
-    allowSocial: false,
-    allowDownload: false,
-    mobileSwipeAnimation: 'NO_EFFECT',
-    thumbnailSize: 120,
-    gotStyleParams: true,
-    showVideoPlayButton: true,
-    videoPlay: 'onClick',
+    galleryLayout: GALLERY_LAYOUTS.GRID,
+    ...layoutData[GALLERY_LAYOUTS.GRID],
   },
   config: {
     alignment: 'center',
     size: 'content',
-    layout: 'small',
-    spacing: 0,
-    disableExpand: false,
   },
 });
 
-export const imageItem = (img, itemId) => {
-  return {
-    metadata: {
-      type: 'image',
-      height: img.height,
-      width: img.width,
-    },
-    itemId,
-    url: img.src,
-  };
+const LAYOUT_FIXED_STYLES = {
+  [GALLERY_LAYOUTS.COLLAGE]: {
+    galleryType: 'Columns',
+    imageMargin: 5,
+  },
+  [GALLERY_LAYOUTS.MASONRY]: {
+    imageMargin: 5,
+    isVertical: false,
+    gridStyle: 0,
+  },
+  [GALLERY_LAYOUTS.GRID]: {
+    imageResize: false,
+    gridStyle: 1,
+    galleryImageRatio: 2,
+    imageMargin: 5,
+  },
+  [GALLERY_LAYOUTS.THUMBNAIL]: {
+    arrowsSize: 23,
+    thumbnailSize: 120,
+    floatingImages: 0,
+  },
+  [GALLERY_LAYOUTS.SLIDER]: {
+    arrowsSize: 23,
+    imageMargin: 5,
+  },
+  [GALLERY_LAYOUTS.SLIDESHOW]: {
+    arrowsSize: 23,
+    floatingImages: 0,
+    slideshowInfoSize: 0,
+  },
+  [GALLERY_LAYOUTS.PANORAMA]: {
+    hasThumbnails: false,
+    imageMargin: 5,
+  },
+  [GALLERY_LAYOUTS.COLUMN]: {
+    arrowsSize: 23,
+    hasThumbnails: false,
+    imageMargin: 5,
+  },
+  [GALLERY_LAYOUTS.FULLSIZE]: {
+    arrowsSize: 23,
+    floatingImages: 0,
+    slideshowInfoSize: 0,
+  },
 };
 
-export const isHorizontalLayout = ({ galleryLayout }) =>
-  HORIZONTAL_LAYOUTS.indexOf(galleryLayout) > -1;
-
-export const theme = (colors: PaletteColors, utils: ThemeUtils) => {
-  const actionColor = utils.adaptForeground(colors.actionColor);
-  return {
-    //gallery-items-sortable.scss
-    sortableContainer: {
-      '& $itemContainer$itemContainerSelected': {
-        boxShadow: `0 0 0 3px ${actionColor}`,
-      },
-    },
-    itemContainer: {},
-    itemContainerSelected: {},
-
-    //image-ratio-selector.scss
-    imageRatioSelector_tile: {
-      '& $imageRatioSelector_ratioButton$imageRatioSelector_ratioButton_selected': {
-        backgroundColor: actionColor,
-      },
-    },
-    imageRatioSelector_ratioButton: {},
-    imageRatioSelector_ratioButton_selected: {},
-
-    //layout-selector.scss
-    layoutsSelector_icon_selected: {
-      color: actionColor,
-    },
-
-    //thumbnail-placement-selector.rtlignore.scss
-    thumbnailPlacementSelector_icon_selected: {
-      color: actionColor,
-    },
-  };
+const FIXED_STYLES = {
+  gallerySizeType: 'px',
+  enableInfiniteScroll: true,
+  titlePlacement: 'SHOW_ON_HOVER',
+  hoveringBehaviour: 'NO_CHANGE',
+  alwaysShowHover: true,
+  allowHover: true,
+  itemClick: 'link',
+  fullscreen: false,
+  loveButton: false,
+  allowSocial: false,
+  allowDownload: false,
+  mobileSwipeAnimation: 'NO_EFFECT',
+  gotStyleParams: true,
+  showVideoPlayButton: true,
+  videoPlay: 'onClick',
 };
+
+export const getFixedStyles = (layout: GALLERY_LAYOUTS) => {
+  return { ...FIXED_STYLES, ...LAYOUT_FIXED_STYLES[layout] };
+};
+
+export const isHorizontalLayout = ({ galleryLayout, oneRow }) =>
+  HORIZONTAL_LAYOUTS.indexOf(galleryLayout) > -1 || oneRow;
