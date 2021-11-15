@@ -5,9 +5,8 @@ import classNames from 'classnames';
 import ClickOutside from 'react-click-outsider';
 import styles from '../ToolbarNew.scss';
 import Toolbar from '../Toolbar';
-import ToolbarButton from '../ToolbarButton';
 import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
-import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
+import { KEYS_CHARCODE, ToolbarButtonNew } from 'wix-rich-content-editor-common';
 
 type dropDownPropsType = {
   t: TranslationFunction;
@@ -86,7 +85,7 @@ class NestedMenu extends Component<NestedMenuProps, State> {
     return (
       <ClickOutside onClickOutside={this.onClickOutside}>
         <div className={styles.buttonWrapper}>
-          <ToolbarButton
+          <ToolbarButtonNew
             isActive={isModalOpen}
             onClick={e => this.toggleModal(e)}
             tooltipText={tooltip}

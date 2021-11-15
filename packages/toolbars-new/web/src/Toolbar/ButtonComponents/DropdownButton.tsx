@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component } from 'react';
 import ClickOutside from 'react-click-outsider';
-import ToolbarButton, { ToolbarButtonType } from '../ToolbarButton';
+import { ToolbarButtonNew, ToolbarButtonType } from 'wix-rich-content-editor-common';
 import { RichContentTheme } from 'wix-rich-content-common';
 
 interface DropdownButtonProps {
@@ -66,7 +66,7 @@ class DropdownButton extends Component<DropdownButtonProps> {
     return (
       <div>
         <ClickOutside onClickOutside={this.onDropDownClose(onClose)}>
-          <ToolbarButton
+          <ToolbarButtonNew
             isActive={isActive()}
             onClick={this.handleDropDownClick(onClick)}
             showArrowIcon={arrow}

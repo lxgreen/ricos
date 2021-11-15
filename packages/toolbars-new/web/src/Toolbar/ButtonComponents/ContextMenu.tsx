@@ -2,8 +2,7 @@
 import React, { PureComponent } from 'react';
 import ClickOutside from 'react-click-outsider';
 import Styles from '../ToolbarNew.scss';
-import ToolbarButton from '../ToolbarButton.jsx';
-import { elementOverflowWithEditor } from 'wix-rich-content-editor-common';
+import { elementOverflowWithEditor, ToolbarButtonNew } from 'wix-rich-content-editor-common';
 import { RichContentTheme } from 'wix-rich-content-common';
 
 interface ContextMenuProps {
@@ -90,7 +89,7 @@ class ContextMenu extends PureComponent<ContextMenuProps, State> {
               onClick: this.onChange(props),
             };
             return (
-              <ToolbarButton
+              <ToolbarButtonNew
                 key={i}
                 onClick={this.onChange(props)}
                 isActive={buttonProps.isActive()}
@@ -116,7 +115,7 @@ class ContextMenu extends PureComponent<ContextMenuProps, State> {
     return (
       <ClickOutside onClickOutside={this.hideOptions}>
         <div className={Styles.buttonWrapper}>
-          <ToolbarButton
+          <ToolbarButtonNew
             isActive={false}
             onClick={this.toggleOptions}
             tooltipText={tooltip}

@@ -10,6 +10,8 @@ export { default as LinkButton } from './Components/LinkComponents/LinkButton';
 export { default as LinkModal } from './Components/LinkComponents/LinkModal';
 export { default as ToolbarButton } from './Components/ToolbarButton';
 export { default as InlineToolbarButton } from './Components/InlineToolbarButton';
+export { default as ToolbarButtonNew } from './Components/NewToolbar/ToolbarButtonNew';
+export { ToolbarButtonType } from './Components/NewToolbar/ToolbarButtonNew';
 
 //Modals
 export { default as EditorModals } from './Modals/EditorModals';

@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import ClickOutside from 'react-click-outsider';
 import Styles from '../ToolbarNew.scss';
-import ToolbarButton from '../ToolbarButton.jsx';
+import { ToolbarButtonNew } from 'wix-rich-content-editor-common';
 import { RichContentTheme } from 'wix-rich-content-common';
 
 interface GroupButtonProps {
@@ -76,7 +76,7 @@ class GroupButton extends PureComponent<GroupButtonProps, State> {
             onClick: this.onChange(props),
           };
           return (
-            <ToolbarButton
+            <ToolbarButtonNew
               key={i}
               onClick={this.onChange(props)}
               isActive={buttonProps.isActive()}
@@ -101,7 +101,7 @@ class GroupButton extends PureComponent<GroupButtonProps, State> {
     return (
       <ClickOutside onClickOutside={this.hideOptions}>
         <div className={Styles.buttonWrapper}>
-          <ToolbarButton
+          <ToolbarButtonNew
             isActive={isOpen || isActive()}
             onClick={this.toggleOptions}
             showArrowIcon

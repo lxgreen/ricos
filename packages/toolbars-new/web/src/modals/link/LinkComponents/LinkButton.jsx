@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ToolbarButton from '../../../Toolbar/ToolbarButton';
+import { ToolbarButtonNew } from 'wix-rich-content-editor-common';
 import { LinkIcon } from '../Icons';
 
 const LinkButton = ({ icon, ...otherProps }) => (
-  <ToolbarButton icon={icon || LinkIcon} dataHook={'LinkButton'} {...otherProps} />
+  <ToolbarButtonNew icon={icon || LinkIcon} dataHook={'LinkButton'} {...otherProps} />
 );
 
 LinkButton.propTypes = {

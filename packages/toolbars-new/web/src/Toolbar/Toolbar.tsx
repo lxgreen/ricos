@@ -9,7 +9,7 @@ import GroupButton from './ButtonComponents/GroupButton';
 import DropdownButton from './ButtonComponents/DropdownButton';
 import ModalButton from './ButtonComponents/ModalButton';
 import ColorPickerButton from './ButtonComponents/ColorPickerButton';
-import ToolbarButton from './ToolbarButton';
+import { ToolbarButtonNew } from 'wix-rich-content-editor-common';
 import ContextMenu from './ButtonComponents/ContextMenu';
 import NestedMenu from './ButtonComponents/NestedMenu';
 import { RichContentTheme, TranslationFunction, DesktopTextButtons } from 'wix-rich-content-common';
@@ -156,7 +156,7 @@ class Toolbar extends Component<ToolbarProps, State> {
       plugin,
     } = buttonProps;
     return (
-      <ToolbarButton
+      <ToolbarButtonNew
         onClick={onClick}
         isActive={isActive()}
         theme={this.theme}
@@ -246,7 +246,7 @@ class Toolbar extends Component<ToolbarProps, State> {
   renderTextButton = buttonProps => {
     const { onClick, dataHook, text, tooltip, isDisabled, asLink } = buttonProps;
     return (
-      <ToolbarButton
+      <ToolbarButtonNew
         onClick={onClick}
         theme={this.theme}
         dataHook={dataHook}

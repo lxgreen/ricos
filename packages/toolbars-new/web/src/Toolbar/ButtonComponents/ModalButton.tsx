@@ -6,9 +6,12 @@ import classNames from 'classnames';
 import ClickOutside from 'react-click-outsider';
 import styles from '../ToolbarNew.scss';
 import ToolbarInputButton from '../ToolbarInputButton';
-import ToolbarButton from '../ToolbarButton';
 import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
-import { elementOverflowWithEditor, KEYS_CHARCODE } from 'wix-rich-content-editor-common';
+import {
+  elementOverflowWithEditor,
+  KEYS_CHARCODE,
+  ToolbarButtonNew,
+} from 'wix-rich-content-editor-common';
 
 type dropDownPropsType = {
   isMobile?: boolean;
@@ -201,7 +204,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
     const Button = isInput ? (
       <ToolbarInputButton onChange={this.onChange} {...toolbarButtonProps} />
     ) : (
-      <ToolbarButton {...toolbarButtonProps} showArrowIcon={arrow} icon={getIcon()} />
+      <ToolbarButtonNew {...toolbarButtonProps} showArrowIcon={arrow} icon={getIcon()} />
     );
 
     const defaultStyles = {
