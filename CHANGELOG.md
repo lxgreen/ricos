@@ -17,6 +17,12 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `vertical-embed`
+  - [#3118](https://github.com/wix/ricos/pull/3118) Fix new vertical-embed modal style
+
+
 </details>
 <hr/>
 
