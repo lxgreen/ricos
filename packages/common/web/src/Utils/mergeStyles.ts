@@ -15,7 +15,9 @@ export const mergeStyles = ({
     console.warn('mergeStyles invoked without theme!'); //eslint-disable-line no-console
     return styles;
   }
-  const themeStyles = pickBy(theme);
+  const _theme = {};
+  Object.keys(theme).forEach(key => (_theme[`${key}${key}`] = theme[key]));
+  const themeStyles = pickBy(_theme);
   const themeStylesToMerge = pickBy(themeStyles, (_, key) => has(styles, key));
   return mergeWith({ ...styles }, themeStylesToMerge, cssClassMerger);
 };

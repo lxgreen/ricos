@@ -220,13 +220,14 @@ function addStylesImport() {
       const viewerExtractedStylePath = getExtractedCssPath('viewer');
       const isExistEditorStyles = existsSync(editorExtractedStylePath);
       const isExistViewerStyles = existsSync(viewerExtractedStylePath);
+      const loadableViewerPath = 'dist/loadable/viewer';
 
       if (isExistEditorStyles) {
         writeCjsAndEsContent(packageJson.main, packageJson.module, editorExtractedStylePath);
       }
-      if (isExistViewerStyles) {
+      if (existsSync(`${loadableViewerPath}/es`) && isExistViewerStyles) {
         let dynamicLoadableChunkName;
-        readdirSync('dist/loadable/viewer/es').forEach(file => {
+        readdirSync(`${loadableViewerPath}/es`).forEach(file => {
           const fileName = file.split('.')[0];
           !fileName.includes('viewer-loadable') && (dynamicLoadableChunkName = fileName);
         });
@@ -239,8 +240,8 @@ function addStylesImport() {
 
         if (dynamicLoadableChunkName) {
           writeCjsAndEsContent(
-            `dist/loadable/viewer/cjs/${dynamicLoadableChunkName}.cjs.js`,
-            `dist/loadable/viewer/es/${dynamicLoadableChunkName}.js`,
+            `${loadableViewerPath}/cjs/${dynamicLoadableChunkName}.cjs.js`,
+            `${loadableViewerPath}/es/${dynamicLoadableChunkName}.js`,
             viewerExtractedStylePath
           );
         }
