@@ -49,6 +49,30 @@ export const content = {
   VERSION: '8.17.11',
 };
 
+export const contentWithDocumentStyleTest = {
+  blocks: [
+    {
+      key: 'o12',
+      text: 'asdasdsa',
+      type: 'unstyled',
+      depth: 0,
+      inlineStyleRanges: [],
+      entityRanges: [],
+      data: {},
+    },
+  ],
+  entityMap: {},
+  documentStyle: {
+    paragraph: {
+      color: 'color3',
+      'background-color': 'color2',
+      'font-weight': 'bold',
+      'font-style': 'italic',
+    },
+  },
+  VERSION: '8.17.11',
+};
+
 export const blockKey = 'o12';
 
 export const selection = {

@@ -16,7 +16,7 @@ interface ContextMenuProps {
   getIcon: () => any;
   theme: RichContentTheme;
   buttonList: any[];
-  editorContainer: HTMLElement;
+  getEditorContainer: () => Element;
 }
 
 interface State {
@@ -47,7 +47,7 @@ class ContextMenu extends PureComponent<ContextMenuProps, State> {
       if (this.state.isOpen && this.modalRef) {
         const modalOverflowWithEditor = elementOverflowWithEditor(
           this.modalRef,
-          this.props.editorContainer
+          this.props.getEditorContainer() as HTMLElement
         );
         const isModalOverflow = !!modalOverflowWithEditor.overflowRight;
         this.setState({ position: isModalOverflow ? { right: 0 } : { left: 0 } });

@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { getLinkDataInSelection } from 'wix-rich-content-editor-common';
+import { getLinkDataInSelection, scrollToBlock } from 'wix-rich-content-editor-common';
 import styles from '../../statics/link-viewer.scss';
-import {
-  normalizeUrl,
-  mergeStyles,
-  anchorScroll,
-  getRelValue,
-  GlobalContext,
-} from 'wix-rich-content-common';
+import { normalizeUrl, mergeStyles, getRelValue, GlobalContext } from 'wix-rich-content-common';
 
 export default class UrlLinkButton extends Component {
   constructor(props) {
@@ -27,10 +21,7 @@ export default class UrlLinkButton extends Component {
     if (customAnchorScroll) {
       customAnchorScroll(event, anchor);
     } else {
-      const nodeListOfAllblocks = document.querySelectorAll(`[data-editor]`);
-      const arrayOfAllblocks = Array.apply(null, nodeListOfAllblocks);
-      const element = arrayOfAllblocks.find(block => block.dataset.offsetKey === `${anchor}-0-0`);
-      anchorScroll(element, this.context.experiments);
+      scrollToBlock(anchor, this.context.experiments);
     }
   };
 

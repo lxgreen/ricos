@@ -1,22 +1,10 @@
 import { TiptapAPI } from '../../types';
 import { capitalize } from 'lodash';
 import {
-  RICOS_DIVIDER_TYPE,
-  DIVIDER_TYPE,
   RICOS_LINK_TYPE,
-  IMAGE_TYPE,
-  RICOS_IMAGE_TYPE,
   TranslationFunction,
   EditorPlugin,
   TextAlignment,
-  GALLERY_TYPE,
-  RICOS_GALLERY_TYPE,
-  FILE_UPLOAD_TYPE,
-  RICOS_FILE_TYPE,
-  GIPHY_TYPE,
-  RICOS_GIPHY_TYPE,
-  VIDEO_TYPE,
-  RICOS_VIDEO_TYPE,
   RICOS_TEXT_COLOR_TYPE,
   RICOS_TEXT_HIGHLIGHT_TYPE,
 } from 'wix-rich-content-common';
@@ -30,28 +18,7 @@ import {
   BLOCKQUOTE,
   HEADINGS_TYPE,
   NUMBERED_LIST_TYPE,
-  TIPTAP_DIVIDER_TYPE,
-  TIPTAP_IMAGE_TYPE,
-  TIPTAP_GALLERY_TYPE,
-  TIPTAP_FILE_TYPE,
-  TIPTAP_GIF_TYPE,
-  TIPTAP_VIDEO_TYPE,
 } from 'ricos-content';
-
-const PLUGIN_TYPE_MAP = {
-  [RICOS_DIVIDER_TYPE]: TIPTAP_DIVIDER_TYPE,
-  [DIVIDER_TYPE]: TIPTAP_DIVIDER_TYPE,
-  [RICOS_IMAGE_TYPE]: TIPTAP_IMAGE_TYPE,
-  [IMAGE_TYPE]: TIPTAP_IMAGE_TYPE,
-  [GALLERY_TYPE]: TIPTAP_GALLERY_TYPE,
-  [RICOS_GALLERY_TYPE]: TIPTAP_GALLERY_TYPE,
-  [FILE_UPLOAD_TYPE]: TIPTAP_FILE_TYPE,
-  [RICOS_FILE_TYPE]: TIPTAP_FILE_TYPE,
-  [GIPHY_TYPE]: TIPTAP_GIF_TYPE,
-  [RICOS_GIPHY_TYPE]: TIPTAP_GIF_TYPE,
-  [VIDEO_TYPE]: TIPTAP_VIDEO_TYPE,
-  [RICOS_VIDEO_TYPE]: TIPTAP_VIDEO_TYPE,
-};
 
 const headingTypeToLevelMap = {
   'header-one': 1,
@@ -61,6 +28,7 @@ const headingTypeToLevelMap = {
   'header-five': 5,
   'header-six': 6,
 };
+import { TO_TIPTAP_TYPE } from '../../consts';
 
 // todo : should change to RichContentInterface
 export class RichContentAdapter implements TiptapAPI {
@@ -73,6 +41,10 @@ export class RichContentAdapter implements TiptapAPI {
     this.t = t;
     this.plugins = plugins;
   }
+
+  getContainer = () => {
+    return this.editor?.options?.element;
+  };
 
   focus() {
     this.editor.commands.focus();
@@ -108,24 +80,27 @@ export class RichContentAdapter implements TiptapAPI {
         return marks[style];
       },
       insertBlock: (pluginType, data) => {
-        const type = PLUGIN_TYPE_MAP[pluginType];
+        const type = TO_TIPTAP_TYPE[pluginType];
         let id = '';
         if (type) {
           id = generateId();
-          const attrs = { ...data, id };
+          const attrs = { id, ...data };
           this.editor.commands.insertNode(type, attrs);
         } else {
           console.error(`No such plugin type ${pluginType}`);
         }
         return id;
       },
+      deleteBlock: blockKey => {
+        return this.editor.commands.deleteNode(blockKey);
+      },
       findNodeByKey() {},
       setBlock: (blockKey, pluginType, data) => {
         return this.editor.commands.updateNodeById(blockKey, data);
       },
       getSelection: () => ({
-        getIsFocused: this.editor.isFocused,
-        getIsCollapsed: this.editor.state.selection.empty,
+        isFocused: this.editor.isFocused,
+        isCollapsed: this.editor.state.selection.empty,
       }),
 
       insertDecoration: (type, data) => {
@@ -242,18 +217,27 @@ export class RichContentAdapter implements TiptapAPI {
     isRedoStackEmpty: () => false,
     getSelectedData: () => 'blah',
     getPluginsList: () => [],
+    scrollToBlock: _blockKey => {},
+    isBlockInContent: _blockKey => false,
+    toggleBlockOverlay: _blockKey => false,
     getBlockSpacing: () => 5,
     saveEditorState: () => {},
     loadEditorState: () => {},
     saveSelectionState: () => {},
     loadSelectionState: () => {},
     triggerDecoration: () => {},
-    deleteBlock: () => {},
     undo: () => {},
     redo: () => {},
     setBlockType: () => {},
     setTextAlignment: () => {},
     _setSelection: () => {},
+    getDocumentStyle: () => undefined,
+    getAnchorBlockInlineStyles: () => {
+      return {};
+    },
+    updateDocumentStyle: () => {},
+    clearSelectedBlocksInlineStyles: () => {},
+    getWiredFontStyles: () => undefined,
     isAtomicBlockInSelection: () => false,
   };
 }

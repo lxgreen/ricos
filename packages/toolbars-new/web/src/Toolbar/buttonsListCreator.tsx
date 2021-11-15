@@ -2,11 +2,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable fp/no-loops */
 import React from 'react';
+import { scrollToBlock } from 'wix-rich-content-editor-common';
 import {
   RICOS_LINK_TYPE,
   EditorCommands,
   normalizeUrl,
-  anchorScroll,
+  CUSTOM_LINK,
 } from 'wix-rich-content-common';
 import { AlignTextCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon } from '../icons';
 import {
@@ -35,10 +36,13 @@ export const createButtonsList = (
   t,
   linkPanelData,
   colorPickerData,
-  defaultLineSpacing,
   headingsData,
-  experiments
+  defaultLineSpacing,
+  experiments,
+  theme
 ) => {
+  // eslint-disable-next-line no-console
+  console.log({ theme });
   const buttonsList: any[] = [];
   const osName: string | null = findOsName();
   formattingButtonsKeys.forEach((buttonKey, index) => {
@@ -267,23 +271,31 @@ const handleButtonModal = (
       const spacing = getSpacing(currentSpacing, defaultLineSpacing);
       buttonsList[index].modal = props => Modal && <Modal {...props} currentSelect={spacing} />;
     } else if (buttonName === 'LINK' || buttonName === 'editLink') {
-      const Modal = buttonsFullData[buttonName].modal;
+      const { onLinkAdd, linkSettings = {}, ...rest } = linkPanelData;
       const linkData = editorCommands.getLinkDataInSelection();
-      const anchorableBlocks = editorCommands.getAnchorableBlocks();
-      const { linkSettings = {}, ...rest } = linkPanelData;
-      const linkSettingsData = handleLinkSettings(linkSettings);
-      buttonsList[index].modal = props =>
-        Modal && (
-          <Modal
-            {...props}
-            {...rest}
-            {...linkSettingsData}
-            {...linkData}
-            t={t}
-            anchorableBlocksData={anchorableBlocks}
-            isMobileModalFullscreen
-          />
-        );
+      const isCustomLinkHandling = !!onLinkAdd;
+      if (isCustomLinkHandling) {
+        const customLinkData = linkData?.customData;
+        const callback = data => editorCommands.insertDecoration(CUSTOM_LINK, data);
+        buttonsList[index].type = 'button';
+        buttonsList[index].onClick = () => onLinkAdd(customLinkData, callback);
+      } else {
+        const Modal = buttonsFullData[buttonName].modal;
+        const anchorableBlocks = editorCommands.getAnchorableBlocks();
+        const linkSettingsData = handleLinkSettings(linkSettings);
+        buttonsList[index].modal = props =>
+          Modal && (
+            <Modal
+              {...props}
+              {...rest}
+              {...linkSettingsData}
+              {...linkData}
+              t={t}
+              anchorableBlocksData={anchorableBlocks}
+              isMobileModalFullscreen
+            />
+          );
+      }
     } else if (buttonName === 'FONT_SIZE') {
       const Modal = buttonsFullData[buttonName].modal;
       buttonsList[index].modal = props =>
@@ -544,11 +556,7 @@ const goToLink = (event, linkData, linkPanelData, experiments) => {
     if (customAnchorScroll) {
       customAnchorScroll(event, anchor);
     } else {
-      const nodeListOfAllblocks = document.querySelectorAll(`[data-editor]`);
-      // eslint-disable-next-line prefer-spread
-      const arrayOfAllblocks = Array.apply(null, nodeListOfAllblocks);
-      const element = arrayOfAllblocks.find(block => block.dataset.offsetKey === `${anchor}-0-0`);
-      anchorScroll(element, experiments);
+      scrollToBlock(anchor, experiments);
     }
   } else {
     const href = url ? normalizeUrl(url) : undefined;

@@ -25,6 +25,16 @@ const staticInlineStyleMapper = mergedStyles => ({
       {children}
     </span>
   ),
+  NOT_BOLD: (children, { key }) => (
+    <span style={{ fontWeight: 'normal' }} key={key}>
+      {children}
+    </span>
+  ),
+  NOT_ITALIC: (children, { key }) => (
+    <span style={{ fontStyle: 'normal' }} key={key}>
+      {children}
+    </span>
+  ),
 });
 
 export const getViewerInlineStyleMappers = (contentState, config) => [

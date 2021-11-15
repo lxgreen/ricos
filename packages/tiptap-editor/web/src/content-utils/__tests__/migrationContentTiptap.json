@@ -10,7 +10,8 @@
           "text": "Lorem ipsum dolor sit amet",
           "marks": [
             {
-              "type": "bold"
+              "type": "bold",
+              "fontWeightValue": 700
             },
             {
               "type": "fontSize",
@@ -39,7 +40,8 @@
           "text": "consectetur adipiscing",
           "marks": [
             {
-              "type": "underline"
+              "type": "underline",
+              "underlineData": true
             }
           ],
           "attrs": {
@@ -61,7 +63,8 @@
           "text": "auctor",
           "marks": [
             {
-              "type": "italic"
+              "type": "italic",
+              "italicData": true
             }
           ],
           "attrs": {
@@ -83,7 +86,8 @@
           "text": "sagittis ",
           "marks": [
             {
-              "type": "bold"
+              "type": "bold",
+              "fontWeightValue": 700
             }
           ],
           "attrs": {
@@ -96,10 +100,12 @@
           "text": "ultrices",
           "marks": [
             {
-              "type": "bold"
+              "type": "bold",
+              "fontWeightValue": 700
             },
             {
-              "type": "underline"
+              "type": "underline",
+              "underlineData": true
             }
           ],
           "attrs": {
@@ -112,7 +118,8 @@
           "text": " sem",
           "marks": [
             {
-              "type": "underline"
+              "type": "underline",
+              "underlineData": true
             }
           ],
           "attrs": {
@@ -148,7 +155,8 @@
               }
             },
             {
-              "type": "underline"
+              "type": "underline",
+              "underlineData": true
             }
           ],
           "attrs": {
@@ -285,7 +293,8 @@
               }
             },
             {
-              "type": "underline"
+              "type": "underline",
+              "underlineData": true
             }
           ],
           "attrs": {
@@ -313,7 +322,8 @@
               }
             },
             {
-              "type": "underline"
+              "type": "underline",
+              "underlineData": true
             }
           ],
           "attrs": {
@@ -1093,7 +1103,8 @@
               "text": "sed",
               "marks": [
                 {
-                  "type": "bold"
+                  "type": "bold",
+                  "fontWeightValue": 700
                 }
               ],
               "attrs": {
@@ -1115,7 +1126,8 @@
               "text": "vulputate",
               "marks": [
                 {
-                  "type": "underline"
+                  "type": "underline",
+                  "underlineData": true
                 }
               ],
               "attrs": {
@@ -2058,7 +2070,8 @@
                       "text": "Yo yo yo!",
                       "marks": [
                         {
-                          "type": "bold"
+                          "type": "bold",
+                          "fontWeightValue": 700
                         }
                       ],
                       "attrs": {
@@ -2159,7 +2172,8 @@
                       "text": "Yo yo yo!",
                       "marks": [
                         {
-                          "type": "bold"
+                          "type": "bold",
+                          "fontWeightValue": 700
                         }
                       ],
                       "attrs": {
@@ -2542,6 +2556,22 @@
       "version": 1,
       "createdTimestamp": "2021-07-15T07:42:30.023Z",
       "updatedTimestamp": "2021-07-15T07:42:30.023Z"
+    }
+  },
+  "documentStyle": {
+    "headerOne": {
+      "marks": [
+        {
+          "type": "color",
+          "attrs": {
+            "foreground": "red"
+          }
+        },
+        {
+          "type": "bold",
+          "fontWeightValue": 700
+        }
+      ]
     }
   }
 }

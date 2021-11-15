@@ -1,4 +1,4 @@
-import { cloneDeep, mapValues } from 'lodash';
+import { cloneDeep, mapValues, isEmpty } from 'lodash';
 import { processContentState } from './processContentState';
 import {
   IMAGE_TYPE,
@@ -19,7 +19,7 @@ import {
   verticalEmbedDataNormalizer,
   pollsDataNormalizer,
 } from './dataNormalizers';
-import { ComponentData, DraftContent, NormalizeConfig, RicosEntity } from '../types';
+import { ComponentData, DraftContent, NormalizeConfig, RicosEntity, RicosContent } from '../types';
 
 const dataNormalizers: {
   [entityType: string]: (
@@ -164,10 +164,17 @@ const convertAnchorToLinkToUndoOneAppFix = (newEntity: RicosEntity) => {
 };
 
 export default (content: DraftContent, config: NormalizeConfig = {}): DraftContent => {
-  const { blocks, entityMap, VERSION } = processContentState(cloneDeep(content), config);
-  return {
+  const { blocks, entityMap, documentStyle, VERSION } = processContentState(
+    cloneDeep(content),
+    config
+  );
+  const contentState: RicosContent = {
     blocks,
     entityMap: normalizeEntityMap(entityMap, config, content.VERSION || '0.0.0'),
     VERSION,
   };
+  if (!isEmpty(documentStyle)) {
+    contentState.documentStyle = documentStyle;
+  }
+  return contentState;
 };

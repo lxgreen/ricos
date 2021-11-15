@@ -12,6 +12,7 @@ import {
   PluginTypeMapper,
   LegacyViewerPluginConfig,
   InlineStyleMapperFunction,
+  DocumentStyle,
 } from 'wix-rich-content-common';
 import redraft from 'wix-redraft';
 import classNames from 'classnames';
@@ -59,7 +60,7 @@ const getInline = (contentState, config, inlineStyleMappers, mergedStyles) =>
     mergedStyles
   );
 
-const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix) => {
+const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix, documentStyle) => {
   const getList = ordered => (items, blockProps) => {
     const fixedItems = items.map(item => (item.length ? item : [' ']));
 
@@ -99,6 +100,11 @@ const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix) => {
 
         const _child = isEmptyBlock(child) ? <br role="presentation" /> : child;
 
+        const nodeStyle = kebabToCamelObjectKeys(
+          documentStyle?.[style === 'text' ? 'paragraph' : style]
+        );
+        const content = nodeStyle ? <span style={nodeStyle}>{_child}</span> : _child;
+
         const inner = (
           <React.Fragment key={blockProps.keys[i]}>
             <ChildTag
@@ -124,7 +130,7 @@ const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix) => {
                   hasJustifyText && styles.hasJustifyText
                 )}
               >
-                {_child}
+                {content}
               </span>
             </ChildTag>
           </React.Fragment>
@@ -266,7 +272,9 @@ const convertToReact = (
     inlineStyleMappers: InlineStyleMapperFunction[];
     decorators: Decorator[];
     config: LegacyViewerPluginConfig;
-  }
+    documentStyle?: DocumentStyle;
+  },
+  externalDocumentStyle?: DocumentStyle
 ) => {
   if (isEmptyContentState(context.contentState)) {
     return null;
@@ -280,18 +288,19 @@ const convertToReact = (
     : normalizedContentState;
 
   const addAnchorsPrefix = addAnchors && (addAnchors === true ? 'rcv-block' : addAnchors);
+  const documentStyle = externalDocumentStyle || newContentState?.documentStyle;
 
   let result = redraft(
     newContentState,
     {
       inline: getInline(newContentState, config, inlineStyleMappers, mergedStyles),
-      blocks: getBlocks(mergedStyles, textDirection, context, addAnchorsPrefix),
+      blocks: getBlocks(mergedStyles, textDirection, context, addAnchorsPrefix, documentStyle),
       entities: getEntities(
         typeMappers,
         context,
         mergedStyles,
         addAnchorsPrefix,
-        innerRCEViewerProps,
+        { ...innerRCEViewerProps, documentStyle },
         SpoilerViewerWrapper
       ),
       decorators,

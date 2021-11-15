@@ -52,4 +52,5 @@ export {
   defaultStyleFnMapper,
   dynamicStyleParsers,
   getDynamicInlineStyleMapper,
+  draftDecorationsToCss,
 } from './Utils/viewerUtils';

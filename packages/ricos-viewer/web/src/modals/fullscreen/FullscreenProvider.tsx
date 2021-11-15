@@ -1,6 +1,6 @@
 import React, { Component, Fragment, Children, ReactElement, Suspense } from 'react';
 import { emptyState } from 'ricos-common';
-import { Helpers } from 'wix-rich-content-common';
+import { Helpers, AvailableExperiments } from 'wix-rich-content-common';
 import getImagesData from 'wix-rich-content-fullscreen/libs/getImagesData';
 import { DraftContent, FullscreenProps } from '../../index';
 
@@ -11,6 +11,8 @@ interface Props {
   isModalSuspended: boolean;
   isMobile: boolean;
   fullscreenProps?: FullscreenProps;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  experiments?: AvailableExperiments;
 }
 
 interface State {
@@ -37,13 +39,26 @@ export default class FullscreenProvider extends Component<Props, State> {
 
   _FullscreenModal;
 
+  _renderFullscreenInterval;
+
   componentDidMount() {
+    const { experiments } = this.props;
     const imagesData = getImagesData(this.props.initialState || emptyState);
+
     if (imagesData.images.length > 0) {
       this.setState({ expandModeData: imagesData });
       this.lazyLoadFullscreen();
-      this.props.isMobile && this.setState({ FullscreenModal: this._FullscreenModal });
+      if (this.props.isMobile) {
+        const timeout = parseInt(experiments?.optimizeFullScreenModal?.value || '0');
+        this._renderFullscreenInterval = setTimeout(() => {
+          this.renderFullScreenModal();
+        }, timeout);
+      }
     }
+  }
+
+  renderFullScreenModal() {
+    this.setState({ FullscreenModal: this._FullscreenModal });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,9 +71,13 @@ export default class FullscreenProvider extends Component<Props, State> {
     }
   }
 
+  componentWillUnmount() {
+    clearTimeout(this._renderFullscreenInterval);
+  }
+
   lazyLoadFullscreen() {
     const FullscreenModal = React.lazy(() =>
-      import(/* webpackChunkName: "RicosEditorModal"  */ './FullscreenModal')
+      import(/* webpackChunkName: "FullscreenModalViewer"  */ './FullscreenModal')
     );
     this._FullscreenModal = FullscreenModal;
   }
@@ -73,9 +92,14 @@ export default class FullscreenProvider extends Component<Props, State> {
     const onExpand = (blockKey: string, innerIndex = 0) => {
       const { expandModeData, FullscreenModal } = this.state;
       // protective code in case that image was clicked before fullscreen is set
-      if (!FullscreenModal) {
+      if (!FullscreenModal && !this._FullscreenModal) {
         return false;
       }
+
+      if (!FullscreenModal && this._FullscreenModal) {
+        this.renderFullScreenModal();
+      }
+
       this.setState({
         isExpanded: true,
         // if expandModeData is not defined - expand the first image
@@ -96,9 +120,7 @@ export default class FullscreenProvider extends Component<Props, State> {
   onChildHover = () => {
     const { FullscreenModal } = this.state;
     if (!FullscreenModal && this._FullscreenModal) {
-      this.setState({
-        FullscreenModal: this._FullscreenModal,
-      });
+      this.renderFullScreenModal();
     }
   };
 

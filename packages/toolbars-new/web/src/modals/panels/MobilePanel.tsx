@@ -9,6 +9,7 @@ const Separator = () => <div className={styles.separator} />;
 
 const MobilePanel = ({ currentSelect, panelHeader, onChange, onCancel, options, hasIcons, t }) => {
   const lineHeightElement = (option, isSelected, showSeparator) => {
+    const dataHook = option.dataHook || 'modal-option';
     return (
       <div>
         <div
@@ -20,6 +21,7 @@ const MobilePanel = ({ currentSelect, panelHeader, onChange, onCancel, options, 
             e.stopPropagation();
             onChange(option.commandKey);
           }}
+          data-hook={dataHook}
         >
           <div
             className={
@@ -39,7 +41,11 @@ const MobilePanel = ({ currentSelect, panelHeader, onChange, onCancel, options, 
     <div className={styles.mobilePanel}>
       <div className={styles.mobilePanel_header}>
         {panelHeader}
-        <CloseIcon className={styles.closeIcon} onClick={onCancel} />
+        <CloseIcon
+          className={styles.closeIcon}
+          data-hook="toolbar-modal-close-icon"
+          onClick={onCancel}
+        />
       </div>
       <Separator />
       <div className={styles.mobilePanel_rows}>

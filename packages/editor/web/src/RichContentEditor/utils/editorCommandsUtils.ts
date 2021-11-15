@@ -1,0 +1,221 @@
+import {
+  EditorState,
+  ContentState,
+  DraftOffsetKey,
+  getBlockType,
+  RichUtils,
+  getDraftInlineStyle,
+  getSelectionStyles,
+  hasOneStyleInSelection,
+  getSelectedBlocks,
+  removeCurrentInlineStyle,
+  setInlineStyle,
+  getAnchorBlockData,
+  getBlockStyleRanges,
+} from 'wix-rich-content-editor-common';
+import { cloneDeep, uniq, pick } from 'lodash';
+import {
+  RicosCustomStyles,
+  DocumentStyle,
+  InlineStyle,
+  INLINE_STYLE_TYPES,
+  RICOS_TEXT_HIGHLIGHT_TYPE,
+  RICOS_TEXT_COLOR_TYPE,
+  RICOS_FONT_SIZE_TYPE,
+  CustomInlineStyleType,
+  dynamicStyleParsers,
+  safeJsonParse,
+  draftDecorationsToCss,
+} from 'wix-rich-content-common';
+
+import {
+  DRAFT_TO_RICOS_DOC_TYPE,
+  DRAFT_TO_RICOS_CUSTOM_STYLES,
+  defaultFontSizes,
+  defaultMobileFontSizes,
+} from './consts';
+
+export const getWiredFontStyles = (
+  documentStyle?: DocumentStyle,
+  customStyles?: RicosCustomStyles,
+  isMobile?: boolean
+) => {
+  const fontSizes = {};
+  Object.entries(DRAFT_TO_RICOS_DOC_TYPE).forEach(([draftHeader, ricosHeader]) => {
+    fontSizes[ricosHeader] = {
+      'font-size':
+        documentStyle?.[ricosHeader]?.['font-size'] ||
+        customStyles?.[DRAFT_TO_RICOS_CUSTOM_STYLES[draftHeader]]?.fontSize ||
+        (isMobile ? defaultMobileFontSizes[draftHeader] : defaultFontSizes[draftHeader]),
+      'font-family':
+        customStyles?.[DRAFT_TO_RICOS_CUSTOM_STYLES[draftHeader]]?.fontFamily ||
+        'HelveticaNeue, Helvetica, Arial',
+    };
+  });
+  return fontSizes;
+};
+
+export const getDocumentStyle = (editorState: EditorState) => {
+  const currentContent = editorState.getCurrentContent() as ContentState & {
+    documentStyle: DocumentStyle;
+  };
+  return cloneDeep(currentContent.documentStyle || {});
+};
+
+export const updateDocumentStyle = (editorState: EditorState, documentStyle: DocumentStyle) => {
+  const currentContent = editorState.getCurrentContent() as ContentState & {
+    documentStyle: DocumentStyle;
+  };
+  currentContent.documentStyle = {
+    ...currentContent.documentStyle,
+    ...documentStyle,
+  };
+  return editorState;
+};
+
+const getInlineStylesByType = (editorState: EditorState, type: CustomInlineStyleType) => {
+  const styleParser = dynamicStyleParsers[type];
+  return getSelectionStyles(editorState, styleParser).map(style => styleParser(style));
+};
+
+const TYPE_TO_CSS_PROPERTY = {
+  [RICOS_TEXT_COLOR_TYPE]: 'color',
+  [RICOS_TEXT_HIGHLIGHT_TYPE]: 'background-color',
+  [RICOS_FONT_SIZE_TYPE]: 'font-size',
+};
+
+const getSelectionStylesFromDOM = (editorState: EditorState, type: CustomInlineStyleType) => {
+  let currentStyles: (string | null)[] = [];
+  const styleParser = dynamicStyleParsers[type];
+  getSelectedBlocks(editorState)
+    .filter(block => !hasOneStyleInSelection(block, editorState, styleParser))
+    .forEach(block => {
+      const offsetKey = DraftOffsetKey.encode(block.getKey(), 0, 0);
+      const nodes = document.querySelectorAll(`[data-offset-key="${offsetKey}"]`);
+      currentStyles = [
+        ...currentStyles,
+        ...Array.from(nodes)
+          .filter(node => node.tagName === 'SPAN')
+          .map(node => window.getComputedStyle(node).getPropertyValue(TYPE_TO_CSS_PROPERTY[type])),
+      ];
+    });
+  return currentStyles;
+};
+
+const setInlineStyleByType = (
+  editorState: EditorState,
+  type: CustomInlineStyleType,
+  style?: string
+) => {
+  const styleParser = dynamicStyleParsers[type];
+  let newEditorState = removeCurrentInlineStyle(editorState, styleParser);
+  if (style) {
+    const inlineStyle = JSON.stringify({
+      [INLINE_STYLE_TYPES[type]]: style,
+    });
+    newEditorState = setInlineStyle(newEditorState, inlineStyle);
+  }
+  return newEditorState;
+};
+
+export const getFontSize = (editorState: EditorState) => {
+  const currentFontSizes = uniq([
+    ...getInlineStylesByType(editorState, RICOS_FONT_SIZE_TYPE),
+    ...getSelectionStylesFromDOM(editorState, RICOS_FONT_SIZE_TYPE),
+  ]);
+  return currentFontSizes.length > 1 || currentFontSizes.length === 0 ? '' : currentFontSizes[0];
+};
+
+const getBlockStyle = (editorState: EditorState) => {
+  const blockType = getBlockType(editorState);
+  const documentStyle = (editorState.getCurrentContent() as ContentState & {
+    documentStyle: DocumentStyle;
+  }).documentStyle;
+  return documentStyle[DRAFT_TO_RICOS_DOC_TYPE[blockType]];
+};
+
+export const setFontSize = (editorState: EditorState, data?: { fontSize?: string }) => {
+  const blockStyles = getBlockStyle(editorState);
+  const style = data?.fontSize ? data.fontSize + 'px' : undefined;
+  return getFontSize(editorState) === style
+    ? editorState
+    : blockStyles?.['font-size'] === style
+    ? setInlineStyleByType(editorState, RICOS_FONT_SIZE_TYPE)
+    : setInlineStyleByType(editorState, RICOS_FONT_SIZE_TYPE, style);
+};
+
+export const getColor = (editorState: EditorState, type: CustomInlineStyleType) => {
+  const currentColors = getInlineStylesByType(editorState, type);
+  return currentColors[0];
+};
+
+export const setTextColor = (editorState: EditorState, data?: { color?: string }) =>
+  setInlineStyleByType(editorState, RICOS_TEXT_COLOR_TYPE, data?.color);
+
+export const setHighlightColor = (editorState: EditorState, data?: { color?: string }) =>
+  setInlineStyleByType(editorState, RICOS_TEXT_HIGHLIGHT_TYPE, data?.color);
+
+const INLINE_STYLE_TO_OPPOSITE = {
+  bold: 'NOT_BOLD',
+  italic: 'NOT_ITALIC',
+};
+
+const INLINE_STYLE_TO_PROPERTY = {
+  bold: 'font-weight',
+  italic: 'font-style',
+};
+
+export const toggleInlineStyle = (editorState: EditorState, inlineStyle: InlineStyle) => {
+  const blockStyles = getBlockStyle(editorState);
+  if (['bold', 'italic'].includes(inlineStyle)) {
+    if (blockStyles?.[INLINE_STYLE_TO_PROPERTY[inlineStyle]] === inlineStyle) {
+      const shouldSetStyle =
+        getSelectionStyles(editorState, style => style === INLINE_STYLE_TO_OPPOSITE[inlineStyle])
+          .length === 0;
+      const newEditorState = removeCurrentInlineStyle(
+        editorState,
+        style =>
+          style === getDraftInlineStyle(inlineStyle) ||
+          style === INLINE_STYLE_TO_OPPOSITE[inlineStyle]
+      );
+      return shouldSetStyle
+        ? setInlineStyle(newEditorState, INLINE_STYLE_TO_OPPOSITE[inlineStyle])
+        : newEditorState;
+    }
+  }
+  return RichUtils.toggleInlineStyle(editorState, getDraftInlineStyle(inlineStyle));
+};
+
+const dynamicDecorationGetters = {
+  FG: (value: string) => {
+    return {
+      color: value,
+    };
+  },
+  BG: (value: string) => {
+    return {
+      'background-color': value,
+    };
+  },
+  'font-size': (value: string) => {
+    return {
+      'font-size': value,
+    };
+  },
+};
+
+export const getAnchorBlockInlineStyles = (editorState: EditorState) => {
+  const { dynamicStyles = {} } = getAnchorBlockData(editorState);
+  let inlineStyles = pick(dynamicStyles, ['line-height', 'padding-top', 'padding-bottom']);
+  const anchorKey = editorState.getSelection().getAnchorKey();
+  const block = editorState.getCurrentContent().getBlockForKey(anchorKey);
+  getBlockStyleRanges(block).forEach(range => {
+    const [key, value] = Object.entries(safeJsonParse(range.style) || { key: '' })?.[0];
+    inlineStyles = {
+      ...inlineStyles,
+      ...draftDecorationsToCss[range.style],
+      ...dynamicDecorationGetters[key]?.(value),
+    };
+  });
+  return inlineStyles;
+};

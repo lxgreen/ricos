@@ -36,7 +36,8 @@
             "text": "B",
             "decorations": [
               {
-                "type": "BOLD"
+                "type": "BOLD",
+                "fontWeightValue": 700
               }
             ]
           }
@@ -48,7 +49,8 @@
           "textData": {
             "text": "C",
             "decorations": [{
-              "type": "UNDERLINE"
+              "type": "UNDERLINE",
+              "underlineData": true
             }]
           }
         }
