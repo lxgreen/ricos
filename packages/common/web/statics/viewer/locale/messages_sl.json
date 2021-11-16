@@ -28,8 +28,10 @@
   "Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "Število oseb, ki so glasovale za ta odgovor: {{count}}",
   "CollapsibleListPlugin_ExpandButton_AriaLabel": "Element je razširjen",
   "Spoiler_Reveal_Video_Placeholder": "Ta videoposnetek vsebuje razkritje",
+  "Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
   "Preview_SeeFullPost_Label": "Ogled celotne objave",
   "UploadFile_Viewer_Download": "Prenos {{fileType}}",
   "VerticalEmbed_Units_Hour": "{{hours}}h",
-  "VerticalEmbed_Units_Minute": "{{minutes}} min"
+  "VerticalEmbed_Units_Minute": "{{minutes}} min",
+  "Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }
