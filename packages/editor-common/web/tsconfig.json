@@ -20,11 +20,15 @@
         "**/*.spec.tsx",
         "**/*.spec.js",
         "**/*.spec.jsx",
-        "__tests__"
+        "__tests__",
+        "**/dist/**/*.json"
     ],
-    "references": [{
-              "path": "../../common/web"
-          },{
-              "path": "../../ricos-content/web"
-          }]
+    "references": [
+        {
+            "path": "../../common/web"
+        },
+        {
+            "path": "../../ricos-content/web"
+        }
+    ]
 }

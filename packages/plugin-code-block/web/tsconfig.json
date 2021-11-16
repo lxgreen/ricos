@@ -6,6 +6,7 @@
     "files": [
         "../../../external-types.d.ts"
     ],
+    "skipLibCheck": true,
     "include": [
         "**/*.ts",
         "**/*.tsx",
@@ -22,11 +23,15 @@
         "**/*.spec.jsx",
         "__tests__"
     ],
-    "references": [{
-              "path": "../../plugin-commons/web"
-          },{
-              "path": "../../editor-common/web"
-          },{
-              "path": "../../common/web"
-          }]
+    "references": [
+        {
+            "path": "../../plugin-commons/web"
+        },
+        {
+            "path": "../../editor-common/web"
+        },
+        {
+            "path": "../../common/web"
+        }
+    ]
 }

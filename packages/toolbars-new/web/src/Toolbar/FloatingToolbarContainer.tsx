@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { PureComponent, ReactElement } from 'react';

@@ -3,7 +3,8 @@
   "strictFunctionTypes": false,
   "strict": false,
   "exclude": [
-    "node_modules",
+    "node_modules/**",
+    "**/node_modules/**",
     "**/dist/*",
     "**/*.e2e.ts",
     "**/*.spec.ts",

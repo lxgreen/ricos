@@ -20,7 +20,7 @@
         "**/*.spec.tsx",
         "**/*.spec.js",
         "**/*.spec.jsx",
-        "__tests__"
+        "__tests__",
     ],
     "references": []
 }
