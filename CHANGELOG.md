@@ -23,6 +23,8 @@
   - [#3121](https://github.com/wix/ricos/pull/3121) Fix new video modal style
 - `vertical-embed`
   - [#3123](https://github.com/wix/ricos/pull/3123) bug fix scroll to selected item
+- `ricos-content`
+  - [#3124](https://github.com/wix/ricos/pull/3124) external type in fromDraft/toDraft
 
 </details>
 <hr/>
