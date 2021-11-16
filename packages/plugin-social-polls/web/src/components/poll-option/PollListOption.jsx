@@ -27,7 +27,7 @@ export class PollListOption extends PollOptionBase {
 
   renderViewMode() {
     const { design, option, showResults, dark, t } = this.props;
-    const { loading } = this.state;
+    const { loading, checked } = this.state;
 
     const style = this.getCustomStyle();
 
@@ -41,6 +41,11 @@ export class PollListOption extends PollOptionBase {
         style={design.option}
         onClick={this.handleVoteClick}
         onKeyPress={this.handleVoteClick}
+        aria-label={
+          checked
+            ? t('Poll_Viewer_Option_AriaLabel_Checked')
+            : t('Poll_Viewer_Option_AriaLabel_Unchecked')
+        }
         tabIndex={0}
         role="button"
       >
