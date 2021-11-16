@@ -34,7 +34,7 @@
       text-overflow: ellipsis;
       text-decoration: none;
     }
-    
+
     &:hover {
       button {
         background-color: unset;
@@ -78,7 +78,8 @@
     outline: 5px auto Highlight !important;
     outline: 5px auto -webkit-focus-ring-color !important;
   }
-  &:disabled, &.disabled {
+  &:disabled,
+  &.disabled {
     cursor: default;
     opacity: 0.4;
   }
@@ -132,4 +133,9 @@
     width: unset;
     height: unset;
   }
+}
+
+.toolbarLabelUpdate {
+  position: absolute;
+  right: 15px;
 }

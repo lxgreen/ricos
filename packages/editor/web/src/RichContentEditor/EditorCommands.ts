@@ -68,10 +68,14 @@ const triggerDecorationsMap = {
   [RICOS_MENTION_TYPE]: triggerMention,
 };
 
-const setFontSizeWithColor = (editorState: EditorState, data?: { fontSize?: string }) => {
+const setFontSizeWithColor = (
+  editorState: EditorState,
+  data?: { fontSize?: string },
+  getDocumentStyle?: unknown
+) => {
   const highlightColor = getColor(editorState, RICOS_TEXT_HIGHLIGHT_TYPE);
   if (highlightColor !== undefined) {
-    return setHighlightColor(setFontSize(setHighlightColor(editorState), data), {
+    return setHighlightColor(setFontSize(setHighlightColor(editorState), data, getDocumentStyle), {
       color: highlightColor,
     });
   }
@@ -83,9 +87,13 @@ const insertDecorationsMap = {
   [RICOS_MENTION_TYPE]: insertMention,
   [RICOS_TEXT_COLOR_TYPE]: setTextColor,
   [RICOS_TEXT_HIGHLIGHT_TYPE]: setHighlightColor,
-  [RICOS_FONT_SIZE_TYPE]: (editorState: EditorState, data?: { fontSize?: string }) => {
-    const editorStateWithColor = setFontSizeWithColor(editorState, data); // draft highlight <-> font size mismatch bug fix
-    return editorStateWithColor || setFontSize(editorState, data);
+  [RICOS_FONT_SIZE_TYPE]: (
+    editorState: EditorState,
+    data?: { fontSize?: string },
+    getDocumentStyle?: unknown
+  ) => {
+    const editorStateWithColor = setFontSizeWithColor(editorState, data, getDocumentStyle); // draft highlight <-> font size mismatch bug fix
+    return editorStateWithColor || setFontSize(editorState, data, getDocumentStyle);
   },
   [RICOS_INDENT_TYPE]: indentSelectedBlocks,
   [RICOS_LINE_SPACING_TYPE]: mergeBlockData,
@@ -110,7 +118,9 @@ export const createEditorCommands = (
   experiments?: AvailableExperiments
 ): EditorCommands => {
   const setBlockType: EditorCommands['setBlockType'] = type => {
-    setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
+    const editorState = getEditorState();
+    getBlockType(editorState) !== type &&
+      setEditorState(RichUtils.toggleBlockType(editorState, type));
   };
 
   const _setSelection: EditorCommands['_setSelection'] = (blockKey, selection) =>
@@ -235,7 +245,7 @@ export const createEditorCommands = (
     undo: () => setEditorState(undo(getEditorState())),
     redo: () => setEditorState(redo(getEditorState())),
     toggleInlineStyle: inlineStyle =>
-      setEditorState(toggleInlineStyle(getEditorState(), inlineStyle)),
+      setEditorState(toggleInlineStyle(getEditorState(), inlineStyle, documentStyleGetter)),
     setBlockType,
     setTextAlignment: textAlignment =>
       setEditorState(setTextAlignment(getEditorState(), textAlignment)),
@@ -289,7 +299,11 @@ export const createEditorCommands = (
       const draftType = TO_DRAFT_PLUGIN_TYPE_MAP[type];
       const { [draftType]: createPluginData } = createPluginsDataMap;
       const pluginData = createPluginData ? createPluginData(data, settings?.isRicosSchema) : data;
-      const newEditorState = insertDecorationsMap[type]?.(getEditorState(), pluginData);
+      const newEditorState = insertDecorationsMap[type]?.(
+        getEditorState(),
+        pluginData,
+        documentStyleGetter
+      );
       if (newEditorState) {
         setEditorState(newEditorState);
       }

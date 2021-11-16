@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+- `plugin-headings toolbars-new`
+  - [#2987](https://github.com/wix/ricos/pull/2987) `allowHeadingCustomization` prop enables headings customization modal in the new formatting toolbar
 ### :bug: Bug Fix
 
 - `vertical-embed`

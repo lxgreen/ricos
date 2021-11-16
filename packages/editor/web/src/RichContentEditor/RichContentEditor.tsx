@@ -687,7 +687,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
 
   updateEditorState = (editorState: EditorState) => {
     const undoRedoStackChanged = this.didUndoRedoStackChange(editorState);
-    this.updateDocumentStyle(editorState);
+    !this.props.isInnerRCE && this.updateDocumentStyle(editorState);
     this.setState({ editorState, undoRedoStackChanged }, () => {
       this.handleCallbacks(this.state.editorState, this.props.helpers);
       this.props.onChange?.(this.state.editorState);
