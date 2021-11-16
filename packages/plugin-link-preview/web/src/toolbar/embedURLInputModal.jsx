@@ -55,7 +55,7 @@ export default class EmbedURLInputModal extends Component {
         t={t}
         languageDir={languageDir}
         title={t(`EmbedURL_Social_${socialType}_Title`)}
-        saveLabel={t('VideoModal_Embed_ButtonText')}
+        saveLabel={t('Embed_Add_Button_Label')}
         submittedInvalidUrl={submittedInvalidUrl}
         dataHook={'socialEmbedUploadModal'}
         onInputChange={url => this.setState({ url })}

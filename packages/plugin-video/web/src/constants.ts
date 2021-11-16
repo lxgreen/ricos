@@ -7,7 +7,7 @@ const modalContentStyles: React.CSSProperties = {
 };
 
 export const videoModalContentStyles: React.CSSProperties = {
-  height: 230,
+  height: 232,
   ...modalContentStyles,
 };
 
