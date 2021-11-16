@@ -28,8 +28,10 @@
   "Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "{{count}} души гласуваха за този отговор",
   "CollapsibleListPlugin_ExpandButton_AriaLabel": "Елементът е разширен",
   "Spoiler_Reveal_Video_Placeholder": "Това видео съдържа спойлер",
+  "Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
   "Preview_SeeFullPost_Label": "Вижте пълната публикация",
   "UploadFile_Viewer_Download": "Изтегляне на {{fileType}}",
   "VerticalEmbed_Units_Hour": "{{hours}}ч.",
-  "VerticalEmbed_Units_Minute": "{{minutes}}мин."
+  "VerticalEmbed_Units_Minute": "{{minutes}}мин.",
+  "Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }
