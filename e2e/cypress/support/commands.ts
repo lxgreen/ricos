@@ -218,14 +218,18 @@ const COMMANDS = {
     cy.get(`[data-hook="${COLOR_PICKER.RESET_COLOR}"]`).click();
   },
 
-  setTextColor: (selection: [number, number], color: string) => {
+  setTextColor: (selection: [number, number], option: number) => {
     cy.setTextStyle(INLINE_TOOLBAR_BUTTONS.COLOR, selection);
-    cy.get(`[data-scheme-color="${color}"]`).click();
+    cy.get(`[data-hook="modal-option"]`)
+      .eq(option)
+      .click();
   },
 
-  setHighlightColor: (selection: [number, number], color: string) => {
+  setHighlightColor: (selection: [number, number], option: number) => {
     cy.setTextStyle(INLINE_TOOLBAR_BUTTONS.HIGHTLIGHT, selection);
-    cy.get(`[data-scheme-color="${color}"]`).click();
+    cy.get(`[data-hook="modal-option"]`)
+      .eq(option)
+      .click();
   },
 
   increaseIndent: (selection: [number, number]) => {

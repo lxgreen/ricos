@@ -622,16 +622,16 @@ describe('plugins', () => {
     after(() => cy.eyesClose());
 
     it('allow to color text', function() {
-      cy.loadRicosEditorAndViewer()
+      cy.loadRicosEditorAndViewer('', useNewToolbar)
         .enterParagraphs(['Color.'])
-        .setTextColor([0, 5], 'color4');
+        .setTextColor([0, 5], 4);
       cy.eyesCheckWindow(this.test.title);
     });
 
     it('allow to highlight text', function() {
-      cy.loadRicosEditorAndViewer()
+      cy.loadRicosEditorAndViewer('', useNewToolbar)
         .enterParagraphs(['Highlight.'])
-        .setHighlightColor([0, 9], 'color4');
+        .setHighlightColor([0, 9], 4);
       cy.eyesCheckWindow(this.test.title);
     });
   });
