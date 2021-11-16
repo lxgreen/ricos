@@ -26,6 +26,13 @@
 </details>
 <hr/>
 
+## 8.60.2 (Nov 16, 2021)
+
+### :house: Internal
+
+- `ricos-content`
+  - [#3117](https://github.com/wix/ricos/pull/3117) export convert function
+
 ## 8.60.1 (Nov 15, 2021)
 
 ### :bug: Bug Fix
