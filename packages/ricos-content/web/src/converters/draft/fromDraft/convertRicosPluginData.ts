@@ -21,6 +21,7 @@ import {
   GIPHY_TYPE,
   WRAP,
   NO_WRAP,
+  EXTERNAL,
 } from '../../../consts';
 import {
   PluginContainerData_Spoiler,
@@ -42,6 +43,7 @@ import {
 import { createLink } from '../../nodeUtils';
 import toConstantCase from 'to-constant-case';
 import { DraftGalleryStyles } from '../consts';
+import { convertJsonToStruct } from './convertJsonToStruct';
 
 export const convertBlockDataToRicos = (type: string, data) => {
   const newData = cloneDeep(data);
@@ -64,12 +66,13 @@ export const convertBlockDataToRicos = (type: string, data) => {
     [LINK_TYPE]: convertLinkData,
     [TABLE_TYPE]: convertTableData,
     [GALLERY_TYPE]: convertGalleryData,
+    [EXTERNAL]: convertExternalData,
   };
   let blockType = type;
   if (type === LINK_PREVIEW_TYPE && data.html) {
     blockType = EMBED_TYPE;
   }
-  if (newData.config) {
+  if (newData.config && blockType !== EXTERNAL) {
     convertContainerData(newData, blockType);
   }
   if (blockType in converters) {
@@ -189,6 +192,10 @@ const convertDividerData = (data: {
   has(data, 'config.size') && (data.width = data.config?.size?.toUpperCase());
   has(data, 'config.alignment') && (data.alignment = data.config?.alignment?.toUpperCase());
   data.containerData.width = { size: PluginContainerData_Width_Type.CONTENT };
+};
+
+const convertExternalData = data => {
+  data.fields = convertJsonToStruct(data).fields;
 };
 
 const convertImageData = (data: {

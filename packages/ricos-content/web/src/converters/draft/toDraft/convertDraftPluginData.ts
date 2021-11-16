@@ -17,6 +17,7 @@ import {
   GalleryData,
   GIFData,
   CollapsibleListData_InitialExpandedItems,
+  Struct,
 } from 'ricos-schema';
 import { cloneDeep, has, merge } from 'lodash';
 import toCamelCase from 'to-camel-case';
@@ -31,6 +32,7 @@ import { WRAP, NO_WRAP } from '../../../consts';
 import { ComponentData, FileComponentData } from '../../../types';
 import { parseLink } from '../../nodeUtils';
 import { toDraft } from './toDraft';
+import { convertStructToJson } from './convertStructToJson';
 
 export const convertNodeToDraftData = (node: Node) => {
   const { type } = node;
@@ -70,6 +72,7 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data, nodes?: Node[]
     [Node_Type.EMBED]: convertEmbedData,
     [Node_Type.GALLERY]: convertGalleryData,
     [Node_Type.TABLE]: convertTableData,
+    [Node_Type.EXTERNAL]: convertExternalData,
   };
   if (newData.containerData) {
     convertContainerData(newData, nodeType);
@@ -143,6 +146,14 @@ const convertVideoData = (data: VideoData & { src; metadata; title? }) => {
   delete data.video;
   delete data.title;
   delete data.thumbnail;
+};
+
+const convertExternalData = (data: Struct) => {
+  const draftData = convertStructToJson(data);
+  Object.entries(draftData).forEach(([k, v]) => {
+    data[k] = v;
+  });
+  delete data.fields;
 };
 
 const convertDividerData = (
