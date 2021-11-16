@@ -263,16 +263,6 @@ describe('text', () => {
     cy.eyesCheckWindow(this.test.title);
   });
 
-  it('should apply headings', function() {
-    const testAppConfig = {
-      ...useNewToolbar,
-      ...usePlugins(plugins.headings),
-    };
-    cy.loadRicosEditorAndViewer('plain', testAppConfig);
-    cy.setHeading(3, [10, 50]).blurEditor();
-    cy.eyesCheckWindow(this.test.title);
-  });
-
   context('indentation', () => {
     const testAppConfig = {
       ...useNewToolbar,

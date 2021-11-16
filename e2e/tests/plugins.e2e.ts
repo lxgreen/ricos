@@ -547,6 +547,7 @@ describe('plugins', () => {
 
     const testAppConfig = {
       ...usePlugins(plugins.headings),
+      ...useNewToolbar,
       ...usePluginsConfig({
         headings: {
           customHeadings: ['P', 'H2', 'H3'],
@@ -554,23 +555,25 @@ describe('plugins', () => {
       }),
     };
 
-    function setHeader(number, selection) {
-      cy.setTextStyle('headingsDropdownButton', selection)
-        .get(`[data-hook=headingsDropdownPanel] > :nth-child(${number})`)
-        .click()
-        .wait(500);
-    }
+    // function setHeader(number, selection) {
+    //   cy.setTextStyle('headingsDropdownButton', selection)
+    //     .get(`[data-hook=headingsDropdownPanel] > :nth-child(${number})`)
+    //     .click()
+    //     .wait(500);
+    // }
 
     function testHeaders(config) {
       cy.loadRicosEditorAndViewer('empty', config).enterParagraphs([
         'Leverage agile frameworks',
         'to provide a robust synopsis for high level overviews.',
       ]);
-      setHeader(3, [0, 24]);
+      // setHeader(3, [0, 24]);
+      cy.setHeading(3, [0, 24]);
       cy.eyesCheckWindow('change heading type');
-      setHeader(2, [28, 40]);
-      cy.setTextStyle('headingsDropdownButton', [28, 40]);
+      // setHeader(2, [28, 40]);
+      cy.setHeading(2, [0, 24]);
       cy.eyesCheckWindow('change heading type');
+      // cy.setTextStyle('headingsDropdownButton', [28, 40]);
     }
 
     after(() => cy.eyesClose());
@@ -580,7 +583,7 @@ describe('plugins', () => {
     });
 
     it('Change headers - without customHeadings config', () => {
-      testHeaders(usePlugins(plugins.headings));
+      testHeaders({ ...usePlugins(plugins.headings), ...useNewToolbar });
     });
   });
 
