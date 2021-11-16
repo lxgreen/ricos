@@ -8,7 +8,6 @@ import { alignmentsModalData as alignments } from '../../Toolbar/buttonsListCrea
 
 const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, ...props }) => {
   const panelHeader = t('Alignment');
-  const hasIcons = true;
   const onChange = (alignment, clickFromKeyboard) => {
     props?.onToolbarButtonClick?.(alignment);
     onSave({ data: alignment, clickFromKeyboard });
@@ -21,7 +20,6 @@ const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, ...props })
         panelHeader,
         options: alignments,
         onChange,
-        hasIcons,
         t,
       }}
     />

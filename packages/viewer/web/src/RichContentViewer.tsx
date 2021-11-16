@@ -33,6 +33,7 @@ import {
   GALLERY_TYPE,
   VIDEO_TYPE,
   createJustificationFixDecorator,
+  DocumentStyle,
 } from 'wix-rich-content-common';
 import draftDefaultStyles from 'wix-rich-content-common/dist/statics/styles/draftDefault.rtlignore.scss';
 import { convertToReact } from './utils/convertContentState';
@@ -76,6 +77,7 @@ export interface RichContentViewerProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setRef?: React.RefObject<any>;
   onMouseOver?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  documentStyle?: DocumentStyle;
   /** This is a legacy API, changes should be made also in the new Ricos Viewer API **/
 }
 
@@ -286,7 +288,8 @@ class RichContentViewer extends Component<
         initSpoilers,
         SpoilerViewerWrapper,
         { addAnchors },
-        innerRCEViewerProps
+        innerRCEViewerProps,
+        this.props.documentStyle
       );
 
       const dataId = isInnerRcv ? {} : { 'data-id': 'rich-content-viewer' };

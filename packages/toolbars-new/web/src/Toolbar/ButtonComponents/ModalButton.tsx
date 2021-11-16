@@ -29,6 +29,8 @@ type dropDownPropsType = {
   onDelete?: () => void;
   loadSelection?: () => void;
   isInput: boolean;
+  useIconOnMobile?: boolean;
+  closeOnChange?: boolean;
 };
 
 interface ModalButtonProps {
@@ -154,9 +156,10 @@ class ModalButton extends Component<ModalButtonProps, State> {
 
   onChange = (...args: [any]) => {
     const {
-      dropDownProps: { onChange },
+      dropDownProps: { onChange, closeOnChange },
     } = this.props;
     onChange?.(...args);
+    closeOnChange && this.closeModal();
   };
 
   onClickOutside = e => {
@@ -182,9 +185,11 @@ class ModalButton extends Component<ModalButtonProps, State> {
       getLabel,
       isInput,
       isMobileModalFullscreen = false,
+      useIconOnMobile,
     } = dropDownProps;
     const { isModalOpen, isModalOverflowByHeight, overflowWidthBy } = this.state;
-    const buttonProps = arrow && getLabel ? { buttonContent: getLabel() } : { icon: getIcon() };
+    const shouldRenderText = arrow && getLabel && !(isMobile && useIconOnMobile);
+    const buttonProps = shouldRenderText ? { buttonContent: getLabel?.() } : { icon: getIcon() };
     const onModalWrapperClick =
       isMobile && !isMobileModalFullscreen ? () => this.closeModal() : undefined;
     const toolbarButtonProps = {
