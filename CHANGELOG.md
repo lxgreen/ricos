@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `vertical-embed`
+  - [#3123](https://github.com/wix/ricos/pull/3123) bug fix scroll to selected item
+
 </details>
 <hr/>
 
