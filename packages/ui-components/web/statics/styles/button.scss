@@ -6,8 +6,10 @@
   font-size: 16px;
   cursor: pointer;
   border: 1px solid $settings-action-color-fallback;
+  border-radius: $settings-inputs-border-radius;
   width: 100%;
   font-family: $ricos-font-family;
+  color: $settings-buttons-text-color;
   &.borderLess {
     border: none;
   }
@@ -22,7 +24,6 @@
 
 .button_primary {
   @extend %button;
-  color: #fff;
   background-color: $settings-action-color-fallback;
 
   &:hover:not([disabled]) {

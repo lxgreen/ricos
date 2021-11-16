@@ -614,8 +614,10 @@
 	"Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "{{count}} personer stemte på dette svaret",
 	"CollapsibleListPlugin_ExpandButton_AriaLabel": "Element er utvidet",
 	"Spoiler_Reveal_Video_Placeholder": "Denne videoen inneholder en spoiler",
+	"Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
 	"Preview_SeeFullPost_Label": "Se hele innlegget",
 	"UploadFile_Viewer_Download": "Last ned {{fileType}}",
 	"VerticalEmbed_Units_Hour": "{{hours}}t",
-	"VerticalEmbed_Units_Minute": "{{minutes}}min"
+	"VerticalEmbed_Units_Minute": "{{minutes}}min",
+	"Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }

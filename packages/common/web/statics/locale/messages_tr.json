@@ -614,8 +614,10 @@
 	"Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "{{count}} kişi bu yanıt için oy verdi",
 	"CollapsibleListPlugin_ExpandButton_AriaLabel": "Öge genişletildi",
 	"Spoiler_Reveal_Video_Placeholder": "Bu video, spoiler içerir",
+	"Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
 	"Preview_SeeFullPost_Label": "Tamamını görüntüle",
 	"UploadFile_Viewer_Download": "{{fileType}} dosyasını indir",
 	"VerticalEmbed_Units_Hour": "{{hours}} sa.",
-	"VerticalEmbed_Units_Minute": "{{minutes}} dk."
+	"VerticalEmbed_Units_Minute": "{{minutes}} dk.",
+	"Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }

@@ -614,8 +614,10 @@
 	"Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "คนโหวตให้คำตอบนี้ {{count}} คน",
 	"CollapsibleListPlugin_ExpandButton_AriaLabel": "รายการเผยแล้ว",
 	"Spoiler_Reveal_Video_Placeholder": "วิดีโอนี้มีการสปอยล์",
+	"Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
 	"Preview_SeeFullPost_Label": "ดูโพสต์ฉบับเต็ม",
 	"UploadFile_Viewer_Download": "ดาวน์โหลด {{fileType}}",
 	"VerticalEmbed_Units_Hour": "{{hours}} ชม.",
-	"VerticalEmbed_Units_Minute": "{{minutes}} นาที"
+	"VerticalEmbed_Units_Minute": "{{minutes}} นาที",
+	"Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }
