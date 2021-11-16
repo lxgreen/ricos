@@ -28,8 +28,10 @@
   "Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "{{count}} persones han votat per aquesta resposta",
   "CollapsibleListPlugin_ExpandButton_AriaLabel": "L'element està ampliat",
   "Spoiler_Reveal_Video_Placeholder": "Aquest vídeo conté un espòiler",
+  "Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
   "Preview_SeeFullPost_Label": "Mostra l'entrada completa",
   "UploadFile_Viewer_Download": "Baixa {{fileType}}",
   "VerticalEmbed_Units_Hour": "{{hours}} h",
-  "VerticalEmbed_Units_Minute": "{{minutes}} min"
+  "VerticalEmbed_Units_Minute": "{{minutes}} min",
+  "Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }
