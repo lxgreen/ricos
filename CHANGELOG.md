@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.61.1 (Nov 16, 2021)
+
 ### :bug: Bug Fix
 
 - `social-polls`
   - [#3122](https://github.com/wix/ricos/pull/3122) Polls a11y
-
-</details>
-<hr/>
 
 ## 8.61.0 (Nov 16, 2021)
 
