@@ -26,6 +26,8 @@
 
 - `general`
   - [#3119](https://github.com/wix/ricos/pull/3119) Fix font-family and color wiring on modals
+- `video/ui-components`
+  - [#3127](https://github.com/wix/ricos/pull/3127) Fix language dir and input border radius
 
 ### :house: Internal
 
