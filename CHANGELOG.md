@@ -17,15 +17,23 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.61.4 (Nov 17, 2021)
+
 ### :bug: Bug Fix
 
 - `general`
   - [#3119](https://github.com/wix/ricos/pull/3119) Fix font-family and color wiring on modals
 
-</details>
-<hr/>
+### :house: Internal
+
+- `*`
+  - [#3061](https://github.com/wix/ricos/pull/3061) RichContent ID
 
 ## 8.61.3 (Nov 17, 2021)
+
 ### :bug: Bug Fix
 
 - `headings`
