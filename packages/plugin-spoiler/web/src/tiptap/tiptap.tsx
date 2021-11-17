@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from 'react';
 import { CreateRicosExtensions } from 'wix-tiptap-editor';
 import { BlockSpoilerComponent } from '..';

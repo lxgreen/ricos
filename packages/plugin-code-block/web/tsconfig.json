@@ -6,7 +6,6 @@
     "files": [
         "../../../external-types.d.ts"
     ],
-    "skipLibCheck": true,
     "include": [
         "**/*.ts",
         "**/*.tsx",
