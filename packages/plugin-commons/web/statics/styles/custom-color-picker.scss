@@ -1,6 +1,6 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette.scss';
 @import '~wix-rich-content-common/dist/statics/styles/mixins.scss';
-
+@import '~wix-rich-content-common/dist/statics/styles/fonts.scss';
 
 .customColorPicker_editable_input_container {
   margin: 12px auto;
@@ -42,7 +42,9 @@
     width: 75%;
   }
 }
-
+// $settings-inputs-border-color: var(--ricos-settings-inputs-border-color, #000000);
+// $settings-inputs-border-radius: var(--ricos-settings-inputs-border-radius, 0px);
+// $settings-inputs-placeholder-color: var(--ricos-settings-inputs-placeholder-color, #000000);
 .customColorPicker_currentColor {
   width: 20px;
   padding: 0;
@@ -63,7 +65,12 @@
   height: 100%;
   box-sizing: border-box;
   font-size: inherit;
-  font-family: inherit;
+  font-family: $ricos-settings-font-family;
+  border-color: $settings-inputs-border-color;
+  border-radius: $settings-inputs-border-radius;
+  &::placeholder {
+    color: $settings-inputs-placeholder-color;
+  }
   .mobile & {
     padding-left: 32px;
   }

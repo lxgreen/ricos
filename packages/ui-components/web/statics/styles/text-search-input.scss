@@ -20,7 +20,7 @@
   border-radius: $settings-inputs-border-radius;
 
   &::placeholder {
-    color: rgba(0, 0, 0, 0.6);
+    color: $settings-inputs-placeholder-color;
   }
   &:focus,
   &:hover {
