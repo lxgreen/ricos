@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `general`
+  - [#3119](https://github.com/wix/ricos/pull/3119) Fix font-family and color wiring on modals
 
 </details>
 <hr/>

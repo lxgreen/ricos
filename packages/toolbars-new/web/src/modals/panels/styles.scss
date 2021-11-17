@@ -1,5 +1,6 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
 
 .desktopPanel {
   display: flex;
@@ -9,6 +10,7 @@
   width: 143px;
 
   .showCustomPanel_button {
+    font-family: $ricos-default-font-family;
     height: 36px;
     width: 100%;
     background-color: transparent;
@@ -101,6 +103,9 @@
   &.panel_selectedRow {
     @extend %active;
     color: $settings-action-color-fallback;
+  }
+  &:not(.panel_selectedRow) {
+    color: #000;
   }
   @include phone {
     width: 100%;
@@ -268,4 +273,29 @@
   right: 0;
   background-color: transparent;
   z-index: 40;
+}
+
+.mobile_contentWrapper_withIcon {
+  height: 100%;
+  @extend %mobilePanel_AlignContent;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  height: 100%;
+  :nth-child(1) {
+    max-width: 12px;
+    display: inherit;
+    align-items: center;
+  }
+}
+
+.mobile_contentWrapper {
+  height: 100%;
+  * {
+    @extend %mobilePanel_AlignContent;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
 }
