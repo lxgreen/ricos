@@ -1,5 +1,6 @@
 import { cloneDeep, mapValues, isEmpty } from 'lodash';
 import { processContentState } from './processContentState';
+import { v4 as uuid } from 'uuid';
 import {
   IMAGE_TYPE,
   VIDEO_TYPE,
@@ -172,6 +173,7 @@ export default (content: DraftContent, config: NormalizeConfig = {}): DraftConte
     blocks,
     entityMap: normalizeEntityMap(entityMap, config, content.VERSION || '0.0.0'),
     VERSION,
+    ID: content.ID || uuid(),
   };
   if (!isEmpty(documentStyle)) {
     contentState.documentStyle = documentStyle;

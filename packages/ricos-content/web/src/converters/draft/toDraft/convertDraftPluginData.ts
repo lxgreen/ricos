@@ -441,8 +441,8 @@ const convertCollapsibleListData = (
   };
   data.config = { ...data.config, ...config };
   data.pairs = nodes.map(node => {
-    const { VERSION: _, ...title } = toDraft(node.nodes[0]);
-    const { VERSION: __, ...content } = toDraft(node.nodes[1]);
+    const { VERSION: _, ID: __, ...title } = toDraft(node.nodes[0]);
+    const { VERSION: ___, ID: ____, ...content } = toDraft(node.nodes[1]);
     return {
       key: node.id,
       title,
@@ -590,7 +590,7 @@ const convertTableData = (
   nodes.forEach((row, i) => {
     rows[i] = { columns: {} };
     row.nodes.forEach((cell, j) => {
-      const { VERSION: _, ...content } = toDraft(cell);
+      const { VERSION: _, ID: __, ...content } = toDraft(cell);
       const { cellStyle = {}, borderColors = {} } = cell.tableCellData || {};
       rows[i].columns[j] = {
         content,

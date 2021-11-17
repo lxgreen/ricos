@@ -88,16 +88,12 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
     ) => console.log(eventName, params);
     this.helpers = {
       //these are for testing purposes only
-      onPluginAdd: async (plugin_id, entry_point, version) =>
-        console.log('biPluginAdd', plugin_id, entry_point, version),
+      onPluginAdd: async (...args) => console.log('biPluginAdd', ...args),
       onPluginAddStep: async params => console.log('onPluginAddStep', params),
-      onPluginAddSuccess: async (plugin_id, entry_point, params, version) =>
-        console.log('biPluginAddSuccess', plugin_id, entry_point, params, version),
+      onPluginAddSuccess: async (...args) => console.log('biPluginAddSuccess', ...args),
       onPluginDelete: async params => console.log('biPluginDelete', params),
-      onPluginChange: async (plugin_id, changeObj, version) =>
-        console.log('biPluginChange', plugin_id, changeObj, version),
-      onPublish: async (postId, pluginsCount, pluginsDetails, version) =>
-        console.log('biOnPublish', postId, pluginsCount, pluginsDetails, version),
+      onPluginChange: async (...args) => console.log('biPluginChange', ...args),
+      onPublish: async (...args) => console.log('biOnPublish', ...args),
       onOpenEditorSuccess: async (...args) => console.log('onOpenEditorSuccess', ...args),
       onContentEdited: async params => console.log('onContentEdited', params),
       onToolbarButtonClick: async params => console.log('onToolbarButtonClick', params),

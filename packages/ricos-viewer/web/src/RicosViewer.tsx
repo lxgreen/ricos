@@ -65,6 +65,7 @@ export class RicosViewer extends Component<RicosViewerProps, State> {
       version: Version.currentVersion,
       pluginsCount,
       url: document.URL,
+      contentId: content.ID,
     });
   }
 

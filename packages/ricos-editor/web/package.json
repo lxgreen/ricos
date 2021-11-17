@@ -44,6 +44,7 @@
     "react-dom": "^16.13.1"
   },
   "dependencies": {
+    "uuid": "^3.4.0",
     "react-modal": "~3.4.1",
     "ricos-common": "8.61.3",
     "ricos-schema": "8.61.3",

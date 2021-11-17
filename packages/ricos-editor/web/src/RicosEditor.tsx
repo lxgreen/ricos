@@ -32,7 +32,7 @@ import {
   EditorEvents,
 } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
 import { ToolbarType, Version, RicosTranslate, getLangDir } from 'wix-rich-content-common';
-import { emptyDraftContent, getEditorContentSummary } from 'wix-rich-content-editor-common';
+import { getEmptyDraftContent, getEditorContentSummary } from 'wix-rich-content-editor-common';
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
 import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
 import { getBiFunctions } from './toolbars/utils/biUtils';
@@ -130,7 +130,12 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     const { useStaticTextToolbar } = toolbarSettings || {};
     this.getBiCallback('onOpenEditorSuccess')?.(
       Version.currentVersion,
-      isMobile ? ToolbarType.MOBILE : useStaticTextToolbar ? ToolbarType.STATIC : ToolbarType.INLINE
+      isMobile
+        ? ToolbarType.MOBILE
+        : useStaticTextToolbar
+        ? ToolbarType.STATIC
+        : ToolbarType.INLINE,
+      this.getContentID()
     );
     this.props.editorEvents?.subscribe(EditorEvents.RICOS_PUBLISH, this.onPublish);
   }
@@ -174,7 +179,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     }
     const contentState = this.dataInstance.getContentState();
     const { pluginsCount, pluginsDetails } = getEditorContentSummary(contentState) || {};
-    onPublish(postId, pluginsCount, pluginsDetails, Version.currentVersion);
+    onPublish(postId, pluginsCount, pluginsDetails, Version.currentVersion, this.getContentID());
   };
 
   onPublish = async () => {
@@ -212,7 +217,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   onInitialContentChanged = () => {
     const { initialContentChanged } = this.state;
     if (initialContentChanged) {
-      this.getBiCallback('onContentEdited')?.({ version: Version.currentVersion });
+      const contentId = this.getContentID();
+      this.getBiCallback('onContentEdited')?.({ version: Version.currentVersion, contentId });
       this.setState({ initialContentChanged: false });
     }
   };
@@ -293,6 +299,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   getT = () => this.editor.getT();
 
+  getContentID = () => this.dataInstance.getContentState().ID;
+
   renderToolbarPortal(Toolbar) {
     return (
       <StaticToolbarPortal
@@ -359,7 +367,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       : useStaticTextToolbar
       ? ToolbarType.STATIC
       : ToolbarType.INLINE;
-    const biFunctions = helpers && getBiFunctions(helpers);
+    const biFunctions = helpers && getBiFunctions(helpers, this.getContentID());
     const toolbarsProps = {
       textToolbarType,
       isMobile,
@@ -441,7 +449,9 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     const { RicosTiptapEditor, RichContentAdapter, draftToTiptap } = tiptapEditorModule;
     const { content, injectedContent, plugins } = this.props;
     const { tiptapToolbar } = this.state;
-    const initialContent = draftToTiptap(content ?? injectedContent ?? emptyDraftContent);
+    // TODO: Enforce Content ID's existance (or generate it)
+    // when tiptap will eventually be released (ask @Barackos, @talevy17)
+    const initialContent = draftToTiptap(content ?? injectedContent ?? getEmptyDraftContent());
     const { localeData } = this.state;
     const { locale, localeResource } = localeData;
     const extensions =

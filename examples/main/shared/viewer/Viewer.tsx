@@ -67,9 +67,9 @@ export default class Viewer extends PureComponent<ExampleViewerProps, ExampleVie
     const { disabled } = this.state;
     const helpers = {
       // This is for debugging only
-      onViewerAction: async (pluginId, actionName, value) =>
+      onViewerAction: async (...args) =>
         // eslint-disable-next-line no-console
-        console.log('onViewerAction', pluginId, actionName, value),
+        console.log('onViewerAction', ...args),
       // eslint-disable-next-line no-console
       onViewerLoaded: async (...args) => console.log('onViewerLoaded', ...args),
     };

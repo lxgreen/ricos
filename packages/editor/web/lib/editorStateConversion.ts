@@ -7,10 +7,22 @@ import {
 } from '@wix/draft-js';
 import { COLLAPSIBLE_LIST_TYPE, TABLE_TYPE, SOUND_CLOUD_TYPE, VIDEO_TYPE } from 'ricos-content';
 import { version } from '../package.json';
+import { v4 as uuid } from 'uuid';
 
-const addVersion = (obj, version) => {
+const addVersion = (obj, version: string): typeof obj => {
   obj.VERSION = version;
   return obj;
+};
+
+const addID = (obj, id?: string): typeof obj => {
+  obj.ID = id;
+  return obj;
+};
+
+const addMetadata = (obj, version: string, id?: string): typeof obj => {
+  let newObj = addVersion(obj, version);
+  newObj = addID(obj, id);
+  return newObj;
 };
 
 const fixBlockDataImmutableJS = contentState => {
@@ -164,29 +176,32 @@ const addDocumentStyle = (obj, documentStyle) => {
 };
 
 const convertToRaw = ContentState =>
-  addVersion(
+  addMetadata(
     addDocumentStyle(
       fixBlockDataImmutableJS(entityMapDataFixer(toRaw(ContentState), entityFixersToRaw)),
       ContentState.documentStyle
     ),
-    version
+    version,
+    ContentState.ID
   );
 
 const convertFromRaw = rawState =>
-  addVersion(
+  addMetadata(
     addDocumentStyle(
       fromRaw(entityMapDataFixer(rawState, entityFixersFromRaw)),
       rawState.documentStyle
     ),
-    rawState.VERSION
+    rawState.VERSION,
+    rawState.ID
   );
 
-const createEmpty = () => addVersion(EditorState.createEmpty(), version);
+const createEmpty = () => addMetadata(EditorState.createEmpty(), version, uuid());
 const createEmptyContent = () => createEmpty().getCurrentContent();
 const createWithContent = contentState =>
-  addVersion(
+  addMetadata(
     addDocumentStyle(EditorState.createWithContent(contentState), contentState.documentStyle),
-    contentState.VERSION
+    contentState.VERSION,
+    contentState.ID
   );
 
 export {

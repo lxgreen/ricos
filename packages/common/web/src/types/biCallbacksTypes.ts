@@ -3,6 +3,7 @@ import { OnPluginAction } from './pluginsBiCallbacksTypes';
 import { getContentSummary } from '../Utils/contentAnalytics';
 interface biCallbackParams {
   version?: string;
+  contentId?: string;
 }
 
 export type PluginAddParams =
@@ -95,12 +96,13 @@ export interface onKeyboardShortcutActionArgs extends biCallbackParams {
 }
 
 export interface BICallbacks {
-  onPluginAdd?(pluginId: string, entryPoint: string, version: string): void;
+  onPluginAdd?(pluginId: string, entryPoint: string, version: string, contentId?: string): void;
   onPluginAddSuccess?(
     pluginId: string,
     entryPoint: string,
     params: PluginAddParams,
-    version: string
+    version: string,
+    contentId?: string
   ): void;
   onPluginAddStep?(params: onPluginAddStepArgs): void;
   onPluginDelete?(params: onPluginDeleteArgs): void;
@@ -114,11 +116,17 @@ export interface BICallbacks {
           data: any;
         }[]
       | undefined,
-    version: string
+    version: string,
+    contentId?: string
   ): void;
-  onViewerAction?(pluginId: string, actionName: ActionName, value: string): void;
+  onViewerAction?(
+    pluginId: string,
+    actionName: ActionName,
+    value: string,
+    contentId?: string
+  ): void;
   onViewerLoaded?(params: onViewerLoadedArgs): void;
-  onOpenEditorSuccess?(version: string, toolbarType: ToolbarType): void;
+  onOpenEditorSuccess?(version: string, toolbarType: ToolbarType, contentId?: string): void;
   onContentEdited?(params: onContentEditedArgs): void;
   /** evid: 3 - 'changePlugin' */
   onToolbarButtonClick?(params: onToolbarButtonClickArgs): void;
@@ -126,14 +134,16 @@ export interface BICallbacks {
   onPluginChange?(
     pluginId: string,
     changeObject: { from: string; to: string },
-    version: string
+    version: string,
+    contentId?: string
   ): void;
   onMediaUploadStart?(
     correlationId: string,
     pluginId: string,
     fileSize: number | undefined,
     mediaType: string | undefined,
-    version: string
+    version: string,
+    contentId?: string
   ): void;
   onMediaUploadEnd?(
     correlationId: string,
@@ -143,7 +153,8 @@ export interface BICallbacks {
     mediaType: string | undefined,
     isSuccess: boolean,
     errorType: string | undefined,
-    version: string
+    version: string,
+    contentId?: string
   ): void;
   onPluginModalOpened?(params: onPluginModalOpenedArgs): void;
   onMenuLoad?(params: onMenuLoadArgs): void;
