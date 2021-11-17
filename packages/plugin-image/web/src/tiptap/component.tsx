@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from 'react';
 import { ImageComponent } from '..';
 import { IMAGE_TYPE } from '../types';

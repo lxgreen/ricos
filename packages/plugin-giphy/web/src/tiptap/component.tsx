@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from 'react';
 import { Component as GiphyComponent } from '../giphy-component';
 import { GIPHY_TYPE } from '../types';

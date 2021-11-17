@@ -1,3 +1,4 @@
+//@ts-nocheck
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component, CSSProperties, FocusEvent } from 'react';
 import Editor from 'draft-js-plugins-editor';

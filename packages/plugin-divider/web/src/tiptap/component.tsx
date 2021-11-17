@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from 'react';
 import { DividerComponent } from '..';
 import { PluginProps } from 'wix-rich-content-editor-common';

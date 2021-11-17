@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from 'react';
 import { Component as VideoComponent } from '../video-component';
 import { VIDEO_TYPE } from '../types';
