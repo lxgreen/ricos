@@ -614,8 +614,10 @@
 	"Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "{{count}} άτομα ψήφισαν υπέρ αυτής της απάντησης",
 	"CollapsibleListPlugin_ExpandButton_AriaLabel": "Το στοιχείο επεκτάθηκε",
 	"Spoiler_Reveal_Video_Placeholder": "Αυτό το βίντεο περιέχει σπόιλερ",
+	"Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
 	"Preview_SeeFullPost_Label": "Δείτε την πλήρη ανάρτηση",
 	"UploadFile_Viewer_Download": "Λήψη {{fileType}}",
 	"VerticalEmbed_Units_Hour": "{{hours}}ω",
-	"VerticalEmbed_Units_Minute": "{{minutes}} λεπτά"
+	"VerticalEmbed_Units_Minute": "{{minutes}} λεπτά",
+	"Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }

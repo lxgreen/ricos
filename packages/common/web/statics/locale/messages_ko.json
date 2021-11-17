@@ -614,8 +614,10 @@
 	"Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "해당 답변에 응답한 이용자는 {{count}}명입니다.",
 	"CollapsibleListPlugin_ExpandButton_AriaLabel": "아이템 목록 확장됨",
 	"Spoiler_Reveal_Video_Placeholder": "동영상에 스포일러가 포함되어 있습니다.",
+	"Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
 	"Preview_SeeFullPost_Label": "전체 게시물 보기",
 	"UploadFile_Viewer_Download": "{{fileType}} 다운로드",
 	"VerticalEmbed_Units_Hour": "{{hours}}시간",
-	"VerticalEmbed_Units_Minute": "{{minutes}}분"
+	"VerticalEmbed_Units_Minute": "{{minutes}}분",
+	"Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }

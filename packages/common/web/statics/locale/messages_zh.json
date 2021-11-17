@@ -614,8 +614,10 @@
 	"Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "{{count}} 個人投票給這個答覆",
 	"CollapsibleListPlugin_ExpandButton_AriaLabel": "項目已展開",
 	"Spoiler_Reveal_Video_Placeholder": "此影片有雷",
+	"Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
 	"Preview_SeeFullPost_Label": "查看完整文章",
 	"UploadFile_Viewer_Download": "下載 {{fileType}}",
 	"VerticalEmbed_Units_Hour": "{{hours}} 小時",
-	"VerticalEmbed_Units_Minute": "{{minutes}} 分鐘"
+	"VerticalEmbed_Units_Minute": "{{minutes}} 分鐘",
+	"Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }

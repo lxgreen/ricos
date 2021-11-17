@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `editor`
+  - [#3125](https://github.com/wix/ricos/pull/3125) update heading also removes line height from block style
+
 </details>
 <hr/>
 

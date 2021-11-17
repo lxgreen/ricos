@@ -614,8 +614,10 @@
 	"Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "{{count}} personer har röstat på det här svaret",
 	"CollapsibleListPlugin_ExpandButton_AriaLabel": "Objektet är expanderat",
 	"Spoiler_Reveal_Video_Placeholder": "Videon innehåller en spoiler",
+	"Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
 	"Preview_SeeFullPost_Label": "Se hela inlägget",
 	"UploadFile_Viewer_Download": "Ladda ner {{fileType}}",
 	"VerticalEmbed_Units_Hour": "{{hours}} t",
-	"VerticalEmbed_Units_Minute": "{{minutes}} min"
+	"VerticalEmbed_Units_Minute": "{{minutes}} min",
+	"Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }

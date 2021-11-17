@@ -7,4 +7,5 @@ type HeadingType = 'P' | 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'H6';
 export interface HeadingsPluginEditorConfig extends EditorPluginConfig {
   inlinePopups?: boolean;
   customHeadings?: HeadingType[];
+  allowHeadingCustomization?: boolean;
 }
