@@ -624,14 +624,14 @@ describe('plugins', () => {
     it('allow to color text', function() {
       cy.loadRicosEditorAndViewer('', useNewToolbar)
         .enterParagraphs(['Color.'])
-        .setTextColor([0, 5], 4);
+        .setTextColor([0, 5], 3);
       cy.eyesCheckWindow(this.test.title);
     });
 
     it('allow to highlight text', function() {
       cy.loadRicosEditorAndViewer('', useNewToolbar)
         .enterParagraphs(['Highlight.'])
-        .setHighlightColor([0, 9], 4);
+        .setHighlightColor([0, 9], 3);
       cy.eyesCheckWindow(this.test.title);
     });
   });
