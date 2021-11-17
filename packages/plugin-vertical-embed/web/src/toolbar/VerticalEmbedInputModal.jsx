@@ -111,8 +111,7 @@ export default class VerticalEmbedInputModal extends Component {
       </div>
     );
     const show = status !== NO_ITEMS;
-    const textInput = show ? { searchIcon: true } : false;
-    //! Needs to be removed when old UrlInputModal is not used
+    const textInput = show ? { searchIcon: true } : false; //! Needs to be removed when old UrlInputModal is no longer in use
     const useNewModal = experiments?.newVerticalEmbedModal?.enabled;
     const UrlInputModalComponent = useNewModal ? SearchInputModal : UrlInputModal;
 

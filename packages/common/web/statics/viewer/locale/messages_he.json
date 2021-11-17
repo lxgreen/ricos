@@ -28,8 +28,10 @@
   "Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "{{count}} אנשים הצביעו בעד תשובה זו",
   "CollapsibleListPlugin_ExpandButton_AriaLabel": "הפריט הזה מוגדל",
   "Spoiler_Reveal_Video_Placeholder": "יש ספוילרים בסרטון הזה",
+  "Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
   "Preview_SeeFullPost_Label": "עבור לפוסט המלא",
   "UploadFile_Viewer_Download": "הורידו את {{fileType}}",
   "VerticalEmbed_Units_Hour": "{{hours}} שע'",
-  "VerticalEmbed_Units_Minute": "{{minutes}} דק'"
+  "VerticalEmbed_Units_Minute": "{{minutes}} דק'",
+  "Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }

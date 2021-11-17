@@ -1,9 +1,5 @@
 import { BUTTONS, PluginSettingsIcon } from 'wix-rich-content-plugin-commons';
-import {
-  getModalStyles,
-  decorateComponentWithProps,
-  getBottomToolbarModalStyles,
-} from 'wix-rich-content-editor-common';
+import { getModalStyles, decorateComponentWithProps } from 'wix-rich-content-editor-common';
 import { MediaReplaceIcon } from '../icons';
 import { Modals } from '../modals';
 import VideoModal from './videoModal';
@@ -21,6 +17,7 @@ import {
   AvailableExperiments,
 } from 'wix-rich-content-common';
 import { VideoPluginEditorConfig, VIDEO_TYPE } from '../types';
+import { videoModalContentStyles } from '../constants';
 
 const createInlineButtons: CreateInlineButtons = ({
   t,
@@ -39,14 +36,16 @@ const createInlineButtons: CreateInlineButtons = ({
   const useNewModal = newVideoModal?.enabled;
   const icon = settings?.toolbar?.icons?.replace || MediaReplaceIcon;
 
-  const defaultStyles =
+  const defaultCustomStyles =
     (!isMobile || settings.enableCustomUploadOnMobile) &&
     (settings.handleFileSelection || settings.handleFileUpload)
       ? ExtendedSelectionModalCustomStyle
       : SelectionModalCustomStyle;
 
-  const newModalStyles = isMobile ? MOBILE_FULL_SCREEN_CUSTOM_STYLE : DesktopFlyOutModalStyles;
-  const customStyles = useNewModal ? newModalStyles : defaultStyles;
+  const newModalCustomStyles = isMobile
+    ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
+    : { ...DesktopFlyOutModalStyles, content: videoModalContentStyles };
+  const customStyles = useNewModal ? newModalCustomStyles : defaultCustomStyles;
 
   const spoilerButton =
     settings.spoiler && spoilerInInlineToolbar?.enabled
@@ -95,14 +94,25 @@ const createInlineButtons: CreateInlineButtons = ({
       modalElement: decorateComponentWithProps(VideoModal, {
         ...settings,
       }),
-      modalStylesFn: ({ buttonRef, toolbarName }) => {
-        return getBottomToolbarModalStyles(
-          buttonRef,
-          {
-            customStyles,
+      modalStylesFn: ({ buttonRef }) => {
+        const modalStyles = getModalStyles({
+          customStyles,
+          fullScreen: true,
+          isMobile,
+        });
+        const { top, left } = buttonRef.getBoundingClientRect();
+        const modalLeft = left - 15;
+        const modalTop = top > 250 ? top - 250 : top + 38;
+        return {
+          ...modalStyles,
+          content: {
+            ...modalStyles.content,
+            top: modalTop,
+            left: modalLeft,
+            margin: 0,
+            position: 'absolute',
           },
-          toolbarName
-        );
+        };
       },
       modalStyles: isMobile
         ? getModalStyles({

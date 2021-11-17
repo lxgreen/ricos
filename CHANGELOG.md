@@ -17,18 +17,36 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `video`
+  - [#3121](https://github.com/wix/ricos/pull/3121) Fix new video modal style
+- `vertical-embed`
+  - [#3123](https://github.com/wix/ricos/pull/3123) bug fix scroll to selected item
+- `ricos-content`
+  - [#3124](https://github.com/wix/ricos/pull/3124) external type in fromDraft/toDraft
+
+</details>
+<hr/>
+
+## 8.61.1 (Nov 16, 2021)
+
+### :bug: Bug Fix
+
+- `social-polls`
+  - [#3122](https://github.com/wix/ricos/pull/3122) Polls a11y
+
+## 8.61.0 (Nov 16, 2021)
+
 ### :rocket: New Feature
 
 - `plugin-headings toolbars-new`
   - [#2987](https://github.com/wix/ricos/pull/2987) `allowHeadingCustomization` prop enables headings customization modal in the new formatting toolbar
+
 ### :bug: Bug Fix
 
 - `vertical-embed`
   - [#3118](https://github.com/wix/ricos/pull/3118) Fix new vertical-embed modal style
-
-
-</details>
-<hr/>
 
 ## 8.60.2 (Nov 16, 2021)
 
