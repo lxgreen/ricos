@@ -26,6 +26,7 @@ class StaticToolbarContainer extends Component<StaticToolbarContainerProps> {
     const { children, isMobile } = this.props;
     return (
       <div
+        data-hook="static-toolbar"
         tabIndex={0}
         ref={this.setToolbarContainerRef}
         className={classNames(
