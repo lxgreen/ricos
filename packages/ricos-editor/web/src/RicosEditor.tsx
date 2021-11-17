@@ -36,7 +36,9 @@ import { getEmptyDraftContent, getEditorContentSummary } from 'wix-rich-content-
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
 import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
 import { getBiFunctions } from './toolbars/utils/biUtils';
-import { TiptapEditorPlugin } from 'wix-tiptap-editor';
+
+// eslint-disable-next-line
+import type { TiptapEditorPlugin } from 'wix-tiptap-editor';
 
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
@@ -446,8 +448,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     if (!tiptapEditorModule) {
       return null;
     }
-    const { RicosTiptapEditor, RichContentAdapter, draftToTiptap } = tiptapEditorModule;
-    const { content, injectedContent, plugins } = this.props;
+    const { RicosTiptapEditor, RichContentAdapter, draftToTiptap, TIPTAP_TYPE_TO_RICOS_TYPE } = tiptapEditorModule;
+    const { content, injectedContent, plugins, onAtomicBlockFocus } = this.props;
     const { tiptapToolbar } = this.state;
     // TODO: Enforce Content ID's existance (or generate it)
     // when tiptap will eventually be released (ask @Barackos, @talevy17)
@@ -475,7 +477,20 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                     this.setState({ tiptapToolbar: TextToolbar });
                   }}
                   onUpdate={this.onUpdate}
-                  onSelectionUpdate={() => {
+                  onBlur={() => {
+                    this.useNewFormattingToolbar && this.updateToolbars();
+                  }}
+                  onSelectionUpdate={({ selectedNodes }) => {
+                    if (selectedNodes.length === 1 && selectedNodes[0].isBlock) {
+                      const firstNode = selectedNodes[0];
+                      const blockKey = firstNode.attrs.id;
+                      const type = TIPTAP_TYPE_TO_RICOS_TYPE[firstNode.type.name];
+                      const data = firstNode.attrs;
+                      onAtomicBlockFocus?.({ blockKey, type, data });
+                    } else {
+                      onAtomicBlockFocus?.({ blockKey: undefined, type: undefined, data: undefined });
+
+                    }
                     this.useNewFormattingToolbar && this.updateToolbars();
                   }}
                 />

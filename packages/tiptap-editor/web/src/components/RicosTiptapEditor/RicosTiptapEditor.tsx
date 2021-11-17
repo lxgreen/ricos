@@ -10,6 +10,18 @@ import { tiptapExtensions as coreExtensions } from '../../tiptap-extensions';
 import { RicosTiptapEditorProps } from '../../types';
 import { coreConfigs } from './core-configs';
 import { getLangDir } from 'wix-rich-content-common';
+import { Node } from 'prosemirror-model';
+
+// TODO: maybe should move it to utils ?
+const getSelectedNodes = ({ editor }) => {
+  const selection = editor.state.selection;
+  const nodes: Node[] = [];
+  editor.state.doc.nodesBetween(selection.from, selection.to, (node: Node) => {
+    nodes.push(node);
+  });
+
+  return nodes;
+};
 
 export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   content,
@@ -17,6 +29,7 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   onLoad,
   onUpdate,
   onSelectionUpdate,
+  onBlur,
   theme,
   locale,
   ...context
@@ -36,14 +49,15 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
         const convertedContent = tiptapToDraft(newContent as JSONContent);
         onUpdate?.({ content: convertedContent });
       },
-      onSelectionUpdate: () => {
-        onSelectionUpdate?.();
-      },
       onBlur: () => {
-        onSelectionUpdate?.();
+        onBlur?.();
       },
     });
 
+    editorInstance.on('selectionUpdate', ({ editor }) => {
+      const selectedNodes = getSelectedNodes({ editor });
+      onSelectionUpdate?.({ selectedNodes });
+    });
     editorInstance.on('transaction', forceUpdate);
 
     setEditor(editorInstance);
