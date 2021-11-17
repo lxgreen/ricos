@@ -568,10 +568,10 @@ describe('plugins', () => {
         'to provide a robust synopsis for high level overviews.',
       ]);
       // setHeader(3, [0, 24]);
-      cy.setHeading(3, [0, 24]);
+      cy.setHeading(2, [0, 24]);
       cy.eyesCheckWindow('change heading type');
       // setHeader(2, [28, 40]);
-      cy.setHeading(2, [0, 24]);
+      cy.setHeading(1, [0, 24]);
       cy.eyesCheckWindow('change heading type');
       // cy.setTextStyle('headingsDropdownButton', [28, 40]);
     }
