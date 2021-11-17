@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
-### :bug: Bug Fix
-
-- `editor`
-  - [#3125](https://github.com/wix/ricos/pull/3125) update heading also removes line height from block style
 
 </details>
 <hr/>
+
+## 8.61.3 (Nov 17, 2021)
+### :bug: Bug Fix
+
+- `headings`
+  - [#3125](https://github.com/wix/ricos/pull/3125) update heading also removes line height from block style
 
 ## 8.61.2 (Nov 17, 2021)
 
