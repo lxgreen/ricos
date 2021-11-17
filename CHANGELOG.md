@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.61.2 (Nov 17, 2021)
+
 ### :bug: Bug Fix
 
 - `video`
@@ -25,9 +30,6 @@
   - [#3123](https://github.com/wix/ricos/pull/3123) bug fix scroll to selected item
 - `ricos-content`
   - [#3124](https://github.com/wix/ricos/pull/3124) external type in fromDraft/toDraft
-
-</details>
-<hr/>
 
 ## 8.61.1 (Nov 16, 2021)
 
