@@ -239,7 +239,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     }
   };
 
-  getToolbarProps = (type: ToolbarType) => this.editor.getToolbarProps(type);
+  getToolbarProps = (type: ToolbarType) => this.editor?.getToolbarProps(type);
 
   focus = () => this.editor.focus();
 
