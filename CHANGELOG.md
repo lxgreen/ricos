@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3135](https://github.com/wix/ricos/pull/3135) support shouldCreate config
+
 </details>
 <hr/>
 
