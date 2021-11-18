@@ -21,6 +21,10 @@
 
 - `toolbars-new`
   - [#3135](https://github.com/wix/ricos/pull/3135) support shouldCreate config
+  - [#3128](https://github.com/wix/ricos/pull/3128) headings dropdown options tooltips
+
+- `viewer`
+  - [#3128](https://github.com/wix/ricos/pull/3128) link colors overriden by `documentStyle`
 
 </details>
 <hr/>

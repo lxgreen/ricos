@@ -247,3 +247,7 @@
 .horizontalScrollbar::-webkit-scrollbar:horizontal {
   height: 10px;
 }
+
+.overrideLinkColor > a {
+  color: inherit;
+}
