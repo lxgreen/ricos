@@ -20,6 +20,14 @@
 </details>
 <hr/>
 
+## 8.61.5 (Nov 18, 2021)
+
+### :bug: Bug Fix
+
+- `tiptap`
+  - [#3132](https://github.com/wix/ricos/pull/3132) fixed on atomic block focus
+  - [#3133](https://github.com/wix/ricos/pull/3133) External Toolbar Crash bix
+
 ## 8.61.4 (Nov 17, 2021)
 
 ### :bug: Bug Fix
