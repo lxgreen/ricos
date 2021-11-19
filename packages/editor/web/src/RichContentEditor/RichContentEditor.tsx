@@ -1247,9 +1247,12 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     const styleToCss = ([key, val]) => `${key}: ${val};`;
     documentStyle &&
       Object.entries(documentStyle).forEach(([key, values]) => {
-        styles[DOC_STYLE_CLASSES[key] + ' > div > span'] = Object.entries(values)
-          .map(style => styleToCss(style))
-          .join(' ');
+        [' > div > span', ' > div > a > span'].forEach(
+          selector =>
+            (styles[DOC_STYLE_CLASSES[key] + selector] = Object.entries(values)
+              .map(style => styleToCss(style))
+              .join(' '))
+        );
       });
 
     blocks.forEach(block => {

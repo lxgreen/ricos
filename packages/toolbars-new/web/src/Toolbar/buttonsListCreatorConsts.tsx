@@ -508,10 +508,18 @@ export const colorTypes: Record<string, ColorType> = {
   TEXT_HIGHLIGHT: RICOS_TEXT_HIGHLIGHT_TYPE,
 };
 
-export const translateHeading = (option = 'P', t) => {
+const headingShortcuts = {
+  MacOS: number => `(⌘⌥${number})`,
+  Windows: number => `(Ctrl+Alt+${number})`,
+};
+
+export const translateHeading = (option = 'P', t, shouldAddShortcut = false) => {
+  const number = option.slice(-1);
+  const osName = findOsName();
+  const shortcut = shouldAddShortcut && osName ? headingShortcuts[osName](number || 0) : undefined;
   return option === 'P'
-    ? t('FormattingToolbar_TextStyle_Paragraph')
-    : t('FormattingToolbar_TextStyle_Heading', { number: option.slice(-1) });
+    ? t('FormattingToolbar_TextStyle_Paragraph', shortcut && { shortcut })
+    : t('FormattingToolbar_TextStyle_Heading', shortcut ? { number, shortcut } : { number });
 };
 
 export const findOsName = () => {

@@ -16,7 +16,7 @@ import {
 } from 'wix-rich-content-common';
 import redraft from 'wix-redraft';
 import classNames from 'classnames';
-import { endsWith } from 'lodash';
+import { endsWith, isEmpty } from 'lodash';
 import List from '../List';
 import { isPaywallSeo, getPaywallSeoClass } from './paywallSeo';
 import getPluginViewers from '../getPluginViewers';
@@ -103,7 +103,13 @@ const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix, docum
         const nodeStyle = kebabToCamelObjectKeys(
           documentStyle?.[style === 'text' ? 'paragraph' : style]
         );
-        const content = nodeStyle ? <span style={nodeStyle}>{_child}</span> : _child;
+        const content = isEmpty(nodeStyle) ? (
+          _child
+        ) : (
+          <span className={styles.overrideLinkColor} style={nodeStyle}>
+            {_child}
+          </span>
+        );
 
         const inner = (
           <React.Fragment key={blockProps.keys[i]}>

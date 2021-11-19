@@ -20,6 +20,18 @@
 </details>
 <hr/>
 
+## 8.61.6 (Nov 18, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3135](https://github.com/wix/ricos/pull/3135) support shouldCreate config
+  - [#3128](https://github.com/wix/ricos/pull/3128) headings dropdown options tooltips
+- `viewer`
+  - [#3128](https://github.com/wix/ricos/pull/3128) link colors overriden by `documentStyle`
+- `ricos-content`
+  - [#3131](https://github.com/wix/ricos/pull/3131) convertJsonToStruct validation logic fix
+
 ## 8.61.5 (Nov 18, 2021)
 
 ### :bug: Bug Fix

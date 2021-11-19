@@ -93,6 +93,7 @@ class HeadingsPanel extends Component {
       }
       return {
         text: this.props.translateHeading(heading, this.props.t),
+        tooltip: this.props.translateHeading(heading, this.props.t, true),
         commandKey: HEADER_TYPE_MAP[heading],
         ...customizeOptions,
       };

@@ -12,22 +12,8 @@ env:
   COMMIT_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
 
 jobs:
-  cleanup-runs:
+  cache-build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: rokroskar/workflow-run-cleanup-action@v0.2.2
-        if: "!startsWith(github.ref, 'refs/tags/') && github.ref != 'refs/heads/master'"
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-
-  e2e-visual:
-    runs-on: ubuntu-18.04
-    strategy:
-      fail-fast: false
-      matrix:
-        ci_node_total: [4] # Set N number of parallel jobs you want to run tests on.
-        ci_node_index: [0, 1, 2, 3] # set N-1 indexes for parallel jobs
-
     steps:
       - uses: actions/checkout@v2
       - name: cache node_modules
@@ -46,6 +32,15 @@ jobs:
         if: steps.cache-modules.outputs.cache-hit == 'true'
         run: npm run link
 
+      - name: cache-build
+        id: cache-build
+        uses: actions/cache@v2
+        with:
+          path: |
+            packages/*/web/dist
+            packages/ricos-schema/web/src/generated
+          key: ${{ runner.os }}-build-${{ hashFiles('packages/*/web/src/!(generated)**','packages/*/web/statics/**') }}
+
       - name: cache-schema
         id: cache-schema
         uses: actions/cache@v2
@@ -59,12 +54,74 @@ jobs:
         uses: arduino/setup-protoc@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: build schema
         if: steps.cache-schema.outputs.cache-hit != 'true'
         run: npm run build:schema
 
-      - run: npm run build:ci
-      - run: npm run build:test
+      - name: build packages
+        if: steps.cache-build.outputs.cache-hit != 'true'
+        run: npm run build:ci
+
+      - name: cache-test-build
+        id: cache-test-build
+        uses: actions/cache@v2
+        with:
+          path: |
+            e2e/test-env/dist
+          key: ${{ runner.os }}-test-build-${{ hashFiles('packages/*/web/src/**','packages/*/web/statics/**', 'e2e/test-env/src/**') }}
+
+      - name: build test env
+        run: npm run build:test
+
+  cleanup-runs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rokroskar/workflow-run-cleanup-action@v0.2.2
+        if: "!startsWith(github.ref, 'refs/tags/') && github.ref != 'refs/heads/master'"
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+
+  e2e-visual:
+    needs: cache-build
+    runs-on: ubuntu-18.04
+    strategy:
+      fail-fast: false
+      matrix:
+        ci_node_total: [7] # Set N number of parallel jobs you want to run tests on.
+        ci_node_index: [0, 1, 2, 3, 4, 5, 6] # set N-1 indexes for parallel jobs
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: cache node_modules
+        id: cache-modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+            ~/.cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+      - name: lerna link
+        if: steps.cache-modules.outputs.cache-hit == 'true'
+        run: npm run link
+
+      - name: cache-build
+        id: cache-build
+        uses: actions/cache@v2
+        with:
+          path: |
+            packages/*/web/dist
+            packages/ricos-schema/web/src/generated
+          key: ${{ runner.os }}-build-${{ hashFiles('packages/*/web/src/!(generated)**','packages/*/web/statics/**') }}
+
+      - name: cache-test-build
+        id: cache-test-build
+        uses: actions/cache@v2
+        with:
+          path: |
+            e2e/test-env/dist
+          key: ${{ runner.os }}-test-build-${{ hashFiles('packages/*/web/src/**','packages/*/web/statics/**', 'e2e/test-env/src/**') }}
 
       - name: Run http server with the app in the background
         run: |
@@ -108,12 +165,13 @@ jobs:
           args: -d "" -X POST https://wixeyesapi.applitools.com/api/externals/github/servers/github.com/commit/${{ env.COMMIT_SHA }}/complete?apiKey=${{ secrets.APPLITOOLS_API_KEY }}
 
   content-state-tests:
+    needs: cache-build
     runs-on: ubuntu-18.04
     strategy:
       fail-fast: false
       matrix:
-        ci_node_total: [3] # Set N number of parallel jobs you want to run tests on.
-        ci_node_index: [0, 1, 2] # set N-1 indexes for parallel jobs
+        ci_node_total: [4] # Set N number of parallel jobs you want to run tests on.
+        ci_node_index: [0, 1, 2, 3] # set N-1 indexes for parallel jobs
 
     steps:
       - uses: actions/checkout@v2
@@ -126,34 +184,27 @@ jobs:
             */*/node_modules
             ~/.cache
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-      - name: npm install + bootstrap
-        if: steps.cache-modules.outputs.cache-hit != 'true'
-        run: npx midgard-yarn install --frozen-lockfile
       - name: lerna link
         if: steps.cache-modules.outputs.cache-hit == 'true'
         run: npm run link
 
-      - name: cache-schema
-        id: cache-schema
+      - name: cache-build
+        id: cache-build
         uses: actions/cache@v2
         with:
           path: |
-            packages/ricos-schema/web/dist
+            packages/*/web/dist
             packages/ricos-schema/web/src/generated
-          key: ${{ runner.os }}-schema-${{ hashFiles('packages/ricos-schema/web/src') }}
-      - name: Install Protoc
-        if: steps.cache-schema.outputs.cache-hit != 'true'
-        uses: arduino/setup-protoc@v1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: build schema
-        if: steps.cache-schema.outputs.cache-hit != 'true'
-        run: npm run build:schema
+          key: ${{ runner.os }}-build-${{ hashFiles('packages/*/web/src/!(generated)**','packages/*/web/statics/**') }}
 
-      - name: build
-        run: npm run build:ci
-      - name: build test env
-        run: npm run build:test
+      - name: cache-test-build
+        id: cache-test-build
+        uses: actions/cache@v2
+        with:
+          path: |
+            e2e/test-env/dist
+          key: ${{ runner.os }}-test-build-${{ hashFiles('packages/*/web/src/**','packages/*/web/statics/**', 'e2e/test-env/src/**') }}
+
       - name: Run http server with the app in the background
         run: npm run e2e:app:run & npm run e2e:app:wait
 
@@ -180,6 +231,7 @@ jobs:
             **/applitools.log
 
   lint-and-unit-tests:
+    needs: cache-build
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -201,24 +253,15 @@ jobs:
 
       - run: npm run lint
 
-      - name: cache-schema
-        id: cache-schema
-        uses: actions/cache@master
+      - name: cache-build
+        id: cache-build
+        uses: actions/cache@v2
         with:
           path: |
-            packages/ricos-schema/web/dist
+            packages/*/web/dist
             packages/ricos-schema/web/src/generated
-          key: ${{ runner.os }}-schema-${{ hashFiles('packages/ricos-schema/web/src') }}
-      - name: Install Protoc
-        if: steps.cache-schema.outputs.cache-hit != 'true'
-        uses: arduino/setup-protoc@v1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: build schema
-        if: steps.cache-schema.outputs.cache-hit != 'true'
-        run: npm run build:schema
+          key: ${{ runner.os }}-build-${{ hashFiles('packages/*/web/src/!(generated)**','packages/*/web/statics/**') }}
 
-      - run: npm run build:ci
       - run: npm run test
 
   notify-on-slack:
