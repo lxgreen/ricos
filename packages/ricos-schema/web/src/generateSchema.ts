@@ -3,6 +3,7 @@ import { execSync } from 'child_process';
 import { LATEST_VERSION } from './consts';
 
 const GEN_DIR = 'src/generated';
+const GEN_DIR2 = 'src/generatedIntEnums';
 const TS_PROTO_DIR = '../../../node_modules/.bin/protoc-gen-ts_proto';
 const PACKAGE_PATH = `wix/rich_content/v${LATEST_VERSION}`;
 
@@ -29,12 +30,16 @@ schemas.forEach(schema => {
   );
 });
 
-schemas.forEach(schema =>
+schemas.forEach(schema => {
   execSync(
     // eslint-disable-next-line max-len
     `protoc --plugin=${TS_PROTO_DIR} --proto_path ${GEN_DIR}/proto --ts_proto_opt=useOptionals=true,outputEncodeMethods=false,constEnums=true,stringEnums=true,exportCommonSymbols=false,outputPartialMethods=false --ts_proto_out=${GEN_DIR} ${GEN_DIR}/proto/${PACKAGE_PATH}/${schema}`
-  )
-);
+  );
+  execSync(
+    // eslint-disable-next-line max-len
+    `protoc --plugin=${TS_PROTO_DIR} --proto_path ${GEN_DIR}/proto --ts_proto_opt=useOptionals=true,outputEncodeMethods=false,constEnums=true,exportCommonSymbols=false,outputPartialMethods=false --ts_proto_out=${GEN_DIR2} ${GEN_DIR}/proto/${PACKAGE_PATH}/${schema}`
+  );
+});
 
 const indexFile = schemas.reduce(
   (fileString, schema) => fileString + `export * from './${schema.replace('.proto', '')}';\n`,
@@ -42,3 +47,4 @@ const indexFile = schemas.reduce(
 );
 
 writeFileSync(`${GEN_DIR}/${PACKAGE_PATH}/index.ts`, indexFile);
+writeFileSync(`${GEN_DIR2}/${PACKAGE_PATH}/index.ts`, indexFile);

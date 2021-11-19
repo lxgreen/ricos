@@ -29,8 +29,10 @@
     "generate": "ts-node --compiler-options={\\\"module\\\":\\\"commonJS\\\"} src/generateSchema.ts",
     "gen-plugin-defaults": "ts-node --compiler-options={\\\"module\\\":\\\"commonJS\\\"} src/generate-plugin-defaults.ts",
     "buildESM": "tsc",
+    "buildESMIntEnums": "tsc --outDir dist/intEnums/esm",
     "buildCJS": "tsc --module commonjs --outDir dist/cjs",
-    "build": "yarn generate && yarn gen-plugin-defaults && yarn buildESM && yarn buildCJS"
+    "buildCJSintEnums": "tsc --module commonjs --outDir dist/intEnums/cjs",
+    "build": "yarn generate && yarn gen-plugin-defaults && yarn buildESMIntEnums && yarn buildCJS && yarn buildCJSintEnums"
   },
   "unpkg": true,
   "publishConfig": {
