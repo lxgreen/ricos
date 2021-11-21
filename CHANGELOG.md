@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3142](https://github.com/wix/ricos/pull/3142) fix headings dropdown tooltips
+
 </details>
 <hr/>
 

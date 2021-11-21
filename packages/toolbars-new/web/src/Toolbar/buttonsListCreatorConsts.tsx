@@ -509,12 +509,12 @@ export const colorTypes: Record<string, ColorType> = {
 };
 
 const headingShortcuts = {
-  MacOS: number => `(⌘⌥${number})`,
-  Windows: number => `(Ctrl+Alt+${number})`,
+  MacOS: number => ` (⌘⌥${number})`,
+  Windows: number => ` (Ctrl+Alt+${number})`,
 };
 
 export const translateHeading = (option = 'P', t, shouldAddShortcut = false) => {
-  const number = option.slice(-1);
+  const number = parseInt(option.slice(-1)) ? option.slice(-1) : undefined;
   const osName = findOsName();
   const shortcut = shouldAddShortcut && osName ? headingShortcuts[osName](number || 0) : undefined;
   return option === 'P'
