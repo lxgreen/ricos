@@ -17,7 +17,8 @@ const getSelectedNodes = ({ editor }) => {
   const selection = editor.state.selection;
   const nodes: Node[] = [];
   editor.state.doc.nodesBetween(selection.from, selection.to, (node: Node) => {
-    nodes.push(node);
+    // For not including text nodes inside paragraph/heading nodes etc.
+    node.attrs.id && nodes.push(node);
   });
 
   return nodes;
@@ -38,6 +39,12 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   const [editor, setEditor] = useState<Editor>((null as unknown) as Editor);
   const mergedExtensions = Extensions.of([...coreConfigs, ...extensions]);
 
+  const _onUpdate = editor => {
+    const newContent = editor.getJSON();
+    const convertedContent = tiptapToDraft(newContent as JSONContent);
+    onUpdate?.({ content: convertedContent });
+  };
+
   useEffect(() => {
     const tiptapExtensions = mergedExtensions.getTiptapExtensions();
     const editorInstance = new Editor({
@@ -45,9 +52,7 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
       content,
       injectCSS: true,
       onUpdate: ({ editor }) => {
-        const newContent = editor.getJSON();
-        const convertedContent = tiptapToDraft(newContent as JSONContent);
-        onUpdate?.({ content: convertedContent });
+        _onUpdate(editor);
       },
       onBlur: () => {
         onBlur?.();
@@ -57,6 +62,7 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
     editorInstance.on('selectionUpdate', ({ editor }) => {
       const selectedNodes = getSelectedNodes({ editor });
       onSelectionUpdate?.({ selectedNodes });
+      _onUpdate(editor);
     });
     editorInstance.on('transaction', forceUpdate);
 

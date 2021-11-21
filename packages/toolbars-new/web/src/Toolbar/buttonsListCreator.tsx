@@ -23,13 +23,15 @@ import {
   translateHeading,
   findOsName,
   getSpacing,
+  documentStyleCssProperties,
+  inlineOverrideStyles,
 } from './buttonsListCreatorConsts';
 import { HEADER_TYPE_MAP } from 'wix-rich-content-plugin-commons';
 import {
   convertRelStringToObject,
   convertRelObjectToString,
 } from 'wix-rich-content-common/libs/linkConverters';
-import { getFontSizeNumber, hasStyleChanges } from './utils';
+import { getFontSizeNumber, hasStyleChanges, getBlockStyle } from './utils';
 import style from './ToolbarButtonNew.scss';
 
 type editorCommands = EditorCommands;
@@ -121,7 +123,10 @@ const handleButtonColorPicker = (
 ) => {
   if (buttonsFullData[buttonsList[index].name].type === 'color-picker') {
     const buttonName = buttonsList[index].name;
-    buttonsList[index].getCurrentColor = () => editorCommands.getColor(colorTypes[buttonName]);
+    const blockStyle = getBlockStyle(editorCommands);
+    buttonsList[index].getCurrentColor = () =>
+      editorCommands.getColor(colorTypes[buttonName]) ||
+      blockStyle?.[documentStyleCssProperties[buttonName]];
     buttonsList[index].onColorAdded = color => colorPickerData[buttonName]?.onColorAdded?.(color);
     buttonsList[index].onChange = color => {
       editorCommands.insertDecoration(colorTypes[buttonName], { color });
@@ -358,8 +363,16 @@ const handleButtonIsDisabled = (buttonsList, index, editorCommands: editorComman
 const handleButtonIsActive = (buttonsList, index, editorCommands: editorCommands) => {
   const buttonName = buttonsList[index].name;
   if (Object.keys(inlineStyleButtons).includes(buttonName)) {
-    buttonsList[index].isActive = () =>
-      editorCommands.hasInlineStyle(inlineStyleButtons[buttonName]);
+    buttonsList[index].isActive = () => {
+      const blockStyle = getBlockStyle(editorCommands);
+      const property = documentStyleCssProperties[buttonName];
+      return (
+        editorCommands.hasInlineStyle(inlineStyleButtons[buttonName]) ||
+        (blockStyle?.[property] &&
+          blockStyle[property] === inlineStyleButtons[buttonName] &&
+          !editorCommands.hasInlineStyle(inlineOverrideStyles[buttonName]))
+      );
+    };
   } else if (Object.keys(textBlockButtons).includes(buttonName)) {
     buttonsList[index].isActive = () =>
       editorCommands.isBlockTypeSelected(textBlockButtons[buttonName]);
