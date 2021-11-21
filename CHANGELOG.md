@@ -21,6 +21,7 @@
 
 - `toolbars-new`
   - [#3142](https://github.com/wix/ricos/pull/3142) fix headings dropdown tooltips
+  - [#3143](https://github.com/wix/ricos/pull/3143) buttons active status wired to `documentStyle`
 
 </details>
 <hr/>

@@ -7,6 +7,7 @@ import {
   ImageComponentData,
   VideoComponentData,
   FileComponentData,
+  HEADER_BLOCK,
 } from 'ricos-content';
 export interface Helpers extends BICallbacksForHelpers {
   openModal?: (modalProps: Record<string, unknown>) => void;
@@ -61,4 +62,14 @@ export const DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE = {
   H4: 'headerFour',
   H5: 'headerFive',
   H6: 'headerSix',
+};
+
+export const DRAFT_TO_RICOS_DOC_TYPE = {
+  [HEADER_BLOCK.ONE]: 'headerOne',
+  [HEADER_BLOCK.TWO]: 'headerTwo',
+  [HEADER_BLOCK.THREE]: 'headerThree',
+  [HEADER_BLOCK.FOUR]: 'headerFour',
+  [HEADER_BLOCK.FIVE]: 'headerFive',
+  [HEADER_BLOCK.SIX]: 'headerSix',
+  [HEADER_BLOCK.PARAGRAPH]: 'paragraph',
 };

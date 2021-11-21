@@ -26,14 +26,10 @@ import {
   dynamicStyleParsers,
   safeJsonParse,
   draftDecorationsToCss,
+  DRAFT_TO_RICOS_DOC_TYPE,
 } from 'wix-rich-content-common';
 
-import {
-  DRAFT_TO_RICOS_DOC_TYPE,
-  DRAFT_TO_RICOS_CUSTOM_STYLES,
-  defaultFontSizes,
-  defaultMobileFontSizes,
-} from './consts';
+import { DRAFT_TO_RICOS_CUSTOM_STYLES, defaultFontSizes, defaultMobileFontSizes } from './consts';
 
 export const getWiredFontStyles = (
   documentStyle?: DocumentStyle,
