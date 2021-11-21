@@ -465,6 +465,20 @@ export const inlineStyleButtons: Record<string, InlineStyle> = {
   SPOILER: 'spoiler',
 };
 
+export const inlineOverrideStyles: Record<string, InlineStyle> = {
+  Bold: 'not_bold',
+  Italic: 'not_italic',
+  Underline: 'not_underline',
+};
+
+export const documentStyleCssProperties: Record<string, string> = {
+  Bold: 'font-weight',
+  Italic: 'font-style',
+  Underline: 'text-decoration',
+  TEXT_COLOR: 'color',
+  TEXT_HIGHLIGHT: 'background-color',
+};
+
 export const textBlockButtons: Record<string, string> = {
   CODE_BLOCK: CODE_BLOCK_TYPE,
   Blockquote: BLOCKQUOTE,
