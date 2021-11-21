@@ -17,14 +17,17 @@
     Click to see more.
   </summary>
 
+
+</details>
+<hr/>
+
+## 8.61.8 (Nov 21, 2021)
+
 ### :bug: Bug Fix
 
 - `toolbars-new`
   - [#3142](https://github.com/wix/ricos/pull/3142) fix headings dropdown tooltips
   - [#3143](https://github.com/wix/ricos/pull/3143) buttons active status wired to `documentStyle`
-
-</details>
-<hr/>
 
 ## 8.61.7 (Nov 21, 2021)
 
