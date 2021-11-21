@@ -107,7 +107,7 @@ class HeadingsPanel extends Component {
   render() {
     const { isMobile, t, currentSelect, onCancel, allowHeadingCustomization } = this.props;
     const { openOption } = this.state;
-    const panelHeader = t('Headings');
+    const panelHeader = t('FormattingToolbar_HeadingsPanelHeader');
 
     const panel = isMobile ? (
       <MobilePanel

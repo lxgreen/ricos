@@ -50,7 +50,7 @@ class LineSpacingPanel extends Component {
     const onSaveLineHeight = (height, clickFromKeyboard) =>
       onSave({ 'line-height': height }, clickFromKeyboard);
     const onChangeLineHeight = height => onChange({ 'line-height': `${height}` });
-    const panelHeader = t('LineSpacing_lineSpacing');
+    const panelHeader = t('FormattingToolbar_LineSpacingPanelHeader');
 
     const panel = isMobile ? (
       <MobilePanel

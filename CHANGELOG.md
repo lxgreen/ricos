@@ -20,6 +20,7 @@
 ### :bug: Bug Fix
 
 - `toolbars-new`
+  - [#3137](https://github.com/wix/ricos/pull/3137) fix panel header keys
   - [#3136](https://github.com/wix/ricos/pull/3136) code and quote blocks not clearing on second click
 
 
