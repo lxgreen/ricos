@@ -17,6 +17,12 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3136](https://github.com/wix/ricos/pull/3136) code and quote blocks not clearing on second click
+
+
 </details>
 <hr/>
 
