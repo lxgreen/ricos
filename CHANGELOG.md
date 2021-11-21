@@ -17,15 +17,18 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.61.7 (Nov 21, 2021)
+
 ### :bug: Bug Fix
 
 - `toolbars-new`
   - [#3137](https://github.com/wix/ricos/pull/3137) fix panel header keys
   - [#3136](https://github.com/wix/ricos/pull/3136) code and quote blocks not clearing on second click
-
-
-</details>
-<hr/>
+- `table`
+  - [#3141](https://github.com/wix/ricos/pull/3141) fix cells group alignment
 
 ## 8.61.6 (Nov 18, 2021)
 
