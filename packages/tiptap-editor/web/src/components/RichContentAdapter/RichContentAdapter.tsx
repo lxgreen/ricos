@@ -66,16 +66,22 @@ export class RichContentAdapter implements TiptapAPI {
         const {
           state: {
             doc,
-            selection: { from, to },
+            selection: { from, to, $from },
           },
         } = this.editor;
 
         const marks = {};
-        doc.nodesBetween(from, to, node => {
-          node.marks.forEach(({ type: { name } }) => {
+        if (from === to) {
+          $from.nodeBefore?.marks.forEach(({ type: { name } }) => {
             marks[name] = true;
           });
-        });
+        } else {
+          doc.nodesBetween(from, to, node => {
+            node.marks.forEach(({ type: { name } }) => {
+              marks[name] = true;
+            });
+          });
+        }
 
         return marks[style];
       },
