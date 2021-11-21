@@ -7,7 +7,7 @@ import {
 } from '../../../types';
 import { EMOJI_TYPE } from '../../../consts';
 import { Decoration, Decoration_Type, Node } from 'ricos-schema';
-import { TO_RICOS_DECORATION_TYPE } from '../consts';
+import { TO_RICOS_DECORATION_TYPE, TO_RICOS_INLINE_STYLE_TYPE } from '../consts';
 
 import { isEmpty, merge } from 'lodash';
 import { getEntity } from './getRicosEntityData';
@@ -110,7 +110,7 @@ export const getTextNodes = (
       if (!isDecorationType(style) && !ignoreUnsupportedValues) {
         throw Error(`Unknown decoration type "${style}"!`);
       }
-      decoration = {
+      decoration = TO_RICOS_INLINE_STYLE_TYPE[style] || {
         type: TO_RICOS_DECORATION_TYPE[style],
       };
     }

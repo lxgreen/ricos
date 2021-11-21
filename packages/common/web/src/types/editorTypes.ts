@@ -32,8 +32,14 @@ export interface Helpers extends BICallbacksForHelpers {
 }
 interface BICallbacksForHelpers extends BICallbacks {
   // makes version optional
-  onPluginAdd?(pluginId: string, entryPoint: string, version?: string): void;
-  onPluginAddSuccess?(pluginId: string, entryPoint: string, params, version?: string): void;
+  onPluginAdd?(pluginId: string, entryPoint: string, version?: string, contentId?: string): void;
+  onPluginAddSuccess?(
+    pluginId: string,
+    entryPoint: string,
+    params,
+    version?: string,
+    contentId?: string
+  ): void;
   isPreview?: () => boolean;
   onPluginAction?: OnPluginAction;
 }
@@ -46,3 +52,13 @@ export type TextToolbarType = 'inline' | 'static';
 
 export type SetEditorState = (editorState: EditorState) => void;
 export type GetEditorState = () => EditorState;
+
+export const DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE = {
+  P: 'paragraph',
+  H1: 'headerOne',
+  H2: 'headerTwo',
+  H3: 'headerThree',
+  H4: 'headerFour',
+  H5: 'headerFive',
+  H6: 'headerSix',
+};

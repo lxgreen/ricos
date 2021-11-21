@@ -2,15 +2,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable fp/no-loops */
 import React from 'react';
+import { scrollToBlock } from 'wix-rich-content-editor-common';
 import {
   RICOS_LINK_TYPE,
   EditorCommands,
   normalizeUrl,
-  anchorScroll,
+  CUSTOM_LINK,
+  SPOILER_TYPE,
 } from 'wix-rich-content-common';
 import { AlignTextCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon } from '../icons';
 import {
   HEADING_TYPE_TO_ELEMENT,
+  HEADING_TYPE_TO_ICON,
   buttonsFullData,
   inlineStyleButtons,
   textBlockButtons,
@@ -26,6 +29,8 @@ import {
   convertRelStringToObject,
   convertRelObjectToString,
 } from 'wix-rich-content-common/libs/linkConverters';
+import { getFontSizeNumber, hasStyleChanges } from './utils';
+import style from './ToolbarButtonNew.scss';
 
 type editorCommands = EditorCommands;
 
@@ -35,9 +40,10 @@ export const createButtonsList = (
   t,
   linkPanelData,
   colorPickerData,
-  defaultLineSpacing,
   headingsData,
-  experiments
+  defaultLineSpacing,
+  experiments,
+  theme
 ) => {
   const buttonsList: any[] = [];
   const osName: string | null = findOsName();
@@ -52,8 +58,9 @@ export const createButtonsList = (
       handleButtIsMobileModalFullscreen(buttonsList, index);
       handleButtonTooltip(buttonsList, index, t, osName);
       handleButtonPlugin(buttonsList, index);
-      handleButtonLabel(buttonsList, index, editorCommands, t);
+      handleButtonLabel(buttonsList, index, editorCommands, t, headingsData);
       handleButtonArrow(buttonsList, index);
+      handleUseIconOnMobile(buttonsList, index);
       handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData, experiments);
       handleButtonIsActive(buttonsList, index, editorCommands);
       handleButtonIsDisabled(buttonsList, index, editorCommands);
@@ -64,11 +71,12 @@ export const createButtonsList = (
         linkPanelData,
         headingsData,
         t,
-        defaultLineSpacing
+        defaultLineSpacing,
+        theme
       );
-      handleButtonOnSave(buttonsList, index, editorCommands);
+      handleButtonOnSave(buttonsList, index, editorCommands, headingsData);
       handleButtonOnCancel(buttonsList, index, editorCommands);
-      handleButtonOnChange(buttonsList, index, editorCommands);
+      handleButtonOnChange(buttonsList, index, editorCommands, headingsData);
       handleButtonOnDone(buttonsList, index, editorCommands);
       handleButtonOnDelete(buttonsList, index, editorCommands);
       // handleGroupButtons(buttonsList, buttonKey, index, editorCommands);
@@ -79,6 +87,7 @@ export const createButtonsList = (
       handleButtonColorPicker(buttonsList, index, editorCommands, colorPickerData);
       handleButtonText(buttonsList, index, editorCommands, t);
       handleButtonIsInput(buttonsList, index);
+      handleButtonCloseOnChange(buttonsList, index);
     }
   });
   return buttonsList;
@@ -87,6 +96,12 @@ export const createButtonsList = (
 const handleButtonIsInput = (buttonsList, index) => {
   if (buttonsFullData[buttonsList[index].name].isInput) {
     buttonsList[index].isInput = buttonsFullData[buttonsList[index].name].isInput;
+  }
+};
+
+const handleButtonCloseOnChange = (buttonsList, index) => {
+  if (buttonsFullData[buttonsList[index].name].closeOnChange) {
+    buttonsList[index].closeOnChange = buttonsFullData[buttonsList[index].name].closeOnChange;
   }
 };
 
@@ -154,12 +169,17 @@ const handleButtonOnDone = (buttonsList, index, editorCommands: editorCommands) 
   }
 };
 
-const handleButtonOnChange = (buttonsList, index, editorCommands: editorCommands) => {
+const handleButtonOnChange = (buttonsList, index, editorCommands: editorCommands, headingsData) => {
   if (buttonsFullData[buttonsList[index].name].onChange) {
     const buttonName = buttonsList[index].name;
     if (['LINE_SPACING', 'FONT_SIZE'].includes(buttonName)) {
       buttonsList[index].onChange = value => {
         updateDynamicStyles(value, editorCommands, buttonName);
+      };
+    } else if (buttonName === 'HEADINGS' && headingsData.allowHeadingCustomization) {
+      buttonsList[index].onChange = documentStyle => {
+        editorCommands.clearSelectedBlocksInlineStyles(['UNDERLINE', SPOILER_TYPE]);
+        setTimeout(() => editorCommands.updateDocumentStyle(documentStyle));
       };
     }
   }
@@ -219,12 +239,17 @@ const handleTitleButton = (buttonsList, index, editorCommands: editorCommands) =
   buttonsList[index].isActive = () => headingKey === 'header-three' || headingKey === 'header-two';
 };
 
-const handleButtonOnSave = (buttonsList, index, editorCommands: editorCommands) => {
+const handleButtonOnSave = (buttonsList, index, editorCommands: editorCommands, headingsData) => {
   if (buttonsFullData[buttonsList[index].name].onSave) {
     const buttonName = buttonsList[index].name;
     if (Object.keys(textBlockButtons).includes(buttonName)) {
       buttonsList[index].onSave = type => {
-        editorCommands.setBlockType(type);
+        buttonName === 'HEADINGS' &&
+          headingsData.allowHeadingCustomization &&
+          editorCommands.clearSelectedBlocksInlineStyles();
+        setTimeout(() => {
+          editorCommands.setBlockType(type);
+        });
       };
     } else if (buttonName === 'Alignment') {
       buttonsList[index].onSave = type => editorCommands.setTextAlignment(type);
@@ -247,7 +272,8 @@ const handleButtonModal = (
   linkPanelData,
   headingsData,
   t,
-  defaultLineSpacing
+  defaultLineSpacing,
+  theme
 ) => {
   const buttonName = buttonsList[index].name;
   if (buttonsFullData[buttonName].modal) {
@@ -255,8 +281,20 @@ const handleButtonModal = (
     if (buttonName === 'HEADINGS') {
       const Modal = buttonsFullData[buttonName].modal;
       const currentHeading = HEADER_TYPE_MAP[getCurrentHeading(editorCommands)];
+      const documentStyle = editorCommands.getDocumentStyle();
       buttonsList[index].modal = props =>
-        Modal && <Modal {...props} currentSelect={currentHeading} />;
+        Modal && (
+          <Modal
+            {...props}
+            currentSelect={currentHeading}
+            documentStyle={documentStyle}
+            customHeadings={headingsData?.customHeadings}
+            allowHeadingCustomization={headingsData?.allowHeadingCustomization}
+            currentInlineStyles={editorCommands.getAnchorBlockInlineStyles()}
+            wiredFontStyles={editorCommands.getWiredFontStyles(theme?.customStyles, props.isMobile)}
+            t={t}
+          />
+        );
     } else if (buttonName === 'Alignment') {
       const alignment = editorCommands.getTextAlignment();
       const Modal = buttonsFullData[buttonName].modal;
@@ -267,23 +305,31 @@ const handleButtonModal = (
       const spacing = getSpacing(currentSpacing, defaultLineSpacing);
       buttonsList[index].modal = props => Modal && <Modal {...props} currentSelect={spacing} />;
     } else if (buttonName === 'LINK' || buttonName === 'editLink') {
-      const Modal = buttonsFullData[buttonName].modal;
+      const { onLinkAdd, linkSettings = {}, ...rest } = linkPanelData;
       const linkData = editorCommands.getLinkDataInSelection();
-      const anchorableBlocks = editorCommands.getAnchorableBlocks();
-      const { linkSettings = {}, ...rest } = linkPanelData;
-      const linkSettingsData = handleLinkSettings(linkSettings);
-      buttonsList[index].modal = props =>
-        Modal && (
-          <Modal
-            {...props}
-            {...rest}
-            {...linkSettingsData}
-            {...linkData}
-            t={t}
-            anchorableBlocksData={anchorableBlocks}
-            isMobileModalFullscreen
-          />
-        );
+      const isCustomLinkHandling = !!onLinkAdd;
+      if (isCustomLinkHandling) {
+        const customLinkData = linkData?.customData;
+        const callback = data => editorCommands.insertDecoration(CUSTOM_LINK, data);
+        buttonsList[index].type = 'button';
+        buttonsList[index].onClick = () => onLinkAdd(customLinkData, callback);
+      } else {
+        const Modal = buttonsFullData[buttonName].modal;
+        const anchorableBlocks = editorCommands.getAnchorableBlocks();
+        const linkSettingsData = handleLinkSettings(linkSettings);
+        buttonsList[index].modal = props =>
+          Modal && (
+            <Modal
+              {...props}
+              {...rest}
+              {...linkSettingsData}
+              {...linkData}
+              t={t}
+              anchorableBlocksData={anchorableBlocks}
+              isMobileModalFullscreen
+            />
+          );
+      }
     } else if (buttonName === 'FONT_SIZE') {
       const Modal = buttonsFullData[buttonName].modal;
       buttonsList[index].modal = props =>
@@ -298,6 +344,8 @@ const handleButtonIsDisabled = (buttonsList, index, editorCommands: editorComman
     buttonsList[index].isDisabled = () => editorCommands.isUndoStackEmpty();
   } else if (buttonName === 'REDO') {
     buttonsList[index].isDisabled = () => editorCommands.isRedoStackEmpty();
+  } else if (buttonName === 'LINK') {
+    buttonsList[index].isDisabled = () => editorCommands.isAtomicBlockInSelection();
   } else {
     buttonsList[index].isDisabled = () => false;
   }
@@ -380,18 +428,41 @@ const handleButtonArrow = (buttonsList, index) => {
   }
 };
 
-const getFontSize = (editorCommands: editorCommands) => {
-  const fontSize = editorCommands.getFontSize() || '';
-  const pxRegex = new RegExp('[0-9]+[px]');
-  return pxRegex.exec(fontSize) ? fontSize.split('p')[0] : '';
+const handleUseIconOnMobile = (buttonsList, index) => {
+  if (buttonsFullData[buttonsList[index].name].useIconOnMobile) {
+    buttonsList[index].useIconOnMobile = buttonsFullData[buttonsList[index].name].useIconOnMobile;
+  }
 };
 
-const handleButtonLabel = (buttonsList, index, editorCommands: editorCommands, t) => {
+const getFontSize = (editorCommands: editorCommands) => {
+  const fontSize = editorCommands.getFontSize() || '';
+  return getFontSizeNumber(fontSize);
+};
+
+const getHeadingsLabel = (editorCommands: editorCommands, t, headingsData) => {
+  const currentHeading = getCurrentHeading(editorCommands);
+  let label = translateHeading(currentHeading, t);
+  const inlineStyles = editorCommands.getAnchorBlockInlineStyles() || {};
+  if (
+    headingsData.allowHeadingCustomization &&
+    hasStyleChanges(currentHeading, inlineStyles, editorCommands.getDocumentStyle())
+  ) {
+    label = (
+      <>
+        {label}
+        <span className={style.toolbarLabelUpdate}>*</span>
+      </>
+    );
+  }
+  return label;
+};
+
+const handleButtonLabel = (buttonsList, index, editorCommands: editorCommands, t, headingsData) => {
   const buttonName = buttonsList[index].name;
   if (buttonsFullData[buttonName].label) {
     buttonsList[index].getLabel = () => buttonsFullData[buttonName].label;
     if (buttonName === 'HEADINGS') {
-      buttonsList[index].getLabel = () => translateHeading(getCurrentHeading(editorCommands), t);
+      buttonsList[index].getLabel = () => getHeadingsLabel(editorCommands, t, headingsData);
     } else if (buttonName === 'FONT_SIZE') {
       buttonsList[index].getLabel = () => getFontSize(editorCommands);
     }
@@ -436,6 +507,8 @@ const handleButtonIcon = (buttonsList, index, editorCommands: editorCommands) =>
     buttonsList[index].getIcon = () => buttonsFullData[buttonsList[index].name].icon;
   } else if (buttonName === 'Alignment') {
     buttonsList[index].getIcon = () => handleAlignmentIcon(editorCommands);
+  } else if (buttonName === 'HEADINGS') {
+    buttonsList[index].getIcon = () => getHeadingIcon(editorCommands);
   }
 };
 
@@ -527,10 +600,15 @@ const getCurrentHeading = (editorCommands: editorCommands) => {
   return currentHeading;
 };
 
+const getHeadingIcon = (editorCommands: editorCommands) => {
+  const currentHeading = getCurrentHeading(editorCommands);
+  return HEADING_TYPE_TO_ICON[currentHeading];
+};
+
 const updateDynamicStyles = (value, editorCommands: editorCommands, buttonName) => {
   const data =
     buttonName === 'FONT_SIZE'
-      ? { fontSize: value < 10 ? 10 : value > 96 ? 96 : value }
+      ? { fontSize: value < 1 ? 1 : value > 900 ? 900 : value }
       : { dynamicStyles: value };
   editorCommands.insertDecoration(decorationButtons[buttonName], { ...data });
 };
@@ -542,11 +620,7 @@ const goToLink = (event, linkData, linkPanelData, experiments) => {
     if (customAnchorScroll) {
       customAnchorScroll(event, anchor);
     } else {
-      const nodeListOfAllblocks = document.querySelectorAll(`[data-editor]`);
-      // eslint-disable-next-line prefer-spread
-      const arrayOfAllblocks = Array.apply(null, nodeListOfAllblocks);
-      const element = arrayOfAllblocks.find(block => block.dataset.offsetKey === `${anchor}-0-0`);
-      anchorScroll(element, experiments);
+      scrollToBlock(anchor, experiments);
     }
   } else {
     const href = url ? normalizeUrl(url) : undefined;

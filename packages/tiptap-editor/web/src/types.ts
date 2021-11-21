@@ -45,11 +45,13 @@ export type TiptapAPI = {
 };
 
 export interface RicosTiptapEditorProps {
-  content?: JSONContent;
+  content: JSONContent;
   extensions?: RicosExtension[];
   onLoad?: (editor: Editor) => void;
   t: TranslationFunction;
   onUpdate?: ({ content }: { content: DraftContent }) => void;
+  onBlur?: () => void;
+  onSelectionUpdate?: ({ selectedNodes }: { selectedNodes: ProseMirrorNode[] }) => void;
   theme?: RichContentTheme;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;

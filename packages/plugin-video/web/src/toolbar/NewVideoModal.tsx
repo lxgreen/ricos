@@ -9,33 +9,29 @@ import styles from '../../statics/styles/video-modal.scss';
 
 const VideoModal = props => {
   const {
-    componentData: { isCustomVideo, src },
+    componentData: { isCustomVideo, src, type },
+    helpers: { closeModal },
+    t,
+    theme,
+    isMobile,
   } = props;
-  const videoTabs = { embed: 'Embed', upload: 'Upload' };
+
+  const videoTabs = { embed: t('VideoModal_Tabs_Embed'), upload: t('VideoModal_Tabs_Upload') };
   const initialUrl = isCustomVideo ? '' : src || '';
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [activeTab, setActiveTab] = useState(isCustomVideo ? videoTabs.upload : videoTabs.embed);
   const [url, setUrl] = useState(initialUrl);
   const [submittedInvalidUrl, setSubmittedInvalidUrl] = useState(false);
-  const {
-    theme,
-    isMobile,
-    t,
-    componentData: { type },
-    helpers: { closeModal },
-  } = props;
-
-  const isYoutubeType = type === videoButtonsTypes.youTube;
   const isSoundCloud = type === videoButtonsTypes.soundCloud;
-  const isEmbedType = isYoutubeType || isSoundCloud;
+  const onTabSelected = tab => setActiveTab(tab);
 
   const onConfirm = () => {
     if (url && ReactPlayer.canPlay(url)) {
       const { componentData, helpers, pubsub, onConfirm } = props;
       if (onConfirm) {
-        onConfirm({ ...componentData, src: url });
+        onConfirm({ ...componentData, src: url, isCustomVideo: false });
       } else {
-        pubsub.update('componentData', { src: url });
+        pubsub.update('componentData', { src: url, isCustomVideo: false });
       }
 
       if (helpers && helpers.onVideoSelected) {
@@ -49,15 +45,9 @@ const VideoModal = props => {
       setSubmittedInvalidUrl(true);
     }
   };
-  const dataHook = isYoutubeType
-    ? 'socialEmbedUploadModal'
-    : isSoundCloud
-    ? 'soundCloudUploadModal'
-    : 'videoMediaUrlModal';
+  const dataHook = isSoundCloud ? 'soundCloudUploadModal' : 'videoMediaUrlModal';
 
-  const title = isYoutubeType
-    ? t('EmbedURL_Social_YouTube_Title')
-    : isSoundCloud
+  const title = isSoundCloud
     ? isMobile
       ? t('SoundCloudUploadModal_Header_Mobile')
       : t('SoundCloudUploadModal_Header')
@@ -71,15 +61,16 @@ const VideoModal = props => {
         url={url}
         setUrl={setUrl}
         submittedInvalidUrl={submittedInvalidUrl}
-        withMobileHeader={isEmbedType}
+        withMobileHeader={isSoundCloud}
         dataHook={dataHook}
-        title={isEmbedType && title}
-        subTitle={!isEmbedType && t('VideoModal_Embed_Title')}
+        title={isSoundCloud && title}
+        saveLabel={isSoundCloud ? t('Embed_Add_Button_Label') : t('VideoModal_Embed_ButtonText')}
+        subTitle={!isSoundCloud && t('VideoModal_Embed_Title')}
       />
     );
   };
 
-  return isEmbedType ? (
+  return isSoundCloud ? (
     renderMediaUrlInputModal()
   ) : (
     <div className={styles.video_modal_container}>
@@ -93,7 +84,12 @@ const VideoModal = props => {
             title={t('VideoModal_MobileHeader')}
           />
         )}
-        <Tabs value={activeTab} className={styles.video_modal_tabs_header} theme={theme}>
+        <Tabs
+          value={activeTab}
+          onTabSelected={onTabSelected}
+          className={styles.video_modal_tabs_header}
+          theme={theme}
+        >
           <Tab label={videoTabs.embed} value={videoTabs.embed} theme={theme}>
             <div className={styles.video_modal_tab}>{renderMediaUrlInputModal()}</div>
           </Tab>

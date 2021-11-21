@@ -14,6 +14,7 @@ export class PollOptionBase extends React.PureComponent {
 
   state = {
     loading: false,
+    checked: this.isUserChoice(),
   };
 
   isEditAllowed() {
@@ -54,8 +55,10 @@ export class PollOptionBase extends React.PureComponent {
     try {
       if (this.isUserChoice()) {
         await this.props.unvote(this.props.option.id);
+        this.setState({ checked: false });
       } else {
         await this.props.vote(this.props.option.id);
+        this.setState({ checked: true });
       }
     } catch (error) {
     } finally {

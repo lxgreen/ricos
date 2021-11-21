@@ -2,7 +2,7 @@
 import { cloneDeep, isEmpty } from 'lodash';
 import { DraftContent, RicosContentBlock } from '../../../types';
 import { BlockType, FROM_DRAFT_LIST_TYPE, HeaderLevel } from '../consts';
-import { RichContent, Node, Node_Type } from 'ricos-schema';
+import { RichContent, Node, Node_Type, Decoration_Type } from 'ricos-schema';
 import { generateId } from '../../generateRandomId';
 import { getTextNodes } from './getTextNodes';
 import { getEntity, getNodeStyle, getTextStyle } from './getRicosEntityData';
@@ -16,8 +16,43 @@ export interface FromDraftOptions {
 export const ensureRicosContent = (content: RichContent | DraftContent): RichContent =>
   'blocks' in content ? fromDraft(content) : content;
 
+const cssToRicosDecoration = {
+  color: (style: string) => {
+    return { type: Decoration_Type.COLOR, colorData: { foreground: style } };
+  },
+  'background-color': (style: string) => {
+    return { type: Decoration_Type.COLOR, colorData: { background: style } };
+  },
+  'font-weight': (style: string) => {
+    return { type: Decoration_Type.BOLD, fontWeightValue: style === 'bold' ? 700 : 400 };
+  },
+  'font-style': (style: string) => {
+    return { type: Decoration_Type.ITALIC, italicData: style === 'italic' };
+  },
+  'text-decoration': (style: string) => {
+    return { type: Decoration_Type.UNDERLINE, underlineData: style === 'underline' };
+  },
+  'font-size': (style: string) => {
+    return { type: Decoration_Type.FONT_SIZE, fontSize: style };
+  },
+};
+
+const convertHeaderToInlineStyles = styles =>
+  Object.entries(styles).map(([key, style]) => cssToRicosDecoration[key](style));
+
+const parseDocStyle = documentStyle => {
+  documentStyle &&
+    Object.entries(documentStyle).forEach(([header, styles]) => {
+      header &&
+        (documentStyle[header] = {
+          decorations: convertHeaderToInlineStyles(styles),
+        });
+    });
+  return documentStyle;
+};
+
 export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}): RichContent => {
-  const { blocks, entityMap } = cloneDeep(draftJSON);
+  const { blocks, entityMap, documentStyle, ID: id } = cloneDeep(draftJSON);
   const nodes: Node[] = [];
 
   const parseBlocks = (index = 0) => {
@@ -191,7 +226,8 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
 
   const content: RichContent = {
     nodes,
-    metadata: initializeMetadata(),
+    metadata: initializeMetadata({ id }),
+    documentStyle: parseDocStyle(documentStyle),
   };
 
   return RichContent.fromJSON(content);

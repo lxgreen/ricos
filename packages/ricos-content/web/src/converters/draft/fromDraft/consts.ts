@@ -17,6 +17,7 @@ import {
   EMBED_TYPE,
   COLLAPSIBLE_LIST_TYPE,
   TABLE_TYPE,
+  EXTERNAL,
 } from '../../../consts';
 import {
   ButtonData,
@@ -55,4 +56,10 @@ export const TO_RICOS_DATA = {
   [EMBED_TYPE]: EmbedData,
   [COLLAPSIBLE_LIST_TYPE]: CollapsibleListData,
   [TABLE_TYPE]: TableData,
+  [EXTERNAL]: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    fromJSON(data: Record<string, any>) {
+      return data;
+    },
+  },
 };

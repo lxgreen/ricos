@@ -179,7 +179,7 @@ export const getButtonProps = ({ config, type }) => {
     const styleSelectionPredicate = predicate(
       settings.styleSelectionPredicate || DEFAULT_STYLE_SELECTION_PREDICATE
     );
-    const currentColors = getSelectionStyles(styleSelectionPredicate, editorState);
+    const currentColors = getSelectionStyles(editorState, styleSelectionPredicate);
     return currentColors.length > 0
       ? extractColor(settings.colorScheme, getColor(currentColors[0]))
       : defaultColor;
@@ -199,7 +199,7 @@ export const getButtonProps = ({ config, type }) => {
       const predicate = pluginSettings.predicate(
         settings?.styleSelectionPredicate || DEFAULT_STYLE_SELECTION_PREDICATE
       );
-      return getSelectionStyles(predicate, config.getEditorState()).length > 0;
+      return getSelectionStyles(config.getEditorState(), predicate).length > 0;
     },
     getIcon: () =>
       settings?.toolbar?.icons?.InsertPluginButtonIcon ||

@@ -20,6 +20,7 @@ const externals = [
   'image-client-api/dist/imageClientSDK',
   '@wix/draft-js',
   'downshift',
+  'uuid',
   /^punycode$/,
   /^jss$/, //issue with ESM in CJS
   /^jss-plugin-camel-case$/, //issue with ESM in CJS

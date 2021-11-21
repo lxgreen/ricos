@@ -13,6 +13,7 @@ package wix.rich_content.v1;
 import "wix/api/validations.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
+import "wix/rich_content/v1/struct.proto";
 import "wix/rich_content/v1/decoration_anchor.proto";
 import "wix/rich_content/v1/decoration_color.proto";
 import "wix/rich_content/v1/decoration_link.proto";
@@ -74,10 +75,11 @@ message Node {
         COLLAPSIBLE_ITEM_BODY = 25;
         TABLE_CELL = 26;
         TABLE_ROW = 27;
+        EXTERNAL = 28;
     }
 
     Type type = 1; // Node type
-    string id = 2; // Node unique indentifier
+    string id = 2; // Node unique identifier
     repeated Node nodes = 3; // List of child nodes
     NodeStyle style = 4;
     oneof data {
@@ -101,6 +103,7 @@ message Node {
         CollapsibleListData collapsible_list_data = 22;
         TableData table_data = 23;
         TableCellData table_cell_data = 24;
+        Struct externalData = 25;
     }
 }
 
@@ -127,6 +130,7 @@ message Decoration {
         LINK = 6;
         COLOR = 7;
         FONT_SIZE = 8;
+        EXTERNAL = 9;
     }
 
     Type type = 1; // Decoration type
@@ -146,6 +150,7 @@ message Metadata {
     uint32 version = 1 [(wix.api.min) = 1]; // Schema version
     google.protobuf.Timestamp created_timestamp = 2 [(wix.api.readOnly) = true]; // Time content was created
     google.protobuf.Timestamp updated_timestamp = 3; // Time of latest edit
+    google.protobuf.StringValue id = 4;
 }
 
 message TextNodeStyle {

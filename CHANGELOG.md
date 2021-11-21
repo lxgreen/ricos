@@ -20,6 +20,207 @@
 </details>
 <hr/>
 
+## 8.61.6 (Nov 18, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3135](https://github.com/wix/ricos/pull/3135) support shouldCreate config
+  - [#3128](https://github.com/wix/ricos/pull/3128) headings dropdown options tooltips
+- `viewer`
+  - [#3128](https://github.com/wix/ricos/pull/3128) link colors overriden by `documentStyle`
+- `ricos-content`
+  - [#3131](https://github.com/wix/ricos/pull/3131) convertJsonToStruct validation logic fix
+
+## 8.61.5 (Nov 18, 2021)
+
+### :bug: Bug Fix
+
+- `tiptap`
+  - [#3132](https://github.com/wix/ricos/pull/3132) fixed on atomic block focus
+  - [#3133](https://github.com/wix/ricos/pull/3133) External Toolbar Crash bix
+
+## 8.61.4 (Nov 17, 2021)
+
+### :bug: Bug Fix
+
+- `general`
+  - [#3119](https://github.com/wix/ricos/pull/3119) Fix font-family and color wiring on modals
+- `video/ui-components`
+  - [#3127](https://github.com/wix/ricos/pull/3127) Fix language dir and input border radius
+
+### :house: Internal
+
+- `*`
+  - [#3061](https://github.com/wix/ricos/pull/3061) RichContent ID
+
+## 8.61.3 (Nov 17, 2021)
+
+### :bug: Bug Fix
+
+- `headings`
+  - [#3125](https://github.com/wix/ricos/pull/3125) update heading also removes line height from block style
+
+## 8.61.2 (Nov 17, 2021)
+
+### :bug: Bug Fix
+
+- `video`
+  - [#3121](https://github.com/wix/ricos/pull/3121) Fix new video modal style
+- `vertical-embed`
+  - [#3123](https://github.com/wix/ricos/pull/3123) bug fix scroll to selected item
+- `ricos-content`
+  - [#3124](https://github.com/wix/ricos/pull/3124) external type in fromDraft/toDraft
+
+## 8.61.1 (Nov 16, 2021)
+
+### :bug: Bug Fix
+
+- `social-polls`
+  - [#3122](https://github.com/wix/ricos/pull/3122) Polls a11y
+
+## 8.61.0 (Nov 16, 2021)
+
+### :rocket: New Feature
+
+- `plugin-headings toolbars-new`
+  - [#2987](https://github.com/wix/ricos/pull/2987) `allowHeadingCustomization` prop enables headings customization modal in the new formatting toolbar
+
+### :bug: Bug Fix
+
+- `vertical-embed`
+  - [#3118](https://github.com/wix/ricos/pull/3118) Fix new vertical-embed modal style
+
+## 8.60.2 (Nov 16, 2021)
+
+### :house: Internal
+
+- `ricos-content`
+  - [#3117](https://github.com/wix/ricos/pull/3117) export convert function
+
+## 8.60.1 (Nov 15, 2021)
+
+### :bug: Bug Fix
+
+- `more-menu`
+  - [#1513](https://github.com/wix/ricos/pull/1513) fix more menu position
+
+## 8.60.0 (Nov 15, 2021)
+
+### :rocket: New Feature
+
+- `ricos-editor`
+  - [#3068](https://github.com/wix/ricos/pull/3068) **beta** Editor Commands API support for Notes
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+
+  - [#3108](https://github.com/wix/ricos/pull/3108) Fix getsSpacing function to operate when the default line spacing is not defined
+
+- `image-plugin`
+  - [#3112](https://github.com/wix/ricos/pull/3112) fix a11y on enter
+
+### :house: Internal
+
+- `editor viewer`
+  - [#3006](https://github.com/wix/ricos/pull/3006) `documentStyle` and headings customization support
+
+## 8.59.3 (Nov 14, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3090](https://github.com/wix/ricos/pull/3090) support custom link config
+
+## 8.59.2 (Nov 13, 2021)
+
+- `viewer`
+  - [#3011](https://github.com/wix/ricos/pull/3011) Full Screen Optmization - a11y & mobile experiment
+- `tiptap`
+  - [#3104](https://github.com/wix/ricos/pull/3104) support on atomic block focus callback
+
+## 8.59.1 (Nov 10, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3075](https://github.com/wix/ricos/pull/3075) disable link when atomic block is selected
+- `table`
+  - [#3091](https://github.com/wix/ricos/pull/3091) clean unwanted separators from toolbar
+- `ricos-content`
+  - [#3092](https://github.com/wix/ricos/pull/3092) ckeditor parser: text-in-root rule
+  - [#3095](https://github.com/wix/ricos/pull/3095) EXTERNAL type mapped to plugin data
+- `editor-common`
+  - [#3094](https://github.com/wix/ricos/pull/3094) anchor in new toolbar on mobile
+
+### :house: Internal
+
+- `example`
+  - [#3076](https://github.com/wix/ricos/pull/3076) new toolbar - default in example + add dedicated button in settings
+- `toolbars-new`
+  - [#3099](https://github.com/wix/ricos/pull/3099) added datahooks
+
+### :nail_care: Polish
+
+- `toolbars-new`
+  - [#3097](https://github.com/wix/ricos/pull/3097) refactor new toolbar modals position
+
+## 8.59.0 (Nov 9, 2021)
+
+### :rocket: New Feature
+
+- `ricos-schema`
+  - [#3054](https://github.com/wix/ricos/pull/3054) EXTERNAL type
+- `ricos-content`
+  - [#3054](https://github.com/wix/ricos/pull/3054) to/fromDraft: EXTERNAL type supported
+  - [#3056](https://github.com/wix/ricos/pull/3056) EXTERNAL type in EditorCommands
+
+### :bug: Bug Fix
+
+- `toolbar-new`
+  - [#3066](https://github.com/wix/ricos/pull/3066) fix color-picker modal style for mobile devices
+  - [#3078](https://github.com/wix/ricos/pull/3078) refactor toolbar modals position and width
+- `toolbars`
+  - [#3063](https://github.com/wix/ricos/pull/3063) ui changes in static text toolbars (old/new toolbar)
+- `ricos-content`
+  - [#3083](https://github.com/wix/ricos/pull/3083) Fix fromHtml parser rules
+
+### :house: Internal
+
+- `ricos-content`
+  - [#3071](https://github.com/wix/ricos/pull/3071) Content API: generic modifier and extractor
+- `toolbars-new`
+  - [#3073](https://github.com/wix/ricos/pull/3073) update and add datahooks to the new-toolbar testing
+- `tiptap`
+  - [#3080](https://github.com/wix/ricos/pull/3080) add insertNode, updateNodeById, and setNode core commands
+
+### :nail_care: Polish
+
+- `polls`
+  - [#3026](https://github.com/wix/ricos/pull/3026) refactor settings mobile header / add polls to plugin menu
+
+## 8.58.3 (Nov 2, 2021)
+
+### :house: Internal
+
+- `tiptap plugins`
+  - [#3047](https://github.com/wix/ricos/pull/3047) add plugins to tiptap [video, gif, file, gallery, code-block, spoiler, color]
+- `video`
+  - [#3050](https://github.com/wix/ricos/pull/3050) open video modal when embed from youtube
+
+## 8.58.2 (Nov 1, 2021)
+
+### :house: Internal
+
+- `schema`
+  - [#3049](https://github.com/wix/ricos/pull/3049) generate-plugin-defaults generates link decoration defaults
+
+### :bug: Bug Fix
+
+- `schema`
+  - add verticala embed schema to content state schemas
+
 ## 8.58.1 (Oct 27, 2021)
 
 ### :rocket: New Feature

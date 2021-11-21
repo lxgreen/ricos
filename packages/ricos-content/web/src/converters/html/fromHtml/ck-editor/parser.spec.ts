@@ -45,6 +45,7 @@ describe('CKEditor parser', () => {
       'migration-failures.json',
       loadFile,
       JSON.parse,
+      // a => [a[0]],
       A.map(
         flow(
           parse,
@@ -54,6 +55,6 @@ describe('CKEditor parser', () => {
         )
       )
     );
-    expect(failedContent.length).toEqual(160);
+    expect(failedContent.length).toEqual(163);
   });
 });

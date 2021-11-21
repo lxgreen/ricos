@@ -7,6 +7,7 @@ export const HEADER_BLOCK = Object.freeze({
   FOUR: 'header-four',
   FIVE: 'header-five',
   SIX: 'header-six',
+  PARAGRAPH: 'unstyled',
 });
 
 export const DEFAULT_TITLE_HEADINGS = ['h2', 'h3'];
@@ -34,6 +35,7 @@ export const UNSTYLED = 'unstyled';
 export const BLOCKQUOTE = 'blockquote';
 export const NUMBERED_LIST_TYPE = 'ordered-list-item';
 export const BULLET_LIST_TYPE = 'unordered-list-item';
+export const HEADINGS_TYPE = 'headings';
 
 export const isListType = (type: string): boolean =>
   type === 'ordered-list-item' || type === 'unordered-list-item';
@@ -78,6 +80,7 @@ export const ANCHOR_TYPE = 'ANCHOR';
 export const PREVIEW = 'PREVIEW';
 export const UNSUPPORTED_BLOCKS_TYPE = 'unsupported-blocks';
 export const EMBED_TYPE = 'EMBED';
+export const EXTERNAL = 'EXTERNAL';
 
 // ricos plugin types
 export const RICOS_COLLAPSIBLE_LIST_TYPE = 'ricos-collapsible-list';
@@ -113,9 +116,20 @@ export const RICOS_COLOR_TYPE = 'ricos-color';
 export const RICOS_LINK_TYPE = 'ricos-link';
 export const RICOS_MENTION_TYPE = 'ricos-mention';
 export const RICOS_FONT_SIZE_TYPE = 'ricos-font-size';
+export const RICOS_BOLD_TYPE = 'ricos-bold';
+export const RICOS_ITALIC_TYPE = 'ricos-italic';
 
 export const RICOS_EXTERNAL_LINK_TYPE = 'ricos-external-link'; // TODO: is this type needed?
 export const RICOS_EXTERNAL_MENTION_TYPE = 'ricos-external-mention'; // TODO: is this type needed?
+
+// tiptap plugins types
+export const TIPTAP_DIVIDER_TYPE = 'divider';
+export const TIPTAP_IMAGE_TYPE = 'image';
+export const TIPTAP_GALLERY_TYPE = 'gallery';
+export const TIPTAP_FILE_TYPE = 'file';
+export const TIPTAP_GIF_TYPE = 'gif';
+export const TIPTAP_VIDEO_TYPE = 'video';
+export const TIPTAP_LINK_PREVIEW_TYPE = 'linkPreview';
 
 export const RICOS_NODE_TYPE_TO_DATA_FIELD = {
   [Node_Type.BUTTON]: 'buttonData',
@@ -139,4 +153,5 @@ export const RICOS_NODE_TYPE_TO_DATA_FIELD = {
   [Node_Type.CODE_BLOCK]: 'codeBlockData',
   [Node_Type.BLOCKQUOTE]: 'paragraphData',
   [Node_Type.EMBED]: 'embedData',
+  [Node_Type.EXTERNAL]: 'externalData',
 } as const;

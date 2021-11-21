@@ -60,6 +60,10 @@
     clear: both;
     line-height: 0;
   }
+
+  @include phone {
+    font-size: $paragraphFontSizeMobile;
+  }
 }
 
 .atomic {

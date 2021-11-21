@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { RichContentEditor } from 'wix-rich-content-editor';
 import {
-  RichContentTheme,
-  GetToolbarSettings,
   EditorCommands,
   TextButtons,
   EditorPlugin,
   LinkPanelSettings,
   ToolbarType,
   AvailableExperiments,
+  getLangDir,
 } from 'wix-rich-content-common';
-import { LinkSettings } from 'ricos-common';
+import { LinkSettings, ToolbarSettings, RicosCssOverride, RicosTheme } from 'ricos-common';
 import { isiOS } from 'wix-rich-content-editor-common';
 import {
   FloatingToolbarContainer,
@@ -26,8 +26,9 @@ interface TextFormattingToolbarProps {
   activeEditor: RichContentEditor;
   textToolbarType?: string | null;
   isMobile?: boolean;
-  theme?: RichContentTheme;
-  getToolbarSettings?: GetToolbarSettings;
+  theme?: RicosTheme;
+  toolbarSettings?: ToolbarSettings;
+  locale?: string;
   plugins?: EditorPlugin[];
   linkPanelSettings?: LinkPanelSettings;
   linkSettings?: LinkSettings;
@@ -39,11 +40,30 @@ interface TextFormattingToolbarProps {
     pluginId?: string
   ) => void;
   experiments?: AvailableExperiments;
+  getEditorContainer: () => Element;
+  cssOverride?: RicosCssOverride;
 }
 
 export type TextFormattingToolbarType = typeof TextFormattingToolbar;
 
-class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
+interface State {
+  keyForRerender: boolean;
+}
+
+class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State> {
+  constructor(props) {
+    super(props);
+    this.state = { keyForRerender: true };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.activeEditor !== prevProps.activeEditor) {
+      const { keyForRerender } = this.state;
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ keyForRerender: !keyForRerender });
+    }
+  }
+
   updateToolbar = () => {
     this.forceUpdate();
   };
@@ -54,22 +74,30 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
       textToolbarType,
       isMobile,
       theme,
-      getToolbarSettings = () => [],
+      toolbarSettings = {},
+      locale,
       experiments,
+      getEditorContainer,
+      cssOverride,
     } = this.props;
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
-    const showFormattingToolbar = !selection.getIsCollapsed && selection.getIsFocused;
+    const showFormattingToolbar = !selection.isCollapsed && selection.isFocused;
     const t = activeEditor.getT();
     const focusEditor = () => activeEditor.focus();
     const textButtons: TextButtons = {
       mobile: mobileTextButtonList,
       desktop: desktopTextButtonList,
     };
-    const formattingToolbarSetting = getToolbarSettings({ textButtons }).find(
-      toolbar => toolbar?.name === textToolbarType
-    );
+    const formattingToolbarSetting = toolbarSettings
+      ?.getToolbarSettings?.({ textButtons })
+      .find(toolbar => toolbar?.name === textToolbarType);
     const deviceName = !isMobile ? 'desktop' : isiOS() ? 'mobile.ios' : 'mobile.android';
+    const shouldCreateFn = formattingToolbarSetting?.shouldCreate?.();
+    const shouldCreateToolbar = get(shouldCreateFn, deviceName, []);
+    if (shouldCreateToolbar === false) {
+      return null;
+    }
     let formattingToolbarButtons;
     if (formattingToolbarSetting?.getButtons) {
       const allFormattingToolbarButtons = formattingToolbarSetting?.getButtons?.() as TextButtons;
@@ -93,8 +121,10 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
       TEXT_COLOR: getPluginConfig('wix-rich-content-text-color'),
       TEXT_HIGHLIGHT: getPluginConfig('wix-rich-content-text-highlight'),
     };
+    const linkConfig = getPluginConfig('LINK');
     const linkPanelData = {
-      linkTypes: getPluginConfig('LINK')?.linkTypes,
+      linkTypes: linkConfig?.linkTypes,
+      onLinkAdd: linkConfig?.onLinkAdd,
       uiSettings: { linkPanel: this.props.linkPanelSettings },
       linkSettings: this.props.linkSettings,
       isMobile,
@@ -122,14 +152,15 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
         onToolbarButtonClick={onToolbarButtonClick}
         experiments={experiments}
         defaultLineSpacing={defaultLineSpacing}
+        getEditorContainer={getEditorContainer}
+        cssOverride={cssOverride}
       />
     );
     const ToolbarContainer =
       textToolbarType === ToolbarType.MOBILE || textToolbarType === ToolbarType.STATIC
         ? StaticToolbarContainer
         : FloatingToolbarContainer;
-
-    return !hideFormattingToolbar ? (
+    const ToolbarWithContainerToRender = (
       <ToolbarContainer
         isMobile={isMobile}
         showToolbar={showFormattingToolbar || false}
@@ -138,7 +169,24 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps> {
       >
         {ToolbarToRender}
       </ToolbarContainer>
-    ) : null;
+    );
+
+    const textToolbarContainer = this.props.toolbarSettings?.textToolbarContainer;
+    if (textToolbarContainer) {
+      //render static toolbar inside provided container
+      const staticToolbar = (
+        <div
+          key={`${this.state.keyForRerender}`}
+          data-hook={'provided-container-toolbar'}
+          dir={getLangDir(locale)}
+        >
+          {ToolbarWithContainerToRender}
+        </div>
+      );
+      return ReactDOM.createPortal(staticToolbar, textToolbarContainer);
+    } else {
+      return !hideFormattingToolbar ? ToolbarWithContainerToRender : null;
+    }
   }
 }
 

@@ -1,12 +1,13 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 @import '~wix-rich-content-common/dist/statics/styles/fonts';
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
 
 %button {
   font-size: 16px;
   cursor: pointer;
   border: 1px solid $settings-action-color-fallback;
   width: 100%;
-  font-family: $ricos-font-family;
+  font-family: $ricos-default-font-family;
   &.borderLess {
     border: none;
   }
@@ -26,6 +27,9 @@
 
   &:hover:not([disabled]) {
     background-color: rgba($settings-action-color-fallback-tuple, 0.8);
+    @include phone {
+      background-color: transparent;
+    }
   }
 
   &:disabled {

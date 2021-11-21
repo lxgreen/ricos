@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 /* eslint-disable no-restricted-globals */
 import { DraftHandleValue, EditorProps } from '@wix/draft-js';
 import { CommandHandler, OnKeyboardShortcutClick } from 'wix-rich-content-common';
@@ -5,10 +6,26 @@ import { COMMANDS, EditorState, mergeBlockData, RichUtils } from 'wix-rich-conte
 import handleBackspaceCommand from './handleBackspaceCommand';
 import handleDeleteCommand from './handleDeleteCommand';
 import handleTabCommand from './handleTabCommand';
+import { setFontSize, getFontSize } from './utils/editorCommandsUtils';
 
 const isTab = (command: string) => command === COMMANDS.TAB || command === COMMANDS.SHIFT_TAB;
 
 const isUndoRedo = (command: string) => command === COMMANDS.UNDO || command === COMMANDS.REDO;
+
+const getFontSizeValue = (editorState: EditorState) => {
+  const fontSize = getFontSize(editorState).split('p');
+  return fontSize.length > 1 ? parseInt(fontSize[0]) : null;
+};
+
+const incrementFontSize = (editorState: EditorState) => {
+  const fontSize = getFontSizeValue(editorState);
+  return fontSize ? setFontSize(editorState, { fontSize: (fontSize + 1).toString() }) : editorState;
+};
+
+const decrementFontSize = (editorState: EditorState) => {
+  const fontSize = getFontSizeValue(editorState);
+  return fontSize ? setFontSize(editorState, { fontSize: (fontSize - 1).toString() }) : editorState;
+};
 
 export default (
   updateEditorState: (editorState: EditorState) => void,
@@ -39,6 +56,13 @@ export default (
         break;
       case COMMANDS.TITLE:
       case COMMANDS.SUBTITLE:
+      case COMMANDS.PARAGRAPH:
+      case COMMANDS.H1:
+      case COMMANDS.H2:
+      case COMMANDS.H3:
+      case COMMANDS.H4:
+      case COMMANDS.H5:
+      case COMMANDS.H6:
       case COMMANDS.NUMBERED_LIST:
       case COMMANDS.BULLETED_LIST:
       case COMMANDS.BLOCKQUOTE:
@@ -52,6 +76,12 @@ export default (
         break;
       case COMMANDS.DELETE:
         newState = handleDeleteCommand(editorState);
+        break;
+      case COMMANDS.INCREASE_FONT_SIZE:
+        newState = incrementFontSize(editorState);
+        break;
+      case COMMANDS.DECREASE_FONT_SIZE:
+        newState = decrementFontSize(editorState);
         break;
       default:
         newState = RichUtils.handleKeyCommand(editorState, command);

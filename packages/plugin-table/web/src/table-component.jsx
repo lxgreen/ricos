@@ -273,7 +273,7 @@ class TableComponent extends React.Component {
 
   shouldHandleKeyDown = e => {
     const { selected, isEditingActive } = this.state;
-    const isColorPickerModalOpen = e.target.closest('[data-id=color-picker-modal]');
+    const isColorPickerModalOpen = e.target.closest('[data-hook=color-picker-modal]');
     return (
       isPluginFocused(this.props.block, this.props.selection) &&
       selected &&

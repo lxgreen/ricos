@@ -8,6 +8,7 @@ import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 import classNames from 'classnames';
 import { findOsName } from '../../Toolbar/buttonsListCreatorConsts';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
+import ArrowIcon from './ArrowIcon';
 import { FocusManager } from 'wix-rich-content-ui-components';
 
 const DesktopPanel = ({
@@ -19,6 +20,7 @@ const DesktopPanel = ({
   theme,
   sizeFitContent,
   t,
+  displayIconAndText,
   externalFocus,
 }) => {
   const styles = mergeStyles({ styles: Styles, theme });
@@ -30,11 +32,18 @@ const DesktopPanel = ({
     !externalFocus && ref.focus();
   }, []);
 
-  const optionElement = (option, isSelected, onClick) => {
-    const content = option.icon ? option.icon() : t(option.text);
+  const optionElement = (option, isSelected, onClick, onHover) => {
+    const content = option.icon && !displayIconAndText ? option.icon() : t(option.text);
+    const dataHook = option.dataHook || 'modal-option';
     const onKeyDown = e => {
       if (e.keyCode === KEYS_CHARCODE.ENTER) {
         onClick(option.commandKey, true);
+      }
+    };
+    const onOptionHover = () => {
+      const openOption = customPanelOptions?.openOption;
+      if (option.modal && openOption && openOption !== option.commandKey) {
+        onHover('');
       }
     };
     return (
@@ -52,6 +61,8 @@ const DesktopPanel = ({
           // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
           tabIndex={0}
           onKeyDown={onKeyDown}
+          onFocus={() => onHover(option.commandKey)}
+          onMouseOver={onOptionHover}
         >
           <div
             className={classNames(styles.panel_row_desktop, {
@@ -59,11 +70,34 @@ const DesktopPanel = ({
             })}
             key={option.commandKey}
             onClick={() => onClick(option.commandKey)}
+            data-hook={dataHook}
           >
             <div className={styles.panel_row_text_container}>
-              <div className={styles.panel_row_text}>{content} </div>
+              {displayIconAndText ? (
+                <div className={styles.panel_row_primary}>
+                  {option.icon()}
+                  <div className={styles.panel_row_text} style={option.style}>
+                    {content}
+                  </div>
+                </div>
+              ) : (
+                <div className={styles.panel_row_text} style={option.style}>
+                  {content}
+                </div>
+              )}
               {option.subText && <div className={styles.panel_row_subtext}>{option.subText}</div>}
             </div>
+            {option.modal && (
+              // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+              <div
+                className={styles.panel_row_arrow_container}
+                onMouseOver={() => setTimeout(() => onHover(option.commandKey), 0)}
+              >
+                <div className={styles.panel_row_arrow}>
+                  <ArrowIcon />
+                </div>
+              </div>
+            )}
           </div>
           {option.modal && customPanelOptions?.openOption === option.commandKey && option.modal}
         </div>
@@ -75,21 +109,28 @@ const DesktopPanel = ({
     <div
       tabIndex={-1}
       ref={panelRef}
+      data-hook="toolbars-modal-desktopPanel"
       className={classNames(styles.desktopPanel, {
         [styles.desktopPanel_fitContent]: sizeFitContent,
+        [styles.desktopPanel_withInlineModal]: customPanelOptions?.inline,
       })}
     >
       {options.map(option =>
         optionElement(
           option,
           (currentSelect['line-height'] ?? currentSelect) === option.commandKey,
-          customPanelOptions?.inline ? customPanelOptions.onOpen : onChange
+          onChange,
+          customPanelOptions?.inline && customPanelOptions.onOpen
         )
       )}
       {customPanelOptions && !customPanelOptions.inline && (
         <>
           <div className={styles.separator} />
-          <button className={styles.showCustomPanel_button} onClick={customPanelOptions.onOpen}>
+          <button
+            className={styles.showCustomPanel_button}
+            data-hook="modal-option"
+            onClick={customPanelOptions.onOpen}
+          >
             {panelHeader}
           </button>
         </>

@@ -33,11 +33,12 @@ interface ToolbarProps {
   nestedMenu?: boolean;
   theme?: RichContentTheme;
   onToolbarButtonClick?: any;
+  getEditorContainer: () => Element;
 }
 
 interface State {
   buttons: any;
-  overflowedButtons: any;
+  overflowCount: number;
 }
 
 class Toolbar extends Component<ToolbarProps, State> {
@@ -58,12 +59,29 @@ class Toolbar extends Component<ToolbarProps, State> {
       inlineToolbarButton_icon: buttonTheme.textToolbarButton_icon,
     };
     this.theme = { ...props.theme, buttonStyles };
-    this.state = { buttons: props.buttons, overflowedButtons: [] };
+    this.state = { buttons: props.buttons, overflowCount: 0 };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.buttons !== prevProps.buttons) {
+      const { overflowCount } = this.state;
+      const { isMobile, nestedMenu } = this.props;
+      let { buttons } = this.props;
+      if (!isMobile && this.toolbarRef && !nestedMenu && overflowCount > 0) {
+        buttons = this.updateToolbarOverflow();
+      }
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ buttons });
+    }
   }
 
   componentDidMount() {
-    const { nestedMenu } = this.props;
-    nestedMenu && this.setFirstAndLastButtons();
+    const { isMobile, nestedMenu } = this.props;
+    let { buttons } = this.state;
+    if (!isMobile && this.toolbarRef && !nestedMenu) {
+      buttons = this.setToolbarOverflow();
+    }
+    this.setState({ buttons }, this.setFirstAndLastButtons);
   }
 
   setFirstAndLastButtons = () => {
@@ -73,28 +91,56 @@ class Toolbar extends Component<ToolbarProps, State> {
     this.lastButton = lastChild?.querySelector?.('button');
   };
 
-  handleToolbarOverflow = () => {
-    const { buttons, overflowedButtons } = this.state;
-    if (this.toolbarOverflowWithEditorWidth()) {
-      if (buttons[buttons.length - 1].name !== 'overflow') {
-        buttons.push({
-          name: 'overflow',
-          type: TOOLBAR_BUTTON_TYPES.NESTED_MENU,
-          getIcon: () => ContextMenuIcon,
-          buttonList: overflowedButtons,
-        });
+  updateToolbarOverflow = () => {
+    const { buttons } = this.props;
+    const { overflowCount } = this.state;
+    const newButtons = [...buttons];
+    const overflowedButtons = newButtons.splice(-overflowCount);
+    newButtons.push({
+      name: 'overflow',
+      type: TOOLBAR_BUTTON_TYPES.NESTED_MENU,
+      getIcon: () => ContextMenuIcon,
+      buttonList: overflowedButtons,
+    });
+    return newButtons;
+  };
+
+  setToolbarOverflow = () => {
+    const { buttons } = this.props;
+    let difference = this.toolbarOverflowWithEditorWidth();
+    const newButtons = [...buttons];
+    const overflowedButtons: any[] = [];
+    if (difference < 0) {
+      const buttonsAsElements = this.toolbarRef.children;
+      let index = buttonsAsElements.length - 1;
+      // eslint-disable-next-line fp/no-loops
+      while (difference < 0) {
+        const currentOverflowedButton = newButtons.splice(-1);
+        overflowedButtons.unshift(...currentOverflowedButton);
+        const lastButtonElement = buttonsAsElements[index] as HTMLElement;
+        difference += lastButtonElement?.clientWidth + 4;
+        index--;
       }
-      const currentOverflowedButton = buttons.splice(-2, 1);
-      overflowedButtons.unshift(...currentOverflowedButton);
-      this.setState({ buttons, overflowedButtons });
+      if (newButtons[newButtons.length - 1].name !== 'Separator') {
+        const currentOverflowedButton = newButtons.splice(-1);
+        overflowedButtons.unshift(...currentOverflowedButton);
+      }
+      newButtons.push({
+        name: 'overflow',
+        type: TOOLBAR_BUTTON_TYPES.NESTED_MENU,
+        getIcon: () => ContextMenuIcon,
+        buttonList: overflowedButtons,
+      });
+      this.setState({ overflowCount: overflowedButtons.length });
+      return newButtons;
+    } else {
+      return buttons;
     }
   };
 
   toolbarOverflowWithEditorWidth = () => {
-    const rootEditorElement = this.toolbarRef
-      ?.closest('[data-hook=ricos-editor-toolbars]')
-      ?.parentElement?.querySelector('[data-hook=root-editor]') as HTMLElement;
-    return rootEditorElement.clientWidth < this.toolbarRef.clientWidth;
+    const { getEditorContainer } = this.props;
+    return getEditorContainer?.()?.clientWidth - this.toolbarRef?.clientWidth;
   };
 
   renderButton = buttonProps => {
@@ -214,7 +260,7 @@ class Toolbar extends Component<ToolbarProps, State> {
   };
 
   renderModal = buttonProps => {
-    const { theme, isMobile, tabIndex, t, setKeepOpen } = this.props;
+    const { theme, isMobile, tabIndex, t, setKeepOpen, getEditorContainer } = this.props;
     const dropDownProps = {
       tabIndex,
       isMobile,
@@ -234,6 +280,7 @@ class Toolbar extends Component<ToolbarProps, State> {
         onToolbarButtonClick={value =>
           this.props.onToolbarButtonClick?.(buttonProps.name, value, buttonProps.plugin)
         }
+        getEditorContainer={getEditorContainer}
       />
     );
   };
@@ -243,27 +290,35 @@ class Toolbar extends Component<ToolbarProps, State> {
   renderComponent = buttonProps => {
     const { Component } = buttonProps;
     return (
-      <div className={toolbarButtonStyles.toolbarButton_wrapper}>
-        <button className={toolbarButtonStyles.toolbarButton} onMouseDown={this.preventDefault}>
-          <Component />
-        </button>
-      </div>
+      Component && (
+        <div className={toolbarButtonStyles.toolbarButton_wrapper}>
+          <button className={toolbarButtonStyles.toolbarButton} onMouseDown={this.preventDefault}>
+            <Component />
+          </button>
+        </div>
+      )
     );
   };
 
   renderNestedMenu = buttonProps => {
-    const { isMobile, tabIndex, t, theme } = this.props;
+    const { isMobile, tabIndex, t, theme, getEditorContainer } = this.props;
     const dropDownProps = {
       tabIndex,
       isMobile,
       t,
       ...buttonProps,
     };
-    return <NestedMenu dropDownProps={dropDownProps} theme={theme} />;
+    return (
+      <NestedMenu
+        dropDownProps={dropDownProps}
+        theme={theme}
+        getEditorContainer={getEditorContainer}
+      />
+    );
   };
 
   renderContextMenu = buttonProps => {
-    const { isMobile, tabIndex, t } = this.props;
+    const { isMobile, tabIndex, t, getEditorContainer } = this.props;
     const dropDownProps = {
       tabIndex,
       isMobile,
@@ -271,7 +326,7 @@ class Toolbar extends Component<ToolbarProps, State> {
       theme: this.theme,
       ...buttonProps,
     };
-    return <ContextMenu {...dropDownProps} />;
+    return <ContextMenu {...dropDownProps} getEditorContainer={getEditorContainer} />;
   };
 
   buttonMap = {
@@ -305,15 +360,13 @@ class Toolbar extends Component<ToolbarProps, State> {
   setToolbarRef = ref => (this.toolbarRef = ref);
 
   render() {
-    const { isMobile, vertical, nestedMenu } = this.props;
+    const { vertical } = this.props;
     const { buttons } = this.state;
-    !isMobile && this.toolbarRef && !nestedMenu && this.handleToolbarOverflow();
-    this.toolbarRef && !this.toolbarOverflowWithEditorWidth() && this.setFirstAndLastButtons();
 
     // return buttons.map((buttonsWithoutGaps, index) => {
     return (
       <div
-        data-id="toolbar"
+        data-hook="toolbar"
         onKeyDown={this.onKeyDown}
         ref={this.setToolbarRef}
         className={classNames(styles.toolbar, { [styles.vertical]: vertical })}

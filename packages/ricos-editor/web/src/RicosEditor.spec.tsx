@@ -22,6 +22,8 @@ import {
   RICOS_TEXT_HIGHLIGHT_TYPE,
   TEXT_COLOR_TYPE,
   TEXT_HIGHLIGHT_TYPE,
+  InlineStyle,
+  ToolbarType,
 } from 'wix-rich-content-common';
 import introState from '../../../../e2e/tests/fixtures/intro.json';
 import { pluginHashtag, HASHTAG_TYPE } from '../../../plugin-hashtag/web/src';
@@ -47,11 +49,13 @@ import {
   inlineStylesTestConfig,
   pluginsTestConfig,
   decorationsTestConfig,
+  contentWithDocumentStyleTest,
 } from './utils/editorCommandsTestsUtil';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { default as hebResource } from 'wix-rich-content-common/dist/statics/locale/messages_he.json';
 import { RICOS_FONT_SIZE_TYPE } from '../../../common/web/src';
+import { getEmptyDraftContent } from 'wix-rich-content-editor-common';
 
 const expectedPluginsList = [
   DIVIDER_TYPE,
@@ -371,13 +375,37 @@ describe('RicosEditor', () => {
     expect(rceProps.spellCheck).toEqual(true);
     expect(rceProps).not.toHaveProperty('notADraftSetting');
   });
-  it('should trigger onOpenEditorSuccess upon mount', () => {
-    let reportedVersion = '';
-    const onOpenEditorSuccessMock: BICallbacks['onOpenEditorSuccess'] = v => (reportedVersion = v);
-    const fn = jest.fn(onOpenEditorSuccessMock);
-    getRicosEditor({ _rcProps: { helpers: { onOpenEditorSuccess: fn } } });
-    expect(fn).toBeCalledTimes(1);
-    expect(reportedVersion).toEqual(version);
+  describe('onOpenEditorSuccess', () => {
+    let params: Parameters<NonNullable<BICallbacks['onOpenEditorSuccess']>> = [
+      '',
+      ToolbarType.FOOTER,
+      '',
+    ];
+    const onOpenEditorSuccessMock: BICallbacks['onOpenEditorSuccess'] = (...args) =>
+      (params = args);
+    it('should trigger upon mount', () => {
+      const fn = jest.fn(onOpenEditorSuccessMock);
+      const element = getRicosEditor({
+        _rcProps: { helpers: { onOpenEditorSuccess: fn } },
+      });
+      element.render();
+      expect(fn).toBeCalledTimes(1);
+      expect(params[0]).toEqual(version);
+      expect(params[1]).toEqual('INLINE');
+      expect(params[2]).toBeTruthy();
+    });
+    it('should send the existing ID of content', () => {
+      const fn = jest.fn(onOpenEditorSuccessMock);
+      const newContent = getEmptyDraftContent();
+      const ID = newContent.ID;
+      const element = getRicosEditor({
+        _rcProps: { helpers: { onOpenEditorSuccess: fn } },
+        content: newContent,
+      });
+      element.render();
+      expect(fn).toBeCalledTimes(1);
+      expect(params[2]).toEqual(ID);
+    });
   });
   describe('Modal API', () => {
     it('should pass openModal & closeModal to helpers', () => {
@@ -487,6 +515,28 @@ describe('RicosEditor', () => {
       Object.entries(pluginsTestConfig).forEach(insertPluginTest(settings));
       Object.entries(pluginsTestConfig).forEach(setPluginTest(settings));
       Object.entries(pluginsTestConfig).forEach(deletePluginTest(settings));
+    });
+    describe('Editor DocumentStyle API', () => {
+      it('should apply decorations and set document style', () => {
+        const ricosEditor = getRicosEditorInstance({ plugins, content }) as RicosEditor;
+        setSelection(ricosEditor, blockKey, selection);
+        ['bold', 'italic'].forEach((inlineStyle: InlineStyle) =>
+          ricosEditor.getEditorCommands().toggleInlineStyle(inlineStyle)
+        );
+        ricosEditor
+          .getEditorCommands()
+          .insertDecoration(RICOS_TEXT_COLOR_TYPE, { color: 'color3' });
+        ricosEditor
+          .getEditorCommands()
+          .insertDecoration(RICOS_TEXT_HIGHLIGHT_TYPE, { color: 'color2' });
+        const paragraph = ricosEditor.getEditorCommands().getAnchorBlockInlineStyles();
+        ricosEditor.getEditorCommands().updateDocumentStyle({ paragraph });
+        expect(ricosEditor.getEditorCommands().getDocumentStyle()).toEqual({ paragraph });
+        ricosEditor.getEditorCommands().clearSelectedBlocksInlineStyles();
+        ricosEditor
+          .getContentPromise()
+          .then(currentContent => expect(currentContent).toEqual(contentWithDocumentStyleTest));
+      });
     });
   });
 });

@@ -86,7 +86,7 @@ export default class VideoUploadModal extends Component {
     }
     const uploadVideoSection = (
       <div>
-        <div className={styles.video_modal_upload_video_new_modal}>
+        <div className={styles.video_modal_upload_video_new_modal} dir={languageDir}>
           <input
             id={this.id}
             type="file"

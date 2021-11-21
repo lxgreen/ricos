@@ -28,8 +28,10 @@
   "Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "{{count}} personas votaron por esta respuesta",
   "CollapsibleListPlugin_ExpandButton_AriaLabel": "El elemento está expandido",
   "Spoiler_Reveal_Video_Placeholder": "Este vídeo contiene un spoiler",
+  "Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
   "Preview_SeeFullPost_Label": "Ver la entrada completa",
   "UploadFile_Viewer_Download": "Descargar {{fileType}}",
   "VerticalEmbed_Units_Hour": "{{hours}} h",
-  "VerticalEmbed_Units_Minute": "{{minutes}} min"
+  "VerticalEmbed_Units_Minute": "{{minutes}} min",
+  "Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }

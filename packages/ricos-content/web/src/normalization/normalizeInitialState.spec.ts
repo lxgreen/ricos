@@ -29,6 +29,7 @@ const createState = ({
   entityMap = {},
   data = {},
   VERSION,
+  ID = '123',
 }: {
   text?: string;
   type?: RicosContentBlock['type'];
@@ -37,11 +38,13 @@ const createState = ({
   entityMap?: DraftContent['entityMap'];
   data?: RicosContentBlock['data'];
   VERSION?: DraftContent['VERSION'];
+  ID?: DraftContent['ID'] | null;
 }): DraftContent =>
   deepFreeze({
     blocks: [{ text, type, inlineStyleRanges, depth: 0, key: '1', entityRanges, data }],
     entityMap: entityMap || {},
     ...(VERSION ? { VERSION } : {}),
+    ...(ID !== undefined ? { ID } : {}),
   });
 
 describe('normalizeInitialState', () => {
@@ -127,6 +130,7 @@ describe('normalizeInitialState', () => {
           const expected = createState({
             type: expectedType,
             VERSION: Version.currentVersion,
+            ID: '123',
             inlineStyleRanges: [
               { offset: 2, length: 1, style: 'ITALIC' },
               { offset: 0, length: 2, style: 'UNDERLINE' },
@@ -165,6 +169,7 @@ describe('normalizeInitialState', () => {
             type: expectedType,
             inlineStyleRanges: [],
             VERSION: Version.currentVersion,
+            ID: '123',
           });
 
           expect(actual).toEqual(expected);
@@ -200,6 +205,7 @@ describe('normalizeInitialState', () => {
         const expected = createState({
           type,
           VERSION: Version.currentVersion,
+          ID: '123',
           inlineStyleRanges: [
             { offset: 2, length: 1, style: 'ITALIC' },
             { offset: 0, length: 2, style: 'UNDERLINE' },
@@ -228,6 +234,7 @@ describe('normalizeInitialState', () => {
       const expected = createState({
         ...initialState,
         VERSION: Version.currentVersion,
+        ID: '123',
         entityRanges: [
           {
             offset: 0,
@@ -294,6 +301,7 @@ describe('normalizeInitialState', () => {
       const expected = createState({
         ...initialState,
         VERSION: Version.currentVersion,
+        ID: '123',
         entityRanges: [
           {
             offset: 0,
@@ -400,6 +408,7 @@ describe('normalizeInitialState', () => {
       const expected = createState({
         ...initialState,
         VERSION: Version.currentVersion,
+        ID: '123',
         entityMap: {
           ...initialState.entityMap,
           0: {
@@ -457,6 +466,7 @@ describe('normalizeInitialState', () => {
       const expected = createState({
         ...initialState,
         VERSION: Version.currentVersion,
+        ID: '123',
         entityMap: {
           ...initialState.entityMap,
           0: {
@@ -519,6 +529,7 @@ describe('normalizeInitialState', () => {
       const expected = createState({
         ...initialState,
         VERSION: Version.currentVersion,
+        ID: '123',
         entityMap: {
           ...initialState.entityMap,
           0: {
@@ -557,12 +568,14 @@ describe('normalizeInitialState', () => {
           },
         },
         VERSION: Version.currentVersion,
+        ID: '123',
       };
 
       const actual = normalizeInitialState(createState(initialState), config);
       const expected = createState({
         ...initialState,
         VERSION: Version.currentVersion,
+        ID: '123',
         entityMap: {
           ...initialState.entityMap,
           0: {
@@ -645,7 +658,8 @@ describe('normalizeInitialState', () => {
         ...initialState(goodData),
         VERSION: Version.currentVersion,
       };
-      expect(actual).toEqual(goodDataWithVersion);
+      const { ID: _, ...rest } = actual;
+      expect(rest).toEqual(goodDataWithVersion);
     });
   });
 
@@ -696,6 +710,7 @@ describe('normalizeInitialState', () => {
         },
       },
       VERSION,
+      ID: '123',
     });
 
     it('should change title to altText when version < 6', () => {
@@ -719,15 +734,19 @@ describe('normalizeInitialState', () => {
         disableInlineImages: true,
       });
 
-      expect(actual).toEqual({
+      const { ID: _, ...rest } = actual;
+      expect(rest).toEqual({
         ...processedInlineImageContentState,
         VERSION: Version.currentVersion,
       });
     });
 
     it('should remove wix-draft-plugin-image plugin', () => {
-      const actual = normalizeInitialState(inlineImageContentState, { disableInlineImages: true });
-      expect(actual).toEqual({
+      const actual = normalizeInitialState(inlineImageContentState, {
+        disableInlineImages: true,
+      });
+      const { ID: _, ...rest } = actual;
+      expect(rest).toEqual({
         ...processedInlineImageContentState,
         VERSION: Version.currentVersion,
       });
@@ -737,7 +756,8 @@ describe('normalizeInitialState', () => {
       const actual = normalizeInitialState(inlineGalleryContentState, {
         removeInvalidInlinePlugins: true,
       });
-      expect(actual).toEqual({
+      const { ID: _, ...rest } = actual;
+      expect(rest).toEqual({
         ...processedInlineGalleryContentState,
         VERSION: Version.currentVersion,
       });
@@ -850,14 +870,40 @@ describe('normalizeInitialState', () => {
   describe('TextWrap normalizer', () => {
     it('should add textWrap wrap to plugins', () => {
       expect(
-        compare(normalizeInitialState(textWrapContentState), textWrapContentStateExpected)
+        compare(normalizeInitialState(textWrapContentState), textWrapContentStateExpected, {
+          ignoredKeys: ['ID'],
+        })
       ).toStrictEqual({});
     });
 
     it('should add textWrap wrap to plugins without config (should normalize the config first)', () => {
       expect(
-        compare(normalizeInitialState(noConfigContentState), noConfigContentStateExpected)
+        compare(normalizeInitialState(noConfigContentState), noConfigContentStateExpected, {
+          ignoredKeys: ['ID'],
+        })
       ).toStrictEqual({});
+    });
+  });
+  describe('Content ID', () => {
+    it('should apply ID if not provided', () => {
+      const actual = normalizeInitialState(
+        createState({
+          ID: null,
+          VERSION: Version.currentVersion,
+        })
+      );
+      expect(actual).toHaveProperty('ID');
+      expect(actual.ID).toBeTruthy();
+    });
+    it('should not apply ID if provided', () => {
+      const actual = normalizeInitialState(
+        createState({
+          ID: '1234',
+          VERSION: Version.currentVersion,
+        })
+      );
+      expect(actual).toHaveProperty('ID');
+      expect(actual.ID).toStrictEqual('1234');
     });
   });
 });

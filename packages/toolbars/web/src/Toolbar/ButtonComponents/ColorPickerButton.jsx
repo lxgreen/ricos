@@ -90,7 +90,7 @@ class ColorPickerButton extends Component {
         {isModalOpen && (
           <div
             className={classNames(styles.modal, nestedMenu && styles.withoutTop)}
-            data-id={'color-picker-modal'}
+            data-hook="color-picker-modal"
             tabIndex={-1}
           >
             <ColorPicker

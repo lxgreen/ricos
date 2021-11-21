@@ -17,11 +17,12 @@ import {
   GalleryData,
   GIFData,
   CollapsibleListData_InitialExpandedItems,
+  Struct,
 } from 'ricos-schema';
 import { cloneDeep, has, merge } from 'lodash';
 import toCamelCase from 'to-camel-case';
 import {
-  ENTITY_DECORATION_TO_DATA_FIELD,
+  TO_RICOS_DECORATION_DATA_FIELD,
   FROM_RICOS_DECORATION_TYPE,
   FROM_RICOS_ENTITY_TYPE,
   TO_RICOS_DATA_FIELD,
@@ -31,6 +32,7 @@ import { WRAP, NO_WRAP } from '../../../consts';
 import { ComponentData, FileComponentData } from '../../../types';
 import { parseLink } from '../../nodeUtils';
 import { toDraft } from './toDraft';
+import { convertStructToJson } from './convertStructToJson';
 
 export const convertNodeToDraftData = (node: Node) => {
   const { type } = node;
@@ -44,7 +46,7 @@ export const convertNodeToDraftData = (node: Node) => {
 
 export const convertDecorationToDraftData = (decoration: Decoration) => {
   const { type } = decoration;
-  const dataFieldName = ENTITY_DECORATION_TO_DATA_FIELD[FROM_RICOS_DECORATION_TYPE[type]];
+  const dataFieldName = TO_RICOS_DECORATION_DATA_FIELD[FROM_RICOS_DECORATION_TYPE[type]];
   return convertDecorationDataToDraft(type, decoration[dataFieldName]);
 };
 
@@ -70,6 +72,7 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data, nodes?: Node[]
     [Node_Type.EMBED]: convertEmbedData,
     [Node_Type.GALLERY]: convertGalleryData,
     [Node_Type.TABLE]: convertTableData,
+    [Node_Type.EXTERNAL]: convertExternalData,
   };
   if (newData.containerData) {
     convertContainerData(newData, nodeType);
@@ -143,6 +146,14 @@ const convertVideoData = (data: VideoData & { src; metadata; title? }) => {
   delete data.video;
   delete data.title;
   delete data.thumbnail;
+};
+
+const convertExternalData = (data: Struct) => {
+  const draftData = convertStructToJson(data);
+  Object.entries(draftData).forEach(([k, v]) => {
+    data[k] = v;
+  });
+  delete data.fields;
 };
 
 const convertDividerData = (
@@ -430,8 +441,8 @@ const convertCollapsibleListData = (
   };
   data.config = { ...data.config, ...config };
   data.pairs = nodes.map(node => {
-    const { VERSION: _, ...title } = toDraft(node.nodes[0]);
-    const { VERSION: __, ...content } = toDraft(node.nodes[1]);
+    const { VERSION: _, ID: __, ...title } = toDraft(node.nodes[0]);
+    const { VERSION: ___, ID: ____, ...content } = toDraft(node.nodes[1]);
     return {
       key: node.id,
       title,
@@ -579,7 +590,7 @@ const convertTableData = (
   nodes.forEach((row, i) => {
     rows[i] = { columns: {} };
     row.nodes.forEach((cell, j) => {
-      const { VERSION: _, ...content } = toDraft(cell);
+      const { VERSION: _, ID: __, ...content } = toDraft(cell);
       const { cellStyle = {}, borderColors = {} } = cell.tableCellData || {};
       rows[i].columns[j] = {
         content,

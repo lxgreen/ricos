@@ -12,7 +12,6 @@ import {
   redo,
   getTextAlignment,
   hasInlineStyle,
-  getDraftInlineStyle,
   getBlockType,
   hasLinksInSelection,
   getLinkDataInSelection,
@@ -25,139 +24,44 @@ import {
   mergeBlockData,
   getAnchorBlockData,
   getAnchorableBlocks,
+  removeCurrentInlineStyle,
+  isAtomicBlockInSelection,
+  scrollToBlock,
+  insertCustomLink,
+  getSelectedBlocks,
+} from 'wix-rich-content-editor-common';
+import {
+  AvailableExperiments,
+  EditorCommands,
+  GetEditorState,
+  SetEditorState,
+  RICOS_LINE_SPACING_TYPE,
+  RICOS_INDENT_TYPE,
+  RICOS_TEXT_COLOR_TYPE,
+  RICOS_TEXT_HIGHLIGHT_TYPE,
+  RICOS_LINK_TYPE,
+  RICOS_MENTION_TYPE,
+  RICOS_FONT_SIZE_TYPE,
+  UNSUPPORTED_BLOCKS_TYPE,
+  DocumentStyle,
+  RicosCustomStyles,
+  CUSTOM_LINK,
+} from 'wix-rich-content-common';
+
+import {
+  getDocumentStyle,
+  getWiredFontStyles,
+  updateDocumentStyle,
+  getAnchorBlockInlineStyles,
   setFontSize,
   getFontSize,
   getColor,
   setHighlightColor,
   setTextColor,
-} from 'wix-rich-content-editor-common';
-import {
-  EditorCommands,
-  GetEditorState,
-  SetEditorState,
-  COLLAPSIBLE_LIST_TYPE,
-  ACTION_BUTTON_TYPE,
-  LINK_BUTTON_TYPE,
-  EMOJI_TYPE,
-  HASHTAG_TYPE,
-  HEADERS_MARKDOWN_TYPE,
-  LINE_SPACING_TYPE,
-  INDENT_TYPE,
-  TABLE_TYPE,
-  EXTERNAL_LINK_TYPE,
-  LINK_PREVIEW_TYPE,
-  SPOILER_TYPE,
-  UNDO_REDO_TYPE,
-  TEXT_COLOR_TYPE,
-  TEXT_HIGHLIGHT_TYPE,
-  VERTICAL_EMBED_TYPE,
-  IMAGE_TYPE,
-  SOUND_CLOUD_TYPE,
-  MAP_TYPE,
-  HEADINGS_DROPDOWN_TYPE,
-  DIVIDER_TYPE,
-  FILE_UPLOAD_TYPE,
-  GALLERY_TYPE,
-  GIPHY_TYPE,
-  HTML_TYPE,
-  POLL_TYPE,
-  VIDEO_TYPE,
-  LINK_TYPE,
-  MENTION_TYPE,
-  CODE_BLOCK_TYPE,
-  RICOS_COLLAPSIBLE_LIST_TYPE,
-  RICOS_ACTION_BUTTON_TYPE,
-  RICOS_LINK_BUTTON_TYPE,
-  RICOS_EMOJI_TYPE,
-  RICOS_HASHTAG_TYPE,
-  RICOS_HEADERS_MARKDOWN_TYPE,
-  RICOS_LINE_SPACING_TYPE,
-  RICOS_INDENT_TYPE,
-  RICOS_TABLE_TYPE,
-  RICOS_EXTERNAL_LINK_TYPE,
-  RICOS_LINK_PREVIEW_TYPE,
-  RICOS_SPOILER_TYPE,
-  RICOS_UNDO_REDO_TYPE,
-  RICOS_HEADINGS_DROPDOWN_TYPE,
-  RICOS_MAP_TYPE,
-  RICOS_SOUND_CLOUD_TYPE,
-  RICOS_TEXT_COLOR_TYPE,
-  RICOS_TEXT_HIGHLIGHT_TYPE,
-  RICOS_VERTICAL_EMBED_TYPE,
-  RICOS_IMAGE_TYPE,
-  RICOS_DIVIDER_TYPE,
-  RICOS_FILE_TYPE,
-  RICOS_GALLERY_TYPE,
-  RICOS_GIPHY_TYPE,
-  RICOS_HTML_TYPE,
-  RICOS_POLL_TYPE,
-  RICOS_VIDEO_TYPE,
-  RICOS_LINK_TYPE,
-  RICOS_MENTION_TYPE,
-  RICOS_CODE_BLOCK_TYPE,
-  RICOS_FONT_SIZE_TYPE,
-  UNSUPPORTED_BLOCKS_TYPE,
-} from 'wix-rich-content-common';
+  toggleInlineStyle,
+} from './utils/editorCommandsUtils';
 
-const TO_DRAFT_PLUGIN_TYPE_MAP = {
-  [RICOS_DIVIDER_TYPE]: DIVIDER_TYPE,
-  [RICOS_FILE_TYPE]: FILE_UPLOAD_TYPE,
-  [RICOS_GALLERY_TYPE]: GALLERY_TYPE,
-  [RICOS_GIPHY_TYPE]: GIPHY_TYPE,
-  [RICOS_HTML_TYPE]: HTML_TYPE,
-  [RICOS_IMAGE_TYPE]: IMAGE_TYPE,
-  [RICOS_VIDEO_TYPE]: VIDEO_TYPE,
-  [RICOS_POLL_TYPE]: POLL_TYPE,
-  [RICOS_LINK_TYPE]: LINK_TYPE,
-  [RICOS_MENTION_TYPE]: MENTION_TYPE,
-  [RICOS_TEXT_HIGHLIGHT_TYPE]: TEXT_HIGHLIGHT_TYPE,
-  [RICOS_TEXT_COLOR_TYPE]: TEXT_COLOR_TYPE,
-  [DIVIDER_TYPE]: DIVIDER_TYPE,
-  [FILE_UPLOAD_TYPE]: FILE_UPLOAD_TYPE,
-  [GALLERY_TYPE]: GALLERY_TYPE,
-  [GIPHY_TYPE]: GIPHY_TYPE,
-  [HTML_TYPE]: HTML_TYPE,
-  [IMAGE_TYPE]: IMAGE_TYPE,
-  [VIDEO_TYPE]: VIDEO_TYPE,
-  [POLL_TYPE]: POLL_TYPE,
-  [TEXT_HIGHLIGHT_TYPE]: TEXT_HIGHLIGHT_TYPE,
-  [TEXT_COLOR_TYPE]: TEXT_COLOR_TYPE,
-  [RICOS_INDENT_TYPE]: RICOS_INDENT_TYPE,
-  [RICOS_LINE_SPACING_TYPE]: RICOS_LINE_SPACING_TYPE,
-};
-
-const TO_RICOS_PLUGIN_TYPE_MAP = {
-  [DIVIDER_TYPE]: RICOS_DIVIDER_TYPE,
-  [FILE_UPLOAD_TYPE]: RICOS_FILE_TYPE,
-  [GALLERY_TYPE]: RICOS_GALLERY_TYPE,
-  [GIPHY_TYPE]: RICOS_GIPHY_TYPE,
-  [HTML_TYPE]: RICOS_HTML_TYPE,
-  [IMAGE_TYPE]: RICOS_IMAGE_TYPE,
-  [VIDEO_TYPE]: RICOS_VIDEO_TYPE,
-  [POLL_TYPE]: RICOS_POLL_TYPE,
-  [LINK_TYPE]: RICOS_LINK_TYPE,
-  [MENTION_TYPE]: RICOS_MENTION_TYPE,
-  [COLLAPSIBLE_LIST_TYPE]: RICOS_COLLAPSIBLE_LIST_TYPE,
-  [ACTION_BUTTON_TYPE]: RICOS_ACTION_BUTTON_TYPE,
-  [LINK_BUTTON_TYPE]: RICOS_LINK_BUTTON_TYPE,
-  [CODE_BLOCK_TYPE]: RICOS_CODE_BLOCK_TYPE,
-  [EMOJI_TYPE]: RICOS_EMOJI_TYPE,
-  [HASHTAG_TYPE]: RICOS_HASHTAG_TYPE,
-  [HEADERS_MARKDOWN_TYPE]: RICOS_HEADERS_MARKDOWN_TYPE,
-  [INDENT_TYPE]: RICOS_INDENT_TYPE,
-  [LINE_SPACING_TYPE]: RICOS_LINE_SPACING_TYPE,
-  [TABLE_TYPE]: RICOS_TABLE_TYPE,
-  [EXTERNAL_LINK_TYPE]: RICOS_EXTERNAL_LINK_TYPE,
-  [LINK_PREVIEW_TYPE]: RICOS_LINK_PREVIEW_TYPE,
-  [SPOILER_TYPE]: RICOS_SPOILER_TYPE,
-  [UNDO_REDO_TYPE]: RICOS_UNDO_REDO_TYPE,
-  [HEADINGS_DROPDOWN_TYPE]: RICOS_HEADINGS_DROPDOWN_TYPE,
-  [MAP_TYPE]: RICOS_MAP_TYPE,
-  [SOUND_CLOUD_TYPE]: RICOS_SOUND_CLOUD_TYPE,
-  [TEXT_COLOR_TYPE]: RICOS_TEXT_COLOR_TYPE,
-  [TEXT_HIGHLIGHT_TYPE]: RICOS_TEXT_HIGHLIGHT_TYPE,
-  [VERTICAL_EMBED_TYPE]: RICOS_VERTICAL_EMBED_TYPE,
-};
+import { TO_DRAFT_PLUGIN_TYPE_MAP, TO_RICOS_PLUGIN_TYPE_MAP } from 'ricos-content/libs/draftConsts';
 
 export const PluginsToExclude = [UNSUPPORTED_BLOCKS_TYPE];
 
@@ -165,10 +69,14 @@ const triggerDecorationsMap = {
   [RICOS_MENTION_TYPE]: triggerMention,
 };
 
-const setFontSizeWithColor = (editorState: EditorState, data?: { fontSize?: string }) => {
+const setFontSizeWithColor = (
+  editorState: EditorState,
+  data?: { fontSize?: string },
+  getDocumentStyle?: unknown
+) => {
   const highlightColor = getColor(editorState, RICOS_TEXT_HIGHLIGHT_TYPE);
   if (highlightColor !== undefined) {
-    return setHighlightColor(setFontSize(setHighlightColor(editorState), data), {
+    return setHighlightColor(setFontSize(setHighlightColor(editorState), data, getDocumentStyle), {
       color: highlightColor,
     });
   }
@@ -176,12 +84,17 @@ const setFontSizeWithColor = (editorState: EditorState, data?: { fontSize?: stri
 
 const insertDecorationsMap = {
   [RICOS_LINK_TYPE]: insertLinkAtCurrentSelection,
+  [CUSTOM_LINK]: insertCustomLink,
   [RICOS_MENTION_TYPE]: insertMention,
   [RICOS_TEXT_COLOR_TYPE]: setTextColor,
   [RICOS_TEXT_HIGHLIGHT_TYPE]: setHighlightColor,
-  [RICOS_FONT_SIZE_TYPE]: (editorState: EditorState, data?: { fontSize?: string }) => {
-    const editorStateWithColor = setFontSizeWithColor(editorState, data); // draft highlight <-> font size mismatch bug fix
-    return editorStateWithColor || setFontSize(editorState, data);
+  [RICOS_FONT_SIZE_TYPE]: (
+    editorState: EditorState,
+    data?: { fontSize?: string },
+    getDocumentStyle?: unknown
+  ) => {
+    const editorStateWithColor = setFontSizeWithColor(editorState, data, getDocumentStyle); // draft highlight <-> font size mismatch bug fix
+    return editorStateWithColor || setFontSize(editorState, data, getDocumentStyle);
   },
   [RICOS_INDENT_TYPE]: indentSelectedBlocks,
   [RICOS_LINE_SPACING_TYPE]: mergeBlockData,
@@ -201,10 +114,14 @@ export const createEditorCommands = (
   createPluginsDataMap,
   plugins,
   getEditorState: GetEditorState,
-  setEditorState: SetEditorState
+  setEditorState: SetEditorState,
+  externalEditorProps,
+  experiments?: AvailableExperiments
 ): EditorCommands => {
   const setBlockType: EditorCommands['setBlockType'] = type => {
-    setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
+    const editorState = getEditorState();
+    getBlockType(editorState) !== type &&
+      setEditorState(RichUtils.toggleBlockType(editorState, type));
   };
 
   const _setSelection: EditorCommands['_setSelection'] = (blockKey, selection) =>
@@ -214,6 +131,10 @@ export const createEditorCommands = (
         SelectionState.createEmpty(blockKey).merge(selection || {})
       )
     );
+
+  const documentStyleGetter = externalEditorProps.getDocumentStyle
+    ? externalEditorProps.getDocumentStyle
+    : () => getDocumentStyle(getEditorState());
 
   const editorState: {
     getSelection: EditorCommands['getSelection'];
@@ -229,15 +150,27 @@ export const createEditorCommands = (
     getLinkDataInSelection: EditorCommands['getLinkDataInSelection'];
     getSelectedData: EditorCommands['getSelectedData'];
     getPluginsList: EditorCommands['getPluginsList'];
+    scrollToBlock: EditorCommands['scrollToBlock'];
+    isBlockInContent: EditorCommands['isBlockInContent'];
     getBlockSpacing: EditorCommands['getBlockSpacing'];
     saveEditorState: EditorCommands['saveEditorState'];
     loadEditorState: EditorCommands['loadEditorState'];
     saveSelectionState: EditorCommands['saveSelectionState'];
     loadSelectionState: EditorCommands['loadSelectionState'];
+    getDocumentStyle: EditorCommands['getDocumentStyle'];
+    updateDocumentStyle: EditorCommands['updateDocumentStyle'];
+    getAnchorBlockInlineStyles: EditorCommands['getAnchorBlockInlineStyles'];
+    getWiredFontStyles: EditorCommands['getWiredFontStyles'];
+    isAtomicBlockInSelection: EditorCommands['isAtomicBlockInSelection'];
   } = {
     getSelection: () => {
       const selection = getEditorState().getSelection();
-      return { getIsCollapsed: selection.isCollapsed(), getIsFocused: selection.getHasFocus() };
+      return {
+        isCollapsed: selection.isCollapsed(),
+        isFocused: selection.getHasFocus(),
+        startKey: selection.getStartKey(),
+        endKey: selection.getEndKey(),
+      };
     },
     getAnchorableBlocks: () => getAnchorableBlocks(getEditorState()),
     getColor: colorType => getColor(getEditorState(), colorType),
@@ -271,6 +204,34 @@ export const createEditorCommands = (
         (pluginName: string) => pluginName && !PluginsToExclude.includes[pluginName]
       );
     },
+    getDocumentStyle: () => documentStyleGetter(),
+    updateDocumentStyle: (documentStyle: DocumentStyle) => {
+      if (externalEditorProps.updateDocumentStyle) {
+        externalEditorProps.updateDocumentStyle(documentStyle);
+      } else {
+        const newEditorState = updateDocumentStyle(getEditorState(), documentStyle);
+        setEditorState(newEditorState);
+      }
+    },
+    getAnchorBlockInlineStyles: () => getAnchorBlockInlineStyles(getEditorState()),
+    getWiredFontStyles: (customStyles?: RicosCustomStyles, isMobile?: boolean) =>
+      getWiredFontStyles(documentStyleGetter(), customStyles, isMobile),
+    scrollToBlock: blockKey => scrollToBlock(blockKey, experiments),
+    isBlockInContent: blockKey => {
+      const blocks = getEditorState()
+        .getCurrentContent()
+        .getBlocksAsArray();
+      return blocks.some(block => block.getKey() === blockKey);
+    },
+    isAtomicBlockInSelection: () => isAtomicBlockInSelection(getEditorState()),
+  };
+
+  const toggleOverlayBGColor = (element: HTMLElement) => {
+    if (!element.style.backgroundColor) {
+      element.style.backgroundColor = 'rgba(var(--ricos-text-color-tuple, 33, 33, 33), 0.1)';
+    } else {
+      element.style.backgroundColor = '';
+    }
   };
 
   const textFormattingCommands: {
@@ -280,17 +241,24 @@ export const createEditorCommands = (
     setBlockType: EditorCommands['setBlockType'];
     setTextAlignment: EditorCommands['setTextAlignment'];
     _setSelection: EditorCommands['_setSelection'];
+    toggleBlockOverlay: EditorCommands['toggleBlockOverlay'];
   } = {
     undo: () => setEditorState(undo(getEditorState())),
     redo: () => setEditorState(redo(getEditorState())),
     toggleInlineStyle: inlineStyle =>
-      setEditorState(
-        RichUtils.toggleInlineStyle(getEditorState(), getDraftInlineStyle(inlineStyle))
-      ),
+      setEditorState(toggleInlineStyle(getEditorState(), inlineStyle, documentStyleGetter)),
     setBlockType,
     setTextAlignment: textAlignment =>
       setEditorState(setTextAlignment(getEditorState(), textAlignment)),
     _setSelection,
+    toggleBlockOverlay: blockKey => {
+      const blockElement = document.querySelector(`[data-offset-key="${blockKey}-0-0"]`);
+      const elementOverlay = blockElement?.querySelector(`[data-hook="componentOverlay"]`);
+      const element = elementOverlay
+        ? blockElement?.querySelector(`[data-hook="componentOverlay"]`)
+        : blockElement;
+      toggleOverlayBGColor(element as HTMLElement);
+    },
   };
 
   const pluginsCommands: {
@@ -326,12 +294,17 @@ export const createEditorCommands = (
     insertDecoration: EditorCommands['insertDecoration'];
     triggerDecoration: EditorCommands['triggerDecoration'];
     deleteDecoration: EditorCommands['deleteDecoration'];
+    clearSelectedBlocksInlineStyles: EditorCommands['clearSelectedBlocksInlineStyles'];
   } = {
     insertDecoration: (type: string, data, settings) => {
       const draftType = TO_DRAFT_PLUGIN_TYPE_MAP[type];
       const { [draftType]: createPluginData } = createPluginsDataMap;
       const pluginData = createPluginData ? createPluginData(data, settings?.isRicosSchema) : data;
-      const newEditorState = insertDecorationsMap[type]?.(getEditorState(), pluginData);
+      const newEditorState = insertDecorationsMap[type]?.(
+        getEditorState(),
+        pluginData,
+        documentStyleGetter
+      );
       if (newEditorState) {
         setEditorState(newEditorState);
       }
@@ -348,6 +321,16 @@ export const createEditorCommands = (
         setEditorState(newEditorState);
       }
     },
+    clearSelectedBlocksInlineStyles: (exclude?: string[]) => {
+      const styleSelectionPredicate = style => !exclude?.includes(style);
+      let editorState = removeCurrentInlineStyle(getEditorState(), styleSelectionPredicate);
+      const shouldRemoveDynamicStyles =
+        !exclude?.includes(RICOS_LINE_SPACING_TYPE) &&
+        getSelectedBlocks(editorState).some(block => !!block?.get('data').toJS().dynamicStyles);
+      shouldRemoveDynamicStyles &&
+        (editorState = mergeBlockData(editorState, { dynamicStyles: {} }));
+      setEditorState(editorState);
+    },
   };
 
   const editorCommands = {
@@ -356,5 +339,6 @@ export const createEditorCommands = (
     ...decorationsCommands,
     ...editorState,
   };
+
   return editorCommands;
 };

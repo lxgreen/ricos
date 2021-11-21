@@ -1,5 +1,5 @@
 import React from 'react';
-import { tiptapNodeDataToDraft } from '../../converters';
+import { tiptapNodeDataToDraft } from '../../content-utils';
 import { RicosFunctionalExtension } from '../../models/extension-types';
 import toConstantCase from 'to-constant-case';
 import { Node_Type } from 'ricos-schema';

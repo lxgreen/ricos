@@ -576,7 +576,8 @@ const config: RichContentEditorProps['config'] = {
     innerRCEPlugins,
   },
   [HEADINGS_DROPDOWN_TYPE]: {
-    // customHeadings: ['H2', 'H3'],
+    customHeadings: ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P'],
+    allowHeadingCustomization: true,
   },
   [LINE_SPACING_TYPE]: {
     // toolbar: {
@@ -609,6 +610,10 @@ const config: RichContentEditorProps['config'] = {
     //       return blockPreview;
     //     },
     //   },
+    // },
+    // onLinkAdd: (customLinkData, saveData) => {
+    //   const data = { mockURL: 'www.sport5.co.il', mockData: {} };
+    //   saveData(data);
     // },
   },
   [CODE_BLOCK_TYPE]: {
@@ -744,8 +749,6 @@ const config: RichContentEditorProps['config'] = {
         const desktopButtons = [
           FORMATTING_BUTTONS.HEADINGS,
           '|',
-          FORMATTING_BUTTONS.FONT_SIZE,
-          '|',
           FORMATTING_BUTTONS.BOLD,
           FORMATTING_BUTTONS.ITALIC,
           FORMATTING_BUTTONS.UNDERLINE,
@@ -845,22 +848,66 @@ const config: RichContentEditorProps['config'] = {
     {
       name: TOOLBARS.INLINE,
       getButtons: () => ({
-        desktop: textButtons.desktop.filter(b => b !== FORMATTING_BUTTONS.TITLE),
+        desktop: [
+          FORMATTING_BUTTONS.HEADINGS,
+          '|',
+          FORMATTING_BUTTONS.FONT_SIZE,
+          ...textButtons.desktop.filter(
+            b => b !== FORMATTING_BUTTONS.TITLE && b !== FORMATTING_BUTTONS.HEADINGS
+          ),
+        ],
         mobile: {
-          ios: textButtons.mobile.filter(b => b !== FORMATTING_BUTTONS.TITLE),
-          android: [],
+          ios: [
+            FORMATTING_BUTTONS.HEADINGS,
+            '|',
+            ...textButtons.mobile.filter(b => b !== FORMATTING_BUTTONS.TITLE),
+          ],
+          android: [
+            FORMATTING_BUTTONS.HEADINGS,
+            '|',
+            ...textButtons.mobile.filter(b => b !== FORMATTING_BUTTONS.TITLE),
+          ],
         },
       }),
       // getTextPluginButtons: () => {
       //   return {
       //     desktop: {
       //       MY_BUTTON: {
-      //         component: () => <div onClick={() => console.log('my button clicked!!')}>My Button</div>,
+      //         component: () => (
+      //           <div onClick={() => console.log('my button clicked!!')}>My Button</div>
+      //         ),
+      //       },
+      //       Bold: {
+      //         component: () => <div onClick={() => console.log('my custom bold')}>My Bold</div>,
       //       },
       //     },
       //   };
       // },
     },
+    // {
+    //   name: TOOLBARS.STATIC,
+    //   getButtons: () => ({
+    //     desktop: [
+    //       ...(textButtons?.desktop?.filter?.(button => button !== FORMATTING_BUTTONS.CODE_BLOCK) ??
+    //         []),
+    //       '|',
+    //       'FULLSCREEN_TOGGLE',
+    //     ],
+    //   }),
+    //   getTextPluginButtons: () => {
+    //     return {
+    //       desktop: {
+    //         FULLSCREEN_TOGGLE: {
+    //           component: () => (
+    //             <div onClick={() => console.log('blabla')} data-hook="blabla">
+    //               blabla
+    //             </div>
+    //           ),
+    //         },
+    //       },
+    //     };
+    //   },
+    // },
   ],
 };
 

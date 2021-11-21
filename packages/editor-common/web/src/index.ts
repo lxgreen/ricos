@@ -103,6 +103,7 @@ import {
   ContentState,
 } from '@wix/draft-js';
 import { DraftContent } from 'wix-rich-content-common';
+import { v4 as uuid } from 'uuid';
 
 // makes draft-js's convertFromRaw match our own DraftContent type
 export const convertFromRaw = (rawState: DraftContent): ContentState =>
@@ -136,7 +137,7 @@ export { DraftOffsetKey };
 export { elementOverflowWithEditor } from './Utils/overflowUtils';
 export { createEditorStyles } from './Utils/createEditorStyles';
 
-export const emptyDraftContent = {
+export const getEmptyDraftContent: () => DraftContent = () => ({
   entityMap: {},
   blocks: [
     {
@@ -149,7 +150,8 @@ export const emptyDraftContent = {
       data: {},
     },
   ],
-};
+  ID: uuid(),
+});
 
 export {
   getSelectionStyles,
@@ -159,9 +161,7 @@ export {
   getDefaultStyleFn,
   getCustomStyleFn,
   getCustomStyleFns,
-  getColor,
-  getFontSize,
-  setHighlightColor,
-  setTextColor,
-  setFontSize,
+  getBlockStyleRanges,
 } from './Utils/inlineStyleUtils';
+
+export { scrollToBlock } from './Utils/scrollToBlock';

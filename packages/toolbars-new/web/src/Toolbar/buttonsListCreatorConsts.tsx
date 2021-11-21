@@ -44,6 +44,13 @@ import {
   AlignJustifyIcon,
   AlignLeftIcon,
   AlignRightIcon,
+  PIcon,
+  H1Icon,
+  H2Icon,
+  H3Icon,
+  H4Icon,
+  H5Icon,
+  H6Icon,
 } from '../icons';
 import LinkModal from '../modals/link/LinkComponents/LinkModal';
 import AlignmentPanel from '../modals/alignment/AlignmentPanel';
@@ -61,6 +68,16 @@ export const HEADING_TYPE_TO_ELEMENT = Object.freeze({
   unstyled: 'P',
 });
 
+export const HEADING_TYPE_TO_ICON = Object.freeze({
+  H1: H1Icon,
+  H2: H2Icon,
+  H3: H3Icon,
+  H4: H4Icon,
+  H5: H5Icon,
+  H6: H6Icon,
+  P: PIcon,
+});
+
 export const alignmentsModalData = [
   {
     text: 'AlignTextLeftButton_Tooltip',
@@ -71,6 +88,7 @@ export const alignmentsModalData = [
     },
     commandKey: 'left',
     icon: AlignLeftIcon,
+    dataHook: 'textAlignmentButton_left',
   },
   {
     text: 'AlignTextCenterButton_Tooltip',
@@ -81,6 +99,7 @@ export const alignmentsModalData = [
     },
     commandKey: 'center',
     icon: AlignTextCenterIcon,
+    dataHook: 'textAlignmentButton_center',
   },
   {
     text: 'AlignTextRightButton_Tooltip',
@@ -91,6 +110,7 @@ export const alignmentsModalData = [
     },
     commandKey: 'right',
     icon: AlignRightIcon,
+    dataHook: 'textAlignmentButton_right',
   },
   {
     text: 'AlignTextJustifyButton_Tooltip',
@@ -101,6 +121,7 @@ export const alignmentsModalData = [
     },
     commandKey: 'justify',
     icon: AlignJustifyIcon,
+    dataHook: 'textAlignmentButton_justify',
   },
 ];
 
@@ -143,6 +164,8 @@ type buttonsFullDataType = {
   'header-two'?: { icon: any; action: string };
   'header-three'?: { icon: any; action: string };
   isInput?: boolean;
+  useIconOnMobile?: boolean;
+  closeOnChange?: boolean;
 };
 
 export const buttonsFullData: Record<string, buttonsFullDataType> = {
@@ -166,7 +189,6 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
   },
   HEADINGS: {
     plugin: 'wix-rich-content-plugin-headings',
-    icon: () => null,
     dataHook: 'headingsDropdownButton',
     tooltip: 'FormattingToolbar_TextStyleButton_Tooltip',
     label: 'HEADINGS',
@@ -174,8 +196,11 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     type: 'modal',
     modal: props => <HeadingsPanel {...props} translateHeading={translateHeading} />,
     onSave: 'HEADINGS',
+    onChange: 'HEADINGS',
     saveSelection: true,
     loadSelection: true,
+    useIconOnMobile: true,
+    closeOnChange: true,
   },
   FONT_SIZE: {
     icon: () => null,
@@ -196,7 +221,7 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
   },
   Bold: {
     icon: BoldIcon,
-    dataHook: 'textInlineStyleButton_BOLD',
+    dataHook: 'textInlineStyleButton_Bold',
     tooltip: 'BoldButton_Tooltip',
     tooltipShortcut: {
       MacOS: ' (⌘B)',
@@ -206,7 +231,7 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
   },
   Italic: {
     icon: ItalicIcon,
-    dataHook: 'textInlineStyleButton_ITALIC',
+    dataHook: 'textInlineStyleButton_Italic',
     tooltip: 'ItalicButton_Tooltip',
     tooltipShortcut: {
       MacOS: ' (⌘I)',
@@ -216,7 +241,7 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
   },
   Underline: {
     icon: UnderlineIcon,
-    dataHook: 'textInlineStyleButton_UNDERLINE',
+    dataHook: 'textInlineStyleButton_Underline',
     tooltip: 'UnderlineButton_Tooltip',
     tooltipShortcut: {
       MacOS: ' (⌘U)',
@@ -274,7 +299,7 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     type: 'button',
   },
   Alignment: {
-    dataHook: 'Alignment',
+    dataHook: 'textDropDownButton_Alignment',
     arrow: true,
     tooltip: 'AlignTextDropdownButton_Tooltip',
     type: 'modal',
@@ -483,10 +508,18 @@ export const colorTypes: Record<string, ColorType> = {
   TEXT_HIGHLIGHT: RICOS_TEXT_HIGHLIGHT_TYPE,
 };
 
-export const translateHeading = (option = 'P', t) => {
+const headingShortcuts = {
+  MacOS: number => `(⌘⌥${number})`,
+  Windows: number => `(Ctrl+Alt+${number})`,
+};
+
+export const translateHeading = (option = 'P', t, shouldAddShortcut = false) => {
+  const number = option.slice(-1);
+  const osName = findOsName();
+  const shortcut = shouldAddShortcut && osName ? headingShortcuts[osName](number || 0) : undefined;
   return option === 'P'
-    ? t('FormattingToolbar_TextStyle_Paragraph')
-    : t('FormattingToolbar_TextStyle_Heading', { number: option.slice(-1) });
+    ? t('FormattingToolbar_TextStyle_Paragraph', shortcut && { shortcut })
+    : t('FormattingToolbar_TextStyle_Heading', shortcut ? { number, shortcut } : { number });
 };
 
 export const findOsName = () => {
@@ -495,7 +528,7 @@ export const findOsName = () => {
   return null;
 };
 
-export const getSpacing = (currentSpacing, userDefaultSpacing) => {
+export const getSpacing = (currentSpacing = {}, userDefaultSpacing = {}) => {
   const hasCurrentSpacing = Object.keys(currentSpacing).length !== 0;
   const hasDefaultSpacing = Object.keys(userDefaultSpacing).length !== 0;
   const defaultSpacing = hasDefaultSpacing ? userDefaultSpacing : defaultLineSpacing;

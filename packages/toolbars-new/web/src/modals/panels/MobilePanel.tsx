@@ -7,8 +7,11 @@ import styles from './styles.scss';
 
 const Separator = () => <div className={styles.separator} />;
 
-const MobilePanel = ({ currentSelect, panelHeader, onChange, onCancel, options, hasIcons, t }) => {
+const MobilePanel = ({ currentSelect, panelHeader, onChange, onCancel, options, t }) => {
   const lineHeightElement = (option, isSelected, showSeparator) => {
+    const fontSize = option.style?.fontSize;
+    const fontFamily = option.style?.fontFamily;
+    const dataHook = option.dataHook || 'modal-option';
     return (
       <div>
         <div
@@ -20,14 +23,14 @@ const MobilePanel = ({ currentSelect, panelHeader, onChange, onCancel, options, 
             e.stopPropagation();
             onChange(option.commandKey);
           }}
+          data-hook={dataHook}
         >
-          <div
-            className={
-              hasIcons ? styles.mobile_contentWrapper_withIcon : styles.mobile_contentWrapper
-            }
-          >
-            {hasIcons && <div>{option.icon()}</div>}
-            <div>{t(option.text)}</div>
+          <div className={styles.panel_row_text_container}>
+            {option.icon && <div className={styles.panel_row_icon}>{option.icon()}</div>}
+            <div className={styles.panel_row_text} style={{ fontSize, fontFamily }}>
+              {t(option.text)}
+            </div>
+            {option.subText && <div className={styles.panel_row_subtext}>{option.subText}</div>}
           </div>
         </div>
         {showSeparator && <Separator />}
@@ -39,7 +42,11 @@ const MobilePanel = ({ currentSelect, panelHeader, onChange, onCancel, options, 
     <div className={styles.mobilePanel}>
       <div className={styles.mobilePanel_header}>
         {panelHeader}
-        <CloseIcon className={styles.closeIcon} onClick={onCancel} />
+        <CloseIcon
+          className={styles.closeIcon}
+          data-hook="toolbar-modal-close-icon"
+          onClick={onCancel}
+        />
       </div>
       <Separator />
       <div className={styles.mobilePanel_rows}>

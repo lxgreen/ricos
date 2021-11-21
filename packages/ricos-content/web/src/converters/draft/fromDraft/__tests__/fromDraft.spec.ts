@@ -5,6 +5,8 @@ import { toDraft, fromDraft } from '../..';
 import { compare } from '../../../../comparision/compare';
 import complexFixture from '../../../../../../../../e2e/tests/fixtures/migration-content.json';
 import buggy from '../../../../../../../../e2e/tests/fixtures/buggy/atomicWithNoEntityRanges.json';
+import external from './external-blocks-and-decorations.json';
+import externalMigrated from './external-blocks-and-decorations-migrated.json';
 import unsupported from './unsupported-blocks-and-decorations.json';
 import unsupportedMigrated from './unsupported-blocks-and-decorations-migrated.json';
 import polyfills from '../../../../../../../../e2e/tests/fixtures/polyfills.json';
@@ -78,14 +80,17 @@ describe('migrate from draft', () => {
       {
         id: '1ba7b',
         nodes: [],
-        textData: { decorations: [{ type: Decoration_Type.ITALIC }], text: 'h ' },
+        textData: { decorations: [{ type: Decoration_Type.ITALIC, italicData: true }], text: 'h ' },
         type: Node_Type.TEXT,
       },
       {
         id: '59lhm',
         nodes: [],
         textData: {
-          decorations: [{ type: Decoration_Type.ITALIC }, { type: Decoration_Type.UNDERLINE }],
+          decorations: [
+            { type: Decoration_Type.ITALIC, italicData: true },
+            { type: Decoration_Type.UNDERLINE, underlineData: true },
+          ],
           text: 'b',
         },
         type: Node_Type.TEXT,
@@ -93,14 +98,20 @@ describe('migrate from draft', () => {
       {
         id: '1agl0',
         nodes: [],
-        textData: { decorations: [{ type: Decoration_Type.UNDERLINE }], text: 'la' },
+        textData: {
+          decorations: [{ type: Decoration_Type.UNDERLINE, underlineData: true }],
+          text: 'la',
+        },
         type: Node_Type.TEXT,
       },
       {
         id: '1m39g',
         nodes: [],
         textData: {
-          decorations: [{ type: Decoration_Type.UNDERLINE }, { type: Decoration_Type.BOLD }],
+          decorations: [
+            { type: Decoration_Type.UNDERLINE, underlineData: true },
+            { type: Decoration_Type.BOLD, fontWeightValue: 700 },
+          ],
           text: 'h ',
         },
         type: Node_Type.TEXT,
@@ -108,7 +119,10 @@ describe('migrate from draft', () => {
       {
         id: '8cr95',
         nodes: [],
-        textData: { decorations: [{ type: Decoration_Type.BOLD }], text: 'bl' },
+        textData: {
+          decorations: [{ type: Decoration_Type.BOLD, fontWeightValue: 700 }],
+          text: 'bl',
+        },
         type: Node_Type.TEXT,
       },
       {
@@ -305,7 +319,9 @@ describe('migrate from draft', () => {
       },
     };
     expect(
-      compare(fromDraft(draftContent), RichContent.fromJSON(expected), { ignoredKeys: ['id'] })
+      compare(fromDraft(draftContent), RichContent.fromJSON(expected), {
+        ignoredKeys: ['id'],
+      })
     ).toEqual({});
   });
 
@@ -318,6 +334,14 @@ describe('migrate from draft', () => {
           ignoredKeys: ['id'],
         }
       )
+    ).toEqual({});
+  });
+
+  it('should convert external block', () => {
+    expect(
+      compare(fromDraft(external), RichContent.fromJSON(externalMigrated), {
+        ignoredKeys: ['id'],
+      })
     ).toEqual({});
   });
 });

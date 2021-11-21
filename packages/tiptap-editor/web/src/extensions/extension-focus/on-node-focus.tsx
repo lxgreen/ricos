@@ -1,5 +1,6 @@
 import React, { useEffect, ComponentType } from 'react';
 import { RicosFunctionalExtension } from '../../models/extension-types';
+import { TIPTAP_TYPE_TO_RICOS_TYPE } from '../../consts';
 
 const name = 'on-node-focus';
 
@@ -10,7 +11,7 @@ const OnNodeFocusHoc = (Component: ComponentType) => {
       if (isFocused && context.onAtomicBlockFocus) {
         context.onAtomicBlockFocus({
           blockKey: node.attrs.id,
-          type: node.type.name,
+          type: TIPTAP_TYPE_TO_RICOS_TYPE[node.type.name],
           data: componentData,
         });
       }

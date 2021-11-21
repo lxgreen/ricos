@@ -116,11 +116,11 @@ const createInsertButtons: CreateInsertButtons = ({
     modalStyles,
     modalStylesFn: useNewModal
       ? ({ buttonRef, toolbarName }) => {
-          const isEmbedType = buttonType !== videoButtonsTypes.video;
+          const isSoundCloud = buttonType === videoButtonsTypes.soundCloud;
           return getBottomToolbarModalStyles(
             buttonRef,
             {
-              customStyles: isEmbedType ? embedModalCustomStyles : videoModalCustomStyles,
+              customStyles: isSoundCloud ? embedModalCustomStyles : videoModalCustomStyles,
             },
             toolbarName
           );
@@ -131,19 +131,23 @@ const createInsertButtons: CreateInsertButtons = ({
 
   if (useNewModal) {
     //open modals with overlay when opened from external-toolbar
-    const externalToolbarButtons = exposeButtons.map(buttonType => ({
-      ...buttonsMap[buttonType],
-      modalStyles: getModalStyles({
-        customStyles: {
-          ...DesktopFlyOutModalStyles,
-          ...DesktopOverlayModalStyles,
-        },
-        fullScreen: false,
-        isMobile,
-      }),
-      toolbars: [TOOLBARS.INSERT_PLUGIN],
-      ...baseButtonProps,
-    }));
+    const externalToolbarButtons = exposeButtons.map(buttonType => {
+      const isSoundCloud = buttonType === videoButtonsTypes.soundCloud;
+      const styles = isSoundCloud ? DesktopFlyOutModalStyles : videoModalCustomStyles;
+      return {
+        ...buttonsMap[buttonType],
+        modalStyles: getModalStyles({
+          customStyles: {
+            ...styles,
+            ...DesktopOverlayModalStyles,
+          },
+          fullScreen: false,
+          isMobile,
+        }),
+        toolbars: [TOOLBARS.INSERT_PLUGIN],
+        ...baseButtonProps,
+      };
+    });
 
     videoButtons = [...videoButtons, ...externalToolbarButtons];
   }

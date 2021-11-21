@@ -9,12 +9,23 @@ $headerOneHeight: 42px;
 $headerTwoHeight: 36px;
 $headerThreeHeight: 30px;
 
-$headerOneSize: 32px;
+// Taken from editor/web/src/RichContentEditor/utils/consts.ts any change here should also be done there and vice-versa.
+$headerOneSize: 40px;
 $headerTwoSize: 28px;
-$headerThreeSize: 22px;
-$headerFourSize: 1em;
-$headerFiveSize: 0.83em;
-$headerSixSize: 0.67em;
+$headerThreeSize: 24px;
+$headerFourSize: 20px;
+$headerFiveSize: 18px;
+$headerSixSize: 16px;
 
-$headersSizes: $headerOneSize, $headerTwoSize, $headerThreeSize, $headerFourSize, $headerFiveSize, $headerSixSize;
+$headerOneMobileSize: 32px;
+$headerTwoMobileSize: 24px;
+$headerThreeMobileSize: 20px;
+$headerFourMobileSize: 20px;
+$headerFiveMobileSize: 16px;
+$headerSixMobileSize: 14px;
+
+$headersSizes: $headerOneSize, $headerTwoSize, $headerThreeSize, $headerFourSize, $headerFiveSize,
+  $headerSixSize;
+$headersMobileSizes: $headerOneMobileSize, $headerTwoMobileSize, $headerThreeMobileSize,
+  $headerFourMobileSize, $headerFiveMobileSize, $headerSixMobileSize;
 $headerNames: 'One', 'Two', 'Three', 'Four', 'Five', 'Six';

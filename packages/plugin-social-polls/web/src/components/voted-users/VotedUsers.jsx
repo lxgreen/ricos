@@ -81,7 +81,8 @@ class VotedUsersComponent extends PureComponent {
           onClick={this.openModal}
           onKeyPress={this.openModal}
           role="button"
-          tabIndex={-1}
+          aria-haspopup="dialog"
+          tabIndex={0}
         >
           <ul className={styles.avatar_list}>{this.getSiteMembers().map(this.renderMember)}</ul>
           <span>{t('Poll_Viewer_VoteCount', { number: option.count || 0 })}</span>

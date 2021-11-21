@@ -1,9 +1,5 @@
 import { BUTTONS } from 'wix-rich-content-plugin-commons';
-import {
-  getModalStyles,
-  decorateComponentWithProps,
-  getBottomToolbarModalStyles,
-} from 'wix-rich-content-editor-common';
+import { getModalStyles, decorateComponentWithProps } from 'wix-rich-content-editor-common';
 import { ReplaceIcon } from '../icons';
 import getModalCustomStyles from './ModalCustomStyles';
 import VerticalEmbedInputModal from './VerticalEmbedInputModal';
@@ -17,6 +13,7 @@ import {
   DesktopFlyOutModalStyles,
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,
 } from 'wix-rich-content-ui-components';
+import { modalContentStyles } from '../constants';
 
 const createInlineButtons: CreateInlineButtons = ({
   t,
@@ -34,21 +31,9 @@ const createInlineButtons: CreateInlineButtons = ({
   const { newVerticalEmbedModal } = experiments;
   const useNewModal = newVerticalEmbedModal?.enabled;
 
-  const modalStylesFn = useNewModal
-    ? ({ buttonRef, toolbarName }) => {
-        return getBottomToolbarModalStyles(
-          buttonRef,
-          {
-            customStyles,
-          },
-          toolbarName
-        );
-      }
-    : undefined;
-
   const newModalCustomStyles = isMobile
     ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
-    : DesktopFlyOutModalStyles;
+    : { ...DesktopFlyOutModalStyles, content: modalContentStyles };
 
   const customStyles = useNewModal ? newModalCustomStyles : getModalCustomStyles(isMobile);
 
@@ -71,7 +56,28 @@ const createInlineButtons: CreateInlineButtons = ({
       mobile: true,
       tooltipTextKey: 'Replace product',
       t,
-      modalStylesFn,
+      modalStylesFn: useNewModal
+        ? ({ buttonRef }) => {
+            const modalStyles = getModalStyles({
+              customStyles: newModalCustomStyles,
+              fullScreen: true,
+              isMobile,
+            });
+            const { top, left } = buttonRef.getBoundingClientRect();
+            const modalLeft = left - 15;
+            const modalTop = top > 522 ? top - 540 : top + 40;
+            return {
+              ...modalStyles,
+              content: {
+                ...modalStyles.content,
+                top: modalTop,
+                left: modalLeft,
+                margin: 0,
+                position: 'absolute',
+              },
+            };
+          }
+        : undefined,
     },
     { keyName: 'delete', type: BUTTONS.DELETE, mobile: true },
   ];
