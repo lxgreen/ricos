@@ -1,3 +1,5 @@
+@import '~wix-rich-content-common/dist/statics/styles/palette';
+
 $TITLE_HEIGHT: 0px;
 $FOOTER_HEIGHT: 100px;
 $MOBILE_HEADER_HEIGHT: 50px;
@@ -27,6 +29,7 @@ $MOBILE_HEADER_HEIGHT: 50px;
   margin-right: 8.5px;
   width: 19px;
   height: 19px;
+  fill: $settings-icons-color;
 }
 
 .galleryImageSettings_backIcon {

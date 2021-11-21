@@ -39,6 +39,8 @@ const commonDesktopModalStyles: React.CSSProperties = {
   position: 'absolute',
   zIndex: 6,
   paddingTop: '12px',
+  borderRadius: 'var(--ricos-settings-whitebox-border-radius, 0px)',
+  boxShadow: 'var(--ricos-settings-whitebox-box-shadow)',
 };
 
 export const DESKTOP_FLY_OUT_MODAL_STYLES: ModalStyles = Object.freeze({

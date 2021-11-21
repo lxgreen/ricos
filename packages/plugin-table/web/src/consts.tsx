@@ -24,8 +24,8 @@ export const DesktopFlyOutModalStyles: ModalStyles = Object.freeze({
   },
   content: {
     ...commonDesktopModalStyles,
-    borderRadius: '2px',
-    boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.06)',
+    borderRadius: 'var(--ricos-settings-whitebox-border-radius, 0px)',
+    boxShadow: 'var(--ricos-settings-whitebox-box-shadow)',
   },
 });
 

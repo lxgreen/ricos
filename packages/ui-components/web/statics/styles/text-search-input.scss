@@ -24,7 +24,7 @@
   }
   &:focus,
   &:hover {
-    border-color: #333333;
+    border-color: rgba($settings-inputs-border-color, 0.5);
   }
 }
 
