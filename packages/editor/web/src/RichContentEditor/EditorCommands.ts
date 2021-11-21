@@ -118,11 +118,8 @@ export const createEditorCommands = (
   externalEditorProps,
   experiments?: AvailableExperiments
 ): EditorCommands => {
-  const setBlockType: EditorCommands['setBlockType'] = type => {
-    const editorState = getEditorState();
-    getBlockType(editorState) !== type &&
-      setEditorState(RichUtils.toggleBlockType(editorState, type));
-  };
+  const setBlockType: EditorCommands['setBlockType'] = type =>
+    setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
 
   const _setSelection: EditorCommands['_setSelection'] = (blockKey, selection) =>
     setEditorState(
