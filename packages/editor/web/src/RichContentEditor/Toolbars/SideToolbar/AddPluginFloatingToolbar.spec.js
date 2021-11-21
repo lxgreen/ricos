@@ -11,14 +11,25 @@ describe('AddPluginFloatingToolbar', () => {
   it('should trigger "onMenuLoad" when clicked', () => {
     let params = {};
     const fn = jest.fn(args => (params = args));
+    const getEditorStateMock = () => ({
+      getCurrentContent: () => ({
+        ID: '123',
+      }),
+    });
     const moreButton = mount(
-      <AddPluginFloatingToolbar helpers={{ onMenuLoad: fn }} structure={[]} t={() => ''} />
+      <AddPluginFloatingToolbar
+        helpers={{ onMenuLoad: fn }}
+        structure={[]}
+        t={() => ''}
+        getEditorState={getEditorStateMock}
+      />
     );
     moreButton.instance().onClick({ preventDefault: () => '', stopPropagation: () => '' });
     expect(fn).toBeCalledTimes(1);
     expect(params).toStrictEqual({
       menu: 'SIDE',
       version,
+      contentId: '123',
     });
   });
 });

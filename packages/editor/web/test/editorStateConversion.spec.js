@@ -9,6 +9,7 @@ import {
 } from './TestData/conversion-content-state';
 import collapsibleListRawData from './TestData/collapsible-list-raw-data.json';
 import { VIDEO_TYPE } from 'ricos-content';
+import { compare } from 'wix-rich-content-common';
 import { cloneDeep } from 'lodash';
 
 describe('ContentState conversion', () => {
@@ -39,7 +40,7 @@ describe('ContentState conversion', () => {
     const rawCopy = cloneDeep(raw);
     const editorState = EditorState.createWithContent(convertFromRaw(rawCopy));
     // eslint-disable-next-line no-unused-vars
-    const { VERSION: __, ...rawData } = convertToRaw(editorState.getCurrentContent());
+    const { VERSION: __, ID: ___, ...rawData } = convertToRaw(editorState.getCurrentContent());
     expect(rawData).toEqual(raw);
   });
 

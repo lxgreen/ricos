@@ -28,6 +28,7 @@ import {
   isAtomicBlockInSelection,
   scrollToBlock,
   insertCustomLink,
+  getSelectedBlocks,
 } from 'wix-rich-content-editor-common';
 import {
   AvailableExperiments,
@@ -117,11 +118,8 @@ export const createEditorCommands = (
   externalEditorProps,
   experiments?: AvailableExperiments
 ): EditorCommands => {
-  const setBlockType: EditorCommands['setBlockType'] = type => {
-    const editorState = getEditorState();
-    getBlockType(editorState) !== type &&
-      setEditorState(RichUtils.toggleBlockType(editorState, type));
-  };
+  const setBlockType: EditorCommands['setBlockType'] = type =>
+    setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
 
   const _setSelection: EditorCommands['_setSelection'] = (blockKey, selection) =>
     setEditorState(
@@ -322,7 +320,13 @@ export const createEditorCommands = (
     },
     clearSelectedBlocksInlineStyles: (exclude?: string[]) => {
       const styleSelectionPredicate = style => !exclude?.includes(style);
-      setEditorState(removeCurrentInlineStyle(getEditorState(), styleSelectionPredicate));
+      let editorState = removeCurrentInlineStyle(getEditorState(), styleSelectionPredicate);
+      const shouldRemoveDynamicStyles =
+        !exclude?.includes(RICOS_LINE_SPACING_TYPE) &&
+        getSelectedBlocks(editorState).some(block => !!block?.get('data').toJS().dynamicStyles);
+      shouldRemoveDynamicStyles &&
+        (editorState = mergeBlockData(editorState, { dynamicStyles: {} }));
+      setEditorState(editorState);
     },
   };
 

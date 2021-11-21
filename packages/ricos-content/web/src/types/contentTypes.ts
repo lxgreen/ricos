@@ -51,6 +51,7 @@ export interface RicosContent
   > {
   documentStyle?: DocumentStyle;
   VERSION?: string;
+  ID?: string;
 }
 
 export interface DraftContent extends RicosContent {}

@@ -93,6 +93,11 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
       ?.getToolbarSettings?.({ textButtons })
       .find(toolbar => toolbar?.name === textToolbarType);
     const deviceName = !isMobile ? 'desktop' : isiOS() ? 'mobile.ios' : 'mobile.android';
+    const shouldCreateFn = formattingToolbarSetting?.shouldCreate?.();
+    const shouldCreateToolbar = get(shouldCreateFn, deviceName, []);
+    if (shouldCreateToolbar === false) {
+      return null;
+    }
     let formattingToolbarButtons;
     if (formattingToolbarSetting?.getButtons) {
       const allFormattingToolbarButtons = formattingToolbarSetting?.getButtons?.() as TextButtons;

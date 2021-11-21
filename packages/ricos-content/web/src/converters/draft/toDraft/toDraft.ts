@@ -7,6 +7,7 @@ import { generateId } from '../../generateRandomId';
 import { BlockType, HeaderLevel, TO_DRAFT_LIST_TYPE } from '../consts';
 import { RICOS_NODE_TYPE_TO_DATA_FIELD } from '../../../consts';
 import { DraftBlockType } from 'draft-js';
+import { v4 as uuid } from 'uuid';
 import { merge } from 'lodash';
 import { createTextBlockData, createAtomicEntityData } from './getDraftEntityData';
 import {
@@ -146,6 +147,7 @@ const convert = (ricosContent: RichContent): DraftContent => {
   parseNodes();
   documentStyle && (draftContent.documentStyle = parseDocStyle(documentStyle));
   draftContent.VERSION = Version.currentVersion;
+  draftContent.ID = ricosContent.metadata?.id || uuid();
   return draftContent;
 };
 

@@ -32,8 +32,14 @@ export interface Helpers extends BICallbacksForHelpers {
 }
 interface BICallbacksForHelpers extends BICallbacks {
   // makes version optional
-  onPluginAdd?(pluginId: string, entryPoint: string, version?: string): void;
-  onPluginAddSuccess?(pluginId: string, entryPoint: string, params, version?: string): void;
+  onPluginAdd?(pluginId: string, entryPoint: string, version?: string, contentId?: string): void;
+  onPluginAddSuccess?(
+    pluginId: string,
+    entryPoint: string,
+    params,
+    version?: string,
+    contentId?: string
+  ): void;
   isPreview?: () => boolean;
   onPluginAction?: OnPluginAction;
 }

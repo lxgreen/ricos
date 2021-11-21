@@ -319,7 +319,9 @@ describe('migrate from draft', () => {
       },
     };
     expect(
-      compare(fromDraft(draftContent), RichContent.fromJSON(expected), { ignoredKeys: ['id'] })
+      compare(fromDraft(draftContent), RichContent.fromJSON(expected), {
+        ignoredKeys: ['id'],
+      })
     ).toEqual({});
   });
 

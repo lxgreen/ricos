@@ -93,6 +93,7 @@ class HeadingsPanel extends Component {
       }
       return {
         text: this.props.translateHeading(heading, this.props.t),
+        tooltip: this.props.translateHeading(heading, this.props.t, true),
         commandKey: HEADER_TYPE_MAP[heading],
         ...customizeOptions,
       };
@@ -106,7 +107,7 @@ class HeadingsPanel extends Component {
   render() {
     const { isMobile, t, currentSelect, onCancel, allowHeadingCustomization } = this.props;
     const { openOption } = this.state;
-    const panelHeader = t('Headings');
+    const panelHeader = t('FormattingToolbar_HeadingsPanelHeader');
 
     const panel = isMobile ? (
       <MobilePanel

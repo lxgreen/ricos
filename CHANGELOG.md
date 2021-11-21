@@ -17,8 +17,67 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3137](https://github.com/wix/ricos/pull/3137) fix panel header keys
+  - [#3136](https://github.com/wix/ricos/pull/3136) code and quote blocks not clearing on second click
+
+
 </details>
 <hr/>
+
+## 8.61.6 (Nov 18, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3135](https://github.com/wix/ricos/pull/3135) support shouldCreate config
+  - [#3128](https://github.com/wix/ricos/pull/3128) headings dropdown options tooltips
+- `viewer`
+  - [#3128](https://github.com/wix/ricos/pull/3128) link colors overriden by `documentStyle`
+- `ricos-content`
+  - [#3131](https://github.com/wix/ricos/pull/3131) convertJsonToStruct validation logic fix
+
+## 8.61.5 (Nov 18, 2021)
+
+### :bug: Bug Fix
+
+- `tiptap`
+  - [#3132](https://github.com/wix/ricos/pull/3132) fixed on atomic block focus
+  - [#3133](https://github.com/wix/ricos/pull/3133) External Toolbar Crash bix
+
+## 8.61.4 (Nov 17, 2021)
+
+### :bug: Bug Fix
+
+- `general`
+  - [#3119](https://github.com/wix/ricos/pull/3119) Fix font-family and color wiring on modals
+- `video/ui-components`
+  - [#3127](https://github.com/wix/ricos/pull/3127) Fix language dir and input border radius
+
+### :house: Internal
+
+- `*`
+  - [#3061](https://github.com/wix/ricos/pull/3061) RichContent ID
+
+## 8.61.3 (Nov 17, 2021)
+
+### :bug: Bug Fix
+
+- `headings`
+  - [#3125](https://github.com/wix/ricos/pull/3125) update heading also removes line height from block style
+
+## 8.61.2 (Nov 17, 2021)
+
+### :bug: Bug Fix
+
+- `video`
+  - [#3121](https://github.com/wix/ricos/pull/3121) Fix new video modal style
+- `vertical-embed`
+  - [#3123](https://github.com/wix/ricos/pull/3123) bug fix scroll to selected item
+- `ricos-content`
+  - [#3124](https://github.com/wix/ricos/pull/3124) external type in fromDraft/toDraft
 
 ## 8.61.1 (Nov 16, 2021)
 
