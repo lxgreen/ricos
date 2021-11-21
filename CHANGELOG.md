@@ -21,6 +21,12 @@
 </details>
 <hr/>
 
+## 8.61.9 (Nov 21, 2021)
+
+### :bug: Bug Fix
+
+- `tiptap-editor`
+  - [#3145](https://github.com/wix/ricos/pull/3145) fix onAtomicBlockFocus to be called on text blocks, onChange callback to be called on selection change, fix hasInlineStyle command
 ## 8.61.8 (Nov 21, 2021)
 
 ### :bug: Bug Fix
