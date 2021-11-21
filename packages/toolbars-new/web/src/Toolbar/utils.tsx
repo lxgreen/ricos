@@ -4,6 +4,7 @@ import {
   DocumentStyle,
   normalizeUrl,
   EditorCommands,
+  DRAFT_TO_RICOS_DOC_TYPE,
 } from 'wix-rich-content-common';
 import {
   convertRelStringToObject,
@@ -34,6 +35,12 @@ export const hasStyleChanges = (
 ) => {
   const headerStyle = documentStyle?.[DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE[currentHeading]] || {};
   return Object.entries(inlineStyles).some(([key, value]) => headerStyle[key] !== value);
+};
+
+export const getBlockStyle = (editorCommands: EditorCommands) => {
+  const blockType = editorCommands.getAnchorBlockType();
+  const documentStyle = editorCommands.getDocumentStyle();
+  return documentStyle?.[DRAFT_TO_RICOS_DOC_TYPE[blockType]];
 };
 
 export const handleLinkSettings = linkSettings => {
