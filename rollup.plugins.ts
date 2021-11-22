@@ -225,25 +225,26 @@ function addStylesImport() {
       if (isExistEditorStyles) {
         writeCjsAndEsContent(packageJson.main, packageJson.module, editorExtractedStylePath);
       }
-      if (existsSync(`${loadableViewerPath}/es`) && isExistViewerStyles) {
-        let dynamicLoadableChunkName;
-        readdirSync(`${loadableViewerPath}/es`).forEach(file => {
-          const fileName = file.split('.')[0];
-          !fileName.includes('viewer-loadable') && (dynamicLoadableChunkName = fileName);
-        });
-
+      if (isExistViewerStyles) {
         writeCjsAndEsContent(
           'dist/module.viewer.cjs.js',
           'dist/module.viewer.js',
           viewerExtractedStylePath
         );
+        if (existsSync(`${loadableViewerPath}/es`)) {
+          let dynamicLoadableChunkName;
+          readdirSync(`${loadableViewerPath}/es`).forEach(file => {
+            const fileName = file.split('.')[0];
+            !fileName.includes('viewer-loadable') && (dynamicLoadableChunkName = fileName);
+          });
 
-        if (dynamicLoadableChunkName) {
-          writeCjsAndEsContent(
-            `${loadableViewerPath}/cjs/${dynamicLoadableChunkName}.cjs.js`,
-            `${loadableViewerPath}/es/${dynamicLoadableChunkName}.js`,
-            viewerExtractedStylePath
-          );
+          if (dynamicLoadableChunkName) {
+            writeCjsAndEsContent(
+              `${loadableViewerPath}/cjs/${dynamicLoadableChunkName}.cjs.js`,
+              `${loadableViewerPath}/es/${dynamicLoadableChunkName}.js`,
+              viewerExtractedStylePath
+            );
+          }
         }
       }
       if (existsSync('./lib/')) {
