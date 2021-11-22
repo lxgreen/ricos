@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.63.0 (Nov 22, 2021)
+
 ### :bug: Bug Fix
 
 - `gallery`
@@ -26,9 +31,6 @@
 
 - `gallery`
   - [#3152](https://github.com/wix/ricos/pull/3152) update `ProGallery` version to `3.1.38`
-
-</details>
-<hr/>
 
 ## 8.62.0 (Nov 22, 2021)
 
