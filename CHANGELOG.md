@@ -22,6 +22,11 @@
 - `gallery`
   - [#3153](https://github.com/wix/ricos/pull/3153) item titles don't appear on gallery container hover
 
+### :house: Internal
+
+- `gallery`
+  - [#3152](https://github.com/wix/ricos/pull/3152) update `ProGallery` version to `3.1.38`
+
 </details>
 <hr/>
 

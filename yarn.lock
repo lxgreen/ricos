@@ -21232,28 +21232,28 @@ private@^0.1.6, private@~0.1.5:
   resolved "https://registry.npmjs.org/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"
   integrity sha512-VvivMrbvd2nKkiG38qjULzlc+4Vx4wm/whI9pQD35YrARNnhxeiRktSOhSukRLFNlzg6Br/cJPet5J/u19r/mg==
 
-pro-gallery-lib@3.1.14:
-  version "3.1.14"
-  resolved "https://registry.npmjs.org/pro-gallery-lib/-/pro-gallery-lib-3.1.14.tgz#beaf78a0a8a1601349bfcb946ab24c951a548538"
-  integrity sha512-WUWVTSzRQZdciZ+UCQ5PeDSL/lFr/oPq9Fca4jOwa0ca3UBFOZ7GWDqM6fY1AXWC24sf/PO0KtvdZIrKF9a1Pg==
+pro-gallery-lib@3.1.37:
+  version "3.1.37"
+  resolved "https://registry.yarnpkg.com/pro-gallery-lib/-/pro-gallery-lib-3.1.37.tgz#82b19e61e4e33294c089bd77346d7478b2ba9ea8"
+  integrity sha512-pNJxzOSg90JQ08J8+uPwM/HMoM78BTffAUtr4Cd0hIbCen/JKfCwlDmcGIpS1/FElgLLVIYAOJpodtBuM4WWEg==
   dependencies:
-    pro-layouts "3.1.14"
+    pro-layouts "3.1.37"
 
-pro-gallery@3.1.14:
-  version "3.1.14"
-  resolved "https://registry.npmjs.org/pro-gallery/-/pro-gallery-3.1.14.tgz#d8962582c8f4ea45ca725caa05e240863096301f"
-  integrity sha512-RwWfVyyHO+DaLlSEwg2sJ/7C+jueiYBvR+iOIHz6Vu6tocO/n+d9vYv05IZn3wTiIRMvbjNkb+lDneLMe4bOkQ==
+pro-gallery@3.1.38:
+  version "3.1.38"
+  resolved "https://registry.yarnpkg.com/pro-gallery/-/pro-gallery-3.1.38.tgz#8bd4f9485a7cfd62b36f3000ab036d3bbc009f76"
+  integrity sha512-z1tKRoOHXfg6Z4TwbVu2umrlyaSYeLr+w0Xl8Pxxwi7MwPr0JKpXbZaqc31GFtXcF3PII22G86KXeWFPlUl+Jg==
   dependencies:
     "@vimeo/player" "2.8.2"
     hls.js "^0.14.12"
-    pro-gallery-lib "3.1.14"
-    pro-layouts "3.1.14"
+    pro-gallery-lib "3.1.37"
+    pro-layouts "3.1.37"
     react-player "^2.6.2"
 
-pro-layouts@3.1.14:
-  version "3.1.14"
-  resolved "https://registry.npmjs.org/pro-layouts/-/pro-layouts-3.1.14.tgz#bdb10ec6ba3a6d4afb4fbe3ab046744b64338c4a"
-  integrity sha512-HQsDQwVwcHVzg7PjP2uIbM/y1sPEwMTzbipgDYdi9Bnz9z58+P+b0++qqkF056Q8GChpczoA/H/jQp+az2YWOw==
+pro-layouts@3.1.37:
+  version "3.1.37"
+  resolved "https://registry.yarnpkg.com/pro-layouts/-/pro-layouts-3.1.37.tgz#27c47f2fd8bde2b434311b2a898f54d294551bf7"
+  integrity sha512-VOnnqjKRsObyXEAUGYAZF/VyxuNWzym7kiSQX8tyOy5qrNO6Vx9SHfqHKuJ82kFbZ3CnVbMXv7UpHWOXRXRGRw==
 
 process-nextick-args@~1.0.6:
   version "1.0.7"
