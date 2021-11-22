@@ -26,6 +26,10 @@
 
 - `toolbars-new`
   - [#3148](https://github.com/wix/ricos/pull/3148) edit button in link toolbar on mobile
+- `gallery`
+  - [#3151](https://github.com/wix/ricos/pull/3151) gallery videos plays on click, controls are displayed, fullscreen opens on icon click only
+- `fullscreen`
+  - [#3151](https://github.com/wix/ricos/pull/3151) videos play on click, controls are displayed
 
 </details>
 <hr/>
