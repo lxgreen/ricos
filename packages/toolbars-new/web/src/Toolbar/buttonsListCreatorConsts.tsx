@@ -465,6 +465,20 @@ export const inlineStyleButtons: Record<string, InlineStyle> = {
   SPOILER: 'spoiler',
 };
 
+export const inlineOverrideStyles: Record<string, InlineStyle> = {
+  Bold: 'not_bold',
+  Italic: 'not_italic',
+  Underline: 'not_underline',
+};
+
+export const documentStyleCssProperties: Record<string, string> = {
+  Bold: 'font-weight',
+  Italic: 'font-style',
+  Underline: 'text-decoration',
+  TEXT_COLOR: 'color',
+  TEXT_HIGHLIGHT: 'background-color',
+};
+
 export const textBlockButtons: Record<string, string> = {
   CODE_BLOCK: CODE_BLOCK_TYPE,
   Blockquote: BLOCKQUOTE,
@@ -509,12 +523,12 @@ export const colorTypes: Record<string, ColorType> = {
 };
 
 const headingShortcuts = {
-  MacOS: number => `(⌘⌥${number})`,
-  Windows: number => `(Ctrl+Alt+${number})`,
+  MacOS: number => ` (⌘⌥${number})`,
+  Windows: number => ` (Ctrl+Alt+${number})`,
 };
 
 export const translateHeading = (option = 'P', t, shouldAddShortcut = false) => {
-  const number = option.slice(-1);
+  const number = parseInt(option.slice(-1)) ? option.slice(-1) : undefined;
   const osName = findOsName();
   const shortcut = shouldAddShortcut && osName ? headingShortcuts[osName](number || 0) : undefined;
   return option === 'P'

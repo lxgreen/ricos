@@ -118,11 +118,8 @@ export const createEditorCommands = (
   externalEditorProps,
   experiments?: AvailableExperiments
 ): EditorCommands => {
-  const setBlockType: EditorCommands['setBlockType'] = type => {
-    const editorState = getEditorState();
-    getBlockType(editorState) !== type &&
-      setEditorState(RichUtils.toggleBlockType(editorState, type));
-  };
+  const setBlockType: EditorCommands['setBlockType'] = type =>
+    setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
 
   const _setSelection: EditorCommands['_setSelection'] = (blockKey, selection) =>
     setEditorState(
@@ -162,6 +159,7 @@ export const createEditorCommands = (
     getAnchorBlockInlineStyles: EditorCommands['getAnchorBlockInlineStyles'];
     getWiredFontStyles: EditorCommands['getWiredFontStyles'];
     isAtomicBlockInSelection: EditorCommands['isAtomicBlockInSelection'];
+    getAnchorBlockType: EditorCommands['getAnchorBlockType'];
   } = {
     getSelection: () => {
       const selection = getEditorState().getSelection();
@@ -224,6 +222,7 @@ export const createEditorCommands = (
       return blocks.some(block => block.getKey() === blockKey);
     },
     isAtomicBlockInSelection: () => isAtomicBlockInSelection(getEditorState()),
+    getAnchorBlockType: () => getBlockType(getEditorState()),
   };
 
   const toggleOverlayBGColor = (element: HTMLElement) => {

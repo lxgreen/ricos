@@ -88,12 +88,12 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
     ) => console.log(eventName, params);
     this.helpers = {
       //these are for testing purposes only
-      onPluginAdd: async (...args) => console.log('biPluginAdd', ...args),
+      onPluginAdd: async (...args) => console.log('onPluginAdd', ...args),
       onPluginAddStep: async params => console.log('onPluginAddStep', params),
-      onPluginAddSuccess: async (...args) => console.log('biPluginAddSuccess', ...args),
-      onPluginDelete: async params => console.log('biPluginDelete', params),
-      onPluginChange: async (...args) => console.log('biPluginChange', ...args),
-      onPublish: async (...args) => console.log('biOnPublish', ...args),
+      onPluginAddSuccess: async (...args) => console.log('onPluginAddSuccess', ...args),
+      onPluginDelete: async params => console.log('onPluginDelete', params),
+      onPluginChange: async (...args) => console.log('onPluginChange', ...args),
+      onPublish: async (...args) => console.log('onPublish', ...args),
       onOpenEditorSuccess: async (...args) => console.log('onOpenEditorSuccess', ...args),
       onContentEdited: async params => console.log('onContentEdited', params),
       onToolbarButtonClick: async params => console.log('onToolbarButtonClick', params),

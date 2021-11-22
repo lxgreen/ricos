@@ -45,6 +45,9 @@ const draftInlineStyle = {
   bold: 'BOLD',
   underline: 'UNDERLINE',
   italic: 'ITALIC',
+  not_bold: 'NOT_BOLD',
+  not_italic: 'NOT_ITALIC',
+  not_underline: 'NOT_UNDERLINE',
   spoiler: SPOILER_TYPE,
 };
 

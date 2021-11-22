@@ -484,7 +484,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                     if (selectedNodes.length === 1 && selectedNodes[0].isBlock) {
                       const firstNode = selectedNodes[0];
                       const blockKey = firstNode.attrs.id;
-                      const type = TIPTAP_TYPE_TO_RICOS_TYPE[firstNode.type.name];
+                      const type = TIPTAP_TYPE_TO_RICOS_TYPE[firstNode.type.name] || 'text';
                       const data = firstNode.attrs;
                       onAtomicBlockFocus?.({ blockKey, type, data });
                     } else {
