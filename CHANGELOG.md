@@ -17,6 +17,16 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.62.0 (Nov 22, 2021)
+
+### :rocket: New Feature
+
+- `ricos-content`
+  - [#3147](https://github.com/wix/ricos/pull/3147) Metadata Utils ([Docs](https://ricos.js.org/docs/content_api/metadata_utils_api))
+
 ### :house: Internal
 
 - `toolbars-new`
@@ -31,15 +41,13 @@
 - `fullscreen`
   - [#3151](https://github.com/wix/ricos/pull/3151) videos play on click, controls are displayed
 
-</details>
-<hr/>
-
 ## 8.61.9 (Nov 21, 2021)
 
 ### :bug: Bug Fix
 
 - `tiptap-editor`
   - [#3145](https://github.com/wix/ricos/pull/3145) fix onAtomicBlockFocus to be called on text blocks, onChange callback to be called on selection change, fix hasInlineStyle command
+
 ## 8.61.8 (Nov 21, 2021)
 
 ### :bug: Bug Fix
