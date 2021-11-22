@@ -22,6 +22,11 @@
 - `toolbars-new`
   - [#3144](https://github.com/wix/ricos/pull/3144) refactor: get toolbar settings from config
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3148](https://github.com/wix/ricos/pull/3148) edit button in link toolbar on mobile
+
 </details>
 <hr/>
 
