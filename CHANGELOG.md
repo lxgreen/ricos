@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3153](https://github.com/wix/ricos/pull/3153) item titles don't appear on gallery container hover
+
 </details>
 <hr/>
 
