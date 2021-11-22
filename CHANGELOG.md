@@ -21,7 +21,12 @@
 
 - `general`
   - [#3148](https://github.com/wix/ricos/pull/3148) Style(theme) support for BM 
-  
+
+### :house: Internal
+
+- `toolbars-new`
+  - [#3144](https://github.com/wix/ricos/pull/3144) refactor: get toolbar settings from config
+
 </details>
 <hr/>
 
