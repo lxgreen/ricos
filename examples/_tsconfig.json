@@ -7,8 +7,17 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "lib": ["dom", "ESNext"]
+    "lib": [
+      "dom",
+      "ESNext"
+    ]
   },
-  "files": ["../external-types.d.ts"],
-  "include": ["main", "storybook"]
+  "files": [
+    "../external-types.d.ts"
+  ],
+  "include": [
+    "main",
+    "storybook",
+    "../packages/**/*"
+  ]
 }

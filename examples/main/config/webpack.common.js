@@ -98,46 +98,19 @@ module.exports = env => ({
       {
         test: /\.svg$/,
         issuer: /\.js(x)?$/,
-        loaders: [
+        use: [
           {
             loader: 'babel-loader',
             options: {
               presets: ['@babel/preset-react'],
             },
           },
-          {
-            loader: 'react-svg-loader',
-            query: JSON.stringify({
-              jsx: true,
-              svgo: {
-                plugins: [
-                  { cleanupIDs: false },
-                  { removeViewBox: false },
-                  { removeDimensions: true },
-                ],
-              },
-            }),
-          },
         ],
       },
-      {
-        test: /\.tsx?$/,
-        exclude: /node_modules/,
-        loader: 'happypack/loader?id=ts',
-      },
+      { test: /\.tsx?$/, loader: 'ts-loader' },
     ],
   },
   plugins: [
-    new HtmlWebPackPlugin({
-      title: 'Rich Content Editor',
-      favicon: './public/favicon.ico',
-      template: './public/index.html',
-      meta: {
-        charset: 'utf-8',
-        viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no',
-      },
-      chunksSortMode: 'none',
-    }),
     new DotenvWebpackPlugin({
       path: path.resolve(PATHS.monorepo_root, '.env'),
     }),
@@ -172,15 +145,6 @@ module.exports = env => ({
         'wordHighlighter',
         'wordOperations',
         'wordPartOperations',
-      ],
-    }),
-    new HappyPack({
-      id: 'ts',
-      loaders: [
-        {
-          path: 'ts-loader',
-          query: { happyPackMode: true },
-        },
       ],
     }),
   ],
