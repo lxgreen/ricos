@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `toolbars-new`
+  - [#3144](https://github.com/wix/ricos/pull/3144) refactor: get toolbar settings from config
 
 </details>
 <hr/>

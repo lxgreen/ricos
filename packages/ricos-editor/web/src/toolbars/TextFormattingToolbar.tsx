@@ -12,15 +12,14 @@ import {
   getLangDir,
 } from 'wix-rich-content-common';
 import { LinkSettings, ToolbarSettings, RicosCssOverride, RicosTheme } from 'ricos-common';
-import { isiOS } from 'wix-rich-content-editor-common';
 import {
   FloatingToolbarContainer,
   RicosToolbar,
   StaticToolbarContainer,
 } from 'wix-rich-content-toolbars-new';
-import { get } from 'lodash';
 import { mobileTextButtonList, desktopTextButtonList } from './utils/defaultTextFormattingButtons';
 import { filterButtons, isLinkToolbarOpen, addConfigButtons } from './utils/toolbarsUtils';
+import { toolbarSettingsFromConfig } from './utils/toolbarsConfig';
 
 interface TextFormattingToolbarProps {
   activeEditor: RichContentEditor;
@@ -89,29 +88,28 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
       mobile: mobileTextButtonList,
       desktop: desktopTextButtonList,
     };
-    const formattingToolbarSetting = toolbarSettings
-      ?.getToolbarSettings?.({ textButtons })
-      .find(toolbar => toolbar?.name === textToolbarType);
-    const deviceName = !isMobile ? 'desktop' : isiOS() ? 'mobile.ios' : 'mobile.android';
-    const shouldCreateFn = formattingToolbarSetting?.shouldCreate?.();
-    const shouldCreateToolbar = get(shouldCreateFn, deviceName, []);
-    if (shouldCreateToolbar === false) {
+    const formattingToolbarSetting = toolbarSettingsFromConfig({
+      toolbarSettings,
+      isMobile,
+      textButtons,
+      toolbarType: textToolbarType,
+    });
+    if (formattingToolbarSetting?.shouldCreate === false) {
       return null;
     }
     let formattingToolbarButtons;
     if (formattingToolbarSetting?.getButtons) {
-      const allFormattingToolbarButtons = formattingToolbarSetting?.getButtons?.() as TextButtons;
-      formattingToolbarButtons = get(allFormattingToolbarButtons, deviceName, []);
+      formattingToolbarButtons = formattingToolbarSetting?.getButtons;
     } else {
       formattingToolbarButtons = isMobile ? textButtons.mobile : textButtons.desktop;
     }
 
     const filteredFormattingToolbarButtons = filterButtons(formattingToolbarButtons, activeEditor);
 
-    const configButtonMap = formattingToolbarSetting?.getTextPluginButtons?.();
+    const configButtonMap = formattingToolbarSetting?.getTextPluginButtons;
 
     const buttonsWithConfigButtons = configButtonMap
-      ? addConfigButtons(filteredFormattingToolbarButtons, get(configButtonMap, deviceName, []))
+      ? addConfigButtons(filteredFormattingToolbarButtons, configButtonMap)
       : filteredFormattingToolbarButtons;
 
     const getPluginConfig = pluginType =>
