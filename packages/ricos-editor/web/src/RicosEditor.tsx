@@ -11,9 +11,14 @@ import {
   shouldRenderChild,
   localeStrategy,
   getBiCallback as getCallback,
+  IRicosEditorCommands,
 } from 'ricos-common';
 import { DraftContent } from 'ricos-content';
-import { RichContentEditor, RichContentEditorProps } from 'wix-rich-content-editor';
+import {
+  RichContentEditor,
+  RichContentEditorProps,
+  DraftEditorCommands,
+} from 'wix-rich-content-editor';
 import { createDataConverter, filterDraftEditorSettings } from './utils/editorUtils';
 import ReactDOM from 'react-dom';
 import { EditorState, ContentState } from 'draft-js';
@@ -83,6 +88,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   textFormattingToolbarRef!: Record<'updateToolbar', () => void>;
 
   linkToolbarRef!: Record<'updateToolbar', () => void>;
+
+  ricosEditorCommands!: IRicosEditorCommands;
 
   static getDerivedStateFromError(error: string) {
     return { error };
@@ -299,6 +306,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   getEditorCommands = () => this.editor.getEditorCommands();
 
+  getRicosEditorCommands = () => this.ricosEditorCommands;
+
   getT = () => this.editor.getT();
 
   getContentID = () => this.dataInstance.getContentState().ID;
@@ -310,6 +319,13 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         textToolbarContainer={this.props.toolbarSettings?.textToolbarContainer}
       />
     );
+  }
+
+  setRicosEditorCommands = (ricosEditorCommands: IRicosEditorCommands) => {
+    this.ricosEditorCommands = ricosEditorCommands;
+    // For Demo purposes Only
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).ricosEditorCommands = ricosEditorCommands;
   }
 
   renderRicosEngine(child, childProps) {
@@ -387,6 +403,13 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     const baseStyles = { flex: 'none', webkitTapHighlightColor: 'transparent' };
     const baseMobileStyles = { ...baseStyles, position: 'sticky', top: 0, zIndex: 9 };
     const linkPluginInstalled = !!plugins?.find(plugin => plugin.type === 'LINK');
+    if (!this.useTiptap && this.editor) {
+      const draftEditorProps = {
+        setEditorState: this.editor.editor.updateEditorState,
+        getEditorState: this.editor.editor.getEditorState,
+      };
+      this.setRicosEditorCommands(new DraftEditorCommands(draftEditorProps));
+    }
     return (
       !activeEditorIsTableCell &&
       activeEditor && (
@@ -448,7 +471,13 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     if (!tiptapEditorModule) {
       return null;
     }
-    const { RicosTiptapEditor, RichContentAdapter, draftToTiptap, TIPTAP_TYPE_TO_RICOS_TYPE } = tiptapEditorModule;
+    const {
+      RicosTiptapEditor,
+      RichContentAdapter,
+      draftToTiptap,
+      TIPTAP_TYPE_TO_RICOS_TYPE,
+      TiptapEditorCommands,
+    } = tiptapEditorModule;
     const { content, injectedContent, plugins, onAtomicBlockFocus } = this.props;
     const { tiptapToolbar } = this.state;
     // TODO: Enforce Content ID's existance (or generate it)
@@ -472,6 +501,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                   t={t}
                   onLoad={editor => {
                     const richContentAdapter = new RichContentAdapter(editor, t, plugins);
+                    this.setRicosEditorCommands(new TiptapEditorCommands(editor));
                     this.setEditorRef(richContentAdapter);
                     const TextToolbar = richContentAdapter.getToolbars().TextToolbar;
                     this.setState({ tiptapToolbar: TextToolbar });
@@ -488,8 +518,11 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                       const data = firstNode.attrs;
                       onAtomicBlockFocus?.({ blockKey, type, data });
                     } else {
-                      onAtomicBlockFocus?.({ blockKey: undefined, type: undefined, data: undefined });
-
+                      onAtomicBlockFocus?.({
+                        blockKey: undefined,
+                        type: undefined,
+                        data: undefined,
+                      });
                     }
                     this.useNewFormattingToolbar && this.updateToolbars();
                   }}
