@@ -1,5 +1,6 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
 
 .desktopPanel {
   display: flex;
@@ -9,6 +10,7 @@
   width: 143px;
 
   .showCustomPanel_button {
+    font-family: $ricos-default-font-family;
     height: 36px;
     width: 100%;
     background-color: transparent;
@@ -38,6 +40,44 @@
   }
 }
 
+.desktopPanel_withInlineModal {
+  width: 230px;
+  .panel_row_desktop {
+    height: 48px;
+    flex-direction: row;
+    .panel_row_text_container {
+      width: 150px;
+      .panel_row_primary {
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        .panel_row_text {
+          width: 128px;
+          margin-left: 12px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      }
+
+      .panel_row_subtext {
+        width: 44px;
+        padding-bottom: 6px;
+        margin-left: 36px;
+      }
+    }
+    .panel_row_arrow_container {
+      height: 100%;
+      width: 100%;
+      .panel_row_arrow {
+        width: fit-content;
+        height: fit-content;
+        margin: 7px 18px 0px 35px;
+      }
+    }
+  }
+}
+
 .panel_row_desktop {
   border: none;
   font-size: 14px;
@@ -64,8 +104,12 @@
     @extend %active;
     color: $settings-action-color-fallback;
   }
+  &:not(.panel_selectedRow) {
+    color: #000;
+  }
   @include phone {
-    height: 39px;
+    width: 100%;
+    height: 47px;
   }
 }
 
@@ -82,7 +126,7 @@
 
 .panel_row_subtext {
   width: 100%;
-  font-size: 10px;
+  font-size: 12px;
   color: #757575;
 }
 
@@ -134,10 +178,32 @@
 .mobilePanel_rows {
   display: flex;
   flex-direction: column;
-  * {
+  height: 100%;
+  .panel_row_text_container {
     flex: 1;
     text-align: left;
     width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: flex-start;
+    .panel_row_icon {
+      width: fit-content;
+      margin-left: 16px;
+      margin-top: 3px;
+    }
+    .panel_row_text {
+      line-height: 20px;
+      margin-left: 12px;
+    }
+    .panel_row_subtext {
+      width: 44px;
+      line-height: 1.5;
+      margin-left: auto;
+      margin-right: 12px;
+      font-size: 10px;
+    }
   }
 }
 

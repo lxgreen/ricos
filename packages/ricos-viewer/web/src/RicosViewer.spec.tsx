@@ -90,6 +90,7 @@ describe('RicosViewer', () => {
     expect(fn).toBeCalledTimes(1);
     expect(args).toStrictEqual({
       isPreview: false,
+      contentId: undefined,
       pluginsCount: {
         EMOJI_TYPE: 2,
         LINK: 2,

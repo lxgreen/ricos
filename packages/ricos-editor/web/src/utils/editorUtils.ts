@@ -1,16 +1,16 @@
 import {
   createWithContent,
-  createEmpty,
   convertToRaw,
   convertFromRaw,
 } from 'wix-rich-content-editor/libs/editorStateConversion';
 import { EditorProps } from 'draft-js';
 import { pick } from 'lodash';
+import { v4 as uuid } from 'uuid';
 import { DRAFT_EDITOR_PROPS } from 'ricos-common';
 import { isContentStateEmpty } from 'ricos-content';
 import { isContentEqual } from 'ricos-content/libs/comapareDraftContent';
 import { DraftContent, isSSR } from 'wix-rich-content-common';
-import { emptyDraftContent } from 'wix-rich-content-editor-common';
+import { getEmptyDraftContent } from 'wix-rich-content-editor-common';
 import { EditorDataInstance, OnContentChangeFunction, ContentStateGetter } from '../index';
 import errorBlocksRemover from './errorBlocksRemover';
 
@@ -23,16 +23,18 @@ const wait = ms => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };
 
+const enforceContentId = (content?: DraftContent): DraftContent | undefined =>
+  content && { ...content, ID: content.ID || uuid() };
+
 export function createDataConverter(
   onContentChange?: OnContentChangeFunction,
   initialContent?: DraftContent
 ): EditorDataInstance {
-  const initialOrEmptyContent = initialContent || emptyDraftContent;
+  const initialOrEmptyContent = enforceContentId(initialContent) || getEmptyDraftContent();
+
   let currContent = initialOrEmptyContent;
   let lastContent = currContent;
-  let currEditorState = initialContent
-    ? createWithContent(convertFromRaw(initialContent))
-    : createEmpty();
+  let currEditorState = createWithContent(convertFromRaw(initialOrEmptyContent));
   let currTraits = {
     isEmpty: isContentStateEmpty(currContent),
     isContentChanged: false,

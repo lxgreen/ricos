@@ -203,6 +203,7 @@
 	"Embed_Vertical_Bookings_Search_Placeholder": "Tìm kiếm dịch vụ",
 	"FormattingToolbar_TextStyle_Update_Heading_Tooltip": "Cập nhật để tiêu đề này chỉ áp dụng cho bài đăng này.",
 	"RedoButton_Tooltip": "Làm lại",
+	"FormattingToolbar_HeadingsPanelHeader": "Headings",
 	"CollapsibleList_CollapsibleListSettings_Tab_Settings_CollapseView_Expanded": "Tất cả",
 	"GiphyPlugin_Trending": "Xu hướng thịnh hành",
 	"GalleryImageSettings_Header": "Chỉnh sửa hình ảnh",
@@ -283,6 +284,7 @@
 	"LinkTo_Modal_Sidebar_Website": "Địa chỉ web",
 	"FileUploadInsertButton_tooltip": "Thêm tệp",
 	"TikTok_plugin_search_tags": "tiktok video mạng xã hội nhúng",
+	"FormattingToolbar_AlignmentPanelHeader": "Alignment",
 	"LinkTo_Modal_Section_Filter_Paragraphs": "Đoạn văn",
 	"ButtonModal_InputName_Placeholder": "Thêm văn bản ở đây",
 	"LinkTo_Modal_Section_Item_Gallery": "Bộ sưu tập",
@@ -473,6 +475,7 @@
 	"CollapsibleList_CollapsibleListSettings_Tab_Design_TabName": "Thiết kế",
 	"ButtonPlugin_Navbar_Update_button": "Lưu",
 	"LinkPanel_Sponsored_Checkbox_Tooltip": "Cho các công cụ tìm kiếm biết liên kết này đại diện cho một quảng cáo trả phí, hợp đồng tài trợ hoặc trả phí.",
+	"FormattingToolbar_LineSpacingPanelHeader": "Line Spacing",
 	"LinkPanelContainer_RemoveButton": "Loại bỏ liên kết",
 	"ButtonModal_Link_Input_Placeholder": "Nhập một URL",
 	"LinkPanelContainer_CancelButton": "Hủy",
@@ -614,8 +617,10 @@
 	"Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "{{count}} người đã bình chọn cho câu trả lời này",
 	"CollapsibleListPlugin_ExpandButton_AriaLabel": "Mục được mở rộng",
 	"Spoiler_Reveal_Video_Placeholder": "Video này có chứa chi tiết tiết lộ trước nội dung",
+	"Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
 	"Preview_SeeFullPost_Label": "Xem toàn bộ bài đăng",
 	"UploadFile_Viewer_Download": "Tải về {{fileType}}",
 	"VerticalEmbed_Units_Hour": "{{hours}} giờ",
-	"VerticalEmbed_Units_Minute": "{{minutes}} phút"
+	"VerticalEmbed_Units_Minute": "{{minutes}} phút",
+	"Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }

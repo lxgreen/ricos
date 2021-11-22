@@ -576,7 +576,8 @@ const config: RichContentEditorProps['config'] = {
     innerRCEPlugins,
   },
   [HEADINGS_DROPDOWN_TYPE]: {
-    // customHeadings: ['H2', 'H3'],
+    customHeadings: ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P'],
+    allowHeadingCustomization: true,
   },
   [LINE_SPACING_TYPE]: {
     // toolbar: {
@@ -748,8 +749,6 @@ const config: RichContentEditorProps['config'] = {
         const desktopButtons = [
           FORMATTING_BUTTONS.HEADINGS,
           '|',
-          FORMATTING_BUTTONS.FONT_SIZE,
-          '|',
           FORMATTING_BUTTONS.BOLD,
           FORMATTING_BUTTONS.ITALIC,
           FORMATTING_BUTTONS.UNDERLINE,
@@ -849,10 +848,25 @@ const config: RichContentEditorProps['config'] = {
     {
       name: TOOLBARS.INLINE,
       getButtons: () => ({
-        desktop: textButtons.desktop.filter(b => b !== FORMATTING_BUTTONS.TITLE),
+        desktop: [
+          FORMATTING_BUTTONS.HEADINGS,
+          '|',
+          FORMATTING_BUTTONS.FONT_SIZE,
+          ...textButtons.desktop.filter(
+            b => b !== FORMATTING_BUTTONS.TITLE && b !== FORMATTING_BUTTONS.HEADINGS
+          ),
+        ],
         mobile: {
-          ios: textButtons.mobile.filter(b => b !== FORMATTING_BUTTONS.TITLE),
-          android: [],
+          ios: [
+            FORMATTING_BUTTONS.HEADINGS,
+            '|',
+            ...textButtons.mobile.filter(b => b !== FORMATTING_BUTTONS.TITLE),
+          ],
+          android: [
+            FORMATTING_BUTTONS.HEADINGS,
+            '|',
+            ...textButtons.mobile.filter(b => b !== FORMATTING_BUTTONS.TITLE),
+          ],
         },
       }),
       // getTextPluginButtons: () => {

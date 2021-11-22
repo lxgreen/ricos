@@ -29,13 +29,18 @@ import {
   redo,
   SelectionState,
   setSelectionToBlock,
-  emptyDraftContent,
+  getEmptyDraftContent,
   getCustomStyleFns,
 } from 'wix-rich-content-editor-common';
 import { convertFromRaw, convertToRaw, createWithContent } from '../../lib/editorStateConversion';
 import { EditorProps as DraftEditorProps, DraftHandleValue } from 'draft-js';
 import { createUploadStartBIData, createUploadEndBIData } from './utils/mediaUploadBI';
-import { HEADINGS_DROPDOWN_TYPE, DEFAULT_HEADINGS, DEFAULT_TITLE_HEADINGS } from 'ricos-content';
+import {
+  HEADINGS_DROPDOWN_TYPE,
+  DEFAULT_HEADINGS,
+  DEFAULT_TITLE_HEADINGS,
+  DraftContent,
+} from 'ricos-content';
 import {
   AvailableExperiments,
   AccessibilityListener,
@@ -409,6 +414,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     this.fixHelpers(helpers);
     const onPluginAction: OnPluginAction = (eventName: EventName, params: PluginEventParams) =>
       helpers.onPluginAction?.(eventName, { ...params, version: Version.currentVersion });
+    const version = Version.currentVersion;
     this.contextualData = {
       theme: theme || {},
       t,
@@ -420,7 +426,12 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       helpers: {
         ...helpers,
         onPluginAdd: (pluginId: string, entryPoint: string) =>
-          helpers.onPluginAdd?.(pluginId, entryPoint, Version.currentVersion),
+          helpers.onPluginAdd?.(pluginId, entryPoint, version, this.getContentId()),
+        onPluginAddStep: args =>
+          helpers.onPluginAddStep?.({ ...args, version, contentId: this.getContentId() }),
+        onPluginAddSuccess: (pluginId: string, entryPoint: string, params) =>
+          helpers.onPluginAddSuccess?.(pluginId, entryPoint, params, version, this.getContentId()),
+
         onMediaUploadStart: (...args) => {
           const {
             correlationId,
@@ -436,7 +447,8 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
             pluginId,
             fileSize,
             mediaType,
-            Version.currentVersion
+            version,
+            this.getContentId()
           );
           return { correlationId, pluginId, fileSize, mediaType, timeStamp };
         },
@@ -460,18 +472,22 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
             mediaType,
             isSuccess,
             errorType,
-            Version.currentVersion
+            version,
+            this.getContentId()
           );
         },
-        onPluginAddSuccess: (pluginId: string, entryPoint: string, params) =>
-          helpers.onPluginAddSuccess?.(pluginId, entryPoint, params, Version.currentVersion),
         onPluginAction,
         onPluginChange: (pluginId: string, changeObj) =>
-          helpers.onPluginChange?.(pluginId, changeObj, Version.currentVersion),
+          helpers.onPluginChange?.(pluginId, changeObj, version, this.getContentId()),
         onToolbarButtonClick: args =>
-          helpers.onToolbarButtonClick?.({ ...args, version: Version.currentVersion }),
+          helpers.onToolbarButtonClick?.({ ...args, version, contentId: this.getContentId() }),
         onInlineToolbarOpen: args =>
-          helpers.onInlineToolbarOpen?.({ ...args, version: Version.currentVersion }),
+          helpers.onInlineToolbarOpen?.({ ...args, version, contentId: this.getContentId() }),
+        onPluginModalOpened: args =>
+          helpers.onPluginModalOpened?.({ ...args, version, contentId: this.getContentId() }),
+        onMenuLoad: args => {
+          helpers.onMenuLoad?.({ ...args, version, contentId: this.getContentId() });
+        },
       },
       config,
       isMobile,
@@ -604,7 +620,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       return createWithContent(convertFromRaw(rawContentState));
     } else {
       //this is needed for ssr. Otherwise the key will be generated randomly on both server and client.
-      const emptyContentState = convertFromRaw(emptyDraftContent);
+      const emptyContentState = convertFromRaw(getEmptyDraftContent());
       return createWithContent(emptyContentState);
     }
   }
@@ -651,6 +667,8 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     return element && element.querySelector('*[tabindex="0"]');
   }
 
+  getContentId = () => ((this.state.editorState.getCurrentContent() as unknown) as DraftContent).ID;
+
   createContentMutationEvents = (initialEditorState: EditorState, version: string) => {
     const calculate = createCalcContentDiff(initialEditorState);
     return (newState: EditorState, { onPluginDelete }: BICallbacks = {}) =>
@@ -658,7 +676,12 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
         shouldCalculate: !!onPluginDelete,
         onCallbacks: ({ pluginsDeleted = [] }) => {
           pluginsDeleted.forEach(pluginId =>
-            onPluginDelete?.({ pluginId, version, pluginDetails: undefined })
+            onPluginDelete?.({
+              pluginId,
+              version,
+              contentId: this.getContentId(),
+              pluginDetails: undefined,
+            })
           );
         },
       });
@@ -672,22 +695,28 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     );
   };
 
-  updateDocumentStyle = (editorState: EditorState) => {
+  preserveNonDraftProperties = (editorState: EditorState) => {
     const documentStyle = this.EditorCommands.getDocumentStyle();
+    type Content = ContentState & {
+      documentStyle: DocumentStyle;
+      ID: string;
+    };
+    const currentContent = editorState.getCurrentContent() as Content;
+    const contentId = (this.state.editorState.getCurrentContent() as Content).ID;
     if (documentStyle) {
-      const currentContent = editorState.getCurrentContent() as ContentState & {
-        documentStyle: DocumentStyle;
-      };
       currentContent.documentStyle = {
         ...documentStyle,
         ...currentContent.documentStyle,
       };
     }
+    !currentContent.ID && (currentContent.ID = contentId);
   };
 
   updateEditorState = (editorState: EditorState) => {
+    if (!this.props.isInnerRCE) {
+      this.preserveNonDraftProperties(editorState);
+    }
     const undoRedoStackChanged = this.didUndoRedoStackChange(editorState);
-    this.updateDocumentStyle(editorState);
     this.setState({ editorState, undoRedoStackChanged }, () => {
       this.handleCallbacks(this.state.editorState, this.props.helpers);
       this.props.onChange?.(this.state.editorState);
@@ -1070,12 +1099,14 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
         buttonName: 'Alignment',
         value: buttonName,
         version: Version.currentVersion,
+        contentId: this.getContentId(),
       });
     } else if (biButtonName) {
       helpers.onKeyboardShortcutAction?.({
         buttonName: biButtonName,
         pluginId,
         version: Version.currentVersion,
+        contentId: this.getContentId(),
       });
     }
   };
@@ -1216,9 +1247,12 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     const styleToCss = ([key, val]) => `${key}: ${val};`;
     documentStyle &&
       Object.entries(documentStyle).forEach(([key, values]) => {
-        styles[DOC_STYLE_CLASSES[key] + ' > div > span'] = Object.entries(values)
-          .map(style => styleToCss(style))
-          .join(' ');
+        [' > div > span', ' > div > a > span'].forEach(
+          selector =>
+            (styles[DOC_STYLE_CLASSES[key] + selector] = Object.entries(values)
+              .map(style => styleToCss(style))
+              .join(' '))
+        );
       });
 
     blocks.forEach(block => {

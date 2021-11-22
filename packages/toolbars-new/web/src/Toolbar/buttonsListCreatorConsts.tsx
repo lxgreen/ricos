@@ -44,6 +44,13 @@ import {
   AlignJustifyIcon,
   AlignLeftIcon,
   AlignRightIcon,
+  PIcon,
+  H1Icon,
+  H2Icon,
+  H3Icon,
+  H4Icon,
+  H5Icon,
+  H6Icon,
 } from '../icons';
 import LinkModal from '../modals/link/LinkComponents/LinkModal';
 import AlignmentPanel from '../modals/alignment/AlignmentPanel';
@@ -59,6 +66,16 @@ export const HEADING_TYPE_TO_ELEMENT = Object.freeze({
   'header-five': 'H5',
   'header-six': 'H6',
   unstyled: 'P',
+});
+
+export const HEADING_TYPE_TO_ICON = Object.freeze({
+  H1: H1Icon,
+  H2: H2Icon,
+  H3: H3Icon,
+  H4: H4Icon,
+  H5: H5Icon,
+  H6: H6Icon,
+  P: PIcon,
 });
 
 export const alignmentsModalData = [
@@ -147,6 +164,8 @@ type buttonsFullDataType = {
   'header-two'?: { icon: any; action: string };
   'header-three'?: { icon: any; action: string };
   isInput?: boolean;
+  useIconOnMobile?: boolean;
+  closeOnChange?: boolean;
 };
 
 export const buttonsFullData: Record<string, buttonsFullDataType> = {
@@ -170,7 +189,6 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
   },
   HEADINGS: {
     plugin: 'wix-rich-content-plugin-headings',
-    icon: () => null,
     dataHook: 'headingsDropdownButton',
     tooltip: 'FormattingToolbar_TextStyleButton_Tooltip',
     label: 'HEADINGS',
@@ -178,8 +196,11 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     type: 'modal',
     modal: props => <HeadingsPanel {...props} translateHeading={translateHeading} />,
     onSave: 'HEADINGS',
+    onChange: 'HEADINGS',
     saveSelection: true,
     loadSelection: true,
+    useIconOnMobile: true,
+    closeOnChange: true,
   },
   FONT_SIZE: {
     icon: () => null,
@@ -444,6 +465,20 @@ export const inlineStyleButtons: Record<string, InlineStyle> = {
   SPOILER: 'spoiler',
 };
 
+export const inlineOverrideStyles: Record<string, InlineStyle> = {
+  Bold: 'not_bold',
+  Italic: 'not_italic',
+  Underline: 'not_underline',
+};
+
+export const documentStyleCssProperties: Record<string, string> = {
+  Bold: 'font-weight',
+  Italic: 'font-style',
+  Underline: 'text-decoration',
+  TEXT_COLOR: 'color',
+  TEXT_HIGHLIGHT: 'background-color',
+};
+
 export const textBlockButtons: Record<string, string> = {
   CODE_BLOCK: CODE_BLOCK_TYPE,
   Blockquote: BLOCKQUOTE,
@@ -487,10 +522,18 @@ export const colorTypes: Record<string, ColorType> = {
   TEXT_HIGHLIGHT: RICOS_TEXT_HIGHLIGHT_TYPE,
 };
 
-export const translateHeading = (option = 'P', t) => {
+const headingShortcuts = {
+  MacOS: number => ` (⌘⌥${number})`,
+  Windows: number => ` (Ctrl+Alt+${number})`,
+};
+
+export const translateHeading = (option = 'P', t, shouldAddShortcut = false) => {
+  const number = parseInt(option.slice(-1)) ? option.slice(-1) : undefined;
+  const osName = findOsName();
+  const shortcut = shouldAddShortcut && osName ? headingShortcuts[osName](number || 0) : undefined;
   return option === 'P'
-    ? t('FormattingToolbar_TextStyle_Paragraph')
-    : t('FormattingToolbar_TextStyle_Heading', { number: option.slice(-1) });
+    ? t('FormattingToolbar_TextStyle_Paragraph', shortcut && { shortcut })
+    : t('FormattingToolbar_TextStyle_Heading', shortcut ? { number, shortcut } : { number });
 };
 
 export const findOsName = () => {

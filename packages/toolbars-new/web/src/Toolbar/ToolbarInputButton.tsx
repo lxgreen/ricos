@@ -85,7 +85,14 @@ class ToolbarInputButton extends Component<ToolbarInputButtonProps> {
     const ref = this.inputRef.current;
     const { onToolbarButtonClick } = this.props;
     onToolbarButtonClick?.();
-    this.props.isActive ? ref?.blur() : ref?.focus();
+    if (ref) {
+      if (this.props.isActive) {
+        ref.blur();
+      } else {
+        ref.focus();
+        ref.select();
+      }
+    }
     this.props.onClick?.(e);
   };
 
@@ -102,11 +109,7 @@ class ToolbarInputButton extends Component<ToolbarInputButtonProps> {
     } = this.props;
     const { styles } = this;
     const arrowIcon = (
-      <span
-        className={classNames(styles.arrowIcon, {
-          [styles.arrowIconActive]: isActive,
-        })}
-      >
+      <span className={styles.arrowIcon}>
         <DropdownArrowIcon />
       </span>
     );

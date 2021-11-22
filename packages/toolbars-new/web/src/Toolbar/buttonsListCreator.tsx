@@ -8,10 +8,12 @@ import {
   EditorCommands,
   normalizeUrl,
   CUSTOM_LINK,
+  SPOILER_TYPE,
 } from 'wix-rich-content-common';
 import { AlignTextCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon } from '../icons';
 import {
   HEADING_TYPE_TO_ELEMENT,
+  HEADING_TYPE_TO_ICON,
   buttonsFullData,
   inlineStyleButtons,
   textBlockButtons,
@@ -21,12 +23,16 @@ import {
   translateHeading,
   findOsName,
   getSpacing,
+  documentStyleCssProperties,
+  inlineOverrideStyles,
 } from './buttonsListCreatorConsts';
 import { HEADER_TYPE_MAP } from 'wix-rich-content-plugin-commons';
 import {
   convertRelStringToObject,
   convertRelObjectToString,
 } from 'wix-rich-content-common/libs/linkConverters';
+import { getFontSizeNumber, hasStyleChanges, getBlockStyle } from './utils';
+import style from './ToolbarButtonNew.scss';
 
 type editorCommands = EditorCommands;
 
@@ -41,8 +47,6 @@ export const createButtonsList = (
   experiments,
   theme
 ) => {
-  // eslint-disable-next-line no-console
-  console.log({ theme });
   const buttonsList: any[] = [];
   const osName: string | null = findOsName();
   formattingButtonsKeys.forEach((buttonKey, index) => {
@@ -56,8 +60,9 @@ export const createButtonsList = (
       handleButtIsMobileModalFullscreen(buttonsList, index);
       handleButtonTooltip(buttonsList, index, t, osName);
       handleButtonPlugin(buttonsList, index);
-      handleButtonLabel(buttonsList, index, editorCommands, t);
+      handleButtonLabel(buttonsList, index, editorCommands, t, headingsData);
       handleButtonArrow(buttonsList, index);
+      handleUseIconOnMobile(buttonsList, index);
       handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData, experiments);
       handleButtonIsActive(buttonsList, index, editorCommands);
       handleButtonIsDisabled(buttonsList, index, editorCommands);
@@ -68,11 +73,12 @@ export const createButtonsList = (
         linkPanelData,
         headingsData,
         t,
-        defaultLineSpacing
+        defaultLineSpacing,
+        theme
       );
       handleButtonOnSave(buttonsList, index, editorCommands);
       handleButtonOnCancel(buttonsList, index, editorCommands);
-      handleButtonOnChange(buttonsList, index, editorCommands);
+      handleButtonOnChange(buttonsList, index, editorCommands, headingsData);
       handleButtonOnDone(buttonsList, index, editorCommands);
       handleButtonOnDelete(buttonsList, index, editorCommands);
       // handleGroupButtons(buttonsList, buttonKey, index, editorCommands);
@@ -83,6 +89,7 @@ export const createButtonsList = (
       handleButtonColorPicker(buttonsList, index, editorCommands, colorPickerData);
       handleButtonText(buttonsList, index, editorCommands, t);
       handleButtonIsInput(buttonsList, index);
+      handleButtonCloseOnChange(buttonsList, index);
     }
   });
   return buttonsList;
@@ -91,6 +98,12 @@ export const createButtonsList = (
 const handleButtonIsInput = (buttonsList, index) => {
   if (buttonsFullData[buttonsList[index].name].isInput) {
     buttonsList[index].isInput = buttonsFullData[buttonsList[index].name].isInput;
+  }
+};
+
+const handleButtonCloseOnChange = (buttonsList, index) => {
+  if (buttonsFullData[buttonsList[index].name].closeOnChange) {
+    buttonsList[index].closeOnChange = buttonsFullData[buttonsList[index].name].closeOnChange;
   }
 };
 
@@ -110,7 +123,10 @@ const handleButtonColorPicker = (
 ) => {
   if (buttonsFullData[buttonsList[index].name].type === 'color-picker') {
     const buttonName = buttonsList[index].name;
-    buttonsList[index].getCurrentColor = () => editorCommands.getColor(colorTypes[buttonName]);
+    const blockStyle = getBlockStyle(editorCommands);
+    buttonsList[index].getCurrentColor = () =>
+      editorCommands.getColor(colorTypes[buttonName]) ||
+      blockStyle?.[documentStyleCssProperties[buttonName]];
     buttonsList[index].onColorAdded = color => colorPickerData[buttonName]?.onColorAdded?.(color);
     buttonsList[index].onChange = color => {
       editorCommands.insertDecoration(colorTypes[buttonName], { color });
@@ -158,12 +174,17 @@ const handleButtonOnDone = (buttonsList, index, editorCommands: editorCommands) 
   }
 };
 
-const handleButtonOnChange = (buttonsList, index, editorCommands: editorCommands) => {
+const handleButtonOnChange = (buttonsList, index, editorCommands: editorCommands, headingsData) => {
   if (buttonsFullData[buttonsList[index].name].onChange) {
     const buttonName = buttonsList[index].name;
     if (['LINE_SPACING', 'FONT_SIZE'].includes(buttonName)) {
       buttonsList[index].onChange = value => {
         updateDynamicStyles(value, editorCommands, buttonName);
+      };
+    } else if (buttonName === 'HEADINGS' && headingsData.allowHeadingCustomization) {
+      buttonsList[index].onChange = documentStyle => {
+        editorCommands.clearSelectedBlocksInlineStyles(['UNDERLINE', SPOILER_TYPE]);
+        setTimeout(() => editorCommands.updateDocumentStyle(documentStyle));
       };
     }
   }
@@ -228,7 +249,16 @@ const handleButtonOnSave = (buttonsList, index, editorCommands: editorCommands) 
     const buttonName = buttonsList[index].name;
     if (Object.keys(textBlockButtons).includes(buttonName)) {
       buttonsList[index].onSave = type => {
-        editorCommands.setBlockType(type);
+        let shouldSetBlockType = true;
+        if (buttonName === 'HEADINGS') {
+          editorCommands.clearSelectedBlocksInlineStyles();
+          const currentHeading = HEADER_TYPE_MAP[getCurrentHeading(editorCommands)];
+          shouldSetBlockType = currentHeading !== type;
+        }
+        shouldSetBlockType &&
+          setTimeout(() => {
+            editorCommands.setBlockType(type);
+          });
       };
     } else if (buttonName === 'Alignment') {
       buttonsList[index].onSave = type => editorCommands.setTextAlignment(type);
@@ -251,7 +281,8 @@ const handleButtonModal = (
   linkPanelData,
   headingsData,
   t,
-  defaultLineSpacing
+  defaultLineSpacing,
+  theme
 ) => {
   const buttonName = buttonsList[index].name;
   if (buttonsFullData[buttonName].modal) {
@@ -259,8 +290,20 @@ const handleButtonModal = (
     if (buttonName === 'HEADINGS') {
       const Modal = buttonsFullData[buttonName].modal;
       const currentHeading = HEADER_TYPE_MAP[getCurrentHeading(editorCommands)];
+      const documentStyle = editorCommands.getDocumentStyle();
       buttonsList[index].modal = props =>
-        Modal && <Modal {...props} currentSelect={currentHeading} />;
+        Modal && (
+          <Modal
+            {...props}
+            currentSelect={currentHeading}
+            documentStyle={documentStyle}
+            customHeadings={headingsData?.customHeadings}
+            allowHeadingCustomization={headingsData?.allowHeadingCustomization}
+            currentInlineStyles={editorCommands.getAnchorBlockInlineStyles()}
+            wiredFontStyles={editorCommands.getWiredFontStyles(theme?.customStyles, props.isMobile)}
+            t={t}
+          />
+        );
     } else if (buttonName === 'Alignment') {
       const alignment = editorCommands.getTextAlignment();
       const Modal = buttonsFullData[buttonName].modal;
@@ -320,8 +363,16 @@ const handleButtonIsDisabled = (buttonsList, index, editorCommands: editorComman
 const handleButtonIsActive = (buttonsList, index, editorCommands: editorCommands) => {
   const buttonName = buttonsList[index].name;
   if (Object.keys(inlineStyleButtons).includes(buttonName)) {
-    buttonsList[index].isActive = () =>
-      editorCommands.hasInlineStyle(inlineStyleButtons[buttonName]);
+    buttonsList[index].isActive = () => {
+      const blockStyle = getBlockStyle(editorCommands);
+      const property = documentStyleCssProperties[buttonName];
+      return (
+        editorCommands.hasInlineStyle(inlineStyleButtons[buttonName]) ||
+        (blockStyle?.[property] &&
+          blockStyle[property] === inlineStyleButtons[buttonName] &&
+          !editorCommands.hasInlineStyle(inlineOverrideStyles[buttonName]))
+      );
+    };
   } else if (Object.keys(textBlockButtons).includes(buttonName)) {
     buttonsList[index].isActive = () =>
       editorCommands.isBlockTypeSelected(textBlockButtons[buttonName]);
@@ -394,18 +445,41 @@ const handleButtonArrow = (buttonsList, index) => {
   }
 };
 
-const getFontSize = (editorCommands: editorCommands) => {
-  const fontSize = editorCommands.getFontSize() || '';
-  const pxRegex = new RegExp('[0-9]+[px]');
-  return pxRegex.exec(fontSize) ? fontSize.split('p')[0] : '';
+const handleUseIconOnMobile = (buttonsList, index) => {
+  if (buttonsFullData[buttonsList[index].name].useIconOnMobile) {
+    buttonsList[index].useIconOnMobile = buttonsFullData[buttonsList[index].name].useIconOnMobile;
+  }
 };
 
-const handleButtonLabel = (buttonsList, index, editorCommands: editorCommands, t) => {
+const getFontSize = (editorCommands: editorCommands) => {
+  const fontSize = editorCommands.getFontSize() || '';
+  return getFontSizeNumber(fontSize);
+};
+
+const getHeadingsLabel = (editorCommands: editorCommands, t, headingsData) => {
+  const currentHeading = getCurrentHeading(editorCommands);
+  let label = translateHeading(currentHeading, t);
+  const inlineStyles = editorCommands.getAnchorBlockInlineStyles() || {};
+  if (
+    headingsData.allowHeadingCustomization &&
+    hasStyleChanges(currentHeading, inlineStyles, editorCommands.getDocumentStyle())
+  ) {
+    label = (
+      <>
+        {label}
+        <span className={style.toolbarLabelUpdate}>*</span>
+      </>
+    );
+  }
+  return label;
+};
+
+const handleButtonLabel = (buttonsList, index, editorCommands: editorCommands, t, headingsData) => {
   const buttonName = buttonsList[index].name;
   if (buttonsFullData[buttonName].label) {
     buttonsList[index].getLabel = () => buttonsFullData[buttonName].label;
     if (buttonName === 'HEADINGS') {
-      buttonsList[index].getLabel = () => translateHeading(getCurrentHeading(editorCommands), t);
+      buttonsList[index].getLabel = () => getHeadingsLabel(editorCommands, t, headingsData);
     } else if (buttonName === 'FONT_SIZE') {
       buttonsList[index].getLabel = () => getFontSize(editorCommands);
     }
@@ -450,6 +524,8 @@ const handleButtonIcon = (buttonsList, index, editorCommands: editorCommands) =>
     buttonsList[index].getIcon = () => buttonsFullData[buttonsList[index].name].icon;
   } else if (buttonName === 'Alignment') {
     buttonsList[index].getIcon = () => handleAlignmentIcon(editorCommands);
+  } else if (buttonName === 'HEADINGS') {
+    buttonsList[index].getIcon = () => getHeadingIcon(editorCommands);
   }
 };
 
@@ -541,10 +617,15 @@ const getCurrentHeading = (editorCommands: editorCommands) => {
   return currentHeading;
 };
 
+const getHeadingIcon = (editorCommands: editorCommands) => {
+  const currentHeading = getCurrentHeading(editorCommands);
+  return HEADING_TYPE_TO_ICON[currentHeading];
+};
+
 const updateDynamicStyles = (value, editorCommands: editorCommands, buttonName) => {
   const data =
     buttonName === 'FONT_SIZE'
-      ? { fontSize: value < 10 ? 10 : value > 96 ? 96 : value }
+      ? { fontSize: value < 1 ? 1 : value > 900 ? 900 : value }
       : { dynamicStyles: value };
   editorCommands.insertDecoration(decorationButtons[buttonName], { ...data });
 };

@@ -2,7 +2,7 @@
 @import '~wix-rich-content-common/dist/statics/styles/fonts';
 
 .multiSelectLinkPanel_container {
-  font-family: $ricos-font-family;
+  font-family: $ricos-default-font-family;
   color: black;
   position: relative;
   width: 502px;
@@ -14,7 +14,7 @@
   font-style: normal;
 }
 .multiSelectLinkPanel_container_mobile {
-  font-family: $ricos-font-family;
+  font-family: $ricos-default-font-family;
   font-size: 14px;
   font-weight: 300;
   font-stretch: normal;

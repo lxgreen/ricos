@@ -10,16 +10,6 @@ export const DOC_STYLE_CLASSES = {
   paragraph: 'rich_content_P',
 };
 
-export const DRAFT_TO_RICOS_DOC_TYPE = {
-  [HEADER_BLOCK.ONE]: 'headerOne',
-  [HEADER_BLOCK.TWO]: 'headerTwo',
-  [HEADER_BLOCK.THREE]: 'headerThree',
-  [HEADER_BLOCK.FOUR]: 'headerFour',
-  [HEADER_BLOCK.FIVE]: 'headerFive',
-  [HEADER_BLOCK.SIX]: 'headerSix',
-  [HEADER_BLOCK.PARAGRAPH]: 'paragraph',
-};
-
 export const DRAFT_TO_RICOS_CUSTOM_STYLES = {
   [HEADER_BLOCK.ONE]: 'h1',
   [HEADER_BLOCK.TWO]: 'h2',

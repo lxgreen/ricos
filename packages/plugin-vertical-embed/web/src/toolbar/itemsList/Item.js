@@ -12,7 +12,13 @@ class Item extends PureComponent {
     t: PropTypes.func.isRequired,
   };
 
+  itemRef = React.createRef();
+
   handleClick = () => this.props.onClick(this.props.item);
+
+  componentDidMount() {
+    this.props.selected && this.itemRef?.current.scrollIntoView();
+  }
 
   render() {
     const { selected, item, t } = this.props;
@@ -20,6 +26,7 @@ class Item extends PureComponent {
 
     return (
       <div
+        ref={this.itemRef}
         className={classnames(styles.container, selected && styles.selected)}
         onClick={this.handleClick}
       >

@@ -20,12 +20,6 @@
   border: 1px solid rgba($fallbackColorTuple, 1);
 }
 
-.arrowIconActive {
-  color: $action-color-fallback;
-  fill: $action-color-fallback;
-  @include svg-fill;
-}
-
 .toolbarButton {
   display: flex;
   background: transparent;
@@ -39,8 +33,9 @@
   align-items: center;
 
   input {
-    width: 15px;
+    width: 19px;
     border: none;
+    box-sizing: border-box;
     background-color: transparent;
   }
 

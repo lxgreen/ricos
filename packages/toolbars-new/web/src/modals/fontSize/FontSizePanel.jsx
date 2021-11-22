@@ -6,6 +6,8 @@ import classNames from 'classnames';
 import { mergeStyles, GlobalContext } from 'wix-rich-content-common';
 
 const DEFAULT_FONTSIZE_DROPDOWN_OPTIONS = [
+  '6',
+  '8',
   '10',
   '12',
   '14',

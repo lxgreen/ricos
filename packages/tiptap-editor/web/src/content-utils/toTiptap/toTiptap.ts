@@ -6,6 +6,7 @@ import {
   isNode,
   isTextNode,
 } from '../utils';
+import { v4 as uuid } from 'uuid';
 import { transform, isObject, pickBy } from 'lodash';
 import { Node, Decoration, RichContent } from 'ricos-schema';
 import { TO_RICOS_DATA_FIELD } from 'ricos-content/libs/draftConsts';
@@ -50,10 +51,13 @@ const typeToCamelCase = (object: Node | Decoration) => ({
 
 const addDocType = (content: RichContent) => ({ type: 'doc', ...content });
 
-const moveMetadata = ({ metadata, ...content }: RichContent) => ({
-  ...content,
-  attrs: { metadata },
-});
+const moveMetadata = ({ metadata, ...content }: RichContent) => {
+  const { id = uuid(), ...rest } = metadata || {};
+  return {
+    ...content,
+    attrs: { metadata: { id, ...rest } },
+  };
+};
 
 const flattenTextData = (node: Node) => {
   const { textData, ...newNode } = node;

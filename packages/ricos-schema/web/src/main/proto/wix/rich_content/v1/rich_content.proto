@@ -150,6 +150,7 @@ message Metadata {
     uint32 version = 1 [(wix.api.min) = 1]; // Schema version
     google.protobuf.Timestamp created_timestamp = 2 [(wix.api.readOnly) = true]; // Time content was created
     google.protobuf.Timestamp updated_timestamp = 3; // Time of latest edit
+    google.protobuf.StringValue id = 4;
 }
 
 message TextNodeStyle {

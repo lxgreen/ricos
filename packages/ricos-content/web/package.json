@@ -1,6 +1,6 @@
 {
   "name": "ricos-content",
-  "version": "8.60.1",
+  "version": "8.61.9",
   "author": {
     "name": "Oded Soffrin",
     "email": "odeds@wix.com"
@@ -41,12 +41,13 @@
     "monocle-ts": "^2.3.9",
     "omit-deep": "0.3.0",
     "parse5": "^6.0.0",
-    "ricos-schema": "8.60.1",
+    "ricos-schema": "8.61.9",
     "to-camel-case": "1.0.0",
     "to-constant-case": "1.0.0",
     "to-slug-case": "1.0.0",
     "to-snake-case": "1.0.0",
-    "utility-types": "^3.10.0"
+    "utility-types": "^3.10.0",
+    "uuid": "^3.4.0"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.2.0",

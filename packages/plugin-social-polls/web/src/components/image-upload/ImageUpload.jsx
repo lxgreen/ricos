@@ -138,6 +138,7 @@ class ImageUploadComponent extends PureComponent {
         })}
         style={{ ...style, backgroundImage }}
         tabIndex={rce.isViewMode ? -1 : 0}
+        aria-hidden={rce.isViewMode}
         role="button"
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
