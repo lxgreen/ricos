@@ -20,7 +20,7 @@
 ### :rocket: New Feature
 
 - `general`
-  - [#3148](https://github.com/wix/ricos/pull/3148) Style(theme) support for BM 
+  - [#3149](https://github.com/wix/ricos/pull/3149) Style(theme) support for BM 
 
 ### :house: Internal
 
