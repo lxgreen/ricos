@@ -8,7 +8,7 @@ import {
   DividerData_Width,
   TextStyle_TextAlignment,
 } from 'ricos-schema';
-import { compare } from 'wix-rich-content-common';
+import { compare } from '../comparision/compare';
 import { createBuilder } from './builder';
 import { emptyContent } from './consts';
 import { ImageElement } from './types';

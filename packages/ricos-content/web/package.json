@@ -26,7 +26,8 @@
   "scripts": {
     "clean": "rm -rf dist/",
     "prebuild": "npm run clean",
-    "build": "rollup --environment DYNAMIC_IMPORT,MODULE_NAME:ricos-content -c ../../../rollup.config.js",
+    "build:previous": "rollup --environment DYNAMIC_IMPORT,MODULE_NAME:ricos-content -c ../../../rollup.config.js",
+    "build": "webpack",
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "build:analyze:editor": "npm run build -- --environment MODULE_ANALYZE_EDITOR  && open stats.html",
     "build:analyze:viewer": "npm run build -- --environment MODULE_ANALYZE_VIEWER && open stats.html",
@@ -53,6 +54,15 @@
     "@babel/runtime": "^7.2.0",
     "classnames": "^2.0.0",
     "lodash": "^4.0.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.64.2",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-middleware": "^5.2.2",
+    "webpack-dev-server": "^4.5.0",
+    "html-webpack-plugin": "^5.5.0",
+    "typescript": "^4.5.2",
+    "ts-loader": "^9.2.6"
   },
   "jest": {
     "globals": {

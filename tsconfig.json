@@ -3,6 +3,8 @@
     "typeRoots": ["./node_modules/@types", "./external-types.d.ts"],
     "composite": true,
     "declaration": true,
+    "declarationDir": "dist",
+    "skipLibCheck": true,
     "declarationMap": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
@@ -10,15 +12,23 @@
     "moduleResolution": "node",
     "target": "ESNext",
     "jsx": "react",
-    "lib": ["dom", "ESNext"],
+    "lib": ["es2015", "dom", "ESNext"],
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "preserveConstEnums": false,
-    "allowJs": true
+    "allowJs": true,
+    "rootDir": ".",
+    "baseUrl": ".",
+    "paths": {
+      "tiptap-editor": ["./packages/wix-tiptap-editor/web"],
+      "ricos-content": ["./packages/ricos-content/web"],
+      "ricos-content/libs/*": ["./packages/ricos-content/web/lib/*"],
+      "ricos-schema": ["./packages/ricos-schema/web", "./packages/ricos-schema/dist"]
+    }
   },
   "files": ["external-types.d.ts"],
-  "include": ["packages", "packages/**/*.json", "*.ts", "scripts"],
+  "include": ["packages", "packages/**/*.json", "*.ts", "scripts", "babel.config.js"],
   "exclude": ["**/node_modules/*", "**/dist/*"]
 }

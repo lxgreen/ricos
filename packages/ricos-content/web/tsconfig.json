@@ -1,0 +1,21 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "declarationDir": "dist",
+    "declaration": true,
+    "sourceMap": true,
+    "allowJs": true
+  },
+  "include": [
+    "src/index.ts",
+    "src/**/*.json",
+    "src/**/*.scss",
+    "statics/**/*.json",
+    "statics/**/*.schema.json",
+    "statics/**/*.defaults.json",
+    "statics/**/*.scss",
+    "package.json",
+    "lib",
+    "node_modules/@tiptap"
+  ]
+}

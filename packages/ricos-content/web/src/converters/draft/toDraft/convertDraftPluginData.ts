@@ -148,7 +148,7 @@ const convertVideoData = (data: VideoData & { src; metadata; title? }) => {
   delete data.thumbnail;
 };
 
-const convertExternalData = (data: Struct) => {
+const convertExternalData = (data: Struct & { fields }) => {
   const draftData = convertStructToJson(data);
   Object.entries(draftData).forEach(([k, v]) => {
     data[k] = v;

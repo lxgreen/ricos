@@ -13,7 +13,7 @@ import image from '../../../__tests__/toTranslatables/image.json';
 import linkPreview from '../../../__tests__/toTranslatables/linkPreview.json';
 import video from '../../../__tests__/toTranslatables/video.json';
 import poll from '../../../__tests__/toTranslatables/poll.json';
-import { compare } from 'wix-rich-content-common';
+import { compare } from '../../comparision/compare';
 
 const differentiate = (translatables: Translatable[]): Translatable[] =>
   translatables.map(t => ({ ...t, text: 'abc' }));
