@@ -39,6 +39,7 @@ const config = {
     'react-dom': 'react-dom',
     lodash: 'lodash',
     uuid: 'uuid',
+    'ricos-schema': 'ricos-schema',
   },
   module: {
     rules: [

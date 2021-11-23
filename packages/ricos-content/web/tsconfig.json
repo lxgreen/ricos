@@ -4,10 +4,12 @@
     "declarationDir": "dist",
     "declaration": true,
     "sourceMap": true,
-    "allowJs": true
+    "allowJs": true,
+    "rootDir": "."
   },
   "include": [
-    "src/index.ts",
+    "src",
+    "*.ts",
     "src/**/*.json",
     "src/**/*.scss",
     "statics/**/*.json",
@@ -17,5 +19,6 @@
     "package.json",
     "lib",
     "node_modules/@tiptap"
-  ]
+  ],
+  "exclude": ["node_modules", "**/*.spec.*"]
 }
