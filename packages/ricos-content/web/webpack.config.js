@@ -22,7 +22,7 @@ const config = {
     usedExports: true,
   },
   entry: {
-    index: './src/index.ts',
+    'es/index': './src/index.ts',
     ...libEntries,
   },
   output: {
