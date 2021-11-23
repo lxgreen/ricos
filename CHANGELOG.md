@@ -16,14 +16,16 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-  
+
+</details>
+<hr/>
+
+## 8.63.1 (Nov 23, 2021)
+
 ### :bug: Bug Fix
 
 - `ricos-content`
   - [#3156](https://github.com/wix/ricos/pull/3156) fromHtml: undefined node protected
-
-</details>
-<hr/>
 
 ## 8.63.0 (Nov 22, 2021)
 
