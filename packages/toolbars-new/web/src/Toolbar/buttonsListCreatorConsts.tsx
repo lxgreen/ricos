@@ -465,6 +465,20 @@ export const inlineStyleButtons: Record<string, InlineStyle> = {
   SPOILER: 'spoiler',
 };
 
+export const inlineOverrideStyles: Record<string, InlineStyle> = {
+  Bold: 'not_bold',
+  Italic: 'not_italic',
+  Underline: 'not_underline',
+};
+
+export const documentStyleCssProperties: Record<string, string> = {
+  Bold: 'font-weight',
+  Italic: 'font-style',
+  Underline: 'text-decoration',
+  TEXT_COLOR: 'color',
+  TEXT_HIGHLIGHT: 'background-color',
+};
+
 export const textBlockButtons: Record<string, string> = {
   CODE_BLOCK: CODE_BLOCK_TYPE,
   Blockquote: BLOCKQUOTE,
@@ -508,10 +522,18 @@ export const colorTypes: Record<string, ColorType> = {
   TEXT_HIGHLIGHT: RICOS_TEXT_HIGHLIGHT_TYPE,
 };
 
-export const translateHeading = (option = 'P', t) => {
+const headingShortcuts = {
+  MacOS: number => ` (⌘⌥${number})`,
+  Windows: number => ` (Ctrl+Alt+${number})`,
+};
+
+export const translateHeading = (option = 'P', t, shouldAddShortcut = false) => {
+  const number = parseInt(option.slice(-1)) ? option.slice(-1) : undefined;
+  const osName = findOsName();
+  const shortcut = shouldAddShortcut && osName ? headingShortcuts[osName](number || 0) : undefined;
   return option === 'P'
-    ? t('FormattingToolbar_TextStyle_Paragraph')
-    : t('FormattingToolbar_TextStyle_Heading', { number: option.slice(-1) });
+    ? t('FormattingToolbar_TextStyle_Paragraph', shortcut && { shortcut })
+    : t('FormattingToolbar_TextStyle_Heading', shortcut ? { number, shortcut } : { number });
 };
 
 export const findOsName = () => {

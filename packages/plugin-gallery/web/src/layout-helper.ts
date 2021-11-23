@@ -17,7 +17,7 @@ import {
   Slides as SlidesIconSmall,
 } from './icons';
 
-import { layoutData, GALLERY_LAYOUTS } from '../lib/layout-data-provider';
+import { layoutData, GALLERY_LAYOUTS } from './layout-data-provider';
 import { ComponentType } from 'react';
 import { Store, TranslationFunction, ComponentData } from 'wix-rich-content-common';
 

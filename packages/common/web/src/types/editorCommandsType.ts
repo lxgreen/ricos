@@ -193,4 +193,5 @@ export interface EditorCommands {
     isMobile?: boolean
   ) => Record<string, string> | undefined;
   isAtomicBlockInSelection: () => boolean;
+  getAnchorBlockType: () => string;
 }

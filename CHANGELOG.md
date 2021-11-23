@@ -20,6 +20,112 @@
 </details>
 <hr/>
 
+## 8.63.1 (Nov 23, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3156](https://github.com/wix/ricos/pull/3156) fromHtml: undefined node protected
+
+## 8.63.0 (Nov 22, 2021)
+
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3153](https://github.com/wix/ricos/pull/3153) item titles don't appear on gallery container hover
+
+### :house: Internal
+
+- `gallery`
+  - [#3152](https://github.com/wix/ricos/pull/3152) update `ProGallery` version to `3.1.38`
+
+## 8.62.0 (Nov 22, 2021)
+
+### :rocket: New Feature
+
+- `ricos-content`
+  - [#3147](https://github.com/wix/ricos/pull/3147) Metadata Utils ([Docs](https://ricos.js.org/docs/content_api/metadata_utils_api))
+
+### :house: Internal
+
+- `toolbars-new`
+  - [#3144](https://github.com/wix/ricos/pull/3144) refactor: get toolbar settings from config
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3148](https://github.com/wix/ricos/pull/3148) edit button in link toolbar on mobile
+- `gallery`
+  - [#3151](https://github.com/wix/ricos/pull/3151) gallery videos plays on click, controls are displayed, fullscreen opens on icon click only
+- `fullscreen`
+  - [#3151](https://github.com/wix/ricos/pull/3151) videos play on click, controls are displayed
+
+## 8.61.9 (Nov 21, 2021)
+
+### :bug: Bug Fix
+
+- `tiptap-editor`
+  - [#3145](https://github.com/wix/ricos/pull/3145) fix onAtomicBlockFocus to be called on text blocks, onChange callback to be called on selection change, fix hasInlineStyle command
+
+## 8.61.8 (Nov 21, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3142](https://github.com/wix/ricos/pull/3142) fix headings dropdown tooltips
+  - [#3143](https://github.com/wix/ricos/pull/3143) buttons active status wired to `documentStyle`
+
+## 8.61.7 (Nov 21, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3137](https://github.com/wix/ricos/pull/3137) fix panel header keys
+  - [#3136](https://github.com/wix/ricos/pull/3136) code and quote blocks not clearing on second click
+- `table`
+  - [#3141](https://github.com/wix/ricos/pull/3141) fix cells group alignment
+
+## 8.61.6 (Nov 18, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3135](https://github.com/wix/ricos/pull/3135) support shouldCreate config
+  - [#3128](https://github.com/wix/ricos/pull/3128) headings dropdown options tooltips
+- `viewer`
+  - [#3128](https://github.com/wix/ricos/pull/3128) link colors overriden by `documentStyle`
+- `ricos-content`
+  - [#3131](https://github.com/wix/ricos/pull/3131) convertJsonToStruct validation logic fix
+
+## 8.61.5 (Nov 18, 2021)
+
+### :bug: Bug Fix
+
+- `tiptap`
+  - [#3132](https://github.com/wix/ricos/pull/3132) fixed on atomic block focus
+  - [#3133](https://github.com/wix/ricos/pull/3133) External Toolbar Crash bix
+
+## 8.61.4 (Nov 17, 2021)
+
+### :bug: Bug Fix
+
+- `general`
+  - [#3119](https://github.com/wix/ricos/pull/3119) Fix font-family and color wiring on modals
+- `video/ui-components`
+  - [#3127](https://github.com/wix/ricos/pull/3127) Fix language dir and input border radius
+
+### :house: Internal
+
+- `*`
+  - [#3061](https://github.com/wix/ricos/pull/3061) RichContent ID
+
+## 8.61.3 (Nov 17, 2021)
+
+### :bug: Bug Fix
+
+- `headings`
+  - [#3125](https://github.com/wix/ricos/pull/3125) update heading also removes line height from block style
+
 ## 8.61.2 (Nov 17, 2021)
 
 ### :bug: Bug Fix

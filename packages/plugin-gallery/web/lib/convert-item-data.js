@@ -1,6 +1,7 @@
 /* eslint-disable complexity */
 import { normalizeUrl } from 'wix-rich-content-common';
 import { getAbsoluteUrl } from './baseUrlConverter';
+import { v4 as uuid } from 'uuid';
 
 /**
  * convertItemData - converts the old gallery metadata format to the new metaData format
@@ -84,6 +85,6 @@ export const convertItemData = ({ items, anchorTarget, relValue }) =>
       ...item,
       metadata: undefined,
       ...convertedData,
-      itemId: item.url + '_' + index.toString(),
+      itemId: uuid() + '_' + index.toString(),
     };
   });

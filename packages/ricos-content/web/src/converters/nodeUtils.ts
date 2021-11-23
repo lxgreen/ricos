@@ -1,4 +1,5 @@
 import * as S from 'fp-ts/string';
+import { v4 as uuid } from 'uuid';
 import { pipe } from 'fp-ts/function';
 import { merge } from 'lodash';
 import {
@@ -111,10 +112,21 @@ export const createDecoration = (
   data: Omit<Decoration, 'type'> = {}
 ): Decoration => ({ type, ...data });
 
-export const initializeMetadata = (version?: number): Metadata => ({
+export const initializeMetadata = ({
+  version,
+  id = uuid(),
+  createdTimestamp,
+  updatedTimestamp,
+}: {
+  version?: number;
+  id?: string;
+  createdTimestamp?: Date;
+  updatedTimestamp?: Date;
+} = {}): Metadata => ({
   version: version || LATEST_VERSION,
-  createdTimestamp: new Date(),
-  updatedTimestamp: new Date(),
+  createdTimestamp: createdTimestamp || new Date(),
+  updatedTimestamp: updatedTimestamp || new Date(),
+  id,
 });
 
 type DecorationMap = Record<Decoration_Type, Decoration>;

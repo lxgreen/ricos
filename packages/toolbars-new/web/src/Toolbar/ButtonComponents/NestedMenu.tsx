@@ -27,17 +27,27 @@ interface NestedMenuProps {
 interface State {
   isModalOpen: boolean;
   lastFocusedButton: HTMLElement | null;
+  staticToolbarContainer: boolean;
 }
 
 class NestedMenu extends Component<NestedMenuProps, State> {
   nestedMenuRef?: HTMLDivElement | null;
+
+  nestedMenuButtonRef?: HTMLDivElement | null;
 
   constructor(props) {
     super(props);
     this.state = {
       isModalOpen: false,
       lastFocusedButton: null,
+      staticToolbarContainer: false,
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      staticToolbarContainer: !!this.nestedMenuButtonRef?.closest?.('[data-hook=static-toolbar]'),
+    });
   }
 
   toggleModal = e => {
@@ -72,6 +82,8 @@ class NestedMenu extends Component<NestedMenuProps, State> {
 
   setNestedMenuRef = ref => (this.nestedMenuRef = ref);
 
+  setNestedMenuButtonRef = ref => (this.nestedMenuButtonRef = ref);
+
   onKeyDown = e => {
     if (e.keyCode === KEYS_CHARCODE.ESCAPE) {
       this.closeModal({ clickFromKeyboard: true });
@@ -82,10 +94,10 @@ class NestedMenu extends Component<NestedMenuProps, State> {
   render() {
     const { dropDownProps, theme, getEditorContainer } = this.props;
     const { tooltip, dataHook, getIcon, isMobile, t, buttonList } = dropDownProps;
-    const { isModalOpen } = this.state;
+    const { isModalOpen, staticToolbarContainer } = this.state;
     return (
       <ClickOutside onClickOutside={this.onClickOutside}>
-        <div className={styles.buttonWrapper}>
+        <div ref={this.setNestedMenuButtonRef} className={styles.buttonWrapper}>
           <ToolbarButton
             isActive={isModalOpen}
             onClick={e => this.toggleModal(e)}
@@ -99,7 +111,11 @@ class NestedMenu extends Component<NestedMenuProps, State> {
           {isModalOpen && (
             <div
               ref={this.setNestedMenuRef}
-              className={classNames(styles.modal, styles.nestedMenu)}
+              className={classNames(
+                styles.modal,
+                styles.nestedMenu,
+                staticToolbarContainer && styles.nestedMenuInStaticToolbar
+              )}
               onKeyDown={this.onKeyDown}
             >
               <Toolbar

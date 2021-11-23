@@ -169,6 +169,8 @@ class RichContentViewer extends Component<
     contentState?: DraftContent
   ): ViewerContextType => {
     deprecateHelpers(helpers, config);
+    const version = Version.currentVersion;
+    const contentId = this.props.initialState?.ID;
     return {
       t,
       theme,
@@ -177,7 +179,12 @@ class RichContentViewer extends Component<
       relValue,
       customAnchorScroll,
       config,
-      helpers,
+      helpers: {
+        ...helpers,
+        onViewerLoaded: args => helpers.onViewerLoaded?.({ ...args, version, contentId }),
+        onViewerAction: (pluginId, actionName, value) =>
+          helpers.onViewerAction?.(pluginId, actionName, value, contentId),
+      },
       locale,
       disabled,
       seoMode,

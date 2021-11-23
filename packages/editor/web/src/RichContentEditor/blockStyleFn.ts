@@ -7,10 +7,11 @@ import {
   getDirectionFromAlignmentAndTextDirection,
   TextDirection,
   RichContentTheme,
+  DRAFT_TO_RICOS_DOC_TYPE,
 } from 'wix-rich-content-common';
 import { isListType } from 'ricos-content';
 import { ContentBlock, EditorProps } from '@wix/draft-js';
-import { DOC_STYLE_CLASSES, DRAFT_TO_RICOS_DOC_TYPE } from './utils/consts';
+import { DOC_STYLE_CLASSES } from './utils/consts';
 
 const styles = { ...editorStyles, ...alignmentStyles };
 const types = {

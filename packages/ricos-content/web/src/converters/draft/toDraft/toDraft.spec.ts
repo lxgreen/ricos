@@ -204,14 +204,14 @@ describe('migrate to draft', () => {
     it('should fix whole content', () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const converted = toDraft(keyAndBulletFixture as any);
-      expect(compare(converted, complexFixture, { ignoredKeys: ['key'] })).toEqual({});
+      expect(compare(converted, complexFixture, { ignoredKeys: ['key', 'ID'] })).toEqual({});
     });
   });
 });
 
 describe('toDraft EXTERNAL', () => {
   it('should migrate external node and decoration', () => {
-    expect(compare(toDraft(external), externalMigrated)).toEqual({});
+    expect(compare(toDraft(external), externalMigrated, { ignoredKeys: ['ID'] })).toEqual({});
   });
 });
 

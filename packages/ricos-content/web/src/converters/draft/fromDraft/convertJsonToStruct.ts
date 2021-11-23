@@ -1,53 +1,48 @@
+import * as A from 'fp-ts/Array';
+import { identity, flow, pipe } from 'fp-ts/function';
+import * as J from 'fp-ts/Json';
+import { concatAll } from 'fp-ts/Monoid';
+import * as R from 'fp-ts/Record';
+import { first } from 'fp-ts/Semigroup';
+import * as T from 'fp-ts/Tuple';
 import { isObject } from 'lodash';
-import { Struct, Value, NullValue, ListValue } from 'ricos-schema';
+import { ListValue, NullValue, Struct, Value } from 'ricos-schema';
+import { firstRight } from '../../../fp-utils';
 
-export function convertJsonToStruct(json: Record<string, unknown>): Struct {
-  if (!isObject(json)) {
-    throw new TypeError(`Invalid JSON`);
-  }
-  const struct = { fields: {} };
-  Object.entries(json).forEach(([k, v]) => {
-    struct.fields[k] = convertJsonToValue(v);
-  });
-  return struct;
-}
+const valueM = R.getMonoid(first<Value>());
+const toRecord = ([k, v]: [string, Value]): Record<string, Value> => ({ [k]: v });
+const toStruct = (fields: Record<string, Value>): Struct => ({ fields });
+const toListValue = (values: Value[]): ListValue => ({ values });
 
-function convertJsonToValue(json: unknown): Value {
-  const defaultValue = {
-    numberValue: undefined,
-    nullValue: undefined,
-    stringValue: undefined,
-    boolValue: undefined,
-  };
-  switch (typeof json) {
-    case 'number':
-      return { ...defaultValue, numberValue: json };
-    case 'string':
-      return { ...defaultValue, stringValue: json };
-    case 'boolean':
-      return { ...defaultValue, boolValue: json };
-    case 'object':
-      if (json === null) {
-        return { ...defaultValue, nullValue: NullValue.NULL_VALUE };
-      } else if (Array.isArray(json)) {
-        return { listValue: convertJsonToList(json), ...defaultValue };
-      } else {
-        return {
-          structValue: convertJsonToStruct(json as Record<string, unknown>),
-          ...defaultValue,
-        };
-      }
-    default:
-      throw new TypeError('Invalid value');
-  }
-}
+const defaultValue = {
+  numberValue: undefined,
+  nullValue: undefined,
+  stringValue: undefined,
+  boolValue: undefined,
+};
 
-function convertJsonToList(json: unknown[]): ListValue {
-  if (!Array.isArray(json)) {
-    throw new TypeError('Invalid array');
-  }
-  const list = { values: [] as Value[] };
-  const values = json.map(v => convertJsonToValue(v));
-  list.values.push(...values);
-  return list;
-}
+const convertJsonToList = (json: J.JsonArray): ListValue =>
+  pipe(json, A.map(convertJsonToValue), toListValue);
+
+const convertJsonToValue = (json: J.Json): Value =>
+  firstRight(json, { ...defaultValue, nullValue: NullValue.NULL_VALUE } as Value, [
+    [json => typeof json === 'number', json => ({ ...defaultValue, numberValue: json as number })],
+    [json => typeof json === 'string', json => ({ ...defaultValue, stringValue: json as string })],
+    [json => typeof json === 'boolean', json => ({ ...defaultValue, boolValue: json as boolean })],
+    [
+      json => Array.isArray(json),
+      json => ({ ...defaultValue, listValue: convertJsonToList(json as J.JsonArray) }),
+    ],
+    [
+      json => isObject(json),
+      json => ({ ...defaultValue, structValue: convertJsonToStruct(json as J.JsonRecord) }),
+    ],
+  ]);
+
+export const convertJsonToStruct: (json: J.JsonRecord) => Struct = flow(
+  Object.entries,
+  A.map(T.bimap(convertJsonToValue, identity)),
+  A.map(toRecord),
+  concatAll(valueM),
+  toStruct
+);

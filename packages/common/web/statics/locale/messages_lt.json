@@ -203,6 +203,7 @@
 	"Embed_Vertical_Bookings_Search_Placeholder": "Ieškoti paslaugos",
 	"FormattingToolbar_TextStyle_Update_Heading_Tooltip": "Bus atnaujinta tik šio įrašo antraštė.",
 	"RedoButton_Tooltip": "Perdaryti",
+	"FormattingToolbar_HeadingsPanelHeader": "Headings",
 	"CollapsibleList_CollapsibleListSettings_Tab_Settings_CollapseView_Expanded": "Viskas",
 	"GiphyPlugin_Trending": "Populiaru",
 	"GalleryImageSettings_Header": "Koreguoti",
@@ -283,6 +284,7 @@
 	"LinkTo_Modal_Sidebar_Website": "Žiniatinklio adresas",
 	"FileUploadInsertButton_tooltip": "Pridėti failą",
 	"TikTok_plugin_search_tags": "tiktok vaizdo įrašas įterpti socialinis tinklas",
+	"FormattingToolbar_AlignmentPanelHeader": "Alignment",
 	"LinkTo_Modal_Section_Filter_Paragraphs": "Pastraipos",
 	"ButtonModal_InputName_Placeholder": "Čia įveskite tekstą",
 	"LinkTo_Modal_Section_Item_Gallery": "Galerija",
@@ -473,6 +475,7 @@
 	"CollapsibleList_CollapsibleListSettings_Tab_Design_TabName": "Dizainas",
 	"ButtonPlugin_Navbar_Update_button": "Įrašyti",
 	"LinkPanel_Sponsored_Checkbox_Tooltip": "Informuokite paieškos modulius, kad ši nuoroda reiškia mokamą reklamą, rėmimą ar mokamą susitarimą.",
+	"FormattingToolbar_LineSpacingPanelHeader": "Line Spacing",
 	"LinkPanelContainer_RemoveButton": "Pašalinti nuorodą",
 	"ButtonModal_Link_Input_Placeholder": "Įveskite URL",
 	"LinkPanelContainer_CancelButton": "Atšaukti",
@@ -614,8 +617,10 @@
 	"Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "Už šį atsakymą balsavo {{count}}",
 	"CollapsibleListPlugin_ExpandButton_AriaLabel": "Elementas išskleistas",
 	"Spoiler_Reveal_Video_Placeholder": "Šiame vaizdo įraše yra turinio užuomina",
+	"Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
 	"Preview_SeeFullPost_Label": "Rodyti visą įrašą",
 	"UploadFile_Viewer_Download": "Atsisiųsti {{fileType}}",
 	"VerticalEmbed_Units_Hour": "{{hours}} val.",
-	"VerticalEmbed_Units_Minute": "{{minutes}} min."
+	"VerticalEmbed_Units_Minute": "{{minutes}} min.",
+	"Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }

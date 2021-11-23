@@ -57,7 +57,7 @@
   padding: 16px 20px 16px 20px;
 
   display: none;
-  .gallery_container:hover & {
+  .itemOverlay:hover & {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -72,7 +72,8 @@
 
 :global {
   .gallery-item-hover {
-    &::before { //removes the background we get from the gallery
+    &::before {
+      //removes the background we get from the gallery
       background: unset !important;
     }
 
@@ -98,4 +99,3 @@
     outline: none;
   }
 }
-

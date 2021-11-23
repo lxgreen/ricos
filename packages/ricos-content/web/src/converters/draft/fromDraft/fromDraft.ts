@@ -52,7 +52,7 @@ const parseDocStyle = documentStyle => {
 };
 
 export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}): RichContent => {
-  const { blocks, entityMap, documentStyle } = cloneDeep(draftJSON);
+  const { blocks, entityMap, documentStyle, ID: id } = cloneDeep(draftJSON);
   const nodes: Node[] = [];
 
   const parseBlocks = (index = 0) => {
@@ -226,7 +226,7 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
 
   const content: RichContent = {
     nodes,
-    metadata: initializeMetadata(),
+    metadata: initializeMetadata({ id }),
     documentStyle: parseDocStyle(documentStyle),
   };
 

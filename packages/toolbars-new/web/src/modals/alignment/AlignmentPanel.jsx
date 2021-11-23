@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { alignmentsModalData as alignments } from '../../Toolbar/buttonsListCreatorConsts';
 
 const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, ...props }) => {
-  const panelHeader = t('Alignment');
+  const panelHeader = t('FormattingToolbar_AlignmentPanelHeader');
   const onChange = (alignment, clickFromKeyboard) => {
     props?.onToolbarButtonClick?.(alignment);
     onSave({ data: alignment, clickFromKeyboard });

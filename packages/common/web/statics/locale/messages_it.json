@@ -203,6 +203,7 @@
 	"Embed_Vertical_Bookings_Search_Placeholder": "Cerca un servizio",
 	"FormattingToolbar_TextStyle_Update_Heading_Tooltip": "Gli aggiornamenti di questa intestazione si applicano soltanto a questo post.",
 	"RedoButton_Tooltip": "Ripeti",
+	"FormattingToolbar_HeadingsPanelHeader": "Headings",
 	"CollapsibleList_CollapsibleListSettings_Tab_Settings_CollapseView_Expanded": "Tutti",
 	"GiphyPlugin_Trending": "Di tendenza",
 	"GalleryImageSettings_Header": "Modifica Immagine",
@@ -283,6 +284,7 @@
 	"LinkTo_Modal_Sidebar_Website": "Indirizzo web",
 	"FileUploadInsertButton_tooltip": "Aggiungi un File",
 	"TikTok_plugin_search_tags": "tiktok video musica social media incorporato",
+	"FormattingToolbar_AlignmentPanelHeader": "Alignment",
 	"LinkTo_Modal_Section_Filter_Paragraphs": "Paragrafi",
 	"ButtonModal_InputName_Placeholder": "Aggiungi testo",
 	"LinkTo_Modal_Section_Item_Gallery": "Galleria",
@@ -473,6 +475,7 @@
 	"CollapsibleList_CollapsibleListSettings_Tab_Design_TabName": "Design",
 	"ButtonPlugin_Navbar_Update_button": "Save",
 	"LinkPanel_Sponsored_Checkbox_Tooltip": "Comunica ai motori di ricerca che questo link rappresenta un annuncio a pagamento, una sponsorizzazione o un contratto a pagamento.",
+	"FormattingToolbar_LineSpacingPanelHeader": "Line Spacing",
 	"LinkPanelContainer_RemoveButton": "Rimuovi Link",
 	"ButtonModal_Link_Input_Placeholder": "Inserisci un URL",
 	"LinkPanelContainer_CancelButton": "No, annulla",
@@ -614,8 +617,10 @@
 	"Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "{{count}} persone hanno votato per questa risposta",
 	"CollapsibleListPlugin_ExpandButton_AriaLabel": "L'elemento è espanso",
 	"Spoiler_Reveal_Video_Placeholder": "Questo video contiene uno spoiler",
+	"Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
 	"Preview_SeeFullPost_Label": "Vedi post intero",
 	"UploadFile_Viewer_Download": "Scarica {{fileType}}",
 	"VerticalEmbed_Units_Hour": "{{hours}} h",
-	"VerticalEmbed_Units_Minute": "{{minutes}} min"
+	"VerticalEmbed_Units_Minute": "{{minutes}} min",
+	"Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }
