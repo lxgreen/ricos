@@ -1,5 +1,11 @@
-import { version } from '../../package.json';
+// Starting in Webpack 5, named imports from JSON files are no longer supported
+// https://webpack.js.org/blog/2020-10-10-webpack-5-release/#json-modules
+// ------> import { version } from '../../package.json'; // won't work
+import packageInfo from '../../package.json';
 import { DraftContent } from '../types';
+
+const { version } = packageInfo;
+
 type BlockType =
   | 'unstyled'
   | 'blockquote'
