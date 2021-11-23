@@ -79,4 +79,18 @@ const config = {
   },
 };
 
-module.exports = config;
+const configCjs = {
+  ...config,
+  entry: {
+    'cjs/index': './src/index.ts',
+    ...libEntries,
+  },
+  output: {
+    filename: '[name].cjs',
+    library: {
+      type: 'commonjs',
+    },
+  },
+};
+
+module.exports = [config, configCjs];
