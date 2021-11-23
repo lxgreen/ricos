@@ -19,13 +19,6 @@
     "resolveJsonModule": true,
     "preserveConstEnums": false,
     "allowJs": true
-    // "rootDir": "."
-    // "paths": {
-    //   "tiptap-editor": ["./packages/wix-tiptap-editor/web"],
-    //   "ricos-content": ["./packages/ricos-content/web"],
-    //   "ricos-content/libs/*": ["./packages/ricos-content/web/lib/*"],
-    //   "ricos-schema": ["./packages/ricos-schema/web", "./packages/ricos-schema/dist/esm"]
-    // }
   },
   "files": ["external-types.d.ts"],
   "include": ["packages", "packages/**/*.json", "*.ts", "scripts", "babel.config.js"],
