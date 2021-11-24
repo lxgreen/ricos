@@ -201,10 +201,10 @@
   composes: blockStyleSpacing;
   background-color: rgba($fallbackColorTuple, 0.06);
   font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
-  font-size: $ricos-custom-code-block-font-size;
-  line-height: $ricos-custom-code-block-line-height;
-  padding: $ricos-custom-code-block-padding;
-  margin: $ricos-custom-code-block-margin;
+  font-size: $ricos-code-block-font-size;
+  line-height: $ricos-code-block-line-height;
+  padding: $ricos-code-block-padding;
+  margin: $ricos-code-block-margin;
   white-space: pre-wrap;
 
   .renderedInTable & {
