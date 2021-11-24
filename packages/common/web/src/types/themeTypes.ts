@@ -73,6 +73,10 @@ export interface CustomMentionStyle {
   backgroundColor: CSSProperties['backgroundColor'];
 }
 
+export interface CustomFooterToolbarStyle {
+  marginTop?: CSSProperties['marginTop'];
+}
+
 export interface RicosCustomStyles {
   h1?: CustomTextualStyle;
   h2?: CustomTextualStyle;
@@ -87,6 +91,7 @@ export interface RicosCustomStyles {
   button?: Pick<CustomTextualStyle, 'color'>;
   codeBlock?: CustomCodeBlockStyle;
   mention?: CustomMentionStyle;
+  footerToolbar?: CustomFooterToolbarStyle;
 }
 
 export interface RicosSettingsStyles {
