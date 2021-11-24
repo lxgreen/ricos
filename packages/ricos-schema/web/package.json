@@ -19,9 +19,9 @@
     "src/**/*.proto",
     "statics/*.json"
   ],
-  "main": "dist/cjs/generated/wix/rich_content/v1/index.js",
-  "module": "dist/esm/generated/wix/rich_content/v1/index.js",
-  "types": "dist/types/generated/wix/rich_content/v1/index.d.ts",
+  "main": "dist/cjs/stringEnums/wix/rich_content/v1/index.js",
+  "module": "dist/esm/stringEnums/wix/rich_content/v1/index.js",
+  "types": "dist/types/stringEnums/wix/rich_content/v1/index.d.ts",
   "scripts": {
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,d.ts}'",
     "clean": "rm -rf dist generated",
