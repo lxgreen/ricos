@@ -52,6 +52,7 @@
     "react-click-outsider": "1.1.1",
     "react-measure": "~2.3.0",
     "uuid": "^3.4.0",
+    "ricos-common": "8.63.1",
     "wix-rich-content-common": "8.63.1",
     "wix-rich-content-editor-common": "8.63.1",
     "wix-rich-content-plugin-commons": "8.63.1",
