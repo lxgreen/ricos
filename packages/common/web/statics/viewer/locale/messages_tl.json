@@ -28,8 +28,10 @@
   "Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "{{count}} (na) tao ang bumoto para sa sagot na ito",
   "CollapsibleListPlugin_ExpandButton_AriaLabel": "Na-expand ang item",
   "Spoiler_Reveal_Video_Placeholder": "May spoiler ang video na ito",
+  "Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
   "Preview_SeeFullPost_Label": "Tingnan ang buong post",
   "UploadFile_Viewer_Download": "I-download ang {{fileType}}",
   "VerticalEmbed_Units_Hour": "{{hours}}h",
-  "VerticalEmbed_Units_Minute": "{{minutes}}min"
+  "VerticalEmbed_Units_Minute": "{{minutes}}min",
+  "Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }

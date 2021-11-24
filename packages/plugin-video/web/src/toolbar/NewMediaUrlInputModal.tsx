@@ -15,6 +15,7 @@ interface MediaURLInputModalProps {
   dataHook?: string;
   title?: string;
   subTitle?: string;
+  saveLabel?: string;
 }
 
 const MediaURLInputModal: React.FC<MediaURLInputModalProps> = ({
@@ -30,6 +31,7 @@ const MediaURLInputModal: React.FC<MediaURLInputModalProps> = ({
   dataHook,
   title,
   subTitle,
+  saveLabel,
 }) => {
   return (
     <NewUrlInputModal
@@ -42,7 +44,7 @@ const MediaURLInputModal: React.FC<MediaURLInputModalProps> = ({
       subTitle={subTitle}
       submittedInvalidUrl={submittedInvalidUrl}
       dataHook={dataHook}
-      saveLabel={t('VideoModal_Embed_ButtonText')}
+      saveLabel={saveLabel}
       onInputChange={url => setUrl(url)}
       errorMessage={t('SoundCloudUploadModal_Input_InvalidUrl')}
       placeholder={t('EmbedURL_Placeholder')}

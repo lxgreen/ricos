@@ -1,6 +1,7 @@
 import { EditorState, ContentState, convertToRaw } from '../index';
 import { isEqual } from 'lodash';
 import { ContentBlock } from '@wix/draft-js';
+import { DocumentStyle } from 'wix-rich-content-common';
 
 export function removeCompositionModeFromEditorState(editorState: EditorState) {
   if (editorState.isInCompositionMode()) {

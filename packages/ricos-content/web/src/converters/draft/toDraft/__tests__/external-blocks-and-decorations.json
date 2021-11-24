@@ -4,18 +4,29 @@
       "id": "5nmng",
       "type": "EXTERNAL",
       "nodes": [],
-      "externalData": {
-        "type": "section",
-        "config": {
-          "size": "large",
-          "alignment": "center",
-          "textWrap": "nowrap"
-        },
-        "price": {
-          "amount": 100,
-          "currency": "USD"
+            "externalData": {
+        "fields": {
+          "type": { "stringValue": "section" },
+          "config": {
+            "structValue": {
+              "fields": {
+                "size": { "stringValue": "large" },
+                "alignment": { "stringValue": "center" },
+                "textWrap": { "stringValue": "nowrap" }
+              }
+            }
+          },
+          "price": {
+            "structValue": {
+              "fields": {
+                "amount": { "numberValue": 100 },
+                "currency": { "stringValue": "USD" }
+              }
+            }
+          }
         }
       }
+
     },
     {
       "type": "PARAGRAPH",

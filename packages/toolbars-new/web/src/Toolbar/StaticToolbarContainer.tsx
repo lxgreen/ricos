@@ -11,8 +11,32 @@ interface StaticToolbarContainerProps {
   focusEditor?: () => void;
 }
 
-class StaticToolbarContainer extends Component<StaticToolbarContainerProps> {
+interface State {
+  keyForRerender: boolean;
+}
+
+class StaticToolbarContainer extends Component<StaticToolbarContainerProps, State> {
   toolbarContainerRef?: HTMLDivElement | null;
+
+  constructor(props) {
+    super(props);
+    this.state = { keyForRerender: true };
+  }
+
+  componentDidMount() {
+    const { isMobile } = this.props;
+    !isMobile && window.addEventListener('resize', this.onResizeWindow);
+  }
+
+  componentWillUnmount() {
+    const { isMobile } = this.props;
+    !isMobile && window.removeEventListener('resize', this.onResizeWindow);
+  }
+
+  onResizeWindow = () => {
+    const { keyForRerender } = this.state;
+    this.setState({ keyForRerender: !keyForRerender });
+  };
 
   setToolbarContainerRef = ref => (this.toolbarContainerRef = ref);
 
@@ -26,6 +50,8 @@ class StaticToolbarContainer extends Component<StaticToolbarContainerProps> {
     const { children, isMobile } = this.props;
     return (
       <div
+        key={`${this.state.keyForRerender}`}
+        data-hook="static-toolbar"
         tabIndex={0}
         ref={this.setToolbarContainerRef}
         className={classNames(

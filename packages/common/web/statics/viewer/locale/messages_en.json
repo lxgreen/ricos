@@ -12,6 +12,8 @@
   "Poll_Viewer_Toast_Error_Connection": "No internet. Check your connection.",
   "Poll_Viewer_Toast_Error_ServerDown": "Couldn't connect to server. Try again later.",
   "Poll_Viewer_VoteCount": "{{number}} votes",
+  "Poll_Viewer_Option_AriaLabel_Checked": "checked",
+  "Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
   "UploadFile_Viewer_Download": "Download {{fileType}}",
   "UploadFile_Viewer_Loader": "Loading {{fileType}}",
   "Viewer_Toolbar_Twitter_Tooltip": "Tweet this",

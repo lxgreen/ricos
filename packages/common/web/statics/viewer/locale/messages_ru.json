@@ -28,8 +28,10 @@
   "Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "За этот ответ проголосовали {{count}} чел.",
   "CollapsibleListPlugin_ExpandButton_AriaLabel": "Товар в развернутом списке",
   "Spoiler_Reveal_Video_Placeholder": "Видео содержит спойлер",
+  "Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
   "Preview_SeeFullPost_Label": "Показать весь пост",
   "UploadFile_Viewer_Download": "Скачать {{fileType}}",
   "VerticalEmbed_Units_Hour": "{{hours}} ч.",
-  "VerticalEmbed_Units_Minute": "{{minutes}} мин."
+  "VerticalEmbed_Units_Minute": "{{minutes}} мин.",
+  "Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }

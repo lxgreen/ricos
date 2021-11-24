@@ -6,13 +6,18 @@ import Icon from '../Icons/InfoIcon';
 class InfoIcon extends Component<{
   tooltipText?: string;
   iconStyles?: string;
+  size?: { height: number; width: number };
 }> {
   render() {
-    const { tooltipText, iconStyles } = this.props;
+    const {
+      tooltipText,
+      iconStyles,
+      size: { height, width } = { height: 24, width: 24 },
+    } = this.props;
     const style = iconStyles || generalStyles.infoIcon;
     return (
       <Tooltip content={tooltipText}>
-        <Icon className={style} />
+        <Icon className={style} height={height} width={width} />
       </Tooltip>
     );
   }

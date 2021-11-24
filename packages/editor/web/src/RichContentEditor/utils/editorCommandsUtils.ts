@@ -26,14 +26,10 @@ import {
   dynamicStyleParsers,
   safeJsonParse,
   draftDecorationsToCss,
+  DRAFT_TO_RICOS_DOC_TYPE,
 } from 'wix-rich-content-common';
 
-import {
-  DRAFT_TO_RICOS_DOC_TYPE,
-  DRAFT_TO_RICOS_CUSTOM_STYLES,
-  defaultFontSizes,
-  defaultMobileFontSizes,
-} from './consts';
+import { DRAFT_TO_RICOS_CUSTOM_STYLES, defaultFontSizes, defaultMobileFontSizes } from './consts';
 
 export const getWiredFontStyles = (
   documentStyle?: DocumentStyle,
@@ -126,16 +122,18 @@ export const getFontSize = (editorState: EditorState) => {
   return currentFontSizes.length > 1 || currentFontSizes.length === 0 ? '' : currentFontSizes[0];
 };
 
-const getBlockStyle = (editorState: EditorState) => {
+const getBlockStyle = (editorState: EditorState, getDocumentStyle) => {
   const blockType = getBlockType(editorState);
-  const documentStyle = (editorState.getCurrentContent() as ContentState & {
-    documentStyle: DocumentStyle;
-  }).documentStyle;
-  return documentStyle[DRAFT_TO_RICOS_DOC_TYPE[blockType]];
+  const documentStyle = getDocumentStyle?.();
+  return documentStyle?.[DRAFT_TO_RICOS_DOC_TYPE[blockType]];
 };
 
-export const setFontSize = (editorState: EditorState, data?: { fontSize?: string }) => {
-  const blockStyles = getBlockStyle(editorState);
+export const setFontSize = (
+  editorState: EditorState,
+  data?: { fontSize?: string },
+  getDocumentStyle?: unknown
+) => {
+  const blockStyles = getBlockStyle(editorState, getDocumentStyle);
   const style = data?.fontSize ? data.fontSize + 'px' : undefined;
   return getFontSize(editorState) === style
     ? editorState
@@ -165,8 +163,12 @@ const INLINE_STYLE_TO_PROPERTY = {
   italic: 'font-style',
 };
 
-export const toggleInlineStyle = (editorState: EditorState, inlineStyle: InlineStyle) => {
-  const blockStyles = getBlockStyle(editorState);
+export const toggleInlineStyle = (
+  editorState: EditorState,
+  inlineStyle: InlineStyle,
+  getDocumentStyle
+) => {
+  const blockStyles = getBlockStyle(editorState, getDocumentStyle);
   if (['bold', 'italic'].includes(inlineStyle)) {
     if (blockStyles?.[INLINE_STYLE_TO_PROPERTY[inlineStyle]] === inlineStyle) {
       const shouldSetStyle =

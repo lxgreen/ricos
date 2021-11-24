@@ -140,7 +140,7 @@ class Toolbar extends Component<ToolbarProps, State> {
 
   toolbarOverflowWithEditorWidth = () => {
     const { getEditorContainer } = this.props;
-    return getEditorContainer?.().clientWidth - this.toolbarRef?.clientWidth;
+    return getEditorContainer?.()?.clientWidth - this.toolbarRef?.clientWidth;
   };
 
   renderButton = buttonProps => {

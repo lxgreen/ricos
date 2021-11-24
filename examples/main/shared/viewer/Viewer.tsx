@@ -10,7 +10,7 @@ import * as Plugins from './ViewerPlugins';
 import theme from '../theme/theme'; // must import after custom styles
 import { TextSelectionToolbar, TwitterButton } from 'wix-rich-content-text-selection-toolbar';
 import { GALLERY_TYPE } from 'wix-rich-content-plugin-gallery';
-import { RicosViewer } from 'ricos-viewer';
+import { RicosViewer, RicosViewerProps } from 'ricos-viewer';
 
 const anchorTarget = '_blank';
 const rel = { nofollow: true };
@@ -33,16 +33,22 @@ export default class Viewer extends PureComponent<ExampleViewerProps, ExampleVie
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   viewerRef: RefObject<any>;
 
+  plugins: RicosViewerProps['plugins'];
+
   constructor(props: ExampleViewerProps) {
     super(props);
     this.state = {
       disabled: false,
     };
     this.viewerRef = React.createRef();
+    const config = this.getConfig(props);
+    this.plugins = Object.entries(Plugins.ricosViewerPlugins).map(([pluginType, plugin]) =>
+      pluginType in config ? plugin(config[pluginType]) : plugin()
+    );
   }
 
-  getConfig = () => {
-    const { scrollingElementFn } = this.props;
+  getConfig = props => {
+    const { scrollingElementFn } = props;
     const additionalConfig = {
       [GALLERY_TYPE]: { scrollingElement: scrollingElementFn },
     };
@@ -61,9 +67,9 @@ export default class Viewer extends PureComponent<ExampleViewerProps, ExampleVie
     const { disabled } = this.state;
     const helpers = {
       // This is for debugging only
-      onViewerAction: async (pluginId, actionName, value) =>
+      onViewerAction: async (...args) =>
         // eslint-disable-next-line no-console
-        console.log('onViewerAction', pluginId, actionName, value),
+        console.log('onViewerAction', ...args),
       // eslint-disable-next-line no-console
       onViewerLoaded: async (...args) => console.log('onViewerLoaded', ...args),
     };
@@ -73,7 +79,7 @@ export default class Viewer extends PureComponent<ExampleViewerProps, ExampleVie
         <div id="rich-content-viewer" ref={this.viewerRef} className="viewer">
           <RicosViewer
             content={initialState}
-            plugins={Plugins.viewerPlugins}
+            plugins={this.plugins}
             locale={locale}
             linkSettings={{ rel, anchorTarget }}
             isMobile={isMobile}

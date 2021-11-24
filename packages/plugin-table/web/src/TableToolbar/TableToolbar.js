@@ -49,9 +49,7 @@ class TableToolbar extends Component {
       buttonListValue.onClick = args => {
         cellsToolbarsProps.forEach(toolbarProp => {
           const currentListButton = toolbarProp.buttons[buttonKeyName].buttonList[buttonListKey];
-          if (buttonListValue.isActive() === currentListButton.isActive()) {
-            currentListButton.onClick(args);
-          }
+          currentListButton.onClick(args);
         });
       };
     });

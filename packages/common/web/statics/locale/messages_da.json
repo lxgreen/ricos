@@ -203,6 +203,7 @@
 	"Embed_Vertical_Bookings_Search_Placeholder": "Søg efter en service",
 	"FormattingToolbar_TextStyle_Update_Heading_Tooltip": "Opdateringer til denne overskrift gælder kun for dette indlæg.",
 	"RedoButton_Tooltip": "Annuller fortryd",
+	"FormattingToolbar_HeadingsPanelHeader": "Headings",
 	"CollapsibleList_CollapsibleListSettings_Tab_Settings_CollapseView_Expanded": "Alle",
 	"GiphyPlugin_Trending": "Trending",
 	"GalleryImageSettings_Header": "Rediger Billede",
@@ -283,6 +284,7 @@
 	"LinkTo_Modal_Sidebar_Website": "Internetadresse",
 	"FileUploadInsertButton_tooltip": "Tilføj en fil",
 	"TikTok_plugin_search_tags": "tiktok video sociale medier indlejre",
+	"FormattingToolbar_AlignmentPanelHeader": "Alignment",
 	"LinkTo_Modal_Section_Filter_Paragraphs": "Afsnit",
 	"ButtonModal_InputName_Placeholder": "Tilføj tekst her",
 	"LinkTo_Modal_Section_Item_Gallery": "Galleri",
@@ -473,6 +475,7 @@
 	"CollapsibleList_CollapsibleListSettings_Tab_Design_TabName": "Design",
 	"ButtonPlugin_Navbar_Update_button": "Gem",
 	"LinkPanel_Sponsored_Checkbox_Tooltip": "Lad søgemaskiner vide, at dette link repræsenterer en betalt annonce, sponsorering eller betalt aftale.",
+	"FormattingToolbar_LineSpacingPanelHeader": "Line Spacing",
 	"LinkPanelContainer_RemoveButton": "Fjern link",
 	"ButtonModal_Link_Input_Placeholder": "Indtast en URL",
 	"LinkPanelContainer_CancelButton": "Annuller",
@@ -614,8 +617,10 @@
 	"Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "{{count}} stemte på dette svar",
 	"CollapsibleListPlugin_ExpandButton_AriaLabel": "Element udvides",
 	"Spoiler_Reveal_Video_Placeholder": "Denne video indeholder en spoiler",
+	"Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
 	"Preview_SeeFullPost_Label": "Se hele indlægget",
 	"UploadFile_Viewer_Download": "Download {{fileType}}",
 	"VerticalEmbed_Units_Hour": "{{hours}} t",
-	"VerticalEmbed_Units_Minute": "{{minutes}} min"
+	"VerticalEmbed_Units_Minute": "{{minutes}} min",
+	"Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }

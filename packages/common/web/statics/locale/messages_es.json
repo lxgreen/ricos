@@ -203,6 +203,7 @@
 	"Embed_Vertical_Bookings_Search_Placeholder": "Buscar servicio",
 	"FormattingToolbar_TextStyle_Update_Heading_Tooltip": "Las actualizaciones de este encabezado se aplican solo a esta entrada.",
 	"RedoButton_Tooltip": "Rehacer",
+	"FormattingToolbar_HeadingsPanelHeader": "Headings",
 	"CollapsibleList_CollapsibleListSettings_Tab_Settings_CollapseView_Expanded": "Todos",
 	"GiphyPlugin_Trending": "Tendencias",
 	"GalleryImageSettings_Header": "Editar imagen",
@@ -283,6 +284,7 @@
 	"LinkTo_Modal_Sidebar_Website": "Dirección web",
 	"FileUploadInsertButton_tooltip": "+ Archivo",
 	"TikTok_plugin_search_tags": "tiktok video redes sociales incrustar",
+	"FormattingToolbar_AlignmentPanelHeader": "Alignment",
 	"LinkTo_Modal_Section_Filter_Paragraphs": "Párrafos",
 	"ButtonModal_InputName_Placeholder": "Agrega texto aquí",
 	"LinkTo_Modal_Section_Item_Gallery": "Galería",
@@ -473,6 +475,7 @@
 	"CollapsibleList_CollapsibleListSettings_Tab_Design_TabName": "Diseño",
 	"ButtonPlugin_Navbar_Update_button": "Guardar",
 	"LinkPanel_Sponsored_Checkbox_Tooltip": "Informa a los motores de búsqueda que este enlace representa un patrocinio, anuncio o acuerdo de pago.",
+	"FormattingToolbar_LineSpacingPanelHeader": "Line Spacing",
 	"LinkPanelContainer_RemoveButton": "Eliminar el enlace",
 	"ButtonModal_Link_Input_Placeholder": "Ingresar una URL",
 	"LinkPanelContainer_CancelButton": "Cancelar",
@@ -614,8 +617,10 @@
 	"Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "{{count}} personas votaron por esta respuesta",
 	"CollapsibleListPlugin_ExpandButton_AriaLabel": "El elemento está expandido",
 	"Spoiler_Reveal_Video_Placeholder": "Este vídeo contiene un spoiler",
+	"Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
 	"Preview_SeeFullPost_Label": "Ver la entrada completa",
 	"UploadFile_Viewer_Download": "Descargar {{fileType}}",
 	"VerticalEmbed_Units_Hour": "{{hours}} h",
-	"VerticalEmbed_Units_Minute": "{{minutes}} min"
+	"VerticalEmbed_Units_Minute": "{{minutes}} min",
+	"Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }

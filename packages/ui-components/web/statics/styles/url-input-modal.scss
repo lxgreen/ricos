@@ -1,5 +1,6 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 @import '~wix-rich-content-common/dist/statics/styles/palette';
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
 
 .urlInput_container {
   padding: 80px 120px;
@@ -117,6 +118,7 @@
   }
 
   %input_header_text {
+    font-family: $ricos-default-font-family;
     text-align: left;
     @include phone {
       margin-bottom: 7px;

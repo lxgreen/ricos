@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { GALLERY_LAYOUTS, layoutData } from '../lib/layout-data-provider';
+import { GALLERY_LAYOUTS, layoutData } from './layout-data-provider';
 
 export const GALLERY_ITEMS_TYPES = Object.freeze({
   IMAGE: 'image',
@@ -99,8 +99,11 @@ const FIXED_STYLES = {
   allowDownload: false,
   mobileSwipeAnimation: 'NO_EFFECT',
   gotStyleParams: true,
-  showVideoPlayButton: true,
   videoPlay: 'onClick',
+  videoLoop: false,
+  videoSound: true,
+  hidePlay: false,
+  showVideoControls: true,
 };
 
 export const getFixedStyles = (layout: GALLERY_LAYOUTS) => {

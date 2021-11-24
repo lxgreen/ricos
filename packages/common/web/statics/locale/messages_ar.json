@@ -203,6 +203,7 @@
 	"Embed_Vertical_Bookings_Search_Placeholder": "بحث عن خدمة",
 	"FormattingToolbar_TextStyle_Update_Heading_Tooltip": "التحديثات على هذا العنوان تنطبق فقط على هذا المنشور.",
 	"RedoButton_Tooltip": "إعادة",
+	"FormattingToolbar_HeadingsPanelHeader": "Headings",
 	"CollapsibleList_CollapsibleListSettings_Tab_Settings_CollapseView_Expanded": "الكل",
 	"GiphyPlugin_Trending": "أكثر شيوعاً",
 	"GalleryImageSettings_Header": "تعديل الصورة",
@@ -283,6 +284,7 @@
 	"LinkTo_Modal_Sidebar_Website": "عنوان الويب",
 	"FileUploadInsertButton_tooltip": "أضِف ملفًا",
 	"TikTok_plugin_search_tags": "تيك توك فيديو وسائل التواصل الاجتماعية تضمين",
+	"FormattingToolbar_AlignmentPanelHeader": "Alignment",
 	"LinkTo_Modal_Section_Filter_Paragraphs": "الفقرات",
 	"ButtonModal_InputName_Placeholder": "أضِف نصًا هنا",
 	"LinkTo_Modal_Section_Item_Gallery": "المعرض",
@@ -473,6 +475,7 @@
 	"CollapsibleList_CollapsibleListSettings_Tab_Design_TabName": "التصميم",
 	"ButtonPlugin_Navbar_Update_button": "حفظ",
 	"LinkPanel_Sponsored_Checkbox_Tooltip": "أعلِم محركات البحث أن هذا الرابط يمثل إعلانًا مدفوعًا أو رعاية أو اتفاقية مدفوعة.",
+	"FormattingToolbar_LineSpacingPanelHeader": "Line Spacing",
 	"LinkPanelContainer_RemoveButton": "حذف الرابط",
 	"ButtonModal_Link_Input_Placeholder": "أدخِل رابط URL",
 	"LinkPanelContainer_CancelButton": "إلغاء",
@@ -614,8 +617,10 @@
 	"Poll_Viewer_VoteCount_Modal_Voters_Header_plural": "{{count}} أشخاص صوتوا لهذه الإجابة",
 	"CollapsibleListPlugin_ExpandButton_AriaLabel": "تم توسيع العنصر.",
 	"Spoiler_Reveal_Video_Placeholder": "يحتوي هذا الفيديو على سبويلر",
+	"Poll_Viewer_Option_AriaLabel_Unchecked": "unchecked",
 	"Preview_SeeFullPost_Label": "عرض المنشور كاملاً",
 	"UploadFile_Viewer_Download": "تنزيل {{fileType}}",
 	"VerticalEmbed_Units_Hour": "{{hours}} س",
-	"VerticalEmbed_Units_Minute": "{{minutes}} د"
+	"VerticalEmbed_Units_Minute": "{{minutes}} د",
+	"Poll_Viewer_Option_AriaLabel_Checked": "checked"
 }

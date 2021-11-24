@@ -7,14 +7,16 @@ import {
   LinkPanelSettings,
   ToolbarType,
   AvailableExperiments,
+  TextButtons,
 } from 'wix-rich-content-common';
-import { LinkSettings, RicosCssOverride, RicosTheme } from 'ricos-common';
+import { LinkSettings, RicosCssOverride, RicosTheme, ToolbarSettings } from 'ricos-common';
 import {
   FloatingToolbarContainer,
   RicosToolbar,
   StaticToolbarContainer,
 } from 'wix-rich-content-toolbars-new';
 import { filterButtons } from './utils/toolbarsUtils';
+import { toolbarSettingsFromConfig } from './utils/toolbarsConfig';
 
 interface LinkToolbarProps {
   activeEditor: RichContentEditor;
@@ -29,6 +31,7 @@ interface LinkToolbarProps {
   experiments?: AvailableExperiments;
   getEditorContainer: () => Element;
   cssOverride?: RicosCssOverride;
+  toolbarSettings?: ToolbarSettings;
 }
 
 interface State {}
@@ -46,14 +49,29 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
       experiments,
       getEditorContainer,
       cssOverride,
+      toolbarSettings = {},
+      textToolbarType,
     } = this.props;
+    const rawButtons = ['goToLink', '|', 'editLink', '|', 'removeLink'];
+    const linkToolbarButtons: TextButtons = {
+      mobile: rawButtons,
+      desktop: rawButtons,
+    };
+    const linkToolbarSetting = toolbarSettingsFromConfig({
+      toolbarSettings,
+      isMobile,
+      textButtons: linkToolbarButtons,
+      toolbarType: textToolbarType,
+    });
+    const shouldCreateToolbar = linkToolbarSetting?.shouldCreate;
+    if (shouldCreateToolbar === false) {
+      return null;
+    }
     const editorCommands: EditorCommands = activeEditor.getEditorCommands();
     const selection = editorCommands.getSelection();
-    const showLinkToolbar =
-      selection.isCollapsed && selection.isFocused && editorCommands.hasLinkInSelection();
+    const showLinkToolbar = selection.isCollapsed && editorCommands.hasLinkInSelection();
     const t = activeEditor.getT();
     const focusEditor = () => activeEditor.focus();
-    const rawButtons = ['goToLink', '|', 'editLink', '|', 'removeLink'];
     const filteredFormattingToolbarButtons = filterButtons(rawButtons, activeEditor);
     const linkConfig = this.props.plugins?.find(plugin => plugin.type === 'LINK')?.config;
     const linkPanelData = {
