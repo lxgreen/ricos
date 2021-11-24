@@ -4,8 +4,6 @@
 @import '~wix-rich-content-common/dist/statics/styles/fonts';
 
 .blockStyleSpacing {
-  margin: 15px 18px;
-
   @include phone {
     margin: 15px calc((18px + (100% - #{$textMobileWidth}) / 2));
   }
@@ -13,6 +11,7 @@
 
 .code {
   composes: blockStyleSpacing;
+  margin: 15px 18px;
   background-color: rgba($primary-text-color-tuple, 0.06);
   font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
   font-size: $ricos-code-block-font-size;
@@ -28,6 +27,7 @@
 
 .quote {
   composes: blockStyleSpacing;
+  margin: 15px 18px;
   border-inline-start-width: $ricos-quote-border-width;
   border-inline-start-style: solid;
   font-size: $quoteFontSize;
