@@ -24,7 +24,7 @@
   "types": "dist/types/generated/wix/rich_content/v1/index.d.ts",
   "scripts": {
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,d.ts}'",
-    "clean": "rm -rf dist src/generated src/generatedIntEnums",
+    "clean": "rm -rf dist generated",
     "prebuild": "yarn clean",
     "generate": "ts-node --compiler-options={\\\"module\\\":\\\"commonJS\\\"} src/generateSchema.ts",
     "gen-plugin-defaults": "ts-node --compiler-options={\\\"module\\\":\\\"commonJS\\\"} src/generate-plugin-defaults.ts",

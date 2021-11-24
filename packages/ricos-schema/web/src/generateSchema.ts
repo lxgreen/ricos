@@ -2,8 +2,8 @@ import { mkdirSync, readdirSync, writeFileSync, readFileSync } from 'fs';
 import { execSync } from 'child_process';
 import { LATEST_VERSION } from './consts';
 
-const GEN_DIR = 'src/generated';
-const GEN_DIR2 = 'src/generatedIntEnums';
+const GEN_DIR = 'generated/stringEnums';
+const GEN_DIR2 = 'generated/intEnums';
 const TS_PROTO_DIR = '../../../node_modules/.bin/protoc-gen-ts_proto';
 const PACKAGE_PATH = `wix/rich_content/v${LATEST_VERSION}`;
 
