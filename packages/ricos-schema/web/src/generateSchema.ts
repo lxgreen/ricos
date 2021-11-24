@@ -16,6 +16,7 @@ const GENERATED_FILE_PREFIX = `/**
 */\n\n`;
 
 mkdirSync(`${GEN_DIR}/proto/${PACKAGE_PATH}`, { recursive: true });
+mkdirSync(`${GEN_DIR2}/proto/${PACKAGE_PATH}`, { recursive: true });
 
 const schemas = readdirSync(`./src/main/proto/${PACKAGE_PATH}`).filter(
   fileName => !BLACK_LIST.includes(fileName)
