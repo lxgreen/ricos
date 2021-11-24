@@ -50,6 +50,24 @@ export interface CustomTextualStyle {
   minHeight?: CSSProperties['minHeight'];
   color?: CSSProperties['color'];
 }
+export interface CustomSpacing {
+  margin?: CSSProperties['margin'];
+  padding?: CSSProperties['padding'];
+}
+
+export interface CustomQuoteStyle extends CustomTextualStyle, CustomSpacing {
+  borderColor?: CSSProperties['borderColor'];
+  borderSize?: CSSProperties['borderWidth'];
+}
+
+export interface CustomCodeBlockStyle extends CustomSpacing {
+  fontSize?: CSSProperties['fontSize'];
+}
+
+export interface CustomMentionStyle {
+  color: CSSProperties['color'];
+  backgroundColor: CSSProperties['backgroundColor'];
+}
 
 export interface RicosCustomStyles {
   h1?: CustomTextualStyle;
@@ -59,10 +77,12 @@ export interface RicosCustomStyles {
   h5?: CustomTextualStyle;
   h6?: CustomTextualStyle;
   p?: CustomTextualStyle;
-  quote?: CustomTextualStyle & { borderColor?: CSSProperties['borderColor'] };
+  quote?: CustomQuoteStyle;
   link?: CustomTextualStyle;
   hashtag?: CustomTextualStyle;
   button?: Pick<CustomTextualStyle, 'color'>;
+  codeBlock?: CustomCodeBlockStyle;
+  mention?: CustomMentionStyle;
 }
 
 export interface RicosSettingsStyles {
