@@ -139,5 +139,3 @@ export interface LinkSettings {
 }
 
 export type TextAlignment = 'left' | 'right';
-
-export { IRicosEditorCommands } from './IRicosEditorCommands';
