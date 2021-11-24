@@ -57,11 +57,12 @@ export interface CustomSpacing {
 
 export interface CustomQuoteStyle extends CustomTextualStyle, CustomSpacing {
   borderColor?: CSSProperties['borderColor'];
-  borderSize?: CSSProperties['borderWidth'];
+  borderWidth?: CSSProperties['borderWidth'];
 }
 
 export interface CustomCodeBlockStyle extends CustomSpacing {
   fontSize?: CSSProperties['fontSize'];
+  lineHeight?: CSSProperties['lineHeight'];
 }
 
 export interface CustomMentionStyle {

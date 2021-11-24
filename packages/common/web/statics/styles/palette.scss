@@ -50,6 +50,12 @@ $settings-text-color: var(--ricos-settings-text-color, #333333);
 $settings-whitebox-border-radius: var(--ricos-settings-whitebox-border-radius, 0px);
 $settings-whitebox-box-shadow: var(--ricos-settings-whitebox-box-shadow);
 
+// Code Block
+$ricos-custom-code-block-font-size: var(--ricos-custom-code-block-font-size, 16px);
+$ricos-custom-code-block-line-height: var(--ricos-custom-code-block-line-height, 26px);
+$ricos-custom-code-block-padding: var(--ricos-custom-code-block-padding, 2px 25px);
+$ricos-custom-code-block-margin: var(--ricos-custom-code-block-margin, unset);
+
 $modal-input-color: #333333;
 $toolbar-font-color: #333333;
 $toolbar-border-color: #ededed;

@@ -15,9 +15,10 @@
   composes: blockStyleSpacing;
   background-color: rgba($primary-text-color-tuple, 0.06);
   font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
-  font-size: 16px;
-  line-height: 26px;
-  padding: 2px 25px;
+  font-size: $ricos-custom-code-block-font-size;
+  line-height: $ricos-custom-code-block-line-height;
+  padding: $ricos-custom-code-block-padding;
+  margin: $ricos-custom-code-block-margin;
   white-space: pre-wrap;
 
   .renderedInTable & {
