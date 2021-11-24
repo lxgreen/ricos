@@ -6,7 +6,7 @@ import {
   blockKeyToEntityKey,
   setEntityData,
 } from 'wix-rich-content-editor-common';
-import { IRicosEditorCommands } from 'ricos-common';
+import type { IRicosEditorCommands } from 'ricos-common';
 import { convertNodeToDraftData, FROM_RICOS_ENTITY_TYPE } from 'ricos-content/dist/lib/toDraftData';
 
 type DraftEditorCommandsProps = {
