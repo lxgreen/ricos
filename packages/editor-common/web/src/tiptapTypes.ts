@@ -18,4 +18,5 @@ export interface PluginProps {
   node: ProseMirrorNode;
   editorCommands: EditorCommands;
   updateAttributes: (data: unknown) => null;
+  selected: boolean;
 }
