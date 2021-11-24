@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component } from 'react';
 import Toolbar from './Toolbar';
-import { TOOLBAR_BUTTON_TYPES } from './consts';
 import { createButtonsList } from './buttonsListCreator';
 import {
   TranslationFunction,
-  DesktopTextButtons,
   EditorCommands,
   AnchorTarget,
   RelValue,
@@ -15,56 +13,53 @@ import {
 } from 'wix-rich-content-common';
 import { RicosCssOverride, RicosTheme } from 'ricos-common';
 
-type formattingToolbarButtonsKeysType =
-  | DesktopTextButtons
-  | {
-      ios?: string[] | undefined;
-      android?: string[] | undefined;
-    }
-  | undefined;
+export type linkPanelDataType = {
+  linkTypes?: any;
+  uiSettings?: {
+    linkPanel?: {
+      dropDown?: any;
+      externalPopups?: boolean;
+      showNewTabCheckbox?: boolean;
+      showNoFollowCheckbox?: boolean;
+      showSponsoredCheckbox?: boolean;
+    };
+  };
+  isMobile?: boolean;
+  linkSettings?: {
+    anchorTarget?: AnchorTarget;
+    relValue?: RelValue;
+    rel?: Link_Rel;
+    customAnchorScroll?: CustomAnchorScroll;
+  };
+  onLinkAdd?: any;
+};
+
+export type defaultLineSpacingType = {
+  'line-height'?: string;
+  'padding-top'?: string;
+  'padding-bottom'?: string;
+};
 
 interface RicosToolbarProps {
   isMobile?: boolean;
   tabIndex?: number;
   t: TranslationFunction;
   vertical?: boolean;
-  buttons?: formattingToolbarButtonsKeysType;
+  buttons?: any;
   editorCommands: EditorCommands;
   setKeepOpen?: (boolean) => void;
   afterClick?: () => void;
   nestedMenu?: boolean;
   theme?: RicosTheme;
-  linkPanelData?: {
-    linkTypes?: any;
-    uiSettings?: {
-      linkPanel?: {
-        dropDown?: any;
-        externalPopups?: boolean;
-        showNewTabCheckbox?: boolean;
-        showNoFollowCheckbox?: boolean;
-        showSponsoredCheckbox?: boolean;
-      };
-    };
-    isMobile?: boolean;
-    linkSettings?: {
-      anchorTarget?: AnchorTarget;
-      relValue?: RelValue;
-      rel?: Link_Rel;
-      customAnchorScroll?: CustomAnchorScroll;
-    };
-    onLinkAdd?: any;
-  };
+  linkPanelData?: linkPanelDataType;
   colorPickerData?: any;
   headingsData?: any;
   onToolbarButtonClick?: (name: string, value?: any) => void;
   experiments?: AvailableExperiments;
-  defaultLineSpacing?: {
-    'line-height'?: string;
-    'padding-top'?: string;
-    'padding-bottom'?: string;
-  };
+  defaultLineSpacing?: defaultLineSpacingType;
   getEditorContainer: () => Element;
   cssOverride?: RicosCssOverride;
+  configButtonsMapper?: any;
 }
 
 class RicosToolbar extends Component<RicosToolbarProps> {
@@ -115,8 +110,9 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       defaultLineSpacing,
       getEditorContainer,
       cssOverride,
+      configButtonsMapper,
     } = this.props;
-    const updatedButtons = createButtonsList(
+    const updatedButtons = createButtonsList({
       buttons,
       editorCommands,
       t,
@@ -125,8 +121,9 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       headingsData,
       defaultLineSpacing,
       experiments,
-      theme
-    );
+      theme,
+      configButtonsMapper,
+    });
     const buttonsWithoutUnwantedSeparators =
       updatedButtons.length > 0 && this.cleanUnwantedSeparators(updatedButtons);
     // const buttonsSeparatedByGaps = this.separateByGaps(buttonsWithoutUnwantedSeparators);
