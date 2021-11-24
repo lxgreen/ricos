@@ -28,13 +28,13 @@
 
 .quote {
   composes: blockStyleSpacing;
-  border-inline-start-width: 3px;
+  border-inline-start-width: $ricos-quote-border-width;
   border-inline-start-style: solid;
   font-size: $quoteFontSize;
   line-height: $quoteLineHeight;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-inline-start: 18px;
+  padding-top: $ricos-quote-padding-top;
+  padding-bottom: $ricos-quote-padding-bottom;
+  padding-inline-start: $ricos-quote-padding-inline-start;
   font-style: normal;
   border-left-color: $ricos-quote-border-color;
   border-right-color: $ricos-quote-border-color;

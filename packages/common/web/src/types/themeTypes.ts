@@ -55,9 +55,12 @@ export interface CustomSpacing {
   padding?: CSSProperties['padding'];
 }
 
-export interface CustomQuoteStyle extends CustomTextualStyle, CustomSpacing {
+export interface CustomQuoteStyle extends CustomTextualStyle {
   borderColor?: CSSProperties['borderColor'];
   borderWidth?: CSSProperties['borderWidth'];
+  paddingTop?: CSSProperties['paddingTop'];
+  paddingBottom?: CSSProperties['paddingBottom'];
+  paddingInlineStart?: CSSProperties['paddingInlineStart'];
 }
 
 export interface CustomCodeBlockStyle extends CustomSpacing {

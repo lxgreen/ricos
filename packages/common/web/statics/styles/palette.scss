@@ -33,7 +33,11 @@ $focus-action-color-tuple: var(--ricos-focus-action-color-tuple, $action-color-t
 
 $ricos-p-color: var(--ricos-custom-p-color, unset);
 $ricos-p-color-fallbackToPrimary: var(--ricos-custom-p-color, $primary-text-color);
+$ricos-quote-border-width: var(--ricos-custom-quote-border-width, 3px);
 $ricos-quote-border-color: var(--ricos-custom-quote-border-color, $action-color);
+$ricos-quote-padding-top: var(--ricos-custom-quote-padding-top, 6px);
+$ricos-quote-padding-bottom: var(--ricos-custom-quote-padding-bottom, 6px);
+$ricos-quote-padding-inline-start: var(--ricos-custom-quote-padding-inline-start, 18px);
 $ricos-quote-color: var(--ricos-custom-quote-color, unset);
 $ricos-link-color: var(--ricos-custom-link-color, $action-color);
 $ricos-hashtag-color: var(--ricos-custom-hashtag-color, $action-color);
