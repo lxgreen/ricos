@@ -59,8 +59,8 @@ export default class TextLinkButton extends Component {
               maxWidth: 512,
               height: 390,
               border: '1px solid rgb(237, 237, 237)',
-              borderRadius: '6px',
-              boxShadow: 'rgba(0, 0, 0, 0.07) 0px 4px 8px 0px',
+              borderRadius: 'var(--ricos-settings-whitebox-border-radius, 6px)',
+              boxShadow: 'var(--ricos-settings-whitebox-box-shadow)',
               padding: 20,
             },
           }

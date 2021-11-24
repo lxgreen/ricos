@@ -106,9 +106,13 @@ $spacing: 12px;
   padding: 0 18px;
   text-align: left;
   box-sizing: border-box;
+  border: 1px solid $settings-inputs-border-color;
+  font-family: $ricos-settings-font-family;
+  border-radius: $settings-inputs-border-radius;
 
   &::placeholder {
-    opacity: 0.4;
+    color: $settings-inputs-placeholder-color;
+    opacity: 0.6;
   }
 }
 

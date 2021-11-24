@@ -14,8 +14,8 @@ const modalStyles = {
       backgroundColor: 'transparent',
     },
     content: {
-      borderRadius: '2px',
-      boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1)',
+      borderRadius: 'var(--ricos-settings-whitebox-border-radius, 2spx)',
+      boxShadow: 'var(--ricos-settings-whitebox-box-shadow)',
       border: 'solid 1px rgba(255, 255, 255, 0.25)',
     },
   },

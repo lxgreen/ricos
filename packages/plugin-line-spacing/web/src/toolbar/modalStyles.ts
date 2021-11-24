@@ -23,7 +23,8 @@ export const MODAL_STYLES = {
     content: {
       display: 'inline-table',
       position: 'absolute',
-      boxShadow: '4px 0 4px 0 rgba(0, 0, 0, 0.1), 0 0 8px 0 rgba(0, 0, 0, 0.1)',
+      borderRadius: 'var(--ricos-settings-whitebox-border-radius, 0px)',
+      boxShadow: 'var(--ricos-settings-whitebox-box-shadow)',
       margin: 0,
       bottom: 0,
       top: 'unset',

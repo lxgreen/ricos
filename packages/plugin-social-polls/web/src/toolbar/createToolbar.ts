@@ -39,10 +39,10 @@ export const DesktopFlyOutModalStyles: ModalStyles = {
     overflow: 'visible',
     padding: '20px 25px 25px 25px',
     display: 'block',
-    borderRadius: '2px',
     position: 'absolute',
     border: 'solid 1px rgba(51, 51, 51, 0.1)',
-    boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.06)',
+    borderRadius: 'var(--ricos-settings-whitebox-border-radius, 2px)',
+    boxShadow: 'var(--ricos-settings-whitebox-box-shadow)',
     zIndex: 6,
   },
 };
@@ -55,7 +55,8 @@ const modalStyles: { customStyles: ModalStyles } = {
     },
     content: {
       border: '1px solid rgba(255, 255, 255, 0.25)',
-      boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.1)',
+      borderRadius: 'var(--ricos-settings-whitebox-border-radius, 0px)',
+      boxShadow: 'var(--ricos-settings-whitebox-box-shadow)',
     },
   },
 };
