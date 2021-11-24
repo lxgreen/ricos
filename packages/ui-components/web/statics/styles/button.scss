@@ -8,9 +8,8 @@
   border: 1px solid $settings-action-color-fallback;
   border-radius: $settings-inputs-border-radius;
   width: 100%;
-  font-family: $ricos-font-family;
   color: $settings-buttons-text-color;
-  font-family: $ricos-default-font-family;
+  font-family: $ricos-settings-font-family;
   &.borderLess {
     border: none;
   }
