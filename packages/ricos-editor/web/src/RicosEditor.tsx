@@ -10,8 +10,7 @@ import {
   RicosEngine,
   shouldRenderChild,
   localeStrategy,
-  getBiCallback as getCallback,
-  IRicosEditorCommands,
+  getBiCallback as getCallback
 } from 'ricos-common';
 import { DraftContent } from 'ricos-content';
 import {
@@ -36,7 +35,7 @@ import {
   EditorEventsContext,
   EditorEvents,
 } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
-import { ToolbarType, Version, RicosTranslate, getLangDir, isSSR } from 'wix-rich-content-common';
+import { ToolbarType, Version, RicosTranslate, getLangDir, isSSR, IRicosEditorCommands } from 'wix-rich-content-common';
 import { getEmptyDraftContent, getEditorContentSummary } from 'wix-rich-content-editor-common';
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
 import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
