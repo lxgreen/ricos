@@ -7,7 +7,7 @@ import { isEqual, debounce } from 'lodash';
 import { convertItemData } from '../lib/convert-item-data';
 import { getFixedStyles, isHorizontalLayout, sampleItems } from './defaults';
 import { resizeMediaUrl } from '../lib/resize-media-url';
-import { GALLERY_LAYOUTS } from '../lib/layout-data-provider';
+import { GALLERY_LAYOUTS } from './layout-data-provider';
 import styles from '../statics/styles/viewer.rtlignore.scss';
 import '../statics/styles/gallery-styles.rtlignore.scss';
 import ExpandIcon from './icons/expand';
@@ -165,7 +165,7 @@ class GalleryViewer extends React.Component {
         }
         break;
       case GALLERY_EVENTS.ITEM_ACTION_TRIGGERED:
-        !data.linkData.url && this.hasExpand() && this.handleExpand(data);
+        data.type !== 'video' && !data.linkData.url && this.hasExpand() && this.handleExpand(data);
         break;
       default:
         break;
@@ -188,6 +188,7 @@ class GalleryViewer extends React.Component {
           className={this.styles.expandIcon}
           onClick={e => {
             e.preventDefault();
+            e.stopPropagation();
             this.handleExpand(itemProps);
           }}
         />

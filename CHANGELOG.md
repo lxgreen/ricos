@@ -22,6 +22,35 @@
 - `general`
   - [#3149](https://github.com/wix/ricos/pull/3149) Style(theme) support for BM 
 
+</details>
+<hr/>
+
+## 8.63.1 (Nov 23, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3156](https://github.com/wix/ricos/pull/3156) fromHtml: undefined node protected
+
+## 8.63.0 (Nov 22, 2021)
+
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3153](https://github.com/wix/ricos/pull/3153) item titles don't appear on gallery container hover
+
+### :house: Internal
+
+- `gallery`
+  - [#3152](https://github.com/wix/ricos/pull/3152) update `ProGallery` version to `3.1.38`
+
+## 8.62.0 (Nov 22, 2021)
+
+### :rocket: New Feature
+
+- `ricos-content`
+  - [#3147](https://github.com/wix/ricos/pull/3147) Metadata Utils ([Docs](https://ricos.js.org/docs/content_api/metadata_utils_api))
+
 ### :house: Internal
 
 - `toolbars-new`
@@ -31,9 +60,10 @@
 
 - `toolbars-new`
   - [#3148](https://github.com/wix/ricos/pull/3148) edit button in link toolbar on mobile
-
-</details>
-<hr/>
+- `gallery`
+  - [#3151](https://github.com/wix/ricos/pull/3151) gallery videos plays on click, controls are displayed, fullscreen opens on icon click only
+- `fullscreen`
+  - [#3151](https://github.com/wix/ricos/pull/3151) videos play on click, controls are displayed
 
 ## 8.61.9 (Nov 21, 2021)
 
@@ -41,6 +71,7 @@
 
 - `tiptap-editor`
   - [#3145](https://github.com/wix/ricos/pull/3145) fix onAtomicBlockFocus to be called on text blocks, onChange callback to be called on selection change, fix hasInlineStyle command
+
 ## 8.61.8 (Nov 21, 2021)
 
 ### :bug: Bug Fix
