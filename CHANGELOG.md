@@ -19,8 +19,13 @@
 
 ### :bug: Bug Fix
 
+
 - `plugin-giphy`
   - [#2312](https://github.com/wix/ricos/pull/2312) TS & Add missing hotkeys to giphy selector and more descriptive alt text
+
+- `fullscreen`
+  - [#3162](https://github.com/wix/ricos/pull/3162) videos pause when scrolled out of view
+
 
 </details>
 <hr/>
