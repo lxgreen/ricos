@@ -124,7 +124,8 @@ exports[`plugins > table > should open table modal and create table by the setti
           "rowsHeight": [
             47,
             47
-          ]
+          ],
+          "textWrap": "nowrap"
         },
         "type": "wix-rich-content-plugin-table"
       },
@@ -466,7 +467,8 @@ exports[`plugins > table > should select/unSelect all cells #0`] =
             47,
             47,
             47
-          ]
+          ],
+          "textWrap": "nowrap"
         },
         "type": "wix-rich-content-plugin-table"
       },
@@ -959,7 +961,8 @@ exports[`plugins > table > should add rows and columns from table entry points #
             47,
             47,
             47
-          ]
+          ],
+          "textWrap": "nowrap"
         },
         "type": "wix-rich-content-plugin-table"
       },
@@ -1301,7 +1304,8 @@ exports[`plugins > table > should open table toolbars in different positions #0`
             47,
             47,
             47
-          ]
+          ],
+          "textWrap": "nowrap"
         },
         "type": "wix-rich-content-plugin-table"
       },
@@ -1767,7 +1771,8 @@ exports[`plugins > table > should use table toolbars #0`] =
             47,
             47,
             47
-          ]
+          ],
+          "textWrap": "nowrap"
         },
         "type": "wix-rich-content-plugin-table"
       },
@@ -2118,7 +2123,8 @@ exports[`plugins > table > should use cell alignment #0`] =
             47,
             47,
             47
-          ]
+          ],
+          "textWrap": "nowrap"
         },
         "type": "wix-rich-content-plugin-table"
       },
@@ -2611,7 +2617,8 @@ exports[`plugins > table > should use table toolbar context menu #0`] =
             47,
             47,
             47
-          ]
+          ],
+          "textWrap": "nowrap"
         },
         "type": "wix-rich-content-plugin-table"
       },
@@ -2953,7 +2960,8 @@ exports[`plugins > table > should edit cell #0`] =
             47,
             47,
             47
-          ]
+          ],
+          "textWrap": "nowrap"
         },
         "type": "wix-rich-content-plugin-table"
       },
@@ -3077,10 +3085,10 @@ exports[`plugins > table > should test the first and last block logic #0`] =
                         "data": {
                           "config": {
                             "alignment": "center",
-                            "disableExpand": false,
                             "showDescription": true,
                             "showTitle": true,
-                            "size": "content"
+                            "size": "content",
+                            "textWrap": "wrap"
                           },
                           "src": {
                             "file_name": "8bb438_8d139a5df3aa4f709c66b8cdd28ac307.jpg",
@@ -3190,10 +3198,10 @@ exports[`plugins > table > should test the first and last block logic #0`] =
                         "data": {
                           "config": {
                             "alignment": "center",
-                            "disableExpand": false,
                             "showDescription": true,
                             "showTitle": true,
-                            "size": "content"
+                            "size": "content",
+                            "textWrap": "wrap"
                           },
                           "src": {
                             "file_name": "8bb438_8c0a8aa18b9c456a94d67cd58c104135.jpg",
@@ -3303,10 +3311,10 @@ exports[`plugins > table > should test the first and last block logic #0`] =
                         "data": {
                           "config": {
                             "alignment": "center",
-                            "disableExpand": false,
                             "showDescription": true,
                             "showTitle": true,
-                            "size": "content"
+                            "size": "content",
+                            "textWrap": "wrap"
                           },
                           "src": {
                             "file_name": "8bb438_ae4f2ce0cfab47859d294f36b2d87cd7.jpg",
@@ -3416,10 +3424,10 @@ exports[`plugins > table > should test the first and last block logic #0`] =
                         "data": {
                           "config": {
                             "alignment": "center",
-                            "disableExpand": false,
                             "showDescription": true,
                             "showTitle": true,
-                            "size": "content"
+                            "size": "content",
+                            "textWrap": "wrap"
                           },
                           "src": {
                             "file_name": "8bb438_94a4e8c055d84430af593cb3d31fd67a.jpg",
@@ -3491,7 +3499,8 @@ exports[`plugins > table > should test the first and last block logic #0`] =
             47,
             47,
             47
-          ]
+          ],
+          "textWrap": "nowrap"
         },
         "type": "wix-rich-content-plugin-table"
       },
@@ -3833,7 +3842,8 @@ exports[`plugins > table > should select all cell content after go out from edit
             47,
             47,
             47
-          ]
+          ],
+          "textWrap": "nowrap"
         },
         "type": "wix-rich-content-plugin-table"
       },

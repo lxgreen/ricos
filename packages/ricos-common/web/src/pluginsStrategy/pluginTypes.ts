@@ -5,18 +5,20 @@ import {
   ViewerPlugin,
   EditorPlugin,
   InlineStyleMapper,
+  CreatePluginsDataMap,
 } from 'wix-rich-content-common';
 
 export type BasePlugin = EditorPlugin & ViewerPlugin;
 
-export interface EditorPluginsStrategy {
+export interface RCEPluginProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   config: Record<string, any>;
   plugins: CreatePluginFunction[];
   ModalsMap: ModalsMap;
+  createPluginsDataMap: CreatePluginsDataMap;
 }
 
-export interface ViewerPluginsStrategy {
+export interface RCVPluginProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   config: Record<string, any>;
   typeMappers: PluginTypeMapper[];
@@ -24,5 +26,3 @@ export interface ViewerPluginsStrategy {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   decorators: any[];
 }
-
-export interface PluginsStrategy extends EditorPluginsStrategy, ViewerPluginsStrategy {}

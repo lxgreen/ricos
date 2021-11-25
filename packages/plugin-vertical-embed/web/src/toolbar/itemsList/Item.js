@@ -2,7 +2,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../../../statics/styles/item.scss';
-import { convertDuration } from '../../utils';
 import classnames from 'classnames';
 
 class Item extends PureComponent {
@@ -10,18 +9,24 @@ class Item extends PureComponent {
     item: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired,
     selected: PropTypes.bool,
-    contentType: PropTypes.string.isRequired,
     t: PropTypes.func.isRequired,
   };
 
+  itemRef = React.createRef();
+
   handleClick = () => this.props.onClick(this.props.item);
 
+  componentDidMount() {
+    this.props.selected && this.itemRef?.current.scrollIntoView();
+  }
+
   render() {
-    const { selected, item, contentType, t } = this.props;
-    const { name, imageSrc, description } = item;
+    const { selected, item, t } = this.props;
+    const { name, imageSrc, getDescription } = item;
 
     return (
       <div
+        ref={this.itemRef}
         className={classnames(styles.container, selected && styles.selected)}
         onClick={this.handleClick}
       >
@@ -31,11 +36,7 @@ class Item extends PureComponent {
           data-hook="verticalsImage"
         />
         <div className={styles.title}>{name}</div>
-        {description && (
-          <div className={styles.description}>
-            {contentType === 'Bookings' ? convertDuration(description, t) : description}
-          </div>
-        )}
+        {getDescription && <div className={styles.description}>{getDescription(item)}</div>}
       </div>
     );
   }

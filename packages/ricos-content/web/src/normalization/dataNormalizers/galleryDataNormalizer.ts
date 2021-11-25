@@ -1,6 +1,21 @@
 import { Version } from '../../version';
 
-export default (componentData, config, stateVersion: string) => {
+export default (componentData, normalizerConfig, stateVersion: string) => {
+  const shouldNormalizeDisableDownload =
+    componentData.disableDownload === undefined && normalizerConfig.disableDownload !== undefined;
+
+  const shouldNormalizeExpand =
+    componentData.disableExpand === undefined &&
+    normalizerConfig.disableGalleryExpand !== undefined;
+
+  if (shouldNormalizeDisableDownload) {
+    componentData.disableDownload = normalizerConfig.disableDownload;
+  }
+
+  if (shouldNormalizeExpand) {
+    componentData.disableExpand = normalizerConfig.disableGalleryExpand;
+  }
+
   if (Version.lessThan(stateVersion, '6')) {
     const items = componentData.items.map(item => {
       const { metadata } = item;
@@ -13,6 +28,9 @@ export default (componentData, config, stateVersion: string) => {
       return item;
     });
     componentData.items = items;
+  }
+  if (Version.lessThan(stateVersion, '8.49.0')) {
+    componentData.styles.thumbnailSpacings && (componentData.styles.thumbnailSpacings *= 2);
   }
   return componentData;
 };

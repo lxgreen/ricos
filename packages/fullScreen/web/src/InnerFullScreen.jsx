@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import styles from './fullscreen.rtlignore.scss';
 import fscreen from 'fscreen';
 import { convertItemData } from 'wix-rich-content-plugin-gallery/libs/convert-item-data';
-import layouts from 'wix-rich-content-plugin-gallery/libs/layout-data-provider';
+import { FocusManager } from 'wix-rich-content-ui-components';
 
 const { ProGallery } = require('pro-gallery');
 
@@ -15,6 +15,7 @@ export default class InnerFullscreen extends Component {
     this.state = { isInFullscreen: false };
     this.getItems();
     this.containerRef = React.createRef();
+    this.currentIdx = props.index;
   }
 
   static defaultProps = {
@@ -27,7 +28,17 @@ export default class InnerFullscreen extends Component {
     window.addEventListener('resize', this.onWindowResize);
     this.addFullscreenChangeListener();
     this.setState({ size: this.getDimensions() });
+    this.focusGalleryForA11y();
   }
+
+  focusGalleryForA11y = () => {
+    setTimeout(() => {
+      document
+        .getElementById('pro-gallery-ricos-fullscreen')
+        .querySelector('[data-hook=item-container]')
+        .focus();
+    });
+  };
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.onEsc);
@@ -38,8 +49,6 @@ export default class InnerFullscreen extends Component {
   getItems() {
     const { images } = this.props;
     this.items = convertItemData({ items: images });
-    this.itemIndexMap = {};
-    this.items.map((item, index) => (this.itemIndexMap[item.itemId] = index));
   }
 
   addFullscreenChangeListener = () => {
@@ -91,6 +100,8 @@ export default class InnerFullscreen extends Component {
     this.props.onClose();
   };
 
+  applyOnEnterKeyPress = callback => e => e.keyCode === 13 && callback();
+
   renderCloseButton = () => {
     const { backgroundColor, foregroundColor } = this.props;
     return (
@@ -99,21 +110,13 @@ export default class InnerFullscreen extends Component {
         tabIndex={0}
         className={styles.close}
         onClick={this.onClose}
-        onKeyDown={this.onClose}
+        onKeyDown={this.applyOnEnterKeyPress(this.onClose)}
         aria-label={'Close'}
         data-hook={'fullscreen-close-button'}
       >
         <CloseIcon backgroundColor={backgroundColor} foregroundColor={foregroundColor} />
       </div>
     );
-  };
-
-  onFullscreenToggleKeyDown = event => {
-    if (event.key === 'Escape') {
-      this.onClose();
-    } else {
-      this.toggleFullscreenMode();
-    }
   };
 
   renderFullscreenToggleButton = () => {
@@ -127,7 +130,7 @@ export default class InnerFullscreen extends Component {
         tabIndex={0}
         className={styles.expand_button}
         onClick={this.toggleFullscreenMode}
-        onKeyDown={this.onFullscreenToggleKeyDown}
+        onKeyDown={this.applyOnEnterKeyPress(this.toggleFullscreenMode)}
         aria-label={ariaLabel}
         data-hook={'fullscreen-toggle-button'}
       >
@@ -138,7 +141,7 @@ export default class InnerFullscreen extends Component {
 
   handleGalleryEvents = (name, data) => {
     if (name === 'CURRENT_ITEM_CHANGED') {
-      this.currentIdx = this.itemIndexMap[data.itemId];
+      this.currentIdx = parseInt(data.itemId.split('_').pop());
     }
   };
 
@@ -179,48 +182,59 @@ export default class InnerFullscreen extends Component {
     return { width, height };
   };
 
+  handleContextMenu = e => this.items[this.currentIdx].disableDownload && e.preventDefault();
+
   render() {
-    const { backgroundColor, topMargin, isMobile, index } = this.props;
+    const { backgroundColor, topMargin, isMobile } = this.props;
     const { isInFullscreen, size } = this.state;
     const isHorizontalView = size?.width > size?.height;
     const { arrowsPosition, slideshowInfoSize } = this.getStyleParams(isHorizontalView);
-
     return (
-      <div
-        style={{ background: backgroundColor, ...topMargin }}
-        dir="ltr"
-        data-hook={'fullscreen-root'}
-        className={isInFullscreen || isMobile ? styles.fullscreen_mode : styles.expand_mode}
-        ref={this.containerRef}
-      >
-        {this.renderCloseButton()}
-        {!isMobile && this.renderFullscreenToggleButton()}
-        {size && (
-          <ProGallery
-            items={this.items}
-            currentIdx={typeof this.currentIdx === 'number' ? this.currentIdx : index}
-            eventsListener={this.handleGalleryEvents}
-            resizeMediaUrl={fullscreenResizeMediaUrl}
-            container={size}
-            styles={{
-              ...layouts[5],
-              galleryLayout: 5,
-              cubeType: 'fit',
-              scrollSnap: true,
-              videoPlay: 'auto',
-              allowSocial: false,
-              loveButton: false,
-              allowTitle: true,
-              defaultShowInfoExpand: 1,
-              showArrows: !isMobile,
-              arrowsPosition,
-              slideshowInfoSize,
-            }}
-            customSlideshowInfoRenderer={this.infoElement}
-            customNavArrowsRenderer={this.customArrowRenderer}
-          />
-        )}
-      </div>
+      <FocusManager>
+        <div
+          style={{ background: backgroundColor, ...topMargin }}
+          dir="ltr"
+          data-hook={'fullscreen-root'}
+          className={isInFullscreen || isMobile ? styles.fullscreen_mode : styles.expand_mode}
+          ref={this.containerRef}
+          onContextMenu={this.handleContextMenu}
+          role="none"
+        >
+          {this.renderCloseButton()}
+          {!isMobile && this.renderFullscreenToggleButton()}
+          {size && (
+            <ProGallery
+              domId="ricos-fullscreen"
+              items={this.items}
+              currentIdx={this.currentIdx}
+              eventsListener={this.handleGalleryEvents}
+              resizeMediaUrl={fullscreenResizeMediaUrl}
+              container={size}
+              options={{
+                galleryLayout: 5,
+                cubeType: 'fit',
+                scrollSnap: true,
+                videoPlay: 'onClick',
+                videoLoop: false,
+                videoSound: true,
+                hidePlay: false,
+                showVideoControls: true,
+                allowSocial: false,
+                loveButton: false,
+                allowTitle: true,
+                defaultShowInfoExpand: 1,
+                showArrows: !isMobile,
+                floatingImages: 0,
+                arrowsPosition,
+                slideshowInfoSize,
+                allowContextMenu: true,
+              }}
+              customSlideshowInfoRenderer={this.infoElement}
+              customNavArrowsRenderer={this.customArrowRenderer}
+            />
+          )}
+        </div>
+      </FocusManager>
     );
   }
 }

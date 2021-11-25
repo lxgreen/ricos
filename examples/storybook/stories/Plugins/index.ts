@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/react';
 import LinkPreviewStory from './LinkPreview';
 import GalleryPluginStory from './Gallery';
 import DividerPluginStory from './Divider';
-import AccordionPluginStory from './Accordion';
+import CollapsibleListPluginStory from './CollapsibleList';
 import HeadingsPluginStory from './Headings';
 import SpoilerPluginStory from './Spoiler';
 import AnchorPluginStory from './Anchor';
@@ -14,10 +14,12 @@ import HtmlPluginStory from './HtmlPlugin';
 import FileUploadStory from './FileUpload';
 import MapPluginStory from './Map';
 import TablePluginStory from './Table';
+import LinkPluginStory from './Link';
+import PollPluginStory from './Poll';
 
 storiesOf('Plugins', module)
   .add('Divider', DividerPluginStory)
-  .add('Accordion', AccordionPluginStory)
+  .add('Collapsible List', CollapsibleListPluginStory)
   .add('Spoiler', SpoilerPluginStory)
   .add('Headings', HeadingsPluginStory)
   .add('Anchor', AnchorPluginStory)
@@ -30,4 +32,6 @@ storiesOf('Plugins', module)
   .add('HTML Plugin', HtmlPluginStory)
   .add('File Upload', FileUploadStory)
   .add('Map', MapPluginStory)
-  .add('Table', TablePluginStory);
+  .add('Table', TablePluginStory)
+  .add('Link', LinkPluginStory)
+  .add('Poll', PollPluginStory);

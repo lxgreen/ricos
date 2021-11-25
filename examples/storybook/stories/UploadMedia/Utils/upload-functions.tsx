@@ -1,5 +1,5 @@
-import { getVideoToUpload } from '../../../../main/shared/utils/fileUploadUtil';
-import { testImages, testWixVideos } from '../../../../main/shared/utils/mock';
+import { getVideoToUpload } from '../../../src/shared/utils/fileUploadUtil';
+import { testImages, testWixVideos } from '../../../src/shared/utils/mock';
 
 const errors = [
   { key: 0 },
@@ -29,7 +29,7 @@ export const getMediaUploadErrorFunctions = () => {
     }, 2000);
   };
 
-  const handleVideoUpload = (file, updateEntity, removeEntity) => {
+  const handleVideoUpload = (file, updateEntity, _removeEntity) => {
     const mockVideoIndex = Math.floor(Math.random() * testWixVideos.length);
     const testVideo = testWixVideos[mockVideoIndex];
     const videoToUpload = getVideoToUpload(testVideo.url, testVideo.metadata.posters[0].url);
@@ -53,7 +53,7 @@ export const getMediaUploadErrorFunctions = () => {
       data.push({
         name,
         type,
-        url: 'http://file-examples.com/wp-content/uploads/2017/10/file-sample_150kB.pdf',
+        url: 'https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
         size: 150000,
       });
     });

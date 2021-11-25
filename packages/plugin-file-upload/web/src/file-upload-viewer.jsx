@@ -1,12 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
-import { mergeStyles, validate } from 'wix-rich-content-common';
+import { isEqual, debounce } from 'lodash';
+import { mergeStyles, validate, GlobalContext } from 'wix-rich-content-common';
 import { LoaderIcon, getIcon, DownloadIcon, ErrorIcon, ReadyIcon } from './icons';
 // eslint-disable-next-line max-len
 import pluginFileUploadSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-file-upload.schema.json';
 import styles from '../statics/styles/file-upload-viewer.scss';
+import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 import classnames from 'classnames';
+import { FILE_UPLOAD_TYPE } from './types';
 
 const getNameWithoutType = fileName => {
   if (!fileName || !fileName.includes('.')) {
@@ -16,18 +18,26 @@ const getNameWithoutType = fileName => {
   return s.slice(0, s.length - 1).join('.');
 };
 
+const resizeWidths = { first: 320, second: 140, third: 100 };
+
 class FileUploadViewer extends PureComponent {
   state = {
     resolvedFileUrl: null,
     resolvingUrl: false,
+    currentWidth: 0,
   };
+
+  static contextType = GlobalContext;
 
   constructor(props) {
     super(props);
     const { componentData } = props;
     validate(componentData, pluginFileUploadSchema);
     this.iframeRef = React.createRef();
+    this.fileUploadViewerRef = React.createRef();
   }
+
+  isInResizeRange = resizeWidth => this.fileUploadViewerRef?.current?.clientWidth < resizeWidth;
 
   componentWillReceiveProps(nextProps) {
     if (!isEqual(nextProps.componentData, this.props.componentData)) {
@@ -38,6 +48,21 @@ class FileUploadViewer extends PureComponent {
     }
   }
 
+  componentDidMount() {
+    if (window?.ResizeObserver) {
+      this.resizer = new ResizeObserver(
+        debounce(entries => {
+          this.setState({ currentWidth: Math.round(entries[0].contentRect.width) });
+        }, 60)
+      );
+    }
+    this.resizer.observe(this.fileUploadViewerRef.current);
+  }
+
+  componentWillUnmount() {
+    this.resizeObserver?.unobserve(this.fileUploadViewerRef.current);
+  }
+
   switchReadyIcon = () => {
     return this.setState({ showReadyIcon: true }, () =>
       setTimeout(() => this.setState({ showReadyIcon: false }), 2000)
@@ -45,11 +70,16 @@ class FileUploadViewer extends PureComponent {
   };
 
   renderContainerWithoutLink = () => {
-    const {
-      componentData: { name, type },
-    } = this.props;
+    const { tempDataPlaceHolder, componentData } = this.props;
+    const { name, type } = tempDataPlaceHolder ? tempDataPlaceHolder : componentData;
     return (
-      <div className={this.styles.file_upload_link}>{this.renderViewerBody({ name, type })}</div>
+      <div
+        className={classnames(this.styles.file_upload_link, {
+          [this.styles.width_three]: this.isInResizeRange(resizeWidths.third),
+        })}
+      >
+        {this.renderViewerBody({ name, type })}
+      </div>
     );
   };
 
@@ -63,7 +93,14 @@ class FileUploadViewer extends PureComponent {
     const showLoader = isLoading || resolvingUrl;
     const showFileIcon = (!showLoader && !showReadyIcon && isMobile) || (!isMobile && Icon);
     if (showFileIcon) {
-      return <Icon styles={this.styles} className={this.styles.file_upload_icon} />;
+      return (
+        <Icon
+          styles={this.styles}
+          className={classnames(this.styles.file_upload_type_icon, {
+            [this.styles.width_three]: this.isInResizeRange(resizeWidths.third),
+          })}
+        />
+      );
     } else {
       return (
         <div className={isMobile ? this.styles.mobile_status_icon : this.styles.file_upload_state}>
@@ -74,7 +111,7 @@ class FileUploadViewer extends PureComponent {
           ) : showReadyIcon ? (
             <ReadyIcon />
           ) : (
-            <DownloadIcon />
+            !this.isInResizeRange(resizeWidths.first) && <DownloadIcon />
           )}
         </div>
       );
@@ -90,13 +127,9 @@ class FileUploadViewer extends PureComponent {
   };
 
   getFileInfoString(type) {
-    const {
-      componentData: { size, error },
-      t,
-      isLoading,
-    } = this.props;
+    const { componentData, t, isLoading, tempDataPlaceHolder } = this.props;
     const { resolvingUrl } = this.state;
-    if (error) {
+    if (componentData.error) {
       return {
         infoString: t('UploadFile_Error_Generic_Item'),
         infoStyle: this.styles.file_upload_text_error,
@@ -107,6 +140,7 @@ class FileUploadViewer extends PureComponent {
     let infoString = t(translationKey, {
       fileType: type?.toUpperCase(),
     });
+    const size = componentData.size || tempDataPlaceHolder?.size;
     if (size) {
       infoString = infoString + ' • ' + this.sizeToString(size);
     }
@@ -122,13 +156,29 @@ class FileUploadViewer extends PureComponent {
       <>
         {this.renderIcon(Icon)}
         {!isMobile && this.renderIcon()}
-        <div className={this.styles.file_upload_text_container}>
-          <div className={this.styles.file_upload_name_container}>
-            <div className={this.styles.file_upload_name}>{nameWithoutType}</div>
-            {type && <div className={this.styles.file_upload_extension}>{'.' + type}</div>}
+        {!this.isInResizeRange(resizeWidths.third) && (
+          <div
+            className={classnames(this.styles.file_upload_text_container, {
+              [this.styles.width_two]: this.isInResizeRange(resizeWidths.second),
+            })}
+          >
+            <div className={this.styles.file_upload_name_container}>
+              {!this.isInResizeRange(resizeWidths.second) && (
+                <div className={this.styles.file_upload_name}>{nameWithoutType}</div>
+              )}
+              {type && (
+                <div
+                  className={classnames(this.styles.file_upload_extension, {
+                    [this.styles.width_one]: this.isInResizeRange(resizeWidths.first),
+                  })}
+                >
+                  {'.' + type}
+                </div>
+              )}
+            </div>
+            <div className={infoStyle}>{infoString}</div>
           </div>
-          <div className={infoStyle}>{infoString}</div>
-        </div>
+        )}
       </>
     );
   }
@@ -136,15 +186,22 @@ class FileUploadViewer extends PureComponent {
   renderViewer(fileUrl) {
     const {
       componentData: { name, type, error },
+      tempDataPlaceHolder,
     } = this.props;
     const { downloadTarget } = this.props.settings;
 
-    if (error) {
+    if (error || tempDataPlaceHolder) {
       return this.renderContainerWithoutLink();
     }
-
     return (
-      <a href={fileUrl} target={downloadTarget} className={this.styles.file_upload_link}>
+      <a
+        href={fileUrl}
+        target={downloadTarget}
+        className={classnames(this.styles.file_upload_link, {
+          [this.styles.width_three]: this.isInResizeRange(resizeWidths.third),
+        })}
+        onClick={this.onFileClick}
+      >
         {this.renderViewerBody({ name, type })}
       </a>
     );
@@ -185,7 +242,9 @@ class FileUploadViewer extends PureComponent {
         onKeyDown={resolveIfEnter}
         role="button"
         tabIndex={0}
-        className={this.styles.file_upload_link}
+        className={classnames(this.styles.file_upload_link, {
+          [this.styles.width_three]: this.isInResizeRange(resizeWidths.third),
+        })}
       >
         {this.renderViewerBody({ name, type })}
       </div>
@@ -198,25 +257,36 @@ class FileUploadViewer extends PureComponent {
     if (!withFileUrlResolver) {
       return null;
     }
+    const loading = this.context.experiments.lazyImagesAndIframes?.enabled ? 'lazy' : undefined;
 
-    return <iframe ref={this.iframeRef} style={{ display: 'none' }} title="file" />;
+    return (
+      <iframe ref={this.iframeRef} style={{ display: 'none' }} title="file" loading={loading} />
+    );
   }
 
+  onFileClick = () => this.props.helpers.onViewerAction?.(FILE_UPLOAD_TYPE, 'Click');
+
   render() {
-    const { componentData, theme, setComponentUrl } = this.props;
+    const { componentData, theme, setComponentUrl, tempDataPlaceHolder } = this.props;
     this.styles = this.styles || mergeStyles({ styles, theme });
     const fileUrl = componentData.url || this.state.resolvedFileUrl;
     setComponentUrl?.(fileUrl);
-    const viewer = fileUrl ? this.renderViewer(fileUrl) : this.renderFileUrlResolver();
+    const viewer =
+      fileUrl || tempDataPlaceHolder ? this.renderViewer(fileUrl) : this.renderFileUrlResolver();
     const style = classnames(
       this.styles.file_upload_container,
       componentData.error && this.styles.file_upload_error_container
     );
     return (
-      <div className={style} data-hook="fileUploadViewer">
-        {viewer}
-        {this.renderAutoDownloadIframe()}
-      </div>
+      <Tooltip
+        content={this.isInResizeRange(resizeWidths.first) && componentData.name}
+        tooltipOffset={{ y: 25 }}
+      >
+        <div className={style} data-hook="fileUploadViewer" ref={this.fileUploadViewerRef}>
+          {viewer}
+          {this.renderAutoDownloadIframe()}
+        </div>
+      </Tooltip>
     );
   }
 }
@@ -224,11 +294,13 @@ class FileUploadViewer extends PureComponent {
 FileUploadViewer.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   componentData: PropTypes.object.isRequired,
+  tempDataPlaceHolder: PropTypes.object,
   settings: PropTypes.object,
   theme: PropTypes.object.isRequired,
   setComponentUrl: PropTypes.func,
   t: PropTypes.func,
   isMobile: PropTypes.bool,
+  helpers: PropTypes.object,
 };
 
 FileUploadViewer.defaultProps = {

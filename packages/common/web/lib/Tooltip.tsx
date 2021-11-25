@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { ReactElement } from 'react';
+import React, { ReactElement, Suspense } from 'react';
 import { getTooltipStyles } from './tooltipStyles';
-import ToolTip from 'react-portal-tooltip';
 import { GlobalContext } from '../src/Utils/contexts';
 
 declare global {
@@ -11,7 +10,7 @@ declare global {
 }
 
 interface Props {
-  content: string;
+  content?: string;
   tooltipOffset?: { x: number; y: number };
   children: ReactElement;
   isError?: boolean;
@@ -20,6 +19,16 @@ interface Props {
   hideArrow?: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const lazyWithPreload = (factory: () => Promise<any>) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const Component: any = React.lazy(factory);
+  Component.preload = factory;
+  return Component;
+};
+
+const ToolTipComponent = lazyWithPreload(() => import('react-portal-tooltip'));
+
 class Tooltip extends React.Component<Props> {
   static defaultProps = {
     isError: false,
@@ -27,9 +36,11 @@ class Tooltip extends React.Component<Props> {
     tooltipOffset: { x: 0, y: 0 },
   };
 
-  disabled: boolean;
-  mousePosition: { x: number; y: number };
-  timeoutId: NodeJS.Timeout;
+  disabled = false;
+
+  mousePosition: { x: number; y: number } = { x: 0, y: 0 };
+
+  timeoutId!: NodeJS.Timeout;
 
   state = {
     tooltipVisible: false,
@@ -46,6 +57,7 @@ class Tooltip extends React.Component<Props> {
   }
 
   showTooltip = (e: MouseEvent) => {
+    ToolTipComponent.preload();
     if (!(e.target as HTMLButtonElement).disabled) {
       this.mousePosition = { x: e.clientX, y: e.clientY };
 
@@ -105,22 +117,27 @@ class Tooltip extends React.Component<Props> {
     const elementProps = tooltipVisible
       ? { ...this.wrapperProps, 'data-tooltipid': true }
       : this.wrapperProps;
+
+    const tooltipArrow = hideArrow ? null : 'center';
     return isMobile || this.disabled || !content ? (
       children
     ) : (
       <>
         {React.cloneElement(React.Children.only(children), elementProps)}
         {tooltipVisible ? (
-          <ToolTip
-            active={tooltipVisible}
-            parent={'[data-tooltipid=true]'}
-            position={place}
-            arrow={!hideArrow ? 'center' : null}
-            style={style}
-            tooltipTimeout={10}
-          >
-            {content}
-          </ToolTip>
+          <Suspense fallback={null}>
+            <ToolTipComponent
+              active={tooltipVisible}
+              parent={'[data-tooltipid=true]'}
+              position={place}
+              arrow={tooltipArrow}
+              style={style}
+              tooltipTimeout={10}
+              group={'ricos'}
+            >
+              {content}
+            </ToolTipComponent>
+          </Suspense>
         ) : null}
       </>
     );

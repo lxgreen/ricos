@@ -2,11 +2,11 @@
   "nodes": [
     {
       "type": "PARAGRAPH",
-      "key": "ba0v8",
+      "id": "0",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "f06bd",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "Lorem ipsum dolor sit amet 😎, consectetur adipiscing elit. Quisque quis ex auctor, facilisis lectus id, sodales ipsum. In sagittis ultrices sem ac elementum. Ut ut(www.google.com) iaculis ex. Lorem ipsum dolor sit @amet, consectetur adipiscing elit. In hac habitasse platea dictumst. Aenean placerat, quam eget vestibulum varius(www.link.com), nisl ligula vulputate tortor, id lacinia odio magna eu arcu.",
@@ -15,24 +15,28 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "83qh1",
+      "id": "1",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "94hjd",
+      "id": "2",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "59fdo",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "Dad holding his baby",
@@ -41,42 +45,68 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "4aovd",
+      "id": "3",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "9pt8r",
+          "id": "",
           "nodes": [],
           "textData": {
-            "text": "https://static.wixstatic.com/media/8bb438_67a68c0652d740bab508f68662acc882.jpg/v1/fill/w_3192,h_2124,al_c,q_90/8bb438_67a68c0652d740bab508f68662acc882.jpg",
+            "text": "https://static.wixstatic.com/media/8bb438_67a68c0652d740bab508f68662acc882.jpg",
             "decorations": []
           }
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "9f9oo",
+      "id": "4",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "docd3",
+      "id": "5",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "2slvu",
+          "id": "",
+          "nodes": [],
+          "textData": {
+            "text": "iJustine | Create a Website with Wix Artificial Design Intelligence",
+            "decorations": []
+          }
+        }
+      ],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "6",
+      "nodes": [
+        {
+          "type": "TEXT",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "https://www.youtube.com/watch?v=CoJ23XNHgG0",
@@ -85,24 +115,28 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "5hik9",
+      "id": "7",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "cvur1",
+      "id": "8",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "8u3tc",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "https://video.wixstatic.com/video/d3dd72_9397c7bfa03f4fa8920b16bdd667f73b/1080p/mp4/file.mp4",
@@ -111,56 +145,68 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "6ltrs",
+      "id": "9",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "4lpbj",
+      "id": "10",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "eba9l",
+      "id": "11",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "b89ou",
+      "id": "12",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "1uc8g",
+      "id": "13",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "86jpc",
+      "id": "14",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "2kfc7",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "https://twitter.com/CNN/status/1244886173409034240",
@@ -169,40 +215,88 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "1dj2c",
+      "id": "15",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "2ujqk",
+      "id": "16",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "1qe9g",
+      "id": "17",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "h9qo",
+      "id": "18",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "19",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "20",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "21",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "22",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "3maf4",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "songs = pd.read_csv(SONGS_FILE)",
@@ -211,24 +305,28 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "5l2s2",
+      "id": "23",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "bl6ql",
+      "id": "24",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "2qthp",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "https://media1.giphy.com/media/Cn44PUsTVimwBAtIRx/giphy.gif?cid=558f2fbejldbq3cgzrasbh2j4z47w8nn51qcbjzc6dg7g7af&rid=giphy.gif",
@@ -237,24 +335,28 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "5nfc9",
+      "id": "25",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "3fvcm",
+      "id": "26",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "acmv5",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "Wix HQ, Nemal Tel Aviv Street, Tel Aviv-Yafo, Israel",
@@ -263,40 +365,48 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "p1bd",
+      "id": "27",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "eatsq",
+      "id": "28",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "9cs3o",
+      "id": "29",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "bh14p",
+      "id": "30",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "ce5sj",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "flowers",
@@ -305,68 +415,148 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "d0kcf",
+      "id": "31",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "85m5v",
+          "id": "",
           "nodes": [],
           "textData": {
-            "text": "https://sapirs0.wixsite.com/mysite/product-page/flowers",
+            "text": "https://www.wix.app/stores/54e7b326-49ec-434f-a7cc-c2ad1eaec049/catalog/265beaf5-3008-c5c2-fa5e-1447e0bebf71?d=https://sapirs0.wixsite.com/mysite/product-page/flowers",
             "decorations": []
           }
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "535io",
+      "id": "32",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "4msgb",
+      "id": "33",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "gjue",
+          "id": "",
           "nodes": [],
           "textData": {
-            "text": "https://soundcloud.com/cagdasdemirbilek/narcos-tuyo-rodrigo-amarante",
+            "text": "2-week course of intensive physical research, with a sense of plenty of time for process and discovery. Rooted in Ohad N",
             "decorations": []
           }
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "358ba",
-      "nodes": [],
-      "paragraphData": {
-        "textAlignment": "LEFT"
-      }
-    },
-    {
-      "type": "PARAGRAPH",
-      "key": "fbjd5",
+      "id": "34",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "kthn",
+          "id": "",
+          "nodes": [],
+          "textData": {
+            "text": "https://www.wix.app/events/54e7b326-49ec-434f-a7cc-c2ad1eaec049/65129504-3bfc-44c8-90cc-f9eedfea9321/details?d=https://sapirs0.wixsite.com/mysite/event-details/2-week-course-of-intensive-physical-research-with-a-sense-of-plenty-of-time-for-process-and-discovery-rooted-in-ohad-n",
+            "decorations": []
+          }
+        }
+      ],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "35",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "36",
+      "nodes": [
+        {
+          "type": "TEXT",
+          "id": "",
+          "nodes": [],
+          "textData": {
+            "text": "CUPCAKE MASTER",
+            "decorations": []
+          }
+        }
+      ],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "37",
+      "nodes": [
+        {
+          "type": "TEXT",
+          "id": "",
+          "nodes": [],
+          "textData": {
+            "text": "https://www.wix.app/bookings/54e7b326-49ec-434f-a7cc-c2ad1eaec049/service/03ef6546-985d-4739-951e-ca897375b967/details?d=https://sapirs0.wixsite.com/mysite/bookings-checkout/cupcake-master",
+            "decorations": []
+          }
+        }
+      ],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "38",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "39",
+      "nodes": [
+        {
+          "type": "TEXT",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "www.wix.com",
@@ -375,32 +565,38 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "aug4q",
+      "id": "40",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "aom12",
+      "id": "41",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "5b46i",
+      "id": "42",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "3jodj",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "Nunc eros ante , porttitor sed tempor nec, sagittis non mi. Nulla non vulputate magna, semper convallis sapien.",
@@ -409,16 +605,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "90svj",
+      "id": "43",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "e45gk",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "1. In imperdiet eros elementum nulla fringilla sollicitudin.",
@@ -427,16 +625,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "dbdt1",
+      "id": "44",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "ml5a",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "2. Proin dictum aliquam sapien at pretium.",
@@ -445,16 +645,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "4jiar",
+      "id": "45",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "dbm2",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "3. Quisque pulvinar ac erat vitae imperdiet.",
@@ -463,16 +665,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "120ae",
+      "id": "46",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "fu7rl",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "4. Phasellus ultricies urna ut ultrices imperdiet.",
@@ -481,16 +685,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "7ms9n",
+      "id": "47",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "76uer",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "5. Nulla non varius ipsum, sit amet consectetur quam.",
@@ -499,16 +705,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "7cgq4",
+      "id": "48",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "42nh6",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "6. Nunc scelerisque fringilla aliquet.",
@@ -517,16 +725,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "62k6g",
+      "id": "49",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "7f750",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "7. Praesent purus nibh, sodales",
@@ -535,16 +745,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "4b6gu",
+      "id": "50",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "8elq1",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "• non efficitur a",
@@ -553,16 +765,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "2t71n",
+      "id": "51",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "ermes",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "9. consequat ac ante.",
@@ -571,24 +785,28 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "8ke7k",
+      "id": "52",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "9dlfn",
+      "id": "53",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "bvfr9",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "• Aenean sed posuere odio.",
@@ -597,16 +815,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "4i490",
+      "id": "54",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "been8",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "• Pellentesque imperdiet maximus turpis nec faucibus.",
@@ -615,16 +835,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "ermu4",
+      "id": "55",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "8dr1b",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "• Nulla at tempus lectus,",
@@ -633,16 +855,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "f4sif",
+      "id": "56",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "7ut6m",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "• non tempor tortor.",
@@ -651,16 +875,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "f3vtm",
+      "id": "57",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "9ucl",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "• Vivamus mauris",
@@ -669,16 +895,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "15vjb",
+      "id": "58",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "ducsf",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "• diam",
@@ -687,16 +915,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "9eoeo",
+      "id": "59",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "1e8f2",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "• Auctor in sollicitudin eget, suscipit sed nulla.",
@@ -705,16 +935,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "a7ae6",
+      "id": "60",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "dgvie",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "• Aenean sapien lectus, interdum ultrices enim a, sodales ultrices mi. Quisque ut mi metus.",
@@ -723,24 +955,28 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "5ker0",
+      "id": "61",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "fqfi9",
+      "id": "62",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "8p4i8",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "Donec sit amet sapien quis velit ultrices sollicitudin id facilisis ligula.",
@@ -749,24 +985,28 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "3vs0s",
+      "id": "63",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "lp7r",
+      "id": "64",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "3nbl8",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In hac 👨‍👩‍👦‍👦 habitasse platea dictumst. In hac habitasse platea dictumst. Cras porta dolor lorem, ac luctus justo pretium quis. Vestibulum et lacinia tortor, in viverra ipsum.",
@@ -775,42 +1015,48 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "61vsc",
+      "id": "65",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "cpk59",
+      "id": "66",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "5bdhb",
+          "id": "",
           "nodes": [],
           "textData": {
-            "text": "https://static.wixstatic.com/media/8bb438_35ed730d87524b1a88179adc18ed9cd4.jpg/v1/fill/w_1920,h_1280,al_c,q_90/8bb438_35ed730d87524b1a88179adc18ed9cd4.jpg",
+            "text": "https://static.wixstatic.com/media/8bb438_35ed730d87524b1a88179adc18ed9cd4.jpg",
             "decorations": []
           }
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "6267d",
+      "id": "67",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "bj1r9",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק.",
@@ -819,16 +1065,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "bi5h",
+      "id": "68",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "1th8t",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "בראיט ולחת צורק מונחף, בגורמי מגמש.",
@@ -837,24 +1085,186 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "d464v",
+      "id": "69",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "70",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "71",
+      "nodes": [
+        {
+          "type": "TEXT",
+          "id": "",
+          "nodes": [],
+          "textData": {
+            "text": "Collapsible List",
+            "decorations": []
+          }
+        }
+      ],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "72",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "73",
+      "nodes": [
+        {
+          "type": "TEXT",
+          "id": "",
+          "nodes": [],
+          "textData": {
+            "text": "#LivingTheDream",
+            "decorations": []
+          }
+        }
+      ],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "74",
+      "nodes": [
+        {
+          "type": "TEXT",
+          "id": "",
+          "nodes": [],
+          "textData": {
+            "text": "Yo yo yo!",
+            "decorations": []
+          }
+        }
+      ],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "75",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "76",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "77",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "78",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "79",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "80",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "81",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "82",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     }
   ],
   "metadata": {
-    "createdVersion": "8.24.0",
-    "updatedVersion": "8.24.0",
-    "updatedDate": {
-      "seconds": 1614594477,
-      "nanos": 874000000
-    }
+    "version": 1,
+    "createdTimestamp": "2021-07-15T07:42:30.023Z",
+    "updatedTimestamp": "2021-07-15T07:42:30.023Z",
+    "id": "13a5deba-e13d-41a6-9527-5dc886fff96f"
   }
 }

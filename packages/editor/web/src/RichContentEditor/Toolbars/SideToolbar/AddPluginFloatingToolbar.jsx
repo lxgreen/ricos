@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { FocusManager } from 'wix-rich-content-ui-components';
 import {
-  FocusManager,
   EditorModals,
   getModalStyles,
   TOOLBARS,
-  isElementOutOfWindow,
+  elementOverflowWithEditor,
 } from 'wix-rich-content-editor-common';
-import { isSSR } from 'wix-rich-content-common';
+import { isSSR, Version } from 'wix-rich-content-common';
 import { PlusIcon, PlusIconSmall } from '../../Icons';
 import Styles from '../../../../statics/styles/side-toolbar.scss';
 import AddPluginMenu from './AddPluginMenu';
@@ -63,8 +63,20 @@ export default class AddPluginFloatingToolbar extends PureComponent {
   onClick = event => {
     event.preventDefault();
     event.stopPropagation();
-    const { isMobile } = this.props;
-    if (!isMobile) {
+    const { isMobile, onClick, helpers, getEditorState } = this.props;
+    const contentId = getEditorState().getCurrentContent().ID;
+    helpers.onMenuLoad?.({
+      version: Version.currentVersion,
+      menu: 'SIDE',
+      contentId,
+    });
+    if (
+      onClick &&
+      !event.target.closest('[data-hook=TableComponent]') &&
+      !event.target.closest('[data-hook=collapsibleListComponent]')
+    ) {
+      onClick();
+    } else if (!isMobile) {
       this.togglePopup();
     } else {
       this.openAddPluginModal();
@@ -75,6 +87,7 @@ export default class AddPluginFloatingToolbar extends PureComponent {
     switch (event.key) {
       case 'Escape':
         this.hidePopup();
+        this.props.focusEditor();
         break;
       default:
         break;
@@ -110,7 +123,8 @@ export default class AddPluginFloatingToolbar extends PureComponent {
     const { addPluginMenuConfig } = this.props;
     const smallPlusIcon = addPluginMenuConfig?.tablePluginMenu;
     if (smallPlusIcon && this.popupRef) {
-      const isToolbarOverflow = isElementOutOfWindow(this.popupRef);
+      const toolbarOverflowWithEditor = elementOverflowWithEditor(this.popupRef);
+      const isToolbarOverflow = !!toolbarOverflowWithEditor.overflowRight;
       const editorWidth = this.popupRef.closest('[data-id=rce]').getBoundingClientRect().width;
       return {
         left: isToolbarOverflow ? editorWidth - width / 2 + 25 : width / 2 + 22,
@@ -137,6 +151,7 @@ export default class AddPluginFloatingToolbar extends PureComponent {
       t,
       addPluginMenuConfig,
       isMobile,
+      helpers,
     } = this.props;
     const { toolbarStyles } = theme || {};
     const popoupClassNames = classNames(
@@ -170,6 +185,7 @@ export default class AddPluginFloatingToolbar extends PureComponent {
           theme={theme}
           pluginMenuButtonRef={this.selectButton}
           toolbarName={TOOLBARS.SIDE}
+          helpers={helpers}
         />
       </div>
     );
@@ -240,4 +256,6 @@ AddPluginFloatingToolbar.propTypes = {
   helpers: PropTypes.object,
   t: PropTypes.func,
   addPluginMenuConfig: PropTypes.object,
+  onClick: PropTypes.func,
+  focusEditor: PropTypes.func,
 };

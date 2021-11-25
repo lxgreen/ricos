@@ -14,6 +14,7 @@ export class PollOptionBase extends React.PureComponent {
 
   state = {
     loading: false,
+    checked: this.isUserChoice(),
   };
 
   isEditAllowed() {
@@ -54,8 +55,10 @@ export class PollOptionBase extends React.PureComponent {
     try {
       if (this.isUserChoice()) {
         await this.props.unvote(this.props.option.id);
+        this.setState({ checked: false });
       } else {
         await this.props.vote(this.props.option.id);
+        this.setState({ checked: true });
       }
     } catch (error) {
     } finally {
@@ -64,7 +67,10 @@ export class PollOptionBase extends React.PureComponent {
   }
 
   handleVoteClick = async e => {
-    const { validateUser, preventInteraction, preventVoting } = this.props.rce;
+    const { validateUser, onBeforeVote, preventInteraction, preventVoting } = this.props.rce;
+    const { voteRole } = this.props.poll.settings;
+
+    const onVoteClick = onBeforeVote || validateUser;
 
     e.preventDefault();
 
@@ -72,8 +78,8 @@ export class PollOptionBase extends React.PureComponent {
       return;
     }
 
-    if (validateUser) {
-      validateUser().then(this.toggleVote.bind(this), () => {});
+    if (onVoteClick) {
+      onVoteClick({ voteRole }).then(this.toggleVote.bind(this), () => {});
     } else {
       this.toggleVote();
     }

@@ -9,6 +9,11 @@ import {
   RelValue,
   EditorPlugin,
   ViewerPlugin,
+  onAtomicBlockFocus,
+  CustomAnchorScroll,
+  Link_Rel,
+  AvailableExperiments,
+  LinkPreviewData,
 } from 'wix-rich-content-common';
 import { EditorState, EditorProps } from 'draft-js';
 import { PreviewConfig } from 'wix-rich-content-preview';
@@ -29,10 +34,15 @@ export interface RicosProps {
   isMobile?: boolean;
   linkSettings?: LinkSettings;
   locale?: string;
+  localeContent?: string;
   mediaSettings?: MediaSettings;
   onError?: OnErrorFunction;
   theme?: RicosTheme;
   textAlignment?: TextAlignment;
+  onAtomicBlockFocus?: onAtomicBlockFocus;
+  experiments?: AvailableExperiments;
+  iframeSandboxDomain?: string;
+  textWrap?: boolean;
   /* Changes to this interface should also be reflected in the API docs */
 }
 
@@ -57,17 +67,17 @@ export interface RicosEditorProps extends RicosProps {
   onBusyChange?: OnBusyChangeFunction;
   injectedContent?: DraftContent;
   maxTextLength?: number;
-  editorEvents1?: EditorEvents;
-  editorEvents2?: EditorEvents;
-
+  editorEvents?: EditorEvents;
   /* Changes to this interface should also be reflected in the API docs */
 }
 
-export interface RicosViewerProps extends RicosProps {
+export interface RicosViewerProps extends RicosProps, Pick<RichContentViewerProps, 'addAnchors'> {
   /* Changes to this interface should also be reflected in the API docs */
   plugins?: ViewerPlugin[];
   preview?: PreviewConfig;
   seoSettings?: boolean | SEOSettings;
+  textSelectionToolbar?: boolean;
+  linkPreviewPopoverFetchData?: (url: string) => Promise<LinkPreviewData>;
   /* Changes to this interface should also be reflected in the API docs */
 }
 
@@ -82,9 +92,10 @@ export interface EditorDataInstance {
   getContentTraits: () => {
     isEmpty: boolean;
     isContentChanged: boolean;
+    isLastChangeEdit: boolean;
   };
   getEditorState: () => EditorState;
-  refresh: (editorState: EditorState) => void;
+  refresh: (editorState: EditorState, onError?: OnErrorFunction | undefined) => void;
   waitForUpdate: () => void;
   getContentStatePromise: () => Promise<DraftContent>;
 }
@@ -116,12 +127,15 @@ export type FullscreenProps = { backgroundColor?: string; foregroundColor?: stri
 export interface MediaSettings {
   pauseMedia?: boolean;
   disableRightClick?: boolean;
+  disableDownload?: boolean;
   fullscreenProps?: FullscreenProps;
 }
 
 export interface LinkSettings {
   anchorTarget?: AnchorTarget;
   relValue?: RelValue;
+  rel?: Link_Rel;
+  customAnchorScroll?: CustomAnchorScroll;
 }
 
 export type TextAlignment = 'left' | 'right';

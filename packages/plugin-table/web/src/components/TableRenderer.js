@@ -10,9 +10,11 @@ export default class TableRenderer extends PureComponent {
     super(props);
     this.columns = [props.table.getColNum()];
   }
+
   componentDidMount() {
     window.addEventListener('resize', this.onResizeWindow);
   }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.onResizeWindow);
   }
@@ -53,17 +55,18 @@ export default class TableRenderer extends PureComponent {
     return (
       <table className={styles.container}>
         <colgroup>
-          {tableRef?.offsetWidth &&
-            table.getColsWidth().map((cellWidth, i) => (
-              <col
-                key={i}
-                ref={ref => ref && (this.columns[i] = ref)}
-                style={{
-                  width: table.getCellWidthAsPixel(tableRef.offsetWidth - 1, i, colsMinWidth),
-                  minWidth: colsMinWidth?.[i] || CELL_AUTO_MIN_WIDTH,
-                }}
-              />
-            ))}
+          {table.getColsWidth().map((cellWidth, i) => (
+            <col
+              key={i}
+              ref={ref => ref && (this.columns[i] = ref)}
+              style={{
+                width: tableRef?.offsetWidth
+                  ? table.getCellWidthAsPixel(tableRef.offsetWidth - 1, i, colsMinWidth)
+                  : cellWidth,
+                minWidth: colsMinWidth?.[i] || CELL_AUTO_MIN_WIDTH,
+              }}
+            />
+          ))}
         </colgroup>
         <thead>
           {isEditMode && (

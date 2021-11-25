@@ -6,7 +6,7 @@ import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../../../../statics/styles/inline-toolbar-dropdown-button.scss';
 import ClickOutside from 'react-click-outsider';
 
-export default ({ buttons, activeItem, onChange, tooltipTextKey }) =>
+export default ({ buttons, activeItem, onChange, tooltipTextKey, buttonName }) =>
   class TextDropdownButton extends PureComponent {
     static propTypes = {
       getEditorState: PropTypes.func.isRequired,
@@ -17,6 +17,8 @@ export default ({ buttons, activeItem, onChange, tooltipTextKey }) =>
       isMobile: PropTypes.bool,
       t: PropTypes.func,
       tabIndex: PropTypes.number,
+      helpers: PropTypes.object,
+      buttonName: PropTypes.string,
     };
 
     constructor(props) {
@@ -62,9 +64,13 @@ export default ({ buttons, activeItem, onChange, tooltipTextKey }) =>
     showOptions = () => this.setState({ isOpen: true });
 
     renderOptions = () => {
-      const { getEditorState, setEditorState } = this.props;
+      const { getEditorState, setEditorState, helpers } = this.props;
       const { selected } = this.state;
       const onClick = value => {
+        helpers?.onToolbarButtonClick?.({
+          buttonName,
+          value,
+        });
         onChange(getEditorState, setEditorState, value);
         this.setState({ selected: activeItem({ value }), isOpen: false });
       };
@@ -93,10 +99,14 @@ export default ({ buttons, activeItem, onChange, tooltipTextKey }) =>
         selected: { Icon },
         isOpen,
       } = this.state;
-      const { isMobile, tabIndex, t } = this.props;
+      const { isMobile, tabIndex, t, helpers } = this.props;
       const tooltipText = t(tooltipTextKey);
       const textForHooks = tooltipText.replace(/\s+/, '');
       const dataHookText = `textDropDownButton_${textForHooks}`;
+      const onClick = () => {
+        helpers?.onToolbarButtonClick?.({ buttonName });
+        this.showOptions();
+      };
 
       return (
         <div className={this.styles.inlineToolbarDropdown_wrapper}>
@@ -105,7 +115,7 @@ export default ({ buttons, activeItem, onChange, tooltipTextKey }) =>
             theme={this.theme}
             isMobile={isMobile}
             dataHook={dataHookText}
-            onClick={this.showOptions}
+            onClick={onClick}
             tabIndex={tabIndex}
             tooltipText={tooltipText}
             tooltipOffset={{ y: -10 }}

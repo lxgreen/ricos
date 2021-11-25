@@ -49,9 +49,7 @@ class TableToolbar extends Component {
       buttonListValue.onClick = args => {
         cellsToolbarsProps.forEach(toolbarProp => {
           const currentListButton = toolbarProp.buttons[buttonKeyName].buttonList[buttonListKey];
-          if (buttonListValue.isActive() === currentListButton.isActive()) {
-            currentListButton.onClick(args);
-          }
+          currentListButton.onClick(args);
         });
       };
     });
@@ -127,6 +125,7 @@ class TableToolbar extends Component {
       merge,
       distributeRows,
       distributeColumns,
+      triggerBi,
     } = this.props;
     const range = selected && getRange(selected);
     const selectedRows = range && table.getSelectedRows(range);
@@ -161,7 +160,8 @@ class TableToolbar extends Component {
       merge,
       t,
       distributeRows,
-      distributeColumns
+      distributeColumns,
+      triggerBi
     );
     const buttons = [
       {
@@ -221,6 +221,7 @@ class TableToolbar extends Component {
   };
 
   focus = () => this.ref.focus();
+
   setRef = ref => (this.ref = ref);
 
   render() {
@@ -265,6 +266,7 @@ TableToolbar.propTypes = {
   distributeRows: PropTypes.func,
   distributeColumns: PropTypes.func,
   getTableScrollLeft: PropTypes.func,
+  triggerBi: PropTypes.object,
 };
 
 export default TableToolbar;

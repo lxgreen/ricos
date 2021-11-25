@@ -3,6 +3,8 @@ import {
   RichContentTheme,
   PaletteColors,
   RicosCustomStyles,
+  RicosSettingsStyles,
+  ThemeData,
 } from 'wix-rich-content-common';
 import { CSSProperties, ReactElement } from 'react';
 import { BasePlugin } from '../types';
@@ -73,6 +75,7 @@ export interface RicosTheme {
   paletteConfig?: PaletteConfig;
   typography?: RicosTypography;
   customStyles?: RicosCustomStyles;
+  settingsStyles?: RicosSettingsStyles;
 }
 
 export interface PaletteConfig {
@@ -83,6 +86,18 @@ export interface PaletteConfig {
    * Default: `false`
    */
   contentBgColor?: boolean;
+  /** Override the `actionColor` of floating panels, toolbars & settings modals.
+   *
+   * **Note:** `RicosEditor` only.
+   * @default actionColor
+   */
+  settingsActionColor?: string;
+  /** Override the `actionColor` of plugin when focused / clicked.
+   *
+   * **Note:** `RicosEditor` only.
+   * @default actionColor
+   */
+  focusActionColor?: string;
 }
 
 export interface ThemeStrategyArgs {
@@ -95,6 +110,7 @@ export interface ThemeStrategyArgs {
 export interface ThemeStrategyResult {
   theme: RicosCssOverride;
   html?: ReactElement;
+  themeData: ThemeData;
 }
 
 export type CssVarsObject = Record<string, unknown>;

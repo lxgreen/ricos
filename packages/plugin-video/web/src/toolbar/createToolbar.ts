@@ -1,20 +1,28 @@
 import createInlineButtons from './inline-buttons';
 import createInsertButtons from './insert-buttons';
-import { CreatePluginToolbar, TranslationFunction } from 'wix-rich-content-common';
+import {
+  CreatePluginToolbar,
+  TranslationFunction,
+  AvailableExperiments,
+} from 'wix-rich-content-common';
 import { VideoPluginEditorConfig } from '../types';
 
 const createToolbar: CreatePluginToolbar = ({
   t,
   settings,
   isMobile,
+  disableDownload,
+  experiments,
 }: {
   t: TranslationFunction;
   settings: VideoPluginEditorConfig;
   isMobile: boolean;
+  disableDownload?: boolean;
+  experiments: AvailableExperiments;
 }) => {
   return {
-    InlineButtons: createInlineButtons({ t, settings, isMobile }),
-    InsertButtons: createInsertButtons({ t, settings, isMobile }),
+    InlineButtons: createInlineButtons({ t, settings, isMobile, experiments }),
+    InsertButtons: createInsertButtons({ t, settings, isMobile, disableDownload, experiments }),
     name: 'video',
   };
 };

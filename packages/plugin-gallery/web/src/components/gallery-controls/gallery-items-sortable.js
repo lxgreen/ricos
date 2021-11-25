@@ -12,7 +12,7 @@ import imageClientAPI from 'image-client-api/dist/imageClientSDK';
 import Styles from '../../../statics/styles/gallery-items-sortable.scss';
 import ImageSettings from './gallery-image-settings';
 import { mergeStyles } from 'wix-rich-content-common';
-import { FileInput, Loader, MediaItemErrorMsg } from 'wix-rich-content-plugin-commons';
+import { MediaItemErrorMsg, Loader, FileInput } from 'wix-rich-content-ui-components';
 import { GALLERY_ITEMS_TYPES } from '../../defaults';
 import { FabIcon, UploadIcon, SelectedIcon, NotSelectedIcon } from '../../icons';
 
@@ -346,14 +346,16 @@ export class SortableComponent extends Component {
   state = this.propsToState(this.props);
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    this.setState(
-      {
-        items: arrayMove(this.state.items, oldIndex, newIndex),
-      },
-      () => {
-        this.props.onItemsChange(this.state.items);
-      }
-    );
+    if (oldIndex !== newIndex) {
+      this.setState(
+        {
+          items: arrayMove(this.state.items, oldIndex, newIndex),
+        },
+        () => {
+          this.props.onItemsChange(this.state.items);
+        }
+      );
+    }
   };
 
   clickAction = itemIdx => {

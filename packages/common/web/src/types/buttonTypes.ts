@@ -10,6 +10,10 @@ import {
   ModifierKey,
   ToolbarType,
   ModalDecorations,
+  LegacyEditorPluginConfig,
+  SetEditorState,
+  GetEditorState,
+  AvailableExperiments,
 } from '.';
 
 export type InlineButton = {
@@ -75,31 +79,39 @@ export type CreateInlineButtons = (config?: any) => InlineButton[];
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type CreateInsertButtons = (config?: any) => InsertButton[];
 
-type CommandHandler = (editorState: EditorState) => unknown;
+export type CommandHandler = (editorState: EditorState, event?: Event) => EditorState | void;
 
-type KeyBinding = {
-  keyCommand: {
-    command: string;
-    modifiers?: ModifierKey[];
-    key: string;
-  };
+export interface KeyCommand {
+  command: string;
+  modifiers?: ModifierKey[];
+  key: string;
+  keyCode?: number;
+}
+
+export type KeyBinding = {
+  keyCommand: KeyCommand;
   commandHandler: CommandHandler;
 };
 
-export type TextButtonMapping = {
-  [type: string]: {
-    component?: ComponentType;
-    isMobile?: boolean;
-    position?: {
-      mobile?: number;
-      desktop?: number;
-    };
-    keyBindings?: KeyBinding[];
-    externalizedButtonProps: ToolbarButtonProps;
+export interface TextButtonMapping {
+  component?: ComponentType;
+  isMobile?: boolean;
+  position?: {
+    mobile?: number;
+    desktop?: number;
   };
-};
+  keyBindings?: KeyBinding[];
+  externalizedButtonProps?: ToolbarButtonProps;
+}
 
-export type TextButtonMapper = (pubsub?: Pubsub) => TextButtonMapping;
+export type PluginTextButtons = { [buttonName: string]: TextButtonMapping };
+
+export type TextButtonMapper = (pubsub?: Pubsub) => PluginTextButtons;
+
+export interface PluginKeyBindings {
+  commands: KeyCommand[];
+  commandHandlers: Record<string, CommandHandler>;
+}
 
 export type CreatePluginToolbar = (
   config
@@ -109,4 +121,16 @@ export type CreatePluginToolbar = (
   InlinePluginToolbarButtons?: InlineButton[]; // TODO: this looks like a duplicate. Should be removed.
   InsertButtons?: InsertButton[];
   TextButtonMapper?: TextButtonMapper;
+  isMobile?: boolean;
 };
+
+export interface ButtonProps {
+  buttons: string[];
+  textPluginButtons: TextButtonMapping[];
+  defaultTextAlignment: string;
+  t: TranslationFunction;
+  config: LegacyEditorPluginConfig;
+  setEditorState: SetEditorState;
+  getEditorState: GetEditorState;
+  experiments: AvailableExperiments;
+}

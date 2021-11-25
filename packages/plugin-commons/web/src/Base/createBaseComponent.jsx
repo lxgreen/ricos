@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { merge, compact, debounce } from 'lodash';
 import classNames from 'classnames';
+import '../styles.scss';
 import {
   alignmentClassName,
   sizeClassName,
@@ -45,8 +46,8 @@ const createBaseComponent = ({
   noPluginBorder,
   noPointerEventsOnFocus,
   withHorizontalScroll,
-  innerRCERenderedIn,
   disableKeyboardEvents,
+  type,
 }) => {
   return class WrappedComponent extends Component {
     static propTypes = {
@@ -57,12 +58,14 @@ const createBaseComponent = ({
       onClick: PropTypes.func,
       onDragStart: PropTypes.func,
     };
+
     static displayName = createHocName('BaseComponent', PluginComponent);
 
     constructor(props) {
       super(props);
       this.state = { componentState: {}, ...this.stateFromProps(props) };
       this.styles = { ...styles, ...rtlIgnoredStyles };
+
       this.containerRef = React.createRef();
     }
 
@@ -70,6 +73,26 @@ const createBaseComponent = ({
       componentWillReceiveDecorationProps?.(this.props, nextProps, this.updateComponentConfig);
       this.setState(this.stateFromProps(nextProps));
     }
+
+    isInViewport = boundingRect => {
+      const { top, left, bottom, right } = boundingRect;
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      const width = window.innerWidth || document.documentElement.clientWidth;
+      return top >= 0 && left >= 0 && bottom <= windowHeight && right <= width;
+    };
+
+    scrollIntoViewIfNeeded = (blockKey, threshold = 0) => {
+      if (this.containerRef.current) {
+        const boundingRect = this.getBoundingClientRectAsObject(this.containerRef.current);
+        const focusedBlock = pubsub.get('focusedBlock');
+        if (boundingRect.height === 0 && threshold < 500) {
+          // Required in order to wait for images to load their source
+          setTimeout(() => this.scrollIntoViewIfNeeded(blockKey, threshold + 1), 100);
+        } else if (focusedBlock === blockKey && !this.isInViewport(boundingRect)) {
+          setTimeout(() => this.containerRef.current.scrollIntoView(), 100);
+        }
+      }
+    };
 
     onResizeElement = blockKey => element => {
       const boundingRect = this.getBoundingClientRectAsObject(element[0].target);
@@ -125,6 +148,7 @@ const createBaseComponent = ({
         this.resizeObserver = new ResizeObserver(debounce(this.onResizeElement(blockKey), 40));
         this.resizeObserver?.observe(this.containerRef.current);
       }
+      this.scrollIntoViewIfNeeded(blockKey);
     }
 
     componentDidUpdate() {
@@ -178,7 +202,7 @@ const createBaseComponent = ({
 
     onComponentLinkChange = linkData => {
       if (!linkData) {
-        this.updateLinkData(null);
+        this.removeLinkData();
         return;
       }
       const { url, anchor, target, rel } = linkData;
@@ -199,6 +223,13 @@ const createBaseComponent = ({
         this.updateComponentConfig({ spoiler: data });
       }
     };
+
+    removeLinkData() {
+      const componentData = pubsub.get('componentData');
+      const { config } = componentData;
+      const { link: _, ...rest } = config;
+      pubsub.set('componentData', { ...componentData, config: { ...rest } });
+    }
 
     updateLinkData = link => {
       pubsub.update('componentData', { config: { link: null } }); // clean the link data (prevent deep merging bug with anchor/link)
@@ -292,9 +323,7 @@ const createBaseComponent = ({
         PluginComponent.sizeClassName || sizeClassName,
         PluginComponent.textWrapClassName || textWrapClassName,
         PluginComponent.customClassName,
-      ]).map(strategy =>
-        strategy(this.state.componentData, theme, this.styles, isMobile, innerRCERenderedIn)
-      );
+      ]).map(strategy => strategy(this.state.componentData, theme, this.styles, isMobile));
 
       const hasFocus = (isFocused ? !noPluginBorder : isPartOfSelection) && isEditorFocused;
 
@@ -366,6 +395,7 @@ const createBaseComponent = ({
             setComponentUrl={this.setComponentUrl}
             renderInnerRCE={renderInnerRCE}
             disableKeyboardEvents={disableKeyboardEvents}
+            type={type}
           />
           <div
             role="none"

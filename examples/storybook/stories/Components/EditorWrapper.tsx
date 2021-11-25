@@ -18,7 +18,7 @@ import { pluginGiphy } from 'wix-rich-content-plugin-giphy';
 import { pluginHashtag } from 'wix-rich-content-plugin-hashtag';
 import { pluginHeadings } from 'wix-rich-content-plugin-headings';
 import { pluginSpoiler } from 'wix-rich-content-plugin-spoiler';
-import { pluginAccordion } from 'wix-rich-content-plugin-accordion';
+import { pluginCollapsibleList } from 'wix-rich-content-plugin-collapsible-list';
 import { pluginTable } from 'wix-rich-content-plugin-table';
 import { pluginHeadersMarkdown } from 'wix-rich-content-plugin-headers-markdown';
 import { pluginHtml } from 'wix-rich-content-plugin-html';
@@ -36,7 +36,7 @@ import {
   pluginVerticalEmbed,
   verticalEmbedProviders,
 } from 'wix-rich-content-plugin-vertical-embed';
-import { mockFetchUrlPreviewData } from '../../../main/shared/utils/linkPreviewUtil';
+import { mockFetchUrlPreviewData } from '../../src/shared/utils/linkPreviewUtil';
 import {
   pluginTextColor,
   pluginTextHighlight,
@@ -47,10 +47,102 @@ import '../styles.global.scss';
 import {
   mockFileUploadFunc,
   mockImageNativeUploadFunc,
-} from '../../../main/shared/utils/fileUploadUtil';
-import { MockVerticalSearchModule } from '../../../main/shared/utils/verticalEmbedUtil';
+} from '../../src/shared/utils/fileUploadUtil';
+import { MockVerticalSearchModule } from '../../src/shared/utils/verticalEmbedUtil';
+const tiptapContent = {
+  type: 'doc',
+  attrs: {
+    metadata: {
+      version: 1,
+      createdTimestamp: '2021-07-18T16:22:36.617Z',
+      updatedTimestamp: '2021-07-18T16:22:36.617Z',
+    },
+  },
+  content: [
+    {
+      type: 'paragraph',
+      attrs: {
+        textStyle: {
+          textAlignment: 'AUTO',
+          lineHeight: '20px',
+        },
+        indentation: 0,
+        key: '81ob3',
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'f',
+        },
+      ],
+    },
+    // {
+    //   type: 'divider',
+    //   attrs: {
+    //     lineStyle: 'SINGLE',
+    //     width: 'LARGE',
+    //     alignment: 'CENTER',
+    //     containerData: {
+    //       width: {
+    //         size: 'CONTENT',
+    //       },
+    //       alignment: 'CENTER',
+    //     },
+    //     key: '1uttj',
+    //   },
+    // },
+    {
+      type: 'paragraph',
+      attrs: {
+        textStyle: {
+          textAlignment: 'AUTO',
+        },
+        indentation: 0,
+        key: '7n447',
+      },
+    },
+    {
+      type: 'image',
+      attrs: {
+        containerData: {
+          width: {
+            size: 'CONTENT',
+          },
+          alignment: 'CENTER',
+          spoiler: {
+            enabled: false,
+            description: 'ffd',
+          },
+        },
+        image: {
+          src: {
+            custom: '8bb438_f4f7fa31c5364557af0da7c4fd543cc9.jpg',
+          },
+          width: 5600,
+          height: 3737,
+        },
+        link: null,
+        disableExpand: false,
+        altText: null,
+        caption: null,
+        disableDownload: false,
+        key: '6hrme',
+      },
+    },
+    {
+      type: 'paragraph',
+      attrs: {
+        textStyle: {
+          textAlignment: 'AUTO',
+        },
+        indentation: 0,
+        key: '8p260',
+      },
+    },
+  ],
+};
 
-const { Instagram, Twitter, YouTube, TikTok } = LinkPreviewProviders;
+const { Instagram, Twitter, TikTok } = LinkPreviewProviders;
 const { event, booking, product } = verticalEmbedProviders;
 
 const configs = {
@@ -64,7 +156,7 @@ const configs = {
   },
   linkPreview: {
     fetchData: mockFetchUrlPreviewData(),
-    exposeEmbedButtons: [Instagram, Twitter, YouTube, TikTok],
+    exposeEmbedButtons: [Instagram, Twitter, TikTok],
   },
   verticalEmbed: {
     exposeEmbedButtons: [product, event, booking],
@@ -91,7 +183,7 @@ const plugins = [
   pluginDivider(),
   pluginHeadings(),
   pluginSpoiler(),
-  pluginAccordion({
+  pluginCollapsibleList({
     innerRCEPlugins: [
       pluginTextColor().createPlugin,
       pluginTextHighlight().createPlugin,
@@ -164,7 +256,7 @@ const pluginsMap = {
   undoRedo: pluginUndoRedo(),
   textColor: pluginTextColor(),
   spoiler: pluginSpoiler(),
-  accordion: pluginAccordion(),
+  collapsibleList: pluginCollapsibleList(),
   table: pluginTable(),
   highlight: pluginTextHighlight(),
   verticalEmbed: pluginVerticalEmbed(configs.verticalEmbed),
@@ -190,6 +282,7 @@ const getToolbarSettings = () => [
 
 interface Props {
   content?: DraftContent;
+  injectedContent?: DraftContent;
   onChange?: RicosEditorProps['onChange'];
   isMobile?: boolean;
   pluginsToDisplay?: string[];
@@ -197,6 +290,10 @@ interface Props {
   onBlur?: RichContentEditorProps['onBlur'];
   onFocus?: RichContentEditorProps['onFocus'];
   theme?: RicosTheme;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  rcProps?: Record<string, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  experiments?: Record<string, any>;
 }
 
 class EditorWrapper extends React.Component<Props> {
@@ -204,6 +301,7 @@ class EditorWrapper extends React.Component<Props> {
     isMobile: mobileDetect.mobile() !== null,
     toolbarSettings: { getToolbarSettings },
   };
+
   editor: RicosEditorType;
 
   getToolbarProps = type => this.editor.getToolbarProps(type);
@@ -213,25 +311,49 @@ class EditorWrapper extends React.Component<Props> {
     : plugins;
 
   render() {
-    const { content, theme, onChange, isMobile, toolbarSettings, onBlur, onFocus } = this.props;
+    const {
+      content,
+      injectedContent,
+      theme,
+      onChange,
+      isMobile,
+      toolbarSettings,
+      onBlur,
+      onFocus,
+      rcProps = {},
+      experiments,
+    } = this.props;
 
     return (
-      <RicosEditor
-        ref={ref => (this.editor = ref)}
-        plugins={this.editorPlugins}
-        theme={theme}
-        content={content}
-        isMobile={isMobile}
-        placeholder={'Share something...'}
-        toolbarSettings={toolbarSettings}
-        onChange={onChange}
-      >
-        <RichContentEditor
-          onFocus={onFocus}
-          onBlur={onBlur}
-          helpers={{ handleFileUpload: mockImageNativeUploadFunc }}
-        />
-      </RicosEditor>
+      <>
+        {/* <RicosTiptapEditor
+          content={tiptapContent}
+          extensions={[]}
+          onLoad={() => null}
+          theme={{}}
+          t={key => key}
+        /> */}
+        <RicosEditor
+          ref={ref => (this.editor = ref)}
+          plugins={this.editorPlugins}
+          theme={theme}
+          content={content}
+          injectedContent={injectedContent}
+          isMobile={isMobile}
+          placeholder={'Share something...'}
+          toolbarSettings={toolbarSettings}
+          onChange={onChange}
+          experiments={experiments}
+          _rcProps={rcProps}
+          onAtomicBlockFocus={d => console.log('onAtomicBlockFocus', d)} // eslint-disable-line
+        >
+          <RichContentEditor
+            onFocus={onFocus}
+            onBlur={onBlur}
+            helpers={{ handleFileUpload: mockImageNativeUploadFunc }}
+          />
+        </RicosEditor>
+      </>
     );
   }
 }

@@ -8,6 +8,12 @@
 }
 
 .wrapper {
+  @media print {
+    li {
+      break-inside: avoid;
+    }
+  }
+
   box-sizing: border-box;
 
   @extend .fontElementMap;
@@ -70,6 +76,10 @@
     clear: both;
     line-height: 0;
   }
+
+  @include phone {
+    font-size: $paragraphFontSizeMobile;
+  }
 }
 
 .atomic {
@@ -125,9 +135,11 @@
 }
 
 /*! rtl:ignore */
-.orderedList, .unorderedList {
+.orderedList,
+.unorderedList {
   /*! rtl:ignore */
-  &::before, &::marker {
+  &::before,
+  &::marker {
     /*! rtl:ignore */
     @include ricosTypography('p', true);
   }
@@ -137,40 +149,17 @@
   }
 }
 
-.unorderedList.center{
+.unorderedList.center {
   list-style-position: inside;
 }
 
-.contentCenterAlignment{
+.contentCenterAlignment {
   display: inline;
 }
 
 .justify {
   white-space: pre-wrap !important;
   text-align: justify !important;
-}
-
-@mixin justifySafariOrFirefox {
-  white-space: pre-line !important;
-}
-
-// Css hack for Safari only. 
-// was taken from: https://stackoverflow.com/questions/16348489/is-there-a-css-hack-for-safari-only-not-chrome
-
-@media not all and (min-resolution:.001dpcm){ 
-  @supports (-webkit-appearance:none) {
-    .hasJustifyText {
-      @include justifySafariOrFirefox;
-    }
-  }
-}
-// Css hack for Firefox only. 
-// was taken from: https://css-tricks.com/snippets/css/css-hacks-targeting-firefox/
-
-@-moz-document url-prefix()  {
-  .hasJustifyText {
-    @include justifySafariOrFirefox;
-  }
 }
 
 .quote {
@@ -252,9 +241,13 @@
 .horizontalScrollbar::-webkit-scrollbar-thumb {
   border-radius: 8px;
   border: 2px solid white;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .horizontalScrollbar::-webkit-scrollbar:horizontal {
   height: 10px;
+}
+
+.overrideLinkColor > a {
+  color: inherit;
 }

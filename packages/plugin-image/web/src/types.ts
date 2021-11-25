@@ -13,7 +13,6 @@ export type ImageEditorWixSettings = {
 export interface ImageConfig {
   size?: string;
   alignment?: string;
-  disableExpand?: boolean;
   showTitle?: boolean;
   showDescription?: boolean;
   link?: {
@@ -24,6 +23,7 @@ export interface ImageConfig {
 }
 
 export interface ImagePluginEditorConfig extends EditorPluginConfig, ImageConfig {
+  [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   spoiler?: {
     buttonContent: string | undefined;
     description: string | undefined;
@@ -31,6 +31,7 @@ export interface ImagePluginEditorConfig extends EditorPluginConfig, ImageConfig
   };
   defaultData?: {
     config?: ImageConfig;
+    disableExpand?: boolean;
   };
   imageProps?: HTMLImageElement;
   createGalleryForMultipleImages?: boolean;
@@ -41,8 +42,17 @@ export interface ImagePluginEditorConfig extends EditorPluginConfig, ImageConfig
 }
 
 type ImageSrc = Record<string, unknown>;
-export interface ImagePluginViewerConfig extends ViewerPluginConfig {
+export interface ImagePluginViewerConfig extends ViewerPluginConfig, ImageConfig {
   onExpand?: (blockkey: string) => unknown;
-  disableExpand: boolean;
+  disableExpand?: boolean;
   imageProps?: ((src: ImageSrc) => HTMLImageElement) | HTMLImageElement;
+}
+
+export interface ImageData {
+  config: ImageConfig;
+  src: { fallback: string; width: number };
+  metadata?: { caption?: unknown; alt?: string | undefined };
+  [key: string]: unknown;
+  disableDownload?: boolean;
+  disableExpand?: boolean;
 }

@@ -1,12 +1,12 @@
 import { resolve as pathResolve } from 'path';
 import svgr from '@svgr/rollup';
-import resolvePlugin from 'rollup-plugin-node-resolve';
+import resolvePlugin from '@rollup/plugin-node-resolve';
 import aliasPlugin from '@rollup/plugin-alias';
 import copyPlugin from 'rollup-plugin-copy';
 /* @ts-ignore typescript-plugin external types issue */
-import babelPlugin from 'rollup-plugin-babel';
+import babelPlugin from '@rollup/plugin-babel';
 import typescriptPlugin from 'rollup-plugin-typescript2';
-import commonjsPlugin from 'rollup-plugin-commonjs';
+import commonjsPlugin from '@rollup/plugin-commonjs';
 import jsonPlugin from '@rollup/plugin-json';
 import postcssPlugin from 'rollup-plugin-postcss';
 /* @ts-ignore typescript-plugin external types issue */
@@ -14,12 +14,14 @@ import postcssExclude from 'postcss-exclude-files';
 import postcssURL from 'postcss-url';
 /* @ts-ignore typescript-plugin external types issue */
 import postcssRTL from 'postcss-rtl';
-import replacePlugin from 'rollup-plugin-replace';
+import replacePlugin from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 import visualizerPlugin from 'rollup-plugin-visualizer';
 import { Plugin } from 'rollup';
 import libsPackageJsonGeneratorPlugin from './scripts/rollupPlugin-libsPackageJsonGenerator';
 import { writeFileSync } from 'fs';
+import { createFilter } from '@rollup/pluginutils';
+import { DEFAULT_EXTENSIONS } from '@babel/core';
 
 const IS_DEV_ENV = process.env.NODE_ENV === 'development';
 
@@ -62,6 +64,10 @@ const copyAfterBundleWritten = (): Plugin => {
       dest: 'dist',
       rename: () => 'module.viewer.cjs.d.ts',
     },
+    {
+      src: ['dist/es/*.css'],
+      dest: 'dist',
+    },
   ];
 
   return copyPlugin({
@@ -72,10 +78,15 @@ const copyAfterBundleWritten = (): Plugin => {
 };
 
 const babel = (): Plugin => {
+  const include = ['packages/**/src/**', 'packages/**/lib/**', '**/@tiptap/**'];
+  const options = {
+    resolve: pathResolve(__dirname),
+  };
   return babelPlugin({
     configFile: pathResolve(__dirname, 'babel.config.js'),
-    include: ['src/**', 'lib/**'],
-    runtimeHelpers: true,
+    filter: createFilter(include, undefined, options),
+    extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
+    babelHelpers: 'runtime',
   });
 };
 
@@ -90,6 +101,7 @@ const typescript = (): Plugin => {
         declarationDir: absPath('dist'),
         rootDir: absPath(''),
         sourceMap: true,
+        allowJs: process.env.ALLOW_JS === 'true',
       },
       include: [
         'src',
@@ -97,9 +109,11 @@ const typescript = (): Plugin => {
         'src/**/*.scss',
         'statics/**/*.json',
         'statics/**/*.schema.json',
+        'statics/**/*.defaults.json',
         'statics/**/*.scss',
         'package.json',
         'lib',
+        'node_modules/@tiptap',
       ].map(path => absPath(path)),
       exclude: ['node_modules', '**/*.spec.*'].map(path => absPath(path)),
     },
@@ -107,56 +121,6 @@ const typescript = (): Plugin => {
     // verbosity: 3,
     // clean: true,
   });
-};
-
-const commonjs = (): Plugin => {
-  const named = [
-    {
-      path: 'node_modules/image-client-api/dist/imageClientSDK.js',
-      exportList: ['getScaleToFillImageURL', 'getScaleToFitImageURL'],
-    },
-    {
-      path: 'node_modules/immutable/dist/immutable.js',
-      exportList: ['List', 'OrderedSet', 'Map'],
-    },
-    {
-      path: 'node_modules/react-google-maps/lib/index.js',
-      exportList: ['withGoogleMap', 'GoogleMap', 'Marker', 'InfoWindow'],
-    },
-    {
-      path: 'node_modules/draft-js/lib/Draft.js',
-      exportList: [
-        'SelectionState',
-        'Modifier',
-        'EditorState',
-        'AtomicBlockUtils',
-        'RichUtils',
-        'convertToRaw',
-        'convertFromRaw',
-        'getVisibleSelectionRect',
-        'DefaultDraftBlockRenderMap',
-        'KeyBindingUtil',
-        'genKey',
-        'ContentBlock',
-        'BlockMapBuilder',
-        'CharacterMetadata',
-        'ContentState',
-        'Entity',
-        'RawDraftContentState',
-        'EditorChangeType',
-        'convertFromHTML',
-      ],
-    },
-  ];
-
-  const relativePath = '../../../';
-
-  const namedExports: { [packageName: string]: string[] } = {};
-  named.forEach(({ path, exportList }) => {
-    namedExports[path] = exportList;
-    namedExports[relativePath + path] = exportList;
-  });
-  return commonjsPlugin({ namedExports });
 };
 
 const json = (): Plugin => {
@@ -167,6 +131,7 @@ const json = (): Plugin => {
       '../../../node_modules/**',
       '../../../packages/**/package.json',
       '../../common/web/dist/statics/schemas/*.schema.json',
+      '../../ricos-schema/web/dist/statics/*.defaults.json',
     ],
   });
 };
@@ -181,6 +146,7 @@ const postcss = (shouldExtract: boolean): Plugin => {
     },
     modules: {
       generateScopedName: IS_DEV_ENV ? '[name]__[local]___[hash:base64:5]' : '[hash:base64:5]',
+      hashPrefix: process.env.MODULE_NAME,
     },
     extract: shouldExtract && 'dist/styles.min.css',
     plugins: [
@@ -197,13 +163,21 @@ const postcss = (shouldExtract: boolean): Plugin => {
 
 const replace = (): Plugin => {
   return replacePlugin({
-    'process.env.NODE_ENV': JSON.stringify('production'),
+    preventAssignment: true,
+    values: {
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    },
   });
 };
 
 const uglify = (): Plugin => {
   return terser({
     mangle: false,
+    output: {
+      comments: (node, comment) => {
+        return /@preserve|@license|@cc_on|webpackChunkName/i.test(comment.value);
+      },
+    },
   });
 };
 
@@ -224,10 +198,10 @@ let _plugins: Plugin[] = [
   svgr(),
   resolveAlias(),
   resolve(),
-  babel(),
-  commonjs(),
-  json(),
   typescript(),
+  babel(),
+  commonjsPlugin(),
+  json(),
 ];
 
 if (!IS_DEV_ENV) {

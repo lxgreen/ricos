@@ -1,16 +1,74 @@
 name: tests
 on:
   push:
-    tags-ignore:
-      - '**'
-    branches-ignore:
-      - 'release*'
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 env:
   captureVideos: 'true'
   captureImages: 'true'
-  APPLITOOLS_BATCH_ID: ${{ github.sha }}
+  COMMIT_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
 
 jobs:
+  cache-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: cache-schema
+        id: cache-schema
+        uses: actions/cache@v2
+        with:
+          path: |
+            packages/ricos-schema/web/dist
+            packages/ricos-schema/web/src/generated*
+          key: ${{ runner.os }}-schema-${{ hashFiles('packages/ricos-schema/web/**') }}
+
+      - name: cache-build
+        id: cache-build
+        uses: actions/cache@v2
+        with:
+          path: |
+            packages/*/web/dist
+            packages/ricos-schema/web/src/generated*
+            e2e/test-env/dist
+          key: ${{ runner.os }}-build-${{ env.COMMIT_SHA }}
+
+      - name: cache node_modules
+        id: cache-modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+            ~/.cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+
+      - name: npm install + bootstrap
+        if: steps.cache-modules.outputs.cache-hit != 'true'
+        run: npx midgard-yarn install --frozen-lockfile
+      - name: lerna link
+        if: steps.cache-modules.outputs.cache-hit == 'true'
+        run: npm run link
+
+      - name: Build schema - install protoc
+        if: steps.cache-schema.outputs.cache-hit != 'true'
+        uses: arduino/setup-protoc@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build schema
+        if: steps.cache-schema.outputs.cache-hit != 'true'
+        run: npm run build:schema
+
+      - name: build packages
+        if: steps.cache-build.outputs.cache-hit != 'true'
+        run: npm run build:ci
+
+      - name: build test env
+        run: npm run build:test
+
   cleanup-runs:
     runs-on: ubuntu-latest
     steps:
@@ -20,35 +78,41 @@ jobs:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 
   e2e-visual:
+    needs: cache-build
     runs-on: ubuntu-18.04
     strategy:
       fail-fast: false
       matrix:
-        ci_node_total: [5] # Set N number of parallel jobs you want to run tests on.
-        ci_node_index: [0, 1, 2, 3, 4] # set N-1 indexes for parallel jobs
+        ci_node_total: [7] # Set N number of parallel jobs you want to run tests on.
+        ci_node_index: [0, 1, 2, 3, 4, 5, 6] # set N-1 indexes for parallel jobs
 
     steps:
       - uses: actions/checkout@v2
-      - id: cache
-        uses: actions/cache@master
+
+      - name: cache-build
+        id: cache-build
+        uses: actions/cache@v2
+        with:
+          path: |
+            packages/*/web/dist
+            packages/ricos-schema/web/src/generated*
+            e2e/test-env/dist
+          key: ${{ runner.os }}-build-${{ env.COMMIT_SHA }}
+
+      - name: cache node_modules
+        id: cache-modules
+        uses: actions/cache@v2
         with:
           path: |
             node_modules
             */*/node_modules
             ~/.cache
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-      - name: Install Protoc
-        uses: arduino/setup-protoc@v1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: npm install + bootstrap
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npx midgard-yarn install --frozen-lockfile
+
       - name: lerna link
-        if: steps.cache.outputs.cache-hit == 'true'
+        if: steps.cache-modules.outputs.cache-hit == 'true'
         run: npm run link
-      - name: build
-        run: npm run build:test
+
       - name: Run http server with the app in the background
         run: |
           npm run e2e:app:run &
@@ -63,63 +127,60 @@ jobs:
           KNAPSACK_PRO_FIXED_QUEUE_SPLIT: true
           KNAPSACK_PRO_CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
           KNAPSACK_PRO_CI_NODE_INDEX: ${{ matrix.ci_node_index }}
-          KNAPSACK_PRO_TEST_FILE_PATTERN: 'e2e/tests/*.e2e.js'
+          KNAPSACK_PRO_TEST_FILE_PATTERN: 'e2e/tests/*.e2e.ts'
           APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
           APPLITOOLS_SERVER_URL: ${{ secrets.APPLITOOLS_SERVER_URL }}
         run: |
           # fix video recording bug
           echo -e 'pcm.!default {\n type hw\n card 0\n}\n\nctl.!default {\n type hw\n card 0\n}' > ~/.asoundrc
           $(npm bin)/knapsack-pro-cypress
-      - uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: cypress-screenshots-${{ matrix.ci_node_index }}
-          path: |
-            e2e/cypress/screenshots
-            e2e/cypress/videos
-            **/applitools.log
+  # disabled because it was taking a lot of time. Can be enabled when needed.
+  #      - uses: actions/upload-artifact@v2
+  #        if: failure()
+  #        with:
+  #          name: cypress-screenshots-${{ matrix.ci_node_index }}
+  #          path: |
+  #            e2e/cypress/screenshots
+  #            e2e/cypress/videos
+  #            **/applitools.log
 
-  e2e-visual-applitoolsSendCompletion:
-    needs: e2e-visual
-    if: always()
-    runs-on: ubuntu-18.04
-    steps:
-      - name: Update Applitools batch status
-        uses: wei/curl@v1.1.1
-        with:
-          args: -d "" -X POST https://wixeyesapi.applitools.com/api/externals/github/servers/github.com/commit/${{ env.APPLITOOLS_BATCH_ID }}/complete?apiKey=${{ secrets.APPLITOOLS_API_KEY }}
 
   content-state-tests:
+    needs: cache-build
     runs-on: ubuntu-18.04
     strategy:
       fail-fast: false
       matrix:
-        ci_node_total: [3] # Set N number of parallel jobs you want to run tests on.
-        ci_node_index: [0, 1, 2] # set N-1 indexes for parallel jobs
+        ci_node_total: [4] # Set N number of parallel jobs you want to run tests on.
+        ci_node_index: [0, 1, 2, 3] # set N-1 indexes for parallel jobs
 
     steps:
       - uses: actions/checkout@v2
-      - name: cache
-        id: cache
-        uses: actions/cache@master
+
+      - name: cache-build
+        id: cache-build
+        uses: actions/cache@v2
+        with:
+          path: |
+            packages/*/web/dist
+            packages/ricos-schema/web/src/generated*
+            e2e/test-env/dist
+          key: ${{ runner.os }}-build-${{ env.COMMIT_SHA }}
+
+      - name: cache node_modules
+        id: cache-modules
+        uses: actions/cache@v2
         with:
           path: |
             node_modules
             */*/node_modules
             ~/.cache
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-      - name: Install Protoc
-        uses: arduino/setup-protoc@v1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: npm install + bootstrap
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npx midgard-yarn install --frozen-lockfile
+
       - name: lerna link
-        if: steps.cache.outputs.cache-hit == 'true'
+        if: steps.cache-modules.outputs.cache-hit == 'true'
         run: npm run link
-      - name: build
-        run: npm run build:test
+
       - name: Run http server with the app in the background
         run: npm run e2e:app:run & npm run e2e:app:wait
 
@@ -130,7 +191,7 @@ jobs:
           KNAPSACK_PRO_FIXED_QUEUE_SPLIT: true
           KNAPSACK_PRO_CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
           KNAPSACK_PRO_CI_NODE_INDEX: ${{ matrix.ci_node_index }}
-          KNAPSACK_PRO_TEST_FILE_PATTERN: 'e2e/tests/*.e2e.js'
+          KNAPSACK_PRO_TEST_FILE_PATTERN: 'e2e/tests/*.e2e.ts'
           APPLITOOLS_IS_DISABLED: true
         run: |
           # fix video recording bug
@@ -146,32 +207,51 @@ jobs:
             **/applitools.log
 
   lint-and-unit-tests:
+    needs: cache-build
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
-      - name: cache
-        id: cache
-        uses: actions/cache@master
+
+      - name: cache-build
+        id: cache-build
+        uses: actions/cache@v2
+        with:
+          path: |
+            packages/*/web/dist
+            packages/ricos-schema/web/src/generated*
+            e2e/test-env/dist
+          key: ${{ runner.os }}-build-${{ env.COMMIT_SHA }}
+
+      - name: cache node_modules
+        id: cache-modules
+        uses: actions/cache@v2
         with:
           path: |
             node_modules
             */*/node_modules
             ~/.cache
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-      - name: Install Protoc
-        uses: arduino/setup-protoc@v1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: npm install + bootstrap
-        if: steps.cache.outputs.cache-hit != 'true'
+        if: steps.cache-modules.outputs.cache-hit != 'true'
         run: npx midgard-yarn install --frozen-lockfile
       - name: lerna link
-        if: steps.cache.outputs.cache-hit == 'true'
+        if: steps.cache-modules.outputs.cache-hit == 'true'
         run: npm run link
 
       - run: npm run lint
-      - run: npm run build
+
       - run: npm run test
+
+  e2e-visual-applitoolsSendCompletion:
+    needs: e2e-visual
+    if: always()
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Update Applitools batch status
+        uses: wei/curl@v1.1.1
+        with:
+          args: -d "" -X POST https://wixeyesapi.applitools.com/api/externals/github/servers/github.com/commit/${{ env.COMMIT_SHA }}/complete?apiKey=${{ secrets.APPLITOOLS_API_KEY }}
 
   notify-on-slack:
     runs-on: ubuntu-18.04
@@ -181,11 +261,11 @@ jobs:
       - name: Get commit author
         id: commit-author
         run: |
-          echo "commit-author=$(curl -s https://api.github.com/repos/wix/ricos/commits/${{ github.sha }} | jq '.author.login' | sed 's/\"//g')" >> $GITHUB_ENV
+          echo "commit-author=$(curl -s https://api.github.com/repos/wix/ricos/commits/${{ env.COMMIT_SHA }} | jq '.author.login' | sed 's/\"//g')" >> $GITHUB_ENV
       - name: Get PR number
         id: pr-number
         run: |
-          echo "pr-number=$(curl -s https://api.github.com/repos/wix/ricos/commits/${{ github.sha }} | jq '.commit.message' | sed 's/.*(#//g' | sed 's/[^0-9]//g')" >> $GITHUB_ENV
+          echo "pr-number=$(curl -s https://api.github.com/repos/wix/ricos/commits/${{ env.COMMIT_SHA }} | jq '.commit.message' | sed 's/.*(#//g' | sed 's/[^0-9]//g')" >> $GITHUB_ENV
       - name: Notify fail in Slack
         uses: voxmedia/github-action-slack-notify-build@v1.1.3
         if: github.ref == 'refs/heads/master' && (needs.e2e-visual.result == 'failure' || needs.content-state-tests.result == 'failure' || needs.lint-and-unit-tests.result == 'failure')
@@ -197,11 +277,11 @@ jobs:
       # - name: Get current commit status
       #   id: current-status
       #   run: |
-      #     echo "::set-output name=current-status::$(echo $(curl -s https://api.github.com/repos/wix/ricos/commits/${{ github.sha }}/check-suites\?app_id\=15368 -H "Accept: application/vnd.github.antiope-preview+json" | jq '.check_suites | [.[] | select( .head_branch == "master") | .conclusion] | .[:2] | .[]' | sed 's/\"//g'))"
+      #     echo "::set-output name=current-status::$(echo $(curl -s https://api.github.com/repos/wix/ricos/commits/${{ env.COMMIT_SHA }}/check-suites\?app_id\=15368 -H "Accept: application/vnd.github.antiope-preview+json" | jq '.check_suites | [.[] | select( .head_branch == "master") | .conclusion] | .[:2] | .[]' | sed 's/\"//g'))"
       - name: Get previous commit
         id: previous-commit
         run: |
-          echo "previous-commit=$(curl -s https://api.github.com/repos/wix/ricos/commits/${{ github.sha }} | jq '.parents[0].sha' | sed 's/\"//g')"  >> $GITHUB_ENV
+          echo "previous-commit=$(curl -s https://api.github.com/repos/wix/ricos/commits/${{ env.COMMIT_SHA }} | jq '.parents[0].sha' | sed 's/\"//g')"  >> $GITHUB_ENV
       # - name: Get previous commit status
       #   id: previous-status
       #   run: |

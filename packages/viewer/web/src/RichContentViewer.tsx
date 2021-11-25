@@ -20,6 +20,7 @@ import {
   RichContentTheme,
   AnchorTarget,
   RelValue,
+  CustomAnchorScroll,
   LegacyViewerPluginConfig,
   OnErrorFunction,
   NormalizeConfig,
@@ -28,6 +29,11 @@ import {
   ViewerContextType,
   InlineStyleMapperFunction,
   AvailableExperiments,
+  IMAGE_TYPE,
+  GALLERY_TYPE,
+  VIDEO_TYPE,
+  createJustificationFixDecorator,
+  DocumentStyle,
 } from 'wix-rich-content-common';
 import draftDefaultStyles from 'wix-rich-content-common/dist/statics/styles/draftDefault.rtlignore.scss';
 import { convertToReact } from './utils/convertContentState';
@@ -38,7 +44,7 @@ import { deprecateHelpers } from 'wix-rich-content-common/libs/deprecateHelpers'
 import { combineMappers } from './utils/combineMappers';
 
 export interface RichContentViewerProps {
-  /** This is a legacy API, chagnes should be made also in the new Ricos Viewer API **/
+  /** This is a legacy API, changes should be made also in the new Ricos Viewer API **/
   initialState?: DraftContent;
   isMobile?: boolean;
   renderStaticHtml?: boolean;
@@ -52,6 +58,7 @@ export interface RichContentViewerProps {
   theme: RichContentTheme;
   anchorTarget?: AnchorTarget;
   relValue?: RelValue;
+  customAnchorScroll?: CustomAnchorScroll;
   config: LegacyViewerPluginConfig;
   textDirection?: TextDirection;
   direction?: TextDirection;
@@ -67,7 +74,11 @@ export interface RichContentViewerProps {
   isInnerRcv?: boolean;
   renderedInTable?: boolean;
   onHover?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-  /** This is a legacy API, chagnes should be made also in the new Ricos Viewer API **/
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setRef?: React.RefObject<any>;
+  onMouseOver?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  documentStyle?: DocumentStyle;
+  /** This is a legacy API, changes should be made also in the new Ricos Viewer API **/
 }
 
 class RichContentViewer extends Component<
@@ -76,13 +87,14 @@ class RichContentViewer extends Component<
     raw?: DraftContent;
     error?: string;
     context: {
-      experiments?: AvailableExperiments;
+      experiments: AvailableExperiments;
       isMobile: boolean;
       t?: TranslationFunction;
     };
   }
 > {
   styles: Record<string, string>;
+
   typeMappers: PluginMapping;
 
   static defaultProps: Partial<RichContentViewerProps> = {
@@ -103,7 +115,7 @@ class RichContentViewer extends Component<
     const styles = { ...viewerStyles, ...viewerAlignmentStyles, ...rtlStyle };
     this.styles = mergeStyles({ styles, theme: props.theme });
     this.typeMappers = combineMappers(props.typeMappers);
-    const { experiments, isMobile = false, t } = props;
+    const { experiments = {}, isMobile = false, t } = props;
     this.state = {
       context: { experiments, isMobile, t },
     };
@@ -115,13 +127,25 @@ class RichContentViewer extends Component<
       anchorTarget,
       relValue,
       normalize: { disableInlineImages = false, removeInvalidInlinePlugins = false },
+      config,
     } = props;
+    const { uiSettings } = config;
+    const disableImagesExpand = config[IMAGE_TYPE]?.disableExpand;
+    const disableGalleryExpand = config[GALLERY_TYPE]?.disableExpand;
+    const disableDownload =
+      config[VIDEO_TYPE]?.disableDownload ||
+      uiSettings?.disableRightClick ||
+      uiSettings?.disableDownload;
+
     return initialState
       ? normalizeInitialState(initialState, {
           anchorTarget,
           relValue,
           disableInlineImages,
           removeInvalidInlinePlugins,
+          disableDownload,
+          disableImagesExpand,
+          disableGalleryExpand,
         })
       : undefined;
   };
@@ -133,6 +157,7 @@ class RichContentViewer extends Component<
       isMobile = false,
       anchorTarget,
       relValue,
+      customAnchorScroll,
       config,
       helpers = {},
       locale,
@@ -144,14 +169,22 @@ class RichContentViewer extends Component<
     contentState?: DraftContent
   ): ViewerContextType => {
     deprecateHelpers(helpers, config);
+    const version = Version.currentVersion;
+    const contentId = this.props.initialState?.ID;
     return {
       t,
       theme,
       isMobile,
       anchorTarget,
       relValue,
+      customAnchorScroll,
       config,
-      helpers,
+      helpers: {
+        ...helpers,
+        onViewerLoaded: args => helpers.onViewerLoaded?.({ ...args, version, contentId }),
+        onViewerAction: (pluginId, actionName, value) =>
+          helpers.onViewerAction?.(pluginId, actionName, value, contentId),
+      },
       locale,
       disabled,
       seoMode,
@@ -172,6 +205,10 @@ class RichContentViewer extends Component<
     return { error };
   }
 
+  componentDidCatch(error, errorInfo) {
+    console.error({ error, errorInfo });
+  }
+
   componentDidMount() {
     this.reportDebuggingInfo();
   }
@@ -182,7 +219,7 @@ class RichContentViewer extends Component<
     }
     if (/debug/i.test(window.location.search) && !window.__RICOS_INFO__) {
       import(
-        /* webpackChunkName: debugging-info */
+        /* webpackChunkName: "debugging-info" */
         'wix-rich-content-common/libs/debugging-info'
       ).then(({ reportDebuggingInfo }) => {
         reportDebuggingInfo({
@@ -197,44 +234,54 @@ class RichContentViewer extends Component<
   }
 
   render() {
-    const { onError, config = {}, onHover } = this.props;
+    const {
+      onError,
+      config = {},
+      onHover,
+      isMobile,
+      isInnerRcv,
+      textDirection,
+      direction,
+      inlineStyleMappers,
+      locale,
+      addAnchors,
+      renderedInTable,
+      platform,
+      t,
+      typeMappers,
+      setRef = () => {},
+      onMouseOver = () => {},
+    } = this.props;
+    const decorators = [...this.props.decorators, createJustificationFixDecorator()];
     try {
       if (this.state.error) {
         onError(this.state.error);
         return null;
       }
       const { styles } = this;
-      const {
-        textDirection,
-        direction,
-        decorators,
-        inlineStyleMappers,
-        locale,
-        addAnchors,
-        renderedInTable,
-      } = this.props;
       const wrapperClassName = classNames(styles.wrapper, {
-        [styles.desktop]: !this.props.platform || this.props.platform === 'desktop',
+        [styles.desktop]: !platform || platform === 'desktop',
       });
-      const editorClassName = classNames(
-        styles.editor,
-        renderedInTable && styles.renderedInTable,
-        renderedInTable && draftDefaultStyles.renderedInTable,
-        {
-          [styles.rtl]: textDirection === 'rtl',
-        }
+      const tableClassNames = classNames(
+        styles.renderedInTable,
+        viewerStyles.renderedInTable,
+        draftDefaultStyles.renderedInTable
       );
+      const editorClassName = classNames(styles.editor, renderedInTable && tableClassNames, {
+        [styles.rtl]: textDirection === 'rtl',
+      });
 
       const initSpoilers = config[SPOILER_TYPE]?.initSpoilersContentState;
       const SpoilerViewerWrapper = config[SPOILER_TYPE]?.SpoilerViewerWrapper;
       const contextualData = this.getContextualData(this.props, this.state.raw);
       const innerRCEViewerProps = {
-        typeMappers: this.props.typeMappers,
-        inlineStyleMappers: this.props.inlineStyleMappers,
-        decorators: this.props.decorators,
-        config: this.props.config,
-        t: this.props.t,
+        typeMappers,
+        inlineStyleMappers,
+        decorators,
+        config,
+        t,
         renderedInTable,
+        isMobile,
       };
 
       const output = convertToReact(
@@ -244,21 +291,28 @@ class RichContentViewer extends Component<
         contextualData,
         decorators,
         inlineStyleMappers,
+        config,
         initSpoilers,
         SpoilerViewerWrapper,
         { addAnchors },
-        innerRCEViewerProps
+        innerRCEViewerProps,
+        this.props.documentStyle
       );
 
+      const dataId = isInnerRcv ? {} : { 'data-id': 'rich-content-viewer' };
       return (
         <GlobalContext.Provider value={this.state.context}>
+          {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events*/}
           <div
             className={wrapperClassName}
             dir={direction || getLangDir(locale)}
             onMouseEnter={e => onHover && onHover(e)}
+            ref={setRef}
+            onMouseOver={onMouseOver}
+            {...dataId}
           >
             <div className={editorClassName}>{output}</div>
-            <AccessibilityListener isMobile={this.props.isMobile} />
+            <AccessibilityListener isMobile={isMobile} />
           </div>
         </GlobalContext.Provider>
       );

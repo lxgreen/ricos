@@ -21,7 +21,7 @@ class InPluginInput extends Component<Props> {
     setFocusToBlock: () => false,
   };
 
-  handleFocus: FocusEventHandler<HTMLInputElement> = e => {
+  handleFocus: FocusEventHandler<HTMLTextAreaElement> = e => {
     e.stopPropagation();
     this.props.setFocusToBlock();
     this.props.setInPluginEditingMode(true);
@@ -29,7 +29,7 @@ class InPluginInput extends Component<Props> {
 
   handleBlur = () => this.props.setInPluginEditingMode(false);
 
-  handleKeyPress: KeyboardEventHandler<HTMLInputElement> = e => {
+  handleKeyPress: KeyboardEventHandler<HTMLTextAreaElement> = e => {
     const { setFocusToBlock, value } = this.props;
     if (e.key === 'Enter' && setFocusToBlock && value !== '') {
       this.handleBlur();
@@ -37,20 +37,20 @@ class InPluginInput extends Component<Props> {
     }
   };
 
-  onChange: ChangeEventHandler<HTMLInputElement> = e => this.props.onChange?.(e.target.value);
-
-  className = classnames(styles.inPluginInput, this.props.className);
+  onChange: ChangeEventHandler<HTMLTextAreaElement> = e => this.props.onChange?.(e.target.value);
 
   render() {
+    const className = classnames(styles.inPluginInput, this.props.className);
     return (
-      <input
-        className={this.className}
+      <textarea
+        className={className}
         value={this.props.value}
         onChange={this.onChange}
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
         onKeyPress={this.handleKeyPress}
         dir="auto"
+        rows={1}
       />
     );
   }

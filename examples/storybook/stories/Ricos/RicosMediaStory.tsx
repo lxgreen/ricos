@@ -11,7 +11,7 @@ import {
   mockFileNativeUploadFunc,
   mockImageNativeUploadFunc,
   mockVideoNativeUploadFunc,
-} from '../../../main/shared/utils/fileUploadUtil';
+} from '../../src/shared/utils/fileUploadUtil';
 import ActionButton from '../Components/ActionButton';
 
 const mobileDetect = new MobileDetect(window.navigator.userAgent);
@@ -47,6 +47,7 @@ export default () => {
           <ActionButton
             text={'Publish'}
             tooltipText={isButtonDisabled && 'Uploading files'}
+            // eslint-disable-next-line no-alert
             onClick={() => alert('Published')}
             isDisabled={isButtonDisabled}
           />

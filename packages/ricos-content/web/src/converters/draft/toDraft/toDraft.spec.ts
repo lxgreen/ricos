@@ -1,13 +1,23 @@
+import { merge } from 'lodash';
 import { toDraft, fromDraft, convertNodeDataToDraft, convertDecorationDataToDraft } from '..';
 import { compare } from '../../../comparision/compare';
-import fixture from '../../../../../../../e2e/tests/fixtures/intro.json';
 import complexFixture from '../../../../../../../e2e/tests/fixtures/migration-content.json';
 import anchorBlocksFixture from '../../../../../../../e2e/tests/fixtures/all-blocks-with-anchors.json';
-import { ANCHOR_TYPE } from '../../..';
-import { Decoration_Type, Node_Type } from 'ricos-schema';
+import keyAndBulletFixture from './migration-content-with-key-and-bullet.json';
+import { ANCHOR_TYPE, WRAP } from '../../../consts';
+import {
+  Decoration_Type,
+  FileData,
+  Node_Type,
+  PluginContainerData_Alignment,
+  PluginContainerData_Width_Type,
+  Node,
+} from 'ricos-schema';
 import { convertDecorationToDraftData, convertNodeToDraftData } from './convertDraftPluginData';
+import external from './__tests__/external-blocks-and-decorations.json';
+import externalMigrated from './__tests__/external-blocks-and-decorations-migrated.json';
 
-const fixtures = { intro: fixture, complex: complexFixture };
+const fixtures = { complex: complexFixture };
 
 describe('migrate to draft', () => {
   Object.entries(fixtures).forEach(([name, content]) =>
@@ -28,27 +38,25 @@ describe('migrate to draft', () => {
 
   const imageNodeData = {
     nodes: [],
-    type: 'IMAGE',
-    key: 'eoba3',
+    type: Node_Type.IMAGE,
+    id: 'eoba3',
     imageData: {
-      config: {
-        size: 'CONTENT',
-        alignment: 'CENTER',
-        showTitle: true,
-        showDescription: true,
-        disableExpand: false,
+      containerData: {
+        width: { size: PluginContainerData_Width_Type.CONTENT },
+        alignment: PluginContainerData_Alignment.CENTER,
+        textWrap: true,
       },
-      src: {
-        id: '036c6bf6cef5e4409848eb4eb6f80de1',
-        originalFileName: '8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg',
-        fileName: '8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg',
+      image: {
+        src: {
+          custom: '8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg',
+          private: false,
+        },
         width: 2898,
         height: 3354,
       },
-      metadata: {
-        alt: 'feet',
-        caption: 'The caption!',
-      },
+      disableExpand: false,
+      altText: 'feet',
+      caption: 'The caption!',
     },
   };
 
@@ -56,13 +64,11 @@ describe('migrate to draft', () => {
     config: {
       alignment: 'center',
       size: 'content',
-      showTitle: true,
-      showDescription: true,
-      disableExpand: false,
+      textWrap: WRAP,
     },
+    disableExpand: false,
     src: {
-      id: '036c6bf6cef5e4409848eb4eb6f80de1',
-      original_file_name: '8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg',
+      id: '8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg',
       file_name: '8bb438_131a7e1872bc45ec827bb61e56b840fe.jpg',
       width: 2898,
       height: 3354,
@@ -85,8 +91,59 @@ describe('migrate to draft', () => {
     expect(blockData).toEqual(expectedImageBlockData);
   });
 
+  describe('FileSource', () => {
+    it('should convert node data with id as source', () => {
+      const { custom, ...rest } = imageNodeData.imageData.image.src;
+      const newImageNodeData = merge({}, imageNodeData, {
+        imageData: { image: { src: { ...rest, id: custom } } },
+      });
+
+      const blockData = convertNodeToDraftData(newImageNodeData);
+
+      expect(blockData).toEqual(expectedImageBlockData);
+    });
+    describe('private (FileUpload coverage)', () => {
+      it(`should handle 'false'`, () => {
+        const expectedBlockData = { id: 'abcdefg', privacy: 'public' };
+        const fileData: FileData = { src: { id: 'abcdefg', private: false } };
+        const nodeData: Node = {
+          id: '1',
+          type: Node_Type.FILE,
+          nodes: [],
+          fileData,
+        };
+        const blockData = convertNodeToDraftData(nodeData);
+        expect(blockData).toEqual(expectedBlockData);
+      });
+      it(`should handle 'true'`, () => {
+        const expectedBlockData = { id: 'abcdefg', privacy: 'private' };
+        const fileData: FileData = { src: { id: 'abcdefg', private: true } };
+        const nodeData: Node = {
+          id: '1',
+          type: Node_Type.FILE,
+          nodes: [],
+          fileData,
+        };
+        const blockData = convertNodeToDraftData(nodeData);
+        expect(blockData).toEqual(expectedBlockData);
+      });
+      it(`should handle undefined`, () => {
+        const expectedBlockData = { id: 'abcdefg' };
+        const fileData: FileData = { src: { id: 'abcdefg' } };
+        const nodeData: Node = {
+          id: '1',
+          type: Node_Type.FILE,
+          nodes: [],
+          fileData,
+        };
+        const blockData = convertNodeToDraftData(nodeData);
+        expect(blockData).toEqual(expectedBlockData);
+      });
+    });
+  });
+
   const mentionDecoration = {
-    type: 'MENTION',
+    type: Decoration_Type.MENTION,
     mentionData: {
       name: 'Test One',
       slug: 'testone',
@@ -113,6 +170,48 @@ describe('migrate to draft', () => {
     const blockData = convertDecorationToDraftData(mentionDecoration);
 
     expect(blockData).toEqual(expectedMentionBlockData);
+  });
+
+  describe('migrate key and bullet list', () => {
+    it('should not break keys', () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const content: any = {
+        nodes: [
+          {
+            type: 'BULLET_LIST',
+            key: 'foo',
+            nodes: [
+              {
+                type: 'LIST_ITEM',
+                key: 'bar',
+                nodes: [
+                  {
+                    type: 'PARAGRAPH',
+                    key: 'baz',
+                    nodes: [],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+      const { blocks } = toDraft(content);
+      expect(blocks[0].key).toEqual('bar');
+      expect(blocks[0].type).toEqual('unordered-list-item');
+    });
+
+    it('should fix whole content', () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const converted = toDraft(keyAndBulletFixture as any);
+      expect(compare(converted, complexFixture, { ignoredKeys: ['key', 'ID'] })).toEqual({});
+    });
+  });
+});
+
+describe('toDraft EXTERNAL', () => {
+  it('should migrate external node and decoration', () => {
+    expect(compare(toDraft(external), externalMigrated, { ignoredKeys: ['ID'] })).toEqual({});
   });
 });
 

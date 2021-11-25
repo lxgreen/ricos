@@ -45,7 +45,7 @@ import 'wix-rich-content-plugin-button/dist/styles.min.css';
 
 /* Viewer */
 import { RicosViewer } from 'ricos-viewer';
-import { pluginLinkButton } from 'wix-rich-content-plugin-button/dist/module.viewer';
+import { pluginLinkButton } from 'wix-rich-content-plugin-button/viewer';
 import 'wix-rich-content-plugin-button/dist/styles.min.css';
 <RicosViewer plugins={[pluginLinkButton(LinkButtonConfig)]} />;
 ```
@@ -62,54 +62,12 @@ import 'wix-rich-content-plugin-button/dist/styles.min.css';
 
 /* Viewer */
 import { RicosViewer } from 'ricos-viewer';
-import { pluginActionButton } from 'wix-rich-content-plugin-button/dist/module.viewer';
+import { pluginActionButton } from 'wix-rich-content-plugin-button/viewer';
 import 'wix-rich-content-plugin-button/dist/styles.min.css';
 <RicosViewer plugins={[pluginActionButton(ActionButtonConfig)]} />;
 ```
 
 ## Link & Action Button Config API
-
-### `selectionBackgroundColor`
-
-Control Button selection background color
-
-```jsx
-selectionBackgroundColor?: string;
-```
-
-Example value:
-
-```jsx
-selectionBackgroundColor: 'fuchsia';
-```
-
-### `selectionBorderColor`
-
-Control Button selection border color
-
-```jsx
-selectionBorderColor?: string;
-```
-
-Example value:
-
-```jsx
-selectionBorderColor: '#FFF';
-```
-
-### `selectionTextColor`
-
-Control Button selection text color
-
-```jsx
-selectionTextColor?: string;
-```
-
-Example value:
-
-```jsx
-selectionTextColor: '#FFF';
-```
 
 ### `colors`
 

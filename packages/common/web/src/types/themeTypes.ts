@@ -1,9 +1,10 @@
+import { AugmentedRequired } from 'utility-types/dist/mapped-types';
 import { CSSProperties } from 'react';
 
 export interface ThemeUtils {
   isBright: (hexColor: string) => boolean;
-  adaptForeground: (actionColor: string, fallbackColor?: string) => string;
-  toCssRgbA: (hexColor: string, opacity: number) => string;
+  adaptForeground: (actionColor?: string, fallbackColor?: string) => string | undefined;
+  toCssRgbA: (hexColor: string | undefined, opacity: number) => string | undefined;
 }
 
 /** Colors scheme for `Ricos`.
@@ -19,9 +20,9 @@ export interface ThemeUtils {
  * ```
  */
 export interface PaletteColors {
-  actionColor: string;
-  bgColor: string;
-  textColor: string;
+  actionColor?: string;
+  bgColor?: string;
+  textColor?: string;
   textColorLow?: string;
   disabledColor?: string;
   /** Default is black.
@@ -29,8 +30,14 @@ export interface PaletteColors {
    * Therefore this color should remain relatively dark. */
   fallbackColor?: string;
 }
+
+export interface ThemeData {
+  colors?: PaletteColors;
+  utils: ThemeUtils;
+  customStyles?: RicosCustomStyles;
+}
 export interface ThemeGeneratorFunction {
-  (colors: PaletteColors, utils: ThemeUtils, customStyles?: RicosCustomStyles): void;
+  (themeData: AugmentedRequired<ThemeData, 'colors'>): void;
 }
 
 export interface CustomTextualStyle {
@@ -43,7 +50,9 @@ export interface CustomTextualStyle {
   minHeight?: CSSProperties['minHeight'];
   color?: CSSProperties['color'];
 }
+
 export interface RicosCustomStyles {
+  h1?: CustomTextualStyle;
   h2?: CustomTextualStyle;
   h3?: CustomTextualStyle;
   h4?: CustomTextualStyle;
@@ -54,4 +63,30 @@ export interface RicosCustomStyles {
   link?: CustomTextualStyle;
   hashtag?: CustomTextualStyle;
   button?: Pick<CustomTextualStyle, 'color'>;
+}
+
+export interface RicosSettingsStyles {
+  text?: {
+    fontFamily?: CSSProperties['fontFamily'];
+    color?: CSSProperties['color'];
+  };
+  whitebox?: {
+    borderRadius?: CSSProperties['borderRadius'];
+    boxShadow?: CSSProperties['boxShadow'];
+  };
+  buttons?: {
+    borderRadius?: CSSProperties['borderRadius'];
+    textColor?: CSSProperties['color'];
+  };
+  inputs?: {
+    borderColor?: CSSProperties['borderColor'];
+    borderRadius?: CSSProperties['borderRadius'];
+    placeholderColor?: CSSProperties['color'];
+  };
+  icons?: {
+    color?: CSSProperties['color'];
+  };
+  dividers?: {
+    color?: CSSProperties['color'];
+  };
 }

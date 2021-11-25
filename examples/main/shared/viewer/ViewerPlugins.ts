@@ -1,7 +1,15 @@
 import theme from '../theme/theme';
-import { videoTypeMapper, VIDEO_TYPE, pluginVideo } from 'wix-rich-content-plugin-video/viewer';
-import { dividerTypeMapper, pluginDivider } from 'wix-rich-content-plugin-divider/viewer';
-import { htmlTypeMapper, pluginHtml } from 'wix-rich-content-plugin-html/viewer';
+import {
+  videoTypeMapper,
+  VIDEO_TYPE,
+  pluginVideo,
+} from 'wix-rich-content-plugin-video/loadable/viewer';
+import {
+  dividerTypeMapper,
+  pluginDivider,
+  DIVIDER_TYPE,
+} from 'wix-rich-content-plugin-divider/viewer';
+import { htmlTypeMapper, pluginHtml, HTML_TYPE } from 'wix-rich-content-plugin-html/viewer';
 import { soundCloudTypeMapper, pluginSoundCloud } from 'wix-rich-content-plugin-sound-cloud/viewer';
 import { linkTypeMapper, LINK_TYPE, pluginLink } from 'wix-rich-content-plugin-link/viewer';
 import {
@@ -9,15 +17,19 @@ import {
   LINK_PREVIEW_TYPE,
   pluginLinkPreview,
 } from 'wix-rich-content-plugin-link-preview/viewer';
-import { imageTypeMapper, pluginImage } from 'wix-rich-content-plugin-image/viewer';
-import { tableTypeMapper, pluginTable } from 'wix-rich-content-plugin-table/viewer';
+import {
+  imageTypeMapper,
+  pluginImage,
+  IMAGE_TYPE,
+} from 'wix-rich-content-plugin-image/loadable/viewer';
+import { tableTypeMapper, pluginTable, TABLE_TYPE } from 'wix-rich-content-plugin-table/viewer';
 
 import {
   galleryTypeMapper,
   pluginGallery,
   GALLERY_TYPE,
-} from 'wix-rich-content-plugin-gallery/viewer';
-import { mapTypeMapper, pluginMap } from 'wix-rich-content-plugin-map/viewer';
+} from 'wix-rich-content-plugin-gallery/loadable/viewer';
+import { mapTypeMapper, pluginMap, MAP_TYPE } from 'wix-rich-content-plugin-map/viewer';
 import { giphyTypeMapper, pluginGiphy, GIPHY_TYPE } from 'wix-rich-content-plugin-giphy/viewer';
 import {
   buttonTypeMapper,
@@ -28,13 +40,18 @@ import { HashtagDecorator, pluginHashtag } from 'wix-rich-content-plugin-hashtag
 import {
   verticalEmbedTypeMapper,
   pluginVerticalEmbed,
+  VERTICAL_EMBED_TYPE,
 } from 'wix-rich-content-plugin-vertical-embed/viewer';
 import {
   createHeadersMarkdownDecorator,
   HEADERS_MARKDOWN_TYPE,
   pluginHeadersMarkdown,
 } from 'wix-rich-content-plugin-headers-markdown';
-import { CodeBlockDecorator, pluginCodeBlock } from 'wix-rich-content-plugin-code-block/viewer';
+import {
+  CodeBlockDecorator,
+  pluginCodeBlock,
+  CODE_BLOCK_TYPE,
+} from 'wix-rich-content-plugin-code-block/viewer';
 import {
   mentionsTypeMapper,
   MENTION_TYPE,
@@ -44,7 +61,7 @@ import {
   fileUploadTypeMapper,
   pluginFileUpload,
   FILE_UPLOAD_TYPE,
-} from 'wix-rich-content-plugin-file-upload/viewer';
+} from 'wix-rich-content-plugin-file-upload/loadable/viewer';
 import {
   textColorInlineStyleMapper,
   TEXT_COLOR_TYPE,
@@ -60,7 +77,11 @@ import {
   SPOILER_TYPE,
   pluginSpoiler,
 } from 'wix-rich-content-plugin-spoiler/viewer';
-import { accordionTypeMapper, pluginAccordion } from 'wix-rich-content-plugin-accordion/viewer';
+import {
+  collapsibleListTypeMapper,
+  pluginCollapsibleList,
+  COLLAPSIBLE_LIST_TYPE,
+} from 'wix-rich-content-plugin-collapsible-list/viewer';
 
 import {
   viewerCustomForegroundStyleFn,
@@ -69,6 +90,7 @@ import {
 } from '../../src/text-color-style-fn';
 
 import { pollTypeMapper, pluginPoll, POLL_TYPE } from 'wix-rich-content-plugin-social-polls/viewer';
+import { SocialPollsServiceMock } from '../../src/Components/SocialPollsServiceMock/SocialPollsServiceMock';
 
 import 'wix-rich-content-editor-common/dist/styles.min.css';
 import 'wix-rich-content-common/dist/styles.min.css';
@@ -90,9 +112,11 @@ import 'wix-rich-content-plugin-map/dist/styles.min.css';
 import 'wix-rich-content-plugin-file-upload/dist/styles.min.css';
 import 'wix-rich-content-plugin-giphy/dist/styles.min.css';
 import 'wix-rich-content-text-selection-toolbar/dist/styles.min.css';
+import 'wix-rich-content-link-preview-popover/dist/styles.min.css';
 import 'wix-rich-content-plugin-social-polls/dist/styles.min.css';
-import 'wix-rich-content-plugin-accordion/dist/styles.min.css';
+import 'wix-rich-content-plugin-collapsible-list/dist/styles.min.css';
 import 'wix-rich-content-plugin-table/dist/styles.min.css';
+import 'wix-rich-content-plugin-vertical-embed/dist/styles.min.css';
 
 import { RichContentViewerProps } from 'wix-rich-content-viewer';
 import {
@@ -102,13 +126,16 @@ import {
   DraftContent,
   UISettings,
   ViewerPlugin,
+  ViewerPluginCreator,
 } from 'wix-rich-content-common';
 
 const linkPluginSettings = {
+  // eslint-disable-next-line no-console
   onClick: (event, url) => console.log('link clicked!', url),
   siteUrl: 'http://localhost:3000/', //siteUrl is for anchor SEO
 };
 const mentionsPluginSettings = {
+  // eslint-disable-next-line no-console
   onMentionClick: mention => console.log('mention clicked!', mention),
   getMentionLink: () => '/link/to/mention',
 };
@@ -130,17 +157,28 @@ export const typeMappers: PluginTypeMapper[] = [
   giphyTypeMapper,
   pollTypeMapper,
   verticalEmbedTypeMapper,
-  accordionTypeMapper,
+  collapsibleListTypeMapper,
 ];
 
 export const uiSettings: UISettings = {
-  disableRightClick: true,
+  // disableRightClick: true, deprecated
 };
 
 const config: RichContentViewerProps['config'] = {
   [POLL_TYPE]: {
-    siteToken: process.env.POLLS_API_KEY,
-    isWebView: false,
+    pollServiceApi: new SocialPollsServiceMock(),
+    getSiteMembers: () => [
+      // Public user
+      {
+        siteMemberId: 'd0d683f9-81b1-4ec2-84ee-7f49c5245148',
+        name: { nick: 'User 1' },
+        imageUrl: 'https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg',
+      },
+      // Private user
+      {
+        siteMemberId: 'd0d683f9-81b1-4ec2-84ee-7f49c5245149',
+      },
+    ],
   },
   [GALLERY_TYPE]: {},
   [SPOILER_TYPE]: { initSpoilersContentState, SpoilerViewerWrapper },
@@ -171,8 +209,7 @@ const config: RichContentViewerProps['config'] = {
     resolveFileUrl: () =>
       new Promise(resolve =>
         setTimeout(
-          () =>
-            resolve('http://file-examples.com/wp-content/uploads/2017/10/file-sample_150kB.pdf'),
+          () => resolve('https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf'),
           1000
         )
       ),
@@ -184,46 +221,47 @@ const config: RichContentViewerProps['config'] = {
   uiSettings,
   [ACTION_BUTTON_TYPE]: {
     onClick: () => {
+      // eslint-disable-next-line no-alert
       window.alert('onClick event..');
     },
   },
   [HASHTAG_TYPE]: {
     onClick: (event, text) => {
       event.preventDefault();
+      // eslint-disable-next-line no-console
       console.log(`'${text}' hashtag clicked!`);
     },
     createHref: decoratedText => `/search/posts?query=${encodeURIComponent('#')}${decoratedText}`,
   },
 };
 
-export const viewerPlugins: ViewerPlugin[] = [
-  pluginVideo(config[VIDEO_TYPE]),
-  pluginActionButton(config[ACTION_BUTTON_TYPE]),
-  pluginDivider(),
-  pluginHtml(),
-  pluginLink(config[LINK_TYPE]),
-  pluginLinkPreview(config[LINK_PREVIEW_TYPE]),
-  pluginSoundCloud(),
-  pluginMentions(),
-  pluginImage(),
-  pluginTable(),
-  pluginGallery(config[GALLERY_TYPE]),
-  pluginMap(),
-  pluginFileUpload(config[FILE_UPLOAD_TYPE]),
-  pluginGiphy(config[GIPHY_TYPE]),
-  pluginPoll(config[POLL_TYPE]),
-  pluginVerticalEmbed(),
-  pluginAccordion(),
-  pluginHashtag(config[HASHTAG_TYPE]),
-  pluginHeadersMarkdown(),
-  pluginCodeBlock(),
-  pluginTextColor(config[TEXT_COLOR_TYPE]),
-  pluginTextHighlight(config[TEXT_HIGHLIGHT_TYPE]),
-  pluginSpoiler(),
-];
+export const ricosViewerPlugins: Record<string, ViewerPluginCreator<unknown>> = {
+  [IMAGE_TYPE]: pluginImage,
+  [GALLERY_TYPE]: pluginGallery,
+  [VIDEO_TYPE]: pluginVideo,
+  [HTML_TYPE]: pluginHtml,
+  [DIVIDER_TYPE]: pluginDivider,
+  [LINK_TYPE]: pluginLink,
+  [HASHTAG_TYPE]: pluginHashtag,
+  [MENTION_TYPE]: pluginMentions,
+  [CODE_BLOCK_TYPE]: pluginCodeBlock,
+  [GIPHY_TYPE]: pluginGiphy,
+  [HEADERS_MARKDOWN_TYPE]: pluginHeadersMarkdown,
+  [MAP_TYPE]: pluginMap,
+  [FILE_UPLOAD_TYPE]: pluginFileUpload,
+  [TEXT_COLOR_TYPE]: pluginTextColor,
+  [TEXT_HIGHLIGHT_TYPE]: pluginTextHighlight,
+  [LINK_PREVIEW_TYPE]: pluginLinkPreview,
+  [SPOILER_TYPE]: pluginSpoiler,
+  [VERTICAL_EMBED_TYPE]: pluginVerticalEmbed,
+  [ACTION_BUTTON_TYPE]: pluginActionButton,
+  [POLL_TYPE]: pluginPoll,
+  [COLLAPSIBLE_LIST_TYPE]: pluginCollapsibleList,
+  [TABLE_TYPE]: pluginTable,
+};
 
 export const getConfig = (additionalConfig = {}): RichContentViewerProps['config'] => {
-  let _config = { ...config };
+  const _config = { ...config };
   Object.keys(additionalConfig).forEach(key => {
     if (additionalConfig[key]) {
       const orgConfig = config[key] || {};

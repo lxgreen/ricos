@@ -1,7 +1,7 @@
 const imageType = 'wix-draft-plugin-image';
 const imageTypeLegacy = 'IMAGE';
 const galleryType = 'wix-draft-plugin-gallery';
-const accordionType = 'wix-rich-content-plugin-accordion';
+const collapsibleListType = 'wix-rich-content-plugin-collapsible-list';
 const tableType = 'wix-rich-content-plugin-table';
 
 function imageEntityToGallery(data, index) {
@@ -15,17 +15,17 @@ function imageEntityToGallery(data, index) {
       title: (metadata && metadata.caption) || '',
       altText: (metadata && metadata.alt) || '',
     },
-    itemId: src.id || url + index,
     url,
+    disableDownload: data.disableDownload,
   };
 }
 
 const blockToImagesKeys = {
   [imageType]: (entity, blockKey) => {
-    if (!entity.data.config?.disableExpand) return { [blockKey]: 1 };
+    if (!entity.data?.disableExpand) return { [blockKey]: 1 };
   },
   [imageTypeLegacy]: (entity, blockKey) => {
-    if (!entity.data?.config?.disableExpand) return { [blockKey]: 1 };
+    if (!entity.data?.disableExpand) return { [blockKey]: 1 };
   },
   [tableType]: entity => {
     let tableImagesKeys = {};
@@ -39,20 +39,20 @@ const blockToImagesKeys = {
     });
     return tableImagesKeys;
   },
-  [accordionType]: entity => {
-    let accordionImagesKeys = {};
+  [collapsibleListType]: entity => {
+    let collapsibleListType = {};
     entity.data?.pairs.forEach(pair => {
       const blockKeys = contentTraverser(pair.content);
       const imageKeys = blockKeys.length ? Object.assign(...blockKeys) : {};
-      accordionImagesKeys = {
-        ...accordionImagesKeys,
+      collapsibleListType = {
+        ...collapsibleListType,
         ...imageKeys,
       };
     });
-    return accordionImagesKeys;
+    return collapsibleListType;
   },
   [galleryType]: (entity, blockKey) => {
-    if (!entity.data.config.disableExpand) return { [blockKey]: entity.data.items.length };
+    if (!entity.data?.disableExpand) return { [blockKey]: entity.data.items.length };
   },
 };
 
@@ -73,7 +73,7 @@ function innerRceImagesMapper(entityMap, index) {
   Object.entries(entityMap).forEach(([, block]) => {
     if (block.type === imageType || block.type === imageTypeLegacy) {
       block.data?.src &&
-        !block.data?.config?.disableExpand &&
+        !block.data?.disableExpand &&
         images.push(imageEntityToGallery(block.data, index));
     }
   });
@@ -97,29 +97,36 @@ function getTableImages(entity, index) {
     .flat();
 }
 
-function getAccordionImages(entity, index) {
-  let accordionImages = [];
+function getCollapsibleListImages(entity, index) {
+  let collapsibleListType = [];
   entity.data.pairs.forEach(pair => {
-    accordionImages = [...accordionImages, ...innerRceImagesMapper(pair.content.entityMap, index)];
+    collapsibleListType = [
+      ...collapsibleListType,
+      ...innerRceImagesMapper(pair.content.entityMap, index),
+    ];
   });
-  return accordionImages;
+  return collapsibleListType;
 }
 
 function convertEntityToGalleryItems(entity, index) {
   switch (entity.type) {
     case imageType:
     case imageTypeLegacy:
-      return entity.data.src && !entity.data.config?.disableExpand
+      return entity.data.src && !entity.data?.disableExpand
         ? [imageEntityToGallery(entity.data, index)]
         : [];
     case galleryType: {
-      return entity.data.config.disableExpand ? [] : entity.data.items;
+      return entity.data?.disableExpand
+        ? []
+        : entity.data.items.map(item => {
+            return { ...item, disableDownload: entity.data.disableDownload };
+          });
     }
     case tableType: {
       return getTableImages(entity, index);
     }
-    case accordionType: {
-      return getAccordionImages(entity, index);
+    case collapsibleListType: {
+      return getCollapsibleListImages(entity, index);
     }
     default:
       return [];

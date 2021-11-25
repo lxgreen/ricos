@@ -4,16 +4,17 @@ import classNames from 'classnames';
 import imageClientAPI from 'image-client-api/dist/imageClientSDK';
 import { mergeStyles } from 'wix-rich-content-common';
 import {
-  FileInput,
   Image,
   InputWithLabel,
   SettingsSection,
+  FileInput,
   SettingsPanelFooter,
-} from 'wix-rich-content-plugin-commons';
-import { FocusManager, LinkPanel } from 'wix-rich-content-editor-common';
+  FocusManager,
+  SettingsMobileHeader,
+} from 'wix-rich-content-ui-components';
+import { LinkPanelWrapper } from 'wix-rich-content-editor-common';
 import { BackIcon, DeleteIcon, ReplaceIcon, NextIcon, PreviousIcon } from '../../icons';
 import styles from '../../../statics/styles/gallery-image-settings.scss';
-import GallerySettingsMobileHeader from './gallery-settings-mobile-header';
 
 class ImageSettings extends Component {
   constructor(props) {
@@ -49,33 +50,13 @@ class ImageSettings extends Component {
     );
 
   onTitleChange = title => this.props.onUpdateItem({ title });
+
   onAltTextChange = altText => this.props.onUpdateItem({ altText });
 
   onLinkPanelChange = linkPanelValues => {
-    this.props.onUpdateItem({ link: this.linkPanelToLink(linkPanelValues) });
+    this.props.onUpdateItem({ link: linkPanelValues });
   };
 
-  linkPanelToLink = ({ url, targetBlank, nofollow, isValid }) => ({
-    url,
-    target: targetBlank
-      ? '_blank'
-      : this.props.anchorTarget !== '_blank'
-      ? this.props.anchorTarget
-      : '_self',
-    rel: nofollow
-      ? 'nofollow'
-      : this.props.relValue !== 'nofollow'
-      ? this.props.relValue
-      : 'noopener',
-    isValid,
-  });
-
-  linkToLinkPanel = ({ url = '', target, rel, isValid }) => ({
-    url,
-    targetBlank: target ? target === '_blank' : this.props.anchorTarget === '_blank',
-    nofollow: rel ? rel === 'nofollow' : this.props.relValue === 'nofollow',
-    isValid,
-  });
   render() {
     const styles = this.styles;
     const {
@@ -86,8 +67,6 @@ class ImageSettings extends Component {
       theme,
       isMobile,
       t,
-      anchorTarget,
-      relValue,
       onNextItem,
       onPreviousItem,
       onDeleteItem,
@@ -95,16 +74,13 @@ class ImageSettings extends Component {
       visibleRightArrow,
       uiSettings,
       accept,
+      anchorTarget,
+      relValue,
     } = this.props;
 
     const { linkPanel } = uiSettings || {};
-    const { blankTargetToggleVisibilityFn, nofollowRelToggleVisibilityFn, placeholder } =
+    const { showNewTabCheckbox, showNoFollowCheckbox, showSponsoredCheckbox, placeholder } =
       linkPanel || {};
-    const showTargetBlankCheckbox =
-      blankTargetToggleVisibilityFn && blankTargetToggleVisibilityFn(anchorTarget);
-    const showRelValueCheckbox =
-      nofollowRelToggleVisibilityFn && nofollowRelToggleVisibilityFn(relValue);
-
     const { metadata = {} } = image || {};
 
     const altText = typeof metadata.altText === 'string' ? metadata.altText : metadata.title;
@@ -113,13 +89,7 @@ class ImageSettings extends Component {
       <FocusManager className={styles.galleryImageSettings}>
         <div className={styles.galleryImageSettings_content}>
           {isMobile ? (
-            <GallerySettingsMobileHeader
-              theme={theme}
-              cancel={onCancel}
-              save={onSave}
-              saveName={this.updateLabel}
-              t={t}
-            />
+            <SettingsMobileHeader theme={theme} onCancel={onCancel} onSave={onSave} t={t} />
           ) : (
             <h3
               className={classNames(
@@ -244,15 +214,18 @@ class ImageSettings extends Component {
                     <span id="gallery_image_link_lbl" className={this.styles.inputWithLabel_label}>
                       {this.linkLabel}
                     </span>
-                    <LinkPanel
-                      linkValues={this.linkToLinkPanel(metadata.link || {})}
+                    <LinkPanelWrapper
+                      linkValues={metadata.link || {}}
                       onChange={this.onLinkPanelChange}
-                      showTargetBlankCheckbox={showTargetBlankCheckbox}
-                      showRelValueCheckbox={showRelValueCheckbox}
+                      showNewTabCheckbox={showNewTabCheckbox}
+                      showNoFollowCheckbox={showNoFollowCheckbox}
+                      showSponsoredCheckbox={showSponsoredCheckbox}
                       theme={theme}
                       t={t}
                       ariaProps={{ 'aria-labelledby': 'gallery_image_link_lbl' }}
                       placeholder={placeholder}
+                      anchorTarget={anchorTarget}
+                      relValue={relValue}
                     />
                   </SettingsSection>
                 )}
@@ -260,14 +233,7 @@ class ImageSettings extends Component {
             )}
           </div>
           {isMobile ? null : (
-            <SettingsPanelFooter
-              fixed
-              theme={theme}
-              className={styles.galleryImageSettings_footer}
-              cancel={onCancel}
-              save={onSave}
-              t={t}
-            />
+            <SettingsPanelFooter fixed theme={theme} cancel={onCancel} save={onSave} t={t} />
           )}
         </div>
       </FocusManager>

@@ -10,7 +10,7 @@ export const DEFAULT_PALETTE = Object.freeze([
   '#f7f7f7',
 ]);
 export const DEFAULT_COLOR = '#000000';
-export const DEFAULT_HIGHLIGHT_COLOR = '#ffffff00';
+export const DEFAULT_HIGHLIGHT_COLOR = '#ffffff';
 export const PANEL_WIDTH = 216;
 export const PANEL_HEIGHT = 116;
 

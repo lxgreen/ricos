@@ -1,3 +1,4 @@
+import { has, isString } from 'lodash';
 import { RicosEntity } from '../../types/contentTypes';
 import { PreviewEntityData } from '../types';
 /*
@@ -12,45 +13,64 @@ const defaultEntityConverter: PluginConverter = () => [];
 
 const imageConverter: PluginConverter = entity => [
   {
-    width: entity.data.src.width,
-    height: entity.data.src.height,
-    url: entity.data.src.file_name,
+    width: entity.data.src?.width,
+    height: entity.data.src?.height,
+    url: entity.data.src?.file_name,
     type: 'image',
-    metadata: entity.data.metadata,
-    link: entity.data.config.link,
+    alt: entity.data.metadata?.alt || '',
+    caption: entity.data.metadata?.caption || '',
+    link: entity.data.config?.link,
   },
 ];
 
 const galleryConverter: PluginConverter = entity =>
-  entity.data.items.map(({ metadata, url, itemId }) => ({
-    url,
-    height: metadata.height,
-    width: metadata.width,
-    id: itemId,
-    type: 'image',
-    isGalleryItem: true,
-  }));
+  entity.data.items
+    .filter(
+      ({ metadata }) => !metadata?.type || metadata?.type === 'image' || metadata?.type === 'video'
+    )
+    .map(({ metadata, url, itemId }) =>
+      metadata?.type === 'video'
+        ? {
+            type: 'video',
+            url,
+            thumbnail: metadata?.poster?.url || '',
+            caption: metadata?.title || '',
+            isGalleryItem: true,
+          }
+        : {
+            url,
+            height: metadata?.height,
+            width: metadata?.width,
+            id: itemId,
+            type: 'image',
+            alt: metadata?.altText || '',
+            caption: metadata?.title || '',
+            isGalleryItem: true,
+          }
+    );
 
 const giphyConverter: PluginConverter = entity => [
   {
     type: 'giphy',
-    url: entity.data.gif.originalUrl,
-    mp4: entity.data.gif.downsizedSmallMp4,
-    thumbnail: entity.data.gif.stillUrl,
-    width: entity.data.gif.width,
-    height: entity.data.gif.height,
+    url: entity.data.gif?.originalUrl,
+    mp4: entity.data.gif?.downsizedSmallMp4,
+    thumbnail: entity.data.gif?.stillUrl,
+    width: entity.data.gif?.width,
+    height: entity.data.gif?.height,
     source: 'static',
   },
 ];
 
-const videoConverter: PluginConverter = ({ data: { src, isCustomVideo, metadata = {} } }) => {
-  const { thumbnail_url } = metadata;
+const videoConverter: PluginConverter = ({ data: { src = {}, isCustomVideo, metadata = {} } }) => {
+  const url = isString(src) ? src : src.pathname;
+  const thumbnail = has(src, 'thumbnail') ? src.thumbnail?.pathname : metadata.thumbnail_url || '';
   return [
     {
       type: 'video',
-      url: src,
+      url,
       isCustom: isCustomVideo,
-      thumbnail: thumbnail_url,
+      thumbnail,
+      caption: metadata.title || '',
     },
   ];
 };

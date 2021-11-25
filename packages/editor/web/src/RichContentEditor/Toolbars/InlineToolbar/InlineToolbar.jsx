@@ -4,7 +4,11 @@ import classNames from 'classnames';
 import Measure from 'react-measure';
 import ClickOutside from 'react-click-outsider';
 import { debounce } from 'lodash';
-import { DISPLAY_MODE, getVisibleSelectionRect } from 'wix-rich-content-editor-common';
+import {
+  DISPLAY_MODE,
+  getVisibleSelectionRect,
+  KEYS_CHARCODE,
+} from 'wix-rich-content-editor-common';
 import stylesRtlIgnore from '../../../../statics/styles/inline-toolbar.rtlignore.scss';
 import styles from '../../../../statics/styles/inline-toolbar.scss';
 import { getLangDir } from 'wix-rich-content-common';
@@ -50,6 +54,7 @@ export default class InlineToolbar extends Component {
     }),
     toolbarDecorationFn: PropTypes.func,
     locale: PropTypes.string.isRequired,
+    removeToolbarFocus: PropTypes.func,
   };
 
   static defaultProps = {
@@ -62,12 +67,24 @@ export default class InlineToolbar extends Component {
 
   constructor(props) {
     super(props);
-    const { offset, displayOptions } = props;
+    const { offset, displayOptions, helpers } = props;
     let position;
 
     if (displayOptions.displayMode === DISPLAY_MODE.FLOATING) {
       position = { '--offset-top': `${offset.y}px`, '--offset-left': `${offset.x}px` };
     }
+    const isVisible = () => this.state.isVisible;
+    this.checkShouldTriggerBI = (() => {
+      let triggered = false;
+      return () => {
+        if (!triggered && isVisible()) {
+          triggered = true;
+          helpers?.onInlineToolbarOpen?.({ toolbarType: 'FORMATTING' });
+        } else if (!isVisible()) {
+          triggered = false;
+        }
+      };
+    })();
     this.state = {
       position,
       overrideContent: undefined,
@@ -134,6 +151,8 @@ export default class InlineToolbar extends Component {
     return { top, left };
   }
 
+  isToolbarOnFocus = () => this.toolbar?.contains(document.activeElement);
+
   onSelectionChanged = debounce(() => {
     // need to wait a tick for window.getSelection() to be accurate
     // when focusing editor with already present selection
@@ -143,8 +162,13 @@ export default class InlineToolbar extends Component {
     }
 
     const { displayOptions } = this.props;
+    const toolbarOnFocus = this.isToolbarOnFocus();
 
-    if (displayOptions.displayMode === DISPLAY_MODE.NORMAL && !this.state.keepOpen) {
+    if (
+      displayOptions.displayMode === DISPLAY_MODE.NORMAL &&
+      !this.state.keepOpen &&
+      !toolbarOnFocus
+    ) {
       const { top, left } = this.getRelativePosition();
       this.setState({ position: { '--offset-top': `${top}px`, '--offset-left': `${left}px` } });
     }
@@ -162,7 +186,9 @@ export default class InlineToolbar extends Component {
       isVisible = visibilityFn(editorState);
     }
 
-    return isVisible || overrideContent || extendContent || keepOpen || false;
+    const toolbarOnFocus = this.isToolbarOnFocus();
+
+    return isVisible || overrideContent || extendContent || keepOpen || toolbarOnFocus || false;
   };
 
   isVisible = () => this.state.isVisible;
@@ -326,9 +352,16 @@ export default class InlineToolbar extends Component {
     );
   }
 
+  onKeyDown = e => {
+    if (e.keyCode === KEYS_CHARCODE.ESCAPE) {
+      this.props.removeToolbarFocus?.();
+    }
+  };
+
   onClick = e => e.preventDefault();
 
   render() {
+    this.checkShouldTriggerBI();
     //checking false since undefined is not good
     if (this.isVisible() === false) {
       return null;
@@ -338,6 +371,7 @@ export default class InlineToolbar extends Component {
 
     const props = {
       onClick: this.onClick,
+      onKeyDown: this.onKeyDown,
       className: classNames(Styles.inlineToolbar, toolbarStyles && toolbarStyles.inlineToolbar),
       style: this.getStyle(),
       tabIndex: this.isVisible() ? 0 : -1,

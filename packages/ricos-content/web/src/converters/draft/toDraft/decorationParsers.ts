@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
-import { Decoration, Node, Node_Type } from 'ricos-schema';
-import { RicosInlineStyleRange, RicosEntityRange, RicosEntityMap } from '../../..';
-import { FROM_RICOS_DECORATION_TYPE, ENTITY_DECORATION_TO_DATA_FIELD } from '../consts';
+import { Decoration, Node, Node_Type, Decoration_Type } from 'ricos-schema';
+import { RicosInlineStyleRange, RicosEntityRange, RicosEntityMap } from '../../../types';
+import { FROM_RICOS_DECORATION_TYPE, TO_RICOS_DECORATION_DATA_FIELD } from '../consts';
 import { emojiRegex } from '../emojiRegex';
 import { createDecorationEntityData } from './getDraftEntityData';
+import { omit } from 'lodash';
 
 export interface DraftTypedDecoration extends Omit<Decoration, 'type'> {
   type: string;
@@ -20,7 +21,7 @@ interface RangedDecorationMap {
 }
 
 const isInlineStyleDecoration = (decorationType: string) =>
-  ENTITY_DECORATION_TO_DATA_FIELD[decorationType] === undefined;
+  TO_RICOS_DECORATION_DATA_FIELD[decorationType] === undefined;
 
 const pipe = (arg, ...fns: ((arg) => unknown)[]) => {
   return fns.reduce((v, fn) => fn(v), arg);
@@ -152,32 +153,85 @@ export const getParagraphNode = (node: Node) => {
   if (node.nodes[0].type === Node_Type.PARAGRAPH) {
     return node.nodes[0];
   } else {
-    console.log(`ERROR! Expected a paragraph node but found ${node.nodes[0].type}`);
-    process.exit(1);
+    throw Error(`Expected a paragraph node but found ${node.nodes[0].type}`);
   }
 };
 
 const convertDecorationTypes = (decorations: Decoration[]): DraftTypedDecoration[] =>
-  decorations.flatMap(decoration => pipe(decoration, toDraftDecorationType, splitColorDecoration));
+  decorations.flatMap(decoration =>
+    pipe(
+      decoration,
+      toDraftDecorationType,
+      convertFontSize,
+      convertFontWeight,
+      convertItalic,
+      convertUnderline,
+      splitColorDecoration
+    )
+  );
 
-const createEmojiDecorations = (text: string) =>
-  Array.from(text.matchAll(emojiRegex)).flatMap(({ 0: emojiUnicode, index: start }) => {
-    if (start) {
-      const decoration: RangedDecoration = {
-        type: 'EMOJI_TYPE',
-        emojiData: { emojiUnicode },
-        start,
-        end: start + Array.from(emojiUnicode).length,
-      };
-      return decoration;
-    }
-    return [];
+export const convertDocumentStyleDecorationTypes = (decorations: Decoration[]) => {
+  let draftBlockStyles = {};
+  decorations.forEach(decoration => {
+    draftBlockStyles = {
+      ...draftBlockStyles,
+      ...ricosDecorationToCss[decoration.type](decoration),
+    };
   });
+  return draftBlockStyles;
+};
 
-const toDraftDecorationType = (decoration: Decoration): DraftTypedDecoration => ({
-  ...decoration,
-  type: FROM_RICOS_DECORATION_TYPE[decoration.type],
-});
+const ricosDecorationToCss = {
+  [Decoration_Type.BOLD]: ({ fontWeightValue }) => {
+    return { 'font-weight': !fontWeightValue || fontWeightValue >= 700 ? 'bold' : 'normal' };
+  },
+  [Decoration_Type.ITALIC]: ({ italicData }) => {
+    return { 'font-style': italicData || typeof italicData === 'undefined' ? 'italic' : 'normal' };
+  },
+  [Decoration_Type.UNDERLINE]: ({ underlineData }) => {
+    return {
+      'text-decoration':
+        underlineData || typeof underlineData === 'undefined' ? 'underline' : 'none',
+    };
+  },
+  [Decoration_Type.FONT_SIZE]: ({ fontSizeData }) => {
+    return { 'font-size': fontSizeData.value + (fontSizeData.unit || 'px') };
+  },
+  [Decoration_Type.COLOR]: ({ colorData }) => {
+    const { foreground, background } = colorData;
+    const colors = {};
+    // eslint-disable-next-line dot-notation
+    foreground && (colors['color'] = foreground);
+    background && (colors['background-color'] = background);
+    return colors;
+  },
+};
+
+const createEmojiDecorations = (text: string) => {
+  const result: RangedDecoration[] = [];
+  let match;
+  // eslint-disable-next-line fp/no-loops
+  while ((match = emojiRegex.exec(text)) !== null) {
+    const { 0: emojiUnicode, index: start } = match;
+    const decoration: RangedDecoration = {
+      type: 'EMOJI_TYPE',
+      emojiData: { emojiUnicode },
+      start,
+      end: start + Array.from(emojiUnicode).length,
+    };
+    result.push(decoration);
+  }
+  return result;
+};
+
+const toDraftDecorationType = (decoration: Decoration): DraftTypedDecoration => {
+  const type = omit(FROM_RICOS_DECORATION_TYPE, [
+    Decoration_Type.BOLD,
+    Decoration_Type.ITALIC,
+    Decoration_Type.UNDERLINE,
+  ])[decoration.type];
+  return type ? { ...decoration, type } : decoration;
+};
 
 const splitColorDecoration = ({
   colorData,
@@ -190,6 +244,56 @@ const splitColorDecoration = ({
   return [foreground && { FG: foreground }, background && { BG: background }]
     .filter(x => x)
     .map(type => ({ ...decoration, type: JSON.stringify(type) }));
+};
+
+const convertFontSize = ({
+  fontSizeData,
+  ...decoration
+}: DraftTypedDecoration): DraftTypedDecoration =>
+  fontSizeData
+    ? {
+        ...decoration,
+        type: JSON.stringify({
+          'font-size': fontSizeData.value?.toString() + (fontSizeData.unit?.toLowerCase() || 'px'),
+        }),
+      }
+    : decoration;
+
+const convertFontWeight = ({
+  fontWeightValue,
+  ...decoration
+}: DraftTypedDecoration): DraftTypedDecoration =>
+  decoration.type === Decoration_Type.BOLD
+    ? {
+        ...decoration,
+        type: !fontWeightValue || fontWeightValue >= 700 ? 'BOLD' : 'NOT_BOLD',
+      }
+    : decoration;
+
+const convertItalic = ({
+  italicData,
+  ...decoration
+}: DraftTypedDecoration): DraftTypedDecoration => {
+  const isItalicDataUndefined = typeof italicData === 'undefined';
+  return decoration.type === Decoration_Type.ITALIC
+    ? {
+        ...decoration,
+        type: isItalicDataUndefined || italicData ? 'ITALIC' : 'NOT_ITALIC',
+      }
+    : decoration;
+};
+
+const convertUnderline = ({
+  underlineData,
+  ...decoration
+}: DraftTypedDecoration): DraftTypedDecoration => {
+  const isUnerlineDataUndefined = typeof underlineData === 'undefined';
+  return decoration.type === Decoration_Type.UNDERLINE
+    ? {
+        ...decoration,
+        type: isUnerlineDataUndefined || underlineData ? 'UNDERLINE' : 'NOT_UNDERLINE',
+      }
+    : decoration;
 };
 
 const decorationComparator = (

@@ -1,7 +1,7 @@
 .DS_Store
 dist
-**/generated/**/*.ts
-!generated/proto/*
+**/generated/wix/rich_content
+**/generated/google
 node_modules
 *npm-debug.log
 lerna-debug.log
@@ -12,6 +12,8 @@ maven
 stats.html
 .env
 applitools.private.config.js
+tsconfig.tsbuildinfo
+.ultra.cache.json
 
 #Webstorm
 **/.idea/*
@@ -45,3 +47,7 @@ applitools.config.js
 !intro.json
 !migration-content.json
 **/reverseMigratedFixtures
+
+# Generated Merged Translations
+packages/common/web/statics/locale
+.ultraignore

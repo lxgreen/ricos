@@ -34,7 +34,7 @@ import 'wix-rich-content-plugin-file-upload/dist/styles.min.css';
 
 /* Viewer */
 import { RicosViewer } from 'ricos-viewer';
-import { pluginFileUpload } from 'wix-rich-content-plugin-file-upload/dist/module.viewer';
+import { pluginFileUpload } from 'wix-rich-content-plugin-file-upload/viewer';
 import 'wix-rich-content-plugin-file-upload/dist/styles.min.css';
 <RicosViewer plugins={[pluginFileUpload(FileUploadConfig)]} />;
 ```
@@ -62,6 +62,7 @@ data?: {
   type: string;
   url?: string;
   id?: string;
+  privacy?: 'public' | 'private';
 }
 
 MediaUploadError?: {
@@ -71,6 +72,12 @@ MediaUploadError?: {
 }
 ```
 
+### `privacy`
+
+Access control of the uploaded file: either 'public' or 'private'.
+Whatever value you set here, will be stored in the data of an uploaded file.
+This parameter is sent into `resolveFileUrl`, and you can use it when you customize your own resolver.
+
 ### `modify accepted file types`
 
 ```jsx
@@ -78,3 +85,29 @@ MediaUploadError?: {
 ```
 
 <br />
+
+## lib utility functions
+
+### `File extension to file type mapper`
+
+A utility function that maps file extension to file type. <br />
+Usage: <br />
+
+```jsx
+import { fileExtensionToType, FileTypes } from 'wix-rich-content-plugin-file-upload/libs/fileExtensionToType';
+
+FileTypes: enum {
+  IMAGE = 1,
+  VIDEO,
+  WORD,
+  EXCEL,
+  ARCHIVE,
+  PDF,
+  POWERPOINT,
+  AUDIO,
+  MISC,
+}
+
+fileExtensionToType: (extension: string) => FileTypes
+
+```

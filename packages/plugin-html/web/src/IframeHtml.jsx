@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import htmlIframeSrc from './htmlIframeSrc';
-import styles from '../statics/styles/Iframe.scss';
+import Iframe from './Iframe';
 
 const isSSR = typeof window === 'undefined';
 
 const HtmlSrcPath = '/html/db9376e69cfa487ea0fa0b912ae51a4f_v1.html';
 class IframeHtml extends Component {
   state = { shouldRender: false };
+
   id = Math.random()
     .toString(36)
     .substr(2, 9);
@@ -64,19 +65,18 @@ class IframeHtml extends Component {
     const { iframeSandboxDomain } = this.props;
 
     const iframeProps = {
-      className: styles.iframe,
       style: { backgroundColor: 'transparent' },
       onLoad: this.handleIframeLoad,
     };
     if (iframeSandboxDomain) {
       const strippedUrl = iframeSandboxDomain.replace(/\/$/, '');
       iframeProps.src = strippedUrl + HtmlSrcPath;
-      iframeProps.ref = this.setIframe;
+      iframeProps.iframeRef = this.setIframe;
     } else {
-      iframeProps.ref = this.writeToIframe;
+      iframeProps.iframeRef = this.writeToIframe;
     }
 
-    return this.state.shouldRender ? <iframe title={'remote content'} {...iframeProps} /> : null;
+    return this.state.shouldRender ? <Iframe {...iframeProps} /> : null;
   }
 }
 

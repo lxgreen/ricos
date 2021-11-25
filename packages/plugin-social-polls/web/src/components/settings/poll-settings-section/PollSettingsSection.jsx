@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { LabeledToggle } from 'wix-rich-content-plugin-commons';
-import { Separator, RadioGroup, InfoIcon } from 'wix-rich-content-editor-common';
+import {
+  SettingsSeparator,
+  LabeledToggle,
+  InfoIcon,
+  RadioGroup,
+} from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 
 import { MEMBER_ROLES, VISIBILITY } from '../../../defaults';
@@ -78,7 +82,7 @@ export class PollSettingsSection extends Component {
   }
 
   render() {
-    const { componentData, t } = this.props;
+    const { componentData, t, settings = {} } = this.props;
 
     const {
       votersDisplay,
@@ -88,14 +92,14 @@ export class PollSettingsSection extends Component {
       voteRole,
     } = componentData.poll.settings;
 
-    const { enableVoteRole } = componentData.config || {};
+    const { showVoteRoleSetting } = settings;
 
     return (
       <section className={styles.section}>
         <h3 className={styles.title}>
           {t('Poll_PollSettings_Tab_Settings_Section_Voting_Header')}
         </h3>
-        {enableVoteRole && (
+        {showVoteRoleSetting && (
           <>
             <p className={styles.label}>
               {t('Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title')}
@@ -118,7 +122,7 @@ export class PollSettingsSection extends Component {
           theme={this.styles}
         />
 
-        <Separator horizontal className={styles.separator} />
+        <SettingsSeparator top bottom />
 
         <h3 className={styles.title}>
           {t('Poll_PollSettings_Tab_Settings_Section_Results_Header')}
@@ -171,4 +175,5 @@ PollSettingsSection.propTypes = {
   componentData: PropTypes.object.isRequired,
   store: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
+  settings: PropTypes.object.isRequired,
 };

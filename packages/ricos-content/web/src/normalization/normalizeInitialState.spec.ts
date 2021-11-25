@@ -1,6 +1,7 @@
 import deepFreeze from 'deep-freeze';
 import normalizeInitialState from './normalizeInitialState';
 import { Version } from '../version';
+import { cloneDeep } from 'lodash';
 import {
   inlineLegacyImageContentState,
   inlineImageContentState,
@@ -9,7 +10,15 @@ import {
   processedInlineGalleryContentState,
   AnchorInTextContentState,
   AnchorInImageContentState,
+  imageGalleryContentState,
+  videoInitialContentState,
+  textWrapContentState,
+  textWrapContentStateExpected,
+  noConfigContentState,
+  noConfigContentStateExpected,
 } from './Fixtures';
+import { WRAP } from '..';
+import { compare } from '../comparision/compare';
 import { RicosInlineStyleRange, RicosEntityRange, DraftContent, RicosContentBlock } from '../types';
 
 const createState = ({
@@ -20,6 +29,7 @@ const createState = ({
   entityMap = {},
   data = {},
   VERSION,
+  ID = '123',
 }: {
   text?: string;
   type?: RicosContentBlock['type'];
@@ -28,11 +38,13 @@ const createState = ({
   entityMap?: DraftContent['entityMap'];
   data?: RicosContentBlock['data'];
   VERSION?: DraftContent['VERSION'];
+  ID?: DraftContent['ID'] | null;
 }): DraftContent =>
   deepFreeze({
     blocks: [{ text, type, inlineStyleRanges, depth: 0, key: '1', entityRanges, data }],
     entityMap: entityMap || {},
     ...(VERSION ? { VERSION } : {}),
+    ...(ID !== undefined ? { ID } : {}),
   });
 
 describe('normalizeInitialState', () => {
@@ -118,6 +130,7 @@ describe('normalizeInitialState', () => {
           const expected = createState({
             type: expectedType,
             VERSION: Version.currentVersion,
+            ID: '123',
             inlineStyleRanges: [
               { offset: 2, length: 1, style: 'ITALIC' },
               { offset: 0, length: 2, style: 'UNDERLINE' },
@@ -156,6 +169,7 @@ describe('normalizeInitialState', () => {
             type: expectedType,
             inlineStyleRanges: [],
             VERSION: Version.currentVersion,
+            ID: '123',
           });
 
           expect(actual).toEqual(expected);
@@ -191,6 +205,7 @@ describe('normalizeInitialState', () => {
         const expected = createState({
           type,
           VERSION: Version.currentVersion,
+          ID: '123',
           inlineStyleRanges: [
             { offset: 2, length: 1, style: 'ITALIC' },
             { offset: 0, length: 2, style: 'UNDERLINE' },
@@ -219,6 +234,7 @@ describe('normalizeInitialState', () => {
       const expected = createState({
         ...initialState,
         VERSION: Version.currentVersion,
+        ID: '123',
         entityRanges: [
           {
             offset: 0,
@@ -285,6 +301,7 @@ describe('normalizeInitialState', () => {
       const expected = createState({
         ...initialState,
         VERSION: Version.currentVersion,
+        ID: '123',
         entityRanges: [
           {
             offset: 0,
@@ -391,6 +408,7 @@ describe('normalizeInitialState', () => {
       const expected = createState({
         ...initialState,
         VERSION: Version.currentVersion,
+        ID: '123',
         entityMap: {
           ...initialState.entityMap,
           0: {
@@ -448,6 +466,7 @@ describe('normalizeInitialState', () => {
       const expected = createState({
         ...initialState,
         VERSION: Version.currentVersion,
+        ID: '123',
         entityMap: {
           ...initialState.entityMap,
           0: {
@@ -510,6 +529,7 @@ describe('normalizeInitialState', () => {
       const expected = createState({
         ...initialState,
         VERSION: Version.currentVersion,
+        ID: '123',
         entityMap: {
           ...initialState.entityMap,
           0: {
@@ -548,12 +568,14 @@ describe('normalizeInitialState', () => {
           },
         },
         VERSION: Version.currentVersion,
+        ID: '123',
       };
 
       const actual = normalizeInitialState(createState(initialState), config);
       const expected = createState({
         ...initialState,
         VERSION: Version.currentVersion,
+        ID: '123',
         entityMap: {
           ...initialState.entityMap,
           0: {
@@ -579,6 +601,7 @@ describe('normalizeInitialState', () => {
           size: 'inline',
           showTitle: true,
           showDescription: true,
+          textWrap: WRAP,
         },
         src: {
           id: '599ada_e9c9134635b544f0857ccc3ce9e0fa68~mv2.jpg',
@@ -635,7 +658,8 @@ describe('normalizeInitialState', () => {
         ...initialState(goodData),
         VERSION: Version.currentVersion,
       };
-      expect(actual).toEqual(goodDataWithVersion);
+      const { ID: _, ...rest } = actual;
+      expect(rest).toEqual(goodDataWithVersion);
     });
   });
 
@@ -657,7 +681,7 @@ describe('normalizeInitialState', () => {
         },
       ],
       styles: {},
-      config: {},
+      config: { textWrap: WRAP },
     });
 
     const initialState = (VERSION: string, titleString: string): DraftContent => ({
@@ -686,6 +710,7 @@ describe('normalizeInitialState', () => {
         },
       },
       VERSION,
+      ID: '123',
     });
 
     it('should change title to altText when version < 6', () => {
@@ -709,15 +734,19 @@ describe('normalizeInitialState', () => {
         disableInlineImages: true,
       });
 
-      expect(actual).toEqual({
+      const { ID: _, ...rest } = actual;
+      expect(rest).toEqual({
         ...processedInlineImageContentState,
         VERSION: Version.currentVersion,
       });
     });
 
     it('should remove wix-draft-plugin-image plugin', () => {
-      const actual = normalizeInitialState(inlineImageContentState, { disableInlineImages: true });
-      expect(actual).toEqual({
+      const actual = normalizeInitialState(inlineImageContentState, {
+        disableInlineImages: true,
+      });
+      const { ID: _, ...rest } = actual;
+      expect(rest).toEqual({
         ...processedInlineImageContentState,
         VERSION: Version.currentVersion,
       });
@@ -727,7 +756,8 @@ describe('normalizeInitialState', () => {
       const actual = normalizeInitialState(inlineGalleryContentState, {
         removeInvalidInlinePlugins: true,
       });
-      expect(actual).toEqual({
+      const { ID: _, ...rest } = actual;
+      expect(rest).toEqual({
         ...processedInlineGalleryContentState,
         VERSION: Version.currentVersion,
       });
@@ -745,6 +775,135 @@ describe('normalizeInitialState', () => {
       const actual = normalizeInitialState(AnchorInImageContentState, {});
       expect(actual.entityMap['0'].data.config.link).toEqual({ anchor: 'cjvg0' });
       expect(actual.entityMap['1'].data.config.link).toEqual({ anchor: 'cjvg0' });
+    });
+  });
+
+  describe('disableExpand normalizer', () => {
+    let imageGalleryInitialState: DraftContent;
+
+    beforeEach(() => (imageGalleryInitialState = cloneDeep(imageGalleryContentState)));
+    it('should add disableExpand prop to image and gallery componentData', () => {
+      const actual = normalizeInitialState(imageGalleryInitialState, {
+        disableImagesExpand: true,
+        disableGalleryExpand: true,
+      });
+      expect(actual.entityMap['0'].data.disableExpand).toBeTruthy();
+      expect(actual.entityMap['1'].data.disableExpand).toBeTruthy();
+    });
+
+    it('disableExpand should remain false in image and gallery componentData', () => {
+      imageGalleryInitialState.entityMap['0'].data.disableExpand = false;
+      imageGalleryInitialState.entityMap['1'].data.disableExpand = false;
+      const actual = normalizeInitialState(imageGalleryInitialState, {
+        disableImagesExpand: true,
+        disableGalleryExpand: true,
+      });
+      expect(actual.entityMap['0'].data.disableExpand).toBeFalsy();
+      expect(actual.entityMap['1'].data.disableExpand).toBeFalsy();
+    });
+  });
+
+  describe('Images/Gallery disableDownload normalizer', () => {
+    let imageGalleryInitialState: DraftContent;
+
+    beforeEach(() => (imageGalleryInitialState = cloneDeep(imageGalleryContentState)));
+
+    it('should add disableDownload prop to image and gallery componentData', () => {
+      const actual = normalizeInitialState(imageGalleryInitialState, {
+        disableDownload: true,
+      });
+      expect(actual.entityMap['0'].data.disableDownload).toBeTruthy();
+      expect(actual.entityMap['1'].data.disableDownload).toBeTruthy();
+    });
+
+    it('disableDownload should remain false in image and gallery componentData', () => {
+      imageGalleryInitialState.entityMap['0'].data.disableDownload = false;
+      imageGalleryInitialState.entityMap['1'].data.disableDownload = false;
+
+      const actual = normalizeInitialState(imageGalleryInitialState, {
+        disableDownload: true,
+      });
+      expect(actual.entityMap['0'].data.disableDownload).toBeFalsy();
+      expect(actual.entityMap['1'].data.disableDownload).toBeFalsy();
+    });
+
+    it('disableDownload should be true in image and false in gallery componentData', () => {
+      imageGalleryInitialState.entityMap['1'].data.disableDownload = false;
+      const actual = normalizeInitialState(imageGalleryInitialState, {
+        disableDownload: true,
+      });
+      expect(actual.entityMap['0'].data.disableDownload).toBeTruthy();
+      expect(actual.entityMap['1'].data.disableDownload).toBeFalsy();
+    });
+
+    it('disableDownload should be true in gallery and false in image componentData', () => {
+      imageGalleryInitialState.entityMap['0'].data.disableDownload = false;
+      const actual = normalizeInitialState(imageGalleryInitialState, {
+        disableDownload: true,
+      });
+      expect(actual.entityMap['0'].data.disableDownload).toBeFalsy();
+      expect(actual.entityMap['1'].data.disableDownload).toBeTruthy();
+    });
+  });
+
+  describe('Video disableDownload normalizer', () => {
+    let videoInitialState: DraftContent;
+
+    beforeEach(() => (videoInitialState = cloneDeep(videoInitialContentState)));
+
+    it('should add disableDownload prop to video componentData', () => {
+      const actual = normalizeInitialState(videoInitialState, {
+        disableDownload: true,
+      });
+      expect(actual.entityMap['0'].data.disableDownload).toBeTruthy();
+    });
+
+    it('disableDownload should remain false in the video componentData', () => {
+      videoInitialState.entityMap['0'].data.disableDownload = false;
+      const actual = normalizeInitialState(videoInitialState, {
+        disableDownload: true,
+      });
+      expect(actual.entityMap['0'].data.disableDownload).toBeFalsy();
+    });
+  });
+
+  describe('TextWrap normalizer', () => {
+    it('should add textWrap wrap to plugins', () => {
+      expect(
+        compare(normalizeInitialState(textWrapContentState), textWrapContentStateExpected, {
+          ignoredKeys: ['ID'],
+        })
+      ).toStrictEqual({});
+    });
+
+    it('should add textWrap wrap to plugins without config (should normalize the config first)', () => {
+      expect(
+        compare(normalizeInitialState(noConfigContentState), noConfigContentStateExpected, {
+          ignoredKeys: ['ID'],
+        })
+      ).toStrictEqual({});
+    });
+  });
+  describe('Content ID', () => {
+    it('should apply ID if not provided', () => {
+      const actual = normalizeInitialState(
+        createState({
+          ID: null,
+          VERSION: Version.currentVersion,
+        })
+      );
+      expect(actual).toHaveProperty('ID');
+      expect(actual.ID).toBeTruthy();
+    });
+    it('should not apply ID if provided', () => {
+      const actual = normalizeInitialState(
+        createState({
+          ID: '1234',
+          VERSION: Version.currentVersion,
+        })
+      );
+      expect(actual).toHaveProperty('ID');
+      expect(actual.ID).toStrictEqual('1234');
     });
   });
 });

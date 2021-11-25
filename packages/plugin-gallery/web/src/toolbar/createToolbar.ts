@@ -5,6 +5,8 @@ import {
   AnchorTarget,
   TranslationFunction,
   RelValue,
+  UISettings,
+  AvailableExperiments,
 } from 'wix-rich-content-common';
 import { GalleryPluginEditorConfig } from '../types';
 
@@ -13,15 +15,32 @@ const createToolbar: CreatePluginToolbar = ({
   t,
   anchorTarget,
   relValue,
+  uiSettings,
+  experiments,
+  isMobile,
 }: {
   t: TranslationFunction;
   settings: GalleryPluginEditorConfig;
   anchorTarget: AnchorTarget;
   relValue: RelValue;
+  uiSettings: UISettings;
+  experiments: AvailableExperiments;
+  isMobile: boolean;
 }) => {
+  const disableDownload = uiSettings?.disableDownload;
+  const disableExpand = settings?.disableExpand;
+
   return {
-    InlineButtons: createInlineButtons({ settings, t, anchorTarget, relValue }),
-    InsertButtons: createInsertButtons({ settings, t }),
+    InlineButtons: createInlineButtons({
+      settings,
+      t,
+      anchorTarget,
+      relValue,
+      isMobile,
+      experiments,
+      uiSettings,
+    }),
+    InsertButtons: createInsertButtons({ settings, t, disableDownload, disableExpand }),
     name: 'gallery',
   };
 };

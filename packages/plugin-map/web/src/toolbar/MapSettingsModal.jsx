@@ -1,12 +1,17 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { mergeStyles } from 'wix-rich-content-common';
-import { SettingsSection, SettingsPanelFooter, TextInput } from 'wix-rich-content-plugin-commons';
 import ReactGoogleMapLoader from 'react-google-maps-loader';
 import ReactGooglePlacesSuggest from 'react-google-places-suggest';
 import styles from '../../statics/styles/map-settings-modal.scss';
-import { LabeledToggle } from './LabeledToggle';
-import { SearchIcon } from '../icons/SearchIcon';
+import {
+  LabeledToggle,
+  SettingsSection,
+  TextInput,
+  SettingsPanelFooter,
+  SearchIcon,
+  SettingsMobileHeader,
+} from 'wix-rich-content-ui-components';
 import { Scrollbars } from 'react-custom-scrollbars';
 import classNames from 'classnames';
 
@@ -70,44 +75,6 @@ export class MapSettingsModal extends Component {
     helpers.openModal(data => pubsub.update('componentData', { metadata: { ...data } }));
     helpers.closeModal();
   };
-
-  renderMobileNavBar() {
-    const mobileCancelButton = (
-      <div
-        onClick={this.props.helpers.closeModal}
-        role="button"
-        tabIndex={0}
-        onKeyPress={e => e.key === 'Enter' && this.props.helpers.closeModal()}
-        className={this.styles.map_settings_modal_mobile_navbar_cancel_button}
-      >
-        <p>Cancel</p>
-      </div>
-    );
-
-    const mobileSaveButton = (
-      <div
-        onClick={this.onSaveBtnClick}
-        role="button"
-        tabIndex={0}
-        onKeyPress={e => e.key === 'Enter' && this.onSaveBtnClick()}
-        className={this.styles.map_settings_modal_mobile_navbar_save_button}
-      >
-        <p>Save</p>
-      </div>
-    );
-
-    return (
-      <div
-        className={classNames(
-          this.styles.map_settings_modal_mobile_navbar,
-          this.styles.map_settings_modal_mobile_navbar_wrapper
-        )}
-      >
-        {mobileCancelButton}
-        {mobileSaveButton}
-      </div>
-    );
-  }
 
   toggleState = key => () => {
     this.setState(prevState => ({
@@ -261,7 +228,13 @@ export class MapSettingsModal extends Component {
   }
 
   render() {
-    const { t, isMobile, languageDir } = this.props;
+    const {
+      t,
+      isMobile,
+      languageDir,
+      helpers: { closeModal },
+      theme,
+    } = this.props;
 
     const wrapWithScrollBars = jsx => (
       <Scrollbars
@@ -276,7 +249,14 @@ export class MapSettingsModal extends Component {
 
     return (
       <div dir={languageDir}>
-        {isMobile && this.renderMobileNavBar()}
+        {isMobile && (
+          <SettingsMobileHeader
+            onSave={this.onSaveBtnClick}
+            onCancel={closeModal}
+            theme={theme}
+            t={t}
+          />
+        )}
 
         <div className={this.styles.map_settings_modal_settings_container} data-hook="mapSettings">
           <div
@@ -295,9 +275,9 @@ export class MapSettingsModal extends Component {
           {!isMobile && (
             <SettingsPanelFooter
               fixed
-              cancel={this.props.helpers.closeModal}
+              cancel={closeModal}
               save={this.onSaveBtnClick}
-              theme={this.props.theme}
+              theme={theme}
               t={t}
             />
           )}

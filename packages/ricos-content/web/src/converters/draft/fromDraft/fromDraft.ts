@@ -1,18 +1,58 @@
 /* eslint-disable no-console, fp/no-loops, no-case-declarations */
 import { cloneDeep, isEmpty } from 'lodash';
-import { DraftContent, RicosContentBlock } from '../../..';
+import { DraftContent, RicosContentBlock } from '../../../types';
 import { BlockType, FROM_DRAFT_LIST_TYPE, HeaderLevel } from '../consts';
-import { RichContent, Node, Node_Type } from 'ricos-schema';
-import { genKey } from '../../generateRandomKey';
+import { RichContent, Node, Node_Type, Decoration_Type } from 'ricos-schema';
+import { generateId } from '../../generateRandomId';
 import { getTextNodes } from './getTextNodes';
-import { getEntity, parseBlockData } from './getRicosEntityData';
+import { getEntity, getNodeStyle, getTextStyle } from './getRicosEntityData';
 import { createParagraphNode, initializeMetadata } from '../../nodeUtils';
+import { nestedNodesConverters } from './nestedNodesUtils';
 
-export const ensureRicosContent = (content: RichContent | DraftContent) =>
+export interface FromDraftOptions {
+  ignoreUnsupportedValues?: boolean;
+}
+
+export const ensureRicosContent = (content: RichContent | DraftContent): RichContent =>
   'blocks' in content ? fromDraft(content) : content;
 
-export const fromDraft = (draftJSON: DraftContent): RichContent => {
-  const { blocks, entityMap, VERSION: version } = cloneDeep(draftJSON);
+const cssToRicosDecoration = {
+  color: (style: string) => {
+    return { type: Decoration_Type.COLOR, colorData: { foreground: style } };
+  },
+  'background-color': (style: string) => {
+    return { type: Decoration_Type.COLOR, colorData: { background: style } };
+  },
+  'font-weight': (style: string) => {
+    return { type: Decoration_Type.BOLD, fontWeightValue: style === 'bold' ? 700 : 400 };
+  },
+  'font-style': (style: string) => {
+    return { type: Decoration_Type.ITALIC, italicData: style === 'italic' };
+  },
+  'text-decoration': (style: string) => {
+    return { type: Decoration_Type.UNDERLINE, underlineData: style === 'underline' };
+  },
+  'font-size': (style: string) => {
+    return { type: Decoration_Type.FONT_SIZE, fontSize: style };
+  },
+};
+
+const convertHeaderToInlineStyles = styles =>
+  Object.entries(styles).map(([key, style]) => cssToRicosDecoration[key](style));
+
+const parseDocStyle = documentStyle => {
+  documentStyle &&
+    Object.entries(documentStyle).forEach(([header, styles]) => {
+      header &&
+        (documentStyle[header] = {
+          decorations: convertHeaderToInlineStyles(styles),
+        });
+    });
+  return documentStyle;
+};
+
+export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}): RichContent => {
+  const { blocks, entityMap, documentStyle, ID: id } = cloneDeep(draftJSON);
   const nodes: Node[] = [];
 
   const parseBlocks = (index = 0) => {
@@ -20,7 +60,10 @@ export const fromDraft = (draftJSON: DraftContent): RichContent => {
     if (block) {
       switch (block.type) {
         case BlockType.Atomic:
-          nodes.push(parseAtomicBlock(block));
+          const atomicBlock = parseAtomicBlock(block);
+          if (atomicBlock) {
+            nodes.push(atomicBlock);
+          }
           parseBlocks(index + 1);
           break;
         case BlockType.Blockquote:
@@ -51,32 +94,45 @@ export const fromDraft = (draftJSON: DraftContent): RichContent => {
           parseBlocks(index + 1);
           break;
         default:
-          console.log(`ERROR! Unknown block type "${block.type}"!`);
-          process.exit(1);
+          if (opts.ignoreUnsupportedValues) {
+            parseBlocks(index + 1);
+          } else {
+            throw Error(`ERROR! Unknown block type "${block.type}"!`);
+          }
       }
     }
   };
 
-  const parseAtomicBlock = (block: RicosContentBlock): Node => {
-    return {
-      key: block.key,
-      nodes: [],
-      ...getEntity(block.entityRanges[0].key, entityMap),
-    };
+  const parseAtomicBlock = ({ key, data, entityRanges }: RicosContentBlock): Node | null => {
+    if (entityRanges && entityRanges.length) {
+      const entity = getEntity(entityRanges[0].key, entityMap);
+      if (entity) {
+        const nodes = nestedNodesConverters[entity.type]?.(entity) || [];
+        return {
+          id: key,
+          nodes,
+          style: getNodeStyle(data),
+          ...entity,
+        };
+      }
+    }
+    return null;
   };
 
   const parseQuoteBlock = (block: RicosContentBlock): Node => ({
-    key: block.key,
+    id: block.key,
     type: Node_Type.BLOCKQUOTE,
     nodes: [parseTextBlock(block)],
+    style: getNodeStyle(block.data),
   });
 
   const parseCodeBlock = (block: RicosContentBlock): Node => ({
-    key: block.key,
-    type: Node_Type.CODEBLOCK,
-    nodes: getTextNodes(block, entityMap),
-    codeData: {
-      ...parseBlockData(block.data),
+    id: block.key,
+    type: Node_Type.CODE_BLOCK,
+    nodes: getTextNodes(block, entityMap, opts),
+    style: getNodeStyle(block.data),
+    codeBlockData: {
+      textStyle: getTextStyle(block.data),
     },
   });
 
@@ -85,39 +141,43 @@ export const fromDraft = (draftJSON: DraftContent): RichContent => {
       if (Object.keys(HeaderLevel).includes(blockType)) {
         return HeaderLevel[blockType];
       }
-      console.log(`ERROR! Unknown header level "${blockType}"!`);
-      process.exit(1);
+      throw Error(`ERROR! Unknown header level "${blockType}"!`);
     };
     return {
-      key: block.key,
+      id: block.key,
       type: Node_Type.HEADING,
       headingData: {
         level: getLevel(block.type),
-        depth: block.depth || undefined,
-        ...parseBlockData(block.data),
+        indentation: block.depth || undefined,
+        textStyle: getTextStyle(block.data),
       },
-      nodes: getTextNodes(block, entityMap),
+      nodes: getTextNodes(block, entityMap, opts),
+      style: getNodeStyle(block.data),
     };
   };
 
   const parseTextBlock = (block: RicosContentBlock): Node => {
-    const paragraphNode: Node = createParagraphNode([], parseBlockData(block.data));
+    const paragraphNode: Node = createParagraphNode(
+      [],
+      { textStyle: getTextStyle(block.data) },
+      getNodeStyle(block.data)
+    );
 
     switch (block.type) {
       case BlockType.Unstyled:
-        paragraphNode.key = block.key;
+        paragraphNode.id = block.key;
       // falls through
       case BlockType.Blockquote:
       case BlockType.OrderedListItem:
       case BlockType.UnorderedListItem:
         if (paragraphNode.paragraphData) {
-          paragraphNode.paragraphData.depth = block.depth;
+          paragraphNode.paragraphData.indentation = block.depth;
         }
         break;
       default:
     }
 
-    const nodes = getTextNodes(block, entityMap);
+    const nodes = getTextNodes(block, entityMap, opts);
 
     if (!isEmpty(nodes)) {
       paragraphNode.nodes = nodes;
@@ -127,7 +187,7 @@ export const fromDraft = (draftJSON: DraftContent): RichContent => {
   };
 
   const createListItem = (block: RicosContentBlock): Node => ({
-    key: block.key,
+    id: block.key,
     type: Node_Type.LIST_ITEM,
     nodes: [parseTextBlock(block)],
   });
@@ -152,10 +212,9 @@ export const fromDraft = (draftJSON: DraftContent): RichContent => {
       }
       nextBlock = blocks[searchIndex];
     }
-
     return {
       node: {
-        key: genKey(),
+        id: generateId(),
         type: FROM_DRAFT_LIST_TYPE[listType],
         nodes: listNodes,
       },
@@ -167,8 +226,9 @@ export const fromDraft = (draftJSON: DraftContent): RichContent => {
 
   const content: RichContent = {
     nodes,
-    metadata: initializeMetadata(version),
+    metadata: initializeMetadata({ id }),
+    documentStyle: parseDocStyle(documentStyle),
   };
 
-  return RichContent.toJSON(RichContent.fromJSON(content)) as RichContent; // using toJSON to remove undefined fields
+  return RichContent.fromJSON(content);
 };

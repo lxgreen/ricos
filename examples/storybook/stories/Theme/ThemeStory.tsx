@@ -2,24 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { Layout, Palette, ToggleSwitch } from 'wix-style-react';
 import { Page, Section, ContentState } from '../Components/StoryParts';
 import exapmleState from '../../../../e2e/tests/fixtures/storybook-example-app.json';
-import { wixPalettes, ricosPalettes } from '../../../../e2e/tests/resources/palettesExample';
+import { wixPalettes, ricosPalettes } from '../../src/shared/resources/palettesExample';
+import { FONTS } from '../../src/shared/resources/fontsExample';
 import ExampleApplication from '../Components/ExampleApplication';
 import { SelectorCell } from './SelectorCell';
+import { RicosTheme } from 'ricos-common';
+import { withWixStyle } from './wixStyle';
+
 const palettes = Object.keys(wixPalettes);
-const FONTS = [
-  { h2: { fontFamily: 'Arial' }, p: { fontFamily: 'Comic Sans MS' } },
-  { h2: { fontFamily: 'Comic Sans MS' }, p: { fontFamily: 'Bookman' } },
-  { h2: { fontFamily: 'Yellowtail' }, p: { fontFamily: 'Palatino' } },
-  { h2: { fontFamily: 'Palatino' }, p: { fontFamily: 'Yellowtail' } },
-  { h2: { fontFamily: 'Impact' }, p: { fontFamily: 'Georgia' } },
-  { h2: { fontFamily: 'Georgia' }, p: { fontFamily: 'Impact' } },
-];
 
 const ThemeSelector = () => {
   const [palettePage, setPalettePage] = useState(0);
   const [fontPage, setFontPage] = useState(0);
   const [isFallback, setFallback] = useState(false);
+  const [isFloatingBM, setFloatingBM] = useState(false);
   const fallbackColor = isFallback ? '#FF0000' : undefined;
+  const palette = ricosPalettes[palettePage];
+  const values = Object.values(palette);
+  const createTheme = (theme: RicosTheme) => (isFloatingBM ? withWixStyle(theme) : theme);
 
   useEffect(() => {
     document.onkeyup = event => {
@@ -29,20 +29,16 @@ const ThemeSelector = () => {
         } else if (event.key === 'ArrowRight') {
           fontPage < FONTS.length - 1 && setFontPage(fontPage + 1);
         }
-      } else {
-        if (event.key === 'ArrowLeft') {
-          palettePage > 0 && setPalettePage(palettePage - 1);
-        } else if (event.key === 'ArrowRight') {
-          palettePage < palettes.length - 1 && setPalettePage(palettePage + 1);
-        }
+      } else if (event.key === 'ArrowLeft') {
+        palettePage > 0 && setPalettePage(palettePage - 1);
+      } else if (event.key === 'ArrowRight') {
+        palettePage < palettes.length - 1 && setPalettePage(palettePage + 1);
       }
     };
   }, [fontPage, palettePage]);
 
-  const palette = ricosPalettes[palettePage];
-  const values = Object.values(palette);
-
-  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore: https://github.com/wix-private/wix-design-systems/pull/7554
   const PaletteElement = () => <Palette fill={values} />;
 
   return (
@@ -74,11 +70,21 @@ const ThemeSelector = () => {
         <ToggleSwitch checked={isFallback} onChange={({ target }) => setFallback(target.checked)} />
         <span>Use RED fallback color</span>
       </div>
+      <div>
+        <ToggleSwitch
+          checked={isFloatingBM}
+          onChange={({ target }) => setFloatingBM(target.checked)}
+        />
+        <span>Use BM Blue floating action color</span>
+      </div>
       <div style={{ backgroundColor: palette.bgColor, padding: 4 }}>
         <ExampleApplication
           key={palettePage}
           initialState={exapmleState}
-          theme={{ palette: { ...palette, fallbackColor }, customStyles: FONTS[fontPage] }}
+          theme={createTheme({
+            palette: { ...palette, fallbackColor },
+            customStyles: FONTS[fontPage],
+          })}
         />
       </div>
     </>

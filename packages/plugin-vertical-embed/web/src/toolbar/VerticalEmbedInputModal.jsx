@@ -1,21 +1,30 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { LoaderIcon } from 'wix-rich-content-plugin-commons';
 import {
   UrlInputModal,
+  SearchInputModal,
   FOOTER_BUTTON_ALIGNMENT,
   MODAL_CONTROLS_POSITION,
-  LoaderIcon,
-} from 'wix-rich-content-plugin-commons';
-import { contentTypeMap } from '../constants';
+  BUTTON_SIZE,
+} from 'wix-rich-content-ui-components';
+import { contentTypeMap, verticalEmbedProviders } from '../constants';
 import ItemsList from './itemsList/ItemsList';
 import styles from '../../statics/styles/vertical-embed-modal.scss';
 import generalStyles from '../../statics/styles/general.scss';
+import { convertDuration } from '../utils';
+
+const LOADING = 'LOADING';
+const NO_ITEMS = 'NO_ITEMS';
+const READY = 'READY';
+const NOT_FOUND = 'NOT_FOUND';
+
 export default class VerticalEmbedInputModal extends Component {
   state = {
     errorMsg: '',
-    products: [],
+    items: [],
     selectedProduct: this.props.componentData?.selectedProduct || null,
-    status: 'LOADING',
+    status: LOADING,
   };
 
   componentDidMount() {
@@ -25,14 +34,19 @@ export default class VerticalEmbedInputModal extends Component {
       locale,
     } = this.props;
     this.verticalApi = verticalsApi(type, locale);
-    this.verticalApi.search('').then(products => {
-      this.setState({ products, status: products.length === 0 ? 'NO_ITEMS' : 'READY' });
-    });
+    try {
+      this.verticalApi.search('').then(items => {
+        this.setState({ items, status: items.length === 0 ? NO_ITEMS : READY });
+      });
+    } catch (e) {
+      console.error('failed to load products ', e);
+      this.setState({ items: [], status: NO_ITEMS });
+    }
   }
 
   onInputChange = (inputString = '') => {
-    this.verticalApi.search(inputString).then(products => {
-      this.setState({ products, status: products.length === 0 ? 'NOT_FOUND' : 'READY' });
+    this.verticalApi.search(inputString).then(items => {
+      this.setState({ items, status: items.length === 0 ? NOT_FOUND : READY });
     });
     this.setState({ inputString });
   };
@@ -51,8 +65,8 @@ export default class VerticalEmbedInputModal extends Component {
     helpers.closeModal();
   };
 
-  onItemClick = item => {
-    const { selectedProduct } = this.state;
+  onItemClick = ({ getDescription, ...item }) => {
+    const { selectedProduct, items } = this.state;
     if (item.id === selectedProduct?.id) {
       this.onConfirm();
     } else {
@@ -60,13 +74,29 @@ export default class VerticalEmbedInputModal extends Component {
     }
   };
 
+  getItems = () => {
+    const {
+      componentData: { type },
+      t,
+    } = this.props;
+    const { items } = this.state;
+    let getDescription;
+    if (type === verticalEmbedProviders.booking) {
+      getDescription = product => convertDuration(product.durations, t);
+    } else if (type === verticalEmbedProviders.event) {
+      getDescription = product => `${product.scheduling} | ${product.location}`;
+    }
+    return getDescription ? items.map(product => ({ ...product, getDescription })) : items;
+  };
+
   render() {
-    const { products, inputString, selectedProduct, status } = this.state;
+    const { inputString, selectedProduct, status } = this.state;
     const {
       t,
       componentData: { type },
       helpers,
       isMobile,
+      experiments,
     } = this.props;
     const contentType = contentTypeMap[type];
     const selected = selectedProduct !== null;
@@ -80,17 +110,20 @@ export default class VerticalEmbedInputModal extends Component {
         </div>
       </div>
     );
-    const show = status !== 'NO_ITEMS';
-    const textInput = show ? { searchIcon: true } : false;
+    const show = status !== NO_ITEMS;
+    const textInput = show ? { searchIcon: true } : false; //! Needs to be removed when old UrlInputModal is no longer in use
+    const useNewModal = experiments?.newVerticalEmbedModal?.enabled;
+    const UrlInputModalComponent = useNewModal ? SearchInputModal : UrlInputModal;
 
     return (
-      <UrlInputModal
+      <UrlInputModalComponent
         onConfirm={this.onConfirm}
         helpers={helpers}
         t={t}
         title={t(`Embed_Vertical_${contentType}_Title`)}
         dataHook={'verticalEmbedModal'}
         placeholder={t(`Embed_Vertical_${contentType}_Placeholder`)}
+        saveLabel={t('Embed_Add_Button_Label')}
         onCloseRequested={helpers.closeModal}
         onInputChange={this.onInputChange}
         input={inputString}
@@ -99,26 +132,28 @@ export default class VerticalEmbedInputModal extends Component {
         controlsPosition={isMobile ? MODAL_CONTROLS_POSITION.TOP : MODAL_CONTROLS_POSITION.BOTTOM}
         selected={selected}
         textInput={textInput}
+        buttonSize={BUTTON_SIZE.small}
+        showTitle={!isMobile}
       >
         <div className={styles.itemsWrapper}>
-          {status === 'LOADING' ? (
+          {status === LOADING ? (
             <div className={generalStyles.emptyState}>
               <LoaderIcon className={styles.fileLoaderIcon} />
             </div>
-          ) : status === 'NOT_FOUND' ? (
+          ) : status === NOT_FOUND ? (
             emptyState
           ) : (
             <ItemsList
               isMobile={isMobile}
               selectedItem={selectedProduct}
-              products={products}
+              items={this.getItems()}
               onClick={this.onItemClick}
               contentType={contentType}
               t={t}
             />
           )}
         </div>
-      </UrlInputModal>
+      </UrlInputModalComponent>
     );
   }
 }
@@ -132,4 +167,5 @@ VerticalEmbedInputModal.propTypes = {
   isMobile: PropTypes.bool,
   verticalsApi: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
+  experiments: PropTypes.object,
 };

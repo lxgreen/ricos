@@ -148,7 +148,11 @@ const createToolbar: CreatePluginToolbar = config => {
           isActive: () => false,
           isDisabled: () => isAtomicBlockFocused(config.getEditorState()),
           getIcon: () =>
-            config[LINE_SPACING_TYPE]?.toolbar?.icons?.InsertPluginButtonIcon || LineSpacingIcon,
+            config[LINE_SPACING_TYPE]?.toolbar?.icons?.InsertPluginButtonIcon ||
+            (() =>
+              LineSpacingIcon({
+                newFormattingToolbar: config?.experiments?.newFormattingToolbar?.enabled,
+              })),
           tooltip: config.t('LineSpacingButton_Tooltip'),
           getLabel: () => '',
           type: BUTTON_TYPES.DROPDOWN,

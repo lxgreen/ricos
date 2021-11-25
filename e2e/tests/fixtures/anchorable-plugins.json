@@ -442,10 +442,8 @@
             "target": true
           },
           "design": {
-            "activeButton": 0,
             "borderRadius": 0,
             "borderWidth": 0,
-            "padding": 12,
             "background": "#0261FF",
             "color": "#FFFFFF",
             "borderColor": "#0261FF"
@@ -470,10 +468,8 @@
             "target": false
           },
           "design": {
-            "activeButton": 0,
             "borderRadius": 0,
             "borderWidth": 0,
-            "padding": 12,
             "background": "#0261FF",
             "color": "#FFFFFF",
             "borderColor": "#0261FF"
@@ -517,7 +513,7 @@
         },
         "name": "image.jpg",
         "type": "jpg",
-        "url": "http://file-examples.com/wp-content/uploads/2017/10/file-sample_150kB.pdf"
+        "url": "https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
       }
     }
   },

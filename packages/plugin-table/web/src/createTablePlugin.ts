@@ -8,7 +8,15 @@ import { COMMANDS } from 'wix-rich-content-editor-common';
 import CodeUtils from 'draft-js-code';
 
 const createTablePlugin: CreatePluginFunction<TablePluginEditorConfig> = config => {
-  const { helpers, t, [TABLE_TYPE]: settings = {}, isMobile, ...rest } = config;
+  const {
+    localeContent,
+    locale,
+    helpers,
+    t,
+    [TABLE_TYPE]: settings = {},
+    isMobile,
+    ...rest
+  } = config;
 
   return createBasePlugin(
     {
@@ -24,11 +32,11 @@ const createTablePlugin: CreatePluginFunction<TablePluginEditorConfig> = config 
       settings,
       t,
       isMobile,
-      disableRightClick: config?.uiSettings?.disableRightClick,
       defaultPluginData: getDefaultsSettings(),
       noPluginBorder: true,
       noPointerEventsOnFocus: true,
       withHorizontalScroll: true,
+      locale: localeContent || locale,
       ...rest,
     },
     {

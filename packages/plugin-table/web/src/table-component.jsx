@@ -15,10 +15,14 @@ import { isEmpty, isNumber, cloneDeep, isEqual } from 'lodash';
 import classNames from 'classnames';
 import './styles.css';
 import { TABLE_TYPE } from './types';
+import { SOURCE, LOCATION, CATEGORY, ACTION, ACTION_NAME } from './consts';
+import pluginTableSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-table.schema.json';
+import { validate } from 'wix-rich-content-common';
 
 class TableComponent extends React.Component {
   constructor(props) {
     super(props);
+    validate(props.componentData, pluginTableSchema);
     this.rowsRefs = [];
     this.state = {
       isEditingActive: false,
@@ -28,7 +32,7 @@ class TableComponent extends React.Component {
     };
     this.innerRceAdditionalProps = { placeholder: '', handleReturn: this.handleReturn };
     this.innerEditorsRefs = {};
-    this.table = new Table(props.componentData, this.updateTable);
+    this.table = new Table(props.componentData, this.updateTable, this.onPluginChange);
     this.tableRef = createRef();
     this.tableContainer = createRef();
     this.dragPreview = createRef();
@@ -44,6 +48,10 @@ class TableComponent extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.setState({ updateAllRows: true });
+  }
+
   componentWillReceiveProps(nextProps) {
     if (
       !isPluginFocused(nextProps.block, nextProps.selection) &&
@@ -52,6 +60,15 @@ class TableComponent extends React.Component {
       this.setSelected();
     }
   }
+
+  onPluginChange = biParams =>
+    this.props.helpers?.onPluginChange?.(TABLE_TYPE, {
+      ...biParams,
+      type: CATEGORY.CELL_FORMATTING,
+    });
+
+  triggerBi = (eventName, biParams) =>
+    this.props.helpers?.onPluginAction?.(eventName, { plugin_id: TABLE_TYPE, ...biParams });
 
   handleReturn = () => e => !(e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) && 'handled';
 
@@ -68,7 +85,7 @@ class TableComponent extends React.Component {
   };
 
   updateComponentData = data => {
-    this.props.store.set('componentData', { ...data }, this.props.block.getKey());
+    this.props.store.update('componentData', { ...data });
   };
 
   renderInnerRCE = (i, j) => {
@@ -208,18 +225,23 @@ class TableComponent extends React.Component {
         this.isAllCellsSelected(selected) &&
         (e.key === 'Backspace' || e.key === 'Delete')
       ) {
-        this.props.blockProps.deleteBlock();
+        this.deleteTable();
       } else if (e.keyCode === KEYS_CHARCODE.SPACE) {
-        e.ctrlKey && this.handleShortcutSelection(e, getColsRange(selected), this.selectCols);
+        e.ctrlKey && this.handleShortcutSelection(e, getColsRange(selected), this.selectCols, true);
         e.shiftKey && this.handleShortcutSelection(e, getRowsRange(selected), this.selectRows);
       } else if (e.altKey && e.ctrlKey) {
         if (e.key === '+' || e.key === '=') {
           const selectedCols = this.table.getSelectedCols(getRange(selected));
-          selectedCols ? this.addCol(Math.max(...selectedCols) + 1) : this.addLastCol();
+          selectedCols
+            ? this.addCol(Math.max(...selectedCols) + 1, {
+                source: SOURCE.KEYBOARD_SHORTCUT,
+                location: LOCATION.RIGHT,
+              })
+            : this.addLastCol({ source: SOURCE.KEYBOARD_SHORTCUT });
         } else if (e.key === '-') {
           const selectedCols = this.table.getSelectedCols(getRange(selected));
           this.isAllCellsSelected(selected)
-            ? this.props.blockProps.deleteBlock()
+            ? this.deleteTable()
             : selectedCols && this.deleteColumn(selectedCols);
         }
       } else if (e.key === 't' && e.ctrlKey) {
@@ -232,11 +254,17 @@ class TableComponent extends React.Component {
     }
   };
 
-  handleShortcutSelection = (e, indexes, selectFunc) => {
-    if (!this.prevSelection) {
+  handleShortcutSelection = (e, indexes, selectFunc, isCol = false) => {
+    const { selected } = this.state;
+    const isAllSectionSelected = isCol
+      ? this.table.getSelectedCols(getRange(selected))
+      : this.table.getSelectedRows(getRange(selected));
+    if (!isAllSectionSelected) {
       this.prevSelection = cloneDeep(this.state.selected);
+      this.lastFocusedCell = document.activeElement;
       selectFunc({ start: Math.min(...indexes), end: Math.max(...indexes) });
     } else {
+      this.lastFocusedCell?.focus();
       this.setSelected(this.prevSelection);
       this.prevSelection = null;
     }
@@ -245,7 +273,7 @@ class TableComponent extends React.Component {
 
   shouldHandleKeyDown = e => {
     const { selected, isEditingActive } = this.state;
-    const isColorPickerModalOpen = e.target.closest('[data-id=color-picker-modal]');
+    const isColorPickerModalOpen = e.target.closest('[data-hook=color-picker-modal]');
     return (
       isPluginFocused(this.props.block, this.props.selection) &&
       selected &&
@@ -289,14 +317,24 @@ class TableComponent extends React.Component {
     !this.isAllCellsSelected(this.state.selected) && this.setState({ isAllCellsSelected: false });
   };
 
-  onResizeCol = columnsRefs =>
+  onResizeCol = columnsRefs => {
     this.table.setColWidthAfterResize(columnsRefs, this.tableRef.current.offsetWidth);
+    this.triggerBi(ACTION_NAME.COLUMN_ROW_ACTION, {
+      action: ACTION.RESIZE,
+      category: CATEGORY.COLUMN,
+    });
+  };
 
-  onResizeRow = (i, height) =>
+  onResizeRow = (i, height) => {
     this.table.setRowHeight(
       getRowsRange(this.table.getRowsSelection({ start: i, end: i })),
       height
     );
+    this.triggerBi(ACTION_NAME.COLUMN_ROW_ACTION, {
+      action: ACTION.RESIZE,
+      category: CATEGORY.ROW,
+    });
+  };
 
   setToolbarRef = ref => (this.toolbarRef = ref);
 
@@ -316,6 +354,10 @@ class TableComponent extends React.Component {
     this.resetDrag();
     this.colDropIndex = null;
     this.position = null;
+    this.triggerBi(ACTION_NAME.COLUMN_ROW_ACTION, {
+      action: ACTION.REORDER,
+      category: CATEGORY.COLUMN,
+    });
   };
 
   onRowDragEnd = (e, dragsIndex) => {
@@ -325,6 +367,10 @@ class TableComponent extends React.Component {
     this.dropTop = null;
     this.dragPadding = null;
     this.rowDropIndex = null;
+    this.triggerBi(ACTION_NAME.COLUMN_ROW_ACTION, {
+      action: ACTION.REORDER,
+      category: CATEGORY.ROW,
+    });
   };
 
   resetDrag = () => {
@@ -332,10 +378,11 @@ class TableComponent extends React.Component {
     this.setSelected();
   };
 
-  addRow = i => {
+  addRow = (i, biParams) => {
     if (!isCellsNumberInvalid(this.table.getRowNum() + 1, this.table.getColNum())) {
       this.table.addRow(i);
       this.selectRows({ start: i, end: i });
+      this.triggerBi(ACTION_NAME.ADD_COLUMN_ROW, { category: CATEGORY.ROW, ...biParams });
     }
   };
 
@@ -353,26 +400,38 @@ class TableComponent extends React.Component {
     return fixedWidth;
   };
 
-  addCol = i => {
+  addCol = (i, biParams) => {
     if (!isCellsNumberInvalid(this.table.getRowNum(), this.table.getColNum() + 1)) {
       this.table.addColumn(i);
       this.selectCols({ start: i, end: i });
+      this.triggerBi(ACTION_NAME.ADD_COLUMN_ROW, { category: CATEGORY.COLUMN, ...biParams });
     }
   };
 
   deleteRow = deleteIndexes => {
     this.table.deleteRow(deleteIndexes);
     this.setSelected();
+    this.triggerBi(ACTION_NAME.DELETE_COLUMN_ROW, { category: CATEGORY.ROW });
   };
 
   deleteColumn = deleteIndexes => {
     this.table.deleteColumn(deleteIndexes);
     this.setSelected();
+    this.triggerBi(ACTION_NAME.DELETE_COLUMN_ROW, { category: CATEGORY.COLUMN });
   };
 
-  addLastRow = () => this.addRow(this.table.getRowNum());
+  deleteTable = () => {
+    this.props.blockProps.deleteBlock();
+    this.triggerBi(ACTION_NAME.DELETE_COLUMN_ROW, { category: CATEGORY.ENTIRE_TABLE });
+  };
 
-  addLastCol = () => this.addCol(this.table.getColNum());
+  addLastRow = biParams => {
+    this.addRow(this.table.getRowNum(), { ...biParams, location: LOCATION.BELOW });
+  };
+
+  addLastCol = biParams => {
+    this.addCol(this.table.getColNum(), { ...biParams, location: LOCATION.RIGHT });
+  };
 
   onColDrag = (e, dragsIndex) => {
     !this.position && (this.position = e.pageX);
@@ -464,7 +523,7 @@ class TableComponent extends React.Component {
   };
 
   render() {
-    const { theme, t, isMobile, settings, blockProps } = this.props;
+    const { componentData, theme, t, isMobile, settings } = this.props;
     const {
       selected,
       isEditingActive,
@@ -479,6 +538,7 @@ class TableComponent extends React.Component {
     const isEditMode = !isMobile && isTableOnFocus;
     const rowNum = this.table.getRowNum();
     const colNum = this.table.getColNum();
+    this.table.updateComponentData(componentData);
     return (
       <div
         className={classNames(styles.tableEditorContainer, 'has-custom-focus', {
@@ -510,12 +570,13 @@ class TableComponent extends React.Component {
             settings={settings}
             selectRows={this.selectRows}
             selectCols={this.selectCols}
-            deleteBlock={blockProps.deleteBlock}
+            deleteBlock={this.deleteTable}
             isAllCellsSelected={this.isAllCellsSelected(selected)}
             merge={this.merge}
             distributeRows={this.distributeRows}
             distributeColumns={this.distributeColumns}
             getTableScrollLeft={this.getTableScrollLeft}
+            triggerBi={this.triggerBi}
           />
         )}
         {!isMobile && (
@@ -621,6 +682,7 @@ TableComponent.propTypes = {
   isMobile: PropTypes.bool,
   settings: PropTypes.object,
   disableKeyboardEvents: PropTypes.func,
+  helpers: PropTypes.object,
 };
 
 export { TableComponent as Component };

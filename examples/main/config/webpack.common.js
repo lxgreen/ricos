@@ -38,7 +38,7 @@ module.exports = env => ({
         test: /\.js$/,
         use: ['source-map-loader'],
         enforce: 'pre',
-        include: [/wix-rich-content-*/],
+        include: [/wix-rich-content-*/, /ricos*/],
       },
       {
         test: /\.css$/,
@@ -136,6 +136,7 @@ module.exports = env => ({
         charset: 'utf-8',
         viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no',
       },
+      chunksSortMode: 'none',
     }),
     new DotenvWebpackPlugin({
       path: path.resolve(PATHS.monorepo_root, '.env'),

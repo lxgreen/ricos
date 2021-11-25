@@ -29,6 +29,7 @@ export enum ButtonType {
   SPOILER = 'spoiler',
   DELETE = 'delete',
   LINK_PREVIEW = 'link-preview',
+  VIDEO_SETTINGS = 'video-settings',
 }
 
 export enum ModifierKey {
@@ -36,19 +37,21 @@ export enum ModifierKey {
   CTRL = 'ctrl',
   OPTION = 'option',
   SHIFT = 'shift',
+  ALT = 'alt',
 }
 
 export enum ToolbarType {
   SIDE = 'SIDE',
   MOBILE = 'MOBILE',
   FOOTER = 'FOOTER',
-  STATIC = 'TEXT',
+  STATIC = 'STATIC',
   INLINE = 'INLINE',
   PLUGIN = 'PLUGIN',
   FORMATTING = 'FORMATTING',
   INSERT_PLUGIN = 'INSERT_PLUGIN',
   TEXT = 'ALL-TEXT-TOOLBARS',
   SHORTCUT = 'SHORTCUT',
+  LINK = 'LINK',
 }
 
 export enum DisplayMode {

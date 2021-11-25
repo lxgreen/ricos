@@ -1,10 +1,3 @@
-import { PaletteColors, ThemeUtils } from 'wix-rich-content-common';
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-export const theme = (colors: PaletteColors, utils: ThemeUtils) => {
-  return {};
-};
-
 export const LAYOUT = {
   LIST: 'list',
   GRID: 'grid',
@@ -113,7 +106,6 @@ export const DEFAULT_COMPONENT_DATA = {
     alignment: 'center',
     size: 'large',
     width: 'full-width',
-    enableVoteRole: false,
   },
   poll: {
     ownVotes: [],
@@ -122,7 +114,7 @@ export const DEFAULT_COMPONENT_DATA = {
       multipleVotes: false,
       votesDisplay: true,
       votersDisplay: true,
-      voteRole: MEMBER_ROLES.SITE_MEMBERS,
+      voteRole: MEMBER_ROLES.ALL,
       resultsVisibility: VISIBILITY.VOTERS,
     },
     options: [],

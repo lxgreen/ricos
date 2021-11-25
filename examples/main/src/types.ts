@@ -1,26 +1,21 @@
-import { PluginType, RichContentTheme } from 'wix-rich-content-common';
+import {
+  AvailableExperiments,
+  AddPluginMenuConfig,
+  FooterToolbarConfig,
+} from 'wix-rich-content-common';
 
 export type OnVisibilityChanged = (sectionName: string, isVisible: boolean) => void;
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface SectionSettings {
   name: string;
   active?: any;
-  action: (item?: any) => void;
-  items?: string[];
+  getActive?: any;
+  itemsType?: string;
+  action: (item?: any, value?: any) => void;
+  items?: any[];
 }
-
-export interface AddPluginMenuConfig {
-  showSearch: boolean;
-  splitToSections: boolean;
-}
-
-export interface FooterToolbarConfig {
-  morePluginsMenu?: {
-    splitToSections: boolean;
-    showSearch: boolean;
-  };
-  pluginsToDisplayInToolbar?: string[];
-}
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 export interface TestAppConfig {
   plugins?: string[];
@@ -28,7 +23,8 @@ export interface TestAppConfig {
     addPluginMenuConfig?: AddPluginMenuConfig;
     footerToolbarConfig?: FooterToolbarConfig;
   };
-  pluginsConfig?: Record<PluginType, Record<string, string>>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  pluginsConfig?: Record<string, Record<string, any>>;
   consumer?: string;
   applyOuterStyle?: boolean;
   theme?: {
@@ -38,7 +34,10 @@ export interface TestAppConfig {
     fallbackColor?: string;
     disableContainer?: boolean;
     contentBgColor?: boolean;
+    settingsActionColor?: string;
+    focusActionColor?: string;
   };
   showDefaultPreview?: boolean;
   isNativeUpload?: boolean;
+  experiments?: AvailableExperiments;
 }

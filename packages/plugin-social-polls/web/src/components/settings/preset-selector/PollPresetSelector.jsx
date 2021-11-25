@@ -2,8 +2,7 @@
 import React, { PureComponent } from 'react';
 import { merge } from 'lodash';
 
-import { SelectionList } from 'wix-rich-content-plugin-commons';
-import { Separator } from 'wix-rich-content-editor-common';
+import { SelectionList, SettingsSeparator } from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 
 import { getRandomValue } from '../../../helpers';
@@ -74,7 +73,7 @@ export class PollPresetSelector extends PureComponent {
                 className={styles.close_icon}
               />
             </div>
-            <Separator horizontal className={this.styles.separator} />
+            <SettingsSeparator top bottom />
           </>
         ) : (
           <>

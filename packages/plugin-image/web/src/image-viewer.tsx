@@ -1,21 +1,20 @@
 import React, { RefObject } from 'react';
 import classNames from 'classnames';
-import { IMAGE_TYPE, ImagePluginViewerConfig, ImageConfig } from './types';
+import { IMAGE_TYPE, ImagePluginViewerConfig, ImageData } from './types';
 import { get, includes, isEqual, isFunction } from 'lodash';
 import {
   mergeStyles,
   validate,
   isSSR,
-  getImageSrc,
-  WIX_MEDIA_DEFAULT,
   anchorScroll,
   addAnchorTagToUrl,
   GlobalContext,
   Helpers,
   RichContentTheme,
   SEOSettings,
+  CustomAnchorScroll,
 } from 'wix-rich-content-common';
-// eslint-disable-next-line max-len
+import { getImageSrc, isPNG, WIX_MEDIA_DEFAULT } from 'wix-rich-content-common/libs/imageUtils';
 import pluginImageSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-image.schema.json';
 import { DEFAULTS, SEO_IMAGE_WIDTH } from './consts';
 import styles from '../statics/styles/image-viewer.rtlignore.scss';
@@ -30,28 +29,23 @@ const replaceUrlFileExtenstion = (url, extensionTarget) => {
 };
 
 interface ImageViewerProps {
-  componentData: {
-    config: ImageConfig;
-    src: { fallback: string; width: number };
-    metadata?: { caption?: unknown; alt?: string | undefined };
-    [key: string]: unknown;
-  };
-  className: string;
+  componentData: ImageData;
+  className?: string;
   dataUrl: string;
   settings: ImagePluginViewerConfig;
   defaultCaption: string;
-  entityIndex: number;
-  onCaptionChange: () => void;
+  onCaptionChange: (caption: string) => void;
   setFocusToBlock: () => void;
   theme: RichContentTheme;
   helpers: Helpers;
-  disableRightClick: boolean;
-  getInPluginEditingMode: () => unknown;
-  setInPluginEditingMode: () => unknown;
+  getInPluginEditingMode?: () => unknown;
+  setInPluginEditingMode?: () => unknown;
   isMobile: boolean;
   setComponentUrl: (highres?: string) => unknown;
-  seoMode: SEOSettings;
+  seoMode?: SEOSettings;
   blockKey: string;
+  isLoading: boolean;
+  customAnchorScroll?: CustomAnchorScroll;
 }
 
 interface ImageSrc {
@@ -67,8 +61,10 @@ interface ImageViewerState {
 
 class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
   preloadRef: RefObject<HTMLImageElement>;
+
   imageRef: RefObject<HTMLImageElement>;
-  styles: Record<string, string>;
+
+  styles!: Record<string, string>;
 
   constructor(props) {
     super(props);
@@ -79,11 +75,6 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
   }
 
   static contextType = GlobalContext;
-
-  shouldUseSrcSet() {
-    const { experiments } = this.context;
-    return experiments?.useSrcSet?.enabled;
-  }
 
   componentDidMount() {
     this.setState({ ssrDone: true });
@@ -118,11 +109,22 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       : WIX_MEDIA_DEFAULT.SIZE;
   }
 
+  getImageDataUrl(): ImageSrc | null {
+    return this.props.dataUrl
+      ? {
+          preload: this.props.dataUrl,
+          highres: this.props.dataUrl,
+        }
+      : null;
+  }
+
   getImageUrl(src): ImageSrc | null {
     const { helpers, seoMode } = this.props || {};
     if (!src && helpers?.handleFileSelection) {
       return null;
     }
+
+    const removeUsm = this.context.experiments?.removeUsmFromImageUrls?.enabled;
 
     const imageUrl: ImageSrc = {
       preload: '',
@@ -144,43 +146,41 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       return [requiredWidth, requiredHeight];
     };
 
-    if (this.props.dataUrl) {
-      imageUrl.preload = imageUrl.highres = this.props.dataUrl;
-    } else {
-      let requiredWidth, requiredHeight;
-      let imageSrcOpts = {};
-      if (
-        this.context.experiments?.useQualityPreoad?.enabled ||
-        this.context.experiments?.useQualityPreload?.enabled
-      ) {
-        const {
-          componentData: {
-            config: { alignment, width },
-          },
-        } = this.props;
-        const usePredefinedWidth = (alignment === 'left' || alignment === 'right') && !width;
-        imageSrcOpts = {
-          imageType: 'quailtyPreload',
-          ...(usePredefinedWidth && { requiredWidth: 300 }),
-        };
-      }
-      imageUrl.preload = getImageSrc(src, helpers?.getImageUrl, imageSrcOpts);
-      if (seoMode) {
-        requiredWidth = src?.width && Math.min(src.width, SEO_IMAGE_WIDTH);
-        requiredHeight = this.calculateHeight(SEO_IMAGE_WIDTH, src);
-      } else if (this.state.container) {
-        const desiredWidth = this.state.container.getBoundingClientRect().width || src?.width;
-        [requiredWidth, requiredHeight] = getImageDimensions(desiredWidth, this.props.isMobile);
-      }
-
-      imageUrl.highres = getImageSrc(src, helpers?.getImageUrl, {
-        requiredWidth,
-        requiredHeight,
-        requiredQuality: 90,
-        imageType: 'highRes',
-      });
+    let requiredWidth, requiredHeight;
+    let imageSrcOpts = {};
+    /**
+        PNG files can't reduce quality via Wix services and we want to avoid downloading a big png image that will affect performance.
+      **/
+    if (!this.props.isMobile && !isPNG(src)) {
+      const {
+        componentData: { config: { alignment, width } = {} },
+      } = this.props;
+      const usePredefinedWidth = (alignment === 'left' || alignment === 'right') && !width;
+      imageSrcOpts = {
+        removeUsm,
+        imageType: 'quailtyPreload',
+        ...(usePredefinedWidth && { requiredWidth: 300 }),
+      };
     }
-    if (this.state.ssrDone && !imageUrl.preload) {
+
+    imageUrl.preload = getImageSrc(src, helpers?.getImageUrl, imageSrcOpts);
+    if (seoMode) {
+      requiredWidth = src?.width && Math.min(src.width, SEO_IMAGE_WIDTH);
+      requiredHeight = this.calculateHeight(SEO_IMAGE_WIDTH, src);
+    } else if (this.state.container) {
+      const desiredWidth = this.state.container.getBoundingClientRect().width || src?.width;
+      [requiredWidth, requiredHeight] = getImageDimensions(desiredWidth, this.props.isMobile);
+    }
+
+    imageUrl.highres = getImageSrc(src, helpers?.getImageUrl, {
+      removeUsm,
+      requiredWidth,
+      requiredHeight,
+      requiredQuality: 90,
+      imageType: 'highRes',
+    });
+
+    if (this.state.ssrDone && !imageUrl.preload && !this.props.isLoading) {
       console.error(`image plugin mounted with invalid image source!`, src); //eslint-disable-line no-console
     }
 
@@ -219,8 +219,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       classNames(imageClassName, this.styles.imagePreload),
       imageSrc.preload,
       alt,
-      { ariaHidden: 'true', ...props },
-      { useSrcSet: true }
+      { 'aria-hidden': true, ...props }
     );
   };
 
@@ -233,26 +232,22 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       fadeIn?: boolean;
       width?: number | string;
       height?: number | string;
-      useSrcSet?: boolean;
     } = {}
   ) {
-    const { fadeIn = false, width, height, useSrcSet } = opts;
-    let srcSet;
-    if (this.shouldUseSrcSet() && useSrcSet) {
-      srcSet = replaceUrlFileExtenstion(src, 'webp');
-    }
+    const { fadeIn = false, width, height } = opts;
+    const loading = this.context.experiments.lazyImagesAndIframes?.enabled ? 'lazy' : undefined;
     return (
       <img
         {...props}
         className={imageClassNames}
         src={src}
-        srcSet={srcSet}
         alt={alt}
         onError={this.onImageLoadError}
         onLoad={fadeIn ? e => this.onImageLoad(e.target) : undefined}
         ref={fadeIn ? this.imageRef : this.preloadRef}
         width={width}
         height={height}
+        loading={loading}
       />
     );
   }
@@ -286,16 +281,18 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
 
   renderCaption(caption) {
     const { onCaptionChange, setFocusToBlock, setInPluginEditingMode } = this.props;
+    const { imageCaption, link } = this.styles;
+    const classes = classNames(imageCaption, this.hasLink() && link);
     return onCaptionChange ? (
       <InPluginInput
         setInPluginEditingMode={setInPluginEditingMode}
-        className={this.styles.imageCaption}
+        className={classes}
         value={caption}
         onChange={onCaptionChange}
         setFocusToBlock={setFocusToBlock}
       />
     ) : (
-      <span dir="auto" className={this.styles.imageCaption}>
+      <span dir="auto" className={classes}>
         {caption}
       </span>
     );
@@ -328,20 +325,25 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       settings: { onExpand },
       helpers = {},
     } = this.props;
-    helpers.onViewerAction?.(IMAGE_TYPE, 'expand_image', '');
-    onExpand?.(this.props.blockKey);
+    helpers.onViewerAction?.(IMAGE_TYPE, 'Click', 'expand_image');
+    this.hasExpand() && onExpand?.(this.props.blockKey);
   };
 
-  scrollToAnchor = () => {
+  scrollToAnchor = e => {
     const {
       componentData: {
         config: { link: { anchor } = {} },
       },
+      customAnchorScroll,
     } = this.props;
-    const anchorString = `viewer-${anchor}`;
-    const element = document.getElementById(anchorString);
-    addAnchorTagToUrl(anchorString);
-    anchorScroll(element);
+    if (customAnchorScroll) {
+      customAnchorScroll(e, anchor as string);
+    } else {
+      const anchorString = `viewer-${anchor}`;
+      const element = document.getElementById(anchorString);
+      addAnchorTagToUrl(anchorString);
+      anchorScroll(element, this.context.experiments);
+    }
   };
 
   hasLink = () => this.props.componentData?.config?.link?.url;
@@ -361,7 +363,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
     } else if (this.hasAnchor()) {
       e.preventDefault();
       e.stopPropagation(); // fix problem with wix platform, where it wouldn't scroll and sometimes jump to different page
-      this.scrollToAnchor();
+      this.scrollToAnchor(e);
     } else {
       this.handleExpand(e);
     }
@@ -373,7 +375,23 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
     }
   };
 
-  handleContextMenu = e => this.props.disableRightClick && e.preventDefault();
+  handleContextMenu = e => {
+    const {
+      componentData: { disableDownload = false },
+    } = this.props;
+    return disableDownload && e.preventDefault();
+  };
+
+  hasExpand = () => {
+    const { componentData, settings } = this.props;
+    let disableExpand = false;
+    if (componentData.disableExpand !== undefined) {
+      disableExpand = componentData.disableExpand;
+    } else if (settings.disableExpand !== undefined) {
+      disableExpand = settings.disableExpand;
+    }
+    return !disableExpand && settings.onExpand;
+  };
 
   renderExpandIcon = () => {
     return (
@@ -389,15 +407,15 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
     const { componentData, className, settings, setComponentUrl, seoMode } = this.props;
     const { fallbackImageSrc, ssrDone } = this.state;
     const data = componentData || DEFAULTS;
-    const { metadata = {} } = componentData;
-
-    const hasExpand = !settings.disableExpand && settings.onExpand;
-
-    const itemClassName = classNames(this.styles.imageContainer, className, {
-      [this.styles.pointer]: hasExpand,
+    let { metadata } = componentData;
+    if (!metadata) {
+      metadata = {};
+    }
+    const itemClassName = classNames(this.styles.imageWrapper, className, {
+      [this.styles.pointer]: this.hasExpand() as boolean,
     });
     const imageClassName = this.styles.image;
-    const imageSrc = fallbackImageSrc || this.getImageUrl(data.src);
+    const imageSrc = fallbackImageSrc || this.getImageDataUrl() || this.getImageUrl(data.src);
     let imageProps = {};
     if (data.src && settings && settings.imageProps) {
       imageProps = isFunction(settings.imageProps)
@@ -415,19 +433,23 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
     return (
       <div
         data-hook="imageViewer"
-        onClick={this.handleClick}
-        className={itemClassName}
-        onKeyDown={this.onKeyDown}
+        className={this.styles.imageContainer}
         ref={this.handleRef}
         onContextMenu={this.handleContextMenu}
+        onKeyDown={this.onKeyDown}
         {...accesibilityProps}
       >
-        <div className={this.styles.imageWrapper} role="img" aria-label={metadata.alt}>
+        <div
+          className={itemClassName}
+          aria-label={metadata.alt}
+          onClick={this.handleClick}
+          onKeyDown={this.onKeyDown}
+        >
           {shouldRenderPreloadImage &&
             this.renderPreloadImage(imageClassName, imageSrc, metadata.alt, imageProps)}
           {shouldRenderImage &&
             this.renderImage(imageClassName, imageSrc, metadata.alt, imageProps, isGif, onlyHiRes)}
-          {hasExpand && this.renderExpandIcon()}
+          {this.hasExpand() && this.renderExpandIcon()}
         </div>
         {this.renderTitle(data, this.styles)}
         {this.renderDescription(data, this.styles)}

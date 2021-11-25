@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { getLinkDataInSelection } from 'wix-rich-content-editor-common';
+import { getLinkDataInSelection, scrollToBlock } from 'wix-rich-content-editor-common';
 import styles from '../../statics/link-viewer.scss';
-import { normalizeUrl, mergeStyles, anchorScroll } from 'wix-rich-content-common';
+import { normalizeUrl, mergeStyles, getRelValue, GlobalContext } from 'wix-rich-content-common';
 
 export default class UrlLinkButton extends Component {
   constructor(props) {
@@ -12,14 +12,17 @@ export default class UrlLinkButton extends Component {
     this.styles = mergeStyles({ styles, theme });
   }
 
-  handleClick = () => {
-    const { getEditorState } = this.props;
+  static contextType = GlobalContext;
+
+  handleClick = event => {
+    const { getEditorState, customAnchorScroll } = this.props;
     const linkData = getLinkDataInSelection(getEditorState());
     const { anchor = '' } = linkData || {};
-    const nodeListOfAllblocks = document.querySelectorAll(`[data-editor]`);
-    const arrayOfAllblocks = Array.apply(null, nodeListOfAllblocks);
-    const element = arrayOfAllblocks.find(block => block.dataset.offsetKey === `${anchor}-0-0`);
-    anchorScroll(element);
+    if (customAnchorScroll) {
+      customAnchorScroll(event, anchor);
+    } else {
+      scrollToBlock(anchor, this.context.experiments);
+    }
   };
 
   preventDefault = event => event.preventDefault();
@@ -32,8 +35,8 @@ export default class UrlLinkButton extends Component {
     const href = url ? normalizeUrl(url) : undefined;
     const anchorProps = {
       href,
-      target: target || '_self',
-      rel: rel || 'noopener',
+      target,
+      rel: getRelValue(rel),
       className: classNames(styles.toolbarUrl, { [styles.toolbarUrlAnchor]: anchor }),
       onMouseDown: this.preventDefault,
       onClick: anchor && this.handleClick,
@@ -49,5 +52,7 @@ export default class UrlLinkButton extends Component {
 UrlLinkButton.propTypes = {
   getEditorState: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
+  customAnchorScroll: PropTypes.func,
+  settings: PropTypes.object,
   t: PropTypes.func,
 };

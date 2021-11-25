@@ -6,14 +6,19 @@ import { pluginGallery } from 'wix-rich-content-plugin-gallery';
 import { pluginPoll } from 'wix-rich-content-plugin-social-polls';
 import MobileDetect from 'mobile-detect';
 import ActionButton from '../Components/ActionButton';
-import { withEditorContext, EditorEventsProps } from 'wix-rich-content-editor-common';
+import {
+  withEditorContext,
+  EditorEventsProps,
+} from 'wix-rich-content-editor-common/libs/EditorEventsContext';
 
 const mobileDetect = new MobileDetect(window.navigator.userAgent);
 const plugins = [pluginImage(), pluginGallery(), pluginPoll()];
 
 const RicosPublishStory: FunctionComponent<EditorEventsProps> = ({ editorEvents }) => {
   const modalSettings = {
+    // eslint-disable-next-line no-console
     onModalOpen: () => console.log('modal opened'),
+    // eslint-disable-next-line no-console
     onModalClose: () => console.log('modal closed'),
   };
   const isMobile = mobileDetect.mobile() !== null;
@@ -22,19 +27,29 @@ const RicosPublishStory: FunctionComponent<EditorEventsProps> = ({ editorEvents 
 
   return (
     <Page title="Ricos - editorEvents.publish()">
-      {/* <h4>
+      <h4>
         See Usage{' '}
         <a
           target="_blank"
           rel="noreferrer"
-          href="https://wix.github.io/ricos/docs/ricos/ricos-api/#refgetcontentpromise"
+          href="https://ricos.js.org/docs/ricos/editor-events-context"
         >
           here
         </a>
-      </h4> */}
+      </h4>
       <Section>
         <RichContentEditorBox>
-          <RicosEditor isMobile={isMobile} plugins={plugins} modalSettings={modalSettings} />
+          <RicosEditor
+            isMobile={isMobile}
+            plugins={plugins}
+            modalSettings={modalSettings}
+            _rcProps={{
+              helpers: {
+                // eslint-disable-next-line no-console
+                onPublish: async (...args) => console.log('biOnPublish', args),
+              },
+            }}
+          />
           <ActionButton
             text={'Publish'}
             onClick={async () => {

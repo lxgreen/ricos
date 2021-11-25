@@ -1,5 +1,7 @@
+/* eslint-disable complexity */
 import { normalizeUrl } from 'wix-rich-content-common';
 import { getAbsoluteUrl } from './baseUrlConverter';
+import { v4 as uuid } from 'uuid';
 
 /**
  * convertItemData - converts the old gallery metadata format to the new metaData format
@@ -9,7 +11,7 @@ import { getAbsoluteUrl } from './baseUrlConverter';
  * @param {string} relValue - link rel attribute
  */
 export const convertItemData = ({ items, anchorTarget, relValue }) =>
-  items.map(item => {
+  items.map((item, index) => {
     const { metadata, metaData } = item;
     if (metaData) {
       return item;
@@ -41,10 +43,20 @@ export const convertItemData = ({ items, anchorTarget, relValue }) =>
         };
         const {
           pathname,
-          thumbnail: { pathname: thumbPathname } = {},
+          thumbnail: { pathname: thumbPathname, width, height } = {},
         } = convertedData.metaData.poster;
         if (pathname && thumbPathname) {
-          convertedData.metaData.poster = getAbsoluteUrl(thumbPathname, 'image');
+          convertedData.metaData.poster = {
+            url: getAbsoluteUrl(thumbPathname, 'image'),
+            width,
+            height,
+          };
+        } else if (typeof convertedData.metaData.poster === 'string') {
+          convertedData.metaData.poster = {
+            url: convertedData.metaData.poster,
+            width: convertedData.metaData.width,
+            height: convertedData.metaData.height,
+          };
         }
       }
 
@@ -69,5 +81,10 @@ export const convertItemData = ({ items, anchorTarget, relValue }) =>
       }
     }
 
-    return { ...item, metadata: undefined, ...convertedData };
+    return {
+      ...item,
+      metadata: undefined,
+      ...convertedData,
+      itemId: uuid() + '_' + index.toString(),
+    };
   });

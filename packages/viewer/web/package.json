@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-viewer",
-  "version": "8.27.4",
+  "version": "8.63.2",
   "author": {
     "name": "Jonathan Bachman",
     "email": "jonathanb@wix.com"
@@ -17,7 +17,7 @@
   "scripts": {
     "clean": "rm -rf dist/",
     "prebuild": "npm run clean",
-    "build:rollup": "rollup --environment MODULE_NAME:viewer -c ../../../rollup.config.js",
+    "build:rollup": "rollup --environment MODULE_NAME:viewer,ALLOW_JS -c ../../../rollup.config.js",
     "build": "npm run build:rollup && node ../../../scripts/cssFix.js",
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "build:analyze:editor": "npm run build -- --environment MODULE_ANALYZE_EDITOR  && open stats.html",
@@ -43,8 +43,9 @@
     }
   },
   "dependencies": {
+    "@loadable/component": "^5.14.1",
     "wix-redraft": "^1.1.2",
-    "wix-rich-content-common": "8.27.4"
+    "wix-rich-content-common": "8.63.2"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.2.0",

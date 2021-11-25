@@ -2,11 +2,11 @@
   "nodes": [
     {
       "type": "PARAGRAPH",
-      "key": "1mr2d",
+      "id": "0",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "6fluj",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "Test",
@@ -19,7 +19,7 @@
         },
         {
           "type": "TEXT",
-          "key": "9hbcl",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": " ",
@@ -28,7 +28,7 @@
         },
         {
           "type": "TEXT",
-          "key": "88ov4",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "test",
@@ -41,7 +41,7 @@
         },
         {
           "type": "TEXT",
-          "key": "8m99b",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": " ",
@@ -50,7 +50,7 @@
         },
         {
           "type": "TEXT",
-          "key": "2g7li",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "test",
@@ -63,24 +63,28 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "8tjd7",
+      "id": "1",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "HEADING",
-      "key": "bu1ug",
+      "id": "2",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "aegd0",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "test ",
@@ -89,7 +93,7 @@
         },
         {
           "type": "TEXT",
-          "key": "aat35",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "test",
@@ -102,7 +106,7 @@
         },
         {
           "type": "TEXT",
-          "key": "2u96g",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": " test",
@@ -112,16 +116,18 @@
       ],
       "headingData": {
         "level": 1,
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "HEADING",
-      "key": "fqhvg",
+      "id": "3",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "4b85",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "test test test",
@@ -131,16 +137,18 @@
       ],
       "headingData": {
         "level": 2,
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "HEADING",
-      "key": "12h9v",
+      "id": "4",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "5tq9",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "test test test",
@@ -150,16 +158,18 @@
       ],
       "headingData": {
         "level": 3,
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "ctfj1",
+      "id": "5",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "33tes",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "test test test",
@@ -168,16 +178,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "924gr",
+      "id": "6",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "einds",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "test test test",
@@ -186,16 +198,18 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "ed7a3",
+      "id": "7",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "9qdd3",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "test test test",
@@ -204,32 +218,36 @@
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
-      "key": "dn2pc",
+      "id": "8",
       "nodes": [],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     },
     {
-      "type": "BULLET_LIST",
-      "key": "iq6",
+      "type": "BULLETED_LIST",
+      "id": "9",
       "nodes": [
         {
           "type": "LIST_ITEM",
-          "key": "6ed06",
+          "id": "10",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "key": "3k1a7",
+              "id": "11",
               "nodes": [
                 {
                   "type": "TEXT",
-                  "key": "2gc9",
+                  "id": "",
                   "nodes": [],
                   "textData": {
                     "text": "test",
@@ -238,22 +256,24 @@
                 }
               ],
               "paragraphData": {
-                "textAlignment": "LEFT"
+                "textStyle": {
+                  "textAlignment": "AUTO"
+                }
               }
             }
           ]
         },
         {
           "type": "LIST_ITEM",
-          "key": "eba7s",
+          "id": "12",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "key": "1i9nd",
+              "id": "13",
               "nodes": [
                 {
                   "type": "TEXT",
-                  "key": "dsggb",
+                  "id": "",
                   "nodes": [],
                   "textData": {
                     "text": "test",
@@ -262,22 +282,24 @@
                 }
               ],
               "paragraphData": {
-                "textAlignment": "LEFT"
+                "textStyle": {
+                  "textAlignment": "AUTO"
+                }
               }
             }
           ]
         },
         {
           "type": "LIST_ITEM",
-          "key": "3n7t6",
+          "id": "14",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "key": "222ov",
+              "id": "15",
               "nodes": [
                 {
                   "type": "TEXT",
-                  "key": "m0fb",
+                  "id": "",
                   "nodes": [],
                   "textData": {
                     "text": "test",
@@ -286,7 +308,9 @@
                 }
               ],
               "paragraphData": {
-                "textAlignment": "LEFT"
+                "textStyle": {
+                  "textAlignment": "AUTO"
+                }
               }
             }
           ]
@@ -295,19 +319,19 @@
     },
     {
       "type": "ORDERED_LIST",
-      "key": "32mpi",
+      "id": "16",
       "nodes": [
         {
           "type": "LIST_ITEM",
-          "key": "7dfpu",
+          "id": "17",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "key": "767n1",
+              "id": "18",
               "nodes": [
                 {
                   "type": "TEXT",
-                  "key": "f0j4v",
+                  "id": "",
                   "nodes": [],
                   "textData": {
                     "text": "test",
@@ -316,22 +340,24 @@
                 }
               ],
               "paragraphData": {
-                "textAlignment": "LEFT"
+                "textStyle": {
+                  "textAlignment": "AUTO"
+                }
               }
             }
           ]
         },
         {
           "type": "LIST_ITEM",
-          "key": "2lj92",
+          "id": "19",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "key": "3ia2a",
+              "id": "20",
               "nodes": [
                 {
                   "type": "TEXT",
-                  "key": "ap00",
+                  "id": "",
                   "nodes": [],
                   "textData": {
                     "text": "test",
@@ -340,22 +366,24 @@
                 }
               ],
               "paragraphData": {
-                "textAlignment": "LEFT"
+                "textStyle": {
+                  "textAlignment": "AUTO"
+                }
               }
             }
           ]
         },
         {
           "type": "LIST_ITEM",
-          "key": "6pbne",
+          "id": "21",
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "key": "40h0m",
+              "id": "22",
               "nodes": [
                 {
                   "type": "TEXT",
-                  "key": "4k9be",
+                  "id": "",
                   "nodes": [],
                   "textData": {
                     "text": "test",
@@ -364,7 +392,9 @@
                 }
               ],
               "paragraphData": {
-                "textAlignment": "LEFT"
+                "textStyle": {
+                  "textAlignment": "AUTO"
+                }
               }
             }
           ]
@@ -373,39 +403,42 @@
     },
     {
       "type": "PARAGRAPH",
-      "key": "b1clc",
+      "id": "23",
       "nodes": [
         {
           "type": "TEXT",
-          "key": "9e22r",
+          "id": "",
           "nodes": [],
           "textData": {
             "text": "test",
             "decorations": [
               {
-                "type": "LINK",
-                "linkData": {
-                  "url": "http://wix.com"
-                }
+                "type": "UNDERLINE"
               },
               {
-                "type": "UNDERLINE"
+                "type": "LINK",
+                "linkData": {
+                  "link": {
+                    "url": "http://wix.com",
+                    "target": "SELF"
+                  }
+                }
               }
             ]
           }
         }
       ],
       "paragraphData": {
-        "textAlignment": "LEFT"
+        "textStyle": {
+          "textAlignment": "AUTO"
+        }
       }
     }
   ],
   "metadata": {
-    "createdVersion": "8.24.1",
-    "updatedVersion": "8.24.1",
-    "updatedDate": {
-      "seconds": 1614794365,
-      "nanos": 802000000
-    }
+    "version": 1,
+    "createdTimestamp": "2021-07-15T07:42:30.023Z",
+    "updatedTimestamp": "2021-07-15T07:42:30.023Z",
+    "id": "8de05385-50cf-4c4e-b292-cf1df9c29ee2"
   }
 }

@@ -1,4 +1,6 @@
 import { Overwrite } from 'utility-types';
+import { isArray, isObject } from 'lodash';
+import { Node, RichContent } from 'ricos-schema';
 import {
   RawDraftInlineStyleRange,
   RawDraftContentBlock,
@@ -6,6 +8,24 @@ import {
   RawDraftContentState,
   RawDraftEntityRange,
 } from 'draft-js';
+
+export interface TextBlockStyle {
+  'font-size'?: number;
+  color?: string;
+  'background-color'?: string;
+  'font-weight'?: string;
+  'font-style'?: string;
+  'text-decoration'?: string;
+}
+export interface DocumentStyle {
+  headerOne?: TextBlockStyle;
+  headerTwo?: TextBlockStyle;
+  headerThree?: TextBlockStyle;
+  headerFour?: TextBlockStyle;
+  headerFive?: TextBlockStyle;
+  headerSix?: TextBlockStyle;
+  paragraph?: TextBlockStyle;
+}
 
 export type RicosInlineStyleRange = Overwrite<RawDraftInlineStyleRange, { style: string }>;
 
@@ -29,7 +49,20 @@ export interface RicosContent
       entityMap: RicosEntityMap;
     }
   > {
+  documentStyle?: DocumentStyle;
   VERSION?: string;
+  ID?: string;
 }
 
 export interface DraftContent extends RicosContent {}
+
+type RawNode = Overwrite<Node, { type: string; nodes: RawNode[] }>;
+export type RawRichContent = Overwrite<RichContent, { nodes: RawNode[] }>;
+
+export function isDraftContent(content): content is DraftContent {
+  return isArray(content.blocks) && isObject(content.entityMap);
+}
+
+export function isRichContent(content): content is RichContent {
+  return isArray(content.nodes);
+}

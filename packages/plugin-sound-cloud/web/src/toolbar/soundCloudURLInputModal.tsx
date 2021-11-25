@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
-import { UrlInputModal } from 'wix-rich-content-plugin-commons';
+import { UrlInputModal, BUTTON_SIZE } from 'wix-rich-content-ui-components';
 import {
   OnConfirmFunction,
   Pubsub,
@@ -9,11 +9,12 @@ import {
   TranslationFunction,
   TextDirection,
 } from 'wix-rich-content-common';
+import { Required } from 'utility-types';
 
 interface Props {
   onConfirm?: OnConfirmFunction;
   pubsub: Pubsub;
-  helpers: Helpers;
+  helpers: Required<Helpers, 'closeModal'>;
   componentData: ComponentData;
   t: TranslationFunction;
   isMobile?: boolean;
@@ -64,7 +65,6 @@ export default class SoundCloudURLInputModal extends Component<Props, State> {
     return (
       <UrlInputModal
         onConfirm={this.onConfirm}
-        helpers={helpers}
         input={url}
         t={t}
         languageDir={languageDir}
@@ -77,6 +77,7 @@ export default class SoundCloudURLInputModal extends Component<Props, State> {
         errorMessage={t('SoundCloudUploadModal_Input_InvalidUrl')}
         placeholder={t('SoundCloudUploadModal_Input_Placeholder')}
         onCloseRequested={helpers.closeModal}
+        buttonSize={BUTTON_SIZE.medium}
       />
     );
   }

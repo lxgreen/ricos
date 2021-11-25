@@ -10,6 +10,7 @@ import {
   TranslationFunction,
   GetEditorState,
   SetEditorState,
+  Pubsub,
 } from 'wix-rich-content-common';
 import { UndoRedoPluginEditorConfig } from './types';
 
@@ -23,11 +24,19 @@ const createToolbar: CreatePluginToolbar = ({
   getEditorState: GetEditorState;
   setEditorState: SetEditorState;
   settings: UndoRedoPluginEditorConfig;
+  commonPubsub: Pubsub;
 }) => {
   return {
     TextButtonMapper: () => ({
       [FORMATTING_BUTTONS.UNDO]: {
-        component: props => <UndoButton t={t} {...props} />,
+        component: props => (
+          <UndoButton
+            t={t}
+            getEditorState={getEditorState}
+            setEditorState={setEditorState}
+            {...props}
+          />
+        ),
         externalizedButtonProps: {
           type: BUTTON_TYPES.BUTTON,
           getLabel: () => '',
@@ -45,7 +54,14 @@ const createToolbar: CreatePluginToolbar = ({
         },
       },
       [FORMATTING_BUTTONS.REDO]: {
-        component: props => <RedoButton t={t} {...props} />,
+        component: props => (
+          <RedoButton
+            t={t}
+            getEditorState={getEditorState}
+            setEditorState={setEditorState}
+            {...props}
+          />
+        ),
         externalizedButtonProps: {
           getLabel: () => '',
           type: BUTTON_TYPES.BUTTON,

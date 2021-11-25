@@ -5,7 +5,7 @@ export { default as AccessibilityListener } from './Components/AccessibilityList
 export { default as ViewportRenderer } from './Components/ViewportRenderer';
 
 // Utils
-export { default as withI18n } from './Utils/withI18n';
+export { default as withI18n, translate, Trans, RicosTranslate } from './Utils/withI18n';
 export { default as createHocName } from './Utils/createHocName';
 export {
   sizeClassName,
@@ -14,8 +14,16 @@ export {
   depthClassName,
 } from './Utils/classNameStrategies';
 export { mergeStyles } from './Utils/mergeStyles';
+export {
+  convertRelObjectToString,
+  convertRelStringToObject,
+  convertTargetStringToBoolean,
+  convertTargetBooleanToString,
+  getRelValue,
+} from './Utils/linkConverters';
+export { safeJsonParse } from './Utils/jsonUtils';
 
-export { anchorScroll, addAnchorTagToUrl } from './Utils/anchor';
+export { anchorScroll, addAnchorTagToUrl, isNewTab } from './Utils/anchor';
 
 export * from 'ricos-content';
 
@@ -32,5 +40,17 @@ export { isRtl, getLangDir } from './Utils/rtlUtils';
 
 export { simplePubsub, Pubsub, Store } from './Utils/simplePubsub';
 export { generateKey } from './Utils/generateKey';
-
 export { getBlocksFromContentState } from './Utils/innerRCEBlocksUtils';
+export * from './consts';
+
+export { default as createJustificationFixDecorator } from './draftDecorators/createJustificationFixDecorator';
+
+export {
+  parseStyleByType,
+  CustomInlineStyleType,
+  INLINE_STYLE_TYPES,
+  defaultStyleFnMapper,
+  dynamicStyleParsers,
+  getDynamicInlineStyleMapper,
+  draftDecorationsToCss,
+} from './Utils/viewerUtils';

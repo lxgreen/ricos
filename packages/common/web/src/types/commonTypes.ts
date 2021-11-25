@@ -1,6 +1,6 @@
 import { CSSProperties, ComponentType } from 'react';
 import { Styles as ReactModalStyles } from 'react-modal';
-import { ComponentData, DraftContent } from 'ricos-content';
+import { ComponentData, DraftContent, RicosEntity } from 'ricos-content';
 import {
   DecorationMode,
   TranslationFunction,
@@ -10,6 +10,7 @@ import {
 } from '.';
 import { BoundingRect } from 'react-measure';
 import { ContentBlock, SelectionState, EditorState } from 'draft-js';
+export { Link_Rel } from 'ricos-schema';
 
 export { Pubsub, Store } from '../Utils/simplePubsub';
 
@@ -36,6 +37,7 @@ export { TranslationFunction, ResourceKey as LocaleResource } from 'i18next';
 
 export type AnchorTarget = HTMLAnchorElement['target'];
 export type RelValue = HTMLAnchorElement['rel'];
+export type CustomAnchorScroll = (event: Event, anchor: string) => void;
 
 export type GetEditorBounds = () => BoundingRect | undefined;
 
@@ -62,6 +64,23 @@ export type OnConfirmFunction = (
 
 export type TextDirection = 'rtl' | 'ltr';
 
+export type TextAlignment = 'left' | 'center' | 'right' | 'justify';
+
+export type InlineStyle =
+  | 'bold'
+  | 'underline'
+  | 'italic'
+  | 'spoiler'
+  | 'not_bold'
+  | 'not_italic'
+  | 'not_underline';
+
+export type onAtomicBlockFocus = (params: {
+  blockKey?: string;
+  type?: string;
+  data?: RicosEntity['data'];
+}) => void;
+
 export interface SEOSettings {
   paywall?: {
     className?: string;
@@ -73,8 +92,10 @@ interface CommonContextType {
   theme: RichContentTheme;
   t: TranslationFunction;
   locale: string;
+  localeContent?: string;
   anchorTarget?: AnchorTarget;
   relValue?: RelValue;
+  customAnchorScroll?: CustomAnchorScroll;
   helpers: Helpers;
   isMobile: boolean;
   iframeSandboxDomain?: string;
@@ -95,6 +116,9 @@ export interface EditorContextType extends CommonContextType {
   renderInnerRCE: (params: any) => JSX.Element;
   innerRCERenderedIn?: string;
   disableKeyboardEvents?: (shouldEnable: boolean) => void;
+  experiments?: AvailableExperiments;
+  textWrap: boolean;
+  onKeyboardShortcutClick: OnKeyboardShortcutClick;
 }
 
 export interface ViewerContextType extends CommonContextType {
@@ -107,9 +131,19 @@ export interface ViewerContextType extends CommonContextType {
 }
 
 export type Experiment = {
-  value: string;
   enabled: boolean;
-  namespace: string;
+  value?: string;
+  namespace?: string;
 };
 
 export type AvailableExperiments = Record<string, Experiment>;
+
+export type LinkPreviewData = {
+  title?: string;
+  description?: string;
+  thumbnail_url?: string;
+  provider_url?: string;
+  html?: string;
+};
+
+export type OnKeyboardShortcutClick = (param: { buttonName: string; pluginId?: string }) => void;

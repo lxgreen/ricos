@@ -1,3 +1,4 @@
+/* eslint-disable fp/no-delete */
 import React from 'react';
 import { createLinkPlugin, LINK_TYPE, pluginLink } from 'wix-rich-content-plugin-link';
 import {
@@ -26,12 +27,7 @@ import {
   VIDEO_TYPE,
   videoButtonsTypes,
 } from 'wix-rich-content-plugin-video';
-import {
-  createHtmlPlugin,
-  HTML_TYPE,
-  htmlButtonsTypes,
-  pluginHtml,
-} from 'wix-rich-content-plugin-html';
+import { createHtmlPlugin, HTML_TYPE, pluginHtml } from 'wix-rich-content-plugin-html';
 import { createDividerPlugin, DIVIDER_TYPE, pluginDivider } from 'wix-rich-content-plugin-divider';
 import {
   createVerticalEmbedPlugin,
@@ -72,6 +68,8 @@ import {
   pluginTextColor,
   pluginTextHighlight,
   TEXT_COLOR_TYPE,
+  createTextHighlightPlugin,
+  TEXT_HIGHLIGHT_TYPE,
 } from 'wix-rich-content-plugin-text-color';
 import {
   createSpoilerPlugin,
@@ -87,27 +85,25 @@ import {
   pluginActionButton,
   pluginLinkButton,
 } from 'wix-rich-content-plugin-button';
-import { createTextHighlightPlugin, TEXT_HIGHLIGHT_TYPE } from 'wix-rich-content-plugin-text-color';
 import Highlighter from 'react-highlight-words';
 import casual from 'casual-browserify';
-import { mockFetchUrlPreviewData } from '../utils/linkPreviewUtil';
+import { mockFetchUrlPreviewData } from '../../../storybook/src/shared/utils/linkPreviewUtil';
 import { createIndentPlugin, pluginIndent, INDENT_TYPE } from 'wix-rich-content-plugin-indent';
 import { createTablePlugin, pluginTable, TABLE_TYPE } from 'wix-rich-content-plugin-table';
 import {
-  createAccordionPlugin,
-  ACCORDION_TYPE,
-  pluginAccordion,
-} from 'wix-rich-content-plugin-accordion';
+  createCollapsibleListPlugin,
+  COLLAPSIBLE_LIST_TYPE,
+  pluginCollapsibleList,
+} from 'wix-rich-content-plugin-collapsible-list';
 import {
   createUnsupportedBlocksPlugin,
   pluginUnsupportedBlocks,
 } from 'wix-rich-content-plugin-unsupported-blocks';
 import { UNSUPPORTED_BLOCKS_TYPE } from 'wix-rich-content-plugin-commons';
+import { SocialPollsServiceMock } from '../../src/Components/SocialPollsServiceMock/SocialPollsServiceMock';
 
-import 'wix-rich-content-editor-common/dist/styles.min.css';
+import 'ricos-editor/dist/styles.min.css';
 import 'wix-rich-content-plugin-commons/dist/styles.min.css';
-import 'wix-rich-content-common/dist/styles.min.css';
-import 'wix-rich-content-editor/dist/styles.min.css';
 import 'wix-rich-content-plugin-button/dist/styles.min.css';
 // import 'wix-rich-content-plugin-code-block/dist/styles.min.css';
 import 'wix-rich-content-plugin-divider/dist/styles.min.css';
@@ -130,7 +126,7 @@ import 'wix-rich-content-plugin-text-color/dist/styles.min.css';
 import 'wix-rich-content-plugin-headings/dist/styles.min.css';
 import 'wix-rich-content-plugin-vertical-embed/dist/styles.min.css';
 import 'wix-rich-content-plugin-table/dist/styles.min.css';
-import 'wix-rich-content-plugin-accordion/dist/styles.min.css';
+import 'wix-rich-content-plugin-collapsible-list/dist/styles.min.css';
 import 'wix-rich-content-plugin-unsupported-blocks/dist/styles.min.css';
 
 import {
@@ -145,19 +141,17 @@ import { FORMATTING_BUTTONS, TOOLBARS } from 'wix-rich-content-editor-common';
 // import StaticToolbarDecoration from './Components/StaticToolbarDecoration';
 // import SideToolbarDecoration from './Components/SideToolbarDecoration';
 // import PluginToolbarDecoration from './Components/PluginToolbarDecoration';
-import { MockVerticalSearchModule, MockGetIsVisiblePromise } from '../utils/verticalEmbedUtil';
+import {
+  MockVerticalSearchModule,
+  MockGetIsVisiblePromise,
+} from '../../../storybook/src/shared/utils/verticalEmbedUtil';
 import {
   mockFileUploadFunc,
   mockFileNativeUploadFunc,
   mockVideoNativeUploadFunc,
   mockCustomVideoUploadFunc,
-} from '../utils/fileUploadUtil';
-import {
-  CreatePluginFunction,
-  EditorPluginCreator,
-  PluginType,
-  UISettings,
-} from 'wix-rich-content-common';
+} from '../../../storybook/src/shared/utils/fileUploadUtil';
+import { CreatePluginFunction, EditorPluginCreator, UISettings } from 'wix-rich-content-common';
 import { RichContentEditorProps } from 'wix-rich-content-editor';
 
 export const ricosEditorPlugins: Record<string, EditorPluginCreator<unknown>> = {
@@ -188,7 +182,7 @@ export const ricosEditorPlugins: Record<string, EditorPluginCreator<unknown>> = 
   [INDENT_TYPE]: pluginIndent,
   [ACTION_BUTTON_TYPE]: pluginActionButton,
   [POLL_TYPE]: pluginPoll,
-  [ACCORDION_TYPE]: pluginAccordion,
+  [COLLAPSIBLE_LIST_TYPE]: pluginCollapsibleList,
   [TABLE_TYPE]: pluginTable,
 };
 
@@ -242,7 +236,7 @@ export const editorPlugins: CreatePluginFunction[] = [
   createIndentPlugin,
   createActionButtonPlugin,
   createPollPlugin,
-  createAccordionPlugin,
+  createCollapsibleListPlugin,
   createTablePlugin,
   ...editorPluginsPartialPreset,
 ];
@@ -274,15 +268,32 @@ export const editorPluginsMap: Record<string, CreatePluginFunction | CreatePlugi
   undoRedo: createUndoRedoPlugin,
   verticalEmbed: createVerticalEmbedPlugin,
   polls: createPollPlugin,
-  accordion: createAccordionPlugin,
+  collapsibleList: createCollapsibleListPlugin,
   table: createTablePlugin,
   partialPreset: editorPluginsPartialPreset,
   embedsPreset: editorPluginsEmbedsPreset,
   spoilerPreset: editorPluginsSpoilerPreset,
-  textPlugins: textPlugins,
+  textPlugins,
   all: editorPlugins,
   unsupportedBlocks: createUnsupportedBlocksPlugin,
 };
+
+const innerRCEPlugins = [
+  createTextColorPlugin,
+  createTextHighlightPlugin,
+  createIndentPlugin,
+  createLineSpacingPlugin,
+  createLinkPlugin,
+  createImagePlugin,
+  createVideoPlugin,
+  createGiphyPlugin,
+  createEmojiPlugin,
+  createFileUploadPlugin,
+  createDividerPlugin,
+  createCodeBlockPlugin,
+  createUnsupportedBlocksPlugin,
+  createSpoilerPlugin,
+];
 
 const buttonDefaultPalette = ['#FEFDFD', '#D5D4D4', '#ABCAFF', '#81B0FF', '#0261FF', '#0141AA'];
 let userButtonTextColors = [...buttonDefaultPalette];
@@ -291,7 +302,7 @@ let userButtonBorderColors = [...buttonDefaultPalette];
 
 const getLinkPanelDropDownConfig = () => {
   const getItems = () => {
-    casual.define('item', function() {
+    casual.define('item', () => {
       return {
         value: casual.url,
         label: casual.catch_phrase,
@@ -302,6 +313,7 @@ const getLinkPanelDropDownConfig = () => {
     const items = [];
     const amount = 1000;
     for (let i = 0; i < amount; ++i) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       items.push(casual.item);
     }
@@ -352,12 +364,16 @@ let userColors = [];
 
 export const uiSettings: UISettings = {
   linkPanel: {
-    blankTargetToggleVisibilityFn: () => true,
-    nofollowRelToggleVisibilityFn: () => true,
+    externalPopups: false,
+    // blankTargetToggleVisibilityFn: () => true, // deprecated
+    // nofollowRelToggleVisibilityFn: () => true, // deprecated
+    showNewTabCheckbox: true,
+    showNoFollowCheckbox: true,
+    showSponsoredCheckbox: true,
     dropDown: getLinkPanelDropDownConfig(),
     //placeholder: "Enter a URL here",
   },
-  // disableRightClick: true,
+  // disableDownload: true,
 };
 
 export const videoHandlers = {
@@ -411,21 +427,21 @@ const buttonConfig = {
   getBorderColors: () => userButtonBorderColors,
   getBackgroundColors: () => userButtonBackgroundColors,
 };
-const { Instagram, Twitter, YouTube, TikTok } = LinkPreviewProviders;
-const { html, adsense } = htmlButtonsTypes;
+const { Instagram, Twitter, TikTok } = LinkPreviewProviders;
 const config: RichContentEditorProps['config'] = {
   [SPOILER_TYPE]: {
     SpoilerEditorWrapper,
     // supportedPlugins: [GALLERY_TYPE, IMAGE_TYPE, VIDEO_TYPE],
   },
   [POLL_TYPE]: {
-    siteToken: process.env.POLLS_API_KEY,
+    showVoteRoleSetting: true,
+    pollServiceApi: new SocialPollsServiceMock(),
   },
   [LINK_PREVIEW_TYPE]: {
-    enableEmbed: true, // [Twitter, YouTube]
+    enableEmbed: true, // [Twitter, TikTok]
     enableLinkPreview: true,
     fetchData: mockFetchUrlPreviewData(),
-    exposeEmbedButtons: [Instagram, Twitter, YouTube, TikTok],
+    exposeEmbedButtons: [Instagram, Twitter, TikTok],
   },
   [EMOJI_TYPE]: {
     // toolbar: {
@@ -454,6 +470,7 @@ const config: RichContentEditorProps['config'] = {
     //     size: 'small',
     //   },
     // },
+    // disableExpand: true,
   },
   [IMAGE_TYPE]: {
     // defaultData: {
@@ -464,14 +481,17 @@ const config: RichContentEditorProps['config'] = {
     //     showDescription: true,
     //   },
     // },
+    // disableExpand: true,
     imageEditorWixSettings: {
       initiator: 'some-initiator',
       siteToken:
+        // eslint-disable-next-line max-len
         'JWS.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Im5FUXljQzlOIn0.eyJpYXQiOjE1Njc1MjY3NzQsImRhdGEiOiJ7XCJ1c2VySWRcIjpcIjE5YTY0YTRjLWVlZTAtNGYxNC1iNjI3LTY3MmQ1ZjE2OGJkNFwiLFwibWV0YXNpdGVJZFwiOlwiNTM4ZmE2YzYtYzk1My00Y2RkLTg2YzQtNGI4NjlhZWNmOTgwXCJ9IiwiZXhwIjoxNTY4NzM2Mzc0fQ.n21OxIzSbqi8N3v30b6cIxMdshBnkkf2WQLWEFVXsLk',
       metaSiteId: '538fa6c6-c953-4cdd-86c4-4b869aecf980',
       mediaRoot: 'some-mediaRoot',
     },
     // createGalleryForMultipleImages: true,
+    // eslint-disable-next-line no-console
     onImageEditorOpen: () => console.log('Media Studio Launched'),
     // toolbar: {
     //   icons: {
@@ -491,37 +511,15 @@ const config: RichContentEditorProps['config'] = {
     //   },
     // },
     // },
-    innerRCEPlugins: [
-      createTextColorPlugin,
-      createLineSpacingPlugin,
-      createDividerPlugin,
-      createEmojiPlugin,
-      createMapPlugin,
-      createUnsupportedBlocksPlugin,
-    ],
   },
   [TABLE_TYPE]: {
-    innerRCEPlugins: [
-      createTextColorPlugin,
-      createTextHighlightPlugin,
-      createIndentPlugin,
-      createLineSpacingPlugin,
-      createLinkPlugin,
-      createImagePlugin,
-      createVideoPlugin,
-      createGiphyPlugin,
-      createEmojiPlugin,
-      createFileUploadPlugin,
-      createDividerPlugin,
-      createCodeBlockPlugin,
-      createUnsupportedBlocksPlugin,
-      createSpoilerPlugin,
-    ],
+    innerRCEPlugins,
   },
   [HASHTAG_TYPE]: {
     createHref: decoratedText => `/search/posts?query=${encodeURIComponent('#')}${decoratedText}`,
     onClick: (event, text) => {
       event.preventDefault();
+      // eslint-disable-next-line no-console
       console.log(`'${text}' hashtag clicked!`);
     },
   },
@@ -531,7 +529,7 @@ const config: RichContentEditorProps['config'] = {
     width: 350,
     minHeight: 50,
     maxHeight: 1200,
-    // exposeButtons: [html, adsense],
+    exposeButtons: ['html', 'adsense'],
     siteDomain: 'https://www.wix.com',
     // toolbar: {
     //   icons: {
@@ -543,8 +541,11 @@ const config: RichContentEditorProps['config'] = {
     repositionSuggestions: true,
     visibleItemsBeforeOverflow: 5,
     popoverComponent: <div />,
+    // eslint-disable-next-line no-console
     handleDropdownOpen: () => console.log('mentions dropdown opened'),
+    // eslint-disable-next-line no-console
     onMentionClick: mention => console.log({ mention }),
+    // eslint-disable-next-line no-console
     handleDropdownClose: () => console.log('mentions dropdown closed'),
     getMentions: searchQuery =>
       new Promise(resolve =>
@@ -571,25 +572,12 @@ const config: RichContentEditorProps['config'] = {
         )
       ),
   },
-  [ACCORDION_TYPE]: {
-    innerRCEPlugins: [
-      createTextColorPlugin,
-      createTextHighlightPlugin,
-      createIndentPlugin,
-      createLineSpacingPlugin,
-      createLinkPlugin,
-      createCodeBlockPlugin,
-      createImagePlugin,
-      createVideoPlugin,
-      createDividerPlugin,
-      createGiphyPlugin,
-      createFileUploadPlugin,
-      createEmojiPlugin,
-      createUnsupportedBlocksPlugin,
-    ],
+  [COLLAPSIBLE_LIST_TYPE]: {
+    innerRCEPlugins,
   },
   [HEADINGS_DROPDOWN_TYPE]: {
-    // customHeadings: ['H2', 'H3'],
+    customHeadings: ['H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'P'],
+    allowHeadingCustomization: true,
   },
   [LINE_SPACING_TYPE]: {
     // toolbar: {
@@ -602,6 +590,7 @@ const config: RichContentEditorProps['config'] = {
       'padding-top': '2px',
       'padding-bottom': '3px',
     },
+    // eslint-disable-next-line no-console
     onUpdate: spacing => console.log(LINE_SPACING_TYPE, spacing),
   },
   [LINK_TYPE]: {
@@ -610,8 +599,22 @@ const config: RichContentEditorProps['config'] = {
     //     InsertPluginButtonIcon: MyCustomIcon,
     //   },
     // },
+    // eslint-disable-next-line no-console
     onClick: (event, url) => console.log('link clicked!', url),
     linkTypes: { anchor: true },
+    // linkTypes: {
+    //   anchor: {
+    //     blockPreview: ({ type, data, text }) => {
+    //       console.log({ type, data, text });
+    //       const blockPreview = { thumbnail: <div>bla1</div>, type: 'bla2', content: 'bla3' };
+    //       return blockPreview;
+    //     },
+    //   },
+    // },
+    // onLinkAdd: (customLinkData, saveData) => {
+    //   const data = { mockURL: 'www.sport5.co.il', mockData: {} };
+    //   saveData(data);
+    // },
   },
   [CODE_BLOCK_TYPE]: {
     // toolbar: {
@@ -650,7 +653,11 @@ const config: RichContentEditorProps['config'] = {
     // Function is invoked when rendering video which has relative URL.
     // You should take the pathname and form a full URL.
     getVideoUrl: src => `https://video.wixstatic.com/${src.pathname}`,
-    exposeButtons: [videoButtonsTypes.video, videoButtonsTypes.soundCloud],
+    exposeButtons: [
+      videoButtonsTypes.video,
+      videoButtonsTypes.soundCloud,
+      videoButtonsTypes.youTube,
+    ],
   },
   [GIPHY_TYPE]: {
     giphySdkApiKey: process.env.GIPHY_API_KEY || 'HXSsAGVNzjeUjhKfhhD9noF8sIbpYDsV',
@@ -831,24 +838,93 @@ const config: RichContentEditorProps['config'] = {
       //   };
       // },
     },
-    { name: TOOLBARS.SIDE, addPluginMenuConfig },
+    {
+      name: TOOLBARS.SIDE,
+      addPluginMenuConfig,
+      // onClick: () => console.log('plus button clicked!'),
+    },
     { name: TOOLBARS.MOBILE, addPluginMenuConfig },
     { name: TOOLBARS.FOOTER, footerToolbarConfig },
     {
       name: TOOLBARS.INLINE,
       getButtons: () => ({
-        desktop: textButtons.desktop.filter(b => b !== FORMATTING_BUTTONS.TITLE),
+        desktop: [
+          FORMATTING_BUTTONS.HEADINGS,
+          '|',
+          FORMATTING_BUTTONS.FONT_SIZE,
+          ...textButtons.desktop.filter(
+            b => b !== FORMATTING_BUTTONS.TITLE && b !== FORMATTING_BUTTONS.HEADINGS
+          ),
+        ],
         mobile: {
-          ios: textButtons.mobile.filter(b => b !== FORMATTING_BUTTONS.TITLE),
-          android: [],
+          ios: [
+            FORMATTING_BUTTONS.HEADINGS,
+            '|',
+            ...textButtons.mobile.filter(b => b !== FORMATTING_BUTTONS.TITLE),
+          ],
+          android: [
+            FORMATTING_BUTTONS.HEADINGS,
+            '|',
+            ...textButtons.mobile.filter(b => b !== FORMATTING_BUTTONS.TITLE),
+          ],
         },
       }),
+      // buttonsMapper: () => ({
+      //   desktop: {
+      //     Bold: {
+      //       icon: () => <div>bla</div>,
+      //       tooltip: 'blabla',
+      //     },
+      //   },
+      //   mobile: {
+      //     ios: {},
+      //     android: {},
+      //   },
+      // }),
+      // getTextPluginButtons: () => {
+      //   return {
+      //     desktop: {
+      //       MY_BUTTON: {
+      //         component: () => (
+      //           <div onClick={() => console.log('my button clicked!!')}>My Button</div>
+      //         ),
+      //       },
+      //       Bold: {
+      //         component: () => <div onClick={() => console.log('my custom bold')}>My Bold</div>,
+      //       },
+      //     },
+      //   };
+      // },
     },
+    // {
+    //   name: TOOLBARS.STATIC,
+    //   getButtons: () => ({
+    //     desktop: [
+    //       ...(textButtons?.desktop?.filter?.(button => button !== FORMATTING_BUTTONS.CODE_BLOCK) ??
+    //         []),
+    //       '|',
+    //       'FULLSCREEN_TOGGLE',
+    //     ],
+    //   }),
+    //   getTextPluginButtons: () => {
+    //     return {
+    //       desktop: {
+    //         FULLSCREEN_TOGGLE: {
+    //           component: () => (
+    //             <div onClick={() => console.log('blabla')} data-hook="blabla">
+    //               blabla
+    //             </div>
+    //           ),
+    //         },
+    //       },
+    //     };
+    //   },
+    // },
   ],
 };
 
 export const getConfig = (additionalConfig = {}, shouldNativeUpload = false) => {
-  let _config = { ...config };
+  const _config = { ...config };
   Object.keys(additionalConfig).forEach(key => {
     _config[key] = { ...(_config[key] || {}), ...(additionalConfig[key] || {}) };
   });

@@ -1,5 +1,5 @@
-import themeStrategy from './themeStrategy';
 import getType from 'jest-get-type';
+import themeStrategy from './themeStrategy';
 import { RicosTheme, RicosCssOverride } from './themeTypes';
 import { wixPalettes } from '../../tests/palettesExample';
 import { BasePlugin } from '..';

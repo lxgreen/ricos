@@ -1,0 +1,14 @@
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
+
+.setting_mobile_header {
+  padding: 16px;
+  position: relative;
+  border-bottom: 1px solid #ededed;
+  .setting_mobile_header_title {
+    color: #757575;
+    font-size: 16px;
+    font-family: $ricos-default-font-family;
+    font-weight: 400;
+    align-self: center;
+  }
+}

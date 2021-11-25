@@ -10,7 +10,7 @@ import { pluginGiphy } from 'wix-rich-content-plugin-giphy';
 import { pluginHashtag } from 'wix-rich-content-plugin-hashtag';
 import { pluginHeadings } from 'wix-rich-content-plugin-headings';
 import { pluginSpoiler } from 'wix-rich-content-plugin-spoiler';
-import { pluginAccordion } from 'wix-rich-content-plugin-accordion';
+import { pluginCollapsibleList } from 'wix-rich-content-plugin-collapsible-list';
 import { pluginTable } from 'wix-rich-content-plugin-table';
 import { pluginHeadersMarkdown } from 'wix-rich-content-plugin-headers-markdown';
 import { pluginHtml } from 'wix-rich-content-plugin-html';
@@ -27,9 +27,10 @@ import {
   pluginVerticalEmbed,
   verticalEmbedProviders,
 } from 'wix-rich-content-plugin-vertical-embed';
-import { mockFetchUrlPreviewData } from '../../../../../examples/main/shared/utils/linkPreviewUtil';
+import { mockFetchUrlPreviewData } from '../../../../../examples/storybook/src/shared/utils/linkPreviewUtil';
 import { pluginTextColor, pluginTextHighlight } from 'wix-rich-content-plugin-text-color';
 import { pluginUnsupportedBlocks } from 'wix-rich-content-plugin-unsupported-blocks';
+import { pluginPoll } from 'wix-rich-content-plugin-social-polls';
 
 import { createPresets } from './utils';
 import {
@@ -41,17 +42,19 @@ import {
 import { videoHandlers } from '../../../../../examples/main/shared/editor/EditorPlugins';
 
 // eslint-disable-next-line max-len
-import { MockVerticalSearchModule } from '../../../../../examples/main/shared/utils/verticalEmbedUtil';
+import { MockVerticalSearchModule } from '../../../../../examples/storybook/src/shared/utils/verticalEmbedUtil';
+import { TestAppConfig } from '../../types';
+import { EditorPlugin } from 'wix-rich-content-common';
 
-const { Instagram, Twitter, YouTube, TikTok } = LinkPreviewProviders;
-const { product } = verticalEmbedProviders;
+const { Instagram, Twitter, TikTok } = LinkPreviewProviders;
+const { product, booking, event } = verticalEmbedProviders;
 
 const onLinkAdd = async (customLinkData, saveData) => {
   const data = await Promise.resolve({ mockURL: 'www.sport5.co.il', mockData: {} });
   saveData(data);
 };
 
-const defaultConfigs = {
+const defaultConfigs: TestAppConfig['pluginsConfig'] = {
   fileUpload: {
     accept: '*',
   },
@@ -62,12 +65,12 @@ const defaultConfigs = {
   linkPreview: {
     fetchData: mockFetchUrlPreviewData(),
     enableEmbed: true,
-    exposeEmbedButtons: [Instagram, Twitter, YouTube, TikTok],
+    exposeEmbedButtons: [Instagram, Twitter, TikTok],
   },
   verticalEmbed: {
     verticalsApi: type => new MockVerticalSearchModule(type),
     // exposeEmbedButtons: [product, event, booking],
-    exposeEmbedButtons: [product],
+    exposeEmbedButtons: [product, booking, event],
   },
   textHighlight: {
     colorScheme,
@@ -90,7 +93,7 @@ const defaultConfigs = {
   },
 };
 
-const normalizeConfigs = configs => {
+const normalizeConfigs = (configs: TestAppConfig['pluginsConfig']) => {
   if (configs.link?.isCustomModal) {
     configs.link.onLinkAdd = onLinkAdd;
   }
@@ -98,7 +101,9 @@ const normalizeConfigs = configs => {
   return configs;
 };
 
-const createPlugins = externalConfigs => {
+const createPlugins = (
+  externalConfigs: TestAppConfig['pluginsConfig']
+): Record<string, EditorPlugin> => {
   const configs = normalizeConfigs(merge(defaultConfigs, externalConfigs));
 
   return {
@@ -126,36 +131,18 @@ const createPlugins = externalConfigs => {
     undoRedo: pluginUndoRedo(),
     headings: pluginHeadings(configs.headings),
     spoiler: pluginSpoiler(),
-    accordion: pluginAccordion({
-      innerRCEPlugins: [
-        pluginTextColor(configs.textColor).createPlugin,
-        pluginTextHighlight(configs.textHighlight).createPlugin,
-        pluginIndent().createPlugin,
-        pluginLineSpacing().createPlugin,
-        pluginLink().createPlugin,
-        pluginCodeBlock().createPlugin,
-        pluginImage().createPlugin,
-        pluginUnsupportedBlocks().createPlugin,
-      ],
-    }),
-    table: pluginTable({
-      innerRCEPlugins: [
-        pluginTextColor(configs.textColor).createPlugin,
-        pluginTextHighlight(configs.textHighlight).createPlugin,
-        pluginIndent().createPlugin,
-        pluginLineSpacing().createPlugin,
-        pluginLink().createPlugin,
-        pluginCodeBlock().createPlugin,
-        pluginImage().createPlugin,
-        pluginUnsupportedBlocks().createPlugin,
-      ],
-    }),
+    collapsibleList: pluginCollapsibleList(),
+    table: pluginTable(),
     verticalEmbed: pluginVerticalEmbed(configs.verticalEmbed),
     unsupportedBlocks: pluginUnsupportedBlocks(),
+    poll: pluginPoll(),
   };
 };
 
-export default (pluginsPreset, externalPluginsConfigs = {}) => {
+export default (
+  pluginsPreset: TestAppConfig['plugins'],
+  externalPluginsConfigs: TestAppConfig['pluginsConfig'] = {}
+): EditorPlugin[] => {
   const presets = createPresets(createPlugins(externalPluginsConfigs));
 
   return pluginsPreset

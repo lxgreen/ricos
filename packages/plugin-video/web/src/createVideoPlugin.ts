@@ -12,24 +12,30 @@ const createVideoPlugin: CreatePluginFunction<VideoPluginEditorConfig> = config 
     isMobile,
     spoilerWrapper,
     commonPubsub,
+    experiments,
     ...rest
   } = config;
-
+  const disableDownload = config?.uiSettings?.disableDownload;
+  const defaultPluginData =
+    disableDownload !== undefined ? { ...DEFAULTS, disableDownload } : DEFAULTS;
+  const type = VIDEO_TYPE;
   return createBasePlugin({
     component: Component,
-    type: VIDEO_TYPE,
+    type,
     legacyType: VIDEO_TYPE_LEGACY,
     toolbar: createToolbar({
       t,
-      settings: { ...settings, commonPubsub },
+      settings: { ...settings, commonPubsub, type },
       isMobile,
+      disableDownload,
+      experiments,
     }),
     helpers,
     settings,
     t,
     isMobile,
     disableRightClick: config?.uiSettings?.disableRightClick,
-    defaultPluginData: DEFAULTS,
+    defaultPluginData,
     spoilerWrapper: settings.spoiler && spoilerWrapper,
     commonPubsub,
     ...rest,

@@ -1,24 +1,33 @@
 /* eslint-disable fp/no-delete */
-import { Node } from 'ricos-schema';
+import { Node, Node_Type, ButtonData_Type } from 'ricos-schema';
 import {
-  RICOS_NODE_TYPE_TO_DATA_FIELD,
   ENTITY_DECORATION_TO_MUTABILITY,
   FROM_RICOS_ENTITY_TYPE,
   TO_RICOS_DECORATION_TYPE,
 } from '../consts';
-import toSlugCase from 'to-slug-case';
-import { RicosEntity, RicosEntityMap } from '../../..';
+import {
+  ACTION_BUTTON_TYPE,
+  LINK_BUTTON_TYPE,
+  LINK_PREVIEW_TYPE,
+  RICOS_NODE_TYPE_TO_DATA_FIELD,
+} from '../../../consts';
+import { RicosEntity, RicosEntityMap } from '../../../types';
 import { DraftTypedDecoration } from './decorationParsers';
 import { convertDecorationToDraftData, convertNodeToDraftData } from './convertDraftPluginData';
 
 const getNodeEntityData = (node: Node) => {
   const { type } = node;
-  const draftPluginType = FROM_RICOS_ENTITY_TYPE[type];
+  let draftPluginType = FROM_RICOS_ENTITY_TYPE[type];
+  if (type === Node_Type.BUTTON) {
+    draftPluginType =
+      node.buttonData?.type === ButtonData_Type.ACTION ? ACTION_BUTTON_TYPE : LINK_BUTTON_TYPE;
+  } else if (type === Node_Type.EMBED) {
+    draftPluginType = LINK_PREVIEW_TYPE;
+  }
   const data = convertNodeToDraftData(node);
   if (data === undefined) {
     // eslint-disable-next-line no-console
-    console.error(`ERROR! Unknown entity type "${type}"!`);
-    process.exit(1);
+    throw Error(`ERROR! Unknown entity type "${type}"!`);
   }
   return { type: draftPluginType, data };
 };
@@ -37,12 +46,10 @@ export const createDecorationEntityData = (
     });
   if (data === undefined) {
     // eslint-disable-next-line no-console
-    console.error(`ERROR! Unknown entity type "${type}"!`);
-    process.exit(1);
+    throw Error(`ERROR! Unknown entity type "${type}"!`);
   }
 
   const mutability = ENTITY_DECORATION_TO_MUTABILITY[type];
-
   return createEntity(entityKey, { type, mutability, data });
 };
 
@@ -51,20 +58,31 @@ export const createAtomicEntityData = (node: Node, entityKey: number): RicosEnti
   return createEntity(entityKey, { type, mutability: 'IMMUTABLE', data });
 };
 
+const getDynamicStyles = (node: Node) => {
+  const { textStyle } = node[RICOS_NODE_TYPE_TO_DATA_FIELD[node.type]] || {};
+  const { textAlignment, lineHeight } = textStyle || {};
+  const { paddingTop, paddingBottom } = node.style || {};
+  return {
+    textAlignment,
+    lineHeight,
+    paddingTop,
+    paddingBottom,
+  };
+};
+
 export const createTextBlockData = (node: Node) => {
-  const { textAlignment, dynamicStyles, depth } =
-    node[RICOS_NODE_TYPE_TO_DATA_FIELD[node.type]] || {};
-  return Object.assign(
-    {},
-    textAlignment !== undefined ? { textAlignment: textAlignment.toLowerCase() } : undefined,
-    dynamicStyles !== undefined
-      ? {
-          dynamicStyles: Object.fromEntries(
-            Object.entries(dynamicStyles).map(([key, value]) => [toSlugCase(key), value])
-          ),
-        }
-      : undefined,
-    depth ? { depth } : undefined
+  const { indentation } = node[RICOS_NODE_TYPE_TO_DATA_FIELD[node.type]] || {};
+  const { textAlignment, lineHeight, paddingTop, paddingBottom } = getDynamicStyles(node);
+  return JSON.parse(
+    JSON.stringify({
+      textAlignment: textAlignment !== 'AUTO' ? textAlignment?.toLowerCase() : undefined,
+      dynamicStyles: (paddingTop || paddingBottom || lineHeight) && {
+        'padding-top': paddingTop,
+        'padding-bottom': paddingBottom,
+        'line-height': lineHeight,
+      },
+      depth: indentation,
+    })
   );
 };
 

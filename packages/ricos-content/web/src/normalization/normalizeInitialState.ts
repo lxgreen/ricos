@@ -1,5 +1,6 @@
-import { cloneDeep, mapValues } from 'lodash';
+import { cloneDeep, mapValues, isEmpty } from 'lodash';
 import { processContentState } from './processContentState';
+import { v4 as uuid } from 'uuid';
 import {
   IMAGE_TYPE,
   VIDEO_TYPE,
@@ -7,9 +8,19 @@ import {
   GALLERY_TYPE,
   VIDEO_TYPE_LEGACY,
   IMAGE_TYPE_LEGACY,
+  VERTICAL_EMBED_TYPE,
+  WRAP,
+  POLL_TYPE,
 } from '../consts';
-import { linkDataNormalizer, imageDataNormalizer, galleryDataNormalizer } from './dataNormalizers';
-import { ComponentData, DraftContent, NormalizeConfig, RicosEntity } from '../types';
+import {
+  linkDataNormalizer,
+  imageDataNormalizer,
+  galleryDataNormalizer,
+  videoDataNormalizer,
+  verticalEmbedDataNormalizer,
+  pollsDataNormalizer,
+} from './dataNormalizers';
+import { ComponentData, DraftContent, NormalizeConfig, RicosEntity, RicosContent } from '../types';
 
 const dataNormalizers: {
   [entityType: string]: (
@@ -22,6 +33,9 @@ const dataNormalizers: {
   [LINK_TYPE]: linkDataNormalizer,
   [IMAGE_TYPE]: imageDataNormalizer,
   [GALLERY_TYPE]: galleryDataNormalizer,
+  [VIDEO_TYPE]: videoDataNormalizer,
+  [VERTICAL_EMBED_TYPE]: verticalEmbedDataNormalizer,
+  [POLL_TYPE]: pollsDataNormalizer,
 };
 
 const normalizeComponentData = (
@@ -82,6 +96,9 @@ const entityTypeMap = {
     [LINK_TYPE]: LINK_TYPE,
     [IMAGE_TYPE]: IMAGE_TYPE,
     [GALLERY_TYPE]: GALLERY_TYPE,
+    [VIDEO_TYPE]: VIDEO_TYPE,
+    [VERTICAL_EMBED_TYPE]: VERTICAL_EMBED_TYPE,
+    [POLL_TYPE]: POLL_TYPE,
   },
 };
 
@@ -118,6 +135,9 @@ const normalizeEntityMap = (
         data: normalizeComponentData(entity.type, entity.data, config, stateVersion),
       };
     }
+    if (newEntity?.data?.config && !newEntity?.data?.config?.textWrap) {
+      newEntity.data.config.textWrap = WRAP;
+    }
     convertAnchorToLinkToUndoOneAppFix(newEntity);
     return newEntity;
   });
@@ -145,10 +165,18 @@ const convertAnchorToLinkToUndoOneAppFix = (newEntity: RicosEntity) => {
 };
 
 export default (content: DraftContent, config: NormalizeConfig = {}): DraftContent => {
-  const { blocks, entityMap, VERSION } = processContentState(cloneDeep(content), config);
-  return {
+  const { blocks, entityMap, documentStyle, VERSION } = processContentState(
+    cloneDeep(content),
+    config
+  );
+  const contentState: RicosContent = {
     blocks,
     entityMap: normalizeEntityMap(entityMap, config, content.VERSION || '0.0.0'),
     VERSION,
+    ID: content.ID || uuid(),
   };
+  if (!isEmpty(documentStyle)) {
+    contentState.documentStyle = documentStyle;
+  }
+  return contentState;
 };

@@ -1,3 +1,4 @@
+import { DraftContent } from 'ricos-content';
 import {
   EditorState,
   Modifier,
@@ -6,22 +7,30 @@ import {
   AtomicBlockUtils,
   ContentBlock,
   ContentState,
-  EntityInstance,
   RawDraftEntity,
   EditorChangeType,
+  EntityInstance,
 } from '@wix/draft-js';
+import DraftOffsetKey from '@wix/draft-js/lib/DraftOffsetKey';
 
 import { cloneDeepWith, flatMap, findIndex, findLastIndex, countBy, debounce, times } from 'lodash';
 import { TEXT_TYPES } from '../consts';
-import { RelValue, AnchorTarget, LINK_TYPE, CUSTOM_LINK_TYPE } from 'wix-rich-content-common';
+import {
+  AnchorTarget,
+  LINK_TYPE,
+  CUSTOM_LINK_TYPE,
+  TextAlignment,
+  InlineStyle,
+  RelValue,
+  SPOILER_TYPE,
+} from 'wix-rich-content-common';
 import { Optional } from 'utility-types';
+import { getContentSummary } from 'wix-rich-content-common/libs/contentAnalytics';
 
 type LinkDataUrl = {
   url: string;
-  targetBlank?: boolean;
-  nofollow?: boolean;
-  anchorTarget?: string;
-  relValue?: string;
+  target?: string;
+  rel?: string;
 };
 
 type LinkData = LinkDataUrl & { anchor?: string };
@@ -31,6 +40,23 @@ type CustomLinkData = any;
 
 const isEditorState = value => value?.getCurrentContent && value;
 export const cloneDeepWithoutEditorState = obj => cloneDeepWith(obj, isEditorState);
+
+const draftInlineStyle = {
+  bold: 'BOLD',
+  underline: 'UNDERLINE',
+  italic: 'ITALIC',
+  not_bold: 'NOT_BOLD',
+  not_italic: 'NOT_ITALIC',
+  not_underline: 'NOT_UNDERLINE',
+  spoiler: SPOILER_TYPE,
+};
+
+export const getDraftInlineStyle = (inlineStyle: InlineStyle) => draftInlineStyle[inlineStyle];
+
+export const hasInlineStyle = (inlineStyle: InlineStyle, editorState: EditorState) => {
+  const draftInlineStyle = getDraftInlineStyle(inlineStyle);
+  return editorState.getCurrentInlineStyle().has(draftInlineStyle);
+};
 
 export function createSelection({
   blockKey,
@@ -52,15 +78,13 @@ export const insertLinkInPosition = (
   blockKey: string,
   start: number,
   end: number,
-  { url, targetBlank, nofollow, anchorTarget, relValue }: LinkDataUrl
+  { url, target, rel }: LinkDataUrl
 ) => {
   const selection = createSelection({ blockKey, anchorOffset: start, focusOffset: end });
   const linkEntityData = createLinkEntityData({
     url,
-    targetBlank,
-    nofollow,
-    anchorTarget,
-    relValue,
+    target,
+    rel,
   });
 
   return insertLink(editorState, selection, linkEntityData);
@@ -114,31 +138,34 @@ export const getBlockAtStartOfSelection = (editorState: EditorState) => {
 
 export const insertLinkAtCurrentSelection = (
   editorState: EditorState,
-  { text, ...entityData }: { text?: string } & LinkDataUrl
+  { text, defaultName, ...entityData }: { text?: string; defaultName?: string } & LinkDataUrl
 ) => {
   let selection = getSelection(editorState);
   let newEditorState = editorState;
-  if (selection.isCollapsed()) {
-    const { url } = entityData;
-    const urlToInsertWhenCollapsed = text ? text : url;
-    const contentState = Modifier.insertText(
-      editorState.getCurrentContent(),
-      selection,
-      urlToInsertWhenCollapsed
-    );
-    selection = selection.merge({
-      focusOffset: selection.getFocusOffset() + urlToInsertWhenCollapsed.length,
-    }) as SelectionState;
-    newEditorState = EditorState.push(editorState, contentState, 'insert-characters');
-  }
-  const isExistsLink = isSelectionBelongsToExistingLink(newEditorState, selection);
+  let editorStateWithLink, editorStateSelection;
   const linkEntityData = createLinkEntityData(entityData);
-  const editorStateWithLink = isExistsLink
-    ? updateLink(newEditorState, selection, linkEntityData)
-    : insertLink(newEditorState, selection, linkEntityData);
-  const editorStateSelection = isExistsLink
-    ? selection.merge({ anchorOffset: selection.getFocusOffset() })
-    : editorStateWithLink.getCurrentContent().getSelectionAfter();
+  const isExistsLink = isSelectionBelongsToExistingLink(newEditorState, selection);
+
+  if (isExistsLink) {
+    editorStateWithLink = updateLink(newEditorState, selection, linkEntityData);
+    editorStateSelection = selection.merge({ anchorOffset: selection.getFocusOffset() });
+  } else {
+    if (selection.isCollapsed()) {
+      const { url } = entityData;
+      const urlToInsertWhenCollapsed = text ? text : defaultName ? defaultName : url;
+      const contentState = Modifier.insertText(
+        editorState.getCurrentContent(),
+        selection,
+        urlToInsertWhenCollapsed
+      );
+      selection = selection.merge({
+        focusOffset: selection.getFocusOffset() + urlToInsertWhenCollapsed.length,
+      }) as SelectionState;
+      newEditorState = EditorState.push(editorState, contentState, 'insert-characters');
+    }
+    editorStateWithLink = insertLink(newEditorState, selection, linkEntityData);
+    editorStateSelection = editorStateWithLink.getCurrentContent().getSelectionAfter();
+  }
   return EditorState.forceSelection(editorStateWithLink, editorStateSelection as SelectionState);
 };
 
@@ -210,17 +237,8 @@ function insertLink(
   );
 }
 
-export function createLinkEntityData({
-  url,
-  anchor,
-  targetBlank,
-  nofollow,
-  anchorTarget,
-  relValue,
-}: LinkData) {
+export function createLinkEntityData({ url, anchor, target, rel }: LinkData) {
   if (url) {
-    const target = targetBlank ? '_blank' : anchorTarget !== '_blank' ? anchorTarget : '_self';
-    const rel = nofollow ? 'nofollow' : relValue !== 'nofollow' ? relValue : 'noopener';
     return {
       url,
       target,
@@ -278,7 +296,10 @@ export const removeLinksInSelection = (editorState: EditorState) => {
   );
 };
 
-export const getTextAlignment = (editorState: EditorState, defaultAlignment = 'left') => {
+export const getTextAlignment = (
+  editorState: EditorState,
+  defaultAlignment = 'left'
+): TextAlignment => {
   const selection = getSelection(editorState);
   const currentContent = editorState.getCurrentContent();
   const contentBlock = currentContent.getBlockForKey(selection.getStartKey());
@@ -308,12 +329,37 @@ export const getAnchorBlockData = (editorState: EditorState) => {
   return block.get('data').toJS();
 };
 
+export const blockKeyToEntityKey = (editorState: EditorState, blockKey: string) => {
+  const block = editorState.getCurrentContent().getBlockForKey(blockKey);
+  const entityKey = block.getEntityAt(0);
+  return entityKey;
+};
+
 export const setEntityData = (editorState: EditorState, entityKey: string, data) => {
   if (entityKey) {
     const contentState = editorState.getCurrentContent();
     contentState.replaceEntityData(entityKey, { ...data });
   }
   return editorState;
+};
+
+export const setBlockNewEntityData = (
+  editorState: EditorState,
+  blockKey: string,
+  data,
+  type: string
+) => {
+  const targetSelection = new SelectionState({
+    anchorKey: blockKey,
+    anchorOffset: 0,
+    focusKey: blockKey,
+    focusOffset: 1,
+  });
+  return addEntity(editorState, targetSelection, {
+    type,
+    data,
+    mutability: 'IMMUTABLE',
+  });
 };
 
 export const isAtomicBlockFocused = (editorState: EditorState) => {
@@ -345,30 +391,30 @@ export const replaceWithEmptyBlock = (editorState: EditorState, blockKey: string
   return EditorState.forceSelection(newState, resetBlock.getSelectionAfter());
 };
 
-// export const setSelectionToBlock = (newEditorState, setEditorState, newActiveBlock) => {
-//   const editorState = newEditorState;
-//   const offsetKey = DraftOffsetKey.encode(newActiveBlock.getKey(), 0, 0);
-//   const node = document.querySelectorAll(`[data-offset-key="${offsetKey}"]`)[0];
-//   const selection = window.getSelection();
-//   const range = document.createRange();
-//   range.setStart(node, 0);
-//   range.setEnd(node, 0);
-//   selection.removeAllRanges();
-//   selection.addRange(range);
+export const setSelectionToBlock = (newEditorState, setEditorState, newActiveBlock) => {
+  const editorState = newEditorState;
+  const offsetKey = DraftOffsetKey.encode(newActiveBlock.getKey(), 0, 0);
+  const node = document.querySelectorAll(`[data-offset-key="${offsetKey}"]`)[0];
+  const selection = window.getSelection();
+  const range = document.createRange();
+  range.setStart(node, 0);
+  range.setEnd(node, 0);
+  selection?.removeAllRanges();
+  selection?.addRange(range);
 
-//   setEditorState(
-//     EditorState.forceSelection(
-//       editorState,
-//       new SelectionState({
-//         anchorKey: newActiveBlock.getKey(),
-//         anchorOffset: 0,
-//         focusKey: newActiveBlock.getKey(),
-//         focusOffset: 0,
-//         isBackward: false,
-//       })
-//     )
-//   );
-// };
+  setEditorState(
+    EditorState.forceSelection(
+      editorState,
+      new SelectionState({
+        anchorKey: newActiveBlock.getKey(),
+        anchorOffset: 0,
+        focusKey: newActiveBlock.getKey(),
+        focusOffset: 0,
+        isBackward: false,
+      })
+    )
+  );
+};
 
 // **************************** this function is for oneApp ****************************
 export const createBlockAndFocus = (editorState: EditorState, data, pluginType: string) => {
@@ -397,7 +443,9 @@ export const createBlock = (editorState: EditorState, data, type: string) => {
   const recentlyCreatedKey = newEditorState.getSelection().getAnchorKey();
   // when adding atomic block, there is the atomic itself, and then there is a text block with one space,
   // so get the block before the space
-  const newBlock = newEditorState.getCurrentContent().getBlockBefore(recentlyCreatedKey);
+  const newBlock = newEditorState
+    .getCurrentContent()
+    .getBlockBefore(recentlyCreatedKey) as ContentBlock;
   const newSelection = SelectionState.createEmpty(newBlock.getKey());
   return { newBlock, newSelection, newEditorState };
 };
@@ -437,6 +485,10 @@ export const getSelectedBlocks = (editorState: EditorState) => {
   const lastIndex = findLastIndex(blocks, block => block.getKey() === selection.getFocusKey());
 
   return blocks.slice(firstIndex, lastIndex + 1);
+};
+
+export const isAtomicBlockInSelection = (editorState: EditorState) => {
+  return getSelectedBlocks(editorState).some(block => block.getType() === 'atomic');
 };
 
 export const getSelectionRange = (editorState: EditorState, block: ContentBlock) => {
@@ -531,17 +583,24 @@ function getSelection(editorState: EditorState) {
   return selection;
 }
 
-// TODO: refactor function @Barackos
-export const getEntities = (editorState: EditorState, entityType?: string): EntityInstance[] => {
-  const currentContent = editorState.getCurrentContent();
+export function getEditorContentSummary(contentState: DraftContent) {
+  return getContentSummary(contentState);
+}
+
+const countByTypeField = obj => countBy(obj, x => x.type);
+
+const getBlockTypePlugins = (blocks: ContentBlock[]) =>
+  blocks.filter(block => block.getType() !== 'unstyled' && block.getType() !== 'atomic');
+
+export const getEntities = (content: ContentState, entityType?: string): EntityInstance[] => {
   const entities: EntityInstance[] = [];
 
-  currentContent.getBlockMap().forEach(block => {
+  content.getBlockMap().forEach(block => {
     block?.findEntityRanges(
       character => {
         const char = character.getEntity();
         if (char) {
-          const entity = currentContent.getEntity(char);
+          const entity = content.getEntity(char);
           if (!entityType || entity.getType() === entityType) {
             entities.push(entity);
           }
@@ -560,33 +619,15 @@ export const getEntities = (editorState: EditorState, entityType?: string): Enti
   return entities;
 };
 
-const countByType = (obj: { getType: () => string }[]) => countBy(obj, x => x.getType());
+type OnCallbacks = (params: { pluginsDeleted: string[] }) => void;
 
-const getBlockTypePlugins = (blocks: ContentBlock[]) =>
-  blocks.filter(block => block.getType() !== 'unstyled' && block.getType() !== 'atomic');
-
-export function getPostContentSummary(editorState: EditorState) {
-  if (Object.entries(editorState).length === 0) return;
-  const blocks = editorState.getCurrentContent().getBlocksAsArray();
-  const entries = getEntities(editorState);
-  const blockPlugins = getBlockTypePlugins(blocks);
-  const pluginsDetails = entries
-    .filter(entry => entry.getType() !== 'text')
-    .map(entry => ({ type: entry.getType(), data: entry.getData() }));
-  return {
-    pluginsCount: {
-      ...countByType(blockPlugins),
-      ...countByType(entries),
-    },
-    pluginsDetails,
-  };
-}
-
-const countByTypeField = obj => countBy(obj, x => x.type);
-
-const calculateContentDiff = (prevState, newState, onCallbacks) => {
-  const prevEntities = countByTypeField(getEntities(prevState));
-  const currEntities = countByTypeField(getEntities(newState));
+const calculateContentDiff = (
+  prevState: EditorState,
+  newState: EditorState,
+  onCallbacks: OnCallbacks
+) => {
+  const prevEntities = countByTypeField(getEntities(prevState.getCurrentContent()));
+  const currEntities = countByTypeField(getEntities(newState.getCurrentContent()));
   const prevBlocks = prevState.getCurrentContent().getBlocksAsArray();
   const currBlocks = newState.getCurrentContent().getBlocksAsArray();
   const prevBlockPlugins = countByTypeField(getBlockTypePlugins(prevBlocks));
@@ -643,8 +684,8 @@ export function fixPastedLinks(
     if (url) {
       content.replaceEntityData(entityKey, {
         url,
-        target: anchorTarget || '_self',
-        rel: relValue || 'noopener noreferrer',
+        target: anchorTarget,
+        rel: relValue,
       });
     }
   });
@@ -656,11 +697,19 @@ export function getFocusedBlockKey(editorState: EditorState) {
   if (selection.isCollapsed()) return selection.getAnchorKey();
 }
 
-export function getBlockInfo(editorState: EditorState, blockKey: string) {
+export function getBlockEntityType(editorState: EditorState, blockKey: string) {
+  return getBlockEntity(editorState, blockKey)?.getType();
+}
+
+function getBlockEntity(editorState: EditorState, blockKey: string) {
   const contentState = editorState.getCurrentContent();
   const block = contentState.getBlockForKey(blockKey);
-  const entityKey = block.getEntityAt(0);
-  const entity = entityKey ? contentState.getEntity(entityKey) : undefined;
+  const entityKey = block?.getEntityAt(0);
+  return entityKey ? contentState.getEntity(entityKey) : undefined;
+}
+
+export function getBlockInfo(editorState: EditorState, blockKey: string) {
+  const entity = getBlockEntity(editorState, blockKey);
   const entityData = entity?.getData();
   const type = entity?.getType();
 
@@ -671,7 +720,7 @@ export function getBlockType(editorState: EditorState) {
   const contentState = editorState.getCurrentContent();
   const blockKey = editorState.getSelection().getAnchorKey();
   const block = contentState.getBlockForKey(blockKey);
-  return block.getType();
+  return block?.getType();
 }
 
 export function setSelection(editorState: EditorState, selection: SelectionState) {
@@ -775,7 +824,16 @@ export function isCursorAtStartOfContent(editorState: EditorState) {
   return isStartOfLine && isCursorAtFirstLine(editorState);
 }
 
-export function selectAllContent(editorState, forceSelection) {
+export const hasBlockType = (blockType: string, editorState: EditorState) => {
+  const currentBlockType = editorState
+    .getCurrentContent()
+    .getBlockForKey(editorState.getSelection().getStartKey())
+    .getType();
+
+  return blockType === currentBlockType;
+};
+
+export function selectAllContent(editorState: EditorState, forceSelection: boolean) {
   const currentContent = editorState.getCurrentContent();
   const selection = editorState.getSelection().merge({
     anchorKey: currentContent.getFirstBlock().getKey(),
@@ -789,4 +847,15 @@ export function selectAllContent(editorState, forceSelection) {
     : EditorState.acceptSelection;
   const newEditorState = setSelectionFunction(editorState, selection);
   return newEditorState;
+}
+
+export function setNativeSelectionToBlock(block: ContentBlock) {
+  const offsetKey = DraftOffsetKey.encode(block.getKey(), 0, 0);
+  const node = document.querySelectorAll(`[data-offset-key="${offsetKey}"]`)[0];
+  const selection = window.getSelection();
+  const range = document.createRange();
+  range.setStart(node, 0);
+  range.setEnd(node, 0);
+  selection?.removeAllRanges();
+  selection?.addRange(range);
 }

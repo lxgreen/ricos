@@ -1,4 +1,8 @@
-export const createPresets = plugins => {
+import { EditorPlugin, ViewerPlugin } from 'wix-rich-content-common';
+
+export const createPresets = <T extends EditorPlugin | ViewerPlugin>(
+  plugins: Record<string, T>
+) => {
   const partialPreset = [
     plugins.image,
     plugins.gallery,

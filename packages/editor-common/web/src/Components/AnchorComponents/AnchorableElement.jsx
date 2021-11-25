@@ -1,16 +1,18 @@
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   mergeStyles,
-  getImageSrc,
   isValidUrl,
   IMAGE_TYPE,
   VIDEO_TYPE,
   GALLERY_TYPE,
   GIPHY_TYPE,
 } from 'wix-rich-content-common';
+import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
+import { getImageSrc } from 'wix-rich-content-common/libs/imageUtils';
 import styles from '../../../statics/styles/anchor-panel.scss';
 import { ANCHORABLE_BLOCKS } from './consts';
 import classNames from 'classnames';
@@ -25,8 +27,8 @@ class AnchorableElement extends PureComponent {
   }
 
   componentDidMount() {
-    const { block } = this.props;
-    if (ANCHORABLE_BLOCKS[block.anchorType].preview) {
+    const { block, blockPreview } = this.props;
+    if (!blockPreview && ANCHORABLE_BLOCKS[block.anchorType].preview) {
       this.getPreview();
     }
   }
@@ -130,30 +132,55 @@ class AnchorableElement extends PureComponent {
     this.setState({ iconThumbnail: null });
   };
 
+  onKeyDown = e => {
+    if (e.keyCode === KEYS_CHARCODE.ENTER) {
+      this.onClick();
+      e.preventDefault();
+    }
+  };
+
+  onClick = () => {
+    this.props.onClick({ defaultName: this.getContent() });
+  };
+
   render() {
     const { styles } = this;
+    const { dataHook, isSelected, blockPreview, block, t } = this.props;
     const { iconThumbnail, preview } = this.state;
-    const { dataHook, onClick, isSelected, t } = this.props;
+    const blockPreviewElements = blockPreview?.({
+      type: block.anchorType,
+      data: block.data,
+      text: block.text,
+    });
+    const thumbnailToRender = blockPreviewElements ? (
+      <div className={styles.AnchorableElement_thumbnail}>{blockPreviewElements.thumbnail}</div>
+    ) : (
+      <Thumbnail
+        iconThumbnail={iconThumbnail}
+        preview={preview}
+        alt={this.getContent()}
+        previewLoaded={this.previewLoaded}
+        theme={styles}
+      />
+    );
+    const typeToRender = blockPreviewElements
+      ? blockPreviewElements.type
+      : t(this.getDataToDisplayByField('type'));
+    const contentToRender = blockPreviewElements ? blockPreviewElements.content : this.getContent();
     return (
       <div
+        tabindex="0"
         data-hook={dataHook}
         className={classNames(styles.AnchorableElement_container, {
           [styles.AnchorableElement_selected]: isSelected,
         })}
-        onClick={() => onClick({ defaultName: this.getContent() })}
+        onKeyDown={this.onKeyDown}
+        onClick={this.onClick}
       >
-        <Thumbnail
-          iconThumbnail={iconThumbnail}
-          preview={preview}
-          alt={this.getContent()}
-          previewLoaded={this.previewLoaded}
-          theme={styles}
-        />
+        {thumbnailToRender}
         <div className={styles.AnchorableElement_contentContainer}>
-          <div className={styles.AnchorableElement_contentType}>
-            {t(this.getDataToDisplayByField('type'))}
-          </div>
-          <div className={styles.AnchorableElement_blockContent}>{this.getContent()}</div>
+          <div className={styles.AnchorableElement_contentType}>{typeToRender}</div>
+          <div className={styles.AnchorableElement_blockContent}>{contentToRender}</div>
         </div>
       </div>
     );
@@ -166,6 +193,7 @@ class AnchorableElement extends PureComponent {
     block: PropTypes.object,
     theme: PropTypes.object,
     isSelected: PropTypes.bool,
+    blockPreview: PropTypes.func,
   };
 }
 
@@ -178,6 +206,7 @@ class Thumbnail extends PureComponent {
     const { theme } = props;
     this.styles = mergeStyles({ styles, theme });
   }
+
   render() {
     // eslint-disable-next-line react/prop-types
     const { iconThumbnail, preview, alt, previewLoaded } = this.props;

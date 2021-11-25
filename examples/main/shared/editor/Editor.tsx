@@ -1,75 +1,59 @@
 import React, { ElementType, PureComponent } from 'react';
-import {
-  RichContentEditor,
-  RichContentEditorModal,
-  RichContentEditorProps,
-} from 'wix-rich-content-editor';
-import ReactModal from 'react-modal';
-import { testVideos } from '../utils/mock';
+import { RichContentEditor, RichContentEditorProps } from 'wix-rich-content-editor';
+import { testVideos } from '../../../storybook/src/shared/utils/mock';
 import * as Plugins from './EditorPlugins';
-import ModalsMap from './ModalsMap';
 import theme from '../theme/theme'; // must import after custom styles
 import { GALLERY_TYPE } from 'wix-rich-content-plugin-gallery';
-import { mockImageUploadFunc, mockImageNativeUploadFunc } from '../utils/fileUploadUtil';
+import {
+  mockImageUploadFunc,
+  mockImageNativeUploadFunc,
+} from '../../../storybook/src/shared/utils/fileUploadUtil';
 import { TOOLBARS } from 'wix-rich-content-editor-common';
-import { ModalStyles, DraftContent, TextToolbarType } from 'wix-rich-content-common';
+import {
+  DraftContent,
+  TextToolbarType,
+  AvailableExperiments,
+  EventName,
+  PluginEventParams,
+  OnPluginAction,
+} from 'wix-rich-content-common';
 import { TestAppConfig } from '../../src/types';
-import { RicosEditor, RicosEditorProps } from 'ricos-editor';
+import { RicosEditor, RicosEditorProps, RicosEditorType } from 'ricos-editor';
 
-const modalStyleDefaults: ModalStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
-const anchorTarget = '_blank';
-const relValue = 'noopener';
-let shouldMultiSelectImages = false;
+const STATIC_TOOLBAR = 'static';
 
-interface ExampleEditprProps {
-  onChange?: RichContentEditorProps['onChange'];
-  editorState?: RichContentEditorProps['editorState'];
+interface ExampleEditorProps {
   theme?: RichContentEditorProps['theme'];
   isMobile?: boolean;
   staticToolbar?: boolean;
+  externalToolbarToShow: TOOLBARS;
   locale?: string;
-  localeResource?: Record<string, string>;
   externalToolbar?: ElementType;
   shouldNativeUpload?: boolean;
-  scrollingElementFn?: any;
+  scrollingElementFn?: () => Element;
   testAppConfig?: TestAppConfig;
   mockImageIndex?: number;
-  shouldMultiSelectImages?: boolean;
-  shouldMockUpload?: boolean;
-  shouldUseNewContent?: boolean;
-  initialState?: DraftContent;
   contentState?: DraftContent;
   injectedContent?: DraftContent;
   onRicosEditorChange?: RicosEditorProps['onChange'];
+  experiments?: AvailableExperiments;
+  externalPopups: boolean;
+  textWrap?: boolean;
 }
 
-interface ExampleEditprState {
-  showModal?: boolean;
-  modalProps?: any;
-  modalStyles?: ModalStyles;
-  MobileToolbar?: ElementType;
-  TextToolbar?: ElementType;
-}
-export default class Editor extends PureComponent<ExampleEditprProps, ExampleEditprState> {
-  state: ExampleEditprState = {};
-  plugins: RichContentEditorProps['plugins'];
-  config: RichContentEditorProps['config'];
+export default class Editor extends PureComponent<ExampleEditorProps> {
+  getToolbarSettings: RichContentEditorProps['config']['getToolbarSettings'];
+
   helpers: RichContentEditorProps['helpers'];
-  editor: RichContentEditor;
+
+  editor: RicosEditorType;
+
   ricosPlugins: RicosEditorProps['plugins'];
 
-  constructor(props: ExampleEditprProps) {
+  staticToolbarContainer: HTMLDivElement;
+
+  constructor(props: ExampleEditorProps) {
     super(props);
-    // ReactModal.setAppElement('#root');
     this.initEditorProps();
     const { scrollingElementFn, testAppConfig = {} } = props;
     const { toolbarConfig } = testAppConfig;
@@ -90,30 +74,33 @@ export default class Editor extends PureComponent<ExampleEditprProps, ExampleEdi
       pluginsConfig.getToolbarSettings = getToolbarSettings;
     }
 
-    this.plugins = testAppConfig.plugins
-      ? testAppConfig.plugins.map(plugin => Plugins.editorPluginsMap[plugin]).flat()
-      : Plugins.editorPlugins;
-    this.config = pluginsConfig;
+    this.getToolbarSettings = pluginsConfig.getToolbarSettings;
     this.ricosPlugins = Object.entries(Plugins.ricosEditorPlugins).map(([pluginType, plugin]) =>
       pluginType in pluginsConfig ? plugin(pluginsConfig[pluginType]) : plugin()
     );
   }
 
   initEditorProps() {
+    /* eslint-disable no-console */
+    const onPluginAction: OnPluginAction = async (
+      eventName: EventName,
+      params: PluginEventParams
+    ) => console.log(eventName, params);
     this.helpers = {
       //these are for testing purposes only
-      onPluginAdd: async (plugin_id, entry_point, version) =>
-        console.log('biPluginAdd', plugin_id, entry_point, version),
+      onPluginAdd: async (...args) => console.log('onPluginAdd', ...args),
       onPluginAddStep: async params => console.log('onPluginAddStep', params),
-      onPluginAddSuccess: async (plugin_id, entry_point, version) =>
-        console.log('biPluginAddSuccess', plugin_id, entry_point, version),
-      onPluginDelete: async (plugin_id, version) =>
-        console.log('biPluginDelete', plugin_id, version),
-      onPluginChange: async (plugin_id, changeObj, version) =>
-        console.log('biPluginChange', plugin_id, changeObj, version),
-      onPublish: async (postId, pluginsCount, pluginsDetails, version) =>
-        console.log('biOnPublish', postId, pluginsCount, pluginsDetails, version),
-      onOpenEditorSuccess: async version => console.log('onOpenEditorSuccess', version),
+      onPluginAddSuccess: async (...args) => console.log('onPluginAddSuccess', ...args),
+      onPluginDelete: async params => console.log('onPluginDelete', params),
+      onPluginChange: async (...args) => console.log('onPluginChange', ...args),
+      onPublish: async (...args) => console.log('onPublish', ...args),
+      onOpenEditorSuccess: async (...args) => console.log('onOpenEditorSuccess', ...args),
+      onContentEdited: async params => console.log('onContentEdited', params),
+      onToolbarButtonClick: async params => console.log('onToolbarButtonClick', params),
+      onKeyboardShortcutAction: async params => console.log('onKeyboardShortcutAction', params),
+      onPluginModalOpened: async params => console.log('onPluginModalOpened', params),
+      onMenuLoad: async params => console.log('onMenuLoad', params),
+      onInlineToolbarOpen: async params => console.log('onInlineToolbarOpen', params),
       //
       // handleFileUpload: mockImageNativeUploadFunc,
       handleFileSelection: mockImageUploadFunc,
@@ -127,201 +114,79 @@ export default class Editor extends PureComponent<ExampleEditprProps, ExampleEdi
           updateEntity(testVideo);
         }, mockTimout || 500);
       },
-      openModal: data => {
-        const { modalStyles, ...modalProps } = data;
-        try {
-          document.documentElement.style.height = '100%';
-          document.documentElement.style.position = 'relative';
-        } catch (e) {
-          console.warn('Cannot change document styles', e);
-        }
-        this.setState({
-          showModal: true,
-          modalProps,
-          modalStyles,
-        });
-      },
-      closeModal: () => {
-        try {
-          document.documentElement.style.height = 'initial';
-          document.documentElement.style.position = 'initial';
-        } catch (e) {
-          console.warn('Cannot change document styles', e);
-        }
-        this.setState({
-          showModal: false,
-          modalProps: null,
-          modalStyles: null,
-        });
-      },
+      onPluginAction,
     };
+    /* eslint-enable no-console */
     this.setImageUploadHelper();
   }
-
-  componentDidMount() {
-    ReactModal.setAppElement('body');
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.staticToolbar !== this.props.staticToolbar) {
-      this.setEditorToolbars(this.editor);
-    }
-    if (prevProps.shouldMultiSelectImages !== this.props.shouldMultiSelectImages) {
-      shouldMultiSelectImages = this.props.shouldMultiSelectImages;
-    }
-    if (prevProps.shouldNativeUpload !== this.props.shouldNativeUpload) {
-      this.toggleFileUploadMechanism();
-    }
-  }
-
-  toggleFileUploadMechanism = () => {
-    this.setImageUploadHelper();
-    this.config = Plugins.toggleNativeUploadConfig(this.config, this.props.shouldNativeUpload);
-  };
 
   setImageUploadHelper = () => {
     const { shouldNativeUpload } = this.props;
     if (shouldNativeUpload) {
       this.helpers.handleFileUpload = mockImageNativeUploadFunc;
+      // eslint-disable-next-line fp/no-delete
       delete this.helpers.handleFileSelection;
     } else {
       this.helpers.handleFileSelection = mockImageUploadFunc;
+      // eslint-disable-next-line fp/no-delete
       delete this.helpers.handleFileUpload;
     }
   };
 
-  setEditorToolbars = ref => {
-    if (ref) {
-      const { MobileToolbar, TextToolbar } = ref.getToolbars();
-      this.setState({ MobileToolbar, TextToolbar });
-    }
-  };
-
-  renderToolbarWithButtons = ({ buttons }) => {
-    const { externalToolbar: ExternalToolbar } = this.props;
-    return (
-      <div className="toolbar">
-        <ExternalToolbar buttons={buttons} />
-      </div>
-    );
-  };
-
   renderExternalToolbar() {
-    const { externalToolbar: ExternalToolbar } = this.props;
+    const { externalToolbar: ExternalToolbar, externalToolbarToShow } = this.props;
     if (ExternalToolbar && this.editor) {
       return (
         <div className="toolbar">
-          <ExternalToolbar {...this.editor.getToolbarProps(TOOLBARS.FORMATTING)} theme={theme} />
+          <ExternalToolbar {...this.editor.getToolbarProps(externalToolbarToShow)} theme={theme} />
         </div>
       );
     }
     return null;
   }
 
-  setEditorRef = ref => {
-    this.editor = ref;
-    this.setEditorToolbars(ref);
-  };
-
   render() {
-    const modalStyles = {
-      content: {
-        ...(this.state.modalStyles || modalStyleDefaults).content,
-        ...theme.modalTheme.content,
-      },
-      overlay: {
-        ...(this.state.modalStyles || modalStyleDefaults).overlay,
-        ...theme.modalTheme.overlay,
-      },
-    };
     const {
       staticToolbar,
       isMobile,
-      editorState,
-      initialState,
       locale,
-      localeResource,
-      onChange,
-      shouldUseNewContent,
       contentState,
       injectedContent,
       onRicosEditorChange,
+      experiments,
+      externalPopups,
+      textWrap,
     } = this.props;
-    const { MobileToolbar, TextToolbar } = this.state;
-    const textToolbarType: TextToolbarType = staticToolbar && !isMobile ? 'static' : null;
-    const { onRequestClose } = this.state.modalProps || {};
-    const { openModal, closeModal, ...helpersWithoutModal } = this.helpers;
+    const textToolbarType: TextToolbarType = staticToolbar && !isMobile ? STATIC_TOOLBAR : null;
+    const useStaticTextToolbar = textToolbarType === STATIC_TOOLBAR;
 
-    const editorProps = {
-      anchorTarget,
-      relValue,
-      locale,
-      localeResource,
-      theme,
-      textToolbarType,
-      isMobile,
-      initialState,
-      editorState,
-    };
-    const TopToolbar = MobileToolbar || TextToolbar;
     return (
       <div style={{ height: '100%' }}>
         {this.renderExternalToolbar()}
-        {shouldUseNewContent ? (
-          <div className="editor">
-            <RicosEditor
-              onChange={onRicosEditorChange}
-              content={contentState}
-              injectedContent={injectedContent}
-              linkSettings={{ anchorTarget, relValue }}
-              locale={locale}
-              cssOverride={theme}
-              toolbarSettings={{
-                useStaticTextToolbar: textToolbarType === 'static',
-                getToolbarSettings: this.config.getToolbarSettings,
-              }}
-              isMobile={isMobile}
-              placeholder={'Add some text!'}
-              plugins={this.ricosPlugins}
-              linkPanelSettings={this.config.uiSettings.linkPanel}
-            >
-              <RichContentEditor helpers={helpersWithoutModal} />
-            </RicosEditor>
-          </div>
-        ) : (
-          <div className="editor">
-            {TopToolbar && (
-              <div className="toolbar-wrapper">
-                <TopToolbar />
-              </div>
-            )}
-            <RichContentEditor
-              placeholder={'Add some text!'}
-              ref={this.setEditorRef}
-              onChange={onChange}
-              helpers={this.helpers}
-              plugins={this.plugins}
-              // config={Plugins.getConfig(additionalConfig)}
-              config={this.config}
-              editorKey="random-editorKey-ssr"
-              setEditorToolbars={this.setEditorToolbars}
-              {...editorProps}
-            />
-            <ReactModal
-              isOpen={this.state.showModal}
-              contentLabel="External Modal Example"
-              style={modalStyles}
-              role="dialog"
-              onRequestClose={onRequestClose || this.helpers.closeModal}
-            >
-              <RichContentEditorModal
-                modalsMap={ModalsMap}
-                locale={this.props.locale}
-                {...this.state.modalProps}
-              />
-            </ReactModal>
-          </div>
-        )}
+        <div ref={ref => (this.staticToolbarContainer = ref)} />
+        <div className="editor">
+          <RicosEditor
+            ref={ref => (this.editor = ref)}
+            onChange={onRicosEditorChange}
+            content={contentState}
+            injectedContent={injectedContent}
+            locale={locale}
+            cssOverride={theme}
+            toolbarSettings={{
+              useStaticTextToolbar,
+              textToolbarContainer: useStaticTextToolbar && this.staticToolbarContainer,
+              getToolbarSettings: this.getToolbarSettings,
+            }}
+            isMobile={isMobile}
+            placeholder={'Add some text!'}
+            plugins={this.ricosPlugins}
+            linkPanelSettings={{ ...(Plugins.uiSettings.linkPanel || {}), externalPopups }}
+            _rcProps={{ helpers: this.helpers }}
+            experiments={experiments}
+            textWrap={textWrap}
+            onAtomicBlockFocus={d => console.log('onAtomicBlockFocus', d)} // eslint-disable-line
+          />
+        </div>
       </div>
     );
   }

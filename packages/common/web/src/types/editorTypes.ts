@@ -1,14 +1,14 @@
+import { ComponentData, BICallbacks } from '.';
+import { CSSProperties } from 'react';
+import { EditorState } from 'draft-js';
+import { OnPluginAction } from './pluginsBiCallbacksTypes';
 import {
   UpdateEntityFunc,
   ImageComponentData,
   VideoComponentData,
   FileComponentData,
-  ComponentData,
-  BICallbacks,
-} from '.';
-import { CSSProperties } from 'react';
-import { EditorState } from 'draft-js';
-
+  HEADER_BLOCK,
+} from 'ricos-content';
 export interface Helpers extends BICallbacksForHelpers {
   openModal?: (modalProps: Record<string, unknown>) => void;
   closeModal?: () => void;
@@ -33,9 +33,16 @@ export interface Helpers extends BICallbacksForHelpers {
 }
 interface BICallbacksForHelpers extends BICallbacks {
   // makes version optional
-  onPluginAdd?(pluginId: string, entryPoint: string, version?: string): void;
-  onPluginAddSuccess?(pluginId: string, entryPoint: string, version?: string): void;
+  onPluginAdd?(pluginId: string, entryPoint: string, version?: string, contentId?: string): void;
+  onPluginAddSuccess?(
+    pluginId: string,
+    entryPoint: string,
+    params,
+    version?: string,
+    contentId?: string
+  ): void;
   isPreview?: () => boolean;
+  onPluginAction?: OnPluginAction;
 }
 
 export type OnErrorFunction = (error: string) => void;
@@ -46,3 +53,23 @@ export type TextToolbarType = 'inline' | 'static';
 
 export type SetEditorState = (editorState: EditorState) => void;
 export type GetEditorState = () => EditorState;
+
+export const DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE = {
+  P: 'paragraph',
+  H1: 'headerOne',
+  H2: 'headerTwo',
+  H3: 'headerThree',
+  H4: 'headerFour',
+  H5: 'headerFive',
+  H6: 'headerSix',
+};
+
+export const DRAFT_TO_RICOS_DOC_TYPE = {
+  [HEADER_BLOCK.ONE]: 'headerOne',
+  [HEADER_BLOCK.TWO]: 'headerTwo',
+  [HEADER_BLOCK.THREE]: 'headerThree',
+  [HEADER_BLOCK.FOUR]: 'headerFour',
+  [HEADER_BLOCK.FIVE]: 'headerFive',
+  [HEADER_BLOCK.SIX]: 'headerSix',
+  [HEADER_BLOCK.PARAGRAPH]: 'paragraph',
+};

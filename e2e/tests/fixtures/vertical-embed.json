@@ -50,6 +50,54 @@
       "inlineStyleRanges": [],
       "entityRanges": [],
       "data": {}
+    },
+    {
+      "key": "86bsc",
+      "text": " ",
+      "type": "atomic",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [
+        {
+          "offset": 0,
+          "length": 1,
+          "key": 1
+        }
+      ],
+      "data": {}
+    },
+    {
+      "key": "9vpgn",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "3rivc",
+      "text": " ",
+      "type": "atomic",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [
+        {
+          "offset": 0,
+          "length": 1,
+          "key": 2
+        }
+      ],
+      "data": {}
+    },
+    {
+      "key": "1ekr6",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
     }
   ],
   "entityMap": {
@@ -57,7 +105,6 @@
       "type": "wix-draft-plugin-vertical-embed",
       "mutability": "IMMUTABLE",
       "data": {
-        "config": {},
         "type": "product",
         "selectedProduct": {
           "id": "df19c1f7-07d8-a265-42f8-e8dfa824cc6e",
@@ -66,7 +113,40 @@
           "html": "<a class=\"vertical-embed-link\" href=\"https://www.wix.app/stores/54e7b326-49ec-434f-a7cc-c2ad1eaec049/catalog/df19c1f7-07d8-a265-42f8-e8dfa824cc6e?d=https://sapirs0.wixsite.com/mysite/product-page/i-m-a-product\" target=\"_blank\"><div class=\"vertical-embed-card vertical-embed-ltr vertical-embed-cardLayout\"><div style=\"background-image:url(https://static.wixstatic.com/media/a9ff3b_9928686dcfa740bd802821d0b6f4ac03.jpg/v1/fit/w_1000,h_1000,q_90/file.jpg)\" class=\"vertical-embed-imageLayout vertical-embed-image\"></div><div class=\"vertical-embed-content\"><div><div class=\"vertical-embed-title\">I&#x27;m a product</div></div><div class=\"vertical-embed-button\"><div class=\"vertical-embed-buttonText\">Comprar ahora</div></div></div></div></a>"
         }
       }
+    },
+    "1": {
+      "type": "wix-draft-plugin-vertical-embed",
+      "mutability": "IMMUTABLE",
+      "data": {
+        "type": "booking",
+        "selectedProduct": {
+          "id": "03ef6546-985d-4739-951e-ca897375b967",
+          "pageUrl": "https://www.wix.app/bookings/54e7b326-49ec-434f-a7cc-c2ad1eaec049/service/03ef6546-985d-4739-951e-ca897375b967/details?d=https://sapirs0.wixsite.com/mysite/bookings-checkout/cupcake-master",
+          "name": "CUPCAKE MASTER",
+          "imageSrc": "https://static.wixstatic.com/media/78ccafc88f7fce3e55bd7a33f166704b.jpg",
+          "description": 90,
+          "durations": 90,
+          "html": "<a class=\"vertical-embed-link\" href=\"https://www.wix.app/bookings/54e7b326-49ec-434f-a7cc-c2ad1eaec049/service/03ef6546-985d-4739-951e-ca897375b967/details?d=https://sapirs0.wixsite.com/mysite/bookings-checkout/cupcake-master\" target=\"_blank\"><div class=\"vertical-embed-card vertical-embed-ltr vertical-embed-cardLayout\"><div style=\"background-image:url(https://static.wixstatic.com/media/78ccafc88f7fce3e55bd7a33f166704b.jpg)\" class=\"vertical-embed-imageLayout vertical-embed-image\"></div><div class=\"vertical-embed-content\"><div><div class=\"vertical-embed-title\">CUPCAKE MASTER</div><div class=\"vertical-embed-subtitle\">1h 30min</div></div><div class=\"vertical-embed-button\"><div class=\"vertical-embed-buttonText\">Reservar ahora</div></div></div></div></a>"
+        }
+      }
+    },
+    "2": {
+      "type": "wix-draft-plugin-vertical-embed",
+      "mutability": "IMMUTABLE",
+      "data": {
+        "type": "event",
+        "selectedProduct": {
+          "id": "0227ed00-697c-42c0-bc12-f84f0ae01a84",
+          "name": "Roy Birthday Party!!",
+          "pageUrl": "https://www.wix.app/events/54e7b326-49ec-434f-a7cc-c2ad1eaec049/0227ed00-697c-42c0-bc12-f84f0ae01a84/details?d=https://sapirs0.wixsite.com/mysite/event-details/roy-birthday-party-1",
+          "imageSrc": "https://static.wixstatic.com/media/7f8360_274a37551ab54326adb4c50b1e7daaa0~mv2.jpeg",
+          "description": "28 de diciembre de 2020, 19:00 | Modi'in-Maccabim-Re'ut",
+          "scheduling": "28 de diciembre de 2020, 19:00 ",
+          "location": " Modi'in-Maccabim-Re'ut",
+          "html": "<a class=\"vertical-embed-link\" href=\"https://www.wix.app/events/54e7b326-49ec-434f-a7cc-c2ad1eaec049/0227ed00-697c-42c0-bc12-f84f0ae01a84/details?d=https://sapirs0.wixsite.com/mysite/event-details/roy-birthday-party-1\" target=\"_blank\"><div class=\"vertical-embed-card vertical-embed-ltr vertical-embed-cardLayout\"><div style=\"background-image:url(https://static.wixstatic.com/media/7f8360_274a37551ab54326adb4c50b1e7daaa0~mv2.jpeg)\" class=\"vertical-embed-imageLayout vertical-embed-image\"></div><div class=\"vertical-embed-content\"><div><div class=\"vertical-embed-title\">Roy Birthday Party!!</div><div class=\"vertical-embed-subtitle\">28 de diciembre de 2020, 19:00<span><span class=\"vertical-embed-right\">|</span>Modi&#x27;in-Maccabim-Re&#x27;ut</span></div></div><div class=\"vertical-embed-button\"><div class=\"vertical-embed-buttonText\">Regístrate</div></div></div></div></a>"
+        }
+      }
     }
   },
-  "VERSION": "8.3.0"
+  "VERSION": "8.48.4"
 }

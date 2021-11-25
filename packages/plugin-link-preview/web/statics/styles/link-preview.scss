@@ -31,6 +31,7 @@
   vertical-align: middle;
   overflow: hidden;
   color: black;
+  font-family: var(--ricos-custom-p-font-family);
 }
 
 .linkPreviewTitle {
@@ -43,6 +44,7 @@
   min-height: 26px;
   display: flex;
   color: $primary-text-color;
+  font-family: var(--ricos-custom-h2-font-family);
 }
 
 .ellipsis {
@@ -64,7 +66,8 @@
 }
 
 .linkPreviewUrl {
-  color: rgba($primary-text-color-tuple, 0.2);
+  color: $ricos-text-color-low;
+  text-align: left;
 }
 
 .linkPreviewDescription {

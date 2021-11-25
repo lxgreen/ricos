@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ClickOutside from 'react-click-outsider';
 import Styles from '../Toolbar.scss';
 import ToolbarButton from '../ToolbarButton.jsx';
-import { isElementOutOfWindow } from 'wix-rich-content-editor-common';
+import { elementOverflowWithEditor } from 'wix-rich-content-editor-common';
 
 class ContextMenu extends PureComponent {
   static propTypes = {
@@ -19,6 +19,8 @@ class ContextMenu extends PureComponent {
     isDisabled: PropTypes.func,
     getIcon: PropTypes.func,
     theme: PropTypes.object,
+    onContextmenuClick: PropTypes.func,
+    onOptionClick: PropTypes.func,
   };
 
   static defaultProps = {
@@ -39,7 +41,8 @@ class ContextMenu extends PureComponent {
   toggleOptions = () => {
     this.setState({ isOpen: !this.state.isOpen }, () => {
       if (this.state.isOpen && this.modalRef) {
-        const isModalOverflow = isElementOutOfWindow(this.modalRef);
+        const modalOverflowWithEditor = elementOverflowWithEditor(this.modalRef);
+        const isModalOverflow = !!modalOverflowWithEditor.overflowRight;
         this.setState({ position: isModalOverflow ? { right: 0 } : { left: 0 } });
       } else {
         this.setState({ position: null });
@@ -47,9 +50,15 @@ class ContextMenu extends PureComponent {
     });
   };
 
+  handleClick = () => {
+    this.props.onContextmenuClick?.();
+    this.toggleOptions();
+  };
+
   hideOptions = () => this.setState({ isOpen: false });
 
-  onChange = ({ onClick }) => e => {
+  onChange = ({ onClick, text }) => e => {
+    this.props.onOptionClick?.(text);
     onClick(e);
     this.setState({ isOpen: false });
   };
@@ -108,7 +117,7 @@ class ContextMenu extends PureComponent {
         <div className={Styles.buttonWrapper}>
           <ToolbarButton
             isActive={false}
-            onClick={this.toggleOptions}
+            onClick={this.handleClick}
             getButtonStyles={getButtonStyles}
             tooltipText={tooltip}
             dataHook={dataHook}

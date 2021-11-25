@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ComponentType } from 'react';
 import {
   ClassNameStrategy,
@@ -10,10 +11,9 @@ import {
   TextButtonMapper,
   GetEditorState,
   SetEditorState,
-  AnchorTarget,
-  RelValue,
   ThemeGeneratorFunction,
   RichContentTheme,
+  ThemeData,
 } from '.';
 import {
   ContentBlock,
@@ -28,14 +28,20 @@ import {
   LINK_BUTTON_TYPE,
   ACTION_BUTTON_TYPE,
   CODE_BLOCK_TYPE,
+  RICOS_DIVIDER_TYPE,
   DIVIDER_TYPE,
   EMOJI_TYPE,
+  RICOS_FILE_TYPE,
   FILE_UPLOAD_TYPE,
+  RICOS_GALLERY_TYPE,
   GALLERY_TYPE,
+  RICOS_GIPHY_TYPE,
   GIPHY_TYPE,
   HASHTAG_TYPE,
   HEADERS_MARKDOWN_TYPE,
+  RICOS_HTML_TYPE,
   HTML_TYPE,
+  RICOS_IMAGE_TYPE,
   IMAGE_TYPE,
   IMAGE_TYPE_LEGACY,
   INDENT_TYPE,
@@ -53,13 +59,66 @@ import {
   TEXT_HIGHLIGHT_TYPE,
   UNDO_REDO_TYPE,
   VERTICAL_EMBED_TYPE,
+  RICOS_VIDEO_TYPE,
   VIDEO_TYPE,
   VIDEO_TYPE_LEGACY,
+  RICOS_POLL_TYPE,
   POLL_TYPE,
-  ACCORDION_TYPE,
+  COLLAPSIBLE_LIST_TYPE,
   TABLE_TYPE,
   UNSUPPORTED_BLOCKS_TYPE,
+  RICOS_LINK_TYPE,
+  RICOS_MENTION_TYPE,
+  EXTERNAL,
 } from 'ricos-content';
+import {
+  DividerData,
+  GIFData,
+  HTMLData,
+  GalleryData,
+  PollData,
+  VideoData,
+  FileData,
+  LinkData,
+  ImageData,
+  MentionData as MentionPluginData,
+  Node_Type,
+  Decoration_Type,
+} from 'ricos-schema';
+export { Node_Type, Decoration_Type, LinkData };
+
+export type CreatePluginData<PluginData> = (
+  pluginData?: PluginData,
+  isRicosSchema?: boolean
+) => // eslint-disable-next-line @typescript-eslint/no-explicit-any
+Record<string, any>;
+
+export type MentionData = { mention: MentionPluginData; trigger: string };
+
+export interface CreatePluginsDataMap {
+  [RICOS_DIVIDER_TYPE]?: CreatePluginData<DividerData>;
+  [DIVIDER_TYPE]?: CreatePluginData<DividerData>;
+  [RICOS_GIPHY_TYPE]?: CreatePluginData<GIFData>;
+  [GIPHY_TYPE]?: CreatePluginData<GIFData>;
+  [RICOS_HTML_TYPE]?: CreatePluginData<HTMLData>;
+  [HTML_TYPE]?: CreatePluginData<HTMLData>;
+  [RICOS_GALLERY_TYPE]?: CreatePluginData<GalleryData>;
+  [GALLERY_TYPE]?: CreatePluginData<GalleryData>;
+  [RICOS_POLL_TYPE]?: CreatePluginData<PollData>;
+  [POLL_TYPE]?: CreatePluginData<PollData>;
+  [RICOS_VIDEO_TYPE]?: CreatePluginData<VideoData>;
+  [VIDEO_TYPE]?: CreatePluginData<VideoData>;
+  [RICOS_FILE_TYPE]?: CreatePluginData<FileData>;
+  [FILE_UPLOAD_TYPE]?: CreatePluginData<FileData>;
+  [RICOS_IMAGE_TYPE]?: CreatePluginData<ImageData>;
+  [IMAGE_TYPE]?: CreatePluginData<ImageData>;
+  [RICOS_LINK_TYPE]?: CreatePluginData<LinkData>;
+  [LINK_TYPE]?: CreatePluginData<LinkData>;
+  [RICOS_MENTION_TYPE]?: CreatePluginData<MentionData>;
+  [MENTION_TYPE]?: CreatePluginData<MentionData>;
+  [EXTERNAL]?: CreatePluginData<Record<string, any>>;
+}
+
 import { EditorPlugin as DraftEditorPlugin, PluginFunctions } from 'draft-js-plugins-editor';
 
 export type PluginMapping = Partial<{
@@ -109,7 +168,7 @@ export type PluginType =
   | typeof VIDEO_TYPE
   | typeof VIDEO_TYPE_LEGACY
   | typeof POLL_TYPE
-  | typeof ACCORDION_TYPE
+  | typeof COLLAPSIBLE_LIST_TYPE
   | typeof TABLE_TYPE
   | typeof UNSUPPORTED_BLOCKS_TYPE;
 
@@ -168,6 +227,7 @@ export interface EditorPlugin<PluginConfig extends EditorPluginConfig = Record<s
   config: PluginConfig;
   createPlugin?: CreatePluginFunction<PluginConfig>;
   ModalsMap?: ModalsMap;
+  createPluginData?: CreatePluginData<PluginConfig>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -210,6 +270,7 @@ export type LegacyEditorPluginConfig<
 > & {
   uiSettings?: UISettings;
   getToolbarSettings?: GetToolbarSettings;
+  themeData?: ThemeData;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 };
@@ -241,16 +302,21 @@ export interface CreatePluginConfig<PluginConfig extends EditorPluginConfig = Re
 }
 
 export interface LinkPanelSettings {
-  blankTargetToggleVisibilityFn?: (anchorTarget?: AnchorTarget) => boolean;
-  nofollowRelToggleVisibilityFn?: (relValue?: RelValue) => boolean;
+  blankTargetToggleVisibilityFn?: () => boolean;
+  nofollowRelToggleVisibilityFn?: () => boolean;
+  showNewTabCheckbox?: boolean;
+  showNoFollowCheckbox?: boolean;
+  showSponsoredCheckbox?: boolean;
   placeholder?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dropDown?: any;
+  externalPopups?: boolean;
 }
 
 export type UISettings = {
   linkPanel?: LinkPanelSettings;
   disableRightClick?: boolean;
+  disableDownload?: boolean;
 };
 
 export interface UnderlyingPlugin

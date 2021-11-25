@@ -702,7 +702,6 @@
             "size": "small",
             "showTitle": true,
             "showDescription": true,
-            "disableExpand": false,
             "link": {
               "url": "www.image-link.com",
               "target": "_blank",
@@ -848,7 +847,6 @@
         "type": "wix-draft-plugin-vertical-embed",
         "mutability": "IMMUTABLE",
         "data": {
-          "config": {},
           "type": "product",
           "selectedProduct": {
             "id": "265beaf5-3008-c5c2-fa5e-1447e0bebf71",
@@ -919,8 +917,7 @@
             "alignment": "right",
             "size": "small",
             "showTitle": true,
-            "showDescription": true,
-            "disableExpand": false
+            "showDescription": true
           },
           "src": {
             "id": "91ff5a615e0235157dc1a7e5f66607bf",

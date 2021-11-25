@@ -5,12 +5,24 @@ import {
   RawDraftEntity,
   RawDraftContentState,
 } from '@wix/draft-js';
-import { ACCORDION_TYPE, TABLE_TYPE, SOUND_CLOUD_TYPE, VIDEO_TYPE } from 'ricos-content';
+import { COLLAPSIBLE_LIST_TYPE, TABLE_TYPE, SOUND_CLOUD_TYPE, VIDEO_TYPE } from 'ricos-content';
 import { version } from '../package.json';
+import { v4 as uuid } from 'uuid';
 
-const addVersion = (obj, version) => {
+const addVersion = (obj, version: string): typeof obj => {
   obj.VERSION = version;
   return obj;
+};
+
+const addID = (obj, id?: string): typeof obj => {
+  obj.ID = id;
+  return obj;
+};
+
+const addMetadata = (obj, version: string, id?: string): typeof obj => {
+  let newObj = addVersion(obj, version);
+  newObj = addID(obj, id);
+  return newObj;
 };
 
 const fixBlockDataImmutableJS = contentState => {
@@ -25,7 +37,7 @@ const fixBlockDataImmutableJS = contentState => {
   return contentState;
 };
 
-const isAccordion = entity => entity.type === ACCORDION_TYPE;
+const isCollapsibleList = entity => entity.type === COLLAPSIBLE_LIST_TYPE;
 const isTable = entity => entity.type === TABLE_TYPE;
 const isOldSoundCloud = entity => entity.type === SOUND_CLOUD_TYPE;
 
@@ -82,7 +94,7 @@ const entityFixersToRaw = [
     },
   },
   {
-    predicate: isAccordion,
+    predicate: isCollapsibleList,
     entityFixer: (entity: RawDraftEntity) => {
       const { pairs } = entity.data;
       entity.data.pairs = pairs.map((pair: Pair) => {
@@ -126,7 +138,7 @@ const convertTableConfigToRaw = config => {
 
 const entityFixersFromRaw = [
   {
-    predicate: isAccordion,
+    predicate: isCollapsibleList,
     entityFixer: (entity: RawDraftEntity) => {
       const { pairs } = entity.data;
       entity.data.pairs = pairs.map((pair: RawPair) => {
@@ -158,19 +170,39 @@ const entityFixersFromRaw = [
   },
 ];
 
+const addDocumentStyle = (obj, documentStyle) => {
+  documentStyle && (obj.documentStyle = documentStyle);
+  return obj;
+};
+
 const convertToRaw = ContentState =>
-  addVersion(
-    fixBlockDataImmutableJS(entityMapDataFixer(toRaw(ContentState), entityFixersToRaw)),
-    version
+  addMetadata(
+    addDocumentStyle(
+      fixBlockDataImmutableJS(entityMapDataFixer(toRaw(ContentState), entityFixersToRaw)),
+      ContentState.documentStyle
+    ),
+    version,
+    ContentState.ID
   );
 
 const convertFromRaw = rawState =>
-  addVersion(fromRaw(entityMapDataFixer(rawState, entityFixersFromRaw)), rawState.VERSION);
+  addMetadata(
+    addDocumentStyle(
+      fromRaw(entityMapDataFixer(rawState, entityFixersFromRaw)),
+      rawState.documentStyle
+    ),
+    rawState.VERSION,
+    rawState.ID
+  );
 
-const createEmpty = () => addVersion(EditorState.createEmpty(), version);
+const createEmpty = () => addMetadata(EditorState.createEmpty(), version, uuid());
 const createEmptyContent = () => createEmpty().getCurrentContent();
 const createWithContent = contentState =>
-  addVersion(EditorState.createWithContent(contentState), contentState.VERSION);
+  addMetadata(
+    addDocumentStyle(EditorState.createWithContent(contentState), contentState.documentStyle),
+    contentState.VERSION,
+    contentState.ID
+  );
 
 export {
   EditorState,

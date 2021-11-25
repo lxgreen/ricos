@@ -4,17 +4,17 @@ import {
   TOOLBARS,
   INSERT_PLUGIN_BUTTONS,
   getModalStyles,
-  DECORATION_MODE,
   decorateComponentWithProps,
   getBottomToolbarModalStyles,
 } from 'wix-rich-content-editor-common';
 
 import { TABS } from '../components/settings';
-import { DEFAULT_COMPONENT_DATA } from '../defaults';
+import { DEFAULT_COMPONENT_DATA, MEMBER_ROLES } from '../defaults';
 import { InsertPluginIcon } from '../assets/icons';
 import { Modals } from '../modals';
-import { PollPresetSelector, Arrow } from '../components/settings/preset-selector';
+import { PollPresetSelector } from '../components/settings/preset-selector';
 import { ModalStyles, CreatePluginToolbar } from 'wix-rich-content-common';
+import { merge } from 'lodash';
 
 export const MobileFullScreenCustomStyle = Object.freeze({
   overlay: {
@@ -37,12 +37,12 @@ export const DesktopFlyOutModalStyles: ModalStyles = {
     boxSizing: 'border-box',
     height: '220px',
     overflow: 'visible',
-    border: '1px solid #ccc',
     padding: '20px 25px 25px 25px',
     display: 'block',
     borderRadius: '2px',
     position: 'absolute',
-    margin: '0 0 0 20px',
+    border: 'solid 1px rgba(51, 51, 51, 0.1)',
+    boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.06)',
     zIndex: 6,
   },
 };
@@ -67,6 +67,7 @@ const externalToolbarStyles: ModalStyles = {
     height: '220px',
     overflow: 'visible',
     display: 'block',
+    padding: 20,
   },
 };
 
@@ -76,7 +77,9 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
     name: INSERT_PLUGIN_BUTTONS.POLLS,
     tooltip: t('Poll_InsertPoll_Tooltip'),
     getIcon: () => InsertPluginIcon,
-    componentData: { ...DEFAULT_COMPONENT_DATA, ...{ ...settings, getSiteMembers: undefined } }, //Temporary fix until refactor of settings & componentData usage
+    componentData: merge(DEFAULT_COMPONENT_DATA, {
+      poll: { settings: { voteRole: settings?.voteRole || MEMBER_ROLES.ALL } },
+    }),
     modalElement: decorateComponentWithProps(PollPresetSelector),
   };
 
@@ -106,6 +109,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
               t,
               activeTab: TABS.EDIT,
               mobile: true,
+              settings,
             },
 
             {
@@ -117,12 +121,14 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
               t,
               activeTab: TABS.DESIGN,
               mobile: true,
+              settings,
             },
           ]
         : [
             {
               keyName: 'layout',
               type: BUTTONS.EXTERNAL_MODAL,
+              fullHeight: true,
               modalName: Modals.POLL_SETTINGS,
               children: t('Poll_PollSettings_Tab_Layout_TabName'),
               modalStyles: getModalStyles(modalStyles),
@@ -130,6 +136,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
               tooltipTextKey: 'Poll_PollSettings_Common_Header',
               activeTab: TABS.LAYOUT,
               mobile: false,
+              settings,
             },
 
             { keyName: 'separator', mobile: false, type: BUTTONS.SEPARATOR },
@@ -137,6 +144,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
             {
               keyName: 'design',
               type: BUTTONS.EXTERNAL_MODAL,
+              fullHeight: true,
               modalName: Modals.POLL_SETTINGS,
               children: t('Poll_PollSettings_Tab_Design_TabName'),
               modalStyles: getModalStyles(modalStyles),
@@ -144,6 +152,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
               tooltipTextKey: 'Poll_PollSettings_Common_Header',
               activeTab: TABS.DESIGN,
               mobile: false,
+              settings,
             },
 
             { keyName: 'separator', mobile: false, type: BUTTONS.SEPARATOR },
@@ -151,6 +160,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
             {
               keyName: 'settings',
               type: BUTTONS.EXTERNAL_MODAL,
+              fullHeight: true,
               modalName: Modals.POLL_SETTINGS,
               children: t('Poll_PollSettings_Tab_Settings_TabName'),
               modalStyles: getModalStyles(modalStyles),
@@ -158,6 +168,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
               tooltipTextKey: 'Poll_FormatToolbar_Settings_Tooltip',
               activeTab: TABS.SETTINGS,
               mobile: false,
+              settings,
             },
           ]),
 
@@ -168,21 +179,19 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
     InsertButtons: [
       {
         ...buttonProps,
-        toolbars: [TOOLBARS.FOOTER],
+        toolbars: [TOOLBARS.FOOTER, TOOLBARS.SIDE],
         modalStyles: modalStylesByToolbar[TOOLBARS.FOOTER],
-        modalStylesFn: ({ buttonRef }) => {
-          return getBottomToolbarModalStyles(buttonRef, {
-            customStyles: DesktopFlyOutModalStyles,
-            centered: true,
-            isMobile,
-          });
+        modalStylesFn: ({ buttonRef, toolbarName }) => {
+          return getBottomToolbarModalStyles(
+            buttonRef,
+            {
+              customStyles: DesktopFlyOutModalStyles,
+              centered: true,
+              isMobile,
+            },
+            toolbarName
+          );
         },
-        modalDecorations: [
-          {
-            decorationMode: DECORATION_MODE.APPEND,
-            decorator: Arrow,
-          },
-        ],
       },
       {
         ...buttonProps,

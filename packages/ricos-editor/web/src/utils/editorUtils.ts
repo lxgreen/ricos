@@ -1,15 +1,16 @@
 import {
   createWithContent,
-  createEmpty,
   convertToRaw,
   convertFromRaw,
 } from 'wix-rich-content-editor/libs/editorStateConversion';
 import { EditorProps } from 'draft-js';
-import { debounce, pick } from 'lodash';
-import { emptyState, DRAFT_EDITOR_PROPS } from 'ricos-common';
+import { pick } from 'lodash';
+import { v4 as uuid } from 'uuid';
+import { DRAFT_EDITOR_PROPS } from 'ricos-common';
 import { isContentStateEmpty } from 'ricos-content';
 import { isContentEqual } from 'ricos-content/libs/comapareDraftContent';
 import { DraftContent, isSSR } from 'wix-rich-content-common';
+import { getEmptyDraftContent } from 'wix-rich-content-editor-common';
 import { EditorDataInstance, OnContentChangeFunction, ContentStateGetter } from '../index';
 import errorBlocksRemover from './errorBlocksRemover';
 
@@ -22,17 +23,20 @@ const wait = ms => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };
 
+const enforceContentId = (content?: DraftContent): DraftContent | undefined =>
+  content && { ...content, ID: content.ID || uuid() };
+
 export function createDataConverter(
   onContentChange?: OnContentChangeFunction,
   initialContent?: DraftContent
 ): EditorDataInstance {
-  let currContent = initialContent || emptyState;
+  const initialOrEmptyContent = enforceContentId(initialContent) || getEmptyDraftContent();
+
+  let currContent = initialOrEmptyContent;
   let lastContent = currContent;
-  let currEditorState = initialContent
-    ? createWithContent(convertFromRaw(initialContent))
-    : createEmpty();
+  let currEditorState = createWithContent(convertFromRaw(initialOrEmptyContent));
   let currTraits = {
-    isEmpty: initialContent ? isContentStateEmpty(initialContent) : true,
+    isEmpty: isContentStateEmpty(currContent),
     isContentChanged: false,
     isLastChangeEdit: false,
   };
@@ -68,15 +72,11 @@ export function createDataConverter(
   };
 
   const getContentTraits = () => {
-    if (!initialContent) {
-      return currTraits;
-    }
     if (!isUpdated) {
       const currState = currEditorState.getCurrentContent();
       lastContent = currContent;
       currContent = convertToRaw(currState);
-      console.assert(lastContent !== currContent, 'equal by ref!');
-      updateTraits(currContent, lastContent, initialContent);
+      updateTraits(currContent, lastContent, initialOrEmptyContent);
       isUpdated = true;
     }
     return currTraits;
@@ -87,10 +87,7 @@ export function createDataConverter(
       const currState = currEditorState.getCurrentContent();
       lastContent = currContent;
       currContent = convertToRaw(currState);
-      console.assert(lastContent !== currContent, 'equal by ref!');
-      if (initialContent) {
-        updateTraits(currContent, lastContent, initialContent);
-      }
+      updateTraits(currContent, lastContent, initialOrEmptyContent);
       isUpdated = true;
     }
 
@@ -103,18 +100,39 @@ export function createDataConverter(
     }
     return shouldRemoveErrorBlocks ? errorBlocksRemover(currContent) : currContent;
   };
+
+  function debounce<A, R>(f: (args?: A) => R, interval: number): (args?: A) => Promise<R> {
+    let timer;
+
+    return (...args) => {
+      clearTimeout(timer);
+      return new Promise((resolve, reject) => {
+        timer = setTimeout(() => {
+          try {
+            resolve(f(...args));
+          } catch (err) {
+            reject(err);
+          }
+        }, interval);
+      });
+    };
+  }
+
   const debounceUpdate = debounce(getContentState, ONCHANGE_DEBOUNCE_TIME);
+
   return {
     getContentState,
     getContentTraits,
     getEditorState,
     waitForUpdate,
     getContentStatePromise,
-    refresh: editorState => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    refresh: (editorState, onError) => {
       if (!isSSR()) {
         isUpdated = false;
         currEditorState = editorState;
-        debounceUpdate();
+        debounceUpdate().catch(err => onError?.(err));
       }
     },
   };

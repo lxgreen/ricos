@@ -5,17 +5,19 @@ import {
   mergeToolbarSettings,
   isiOS,
 } from 'wix-rich-content-editor-common';
+import { withToolbarType } from './utils';
 import { getDefaultToolbarSettings } from './default-toolbar-settings';
 import { mobileTextButtonList, desktopTextButtonList, pluginButtonNames } from './buttons';
 import { reducePluginTextButtons } from './buttons/utils';
 import { get } from 'lodash';
 import {
   PluginButton,
-  TextButtonMapping,
   EditorContextType,
   ToolbarButtonProps,
   TextButtons,
-  simplePubsub,
+  Pubsub,
+  PluginTextButtons,
+  AvailableExperiments,
 } from 'wix-rich-content-common';
 import { EditorProps } from 'draft-js';
 
@@ -27,10 +29,13 @@ const createEditorToolbars = ({
   pluginButtonProps,
   isInnerRCE,
   tablePluginMenu,
+  pubsub,
+  experiments,
+  focusEditor,
 }: {
   buttons: {
     pluginButtons: PluginButton[];
-    pluginTextButtons: TextButtonMapping[];
+    pluginTextButtons: PluginTextButtons[];
   };
   textAlignment: EditorProps['textAlignment'];
   refId: number;
@@ -38,13 +43,14 @@ const createEditorToolbars = ({
   pluginButtonProps: ToolbarButtonProps[];
   isInnerRCE?: boolean;
   tablePluginMenu?: boolean;
+  pubsub: Pubsub;
+  experiments?: AvailableExperiments;
+  focusEditor?: () => void;
 }) => {
   const { uiSettings = {}, getToolbarSettings = () => [] } = context.config;
   const { pluginButtons, pluginTextButtons } = buttons;
 
-  const { isMobile, theme = {} } = context;
-
-  const pubsub = simplePubsub();
+  const { isMobile, theme = {}, helpers } = context;
 
   const textButtons: TextButtons = {
     mobile: mobileTextButtonList,
@@ -101,9 +107,11 @@ const createEditorToolbars = ({
         getToolbarDecorationFn,
         addPluginMenuConfig,
         footerToolbarConfig,
+        onClick,
       }) => {
         toolbars[name] = getInstance?.({
           ...context,
+          helpers: withToolbarType(helpers, name),
           displayOptions: get(getDisplayOptions?.(), deviceName, {
             displayMode: DISPLAY_MODE.NORMAL,
           }),
@@ -120,6 +128,9 @@ const createEditorToolbars = ({
           refId,
           addPluginMenuConfig,
           footerToolbarConfig,
+          onClick,
+          experiments,
+          focusEditor,
         });
       }
     );
