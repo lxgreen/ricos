@@ -16,7 +16,7 @@ import {
   Node_Type,
   Decoration_Type,
   LinkData,
-} from '../src/generated/wix/rich_content/v1/';
+} from '../generated/stringEnums/wix/rich_content/v1/';
 
 const pluginDataPropByType = {
   [Node_Type.APP_EMBED]: 'appEmbedData',
