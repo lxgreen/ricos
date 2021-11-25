@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { mergeStyles } from 'wix-rich-content-common';
+import {
+  Pubsub,
+  Helpers,
+  ComponentData,
+  RichContentTheme,
+  TranslationFunction,
+  mergeStyles,
+} from 'wix-rich-content-common';
 import InfiniteScroll from 'react-infinite-scroller';
 import MDSpinner from 'react-md-spinner';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -8,8 +14,36 @@ import { SEARCH_TYPE, PAGE_SIZE, WAIT_INTERVAL } from '../constants';
 import { PoweredByGiphy } from '../icons';
 import GiphyEmptyState from './giphyEmptyState';
 import styles from '../../statics/styles/giphy-selecter.scss';
+import { GIFObject } from '../types';
 
-class GiphySelector extends Component {
+interface Props {
+  pubsub: Pubsub;
+  componentData: ComponentData;
+  searchTag: string;
+  gifs: GIFObject[];
+  onCloseRequested: () => void;
+  onConfirm: (arg: unknown) => void;
+  theme: RichContentTheme;
+  t: TranslationFunction;
+  giphySdkApiKey: string;
+}
+
+interface State {
+  gifs: GIFObject[];
+  hasMoreItems: boolean;
+  page: number;
+  didFail: boolean;
+  url: string;
+  isLoaded: boolean;
+}
+
+class GiphySelector extends Component<Props, State> {
+  giphySdkCore;
+
+  styles: Record<string, string>;
+
+  timer;
+
   constructor(props) {
     super(props);
     const { componentData } = this.props;
@@ -26,7 +60,7 @@ class GiphySelector extends Component {
     this.giphySdkCore = gphApiClient(this.props.giphySdkApiKey);
   }
 
-  getGifs = (searchTag, page) => {
+  getGifs = (searchTag, page?) => {
     if (searchTag) {
       this.giphySdkCore
         .search(SEARCH_TYPE, { q: searchTag, offset: page * PAGE_SIZE, limit: PAGE_SIZE })
@@ -70,16 +104,12 @@ class GiphySelector extends Component {
   };
 
   selectGif(gif) {
-    const { componentData, helpers, pubsub, onConfirm, onCloseRequested } = this.props;
+    const { componentData, pubsub, onConfirm, onCloseRequested } = this.props;
 
     if (onConfirm) {
       onConfirm({ ...componentData, gif });
     } else {
       pubsub.update('componentData', { gif });
-    }
-
-    if (helpers) {
-      helpers.openModal(data => pubsub.update('componentData', { metadata: { ...data } }));
     }
 
     onCloseRequested();
@@ -103,16 +133,17 @@ class GiphySelector extends Component {
     return () => this.selectGif(componentData);
   };
 
-  getBoundKeyPress = giphy => {
+  getBoundKeyDown = giphy => {
     const componentData = this.convertGiphyToComponentData(giphy);
     return e => {
       const { onCloseRequested } = this.props;
-      // escape
-      if (e.charCode === 27) {
-        onCloseRequested();
+
+      if (e.key === 'Escape') {
+        onCloseRequested?.();
       }
-      // enter
-      if (e.charCode === 13) {
+
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
         this.selectGif(componentData);
       }
     };
@@ -161,15 +192,15 @@ class GiphySelector extends Component {
                     <div
                       key={i}
                       role="button"
-                      tabIndex="0"
+                      tabIndex={0}
                       className={styles.giphy_selecter_gif_img_container}
-                      onKeyPress={this.getBoundKeyPress(giphy)}
+                      onKeyDown={this.getBoundKeyDown(giphy)}
                       onClick={this.getBoundOnClick(giphy)}
                     >
                       <img
                         className={styles.giphy_selecter_gif_img}
                         src={giphy.images.fixed_width_downsampled.url}
-                        alt={'gif'}
+                        alt={giphy.title || 'gif'}
                       />
                     </div>
                   );
@@ -188,18 +219,5 @@ class GiphySelector extends Component {
     );
   }
 }
-
-GiphySelector.propTypes = {
-  pubsub: PropTypes.object,
-  helpers: PropTypes.object.isRequired,
-  componentData: PropTypes.object.isRequired,
-  searchTag: PropTypes.string,
-  gifs: PropTypes.array,
-  onCloseRequested: PropTypes.func,
-  onConfirm: PropTypes.func,
-  theme: PropTypes.object.isRequired,
-  t: PropTypes.func,
-  giphySdkApiKey: PropTypes.string.isRequired,
-};
 
 export default GiphySelector;
