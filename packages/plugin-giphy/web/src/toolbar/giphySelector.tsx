@@ -22,7 +22,7 @@ interface Props {
   componentData: ComponentData;
   searchTag: string;
   gifs: GIFObject[];
-  onCloseRequested: () => void);
+  onCloseRequested: () => void;
   onConfirm: (arg: unknown) => void;
   theme: RichContentTheme;
   t: TranslationFunction;
@@ -42,7 +42,6 @@ class GiphySelector extends Component<Props, State> {
   giphySdkCore;
 
   styles: Record<string, string>;
-
 
   timer;
 
