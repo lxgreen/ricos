@@ -20,7 +20,7 @@
 ### :bug: Bug Fix
 
 - `plugin-giphy`
-  - Add missing hotkeys to giphy selector and more descriptive alt text
+  - [#2312](https://github.com/wix/ricos/pull/2312) TS & Add missing hotkeys to giphy selector and more descriptive alt text
 
 </details>
 <hr/>
