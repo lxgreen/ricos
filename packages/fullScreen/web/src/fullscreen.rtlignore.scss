@@ -2,6 +2,7 @@
 
 .fullscreen_mode,
 .expand_mode {
+  box-sizing: border-box;
   position: fixed;
   top: 0;
   left: 0;
@@ -18,7 +19,10 @@
 
 .expand_mode {
   padding-top: 70px;
-  padding-left: 7px;
+
+  @include phone {
+    padding-top: 40px;
+  }
 }
 
 .nav_arrow_left,
@@ -86,11 +90,16 @@
 }
 
 .info_container {
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   width: 100%;
   height: 100%;
   margin-top: 20px;
+
+  @include phone {
+    margin-top: 0px;
+  }
 }
 
 :global {

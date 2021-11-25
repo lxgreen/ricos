@@ -17,8 +17,26 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+
+- `plugin-giphy`
+  - [#2312](https://github.com/wix/ricos/pull/2312) TS & Add missing hotkeys to giphy selector and more descriptive alt text
+
+- `fullscreen`
+  - [#3162](https://github.com/wix/ricos/pull/3162) videos pause when scrolled out of view
+  - [#3082](https://github.com/wix/ricos/pull/3082) image centered correctly on mobile
+
+
 </details>
 <hr/>
+
+## 8.63.2 (Nov 24, 2021)
+
+### :nail_care: Polish
+
+- `ricos-schema`
+  - [#3140](https://github.com/wix/ricos/pull/3140) Expose RichContent based on integer enum
 
 ## 8.63.1 (Nov 23, 2021)
 
