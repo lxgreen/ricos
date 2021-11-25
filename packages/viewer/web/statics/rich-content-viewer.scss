@@ -114,6 +114,8 @@
 }
 
 .blockStyleSpacing {
+  margin: 15px 18px;
+
   @include phone {
     margin: 15px calc((18px + (100% - #{$textMobileWidth}) / 2));
   }
@@ -162,7 +164,6 @@
 
 .quote {
   composes: blockStyleSpacing;
-  margin: 15px 18px;
   border-inline-start-width: $ricos-quote-border-width;
   border-inline-start-style: solid;
   font-size: $quoteFontSize;
