@@ -26,7 +26,10 @@ const CustomStylesCreator: FunctionComponent<Props> = ({ stylesArray, setStyles 
           close={() => setStyles(stylesArray.filter((_, index) => index !== idx))}
         />
       ))}
-      <AddItem className={styles.addItem} onClick={() => setStyles([...stylesArray, ['', '', '']])}>
+      <AddItem
+        className={styles.addItem}
+        onClick={() => setStyles([...stylesArray, [undefined, '', '']])}
+      >
         Add Style
       </AddItem>
     </div>

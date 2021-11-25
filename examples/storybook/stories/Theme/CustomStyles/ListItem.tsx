@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { CloseButton, Dropdown, Input } from 'wix-style-react';
-import { StyleAttr } from './types';
+import { StyleAttr, CustomStyles } from './types';
 import styles from './StylesPanel.scss';
 
 interface Props {
@@ -9,20 +9,48 @@ interface Props {
   close: () => void;
 }
 
-const propertyList = (element: string) =>
-  (element === 'button'
-    ? ['color']
-    : [
-        'fontSize',
-        'fontFamily',
-        'fontWeight',
-        'fontStyle',
-        'textDecoration',
-        'lineHeight',
-        'minHeight',
-        'color',
-      ].concat(element === 'quote' ? ['borderColor'] : [])
-  ).map(value => ({ id: value, value }));
+const customTextualStyle = [
+  'fontSize',
+  'fontFamily',
+  'fontWeight',
+  'fontStyle',
+  'textDecoration',
+  'lineHeight',
+  'minHeight',
+  'color',
+];
+const customQuoteStyle = [
+  ...customTextualStyle,
+  'borderColor',
+  'borderWidth',
+  'paddingTop',
+  'paddingBottom',
+  'paddingInlineStart',
+];
+const customCodeBlockStyle = ['margin', 'padding', 'fontSize', 'lineHeight'];
+const customMentionStyle = ['color', 'backgroundColor'];
+const customFooterToolbarStyle = ['marginTop'];
+const customButtonStyle = ['color'];
+
+const elementsStyles: CustomStyles = {
+  quote: customQuoteStyle,
+  codeBlock: customCodeBlockStyle,
+  mention: customMentionStyle,
+  footerToolbar: customFooterToolbarStyle,
+  button: customButtonStyle,
+  h1: customTextualStyle,
+  h2: customTextualStyle,
+  h3: customTextualStyle,
+  h4: customTextualStyle,
+  h5: customTextualStyle,
+  h6: customTextualStyle,
+  p: customTextualStyle,
+  link: customTextualStyle,
+  hashtag: customTextualStyle,
+};
+
+const propertyList = (element: keyof typeof elementsStyles) =>
+  elementsStyles[element]?.map(value => ({ id: value, value }));
 
 const ListItem: FunctionComponent<Props> = ({ item, updateStyle, close }) => {
   const [element, property, value] = item;
@@ -32,20 +60,10 @@ const ListItem: FunctionComponent<Props> = ({ item, updateStyle, close }) => {
       <Dropdown
         placeholder="Element"
         selectedId={element}
-        onSelect={({ id }) => updateStyle([id as string, property, value])}
-        options={[
-          'h1',
-          'h2',
-          'h3',
-          'h4',
-          'h5',
-          'h6',
-          'p',
-          'link',
-          'hashtag',
-          'quote',
-          'button',
-        ].map(value => ({ id: value, value }))}
+        onSelect={({ id }) => updateStyle([id as keyof CustomStyles, property, value])}
+        options={Object.keys(elementsStyles)
+          .sort()
+          .map(value => ({ id: value, value }))}
       />
       <Dropdown
         placeholder="Property"

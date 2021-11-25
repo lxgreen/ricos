@@ -50,10 +50,6 @@ export interface CustomTextualStyle {
   minHeight?: CSSProperties['minHeight'];
   color?: CSSProperties['color'];
 }
-export interface CustomSpacing {
-  margin?: CSSProperties['margin'];
-  padding?: CSSProperties['padding'];
-}
 
 export interface CustomQuoteStyle extends CustomTextualStyle {
   borderColor?: CSSProperties['borderColor'];
@@ -63,7 +59,9 @@ export interface CustomQuoteStyle extends CustomTextualStyle {
   paddingInlineStart?: CSSProperties['paddingInlineStart'];
 }
 
-export interface CustomCodeBlockStyle extends CustomSpacing {
+export interface CustomCodeBlockStyle {
+  margin?: CSSProperties['margin'];
+  padding?: CSSProperties['padding'];
   fontSize?: CSSProperties['fontSize'];
   lineHeight?: CSSProperties['lineHeight'];
 }
