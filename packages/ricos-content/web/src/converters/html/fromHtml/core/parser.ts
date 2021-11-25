@@ -16,7 +16,14 @@ const contextOf = (rules: Rule[], decorations: Decoration[]): Context => ({
 const htmlToNodes = (rules: Rule[], decorations: Decoration[]) => (node: ContentNode): Node[] =>
   pipe(
     rules,
-    A.filter(([_if]) => _if(node)),
+    A.filter(([_if]) => {
+      try {
+        return !!node && _if(node);
+      } catch (e) {
+        console.error(e, node);
+        return false;
+      }
+    }),
     A.chain(([, then]) => then(contextOf(rules, decorations))(node))
   );
 

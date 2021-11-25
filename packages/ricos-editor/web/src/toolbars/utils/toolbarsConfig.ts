@@ -23,5 +23,6 @@ export const toolbarSettingsFromConfig = ({
     ? get(toolbarConfig?.getButtons?.() as TextButtons, deviceName, [])
     : null;
   const getTextPluginButtons = get(toolbarConfig?.getTextPluginButtons?.(), deviceName, []);
-  return { shouldCreate, getButtons, getTextPluginButtons };
+  const buttonsMapper = get(toolbarConfig?.buttonsMapper?.(), deviceName, []);
+  return { shouldCreate, getButtons, getTextPluginButtons, buttonsMapper };
 };
