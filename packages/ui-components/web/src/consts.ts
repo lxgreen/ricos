@@ -80,7 +80,7 @@ export const DesktopFlyOutModalStyles: ModalStyles = Object.freeze({
     overflow: 'visible',
     border: 'solid 1px rgba(51, 51, 51, 0.1)',
     display: 'block',
-    borderRadius: 'var(--ricos-settings-whitebox-border-radius, 0px)',
+    borderRadius: 'var(--ricos-settings-whitebox-border-radius, 2px)',
     boxShadow: 'var(--ricos-settings-whitebox-box-shadow)',
     // boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.06)',
     position: 'absolute',

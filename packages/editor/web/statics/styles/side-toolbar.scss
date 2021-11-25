@@ -18,7 +18,7 @@
   text-align: center;
   color: $secondary-text-color;
   pointer-events: initial;
-  fill: $settings-icons-color;
+  fill: $settings-action-color;
 
   &.sideToolbar_smallPlusIcon {
     height: 18px;
@@ -52,7 +52,7 @@
 }
 
 .plusIcon {
-  color: $settings-icons-color;
+  color: $settings-action-color;
   &:hover {
     opacity: 0.7;
   }
