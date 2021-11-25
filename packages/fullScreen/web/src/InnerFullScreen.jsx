@@ -89,7 +89,7 @@ export default class InnerFullscreen extends Component {
     let arrowsPosition = 0;
     let slideshowInfoSize = 0;
     if (this.props.isMobile) {
-      slideshowInfoSize = isHorizontalView ? 0 : 40;
+      slideshowInfoSize = isHorizontalView ? 0 : 80;
     } else if (!isInFullscreen) {
       arrowsPosition = 1;
       slideshowInfoSize = 142;
@@ -180,13 +180,8 @@ export default class InnerFullscreen extends Component {
   customArrowRenderer = direction => this.arrowRenderers[direction];
 
   getDimensions = () => {
-    const { isMobile } = this.props;
-    const { isInFullscreen } = this.state;
     const container = this.containerRef.current?.getBoundingClientRect?.();
-    let { width, height } = container;
-    const isHorizontalMobile = isMobile && width > height;
-    width = isInFullscreen || isMobile ? width : width - 18;
-    height = isInFullscreen || isHorizontalMobile ? height : isMobile ? height - 40 : height - 70;
+    const { width, height } = container;
     return { width, height };
   };
 
@@ -203,7 +198,11 @@ export default class InnerFullscreen extends Component {
           style={{ background: backgroundColor, ...topMargin }}
           dir="ltr"
           data-hook={'fullscreen-root'}
-          className={isInFullscreen || isMobile ? styles.fullscreen_mode : styles.expand_mode}
+          className={
+            isInFullscreen || (isMobile && isHorizontalView)
+              ? styles.fullscreen_mode
+              : styles.expand_mode
+          }
           ref={this.containerRef}
           onContextMenu={this.handleContextMenu}
           role="none"
