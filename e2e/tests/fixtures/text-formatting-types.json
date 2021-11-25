@@ -192,9 +192,18 @@
       "data": {}
     },
     {
-      "key": "bvmga",
-      "text": "",
-      "type": "unstyled",
+      "key": "58hgs",
+      "text": "This is a Code Block!\nWith another line",
+      "type": "code-block",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "84hql",
+      "text": "This is a Code Block!\nWith another line",
+      "type": "code-block",
       "depth": 0,
       "inlineStyleRanges": [],
       "entityRanges": [],
@@ -222,6 +231,32 @@
           "offset": 37,
           "length": 8,
           "key": 15
+        }
+      ],
+      "data": {}
+    },
+    {
+      "key": "dfgq6",
+      "text": "The @quick brown #fox jumps over the lazy dog ",
+      "type": "blockquote",
+      "depth": 0,
+      "inlineStyleRanges": [
+        {
+          "offset": 37,
+          "length": 8,
+          "style": "UNDERLINE"
+        }
+      ],
+      "entityRanges": [
+        {
+          "offset": 4,
+          "length": 6,
+          "key": 16
+        },
+        {
+          "offset": 37,
+          "length": 8,
+          "key": 17
         }
       ],
       "data": {}
@@ -385,10 +420,29 @@
       "mutability": "MUTABLE",
       "data": {
         "url": "wix.com",
+        "target": "_blank"
+      }
+    },
+    "16": {
+      "type": "mention",
+      "mutability": "SEGMENTED",
+      "data": {
+        "mention": {
+          "name": "quick",
+          "slug": "quick"
+        }
+      }
+    },
+    "17": {
+      "type": "LINK",
+      "mutability": "MUTABLE",
+      "data": {
+        "url": "wix.com",
         "target": "_blank",
         "rel": "noopener"
       }
     }
   },
-  "VERSION": "8.27.2"
+  "documentStyle": {},
+  "VERSION": "8.63.2"
 }
