@@ -8,6 +8,8 @@ export const DOC_STYLE_CLASSES = {
   headerFive: 'rich_content_H5',
   headerSix: 'rich_content_H6',
   paragraph: 'rich_content_P',
+  orderedList: 'rich-content-OL',
+  unorderedList: 'rich-content-UL',
 };
 
 export const DRAFT_TO_RICOS_CUSTOM_STYLES = {

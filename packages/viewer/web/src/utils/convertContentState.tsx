@@ -73,9 +73,13 @@ const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix, docum
       textDirection,
       blockProps,
       getBlockStyleClasses,
-      blockDataToStyle,
+      blockDataToStyle: ({ dynamicStyles }) => {
+        return {
+          ...kebabToCamelObjectKeys(documentStyle?.[DOC_STYLE_TYPES.P]),
+          ...blockDataToStyle({ dynamicStyles }),
+        };
+      },
       context,
-      listDocumentStyle: documentStyle?.[DOC_STYLE_TYPES.P],
     };
     return <List {...props} />;
   };

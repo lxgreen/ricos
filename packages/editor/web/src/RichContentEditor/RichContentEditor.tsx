@@ -83,6 +83,7 @@ import {
   PluginKeyBindings,
   CommandHandler,
   KeyCommand,
+  DOC_STYLE_TYPES,
 } from 'wix-rich-content-common';
 import editorStyles from '../../statics/styles/rich-content-editor.scss';
 import draftStyles from '../../statics/styles/draft.rtlignore.scss';
@@ -1257,6 +1258,11 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
           selector => (styles[DOC_STYLE_CLASSES[key] + selector] = this.objectToCss(values))
         );
       });
+      const paragrphStyle = documentStyle[DOC_STYLE_TYPES.P];
+      paragrphStyle &&
+        [DOC_STYLE_CLASSES.orderedList, DOC_STYLE_CLASSES.unorderedList].forEach(
+          className => (styles[className] = this.objectToCss(paragrphStyle))
+        );
     }
 
     blocks.forEach(block => {

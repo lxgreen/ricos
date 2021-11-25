@@ -13,7 +13,7 @@ import {
   getAnchorBlockData,
   getBlockStyleRanges,
 } from 'wix-rich-content-editor-common';
-import { cloneDeep, uniq, pick } from 'lodash';
+import { cloneDeep, uniq, pick, omit } from 'lodash';
 import {
   RicosCustomStyles,
   DocumentStyle,
@@ -37,7 +37,9 @@ export const getWiredFontStyles = (
   isMobile?: boolean
 ) => {
   const fontSizes = {};
-  Object.entries(DRAFT_TO_RICOS_DOC_TYPE).forEach(([draftHeader, ricosHeader]) => {
+  Object.entries(
+    omit(DRAFT_TO_RICOS_DOC_TYPE, ['ordered-list-item', 'unordered-list-item'])
+  ).forEach(([draftHeader, ricosHeader]) => {
     fontSizes[ricosHeader] = {
       'font-size':
         documentStyle?.[ricosHeader]?.['font-size'] ||
