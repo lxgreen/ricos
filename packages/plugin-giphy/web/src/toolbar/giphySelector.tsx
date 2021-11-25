@@ -18,7 +18,6 @@ import { GIFObject } from '../types';
 
 interface Props {
   pubsub: Pubsub;
-  helpers: Helpers;
   componentData: ComponentData;
   searchTag: string;
   gifs: GIFObject[];
@@ -105,17 +104,13 @@ class GiphySelector extends Component<Props, State> {
   };
 
   selectGif(gif) {
-    const { componentData, helpers, pubsub, onConfirm, onCloseRequested } = this.props;
+    const { componentData, pubsub, onConfirm, onCloseRequested } = this.props;
 
     if (onConfirm) {
       onConfirm({ ...componentData, gif });
     } else {
       pubsub.update('componentData', { gif });
     }
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore: name doesn't exist in label
-    helpers?.openModal?.(data => pubsub.update('componentData', { metadata: { ...data } }));
 
     onCloseRequested();
   }
