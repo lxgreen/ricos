@@ -1,7 +1,6 @@
 /* eslint-disable complexity */
-import { normalizeUrl } from 'wix-rich-content-common';
+import { normalizeUrl, uuid } from 'wix-rich-content-common';
 import { getAbsoluteUrl } from './baseUrlConverter';
-import { v4 as uuid } from 'uuid';
 
 /**
  * convertItemData - converts the old gallery metadata format to the new metaData format

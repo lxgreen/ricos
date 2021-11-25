@@ -19,10 +19,10 @@
 
 ### :bug: Bug Fix
 
-
+- `gallery`
+  - [#3136](https://github.com/wix/ricos/pull/3136) fix gallery items `itemId` generation
 - `plugin-giphy`
   - [#2312](https://github.com/wix/ricos/pull/2312) TS & Add missing hotkeys to giphy selector and more descriptive alt text
-
 - `fullscreen`
   - [#3162](https://github.com/wix/ricos/pull/3162) videos pause when scrolled out of view
   - [#3082](https://github.com/wix/ricos/pull/3082) image centered correctly on mobile

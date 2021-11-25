@@ -54,3 +54,5 @@ export {
   getDynamicInlineStyleMapper,
   draftDecorationsToCss,
 } from './Utils/viewerUtils';
+
+export { default as uuid } from './Utils/uuid';
