@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+
+</details>
+<hr/>
+
+
+## 8.63.3 (Nov 25, 2021)
+
 ### :bug: Bug Fix
 
 - `gallery`
@@ -26,10 +33,6 @@
 - `fullscreen`
   - [#3162](https://github.com/wix/ricos/pull/3162) videos pause when scrolled out of view
   - [#3082](https://github.com/wix/ricos/pull/3082) image centered correctly on mobile
-
-
-</details>
-<hr/>
 
 ## 8.63.2 (Nov 24, 2021)
 
