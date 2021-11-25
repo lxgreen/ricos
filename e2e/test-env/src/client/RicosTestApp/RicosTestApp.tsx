@@ -23,6 +23,7 @@ import { themes } from '../consumersThemes/themes';
 import { PaletteColors, DraftContent, SEOSettings } from 'wix-rich-content-common';
 import { EditorState } from '@wix/draft-js';
 import { merge } from 'lodash';
+import { customStylesMock } from './customStylesMock';
 
 const VIEWER_ONLY = false;
 const onVideoSelected = (url: string, updateEntity) => {
@@ -37,35 +38,6 @@ const determinePalette = (paletteType: 'light' | 'dark', fallbackColor?: string)
 const setBackground = (palette: PaletteColors, disableContainer: boolean) =>
   !disableContainer && palette ? { backgroundColor: palette.bgColor } : {};
 const setForeground = (palette: PaletteColors) => (palette ? { color: palette.textColor } : {});
-const customStyles = [
-  'h1',
-  'h2',
-  'h3',
-  'h4',
-  'h5',
-  'h6',
-  'p',
-  'quote',
-  'link',
-  'hashtag',
-  'button',
-].reduce(
-  (prev, curr) => ({
-    ...prev,
-    [curr]: {
-      fontFamily: 'Times',
-      fontSize: '40px',
-      color: 'orange',
-      fontStyle: 'italic',
-      textDecoration: 'underline',
-      fontWeight: 'bold',
-      lineHeight: '40px',
-      minHeight: '40px',
-      borderColor: 'brown',
-    },
-  }),
-  {}
-);
 
 interface RicosTestAppProps {
   isMobile: boolean;
@@ -139,7 +111,7 @@ class RicosTestApp extends PureComponent<RicosTestAppProps> {
         theme={{
           palette,
           paletteConfig: { contentBgColor, settingsActionColor, focusActionColor },
-          customStyles: useCustomStyles ? customStyles : {},
+          customStyles: useCustomStyles ? customStylesMock : {},
         }}
         cssOverride={consumerTheme ? consumerTheme : !skipCssOverride && theme}
         toolbarSettings={createToolbarSettings(addPluginMenuConfig, footerToolbarConfig)}
@@ -181,7 +153,7 @@ class RicosTestApp extends PureComponent<RicosTestAppProps> {
         theme={{
           palette,
           paletteConfig: { contentBgColor, settingsActionColor, focusActionColor },
-          customStyles: useCustomStyles ? customStyles : {},
+          customStyles: useCustomStyles ? customStylesMock : {},
         }}
         cssOverride={consumerTheme ? consumerTheme : !skipCssOverride && theme}
         seoSettings={seoMode}
