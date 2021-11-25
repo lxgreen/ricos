@@ -5,11 +5,7 @@ import MobilePanel from '../panels/MobilePanel';
 import DesktopPanel from '../panels/DesktopPanel';
 import UpdateHeadingPanel from './UpdateHeadingPanel';
 import classNames from 'classnames';
-import {
-  mergeStyles,
-  GlobalContext,
-  DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE,
-} from 'wix-rich-content-common';
+import { mergeStyles, GlobalContext, DOC_STYLE_TYPES } from 'wix-rich-content-common';
 import { HEADER_TYPE_MAP } from 'wix-rich-content-plugin-commons';
 import { getFontSizeNumber, hasStyleChanges } from '../../Toolbar/utils';
 import { omit, cloneDeep, pick, isEmpty } from 'lodash';
@@ -52,7 +48,7 @@ class HeadingsPanel extends Component {
 
   getUpdatePanelModal = heading => {
     const { t, currentSelect, currentInlineStyles, documentStyle } = this.props;
-    const documentStyleType = DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE[heading];
+    const documentStyleType = DOC_STYLE_TYPES[heading];
     const headerType = HEADER_TYPE_MAP[heading];
     return (
       <UpdateHeadingPanel
@@ -75,7 +71,7 @@ class HeadingsPanel extends Component {
       let customizeOptions = {};
       if (this.props.allowHeadingCustomization) {
         const { documentStyle, wiredFontStyles } = this.props;
-        const documentStyleType = DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE[heading];
+        const documentStyleType = DOC_STYLE_TYPES[heading];
         const optionWiredStyles = wiredFontStyles[documentStyleType];
         const subText = optionWiredStyles['font-size'];
         const fontSize = parseInt(getFontSizeNumber(subText)) > 20 ? '20px' : subText;

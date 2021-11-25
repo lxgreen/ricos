@@ -30,6 +30,7 @@ const List = ({
   getBlockStyleClasses,
   blockDataToStyle,
   context,
+  listDocumentStyle,
 }) => {
   const Component = ordered ? 'ol' : 'ul';
   const listType = ordered ? 'ordered' : 'unordered';
@@ -86,10 +87,15 @@ const List = ({
         const className = getBlockClassName(isNewList, listItemDirection, listType, depth);
         prevDepth = depth;
         const blockIndex = dataEntry.index;
-        const wrappedBlock = withInteraction(
+        let wrappedBlock = withInteraction(
           result.length === 0 ? ' ' : result,
           interactions,
           context
+        );
+        wrappedBlock = listDocumentStyle ? (
+          <span style={listDocumentStyle}>{wrappedBlock}</span>
+        ) : (
+          wrappedBlock
         );
         return (
           <li
@@ -121,6 +127,7 @@ List.propTypes = {
   mergedStyles: PropTypes.object,
   ordered: PropTypes.bool,
   textDirection: PropTypes.oneOf(['rtl', 'ltr']),
+  listDocumentStyle: PropTypes.object,
   context: PropTypes.shape({
     theme: PropTypes.object.isRequired,
     anchorTarget: PropTypes.string.isRequired,

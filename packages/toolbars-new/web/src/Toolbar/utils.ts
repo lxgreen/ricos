@@ -1,5 +1,5 @@
 import {
-  DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE,
+  DOC_STYLE_TYPES,
   DocumentStyle,
   EditorCommands,
   DRAFT_TO_RICOS_DOC_TYPE,
@@ -15,7 +15,7 @@ export const hasStyleChanges = (
   inlineStyles: Record<string, string>,
   documentStyle?: DocumentStyle
 ) => {
-  const headerStyle = documentStyle?.[DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE[currentHeading]] || {};
+  const headerStyle = documentStyle?.[DOC_STYLE_TYPES[currentHeading]] || {};
   return Object.entries(inlineStyles).some(([key, value]) => headerStyle[key] !== value);
 };
 

@@ -13,6 +13,7 @@ import {
   LegacyViewerPluginConfig,
   InlineStyleMapperFunction,
   DocumentStyle,
+  DOC_STYLE_TYPES,
 } from 'wix-rich-content-common';
 import redraft from 'wix-redraft';
 import classNames from 'classnames';
@@ -74,6 +75,7 @@ const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix, docum
       getBlockStyleClasses,
       blockDataToStyle,
       context,
+      listDocumentStyle: documentStyle?.[DOC_STYLE_TYPES.P],
     };
     return <List {...props} />;
   };
@@ -100,13 +102,12 @@ const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix, docum
 
         const _child = isEmptyBlock(child) ? <br role="presentation" /> : child;
 
-        const nodeStyle = kebabToCamelObjectKeys(
-          documentStyle?.[style === 'text' ? 'paragraph' : style]
-        );
+        const nodeStyle = documentStyle?.[style === 'text' ? DOC_STYLE_TYPES.P : style];
+        const parsedNodeStyle = kebabToCamelObjectKeys(nodeStyle);
         const content = isEmpty(nodeStyle) ? (
           _child
         ) : (
-          <span className={styles.overrideLinkColor} style={nodeStyle}>
+          <span className={nodeStyle.color && styles.overrideLinkColor} style={parsedNodeStyle}>
             {_child}
           </span>
         );

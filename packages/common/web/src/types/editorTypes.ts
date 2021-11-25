@@ -54,7 +54,7 @@ export type TextToolbarType = 'inline' | 'static';
 export type SetEditorState = (editorState: EditorState) => void;
 export type GetEditorState = () => EditorState;
 
-export const DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE = {
+export const DOC_STYLE_TYPES = {
   P: 'paragraph',
   H1: 'headerOne',
   H2: 'headerTwo',
@@ -72,4 +72,6 @@ export const DRAFT_TO_RICOS_DOC_TYPE = {
   [HEADER_BLOCK.FIVE]: 'headerFive',
   [HEADER_BLOCK.SIX]: 'headerSix',
   [HEADER_BLOCK.PARAGRAPH]: 'paragraph',
+  'ordered-list-item': 'paragraph',
+  'unordered-list-item': 'paragraph',
 };
