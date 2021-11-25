@@ -16,6 +16,7 @@ export default class InnerFullscreen extends Component {
     this.getItems();
     this.containerRef = React.createRef();
     this.currentIdx = props.index;
+    this.pauseChildNodesVideos(document);
   }
 
   static defaultProps = {
@@ -39,6 +40,9 @@ export default class InnerFullscreen extends Component {
         .focus();
     });
   };
+
+  pauseChildNodesVideos = element =>
+    Array.from(element.getElementsByTagName('video'))?.forEach(video => video.pause());
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.onEsc);
@@ -141,6 +145,10 @@ export default class InnerFullscreen extends Component {
 
   handleGalleryEvents = (name, data) => {
     if (name === 'CURRENT_ITEM_CHANGED') {
+      const previousItem = this.items[this.currentIdx];
+      if (previousItem?.metaData?.type === 'video') {
+        this.pauseChildNodesVideos(document.querySelector(`[data-id='${previousItem.itemId}']`));
+      }
       this.currentIdx = parseInt(data.itemId.split('_').pop());
     }
   };

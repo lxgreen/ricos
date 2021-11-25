@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `fullscreen`
+  - [#3162](https://github.com/wix/ricos/pull/3162) videos pause when scrolled out of view
+
 </details>
 <hr/>
 
