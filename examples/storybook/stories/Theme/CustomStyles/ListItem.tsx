@@ -1,7 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useCallback } from 'react';
 import { CloseButton, Dropdown, Input } from 'wix-style-react';
 import { StyleAttr, CustomStyles } from './types';
 import styles from './StylesPanel.scss';
+import { throttle } from 'lodash';
 
 interface Props {
   item: StyleAttr;
@@ -54,6 +55,16 @@ const propertyList = (element: keyof typeof elementsStyles) =>
 
 const ListItem: FunctionComponent<Props> = ({ item, updateStyle, close }) => {
   const [element, property, value] = item;
+  const incDecValue = (key: string) => {
+    const inputRegExpArr = value.match(/^(-*\d+)(px|em)$/);
+    if (!inputRegExpArr || (key !== 'ArrowUp' && key !== 'ArrowDown')) {
+      return;
+    }
+    const [, num, unit] = inputRegExpArr;
+    const newNum = Number(num) + (key === 'ArrowUp' ? 1 : -1);
+    updateStyle([element, property, `${newNum}${unit}`]);
+  };
+  const keyEventHandler = useCallback(throttle(incDecValue, 10, { leading: false }), [value]);
   return (
     <div className={styles.container}>
       <CloseButton skin="standardFilled" size="medium" onClick={close} className={styles.close} />
@@ -75,6 +86,7 @@ const ListItem: FunctionComponent<Props> = ({ item, updateStyle, close }) => {
         placeholder="Value"
         value={value}
         onChange={e => updateStyle([element, property, e.currentTarget.value])}
+        onKeyDown={e => keyEventHandler(e.key)}
       />
     </div>
   );
