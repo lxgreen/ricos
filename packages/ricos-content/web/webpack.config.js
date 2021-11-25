@@ -17,7 +17,7 @@ try {
 } catch (_) {}
 
 const config = {
-  mode: 'development',
+  mode: 'production',
   optimization: {
     usedExports: true,
   },
