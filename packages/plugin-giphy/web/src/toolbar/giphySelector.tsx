@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { mergeStyles } from 'wix-rich-content-common';
+import {
+  Pubsub,
+  Helpers,
+  ComponentData,
+  RichContentTheme,
+  TranslationFunction,
+  mergeStyles,
+} from 'wix-rich-content-common';
 import InfiniteScroll from 'react-infinite-scroller';
 import MDSpinner from 'react-md-spinner';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -8,8 +14,38 @@ import { SEARCH_TYPE, PAGE_SIZE, WAIT_INTERVAL } from '../constants';
 import { PoweredByGiphy } from '../icons';
 import GiphyEmptyState from './giphyEmptyState';
 import styles from '../../statics/styles/giphy-selecter.scss';
+import { GIFObject } from '../types';
 
-class GiphySelector extends Component {
+interface Props {
+  pubsub: Pubsub;
+  helpers: Helpers;
+  componentData: ComponentData;
+  searchTag: string;
+  gifs: GIFObject[];
+  onCloseRequested: () => void);
+  onConfirm: (arg: unknown) => void;
+  theme: RichContentTheme;
+  t: TranslationFunction;
+  giphySdkApiKey: string;
+}
+
+interface State {
+  gifs: GIFObject[];
+  hasMoreItems: boolean;
+  page: number;
+  didFail: boolean;
+  url: string;
+  isLoaded: boolean;
+}
+
+class GiphySelector extends Component<Props, State> {
+  giphySdkCore;
+
+  styles: Record<string, string>;
+
+
+  timer;
+
   constructor(props) {
     super(props);
     const { componentData } = this.props;
@@ -26,7 +62,7 @@ class GiphySelector extends Component {
     this.giphySdkCore = gphApiClient(this.props.giphySdkApiKey);
   }
 
-  getGifs = (searchTag, page) => {
+  getGifs = (searchTag, page?) => {
     if (searchTag) {
       this.giphySdkCore
         .search(SEARCH_TYPE, { q: searchTag, offset: page * PAGE_SIZE, limit: PAGE_SIZE })
@@ -78,9 +114,9 @@ class GiphySelector extends Component {
       pubsub.update('componentData', { gif });
     }
 
-    if (helpers) {
-      helpers.openModal(data => pubsub.update('componentData', { metadata: { ...data } }));
-    }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore: name doesn't exist in label
+    helpers?.openModal?.(data => pubsub.update('componentData', { metadata: { ...data } }));
 
     onCloseRequested();
   }
@@ -109,7 +145,7 @@ class GiphySelector extends Component {
       const { onCloseRequested } = this.props;
 
       if (e.key === 'Escape') {
-        onCloseRequested();
+        onCloseRequested?.();
       }
 
       if (e.key === 'Enter' || e.key === ' ') {
@@ -162,7 +198,7 @@ class GiphySelector extends Component {
                     <div
                       key={i}
                       role="button"
-                      tabIndex="0"
+                      tabIndex={0}
                       className={styles.giphy_selecter_gif_img_container}
                       onKeyDown={this.getBoundKeyDown(giphy)}
                       onClick={this.getBoundOnClick(giphy)}
@@ -170,7 +206,7 @@ class GiphySelector extends Component {
                       <img
                         className={styles.giphy_selecter_gif_img}
                         src={giphy.images.fixed_width_downsampled.url}
-                        alt={giphy.title}
+                        alt={giphy.title || 'gif'}
                       />
                     </div>
                   );
@@ -189,18 +225,5 @@ class GiphySelector extends Component {
     );
   }
 }
-
-GiphySelector.propTypes = {
-  pubsub: PropTypes.object,
-  helpers: PropTypes.object.isRequired,
-  componentData: PropTypes.object.isRequired,
-  searchTag: PropTypes.string,
-  gifs: PropTypes.array,
-  onCloseRequested: PropTypes.func,
-  onConfirm: PropTypes.func,
-  theme: PropTypes.object.isRequired,
-  t: PropTypes.func,
-  giphySdkApiKey: PropTypes.string.isRequired,
-};
 
 export default GiphySelector;
