@@ -1,4 +1,3 @@
-import { FileData } from 'ricos-schema/src/generated/wix/rich_content/v1/plugin_file';
 /* eslint-disable no-unused-vars */
 
 import { toDraft, fromDraft } from '../..';
@@ -17,6 +16,7 @@ import {
   Decoration_Type,
   RichContent,
   ImageData,
+  FileData,
   PluginContainerData_Width_Type,
   PluginContainerData_Alignment,
 } from 'ricos-schema';

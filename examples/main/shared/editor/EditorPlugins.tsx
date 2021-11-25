@@ -869,6 +869,18 @@ const config: RichContentEditorProps['config'] = {
           ],
         },
       }),
+      // buttonsMapper: () => ({
+      //   desktop: {
+      //     Bold: {
+      //       icon: () => <div>bla</div>,
+      //       tooltip: 'blabla',
+      //     },
+      //   },
+      //   mobile: {
+      //     ios: {},
+      //     android: {},
+      //   },
+      // }),
       // getTextPluginButtons: () => {
       //   return {
       //     desktop: {

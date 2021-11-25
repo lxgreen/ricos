@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable fp/no-loops */
 import React from 'react';
+import { merge, cloneDeep } from 'lodash';
 import { scrollToBlock } from 'wix-rich-content-editor-common';
 import {
   RICOS_LINK_TYPE,
@@ -9,6 +10,8 @@ import {
   normalizeUrl,
   CUSTOM_LINK,
   SPOILER_TYPE,
+  TranslationFunction,
+  AvailableExperiments,
 } from 'wix-rich-content-common';
 import { AlignTextCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon } from '../icons';
 import {
@@ -27,42 +30,58 @@ import {
   inlineOverrideStyles,
 } from './buttonsListCreatorConsts';
 import { HEADER_TYPE_MAP } from 'wix-rich-content-plugin-commons';
+import { RicosTheme } from 'ricos-common';
 import {
   convertRelStringToObject,
   convertRelObjectToString,
 } from 'wix-rich-content-common/libs/linkConverters';
 import { getFontSizeNumber, hasStyleChanges, getBlockStyle } from './utils';
 import style from './ToolbarButtonNew.scss';
+import { linkPanelDataType, defaultLineSpacingType } from './RicosToolbar';
 
 type editorCommands = EditorCommands;
 
-export const createButtonsList = (
-  formattingButtonsKeys,
-  editorCommands: editorCommands,
+export const createButtonsList = ({
+  buttons,
+  editorCommands,
   t,
   linkPanelData,
   colorPickerData,
   headingsData,
   defaultLineSpacing,
   experiments,
-  theme
-) => {
+  theme,
+  configButtonsMapper,
+}: {
+  buttons: any;
+  editorCommands: editorCommands;
+  t: TranslationFunction;
+  linkPanelData?: linkPanelDataType;
+  colorPickerData: any;
+  headingsData: any;
+  defaultLineSpacing?: defaultLineSpacingType;
+  experiments?: AvailableExperiments;
+  theme?: RicosTheme;
+  configButtonsMapper: any;
+}) => {
+  const buttonsMapper = cloneDeep(buttonsFullData);
+  merge(buttonsMapper, configButtonsMapper);
   const buttonsList: any[] = [];
   const osName: string | null = findOsName();
-  formattingButtonsKeys.forEach((buttonKey, index) => {
+  buttons.forEach((buttonKey, index) => {
     if (buttonKey?.type === 'component') {
       buttonsList.push(buttonKey);
     } else {
       handleButtonName(buttonsList, buttonKey, index);
-      handleButtonType(buttonsList, index);
-      handleButtonIcon(buttonsList, index, editorCommands);
-      handleButtonDataHook(buttonsList, index);
-      handleButtIsMobileModalFullscreen(buttonsList, index);
-      handleButtonTooltip(buttonsList, index, t, osName);
-      handleButtonPlugin(buttonsList, index);
-      handleButtonLabel(buttonsList, index, editorCommands, t, headingsData);
-      handleButtonArrow(buttonsList, index);
-      handleUseIconOnMobile(buttonsList, index);
+      handleButtonType(buttonsList, index, buttonsMapper);
+      handleButtonIcon(buttonsList, index, editorCommands, buttonsMapper);
+      handleButtonDataHook(buttonsList, index, buttonsMapper);
+      handleButtIsMobileModalFullscreen(buttonsList, index, buttonsMapper);
+      handleButtonTooltip(buttonsList, index, t, osName, buttonsMapper);
+      handleButtonPlugin(buttonsList, index, buttonsMapper);
+      handleButtonLabel(buttonsList, index, editorCommands, t, headingsData, buttonsMapper);
+      handleButtonArrow(buttonsList, index, buttonsMapper);
+      handleUseIconOnMobile(buttonsList, index, buttonsMapper);
       handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData, experiments);
       handleButtonIsActive(buttonsList, index, editorCommands);
       handleButtonIsDisabled(buttonsList, index, editorCommands);
@@ -74,36 +93,37 @@ export const createButtonsList = (
         headingsData,
         t,
         defaultLineSpacing,
-        theme
+        theme,
+        buttonsMapper
       );
-      handleButtonOnSave(buttonsList, index, editorCommands);
-      handleButtonOnCancel(buttonsList, index, editorCommands);
-      handleButtonOnChange(buttonsList, index, editorCommands, headingsData);
-      handleButtonOnDone(buttonsList, index, editorCommands);
-      handleButtonOnDelete(buttonsList, index, editorCommands);
+      handleButtonOnSave(buttonsList, index, editorCommands, buttonsMapper);
+      handleButtonOnCancel(buttonsList, index, editorCommands, buttonsMapper);
+      handleButtonOnChange(buttonsList, index, editorCommands, headingsData, buttonsMapper);
+      handleButtonOnDone(buttonsList, index, editorCommands, buttonsMapper);
+      handleButtonOnDelete(buttonsList, index, editorCommands, buttonsMapper);
       // handleGroupButtons(buttonsList, buttonKey, index, editorCommands);
-      buttonKey === 'Title' && handleTitleButton(buttonsList, index, editorCommands);
-      handleButtonSaveState(buttonsList, index, editorCommands);
-      handleButtonSaveSelection(buttonsList, index, editorCommands);
-      handleButtonLoadSelection(buttonsList, index, editorCommands);
-      handleButtonColorPicker(buttonsList, index, editorCommands, colorPickerData);
+      buttonKey === 'Title' && handleTitleButton(buttonsList, index, editorCommands, buttonsMapper);
+      handleButtonSaveState(buttonsList, index, editorCommands, buttonsMapper);
+      handleButtonSaveSelection(buttonsList, index, editorCommands, buttonsMapper);
+      handleButtonLoadSelection(buttonsList, index, editorCommands, buttonsMapper);
+      handleButtonColorPicker(buttonsList, index, editorCommands, colorPickerData, buttonsMapper);
       handleButtonText(buttonsList, index, editorCommands, t);
-      handleButtonIsInput(buttonsList, index);
-      handleButtonCloseOnChange(buttonsList, index);
+      handleButtonIsInput(buttonsList, index, buttonsMapper);
+      handleButtonCloseOnChange(buttonsList, index, buttonsMapper);
     }
   });
   return buttonsList;
 };
 
-const handleButtonIsInput = (buttonsList, index) => {
-  if (buttonsFullData[buttonsList[index].name].isInput) {
-    buttonsList[index].isInput = buttonsFullData[buttonsList[index].name].isInput;
+const handleButtonIsInput = (buttonsList, index, buttonsMapper) => {
+  if (buttonsMapper[buttonsList[index].name].isInput) {
+    buttonsList[index].isInput = buttonsMapper[buttonsList[index].name].isInput;
   }
 };
 
-const handleButtonCloseOnChange = (buttonsList, index) => {
-  if (buttonsFullData[buttonsList[index].name].closeOnChange) {
-    buttonsList[index].closeOnChange = buttonsFullData[buttonsList[index].name].closeOnChange;
+const handleButtonCloseOnChange = (buttonsList, index, buttonsMapper) => {
+  if (buttonsMapper[buttonsList[index].name].closeOnChange) {
+    buttonsList[index].closeOnChange = buttonsMapper[buttonsList[index].name].closeOnChange;
   }
 };
 
@@ -119,9 +139,10 @@ const handleButtonColorPicker = (
   buttonsList,
   index,
   editorCommands: editorCommands,
-  colorPickerData
+  colorPickerData,
+  buttonsMapper
 ) => {
-  if (buttonsFullData[buttonsList[index].name].type === 'color-picker') {
+  if (buttonsMapper[buttonsList[index].name].type === 'color-picker') {
     const buttonName = buttonsList[index].name;
     const blockStyle = getBlockStyle(editorCommands);
     buttonsList[index].getCurrentColor = () =>
@@ -147,13 +168,18 @@ const handleButtonColorPicker = (
     buttonsList[index].onResetColor = () => {
       editorCommands.insertDecoration(colorTypes[buttonName]);
     };
-    buttonsList[index].colorPickerHeaderKey = buttonsFullData[buttonName].colorPickerHeaderKey;
+    buttonsList[index].colorPickerHeaderKey = buttonsMapper[buttonName].colorPickerHeaderKey;
     buttonsList[index].withColoredIcon = true;
   }
 };
 
-const handleButtonOnDelete = (buttonsList, index, editorCommands: editorCommands) => {
-  if (buttonsFullData[buttonsList[index].name].onDelete) {
+const handleButtonOnDelete = (
+  buttonsList,
+  index,
+  editorCommands: editorCommands,
+  buttonsMapper
+) => {
+  if (buttonsMapper[buttonsList[index].name].onDelete) {
     const buttonName = buttonsList[index].name;
     if (buttonName === 'LINK' || buttonName === 'editLink') {
       buttonsList[index].onDelete = () => {
@@ -163,8 +189,8 @@ const handleButtonOnDelete = (buttonsList, index, editorCommands: editorCommands
   }
 };
 
-const handleButtonOnDone = (buttonsList, index, editorCommands: editorCommands) => {
-  if (buttonsFullData[buttonsList[index].name].onDone) {
+const handleButtonOnDone = (buttonsList, index, editorCommands: editorCommands, buttonsMapper) => {
+  if (buttonsMapper[buttonsList[index].name].onDone) {
     const buttonName = buttonsList[index].name;
     if (buttonName === 'LINK' || buttonName === 'editLink') {
       buttonsList[index].onDone = data => {
@@ -174,8 +200,14 @@ const handleButtonOnDone = (buttonsList, index, editorCommands: editorCommands) 
   }
 };
 
-const handleButtonOnChange = (buttonsList, index, editorCommands: editorCommands, headingsData) => {
-  if (buttonsFullData[buttonsList[index].name].onChange) {
+const handleButtonOnChange = (
+  buttonsList,
+  index,
+  editorCommands: editorCommands,
+  headingsData,
+  buttonsMapper
+) => {
+  if (buttonsMapper[buttonsList[index].name].onChange) {
     const buttonName = buttonsList[index].name;
     if (['LINE_SPACING', 'FONT_SIZE'].includes(buttonName)) {
       buttonsList[index].onChange = value => {
@@ -190,8 +222,13 @@ const handleButtonOnChange = (buttonsList, index, editorCommands: editorCommands
   }
 };
 
-const handleButtonOnCancel = (buttonsList, index, editorCommands: editorCommands) => {
-  if (buttonsFullData[buttonsList[index].name].onCancel) {
+const handleButtonOnCancel = (
+  buttonsList,
+  index,
+  editorCommands: editorCommands,
+  buttonsMapper
+) => {
+  if (buttonsMapper[buttonsList[index].name].onCancel) {
     const buttonName = buttonsList[index].name;
     if (buttonName === 'LINE_SPACING') {
       buttonsList[index].onCancel = () => editorCommands.loadEditorState();
@@ -199,8 +236,13 @@ const handleButtonOnCancel = (buttonsList, index, editorCommands: editorCommands
   }
 };
 
-const handleButtonSaveState = (buttonsList, index, editorCommands: editorCommands) => {
-  if (buttonsFullData[buttonsList[index].name].saveState) {
+const handleButtonSaveState = (
+  buttonsList,
+  index,
+  editorCommands: editorCommands,
+  buttonsMapper
+) => {
+  if (buttonsMapper[buttonsList[index].name].saveState) {
     buttonsList[index].saveState = () => {
       editorCommands.saveSelectionState();
       editorCommands.saveEditorState();
@@ -208,23 +250,33 @@ const handleButtonSaveState = (buttonsList, index, editorCommands: editorCommand
   }
 };
 
-const handleButtonLoadSelection = (buttonsList, index, editorCommands: editorCommands) => {
-  if (buttonsFullData[buttonsList[index].name].loadSelection) {
+const handleButtonLoadSelection = (
+  buttonsList,
+  index,
+  editorCommands: editorCommands,
+  buttonsMapper
+) => {
+  if (buttonsMapper[buttonsList[index].name].loadSelection) {
     buttonsList[index].loadSelection = () => {
       setTimeout(() => editorCommands.loadSelectionState());
     };
   }
 };
 
-const handleButtonSaveSelection = (buttonsList, index, editorCommands: editorCommands) => {
-  if (buttonsFullData[buttonsList[index].name].saveSelection) {
+const handleButtonSaveSelection = (
+  buttonsList,
+  index,
+  editorCommands: editorCommands,
+  buttonsMapper
+) => {
+  if (buttonsMapper[buttonsList[index].name].saveSelection) {
     buttonsList[index].saveSelection = () => {
       editorCommands.saveSelectionState();
     };
   }
 };
 
-const handleTitleButton = (buttonsList, index, editorCommands: editorCommands) => {
+const handleTitleButton = (buttonsList, index, editorCommands: editorCommands, buttonsMapper) => {
   const currentHeading = getCurrentHeading(editorCommands);
   let headingKey;
   switch (currentHeading) {
@@ -238,14 +290,14 @@ const handleTitleButton = (buttonsList, index, editorCommands: editorCommands) =
       headingKey = 'unstyled';
       break;
   }
-  buttonsList[index].getIcon = () => buttonsFullData[buttonsList[index].name][headingKey].icon;
+  buttonsList[index].getIcon = () => buttonsMapper[buttonsList[index].name][headingKey].icon;
   buttonsList[index].onClick = () =>
-    editorCommands.setBlockType(buttonsFullData[buttonsList[index].name][headingKey].action);
+    editorCommands.setBlockType(buttonsMapper[buttonsList[index].name][headingKey].action);
   buttonsList[index].isActive = () => headingKey === 'header-three' || headingKey === 'header-two';
 };
 
-const handleButtonOnSave = (buttonsList, index, editorCommands: editorCommands) => {
-  if (buttonsFullData[buttonsList[index].name].onSave) {
+const handleButtonOnSave = (buttonsList, index, editorCommands: editorCommands, buttonsMapper) => {
+  if (buttonsMapper[buttonsList[index].name].onSave) {
     const buttonName = buttonsList[index].name;
     if (Object.keys(textBlockButtons).includes(buttonName)) {
       buttonsList[index].onSave = type => {
@@ -282,13 +334,14 @@ const handleButtonModal = (
   headingsData,
   t,
   defaultLineSpacing,
-  theme
+  theme,
+  buttonsMapper
 ) => {
   const buttonName = buttonsList[index].name;
-  if (buttonsFullData[buttonName].modal) {
-    buttonsList[index].modal = buttonsFullData[buttonName].modal;
+  if (buttonsMapper[buttonName].modal) {
+    buttonsList[index].modal = buttonsMapper[buttonName].modal;
     if (buttonName === 'HEADINGS') {
-      const Modal = buttonsFullData[buttonName].modal;
+      const Modal = buttonsMapper[buttonName].modal;
       const currentHeading = HEADER_TYPE_MAP[getCurrentHeading(editorCommands)];
       const documentStyle = editorCommands.getDocumentStyle();
       buttonsList[index].modal = props =>
@@ -306,10 +359,10 @@ const handleButtonModal = (
         );
     } else if (buttonName === 'Alignment') {
       const alignment = editorCommands.getTextAlignment();
-      const Modal = buttonsFullData[buttonName].modal;
+      const Modal = buttonsMapper[buttonName].modal;
       buttonsList[index].modal = props => Modal && <Modal {...props} currentSelect={alignment} />;
     } else if (buttonName === 'LINE_SPACING') {
-      const Modal = buttonsFullData[buttonName].modal;
+      const Modal = buttonsMapper[buttonName].modal;
       const currentSpacing = editorCommands.getBlockSpacing();
       const spacing = getSpacing(currentSpacing, defaultLineSpacing);
       buttonsList[index].modal = props => Modal && <Modal {...props} currentSelect={spacing} />;
@@ -323,7 +376,7 @@ const handleButtonModal = (
         buttonsList[index].type = 'button';
         buttonsList[index].onClick = () => onLinkAdd(customLinkData, callback);
       } else {
-        const Modal = buttonsFullData[buttonName].modal;
+        const Modal = buttonsMapper[buttonName].modal;
         const anchorableBlocks = editorCommands.getAnchorableBlocks();
         const linkSettingsData = handleLinkSettings(linkSettings);
         buttonsList[index].modal = props =>
@@ -340,7 +393,7 @@ const handleButtonModal = (
           );
       }
     } else if (buttonName === 'FONT_SIZE') {
-      const Modal = buttonsFullData[buttonName].modal;
+      const Modal = buttonsMapper[buttonName].modal;
       buttonsList[index].modal = props =>
         Modal && <Modal {...props} currentSelect={getFontSize(editorCommands)} t={t} />;
     }
@@ -439,15 +492,15 @@ const handleButtonOnClick = (
   }
 };
 
-const handleButtonArrow = (buttonsList, index) => {
-  if (buttonsFullData[buttonsList[index].name].arrow) {
-    buttonsList[index].arrow = buttonsFullData[buttonsList[index].name].arrow;
+const handleButtonArrow = (buttonsList, index, buttonsMapper) => {
+  if (buttonsMapper[buttonsList[index].name].arrow) {
+    buttonsList[index].arrow = buttonsMapper[buttonsList[index].name].arrow;
   }
 };
 
-const handleUseIconOnMobile = (buttonsList, index) => {
-  if (buttonsFullData[buttonsList[index].name].useIconOnMobile) {
-    buttonsList[index].useIconOnMobile = buttonsFullData[buttonsList[index].name].useIconOnMobile;
+const handleUseIconOnMobile = (buttonsList, index, buttonsMapper) => {
+  if (buttonsMapper[buttonsList[index].name].useIconOnMobile) {
+    buttonsList[index].useIconOnMobile = buttonsMapper[buttonsList[index].name].useIconOnMobile;
   }
 };
 
@@ -474,10 +527,17 @@ const getHeadingsLabel = (editorCommands: editorCommands, t, headingsData) => {
   return label;
 };
 
-const handleButtonLabel = (buttonsList, index, editorCommands: editorCommands, t, headingsData) => {
+const handleButtonLabel = (
+  buttonsList,
+  index,
+  editorCommands: editorCommands,
+  t,
+  headingsData,
+  buttonsMapper
+) => {
   const buttonName = buttonsList[index].name;
-  if (buttonsFullData[buttonName].label) {
-    buttonsList[index].getLabel = () => buttonsFullData[buttonName].label;
+  if (buttonsMapper[buttonName].label) {
+    buttonsList[index].getLabel = () => buttonsMapper[buttonName].label;
     if (buttonName === 'HEADINGS') {
       buttonsList[index].getLabel = () => getHeadingsLabel(editorCommands, t, headingsData);
     } else if (buttonName === 'FONT_SIZE') {
@@ -486,11 +546,11 @@ const handleButtonLabel = (buttonsList, index, editorCommands: editorCommands, t
   }
 };
 
-const handleButtonTooltip = (buttonsList, index, t, osName) => {
-  if (buttonsFullData[buttonsList[index].name].tooltip) {
-    const tooltipShortcut = buttonsFullData[buttonsList[index].name].tooltipShortcut;
+const handleButtonTooltip = (buttonsList, index, t, osName, buttonsMapper) => {
+  if (buttonsMapper[buttonsList[index].name].tooltip) {
+    const tooltipShortcut = buttonsMapper[buttonsList[index].name].tooltipShortcut;
     buttonsList[index].tooltip = t(
-      buttonsFullData[buttonsList[index].name].tooltip,
+      buttonsMapper[buttonsList[index].name].tooltip,
       tooltipShortcut &&
         osName && {
           shortcut: tooltipShortcut[osName],
@@ -499,29 +559,29 @@ const handleButtonTooltip = (buttonsList, index, t, osName) => {
   }
 };
 
-const handleButtonPlugin = (buttonsList, index) => {
-  if (buttonsFullData[buttonsList[index].name].plugin) {
-    buttonsList[index].plugin = buttonsFullData[buttonsList[index].name].plugin;
+const handleButtonPlugin = (buttonsList, index, buttonsMapper) => {
+  if (buttonsMapper[buttonsList[index].name].plugin) {
+    buttonsList[index].plugin = buttonsMapper[buttonsList[index].name].plugin;
   }
 };
 
-const handleButtonDataHook = (buttonsList, index) => {
-  if (buttonsFullData[buttonsList[index].name].dataHook) {
-    buttonsList[index].dataHook = buttonsFullData[buttonsList[index].name].dataHook;
+const handleButtonDataHook = (buttonsList, index, buttonsMapper) => {
+  if (buttonsMapper[buttonsList[index].name].dataHook) {
+    buttonsList[index].dataHook = buttonsMapper[buttonsList[index].name].dataHook;
   }
 };
 
-const handleButtIsMobileModalFullscreen = (buttonsList, index) => {
-  if (buttonsFullData[buttonsList[index].name].isMobileModalFullscreen) {
+const handleButtIsMobileModalFullscreen = (buttonsList, index, buttonsMapper) => {
+  if (buttonsMapper[buttonsList[index].name].isMobileModalFullscreen) {
     buttonsList[index].isMobileModalFullscreen =
-      buttonsFullData[buttonsList[index].name].isMobileModalFullscreen;
+      buttonsMapper[buttonsList[index].name].isMobileModalFullscreen;
   }
 };
 
-const handleButtonIcon = (buttonsList, index, editorCommands: editorCommands) => {
+const handleButtonIcon = (buttonsList, index, editorCommands: editorCommands, buttonsMapper) => {
   const buttonName = buttonsList[index].name;
-  if (buttonsFullData[buttonName].icon) {
-    buttonsList[index].getIcon = () => buttonsFullData[buttonsList[index].name].icon;
+  if (buttonsMapper[buttonName].icon) {
+    buttonsList[index].getIcon = () => buttonsMapper[buttonsList[index].name].icon;
   } else if (buttonName === 'Alignment') {
     buttonsList[index].getIcon = () => handleAlignmentIcon(editorCommands);
   } else if (buttonName === 'HEADINGS') {
@@ -549,9 +609,9 @@ const handleAlignmentIcon = editorCommands => {
   return alignmentIcon;
 };
 
-const handleButtonType = (buttonsList, index) => {
-  if (buttonsFullData[buttonsList[index].name]?.type) {
-    buttonsList[index].type = buttonsFullData[buttonsList[index].name].type;
+const handleButtonType = (buttonsList, index, buttonsMapper) => {
+  if (buttonsMapper[buttonsList[index].name]?.type) {
+    buttonsList[index].type = buttonsMapper[buttonsList[index].name].type;
   } else {
     console.error(
       `${buttonsList[index].name} button not found (need to be declared in buttonsListCreatorConsts.tsx)`

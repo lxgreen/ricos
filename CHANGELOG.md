@@ -25,6 +25,13 @@
 </details>
 <hr/>
 
+## 8.63.2 (Nov 24, 2021)
+
+### :nail_care: Polish
+
+- `ricos-schema`
+  - [#3140](https://github.com/wix/ricos/pull/3140) Expose RichContent based on integer enum
+
 ## 8.63.1 (Nov 23, 2021)
 
 ### :bug: Bug Fix
