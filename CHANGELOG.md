@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `video - ui-components`
+  - [#3159](https://github.com/wix/ricos/pull/3159) move upload modal-UI into ui-components
 
 </details>
 <hr/>

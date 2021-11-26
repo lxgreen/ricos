@@ -24,7 +24,7 @@ const VideoModal = props => {
   const [submittedInvalidUrl, setSubmittedInvalidUrl] = useState(false);
   const isSoundCloud = type === videoButtonsTypes.soundCloud;
   const onTabSelected = tab => setActiveTab(tab);
-
+  const onUrlInputDoubleClick = () => setUrl('https://www.youtube.com/watch?v=vzKryaN44ss');
   const onConfirm = () => {
     if (url && ReactPlayer.canPlay(url)) {
       const { componentData, helpers, pubsub, onConfirm } = props;
@@ -66,6 +66,7 @@ const VideoModal = props => {
         title={isSoundCloud && title}
         saveLabel={isSoundCloud ? t('Embed_Add_Button_Label') : t('VideoModal_Embed_ButtonText')}
         subTitle={!isSoundCloud && t('VideoModal_Embed_Title')}
+        onDblClick={onUrlInputDoubleClick}
       />
     );
   };
