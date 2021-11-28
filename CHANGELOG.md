@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3165](https://github.com/wix/ricos/pull/3165) fix height issues on scroll direction change
+
 ### :house: Internal
 
 - `video - ui-components`
