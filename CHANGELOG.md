@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3165](https://github.com/wix/ricos/pull/3165) fix height issues on scroll direction change
+- `file-upload`
+  - [#3167](https://github.com/wix/ricos/pull/3167) fix icon colors wiring
+
 ### :house: Internal
 
 - `video - ui-components`

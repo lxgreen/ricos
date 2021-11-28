@@ -4,7 +4,11 @@ import React from 'react';
 const folderIcon = ({ styles, ...rest }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="42" viewBox="0 0 40 42" {...rest}>
     <g fill="none" fillRule="evenodd">
-      <path fill="#FFF" d="M0 0H4823V3877H0z" transform="translate(-1761 -3612)" />
+      <path
+        className={styles.file_upload_icon_background}
+        d="M0 0H4823V3877H0z"
+        transform="translate(-1761 -3612)"
+      />
       <path d="M1761 3612H1801V3654H1761z" transform="translate(-1761 -3612)" />
       <g className={styles.file_upload_icon_frame}>
         <path

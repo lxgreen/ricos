@@ -117,11 +117,8 @@ class GalleryViewer extends React.Component {
 
   getDimensions = () => {
     const width = Math.floor(this.containerRef.current.getBoundingClientRect().width);
-    if (isHorizontalLayout(this.props.componentData.styles)) {
-      const height = this.getGalleryHeight(width);
-      return { width, height };
-    }
-    return { width };
+    const height = this.getGalleryHeight(width);
+    return { width, height };
   };
 
   updateDimensions = debounce(() => {
