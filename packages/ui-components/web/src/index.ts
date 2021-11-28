@@ -13,6 +13,7 @@ export { default as UrlInputModal } from './Modals/UrlInputModal';
 export { default as NewUrlInputModal } from './Modals/NewUrlInputModal';
 export { default as SearchInputModal } from './Modals/SearchInputModal';
 export { default as RichContentModal } from './Modals/RichContentModal';
+export { default as MediaUploadModal } from './Modals/MediaUploadModal';
 
 export * from './Icons';
 
