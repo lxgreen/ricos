@@ -19,7 +19,6 @@ import { createParagraphNode } from '../../../nodeUtils';
 import {
   getClassNames,
   getStyle,
-  hasClass,
   hasParent,
   hasStyleFor,
   hasStyleRule,
@@ -27,7 +26,6 @@ import {
   isRoot,
   isText,
   isWhitespace,
-  oneOf,
 } from '../core/parse5-utils';
 import parse from '../core/parser';
 import {
@@ -207,25 +205,12 @@ const imgToAlignedImage: Rule = [
   },
 ];
 
-const brToEmptyParagraph: Rule = [
-  and([
-    hasTag('br'),
-    hasParent(not(oneOf(['ol', 'ul', 'li']))),
-    hasClass(c => c === 'single-break' || c === 'double-break'),
-  ]),
-  context => (el: Element) =>
-    hasClass(c => c === 'single-break')(el)
-      ? pToParagraph[1](context)(el)
-      : [...pToParagraph[1](context)(el), ...pToParagraph[1](context)(el)],
-];
-
 export default flow(
   preprocess,
   parse([
     noEmptyLineText,
     rootTextToP,
     pToStyledParagraph,
-    brToEmptyParagraph,
     lToList,
     hToStyledHeading,
     aToCustomLink,
