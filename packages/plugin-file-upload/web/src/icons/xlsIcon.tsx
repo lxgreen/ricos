@@ -4,11 +4,18 @@ import React from 'react';
 const xlsIcon = ({ styles, ...rest }: { styles: Record<string, string> }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="42" viewBox="0 0 40 42" {...rest}>
     <g fill="none" fillRule="evenodd">
-      <path fill="#FFF" d="M0 0H4823V3877H0z" transform="translate(-1489 -3614)" />
-      <path d="M1489 3613H1529V3655H1489z" transform="translate(-1489 -3614)" />
+      <path
+        className={styles.file_upload_icon_background}
+        d="M0 0H4823V3877H0z"
+        transform="translate(-1489 -3614)"
+      />
+      <path
+        className={styles.file_upload_icon_background}
+        d="M1489 3613H1529V3655H1489z"
+        transform="translate(-1489 -3614)"
+      />
       <g>
         <path
-          fill="#FFF"
           d="M13.63 0.89L7.93 8.34 4.88 4.75 0.5 9.89 6.75 9.89 9.25 9.89 20.5 9.89z"
           transform="translate(-1489 -3614) translate(1492 3613) translate(6 21)"
         />
