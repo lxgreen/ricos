@@ -11,7 +11,7 @@
       height: 35px;
       border: none;
       font-size: 14px;
-      font-family: $ricos-default-font-family;
+      font-family: $ricos-settings-font-family;
       width: 100%;
       text-align: left;
       padding-left: 18px;
@@ -19,13 +19,13 @@
   
       &:hover {
         cursor: pointer;
-        background-color: rgba(0, 0, 0, .05);
+        background-color: rgba($settings-bg-color, .05);
       }
     }
 }
 
 .headingsPanel_selectedHeading {
-    background-color: rgba(0, 0, 0, .1) !important;
+    background-color: rgba($settings-bg-color, .1) !important;
 }
 
 .headingsMobilePanel {

@@ -18,11 +18,11 @@
 
   &:hover {
     cursor: pointer;
-    background-color: rgba(0, 0, 0, .05);
+    background-color: rgba($settings-bg-color, .05);
   }
 
   &.AnchorableElement_selected {
-    background-color: rgba(0, 0, 0, .1);
+    background-color: rgba($settings-bg-color, .1);
   }
 
   .AnchorableElement_thumbnail {

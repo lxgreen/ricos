@@ -131,12 +131,12 @@
 }
 
 %active {
-  background-color: rgba($action-color-fallback-tuple, 0.1);
+  background-color: rgba($settings-bg-color, 0.1);
 }
 
 %hover {
   cursor: pointer;
-  background-color: rgba($settings-action-color, 0.05);
+  background-color: rgba($settings-bg-color, 0.05);
 }
 
 .desktopPanel_withIcons {
