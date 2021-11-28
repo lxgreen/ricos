@@ -62,7 +62,7 @@ export const DOC_STYLE_TYPES = {
   H4: 'headerFour',
   H5: 'headerFive',
   H6: 'headerSix',
-  OL: 'orederedList',
+  OL: 'orderedList',
   UL: 'unorderedList',
 };
 
@@ -74,6 +74,10 @@ export const DRAFT_TO_RICOS_DOC_TYPE = {
   [HEADER_BLOCK.FIVE]: 'headerFive',
   [HEADER_BLOCK.SIX]: 'headerSix',
   [HEADER_BLOCK.PARAGRAPH]: 'paragraph',
+};
+
+export const DRAFT_TO_DOC_TYPE = {
+  ...DRAFT_TO_RICOS_DOC_TYPE,
   'ordered-list-item': 'orderedList',
   'unordered-list-item': 'unorderedList',
 };

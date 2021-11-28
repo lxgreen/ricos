@@ -13,7 +13,7 @@ import {
   getAnchorBlockData,
   getBlockStyleRanges,
 } from 'wix-rich-content-editor-common';
-import { cloneDeep, uniq, pick, omit } from 'lodash';
+import { cloneDeep, uniq, pick } from 'lodash';
 import {
   RicosCustomStyles,
   DocumentStyle,
@@ -27,6 +27,8 @@ import {
   safeJsonParse,
   draftDecorationsToCss,
   DRAFT_TO_RICOS_DOC_TYPE,
+  DRAFT_TO_DOC_TYPE,
+  DOC_STYLE_TYPES,
 } from 'wix-rich-content-common';
 
 import { DRAFT_TO_RICOS_CUSTOM_STYLES, defaultFontSizes, defaultMobileFontSizes } from './consts';
@@ -37,9 +39,7 @@ export const getWiredFontStyles = (
   isMobile?: boolean
 ) => {
   const fontSizes = {};
-  Object.entries(
-    omit(DRAFT_TO_RICOS_DOC_TYPE, ['ordered-list-item', 'unordered-list-item'])
-  ).forEach(([draftHeader, ricosHeader]) => {
+  Object.entries(DRAFT_TO_RICOS_DOC_TYPE).forEach(([draftHeader, ricosHeader]) => {
     fontSizes[ricosHeader] = {
       'font-size':
         documentStyle?.[ricosHeader]?.['font-size'] ||
@@ -127,7 +127,11 @@ export const getFontSize = (editorState: EditorState) => {
 const getBlockStyle = (editorState: EditorState, getDocumentStyle) => {
   const blockType = getBlockType(editorState);
   const documentStyle = getDocumentStyle?.();
-  return documentStyle?.[DRAFT_TO_RICOS_DOC_TYPE[blockType]];
+  let docStyleType = DRAFT_TO_DOC_TYPE[blockType];
+  docStyleType = [DOC_STYLE_TYPES.OL, DOC_STYLE_TYPES.UL].includes(docStyleType)
+    ? DOC_STYLE_TYPES.P
+    : docStyleType;
+  return documentStyle?.[docStyleType];
 };
 
 export const setFontSize = (
