@@ -23,6 +23,8 @@
   - [#3165](https://github.com/wix/ricos/pull/3165) fix height issues on scroll direction change
 - `file-upload`
   - [#3167](https://github.com/wix/ricos/pull/3167) fix icon colors wiring
+- `headings`
+  - [#3163](https://github.com/wix/ricos/pull/3163) fix lists wiring to `documentStyle`
 
 ### :house: Internal
 
