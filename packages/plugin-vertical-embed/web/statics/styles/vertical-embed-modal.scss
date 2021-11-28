@@ -1,6 +1,9 @@
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
+
 .itemsWrapper {
   padding-top: 20px;
   margin-right: -20px;
+  font-family: $ricos-settings-font-family;
 }
 
 /* rtl:ignore */

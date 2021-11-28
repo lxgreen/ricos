@@ -1,10 +1,11 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
 
 .container {
   position: relative;
   display: flex;
   &:hover {
-    color: #333333;
+    color: $settings-inputs-border-color;
   }
 }
 
@@ -18,7 +19,8 @@
   border: 1px solid $settings-inputs-border-color;
   padding-left: 37px;
   border-radius: $settings-inputs-border-radius;
-
+  font-family: $ricos-settings-font-family;
+  
   &::placeholder {
     color: $settings-inputs-placeholder-color;
   }

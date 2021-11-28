@@ -1,3 +1,6 @@
+
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
+
 .hideText {
   filter: blur(0.25em);
 }
@@ -110,7 +113,7 @@
   border: none;
   color: #ffffff;
   resize: none;
-  font-family: helvetica;
+  font-family: $ricos-settings-font-family;
   width: 90%;
   margin-left: 5%;
   pointer-events: auto !important;

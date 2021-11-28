@@ -11,7 +11,7 @@ export const getTooltipStyles = (
       padding: '8px 12px',
       color: 'white',
       fontWeight: '300',
-      fontFamily: 'HelveticaNeue, Helvetica, Arial',
+      fontFamily: 'var(--ricos-settings-text-font-family, --ricos-font-family)',
       maxWidth: '180px',
       fontSize: '14px',
       marginTop: place === 'top' && tooltipOffset ? Math.abs(tooltipOffset.y) : tooltipOffset?.y,

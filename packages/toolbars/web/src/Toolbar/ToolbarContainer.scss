@@ -1,5 +1,7 @@
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
+
 .container {
-    font-family: HelveticaNeue;
+    font-family: $ricos-settings-font-family;
     z-index: 4;
     position: absolute;
     top: -35px;

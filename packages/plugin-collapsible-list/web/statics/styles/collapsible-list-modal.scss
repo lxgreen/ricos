@@ -1,3 +1,5 @@
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
+
 $TITLE_HEIGHT: 70px;
 $FOOTER_HEIGHT: 96px;
 
@@ -17,6 +19,7 @@ $FOOTER_HEIGHT: 96px;
   position: absolute;
   margin: 24px 0 0 24px;
   font-size: 20px;
+  font-family: $ricos-settings-font-family;
 }
 
 .collapsibleListModal_scrollContainer {

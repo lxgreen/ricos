@@ -1,4 +1,5 @@
 @import "~wix-rich-content-common/dist/statics/styles/mixins";
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
 
 .container { 
   position: relative;
@@ -86,7 +87,7 @@
   line-height: 1;
   transition: border-radius 500ms;
   text-align: left;
-  font-family: inherit;
+  font-family: $ricos-settings-font-family;
   
   &:hover, &:focus {
     outline: 0;

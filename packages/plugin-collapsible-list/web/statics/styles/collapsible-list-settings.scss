@@ -1,9 +1,11 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
 
 .title {
   margin: 0;
   font-size: 16px;
   line-height: 1.5;
+  font-family: $ricos-settings-font-family; 
 }
 
 .settingsContainer {
@@ -29,6 +31,7 @@
   p {
     margin-block-start: 1em;
     margin-block-end: 1em;
+    font-family: $ricos-settings-font-family;
   }
 
   svg {
