@@ -19,7 +19,6 @@ export const updateNodeById: RawCommands['updateNodeById'] = (id, attrs = {}) =>
     tr.setNodeMarkup(pos, undefined, { id, ...attrs });
     return true;
   } else {
-    console.error('Failed to find node by blockKey');
     return false;
   }
 };

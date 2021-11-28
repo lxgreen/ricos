@@ -18,7 +18,6 @@ export const deleteNode: RawCommands['deleteNode'] = id => ({ view, tr }) => {
     view.dispatch(tr.delete(pos, pos + node.nodeSize));
     return true;
   } else {
-    console.error('Failed to delete node with specific key');
     return false;
   }
 };

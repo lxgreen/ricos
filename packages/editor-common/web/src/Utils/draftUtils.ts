@@ -331,7 +331,7 @@ export const getAnchorBlockData = (editorState: EditorState) => {
 
 export const blockKeyToEntityKey = (editorState: EditorState, blockKey: string) => {
   const block = editorState.getCurrentContent().getBlockForKey(blockKey);
-  const entityKey = block.getEntityAt(0);
+  const entityKey = block?.getEntityAt(0);
   return entityKey;
 };
 
@@ -453,6 +453,9 @@ export const createBlock = (editorState: EditorState, data, type: string) => {
 export const deleteBlock = (editorState: EditorState, blockKey: string) => {
   const contentState = editorState.getCurrentContent();
   const block = contentState.getBlockForKey(blockKey);
+  if (!block) {
+    return false;
+  }
   const previousBlock = contentState.getBlockBefore(blockKey) || block;
   const anchorOffset = previousBlock.getKey() === blockKey ? 0 : previousBlock.getText().length;
   const selectionRange = new SelectionState({

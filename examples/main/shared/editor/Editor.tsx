@@ -21,6 +21,7 @@ import { TestAppConfig } from '../../src/types';
 import { RicosEditor, RicosEditorProps, RicosEditorType } from 'ricos-editor';
 
 const STATIC_TOOLBAR = 'static';
+let nodeId;
 
 interface ExampleEditorProps {
   theme?: RichContentEditorProps['theme'];
@@ -145,6 +146,114 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
     return null;
   }
 
+  renderDemoToolbar = () => {
+    const imageNode = {
+      type: 'IMAGE',
+      nodes: [],
+      imageData: {
+        containerData: {
+          width: {
+            size: 'CONTENT',
+          },
+          alignment: 'CENTER',
+          spoiler: {
+            enabled: true,
+            description: 'SPOILER ALERT!!!',
+            buttonText: 'What is behind door number 1?',
+          },
+          textWrap: false,
+        },
+        image: {
+          src: {
+            id: '8bb438_67a68c0652d740bab508f68662acc882.jpg',
+          },
+          width: 3192,
+          height: 2124,
+        },
+        link: {
+          url: 'www.image-link.com',
+          target: 'BLANK',
+        },
+        caption: 'Dad holding his baby',
+      },
+    };
+
+    const updatedImageNode = {
+      type: 'IMAGE',
+      nodes: [],
+      imageData: {
+        containerData: {
+          width: {
+            size: 'SMALL',
+          },
+          alignment: 'LEFT',
+          spoiler: {
+            enabled: true,
+            description: 'SPOILER ALERT!!!',
+            buttonText: 'What is behind door number 1?',
+          },
+          textWrap: false,
+        },
+        image: {
+          src: {
+            id: '8bb438_67a68c0652d740bab508f68662acc882.jpg',
+          },
+          width: 3192,
+          height: 2124,
+        },
+        link: {
+          url: 'www.image-link.com',
+          target: 'BLANK',
+        },
+        caption: 'Dad holding his baby',
+      },
+    };
+    if (!this.editor) {
+      return null;
+    }
+
+    return (
+      <div>
+        {
+          <button
+            onClick={() => {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              nodeId = this.editor.getRicosEditorCommands().insertNode(imageNode);
+              console.log('Insert Node', nodeId);
+            }}
+          >
+            {'insert Image'}
+          </button>
+        }
+        {
+          <button
+            onClick={() => {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              const result = this.editor
+                .getRicosEditorCommands()
+                .updateNode(nodeId, updatedImageNode);
+              console.log('Update Node', result);
+            }}
+          >
+            {'update Image'}
+          </button>
+        }
+        {
+          <button
+            onClick={() => {
+              const result = this.editor.getRicosEditorCommands().deleteNode(nodeId);
+              console.log('Delete Node', result);
+            }}
+          >
+            {'delete Image'}
+          </button>
+        }
+      </div>
+    );
+  };
+
   render() {
     const {
       staticToolbar,
@@ -164,6 +273,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       <div style={{ height: '100%' }}>
         {this.renderExternalToolbar()}
         <div ref={ref => (this.staticToolbarContainer = ref)} />
+        {this.renderDemoToolbar()}
         <div className="editor">
           <RicosEditor
             ref={ref => (this.editor = ref)}

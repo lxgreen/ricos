@@ -11,7 +11,7 @@ export class TiptapEditorCommands implements IRicosEditorCommands {
   insertNode: IRicosEditorCommands['insertNode'] = node => {
     const type = FROM_RICOS_NODE_TYPE_TO_TIPTAP_TYPE[node.type];
     const id = generateId();
-    const attrs = toTiptap(node).attrs as Record<string, unknown>;
+    const attrs = toTiptap({ ...node, id }).attrs as Record<string, unknown>;
     this.editor.commands.insertNode(type, attrs);
     return id;
   };
