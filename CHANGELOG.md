@@ -27,11 +27,15 @@
   - [#3165](https://github.com/wix/ricos/pull/3165) fix height issues on scroll direction change
 - `file-upload`
   - [#3167](https://github.com/wix/ricos/pull/3167) fix icon colors wiring
+- `ricos-content`
+  - [#3166](https://github.com/wix/ricos/pull/3166) `<br>` handled in `fromHtml/ck-editor`
 
 ### :house: Internal
 
 - `video - ui-components`
   - [#3159](https://github.com/wix/ricos/pull/3159) move upload modal-UI into ui-components
+- `link`
+  - [#3166](https://github.com/wix/ricos/pull/3166) LinkViewer handles `tel:` links (Viewer only)
 
 </details>
 <hr/>

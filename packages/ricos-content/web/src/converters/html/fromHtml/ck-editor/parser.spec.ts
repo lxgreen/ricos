@@ -51,10 +51,10 @@ describe('CKEditor parser', () => {
           parse,
           // _writeFile('faq-rich.json'),
           toDraft
-          // _writeFile('faq-draft.json')
+          //, _writeFile('faq-draft.json')
         )
       )
     );
-    expect(failedContent.length).toEqual(163);
+    expect(failedContent.length).toEqual(165);
   });
 });
