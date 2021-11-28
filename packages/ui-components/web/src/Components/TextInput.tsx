@@ -20,6 +20,7 @@ interface TextInputProps {
   type?: string; // TODO: ensure type specifity
   id?: string; // TODO: ensure type specifity
   onKeyPress?: (e) => void;
+  onDblClick?: (text) => void;
   value?: string;
   autoComplete?: string;
 }
@@ -84,6 +85,7 @@ export default class TextInput extends Component<TextInputProps, { focusSearchIc
           onChange={this.handleOnChange}
           onFocus={this.focusSearchIcon}
           onBlur={this.unfocusSearchIcon}
+          onDoubleClick={otherProps?.onDblClick}
           {...inputProps}
         />
         {error &&
