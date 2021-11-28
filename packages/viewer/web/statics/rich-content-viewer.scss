@@ -175,7 +175,7 @@
   border-left-color: $ricos-quote-border-color;
   border-right-color: $ricos-quote-border-color;
   color: $ricos-quote-color;
-  @include ricosTypography('quote', true); //!Verify with  Barack
+  @include ricosTypography('quote', false);
 }
 
 .headerOne,

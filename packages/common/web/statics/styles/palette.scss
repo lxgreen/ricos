@@ -51,9 +51,10 @@ $settings-whitebox-border-radius: var(--ricos-settings-whitebox-border-radius, 0
 $settings-whitebox-box-shadow: var(--ricos-settings-whitebox-box-shadow);
 
 // Settings States
-// $settings-hover-state-color: rgba($settings-icons-color, 5%);
-// $settings-active-state-color: rgba($settings-action-color, 10%);
-// $settings-bg-color: ($settings-hover-state-color, rgba(0, 0, 0, 0.06));
+$settings-bg-color: var(--ricos-settings-action-color-tuple, 000,000,000);
+$settings-active-state-color: var(--ricos-settings-activestate-color, #0261ff80);
+// $settings-active-state-color: rgba($settings-action-color, .9);
+// $settings-bg-color: $settings-hover-state-color;
 
 $modal-input-color: #333333;
 $toolbar-font-color: #333333;

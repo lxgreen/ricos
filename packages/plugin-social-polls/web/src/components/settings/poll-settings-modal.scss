@@ -129,7 +129,7 @@
 }
 
 .selectionListOption:hover:not(.selectionListOption_selected) {
-  background-color: rgba(2, 97, 255, 0.06);
+  background-color: rgba($settings-action-color-fallback-tuple, 0.05);
 }
 
 .selectionListOption_selected {

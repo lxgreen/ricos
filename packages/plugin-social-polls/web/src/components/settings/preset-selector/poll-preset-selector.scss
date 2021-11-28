@@ -1,5 +1,6 @@
-@import "~wix-rich-content-common/dist/statics/styles/mixins";
-@import "../poll-settings-modal.scss";
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
+@import '~wix-rich-content-common/dist/statics/styles/palette';
+@import '../poll-settings-modal.scss';
 
 .root {
   color: #000;
@@ -20,7 +21,7 @@
 .selectionListOption {
   margin: 0;
   padding: 0;
-  background: rgba(0, 0, 0, 0.04) ;
+  background-color: rgba($settings-action-color-fallback-tuple, 0.1);
   height: 126px;
 }
 
@@ -33,7 +34,7 @@
 
 .selectionListOption:hover:not(.selectionListOption_selected),
 .selectionListOption:hover {
-  background: rgba(0, 0, 0, 0.1) ;
+  background-color: rgba($settings-action-color-fallback-tuple, 0.05);
 }
 
 .preset_selector {
