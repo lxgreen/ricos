@@ -54,7 +54,7 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
   const styles = mergeStyles({ styles: Styles, theme });
   const saveLabelText = saveLabel || t('EmbedURL_Common_CTA_Primary');
   const modalTitle = title && showTitle && <div className={styles.input_header_title}>{title}</div>;
-  const modalSubTitle = subTitle && <div className={styles.input_header_subTitle}>{subTitle}</div>;
+  const modalSubTitle = subTitle && <div className={styles.header_subTitle}>{subTitle}</div>;
 
   const renderMobileHeader = () => (
     <SettingsMobileHeader

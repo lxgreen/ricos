@@ -19,17 +19,31 @@
 
 ### :bug: Bug Fix
 
+- `gallery`
+  - [#3165](https://github.com/wix/ricos/pull/3165) fix height issues on scroll direction change
+- `file-upload`
+  - [#3167](https://github.com/wix/ricos/pull/3167) fix icon colors wiring
 
-- `plugin-giphy`
-  - [#2312](https://github.com/wix/ricos/pull/2312) TS & Add missing hotkeys to giphy selector and more descriptive alt text
+### :house: Internal
 
-- `fullscreen`
-  - [#3162](https://github.com/wix/ricos/pull/3162) videos pause when scrolled out of view
-  - [#3082](https://github.com/wix/ricos/pull/3082) image centered correctly on mobile
-
+- `video - ui-components`
+  - [#3159](https://github.com/wix/ricos/pull/3159) move upload modal-UI into ui-components
 
 </details>
 <hr/>
+
+
+## 8.63.3 (Nov 25, 2021)
+
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3136](https://github.com/wix/ricos/pull/3136) fix gallery items `itemId` generation
+- `plugin-giphy`
+  - [#2312](https://github.com/wix/ricos/pull/2312) TS & Add missing hotkeys to giphy selector and more descriptive alt text
+- `fullscreen`
+  - [#3162](https://github.com/wix/ricos/pull/3162) videos pause when scrolled out of view
+  - [#3082](https://github.com/wix/ricos/pull/3082) image centered correctly on mobile
 
 ## 8.63.2 (Nov 24, 2021)
 
