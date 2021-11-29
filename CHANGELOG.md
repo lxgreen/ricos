@@ -17,8 +17,27 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `button`
+  - [#3172](https://github.com/wix/ricos/pull/3172) prevent default space/enter onKeyDown
+
 </details>
 <hr/>
+
+## 8.63.6 (Nov 29, 2021)
+
+### :house: Internal
+
+- `common`
+  - [#3170](https://github.com/wix/ricos/pull/3170) collapsible list schema validator
+- `file-upload`
+  - [#3169](https://github.com/wix/ricos/pull/3169) enable `useFilePluginAutoDownloadLinkRef` experiment
+
+### :bug: Bug Fix
+
+- `collapsible-list`
+  - [#3171](https://github.com/wix/ricos/pull/3171) disable expand/collapse onClick auto-scroll
 
 ## 8.63.4 (Nov 29, 2021)
 
