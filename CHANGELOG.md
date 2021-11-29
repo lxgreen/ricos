@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.63.4 (Nov 29, 2021)
+
 ### :bug: Bug Fix
 
 - `gallery`
@@ -32,10 +37,6 @@
   - [#3159](https://github.com/wix/ricos/pull/3159) move upload modal-UI into ui-components
 - `link`
   - [#3166](https://github.com/wix/ricos/pull/3166) LinkViewer handles `tel:` links (Viewer only)
-
-</details>
-<hr/>
-
 
 ## 8.63.3 (Nov 25, 2021)
 
