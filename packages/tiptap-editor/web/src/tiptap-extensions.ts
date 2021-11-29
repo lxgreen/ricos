@@ -35,34 +35,28 @@ const extendedAttrs = (
   },
 });
 
-const withID = extendedAttrs({
-  id: {
-    default: '',
-    keepOnSplit: false,
-  },
-});
 export const tiptapExtensions: Extensions = [
   CoreCommands,
   Blockquote.configure({
     HTMLAttributes: {
       class: styles.quote,
     },
-  }).extend(withID),
+  }),
   Underline,
   Document.extend(extendedAttrs({ metadata: {} })),
-  Heading.extend(withID).extend(extendedAttrs(HeadingData.fromJSON({}))),
+  Heading.extend(extendedAttrs(HeadingData.fromJSON({}))),
   Italic,
-  ListItem.extend(withID),
-  OrderedList.extend(withID),
-  Paragraph.extend(withID),
+  ListItem,
+  OrderedList,
+  Paragraph,
   Text,
-  createBulletedList().extend(withID),
+  createBulletedList(),
   createBold(),
   createColor(),
   CodeBlock.configure({
     HTMLAttributes: {
       class: styles.code,
     },
-  }).extend(withID),
+  }),
   createSpoiler(),
 ];

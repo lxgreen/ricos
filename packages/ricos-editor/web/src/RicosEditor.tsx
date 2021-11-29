@@ -443,6 +443,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     );
   }
 
+ updateNewFormattingToolbar = () => this.useNewFormattingToolbar && this.updateToolbars();
+
   renderTiptapEditor() {
     const { tiptapEditorModule } = this.state;
     if (!tiptapEditorModule) {
@@ -476,22 +478,28 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                     const TextToolbar = richContentAdapter.getToolbars().TextToolbar;
                     this.setState({ tiptapToolbar: TextToolbar });
                   }}
-                  onUpdate={this.onUpdate}
-                  onBlur={() => {
-                    this.useNewFormattingToolbar && this.updateToolbars();
-                  }}
-                  onSelectionUpdate={({ selectedNodes }) => {
-                    if (selectedNodes.length === 1 && selectedNodes[0].isBlock) {
-                      const firstNode = selectedNodes[0];
+                  onUpdate={this.onTiptapEditorUpdate}
+                  onBlur={this.updateNewFormattingToolbar}
+                  onSelectionUpdate={({ selectedNodes, content }) => {
+
+                    //TODO: add 'textContainer' to group field of this extension config
+                    const textContainers = ['paragraph', 'codeBlock', 'heading'];
+                    const parentNodes =
+                      selectedNodes.length === 1
+                        ? selectedNodes
+                        : selectedNodes.filter(node => textContainers.includes(node.type.name));
+                    if (parentNodes.length === 1 && parentNodes[0].isBlock) {
+                      const firstNode = parentNodes[0];
                       const blockKey = firstNode.attrs.id;
                       const type = TIPTAP_TYPE_TO_RICOS_TYPE[firstNode.type.name] || 'text';
                       const data = firstNode.attrs;
                       onAtomicBlockFocus?.({ blockKey, type, data });
                     } else {
                       onAtomicBlockFocus?.({ blockKey: undefined, type: undefined, data: undefined });
-
                     }
-                    this.useNewFormattingToolbar && this.updateToolbars();
+                    this.updateNewFormattingToolbar();
+
+                    this.onTiptapEditorUpdate({ content });
                   }}
                 />
               );
