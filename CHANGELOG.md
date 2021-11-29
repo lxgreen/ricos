@@ -21,11 +21,12 @@
 
 - `common`
   - [#3170](https://github.com/wix/ricos/pull/3170) collapsible list schema validator
+- `file-upload`
+  - [#3169](https://github.com/wix/ricos/pull/3169) enable `useFilePluginAutoDownloadLinkRef` experiment
 
 ### :bug: Bug Fix
 
 - `collapsible-list`
-
   - [#3171](https://github.com/wix/ricos/pull/3171) disable expand/collapse onClick auto-scroll
 
 </details>
