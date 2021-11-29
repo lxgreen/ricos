@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.63.5 (Nov 29, 2021)
+
 ### :house: Internal
 
 - `common`
@@ -28,9 +33,6 @@
 
 - `collapsible-list`
   - [#3171](https://github.com/wix/ricos/pull/3171) disable expand/collapse onClick auto-scroll
-
-</details>
-<hr/>
 
 ## 8.63.4 (Nov 29, 2021)
 
