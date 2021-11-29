@@ -1,4 +1,4 @@
-import { isValidExactUrl, isValidUrl } from './urlValidators';
+import { isValidExactUrl, isValidUrl, isValidTelUrl } from './urlValidators';
 describe('URL Validators', () => {
   it('should verify string with url in it', () => {
     const iframeCode =
@@ -11,5 +11,10 @@ describe('URL Validators', () => {
     const wixUrl = 'https://wix.com';
     expect(isValidUrl(wixUrl)).toBe(true);
     expect(isValidExactUrl(wixUrl)).toBe(true);
+  });
+
+  it('should validate tel: URL', () => {
+    expect(isValidTelUrl('tel:+97254-6449-555')).toBeTruthy();
+    expect(isValidTelUrl('https://web.url')).toBeFalsy();
   });
 });

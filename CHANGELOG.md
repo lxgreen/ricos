@@ -19,21 +19,29 @@
 
 ### :bug: Bug Fix
 
+- `headings`
+  - [#3163](https://github.com/wix/ricos/pull/3163) fix lists wiring to `documentStyle`
+
+</details>
+<hr/>
+
+## 8.63.4 (Nov 29, 2021)
+
+### :bug: Bug Fix
+
 - `gallery`
   - [#3165](https://github.com/wix/ricos/pull/3165) fix height issues on scroll direction change
 - `file-upload`
   - [#3167](https://github.com/wix/ricos/pull/3167) fix icon colors wiring
-- `headings`
-  - [#3163](https://github.com/wix/ricos/pull/3163) fix lists wiring to `documentStyle`
+- `ricos-content`
+  - [#3166](https://github.com/wix/ricos/pull/3166) `<br>` handled in `fromHtml/ck-editor`
 
 ### :house: Internal
 
 - `video - ui-components`
   - [#3159](https://github.com/wix/ricos/pull/3159) move upload modal-UI into ui-components
-
-</details>
-<hr/>
-
+- `link`
+  - [#3166](https://github.com/wix/ricos/pull/3166) LinkViewer handles `tel:` links (Viewer only)
 
 ## 8.63.3 (Nov 25, 2021)
 
