@@ -19,9 +19,9 @@ import { createColor } from './extensions/extension-color';
 // import { createBulletedList } from './extensions/extension-bulleted-list';
 import { createSpoiler } from './extensions/extension-spoiler';
 import { CoreCommands } from './core/extensions';
-import { HeadingData } from 'ricos-schema';
+// import { HeadingData } from 'ricos-schema';
 import { Attributes, Extensions, MarkConfig, NodeConfig } from '@tiptap/react';
-import styles from './statics/styles.scss';
+// import styles from './statics/styles.scss';
 
 const extendedAttrs = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

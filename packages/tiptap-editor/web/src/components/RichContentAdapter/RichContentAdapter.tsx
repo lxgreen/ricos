@@ -98,7 +98,7 @@ export class RichContentAdapter implements TiptapAPI {
         return id;
       },
       deleteBlock: blockKey => {
-        return this.editor.commands.deleteNode(blockKey);
+        // return this.editor.commands.deleteNode(blockKey);
       },
       findNodeByKey() {},
       setBlock: (blockKey, pluginType, data) => {
@@ -162,14 +162,14 @@ export class RichContentAdapter implements TiptapAPI {
       setBlockType: type => {
         const blockTypeCommandMap = {
           [UNSTYLED]: () => this.editor.commands.setParagraph(),
-          [HEADINGS_TYPE]: level => this.editor.commands.toggleHeading({ level }),
-          [BLOCKQUOTE]: () => this.editor.commands.toggleBlockquote(),
-          [CODE_BLOCK_TYPE]: () => this.editor.commands.toggleCodeBlock(),
-          [BULLET_LIST_TYPE]: () => this.editor.commands.toggleBulletList(),
-          [NUMBERED_LIST_TYPE]: () => this.editor.commands.toggleOrderedList(),
+          // [HEADINGS_TYPE]: level => this.editor.commands.toggleHeading({ level }),
+          // [BLOCKQUOTE]: () => this.editor.commands.toggleBlockquote(),
+          // [CODE_BLOCK_TYPE]: () => this.editor.commands.toggleCodeBlock(),
+          // [BULLET_LIST_TYPE]: () => this.editor.commands.toggleBulletList(),
+          // [NUMBERED_LIST_TYPE]: () => this.editor.commands.toggleOrderedList(),
         };
         if (Object.values(HEADER_BLOCK).includes(type)) {
-          blockTypeCommandMap.headings(headingTypeToLevelMap[type]);
+          // blockTypeCommandMap.headings(headingTypeToLevelMap[type]);
         } else if (blockTypeCommandMap[type]) {
           blockTypeCommandMap[type]();
         } else {
