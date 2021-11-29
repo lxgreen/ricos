@@ -286,7 +286,10 @@ export const createEditorCommands = (
       const newSelection = newEditorState.getSelection();
       setEditorState(EditorState.forceSelection(newEditorState, newSelection));
     },
-    deleteBlock: (blockKey: string) => setEditorState(deleteBlock(getEditorState(), blockKey)),
+    deleteBlock: (blockKey: string) => {
+      const editorState = deleteBlock(getEditorState(), blockKey);
+      editorState && setEditorState(editorState);
+    },
   };
 
   const decorationsCommands: {
