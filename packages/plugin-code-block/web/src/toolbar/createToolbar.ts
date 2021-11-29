@@ -5,10 +5,10 @@ import {
   TOOLBARS,
   BUTTON_TYPES,
   EditorState,
+  toggleBlockTypeAndEnsureSpaces,
 } from 'wix-rich-content-editor-common';
 import TextCodeBlockButton from './TextCodeBlockButton';
 import { CODE_BLOCK_TYPE } from '../types';
-import { toggleBlockTypeAndEnsureSpaces } from './blockTypeModifiers';
 import CodeBlockIcon from '../icons/CodeBlockIcon';
 import { getButtonProps } from './getCodeBlockButtonProps';
 import { CommandHandler, CreatePluginToolbar } from 'wix-rich-content-common';

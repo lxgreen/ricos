@@ -4,9 +4,9 @@ import {
   InlineToolbarButton,
   hasBlockType,
   FORMATTING_BUTTONS,
+  toggleBlockTypeAndEnsureSpaces,
 } from 'wix-rich-content-editor-common';
 import { CODE_BLOCK_TYPE } from '../types';
-import { toggleBlockTypeAndEnsureSpaces } from './blockTypeModifiers';
 import CodeBlockIcon from '../icons/CodeBlockIcon';
 
 export default class TextCodeBlockButton extends Component {

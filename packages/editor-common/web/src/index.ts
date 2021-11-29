@@ -76,6 +76,7 @@ export {
   setSelectionToBlock,
   hasBlockType,
   setNativeSelectionToBlock,
+  toggleBlockTypeAndEnsureSpaces,
 } from './Utils/draftUtils';
 export { triggerMention, insertMention } from './Utils/mentionUtils';
 export { isiOS } from './Utils/isiOS';

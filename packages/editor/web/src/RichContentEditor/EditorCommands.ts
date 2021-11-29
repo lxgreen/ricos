@@ -29,6 +29,7 @@ import {
   scrollToBlock,
   insertCustomLink,
   getSelectedBlocks,
+  toggleBlockTypeAndEnsureSpaces,
 } from 'wix-rich-content-editor-common';
 import {
   AvailableExperiments,
@@ -46,6 +47,7 @@ import {
   DocumentStyle,
   RicosCustomStyles,
   CUSTOM_LINK,
+  CODE_BLOCK_TYPE,
 } from 'wix-rich-content-common';
 
 import {
@@ -107,6 +109,8 @@ const deleteDecorationsMapFuncs = {
   [RICOS_FONT_SIZE_TYPE]: setFontSize,
 };
 
+const isCodeBlockType = type => type === CODE_BLOCK_TYPE;
+
 let savedEditorState;
 let savedSelectionState;
 
@@ -119,7 +123,11 @@ export const createEditorCommands = (
   experiments?: AvailableExperiments
 ): EditorCommands => {
   const setBlockType: EditorCommands['setBlockType'] = type =>
-    setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
+    setEditorState(
+      isCodeBlockType(type)
+        ? toggleBlockTypeAndEnsureSpaces(type, getEditorState())
+        : RichUtils.toggleBlockType(getEditorState(), type)
+    );
 
   const _setSelection: EditorCommands['_setSelection'] = (blockKey, selection) =>
     setEditorState(

@@ -2,9 +2,9 @@ import {
   isAtomicBlockFocused,
   INSERT_PLUGIN_BUTTONS,
   BUTTON_TYPES,
+  toggleBlockTypeAndEnsureSpaces,
 } from 'wix-rich-content-editor-common';
 import { CODE_BLOCK_TYPE } from '../types';
-import { toggleBlockTypeAndEnsureSpaces } from './blockTypeModifiers';
 
 export const getButtonProps = ({ icon, getEditorState, setEditorState, t }) => ({
   getIcon: () => icon,
