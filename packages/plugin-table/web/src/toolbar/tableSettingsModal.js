@@ -124,6 +124,7 @@ export default class tableSettingsModal extends Component {
           >
             <Button
               onClick={this.onCreateTableClicked}
+              dataHook={'createTableButton'}
               text={t('TablePlugin_SettingsModal_CreateTable_Button')}
             />
           </div>
