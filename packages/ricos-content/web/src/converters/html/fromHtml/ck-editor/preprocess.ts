@@ -1,6 +1,5 @@
 import { flow, identity } from 'fp-ts/function';
 import { not } from 'fp-ts/Predicate';
-import * as O from 'fp-ts/Option';
 import * as S from 'fp-ts/string';
 import { Element, TextNode, serialize } from 'parse5';
 import { ContentNode } from '../core/models';
@@ -20,7 +19,7 @@ import {
 } from '../core/parse5-utils';
 import { partitionBy } from '../../../nodeUtils';
 import traverse from '../core/ast-traversal';
-import { and, or, equals } from '../../../../fp-utils';
+import { and, or } from '../../../../fp-utils';
 
 const addParagraph = (parentNode: Element) => (): ContentNode => ({
   nodeName: 'p',
@@ -134,18 +133,18 @@ const textInDivToP: AstRule = [
 ];
 
 const collapseBreaks = flow(
-  S.replace(/(<br \/>\s*){3}/, '<br class="double-break" />'),
-  S.replace(/(<br \/>\s*){2}/, '<br class="single-break" />')
+  S.replace(/(<br>\s*){3}/gim, '\n\n'),
+  S.replace(/(<br>\s*){2}/gim, '\n')
 );
 
 export const preprocess = flow(
-  flow(collapseBreaks, toAst),
+  toAst,
   flow(traverse(leafParagraphToDiv), traverse(cleanListPadding), traverse(cleanListItemPadding)),
   traverse(cleanInvalidVideos),
   traverse(containerPToDiv),
   traverse(wrapTextUnderLi),
   traverse(collapseWhitespaces),
-  traverse(nakedSpanToP),
-  traverse(textInDivToP),
-  serialize
+  flow(traverse(nakedSpanToP), traverse(textInDivToP)),
+  serialize,
+  collapseBreaks
 );

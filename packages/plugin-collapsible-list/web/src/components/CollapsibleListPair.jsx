@@ -38,17 +38,18 @@ class CollapsibleListPair extends Component {
   };
 
   onClick = e => {
-    const { isExpanded, onCollapseClick, onExpandClick, idx, helpers } = this.props;
+    const { isExpanded, onCollapseClick, onExpandClick, idx, helpers, isInEditor } = this.props;
     isExpanded ? onCollapseClick(idx) : onExpandClick(idx);
     helpers.onViewerAction?.(
       COLLAPSIBLE_LIST_TYPE,
       'Click',
       `${isExpanded ? 'collapse' : 'expand'}`
     );
-
-    e.preventDefault();
-    // Let scrolling begin after pair is rendered
-    setTimeout(() => anchorScroll(this.pairRef, this.context.experiments));
+    if (!isInEditor) {
+      e.preventDefault();
+      // Let scrolling begin after pair is rendered
+      setTimeout(() => anchorScroll(this.pairRef, this.context.experiments));
+    }
   };
 
   onKeyDown = e => {
@@ -96,6 +97,7 @@ CollapsibleListPair.propTypes = {
   renderTitle: PropTypes.func,
   renderContent: PropTypes.func,
   helpers: PropTypes.object,
+  isInEditor: PropTypes.bool,
 };
 
 export default CollapsibleListPair;

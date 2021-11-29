@@ -17,21 +17,40 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.63.5 (Nov 29, 2021)
+
+### :house: Internal
+
+- `common`
+  - [#3170](https://github.com/wix/ricos/pull/3170) collapsible list schema validator
+- `file-upload`
+  - [#3169](https://github.com/wix/ricos/pull/3169) enable `useFilePluginAutoDownloadLinkRef` experiment
+
+### :bug: Bug Fix
+
+- `collapsible-list`
+  - [#3171](https://github.com/wix/ricos/pull/3171) disable expand/collapse onClick auto-scroll
+
+## 8.63.4 (Nov 29, 2021)
+
 ### :bug: Bug Fix
 
 - `gallery`
   - [#3165](https://github.com/wix/ricos/pull/3165) fix height issues on scroll direction change
 - `file-upload`
   - [#3167](https://github.com/wix/ricos/pull/3167) fix icon colors wiring
+- `ricos-content`
+  - [#3166](https://github.com/wix/ricos/pull/3166) `<br>` handled in `fromHtml/ck-editor`
 
 ### :house: Internal
 
 - `video - ui-components`
   - [#3159](https://github.com/wix/ricos/pull/3159) move upload modal-UI into ui-components
-
-</details>
-<hr/>
-
+- `link`
+  - [#3166](https://github.com/wix/ricos/pull/3166) LinkViewer handles `tel:` links (Viewer only)
 
 ## 8.63.3 (Nov 25, 2021)
 

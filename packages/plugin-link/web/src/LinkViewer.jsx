@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
   normalizeUrl,
+  isValidTelUrl,
   mergeStyles,
   validate,
   anchorScroll,
@@ -71,7 +72,9 @@ class LinkViewer extends Component {
     }
   };
 
-  getHref = (url, anchor) => (url ? normalizeUrl(url) : `#viewer-${anchor}`);
+  resolveUrl = url => (isValidTelUrl(url) ? url : normalizeUrl(url));
+
+  getHref = (url, anchor) => (url ? this.resolveUrl(url) : `#viewer-${anchor}`);
 
   render() {
     const { componentData, anchorTarget, children, isInEditor } = this.props;
