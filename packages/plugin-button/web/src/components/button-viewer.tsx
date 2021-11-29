@@ -53,7 +53,12 @@ const ButtonViewer: FC<Props> = ({
       style,
       tabIndex: 0,
       role: 'button',
-      onKeyUp: e => (e.key === ' ' || e.key === 'Enter') && onClickHandler(e),
+      onKeyDown: e => {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          onClickHandler(e);
+        }
+      },
     },
     !isActionButton && { href: url, target, rel: getRelValue(rel) }
   );

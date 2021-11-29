@@ -18,6 +18,7 @@ import verticalEmbedSchema from 'wix-rich-content-common/dist/statics/schemas/ve
 import linkPreviewSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-link-preview.schema.json';
 import pollsSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-polls.schema.json';
 import tableSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-table.schema.json';
+import collapsibleListSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-collapsible-list.schema.json';
 
 import { DIVIDER_TYPE } from 'wix-rich-content-plugin-divider';
 import { VIDEO_TYPE } from 'wix-rich-content-plugin-video';
@@ -35,6 +36,7 @@ import { VERTICAL_EMBED_TYPE } from 'wix-rich-content-plugin-vertical-embed';
 import { LINK_PREVIEW_TYPE } from 'wix-rich-content-plugin-link-preview';
 import { POLL_TYPE } from 'wix-rich-content-plugin-social-polls';
 import { TABLE_TYPE } from 'wix-rich-content-plugin-table';
+import { COLLAPSIBLE_LIST_TYPE } from 'wix-rich-content-plugin-collapsible-list';
 import MonacoEditor, { ChangeHandler, EditorWillMount } from 'react-monaco-editor';
 import { ensureDraftContent, ensureRicosContent } from 'ricos-content/libs/migrateSchema';
 
@@ -108,6 +110,7 @@ class ContentStateEditor extends PureComponent<Props> {
             [LINK_PREVIEW_TYPE]: linkPreviewSchema,
             [POLL_TYPE]: pollsSchema,
             [TABLE_TYPE]: tableSchema,
+            [COLLAPSIBLE_LIST_TYPE]: collapsibleListSchema,
           }),
         },
       ],
