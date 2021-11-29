@@ -17,6 +17,9 @@
     Click to see more.
   </summary>
 
+- `common`
+  - [#3170](https://github.com/wix/ricos/pull/3170) collapsible list schema validator
+
 </details>
 <hr/>
 
