@@ -52,7 +52,7 @@ export const BulletedList = Node.create<BulletedListOptions>({
     };
   },
 
-  addInputRules() {
-    return [wrappingInputRule(inputRegex, this.type)];
-  },
+  // addInputRules() {
+  //   return [wrappingInputRule(inputRegex, this.type)];
+  // },
 });
