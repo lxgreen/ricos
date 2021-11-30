@@ -185,7 +185,7 @@ const libsConfigCJS = {
     ...libEntries,
   },
   output: {
-    filename: '[name].cjs',
+    filename: '[name].cjs.js',
     library: {
       type: 'commonjs',
     },
