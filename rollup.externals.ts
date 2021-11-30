@@ -19,6 +19,7 @@ const externals = [
   'react-flip-move',
   'image-client-api/dist/imageClientSDK',
   '@wix/draft-js',
+  'draft-js',
   'downshift',
   'uuid',
   /^punycode$/,

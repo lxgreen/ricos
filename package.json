@@ -164,6 +164,7 @@
     "cypress": "^8.3.0",
     "cypress-plugin-snapshots": "^1.4.4",
     "cypress-plugin-tab": "^1.0.5",
+    "draft-js": "^0.11.7",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.9.1",
     "eslint": "^7.2.0",

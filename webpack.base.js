@@ -198,3 +198,39 @@ if (Object.keys(libEntries).length > 0) {
 }
 
 module.exports = configs;
+
+// [
+//   'assert',
+//   'axios',
+//   'classnames',
+//   'lodash',
+//   'prop-types',
+//   'react',
+//   'react-dom',
+//   'wix-rich-content-editor-common',
+//   'wix-rich-content-common',
+//   'wix-rich-content-plugin-commons',
+//   'wix-rich-content-ui-components',
+//   'wix-rich-content-toolbars-new',
+//   'wix-rich-content-toolbars',
+//   'i18next',
+//   'react-i18next',
+//   'react-flip-move',
+//   'image-client-api/dist/imageClientSDK',
+//   '@wix/draft-js',
+//   'draft-js',
+//   'downshift',
+//   'uuid',
+//   /^punycode$/,
+//   /^jss$/, //issue with ESM in CJS
+//   /^jss-plugin-camel-case$/, //issue with ESM in CJS
+//   /^jss-plugin-nested$/, //issue with ESM in CJS
+//   /^jss-plugin-props-sort$/, //issue with ESM in CJS
+//   /^wix-rich-content-editor$/,
+//   /^wix-rich-content-viewer$/,
+//   /^ricos-content$/,
+//   /^ricos-content\/libs\/toDraftData$/,
+//   /^react-player$/,
+//   /^@loadable\/component$/,
+//   /@babel\/runtime/,
+// ]
