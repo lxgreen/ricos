@@ -1,1 +1,0 @@
-{"version":3,"file":"getTextNodes.d.ts","sourceRoot":"","sources":["../../../../../src/converters/draft/fromDraft/getTextNodes.ts"],"names":[],"mappings":"AACA,OAAO,EACL,iBAAiB,EACjB,cAAc,EAGf,MAAM,gBAAgB,CAAC;AAExB,OAAO,EAA+B,IAAI,EAAE,MAAM,cAAc,CAAC;AAMjE,OAAO,EAAE,gBAAgB,EAAE,MAAM,aAAa,CAAC;AAwD/C,eAAO,MAAM,YAAY,UAChB,iBAAiB,aACb,cAAc,gCACI,gBAAgB,KAC5C,IAAI,EAsGN,CAAC"}

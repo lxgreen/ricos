@@ -1,1 +1,0 @@
-{"version":3,"file":"collapsible-list-builder-api.d.ts","sourceRoot":"","sources":["../../../src/RicosContentAPI/collapsible-list-builder-api.ts"],"names":[],"mappings":"AAEA,OAAO,EACL,mBAAmB,EAEnB,WAAW,EAIZ,MAAM,cAAc,CAAC;AACtB,OAAO,EAAE,mBAAmB,EAAE,MAAM,UAAU,CAAC;AAQ/C,OAAO,EAAE,eAAe,EAAsC,MAAM,wBAAwB,CAAC;AAwC7F,eAAO,MAAM,kBAAkB,eAAgB,MAAM,MAAM;WAOR,mBAAmB,EAAE;iBAOvE,CAAC"}

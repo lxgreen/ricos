@@ -1,1 +1,0 @@
-{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/truncateContent/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAqC,MAAM,IAAI,CAAC;AAErE,eAAO,MAAM,eAAe,YACjB,YAAY,WACb;IACN,WAAW,CAAC,EAAE,MAAM,CAAC;IACrB,UAAU,CAAC,EAAE,MAAM,CAAC;IACpB,UAAU,CAAC,EAAE,MAAM,CAAC;CACrB;aACW,YAAY;iBAAe,OAAO;CAqD/C,CAAC"}

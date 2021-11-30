@@ -1,1 +1,0 @@
-{"version":3,"file":"inlinePluginsRemover.d.ts","sourceRoot":"","sources":["../../../src/normalization/inlinePluginsRemover.ts"],"names":[],"mappings":"AAAA,OAAO,EAIL,sBAAsB,EACtB,YAAY,EACb,MAAM,UAAU,CAAC;AAwBlB,QAAA,MAAM,oBAAoB,EAAE,CAAC,OAAO,CAAC,EAAE;IACrC,UAAU,CAAC,EAAE,OAAO,CAAC;CACtB,KAAK,sBAAsB,CAAC,YAAY,CAwBxC,CAAC;AAEF,eAAe,oBAAoB,CAAC"}

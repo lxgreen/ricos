@@ -1,1 +1,0 @@
-{"version":3,"file":"extractEntityData.d.ts","sourceRoot":"","sources":["../../../../src/preview/ContentStateAnalyzer/extractEntityData.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,WAAW,EAAE,MAAM,0BAA0B,CAAC;AACvD,OAAO,EAAE,iBAAiB,EAAE,MAAM,UAAU,CAAC;AAO7C,aAAK,eAAe,GAAG,CAAC,MAAM,EAAE,WAAW,KAAK,iBAAiB,EAAE,CAAC;AA8GpE,QAAA,MAAM,iBAAiB,EAAE,eACmE,CAAC;AAE7F,eAAe,iBAAiB,CAAC"}

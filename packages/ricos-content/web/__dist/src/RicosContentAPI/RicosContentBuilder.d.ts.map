@@ -1,1 +1,0 @@
-{"version":3,"file":"RicosContentBuilder.d.ts","sourceRoot":"","sources":["../../../src/RicosContentAPI/RicosContentBuilder.ts"],"names":[],"mappings":"AAeA,OAAO,EAAE,cAAc,EAAE,MAAM,UAAU,CAAC;AAqB1C,MAAM,WAAW,YAAa,SAAQ,cAAc;IAClD,QAAQ,cAAc,CAAC;CACxB;AAED,eAAO,MAAM,mBAAmB,eAClB,MAAM,MAAM,KACvB,cAAc,GAAG;IAAE,mBAAmB,EAAE,YAAY,CAAA;CAsGtD,CAAC"}
