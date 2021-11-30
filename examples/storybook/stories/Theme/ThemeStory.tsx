@@ -99,6 +99,10 @@ export default () => {
         href="https://fonts.googleapis.com/css2?family=Yellowtail&display=swap"
         rel="stylesheet"
       />
+      <link
+        rel="stylesheet"
+        href="https://static.parastorage.com/unpkg/@wix/wix-fonts@1.11.0/madefor.css"
+      />
 
       <Page title="Ricos Theme">
         See Usage{' '}

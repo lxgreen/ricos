@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
 
+- `general`
+  - [#3178](https://github.com/wix/ricos/pull/3178) settings font-family wiring
 
 </details>
 <hr/>
