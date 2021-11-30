@@ -146,7 +146,7 @@ const cjsConfig = {
     'cjs/index': './src/index.ts',
   },
   output: {
-    filename: '[name].cjs',
+    filename: '[name].js',
     library: {
       type: 'commonjs',
     },
@@ -166,18 +166,6 @@ const esmConfig = {
   },
 };
 
-const libsConfigESM = {
-  ...createBaseConfig({ skipCSS: true }),
-  entry: {
-    ...libEntries,
-  },
-  output: {
-    filename: '[name].js',
-    library: {
-      type: 'umd',
-    },
-  },
-};
 const configs = [cjsConfig, esmConfig];
 
 if (Object.keys(libEntries).length > 0) {
@@ -193,7 +181,20 @@ if (Object.keys(libEntries).length > 0) {
       },
     },
   };
+  const libsConfigESM = {
+    ...createBaseConfig({ skipCSS: true }),
+    entry: {
+      ...libEntries,
+    },
+    output: {
+      filename: '[name].js',
+      library: {
+        type: 'umd',
+      },
+    },
+  };
   configs.push(libsConfigCJS);
+  configs.push(libsConfigESM);
 }
 
 module.exports = configs;

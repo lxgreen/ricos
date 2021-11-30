@@ -1,0 +1,1 @@
+{"version":3,"file":"consts.d.ts","sourceRoot":"","sources":["../../../src/velo-adapter/consts.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,WAAW,EAAE,MAAM,cAAc,CAAC;AAE3C,eAAO,MAAM,YAAY,EAAE,WAA2B,CAAC;AACvD,eAAO,MAAM,YAAY,EAAE,CACzB,OAAO,EAAE,WAAW,KACjB,CAAC,CAAC,EAAE,MAAM,EAAE,OAAO,CAAC,CAAC,EAAE;IAAE,OAAO,MAAA;CAAE,CAAC,KAAK,CAG3C,CAAC"}

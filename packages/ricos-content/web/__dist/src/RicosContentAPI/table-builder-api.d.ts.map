@@ -1,0 +1,1 @@
+{"version":3,"file":"table-builder-api.d.ts","sourceRoot":"","sources":["../../../src/RicosContentAPI/table-builder-api.ts"],"names":[],"mappings":"AAEA,OAAO,EAIL,SAAS,EACT,WAAW,EAEZ,MAAM,cAAc,CAAC;AACtB,OAAO,EAAE,SAAS,EAAE,MAAM,UAAU,CAAC;AAGrC,OAAO,EACL,eAAe,EAKhB,MAAM,wBAAwB,CAAC;AAkFhC,eAAO,MAAM,QAAQ,eAAgB,MAAM,MAAM;WAOR,SAAS,EAAE,EAAE;MAAK,WAOxD,CAAC"}

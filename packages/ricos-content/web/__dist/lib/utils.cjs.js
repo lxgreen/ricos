@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var a={};exports.a=a,exports.fromEntries=function(iterable){return[].concat(iterable).reduce((function(obj,_ref){var key=_ref[0],val=_ref[1];return obj[key]=val,obj}),{})};

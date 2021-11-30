@@ -1,0 +1,9 @@
+export declare const isValidExactUrl: (str: string) => boolean;
+export declare const isValidTelUrl: (str: string) => boolean;
+export declare const isValidUrl: (url: string) => any;
+export declare const getUrlMatches: (text: string) => any;
+export declare const normalizeUrl: (url: string) => any;
+export declare const startsWithHttps: (url: string) => boolean;
+export declare const getHost: (url: any) => string;
+export declare const hasProtocol: (url: string) => boolean;
+//# sourceMappingURL=urlValidators.d.ts.map
