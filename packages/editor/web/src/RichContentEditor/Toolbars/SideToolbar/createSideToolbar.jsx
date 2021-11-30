@@ -59,6 +59,7 @@ export default ({
   addPluginMenuConfig,
   onClick,
   focusEditor,
+  shouldNotDisplay,
 }) => {
   const toolbarButtonTheme = getPluginMenuTheme(theme, isMobile);
   return createSideToolbar({
@@ -85,6 +86,7 @@ export default ({
           addPluginMenuConfig={addPluginMenuConfig}
           onClick={onClick}
           focusEditor={focusEditor}
+          shouldNotDisplay={shouldNotDisplay}
         />
       ),
     ],

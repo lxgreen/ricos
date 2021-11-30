@@ -51,7 +51,13 @@ export interface RicosTiptapEditorProps {
   t: TranslationFunction;
   onUpdate?: ({ content }: { content: DraftContent }) => void;
   onBlur?: () => void;
-  onSelectionUpdate?: ({ selectedNodes }: { selectedNodes: ProseMirrorNode[] }) => void;
+  onSelectionUpdate?: ({
+    selectedNodes,
+    content,
+  }: {
+    selectedNodes: ProseMirrorNode[];
+    content: DraftContent;
+  }) => void;
   theme?: RichContentTheme;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;

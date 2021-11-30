@@ -117,11 +117,8 @@ class GalleryViewer extends React.Component {
 
   getDimensions = () => {
     const width = Math.floor(this.containerRef.current.getBoundingClientRect().width);
-    if (isHorizontalLayout(this.props.componentData.styles)) {
-      const height = this.getGalleryHeight(width);
-      return { width, height };
-    }
-    return { width };
+    const height = this.getGalleryHeight(width);
+    return { width, height };
   };
 
   updateDimensions = debounce(() => {
@@ -178,7 +175,7 @@ class GalleryViewer extends React.Component {
       helpers = {},
     } = this.props;
     helpers.onViewerAction?.(GALLERY_TYPE, 'Click', 'expand_gallery');
-    this.hasExpand() && onExpand?.(this.props.blockKey, data.idx);
+    this.hasExpand() && onExpand(this.props.blockKey, data.idx);
   };
 
   renderExpandIcon = itemProps => {

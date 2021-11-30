@@ -17,8 +17,63 @@
     Click to see more.
   </summary>
 
+
+
 </details>
 <hr/>
+
+## 8.63.7 (Nov 30, 2021)
+
+### :bug: Bug Fix
+
+- `button`
+  - [#3172](https://github.com/wix/ricos/pull/3172) prevent default space/enter onKeyDown
+- `toolbars-new`
+  - [#3173](https://github.com/wix/ricos/pull/3173) mobile add plugin button when side toolbar disabled from config
+
+## 8.63.6 (Nov 29, 2021)
+
+### :house: Internal
+
+- `common`
+  - [#3170](https://github.com/wix/ricos/pull/3170) collapsible list schema validator
+- `file-upload`
+  - [#3169](https://github.com/wix/ricos/pull/3169) enable `useFilePluginAutoDownloadLinkRef` experiment
+
+### :bug: Bug Fix
+
+- `collapsible-list`
+  - [#3171](https://github.com/wix/ricos/pull/3171) disable expand/collapse onClick auto-scroll
+
+## 8.63.4 (Nov 29, 2021)
+
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3165](https://github.com/wix/ricos/pull/3165) fix height issues on scroll direction change
+- `file-upload`
+  - [#3167](https://github.com/wix/ricos/pull/3167) fix icon colors wiring
+- `ricos-content`
+  - [#3166](https://github.com/wix/ricos/pull/3166) `<br>` handled in `fromHtml/ck-editor`
+
+### :house: Internal
+
+- `video - ui-components`
+  - [#3159](https://github.com/wix/ricos/pull/3159) move upload modal-UI into ui-components
+- `link`
+  - [#3166](https://github.com/wix/ricos/pull/3166) LinkViewer handles `tel:` links (Viewer only)
+
+## 8.63.3 (Nov 25, 2021)
+
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3136](https://github.com/wix/ricos/pull/3136) fix gallery items `itemId` generation
+- `plugin-giphy`
+  - [#2312](https://github.com/wix/ricos/pull/2312) TS & Add missing hotkeys to giphy selector and more descriptive alt text
+- `fullscreen`
+  - [#3162](https://github.com/wix/ricos/pull/3162) videos pause when scrolled out of view
+  - [#3082](https://github.com/wix/ricos/pull/3082) image centered correctly on mobile
 
 ## 8.63.2 (Nov 24, 2021)
 

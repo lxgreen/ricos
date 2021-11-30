@@ -7,6 +7,7 @@ export {
   startsWithHttps,
   hasProtocol,
   getHost,
+  isValidTelUrl,
 } from './urlValidators/urlValidators';
 
 export * from './consts';
