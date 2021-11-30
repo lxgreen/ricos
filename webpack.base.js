@@ -178,7 +178,7 @@ const libsConfigESM = {
     },
   },
 };
-const configs = [cjsConfig, esmConfig, libsConfigESM];
+const configs = [cjsConfig, esmConfig];
 
 if (Object.keys(libEntries).length > 0) {
   const libsConfigCJS = {
