@@ -1,6 +1,9 @@
 // import { Configuration } from 'webpack';
 const { presets, plugins, env } = require('../../../babel.config.js');
-
+const postCssImport = require('postcss-import');
+const autoprefixer = require('autoprefixer');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const isDevEnvironment = process.env.NODE_ENV === 'development';
 const fs = require('fs-extra');
 
 let libEntries = {};
@@ -17,7 +20,7 @@ try {
 } catch (_) {}
 
 const config = {
-  mode: 'production',
+  mode: 'development',
   optimization: {
     usedExports: true,
   },
@@ -28,7 +31,7 @@ const config = {
   output: {
     filename: '[name].js',
     library: {
-      type: 'umd',
+      type: 'commonjs2',
     },
   },
   resolve: {
@@ -41,8 +44,42 @@ const config = {
     uuid: 'uuid',
     'ricos-schema': 'ricos-schema',
   },
+  plugins: [
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // all options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+      ignoreOrder: false, // Enable to remove warnings about conflicting order
+    }),
+  ],
+
   module: {
     rules: [
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          // 'style-loader',
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: isDevEnvironment
+                  ? '[path][name]__[local]--[hash:base64:5]'
+                  : '[hash:base64:5]',
+              },
+              importLoaders: 2,
+            },
+          },
+          // Translates CSS into CommonJS
+
+          'postcss-loader',
+          // Compiles Sass to CSS
+          'sass-loader',
+        ],
+      },
       {
         test: /\.(ts|js)x?$/i,
         exclude: /node_modules/,
@@ -50,12 +87,6 @@ const config = {
           {
             loader: 'babel-loader',
             options: {
-              // presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
-              // plugins: [
-              //   '@babel/proposal-class-properties',
-              //   '@babel/proposal-object-rest-spread',
-              //   '@babel/plugin-transform-modules-commonjs',
-              // ],
               presets: [...presets, '@babel/preset-typescript'],
               plugins,
               env: {
@@ -93,4 +124,4 @@ const configCjs = {
   },
 };
 
-module.exports = [config, configCjs];
+module.exports = [config];
