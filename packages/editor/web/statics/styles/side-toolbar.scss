@@ -5,6 +5,9 @@
   position: relative;
   pointer-events: none;
   text-align: start;
+  &.sideToolbar_floatingContainer_shouldNotDisplay {
+    display: none;
+  }
 }
 
 .sideToolbar_floatingIcon {
