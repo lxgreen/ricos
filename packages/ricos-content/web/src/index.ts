@@ -1,3 +1,4 @@
+import styles from './index.scss';
 export * from './normalization';
 export {
   isValidExactUrl,
@@ -22,3 +23,7 @@ export { createContent } from './contentStateUtils/createContent';
 export { compare } from './comparision/compare';
 
 export * from './fp-utils';
+
+export const a = {
+  ...styles,
+};
