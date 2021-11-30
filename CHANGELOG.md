@@ -17,15 +17,19 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.63.7 (Nov 30, 2021)
+
 ### :bug: Bug Fix
 
 - `button`
   - [#3172](https://github.com/wix/ricos/pull/3172) prevent default space/enter onKeyDown
 - `toolbars-new`
   - [#3173](https://github.com/wix/ricos/pull/3173) mobile add plugin button when side toolbar disabled from config
-
-</details>
-<hr/>
 
 ## 8.63.6 (Nov 29, 2021)
 
