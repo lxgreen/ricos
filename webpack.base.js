@@ -178,18 +178,22 @@ const libsConfigESM = {
     },
   },
 };
+const configs = [cjsConfig, esmConfig, libsConfigESM];
 
-const libsConfigCJS = {
-  ...createBaseConfig({ skipCSS: true }),
-  entry: {
-    ...libEntries,
-  },
-  output: {
-    filename: '[name].cjs.js',
-    library: {
-      type: 'commonjs',
+if (Object.keys(libEntries).length > 0) {
+  const libsConfigCJS = {
+    ...createBaseConfig({ skipCSS: true }),
+    entry: {
+      ...libEntries,
     },
-  },
-};
+    output: {
+      filename: '[name].cjs.js',
+      library: {
+        type: 'commonjs',
+      },
+    },
+  };
+  configs.push(libsConfigCJS);
+}
 
-module.exports = [cjsConfig, esmConfig, libsConfigESM, libsConfigCJS];
+module.exports = configs;
