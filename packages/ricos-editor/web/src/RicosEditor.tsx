@@ -478,7 +478,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                     const TextToolbar = richContentAdapter.getToolbars().TextToolbar;
                     this.setState({ tiptapToolbar: TextToolbar });
                   }}
-                  onUpdate={this.onTiptapEditorUpdate}
+                  onUpdate={this.onUpdate}
                   onBlur={this.updateNewFormattingToolbar}
                   onSelectionUpdate={({ selectedNodes, content }) => {
 
@@ -499,7 +499,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                     }
                     this.updateNewFormattingToolbar();
 
-                    this.onTiptapEditorUpdate({ content });
+                    this.onUpdate({ content });
                   }}
                 />
               );
