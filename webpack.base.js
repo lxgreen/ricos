@@ -21,6 +21,7 @@ try {
 } catch (_) {}
 const createBaseConfig = (options = {}) => {
   const skipCSS = !!options.skipCSS;
+  const useEsbuild = !!options.useEsbuild;
 
   const config = {
     mode: 'development',
@@ -105,7 +106,10 @@ const createBaseConfig = (options = {}) => {
         'sass-loader',
       ],
     },
-    {
+  ];
+
+  if (!useEsbuild) {
+    config.module.rules.push({
       test: /\.(ts|js)x?$/i,
       exclude: /node_modules/,
       use: [
@@ -130,8 +134,24 @@ const createBaseConfig = (options = {}) => {
           loader: 'ts-loader',
         },
       ],
-    },
-  ];
+    });
+  }else {
+    config.module.rules.push(
+      {
+      test: /\.(ts|js)x?$/i,
+      exclude: /node_modules/,
+      use: [
+        {
+          loader: 'esbuild-loader',
+          options: {
+            loader: 'ts',
+            target: 'es2015',
+            implementation: esbuild,
+          },
+        },
+      ],
+    }
+  )
 
   if (skipCSS) {
     config.module.rules[0].use.shift();
