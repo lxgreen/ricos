@@ -22,7 +22,6 @@ export const createUniqueId = (): RicosFunctionalExtension => ({
               'gif',
               'video',
               'linkPreview',
-              'link',
               'paragraph',
               'bulletedList',
               'spoiler',
@@ -30,6 +29,7 @@ export const createUniqueId = (): RicosFunctionalExtension => ({
               'heading',
               'blockquote',
               'orderedList',
+              'listItem',
             ],
             attributes: {
               id: {
