@@ -4,7 +4,6 @@ export const POLL_TYPE = 'wix-draft-plugin-poll';
 
 export interface PollPluginEditorConfig extends EditorPluginConfig {
   [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-  uploadHandler?: () => void;
 }
 export interface PollPluginViewerConfig extends ViewerPluginConfig {
   [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any

@@ -8,7 +8,7 @@ import { createRicosExtensions } from './tiptap';
 import { TiptapEditorPlugin } from 'wix-tiptap-editor';
 
 export const pluginPoll: EditorPluginCreator<PollPluginEditorConfig> = config => {
-  const pluginConfig = { ...DEFAULT_COMPONENT_DATA.config, ...config };
+  const pluginConfig: PollPluginEditorConfig = { ...DEFAULT_COMPONENT_DATA.config, ...config };
   return {
     config: pluginConfig,
     type: POLL_TYPE,
