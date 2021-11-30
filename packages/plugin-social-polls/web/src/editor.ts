@@ -4,13 +4,18 @@ import { DEFAULT_COMPONENT_DATA } from './defaults';
 import { ModalsMap } from './modals';
 import { EditorPluginCreator } from 'wix-rich-content-common';
 import { createPollData } from './createPollData';
+import { createRicosExtensions } from './tiptap';
+import { TiptapEditorPlugin } from 'wix-tiptap-editor';
 
 export const pluginPoll: EditorPluginCreator<PollPluginEditorConfig> = config => {
+  const pluginConfig = { ...DEFAULT_COMPONENT_DATA.config, ...config };
   return {
-    config: { ...DEFAULT_COMPONENT_DATA.config, ...config },
+    config: pluginConfig,
     type: POLL_TYPE,
     createPlugin: createPollPlugin,
     ModalsMap,
     createPluginData: createPollData,
-  };
+    configFixer: ({ helpers }) => (pluginConfig.uploadHandler = helpers?.handleFileUpload),
+    tiptapExtensions: createRicosExtensions(pluginConfig),
+  } as TiptapEditorPlugin;
 };

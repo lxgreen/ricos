@@ -21,9 +21,9 @@ class PollEditorComponent extends PureComponent {
       design: PropTypes.object,
     }).isRequired,
 
-    block: PropTypes.object.isRequired,
-    selection: PropTypes.object.isRequired,
+    block: PropTypes.object,
 
+    selected: PropTypes.bool,
     setInPluginEditingMode: PropTypes.func.isRequired,
     settings: PropTypes.shape({
       siteToken: PropTypes.string,
@@ -34,11 +34,13 @@ class PollEditorComponent extends PureComponent {
     theme: PropTypes.object.isRequired,
     t: PropTypes.func.isRequired,
     isMobile: PropTypes.bool.isRequired,
-    commonPubsub: PropTypes.object,
     store: PropTypes.shape({
       set: PropTypes.func.isRequired,
       get: PropTypes.func.isRequired,
     }).isRequired,
+
+    // TODO: should remove when change to proseMirror
+    selection: PropTypes.object,
 
     ...WithEditorEventsProps,
   };
@@ -70,6 +72,9 @@ class PollEditorComponent extends PureComponent {
     );
   };
 
+  // TODO: should remove when change to proseMirror
+  draft_isPluginFocused = () => !isPluginFocused(this.props.block, this.props.selection);
+
   render() {
     const {
       setInPluginEditingMode,
@@ -80,13 +85,16 @@ class PollEditorComponent extends PureComponent {
       theme,
       isMobile,
       editorEvents,
+      selected,
     } = this.props;
 
     return (
       <RCEHelpersContext.Provider
         value={{
           isViewMode:
-            settings.isWebView || !isPluginFocused(this.props.block, this.props.selection),
+            settings.isWebView || typeof selected === 'boolean'
+              ? !selected
+              : !this.draft_isPluginFocused(),
           setInPluginEditingMode,
           layout: componentData.layout,
           design: componentData.design,
