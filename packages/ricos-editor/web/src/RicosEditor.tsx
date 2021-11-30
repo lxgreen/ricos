@@ -107,6 +107,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     };
     this.useTiptap = !!props.experiments?.tiptapEditor?.enabled;
     this.useNewFormattingToolbar = !!props.experiments?.newFormattingToolbar?.enabled;
+    this.useTiptap && this.fixPluginsConfig();
   }
 
   static defaultProps = {
@@ -114,6 +115,11 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       throw err;
     },
     locale: 'en',
+  };
+
+  fixPluginsConfig = () => {
+    const { _rcProps = {}, plugins } = this.props;
+    plugins?.forEach(plugin => plugin.configFixer?.({ helpers: _rcProps?.helpers }));
   };
 
   updateLocale = async () => {
@@ -443,14 +449,19 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     );
   }
 
- updateNewFormattingToolbar = () => this.useNewFormattingToolbar && this.updateToolbars();
+  updateNewFormattingToolbar = () => this.useNewFormattingToolbar && this.updateToolbars();
 
   renderTiptapEditor() {
     const { tiptapEditorModule } = this.state;
     if (!tiptapEditorModule) {
       return null;
     }
-    const { RicosTiptapEditor, RichContentAdapter, draftToTiptap, TIPTAP_TYPE_TO_RICOS_TYPE } = tiptapEditorModule;
+    const {
+      RicosTiptapEditor,
+      RichContentAdapter,
+      draftToTiptap,
+      TIPTAP_TYPE_TO_RICOS_TYPE,
+    } = tiptapEditorModule;
     const { content, injectedContent, plugins, onAtomicBlockFocus } = this.props;
     const { tiptapToolbar } = this.state;
     // TODO: Enforce Content ID's existance (or generate it)
@@ -495,7 +506,11 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                       const data = firstNode.attrs;
                       onAtomicBlockFocus?.({ blockKey, type, data });
                     } else {
-                      onAtomicBlockFocus?.({ blockKey: undefined, type: undefined, data: undefined });
+                      onAtomicBlockFocus?.({
+                        blockKey: undefined,
+                        type: undefined,
+                        data: undefined,
+                      });
                     }
                     this.updateNewFormattingToolbar();
 
