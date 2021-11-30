@@ -5,6 +5,8 @@ const autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isDevEnvironment = process.env.NODE_ENV === 'development';
 const fs = require('fs-extra');
+const CopyPlugin = require('copy-webpack-plugin');
+
 let libEntries = {};
 try {
   const libEntriesPath = './lib/';
@@ -48,6 +50,12 @@ const createBaseConfig = (options = {}) => {
   };
 
   config.plugins = [];
+
+  config.plugins.push(
+    new CopyPlugin({
+      patterns: [{ from: 'statics', to: 'statics' }],
+    })
+  );
 
   if (skipCSS) {
     // config.plugins.push(
