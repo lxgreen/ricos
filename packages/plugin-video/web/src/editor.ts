@@ -8,7 +8,7 @@ import { createRicosExtensions } from './tiptap';
 import { TiptapEditorPlugin } from 'wix-tiptap-editor';
 
 export const pluginVideo: EditorPluginCreator<VideoPluginEditorConfig> = config => {
-  const pluginConfig = { ...DEFAULTS.config, ...config };
+  const pluginConfig: VideoPluginEditorConfig = { ...DEFAULTS.config, ...config };
   return {
     config: pluginConfig,
     type: VIDEO_TYPE,

@@ -7,7 +7,7 @@ import { createRicosExtensions } from './tiptap';
 import { TiptapEditorPlugin } from 'wix-tiptap-editor';
 
 export const pluginFileUpload: EditorPluginCreator<FilePluginEditorConfig> = config => {
-  const pluginConfig = { ...DEFAULTS.config, ...config };
+  const pluginConfig: FilePluginEditorConfig = { ...DEFAULTS.config, ...config };
   return {
     config: pluginConfig,
     type: FILE_UPLOAD_TYPE,
