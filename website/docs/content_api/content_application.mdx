@@ -1,0 +1,141 @@
+---
+id: content_application
+title: Content Applications
+sidebar_label: Content Applications
+---
+
+import { RicosViewer } from 'ricos-viewer';
+import 'ricos-viewer/dist/styles.min.css';
+import { pluginImage } from 'wix-rich-content-plugin-image/viewer';
+import { pluginVideo } from 'wix-rich-content-plugin-video/viewer';
+import 'wix-rich-content-plugin-image/dist/styles.min.css';
+import 'wix-rich-content-plugin-video/dist/styles.min.css';
+import contentWithPlugins from '../../infra/editor/content/viewer-with-plugins-2.json';
+
+### Abstract
+
+While [Content Builder](./ContentBuilder), [Content Extractor](./content_extract) and [Content Modifier](./content_modify) APIs are very flexible, yet they also too generic.
+
+The `content-application` is a collection of more specific APIs which aim to reduce boilerplate for consumer.
+
+### `getText`
+
+Extracts textual content of Headers & Paragraphs from a given content
+
+#### Example
+
+<div className="card">
+  <RicosViewer
+    content={{
+      blocks: [
+        {
+          key: 'd79aa',
+          text: 'This is an example content, with header 3',
+          type: 'header-three',
+          depth: 0,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        },
+        {
+          key: 'd79ab',
+          text: 'and header 4',
+          type: 'header-four',
+          depth: 0,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        },
+      ],
+      entityMap: {},
+      VERSION: '7.5.0',
+    }}
+  />
+</div>
+
+```ts
+import { getText } from 'ricos-content/libs/content-application';
+
+const text = getText(content); // input content
+
+console.log(text);
+```
+
+##### Output
+
+`["This is an example content, with header 3 ", "and header 4"]`
+
+---
+
+### `getPluginData`
+
+Extracts data of a plugin from a given content.
+
+#### Example
+
+```ts
+import { getPluginData } from 'ricos-content/libs/content-application';
+import { content } from 'somewhere';
+
+const pluginData = getPluginData(content, 'IMAGE');
+console.log(pluginData);
+```
+
+##### Output
+
+```ts
+[
+  {
+    image: { ... },
+    altText: 'alt1',
+    caption: 'Cool image',
+    // ...
+  },
+  {
+    image: { ... },
+    altText: 'alt2',
+    caption: 'Cool image 2',
+    // ...
+  },
+];
+```
+
+---
+
+### `getMedia`
+
+Extracts all media data from a given content
+
+#### Example
+
+For this given content:
+
+<div className="card">
+  <RicosViewer content={contentWithPlugins} plugins={[pluginImage(), pluginVideo()]} />
+</div>
+
+```ts
+import { getMedia } from 'ricos-content/libs/content-application';
+
+const media = getMedia(content); //content = given input example
+console.log(pluginData);
+```
+
+##### Output
+
+```ts
+[
+  {
+    src: {
+      url: 'https://youtu.be/oCBpJkG6ngE',
+    },
+  },
+  {
+    src: {
+      id: '8bb438_4af301c080294224b6b5e15cd38a035f.jpg'
+    }
+    width: 1920,
+    height: 1280
+  }
+];
+```
