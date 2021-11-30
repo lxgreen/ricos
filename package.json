@@ -10,7 +10,10 @@
       "!website"
     ],
     "nohoist": [
-      "webpack"
+      "webpack",
+      "**/postcss/**",
+      "postcss-rtl",
+      "postcss"
     ]
   },
   "resolutions": {
@@ -190,7 +193,7 @@
     "node-sass": "^4.8.3",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "parse-git-config": "^3.0.0",
-    "postcss": "^8.4.4",
+    "postcss": "^7.0.27",
     "postcss-exclude-files": "^1.0.15",
     "postcss-import": "^14.0.2",
     "postcss-loader": "^6.2.1",
