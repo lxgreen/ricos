@@ -15,6 +15,9 @@ export const pluginVideo: EditorPluginCreator<VideoPluginEditorConfig> = config 
     createPlugin: createVideoPlugin,
     ModalsMap,
     createPluginData: createVideoData,
+    configFixer: () =>
+      (pluginConfig.uploadHandler =
+        pluginConfig.handleFileUpload || pluginConfig.handleFileSelection),
     tiptapExtensions: createRicosExtensions(pluginConfig),
   } as TiptapEditorPlugin;
 };
