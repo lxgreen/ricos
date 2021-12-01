@@ -140,6 +140,8 @@ $spacing: 12px;
   padding: 20px;
 
   @include phone {
+    display: flex;
+    gap: $spacing;
     padding: 0;
     min-width: 0;
     flex-direction: column-reverse;

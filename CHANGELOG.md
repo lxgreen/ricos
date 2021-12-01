@@ -22,6 +22,11 @@
 - `general`
   - [#3178](https://github.com/wix/ricos/pull/3178) settings font-family wiring
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3188](https://github.com/wix/ricos/pull/3188) mobile basic link panel
+
 </details>
 <hr/>
 
