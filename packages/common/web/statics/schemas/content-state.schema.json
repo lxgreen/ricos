@@ -100,7 +100,8 @@
             "wix-draft-plugin-poll",
             "wix-draft-plugin-link-preview",
             "ANCHOR",
-            "wix-rich-content-plugin-table"
+            "wix-rich-content-plugin-table",
+            "wix-rich-content-plugin-collapsible-list"
           ],
           "title": "entity type",
           "examples": ["wix-draft-plugin-image"]
