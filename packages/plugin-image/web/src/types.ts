@@ -39,6 +39,7 @@ export interface ImagePluginEditorConfig extends EditorPluginConfig, ImageConfig
   consumer?: string;
   imageEditorWixSettings?: ImageEditorWixSettings;
   onImageEditorOpen?: () => void;
+  uploadHandler?: () => void;
 }
 
 type ImageSrc = Record<string, unknown>;

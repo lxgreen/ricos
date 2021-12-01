@@ -1,5 +1,6 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins.scss';
 @import '~wix-rich-content-common/dist/statics/styles/palette.scss';
+@import '~wix-rich-content-common/dist/statics/styles/fonts.scss';
 
 .sideToolbarPanelWrapper {
   display: flex;
@@ -9,6 +10,7 @@
   justify-content: center;
   height: max-content;
   max-height: 400px;
+  font-family: $ricos-settings-font-family;
 
   &.horizontalMenu {
     padding: 6px;
@@ -92,6 +94,7 @@
       justify-content: center;
       text-align: center;
       cursor: pointer;
+      font-family: inherit;
       &.horizontalMenu {
         height: 38px;
       }
