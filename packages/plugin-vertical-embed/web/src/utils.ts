@@ -1,5 +1,6 @@
 import { verticalEmbedProviders } from './constants';
 import { isNumber } from 'lodash';
+import imageClientAPI from 'image-client-api/dist/imageClientSDK';
 
 export const convertDuration = (durationInMinutes, t) => {
   if (!isNumber(durationInMinutes)) return '';
@@ -48,15 +49,26 @@ const getProductData = (data, t) => {
   return { url: pageUrl, imageSrc, content };
 };
 
-export const fixImageSrc = (src, width) => {
-  if (!src) {
-    return;
+export function getMediaId(src: string) {
+  try {
+    const [, mediaId] = /media\/([^/]+)/.exec(src) as string[];
+    return mediaId;
+  } catch (error) {
+    return src;
   }
-  const originalWidth = src.match(/w_[0-9]+/)?.[0].slice(2);
-  const originalHight = src.match(/h_[0-9]+/)?.[0].slice(2);
-  const height = Math.floor(width * (originalHight / originalWidth));
-  return src.replace(/w_[0-9]+,h_[0-9]+/, `w_${width},h_${height}`);
-};
+}
+
+export function getImageSrc(src: string, width: number, height: number) {
+  const mediaId = getMediaId(src);
+
+  try {
+    return imageClientAPI.getScaleToFillImageURL(mediaId, null, null, width, height, {
+      quality: 90,
+    });
+  } catch (error) {
+    return src;
+  }
+}
 
 export const dataTypeMapper = {
   [verticalEmbedProviders.booking]: getBookingData,
