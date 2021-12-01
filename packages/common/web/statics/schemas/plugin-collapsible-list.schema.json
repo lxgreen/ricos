@@ -26,7 +26,7 @@
           },
           "direction": {
             "$id": "/properties/config/properties/direction",
-            "type": "boolean",
+            "type": ["string", "boolean"],
             "title": "Direction",
             "examples": ["ltr","rtl"]
           }
