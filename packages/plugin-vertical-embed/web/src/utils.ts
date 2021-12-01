@@ -48,6 +48,16 @@ const getProductData = (data, t) => {
   return { url: pageUrl, imageSrc, content };
 };
 
+export const fixImageSrc = (src, width) => {
+  if (!src) {
+    return;
+  }
+  const originalWidth = src.match(/w_[0-9]+/)?.[0].slice(2);
+  const originalHight = src.match(/h_[0-9]+/)?.[0].slice(2);
+  const height = Math.floor(width * (originalHight / originalWidth));
+  return src.replace(/w_[0-9]+,h_[0-9]+/, `w_${width},h_${height}`);
+};
+
 export const dataTypeMapper = {
   [verticalEmbedProviders.booking]: getBookingData,
   [verticalEmbedProviders.event]: getEventData,
