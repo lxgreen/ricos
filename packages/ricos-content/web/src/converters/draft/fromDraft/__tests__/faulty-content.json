@@ -1,0 +1,1340 @@
+{
+    "VERSION": "8.58.3",
+    "blocks": [
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "foo",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [
+          {
+            "length": 36,
+            "offset": 0,
+            "style": "BOLD"
+          }
+        ],
+        "key": "64hpq",
+        "text": "4K ULTRA HD REVIEW / HDR FRAME SHOTS",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [
+          {
+            "key": 0,
+            "length": 1,
+            "offset": 0
+          }
+        ],
+        "inlineStyleRanges": [],
+        "key": "e94pn",
+        "text": " ",
+        "type": "atomic"
+      },
+      {
+        "data": {
+          "textAlignment": "center"
+        },
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [
+          {
+            "length": 283,
+            "offset": 0,
+            "style": "ITALIC"
+          },
+          {
+            "length": 4,
+            "offset": 193,
+            "style": "BOLD"
+          }
+        ],
+        "key": "62p2s",
+        "text": "(1) San Francisco public health inspector Matthew Bennell (Donald Sutherland) and lab technician Elizabeth Driscoll (Brooke Adams) are on the run from an ever-growing population of pod people. (2) The pod of Jack Bellicec (Jeff Goldblum) is nearly replicated into a soulless clone. ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "a361k",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "8hp5b",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {
+          "textAlignment": "center"
+        },
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [
+          {
+            "length": 57,
+            "offset": 0,
+            "style": "BOLD"
+          },
+          {
+            "length": 57,
+            "offset": 0,
+            "style": "ITALIC"
+          }
+        ],
+        "key": "c6n4d",
+        "text": "(Click on an image to scroll through the larger versions)",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [
+          {
+            "key": 1,
+            "length": 1,
+            "offset": 0
+          }
+        ],
+        "inlineStyleRanges": [],
+        "key": "3iosh",
+        "text": " ",
+        "type": "atomic"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "asn5p",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "26p4d",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "2u0rs",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "c1n82",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [
+          {
+            "length": 32,
+            "offset": 0,
+            "style": "BOLD"
+          }
+        ],
+        "key": "8o7n9",
+        "text": "“INVASION OF THE BODY SNATCHERS”",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "69psm",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [
+          {
+            "length": 113,
+            "offset": 0,
+            "style": "ITALIC"
+          }
+        ],
+        "key": "fh3f8",
+        "text": "4K Ultra HD, Blu-ray, 1978; PG for language and nudity; streaming via Amazon Prime Video, Apple TV, Vudu, YouTube",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "1d7hv",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [
+          {
+            "length": 11,
+            "offset": 0,
+            "style": "BOLD"
+          }
+        ],
+        "key": "8cgf9",
+        "text": "Best extra: Commentary with director Philip Kaufman",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "u0p7",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "c1hd2",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "6v5v7",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "1l9eh",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "fu4ev",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "eqil0",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "cpb0v",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "ai55j",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "3v5m3",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "6msto",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "cs6b9",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "b75bi",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "a0laq",
+        "text": "KINO LORBER, the New York independent film distributor known for its award-winning international, documentary, independent, and classic cinema, is jumping feet first into 4K Ultra HD with a full lineup of titles from its KL Studio Classics series.",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "g53d",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [
+          {
+            "key": 2,
+            "length": 16,
+            "offset": 115
+          }
+        ],
+        "inlineStyleRanges": [
+          {
+            "length": 16,
+            "offset": 115,
+            "style": "UNDERLINE"
+          }
+        ],
+        "key": "894fm",
+        "text": "Last year, during the middle of the pandemic, one title got the upgrade: George Miller’s post-apocalyptic thriller “Mad Max” (1979) starring Mel Gibson, which was graded with Dolby Vision.",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "bgkbc",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "37j6i",
+        "text": "Last spring, Sergio Leone’s Western classic “The Good, The Bad and the Ugly – Theatrical Cut” (1966) received a new shot-by-shot color grading and 4K scan. For some reason, no HDR grading was applied, but the added UHD resolution and adjusted colors gave the film new life. It quickly became Kino Lorber’s No. 1-selling Studio Classics title.",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "9bpt6",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "cbiqe",
+        "text": "In October, the multiple Oscar winner “The Silence of the Lambs: 30th Anniversary Edition” (1991) and Rob Reiner’s adaptation of Stephen King’s “Misery” (1990) were released on 4K. Both were graded with Dolby Vision. This month, John Woo’s action-packed “Hard Target” (1993) with Jean-Van Damme makes the jump.",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "ffaja",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [
+          {
+            "key": 3,
+            "length": 1,
+            "offset": 0
+          }
+        ],
+        "inlineStyleRanges": [],
+        "key": "c3kn0",
+        "text": " ",
+        "type": "atomic"
+      },
+      {
+        "data": {
+          "textAlignment": "center"
+        },
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [
+          {
+            "length": 180,
+            "offset": 0,
+            "style": "ITALIC"
+          },
+          {
+            "length": 6,
+            "offset": 0,
+            "style": "BOLD"
+          },
+          {
+            "length": 6,
+            "offset": 99,
+            "style": "BOLD"
+          }
+        ],
+        "key": "3ifgd",
+        "text": "(1&2) Alien spores fall from the sky and take root on the plant life and bear spectacular flowers. (3&4) Inspector Bennell finds rat waste in the kitchen of a high-end restaurant. ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "7fu9v",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "80b7m",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [
+          {
+            "key": 4,
+            "length": 1,
+            "offset": 0
+          }
+        ],
+        "inlineStyleRanges": [],
+        "key": "dsd3g",
+        "text": " ",
+        "type": "atomic"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [
+          {
+            "key": 5,
+            "length": 1,
+            "offset": 0
+          }
+        ],
+        "inlineStyleRanges": [],
+        "key": "8f6e1",
+        "text": " ",
+        "type": "atomic"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "2rgm2",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "8jrmh",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "desfo",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "690ni",
+        "text": "But in early 2022, the floodgates start to open with two all-time favorites. The World War II classic “The Great Escape” (1962), with an all-star cast including Steve McQueen, James Garner, James Coburn, and Charles Bronson, arrives January 11, without HDR grading. The following week it’s Billy Wilder’s comedy masterpiece “Some Like it Hot” (1958) with Tony Curtis, Jack Lemmon, and Marilyn Monroe, and with Dolby Vision.",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "4q4gr",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "1kcjb",
+        "text": "And more are on the way: Stanley Kubrick’s anti-war film “Paths of Glory” (1957), Orson Welles film noir classic “Touch of Evil” (1958), Wilder’s Best Picture winner “The Apartment” (1960), Brian De Palma’s suspense thriller “Dressed to Kill” (1980), the Cold War spy thriller “Tinker Tailor Soldier Spy” (2011), John Waters’ comedy “Cry-Baby (1990), William Friedkin’s neo-noir thriller “To Live and Die in L.A.” (1985), Steven Soderbergh’s “Out of Sight” (1998) and another installment of Leone’s ‘Man with No Name’ trilogy, “A Fistful of Dollars” (1964). Most will be graded with HDR10 and Dolby Vision. ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "566jg",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "d5nmv",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "embub",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "2phno",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "a5c48",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [
+          {
+            "key": 6,
+            "length": 1,
+            "offset": 0
+          }
+        ],
+        "inlineStyleRanges": [],
+        "key": "f18o4",
+        "text": " ",
+        "type": "atomic"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [
+          {
+            "length": 31,
+            "offset": 4,
+            "style": "ITALIC"
+          },
+          {
+            "length": 27,
+            "offset": 69,
+            "style": "ITALIC"
+          }
+        ],
+        "key": "epqa3",
+        "text": "(1) Elizabeth Driscoll's boyfriend Dr. Geoffrey Howell (Art Hindle), wakes up a different person",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "5klmk",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "aol6p",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "f2e92",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "bmlri",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [
+          {
+            "length": 10,
+            "offset": 0,
+            "style": "BOLD"
+          },
+          {
+            "length": 32,
+            "offset": 36,
+            "style": "BOLD"
+          }
+        ],
+        "key": "et3i1",
+        "text": "Last week, the chilling ‘70s remake “Invasion of the Body Snatchers” from director Philip Kaufman (“The Right Stuff”) was released on 4K UHD. Jack Finney’s 1950s paranoia novel “Body Snatchers” was first adapted in 1956 by young director Don Siegel (“Dirty Harry”); over the years, “Invasion of the Body Snatchers,” set in Santa Mira, a small California town, where folks fall asleep only to awaken transformed into soulless look-a-likes, has become a cult favorite. Its similarities to the Cold War “Red Scare” and the possible takeover of the American way of life are undeniable.",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "6ihev",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "9ci5e",
+        "text": "Kaufman and screenwriter W.D. Richter decided to move their story to San Francisco, which happened to be Kaufman’s favorite city, and where he lived. They also agreed it wouldn’t have any political overtones, just the threat of “losing your identity and humanity,” says Richter during one of the nine carryover featurettes.",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "aqnki",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "abkkl",
+        "text": "The protagonist from the first film, Dr. Miles Bennell, played by Kevin McCarthy, makes a frightening “They’re coming!” cameo. and Siegel has a cameo as a taxi driver. This time the protagonists are public health inspector Matthew Bennell (Donald Sutherland) and lab technician Elizabeth Driscoll (Brooke Adams). They end up at the dock front district at night where the alien seed pods are being cultivated. Staying awake is their only hope",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "2sekf",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "3t4m",
+        "text": "The film opens as spores from a barren planet end up on Earth, spreading spidery webs and pink flowers all over the Bay Area. Elizabeth notices a change in her boyfriend Dr. Geoffrey Howell (Art Hindle), who has become distant with her and meets clandestinely with mysterious groups of people. Matthew recruits his psychiatrist friend Dr. David Kibner (Leonard Nimoy) to look for an explanation for Geoffrey’s bizarre behavior. All over the city, people are claiming a similar pattern with family members and friends.",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "eaioa",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "61c8c",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "9a3dh",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [
+          {
+            "length": 6,
+            "offset": 0,
+            "style": "BOLD"
+          }
+        ],
+        "key": "8q5ri",
+        "text": "EXTRAS",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "ermur",
+        "text": "Kaufman’s running commentary is one of the best, providing an endless stream of backstories and insights into his $4 million, low-budget production. During the opening moments, he points out the futurist Transamerica Pyramid Tower, which is framed in a number of shots. They dubbed it “Pod Central,” because the insurance/investment corporation financed the film.",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "720m8",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "4s1df",
+        "text": "Kaufman establishes the paranoia in the opening frames as a strange-looking elementary school teacher walks her students toward a playground. Look closely and you’ll see actor Robert Duvall, in a 10-second cameo, playing a priest on a swing. He’s the film's first pod, and Duvall did it for no money. Kaufman got him a nice Eddie Bauer jacket to keep him warm.",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "d137b",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "qk7l",
+        "text": "Author/film historian Steve Haberman, reading from a prepared script, provides a lesser, academic-style second commentary.",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "cs166",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "dehl4",
+        "text": "The featurette “Re-Creating the Invasion” includes an interview with Richter, who details his first draft. It was originally centered around another small California town, but filming in a city gave it “more energy, more mystery, deeper darker shadows, and with lights twinkling in the background,” he says, adding that Finney’s novel was so popular because “it plays on our fear that people all around us are turning behind our backs. And, if we close our eyes, they will get us.”",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "3jjms",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "efmgo",
+        "text": "To keep the terror at a fever-pitch, Richter and Kaufman had Matthew smash the head of his own pod. “It was time to install the paranoia to say these aren’t dusty vegetable husks but flesh and blood in a weird way,” he says. “If you hit it with a shovel it’s going to rupture.”",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "1ifcl",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "1aumj",
+        "text": "In “Re-Visitors from Outer Space, or How I Learned to Stop Worrying and Love the Pod,” Kaufman recalls visiting Siegel – who he already knew – to get his blessing for the redux. To his surprise, McCarthy happened to pop in. He and Siegel told Kaufman that studio executives had sliced the dark comedy moments out, which “would’ve made the movie scarier.” In the remake, Jeff Goldblum as writer Jack Bellicec, handles the comedic moments nicely. We also learn that Sutherland was hit by a Volkswagen Bug while out running before a night shot. He wasn’t badly injured but rolled over the windshield.",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "18cgq",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "6t0r0",
+        "text": "During the featurette “Star-Crossed in the Invasion,” Adams recalls how she and Sutherland were starting to fall for each other, just like their characters. She also demonstrates her trick of rolling her eyes in fast circles, which Matthew asks Elizabeth to do to show that she isn’t crazy. ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "b6hkp",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "cb0tj",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "2mfv9",
+        "text": "“It [Invasion of the Body Snatchers] was exciting, politically sensible, intellectually and heartfelt and continues to garner praise and people still watch it. It was a pleasure to do it.” – Donald Sutherland",
+        "type": "blockquote"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "55is1",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "t634",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "2mned",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [
+          {
+            "length": 5,
+            "offset": 0,
+            "style": "BOLD"
+          }
+        ],
+        "key": "4a6m2",
+        "text": "VIDEO",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "hjqk",
+        "text": "The original 35mm camera negative was scanned in 4K, which extracts a good dose of natural film grain and excellent clarity from distant shots to close-ups. Kaufman approved the HDR10 and Dolby Vision color grading -- colors are rich and bold while the overall tone is darker on the 4K than the enclosed Blu-ray, which was sourced from the 4K master. The shadows and nighttime chase scenes have deep blacks while providing detail in the mid-shadows.",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "aovdr",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "evulu",
+        "text": "The 4K imagery from cinematographer Michael Chapman (“Taxi Driver,” “Raging Bull”) has a unique film noir quality. The deep shadows, bizarre camera angles, and reflections are preserved nicely. ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "76lmg",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [
+          {
+            "length": 5,
+            "offset": 0,
+            "style": "BOLD"
+          }
+        ],
+        "key": "90l72",
+        "text": "AUDIO",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "b9v8u",
+        "text": "The six-channel DTS-HD soundtrack seems to be ported over from a previous Blu-ray; the dialogue, the music cues from Denny Zeithin’s score, sound effects, and high-pitched screams are clear and balanced. And “Amazing Grace,” played by the Royal Scot Dragoon Guards as the pods are loaded onto a cargo ship, is nothing short of haunting. ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "bk6d1",
+        "text": " ",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "f52hd",
+        "text": "“Invasion of the Body Snatchers” doesn’t just still grab you, it may be one of the best sci-fi horror films of the 1970s, right up there with “Alien.” Hats off to Kino Lorber for its commitment to the 4K format. keep them coming!",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "b822r",
+        "text": "",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [
+          {
+            "length": 1,
+            "offset": 0,
+            "style": "ITALIC"
+          },
+          {
+            "length": 40,
+            "offset": 3,
+            "style": "ITALIC"
+          }
+        ],
+        "key": "cg3r3",
+        "text": " – Bill Kelley III, High-Def Watch producer",
+        "type": "unstyled"
+      },
+      {
+        "data": {},
+        "depth": 0,
+        "entityRanges": [],
+        "inlineStyleRanges": [],
+        "key": "sdaq",
+        "text": "",
+        "type": "unstyled"
+      }
+    ],
+    "entityMap": {
+      "0": {
+        "data": {
+          "config": {
+            "alignment": "center",
+            "size": "fullWidth",
+            "spoiler": {},
+            "textWrap": "wrap"
+          },
+          "disableDownload": false,
+          "disableExpand": false,
+          "items": [
+            {
+              "metadata": {
+                "height": 1672,
+                "type": "image",
+                "width": 3100
+              },
+              "url": "eb6f96_9beab90d5ccc4bfbb1ad459067b307cd~mv2.jpg"
+            },
+            {
+              "metadata": {
+                "height": 1674,
+                "type": "image",
+                "width": 3100
+              },
+              "url": "eb6f96_8b0a50eeef3a4c74b7beec496cd7b219~mv2.jpg"
+            }
+          ],
+          "styles": {
+            "galleryLayout": 6,
+            "galleryThumbnailsAlignment": "none",
+            "hasThumbnails": false,
+            "imageMargin": 1
+          }
+        },
+        "mutability": "IMMUTABLE",
+        "type": "wix-draft-plugin-gallery"
+      },
+      "1": {
+        "data": {
+          "config": {
+            "alignment": "left",
+            "link": {
+              "rel": "",
+              "target": "_blank",
+              "url": "https://amzn.to/3D2n7k9"
+            },
+            "showDescription": true,
+            "showTitle": true,
+            "size": "small",
+            "spoiler": {},
+            "textWrap": "wrap"
+          },
+          "disableDownload": false,
+          "disableExpand": false,
+          "metadata": {
+            "caption": "4K frame shots courtesy of KL Studio Classics - Click for Amazon purchase "
+          },
+          "src": {
+            "file_name": "eb6f96_446b1c2504644ed4898e1a1669101593~mv2.jpg",
+            "height": 1500,
+            "id": "eb6f96_446b1c2504644ed4898e1a1669101593~mv2.jpg",
+            "original_file_name": "INVASION JACK 78.jpg",
+            "width": 962
+          }
+        },
+        "mutability": "IMMUTABLE",
+        "type": "wix-draft-plugin-image"
+      },
+      "2": {
+        "data": {
+          "rel": "",
+          "target": "_blank",
+          "url": "https://www.highdefwatch.com/post/buckle-up-mad-max-thunders-out-of-the-gate-with-a-lively-4k-makeover"
+        },
+        "mutability": "MUTABLE",
+        "type": "LINK"
+      },
+      "3": {
+        "data": {
+          "config": {
+            "alignment": "center",
+            "size": "fullWidth",
+            "spoiler": {},
+            "textWrap": "wrap"
+          },
+          "disableDownload": false,
+          "disableExpand": false,
+          "items": [
+            {
+              "metadata": {
+                "height": 1666,
+                "type": "image",
+                "width": 3100
+              },
+              "url": "eb6f96_c1fe250facc74442a3432a3223997031~mv2.jpg"
+            },
+            {
+              "metadata": {
+                "height": 1672,
+                "type": "image",
+                "width": 3100
+              },
+              "url": "eb6f96_399a0d96adc347d49b7e406e42d4f497~mv2.jpg"
+            },
+            {
+              "metadata": {
+                "height": 1667,
+                "type": "image",
+                "width": 3100
+              },
+              "url": "eb6f96_923fc7ae0d6e430990012c671acbc0ab~mv2.jpg"
+            },
+            {
+              "metadata": {
+                "height": 1672,
+                "type": "image",
+                "width": 3100
+              },
+              "url": "eb6f96_af589ddc4c704f1181444e2fb8a48929~mv2.jpg"
+            }
+          ],
+          "styles": {
+            "galleryLayout": 6,
+            "galleryThumbnailsAlignment": "none",
+            "hasThumbnails": false,
+            "imageMargin": 1
+          }
+        },
+        "mutability": "IMMUTABLE",
+        "type": "wix-draft-plugin-gallery"
+      },
+      "4": {
+        "data": {
+          "config": {
+            "alignment": "left",
+            "link": {
+              "rel": "",
+              "target": "_blank",
+              "url": "https://amzn.to/3E9MuSs"
+            },
+            "showDescription": true,
+            "showTitle": true,
+            "size": "small",
+            "spoiler": {},
+            "textWrap": "wrap"
+          },
+          "disableDownload": false,
+          "disableExpand": false,
+          "metadata": {
+            "caption": "Amazon preorder"
+          },
+          "src": {
+            "file_name": "eb6f96_9b16f7f18b274ab5b27b7e2b8a6fd92c~mv2.jpg",
+            "height": 1500,
+            "id": "eb6f96_9b16f7f18b274ab5b27b7e2b8a6fd92c~mv2.jpg",
+            "original_file_name": "ESCAPE JACK.jpg",
+            "width": 1176
+          }
+        },
+        "mutability": "IMMUTABLE",
+        "type": "wix-draft-plugin-image"
+      },
+      "5": {
+        "data": {
+          "config": {
+            "alignment": "left",
+            "link": {
+              "rel": "",
+              "target": "_blank",
+              "url": "https://amzn.to/3EbYnqY"
+            },
+            "showDescription": true,
+            "showTitle": true,
+            "size": "small",
+            "spoiler": {},
+            "textWrap": "wrap"
+          },
+          "disableDownload": false,
+          "disableExpand": false,
+          "metadata": {
+            "caption": "Amazon preorder "
+          },
+          "src": {
+            "file_name": "eb6f96_3afac47454804054a5bf217ec949ae92~mv2.jpg",
+            "height": 1500,
+            "id": "eb6f96_3afac47454804054a5bf217ec949ae92~mv2.jpg",
+            "original_file_name": "SOME LIKE IT JACK 2.jpg",
+            "width": 1176
+          }
+        },
+        "mutability": "IMMUTABLE",
+        "type": "wix-draft-plugin-image"
+      },
+      "6": {
+        "data": {
+          "config": {
+            "alignment": "center",
+            "size": "fullWidth",
+            "spoiler": {},
+            "textWrap": "wrap"
+          },
+          "disableDownload": false,
+          "disableExpand": false,
+          "items": [
+            {
+              "metadata": {
+                "height": 1669,
+                "type": "image",
+                "width": 3100
+              },
+              "url": "eb6f96_ceb5855f32fa4b52b3722f844b2b18aa~mv2.jpg"
+            },
+            {
+              "metadata": {
+                "height": 1675,
+                "type": "image",
+                "width": 3100
+              },
+              "url": "eb6f96_f003583041664fb6b4ee8f7f6f4a0781~mv2.jpg"
+            },
+            {
+              "metadata": {
+                "height": 1676,
+                "type": "image",
+                "width": 3100
+              },
+              "url": "eb6f96_7b5a4272e519406aae931f1dc1204426~mv2.jpg"
+            },
+            {
+              "metadata": {
+                "height": 1678,
+                "type": "image",
+                "width": 3100
+              },
+              "url": "eb6f96_c413354cd54b4d45a2c5355b48a67bb1~mv2.jpg"
+            }
+          ],
+          "styles": {
+            "galleryLayout": 6,
+            "galleryThumbnailsAlignment": "none",
+            "hasThumbnails": false,
+            "imageMargin": 1
+          }
+        },
+        "mutability": "IMMUTABLE",
+        "type": "wix-draft-plugin-gallery"
+      }
+    }
+  }
