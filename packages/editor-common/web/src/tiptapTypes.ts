@@ -8,4 +8,5 @@ export type PluginProps = NodeViewRendererProps & {
     config: LegacyEditorPluginConfig;
   };
   componentData: ComponentData;
+  updateAttributes: (data: unknown) => null;
 };
