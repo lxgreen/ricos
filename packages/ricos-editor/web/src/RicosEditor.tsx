@@ -107,6 +107,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     };
     this.useTiptap = !!props.experiments?.tiptapEditor?.enabled;
     this.useNewFormattingToolbar = !!props.experiments?.newFormattingToolbar?.enabled;
+    this.useTiptap && this.fixPluginsConfig();
   }
 
   static defaultProps = {
@@ -114,6 +115,11 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       throw err;
     },
     locale: 'en',
+  };
+
+  fixPluginsConfig = () => {
+    const { _rcProps = {}, plugins } = this.props;
+    plugins?.forEach(plugin => plugin.configFixer?.({ helpers: _rcProps?.helpers }));
   };
 
   updateLocale = async () => {
@@ -443,12 +449,19 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     );
   }
 
+  updateNewFormattingToolbar = () => this.useNewFormattingToolbar && this.updateToolbars();
+
   renderTiptapEditor() {
     const { tiptapEditorModule } = this.state;
     if (!tiptapEditorModule) {
       return null;
     }
-    const { RicosTiptapEditor, RichContentAdapter, draftToTiptap, TIPTAP_TYPE_TO_RICOS_TYPE } = tiptapEditorModule;
+    const {
+      RicosTiptapEditor,
+      RichContentAdapter,
+      draftToTiptap,
+      TIPTAP_TYPE_TO_RICOS_TYPE,
+    } = tiptapEditorModule;
     const { content, injectedContent, plugins, onAtomicBlockFocus } = this.props;
     const { tiptapToolbar } = this.state;
     // TODO: Enforce Content ID's existance (or generate it)
@@ -477,21 +490,31 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                     this.setState({ tiptapToolbar: TextToolbar });
                   }}
                   onUpdate={this.onUpdate}
-                  onBlur={() => {
-                    this.useNewFormattingToolbar && this.updateToolbars();
-                  }}
-                  onSelectionUpdate={({ selectedNodes }) => {
-                    if (selectedNodes.length === 1 && selectedNodes[0].isBlock) {
-                      const firstNode = selectedNodes[0];
+                  onBlur={this.updateNewFormattingToolbar}
+                  onSelectionUpdate={({ selectedNodes, content }) => {
+
+                    //TODO: add 'textContainer' to group field of this extension config
+                    const textContainers = ['paragraph', 'codeBlock', 'heading'];
+                    const parentNodes =
+                      selectedNodes.length === 1
+                        ? selectedNodes
+                        : selectedNodes.filter(node => textContainers.includes(node.type.name));
+                    if (parentNodes.length === 1 && parentNodes[0].isBlock) {
+                      const firstNode = parentNodes[0];
                       const blockKey = firstNode.attrs.id;
                       const type = TIPTAP_TYPE_TO_RICOS_TYPE[firstNode.type.name] || 'text';
                       const data = firstNode.attrs;
                       onAtomicBlockFocus?.({ blockKey, type, data });
                     } else {
-                      onAtomicBlockFocus?.({ blockKey: undefined, type: undefined, data: undefined });
-
+                      onAtomicBlockFocus?.({
+                        blockKey: undefined,
+                        type: undefined,
+                        data: undefined,
+                      });
                     }
-                    this.useNewFormattingToolbar && this.updateToolbars();
+                    this.updateNewFormattingToolbar();
+
+                    this.onUpdate({ content });
                   }}
                 />
               );

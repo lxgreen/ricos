@@ -1,6 +1,7 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 @import '~wix-rich-content-common/dist/statics/styles/consts';
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
 
 .toolbarButton_wrapper {
   display: flex;
@@ -26,7 +27,7 @@
 .toolbarButton {
   display: flex;
   background: transparent;
-  color: $toolbar-font-color;
+  color: $settings-text-color;
   padding: 4px;
   border: 0 none;
   line-height: normal;
@@ -76,7 +77,7 @@
   display: flex;
   align-items: center;
   font-size: 14px;
-  font-family: HelveticaNeue;
+  font-family: $ricos-settings-font-family;
   font-weight: 500;
   // margin: 0 0 0 5px !important;
 }

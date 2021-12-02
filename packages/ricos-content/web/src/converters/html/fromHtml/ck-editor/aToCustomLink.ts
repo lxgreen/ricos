@@ -1,12 +1,13 @@
-import { identity, pipe, flow } from 'fp-ts/function';
 import * as E from 'fp-ts/Either';
+import { flow, identity, pipe } from 'fp-ts/function';
+import { not } from 'fp-ts/Predicate';
 import * as S from 'fp-ts/string';
-import { Link, Decoration_Type } from 'ricos-schema';
 import { Element } from 'parse5';
+import { Decoration_Type, Link } from 'ricos-schema';
+import { and, getMatches } from '../../../../fp-utils';
 import { createLink } from '../../../nodeUtils';
-import { getMatches } from '../../../../fp-utils';
-import { getAttributes } from '../core/parse5-utils';
 import { Rule } from '../core/models';
+import { getAttributes, hasParent, isRoot } from '../core/parse5-utils';
 import { aToLink } from '../core/rules';
 
 const parseNavigationData = flow(
@@ -36,7 +37,7 @@ const createCustomLink = ({ url, onclick, ...rest }: Record<string, string>): Li
   pipe({ url, ...rest }, createLink, mergeData(onclick));
 
 export const aToCustomLink: Rule = [
-  aToLink[0],
+  and([aToLink[0], not(hasParent(isRoot))]),
   context => (node: Element) => {
     const attrs = getAttributes(node);
     return context.addDecoration(

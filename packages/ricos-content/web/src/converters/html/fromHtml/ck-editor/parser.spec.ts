@@ -55,6 +55,6 @@ describe('CKEditor parser', () => {
         )
       )
     );
-    expect(failedContent.length).toEqual(165);
+    expect(failedContent.length).toEqual(168);
   });
 });

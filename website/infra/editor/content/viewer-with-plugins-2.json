@@ -1,0 +1,115 @@
+{
+  "blocks": [
+    {
+      "key": "d79aa",
+      "text": "This is a content example with video & image",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "6dc41",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "f6m2s",
+      "text": " ",
+      "type": "atomic",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [
+        {
+          "offset": 0,
+          "length": 1,
+          "key": 0
+        }
+      ],
+      "data": {}
+    },
+    {
+      "key": "8rpag",
+      "text": " ",
+      "type": "atomic",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [
+        {
+          "offset": 0,
+          "length": 1,
+          "key": 1
+        }
+      ],
+      "data": {}
+    },
+    {
+      "key": "2rhmc",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    }
+  ],
+  "entityMap": {
+    "0": {
+      "type": "wix-draft-plugin-image",
+      "mutability": "IMMUTABLE",
+      "data": {
+        "config": {
+          "alignment": "right",
+          "size": "small",
+          "showTitle": true,
+          "showDescription": true,
+          "textWrap": "wrap"
+        },
+        "src": {
+          "id": "759c83479429d725f03367897235a8b5",
+          "original_file_name": "8bb438_4af301c080294224b6b5e15cd38a035f.jpg",
+          "file_name": "8bb438_4af301c080294224b6b5e15cd38a035f.jpg",
+          "width": 1920,
+          "height": 1280
+        }
+      }
+    },
+    "1": {
+      "type": "wix-draft-plugin-video",
+      "mutability": "IMMUTABLE",
+      "data": {
+        "config": {
+          "size": "small",
+          "alignment": "left",
+          "textWrap": "wrap"
+        },
+        "tempData": false,
+        "src": "https://youtu.be/oCBpJkG6ngE",
+        "metadata": {
+          "version": "1.0",
+          "thumbnail_url": "https://i.ytimg.com/vi/jhXlnvYZZQs/hqdefault.jpg",
+          "provider_url": "https://www.youtube.com/",
+          "thumbnail_height": 360,
+          "provider_name": "YouTube",
+          "width": 480,
+          "title": "Wix.com Official 2018 Big Game Ad with Rhett & Link — Extended Version",
+          "author_url": "https://www.youtube.com/user/Wix",
+          "html": "<iframe width=\"480\" height=\"270\" src=\"https://www.youtube.com/embed/jhXlnvYZZQs?feature=oembed\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>",
+          "height": 270,
+          "author_name": "Wix.com",
+          "thumbnail_width": 480,
+          "type": "video",
+          "video_url": "https://youtu.be/jhXlnvYZZQs"
+        }
+      }
+    }
+  },
+  "documentStyle": {},
+  "VERSION": "8.63.5",
+  "ID": "f2716d19-c7f3-4864-982c-40a37ebde31c"
+}

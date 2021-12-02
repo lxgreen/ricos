@@ -19,11 +19,71 @@
 
 ### :bug: Bug Fix
 
+- `html`
+  - [#3204](https://github.com/wix/ricos/pull/3204) add `allowFullScreen` to html iframe
 - `headings`
   - [#3163](https://github.com/wix/ricos/pull/3163) fix lists wiring to `documentStyle`
 
+### :house: Internal
+
+- `common`
+  - [#3202](https://github.com/wix/ricos/pull/3202) add `documentStyle` to the old schema
+
+### :nail_care: Polish
+
+- `general`
+  - [#3186](https://github.com/wix/ricos/pull/3186) use button component in table settings and refactor color picker ui
+
 </details>
 <hr/>
+
+## 8.64.1 (Dec 02, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3201](https://github.com/wix/ricos/pull/3201) fromHtml/ck-editor: text and links under root are handled
+
+## 8.64.0 (Dec 02, 2021)
+
+### :rocket: New Feature
+
+- `general`
+  - [#3178](https://github.com/wix/ricos/pull/3178) font-family BM theme wiring
+  - [#3181](https://github.com/wix/ricos/pull/3181) box-shadow & border-radius BM theme wiring
+  - [#3185](https://github.com/wix/ricos/pull/3185) inputs/text color BM theme wiring
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3188](https://github.com/wix/ricos/pull/3188) mobile basic link panel
+- `html`
+  - [#3191](https://github.com/wix/ricos/pull/3191) html iframe sandbox allows fullscreen
+- `headings`
+  - [#3196](https://github.com/wix/ricos/pull/3196) new dropdown style and a11y fixes for safari
+
+## 8.63.7 (Nov 30, 2021)
+
+### :bug: Bug Fix
+
+- `button`
+  - [#3172](https://github.com/wix/ricos/pull/3172) prevent default space/enter onKeyDown
+- `toolbars-new`
+  - [#3173](https://github.com/wix/ricos/pull/3173) mobile add plugin button when side toolbar disabled from config
+
+## 8.63.6 (Nov 29, 2021)
+
+### :house: Internal
+
+- `common`
+  - [#3170](https://github.com/wix/ricos/pull/3170) collapsible list schema validator
+- `file-upload`
+  - [#3169](https://github.com/wix/ricos/pull/3169) enable `useFilePluginAutoDownloadLinkRef` experiment
+
+### :bug: Bug Fix
+
+- `collapsible-list`
+  - [#3171](https://github.com/wix/ricos/pull/3171) disable expand/collapse onClick auto-scroll
 
 ## 8.63.4 (Nov 29, 2021)
 

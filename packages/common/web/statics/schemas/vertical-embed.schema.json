@@ -10,7 +10,7 @@
       },
       "type": {
         "$id": "/properties/type",
-        "enum": ["product", "event", "store"],
+        "enum": ["product", "event", "store", "booking"],
         "title": "vertical embed type"
       },
       "selectedProduct": {

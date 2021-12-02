@@ -184,6 +184,7 @@ class CollapsibleListComponent extends React.Component {
                   renderContent={this.renderContent}
                   PairWrapper={this.PairWrapper}
                   helpers={helpers}
+                  isInEditor
                 />
                 {provided.placeholder}
               </div>

@@ -8,13 +8,16 @@ import { createRicosExtensions } from './tiptap';
 import { TiptapEditorPlugin } from 'wix-tiptap-editor';
 
 export const pluginVideo: EditorPluginCreator<VideoPluginEditorConfig> = config => {
-  const pluginConfig = { ...DEFAULTS.config, ...config };
+  const pluginConfig: VideoPluginEditorConfig = { ...DEFAULTS.config, ...config };
   return {
     config: pluginConfig,
     type: VIDEO_TYPE,
     createPlugin: createVideoPlugin,
     ModalsMap,
     createPluginData: createVideoData,
+    configFixer: () =>
+      (pluginConfig.uploadHandler =
+        pluginConfig.handleFileUpload || pluginConfig.handleFileSelection),
     tiptapExtensions: createRicosExtensions(pluginConfig),
   } as TiptapEditorPlugin;
 };

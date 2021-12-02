@@ -32,11 +32,12 @@
 
 .inlineToolbarButton {
   background: transparent;
-  color: $toolbar-font-color;
   padding: 5px;
   border: 0 none;
   line-height: normal;
   cursor: pointer;
+  font-family: $ricos-settings-font-family;
+  color: $settings-text-color;
   &:disabled {
     cursor: default;
     opacity: 0.4;
@@ -67,7 +68,8 @@
   display: flex;
   align-items: center;
   font-size: 14px;
-  font-family: $ricos-default-font-family;
+  font-family: $ricos-settings-font-family;
+  color: $settings-text-color;
   font-weight: 500;
   margin: 0 0 0 5px !important;
 }

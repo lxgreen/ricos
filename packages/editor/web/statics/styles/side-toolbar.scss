@@ -5,6 +5,9 @@
   position: relative;
   pointer-events: none;
   text-align: start;
+  &.sideToolbar_floatingContainer_shouldNotDisplay {
+    display: none;
+  }
 }
 
 .sideToolbar_floatingIcon {
@@ -45,7 +48,7 @@
   width: 320px;
   max-height: 400px;
   display: grid;
-  box-shadow: 0 4px 8px 0 rgba(123, 99, 99, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: $settings-whitebox-box-shadow;
   pointer-events: auto;
   overflow: hidden;
 }

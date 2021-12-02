@@ -93,7 +93,9 @@ const createEditorToolbars = ({
     .filter(({ name }) => name !== TOOLBARS.PLUGIN)
     .filter(
       ({ shouldCreate, name }) =>
-        shouldCreateExternalToolbar(name) || get(shouldCreate?.(), deviceName, true)
+        shouldCreateExternalToolbar(name) ||
+        get(shouldCreate?.(), deviceName, true) ||
+        name === TOOLBARS.SIDE
     )
     .forEach(
       ({
@@ -108,6 +110,7 @@ const createEditorToolbars = ({
         addPluginMenuConfig,
         footerToolbarConfig,
         onClick,
+        shouldCreate,
       }) => {
         toolbars[name] = getInstance?.({
           ...context,
@@ -131,6 +134,7 @@ const createEditorToolbars = ({
           onClick,
           experiments,
           focusEditor,
+          shouldNotDisplay: !get(shouldCreate?.(), deviceName, true),
         });
       }
     );

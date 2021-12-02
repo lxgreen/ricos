@@ -43,7 +43,7 @@
 .emojiPreviewModal_headerTitle {
   font-size: 14px;
   font-weight: 300;
-  color: #000000;
+  color: var(--ricos-settings-text-color, #000000);
   display: flex;
   justify-content: space-between;
   padding-left: 17px;
