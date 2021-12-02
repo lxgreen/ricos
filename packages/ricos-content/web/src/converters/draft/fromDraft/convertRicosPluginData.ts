@@ -32,6 +32,7 @@ import {
   ButtonData,
   GIFData,
   GalleryData,
+  GalleryOptions_Thumbnails,
 } from 'ricos-schema';
 import { TO_RICOS_DATA } from './consts';
 import {
@@ -144,6 +145,7 @@ const convertGalleryStyles = styles => {
   styles.layout = {};
   styles.item = {};
   styles.thumbnails = {};
+
   has(styles, 'galleryLayout') && (styles.layout.type = styles.galleryLayout);
   has(styles, 'oneRow') && (styles.layout.horizontalScroll = styles.oneRow);
   has(styles, 'isVertical') && (styles.layout.orientation = styles.isVertical ? 'COLUMNS' : 'ROWS');
@@ -155,6 +157,7 @@ const convertGalleryStyles = styles => {
   has(styles, 'imageMargin') && (styles.item.spacing = styles.imageMargin);
   has(styles, 'galleryThumbnailsAlignment') &&
     (styles.thumbnails.placement = styles.galleryThumbnailsAlignment.toUpperCase());
+
   has(styles, 'thumbnailSpacings') && (styles.thumbnails.spacing = styles.thumbnailSpacings * 2);
   return styles;
 };

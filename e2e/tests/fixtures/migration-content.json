@@ -1780,7 +1780,7 @@
         },
         "layout": {
           "poll": {
-            "type": "grid",
+            "type": "grid2",
             "direction": "rtl",
             "enableImage": true
           },
