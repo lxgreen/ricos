@@ -14,7 +14,7 @@
   top: 0px;
   background-color: white;
   border: solid 1px #ededed;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: $settings-whitebox-box-shadow;
   position: absolute;
 }
 
@@ -54,7 +54,7 @@
 
 .panel_Container {
   border: solid 1px #ededed;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: $settings-whitebox-box-shadow;
   svg {
     height: unset;
     width: unset;
@@ -63,7 +63,7 @@
 
 .mobile_Container {
   border: solid 1px #ededed;
-  border-radius: unset;
+  border-radius: $settings-whitebox-border-radius;
   box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.1), 0 4px 8px 0 rgba(0, 0, 0, 0.1);
   position: fixed;
   bottom: 0;

@@ -142,7 +142,7 @@
 .lineSpacingContainer {
   border: solid 1px #ededed;
   border-radius: 6px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: $settings-whitebox-box-shadow;
 }
 
 .lineSpacingContainer_mobile {

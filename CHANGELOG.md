@@ -20,7 +20,8 @@
 ### :rocket: New Feature
 
 - `general`
-  - [#3178](https://github.com/wix/ricos/pull/3178) settings font-family wiring
+  - [#3178](https://github.com/wix/ricos/pull/3178) font-family wiring for BM theme 
+  - [#3181](https://github.com/wix/ricos/pull/3181) box-shadow & border-radius wiring for BM theme 
 
 ### :bug: Bug Fix
 
