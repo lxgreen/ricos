@@ -29,6 +29,7 @@ import {
   scrollToBlock,
   insertCustomLink,
   getSelectedBlocks,
+  createEmptyBlockBeforeAndAfterSelection,
 } from 'wix-rich-content-editor-common';
 import {
   AvailableExperiments,
@@ -46,6 +47,7 @@ import {
   DocumentStyle,
   RicosCustomStyles,
   CUSTOM_LINK,
+  CODE_BLOCK_TYPE,
 } from 'wix-rich-content-common';
 
 import {
@@ -118,8 +120,15 @@ export const createEditorCommands = (
   externalEditorProps,
   experiments?: AvailableExperiments
 ): EditorCommands => {
-  const setBlockType: EditorCommands['setBlockType'] = type =>
-    setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
+  const setBlockType: EditorCommands['setBlockType'] = type => {
+    if (type === CODE_BLOCK_TYPE) {
+      let modifiedEditorState = RichUtils.toggleBlockType(getEditorState(), type);
+      modifiedEditorState = createEmptyBlockBeforeAndAfterSelection(modifiedEditorState);
+      setEditorState(modifiedEditorState);
+    } else {
+      setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
+    }
+  };
 
   const _setSelection: EditorCommands['_setSelection'] = (blockKey, selection) =>
     setEditorState(

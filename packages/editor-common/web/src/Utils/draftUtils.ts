@@ -10,6 +10,8 @@ import {
   RawDraftEntity,
   EditorChangeType,
   EntityInstance,
+  genKey,
+  BlockMapBuilder,
 } from '@wix/draft-js';
 import DraftOffsetKey from '@wix/draft-js/lib/DraftOffsetKey';
 
@@ -26,6 +28,7 @@ import {
 } from 'wix-rich-content-common';
 import { Optional } from 'utility-types';
 import { getContentSummary } from 'wix-rich-content-common/libs/contentAnalytics';
+import { List } from 'immutable';
 
 type LinkDataUrl = {
   url: string;
@@ -859,3 +862,110 @@ export function setNativeSelectionToBlock(block: ContentBlock) {
   selection?.removeAllRanges();
   selection?.addRange(range);
 }
+
+function createEmptyBlock() {
+  return new ContentBlock({
+    key: genKey(),
+    type: 'unstyled',
+    text: '',
+    characterList: List(), // eslint-disable-line new-cap
+  });
+}
+
+function moveTextToFirstBlock(blocks, contentState) {
+  const firstKey = blocks.first().getKey();
+  return blocks.rest().reduce((contentState, block, key) => {
+    const targetLength = contentState.getBlockForKey(firstKey).getLength();
+    const newLineTarget = SelectionState.createEmpty(firstKey)
+      .set('anchorOffset', targetLength)
+      .set('focusOffset', targetLength);
+
+    const withNewLine = Modifier.insertText(contentState, newLineTarget as SelectionState, '\n');
+
+    const sourceRange = SelectionState.createEmpty(key)
+      .set('anchorOffset', 0)
+      .set('focusOffset', block.getLength());
+    const textTarget = newLineTarget
+      .set('anchorOffset', targetLength + 1)
+      .set('focusOffset', targetLength + 1);
+
+    return Modifier.moveText(
+      withNewLine,
+      sourceRange as SelectionState,
+      textTarget as SelectionState
+    );
+  }, contentState);
+}
+
+function replaceSelectedBlocksWithCodeBlock(firstKey, lastKey, contentState) {
+  const fragment = BlockMapBuilder.createFromArray([
+    createEmptyBlock(),
+    contentState.getBlockForKey(firstKey),
+    createEmptyBlock(),
+  ]);
+
+  const target = new SelectionState({
+    anchorKey: firstKey,
+    anchorOffset: 0,
+    focusKey: lastKey,
+    focusOffset: contentState.getBlockForKey(lastKey).getLength(),
+  });
+
+  return Modifier.replaceWithFragment(contentState, target, fragment);
+}
+
+function setBlockTypeAndMerge(blocks, contentState) {
+  console.log('blocks.count()', blocks.count());
+
+  if (!blocks.count()) {
+    return contentState;
+  }
+
+  // const blockGroup = blocks.skipWhile(isAtomic).takeWhile(isNotAtomic);
+
+  let modifiedContentState = contentState;
+  if (blocks.count()) {
+    const firstKey = blocks.first().getKey();
+    const lastKey = blocks.last().getKey();
+    const afterMove = moveTextToFirstBlock(blocks, contentState);
+    const targetRange = SelectionState.createEmpty(firstKey);
+    const afterTypeChange = Modifier.setBlockType(afterMove, targetRange, 'code-block');
+    modifiedContentState = replaceSelectedBlocksWithCodeBlock(firstKey, lastKey, afterTypeChange);
+  }
+
+  return setBlockTypeAndMerge(blocks, modifiedContentState);
+}
+function getBlockRange(firstKey, lastKey, blocks) {
+  return blocks
+    .skipUntil(block => firstKey === block.getKey())
+    .reverse()
+    .skipUntil(block => lastKey === block.getKey())
+    .reverse();
+}
+
+export function createEmptyBlockBeforeAndAfterSelection(editorState: EditorState) {
+  const selection = getSelection(editorState);
+  const contentState = editorState.getCurrentContent();
+  const firstKey = selection.getStartKey();
+  const lastKey = selection.getStartKey();
+  const selectedBlocks = getBlockRange(firstKey, lastKey, contentState.getBlockMap());
+
+  let newContentState = setBlockTypeAndMerge(selectedBlocks, contentState);
+  const fragment = BlockMapBuilder.createFromArray([
+    createEmptyBlock(),
+    contentState.getBlockForKey(firstKey),
+    createEmptyBlock(),
+  ]);
+  const target = new SelectionState({
+    anchorKey: firstKey,
+    anchorOffset: 0,
+    focusKey: lastKey,
+    focusOffset: newContentState.getBlockForKey(lastKey).getLength(),
+  });
+  newContentState = Modifier.replaceWithFragment(newContentState, target, fragment);
+  const newEditorState = EditorState.push(editorState, newContentState, 'insert-characters');
+  return newEditorState;
+}
+// export function createEmptyBlockAfterSelection(editorState: EditorState) {
+
+// }
