@@ -25,6 +25,13 @@
 </details>
 <hr/>
 
+## 8.64.1 (Dec 02, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3201](https://github.com/wix/ricos/pull/3201) fromHtml/ck-editor: text and links under root are handled
+
 ## 8.64.0 (Dec 02, 2021)
 
 ### :rocket: New Feature
