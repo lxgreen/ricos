@@ -2,7 +2,7 @@
 @import "../poll-settings-modal.scss";
 
 .root {
-  color: #000;
+  color: var(--ricos-settings-text-color, #000);
 }
 
 .title {
@@ -26,7 +26,7 @@
 
 .selectionListOptionLabel {
   margin: 5px 0;
-  color: #000;
+  color: var(--ricos-settings-text-color, #000);
   white-space: nowrap;
   font-size: 12px;
 }

@@ -44,7 +44,6 @@
           "link": {
             "$id": "/properties/config/properties/link",
             "type": ["object", "null"],
-            "required": ["url"],
             "properties": {
               "url": {
                 "$id": "/properties/config/properties/link/properties/url",
@@ -93,14 +92,14 @@
           },
           "width": {
             "$id": "/properties/src/properties/width",
-            "type": ["integer", "string"],
+            "type": ["integer", "string", "null"],
             "title": "image width",
             "default": 0,
             "examples": [1621]
           },
           "height": {
             "$id": "/properties/src/properties/height",
-            "type": ["integer", "string"],
+            "type": ["integer", "string", "null"],
             "title": "image height",
             "default": 0,
             "examples": [1081]

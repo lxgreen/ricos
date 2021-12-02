@@ -4,7 +4,7 @@
   position: relative;
   display: flex;
   &:hover {
-    color: #333333;
+    color: $settings-text-color;
   }
 }
 
@@ -12,19 +12,19 @@
   font-weight: 300;
   font-size: 12px;
   line-height: 16px;
-  color: #333333;
+  color: $settings-text-color;
   width: 100%;
   height: 40px;
-  border: 1px solid rgba(0, 0, 0, 0.6);
   padding-left: 37px;
-  border-radius: unset;
+  border: 1px solid var(--ricos-settings-inputs-border-color, rgba(0, 0, 0, 0.6));
+  border-radius: $settings-inputs-border-radius;
 
   &::placeholder {
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--ricos-settings-inputs-placeholder-color, rgba(0, 0, 0, 0.6));
   }
   &:focus,
   &:hover {
-    border-color: #333333;
+    border-color: var(--ricos-settings-action-color-tuple, #333333);
   }
 }
 

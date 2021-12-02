@@ -19,7 +19,7 @@ $spacing: 12px;
 
 .linkPanel_container {
   font-family: $ricos-settings-font-family;
-  color: black;
+  color: var(--ricos-settings-text-color, #000);
   position: relative;
   min-width: 360px;
   padding: $spacing;
@@ -69,6 +69,7 @@ $spacing: 12px;
   line-height: 1.5;
   letter-spacing: normal;
   text-align: left;
+  color: $settings-text-color;
   &.basicPanel {
     margin: 0;
     padding: 0;
@@ -90,14 +91,14 @@ $spacing: 12px;
 
 .linkPanel_textInput,
 .linkPanel_dropdownList {
-  color: $modal-input-color;
+  color: $settings-text-color;
   width: 100%;
   font-size: 14px;
-  border: 1px solid rgba(51, 51, 51, 0.2);
+  border: 1px solid var(--ricos-settings-inputs-border-color, rgba(51, 51, 51, 0.2));
 
   &:focus,
   &:focus + .linkPanel_dropdownList {
-    border: 1px solid rgba(51, 51, 51, 0.5);
+    border: 1px solid var(--ricos-settings-inputs-border-color, rgba(51, 51, 51, 0.5));
   }
 }
 
@@ -106,9 +107,11 @@ $spacing: 12px;
   padding: 0 18px;
   text-align: left;
   box-sizing: border-box;
+  border: 1px solid $settings-inputs-border-color;
+  border-radius: $settings-inputs-border-radius;
 
   &::placeholder {
-    opacity: 0.4;
+    color: var(--ricos-settings-inputs-placeholder-color, rgba(0, 0, 0, 0.4));
   }
 }
 
@@ -125,7 +128,7 @@ $spacing: 12px;
   width: 100%;
   height: 42px;
   padding: 0 17px;
-  color: #333333;
+  color: $settings-text-color;
   border: 1px solid #ededed;
 }
 

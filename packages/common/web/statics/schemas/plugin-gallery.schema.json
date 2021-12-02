@@ -129,7 +129,7 @@
           },
           "thumbnailSpacings": {
             "$id": "/properties/styles/properties/thumbnailSpacings",
-            "type": "integer",
+            "type": "number",
             "title": "The Thumbnailspacings Schema ",
             "default": 0,
             "examples": [0]

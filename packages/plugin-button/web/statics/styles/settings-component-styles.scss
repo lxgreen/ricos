@@ -98,7 +98,7 @@
 
 .textInput_input::placeholder {
   font-size: 14px;
-  color: #333333;
+  color: $settings-text-color;
 }
 // checkboxes theme
 .checkbox:hover .checkbox_icon_unchecked {
