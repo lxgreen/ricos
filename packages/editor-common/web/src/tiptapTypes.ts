@@ -6,6 +6,7 @@ export type PluginProps = NodeViewRendererProps & {
     theme: RichContentTheme;
     t: (key: string) => string;
     config: LegacyEditorPluginConfig;
+    iframeSandboxDomain: string;
   };
   componentData: ComponentData;
   updateAttributes: (data: unknown) => null;
