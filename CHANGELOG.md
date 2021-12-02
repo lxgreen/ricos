@@ -17,13 +17,17 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.64.0 (Dec 02, 2021)
+
 ### :rocket: New Feature
 
 - `general`
   - [#3178](https://github.com/wix/ricos/pull/3178) font-family BM theme wiring
   - [#3181](https://github.com/wix/ricos/pull/3181) box-shadow & border-radius BM theme wiring
   - [#3185](https://github.com/wix/ricos/pull/3185) inputs/text color BM theme wiring
-
 
 ### :bug: Bug Fix
 
@@ -33,9 +37,6 @@
   - [#3191](https://github.com/wix/ricos/pull/3191) html iframe sandbox allows fullscreen
 - `headings`
   - [#3196](https://github.com/wix/ricos/pull/3196) new dropdown style and a11y fixes for safari
-
-</details>
-<hr/>
 
 ## 8.63.7 (Nov 30, 2021)
 
