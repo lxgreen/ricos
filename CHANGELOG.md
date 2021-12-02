@@ -31,6 +31,8 @@
   - [#3188](https://github.com/wix/ricos/pull/3188) mobile basic link panel
 - `html`
   - [#3191](https://github.com/wix/ricos/pull/3191) html iframe sandbox allows fullscreen
+- `headings`
+  - [#3196](https://github.com/wix/ricos/pull/3196) new dropdown style and a11y fixes for safari
 
 </details>
 <hr/>
