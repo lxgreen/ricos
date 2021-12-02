@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import CardContent from './CardContent';
 import styles from '../../statics/styles/widget.scss';
 import classNames from 'classnames';
-import { getImageSrc } from '../utils';
+import { getScaleImageSrc } from 'wix-rich-content-common/libs/imageUtils';
 
 const Card = props => {
   const { url, content, direction } = props;
   const [imageSrc, setImageSrc] = useState();
 
   const setRef = ref =>
-    ref && setImageSrc(getImageSrc(props.imageSrc, 185, ref.getBoundingClientRect().height));
+    ref && setImageSrc(getScaleImageSrc(props.imageSrc, 185, ref.getBoundingClientRect().height));
 
   return (
     // eslint-disable-next-line react/jsx-no-target-blank

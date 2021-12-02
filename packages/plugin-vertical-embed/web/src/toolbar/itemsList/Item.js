@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../../../statics/styles/item.scss';
 import classnames from 'classnames';
-import { getImageSrc } from '../../utils';
+import { getScaleImageSrc } from 'wix-rich-content-common/libs/imageUtils';
 
 class Item extends PureComponent {
   static propTypes = {
@@ -24,7 +24,7 @@ class Item extends PureComponent {
   render() {
     const { selected, item, t } = this.props;
     const { name, getDescription } = item;
-    const imageSrc = getImageSrc(item.imageSrc, 50, 50);
+    const imageSrc = getScaleImageSrc(item.imageSrc, 50, 50);
     return (
       <div
         ref={this.itemRef}
