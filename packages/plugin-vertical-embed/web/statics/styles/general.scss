@@ -12,7 +12,7 @@
 .description {
     font-family: $ricos-settings-font-family;
     font-size: 16px;
-    color: #000000;
+    color: var(--ricos-settings-text-color, #000000);;
 }
 
 .description {
