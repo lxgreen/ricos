@@ -7,7 +7,8 @@ import { withContentRect } from 'react-measure';
 
 import { withRCEHelpers, RCEHelpersPropTypes } from '../rce-helpers-context';
 import { LoaderIcon, ReplaceIcon } from '../../assets/icons';
-import { getRandomValue, getImageSrc } from '../../helpers';
+import { getRandomValue } from '../../helpers';
+import { getScaleImageSrc } from 'wix-rich-content-common/libs/imageUtils';
 import { POLL_IMAGES_POOL } from '../../defaults';
 
 import { ImageUploadPropTypes } from './types';
@@ -56,7 +57,7 @@ class ImageUploadComponent extends PureComponent {
       return null;
     }
 
-    const backgroundImage = `url(${getImageSrc(value, bounds.width, bounds.height)})`;
+    const backgroundImage = `url(${getScaleImageSrc(value, bounds.width, bounds.height)})`;
 
     this.setState(() => ({
       backgroundImage,
