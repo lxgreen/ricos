@@ -23,14 +23,14 @@
         "properties": {
           "width": {
             "$id": "/properties/config/properties/width",
-            "type": "integer",
+            "type": "number",
             "title": "frame width",
             "default": 740,
             "examples": [500]
           },
           "height": {
             "$id": "/properties/config/properties/height",
-            "type": "integer",
+            "type": "number",
             "title": "frame height",
             "default": 242,
             "examples": [200]
