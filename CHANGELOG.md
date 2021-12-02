@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+
+- `general`
+  - [#3186](https://github.com/wix/ricos/pull/3186) use button component in table settings and refactor color picker ui 
+
 </details>
 <hr/>
 

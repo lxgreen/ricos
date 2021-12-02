@@ -5,6 +5,7 @@ import styles from '../../statics/styles/table-settings-modal.scss';
 import TableSettingsCountSection from './TableSettingsCountSection';
 import { getDefaultsSettings, isCellsNumberInvalid } from '../tableUtil';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
+import { Button } from 'wix-rich-content-ui-components';
 import { CloseIcon } from '../icons';
 
 export default class tableSettingsModal extends Component {
@@ -121,9 +122,11 @@ export default class tableSettingsModal extends Component {
             tabIndex="0" //eslint-disable-line
             className={styles.submit}
           >
-            <button onClick={this.onCreateTableClicked} data-hook={'createTableButton'}>
-              {t('TablePlugin_SettingsModal_CreateTable_Button')}
-            </button>
+            <Button
+              onClick={this.onCreateTableClicked}
+              dataHook={'createTableButton'}
+              text={t('TablePlugin_SettingsModal_CreateTable_Button')}
+            />
           </div>
         </div>
       </div>
