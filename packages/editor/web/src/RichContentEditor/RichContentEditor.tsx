@@ -1330,6 +1330,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       showToolbars = true,
       isInnerRCE,
       isMobile = false,
+      experiments,
     } = this.props;
     const { innerModal } = this.state;
 
@@ -1352,6 +1353,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
         theme,
         draftStyles,
         editorStyles,
+        experiments,
       });
 
       return (
