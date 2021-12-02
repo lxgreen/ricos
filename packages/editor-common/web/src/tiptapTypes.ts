@@ -9,4 +9,5 @@ export type PluginProps = NodeViewRendererProps & {
   };
   componentData: ComponentData;
   updateAttributes: (data: unknown) => null;
+  selected: boolean;
 };
