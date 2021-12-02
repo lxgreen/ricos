@@ -61,8 +61,7 @@
 .toolbarButton {
   display: flex;
   background: transparent;
-  color: #000000;
-  // color: $toolbar-font-color;
+  color: var(--ricos-settings-text-color, #000000);
   padding: 4px;
   border: 0 none;
   line-height: normal;

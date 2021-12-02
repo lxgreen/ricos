@@ -1,9 +1,11 @@
+@import '~wix-rich-content-common/dist/statics/styles/palette';
+
 .toastContainer {
     z-index: 100002;
     padding: 16px 68px 16px 29px;
     box-sizing: border-box;
     border-radius: 2px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: $settings-whitebox-box-shadow;
     width: fit-content;
     max-width: 690px;
     position: fixed;

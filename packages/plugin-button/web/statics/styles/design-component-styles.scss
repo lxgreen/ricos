@@ -198,7 +198,7 @@
 }
 
 .sliderWithInput_label {
-  color: #333333;
+  color: $settings-text-color;
   font-size: 14px;
   padding-bottom: 4px;
   @include phone {
@@ -213,7 +213,7 @@
 .sliderWithInput_input {
   flex: unset;
   font-size: 18px;
-  color: #333333;
+  color: $settings-text-color;
   border: none;
   margin: 0px;
   padding-top: 4px;
@@ -223,6 +223,13 @@
   text-align: right;
   width: 44px;
   -moz-appearance: textfield;
+  border: 1px solid var(--ricos-settings-inputs-border-color, rgba(0, 0, 0, 0.6));
+  border-radius: $settings-inputs-border-radius;
+
+  &::placeholder {
+    color: var(--ricos-settings-inputs-placeholder-color, rgba(0, 0, 0, 0.6));
+  }
+  
 }
 
 .sliderWithInput_input:focus {
