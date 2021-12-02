@@ -26,6 +26,8 @@
 
 - `toolbars-new`
   - [#3188](https://github.com/wix/ricos/pull/3188) mobile basic link panel
+- `html`
+  - [#3191](https://github.com/wix/ricos/pull/3191) html iframe sandbox allows fullscreen
 
 </details>
 <hr/>
