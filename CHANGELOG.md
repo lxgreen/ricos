@@ -24,7 +24,6 @@
   - [#3181](https://github.com/wix/ricos/pull/3181) box-shadow & border-radius BM theme wiring
   - [#3185](https://github.com/wix/ricos/pull/3185) inputs/text color BM theme wiring
 
-
 ### :bug: Bug Fix
 
 - `toolbars-new`
@@ -33,6 +32,8 @@
   - [#3191](https://github.com/wix/ricos/pull/3191) html iframe sandbox allows fullscreen
 - `headings`
   - [#3196](https://github.com/wix/ricos/pull/3196) new dropdown style and a11y fixes for safari
+- `vertical-embed`
+  - [#3199](https://github.com/wix/ricos/pull/3199) reduce verticals image size
 
 </details>
 <hr/>

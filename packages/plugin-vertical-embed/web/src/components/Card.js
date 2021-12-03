@@ -9,9 +9,12 @@ const Card = props => {
   const { url, content, direction } = props;
   const [imageSrc, setImageSrc] = useState();
 
-  const setRef = ref =>
-    ref && setImageSrc(getScaleImageSrc(props.imageSrc, 185, ref.getBoundingClientRect().height));
-
+  const setRef = ref => {
+    if (ref && !imageSrc) {
+      const { width, height } = ref.getBoundingClientRect();
+      setImageSrc(getScaleImageSrc(props.imageSrc, width, height));
+    }
+  };
   return (
     // eslint-disable-next-line react/jsx-no-target-blank
     <a className={styles.link} href={url} target="_blank" ref={setRef}>
