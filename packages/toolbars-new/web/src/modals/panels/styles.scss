@@ -136,7 +136,7 @@
 
 %hover {
   cursor: pointer;
-  background-color: rgba($fallbackColorTuple, 0.05);
+  background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.05);
 }
 
 .desktopPanel_withIcons {
