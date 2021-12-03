@@ -27,7 +27,7 @@
 .toolbarButton {
   display: flex;
   background: transparent;
-  color: $settings-text-color;
+  color: $settings-icons-color;
   padding: 4px;
   border: 0 none;
   line-height: normal;
@@ -47,6 +47,7 @@
   &.renderAsContextButton {
     padding: 4px 20px;
   }
+  @include svg-fill;
 }
 
 .toolbarButton_icon {

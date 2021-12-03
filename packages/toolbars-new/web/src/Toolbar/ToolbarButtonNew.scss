@@ -107,8 +107,8 @@
 
 .toolbarButton_active,
 .iconInActionColor {
-  color: $action-color-fallback;
-  fill: $action-color-fallback;
+  color: $settings-action-color-fallback;
+  fill: $settings-action-color-fallback;
   @include svg-fill;
 }
 

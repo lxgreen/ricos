@@ -1,6 +1,6 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette.scss';
+@import '~wix-rich-content-common/dist/statics/styles/fonts.scss';
 
-$dropdown-color: #333;
 $dropdown-highlight: #1234;
 $dropdown-border-color: #ededed;
 $dropdown-font-size: 14px;
@@ -23,7 +23,7 @@ $dropdown-font-size: 14px;
 .Dropdown-root {
   position: relative;
   font-size: $dropdown-font-size;
-  color: $dropdown-color;
+  color: $settings-text-color;
 }
 
 .Dropdown-control {
@@ -35,7 +35,7 @@ $dropdown-font-size: 14px;
   transition: all 200ms ease;
   padding: 10px 62px 10px 0;
   white-space: nowrap;
-  color: $dropdown-color;
+  color: $settings-text-color;
 
   &:hover {
     background-color: rgba($fallbackColorTuple, 0.06);
@@ -53,6 +53,10 @@ $dropdown-font-size: 14px;
   top: 10px;
   width: 19px;
   height: 19px;
+  svg {
+    color: $settings-icons-color;
+    fill: $settings-icons-color;
+  }
 }
 
 .Dropdown-arrow-isOpen {
@@ -73,11 +77,14 @@ $dropdown-font-size: 14px;
   border: 1px solid $dropdown-border-color;
   border-radius: 8px;
   padding: 8px 0px;
+  color:$settings-text-color;
+  font-family: $ricos-settings-font-family;
 }
 
 .Dropdown-title {
   padding: 8px 10px;
-  color: rgba(51, 51, 51, 1);
+  color: $settings-text-color;
+  font-family: $ricos-settings-font-family;
   font-weight: bold;
   text-transform: capitalize;
 }
@@ -85,22 +92,22 @@ $dropdown-font-size: 14px;
 .Dropdown-option {
   border: none;
   background-color: transparent;
-  color: $dropdown-color;
+  color: $settings-text-color;
   cursor: pointer;
   display: block;
   padding: 0 12px;
   white-space: nowrap;
 
   .divider {
-    color: $settings-action-color-fallback;
+    color: $settings-dividers-color;
   }
 
   &:hover {
     color: $settings-action-color-fallback;
 
     svg {
-      color: $settings-action-color-fallback;
-      fill: $settings-action-color-fallback;
+      color: $settings-icons-color;
+      fill: $settings-icons-color;
     }
   }
 
@@ -115,7 +122,7 @@ $dropdown-font-size: 14px;
 }
 
 .Dropdown-noresults {
-  color: $dropdown-color;
+  color: $settings-text-color;
   cursor: default;
   display: block;
   padding: 8px 10px;
