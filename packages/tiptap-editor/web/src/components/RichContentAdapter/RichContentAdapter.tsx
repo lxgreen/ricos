@@ -1,14 +1,14 @@
-import { TiptapAPI } from '../../types';
+import { TiptapAPI, RicosTiptapEditor } from '../../types';
 import { capitalize } from 'lodash';
 import {
-  RICOS_LINK_TYPE,
   TranslationFunction,
   EditorPlugin,
   TextAlignment,
+  RICOS_LINK_TYPE,
   RICOS_TEXT_COLOR_TYPE,
   RICOS_TEXT_HIGHLIGHT_TYPE,
+  RICOS_MENTION_TYPE,
 } from 'wix-rich-content-common';
-import { Editor } from '@tiptap/core';
 import {
   generateId,
   HEADER_BLOCK,
@@ -19,6 +19,7 @@ import {
   HEADINGS_TYPE,
   NUMBERED_LIST_TYPE,
 } from 'ricos-content';
+import { TO_TIPTAP_TYPE } from '../../consts';
 
 const headingTypeToLevelMap = {
   'header-one': 1,
@@ -28,12 +29,11 @@ const headingTypeToLevelMap = {
   'header-five': 5,
   'header-six': 6,
 };
-import { TO_TIPTAP_TYPE } from '../../consts';
 
 // todo : should change to RichContentInterface
 export class RichContentAdapter implements TiptapAPI {
   constructor(
-    private editor: Editor,
+    private editor: RicosTiptapEditor,
     private t: TranslationFunction,
     private plugins: EditorPlugin[]
   ) {
@@ -114,6 +114,7 @@ export class RichContentAdapter implements TiptapAPI {
           [RICOS_LINK_TYPE]: data => this.editor.commands.setLink({ link: data }),
           [RICOS_TEXT_COLOR_TYPE]: data => this.editor.commands.setColor(data.color),
           [RICOS_TEXT_HIGHLIGHT_TYPE]: data => this.editor.commands.setHighlight(data.color),
+          [RICOS_MENTION_TYPE]: data => this.editor.commands.insertMention(data.mention),
         };
         if (decorationCommandMap[type]) {
           decorationCommandMap[type](data);
