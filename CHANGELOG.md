@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+  - [#3203](https://github.com/wix/ricos/pull/3203) icons bm theme wiring
+  - [#3207](https://github.com/wix/ricos/pull/3207) bg & hover color bm theme wiring
+
 ### :bug: Bug Fix
 - `html`
   - [#3204](https://github.com/wix/ricos/pull/3204) add `allowFullScreen` to html iframe

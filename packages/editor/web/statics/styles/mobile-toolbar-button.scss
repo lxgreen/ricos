@@ -9,8 +9,8 @@
   &:focus,
   &:active {
     .mobileToolbarButton .mobileToolbarButton_icon svg {
-      color: $action-color;
-      fill: $action-color;
+      color: $settings-icons-color;
+      fill: $settings-icons-color;
     }
   }
 }
