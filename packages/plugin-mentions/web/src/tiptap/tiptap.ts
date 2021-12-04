@@ -4,7 +4,7 @@ import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { SuggestionOptions } from '@tiptap/suggestion';
 import { PluginKey } from 'prosemirror-state';
 import styles from '../../statics/mentions.scss';
-import suggestion from './suggestion.js';
+import suggestion from './suggestion';
 
 export type MentionOptions = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
