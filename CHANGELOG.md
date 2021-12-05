@@ -17,8 +17,14 @@
     Click to see more.
   </summary>
 
-### :rocket: New Feature
 
+</details>
+<hr/>
+
+## 8.65.0 (Dec 05, 2021)
+
+### :rocket: New Feature
+- `*`
   - [#3203](https://github.com/wix/ricos/pull/3203) icons bm theme wiring
   - [#3207](https://github.com/wix/ricos/pull/3207) bg & hover color bm theme wiring
 
@@ -38,10 +44,7 @@
 ### :nail_care: Polish
 
 - `general`
-  - [#3186](https://github.com/wix/ricos/pull/3186) use button component in table settings and refactor color picker ui 
-
-</details>
-<hr/>
+  - [#3186](https://github.com/wix/ricos/pull/3186) use button component in table settings and refactor color picker ui
 
 ## 8.64.1 (Dec 02, 2021)
 
