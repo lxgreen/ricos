@@ -9,6 +9,7 @@ import ToolbarInputButton from '../ToolbarInputButton';
 import ToolbarButton from '../ToolbarButton';
 import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 import { elementOverflowWithEditor, KEYS_CHARCODE } from 'wix-rich-content-editor-common';
+import { FocusManager } from 'wix-rich-content-ui-components';
 
 type dropDownPropsType = {
   isMobile?: boolean;
@@ -228,46 +229,48 @@ class ModalButton extends Component<ModalButtonProps, State> {
       }
     };
 
-    return (
-      <ClickOutside onClickOutside={this.onClickOutside}>
-        <div className={styles.buttonWrapper}>
-          {Button}
-          {isModalOpen && (
-            <div
-              data-id="toolbar-modal-button"
-              // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-              tabIndex={-1}
-              ref={this.setModalRef}
-              className={classNames(
-                styles.modal,
-                styles.withoutPadding,
-                isModalOverflowByHeight && styles.modalOverflow
-              )}
-              style={
-                isMobile ? mobileStyles : overflowWidthBy ? { left: `-${overflowWidthBy}px` } : {}
-              }
-              onClick={onModalWrapperClick}
-              onKeyDown={onKeyDown}
-            >
-              {modal({
-                closeCustomModal: this.closeModal,
-                onSelect,
-                t,
-                onSave: this.onSave,
-                theme,
-                isMobile,
-                onCancel: this.onCancel,
-                onChange: this.onChange,
-                onDone: this.onDone,
-                isActive: isActive(),
-                onDelete: this.onDelete,
-                onToolbarButtonClick: this.props.onToolbarButtonClick,
-              })}
-            </div>
-          )}
-        </div>
-      </ClickOutside>
+    let modalButton = (
+      <div className={styles.buttonWrapper}>
+        {Button}
+        {isModalOpen && (
+          <div
+            data-id="toolbar-modal-button"
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+            tabIndex={-1}
+            ref={this.setModalRef}
+            className={classNames(
+              styles.modal,
+              styles.withoutPadding,
+              isModalOverflowByHeight && styles.modalOverflow
+            )}
+            style={
+              isMobile ? mobileStyles : overflowWidthBy ? { left: `-${overflowWidthBy}px` } : {}
+            }
+            onClick={onModalWrapperClick}
+            onKeyDown={onKeyDown}
+          >
+            {modal({
+              closeCustomModal: this.closeModal,
+              onSelect,
+              t,
+              onSave: this.onSave,
+              theme,
+              isMobile,
+              onCancel: this.onCancel,
+              onChange: this.onChange,
+              onDone: this.onDone,
+              isActive: isActive(),
+              onDelete: this.onDelete,
+              onToolbarButtonClick: this.props.onToolbarButtonClick,
+            })}
+          </div>
+        )}
+      </div>
     );
+
+    modalButton = isInput && isModalOpen ? <FocusManager>{modalButton}</FocusManager> : modalButton;
+
+    return <ClickOutside onClickOutside={this.onClickOutside}>{modalButton}</ClickOutside>;
   }
 }
 
