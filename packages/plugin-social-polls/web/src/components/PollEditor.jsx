@@ -73,7 +73,7 @@ class PollEditorComponent extends PureComponent {
   };
 
   // TODO: should remove when change to proseMirror
-  draft_isPluginFocused = () => !isPluginFocused(this.props.block, this.props.selection);
+  draft_isPluginFocused = () => isPluginFocused(this.props.block, this.props.selection);
 
   render() {
     const {
