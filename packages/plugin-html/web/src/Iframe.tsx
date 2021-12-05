@@ -16,6 +16,7 @@ const Iframe: FunctionComponent<{ iframeRef?: Ref<HTMLIFrameElement>; [key: stri
       style={{ backgroundColor: 'transparent' }}
       loading={loading}
       allow="fullscreen"
+      allowFullScreen
       {...otherProps}
     />
   );

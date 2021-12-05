@@ -43,13 +43,13 @@ message GalleryOptions {
     google.protobuf.Int32Value spacing = 4;
   }
   
-  // relevant only when has thumbnails
   message Thumbnails {
     enum Alignment {
       TOP = 0;
       RIGHT = 1;
       BOTTOM = 2;
       LEFT = 3;
+      NONE = 4;
     }
     Alignment placement = 1;
     google.protobuf.Int32Value spacing = 2;

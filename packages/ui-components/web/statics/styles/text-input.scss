@@ -5,7 +5,7 @@
   position: relative;
 
   &:hover svg {
-    fill: black;
+    fill: $settings-icons-color;
   }
 }
 
@@ -57,7 +57,7 @@
 }
 
 .focusFill {
-  fill: black;
+  fill: $settings-icons-color;
 }
 
 .unfocusFill {
