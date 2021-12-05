@@ -30,6 +30,10 @@
 
 - `common`
   - [#3202](https://github.com/wix/ricos/pull/3202) add `documentStyle` to the old schema
+- `ricos-content`
+  - [#3187](https://github.com/wix/ricos/pull/3187) `fromDraft` gallery converter `thumbnails.placement` defaults to `NONE`
+- `schema`
+  - [#3187](https://github.com/wix/ricos/pull/3187) add `NONE` value to gallery thumbnails.placement enum
 
 ### :nail_care: Polish
 
@@ -65,7 +69,6 @@
   - [#3196](https://github.com/wix/ricos/pull/3196) new dropdown style and a11y fixes for safari
 
 ## 8.63.7 (Nov 30, 2021)
-
 ### :bug: Bug Fix
 
 - `button`
