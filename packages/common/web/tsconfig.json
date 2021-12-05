@@ -1,0 +1,33 @@
+{
+    "extends": "../../../tsconfig.json",
+    "outDir": "./dist",
+    "compilerOptions": {
+        "declarationDir": "dist",
+        "declaration": true,
+        "sourceMap": true,
+        "allowJs": true,
+        "skipLibCheck": true,
+    },
+    "include": [
+        "src",
+        "*.ts",
+        "src/**/*.json",
+        "src/**/*.scss",
+        "statics/**/*.json",
+        "statics/**/*.schema.json",
+        "statics/**/*.defaults.json",
+        "statics/**/*.scss",
+        "package.json",
+        "lib",
+        "node_modules/@tiptap"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.*"
+    ],
+    "references": [
+        {
+            "path": "../../ricos-content/web"
+        }
+    ]
+}

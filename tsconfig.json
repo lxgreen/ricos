@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
-    "typeRoots": ["./node_modules/@types", "./external-types.d.ts"],
-    "composite": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./external-types.d.ts"
+    ],
+    "rootDir": ".",
+    "composite": true, // true if proejct references
     "declaration": true,
     "declarationDir": "dist",
     "skipLibCheck": true,
@@ -12,7 +16,11 @@
     "moduleResolution": "node",
     "target": "ESNext",
     "jsx": "react",
-    "lib": ["es2015", "dom", "ESNext"],
+    "lib": [
+      "es2015",
+      "dom",
+      "ESNext"
+    ],
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "esModuleInterop": true,
@@ -20,7 +28,26 @@
     "preserveConstEnums": false,
     "allowJs": true
   },
-  "files": ["external-types.d.ts"],
-  "include": ["packages", "packages/**/*.json", "*.ts", "scripts", "babel.config.js"],
-  "exclude": ["**/node_modules/*", "**/dist/*"]
+  "files": [
+    "external-types.d.ts"
+  ],
+  "include": [
+    "packages",
+    "packages/**/*.json",
+    "*.ts",
+    "scripts",
+    "babel.config.js"
+  ],
+  "exclude": [
+    "**/node_modules/*",
+    "**/dist/*"
+  ],
+  "references": [
+    {
+      "path": "./packages/common/web"
+    },
+    {
+      "path": "./packages/ricos-content/web"
+    }
+  ]
 }

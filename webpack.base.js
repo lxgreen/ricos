@@ -128,6 +128,9 @@ const createBaseConfig = (options = {}) => {
         },
         {
           loader: 'ts-loader',
+          options: {
+            projectReferences: true,
+          },
         },
       ],
     },
