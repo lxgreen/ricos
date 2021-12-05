@@ -19,7 +19,7 @@
 
 ### :bug: Bug Fix
 - `toolbars-new/editorCommands`
-  - [#3027](https://github.com/wix/ricos/pull/3027) fix code-block action in the new toolbar
+  - [#3028](https://github.com/wix/ricos/pull/3028) fix code-block action in the new toolbar
 
 </details>
 <hr/>
