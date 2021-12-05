@@ -15,4 +15,4 @@ export * from './toolbarEnums';
 export * from './toolbarSettingsTypes';
 export * from './pluginsBiCallbacksTypes';
 export * from './editorCommandsType';
-export { IRicosEditorCommands } from './IRicosEditorCommands';
+export * from './RicosEssentials';

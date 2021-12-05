@@ -13,4 +13,4 @@ export {
 export { RichContentEditorProps } from './RichContentEditor/RichContentEditor';
 
 export { RichContentEditorModal, RichContentEditor };
-export { DraftEditorCommands } from './RichContentEditor/DraftEditorCommands/DraftEditorCommands';
+export * from './RichContentEditor/DraftEditorEssentials';

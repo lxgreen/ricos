@@ -10,13 +10,15 @@ import {
   RicosEngine,
   shouldRenderChild,
   localeStrategy,
-  getBiCallback as getCallback
+  getBiCallback as getCallback,
 } from 'ricos-common';
 import { DraftContent } from 'ricos-content';
 import {
   RichContentEditor,
   RichContentEditorProps,
   DraftEditorCommands,
+  DraftEditorModel,
+  DraftEditorState,
 } from 'wix-rich-content-editor';
 import { createDataConverter, filterDraftEditorSettings } from './utils/editorUtils';
 import ReactDOM from 'react-dom';
@@ -35,14 +37,24 @@ import {
   EditorEventsContext,
   EditorEvents,
 } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
-import { ToolbarType, Version, RicosTranslate, getLangDir, isSSR, IRicosEditorCommands } from 'wix-rich-content-common';
+import {
+  ToolbarType,
+  Version,
+  RicosTranslate,
+  getLangDir,
+  isSSR,
+  IRicosEditorModel,
+  IRicosEditorState,
+  IRicosEditorCommands,
+} from 'wix-rich-content-common';
 import { getEmptyDraftContent, getEditorContentSummary } from 'wix-rich-content-editor-common';
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
 import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
 import { getBiFunctions } from './toolbars/utils/biUtils';
+import { Node_Type } from 'ricos-schema';
 
 // eslint-disable-next-line
-import type { TiptapEditorPlugin } from 'wix-tiptap-editor';
+import { /*type*/ TiptapEditorPlugin } from 'wix-tiptap-editor';
 
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
@@ -69,6 +81,14 @@ interface State {
 // awares of tiptap
 // sort , filter
 
+import { extract } from 'ricos-content/libs/extract';
+
+interface RicosEditorEssentials {
+  model: IRicosEditorModel;
+  state: IRicosEditorState;
+  commands: IRicosEditorCommands;
+}
+
 export class RicosEditor extends Component<RicosEditorProps, State> {
   editor!: RichContentEditor;
 
@@ -88,7 +108,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   linkToolbarRef!: Record<'updateToolbar', () => void>;
 
-  ricosEditorCommands!: IRicosEditorCommands;
+  essentials!: RicosEditorEssentials;
 
   static getDerivedStateFromError(error: string) {
     return { error };
@@ -311,7 +331,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   getEditorCommands = () => this.editor.getEditorCommands();
 
-  getRicosEditorCommands = () => this.ricosEditorCommands;
+  getRicosEditorEssentials = () => this.essentials;
 
   getT = () => this.editor.getT();
 
@@ -326,14 +346,16 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     );
   }
 
-  setRicosEditorCommands = (ricosEditorCommands: IRicosEditorCommands) => {
-    this.ricosEditorCommands = ricosEditorCommands;
+  setRicosEditorEssentials = (essentials: RicosEditorEssentials) => {
+    this.essentials = essentials;
     // For Demo purposes Only
     if (!isSSR()) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (window as any).ricosEditorCommands = ricosEditorCommands;
+      (window as any).essentials = essentials;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).extract = extract;
     }
-  }
+  };
 
   renderRicosEngine(child, childProps) {
     const { toolbarSettings, draftEditorSettings = {}, localeContent, ...props } = this.props;
@@ -415,7 +437,11 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         setEditorState: this.editor.editor.updateEditorState,
         getEditorState: this.editor.editor.getEditorState,
       };
-      this.setRicosEditorCommands(new DraftEditorCommands(draftEditorProps));
+      const model = new DraftEditorModel(draftEditorProps.getEditorState);
+      const commands = new DraftEditorCommands(draftEditorProps);
+      const state = new DraftEditorState(draftEditorProps.getEditorState);
+      const essentials = { model, commands, state };
+      this.setRicosEditorEssentials(essentials);
     }
     return (
       !activeEditorIsTableCell &&
@@ -475,6 +501,87 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   updateNewFormattingToolbar = () => this.useNewFormattingToolbar && this.updateToolbars();
 
+  renderDemoToolbar = () => {
+    const imageNode1 = {
+      type: Node_Type.IMAGE,
+      id: '1',
+      nodes: [],
+      imageData: {
+        containerData: {
+          width: {
+            custom: '300',
+          },
+          alignment: 'CENTER',
+          spoiler: {
+            enabled: true,
+          },
+          textWrap: true,
+        },
+        image: {
+          src: {
+            id: '8bb438_35ed730d87524b1a88179adc18ed9cd4.jpg',
+          },
+          width: 1920,
+          height: 1280,
+        },
+        disableExpand: false,
+        disableDownload: false,
+      },
+    };
+    const imageNode2 = {
+      type: Node_Type.IMAGE,
+      nodes: [],
+      imageData: {
+        containerData: {
+          width: {
+            custom: '300',
+          },
+          alignment: 'LEFT',
+          spoiler: {
+            enabled: true,
+          },
+          textWrap: true,
+        },
+        image: {
+          src: {
+            id: '8bb438_35ed730d87524b1a88179adc18ed9cd4.jpg',
+          },
+          width: 1920,
+          height: 1280,
+        },
+        disableExpand: false,
+        disableDownload: false,
+      },
+    };
+
+    if (!this.essentials) {
+      return null;
+    }
+
+    return (
+      <div>
+        <button
+          onClick={() =>
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            this.essentials.commands.insertNode(imageNode1)
+          }
+        >
+          {'add image'}
+        </button>
+        <button
+          onClick={() =>
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            this.essentials.commands.updateNode('1', imageNode2)
+          }
+        >
+          {'update image'}
+        </button>
+      </div>
+    );
+  };
+
   renderTiptapEditor() {
     const { tiptapEditorModule } = this.state;
     if (!tiptapEditorModule) {
@@ -486,6 +593,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       TiptapEditorCommands,
       draftToTiptap,
       TIPTAP_TYPE_TO_RICOS_TYPE,
+      TiptapEditorModel,
+      TiptapEditorState,
     } = tiptapEditorModule;
     const { content, injectedContent, plugins, onAtomicBlockFocus } = this.props;
     const { tiptapToolbar } = this.state;
@@ -496,10 +605,12 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     const { locale, localeResource } = localeData;
     const extensions =
       compact(plugins?.flatMap((plugin: TiptapEditorPlugin) => plugin.tiptapExtensions)) || [];
+
     return (
       <Fragment>
         {this.renderToolbars()}
         {tiptapToolbar && this.renderToolbarPortal(tiptapToolbar)}
+        {this.renderDemoToolbar()}
         {
           <RicosTranslate locale={locale} localeResource={localeResource || englishResources}>
             {t => {
@@ -510,7 +621,11 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                   t={t}
                   onLoad={editor => {
                     const richContentAdapter = new RichContentAdapter(editor, t, plugins);
-                    this.setRicosEditorCommands(new TiptapEditorCommands(editor));
+                    const model = new TiptapEditorModel(editor);
+                    const state = new TiptapEditorState(editor);
+                    const commands = new TiptapEditorCommands(editor);
+                    const essentials = { model, state, commands };
+                    this.setRicosEditorEssentials(essentials);
                     this.setEditorRef(richContentAdapter);
                     const TextToolbar = richContentAdapter.getToolbars().TextToolbar;
                     this.setState({ tiptapToolbar: TextToolbar });
@@ -518,7 +633,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                   onUpdate={this.onUpdate}
                   onBlur={this.updateNewFormattingToolbar}
                   onSelectionUpdate={({ selectedNodes, content }) => {
-
                     //TODO: add 'textContainer' to group field of this extension config
                     const textContainers = ['paragraph', 'codeBlock', 'heading'];
                     const parentNodes =
