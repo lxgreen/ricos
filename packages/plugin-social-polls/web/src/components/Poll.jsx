@@ -179,7 +179,7 @@ class PollComponent extends Component {
 
   handleCTABlur = () => this.props.rce.setInPluginEditingMode(false);
 
-  onResize = ({ bounds }) => this.setState({ bounds: this.state.bounds || bounds });
+  onResize = ({ bounds }) => this.setState({ bounds });
 
   showEditControls() {
     const { rce } = this.props;

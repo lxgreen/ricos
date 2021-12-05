@@ -130,6 +130,7 @@ export const TIPTAP_FILE_TYPE = 'file';
 export const TIPTAP_GIF_TYPE = 'gif';
 export const TIPTAP_VIDEO_TYPE = 'video';
 export const TIPTAP_LINK_PREVIEW_TYPE = 'linkPreview';
+export const TIPTAP_POLL_TYPE = 'poll';
 
 export const RICOS_NODE_TYPE_TO_DATA_FIELD = {
   [Node_Type.BUTTON]: 'buttonData',
