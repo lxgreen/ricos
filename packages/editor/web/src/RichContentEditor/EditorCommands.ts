@@ -122,8 +122,11 @@ export const createEditorCommands = (
 ): EditorCommands => {
   const setBlockType: EditorCommands['setBlockType'] = type => {
     if (type === CODE_BLOCK_TYPE) {
-      let modifiedEditorState = RichUtils.toggleBlockType(getEditorState(), type);
-      modifiedEditorState = createEmptyBlockBeforeAndAfterSelection(modifiedEditorState);
+      const modifiedEditorState = createEmptyBlockBeforeAndAfterSelection(
+        getEditorState(),
+        getEditorState().getSelection()
+      );
+      // modifiedEditorState = RichUtils.toggleBlockType(getEditorState(), type);
       setEditorState(modifiedEditorState);
     } else {
       setEditorState(RichUtils.toggleBlockType(getEditorState(), type));

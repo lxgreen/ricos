@@ -872,37 +872,31 @@ function createEmptyBlock() {
   });
 }
 
-function moveTextToFirstBlock(blocks, contentState) {
-  const firstKey = blocks.first().getKey();
-  return blocks.rest().reduce((contentState, block, key) => {
-    const targetLength = contentState.getBlockForKey(firstKey).getLength();
-    const newLineTarget = SelectionState.createEmpty(firstKey)
-      .set('anchorOffset', targetLength)
-      .set('focusOffset', targetLength);
+function moveTextToFirstBlock(block, contentState, text) {
+  const key = block.getKey();
+  const targetLength = block.getLength();
+  const newLineTarget = SelectionState.createEmpty(key)
+    .set('anchorOffset', targetLength)
+    .set('focusOffset', targetLength);
 
-    const withNewLine = Modifier.insertText(contentState, newLineTarget as SelectionState, '\n');
+  return Modifier.insertText(contentState, newLineTarget as SelectionState, text);
 
-    const sourceRange = SelectionState.createEmpty(key)
-      .set('anchorOffset', 0)
-      .set('focusOffset', block.getLength());
-    const textTarget = newLineTarget
-      .set('anchorOffset', targetLength + 1)
-      .set('focusOffset', targetLength + 1);
+  // const sourceRange = SelectionState.createEmpty(key)
+  //   .set('anchorOffset', 0)
+  //   .set('focusOffset', block.getLength());
+  // const textTarget = newLineTarget
+  //   .set('anchorOffset', targetLength + 1)
+  //   .set('focusOffset', targetLength + 1);
 
-    return Modifier.moveText(
-      withNewLine,
-      sourceRange as SelectionState,
-      textTarget as SelectionState
-    );
-  }, contentState);
+  // return Modifier.moveText(
+  //   withNewLine,
+  //   sourceRange as SelectionState,
+  //   textTarget as SelectionState
+  // );
 }
 
 function replaceSelectedBlocksWithCodeBlock(firstKey, lastKey, contentState) {
-  const fragment = BlockMapBuilder.createFromArray([
-    createEmptyBlock(),
-    contentState.getBlockForKey(firstKey),
-    createEmptyBlock(),
-  ]);
+  const fragment = BlockMapBuilder.createFromArray([contentState.getBlockForKey(firstKey)]);
 
   const target = new SelectionState({
     anchorKey: firstKey,
@@ -914,56 +908,110 @@ function replaceSelectedBlocksWithCodeBlock(firstKey, lastKey, contentState) {
   return Modifier.replaceWithFragment(contentState, target, fragment);
 }
 
-function setBlockTypeAndMerge(blocks, contentState) {
-  console.log('blocks.count()', blocks.count());
+function setBlockTypeAndMerge(blocks, target, contentState, editorState) {
+  console.log('blocks.count()', blocks.length);
 
-  if (!blocks.count()) {
+  if (!blocks.length) {
     return contentState;
   }
+  console.log('contentState', contentState);
 
-  // const blockGroup = blocks.skipWhile(isAtomic).takeWhile(isNotAtomic);
+  const blockKsContent = blocks.map(block => block.getText() + '\n');
+  const blockKsRemoved = blocks.map(block => deleteBlock(editorState, block.getKey()));
+  const newBlock = new ContentBlock({
+    key: blocks[0].getKey(),
+    type: 'unstyled',
+    text: blockKsContent[0],
+    characterList: List(), // eslint-disable-line new-cap
+  });
+  let modifiedContentState = blockKsRemoved[blocks.length - 1].getCurrentContent();
+  if (blocks.length) {
+    const firstKey = blocks[0].getKey();
+    const lastKey = blocks[blocks.length - 1].getKey();
+    const focusOffset = contentState.getBlockForKey(lastKey).getLength();
 
-  let modifiedContentState = contentState;
-  if (blocks.count()) {
-    const firstKey = blocks.first().getKey();
-    const lastKey = blocks.last().getKey();
-    const afterMove = moveTextToFirstBlock(blocks, contentState);
-    const targetRange = SelectionState.createEmpty(firstKey);
-    const afterTypeChange = Modifier.setBlockType(afterMove, targetRange, 'code-block');
-    modifiedContentState = replaceSelectedBlocksWithCodeBlock(firstKey, lastKey, afterTypeChange);
+    const target = new SelectionState({
+      anchorKey: firstKey,
+      anchorOffset: 0,
+      focusKey: lastKey,
+      focusOffset,
+    });
+    console.log('target', target);
+
+    console.log('contentState', contentState);
+    const fragment = BlockMapBuilder.createFromArray([newBlock]);
+    modifiedContentState = Modifier.replaceWithFragment(modifiedContentState, target, fragment);
+    console.log('modifiedContentState', modifiedContentState);
+
+    // const afterMove = moveTextToFirstBlock(blocks, contentState);
+    // const targetRange = SelectionState.createEmpty(firstKey);
+    // const afterTypeChange = Modifier.setBlockType(afterMove, targetRange, 'unstyled');
+    // modifiedContentState = replaceSelectedBlocksWithCodeBlock(firstKey, lastKey, afterMove);
   }
 
-  return setBlockTypeAndMerge(blocks, modifiedContentState);
+  return modifiedContentState;
 }
-function getBlockRange(firstKey, lastKey, blocks) {
-  return blocks
-    .skipUntil(block => firstKey === block.getKey())
-    .reverse()
-    .skipUntil(block => lastKey === block.getKey())
-    .reverse();
+function mergeBlocksText(blocks) {
+  let text = '';
+  const blocksLength = blocks.length;
+  const withNewLine = blockIndex => blocksLength > 1 && blockIndex < blocksLength - 1;
+  blocks.forEach((block, i) =>
+    withNewLine(i) ? (text += block.getText() + '\n') : (text += block.getText())
+  );
+  return text;
 }
 
-export function createEmptyBlockBeforeAndAfterSelection(editorState: EditorState) {
-  const selection = getSelection(editorState);
+export function createEmptyBlockBeforeAndAfterSelection(editorState: EditorState, selection) {
+  // const selection = getSelection(editorState);
   const contentState = editorState.getCurrentContent();
   const firstKey = selection.getStartKey();
-  const lastKey = selection.getStartKey();
-  const selectedBlocks = getBlockRange(firstKey, lastKey, contentState.getBlockMap());
+  const lastKey = selection.getEndKey();
+  // const allBlocks = contentState.getBlockMap();
+  // const selectedBlocks = getSelectedBlocks(editorState);  const allBlocks = contentState.getBlockMap();
+  const selectedBlocks = getSelectedBlocks(editorState);
 
-  let newContentState = setBlockTypeAndMerge(selectedBlocks, contentState);
+  // getSelectedBlocks(editorState);
+  console.log('selectedBlocks', selectedBlocks);
+  const text = mergeBlocksText(selectedBlocks);
+
+  const newBlock = new ContentBlock({
+    key: genKey(),
+    type: 'code-block',
+    text: '',
+    characterList: List(), // eslint-disable-line new-cap
+  });
+  // let newContentState = setBlockTypeAndMerge(selectedBlocks, selection, contentState, editorState);
   const fragment = BlockMapBuilder.createFromArray([
     createEmptyBlock(),
-    contentState.getBlockForKey(firstKey),
+    newBlock,
     createEmptyBlock(),
   ]);
   const target = new SelectionState({
     anchorKey: firstKey,
     anchorOffset: 0,
     focusKey: lastKey,
-    focusOffset: newContentState.getBlockForKey(lastKey).getLength(),
+    focusOffset: contentState.getBlockForKey(lastKey).getLength(),
   });
-  newContentState = Modifier.replaceWithFragment(newContentState, target, fragment);
-  const newEditorState = EditorState.push(editorState, newContentState, 'insert-characters');
+
+  let newContentState = Modifier.replaceWithFragment(contentState, target, fragment);
+  const block = newContentState.getBlockAfter(firstKey);
+  newContentState = moveTextToFirstBlock(block, newContentState, text);
+  // const targetLength = contentState.getBlockForKey(firstKey).getLength();
+  // const newLineTarget = SelectionState.createEmpty(firstKey)
+  //   .set('anchorOffset', targetLength)
+  //   .set('focusOffset', targetLength);
+
+  // newContentState = Modifier.insertText(newContentState, newLineTarget as SelectionState, '\n');
+
+  const Selection = new SelectionState({
+    anchorKey: firstKey,
+    anchorOffset: 0,
+    focusKey: block?.getKey(),
+    focusOffset: block?.getLength(),
+  });
+
+  let newEditorState = EditorState.push(editorState, newContentState, 'insert-fragment');
+  newEditorState = EditorState.forceSelection(newEditorState, Selection);
   return newEditorState;
 }
 // export function createEmptyBlockAfterSelection(editorState: EditorState) {
