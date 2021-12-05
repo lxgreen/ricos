@@ -3,40 +3,39 @@
 /* eslint-disable fp/no-loops */
 import React from 'react';
 import { merge, cloneDeep } from 'lodash';
-import { scrollToBlock } from 'wix-rich-content-editor-common';
 import {
   RICOS_LINK_TYPE,
   EditorCommands,
-  normalizeUrl,
   CUSTOM_LINK,
   SPOILER_TYPE,
   TranslationFunction,
   AvailableExperiments,
 } from 'wix-rich-content-common';
-import { AlignTextCenterIcon, AlignJustifyIcon, AlignLeftIcon, AlignRightIcon } from '../icons';
 import {
-  HEADING_TYPE_TO_ELEMENT,
-  HEADING_TYPE_TO_ICON,
   buttonsFullData,
   inlineStyleButtons,
   textBlockButtons,
   decorationButtons,
   setTextAlignment,
   colorTypes,
-  translateHeading,
-  findOsName,
-  getSpacing,
   documentStyleCssProperties,
   inlineOverrideStyles,
 } from './buttonsListCreatorConsts';
 import { HEADER_TYPE_MAP } from 'wix-rich-content-plugin-commons';
 import { RicosTheme } from 'ricos-common';
 import {
-  convertRelStringToObject,
-  convertRelObjectToString,
-} from 'wix-rich-content-common/libs/linkConverters';
-import { getFontSizeNumber, hasStyleChanges, getBlockStyle } from './utils';
-import style from './ToolbarButtonNew.scss';
+  getBlockStyle,
+  findOsName,
+  getSpacing,
+  handleLinkSettings,
+  goToLink,
+  updateDynamicStyles,
+  getHeadingIcon,
+  getCurrentHeading,
+  handleAlignmentIcon,
+  getHeadingsLabel,
+  getFontSize,
+} from './utils';
 import { linkPanelDataType, defaultLineSpacingType } from './RicosToolbar';
 
 type editorCommands = EditorCommands;
@@ -504,29 +503,6 @@ const handleUseIconOnMobile = (buttonsList, index, buttonsMapper) => {
   }
 };
 
-const getFontSize = (editorCommands: editorCommands) => {
-  const fontSize = editorCommands.getFontSize() || '';
-  return getFontSizeNumber(fontSize);
-};
-
-const getHeadingsLabel = (editorCommands: editorCommands, t, headingsData) => {
-  const currentHeading = getCurrentHeading(editorCommands);
-  let label = translateHeading(currentHeading, t);
-  const inlineStyles = editorCommands.getAnchorBlockInlineStyles() || {};
-  if (
-    headingsData.allowHeadingCustomization &&
-    hasStyleChanges(currentHeading, inlineStyles, editorCommands.getDocumentStyle())
-  ) {
-    label = (
-      <>
-        {label}
-        <span className={style.toolbarLabelUpdate}>*</span>
-      </>
-    );
-  }
-  return label;
-};
-
 const handleButtonLabel = (
   buttonsList,
   index,
@@ -589,26 +565,6 @@ const handleButtonIcon = (buttonsList, index, editorCommands: editorCommands, bu
   }
 };
 
-const handleAlignmentIcon = editorCommands => {
-  const currentAlignment = editorCommands.getTextAlignment();
-  let alignmentIcon;
-  switch (currentAlignment) {
-    case setTextAlignment.AlignCenter:
-      alignmentIcon = AlignTextCenterIcon;
-      break;
-    case setTextAlignment.AlignRight:
-      alignmentIcon = AlignRightIcon;
-      break;
-    case setTextAlignment.Justify:
-      alignmentIcon = AlignJustifyIcon;
-      break;
-    default:
-      alignmentIcon = AlignLeftIcon;
-      break;
-  }
-  return alignmentIcon;
-};
-
 const handleButtonType = (buttonsList, index, buttonsMapper) => {
   if (buttonsMapper[buttonsList[index].name]?.type) {
     buttonsList[index].type = buttonsMapper[buttonsList[index].name].type;
@@ -666,56 +622,3 @@ const handleButtonName = (buttonsList, buttonKey, index) => {
 //     editorCommands.getTextAlignment() === buttonsFullData[innerButtonKey].action;
 //   currentInnerButton.isDisabled = () => false;
 // };
-
-const getCurrentHeading = (editorCommands: editorCommands) => {
-  let currentHeading = 'P';
-  Object.keys(HEADING_TYPE_TO_ELEMENT).forEach(headingType => {
-    if (editorCommands.isBlockTypeSelected(headingType)) {
-      currentHeading = HEADING_TYPE_TO_ELEMENT[headingType];
-    }
-  });
-  return currentHeading;
-};
-
-const getHeadingIcon = (editorCommands: editorCommands) => {
-  const currentHeading = getCurrentHeading(editorCommands);
-  return HEADING_TYPE_TO_ICON[currentHeading];
-};
-
-const updateDynamicStyles = (value, editorCommands: editorCommands, buttonName) => {
-  const data =
-    buttonName === 'FONT_SIZE'
-      ? { fontSize: value < 1 ? 1 : value > 900 ? 900 : value }
-      : { dynamicStyles: value };
-  editorCommands.insertDecoration(decorationButtons[buttonName], { ...data });
-};
-
-const goToLink = (event, linkData, linkPanelData, experiments) => {
-  const { anchor, url, target } = linkData;
-  if (anchor) {
-    const { customAnchorScroll } = linkPanelData;
-    if (customAnchorScroll) {
-      customAnchorScroll(event, anchor);
-    } else {
-      scrollToBlock(anchor, experiments);
-    }
-  } else {
-    const href = url ? normalizeUrl(url) : undefined;
-    window.open(href, target);
-  }
-};
-
-const handleLinkSettings = linkSettings => {
-  const { anchorTarget = '_blank', customAnchorScroll } = linkSettings;
-  let { relValue, rel } = linkSettings;
-  if (relValue) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      // eslint-disable-next-line max-len
-      `relValue is deprecated, Please use rel prop instead.`
-    );
-    rel = convertRelStringToObject(relValue) || rel;
-  }
-  relValue = convertRelObjectToString(rel);
-  return { relValue, anchorTarget, customAnchorScroll };
-};
