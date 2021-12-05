@@ -45,7 +45,7 @@
   }
   &:hover {
     button {
-      background-color: rgba($fallbackColorTuple, 0.06);
+      background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
     }
     // .inlineToolbarButton_icon,
     // .inlineToolbarButton_icon svg,
@@ -107,8 +107,8 @@
 
 .toolbarButton_active,
 .iconInActionColor {
-  color: $action-color-fallback;
-  fill: $action-color-fallback;
+  color: $settings-action-color-fallback;
+  fill: $settings-action-color-fallback;
   @include svg-fill;
 }
 

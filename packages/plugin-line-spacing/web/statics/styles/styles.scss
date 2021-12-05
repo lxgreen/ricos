@@ -15,6 +15,7 @@
     text-align: left;
     padding: 0 0 0 26px;
     background-color: transparent;
+    color: $settings-text-color;
 
     &:hover {
       color: $settings-action-color-fallback;
@@ -119,7 +120,7 @@
 
 .lineSpacing_separator {
   height: 1px;
-  background-color: rgba(51, 51, 51, 0.2);
+  background-color: var(--ricos-settings-dividers-color, rgba(51, 51, 51, 0.2));
 }
 
 .customSpacingPanel_buttons {

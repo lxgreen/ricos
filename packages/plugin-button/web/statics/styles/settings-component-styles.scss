@@ -1,5 +1,6 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 @import '~wix-rich-content-common/dist/statics/styles/palette';
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
 
 .button_settingsComponent_header_ButtonText {
   font-size: 14px;
@@ -7,6 +8,8 @@
   line-height: 1.5;
   height: 22px;
   font-weight: normal;
+  color: $settings-text-color;
+  font-family: $ricos-settings-font-family;
   @include phone {
     margin: 0px 0px;
     font-weight: normal;

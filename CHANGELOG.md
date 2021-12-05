@@ -17,13 +17,50 @@
     Click to see more.
   </summary>
 
+
+</details>
+<hr/>
+
+## 8.65.0 (Dec 05, 2021)
+
+### :rocket: New Feature
+- `*`
+  - [#3203](https://github.com/wix/ricos/pull/3203) icons bm theme wiring
+  - [#3207](https://github.com/wix/ricos/pull/3207) bg & hover color bm theme wiring
+
+### :bug: Bug Fix
+- `html`
+  - [#3204](https://github.com/wix/ricos/pull/3204) add `allowFullScreen` to html iframe
+
+### :house: Internal
+
+- `common`
+  - [#3202](https://github.com/wix/ricos/pull/3202) add `documentStyle` to the old schema
+- `ricos-content`
+  - [#3187](https://github.com/wix/ricos/pull/3187) `fromDraft` gallery converter `thumbnails.placement` defaults to `NONE`
+- `schema`
+  - [#3187](https://github.com/wix/ricos/pull/3187) add `NONE` value to gallery thumbnails.placement enum
+
+### :nail_care: Polish
+
+- `general`
+  - [#3186](https://github.com/wix/ricos/pull/3186) use button component in table settings and refactor color picker ui
+
+## 8.64.1 (Dec 02, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3201](https://github.com/wix/ricos/pull/3201) fromHtml/ck-editor: text and links under root are handled
+
+## 8.64.0 (Dec 02, 2021)
+
 ### :rocket: New Feature
 
 - `general`
   - [#3178](https://github.com/wix/ricos/pull/3178) font-family BM theme wiring
   - [#3181](https://github.com/wix/ricos/pull/3181) box-shadow & border-radius BM theme wiring
   - [#3185](https://github.com/wix/ricos/pull/3185) inputs/text color BM theme wiring
-
 
 ### :bug: Bug Fix
 
@@ -34,11 +71,7 @@
 - `headings`
   - [#3196](https://github.com/wix/ricos/pull/3196) new dropdown style and a11y fixes for safari
 
-</details>
-<hr/>
-
 ## 8.63.7 (Nov 30, 2021)
-
 ### :bug: Bug Fix
 
 - `button`

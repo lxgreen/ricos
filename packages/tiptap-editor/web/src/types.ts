@@ -1,4 +1,4 @@
-import { Editor, JSONContent } from '@tiptap/react';
+import { Editor, JSONContent, SingleCommands } from '@tiptap/react';
 import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { ElementType } from 'react';
 import {
@@ -11,7 +11,6 @@ import {
   TranslationFunction,
   RichContentTheme,
 } from 'wix-rich-content-common';
-import { createEditorStyles } from 'wix-rich-content-editor-common';
 import { RicosExtension } from './models/extension-types';
 
 export interface PluginProps {
@@ -66,3 +65,9 @@ export interface RicosTiptapEditorProps {
 export type CreateRicosExtensions = <PluginType extends keyof LegacyEditorPluginConfig>(
   config: LegacyEditorPluginConfig[PluginType]
 ) => RicosExtension[];
+
+export declare class RicosTiptapEditor extends Editor {
+  get commands(): SingleCommands & {
+    insertMention: (data, pos?: { from: number; to: number }) => void;
+  };
+}

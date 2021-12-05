@@ -8,7 +8,7 @@
 
   &:hover {
     .toolbarButton {
-      background-color: rgba($fallbackColorTuple, 0.06);
+      background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
     }
   }
   &.toolbarButton_active .toolbarButton {
