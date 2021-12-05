@@ -47,22 +47,22 @@ const DesktopPanel = ({
       }
     };
     return (
-      <Tooltip
-        content={t?.(
-          option?.tooltip,
-          option?.tooltipShortcut &&
-            osName && {
-              shortcut: option.tooltipShortcut[osName],
-            }
-        )}
+      <div
+        className={styles.panel_row_container}
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+        tabIndex={0}
+        onKeyDown={onKeyDown}
+        onFocus={() => onHover(option.commandKey)}
+        onMouseOver={onOptionHover}
       >
-        <div
-          className={styles.panel_row_container}
-          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-          tabIndex={0}
-          onKeyDown={onKeyDown}
-          onFocus={() => onHover(option.commandKey)}
-          onMouseOver={onOptionHover}
+        <Tooltip
+          content={t?.(
+            option?.tooltip,
+            option?.tooltipShortcut &&
+              osName && {
+                shortcut: option.tooltipShortcut[osName],
+              }
+          )}
         >
           <div
             className={classNames(styles.panel_row_desktop, {
@@ -99,9 +99,9 @@ const DesktopPanel = ({
               </div>
             )}
           </div>
-          {option.modal && customPanelOptions?.openOption === option.commandKey && option.modal}
-        </div>
-      </Tooltip>
+        </Tooltip>
+        {option.modal && customPanelOptions?.openOption === option.commandKey && option.modal}
+      </div>
     );
   };
 

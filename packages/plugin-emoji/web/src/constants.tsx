@@ -74,11 +74,11 @@ export const DesktopFlyOutModalStyles: ModalStyles = Object.freeze({
     paddingRight: '0px',
     paddingLeft: '0px',
     display: 'block',
-    borderRadius: '2px',
+    borderRadius: 'var(--ricos-settings-whitebox-border-radius, 2px)',
     position: 'absolute',
     zIndex: 6,
     paddingTop: '20px',
-    boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.06)',
+    boxShadow: 'var(--ricos-settings-whitebox-box-shadow, 0 0 10px 0 rgba(0, 0, 0, 0.06))',
   },
 });
 

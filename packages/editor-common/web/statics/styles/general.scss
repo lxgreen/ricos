@@ -74,6 +74,8 @@
 
   .ReactModalPortal {
     @extend .glob_fontElementMap;
+    font-family: $ricos-settings-font-family;
+    color: $settings-text-color;
   }
 }
 

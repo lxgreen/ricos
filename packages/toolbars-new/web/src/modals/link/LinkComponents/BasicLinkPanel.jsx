@@ -26,6 +26,7 @@ class BasicLinkPanel extends PureComponent {
       onChangeLinkPanel,
       isMobile,
       hasCheckboxes = true,
+      t,
     } = this.props;
     const linkPanelContainerClassName = classNames(styles.basic_linkPanel_container, {
       [styles.basic_linkPanel_container_isMobile]: isMobile,
@@ -34,7 +35,7 @@ class BasicLinkPanel extends PureComponent {
     const showSeparator = hasCheckboxes && !isMobile;
     const renderActionButtons = () =>
       isMobile ? (
-        <SettingsMobileHeader {...buttonsProps} />
+        <SettingsMobileHeader {...buttonsProps} title={t('MobileLinkModal_Title')} />
       ) : (
         <LinkActionsButtons basicLinkPanel {...buttonsProps} basicDisplay={!hasCheckboxes} />
       );

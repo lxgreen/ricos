@@ -17,19 +17,111 @@
     Click to see more.
   </summary>
 
-### :bug: Bug Fix
-
-
-- `plugin-giphy`
-  - [#2312](https://github.com/wix/ricos/pull/2312) TS & Add missing hotkeys to giphy selector and more descriptive alt text
-
-- `fullscreen`
-  - [#3162](https://github.com/wix/ricos/pull/3162) videos pause when scrolled out of view
-  - [#3082](https://github.com/wix/ricos/pull/3082) image centered correctly on mobile
-
 
 </details>
 <hr/>
+
+## 8.65.0 (Dec 05, 2021)
+
+### :rocket: New Feature
+- `*`
+  - [#3203](https://github.com/wix/ricos/pull/3203) icons bm theme wiring
+  - [#3207](https://github.com/wix/ricos/pull/3207) bg & hover color bm theme wiring
+
+### :bug: Bug Fix
+- `html`
+  - [#3204](https://github.com/wix/ricos/pull/3204) add `allowFullScreen` to html iframe
+
+### :house: Internal
+
+- `common`
+  - [#3202](https://github.com/wix/ricos/pull/3202) add `documentStyle` to the old schema
+- `ricos-content`
+  - [#3187](https://github.com/wix/ricos/pull/3187) `fromDraft` gallery converter `thumbnails.placement` defaults to `NONE`
+- `schema`
+  - [#3187](https://github.com/wix/ricos/pull/3187) add `NONE` value to gallery thumbnails.placement enum
+
+### :nail_care: Polish
+
+- `general`
+  - [#3186](https://github.com/wix/ricos/pull/3186) use button component in table settings and refactor color picker ui
+
+## 8.64.1 (Dec 02, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3201](https://github.com/wix/ricos/pull/3201) fromHtml/ck-editor: text and links under root are handled
+
+## 8.64.0 (Dec 02, 2021)
+
+### :rocket: New Feature
+
+- `general`
+  - [#3178](https://github.com/wix/ricos/pull/3178) font-family BM theme wiring
+  - [#3181](https://github.com/wix/ricos/pull/3181) box-shadow & border-radius BM theme wiring
+  - [#3185](https://github.com/wix/ricos/pull/3185) inputs/text color BM theme wiring
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3188](https://github.com/wix/ricos/pull/3188) mobile basic link panel
+- `html`
+  - [#3191](https://github.com/wix/ricos/pull/3191) html iframe sandbox allows fullscreen
+- `headings`
+  - [#3196](https://github.com/wix/ricos/pull/3196) new dropdown style and a11y fixes for safari
+
+## 8.63.7 (Nov 30, 2021)
+### :bug: Bug Fix
+
+- `button`
+  - [#3172](https://github.com/wix/ricos/pull/3172) prevent default space/enter onKeyDown
+- `toolbars-new`
+  - [#3173](https://github.com/wix/ricos/pull/3173) mobile add plugin button when side toolbar disabled from config
+
+## 8.63.6 (Nov 29, 2021)
+
+### :house: Internal
+
+- `common`
+  - [#3170](https://github.com/wix/ricos/pull/3170) collapsible list schema validator
+- `file-upload`
+  - [#3169](https://github.com/wix/ricos/pull/3169) enable `useFilePluginAutoDownloadLinkRef` experiment
+
+### :bug: Bug Fix
+
+- `collapsible-list`
+  - [#3171](https://github.com/wix/ricos/pull/3171) disable expand/collapse onClick auto-scroll
+
+## 8.63.4 (Nov 29, 2021)
+
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3165](https://github.com/wix/ricos/pull/3165) fix height issues on scroll direction change
+- `file-upload`
+  - [#3167](https://github.com/wix/ricos/pull/3167) fix icon colors wiring
+- `ricos-content`
+  - [#3166](https://github.com/wix/ricos/pull/3166) `<br>` handled in `fromHtml/ck-editor`
+
+### :house: Internal
+
+- `video - ui-components`
+  - [#3159](https://github.com/wix/ricos/pull/3159) move upload modal-UI into ui-components
+- `link`
+  - [#3166](https://github.com/wix/ricos/pull/3166) LinkViewer handles `tel:` links (Viewer only)
+
+## 8.63.3 (Nov 25, 2021)
+
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3136](https://github.com/wix/ricos/pull/3136) fix gallery items `itemId` generation
+- `plugin-giphy`
+  - [#2312](https://github.com/wix/ricos/pull/2312) TS & Add missing hotkeys to giphy selector and more descriptive alt text
+- `fullscreen`
+  - [#3162](https://github.com/wix/ricos/pull/3162) videos pause when scrolled out of view
+  - [#3082](https://github.com/wix/ricos/pull/3082) image centered correctly on mobile
 
 ## 8.63.2 (Nov 24, 2021)
 

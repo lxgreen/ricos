@@ -15,6 +15,8 @@ const Iframe: FunctionComponent<{ iframeRef?: Ref<HTMLIFrameElement>; [key: stri
       title="remote content"
       style={{ backgroundColor: 'transparent' }}
       loading={loading}
+      allow="fullscreen"
+      allowFullScreen
       {...otherProps}
     />
   );

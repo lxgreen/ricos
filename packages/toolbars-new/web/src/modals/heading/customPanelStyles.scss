@@ -14,7 +14,7 @@
   top: 0px;
   background-color: white;
   border: solid 1px #ededed;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: $settings-whitebox-box-shadow;
   position: absolute;
 }
 
@@ -43,18 +43,15 @@
   padding-left: 20px;
   border: none;
   cursor: pointer;
-  &:disabled {
-    cursor: default;
-  }
 }
 
 %hover {
-  background-color: rgba($fallbackColorTuple, 0.05);
+  background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.05);
 }
 
 .panel_Container {
   border: solid 1px #ededed;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: $settings-whitebox-box-shadow;
   svg {
     height: unset;
     width: unset;
@@ -63,7 +60,7 @@
 
 .mobile_Container {
   border: solid 1px #ededed;
-  border-radius: unset;
+  border-radius: $settings-whitebox-border-radius;
   box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.1), 0 4px 8px 0 rgba(0, 0, 0, 0.1);
   position: fixed;
   bottom: 0;
@@ -74,16 +71,22 @@
 
 .separator {
   height: 1px;
-  background-color: rgba(51, 51, 51, 0.2);
+  background-color: var(--ricos-settings-dividers-color, rgba(51, 51, 51, 0.2));
   width: calc(100% - 24px);
   margin: 8px 0 8px;
   align-self: center;
 }
 
+.infoIcon {
+  padding-left: 3px;
+}
+
 .disabled_icon {
   color: grey;
   cursor: default;
-  vertical-align: text-bottom;
-  padding-top: 2px;
-  height: 17px;
+}
+
+.disabled {
+  color: graytext;
+  cursor: default;
 }

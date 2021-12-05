@@ -4,6 +4,7 @@ $primary-text-color-light: #e6e6e6;
 $secondary-text-color: #757575;
 $primary-text-color: var(--ricos-text-color, #212121); // color 5
 $primary-text-color-tuple: var(--ricos-text-color-tuple, (33, 33, 33));
+$default-box-shadow: (0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1));
 
 $ricos-text-color-low: var(--ricos-text-color-low, #969696); // color 4
 $ricos-text-color-low-tuple: var(--ricos-text-color-low-tuple, (150, 150, 150));
@@ -48,7 +49,7 @@ $settings-inputs-border-radius: var(--ricos-settings-inputs-border-radius, 0px);
 $settings-inputs-placeholder-color: var(--ricos-settings-inputs-placeholder-color, #000000);
 $settings-text-color: var(--ricos-settings-text-color, #333333);
 $settings-whitebox-border-radius: var(--ricos-settings-whitebox-border-radius, 0px);
-$settings-whitebox-box-shadow: var(--ricos-settings-whitebox-box-shadow);
+$settings-whitebox-box-shadow: var(--ricos-settings-whitebox-box-shadow, $default-box-shadow);
 
 $modal-input-color: #333333;
 $toolbar-font-color: #333333;

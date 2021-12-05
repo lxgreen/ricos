@@ -1,5 +1,6 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins.scss';
 @import '~wix-rich-content-common/dist/statics/styles/palette.scss';
+@import '~wix-rich-content-common/dist/statics/styles/fonts.scss';
 
 .sideToolbarPanelWrapper {
   display: flex;
@@ -9,6 +10,8 @@
   justify-content: center;
   height: max-content;
   max-height: 400px;
+  font-family: $ricos-settings-font-family;
+  color: $settings-text-color;
 
   &.horizontalMenu {
     padding: 6px;
@@ -31,7 +34,7 @@
 
   .pluginsSectionEmptyState,
   .pluginsSection {
-    color: #000000;
+    color: var(--ricos-settings-text-color, #000000);
   }
 
   .pluginsSectionEmptyState {
@@ -50,7 +53,7 @@
 
   .pluginsSection {
     height: 28px;
-    background-color: rgba(0, 0, 0, 0.06);
+    background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
     align-items: center;
     display: flex;
     justify-content: center;
@@ -92,6 +95,8 @@
       justify-content: center;
       text-align: center;
       cursor: pointer;
+      font-family: inherit;
+      color: $settings-icons-color;
       &.horizontalMenu {
         height: 38px;
       }
@@ -101,11 +106,11 @@
       .pluginName {
         font-size: 12px;
         line-height: 16px;
-        color: #000000;
+        color: $settings-text-color;
       }
 
       &:hover {
-        background-color: rgba($fallbackColorTuple, 0.06);
+        background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
       }
     }
   }

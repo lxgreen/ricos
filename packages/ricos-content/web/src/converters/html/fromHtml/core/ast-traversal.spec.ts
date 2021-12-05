@@ -1,5 +1,5 @@
 import { identity } from 'fp-ts/function';
-import traverse from './ast-traversal';
+import { traverse } from './ast-traversal';
 import { toAst, AstRule } from './parse5-utils';
 import { serialize } from 'parse5';
 

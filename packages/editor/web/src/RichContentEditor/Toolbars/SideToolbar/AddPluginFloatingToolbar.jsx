@@ -192,11 +192,12 @@ export default class AddPluginFloatingToolbar extends PureComponent {
   };
 
   render() {
-    const { theme, addPluginMenuConfig } = this.props;
+    const { theme, addPluginMenuConfig, shouldNotDisplay } = this.props;
     const { isPopupOpen } = this.state;
     const { toolbarStyles } = theme || {};
     const floatingContainerClassNames = classNames(
       Styles.sideToolbar_floatingContainer,
+      shouldNotDisplay && Styles.sideToolbar_floatingContainer_shouldNotDisplay,
       toolbarStyles && toolbarStyles.sideToolbar_floatingContainer
     );
     const smallPlusIcon = addPluginMenuConfig?.tablePluginMenu;
@@ -258,4 +259,5 @@ AddPluginFloatingToolbar.propTypes = {
   addPluginMenuConfig: PropTypes.object,
   onClick: PropTypes.func,
   focusEditor: PropTypes.func,
+  shouldNotDisplay: PropTypes.bool,
 };
