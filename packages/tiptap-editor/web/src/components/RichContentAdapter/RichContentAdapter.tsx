@@ -111,13 +111,15 @@ export class RichContentAdapter implements TiptapAPI {
 
       insertDecoration: (type, data) => {
         const decorationCommandMap = {
-          [RICOS_LINK_TYPE]: data => this.editor.commands.setLink({ link: data }),
-          [RICOS_TEXT_COLOR_TYPE]: data => this.editor.commands.setColor(data.color),
-          [RICOS_TEXT_HIGHLIGHT_TYPE]: data => this.editor.commands.setHighlight(data.color),
-          [RICOS_MENTION_TYPE]: data => this.editor.commands.insertMention(data.mention),
+          [RICOS_LINK_TYPE]: data => ({ command: 'setLink', args: { link: data } }),
+          [RICOS_TEXT_COLOR_TYPE]: data => ({ command: 'setColor', args: data.color }),
+          [RICOS_TEXT_HIGHLIGHT_TYPE]: data => ({ command: 'setHighlight', args: data.color }),
+          [RICOS_MENTION_TYPE]: data => ({ command: 'insertMention', args: data.color }),
         };
         if (decorationCommandMap[type]) {
-          decorationCommandMap[type](data);
+          const { command, args } = decorationCommandMap[type](data);
+          const editorCommand = this.editor.chain().focus();
+          editorCommand[command](args).run();
         } else {
           console.error(`${type} decoration not supported`);
         }
