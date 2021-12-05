@@ -17,6 +17,9 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+- `toolbars-new/editorCommands`
+  - [#3027](https://github.com/wix/ricos/pull/3027) fix code-block action in the new toolbar
 
 </details>
 <hr/>

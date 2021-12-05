@@ -863,16 +863,16 @@ export function setNativeSelectionToBlock(block: ContentBlock) {
   selection?.addRange(range);
 }
 
-function createEmptyBlock() {
+function createEmptyBlock(type = 'unstyled') {
   return new ContentBlock({
     key: genKey(),
-    type: 'unstyled',
+    type,
     text: '',
     characterList: List(), // eslint-disable-line new-cap
   });
 }
 
-function moveTextToFirstBlock(block, contentState, text) {
+function insertTextToBlock(block, contentState, text) {
   const key = block.getKey();
   const targetLength = block.getLength();
   const newLineTarget = SelectionState.createEmpty(key)
@@ -880,77 +880,8 @@ function moveTextToFirstBlock(block, contentState, text) {
     .set('focusOffset', targetLength);
 
   return Modifier.insertText(contentState, newLineTarget as SelectionState, text);
-
-  // const sourceRange = SelectionState.createEmpty(key)
-  //   .set('anchorOffset', 0)
-  //   .set('focusOffset', block.getLength());
-  // const textTarget = newLineTarget
-  //   .set('anchorOffset', targetLength + 1)
-  //   .set('focusOffset', targetLength + 1);
-
-  // return Modifier.moveText(
-  //   withNewLine,
-  //   sourceRange as SelectionState,
-  //   textTarget as SelectionState
-  // );
 }
 
-function replaceSelectedBlocksWithCodeBlock(firstKey, lastKey, contentState) {
-  const fragment = BlockMapBuilder.createFromArray([contentState.getBlockForKey(firstKey)]);
-
-  const target = new SelectionState({
-    anchorKey: firstKey,
-    anchorOffset: 0,
-    focusKey: lastKey,
-    focusOffset: contentState.getBlockForKey(lastKey).getLength(),
-  });
-
-  return Modifier.replaceWithFragment(contentState, target, fragment);
-}
-
-function setBlockTypeAndMerge(blocks, target, contentState, editorState) {
-  console.log('blocks.count()', blocks.length);
-
-  if (!blocks.length) {
-    return contentState;
-  }
-  console.log('contentState', contentState);
-
-  const blockKsContent = blocks.map(block => block.getText() + '\n');
-  const blockKsRemoved = blocks.map(block => deleteBlock(editorState, block.getKey()));
-  const newBlock = new ContentBlock({
-    key: blocks[0].getKey(),
-    type: 'unstyled',
-    text: blockKsContent[0],
-    characterList: List(), // eslint-disable-line new-cap
-  });
-  let modifiedContentState = blockKsRemoved[blocks.length - 1].getCurrentContent();
-  if (blocks.length) {
-    const firstKey = blocks[0].getKey();
-    const lastKey = blocks[blocks.length - 1].getKey();
-    const focusOffset = contentState.getBlockForKey(lastKey).getLength();
-
-    const target = new SelectionState({
-      anchorKey: firstKey,
-      anchorOffset: 0,
-      focusKey: lastKey,
-      focusOffset,
-    });
-    console.log('target', target);
-
-    console.log('contentState', contentState);
-    const fragment = BlockMapBuilder.createFromArray([newBlock]);
-    modifiedContentState = Modifier.replaceWithFragment(modifiedContentState, target, fragment);
-    console.log('modifiedContentState', modifiedContentState);
-
-    // const afterMove = moveTextToFirstBlock(blocks, contentState);
-    // const targetRange = SelectionState.createEmpty(firstKey);
-    // const afterTypeChange = Modifier.setBlockType(afterMove, targetRange, 'unstyled');
-    // modifiedContentState = replaceSelectedBlocksWithCodeBlock(firstKey, lastKey, afterMove);
-  }
-
-  return modifiedContentState;
-}
 function mergeBlocksText(blocks) {
   let text = '';
   const blocksLength = blocks.length;
@@ -961,29 +892,10 @@ function mergeBlocksText(blocks) {
   return text;
 }
 
-export function createEmptyBlockBeforeAndAfterSelection(editorState: EditorState, selection) {
-  // const selection = getSelection(editorState);
-  const contentState = editorState.getCurrentContent();
-  const firstKey = selection.getStartKey();
-  const lastKey = selection.getEndKey();
-  // const allBlocks = contentState.getBlockMap();
-  // const selectedBlocks = getSelectedBlocks(editorState);  const allBlocks = contentState.getBlockMap();
-  const selectedBlocks = getSelectedBlocks(editorState);
-
-  // getSelectedBlocks(editorState);
-  console.log('selectedBlocks', selectedBlocks);
-  const text = mergeBlocksText(selectedBlocks);
-
-  const newBlock = new ContentBlock({
-    key: genKey(),
-    type: 'code-block',
-    text: '',
-    characterList: List(), // eslint-disable-line new-cap
-  });
-  // let newContentState = setBlockTypeAndMerge(selectedBlocks, selection, contentState, editorState);
+function mergeBlocks(firstKey, lastKey, contentState, blockType) {
   const fragment = BlockMapBuilder.createFromArray([
     createEmptyBlock(),
-    newBlock,
+    createEmptyBlock(blockType),
     createEmptyBlock(),
   ]);
   const target = new SelectionState({
@@ -993,27 +905,28 @@ export function createEmptyBlockBeforeAndAfterSelection(editorState: EditorState
     focusOffset: contentState.getBlockForKey(lastKey).getLength(),
   });
 
-  let newContentState = Modifier.replaceWithFragment(contentState, target, fragment);
+  return Modifier.replaceWithFragment(contentState, target, fragment);
+}
+
+export function toggleBlockTypeWithSpaces(editorState: EditorState, blockType) {
+  const selection = getSelection(editorState);
+  const contentState = editorState.getCurrentContent();
+  const firstKey = selection.getStartKey();
+  const lastKey = selection.getEndKey();
+  const selectedBlocks = getSelectedBlocks(editorState);
+  const text = mergeBlocksText(selectedBlocks);
+
+  let newContentState = mergeBlocks(firstKey, lastKey, contentState, blockType);
   const block = newContentState.getBlockAfter(firstKey);
-  newContentState = moveTextToFirstBlock(block, newContentState, text);
-  // const targetLength = contentState.getBlockForKey(firstKey).getLength();
-  // const newLineTarget = SelectionState.createEmpty(firstKey)
-  //   .set('anchorOffset', targetLength)
-  //   .set('focusOffset', targetLength);
+  newContentState = insertTextToBlock(block, newContentState, text);
 
-  // newContentState = Modifier.insertText(newContentState, newLineTarget as SelectionState, '\n');
-
-  const Selection = new SelectionState({
-    anchorKey: firstKey,
+  const newSelection = createSelection({
+    blockKey: block?.getKey() || firstKey,
     anchorOffset: 0,
-    focusKey: block?.getKey(),
-    focusOffset: block?.getLength(),
+    focusOffset: 0,
   });
 
   let newEditorState = EditorState.push(editorState, newContentState, 'insert-fragment');
-  newEditorState = EditorState.forceSelection(newEditorState, Selection);
+  newEditorState = EditorState.forceSelection(newEditorState, newSelection);
   return newEditorState;
 }
-// export function createEmptyBlockAfterSelection(editorState: EditorState) {
-
-// }

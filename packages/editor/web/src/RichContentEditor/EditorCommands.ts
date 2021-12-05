@@ -29,7 +29,7 @@ import {
   scrollToBlock,
   insertCustomLink,
   getSelectedBlocks,
-  createEmptyBlockBeforeAndAfterSelection,
+  toggleBlockTypeWithSpaces,
 } from 'wix-rich-content-editor-common';
 import {
   AvailableExperiments,
@@ -122,10 +122,7 @@ export const createEditorCommands = (
 ): EditorCommands => {
   const setBlockType: EditorCommands['setBlockType'] = type => {
     if (type === CODE_BLOCK_TYPE) {
-      const modifiedEditorState = createEmptyBlockBeforeAndAfterSelection(
-        getEditorState(),
-        getEditorState().getSelection()
-      );
+      const modifiedEditorState = toggleBlockTypeWithSpaces(getEditorState(), type);
       // modifiedEditorState = RichUtils.toggleBlockType(getEditorState(), type);
       setEditorState(modifiedEditorState);
     } else {
