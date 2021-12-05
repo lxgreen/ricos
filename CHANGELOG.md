@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.65.2 (Dec 05, 2021)
+
 ### :bug: Bug Fix
 
 - `toolbars-new`
   - [#3211](https://github.com/wix/ricos/pull/3211) font size dropdown a11y
-
-</details>
-<hr/>
 
 ## 8.65.1 (Dec 05, 2021)
 
