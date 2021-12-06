@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `tiptap-editor`  
+  - [#3217](https://github.com/wix/ricos/pull/3217)pinned tiptap versions
+
 </details>
 <hr/>
 
