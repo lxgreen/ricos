@@ -123,16 +123,24 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
 
       addPasteRules() {
         return [
-          markPasteRule(urlRegex, this.type, (match: RegExpExecArray) => ({
-            link: { url: match[0] },
-          })),
+          markPasteRule({
+            find: urlRegex,
+            type: this.type,
+            getAttributes: (match: RegExpExecArray) => ({
+              link: { url: match[0] },
+            }),
+          }),
         ];
       },
 
       addInputRules() {
         return [
-          markInputRule(urlRegexExactWithSpace, this.type, (match: RegExpExecArray) => {
-            return { link: { url: match[0].trim() } };
+          markInputRule({
+            find: urlRegexExactWithSpace,
+            type: this.type,
+            getAttributes: (match: RegExpExecArray) => {
+              return { link: { url: match[0].trim() } };
+            },
           }),
         ];
       },
