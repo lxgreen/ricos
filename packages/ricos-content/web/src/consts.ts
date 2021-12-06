@@ -135,10 +135,10 @@ export const TIPTAP_HTML_TYPE = 'html';
 export const TIPTAP_COLLAPSIBLE_LIST_TYPE = 'collapsibleList';
 export const TIPTAP_MAP_TYPE = 'map';
 export const TIPTAP_APP_EMBED_TYPE = 'appEmbed';
-export const TIPTAP_POLL_TYPE = 'poll';
 export const TIPTAP_TABLE_TYPE = 'table';
 export const TIPTAP_EMBED_TYPE = 'embed';
 export const TIPTAP_EXTERNAL_TYPE = 'external';
+export const TIPTAP_POLL_TYPE = 'poll';
 
 export const RICOS_NODE_TYPE_TO_DATA_FIELD = {
   [Node_Type.BUTTON]: 'buttonData',
