@@ -20,6 +20,12 @@
 </details>
 <hr/>
 
+## 8.65.4 (Dec 06, 2021)
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3215](https://github.com/wix/ricos/pull/3215) fixed memory leak in fromDraft caused by generateId
+
 ## 8.65.3 (Dec 06, 2021)
 
 ### :bug: Bug Fix
