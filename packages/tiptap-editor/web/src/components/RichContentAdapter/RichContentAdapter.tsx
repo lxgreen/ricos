@@ -114,7 +114,7 @@ export class RichContentAdapter implements TiptapAPI {
           [RICOS_LINK_TYPE]: data => ({ command: 'setLink', args: { link: data } }),
           [RICOS_TEXT_COLOR_TYPE]: data => ({ command: 'setColor', args: data.color }),
           [RICOS_TEXT_HIGHLIGHT_TYPE]: data => ({ command: 'setHighlight', args: data.color }),
-          [RICOS_MENTION_TYPE]: data => ({ command: 'insertMention', args: data.color }),
+          [RICOS_MENTION_TYPE]: data => ({ command: 'insertMention', args: data.mention }),
         };
         if (decorationCommandMap[type]) {
           const { command, args } = decorationCommandMap[type](data);
