@@ -19,7 +19,7 @@ import { createColor } from './extensions/extension-color';
 import { createBulletedList } from './extensions/extension-bulleted-list';
 import { createSpoiler } from './extensions/extension-spoiler';
 import { CoreCommands } from './core/extensions';
-import { HeadingData } from 'ricos-schema';
+import headingDataDefaults from 'ricos-schema/dist/statics/heading.defaults.json';
 import { Attributes, Extensions, MarkConfig, NodeConfig } from '@tiptap/react';
 import styles from './statics/styles.scss';
 
@@ -44,7 +44,7 @@ export const tiptapExtensions: Extensions = [
   }),
   Underline,
   Document.extend(extendedAttrs({ metadata: {} })),
-  Heading.extend(extendedAttrs(HeadingData.fromJSON({}))),
+  Heading.extend(extendedAttrs(headingDataDefaults)),
   Italic,
   ListItem,
   OrderedList,
