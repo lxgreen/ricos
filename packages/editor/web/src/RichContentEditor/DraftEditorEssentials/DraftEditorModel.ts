@@ -1,4 +1,9 @@
-import { EditorState } from 'wix-rich-content-editor-common';
+import {
+  EditorState,
+  getSelectedBlocks,
+  ContentState,
+  hasInlineStyle,
+} from 'wix-rich-content-editor-common';
 import { IRicosEditorModel } from 'wix-rich-content-common';
 import { fromDraft } from 'ricos-content/libs/migrateSchema';
 import { convertToRaw } from '../../../lib/editorStateConversion';
@@ -11,15 +16,14 @@ export class DraftEditorModel implements IRicosEditorModel {
     this.getEditorState = getEditorState;
   }
 
-  getNodesBetween: IRicosEditorModel['getNodesBetween'] = (startIndex, endIndex) => {
-    const contentState = this.getEditorState().getCurrentContent();
-    const richContent = fromDraft(convertToRaw(contentState));
-    return richContent.nodes.slice(startIndex, endIndex + 1);
+  hasDecoration: IRicosEditorModel['hasDecoration'] = type => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return hasInlineStyle(type.toLowerCase() as any, this.getEditorState());
   };
 
-  getNodeBy: IRicosEditorModel['getNodeBy'] = predicate => {
-    const contentState = this.getEditorState().getCurrentContent();
-    const richContent = fromDraft(convertToRaw(contentState));
-    return richContent.nodes.filter(predicate);
+  getSelectedNodes: IRicosEditorModel['getSelectedNodes'] = () => {
+    const selectedBlocks = getSelectedBlocks(this.getEditorState());
+    const contentState = ContentState.createFromBlockArray(selectedBlocks);
+    return fromDraft(convertToRaw(contentState)).nodes;
   };
 }

@@ -40,14 +40,22 @@ export class DraftEditorCommands implements IRicosEditorCommands {
   updateNode: IRicosEditorCommands['updateNode'] = (id, node) => {
     const draftData = convertNodeToDraftData({ id, ...node });
     const entityKey = blockKeyToEntityKey(this.getEditorState(), id);
+    if (!entityKey) {
+      return false;
+    }
     const newEditorState = setEntityData(this.getEditorState(), entityKey, draftData);
     const newSelection = newEditorState.getSelection();
     this.setEditorState(newEditorState, newSelection);
+    return true;
   };
 
   deleteNode: IRicosEditorCommands['deleteNode'] = id => {
     const editorState = deleteBlock(this.getEditorState(), id);
+    if (!editorState) {
+      return false;
+    }
     const selection = editorState.getSelection();
     this.setEditorState(editorState, selection);
+    return true;
   };
 }

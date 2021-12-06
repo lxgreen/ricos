@@ -9,13 +9,13 @@ export class TiptapEditorModel implements IRicosEditorModel {
     this.editor = editorState;
   }
 
-  getNodesBetween: IRicosEditorModel['getNodesBetween'] = (startIndex, endIndex) => {
-    const richContent = fromTiptap(this.editor.getJSON());
-    return richContent.nodes.slice(startIndex, endIndex + 1);
+  getSelectedNodes: IRicosEditorModel['getSelectedNodes'] = () => {
+    const tiptapDoc = this.editor.getJSON();
+    tiptapDoc.content = this.editor.state.selection.content().toJSON()?.content;
+    return fromTiptap(tiptapDoc).nodes;
   };
 
-  getNodeBy: IRicosEditorModel['getNodeBy'] = predicate => {
-    const richContent = fromTiptap(this.editor.getJSON());
-    return richContent.nodes.filter(predicate);
+  hasDecoration: IRicosEditorModel['hasDecoration'] = type => {
+    return this.editor.isActive(type.toLowerCase());
   };
 }

@@ -16,6 +16,6 @@ interface Node extends Omit<_Node, 'type'> {
 
 export interface IRicosEditorCommands {
   insertNode: (node: Node) => string;
-  updateNode: (id: string, node: Omit<Node, 'id'>) => void;
-  deleteNode: (id: string) => void;
+  updateNode: (id: string, node: Omit<Node, 'id'>) => boolean;
+  deleteNode: (id: string) => boolean;
 }

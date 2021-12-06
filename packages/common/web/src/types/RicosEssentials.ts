@@ -21,21 +21,10 @@ export interface IRicosEditorCommands {
 }
 
 export interface IRicosEditorModel {
-  getNodesBetween: (startId: number, endId: number) => Node[];
-  getNodeBy: (predicate: (node: Node) => boolean) => Node[];
-}
-
-interface IRicosEditorSelection {
-  startId: string;
-  endId: string;
-  isCollapsed: boolean;
+  getSelectedNodes: () => Node[];
+  hasDecoration: (type: Decoration_Type) => boolean;
 }
 
 export interface IRicosEditorState {
-  getSelection: () => IRicosEditorSelection;
   hasFocus: () => boolean;
-}
-
-export interface IRicosEditorNode {
-  hasDecoration: (type: Decoration_Type) => boolean;
 }

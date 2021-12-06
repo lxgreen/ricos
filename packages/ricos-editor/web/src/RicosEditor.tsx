@@ -51,10 +51,10 @@ import { getEmptyDraftContent, getEditorContentSummary } from 'wix-rich-content-
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
 import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
 import { getBiFunctions } from './toolbars/utils/biUtils';
-import { Node_Type } from 'ricos-schema';
+import { Decoration_Type, Node_Type } from 'ricos-schema';
 
 // eslint-disable-next-line
-import { /*type*/ TiptapEditorPlugin } from 'wix-tiptap-editor';
+import type { TiptapEditorPlugin } from 'wix-tiptap-editor';
 
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
@@ -491,6 +491,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     return (
       <Fragment key={`${remountKey}`}>
         {this.renderToolbars()}
+        {this.renderDemoToolbar()}
         {this.renderRicosEngine(child, {
           onChange: this.onChange(child.props.onChange),
           ref: this.setEditorRef,
@@ -504,7 +505,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   renderDemoToolbar = () => {
     const imageNode1 = {
       type: Node_Type.IMAGE,
-      id: '1',
+      id: '12345',
       nodes: [],
       imageData: {
         containerData: {
@@ -559,12 +560,12 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     }
 
     return (
-      <div>
+      <div style={{ flex: 0, display: 'block' }}>
         <button
           onClick={() =>
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            this.essentials.commands.insertNode(imageNode1)
+            (this.nodeId = this.essentials.commands.insertNode(imageNode1))
           }
         >
           {'add image'}
@@ -573,11 +574,26 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
           onClick={() =>
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            this.essentials.commands.updateNode('1', imageNode2)
+            console.log(this.essentials.commands.updateNode(this.nodeId, imageNode2))
           }
         >
           {'update image'}
         </button>
+        <button
+          onClick={() => {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            const nodes = this.essentials.model.getSelectedNodes();
+            if (nodes?.[0]) {
+              console.log(this.essentials.commands.deleteNode(nodes[0].id));
+            }
+          }}
+        >
+          {'delete node'}
+        </button>
+        <div>{'hasBold: ' + this.essentials.model.hasDecoration(Decoration_Type.BOLD)}</div>
+        <div>{'hasSpoiler: ' + this.essentials.model.hasDecoration(Decoration_Type.SPOILER)}</div>
+        <div>{'hasFocus: ' + this.essentials.state.hasFocus()}</div>
       </div>
     );
   };
