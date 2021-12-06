@@ -577,7 +577,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
           onClick={() =>
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            console.log(this.essentials.commands.updateNode(this.nodeId, imageNode2))
+            this.essentials.commands.updateNode(this.nodeId, imageNode2)
           }
         >
           {'update image'}
@@ -588,7 +588,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
             // @ts-ignore
             const nodes = this.essentials.model.getSelectedNodes();
             if (nodes?.[0]) {
-              console.log(this.essentials.commands.deleteNode(nodes[0].id));
+              this.essentials.commands.deleteNode(nodes[0].id);
             }
           }}
         >
