@@ -30,7 +30,7 @@
   flex-direction: column;
   vertical-align: middle;
   overflow: hidden;
-  color: black;
+  color: var(--ricos-settings-text-color, #000);
   font-family: var(--ricos-custom-p-font-family);
 }
 

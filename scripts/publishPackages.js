@@ -59,27 +59,32 @@ function createNpmRc() {
 }
 
 function publishPackages() {
-  getPackages().then(allPackages => {
-    const packages = allPackages.filter(pkg => !pkg.private);
-    packages.forEach(pkg =>
-      release({
-        name: pkg.name,
-        version: pkg.version,
-        registry: pkg.get('publishConfig').registry,
-        path: pkg.location,
-      })
-    );
-    //   require('axios')
-    //     .post('https://www.wix.com/_serverless/loki-update-service2/trigger-loki', {
-    //       packages,
-    //     })
-    //     .then(res => {
-    //       console.log(JSON.stringify(res.data, null, 2));
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
-  });
+  getPackages()
+    .then(allPackages => {
+      const packages = allPackages.filter(pkg => !pkg.private);
+      packages.forEach(pkg =>
+        release({
+          name: pkg.name,
+          version: pkg.version,
+          registry: pkg.get('publishConfig').registry,
+          path: pkg.location,
+        })
+      );
+      //   require('axios')
+      //     .post('https://www.wix.com/_serverless/loki-update-service2/trigger-loki', {
+      //       packages,
+      //     })
+      //     .then(res => {
+      //       console.log(JSON.stringify(res.data, null, 2));
+      //     })
+      //     .catch(error => {
+      //       console.error(error);
+      //     });
+    })
+    .catch(e => {
+      console.error('Error in publish script', e);
+      process.exit(1);
+    });
 }
 
 createNpmRc();

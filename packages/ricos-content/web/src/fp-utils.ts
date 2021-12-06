@@ -62,11 +62,13 @@ export const tap = <F extends (data: D) => any, D>(f: F) => (data: D): D => {
   return data;
 };
 
-const logWithTag = <T>(tag: string) => (data: T) => console.log(tag, data); // eslint-disable-line no-console
+const logWithTag = <T>(tag: string, processor: (data: T) => unknown = identity) => (data: T) =>
+  console.log(tag, processor(data)); // eslint-disable-line no-console
 const stringifyWithTag = <T>(tag: string) => (data: T) =>
   console.log(tag, JSON.stringify(data, null, 2)); // eslint-disable-line no-console
 
-export const log = <T>(tag: string) => tap(logWithTag<T>(tag));
+export const log = <T>(tag: string, processor: (data: T) => unknown = identity) =>
+  tap(logWithTag<T>(tag, processor));
 
 export const deepLog = <T>(tag: string) => tap(stringifyWithTag<T>(tag));
 

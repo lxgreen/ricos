@@ -100,13 +100,12 @@ const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix, docum
 
         const _child = isEmptyBlock(child) ? <br role="presentation" /> : child;
 
-        const nodeStyle = kebabToCamelObjectKeys(
-          documentStyle?.[style === 'text' ? 'paragraph' : style]
-        );
+        const nodeStyle = documentStyle?.[style === 'text' ? 'paragraph' : style];
+        const parsedNodeStyle = kebabToCamelObjectKeys(nodeStyle);
         const content = isEmpty(nodeStyle) ? (
           _child
         ) : (
-          <span className={styles.overrideLinkColor} style={nodeStyle}>
+          <span className={nodeStyle.color && styles.overrideLinkColor} style={parsedNodeStyle}>
             {_child}
           </span>
         );

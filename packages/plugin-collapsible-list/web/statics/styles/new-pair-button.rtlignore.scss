@@ -17,11 +17,11 @@
 
 .new_pair_button{
     display: flex;
-    color: $action-color;
+    color: $settings-action-color;;
     padding-inline-start: 10px;
     svg {
-        fill: $action-color;
-        color: $action-color;
+        fill: $settings-action-color;
+        color: $settings-action-color;
     }
 }
 

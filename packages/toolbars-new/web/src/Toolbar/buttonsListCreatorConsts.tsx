@@ -57,6 +57,7 @@ import AlignmentPanel from '../modals/alignment/AlignmentPanel';
 import HeadingsPanel from '../modals/heading/HeadingsPanel';
 import LineSpacingPanel from '../modals/line-spacing/LineSpacingPanel';
 import FontSizePanel from '../modals/fontSize/FontSizePanel';
+import { translateHeading } from './utils';
 
 export const HEADING_TYPE_TO_ELEMENT = Object.freeze({
   'header-one': 'H1',
@@ -520,31 +521,4 @@ export const setTextAlignment: Record<string, TextAlignment> = {
 export const colorTypes: Record<string, ColorType> = {
   TEXT_COLOR: RICOS_TEXT_COLOR_TYPE,
   TEXT_HIGHLIGHT: RICOS_TEXT_HIGHLIGHT_TYPE,
-};
-
-const headingShortcuts = {
-  MacOS: number => ` (⌘⌥${number})`,
-  Windows: number => ` (Ctrl+Alt+${number})`,
-};
-
-export const translateHeading = (option = 'P', t, shouldAddShortcut = false) => {
-  const number = parseInt(option.slice(-1)) ? option.slice(-1) : undefined;
-  const osName = findOsName();
-  const shortcut = shouldAddShortcut && osName ? headingShortcuts[osName](number || 0) : undefined;
-  return option === 'P'
-    ? t('FormattingToolbar_TextStyle_Paragraph', shortcut && { shortcut })
-    : t('FormattingToolbar_TextStyle_Heading', shortcut ? { number, shortcut } : { number });
-};
-
-export const findOsName = () => {
-  if (navigator.userAgent.indexOf('Win') !== -1) return 'Windows';
-  if (navigator.userAgent.indexOf('Mac') !== -1) return 'MacOS';
-  return null;
-};
-
-export const getSpacing = (currentSpacing = {}, userDefaultSpacing = {}) => {
-  const hasCurrentSpacing = Object.keys(currentSpacing).length !== 0;
-  const hasDefaultSpacing = Object.keys(userDefaultSpacing).length !== 0;
-  const defaultSpacing = hasDefaultSpacing ? userDefaultSpacing : defaultLineSpacing;
-  return hasCurrentSpacing ? currentSpacing : defaultSpacing;
 };

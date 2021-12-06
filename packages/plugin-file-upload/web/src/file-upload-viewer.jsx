@@ -33,7 +33,7 @@ class FileUploadViewer extends PureComponent {
     super(props);
     const { componentData } = props;
     validate(componentData, pluginFileUploadSchema);
-    this.iframeRef = React.createRef();
+    this.downloaderRef = React.createRef();
     this.fileUploadViewerRef = React.createRef();
   }
 
@@ -219,14 +219,23 @@ class FileUploadViewer extends PureComponent {
     }
 
     const fileUrlResolver = () => {
-      this.setState({ resolvingUrl: true });
-      resolveFileUrl(componentData).then(resolvedFileUrl => {
-        this.setState({ resolvedFileUrl, resolvingUrl: false }, this.switchReadyIcon);
+      const { resolvingUrl } = this.state;
+      if (!resolvingUrl) {
+        this.setState({ resolvingUrl: true });
+        resolveFileUrl(componentData).then(resolvedFileUrl => {
+          this.setState({ resolvedFileUrl, resolvingUrl: false }, this.switchReadyIcon);
 
-        if (this.iframeRef.current) {
-          this.iframeRef.current.src = resolvedFileUrl;
-        }
-      });
+          if (this.downloaderRef.current) {
+            if (this.context.experiments.useFilePluginAutoDownloadLinkRef?.enabled) {
+              this.downloaderRef.current.href = resolvedFileUrl;
+              this.downloaderRef.current.download = name;
+              this.downloaderRef.current.click();
+            } else {
+              this.downloaderRef.current.src = resolvedFileUrl;
+            }
+          }
+        });
+      }
     };
 
     const resolveIfEnter = ev => {
@@ -251,16 +260,23 @@ class FileUploadViewer extends PureComponent {
     );
   }
 
-  renderAutoDownloadIframe() {
-    const withFileUrlResolver = this.props.settings.resolveFileUrl;
+  renderAutoDownloadLinkRef() {
+    const {
+      settings: { resolveFileUrl: withFileUrlResolver, downloadTarget },
+    } = this.props;
 
     if (!withFileUrlResolver) {
       return null;
     }
-    const loading = this.context.experiments.lazyImagesAndIframes?.enabled ? 'lazy' : undefined;
 
-    return (
-      <iframe ref={this.iframeRef} style={{ display: 'none' }} title="file" loading={loading} />
+    const target = downloadTarget || '_blank';
+    const loading = this.context.experiments.lazyImagesAndIframes?.enabled ? 'lazy' : undefined;
+    return this.context.experiments.useFilePluginAutoDownloadLinkRef?.enabled ? (
+      <a href="#0" ref={this.downloaderRef} style={{ display: 'none' }} target={target}>
+        <></>
+      </a>
+    ) : (
+      <iframe ref={this.downloaderRef} style={{ display: 'none' }} title="file" loading={loading} />
     );
   }
 
@@ -284,7 +300,7 @@ class FileUploadViewer extends PureComponent {
       >
         <div className={style} data-hook="fileUploadViewer" ref={this.fileUploadViewerRef}>
           {viewer}
-          {this.renderAutoDownloadIframe()}
+          {this.renderAutoDownloadLinkRef()}
         </div>
       </Tooltip>
     );

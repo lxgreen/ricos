@@ -46,11 +46,11 @@
   width: 100%;
   margin-top: 13px;
   margin-bottom: 10px;
-  color: #333333;
+  color: $settings-text-color;
   @include phone {
     font-size: 20px;
     line-height: 1.4;
-    color: #000000;
+    color: var(--ricos-settings-text-color, #000000);
     margin-top: 0px;
   }
 }

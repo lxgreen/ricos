@@ -1,4 +1,4 @@
-import { Editor, JSONContent } from '@tiptap/react';
+import { Editor, JSONContent, SingleCommands } from '@tiptap/react';
 import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { ElementType } from 'react';
 import {
@@ -11,7 +11,6 @@ import {
   TranslationFunction,
   RichContentTheme,
 } from 'wix-rich-content-common';
-import { createEditorStyles } from 'wix-rich-content-editor-common';
 import { RicosExtension } from './models/extension-types';
 
 export interface PluginProps {
@@ -51,7 +50,13 @@ export interface RicosTiptapEditorProps {
   t: TranslationFunction;
   onUpdate?: ({ content }: { content: DraftContent }) => void;
   onBlur?: () => void;
-  onSelectionUpdate?: ({ selectedNodes }: { selectedNodes: ProseMirrorNode[] }) => void;
+  onSelectionUpdate?: ({
+    selectedNodes,
+    content,
+  }: {
+    selectedNodes: ProseMirrorNode[];
+    content: DraftContent;
+  }) => void;
   theme?: RichContentTheme;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
@@ -60,3 +65,9 @@ export interface RicosTiptapEditorProps {
 export type CreateRicosExtensions = <PluginType extends keyof LegacyEditorPluginConfig>(
   config: LegacyEditorPluginConfig[PluginType]
 ) => RicosExtension[];
+
+export declare class RicosTiptapEditor extends Editor {
+  get commands(): SingleCommands & {
+    insertMention: (data, pos?: { from: number; to: number }) => void;
+  };
+}

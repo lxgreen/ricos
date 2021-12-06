@@ -33,7 +33,7 @@
   width: 450px;
   height: 420px;
   background: #fff;
-  color: #000;
+  color: var(--ricos-settings-text-color, #000);
   display: flex;
   flex-direction: column;
 

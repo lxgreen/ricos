@@ -66,6 +66,7 @@ class HeadingsPanel extends Component {
           headerType === currentSelect &&
           hasStyleChanges(currentSelect, currentInlineStyles, documentStyle)
         }
+        onClose={() => this.setState({ openOption: '' })}
       />
     );
   };

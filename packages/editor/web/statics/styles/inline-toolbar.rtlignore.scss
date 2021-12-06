@@ -16,7 +16,7 @@ $borderRadius: 6px;
   max-width: 100%;
   transition: transform 0.15s cubic-bezier(0.3, 1.2, 0.2, 1);
   direction: ltr;
-  box-shadow: 0 4px 8px 0 rgba(123, 99, 99, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: $settings-whitebox-box-shadow;
 }
 
 .inlineToolbar_buttons {

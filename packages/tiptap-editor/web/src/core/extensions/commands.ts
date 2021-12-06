@@ -5,6 +5,7 @@ import * as deleteNode from '../commands/deleteNode';
 
 export const Commands = Extension.create({
   name: 'commands',
+  type: 'extension',
 
   addCommands() {
     return {

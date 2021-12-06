@@ -1,14 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { mergeStyles } from 'wix-rich-content-common';
-import styles from '../../statics/styles/video-modal.scss';
 import { VIDEO_TYPE } from '../types';
 import { handleUploadStart, handleUploadFinished } from 'wix-rich-content-plugin-commons';
+import { MediaUploadModal } from 'wix-rich-content-ui-components';
 
 export default class VideoUploadModal extends Component {
   constructor(props) {
     super(props);
-    this.styles = mergeStyles({ styles, theme: props.theme });
     const { componentData } = this.props;
     this.state = {
       url: (!componentData.isCustomVideo && componentData.src) || '',
@@ -50,6 +48,8 @@ export default class VideoUploadModal extends Component {
     this.onConfirm({ ...this.props.componentData, src, isCustomVideo: true, tempData });
   };
 
+  setInputFile = ref => (this.inputFile = ref);
+
   getComponentData = () => this.props.componentData;
 
   handleNativeFileUpload = () => {
@@ -72,8 +72,10 @@ export default class VideoUploadModal extends Component {
       isMobile,
       languageDir,
     } = this.props;
-    const { styles } = this;
+
     const hasCustomFileUpload = handleFileUpload || handleFileSelection;
+    const showUploadSection = (!isMobile || enableCustomUploadOnMobile) && hasCustomFileUpload;
+
     let handleClick;
     if (handleFileSelection) {
       handleClick = evt => {
@@ -84,37 +86,21 @@ export default class VideoUploadModal extends Component {
         });
       };
     }
-    const uploadVideoSection = (
-      <div>
-        <div className={styles.video_modal_upload_video_new_modal} dir={languageDir}>
-          <input
-            id={this.id}
-            type="file"
-            accept="video/*"
-            className={styles.fileInput}
-            ref={node => (this.inputFile = node)}
-            onClick={handleClick}
-            onChange={this.handleNativeFileUpload}
-          />
-          <label
-            htmlFor={this.id}
-            className={styles.fileInputLabel}
-            role="button" // eslint-disable-line jsx-a11y/no-noninteractive-element-to-interactive-role
-            data-hook="videoUploadModalCustomVideo"
-            tabIndex={0}
-          >
-            {t('VideoUploadModal_CustomVideoClickText')}
-          </label>
-        </div>
-      </div>
-    );
+
     return (
-      <div dir={languageDir}>
-        <div className={styles.video_modal_add_a_Video_new_modal}>
-          {t('VideoCustomUploadModal_Title')}
-        </div>
-        {(!isMobile || enableCustomUploadOnMobile) && hasCustomFileUpload && uploadVideoSection}
-      </div>
+      <MediaUploadModal
+        id={this.id}
+        isMobile={isMobile}
+        inputFileRef={this.setInputFile}
+        handleClick={handleClick}
+        handleNativeFileUpload={this.handleNativeFileUpload}
+        languageDir={languageDir}
+        title={t('VideoCustomUploadModal_Title')}
+        labelText={t('VideoUploadModal_CustomVideoClickText')}
+        dataHook="videoUploadModalCustomVideo"
+        showUploadSection={showUploadSection}
+        accept="video/*"
+      />
     );
   }
 }

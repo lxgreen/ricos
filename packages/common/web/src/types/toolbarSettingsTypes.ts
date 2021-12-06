@@ -33,6 +33,7 @@ export interface ToolbarSettingsFunctions {
   addPluginMenuConfig?: AddPluginMenuConfig;
   footerToolbarConfig?: FooterToolbarConfig;
   onClick?: () => void;
+  buttonsMapper?: () => PlatformSettings<any>;
 }
 
 export interface AddPluginMenuConfig {

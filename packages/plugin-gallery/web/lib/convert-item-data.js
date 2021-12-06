@@ -1,7 +1,6 @@
 /* eslint-disable complexity */
-import { normalizeUrl } from 'wix-rich-content-common';
+import { normalizeUrl, uuid } from 'wix-rich-content-common';
 import { getAbsoluteUrl } from './baseUrlConverter';
-import { v4 as uuid } from 'uuid';
 
 /**
  * convertItemData - converts the old gallery metadata format to the new metaData format
@@ -85,6 +84,8 @@ export const convertItemData = ({ items, anchorTarget, relValue }) =>
       ...item,
       metadata: undefined,
       ...convertedData,
+      // uuid is used to guarentee there are no 2 gallery items on the DOM with the same ID (on different galleries) due to a pro gallery issues with videos - it gives console errors and might also break the video controls behavoiur.
+      // TODO: remove uuid when gallery fixes the issue \ release version 4.
       itemId: uuid() + '_' + index.toString(),
     };
   });
