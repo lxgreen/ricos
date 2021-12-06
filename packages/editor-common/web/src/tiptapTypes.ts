@@ -1,12 +1,6 @@
-import { Node as ProseMirrorNode } from 'prosemirror-model';
-import {
-  ComponentData,
-  EditorCommands,
-  LegacyEditorPluginConfig,
-  RichContentTheme,
-} from 'wix-rich-content-common';
-
-export interface PluginProps {
+import { ComponentData, LegacyEditorPluginConfig, RichContentTheme } from 'wix-rich-content-common';
+import { NodeViewRendererProps } from '@tiptap/core';
+export type PluginProps = NodeViewRendererProps & {
   context: {
     isMobile: boolean;
     theme: RichContentTheme;
@@ -15,7 +9,6 @@ export interface PluginProps {
     iframeSandboxDomain: string;
   };
   componentData: ComponentData;
-  node: ProseMirrorNode;
-  editorCommands: EditorCommands;
   updateAttributes: (data: unknown) => null;
-}
+  selected: boolean;
+};

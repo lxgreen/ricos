@@ -24,14 +24,39 @@
 </details>
 <hr/>
 
+## 8.65.3 (Dec 06, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-editor`
+  - [#3232](https://github.com/wix/ricos/pull/3232) fix new formatting toolbar crash
+
+## 8.65.2 (Dec 05, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3211](https://github.com/wix/ricos/pull/3211) font size dropdown a11y
+
+## 8.65.1 (Dec 05, 2021)
+
+### :bug: Bug Fix
+
+- `tiptap-editor`
+  - [#3210](https://github.com/wix/ricos/pull/3210) set focus to editor in decoration commands
+- `tiptap-editor`
+  - [#3206](https://github.com/wix/ricos/pull/3206) add mentions plugin
+
 ## 8.65.0 (Dec 05, 2021)
 
 ### :rocket: New Feature
+
 - `*`
   - [#3203](https://github.com/wix/ricos/pull/3203) icons bm theme wiring
   - [#3207](https://github.com/wix/ricos/pull/3207) bg & hover color bm theme wiring
 
 ### :bug: Bug Fix
+
 - `html`
   - [#3204](https://github.com/wix/ricos/pull/3204) add `allowFullScreen` to html iframe
 
@@ -75,6 +100,7 @@
   - [#3196](https://github.com/wix/ricos/pull/3196) new dropdown style and a11y fixes for safari
 
 ## 8.63.7 (Nov 30, 2021)
+
 ### :bug: Bug Fix
 
 - `button`
