@@ -9,18 +9,6 @@ export class DraftEditorState implements IRicosEditorState {
     this.getEditorState = getEditorState;
   }
 
-  getSelection: IRicosEditorState['getSelection'] = () => {
-    const selection = this.getEditorState().getSelection();
-    const startId = selection.getStartKey();
-    const endId = selection.getEndKey();
-
-    return {
-      startId,
-      endId,
-      isCollapsed: selection.isCollapsed(),
-    };
-  };
-
   hasFocus: IRicosEditorState['hasFocus'] = () =>
     this.getEditorState()
       .getSelection()
