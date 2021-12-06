@@ -56,6 +56,7 @@ interface State {
   tiptapEditorModule: Record<string, any> | null;
   tiptapToolbar: unknown;
   error?: string;
+  contentId?: string;
   TextFormattingToolbar?: TextFormattingToolbarType | null;
 }
 
@@ -136,6 +137,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.loadToolbar();
     const { isMobile, toolbarSettings } = this.props;
     const { useStaticTextToolbar } = toolbarSettings || {};
+    const contentId = this.getContentID();
+    this.setState({ contentId });
     this.getBiCallback('onOpenEditorSuccess')?.(
       Version.currentVersion,
       isMobile
@@ -143,7 +146,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         : useStaticTextToolbar
         ? ToolbarType.STATIC
         : ToolbarType.INLINE,
-      this.getContentID()
+      contentId
     );
     this.props.editorEvents?.subscribe(EditorEvents.RICOS_PUBLISH, this.onPublish);
   }
@@ -354,7 +357,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   };
 
   renderNewToolbars() {
-    const { TextFormattingToolbar, activeEditor } = this.state;
+    const { TextFormattingToolbar, activeEditor, contentId } = this.state;
     const {
       isMobile,
       theme,
@@ -375,7 +378,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       : useStaticTextToolbar
       ? ToolbarType.STATIC
       : ToolbarType.INLINE;
-    const biFunctions = helpers && getBiFunctions(helpers, this.getContentID());
+    const biFunctions = helpers && getBiFunctions(helpers, contentId);
     const toolbarsProps = {
       textToolbarType,
       isMobile,
