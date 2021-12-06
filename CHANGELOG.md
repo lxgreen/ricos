@@ -20,6 +20,13 @@
 </details>
 <hr/>
 
+## 8.65.3 (Dec 06, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-editor`
+  - [#3232](https://github.com/wix/ricos/pull/3232) fix new formatting toolbar crash
+
 ## 8.65.2 (Dec 05, 2021)
 
 ### :bug: Bug Fix
