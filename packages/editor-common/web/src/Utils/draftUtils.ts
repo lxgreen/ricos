@@ -28,7 +28,6 @@ import {
 } from 'wix-rich-content-common';
 import { Optional } from 'utility-types';
 import { getContentSummary } from 'wix-rich-content-common/libs/contentAnalytics';
-import { List } from 'immutable';
 
 type LinkDataUrl = {
   url: string;
@@ -863,15 +862,6 @@ export function setNativeSelectionToBlock(block: ContentBlock) {
   selection?.addRange(range);
 }
 
-function createEmptyBlock(type = 'unstyled') {
-  return new ContentBlock({
-    key: genKey(),
-    type,
-    text: '',
-    characterList: List(), // eslint-disable-line new-cap
-  });
-}
-
 function insertTextToBlock(block, contentState, text) {
   const key = block.getKey();
   const targetLength = block.getLength();
@@ -892,10 +882,10 @@ function mergeBlocksText(blocks) {
   return text;
 }
 
-function mergeBlocks(firstKey, lastKey, contentState, blockType) {
+function mergeBlocks(firstKey, lastKey, contentState) {
   const fragment = BlockMapBuilder.createFromArray([
     createEmptyBlock(),
-    createEmptyBlock(blockType),
+    createEmptyBlock(),
     createEmptyBlock(),
   ]);
   const target = new SelectionState({
@@ -908,6 +898,12 @@ function mergeBlocks(firstKey, lastKey, contentState, blockType) {
   return Modifier.replaceWithFragment(contentState, target, fragment);
 }
 
+function createEmptyBlock() {
+  return ContentState.createFromText('')
+    .getBlockMap()
+    .first();
+}
+
 export function toggleBlockTypeWithSpaces(editorState: EditorState, blockType) {
   const selection = getSelection(editorState);
   const contentState = editorState.getCurrentContent();
@@ -916,7 +912,7 @@ export function toggleBlockTypeWithSpaces(editorState: EditorState, blockType) {
   const selectedBlocks = getSelectedBlocks(editorState);
   const text = mergeBlocksText(selectedBlocks);
 
-  let newContentState = mergeBlocks(firstKey, lastKey, contentState, blockType);
+  let newContentState = mergeBlocks(firstKey, lastKey, contentState);
   const block = newContentState.getBlockAfter(firstKey);
   newContentState = insertTextToBlock(block, newContentState, text);
 
@@ -928,5 +924,5 @@ export function toggleBlockTypeWithSpaces(editorState: EditorState, blockType) {
 
   let newEditorState = EditorState.push(editorState, newContentState, 'insert-fragment');
   newEditorState = EditorState.forceSelection(newEditorState, newSelection);
-  return newEditorState;
+  return RichUtils.toggleBlockType(newEditorState, blockType);
 }

@@ -122,9 +122,7 @@ export const createEditorCommands = (
 ): EditorCommands => {
   const setBlockType: EditorCommands['setBlockType'] = type => {
     if (type === CODE_BLOCK_TYPE) {
-      const modifiedEditorState = toggleBlockTypeWithSpaces(getEditorState(), type);
-      // modifiedEditorState = RichUtils.toggleBlockType(getEditorState(), type);
-      setEditorState(modifiedEditorState);
+      setEditorState(toggleBlockTypeWithSpaces(getEditorState(), type));
     } else {
       setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
     }
