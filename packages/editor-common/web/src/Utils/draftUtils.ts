@@ -10,6 +10,8 @@ import {
   RawDraftEntity,
   EditorChangeType,
   EntityInstance,
+  genKey,
+  BlockMapBuilder,
 } from '@wix/draft-js';
 import DraftOffsetKey from '@wix/draft-js/lib/DraftOffsetKey';
 
@@ -858,4 +860,69 @@ export function setNativeSelectionToBlock(block: ContentBlock) {
   range.setEnd(node, 0);
   selection?.removeAllRanges();
   selection?.addRange(range);
+}
+
+function insertTextToBlock(block, contentState, text) {
+  const key = block.getKey();
+  const targetLength = block.getLength();
+  const newLineTarget = SelectionState.createEmpty(key)
+    .set('anchorOffset', targetLength)
+    .set('focusOffset', targetLength);
+
+  return Modifier.insertText(contentState, newLineTarget as SelectionState, text);
+}
+
+function mergeBlocksText(blocks) {
+  let text = '';
+  const blocksLength = blocks.length;
+  const withNewLine = blockIndex => blocksLength > 1 && blockIndex < blocksLength - 1;
+  blocks.forEach((block, i) =>
+    withNewLine(i) ? (text += block.getText() + '\n') : (text += block.getText())
+  );
+  return text;
+}
+
+function mergeBlocks(firstKey, lastKey, contentState) {
+  const fragment = BlockMapBuilder.createFromArray([
+    createEmptyBlock(),
+    createEmptyBlock(),
+    createEmptyBlock(),
+  ]);
+  const target = new SelectionState({
+    anchorKey: firstKey,
+    anchorOffset: 0,
+    focusKey: lastKey,
+    focusOffset: contentState.getBlockForKey(lastKey).getLength(),
+  });
+
+  return Modifier.replaceWithFragment(contentState, target, fragment);
+}
+
+function createEmptyBlock() {
+  return ContentState.createFromText('')
+    .getBlockMap()
+    .first();
+}
+
+export function toggleBlockTypeWithSpaces(editorState: EditorState, blockType) {
+  const selection = getSelection(editorState);
+  const contentState = editorState.getCurrentContent();
+  const firstKey = selection.getStartKey();
+  const lastKey = selection.getEndKey();
+  const selectedBlocks = getSelectedBlocks(editorState);
+  const text = mergeBlocksText(selectedBlocks);
+
+  let newContentState = mergeBlocks(firstKey, lastKey, contentState);
+  const block = newContentState.getBlockAfter(firstKey);
+  newContentState = insertTextToBlock(block, newContentState, text);
+
+  const newSelection = createSelection({
+    blockKey: block?.getKey() || firstKey,
+    anchorOffset: 0,
+    focusOffset: 0,
+  });
+
+  let newEditorState = EditorState.push(editorState, newContentState, 'insert-fragment');
+  newEditorState = EditorState.forceSelection(newEditorState, newSelection);
+  return RichUtils.toggleBlockType(newEditorState, blockType);
 }
