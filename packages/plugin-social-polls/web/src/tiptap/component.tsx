@@ -10,7 +10,6 @@ export const Poll: React.FC<PluginProps> = ({
   node,
   updateAttributes,
   selected,
-  editor,
 }) => {
   const { theme, t, config = {}, isMobile } = context;
   const settings = config[POLL_TYPE] || {};
@@ -19,9 +18,7 @@ export const Poll: React.FC<PluginProps> = ({
   //mocks
   const store = {
     update: (type, data) => updateAttributes(convertBlockDataToRicos(POLL_TYPE, data)),
-    set: (type, data, id) =>
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (editor as any).commands.updateNodeById(id, convertBlockDataToRicos(POLL_TYPE, data)),
+    set: (type, data, id) => updateAttributes(convertBlockDataToRicos(POLL_TYPE, data)),
     get: type => componentData,
   };
   const setInPluginEditingMode = () => {};
