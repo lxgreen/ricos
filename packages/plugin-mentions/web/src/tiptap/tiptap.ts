@@ -24,6 +24,17 @@ declare module '@tiptap/core' {
   }
 }
 
+const findMention = (editor, char) => {
+  const mentionRegex = new RegExp(`(?:^)?${char}[^\\s${char}]*`, 'gm');
+  const { nodeBefore, pos } = editor.state.selection.$from;
+  const { text, nodeSize: nodeBeforeSize } = nodeBefore || {};
+  const mention = text?.match(mentionRegex)?.[0];
+  const mentionIndex: number = text ? text.search(mentionRegex) : -1;
+  if (nodeBeforeSize && mention && mentionIndex !== -1) {
+    return { from: pos - nodeBeforeSize + mentionIndex, to: pos };
+  }
+};
+
 export const MentionPluginKey = new PluginKey('mention');
 
 export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
@@ -94,7 +105,12 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
             // and starts with a space character
             const nodeAfter = view.state.selection.$to.nodeAfter;
             const overrideSpace = nodeAfter?.text?.startsWith(' ');
-            const range = pos || { from: tr.selection.from, to: tr.selection.to };
+            const range = pos ||
+              findMention(editor, defaultOptions.mentionTrigger) || {
+                from: tr.selection.from,
+                to: tr.selection.to,
+              };
+
             if (overrideSpace) {
               range.to += 1;
             }
