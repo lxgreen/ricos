@@ -875,14 +875,14 @@ function insertTextToBlock(block, contentState, text) {
 function mergeBlocksText(blocks) {
   let text = '';
   const blocksLength = blocks.length;
-  const withNewLine = blockIndex => blocksLength > 1 && blockIndex < blocksLength - 1;
+  const withNewLine = blockIndex => blockIndex < blocksLength - 1;
   blocks.forEach((block, i) =>
     withNewLine(i) ? (text += block.getText() + '\n') : (text += block.getText())
   );
   return text;
 }
 
-function mergeBlocks(firstKey, lastKey, contentState) {
+function replaceSelectedBlocksWithThreeEmptyBlocks(firstKey, lastKey, contentState) {
   const fragment = BlockMapBuilder.createFromArray([
     createEmptyBlock(),
     createEmptyBlock(),
@@ -905,16 +905,28 @@ function createEmptyBlock() {
 }
 
 export function toggleBlockTypeWithSpaces(editorState: EditorState, blockType) {
+  if (hasBlockType(blockType, editorState)) {
+    return RichUtils.toggleBlockType(editorState, blockType);
+  }
   const selection = getSelection(editorState);
   const contentState = editorState.getCurrentContent();
   const firstKey = selection.getStartKey();
   const lastKey = selection.getEndKey();
   const selectedBlocks = getSelectedBlocks(editorState);
-  const text = mergeBlocksText(selectedBlocks);
 
-  let newContentState = mergeBlocks(firstKey, lastKey, contentState);
+  const text = selectedBlocks.length
+    ? mergeBlocksText(selectedBlocks)
+    : selectedBlocks[0].getText();
+
+  let newContentState = replaceSelectedBlocksWithThreeEmptyBlocks(firstKey, lastKey, contentState);
   const block = newContentState.getBlockAfter(firstKey);
+
   newContentState = insertTextToBlock(block, newContentState, text);
+  newContentState = Modifier.setBlockType(
+    newContentState,
+    newContentState.getSelectionAfter(),
+    blockType
+  );
 
   const newSelection = createSelection({
     blockKey: block?.getKey() || firstKey,
@@ -922,7 +934,7 @@ export function toggleBlockTypeWithSpaces(editorState: EditorState, blockType) {
     focusOffset: 0,
   });
 
-  let newEditorState = EditorState.push(editorState, newContentState, 'insert-fragment');
-  newEditorState = EditorState.forceSelection(newEditorState, newSelection);
-  return RichUtils.toggleBlockType(newEditorState, blockType);
+  const newEditorState = EditorState.push(editorState, newContentState, 'change-block-type');
+
+  return EditorState.forceSelection(newEditorState, newSelection);
 }
