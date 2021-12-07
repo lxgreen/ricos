@@ -49,12 +49,16 @@ export const createUniqueId = (): RicosFunctionalExtension => ({
                 return;
               }
               const tr = newState.tr;
+              const usedIds = {};
 
               newState.doc.descendants((node, pos) => {
-                if (node.isBlock && !node.attrs.id) {
+                const nodeId = node.attrs.id;
+                const id = nodeId && !usedIds[nodeId] ? nodeId : generateId();
+                usedIds[id] = true;
+                if (node.isBlock) {
                   tr.setNodeMarkup(pos, undefined, {
                     ...node.attrs,
-                    id: generateId(),
+                    id,
                   });
                 }
               });

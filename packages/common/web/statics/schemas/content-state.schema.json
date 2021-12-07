@@ -250,6 +250,14 @@
           "$ref": "#/definitions/textBlockStyle"
         }
       }
+    },
+    "ID": {
+      "$id": "#/properties/ID",
+      "type": "string",
+      "title": "Content ID",
+      "description": "Unique identifier for content instance",
+      "default": "",
+      "examples": ["9c313404-169f-438a-bb7f-26fa0f56608f"]
     }
   }
 }
