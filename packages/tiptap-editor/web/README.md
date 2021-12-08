@@ -10,7 +10,7 @@ The core extensions (i.e. those which provide some basic editor functionality) s
 
 ### Prose-mirror Plugins
 
-Sometimes, it is necessary to implement a prose-mirror plugin as a part of extension. In this case, it is crucial to define `key` field (although it is not mandatory):
+Sometimes, it is necessary to implement a prose-mirror plugin as a part of extension. In this case, it is crucial to define `key` field (although it is not mandatory in prose-mirror Plugin API):
 
 ```
   new Plugin({
