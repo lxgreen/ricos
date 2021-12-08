@@ -5,7 +5,8 @@
       "allowBranch": [
         "master",
         "release*",
-        "tiptap-image"
+        "tiptap-image",
+        "addStyleImportVersion2"
       ],
       "message": "[*] chore(release): %s"
     }
