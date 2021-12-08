@@ -1,14 +1,13 @@
-import { Node, mergeAttributes } from '@tiptap/core';
-import { wrappingInputRule } from 'prosemirror-inputrules';
+import { Node, mergeAttributes, wrappingInputRule } from '@tiptap/core';
 
-export interface BulletedListOptions {
+export interface BulletListOptions {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   HTMLAttributes: Record<string, any>;
 }
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    bulletedList: {
+    bulletList: {
       /**
        * Toggle a bullet list
        */
@@ -19,11 +18,13 @@ declare module '@tiptap/core' {
 
 export const inputRegex = /^\s*([-+*])\s$/;
 
-export const BulletedList = Node.create<BulletedListOptions>({
+export const BulletList = Node.create<BulletListOptions>({
   name: 'bulletedList',
 
-  defaultOptions: {
-    HTMLAttributes: {},
+  addOptions() {
+    return {
+      HTMLAttributes: {},
+    };
   },
 
   group: 'block list',
@@ -41,7 +42,7 @@ export const BulletedList = Node.create<BulletedListOptions>({
   addCommands() {
     return {
       toggleBulletList: () => ({ commands }) => {
-        return commands.toggleList('bulletedList', 'listItem');
+        return commands.toggleList(this.name, 'listItem');
       },
     };
   },
@@ -53,6 +54,11 @@ export const BulletedList = Node.create<BulletedListOptions>({
   },
 
   addInputRules() {
-    return [wrappingInputRule(inputRegex, this.type)];
+    return [
+      wrappingInputRule({
+        find: inputRegex,
+        type: this.type,
+      }),
+    ];
   },
 });

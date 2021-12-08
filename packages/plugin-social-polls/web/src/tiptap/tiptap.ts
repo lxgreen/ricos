@@ -11,7 +11,6 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
     Component,
     componentDataDefaults: {
       ...pollDataDefaults,
-      id: '',
       loading: {
         default: false,
       },

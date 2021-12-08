@@ -17,8 +17,22 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+- `toolbars-new/editorCommands`
+  - [#3028](https://github.com/wix/ricos/pull/3028) fix code-block action in the new toolbar
+### :house: Internal
+
+- `tiptap-editor`  
+  - [#3217](https://github.com/wix/ricos/pull/3217)pinned tiptap versions
+
 </details>
 <hr/>
+
+## 8.65.4 (Dec 06, 2021)
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3215](https://github.com/wix/ricos/pull/3215) fixed memory leak in fromDraft caused by generateId
 
 ## 8.65.3 (Dec 06, 2021)
 

@@ -6,12 +6,12 @@ const name = 'styles';
 
 const StylesHOC = Component => {
   const Styles = props => {
-    const { context, componentData, isFocused } = props;
+    const { context, componentData, selected } = props;
     const { isMobile, theme } = context;
     const componentStyles = getComponentStyles({
       componentData,
       theme,
-      isFocused,
+      isFocused: selected,
       isMobile,
     });
 
