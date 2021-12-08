@@ -19,6 +19,7 @@ import {
 } from 'wix-rich-content-common';
 import { TestAppConfig } from '../../src/types';
 import { RicosEditor, RicosEditorProps, RicosEditorType } from 'ricos-editor';
+import ToolbarWithEssentials from '../../src/Components/ToolbarWithEssentials';
 
 const STATIC_TOOLBAR = 'static';
 
@@ -163,6 +164,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
     return (
       <div style={{ height: '100%' }}>
         {this.renderExternalToolbar()}
+        <ToolbarWithEssentials essentials={this.editor?.getEssentials()} />
         <div ref={ref => (this.staticToolbarContainer = ref)} />
         <div className="editor">
           <RicosEditor

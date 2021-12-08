@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "ts-is-present": "^1.1.1",
+    "ricos-schema": "8.65.4",
     "wix-rich-content-common": "8.65.4",
     "wix-rich-content-editor": "8.65.4",
     "wix-rich-content-preview": "8.65.4",

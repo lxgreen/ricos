@@ -11,6 +11,7 @@ import {
   shouldRenderChild,
   localeStrategy,
   getBiCallback as getCallback,
+  IRicosEditorEssentials
 } from 'ricos-common';
 import { DraftContent } from 'ricos-content';
 import {
@@ -43,13 +44,11 @@ import {
   RicosTranslate,
   getLangDir,
   isSSR,
-  IRicosEditorEssentials,
 } from 'wix-rich-content-common';
 import { getEmptyDraftContent, getEditorContentSummary } from 'wix-rich-content-editor-common';
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
 import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
 import { getBiFunctions } from './toolbars/utils/biUtils';
-import { Decoration_Type, Node_Type } from 'ricos-schema';
 
 // eslint-disable-next-line
 import type { TiptapEditorPlugin } from 'wix-tiptap-editor';
@@ -99,7 +98,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   linkToolbarRef!: Record<'updateToolbar', () => void>;
 
-  essentials!: IRicosEditorEssentials;
+  essentials?: IRicosEditorEssentials;
 
   static getDerivedStateFromError(error: string) {
     return { error };
@@ -499,7 +498,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     return (
       <Fragment key={`${remountKey}`}>
         {this.renderToolbars()}
-        {this.renderDemoToolbar()}
         {this.renderRicosEngine(child, {
           onChange: this.onChange(child.props.onChange),
           ref: this.setEditorRef,
@@ -509,102 +507,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   }
 
   updateNewFormattingToolbar = () => this.useNewFormattingToolbar && this.updateToolbars();
-
-  renderDemoToolbar = () => {
-    const imageNode1 = {
-      type: Node_Type.IMAGE,
-      id: '12345',
-      nodes: [],
-      imageData: {
-        containerData: {
-          width: {
-            custom: '300',
-          },
-          alignment: 'CENTER',
-          spoiler: {
-            enabled: true,
-          },
-          textWrap: true,
-        },
-        image: {
-          src: {
-            id: '8bb438_35ed730d87524b1a88179adc18ed9cd4.jpg',
-          },
-          width: 1920,
-          height: 1280,
-        },
-        disableExpand: false,
-        disableDownload: false,
-      },
-    };
-    const imageNode2 = {
-      type: Node_Type.IMAGE,
-      nodes: [],
-      imageData: {
-        containerData: {
-          width: {
-            custom: '300',
-          },
-          alignment: 'LEFT',
-          spoiler: {
-            enabled: true,
-          },
-          textWrap: true,
-        },
-        image: {
-          src: {
-            id: '8bb438_35ed730d87524b1a88179adc18ed9cd4.jpg',
-          },
-          width: 1920,
-          height: 1280,
-        },
-        disableExpand: false,
-        disableDownload: false,
-      },
-    };
-
-    if (!this.essentials) {
-      return null;
-    }
-
-    return (
-      <div style={{ flex: 0, display: 'block' }}>
-        <button
-          onClick={() =>
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            (this.nodeId = this.essentials.commands.insertNode(imageNode1))
-          }
-        >
-          {'add image'}
-        </button>
-        <button
-          onClick={() =>
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            this.essentials.commands.updateNode(this.nodeId, imageNode2)
-          }
-        >
-          {'update image'}
-        </button>
-        <button
-          onClick={() => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            const nodes = this.essentials.model.getSelectedNodes();
-            if (nodes?.[0]) {
-              this.essentials.commands.deleteNode(nodes[0].id);
-            }
-          }}
-        >
-          {'delete node'}
-        </button>
-        <div>{'hasBold: ' + this.essentials.model.hasDecoration(Decoration_Type.BOLD)}</div>
-        <div>{'hasSpoiler: ' + this.essentials.model.hasDecoration(Decoration_Type.SPOILER)}</div>
-        <div>{'hasFocus: ' + this.essentials.state.hasFocus()}</div>
-      </div>
-    );
-  };
 
   renderTiptapEditor() {
     const { tiptapEditorModule } = this.state;
@@ -631,7 +533,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       <Fragment>
         {this.renderToolbars()}
         {tiptapToolbar && this.renderToolbarPortal(tiptapToolbar)}
-        {this.renderDemoToolbar()}
         {
           <RicosTranslate locale={locale} localeResource={localeResource || englishResources}>
             {t => {

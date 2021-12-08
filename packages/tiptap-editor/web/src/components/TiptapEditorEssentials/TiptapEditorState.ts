@@ -1,5 +1,5 @@
 import { Editor } from '@tiptap/react';
-import { IRicosEditorState } from 'wix-rich-content-common'; // eslint-disable-line prettier/prettier
+import { IRicosEditorState } from 'ricos-common';
 
 export class TiptapEditorState implements IRicosEditorState {
   editor: Editor;

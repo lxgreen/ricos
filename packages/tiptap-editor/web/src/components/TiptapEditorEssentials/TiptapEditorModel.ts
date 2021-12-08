@@ -1,5 +1,5 @@
 import { Editor } from '@tiptap/react';
-import { IRicosEditorModel } from 'wix-rich-content-common';
+import { IRicosEditorModel } from 'ricos-common';
 import { fromTiptap } from '../../content-utils/fromTiptap/fromTiptap';
 
 export class TiptapEditorModel implements IRicosEditorModel {

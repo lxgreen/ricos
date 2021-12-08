@@ -4,7 +4,7 @@ import {
   ContentState,
   hasInlineStyle,
 } from 'wix-rich-content-editor-common';
-import { IRicosEditorModel } from 'wix-rich-content-common';
+import { IRicosEditorModel } from 'ricos-common';
 import { fromDraft } from 'ricos-content/libs/migrateSchema';
 import { convertToRaw } from '../../../lib/editorStateConversion';
 type GetEditorState = () => EditorState;

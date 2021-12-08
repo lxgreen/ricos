@@ -6,7 +6,7 @@ import {
   blockKeyToEntityKey,
   setEntityData,
 } from 'wix-rich-content-editor-common';
-import type { IRicosEditorCommands } from 'wix-rich-content-common'; // eslint-disable-line prettier/prettier
+import { IRicosEditorCommands } from 'ricos-common'; // eslint-disable-line prettier/prettier
 import { convertNodeToDraftData, FROM_RICOS_ENTITY_TYPE } from 'ricos-content/dist/lib/toDraftData';
 
 type DraftEditorCommandsProps = {
@@ -38,7 +38,7 @@ export class DraftEditorCommands implements IRicosEditorCommands {
   };
 
   updateNode: IRicosEditorCommands['updateNode'] = (id, node) => {
-    const draftData = convertNodeToDraftData({ id, ...node });
+    const draftData = convertNodeToDraftData({ ...node, id });
     const entityKey = blockKeyToEntityKey(this.getEditorState(), id);
     if (!entityKey) {
       return false;
