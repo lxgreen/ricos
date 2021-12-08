@@ -240,7 +240,7 @@ class GalleryViewer extends React.Component {
     };
     if (isMobile && isHorizontalLayout(calculatedStyles)) {
       calculatedStyles.arrowsSize = 20;
-      calculatedStyles.imageMargin = 0;
+      !styleParams.imageMargin && (calculatedStyles.imageMargin = 0);
       if (calculatedStyles.galleryLayout === GALLERY_LAYOUTS.THUMBNAIL) {
         calculatedStyles.thumbnailSize = 90;
       }
