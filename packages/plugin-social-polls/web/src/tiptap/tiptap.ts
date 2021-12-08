@@ -1,4 +1,4 @@
-import { CreateRicosExtensions } from 'wix-tiptap-editor';
+import { CreateRicosExtensions } from 'ricos-tiptap-types';
 import { Poll as Component } from './component';
 import pollDataDefaults from 'ricos-schema/dist/statics/poll.defaults.json';
 import { TIPTAP_POLL_TYPE } from 'ricos-content';
@@ -18,7 +18,7 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
     createExtensionConfig: () => ({
       name,
       atom: false,
-      defaultOptions,
+      addOptions: () => defaultOptions,
       addCommands() {
         return {};
       },

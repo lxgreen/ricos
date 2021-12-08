@@ -4,7 +4,7 @@ import { DEFAULTS } from './defaultSettings';
 import { EditorPluginCreator } from 'wix-rich-content-common';
 import { createMentionData } from './createMentionData';
 import { createTiptapExtensions } from './tiptap';
-import { TiptapEditorPlugin } from 'wix-tiptap-editor';
+import { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 export const pluginMentions: EditorPluginCreator<MentionsPluginEditorConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };

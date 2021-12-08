@@ -4,7 +4,7 @@ import { DEFAULTS } from './defaults';
 import { EditorPluginCreator } from 'wix-rich-content-common';
 import { createLinkData } from './createLinkData';
 import { createTiptapExtensions } from './tiptap';
-import { TiptapEditorPlugin } from 'wix-tiptap-editor';
+import { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 export const pluginLink: EditorPluginCreator<LinkPluginEditorConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };

@@ -5,7 +5,7 @@ import { ModalsMap } from './modals';
 import { EditorPluginCreator } from 'wix-rich-content-common';
 import { createVideoData } from './createVideoData';
 import { createRicosExtensions } from './tiptap';
-import { TiptapEditorPlugin } from 'wix-tiptap-editor';
+import { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 export const pluginVideo: EditorPluginCreator<VideoPluginEditorConfig> = config => {
   const pluginConfig: VideoPluginEditorConfig = { ...DEFAULTS.config, ...config };

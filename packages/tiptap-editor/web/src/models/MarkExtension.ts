@@ -1,6 +1,6 @@
 import { Mark, markInputRule, markPasteRule } from '@tiptap/core';
 import { MarkConfig, mergeAttributes } from '@tiptap/react';
-import { isRicosMarkExtension, RicosExtension } from './extension-types';
+import { isRicosMarkExtension, RicosExtension } from 'ricos-tiptap-types';
 import { DEFAULT_PRIORITY, IMarkExtension } from './domain-types';
 import { Plugin, PluginKey } from 'prosemirror-state';
 

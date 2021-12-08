@@ -9,7 +9,7 @@ import {
 import { pipe } from 'fp-ts/function';
 import React, { ComponentType } from 'react';
 import { DecoratedNodeExtension, DEFAULT_PRIORITY, INodeExtension } from './domain-types';
-import { isRicosNodeExtension, RicosExtension, RicosNodeExtension } from './extension-types';
+import { isRicosNodeExtension, RicosExtension, RicosNodeExtension } from 'ricos-tiptap-types';
 import { RicosNode } from '../components/RicosNode';
 
 const toExtensionConfig = (ext: RicosNodeExtension) =>

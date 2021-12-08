@@ -1,4 +1,4 @@
-import { TiptapAPI, RicosTiptapEditor } from '../../types';
+import { TiptapAPI } from '../../types';
 import { capitalize } from 'lodash';
 import {
   TranslationFunction,
@@ -20,6 +20,7 @@ import {
   NUMBERED_LIST_TYPE,
 } from 'ricos-content';
 import { TO_TIPTAP_TYPE } from '../../consts';
+import { Editor } from '@tiptap/core';
 
 const headingTypeToLevelMap = {
   'header-one': 1,
@@ -33,7 +34,7 @@ const headingTypeToLevelMap = {
 // todo : should change to RichContentInterface
 export class RichContentAdapter implements TiptapAPI {
   constructor(
-    private editor: RicosTiptapEditor,
+    private editor: Editor,
     private t: TranslationFunction,
     private plugins: EditorPlugin[]
   ) {
@@ -164,11 +165,23 @@ export class RichContentAdapter implements TiptapAPI {
       },
       setBlockType: type => {
         const blockTypeCommandMap = {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           [UNSTYLED]: () => this.editor.commands.setParagraph(),
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           [HEADINGS_TYPE]: level => this.editor.commands.toggleHeading({ level }),
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           [BLOCKQUOTE]: () => this.editor.commands.toggleBlockquote(),
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           [CODE_BLOCK_TYPE]: () => this.editor.commands.toggleCodeBlock(),
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           [BULLET_LIST_TYPE]: () => this.editor.commands.toggleBulletList(),
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           [NUMBERED_LIST_TYPE]: () => this.editor.commands.toggleOrderedList(),
         };
         if (Object.values(HEADER_BLOCK).includes(type)) {
