@@ -5,7 +5,7 @@ import { ModalsMap } from './modals';
 import { EditorPluginCreator } from 'wix-rich-content-common';
 import { createPollData } from './createPollData';
 import { createRicosExtensions } from './tiptap';
-import { TiptapEditorPlugin } from 'wix-tiptap-editor';
+import { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 export const pluginPoll: EditorPluginCreator<PollPluginEditorConfig> = config => {
   const pluginConfig: PollPluginEditorConfig = { ...DEFAULT_COMPONENT_DATA.config, ...config };

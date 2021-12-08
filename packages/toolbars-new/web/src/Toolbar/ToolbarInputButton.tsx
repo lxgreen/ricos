@@ -5,6 +5,7 @@ import DropdownArrowIcon from '../icons/DropdownArrowIcon';
 import Styles from './ToolbarInputButton.scss';
 import { mergeStyles } from 'wix-rich-content-common';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
+import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 
 type ToolbarInputButtonProps = {
   onClick?: (
@@ -79,7 +80,10 @@ class ToolbarInputButton extends Component<ToolbarInputButtonProps> {
 
   preventDefault = event => event.preventDefault();
 
-  onKeyDown = e => e.keyCode === 13 && this.onClick(e);
+  onKeyDown = e =>
+    (e.keyCode === KEYS_CHARCODE.ENTER ||
+      (e.keyCode === KEYS_CHARCODE.ESCAPE && this.props.isActive)) &&
+    this.onClick(e);
 
   onClick = e => {
     const ref = this.inputRef.current;

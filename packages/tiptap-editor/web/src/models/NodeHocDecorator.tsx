@@ -12,7 +12,7 @@ import {
   INodeExtension,
   NodeHocComposer,
 } from './domain-types';
-import { NodeHoc, NodeHocDescriptor, RicosNodeProps } from './extension-types';
+import { NodeHoc, NodeHocDescriptor, RicosNodeProps } from 'ricos-tiptap-types';
 
 const byPriority: Ord<NodeHocDescriptor> = pipe(
   N.Ord,

@@ -6,11 +6,11 @@ import { compare } from 'ricos-content/lib/comparision';
 import { RichContent } from 'ricos-schema';
 import { pluginDivider } from 'wix-rich-content-plugin-divider';
 import { pluginImage } from 'wix-rich-content-plugin-image';
-import { fromTiptap, toTiptap } from '../../content-utils';
+import { fromTiptap, toTiptap } from 'wix-tiptap-extensions';
 import { pluginLink } from 'wix-rich-content-plugin-link';
-import supportedPluginsContent from '../../__tests__/supportedPluginsContent.json';
+import supportedPluginsContent from './supportedPluginsContent.json';
 import { RicosTiptapEditor } from './RicosTiptapEditor';
-import { TiptapEditorPlugin } from '../../models/extension-types';
+import { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 let editor: Editor | null = null;
 

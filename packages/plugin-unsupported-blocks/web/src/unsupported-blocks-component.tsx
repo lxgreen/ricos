@@ -7,14 +7,15 @@ import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 interface Props {
   theme: RichContentTheme;
   t: TranslationFunction;
+  label: string;
 }
 
 class UnsupportedBlocksComponent extends React.Component<Props> {
   static type = { UNSUPPORTED_BLOCKS_TYPE };
 
   render() {
-    const { theme, t } = this.props;
-    return <UnsupportedBlocks theme={theme} t={t} />;
+    const { theme, t, label } = this.props;
+    return <UnsupportedBlocks theme={theme} t={t} label={label} />;
   }
 }
 

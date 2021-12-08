@@ -12,4 +12,8 @@ export class MarkExtensions implements MarkExtensionAggregate {
   toTiptapExtensions() {
     return this.extensions.asArray().map(e => e.toTiptapExtension()) as Mark[];
   }
+
+  asArray() {
+    return this.extensions.asArray();
+  }
 }

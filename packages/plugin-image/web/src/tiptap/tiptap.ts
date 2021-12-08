@@ -1,5 +1,5 @@
 import imageDataDefaults from 'ricos-schema/dist/statics/image.defaults.json';
-import { CreateRicosExtensions } from 'wix-tiptap-editor';
+import { CreateRicosExtensions } from 'ricos-tiptap-types';
 import { Image as Component } from './component';
 import { TIPTAP_IMAGE_TYPE } from 'ricos-content';
 
@@ -33,7 +33,7 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
     createExtensionConfig: () => ({
       name,
       atom: false,
-      defaultOptions,
+      addOptions: () => defaultOptions,
       addCommands() {
         return {
           setImageUrl: url => ({ commands }) => {
