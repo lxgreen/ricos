@@ -58,7 +58,12 @@ const setData = (
 const deleteEntity = (
   contentBlock: ContentBlock,
   { getEditorState, setEditorState }: EditorStateFuncs
-) => () => setEditorState(deleteBlock(getEditorState(), contentBlock.getKey()));
+) => () => {
+  const editorState = deleteBlock(getEditorState(), contentBlock.getKey());
+  if (editorState) {
+    setEditorState(editorState);
+  }
+};
 
 const DEFAULT_SETTINGS = {
   showInsertButtons: true,

@@ -14,6 +14,12 @@ interface _Node extends Omit<Node, 'type'> {
   type: _Node_Type;
 }
 
+export interface IRicosEditorEssentials {
+  model: IRicosEditorModel;
+  state: IRicosEditorState;
+  commands: IRicosEditorCommands;
+}
+
 export interface IRicosEditorCommands {
   insertNode: (node: _Node) => string;
   updateNode: (id: string, node: Omit<_Node, 'id'>) => void;

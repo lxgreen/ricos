@@ -43,9 +43,7 @@ import {
   RicosTranslate,
   getLangDir,
   isSSR,
-  IRicosEditorModel,
-  IRicosEditorState,
-  IRicosEditorCommands,
+  IRicosEditorEssentials,
 } from 'wix-rich-content-common';
 import { getEmptyDraftContent, getEditorContentSummary } from 'wix-rich-content-editor-common';
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
@@ -82,14 +80,6 @@ interface State {
 // awares of tiptap
 // sort , filter
 
-import { extract } from 'ricos-content/libs/extract';
-
-interface RicosEditorEssentials {
-  model: IRicosEditorModel;
-  state: IRicosEditorState;
-  commands: IRicosEditorCommands;
-}
-
 export class RicosEditor extends Component<RicosEditorProps, State> {
   editor!: RichContentEditor;
 
@@ -109,7 +99,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   linkToolbarRef!: Record<'updateToolbar', () => void>;
 
-  essentials!: RicosEditorEssentials;
+  essentials!: IRicosEditorEssentials;
 
   static getDerivedStateFromError(error: string) {
     return { error };
@@ -327,14 +317,42 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     }
   };
 
+  initiateEssentials = () => {
+    const { activeEditor } = this.state;
+    if (activeEditor !== this.editor && this.editor) {
+      let model, commands, state;
+      if (this.useTiptap) {
+        const { tiptapEditorModule } = this.state;
+        if (!tiptapEditorModule) {
+          return;
+        }
+        const { TiptapEditorCommands, TiptapEditorModel, TiptapEditorState } = tiptapEditorModule;
+        model = new TiptapEditorModel(this.editor.editor);
+        state = new TiptapEditorState(this.editor.editor);
+        commands = new TiptapEditorCommands(this.editor.editor);
+      } else {
+        const draftEditorProps = {
+          setEditorState: this.editor.editor.updateEditorState,
+          getEditorState: this.editor.editor.getEditorState,
+        };
+        model = new DraftEditorModel(draftEditorProps.getEditorState);
+        commands = new DraftEditorCommands(draftEditorProps);
+        state = new DraftEditorState(draftEditorProps.getEditorState);
+      }
+      const essentials = { model, commands, state };
+      this.setEssentials(essentials);
+    }
+  };
+
   setEditorRef = ref => {
     this.editor = ref;
     this.setActiveEditor(ref);
+    this.initiateEssentials();
   };
 
   getEditorCommands = () => this.editor.getEditorCommands();
 
-  getRicosEditorEssentials = () => this.essentials;
+  getEssentials = () => this.essentials;
 
   getT = () => this.editor.getT();
 
@@ -349,14 +367,12 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     );
   }
 
-  setRicosEditorEssentials = (essentials: RicosEditorEssentials) => {
+  setEssentials = (essentials: IRicosEditorEssentials) => {
     this.essentials = essentials;
     // For Demo purposes Only
     if (!isSSR()) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).essentials = essentials;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (window as any).extract = extract;
     }
   };
 
@@ -435,17 +451,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     const baseStyles = { flex: 'none', webkitTapHighlightColor: 'transparent' };
     const baseMobileStyles = { ...baseStyles, position: 'sticky', top: 0, zIndex: 9 };
     const linkPluginInstalled = !!plugins?.find(plugin => plugin.type === 'LINK');
-    if (!this.useTiptap && this.editor) {
-      const draftEditorProps = {
-        setEditorState: this.editor.editor.updateEditorState,
-        getEditorState: this.editor.editor.getEditorState,
-      };
-      const model = new DraftEditorModel(draftEditorProps.getEditorState);
-      const commands = new DraftEditorCommands(draftEditorProps);
-      const state = new DraftEditorState(draftEditorProps.getEditorState);
-      const essentials = { model, commands, state };
-      this.setRicosEditorEssentials(essentials);
-    }
     return (
       !activeEditorIsTableCell &&
       activeEditor && (
@@ -609,11 +614,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     const {
       RicosTiptapEditor,
       RichContentAdapter,
-      TiptapEditorCommands,
       draftToTiptap,
       TIPTAP_TYPE_TO_RICOS_TYPE,
-      TiptapEditorModel,
-      TiptapEditorState,
     } = tiptapEditorModule;
     const { content, injectedContent, plugins, onAtomicBlockFocus } = this.props;
     const { tiptapToolbar } = this.state;
@@ -640,11 +642,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                   t={t}
                   onLoad={editor => {
                     const richContentAdapter = new RichContentAdapter(editor, t, plugins);
-                    const model = new TiptapEditorModel(editor);
-                    const state = new TiptapEditorState(editor);
-                    const commands = new TiptapEditorCommands(editor);
-                    const essentials = { model, state, commands };
-                    this.setRicosEditorEssentials(essentials);
                     this.setEditorRef(richContentAdapter);
                     const TextToolbar = richContentAdapter.getToolbars().TextToolbar;
                     this.setState({ tiptapToolbar: TextToolbar });

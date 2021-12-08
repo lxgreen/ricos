@@ -213,7 +213,7 @@ describe('Test draftUtils functions', () => {
 
     it('Test deleteBlock function', () => {
       const newEditorState = deleteBlock(editorState, BLOCK_KEY2);
-      const contentStateObj = getContentAsObject(newEditorState);
+      const contentStateObj = newEditorState && getContentAsObject(newEditorState);
       expect(contentStateObj).toMatchSnapshot();
     });
 
