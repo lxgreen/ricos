@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { TextInput } from 'wix-rich-content-ui-components';
+import { InputWithLabel } from 'wix-rich-content-ui-components';
 import { LinkPanelWrapper } from 'wix-rich-content-editor-common';
 import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../statics/styles/settings-component-styles.scss';
@@ -53,19 +53,13 @@ class SettingsComponent extends PureComponent {
     };
     return (
       <div className={this.styles.button_settingsComponent_section_content}>
-        <div className={this.styles.button_settingsComponent_name_feild}>
-          <div className={this.styles.button_settingsComponent_header_ButtonText}>
-            {t('ButtonModal_Button_Text')}
-          </div>
-          <div>
-            <TextInput
-              {...textInputBaseProps}
-              onChange={this.onTextChanged}
-              value={buttonText}
-              placeholder={t('ButtonModal_InputName_Placeholder')}
-            />
-          </div>
-        </div>
+        <InputWithLabel
+          label={t('ButtonModal_Button_Text')}
+          onChange={this.onTextChanged}
+          value={buttonText}
+          placeHolder={t('ButtonModal_InputName_Placeholder')}
+          {...textInputBaseProps}
+        />
         {showLinkPanel && (
           <>
             <div className={this.styles.button_settingsComponent_header_ButtonLink}>

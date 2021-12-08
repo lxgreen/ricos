@@ -21,6 +21,7 @@ interface InputWithLabelProps {
   isMobile?: boolean;
   onChange: (e) => void;
   getTarget?: boolean;
+  placeHolder?: string;
 }
 
 class InputWithLabel extends Component<InputWithLabelProps> {
@@ -51,6 +52,7 @@ class InputWithLabel extends Component<InputWithLabelProps> {
       isMobile,
       tooltipTextKey,
       t,
+      placeHolder,
       ...otherProps
     } = this.props;
     const inputProps = omit(otherProps, ['theme', 'onChange']);
@@ -66,6 +68,7 @@ class InputWithLabel extends Component<InputWithLabelProps> {
         id={id}
         data-hook={dataHook}
         onChange={this.handleOnChange}
+        placeholder={placeHolder}
         {...inputProps}
       />
     );

@@ -9,6 +9,7 @@ import {
   FocusManager,
   BUTTON_SIZE,
   SettingsMobileHeader,
+  SettingsSeparator,
 } from 'wix-rich-content-ui-components';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 import {
@@ -212,18 +213,16 @@ export default class ButtonInputModal extends Component {
           <PreviewComponent buttonObj={this.state} {...this.props} />
           <div className={styles.button_inputModal_scroll} ref={this.setScrollbarRef}>
             <div className={styles.button_inputModal_container} data-hook="ButtonInputModal">
-              <div className={styles.button_inputModal_header_text}>
-                {t('ButtonModal_Settings_Tab')}
-              </div>
+              <div className={styles.button_inputModal_header_text}>{this.buttonTabs.settings}</div>
               {settingsComponent}
+              <SettingsSeparator top bottom />
             </div>
-            <div className={styles.button_inputModal_separator} />
             <div
               className={styles.button_inputModal_design_component_container}
               data-hook="ButtonInputModal"
             >
               <div className={styles.button_inputModal_design_header_text}>
-                {t('ButtonModal_Design_Tab')}
+                {this.buttonTabs.design}
               </div>
               {designComponent}
             </div>

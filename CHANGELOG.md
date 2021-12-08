@@ -24,6 +24,8 @@
 
 - `tiptap-editor`  
   - [#3217](https://github.com/wix/ricos/pull/3217)pinned tiptap versions
+- `button`  
+  - [#3229](https://github.com/wix/ricos/pull/3229) button settings refactor
 
 </details>
 <hr/>
