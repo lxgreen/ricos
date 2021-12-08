@@ -228,6 +228,7 @@ export interface EditorPlugin<PluginConfig extends EditorPluginConfig = Record<s
   createPlugin?: CreatePluginFunction<PluginConfig>;
   ModalsMap?: ModalsMap;
   createPluginData?: CreatePluginData<PluginConfig>;
+  configFixer?: (args) => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

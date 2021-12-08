@@ -1,0 +1,34 @@
+# Tiptap & ProseMirror Package Versions
+
+## Motivation
+
+Since tiptap is still actively developed beta, as a consumer we have to monitor changes and features. The beta patch version release sometimes introduces breaking changes. This doc manages the used packages list and versions, along with reason to upgrade.
+
+Note: the tiptap package versions in package.json should be pinned, and updated manually, after sanity testing (manually, until we don't run tiptap e2e).
+
+## Core packages
+
+- @tiptap/core@2.0.0-beta.148
+- @tiptap/react@2.0.0-beta.98
+- prosemirror-state@^1.3.4
+- prosemirror-transform@^1.3.3
+
+## Extensions
+
+- @tiptap/extension-blockquote@2.0.0-beta.26
+- @tiptap/extension-bold@2.0.0-beta.25
+- @tiptap/extension-bullet-list@2.0.0-beta.24
+- @tiptap/extension-code@2.0.0-beta.26
+- @tiptap/extension-code-block@2.0.0-beta.30
+- @tiptap/extension-document@2.0.0-beta.15
+- @tiptap/extension-dropcursor@2.0.0-beta.25
+- @tiptap/extension-gapcursor@2.0.0-beta.33
+- @tiptap/extension-heading@2.0.0-beta.24
+- @tiptap/extension-highlight@2.0.0-beta.31
+- @tiptap/extension-history@2.0.0-beta.21
+- @tiptap/extension-italic@2.0.0-beta.25
+- @tiptap/extension-list-item@2.0.0-beta.20
+- @tiptap/extension-ordered-list@2.0.0-beta.25
+- @tiptap/extension-paragraph@2.0.0-beta.23
+- @tiptap/extension-text@2.0.0-beta.15
+- @tiptap/extension-underline@2.0.0-beta.22

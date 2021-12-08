@@ -5,10 +5,6 @@ import PropTypes from 'prop-types';
 import styles from './fullscreen.rtlignore.scss';
 import fscreen from 'fscreen';
 import { convertItemData } from 'wix-rich-content-plugin-gallery/libs/convert-item-data';
-import {
-  layoutData,
-  GALLERY_LAYOUTS,
-} from 'wix-rich-content-plugin-gallery/libs/layout-data-provider';
 import { FocusManager } from 'wix-rich-content-ui-components';
 
 const { ProGallery } = require('pro-gallery');
@@ -20,6 +16,7 @@ export default class InnerFullscreen extends Component {
     this.getItems();
     this.containerRef = React.createRef();
     this.currentIdx = props.index;
+    this.pauseChildNodesVideos(document);
   }
 
   static defaultProps = {
@@ -43,6 +40,9 @@ export default class InnerFullscreen extends Component {
         .focus();
     });
   };
+
+  pauseChildNodesVideos = element =>
+    Array.from(element.getElementsByTagName('video'))?.forEach(video => video.pause());
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.onEsc);
@@ -89,7 +89,7 @@ export default class InnerFullscreen extends Component {
     let arrowsPosition = 0;
     let slideshowInfoSize = 0;
     if (this.props.isMobile) {
-      slideshowInfoSize = isHorizontalView ? 0 : 40;
+      slideshowInfoSize = isHorizontalView ? 0 : 80;
     } else if (!isInFullscreen) {
       arrowsPosition = 1;
       slideshowInfoSize = 142;
@@ -145,6 +145,10 @@ export default class InnerFullscreen extends Component {
 
   handleGalleryEvents = (name, data) => {
     if (name === 'CURRENT_ITEM_CHANGED') {
+      const previousItem = this.items[this.currentIdx];
+      if (previousItem?.metaData?.type === 'video') {
+        this.pauseChildNodesVideos(document.querySelector(`[data-id='${previousItem.itemId}']`));
+      }
       this.currentIdx = parseInt(data.itemId.split('_').pop());
     }
   };
@@ -176,13 +180,8 @@ export default class InnerFullscreen extends Component {
   customArrowRenderer = direction => this.arrowRenderers[direction];
 
   getDimensions = () => {
-    const { isMobile } = this.props;
-    const { isInFullscreen } = this.state;
     const container = this.containerRef.current?.getBoundingClientRect?.();
-    let { width, height } = container;
-    const isHorizontalMobile = isMobile && width > height;
-    width = isInFullscreen || isMobile ? width : width - 18;
-    height = isInFullscreen || isHorizontalMobile ? height : isMobile ? height - 40 : height - 70;
+    const { width, height } = container;
     return { width, height };
   };
 
@@ -199,7 +198,11 @@ export default class InnerFullscreen extends Component {
           style={{ background: backgroundColor, ...topMargin }}
           dir="ltr"
           data-hook={'fullscreen-root'}
-          className={isInFullscreen || isMobile ? styles.fullscreen_mode : styles.expand_mode}
+          className={
+            isInFullscreen || (isMobile && isHorizontalView)
+              ? styles.fullscreen_mode
+              : styles.expand_mode
+          }
           ref={this.containerRef}
           onContextMenu={this.handleContextMenu}
           role="none"
@@ -215,11 +218,14 @@ export default class InnerFullscreen extends Component {
               resizeMediaUrl={fullscreenResizeMediaUrl}
               container={size}
               options={{
-                ...layoutData[GALLERY_LAYOUTS.SLIDESHOW],
-                galleryLayout: GALLERY_LAYOUTS.SLIDESHOW,
+                galleryLayout: 5,
                 cubeType: 'fit',
                 scrollSnap: true,
-                videoPlay: 'auto',
+                videoPlay: 'onClick',
+                videoLoop: false,
+                videoSound: true,
+                hidePlay: false,
+                showVideoControls: true,
                 allowSocial: false,
                 loveButton: false,
                 allowTitle: true,

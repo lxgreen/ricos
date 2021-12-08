@@ -17,13 +17,197 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+- `toolbars-new/editorCommands`
+  - [#3028](https://github.com/wix/ricos/pull/3028) fix code-block action in the new toolbar
+### :house: Internal
+
+- `tiptap-editor`  
+  - [#3217](https://github.com/wix/ricos/pull/3217)pinned tiptap versions
+
+</details>
+<hr/>
+
+## 8.65.4 (Dec 06, 2021)
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3215](https://github.com/wix/ricos/pull/3215) fixed memory leak in fromDraft caused by generateId
+
+## 8.65.3 (Dec 06, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-editor`
+  - [#3232](https://github.com/wix/ricos/pull/3232) fix new formatting toolbar crash
+
+## 8.65.2 (Dec 05, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3211](https://github.com/wix/ricos/pull/3211) font size dropdown a11y
+
+## 8.65.1 (Dec 05, 2021)
+
+### :bug: Bug Fix
+
+- `tiptap-editor`
+  - [#3210](https://github.com/wix/ricos/pull/3210) set focus to editor in decoration commands
+- `tiptap-editor`
+  - [#3206](https://github.com/wix/ricos/pull/3206) add mentions plugin
+
+## 8.65.0 (Dec 05, 2021)
+
+### :rocket: New Feature
+
+- `*`
+  - [#3203](https://github.com/wix/ricos/pull/3203) icons bm theme wiring
+  - [#3207](https://github.com/wix/ricos/pull/3207) bg & hover color bm theme wiring
+
+### :bug: Bug Fix
+
+- `html`
+  - [#3204](https://github.com/wix/ricos/pull/3204) add `allowFullScreen` to html iframe
+
+### :house: Internal
+
+- `common`
+  - [#3202](https://github.com/wix/ricos/pull/3202) add `documentStyle` to the old schema
+- `ricos-content`
+  - [#3187](https://github.com/wix/ricos/pull/3187) `fromDraft` gallery converter `thumbnails.placement` defaults to `NONE`
+- `schema`
+  - [#3187](https://github.com/wix/ricos/pull/3187) add `NONE` value to gallery thumbnails.placement enum
+
+### :nail_care: Polish
+
+- `general`
+  - [#3186](https://github.com/wix/ricos/pull/3186) use button component in table settings and refactor color picker ui
+
+## 8.64.1 (Dec 02, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3201](https://github.com/wix/ricos/pull/3201) fromHtml/ck-editor: text and links under root are handled
+
+## 8.64.0 (Dec 02, 2021)
+
+### :rocket: New Feature
+
+- `general`
+  - [#3178](https://github.com/wix/ricos/pull/3178) font-family BM theme wiring
+  - [#3181](https://github.com/wix/ricos/pull/3181) box-shadow & border-radius BM theme wiring
+  - [#3185](https://github.com/wix/ricos/pull/3185) inputs/text color BM theme wiring
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3188](https://github.com/wix/ricos/pull/3188) mobile basic link panel
+- `html`
+  - [#3191](https://github.com/wix/ricos/pull/3191) html iframe sandbox allows fullscreen
+- `headings`
+  - [#3196](https://github.com/wix/ricos/pull/3196) new dropdown style and a11y fixes for safari
+
+## 8.63.7 (Nov 30, 2021)
+
+### :bug: Bug Fix
+
+- `button`
+  - [#3172](https://github.com/wix/ricos/pull/3172) prevent default space/enter onKeyDown
+- `toolbars-new`
+  - [#3173](https://github.com/wix/ricos/pull/3173) mobile add plugin button when side toolbar disabled from config
+
+## 8.63.6 (Nov 29, 2021)
+
+### :house: Internal
+
+- `common`
+  - [#3170](https://github.com/wix/ricos/pull/3170) collapsible list schema validator
+- `file-upload`
+  - [#3169](https://github.com/wix/ricos/pull/3169) enable `useFilePluginAutoDownloadLinkRef` experiment
+
+### :bug: Bug Fix
+
+- `collapsible-list`
+  - [#3171](https://github.com/wix/ricos/pull/3171) disable expand/collapse onClick auto-scroll
+
+## 8.63.4 (Nov 29, 2021)
+
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3165](https://github.com/wix/ricos/pull/3165) fix height issues on scroll direction change
+- `file-upload`
+  - [#3167](https://github.com/wix/ricos/pull/3167) fix icon colors wiring
+- `ricos-content`
+  - [#3166](https://github.com/wix/ricos/pull/3166) `<br>` handled in `fromHtml/ck-editor`
+
+### :house: Internal
+
+- `video - ui-components`
+  - [#3159](https://github.com/wix/ricos/pull/3159) move upload modal-UI into ui-components
+- `link`
+  - [#3166](https://github.com/wix/ricos/pull/3166) LinkViewer handles `tel:` links (Viewer only)
+
+## 8.63.3 (Nov 25, 2021)
+
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3136](https://github.com/wix/ricos/pull/3136) fix gallery items `itemId` generation
+- `plugin-giphy`
+  - [#2312](https://github.com/wix/ricos/pull/2312) TS & Add missing hotkeys to giphy selector and more descriptive alt text
+- `fullscreen`
+  - [#3162](https://github.com/wix/ricos/pull/3162) videos pause when scrolled out of view
+  - [#3082](https://github.com/wix/ricos/pull/3082) image centered correctly on mobile
+
+## 8.63.2 (Nov 24, 2021)
+
+### :nail_care: Polish
+
+- `ricos-schema`
+  - [#3140](https://github.com/wix/ricos/pull/3140) Expose RichContent based on integer enum
+
+## 8.63.1 (Nov 23, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3156](https://github.com/wix/ricos/pull/3156) fromHtml: undefined node protected
+
+## 8.63.0 (Nov 22, 2021)
+
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3153](https://github.com/wix/ricos/pull/3153) item titles don't appear on gallery container hover
+
+### :house: Internal
+
+- `gallery`
+  - [#3152](https://github.com/wix/ricos/pull/3152) update `ProGallery` version to `3.1.38`
+
+## 8.62.0 (Nov 22, 2021)
+
+### :rocket: New Feature
+
+- `ricos-content`
+  - [#3147](https://github.com/wix/ricos/pull/3147) Metadata Utils ([Docs](https://ricos.js.org/docs/content_api/metadata_utils_api))
+
 ### :house: Internal
 
 - `toolbars-new`
   - [#3144](https://github.com/wix/ricos/pull/3144) refactor: get toolbar settings from config
 
-</details>
-<hr/>
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3148](https://github.com/wix/ricos/pull/3148) edit button in link toolbar on mobile
+- `gallery`
+  - [#3151](https://github.com/wix/ricos/pull/3151) gallery videos plays on click, controls are displayed, fullscreen opens on icon click only
+- `fullscreen`
+  - [#3151](https://github.com/wix/ricos/pull/3151) videos play on click, controls are displayed
 
 ## 8.61.9 (Nov 21, 2021)
 
@@ -31,6 +215,7 @@
 
 - `tiptap-editor`
   - [#3145](https://github.com/wix/ricos/pull/3145) fix onAtomicBlockFocus to be called on text blocks, onChange callback to be called on selection change, fix hasInlineStyle command
+
 ## 8.61.8 (Nov 21, 2021)
 
 ### :bug: Bug Fix

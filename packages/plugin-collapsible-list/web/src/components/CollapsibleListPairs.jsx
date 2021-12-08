@@ -102,7 +102,16 @@ class CollapsibleListPairs extends Component {
   };
 
   render() {
-    const { pairs, PairWrapper, t, theme, renderTitle, renderContent, helpers } = this.props;
+    const {
+      pairs,
+      PairWrapper,
+      t,
+      theme,
+      renderTitle,
+      renderContent,
+      helpers,
+      isInEditor,
+    } = this.props;
     const { pairsState } = this.state;
 
     return pairs.map((pair, idx) => (
@@ -119,6 +128,7 @@ class CollapsibleListPairs extends Component {
           renderTitle={renderTitle}
           renderContent={renderContent}
           helpers={helpers}
+          isInEditor={isInEditor}
         />
       </PairWrapper>
     ));
@@ -135,8 +145,8 @@ CollapsibleListPairs.propTypes = {
   renderTitle: PropTypes.func,
   renderContent: PropTypes.func,
   helpers: PropTypes.object,
-  //Editor prop
   PairWrapper: PropTypes.object,
+  isInEditor: PropTypes.bool,
 };
 
 CollapsibleListPairs.defaultProps = {

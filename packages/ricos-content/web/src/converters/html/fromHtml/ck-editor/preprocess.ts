@@ -1,8 +1,7 @@
 import { flow, identity } from 'fp-ts/function';
 import { not } from 'fp-ts/Predicate';
-import * as O from 'fp-ts/Option';
 import * as S from 'fp-ts/string';
-import { Element, TextNode, serialize } from 'parse5';
+import { Element, TextNode, serialize, Attribute } from 'parse5';
 import { ContentNode } from '../core/models';
 import {
   isText,
@@ -17,19 +16,34 @@ import {
   toAst,
   hasChild,
   hasClass,
+  isRoot,
 } from '../core/parse5-utils';
 import { partitionBy } from '../../../nodeUtils';
-import traverse from '../core/ast-traversal';
-import { and, or, equals } from '../../../../fp-utils';
+import { traverseRoot, traverse } from '../core/ast-traversal';
+import { and, or } from '../../../../fp-utils';
 
-const addParagraph = (parentNode: Element) => (): ContentNode => ({
+const addParagraph = (parentNode: Element, attrs: Attribute[] = []) => (): ContentNode => ({
   nodeName: 'p',
   tagName: 'p',
   childNodes: [],
   parentNode,
-  attrs: parentNode.attrs,
+  attrs: parentNode.attrs ? parentNode.attrs.concat(attrs) : attrs,
   namespaceURI: parentNode.namespaceURI,
 });
+
+const rootTextToP: AstRule = [
+  and([isRoot, or([hasChild(isText), hasChild(hasTag('a'))])]),
+  (node: Element) => ({
+    ...node,
+    childNodes: partitionBy<ContentNode>(
+      and([not(isText), not(hasTag('a')), not(hasClass(c => c === 'root-text-anchor'))]),
+      and([hasTag('p'), hasClass(c => c === 'root-text-anchor')]),
+      identity,
+      addParagraph(node, [{ name: 'class', value: 'root-text-anchor' }]),
+      appendChild
+    )(node.childNodes),
+  }),
+];
 
 const containerPToDiv: AstRule = [
   and([hasTag('p'), hasDescendant(oneOf(['img', 'iframe', 'ol', 'ul']))]),
@@ -134,18 +148,24 @@ const textInDivToP: AstRule = [
 ];
 
 const collapseBreaks = flow(
-  S.replace(/(<br \/>\s*){3}/, '<br class="double-break" />'),
-  S.replace(/(<br \/>\s*){2}/, '<br class="single-break" />')
+  S.replace(/(<br>\s*){3}/gim, '\n\n'),
+  S.replace(/(<br>\s*){2}/gim, '\n')
 );
 
 export const preprocess = flow(
-  flow(collapseBreaks, toAst),
-  flow(traverse(leafParagraphToDiv), traverse(cleanListPadding), traverse(cleanListItemPadding)),
-  traverse(cleanInvalidVideos),
-  traverse(containerPToDiv),
-  traverse(wrapTextUnderLi),
-  traverse(collapseWhitespaces),
-  traverse(nakedSpanToP),
-  traverse(textInDivToP),
-  serialize
+  toAst,
+  traverseRoot(rootTextToP),
+  flow(
+    traverse(leafParagraphToDiv),
+    traverse(cleanListPadding),
+    traverse(cleanListItemPadding),
+    traverse(cleanInvalidVideos),
+    traverse(containerPToDiv),
+    traverse(wrapTextUnderLi),
+    traverse(collapseWhitespaces),
+    traverse(nakedSpanToP),
+    traverse(textInDivToP)
+  ),
+  serialize,
+  collapseBreaks
 );

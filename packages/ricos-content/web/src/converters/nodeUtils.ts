@@ -115,13 +115,17 @@ export const createDecoration = (
 export const initializeMetadata = ({
   version,
   id = uuid(),
+  createdTimestamp,
+  updatedTimestamp,
 }: {
   version?: number;
   id?: string;
+  createdTimestamp?: Date;
+  updatedTimestamp?: Date;
 } = {}): Metadata => ({
   version: version || LATEST_VERSION,
-  createdTimestamp: new Date(),
-  updatedTimestamp: new Date(),
+  createdTimestamp: createdTimestamp || new Date(),
+  updatedTimestamp: updatedTimestamp || new Date(),
   id,
 });
 

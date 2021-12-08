@@ -19,7 +19,7 @@ import { createColor } from './extensions/extension-color';
 import { createBulletedList } from './extensions/extension-bulleted-list';
 import { createSpoiler } from './extensions/extension-spoiler';
 import { CoreCommands } from './core/extensions';
-import { HeadingData } from 'ricos-schema';
+import headingDataDefaults from 'ricos-schema/dist/statics/heading.defaults.json';
 import { Attributes, Extensions, MarkConfig, NodeConfig } from '@tiptap/react';
 import styles from './statics/styles.scss';
 
@@ -35,34 +35,28 @@ const extendedAttrs = (
   },
 });
 
-const withID = extendedAttrs({
-  id: {
-    default: '',
-    keepOnSplit: false,
-  },
-});
 export const tiptapExtensions: Extensions = [
   CoreCommands,
   Blockquote.configure({
     HTMLAttributes: {
       class: styles.quote,
     },
-  }).extend(withID),
+  }),
   Underline,
   Document.extend(extendedAttrs({ metadata: {} })),
-  Heading.extend(withID).extend(extendedAttrs(HeadingData.fromJSON({}))),
+  Heading.extend(extendedAttrs(headingDataDefaults)),
   Italic,
-  ListItem.extend(withID),
-  OrderedList.extend(withID),
-  Paragraph.extend(withID),
+  ListItem,
+  OrderedList,
+  Paragraph,
   Text,
-  createBulletedList().extend(withID),
+  createBulletedList(),
   createBold(),
   createColor(),
   CodeBlock.configure({
     HTMLAttributes: {
       class: styles.code,
     },
-  }).extend(withID),
+  }),
   createSpoiler(),
 ];

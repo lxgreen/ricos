@@ -403,7 +403,7 @@
 	"GallerySettings_Expand_Mode_Toggle": "הקלקה על התמונות תרחיב אותן.",
 	"MapSettings_MapOption_Show_Street_View_Label": "הצג תצוגת רחוב",
 	"AlignTextDropdownButton_Tooltip": "יישור",
-	"LinkPanel_Nofollow_Checkbox": "אל תיתן לגוגל לעקוב אחרי הקישור (nofollow)",
+	"LinkPanel_Nofollow_Checkbox": "לתת ל-Google להתעלם מקישור זה",
 	"ImageSettings_Link_RedirectToToolbar": "כדי לעדכן את קישור התמונה, עבור לסרגל הכלים של התמונה ופתח את הגדרות הקישור.",
 	"GallerySettings_Radios_Thumbnail_Resize_Tooltip": "בחר \"חתיכה\" כדי לחתוך את החלקים שאתה לא רוצה שהמבקרים יראו או \"התאמה\" כדי להשתמש בכל התמונה כתמונת תצוגה.",
 	"GallerySettings_Select_All": "בחר הכל",

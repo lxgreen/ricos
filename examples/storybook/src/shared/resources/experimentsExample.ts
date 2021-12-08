@@ -15,4 +15,5 @@ export const EXPERIMENTS = [
   { name: 'pastedFilesSupport', scope: 'ricos' },
   { name: 'normalizePoll', scope: 'ricos' },
   { name: 'optimizeFullScreenModal', scope: 'ricos' },
+  { name: 'useFilePluginAutoDownloadLinkRef', scope: 'ricos' },
 ];

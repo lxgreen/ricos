@@ -32,7 +32,7 @@
   width: 126px;
   font-size: 14px;
   margin: 0 8px;
-  color: #333333;
+  color: $settings-text-color;
   display: inline-block;
   height: inherit;
   position: relative;
@@ -64,6 +64,11 @@
   box-sizing: border-box;
   font-size: inherit;
   font-family: inherit;
+  border-color: $settings-inputs-border-color;
+  border-radius: $settings-inputs-border-radius;
+  &::placeholder {
+    color: $settings-inputs-placeholder-color;
+  }
   .mobile & {
     padding-left: 32px;
   }

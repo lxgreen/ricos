@@ -54,6 +54,9 @@ const parseDocStyle = documentStyle => {
 export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}): RichContent => {
   const { blocks, entityMap, documentStyle, ID: id } = cloneDeep(draftJSON);
   const nodes: Node[] = [];
+  const contentIdPrefix = Math.random()
+    .toString(36)
+    .substr(2, 9);
 
   const parseBlocks = (index = 0) => {
     const block = blocks[index];
@@ -214,7 +217,7 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
     }
     return {
       node: {
-        id: generateId(),
+        id: generateId(contentIdPrefix),
         type: FROM_DRAFT_LIST_TYPE[listType],
         nodes: listNodes,
       },

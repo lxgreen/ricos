@@ -1,6 +1,7 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 @import '~wix-rich-content-common/dist/statics/styles/consts';
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
 
 .toolbarButton_wrapper {
   display: flex;
@@ -10,7 +11,7 @@
 
   &:hover {
     button {
-      background-color: rgba($fallbackColorTuple, 0.06);
+      background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
     }
     // .inlineToolbarButton_icon,
     // .inlineToolbarButton_icon svg,
@@ -26,7 +27,7 @@
 .toolbarButton {
   display: flex;
   background: transparent;
-  color: $toolbar-font-color;
+  color: $settings-icons-color;
   padding: 4px;
   border: 0 none;
   line-height: normal;
@@ -46,6 +47,7 @@
   &.renderAsContextButton {
     padding: 4px 20px;
   }
+  @include svg-fill;
 }
 
 .toolbarButton_icon {
@@ -76,7 +78,7 @@
   display: flex;
   align-items: center;
   font-size: 14px;
-  font-family: HelveticaNeue;
+  font-family: $ricos-settings-font-family;
   font-weight: 500;
   // margin: 0 0 0 5px !important;
 }

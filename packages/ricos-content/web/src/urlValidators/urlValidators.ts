@@ -1,7 +1,7 @@
 import linkifyIt from 'linkify-it';
 const linkify = linkifyIt();
 
-const UrlPattern = new RegExp(
+const HttpUrlPattern = new RegExp(
   '^(https?:\\/\\/)?' + // protocol
   '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
   '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
@@ -11,7 +11,9 @@ const UrlPattern = new RegExp(
   'i'
 ); // fragment locator
 
-export const isValidExactUrl = (str: string) => UrlPattern.test(str);
+export const isValidExactUrl = (str: string) => HttpUrlPattern.test(str);
+
+export const isValidTelUrl = (str: string) => /^tel:[0-9-()+#*]+$/.test(str);
 
 export const isValidUrl = (url: string) => url && url[0] !== '#' && linkify.test(url);
 

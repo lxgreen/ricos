@@ -1,4 +1,5 @@
 import { RawCommands, findChildren } from '@tiptap/core';
+import { NodeType } from 'prosemirror-model';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -6,7 +7,7 @@ declare module '@tiptap/core' {
       /**
        * delete a node.
        */
-      deleteNode: (id?: string) => ReturnType;
+      deleteNode: (id: string | NodeType) => ReturnType;
     };
   }
 }

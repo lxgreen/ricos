@@ -19,16 +19,11 @@
 .mention:focus {
   color: $action-color;
   outline: 0; /* reset for :focus */
-  text-decoration: underline,
+  text-decoration: underline;
 }
 
 .mention:active {
   color: $action-color;
-}
-
-.mentionDisabled {
-  color: inherit;
-  background: inherit;
 }
 
 .mentionSuggestionsEntry {

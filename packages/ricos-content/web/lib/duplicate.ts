@@ -1,1 +1,1 @@
-export * from '../src/RicosContentAPI/duplicate';
+export { duplicate } from '../src/RicosContentAPI/metadata-utils';

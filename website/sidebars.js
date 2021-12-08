@@ -49,7 +49,9 @@ module.exports = {
           'content_api/ContentBuilder',
           'content_api/content_extract',
           'content_api/content_modify',
+          'content_api/content_application',
           'content_api/translatables_api',
+          'content_api/metadata_utils_api',
         ],
       },
       {
