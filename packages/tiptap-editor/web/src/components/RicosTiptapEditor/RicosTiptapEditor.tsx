@@ -10,6 +10,7 @@ import { Extensions } from '../../models/Extensions';
 import editorStyles from '../../statics/styles/tiptap-editor-styles.scss';
 import { RicosTiptapEditorProps } from '../../types';
 import { coreConfigs } from './core-configs';
+import { Commands as coreCommandsExtension } from '../../core-commands';
 // import { patchExtensions } from '../../unsupported-content';
 
 // TODO: maybe should move it to utils ?
@@ -43,7 +44,7 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
 
   useEffect(() => {
     const tiptapExtensions = mergedExtensions.getTiptapExtensions();
-    const allExtensions = [...coreExtensions, ...tiptapExtensions];
+    const allExtensions = [coreCommandsExtension, ...coreExtensions, ...tiptapExtensions];
     console.log({ allExtensions }); // eslint-disable-line no-console
     const editorInstance = new Editor({
       extensions: allExtensions,
