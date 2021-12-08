@@ -18,11 +18,14 @@
   </summary>
 
 ### :bug: Bug Fix
+
 - `toolbars-new/editorCommands`
   - [#3028](https://github.com/wix/ricos/pull/3028) fix code-block action in the new toolbar
   - [#3224](https://github.com/wix/ricos/pull/3224) fix font size display when empty blocks are in selection
 - `gallery`
   - [#3225](https://github.com/wix/ricos/pull/3225) fix image margin on mobile sliders
+- `tooltip`  
+  - [#3218](https://github.com/wix/ricos/pull/3218) wire font family for BM theme
 
 ### :house: Internal
 
