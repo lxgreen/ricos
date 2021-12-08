@@ -20,7 +20,6 @@ import {
 import DesignComponent from '../components/design-component';
 import SettingsComponent from '../components/settings-component';
 import PreviewComponent from '../components/preview-component';
-import { settingsTabValue, designTabValue } from '../constants';
 import styles from '../../statics/styles/button-input-modal.scss';
 import { LINK_BUTTON_TYPE } from '../types';
 export default class ButtonInputModal extends Component {
@@ -29,14 +28,20 @@ export default class ButtonInputModal extends Component {
     this.styles = mergeStyles({ styles, theme: props.theme });
     const {
       componentData: { button },
+      t,
     } = this.props;
+
+    this.buttonTabs = {
+      settings: t('ButtonModal_Settings_Tab'),
+      design: t('ButtonModal_Design_Tab'),
+    };
 
     this.state = {
       settings: { ...button.settings },
       design: { ...button.design },
       initialComponentData: { ...button },
       isHover: false,
-      activeTab: settingsTabValue,
+      activeTab: this.buttonTabs.settings,
       showLinkPanel: !this.props.settings.isActionButton,
     };
 
@@ -59,8 +64,8 @@ export default class ButtonInputModal extends Component {
 
   onDesignChanged = design => {
     const { settings } = this.state;
-    if (this.state.activeTab !== designTabValue) {
-      this.setState({ activeTab: designTabValue });
+    if (this.state.activeTab !== this.buttonTabs.design) {
+      this.setState({ activeTab: this.buttonTabs.design });
     }
     if (!isEqual(design, this.state.design)) {
       const {
@@ -155,7 +160,7 @@ export default class ButtonInputModal extends Component {
   };
 
   handleOnMouseEnterDesign = () => {
-    this.setState({ isHover: true, activeTab: designTabValue });
+    this.setState({ isHover: true, activeTab: this.buttonTabs.design });
   };
 
   handleOnMouseLeaveDesign = () => {
@@ -163,23 +168,14 @@ export default class ButtonInputModal extends Component {
   };
 
   handleOnMouseEnterSettings = () => {
-    this.setState({ activeTab: settingsTabValue });
+    this.setState({ activeTab: this.buttonTabs.settings });
   };
 
   render() {
-    const { theme, t, uiSettings, doneLabel, cancelLabel, isMobile } = this.props;
+    const { theme, t, uiSettings, isMobile } = this.props;
     const { showLinkPanel } = this.state;
     const { styles } = this;
-    const settingTabLabel = (
-      <div className={styles.button_inputModal_settingTab}>
-        <div className={styles.button_inputModal_tabTitle}>
-          <p className={styles.button_inputModal_tabLabel}>{t('ButtonModal_Settings_Tab')}</p>
-        </div>
-      </div>
-    );
-    const designTabLabel = (
-      <p className={styles.button_inputModal_tabLabel}>{t('ButtonModal_Design_Tab')}</p>
-    );
+
     const settingsComponent = (
       <SettingsComponent
         t={t}
@@ -255,7 +251,11 @@ export default class ButtonInputModal extends Component {
               <FocusManager>
                 <div className={styles.button_inputModal_focus_manager}>
                   <Tabs value={this.state.activeTab} theme={this.styles}>
-                    <Tab label={settingTabLabel} value={settingsTabValue} theme={this.styles}>
+                    <Tab
+                      label={this.buttonTabs.settings}
+                      value={this.buttonTabs.settings}
+                      theme={this.styles}
+                    >
                       <div
                         className={styles.button_tab_section}
                         role="button"
@@ -265,7 +265,11 @@ export default class ButtonInputModal extends Component {
                         {settingsComponent}
                       </div>
                     </Tab>
-                    <Tab label={designTabLabel} value={designTabValue} theme={this.styles}>
+                    <Tab
+                      label={this.buttonTabs.design}
+                      value={this.buttonTabs.design}
+                      theme={this.styles}
+                    >
                       <div className={styles.button_tab_section}>
                         <Scrollbars
                           ref={this.setScrollbarRef}

@@ -80,19 +80,20 @@
   left: 150px;
   color: #f97972;
 }
-.tabs_headers_option + .tabs_headers_option {
-  border-left: 0;
-}
+
+// .tabs_headers_option + .tabs_headers_option {
+//   border-left: 0;
+// }
 
 .scroll_container {
   overflow-y: scroll;
   height: 634px;
 }
 
-.button_inputModal_tabLabel {
-  margin-top: 15px;
-  display: block;
-}
+// .button_inputModal_tabLabel {
+//   margin-top: 15px;
+//   display: block;
+// }
 
 .button_inputModal_scrollbar_thumb {
   background: #000000;
