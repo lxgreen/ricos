@@ -13,7 +13,9 @@ declare module '@tiptap/core' {
 }
 
 export const updateNodeById: RawCommands['updateNodeById'] = (id, attrs = {}) => ({ view, tr }) => {
-  const nodeWithPos = findChildren(view.state.doc, node => node.attrs.id === id);
+  const predicate = node => node.attrs.id === id;
+  const nodeWithPos = findChildren(view.state.doc, predicate);
+
   const { pos } = nodeWithPos?.[0] || {};
   if (pos) {
     tr.setNodeMarkup(pos, undefined, { id, ...attrs });
