@@ -8,7 +8,7 @@ import { pluginDivider } from 'wix-rich-content-plugin-divider';
 import { pluginImage } from 'wix-rich-content-plugin-image';
 import { fromTiptap, toTiptap } from 'wix-tiptap-extensions';
 import { pluginLink } from 'wix-rich-content-plugin-link';
-import supportedPluginsContent from '../../__tests__/supportedPluginsContent.json';
+import supportedPluginsContent from './supportedPluginsContent.json';
 import { RicosTiptapEditor } from './RicosTiptapEditor';
 import { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
