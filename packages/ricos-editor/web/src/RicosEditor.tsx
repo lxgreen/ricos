@@ -11,7 +11,6 @@ import {
   shouldRenderChild,
   localeStrategy,
   getBiCallback as getCallback,
-  IRicosEditorEssentials
 } from 'ricos-common';
 import { DraftContent } from 'ricos-content';
 import {
@@ -44,6 +43,7 @@ import {
   RicosTranslate,
   getLangDir,
   isSSR,
+  IRicosEditorEssentials,
 } from 'wix-rich-content-common';
 import { getEmptyDraftContent, getEditorContentSummary } from 'wix-rich-content-editor-common';
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';

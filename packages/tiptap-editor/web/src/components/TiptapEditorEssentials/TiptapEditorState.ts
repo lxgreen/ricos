@@ -1,5 +1,5 @@
 import { Editor } from '@tiptap/react';
-import { IRicosEditorState } from 'ricos-common';
+import { IRicosEditorState } from 'wix-rich-content-common';
 
 export class TiptapEditorState implements IRicosEditorState {
   editor: Editor;

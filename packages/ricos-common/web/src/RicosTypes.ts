@@ -22,7 +22,6 @@ import { RicosCssOverride } from './types';
 import { DRAFT_EDITOR_PROPS } from './consts';
 import { RichContentEditorProps } from 'wix-rich-content-editor';
 import { RichContentViewerProps } from 'wix-rich-content-viewer';
-import { Node, Decoration_Type } from 'ricos-schema';
 
 export type RichContentProps = Partial<RichContentEditorProps | RichContentViewerProps>;
 
@@ -140,24 +139,3 @@ export interface LinkSettings {
 }
 
 export type TextAlignment = 'left' | 'right';
-
-export interface IRicosEditorEssentials {
-  model: IRicosEditorModel;
-  state: IRicosEditorState;
-  commands: IRicosEditorCommands;
-}
-
-export interface IRicosEditorCommands {
-  insertNode: (node: Node) => string;
-  updateNode: (id: string, node: Node) => boolean;
-  deleteNode: (id: string) => boolean;
-}
-
-export interface IRicosEditorModel {
-  getSelectedNodes: () => Node[];
-  hasDecoration: (type: Decoration_Type) => boolean;
-}
-
-export interface IRicosEditorState {
-  hasFocus: () => boolean;
-}

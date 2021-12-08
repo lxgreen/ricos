@@ -1,7 +1,6 @@
-import { IRicosEditorCommands } from 'ricos-common';
-import { generateId } from 'wix-rich-content-common';
+import { IRicosEditorCommands, generateId } from 'wix-rich-content-common';
 import { Editor } from '@tiptap/core';
-import { toTiptap } from '../..';
+import { toTiptap } from 'wix-tiptap-extensions';
 import { FROM_RICOS_NODE_TYPE_TO_TIPTAP_TYPE } from '../../consts';
 
 export class TiptapEditorCommands implements IRicosEditorCommands {

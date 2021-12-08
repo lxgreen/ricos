@@ -1,6 +1,6 @@
 import { Editor } from '@tiptap/react';
-import { IRicosEditorModel } from 'ricos-common';
-import { fromTiptap } from '../../content-utils/fromTiptap/fromTiptap';
+import { IRicosEditorModel } from 'wix-rich-content-common';
+import { fromTiptap } from 'wix-tiptap-extensions';
 
 export class TiptapEditorModel implements IRicosEditorModel {
   editor: Editor;
@@ -8,6 +8,12 @@ export class TiptapEditorModel implements IRicosEditorModel {
   constructor(editorState: Editor) {
     this.editor = editorState;
   }
+
+  getNodesBy: IRicosEditorModel['getNodesBy'] = predicate => {
+    const tiptapDoc = this.editor.getJSON();
+    const allNodes = fromTiptap(tiptapDoc).nodes;
+    return allNodes.filter(predicate);
+  };
 
   getSelectedNodes: IRicosEditorModel['getSelectedNodes'] = () => {
     const tiptapDoc = this.editor.getJSON();

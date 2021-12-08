@@ -1,5 +1,5 @@
 import React from 'react';
-import { IRicosEditorEssentials } from 'ricos-common';
+import { IRicosEditorEssentials } from 'wix-rich-content-common';
 
 let nodeId;
 
