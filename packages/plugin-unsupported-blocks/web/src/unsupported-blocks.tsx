@@ -6,18 +6,19 @@ import CircleInfoIcon from './icons/CircleInfoIcon';
 interface Props {
   theme: RichContentTheme;
   t: TranslationFunction;
+  label?: string;
 }
 class UnsupportedBlocks extends Component<Props> {
   styles!: Record<string, string>;
 
   render() {
-    const { t, theme } = this.props;
+    const { t, theme, label } = this.props;
     this.styles = this.styles || mergeStyles({ styles, theme });
 
     return (
       <div className={styles.unsupportedBlocks_alert}>
         <CircleInfoIcon />
-        <div>{t('UnsupportedPlugin_message')}</div>
+        <div>{label ?? t('UnsupportedPlugin_message')}</div>
       </div>
     );
   }

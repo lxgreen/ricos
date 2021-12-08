@@ -5,7 +5,7 @@ import { DEFAULTS } from './defaults';
 import { EditorPluginCreator } from 'wix-rich-content-common';
 import { createGalleryData } from './createGalleryData';
 import { createRicosExtensions } from './tiptap';
-import { TiptapEditorPlugin } from 'wix-tiptap-editor';
+import { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 export const pluginGallery: EditorPluginCreator<GalleryPluginEditorConfig> = config => {
   const pluginConfig: GalleryPluginEditorConfig = { ...DEFAULTS.config, ...config };

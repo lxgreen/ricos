@@ -1,5 +1,5 @@
 import linkDataDefaults from 'ricos-schema/dist/statics/link.defaults.json';
-import { CreateRicosExtensions } from 'wix-tiptap-editor';
+import { CreateRicosExtensions } from 'ricos-tiptap-types';
 import { KeyboardShortcutCommand } from '@tiptap/core';
 import { parseLink } from 'ricos-content/libs/nodeUtils';
 import { DeepPartial } from 'utility-types';
@@ -77,7 +77,7 @@ const linkifyLastWord: KeyboardShortcutCommand = ({ editor }) => {
 
 export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
   {
-    type: 'mark',
+    type: 'mark' as const,
     createExtensionConfig: ({ markPasteRule, markInputRule, Plugin, PluginKey }) => ({
       name: 'link',
 
@@ -85,12 +85,12 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
 
       inclusive: false,
 
-      defaultOptions: {
+      addOptions: () => ({
         openOnClick: true,
         linkOnPaste: true,
         HTMLAttributes: { link: {} },
         ...defaultOptions,
-      },
+      }),
 
       addAttributes() {
         return linkDataDefaults.linkData;
@@ -104,7 +104,7 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
         const { link, linkInViewer } = styles;
         const classes = classNames(link, linkInViewer);
         const { url: href, rel, target } = parseLink(HTMLAttributes.link);
-        return ['a', { href, rel, target, class: classes }, 0];
+        return { 0: 'a', 1: { href, rel, target, class: classes } };
       },
 
       addCommands() {

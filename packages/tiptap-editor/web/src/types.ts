@@ -1,17 +1,16 @@
-import { Editor, JSONContent, SingleCommands } from '@tiptap/react';
+import { Editor, JSONContent } from '@tiptap/react';
 import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { ElementType } from 'react';
 import {
   DraftContent,
   EditorCommands,
   EditorContextType,
-  LegacyEditorPluginConfig,
   Pubsub,
   ToolbarType,
   TranslationFunction,
   RichContentTheme,
 } from 'wix-rich-content-common';
-import { RicosExtension } from './models/extension-types';
+import { RicosExtension } from 'ricos-tiptap-types';
 
 export interface PluginProps {
   context: {
@@ -60,14 +59,4 @@ export interface RicosTiptapEditorProps {
   theme?: RichContentTheme;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
-}
-
-export type CreateRicosExtensions = <PluginType extends keyof LegacyEditorPluginConfig>(
-  config: LegacyEditorPluginConfig[PluginType]
-) => RicosExtension[];
-
-export declare class RicosTiptapEditor extends Editor {
-  get commands(): SingleCommands & {
-    insertMention: (data, pos?: { from: number; to: number }) => void;
-  };
 }

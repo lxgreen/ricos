@@ -20,6 +20,10 @@ export class NodeExtensions implements NodeExtensionAggregate {
       this.extensions.asArray().map(ex => hocComposer.decorate(ex))
     );
   }
+
+  asArray() {
+    return this.extensions.asArray();
+  }
 }
 
 export class DecoratedNodeExtensions implements DecoratedNodeExtensionAggregate {

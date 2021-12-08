@@ -1,5 +1,5 @@
 import mentionDataDefaults from 'ricos-schema/dist/statics/mention.defaults.json';
-import { CreateRicosExtensions } from 'wix-tiptap-editor';
+import { CreateRicosExtensions } from 'ricos-tiptap-types';
 import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { SuggestionOptions } from '@tiptap/suggestion';
 import { PluginKey } from 'prosemirror-state';

@@ -17,4 +17,8 @@ export class FunctionalExtensions implements FunctionalExtensionAggregate {
   toTiptapExtensions() {
     return this.extensions.asArray().map(e => e.toTiptapExtension()) as Extension[];
   }
+
+  asArray() {
+    return this.extensions.asArray();
+  }
 }
