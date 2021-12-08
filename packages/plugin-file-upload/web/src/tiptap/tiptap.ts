@@ -9,7 +9,12 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
     Component,
-    componentDataDefaults: { ...fileDataDefaults, id: '' },
+    componentDataDefaults: {
+      ...fileDataDefaults,
+      loading: {
+        default: false,
+      },
+    },
     createExtensionConfig: () => ({
       name,
       defaultOptions,
