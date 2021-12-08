@@ -32,6 +32,8 @@
   - [#3229](https://github.com/wix/ricos/pull/3229) core extensions moved to separate package
 - `ricos-tiptap-types`  
   - [#3229](https://github.com/wix/ricos/pull/3229) public tiptap related types moved to separate package
+- `toolbars-new`
+  - [#3232](https://github.com/wix/ricos/pull/3232) `toolbarInputButton` supports disable prop
 
 </details>
 <hr/>
