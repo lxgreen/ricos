@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-plugin-file-upload",
-  "version": "8.65.5-loadable-css",
+  "version": "8.65.5-css-loadable",
   "author": {
     "name": "Jonathan Bachman",
     "email": "jonathanb@wix.com"
@@ -37,11 +37,11 @@
     "test": "jest --verbose"
   },
   "dependencies": {
-    "ricos-content": "8.65.5-loadable-css",
-    "wix-rich-content-common": "8.65.5-loadable-css",
-    "wix-rich-content-editor-common": "8.65.5-loadable-css",
-    "wix-rich-content-plugin-commons": "8.65.5-loadable-css",
-    "wix-tiptap-editor": "8.65.5-loadable-css"
+    "ricos-content": "8.65.5-css-loadable",
+    "wix-rich-content-common": "8.65.5-css-loadable",
+    "wix-rich-content-editor-common": "8.65.5-css-loadable",
+    "wix-rich-content-plugin-commons": "8.65.5-css-loadable",
+    "wix-tiptap-editor": "8.65.5-css-loadable"
   },
   "unpkg": true,
   "publishConfig": {
