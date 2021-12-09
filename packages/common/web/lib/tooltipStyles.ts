@@ -4,6 +4,16 @@ export const getTooltipStyles = (
   tooltipOffset?: { x: number; y: number },
   place?: 'top' | 'bottom' | 'left' | 'right'
 ) => {
+  const getFontFamily = () => {
+    let fontFamily = 'HelveticaNeue';
+    if (typeof window !== 'undefined') {
+      const stylesContainer = document.querySelector(`[data-hook=root-editor`) || document.body;
+      const styles = window.getComputedStyle(stylesContainer);
+      fontFamily = styles.getPropertyValue('--ricos-settings-text-font-family') || 'HelveticaNeue';
+    }
+    return fontFamily;
+  };
+
   return {
     style: {
       background: isError ? '#F64D43' : 'rgb(0,0,0)',
@@ -11,7 +21,7 @@ export const getTooltipStyles = (
       padding: '8px 12px',
       color: 'white',
       fontWeight: '300',
-      fontFamily: 'var(--ricos-settings-text-font-family, HelveticaNeue)',
+      fontFamily: getFontFamily(),
       maxWidth: '180px',
       fontSize: '14px',
       marginTop: place === 'top' && tooltipOffset ? Math.abs(tooltipOffset.y) : tooltipOffset?.y,

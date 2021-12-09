@@ -54,6 +54,7 @@ const DesktopPanel = ({
         onKeyDown={onKeyDown}
         onFocus={() => onHover && onHover(option.commandKey)}
         onMouseOver={onOptionHover}
+        key={option.commandKey}
       >
         <Tooltip
           content={t?.(
@@ -68,7 +69,6 @@ const DesktopPanel = ({
             className={classNames(styles.panel_row_desktop, {
               [styles.panel_selectedRow]: isSelected,
             })}
-            key={option.commandKey}
             onClick={() => onClick(option.commandKey)}
             data-hook={dataHook}
           >

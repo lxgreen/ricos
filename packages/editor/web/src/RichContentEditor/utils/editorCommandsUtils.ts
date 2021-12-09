@@ -1,6 +1,7 @@
 import {
   EditorState,
   ContentState,
+  ContentBlock,
   DraftOffsetKey,
   getBlockType,
   RichUtils,
@@ -12,6 +13,7 @@ import {
   setInlineStyle,
   getAnchorBlockData,
   getBlockStyleRanges,
+  getSelectionRange,
 } from 'wix-rich-content-editor-common';
 import { cloneDeep, uniq, pick } from 'lodash';
 import {
@@ -80,10 +82,16 @@ const TYPE_TO_CSS_PROPERTY = {
   [RICOS_FONT_SIZE_TYPE]: 'font-size',
 };
 
+const hasTextInSelection = (block: ContentBlock, editorState: EditorState) => {
+  const blockSelectionRange = getSelectionRange(editorState, block);
+  return blockSelectionRange[0] !== blockSelectionRange[1];
+};
+
 const getSelectionStylesFromDOM = (editorState: EditorState, type: CustomInlineStyleType) => {
   let currentStyles: (string | null)[] = [];
   const styleParser = dynamicStyleParsers[type];
   getSelectedBlocks(editorState)
+    .filter(block => hasTextInSelection(block, editorState))
     .filter(block => !hasOneStyleInSelection(block, editorState, styleParser))
     .forEach(block => {
       const offsetKey = DraftOffsetKey.encode(block.getKey(), 0, 0);
@@ -119,7 +127,7 @@ export const getFontSize = (editorState: EditorState) => {
     ...getInlineStylesByType(editorState, RICOS_FONT_SIZE_TYPE),
     ...getSelectionStylesFromDOM(editorState, RICOS_FONT_SIZE_TYPE),
   ]);
-  return currentFontSizes.length > 1 || currentFontSizes.length === 0 ? '' : currentFontSizes[0];
+  return currentFontSizes.length === 1 ? currentFontSizes[0] : '';
 };
 
 const getBlockStyle = (editorState: EditorState, getDocumentStyle) => {
