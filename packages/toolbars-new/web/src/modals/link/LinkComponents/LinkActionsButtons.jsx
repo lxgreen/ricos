@@ -35,11 +35,12 @@ class LinkActionsButtons extends PureComponent {
         className={styles.LinkButtons_saveButton}
         dataHook="actionButtonSave"
         disabled={!isDoneButtonEnable}
-        text={saveLabel}
         onClick={onSave}
         size={BUTTON_SIZE.medium}
         theme={this.theme}
-      />
+      >
+        {saveLabel}
+      </Button>
     ) : (
       <div
         className={classNames(styles.LinkButtons_wrapper, {
@@ -53,12 +54,13 @@ class LinkActionsButtons extends PureComponent {
             <Button
               tabIndex={tabIndex}
               data-hook="linkPanelContainerRemove"
-              text={removeButtonText}
               onClick={onDelete}
               theme={this.theme}
               secondary
               borderless
-            />
+            >
+              {removeButtonText}
+            </Button>
           </div>
         )}
 

@@ -111,12 +111,9 @@ export class SettingsModal extends Component {
               t={t}
             >
               <div className={this.styles.preview_button}>
-                <Button
-                  borderless
-                  isMobile
-                  text={t('Poll_FormatToolbar_Preview_Tooltip')}
-                  onClick={this.openPreview}
-                />
+                <Button borderless isMobile onClick={this.openPreview}>
+                  {t('Poll_FormatToolbar_Preview_Tooltip')}
+                </Button>
               </div>
             </SettingsMobileHeader>
           ) : (

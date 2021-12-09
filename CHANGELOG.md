@@ -37,6 +37,8 @@
   - [#3229](https://github.com/wix/ricos/pull/3229) public tiptap related types moved to separate package
 - `toolbars-new`
   - [#3232](https://github.com/wix/ricos/pull/3232) `toolbarInputButton` supports disable prop
+- `ui-components`
+  - [#3233](https://github.com/wix/ricos/pull/3233) refactor settings-mobile-header/button components
 
 </details>
 <hr/>
