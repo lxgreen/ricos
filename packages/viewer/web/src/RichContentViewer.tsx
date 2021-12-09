@@ -297,7 +297,7 @@ class RichContentViewer extends Component<
         config,
         initSpoilers,
         SpoilerViewerWrapper,
-        { addAnchors },
+        { addAnchors, fixedTabSize: experiments.fixedTabSize?.enabled },
         innerRCEViewerProps,
         this.props.documentStyle
       );

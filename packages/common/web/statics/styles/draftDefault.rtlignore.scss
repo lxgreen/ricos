@@ -24,25 +24,47 @@
     /*!rtl:end:ignore*/
     -noop: 1;
   }
-  @mixin indent_blocks($depth) {
+
+  @mixin indent_blocks($depth, $indent) {
     .public-DraftStyleDefault-block-depth#{$depth}.public-DraftStyleDefault-text-ltr {
       /*!rtl:begin:ignore*/
-      margin-left: #{$depth * 40}px !important;
+      margin-left: #{$indent}em !important;
       /*!rtl:end:ignore*/
       -noop: 1;
     }
 
     .public-DraftStyleDefault-block-depth#{$depth}.public-DraftStyleDefault-text-rtl {
       /*!rtl:begin:ignore*/
+      margin-right: #{$indent}em !important;
+      /*!rtl:end:ignore*/
+      -noop: 1;
+    }
+  }
+
+  @include indent_blocks(1, 1.5);
+  @include indent_blocks(2, 3);
+  @include indent_blocks(3, 4.5);
+  @include indent_blocks(4, 6);
+
+  @mixin indent_blocks_fixed($depth) {
+    .public-DraftStyleDefault-block-depth#{$depth}.public-DraftStyleDefault-text-ltr.fixed-tab-size {
+      /*!rtl:begin:ignore*/
+      margin-left: #{$depth * 40}px !important;
+      /*!rtl:end:ignore*/
+      -noop: 1;
+    }
+
+    .public-DraftStyleDefault-block-depth#{$depth}.public-DraftStyleDefault-text-rtl.fixed-tab-size {
+      /*!rtl:begin:ignore*/
       margin-right: #{$depth * 40}px !important;
       /*!rtl:end:ignore*/
       -noop: 1;
     }
   }
-  @include indent_blocks(1);
-  @include indent_blocks(2);
-  @include indent_blocks(3);
-  @include indent_blocks(4);
+  @include indent_blocks_fixed(1);
+  @include indent_blocks_fixed(2);
+  @include indent_blocks_fixed(3);
+  @include indent_blocks_fixed(4);
   //End Text block class Names
 
   //Start Lists class Names
