@@ -24,24 +24,30 @@
   - [#3224](https://github.com/wix/ricos/pull/3224) fix font size display when empty blocks are in selection
 - `gallery`
   - [#3225](https://github.com/wix/ricos/pull/3225) fix image margin on mobile sliders
-- `tooltip`  
+- `tooltip`
   - [#3218](https://github.com/wix/ricos/pull/3218) wire font family for BM theme
 
 ### :house: Internal
 
-- `tiptap-editor`  
+- `tiptap-editor`
   - [#3217](https://github.com/wix/ricos/pull/3217) pinned tiptap versions
-- `tiptap-extensions`  
+- `tiptap-extensions`
   - [#3229](https://github.com/wix/ricos/pull/3229) core extensions moved to separate package
-- `ricos-tiptap-types`  
+- `ricos-tiptap-types`
   - [#3229](https://github.com/wix/ricos/pull/3229) public tiptap related types moved to separate package
 - `toolbars-new`
   - [#3232](https://github.com/wix/ricos/pull/3232) `toolbarInputButton` supports disable prop
+
+### :rocket: New Feature
+
+- `plugin-mention`
+  - [#3235](https://github.com/wix/ricos/pull/3235) allow white spaces
 
 </details>
 <hr/>
 
 ## 8.65.4 (Dec 06, 2021)
+
 ### :bug: Bug Fix
 
 - `ricos-content`
