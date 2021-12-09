@@ -15,7 +15,6 @@ const draftClassNames = (listType, depth, textDirection) => [
 ];
 
 const getBlockClassName = (direction, listType, depth, { isNewList, fixedTabSize }) => {
-  console.log({ fixedTabSize });
   return [
     ...draftClassNames(listType, depth, direction),
     ...(fixedTabSize ? ['fixed-tab-size'] : []),
