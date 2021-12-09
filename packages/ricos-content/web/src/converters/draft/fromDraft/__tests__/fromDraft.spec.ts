@@ -8,6 +8,9 @@ import external from './external-blocks-and-decorations.json';
 import externalMigrated from './external-blocks-and-decorations-migrated.json';
 import unsupported from './unsupported-blocks-and-decorations.json';
 import unsupportedMigrated from './unsupported-blocks-and-decorations-migrated.json';
+import galleryThumbnailNone from './gallery-with-thumbnail-placement-none.json';
+import galleryWithoutThumbnail from './gallery-without-thumbnail-placement.json';
+import galleryThumbnailMigrated from './gallery-with-thumbnail-placement-migrated.json';
 import polyfills from '../../../../../../../../e2e/tests/fixtures/polyfills.json';
 import { getTextNodes } from '../getTextNodes';
 import complexRicosFixture from '../../../../../statics/json/migratedFixtures/migration-content.json';
@@ -343,5 +346,16 @@ describe('migrate from draft', () => {
         ignoredKeys: ['id'],
       })
     ).toEqual({});
+  });
+
+  it('should convert gallery content correctly', () => {
+    const draftContents = [galleryThumbnailNone, galleryWithoutThumbnail];
+    draftContents.forEach(draftContent =>
+      expect(
+        compare(fromDraft(draftContent), RichContent.fromJSON(galleryThumbnailMigrated), {
+          ignoredKeys: ['id'],
+        })
+      ).toEqual({})
+    );
   });
 });

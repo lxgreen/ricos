@@ -7,7 +7,7 @@ import {
   NodeHocDescriptor,
   RicosExtension,
   RicosExtensionConfig,
-} from './extension-types';
+} from 'ricos-tiptap-types';
 
 const DEFAULT_HOC_DESCRTIPTOR: NodeHocDescriptor = {
   nodeTypes: [],

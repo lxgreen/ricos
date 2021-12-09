@@ -1,3 +1,5 @@
+@import '~wix-rich-content-common/dist/statics/styles/palette';
+
 $inputWidth: 50px;
 
 .sliderWithInput_label {
@@ -33,4 +35,10 @@ $inputWidth: 50px;
   font-family: inherit;
   font-size: 14px;
   max-width: 55px;
+  border: 1px solid $settings-inputs-border-color;
+  border-radius: $settings-inputs-border-radius;
+
+  &::placeholder {
+    color: var(--ricos-settings-inputs-placeholder-color, rgba(0, 0, 0, 0.6));
+  }
 }

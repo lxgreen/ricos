@@ -1,3 +1,5 @@
+@import '~wix-rich-content-common/dist/statics/styles/palette';
+
 $TITLE_HEIGHT: 0px;
 $FOOTER_HEIGHT: 100px;
 $MOBILE_HEADER_HEIGHT: 50px;
@@ -10,7 +12,7 @@ $MOBILE_HEADER_HEIGHT: 50px;
   top: 0;
   bottom: 0;
   right: 0;
-  color: #333333;
+  color: $settings-text-color;
   background: #fff;
   z-index: 7;
 }
@@ -44,7 +46,7 @@ $MOBILE_HEADER_HEIGHT: 50px;
   padding: 43px 28px 22px;
   top: 0;
   margin: 0;
-  color: #333333;
+  color: $settings-text-color;
   background-color: #fff;
   line-height: 30px;
   font-size: 18px;

@@ -120,6 +120,11 @@
         }
       },
       "anyOf": [{}]
+    },
+    "textBlockStyle": {
+      "$id": "https://wix-rich-content/text-block-style.json",
+      "title": "text block style",
+      "type": "object"
     }
   },
   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -216,6 +221,43 @@
           "$ref": "#/definitions/entityDef"
         }
       }
+    },
+    "documentStyle": {
+      "$id": "#/properties/documentStyle",
+      "type": "object",
+      "title": "document style",
+      "default": null,
+      "properties": {
+        "headerOne": {
+          "$ref": "#/definitions/textBlockStyle"
+        },
+        "headerTwo": {
+          "$ref": "#/definitions/textBlockStyle"
+        },
+        "headerThree": {
+          "$ref": "#/definitions/textBlockStyle"
+        },
+        "headerFour": {
+          "$ref": "#/definitions/textBlockStyle"
+        },
+        "headerFive": {
+          "$ref": "#/definitions/textBlockStyle"
+        },
+        "headerSix": {
+          "$ref": "#/definitions/textBlockStyle"
+        },
+        "paragraph": {
+          "$ref": "#/definitions/textBlockStyle"
+        }
+      }
+    },
+    "ID": {
+      "$id": "#/properties/ID",
+      "type": "string",
+      "title": "Content ID",
+      "description": "Unique identifier for content instance",
+      "default": "",
+      "examples": ["9c313404-169f-438a-bb7f-26fa0f56608f"]
     }
   }
 }

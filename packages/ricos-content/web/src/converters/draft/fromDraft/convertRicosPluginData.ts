@@ -151,10 +151,13 @@ const convertGalleryStyles = styles => {
     (styles.layout.numberOfColumns = styles.numberOfImagesPerRow);
   has(styles, 'gallerySizePx') && (styles.item.targetSize = styles.gallerySizePx);
   has(styles, 'cubeRatio') && (styles.item.ratio = styles.cubeRatio);
-  has(styles, 'cubeType') && (styles.item.crop = styles.cubeType.toUpperCase());
+  const cubeType = styles?.cubeType?.toUpperCase();
+  ['FIT', 'FILL'].includes(cubeType) && (styles.item.crop = cubeType);
   has(styles, 'imageMargin') && (styles.item.spacing = styles.imageMargin);
-  has(styles, 'galleryThumbnailsAlignment') &&
-    (styles.thumbnails.placement = styles.galleryThumbnailsAlignment.toUpperCase());
+  const thumbnailPlacement = styles?.galleryThumbnailsAlignment?.toUpperCase();
+  styles.thumbnails.placement = ['TOP', 'BOTTOM', 'LEFT', 'RIGHT'].includes(thumbnailPlacement)
+    ? thumbnailPlacement
+    : 'NONE';
   has(styles, 'thumbnailSpacings') && (styles.thumbnails.spacing = styles.thumbnailSpacings * 2);
   return styles;
 };

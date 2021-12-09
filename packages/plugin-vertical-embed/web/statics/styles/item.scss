@@ -11,10 +11,10 @@
   grid-column-gap: 20px;
   padding: 17px 0;
   &.selected {
-    background-color: rgba($fallbackColorTuple, 0.1);
+    background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.1);
   }
   &:hover:not(.selected) {
-    background-color: rgba($fallbackColorTuple, 0.06);
+    background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
   }
 
   .image {
@@ -33,7 +33,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    color: black;
+    color: var(--ricos-settings-text-color, #000);
     padding-right: 36px;
   }
   .title {

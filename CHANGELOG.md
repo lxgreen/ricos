@@ -17,18 +17,112 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `toolbars-new/editorCommands`
+  - [#3028](https://github.com/wix/ricos/pull/3028) fix code-block action in the new toolbar
+  - [#3224](https://github.com/wix/ricos/pull/3224) fix font size display when empty blocks are in selection
+- `gallery`
+  - [#3225](https://github.com/wix/ricos/pull/3225) fix image margin on mobile sliders
+- `tooltip`  
+  - [#3218](https://github.com/wix/ricos/pull/3218) wire font family for BM theme
+
+### :house: Internal
+
+- `tiptap-editor`  
+  - [#3217](https://github.com/wix/ricos/pull/3217) pinned tiptap versions
+- `tiptap-extensions`  
+  - [#3229](https://github.com/wix/ricos/pull/3229) core extensions moved to separate package
+- `ricos-tiptap-types`  
+  - [#3229](https://github.com/wix/ricos/pull/3229) public tiptap related types moved to separate package
+- `toolbars-new`
+  - [#3232](https://github.com/wix/ricos/pull/3232) `toolbarInputButton` supports disable prop
+- `ui-components`
+  - [#3233](https://github.com/wix/ricos/pull/3233) refactor settings-mobile-header/button components
+
+</details>
+<hr/>
+
+## 8.65.4 (Dec 06, 2021)
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3215](https://github.com/wix/ricos/pull/3215) fixed memory leak in fromDraft caused by generateId
+
+## 8.65.3 (Dec 06, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-editor`
+  - [#3232](https://github.com/wix/ricos/pull/3232) fix new formatting toolbar crash
+
+## 8.65.2 (Dec 05, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3211](https://github.com/wix/ricos/pull/3211) font size dropdown a11y
+
+## 8.65.1 (Dec 05, 2021)
+
+### :bug: Bug Fix
+
+- `tiptap-editor`
+  - [#3210](https://github.com/wix/ricos/pull/3210) set focus to editor in decoration commands
+- `tiptap-editor`
+  - [#3206](https://github.com/wix/ricos/pull/3206) add mentions plugin
+
+## 8.65.0 (Dec 05, 2021)
+
+### :rocket: New Feature
+
+- `*`
+  - [#3203](https://github.com/wix/ricos/pull/3203) icons bm theme wiring
+  - [#3207](https://github.com/wix/ricos/pull/3207) bg & hover color bm theme wiring
+
+### :bug: Bug Fix
+
+- `html`
+  - [#3204](https://github.com/wix/ricos/pull/3204) add `allowFullScreen` to html iframe
+
+### :house: Internal
+
+- `common`
+  - [#3202](https://github.com/wix/ricos/pull/3202) add `documentStyle` to the old schema
+- `ricos-content`
+  - [#3187](https://github.com/wix/ricos/pull/3187) `fromDraft` gallery converter `thumbnails.placement` defaults to `NONE`
+- `schema`
+  - [#3187](https://github.com/wix/ricos/pull/3187) add `NONE` value to gallery thumbnails.placement enum
+
+### :nail_care: Polish
+
+- `general`
+  - [#3186](https://github.com/wix/ricos/pull/3186) use button component in table settings and refactor color picker ui
+
+## 8.64.1 (Dec 02, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3201](https://github.com/wix/ricos/pull/3201) fromHtml/ck-editor: text and links under root are handled
+
+## 8.64.0 (Dec 02, 2021)
+
 ### :rocket: New Feature
 
 - `general`
-  - [#3178](https://github.com/wix/ricos/pull/3178) settings font-family wiring
+  - [#3178](https://github.com/wix/ricos/pull/3178) font-family BM theme wiring
+  - [#3181](https://github.com/wix/ricos/pull/3181) box-shadow & border-radius BM theme wiring
+  - [#3185](https://github.com/wix/ricos/pull/3185) inputs/text color BM theme wiring
 
 ### :bug: Bug Fix
 
 - `toolbars-new`
   - [#3188](https://github.com/wix/ricos/pull/3188) mobile basic link panel
-
-</details>
-<hr/>
+- `html`
+  - [#3191](https://github.com/wix/ricos/pull/3191) html iframe sandbox allows fullscreen
+- `headings`
+  - [#3196](https://github.com/wix/ricos/pull/3196) new dropdown style and a11y fixes for safari
 
 ## 8.63.7 (Nov 30, 2021)
 

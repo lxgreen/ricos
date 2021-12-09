@@ -6,7 +6,7 @@ import Styles from './styles.scss';
 import { mergeStyles } from 'wix-rich-content-common';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 import classNames from 'classnames';
-import { findOsName } from '../../Toolbar/buttonsListCreatorConsts';
+import { findOsName } from '../../Toolbar/utils';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 import ArrowIcon from './ArrowIcon';
 import { FocusManager } from 'wix-rich-content-ui-components';
@@ -47,28 +47,28 @@ const DesktopPanel = ({
       }
     };
     return (
-      <Tooltip
-        content={t?.(
-          option?.tooltip,
-          option?.tooltipShortcut &&
-            osName && {
-              shortcut: option.tooltipShortcut[osName],
-            }
-        )}
+      <div
+        className={styles.panel_row_container}
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+        tabIndex={0}
+        onKeyDown={onKeyDown}
+        onFocus={() => onHover && onHover(option.commandKey)}
+        onMouseOver={onOptionHover}
+        key={option.commandKey}
       >
-        <div
-          className={styles.panel_row_container}
-          // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-          tabIndex={0}
-          onKeyDown={onKeyDown}
-          onFocus={() => onHover(option.commandKey)}
-          onMouseOver={onOptionHover}
+        <Tooltip
+          content={t?.(
+            option?.tooltip,
+            option?.tooltipShortcut &&
+              osName && {
+                shortcut: option.tooltipShortcut[osName],
+              }
+          )}
         >
           <div
             className={classNames(styles.panel_row_desktop, {
               [styles.panel_selectedRow]: isSelected,
             })}
-            key={option.commandKey}
             onClick={() => onClick(option.commandKey)}
             data-hook={dataHook}
           >
@@ -99,9 +99,9 @@ const DesktopPanel = ({
               </div>
             )}
           </div>
-          {option.modal && customPanelOptions?.openOption === option.commandKey && option.modal}
-        </div>
-      </Tooltip>
+        </Tooltip>
+        {option.modal && customPanelOptions?.openOption === option.commandKey && option.modal}
+      </div>
     );
   };
 

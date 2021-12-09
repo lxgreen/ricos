@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-plugin-file-upload",
-  "version": "8.63.7",
+  "version": "8.65.4",
   "author": {
     "name": "Jonathan Bachman",
     "email": "jonathanb@wix.com"
@@ -37,11 +37,11 @@
     "test": "jest --verbose"
   },
   "dependencies": {
-    "ricos-content": "8.63.7",
-    "wix-rich-content-common": "8.63.7",
-    "wix-rich-content-editor-common": "8.63.7",
-    "wix-rich-content-plugin-commons": "8.63.7",
-    "wix-tiptap-editor": "8.63.7"
+    "ricos-content": "8.65.4",
+    "wix-rich-content-common": "8.65.4",
+    "wix-rich-content-editor-common": "8.65.4",
+    "wix-rich-content-plugin-commons": "8.65.4",
+    "ricos-tiptap-types": "8.65.4"
   },
   "unpkg": true,
   "publishConfig": {

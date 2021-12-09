@@ -1,5 +1,5 @@
 import React from 'react';
-import { CreateRicosExtensions } from 'wix-tiptap-editor';
+import { CreateRicosExtensions } from 'ricos-tiptap-types';
 import { BlockSpoilerComponent } from '..';
 
 const SpoilerHoc = Component => {
@@ -36,7 +36,7 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
     createExtensionConfig: () => ({
       name: 'spoiler',
       priority: 10,
-      defaultOptions,
+      addOptions: () => defaultOptions,
       addNodeHoc: () => ({
         nodeTypes: ['image'],
         priority: 10,

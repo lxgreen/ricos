@@ -5,7 +5,7 @@
   position: relative;
 
   &:hover svg {
-    fill: black;
+    fill: $settings-icons-color;
   }
 }
 
@@ -13,17 +13,17 @@
   font-weight: 300;
   font-size: 16px;
   line-height: 1.5;
-  color: $modal-input-color;
+  color: $settings-text-color;
   width: 100%;
   height: 42px;
-  border: 1px solid rgba(0, 0, 0, 0.6);
   padding-left: 18px;
   box-sizing: border-box;
   font-family: $ricos-settings-font-family;
-  border-radius: 0;
+  border: 1px solid $settings-inputs-border-color;
+  border-radius: $settings-inputs-border-radius;
 
   &::placeholder {
-    opacity: 0.6;
+    color: var(--ricos-settings-inputs-placeholder-color, rgba(0, 0, 0, 0.6));
   }
 
   &.searchIcon {
@@ -57,7 +57,7 @@
 }
 
 .focusFill {
-  fill: black;
+  fill: $settings-icons-color;
 }
 
 .unfocusFill {

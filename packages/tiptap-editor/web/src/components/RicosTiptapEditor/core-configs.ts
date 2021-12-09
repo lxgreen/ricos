@@ -1,9 +1,11 @@
-import { createDraftConfig } from '../../extensions/extension-draft';
-import { createFocusConfig } from '../../extensions/extension-focus/focus';
-import { createHistoryConfig } from '../../extensions/extension-history';
-import { createStylesConfig } from '../../extensions/extension-styles';
-import { createUniqueId } from '../../extensions/extension-unique-id';
-import { RicosExtension } from '../../models/extension-types';
+import { RicosExtension } from 'ricos-tiptap-types';
+import {
+  createDraftConfig,
+  createFocusConfig,
+  createHistoryConfig,
+  createStylesConfig,
+  createUniqueId,
+} from 'wix-tiptap-extensions';
 
 export const coreConfigs: RicosExtension[] = [
   createDraftConfig(),
