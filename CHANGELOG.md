@@ -30,7 +30,6 @@
 ### :house: Internal
 
 - `tiptap-editor`  
-  - [#3217](https://github.com/wix/ricos/pull/3217)pinned tiptap versions
   - [#3217](https://github.com/wix/ricos/pull/3217) pinned tiptap versions
 - `tiptap-extensions`  
   - [#3229](https://github.com/wix/ricos/pull/3229) core extensions moved to separate package
