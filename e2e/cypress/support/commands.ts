@@ -19,6 +19,8 @@ import RicosDriver from '../../../packages/ricos-driver/web/src/RicosDriver';
 import { merge } from 'lodash';
 import { TestAppConfig } from '../../../examples/main/src/types';
 import { TABLE_COMMANDS } from './tableCommands'; // eslint-disable-line @typescript-eslint/no-unused-vars
+import { checkValidity } from '../../../packages/common/web/src/Utils/data-schema-validator';
+import contentSchema from '../../../packages/common/web/statics/schemas/content-state.schema.json';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ToCommand<F extends (...args: any) => any> = (
@@ -114,6 +116,17 @@ const COMMANDS = {
   matchContentSnapshot: () => {
     if (Cypress.env('MATCH_CONTENT_STATE')) {
       cy.wait(ONCHANGE_DEBOUNCE_TIME);
+      let contentState;
+      cy.window()
+        .then(win => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          contentState = (win as any).__CONTENT_STATE__;
+        })
+        .then(() => {
+          const result = checkValidity(contentState, contentSchema);
+          expect(result.valid).to.equal(true);
+        });
+
       cy.window()
         .its('__CONTENT_SNAPSHOT__')
         .toMatchSnapshot();
