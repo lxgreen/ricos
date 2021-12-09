@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+
+</details>
+<hr/>
+
+## 8.65.5 (Dec 09, 2021)
 ### :bug: Bug Fix
 
 - `toolbars-new/editorCommands`
@@ -40,9 +45,6 @@
   - [#3232](https://github.com/wix/ricos/pull/3232) `toolbarInputButton` supports disable prop
 - `ui-components`
   - [#3233](https://github.com/wix/ricos/pull/3233) refactor settings-mobile-header/button components
-
-</details>
-<hr/>
 
 ## 8.65.4 (Dec 06, 2021)
 ### :bug: Bug Fix
