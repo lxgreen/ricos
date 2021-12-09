@@ -8,12 +8,8 @@ export const checkValidity = (data: Record<string, unknown>, schema: Schema): Va
   return new Validator().validate(data, schema);
 };
 
-export const validate = (
-  data: Record<string, unknown>,
-  schema: Schema,
-  shouldValidate?: boolean
-) => {
-  if (process.env.NODE_ENV !== 'production' || shouldValidate) {
+export const validate = (data: Record<string, unknown>, schema: Schema) => {
+  if (process.env.NODE_ENV !== 'production') {
     const result = checkValidity(data, schema);
     if (!result.valid && result.errors) {
       result.errors.forEach(error => console.warn('schema validation error:', error)); // eslint-disable-line no-console

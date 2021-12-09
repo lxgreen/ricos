@@ -19,7 +19,7 @@ import RicosDriver from '../../../packages/ricos-driver/web/src/RicosDriver';
 import { merge } from 'lodash';
 import { TestAppConfig } from '../../../examples/main/src/types';
 import { TABLE_COMMANDS } from './tableCommands'; // eslint-disable-line @typescript-eslint/no-unused-vars
-import { validate } from '../../../packages/common/web/src/Utils/data-schema-validator';
+import { checkValidity } from '../../../packages/common/web/src/Utils/data-schema-validator';
 import contentSchema from '../../../packages/common/web/statics/schemas/content-state.schema.json';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -120,10 +120,11 @@ const COMMANDS = {
       cy.window()
         .then(win => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          contentState = (win as any).__CONTENT_SNAPSHOT__;
+          contentState = (win as any).__CONTENT_STATE__;
         })
         .then(() => {
-          expect(validate(contentState, contentSchema, true)).to.equal(true);
+          const result = checkValidity(contentState, contentSchema);
+          expect(result.valid).to.equal(true);
         });
 
       cy.window()
