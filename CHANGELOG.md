@@ -31,13 +31,13 @@
 
 - `tiptap-editor`  
   - [#3217](https://github.com/wix/ricos/pull/3217)pinned tiptap versions
-- `button`  
-  - [#3230](https://github.com/wix/ricos/pull/3230) button settings-modal refactor
   - [#3217](https://github.com/wix/ricos/pull/3217) pinned tiptap versions
 - `tiptap-extensions`  
   - [#3229](https://github.com/wix/ricos/pull/3229) core extensions moved to separate package
 - `ricos-tiptap-types`  
   - [#3229](https://github.com/wix/ricos/pull/3229) public tiptap related types moved to separate package
+- `button`  
+  - [#3230](https://github.com/wix/ricos/pull/3230) button settings-modal refactor
 - `toolbars-new`
   - [#3232](https://github.com/wix/ricos/pull/3232) `toolbarInputButton` supports disable prop
 - `ui-components`
