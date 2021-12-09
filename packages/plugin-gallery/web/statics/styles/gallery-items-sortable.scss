@@ -116,7 +116,8 @@
   }
 }
 .topBar {
-  height: 40px;
+  min-height: 40px;
+  max-height: fit-content;
 
   &.mobile {
     box-sizing: border-box;

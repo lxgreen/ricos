@@ -24,6 +24,7 @@
   - [#3224](https://github.com/wix/ricos/pull/3224) fix font size display when empty blocks are in selection
 - `gallery`
   - [#3225](https://github.com/wix/ricos/pull/3225) fix image margin on mobile sliders
+  - [#3228](https://github.com/wix/ricos/pull/3228) fix organize media settings top buttons push items down
 - `tooltip`  
   - [#3218](https://github.com/wix/ricos/pull/3218) wire font family for BM theme
 
