@@ -69,6 +69,8 @@ interface State {
   error?: string;
   contentId?: string;
   TextFormattingToolbar?: TextFormattingToolbarType | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  convertersModule: Record<string, any> | null;
 }
 
 // controller between tiptap extensions to ricos editor
@@ -118,6 +120,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       tiptapEditorModule: null,
       tiptapToolbar: null,
       TextFormattingToolbar: null,
+      convertersModule: null,
     };
     this.useTiptap = !!props.experiments?.tiptapEditor?.enabled;
     this.useNewFormattingToolbar = !!props.experiments?.newFormattingToolbar?.enabled;
@@ -171,6 +174,13 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         'wix-tiptap-editor'
       ).then(tiptapEditorModule => {
         this.setState({ tiptapEditorModule });
+      });
+    } else {
+      import(
+        /* webpackChunkName: "ricos-content/libs/migrateSchema" */
+        'ricos-content/libs/migrateSchema'
+      ).then(convertersModule => {
+        this.setState({ convertersModule });
       });
     }
   }
@@ -314,31 +324,41 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     }
   };
 
-  initiateEssentials = () => {
-    const { activeEditor } = this.state;
-    if (activeEditor !== this.editor && this.editor) {
-      let model, commands, state;
-      if (this.useTiptap) {
-        const { tiptapEditorModule } = this.state;
-        if (!tiptapEditorModule) {
-          return;
-        }
-        const { TiptapEditorCommands, TiptapEditorModel, TiptapEditorState } = tiptapEditorModule;
-        model = new TiptapEditorModel(this.editor.editor);
-        state = new TiptapEditorState(this.editor.editor);
-        commands = new TiptapEditorCommands(this.editor.editor);
-      } else {
-        const draftEditorProps = {
-          setEditorState: this.editor.editor.updateEditorState,
-          getEditorState: this.editor.editor.getEditorState,
-        };
-        model = new DraftEditorModel(draftEditorProps.getEditorState);
-        commands = new DraftEditorCommands(draftEditorProps);
-        state = new DraftEditorState(draftEditorProps.getEditorState);
-      }
-      const essentials = { model, commands, state };
-      this.setEssentials(essentials);
+  componentDidUpdate(_prevProps, prevState) {
+    if (prevState.convertersModule !== this.state.convertersModule) {
+      this.initiateEssentials();
     }
+  }
+
+  initiateEssentials = () => {
+    let model, commands, state;
+    if (this.useTiptap) {
+      const { tiptapEditorModule } = this.state;
+      if (!tiptapEditorModule) {
+        return;
+      }
+      const { TiptapEditorCommands, TiptapEditorModel, TiptapEditorState } = tiptapEditorModule;
+      model = new TiptapEditorModel(this.editor.editor);
+      state = new TiptapEditorState(this.editor.editor);
+      commands = new TiptapEditorCommands(this.editor.editor);
+    } else {
+      const { convertersModule } = this.state;
+      if (!convertersModule) {
+        return;
+      }
+      const { fromDraft, convertNodeToDraftData } = convertersModule;
+      const setEditorState = this.editor.editor.updateEditorState;
+      const getEditorState = this.editor.editor.getEditorState;
+      model = new DraftEditorModel({ getEditorState, fromDraft });
+      commands = new DraftEditorCommands({
+        getEditorState,
+        setEditorState,
+        convertNodeToDraftData,
+      });
+      state = new DraftEditorState({ getEditorState });
+    }
+    const essentials = { model, commands, state };
+    this.setEssentials(essentials);
   };
 
   setEditorRef = ref => {
