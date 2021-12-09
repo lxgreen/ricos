@@ -122,11 +122,9 @@ export default class tableSettingsModal extends Component {
             tabIndex="0" //eslint-disable-line
             className={styles.submit}
           >
-            <Button
-              onClick={this.onCreateTableClicked}
-              dataHook={'createTableButton'}
-              text={t('TablePlugin_SettingsModal_CreateTable_Button')}
-            />
+            <Button onClick={this.onCreateTableClicked} dataHook={'createTableButton'}>
+              {t('TablePlugin_SettingsModal_CreateTable_Button')}
+            </Button>
           </div>
         </div>
       </div>

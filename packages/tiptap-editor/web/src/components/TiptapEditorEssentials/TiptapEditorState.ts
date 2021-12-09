@@ -8,5 +8,5 @@ export class TiptapEditorState implements IRicosEditorState {
     this.editor = editor;
   }
 
-  hasFocus: IRicosEditorState['hasFocus'] = () => this.editor.view.hasFocus();
+  hasFocus: IRicosEditorState['hasFocus'] = () => this.editor.isFocused;
 }

@@ -17,12 +17,21 @@
     Click to see more.
   </summary>
 
+
+</details>
+<hr/>
+
+## 8.65.5 (Dec 09, 2021)
 ### :bug: Bug Fix
+
 - `toolbars-new/editorCommands`
   - [#3028](https://github.com/wix/ricos/pull/3028) fix code-block action in the new toolbar
   - [#3224](https://github.com/wix/ricos/pull/3224) fix font size display when empty blocks are in selection
 - `gallery`
   - [#3225](https://github.com/wix/ricos/pull/3225) fix image margin on mobile sliders
+  - [#3228](https://github.com/wix/ricos/pull/3228) fix organize media settings top buttons push items down
+- `tooltip`  
+  - [#3218](https://github.com/wix/ricos/pull/3218) wire font family for BM theme
 
 ### :house: Internal
 
@@ -32,9 +41,10 @@
   - [#3229](https://github.com/wix/ricos/pull/3229) core extensions moved to separate package
 - `ricos-tiptap-types`  
   - [#3229](https://github.com/wix/ricos/pull/3229) public tiptap related types moved to separate package
-
-</details>
-<hr/>
+- `toolbars-new`
+  - [#3232](https://github.com/wix/ricos/pull/3232) `toolbarInputButton` supports disable prop
+- `ui-components`
+  - [#3233](https://github.com/wix/ricos/pull/3233) refactor settings-mobile-header/button components
 
 ## 8.65.4 (Dec 06, 2021)
 ### :bug: Bug Fix

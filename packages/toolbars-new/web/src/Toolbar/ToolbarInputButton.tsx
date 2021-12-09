@@ -73,6 +73,7 @@ class ToolbarInputButton extends Component<ToolbarInputButtonProps> {
       button: classNames(styles.toolbarButton),
       buttonWrapper: classNames(styles.toolbarButton_wrapper),
       active: classNames(styles.toolbarButton_active),
+      disabled: styles.disabled,
       arrowIcon: styles.toolbarDropdownButton_arrowIcon,
       arrowIconActive: styles.arrowIconActive,
     };
@@ -87,17 +88,19 @@ class ToolbarInputButton extends Component<ToolbarInputButtonProps> {
 
   onClick = e => {
     const ref = this.inputRef.current;
-    const { onToolbarButtonClick } = this.props;
-    onToolbarButtonClick?.();
-    if (ref) {
-      if (this.props.isActive) {
-        ref.blur();
-      } else {
-        ref.focus();
-        ref.select();
+    const { onToolbarButtonClick, disabled } = this.props;
+    if (!disabled) {
+      onToolbarButtonClick?.();
+      if (ref) {
+        if (this.props.isActive) {
+          ref.blur();
+        } else {
+          ref.focus();
+          ref.select();
+        }
       }
+      this.props.onClick?.(e);
     }
-    this.props.onClick?.(e);
   };
 
   render() {
@@ -124,6 +127,7 @@ class ToolbarInputButton extends Component<ToolbarInputButtonProps> {
 
     const wrapperClassNames = classNames(styles.buttonWrapper, {
       [styles.active]: isActive,
+      [styles.disabled]: disabled,
     });
 
     return (

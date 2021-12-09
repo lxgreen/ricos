@@ -6,8 +6,8 @@ import Styles from '../../statics/styles/button.scss';
 
 export interface ButtonProps {
   onClick: () => void;
-  text: string;
   className?: string;
+  children: React.ReactNode;
   isMobile?: boolean;
   dataHook: string;
   size?: string;
@@ -24,7 +24,7 @@ const Button: React.FC<ButtonProps> = ({
   dataHook,
   ariaLabel,
   size = BUTTON_SIZE.small,
-  text,
+  children,
   tabIndex = 0,
   disabled = false,
   secondary = false,
@@ -46,7 +46,7 @@ const Button: React.FC<ButtonProps> = ({
         [styles.mobile]: isMobile,
       })}
     >
-      {text}
+      {children}
     </button>
   );
 };
