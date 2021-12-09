@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `tiptap-editor`
+  - [#3234](https://github.com/wix/ricos/pull/3234) core commands added to core configs
 
 </details>
 <hr/>
