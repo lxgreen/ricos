@@ -35,7 +35,7 @@ $inputWidth: 50px;
   font-family: inherit;
   font-size: 14px;
   max-width: 55px;
-  border: 1px solid var(--ricos-settings-inputs-border-color, rgba(0, 0, 0, 0.6));
+  border: 1px solid $settings-inputs-border-color;
   border-radius: $settings-inputs-border-radius;
 
   &::placeholder {

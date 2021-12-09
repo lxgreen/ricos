@@ -70,11 +70,12 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
     <Button
       dataHook="actionButtonSave"
       disabled={!selected}
-      text={saveLabelText}
       onClick={onConfirm}
       size={BUTTON_SIZE.medium}
       theme={theme}
-    />
+    >
+      {saveLabelText}
+    </Button>
   );
 
   return (

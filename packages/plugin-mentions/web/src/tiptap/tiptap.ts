@@ -1,5 +1,5 @@
 import mentionDataDefaults from 'ricos-schema/dist/statics/mention.defaults.json';
-import { CreateRicosExtensions } from 'wix-tiptap-editor';
+import { CreateRicosExtensions } from 'ricos-tiptap-types';
 import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { SuggestionOptions } from '@tiptap/suggestion';
 import { PluginKey } from 'prosemirror-state';
@@ -23,6 +23,17 @@ declare module '@tiptap/core' {
     };
   }
 }
+
+const findMention = (editor, char) => {
+  const mentionRegex = new RegExp(`(?:^)?${char}[^\\s${char}]*`, 'gm');
+  const { nodeBefore, pos } = editor.state.selection.$from;
+  const { text, nodeSize: nodeBeforeSize } = nodeBefore || {};
+  const mention = text?.match(mentionRegex)?.[0];
+  const mentionIndex: number = text ? text.search(mentionRegex) : -1;
+  if (nodeBeforeSize && mention && mentionIndex !== -1) {
+    return { from: pos - nodeBeforeSize + mentionIndex, to: pos };
+  }
+};
 
 export const MentionPluginKey = new PluginKey('mention');
 
@@ -94,7 +105,12 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
             // and starts with a space character
             const nodeAfter = view.state.selection.$to.nodeAfter;
             const overrideSpace = nodeAfter?.text?.startsWith(' ');
-            const range = pos || { from: tr.selection.from, to: tr.selection.to };
+            const range = pos ||
+              findMention(editor, defaultOptions.mentionTrigger) || {
+                from: tr.selection.from,
+                to: tr.selection.to,
+              };
+
             if (overrideSpace) {
               range.to += 1;
             }

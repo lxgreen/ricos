@@ -1,5 +1,5 @@
 import dividerDataDefaults from 'ricos-schema/dist/statics/divider.defaults.json';
-import { CreateRicosExtensions } from 'wix-tiptap-editor';
+import { CreateRicosExtensions } from 'ricos-tiptap-types';
 import { Divider as Component } from './component';
 import { TIPTAP_DIVIDER_TYPE } from 'ricos-content';
 
@@ -10,7 +10,7 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
     componentDataDefaults: { ...dividerDataDefaults, id: '' },
     createExtensionConfig: () => ({
       name: TIPTAP_DIVIDER_TYPE,
-      defaultOptions,
+      addOptions: () => defaultOptions,
     }),
   },
 ];

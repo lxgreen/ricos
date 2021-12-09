@@ -3,7 +3,7 @@ import { LINK_PREVIEW_TYPE, LinkPreviewPluginEditorConfig } from './types';
 import { DEFAULTS } from './defaults';
 import { EditorPluginCreator } from 'wix-rich-content-common';
 import { createRicosExtensions } from './tiptap';
-import { TiptapEditorPlugin } from 'wix-tiptap-editor';
+import { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 export const pluginLinkPreview: EditorPluginCreator<LinkPreviewPluginEditorConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };

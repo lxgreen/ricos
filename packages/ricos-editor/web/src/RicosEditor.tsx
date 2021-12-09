@@ -36,9 +36,7 @@ import { getEmptyDraftContent, getEditorContentSummary } from 'wix-rich-content-
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
 import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
 import { getBiFunctions } from './toolbars/utils/biUtils';
-
-// eslint-disable-next-line
-import type { TiptapEditorPlugin } from 'wix-tiptap-editor';
+import { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
@@ -56,6 +54,7 @@ interface State {
   tiptapEditorModule: Record<string, any> | null;
   tiptapToolbar: unknown;
   error?: string;
+  contentId?: string;
   TextFormattingToolbar?: TextFormattingToolbarType | null;
 }
 
@@ -136,6 +135,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.loadToolbar();
     const { isMobile, toolbarSettings } = this.props;
     const { useStaticTextToolbar } = toolbarSettings || {};
+    const contentId = this.getContentID();
+    this.setState({ contentId });
     this.getBiCallback('onOpenEditorSuccess')?.(
       Version.currentVersion,
       isMobile
@@ -143,7 +144,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         : useStaticTextToolbar
         ? ToolbarType.STATIC
         : ToolbarType.INLINE,
-      this.getContentID()
+      contentId
     );
     this.props.editorEvents?.subscribe(EditorEvents.RICOS_PUBLISH, this.onPublish);
   }
@@ -354,7 +355,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   };
 
   renderNewToolbars() {
-    const { TextFormattingToolbar, activeEditor } = this.state;
+    const { TextFormattingToolbar, activeEditor, contentId } = this.state;
     const {
       isMobile,
       theme,
@@ -375,7 +376,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       : useStaticTextToolbar
       ? ToolbarType.STATIC
       : ToolbarType.INLINE;
-    const biFunctions = helpers && getBiFunctions(helpers, this.getContentID());
+    const biFunctions = helpers && getBiFunctions(helpers, contentId);
     const toolbarsProps = {
       textToolbarType,
       isMobile,
@@ -492,7 +493,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                   onUpdate={this.onUpdate}
                   onBlur={this.updateNewFormattingToolbar}
                   onSelectionUpdate={({ selectedNodes, content }) => {
-
                     //TODO: add 'textContainer' to group field of this extension config
                     const textContainers = ['paragraph', 'codeBlock', 'heading'];
                     const parentNodes =

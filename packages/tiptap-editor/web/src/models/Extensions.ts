@@ -12,7 +12,7 @@ import {
   isRicosMarkExtension,
   isRicosNodeExtension,
   RicosExtension,
-} from './extension-types';
+} from 'ricos-tiptap-types';
 import { FunctionalExtension } from './FunctionalExtension';
 import { FunctionalExtensions } from './FunctionalExtensions';
 import { IExtensionAggregate } from './IExtensionAggregate';

@@ -1,4 +1,4 @@
-import { TiptapAPI, RicosTiptapEditor } from '../../types';
+import { TiptapAPI } from '../../types';
 import { capitalize } from 'lodash';
 import {
   TranslationFunction,
@@ -20,6 +20,7 @@ import {
   NUMBERED_LIST_TYPE,
 } from 'ricos-content';
 import { TO_TIPTAP_TYPE } from '../../consts';
+import { Editor } from '@tiptap/core';
 
 const headingTypeToLevelMap = {
   'header-one': 1,
@@ -33,7 +34,7 @@ const headingTypeToLevelMap = {
 // todo : should change to RichContentInterface
 export class RichContentAdapter implements TiptapAPI {
   constructor(
-    private editor: RicosTiptapEditor,
+    private editor: Editor,
     private t: TranslationFunction,
     private plugins: EditorPlugin[]
   ) {
@@ -111,13 +112,15 @@ export class RichContentAdapter implements TiptapAPI {
 
       insertDecoration: (type, data) => {
         const decorationCommandMap = {
-          [RICOS_LINK_TYPE]: data => this.editor.commands.setLink({ link: data }),
-          [RICOS_TEXT_COLOR_TYPE]: data => this.editor.commands.setColor(data.color),
-          [RICOS_TEXT_HIGHLIGHT_TYPE]: data => this.editor.commands.setHighlight(data.color),
-          [RICOS_MENTION_TYPE]: data => this.editor.commands.insertMention(data.mention),
+          [RICOS_LINK_TYPE]: data => ({ command: 'setLink', args: { link: data } }),
+          [RICOS_TEXT_COLOR_TYPE]: data => ({ command: 'setColor', args: data.color }),
+          [RICOS_TEXT_HIGHLIGHT_TYPE]: data => ({ command: 'setHighlight', args: data.color }),
+          [RICOS_MENTION_TYPE]: data => ({ command: 'insertMention', args: data.mention }),
         };
         if (decorationCommandMap[type]) {
-          decorationCommandMap[type](data);
+          const { command, args } = decorationCommandMap[type](data);
+          const editorCommand = this.editor.chain().focus();
+          editorCommand[command](args).run();
         } else {
           console.error(`${type} decoration not supported`);
         }
@@ -162,11 +165,23 @@ export class RichContentAdapter implements TiptapAPI {
       },
       setBlockType: type => {
         const blockTypeCommandMap = {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           [UNSTYLED]: () => this.editor.commands.setParagraph(),
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           [HEADINGS_TYPE]: level => this.editor.commands.toggleHeading({ level }),
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           [BLOCKQUOTE]: () => this.editor.commands.toggleBlockquote(),
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           [CODE_BLOCK_TYPE]: () => this.editor.commands.toggleCodeBlock(),
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           [BULLET_LIST_TYPE]: () => this.editor.commands.toggleBulletList(),
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           [NUMBERED_LIST_TYPE]: () => this.editor.commands.toggleOrderedList(),
         };
         if (Object.values(HEADER_BLOCK).includes(type)) {
