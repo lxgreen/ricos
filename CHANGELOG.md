@@ -17,6 +17,22 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.65.6 (Dec 09, 2021)
+
+### :bug: Bug Fix
+
+- `tiptap-editor`
+  - [#3234](https://github.com/wix/ricos/pull/3234) core commands added to core configs
+- `tiptap-editor`
+  - [#3240](https://github.com/wix/ricos/pull/3240) fix deleteNode command to delete also first node
+- `draft-schema`
+  - [#3214](https://github.com/wix/ricos/pull/3214) add validation test to draft schema
+
+## 8.65.5 (Dec 09, 2021)
+
 ### :bug: Bug Fix
 
 - `toolbars-new/editorCommands`
@@ -24,26 +40,25 @@
   - [#3224](https://github.com/wix/ricos/pull/3224) fix font size display when empty blocks are in selection
 - `gallery`
   - [#3225](https://github.com/wix/ricos/pull/3225) fix image margin on mobile sliders
-- `tooltip`  
+  - [#3228](https://github.com/wix/ricos/pull/3228) fix organize media settings top buttons push items down
+- `tooltip`
   - [#3218](https://github.com/wix/ricos/pull/3218) wire font family for BM theme
 
 ### :house: Internal
 
-- `tiptap-editor`  
+- `tiptap-editor`
   - [#3217](https://github.com/wix/ricos/pull/3217) pinned tiptap versions
-- `tiptap-extensions`  
+- `tiptap-extensions`
   - [#3229](https://github.com/wix/ricos/pull/3229) core extensions moved to separate package
-- `ricos-tiptap-types`  
+- `ricos-tiptap-types`
   - [#3229](https://github.com/wix/ricos/pull/3229) public tiptap related types moved to separate package
 - `toolbars-new`
   - [#3232](https://github.com/wix/ricos/pull/3232) `toolbarInputButton` supports disable prop
 - `ui-components`
   - [#3233](https://github.com/wix/ricos/pull/3233) refactor settings-mobile-header/button components
 
-</details>
-<hr/>
-
 ## 8.65.4 (Dec 06, 2021)
+
 ### :bug: Bug Fix
 
 - `ricos-content`
