@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3220](https://github.com/wix/ricos/pull/3220) disable toolbar when atomic plugin selected
+
 </details>
 <hr/>
 

@@ -261,6 +261,7 @@ export class RichContentAdapter implements TiptapAPI {
     clearSelectedBlocksInlineStyles: () => {},
     getWiredFontStyles: () => undefined,
     isAtomicBlockInSelection: () => false,
+    isTextBlockInSelection: () => true,
     getAnchorBlockType: () => 'paragraph',
   };
 }
