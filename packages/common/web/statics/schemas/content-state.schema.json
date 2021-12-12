@@ -101,7 +101,9 @@
             "wix-draft-plugin-link-preview",
             "ANCHOR",
             "wix-rich-content-plugin-table",
-            "wix-rich-content-plugin-collapsible-list"
+            "wix-rich-content-plugin-collapsible-list",
+            "EMOJI_TYPE",
+            "ricos-plugin-custom-link"
           ],
           "title": "entity type",
           "examples": ["wix-draft-plugin-image"]
