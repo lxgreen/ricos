@@ -23,6 +23,9 @@
   - [#3220](https://github.com/wix/ricos/pull/3220) disable toolbar when atomic plugin selected
   - [#3236](https://github.com/wix/ricos/pull/3236) color picker buttons in static toolbar when collapsed
 
+- `editor-common`
+  - [#3239](https://github.com/wix/ricos/pull/3239) improve overflow utils logic
+
 </details>
 <hr/>
 
