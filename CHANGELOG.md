@@ -69,6 +69,7 @@
   - [#3232](https://github.com/wix/ricos/pull/3232) `toolbarInputButton` supports disable prop
 - `ui-components`
   - [#3233](https://github.com/wix/ricos/pull/3233) refactor settings-mobile-header/button components
+  - [#3244](https://github.com/wix/ricos/pull/3244) refactor slider components
 
 ## 8.65.4 (Dec 06, 2021)
 
