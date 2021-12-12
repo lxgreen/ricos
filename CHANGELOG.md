@@ -26,6 +26,12 @@
 - `editor-common`
   - [#3239](https://github.com/wix/ricos/pull/3239) improve overflow utils logic
 
+### :nail_care: Polish
+
+- `ui-components - settings-modal`
+  - [#3139](https://github.com/wix/ricos/pull/3139) created settingsPanelHeader component and consume it in
+    video/map/button/gallery/image/collopsible-list plugins
+
 </details>
 <hr/>
 
