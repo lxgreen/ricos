@@ -30,6 +30,8 @@
   
 - `tiptap-editor`
   - [#3246](https://github.com/wix/ricos/pull/3246) React vs HTML node extension models
+- `tiptap-extensions`
+  - [#3248](https://github.com/wix/ricos/pull/3248) refactored bold, paragraph, spoiler extensions
 
 ### :nail_care: Polish
 
