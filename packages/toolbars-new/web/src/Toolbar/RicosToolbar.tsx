@@ -60,6 +60,7 @@ interface RicosToolbarProps {
   getEditorContainer: () => Element;
   cssOverride?: RicosCssOverride;
   configButtonsMapper?: any;
+  disabled?: boolean;
 }
 
 class RicosToolbar extends Component<RicosToolbarProps> {
@@ -111,6 +112,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       getEditorContainer,
       cssOverride,
       configButtonsMapper,
+      disabled,
     } = this.props;
     const updatedButtons = createButtonsList({
       buttons,
@@ -140,6 +142,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
         nestedMenu={nestedMenu}
         onToolbarButtonClick={this.props.onToolbarButtonClick}
         getEditorContainer={getEditorContainer}
+        disabled={disabled}
       />
     );
   }

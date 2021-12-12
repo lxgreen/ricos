@@ -1,4 +1,5 @@
 import { RicosExtension } from 'ricos-tiptap-types';
+import { createCommandsConfig } from '../../core-commands';
 import {
   createDraftConfig,
   createFocusConfig,
@@ -13,4 +14,5 @@ export const coreConfigs: RicosExtension[] = [
   createStylesConfig(),
   createFocusConfig(),
   createUniqueId(),
+  createCommandsConfig(),
 ];

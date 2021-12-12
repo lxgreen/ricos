@@ -26,6 +26,7 @@ import {
   getAnchorableBlocks,
   removeCurrentInlineStyle,
   isAtomicBlockInSelection,
+  isTextBlockInSelection,
   scrollToBlock,
   insertCustomLink,
   getSelectedBlocks,
@@ -166,6 +167,7 @@ export const createEditorCommands = (
     getAnchorBlockInlineStyles: EditorCommands['getAnchorBlockInlineStyles'];
     getWiredFontStyles: EditorCommands['getWiredFontStyles'];
     isAtomicBlockInSelection: EditorCommands['isAtomicBlockInSelection'];
+    isTextBlockInSelection: EditorCommands['isTextBlockInSelection'];
     getAnchorBlockType: EditorCommands['getAnchorBlockType'];
   } = {
     getSelection: () => {
@@ -198,8 +200,15 @@ export const createEditorCommands = (
       setEditorState(EditorState.forceSelection(savedEditorState, selection));
     },
     saveSelectionState: () => (savedSelectionState = getEditorState().getSelection()),
-    loadSelectionState: () =>
-      setEditorState(EditorState.forceSelection(getEditorState(), savedSelectionState)),
+    loadSelectionState: () => {
+      const editorState = getEditorState();
+      const inlineStyleOverride = editorState.getInlineStyleOverride();
+      const newEditorState = EditorState.setInlineStyleOverride(
+        EditorState.forceSelection(editorState, savedSelectionState),
+        inlineStyleOverride
+      );
+      setEditorState(newEditorState);
+    },
     getPluginsList: settings => {
       const { isRicosSchema } = settings || {};
       const pluginsList = plugins?.map(plugin =>
@@ -229,6 +238,7 @@ export const createEditorCommands = (
       return blocks.some(block => block.getKey() === blockKey);
     },
     isAtomicBlockInSelection: () => isAtomicBlockInSelection(getEditorState()),
+    isTextBlockInSelection: () => isTextBlockInSelection(getEditorState()),
     getAnchorBlockType: () => getBlockType(getEditorState()),
   };
 

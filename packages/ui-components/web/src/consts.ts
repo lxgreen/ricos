@@ -30,6 +30,8 @@ import { ModalStyles } from 'wix-rich-content-common';
 //   top: 12,
 //   left: 15,
 // });
+export const ACTION_COLORS_CSS_VAR =
+  'var(--ricos-settings-action-color, var(--ricos-action-color-fallback, #0261ff))';
 
 export const FOOTER_BUTTON_ALIGNMENT = Object.freeze({
   CENTER: 'center',
