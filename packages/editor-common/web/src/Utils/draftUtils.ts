@@ -492,6 +492,10 @@ export const isAtomicBlockInSelection = (editorState: EditorState) => {
   return getSelectedBlocks(editorState).some(block => block.getType() === 'atomic');
 };
 
+export const isTextBlockInSelection = (editorState: EditorState) => {
+  return getSelectedBlocks(editorState).some(block => block.getType() !== 'atomic');
+};
+
 export const getSelectionRange = (editorState: EditorState, block: ContentBlock) => {
   const selection = getSelection(editorState);
   const blockKey = block.getKey();

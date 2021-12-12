@@ -17,6 +17,15 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3220](https://github.com/wix/ricos/pull/3220) disable toolbar when atomic plugin selected
+  - [#3236](https://github.com/wix/ricos/pull/3236) color picker buttons in static toolbar when collapsed
+
+- `editor-common`
+  - [#3239](https://github.com/wix/ricos/pull/3239) improve overflow utils logic
+
 </details>
 <hr/>
 
@@ -43,6 +52,8 @@
   - [#3228](https://github.com/wix/ricos/pull/3228) fix organize media settings top buttons push items down
 - `tooltip`
   - [#3218](https://github.com/wix/ricos/pull/3218) wire font family for BM theme
+- `button`  
+  - [#3238](https://github.com/wix/ricos/pull/3238) fix color picker style inside settings modal
 
 ### :house: Internal
 
@@ -56,6 +67,7 @@
   - [#3232](https://github.com/wix/ricos/pull/3232) `toolbarInputButton` supports disable prop
 - `ui-components`
   - [#3233](https://github.com/wix/ricos/pull/3233) refactor settings-mobile-header/button components
+  - [#3244](https://github.com/wix/ricos/pull/3244) refactor slider components
 
 ## 8.65.4 (Dec 06, 2021)
 
