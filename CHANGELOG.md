@@ -27,6 +27,7 @@
   - [#3239](https://github.com/wix/ricos/pull/3239) improve overflow utils logic
 
 ### : house: Internal
+
 - `button`  
   - [#3230](https://github.com/wix/ricos/pull/3230) button settings-modal refactor
 
