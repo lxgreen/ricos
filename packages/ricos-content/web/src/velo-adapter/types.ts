@@ -1,4 +1,4 @@
-import { RichContent } from 'ricos-schema';
+import { Node, RichContent } from 'ricos-schema';
 import { Overwrite } from 'utility-types';
 import { ContentBuilder } from '../types';
 
@@ -11,6 +11,7 @@ export interface ImageElement {
   alt?: string;
 }
 
+// TODO: modify `addImage.ts` file to work with the new pattern, and change this type
 export type AddImageParams = Omit<
   Overwrite<
     OriginalAddImageParams,
@@ -22,11 +23,10 @@ export type AddImageParams = Omit<
 >;
 
 export type ContentBuilderAdapter = {
-  [key in keyof ContentBuilder]: (
-    param?: Omit<Parameters<ContentBuilder[key]>[0], 'content'>
-  ) => ContentBuilderAdapter;
-} & {
-  addImage: (params: AddImageParams) => ContentBuilderAdapter;
+  append: (node: Node) => ContentBuilderAdapter;
+  insertBefore: (id: string, node: Node) => ContentBuilderAdapter;
+  insertAfter: (id: string, node: Node) => ContentBuilderAdapter;
+  insertAt: (index: number, node: Node) => ContentBuilderAdapter;
   get: () => RichContent;
 };
 

@@ -1,42 +1,21 @@
-import { setupContentBuilder } from '../RicosContentAPI/RicosContentBuilder';
-import { generateId } from '../converters/generateRandomId';
-import { flow } from 'lodash';
-import { pipe } from 'fp-ts/function';
-import { applyContent } from './consts';
-import { RichContent } from 'ricos-schema';
 import { ContentBuilderAdapter, CreateBuilder } from './types';
-import { ContentBuilder } from '../types';
-import { addImage } from './addImage';
-
-const extractBuilderMethods: (
-  builder: ReturnType<typeof setupContentBuilder>
-) => ContentBuilder = ({ RicosContentBuilder: _, ...rest }) => rest;
+import { addNode } from '../RicosContentAPI/builder-utils';
+import { RichContent } from 'ricos-schema';
+import { pipe } from 'fp-ts/function';
 
 const notify: CreateBuilder = (content, callback) => {
   callback?.(content);
   return createBuilder(content, callback);
 };
 
-const applyBuilderPattern: (
-  content: RichContent,
-  callback?: (content: RichContent) => void
-) => (methods: ContentBuilder) => ContentBuilderAdapter = (content, callback) => methods =>
-  Object.entries(methods).reduce(
-    (prev, [key, func]: [string, (arg) => RichContent]) => ({
-      ...prev,
-      [key]: flow(applyContent(content), func, newContent => notify(newContent, callback)),
-    }),
-    {} as ContentBuilderAdapter
-  );
-
 export const createBuilder: CreateBuilder = (content, callback?) => {
-  const originalMethods = pipe(generateId, setupContentBuilder, extractBuilderMethods);
-  const adapterMethods = pipe(originalMethods, applyBuilderPattern(content, callback));
+  const createNewBuilder = (content: RichContent): ContentBuilderAdapter =>
+    notify(content, callback);
   return {
-    ...adapterMethods,
-    addImage: flow(addImage, applyContent(content), originalMethods.addImage, newContent =>
-      notify(newContent, callback)
-    ),
+    append: node => pipe(addNode({ node, content }), createNewBuilder),
+    insertBefore: (id, node) => pipe(addNode({ node, content, before: id }), createNewBuilder),
+    insertAfter: (id, node) => pipe(addNode({ node, content, after: id }), createNewBuilder),
+    insertAt: (index, node) => pipe(addNode({ node, content, index }), createNewBuilder),
     get: () => content,
   };
 };
