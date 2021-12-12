@@ -200,8 +200,15 @@ export const createEditorCommands = (
       setEditorState(EditorState.forceSelection(savedEditorState, selection));
     },
     saveSelectionState: () => (savedSelectionState = getEditorState().getSelection()),
-    loadSelectionState: () =>
-      setEditorState(EditorState.forceSelection(getEditorState(), savedSelectionState)),
+    loadSelectionState: () => {
+      const editorState = getEditorState();
+      const inlineStyleOverride = editorState.getInlineStyleOverride();
+      const newEditorState = EditorState.setInlineStyleOverride(
+        EditorState.forceSelection(editorState, savedSelectionState),
+        inlineStyleOverride
+      );
+      setEditorState(newEditorState);
+    },
     getPluginsList: settings => {
       const { isRicosSchema } = settings || {};
       const pluginsList = plugins?.map(plugin =>

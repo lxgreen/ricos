@@ -21,6 +21,7 @@
 
 - `toolbars-new`
   - [#3220](https://github.com/wix/ricos/pull/3220) disable toolbar when atomic plugin selected
+  - [#3236](https://github.com/wix/ricos/pull/3236) color picker buttons in static toolbar when collapsed
 
 </details>
 <hr/>
