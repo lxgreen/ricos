@@ -74,6 +74,16 @@ export const updateDocumentStyle = (editorState: EditorState, documentStyle: Doc
 
 const getInlineStylesByType = (editorState: EditorState, type: CustomInlineStyleType) => {
   const styleParser = dynamicStyleParsers[type];
+  const selection = editorState.getSelection();
+  if (selection.isCollapsed()) {
+    const currentStyles = editorState.getCurrentInlineStyle();
+    const currentStylesAsArray = currentStyles.toJS();
+    let styleToReturn;
+    currentStylesAsArray.forEach(style => {
+      styleToReturn = styleParser?.(style) ? styleParser?.(style) : styleToReturn;
+    });
+    return [styleToReturn];
+  }
   return getSelectionStyles(editorState, styleParser).map(style => styleParser(style));
 };
 

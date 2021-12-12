@@ -1,7 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { ColorPicker } from 'wix-rich-content-plugin-commons';
-import { SettingsSection, SliderWithInput } from 'wix-rich-content-ui-components';
+import {
+  SettingsSection,
+  SliderWithInput,
+  SettingsSeparator,
+} from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 import ColorToggleComponent from './color-toggle-component';
 import { COLOR_PICKER_TYPE } from '../constants';
@@ -181,6 +185,7 @@ class DesignComponent extends PureComponent {
                   <div>{renderUserColors()}</div>
                   <div>{renderAddColorButton()}</div>
                 </div>
+                <SettingsSeparator top bottom />
               </div>
             )}
           </ColorPicker>
@@ -229,6 +234,7 @@ class DesignComponent extends PureComponent {
             </div>
           </div>
         </SettingsSection>
+        <SettingsSeparator top bottom />
         <SettingsSection
           theme={theme}
           ariaProps={{ 'aria-label': 'color selection', role: 'region' }}

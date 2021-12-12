@@ -18,6 +18,13 @@
   </summary>
 
 ### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3220](https://github.com/wix/ricos/pull/3220) disable toolbar when atomic plugin selected
+  - [#3236](https://github.com/wix/ricos/pull/3236) color picker buttons in static toolbar when collapsed
+
+- `editor-common`
+  - [#3239](https://github.com/wix/ricos/pull/3239) improve overflow utils logic
 - `headings`
   - [#3163](https://github.com/wix/ricos/pull/3163) fix lists wiring to `documentStyle`
 
@@ -27,8 +34,7 @@
 ## 8.65.6 (Dec 09, 2021)
 
 ### :bug: Bug Fix
-- `headings`
-  - [#3163](https://github.com/wix/ricos/pull/3163) fix lists wiring to `documentStyle`
+
 - `tiptap-editor`
   - [#3234](https://github.com/wix/ricos/pull/3234) core commands added to core configs
 - `tiptap-editor`
@@ -48,6 +54,8 @@
   - [#3228](https://github.com/wix/ricos/pull/3228) fix organize media settings top buttons push items down
 - `tooltip`
   - [#3218](https://github.com/wix/ricos/pull/3218) wire font family for BM theme
+- `button`  
+  - [#3238](https://github.com/wix/ricos/pull/3238) fix color picker style inside settings modal
 
 ### :house: Internal
 

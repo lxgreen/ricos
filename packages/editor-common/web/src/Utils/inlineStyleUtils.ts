@@ -99,6 +99,17 @@ export const removeCurrentInlineStyle = (
   styleSelectionPredicate?: (style: string) => unknown
 ) => {
   const selection = editorState.getSelection();
+  if (selection.isCollapsed()) {
+    const currentStyles = editorState.getCurrentInlineStyle();
+    const currentStylesAsArray = currentStyles.toJS();
+    let newCurrentStyles = currentStyles;
+    currentStylesAsArray.forEach(style => {
+      if (styleSelectionPredicate?.(style)) {
+        newCurrentStyles = newCurrentStyles.remove(style);
+      }
+    });
+    return EditorState.setInlineStyleOverride(editorState, newCurrentStyles);
+  }
   const currentStyles = getSelectionStyles(editorState, styleSelectionPredicate);
   return currentStyles.reduce((nextEditorState, style) => {
     const contentState = nextEditorState.getCurrentContent();
@@ -109,6 +120,10 @@ export const removeCurrentInlineStyle = (
 
 export const setInlineStyle = (editorState: EditorState, inlineStyle: string) => {
   const selection = editorState.getSelection();
+  if (selection.isCollapsed()) {
+    const currentStyle = editorState.getCurrentInlineStyle();
+    return EditorState.setInlineStyleOverride(editorState, currentStyle.add(inlineStyle));
+  }
   const contentState = Modifier.applyInlineStyle(
     editorState.getCurrentContent(),
     selection,
