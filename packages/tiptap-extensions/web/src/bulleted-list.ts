@@ -1,4 +1,6 @@
-import { Node, mergeAttributes, wrappingInputRule } from '@tiptap/core';
+import { wrappingInputRule } from '@tiptap/core';
+import { RicosExtension } from 'ricos-tiptap-types';
+import { DOMOutputSpec } from 'prosemirror-model';
 
 export interface BulletListOptions {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,49 +20,54 @@ declare module '@tiptap/core' {
 
 export const inputRegex = /^\s*([-+*])\s$/;
 
-const BulletList = Node.create<BulletListOptions>({
-  name: 'bulletedList',
+export const createBulletedList = (): RicosExtension => ({
+  type: 'node' as const,
+  createExtensionConfig: ({ mergeAttributes }) => ({
+    name: 'bulletedList',
 
-  addOptions() {
-    return {
-      HTMLAttributes: {},
-    };
-  },
+    addOptions() {
+      return {
+        HTMLAttributes: {},
+      };
+    },
 
-  group: 'block list',
+    group: 'block list',
 
-  content: 'listItem+',
+    content: 'listItem+',
 
-  parseHTML() {
-    return [{ tag: 'ul' }];
-  },
+    parseHTML() {
+      return [{ tag: 'ul' }];
+    },
 
-  renderHTML({ HTMLAttributes }) {
-    return ['ul', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
-  },
+    renderHTML({ HTMLAttributes }) {
+      return [
+        'ul',
+        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+        0,
+      ] as DOMOutputSpec;
+    },
 
-  addCommands() {
-    return {
-      toggleBulletList: () => ({ commands }) => {
-        return commands.toggleList(this.name, 'listItem');
-      },
-    };
-  },
+    addCommands() {
+      return {
+        toggleBulletList: () => ({ commands }) => {
+          return commands.toggleList(this.name, 'listItem');
+        },
+      };
+    },
 
-  addKeyboardShortcuts() {
-    return {
-      'Mod-Shift-8': () => this.editor.commands.toggleBulletList(),
-    };
-  },
+    addKeyboardShortcuts() {
+      return {
+        'Mod-Shift-8': () => this.editor.commands.toggleBulletList(),
+      };
+    },
 
-  addInputRules() {
-    return [
-      wrappingInputRule({
-        find: inputRegex,
-        type: this.type,
-      }),
-    ];
-  },
+    addInputRules() {
+      return [
+        wrappingInputRule({
+          find: inputRegex,
+          type: this.type,
+        }),
+      ];
+    },
+  }),
 });
-
-export const createBulletedList = () => BulletList;
