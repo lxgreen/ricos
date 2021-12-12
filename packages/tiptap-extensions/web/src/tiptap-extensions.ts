@@ -15,7 +15,6 @@ import OrderedList from '@tiptap/extension-ordered-list';
 import ListItem from '@tiptap/extension-list-item';
 import { Paragraph } from './paragraph';
 import { createBold } from './bold';
-import { createBulletedList } from './bulleted-list';
 import { createSpoiler } from './spoiler';
 import headingDataDefaults from 'ricos-schema/dist/statics/heading.defaults.json';
 import { Attributes } from '@tiptap/react';
@@ -48,7 +47,6 @@ export const tiptapExtensions: AnyExtension[] = [
   OrderedList,
   Paragraph,
   Text,
-  createBulletedList(),
   createBold(),
   CodeBlock.configure({
     HTMLAttributes: {

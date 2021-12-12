@@ -57,7 +57,7 @@ export type RicosNodeExtension = {
   }: {
     mergeAttributes: typeof mergeAttributesFn;
   }) => NodeConfig;
-  Component: ComponentType;
+  Component?: ComponentType;
   componentDataDefaults?: any;
 };
 

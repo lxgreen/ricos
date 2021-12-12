@@ -25,6 +25,17 @@
 
 - `editor-common`
   - [#3239](https://github.com/wix/ricos/pull/3239) improve overflow utils logic
+  
+### :house: Internal
+  
+- `tiptap-editor`
+  - [#3246](https://github.com/wix/ricos/pull/3246) React vs HTML node extension models
+
+### :nail_care: Polish
+
+- `ui-components - settings-modal`
+  - [#3139](https://github.com/wix/ricos/pull/3139) created settingsPanelHeader component and consume it in
+    video/map/button/gallery/image/collopsible-list plugins
 
 </details>
 <hr/>
