@@ -69,8 +69,7 @@ interface State {
   error?: string;
   contentId?: string;
   TextFormattingToolbar?: TextFormattingToolbarType | null;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  convertersModule: Record<string, any> | null;
+  essentials?: IRicosEditorEssentials;
 }
 
 // controller between tiptap extensions to ricos editor
@@ -98,8 +97,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   linkToolbarRef!: Record<'updateToolbar', () => void>;
 
-  essentials?: IRicosEditorEssentials;
-
   static getDerivedStateFromError(error: string) {
     return { error };
   }
@@ -120,7 +117,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       tiptapEditorModule: null,
       tiptapToolbar: null,
       TextFormattingToolbar: null,
-      convertersModule: null,
     };
     this.useTiptap = !!props.experiments?.tiptapEditor?.enabled;
     this.useNewFormattingToolbar = !!props.experiments?.newFormattingToolbar?.enabled;
@@ -151,6 +147,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.updateLocale();
     this.loadEditor();
     this.loadToolbar();
+    this.loadConverters();
     const { isMobile, toolbarSettings } = this.props;
     const { useStaticTextToolbar } = toolbarSettings || {};
     const contentId = this.getContentID();
@@ -175,13 +172,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       ).then(tiptapEditorModule => {
         this.setState({ tiptapEditorModule });
       });
-    } else {
-      import(
-        /* webpackChunkName: "ricos-content/libs/converters" */
-        'ricos-content/libs/converters'
-      ).then(convertersModule => {
-        this.setState({ convertersModule });
-      });
     }
   }
 
@@ -192,6 +182,17 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         './toolbars/TextFormattingToolbar'
       ).then(textFormattingToolbarModule => {
         this.setState({ TextFormattingToolbar: textFormattingToolbarModule?.default });
+      });
+    }
+  }
+
+  loadConverters() {
+    if (!this.useTiptap) {
+      import(
+        /* webpackChunkName: "ricos-content/libs/converters" */
+        'ricos-content/libs/converters'
+      ).then(draftConvertersModule => {
+        this.initiateDraftEditorEssentials(draftConvertersModule);
       });
     }
   }
@@ -324,57 +325,45 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     }
   };
 
-  componentDidUpdate(_prevProps, prevState) {
-    if (prevState.convertersModule !== this.state.convertersModule) {
-      this.initiateEssentials();
-    }
-  }
+  initiateDraftEditorEssentials = draftConvertersModule => {
+    const {
+      fromDraft,
+      convertNodeToDraftData: toDraftData,
+      FROM_RICOS_ENTITY_TYPE: toDraftType,
+    } = draftConvertersModule;
+    const setEditorState = this.editor.editor.updateEditorState;
+    const getEditorState = this.editor.editor.getEditorState;
+    const model = new DraftEditorModel({ getEditorState, fromDraft });
+    const commands = new DraftEditorCommands({
+      getEditorState,
+      setEditorState,
+      toDraftData,
+      toDraftType,
+    });
+    const state = new DraftEditorState({ getEditorState });
+    this.setEssentials({ model, state, commands });
+  };
 
-  initiateEssentials = () => {
-    let model, commands, state;
-    if (this.useTiptap) {
-      const { tiptapEditorModule } = this.state;
-      if (!tiptapEditorModule) {
-        return;
-      }
-      const { TiptapEditorCommands, TiptapEditorModel, TiptapEditorState } = tiptapEditorModule;
-      model = new TiptapEditorModel(this.editor.editor);
-      state = new TiptapEditorState(this.editor.editor);
-      commands = new TiptapEditorCommands(this.editor.editor);
-    } else {
-      const { convertersModule } = this.state;
-      if (!convertersModule) {
-        return;
-      }
-      const {
-        fromDraft,
-        convertNodeToDraftData: toDraftData,
-        FROM_RICOS_ENTITY_TYPE: toDraftType,
-      } = convertersModule;
-      const setEditorState = this.editor.editor.updateEditorState;
-      const getEditorState = this.editor.editor.getEditorState;
-      model = new DraftEditorModel({ getEditorState, fromDraft });
-      commands = new DraftEditorCommands({
-        getEditorState,
-        setEditorState,
-        toDraftData,
-        toDraftType,
-      });
-      state = new DraftEditorState({ getEditorState });
+  initiateTiptapEditorEssentials = editor => {
+    const { tiptapEditorModule } = this.state;
+    if (!tiptapEditorModule) {
+      return;
     }
-    const essentials = { model, commands, state };
-    this.setEssentials(essentials);
+    const { TiptapEditorCommands, TiptapEditorModel, TiptapEditorState } = tiptapEditorModule;
+    const model = new TiptapEditorModel(editor);
+    const state = new TiptapEditorState(editor);
+    const commands = new TiptapEditorCommands(editor);
+    this.setEssentials({ model, state, commands });
   };
 
   setEditorRef = ref => {
     this.editor = ref;
     this.setActiveEditor(ref);
-    this.initiateEssentials();
   };
 
   getEditorCommands = () => this.editor.getEditorCommands();
 
-  getEssentials = () => this.essentials;
+  getEssentials = () => this.state.essentials;
 
   getT = () => this.editor.getT();
 
@@ -390,7 +379,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   }
 
   setEssentials = (essentials: IRicosEditorEssentials) => {
-    this.essentials = essentials;
+    this.setState({ essentials });
     // For Demo purposes Only
     if (!isSSR()) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -567,6 +556,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                   onLoad={editor => {
                     const richContentAdapter = new RichContentAdapter(editor, t, plugins);
                     this.setEditorRef(richContentAdapter);
+                    this.initiateTiptapEditorEssentials(editor);
                     const TextToolbar = richContentAdapter.getToolbars().TextToolbar;
                     this.setState({ tiptapToolbar: TextToolbar });
                   }}
