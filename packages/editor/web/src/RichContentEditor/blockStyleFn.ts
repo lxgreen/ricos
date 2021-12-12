@@ -73,7 +73,7 @@ export default (
       );
     }
 
-    const docStyleClass = DOC_STYLE_CLASSES[DRAFT_TO_DOC_TYPE[type]];
+    const docStyleClass = DOC_STYLE_CLASSES[DRAFT_TO_DOC_TYPE[type] || type];
     const dynamicClasses = [...Object.entries(dynamicStyles).map(styleToClass), docStyleClass];
 
     return classNames(...classList, ...dynamicClasses);

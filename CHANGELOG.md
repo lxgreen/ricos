@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+- `headings`
+  - [#3163](https://github.com/wix/ricos/pull/3163) fix lists wiring to `documentStyle`
+
 </details>
 <hr/>
 

@@ -1260,7 +1260,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       });
       const paragrphStyle = documentStyle[DOC_STYLE_TYPES.P];
       paragrphStyle &&
-        [DOC_STYLE_CLASSES.orderedList, DOC_STYLE_CLASSES.unorderedList].forEach(
+        [DOC_STYLE_CLASSES['ordered-list-item'], DOC_STYLE_CLASSES['unordered-list-item']].forEach(
           className => (styles[className] = this.objectToCss(paragrphStyle))
         );
     }
