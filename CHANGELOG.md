@@ -43,6 +43,8 @@
   - [#3228](https://github.com/wix/ricos/pull/3228) fix organize media settings top buttons push items down
 - `tooltip`
   - [#3218](https://github.com/wix/ricos/pull/3218) wire font family for BM theme
+- `button`  
+  - [#3238](https://github.com/wix/ricos/pull/3238) fix color picker style inside settings modal
 
 ### :house: Internal
 
