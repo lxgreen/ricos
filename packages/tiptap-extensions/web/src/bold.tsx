@@ -1,94 +1,105 @@
-import { Mark, markInputRule, markPasteRule, mergeAttributes } from '@tiptap/core';
+import { markInputRule, markPasteRule, mergeAttributes } from '@tiptap/core';
+import { RicosMarkExtension } from 'ricos-tiptap-types';
 
-export interface BoldOptions {
-  HTMLAttributes: Record<string, unknown>;
+declare module '@tiptap/core' {
+  interface Commands<ReturnType> {
+    bold: {
+      /**
+       * Set a bold mark
+       */
+      setBold: () => ReturnType;
+      /**
+       * Toggle a bold mark
+       */
+      toggleBold: () => ReturnType;
+      /**
+       * Unset a bold mark
+       */
+      unsetBold: () => ReturnType;
+    };
+  }
 }
 
-interface Commands<ReturnType> {
-  bold: {
-    /**
-     * Set a bold mark
-     */
-    setBold: () => ReturnType;
-    /**
-     * Toggle a bold mark
-     */
-    toggleBold: () => ReturnType;
-    /**
-     * Unset a bold mark
-     */
-    unsetBold: () => ReturnType;
-  };
-}
+export const starInputRegex = /(?:^|\s)((?:\*\*)((?:[^*]+))(?:\*\*))$/;
+export const starPasteRegex = /(?:^|\s)((?:\*\*)((?:[^*]+))(?:\*\*))/g;
+export const underscoreInputRegex = /(?:^|\s)((?:__)((?:[^__]+))(?:__))$/;
+export const underscorePasteRegex = /(?:^|\s)((?:__)((?:[^__]+))(?:__))/g;
 
-export const starInputRegex = /(?:^|\s)((?:\*\*)((?:[^*]+))(?:\*\*))$/gm;
-export const starPasteRegex = /(?:^|\s)((?:\*\*)((?:[^*]+))(?:\*\*))/gm;
-export const underscoreInputRegex = /(?:^|\s)((?:__)((?:[^__]+))(?:__))$/gm;
-export const underscorePasteRegex = /(?:^|\s)((?:__)((?:[^__]+))(?:__))/gm;
+export const createBold = (): RicosMarkExtension => ({
+  type: 'mark' as const,
+  createExtensionConfig: () => ({
+    name: 'bold',
 
-export const Bold = Mark.create<BoldOptions>({
-  name: 'bold',
+    addOptions() {
+      return {
+        HTMLAttributes: {},
+      };
+    },
 
-  addOptions: () => ({
-    HTMLAttributes: {},
+    parseHTML() {
+      return [
+        {
+          tag: 'strong',
+        },
+        {
+          tag: 'b',
+          getAttrs: node => (node as HTMLElement).style.fontWeight !== 'normal' && null,
+        },
+        {
+          style: 'font-weight',
+          getAttrs: value => /^(bold(er)?|[5-9]\d{2,})$/.test(value as string) && null,
+        },
+      ];
+    },
+
+    renderHTML({ HTMLAttributes }) {
+      return ['strong', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
+    },
+
+    addCommands() {
+      return {
+        setBold: () => ({ commands }) => {
+          return commands.setMark(this.name);
+        },
+        toggleBold: () => ({ commands }) => {
+          return commands.toggleMark(this.name);
+        },
+        unsetBold: () => ({ commands }) => {
+          return commands.unsetMark(this.name);
+        },
+      };
+    },
+
+    addKeyboardShortcuts() {
+      return {
+        'Mod-b': () => this.editor.commands.toggleBold(),
+      };
+    },
+
+    addInputRules() {
+      return [
+        markInputRule({
+          find: starInputRegex,
+          type: this.type,
+        }),
+        markInputRule({
+          find: underscoreInputRegex,
+          type: this.type,
+        }),
+      ];
+    },
+
+    addPasteRules() {
+      return [
+        markPasteRule({
+          find: starPasteRegex,
+          type: this.type,
+        }),
+        markPasteRule({
+          find: underscorePasteRegex,
+          type: this.type,
+        }),
+      ];
+    },
   }),
-
-  parseHTML() {
-    return [
-      {
-        tag: 'strong',
-      },
-      {
-        tag: 'b',
-        getAttrs: node => (node as HTMLElement).style.fontWeight !== 'normal' && null,
-      },
-      {
-        style: 'font-weight',
-        getAttrs: value => /^(bold(er)?|[5-9]\d{2,})$/.test(value as string) && null,
-      },
-    ];
-  },
-
-  renderHTML({ HTMLAttributes }) {
-    return ['strong', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
-  },
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //@ts-ignore-next-line
-  addCommands() {
-    return {
-      setBold: () => ({ commands }) => {
-        return commands.setMark('bold');
-      },
-      toggleBold: () => ({ commands }) => {
-        return commands.toggleMark('bold');
-      },
-      unsetBold: () => ({ commands }) => {
-        return commands.unsetMark('bold');
-      },
-    };
-  },
-
-  addKeyboardShortcuts() {
-    return {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore-next-line
-      'Mod-b': () => this.editor.commands.toggleBold(),
-    };
-  },
-
-  addInputRules() {
-    return [
-      markInputRule({ find: starInputRegex, type: this.type }),
-      markInputRule({ find: underscoreInputRegex, type: this.type }),
-    ];
-  },
-
-  addPasteRules() {
-    return [
-      markPasteRule({ find: starPasteRegex, type: this.type }),
-      markPasteRule({ find: underscorePasteRegex, type: this.type }),
-    ];
-  },
 });
-
-export const createBold = () => Bold;
