@@ -17,7 +17,7 @@ export class TiptapEditorCommands implements IRicosEditorCommands {
   };
 
   updateNode: IRicosEditorCommands['updateNode'] = (id, node) => {
-    const attrs = toTiptap(node).attrs as Record<string, unknown>;
+    const attrs = toTiptap({ ...node, id }).attrs as Record<string, unknown>;
     return this.editor.commands.updateNodeById(id, attrs);
   };
 

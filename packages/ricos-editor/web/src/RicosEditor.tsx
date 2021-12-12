@@ -177,8 +177,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       });
     } else {
       import(
-        /* webpackChunkName: "ricos-content/libs/migrateSchema" */
-        'ricos-content/libs/migrateSchema'
+        /* webpackChunkName: "ricos-content/libs/converters" */
+        'ricos-content/libs/converters'
       ).then(convertersModule => {
         this.setState({ convertersModule });
       });
@@ -346,14 +346,19 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       if (!convertersModule) {
         return;
       }
-      const { fromDraft, convertNodeToDraftData } = convertersModule;
+      const {
+        fromDraft,
+        convertNodeToDraftData: toDraftData,
+        FROM_RICOS_ENTITY_TYPE: toDraftType,
+      } = convertersModule;
       const setEditorState = this.editor.editor.updateEditorState;
       const getEditorState = this.editor.editor.getEditorState;
       model = new DraftEditorModel({ getEditorState, fromDraft });
       commands = new DraftEditorCommands({
         getEditorState,
         setEditorState,
-        convertNodeToDraftData,
+        toDraftData,
+        toDraftType,
       });
       state = new DraftEditorState({ getEditorState });
     }

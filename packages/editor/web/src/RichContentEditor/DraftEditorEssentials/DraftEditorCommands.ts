@@ -7,12 +7,12 @@ import {
   setEntityData,
 } from 'wix-rich-content-editor-common';
 import { IRicosEditorCommands } from 'wix-rich-content-common';
-import { FROM_RICOS_ENTITY_TYPE } from 'ricos-content/libs/toDraftData';
 
 type DraftEditorCommandsProps = {
   getEditorState: () => EditorState;
   setEditorState: (editorState: EditorState) => void;
-  convertNodeToDraftData;
+  toDraftData;
+  toDraftType;
 };
 
 export class DraftEditorCommands implements IRicosEditorCommands {
@@ -20,18 +20,21 @@ export class DraftEditorCommands implements IRicosEditorCommands {
 
   setEditorState: (editorState: EditorState, selection: SelectionState) => void;
 
-  convertNodeToDraftData;
+  toDraftData;
+
+  toDraftType;
 
   constructor(props: DraftEditorCommandsProps) {
     this.getEditorState = props.getEditorState;
     this.setEditorState = (editorState, selection) =>
       props.setEditorState(EditorState.forceSelection(editorState, selection));
-    this.convertNodeToDraftData = props.convertNodeToDraftData;
+    this.toDraftData = props.toDraftData;
+    this.toDraftType = props.toDraftType;
   }
 
   insertNode: IRicosEditorCommands['insertNode'] = node => {
-    const draftType = FROM_RICOS_ENTITY_TYPE[node.type];
-    const draftData = this.convertNodeToDraftData(node);
+    const draftType = this.toDraftType[node.type];
+    const draftData = this.toDraftData(node);
     const { newBlock, newSelection, newEditorState } = createBlock(
       this.getEditorState(),
       draftData,
@@ -42,7 +45,7 @@ export class DraftEditorCommands implements IRicosEditorCommands {
   };
 
   updateNode: IRicosEditorCommands['updateNode'] = (id, node) => {
-    const draftData = this.convertNodeToDraftData({ ...node, id });
+    const draftData = this.toDraftData({ ...node, id });
     const entityKey = blockKeyToEntityKey(this.getEditorState(), id);
     if (!entityKey) {
       return false;
