@@ -11,6 +11,8 @@ import unsupportedMigrated from './unsupported-blocks-and-decorations-migrated.j
 import galleryThumbnailNone from './gallery-with-thumbnail-placement-none.json';
 import galleryWithoutThumbnail from './gallery-without-thumbnail-placement.json';
 import galleryThumbnailMigrated from './gallery-with-thumbnail-placement-migrated.json';
+import noVideoData from './no-data-video.json';
+import noVideoDataMigrated from './no-data-video-migrated.json';
 import polyfills from '../../../../../../../../e2e/tests/fixtures/polyfills.json';
 import { getTextNodes } from '../getTextNodes';
 import complexRicosFixture from '../../../../../statics/json/migratedFixtures/migration-content.json';
@@ -25,6 +27,7 @@ import {
 } from 'ricos-schema';
 import { convertBlockDataToRicos } from '../convertRicosPluginData';
 import { IMAGE_TYPE, FILE_UPLOAD_TYPE, WRAP } from '../../../../consts';
+import { convertDocumentStyleDecorationTypes } from '../../toDraft/decorationParsers';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const filterIds = objArr => objArr.map(({ id, ...rest }) => rest); //disable
@@ -357,5 +360,16 @@ describe('migrate from draft', () => {
         })
       ).toEqual({})
     );
+  });
+
+  it('should convert faulty content correctly', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const converted = fromDraft(noVideoData, { ignoreUnsupportedValues: true });
+    expect(
+      compare(converted, RichContent.fromJSON(noVideoDataMigrated), {
+        ignoredKeys: ['id'],
+      })
+    ).toEqual({});
   });
 });
