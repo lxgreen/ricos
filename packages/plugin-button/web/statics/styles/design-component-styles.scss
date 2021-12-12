@@ -7,9 +7,7 @@
 .button_designComponent_row {
   height: auto;
   width: 100%;
-  border-bottom: 1px solid #cccccc;
   padding-top: 13px;
-  padding-bottom: 15px;
   @include phone {
     padding-top: 32px;
     margin-left: -1px;
@@ -22,25 +20,22 @@
   @extend .colorPicker_button;
   width: 20px;
   height: 20px;
-  margin-right: 8px;
-  margin-left: 0px;
-  margin-top: 8px;
+  margin: 12px 8px 0 8px;
+
   &::after {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
   }
+
   @include phone {
-    margin-top: 0px;
-    margin-bottom: 13px;
-    margin-left: 0px;
-    margin-right: 13px;
+    margin-right: 8px !important;
+    margin-top: 8px !important;
   }
 }
 
 .colorPicker_button:nth-child(6n + 1) {
   @include phone {
     margin-left: 0px;
-    margin-right: 13px;
   }
 }
 
@@ -48,10 +43,9 @@
   @extend .colorPickerDialog_buttons;
   //padding-left: calc(100% - 126px);
   width: 100%;
-  margin-top: 12px;
   padding-bottom: 13px;
   border-bottom: 1px solid #cccccc;
-  margin-bottom: 22px;
+  margin: 12px 8px 0 8px;
 }
 
 .colorPickerDialog_button {
@@ -80,18 +74,11 @@
 .colorPicker_buttons_container {
   @extend .colorPicker_buttons_container;
   width: 100%;
-  padding-bottom: 34px;
+  // padding-bottom: 34px;
   margin-top: 22px;
   margin-left: 6px;
-  margin-bottom: 22px;
-  border-bottom: 1px solid #ccc;
   display: grid;
   grid-template-columns: 70% 30%;
-
-  :nth-child(2) {
-    margin-right: 8px;
-    margin-top: 6px;
-  }
 
   @include phone {
     width: 100%;
@@ -102,7 +89,7 @@
   @extend .colorPicker_add_color_button;
   margin-left: 0px;
   margin-right: 10px;
-  margin-top: 8px;
+  margin-top: 8px !important;
   @include phone {
     margin-top: 0px;
     margin-bottom: 13px;
@@ -154,6 +141,7 @@
     margin-left: 7px;
   }
 }
+
 .button_designComponent_design_component {
   padding-right: 30px;
   @include phone {
@@ -185,169 +173,6 @@
   }
 }
 
-.modal_footer {
-  padding: 30px 0px;
-}
-
 .button_designComponent_input_container_width {
   padding-bottom: 19px;
-}
-
-.button_designComponent_input_container_corner {
-  padding-bottom: 17px;
-}
-
-.sliderWithInput_label {
-  color: $settings-text-color;
-  font-size: 14px;
-  padding-bottom: 4px;
-  @include phone {
-    padding-bottom: 0px;
-  }
-}
-
-.sliderWithInput_content {
-  width: 100%;
-}
-
-.sliderWithInput_input {
-  flex: unset;
-  font-size: 18px;
-  color: $settings-text-color;
-  border: none;
-  margin: 0px;
-  padding-top: 4px;
-  padding-left: 0px;
-  padding-right: 0px;
-  height: auto;
-  text-align: right;
-  width: 44px;
-  -moz-appearance: textfield;
-  border: 1px solid var(--ricos-settings-inputs-border-color, rgba(0, 0, 0, 0.6));
-  border-radius: $settings-inputs-border-radius;
-
-  &::placeholder {
-    color: var(--ricos-settings-inputs-placeholder-color, rgba(0, 0, 0, 0.6));
-  }
-  
-}
-
-.sliderWithInput_input:focus {
-  border-bottom: 1px $settings-action-color-fallback solid;
-  border-radius: 0px;
-}
-
-// Chrome, Disable number input arrow buttons
-.sliderWithInput_input::-webkit-inner-spin-button,
-.sliderWithInput_input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.slider {
-  width: 100%;
-  margin: 0px;
-  -webkit-appearance: none;
-}
-
-// Chrome slider thumb
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
-  border: 0px solid #000000;
-  height: 12px;
-  width: 12px;
-  border-radius: 12px;
-  background: $settings-action-color-fallback;
-  cursor: pointer;
-  margin-top: -4px;
-}
-
-// Chrome slider track
-.slider::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 4px;
-  cursor: pointer;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
-  background: #e2ecff;
-  border-radius: 0px;
-  border: 0px solid rgba(1, 1, 94, 0.61);
-}
-
-// Chrome slider track on Focus
-.slider:focus::-webkit-slider-runnable-track {
-  background: #e2ecff;
-}
-
-// Mozila slider thumb
-.slider::-moz-range-thumb {
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
-  border: 0px solid #000000;
-  height: 12px;
-  width: 12px;
-  border-radius: 12px;
-  background: $settings-action-color-fallback;
-  cursor: pointer;
-}
-
-// Mozila slider track
-.slider::-moz-range-track {
-  width: 100%;
-  height: 4px;
-  cursor: pointer;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
-  background: #e2ecff;
-  border-radius: 0px;
-  border: 0px solid rgba(1, 1, 94, 0.61);
-}
-
-// Mozilla slider track active bar
-.slider::-moz-range-progress {
-  background-color: #e2ecff;
-}
-
-// MS slider thumb
-.slider::-ms-thumb {
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
-  border: 0px solid #000000;
-  height: 12px;
-  width: 12px;
-  border-radius: 12px;
-  background: $settings-action-color-fallback;
-  cursor: pointer;
-  margin-top: 2px;
-}
-
-// MS slider track container
-.slider::-ms-track {
-  width: 100%;
-  height: 4px;
-  padding: 0px;
-  margin: 0px;
-  cursor: pointer;
-  background: transparent;
-  border-color: transparent;
-  color: transparent;
-}
-
-// MS slider track
-.slider::-ms-fill-lower {
-  background: #e2ecff;
-  border: 0px solid rgba(1, 1, 94, 0.61);
-  border-radius: 0px;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
-}
-.slider::-ms-fill-upper {
-  background: #e2ecff;
-  border: 0px solid rgba(1, 1, 94, 0.61);
-  border-radius: 0px;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
-}
-
-// MS slider track on Focus
-.slider:focus::-ms-fill-lower {
-  background: #e2ecff;
-}
-.slider:focus::-ms-fill-upper {
-  background: #e2ecff;
 }

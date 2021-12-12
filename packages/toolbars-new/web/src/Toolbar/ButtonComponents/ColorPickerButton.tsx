@@ -15,6 +15,7 @@ type dropDownPropsType = {
   isActive: () => boolean;
   getIcon: () => any;
   name: string;
+  isDisabled: () => boolean;
   loadSelection?: () => void;
   saveSelection?: () => void;
   colorPickerHeaderKey: string;
@@ -160,6 +161,7 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
       colorPickerHeaderKey,
       withColoredIcon,
       name,
+      isDisabled,
     } = dropDownProps;
     const { currentColor, userColors } = this.state;
     const { isModalOpen } = this.state;
@@ -192,6 +194,7 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
       <ClickOutside onClickOutside={this.onClickOutside}>
         <ToolbarButton
           {...dropDownProps}
+          disabled={isDisabled()}
           isActive={withColoredIcon ? false : isActive()}
           onClick={this.toggleModal}
           tooltipText={tooltip}
