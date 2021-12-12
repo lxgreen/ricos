@@ -124,6 +124,9 @@ const COMMANDS = {
         })
         .then(() => {
           const result = checkValidity(contentState, contentSchema);
+          if (!result.valid && result.errors) {
+            result.errors.forEach(error => console.error('schema validation error:', error)); // eslint-disable-line no-console
+          }
           expect(result.valid).to.equal(true);
         });
 
