@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+- `tiptap-editor`
+  - [#3256](https://github.com/wix/ricos/pull/3256) NodeExtension config defaults
+
 </details>
 <hr/>
 
