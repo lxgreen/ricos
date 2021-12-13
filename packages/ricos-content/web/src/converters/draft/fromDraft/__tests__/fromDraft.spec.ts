@@ -27,7 +27,6 @@ import {
 } from 'ricos-schema';
 import { convertBlockDataToRicos } from '../convertRicosPluginData';
 import { IMAGE_TYPE, FILE_UPLOAD_TYPE, WRAP } from '../../../../consts';
-import { convertDocumentStyleDecorationTypes } from '../../toDraft/decorationParsers';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const filterIds = objArr => objArr.map(({ id, ...rest }) => rest); //disable
