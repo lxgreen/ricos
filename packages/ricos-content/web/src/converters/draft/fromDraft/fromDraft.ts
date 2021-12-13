@@ -58,51 +58,47 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
     .toString(36)
     .substr(2, 9);
 
-  const parseBlocks = (index = 0) => {
+  const parseBlock = index => {
     const block = blocks[index];
-    if (block) {
-      switch (block.type) {
-        case BlockType.Atomic:
-          const atomicBlock = parseAtomicBlock(block);
-          if (atomicBlock) {
-            nodes.push(atomicBlock);
-          }
-          parseBlocks(index + 1);
-          break;
-        case BlockType.Blockquote:
-          nodes.push(parseQuoteBlock(block));
-          parseBlocks(index + 1);
-          break;
-        case BlockType.CodeBlock:
-          nodes.push(parseCodeBlock(block));
-          parseBlocks(index + 1);
-          break;
-        case BlockType.HeaderOne:
-        case BlockType.HeaderTwo:
-        case BlockType.HeaderThree:
-        case BlockType.HeaderFour:
-        case BlockType.HeaderFive:
-        case BlockType.HeaderSix:
-          nodes.push(parseHeadingBlock(block));
-          parseBlocks(index + 1);
-          break;
-        case BlockType.OrderedListItem:
-        case BlockType.UnorderedListItem:
-          const { node, nextIndex } = parseListBlocks(index);
-          nodes.push(node);
-          parseBlocks(nextIndex);
-          break;
-        case BlockType.Unstyled:
-          nodes.push(parseTextBlock(block));
-          parseBlocks(index + 1);
-          break;
-        default:
-          if (opts.ignoreUnsupportedValues) {
-            parseBlocks(index + 1);
-          } else {
-            throw Error(`ERROR! Unknown block type "${block.type}"!`);
-          }
-      }
+    if (!block) {
+      return -1;
+    }
+
+    switch (block.type) {
+      case BlockType.Atomic:
+        const atomicBlock = parseAtomicBlock(block);
+        if (atomicBlock) {
+          nodes.push(atomicBlock);
+        }
+        return index + 1;
+      case BlockType.Blockquote:
+        nodes.push(parseQuoteBlock(block));
+        return index + 1;
+      case BlockType.CodeBlock:
+        nodes.push(parseCodeBlock(block));
+        return index + 1;
+      case BlockType.HeaderOne:
+      case BlockType.HeaderTwo:
+      case BlockType.HeaderThree:
+      case BlockType.HeaderFour:
+      case BlockType.HeaderFive:
+      case BlockType.HeaderSix:
+        nodes.push(parseHeadingBlock(block));
+        return index + 1;
+      case BlockType.OrderedListItem:
+      case BlockType.UnorderedListItem:
+        const { node, nextIndex } = parseListBlocks(index);
+        nodes.push(node);
+        return nextIndex;
+      case BlockType.Unstyled:
+        nodes.push(parseTextBlock(block));
+        return index + 1;
+      default:
+        if (opts.ignoreUnsupportedValues) {
+          return index + 1;
+        } else {
+          throw Error(`ERROR! Unknown block type "${block.type}"!`);
+        }
     }
   };
 
@@ -225,7 +221,10 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
     };
   };
 
-  parseBlocks();
+  let i = 0;
+  while (i !== -1) {
+    i = parseBlock(i);
+  }
 
   const content: RichContent = {
     nodes,
