@@ -22,10 +22,6 @@ const toExtensionConfig = (ext: RicosNodeExtension) =>
 
 const toFullNodeConfig = (ext: RicosNodeExtension) => (config: NodeConfig): NodeConfig => ({
   type: 'node',
-  group: 'block',
-  atom: true,
-  selectable: true,
-  draggable: true,
   parseHTML: () => [{ tag: `${config.name}-component` }],
   renderHTML: ({ HTMLAttributes }) => [`${config.name}-component`, mergeAttributes(HTMLAttributes)],
   addAttributes: () => ext.componentDataDefaults || {},

@@ -1,7 +1,7 @@
 import { mergeAttributes } from '@tiptap/core';
-import { Node as ProsemirrorNode, DOMOutputSpec } from 'prosemirror-model';
+import { Node as ProsemirrorNode } from 'prosemirror-model';
 import paragraphDataDefaults from 'ricos-schema/dist/statics/paragraph.defaults.json';
-import { RicosExtension } from 'ricos-tiptap-types';
+import { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
 
 export interface ParagraphOptions {
   HTMLAttributes: Record<string, unknown>;
