@@ -104,3 +104,5 @@ export interface TiptapEditorPlugin extends EditorPlugin {
 export type CreateRicosExtensions = <PluginType extends keyof LegacyEditorPluginConfig>(
   config: LegacyEditorPluginConfig[PluginType]
 ) => RicosExtension[];
+
+export { DOMOutputSpec } from 'prosemirror-model';
