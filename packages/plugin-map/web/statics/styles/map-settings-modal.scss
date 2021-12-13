@@ -19,17 +19,6 @@
   }
 }
 
-.map_settings_modal_title_container {
-  flex: none;
-  padding: 24px 24px 20px;
-  box-sizing: border-box;
-
-  @include phone {
-    padding: 30px 20px;
-    height: auto;
-  }
-}
-
 .map_settings_modal_settings {
   flex: 1 1 auto;
   min-height: 0px;

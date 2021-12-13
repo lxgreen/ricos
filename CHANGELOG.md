@@ -17,17 +17,34 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.65.7 (Dec 13, 2021)
+
 ### :bug: Bug Fix
 
 - `toolbars-new`
+
   - [#3220](https://github.com/wix/ricos/pull/3220) disable toolbar when atomic plugin selected
   - [#3236](https://github.com/wix/ricos/pull/3236) color picker buttons in static toolbar when collapsed
 
 - `editor-common`
+
   - [#3239](https://github.com/wix/ricos/pull/3239) improve overflow utils logic
 
-</details>
-<hr/>
+### :house: Internal
+
+- `tiptap-editor`
+  - [#3246](https://github.com/wix/ricos/pull/3246) React vs HTML node extension models
+- `tiptap-extensions`
+  - [#3248](https://github.com/wix/ricos/pull/3248) refactored bold, paragraph, spoiler extensions
+
+### :nail_care: Polish
+
+- `ui-components - settings-modal`
+  - [#3139](https://github.com/wix/ricos/pull/3139) created settingsPanelHeader component and consume it in
+    video/map/button/gallery/image/collopsible-list plugins
 
 ## 8.65.6 (Dec 09, 2021)
 
@@ -52,7 +69,7 @@
   - [#3228](https://github.com/wix/ricos/pull/3228) fix organize media settings top buttons push items down
 - `tooltip`
   - [#3218](https://github.com/wix/ricos/pull/3218) wire font family for BM theme
-- `button`  
+- `button`
   - [#3238](https://github.com/wix/ricos/pull/3238) fix color picker style inside settings modal
 
 ### :house: Internal
@@ -67,6 +84,7 @@
   - [#3232](https://github.com/wix/ricos/pull/3232) `toolbarInputButton` supports disable prop
 - `ui-components`
   - [#3233](https://github.com/wix/ricos/pull/3233) refactor settings-mobile-header/button components
+  - [#3244](https://github.com/wix/ricos/pull/3244) refactor slider components
 
 ## 8.65.4 (Dec 06, 2021)
 

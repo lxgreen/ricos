@@ -57,7 +57,7 @@ export type RicosNodeExtension = {
   }: {
     mergeAttributes: typeof mergeAttributesFn;
   }) => NodeConfig;
-  Component: ComponentType;
+  Component?: ComponentType;
   componentDataDefaults?: any;
 };
 
@@ -104,3 +104,5 @@ export interface TiptapEditorPlugin extends EditorPlugin {
 export type CreateRicosExtensions = <PluginType extends keyof LegacyEditorPluginConfig>(
   config: LegacyEditorPluginConfig[PluginType]
 ) => RicosExtension[];
+
+export { DOMOutputSpec } from 'prosemirror-model';

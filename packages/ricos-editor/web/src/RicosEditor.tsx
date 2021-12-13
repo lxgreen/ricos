@@ -3,8 +3,8 @@ import React, {
   Fragment,
   ElementType,
   FunctionComponent,
-  forwardRef,
   Suspense,
+  forwardRef,
 } from 'react';
 import {
   RicosEngine,
@@ -61,7 +61,6 @@ interface State {
   localeData: { locale?: string; localeResource?: Record<string, string> };
   remountKey: boolean;
   editorState?: EditorState;
-  initialContentChanged: boolean;
   activeEditor: RichContentEditor | null;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tiptapEditorModule: Record<string, any> | null;
@@ -89,6 +88,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   isBusy = false;
 
+  initialContentChanged = false;
+
   getBiCallback: typeof getCallback;
 
   currentEditorRef!: ElementType;
@@ -112,7 +113,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.state = {
       localeData: { locale: props.locale },
       remountKey: false,
-      initialContentChanged: true,
       activeEditor: null,
       tiptapEditorModule: null,
       tiptapToolbar: null,
@@ -250,18 +250,15 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   }
 
   onInitialContentChanged = () => {
-    const { initialContentChanged } = this.state;
-    if (initialContentChanged) {
-      const contentId = this.getContentID();
-      this.getBiCallback('onContentEdited')?.({ version: Version.currentVersion, contentId });
-      this.setState({ initialContentChanged: false });
-    }
+    const contentId = this.getContentID();
+    this.getBiCallback('onContentEdited')?.({ version: Version.currentVersion, contentId });
+    this.initialContentChanged = true;
   };
 
   onChange = (childOnChange?: RichContentEditorProps['onChange']) => (editorState: EditorState) => {
     try {
       this.dataInstance.refresh(editorState);
-      if (this.getContentTraits().isContentChanged) {
+      if (!this.initialContentChanged && this.getContentTraits().isContentChanged) {
         this.onInitialContentChanged();
       }
       childOnChange?.(editorState);
