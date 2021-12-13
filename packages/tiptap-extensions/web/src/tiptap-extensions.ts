@@ -8,12 +8,12 @@ import Underline from '@tiptap/extension-underline';
 import Text from '@tiptap/extension-text';
 // import History from '@tiptap/extension-history';
 import Italic from '@tiptap/extension-italic';
-import CodeBlock from '@tiptap/extension-code-block';
 import Heading from '@tiptap/extension-heading';
 import Blockquote from '@tiptap/extension-blockquote';
 import OrderedList from '@tiptap/extension-ordered-list';
 import ListItem from '@tiptap/extension-list-item';
 import { Paragraph } from './paragraph';
+import { CodeBlock } from './codeBlock';
 import { createBold } from './bold';
 import { createBulletedList } from './bulleted-list';
 import { createSpoiler } from './spoiler';
@@ -48,12 +48,8 @@ export const tiptapExtensions: AnyExtension[] = [
   OrderedList,
   Paragraph,
   Text,
+  CodeBlock,
   createBulletedList(),
   createBold(),
-  CodeBlock.configure({
-    HTMLAttributes: {
-      class: styles.code,
-    },
-  }),
   createSpoiler(),
 ];
