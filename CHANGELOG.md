@@ -17,6 +17,9 @@
     Click to see more.
   </summary>
 
+- `editor` `viewer`
+  - [#3195](https://github.com/wix/ricos/pull/3195) fixed tab size for identation (under `fixedTabSize` experiment)
+
 </details>
 <hr/>
 
