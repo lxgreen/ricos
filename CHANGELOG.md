@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+- `headings`
+  - [#3163](https://github.com/wix/ricos/pull/3163) fix lists wiring to `documentStyle`
+
 </details>
 <hr/>
 
@@ -25,15 +29,11 @@
 ### :bug: Bug Fix
 
 - `toolbars-new`
-
   - [#3220](https://github.com/wix/ricos/pull/3220) disable toolbar when atomic plugin selected
   - [#3236](https://github.com/wix/ricos/pull/3236) color picker buttons in static toolbar when collapsed
 
 - `editor-common`
-
   - [#3239](https://github.com/wix/ricos/pull/3239) improve overflow utils logic
-- `headings`
-  - [#3163](https://github.com/wix/ricos/pull/3163) fix lists wiring to `documentStyle`
 
 ### :house: Internal
 
