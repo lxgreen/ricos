@@ -20,6 +20,14 @@
 </details>
 <hr/>
 
+## 8.65.8 (Dec 13, 2021)
+
+### :bug: Bug Fix
+
+- `viewer`
+
+  - [#3231](https://github.com/wix/ricos/pull/3231) fix line-height diff when plugin-line-height & paragraph line height (customStyles api) are both applied on list
+
 ## 8.65.7 (Dec 13, 2021)
 
 ### :bug: Bug Fix
