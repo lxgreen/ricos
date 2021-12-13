@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { RadioGroupHorizontal } from 'wix-rich-content-ui-components';
+import { RadioGroupVertical } from 'wix-rich-content-ui-components';
 
 const propTypes = {
   onChange: PropTypes.func.isRequired,
@@ -17,7 +17,7 @@ export const ThumbnailResize = props => {
   const fitLabel = t('GallerySettings_Radios_Fit');
 
   return (
-    <RadioGroupHorizontal
+    <RadioGroupVertical
       label={thumbnailResizeLabel}
       dataSource={[
         { value: 'fill', labelText: cropLabel, dataHook: 'radioGroupFill' },
@@ -38,7 +38,7 @@ export const TitleButtonPlacement = props => {
   const onHoverLabel = t('GallerySettings_Radios_On_Hover');
 
   return (
-    <RadioGroupHorizontal
+    <RadioGroupVertical
       label={titleButtonPlacementLabel}
       dataSource={[
         { value: 'SHOW_ALWAYS', labelText: underneathLabel, dataHook: 'radioGroupTitleShowAlways' },
@@ -57,7 +57,7 @@ export const ImageOrientation = props => {
   const horizontalLabel = t('GallerySettings_Radios_Horizontal');
 
   return (
-    <RadioGroupHorizontal
+    <RadioGroupVertical
       label={imageOrientationLabel}
       dataSource={[
         { value: '1', labelText: verticalLabel, dataHook: 'radioGroupImageOrientationVertical' },
@@ -82,7 +82,7 @@ export const ScrollDirection = props => {
   const horizontalLabel = t('GallerySettings_Radios_Horizontal');
 
   return (
-    <RadioGroupHorizontal
+    <RadioGroupVertical
       label={scrollDirectionLabel}
       dataSource={[
         {

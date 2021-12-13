@@ -45,6 +45,7 @@ class LayoutSelector extends Component {
       <div>
         <span className={styles.layoutsSelector_label}>{layoutsLabel}</span>
         <SelectionList
+          hasLabel
           theme={theme}
           className={styles.layoutsSelector_grid}
           dataSource={this.getLayouts(t)}

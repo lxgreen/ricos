@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -92,7 +93,7 @@ class ImageSettings extends Component {
             <SettingsMobileHeader theme={theme} onCancel={onCancel} onSave={onSave} t={t} />
           ) : (
             <SettingsPanelHeader onClose={onCancel} showCloseIcon={false}>
-              <div>
+              <div data-hook="galleryImageSettingsHeader" onClick={onCancel}>
                 <BackIcon className={styles.galleryImageSettings_backIcon} />
                 {t('GalleryImageSettings_Header')}
               </div>

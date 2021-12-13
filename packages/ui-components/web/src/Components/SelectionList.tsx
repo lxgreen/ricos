@@ -197,11 +197,12 @@ class SelectionListOption extends Component<SelectionListOptionProps> {
         aria-selected={selected}
         ref={el => (this.ref = el)}
         onKeyDown={e => onKeyDown?.(e)}
-        className={classnames(
-          this.styles.selectionListOption,
-          { [this.styles.selectionListOption_selected]: selected },
-          optionClassName
-        )}
+        className={
+          optionClassName ||
+          classnames(this.styles.selectionListOption, {
+            [this.styles.selectionListOption_selected]: selected,
+          })
+        }
         data-hook={dataHook}
         onClick={() => onChange(value)}
       >
