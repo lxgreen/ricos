@@ -1,6 +1,7 @@
-import { Node, mergeAttributes } from '@tiptap/core';
-import { Node as ProsemirrorNode } from 'prosemirror-model';
+import { mergeAttributes } from '@tiptap/core';
+import { Node as ProsemirrorNode, DOMOutputSpec } from 'prosemirror-model';
 import paragraphDataDefaults from 'ricos-schema/dist/statics/paragraph.defaults.json';
+import { RicosExtension } from 'ricos-tiptap-types';
 
 export interface ParagraphOptions {
   HTMLAttributes: Record<string, unknown>;
@@ -26,44 +27,53 @@ const createStyleAttribute = (node: ProsemirrorNode) => {
   const style = textAlign.concat(lineHeight);
   return { style };
 };
-export const Paragraph = Node.create<ParagraphOptions>({
-  name: 'paragraph',
 
-  priority: 1000, //default paragraph is 1000
+export const createParagraph = (): RicosExtension => ({
+  type: 'node' as const,
+  createExtensionConfig: () => ({
+    name: 'paragraph',
 
-  addOptions: () => ({
-    HTMLAttributes: {},
+    priority: 1000,
+
+    addOptions() {
+      return {
+        HTMLAttributes: {},
+      };
+    },
+
+    group: 'block',
+
+    content: 'inline*',
+
+    addAttributes() {
+      return paragraphDataDefaults;
+    },
+
+    parseHTML() {
+      return [{ tag: 'p' }];
+    },
+
+    renderHTML({ HTMLAttributes, node }) {
+      const styles = createStyleAttribute(node);
+      return [
+        'p',
+        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, styles),
+        0,
+      ] as DOMOutputSpec;
+    },
+
+    addCommands() {
+      return {
+        setParagraph: () => ({ commands }) => {
+          return commands.setNode(this.name);
+        },
+      };
+    },
+
+    addKeyboardShortcuts() {
+      return {
+        'Mod-Alt-0': () => this.editor.commands.setParagraph(),
+      };
+    },
   }),
-
-  group: 'block',
-
-  content: 'inline*',
-
-  addAttributes() {
-    return paragraphDataDefaults;
-  },
-
-  parseHTML() {
-    return [{ tag: 'div' }];
-  },
-
-  renderHTML({ HTMLAttributes, node }) {
-    const styles = createStyleAttribute(node);
-    return ['div', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, styles), 0];
-  },
-  addCommands() {
-    return {
-      setParagraph: () => ({ commands }) => {
-        return commands.toggleNode('paragraph', 'paragraph');
-      },
-    };
-  },
-
-  addKeyboardShortcuts() {
-    return {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore-next-line
-      'Mod-Alt-0': () => this.editor.commands.setParagraph(),
-    };
-  },
 });
