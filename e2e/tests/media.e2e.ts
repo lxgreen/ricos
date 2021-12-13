@@ -346,10 +346,10 @@ describe('plugins', () => {
         cy.loadRicosEditorAndViewer('gallery');
         cy.openPluginToolbar(PLUGIN_COMPONENT.GALLERY);
         cy.openSettings('ADV_SETTINGS');
-        cy.eyesCheckWindow(this.test.parent.title + ' - settings');
+        // cy.eyesCheckWindow(this.test.title + ' - settings');
         cy.get(`[data-hook=${GALLERY_SETTINGS.GALLERY_EXPAND_TOGGLE}]`).click();
         cy.wait(200);
-        cy.eyesCheckWindow(this.test.parent.title + ' - after disable expend mode setting');
+        // cy.eyesCheckWindow(this.test.title + ' - after disable expend mode setting');
         cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
         cy.wait(200);
         cy.get(`[data-hook=${PLUGIN_COMPONENT.GALLERY}]`)
