@@ -47,4 +47,6 @@ export { default as ActionButtons } from './Components/ActionButtons';
 export { default as FocusManager } from './Components/FocusManager';
 export { default as SettingsMobileHeader } from './Components/SettingsMobileHeader';
 export { default as SettingsSeparator } from './Components/SettingsSeparator';
+export { default as SettingsPanelHeader } from './Components/SettingsPanelHeader';
+
 // export { getSelectionStyles } from './Utils/inlineStyleUtils';

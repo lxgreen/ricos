@@ -6,6 +6,9 @@ import {
   createHistoryConfig,
   createStylesConfig,
   createUniqueId,
+  createBulletedList,
+  createBold,
+  createParagraph,
 } from 'wix-tiptap-extensions';
 
 export const coreConfigs: RicosExtension[] = [
@@ -15,4 +18,7 @@ export const coreConfigs: RicosExtension[] = [
   createFocusConfig(),
   createUniqueId(),
   createCommandsConfig(),
+  createBulletedList(),
+  createBold(),
+  createParagraph(),
 ];

@@ -10,6 +10,7 @@ import {
   FocusManager,
   SettingsMobileHeader,
   SettingsSeparator,
+  SettingsPanelHeader,
 } from 'wix-rich-content-ui-components';
 import LayoutSelector from './gallery-controls/layouts-selector';
 import styles from '../../statics/styles/gallery-settings-modal.scss';
@@ -113,14 +114,7 @@ class AdvancedSettingsSection extends Component {
     const { data, store, theme, t, isMobile, languageDir } = this.props;
     return (
       this.shouldRender() && (
-        <div
-          className={
-            isMobile
-              ? styles.gallerySettings_settingsContainerMobile
-              : styles.gallerySettings_tab_section
-          }
-          dir={languageDir}
-        >
+        <div className={styles.gallerySettings_tab_section} dir={languageDir}>
           <SettingsSection
             theme={theme}
             ariaProps={{ 'aria-label': 'layout selection', role: 'region' }}
@@ -379,13 +373,12 @@ export class GallerySettingsModal extends Component {
             t={t}
           />
         )}
-        <FocusManager
-          focusTrapOptions={{ initialFocus: `#${activeTab}_header` }}
-          className={styles.gallerySettings}
-          dir={languageDir}
-        >
+        <FocusManager focusTrapOptions={{ initialFocus: `#${activeTab}_header` }} dir={languageDir}>
           {!isMobile && (
-            <div className={styles.gallerySettings_title}>{t('GallerySettings_Header')}</div>
+            <SettingsPanelHeader
+              title={t('GallerySettings_Header')}
+              onClose={this.revertComponentData}
+            />
           )}
           <div className={styles.gallerySettings_tabsContainer}>
             <Tabs value={activeTab} theme={this.props.theme} onTabSelected={this.onTabSelected}>
