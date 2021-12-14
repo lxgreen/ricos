@@ -11,6 +11,7 @@ import {
   RICOS_GIPHY_TYPE,
   VIDEO_TYPE,
   RICOS_VIDEO_TYPE,
+  RICOS_POLL_TYPE,
 } from 'wix-rich-content-common';
 
 import {
@@ -41,6 +42,7 @@ export const TIPTAP_TYPE_TO_RICOS_TYPE = {
   [TIPTAP_FILE_TYPE]: RICOS_FILE_TYPE,
   [TIPTAP_GIF_TYPE]: RICOS_GIPHY_TYPE,
   [TIPTAP_VIDEO_TYPE]: RICOS_VIDEO_TYPE,
+  [TIPTAP_POLL_TYPE]: RICOS_POLL_TYPE,
   text: 'text',
 };
 

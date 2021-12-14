@@ -1,6 +1,7 @@
 export const EXPERIMENTS = [
   { name: 'newFormattingToolbar', scope: 'ricos' },
   { name: 'tiptapEditor', scope: 'ricos' },
+  { name: 'fixListLineHeight', scope: 'ricos' },
   { name: 'newVideoModal', scope: 'ricos' },
   { name: 'newVerticalEmbedModal', scope: 'ricos' },
   { name: 'newSocialEmbedModal', scope: 'ricos' },

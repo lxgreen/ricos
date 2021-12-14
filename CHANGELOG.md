@@ -16,9 +16,26 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
+  
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3247](https://github.com/wix/ricos/pull/3247) fix crash on no-data plugins
+
+### :bug: Bug Fix
+- `tiptap-editor`
+  - [#3256](https://github.com/wix/ricos/pull/3256) NodeExtension config defaults
 
 </details>
 <hr/>
+
+## 8.65.8 (Dec 13, 2021)
+
+### :bug: Bug Fix
+
+- `viewer`
+
+  - [#3231](https://github.com/wix/ricos/pull/3231) fix line-height diff when plugin-line-height & paragraph line height (customStyles api) are both applied on list
 
 ## 8.65.7 (Dec 13, 2021)
 
