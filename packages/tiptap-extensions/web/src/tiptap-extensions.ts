@@ -12,15 +12,11 @@ import Heading from '@tiptap/extension-heading';
 import Blockquote from '@tiptap/extension-blockquote';
 import OrderedList from '@tiptap/extension-ordered-list';
 import ListItem from '@tiptap/extension-list-item';
-import { Paragraph } from './paragraph';
-import { CodeBlock } from './codeBlock';
-import { createBold } from './bold';
-import { createBulletedList } from './bulleted-list';
-import { createSpoiler } from './spoiler';
 import headingDataDefaults from 'ricos-schema/dist/statics/heading.defaults.json';
 import { Attributes } from '@tiptap/react';
 import styles from './statics/styles.scss';
 import { AnyExtension } from '@tiptap/core';
+import { CodeBlock } from './codeBlock';
 
 const extendedAttrs = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -46,10 +42,6 @@ export const tiptapExtensions: AnyExtension[] = [
   Italic,
   ListItem,
   OrderedList,
-  Paragraph,
   Text,
   CodeBlock,
-  createBulletedList(),
-  createBold(),
-  createSpoiler(),
 ];

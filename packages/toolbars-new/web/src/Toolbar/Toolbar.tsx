@@ -34,6 +34,7 @@ interface ToolbarProps {
   theme?: RichContentTheme;
   onToolbarButtonClick?: any;
   getEditorContainer: () => Element;
+  disabled?: boolean;
 }
 
 interface State {
@@ -360,7 +361,7 @@ class Toolbar extends Component<ToolbarProps, State> {
   setToolbarRef = ref => (this.toolbarRef = ref);
 
   render() {
-    const { vertical } = this.props;
+    const { vertical, disabled } = this.props;
     const { buttons } = this.state;
 
     // return buttons.map((buttonsWithoutGaps, index) => {
@@ -373,7 +374,8 @@ class Toolbar extends Component<ToolbarProps, State> {
       >
         {buttons.map((buttonProps, i) => {
           const Button = this.buttonMap[buttonProps.type];
-          return <Button {...buttonProps} key={i} />;
+          const isDisabled = disabled ? () => true : buttonProps.isDisabled;
+          return <Button {...buttonProps} isDisabled={isDisabled} key={i} />;
         })}
       </div>
     );

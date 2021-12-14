@@ -36,6 +36,7 @@ module.exports = {
           'plugins_api/HeadingsPlugin',
           'plugins_api/SpoilerPlugin',
           'plugins_api/LoadablePlugins',
+          'plugins_api/FontSize',
         ],
       },
       {

@@ -16,12 +16,6 @@ $MOBILE_HEADER_HEIGHT: 50px;
   flex: 1 1 auto;
 }
 
-.imageSettingsTitle {
-  position: absolute;
-  margin: 24px 0 24px 24px;
-  font-size: 20px;
-}
-
 .imageSettingsImageSection {
   padding: 0 24px;
   @include phone {
@@ -47,7 +41,6 @@ $MOBILE_HEADER_HEIGHT: 50px;
 }
 
 .imageSettings_scrollContainer {
-  margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
   width: 100%;
 }
 

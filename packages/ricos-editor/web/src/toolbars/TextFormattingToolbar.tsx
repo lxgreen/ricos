@@ -138,6 +138,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
       this.props.onToolbarButtonClick?.(name, ToolbarType.FORMATTING, value, pluginId);
     };
     const hideFormattingToolbar = isMobile && isLinkToolbarOpen(activeEditor);
+    const disableFormattingToolbar = !editorCommands.isTextBlockInSelection();
     const ToolbarToRender = (
       <RicosToolbar
         theme={theme}
@@ -154,6 +155,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
         getEditorContainer={getEditorContainer}
         cssOverride={cssOverride}
         configButtonsMapper={configButtonsMapper}
+        disabled={disableFormattingToolbar}
       />
     );
     const ToolbarContainer =
