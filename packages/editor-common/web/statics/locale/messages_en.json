@@ -469,7 +469,7 @@
   "CollapsibleList_ShownText_Placeholder": "Write a title for this item",
   "CollapsibleList_CollapsedText_Placeholder": "Write text to collapse",
   "CollapsibleList_ShownText_Add_Placeholder": "Add another item",
-  "CollapsibleList_CollapsibleListSettings_Common_Header": "Settings",
+  "CollapsibleList_CollapsibleListSettings_Common_Header": "Collapsible List",
   "CollapsibleList_CollapsibleListSettings_Tab_Design_TabName": "Design",
   "CollapsibleList_CollapsibleListSettings_Tab_Settings_TabName": "Settings",
   "CollapsibleList_CollapsibleListSettings_Tab_Design_Icon_Title": "Choose an icon",
