@@ -99,7 +99,7 @@
   "ImageSettings_Update": "Save",
   "ImageSettings_Header": "Image",
   "ImageSettings_Caption_Label": "Caption",
-  "ImageSettings_Caption_Input_Placeholder": "Write a catchy title",
+  "ImageSettings_Caption_Input_Placeholder": "Add a caption here",
   "ImageSettings_Alt_Label": "Alt text",
   "ImageSettings_Alt_Input_Placeholder": "Describe what's in this image",
   "ImageSettings_Link_Label": "Link",
