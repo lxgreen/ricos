@@ -16,7 +16,7 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-
+  
 ### :bug: Bug Fix
 
 - `tiptap-editor`
@@ -31,6 +31,9 @@
   - [#3247](https://github.com/wix/ricos/pull/3247) fix crash on no-data plugins
   
 ### :house: Internal
+
+- `tiptap-extensions`  
+  - [#3260](https://github.com/wix/ricos/pull/3260) refactored italic, headings, underline
 - `video/vertical-social-embed`
   - [#3259](https://github.com/wix/ricos/pull/3259) Combine new-modals experiments into one  
 
