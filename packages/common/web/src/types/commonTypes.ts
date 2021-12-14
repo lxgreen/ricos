@@ -128,6 +128,7 @@ export interface ViewerContextType extends CommonContextType {
   disableRightClick?: boolean;
   contentState?: DraftContent;
   textAlignment?: 'left' | 'right';
+  experiments?: AvailableExperiments;
 }
 
 export type Experiment = {

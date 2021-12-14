@@ -165,6 +165,7 @@ class RichContentViewer extends Component<
       seoMode,
       iframeSandboxDomain,
       textAlignment,
+      experiments,
     }: RichContentViewerProps,
     contentState?: DraftContent
   ): ViewerContextType => {
@@ -192,6 +193,7 @@ class RichContentViewer extends Component<
       iframeSandboxDomain,
       disableRightClick: config?.uiSettings?.disableRightClick,
       textAlignment,
+      experiments,
     };
   };
 

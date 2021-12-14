@@ -148,6 +148,9 @@
     /*! rtl:ignore */
     @include ricosTypography('p', true);
   }
+  &.lineHeightFix::marker {
+    line-height: unset;
+  }
   > * {
     /*! rtl:ignore */
     @include ricosTypography('p', true);
