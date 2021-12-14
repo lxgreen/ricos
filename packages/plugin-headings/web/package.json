@@ -36,6 +36,8 @@
   },
   "dependencies": {
     "react-modal": "~3.4.1",
+    "ricos-schema": "8.65.8",
+    "ricos-tiptap-types": "8.65.8",
     "wix-rich-content-common": "8.65.8",
     "wix-rich-content-editor-common": "8.65.8",
     "wix-rich-content-plugin-commons": "8.65.8"
