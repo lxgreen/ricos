@@ -8,17 +8,18 @@ import styles from '../statics/rich-content-viewer.scss';
 import { withInteraction } from './withInteraction';
 
 const draftPublic = 'public-DraftStyleDefault';
-const draftClassNames = (listType, depth, textDirection) =>
-  `${draftPublic}-${listType}ListItem
-   ${draftPublic}-depth${depth}
-   ${draftPublic}-list-${textDirection}`;
+const draftClassNames = (listType, depth, textDirection) => [
+  `${draftPublic}-${listType}ListItem`,
+  `${draftPublic}-depth${depth}`,
+  `${draftPublic}-list-${textDirection}`,
+];
 
-const getBlockClassName = (isNewList, direction, listType, depth) => {
-  let className = draftClassNames(listType, depth, direction);
-  if (isNewList) {
-    className += ` ${draftPublic}-reset`;
-  }
-  return className;
+const getBlockClassName = (direction, listType, depth, { isNewList, fixedTabSize }) => {
+  return [
+    ...draftClassNames(listType, depth, direction),
+    ...(fixedTabSize ? ['fixed-tab-size'] : []),
+    ...(isNewList ? [`${draftPublic}-reset`] : []),
+  ].join(' ');
 };
 
 const List = ({
@@ -30,6 +31,7 @@ const List = ({
   getBlockStyleClasses,
   blockDataToStyle,
   context,
+  fixedTabSize,
 }) => {
   const Component = ordered ? 'ol' : 'ul';
   const listType = ordered ? 'ordered' : 'unordered';
@@ -82,12 +84,14 @@ const List = ({
         }
 
         const depth = dataEntry.depth;
-        const isNewList = childIndex === 0 || depth > prevDepth;
         const listItemDirection = getDirectionFromAlignmentAndTextDirection(
           alignment,
           textDirection || dataEntry.textDirection
         );
-        const className = getBlockClassName(isNewList, listItemDirection, listType, depth);
+        const className = getBlockClassName(listItemDirection, listType, depth, {
+          isNewList: childIndex === 0 || depth > prevDepth,
+          fixedTabSize,
+        });
         prevDepth = depth;
         const blockIndex = dataEntry.index;
         const wrappedBlock = withInteraction(
@@ -142,6 +146,7 @@ List.propTypes = {
     disableRightClick: PropTypes.bool,
     textAlignment: PropTypes.oneOf(['left', 'right']),
   }).isRequired,
+  fixedTabSize: PropTypes.bool,
 };
 
 export default List;

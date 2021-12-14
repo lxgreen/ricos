@@ -5,6 +5,7 @@ export const EXPERIMENTS = [
   { name: 'newVideoModal', scope: 'ricos' },
   { name: 'newVerticalEmbedModal', scope: 'ricos' },
   { name: 'newSocialEmbedModal', scope: 'ricos' },
+  { name: 'fixedTabSize', scope: 'ricos' },
   { name: 'forceIframeSandboxDomain', scope: 'ricos' },
   { name: 'useSeo', scope: 'wixRicos' },
   { name: 'spoilerInSettings', scope: 'ricos' },

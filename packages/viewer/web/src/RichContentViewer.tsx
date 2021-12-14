@@ -253,6 +253,7 @@ class RichContentViewer extends Component<
       typeMappers,
       setRef = () => {},
       onMouseOver = () => {},
+      experiments = {},
     } = this.props;
     const decorators = [...this.props.decorators, createJustificationFixDecorator()];
     try {
@@ -269,8 +270,10 @@ class RichContentViewer extends Component<
         viewerStyles.renderedInTable,
         draftDefaultStyles.renderedInTable
       );
+
       const editorClassName = classNames(styles.editor, renderedInTable && tableClassNames, {
         [styles.rtl]: textDirection === 'rtl',
+        [styles.fixedTabSize]: experiments.fixedTabSize?.enabled,
       });
 
       const initSpoilers = config[SPOILER_TYPE]?.initSpoilersContentState;
@@ -296,7 +299,7 @@ class RichContentViewer extends Component<
         config,
         initSpoilers,
         SpoilerViewerWrapper,
-        { addAnchors },
+        { addAnchors, fixedTabSize: experiments.fixedTabSize?.enabled },
         innerRCEViewerProps,
         this.props.documentStyle
       );
