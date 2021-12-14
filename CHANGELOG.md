@@ -29,6 +29,10 @@
 
 - `ricos-content`
   - [#3247](https://github.com/wix/ricos/pull/3247) fix crash on no-data plugins
+  
+### :house: Internal
+- `video/vertical-social-embed`
+  - [#3259](https://github.com/wix/ricos/pull/3259) Combine new-modals experiments into one  
 
 </details>
 <hr/>

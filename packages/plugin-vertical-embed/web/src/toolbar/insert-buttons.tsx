@@ -39,7 +39,7 @@ const createInsertButtons: CreateInsertButtons = ({
     event: EventIcon,
     booking: BookingIcon,
   };
-  const useNewModal = experiments?.newVerticalEmbedModal?.enabled;
+  const useNewModal = experiments?.newVideoVerticalAndSocialModals?.enabled;
 
   const newModalCustomStyles = isMobile
     ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
