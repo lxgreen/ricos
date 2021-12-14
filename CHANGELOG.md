@@ -16,6 +16,11 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
+  
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3247](https://github.com/wix/ricos/pull/3247) fix crash on no-data plugins
 
 ### :bug: Bug Fix
 - `tiptap-editor`
