@@ -4,8 +4,9 @@ import {
   ContentState,
   hasInlineStyle,
 } from 'wix-rich-content-editor-common';
-import { IRicosEditorModel } from 'wix-rich-content-common';
+import { IRicosEditorModel, DraftContent } from 'wix-rich-content-common';
 import { convertToRaw } from '../../../lib/editorStateConversion';
+import { RichContent } from 'ricos-schema';
 type GetEditorState = () => EditorState;
 
 type DraftEditorModelProps = { getEditorState: GetEditorState; fromDraft };
@@ -13,8 +14,7 @@ type DraftEditorModelProps = { getEditorState: GetEditorState; fromDraft };
 export class DraftEditorModel implements IRicosEditorModel {
   getEditorState: GetEditorState;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  fromDraft: any;
+  fromDraft: (draftJSON: DraftContent) => RichContent;
 
   constructor(props: DraftEditorModelProps) {
     this.getEditorState = props.getEditorState;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   createBlock,
   deleteBlock,
@@ -7,12 +8,17 @@ import {
   setEntityData,
 } from 'wix-rich-content-editor-common';
 import { IRicosEditorCommands } from 'wix-rich-content-common';
+import { Node, Node_Type } from 'ricos-schema';
+
+type toDraftData = (node: Node) => any;
+
+type toDraftType = (node: Node_Type) => any;
 
 type DraftEditorCommandsProps = {
   getEditorState: () => EditorState;
   setEditorState: (editorState: EditorState) => void;
-  toDraftData;
-  toDraftType;
+  toDraftData: toDraftData;
+  toDraftType: toDraftType;
 };
 
 export class DraftEditorCommands implements IRicosEditorCommands {
@@ -20,9 +26,9 @@ export class DraftEditorCommands implements IRicosEditorCommands {
 
   setEditorState: (editorState: EditorState, selection: SelectionState) => void;
 
-  toDraftData;
+  toDraftData: toDraftData;
 
-  toDraftType;
+  toDraftType: toDraftType;
 
   constructor(props: DraftEditorCommandsProps) {
     this.getEditorState = props.getEditorState;
