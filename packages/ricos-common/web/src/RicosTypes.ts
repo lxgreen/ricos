@@ -17,7 +17,7 @@ import {
 } from 'wix-rich-content-common';
 import { EditorState, EditorProps } from 'draft-js';
 import { PreviewConfig } from 'wix-rich-content-preview';
-import { ReactElement } from 'react';
+import { ReactElement, FC } from 'react';
 import { RicosCssOverride } from './types';
 import { DRAFT_EDITOR_PROPS } from './consts';
 import { RichContentEditorProps } from 'wix-rich-content-editor';
@@ -68,6 +68,7 @@ export interface RicosEditorProps extends RicosProps {
   injectedContent?: DraftContent;
   maxTextLength?: number;
   editorEvents?: EditorEvents;
+  sideBlockComponent?: FC<{ id: string }>;
   /* Changes to this interface should also be reflected in the API docs */
 }
 
