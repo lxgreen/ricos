@@ -151,11 +151,7 @@ class ImageUploadComponent extends PureComponent {
             onChange={this.handleInputChange}
             accept="image/*"
             tabIndex={-1}
-            style={{
-              position: 'absolute',
-              opacity: 0,
-              top: 0,
-            }}
+            className={styles.imageInput}
           />
           <div
             className={cls(styles.overlay, {
