@@ -22,6 +22,10 @@
 - `toolbars-new`
   - [#3264](https://github.com/wix/ricos/pull/3264) click on gaps between buttons
 
+### :book: Documentation
+
+- [#3253](https://github.com/wix/ricos/pull/3253) new toolbar api - buttonsOverrides
+
 </details>
 <hr/>
 

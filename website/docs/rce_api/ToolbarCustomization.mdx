@@ -87,8 +87,17 @@ The `Setting` type is defined as follows:
       android: { [key:string]: Component }
     }
   }
+  buttonsOverrides: () => {
+    desktop: { [buttonKey:string]: { icon: Component, modal: Component } },
+    mobile: {
+      ios: { [buttonKey:string]: { icon: Component, modal: Component } },
+      android: { [buttonKey:string]: { icon: Component, modal: Component } }
+    }
+  }
 }
 ```
+
+`buttonKey` represents the key of a current button (most likely to be one of the buttons const found in [consts.js](https://github.com/wix/ricos/blob/master/packages/editor-common/web/src/consts.js), but also can be a custom button key that can be passed by `getButtons`).
 
 As you can see, the `Settings` is form-factor aware, i.e. it defines different behaviors for desktop/mobile views.
 
@@ -137,6 +146,7 @@ All available button names are listed in the [EditorPlugins](https://github.com/
 | `getButtons` (1)         | a list of the toolbar button components                                                                                                                                                                                                                            | plugin insertion and functionality toolbars |
 | `getButtons` (2)         | a list of inline button names                                                                                                                                                                                                                                      | text editing toolbars                       |
 | `getTextPluginButtons`   | a map of inline buttons added by plugins. The keys are derived from the `PluginTextButtonMappers` -- see the `link-plugin`'s [createLinkToolbar](https://github.com/wix/ricos/blob/master/packages/plugin-link/web/src/toolbar/createLinkToolbar.js) for reference | text editing toolbars                       |
+| `buttonsOverrides`          | a map of buttons to override the default buttons configuration                                                                                                                                                                                                     | all new toolbars                            |
 
 #### Display Options
 
