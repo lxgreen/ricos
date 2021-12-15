@@ -16,7 +16,11 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
+
+</details>
+<hr/>
   
+## 8.65.9 (Dec 15, 2021)
 ### :bug: Bug Fix
 
 - `tiptap-editor`
@@ -28,17 +32,15 @@
   - [#3195](https://github.com/wix/ricos/pull/3195) fixed tab size for identation (under `fixedTabSize` experiment)
 
 - `ricos-content`
+
   - [#3247](https://github.com/wix/ricos/pull/3247) fix crash on no-data plugins
-  
+
 ### :house: Internal
 
-- `tiptap-extensions`  
+- `tiptap-extensions`
   - [#3260](https://github.com/wix/ricos/pull/3260) refactored italic, headings, underline
 - `video/vertical-social-embed`
-  - [#3259](https://github.com/wix/ricos/pull/3259) Combine new-modals experiments into one  
-
-</details>
-<hr/>
+  - [#3259](https://github.com/wix/ricos/pull/3259) Combine new-modals experiments into one
 
 ## 8.65.8 (Dec 13, 2021)
 
