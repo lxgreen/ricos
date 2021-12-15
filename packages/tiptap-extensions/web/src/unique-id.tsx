@@ -30,6 +30,7 @@ export const createUniqueId = (): RicosFunctionalExtension => ({
               'blockquote',
               'orderedList',
               'listItem',
+              'poll',
             ],
             attributes: {
               id: {

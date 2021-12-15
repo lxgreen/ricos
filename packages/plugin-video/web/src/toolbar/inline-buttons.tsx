@@ -32,8 +32,8 @@ const createInlineButtons: CreateInlineButtons = ({
 }) => {
   //apply the extended input modal styles if handleFileSelection is avilable in plugin config
   //& on mobile if enableCustomUploadOnMobile is set to true, otherwise the normal modal styles is applied
-  const { spoilerInInlineToolbar, newVideoModal } = experiments;
-  const useNewModal = newVideoModal?.enabled;
+  const { spoilerInInlineToolbar, newVideoVerticalAndSocialModals } = experiments;
+  const useNewModal = newVideoVerticalAndSocialModals?.enabled;
   const icon = settings?.toolbar?.icons?.replace || MediaReplaceIcon;
 
   const defaultCustomStyles =

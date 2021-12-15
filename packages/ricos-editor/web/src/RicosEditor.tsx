@@ -36,6 +36,7 @@ import { getEmptyDraftContent, getEditorContentSummary } from 'wix-rich-content-
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
 import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
 import { getBiFunctions } from './toolbars/utils/biUtils';
+import { renderSideBlockComponent } from './utils/renderBlockComponent';
 import { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 // eslint-disable-next-line
@@ -301,7 +302,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.setActiveEditor(ref);
   };
 
-  getEditorCommands = () => this.editor.getEditorCommands();
+  getEditorCommands = () => this.editor?.getEditorCommands();
 
   getT = () => this.editor.getT();
 
@@ -427,6 +428,16 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       : this.renderToolbarPortal(StaticToolbar);
   }
 
+  renderSideBlocksComponents = () => {
+    const { sideBlockComponent, locale } = this.props;
+    if (!sideBlockComponent) {
+      return null;
+    }
+    const dir = getLangDir(locale);
+    const nodes = this.getEditorCommands()?.getAllBlocksKeys();
+    return nodes?.map(id => renderSideBlockComponent(id, dir, sideBlockComponent));
+  };
+
   renderDraftEditor() {
     const { remountKey } = this.state;
     const child =
@@ -439,6 +450,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     return (
       <Fragment key={`${remountKey}`}>
         {this.renderToolbars()}
+        {this.renderSideBlocksComponents()}
         {this.renderRicosEngine(child, {
           onChange: this.onChange(child.props.onChange),
           ref: this.setEditorRef,

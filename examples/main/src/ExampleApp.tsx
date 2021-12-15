@@ -83,6 +83,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
       experiments: get('experiments') || {},
       externalToolbarToShow: ToolbarType.FORMATTING,
       textWrap: true,
+      showSideBlockComponent: false,
       ...localState,
     };
   }
@@ -142,6 +143,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
       shouldUseNewContent,
       externalPopups,
       textWrap,
+      showSideBlockComponent,
     } = this.state;
     this.editorSettings = [
       {
@@ -241,6 +243,15 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
         items: FONTS,
         itemsType: 'fonts',
       },
+      {
+        name: 'Side Node Component (Notes)',
+        active: showSideBlockComponent,
+        action: () =>
+          this.setState(state => ({
+            showSideBlockComponent: !state.showSideBlockComponent,
+            editorResetKey: state.editorResetKey + 1,
+          })),
+      },
     ];
 
     this.viewerSettings = [
@@ -318,6 +329,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
       styleElement,
       externalPopups,
       textWrap,
+      showSideBlockComponent,
     } = this.state;
 
     return (
@@ -348,6 +360,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
                 onRicosEditorChange={onRicosEditorChange}
                 experiments={experiments}
                 textWrap={textWrap}
+                showSideBlockComponent={showSideBlockComponent}
               />
             </ErrorBoundary>
           </SectionContent>

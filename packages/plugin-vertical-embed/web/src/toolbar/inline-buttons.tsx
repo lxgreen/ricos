@@ -28,8 +28,8 @@ const createInlineButtons: CreateInlineButtons = ({
   locale: string;
   experiments: AvailableExperiments;
 }) => {
-  const { newVerticalEmbedModal } = experiments;
-  const useNewModal = newVerticalEmbedModal?.enabled;
+  const { newVideoVerticalAndSocialModals } = experiments;
+  const useNewModal = newVideoVerticalAndSocialModals?.enabled;
 
   const newModalCustomStyles = isMobile
     ? MOBILE_FULL_SCREEN_CUSTOM_STYLE
