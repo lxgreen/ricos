@@ -17,7 +17,20 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.65.12 (Dec 15, 2021)
+
 ### :bug: Bug Fix
+
+- `viewer`
+
+  - [#3266](https://github.com/wix/ricos/pull/3266) fix ordered-lists numbering line-height issue (under `fixListLineHeight` experiment)
+
+- `e2e`
+
+  - [#3266](https://github.com/wix/ricos/pull/3266) fix ordered-lists numbering line-height issue (under `fixListLineHeight` experiment)
 
 - `toolbars-new`
   - [#3264](https://github.com/wix/ricos/pull/3264) click on gaps between buttons
@@ -25,9 +38,6 @@
 ### :book: Documentation
 
 - [#3253](https://github.com/wix/ricos/pull/3253) new toolbar api - buttonsOverrides
-
-</details>
-<hr/>
 
 ## 8.65.11 (Dec 15, 2021)
 
