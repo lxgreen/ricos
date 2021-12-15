@@ -20,6 +20,14 @@
 </details>
 <hr/>
 
+## 8.65.11 (Dec 15, 2021)
+
+### :bug: Bug Fix
+
+- `viewer`
+
+  - [#3262](https://github.com/wix/ricos/pull/3262) fix ordered-lists numbering line-height issue (under `fixListLineHeight` experiment)
+
 ## 8.65.10 (Dec 15, 2021)
 
 ### :rocket: New Feature
