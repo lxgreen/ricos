@@ -63,7 +63,7 @@ var simpleIsEqual = function simpleIsEqual(a, b) {
   return result;
 });
 // EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(0);
+var react = __webpack_require__(1);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
 var objectWithoutPropertiesLoose = __webpack_require__(47);
