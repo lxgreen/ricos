@@ -16,14 +16,16 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-  
+
+</details>
+<hr/>
+
+## 8.65.14 (Dec 15, 2021)
+
 ### :bug: Bug Fix
 
 - `tiptap-editor`
   - [#3267](https://github.com/wix/ricos/pull/3267) tiptap, prosemirror added to rollup externals
-
-</details>
-<hr/>
 
 ## 8.65.13 (Dec 15, 2021)
 
