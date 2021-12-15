@@ -29,7 +29,10 @@
 
 - `ricos-content`
   - [#3247](https://github.com/wix/ricos/pull/3247) fix crash on no-data plugins
-  
+
+- `toolbars-new`
+  - [#3263](https://github.com/wix/ricos/pull/3263) fix color picker-closing when there is a 'mouseup' event outside of the modal
+
 ### :house: Internal
 
 - `tiptap-extensions`  

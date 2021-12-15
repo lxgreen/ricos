@@ -51,8 +51,11 @@ interface State {
 class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
   modalRef?: HTMLDivElement | null;
 
+  waitingForMouseUp: boolean;
+
   constructor(props) {
     super(props);
+    this.waitingForMouseUp = false;
     this.state = {
       isModalOpen: false,
       currentColor: props.getCurrentColor() || 'unset',
@@ -100,7 +103,7 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
   };
 
   closeModal = ({ loadSelectionOnClose = true, clickFromKeyboard = false } = {}) => {
-    if (this.state.isModalOpen) {
+    if (this.state.isModalOpen && !this.waitingForMouseUp) {
       const {
         setKeepOpen,
         dropDownProps: { loadSelection },
@@ -150,7 +153,16 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
     this.closeModal({
       loadSelectionOnClose: e.target.closest('[data-hook=ricos-editor-toolbars]'),
     });
+    this.waitingForMouseUp = false;
   };
+
+  handleMouseUp = e => {
+    if (this.waitingForMouseUp && this.modalRef?.contains(e.target)) {
+      this.waitingForMouseUp = false;
+    }
+  };
+
+  handleMouseDown = () => (this.waitingForMouseUp = true);
 
   render() {
     const { settings, t, isMobile, dropDownProps, theme, nestedMenu } = this.props;
@@ -214,6 +226,8 @@ class ColorPickerButton extends Component<ColorPickerButtonProps, State> {
             ref={this.setModalRef}
             tabIndex={-1}
             onKeyDown={onKeyDown}
+            onMouseUp={this.handleMouseUp}
+            onMouseDown={this.handleMouseDown}
           >
             <ColorPicker
               color={currentColor}
