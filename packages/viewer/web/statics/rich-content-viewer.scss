@@ -62,7 +62,6 @@
   &.android {
     padding-top: 50px;
   }
-
 }
 
 .editor {
@@ -148,6 +147,7 @@
     /*! rtl:ignore */
     @include ricosTypography('p', true);
   }
+  &.lineHeightFix::before,
   &.lineHeightFix::marker {
     line-height: unset;
   }
