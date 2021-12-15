@@ -1,5 +1,8 @@
 import {
   mergeAttributes,
+  textblockTypeInputRule,
+  markPasteRule,
+  markInputRule,
   Node,
   NodeConfig,
   NodeViewRendererProps,
@@ -18,7 +21,12 @@ import { isRicosNodeExtension, RicosExtension, RicosNodeExtension } from 'ricos-
 import { RicosNode } from '../components/RicosNode';
 
 const toExtensionConfig = (ext: RicosNodeExtension) =>
-  ext.createExtensionConfig({ mergeAttributes });
+  ext.createExtensionConfig({
+    textblockTypeInputRule,
+    markPasteRule,
+    markInputRule,
+    mergeAttributes,
+  });
 
 const toFullNodeConfig = (ext: RicosNodeExtension) => (config: NodeConfig): NodeConfig => ({
   type: 'node',

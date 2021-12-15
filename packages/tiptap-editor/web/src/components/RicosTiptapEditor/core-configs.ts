@@ -9,6 +9,8 @@ import {
   createBulletedList,
   createBold,
   createParagraph,
+  createItalic,
+  createUnderline,
 } from 'wix-tiptap-extensions';
 
 export const coreConfigs: RicosExtension[] = [
@@ -21,4 +23,6 @@ export const coreConfigs: RicosExtension[] = [
   createBulletedList(),
   createBold(),
   createParagraph(),
+  createItalic(),
+  createUnderline(),
 ];

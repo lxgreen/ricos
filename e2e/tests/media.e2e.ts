@@ -342,21 +342,21 @@ describe('plugins', () => {
         cy.eyesCheckWindow(this.test.parent.title + ' - render manage media tab');
       });
 
-      it('should disable gallery expand', () => {
+      it('should disable gallery expand', function() {
         cy.loadRicosEditorAndViewer('gallery');
         cy.openPluginToolbar(PLUGIN_COMPONENT.GALLERY);
         cy.openSettings('ADV_SETTINGS');
-        cy.eyesCheckWindow();
+        // cy.eyesCheckWindow(this.test.title + ' - settings');
         cy.get(`[data-hook=${GALLERY_SETTINGS.GALLERY_EXPAND_TOGGLE}]`).click();
         cy.wait(200);
-        cy.eyesCheckWindow();
+        // cy.eyesCheckWindow(this.test.title + ' - after disable expend mode setting');
         cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
         cy.wait(200);
         cy.get(`[data-hook=${PLUGIN_COMPONENT.GALLERY}]`)
           .eq(1)
           .parent()
           .click();
-        cy.eyesCheckWindow();
+        cy.eyesCheckWindow(this.test.parent.title + ' - after click');
       });
     });
   });

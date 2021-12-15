@@ -42,8 +42,8 @@ const createInsertButtons: CreateInsertButtons = ({
   //apply the extended input modal styles if handleFileSelection is avilable in plugin config
   //& on mobile if enableCustomUploadOnMobile is set to true, otherwise the normal modal styles is applied
   const componentData = disableDownload !== undefined ? { ...DEFAULTS, disableDownload } : DEFAULTS;
-  const { newVideoModal } = experiments;
-  const useNewModal = newVideoModal?.enabled;
+  const { newVideoVerticalAndSocialModals } = experiments;
+  const useNewModal = newVideoVerticalAndSocialModals?.enabled;
 
   const {
     exposeButtons = [videoButtonsTypes.video],
