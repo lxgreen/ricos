@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+- `ricos-editor`
+  - [#3182](https://github.com/wix/ricos/pull/3182) sideBlockComponent config (Notes integration)
+
 </details>
 <hr/>
   
@@ -153,6 +158,8 @@
 - `*`
   - [#3203](https://github.com/wix/ricos/pull/3203) icons bm theme wiring
   - [#3207](https://github.com/wix/ricos/pull/3207) bg & hover color bm theme wiring
+- `ricos-editor`
+  - [#3182](https://github.com/wix/ricos/pull/3182) sideBlockComponent config (Notes integration)
 
 ### :bug: Bug Fix
 

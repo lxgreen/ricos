@@ -169,6 +169,7 @@ export const createEditorCommands = (
     isAtomicBlockInSelection: EditorCommands['isAtomicBlockInSelection'];
     isTextBlockInSelection: EditorCommands['isTextBlockInSelection'];
     getAnchorBlockType: EditorCommands['getAnchorBlockType'];
+    getAllBlocksKeys: EditorCommands['getAllBlocksKeys'];
   } = {
     getSelection: () => {
       const selection = getEditorState().getSelection();
@@ -240,6 +241,11 @@ export const createEditorCommands = (
     isAtomicBlockInSelection: () => isAtomicBlockInSelection(getEditorState()),
     isTextBlockInSelection: () => isTextBlockInSelection(getEditorState()),
     getAnchorBlockType: () => getBlockType(getEditorState()),
+    getAllBlocksKeys: () =>
+      getEditorState()
+        .getCurrentContent()
+        .getBlocksAsArray()
+        .map(block => block.getKey()),
   };
 
   const toggleOverlayBGColor = (element: HTMLElement) => {
