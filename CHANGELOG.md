@@ -17,15 +17,18 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.65.10 (Dec 15, 2021)
+
 ### :rocket: New Feature
 
 - `ricos-editor`
   - [#3182](https://github.com/wix/ricos/pull/3182) sideBlockComponent config (Notes integration)
 
-</details>
-<hr/>
-  
 ## 8.65.9 (Dec 15, 2021)
+
 ### :bug: Bug Fix
 
 - `tiptap-editor`
