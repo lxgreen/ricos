@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3264](https://github.com/wix/ricos/pull/3264) click on gaps between buttons
+
 </details>
 <hr/>
 
