@@ -195,4 +195,5 @@ export interface EditorCommands {
   isAtomicBlockInSelection: () => boolean;
   isTextBlockInSelection: () => boolean;
   getAnchorBlockType: () => string;
+  getAllBlocksKeys: () => string[];
 }

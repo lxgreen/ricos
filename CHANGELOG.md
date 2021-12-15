@@ -24,6 +24,52 @@
 </details>
 <hr/>
 
+## 8.65.11 (Dec 15, 2021)
+
+### :bug: Bug Fix
+
+- `viewer`
+
+  - [#3262](https://github.com/wix/ricos/pull/3262) fix ordered-lists numbering line-height issue (under `fixListLineHeight` experiment)
+
+## 8.65.10 (Dec 15, 2021)
+
+### :rocket: New Feature
+
+- `ricos-editor`
+  - [#3182](https://github.com/wix/ricos/pull/3182) sideBlockComponent config (Notes integration)
+
+## 8.65.9 (Dec 15, 2021)
+
+### :bug: Bug Fix
+
+- `tiptap-editor`
+
+  - [#3256](https://github.com/wix/ricos/pull/3256) NodeExtension config defaults
+
+- `editor` `viewer`
+
+  - [#3195](https://github.com/wix/ricos/pull/3195) fixed tab size for identation (under `fixedTabSize` experiment)
+
+- `ricos-content`
+
+  - [#3247](https://github.com/wix/ricos/pull/3247) fix crash on no-data plugins
+
+### :house: Internal
+
+- `tiptap-extensions`
+  - [#3260](https://github.com/wix/ricos/pull/3260) refactored italic, headings, underline
+- `video/vertical-social-embed`
+  - [#3259](https://github.com/wix/ricos/pull/3259) Combine new-modals experiments into one
+
+## 8.65.8 (Dec 13, 2021)
+
+### :bug: Bug Fix
+
+- `viewer`
+
+  - [#3231](https://github.com/wix/ricos/pull/3231) fix line-height diff when plugin-line-height & paragraph line height (customStyles api) are both applied on list
+
 ## 8.65.7 (Dec 13, 2021)
 
 ### :bug: Bug Fix
@@ -125,6 +171,8 @@
 - `*`
   - [#3203](https://github.com/wix/ricos/pull/3203) icons bm theme wiring
   - [#3207](https://github.com/wix/ricos/pull/3207) bg & hover color bm theme wiring
+- `ricos-editor`
+  - [#3182](https://github.com/wix/ricos/pull/3182) sideBlockComponent config (Notes integration)
 
 ### :bug: Bug Fix
 

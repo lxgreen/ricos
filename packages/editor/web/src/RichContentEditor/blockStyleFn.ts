@@ -48,7 +48,8 @@ export default (
   theme: RichContentTheme,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   styleToClass: ([key, val]: [string, any]) => string,
-  defaultTextAlignment?: EditorProps['textAlignment']
+  defaultTextAlignment?: EditorProps['textAlignment'],
+  fixedTabSize?: boolean
 ) => {
   return (contentBlock: ContentBlock) => {
     const {
@@ -69,7 +70,11 @@ export default (
         theme[textAlignment],
         isListType(type)
           ? listAlignmentClass(textAlignment, textDirection)
-          : [depthClassName(depth), textBlockAlignmentClass(textAlignment, textDirection)]
+          : [
+              depthClassName(depth),
+              textBlockAlignmentClass(textAlignment, textDirection),
+              fixedTabSize ? 'fixed-tab-size' : '',
+            ]
       );
     }
 

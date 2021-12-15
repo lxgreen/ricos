@@ -8,17 +8,18 @@ import styles from '../statics/rich-content-viewer.scss';
 import { withInteraction } from './withInteraction';
 
 const draftPublic = 'public-DraftStyleDefault';
-const draftClassNames = (listType, depth, textDirection) =>
-  `${draftPublic}-${listType}ListItem
-   ${draftPublic}-depth${depth}
-   ${draftPublic}-list-${textDirection}`;
+const draftClassNames = (listType, depth, textDirection) => [
+  `${draftPublic}-${listType}ListItem`,
+  `${draftPublic}-depth${depth}`,
+  `${draftPublic}-list-${textDirection}`,
+];
 
-const getBlockClassName = (isNewList, direction, listType, depth) => {
-  let className = draftClassNames(listType, depth, direction);
-  if (isNewList) {
-    className += ` ${draftPublic}-reset`;
-  }
-  return className;
+const getBlockClassName = (direction, listType, depth, { isNewList, fixedTabSize }) => {
+  return [
+    ...draftClassNames(listType, depth, direction),
+    ...(fixedTabSize ? ['fixed-tab-size'] : []),
+    ...(isNewList ? [`${draftPublic}-reset`] : []),
+  ].join(' ');
 };
 
 const List = ({
@@ -30,6 +31,7 @@ const List = ({
   getBlockStyleClasses,
   blockDataToStyle,
   context,
+  fixedTabSize,
 }) => {
   const Component = ordered ? 'ol' : 'ul';
   const listType = ordered ? 'ordered' : 'unordered';
@@ -53,11 +55,15 @@ const List = ({
           alignment
         );
         const hasJustifyText = alignment === 'justify' && hasText(children);
+        const shouldFixHeight = context.experiments?.fixListLineHeight?.enabled;
+        const blockStyle = blockDataToStyle(blockProps.data[childIndex]);
+        const style = shouldFixHeight ? { lineHeight: blockStyle.lineHeight } : undefined;
         const elementProps = key => ({
           className: classNames(mergedStyles.elementSpacing, textClassName, {
             [styles.hasJustifyText]: hasJustifyText,
             [styles.contentCenterAlignment]: alignment === 'center',
           }),
+          style,
           key,
         });
         React.Children.forEach(children, (child, i) => {
@@ -78,12 +84,14 @@ const List = ({
         }
 
         const depth = dataEntry.depth;
-        const isNewList = childIndex === 0 || depth > prevDepth;
         const listItemDirection = getDirectionFromAlignmentAndTextDirection(
           alignment,
           textDirection || dataEntry.textDirection
         );
-        const className = getBlockClassName(isNewList, listItemDirection, listType, depth);
+        const className = getBlockClassName(listItemDirection, listType, depth, {
+          isNewList: childIndex === 0 || depth > prevDepth,
+          fixedTabSize,
+        });
         prevDepth = depth;
         const blockIndex = dataEntry.index;
         const wrappedBlock = withInteraction(
@@ -100,7 +108,8 @@ const List = ({
               styles[alignment],
               getBlockStyleClasses(mergedStyles, listItemDirection, alignment, className, true),
               isPaywallSeo(context.seoMode) &&
-                getPaywallSeoClass(context.seoMode.paywall, blockIndex)
+                getPaywallSeoClass(context.seoMode.paywall, blockIndex),
+              shouldFixHeight && styles.lineHeightFix
             )}
             key={blockProps.keys[childIndex]}
             style={blockDataToStyle(blockProps.data[childIndex])}
@@ -123,6 +132,7 @@ List.propTypes = {
   textDirection: PropTypes.oneOf(['rtl', 'ltr']),
   context: PropTypes.shape({
     theme: PropTypes.object.isRequired,
+    experiments: PropTypes.object,
     anchorTarget: PropTypes.string.isRequired,
     relValue: PropTypes.string.isRequired,
     config: PropTypes.object.isRequired,
@@ -136,6 +146,7 @@ List.propTypes = {
     disableRightClick: PropTypes.bool,
     textAlignment: PropTypes.oneOf(['left', 'right']),
   }).isRequired,
+  fixedTabSize: PropTypes.bool,
 };
 
 export default List;
