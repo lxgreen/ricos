@@ -147,4 +147,12 @@ export type LinkPreviewData = {
   html?: string;
 };
 
+export type LinkDataUrl = {
+  url: string;
+  target?: string;
+  rel?: string;
+};
+
+export type AddLinkData = LinkDataUrl & { anchor?: string };
+
 export type OnKeyboardShortcutClick = (param: { buttonName: string; pluginId?: string }) => void;

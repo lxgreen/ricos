@@ -98,7 +98,7 @@ export const createButtonsList = ({
       handleButtonOnSave(buttonsList, index, editorCommands, buttonsOverrides);
       handleButtonOnCancel(buttonsList, index, editorCommands, buttonsOverrides);
       handleButtonOnChange(buttonsList, index, editorCommands, headingsData, buttonsOverrides);
-      handleButtonOnDone(buttonsList, index, editorCommands, buttonsOverrides);
+      handleButtonOnDone(buttonsList, index, editorCommands, buttonsOverrides, linkPanelData);
       handleButtonOnDelete(buttonsList, index, editorCommands, buttonsOverrides);
       // handleGroupButtons(buttonsList, buttonKey, index, editorCommands);
       buttonKey === 'Title' &&
@@ -199,12 +199,14 @@ const handleButtonOnDone = (
   buttonsList,
   index,
   editorCommands: editorCommands,
-  buttonsOverrides
+  buttonsOverrides,
+  linkPanelData
 ) => {
   if (buttonsOverrides[buttonsList[index].name].onDone) {
     const buttonName = buttonsList[index].name;
     if (buttonName === 'LINK' || buttonName === 'editLink') {
       buttonsList[index].onDone = data => {
+        linkPanelData.onAddPluginLink(data);
         editorCommands.insertDecoration(decorationButtons[buttonName], data);
       };
     }

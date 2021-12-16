@@ -22,6 +22,10 @@
 - `ricos-content`
 
   - [#3271](https://github.com/wix/ricos/pull/3271) pass fromDraft props to nestedNodesConverters
+  
+- `toolbars-new`
+  - [#3261](https://github.com/wix/ricos/pull/3261) add BI to link modal in new toolbar
+  
 
 </details>
 <hr/>
