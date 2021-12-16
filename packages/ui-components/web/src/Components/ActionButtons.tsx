@@ -31,30 +31,34 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   disableSave = false,
   children,
   t,
-}) => (
-  <div className={classNames(styles.action_buttons, { [styles.mobile]: isMobile })}>
+}) => {
+  const saveLabel = saveText || t('SettingsPanelFooter_Save');
+  const cancelLabel = cancelText || t('SettingsPanelFooter_Cancel');
+  const buttonsDataHook = { save: 'actionButtonSave', cancel: 'actionButtonCancel' };
+  const isSecondary = true;
+  const isDisabled = false;
+
+  const renderButton = (text, dataHook, onClick, disabled = false, secondary = false) => (
     <Button
       size={size}
-      ariaLabel={saveText}
-      disabled={disableSave}
+      ariaLabel={text}
+      disabled={disabled}
       theme={theme}
       isMobile={isMobile}
-      dataHook="actionButtonSave"
-      onClick={onSave}
-      text={saveText || t('SettingsPanelFooter_Save')}
-    />
-    {children}
-    <Button
-      size={size}
-      theme={theme}
-      ariaLabel={cancelText}
-      dataHook="actionButtonCancel"
-      onClick={onCancel}
-      isMobile={isMobile}
-      secondary
-      text={cancelText || t('SettingsPanelFooter_Cancel')}
-    />
-  </div>
-);
+      dataHook={dataHook}
+      onClick={onClick}
+      secondary={secondary}
+    >
+      {text}
+    </Button>
+  );
+  return (
+    <div className={classNames(styles.action_buttons, { [styles.mobile]: isMobile })}>
+      {renderButton(saveLabel, buttonsDataHook.save, onSave, disableSave)}
+      {children}
+      {renderButton(cancelLabel, buttonsDataHook.cancel, onCancel, isDisabled, isSecondary)}
+    </div>
+  );
+};
 
 export default ActionButtons;

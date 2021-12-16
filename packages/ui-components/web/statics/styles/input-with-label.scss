@@ -17,11 +17,12 @@
   padding: 0 17px;
   border: 1px solid $settings-inputs-border-color;
   box-sizing: border-box;
-  border-radius:  $settings-inputs-border-radius;
+  border-radius: $settings-inputs-border-radius;
   box-shadow: none;
   font-size: 14px;
   line-height: 1.5;
   font-weight: 300;
+  color: $settings-text-color;
 
   &::placeholder {
     color: var(--ricos-settings-inputs-placeholder-color, rgba(0, 0, 0, 0.4));

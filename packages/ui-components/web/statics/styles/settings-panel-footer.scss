@@ -7,7 +7,7 @@
   flex-direction: row;
   justify-content: flex-end;
   padding: 24px 24px;
-  border-top: solid 1px #ededed;
+  border-top: solid 1px var(--ricos-settings-dividers-color, #ededed);
   width: 100%;
   max-width: 420px;
   height: 88px;

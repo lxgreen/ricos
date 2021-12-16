@@ -1,6 +1,13 @@
-import React, { FunctionComponent, InputHTMLAttributes, KeyboardEvent } from 'react';
+import React, {
+  FunctionComponent,
+  InputHTMLAttributes,
+  KeyboardEvent,
+  useEffect,
+  useState,
+} from 'react';
 import classNames from 'classnames';
 import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import { ACTION_COLORS_CSS_VAR } from '..';
 import styles from '../../statics/styles/slider.scss';
 
 interface SliderProps {
@@ -16,7 +23,14 @@ interface SliderProps {
 
 const Slider: FunctionComponent<SliderProps> = props => {
   const mergedStyles = mergeStyles({ styles, theme: props.theme });
-  const { min, max, onChange, dataHook, ariaProps, value, onSubmit } = props;
+  const { min = 0, max = 10, onChange, dataHook, ariaProps, value, onSubmit } = props;
+  const [fillPercentage, setFillPercentage] = useState(0);
+  const trackColors = { fill: ACTION_COLORS_CSS_VAR, unFilled: 'rgba(0,0,0,.2)' };
+  const bgStyle = {
+    background: `linear-gradient(90deg ,${trackColors.fill} ${fillPercentage}%, ${
+      trackColors.unFilled
+    } ${fillPercentage + 0.1}%)`,
+  };
 
   const onKeyUp = (event: KeyboardEvent) => {
     switch (event.key) {
@@ -35,6 +49,10 @@ const Slider: FunctionComponent<SliderProps> = props => {
     }
   };
 
+  useEffect(() => {
+    setFillPercentage((100 * (value - min)) / (max - min));
+  }, [value]);
+
   return (
     <input
       {...ariaProps}
@@ -48,6 +66,7 @@ const Slider: FunctionComponent<SliderProps> = props => {
       max={max}
       onMouseUp={e => onSubmit((e.target as HTMLInputElement).valueAsNumber)}
       onKeyUp={onKeyUp}
+      style={bgStyle}
     />
   );
 };

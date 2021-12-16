@@ -91,10 +91,10 @@
             "text": "ultrices",
             "decorations": [
               {
-                "type": "UNDERLINE"
+                "type": "BOLD"
               },
               {
-                "type": "BOLD"
+                "type": "UNDERLINE"
               }
             ]
           }

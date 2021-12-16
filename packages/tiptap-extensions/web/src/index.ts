@@ -6,3 +6,8 @@ export { urlRegex, urlRegexExact } from './link';
 export { createStylesConfig } from './styles';
 export { tiptapExtensions } from './tiptap-extensions';
 export { createUniqueId } from './unique-id';
+export { createBulletedList } from './bulleted-list';
+export { createBold } from './bold';
+export { createParagraph } from './paragraph';
+export { createItalic } from './italic';
+export { createUnderline } from './underline';

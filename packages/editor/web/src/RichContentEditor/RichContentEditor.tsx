@@ -200,15 +200,6 @@ interface RichContentEditorState {
   undoRedoStackChanged: boolean;
 }
 
-// experiment example code
-function makeBarrelRoll() {
-  document.querySelector('.DraftEditor-root')?.classList.toggle('barrelRoll');
-  setTimeout(
-    () => document.querySelector('.DraftEditor-root')?.classList.toggle('barrelRoll'),
-    1000
-  );
-}
-
 class RichContentEditor extends Component<RichContentEditorProps, RichContentEditorState> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   refId: number;
@@ -412,7 +403,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     } = this.props;
 
     this.fixHelpers(helpers);
-    const onPluginAction: OnPluginAction = (eventName: EventName, params: PluginEventParams) =>
+    const onPluginAction: OnPluginAction = (eventName, params) =>
       helpers.onPluginAction?.(eventName, { ...params, version: Version.currentVersion });
     const version = Version.currentVersion;
     this.contextualData = {
@@ -917,13 +908,6 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       modifiers: [MODIFIERS.COMMAND, MODIFIERS.SHIFT],
       key: 'z',
     },
-    this.props.experiments?.barrelRoll?.enabled && typeof window !== 'undefined'
-      ? {
-          command: 'cmdShift7',
-          modifiers: [MODIFIERS.COMMAND, MODIFIERS.SHIFT],
-          key: '7',
-        }
-      : {},
   ] as KeyCommand[];
 
   customCommandHandlers: Record<string, CommandHandler> = {
@@ -934,9 +918,6 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     esc: this.handleEscCommand,
     ricosUndo: this.handleUndoCommand,
     ricosRedo: this.handleRedoCommand,
-    ...(this.props.experiments?.barrelRoll?.enabled && typeof window !== 'undefined'
-      ? { cmdShift7: makeBarrelRoll }
-      : {}),
   };
 
   getCustomCommandHandlers = (): {
@@ -1134,6 +1115,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       handleReturn,
       readOnly,
       onBackspace,
+      experiments,
     } = this.props;
     const { editorState } = this.state;
     const { theme } = this.contextualData;
@@ -1151,7 +1133,12 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
         handleBeforeInput={this.handleBeforeInput}
         handlePastedText={this.handlePastedText}
         plugins={this.plugins}
-        blockStyleFn={blockStyleFn(theme, this.styleToClass, textAlignment)}
+        blockStyleFn={blockStyleFn(
+          theme,
+          this.styleToClass,
+          textAlignment,
+          experiments?.fixedTabSize?.enabled
+        )}
         handleKeyCommand={handleKeyCommand(
           this.updateEditorState,
           this.getCustomCommandHandlers().commandHandlers,
@@ -1330,6 +1317,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       showToolbars = true,
       isInnerRCE,
       isMobile = false,
+      experiments,
     } = this.props;
     const { innerModal } = this.state;
 
@@ -1352,6 +1340,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
         theme,
         draftStyles,
         editorStyles,
+        experiments,
       });
 
       return (

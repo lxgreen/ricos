@@ -3,21 +3,24 @@ import {
   TableBiCallbacksParams,
   TableEventsParamsMappers,
 } from './tableBiCallbacksTypes';
+import { AddLinkData } from './commonTypes';
 
 export type GenericEventsName = 'addPluginLink';
 export type EventName = TableEventsName | GenericEventsName;
 export type PluginEventParams = TableBiCallbacksParams;
 
 export interface PluginsActionGenericParams {
-  version: string;
+  version?: string;
   plugin_id: string;
 }
-interface AddPluginLinkParams extends PluginsActionGenericParams {
-  category: string;
-  link?: string;
-  nofollow?: boolean;
-  newTab?: string;
-  anchor?: string;
+export interface AddPluginLinkParams extends PluginsActionGenericParams {
+  params: {
+    category: string;
+    link?: string;
+    nofollow?: boolean;
+    newTab?: boolean;
+    anchor?: string;
+  };
 }
 
 export interface GenericParamsMappers {
@@ -29,4 +32,9 @@ interface EventsParamsMappers extends TableEventsParamsMappers, GenericParamsMap
 export type OnPluginAction = <K extends keyof EventsParamsMappers>(
   eventName: K,
   params: EventsParamsMappers[K]
+) => void;
+
+export type OnAddPluginLink = (
+  data: AddLinkData,
+  triggeredBy: 'TEXT' | 'IMAGE' | 'UNSUPPORTED'
 ) => void;

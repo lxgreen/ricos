@@ -11,7 +11,7 @@ const VideoModal = props => {
     experiments,
   } = props;
 
-  const useNewModal = experiments?.newVideoModal?.enabled;
+  const useNewModal = experiments?.newVideoVerticalAndSocialModals?.enabled;
   const oldVideoModal = mediaTypes.includes(type) ? MediaURLInputModal : VideoSelectionInputModal;
   const Component = useNewModal ? NewVideoModal : oldVideoModal;
 

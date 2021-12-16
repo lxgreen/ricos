@@ -128,6 +128,7 @@ export interface ViewerContextType extends CommonContextType {
   disableRightClick?: boolean;
   contentState?: DraftContent;
   textAlignment?: 'left' | 'right';
+  experiments?: AvailableExperiments;
 }
 
 export type Experiment = {
@@ -145,5 +146,13 @@ export type LinkPreviewData = {
   provider_url?: string;
   html?: string;
 };
+
+export type LinkDataUrl = {
+  url: string;
+  target?: string;
+  rel?: string;
+};
+
+export type AddLinkData = LinkDataUrl & { anchor?: string };
 
 export type OnKeyboardShortcutClick = (param: { buttonName: string; pluginId?: string }) => void;

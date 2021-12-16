@@ -12,14 +12,15 @@ declare module '@tiptap/core' {
   }
 }
 
-export const deleteNode: RawCommands['deleteNode'] = id => ({ view, tr }) => {
-  const nodeWithPos = findChildren(view.state.doc, node => node.attrs.id === id);
+export const deleteNode: RawCommands['deleteNode'] = id => ({ tr, dispatch }) => {
+  const nodeWithPos = findChildren(tr.doc, node => node.attrs.id === id);
   const { pos, node } = nodeWithPos?.[0] || {};
-  if (pos) {
-    view.dispatch(tr.delete(pos, pos + node.nodeSize));
+  if (pos !== undefined && dispatch) {
+    tr.delete(pos, pos + node.nodeSize);
+
     return true;
   } else {
-    console.error('Failed to delete node with specific key');
+    console.error(`Failed to delete node with id ${id}`);
     return false;
   }
 };
