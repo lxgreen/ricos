@@ -50,6 +50,7 @@ const createExternalMentionsPlugin: CreatePluginFunction<MentionsPluginEditorCon
       reposition: settings.repositionSuggestions,
       visibleItemsBeforeOverflow: settings.visibleItemsBeforeOverflow,
     }),
+    supportWhitespace: true,
   });
 
   const inlineModals = [
