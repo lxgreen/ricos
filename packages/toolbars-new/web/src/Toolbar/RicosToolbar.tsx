@@ -10,6 +10,7 @@ import {
   Link_Rel,
   CustomAnchorScroll,
   AvailableExperiments,
+  OnAddPluginLink,
 } from 'wix-rich-content-common';
 import { RicosCssOverride, RicosTheme } from 'ricos-common';
 
@@ -32,6 +33,7 @@ export type linkPanelDataType = {
     customAnchorScroll?: CustomAnchorScroll;
   };
   onLinkAdd?: any;
+  onAddPluginLink?: OnAddPluginLink;
 };
 
 export type defaultLineSpacingType = {

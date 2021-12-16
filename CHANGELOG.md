@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3261](https://github.com/wix/ricos/pull/3261) add BI to link modal in new toolbar
+
 </details>
 <hr/>
 

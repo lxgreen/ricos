@@ -403,7 +403,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     } = this.props;
 
     this.fixHelpers(helpers);
-    const onPluginAction: OnPluginAction = (eventName: EventName, params: PluginEventParams) =>
+    const onPluginAction: OnPluginAction = (eventName, params) =>
       helpers.onPluginAction?.(eventName, { ...params, version: Version.currentVersion });
     const version = Version.currentVersion;
     this.contextualData = {
