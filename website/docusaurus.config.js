@@ -9,7 +9,8 @@ module.exports = {
   themeConfig: {
     // https://docsearch.algolia.com/docs/faq/#can-i-share-the-apikey-in-my-repo
     algolia: {
-      apiKey: '1c2337fcafb4c304a30def6efc0b441a',
+      appId: 'MT7R01ZLZ6',
+      apiKey: 'ca237efb6e1f4dfc6e5d64875ffd8dd6',
       indexName: 'rich-content',
       algoliaOptions: { facetFilters: ['type:content'] },
     },
