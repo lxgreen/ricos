@@ -48,7 +48,7 @@ describe('rtl', () => {
     });
 
     it('render rtl and ltr text correctly', function() {
-      cy.loadRicosEditorAndViewer('hebrew');
+      cy.loadTiptapEditorAndViewer('hebrew');
       cy.eyesCheckWindow(this.test.title);
     });
 
@@ -62,7 +62,7 @@ describe('rtl', () => {
     });
 
     it('render text with indentation in rtl', function() {
-      cy.loadRicosEditorAndViewer('hebrew_with_indentation');
+      cy.loadTiptapEditorAndViewer('hebrew_with_indentation');
       cy.eyesCheckWindow(this.test.title);
     });
   });
@@ -89,7 +89,7 @@ describe('rtl', () => {
     });
 
     it('render rtl and ltr text correctly', function() {
-      cy.loadRicosEditorAndViewer('hebrew');
+      cy.loadTiptapEditorAndViewer('hebrew');
       cy.eyesCheckWindow(this.test.title);
     });
 
@@ -103,7 +103,7 @@ describe('rtl', () => {
     });
 
     it('render text with indentation in rtl', function() {
-      cy.loadRicosEditorAndViewer('hebrew_with_indentation');
+      cy.loadTiptapEditorAndViewer('hebrew_with_indentation');
       cy.eyesCheckWindow(this.test.title);
     });
   });

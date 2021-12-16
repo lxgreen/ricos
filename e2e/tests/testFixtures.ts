@@ -4,7 +4,7 @@ const testFixture = (fixture: Fixture) => {
   const fixtureConfig: FixtureConfig = typeof fixture === 'string' ? { fixture } : fixture;
   const { fixture: fixtureName, config, additionalCommands } = fixtureConfig;
   it(`render ${fixtureName}`, function() {
-    cy.loadRicosEditorAndViewer(fixtureName, config);
+    cy.loadTiptapEditorAndViewer(fixtureName, config);
     cy.focusEditor().wait(200);
     if (additionalCommands) {
       additionalCommands(cy);

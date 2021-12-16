@@ -101,6 +101,16 @@ const COMMANDS = {
   loadRicosEditorAndViewer: (fixtureName?: string, config?: TestAppConfig) =>
     run('ricos', fixtureName, config),
 
+  loadTiptapEditorAndViewer: (fixtureName?: string, config?: TestAppConfig) =>
+    run('tiptap', fixtureName, {
+      ...(config || {}),
+      experiments: {
+        ...(config?.experiments || {}),
+        tiptapEditor: { enabled: true },
+        newFormattingToolbar: { enabled: true },
+      },
+    }),
+
   loadTestAppOnSsr: (compName: string, fixtureName?: string, config?: TestAppConfig) => {
     cy.request(getUrl(compName, fixtureName, config))
       .its('body')
@@ -695,7 +705,7 @@ const getUrl = (componentId: string, fixtureName = '', config: TestAppConfig = {
 const run = (app: string, fixtureName?: string, config?: TestAppConfig) => {
   cy.visit(getUrl(app, fixtureName, config)).then(contentWindow => {
     disableTransitions();
-    findEditorElement();
+    app === 'tiptap' ? findTiptapEditorElement() : findDraftEditorElement();
     contentWindow.richContentHideTooltips = true;
   });
 };
@@ -704,8 +714,12 @@ function disableTransitions() {
   Cypress.$('head').append('<style> * {transition: none !important;}</style>');
 }
 
-function findEditorElement() {
+function findDraftEditorElement() {
   cy.get('.DraftEditor-root', { timeout: 60000 });
+}
+
+function findTiptapEditorElement() {
+  cy.get('.ProseMirror', { timeout: 60000 });
 }
 
 export function setSelection(start: number, offset: number, container: Cypress.Chainable) {

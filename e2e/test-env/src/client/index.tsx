@@ -14,6 +14,7 @@ const compMap = {
   'rce-isolated': IsolatedTestApp,
   rcp: PreviewTestApp,
   ricos: RicosTestApp,
+  tiptap: RicosTestApp,
 };
 
 const props = {
