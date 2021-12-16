@@ -17,6 +17,12 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `ricos-content`
+
+  - [#3271](https://github.com/wix/ricos/pull/3271) pass fromDraft props to nestedNodesConverters
+
 </details>
 <hr/>
 
