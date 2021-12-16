@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.65.16 (Dec 16, 2021)
+
 ### :bug: Bug Fix
 
 - `ricos-content`
@@ -28,10 +33,11 @@
   - [#3261](https://github.com/wix/ricos/pull/3261) add BI to link modal in new toolbar
 
 - `fullscreen`
+
   - [#3274](https://github.com/wix/ricos/pull/3274) fullscreen opens on the correct image on mobile
 
-</details>
-<hr/>
+- `mentions`
+  - [#3235](https://github.com/wix/ricos/pull/3235) allow whitespaces
 
 ## 8.65.15 (Dec 16, 2021)
 
