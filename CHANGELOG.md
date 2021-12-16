@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3265](https://github.com/wix/ricos/pull/3265) fix font size display when selection is collapsed (in static toolbar)
+
 </details>
 <hr/>
 
@@ -36,13 +41,9 @@ Release of v8.65.2 failed
 ### :bug: Bug Fix
 
 - `viewer`
-
   - [#3266](https://github.com/wix/ricos/pull/3266) fix ordered-lists numbering line-height issue (under `fixListLineHeight` experiment)
-
 - `e2e`
-
   - [#3266](https://github.com/wix/ricos/pull/3266) fix ordered-lists numbering line-height issue (under `fixListLineHeight` experiment)
-
 - `toolbars-new`
   - [#3264](https://github.com/wix/ricos/pull/3264) click on gaps between buttons
 
@@ -55,7 +56,6 @@ Release of v8.65.2 failed
 ### :bug: Bug Fix
 
 - `viewer`
-
   - [#3262](https://github.com/wix/ricos/pull/3262) fix ordered-lists numbering line-height issue (under `fixListLineHeight` experiment)
 
 ## 8.65.10 (Dec 15, 2021)
