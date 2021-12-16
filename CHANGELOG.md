@@ -21,6 +21,8 @@
 
 - `toolbars-new`
   - [#3261](https://github.com/wix/ricos/pull/3261) add BI to link modal in new toolbar
+- `fullscreen`
+  - [#3274](https://github.com/wix/ricos/pull/3274) fullscreen opens on the correct image on mobile
 
 </details>
 <hr/>
