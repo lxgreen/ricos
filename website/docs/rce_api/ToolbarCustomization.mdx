@@ -97,7 +97,7 @@ The `Setting` type is defined as follows:
 }
 ```
 
-`buttonKey` represents the key of a current button (most likely to be one of the buttons const found in [consts.js](https://github.com/wix/ricos/blob/master/packages/editor-common/web/src/consts.js), but also can be a custom button key that can be passed by `getButtons`).
+`buttonKey` represents the current button. for example, one of the values of `FORMATTING_BUTTONS` that can be found in [consts.ts](https://github.com/wix/ricos/blob/master/packages/editor-common/web/src/consts.ts)(`'Bold'`, `'Italic'`, `'LINK'`, etc..).
 
 As you can see, the `Settings` is form-factor aware, i.e. it defines different behaviors for desktop/mobile views.
 
@@ -114,7 +114,7 @@ The following toolbar types are available:
   - Footer toolbar
 - Plugin functionality toolbars
 
-All the toolbar types are exposed by the `TOOLBARS` const found in [consts.js](https://github.com/wix/ricos/blob/master/packages/editor-common/web/src/consts.js).
+All the toolbar types are exposed by the `TOOLBARS` const found in [consts.ts](https://github.com/wix/ricos/blob/master/packages/editor-common/web/src/consts.ts).
 
 ### Customizing Text Toolbar Button Icons
 
@@ -146,7 +146,7 @@ All available button names are listed in the [EditorPlugins](https://github.com/
 | `getButtons` (1)         | a list of the toolbar button components                                                                                                                                                                                                                            | plugin insertion and functionality toolbars |
 | `getButtons` (2)         | a list of inline button names                                                                                                                                                                                                                                      | text editing toolbars                       |
 | `getTextPluginButtons`   | a map of inline buttons added by plugins. The keys are derived from the `PluginTextButtonMappers` -- see the `link-plugin`'s [createLinkToolbar](https://github.com/wix/ricos/blob/master/packages/plugin-link/web/src/toolbar/createLinkToolbar.js) for reference | text editing toolbars                       |
-| `buttonsOverrides`          | a map of buttons to override the default buttons configuration                                                                                                                                                                                                     | all new toolbars                            |
+| `buttonsOverrides`       | a map of buttons to override the default buttons configuration                                                                                                                                                                                                     | all v2 toolbars                             |
 
 #### Display Options
 
