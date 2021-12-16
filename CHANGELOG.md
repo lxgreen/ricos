@@ -17,13 +17,17 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.65.15 (Dec 16, 2021)
+
 ### :bug: Bug Fix
 
 - `toolbars-new`
   - [#3265](https://github.com/wix/ricos/pull/3265) fix font size display when selection is collapsed (in static toolbar)
-
-</details>
-<hr/>
+- `ricos-content`
+  - [#3269](https://github.com/wix/ricos/pull/3269) fromHtml/ck-editor: `<br>` preprocessed in text nodes only
 
 ## 8.65.14 (Dec 15, 2021)
 
