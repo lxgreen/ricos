@@ -11,7 +11,7 @@ interface Cell {
 
 type Row = Record<string, Cell>;
 
-const parseCollapsible = (entity): Node | undefined =>
+const parseCollapsible = (entity, opts): Node | undefined =>
   entity.pairs.map((pair: { key: string; title: DraftContent; content: DraftContent }) => ({
     id: pair.key,
     type: Node_Type.COLLAPSIBLE_ITEM,
@@ -19,17 +19,17 @@ const parseCollapsible = (entity): Node | undefined =>
       {
         id: generateId(),
         type: Node_Type.COLLAPSIBLE_ITEM_TITLE,
-        nodes: fromDraft(pair.title).nodes,
+        nodes: fromDraft(pair.title, opts).nodes,
       },
       {
         id: generateId(),
         type: Node_Type.COLLAPSIBLE_ITEM_BODY,
-        nodes: fromDraft(pair.content).nodes,
+        nodes: fromDraft(pair.content, opts).nodes,
       },
     ],
   }));
 
-const parseTable = entity =>
+const parseTable = (entity, opts) =>
   Object.entries(entity.rows).map(([, row]: [string, Row]) => ({
     id: generateId(),
     type: Node_Type.TABLE_ROW,
@@ -48,7 +48,7 @@ const parseTable = entity =>
           bottom: cell.border?.bottom?.toUpperCase(),
         },
       },
-      nodes: fromDraft(cell.content).nodes,
+      nodes: fromDraft(cell.content, opts).nodes,
     })),
   }));
 
