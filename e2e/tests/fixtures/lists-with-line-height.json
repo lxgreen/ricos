@@ -1,0 +1,226 @@
+{
+  "blocks": [
+    {
+      "key": "2mrbv662",
+      "text": "numbered list",
+      "type": "ordered-list-item",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "brnp3",
+      "text": "without line-height",
+      "type": "ordered-list-item",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "cp6fj",
+      "text": "just as is",
+      "type": "ordered-list-item",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "cjnmj",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "98itv",
+      "text": "bulleted list",
+      "type": "unordered-list-item",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "7t57s",
+      "text": "without line-height",
+      "type": "unordered-list-item",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "5tpmf",
+      "text": "just as is",
+      "type": "unordered-list-item",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "e5cjs",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "6glgg",
+      "text": " ",
+      "type": "atomic",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [
+        {
+          "offset": 0,
+          "length": 1,
+          "key": 0
+        }
+      ],
+      "data": {}
+    },
+    {
+      "key": "5urhc",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "9out2",
+      "text": "numbered list",
+      "type": "ordered-list-item",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "line-height": "2.5",
+          "padding-top": "2px",
+          "padding-bottom": "3px"
+        }
+      }
+    },
+    {
+      "key": "c3a7",
+      "text": "WITH line-height",
+      "type": "ordered-list-item",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "line-height": "2.5",
+          "padding-top": "2px",
+          "padding-bottom": "3px"
+        }
+      }
+    },
+    {
+      "key": "796oa",
+      "text": "not as is",
+      "type": "ordered-list-item",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "line-height": "2.5",
+          "padding-top": "2px",
+          "padding-bottom": "3px"
+        }
+      }
+    },
+    {
+      "key": "8j08h",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "line-height": "2.5",
+          "padding-top": "2px",
+          "padding-bottom": "3px"
+        }
+      }
+    },
+    {
+      "key": "1m3el",
+      "text": "bulleted list",
+      "type": "unordered-list-item",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "line-height": "2.5",
+          "padding-top": "2px",
+          "padding-bottom": "3px"
+        }
+      }
+    },
+    {
+      "key": "8a3ls",
+      "text": "WITH line-height",
+      "type": "unordered-list-item",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "line-height": "2.5",
+          "padding-top": "2px",
+          "padding-bottom": "3px"
+        }
+      }
+    },
+    {
+      "key": "fdg20",
+      "text": "not as is",
+      "type": "unordered-list-item",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {
+        "dynamicStyles": {
+          "line-height": "2.5",
+          "padding-top": "2px",
+          "padding-bottom": "3px"
+        }
+      }
+    }
+  ],
+  "entityMap": {
+    "0": {
+      "type": "wix-draft-plugin-divider",
+      "mutability": "IMMUTABLE",
+      "data": {
+        "config": {
+          "size": "small",
+          "alignment": "left",
+          "textWrap": "nowrap"
+        },
+        "type": "single"
+      }
+    }
+  },
+  "documentStyle": {
+    "headerTwo": {
+      "font-size": "24px"
+    }
+  },
+  "VERSION": "8.65.9",
+  "ID": "8829d1a5-1489-4cd0-926e-a2159469200e"
+}

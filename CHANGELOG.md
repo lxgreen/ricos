@@ -20,6 +20,48 @@
 </details>
 <hr/>
 
+## 8.65.15 (Dec 16, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3265](https://github.com/wix/ricos/pull/3265) fix font size display when selection is collapsed (in static toolbar)
+- `ricos-content`
+  - [#3269](https://github.com/wix/ricos/pull/3269) fromHtml/ck-editor: `<br>` preprocessed in text nodes only
+
+## 8.65.14 (Dec 15, 2021)
+
+### :bug: Bug Fix
+
+- `tiptap-editor`
+  - [#3267](https://github.com/wix/ricos/pull/3267) tiptap, prosemirror added to rollup externals
+
+## 8.65.13 (Dec 15, 2021)
+
+Release of v8.65.2 failed
+
+## 8.65.12 (Dec 15, 2021)
+
+### :bug: Bug Fix
+
+- `viewer`
+  - [#3266](https://github.com/wix/ricos/pull/3266) fix ordered-lists numbering line-height issue (under `fixListLineHeight` experiment)
+- `e2e`
+  - [#3266](https://github.com/wix/ricos/pull/3266) fix ordered-lists numbering line-height issue (under `fixListLineHeight` experiment)
+- `toolbars-new`
+  - [#3264](https://github.com/wix/ricos/pull/3264) click on gaps between buttons
+
+### :book: Documentation
+
+- [#3253](https://github.com/wix/ricos/pull/3253) new toolbar api - buttonsOverrides
+
+## 8.65.11 (Dec 15, 2021)
+
+### :bug: Bug Fix
+
+- `viewer`
+  - [#3262](https://github.com/wix/ricos/pull/3262) fix ordered-lists numbering line-height issue (under `fixListLineHeight` experiment)
+
 ## 8.65.10 (Dec 15, 2021)
 
 ### :rocket: New Feature

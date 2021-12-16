@@ -869,7 +869,7 @@ const config: RichContentEditorProps['config'] = {
           ],
         },
       }),
-      // buttonsMapper: () => ({
+      // buttonsOverrides: () => ({
       //   desktop: {
       //     Bold: {
       //       icon: () => <div>bla</div>,

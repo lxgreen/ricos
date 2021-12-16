@@ -142,6 +142,8 @@ class FloatingToolbarContainer extends PureComponent<ToolbarContainerProps, Stat
     }
   };
 
+  preventDefault = event => event.preventDefault();
+
   render() {
     const { children } = this.props;
     const { toolbarPosition, isVisible } = this.state;
@@ -157,6 +159,7 @@ class FloatingToolbarContainer extends PureComponent<ToolbarContainerProps, Stat
         }}
         data-hook="floating-toolbar"
         onKeyDown={this.onKeyDown}
+        onMouseDown={this.preventDefault}
       >
         {isVisible &&
           React.cloneElement(React.Children.only(children), { setKeepOpen: this.setKeepOpen })}

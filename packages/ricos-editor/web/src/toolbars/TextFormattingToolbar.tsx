@@ -97,7 +97,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
     if (formattingToolbarSetting?.shouldCreate === false) {
       return null;
     }
-    const configButtonsMapper = formattingToolbarSetting?.buttonsMapper;
+    const configButtonsOverrides = formattingToolbarSetting?.buttonsOverrides;
     let formattingToolbarButtons;
     if (formattingToolbarSetting?.getButtons) {
       formattingToolbarButtons = formattingToolbarSetting?.getButtons;
@@ -154,7 +154,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
         defaultLineSpacing={defaultLineSpacing}
         getEditorContainer={getEditorContainer}
         cssOverride={cssOverride}
-        configButtonsMapper={configButtonsMapper}
+        configButtonsOverrides={configButtonsOverrides}
         disabled={disableFormattingToolbar}
       />
     );

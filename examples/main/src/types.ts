@@ -31,6 +31,7 @@ export interface TestAppConfig {
     paletteType?: 'light' | 'dark';
     skipCssOverride?: boolean;
     useCustomStyles?: boolean;
+    useParagraphLineHeight?: boolean;
     fallbackColor?: string;
     disableContainer?: boolean;
     contentBgColor?: boolean;
