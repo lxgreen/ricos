@@ -1,3 +1,4 @@
+import { BICallbackParams } from './biCallbacksTypes';
 import {
   TableEventsName,
   TableBiCallbacksParams,
@@ -9,8 +10,7 @@ export type GenericEventsName = 'addPluginLink';
 export type EventName = TableEventsName | GenericEventsName;
 export type PluginEventParams = TableBiCallbacksParams;
 
-export interface PluginsActionGenericParams {
-  version?: string;
+export interface PluginsActionGenericParams extends BICallbackParams {
   plugin_id: string;
 }
 export interface AddPluginLinkParams extends PluginsActionGenericParams {

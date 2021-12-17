@@ -1,5 +1,5 @@
 import React, { ElementType, PureComponent } from 'react';
-import { RichContentEditor, RichContentEditorProps } from 'wix-rich-content-editor';
+import { RichContentEditorProps } from 'wix-rich-content-editor';
 import { testVideos } from '../../../storybook/src/shared/utils/mock';
 import * as Plugins from './EditorPlugins';
 import theme from '../theme/theme'; // must import after custom styles
@@ -13,8 +13,6 @@ import {
   DraftContent,
   TextToolbarType,
   AvailableExperiments,
-  EventName,
-  PluginEventParams,
   OnPluginAction,
 } from 'wix-rich-content-common';
 import { TestAppConfig } from '../../src/types';

@@ -2,27 +2,32 @@ import {
   Version,
   Helpers,
   ToolbarType,
+  BICallbacks,
   ANCHOR_CATEGORY,
   WEB_ADDRESS_CATEGORY,
   ADD_PLUGIN_LINK_BI,
-  OnPluginAction,
   OnAddPluginLink,
 } from 'wix-rich-content-common';
-
-export const getBiFunctions = (helpers: Helpers, contentId?: string) => {
-  const onInlineToolbarOpen = toolbarType =>
-    helpers?.onInlineToolbarOpen?.({
-      toolbarType,
-      version: Version.currentVersion,
-      contentId,
-    });
-
-  const onToolbarButtonClick = (
+interface SimplifiedBICallbacks
+  extends Omit<BICallbacks, 'onToolbarButtonClick' | 'onInlineToolbarOpen'> {
+  onToolbarButtonClick: (
     name: string,
     toolbarType: ToolbarType,
     value?: string | boolean,
     pluginId?: string
-  ) => {
+  ) => void;
+  onInlineToolbarOpen: (toolbarType: ToolbarType) => void;
+  onAddPluginLink: OnAddPluginLink;
+}
+
+export const getBiFunctions = (helpers: Helpers, contentId?: string): SimplifiedBICallbacks => ({
+  onInlineToolbarOpen: toolbarType =>
+    helpers?.onInlineToolbarOpen?.({
+      toolbarType,
+      version: Version.currentVersion,
+      contentId,
+    }),
+  onToolbarButtonClick: (name, toolbarType, value, pluginId) => {
     helpers?.onToolbarButtonClick?.({
       buttonName: name,
       pluginId,
@@ -41,9 +46,8 @@ export const getBiFunctions = (helpers: Helpers, contentId?: string) => {
         contentId
       );
     }
-  };
-
-  const onAddPluginLink: OnAddPluginLink = (data, plugin_id) => {
+  },
+  onAddPluginLink: (data, plugin_id) => {
     const { url, anchor, target, rel } = data;
     const params = anchor
       ? { anchor, category: ANCHOR_CATEGORY }
@@ -53,11 +57,11 @@ export const getBiFunctions = (helpers: Helpers, contentId?: string) => {
           newTab: target === '_blank',
           category: WEB_ADDRESS_CATEGORY,
         };
-    onPluginAction(ADD_PLUGIN_LINK_BI, { plugin_id, params });
-  };
-
-  const onPluginAction: OnPluginAction = (eventName, params) =>
-    helpers.onPluginAction?.(eventName, { ...params, version: Version.currentVersion });
-
-  return { onInlineToolbarOpen, onToolbarButtonClick, onAddPluginLink };
-};
+    helpers.onPluginAction?.(ADD_PLUGIN_LINK_BI, {
+      plugin_id,
+      params,
+      version: Version.currentVersion,
+      contentId,
+    });
+  },
+});
