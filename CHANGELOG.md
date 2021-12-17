@@ -17,6 +17,12 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `ricos-content`
+
+  - [#3276](https://github.com/wix/ricos/pull/3276) fromDraft conversion: handle invalid link types
+
 </details>
 <hr/>
 
@@ -26,7 +32,7 @@
 
 - `ricos-content`
 
-  - [#3271](https://github.com/wix/ricos/pull/3271) pass fromDraft props to nestedNodesConverters
+  - [#3271](https://github.com/wix/ricos/pull/3271) fromDraft conversion: pass opts to nestedNodesConverters
 
 - `toolbars-new`
 
