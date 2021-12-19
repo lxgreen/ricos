@@ -12,13 +12,17 @@ declare module '@tiptap/core' {
   }
 }
 
-export const deleteNode: RawCommands['deleteNode'] = id => ({ tr, dispatch }) => {
+export const deleteNode: RawCommands['deleteNode'] = id => ({ chain, tr, dispatch }) => {
   const nodeWithPos = findChildren(tr.doc, node => node.attrs.id === id);
   const { pos, node } = nodeWithPos?.[0] || {};
   if (pos !== undefined && dispatch) {
-    tr.delete(pos, pos + node.nodeSize);
-
-    return true;
+    return chain()
+      .focus()
+      .command(({ tr }) => {
+        tr.delete(pos, pos + node.nodeSize);
+        return true;
+      })
+      .run();
   } else {
     console.error(`Failed to delete node with id ${id}`);
     return false;
