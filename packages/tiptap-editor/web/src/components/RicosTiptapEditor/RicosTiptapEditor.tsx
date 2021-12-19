@@ -37,11 +37,11 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   const forceUpdate = useForceUpdate();
   const [editor, setEditor] = useState<Editor>((null as unknown) as Editor);
   // const patchedExtensions = patchExtensions(content, [...coreConfigs, ...extensions]);
-  const mergedExtensions = Extensions.of([...coreConfigs, ...extensions]);
 
   const getContent = editor => tiptapToDraft(editor.getJSON() as JSONContent);
 
   useEffect(() => {
+    const mergedExtensions = Extensions.of([...coreConfigs, ...extensions]);
     const tiptapExtensions = mergedExtensions.getTiptapExtensions();
     const allExtensions = [...coreExtensions, ...tiptapExtensions];
     console.log({ allExtensions }); // eslint-disable-line no-console
