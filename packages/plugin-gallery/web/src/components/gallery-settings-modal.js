@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { mergeStyles } from 'wix-rich-content-common';
+import { mergeStyles, GlobalContext } from 'wix-rich-content-common';
 import {
   Tabs,
   Tab,
@@ -99,6 +99,8 @@ class AdvancedSettingsSection extends Component {
     store.set('componentData', componentData);
   };
 
+  static contextType = GlobalContext;
+
   switchLayout = layout => {
     this.applyGallerySetting({ ...layout, ...layoutData[layout.galleryLayout] });
   };
@@ -111,7 +113,8 @@ class AdvancedSettingsSection extends Component {
   }
 
   render() {
-    const { data, store, theme, t, isMobile, languageDir } = this.props;
+    const { data, store, theme, t, isMobile } = this.props;
+    const { languageDir } = this.context;
     return (
       this.shouldRender() && (
         <div className={styles.gallerySettings_tab_section} dir={languageDir}>

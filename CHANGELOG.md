@@ -23,6 +23,11 @@
 
   - [#3276](https://github.com/wix/ricos/pull/3276) fromDraft conversion: handle invalid link types
 
+### ::house: Internal
+- `ricos-editor`
+  - [#3277](https://github.com/wix/ricos/pull/3277) add global context to ricos-modal
+
+
 </details>
 <hr/>
 
