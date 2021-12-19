@@ -72,6 +72,7 @@ class LayoutControlsSection extends Component {
         onChange: value => this.applyGallerySetting({ numberOfImagesPerRow: value }),
         defaultValue: this.getValueFromComponentStyles('numberOfImagesPerRow'),
         t,
+        languageDir: this.props.languageDir,
       },
     },
     thumbnailSize: {
@@ -84,6 +85,7 @@ class LayoutControlsSection extends Component {
             ? t('GallerySettings_LayoutControlSection_Column')
             : t('GallerySettings_LayoutControlSection_Row'),
         },
+        languageDir: this.props.languageDir,
       },
     },
     spacing: {
@@ -92,6 +94,7 @@ class LayoutControlsSection extends Component {
         onChange: value => this.applyGallerySetting({ imageMargin: value }),
         defaultValue: this.getValueFromComponentStyles('imageMargin'),
         t,
+        languageDir: this.props.languageDir,
       },
     },
     thumbnailSpacing: {
@@ -182,6 +185,7 @@ LayoutControlsSection.propTypes = {
   theme: PropTypes.object.isRequired,
   store: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  languageDir: PropTypes.string.isRequired,
   t: PropTypes.func,
 };
 

@@ -11,6 +11,8 @@ import {
   convertRelStringToObject,
   convertRelObjectToString,
 } from 'wix-rich-content-common/libs/linkConverters';
+import { applyBIGenerics } from './biCallbacks';
+import { pipe } from 'fp-ts/function';
 
 interface EngineProps extends RicosEditorProps, RicosViewerProps {
   children: ReactElement;
@@ -19,6 +21,7 @@ interface EngineProps extends RicosEditorProps, RicosViewerProps {
   isViewer: boolean;
   isPreviewExpanded?: boolean;
   onPreviewExpand?: PreviewConfig['onPreviewExpand'];
+  getContentId: () => string | undefined;
 }
 
 export class RicosEngine extends Component<EngineProps> {
@@ -88,6 +91,7 @@ export class RicosEngine extends Component<EngineProps> {
       isPreviewExpanded,
       placeholder,
       content,
+      getContentId,
       RicosModal,
       onError,
       mediaSettings = {},
@@ -182,7 +186,10 @@ export class RicosEngine extends Component<EngineProps> {
       textWrap,
     };
 
-    const mergedRCProps = merge(strategyProps, _rcProps, ricosPropsToMerge, children.props);
+    const mergedRCProps = pipe(
+      merge(strategyProps, _rcProps, ricosPropsToMerge, children.props),
+      applyBIGenerics(getContentId)
+    );
 
     return [
       ...htmls,
@@ -191,7 +198,8 @@ export class RicosEngine extends Component<EngineProps> {
         isModalSuspended={isPreview()}
         container={container}
         fullscreenProps={fullscreenProps}
-        {...mergedRCProps}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        {...(mergedRCProps as any)}
         key={'ricosElement'}
         onModalOpen={onModalOpen}
         onModalClose={onModalClose}

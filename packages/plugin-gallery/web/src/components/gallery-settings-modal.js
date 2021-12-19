@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { mergeStyles } from 'wix-rich-content-common';
+import { mergeStyles, GlobalContext } from 'wix-rich-content-common';
 import {
   Tabs,
   Tab,
@@ -28,6 +28,8 @@ class ManageMediaSection extends Component {
     store.set('componentData', componentData);
   };
 
+  static contextType = GlobalContext;
+
   handleFileChange = (files, itemPos) => {
     if (files.length > 0) {
       const handleFilesSelected = this.props.store.getBlockHandler('handleFilesSelected');
@@ -41,18 +43,10 @@ class ManageMediaSection extends Component {
   };
 
   render() {
-    const {
-      helpers,
-      store,
-      t,
-      relValue,
-      anchorTarget,
-      isMobile,
-      uiSettings,
-      languageDir,
-      accept,
-    } = this.props;
+    const { helpers, store, t, relValue, anchorTarget, isMobile, uiSettings, accept } = this.props;
     const { handleFileSelection } = helpers;
+    const { languageDir } = this.context;
+
     return (
       <div dir={languageDir} className={styles.gallerySettings_tab_section}>
         <SortableComponent
@@ -99,6 +93,8 @@ class AdvancedSettingsSection extends Component {
     store.set('componentData', componentData);
   };
 
+  static contextType = GlobalContext;
+
   switchLayout = layout => {
     this.applyGallerySetting({ ...layout, ...layoutData[layout.galleryLayout] });
   };
@@ -111,7 +107,8 @@ class AdvancedSettingsSection extends Component {
   }
 
   render() {
-    const { data, store, theme, t, isMobile, languageDir } = this.props;
+    const { data, store, theme, t, isMobile } = this.props;
+    const { languageDir } = this.context;
     return (
       this.shouldRender() && (
         <div className={styles.gallerySettings_tab_section} dir={languageDir}>
@@ -134,6 +131,7 @@ class AdvancedSettingsSection extends Component {
             store={store}
             t={t}
             isMobile={isMobile}
+            languageDir={languageDir}
           />
         </div>
       )
@@ -285,6 +283,7 @@ export class GallerySettingsModal extends Component {
           store={this.props.pubsub.store}
           helpers={this.props.helpers}
           t={this.props.t}
+          languageDir={this.props.languageDir}
         />
       </Tab>
     ),

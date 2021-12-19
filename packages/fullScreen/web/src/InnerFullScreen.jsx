@@ -29,17 +29,7 @@ export default class InnerFullscreen extends Component {
     window.addEventListener('resize', this.onWindowResize);
     this.addFullscreenChangeListener();
     this.setState({ size: this.getDimensions() });
-    this.focusGalleryForA11y();
   }
-
-  focusGalleryForA11y = () => {
-    setTimeout(() => {
-      document
-        .getElementById('pro-gallery-ricos-fullscreen')
-        .querySelector('[data-hook=item-container]')
-        .focus();
-    });
-  };
 
   pauseChildNodesVideos = element =>
     Array.from(element.getElementsByTagName('video'))?.forEach(video => video.pause());

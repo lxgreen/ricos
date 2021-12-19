@@ -1,5 +1,5 @@
 import React, { ElementType, PureComponent } from 'react';
-import { RichContentEditor, RichContentEditorProps } from 'wix-rich-content-editor';
+import { RichContentEditorProps } from 'wix-rich-content-editor';
 import { testVideos } from '../../../storybook/src/shared/utils/mock';
 import * as Plugins from './EditorPlugins';
 import theme from '../theme/theme'; // must import after custom styles
@@ -13,8 +13,6 @@ import {
   DraftContent,
   TextToolbarType,
   AvailableExperiments,
-  EventName,
-  PluginEventParams,
   OnPluginAction,
 } from 'wix-rich-content-common';
 import { TestAppConfig } from '../../src/types';
@@ -84,10 +82,6 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
 
   initEditorProps() {
     /* eslint-disable no-console */
-    const onPluginAction: OnPluginAction = async (
-      eventName: EventName,
-      params: PluginEventParams
-    ) => console.log(eventName, params);
     this.helpers = {
       //these are for testing purposes only
       onPluginAdd: async (...args) => console.log('onPluginAdd', ...args),
@@ -116,7 +110,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
           updateEntity(testVideo);
         }, mockTimout || 500);
       },
-      onPluginAction,
+      onPluginAction: async (eventName, params) => console.log(eventName, params),
     };
     /* eslint-enable no-console */
     this.setImageUploadHelper();
