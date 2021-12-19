@@ -17,9 +17,15 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.65.17 (Dec 19, 2021)
+
 ### :bug: Bug Fix
 
 - `ui-components`
+
   - [#3273](https://github.com/wix/ricos/pull/3273) fix slider ui on rtl sites
 
 - `ricos-content`
@@ -27,12 +33,9 @@
   - [#3276](https://github.com/wix/ricos/pull/3276) fromDraft conversion: handle invalid link types
 
 ### ::house: Internal
+
 - `ricos-editor`
   - [#3277](https://github.com/wix/ricos/pull/3277) add global context to ricos-modal
-
-
-</details>
-<hr/>
 
 ## 8.65.16 (Dec 16, 2021)
 
