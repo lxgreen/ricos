@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### ::house: Internal
+
+- `gallery`
+  - [#3252](https://github.com/wix/ricos/pull/3252) refactor gallery settings
+ 
 </details>
 <hr/>
 
