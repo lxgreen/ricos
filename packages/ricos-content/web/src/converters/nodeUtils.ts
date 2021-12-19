@@ -161,15 +161,16 @@ export const createLink = ({
   anchor?: string;
 }): Link => {
   const relValues: [string, boolean][] =
-    rel
-      ?.split(' ')
+    (rel || '')
+      .split(' ')
       .filter(key => ['nofollow', 'sponsored', 'ugc'].includes(key))
       .map(key => [key, true]) || [];
+
   return {
     anchor,
     url,
     rel: relValues.length > 0 ? fromEntries(relValues) : undefined,
-    target: toLinkTarget(target) as Link_Target,
+    target: toLinkTarget(typeof target === 'string' ? target : undefined) as Link_Target,
   };
 };
 

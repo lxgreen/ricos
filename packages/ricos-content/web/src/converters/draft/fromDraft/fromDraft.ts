@@ -106,7 +106,7 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
     if (entityRanges && entityRanges.length) {
       const entity = getEntity(entityRanges[0].key, entityMap);
       if (entity) {
-        const nodes = nestedNodesConverters[entity.type]?.(entity) || [];
+        const nodes = nestedNodesConverters[entity.type]?.(entity, opts) || [];
         return {
           id: key,
           nodes,

@@ -26,6 +26,7 @@ import {
   isRoot,
   isText,
   isWhitespace,
+  hasChild,
 } from '../core/parse5-utils';
 import parse from '../core/parser';
 import {
@@ -123,8 +124,8 @@ const getLineHeight = flow(
   O.fold(() => '', identity)
 );
 
-const pToStyledParagraph: Rule = [
-  pToParagraph[0],
+const pWitTextToStyledParagraph: Rule = [
+  and([pToParagraph[0], hasChild(not(isWhitespace))]),
   context => (element: Element) =>
     pipe(
       element,
@@ -210,7 +211,7 @@ export default flow(
   parse([
     noEmptyLineText,
     rootTextToP,
-    pToStyledParagraph,
+    pWitTextToStyledParagraph,
     lToList,
     hToStyledHeading,
     aToCustomLink,

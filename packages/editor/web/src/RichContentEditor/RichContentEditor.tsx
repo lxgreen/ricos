@@ -34,7 +34,6 @@ import {
 } from 'wix-rich-content-editor-common';
 import { convertFromRaw, convertToRaw, createWithContent } from '../../lib/editorStateConversion';
 import { EditorProps as DraftEditorProps, DraftHandleValue } from 'draft-js';
-import { createUploadStartBIData, createUploadEndBIData } from './utils/mediaUploadBI';
 import {
   HEADINGS_DROPDOWN_TYPE,
   DEFAULT_HEADINGS,
@@ -404,9 +403,6 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     } = this.props;
 
     this.fixHelpers(helpers);
-    const onPluginAction: OnPluginAction = (eventName: EventName, params: PluginEventParams) =>
-      helpers.onPluginAction?.(eventName, { ...params, version: Version.currentVersion });
-    const version = Version.currentVersion;
     this.contextualData = {
       theme: theme || {},
       t,
@@ -415,72 +411,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       anchorTarget,
       relValue,
       customAnchorScroll,
-      helpers: {
-        ...helpers,
-        onPluginAdd: (pluginId: string, entryPoint: string) =>
-          helpers.onPluginAdd?.(pluginId, entryPoint, version, this.getContentId()),
-        onPluginAddStep: args =>
-          helpers.onPluginAddStep?.({ ...args, version, contentId: this.getContentId() }),
-        onPluginAddSuccess: (pluginId: string, entryPoint: string, params) =>
-          helpers.onPluginAddSuccess?.(pluginId, entryPoint, params, version, this.getContentId()),
-
-        onMediaUploadStart: (...args) => {
-          const {
-            correlationId,
-            pluginId,
-            fileSize,
-            mediaType,
-            timeStamp,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-          } = createUploadStartBIData(...args);
-          helpers.onMediaUploadStart?.(
-            correlationId,
-            pluginId,
-            fileSize,
-            mediaType,
-            version,
-            this.getContentId()
-          );
-          return { correlationId, pluginId, fileSize, mediaType, timeStamp };
-        },
-        onMediaUploadEnd: (...args) => {
-          const {
-            correlationId,
-            pluginId,
-            duration,
-            fileSize,
-            mediaType,
-            isSuccess,
-            errorType,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-          } = createUploadEndBIData(...args);
-          helpers.onMediaUploadEnd?.(
-            correlationId,
-            pluginId,
-            duration,
-            fileSize,
-            mediaType,
-            isSuccess,
-            errorType,
-            version,
-            this.getContentId()
-          );
-        },
-        onPluginAction,
-        onPluginChange: (pluginId: string, changeObj) =>
-          helpers.onPluginChange?.(pluginId, changeObj, version, this.getContentId()),
-        onToolbarButtonClick: args =>
-          helpers.onToolbarButtonClick?.({ ...args, version, contentId: this.getContentId() }),
-        onInlineToolbarOpen: args =>
-          helpers.onInlineToolbarOpen?.({ ...args, version, contentId: this.getContentId() }),
-        onPluginModalOpened: args =>
-          helpers.onPluginModalOpened?.({ ...args, version, contentId: this.getContentId() }),
-        onMenuLoad: args => {
-          helpers.onMenuLoad?.({ ...args, version, contentId: this.getContentId() });
-        },
-      },
+      helpers,
       config,
       isMobile,
       setEditorState: editorState => {

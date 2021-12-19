@@ -116,6 +116,7 @@ export class RicosViewer extends Component<RicosViewerProps, State> {
           RicosModal={RicosModal}
           isPreviewExpanded={isPreviewExpanded}
           onPreviewExpand={this.onPreviewExpand}
+          getContentId={() => props.content?.ID}
           isViewer
           {...props}
         >

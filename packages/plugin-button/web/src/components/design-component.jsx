@@ -6,7 +6,7 @@ import {
   SliderWithInput,
   SettingsSeparator,
 } from 'wix-rich-content-ui-components';
-import { mergeStyles } from 'wix-rich-content-common';
+import { mergeStyles, GlobalContext } from 'wix-rich-content-common';
 import ColorToggleComponent from './color-toggle-component';
 import { COLOR_PICKER_TYPE } from '../constants';
 import { DEFAULT_PALETTE } from '../defaults';
@@ -35,6 +35,8 @@ class DesignComponent extends PureComponent {
     };
     this.originalDesign = this.state.design;
   }
+
+  static contextType = GlobalContext;
 
   getUserColors = () => {
     const {
@@ -197,6 +199,7 @@ class DesignComponent extends PureComponent {
   render() {
     const styles = this.styles;
     const { theme, t } = this.props;
+    const { languageDir } = this.context;
     const { design } = this.state;
     return (
       <div className={styles.button_designComponent_design_component}>
@@ -217,6 +220,7 @@ class DesignComponent extends PureComponent {
                   label={t('ButtonModal_Width_Input')}
                   onChange={this.onBorderWidthChange.bind(this)}
                   theme={this.styles}
+                  languageDir={languageDir}
                 />
               </div>
             </div>
@@ -229,6 +233,7 @@ class DesignComponent extends PureComponent {
                   label={t('ButtonModal_Radius_Input')}
                   onChange={this.onBorderRadiusChange.bind(this)}
                   theme={this.styles}
+                  languageDir={languageDir}
                 />
               </div>
             </div>
@@ -288,6 +293,7 @@ DesignComponent.propTypes = {
   getBackgroundColors: PropTypes.func,
   palette: PropTypes.arrayOf(PropTypes.string),
   isMobile: PropTypes.bool,
+  languageDir: PropTypes.string.isRequired,
 };
 
 export default DesignComponent;

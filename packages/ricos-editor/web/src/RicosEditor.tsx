@@ -136,7 +136,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.loadToolbar();
     const { isMobile, toolbarSettings } = this.props;
     const { useStaticTextToolbar } = toolbarSettings || {};
-    const contentId = this.getContentID();
+    const contentId = this.getContentId();
     this.setState({ contentId });
     this.getBiCallback('onOpenEditorSuccess')?.(
       Version.currentVersion,
@@ -189,7 +189,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     }
     const contentState = this.dataInstance.getContentState();
     const { pluginsCount, pluginsDetails } = getEditorContentSummary(contentState) || {};
-    onPublish(postId, pluginsCount, pluginsDetails, Version.currentVersion, this.getContentID());
+    onPublish(postId, pluginsCount, pluginsDetails, Version.currentVersion, this.getContentId());
   };
 
   onPublish = async () => {
@@ -225,7 +225,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   }
 
   onInitialContentChanged = () => {
-    const contentId = this.getContentID();
+    const contentId = this.getContentId();
     this.getBiCallback('onContentEdited')?.({ version: Version.currentVersion, contentId });
     this.initialContentChanged = true;
   };
@@ -306,7 +306,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   getT = () => this.editor.getT();
 
-  getContentID = () => this.dataInstance.getContentState().ID;
+  getContentId = () => this.dataInstance.getContentState().ID;
 
   renderToolbarPortal(Toolbar) {
     return (
@@ -327,6 +327,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         isViewer={false}
         key={'editor'}
         toolbarSettings={toolbarSettings}
+        getContentId={this.getContentId}
         {...contentProp.content}
         {...props}
       >

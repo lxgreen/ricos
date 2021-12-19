@@ -109,7 +109,7 @@ const List = ({
               getBlockStyleClasses(mergedStyles, listItemDirection, alignment, className, true),
               isPaywallSeo(context.seoMode) &&
                 getPaywallSeoClass(context.seoMode.paywall, blockIndex),
-              shouldFixHeight && styles.lineHeightFix
+              shouldFixHeight && blockStyle.lineHeight && styles.lineHeightFix
             )}
             key={blockProps.keys[childIndex]}
             style={blockDataToStyle(blockProps.data[childIndex])}

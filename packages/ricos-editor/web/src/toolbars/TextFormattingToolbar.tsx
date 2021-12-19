@@ -10,6 +10,8 @@ import {
   ToolbarType,
   AvailableExperiments,
   getLangDir,
+  OnAddPluginLink,
+  AddLinkData,
 } from 'wix-rich-content-common';
 import { LinkSettings, ToolbarSettings, RicosCssOverride, RicosTheme } from 'ricos-common';
 import {
@@ -38,6 +40,7 @@ interface TextFormattingToolbarProps {
     value?: any,
     pluginId?: string
   ) => void;
+  onAddPluginLink?: OnAddPluginLink;
   experiments?: AvailableExperiments;
   getEditorContainer: () => Element;
   cssOverride?: RicosCssOverride;
@@ -97,7 +100,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
     if (formattingToolbarSetting?.shouldCreate === false) {
       return null;
     }
-    const configButtonsMapper = formattingToolbarSetting?.buttonsMapper;
+    const configButtonsOverrides = formattingToolbarSetting?.buttonsOverrides;
     let formattingToolbarButtons;
     if (formattingToolbarSetting?.getButtons) {
       formattingToolbarButtons = formattingToolbarSetting?.getButtons;
@@ -120,6 +123,9 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
       TEXT_COLOR: getPluginConfig('wix-rich-content-text-color'),
       TEXT_HIGHLIGHT: getPluginConfig('wix-rich-content-text-highlight'),
     };
+    const onAddPluginLink = (data: AddLinkData) => {
+      this.props.onAddPluginLink?.(data, 'TEXT');
+    };
     const linkConfig = getPluginConfig('LINK');
     const linkPanelData = {
       linkTypes: linkConfig?.linkTypes,
@@ -127,6 +133,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
       uiSettings: { linkPanel: this.props.linkPanelSettings },
       linkSettings: this.props.linkSettings,
       isMobile,
+      onAddPluginLink,
     };
     const defaultLineSpacing = getPluginConfig('line-spacing')?.defaultSpacing;
 
@@ -154,7 +161,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
         defaultLineSpacing={defaultLineSpacing}
         getEditorContainer={getEditorContainer}
         cssOverride={cssOverride}
-        configButtonsMapper={configButtonsMapper}
+        configButtonsOverrides={configButtonsOverrides}
         disabled={disableFormattingToolbar}
       />
     );

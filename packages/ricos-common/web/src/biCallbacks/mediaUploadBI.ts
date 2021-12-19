@@ -1,4 +1,5 @@
-import { MediaUploadError, uuid } from 'wix-rich-content-common';
+import { MediaUploadError } from 'wix-rich-content-common';
+import { uuid } from 'wix-rich-content-common/libs/uuid';
 
 interface UploadStartBIData {
   correlationId: string;

@@ -8,7 +8,14 @@ import {
   ACTION_BUTTONS,
 } from '../cypress/dataHooks';
 import { DEFAULT_DESKTOP_BROWSERS, DEFAULT_MOBILE_BROWSERS } from './settings';
-import { usePlugins, plugins, usePluginsConfig } from '../cypress/testAppConfig';
+import {
+  usePlugins,
+  plugins,
+  usePluginsConfig,
+  useExperiments,
+  useTheming,
+} from '../cypress/testAppConfig';
+import { merge } from 'lodash';
 
 const eyesOpen = ({
   test: {
@@ -421,6 +428,27 @@ describe('plugins', () => {
       // .enterParagraphs(['\n\n- Hey I am an unordered list in depth 0.']);
       cy.eyesCheckWindow(this.test.title);
     });
+  });
+
+  context('lists', () => {
+    before(function() {
+      eyesOpen(this);
+    });
+
+    [false, true].forEach(enabled => {
+      it(`specs.ricos.fixListLineHeight=${enabled}`, function() {
+        cy.loadRicosEditorAndViewer(
+          'lists-with-line-height',
+          merge(
+            useTheming({ skipCssOverride: true, useParagraphLineHeight: true }),
+            useExperiments({ fixListLineHeight: { enabled } })
+          )
+        );
+        cy.eyesCheckWindow(this.test.title);
+      });
+    });
+
+    after(() => cy.eyesClose());
   });
 
   context('verticals embed', () => {
