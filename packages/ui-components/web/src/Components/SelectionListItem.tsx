@@ -17,15 +17,17 @@ const SelectionListItem: React.FC<SelectionListItemProps> = ({
 }) => {
   return (
     <div className={styles.selectionListItem}>
-      <div
-        className={classNames(styles.selectionListItem_icon, {
-          [styles.selectionListItem_icon_selected]: selected,
-        })}
-      >
-        {icon}
-      </div>
+      {icon && (
+        <div
+          className={classNames(styles.selectionListItem_icon, {
+            [styles.selectionListItem_icon_selected]: selected,
+          })}
+        >
+          {icon}
+        </div>
+      )}
       {children}
-      <div className={styles.selectionListItem_label}>{label}</div>
+      {label && <div className={styles.selectionListItem_label}>{label}</div>}
     </div>
   );
 };

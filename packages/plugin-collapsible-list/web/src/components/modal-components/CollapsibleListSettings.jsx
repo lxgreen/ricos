@@ -4,12 +4,14 @@ import { mergeStyles } from 'wix-rich-content-common';
 import {
   RadioGroupVertical,
   SelectionList,
+  SelectionListItem,
   Separator,
   LabeledToggle,
   InfoIcon,
 } from 'wix-rich-content-ui-components';
 import { LTRIcon, RTLIcon } from 'wix-rich-content-plugin-commons';
 import { directions, EXPANDED, COLLAPSED, FIRST_EXPANDED } from '../../defaults';
+import classNames from 'classnames';
 import styles from '../../../statics/styles/collapsible-list-settings.scss';
 
 class CollapsibleListSettings extends Component {
@@ -19,11 +21,16 @@ class CollapsibleListSettings extends Component {
     this.styles = mergeStyles({ styles, theme });
   }
 
-  renderOption = ({ item }) => (
-    <>
-      <item.icon />
-      <p>{item.label}</p>
-    </>
+  renderOption = ({ item, selected }) => (
+    <SelectionListItem label={item.label}>
+      <div
+        className={classNames(styles.selectionListItem_icon, {
+          [styles.selectionListItem_icon_selected]: selected,
+        })}
+      >
+        <item.icon />
+      </div>
+    </SelectionListItem>
   );
 
   renderExpandOptions = () => {
@@ -113,7 +120,6 @@ class CollapsibleListSettings extends Component {
           value={getDataManager().getDirection()}
           onChange={getDataManager().changeDirection}
           className={this.styles.direction_selector}
-          optionClassName={this.styles.direction_selector_option}
         />
       </>
     );

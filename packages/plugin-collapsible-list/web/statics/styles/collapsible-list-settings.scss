@@ -25,19 +25,19 @@
   }
 }
 
-.direction_selector_option {
-  p {
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-  }
-
+.selectionListItem_icon {
+  padding: 24px;
   svg {
-    padding-top: 10px;
+    fill: $settings-icons-color;
+  }
+  &:hover {
+    background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
   }
 
-  svg,
-  p {
-    color: $settings-action-color;
-    fill: $settings-icons-color;
+  &.selectionListItem_icon_selected {
+    background-color: rgba($settings-action-color-fallback-tuple, 0.1);
+    svg {
+      color: $settings-action-color;
+    }
   }
 }
