@@ -19,16 +19,21 @@ interface SliderProps {
   onSubmit: (value: number) => void;
   dataHook?: string;
   ariaProps?: InputHTMLAttributes<HTMLInputElement>;
+  languageDir: string;
 }
 
 const Slider: FunctionComponent<SliderProps> = props => {
   const mergedStyles = mergeStyles({ styles, theme: props.theme });
-  const { min = 0, max = 10, onChange, dataHook, ariaProps, value, onSubmit } = props;
+  const { min = 0, max = 10, onChange, dataHook, ariaProps, value, onSubmit, languageDir } = props;
   const [fillPercentage, setFillPercentage] = useState(0);
-  const trackColors = { fill: ACTION_COLORS_CSS_VAR, unFilled: 'rgba(0,0,0,.2)' };
+  const track = {
+    fill: ACTION_COLORS_CSS_VAR,
+    unFilled: 'rgba(0,0,0,.2)',
+    gradientDeg: languageDir === 'rtl' ? '270deg' : '90deg',
+  };
   const bgStyle = {
-    background: `linear-gradient(90deg ,${trackColors.fill} ${fillPercentage}%, ${
-      trackColors.unFilled
+    background: `linear-gradient(${track.gradientDeg} ,${track.fill} ${fillPercentage}%, ${
+      track.unFilled
     } ${fillPercentage + 0.1}%)`,
   };
 

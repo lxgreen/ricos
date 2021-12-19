@@ -82,7 +82,7 @@ export class DesignSettingsSection extends Component {
   }
 
   render() {
-    const { t, componentData } = this.props;
+    const { t, componentData, languageDir } = this.props;
     const { backgroundType } = this.state;
 
     const { design } = componentData;
@@ -144,6 +144,7 @@ export class DesignSettingsSection extends Component {
           onChange={this.handlePollBorderRadiusChange}
           defaultValue={parseInt(design.poll?.borderRadius)}
           theme={this.props.theme}
+          languageDir={languageDir}
         />
         <SliderWithInput
           min={0}
@@ -152,6 +153,7 @@ export class DesignSettingsSection extends Component {
           onChange={this.handleOptionBorderRadiusChange}
           defaultValue={parseInt(design.option?.borderRadius)}
           theme={this.props.theme}
+          languageDir={languageDir}
         />
       </section>
     );
@@ -163,4 +165,5 @@ DesignSettingsSection.propTypes = {
   theme: PropTypes.object.isRequired,
   componentData: PropTypes.object.isRequired,
   store: PropTypes.object.isRequired,
+  languageDir: PropTypes.string.isRequired,
 };

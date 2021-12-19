@@ -8,10 +8,11 @@ const propTypes = {
   onChange: PropTypes.func.isRequired,
   options: PropTypes.object,
   t: PropTypes.func,
+  languageDir: PropTypes.string.isRequired,
 };
 
 export const ItemsPerRow = props => {
-  const { t } = props;
+  const { t, languageDir } = props;
   const itemsPerRowLabel = t('GallerySettings_Sliders_Items_Per_Row');
   return (
     <SliderWithInput
@@ -20,6 +21,7 @@ export const ItemsPerRow = props => {
       label={itemsPerRowLabel}
       sliderDataHook="itemsPerRowSlider"
       inputDataHook="itemsPerRowInput"
+      languageDir={languageDir}
       {...props}
     />
   );
@@ -30,7 +32,7 @@ ItemsPerRow.defaultProps = {
 };
 
 export const Spacing = props => {
-  const { t } = props;
+  const { t, languageDir } = props;
   const spacingLabel = t('GallerySettings_Spacing_Between_Items');
   return (
     <SliderWithInput
@@ -39,6 +41,7 @@ export const Spacing = props => {
       inputDataHook="spacingInput"
       tooltipTextKey={'GallerySettings_Spacing_Between_Items_Tooltip'}
       t={t}
+      languageDir={languageDir}
       {...props}
     />
   );
@@ -55,6 +58,7 @@ export const ThumbnailSize = props => (
     label={props.options.label}
     sliderDataHook="thumbnailSizeSlider"
     inputDataHook="thumbnailSizeInput"
+    languageDir={props.languageDir}
     {...props}
   />
 );

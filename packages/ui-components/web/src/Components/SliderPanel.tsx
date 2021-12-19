@@ -7,6 +7,7 @@ interface SliderPanelProps {
   getValue: (props: SliderPanelProps) => number;
   onChange: (props: SliderPanelProps) => (value: number) => void;
   theme: RichContentTheme;
+  languageDir: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mapStoreDataToPanelProps?: (props: any) => SliderWithInputProps;
   getEditorBounds?: GetEditorBounds;
@@ -19,6 +20,7 @@ const SliderPanel: FunctionComponent<SliderPanelProps> = props => {
     onChange,
     mapStoreDataToPanelProps,
     getEditorBounds,
+    languageDir,
     ...otherProps
   } = props;
 
@@ -29,6 +31,7 @@ const SliderPanel: FunctionComponent<SliderPanelProps> = props => {
       <SliderWithInput
         {...mappedProps}
         theme={theme}
+        languageDir={languageDir}
         defaultValue={getValue(props)}
         onChange={onChange({ ...props, getEditorBounds })}
         sliderDataHook="sliderPanel_Slider"

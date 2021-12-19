@@ -19,6 +19,9 @@
 
 ### :bug: Bug Fix
 
+- `ui-components`
+  - [#3273](https://github.com/wix/ricos/pull/3273) fix slider ui on rtl sites
+
 - `ricos-content`
 
   - [#3276](https://github.com/wix/ricos/pull/3276) fromDraft conversion: handle invalid link types
