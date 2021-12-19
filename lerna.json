@@ -10,6 +10,9 @@
       "message": "[*] chore(release): %s"
     }
   },
+  "packages": [
+    "packages/!(template-*)/web"
+  ],
   "npmClient": "yarn",
   "useWorkspaces": true,
   "npmClientArgs": [
