@@ -7,53 +7,9 @@
 
 @supports (display: grid) {
   .layoutsSelector_grid {
-    grid-template-rows: 85px 85px;
     grid-template-columns: auto auto auto auto;
     row-gap: 12px;
     column-gap: 4px;
   }
 }
 
-.layoutsSelector_tile {
-  margin: 0 auto 0 auto;
-  width: 100%;
-  text-align: center;
-  font-size: 14px;
-}
-
-.layoutsSelector_tile_label {
-  line-height: 20px;
-  display: block;
-}
-
-.layoutsSelector_icon {
-  width: 46px;
-  height: 46px;
-}
-
-.layoutsSelector_icon_selected {
-  color: $settings-action-color-fallback;
-}
-
-@supports not (display: grid) {
-  .layoutsSelector_option {
-    display: inline-block;
-    width: 25%;
-    margin-bottom: 21px;
-  }
-}
-
-.layoutsSelector_option {
-  cursor: pointer;
-  svg {
-    width: 100%;
-    padding: 8px 0;
-    &:hover {
-      background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
-    }
-    &.layoutsSelector_icon_selected {
-      background-color: rgba($settings-action-color-fallback-tuple, 0.1);
-    }
-  }
-  
-}

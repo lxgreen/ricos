@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { getGalleryLayoutsSettings } from '../../layout-helper';
 import { mergeStyles } from 'wix-rich-content-common';
-import { SelectionList } from 'wix-rich-content-ui-components';
+import { SelectionList, SelectionListItem } from 'wix-rich-content-ui-components';
 import styles from '../../../statics/styles/layout-selector.scss';
 
 class LayoutSelector extends Component {
@@ -27,14 +27,7 @@ class LayoutSelector extends Component {
   dataMapper = ({ layoutId }) => ({ value: layoutId });
 
   renderOption = ({ item, selected }) => (
-    <div className={this.styles.layoutsSelector_tile}>
-      <item.icon
-        className={classNames(this.styles.layoutsSelector_icon, {
-          [this.styles.layoutsSelector_icon_selected]: selected,
-        })}
-      />
-      <span className={this.styles.layoutsSelector_tile_label}>{item.name}</span>
-    </div>
+    <SelectionListItem label={item.name} selected={selected} icon={<item.icon />} />
   );
 
   render() {
@@ -45,7 +38,6 @@ class LayoutSelector extends Component {
       <div>
         <span className={styles.layoutsSelector_label}>{layoutsLabel}</span>
         <SelectionList
-          hasLabel
           theme={theme}
           className={styles.layoutsSelector_grid}
           dataSource={this.getLayouts(t)}
@@ -53,7 +45,6 @@ class LayoutSelector extends Component {
           renderItem={this.renderOption}
           value={value}
           onChange={value => onChange(value)}
-          optionClassName={styles.layoutsSelector_option}
         />
       </div>
     );

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
-import { SelectionList } from 'wix-rich-content-ui-components';
+import { SelectionList, SelectionListItem } from 'wix-rich-content-ui-components';
 import styles from '../../../statics/styles/thumbnail-placement-selector.rtlignore.scss';
 
 import { LayoutThumbnailsIcon } from '../../icons';
@@ -21,19 +21,16 @@ class ThumbnailPlacementSelector extends Component {
 
   dataMapper = ({ alignment }) => ({ value: alignment });
 
-  renderOption({ item, selected }) {
-    return (
-      <div className={this.styles.thumbnailPlacementSelector_tile}>
+  renderOption = ({ item, selected }) => (
+    <SelectionListItem
+      icon={
         <LayoutThumbnailsIcon
-          className={classNames(
-            this.styles.thumbnailPlacementSelector_icon,
-            this.styles[`thumbnailPlacementSelector_${item.alignment}`],
-            { [this.styles.thumbnailPlacementSelector_icon_selected]: selected }
-          )}
+          className={this.styles[`thumbnailPlacementSelector_${item.alignment}`]}
         />
-      </div>
-    );
-  }
+      }
+      selected={selected}
+    />
+  );
 
   render() {
     const { value, onChange, t } = this.props;
@@ -48,10 +45,9 @@ class ThumbnailPlacementSelector extends Component {
           className={this.styles.thumbnailPlacementSelector_grid}
           dataSource={this.dataSource}
           dataMapper={this.dataMapper}
-          renderItem={data => this.renderOption(data)}
+          renderItem={this.renderOption}
           value={value}
           onChange={onChange}
-          optionClassName={styles.thumbnailPlacementSelector_option}
         />
       </div>
     );

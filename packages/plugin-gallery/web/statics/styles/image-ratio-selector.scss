@@ -19,18 +19,6 @@
   }
 }
 
-@supports not (display: grid) {
-  .imageRatioSelector_option {
-    display: inline-block;
-    width: 56px;
-    height: 56px;
-  }
-}
-
-.imageRatioSelector_tile {
-  margin: 0px;
-}
-
 .imageRatioSelector_ratioButton {
   width: 32px;
   height: 32px;
@@ -46,13 +34,6 @@
   &.imageRatioSelector_ratioButton_selected {
     background-color: rgba($settings-action-color-fallback-tuple, 0.1);
   }
-}
-
-.imageRatioSelector_ratioLabel {
-  margin-top: 7px;
-  display: block;
-  text-align: center;
-  font-size: 14px;
 }
 
 .imageRatioSelector_ratioIcon {
