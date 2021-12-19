@@ -22,15 +22,7 @@ class CollapsibleListSettings extends Component {
   }
 
   renderOption = ({ item, selected }) => (
-    <SelectionListItem label={item.label}>
-      <div
-        className={classNames(styles.selectionListItem_icon, {
-          [styles.selectionListItem_icon_selected]: selected,
-        })}
-      >
-        <item.icon />
-      </div>
-    </SelectionListItem>
+    <SelectionListItem icon={<item.icon />} selected={selected} label={item.label} />
   );
 
   renderExpandOptions = () => {

@@ -2,7 +2,11 @@
 import React, { PureComponent } from 'react';
 import { merge } from 'lodash';
 
-import { SelectionList, SettingsSeparator } from 'wix-rich-content-ui-components';
+import {
+  SelectionList,
+  SelectionListItem,
+  SettingsSeparator,
+} from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 
 import { getRandomValue } from '../../../helpers';
@@ -50,11 +54,8 @@ export class PollPresetSelector extends PureComponent {
     helpers.closeModal();
   };
 
-  renderOption = ({ item }) => (
-    <>
-      <item.icon />
-      <p className={this.styles.selectionListOptionLabel}>{item.label}</p>
-    </>
+  renderOption = ({ item, selected }) => (
+    <SelectionListItem icon={<item.icon />} label={item.label} selected={selected} />
   );
 
   render() {
@@ -127,7 +128,6 @@ export class PollPresetSelector extends PureComponent {
             ]}
             renderItem={this.renderOption}
             onChange={this.handleTypeSelection}
-            className={this.styles.preset_selector}
           />
         </div>
       </div>

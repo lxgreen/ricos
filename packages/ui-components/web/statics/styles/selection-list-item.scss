@@ -14,10 +14,11 @@
 
 .selectionListItem_icon {
   padding: 16px;
-  svg {
-    width: 46px;
-    height: 46px;
-  }
+  min-width: 40px;
+  min-height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &:hover {
     background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
   }

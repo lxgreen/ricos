@@ -24,20 +24,3 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
-
-.selectionListItem_icon {
-  padding: 24px;
-  svg {
-    fill: $settings-icons-color;
-  }
-  &:hover {
-    background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
-  }
-
-  &.selectionListItem_icon_selected {
-    background-color: rgba($settings-action-color-fallback-tuple, 0.1);
-    svg {
-      color: $settings-action-color;
-    }
-  }
-}
