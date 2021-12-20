@@ -25,19 +25,3 @@
   }
 }
 
-.direction_selector_option {
-  p {
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-  }
-
-  svg {
-    padding-top: 10px;
-  }
-
-  svg,
-  p {
-    color: $settings-action-color;
-    fill: $settings-icons-color;
-  }
-}
