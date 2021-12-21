@@ -19,6 +19,7 @@ import {
 } from './domain-types';
 import { isRicosNodeExtension, RicosExtension, RicosNodeExtension } from 'ricos-tiptap-types';
 import { RicosNode } from '../components/RicosNode';
+import { Plugin, PluginKey } from 'prosemirror-state';
 
 const toExtensionConfig = (ext: RicosNodeExtension) =>
   ext.createExtensionConfig({
@@ -26,6 +27,8 @@ const toExtensionConfig = (ext: RicosNodeExtension) =>
     markPasteRule,
     markInputRule,
     mergeAttributes,
+    Plugin,
+    PluginKey,
   });
 
 const toFullNodeConfig = (ext: RicosNodeExtension) => (config: NodeConfig): NodeConfig => ({

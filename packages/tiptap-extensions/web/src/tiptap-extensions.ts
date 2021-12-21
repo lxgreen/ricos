@@ -12,7 +12,6 @@ import ListItem from '@tiptap/extension-list-item';
 import { Attributes } from '@tiptap/react';
 import styles from './statics/styles.scss';
 import { AnyExtension } from '@tiptap/core';
-import { CodeBlock } from './codeBlock';
 
 const extendedAttrs = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -36,5 +35,4 @@ export const tiptapExtensions: AnyExtension[] = [
   ListItem,
   OrderedList,
   Text,
-  CodeBlock,
 ];
