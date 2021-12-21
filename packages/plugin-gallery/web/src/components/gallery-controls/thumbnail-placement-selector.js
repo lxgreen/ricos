@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
 import { SelectionList, SelectionListItem } from 'wix-rich-content-ui-components';
 import styles from '../../../statics/styles/thumbnail-placement-selector.rtlignore.scss';

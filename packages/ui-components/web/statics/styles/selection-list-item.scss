@@ -13,9 +13,8 @@
 }
 
 .selectionListItem_icon {
-  padding: 16px;
-  min-width: 40px;
-  min-height: 43px;
+  width: 72px;
+  height: 72px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,6 +23,10 @@
   }
   &.selectionListItem_icon_selected {
     background-color: rgba($settings-action-color-fallback-tuple, 0.1);
+  }
+  svg{
+    max-width: 46px;
+    max-height: 46px;
   }
 }
 

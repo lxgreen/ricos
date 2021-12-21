@@ -4,8 +4,8 @@ import { merge } from 'lodash';
 
 import {
   SelectionList,
-  SelectionListItem,
   SettingsSeparator,
+  SelectionListItem,
 } from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 

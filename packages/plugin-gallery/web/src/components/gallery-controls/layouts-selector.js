@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import { getGalleryLayoutsSettings } from '../../layout-helper';
 import { mergeStyles } from 'wix-rich-content-common';

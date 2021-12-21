@@ -22,6 +22,9 @@
 - `gallery`
   - [#3252](https://github.com/wix/ricos/pull/3252) refactor gallery settings
  
+- `ui-components`
+  - [#3279](https://github.com/wix/ricos/pull/3279) Created selectionListItem component and used it in polls/gallery/collapsible-list
+
 </details>
 <hr/>
 
