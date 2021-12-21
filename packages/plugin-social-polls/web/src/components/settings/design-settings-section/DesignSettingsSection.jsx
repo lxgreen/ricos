@@ -30,30 +30,43 @@ export class DesignSettingsSection extends Component {
   };
 
   updateDesign(design) {
-    this.props.store.update('componentData', { design });
+    const { updateData, componentData } = this.props;
+    updateData({ design: { ...componentData.design, ...design } });
   }
 
   handleBackgroundChange = value => {
     const { backgroundType } = this.state;
-
+    const {
+      componentData: { design },
+    } = this.props;
     let background = value;
 
     if (backgroundType === BACKGROUND_TYPE.GRADIENT) {
       background = JSON.parse(value);
     }
 
-    this.updateDesign({ poll: { background, backgroundType } });
+    this.updateDesign({
+      poll: { ...design.poll, background, backgroundType },
+    });
   };
 
   handleBackgroundColorChange = ({ color }) => {
     this.handleBackgroundChange(color);
   };
 
-  handlePollBorderRadiusChange = borderRadius =>
-    this.updateDesign({ poll: { borderRadius: `${borderRadius}px` } });
+  handlePollBorderRadiusChange = borderRadius => {
+    const {
+      componentData: { design },
+    } = this.props;
+    this.updateDesign({ poll: { ...design.poll, borderRadius: `${borderRadius}px` } });
+  };
 
-  handleOptionBorderRadiusChange = borderRadius =>
-    this.updateDesign({ option: { borderRadius: `${borderRadius}px` } });
+  handleOptionBorderRadiusChange = borderRadius => {
+    const {
+      componentData: { design },
+    } = this.props;
+    this.updateDesign({ option: { ...design.option, borderRadius: `${borderRadius}px` } });
+  };
 
   handleTypeChange = backgroundType => {
     this.setState({ backgroundType }, () =>
@@ -166,6 +179,6 @@ DesignSettingsSection.propTypes = {
   t: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
   componentData: PropTypes.object.isRequired,
-  store: PropTypes.object.isRequired,
+  updateData: PropTypes.func.isRequired,
   languageDir: PropTypes.string.isRequired,
 };
