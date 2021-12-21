@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### ::house: Internal
+
+- `ui-components`
+  - [#3279](https://github.com/wix/ricos/pull/3279) Created selectionListItem component and used it in polls/gallery/collapsible-list
+
 </details>
 <hr/>
 

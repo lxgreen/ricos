@@ -5,6 +5,7 @@ import { LTRIcon, RTLIcon } from 'wix-rich-content-plugin-commons';
 import {
   SettingsSeparator,
   SelectionList,
+  SelectionListItem,
   LabeledToggle,
   InfoIcon,
 } from 'wix-rich-content-ui-components';
@@ -39,11 +40,8 @@ export class LayoutSettingsSection extends Component {
     });
   };
 
-  renderOption = ({ item }) => (
-    <>
-      <item.icon />
-      <p className={styles.selectionListOptionLabel}>{item.label}</p>
-    </>
+  renderOption = ({ item, selected }) => (
+    <SelectionListItem icon={<item.icon />} selected={selected} label={item.label} />
   );
 
   render() {
