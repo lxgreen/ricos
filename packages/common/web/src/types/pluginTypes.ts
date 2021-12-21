@@ -86,6 +86,7 @@ import {
   Node_Type,
   Decoration_Type,
   ButtonData,
+  MapData,
 } from 'ricos-schema';
 export { Node_Type, Decoration_Type, LinkData };
 
@@ -121,6 +122,7 @@ export interface CreatePluginsDataMap {
   [EXTERNAL]?: CreatePluginData<Record<string, any>>;
   [LINK_BUTTON_TYPE]?: CreatePluginData<ButtonData>;
   [ACTION_BUTTON_TYPE]?: CreatePluginData<ButtonData>;
+  [RICOS_MAP_TYPE]?: CreatePluginData<MapData>;
 }
 
 import { EditorPlugin as DraftEditorPlugin, PluginFunctions } from 'draft-js-plugins-editor';
