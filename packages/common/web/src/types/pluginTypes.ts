@@ -70,6 +70,7 @@ import {
   RICOS_LINK_TYPE,
   RICOS_MENTION_TYPE,
   EXTERNAL,
+  RICOS_MAP_TYPE,
 } from 'ricos-content';
 import {
   DividerData,
@@ -84,6 +85,7 @@ import {
   MentionData as MentionPluginData,
   Node_Type,
   Decoration_Type,
+  ButtonData,
 } from 'ricos-schema';
 export { Node_Type, Decoration_Type, LinkData };
 
@@ -117,6 +119,8 @@ export interface CreatePluginsDataMap {
   [RICOS_MENTION_TYPE]?: CreatePluginData<MentionData>;
   [MENTION_TYPE]?: CreatePluginData<MentionData>;
   [EXTERNAL]?: CreatePluginData<Record<string, any>>;
+  [LINK_BUTTON_TYPE]?: CreatePluginData<ButtonData>;
+  [ACTION_BUTTON_TYPE]?: CreatePluginData<ButtonData>;
 }
 
 import { EditorPlugin as DraftEditorPlugin, PluginFunctions } from 'draft-js-plugins-editor';

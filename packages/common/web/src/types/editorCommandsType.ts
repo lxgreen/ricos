@@ -134,6 +134,7 @@ export interface EditorCommands {
   hasLinkInSelection: () => boolean;
   getLinkDataInSelection: () => Link | undefined;
   getSelectedData: () => any;
+  getSelectedPluginType: () => any;
   getPluginsList: (settings?: { isRicosSchema?: boolean }) => PluginsList;
   scrollToBlock: (blockKey: BlockKey) => void;
   isBlockInContent: (blockKey: BlockKey) => boolean;

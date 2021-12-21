@@ -13,6 +13,7 @@ import {
 } from 'wix-rich-content-common/libs/linkConverters';
 import { applyBIGenerics } from './biCallbacks';
 import { pipe } from 'fp-ts/function';
+import { EditorCommands } from 'wix-rich-content-common';
 
 interface EngineProps extends RicosEditorProps, RicosViewerProps {
   children: ReactElement;
@@ -22,6 +23,7 @@ interface EngineProps extends RicosEditorProps, RicosViewerProps {
   isPreviewExpanded?: boolean;
   onPreviewExpand?: PreviewConfig['onPreviewExpand'];
   getContentId: () => string | undefined;
+  editorCommands: EditorCommands;
 }
 
 export class RicosEngine extends Component<EngineProps> {
@@ -103,6 +105,7 @@ export class RicosEngine extends Component<EngineProps> {
       experiments,
       iframeSandboxDomain,
       textWrap = true,
+      editorCommands = {},
     } = this.props;
 
     const { strategyProps, previewContent, htmls } = this.runStrategies();
@@ -203,6 +206,7 @@ export class RicosEngine extends Component<EngineProps> {
         key={'ricosElement'}
         onModalOpen={onModalOpen}
         onModalClose={onModalClose}
+        editorCommands={editorCommands}
       >
         {Children.only(React.cloneElement(children, { ...mergedRCProps }))}
       </RicosModal>,
