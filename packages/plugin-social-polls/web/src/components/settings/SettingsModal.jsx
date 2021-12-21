@@ -67,8 +67,6 @@ export class SettingsModal extends Component {
 
   openPreview = () => this.setState({ isPreviewOpen: true });
 
-  onComponentUpdate = () => this.forceUpdate();
-
   render() {
     const { activeTab, $container, isPreviewOpen } = this.state;
     const {
@@ -118,7 +116,7 @@ export class SettingsModal extends Component {
                 setPoll={this.setPoll}
                 t={t}
               >
-                <EditPollSection updateData={updateData} />
+                <EditPollSection updateData={updateData} layout={componentData.layout} />
               </PollContextProvider>
             </RCEHelpersContext.Provider>
           ) : (
@@ -175,7 +173,7 @@ export class SettingsModal extends Component {
             />
           )}
 
-          {isMobile && $container.current && (
+          {isMobile && $container.current && isPreviewOpen && (
             <ReactModal
               isOpen={isPreviewOpen}
               onRequestClose={this.closePreview}

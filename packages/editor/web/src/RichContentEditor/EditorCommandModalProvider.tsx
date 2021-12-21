@@ -7,6 +7,7 @@ interface Props {
   closeModal: () => void;
   pubsub: Pubsub;
   componentData: Record<string, unknown>;
+  pluginType: string;
 }
 
 interface State {
@@ -16,12 +17,9 @@ interface State {
 class EditorCommandModalProvider extends Component<Props, State> {
   initialData: Record<string, unknown>;
 
-  pluginType: string;
-
   constructor(props) {
     super(props);
     this.initialData = props.componentData;
-    this.pluginType = props.editorCommands.getSelectedPluginType();
     this.state = { data: props.componentData };
   }
 
@@ -29,9 +27,9 @@ class EditorCommandModalProvider extends Component<Props, State> {
     this.props.editorCommands.deleteBlock(this.props.editorCommands.getSelection().focusKey);
 
   updateData = data => {
-    const { editorCommands, pubsub } = this.props;
+    const { editorCommands, pubsub, pluginType } = this.props;
     const newData = { ...this.state.data, ...data };
-    editorCommands.setBlock(editorCommands.getSelection().startKey, this.pluginType, newData);
+    editorCommands.setBlock(editorCommands.getSelection().startKey, pluginType, newData);
     pubsub.set('componentData', newData); // TODO: Need to remove after toolbars will work with editorCommands !
     this.setState({ data: newData });
   };
@@ -49,7 +47,7 @@ class EditorCommandModalProvider extends Component<Props, State> {
       onCancel: this.onCancel,
       updateData: this.updateData,
       deleteBlock: this.deleteBlock,
-      componentData: this.state.data,
+      componentData: this.state.data || this.props.componentData,
     });
   }
 }

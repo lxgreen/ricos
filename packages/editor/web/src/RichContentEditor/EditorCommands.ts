@@ -171,7 +171,6 @@ export const createEditorCommands = (
     isTextBlockInSelection: EditorCommands['isTextBlockInSelection'];
     getAnchorBlockType: EditorCommands['getAnchorBlockType'];
     getAllBlocksKeys: EditorCommands['getAllBlocksKeys'];
-    getSelectedPluginType: EditorCommands['getSelectedPluginType'];
   } = {
     getSelection: () => {
       const selection = getEditorState().getSelection();
@@ -193,7 +192,6 @@ export const createEditorCommands = (
     hasLinkInSelection: () => hasLinksInSelection(getEditorState()),
     getLinkDataInSelection: () => getLinkDataInSelection(getEditorState()),
     getSelectedData: () => getEntityData(getEditorState()) || {},
-    getSelectedPluginType: () => getEntityType(getEditorState()) || {},
     getBlockSpacing: () => {
       const { dynamicStyles = {} } = getAnchorBlockData(getEditorState());
       return pick(dynamicStyles, ['line-height', 'padding-top', 'padding-bottom']);

@@ -27,6 +27,7 @@ const RichContentEditorModal: FunctionComponent<Props> = ({
   modalElement,
   modalsMap,
   editorCommands,
+  pluginId,
   ...modalProps
 }) => {
   const ModalsMap = { ...Modals, ...modalsMap };
@@ -48,6 +49,7 @@ const RichContentEditorModal: FunctionComponent<Props> = ({
           closeModal={modalProps.helpers?.closeModal}
           pubsub={modalProps.pubsub}
           componentData={modalProps.componentData}
+          pluginType={pluginId}
         >
           <RichContentModal modalElement={element} {...modalProps} />
         </EditorCommandModalProvider>
