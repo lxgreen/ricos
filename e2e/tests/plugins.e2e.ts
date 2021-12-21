@@ -464,8 +464,8 @@ describe('plugins', () => {
       });
       // const embedTypes = ['EVENT', 'PRODUCT', 'BOOKING'];
       const embedTypes = ['PRODUCT', 'BOOKING', 'EVENT'];
-      embedTypes.forEach(embedType => {
-        it.only(`render ${embedType} upload modal`, function() {
+      it('render upload modals', function() {
+        embedTypes.forEach(embedType => {
           cy.openEmbedModal(STATIC_TOOLBAR_BUTTONS[embedType]);
           cy.eyesCheckWindow(this.test.title);
           cy.get(`[data-hook*=verticalsItemsList]`)
