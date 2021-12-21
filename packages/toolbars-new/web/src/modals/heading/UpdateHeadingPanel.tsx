@@ -46,7 +46,7 @@ const UpdateHeadingPanel = ({
       <div
         className={styles.panel_row}
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-        tabIndex={0}
+        tabIndex={updateButtonDisabled ? -1 : 0}
       >
         <div
           className={classNames(styles.buttonComponent, updateButtonDisabled && styles.disabled)}
@@ -63,7 +63,7 @@ const UpdateHeadingPanel = ({
       </div>
       <div
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-        tabIndex={0}
+        tabIndex={resetButtonDisabled ? -1 : 0}
         className={classNames(
           styles.panel_row,
           styles.buttonComponent,

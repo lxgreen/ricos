@@ -130,20 +130,24 @@ const output: OutputOptions[] = process.env.DYNAMIC_IMPORT
       {
         dir: 'dist/es',
         format: 'es',
+        exports: 'auto',
       },
       {
         dir: 'dist/cjs/',
         format: 'cjs',
+        exports: 'auto',
       },
     ]
   : [
       {
         file: 'dist/module.js',
         format: 'es',
+        exports: 'auto',
       },
       {
         file: 'dist/module.cjs.js',
         format: 'cjs',
+        exports: 'auto',
       },
     ];
 

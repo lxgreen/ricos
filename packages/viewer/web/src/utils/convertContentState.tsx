@@ -60,7 +60,14 @@ const getInline = (contentState, config, inlineStyleMappers, mergedStyles) =>
     mergedStyles
   );
 
-const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix, documentStyle) => {
+const getBlocks = (
+  mergedStyles,
+  textDirection,
+  context,
+  addAnchorsPrefix,
+  documentStyle,
+  fixedTabSize
+) => {
   const getList = ordered => (items, blockProps) => {
     const fixedItems = items.map(item => (item.length ? item : [' ']));
 
@@ -74,6 +81,7 @@ const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix, docum
       getBlockStyleClasses,
       blockDataToStyle,
       context,
+      fixedTabSize,
     };
     return <List {...props} />;
   };
@@ -100,13 +108,12 @@ const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix, docum
 
         const _child = isEmptyBlock(child) ? <br role="presentation" /> : child;
 
-        const nodeStyle = kebabToCamelObjectKeys(
-          documentStyle?.[style === 'text' ? 'paragraph' : style]
-        );
+        const nodeStyle = documentStyle?.[style === 'text' ? 'paragraph' : style];
+        const parsedNodeStyle = kebabToCamelObjectKeys(nodeStyle);
         const content = isEmpty(nodeStyle) ? (
           _child
         ) : (
-          <span className={styles.overrideLinkColor} style={nodeStyle}>
+          <span className={nodeStyle.color && styles.overrideLinkColor} style={parsedNodeStyle}>
             {_child}
           </span>
         );
@@ -123,6 +130,7 @@ const getBlocks = (mergedStyles, textDirection, context, addAnchorsPrefix, docum
                   mergedStyles[style]
                 ),
                 depthClassName(depth),
+                { 'fixed-tab-size': fixedTabSize },
                 directionBlockClassName,
                 isPaywallSeo(context.seoMode) &&
                   getPaywallSeoClass(context.seoMode.paywall, blockIndex)
@@ -272,7 +280,7 @@ const convertToReact = (
   config: LegacyViewerPluginConfig,
   initSpoilers: (content?: DraftContent) => DraftContent | undefined,
   SpoilerViewerWrapper: unknown,
-  options: { addAnchors?: boolean | string; [key: string]: unknown } = {},
+  options: { addAnchors?: boolean | string; [key: string]: unknown; fixedTabSize?: boolean } = {},
   innerRCEViewerProps?: {
     typeMappers: PluginTypeMapper[];
     inlineStyleMappers: InlineStyleMapperFunction[];
@@ -285,7 +293,7 @@ const convertToReact = (
   if (isEmptyContentState(context.contentState)) {
     return null;
   }
-  const { addAnchors, ...restOptions } = options;
+  const { addAnchors, fixedTabSize, ...restOptions } = options;
   const normalizedContentState = context.contentState
     ? normalizeContentState(context.contentState)
     : context.contentState;
@@ -300,7 +308,14 @@ const convertToReact = (
     newContentState,
     {
       inline: getInline(newContentState, config, inlineStyleMappers, mergedStyles),
-      blocks: getBlocks(mergedStyles, textDirection, context, addAnchorsPrefix, documentStyle),
+      blocks: getBlocks(
+        mergedStyles,
+        textDirection,
+        context,
+        addAnchorsPrefix,
+        documentStyle,
+        fixedTabSize
+      ),
       entities: getEntities(
         typeMappers,
         context,

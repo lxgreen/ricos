@@ -9,10 +9,10 @@ import {
   Aggregate,
   DecoratedNodeExtension,
   DEFAULT_PRIORITY,
-  INodeExtension,
+  IReactNodeExtension,
   NodeHocComposer,
 } from './domain-types';
-import { NodeHoc, NodeHocDescriptor, RicosNodeProps } from './extension-types';
+import { NodeHoc, NodeHocDescriptor, RicosNodeProps } from 'ricos-tiptap-types';
 
 const byPriority: Ord<NodeHocDescriptor> = pipe(
   N.Ord,
@@ -49,7 +49,7 @@ export class NodeHocDecorator implements NodeHocComposer {
     this.descriptors = new NodeHocDescriptors(descriptors);
   }
 
-  decorate(nodeExtension: INodeExtension): DecoratedNodeExtension {
+  decorate(nodeExtension: IReactNodeExtension): DecoratedNodeExtension {
     const hocsForExtension = this.descriptors
       .filter(desc => desc.nodeTypes.includes(nodeExtension.name) || desc.nodeTypes.includes('*'))
       .asArray();

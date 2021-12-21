@@ -47,6 +47,8 @@ class InnerModal extends Component<{
       transform: 'none',
       marginLeft: 'auto',
       marginRight: 'auto',
+      color: 'var(--ricos-settings-text-color, #000)',
+      borderRadius: 'var(--ricos-settings-whitebox-border-radius, 0px)',
       boxShadow: 'var(--ricos-settings-whitebox-box-shadow, 0 4px 8px 0 rgba(0, 0, 0, 0.07))',
     };
     const innerModalStyles: CSSProperties = {

@@ -1,6 +1,6 @@
-import { Mark, markInputRule, markPasteRule } from '@tiptap/core';
+import { Mark, markInputRule, markPasteRule, textblockTypeInputRule } from '@tiptap/core';
 import { MarkConfig, mergeAttributes } from '@tiptap/react';
-import { isRicosMarkExtension, RicosExtension } from './extension-types';
+import { isRicosMarkExtension, RicosExtension } from 'ricos-tiptap-types';
 import { DEFAULT_PRIORITY, IMarkExtension } from './domain-types';
 import { Plugin, PluginKey } from 'prosemirror-state';
 
@@ -20,6 +20,7 @@ export class MarkExtension implements IMarkExtension {
     this.config = {
       addAttributes: () => extension.componentDataDefaults || {},
       ...extension.createExtensionConfig({
+        textblockTypeInputRule,
         mergeAttributes,
         markInputRule,
         markPasteRule,

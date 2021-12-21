@@ -16,6 +16,8 @@ import {
   Node_Type,
   Decoration_Type,
   LinkData,
+  ColorData,
+  MentionData,
 } from '../generated/stringEnums/wix/rich_content/v1/';
 
 const pluginDataPropByType = {
@@ -125,6 +127,10 @@ const generateDecorationDefaults = () =>
     {
       [Decoration_Type.LINK]: () => ({
         linkData: LinkData.fromJSON({ link: { url: '', anchor: '', rel: {} } }),
+      }),
+      [Decoration_Type.COLOR]: () => ColorData.fromJSON({}),
+      [Decoration_Type.MENTION]: () => ({
+        mentionData: MentionData.fromJSON({ name: '', slug: '' }),
       }),
     },
     Object.entries,

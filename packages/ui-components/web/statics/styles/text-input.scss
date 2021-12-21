@@ -5,7 +5,7 @@
   position: relative;
 
   &:hover svg {
-    fill: black;
+    fill: $settings-icons-color;
   }
 }
 
@@ -19,7 +19,7 @@
   padding-left: 18px;
   box-sizing: border-box;
   font-family: $ricos-settings-font-family;
-  border: 1px solid var(--ricos-settings-inputs-border-color, rgba(0, 0, 0, 0.6));
+  border: 1px solid $settings-inputs-border-color;
   border-radius: $settings-inputs-border-radius;
 
   &::placeholder {
@@ -57,7 +57,7 @@
 }
 
 .focusFill {
-  fill: black;
+  fill: $settings-icons-color;
 }
 
 .unfocusFill {

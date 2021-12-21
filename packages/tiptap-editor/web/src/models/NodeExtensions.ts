@@ -1,17 +1,18 @@
 import { Node } from '@tiptap/core';
 import {
   DecoratedNodeExtension,
-  DecoratedNodeExtensionAggregate,
-  INodeExtension,
-  NodeExtensionAggregate,
+  ConvertableNodeExtensionAggregate,
+  IReactNodeExtension,
+  ReactNodeExtensionAggregate,
   NodeHocComposer,
+  IHtmlNodeExtension,
 } from './domain-types';
 import { IExtensionAggregate } from './IExtensionAggregate';
 
-export class NodeExtensions implements NodeExtensionAggregate {
-  private extensions: IExtensionAggregate<INodeExtension>;
+export class ReactNodeExtensions implements ReactNodeExtensionAggregate {
+  private extensions: IExtensionAggregate<IReactNodeExtension>;
 
-  constructor(extensions: INodeExtension[]) {
+  constructor(extensions: IReactNodeExtension[]) {
     this.extensions = new IExtensionAggregate(extensions);
   }
 
@@ -20,12 +21,28 @@ export class NodeExtensions implements NodeExtensionAggregate {
       this.extensions.asArray().map(ex => hocComposer.decorate(ex))
     );
   }
+
+  asArray() {
+    return this.extensions.asArray();
+  }
 }
 
-export class DecoratedNodeExtensions implements DecoratedNodeExtensionAggregate {
+export class DecoratedNodeExtensions implements ConvertableNodeExtensionAggregate {
   private extensions: IExtensionAggregate<DecoratedNodeExtension>;
 
   constructor(extensions: DecoratedNodeExtension[]) {
+    this.extensions = new IExtensionAggregate(extensions);
+  }
+
+  toTiptapExtensions() {
+    return this.extensions.asArray().map(e => e.toTiptapExtension()) as Node[];
+  }
+}
+
+export class HtmlNodeExtensions implements ConvertableNodeExtensionAggregate {
+  private extensions: IExtensionAggregate<IHtmlNodeExtension>;
+
+  constructor(extensions: IHtmlNodeExtension[]) {
     this.extensions = new IExtensionAggregate(extensions);
   }
 

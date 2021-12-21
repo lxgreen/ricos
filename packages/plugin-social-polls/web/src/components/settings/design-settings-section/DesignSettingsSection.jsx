@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { ColorPicker } from 'wix-rich-content-plugin-commons';
-import { SliderWithInput, SettingsSeparator, SelectionList } from 'wix-rich-content-ui-components';
+import {
+  SliderWithInput,
+  SettingsSeparator,
+  SelectionList,
+  SelectionListItem,
+} from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 
 import { ColorIcon, ImageIcon, GradientIcon } from '../../../assets/icons';
@@ -58,11 +63,8 @@ export class DesignSettingsSection extends Component {
 
   dataMapper = ({ name }) => ({ value: name });
 
-  renderOption = ({ item }) => (
-    <>
-      <item.icon />
-      <p className={styles.selectionListOptionLabel}>{item.label}</p>
-    </>
+  renderOption = ({ item, selected }) => (
+    <SelectionListItem icon={<item.icon />} label={item.label} selected={selected} />
   );
 
   getBackgroundColorValue() {
@@ -82,7 +84,7 @@ export class DesignSettingsSection extends Component {
   }
 
   render() {
-    const { t, componentData } = this.props;
+    const { t, componentData, languageDir } = this.props;
     const { backgroundType } = this.state;
 
     const { design } = componentData;
@@ -144,6 +146,7 @@ export class DesignSettingsSection extends Component {
           onChange={this.handlePollBorderRadiusChange}
           defaultValue={parseInt(design.poll?.borderRadius)}
           theme={this.props.theme}
+          languageDir={languageDir}
         />
         <SliderWithInput
           min={0}
@@ -152,6 +155,7 @@ export class DesignSettingsSection extends Component {
           onChange={this.handleOptionBorderRadiusChange}
           defaultValue={parseInt(design.option?.borderRadius)}
           theme={this.props.theme}
+          languageDir={languageDir}
         />
       </section>
     );
@@ -163,4 +167,5 @@ DesignSettingsSection.propTypes = {
   theme: PropTypes.object.isRequired,
   componentData: PropTypes.object.isRequired,
   store: PropTypes.object.isRequired,
+  languageDir: PropTypes.string.isRequired,
 };

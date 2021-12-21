@@ -1,4 +1,4 @@
-import { CreateRicosExtensions } from 'wix-tiptap-editor';
+import { CreateRicosExtensions } from 'ricos-tiptap-types';
 import { Video as Component } from './component';
 import videoDataDefaults from 'ricos-schema/dist/statics/video.defaults.json';
 import { TIPTAP_VIDEO_TYPE } from 'ricos-content';
@@ -18,7 +18,10 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
     },
     createExtensionConfig: () => ({
       name,
-      defaultOptions,
+      group: 'block',
+      selectable: true,
+      draggable: true,
+      addOptions: () => defaultOptions,
       addCommands() {
         return {};
       },

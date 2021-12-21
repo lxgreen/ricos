@@ -31,15 +31,17 @@ class LinkActionsButtons extends PureComponent {
     const saveLabel = t('SettingsPanelFooter_Save');
 
     return basicDisplay && !isMobile ? (
-      <Button
-        className={styles.LinkButtons_saveButton}
-        dataHook="actionButtonSave"
-        disabled={!isDoneButtonEnable}
-        text={saveLabel}
-        onClick={onSave}
-        size={BUTTON_SIZE.medium}
-        theme={this.theme}
-      />
+      <div className={styles.link_buttonWrapper}>
+        <Button
+          dataHook="actionButtonSave"
+          disabled={!isDoneButtonEnable}
+          onClick={onSave}
+          size={BUTTON_SIZE.medium}
+          theme={this.theme}
+        >
+          {saveLabel}
+        </Button>
+      </div>
     ) : (
       <div
         className={classNames(styles.LinkButtons_wrapper, {
@@ -53,12 +55,13 @@ class LinkActionsButtons extends PureComponent {
             <Button
               tabIndex={tabIndex}
               data-hook="linkPanelContainerRemove"
-              text={removeButtonText}
               onClick={onDelete}
               theme={this.theme}
               secondary
               borderless
-            />
+            >
+              {removeButtonText}
+            </Button>
           </div>
         )}
 

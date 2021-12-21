@@ -1,4 +1,4 @@
-import { CreateRicosExtensions } from 'wix-tiptap-editor';
+import { CreateRicosExtensions } from 'ricos-tiptap-types';
 import { Gif as Component } from './component';
 import gifDataDefaults from 'ricos-schema/dist/statics/gif.defaults.json';
 import { TIPTAP_GIF_TYPE } from 'ricos-content';
@@ -12,7 +12,10 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
     componentDataDefaults: { ...gifDataDefaults, id: '' },
     createExtensionConfig: () => ({
       name,
-      defaultOptions,
+      group: 'block',
+      selectable: true,
+      draggable: true,
+      addOptions: () => defaultOptions,
       addCommands() {
         return {};
       },

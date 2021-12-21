@@ -73,9 +73,11 @@ export {
   isCursorAtFirstLine,
   selectAllContent,
   isAtomicBlockInSelection,
+  isTextBlockInSelection,
   setSelectionToBlock,
   hasBlockType,
   setNativeSelectionToBlock,
+  toggleBlockTypeWithSpaces,
 } from './Utils/draftUtils';
 export { triggerMention, insertMention } from './Utils/mentionUtils';
 export { isiOS } from './Utils/isiOS';

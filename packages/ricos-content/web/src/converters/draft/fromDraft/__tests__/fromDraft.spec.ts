@@ -8,6 +8,15 @@ import external from './external-blocks-and-decorations.json';
 import externalMigrated from './external-blocks-and-decorations-migrated.json';
 import unsupported from './unsupported-blocks-and-decorations.json';
 import unsupportedMigrated from './unsupported-blocks-and-decorations-migrated.json';
+import galleryThumbnailNone from './gallery-with-thumbnail-placement-none.json';
+import galleryWithoutThumbnail from './gallery-without-thumbnail-placement.json';
+import galleryThumbnailMigrated from './gallery-with-thumbnail-placement-migrated.json';
+import noVideoData from './no-data-video.json';
+import noVideoDataMigrated from './no-data-video-migrated.json';
+import innerWithUnsupported from './inner-rce-with-unsupported-styling.json';
+import innerWithUnsupportedMigrated from './inner-rce-with-unsupported-styling-migrated.json';
+import faultyLinkValues from './faulty-link-values.json';
+import faultyLinkValuesMigrated from './faulty-link-values-migrated.json';
 import polyfills from '../../../../../../../../e2e/tests/fixtures/polyfills.json';
 import { getTextNodes } from '../getTextNodes';
 import complexRicosFixture from '../../../../../statics/json/migratedFixtures/migration-content.json';
@@ -340,6 +349,51 @@ describe('migrate from draft', () => {
   it('should convert external block', () => {
     expect(
       compare(fromDraft(external), RichContent.fromJSON(externalMigrated), {
+        ignoredKeys: ['id'],
+      })
+    ).toEqual({});
+  });
+
+  it('should convert gallery content correctly', () => {
+    const draftContents = [galleryThumbnailNone, galleryWithoutThumbnail];
+    draftContents.forEach(draftContent =>
+      expect(
+        compare(fromDraft(draftContent), RichContent.fromJSON(galleryThumbnailMigrated), {
+          ignoredKeys: ['id'],
+        })
+      ).toEqual({})
+    );
+  });
+
+  it('should convert content with no data plugins correctly', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const converted = fromDraft(noVideoData, { ignoreUnsupportedValues: true });
+    expect(
+      compare(converted, RichContent.fromJSON(noVideoDataMigrated), {
+        ignoredKeys: ['id'],
+      })
+    ).toEqual({});
+  });
+
+  it('should convert unsupported inine inner content correctly', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const converted = fromDraft(innerWithUnsupported, { ignoreUnsupportedValues: true });
+
+    expect(
+      compare(converted, RichContent.fromJSON(innerWithUnsupportedMigrated), {
+        ignoredKeys: ['id'],
+      })
+    ).toEqual({});
+  });
+
+  it('should convert faulty link content correctly', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const converted = fromDraft(faultyLinkValues, { ignoreUnsupportedValues: true });
+    expect(
+      compare(converted, RichContent.fromJSON(faultyLinkValuesMigrated), {
         ignoredKeys: ['id'],
       })
     ).toEqual({});

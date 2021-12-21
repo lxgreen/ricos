@@ -1,18 +1,33 @@
-import { Version, Helpers, ToolbarType } from 'wix-rich-content-common';
-
-export const getBiFunctions = (helpers: Helpers, contentId?: string) => {
-  const onInlineToolbarOpen = toolbarType =>
-    helpers?.onInlineToolbarOpen?.({
-      toolbarType,
-      version: Version.currentVersion,
-      contentId,
-    });
-  const onToolbarButtonClick = (
+import {
+  Version,
+  Helpers,
+  ToolbarType,
+  BICallbacks,
+  ANCHOR_CATEGORY,
+  WEB_ADDRESS_CATEGORY,
+  ADD_PLUGIN_LINK_BI,
+  OnAddPluginLink,
+} from 'wix-rich-content-common';
+interface SimplifiedBICallbacks
+  extends Omit<BICallbacks, 'onToolbarButtonClick' | 'onInlineToolbarOpen'> {
+  onToolbarButtonClick: (
     name: string,
     toolbarType: ToolbarType,
     value?: string | boolean,
     pluginId?: string
-  ) => {
+  ) => void;
+  onInlineToolbarOpen: (toolbarType: ToolbarType) => void;
+  onAddPluginLink: OnAddPluginLink;
+}
+
+export const getBiFunctions = (helpers: Helpers, contentId?: string): SimplifiedBICallbacks => ({
+  onInlineToolbarOpen: toolbarType =>
+    helpers?.onInlineToolbarOpen?.({
+      toolbarType,
+      version: Version.currentVersion,
+      contentId,
+    }),
+  onToolbarButtonClick: (name, toolbarType, value, pluginId) => {
     helpers?.onToolbarButtonClick?.({
       buttonName: name,
       pluginId,
@@ -31,6 +46,22 @@ export const getBiFunctions = (helpers: Helpers, contentId?: string) => {
         contentId
       );
     }
-  };
-  return { onInlineToolbarOpen, onToolbarButtonClick };
-};
+  },
+  onAddPluginLink: (data, plugin_id) => {
+    const { url, anchor, target, rel } = data;
+    const params = anchor
+      ? { anchor, category: ANCHOR_CATEGORY }
+      : {
+          link: url,
+          rel,
+          newTab: target === '_blank',
+          category: WEB_ADDRESS_CATEGORY,
+        };
+    helpers.onPluginAction?.(ADD_PLUGIN_LINK_BI, {
+      plugin_id,
+      params,
+      version: Version.currentVersion,
+      contentId,
+    });
+  },
+});

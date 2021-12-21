@@ -10,10 +10,13 @@
       "message": "[*] chore(release): %s"
     }
   },
+  "packages": [
+    "packages/!(template-*)/web"
+  ],
   "npmClient": "yarn",
   "useWorkspaces": true,
   "npmClientArgs": [
     "--no-lockfile"
   ],
-  "version": "8.63.7"
+  "version": "8.65.17"
 }

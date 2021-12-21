@@ -26,9 +26,11 @@ import {
   getAnchorableBlocks,
   removeCurrentInlineStyle,
   isAtomicBlockInSelection,
+  isTextBlockInSelection,
   scrollToBlock,
   insertCustomLink,
   getSelectedBlocks,
+  toggleBlockTypeWithSpaces,
 } from 'wix-rich-content-editor-common';
 import {
   AvailableExperiments,
@@ -46,6 +48,7 @@ import {
   DocumentStyle,
   RicosCustomStyles,
   CUSTOM_LINK,
+  CODE_BLOCK_TYPE,
 } from 'wix-rich-content-common';
 
 import {
@@ -118,8 +121,13 @@ export const createEditorCommands = (
   externalEditorProps,
   experiments?: AvailableExperiments
 ): EditorCommands => {
-  const setBlockType: EditorCommands['setBlockType'] = type =>
-    setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
+  const setBlockType: EditorCommands['setBlockType'] = type => {
+    if (type === CODE_BLOCK_TYPE) {
+      setEditorState(toggleBlockTypeWithSpaces(getEditorState(), type));
+    } else {
+      setEditorState(RichUtils.toggleBlockType(getEditorState(), type));
+    }
+  };
 
   const _setSelection: EditorCommands['_setSelection'] = (blockKey, selection) =>
     setEditorState(
@@ -159,7 +167,9 @@ export const createEditorCommands = (
     getAnchorBlockInlineStyles: EditorCommands['getAnchorBlockInlineStyles'];
     getWiredFontStyles: EditorCommands['getWiredFontStyles'];
     isAtomicBlockInSelection: EditorCommands['isAtomicBlockInSelection'];
+    isTextBlockInSelection: EditorCommands['isTextBlockInSelection'];
     getAnchorBlockType: EditorCommands['getAnchorBlockType'];
+    getAllBlocksKeys: EditorCommands['getAllBlocksKeys'];
   } = {
     getSelection: () => {
       const selection = getEditorState().getSelection();
@@ -191,8 +201,15 @@ export const createEditorCommands = (
       setEditorState(EditorState.forceSelection(savedEditorState, selection));
     },
     saveSelectionState: () => (savedSelectionState = getEditorState().getSelection()),
-    loadSelectionState: () =>
-      setEditorState(EditorState.forceSelection(getEditorState(), savedSelectionState)),
+    loadSelectionState: () => {
+      const editorState = getEditorState();
+      const inlineStyleOverride = editorState.getInlineStyleOverride();
+      const newEditorState = EditorState.setInlineStyleOverride(
+        EditorState.forceSelection(editorState, savedSelectionState),
+        inlineStyleOverride
+      );
+      setEditorState(newEditorState);
+    },
     getPluginsList: settings => {
       const { isRicosSchema } = settings || {};
       const pluginsList = plugins?.map(plugin =>
@@ -222,7 +239,13 @@ export const createEditorCommands = (
       return blocks.some(block => block.getKey() === blockKey);
     },
     isAtomicBlockInSelection: () => isAtomicBlockInSelection(getEditorState()),
+    isTextBlockInSelection: () => isTextBlockInSelection(getEditorState()),
     getAnchorBlockType: () => getBlockType(getEditorState()),
+    getAllBlocksKeys: () =>
+      getEditorState()
+        .getCurrentContent()
+        .getBlocksAsArray()
+        .map(block => block.getKey()),
   };
 
   const toggleOverlayBGColor = (element: HTMLElement) => {

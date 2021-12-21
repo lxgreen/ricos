@@ -1,33 +1,39 @@
 import { Extension } from '@tiptap/core';
-import { firstRight } from 'ricos-content';
+import { and, firstRight } from 'ricos-content';
+import { not } from 'fp-ts/Predicate';
 import {
   ExtensionAggregate,
   IExtension,
   IFunctionalExtension,
   IMarkExtension,
-  INodeExtension,
+  IReactNodeExtension,
+  IHtmlNodeExtension,
 } from './domain-types';
 import {
   isRicosFunctionalExtension,
   isRicosMarkExtension,
   isRicosNodeExtension,
   RicosExtension,
-} from './extension-types';
+  RicosNodeExtension,
+} from 'ricos-tiptap-types';
 import { FunctionalExtension } from './FunctionalExtension';
 import { FunctionalExtensions } from './FunctionalExtensions';
 import { IExtensionAggregate } from './IExtensionAggregate';
 import { MarkExtension } from './MarkExtension';
 import { MarkExtensions } from './MarkExtensions';
-import { NodeExtension } from './NodeExtension';
-import { NodeExtensions } from './NodeExtensions';
+import { ReactNodeExtension, HtmlNodeExtension } from './NodeExtension';
+import { ReactNodeExtensions, HtmlNodeExtensions } from './NodeExtensions';
 
 const defaultIExtension = {
   toTiptapExtension: Extension.create,
 };
 
+const hasComponentConfig = (ext: RicosNodeExtension): boolean => !!ext.Component;
+
 const toIExtension = (ext: RicosExtension): IExtension =>
   firstRight(ext, defaultIExtension as IExtension, [
-    [isRicosNodeExtension, () => new NodeExtension(ext)],
+    [and([isRicosNodeExtension, hasComponentConfig]), () => new ReactNodeExtension(ext)],
+    [and([isRicosNodeExtension, not(hasComponentConfig)]), () => new HtmlNodeExtension(ext)],
     [isRicosMarkExtension, () => new MarkExtension(ext)],
     [isRicosFunctionalExtension, () => new FunctionalExtension(ext)],
   ]);
@@ -70,9 +76,15 @@ export class Extensions implements ExtensionAggregate {
     );
   }
 
-  getNodeExtensions() {
-    return new NodeExtensions(
-      this.extensions.filter(ext => ext.type === 'node').asArray() as INodeExtension[]
+  getReactNodeExtensions() {
+    return new ReactNodeExtensions(
+      this.extensions.filter(ext => ext.type === 'react-node').asArray() as IReactNodeExtension[]
+    );
+  }
+
+  getHtmlNodeExtensions() {
+    return new HtmlNodeExtensions(
+      this.extensions.filter(ext => ext.type === 'html-node').asArray() as IHtmlNodeExtension[]
     );
   }
 
@@ -84,13 +96,14 @@ export class Extensions implements ExtensionAggregate {
 
   getDecoratedNodeExtensions() {
     const hocComposer = this.getFunctionalExtensions().getNodeHocComposer();
-    return this.getNodeExtensions().getDecoratedNodeExtensions(hocComposer);
+    return this.getReactNodeExtensions().getDecoratedNodeExtensions(hocComposer);
   }
 
   getTiptapExtensions() {
-    const nodes = this.getDecoratedNodeExtensions().toTiptapExtensions();
+    const reactNodes = this.getDecoratedNodeExtensions().toTiptapExtensions();
+    const htmlNodes = this.getHtmlNodeExtensions().toTiptapExtensions();
     const marks = this.getMarkExtensions().toTiptapExtensions();
     const extensions = this.getFunctionalExtensions().toTiptapExtensions();
-    return [...extensions, ...marks, ...nodes];
+    return [...extensions, ...marks, ...reactNodes, ...htmlNodes];
   }
 }

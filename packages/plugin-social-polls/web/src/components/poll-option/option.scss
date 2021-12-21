@@ -1,4 +1,5 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
+@import '~wix-rich-content-common/dist/statics/styles/palette';
 
 .option {
   position: relative;
@@ -160,7 +161,7 @@
 }
 
 .adornment_icon {
-  fill: currentColor;
+  fill: $settings-icons-color;
   margin-left: 5px;
 }
 

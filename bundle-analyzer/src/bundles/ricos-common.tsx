@@ -5,7 +5,7 @@ const functionComponent: FunctionComponent = () => <div />;
 
 export default () => {
   return (
-    <RicosEngine RicosModal={functionComponent} isViewer>
+    <RicosEngine RicosModal={functionComponent} getContentId={() => ''} isViewer>
       <div />
     </RicosEngine>
   );

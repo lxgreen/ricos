@@ -1,7 +1,8 @@
 import { ToolbarType } from './toolbarEnums';
 import { OnPluginAction } from './pluginsBiCallbacksTypes';
 import { getContentSummary } from '../Utils/contentAnalytics';
-interface biCallbackParams {
+
+export interface BICallbackParams {
   version?: string;
   contentId?: string;
 }
@@ -27,7 +28,8 @@ export type PluginAddParams =
     };
 
 type EntryType = ToolbarType;
-export interface onPluginAddStepArgs extends biCallbackParams {
+
+export interface onPluginAddStepArgs extends BICallbackParams {
   pluginId: string;
   pluginDetails: unknown;
   entryPoint: ToolbarType;
@@ -36,36 +38,36 @@ export interface onPluginAddStepArgs extends biCallbackParams {
   step: 'FileUploadDialog' | 'PluginModal';
 }
 
-export interface onPluginDeleteArgs extends biCallbackParams {
+export interface onPluginDeleteArgs extends BICallbackParams {
   pluginId: string;
   pluginDetails: unknown;
 }
 
-export interface onViewerLoadedArgs extends biCallbackParams {
+export interface onViewerLoadedArgs extends BICallbackParams {
   isPreview: boolean;
   pluginsCount: ReturnType<typeof getContentSummary>['pluginsCount'];
   version: string;
   url: string;
 }
 
-export interface onPluginModalOpenedArgs extends biCallbackParams {
+export interface onPluginModalOpenedArgs extends BICallbackParams {
   pluginId: string;
   pluginDetails: unknown;
   entryPoint: ToolbarType;
   entryType: EntryType;
 }
 
-export interface OnInlineToolbarOpen extends biCallbackParams {
+export interface OnInlineToolbarOpen extends BICallbackParams {
   toolbarType: ToolbarType;
   pluginId?: string;
 }
 
-export interface onMenuLoadArgs extends biCallbackParams {
+export interface onMenuLoadArgs extends BICallbackParams {
   menu: EntryType;
 }
 
-export interface onContentEditedArgs extends biCallbackParams {}
-export interface onToolbarButtonClickArgs extends biCallbackParams {
+export interface onContentEditedArgs extends BICallbackParams {}
+export interface onToolbarButtonClickArgs extends BICallbackParams {
   /** The name of the button the user clicked on (`Bold`, `Italic`, `SpoilerButton`, ...) */
   buttonName: string;
   /** Toolbar / Sidebar/ else */
@@ -84,7 +86,7 @@ export interface onToolbarButtonClickArgs extends biCallbackParams {
   pluginDetails?: string;
 }
 
-export interface onKeyboardShortcutActionArgs extends biCallbackParams {
+export interface onKeyboardShortcutActionArgs extends BICallbackParams {
   /** The name of the button the user clicked on (`Bold`, `Italic`, `SpoilerButton`, ...) */
   buttonName: string;
   /** The new value that was changed (center, right...) */

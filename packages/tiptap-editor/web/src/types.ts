@@ -5,14 +5,12 @@ import {
   DraftContent,
   EditorCommands,
   EditorContextType,
-  LegacyEditorPluginConfig,
   Pubsub,
   ToolbarType,
   TranslationFunction,
   RichContentTheme,
 } from 'wix-rich-content-common';
-import { createEditorStyles } from 'wix-rich-content-editor-common';
-import { RicosExtension } from './models/extension-types';
+import { RicosExtension } from 'ricos-tiptap-types';
 
 export interface PluginProps {
   context: {
@@ -62,7 +60,3 @@ export interface RicosTiptapEditorProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
-
-export type CreateRicosExtensions = <PluginType extends keyof LegacyEditorPluginConfig>(
-  config: LegacyEditorPluginConfig[PluginType]
-) => RicosExtension[];

@@ -30,9 +30,8 @@ $spacing: 12px;
   &.basicPanel {
     @extend %flex_with_gap;
     align-items: center;
-    padding: 0;
     margin: 0;
-    width: 420px;
+    max-width: 420px;
   }
 }
 
@@ -80,7 +79,7 @@ $spacing: 12px;
   // margin: 16px 0 14px 0; // this is the right margin - once radio buttons would be added back
   margin: 0px 0 20px;
   position: relative;
-  min-width: 300px;
+  width: 100%;
   .basicPanel {
     margin: 0;
   }
@@ -145,7 +144,7 @@ $spacing: 12px;
   position: relative;
   width: calc(100% + #{$spacing} * 2);
   left: -$spacing;
-  border-bottom: 1px solid rgba(51, 51, 51, 0.1);
+  border-bottom: 1px solid var(--ricos-settings-dividers-color, rgba(51, 51, 51, 0.1));
 }
 
 %flex_with_gap {

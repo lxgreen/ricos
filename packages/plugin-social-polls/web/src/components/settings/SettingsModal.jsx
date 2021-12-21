@@ -11,7 +11,7 @@ import {
   SettingsMobileHeader,
   Button,
 } from 'wix-rich-content-ui-components';
-import { mergeStyles } from 'wix-rich-content-common';
+import { mergeStyles, GlobalContext } from 'wix-rich-content-common';
 
 import { PollContextProvider } from '../poll-context';
 import { RCEHelpersContext } from '../rce-helpers-context';
@@ -37,7 +37,6 @@ export class SettingsModal extends Component {
     t: PropTypes.func,
     relValue: PropTypes.string,
     anchorTarget: PropTypes.string,
-    languageDir: PropTypes.string,
     settings: PropTypes.object.isRequired,
   };
 
@@ -53,6 +52,8 @@ export class SettingsModal extends Component {
   };
 
   styles = mergeStyles({ styles, theme: this.props.theme });
+
+  static contextType = GlobalContext;
 
   setPoll = poll => {
     const { pubsub } = this.props;
@@ -96,7 +97,8 @@ export class SettingsModal extends Component {
 
   render() {
     const { activeTab, $container, isPreviewOpen } = this.state;
-    const { pubsub, helpers, t, languageDir, theme, isMobile, settings } = this.props;
+    const { pubsub, helpers, t, theme, isMobile, settings } = this.props;
+    const { languageDir } = this.context;
 
     const componentData = pubsub.store.get('componentData');
 
@@ -111,12 +113,9 @@ export class SettingsModal extends Component {
               t={t}
             >
               <div className={this.styles.preview_button}>
-                <Button
-                  borderless
-                  isMobile
-                  text={t('Poll_FormatToolbar_Preview_Tooltip')}
-                  onClick={this.openPreview}
-                />
+                <Button borderless isMobile onClick={this.openPreview}>
+                  {t('Poll_FormatToolbar_Preview_Tooltip')}
+                </Button>
               </div>
             </SettingsMobileHeader>
           ) : (
@@ -170,6 +169,7 @@ export class SettingsModal extends Component {
                   store={pubsub.store}
                   componentData={componentData}
                   t={t}
+                  languageDir={languageDir}
                 />
               </Tab>
               <Tab

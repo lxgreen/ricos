@@ -6,6 +6,7 @@ export {
   DesktopFlyOutModalStyles,
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,
   DesktopOverlayModalStyles,
+  ACTION_COLORS_CSS_VAR,
 } from './consts';
 
 // Modals
@@ -46,4 +47,6 @@ export { default as ActionButtons } from './Components/ActionButtons';
 export { default as FocusManager } from './Components/FocusManager';
 export { default as SettingsMobileHeader } from './Components/SettingsMobileHeader';
 export { default as SettingsSeparator } from './Components/SettingsSeparator';
+export { default as SettingsPanelHeader } from './Components/SettingsPanelHeader';
+export { default as SelectionListItem } from './Components/SelectionListItem';
 // export { getSelectionStyles } from './Utils/inlineStyleUtils';

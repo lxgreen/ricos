@@ -39,8 +39,8 @@ const createInsertButtons: CreateInsertButtons = ({
   isMobile: boolean;
   experiments: AvailableExperiments;
 }) => {
-  const { newSocialEmbedModal } = experiments;
-  const useNewModal = newSocialEmbedModal?.enabled;
+  const { newVideoVerticalAndSocialModals } = experiments;
+  const useNewModal = newVideoVerticalAndSocialModals?.enabled;
   const content = isMobile
     ? {
         maxWidth: 580,

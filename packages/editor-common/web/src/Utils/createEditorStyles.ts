@@ -8,6 +8,7 @@ interface EditorStyleCreatorArgs {
   containerStyle?: CSSProperties;
   draftStyles?;
   editorStyles?;
+  experiments?;
 }
 
 export const createEditorStyles = ({
@@ -17,6 +18,7 @@ export const createEditorStyles = ({
   theme = {},
   draftStyles = {},
   editorStyles = {},
+  experiments = {},
 }: EditorStyleCreatorArgs) => {
   const editorStyle = isInnerRCE ? { backgroundColor: 'transparent' } : {};
   const themeDesktopStyle = theme.desktop
@@ -28,7 +30,9 @@ export const createEditorStyles = ({
   });
   return {
     editorStyle,
-    editorClassName: classNames(editorStyles.editor, theme.editor),
+    editorClassName: classNames(editorStyles.editor, theme.editor, {
+      [editorStyles.fixedTabSize]: experiments?.fixedTabSize?.enabled,
+    }),
     containerStyle,
     containerClassName,
   };

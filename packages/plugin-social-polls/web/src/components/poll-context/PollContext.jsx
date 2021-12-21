@@ -151,7 +151,7 @@ export class PollContextProvider extends PureComponent {
 
     poll.options[index] = option;
 
-    return this.updatePoll(poll);
+    return this.updatePoll({ options: poll.options });
   }
 
   addOption() {
@@ -162,7 +162,7 @@ export class PollContextProvider extends PureComponent {
       mediaId: getRandomValue(OPTION_IMAGES_POOL),
     });
 
-    return this.updatePoll(poll);
+    return this.updatePoll({ options: poll.options });
   }
 
   removeOption(index) {
@@ -170,7 +170,7 @@ export class PollContextProvider extends PureComponent {
 
     poll.options.splice(index, 1);
 
-    return this.updatePoll(poll);
+    return this.updatePoll({ options: poll.options });
   }
 
   render() {

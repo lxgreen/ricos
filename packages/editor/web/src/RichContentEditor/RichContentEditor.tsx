@@ -34,7 +34,6 @@ import {
 } from 'wix-rich-content-editor-common';
 import { convertFromRaw, convertToRaw, createWithContent } from '../../lib/editorStateConversion';
 import { EditorProps as DraftEditorProps, DraftHandleValue } from 'draft-js';
-import { createUploadStartBIData, createUploadEndBIData } from './utils/mediaUploadBI';
 import {
   HEADINGS_DROPDOWN_TYPE,
   DEFAULT_HEADINGS,
@@ -198,15 +197,6 @@ interface RichContentEditorState {
     t?: TranslationFunction;
   };
   undoRedoStackChanged: boolean;
-}
-
-// experiment example code
-function makeBarrelRoll() {
-  document.querySelector('.DraftEditor-root')?.classList.toggle('barrelRoll');
-  setTimeout(
-    () => document.querySelector('.DraftEditor-root')?.classList.toggle('barrelRoll'),
-    1000
-  );
 }
 
 class RichContentEditor extends Component<RichContentEditorProps, RichContentEditorState> {
@@ -412,9 +402,6 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     } = this.props;
 
     this.fixHelpers(helpers);
-    const onPluginAction: OnPluginAction = (eventName: EventName, params: PluginEventParams) =>
-      helpers.onPluginAction?.(eventName, { ...params, version: Version.currentVersion });
-    const version = Version.currentVersion;
     this.contextualData = {
       theme: theme || {},
       t,
@@ -423,72 +410,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       anchorTarget,
       relValue,
       customAnchorScroll,
-      helpers: {
-        ...helpers,
-        onPluginAdd: (pluginId: string, entryPoint: string) =>
-          helpers.onPluginAdd?.(pluginId, entryPoint, version, this.getContentId()),
-        onPluginAddStep: args =>
-          helpers.onPluginAddStep?.({ ...args, version, contentId: this.getContentId() }),
-        onPluginAddSuccess: (pluginId: string, entryPoint: string, params) =>
-          helpers.onPluginAddSuccess?.(pluginId, entryPoint, params, version, this.getContentId()),
-
-        onMediaUploadStart: (...args) => {
-          const {
-            correlationId,
-            pluginId,
-            fileSize,
-            mediaType,
-            timeStamp,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-          } = createUploadStartBIData(...args);
-          helpers.onMediaUploadStart?.(
-            correlationId,
-            pluginId,
-            fileSize,
-            mediaType,
-            version,
-            this.getContentId()
-          );
-          return { correlationId, pluginId, fileSize, mediaType, timeStamp };
-        },
-        onMediaUploadEnd: (...args) => {
-          const {
-            correlationId,
-            pluginId,
-            duration,
-            fileSize,
-            mediaType,
-            isSuccess,
-            errorType,
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            //@ts-ignore
-          } = createUploadEndBIData(...args);
-          helpers.onMediaUploadEnd?.(
-            correlationId,
-            pluginId,
-            duration,
-            fileSize,
-            mediaType,
-            isSuccess,
-            errorType,
-            version,
-            this.getContentId()
-          );
-        },
-        onPluginAction,
-        onPluginChange: (pluginId: string, changeObj) =>
-          helpers.onPluginChange?.(pluginId, changeObj, version, this.getContentId()),
-        onToolbarButtonClick: args =>
-          helpers.onToolbarButtonClick?.({ ...args, version, contentId: this.getContentId() }),
-        onInlineToolbarOpen: args =>
-          helpers.onInlineToolbarOpen?.({ ...args, version, contentId: this.getContentId() }),
-        onPluginModalOpened: args =>
-          helpers.onPluginModalOpened?.({ ...args, version, contentId: this.getContentId() }),
-        onMenuLoad: args => {
-          helpers.onMenuLoad?.({ ...args, version, contentId: this.getContentId() });
-        },
-      },
+      helpers,
       config,
       isMobile,
       setEditorState: editorState => {
@@ -917,13 +839,6 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       modifiers: [MODIFIERS.COMMAND, MODIFIERS.SHIFT],
       key: 'z',
     },
-    this.props.experiments?.barrelRoll?.enabled && typeof window !== 'undefined'
-      ? {
-          command: 'cmdShift7',
-          modifiers: [MODIFIERS.COMMAND, MODIFIERS.SHIFT],
-          key: '7',
-        }
-      : {},
   ] as KeyCommand[];
 
   customCommandHandlers: Record<string, CommandHandler> = {
@@ -934,9 +849,6 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     esc: this.handleEscCommand,
     ricosUndo: this.handleUndoCommand,
     ricosRedo: this.handleRedoCommand,
-    ...(this.props.experiments?.barrelRoll?.enabled && typeof window !== 'undefined'
-      ? { cmdShift7: makeBarrelRoll }
-      : {}),
   };
 
   getCustomCommandHandlers = (): {
@@ -1134,6 +1046,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       handleReturn,
       readOnly,
       onBackspace,
+      experiments,
     } = this.props;
     const { editorState } = this.state;
     const { theme } = this.contextualData;
@@ -1151,7 +1064,12 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
         handleBeforeInput={this.handleBeforeInput}
         handlePastedText={this.handlePastedText}
         plugins={this.plugins}
-        blockStyleFn={blockStyleFn(theme, this.styleToClass, textAlignment)}
+        blockStyleFn={blockStyleFn(
+          theme,
+          this.styleToClass,
+          textAlignment,
+          experiments?.fixedTabSize?.enabled
+        )}
         handleKeyCommand={handleKeyCommand(
           this.updateEditorState,
           this.getCustomCommandHandlers().commandHandlers,
@@ -1330,6 +1248,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       showToolbars = true,
       isInnerRCE,
       isMobile = false,
+      experiments,
     } = this.props;
     const { innerModal } = this.state;
 
@@ -1352,6 +1271,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
         theme,
         draftStyles,
         editorStyles,
+        experiments,
       });
 
       return (

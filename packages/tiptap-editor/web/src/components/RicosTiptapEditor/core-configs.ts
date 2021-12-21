@@ -1,9 +1,17 @@
-import { createDraftConfig } from '../../extensions/extension-draft';
-import { createFocusConfig } from '../../extensions/extension-focus/focus';
-import { createHistoryConfig } from '../../extensions/extension-history';
-import { createStylesConfig } from '../../extensions/extension-styles';
-import { createUniqueId } from '../../extensions/extension-unique-id';
-import { RicosExtension } from '../../models/extension-types';
+import { RicosExtension } from 'ricos-tiptap-types';
+import { createCommandsConfig } from '../../core-commands';
+import {
+  createDraftConfig,
+  createFocusConfig,
+  createHistoryConfig,
+  createStylesConfig,
+  createUniqueId,
+  createBulletedList,
+  createBold,
+  createParagraph,
+  createItalic,
+  createUnderline,
+} from 'wix-tiptap-extensions';
 
 export const coreConfigs: RicosExtension[] = [
   createDraftConfig(),
@@ -11,4 +19,10 @@ export const coreConfigs: RicosExtension[] = [
   createStylesConfig(),
   createFocusConfig(),
   createUniqueId(),
+  createCommandsConfig(),
+  createBulletedList(),
+  createBold(),
+  createParagraph(),
+  createItalic(),
+  createUnderline(),
 ];

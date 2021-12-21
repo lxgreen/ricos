@@ -1,5 +1,5 @@
 import React, { ElementType, PureComponent } from 'react';
-import { RichContentEditor, RichContentEditorProps } from 'wix-rich-content-editor';
+import { RichContentEditorProps } from 'wix-rich-content-editor';
 import { testVideos } from '../../../storybook/src/shared/utils/mock';
 import * as Plugins from './EditorPlugins';
 import theme from '../theme/theme'; // must import after custom styles
@@ -13,12 +13,11 @@ import {
   DraftContent,
   TextToolbarType,
   AvailableExperiments,
-  EventName,
-  PluginEventParams,
   OnPluginAction,
 } from 'wix-rich-content-common';
 import { TestAppConfig } from '../../src/types';
 import { RicosEditor, RicosEditorProps, RicosEditorType } from 'ricos-editor';
+import createSideBlockComponent from '../../src/Components/createSideBlockComponent';
 
 const STATIC_TOOLBAR = 'static';
 
@@ -39,6 +38,7 @@ interface ExampleEditorProps {
   experiments?: AvailableExperiments;
   externalPopups: boolean;
   textWrap?: boolean;
+  showSideBlockComponent?: boolean;
 }
 
 export default class Editor extends PureComponent<ExampleEditorProps> {
@@ -82,10 +82,6 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
 
   initEditorProps() {
     /* eslint-disable no-console */
-    const onPluginAction: OnPluginAction = async (
-      eventName: EventName,
-      params: PluginEventParams
-    ) => console.log(eventName, params);
     this.helpers = {
       //these are for testing purposes only
       onPluginAdd: async (...args) => console.log('onPluginAdd', ...args),
@@ -114,7 +110,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
           updateEntity(testVideo);
         }, mockTimout || 500);
       },
-      onPluginAction,
+      onPluginAction: async (eventName, params) => console.log(eventName, params),
     };
     /* eslint-enable no-console */
     this.setImageUploadHelper();
@@ -156,6 +152,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       experiments,
       externalPopups,
       textWrap,
+      showSideBlockComponent,
     } = this.props;
     const textToolbarType: TextToolbarType = staticToolbar && !isMobile ? STATIC_TOOLBAR : null;
     const useStaticTextToolbar = textToolbarType === STATIC_TOOLBAR;
@@ -185,6 +182,9 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
             experiments={experiments}
             textWrap={textWrap}
             onAtomicBlockFocus={d => console.log('onAtomicBlockFocus', d)} // eslint-disable-line
+            sideBlockComponent={
+              showSideBlockComponent && createSideBlockComponent(this.editor?.getEditorCommands())
+            }
           />
         </div>
       </div>

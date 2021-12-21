@@ -1,6 +1,6 @@
 import { AnyExtension, Node, Mark, Extension } from '@tiptap/core';
 import { ComponentType } from 'react';
-import { NodeHocDescriptor, RicosNodeProps } from './extension-types';
+import { NodeHocDescriptor } from 'ricos-tiptap-types';
 
 export const DEFAULT_PRIORITY = 100;
 
@@ -23,13 +23,20 @@ export interface IMarkExtension
   type: 'mark';
 }
 
-export interface INodeExtension extends SortableExtension, IdentifiableExtension {
-  type: 'node';
+export interface IReactNodeExtension extends SortableExtension, IdentifiableExtension {
+  type: 'react-node';
   getComponent(): ComponentType;
   asRenderable: (decoratedComponent: ComponentType) => DecoratedNodeExtension;
 }
 
-export interface DecoratedNodeExtension extends INodeExtension, ConvertableExtension {}
+export interface IHtmlNodeExtension
+  extends SortableExtension,
+    IdentifiableExtension,
+    ConvertableExtension {
+  type: 'html-node';
+}
+
+export interface DecoratedNodeExtension extends IReactNodeExtension, ConvertableExtension {}
 
 export interface IFunctionalExtension
   extends ConvertableExtension,
@@ -39,7 +46,11 @@ export interface IFunctionalExtension
   getNodeHocDescriptor(): NodeHocDescriptor;
 }
 
-export type IExtension = INodeExtension | IFunctionalExtension | IMarkExtension;
+export type IExtension =
+  | IReactNodeExtension
+  | IHtmlNodeExtension
+  | IFunctionalExtension
+  | IMarkExtension;
 
 export type Aggregate<T> = {
   asArray: () => T[];
@@ -47,11 +58,11 @@ export type Aggregate<T> = {
   sort: () => Aggregate<T>;
 };
 
-export type NodeExtensionAggregate = {
-  getDecoratedNodeExtensions: (hocComposer: NodeHocComposer) => DecoratedNodeExtensionAggregate;
+export type ReactNodeExtensionAggregate = {
+  getDecoratedNodeExtensions: (hocComposer: NodeHocComposer) => ConvertableNodeExtensionAggregate;
 };
 
-export type DecoratedNodeExtensionAggregate = {
+export type ConvertableNodeExtensionAggregate = {
   toTiptapExtensions: () => Node[];
 };
 
@@ -65,11 +76,12 @@ export type MarkExtensionAggregate = {
 };
 
 export type ExtensionAggregate = {
-  getNodeExtensions: () => NodeExtensionAggregate;
+  getReactNodeExtensions: () => ReactNodeExtensionAggregate;
+  getHtmlNodeExtensions: () => ConvertableNodeExtensionAggregate;
   getMarkExtensions: () => MarkExtensionAggregate;
   getFunctionalExtensions: () => FunctionalExtensionAggregate;
 };
 
 export type NodeHocComposer = {
-  decorate: (nodeExtension: INodeExtension) => DecoratedNodeExtension;
+  decorate: (nodeExtension: IReactNodeExtension) => DecoratedNodeExtension;
 };
