@@ -11,10 +11,8 @@ export const RicosNode = ({ Component, tiptapNodeProps }) => {
     ...tiptapNodeProps,
   };
   return (
-    Component && (
-      <NodeViewWrapper>
-        <Component {...componentProps} />
-      </NodeViewWrapper>
-    )
+    <NodeViewWrapper>
+      <Component {...componentProps} />
+    </NodeViewWrapper>
   );
 };
