@@ -10,6 +10,7 @@ import {
   Link_Rel,
   CustomAnchorScroll,
   AvailableExperiments,
+  OnAddPluginLink,
 } from 'wix-rich-content-common';
 import { RicosCssOverride, RicosTheme } from 'ricos-common';
 
@@ -32,6 +33,7 @@ export type linkPanelDataType = {
     customAnchorScroll?: CustomAnchorScroll;
   };
   onLinkAdd?: any;
+  onAddPluginLink?: OnAddPluginLink;
 };
 
 export type defaultLineSpacingType = {
@@ -59,7 +61,7 @@ interface RicosToolbarProps {
   defaultLineSpacing?: defaultLineSpacingType;
   getEditorContainer: () => Element;
   cssOverride?: RicosCssOverride;
-  configButtonsMapper?: any;
+  configButtonsOverrides?: any;
   disabled?: boolean;
 }
 
@@ -111,7 +113,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       defaultLineSpacing,
       getEditorContainer,
       cssOverride,
-      configButtonsMapper,
+      configButtonsOverrides,
       disabled,
     } = this.props;
     const updatedButtons = createButtonsList({
@@ -124,7 +126,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       defaultLineSpacing,
       experiments,
       theme,
-      configButtonsMapper,
+      configButtonsOverrides,
     });
     const buttonsWithoutUnwantedSeparators =
       updatedButtons.length > 0 && this.cleanUnwantedSeparators(updatedButtons);

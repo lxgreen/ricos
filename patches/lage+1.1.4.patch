@@ -1,0 +1,47 @@
+diff --git a/node_modules/lage/lib/cache/backfill.js b/node_modules/lage/lib/cache/backfill.js
+index 9b34685..b27f33c 100644
+--- a/node_modules/lage/lib/cache/backfill.js
++++ b/node_modules/lage/lib/cache/backfill.js
+@@ -30,11 +30,11 @@ const backfill = __importStar(require("backfill/lib/api"));
+ const path_1 = __importDefault(require("path"));
+ async function cacheHash(id, cwd, root, cacheOptions, args) {
+     const cacheConfig = (0, cacheConfig_1.getCacheConfig)(cwd, cacheOptions);
+-    const backfillLogger = backfill.makeLogger("error", process.stdout, process.stderr);
+-    const hashKey = (0, salt_1.salt)(cacheOptions.environmentGlob || ["lage.config.js"], `${id}|${JSON.stringify(args)}`, path_1.default.relative(root, cwd), cacheOptions.cacheKey);
++    const backfillLogger = backfill.makeLogger("silly", process.stdout, process.stderr);
+     backfillLogger.setName(id);
++    const hashKey = (0, salt_1.salt)(cacheOptions.environmentGlob || ["lage.config.js"], `${id}|${JSON.stringify(args)}`, path_1.default.relative(root, cwd), cacheOptions.cacheKey,logger_1);
+     try {
+-        return await backfill.computeHash(cwd, backfillLogger, hashKey, cacheConfig);
++        return await backfill.computeHash(cwd, backfillLogger, hashKey, cacheConfig, logger_1);
+     }
+     catch (_a) {
+         // computeHash can throw exception when git is not installed or the repo hashes cannot be calculated with a staged file that is deleted
+@@ -48,7 +48,7 @@ async function cacheFetch(hash, id, cwd, cacheOptions) {
+         return false;
+     }
+     const cacheConfig = (0, cacheConfig_1.getCacheConfig)(cwd, cacheOptions);
+-    const backfillLogger = backfill.makeLogger("error", process.stdout, process.stderr);
++    const backfillLogger = backfill.makeLogger("silly", process.stdout, process.stderr);
+     try {
+         return await backfill.fetch(cwd, hash, backfillLogger, cacheConfig);
+     }
+diff --git a/node_modules/lage/lib/cache/salt.js b/node_modules/lage/lib/cache/salt.js
+index f312dbf..b6535b6 100644
+--- a/node_modules/lage/lib/cache/salt.js
++++ b/node_modules/lage/lib/cache/salt.js
+@@ -27,11 +27,12 @@ const fs = __importStar(require("fs"));
+ // import os from "os";
+ // import process from "process";
+ let envHash;
+-function salt(environmentGlobFiles, command, repoRoot, customKey = "") {
++function salt(environmentGlobFiles, command, repoRoot, customKey, logger_1) {
++    logger_1.logger.info(`-------${environmentGlobFiles} -- ${repoRoot} -- ${customKey} -- ${envHash||''}`);
+     return hashStrings([
+         ...getEnvHash(environmentGlobFiles, repoRoot),
+         command,
+-        customKey,
++        customKey || "",
+     ]);
+ }
+ exports.salt = salt;

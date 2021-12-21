@@ -4,15 +4,11 @@
 // import Dropcursor from '@tiptap/extension-dropcursor';
 // import Gapcursor from '@tiptap/extension-gapcursor';
 import Document from '@tiptap/extension-document';
-import Underline from '@tiptap/extension-underline';
 import Text from '@tiptap/extension-text';
 // import History from '@tiptap/extension-history';
-import Italic from '@tiptap/extension-italic';
-import Heading from '@tiptap/extension-heading';
 import Blockquote from '@tiptap/extension-blockquote';
 import OrderedList from '@tiptap/extension-ordered-list';
 import ListItem from '@tiptap/extension-list-item';
-import headingDataDefaults from 'ricos-schema/dist/statics/heading.defaults.json';
 import { Attributes } from '@tiptap/react';
 import styles from './statics/styles.scss';
 import { AnyExtension } from '@tiptap/core';
@@ -36,10 +32,7 @@ export const tiptapExtensions: AnyExtension[] = [
       class: styles.quote,
     },
   }),
-  Underline,
   Document.extend(extendedAttrs({ metadata: {} })),
-  Heading.extend(extendedAttrs(headingDataDefaults)),
-  Italic,
   ListItem,
   OrderedList,
   Text,

@@ -36,6 +36,7 @@ import { getEmptyDraftContent, getEditorContentSummary } from 'wix-rich-content-
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
 import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
 import { getBiFunctions } from './toolbars/utils/biUtils';
+import { renderSideBlockComponent } from './utils/renderBlockComponent';
 import { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 // eslint-disable-next-line
@@ -135,7 +136,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.loadToolbar();
     const { isMobile, toolbarSettings } = this.props;
     const { useStaticTextToolbar } = toolbarSettings || {};
-    const contentId = this.getContentID();
+    const contentId = this.getContentId();
     this.setState({ contentId });
     this.getBiCallback('onOpenEditorSuccess')?.(
       Version.currentVersion,
@@ -188,7 +189,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     }
     const contentState = this.dataInstance.getContentState();
     const { pluginsCount, pluginsDetails } = getEditorContentSummary(contentState) || {};
-    onPublish(postId, pluginsCount, pluginsDetails, Version.currentVersion, this.getContentID());
+    onPublish(postId, pluginsCount, pluginsDetails, Version.currentVersion, this.getContentId());
   };
 
   onPublish = async () => {
@@ -224,7 +225,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   }
 
   onInitialContentChanged = () => {
-    const contentId = this.getContentID();
+    const contentId = this.getContentId();
     this.getBiCallback('onContentEdited')?.({ version: Version.currentVersion, contentId });
     this.initialContentChanged = true;
   };
@@ -301,11 +302,11 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.setActiveEditor(ref);
   };
 
-  getEditorCommands = () => this.editor.getEditorCommands();
+  getEditorCommands = () => this.editor?.getEditorCommands();
 
   getT = () => this.editor.getT();
 
-  getContentID = () => this.dataInstance.getContentState().ID;
+  getContentId = () => this.dataInstance.getContentState().ID;
 
   renderToolbarPortal(Toolbar) {
     return (
@@ -326,6 +327,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         isViewer={false}
         key={'editor'}
         toolbarSettings={toolbarSettings}
+        getContentId={this.getContentId}
         {...contentProp.content}
         {...props}
       >
@@ -427,6 +429,16 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       : this.renderToolbarPortal(StaticToolbar);
   }
 
+  renderSideBlocksComponents = () => {
+    const { sideBlockComponent, locale } = this.props;
+    if (!sideBlockComponent) {
+      return null;
+    }
+    const dir = getLangDir(locale);
+    const nodes = this.getEditorCommands()?.getAllBlocksKeys();
+    return nodes?.map(id => renderSideBlockComponent(id, dir, sideBlockComponent));
+  };
+
   renderDraftEditor() {
     const { remountKey } = this.state;
     const child =
@@ -439,6 +451,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     return (
       <Fragment key={`${remountKey}`}>
         {this.renderToolbars()}
+        {this.renderSideBlocksComponents()}
         {this.renderRicosEngine(child, {
           onChange: this.onChange(child.props.onChange),
           ref: this.setEditorRef,

@@ -94,6 +94,7 @@ class RicosTestApp extends PureComponent<RicosTestAppProps> {
       skipCssOverride,
       paletteType,
       useCustomStyles,
+      useParagraphLineHeight,
       fallbackColor,
       contentBgColor,
       settingsActionColor,
@@ -139,7 +140,11 @@ class RicosTestApp extends PureComponent<RicosTestAppProps> {
         theme={{
           palette,
           paletteConfig: { contentBgColor, settingsActionColor, focusActionColor },
-          customStyles: useCustomStyles ? customStyles : {},
+          customStyles: useCustomStyles
+            ? customStyles
+            : useParagraphLineHeight
+            ? { p: { lineHeight: '60px' } }
+            : {},
         }}
         cssOverride={consumerTheme ? consumerTheme : !skipCssOverride && theme}
         toolbarSettings={createToolbarSettings(addPluginMenuConfig, footerToolbarConfig)}
@@ -163,6 +168,7 @@ class RicosTestApp extends PureComponent<RicosTestAppProps> {
       skipCssOverride,
       paletteType,
       useCustomStyles,
+      useParagraphLineHeight,
       fallbackColor,
       contentBgColor,
       settingsActionColor,
@@ -181,7 +187,11 @@ class RicosTestApp extends PureComponent<RicosTestAppProps> {
         theme={{
           palette,
           paletteConfig: { contentBgColor, settingsActionColor, focusActionColor },
-          customStyles: useCustomStyles ? customStyles : {},
+          customStyles: useCustomStyles
+            ? customStyles
+            : useParagraphLineHeight
+            ? { p: { lineHeight: '60px' } }
+            : {},
         }}
         cssOverride={consumerTheme ? consumerTheme : !skipCssOverride && theme}
         seoSettings={seoMode}

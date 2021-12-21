@@ -53,6 +53,10 @@
     input {
       box-sizing: border-box;
     }
+
+    &.fixedTabSize {
+      tab-size: 40px;
+    }
   }
 
   &.android {
@@ -143,6 +147,7 @@
     /*! rtl:ignore */
     @include ricosTypography('p', true);
   }
+  &.lineHeightFix::before,
   &.lineHeightFix::marker {
     line-height: unset;
   }

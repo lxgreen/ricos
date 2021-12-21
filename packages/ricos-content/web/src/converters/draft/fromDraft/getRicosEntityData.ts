@@ -19,6 +19,11 @@ export const getEntity = (key: string | number, entityMap: RicosEntityMap) => {
     return null;
   }
 
+  if (!data) {
+    console.error(`no data for "${blockType}"!`);
+    return null;
+  }
+
   const advancedPluginsAdditionalData = {
     [COLLAPSIBLE_LIST_TYPE]: { pairs: data?.pairs },
     [TABLE_TYPE]: { rows: data?.config?.rows },

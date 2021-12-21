@@ -11,6 +11,7 @@ export interface SliderWithInputProps {
   defaultValue: number;
   min: number;
   max: number;
+  languageDir: string;
   inputMax?: number;
   inputMin?: number;
   theme: RichContentTheme;
@@ -61,7 +62,17 @@ class SliderWithInput extends Component<SliderWithInputProps> {
   normalizeInputValue = value => Math.min(Math.max(this.getInputMin(), value), this.getInputMax());
 
   render() {
-    const { label, min, max, theme, sliderDataHook, inputDataHook, tooltipTextKey, t } = this.props;
+    const {
+      label,
+      min,
+      max,
+      theme,
+      sliderDataHook,
+      inputDataHook,
+      tooltipTextKey,
+      t,
+      languageDir,
+    } = this.props;
     const { inputValue } = this.state;
     let ariaProps: InputHTMLAttributes<HTMLInputElement> = label
       ? { 'aria-labelledby': `${this.id}_lbl` }
@@ -86,6 +97,7 @@ class SliderWithInput extends Component<SliderWithInputProps> {
         <div className={this.styles.sliderWithInput_content}>
           <Slider
             theme={theme}
+            languageDir={languageDir}
             value={inputValue}
             dataHook={sliderDataHook}
             onChange={this.handleSliderChange}

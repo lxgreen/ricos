@@ -94,7 +94,9 @@ const TYPE_TO_CSS_PROPERTY = {
 
 const hasTextInSelection = (block: ContentBlock, editorState: EditorState) => {
   const blockSelectionRange = getSelectionRange(editorState, block);
-  return blockSelectionRange[0] !== blockSelectionRange[1];
+  return (
+    blockSelectionRange[0] !== blockSelectionRange[1] || editorState.getSelection().isCollapsed()
+  );
 };
 
 const getSelectionStylesFromDOM = (editorState: EditorState, type: CustomInlineStyleType) => {
@@ -133,10 +135,16 @@ const setInlineStyleByType = (
 };
 
 export const getFontSize = (editorState: EditorState) => {
-  const currentFontSizes = uniq([
-    ...getInlineStylesByType(editorState, RICOS_FONT_SIZE_TYPE),
-    ...getSelectionStylesFromDOM(editorState, RICOS_FONT_SIZE_TYPE),
-  ]);
+  const inlineFontSizes = getInlineStylesByType(editorState, RICOS_FONT_SIZE_TYPE);
+  const shouldGetStylesFromDOM = !editorState.getSelection().isCollapsed() || !inlineFontSizes?.[0];
+  const currentFontSizes = uniq(
+    [
+      ...inlineFontSizes,
+      ...(shouldGetStylesFromDOM
+        ? getSelectionStylesFromDOM(editorState, RICOS_FONT_SIZE_TYPE)
+        : []),
+    ].filter(fontSize => fontSize)
+  );
   return currentFontSizes.length === 1 ? currentFontSizes[0] : '';
 };
 

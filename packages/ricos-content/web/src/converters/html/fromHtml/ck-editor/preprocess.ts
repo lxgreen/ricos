@@ -147,14 +147,25 @@ const textInDivToP: AstRule = [
   }),
 ];
 
+const brToNewLine: AstRule = [
+  and([hasTag('br'), hasParent(hasTag('p'))]),
+  (node: Element) => ({
+    parentNode: node.parentNode,
+    nodeName: '#text',
+    value: '_RICOS_NEW_LINE_MARKER_',
+  }),
+];
+
 const collapseBreaks = flow(
-  S.replace(/(<br>\s*){3}/gim, '\n\n'),
-  S.replace(/(<br>\s*){2}/gim, '\n')
+  S.replace(/(_RICOS_NEW_LINE_MARKER_\s*){3}/gim, '\n\n'),
+  S.replace(/(_RICOS_NEW_LINE_MARKER_\s*){2}/gim, '\n'),
+  S.replace(/(_RICOS_NEW_LINE_MARKER_\s*){1}/gim, '')
 );
 
 export const preprocess = flow(
   toAst,
   traverseRoot(rootTextToP),
+  traverse(brToNewLine),
   flow(
     traverse(leafParagraphToDiv),
     traverse(cleanListPadding),

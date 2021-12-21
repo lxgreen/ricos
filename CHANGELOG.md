@@ -17,12 +17,121 @@
     Click to see more.
   </summary>
 
-### :bug: Bug Fix
-- `tiptap-editor`
-  - [#3256](https://github.com/wix/ricos/pull/3256) NodeExtension config defaults
+### ::house: Internal
+
+- `ui-components`
+  - [#3279](https://github.com/wix/ricos/pull/3279) Created selectionListItem component and used it in polls/gallery/collapsible-list
 
 </details>
 <hr/>
+
+## 8.65.17 (Dec 19, 2021)
+
+### :bug: Bug Fix
+
+- `ui-components`
+
+  - [#3273](https://github.com/wix/ricos/pull/3273) fix slider ui on rtl sites
+
+- `ricos-content`
+
+  - [#3276](https://github.com/wix/ricos/pull/3276) fromDraft conversion: handle invalid link types
+
+### ::house: Internal
+
+- `ricos-editor`
+  - [#3277](https://github.com/wix/ricos/pull/3277) add global context to ricos-modal
+
+## 8.65.16 (Dec 16, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+
+  - [#3271](https://github.com/wix/ricos/pull/3271) fromDraft conversion: pass opts to nestedNodesConverters
+
+- `toolbars-new`
+
+  - [#3261](https://github.com/wix/ricos/pull/3261) add BI to link modal in new toolbar
+
+- `fullscreen`
+
+  - [#3274](https://github.com/wix/ricos/pull/3274) fullscreen opens on the correct image on mobile
+
+- `mentions`
+  - [#3235](https://github.com/wix/ricos/pull/3235) allow whitespaces
+
+## 8.65.15 (Dec 16, 2021)
+
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3265](https://github.com/wix/ricos/pull/3265) fix font size display when selection is collapsed (in static toolbar)
+- `ricos-content`
+  - [#3269](https://github.com/wix/ricos/pull/3269) fromHtml/ck-editor: `<br>` preprocessed in text nodes only
+
+## 8.65.14 (Dec 15, 2021)
+
+### :bug: Bug Fix
+
+- `tiptap-editor`
+  - [#3267](https://github.com/wix/ricos/pull/3267) tiptap, prosemirror added to rollup externals
+
+## 8.65.13 (Dec 15, 2021)
+
+Release of v8.65.2 failed
+
+## 8.65.12 (Dec 15, 2021)
+
+### :bug: Bug Fix
+
+- `viewer`
+  - [#3266](https://github.com/wix/ricos/pull/3266) fix ordered-lists numbering line-height issue (under `fixListLineHeight` experiment)
+- `e2e`
+  - [#3266](https://github.com/wix/ricos/pull/3266) fix ordered-lists numbering line-height issue (under `fixListLineHeight` experiment)
+- `toolbars-new`
+  - [#3264](https://github.com/wix/ricos/pull/3264) click on gaps between buttons
+
+### :book: Documentation
+
+- [#3253](https://github.com/wix/ricos/pull/3253) new toolbar api - buttonsOverrides
+
+## 8.65.11 (Dec 15, 2021)
+
+### :bug: Bug Fix
+
+- `viewer`
+  - [#3262](https://github.com/wix/ricos/pull/3262) fix ordered-lists numbering line-height issue (under `fixListLineHeight` experiment)
+
+## 8.65.10 (Dec 15, 2021)
+
+### :rocket: New Feature
+
+- `ricos-editor`
+  - [#3182](https://github.com/wix/ricos/pull/3182) sideBlockComponent config (Notes integration)
+
+## 8.65.9 (Dec 15, 2021)
+
+### :bug: Bug Fix
+
+- `tiptap-editor`
+
+  - [#3256](https://github.com/wix/ricos/pull/3256) NodeExtension config defaults
+
+- `editor` `viewer`
+
+  - [#3195](https://github.com/wix/ricos/pull/3195) fixed tab size for identation (under `fixedTabSize` experiment)
+
+- `ricos-content`
+
+  - [#3247](https://github.com/wix/ricos/pull/3247) fix crash on no-data plugins
+
+### :house: Internal
+
+- `tiptap-extensions`
+  - [#3260](https://github.com/wix/ricos/pull/3260) refactored italic, headings, underline
+- `video/vertical-social-embed`
+  - [#3259](https://github.com/wix/ricos/pull/3259) Combine new-modals experiments into one
 
 ## 8.65.8 (Dec 13, 2021)
 
@@ -135,6 +244,8 @@
 - `*`
   - [#3203](https://github.com/wix/ricos/pull/3203) icons bm theme wiring
   - [#3207](https://github.com/wix/ricos/pull/3207) bg & hover color bm theme wiring
+- `ricos-editor`
+  - [#3182](https://github.com/wix/ricos/pull/3182) sideBlockComponent config (Notes integration)
 
 ### :bug: Bug Fix
 
