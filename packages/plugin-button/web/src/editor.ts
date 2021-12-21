@@ -8,7 +8,6 @@ import {
 } from './types';
 import { ModalsMap } from './modals';
 import { EditorPluginCreator } from 'wix-rich-content-common';
-import { createButtonData } from './createButtonData';
 
 const pluginButton = (createPlugin, type, config) => {
   return {
@@ -16,7 +15,6 @@ const pluginButton = (createPlugin, type, config) => {
     type,
     createPlugin,
     ModalsMap,
-    createPluginData: createButtonData,
   };
 };
 

@@ -22,7 +22,9 @@ class EditPollSectionComponent extends Component {
   };
 
   updateSettings(layout) {
-    this.props.updateData({ layout });
+    this.props.store.update('componentData', {
+      layout,
+    });
   }
 
   handleInputChange(cb) {
@@ -122,9 +124,7 @@ class EditPollSectionComponent extends Component {
             label={t('Poll_PollSettings_Tab_Layout_Section_Question_Image')}
             checked={layout.poll?.enableImage}
             onChange={() =>
-              this.updateSettings({
-                poll: { ...layout.poll, enableImage: !layout.poll?.enableImage },
-              })
+              this.updateSettings({ poll: { enableImage: !layout.poll?.enableImage } })
             }
             theme={this.props.theme}
           />
@@ -133,9 +133,7 @@ class EditPollSectionComponent extends Component {
             label={t('Poll_PollSettings_Tab_Layout_Section_Answers_Image')}
             checked={layout.option?.enableImage}
             onChange={() =>
-              this.updateSettings({
-                option: { ...layout.option, enableImage: !layout.option?.enableImage },
-              })
+              this.updateSettings({ option: { enableImage: !layout.option?.enableImage } })
             }
             theme={this.props.theme}
           />
