@@ -11,6 +11,11 @@ import {
   createParagraph,
   createItalic,
   createUnderline,
+  createText,
+  createDoc,
+  createListItem,
+  createBlockquote,
+  createOrderedList,
 } from 'wix-tiptap-extensions';
 
 export const coreConfigs: RicosExtension[] = [
@@ -25,4 +30,9 @@ export const coreConfigs: RicosExtension[] = [
   createParagraph(),
   createItalic(),
   createUnderline(),
+  createText(),
+  createDoc(),
+  createListItem(),
+  createBlockquote(),
+  createOrderedList(),
 ];

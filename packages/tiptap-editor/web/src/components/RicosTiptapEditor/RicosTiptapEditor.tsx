@@ -3,7 +3,7 @@ import { Node } from 'prosemirror-model';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { getLangDir } from 'wix-rich-content-common';
 import { createEditorStyles } from 'wix-rich-content-editor-common';
-import { tiptapExtensions as coreExtensions, tiptapToDraft } from 'wix-tiptap-extensions';
+import { tiptapToDraft } from 'wix-tiptap-extensions';
 import { RicosTiptapContext } from '../../context';
 import { useForceUpdate } from '../../lib/useForceUpdate';
 import { Extensions } from '../../models/Extensions';
@@ -43,10 +43,9 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   useEffect(() => {
     const mergedExtensions = Extensions.of([...coreConfigs, ...extensions]);
     const tiptapExtensions = mergedExtensions.getTiptapExtensions();
-    const allExtensions = [...coreExtensions, ...tiptapExtensions];
-    console.log({ allExtensions }); // eslint-disable-line no-console
+    console.log({ tiptapExtensions }); // eslint-disable-line no-console
     const editorInstance = new Editor({
-      extensions: allExtensions,
+      extensions: tiptapExtensions,
       content,
       injectCSS: true,
       onUpdate: ({ editor }) => {
