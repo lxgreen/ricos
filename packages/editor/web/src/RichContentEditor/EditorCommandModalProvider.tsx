@@ -1,6 +1,5 @@
 import React, { Component, ReactElement } from 'react';
 import { Pubsub } from 'wix-rich-content-common';
-import { isEmpty } from 'lodash';
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editorCommands: any;
@@ -21,10 +20,9 @@ class EditorCommandModalProvider extends Component<Props, State> {
 
   constructor(props) {
     super(props);
-    const componentData = props.editorCommands.getSelectedData();
-    this.initialData = isEmpty(componentData) ? props.componentData : componentData;
+    this.initialData = props.componentData;
     this.pluginType = props.editorCommands.getSelectedPluginType();
-    this.state = { data: this.initialData };
+    this.state = { data: props.componentData };
   }
 
   deleteBlock = () =>
@@ -51,7 +49,7 @@ class EditorCommandModalProvider extends Component<Props, State> {
       onCancel: this.onCancel,
       updateData: this.updateData,
       deleteBlock: this.deleteBlock,
-      componentData: this.state.data || this.props.componentData,
+      componentData: this.state.data,
     });
   }
 }
