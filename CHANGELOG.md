@@ -22,6 +22,11 @@
 - `ui-components`
   - [#3279](https://github.com/wix/ricos/pull/3279) Created selectionListItem component and used it in polls/gallery/collapsible-list
 
+### :bug: Bug Fix
+
+- `editor-common`
+  - [#3284](https://github.com/wix/ricos/pull/3284) fix basic link panel ui
+
 </details>
 <hr/>
 

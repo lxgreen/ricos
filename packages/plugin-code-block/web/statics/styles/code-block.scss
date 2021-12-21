@@ -11,18 +11,16 @@
   }
 }
 
-.quote {
+.code {
   composes: blockStyleSpacing;
-  border-inline-start-width: 3px;
-  border-inline-start-style: solid;
-  font-size: $quoteFontSize;
-  line-height: $quoteLineHeight;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-inline-start: 18px;
-  font-style: normal;
-  border-left-color: $ricos-quote-border-color;
-  border-right-color: $ricos-quote-border-color;
-  color: $ricos-quote-color;
-  @include ricosTypography('quote', false);
+  background-color: rgba($primary-text-color-tuple, 0.06);
+  font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
+  font-size: 16px;
+  line-height: 26px;
+  padding: 2px 25px;
+  white-space: pre-wrap;
+
+  .renderedInTable & {
+    margin: 0;
+  }
 }

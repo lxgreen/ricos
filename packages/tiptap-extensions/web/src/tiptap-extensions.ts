@@ -6,7 +6,6 @@
 import Document from '@tiptap/extension-document';
 import Text from '@tiptap/extension-text';
 // import History from '@tiptap/extension-history';
-import CodeBlock from '@tiptap/extension-code-block';
 import Blockquote from '@tiptap/extension-blockquote';
 import OrderedList from '@tiptap/extension-ordered-list';
 import ListItem from '@tiptap/extension-list-item';
@@ -36,9 +35,4 @@ export const tiptapExtensions: AnyExtension[] = [
   ListItem,
   OrderedList,
   Text,
-  CodeBlock.configure({
-    HTMLAttributes: {
-      class: styles.code,
-    },
-  }),
 ];

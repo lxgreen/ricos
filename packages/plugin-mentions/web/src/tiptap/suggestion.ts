@@ -1,10 +1,7 @@
 import Suggestion from '@tiptap/suggestion';
-import { PluginKey } from 'prosemirror-state';
 import { ReactRenderer, Editor } from '@tiptap/react';
 import tippy from 'tippy.js';
 import MentionList from './MentionList.jsx';
-
-const MentionPluginKey = new PluginKey('mention');
 
 export default (
   editor,
@@ -15,12 +12,13 @@ export default (
     popoverComponent,
     handleDropdownOpen,
     handleDropdownClose,
-  }
+  },
+  PluginKey
 ) =>
   Suggestion({
     editor,
     char: mentionTrigger,
-    pluginKey: MentionPluginKey,
+    pluginKey: new PluginKey('mention'),
     command: ({ editor, range, props }) => {
       editor.commands.insertMention({ name: props.id }, range);
     },
