@@ -23,7 +23,7 @@ interface EngineProps extends RicosEditorProps, RicosViewerProps {
   isPreviewExpanded?: boolean;
   onPreviewExpand?: PreviewConfig['onPreviewExpand'];
   getContentId: () => string | undefined;
-  editorCommands: EditorCommands;
+  editorCommands?: EditorCommands;
 }
 
 export class RicosEngine extends Component<EngineProps> {
