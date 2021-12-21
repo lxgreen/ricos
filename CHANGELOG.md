@@ -24,8 +24,11 @@
 
 ### :bug: Bug Fix
 
+- `vertical-embed`
+  - [#3281](https://github.com/wix/ricos/pull/3281) fix image in print mode
 - `editor-common`
   - [#3284](https://github.com/wix/ricos/pull/3284) fix basic link panel ui
+
 
 </details>
 <hr/>
