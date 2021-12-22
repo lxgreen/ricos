@@ -16,18 +16,20 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-
-### ::house: Internal
-
-- `ui-components`
-  - [#3279](https://github.com/wix/ricos/pull/3279) Created selectionListItem component and used it in polls/gallery/collapsible-list
-
+  
 ### :bug: Bug Fix
 
 - `vertical-embed`
   - [#3281](https://github.com/wix/ricos/pull/3281) fix image in print mode
 - `editor-common`
   - [#3284](https://github.com/wix/ricos/pull/3284) fix basic link panel ui
+  
+### ::house: Internal
+
+- `ui-components`
+  - [#3279](https://github.com/wix/ricos/pull/3279) Created selectionListItem component and used it in polls/gallery/collapsible-list
+- `tiptap-extensions`
+  - [#3288](https://github.com/wix/ricos/pull/3288) all tiptap extensions refactored to RicosExtensions
 
 
 </details>
