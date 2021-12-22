@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+  
+- `tiptap-editor`
+  - [#3296](https://github.com/wix/ricos/pull/3296) unsupported nodes and marks handled
   
 ### :nail_care: Polish
 
@@ -45,7 +49,7 @@
 
   - [#3293](https://github.com/wix/ricos/pull/3293) fix settings modal scroll
 
-### ::house: Internal
+### :house: Internal
 
 - `ui-components`
   - [#3279](https://github.com/wix/ricos/pull/3279) Created selectionListItem component and used it in polls/gallery/collapsible-list
