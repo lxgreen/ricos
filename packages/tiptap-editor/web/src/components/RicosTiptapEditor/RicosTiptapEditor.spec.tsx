@@ -7,6 +7,7 @@ import { RichContent } from 'ricos-schema';
 import { pluginDivider } from 'wix-rich-content-plugin-divider';
 import { pluginImage } from 'wix-rich-content-plugin-image';
 import { pluginHeadings } from 'wix-rich-content-plugin-headings';
+import { pluginCodeBlock } from 'wix-rich-content-plugin-code-block';
 import { fromTiptap, toTiptap } from 'wix-tiptap-extensions';
 import { pluginLink } from 'wix-rich-content-plugin-link';
 import supportedPluginsContent from './supportedPluginsContent.json';
@@ -30,7 +31,13 @@ jest.mock('@tiptap/react', () => {
 describe('tiptap editor', () => {
   it('should not change content', async () => {
     const content = toTiptap(RichContent.fromJSON(supportedPluginsContent));
-    const plugins = [pluginImage(), pluginDivider(), pluginLink(), pluginHeadings()];
+    const plugins = [
+      pluginImage(),
+      pluginDivider(),
+      pluginLink(),
+      pluginCodeBlock(),
+      pluginHeadings(),
+    ];
     const extensions =
       compact(plugins?.flatMap((plugin: TiptapEditorPlugin) => plugin.tiptapExtensions)) || [];
     render(<RicosTiptapEditor content={content} extensions={extensions} t={() => ''} />);

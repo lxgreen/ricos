@@ -9,6 +9,7 @@ import {
   ToolbarType,
   TranslationFunction,
   RichContentTheme,
+  EditorStyleClasses,
 } from 'wix-rich-content-common';
 import { RicosExtension } from 'ricos-tiptap-types';
 
@@ -49,6 +50,7 @@ export interface RicosTiptapEditorProps {
   t: TranslationFunction;
   onUpdate?: ({ content }: { content: DraftContent }) => void;
   onBlur?: () => void;
+  editorStyleClasses?: EditorStyleClasses;
   onSelectionUpdate?: ({
     selectedNodes,
     content,

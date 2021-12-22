@@ -254,7 +254,7 @@
   "TextLinkButton_DisableButtonForPlugins_Tooltip": "Inline links can not be applied to plugins",
   "FormattingToolbar_TextStyle_Heading": "Heading {{number}}{{shortcut}}",
   "FormattingToolbar_TextStyle_Heading_Apply": "Apply '{{optionName}}'",
-  "FormattingToolbar_TextStyle_Heading_Update": "Update '{{optionName}}'",
+  "FormattingToolbar_TextStyle_Heading_Update": "Update '{{optionName}}' to match",
   "FormattingToolbar_TextStyle_Heading_Reset": "Reset to default",
   "FormattingToolbar_TextStyle_Paragraph": "Paragraph{{shortcut}}",
   "FormattingToolbar_CustomFontSizeButton_Tooltip": "Font Size",

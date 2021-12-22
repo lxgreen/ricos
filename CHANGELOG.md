@@ -17,6 +17,28 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.65.19 (Dec 22, 2021)
+
+### :bug: Bug Fix
+
+- `viewer`
+  - [#3295](https://github.com/wix/ricos/pull/3295) fix duplicate links with justification on safari
+
+## 8.65.18 (Dec 22, 2021)
+
+### :bug: Bug Fix
+
+- `vertical-embed`
+  - [#3281](https://github.com/wix/ricos/pull/3281) fix image in print mode
+- `editor-common`
+  - [#3284](https://github.com/wix/ricos/pull/3284) fix basic link panel ui
+- `polls/gallery/image/collapsibleList`
+
+  - [#3293](https://github.com/wix/ricos/pull/3293) fix settings modal scroll
+
 ### ::house: Internal
 
 - `gallery`
@@ -24,9 +46,8 @@
  
 - `ui-components`
   - [#3279](https://github.com/wix/ricos/pull/3279) Created selectionListItem component and used it in polls/gallery/collapsible-list
-
-</details>
-<hr/>
+- `tiptap-extensions`
+  - [#3288](https://github.com/wix/ricos/pull/3288) all tiptap extensions refactored to RicosExtensions
 
 ## 8.65.17 (Dec 19, 2021)
 

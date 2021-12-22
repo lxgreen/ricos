@@ -105,7 +105,7 @@ import { SocialPollsServiceMock } from '../../src/Components/SocialPollsServiceM
 import 'ricos-editor/dist/styles.min.css';
 import 'wix-rich-content-plugin-commons/dist/styles.min.css';
 import 'wix-rich-content-plugin-button/dist/styles.min.css';
-// import 'wix-rich-content-plugin-code-block/dist/styles.min.css';
+import 'wix-rich-content-plugin-code-block/dist/styles.min.css';
 import 'wix-rich-content-plugin-divider/dist/styles.min.css';
 import 'wix-rich-content-plugin-emoji/dist/styles.min.css';
 import 'wix-rich-content-plugin-html/dist/styles.min.css';
