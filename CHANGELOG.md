@@ -23,6 +23,8 @@
   - [#3281](https://github.com/wix/ricos/pull/3281) fix image in print mode
 - `editor-common`
   - [#3284](https://github.com/wix/ricos/pull/3284) fix basic link panel ui
+- `polls/gallery/image/collapsibleList`
+  - [#3293](https://github.com/wix/ricos/pull/3293) fix settings modal scroll
   
 ### ::house: Internal
 
