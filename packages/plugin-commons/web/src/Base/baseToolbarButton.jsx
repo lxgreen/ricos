@@ -158,7 +158,7 @@ class BaseToolbarButton extends React.Component {
           onReplace: (data, blockKey) => {
             pubsub.update('componentData', data, blockKey);
           },
-          pluginType,
+          pluginId: pluginType,
           ...otherProps,
         };
         helpers.openModal(modalProps);

@@ -232,6 +232,7 @@ export function generateInsertPluginButtonProps({
         isMobile,
         blockKey: addedBlockKey,
         toolbarName,
+        pluginId: blockType,
       });
     }
   }
