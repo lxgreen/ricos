@@ -1,7 +1,7 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 
-$TITLE_HEIGHT: 70px;
-$FOOTER_HEIGHT: 96px;
+$TITLE_HEIGHT: 0;
+$FOOTER_HEIGHT: 100px;
 
 .collapsibleListModal {
   position: absolute;
@@ -15,13 +15,8 @@ $FOOTER_HEIGHT: 96px;
   flex: 1 1 auto;
 }
 
-.collapsibleListModalTitle {
-  position: absolute;
-  margin: 24px 0 0 24px;
-  font-size: 20px;
-}
-
 .collapsibleListModal_scrollContainer {
+  height: calc(100% - #{$FOOTER_HEIGHT});
   margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
   width: 100%;
 }

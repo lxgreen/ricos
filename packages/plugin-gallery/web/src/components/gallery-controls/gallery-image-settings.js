@@ -11,6 +11,7 @@ import {
   SettingsPanelFooter,
   FocusManager,
   SettingsMobileHeader,
+  SettingsPanelHeader,
 } from 'wix-rich-content-ui-components';
 import { LinkPanelWrapper } from 'wix-rich-content-editor-common';
 import { BackIcon, DeleteIcon, ReplaceIcon, NextIcon, PreviousIcon } from '../../icons';
@@ -22,7 +23,6 @@ class ImageSettings extends Component {
     this.styles = mergeStyles({ styles, theme: props.theme });
     const { t } = props;
     this.updateLabel = t('GalleryImageSettings_Update');
-    this.headerLabel = t('GalleryImageSettings_Header');
     this.ReplaceLabel = t('GalleryImageSettings_Replace_Label');
     this.deleteLabel = t('GalleryImageSettings_Delete_Label');
     this.titleLabel = t('ImageSettings_Caption_Label');
@@ -91,17 +91,12 @@ class ImageSettings extends Component {
           {isMobile ? (
             <SettingsMobileHeader theme={theme} onCancel={onCancel} onSave={onSave} t={t} />
           ) : (
-            <h3
-              className={classNames(
-                styles.galleryImageSettings_backButton,
-                styles.galleryImageSettings_title
-              )}
-              data-hook="galleryImageSettingsHeader"
-              onClick={onCancel}
-            >
-              <BackIcon className={styles.galleryImageSettings_backIcon} />
-              {this.headerLabel}
-            </h3>
+            <SettingsPanelHeader onClose={onCancel} showCloseIcon={false}>
+              <div>
+                <BackIcon className={styles.galleryImageSettings_backIcon} />
+                {t('GalleryImageSettings_Header')}
+              </div>
+            </SettingsPanelHeader>
           )}
           <div
             className={classNames(styles.galleryImageSettings_scrollContainer, {

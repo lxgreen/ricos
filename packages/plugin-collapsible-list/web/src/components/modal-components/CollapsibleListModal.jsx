@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
 import { CollapsibleList } from '../domain/collapsibleList';
-import { SettingsPanelFooter, SettingsMobileHeader } from 'wix-rich-content-ui-components';
+import {
+  SettingsPanelFooter,
+  SettingsMobileHeader,
+  SettingsPanelHeader,
+} from 'wix-rich-content-ui-components';
 import CollapsibleListSettings from './CollapsibleListSettings';
 import styles from '../../../statics/styles/collapsible-list-modal.scss';
 
@@ -53,11 +57,11 @@ class CollapsibleListModal extends Component {
 
   renderDesktopHeader = () => {
     const { t } = this.props;
-
     return (
-      <h3 className={this.styles.collapsibleListModalTitle}>
-        {t('CollapsibleList_CollapsibleListSettings_Common_Header')}
-      </h3>
+      <SettingsPanelHeader
+        title={t('CollapsibleList_CollapsibleListSettings_Common_Header')}
+        onClose={this.revertComponentData}
+      />
     );
   };
 

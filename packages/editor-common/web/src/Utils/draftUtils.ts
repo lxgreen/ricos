@@ -24,17 +24,11 @@ import {
   InlineStyle,
   RelValue,
   SPOILER_TYPE,
+  LinkDataUrl,
+  AddLinkData,
 } from 'wix-rich-content-common';
 import { Optional } from 'utility-types';
 import { getContentSummary } from 'wix-rich-content-common/libs/contentAnalytics';
-
-type LinkDataUrl = {
-  url: string;
-  target?: string;
-  rel?: string;
-};
-
-type LinkData = LinkDataUrl & { anchor?: string };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type CustomLinkData = any;
@@ -181,7 +175,7 @@ function isSelectionBelongsToExistingLink(editorState: EditorState, selection: S
 function updateLink(
   editorState: EditorState,
   selection: SelectionState,
-  linkData: LinkData | CustomLinkData
+  linkData: AddLinkData | CustomLinkData
 ) {
   const blockKey = selection.getStartKey();
   const block = editorState.getCurrentContent().getBlockForKey(blockKey);
@@ -203,7 +197,7 @@ function preventLinkInlineStyleForFurtherText(editorState: EditorState, selectio
 function insertLink(
   editorState: EditorState,
   selection: SelectionState,
-  data: LinkData | CustomLinkData
+  data: AddLinkData | CustomLinkData
 ) {
   const oldSelection = editorState.getSelection();
   const type = data?.customData ? CUSTOM_LINK_TYPE : LINK_TYPE;
@@ -238,7 +232,7 @@ function insertLink(
   );
 }
 
-export function createLinkEntityData({ url, anchor, target, rel }: LinkData) {
+export function createLinkEntityData({ url, anchor, target, rel }: AddLinkData) {
   if (url) {
     return {
       url,
@@ -490,6 +484,10 @@ export const getSelectedBlocks = (editorState: EditorState) => {
 
 export const isAtomicBlockInSelection = (editorState: EditorState) => {
   return getSelectedBlocks(editorState).some(block => block.getType() === 'atomic');
+};
+
+export const isTextBlockInSelection = (editorState: EditorState) => {
+  return getSelectedBlocks(editorState).some(block => block.getType() !== 'atomic');
 };
 
 export const getSelectionRange = (editorState: EditorState, block: ContentBlock) => {

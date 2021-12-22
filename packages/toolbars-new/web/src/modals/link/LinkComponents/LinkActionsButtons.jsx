@@ -32,7 +32,6 @@ class LinkActionsButtons extends PureComponent {
 
     return basicDisplay && !isMobile ? (
       <Button
-        className={styles.LinkButtons_saveButton}
         dataHook="actionButtonSave"
         disabled={!isDoneButtonEnable}
         onClick={onSave}

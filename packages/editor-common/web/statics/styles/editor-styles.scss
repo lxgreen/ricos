@@ -25,6 +25,10 @@
     input {
       box-sizing: border-box;
     }
+
+    &.fixedTabSize {
+      tab-size: 40px;
+    }
   }
 
   &.desktop {

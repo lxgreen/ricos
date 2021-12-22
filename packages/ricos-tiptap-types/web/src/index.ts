@@ -5,6 +5,7 @@ import {
   mergeAttributes as mergeAttributesFn,
   markPasteRule as markPasteRuleFn,
   markInputRule as markInputRuleFn,
+  textblockTypeInputRule as textblockTypeInputRuleFn,
   NodeConfig,
   NodeViewRendererProps,
 } from '@tiptap/core';
@@ -53,23 +54,35 @@ export type NodeHocDescriptor = {
 export type RicosNodeExtension = {
   type: 'node';
   createExtensionConfig: ({
-    mergeAttributes,
-  }: {
-    mergeAttributes: typeof mergeAttributesFn;
-  }) => NodeConfig;
-  Component: ComponentType;
-  componentDataDefaults?: any;
-};
-
-export type RicosMarkExtension = {
-  type: 'mark';
-  createExtensionConfig: ({
+    textblockTypeInputRule,
     mergeAttributes,
     markPasteRule,
     markInputRule,
     Plugin,
     PluginKey,
   }: {
+    textblockTypeInputRule: typeof textblockTypeInputRuleFn;
+    mergeAttributes: typeof mergeAttributesFn;
+    markPasteRule: typeof markPasteRuleFn;
+    markInputRule: typeof markInputRuleFn;
+    Plugin: typeof IPlugin;
+    PluginKey: typeof IPluginKey;
+  }) => NodeConfig;
+  Component?: ComponentType;
+  componentDataDefaults?: any;
+};
+
+export type RicosMarkExtension = {
+  type: 'mark';
+  createExtensionConfig: ({
+    textblockTypeInputRule,
+    mergeAttributes,
+    markPasteRule,
+    markInputRule,
+    Plugin,
+    PluginKey,
+  }: {
+    textblockTypeInputRule: typeof textblockTypeInputRuleFn;
     mergeAttributes: typeof mergeAttributesFn;
     markPasteRule: typeof markPasteRuleFn;
     markInputRule: typeof markInputRuleFn;
@@ -104,3 +117,5 @@ export interface TiptapEditorPlugin extends EditorPlugin {
 export type CreateRicosExtensions = <PluginType extends keyof LegacyEditorPluginConfig>(
   config: LegacyEditorPluginConfig[PluginType]
 ) => RicosExtension[];
+
+export { DOMOutputSpec } from 'prosemirror-model';

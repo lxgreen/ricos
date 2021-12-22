@@ -6,6 +6,17 @@ import {
   createHistoryConfig,
   createStylesConfig,
   createUniqueId,
+  createBulletedList,
+  createBold,
+  createParagraph,
+  createItalic,
+  createUnderline,
+  createText,
+  createDoc,
+  createListItem,
+  createBlockquote,
+  createOrderedList,
+  createTrailingNode,
 } from 'wix-tiptap-extensions';
 
 export const coreConfigs: RicosExtension[] = [
@@ -15,4 +26,15 @@ export const coreConfigs: RicosExtension[] = [
   createFocusConfig(),
   createUniqueId(),
   createCommandsConfig(),
+  createBulletedList(),
+  createBold(),
+  createParagraph(),
+  createItalic(),
+  createUnderline(),
+  createText(),
+  createDoc(),
+  createListItem(),
+  createBlockquote(),
+  createOrderedList(),
+  createTrailingNode(),
 ];

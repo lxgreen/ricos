@@ -18,6 +18,7 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
     createExtensionConfig: () => ({
       name,
       atom: false,
+      group: 'block',
       addOptions: () => defaultOptions,
       addCommands() {
         return {};

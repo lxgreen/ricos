@@ -44,7 +44,7 @@ export default class EmbedURLInputModal extends Component {
   render() {
     const { url, submittedInvalidUrl } = this.state;
     const { t, languageDir, socialType, helpers, isMobile, experiments } = this.props;
-    const useNewModal = experiments?.newSocialEmbedModal?.enabled;
+    const useNewModal = experiments?.newVideoVerticalAndSocialModals?.enabled;
     const UrlInputModalComponent = useNewModal ? NewUrlInputModal : UrlInputModal;
 
     return (

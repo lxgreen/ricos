@@ -9,6 +9,7 @@ import {
   FocusManager,
   BUTTON_SIZE,
   SettingsMobileHeader,
+  SettingsPanelHeader,
 } from 'wix-rich-content-ui-components';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 import {
@@ -242,16 +243,10 @@ export default class ButtonInputModal extends Component {
         ) : (
           <div className={styles.button_inputModal_container} data-hook="ButtonInputModal">
             <div>
-              <div
-                role="heading"
-                aria-level={2}
-                aria-labelledby="button_modal_hdr"
-                className={styles.button_inputModal_header}
-              >
-                <div className={styles.button_inputModal_header_text}>
-                  {t('ButtonModal_Header')}
-                </div>
-              </div>
+              <SettingsPanelHeader
+                title={t('ButtonModal_Header')}
+                onClose={this.onCloseRequested}
+              />
               <FocusManager>
                 <div className={styles.button_inputModal_focus_manager}>
                   <Tabs value={this.state.activeTab} theme={this.styles}>
