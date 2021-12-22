@@ -4,13 +4,13 @@ import { UNSUPPORTED_BLOCKS_TYPE } from 'wix-rich-content-plugin-commons';
 import { DEFAULTS } from './defaults';
 import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 
-export interface UnsupportedBlockProps {
+interface Props {
   theme: RichContentTheme;
   t: TranslationFunction;
   label: string;
 }
 
-class UnsupportedBlocksComponent extends React.Component<UnsupportedBlockProps> {
+class UnsupportedBlocksComponent extends React.Component<Props> {
   static type = { UNSUPPORTED_BLOCKS_TYPE };
 
   render() {

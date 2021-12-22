@@ -8,7 +8,7 @@ import { useForceUpdate } from '../../lib/useForceUpdate';
 import { Extensions } from '../../models/Extensions';
 import { RicosTiptapEditorProps } from '../../types';
 import { coreConfigs } from './core-configs';
-import { patchExtensions } from '../../unsupported-content';
+// import { patchExtensions } from '../../unsupported-content';
 
 // TODO: maybe should move it to utils ?
 const getSelectedNodes = ({ editor }) => {
@@ -34,13 +34,13 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
 }) => {
   const forceUpdate = useForceUpdate();
   const [editor, setEditor] = useState<Editor>((null as unknown) as Editor);
+  // const patchedExtensions = patchExtensions(content, [...coreConfigs, ...extensions]);
 
   const getContent = editor => tiptapToDraft(editor.getJSON() as JSONContent);
 
   useEffect(() => {
     const mergedExtensions = Extensions.of([...coreConfigs, ...extensions]);
-    const patchedExtensions = patchExtensions(content, mergedExtensions);
-    const tiptapExtensions = patchedExtensions.getTiptapExtensions();
+    const tiptapExtensions = mergedExtensions.getTiptapExtensions();
     console.log({ tiptapExtensions }); // eslint-disable-line no-console
     const editorInstance = new Editor({
       extensions: tiptapExtensions,

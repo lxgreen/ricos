@@ -3,11 +3,12 @@ import { MarkConfig } from '@tiptap/core';
 
 export const getUnsupportedMarkConfig = (name: string): RicosMarkExtension => ({
   type: 'mark' as const,
-  createExtensionConfig: (): MarkConfig => ({
+  createExtensionConfig: ({ mergeAttributes }): MarkConfig => ({
     name,
     addOptions: () => ({
       HTMLAttributes: {},
     }),
+
     parseHTML() {
       return [
         {
@@ -16,15 +17,8 @@ export const getUnsupportedMarkConfig = (name: string): RicosMarkExtension => ({
       ];
     },
 
-    renderHTML() {
-      return [
-        'abbr',
-        {
-          title: `'${name}' decoration is not supported by editor. Check editor configuration.`,
-          style: 'cursor: help',
-        },
-        0,
-      ];
+    renderHTML({ HTMLAttributes }) {
+      return ['abbr', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
     },
   }),
 });

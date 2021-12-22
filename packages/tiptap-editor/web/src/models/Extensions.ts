@@ -106,10 +106,4 @@ export class Extensions implements ExtensionAggregate {
     const extensions = this.getFunctionalExtensions().toTiptapExtensions();
     return [...extensions, ...marks, ...reactNodes, ...htmlNodes];
   }
-
-  concat(extensions: RicosExtension[]): Extensions {
-    const iExtensions = extensions.map(toIExtension);
-    validate(iExtensions);
-    return new Extensions(this.extensions.asArray().concat(iExtensions));
-  }
 }

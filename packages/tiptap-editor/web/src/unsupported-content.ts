@@ -5,10 +5,11 @@ import * as S from 'fp-ts/string';
 import { getUnsupportedNodeConfig } from 'wix-rich-content-plugin-unsupported-blocks';
 import { extract } from 'wix-tiptap-extensions';
 import { getUnsupportedMarkConfig } from './components/unsupported-mark';
-import { RicosMarkExtension, RicosNodeExtension } from 'ricos-tiptap-types';
+import { RicosExtension, RicosMarkExtension, RicosNodeExtension } from 'ricos-tiptap-types';
 import { Extensions } from './models/Extensions';
+import { deepLog } from 'ricos-content';
 
-type ContentTypes = {
+export type ContentTypes = {
   marks: string[];
   nodes: string[];
 };
@@ -18,16 +19,10 @@ const toContentTypes = (extensions: Extensions): ContentTypes => ({
     .getMarkExtensions()
     .asArray()
     .map(({ name }) => name),
-  nodes: [
-    ...extensions
-      .getReactNodeExtensions()
-      .asArray()
-      .map(({ name }) => name),
-    ...extensions
-      .getHtmlNodeExtensions()
-      .asArray()
-      .map(({ name }) => name),
-  ],
+  nodes: extensions
+    .getNodeExtensions()
+    .asArray()
+    .map(({ name }) => name),
 });
 
 const toExtensions = (transform: {
@@ -37,6 +32,11 @@ const toExtensions = (transform: {
   nodes: transform.nodes(contentTypes.nodes),
   marks: transform.marks(contentTypes.marks),
 });
+
+const getContentTypes: (extensions: RicosExtension[]) => ContentTypes = flow(
+  Extensions.of,
+  toContentTypes
+);
 
 const extractUnsupportedMarks = (content: JSONContent) => (
   supportedMarks: ContentTypes['marks']
@@ -52,6 +52,7 @@ const extractUnsupportedMarks = (content: JSONContent) => (
       .get(),
     A.chain(identity),
     A.uniq(S.Eq),
+    deepLog('unsup marks'),
     A.difference(S.Eq)(supportedMarks)
   );
 
@@ -62,22 +63,26 @@ const extractUnsupportedNodes = (content: JSONContent) => (
     extract(content)
       .map(({ type }) => type)
       .get(),
+    deepLog('unsup nodes'),
     A.uniq(S.Eq),
     A.difference(S.Eq)(supportedNodes)
   );
 
-const mergeExtensions = (extensions: Extensions) => ({
+const mergeExtensions = (extensions: RicosExtension[]) => ({
   nodes,
   marks,
 }: {
   nodes: RicosNodeExtension[];
   marks: RicosMarkExtension[];
-}): Extensions => extensions.concat([...nodes, ...marks]);
+}): RicosExtension[] => [...extensions, ...nodes, ...marks];
 
-export const patchExtensions = (content: JSONContent, extensions: Extensions): Extensions =>
+export const patchExtensions = (
+  content: JSONContent,
+  extensions: RicosExtension[]
+): RicosExtension[] =>
   pipe(
     extensions,
-    toContentTypes,
+    getContentTypes,
     toExtensions({
       nodes: flow(extractUnsupportedNodes(content), A.map(getUnsupportedNodeConfig)),
       marks: flow(extractUnsupportedMarks(content), A.map(getUnsupportedMarkConfig)),

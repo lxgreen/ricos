@@ -1,8 +1,8 @@
 import React from 'react';
-import { Component } from '../unsupported-blocks-component';
+import { Component as UnsupportedBlocksComponent } from '../unsupported-blocks-component';
 import { PluginProps } from 'wix-rich-content-editor-common';
 
-export const UnsupportedBlock: React.FC<PluginProps & { label: string }> = ({ context, label }) => {
+export const Image: React.FC<PluginProps> = ({ context }) => {
   const { theme, t } = context;
-  return <Component theme={theme} t={t} label={label} />;
+  return <UnsupportedBlocksComponent theme={theme} t={t} />;
 };

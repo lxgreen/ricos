@@ -46,10 +46,6 @@ export class HtmlNodeExtensions implements ConvertableNodeExtensionAggregate {
     this.extensions = new IExtensionAggregate(extensions);
   }
 
-  asArray() {
-    return this.extensions.asArray();
-  }
-
   toTiptapExtensions() {
     return this.extensions.asArray().map(e => e.toTiptapExtension()) as Node[];
   }
