@@ -1,8 +1,6 @@
 import { PluginKey, Plugin } from 'prosemirror-state';
 import { RicosExtension } from 'ricos-tiptap-types';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 function nodeEqualsType({ types, node }) {
   return (Array.isArray(types) && types.includes(node.type)) || node.type === types;
 }
@@ -12,11 +10,6 @@ function nodeEqualsType({ types, node }) {
  * - https://github.com/ueberdosis/tiptap/blob/v1/packages/tiptap-extensions/src/extensions/TrailingNode.js
  * - https://github.com/remirror/remirror/blob/e0f1bec4a1e8073ce8f5500d62193e52321155b9/packages/prosemirror-trailing-node/src/trailing-node-plugin.ts
  */
-
-export interface TrailingNodeOptions {
-  node: string;
-  notAfter: string[];
-}
 
 export const createTrailingNode = (): RicosExtension => ({
   type: 'extension' as const,
@@ -32,8 +25,7 @@ export const createTrailingNode = (): RicosExtension => ({
       const plugin = new PluginKey(this.name);
       const disabledNodes = Object.entries(this.editor.schema.nodes)
         .map(([, value]) => value)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        .filter(node => this.options.notAfter.includes((node as any).name));
+        .filter((node: Node) => this.options.notAfter.includes(node).name);
 
       return [
         new Plugin({
