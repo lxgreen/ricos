@@ -16,7 +16,14 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-  
+
+
+
+</details>
+<hr/>
+
+## 8.65.18 (Dec 22, 2021)
+
 ### :bug: Bug Fix
 
 - `vertical-embed`
@@ -32,10 +39,6 @@
   - [#3279](https://github.com/wix/ricos/pull/3279) Created selectionListItem component and used it in polls/gallery/collapsible-list
 - `tiptap-extensions`
   - [#3288](https://github.com/wix/ricos/pull/3288) all tiptap extensions refactored to RicosExtensions
-
-
-</details>
-<hr/>
 
 ## 8.65.17 (Dec 19, 2021)
 
