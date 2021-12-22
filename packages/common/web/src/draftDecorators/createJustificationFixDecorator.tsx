@@ -15,7 +15,7 @@ function getTextAlignment(contentBlock) {
 function getEntityAt(i, block) {
   return isInEditor(block)
     ? block.getEntityAt(i)
-    : block.entityRanges.find(({ offset, length }) => i > offset && i < offset + length)?.key;
+    : block.entityRanges.find(({ offset, length }) => i >= offset && i < offset + length)?.key;
 }
 
 function getEntityType(block, contentState, entityKey) {
