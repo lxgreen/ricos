@@ -2,10 +2,13 @@
 import { JSONContent } from '@tiptap/core';
 import { flow } from 'fp-ts/function';
 import { DraftContent } from 'ricos-content';
-import { fromDraft, toDraft } from 'ricos-content/libs/converters';
-import { convertBlockDataToRicos } from 'ricos-content/libs/migrateSchema';
-import { convertNodeDataToDraft } from 'ricos-content/libs/toDraftData';
-import { Node_Type } from 'ricos-schema';
+import {
+  convertBlockDataToRicos,
+  toDraft,
+  fromDraft,
+  convertNodeDataToDraft,
+} from 'ricos-content/libs/migrateSchema';
+import { Node_Type, Node } from 'ricos-schema';
 import { fromTiptap } from './fromTiptap/fromTiptap';
 import { toTiptap } from './toTiptap/toTiptap';
 
@@ -21,9 +24,10 @@ export const draftBlockDataToTiptap = (
 
 export const tiptapToDraft: (proseContent: JSONContent) => DraftContent = flow(fromTiptap, toDraft);
 
+// TODO: pass actual nodes to support nested plugin structure
 export const tiptapNodeDataToDraft = (
   nodeType: Node_Type,
   nodeData: Record<string, any>
-): Record<string, any> => convertNodeDataToDraft(nodeType, fromTiptap(nodeData));
+): Record<string, any> => convertNodeDataToDraft(nodeType, fromTiptap(nodeData), [] as Node[]);
 
 export { toTiptap, fromTiptap };
