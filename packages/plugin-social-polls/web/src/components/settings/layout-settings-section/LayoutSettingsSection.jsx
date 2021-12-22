@@ -7,7 +7,7 @@ import {
   SelectionList,
   SelectionListItem,
   LabeledToggle,
-  InfoIcon,
+  Label,
 } from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 
@@ -104,13 +104,11 @@ export class LayoutSettingsSection extends Component {
 
         <SettingsSeparator top bottom />
 
-        <p className={styles.title}>
-          {t('Poll_PollSettings_Tab_Layout_Section_TextDirection_Header')}
-          &nbsp;
-          <InfoIcon
-            tooltipText={t('Poll_PollSettings_Tab_Layout_Section_TextDirection_Header_Tooltip')}
-          />
-        </p>
+        <Label
+          label={t('Poll_PollSettings_Tab_Layout_Section_TextDirection_Header')}
+          tooltipText={t('Poll_PollSettings_Tab_Layout_Section_TextDirection_Header_Tooltip')}
+          isMobile={isMobile}
+        />
 
         <SelectionList
           theme={this.styles}

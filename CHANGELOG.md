@@ -17,6 +17,12 @@
     Click to see more.
   </summary>
 
+  
+### :nail_care: Polish
+
+- `ui-components`
+  - [#3257](https://github.com/wix/ricos/pull/3257) created label component and consume it in ui-components/collapsible-List/polls
+ 
 </details>
 <hr/>
 
@@ -185,8 +191,7 @@ Release of v8.65.2 failed
 ### :nail_care: Polish
 
 - `ui-components - settings-modal`
-  - [#3139](https://github.com/wix/ricos/pull/3139) created settingsPanelHeader component and consume it in
-    video/map/button/gallery/image/collopsible-list plugins
+  - [#3139](https://github.com/wix/ricos/pull/3139) created settingsPanelHeader component and consume it in video/map/button/gallery/image/collopsible-list plugins
 
 ## 8.65.6 (Dec 09, 2021)
 

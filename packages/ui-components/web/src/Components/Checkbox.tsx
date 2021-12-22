@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { mergeStyles, RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 import { CheckIcon } from '../Icons';
 import styles from '../../statics/styles/checkbox.scss';
-import InfoIcon from './InfoIcon';
+import Label from './Label';
 
 interface CheckBoxProps {
   theme: RichContentTheme;
@@ -78,11 +78,13 @@ export default class Checkbox extends React.Component<CheckBoxProps, { focused: 
           >
             {checked && <CheckIcon className={styles.checkbox_check} />}
           </i>
-          <span className={styles.checkbox_label}>{label}</span>
         </div>
-        {!isMobile && tooltipTextKey && (
-          <InfoIcon tooltipText={t(tooltipTextKey)} iconStyles={styles.checkbox_infoIcon} />
-        )}
+        <Label
+          label={label}
+          tooltipText={tooltipTextKey && t(tooltipTextKey)}
+          iconStyles={styles.checkbox_infoIcon}
+          isMobile={isMobile}
+        />
       </label>
     );
   }
