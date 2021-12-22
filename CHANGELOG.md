@@ -17,10 +17,15 @@
     Click to see more.
   </summary>
 
-
-
 </details>
 <hr/>
+
+## 8.65.19 (Dec 22, 2021)
+
+### :bug: Bug Fix
+
+- `viewer`
+  - [#3295](https://github.com/wix/ricos/pull/3295) fix duplicate links with justification on safari
 
 ## 8.65.18 (Dec 22, 2021)
 
@@ -31,8 +36,9 @@
 - `editor-common`
   - [#3284](https://github.com/wix/ricos/pull/3284) fix basic link panel ui
 - `polls/gallery/image/collapsibleList`
+
   - [#3293](https://github.com/wix/ricos/pull/3293) fix settings modal scroll
-  
+
 ### ::house: Internal
 
 - `ui-components`
