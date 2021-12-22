@@ -21,6 +21,8 @@
   
 - `tiptap-editor`
   - [#3296](https://github.com/wix/ricos/pull/3296) unsupported nodes and marks handled
+- `*`
+  - [#3299](https://github.com/wix/ricos/pull/3299) `onPluginAdd` and `onPluginAddSuccess` BI events for image uploads and emojis
   
 ### :nail_care: Polish
 

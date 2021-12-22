@@ -7,6 +7,7 @@ import JoyPixelsIcon from '../icons/JoyPixelsIcon';
 import { getGroupEmojis } from '../utils';
 import { getEmojiGroups } from '../constants';
 import styles from '../../statics/styles/emoji-preview-modal.scss';
+import { EMOJI_TYPE } from '../types';
 
 export default class EmojiPreviewModal extends Component {
   constructor(props) {
@@ -67,6 +68,7 @@ export default class EmojiPreviewModal extends Component {
     const { helpers, setEditorState, getEditorState } = this.props;
     const newEditorState = addEmoji(getEditorState(), emoji);
     setEditorState(newEditorState);
+    helpers.onPluginAddSuccess?.(EMOJI_TYPE);
     helpers.closeModal();
   }
 
