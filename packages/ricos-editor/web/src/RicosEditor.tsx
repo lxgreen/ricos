@@ -19,6 +19,7 @@ import ReactDOM from 'react-dom';
 import { EditorState, ContentState } from 'draft-js';
 import RicosModal from './modals/RicosModal';
 import './styles.css';
+import editorCss from '../statics/styles/styles.scss';
 import { RicosEditorProps, EditorDataInstance } from '.';
 import { hasActiveUploads } from './utils/hasActiveUploads';
 import {
@@ -38,6 +39,7 @@ import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
 import { getBiFunctions } from './toolbars/utils/biUtils';
 import { renderSideBlockComponent } from './utils/renderBlockComponent';
 import { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { createEditorStyleClasses } from './utils/createEditorStyleClasses';
 
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
@@ -319,6 +321,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   renderRicosEngine(child, childProps) {
     const { toolbarSettings, draftEditorSettings = {}, localeContent, ...props } = this.props;
+    const { isMobile, experiments, cssOverride } = props;
     const supportedDraftEditorSettings = filterDraftEditorSettings(draftEditorSettings);
     const contentProp = this.getContentProp();
     return (
@@ -334,6 +337,12 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         {React.cloneElement(child, {
           editorKey: 'editor',
           setEditorToolbars: this.setActiveEditor,
+          editorStyleClasses: createEditorStyleClasses({
+            isMobile,
+            experiments,
+            cssOverride,
+            editorCss,
+          }),
           ...childProps,
           ...contentProp.editorState,
           ...supportedDraftEditorSettings,
