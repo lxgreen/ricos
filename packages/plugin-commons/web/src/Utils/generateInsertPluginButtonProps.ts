@@ -115,6 +115,7 @@ export function generateInsertPluginButtonProps({
     let editorState = getEditorState();
     let selection: SelectionState | undefined;
     files.forEach((file: File | File[]) => {
+      onPluginAdd();
       const { newBlock, newSelection, newEditorState } = createBlock(editorState, data, type);
       editorState = newEditorState;
       selection = selection || newSelection;
@@ -180,7 +181,6 @@ export function generateInsertPluginButtonProps({
   }
 
   function handleExternalFileChanged({ data, error }) {
-    onPluginAdd();
     if (data) {
       const handleFilesAdded = shouldCreateGallery(data)
         ? (blockKey: string) => commonPubsub.getBlockHandler('galleryHandleFilesAdded', blockKey)

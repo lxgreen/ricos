@@ -5,14 +5,21 @@ import styles from '../../statics/styles/widget.scss';
 import classNames from 'classnames';
 import { getScaleImageSrc } from 'wix-rich-content-common/libs/imageUtils';
 
+const getImageTargetHeight = (width, height, targetWidth) => {
+  const proportion = height / width;
+  const targetHeight = proportion * targetWidth;
+  return targetHeight;
+};
+
 const Card = props => {
-  const { url, content, direction } = props;
+  const { url, content, direction, imageWidth, imageHeight } = props;
   const [imageSrc, setImageSrc] = useState();
 
   const setRef = ref => {
     if (ref && !imageSrc) {
-      const { width, height } = ref.getBoundingClientRect();
-      setImageSrc(getScaleImageSrc(props.imageSrc, width, height));
+      const targetWidth = ref.getBoundingClientRect()?.width;
+      const targetHeight = getImageTargetHeight(imageWidth, imageHeight, targetWidth);
+      setImageSrc(getScaleImageSrc(props.imageSrc, targetWidth, targetHeight));
     }
   };
   return (
@@ -36,6 +43,8 @@ Card.propTypes = {
   content: PropTypes.object,
   direction: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  imageWidth: PropTypes.string,
+  imageHeight: PropTypes.string,
 };
 
 export default Card;

@@ -54,6 +54,11 @@ export type TextToolbarType = 'inline' | 'static';
 export type SetEditorState = (editorState: EditorState) => void;
 export type GetEditorState = () => EditorState;
 
+export interface EditorStyleClasses {
+  editorClassName?: string;
+  containerClassName?: string;
+}
+
 export const DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE = {
   P: 'paragraph',
   H1: 'headerOne',

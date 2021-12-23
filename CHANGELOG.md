@@ -17,10 +17,41 @@
     Click to see more.
   </summary>
 
-### ::house: Internal
+</details>
+<hr/>
+
+## 8.65.21 (Dec 23, 2021)
+
+### :bug: Bug Fix
+
+- `plugin-common`
+  - [#3280](https://github.com/wix/ricos/pull/3280) fix plugin toolbar position in rtl
+- `collapsible-list`
+  - [#3297](https://github.com/wix/ricos/pull/3297) fix re-render answer content on collpase/expand
+
+## 8.65.20 (Dec 23, 2021)
+
+### :house: Internal
+
+- `general`
+  - [#3299](https://github.com/wix/ricos/pull/3299) `onPluginAdd` and `onPluginAddSuccess` BI events for image uploads and emojis
+- `common`
+
+  - [#3300](https://github.com/wix/ricos/pull/3300) add new types to `RicosSettingsStyles`
+
+### :nail_care: Polish
 
 - `ui-components`
-  - [#3279](https://github.com/wix/ricos/pull/3279) Created selectionListItem component and used it in polls/gallery/collapsible-list
+  - [#3257](https://github.com/wix/ricos/pull/3257) created label component and consume it in ui-components/collapsible-List/polls
+
+## 8.65.19 (Dec 22, 2021)
+
+### :bug: Bug Fix
+
+- `viewer`
+  - [#3295](https://github.com/wix/ricos/pull/3295) fix duplicate links with justification on safari
+
+## 8.65.18 (Dec 22, 2021)
 
 ### :bug: Bug Fix
 
@@ -28,10 +59,16 @@
   - [#3281](https://github.com/wix/ricos/pull/3281) fix image in print mode
 - `editor-common`
   - [#3284](https://github.com/wix/ricos/pull/3284) fix basic link panel ui
+- `polls/gallery/image/collapsibleList`
 
+  - [#3293](https://github.com/wix/ricos/pull/3293) fix settings modal scroll
 
-</details>
-<hr/>
+### :house: Internal
+
+- `ui-components`
+  - [#3279](https://github.com/wix/ricos/pull/3279) Created selectionListItem component and used it in polls/gallery/collapsible-list
+- `tiptap-extensions`
+  - [#3288](https://github.com/wix/ricos/pull/3288) all tiptap extensions refactored to RicosExtensions
 
 ## 8.65.17 (Dec 19, 2021)
 
@@ -172,8 +209,7 @@ Release of v8.65.2 failed
 ### :nail_care: Polish
 
 - `ui-components - settings-modal`
-  - [#3139](https://github.com/wix/ricos/pull/3139) created settingsPanelHeader component and consume it in
-    video/map/button/gallery/image/collopsible-list plugins
+  - [#3139](https://github.com/wix/ricos/pull/3139) created settingsPanelHeader component and consume it in video/map/button/gallery/image/collopsible-list plugins
 
 ## 8.65.6 (Dec 09, 2021)
 
@@ -969,7 +1005,7 @@ Release of v8.65.2 failed
 
   - [#2908](https://github.com/wix/ricos/pull/2908) refactor button component - removed classname prop
 
-  ### :bug: Bug Fix
+### :bug: Bug Fix
 
 - `toolbars-new`
   - [#2913](https://github.com/wix/ricos/pull/2913) improve buttons filters (separators, installed plugins, headings/title

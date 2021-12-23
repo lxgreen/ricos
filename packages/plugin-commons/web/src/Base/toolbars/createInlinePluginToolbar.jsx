@@ -18,7 +18,6 @@ export default function createInlinePluginToolbar({
   t,
   name,
   getToolbarSettings,
-  languageDir,
 }) {
   return class BaseToolbar extends Component {
     static propTypes = {
@@ -101,7 +100,6 @@ export default function createInlinePluginToolbar({
         offset: this.offset,
         offsetHeight: this.offsetHeight,
         toolbarNode: this.ref,
-        languageDir,
         isMobile,
       });
       this.offsetHeight = updatedOffsetHeight;
@@ -189,7 +187,12 @@ export default function createInlinePluginToolbar({
 
       if (this.visibilityFn() && isVisible) {
         const props = {
-          style: { ...this.state.position, visibility: hide ? 'hidden' : 'visible' },
+          style: {
+            ...this.state.position,
+            visibility: hide ? 'hidden' : 'visible',
+            left: 'var(--offset-left)',
+            right: 'unset',
+          },
           className: classNames(
             toolbarStyles.pluginToolbar,
             toolbarTheme && toolbarTheme.pluginToolbar

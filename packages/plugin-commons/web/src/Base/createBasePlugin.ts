@@ -122,7 +122,6 @@ const createBasePlugin = (
     defaultPluginData,
     pluginDefaults,
     onComponentMount,
-    languageDir,
     locale,
     theme,
     shouldRenderOptimizedImages,
@@ -171,7 +170,6 @@ const createBasePlugin = (
       t,
       name: config.toolbar.name,
       getToolbarSettings: config.getToolbarSettings,
-      languageDir,
     });
   const Toolbar =
     config?.toolbar?.InlineButtons &&
@@ -193,7 +191,6 @@ const createBasePlugin = (
       uiSettings: config.uiSettings,
       getToolbarSettings: config.getToolbarSettings,
       getEditorBounds,
-      languageDir,
       getEditorState,
       linkTypes: config.LINK?.linkTypes,
       innerRCERenderedIn,

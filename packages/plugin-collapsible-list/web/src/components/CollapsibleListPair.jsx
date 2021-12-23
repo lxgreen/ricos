@@ -31,9 +31,9 @@ class CollapsibleListPair extends Component {
     const { idx, renderContent, isExpanded } = this.props;
 
     return (
-      isExpanded && (
-        <div className={this.styles.content}>{renderContent(idx, this.contentEditorRef)}</div>
-      )
+      <div hidden={!isExpanded} className={this.styles.content}>
+        {renderContent(idx, this.contentEditorRef)}
+      </div>
     );
   };
 

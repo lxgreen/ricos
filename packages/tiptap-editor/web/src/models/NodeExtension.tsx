@@ -32,10 +32,9 @@ const toExtensionConfig = (ext: RicosNodeExtension) =>
   });
 
 const toFullNodeConfig = (ext: RicosNodeExtension) => (config: NodeConfig): NodeConfig => ({
-  type: 'node',
   parseHTML: () => [{ tag: `${config.name}-component` }],
   renderHTML: ({ HTMLAttributes }) => [`${config.name}-component`, mergeAttributes(HTMLAttributes)],
-  addAttributes: () => ext.componentDataDefaults || {},
+  ...(ext.componentDataDefaults ? { addAttributes: () => ext.componentDataDefaults } : {}),
   ...config,
 });
 

@@ -1,5 +1,18 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 
+$TITLE_HEIGHT: 0;
+$FOOTER_HEIGHT: 100px;
+
+.gallery_scrollContainer {
+  height: calc(100% - #{$FOOTER_HEIGHT});
+  margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
+  width: 100%;
+}
+
+.gallery_scrollContainer_mobile {
+  margin: 0;
+}
+
 .gallerySettings_spacer {
   height: 12px;
   display: block;

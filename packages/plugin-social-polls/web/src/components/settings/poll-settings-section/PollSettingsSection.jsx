@@ -6,6 +6,7 @@ import {
   LabeledToggle,
   InfoIcon,
   RadioGroup,
+  Label,
 } from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 
@@ -101,9 +102,7 @@ export class PollSettingsSection extends Component {
         </h3>
         {showVoteRoleSetting && (
           <>
-            <p className={styles.label}>
-              {t('Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title')}
-            </p>
+            <Label label={t('Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title')} />
             <RadioGroup
               name="voteRole"
               theme={this.styles}
@@ -128,9 +127,7 @@ export class PollSettingsSection extends Component {
           {t('Poll_PollSettings_Tab_Settings_Section_Results_Header')}
         </h3>
 
-        <p className={styles.label}>
-          {t('Poll_PollSettings_Tab_Settings_Section_Results_Permission_Title')}
-        </p>
+        <Label label={t('Poll_PollSettings_Tab_Settings_Section_Results_Permission_Title')} />
 
         <RadioGroup
           name="resultsVisibility"

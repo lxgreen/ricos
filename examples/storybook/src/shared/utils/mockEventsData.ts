@@ -7,6 +7,8 @@ export default [
     pageUrl:
       'https://www.wix.app/events/54e7b326-49ec-434f-a7cc-c2ad1eaec049/65129504-3bfc-44c8-90cc-f9eedfea9321/details?d=https://sapirs0.wixsite.com/mysite/event-details/2-week-course-of-intensive-physical-research-with-a-sense-of-plenty-of-time-for-process-and-discovery-rooted-in-ohad-n',
     imageSrc: 'https://static.wixstatic.com/media/2571849c6b0749a4bbd008a06fd65762.jpg',
+    imageWidth: 865,
+    imageHeight: 576,
     description: '13 de octubre de 2020 19:00-27 de octubre de 2020 23:00 | Suzanna Baby Shop',
     scheduling: '13 de octubre de 2020 19:00-27 de octubre de 2020 23:00 ',
     location: ' Suzanna Baby Shop',
@@ -30,6 +32,8 @@ export default [
     pageUrl:
       'https://www.wix.app/events/54e7b326-49ec-434f-a7cc-c2ad1eaec049/0227ed00-697c-42c0-bc12-f84f0ae01a84/details?d=https://sapirs0.wixsite.com/mysite/event-details/roy-birthday-party-1',
     imageSrc: 'https://static.wixstatic.com/media/7f8360_274a37551ab54326adb4c50b1e7daaa0~mv2.jpeg',
+    imageWidth: 864,
+    imageHeight: 409,
     description: "28 de diciembre de 2020, 19:00 | Modi'in-Maccabim-Re'ut",
     scheduling: '28 de diciembre de 2020, 19:00 ',
     location: " Modi'in-Maccabim-Re'ut",
