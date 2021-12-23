@@ -18,14 +18,19 @@
   </summary>
 
 ### :bug: Bug Fix
-
-- `ricos-content`
-  - [#3305](https://github.com/wix/ricos/pull/3305) ckeditor html parser: gaps
 - `toolbars-new`
-  - [#3306](https://github.com/wix/ricos/pull/3306) fix toolbar buttons color on BM theme
+  - [#3307](https://github.com/wix/ricos/pull/3307) fix toolbar buttons color on BM theme
 
 </details>
 <hr/>
+
+## 8.65.22 (Dec 23, 2021)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3305](https://github.com/wix/ricos/pull/3305) ckeditor html parser: gaps
+  - [#3306](https://github.com/wix/ricos/pull/3306) normalizer maps sound-cloud to video
 
 ## 8.65.21 (Dec 23, 2021)
 
