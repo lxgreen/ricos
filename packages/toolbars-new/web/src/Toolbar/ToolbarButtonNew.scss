@@ -107,8 +107,8 @@
 
 .toolbarButton_active,
 .iconInActionColor {
-  color: $settings-action-color-fallback;
-  fill: $settings-action-color-fallback;
+  color: var(--ricos-settings-text-color, $action-color-fallback);
+  fill: var(--ricos-settings-text-color, $action-color-fallback);
   @include svg-fill;
 }
 

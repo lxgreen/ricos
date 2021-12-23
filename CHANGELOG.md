@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+- `toolbars-new`
+  - [#3307](https://github.com/wix/ricos/pull/3307) fix toolbar buttons color on BM theme
+
 </details>
 <hr/>
 
