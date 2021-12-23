@@ -2,12 +2,10 @@ import { Editor, EditorContent, JSONContent } from '@tiptap/react';
 import { Node } from 'prosemirror-model';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { getLangDir } from 'wix-rich-content-common';
-import { createEditorStyles } from 'wix-rich-content-editor-common';
 import { tiptapToDraft } from 'wix-tiptap-extensions';
 import { RicosTiptapContext } from '../../context';
 import { useForceUpdate } from '../../lib/useForceUpdate';
 import { Extensions } from '../../models/Extensions';
-import editorStyles from '../../statics/styles/tiptap-editor-styles.scss';
 import { RicosTiptapEditorProps } from '../../types';
 import { coreConfigs } from './core-configs';
 // import { patchExtensions } from '../../unsupported-content';
@@ -30,8 +28,8 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   onUpdate,
   onSelectionUpdate,
   onBlur,
-  theme,
   locale,
+  editorStyleClasses,
   ...context
 }) => {
   const forceUpdate = useForceUpdate();
@@ -70,12 +68,7 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
     return () => editorInstance.destroy();
   }, []);
 
-  const { isMobile } = context;
-  const { containerClassName, containerStyle, editorClassName, editorStyle } = createEditorStyles({
-    isMobile,
-    theme,
-    editorStyles,
-  });
+  const { containerClassName, editorClassName } = editorStyleClasses || {};
 
   return (
     <RicosTiptapContext.Provider
@@ -85,8 +78,8 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
         },
       }}
     >
-      <div dir={getLangDir(locale)} className={containerClassName} style={containerStyle}>
-        <EditorContent editor={editor} className={editorClassName} style={editorStyle} />
+      <div dir={getLangDir(locale)} className={containerClassName}>
+        <EditorContent editor={editor} className={editorClassName} />
       </div>
     </RicosTiptapContext.Provider>
   );

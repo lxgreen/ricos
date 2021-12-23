@@ -17,10 +17,29 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+  
+- `tiptap-editor`
+  - [#3296](https://github.com/wix/ricos/pull/3296) unsupported nodes and marks handled
+- `*`
+  - [#3299](https://github.com/wix/ricos/pull/3299) `onPluginAdd` and `onPluginAddSuccess` BI events for image uploads and emojis
+- `common`
+  - [#3300](https://github.com/wix/ricos/pull/3300) add new types to `RicosSettingsStyles`
+  
+### :nail_care: Polish
 
-
+- `ui-components`
+  - [#3257](https://github.com/wix/ricos/pull/3257) created label component and consume it in ui-components/collapsible-List/polls
+ 
 </details>
 <hr/>
+
+## 8.65.19 (Dec 22, 2021)
+
+### :bug: Bug Fix
+
+- `viewer`
+  - [#3295](https://github.com/wix/ricos/pull/3295) fix duplicate links with justification on safari
 
 ## 8.65.18 (Dec 22, 2021)
 
@@ -31,9 +50,10 @@
 - `editor-common`
   - [#3284](https://github.com/wix/ricos/pull/3284) fix basic link panel ui
 - `polls/gallery/image/collapsibleList`
+
   - [#3293](https://github.com/wix/ricos/pull/3293) fix settings modal scroll
-  
-### ::house: Internal
+
+### :house: Internal
 
 - `ui-components`
   - [#3279](https://github.com/wix/ricos/pull/3279) Created selectionListItem component and used it in polls/gallery/collapsible-list
@@ -179,8 +199,7 @@ Release of v8.65.2 failed
 ### :nail_care: Polish
 
 - `ui-components - settings-modal`
-  - [#3139](https://github.com/wix/ricos/pull/3139) created settingsPanelHeader component and consume it in
-    video/map/button/gallery/image/collopsible-list plugins
+  - [#3139](https://github.com/wix/ricos/pull/3139) created settingsPanelHeader component and consume it in video/map/button/gallery/image/collopsible-list plugins
 
 ## 8.65.6 (Dec 09, 2021)
 

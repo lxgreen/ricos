@@ -2,7 +2,7 @@
 import React, { ChangeEvent, Component } from 'react';
 import { omit } from 'lodash';
 import classNames from 'classnames';
-import InfoIcon from './InfoIcon';
+import Label from './Label';
 import { mergeStyles, RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 import styles from '../../statics/styles/input-with-label.scss';
 import infoIconStyles from '../../statics/styles/info-icon.scss';
@@ -85,10 +85,13 @@ class InputWithLabel extends Component<InputWithLabelProps> {
       return (
         <label htmlFor={id}>
           <div className={infoIconStyles.infoContainer}>
-            <span className={styles.inputWithLabel_label}>{label}</span>
-            {!isMobile && tooltipTextKey && (
-              <InfoIcon iconStyles={styles.infoIcon} tooltipText={t?.(tooltipTextKey)} />
-            )}
+            <span className={styles.inputWithLabel_label}>
+              <Label
+                label={label}
+                tooltipText={tooltipTextKey && t?.(tooltipTextKey)}
+                isMobile={isMobile}
+              />
+            </span>
           </div>
           {this.renderInput()}
           {maxLength && this.renderCharacterCapacity()}

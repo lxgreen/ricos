@@ -7,7 +7,7 @@ import {
   SelectionListItem,
   Separator,
   LabeledToggle,
-  InfoIcon,
+  Label,
 } from 'wix-rich-content-ui-components';
 import { LTRIcon, RTLIcon } from 'wix-rich-content-plugin-commons';
 import { directions, EXPANDED, COLLAPSED, FIRST_EXPANDED } from '../../defaults';
@@ -78,19 +78,17 @@ class CollapsibleListSettings extends Component {
   renderSeparator = () => <Separator horizontal className={this.styles.separator} />;
 
   renderDirectionOptions = () => {
-    const { getDataManager, t } = this.props;
+    const { getDataManager, t, isMobile } = this.props;
 
     return (
       <>
-        <p className={this.styles.title}>
-          {t('CollapsibleList_CollapsibleListSettings_Tab_Settings_Direction_Title')}
-          &nbsp;
-          <InfoIcon
-            tooltipText={t(
-              'CollapsibleList_CollapsibleListSettings_Tab_Settings_Direction_Title_Tooltip'
-            )}
-          />
-        </p>
+        <Label
+          label={t('CollapsibleList_CollapsibleListSettings_Tab_Settings_Direction_Title')}
+          tooltipText={t(
+            'CollapsibleList_CollapsibleListSettings_Tab_Settings_Direction_Title_Tooltip'
+          )}
+          isMobile={isMobile}
+        />
         <SelectionList
           theme={this.styles}
           dataSource={[

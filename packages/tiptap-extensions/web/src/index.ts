@@ -15,3 +15,4 @@ export { createDoc } from './document';
 export { createListItem } from './list-item';
 export { createBlockquote } from './blockquote';
 export { createOrderedList } from './ordered-list';
+export { createTrailingNode } from './trailingNode';
