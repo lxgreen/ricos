@@ -17,15 +17,18 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.65.22 (Dec 23, 2021)
+
 ### :bug: Bug Fix
 - `toolbars-new`
   - [#3263](https://github.com/wix/ricos/pull/3263) fix color picker-closing when there is a 'mouseup' event outside of the modal
 - `toolbars-new`
   - [#3307](https://github.com/wix/ricos/pull/3307) fix toolbar buttons color on BM theme
-
-
-</details>
-<hr/>
 
 ## 8.65.22 (Dec 23, 2021)
 
