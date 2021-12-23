@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3305](https://github.com/wix/ricos/pull/3305) ckeditor html parser: gaps
+
 </details>
 <hr/>
 
