@@ -17,15 +17,17 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.65.21 (Dec 23, 2021)
+
 ### :bug: Bug Fix
 
 - `plugin-common`
   - [#3280](https://github.com/wix/ricos/pull/3280) fix plugin toolbar position in rtl
 - `collapsible-list`
   - [#3297](https://github.com/wix/ricos/pull/3297) fix re-render answer content on collpase/expand
-
-</details>
-<hr/>
 
 ## 8.65.20 (Dec 23, 2021)
 
