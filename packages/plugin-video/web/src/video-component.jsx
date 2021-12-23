@@ -71,6 +71,15 @@ class VideoComponent extends React.Component {
     this.setState({ isLoaded: false });
   };
 
+  onDuration = duration => {
+    const { componentData } = this.props;
+    this.props.store.update(
+      'componentData',
+      { ...componentData, duration },
+      this.props.block.getKey()
+    );
+  };
+
   renderPlayer = () => {
     const { theme, componentData, disabled, settings, setComponentUrl } = this.props;
     return (
@@ -84,6 +93,7 @@ class VideoComponent extends React.Component {
         setComponentUrl={setComponentUrl}
         onReload={this.onReload}
         isLoaded={this.state.isLoaded}
+        onDuration={this.onDuration}
       />
     );
   };
@@ -133,6 +143,8 @@ VideoComponent.propTypes = {
   t: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   setComponentUrl: PropTypes.func,
+  store: PropTypes.object.isRequired,
+  block: PropTypes.object.isRequired,
 };
 
 export { VideoComponent as Component, DEFAULTS };
