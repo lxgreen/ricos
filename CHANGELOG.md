@@ -17,8 +17,14 @@
     Click to see more.
   </summary>
 
+
+</details>
+<hr/>
+
+## 8.65.20 (Dec 23, 2021)
+
 ### :house: Internal
-  
+
 - `tiptap-editor`
   - [#3296](https://github.com/wix/ricos/pull/3296) unsupported nodes and marks handled
 - `*`
@@ -28,9 +34,6 @@
 
 - `ui-components`
   - [#3257](https://github.com/wix/ricos/pull/3257) created label component and consume it in ui-components/collapsible-List/polls
- 
-</details>
-<hr/>
 
 ## 8.65.19 (Dec 22, 2021)
 
