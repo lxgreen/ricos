@@ -24,10 +24,7 @@
 ## 8.65.20 (Dec 23, 2021)
 
 ### :house: Internal
-
-- `tiptap-editor`
-  - [#3296](https://github.com/wix/ricos/pull/3296) unsupported nodes and marks handled
-- `*`
+- `general`
   - [#3299](https://github.com/wix/ricos/pull/3299) `onPluginAdd` and `onPluginAddSuccess` BI events for image uploads and emojis
 - `common`
   - [#3300](https://github.com/wix/ricos/pull/3300) add new types to `RicosSettingsStyles`
