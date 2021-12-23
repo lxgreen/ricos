@@ -105,9 +105,6 @@
 
 .colorPicker_add_color_button {
   margin-top: -2px;
-  svg {
-    width: 18px;
-  }
   .mobile & {
     justify-self: center;
     align-self: center;
@@ -129,9 +126,10 @@
 }
 
 .colorPicker_buttons_container {
-  margin-bottom: 9px;
   width: 180px;
   display: grid;
+  margin: 0 12px 9px;
+  gap: 8px;
   grid-template-columns: repeat(6, auto);
   .mobile & {
     margin: 0;
