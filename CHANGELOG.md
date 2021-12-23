@@ -17,13 +17,16 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.65.22 (Dec 23, 2021)
+
 ### :bug: Bug Fix
 
 - `ricos-content`
   - [#3305](https://github.com/wix/ricos/pull/3305) ckeditor html parser: gaps
-
-</details>
-<hr/>
+  - [#3306](https://github.com/wix/ricos/pull/3306) normalizer maps sound-cloud to video
 
 ## 8.65.21 (Dec 23, 2021)
 
