@@ -22,7 +22,7 @@
 </details>
 <hr/>
 
-## 8.65.22 (Dec 23, 2021)
+## 8.65.23 (Dec 23, 2021)
 
 ### :bug: Bug Fix
 - `toolbars-new`
