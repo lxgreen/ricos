@@ -1,0 +1,43 @@
+@import '~wix-rich-content-common/dist/statics/styles/palette';
+
+.settingsFileUpload {
+  margin: 12px;
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+
+  &.itemContainerSelected {
+    box-shadow: 0 0 0 3px $settings-action-color-fallback;
+  }
+
+  &.mobile {
+    margin: 2.5px;
+  }
+}
+
+.filesItem {
+  position: relative;
+  cursor: pointer;
+  border: 1px dashed rgba(51, 51, 51, 0.2);
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:after {
+    display: none !important;
+  }
+
+  svg {
+    width: 28px;
+    height: 28px;
+    fill: $settings-action-color-fallback;
+  }
+
+  &:hover {
+    border-color: $settings-action-color-fallback;
+  }
+}

@@ -50,4 +50,5 @@ export { default as SettingsSeparator } from './Components/SettingsSeparator';
 export { default as SettingsPanelHeader } from './Components/SettingsPanelHeader';
 export { default as Label } from './Components/Label';
 export { default as SelectionListItem } from './Components/SelectionListItem';
+export { default as SettingsFileUpload } from './Components/SettingsFileUpload';
 // export { getSelectionStyles } from './Utils/inlineStyleUtils';
