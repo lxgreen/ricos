@@ -21,6 +21,8 @@
 
 - `ricos-content`
   - [#3305](https://github.com/wix/ricos/pull/3305) ckeditor html parser: gaps
+- `toolbars-new`
+  - [#3306](https://github.com/wix/ricos/pull/3306) fix toolbar buttons color on BM theme
 
 </details>
 <hr/>
