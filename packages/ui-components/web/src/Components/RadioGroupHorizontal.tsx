@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import RadioGroup, { RadioGroupDataSource } from './RadioGroup';
-import InfoIcon from './InfoIcon';
+import Label from './Label';
 import { mergeStyles, RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 import styles from '../../statics/styles/radio-group-horizontal.scss';
 import infoIconStyles from '../../statics/styles/info-icon.scss';
@@ -41,12 +41,7 @@ class RadioGroupHorizontal extends Component<RadioGroupHorizontalProps> {
     return (
       <div>
         <div className={infoIconStyles.infoContainer}>
-          {label ? (
-            <span id={`${this.id}_label`} className={styles.radioGroupHorizontal_title}>
-              {label}
-            </span>
-          ) : null}
-          {tooltipTextKey && <InfoIcon tooltipText={t?.(tooltipTextKey)} />}
+          {label && <Label label={label} tooltipText={t?.(tooltipTextKey as string)} />}
         </div>
         <RadioGroup ariaLabelledBy={`${this.id}_label`} {...props} className={groupClassName} />
       </div>

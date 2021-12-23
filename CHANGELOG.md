@@ -17,6 +17,18 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+  
+- `tiptap-editor`
+  - [#3296](https://github.com/wix/ricos/pull/3296) unsupported nodes and marks handled
+- `*`
+  - [#3299](https://github.com/wix/ricos/pull/3299) `onPluginAdd` and `onPluginAddSuccess` BI events for image uploads and emojis
+  
+### :nail_care: Polish
+
+- `ui-components`
+  - [#3257](https://github.com/wix/ricos/pull/3257) created label component and consume it in ui-components/collapsible-List/polls
+ 
 </details>
 <hr/>
 
@@ -39,7 +51,7 @@
 
   - [#3293](https://github.com/wix/ricos/pull/3293) fix settings modal scroll
 
-### ::house: Internal
+### :house: Internal
 
 - `gallery`
   - [#3252](https://github.com/wix/ricos/pull/3252) refactor gallery settings
@@ -188,8 +200,7 @@ Release of v8.65.2 failed
 ### :nail_care: Polish
 
 - `ui-components - settings-modal`
-  - [#3139](https://github.com/wix/ricos/pull/3139) created settingsPanelHeader component and consume it in
-    video/map/button/gallery/image/collopsible-list plugins
+  - [#3139](https://github.com/wix/ricos/pull/3139) created settingsPanelHeader component and consume it in video/map/button/gallery/image/collopsible-list plugins
 
 ## 8.65.6 (Dec 09, 2021)
 
