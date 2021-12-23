@@ -3,12 +3,11 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import ClickOutside from 'react-click-outsider';
 import styles from '../ToolbarNew.scss';
 import ToolbarButton from '../ToolbarButton';
 import { ColorPicker } from 'wix-rich-content-plugin-commons';
 import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
-import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
+import { KEYS_CHARCODE, ClickOutside } from 'wix-rich-content-editor-common';
 
 type dropDownPropsType = {
   tooltip: string;
