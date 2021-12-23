@@ -23,6 +23,8 @@
   - [#3296](https://github.com/wix/ricos/pull/3296) unsupported nodes and marks handled
 - `*`
   - [#3299](https://github.com/wix/ricos/pull/3299) `onPluginAdd` and `onPluginAddSuccess` BI events for image uploads and emojis
+- `common`
+  - [#3300](https://github.com/wix/ricos/pull/3300) add new types to `RicosSettingsStyles`
   
 ### :nail_care: Polish
 
