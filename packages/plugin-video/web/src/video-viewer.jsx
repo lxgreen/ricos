@@ -98,7 +98,7 @@ class VideoViewer extends Component {
   };
 
   render() {
-    const { theme, width, height, disabled, setComponentUrl } = this.props;
+    const { theme, width, height, disabled, setComponentUrl, onDuration, settings } = this.props;
     this.styles = this.styles || mergeStyles({ styles, theme });
     const { url, key } = this.state;
     setComponentUrl?.(url);
@@ -109,6 +109,9 @@ class VideoViewer extends Component {
       width,
       height,
       key,
+      onDuration,
+      onProgress: settings.onProgress,
+      progressInterval: settings.progressInterval || 1000,
       ...this.disableDownloadProps(),
     };
 
@@ -138,6 +141,7 @@ VideoViewer.propTypes = {
   onReady: PropTypes.func,
   isLoaded: PropTypes.bool,
   onReload: PropTypes.func,
+  onDuration: PropTypes.func,
 };
 VideoViewer.defaultProps = {
   width: '100%',
