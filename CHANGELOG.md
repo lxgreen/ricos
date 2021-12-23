@@ -23,7 +23,9 @@
   - [#3296](https://github.com/wix/ricos/pull/3296) unsupported nodes and marks handled
 - `*`
   - [#3299](https://github.com/wix/ricos/pull/3299) `onPluginAdd` and `onPluginAddSuccess` BI events for image uploads and emojis
-  
+- `gallery`
+  - [#3252](https://github.com/wix/ricos/pull/3252) refactor gallery settings  
+
 ### :nail_care: Polish
 
 - `ui-components`
@@ -53,9 +55,6 @@
 
 ### :house: Internal
 
-- `gallery`
-  - [#3252](https://github.com/wix/ricos/pull/3252) refactor gallery settings
- 
 - `ui-components`
   - [#3279](https://github.com/wix/ricos/pull/3279) Created selectionListItem component and used it in polls/gallery/collapsible-list
 - `tiptap-extensions`
