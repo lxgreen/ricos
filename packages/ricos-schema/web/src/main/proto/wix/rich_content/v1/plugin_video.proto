@@ -11,5 +11,6 @@ message VideoData {
   Media thumbnail = 3;
   google.protobuf.BoolValue disable_download = 4;
   google.protobuf.StringValue title = 5;
+  google.protobuf.DoubleValue duration = 6;
 }
 

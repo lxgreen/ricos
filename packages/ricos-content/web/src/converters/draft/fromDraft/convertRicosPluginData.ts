@@ -120,6 +120,7 @@ const convertVideoData = (data: {
   video;
   thumbnail;
   title?;
+  duration?: number;
 }) => {
   if (typeof data.src === 'string') {
     data.video = { src: { url: data.src } };
