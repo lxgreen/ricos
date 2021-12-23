@@ -147,25 +147,37 @@ const textInDivToP: AstRule = [
   }),
 ];
 
-const brToNewLine: AstRule = [
+const brToNewLineInRoot: AstRule = [
+  and([hasTag('br'), not(hasParent(hasTag('p')))]),
+  (node: Element) => ({
+    parentNode: node.parentNode,
+    nodeName: '#text',
+    value: '_ROOT_NEW_LINE_MARKER_',
+  }),
+];
+
+const brToNewLineInP: AstRule = [
   and([hasTag('br'), hasParent(hasTag('p'))]),
   (node: Element) => ({
     parentNode: node.parentNode,
     nodeName: '#text',
-    value: '_RICOS_NEW_LINE_MARKER_',
+    value: '_P_NEW_LINE_MARKER_',
   }),
 ];
 
 const collapseBreaks = flow(
-  S.replace(/(_RICOS_NEW_LINE_MARKER_\s*){3}/gim, '\n\n'),
-  S.replace(/(_RICOS_NEW_LINE_MARKER_\s*){2}/gim, '\n'),
-  S.replace(/(_RICOS_NEW_LINE_MARKER_\s*){1}/gim, '')
+  S.replace(/(_ROOT_NEW_LINE_MARKER_\s*){3}/gim, ' '),
+  S.replace(/(_ROOT_NEW_LINE_MARKER_\s*){1,2}/gim, ''),
+  S.replace(/(_P_NEW_LINE_MARKER_\s*){3}/gim, '\n\n'),
+  S.replace(/(_P_NEW_LINE_MARKER_\s*){2}/gim, '\n'),
+  S.replace(/(_P_NEW_LINE_MARKER_\s*){1}/gim, '')
 );
 
 export const preprocess = flow(
   toAst,
   traverseRoot(rootTextToP),
-  traverse(brToNewLine),
+  traverse(brToNewLineInP),
+  traverse(brToNewLineInRoot),
   flow(
     traverse(leafParagraphToDiv),
     traverse(cleanListPadding),

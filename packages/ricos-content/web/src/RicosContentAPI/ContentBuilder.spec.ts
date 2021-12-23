@@ -64,39 +64,69 @@ describe('Ricos Content Builder', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('should add a paragraph with text to content', () => {
+  it('should add a paragraph with mention and text to content', () => {
     const generateKey = () => 'foo';
     const api = setupContentBuilder(generateKey);
-    const paragraphData: ParagraphData = {
-      textStyle: {
-        textAlignment: TextStyle_TextAlignment.RIGHT,
-      },
-    };
-    const expected: RichContent = {
+    const expected: RichContent = RichContent.fromJSON({
       nodes: [
         {
-          type: Node_Type.PARAGRAPH,
           id: 'foo',
-          paragraphData,
+          type: 'PARAGRAPH',
+          paragraphData: {
+            indentation: 0,
+            textStyle: {
+              textAlignment: 'AUTO',
+            },
+          },
           nodes: [
             {
-              id: '',
-              type: Node_Type.TEXT,
-              textData: {
-                text: 'test paragraph',
-                decorations: [],
-              },
               nodes: [],
+              id: '',
+              type: 'TEXT',
+              textData: {
+                text: '@rudnitskih+2',
+                decorations: [
+                  {
+                    type: 'MENTION',
+                    mentionData: {
+                      name: 'rudnitskih+1',
+                      slug: '4cdf4cfb-a812-4b87-8815-2bebcfa15f38',
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              nodes: [],
+              id: '',
+              type: 'TEXT',
+              textData: {
+                text: 'Hello',
+              },
             },
           ],
         },
       ],
-    };
+    });
     const actual = api.addParagraph({
-      text: 'test paragraph',
-      data: paragraphData,
+      text: [
+        {
+          text: '@rudnitskih+2',
+          decorations: [
+            {
+              type: Decoration_Type.MENTION,
+              mentionData: {
+                name: 'rudnitskih+1',
+                slug: '4cdf4cfb-a812-4b87-8815-2bebcfa15f38',
+              },
+            },
+          ],
+        },
+        'Hello',
+      ],
       content: { nodes: [] },
     });
+
     expect(actual).toEqual(expected);
   });
 
