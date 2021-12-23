@@ -11,6 +11,7 @@ import {
   VERTICAL_EMBED_TYPE,
   WRAP,
   POLL_TYPE,
+  SOUND_CLOUD_TYPE,
 } from '../consts';
 import {
   linkDataNormalizer,
@@ -91,6 +92,7 @@ const entityTypeMap = {
   configNormalization: {
     [IMAGE_TYPE_LEGACY]: IMAGE_TYPE,
     [VIDEO_TYPE_LEGACY]: VIDEO_TYPE,
+    [SOUND_CLOUD_TYPE]: VIDEO_TYPE,
   },
   dataNormalization: {
     [LINK_TYPE]: LINK_TYPE,
