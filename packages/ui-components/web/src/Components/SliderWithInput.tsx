@@ -1,6 +1,6 @@
 import React, { Component, InputHTMLAttributes } from 'react';
 import { debounce, isNumber } from 'lodash';
-import InfoIcon from './InfoIcon';
+import Label from './Label';
 import { mergeStyles, RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 import Slider from './Slider';
 import styles from '../../statics/styles/slider-with-input.scss';
@@ -87,12 +87,7 @@ class SliderWithInput extends Component<SliderWithInputProps> {
     return (
       <div>
         <div className={infoIconStyles.infoContainer}>
-          {label ? (
-            <span id={`${this.id}_lbl`} className={this.styles.sliderWithInput_label}>
-              {label}
-            </span>
-          ) : null}
-          {tooltipTextKey && <InfoIcon tooltipText={t?.(tooltipTextKey)} />}
+          {label && <Label label={label} tooltipText={t?.(tooltipTextKey as string)} />}
         </div>
         <div className={this.styles.sliderWithInput_content}>
           <Slider

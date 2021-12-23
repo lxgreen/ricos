@@ -2,7 +2,6 @@ import mentionDataDefaults from 'ricos-schema/dist/statics/mention.defaults.json
 import { CreateRicosExtensions } from 'ricos-tiptap-types';
 import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { SuggestionOptions } from '@tiptap/suggestion';
-import { PluginKey } from 'prosemirror-state';
 import styles from '../../statics/mentions.scss';
 import suggestion from './suggestion';
 
@@ -35,12 +34,10 @@ const findMention = (editor, char) => {
   }
 };
 
-export const MentionPluginKey = new PluginKey('mention');
-
 export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'mark',
-    createExtensionConfig: () => ({
+    createExtensionConfig: ({ PluginKey }) => ({
       name: 'mention',
 
       addOptions() {
@@ -95,7 +92,7 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
       },
 
       addProseMirrorPlugins() {
-        return [suggestion(this.editor, defaultOptions)];
+        return [suggestion(this.editor, defaultOptions, PluginKey)];
       },
 
       addCommands() {

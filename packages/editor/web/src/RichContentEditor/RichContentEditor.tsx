@@ -21,7 +21,6 @@ import {
   getBlockInfo,
   getFocusedBlockKey,
   createCalcContentDiff,
-  createEditorStyles,
   getBlockType,
   COMMANDS,
   MODIFIERS,
@@ -73,9 +72,6 @@ import {
   SetEditorState,
   TextDirection,
   CreatePluginsDataMap,
-  EventName,
-  PluginEventParams,
-  OnPluginAction,
   IMAGE_TYPE,
   EditorCommands,
   DocumentStyle,
@@ -83,8 +79,8 @@ import {
   CommandHandler,
   KeyCommand,
   DOC_STYLE_TYPES,
+  EditorStyleClasses,
 } from 'wix-rich-content-common';
-import editorStyles from '../../statics/styles/rich-content-editor.scss';
 import draftStyles from '../../statics/styles/draft.rtlignore.scss';
 import 'wix-rich-content-common/dist/statics/styles/draftDefault.rtlignore.scss';
 import InnerRCE from './InnerRCE';
@@ -95,6 +91,7 @@ import preventWixFocusRingAccessibility from './preventWixFocusRingAccessibility
 import { ErrorToast } from './Components';
 import { getBiButtonName } from './utils/biUtils';
 import { DOC_STYLE_CLASSES } from './utils/consts';
+import classNames from 'classnames';
 
 type PartialDraftEditorProps = Pick<
   Partial<DraftEditorProps>,
@@ -149,6 +146,7 @@ export interface RichContentEditorProps extends PartialDraftEditorProps {
   relValue?: RelValue;
   customAnchorScroll?: CustomAnchorScroll;
   style?: CSSProperties;
+  editorStyleClasses?: EditorStyleClasses;
   locale: string;
   localeContent?: string;
   shouldRenderOptimizedImages?: boolean;
@@ -1257,8 +1255,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       direction,
       showToolbars = true,
       isInnerRCE,
-      isMobile = false,
-      experiments,
+      editorStyleClasses = {},
     } = this.props;
     const { innerModal } = this.state;
 
@@ -1269,20 +1266,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       }
       const { theme } = this.contextualData;
 
-      const {
-        containerStyle,
-        containerClassName,
-        editorStyle,
-        editorClassName,
-      } = createEditorStyles({
-        isInnerRCE,
-        isMobile,
-        containerStyle: this.props.style,
-        theme,
-        draftStyles,
-        editorStyles,
-        experiments,
-      });
+      const { containerClassName, editorClassName } = editorStyleClasses;
 
       return (
         <GlobalContext.Provider value={this.state.context}>
@@ -1291,15 +1275,19 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
               <div
                 onFocus={this.onFocus}
                 onBlur={this.onBlur}
-                style={containerStyle}
+                style={this.props.style}
                 ref={measureRef}
-                className={containerClassName}
+                className={classNames(draftStyles.wrapper, containerClassName || '')}
                 dir={direction || getLangDir(this.props.locale)}
                 data-id={'rce'}
                 data-hook={!isInnerRCE ? 'root-editor' : 'inner-editor'}
               >
                 {this.renderStyleTag()}
-                <div ref={this.setEditorWrapper} className={editorClassName} style={editorStyle}>
+                <div
+                  ref={this.setEditorWrapper}
+                  className={editorClassName}
+                  style={isInnerRCE ? { backgroundColor: 'transparent' } : {}}
+                >
                   {this.renderAccessibilityListener()}
 
                   {this.renderEditor()}

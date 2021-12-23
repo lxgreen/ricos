@@ -35,22 +35,10 @@ jobs:
         if: steps.cache-modules.outputs.cache-hit == 'true'
         run: npm run link
 
-      - name: cache-schema
-        id: cache-schema
-        uses: actions/cache@master
-        with:
-          path: |
-            packages/ricos-schema/web/dist
-            packages/ricos-schema/web/src/generated
-          key: ${{ runner.os }}-schema-${{ hashFiles('packages/ricos-schema/web/src') }}
       - name: Install Protoc
-        if: steps.cache-schema.outputs.cache-hit != 'true'
         uses: arduino/setup-protoc@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: build schema
-        if: steps.cache-schema.outputs.cache-hit != 'true'
-        run: npm run build:schema
 
       - run: npm run build:ci
 
@@ -60,3 +48,4 @@ jobs:
       SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
       SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
       REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      LAGE_NPM_TOKEN: ${{ secrets.LAGE_NPM_TOKEN }}

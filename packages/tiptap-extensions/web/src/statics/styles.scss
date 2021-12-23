@@ -11,20 +11,6 @@
   }
 }
 
-.code {
-  composes: blockStyleSpacing;
-  background-color: rgba($primary-text-color-tuple, 0.06);
-  font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
-  font-size: 16px;
-  line-height: 26px;
-  padding: 2px 25px;
-  white-space: pre-wrap;
-
-  .renderedInTable & {
-    margin: 0;
-  }
-}
-
 .quote {
   composes: blockStyleSpacing;
   border-inline-start-width: 3px;

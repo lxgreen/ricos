@@ -4,9 +4,10 @@ import { mergeStyles } from 'wix-rich-content-common';
 import {
   RadioGroupVertical,
   SelectionList,
+  SelectionListItem,
   Separator,
   LabeledToggle,
-  InfoIcon,
+  Label,
 } from 'wix-rich-content-ui-components';
 import { LTRIcon, RTLIcon } from 'wix-rich-content-plugin-commons';
 import { directions, EXPANDED, COLLAPSED, FIRST_EXPANDED } from '../../defaults';
@@ -19,11 +20,8 @@ class CollapsibleListSettings extends Component {
     this.styles = mergeStyles({ styles, theme });
   }
 
-  renderOption = ({ item }) => (
-    <>
-      <item.icon />
-      <p>{item.label}</p>
-    </>
+  renderOption = ({ item, selected }) => (
+    <SelectionListItem icon={<item.icon />} selected={selected} label={item.label} />
   );
 
   renderExpandOptions = () => {
@@ -80,19 +78,17 @@ class CollapsibleListSettings extends Component {
   renderSeparator = () => <Separator horizontal className={this.styles.separator} />;
 
   renderDirectionOptions = () => {
-    const { getDataManager, t } = this.props;
+    const { getDataManager, t, isMobile } = this.props;
 
     return (
       <>
-        <p className={this.styles.title}>
-          {t('CollapsibleList_CollapsibleListSettings_Tab_Settings_Direction_Title')}
-          &nbsp;
-          <InfoIcon
-            tooltipText={t(
-              'CollapsibleList_CollapsibleListSettings_Tab_Settings_Direction_Title_Tooltip'
-            )}
-          />
-        </p>
+        <Label
+          label={t('CollapsibleList_CollapsibleListSettings_Tab_Settings_Direction_Title')}
+          tooltipText={t(
+            'CollapsibleList_CollapsibleListSettings_Tab_Settings_Direction_Title_Tooltip'
+          )}
+          isMobile={isMobile}
+        />
         <SelectionList
           theme={this.styles}
           dataSource={[
@@ -113,7 +109,6 @@ class CollapsibleListSettings extends Component {
           value={getDataManager().getDirection()}
           onChange={getDataManager().changeDirection}
           className={this.styles.direction_selector}
-          optionClassName={this.styles.direction_selector_option}
         />
       </>
     );

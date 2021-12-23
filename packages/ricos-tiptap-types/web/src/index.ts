@@ -58,11 +58,15 @@ export type RicosNodeExtension = {
     mergeAttributes,
     markPasteRule,
     markInputRule,
+    Plugin,
+    PluginKey,
   }: {
     textblockTypeInputRule: typeof textblockTypeInputRuleFn;
     mergeAttributes: typeof mergeAttributesFn;
     markPasteRule: typeof markPasteRuleFn;
     markInputRule: typeof markInputRuleFn;
+    Plugin: typeof IPlugin;
+    PluginKey: typeof IPluginKey;
   }) => NodeConfig;
   Component?: ComponentType;
   componentDataDefaults?: any;

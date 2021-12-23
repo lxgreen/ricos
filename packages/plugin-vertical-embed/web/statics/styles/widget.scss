@@ -12,6 +12,8 @@
     background-color: var(--ricos-background-color, #ffffff);
 
     .image {
+      color-adjust: exact; //fix background-image not displaying in print (probably better to use iamge instead of background-image)
+      -webkit-print-color-adjust: exact; //fix background-image not displaying in print (probably better to use iamge instead of background-image)
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center center;

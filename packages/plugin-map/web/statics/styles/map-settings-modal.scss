@@ -1,6 +1,9 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 
+$TITLE_HEIGHT: 0px;
+$FOOTER_HEIGHT: 100px;
+
 .map_settings_modal_main_content_block {
   padding: 0px 24px;
   @include phone {
@@ -154,5 +157,7 @@
 }
 
 .map_settings_modal_scrollbar_container {
-  height: 100%;
+  height: calc(100% - #{$FOOTER_HEIGHT});
+  margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
+  width: 100%;
 }

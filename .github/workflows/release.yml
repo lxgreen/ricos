@@ -26,7 +26,7 @@ jobs:
         id: version
       - run: |
           npx midgard-yarn install --frozen-lockfile
-          npm run build
+          npm run build:withoutCache
           npm run release
           curl -X POST https://api.github.com/repos/wix-private/wix-ricos/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
@@ -35,3 +35,4 @@ jobs:
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       NPM_EMAIL: ${{ secrets.NPM_EMAIL}}
+      LAGE_NPM_TOKEN: ${{ secrets.LAGE_NPM_TOKEN }}

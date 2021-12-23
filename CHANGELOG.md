@@ -17,8 +17,55 @@
     Click to see more.
   </summary>
 
+
+</details>
+<hr/>
+
+## 8.65.20 (Dec 23, 2021)
+
+### :house: Internal
+
+- `tiptap-editor`
+  - [#3296](https://github.com/wix/ricos/pull/3296) unsupported nodes and marks handled
+- `*`
+  - [#3299](https://github.com/wix/ricos/pull/3299) `onPluginAdd` and `onPluginAddSuccess` BI events for image uploads and emojis
+  
+### :nail_care: Polish
+
+- `ui-components`
+  - [#3257](https://github.com/wix/ricos/pull/3257) created label component and consume it in ui-components/collapsible-List/polls
+
+## 8.65.19 (Dec 22, 2021)
+
+### :bug: Bug Fix
+
+- `viewer`
+  - [#3295](https://github.com/wix/ricos/pull/3295) fix duplicate links with justification on safari
+
+## 8.65.18 (Dec 22, 2021)
+
+### :bug: Bug Fix
+
+- `vertical-embed`
+  - [#3281](https://github.com/wix/ricos/pull/3281) fix image in print mode
+- `editor-common`
+  - [#3284](https://github.com/wix/ricos/pull/3284) fix basic link panel ui
+- `polls/gallery/image/collapsibleList`
+
+  - [#3293](https://github.com/wix/ricos/pull/3293) fix settings modal scroll
+
+### :house: Internal
+
+- `ui-components`
+  - [#3279](https://github.com/wix/ricos/pull/3279) Created selectionListItem component and used it in polls/gallery/collapsible-list
+- `tiptap-extensions`
+  - [#3288](https://github.com/wix/ricos/pull/3288) all tiptap extensions refactored to RicosExtensions
+
+## 8.65.17 (Dec 19, 2021)
+
 ### :bug: Bug Fix
 - `ui-components`
+
   - [#3273](https://github.com/wix/ricos/pull/3273) fix slider ui on rtl sites
 - `ricos-content`
   - [#3276](https://github.com/wix/ricos/pull/3276) fromDraft conversion: handle invalid link types
@@ -26,12 +73,9 @@
   - [#3163](https://github.com/wix/ricos/pull/3163) fix lists wiring to `documentStyle`
 
 ### ::house: Internal
+
 - `ricos-editor`
   - [#3277](https://github.com/wix/ricos/pull/3277) add global context to ricos-modal
-
-
-</details>
-<hr/>
 
 ## 8.65.16 (Dec 16, 2021)
 
@@ -153,8 +197,7 @@ Release of v8.65.2 failed
 ### :nail_care: Polish
 
 - `ui-components - settings-modal`
-  - [#3139](https://github.com/wix/ricos/pull/3139) created settingsPanelHeader component and consume it in
-    video/map/button/gallery/image/collopsible-list plugins
+  - [#3139](https://github.com/wix/ricos/pull/3139) created settingsPanelHeader component and consume it in video/map/button/gallery/image/collopsible-list plugins
 
 ## 8.65.6 (Dec 09, 2021)
 
