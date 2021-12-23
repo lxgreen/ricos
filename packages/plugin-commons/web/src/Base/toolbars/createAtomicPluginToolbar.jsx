@@ -32,7 +32,6 @@ export default function createAtomicPluginToolbar({
   uiSettings,
   getToolbarSettings,
   getEditorBounds,
-  languageDir,
   getEditorState,
   linkTypes,
   innerModal,
@@ -165,7 +164,6 @@ export default function createAtomicPluginToolbar({
         offset: this.offset,
         offsetHeight: this.offsetHeight,
         toolbarNode: findDOMNode(this),
-        languageDir,
         isMobile,
         renderedInTable: innerRCERenderedIn === TABLE_TYPE,
       });
@@ -452,7 +450,12 @@ export default function createAtomicPluginToolbar({
       if (this.visibilityFn() && isVisible) {
         const renderedInTable = innerRCERenderedIn === TABLE_TYPE;
         const props = {
-          style: { ...this.state.position, visibility: hide ? 'hidden' : 'visible' },
+          style: {
+            ...this.state.position,
+            visibility: hide ? 'hidden' : 'visible',
+            left: 'var(--offset-left)',
+            right: 'unset',
+          },
           className: classNames(
             toolbarStyles.pluginToolbar,
             renderedInTable && toolbarStyles.overflowToolbar,

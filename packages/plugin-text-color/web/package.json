@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-plugin-text-color",
-  "version": "8.65.19",
+  "version": "8.65.21",
   "author": {
     "name": "Alex Greenstein",
     "email": "alexgr@wix.com"
@@ -36,10 +36,10 @@
   },
   "dependencies": {
     "react-modal": "~3.4.1",
-    "ricos-tiptap-types": "8.65.19",
-    "wix-rich-content-common": "8.65.19",
-    "wix-rich-content-editor-common": "8.65.19",
-    "wix-rich-content-plugin-commons": "8.65.19"
+    "ricos-tiptap-types": "8.65.21",
+    "wix-rich-content-common": "8.65.21",
+    "wix-rich-content-editor-common": "8.65.21",
+    "wix-rich-content-plugin-commons": "8.65.21"
   },
   "unpkg": true,
   "publishConfig": {

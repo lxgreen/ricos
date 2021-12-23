@@ -1,10 +1,6 @@
 import { PluginKey, Plugin } from 'prosemirror-state';
 import { RicosExtension } from 'ricos-tiptap-types';
 
-function nodeEqualsType({ types, node }) {
-  return (Array.isArray(types) && types.includes(node.type)) || node.type === types;
-}
-
 /**
  * Extension based on:
  * - https://github.com/ueberdosis/tiptap/blob/v1/packages/tiptap-extensions/src/extensions/TrailingNode.js
@@ -23,38 +19,19 @@ export const createTrailingNode = (): RicosExtension => ({
 
     addProseMirrorPlugins() {
       const plugin = new PluginKey(this.name);
-      const disabledNodes = Object.entries(this.editor.schema.nodes)
-        .map(([, value]) => value)
-        .filter((node: Node) => this.options.notAfter.includes(node).name);
-
       return [
         new Plugin({
           key: plugin,
           appendTransaction: (_, __, state) => {
             const { doc, tr, schema } = state;
-            const shouldInsertNodeAtEnd = plugin.getState(state);
+            const lastNode = state.tr.doc.lastChild;
+            if (this.options.notAfter.includes(lastNode?.type.name)) {
+              return;
+            }
             const endPosition = doc.content.size;
             const type = schema.nodes[this.options.node];
 
-            if (!shouldInsertNodeAtEnd) {
-              return;
-            }
-
             return tr.insert(endPosition, type.create());
-          },
-          state: {
-            init: (_, state) => {
-              const lastNode = state.tr.doc.lastChild;
-              return !nodeEqualsType({ node: lastNode, types: disabledNodes });
-            },
-            apply: (tr, value) => {
-              if (!tr.docChanged) {
-                return value;
-              }
-
-              const lastNode = tr.doc.lastChild;
-              return !nodeEqualsType({ node: lastNode, types: disabledNodes });
-            },
           },
         }),
       ];
