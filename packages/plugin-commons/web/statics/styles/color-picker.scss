@@ -54,11 +54,11 @@
 
 .colorPicker_button {
   @extend %button;
-  border-radius: $settings-colorpickerbutton-border-radius;
+  border-radius: $settings-colorPaletteButton-border-radius;
   border: solid 1px #ccc;
   &::after {
     content: ' ';
-    border-radius: $settings-colorpickerselectedbutton-border-radius;
+    border-radius: $settings-colorPaletteSelectedButton-border-radius;
     width: 20px;
     height: 20px;
     display: block;
