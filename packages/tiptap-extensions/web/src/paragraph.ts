@@ -50,13 +50,13 @@ export const createParagraph = (): RicosExtension => ({
     },
 
     parseHTML() {
-      return [{ tag: 'p' }];
+      return [{ tag: 'div' }];
     },
 
     renderHTML({ HTMLAttributes, node }) {
       const styles = createStyleAttribute(node);
       return [
-        'p',
+        'div',
         mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, styles),
         0,
       ] as DOMOutputSpec;
