@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.65.24 (Dec 26, 2021)
+
 ### :bug: Bug Fix
 
 - `toolbars-new`
@@ -33,9 +38,6 @@
 - `gallery`
   - [#3316](https://github.com/wix/ricos/pull/3316) performance improvement
   - [#3314](https://github.com/wix/ricos/pull/3314) use editor commands in gallery settings modal
-
-</details>
-<hr/>
 
 ## 8.65.23 (Dec 23, 2021)
 
