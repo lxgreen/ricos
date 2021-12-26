@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3313](https://github.com/wix/ricos/pull/3313) fix headings update context menu display
+
 ### :house: Internal
 
 - `plugin-commons`
