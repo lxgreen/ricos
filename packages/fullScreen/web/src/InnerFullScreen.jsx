@@ -216,6 +216,7 @@ export default class InnerFullscreen extends Component {
                 videoSound: true,
                 hidePlay: false,
                 showVideoControls: true,
+                showVideoPlayButton: true,
                 allowSocial: false,
                 loveButton: false,
                 allowTitle: true,

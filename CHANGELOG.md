@@ -21,6 +21,10 @@
 
 - `toolbars-new`
   - [#3313](https://github.com/wix/ricos/pull/3313) fix headings update context menu display
+- `gallery`
+  - [#3317](https://github.com/wix/ricos/pull/3317) display video play icon
+- `fullscreen`
+  - [#3317](https://github.com/wix/ricos/pull/3317) display video play icon
 
 ### :house: Internal
 
@@ -28,8 +32,6 @@
   - [#3302](https://github.com/wix/ricos/pull/3302) refactor color-picker
 - `gallery`
   - [#3316](https://github.com/wix/ricos/pull/3316) performance improvement
-
-- `gallery`
   - [#3314](https://github.com/wix/ricos/pull/3314) use editor commands in gallery settings modal
 
 </details>

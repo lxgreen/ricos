@@ -103,6 +103,7 @@ const FIXED_STYLES = {
   videoLoop: false,
   videoSound: true,
   hidePlay: false,
+  showVideoPlayButton: true,
   showVideoControls: true,
 };
 
