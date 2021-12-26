@@ -40,6 +40,12 @@ export const withWixStyle: WithStyle = theme =>
           borderRadius: '8px',
           boxShadow: '0 8px 8px 0 rgba(22, 45, 61, 0.12), 0 3px 24px 0 rgba(22, 45, 61, 0.18)',
         },
+        colorPaletteButton: {
+          borderRadius: '6px',
+        },
+        colorPaletteSelectedButton: {
+          borderRadius: '4px',
+        },
       },
     },
     theme || {}

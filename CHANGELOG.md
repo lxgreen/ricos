@@ -17,7 +17,11 @@
     Click to see more.
   </summary>
 
+### :house: Internal
 
+- `plugin-commons`
+
+  - [#3302](https://github.com/wix/ricos/pull/3302) refactor color-picker
 
 </details>
 <hr/>
@@ -25,6 +29,7 @@
 ## 8.65.23 (Dec 23, 2021)
 
 ### :bug: Bug Fix
+
 - `toolbars-new`
   - [#3263](https://github.com/wix/ricos/pull/3263) fix color picker-closing when there is a 'mouseup' event outside of the modal
 - `toolbars-new`

@@ -8,10 +8,13 @@
   margin: 0;
 }
 
-.colorPicker_button.colorPicker_button_selected::after {
-  border-color: #000;
+.colorPicker_button.colorPicker_button_selected {
+  transform: scale(0.7);
+  &::after {
+    transform: scale(1.45);
+    border-color: #000;
+  }
 }
-
 .colorPicker_header {
   color: $fallbackColor;
   font-size: 16px;
@@ -51,27 +54,26 @@
 
 .colorPicker_button {
   @extend %button;
-  border-radius: 50%;
+  border-radius: $settings-colorPaletteButton-border-radius;
   border: solid 1px #ccc;
   &::after {
     content: ' ';
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
+    border-radius: $settings-colorPaletteSelectedButton-border-radius;
+    width: 20px;
+    height: 20px;
     display: block;
     background: transparent;
     border: 1px solid;
     border-color: transparent;
-    position: absolute;
     box-sizing: border-box;
-    top: -5px;
-    left: -5px;
+    position: relative;
+    right: 1px;
+    bottom: 1px;
     outline: 0;
     .mobile & {
-      top: -8px;
-      left: -8px;
-      width: 48px;
-      height: 48px;
+      bottom: 1px;
+      width: 34px;
+      height: 34px;
     }
   }
   &.colorPicker_button_transparent {
@@ -104,7 +106,7 @@
 .colorPicker_add_color_button {
   margin-top: -2px;
   svg {
-    width: 18px;
+    fill: $settings-action-color;
   }
   .mobile & {
     justify-self: center;
@@ -121,15 +123,16 @@
 .colorPicker_add_color_label {
   width: 18px;
   height: 18px;
-  color: $settings-action-color-fallback;
+  fill: $settings-action-color-fallback;
   cursor: pointer;
   position: relative;
 }
 
 .colorPicker_buttons_container {
-  margin-bottom: 9px;
   width: 180px;
   display: grid;
+  margin: 0 12px 9px;
+  gap: 8px;
   grid-template-columns: repeat(6, auto);
   .mobile & {
     margin: 0;
