@@ -24,10 +24,11 @@ export type VideoData = ComponentData & {
 };
 export interface VideoSettingsProps {
   componentData: VideoData;
-  helpers: Helpers;
-  pubsub: Pubsub;
   theme: RichContentTheme;
   t: TranslationFunction;
   isMobile: boolean;
   settings: VideoPluginEditorConfig;
+  onSave: () => void;
+  onCancel: () => void;
+  updateData: (data) => void;
 }

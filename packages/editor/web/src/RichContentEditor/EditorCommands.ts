@@ -31,6 +31,7 @@ import {
   insertCustomLink,
   getSelectedBlocks,
   toggleBlockTypeWithSpaces,
+  getEntityType,
 } from 'wix-rich-content-editor-common';
 import {
   AvailableExperiments,

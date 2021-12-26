@@ -12,6 +12,7 @@ import { mergeStyles } from 'wix-rich-content-common';
 import { AddIcon, RemoveIcon } from '../../../assets/icons';
 
 import styles from './edit-poll-section.scss';
+import { debounce } from 'lodash';
 
 class EditPollSectionComponent extends Component {
   styles = mergeStyles({ styles, theme: this.props.rce.theme });
@@ -22,23 +23,24 @@ class EditPollSectionComponent extends Component {
   };
 
   updateSettings(layout) {
-    this.props.store.update('componentData', {
-      layout,
-    });
+    this.props.updateData({ layout: { ...this.props.layout, ...layout } });
   }
 
   handleInputChange(cb) {
     return event => {
-      cb(event.target.value);
+      debounce(cb(event.target.value), 200);
     };
   }
 
   handleOptionTitleUpdate(index, option) {
     return title =>
-      this.props.updatePollOption(index, {
-        ...option,
-        title,
-      });
+      debounce(
+        this.props.updatePollOption(index, {
+          ...option,
+          title,
+        }),
+        200
+      );
   }
 
   handleOptionImageUpdate(index, option) {
@@ -124,7 +126,9 @@ class EditPollSectionComponent extends Component {
             label={t('Poll_PollSettings_Tab_Layout_Section_Question_Image')}
             checked={layout.poll?.enableImage}
             onChange={() =>
-              this.updateSettings({ poll: { enableImage: !layout.poll?.enableImage } })
+              this.updateSettings({
+                poll: { ...layout.poll, enableImage: !layout.poll?.enableImage },
+              })
             }
             theme={this.props.theme}
           />
@@ -133,7 +137,9 @@ class EditPollSectionComponent extends Component {
             label={t('Poll_PollSettings_Tab_Layout_Section_Answers_Image')}
             checked={layout.option?.enableImage}
             onChange={() =>
-              this.updateSettings({ option: { enableImage: !layout.option?.enableImage } })
+              this.updateSettings({
+                option: { ...layout.option, enableImage: !layout.option?.enableImage },
+              })
             }
             theme={this.props.theme}
           />
