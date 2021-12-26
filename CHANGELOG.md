@@ -29,6 +29,9 @@
 - `gallery`
   - [#3316](https://github.com/wix/ricos/pull/3316) performance improvement
 
+- `gallery`
+  - [#3314](https://github.com/wix/ricos/pull/3314) use editor commands in gallery settings modal
+
 </details>
 <hr/>
 

@@ -124,7 +124,6 @@ export default class VideoSelectionInputModal extends Component {
       enableCustomUploadOnMobile,
       isMobile,
       languageDir,
-      componentData,
       theme,
     } = this.props;
     const { styles } = this;

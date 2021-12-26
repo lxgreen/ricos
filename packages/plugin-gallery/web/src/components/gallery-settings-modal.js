@@ -21,12 +21,12 @@ import classNames from 'classnames';
 const DIVIDER = 'divider';
 class ManageMediaSection extends Component {
   applyItems = items => {
-    const { data, store } = this.props;
+    const { data, updateData } = this.props;
     const componentData = {
       ...data,
       items,
     };
-    store.set('componentData', componentData);
+    updateData(componentData);
   };
 
   static contextType = GlobalContext;
@@ -36,11 +36,6 @@ class ManageMediaSection extends Component {
       const handleFilesSelected = this.props.store.getBlockHandler('handleFilesSelected');
       handleFilesSelected(files, itemPos);
     }
-  };
-
-  handleFileSelection = (index, multiple, handleFilesAdded, deleteBlock) => {
-    const { helpers, data } = this.props;
-    helpers.handleFileSelection(index, multiple, handleFilesAdded, deleteBlock, data);
   };
 
   render() {
@@ -82,16 +77,17 @@ ManageMediaSection.propTypes = {
   uiSettings: PropTypes.object,
   languageDir: PropTypes.string,
   accept: PropTypes.string,
+  updateData: PropTypes.func,
 };
 
 class AdvancedSettingsSection extends Component {
   applyGallerySetting = setting => {
-    const { data, store } = this.props;
+    const { data, updateData } = this.props;
     const componentData = {
       ...data,
       styles: setting,
     };
-    store.set('componentData', componentData);
+    updateData(componentData);
   };
 
   static contextType = GlobalContext;
@@ -108,7 +104,7 @@ class AdvancedSettingsSection extends Component {
   }
 
   render() {
-    const { data, store, theme, t, isMobile } = this.props;
+    const { data, theme, t, isMobile, updateData } = this.props;
     const { languageDir } = this.context;
     return (
       this.shouldRender() && (
@@ -129,7 +125,7 @@ class AdvancedSettingsSection extends Component {
             theme={theme}
             layout={this.getValueFromComponentStyles('galleryLayout')}
             data={data}
-            store={store}
+            updateData={updateData}
             t={t}
             isMobile={isMobile}
             languageDir={languageDir}
@@ -142,57 +138,21 @@ class AdvancedSettingsSection extends Component {
 
 AdvancedSettingsSection.propTypes = {
   data: PropTypes.object.isRequired,
-  store: PropTypes.object.isRequired,
   isMobile: PropTypes.bool,
   theme: PropTypes.object.isRequired,
   t: PropTypes.func,
   languageDir: PropTypes.string,
+  updateData: PropTypes.func,
 };
 export class GallerySettingsModal extends Component {
   constructor(props) {
     super(props);
-    const {
-      componentData: {
-        disableExpand,
-        disableDownload,
-        config: { spoiler = {} },
-      },
-    } = this.props;
     this.state = {
       activeTab: this.props.activeTab,
-      isExpandEnabled: !disableExpand,
-      isDownloadEnabled: !disableDownload,
-      isSpoilerEnabled: spoiler.enabled,
     };
     this.styles = mergeStyles({ styles, theme: props.theme });
     this.switchTab = this.switchTab.bind(this);
   }
-
-  componentDidMount() {
-    this.props.pubsub.subscribe('componentData', this.onComponentUpdate);
-    const componentData = this.props.pubsub.get('componentData');
-    this.setState({
-      initComponentData: { ...componentData, items: this.getItems(componentData.items) },
-    });
-  }
-
-  componentWillUnmount() {
-    this.props.pubsub.unsubscribe('componentData', this.onComponentUpdate);
-  }
-
-  onComponentUpdate = () => this.forceUpdate();
-
-  revertComponentData = () => {
-    const { pubsub, helpers } = this.props;
-    if (this.state.initComponentData) {
-      pubsub.set('componentData', {
-        ...this.state.initComponentData,
-        items: this.getItems(this.state.initComponentData.items),
-      });
-    }
-
-    helpers.closeModal();
-  };
 
   otherTab() {
     let tab = 'settings';
@@ -218,36 +178,9 @@ export class GallerySettingsModal extends Component {
     }[tab];
   }
 
-  getItems = items => {
-    return items.map(item => {
-      // eslint-disable-next-line fp/no-delete
-      delete item.selected;
-      return item;
-    });
-  };
-
-  onDoneClick = () => {
-    const { helpers, pubsub } = this.props;
-    const componentData = pubsub.get('componentData');
-    const newComponentData = {
-      ...componentData,
-      items: this.getItems(componentData.items),
-      ...this.getSpoilerConfig(this.state.isSpoilerEnabled),
-      disableDownload: !this.state.isDownloadEnabled,
-      disableExpand: !this.state.isExpandEnabled,
-    };
-    pubsub.update('componentData', newComponentData);
-    helpers.closeModal();
-  };
-
-  toggleState = (key, onToggle) => () => {
-    const value = !this.state[key];
-    this.setState({ [key]: value }, onToggle?.(value));
-  };
-
   getSpoilerConfig = enabled => ({
     config: {
-      ...this.componentData.config,
+      ...this.props.componentData.config,
       spoiler: { enabled },
     },
   });
@@ -260,7 +193,7 @@ export class GallerySettingsModal extends Component {
         theme={this.props.theme}
       >
         <ManageMediaSection
-          data={this.props.pubsub.get('componentData')}
+          data={this.props.componentData}
           store={this.props.pubsub.store}
           helpers={this.props.helpers}
           theme={this.props.theme}
@@ -269,6 +202,7 @@ export class GallerySettingsModal extends Component {
           relValue={this.props.relValue}
           uiSettings={this.props.uiSettings}
           accept={this.props.accept}
+          updateData={this.props.updateData}
         />
       </Tab>
     ),
@@ -280,11 +214,12 @@ export class GallerySettingsModal extends Component {
       >
         <AdvancedSettingsSection
           theme={this.props.theme}
-          data={this.props.pubsub.get('componentData')}
+          data={this.props.componentData}
           store={this.props.pubsub.store}
           helpers={this.props.helpers}
           t={this.props.t}
           languageDir={this.props.languageDir}
+          updateData={this.props.updateData}
         />
       </Tab>
     ),
@@ -306,33 +241,37 @@ export class GallerySettingsModal extends Component {
       ? [this.tabsList().mangeMedia, this.tabsList().settings]
       : [this.tabsList().mangeMedia, this.tabsList().advancedSettings, this.tabsList().settings];
 
-  renderToggle = ({ toggleKey, labelKey, tooltipText, dataHook, onToggle, type }) =>
+  renderToggle = ({ labelKey, tooltipText, dataHook, onChange, type, isChecked }) =>
     type === DIVIDER ? (
       <SettingsSeparator top />
     ) : (
       <LabeledToggle
-        key={toggleKey}
+        key={labelKey}
         theme={this.props.theme}
-        checked={this.state[toggleKey]}
+        checked={isChecked()}
         label={this.props.t(labelKey)}
         dataHook={dataHook}
-        onChange={this.toggleState(toggleKey, onToggle)}
+        onChange={onChange}
         tooltipText={tooltipText}
       />
     );
 
   baseToggleData = [
     {
-      toggleKey: 'isExpandEnabled',
       labelKey: 'GalleryPlugin_Settings_ImagesOpenInExpandMode_Label',
       dataHook: 'galleryExpandToggle',
       tooltipText: this.props.t('GallerySettings_Expand_Mode_Toggle'),
+      isChecked: () => !this.props.componentData.disableExpand,
+      onChange: () =>
+        this.props.updateData({ disableExpand: !this.props.componentData.disableExpand }),
     },
     {
-      toggleKey: 'isDownloadEnabled',
       labelKey: 'GalleryPlugin_Settings_ImagesCanBeDownloaded_Label',
       dataHook: 'imageDownloadToggle',
       tooltipText: this.props.t('GalleryPlugin_Settings_ImagesCanBeDownloaded_Tooltip'),
+      isChecked: () => !this.props.componentData.disableDownload,
+      onChange: () =>
+        this.props.updateData({ disableDownload: !this.props.componentData.disableDownload }),
     },
   ];
 
@@ -343,14 +282,14 @@ export class GallerySettingsModal extends Component {
           type: DIVIDER,
         },
         {
-          toggleKey: 'isSpoilerEnabled',
           labelKey: 'GallerySettings_Spoiler_Toggle',
           dataHook: 'gallerySpoilerToggle',
           tooltipText: this.props.t('Spoiler_Toggle_Tooltip'),
-          onToggle: value => {
-            this.props.pubsub.update('componentData', {
-              ...this.componentData,
-              ...this.getSpoilerConfig(value),
+          isChecked: () => this.props.componentData.config?.spoiler?.enabled,
+          onChange: () => {
+            this.props.updateData({
+              ...this.props.componentData,
+              ...this.getSpoilerConfig(!this.props.componentData.config?.spoiler?.enabled),
             });
           },
         },
@@ -359,9 +298,8 @@ export class GallerySettingsModal extends Component {
 
   render() {
     const styles = this.styles;
-    const { t, isMobile, languageDir, pubsub, theme } = this.props;
+    const { t, isMobile, languageDir, theme, onCancel, onSave } = this.props;
     const { activeTab } = this.state;
-    this.componentData = pubsub.get('componentData');
 
     return (
       <div
@@ -372,19 +310,11 @@ export class GallerySettingsModal extends Component {
         dir={languageDir}
       >
         {isMobile && (
-          <SettingsMobileHeader
-            theme={theme}
-            onCancel={this.revertComponentData}
-            onSave={this.onDoneClick}
-            t={t}
-          />
+          <SettingsMobileHeader theme={theme} onCancel={onCancel} onSave={onSave} t={t} />
         )}
         <FocusManager focusTrapOptions={{ initialFocus: `#${activeTab}_header` }} dir={languageDir}>
           {!isMobile && (
-            <SettingsPanelHeader
-              title={t('GallerySettings_Header')}
-              onClose={this.revertComponentData}
-            />
+            <SettingsPanelHeader title={t('GallerySettings_Header')} onClose={onCancel} />
           )}
           <div className={styles.gallerySettings_tabsContainer}>
             <Tabs value={activeTab} theme={this.props.theme} onTabSelected={this.onTabSelected}>
@@ -394,8 +324,8 @@ export class GallerySettingsModal extends Component {
           {!isMobile && (
             <SettingsPanelFooter
               fixed
-              cancel={this.revertComponentData}
-              save={this.onDoneClick}
+              cancel={onCancel}
+              save={onSave}
               theme={this.props.theme}
               t={t}
             />
@@ -420,6 +350,9 @@ GallerySettingsModal.propTypes = {
   languageDir: PropTypes.string,
   accept: PropTypes.string,
   shouldShowSpoiler: PropTypes.bool,
+  onSave: PropTypes.func,
+  onCancel: PropTypes.func,
+  updateData: PropTypes.func,
 };
 
 export default GallerySettingsModal;

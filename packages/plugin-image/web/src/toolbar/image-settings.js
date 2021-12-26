@@ -57,7 +57,6 @@ class ImageSettings extends Component {
 
   baseToggleData = [
     {
-      toggleKey: 'isExpandEnabled',
       labelKey: 'ImagePlugin_Settings_ImageOpensInExpandMode_Label',
       dataHook: 'imageExpandToggle',
       tooltipText: this.props.t('ImageSettings_Expand_Mode_Toggle'),
@@ -66,7 +65,6 @@ class ImageSettings extends Component {
         this.props.updateData({ disableExpand: !this.props.componentData.disableExpand }),
     },
     {
-      toggleKey: 'isDownloadEnabled',
       labelKey: 'ImagePlugin_Settings_ImageCanBeDownloaded_Label',
       dataHook: 'imageDownloadToggle',
       tooltipText: this.props.t('ImagePlugin_Settings_ImageCanBeDownloaded_Tooltip'),
@@ -83,7 +81,6 @@ class ImageSettings extends Component {
           type: DIVIDER,
         },
         {
-          toggleKey: 'isSpoilerEnabled',
           labelKey: 'ImageSettings_Spoiler_Toggle',
           dataHook: 'imageSpoilerToggle',
           tooltipText: this.props.t('Spoiler_Toggle_Tooltip'),
