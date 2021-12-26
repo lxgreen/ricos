@@ -25,8 +25,9 @@
 ### :house: Internal
 
 - `plugin-commons`
-
   - [#3302](https://github.com/wix/ricos/pull/3302) refactor color-picker
+- `gallery`
+  - [#3316](https://github.com/wix/ricos/pull/3316) performance improvement
 
 </details>
 <hr/>

@@ -24,9 +24,6 @@ class GalleryViewer extends React.Component {
     super(props);
     this.domId = this.props.blockKey || 'v-' + this.props.entityIndex;
     this.containerRef = React.createRef();
-    this.state = {
-      ...this.stateFromProps(props),
-    };
   }
 
   componentDidMount() {
@@ -64,8 +61,35 @@ class GalleryViewer extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({ ...this.stateFromProps(nextProps) });
+  static getDerivedStateFromProps(props) {
+    const {
+      componentData: { items: contentItems },
+      anchorTarget,
+      relValue,
+    } = props;
+    let items = contentItems || [];
+    items = items.filter(item => !item.error);
+    items = items.length > 0 ? convertItemData({ items, anchorTarget, relValue }) : sampleItems;
+    return {
+      items,
+    };
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const {
+      componentData: { styles: currentStyles, items: currentItems, config: currentConfig },
+    } = this.props;
+
+    const {
+      componentData: { styles: nextStyles, items: nextItems, config: nextConfig },
+    } = nextProps;
+
+    return (
+      !isEqual(nextState.size, this.state.size) ||
+      !isEqual(nextStyles, currentStyles) ||
+      !isEqual(nextItems, currentItems) ||
+      !isEqual(nextConfig, currentConfig)
+    );
   }
 
   componentDidUpdate(prevProps) {
@@ -127,24 +151,6 @@ class GalleryViewer extends React.Component {
       this.setState({ size: { width, height } });
     }
   }, 100);
-
-  stateFromProps = props => {
-    let items = props.componentData.items || [];
-    items = items.filter(item => !item.error);
-    return {
-      items,
-    };
-  };
-
-  getItems() {
-    const { items } = this.state;
-    const { anchorTarget, relValue } = this.props;
-    if (items.length > 0) {
-      return convertItemData({ items, anchorTarget, relValue });
-    } else {
-      return sampleItems;
-    }
-  }
 
   handleGalleryEvents = (name, data) => {
     const {
@@ -260,8 +266,7 @@ class GalleryViewer extends React.Component {
     const { theme, settings, seoMode } = this.props;
     this.styles = this.styles || mergeStyles({ styles, theme });
     const { scrollingElement, ...gallerySettings } = settings;
-    const { size } = this.state;
-    const items = this.getItems();
+    const { size, items } = this.state;
     const styleParams = this.getStyleParams();
     const viewMode = seoMode ? GALLERY_CONSTS.viewMode.SEO : undefined;
 
