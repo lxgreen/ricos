@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `tiptap-extensions`
+  - [#3318](https://github.com/wix/ricos/pull/3318) tiptap: unsupported content extensions
+
 </details>
 <hr/>
 
