@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.65.25 (Dec 26, 2021)
+
 ### :bug: Bug Fix
 
 - `ricos-content`
@@ -26,9 +31,6 @@
 
 - `tiptap-extensions`
   - [#3318](https://github.com/wix/ricos/pull/3318) tiptap: unsupported content extensions
-
-</details>
-<hr/>
 
 ## 8.65.24 (Dec 26, 2021)
 
