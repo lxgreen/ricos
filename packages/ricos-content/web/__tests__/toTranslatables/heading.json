@@ -84,7 +84,8 @@
         "level": 2,
         "textStyle": {
           "textAlignment": "JUSTIFY"
-        }
+        },
+        "indentation": 0
       }
     }
   ],

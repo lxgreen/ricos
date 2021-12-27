@@ -1748,7 +1748,8 @@
         "level": 3,
         "textStyle": {
           "textAlignment": "JUSTIFY"
-        }
+        },
+        "indentation": 0
       }
     },
     {

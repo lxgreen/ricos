@@ -18,7 +18,8 @@
         "level": 1,
         "textStyle": {
           "textAlignment": "AUTO"
-        }
+        },
+        "indentation": 0
       }
     },
     {
@@ -39,7 +40,8 @@
         "level": 3,
         "textStyle": {
           "textAlignment": "AUTO"
-        }
+        },
+        "indentation": 0
       }
     },
     {

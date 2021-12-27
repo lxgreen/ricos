@@ -17,6 +17,10 @@ import innerWithUnsupported from './inner-rce-with-unsupported-styling.json';
 import innerWithUnsupportedMigrated from './inner-rce-with-unsupported-styling-migrated.json';
 import faultyLinkValues from './faulty-link-values.json';
 import faultyLinkValuesMigrated from './faulty-link-values-migrated.json';
+import faultyBlockValues from './faulty-block-values.json';
+import faultyBlockValuesMigrated from './faulty-block-values-migrated.json';
+import faultyDividerValues from './faulty-divider-values.json';
+import faultyDividerValuesMigrated from './faulty-divider-values-migrated.json';
 import polyfills from '../../../../../../../../e2e/tests/fixtures/polyfills.json';
 import { getTextNodes } from '../getTextNodes';
 import complexRicosFixture from '../../../../../statics/json/migratedFixtures/migration-content.json';
@@ -394,6 +398,28 @@ describe('migrate from draft', () => {
     const converted = fromDraft(faultyLinkValues, { ignoreUnsupportedValues: true });
     expect(
       compare(converted, RichContent.fromJSON(faultyLinkValuesMigrated), {
+        ignoredKeys: ['id'],
+      })
+    ).toEqual({});
+  });
+
+  it('should convert faulty blocks content correctly', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const converted = fromDraft(faultyBlockValues, { ignoreUnsupportedValues: true });
+    expect(
+      compare(converted, RichContent.fromJSON(faultyBlockValuesMigrated), {
+        ignoredKeys: ['id'],
+      })
+    ).toEqual({});
+  });
+
+  it('should convert faulty divider content correctly', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const converted = fromDraft(faultyDividerValues, { ignoreUnsupportedValues: true });
+    expect(
+      compare(converted, RichContent.fromJSON(faultyDividerValuesMigrated), {
         ignoredKeys: ['id'],
       })
     ).toEqual({});

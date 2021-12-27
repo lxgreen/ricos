@@ -51,6 +51,12 @@ const parseDocStyle = documentStyle => {
   return documentStyle;
 };
 
+const normalizeBlock = block => {
+  block.depth = block.depth || 0;
+  block.entityRanges = block.entityRanges || [];
+  block.inlineStyleRanges = block.inlineStyleRanges || [];
+};
+
 export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}): RichContent => {
   const { blocks, entityMap, documentStyle, ID: id } = cloneDeep(draftJSON);
   const nodes: Node[] = [];
@@ -63,6 +69,8 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
     if (!block) {
       return -1;
     }
+
+    normalizeBlock(block);
 
     switch (block.type) {
       case BlockType.Atomic:
@@ -147,7 +155,7 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
       type: Node_Type.HEADING,
       headingData: {
         level: getLevel(block.type),
-        indentation: block.depth || undefined,
+        indentation: block.depth,
         textStyle: getTextStyle(block.data),
       },
       nodes: getTextNodes(block, entityMap, opts),

@@ -183,7 +183,7 @@
           "textData": { "text": "Create Relevant Content", "decorations": [] }
         }
       ],
-      "headingData": { "level": 2, "textStyle": { "textAlignment": "AUTO", "lineHeight": "1.38" } }
+      "headingData": { "level": 2, "textStyle": { "textAlignment": "AUTO", "lineHeight": "1.38" }, "indentation": 0 }
     },
     {
       "type": "PARAGRAPH",

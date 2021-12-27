@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3308](https://github.com/wix/ricos/pull/3308) fix faulty draft values
+
 ### :house: Internal
 
 - `tiptap-extensions`

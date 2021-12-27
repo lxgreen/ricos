@@ -71,7 +71,7 @@ const getDynamicStyles = (node: Node) => {
 };
 
 export const createTextBlockData = (node: Node) => {
-  const { indentation } = node[RICOS_NODE_TYPE_TO_DATA_FIELD[node.type]] || {};
+  const { indentation = 0 } = node[RICOS_NODE_TYPE_TO_DATA_FIELD[node.type]] || {};
   const { textAlignment, lineHeight, paddingTop, paddingBottom } = getDynamicStyles(node);
   return JSON.parse(
     JSON.stringify({

@@ -1803,6 +1803,7 @@
         "textStyle": {
           "textAlignment": "JUSTIFY"
         },
+        "indentation": 0,
         "style": {
           "paddingTop": "0px",
           "paddingBottom": "0px"
