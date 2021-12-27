@@ -14,8 +14,15 @@ jobs:
         uses: arduino/setup-protoc@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+
       - run: npx midgard-yarn install --frozen-lockfile
-      - run: npm run analyzeBundles --silent
+
+      - name: build packages
+        env:
+          LAGE_NPM_TOKEN: '${{ secrets.LAGE_NPM_TOKEN }}'
+        run: npm run build:ci
+
+      - run: npm run analyzeBundles:nobuild --silent
+
     env:
       REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      LAGE_NPM_TOKEN: ${{ secrets.LAGE_NPM_TOKEN }}
