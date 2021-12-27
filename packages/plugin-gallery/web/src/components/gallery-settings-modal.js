@@ -38,6 +38,11 @@ class ManageMediaSection extends Component {
     }
   };
 
+  handleFileSelection = (index, multiple, handleFilesAdded, deleteBlock) => {
+    const { helpers, data } = this.props;
+    helpers.handleFileSelection(index, multiple, handleFilesAdded, deleteBlock, data);
+  };
+
   render() {
     const { helpers, store, t, relValue, anchorTarget, isMobile, uiSettings, accept } = this.props;
     const { handleFileSelection } = helpers;
