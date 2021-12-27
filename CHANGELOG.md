@@ -17,13 +17,20 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.65.26 (Dec 26, 2021)
+
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3321](https://github.com/wix/ricos/pull/3321) fix handle file selection from settings modal
+
 ### :house: Internal
 
 - `ui-components`
   - [#3319](https://github.com/wix/ricos/pull/3319) revert commit 042e5525faa55043f20006059276b4af06b112f0
-
-</details>
-<hr/>
 
 ## 8.65.25 (Dec 26, 2021)
 
