@@ -4,7 +4,6 @@ import { mergeStyles } from 'wix-rich-content-common';
 import {
   RadioGroupVertical,
   SelectionList,
-  SelectionListItem,
   Separator,
   LabeledToggle,
   Label,
@@ -20,8 +19,11 @@ class CollapsibleListSettings extends Component {
     this.styles = mergeStyles({ styles, theme });
   }
 
-  renderOption = ({ item, selected }) => (
-    <SelectionListItem icon={<item.icon />} selected={selected} label={item.label} />
+  renderOption = ({ item }) => (
+    <>
+      <item.icon />
+      <p>{item.label}</p>
+    </>
   );
 
   renderExpandOptions = () => {
@@ -109,6 +111,7 @@ class CollapsibleListSettings extends Component {
           value={getDataManager().getDirection()}
           onChange={getDataManager().changeDirection}
           className={this.styles.direction_selector}
+          optionClassName={this.styles.direction_selector_option}
         />
       </>
     );

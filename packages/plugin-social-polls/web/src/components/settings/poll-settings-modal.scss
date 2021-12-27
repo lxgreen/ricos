@@ -124,6 +124,10 @@
   box-sizing: border-box;
 }
 
+.selectionListOptionLabel {
+  margin: 5px 0;
+}
+
 .selectionListOption:hover:not(.selectionListOption_selected) {
   background-color: rgba(2, 97, 255, 0.06);
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
-import { SelectionList, SelectionListItem } from 'wix-rich-content-ui-components';
+import { SelectionList } from 'wix-rich-content-ui-components';
 import styles from '../../../statics/styles/image-ratio-selector.scss';
 class ImageRatioSelector extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class ImageRatioSelector extends Component {
   dataMapper = ({ ratio }) => ({ value: ratio });
 
   renderOption = ({ item, selected }) => (
-    <SelectionListItem label={item.name}>
+    <div className={this.styles.imageRatioSelector_tile}>
       <div
         className={classNames(
           this.styles.imageRatioSelector_ratioButton,
@@ -26,7 +26,8 @@ class ImageRatioSelector extends Component {
           })}
         />
       </div>
-    </SelectionListItem>
+      <span className={this.styles.imageRatioSelector_ratioLabel}>{item.name}</span>
+    </div>
   );
 
   render() {
@@ -77,6 +78,7 @@ class ImageRatioSelector extends Component {
           renderItem={this.renderOption}
           value={value}
           onChange={onChange}
+          optionClassName={styles.imageRatioSelector_option}
         />
       </div>
     );

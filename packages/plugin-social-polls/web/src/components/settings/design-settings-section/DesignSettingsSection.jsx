@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { ColorPicker } from 'wix-rich-content-plugin-commons';
-import {
-  SliderWithInput,
-  SettingsSeparator,
-  SelectionList,
-  SelectionListItem,
-} from 'wix-rich-content-ui-components';
+import { SliderWithInput, SettingsSeparator, SelectionList } from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 
 import { ColorIcon, ImageIcon, GradientIcon } from '../../../assets/icons';
@@ -76,8 +71,11 @@ export class DesignSettingsSection extends Component {
 
   dataMapper = ({ name }) => ({ value: name });
 
-  renderOption = ({ item, selected }) => (
-    <SelectionListItem icon={<item.icon />} label={item.label} selected={selected} />
+  renderOption = ({ item }) => (
+    <>
+      <item.icon />
+      <p className={styles.selectionListOptionLabel}>{item.label}</p>
+    </>
   );
 
   getBackgroundColorValue() {

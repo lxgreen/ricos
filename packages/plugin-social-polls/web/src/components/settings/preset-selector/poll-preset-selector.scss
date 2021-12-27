@@ -24,6 +24,13 @@
   height: 126px;
 }
 
+.selectionListOptionLabel {
+  margin: 5px 0;
+  color: var(--ricos-settings-text-color, #000);
+  white-space: nowrap;
+  font-size: 12px;
+}
+
 .selectionListOption:hover:not(.selectionListOption_selected),
 .selectionListOption:hover {
   background: rgba(0, 0, 0, 0.1) ;
@@ -44,6 +51,13 @@
     align-items: center;
     justify-content: start;
     height: auto;
+  }
+}
+
+.selectionListOptionLabel {
+  @include phone {
+    margin-left: 15px;
+    font-size: 16px;
   }
 }
 

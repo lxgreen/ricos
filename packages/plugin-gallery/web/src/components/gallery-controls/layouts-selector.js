@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import { getGalleryLayoutsSettings } from '../../layout-helper';
 import { mergeStyles } from 'wix-rich-content-common';
-import { SelectionList, SelectionListItem } from 'wix-rich-content-ui-components';
+import { SelectionList } from 'wix-rich-content-ui-components';
 import styles from '../../../statics/styles/layout-selector.scss';
 
 class LayoutSelector extends Component {
@@ -26,7 +27,14 @@ class LayoutSelector extends Component {
   dataMapper = ({ layoutId }) => ({ value: layoutId });
 
   renderOption = ({ item, selected }) => (
-    <SelectionListItem label={item.name} selected={selected} icon={<item.icon />} />
+    <div className={this.styles.layoutsSelector_tile}>
+      <item.icon
+        className={classNames(this.styles.layoutsSelector_icon, {
+          [this.styles.layoutsSelector_icon_selected]: selected,
+        })}
+      />
+      <span className={this.styles.layoutsSelector_tile_label}>{item.name}</span>
+    </div>
   );
 
   render() {
@@ -44,6 +52,7 @@ class LayoutSelector extends Component {
           renderItem={this.renderOption}
           value={value}
           onChange={value => onChange(value)}
+          optionClassName={styles.layoutsSelector_option}
         />
       </div>
     );

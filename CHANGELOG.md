@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `ui-components`
+  - [#3319](https://github.com/wix/ricos/pull/3319) revert commit 042e5525faa55043f20006059276b4af06b112f0
+
 </details>
 <hr/>
 
@@ -113,8 +118,6 @@
 
 ### :house: Internal
 
-- `ui-components`
-  - [#3279](https://github.com/wix/ricos/pull/3279) Created selectionListItem component and used it in polls/gallery/collapsible-list
 - `tiptap-extensions`
   - [#3288](https://github.com/wix/ricos/pull/3288) all tiptap extensions refactored to RicosExtensions
 

@@ -24,6 +24,21 @@
   }
 }
 
+.thumbnailPlacementSelector_tile {
+  width: 46px;
+  height: 46px;
+  display: inline-block;
+}
+
+.thumbnailPlacementSelector_icon {
+  width: 46px;
+  height: 46px;
+}
+
+.thumbnailPlacementSelector_icon_selected {
+  color: $action-color;
+}
+
 .thumbnailPlacementSelector_bottom {
   transform: rotateZ(0);
 }
