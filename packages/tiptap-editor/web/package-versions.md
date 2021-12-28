@@ -22,7 +22,7 @@ These are versions of extensions our extensions are based on
 
 ### @tiptap/extension-blockquote@2.0.0-beta.26
 
-Note: slightly modified (only paragraph allowed in content)
+- only paragraph allowed in content
 
 ### @tiptap/extension-bold@2.0.0-beta.25
 
@@ -38,7 +38,7 @@ Note: slightly modified (only paragraph allowed in content)
 
 ### @tiptap/extension-heading@2.0.0-beta.24
 
-Note: slightly modified (HeadingData)
+- HeadingData
 
 ### @tiptap/extension-highlight@2.0.0-beta.31
 
@@ -48,13 +48,13 @@ Note: slightly modified (HeadingData)
 
 ### @tiptap/extension-list-item@2.0.0-beta.20
 
-Note: slightly modified (only paragraph allowed in content)
+- only paragraph allowed in content
 
 ### @tiptap/extension-ordered-list@2.0.0-beta.25
 
 ### @tiptap/extension-paragraph@2.0.0-beta.23
 
-Note: slightly modified (`div` rendered instead of `p`)
+- `div` rendered instead of `p`
 
 ### @tiptap/extension-text@2.0.0-beta.15
 
@@ -62,16 +62,17 @@ Note: slightly modified (`div` rendered instead of `p`)
 
 ### @tiptap/extension-placeholder@2.0.0-beta.45
 
-Note: slightly modified (editor.isEmpty returns false for draft-originated content)
+- `editor.isEmpty` returns false for draft-originated content
 
 ### @tiptap/extension-link@2.0.0-beta.33
 
-Note: slightly modified (LinkData)
+- LinkData
 
 ## yarn resolutions in root package.json (currently not applied)
 
 To make sure we get each grand-dependency appears once, these can be added to the package.json resolutions section.
 
+```json
 "prosemirror-commands": "1.1.12",
 "prosemirror-keymap": "1.1.5",
 "prosemirror-dropcursor": "1.4.0",
@@ -82,3 +83,5 @@ To make sure we get each grand-dependency appears once, these can be added to th
 "prosemirror-state": "1.3.4",
 "prosemirror-transform": "1.3.3",
 "prosemirror-view": "1.23.3"
+
+```
