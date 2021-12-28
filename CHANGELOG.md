@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
 
+- `tiptap-extensions`
+  - [#3330](https://github.com/wix/ricos/pull/3330) placeholder & text direction
 
 </details>
 <hr/>
