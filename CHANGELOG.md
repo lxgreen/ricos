@@ -17,15 +17,19 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.65.27 (Dec 27, 2021)
+
 ### :house: Internal
 
 - `ui-components`
   - [#3325](https://github.com/wix/ricos/pull/3325) revert settingspanleheader component
 - `link`
   - [#3326](https://github.com/wix/ricos/pull/3326) tiptap-based link extension moved to tiptap-extensions
-
-</details>
-<hr/>
 
 ## 8.65.26 (Dec 26, 2021)
 
