@@ -37,7 +37,6 @@
   },
   "dependencies": {
     "ricos-content": "8.65.26",
-    "ricos-tiptap-types": "8.65.26",
     "wix-rich-content-common": "8.65.26",
     "wix-rich-content-editor-common": "8.65.26",
     "wix-rich-content-plugin-commons": "8.65.26",

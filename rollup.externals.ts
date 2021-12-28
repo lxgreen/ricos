@@ -33,9 +33,9 @@ const externals = [
   /^react-player$/,
   /^@loadable\/component$/,
   /@babel\/runtime/,
-  /@tiptap\/core/,
-  /@tiptap\/react/,
-  /prosemirror-.*/,
+  /^@tiptap.*/,
+  /prosemirror/,
+  /linkifyjs/,
 ];
 
 const excludedExternalsRegexArr = [

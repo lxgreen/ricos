@@ -26,3 +26,18 @@
   color: $ricos-quote-color;
   @include ricosTypography('quote', false);
 }
+
+.link {
+  color: $ricos-link-color;
+  @include ricosTypography('link', false);
+}
+.linkInEditor {
+  &:hover {
+    cursor: text;
+  }
+}
+.linkInViewer {
+  &:hover {
+    cursor: pointer;
+  }
+}

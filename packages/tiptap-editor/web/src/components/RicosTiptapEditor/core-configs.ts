@@ -17,6 +17,7 @@ import {
   createBlockquote,
   createOrderedList,
   createTrailingNode,
+  createLink,
 } from 'wix-tiptap-extensions';
 
 export const coreConfigs: RicosExtension[] = [
@@ -37,4 +38,5 @@ export const coreConfigs: RicosExtension[] = [
   createBlockquote(),
   createOrderedList(),
   createTrailingNode(),
+  createLink({}),
 ];
