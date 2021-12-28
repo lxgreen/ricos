@@ -70,7 +70,7 @@ These are versions of extensions our extensions are based on
 
 ## yarn resolutions in root package.json (currently not applied)
 
-To make sure we get each grand-dependency appears once, these can be added to the package.json resolutions section.
+To make sure that each grand-dependency appears once, these can be added to the package.json resolutions section.
 
 ```json
 "prosemirror-commands": "1.1.12",
