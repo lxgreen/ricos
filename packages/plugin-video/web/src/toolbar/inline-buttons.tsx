@@ -47,6 +47,16 @@ const createInlineButtons: CreateInlineButtons = ({
     : { ...DesktopFlyOutModalStyles, content: videoModalContentStyles };
   const customStyles = useNewModal ? newModalCustomStyles : defaultCustomStyles;
 
+  const modalsStyle = getModalStyles({
+    customStyles,
+    fullScreen: !!useNewModal,
+    isMobile,
+  });
+
+  const newModalStyles = isMobile ? modalsStyle : undefined;
+
+  const modalStyles = useNewModal ? newModalStyles : modalsStyle;
+
   const spoilerButton =
     settings.spoiler && spoilerInInlineToolbar?.enabled
       ? [
@@ -94,33 +104,29 @@ const createInlineButtons: CreateInlineButtons = ({
       modalElement: decorateComponentWithProps(VideoModal, {
         ...settings,
       }),
-      modalStylesFn: ({ buttonRef }) => {
-        const modalStyles = getModalStyles({
-          customStyles,
-          fullScreen: true,
-          isMobile,
-        });
-        const { top, left } = buttonRef.getBoundingClientRect();
-        const modalLeft = left - 15;
-        const modalTop = top > 250 ? top - 250 : top + 38;
-        return {
-          ...modalStyles,
-          content: {
-            ...modalStyles.content,
-            top: modalTop,
-            left: modalLeft,
-            margin: 0,
-            position: 'absolute',
-          },
-        };
-      },
-      modalStyles: isMobile
-        ? getModalStyles({
-            customStyles: MOBILE_FULL_SCREEN_CUSTOM_STYLE,
-            fullScreen: true,
-            isMobile,
-          })
+      modalStylesFn: useNewModal
+        ? ({ buttonRef }) => {
+            const modalStyles = getModalStyles({
+              customStyles,
+              fullScreen: true,
+              isMobile,
+            });
+            const { top, left } = buttonRef.getBoundingClientRect();
+            const modalLeft = left - 15;
+            const modalTop = top > 250 ? top - 250 : top + 38;
+            return {
+              ...modalStyles,
+              content: {
+                ...modalStyles.content,
+                top: modalTop,
+                left: modalLeft,
+                margin: 0,
+                position: 'absolute',
+              },
+            };
+          }
         : undefined,
+      modalStyles,
       mobile: true,
       tooltipTextKey: 'ReplaceVideoButton_Tooltip',
       t,

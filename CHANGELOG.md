@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `video`
+  - [#3331](https://github.com/wix/ricos/pull/3331) fix video-modal ui when opened from the replace button
+
 ### :house: Internal
 
 - `tiptap-extensions`
