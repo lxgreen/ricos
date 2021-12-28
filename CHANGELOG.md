@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.65.28 (Dec 27, 2021)
+
 ### :bug: Bug Fix
 
 - `video`
@@ -26,9 +33,6 @@
 
 - `tiptap-extensions`
   - [#3330](https://github.com/wix/ricos/pull/3330) placeholder & text direction
-
-</details>
-<hr/>
 
 ## 8.65.27 (Dec 27, 2021)
 
