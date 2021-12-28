@@ -1,7 +1,7 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 
-$TITLE_HEIGHT: 0;
+$TITLE_HEIGHT: 70px;
 $FOOTER_HEIGHT: 100px;
 $MOBILE_HEADER_HEIGHT: 50px;
 
@@ -15,6 +15,12 @@ $MOBILE_HEADER_HEIGHT: 50px;
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
+}
+
+.imageSettingsTitle {
+  position: absolute;
+  margin: 24px 0 24px 24px;
+  font-size: 20px;
 }
 
 .imageSettingsImageSection {
@@ -42,7 +48,6 @@ $MOBILE_HEADER_HEIGHT: 50px;
 }
 
 .imageSettings_scrollContainer {
-  height: calc(100% - #{$FOOTER_HEIGHT});
   margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
   width: 100%;
 }

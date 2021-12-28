@@ -9,7 +9,6 @@ import {
   SettingsSection,
   TextInput,
   SettingsPanelFooter,
-  SettingsPanelHeader,
   SearchIcon,
   SettingsMobileHeader,
 } from 'wix-rich-content-ui-components';
@@ -228,7 +227,15 @@ export class MapSettingsModal extends Component {
         )}
 
         <div className={this.styles.map_settings_modal_settings_container} data-hook="mapSettings">
-          <SettingsPanelHeader title={t('MapSettings_Title')} onClose={onCancel} />
+          <div
+            className={classNames(
+              this.styles.map_settings_modal_title_container,
+              this.styles.map_settings_modal_main_content_block
+            )}
+          >
+            <h3 className={this.styles.map_settings_modal_title}>{t('MapSettings_Title')}</h3>
+          </div>
+
           {isMobile
             ? this.renderSettingsSections()
             : wrapWithScrollBars(this.renderSettingsSections())}

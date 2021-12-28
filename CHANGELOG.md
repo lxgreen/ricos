@@ -19,6 +19,8 @@
 
 ### :house: Internal
 
+- `ui-components`
+  - [#3325](https://github.com/wix/ricos/pull/3325) revert settingspanleheader component
 - `link`
   - [#3326](https://github.com/wix/ricos/pull/3326) tiptap-based link extension moved to tiptap-extensions
 
@@ -268,11 +270,6 @@ Release of v8.65.2 failed
   - [#3246](https://github.com/wix/ricos/pull/3246) React vs HTML node extension models
 - `tiptap-extensions`
   - [#3248](https://github.com/wix/ricos/pull/3248) refactored bold, paragraph, spoiler extensions
-
-### :nail_care: Polish
-
-- `ui-components - settings-modal`
-  - [#3139](https://github.com/wix/ricos/pull/3139) created settingsPanelHeader component and consume it in video/map/button/gallery/image/collopsible-list plugins
 
 ## 8.65.6 (Dec 09, 2021)
 

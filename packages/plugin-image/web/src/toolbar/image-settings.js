@@ -12,7 +12,6 @@ import {
   Loader,
   SettingsMobileHeader,
   SettingsSeparator,
-  SettingsPanelHeader,
 } from 'wix-rich-content-ui-components';
 import styles from '../../statics/styles/image-settings.scss';
 import { DIVIDER } from '../consts';
@@ -24,6 +23,7 @@ class ImageSettings extends Component {
     const { t, theme } = props;
     this.styles = mergeStyles({ styles, theme });
     this.updateLabel = t('ImageSettings_Update');
+    this.headerText = t('ImageSettings_Header');
     this.captionLabel = t('ImageSettings_Caption_Label');
     this.captionInputPlaceholder = t('ImageSettings_Caption_Input_Placeholder');
     this.altLabel = t('ImageSettings_Alt_Label');
@@ -123,7 +123,7 @@ class ImageSettings extends Component {
         {isMobile ? (
           <SettingsMobileHeader theme={theme} onCancel={onCancel} onSave={onSave} t={t} />
         ) : (
-          <SettingsPanelHeader title={t('ImageSettings_Header')} onClose={onCancel} />
+          <h3 className={this.styles.imageSettingsTitle}>{this.headerText}</h3>
         )}
         <div
           className={classNames(styles.imageSettings_scrollContainer, {

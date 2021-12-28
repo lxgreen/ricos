@@ -8,7 +8,6 @@ import {
   SettingsSection,
   SettingsPanelFooter,
   SettingsMobileHeader,
-  SettingsPanelHeader,
 } from 'wix-rich-content-ui-components';
 
 const VideoSettings: React.FC<VideoSettingsProps> = ({
@@ -61,7 +60,10 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
       {isMobile ? (
         <SettingsMobileHeader t={t} theme={theme} onCancel={onCancel} onSave={onSave} />
       ) : (
-        <SettingsPanelHeader title={t('VideoPlugin_Settings_Header')} onClose={onCancel} />
+        <>
+          <div className={styles.videoSettingsTitle}>{t('VideoPlugin_Settings_Header')}</div>
+          <div className={styles.separator} />
+        </>
       )}
       <SettingsSection theme={theme} className={classNames(styles.videoSettings_toggleContainer)}>
         {toggleData.map(({ labelKey, tooltipText, dataHook, onToggle, checked }) => (
