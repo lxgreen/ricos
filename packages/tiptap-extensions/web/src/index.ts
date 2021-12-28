@@ -17,3 +17,5 @@ export { createBlockquote } from './blockquote';
 export { createOrderedList } from './ordered-list';
 export { createTrailingNode } from './trailingNode';
 export { createLink } from './link/link';
+export { createTextDirection } from './text-direction';
+export { createPlaceholder } from './placeholder';

@@ -9,6 +9,7 @@ import { Extensions } from '../../models/Extensions';
 import { RicosTiptapEditorProps } from '../../types';
 import { coreConfigs } from './core-configs';
 import { patchExtensions } from '../../unsupported-content';
+import '../../statics/styles/tiptap-editor-styles.scss';
 
 // TODO: maybe should move it to utils ?
 const getSelectedNodes = ({ editor }) => {

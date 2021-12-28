@@ -62,7 +62,9 @@ export type OnConfirmFunction = (
   newEditorState: EditorState;
 };
 
-export type TextDirection = 'rtl' | 'ltr';
+export type TextDirection = 'rtl' | 'ltr' | 'auto';
+export const isTextDirection = (dir: string): dir is TextDirection =>
+  ['rtl', 'ltr', 'auto'].includes(dir);
 
 export type TextAlignment = 'left' | 'center' | 'right' | 'justify';
 
