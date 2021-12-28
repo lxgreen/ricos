@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `link`
+  - [#3326](https://github.com/wix/ricos/pull/3326) tiptap-based link extension moved to tiptap-extensions
+
 </details>
 <hr/>
 
