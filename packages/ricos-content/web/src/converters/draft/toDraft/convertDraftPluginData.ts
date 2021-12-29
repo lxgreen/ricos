@@ -201,6 +201,8 @@ const convertGalleryStyles = options => {
     (styles.isVertical = options.layout.orientation === 'COLUMNS');
   has(options, 'layout.numberOfColumns') &&
     (styles.numberOfImagesPerRow = options.layout.numberOfColumns);
+  has(options, 'layout.mobileNumberOfColumns') &&
+    (styles.m_numberOfImagesPerRow = options.layout.mobileNumberOfColumns);
   has(options, 'item.targetSize') && (styles.gallerySizePx = options.item.targetSize);
   has(options, 'item.ratio') && (styles.cubeRatio = options.item.ratio);
   has(options, 'item.crop') && (styles.cubeType = options.item.crop.toLowerCase());

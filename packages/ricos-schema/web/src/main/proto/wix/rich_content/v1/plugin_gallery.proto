@@ -30,6 +30,7 @@ message GalleryOptions {
     google.protobuf.BoolValue horizontal_scroll = 2;
     Orientation orientation = 3;
     google.protobuf.Int32Value number_of_columns = 4;
+    google.protobuf.Int32Value mobile_number_of_columns = 5;
   }
   
   message ItemStyle {

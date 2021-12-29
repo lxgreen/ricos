@@ -151,6 +151,8 @@ const convertGalleryStyles = styles => {
   has(styles, 'isVertical') && (styles.layout.orientation = styles.isVertical ? 'COLUMNS' : 'ROWS');
   has(styles, 'numberOfImagesPerRow') &&
     (styles.layout.numberOfColumns = styles.numberOfImagesPerRow);
+  has(styles, 'm_numberOfImagesPerRow') &&
+    (styles.layout.mobileNumberOfColumns = styles.m_numberOfImagesPerRow);
   has(styles, 'gallerySizePx') && (styles.item.targetSize = styles.gallerySizePx);
   has(styles, 'cubeRatio') && (styles.item.ratio = styles.cubeRatio);
   const cubeType = styles?.cubeType?.toUpperCase();

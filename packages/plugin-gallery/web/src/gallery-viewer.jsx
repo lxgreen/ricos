@@ -244,11 +244,16 @@ class GalleryViewer extends React.Component {
       showArrows: isHorizontalLayout(styleParams),
       ...styleParams,
     };
-    if (isMobile && isHorizontalLayout(calculatedStyles)) {
-      calculatedStyles.arrowsSize = 20;
-      !styleParams.imageMargin && (calculatedStyles.imageMargin = 0);
-      if (calculatedStyles.galleryLayout === GALLERY_LAYOUTS.THUMBNAIL) {
-        calculatedStyles.thumbnailSize = 90;
+    if (isMobile) {
+      if (calculatedStyles.m_numberOfImagesPerRow) {
+        calculatedStyles.numberOfImagesPerRow = calculatedStyles.m_numberOfImagesPerRow;
+      }
+      if (isHorizontalLayout(calculatedStyles)) {
+        calculatedStyles.arrowsSize = 20;
+        !styleParams.imageMargin && (calculatedStyles.imageMargin = 0);
+        if (calculatedStyles.galleryLayout === GALLERY_LAYOUTS.THUMBNAIL) {
+          calculatedStyles.thumbnailSize = 90;
+        }
       }
     }
     calculatedStyles.thumbnailSpacings && (calculatedStyles.thumbnailSpacings /= 2);

@@ -222,6 +222,7 @@ export type DraftGalleryStyles = {
   cubeRatio?: number;
   isVertical?: boolean;
   numberOfImagesPerRow?: number;
+  m_numberOfImagesPerRow?: number;
   cubeType?: string;
   galleryThumbnailsAlignment?: string;
   imageMargin?: number;

@@ -21,6 +21,10 @@
 - `headings`
   - [#3163](https://github.com/wix/ricos/pull/3163) fix lists wiring to `documentStyle`
 
+### :house: Internal
+- `schema`
+  - [#3311](https://github.com/wix/ricos/pull/3311) add `mobileNumberOfColumns` to gallery schema to allow adaptivity between mobile and desktop
+
 </details>
 <hr/>
 
