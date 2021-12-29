@@ -120,6 +120,7 @@ const convertVideoData = (data: {
   video;
   thumbnail;
   title?;
+  duration?: number;
 }) => {
   if (typeof data.src === 'string') {
     data.video = { src: { url: data.src } };
@@ -138,6 +139,7 @@ const convertVideoData = (data: {
       height: data.src.thumbnail.height,
     };
   }
+  data.video.duration = data.duration;
 };
 
 const convertGalleryStyles = styles => {

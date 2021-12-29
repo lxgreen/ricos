@@ -17,10 +17,17 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+- `video`
+  - [#3304](https://github.com/wix/ricos/pull/3304) duration schema
+
+
 ### :house: Internal
 
 - `general`
   - [#3329](https://github.com/wix/ricos/pull/3329) add `forceConsistentCasingInFileNames: true` to tsconfig compiler options
+
 
 </details>
 <hr/>

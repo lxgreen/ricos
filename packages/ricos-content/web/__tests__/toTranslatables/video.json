@@ -15,7 +15,8 @@
         "video": {
           "src": {
             "id": "video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4"
-          }
+          },
+          "duration": 666
         },
         "thumbnail": {
           "src": {

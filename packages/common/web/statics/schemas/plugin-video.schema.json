@@ -82,6 +82,12 @@
             "examples": ["nowrap"]
           }
         }
+      },
+      "duration": {
+        "$id": "/properties/duration",
+        "type": "number",
+        "title": "video duration",
+        "default": null
       }
     },
     "required": ["src"]
