@@ -26,6 +26,9 @@
 
 - `video`
   - [#3304](https://github.com/wix/ricos/pull/3304) duration schema
+  - [#3301](https://github.com/wix/ricos/pull/3301) add duration to video content
+  - [#3301](https://github.com/wix/ricos/pull/3301) add onProgress/progressInterval to video settings
+
 
 ### :house: Internal
 

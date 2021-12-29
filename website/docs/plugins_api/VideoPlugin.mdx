@@ -77,6 +77,25 @@ This function take the pathname and form a full URL (invoked when rendering vide
 getVideoUrl?: (src: { pathname: string }) => string;
 ```
 
+### `onProgress`
+
+Callback containing
+* `played` and `loaded` progress as a fraction.
+* `playedSeconds` and `loadedSeconds` in seconds.
+* `id` of video
+
+```jsx
+onProgress?: () => ({ played: number, playedSeconds: number, loaded: number, loadedSeconds: number, id: string });
+```
+
+### `progressInterval`
+
+The time between onProgress callbacks, in milliseconds (default `1000`)
+
+```jsx
+progressInterval?: number;
+```
+
 ### `toolbar`
 
 The toolbar setting refers to the plugin functionality toolbar, it is an object which may consist of the following keys:
