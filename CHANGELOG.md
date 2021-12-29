@@ -17,20 +17,25 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.65.29 (Dec 27, 2021)
+
 ### :rocket: New Feature
 
 - `video`
   - [#3304](https://github.com/wix/ricos/pull/3304) duration schema
-
 
 ### :house: Internal
 
 - `general`
   - [#3329](https://github.com/wix/ricos/pull/3329) add `forceConsistentCasingInFileNames: true` to tsconfig compiler options
 
+### :bug: Bug Fix
 
-</details>
-<hr/>
+- `settings-modal`
+  - [#3290](https://github.com/wix/ricos/pull/3290) revert settings-modal using editor commands
 
 ## 8.65.28 (Dec 27, 2021)
 
