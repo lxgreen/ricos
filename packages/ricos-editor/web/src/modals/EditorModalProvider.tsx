@@ -7,15 +7,11 @@ import React, {
   FunctionComponent,
 } from 'react';
 import mergeModalStyles from './mergeModalStyles';
-import {
-  ModalStyles,
-  ModalsMap,
-  AvailableExperiments,
-  EditorCommands,
-} from 'wix-rich-content-common';
+import { ModalStyles, ModalsMap, AvailableExperiments } from 'wix-rich-content-common';
 import { ModalSettings } from 'ricos-common';
 import { merge } from 'lodash';
 import ReactDOM from 'react-dom';
+
 interface Props {
   children: ReactElement;
   ModalsMap: ModalsMap;
@@ -26,7 +22,6 @@ interface Props {
   experiments?: AvailableExperiments;
   onModalOpen: (modalProps: Record<string, unknown>) => void;
   onModalClose: () => void;
-  editorCommands: EditorCommands;
 }
 
 type ModalProps = {
@@ -97,16 +92,7 @@ export default class EditorModalProvider extends Component<Props, State> {
 
   render() {
     const { EditorModal, showModal, modalProps, modalStyles, editorModalId } = this.state;
-    const {
-      children,
-      ModalsMap,
-      locale,
-      theme,
-      ariaHiddenId,
-      container,
-      experiments,
-      editorCommands,
-    } = this.props;
+    const { children, ModalsMap, locale, theme, ariaHiddenId, container, experiments } = this.props;
     const childProps = merge(children.props, this.modalHandlers);
     return (
       <Fragment>
@@ -128,7 +114,6 @@ export default class EditorModalProvider extends Component<Props, State> {
                   locale={locale}
                   target={editorModalId}
                   experiments={experiments}
-                  editorCommands={editorCommands}
                   {...modalProps}
                 />
               </Suspense>

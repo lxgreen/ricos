@@ -5,7 +5,6 @@ import { RichContentModal } from 'wix-rich-content-ui-components';
 import MobileAddPluginModal from './Toolbars/SideToolbar/AddPluginMenu';
 import BlockLinkModal from './Toolbars/BlockLinkModal';
 import TextLinkModal from './Toolbars/TextLinkModal';
-import EditorCommandModalProvider from './EditorCommandModalProvider';
 
 const Modals = {
   [EditorModals.MOBILE_ADD_PLUGIN]: MobileAddPluginModal,
@@ -26,8 +25,6 @@ const RichContentEditorModal: FunctionComponent<Props> = ({
   modalName,
   modalElement,
   modalsMap,
-  editorCommands,
-  pluginId,
   ...modalProps
 }) => {
   const ModalsMap = { ...Modals, ...modalsMap };
@@ -43,19 +40,7 @@ const RichContentEditorModal: FunctionComponent<Props> = ({
       onMouseDown={e => e.nativeEvent.stopImmediatePropagation()}
       data-id="rich-content-editor-modal"
     >
-      {editorCommands ? (
-        <EditorCommandModalProvider
-          editorCommands={editorCommands}
-          closeModal={modalProps.helpers?.closeModal}
-          pubsub={modalProps.pubsub}
-          componentData={modalProps.componentData}
-          pluginType={pluginId}
-        >
-          <RichContentModal modalElement={element} {...modalProps} />
-        </EditorCommandModalProvider>
-      ) : (
-        <RichContentModal modalElement={element} {...modalProps} />
-      )}
+      <RichContentModal modalElement={element} {...modalProps} />
     </div>
   );
 };

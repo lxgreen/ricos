@@ -331,7 +331,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         key={'editor'}
         toolbarSettings={toolbarSettings}
         getContentId={this.getContentId}
-        editorCommands={this.getEditorCommands()}
         {...contentProp.content}
         {...props}
       >

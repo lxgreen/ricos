@@ -19,28 +19,23 @@ export class LayoutSettingsSection extends Component {
   styles = mergeStyles({ styles, theme: this.props.theme });
 
   updateSettings(layout) {
-    const { updateData, componentData } = this.props;
-    updateData({ layout: { ...componentData.layout, ...layout } });
+    this.props.store.update('componentData', {
+      layout,
+    });
   }
 
   handlePollTypeChange = type => {
-    const {
-      componentData: { layout },
-    } = this.props;
     this.updateSettings({
-      poll: { ...layout.poll, type },
-      option: { ...layout.option, enableImage: type === LAYOUT.GRID },
+      poll: { type },
+      option: { enableImage: type === LAYOUT.GRID },
     });
 
     window.dispatchEvent(new Event('resize'));
   };
 
   handleDirectionChange = direction => {
-    const {
-      componentData: { layout },
-    } = this.props;
     this.updateSettings({
-      poll: { ...layout.poll, direction },
+      poll: { direction },
     });
   };
 
@@ -67,9 +62,7 @@ export class LayoutSettingsSection extends Component {
             <LabeledToggle
               label={t('Poll_PollSettings_Tab_Layout_Section_Question_Image')}
               checked={poll?.enableImage}
-              onChange={() =>
-                this.updateSettings({ poll: { ...poll, enableImage: !poll?.enableImage } })
-              }
+              onChange={() => this.updateSettings({ poll: { enableImage: !poll?.enableImage } })}
               theme={this.props.theme}
             />
 
@@ -106,9 +99,7 @@ export class LayoutSettingsSection extends Component {
           <LabeledToggle
             label={t('Poll_PollSettings_Tab_Layout_Section_Answers_Image')}
             checked={option?.enableImage}
-            onChange={() =>
-              this.updateSettings({ option: { ...option, enableImage: !option?.enableImage } })
-            }
+            onChange={() => this.updateSettings({ option: { enableImage: !option?.enableImage } })}
             theme={this.props.theme}
           />
         )}
@@ -150,5 +141,5 @@ LayoutSettingsSection.propTypes = {
   theme: PropTypes.object.isRequired,
   isMobile: PropTypes.bool.isRequired,
   componentData: PropTypes.object.isRequired,
-  updateData: PropTypes.func.isRequired,
+  store: PropTypes.object.isRequired,
 };

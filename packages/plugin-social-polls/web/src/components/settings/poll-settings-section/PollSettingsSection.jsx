@@ -75,11 +75,9 @@ export class PollSettingsSection extends Component {
   ];
 
   updateSettings(settings) {
-    const { updateData, componentData } = this.props;
-    updateData({
+    this.props.store.update('componentData', {
       poll: {
-        ...componentData.poll,
-        settings: { ...componentData.poll.settings, ...settings },
+        settings,
       },
     });
   }
@@ -172,7 +170,7 @@ export class PollSettingsSection extends Component {
 PollSettingsSection.propTypes = {
   theme: PropTypes.object.isRequired,
   componentData: PropTypes.object.isRequired,
-  updateData: PropTypes.func.isRequired,
+  store: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
   settings: PropTypes.object.isRequired,
 };

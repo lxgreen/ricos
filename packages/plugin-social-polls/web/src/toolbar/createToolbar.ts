@@ -15,7 +15,6 @@ import { Modals } from '../modals';
 import { PollPresetSelector } from '../components/settings/preset-selector';
 import { ModalStyles, CreatePluginToolbar } from 'wix-rich-content-common';
 import { merge } from 'lodash';
-import { POLL_TYPE } from '../types';
 
 export const MobileFullScreenCustomStyle = Object.freeze({
   overlay: {
@@ -73,19 +72,15 @@ const externalToolbarStyles: ModalStyles = {
 };
 
 export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) => {
-  const componentData = merge(DEFAULT_COMPONENT_DATA, {
-    poll: { settings: { voteRole: settings?.voteRole || MEMBER_ROLES.ALL } },
-  });
   const buttonProps = {
     type: BUTTON_TYPES.MODAL,
     name: INSERT_PLUGIN_BUTTONS.POLLS,
     tooltip: t('Poll_InsertPoll_Tooltip'),
     getIcon: () => InsertPluginIcon,
-    componentData,
-    modalElement: decorateComponentWithProps(PollPresetSelector, {
-      componentData,
-      pluginId: POLL_TYPE,
+    componentData: merge(DEFAULT_COMPONENT_DATA, {
+      poll: { settings: { voteRole: settings?.voteRole || MEMBER_ROLES.ALL } },
     }),
+    modalElement: decorateComponentWithProps(PollPresetSelector),
   };
 
   const modalStylesByToolbar = {
@@ -115,7 +110,6 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
               activeTab: TABS.EDIT,
               mobile: true,
               settings,
-              pluginId: POLL_TYPE,
             },
 
             {
@@ -128,7 +122,6 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
               activeTab: TABS.DESIGN,
               mobile: true,
               settings,
-              pluginId: POLL_TYPE,
             },
           ]
         : [

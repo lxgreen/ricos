@@ -12,13 +12,12 @@ import {
 
 const VideoSettings: React.FC<VideoSettingsProps> = ({
   componentData,
+  helpers,
+  pubsub,
   theme,
   t,
   isMobile,
   settings,
-  onSave,
-  onCancel,
-  updateData,
 }) => {
   const disableDownload =
     componentData.disableDownload !== undefined
@@ -26,24 +25,43 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
       : !!settings.disableDownload;
   const isSpoilered = componentData.config?.spoiler?.enabled;
 
+  const [isDownloadEnabled, setIsDownloadEnabled] = useState(!disableDownload);
+  const [isSpoilerEnabled, setIsSpoilerEnabled] = useState(isSpoilered);
   const styles = mergeStyles({ styles: Styles, theme });
-
+  const closeModal = () => helpers.closeModal?.();
+  const getSpoilerConfig = enabled => ({
+    config: { ...componentData.config, spoiler: { enabled } },
+  });
+  const onDoneClick = () => {
+    const newComponentData = {
+      ...componentData,
+      disableDownload: !isDownloadEnabled,
+      ...getSpoilerConfig(isSpoilerEnabled),
+    };
+    pubsub.update('componentData', newComponentData);
+    closeModal();
+  };
   const isCustomVideo = !!componentData.isCustomVideo;
 
   const spoilerToggle = {
+    toggleKey: 'isSpoilerEnabled',
     labelKey: 'VideoSettings_Spoiler_Toggle',
     dataHook: 'videoSpoilerToggle',
     tooltipText: 'Spoiler_Toggle_Tooltip',
-    checked: isSpoilered,
-    onToggle: () =>
-      updateData({ config: { ...componentData.config, spoiler: { enabled: !isSpoilered } } }),
+    checked: isSpoilerEnabled,
+    onToggle: () => {
+      const value = !isSpoilerEnabled;
+      setIsSpoilerEnabled(value);
+      pubsub.update('componentData', { ...componentData, ...getSpoilerConfig(value) });
+    },
   };
   const downloadToggle = {
+    toggleKey: 'isDownloadEnabled',
     labelKey: 'VideoPlugin_Settings_VideoCanBeDownloaded_Label',
     dataHook: 'videoDownloadToggle',
     tooltipText: 'VideoPlugin_Settings_VideoCanBeDownloaded_Tooltip',
-    checked: !disableDownload,
-    onToggle: () => updateData({ disableDownload: !disableDownload }),
+    checked: isDownloadEnabled,
+    onToggle: () => setIsDownloadEnabled(!isDownloadEnabled),
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -58,7 +76,7 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
       })}
     >
       {isMobile ? (
-        <SettingsMobileHeader t={t} theme={theme} onCancel={onCancel} onSave={onSave} />
+        <SettingsMobileHeader t={t} theme={theme} onCancel={closeModal} onSave={onDoneClick} />
       ) : (
         <>
           <div className={styles.videoSettingsTitle}>{t('VideoPlugin_Settings_Header')}</div>
@@ -66,9 +84,9 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
         </>
       )}
       <SettingsSection theme={theme} className={classNames(styles.videoSettings_toggleContainer)}>
-        {toggleData.map(({ labelKey, tooltipText, dataHook, onToggle, checked }) => (
+        {toggleData.map(({ toggleKey, labelKey, tooltipText, dataHook, onToggle, checked }) => (
           <LabeledToggle
-            key={labelKey}
+            key={toggleKey}
             theme={theme}
             checked={checked}
             label={t(labelKey)}
@@ -79,7 +97,7 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
         ))}
       </SettingsSection>
       {!isMobile && (
-        <SettingsPanelFooter fixed theme={theme} cancel={onCancel} save={onSave} t={t} />
+        <SettingsPanelFooter fixed theme={theme} cancel={closeModal} save={onDoneClick} t={t} />
       )}
     </div>
   );

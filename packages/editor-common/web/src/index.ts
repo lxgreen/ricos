@@ -26,7 +26,6 @@ export {
   insertLinkAtCurrentSelection,
   insertLinkInPosition,
   getEntityData,
-  getEntityType,
   insertCustomLink,
   hasLinksInBlock,
   getLinkRangesInBlock,
