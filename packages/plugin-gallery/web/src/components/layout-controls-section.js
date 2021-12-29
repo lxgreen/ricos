@@ -58,9 +58,9 @@ class LayoutControlsSection extends Component {
   getValueFromComponentStyles = name => this.props.data.styles[name];
 
   applyGallerySetting = setting => {
-    const { data, updateData } = this.props;
+    const { data, store } = this.props;
     const componentData = { ...data, styles: { ...data.styles, ...setting } };
-    updateData(componentData);
+    store.set('componentData', componentData);
   };
 
   getControlData = t => ({
@@ -183,7 +183,7 @@ class LayoutControlsSection extends Component {
 LayoutControlsSection.propTypes = {
   layout: PropTypes.number.isRequired,
   theme: PropTypes.object.isRequired,
-  updateData: PropTypes.func.isRequired,
+  store: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   languageDir: PropTypes.string.isRequired,
   t: PropTypes.func,
