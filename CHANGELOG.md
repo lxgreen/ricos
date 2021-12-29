@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `tiptap-extensions`
+  - [#3333](https://github.com/wix/ricos/pull/3333) link fixes
 
 
 </details>
