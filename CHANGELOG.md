@@ -22,7 +22,7 @@
 </details>
 <hr/>
 
-## 8.66.01 (Dec 29, 2021)
+## 8.66.1 (Dec 29, 2021)
 
 ### :house: Internal
 
