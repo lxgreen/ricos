@@ -21,6 +21,8 @@
 
 - `tiptap-extensions`
   - [#3333](https://github.com/wix/ricos/pull/3333) link fixes
+- `general`
+  - [#3334](https://github.com/wix/ricos/pull/3334) revert settings-modal-scroll fix
 
 
 </details>
@@ -170,10 +172,7 @@
   - [#3281](https://github.com/wix/ricos/pull/3281) fix image in print mode
 - `editor-common`
   - [#3284](https://github.com/wix/ricos/pull/3284) fix basic link panel ui
-- `polls/gallery/image/collapsibleList`
-
-  - [#3293](https://github.com/wix/ricos/pull/3293) fix settings modal scroll
-
+  
 ### :house: Internal
 
 - `tiptap-extensions`

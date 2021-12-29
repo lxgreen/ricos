@@ -16,7 +16,6 @@ import styles from '../../statics/styles/gallery-settings-modal.scss';
 import LayoutControlsSection from './layout-controls-section';
 import { SortableComponent } from './gallery-controls/gallery-items-sortable';
 import { layoutData } from '../layout-data-provider';
-import classNames from 'classnames';
 const DIVIDER = 'divider';
 class ManageMediaSection extends Component {
   applyItems = items => {
@@ -370,13 +369,7 @@ export class GallerySettingsModal extends Component {
     this.componentData = pubsub.get('componentData');
 
     return (
-      <div
-        data-hook="settings"
-        className={classNames(styles.gallery_scrollContainer, {
-          [styles.gallery_scrollContainer_mobile]: isMobile,
-        })}
-        dir={languageDir}
-      >
+      <div data-hook="settings" dir={languageDir}>
         {isMobile && (
           <SettingsMobileHeader
             theme={theme}
