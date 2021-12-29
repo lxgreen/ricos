@@ -16,7 +16,8 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "preserveConstEnums": false,
-    "allowJs": true
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true
   },
   "files": ["external-types.d.ts"],
   "include": ["packages", "packages/**/*.json", "*.ts", "scripts"],

@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
 
+- `general`
+  - [#3329](https://github.com/wix/ricos/pull/3329) add `forceConsistentCasingInFileNames: true` to tsconfig compiler options
 
 </details>
 <hr/>

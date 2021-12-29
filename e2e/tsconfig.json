@@ -1,11 +1,15 @@
 {
-    "compilerOptions": {
-      "target": "es5",
-      "lib": ["es2017", "dom"],
-      "types": ["cypress", "node"],
-      "resolveJsonModule": true,
-      "esModuleInterop": true,
-    },
-    "include": ["**/*.ts", "**/*.json"],
-    "files": ["../node_modules/cypress-plugin-snapshots/types/index.d.ts", "../node_modules/@applitools/eyes-cypress/eyes-index.d.ts"]
-  }
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es2017", "dom"],
+    "types": ["cypress", "node"],
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["**/*.ts", "**/*.json"],
+  "files": [
+    "../node_modules/cypress-plugin-snapshots/types/index.d.ts",
+    "../node_modules/@applitools/eyes-cypress/eyes-index.d.ts"
+  ]
+}
