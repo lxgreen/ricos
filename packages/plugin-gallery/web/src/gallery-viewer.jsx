@@ -24,6 +24,7 @@ class GalleryViewer extends React.Component {
     super(props);
     this.domId = this.props.blockKey || 'v-' + this.props.entityIndex;
     this.containerRef = React.createRef();
+    this.state = { items: [] };
   }
 
   componentDidMount() {
