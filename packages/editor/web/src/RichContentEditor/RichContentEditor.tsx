@@ -78,6 +78,7 @@ import {
   PluginKeyBindings,
   CommandHandler,
   KeyCommand,
+  DOC_STYLE_TYPES,
   EditorStyleClasses,
 } from 'wix-rich-content-common';
 import draftStyles from '../../statics/styles/draft.rtlignore.scss';
@@ -1156,25 +1157,34 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
 
   styleToClass = ([key, val]) => `rich_content_${key}-${val.toString().replace('.', '_')}`;
 
+  styleToCss = ([key, val]) => `${key}: ${val};`;
+
+  objectToCss = obj =>
+    Object.entries(obj)
+      .map(style => this.styleToCss(style))
+      .join(' ');
+
   renderStyleTag = (editorState = this.getEditorState()) => {
     const blocks = editorState.getCurrentContent().getBlockMap();
     const styles = {};
     const documentStyle = this.EditorCommands.getDocumentStyle();
-    const styleToCss = ([key, val]) => `${key}: ${val};`;
-    documentStyle &&
+    if (documentStyle) {
       Object.entries(documentStyle).forEach(([key, values]) => {
         [' > div > span', ' > div > a > span'].forEach(
-          selector =>
-            (styles[DOC_STYLE_CLASSES[key] + selector] = Object.entries(values)
-              .map(style => styleToCss(style))
-              .join(' '))
+          selector => (styles[DOC_STYLE_CLASSES[key] + selector] = this.objectToCss(values))
         );
       });
+      const paragrphStyle = documentStyle[DOC_STYLE_TYPES.P];
+      paragrphStyle &&
+        [DOC_STYLE_CLASSES['ordered-list-item'], DOC_STYLE_CLASSES['unordered-list-item']].forEach(
+          className => (styles[className] = this.objectToCss(paragrphStyle))
+        );
+    }
 
     blocks.forEach(block => {
       const { dynamicStyles = {} } = block?.get('data').toJS();
       Object.entries(dynamicStyles).forEach(
-        style => (styles[this.styleToClass(style)] = styleToCss(style))
+        style => (styles[this.styleToClass(style)] = this.styleToCss(style))
       );
     });
     const css = Object.entries(styles).reduce(

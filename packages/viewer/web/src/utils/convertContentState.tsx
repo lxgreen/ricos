@@ -13,6 +13,7 @@ import {
   LegacyViewerPluginConfig,
   InlineStyleMapperFunction,
   DocumentStyle,
+  DOC_STYLE_TYPES,
 } from 'wix-rich-content-common';
 import redraft from 'wix-redraft';
 import classNames from 'classnames';
@@ -79,7 +80,12 @@ const getBlocks = (
       textDirection,
       blockProps,
       getBlockStyleClasses,
-      blockDataToStyle,
+      blockDataToStyle: ({ dynamicStyles }) => {
+        return {
+          ...kebabToCamelObjectKeys(documentStyle?.[DOC_STYLE_TYPES.P]),
+          ...blockDataToStyle({ dynamicStyles }),
+        };
+      },
       context,
       fixedTabSize,
     };
@@ -108,7 +114,7 @@ const getBlocks = (
 
         const _child = isEmptyBlock(child) ? <br role="presentation" /> : child;
 
-        const nodeStyle = documentStyle?.[style === 'text' ? 'paragraph' : style];
+        const nodeStyle = documentStyle?.[style === 'text' ? DOC_STYLE_TYPES.P : style];
         const parsedNodeStyle = kebabToCamelObjectKeys(nodeStyle);
         const content = isEmpty(nodeStyle) ? (
           _child

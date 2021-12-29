@@ -1,9 +1,8 @@
 import React from 'react';
 import {
-  DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE,
   DocumentStyle,
   EditorCommands,
-  DRAFT_TO_RICOS_DOC_TYPE,
+  DRAFT_TO_DOC_TYPE_WITH_LISTS,
   normalizeUrl,
 } from 'wix-rich-content-common';
 import {
@@ -33,14 +32,14 @@ export const hasStyleChanges = (
   inlineStyles: Record<string, string>,
   documentStyle?: DocumentStyle
 ) => {
-  const headerStyle = documentStyle?.[DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE[currentHeading]] || {};
+  const headerStyle = documentStyle?.[DRAFT_TO_DOC_TYPE_WITH_LISTS[currentHeading]] || {};
   return Object.entries(inlineStyles).some(([key, value]) => headerStyle[key] !== value);
 };
 
 export const getBlockStyle = (editorCommands: EditorCommands) => {
   const blockType = editorCommands.getAnchorBlockType();
   const documentStyle = editorCommands.getDocumentStyle();
-  return documentStyle?.[DRAFT_TO_RICOS_DOC_TYPE[blockType]];
+  return documentStyle?.[DRAFT_TO_DOC_TYPE_WITH_LISTS[blockType]];
 };
 
 export const findOsName = () => {

@@ -59,7 +59,7 @@ export interface EditorStyleClasses {
   containerClassName?: string;
 }
 
-export const DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE = {
+export const DOC_STYLE_TYPES = {
   P: 'paragraph',
   H1: 'headerOne',
   H2: 'headerTwo',
@@ -69,7 +69,7 @@ export const DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE = {
   H6: 'headerSix',
 };
 
-export const DRAFT_TO_RICOS_DOC_TYPE = {
+export const DRAFT_TO_DOC_TYPE = {
   [HEADER_BLOCK.ONE]: 'headerOne',
   [HEADER_BLOCK.TWO]: 'headerTwo',
   [HEADER_BLOCK.THREE]: 'headerThree',
@@ -77,4 +77,10 @@ export const DRAFT_TO_RICOS_DOC_TYPE = {
   [HEADER_BLOCK.FIVE]: 'headerFive',
   [HEADER_BLOCK.SIX]: 'headerSix',
   [HEADER_BLOCK.PARAGRAPH]: 'paragraph',
+};
+
+export const DRAFT_TO_DOC_TYPE_WITH_LISTS = {
+  ...DRAFT_TO_DOC_TYPE,
+  'ordered-list-item': 'paragraph',
+  'unordered-list-item': 'paragraph',
 };

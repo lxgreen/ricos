@@ -7,7 +7,7 @@ import {
   getDirectionFromAlignmentAndTextDirection,
   TextDirection,
   RichContentTheme,
-  DRAFT_TO_RICOS_DOC_TYPE,
+  DRAFT_TO_DOC_TYPE,
 } from 'wix-rich-content-common';
 import { isListType } from 'ricos-content';
 import { ContentBlock, EditorProps } from '@wix/draft-js';
@@ -78,7 +78,7 @@ export default (
       );
     }
 
-    const docStyleClass = DOC_STYLE_CLASSES[DRAFT_TO_RICOS_DOC_TYPE[type]];
+    const docStyleClass = DOC_STYLE_CLASSES[DRAFT_TO_DOC_TYPE[type] || type];
     const dynamicClasses = [...Object.entries(dynamicStyles).map(styleToClass), docStyleClass];
 
     return classNames(...classList, ...dynamicClasses);
