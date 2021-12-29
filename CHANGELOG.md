@@ -17,16 +17,19 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.66.01 (Dec 29, 2021)
+
 ### :house: Internal
 
 - `tiptap-extensions`
   - [#3333](https://github.com/wix/ricos/pull/3333) link fixes
 - `general`
   - [#3334](https://github.com/wix/ricos/pull/3334) revert settings-modal-scroll fix
-
-
-</details>
-<hr/>
 
 ## 8.66.0 (Dec 29, 2021)
 
