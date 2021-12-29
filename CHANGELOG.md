@@ -17,18 +17,25 @@
     Click to see more.
   </summary>
 
+
+
 </details>
 <hr/>
 
-## 8.65.29 (Dec 27, 2021)
+## 8.66.0 (Dec 29, 2021)
+
+### :rocket: New Feature
+
+- `video`
+  - [#3301](https://github.com/wix/ricos/pull/3301) add duration to video content
+  - [#3301](https://github.com/wix/ricos/pull/3301) add onProgress/progressInterval to video settings
+
+## 8.65.29 (Dec 29, 2021)
 
 ### :rocket: New Feature
 
 - `video`
   - [#3304](https://github.com/wix/ricos/pull/3304) duration schema
-  - [#3301](https://github.com/wix/ricos/pull/3301) add duration to video content
-  - [#3301](https://github.com/wix/ricos/pull/3301) add onProgress/progressInterval to video settings
-
 
 ### :house: Internal
 
@@ -102,9 +109,6 @@
   - [#3302](https://github.com/wix/ricos/pull/3302) refactor color-picker
 - `gallery`
   - [#3316](https://github.com/wix/ricos/pull/3316) performance improvement
-
-</details>
-<hr/>
 
 ## 8.65.23 (Dec 23, 2021)
 
