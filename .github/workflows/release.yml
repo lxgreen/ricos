@@ -24,10 +24,11 @@ jobs:
         run: |
           echo "::set-output name=TAG_NAME::$(git tag --points-at HEAD)"
         id: version
-      - run: |
-          npx midgard-yarn install --frozen-lockfile
-          npm run build:withoutCache
-          npm run release
+      - run: npx midgard-yarn install --frozen-lockfile
+      - run: npm run build:withoutCache
+      - run: npm run release
+      - name: send done event
+        run: | 
           curl -X POST https://api.github.com/repos/wix-private/wix-ricos/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
           -u ${{ secrets.ACCESS_TOKEN }} \
