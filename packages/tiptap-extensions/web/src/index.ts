@@ -2,7 +2,6 @@ export * from './content-utils';
 export { createDraftConfig } from './draft';
 export { createFocusConfig } from './focus';
 export { createHistoryConfig } from './history';
-export { urlRegex, urlRegexExact } from './link';
 export { createStylesConfig } from './styles';
 export { createUniqueId } from './unique-id';
 export { createBulletedList } from './bulleted-list';

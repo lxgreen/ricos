@@ -35,9 +35,13 @@ export const createLink = (defaultOptions): RicosExtension => ({
   createExtensionConfig: ({ markPasteRule }) => ({
     name: 'link',
 
+    keepOnSplit: false,
+
     priority: 1000,
 
-    inclusive: false,
+    inclusive() {
+      return this.options.autolink;
+    },
 
     addOptions: () => ({
       openOnClick: true,
@@ -65,13 +69,13 @@ export const createLink = (defaultOptions): RicosExtension => ({
     addCommands() {
       return {
         setLink: attributes => ({ commands }) => {
-          return commands.setMark('link', attributes);
+          return commands.setMark(this.name, attributes);
         },
         toggleLink: attributes => ({ commands }) => {
-          return commands.toggleMark('link', attributes);
+          return commands.toggleMark(this.name, attributes, { extendEmptyMarkRange: true });
         },
         unsetLink: () => ({ commands }) => {
-          return commands.unsetMark('link');
+          return commands.unsetMark(this.name, { extendEmptyMarkRange: true });
         },
       };
     },
