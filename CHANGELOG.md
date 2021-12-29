@@ -17,16 +17,21 @@
     Click to see more.
   </summary>
 
+
+</details>
+<hr/>
+
+## 8.66.2 (Dec 29, 2021)
+
 ### :bug: Bug Fix
+
 - `headings`
   - [#3163](https://github.com/wix/ricos/pull/3163) fix lists wiring to `documentStyle`
 
 ### :house: Internal
+
 - `schema`
   - [#3311](https://github.com/wix/ricos/pull/3311) add `mobileNumberOfColumns` to gallery schema to allow adaptivity between mobile and desktop
-
-</details>
-<hr/>
 
 ## 8.66.1 (Dec 29, 2021)
 
