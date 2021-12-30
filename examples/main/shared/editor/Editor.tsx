@@ -18,6 +18,8 @@ import {
 import { TestAppConfig } from '../../src/types';
 import { RicosEditor, RicosEditorProps, RicosEditorType } from 'ricos-editor';
 import createSideBlockComponent from '../../src/Components/createSideBlockComponent';
+import styles from './editor.scss';
+import classNames from 'classnames';
 
 const STATIC_TOOLBAR = 'static';
 
@@ -161,7 +163,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       <div style={{ height: '100%' }}>
         {this.renderExternalToolbar()}
         <div ref={ref => (this.staticToolbarContainer = ref)} />
-        <div className="editor">
+        <div className={classNames('editor', styles.editorContainer)}>
           <RicosEditor
             ref={ref => (this.editor = ref)}
             onChange={onRicosEditorChange}
