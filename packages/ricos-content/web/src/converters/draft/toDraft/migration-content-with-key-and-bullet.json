@@ -539,7 +539,8 @@
             "type": "GRID",
             "horizontalScroll": false,
             "orientation": "ROWS",
-            "numberOfColumns": 3
+            "numberOfColumns": 3,
+            "mobileNumberOfColumns": 3
           },
           "item": {
             "targetSize": 300,

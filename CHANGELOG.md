@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `ricos-content`
+  - [#3338](https://github.com/wix/ricos/pull/3338) fix `documentStyle` decorations converter to draft
 
 </details>
 <hr/>

@@ -183,19 +183,22 @@ export const convertDocumentStyleDecorationTypes = (decorations: Decoration[]) =
 
 const ricosDecorationToCss = {
   [Decoration_Type.BOLD]: ({ fontWeightValue }) => {
-    return { 'font-weight': !fontWeightValue || fontWeightValue >= 700 ? 'bold' : 'normal' };
+    return fontWeightValue ? { 'font-weight': fontWeightValue >= 700 ? 'bold' : 'normal' } : {};
   },
   [Decoration_Type.ITALIC]: ({ italicData }) => {
-    return { 'font-style': italicData || typeof italicData === 'undefined' ? 'italic' : 'normal' };
+    return typeof italicData !== 'undefined'
+      ? { 'font-style': italicData ? 'italic' : 'normal' }
+      : {};
   },
   [Decoration_Type.UNDERLINE]: ({ underlineData }) => {
-    return {
-      'text-decoration':
-        underlineData || typeof underlineData === 'undefined' ? 'underline' : 'none',
-    };
+    return typeof underlineData !== 'undefined'
+      ? {
+          'text-decoration': underlineData ? 'underline' : 'none',
+        }
+      : {};
   },
   [Decoration_Type.FONT_SIZE]: ({ fontSizeData }) => {
-    return { 'font-size': fontSizeData.value + (fontSizeData.unit || 'px') };
+    return fontSizeData ? { 'font-size': fontSizeData.value + (fontSizeData.unit || 'px') } : {};
   },
   [Decoration_Type.COLOR]: ({ colorData }) => {
     const { foreground, background } = colorData;
