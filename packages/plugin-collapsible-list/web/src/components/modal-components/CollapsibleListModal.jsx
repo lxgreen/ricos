@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
 import { CollapsibleList } from '../domain/collapsibleList';
-import { SettingsPanelFooter, SettingsMobileHeader } from 'wix-rich-content-ui-components';
+import {
+  SettingsPanelFooter,
+  SettingsMobileHeader,
+  SettingsPanelHeader,
+} from 'wix-rich-content-ui-components';
 import CollapsibleListSettings from './CollapsibleListSettings';
 import styles from '../../../statics/styles/collapsible-list-modal.scss';
 
@@ -52,9 +56,14 @@ class CollapsibleListModal extends Component {
   };
 
   renderDesktopHeader = () => {
-    const { t } = this.props;
+    const { t, experiments = {} } = this.props;
 
-    return (
+    return experiments?.newSettingsUi?.enabled ? (
+      <SettingsPanelHeader
+        title={t('CollapsibleList_CollapsibleListSettings_Common_Header')}
+        onClose={this.revertComponentData}
+      />
+    ) : (
       <h3 className={this.styles.collapsibleListModalTitle}>
         {t('CollapsibleList_CollapsibleListSettings_Common_Header')}
       </h3>
@@ -75,12 +84,13 @@ class CollapsibleListModal extends Component {
   };
 
   renderSettings = () => {
-    const { isMobile, theme, t } = this.props;
+    const { isMobile, theme, t, experiments = {} } = this.props;
 
     return (
       <div
         className={classNames(styles.collapsibleListModal_scrollContainer, {
           [styles.collapsibleListModal_mobile]: isMobile,
+          [styles.collapsibleListModal_newUi_scrollContainer]: experiments?.newSettingsUi?.enabled,
         })}
       >
         <CollapsibleListSettings
@@ -130,6 +140,7 @@ CollapsibleListModal.propTypes = {
   t: PropTypes.func,
   isMobile: PropTypes.bool,
   languageDir: PropTypes.string,
+  experiments: PropTypes.object,
 };
 
 export default CollapsibleListModal;

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -9,6 +10,7 @@ import {
   SettingsSection,
   FileInput,
   SettingsPanelFooter,
+  SettingsPanelHeader,
   FocusManager,
   SettingsMobileHeader,
 } from 'wix-rich-content-ui-components';
@@ -76,6 +78,7 @@ class ImageSettings extends Component {
       accept,
       anchorTarget,
       relValue,
+      experiments = {},
     } = this.props;
 
     const { linkPanel } = uiSettings || {};
@@ -90,6 +93,13 @@ class ImageSettings extends Component {
         <div className={styles.galleryImageSettings_content}>
           {isMobile ? (
             <SettingsMobileHeader theme={theme} onCancel={onCancel} onSave={onSave} t={t} />
+          ) : experiments?.newSettingsUi?.enabled ? (
+            <SettingsPanelHeader showCloseIcon={false}>
+              <div onClick={onCancel}>
+                <BackIcon className={styles.galleryImageSettings_backIcon} />
+                {this.headerLabel}
+              </div>
+            </SettingsPanelHeader>
           ) : (
             <h3
               className={classNames(
@@ -264,6 +274,7 @@ ImageSettings.propTypes = {
   visibleLeftArrow: PropTypes.bool,
   visibleRightArrow: PropTypes.bool,
   uiSettings: PropTypes.object,
+  experiments: PropTypes.object,
   accept: PropTypes.string,
 };
 

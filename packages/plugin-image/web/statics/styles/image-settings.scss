@@ -50,6 +50,9 @@ $MOBILE_HEADER_HEIGHT: 50px;
 .imageSettings_scrollContainer {
   margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
   width: 100%;
+  &.imageSettings_newUi_scrollContainer {
+    margin-top: 0;
+  }
 }
 
 .imageSettings_inputsWrapper {

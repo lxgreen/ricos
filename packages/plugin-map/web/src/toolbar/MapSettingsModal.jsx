@@ -11,6 +11,7 @@ import {
   SettingsPanelFooter,
   SearchIcon,
   SettingsMobileHeader,
+  SettingsPanelHeader,
 } from 'wix-rich-content-ui-components';
 import { Scrollbars } from 'react-custom-scrollbars';
 import classNames from 'classnames';
@@ -234,6 +235,7 @@ export class MapSettingsModal extends Component {
       languageDir,
       helpers: { closeModal },
       theme,
+      experiments = {},
     } = this.props;
 
     const wrapWithScrollBars = jsx => (
@@ -259,14 +261,18 @@ export class MapSettingsModal extends Component {
         )}
 
         <div className={this.styles.map_settings_modal_settings_container} data-hook="mapSettings">
-          <div
-            className={classNames(
-              this.styles.map_settings_modal_title_container,
-              this.styles.map_settings_modal_main_content_block
-            )}
-          >
-            <h3 className={this.styles.map_settings_modal_title}>{t('MapSettings_Title')}</h3>
-          </div>
+          {experiments.newSettingsUi?.enabled ? (
+            <SettingsPanelHeader title={t('MapSettings_Title')} onClose={closeModal} />
+          ) : (
+            <div
+              className={classNames(
+                this.styles.map_settings_modal_title_container,
+                this.styles.map_settings_modal_main_content_block
+              )}
+            >
+              <h3 className={this.styles.map_settings_modal_title}>{t('MapSettings_Title')}</h3>
+            </div>
+          )}
 
           {isMobile
             ? this.renderSettingsSections()
@@ -297,4 +303,5 @@ MapSettingsModal.propTypes = {
   t: PropTypes.func,
   isMobile: PropTypes.bool,
   languageDir: PropTypes.string,
+  experiments: PropTypes.object,
 };

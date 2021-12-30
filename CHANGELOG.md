@@ -26,6 +26,8 @@
 
 - `ricos-content`
   - [#3338](https://github.com/wix/ricos/pull/3338) fix `documentStyle` decorations converter to draft
+- `general`
+  - [#3342](https://github.com/wix/ricos/pull/3342) created settingsPanelHeader component and consume it in settings modal
 
 ### :house: Internal
 

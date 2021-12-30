@@ -7,6 +7,7 @@ import {
   LabeledToggle,
   SettingsSection,
   SettingsPanelFooter,
+  SettingsPanelHeader,
   SettingsMobileHeader,
 } from 'wix-rich-content-ui-components';
 
@@ -18,6 +19,7 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
   t,
   isMobile,
   settings,
+  experiments = {},
 }) => {
   const disableDownload =
     componentData.disableDownload !== undefined
@@ -77,6 +79,8 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
     >
       {isMobile ? (
         <SettingsMobileHeader t={t} theme={theme} onCancel={closeModal} onSave={onDoneClick} />
+      ) : experiments?.newSettingsUi?.enabled ? (
+        <SettingsPanelHeader title={t('VideoPlugin_Settings_Header')} onClose={closeModal} />
       ) : (
         <>
           <div className={styles.videoSettingsTitle}>{t('VideoPlugin_Settings_Header')}</div>

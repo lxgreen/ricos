@@ -5,6 +5,7 @@ import { mergeStyles } from 'wix-rich-content-common';
 import { getImageSrc } from 'wix-rich-content-common/libs/imageUtils';
 import {
   SettingsPanelFooter,
+  SettingsPanelHeader,
   SettingsSection,
   LabeledToggle,
   InputWithLabel,
@@ -173,7 +174,7 @@ class ImageSettings extends Component {
   setBlockLink = item => this.props.pubsub.setBlockData({ key: 'componentLink', item });
 
   render() {
-    const { helpers, theme, t, isMobile, languageDir } = this.props;
+    const { helpers, theme, t, isMobile, languageDir, experiments = {} } = this.props;
     const { src, error, metadata = {} } = this.state;
     return (
       <div className={this.styles.imageSettings} data-hook="settings" dir={languageDir}>
@@ -184,11 +185,14 @@ class ImageSettings extends Component {
             onSave={this.onDoneClick}
             t={t}
           />
+        ) : experiments?.newSettingsUi?.enabled ? (
+          <SettingsPanelHeader title={this.headerText} onClose={this.revertComponentData} />
         ) : (
           <h3 className={this.styles.imageSettingsTitle}>{this.headerText}</h3>
         )}
         <div
           className={classNames(styles.imageSettings_scrollContainer, {
+            [styles.imageSettings_newUi_scrollContainer]: experiments?.newSettingsUi?.enabled,
             [styles.imageSettings_mobile]: isMobile,
           })}
         >
@@ -281,6 +285,7 @@ class ImageSettings extends Component {
 ImageSettings.propTypes = {
   componentData: PropTypes.any.isRequired,
   helpers: PropTypes.object,
+  experiments: PropTypes.object,
   theme: PropTypes.object.isRequired,
   pubsub: PropTypes.any,
   t: PropTypes.func,

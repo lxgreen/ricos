@@ -10,6 +10,7 @@ import {
   FocusManager,
   SettingsMobileHeader,
   SettingsSeparator,
+  SettingsPanelHeader,
 } from 'wix-rich-content-ui-components';
 import LayoutSelector from './gallery-controls/layouts-selector';
 import styles from '../../statics/styles/gallery-settings-modal.scss';
@@ -62,6 +63,7 @@ class ManageMediaSection extends Component {
           isMobile={isMobile}
           uiSettings={uiSettings}
           accept={accept}
+          experiments={this.props.experiments}
         />
       </div>
     );
@@ -78,6 +80,7 @@ ManageMediaSection.propTypes = {
   anchorTarget: PropTypes.string,
   relValue: PropTypes.string,
   uiSettings: PropTypes.object,
+  experiments: PropTypes.object,
   languageDir: PropTypes.string,
   accept: PropTypes.string,
 };
@@ -274,6 +277,7 @@ export class GallerySettingsModal extends Component {
           relValue={this.props.relValue}
           uiSettings={this.props.uiSettings}
           accept={this.props.accept}
+          experiments={this.props.experiments}
         />
       </Tab>
     ),
@@ -364,7 +368,7 @@ export class GallerySettingsModal extends Component {
 
   render() {
     const styles = this.styles;
-    const { t, isMobile, languageDir, pubsub, theme } = this.props;
+    const { t, isMobile, languageDir, pubsub, theme, experiments = {} } = this.props;
     const { activeTab } = this.state;
     this.componentData = pubsub.get('componentData');
 
@@ -383,9 +387,15 @@ export class GallerySettingsModal extends Component {
           className={styles.gallerySettings}
           dir={languageDir}
         >
-          {!isMobile && (
-            <div className={styles.gallerySettings_title}>{t('GallerySettings_Header')}</div>
-          )}
+          {!isMobile &&
+            (experiments?.newSettingsUi?.enabled ? (
+              <SettingsPanelHeader
+                title={t('GallerySettings_Header')}
+                onClose={this.revertComponentData}
+              />
+            ) : (
+              <div className={styles.gallerySettings_title}>{t('GallerySettings_Header')}</div>
+            ))}
           <div className={styles.gallerySettings_tabsContainer}>
             <Tabs value={activeTab} theme={this.props.theme} onTabSelected={this.onTabSelected}>
               {this.tabsToRender().map(tab => tab)}
@@ -417,6 +427,7 @@ GallerySettingsModal.propTypes = {
   relValue: PropTypes.string,
   anchorTarget: PropTypes.string,
   uiSettings: PropTypes.object,
+  experiments: PropTypes.object,
   languageDir: PropTypes.string,
   accept: PropTypes.string,
   shouldShowSpoiler: PropTypes.bool,

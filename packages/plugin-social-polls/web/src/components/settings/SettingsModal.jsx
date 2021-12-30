@@ -7,6 +7,7 @@ import {
   Tabs,
   Tab,
   SettingsPanelFooter,
+  SettingsPanelHeader,
   FocusManager,
   SettingsMobileHeader,
   Button,
@@ -38,6 +39,7 @@ export class SettingsModal extends Component {
     relValue: PropTypes.string,
     anchorTarget: PropTypes.string,
     settings: PropTypes.object.isRequired,
+    experiments: PropTypes.object,
   };
 
   static defaultProps = {
@@ -97,7 +99,7 @@ export class SettingsModal extends Component {
 
   render() {
     const { activeTab, $container, isPreviewOpen } = this.state;
-    const { pubsub, helpers, t, theme, isMobile, settings } = this.props;
+    const { pubsub, helpers, t, theme, isMobile, settings, experiments = {} } = this.props;
     const { languageDir } = this.context;
 
     const componentData = pubsub.store.get('componentData');
@@ -118,6 +120,11 @@ export class SettingsModal extends Component {
                 </Button>
               </div>
             </SettingsMobileHeader>
+          ) : experiments?.newSettingsUi?.enabled ? (
+            <SettingsPanelHeader
+              title={t('Poll_PollSettings_Common_Header')}
+              onClose={this.restoreChanges}
+            />
           ) : (
             <div className={this.styles.header}>
               <h3 className={this.styles.title}>{t('Poll_PollSettings_Common_Header')}</h3>

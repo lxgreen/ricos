@@ -625,6 +625,7 @@ export class SortableComponent extends Component {
             visibleRightArrow={this.state.editedItemIndex < this.state.items.length - 1}
             uiSettings={uiSettings}
             accept={accept}
+            experiments={this.props.experiments}
           />
         </div>
       ))
@@ -646,5 +647,6 @@ SortableComponent.propTypes = {
   relValue: PropTypes.string,
   anchorTarget: PropTypes.string,
   uiSettings: PropTypes.object,
+  experiments: PropTypes.object,
   accept: PropTypes.string,
 };

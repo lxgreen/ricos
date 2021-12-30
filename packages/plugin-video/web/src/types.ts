@@ -6,6 +6,7 @@ import {
   Pubsub,
   TranslationFunction,
   RichContentTheme,
+  AvailableExperiments,
 } from 'wix-rich-content-common';
 
 export const VIDEO_TYPE = 'wix-draft-plugin-video';
@@ -30,4 +31,5 @@ export interface VideoSettingsProps {
   t: TranslationFunction;
   isMobile: boolean;
   settings: VideoPluginEditorConfig;
+  experiments?: AvailableExperiments;
 }

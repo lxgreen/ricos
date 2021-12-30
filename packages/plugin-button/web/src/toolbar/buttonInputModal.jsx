@@ -9,6 +9,7 @@ import {
   FocusManager,
   BUTTON_SIZE,
   SettingsMobileHeader,
+  SettingsPanelHeader,
 } from 'wix-rich-content-ui-components';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 import {
@@ -23,6 +24,7 @@ import PreviewComponent from '../components/preview-component';
 import { settingsTabValue, designTabValue } from '../constants';
 import styles from '../../statics/styles/button-input-modal.scss';
 import { LINK_BUTTON_TYPE } from '../types';
+
 export default class ButtonInputModal extends Component {
   constructor(props) {
     super(props);
@@ -167,7 +169,7 @@ export default class ButtonInputModal extends Component {
   };
 
   render() {
-    const { theme, t, uiSettings, doneLabel, cancelLabel, isMobile } = this.props;
+    const { theme, t, uiSettings, doneLabel, cancelLabel, isMobile, experiments = {} } = this.props;
     const { showLinkPanel } = this.state;
     const { styles } = this;
     const settingTabLabel = (
@@ -242,16 +244,23 @@ export default class ButtonInputModal extends Component {
         ) : (
           <div className={styles.button_inputModal_container} data-hook="ButtonInputModal">
             <div>
-              <div
-                role="heading"
-                aria-level={2}
-                aria-labelledby="button_modal_hdr"
-                className={styles.button_inputModal_header}
-              >
-                <div className={styles.button_inputModal_header_text}>
-                  {t('ButtonModal_Header')}
+              {experiments?.newSettingsUi?.enabled ? (
+                <SettingsPanelHeader
+                  title={t('ButtonModal_Header')}
+                  onClose={this.onCloseRequested}
+                />
+              ) : (
+                <div
+                  role="heading"
+                  aria-level={2}
+                  aria-labelledby="button_modal_hdr"
+                  className={styles.button_inputModal_header}
+                >
+                  <div className={styles.button_inputModal_header_text}>
+                    {t('ButtonModal_Header')}
+                  </div>
                 </div>
-              </div>
+              )}
               <FocusManager>
                 <div className={styles.button_inputModal_focus_manager}>
                   <Tabs value={this.state.activeTab} theme={this.styles}>
@@ -320,6 +329,7 @@ ButtonInputModal.propTypes = {
   cancelLabel: PropTypes.string,
   uiSettings: PropTypes.object,
   helpers: PropTypes.object,
+  experiments: PropTypes.object,
   isMobile: PropTypes.bool,
 };
 

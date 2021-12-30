@@ -24,6 +24,9 @@ $FOOTER_HEIGHT: 96px;
 .collapsibleListModal_scrollContainer {
   margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
   width: 100%;
+  &.collapsibleListModal_newUi_scrollContainer{
+    margin: 0 auto $FOOTER_HEIGHT auto;
+  }
 }
 
 .collapsibleListModal_mobile {
