@@ -185,7 +185,7 @@ export class RichContentAdapter implements TiptapAPI {
           [NUMBERED_LIST_TYPE]: () => this.editor.commands.toggleOrderedList(),
         };
         if (Object.values(HEADER_BLOCK).includes(type)) {
-          blockTypeCommandMap.headings(headingTypeToLevelMap[type]);
+          blockTypeCommandMap[HEADINGS_TYPE](headingTypeToLevelMap[type]);
         } else if (blockTypeCommandMap[type]) {
           blockTypeCommandMap[type]();
         } else {
@@ -201,6 +201,9 @@ export class RichContentAdapter implements TiptapAPI {
         } else {
           console.error(`delete ${type} decoration type not supported`);
         }
+      },
+      setTextAlignment: alignment => {
+        this.editor.commands.setTextAlign(alignment);
       },
     };
   }
@@ -251,7 +254,6 @@ export class RichContentAdapter implements TiptapAPI {
     undo: () => {},
     redo: () => {},
     setBlockType: () => {},
-    setTextAlignment: () => {},
     _setSelection: () => {},
     getDocumentStyle: () => undefined,
     getAnchorBlockInlineStyles: () => {

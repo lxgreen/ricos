@@ -18,3 +18,4 @@ export { createTrailingNode } from './trailingNode';
 export { createLink } from './link/link';
 export { createTextDirection } from './text-direction';
 export { createPlaceholder } from './placeholder';
+export { createTextAlign } from './text-align';

@@ -51,8 +51,11 @@ const convertDataField = object => {
 
 const movefromAttrs = (object: JSONContent) => {
   const { attrs, ...newValue } = object;
-  const { style, id, ...rest } = attrs || {};
+  const { style, id, textAlign, ...rest } = attrs || {};
   const newAttrs = Object.keys(rest).length > 0 ? rest : {};
+  if (textAlign) {
+    newAttrs.textStyle = { ...newAttrs.textStyle, textAlignment: textAlign.toUpperCase() };
+  }
   return pickBy({ ...newValue, attrs: newAttrs, style, id }, x => x !== undefined);
 };
 

@@ -20,6 +20,7 @@ import {
   createLink,
   createTextDirection,
   createPlaceholder,
+  createTextAlign,
 } from 'wix-tiptap-extensions';
 
 export const coreConfigs: RicosExtension[] = [
@@ -44,4 +45,5 @@ export const coreConfigs: RicosExtension[] = [
   createLink({}),
   createTextDirection(),
   createPlaceholder(),
+  createTextAlign(),
 ];
