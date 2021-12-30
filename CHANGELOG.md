@@ -17,13 +17,22 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.66.3 (Dec 30, 2021)
+
 ### :house: Internal
 
 - `ricos-content`
   - [#3338](https://github.com/wix/ricos/pull/3338) fix `documentStyle` decorations converter to draft
 
-</details>
-<hr/>
+### :house: Internal
+
+- `tiptap-editor`
+  - [#3343](https://github.com/wix/ricos/pull/3343) add text-align extension
+- `tiptap-editor`
+  - [#3344](https://github.com/wix/ricos/pull/3344) add undo-redo to adapter
 
 ## 8.66.2 (Dec 29, 2021)
 
@@ -189,8 +198,9 @@
 - `vertical-embed`
   - [#3281](https://github.com/wix/ricos/pull/3281) fix image in print mode
 - `editor-common`
+
   - [#3284](https://github.com/wix/ricos/pull/3284) fix basic link panel ui
-  
+
 ### :house: Internal
 
 - `tiptap-extensions`
@@ -199,9 +209,11 @@
 ## 8.65.17 (Dec 19, 2021)
 
 ### :bug: Bug Fix
+
 - `ui-components`
 
   - [#3273](https://github.com/wix/ricos/pull/3273) fix slider ui on rtl sites
+
 - `ricos-content`
   - [#3276](https://github.com/wix/ricos/pull/3276) fromDraft conversion: handle invalid link types
 
@@ -314,6 +326,7 @@ Release of v8.65.2 failed
 ### :bug: Bug Fix
 
 - `toolbars-new`
+
   - [#3220](https://github.com/wix/ricos/pull/3220) disable toolbar when atomic plugin selected
   - [#3236](https://github.com/wix/ricos/pull/3236) color picker buttons in static toolbar when collapsed
 
