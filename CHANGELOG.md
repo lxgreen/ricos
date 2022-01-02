@@ -20,6 +20,11 @@
 </details>
 <hr/>
 
+
+## 8.66.5 (Jan 02, 2022)
+
+- `vertical-embed`
+  - [#3347](https://github.com/wix/ricos/pull/3347) fix performance: load vertical image in smaller size
 ## 8.66.4 (Jan 02, 2022)
 
 ### :house: Internal
