@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.66.4 (Jan 02, 2022)
+
 ### :house: Internal
 
 - `general`
@@ -25,9 +30,8 @@
   - [#3345](https://github.com/wix/ricos/pull/3345) created settingsAddItem component and consume it in settings modal + ui fixes in tabs & labeledToggle
 - `polls`
   - [#3315](https://github.com/wix/ricos/pull/3315) refactor polls settings modal
-  
-</details>
-<hr/>
+- `ricos-content`
+  - [#3243](https://github.com/wix/ricos/pull/3243) velo adapter API - refinements
 
 ## 8.66.3 (Dec 30, 2021)
 
