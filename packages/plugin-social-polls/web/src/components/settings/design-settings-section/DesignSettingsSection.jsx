@@ -13,6 +13,7 @@ import { mergeStyles } from 'wix-rich-content-common';
 import { ColorIcon, ImageIcon, GradientIcon } from '../../../assets/icons';
 import { BACKGROUND_PRESETS, BACKGROUND_TYPE } from '../../../defaults';
 import { getBackgroundString } from '../../../helpers';
+import classNames from 'classnames';
 
 import styles from './design-settings-section.scss';
 
@@ -142,10 +143,16 @@ export class DesignSettingsSection extends Component {
           theme={this.styles}
           t={t}
         >
-          {({ renderPalette }) => <div>{renderPalette()}</div>}
+          {({ renderPalette }) => (
+            <div className={styles.colorPicker_palette}>{renderPalette()}</div>
+          )}
         </ColorPicker>
         <SettingsSeparator top bottom />
-        <p className={styles.title}>
+        <p
+          className={classNames(styles.title, {
+            [styles.title_radius_newUi]: this.useNewSettingsUi,
+          })}
+        >
           {t('Poll_PollSettings_Tab_Design_Section_CornerRadius_Header')}
         </p>
         <SliderWithInput
@@ -157,6 +164,7 @@ export class DesignSettingsSection extends Component {
           theme={this.props.theme}
           languageDir={languageDir}
         />
+        {this.useNewSettingsUi && <div className={styles.pollsSettings_spacer} />}
         <SliderWithInput
           min={0}
           max={10}

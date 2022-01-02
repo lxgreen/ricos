@@ -1,5 +1,5 @@
-@import "~wix-rich-content-common/dist/statics/styles/mixins";
-@import "../poll-settings-modal.scss";
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
+@import '../poll-settings-modal.scss';
 
 .root {
   color: var(--ricos-settings-text-color, #000);
@@ -15,12 +15,13 @@
   margin: 0;
   font-size: 12px;
   line-height: 1.33;
+  color: var(--ricos-settings-text-color, #000);
 }
 
 .selectionListOption {
   margin: 0;
   padding: 0;
-  background: rgba(0, 0, 0, 0.04) ;
+  background: rgba(0, 0, 0, 0.04);
   height: 126px;
 }
 
@@ -33,7 +34,7 @@
 
 .selectionListOption:hover:not(.selectionListOption_selected),
 .selectionListOption:hover {
-  background: rgba(0, 0, 0, 0.1) ;
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .preset_selector {

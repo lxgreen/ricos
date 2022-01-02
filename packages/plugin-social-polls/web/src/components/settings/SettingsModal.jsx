@@ -103,6 +103,7 @@ export class SettingsModal extends Component {
     const { languageDir } = this.context;
 
     const componentData = pubsub.store.get('componentData');
+    const useNewSettingsUi = experiments?.newSettingsUi?.enabled;
 
     return (
       <div ref={$container}>
@@ -114,13 +115,15 @@ export class SettingsModal extends Component {
               theme={styles}
               t={t}
             >
-              <div className={this.styles.preview_button}>
-                <Button borderless isMobile onClick={this.openPreview}>
-                  {t('Poll_FormatToolbar_Preview_Tooltip')}
-                </Button>
-              </div>
+              {!useNewSettingsUi && (
+                <div className={this.styles.preview_button}>
+                  <Button borderless isMobile onClick={this.openPreview}>
+                    {t('Poll_FormatToolbar_Preview_Tooltip')}
+                  </Button>
+                </div>
+              )}
             </SettingsMobileHeader>
-          ) : experiments?.newSettingsUi?.enabled ? (
+          ) : useNewSettingsUi ? (
             <SettingsPanelHeader
               title={t('Poll_PollSettings_Common_Header')}
               onClose={this.restoreChanges}

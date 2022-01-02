@@ -57,13 +57,17 @@
   font-size: 16px;
   line-height: 1.5;
   margin: 0 0 15px;
+  color: var(--ricos-settings-text-color, #000);
+  &.title_radius_newUi {
+    margin-bottom: 28px;
+  }
 }
 
 .subtitle {
   font-size: 14px;
   line-height: 1.43;
-  opacity: 0.6;
   margin: 0 0 5px;
+  color: var(--ricos-settings-text-color, #000);
 }
 
 .sliderWithInput_label,

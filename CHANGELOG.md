@@ -23,6 +23,8 @@
   - [#3332](https://github.com/wix/ricos/pull/3332) created selectionListItem component and consume it in settings
 - `general`
   - [#3345](https://github.com/wix/ricos/pull/3345) created settingsAddItem component and consume it in settings modal + ui fixes in tabs & labeledToggle
+- `polls`
+  - [#3315](https://github.com/wix/ricos/pull/3315) refactor polls settings modal
   
 </details>
 <hr/>
