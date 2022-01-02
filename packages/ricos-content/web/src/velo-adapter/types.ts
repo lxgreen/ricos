@@ -11,6 +11,7 @@ export interface ImageElement {
   alt?: string;
 }
 
+// TODO: modify `addImage.ts` file to work with the new pattern, and change this type
 export type AddImageParams = Omit<
   Overwrite<
     OriginalAddImageParams,
@@ -21,16 +22,17 @@ export type AddImageParams = Omit<
   'content'
 >;
 
-export type ContentBuilderAdapter = {
+// Old version of builder
+export type ContentBuilderAdapterOld = {
   [key in keyof ContentBuilder]: (
     param?: Omit<Parameters<ContentBuilder[key]>[0], 'content'>
-  ) => ContentBuilderAdapter;
+  ) => ContentBuilderAdapterOld;
 } & {
-  addImage: (params: AddImageParams) => ContentBuilderAdapter;
+  addImage: (params: AddImageParams) => ContentBuilderAdapterOld;
   get: () => RichContent;
 };
 
-export type CreateBuilder = (
+export type CreateBuilderOld = (
   content: RichContent,
   callback?: (content: RichContent) => void
-) => ContentBuilderAdapter;
+) => ContentBuilderAdapterOld;

@@ -83,7 +83,7 @@ export const lToList: Rule = [
         ul: Node_Type.BULLETED_LIST,
         ol: Node_Type.ORDERED_LIST,
         li: Node_Type.LIST_ITEM,
-      }[node.nodeName],
+      }[node.nodeName as Node_Type],
       {
         nodes: context.visit(node),
         data: {},
@@ -97,7 +97,7 @@ export const strongEmUToDecoration: Rule = [
   context => (node: Element) =>
     context.addDecoration(
       { strong: Decoration_Type.BOLD, em: Decoration_Type.ITALIC, u: Decoration_Type.UNDERLINE }[
-        node.nodeName
+        node.nodeName as Decoration_Type
       ],
       {},
       node

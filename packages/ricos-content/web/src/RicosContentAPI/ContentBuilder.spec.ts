@@ -10,7 +10,6 @@ import {
   Decoration_Type,
   AppEmbedData,
   AppEmbedData_AppType,
-  PollData,
 } from 'ricos-schema';
 import { TableCell } from '../types/contentApi';
 import { RichText } from '../types/node-refined-types';

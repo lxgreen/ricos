@@ -8,7 +8,7 @@ import {
   CollapsibleListData_Direction,
   Node,
 } from 'ricos-schema';
-import { CollapsibleListItem } from '../types';
+import { BuilderFunctionsMetadata, CollapsibleListItem } from '../types';
 import {
   CollapsibleItemBodyNode,
   CollapsibleItemNode,
@@ -56,6 +56,20 @@ const toContentWithCollapsibleList = (
   args: Omit<AddMethodParams<CollapsibleListData>, 'data' | 'type'>
 ) => (node: CollapsibleListNode): RichContent => addNode({ ...args, node: node as Node });
 
+export const makeCollapsibleList = (generateId: () => string) => ({
+  items,
+  data,
+}: Omit<
+  AddMethodParams<CollapsibleListData> & { items: CollapsibleListItem[] },
+  BuilderFunctionsMetadata | 'type'
+>): Node => {
+  return pipe(
+    items,
+    A.map(toCollapsibleItemNode(generateId)),
+    toCollapsibleListNode(generateId)(data)
+  ) as Node;
+};
+
 export const addCollapsibleList = (generateId: () => string) => ({
   items,
   data,
@@ -65,9 +79,7 @@ export const addCollapsibleList = (generateId: () => string) => ({
   content,
 }: AddMethodParams<CollapsibleListData> & { items: CollapsibleListItem[] }) => {
   return pipe(
-    items,
-    A.map(toCollapsibleItemNode(generateId)),
-    toCollapsibleListNode(generateId)(data),
+    makeCollapsibleList(generateId)({ items, data }) as CollapsibleListNode,
     toContentWithCollapsibleList({ index, before, after, content })
   );
 };

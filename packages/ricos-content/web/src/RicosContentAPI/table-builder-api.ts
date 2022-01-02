@@ -8,7 +8,7 @@ import {
   RichContent,
   Node,
 } from 'ricos-schema';
-import { TableCell } from '../types';
+import { BuilderFunctionsMetadata, TableCell } from '../types';
 import { TableCellNode, TableNode, TableRowNode } from '../types/node-refined-types';
 import { addNode } from './builder-utils';
 import {
@@ -99,6 +99,15 @@ const toPaddedRowNodes = (generateId: () => string) => (cells: TableCell[][]): T
     A.map(toRowNode(generateId))
   );
 
+export const makeTable = (generateId: () => string) => ({
+  cells,
+  data,
+}: Omit<
+  AddMethodParams<TableData> & { cells: TableCell[][] },
+  BuilderFunctionsMetadata | 'type'
+>): Node =>
+  pipe(cells, toPaddedRowNodes(generateId), toTableData(data), toTableNode(generateId)) as Node;
+
 export const addTable = (generateId: () => string) => ({
   cells,
   data,
@@ -108,9 +117,6 @@ export const addTable = (generateId: () => string) => ({
   content,
 }: AddMethodParams<TableData> & { cells: TableCell[][] }): RichContent =>
   pipe(
-    cells,
-    toPaddedRowNodes(generateId),
-    toTableData(data),
-    toTableNode(generateId),
+    makeTable(generateId)({ cells, data }) as TableNode,
     toContentWithTable({ index, before, after, content })
   );

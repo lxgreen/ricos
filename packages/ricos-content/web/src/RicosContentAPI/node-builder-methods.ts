@@ -27,7 +27,7 @@ import {
   PollData_Design_PollDesign_Background_Type,
 } from 'ricos-schema';
 import { dataByNodeType } from '../converters/nodeUtils';
-import { ListItemData } from '../types/contentApi';
+import { BuilderFunctionsMetadata, ListItemData } from '../types/contentApi';
 import { ListItemNode, ListNode, ParagraphNode, RichTextNode } from '../types/node-refined-types';
 import { addNode as add, toListDataArray, toTextDataArray } from './builder-utils';
 
@@ -176,6 +176,12 @@ export const createTextNode = <T extends RichTextNode>(generateId: () => string)
   })),
 });
 
+export const makeNode = (generateId: () => string) => <TData>({
+  data,
+  type,
+}: Omit<AddMethodParams<TData>, BuilderFunctionsMetadata>): Node =>
+  createNode(generateId)(type, data);
+
 export const addNode = (generateId: () => string) => <TData>({
   data,
   type,
@@ -184,8 +190,17 @@ export const addNode = (generateId: () => string) => <TData>({
   after,
   content,
 }: AddMethodParams<TData>): RichContent => {
-  const node: Node = createNode(generateId)(type, data);
+  const node: Node = makeNode(generateId)({ type, data });
   return add({ node: node as Node, index, before, after, content });
+};
+
+export const makeTextNode = (generateId: () => string) => <TData>({
+  text,
+  data,
+  type,
+}: Omit<AddTextMethodParams<TData>, BuilderFunctionsMetadata>): Node => {
+  const textData = toTextDataArray(text);
+  return createTextNode(generateId)(type, textData, data);
 };
 
 export const addTextNode = (generateId: () => string) => <TData>({
@@ -197,21 +212,28 @@ export const addTextNode = (generateId: () => string) => <TData>({
   after,
   content,
 }: AddTextMethodParams<TData>): RichContent => {
-  const textData = toTextDataArray(text);
-  const node = createTextNode(generateId)(type, textData, data);
+  const node = makeTextNode(generateId)({ text, data, type });
   return add({ node: node as Node, index, before, after, content });
+};
+
+export const makeListNode = (generateId: () => string) => ({
+  items,
+  data = DEFAULT_PARAGRAPH_DATA,
+  type,
+}: Omit<AddListMethodParams, BuilderFunctionsMetadata>): Node => {
+  const listItemData = toListDataArray(items, data);
+  return createListNode(generateId)(type, listItemData);
 };
 
 export const addListNode = (generateId: () => string) => ({
   items,
-  data = DEFAULT_PARAGRAPH_DATA,
+  data,
   type,
   index,
   before,
   after,
   content,
 }: AddListMethodParams): RichContent => {
-  const listItemData = toListDataArray(items, data);
-  const node = createListNode(generateId)(type, listItemData);
+  const node = makeListNode(generateId)({ items, data, type });
   return add({ node: node as Node, index, before, after, content });
 };

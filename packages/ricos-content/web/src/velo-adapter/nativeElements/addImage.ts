@@ -1,6 +1,6 @@
 import { isString } from 'lodash';
-import { firstRight } from '../fp-utils';
-import { AddImageParams, ImageElement, OriginalAddImageParams } from './types';
+import { firstRight } from '../../fp-utils';
+import { AddImageParams, ImageElement, OriginalAddImageParams } from '../types';
 import { ImageData } from 'ricos-schema';
 
 // https://www.wix.com/velo/reference/$w/image/src
@@ -33,12 +33,13 @@ const asImageElement: (data: ImageElement) => Partial<ImageData> = data => {
   return { altText: alt, image: { src: { id }, width, height } };
 };
 
-const toImageData: (data: AddImageParams['data']) => Partial<ImageData> = data =>
+export const toImageData: (data: AddImageParams['data']) => Partial<ImageData> = data =>
   firstRight(data, data as Partial<ImageData>, [
     [isString, asPublicUrl],
     [isImageElement, asImageElement],
   ]);
 
+// builder-old.ts
 export const addImage: (params?: AddImageParams) => Omit<OriginalAddImageParams, 'content'> = ({
   data,
   ...rest
@@ -46,3 +47,8 @@ export const addImage: (params?: AddImageParams) => Omit<OriginalAddImageParams,
   data: toImageData(data),
   ...rest,
 });
+
+// builder.ts
+export const createImageData: (
+  data: AddImageParams['data']
+) => OriginalAddImageParams['data'] = data => toImageData(data);
