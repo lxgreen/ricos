@@ -1,6 +1,10 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 
+.settings_container {
+  text-align: left;
+}
+
 .header {
   padding: 0 20px;
   border-bottom: 1px solid #ededed;
@@ -49,7 +53,6 @@
 }
 
 .section {
-  margin: 0 -10px;
   padding: 24px 30px 30px;
 }
 

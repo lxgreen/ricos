@@ -9,14 +9,14 @@
 .filesButton {
   position: relative;
   height: 30px;
-  color: #666;
+  color: #000;
   float: right;
   overflow: visible;
   white-space: nowrap;
   text-align: right;
   font-size: 14px;
   line-height: 40px;
-  color: var(--ricos-settings-text-color, #666);
+  color: var(--ricos-settings-action-color, var(--ricos-action-color-fallback, #000));
 
   &:hover {
     cursor: pointer;
@@ -140,7 +140,7 @@
   font-size: 14px;
   font-weight: 300;
   line-height: 40px;
-  color: var(--ricos-settings-text-color, #666);
+  color: var(--ricos-settings-action-color, var(--ricos-action-color-fallback, #000));
   font-family: inherit;
 
   &:hover {

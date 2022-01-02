@@ -12,7 +12,12 @@ import imageClientAPI from 'image-client-api/dist/imageClientSDK';
 import Styles from '../../../statics/styles/gallery-items-sortable.scss';
 import ImageSettings from './gallery-image-settings';
 import { mergeStyles } from 'wix-rich-content-common';
-import { MediaItemErrorMsg, Loader, FileInput } from 'wix-rich-content-ui-components';
+import {
+  MediaItemErrorMsg,
+  Loader,
+  FileInput,
+  SettingsAddItem,
+} from 'wix-rich-content-ui-components';
 import { GALLERY_ITEMS_TYPES } from '../../defaults';
 import { FabIcon, UploadIcon, SelectedIcon, NotSelectedIcon } from '../../icons';
 
@@ -39,6 +44,7 @@ const SortableItem = sortableElement(props => {
     t,
     isMobile,
     accept,
+    experiments = {},
   } = props;
 
   const styles = mergeStyles({ styles: Styles, theme });
@@ -49,7 +55,19 @@ const SortableItem = sortableElement(props => {
   if (addItemsButton) {
     const uploadMediaLabel = t('GallerySettings_Upload_Media');
 
-    return (
+    return experiments.newSettingsUi?.enabled ? (
+      <SettingsAddItem
+        handleFileChange={handleFileChange}
+        handleFileSelection={handleFileSelection}
+        accept={accept}
+        imageSize={imageSize}
+        isMobile={isMobile}
+        uploadMediaLabel={uploadMediaLabel}
+        theme={theme}
+        dataHook="galleryItemsSortableFileInputBottom"
+        inlineStyle={{ width: imageSize + 'px', height: imageSize + 'px' }}
+      />
+    ) : (
       <FileInput
         className={classNames(styles.itemContainer, styles.filesItem, {
           [styles.mobile]: isMobile,
@@ -140,6 +158,7 @@ const SortableList = sortableContainer(props => {
     t,
     isMobile,
     accept,
+    experiments,
   } = props;
 
   const styles = mergeStyles({ styles: Styles, theme });
@@ -163,6 +182,7 @@ const SortableList = sortableContainer(props => {
           t={t}
           isMobile={isMobile}
           accept={accept}
+          experiments={experiments}
         />
       ))}
       {isMobileSorting ? null : (
@@ -178,6 +198,7 @@ const SortableList = sortableContainer(props => {
           addItemsButton
           disabled
           accept={accept}
+          experiments={experiments}
         />
       )}
     </div>
@@ -568,6 +589,7 @@ export class SortableComponent extends Component {
       anchorTarget,
       uiSettings,
       accept,
+      experiments,
     } = this.props;
     return (
       !!this.state.items &&
@@ -602,6 +624,7 @@ export class SortableComponent extends Component {
             t={t}
             isMobile={this.props.isMobile}
             accept={accept}
+            experiments={experiments}
           />
         </div>
       ) : (
@@ -625,7 +648,7 @@ export class SortableComponent extends Component {
             visibleRightArrow={this.state.editedItemIndex < this.state.items.length - 1}
             uiSettings={uiSettings}
             accept={accept}
-            experiments={this.props.experiments}
+            experiments={experiments}
           />
         </div>
       ))

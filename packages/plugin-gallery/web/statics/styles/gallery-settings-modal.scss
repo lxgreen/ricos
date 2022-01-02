@@ -34,6 +34,9 @@ $FOOTER_HEIGHT: 100px;
 .gallerySettings_spacer {
   height: 12px;
   display: block;
+  &.gallerySettings_newUi_spacer {
+    height: 28px;
+  }
 }
 
 .gallerySettings_label {

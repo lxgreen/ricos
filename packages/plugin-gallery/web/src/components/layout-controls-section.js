@@ -13,6 +13,7 @@ import {
 } from './gallery-controls/radio-groups';
 import ImageRatioSelector from './gallery-controls/image-ratio-selector';
 import ThumbnailPlacementSelector from './gallery-controls/thumbnail-placement-selector';
+import classNames from 'classnames';
 
 const scrollDirectionOptions = {
   horizontal: { oneRow: true },
@@ -23,6 +24,7 @@ class Separator extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
     theme: PropTypes.object.isRequired,
+    experiments: PropTypes.object,
   };
 
   constructor(props) {
@@ -31,9 +33,16 @@ class Separator extends Component {
   }
 
   render = () => {
-    switch (this.props.type) {
+    const { type, experiments = {} } = this.props;
+    switch (type) {
       case 'space':
-        return <div className={this.styles.gallerySettings_spacer} />;
+        return (
+          <div
+            className={classNames(this.styles.gallerySettings_spacer, {
+              [this.styles.gallerySettings_newUi_spacer]: experiments?.newSettingsUi?.enabled,
+            })}
+          />
+        );
       case 'hr':
       default:
         return <SettingsSeparator top bottom />;
@@ -65,7 +74,7 @@ class LayoutControlsSection extends Component {
 
   getControlData = t => ({
     '|': { component: Separator, props: { type: 'hr' } }, //separator
-    _: { component: Separator, props: { type: 'space' } }, //separator
+    _: { component: Separator, props: { type: 'space', experiments: this.props.experiments } }, //separator
     itemsPerRow: {
       component: ItemsPerRow,
       props: {
@@ -111,6 +120,7 @@ class LayoutControlsSection extends Component {
         onChange: value => this.applyGallerySetting({ cubeType: value }),
         value: this.getValueFromComponentStyles('cubeType'),
         t,
+        experiments: this.props.experiments,
       },
     },
     titleButtonPlacement: {
@@ -119,6 +129,7 @@ class LayoutControlsSection extends Component {
         onChange: value => this.applyGallerySetting({ titlePlacement: value }),
         value: this.getValueFromComponentStyles('titlePlacement'),
         t,
+        experiments: this.props.experiments,
       },
     },
     imageRatio: {
@@ -138,6 +149,7 @@ class LayoutControlsSection extends Component {
         },
         value: this.getValueFromComponentStyles('isVertical') ? '1' : '0',
         t,
+        experiments: this.props.experiments,
       },
     },
     scrollDirection: {
@@ -148,6 +160,7 @@ class LayoutControlsSection extends Component {
         },
         value: this.getValueFromComponentStyles('oneRow') ? 'horizontal' : 'vertical',
         t,
+        experiments: this.props.experiments,
       },
     },
     thumbnailPlacement: {

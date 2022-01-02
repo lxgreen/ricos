@@ -106,7 +106,7 @@ export class SettingsModal extends Component {
     const useNewSettingsUi = experiments?.newSettingsUi?.enabled;
 
     return (
-      <div ref={$container}>
+      <div ref={$container} className={this.styles.settings_container}>
         <FocusManager dir={languageDir}>
           {isMobile ? (
             <SettingsMobileHeader

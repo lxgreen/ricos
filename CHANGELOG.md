@@ -24,6 +24,8 @@
 
 ### :house: Internal
 
+- `gallery`
+  - [#3252](https://github.com/wix/ricos/pull/3252) refactor gallery settings modal 
 - `general`
   - [#3332](https://github.com/wix/ricos/pull/3332) created selectionListItem component and consume it in settings
 - `general`
