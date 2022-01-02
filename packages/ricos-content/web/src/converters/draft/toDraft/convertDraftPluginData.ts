@@ -365,21 +365,25 @@ const convertPollData = data => {
 };
 
 const convertAppEmbedData = data => {
-  const { type, itemId, name, imageSrc, url, bookingData, eventData } = data;
+  const { type, itemId, name, image, url, bookingData, eventData } = data;
+  const { src, width, height } = image || {};
   data.type = type.toLowerCase();
   const selectedProduct: Record<string, unknown> = {
     id: itemId,
     name,
-    imageSrc,
+    imageSrc: src?.url,
     pageUrl: url,
     ...(bookingData || {}),
     ...(eventData || {}),
   };
+  width && (selectedProduct.imageWidth = width);
+  height && (selectedProduct.imageHeight = height);
   data.selectedProduct = selectedProduct;
   delete data.id;
   delete data.itemId;
   delete data.name;
   delete data.imageSrc;
+  delete data.image;
   delete data.url;
   bookingData && delete data.bookingData;
   eventData && delete data.eventData;

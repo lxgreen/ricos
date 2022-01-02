@@ -480,6 +480,8 @@ Release of v8.65.2 failed
   - [#3191](https://github.com/wix/ricos/pull/3191) html iframe sandbox allows fullscreen
 - `headings`
   - [#3196](https://github.com/wix/ricos/pull/3196) new dropdown style and a11y fixes for safari
+- `vertical-embed`
+  - [#3199](https://github.com/wix/ricos/pull/3199) reduce verticals image size
 
 ## 8.63.7 (Nov 30, 2021)
 

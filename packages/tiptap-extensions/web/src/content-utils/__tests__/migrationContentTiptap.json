@@ -887,7 +887,12 @@
         "name": "flowers",
         "imageSrc": "https://static.wixstatic.com/media/11062b_3a93dbce5ab64e7c90d9b2a83a598893~mv2.jpg/v1/fit/w_6720,h_4480,q_90/file.jpg",
         "url": "https://www.wix.app/stores/54e7b326-49ec-434f-a7cc-c2ad1eaec049/catalog/265beaf5-3008-c5c2-fa5e-1447e0bebf71?d=https://sapirs0.wixsite.com/mysite/product-page/flowers",
-        "id": "28"
+        "id": "28",
+        "image": {
+          "src": {
+            "url": "https://static.wixstatic.com/media/11062b_3a93dbce5ab64e7c90d9b2a83a598893~mv2.jpg/v1/fit/w_6720,h_4480,q_90/file.jpg"
+          }
+        }
       }
     },
     {
@@ -914,7 +919,12 @@
           "scheduling": "13 de octubre de 2020 19:00–27 de octubre de 2020 23:00 ",
           "location": " Suzanna Baby Shop"
         },
-        "id": "30"
+        "id": "30",
+        "image": {
+          "src": {
+            "url": "https://static.wixstatic.com/media/2571849c6b0749a4bbd008a06fd65762.jpg"
+          }
+        }
       }
     },
     {
@@ -940,7 +950,12 @@
         "bookingData": {
           "durations": "90"
         },
-        "id": "32"
+        "id": "32",
+        "image": {
+          "src": {
+            "url": "https://static.wixstatic.com/media/78ccafc88f7fce3e55bd7a33f166704b.jpg"
+          }
+        }
       }
     },
     {

@@ -331,15 +331,20 @@ const convertAppEmbedData = (data: {
   selectedProduct: Record<string, string>;
   url;
   imageSrc;
+  imageWidth;
+  imageHeight;
   itemId;
   name;
   bookingData;
   eventData;
+  image;
 }) => {
   const {
     id,
     name,
     imageSrc,
+    imageHeight,
+    imageWidth,
     description,
     pageUrl,
     scheduling,
@@ -351,6 +356,7 @@ const convertAppEmbedData = (data: {
   data.itemId = id;
   data.name = name;
   data.imageSrc = imageSrc;
+  data.image = { src: { url: imageSrc }, width: imageWidth, height: imageHeight };
   if (data.type === 'booking') {
     data.bookingData = { durations: durations || description };
   } else if (data.type === 'event') {

@@ -28,7 +28,9 @@ describe('convert from Tiptap', () => {
   describe('to Draft', () => {
     it('should convert content', () => {
       const draftContent = tiptapToDraft(migrationContentTiptap);
-      expect(compare(draftContent, draftMigrationContent, { ignoredKeys: ['key'] })).toEqual({});
+      expect(
+        compare(draftContent, draftMigrationContent, { ignoredKeys: ['key'], verbose: true })
+      ).toEqual({});
     });
     it('should convert node data', () => {
       const imageNode = getImageNode(migrationContentTiptap);

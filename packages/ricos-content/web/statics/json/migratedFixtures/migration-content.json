@@ -886,7 +886,12 @@
         "itemId": "265beaf5-3008-c5c2-fa5e-1447e0bebf71",
         "name": "flowers",
         "imageSrc": "https://static.wixstatic.com/media/11062b_3a93dbce5ab64e7c90d9b2a83a598893~mv2.jpg/v1/fit/w_6720,h_4480,q_90/file.jpg",
-        "url": "https://www.wix.app/stores/54e7b326-49ec-434f-a7cc-c2ad1eaec049/catalog/265beaf5-3008-c5c2-fa5e-1447e0bebf71?d=https://sapirs0.wixsite.com/mysite/product-page/flowers"
+        "url": "https://www.wix.app/stores/54e7b326-49ec-434f-a7cc-c2ad1eaec049/catalog/265beaf5-3008-c5c2-fa5e-1447e0bebf71?d=https://sapirs0.wixsite.com/mysite/product-page/flowers",
+        "image": {
+          "src": {
+            "url": "https://static.wixstatic.com/media/11062b_3a93dbce5ab64e7c90d9b2a83a598893~mv2.jpg/v1/fit/w_6720,h_4480,q_90/file.jpg"
+          }
+        }
       }
     },
     {
@@ -910,6 +915,11 @@
         "name": "2-week course of intensive physical research, with a sense of plenty of time for process and discovery. Rooted in Ohad N",
         "imageSrc": "https://static.wixstatic.com/media/2571849c6b0749a4bbd008a06fd65762.jpg",
         "url": "https://www.wix.app/events/54e7b326-49ec-434f-a7cc-c2ad1eaec049/65129504-3bfc-44c8-90cc-f9eedfea9321/details?d=https://sapirs0.wixsite.com/mysite/event-details/2-week-course-of-intensive-physical-research-with-a-sense-of-plenty-of-time-for-process-and-discovery-rooted-in-ohad-n",
+        "image": {
+          "src": {
+            "url": "https://static.wixstatic.com/media/2571849c6b0749a4bbd008a06fd65762.jpg"
+          }
+        },
         "eventData": {
           "scheduling": "13 de octubre de 2020 19:00–27 de octubre de 2020 23:00 ",
           "location": " Suzanna Baby Shop"
@@ -937,6 +947,11 @@
         "name": "CUPCAKE MASTER",
         "imageSrc": "https://static.wixstatic.com/media/78ccafc88f7fce3e55bd7a33f166704b.jpg",
         "url": "https://www.wix.app/bookings/54e7b326-49ec-434f-a7cc-c2ad1eaec049/service/03ef6546-985d-4739-951e-ca897375b967/details?d=https://sapirs0.wixsite.com/mysite/bookings-checkout/cupcake-master",
+        "image": {
+          "src": {
+            "url": "https://static.wixstatic.com/media/78ccafc88f7fce3e55bd7a33f166704b.jpg"
+          }
+        },
         "bookingData": {
           "durations": "90"
         }

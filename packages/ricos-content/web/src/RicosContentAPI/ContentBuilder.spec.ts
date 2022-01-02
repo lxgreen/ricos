@@ -308,7 +308,11 @@ describe('Ricos Content Builder', () => {
       type: AppEmbedData_AppType.EVENT,
       itemId: 'assa',
       name: 'Birthday party',
-      imageSrc: 'https://static.wixstatic.com/media/8bb438_8307fc32bdf4455ab3033c542da4c6c7.jpg',
+      image: {
+        src: {
+          url: 'https://static.wixstatic.com/media/8bb438_8307fc32bdf4455ab3033c542da4c6c7.jpg',
+        },
+      },
       url: 'https://static.wixstatic.com/media/8bb438_8307fc32bdf4455ab3033c542da4c6c7.jpg',
       eventData: { scheduling: 'now', location: 'home' },
     };

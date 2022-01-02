@@ -144,4 +144,25 @@ const isPNG = (src?: ComponentData['src']): boolean => {
   return /(.*)\.(png)$/.test(src.file_name);
 };
 
-export { isPNG, getImageSrc, DEFAULT as WIX_MEDIA_DEFAULT };
+function getMediaId(src: string) {
+  try {
+    const [, mediaId] = /media\/([^/]+)/.exec(src) as string[];
+    return mediaId;
+  } catch (error) {
+    return src;
+  }
+}
+
+function getScaleImageSrc(src: string, width: number, height: number) {
+  const mediaId = getMediaId(src);
+
+  try {
+    return imageClientAPI.getScaleToFillImageURL(mediaId, null, null, width, height, {
+      quality: 90,
+    });
+  } catch (error) {
+    return src;
+  }
+}
+
+export { isPNG, getImageSrc, getScaleImageSrc, DEFAULT as WIX_MEDIA_DEFAULT };

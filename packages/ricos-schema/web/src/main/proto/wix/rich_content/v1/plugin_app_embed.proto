@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package wix.rich_content.v1;
 
+import "wix/rich_content/v1/common.proto";
 import "google/protobuf/wrappers.proto";
 
 message AppEmbedData {
@@ -23,8 +24,10 @@ message AppEmbedData {
     AppType type = 1;
     google.protobuf.StringValue item_id = 2;
     google.protobuf.StringValue name = 3;
-    google.protobuf.StringValue image_src = 4;
+    google.protobuf.StringValue image_src = 4 [deprecated = true]; //TODO: use image.src.url instead
     google.protobuf.StringValue url = 5;
+
+    Media image = 8;
 
     oneof appData {
         BookingData booking_data = 6;
