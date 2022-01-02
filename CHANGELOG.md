@@ -20,17 +20,22 @@
 </details>
 <hr/>
 
+## 8.66.6 (Jan 03, 2022)
+
+- `vertical-embed`
+  - [#3351](https://github.com/wix/ricos/pull/3351) fix toDraft convertor
 
 ## 8.66.5 (Jan 02, 2022)
 
 - `vertical-embed`
   - [#3347](https://github.com/wix/ricos/pull/3347) fix performance: load vertical image in smaller size
+
 ## 8.66.4 (Jan 02, 2022)
 
 ### :house: Internal
 
 - `gallery`
-  - [#3252](https://github.com/wix/ricos/pull/3252) refactor gallery settings modal 
+  - [#3252](https://github.com/wix/ricos/pull/3252) refactor gallery settings modal
 - `general`
   - [#3332](https://github.com/wix/ricos/pull/3332) created selectionListItem component and consume it in settings
 - `general`
