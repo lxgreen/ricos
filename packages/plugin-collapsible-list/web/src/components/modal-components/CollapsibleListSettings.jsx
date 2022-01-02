@@ -7,6 +7,7 @@ import {
   Separator,
   LabeledToggle,
   Label,
+  SelectionListItem,
 } from 'wix-rich-content-ui-components';
 import { LTRIcon, RTLIcon } from 'wix-rich-content-plugin-commons';
 import { directions, EXPANDED, COLLAPSED, FIRST_EXPANDED } from '../../defaults';
@@ -19,12 +20,17 @@ class CollapsibleListSettings extends Component {
     this.styles = mergeStyles({ styles, theme });
   }
 
-  renderOption = ({ item }) => (
-    <>
-      <item.icon />
-      <p>{item.label}</p>
-    </>
-  );
+  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
+
+  renderOption = ({ item, selected }) =>
+    this.useNewSettingsUi ? (
+      <SelectionListItem icon={<item.icon />} selected={selected} label={item.label} />
+    ) : (
+      <>
+        <item.icon />
+        <p>{item.label}</p>
+      </>
+    );
 
   renderExpandOptions = () => {
     const { getDataManager, t, theme, isMobile } = this.props;
@@ -112,6 +118,7 @@ class CollapsibleListSettings extends Component {
           onChange={getDataManager().changeDirection}
           className={this.styles.direction_selector}
           optionClassName={this.styles.direction_selector_option}
+          useNewSettingsUi={this.useNewSettingsUi}
         />
       </>
     );
@@ -133,6 +140,7 @@ CollapsibleListSettings.propTypes = {
   theme: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
   isMobile: PropTypes.bool,
+  experiments: PropTypes.object,
 };
 
 export default CollapsibleListSettings;

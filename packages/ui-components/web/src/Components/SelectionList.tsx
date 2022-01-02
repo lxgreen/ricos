@@ -57,6 +57,7 @@ interface SelectionListProps {
   value: string;
   onChange: (value: string) => void;
   optionClassName?: string;
+  useNewSettingsUi?: boolean;
 }
 
 class SelectionList extends Component<SelectionListProps, { focusIndex: number }> {
@@ -73,6 +74,7 @@ class SelectionList extends Component<SelectionListProps, { focusIndex: number }
   static defaultProps = {
     dataMapper: defaultDataMapper,
     renderItem: defaultRenderItem,
+    useNewSettingsUi: false,
   };
 
   mapItemToOptionData(
@@ -118,7 +120,15 @@ class SelectionList extends Component<SelectionListProps, { focusIndex: number }
   }
 
   render() {
-    const { dataSource, className, onChange, renderItem, theme, optionClassName } = this.props;
+    const {
+      dataSource,
+      className,
+      onChange,
+      renderItem,
+      theme,
+      optionClassName,
+      useNewSettingsUi,
+    } = this.props;
     return (
       <div
         ref={el => (this.ref = el)}
@@ -141,6 +151,7 @@ class SelectionList extends Component<SelectionListProps, { focusIndex: number }
               value={option.value}
               optionClassName={optionClassName}
               onKeyDown={e => this.onKeyDown(e)}
+              useNewSettingsUi={useNewSettingsUi}
             >
               {renderItem({ item, option, selected })}
             </SelectionListOption>
@@ -160,6 +171,7 @@ interface SelectionListOptionProps {
   dataHook?: string;
   tabIndex?: number;
   onKeyDown?: KeyboardEventHandler;
+  useNewSettingsUi?: boolean;
 }
 
 class SelectionListOption extends Component<SelectionListOptionProps> {
@@ -188,6 +200,7 @@ class SelectionListOption extends Component<SelectionListOptionProps> {
       dataHook,
       tabIndex,
       onKeyDown,
+      useNewSettingsUi,
     } = this.props;
 
     return (
@@ -197,11 +210,15 @@ class SelectionListOption extends Component<SelectionListOptionProps> {
         aria-selected={selected}
         ref={el => (this.ref = el)}
         onKeyDown={e => onKeyDown?.(e)}
-        className={classnames(
-          this.styles.selectionListOption,
-          { [this.styles.selectionListOption_selected]: selected },
-          optionClassName
-        )}
+        className={
+          useNewSettingsUi
+            ? ''
+            : classnames(
+                this.styles.selectionListOption,
+                { [this.styles.selectionListOption_selected]: selected },
+                optionClassName
+              )
+        }
         data-hook={dataHook}
         onClick={() => onChange(value)}
       >

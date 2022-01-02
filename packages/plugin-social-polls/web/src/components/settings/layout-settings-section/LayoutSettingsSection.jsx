@@ -7,6 +7,7 @@ import {
   SelectionList,
   LabeledToggle,
   Label,
+  SelectionListItem,
 } from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 
@@ -17,6 +18,8 @@ import styles from './layout-settings-section.scss';
 
 export class LayoutSettingsSection extends Component {
   styles = mergeStyles({ styles, theme: this.props.theme });
+
+  useNewSettingsUi = !!this.props.experiments.newSettingsUi?.enabled;
 
   updateSettings(layout) {
     this.props.store.update('componentData', {
@@ -39,12 +42,15 @@ export class LayoutSettingsSection extends Component {
     });
   };
 
-  renderOption = ({ item }) => (
-    <>
-      <item.icon />
-      <p className={styles.selectionListOptionLabel}>{item.label}</p>
-    </>
-  );
+  renderOption = ({ item, selected }) =>
+    this.useNewSettingsUi ? (
+      <SelectionListItem icon={<item.icon />} selected={selected} label={item.label} />
+    ) : (
+      <>
+        <item.icon />
+        <p className={styles.selectionListOptionLabel}>{item.label}</p>
+      </>
+    );
 
   render() {
     const { componentData, t, isMobile } = this.props;
@@ -93,6 +99,7 @@ export class LayoutSettingsSection extends Component {
           value={poll?.type}
           onChange={this.handlePollTypeChange}
           className={styles.layout_selector}
+          useNewSettingsUi={this.useNewSettingsUi}
         />
 
         {!isMobile && (
@@ -130,6 +137,7 @@ export class LayoutSettingsSection extends Component {
           value={poll?.direction}
           onChange={this.handleDirectionChange}
           className={styles.layout_selector}
+          useNewSettingsUi={this.useNewSettingsUi}
         />
       </section>
     );
@@ -141,5 +149,7 @@ LayoutSettingsSection.propTypes = {
   theme: PropTypes.object.isRequired,
   isMobile: PropTypes.bool.isRequired,
   componentData: PropTypes.object.isRequired,
+  experiments: PropTypes.object,
+  updateData: PropTypes.func.isRequired,
   store: PropTypes.object.isRequired,
 };

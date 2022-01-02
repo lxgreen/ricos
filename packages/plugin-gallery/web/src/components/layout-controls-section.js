@@ -127,6 +127,7 @@ class LayoutControlsSection extends Component {
         onChange: value => this.applyGallerySetting({ cubeRatio: value }),
         value: this.getValueFromComponentStyles('cubeRatio'),
         t,
+        experiments: this.props.experiments,
       },
     },
     imageOrientation: {
@@ -155,6 +156,7 @@ class LayoutControlsSection extends Component {
         onChange: value => this.applyGallerySetting({ galleryThumbnailsAlignment: value }),
         value: this.getValueFromComponentStyles('galleryThumbnailsAlignment'),
         t,
+        experiments: this.props.experiments,
       },
     },
   });
@@ -185,6 +187,7 @@ LayoutControlsSection.propTypes = {
   theme: PropTypes.object.isRequired,
   store: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  experiments: PropTypes.object,
   languageDir: PropTypes.string.isRequired,
   t: PropTypes.func,
 };

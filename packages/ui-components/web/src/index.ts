@@ -48,6 +48,7 @@ export { default as FocusManager } from './Components/FocusManager';
 export { default as SettingsMobileHeader } from './Components/SettingsMobileHeader';
 export { default as SettingsSeparator } from './Components/SettingsSeparator';
 export { default as Label } from './Components/Label';
+export { default as SelectionListItem } from './Components/SelectionListItem';
 export { default as SettingsPanelHeader } from './Components/SettingsPanelHeader';
 export { default as SettingsAddItem } from './Components/SettingsAddItem';
 // export { getSelectionStyles } from './Utils/inlineStyleUtils';

@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { ColorPicker } from 'wix-rich-content-plugin-commons';
-import { SliderWithInput, SettingsSeparator, SelectionList } from 'wix-rich-content-ui-components';
+import {
+  SliderWithInput,
+  SettingsSeparator,
+  SelectionList,
+  SelectionListItem,
+} from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 
 import { ColorIcon, ImageIcon, GradientIcon } from '../../../assets/icons';
@@ -23,6 +28,8 @@ export class DesignSettingsSection extends Component {
   state = {
     backgroundType: this.props.componentData.design.poll?.backgroundType || BACKGROUND_TYPE.COLOR,
   };
+
+  useNewSettingsUi = !!this.props.experiments.newSettingsUi?.enabled;
 
   updateDesign(design) {
     this.props.store.update('componentData', { design });
@@ -58,12 +65,15 @@ export class DesignSettingsSection extends Component {
 
   dataMapper = ({ name }) => ({ value: name });
 
-  renderOption = ({ item }) => (
-    <>
-      <item.icon />
-      <p className={styles.selectionListOptionLabel}>{item.label}</p>
-    </>
-  );
+  renderOption = ({ item, selected }) =>
+    this.useNewSettingsUi ? (
+      <SelectionListItem icon={<item.icon />} label={item.label} selected={selected} />
+    ) : (
+      <>
+        <item.icon />
+        <p className={styles.selectionListOptionLabel}>{item.label}</p>
+      </>
+    );
 
   getBackgroundColorValue() {
     const { componentData } = this.props;
@@ -119,6 +129,7 @@ export class DesignSettingsSection extends Component {
           onChange={this.handleTypeChange}
           value={backgroundType}
           className={styles.layout_selector}
+          useNewSettingsUi={this.useNewSettingsUi}
         />
         <p className={styles.title}>
           {t(DesignSettingsSection.PICK_BACKGROUND_LABELS[backgroundType])}
@@ -164,6 +175,8 @@ DesignSettingsSection.propTypes = {
   t: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired,
   componentData: PropTypes.object.isRequired,
+  experiments: PropTypes.object,
+  updateData: PropTypes.func.isRequired,
   store: PropTypes.object.isRequired,
   languageDir: PropTypes.string.isRequired,
 };

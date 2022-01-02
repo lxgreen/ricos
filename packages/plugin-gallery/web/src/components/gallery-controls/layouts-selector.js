@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { getGalleryLayoutsSettings } from '../../layout-helper';
 import { mergeStyles } from 'wix-rich-content-common';
-import { SelectionList } from 'wix-rich-content-ui-components';
+import { SelectionList, SelectionListItem } from 'wix-rich-content-ui-components';
 import styles from '../../../statics/styles/layout-selector.scss';
 
 class LayoutSelector extends Component {
@@ -12,6 +12,8 @@ class LayoutSelector extends Component {
     super(props);
     this.styles = mergeStyles({ styles, theme: props.theme });
   }
+
+  useNewSettingsUi = !!this.props.experiments.newSettingsUi?.enabled;
 
   getLayouts = t => {
     return getGalleryLayoutsSettings(t).map(layout => {
@@ -26,16 +28,19 @@ class LayoutSelector extends Component {
 
   dataMapper = ({ layoutId }) => ({ value: layoutId });
 
-  renderOption = ({ item, selected }) => (
-    <div className={this.styles.layoutsSelector_tile}>
-      <item.icon
-        className={classNames(this.styles.layoutsSelector_icon, {
-          [this.styles.layoutsSelector_icon_selected]: selected,
-        })}
-      />
-      <span className={this.styles.layoutsSelector_tile_label}>{item.name}</span>
-    </div>
-  );
+  renderOption = ({ item, selected }) =>
+    this.useNewSettingsUi ? (
+      <SelectionListItem label={item.name} selected={selected} icon={<item.icon />} />
+    ) : (
+      <div className={this.styles.layoutsSelector_tile}>
+        <item.icon
+          className={classNames(this.styles.layoutsSelector_icon, {
+            [this.styles.layoutsSelector_icon_selected]: selected,
+          })}
+        />
+        <span className={this.styles.layoutsSelector_tile_label}>{item.name}</span>
+      </div>
+    );
 
   render() {
     const styles = this.styles;
@@ -53,6 +58,7 @@ class LayoutSelector extends Component {
           value={value}
           onChange={value => onChange(value)}
           optionClassName={styles.layoutsSelector_option}
+          useNewSettingsUi={this.useNewSettingsUi}
         />
       </div>
     );
@@ -62,6 +68,7 @@ class LayoutSelector extends Component {
 LayoutSelector.propTypes = {
   value: PropTypes.number.isRequired,
   theme: PropTypes.object.isRequired,
+  experiments: PropTypes.object,
   onChange: PropTypes.func.isRequired,
   t: PropTypes.func,
 };

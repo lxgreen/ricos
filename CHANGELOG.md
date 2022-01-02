@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `general`
+  - [#3332](https://github.com/wix/ricos/pull/3332) created selectionListItem component and consume it in settings
+- `general`
+  - [#3345](https://github.com/wix/ricos/pull/3345) created settingsAddItem component and consume it in settings modal + ui fixes in tabs & labeledToggle
+  
 </details>
 <hr/>
 
@@ -28,8 +35,6 @@
   - [#3338](https://github.com/wix/ricos/pull/3338) fix `documentStyle` decorations converter to draft
 - `general`
   - [#3342](https://github.com/wix/ricos/pull/3342) created settingsPanelHeader component and consume it in settings modal
-- `general`
-  - [#3345](https://github.com/wix/ricos/pull/3345) created settingsadditem component and consume it in settings modal + ui fixes in tabs & labeldtoggle
 
 ### :house: Internal
 

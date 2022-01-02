@@ -98,6 +98,7 @@ class CollapsibleListModal extends Component {
           theme={theme}
           isMobile={isMobile}
           t={t}
+          experiments={experiments}
         />
       </div>
     );

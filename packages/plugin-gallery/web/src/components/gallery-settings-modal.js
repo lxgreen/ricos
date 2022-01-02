@@ -109,7 +109,7 @@ class AdvancedSettingsSection extends Component {
   }
 
   render() {
-    const { data, store, theme, t, isMobile } = this.props;
+    const { data, store, theme, t, isMobile, experiments = {} } = this.props;
     const { languageDir } = this.context;
     return (
       this.shouldRender() && (
@@ -131,6 +131,7 @@ class AdvancedSettingsSection extends Component {
               onChange={value => this.switchLayout({ galleryLayout: value })}
               t={t}
               isMobile={isMobile}
+              experiments={experiments}
             />
           </SettingsSection>
           <LayoutControlsSection
@@ -141,6 +142,7 @@ class AdvancedSettingsSection extends Component {
             t={t}
             isMobile={isMobile}
             languageDir={languageDir}
+            experiments={experiments}
           />
         </div>
       )
@@ -155,6 +157,7 @@ AdvancedSettingsSection.propTypes = {
   theme: PropTypes.object.isRequired,
   t: PropTypes.func,
   languageDir: PropTypes.string,
+  experiments: PropTypes.object,
 };
 export class GallerySettingsModal extends Component {
   constructor(props) {
@@ -294,6 +297,7 @@ export class GallerySettingsModal extends Component {
           helpers={this.props.helpers}
           t={this.props.t}
           languageDir={this.props.languageDir}
+          experiments={this.props.experiments}
         />
       </Tab>
     ),

@@ -164,6 +164,7 @@ export class SettingsModal extends Component {
                   componentData={componentData}
                   t={t}
                   isMobile={isMobile}
+                  experiments={experiments}
                 />
               </Tab>
               <Tab
@@ -177,6 +178,7 @@ export class SettingsModal extends Component {
                   componentData={componentData}
                   t={t}
                   languageDir={languageDir}
+                  experiments={experiments}
                 />
               </Tab>
               <Tab
