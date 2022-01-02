@@ -365,13 +365,13 @@ const convertPollData = data => {
 };
 
 const convertAppEmbedData = data => {
-  const { type, itemId, name, image, url, bookingData, eventData } = data;
+  const { type, itemId, name, image, url, bookingData, eventData, imageSrc } = data;
   const { src, width, height } = image || {};
   data.type = type.toLowerCase();
   const selectedProduct: Record<string, unknown> = {
     id: itemId,
     name,
-    imageSrc: src?.url,
+    imageSrc: src?.url || imageSrc,
     pageUrl: url,
     ...(bookingData || {}),
     ...(eventData || {}),
