@@ -24,8 +24,11 @@
   background-color: transparent;
   font-size: 16px;
   font-weight: 300;
-  &:hover:not(.tabs_headers_option_selected) .tabs_headers_option_label {
-    color: #00000066;
+  &:hover:not(.tabs_headers_option_selected) {
+    border-bottom: solid 3px #00000066;
+    .tabs_headers_option_label {
+      color: #00000066;
+    }
   }
 }
 
@@ -34,6 +37,6 @@
 }
 
 .tabs_headers_option_label {
-  color: $settings-text-color;
+  color: var(--ricos-settings-text-color, #000);
   cursor: pointer;
 }

@@ -28,6 +28,8 @@
   - [#3338](https://github.com/wix/ricos/pull/3338) fix `documentStyle` decorations converter to draft
 - `general`
   - [#3342](https://github.com/wix/ricos/pull/3342) created settingsPanelHeader component and consume it in settings modal
+- `general`
+  - [#3345](https://github.com/wix/ricos/pull/3345) created settingsadditem component and consume it in settings modal + ui fixes in tabs & labeldtoggle
 
 ### :house: Internal
 
