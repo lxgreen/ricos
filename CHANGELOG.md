@@ -17,6 +17,9 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- [#3353](https://github.com/wix/ricos/pull/3353) add title prop when using SettingsMobileHeader
 ### :bug: Bug Fix
 
 - `social-embed`

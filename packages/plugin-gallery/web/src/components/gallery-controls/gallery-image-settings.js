@@ -92,7 +92,13 @@ class ImageSettings extends Component {
       <FocusManager className={styles.galleryImageSettings}>
         <div className={styles.galleryImageSettings_content}>
           {isMobile ? (
-            <SettingsMobileHeader theme={theme} onCancel={onCancel} onSave={onSave} t={t} />
+            <SettingsMobileHeader
+              theme={theme}
+              onCancel={onCancel}
+              onSave={onSave}
+              t={t}
+              title={experiments?.newSettingsUi?.enabled && t('GallerySettings_Header')}
+            />
           ) : experiments?.newSettingsUi?.enabled ? (
             <SettingsPanelHeader showCloseIcon={false}>
               <div onClick={onCancel}>

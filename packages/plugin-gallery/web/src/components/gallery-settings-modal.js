@@ -384,6 +384,7 @@ export class GallerySettingsModal extends Component {
             onCancel={this.revertComponentData}
             onSave={this.onDoneClick}
             t={t}
+            title={experiments?.newSettingsUi?.enabled && t('GallerySettings_Header')}
           />
         )}
         <FocusManager

@@ -183,6 +183,7 @@ class ImageSettings extends Component {
             theme={theme}
             onCancel={this.revertComponentData}
             onSave={this.onDoneClick}
+            title={experiments?.newSettingsUi?.enabled && t('ImageSettings_Header')}
             t={t}
           />
         ) : experiments?.newSettingsUi?.enabled ? (

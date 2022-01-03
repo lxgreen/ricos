@@ -78,7 +78,13 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
       })}
     >
       {isMobile ? (
-        <SettingsMobileHeader t={t} theme={theme} onCancel={closeModal} onSave={onDoneClick} />
+        <SettingsMobileHeader
+          t={t}
+          theme={theme}
+          onCancel={closeModal}
+          onSave={onDoneClick}
+          title={experiments?.newSettingsUi?.enabled && t('VideoModal_MobileHeader')}
+        />
       ) : experiments?.newSettingsUi?.enabled ? (
         <SettingsPanelHeader title={t('VideoPlugin_Settings_Header')} onClose={closeModal} />
       ) : (

@@ -113,6 +113,7 @@ export class SettingsModal extends Component {
               onSave={helpers.closeModal}
               onCancel={this.restoreChanges}
               theme={styles}
+              title={useNewSettingsUi && t('Poll_PollSettings_Common_Header')}
               t={t}
             >
               {!useNewSettingsUi && (

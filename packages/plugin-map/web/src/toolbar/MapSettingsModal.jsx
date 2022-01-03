@@ -257,6 +257,7 @@ export class MapSettingsModal extends Component {
             onCancel={closeModal}
             theme={theme}
             t={t}
+            title={experiments?.newSettingsUi?.enabled && t('MapSettings_Title')}
           />
         )}
 

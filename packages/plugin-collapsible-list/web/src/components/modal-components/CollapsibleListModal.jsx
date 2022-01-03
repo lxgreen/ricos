@@ -71,7 +71,7 @@ class CollapsibleListModal extends Component {
   };
 
   renderMobileHeader = () => {
-    const { t, theme } = this.props;
+    const { t, theme, experiments } = this.props;
 
     return (
       <SettingsMobileHeader
@@ -79,6 +79,10 @@ class CollapsibleListModal extends Component {
         theme={theme}
         onCancel={this.revertComponentData}
         onSave={this.onDoneClick}
+        title={
+          experiments?.newSettingsUi?.enabled &&
+          t('CollapsibleList_CollapsibleListSettings_Common_Header')
+        }
       />
     );
   };

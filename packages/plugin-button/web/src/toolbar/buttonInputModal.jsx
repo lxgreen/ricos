@@ -213,6 +213,7 @@ export default class ButtonInputModal extends Component {
             onSave={this.onConfirm}
             onCancel={this.onCloseRequested}
             theme={styles}
+            title={experiments?.newSettingsUi?.enabled && t('ButtonModal_Header')}
             t={t}
           />
           <PreviewComponent buttonObj={this.state} {...this.props} />
