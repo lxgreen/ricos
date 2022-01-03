@@ -95,7 +95,7 @@ const createInsertButtons: CreateInsertButtons = ({
     section: 'BlockToolbar_Section_Embed_Anywhere',
     componentData: DEFAULTS,
     name: `${socialType}_InsertButton`,
-    tooltip: t(`EmbedURL_Social_${socialType}_Title`),
+    tooltip: t(`${socialType}Plugin_InsertButton_Tooltip`),
     getIcon: () => socialIconsMap[socialType],
     modalElement: decorateComponentWithProps(EmbedURLInputModal, {
       fetchData: settings.fetchData,

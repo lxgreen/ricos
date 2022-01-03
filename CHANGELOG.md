@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `social-embed`
+  - [#3348](https://github.com/wix/ricos/pull/3348) insert buttons tooltip translation
+
 </details>
 <hr/>
 

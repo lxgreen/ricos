@@ -99,7 +99,7 @@ const createInsertButtons: CreateInsertButtons = ({
     },
     [videoButtonsTypes.youTube]: {
       name: INSERT_PLUGIN_BUTTONS.YOUTUBE,
-      tooltip: t('EmbedURL_Social_YouTube_Title'),
+      tooltip: t('YouTubePlugin_InsertButton_Tooltip'),
       getIcon: () => YoutubeIcon,
       componentData: { ...DEFAULTS, type: videoButtonsTypes.youTube },
       section: 'BlockToolbar_Section_Embed_Anywhere',
