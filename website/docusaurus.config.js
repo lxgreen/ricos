@@ -1,7 +1,7 @@
 module.exports = {
   title: 'Ricos',
   tagline: 'A supercharged rich content framework with an extensible plugin system',
-  url: 'https://wix.github.io/',
+  url: 'https://ricos.js.org/',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'wix',
