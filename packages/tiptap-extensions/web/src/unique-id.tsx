@@ -1,10 +1,10 @@
-import { RicosFunctionalExtension } from 'ricos-tiptap-types';
+import { RicosExtension } from 'ricos-tiptap-types';
 import { Plugin, PluginKey } from 'prosemirror-state';
 import { generateId } from 'ricos-content';
 
 const name = 'unique-id';
 
-export const createUniqueId = (): RicosFunctionalExtension => ({
+export const createUniqueId = (types: string[]): RicosExtension => ({
   type: 'extension',
   createExtensionConfig: () => {
     return {
@@ -13,25 +13,7 @@ export const createUniqueId = (): RicosFunctionalExtension => ({
       addGlobalAttributes() {
         return [
           {
-            //TODO: take node extensions names from extensions config
-            types: [
-              'divider',
-              'image',
-              'gallery',
-              'file',
-              'gif',
-              'video',
-              'linkPreview',
-              'paragraph',
-              'bulletedList',
-              'spoiler',
-              'codeBlock',
-              'heading',
-              'blockquote',
-              'orderedList',
-              'listItem',
-              'poll',
-            ],
+            types,
             attributes: {
               id: {
                 default: null,

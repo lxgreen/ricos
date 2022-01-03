@@ -2,10 +2,10 @@ import { JSONContent } from '@tiptap/react';
 import * as A from 'fp-ts/Array';
 import { flow, identity, pipe } from 'fp-ts/function';
 import * as S from 'fp-ts/string';
-import { getUnsupportedNodeConfig } from 'wix-rich-content-plugin-unsupported-blocks';
-import { extract } from 'wix-tiptap-extensions';
-import { getUnsupportedMarkConfig } from './components/unsupported-mark';
 import { RicosMarkExtension, RicosNodeExtension } from 'ricos-tiptap-types';
+import { getUnsupportedNodeConfig } from 'wix-rich-content-plugin-unsupported-blocks';
+import { createUniqueId, extract } from 'wix-tiptap-extensions';
+import { getUnsupportedMarkConfig } from './components/unsupported-mark';
 import { Extensions } from './models/Extensions';
 
 type ContentTypes = {
@@ -13,21 +13,26 @@ type ContentTypes = {
   nodes: string[];
 };
 
-const toContentTypes = (extensions: Extensions): ContentTypes => ({
-  marks: extensions
-    .getMarkExtensions()
+const extractNodeNames = (extensions: Extensions): ContentTypes['nodes'] => [
+  ...extensions
+    .getReactNodeExtensions()
     .asArray()
     .map(({ name }) => name),
-  nodes: [
-    ...extensions
-      .getReactNodeExtensions()
-      .asArray()
-      .map(({ name }) => name),
-    ...extensions
-      .getHtmlNodeExtensions()
-      .asArray()
-      .map(({ name }) => name),
-  ],
+  ...extensions
+    .getHtmlNodeExtensions()
+    .asArray()
+    .map(({ name }) => name),
+];
+
+const extractMarkNames = (extensions: Extensions): ContentTypes['marks'] =>
+  extensions
+    .getMarkExtensions()
+    .asArray()
+    .map(({ name }) => name);
+
+const toContentTypes = (extensions: Extensions): ContentTypes => ({
+  marks: extractMarkNames(extensions),
+  nodes: extractNodeNames(extensions),
 });
 
 const toExtensions = (transform: {
@@ -74,6 +79,16 @@ const mergeExtensions = (extensions: Extensions) => ({
   marks: RicosMarkExtension[];
 }): Extensions => extensions.concat([...nodes, ...marks]);
 
+const appendUniqueId = (extensions: Extensions): Extensions =>
+  pipe(
+    extensions,
+    extractNodeNames,
+    A.filter(n => n !== 'text'),
+    createUniqueId,
+    A.of,
+    extensions.concat.bind(extensions)
+  );
+
 export const patchExtensions = (content: JSONContent, extensions: Extensions): Extensions =>
   pipe(
     extensions,
@@ -82,5 +97,6 @@ export const patchExtensions = (content: JSONContent, extensions: Extensions): E
       nodes: flow(extractUnsupportedNodes(content), A.map(getUnsupportedNodeConfig)),
       marks: flow(extractUnsupportedMarks(content), A.map(getUnsupportedMarkConfig)),
     }),
-    mergeExtensions(extensions)
+    mergeExtensions(extensions),
+    appendUniqueId
   );
