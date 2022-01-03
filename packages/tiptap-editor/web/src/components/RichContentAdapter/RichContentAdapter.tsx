@@ -8,6 +8,10 @@ import {
   RICOS_TEXT_COLOR_TYPE,
   RICOS_TEXT_HIGHLIGHT_TYPE,
   RICOS_MENTION_TYPE,
+  defaultFontSizes,
+  defaultMobileFontSizes,
+  DOC_STYLE_TYPES,
+  RicosCustomStyles,
 } from 'wix-rich-content-common';
 import {
   generateId,
@@ -261,7 +265,16 @@ export class RichContentAdapter implements TiptapAPI {
     },
     updateDocumentStyle: () => {},
     clearSelectedBlocksInlineStyles: () => {},
-    getWiredFontStyles: () => undefined,
+    getWiredFontStyles: (customStyles?: RicosCustomStyles, isMobile?: boolean) => {
+      const fontStyles = {};
+      Object.values(DOC_STYLE_TYPES).forEach((docType: string) => {
+        fontStyles[docType] = {
+          'font-size': isMobile ? defaultMobileFontSizes[docType] : defaultFontSizes[docType],
+          'font-family': 'HelveticaNeue, Helvetica, Arial',
+        };
+      });
+      return fontStyles;
+    },
     isAtomicBlockInSelection: () => false,
     isTextBlockInSelection: () => true,
     getAnchorBlockType: () => 'paragraph',

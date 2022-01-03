@@ -25,6 +25,8 @@ export { safeJsonParse } from './Utils/jsonUtils';
 
 export { anchorScroll, addAnchorTagToUrl, isNewTab } from './Utils/anchor';
 
+export { defaultMobileFontSizes, defaultFontSizes } from './Utils/fontSizeUtils';
+
 export * from 'ricos-content';
 
 export { default as getDisplayName } from './Utils/getDisplayName';

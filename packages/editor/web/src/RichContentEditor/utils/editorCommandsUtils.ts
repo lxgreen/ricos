@@ -30,9 +30,11 @@ import {
   draftDecorationsToCss,
   DRAFT_TO_DOC_TYPE,
   DRAFT_TO_DOC_TYPE_WITH_LISTS,
+  defaultFontSizes,
+  defaultMobileFontSizes,
 } from 'wix-rich-content-common';
 
-import { DRAFT_TO_RICOS_CUSTOM_STYLES, defaultFontSizes, defaultMobileFontSizes } from './consts';
+import { DRAFT_TO_RICOS_CUSTOM_STYLES } from './consts';
 
 export const getWiredFontStyles = (
   documentStyle?: DocumentStyle,
@@ -45,7 +47,7 @@ export const getWiredFontStyles = (
       'font-size':
         documentStyle?.[ricosHeader]?.['font-size'] ||
         customStyles?.[DRAFT_TO_RICOS_CUSTOM_STYLES[draftHeader]]?.fontSize ||
-        (isMobile ? defaultMobileFontSizes[draftHeader] : defaultFontSizes[draftHeader]),
+        (isMobile ? defaultMobileFontSizes[ricosHeader] : defaultFontSizes[ricosHeader]),
       'font-family':
         customStyles?.[DRAFT_TO_RICOS_CUSTOM_STYLES[draftHeader]]?.fontFamily ||
         'HelveticaNeue, Helvetica, Arial',

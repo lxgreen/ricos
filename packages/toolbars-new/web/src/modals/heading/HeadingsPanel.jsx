@@ -57,7 +57,7 @@ class HeadingsPanel extends Component {
         onReset={() => this.onResetHeading(documentStyleType)}
         onUpdate={() => this.onUpdateHeading(documentStyleType)}
         t={this.props.t}
-        resetEnabled={() => !isEmpty(this.props.documentStyle[documentStyleType])}
+        resetEnabled={() => !isEmpty(this.props.documentStyle?.[documentStyleType])}
         updateEnabled={() =>
           headerType === currentSelect &&
           hasStyleChanges(currentSelect, currentInlineStyles, documentStyle)
@@ -83,7 +83,7 @@ class HeadingsPanel extends Component {
           modal: !this.props.isMobile && this.getUpdatePanelModal(heading),
           icon: () => (
             <ColorsIcon
-              colors={pick(documentStyle[documentStyleType], ['color', 'background-color'])}
+              colors={pick(documentStyle?.[documentStyleType], ['color', 'background-color'])}
             />
           ),
         };
