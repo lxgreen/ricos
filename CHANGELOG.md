@@ -19,7 +19,11 @@
 
 ### :house: Internal
 
-- [#3353](https://github.com/wix/ricos/pull/3353) add title prop when using SettingsMobileHeader
+- `general`
+  - [#3353](https://github.com/wix/ricos/pull/3353) add title prop when using SettingsMobileHeader
+- `tiptap-editor`
+  - [#3356](https://github.com/wix/ricos/pull/3356) unique-id gets types in runtime
+
 ### :bug: Bug Fix
 
 - `social-embed`
