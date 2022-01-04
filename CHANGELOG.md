@@ -20,6 +20,13 @@
 </details>
 <hr/>
 
+## 8.66.8 (Jan 04, 2022)
+
+### :bug: Bug Fix
+
+- `vertical-embed`
+  - [#3362](https://github.com/wix/ricos/pull/3362) fix vertical embed image on SSR
+
 ## 8.66.7 (Jan 04, 2022)
 
 ### :house: Internal
