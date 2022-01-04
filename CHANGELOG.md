@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.66.7 (Jan 04, 2022)
+
 ### :house: Internal
 
 - `general`
@@ -28,9 +33,8 @@
 
 - `social-embed`
   - [#3348](https://github.com/wix/ricos/pull/3348) insert buttons tooltip translation
-
-</details>
-<hr/>
+- `tiptap`
+  - [#3360](https://github.com/wix/ricos/pull/3360) fix undo redo
 
 ## 8.66.6 (Jan 03, 2022)
 
