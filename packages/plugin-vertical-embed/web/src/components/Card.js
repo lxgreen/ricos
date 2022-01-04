@@ -4,6 +4,7 @@ import CardContent from './CardContent';
 import styles from '../../statics/styles/widget.scss';
 import classNames from 'classnames';
 import { getScaleImageSrc } from 'wix-rich-content-common/libs/imageUtils';
+import { isSSR } from 'wix-rich-content-common';
 
 const getImageTargetHeight = (width, height, targetWidth) => {
   const proportion = height / width;
@@ -15,17 +16,30 @@ const Card = props => {
   const { url, content, direction, imageWidth, imageHeight } = props;
   const [imageSrc, setImageSrc] = useState();
 
+  const getImageSrc = targetWidth => {
+    const targetHeight = getImageTargetHeight(imageWidth, imageHeight, targetWidth);
+    return getScaleImageSrc(props.imageSrc, targetWidth, targetHeight);
+  };
+
   const setRef = ref => {
     if (ref && !imageSrc) {
       const targetWidth = ref.getBoundingClientRect()?.width;
       if (imageWidth && imageHeight) {
-        const targetHeight = getImageTargetHeight(imageWidth, imageHeight, targetWidth);
-        setImageSrc(getScaleImageSrc(props.imageSrc, targetWidth, targetHeight));
+        const imageSrc = getImageSrc(targetWidth);
+        setImageSrc(imageSrc);
       } else {
         setImageSrc(props.imageSrc);
       }
     }
   };
+  const imageUrl = isSSR()
+    ? imageWidth && imageHeight
+      ? getImageSrc(185)
+      : props.imageSrc
+    : imageSrc;
+
+  const imageStyle = imageUrl ? { backgroundImage: `url(${imageUrl})` } : {};
+
   return (
     // eslint-disable-next-line react/jsx-no-target-blank
     <a className={styles.link} href={url} target="_blank" ref={setRef}>
@@ -33,9 +47,7 @@ const Card = props => {
         style={{ direction }}
         className={classNames(styles[direction], styles.container, styles.cardLayout)}
       >
-        {imageSrc && (
-          <div style={{ backgroundImage: `url(${imageSrc})` }} className={styles.image} />
-        )}
+        <div style={imageStyle} className={styles.image} />
         <CardContent {...content} />
       </div>
     </a>
