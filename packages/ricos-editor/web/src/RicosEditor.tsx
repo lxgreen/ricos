@@ -495,8 +495,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       <Fragment>
         {this.renderToolbars()}
         {tiptapToolbar && this.renderToolbarPortal(tiptapToolbar)}
-        <button onClick={() => this.state.activeEditor?.getEditorCommands().undo()}>undo</button>
-        <button onClick={() => this.state.activeEditor?.getEditorCommands().redo()}>redo</button>
         {
           <RicosTranslate locale={locale} localeResource={localeResource || englishResources}>
             {t => {

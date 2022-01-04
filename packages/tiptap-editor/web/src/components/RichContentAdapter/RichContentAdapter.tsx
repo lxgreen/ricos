@@ -209,6 +209,8 @@ export class RichContentAdapter implements TiptapAPI {
       setTextAlignment: alignment => {
         this.editor.commands.setTextAlign(alignment);
       },
+      undo: () => this.editor.commands.undo(),
+      redo: () => this.editor.commands.redo(),
     };
   }
 
@@ -255,8 +257,6 @@ export class RichContentAdapter implements TiptapAPI {
     saveSelectionState: () => {},
     loadSelectionState: () => {},
     triggerDecoration: () => {},
-    undo: () => {},
-    redo: () => {},
     setBlockType: () => {},
     _setSelection: () => {},
     getDocumentStyle: () => undefined,
