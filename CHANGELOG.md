@@ -17,6 +17,9 @@
     Click to see more.
   </summary>
 
+- `audio`
+  - [#3367](https://github.com/wix/ricos/pull/3367) generated audio plugin 
+
 </details>
 <hr/>
 
