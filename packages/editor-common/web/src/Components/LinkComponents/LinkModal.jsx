@@ -9,16 +9,8 @@ import { isEmpty } from 'lodash';
 class LinkModal extends PureComponent {
   constructor(props) {
     super(props);
-    const {
-      url,
-      anchor,
-      target,
-      rel,
-      editorState,
-      linkTypes,
-      hideUrlInput,
-      anchorableBlocksData,
-    } = this.props;
+    const { url, anchor, target, rel, editorState, linkTypes, hideUrlInput, anchorableBlocksData } =
+      this.props;
     this.renderBasicLinkPanel =
       !linkTypes ||
       isEmpty(linkTypes) ||

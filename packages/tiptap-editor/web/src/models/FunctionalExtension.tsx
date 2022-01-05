@@ -1,13 +1,10 @@
 import { Extension } from '@tiptap/core';
 import { mergeAttributes } from '@tiptap/react';
 import React from 'react';
-import { DEFAULT_PRIORITY, IFunctionalExtension } from './domain-types';
-import {
-  isRicosFunctionalExtension,
-  NodeHocDescriptor,
-  RicosExtension,
-  RicosExtensionConfig,
-} from 'ricos-tiptap-types';
+import type { IFunctionalExtension } from './domain-types';
+import { DEFAULT_PRIORITY } from './domain-types';
+import type { NodeHocDescriptor, RicosExtension, RicosExtensionConfig } from 'ricos-tiptap-types';
+import { isRicosFunctionalExtension } from 'ricos-tiptap-types';
 
 const DEFAULT_HOC_DESCRTIPTOR: NodeHocDescriptor = {
   nodeTypes: [],

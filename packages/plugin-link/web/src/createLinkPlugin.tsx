@@ -1,21 +1,24 @@
 import { createBasePlugin } from 'wix-rich-content-plugin-commons';
+import type { EditorState } from 'wix-rich-content-editor-common';
 import {
   insertLinkInPosition,
   fixPastedLinks,
   hasLinksInSelection,
   getVisibleSelectionRect,
-  EditorState,
   createLinkEntityData,
 } from 'wix-rich-content-editor-common';
 import { addLinkPreview, LINK_PREVIEW_TYPE } from 'wix-rich-content-plugin-link-preview/libs/utils';
-import { isValidUrl, CreatePluginFunction } from 'wix-rich-content-common';
-import React, { KeyboardEvent } from 'react';
-import { LINK_TYPE, LinkPluginEditorConfig } from './types';
+import type { CreatePluginFunction } from 'wix-rich-content-common';
+import { isValidUrl } from 'wix-rich-content-common';
+import type { KeyboardEvent } from 'react';
+import React from 'react';
+import type { LinkPluginEditorConfig } from './types';
+import { LINK_TYPE } from './types';
 import LinkViewer from './LinkViewer';
 import { linkEntityStrategy } from './strategy';
 import createLinkToolbar from './toolbar/createToolbar';
 import { DEFAULTS } from './defaults';
-import { DraftHandleValue, ContentBlock } from 'draft-js';
+import type { DraftHandleValue, ContentBlock } from 'draft-js';
 
 type LinkifyData = {
   string: string;

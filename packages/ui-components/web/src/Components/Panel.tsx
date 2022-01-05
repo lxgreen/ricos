@@ -1,7 +1,8 @@
-import React, { Component, ComponentType, CSSProperties } from 'react';
+import type { ComponentType, CSSProperties } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import styles from '../../statics/styles/panel.scss';
-import {
+import type {
   ComponentData,
   GetEditorBounds,
   Helpers,

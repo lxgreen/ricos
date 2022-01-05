@@ -1,6 +1,7 @@
 import React, { Component, ReactElement, ReactNode } from 'react';
 import classNames from 'classnames';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../statics/styles/tabs.scss';
 import { string } from 'prop-types';
 

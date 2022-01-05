@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import { Layout, Cell, InputWithLabel, Button, ToggleSwitch } from 'wix-style-react';
 import {
   emptyCommonBuilderFields,
@@ -11,7 +12,7 @@ import {
   PNLContainerData,
 } from '../AbstractPanels';
 import { HorizontalField } from '../HorizontalField';
-import { EditPanelProps } from '../types';
+import type { EditPanelProps } from '../types';
 
 export const Image: FC<EditPanelProps<'addImage'>> = ({ addFunc }) => {
   const [commonFields, setCommonFields] = useState(emptyCommonBuilderFields);

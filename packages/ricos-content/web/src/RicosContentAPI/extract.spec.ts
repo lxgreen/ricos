@@ -1,5 +1,6 @@
 import { extract } from './extract';
-import { RichContent, Node_Type, Decoration_Type } from 'ricos-schema';
+import type { Decoration_Type } from 'ricos-schema';
+import { RichContent, Node_Type } from 'ricos-schema';
 import { fold, struct } from 'fp-ts/Monoid';
 import * as A from 'fp-ts/Array';
 import * as S from 'fp-ts/string';

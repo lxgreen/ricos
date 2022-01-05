@@ -1,6 +1,6 @@
 import { wrappingInputRule } from '@tiptap/core';
-import { RicosExtension } from 'ricos-tiptap-types';
-import { DOMOutputSpec } from 'prosemirror-model';
+import type { RicosExtension } from 'ricos-tiptap-types';
+import type { DOMOutputSpec } from 'prosemirror-model';
 
 export interface BulletListOptions {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -49,9 +49,11 @@ export const createBulletedList = (): RicosExtension => ({
 
     addCommands() {
       return {
-        toggleBulletList: () => ({ commands }) => {
-          return commands.toggleList(this.name, 'listItem');
-        },
+        toggleBulletList:
+          () =>
+          ({ commands }) => {
+            return commands.toggleList(this.name, 'listItem');
+          },
       };
     },
 

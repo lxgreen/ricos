@@ -1,8 +1,9 @@
 import { findIndex, isEqual } from 'lodash';
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 import { AddItem } from 'wix-style-react';
 import ListItem from './ListItem';
-import { StyleAttr } from './types';
+import type { StyleAttr } from './types';
 import styles from './StylesPanel.scss';
 
 const replace = (array: StyleAttr[], existingItem: StyleAttr, newItem: StyleAttr) => {

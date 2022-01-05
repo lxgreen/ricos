@@ -3,7 +3,7 @@ import { BUTTONS, PluginSettingsIcon } from 'wix-rich-content-plugin-commons';
 import { getModalStyles } from 'wix-rich-content-editor-common';
 import { Modals } from '../modals';
 import { MediaReplaceIcon, ImageEditorIcon } from '../icons';
-import {
+import type {
   CreateInlineButtons,
   TranslationFunction,
   AnchorTarget,
@@ -11,7 +11,8 @@ import {
   UISettings,
   AvailableExperiments,
 } from 'wix-rich-content-common';
-import { ImagePluginEditorConfig, IMAGE_TYPE } from '../types';
+import type { ImagePluginEditorConfig } from '../types';
+import { IMAGE_TYPE } from '../types';
 
 const createInlineButtons: CreateInlineButtons = ({
   t,

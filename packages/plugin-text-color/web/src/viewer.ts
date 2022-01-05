@@ -1,11 +1,7 @@
-import {
-  TEXT_COLOR_TYPE,
-  TEXT_HIGHLIGHT_TYPE,
-  TextColorPluginViewerConfig,
-  TextHighlightPluginViewerConfig,
-} from './types';
+import type { TextColorPluginViewerConfig, TextHighlightPluginViewerConfig } from './types';
+import { TEXT_COLOR_TYPE, TEXT_HIGHLIGHT_TYPE } from './types';
 import { DEFAULTS } from './constants';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
 export { TEXT_COLOR_TYPE, TEXT_HIGHLIGHT_TYPE };
 
 export const pluginTextColor: ViewerPluginCreator<TextColorPluginViewerConfig> = config => {

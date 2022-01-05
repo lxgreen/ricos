@@ -1,9 +1,10 @@
-import React, { PureComponent, Ref, ComponentType, useEffect, useState, useRef } from 'react';
+import type { Ref, ComponentType } from 'react';
+import React, { PureComponent, useEffect, useState, useRef } from 'react';
 import { I18nextProvider, translate, Trans, I18n as I18nReact } from 'react-i18next';
 import i18n from './i18n';
 import createHocName from './createHocName';
-import { LocaleResource } from '../types';
-import { i18n as I18n } from 'i18next';
+import type { LocaleResource } from '../types';
+import type { i18n as I18n } from 'i18next';
 interface Props {
   locale: string;
   localeResource: LocaleResource;

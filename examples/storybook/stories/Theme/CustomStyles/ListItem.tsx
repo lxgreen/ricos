@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 import { CloseButton, Dropdown, Input } from 'wix-style-react';
-import { StyleAttr } from './types';
+import type { StyleAttr } from './types';
 import styles from './StylesPanel.scss';
 
 interface Props {

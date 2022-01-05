@@ -1,6 +1,7 @@
-import React, { FC, useState } from 'react';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import { Layout, Cell, Button as WSRButton, InputWithLabel, Dropdown } from 'wix-style-react';
-import { ButtonData_Type } from 'ricos-schema';
+import type { ButtonData_Type } from 'ricos-schema';
 import {
   emptyCommonBuilderFields,
   emptyLink,
@@ -9,7 +10,7 @@ import {
   PNLContainerData,
   PNLLink,
 } from '../AbstractPanels';
-import { EditPanelProps } from '../types';
+import type { EditPanelProps } from '../types';
 import { HorizontalField } from '../HorizontalField';
 import { buttonTypes, buttonTypesOptions } from '../AbstractPanels/utils';
 

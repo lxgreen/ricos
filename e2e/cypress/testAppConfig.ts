@@ -1,10 +1,10 @@
 import { HTML_TYPE, VIDEO_TYPE } from 'ricos-content';
-import {
+import type {
   AvailableExperiments,
   AddPluginMenuConfig,
   FooterToolbarConfig,
 } from 'wix-rich-content-common';
-import { TestAppConfig } from '../../examples/main/src/types';
+import type { TestAppConfig } from '../../examples/main/src/types';
 
 export const defaultConfig: TestAppConfig = {
   plugins: ['partialPreset'],

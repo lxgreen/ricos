@@ -1,5 +1,6 @@
 import React from 'react';
-import { DraftContent, RicosEditor, RicosEditorType } from 'ricos-editor';
+import type { DraftContent, RicosEditorType } from 'ricos-editor';
+import { RicosEditor } from 'ricos-editor';
 import { pluginVideo } from 'wix-rich-content-plugin-video';
 import { pluginImage } from 'wix-rich-content-plugin-image';
 import { pluginGallery } from 'wix-rich-content-plugin-gallery';
@@ -9,7 +10,7 @@ import { pluginTextColor, pluginTextHighlight } from 'wix-rich-content-plugin-te
 import { pluginTable } from 'wix-rich-content-plugin-table';
 import { pluginCollapsibleList } from 'wix-rich-content-plugin-collapsible-list';
 import { RichContentEditor } from 'wix-rich-content-editor';
-import { Helpers } from 'wix-rich-content-common';
+import type { Helpers } from 'wix-rich-content-common';
 
 function getPlugins(handleVideoUpload, handleFileUpload) {
   return [

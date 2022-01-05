@@ -1,8 +1,10 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { Component, CSSProperties, FocusEvent } from 'react';
+import type { CSSProperties, FocusEvent } from 'react';
+import React, { Component } from 'react';
 import Editor from 'draft-js-plugins-editor';
 import { get, includes, debounce, cloneDeep } from 'lodash';
-import Measure, { BoundingRect, ContentRect } from 'react-measure';
+import type { BoundingRect, ContentRect } from 'react-measure';
+import Measure from 'react-measure';
 import createEditorToolbars from './Toolbars/createEditorToolbars';
 import createPlugins from './createPlugins';
 import { createEditorCommands } from './EditorCommands';
@@ -13,10 +15,10 @@ import handlePastedText from './handlePastedText';
 import blockStyleFn from './blockStyleFn';
 import { combineStyleFns } from './combineStyleFns';
 import { getStaticTextToolbarId } from './Toolbars/toolbar-id';
-import { ContentBlock } from '@wix/draft-js';
+import type { ContentBlock } from '@wix/draft-js';
+import type { ContentState, SelectionState } from 'wix-rich-content-editor-common';
 import {
   EditorState,
-  ContentState,
   TOOLBARS,
   getBlockInfo,
   getFocusedBlockKey,
@@ -26,27 +28,16 @@ import {
   MODIFIERS,
   undo,
   redo,
-  SelectionState,
   setSelectionToBlock,
   getEmptyDraftContent,
   getCustomStyleFns,
 } from 'wix-rich-content-editor-common';
 import { convertFromRaw, convertToRaw, createWithContent } from '../../lib/editorStateConversion';
-import { EditorProps as DraftEditorProps, DraftHandleValue } from 'draft-js';
-import {
-  HEADINGS_DROPDOWN_TYPE,
-  DEFAULT_HEADINGS,
-  DEFAULT_TITLE_HEADINGS,
-  DraftContent,
-} from 'ricos-content';
-import {
+import type { EditorProps as DraftEditorProps, DraftHandleValue } from 'draft-js';
+import type { DraftContent } from 'ricos-content';
+import { HEADINGS_DROPDOWN_TYPE, DEFAULT_HEADINGS, DEFAULT_TITLE_HEADINGS } from 'ricos-content';
+import type {
   AvailableExperiments,
-  AccessibilityListener,
-  normalizeInitialState,
-  getLangDir,
-  Version,
-  HTML_TYPE,
-  GlobalContext,
   RicosContent,
   RichContentTheme,
   Helpers,
@@ -66,20 +57,28 @@ import {
   PluginTextButtons,
   ToolbarButtonProps,
   TextToolbarType,
-  simplePubsub,
   Pubsub,
   GetEditorState,
   SetEditorState,
   TextDirection,
   CreatePluginsDataMap,
-  IMAGE_TYPE,
   EditorCommands,
   DocumentStyle,
   PluginKeyBindings,
   CommandHandler,
   KeyCommand,
-  DOC_STYLE_TYPES,
   EditorStyleClasses,
+} from 'wix-rich-content-common';
+import {
+  AccessibilityListener,
+  normalizeInitialState,
+  getLangDir,
+  Version,
+  HTML_TYPE,
+  GlobalContext,
+  simplePubsub,
+  IMAGE_TYPE,
+  DOC_STYLE_TYPES,
 } from 'wix-rich-content-common';
 import draftStyles from '../../statics/styles/draft.rtlignore.scss';
 import 'wix-rich-content-common/dist/statics/styles/draftDefault.rtlignore.scss';
@@ -282,7 +281,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
   fixDraftSelectionExtend = () => {
     if (typeof Selection !== 'undefined' && !this.props.isInnerRCE) {
       const nativeSelectionExtend = Selection.prototype.extend;
-      Selection.prototype.extend = function(...args) {
+      Selection.prototype.extend = function (...args) {
         try {
           return nativeSelectionExtend.apply(this, args);
         } catch (error) {}
@@ -588,7 +587,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     return element && element.querySelector('*[tabindex="0"]');
   }
 
-  getContentId = () => ((this.state.editorState.getCurrentContent() as unknown) as DraftContent).ID;
+  getContentId = () => (this.state.editorState.getCurrentContent() as unknown as DraftContent).ID;
 
   createContentMutationEvents = (initialEditorState: EditorState, version: string) => {
     const calculate = createCalcContentDiff(initialEditorState);

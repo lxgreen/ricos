@@ -1,7 +1,8 @@
 import { createUndoRedoPlugin } from './createUndoRedoPlugin';
-import { UNDO_REDO_TYPE, UndoRedoPluginEditorConfig } from './types';
+import type { UndoRedoPluginEditorConfig } from './types';
+import { UNDO_REDO_TYPE } from './types';
 import { DEFAULTS } from './defaults';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
 
 export const pluginUndoRedo: EditorPluginCreator<UndoRedoPluginEditorConfig> = config => {
   return {

@@ -2,9 +2,9 @@ import { isNumber, isString, isArray, isObject } from 'lodash';
 import { flow } from 'fp-ts/function';
 import * as A from 'fp-ts/Array';
 import * as O from 'fp-ts/Option';
-import { ParagraphData, RichContent, TextData, Node } from 'ricos-schema';
+import type { ParagraphData, RichContent, TextData, Node } from 'ricos-schema';
 import { firstRight } from '../fp-utils';
-import { ListItemData } from '../types';
+import type { ListItemData } from '../types';
 import { modify } from './modify';
 
 const isIndexFound = (predicate: (node: Node) => boolean) =>
@@ -25,10 +25,12 @@ const insertNode = (node: Node, index: number) => (content: RichContent) => ({
   nodes: [...content.nodes.slice(0, index), node, ...content.nodes.slice(index)],
 });
 
-const insertNodeByKey = (node: Node, nodeKey: string, isAfter = false) => (content: RichContent) =>
-  modify(content)
-    .filter(({ id }) => id === nodeKey)
-    .set(n => (isAfter ? [n, node] : [node, n]));
+const insertNodeByKey =
+  (node: Node, nodeKey: string, isAfter = false) =>
+  (content: RichContent) =>
+    modify(content)
+      .filter(({ id }) => id === nodeKey)
+      .set(n => (isAfter ? [n, node] : [node, n]));
 
 export function addNode({
   node,

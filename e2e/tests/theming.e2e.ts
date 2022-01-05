@@ -14,7 +14,7 @@ function testFlow(isDesktop: boolean, title: string) {
 }
 
 function tests({ isDesktop }: { isDesktop?: boolean }) {
-  it('no palette, no cssOverride', function() {
+  it('no palette, no cssOverride', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...useTheming({ skipCssOverride: true }),
       ...usePlugins(plugins.all),
@@ -25,14 +25,14 @@ function tests({ isDesktop }: { isDesktop?: boolean }) {
     testFlow(isDesktop, this.test.title);
   });
 
-  it('no palette, cssOverride', function() {
+  it('no palette, cssOverride', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', usePlugins(plugins.all)).focusEditor();
     cy.wait(2000);
     cy.eyesCheckWindow(this.test.title);
     testFlow(isDesktop, this.test.title);
   });
 
-  it('palette, no cssOverride', function() {
+  it('palette, no cssOverride', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({
@@ -45,7 +45,7 @@ function tests({ isDesktop }: { isDesktop?: boolean }) {
     testFlow(isDesktop, this.test.title);
   });
 
-  it('palette, cssOverride', function() {
+  it('palette, cssOverride', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({ paletteType: 'light' }),
@@ -55,7 +55,7 @@ function tests({ isDesktop }: { isDesktop?: boolean }) {
     testFlow(isDesktop, this.test.title);
   });
 
-  it('dark palette, no cssOverride', function() {
+  it('dark palette, no cssOverride', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({
@@ -68,7 +68,7 @@ function tests({ isDesktop }: { isDesktop?: boolean }) {
     testFlow(isDesktop, this.test.title);
   });
 
-  it('dark palette, no cssOverride, no container', function() {
+  it('dark palette, no cssOverride, no container', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({
@@ -82,7 +82,7 @@ function tests({ isDesktop }: { isDesktop?: boolean }) {
     testFlow(isDesktop, this.test.title);
   });
 
-  it('dark palette, no cssOverride, no container, contentBgColor', function() {
+  it('dark palette, no cssOverride, no container, contentBgColor', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({
@@ -97,7 +97,7 @@ function tests({ isDesktop }: { isDesktop?: boolean }) {
     testFlow(isDesktop, this.test.title);
   });
 
-  it('dark palette, cssOverride', function() {
+  it('dark palette, cssOverride', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({ paletteType: 'dark' }),
@@ -107,7 +107,7 @@ function tests({ isDesktop }: { isDesktop?: boolean }) {
     testFlow(isDesktop, this.test.title);
   });
 
-  it('dark palette, no cssOverride, fallbackColor=red', function() {
+  it('dark palette, no cssOverride, fallbackColor=red', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({ paletteType: 'dark', skipCssOverride: true, fallbackColor: '%23FF0000' }),
@@ -117,7 +117,7 @@ function tests({ isDesktop }: { isDesktop?: boolean }) {
     testFlow(isDesktop, this.test.title);
   });
 
-  it('dark palette, no cssOverride, settingsActionColor=blue', function() {
+  it('dark palette, no cssOverride, settingsActionColor=blue', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({
@@ -132,7 +132,7 @@ function tests({ isDesktop }: { isDesktop?: boolean }) {
     testFlow(isDesktop, this.test.title);
   });
 
-  it('customStyles', function() {
+  it('customStyles', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({ useCustomStyles: true, skipCssOverride: true }),
@@ -147,7 +147,7 @@ describe('Theming', () => {
   afterEach(() => cy.matchContentSnapshot());
 
   context('desktop', () => {
-    before(function() {
+    before(function () {
       cy.eyesOpen({
         appName: 'Theming',
         testName: this.test.parent.title,
@@ -163,7 +163,7 @@ describe('Theming', () => {
   });
 
   context('mobile', () => {
-    before(function() {
+    before(function () {
       cy.eyesOpen({
         appName: 'Theming',
         testName: this.test.parent.title,

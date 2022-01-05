@@ -1,9 +1,9 @@
+import type { ContentState } from 'wix-rich-content-editor-common';
 import {
   EditorState,
   SelectionState,
   setNativeSelectionToBlock,
   Modifier,
-  ContentState,
 } from 'wix-rich-content-editor-common';
 
 function getNewBlockMap(content: ContentState, startKey: string, edgeBlockKey: string) {

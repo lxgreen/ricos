@@ -1,10 +1,8 @@
 import { updatePrivacyField } from './utils';
 /* eslint-disable fp/no-delete */
 // TODO: purify this module
-import {
+import type {
   Node,
-  Node_Type,
-  Decoration_Type,
   ImageData,
   Decoration,
   PluginContainerData,
@@ -19,17 +17,18 @@ import {
   CollapsibleListData_InitialExpandedItems,
   Struct,
 } from 'ricos-schema';
+import { Node_Type, Decoration_Type } from 'ricos-schema';
 import { cloneDeep, has, merge } from 'lodash';
 import toCamelCase from 'to-camel-case';
+import type { DraftGalleryStyles } from '../consts';
 import {
   TO_RICOS_DECORATION_DATA_FIELD,
   FROM_RICOS_DECORATION_TYPE,
   FROM_RICOS_ENTITY_TYPE,
   TO_RICOS_DATA_FIELD,
-  DraftGalleryStyles,
 } from '../consts';
 import { WRAP, NO_WRAP } from '../../../consts';
-import { ComponentData, FileComponentData } from '../../../types';
+import type { ComponentData, FileComponentData } from '../../../types';
 import { parseLink } from '../../nodeUtils';
 import { toDraft } from './toDraft';
 import { convertStructToJson } from './convertStructToJson';

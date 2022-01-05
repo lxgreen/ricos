@@ -1,5 +1,5 @@
-import { TextBlockWithEntities } from './ContentStateAnalyzer/types';
-import ContentStateBuilder from './ContentStateBuilder/ContentStateBuilder';
+import type { TextBlockWithEntities } from './ContentStateAnalyzer/types';
+import type ContentStateBuilder from './ContentStateBuilder/ContentStateBuilder';
 
 export interface PreviewRule {
   _if: (metadata: PreviewMetadata) => boolean;

@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import { RichContentPreview } from 'wix-rich-content-preview';
 import * as Plugins from './PreviewPlugins';
-import { isSSR, DraftContent, SEOSettings } from 'wix-rich-content-common';
+import type { DraftContent, SEOSettings } from 'wix-rich-content-common';
+import { isSSR } from 'wix-rich-content-common';
 import theme from '../theme/theme'; // must import after custom styles
 import 'wix-rich-content-preview/dist/styles.min.css';
 import getImagesData from 'wix-rich-content-fullscreen/libs/getImagesData';

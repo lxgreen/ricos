@@ -1,6 +1,7 @@
 import React from 'react';
-import { InlineStyleMapperFunction, InlineStyleMapper } from '../types';
+import type { InlineStyleMapperFunction, InlineStyleMapper } from '../types';
 import { safeJsonParse } from './jsonUtils';
+import type { DraftContent } from 'ricos-content';
 import {
   RICOS_TEXT_COLOR_TYPE,
   RICOS_TEXT_HIGHLIGHT_TYPE,
@@ -9,7 +10,6 @@ import {
   RICOS_ITALIC_TYPE,
   TEXT_HIGHLIGHT_TYPE,
   TEXT_COLOR_TYPE,
-  DraftContent,
 } from 'ricos-content';
 import { isHexColor } from './colorUtils';
 import { getBlocksFromContentState } from './innerRCEBlocksUtils';

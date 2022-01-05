@@ -3,7 +3,7 @@ import { getModalStyles } from 'wix-rich-content-editor-common';
 import { Modals } from '../modals';
 import { ManageMediaIcon, UploadIcon } from '../icons';
 import { getGalleryLayoutsDropdown, switchLayout, getCurrentLayout } from '../layout-helper';
-import {
+import type {
   CreateInlineButtons,
   TranslationFunction,
   AnchorTarget,
@@ -11,7 +11,8 @@ import {
   AvailableExperiments,
   UISettings,
 } from 'wix-rich-content-common';
-import { GalleryPluginEditorConfig, GALLERY_TYPE } from '../types';
+import type { GalleryPluginEditorConfig } from '../types';
+import { GALLERY_TYPE } from '../types';
 
 const createInlineButtons: CreateInlineButtons = ({
   t,

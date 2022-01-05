@@ -1,4 +1,5 @@
-import React, { FunctionComponent, ComponentType } from 'react';
+import type { FunctionComponent, ComponentType } from 'react';
+import React from 'react';
 
 import { EditorModals } from 'wix-rich-content-editor-common';
 import { RichContentModal } from 'wix-rich-content-ui-components';

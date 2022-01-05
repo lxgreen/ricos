@@ -1,6 +1,7 @@
 import { merge } from 'lodash';
 import { DEFAULTS } from './video-component';
-import { CreatePluginsDataMap, RICOS_VIDEO_TYPE, Node_Type } from 'wix-rich-content-common';
+import type { CreatePluginsDataMap, RICOS_VIDEO_TYPE } from 'wix-rich-content-common';
+import { Node_Type } from 'wix-rich-content-common';
 import { convertNodeDataToDraft } from 'ricos-content/libs/toDraftData';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

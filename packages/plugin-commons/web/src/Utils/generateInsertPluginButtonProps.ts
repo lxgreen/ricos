@@ -1,11 +1,6 @@
-import {
-  BUTTON_TYPES,
-  createBlock,
-  EditorState,
-  SelectionState,
-} from 'wix-rich-content-editor-common';
-import {
-  GALLERY_TYPE,
+import type { SelectionState } from 'wix-rich-content-editor-common';
+import { BUTTON_TYPES, createBlock, EditorState } from 'wix-rich-content-editor-common';
+import type {
   Helpers,
   ToolbarType,
   TranslationFunction,
@@ -19,8 +14,8 @@ import {
   onPluginAddStepArgs,
   PluginAddParams,
   SetEditorState,
-  Version,
 } from 'wix-rich-content-common';
+import { GALLERY_TYPE, Version } from 'wix-rich-content-common';
 import { getPluginParams } from './getPluginParams';
 
 export function generateInsertPluginButtonProps({

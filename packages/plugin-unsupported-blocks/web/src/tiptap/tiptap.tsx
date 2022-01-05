@@ -1,6 +1,6 @@
 import React from 'react';
 import { UnsupportedBlock as Component } from './component';
-import { DOMOutputSpec } from 'ricos-tiptap-types';
+import type { DOMOutputSpec } from 'ricos-tiptap-types';
 
 export const getUnsupportedNodeConfig = (name: string) => ({
   type: 'node' as const,

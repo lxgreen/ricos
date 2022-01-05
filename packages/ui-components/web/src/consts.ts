@@ -1,4 +1,4 @@
-import { ModalStyles } from 'wix-rich-content-common';
+import type { ModalStyles } from 'wix-rich-content-common';
 // export const HEADER_TYPE_MAP = {
 //   H1: 'header-one',
 //   H2: 'header-two',

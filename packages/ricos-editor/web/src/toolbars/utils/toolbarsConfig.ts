@@ -1,5 +1,5 @@
-import { ToolbarSettings } from 'ricos-common';
-import { TextButtons } from 'wix-rich-content-common';
+import type { ToolbarSettings } from 'ricos-common';
+import type { TextButtons } from 'wix-rich-content-common';
 import { isiOS } from 'wix-rich-content-editor-common';
 import { get } from 'lodash';
 

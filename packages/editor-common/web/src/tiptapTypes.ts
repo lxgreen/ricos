@@ -1,5 +1,9 @@
-import { ComponentData, LegacyEditorPluginConfig, RichContentTheme } from 'wix-rich-content-common';
-import { NodeViewRendererProps } from '@tiptap/core';
+import type {
+  ComponentData,
+  LegacyEditorPluginConfig,
+  RichContentTheme,
+} from 'wix-rich-content-common';
+import type { NodeViewRendererProps } from '@tiptap/core';
 export type PluginProps = NodeViewRendererProps & {
   context: {
     isMobile: boolean;

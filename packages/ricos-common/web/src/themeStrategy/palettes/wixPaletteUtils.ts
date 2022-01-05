@@ -1,5 +1,5 @@
 import { difference } from 'lodash';
-import { RicosTheme, WixColor, WixPalette } from '../themeTypes';
+import type { RicosTheme, WixColor, WixPalette } from '../themeTypes';
 
 const BG_COLOR = 11;
 const DISABLED_COLOR = 13;

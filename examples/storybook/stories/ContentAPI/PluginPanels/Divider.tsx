@@ -1,6 +1,7 @@
-import React, { FC, useState } from 'react';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import { Layout, Cell, Button, Dropdown, Typography as t } from 'wix-style-react';
-import { DividerData_Alignment, DividerData_Type, DividerData_Width } from 'ricos-schema';
+import type { DividerData_Alignment, DividerData_Type, DividerData_Width } from 'ricos-schema';
 import {
   emptyCommonBuilderFields,
   emptyPluginContainerData,
@@ -15,7 +16,7 @@ import {
   dividerWidth,
   dividerWidthOptions,
 } from '../AbstractPanels/utils';
-import { EditPanelProps } from '../types';
+import type { EditPanelProps } from '../types';
 import { HorizontalField } from '../HorizontalField';
 
 export const Divider: FC<EditPanelProps<'addDivider'>> = ({ addFunc }) => {

@@ -1,5 +1,7 @@
-import React, { FunctionComponent } from 'react';
-import { DraftContent, RicosEditor } from 'ricos-editor';
+import type { FunctionComponent } from 'react';
+import React from 'react';
+import type { DraftContent } from 'ricos-editor';
+import { RicosEditor } from 'ricos-editor';
 import { pluginTable } from 'wix-rich-content-plugin-table';
 import { pluginImage } from 'wix-rich-content-plugin-image';
 import { pluginLineSpacing } from 'wix-rich-content-plugin-line-spacing';

@@ -13,7 +13,7 @@ import { DEFAULT_COMPONENT_DATA, MEMBER_ROLES } from '../defaults';
 import { InsertPluginIcon } from '../assets/icons';
 import { Modals } from '../modals';
 import { PollPresetSelector } from '../components/settings/preset-selector';
-import { ModalStyles, CreatePluginToolbar } from 'wix-rich-content-common';
+import type { ModalStyles, CreatePluginToolbar } from 'wix-rich-content-common';
 import { merge } from 'lodash';
 
 export const MobileFullScreenCustomStyle = Object.freeze({

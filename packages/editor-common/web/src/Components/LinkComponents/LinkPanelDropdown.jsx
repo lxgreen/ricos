@@ -24,14 +24,8 @@ function filterItems(items, str) {
 
 class ItemRenderer extends PureComponent {
   render() {
-    const {
-      items,
-      getItemProps,
-      highlightedIndex,
-      selectedItem,
-      formatMenuItem,
-      inputValue,
-    } = this.props.data;
+    const { items, getItemProps, highlightedIndex, selectedItem, formatMenuItem, inputValue } =
+      this.props.data;
     const { index, style } = this.props;
     const item = items[index];
     return (

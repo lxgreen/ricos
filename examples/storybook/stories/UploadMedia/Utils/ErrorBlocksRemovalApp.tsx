@@ -5,7 +5,7 @@ import contentState from '../../../../../e2e/tests/fixtures/empty.json';
 import MediaEditor from './MediaEditor';
 import MediaViewer from './MediaViewer';
 import { getMediaUploadErrorFunctions } from './upload-functions';
-import { DraftContent, RicosEditorType } from 'ricos-editor';
+import type { DraftContent, RicosEditorType } from 'ricos-editor';
 
 export default class ErrorBlocksRemovalApp extends Component<
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -29,11 +29,8 @@ export default class ErrorBlocksRemovalApp extends Component<
   }
 
   render() {
-    const {
-      handleFileUpload,
-      handleVideoUpload,
-      handleImageUpload,
-    } = getMediaUploadErrorFunctions();
+    const { handleFileUpload, handleVideoUpload, handleImageUpload } =
+      getMediaUploadErrorFunctions();
     const { isEditing, content } = this.state;
     return (
       <>

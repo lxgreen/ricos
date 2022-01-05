@@ -1,18 +1,19 @@
 /* eslint-disable no-console, fp/no-loops, no-case-declarations */
-import {
+import type {
   RicosContentBlock,
   RicosEntityMap,
   RicosEntityRange,
   RicosInlineStyleRange,
 } from '../../../types';
 import { EMOJI_TYPE } from '../../../consts';
-import { Decoration, Decoration_Type, Node } from 'ricos-schema';
+import type { Decoration, Node } from 'ricos-schema';
+import { Decoration_Type } from 'ricos-schema';
 import { TO_RICOS_DECORATION_TYPE, TO_RICOS_INLINE_STYLE_TYPE } from '../consts';
 
 import { isEmpty, merge } from 'lodash';
 import { getEntity } from './getRicosEntityData';
 import { createTextNode } from '../../nodeUtils';
-import { FromDraftOptions } from './fromDraft';
+import type { FromDraftOptions } from './fromDraft';
 
 type KeyType = string | number;
 type StyleType = string;

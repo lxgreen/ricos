@@ -1,4 +1,4 @@
-import { ContentBuilder } from '../types';
+import type { ContentBuilder } from '../types';
 import { setupAbstractContentBuilder } from './AbstractContentBuilder';
 import { addTextNode, addListNode, addNode } from './node-builder-methods';
 import { addCollapsibleList } from './collapsible-list-builder-api';
@@ -26,7 +26,7 @@ export const setupContentBuilder = (
   );
 
   return {
-    RicosContentBuilder: (RicosContentBuilder as unknown) as RicosBuilder,
-    ...((builderApis as unknown) as ContentBuilder),
+    RicosContentBuilder: RicosContentBuilder as unknown as RicosBuilder,
+    ...(builderApis as unknown as ContentBuilder),
   };
 };

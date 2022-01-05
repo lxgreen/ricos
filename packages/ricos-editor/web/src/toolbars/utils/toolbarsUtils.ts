@@ -1,5 +1,5 @@
-import { EditorCommands } from 'wix-rich-content-common';
-import { RichContentEditor } from 'wix-rich-content-editor';
+import type { EditorCommands } from 'wix-rich-content-common';
+import type { RichContentEditor } from 'wix-rich-content-editor';
 
 export const isLinkToolbarOpen = (activeEditor: RichContentEditor | null) => {
   const editorCommands: EditorCommands | undefined = activeEditor?.getEditorCommands();

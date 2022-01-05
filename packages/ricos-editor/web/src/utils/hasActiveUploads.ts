@@ -1,5 +1,5 @@
-import { EntityInstance, ContentState, ContentBlock } from 'draft-js';
-import { Iterable } from 'immutable';
+import type { EntityInstance, ContentState, ContentBlock } from 'draft-js';
+import type { Iterable } from 'immutable';
 import { IMAGE_TYPE, VIDEO_TYPE, FILE_UPLOAD_TYPE, GALLERY_TYPE } from 'wix-rich-content-common';
 
 const isUploadingImage = (entity: EntityInstance) =>

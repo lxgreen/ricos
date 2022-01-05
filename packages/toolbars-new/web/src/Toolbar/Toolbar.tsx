@@ -12,7 +12,11 @@ import ColorPickerButton from './ButtonComponents/ColorPickerButton';
 import ToolbarButton from './ToolbarButton';
 import ContextMenu from './ButtonComponents/ContextMenu';
 import NestedMenu from './ButtonComponents/NestedMenu';
-import { RichContentTheme, TranslationFunction, DesktopTextButtons } from 'wix-rich-content-common';
+import type {
+  RichContentTheme,
+  TranslationFunction,
+  DesktopTextButtons,
+} from 'wix-rich-content-common';
 import { ContextMenuIcon } from '../icons';
 
 type formattingToolbarButtonsKeysType =

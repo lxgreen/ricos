@@ -1,11 +1,9 @@
 import React from 'react';
 import SpoilerViewer from './spoiler-viewer';
-import { SPOILER_TYPE, SpoilerPluginViewerConfig } from './types';
-import {
-  InlineStyleMapperFunction,
-  InlineStyleMapper,
-  getBlocksFromContentState,
-} from 'wix-rich-content-common';
+import type { SpoilerPluginViewerConfig } from './types';
+import { SPOILER_TYPE } from './types';
+import type { InlineStyleMapperFunction, InlineStyleMapper } from 'wix-rich-content-common';
+import { getBlocksFromContentState } from 'wix-rich-content-common';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type StateChangeCallback = (state: Record<string, any>) => void;

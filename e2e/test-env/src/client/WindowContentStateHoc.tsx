@@ -1,7 +1,8 @@
-import React, { ElementType } from 'react';
+import type { ElementType } from 'react';
+import React from 'react';
 import { TABLE_TYPE } from 'wix-rich-content-plugin-table';
 import { COLLAPSIBLE_LIST_TYPE } from 'wix-rich-content-plugin-collapsible-list';
-import { DraftContent, RicosEntity, RicosEntityMap } from 'wix-rich-content-common';
+import type { DraftContent, RicosEntity, RicosEntityMap } from 'wix-rich-content-common';
 
 type Predicate = (entity: RicosEntity) => boolean;
 

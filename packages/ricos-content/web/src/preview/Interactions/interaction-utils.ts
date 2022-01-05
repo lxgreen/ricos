@@ -1,6 +1,6 @@
-import { DraftContent, RicosContentBlock } from '../../types/contentTypes';
+import type { DraftContent, RicosContentBlock } from '../../types/contentTypes';
 import { INTERACTIONS } from '../const';
-import ContentStateBuilder from '../ContentStateBuilder/ContentStateBuilder';
+import type ContentStateBuilder from '../ContentStateBuilder/ContentStateBuilder';
 
 interface InteractionDataMerger {
   contentState: DraftContent;

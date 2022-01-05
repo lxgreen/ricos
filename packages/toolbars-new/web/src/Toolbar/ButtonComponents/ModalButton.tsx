@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { Component, FC } from 'react';
+import type { FC } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import ClickOutside from 'react-click-outsider';
 import styles from '../ToolbarNew.scss';
 import ToolbarInputButton from '../ToolbarInputButton';
 import ToolbarButton from '../ToolbarButton';
-import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import type { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 import { elementOverflowWithEditor, KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 import { FocusManager } from 'wix-rich-content-ui-components';
 

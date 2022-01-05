@@ -1,4 +1,4 @@
-import { EditorPluginConfig, ViewerPluginConfig } from 'wix-rich-content-common';
+import type { EditorPluginConfig, ViewerPluginConfig } from 'wix-rich-content-common';
 
 export const SOUND_CLOUD_TYPE = 'wix-draft-plugin-sound-cloud';
 

@@ -1,4 +1,4 @@
-import { RicosExtension } from 'ricos-tiptap-types';
+import type { RicosExtension } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -48,19 +48,23 @@ export const createTextAlign = (): RicosExtension => ({
 
     addCommands() {
       return {
-        setTextAlign: (alignment: string) => ({ commands }) => {
-          if (!this.options.alignments.includes(alignment)) {
-            return false;
-          }
+        setTextAlign:
+          (alignment: string) =>
+          ({ commands }) => {
+            if (!this.options.alignments.includes(alignment)) {
+              return false;
+            }
 
-          return this.options.types.every(type =>
-            commands.updateAttributes(type, { textAlign: alignment })
-          );
-        },
+            return this.options.types.every(type =>
+              commands.updateAttributes(type, { textAlign: alignment })
+            );
+          },
 
-        unsetTextAlign: () => ({ commands }) => {
-          return this.options.types.every(type => commands.resetAttributes(type, 'textAlign'));
-        },
+        unsetTextAlign:
+          () =>
+          ({ commands }) => {
+            return this.options.types.every(type => commands.resetAttributes(type, 'textAlign'));
+          },
       };
     },
 

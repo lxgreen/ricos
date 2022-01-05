@@ -159,15 +159,17 @@ export const widthButton = icon =>
     Icon: icon || WidthIcon,
     tooltipTextKey: 'ChangeDimensions_Width_Tooltip',
     getValue: ({ componentData }) => componentData.config.width,
-    onChange: ({ getEditorBounds, store }) => width => {
-      const bounds = getEditorBounds();
-      const editorWidth = bounds ? bounds.width : 740;
-      if (width >= editorWidth && store.get('componentData')?.config.alignment) {
-        store.update('componentData', { config: { alignment: 'center' } });
-      }
+    onChange:
+      ({ getEditorBounds, store }) =>
+      width => {
+        const bounds = getEditorBounds();
+        const editorWidth = bounds ? bounds.width : 740;
+        if (width >= editorWidth && store.get('componentData')?.config.alignment) {
+          store.update('componentData', { config: { alignment: 'center' } });
+        }
 
-      store.update('componentData', { config: { width } });
-    },
+        store.update('componentData', { config: { width } });
+      },
   });
 
 export const heightButton = icon =>
@@ -175,7 +177,10 @@ export const heightButton = icon =>
     Icon: icon || HeightIcon,
     tooltipTextKey: 'ChangeDimensions_Height_Tooltip',
     getValue: ({ componentData }) => componentData.config.height,
-    onChange: ({ store }) => height => store.update('componentData', { config: { height } }),
+    onChange:
+      ({ store }) =>
+      height =>
+        store.update('componentData', { config: { height } }),
   });
 
 export const BUTTONS_BY_KEY = {

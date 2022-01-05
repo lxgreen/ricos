@@ -1,7 +1,7 @@
 import { version as VERSION } from '../../package.json';
 import { getEmptyDraftContent } from 'wix-rich-content-editor-common';
 import { createDataConverter } from './editorUtils';
-import { DraftContent } from 'wix-rich-content-common';
+import type { DraftContent } from 'wix-rich-content-common';
 
 const content: DraftContent = { ...getEmptyDraftContent(), VERSION };
 

@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
-import React, { Component, KeyboardEventHandler } from 'react';
+import type { KeyboardEventHandler } from 'react';
+import React, { Component } from 'react';
 import classnames from 'classnames';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../statics/styles/selection-list.scss';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -77,9 +79,11 @@ class SelectionList extends Component<SelectionListProps, { focusIndex: number }
     useNewSettingsUi: false,
   };
 
-  mapItemToOptionData(
-    item: SelectionItem
-  ): { item: SelectionItem; option: SelectionOption; selected: boolean } {
+  mapItemToOptionData(item: SelectionItem): {
+    item: SelectionItem;
+    option: SelectionOption;
+    selected: boolean;
+  } {
     const option = this.props.dataMapper(item);
     return {
       item,

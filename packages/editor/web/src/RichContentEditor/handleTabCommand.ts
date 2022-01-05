@@ -1,12 +1,12 @@
 /* eslint-disable no-restricted-globals */
-import { CommandHandler } from 'wix-rich-content-common';
+import type { CommandHandler } from 'wix-rich-content-common';
+import type { EditorState } from 'wix-rich-content-editor-common';
 import {
   insertString,
   deleteCharacterBeforeCursor,
   isTypeText,
   CHARACTERS,
   getCharacterBeforeSelection,
-  EditorState,
 } from 'wix-rich-content-editor-common';
 
 const isCodeBlock = (blockType: string) => blockType === 'code-block';

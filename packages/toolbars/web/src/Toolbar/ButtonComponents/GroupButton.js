@@ -55,10 +55,12 @@ class GroupButton extends PureComponent {
 
   hideOptions = () => this.setState({ isOpen: false });
 
-  onChange = ({ onClick, getIcon, isDisabled }) => e => {
-    onClick(e);
-    this.setState({ Icon: getIcon(), isOpen: false, isDisabled });
-  };
+  onChange =
+    ({ onClick, getIcon, isDisabled }) =>
+    e => {
+      onClick(e);
+      this.setState({ Icon: getIcon(), isOpen: false, isDisabled });
+    };
 
   renderOptions = () => {
     const { buttons, theme } = this.props;

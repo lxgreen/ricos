@@ -1,12 +1,14 @@
-import { Editor, EditorContent, JSONContent } from '@tiptap/react';
-import { Node } from 'prosemirror-model';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import type { JSONContent } from '@tiptap/react';
+import { Editor, EditorContent } from '@tiptap/react';
+import type { Node } from 'prosemirror-model';
+import type { FunctionComponent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getLangDir } from 'wix-rich-content-common';
 import { tiptapToDraft } from 'wix-tiptap-extensions';
 import { RicosTiptapContext } from '../../context';
 import { useForceUpdate } from '../../lib/useForceUpdate';
 import { Extensions } from '../../models/Extensions';
-import { RicosTiptapEditorProps } from '../../types';
+import type { RicosTiptapEditorProps } from '../../types';
 import { coreConfigs } from './core-configs';
 import { patchExtensions } from '../../patch-extensions';
 import '../../statics/styles/tiptap-editor-styles.scss';
@@ -34,7 +36,7 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   ...context
 }) => {
   const forceUpdate = useForceUpdate();
-  const [editor, setEditor] = useState<Editor>((null as unknown) as Editor);
+  const [editor, setEditor] = useState<Editor>(null as unknown as Editor);
 
   const getContent = editor => tiptapToDraft(editor.getJSON() as JSONContent);
 

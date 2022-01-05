@@ -1,7 +1,5 @@
+import type { EditorState, ContentState, ContentBlock } from 'wix-rich-content-editor-common';
 import {
-  EditorState,
-  ContentState,
-  ContentBlock,
   DraftOffsetKey,
   getBlockType,
   RichUtils,
@@ -16,15 +14,17 @@ import {
   getSelectionRange,
 } from 'wix-rich-content-editor-common';
 import { cloneDeep, uniq, pick } from 'lodash';
-import {
+import type {
   RicosCustomStyles,
   DocumentStyle,
   InlineStyle,
+  CustomInlineStyleType,
+} from 'wix-rich-content-common';
+import {
   INLINE_STYLE_TYPES,
   RICOS_TEXT_HIGHLIGHT_TYPE,
   RICOS_TEXT_COLOR_TYPE,
   RICOS_FONT_SIZE_TYPE,
-  CustomInlineStyleType,
   dynamicStyleParsers,
   safeJsonParse,
   draftDecorationsToCss,

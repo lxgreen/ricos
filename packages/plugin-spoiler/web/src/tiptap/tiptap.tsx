@@ -1,5 +1,5 @@
 import React from 'react';
-import { CreateRicosExtensions, DOMOutputSpec } from 'ricos-tiptap-types';
+import type { CreateRicosExtensions, DOMOutputSpec } from 'ricos-tiptap-types';
 import { BlockSpoilerComponent } from '..';
 import colorDataDefaults from 'ricos-schema/dist/statics/color.defaults.json';
 
@@ -89,9 +89,11 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
 
       addCommands() {
         return {
-          toggleSpoiler: () => ({ commands }) => {
-            return commands.toggleMark('spoiler');
-          },
+          toggleSpoiler:
+            () =>
+            ({ commands }) => {
+              return commands.toggleMark('spoiler');
+            },
         };
       },
     }),

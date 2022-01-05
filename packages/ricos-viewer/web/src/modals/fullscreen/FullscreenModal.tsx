@@ -1,6 +1,6 @@
 import React from 'react';
 import Fullscreen from 'wix-rich-content-fullscreen';
-import { DraftContent } from '../../index';
+import type { DraftContent } from '../../index';
 
 interface Props {
   initialState: DraftContent;

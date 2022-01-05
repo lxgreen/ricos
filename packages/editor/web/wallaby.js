@@ -11,7 +11,7 @@ const wallabyPostprocessor = wallabify(
   // , b => b.exclude('mkdirp').transform(require('babelify'))
 );
 
-module.exports = function(wallaby) {
+module.exports = function (wallaby) {
   return {
     files: [{ pattern: 'src/**/*.*' }],
     tests: [{ pattern: 'test/**/*.spec.{js,jsx}' }],

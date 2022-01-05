@@ -1,5 +1,5 @@
 import { markInputRule, markPasteRule, mergeAttributes } from '@tiptap/core';
-import { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
+import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -61,15 +61,21 @@ export const createItalic = (): RicosExtension => ({
 
     addCommands() {
       return {
-        setItalic: () => ({ commands }) => {
-          return commands.setMark(this.name);
-        },
-        toggleItalic: () => ({ commands }) => {
-          return commands.toggleMark(this.name);
-        },
-        unsetItalic: () => ({ commands }) => {
-          return commands.unsetMark(this.name);
-        },
+        setItalic:
+          () =>
+          ({ commands }) => {
+            return commands.setMark(this.name);
+          },
+        toggleItalic:
+          () =>
+          ({ commands }) => {
+            return commands.toggleMark(this.name);
+          },
+        unsetItalic:
+          () =>
+          ({ commands }) => {
+            return commands.unsetMark(this.name);
+          },
       };
     },
 

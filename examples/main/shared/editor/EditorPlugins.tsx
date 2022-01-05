@@ -151,8 +151,12 @@ import {
   mockVideoNativeUploadFunc,
   mockCustomVideoUploadFunc,
 } from '../../../storybook/src/shared/utils/fileUploadUtil';
-import { CreatePluginFunction, EditorPluginCreator, UISettings } from 'wix-rich-content-common';
-import { RichContentEditorProps } from 'wix-rich-content-editor';
+import type {
+  CreatePluginFunction,
+  EditorPluginCreator,
+  UISettings,
+} from 'wix-rich-content-common';
+import type { RichContentEditorProps } from 'wix-rich-content-editor';
 
 export const ricosEditorPlugins: Record<string, EditorPluginCreator<unknown>> = {
   [IMAGE_TYPE]: pluginImage,

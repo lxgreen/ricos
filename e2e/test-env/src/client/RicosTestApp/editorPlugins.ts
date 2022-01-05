@@ -43,8 +43,8 @@ import { videoHandlers } from '../../../../../examples/main/shared/editor/Editor
 
 // eslint-disable-next-line max-len
 import { MockVerticalSearchModule } from '../../../../../examples/storybook/src/shared/utils/verticalEmbedUtil';
-import { TestAppConfig } from '../../types';
-import { EditorPlugin } from 'wix-rich-content-common';
+import type { TestAppConfig } from '../../types';
+import type { EditorPlugin } from 'wix-rich-content-common';
 
 const { Instagram, Twitter, TikTok } = LinkPreviewProviders;
 const { product, booking, event } = verticalEmbedProviders;

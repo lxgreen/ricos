@@ -1,5 +1,5 @@
 import { createInstance } from 'i18next';
-import { LocaleResource } from '../types';
+import type { LocaleResource } from '../types';
 
 export default function i18n({
   locale,

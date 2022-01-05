@@ -1,6 +1,6 @@
-import { ToolbarType } from './toolbarEnums';
-import { OnPluginAction } from './pluginsBiCallbacksTypes';
-import { getContentSummary } from '../Utils/contentAnalytics';
+import type { ToolbarType } from './toolbarEnums';
+import type { OnPluginAction } from './pluginsBiCallbacksTypes';
+import type { getContentSummary } from '../Utils/contentAnalytics';
 
 export interface BICallbackParams {
   version?: string;

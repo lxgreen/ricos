@@ -1,5 +1,5 @@
-import { RicosTheme } from './themeStrategy/themeTypes';
-import {
+import type { RicosTheme } from './themeStrategy/themeTypes';
+import type {
   DraftContent,
   OnErrorFunction,
   SEOSettings,
@@ -15,13 +15,13 @@ import {
   AvailableExperiments,
   LinkPreviewData,
 } from 'wix-rich-content-common';
-import { EditorState, EditorProps } from 'draft-js';
-import { PreviewConfig } from 'wix-rich-content-preview';
-import { ReactElement, FC } from 'react';
-import { RicosCssOverride } from './types';
-import { DRAFT_EDITOR_PROPS } from './consts';
-import { RichContentEditorProps } from 'wix-rich-content-editor';
-import { RichContentViewerProps } from 'wix-rich-content-viewer';
+import type { EditorState, EditorProps } from 'draft-js';
+import type { PreviewConfig } from 'wix-rich-content-preview';
+import type { ReactElement, FC } from 'react';
+import type { RicosCssOverride } from './types';
+import type { DRAFT_EDITOR_PROPS } from './consts';
+import type { RichContentEditorProps } from 'wix-rich-content-editor';
+import type { RichContentViewerProps } from 'wix-rich-content-viewer';
 
 export type RichContentProps = Partial<RichContentEditorProps | RichContentViewerProps>;
 

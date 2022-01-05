@@ -1,4 +1,4 @@
-import { EditorPluginConfig, ViewerPluginConfig } from 'wix-rich-content-common';
+import type { EditorPluginConfig, ViewerPluginConfig } from 'wix-rich-content-common';
 
 export const UNDO_REDO_TYPE = 'wix-rich-content-undo-redo';
 

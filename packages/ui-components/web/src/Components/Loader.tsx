@@ -1,6 +1,8 @@
-import React, { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../statics/styles/loaders.rtlignore.scss';
 
 const styleLoader: CSSProperties = {

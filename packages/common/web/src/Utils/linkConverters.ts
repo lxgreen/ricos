@@ -1,4 +1,4 @@
-import { Link_Rel } from '../index';
+import type { Link_Rel } from '../index';
 
 const SPONSORED = 'sponsored';
 const NO_FOLLOW = 'nofollow';

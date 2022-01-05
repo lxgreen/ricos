@@ -1,5 +1,6 @@
-import { LINE_SPACING_TYPE, LineSpacingPluginViewerConfig } from './types';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
+import type { LineSpacingPluginViewerConfig } from './types';
+import { LINE_SPACING_TYPE } from './types';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
 import { DEFAULTS } from './defaults';
 
 export const pluginLineSpacing: ViewerPluginCreator<LineSpacingPluginViewerConfig> = config => {

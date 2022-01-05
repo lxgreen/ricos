@@ -1,5 +1,5 @@
 import { fieldsToTranslatables } from './fieldsToTranslatables';
-import { NonTextualTranslatable, NonTextualNode } from '../types';
+import type { NonTextualTranslatable, NonTextualNode } from '../types';
 
 type PluginToTranslatables = (node: NonTextualNode) => NonTextualTranslatable[];
 

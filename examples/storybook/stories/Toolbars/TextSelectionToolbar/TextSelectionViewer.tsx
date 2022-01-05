@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { DraftContent, RicosViewer } from 'ricos-viewer';
+import type { DraftContent } from 'ricos-viewer';
+import { RicosViewer } from 'ricos-viewer';
 class TextSelectionViewer extends Component<
   { content?: DraftContent },
   { containerRef?: HTMLDivElement }

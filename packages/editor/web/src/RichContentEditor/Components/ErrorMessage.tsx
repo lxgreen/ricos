@@ -1,5 +1,7 @@
-import React, { FunctionComponent } from 'react';
-import { MediaUploadErrorKey, MediaUploadError, Trans } from 'wix-rich-content-common';
+import type { FunctionComponent } from 'react';
+import React from 'react';
+import type { MediaUploadError } from 'wix-rich-content-common';
+import { MediaUploadErrorKey, Trans } from 'wix-rich-content-common';
 import Toast from './Toast';
 
 const errorMap = {

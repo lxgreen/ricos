@@ -1,5 +1,6 @@
 import React, { Component, Suspense } from 'react';
-import { GlobalContext, MediaUploadError, Pubsub } from 'wix-rich-content-common';
+import type { MediaUploadError, Pubsub } from 'wix-rich-content-common';
+import { GlobalContext } from 'wix-rich-content-common';
 
 declare global {
   interface Window {

@@ -1,7 +1,7 @@
-import { Overwrite } from 'utility-types';
+import type { Overwrite } from 'utility-types';
 import { isArray, isObject } from 'lodash';
-import { Node, RichContent } from 'ricos-schema';
-import {
+import type { Node, RichContent } from 'ricos-schema';
+import type {
   RawDraftInlineStyleRange,
   RawDraftContentBlock,
   RawDraftEntity,

@@ -7,8 +7,7 @@ import { MonoidAny } from 'fp-ts/boolean';
 import { concatAll } from 'fp-ts/Monoid';
 import * as RONEA from 'fp-ts/ReadonlyNonEmptyArray';
 
-import {
-  parseFragment,
+import type {
   ChildNode,
   DocumentFragment,
   Document,
@@ -18,8 +17,9 @@ import {
   CommentNode,
   Attribute,
 } from 'parse5';
+import { parseFragment } from 'parse5';
 import { equals } from '../../../../fp-utils';
-import { ContentNode } from './models';
+import type { ContentNode } from './models';
 
 export type AstContext = {
   visit: (node: Element | DocumentFragment) => ContentNode;
@@ -37,10 +37,12 @@ export const isWhitespace = flow(
   O.fold(() => false, equals(S.Eq)(''))
 );
 
-export const hasDescendant = (predicate: (child: Node) => boolean) => (node: Node): boolean =>
-  predicate(node) ||
-  (!isLeaf(node) &&
-    pipe((node as Element).childNodes, A.map(hasDescendant(predicate)), concatAll(MonoidAny)));
+export const hasDescendant =
+  (predicate: (child: Node) => boolean) =>
+  (node: Node): boolean =>
+    predicate(node) ||
+    (!isLeaf(node) &&
+      pipe((node as Element).childNodes, A.map(hasDescendant(predicate)), concatAll(MonoidAny)));
 
 type AttrRecord = Record<Attribute['name'], Attribute['value']>;
 
@@ -83,9 +85,10 @@ export const toDocumentFragment = (nodes: ChildNode[]): DocumentFragment => {
 
 export const toName = (node: ContentNode) => node.nodeName;
 
-export const hasParent = (
-  predicate: (node: ContentNode | Document | DocumentFragment) => boolean
-) => (node: ContentNode) => predicate(node.parentNode);
+export const hasParent =
+  (predicate: (node: ContentNode | Document | DocumentFragment) => boolean) =>
+  (node: ContentNode) =>
+    predicate(node.parentNode);
 
 export const hasTag = (tag: string) => flow(toName, equals(S.Eq)(tag));
 

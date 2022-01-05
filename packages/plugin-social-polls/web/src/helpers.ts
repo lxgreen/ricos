@@ -2,9 +2,7 @@ import { getScaleImageSrc } from 'wix-rich-content-common/libs/imageUtils';
 import { BACKGROUND_TYPE } from './defaults';
 
 export function generateId() {
-  return Math.random()
-    .toString(36)
-    .substr(2, 9);
+  return Math.random().toString(36).substr(2, 9);
 }
 
 export function getRandomValue<T>(pool: T[]) {

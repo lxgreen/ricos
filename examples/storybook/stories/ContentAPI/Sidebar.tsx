@@ -1,7 +1,9 @@
-import React, { FC, useState } from 'react';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import styles from './ContentBuilder.scss';
-import { ComposerSidebar, ComposerSidebarItem } from 'wix-style-react';
-import { Plugins } from './types';
+import type { ComposerSidebarItem } from 'wix-style-react';
+import { ComposerSidebar } from 'wix-style-react';
+import type { Plugins } from './types';
 
 interface SidebarProps {
   plugins: Plugins;

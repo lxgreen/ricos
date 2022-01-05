@@ -85,13 +85,8 @@ export class PollSettingsSection extends Component {
   render() {
     const { componentData, t, settings = {} } = this.props;
 
-    const {
-      votersDisplay,
-      votesDisplay,
-      multipleVotes,
-      resultsVisibility,
-      voteRole,
-    } = componentData.poll.settings;
+    const { votersDisplay, votesDisplay, multipleVotes, resultsVisibility, voteRole } =
+      componentData.poll.settings;
 
     const { showVoteRoleSetting } = settings;
 

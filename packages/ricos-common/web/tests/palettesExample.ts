@@ -1,5 +1,5 @@
-import { PaletteColors } from 'wix-rich-content-common';
-import { WixColor } from '../src/themeStrategy/themeTypes';
+import type { PaletteColors } from 'wix-rich-content-common';
+import type { WixColor } from '../src/themeStrategy/themeTypes';
 
 /* eslint-disable no-unused-vars */
 const TEMPLATE_EXAMPLE: Omit<WixColor, 'value'>[] = [

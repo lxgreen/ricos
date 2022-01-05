@@ -1,4 +1,4 @@
-import { CreateRicosExtensions, DOMOutputSpec } from 'ricos-tiptap-types';
+import type { CreateRicosExtensions, DOMOutputSpec } from 'ricos-tiptap-types';
 import codeBlockDataDefaults from 'ricos-schema/dist/statics/code_block.defaults.json';
 import styles from '../statics/styles/code-block.scss';
 import { TextSelection } from 'prosemirror-state';
@@ -81,12 +81,16 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
 
       addCommands() {
         return {
-          setCodeBlock: attributes => ({ commands }) => {
-            return commands.setNode(this.name, attributes);
-          },
-          toggleCodeBlock: attributes => ({ commands }) => {
-            return commands.toggleNode(this.name, 'paragraph', attributes);
-          },
+          setCodeBlock:
+            attributes =>
+            ({ commands }) => {
+              return commands.setNode(this.name, attributes);
+            },
+          toggleCodeBlock:
+            attributes =>
+            ({ commands }) => {
+              return commands.toggleNode(this.name, 'paragraph', attributes);
+            },
         };
       },
 

@@ -14,8 +14,8 @@ import {
 } from 'wix-rich-content-editor-common';
 import GiphyApiInputModal from './giphyApiInputModal';
 import { InsertPluginIcon } from '../icons';
-import { CreateInsertButtons, TranslationFunction } from 'wix-rich-content-common';
-import { GiphyPluginEditorConfig } from '../types';
+import type { CreateInsertButtons, TranslationFunction } from 'wix-rich-content-common';
+import type { GiphyPluginEditorConfig } from '../types';
 
 const createInsertButtons: CreateInsertButtons = ({
   t,

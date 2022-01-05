@@ -1,11 +1,12 @@
 import { createImagePlugin } from './createImagePlugin';
-import { IMAGE_TYPE, ImagePluginEditorConfig } from './types';
+import type { ImagePluginEditorConfig } from './types';
+import { IMAGE_TYPE } from './types';
 import { ModalsMap } from './modals';
 import { DEFAULTS } from './consts';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createImageData } from './createImageData';
 import { createRicosExtensions } from './tiptap';
-import { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 export const pluginImage: EditorPluginCreator<ImagePluginEditorConfig> = config => {
   const pluginConfig: ImagePluginEditorConfig = { ...DEFAULTS.config, ...config };

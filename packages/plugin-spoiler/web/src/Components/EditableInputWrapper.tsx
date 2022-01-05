@@ -1,4 +1,5 @@
-import React, { Component, FocusEventHandler, KeyboardEventHandler, ReactElement } from 'react';
+import type { FocusEventHandler, KeyboardEventHandler, ReactElement } from 'react';
+import React, { Component } from 'react';
 
 interface Props {
   InputComponent: ReactElement;

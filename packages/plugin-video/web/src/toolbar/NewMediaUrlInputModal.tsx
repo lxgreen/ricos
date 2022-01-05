@@ -1,6 +1,6 @@
 import React from 'react';
 import { NewUrlInputModal, BUTTON_SIZE } from 'wix-rich-content-ui-components';
-import { Helpers, TranslationFunction, TextDirection } from 'wix-rich-content-common';
+import type { Helpers, TranslationFunction, TextDirection } from 'wix-rich-content-common';
 
 interface MediaURLInputModalProps {
   onConfirm: () => void;

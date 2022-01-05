@@ -1,4 +1,4 @@
-import { CreateRicosExtensions } from 'ricos-tiptap-types';
+import type { CreateRicosExtensions } from 'ricos-tiptap-types';
 import { Gallery as Component } from './component';
 import galleryDataDefaults from 'ricos-schema/dist/statics/gallery.defaults.json';
 import { TIPTAP_GALLERY_TYPE } from 'ricos-content';

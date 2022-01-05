@@ -1,5 +1,5 @@
 import { getUrlMatches } from '../urlValidators';
-import {
+import type {
   DraftContent,
   LinkRange,
   RicosEntityRange,

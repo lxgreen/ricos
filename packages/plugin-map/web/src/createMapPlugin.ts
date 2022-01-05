@@ -1,9 +1,10 @@
 import { createBasePlugin } from 'wix-rich-content-plugin-commons';
 import { DEFAULTS } from './defaults';
-import { MAP_TYPE, MapPluginEditorConfig } from './types';
+import type { MapPluginEditorConfig } from './types';
+import { MAP_TYPE } from './types';
 import { MapViewer } from './MapViewer';
 import createToolbar from './toolbar/createToolbar';
-import { CreatePluginFunction } from 'wix-rich-content-common';
+import type { CreatePluginFunction } from 'wix-rich-content-common';
 
 const createMapPlugin: CreatePluginFunction<MapPluginEditorConfig> = config => {
   const type = MAP_TYPE;

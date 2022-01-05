@@ -1,4 +1,4 @@
-import { DraftContent, RicosContentBlock, RicosEntityMap } from 'ricos-content';
+import type { DraftContent, RicosContentBlock, RicosEntityMap } from 'ricos-content';
 
 /* eslint-disable fp/no-loops */
 export const getBlocksFromContentState = (contentState: DraftContent): RicosContentBlock[] => {

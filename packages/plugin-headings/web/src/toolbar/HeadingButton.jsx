@@ -104,16 +104,8 @@ export default class HeadingButton extends Component {
   }
 
   render() {
-    const {
-      theme,
-      helpers,
-      isMobile,
-      t,
-      tabIndex,
-      toolbarName,
-      customHeadings,
-      inlinePopups,
-    } = this.props;
+    const { theme, helpers, isMobile, t, tabIndex, toolbarName, customHeadings, inlinePopups } =
+      this.props;
     const tooltipText = t('FormattingToolbar_TextStyleButton_Tooltip');
     const { isPanelOpen, panelTop, panelLeft, currentHeading } = this.state;
     const { styles } = this;

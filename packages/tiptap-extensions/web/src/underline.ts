@@ -1,5 +1,5 @@
 import { mergeAttributes } from '@tiptap/core';
-import { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
+import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -54,15 +54,21 @@ export const createUnderline = (): RicosExtension => ({
 
     addCommands() {
       return {
-        setUnderline: () => ({ commands }) => {
-          return commands.setMark(this.name);
-        },
-        toggleUnderline: () => ({ commands }) => {
-          return commands.toggleMark(this.name);
-        },
-        unsetUnderline: () => ({ commands }) => {
-          return commands.unsetMark(this.name);
-        },
+        setUnderline:
+          () =>
+          ({ commands }) => {
+            return commands.setMark(this.name);
+          },
+        toggleUnderline:
+          () =>
+          ({ commands }) => {
+            return commands.toggleMark(this.name);
+          },
+        unsetUnderline:
+          () =>
+          ({ commands }) => {
+            return commands.unsetMark(this.name);
+          },
       };
     },
 

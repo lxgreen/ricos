@@ -6,7 +6,7 @@ import { wixPalettes, ricosPalettes } from '../../src/shared/resources/palettesE
 import { FONTS } from '../../src/shared/resources/fontsExample';
 import ExampleApplication from '../Components/ExampleApplication';
 import { SelectorCell } from './SelectorCell';
-import { RicosTheme } from 'ricos-common';
+import type { RicosTheme } from 'ricos-common';
 import { withWixStyle } from './wixStyle';
 
 const palettes = Object.keys(wixPalettes);

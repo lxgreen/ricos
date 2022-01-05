@@ -2426,8 +2426,7 @@ const testVideos = [
     width: 480,
     title: 'Wix.com Official 2018 Big Game Ad with Rhett & Link — Extended Version',
     author_url: 'https://www.youtube.com/user/Wix',
-    html:
-      '<iframe width="480" height="270" src="https://www.youtube.com/embed/jhXlnvYZZQs?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+    html: '<iframe width="480" height="270" src="https://www.youtube.com/embed/jhXlnvYZZQs?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
     height: 270,
     author_name: 'Wix.com',
     thumbnail_width: 480,
@@ -2437,8 +2436,7 @@ const testVideos = [
   {
     height: 270,
     author_name: 'Wix.com',
-    html:
-      '<iframe width="480" height="270" src="https://www.youtube.com/embed/BBu5codsO6Y?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+    html: '<iframe width="480" height="270" src="https://www.youtube.com/embed/BBu5codsO6Y?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
     thumbnail_width: 480,
     type: 'video',
     version: '1.0',
@@ -2464,8 +2462,7 @@ const testVideos = [
     provider_name: 'YouTube',
     thumbnail_height: 360,
     title: 'How to Build a Wix Website for Your Business | James Veitch',
-    html:
-      '<iframe width="480" height="270" src="https://www.youtube.com/embed/_zuIxexRrtk?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+    html: '<iframe width="480" height="270" src="https://www.youtube.com/embed/_zuIxexRrtk?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
     video_url: 'https://youtu.be/_zuIxexRrtk',
   },
 ];

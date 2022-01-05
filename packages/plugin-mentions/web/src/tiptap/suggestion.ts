@@ -1,5 +1,6 @@
 import Suggestion from '@tiptap/suggestion';
-import { ReactRenderer, Editor } from '@tiptap/react';
+import type { Editor } from '@tiptap/react';
+import { ReactRenderer } from '@tiptap/react';
 import tippy from 'tippy.js';
 import MentionList from './MentionList.jsx';
 

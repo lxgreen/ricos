@@ -1,4 +1,4 @@
-import { CreateRicosExtensions, DOMOutputSpec } from 'ricos-tiptap-types';
+import type { CreateRicosExtensions, DOMOutputSpec } from 'ricos-tiptap-types';
 import headingDataDefaults from 'ricos-schema/dist/statics/heading.defaults.json';
 
 type Level = 1 | 2 | 3 | 4 | 5 | 6;
@@ -62,20 +62,24 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
 
       addCommands() {
         return {
-          setHeading: attributes => ({ commands }) => {
-            if (!this.options.levels.includes(attributes.level)) {
-              return false;
-            }
+          setHeading:
+            attributes =>
+            ({ commands }) => {
+              if (!this.options.levels.includes(attributes.level)) {
+                return false;
+              }
 
-            return commands.setNode(this.name, attributes);
-          },
-          toggleHeading: attributes => ({ commands }) => {
-            if (!this.options.levels.includes(attributes.level)) {
-              return false;
-            }
+              return commands.setNode(this.name, attributes);
+            },
+          toggleHeading:
+            attributes =>
+            ({ commands }) => {
+              if (!this.options.levels.includes(attributes.level)) {
+                return false;
+              }
 
-            return commands.toggleNode(this.name, 'paragraph', attributes);
-          },
+              return commands.toggleNode(this.name, 'paragraph', attributes);
+            },
         };
       },
 

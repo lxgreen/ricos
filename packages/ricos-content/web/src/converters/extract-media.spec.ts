@@ -411,8 +411,7 @@ const draftContentWithVideos = {
           provider_name: 'YouTube',
           thumbnail_height: 360,
           title: 'How to Build a Wix Website for Your Business | James Veitch',
-          html:
-            '<iframe width="480" height="270" src="https://www.youtube.com/embed/_zuIxexRrtk?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+          html: '<iframe width="480" height="270" src="https://www.youtube.com/embed/_zuIxexRrtk?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
           video_url: 'https://youtu.be/_zuIxexRrtk',
         },
       },
@@ -501,8 +500,7 @@ const draftContentWithVideos = {
           },
           {
             itemId: 'item-1',
-            url:
-              'https://media2.giphy.com/media/4Zo41lhzKt6iZ8xff9/giphy.gif?cid=558f2fbeh2i5a2o44ta0ti98ldfxbefyfzd7xdac0bnh1hzn&rid=giphy.gif',
+            url: 'https://media2.giphy.com/media/4Zo41lhzKt6iZ8xff9/giphy.gif?cid=558f2fbeh2i5a2o44ta0ti98ldfxbefyfzd7xdac0bnh1hzn&rid=giphy.gif',
             mediaUrl:
               'https://media2.giphy.com/media/4Zo41lhzKt6iZ8xff9/giphy-downsized-small.mp4?cid=558f2fbeh2i5a2o44ta0ti98ldfxbefyfzd7xdac0bnh1hzn&rid=giphy-downsized-small.mp4',
             metadata: {
@@ -512,8 +510,7 @@ const draftContentWithVideos = {
               videoId:
                 'https://media2.giphy.com/media/4Zo41lhzKt6iZ8xff9/giphy.gif?cid=558f2fbeh2i5a2o44ta0ti98ldfxbefyfzd7xdac0bnh1hzn&rid=giphy.gif',
               poster: {
-                url:
-                  'https://media2.giphy.com/media/4Zo41lhzKt6iZ8xff9/giphy.gif?cid=558f2fbeh2i5a2o44ta0ti98ldfxbefyfzd7xdac0bnh1hzn&rid=giphy.gif',
+                url: 'https://media2.giphy.com/media/4Zo41lhzKt6iZ8xff9/giphy.gif?cid=558f2fbeh2i5a2o44ta0ti98ldfxbefyfzd7xdac0bnh1hzn&rid=giphy.gif',
                 width: 268,
                 height: 268,
               },
@@ -708,8 +705,7 @@ const draftContentWithInvalidVideos = {
               videoId:
                 'https://media2.giphy.com/media/4Zo41lhzKt6iZ8xff9/giphy.gif?cid=558f2fbeh2i5a2o44ta0ti98ldfxbefyfzd7xdac0bnh1hzn&rid=giphy.gif',
               poster: {
-                url:
-                  'https://media2.giphy.com/media/4Zo41lhzKt6iZ8xff9/giphy.gif?cid=558f2fbeh2i5a2o44ta0ti98ldfxbefyfzd7xdac0bnh1hzn&rid=giphy.gif',
+                url: 'https://media2.giphy.com/media/4Zo41lhzKt6iZ8xff9/giphy.gif?cid=558f2fbeh2i5a2o44ta0ti98ldfxbefyfzd7xdac0bnh1hzn&rid=giphy.gif',
                 width: 268,
                 height: 268,
               },

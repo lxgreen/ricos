@@ -1,8 +1,8 @@
+import type { Node } from 'ricos-schema';
 import {
   DividerData_Alignment,
   DividerData_LineStyle,
   DividerData_Width,
-  Node,
   Node_Type,
 } from 'ricos-schema';
 import { createEmptyContent } from '../RicosContentAPI/createEmptyContent';

@@ -1,9 +1,10 @@
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import redoIcon from './icons/RedoIcon';
 import { InlineToolbarButton, redo, FORMATTING_BUTTONS } from 'wix-rich-content-editor-common';
 import { UNDO_REDO_TYPE } from './types';
-import {
+import type {
   TranslationFunction,
   RichContentTheme,
   Helpers,

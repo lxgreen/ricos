@@ -4,13 +4,16 @@
 */
 
 import { createYourPluginNamePlugin } from './createYourPluginNamePlugin';
-import { YOUR_PLUGIN_NAME_TYPE, YourPluginNamePluginEditorConfig } from './types';
+import type { YourPluginNamePluginEditorConfig } from './types';
+import { YOUR_PLUGIN_NAME_TYPE } from './types';
 // import { ModalsMap } from './modals'; // Optional
 // import { theme } from './defaults'; // Optional
 import { DEFAULTS } from './defaults';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
 
-export const pluginYourPluginName: EditorPluginCreator<YourPluginNamePluginEditorConfig> = config => {
+export const pluginYourPluginName: EditorPluginCreator<
+  YourPluginNamePluginEditorConfig
+> = config => {
   return {
     config: { ...DEFAULTS.config, ...config },
     type: YOUR_PLUGIN_NAME_TYPE,

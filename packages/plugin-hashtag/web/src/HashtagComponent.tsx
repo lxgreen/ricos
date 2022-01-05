@@ -1,7 +1,8 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import type { FunctionComponent, ReactElement } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import styles from '../statics/hashtag.scss';
-import { RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
 
 export interface HashtagProps {
   decoratedText: string;

@@ -1,7 +1,7 @@
 import React from 'react';
 import FallbackAvatar from './FallbackAvatar';
 
-export default function(props: { className: string; src?: string }) {
+export default function (props: { className: string; src?: string }) {
   const { className, src } = props;
 
   return src ? (

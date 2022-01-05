@@ -40,7 +40,8 @@ export { GlobalContext } from './Utils/contexts';
 export { isHexColor } from './Utils/colorUtils';
 export { isRtl, getLangDir } from './Utils/rtlUtils';
 
-export { simplePubsub, Pubsub, Store } from './Utils/simplePubsub';
+export { simplePubsub } from './Utils/simplePubsub';
+// export type { Pubsub, Store } from './Utils/simplePubsub';
 export { generateKey } from './Utils/generateKey';
 export { getBlocksFromContentState } from './Utils/innerRCEBlocksUtils';
 export * from './consts';
@@ -49,12 +50,12 @@ export { default as createJustificationFixDecorator } from './draftDecorators/cr
 
 export {
   parseStyleByType,
-  CustomInlineStyleType,
   INLINE_STYLE_TYPES,
   defaultStyleFnMapper,
   dynamicStyleParsers,
   getDynamicInlineStyleMapper,
   draftDecorationsToCss,
 } from './Utils/viewerUtils';
+export type { CustomInlineStyleType } from './Utils/viewerUtils';
 
 export { default as uuid } from './Utils/uuid';

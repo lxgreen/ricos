@@ -1,4 +1,4 @@
-import { RicosExtension } from 'ricos-tiptap-types';
+import type { RicosExtension } from 'ricos-tiptap-types';
 import { createCommandsConfig } from '../../core-commands';
 import {
   createDraftConfig,

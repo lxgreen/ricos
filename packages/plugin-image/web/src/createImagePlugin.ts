@@ -6,8 +6,9 @@ import {
   createBaseMediaPlugin,
 } from 'wix-rich-content-plugin-commons';
 import { Component, DEFAULTS } from './image-component';
-import { IMAGE_TYPE, IMAGE_TYPE_LEGACY, ImagePluginEditorConfig } from './types';
-import { CreatePluginFunction } from 'wix-rich-content-common';
+import type { ImagePluginEditorConfig } from './types';
+import { IMAGE_TYPE, IMAGE_TYPE_LEGACY } from './types';
+import type { CreatePluginFunction } from 'wix-rich-content-common';
 import { isNumber } from 'lodash';
 
 const createImagePlugin: CreatePluginFunction<ImagePluginEditorConfig> = config => {
@@ -56,9 +57,8 @@ const createImagePlugin: CreatePluginFunction<ImagePluginEditorConfig> = config 
           },
         };
       }
-      const resizeableProps = PLUGIN_DECORATION_PROPS[PLUGIN_DECORATIONS.RESIZEABLE](
-        calulatedProps
-      );
+      const resizeableProps =
+        PLUGIN_DECORATION_PROPS[PLUGIN_DECORATIONS.RESIZEABLE](calulatedProps);
 
       if (size === 'inline') {
         return resizeableProps;
@@ -71,9 +71,8 @@ const createImagePlugin: CreatePluginFunction<ImagePluginEditorConfig> = config 
     },
     componentWillReceiveDecorationProps: (props, nextProps, onPropsChange) => {
       const { width } = PLUGIN_DECORATION_PROPS[PLUGIN_DECORATIONS.RESIZEABLE](props);
-      const { width: nextWidth } = PLUGIN_DECORATION_PROPS[PLUGIN_DECORATIONS.RESIZEABLE](
-        nextProps
-      );
+      const { width: nextWidth } =
+        PLUGIN_DECORATION_PROPS[PLUGIN_DECORATIONS.RESIZEABLE](nextProps);
       if (width !== nextWidth) {
         onPropsChange({ size: 'inline', width: nextWidth });
       }

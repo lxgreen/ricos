@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
-import { Decoration, Node, Node_Type, Decoration_Type } from 'ricos-schema';
-import { RicosInlineStyleRange, RicosEntityRange, RicosEntityMap } from '../../../types';
+import type { Decoration, Node } from 'ricos-schema';
+import { Node_Type, Decoration_Type } from 'ricos-schema';
+import type { RicosInlineStyleRange, RicosEntityRange, RicosEntityMap } from '../../../types';
 import { FROM_RICOS_DECORATION_TYPE, TO_RICOS_DECORATION_DATA_FIELD } from '../consts';
 import { emojiRegex } from '../emojiRegex';
 import { createDecorationEntityData } from './getDraftEntityData';
@@ -119,7 +120,11 @@ export const parseEntityDecorations = (
   entityMap: RicosEntityMap;
   latestEntityKey: number;
 } => {
-  const { entityRanges, entityMap, latestEntityKey: newLatestEntityKey } = decorations.reduce<{
+  const {
+    entityRanges,
+    entityMap,
+    latestEntityKey: newLatestEntityKey,
+  } = decorations.reduce<{
     entityRanges: RicosEntityRange[];
     entityMap: RicosEntityMap;
     latestEntityKey: number;

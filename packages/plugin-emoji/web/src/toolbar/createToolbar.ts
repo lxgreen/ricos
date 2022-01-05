@@ -1,11 +1,11 @@
 import createInsertButtons from './insert-buttons';
-import {
+import type {
   CreatePluginToolbar,
   TranslationFunction,
   GetEditorState,
   SetEditorState,
 } from 'wix-rich-content-common';
-import { EmojiPluginEditorConfig } from '../types';
+import type { EmojiPluginEditorConfig } from '../types';
 
 const createToolbar: CreatePluginToolbar = ({
   settings,

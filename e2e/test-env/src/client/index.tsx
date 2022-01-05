@@ -7,7 +7,7 @@ import RicosTestApp from './RicosTestApp';
 import PreviewTestApp from './PreviewTestApp';
 
 import './app.css';
-import { TestAppConfig } from '../../../../examples/main/src/types';
+import type { TestAppConfig } from '../../../../examples/main/src/types';
 
 const compMap = {
   rce: TestApp,

@@ -1,7 +1,15 @@
-import React, { RefObject } from 'react';
+import type { RefObject } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import { IMAGE_TYPE, ImagePluginViewerConfig, ImageData } from './types';
+import type { ImagePluginViewerConfig, ImageData } from './types';
+import { IMAGE_TYPE } from './types';
 import { get, includes, isEqual, isFunction } from 'lodash';
+import type {
+  Helpers,
+  RichContentTheme,
+  SEOSettings,
+  CustomAnchorScroll,
+} from 'wix-rich-content-common';
 import {
   mergeStyles,
   validate,
@@ -9,10 +17,6 @@ import {
   anchorScroll,
   addAnchorTagToUrl,
   GlobalContext,
-  Helpers,
-  RichContentTheme,
-  SEOSettings,
-  CustomAnchorScroll,
 } from 'wix-rich-content-common';
 import { getImageSrc, isPNG, WIX_MEDIA_DEFAULT } from 'wix-rich-content-common/libs/imageUtils';
 import pluginImageSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-image.schema.json';

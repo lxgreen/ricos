@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useRef } from 'react';
-import { RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
 import { TextInput } from '../';
 import { KEYS_CHARCODE } from '../consts';
 import ModalContainer from './TextInputModalContainer';

@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
 import { flow } from 'fp-ts/function';
-import { RichContent, Node, Node_Type, TextNodeStyle } from 'ricos-schema';
-import { DraftContent, RicosContentBlock } from '../../../types';
+import type { RichContent, Node, TextNodeStyle } from 'ricos-schema';
+import { Node_Type } from 'ricos-schema';
+import type { DraftContent, RicosContentBlock } from '../../../types';
 import { Version } from '../../../version';
 import { generateId } from '../../generateRandomId';
 import { BlockType, HeaderLevel, TO_DRAFT_LIST_TYPE } from '../consts';
 import { RICOS_NODE_TYPE_TO_DATA_FIELD } from '../../../consts';
-import { DraftBlockType } from 'draft-js';
+import type { DraftBlockType } from 'draft-js';
 import { v4 as uuid } from 'uuid';
 import { merge } from 'lodash';
 import { createTextBlockData, createAtomicEntityData } from './getDraftEntityData';
@@ -97,10 +98,11 @@ const convert = (ricosContent: RichContent): DraftContent => {
     const { text, decorationMap } = mergeTextNodes(node.nodes);
     const { inlineStyleDecorations, entityDecorations } = parseDecorations(decorationMap, text);
     const inlineStyleRanges = parseInlineStyleDecorations(inlineStyleDecorations);
-    const { entityRanges, entityMap, latestEntityKey: newLatestEntityKey } = parseEntityDecorations(
-      entityDecorations,
-      latestEntityKey
-    );
+    const {
+      entityRanges,
+      entityMap,
+      latestEntityKey: newLatestEntityKey,
+    } = parseEntityDecorations(entityDecorations, latestEntityKey);
     latestEntityKey = newLatestEntityKey;
     const { depth, ...data } = createTextBlockData(node);
     addBlock({

@@ -15,12 +15,12 @@ import {
   YoutubeIcon,
 } from '../icons';
 import EmbedURLInputModal from './embedURLInputModal';
-import {
+import type {
   CreateInsertButtons,
   TranslationFunction,
   AvailableExperiments,
 } from 'wix-rich-content-common';
-import { LinkPreviewPluginEditorConfig } from '../types';
+import type { LinkPreviewPluginEditorConfig } from '../types';
 import {
   DesktopFlyOutModalStyles,
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,

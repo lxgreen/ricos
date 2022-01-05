@@ -1,7 +1,8 @@
 import { typeMapper } from './typeMapper';
 import { DEFAULTS } from './constants';
-import { GIPHY_TYPE, GiphyPluginViewerConfig } from './types';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
+import type { GiphyPluginViewerConfig } from './types';
+import { GIPHY_TYPE } from './types';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
 export { typeMapper as giphyTypeMapper, GIPHY_TYPE };
 
 export const pluginGiphy: ViewerPluginCreator<GiphyPluginViewerConfig> = config => {

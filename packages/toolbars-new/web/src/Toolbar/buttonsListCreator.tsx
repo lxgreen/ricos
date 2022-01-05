@@ -3,14 +3,13 @@
 /* eslint-disable fp/no-loops */
 import React from 'react';
 import { merge, cloneDeep } from 'lodash';
-import {
+import type {
   RICOS_LINK_TYPE,
   EditorCommands,
-  CUSTOM_LINK,
-  SPOILER_TYPE,
   TranslationFunction,
   AvailableExperiments,
 } from 'wix-rich-content-common';
+import { CUSTOM_LINK, SPOILER_TYPE } from 'wix-rich-content-common';
 import {
   buttonsFullData,
   inlineStyleButtons,
@@ -22,7 +21,7 @@ import {
   inlineOverrideStyles,
 } from './buttonsListCreatorConsts';
 import { HEADER_TYPE_MAP } from 'wix-rich-content-plugin-commons';
-import { RicosTheme } from 'ricos-common';
+import type { RicosTheme } from 'ricos-common';
 import {
   getBlockStyle,
   findOsName,
@@ -36,7 +35,7 @@ import {
   getHeadingsLabel,
   getFontSize,
 } from './utils';
-import { linkPanelDataType, defaultLineSpacingType } from './RicosToolbar';
+import type { linkPanelDataType, defaultLineSpacingType } from './RicosToolbar';
 
 type editorCommands = EditorCommands;
 

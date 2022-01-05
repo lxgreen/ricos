@@ -9,12 +9,12 @@ import { EventIcon, ProductIcon, BookingIcon } from '../icons';
 import VerticalEmbedInputModal from './VerticalEmbedInputModal';
 import { contentTypeMap, modalContentStyles } from '../constants';
 import getModalCustomStyles from './ModalCustomStyles';
-import {
+import type {
   AvailableExperiments,
   CreateInsertButtons,
   TranslationFunction,
 } from 'wix-rich-content-common';
-import { VerticalEmbedPluginEditorConfig } from '../types';
+import type { VerticalEmbedPluginEditorConfig } from '../types';
 import {
   DesktopFlyOutModalStyles,
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,

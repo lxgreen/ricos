@@ -1,5 +1,5 @@
-import { Node } from '@tiptap/core';
-import {
+import type { Node } from '@tiptap/core';
+import type {
   DecoratedNodeExtension,
   ConvertableNodeExtensionAggregate,
   IReactNodeExtension,

@@ -1,10 +1,12 @@
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 import { range, reduce as _reduce } from 'lodash';
 import Prism from 'prismjs';
 import classNames from 'classnames';
-import { hasLinksInBlock, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { hasLinksInBlock } from 'wix-rich-content-common';
 import highlightingTheme from '../statics/styles/highlighting-theme.scss';
-import { CompositeDecorator } from '@wix/draft-js';
+import type { CompositeDecorator } from '@wix/draft-js';
 import type { List } from 'immutable'; // eslint-disable-line prettier/prettier
 
 const DEFAULT_SYNTAX = 'javascript';

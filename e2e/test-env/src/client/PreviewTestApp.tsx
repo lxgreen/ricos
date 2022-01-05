@@ -1,8 +1,8 @@
-import { EditorState } from 'draft-js';
+import type { EditorState } from 'draft-js';
 import React, { PureComponent } from 'react';
-import { DraftContent } from 'ricos-editor';
-import { SEOSettings } from 'wix-rich-content-common';
-import { RichContentEditorProps } from 'wix-rich-content-editor';
+import type { DraftContent } from 'ricos-editor';
+import type { SEOSettings } from 'wix-rich-content-common';
+import type { RichContentEditorProps } from 'wix-rich-content-editor';
 import Preview from '../../../../examples/main/shared/preview/Preview';
 import windowContentStateHoc from './WindowContentStateHoc';
 

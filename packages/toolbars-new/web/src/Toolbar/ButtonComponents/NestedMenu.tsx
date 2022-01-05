@@ -6,7 +6,7 @@ import ClickOutside from 'react-click-outsider';
 import styles from '../ToolbarNew.scss';
 import Toolbar from '../Toolbar';
 import ToolbarButton from '../ToolbarButton';
-import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import type { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 
 type dropDownPropsType = {

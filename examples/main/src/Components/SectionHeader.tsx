@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { PureComponent } from 'react';
 import { MdClose, MdSettings, MdInvertColors } from 'react-icons/md';
-import { SectionSettings, OnVisibilityChanged } from '../types';
+import type { SectionSettings, OnVisibilityChanged } from '../types';
 
 export default class SectionHeader extends PureComponent<{
   title?: string;

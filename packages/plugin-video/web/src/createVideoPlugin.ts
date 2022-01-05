@@ -1,8 +1,9 @@
 import createToolbar from './toolbar/createToolbar';
 import { Component, DEFAULTS } from './video-component';
-import { VIDEO_TYPE, VIDEO_TYPE_LEGACY, VideoPluginEditorConfig } from './types';
+import type { VideoPluginEditorConfig } from './types';
+import { VIDEO_TYPE, VIDEO_TYPE_LEGACY } from './types';
 import { createBasePlugin } from 'wix-rich-content-plugin-commons';
-import { CreatePluginFunction } from 'wix-rich-content-common';
+import type { CreatePluginFunction } from 'wix-rich-content-common';
 
 const createVideoPlugin: CreatePluginFunction<VideoPluginEditorConfig> = config => {
   const {

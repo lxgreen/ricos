@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { mergeStyles, RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import type { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../statics/styles/unsupported-blocks.scss';
 import CircleInfoIcon from './icons/CircleInfoIcon';
 

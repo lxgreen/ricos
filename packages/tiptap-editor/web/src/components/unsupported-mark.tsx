@@ -1,5 +1,5 @@
-import { RicosMarkExtension } from 'ricos-tiptap-types';
-import { MarkConfig } from '@tiptap/core';
+import type { RicosMarkExtension } from 'ricos-tiptap-types';
+import type { MarkConfig } from '@tiptap/core';
 
 export const getUnsupportedMarkConfig = (name: string): RicosMarkExtension => ({
   type: 'mark' as const,

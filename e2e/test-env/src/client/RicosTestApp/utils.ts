@@ -1,4 +1,4 @@
-import { EditorPlugin, ViewerPlugin } from 'wix-rich-content-common';
+import type { EditorPlugin, ViewerPlugin } from 'wix-rich-content-common';
 
 export const createPresets = <T extends EditorPlugin | ViewerPlugin>(
   plugins: Record<string, T>

@@ -1,6 +1,6 @@
-import { ComponentType } from 'react';
-import { EditorState } from 'draft-js';
-import {
+import type { ComponentType } from 'react';
+import type { EditorState } from 'draft-js';
+import type {
   ComponentData,
   ModalStyles,
   TranslationFunction,
@@ -113,9 +113,7 @@ export interface PluginKeyBindings {
   commandHandlers: Record<string, CommandHandler>;
 }
 
-export type CreatePluginToolbar = (
-  config
-) => {
+export type CreatePluginToolbar = (config) => {
   name: string;
   InlineButtons?: InlineButton[];
   InlinePluginToolbarButtons?: InlineButton[]; // TODO: this looks like a duplicate. Should be removed.

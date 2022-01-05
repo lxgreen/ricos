@@ -1,7 +1,9 @@
-import React, { Component, CSSProperties, MouseEvent } from 'react';
+import type { CSSProperties, MouseEvent } from 'react';
+import React, { Component } from 'react';
 import styles from '../../statics/styles/labeled-toggle.scss';
 import classNames from 'classnames';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import InfoIcon from './InfoIcon';
 
 interface LabeledToggleProps {

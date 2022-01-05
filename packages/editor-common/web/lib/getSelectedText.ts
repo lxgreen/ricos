@@ -1,4 +1,4 @@
-import { EditorState, ContentBlock } from '@wix/draft-js';
+import type { EditorState, ContentBlock } from '@wix/draft-js';
 
 import getFragmentFromSelection from '@wix/draft-js/lib/getFragmentFromSelection';
 

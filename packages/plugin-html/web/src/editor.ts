@@ -1,7 +1,8 @@
 import { createHtmlPlugin } from './createHtmlPlugin';
-import { HTML_TYPE, HtmlPluginEditorConfig } from './types';
+import type { HtmlPluginEditorConfig } from './types';
+import { HTML_TYPE } from './types';
 import { DEFAULTS_CONFIG } from './defaults';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createHtmlData } from './createHtmlData';
 
 export const pluginHtml: EditorPluginCreator<HtmlPluginEditorConfig> = config => {

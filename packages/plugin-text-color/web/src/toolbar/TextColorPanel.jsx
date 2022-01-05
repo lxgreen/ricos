@@ -58,15 +58,8 @@ export default class TextColorPanel extends Component {
   }
 
   render() {
-    const {
-      theme,
-      settings,
-      t,
-      setKeepToolbarOpen,
-      isMobile,
-      defaultColor,
-      colorPickerHeaderKey,
-    } = this.props;
+    const { theme, settings, t, setKeepToolbarOpen, isMobile, defaultColor, colorPickerHeaderKey } =
+      this.props;
     const { colorScheme } = settings;
     const palette = extractPalette(colorScheme);
     const schemeAttributes = extractSchemeAttributes(colorScheme);

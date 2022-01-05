@@ -10,6 +10,6 @@ export {
   convertTableConfigToRaw,
 } from '../lib/editorStateConversion';
 
-export { RichContentEditorProps } from './RichContentEditor/RichContentEditor';
+export type { RichContentEditorProps } from './RichContentEditor/RichContentEditor';
 
 export { RichContentEditorModal, RichContentEditor };

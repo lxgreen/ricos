@@ -32,11 +32,15 @@ import {
   getSelectedBlocks,
   toggleBlockTypeWithSpaces,
 } from 'wix-rich-content-editor-common';
-import {
+import type {
   AvailableExperiments,
   EditorCommands,
   GetEditorState,
   SetEditorState,
+  DocumentStyle,
+  RicosCustomStyles,
+} from 'wix-rich-content-common';
+import {
   RICOS_LINE_SPACING_TYPE,
   RICOS_INDENT_TYPE,
   RICOS_TEXT_COLOR_TYPE,
@@ -45,8 +49,6 @@ import {
   RICOS_MENTION_TYPE,
   RICOS_FONT_SIZE_TYPE,
   UNSUPPORTED_BLOCKS_TYPE,
-  DocumentStyle,
-  RicosCustomStyles,
   CUSTOM_LINK,
   CODE_BLOCK_TYPE,
 } from 'wix-rich-content-common';
@@ -233,9 +235,7 @@ export const createEditorCommands = (
       getWiredFontStyles(documentStyleGetter(), customStyles, isMobile),
     scrollToBlock: blockKey => scrollToBlock(blockKey, experiments),
     isBlockInContent: blockKey => {
-      const blocks = getEditorState()
-        .getCurrentContent()
-        .getBlocksAsArray();
+      const blocks = getEditorState().getCurrentContent().getBlocksAsArray();
       return blocks.some(block => block.getKey() === blockKey);
     },
     isAtomicBlockInSelection: () => isAtomicBlockInSelection(getEditorState()),

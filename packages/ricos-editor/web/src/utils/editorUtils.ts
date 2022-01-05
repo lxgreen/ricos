@@ -3,15 +3,16 @@ import {
   convertToRaw,
   convertFromRaw,
 } from 'wix-rich-content-editor/libs/editorStateConversion';
-import { EditorProps } from 'draft-js';
+import type { EditorProps } from 'draft-js';
 import { pick } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { DRAFT_EDITOR_PROPS } from 'ricos-common';
 import { isContentStateEmpty } from 'ricos-content';
 import { isContentEqual } from 'ricos-content/libs/comapareDraftContent';
-import { DraftContent, isSSR } from 'wix-rich-content-common';
+import type { DraftContent } from 'wix-rich-content-common';
+import { isSSR } from 'wix-rich-content-common';
 import { getEmptyDraftContent } from 'wix-rich-content-editor-common';
-import { EditorDataInstance, OnContentChangeFunction, ContentStateGetter } from '../index';
+import type { EditorDataInstance, OnContentChangeFunction, ContentStateGetter } from '../index';
 import errorBlocksRemover from './errorBlocksRemover';
 
 /* eslint-disable no-console */

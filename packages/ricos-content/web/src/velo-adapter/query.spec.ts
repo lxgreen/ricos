@@ -1,15 +1,14 @@
 import migrationContent from '../../statics/json/migratedFixtures/migration-content.json';
 import { query } from './query';
+import type { RichContent, Node } from 'ricos-schema';
 import {
-  RichContent,
   Node_Type,
   PluginContainerData_Alignment,
   PluginContainerData_Width_Type,
-  Node,
   Decoration_Type,
   FontSizeData_fontType,
 } from 'ricos-schema';
-import { TextNode, VideoNode } from '../types/node-refined-types';
+import type { TextNode, VideoNode } from '../types/node-refined-types';
 
 const videoUrl = 'https://www.youtube.com/watch?v=CoJ23XNHgG0';
 
@@ -76,7 +75,7 @@ const textNodeMock: TextNode = {
 };
 
 describe('query', () => {
-  const content = (migrationContent as unknown) as RichContent;
+  const content = migrationContent as unknown as RichContent;
 
   it('should return all results if no filtering was done', () => {
     const result = query({ nodes: [videoMock] }).find();
@@ -84,23 +83,17 @@ describe('query', () => {
   });
 
   it('should do eq', () => {
-    const result = query(content)
-      .eq('videoData.video.src.url', videoUrl)
-      .find();
+    const result = query(content).eq('videoData.video.src.url', videoUrl).find();
     expect(result).toStrictEqual<VideoNode[]>([videoMock]);
   });
 
   it('should do gt', () => {
-    const result = query(content)
-      .gt('videoData.thumbnail.width', 490)
-      .find();
+    const result = query(content).gt('videoData.thumbnail.width', 490).find();
     expect(result).toStrictEqual<VideoNode[]>([videoMock_BiggerWidth]);
   });
 
   it('should do lt', () => {
-    const result = query(content)
-      .lt('videoData.thumbnail.width', 490)
-      .find();
+    const result = query(content).lt('videoData.thumbnail.width', 490).find();
     expect(result).toStrictEqual<VideoNode[]>([videoMock]);
   });
 
@@ -137,23 +130,17 @@ describe('query', () => {
   });
 
   it('should do startsWith', () => {
-    const result = query(content)
-      .startsWith('textData.text', 'Lorem ipsum dolor')
-      .find();
+    const result = query(content).startsWith('textData.text', 'Lorem ipsum dolor').find();
     expect(result).toStrictEqual<TextNode[]>([textNodeMock]);
   });
 
   it('should do endsWith', () => {
-    const result = query(content)
-      .endsWith('textData.text', 'sit amet')
-      .find();
+    const result = query(content).endsWith('textData.text', 'sit amet').find();
     expect(result).toStrictEqual<TextNode[]>([textNodeMock]);
   });
 
   it('should do limit', () => {
-    const result = query(content)
-      .limit(2)
-      .find();
+    const result = query(content).limit(2).find();
     expect(result.length).toStrictEqual<number>(2);
   });
 
@@ -163,9 +150,7 @@ describe('query', () => {
   });
 
   it('should do count + limit', () => {
-    const result = query(content)
-      .limit(2)
-      .count();
+    const result = query(content).limit(2).count();
     expect(result).toStrictEqual<number>(2);
   });
 });

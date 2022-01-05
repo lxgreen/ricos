@@ -1,4 +1,4 @@
-import { PluginsActionGenericParams } from './pluginsBiCallbacksTypes';
+import type { PluginsActionGenericParams } from './pluginsBiCallbacksTypes';
 
 interface TablePluginAddColumnRowParams extends PluginsActionGenericParams {
   category: string;

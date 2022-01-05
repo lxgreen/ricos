@@ -1,6 +1,6 @@
 import { merge } from 'lodash';
 import { TOOLBARS } from '../consts';
-import { ModalStyles } from 'wix-rich-content-common';
+import type { ModalStyles } from 'wix-rich-content-common';
 
 const mobileModalStyles: ModalStyles = {
   overlay: {

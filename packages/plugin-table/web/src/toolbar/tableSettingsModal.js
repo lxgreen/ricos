@@ -23,13 +23,8 @@ export default class tableSettingsModal extends Component {
   }
 
   onCreateTableClicked = () => {
-    const {
-      colCount,
-      rowCount,
-      submittedInvalidCol,
-      submittedInvalidRow,
-      invalidCellNum,
-    } = this.state;
+    const { colCount, rowCount, submittedInvalidCol, submittedInvalidRow, invalidCellNum } =
+      this.state;
     if (!invalidCellNum && colCount && rowCount && !submittedInvalidCol && !submittedInvalidRow) {
       const { componentData, pubsub, onConfirm, helpers } = this.props;
       const { config } = getDefaultsSettings(parseInt(rowCount), parseInt(colCount));
@@ -72,13 +67,8 @@ export default class tableSettingsModal extends Component {
 
   render() {
     const { styles } = this;
-    const {
-      colCount,
-      rowCount,
-      submittedInvalidCol,
-      submittedInvalidRow,
-      invalidCellNum,
-    } = this.state;
+    const { colCount, rowCount, submittedInvalidCol, submittedInvalidRow, invalidCellNum } =
+      this.state;
     const { isMobile, helpers, t } = this.props;
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions

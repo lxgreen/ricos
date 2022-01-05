@@ -1,7 +1,7 @@
-import { PaletteColors } from 'wix-rich-content-common';
+import type { PaletteColors } from 'wix-rich-content-common';
 import { adaptForeground, toRgbTuple, toHexFormat } from '../themeUtils';
 import { presets, assertWixPalette, COLORS, isRicosPalette, getColorValue } from '../palettes';
-import { RicosTheme, CssVarsObject, PaletteConfig } from '../themeTypes';
+import type { RicosTheme, CssVarsObject, PaletteConfig } from '../themeTypes';
 
 const createCssVars = (colors: PaletteColors, config?: PaletteConfig): CssVarsObject => {
   const { contentBgColor = false, focusActionColor, settingsActionColor } = config || {};

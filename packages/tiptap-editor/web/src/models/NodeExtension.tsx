@@ -1,23 +1,24 @@
+import type { NodeConfig, NodeViewRendererProps } from '@tiptap/react';
 import {
   mergeAttributes,
   textblockTypeInputRule,
   markPasteRule,
   markInputRule,
   Node,
-  NodeConfig,
-  NodeViewRendererProps,
   NodeViewWrapper,
   ReactNodeViewRenderer,
 } from '@tiptap/react';
 import { pipe } from 'fp-ts/function';
-import React, { ComponentType } from 'react';
-import {
+import type { ComponentType } from 'react';
+import React from 'react';
+import type {
   DecoratedNodeExtension,
-  DEFAULT_PRIORITY,
   IReactNodeExtension,
   IHtmlNodeExtension,
 } from './domain-types';
-import { isRicosNodeExtension, RicosExtension, RicosNodeExtension } from 'ricos-tiptap-types';
+import { DEFAULT_PRIORITY } from './domain-types';
+import type { RicosExtension, RicosNodeExtension } from 'ricos-tiptap-types';
+import { isRicosNodeExtension } from 'ricos-tiptap-types';
 import { RicosNode } from '../components/RicosNode';
 import { Plugin, PluginKey } from 'prosemirror-state';
 
@@ -31,21 +32,27 @@ const toExtensionConfig = (ext: RicosNodeExtension) =>
     PluginKey,
   });
 
-const toFullNodeConfig = (ext: RicosNodeExtension) => (config: NodeConfig): NodeConfig => ({
-  parseHTML: () => [{ tag: `${config.name}-component` }],
-  renderHTML: ({ HTMLAttributes }) => [`${config.name}-component`, mergeAttributes(HTMLAttributes)],
-  ...(ext.componentDataDefaults ? { addAttributes: () => ext.componentDataDefaults } : {}),
-  ...config,
-});
+const toFullNodeConfig =
+  (ext: RicosNodeExtension) =>
+  (config: NodeConfig): NodeConfig => ({
+    parseHTML: () => [{ tag: `${config.name}-component` }],
+    renderHTML: ({ HTMLAttributes }) => [
+      `${config.name}-component`,
+      mergeAttributes(HTMLAttributes),
+    ],
+    ...(ext.componentDataDefaults ? { addAttributes: () => ext.componentDataDefaults } : {}),
+    ...config,
+  });
 
 const createRicosNodeConfig = (ext: RicosNodeExtension): NodeConfig =>
   pipe(ext, toExtensionConfig, toFullNodeConfig(ext));
 
-const createRicosNodeHOC = (Component: ComponentType) => (props: NodeViewRendererProps) => (
-  <NodeViewWrapper as="div">
-    <RicosNode Component={Component} tiptapNodeProps={props} />
-  </NodeViewWrapper>
-);
+const createRicosNodeHOC = (Component: ComponentType) => (props: NodeViewRendererProps) =>
+  (
+    <NodeViewWrapper as="div">
+      <RicosNode Component={Component} tiptapNodeProps={props} />
+    </NodeViewWrapper>
+  );
 
 export class ReactNodeExtension implements IReactNodeExtension {
   config: NodeConfig;

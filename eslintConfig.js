@@ -13,6 +13,7 @@ module.exports = {
     },
   },
   rules: {
+    '@typescript-eslint/consistent-type-imports': 'error',
     semi: 'error',
     quotes: [
       'error',
@@ -79,5 +80,14 @@ module.exports = {
     indent: 'off',
     curly: 'off',
     'cypress/no-unnecessary-waiting': 'warn',
+    'no-duplicate-imports': 'off',
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        'no-undef': 'off',
+      },
+    },
+  ],
 };

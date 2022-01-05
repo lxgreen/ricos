@@ -1,7 +1,8 @@
-import { VIDEO_TYPE, VideoPluginViewerConfig } from './types';
+import type { VideoPluginViewerConfig } from './types';
+import { VIDEO_TYPE } from './types';
 import { DEFAULTS } from './defaults';
 import { typeMapper } from './typeMapper-loadable';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
 export { VIDEO_TYPE, typeMapper as videoTypeMapper };
 
 export const pluginVideo: ViewerPluginCreator<VideoPluginViewerConfig> = config => {

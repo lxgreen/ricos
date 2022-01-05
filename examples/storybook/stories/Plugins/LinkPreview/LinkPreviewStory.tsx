@@ -2,7 +2,9 @@ import React from 'react';
 import fixtrue from '../../../../../e2e/tests/fixtures/linkPreview.json';
 import LinkPreviewEditor from './LinkPreviewEditor';
 import LinkPreviewViewer from './LinkPreviewViewer';
+// eslint-disable-next-line import/no-unresolved
 import editorSourcecode from '!!raw-loader!./LinkPreviewEditor.tsx';
+// eslint-disable-next-line import/no-unresolved
 import viewerSourcecode from '!!raw-loader!./LinkPreviewViewer.tsx';
 import TabsWrapper from '../../Components/TabsWrapper';
 import {

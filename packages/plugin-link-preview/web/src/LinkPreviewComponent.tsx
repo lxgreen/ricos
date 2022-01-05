@@ -1,7 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 import LinkPreviewViewer from './LinkPreviewViewer';
-import { LinkPreviewPluginEditorConfig } from './types';
-import { RichContentTheme } from 'wix-rich-content-common';
+import type { LinkPreviewPluginEditorConfig } from './types';
+import type { RichContentTheme } from 'wix-rich-content-common';
 
 interface LinkPreviewComponentProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

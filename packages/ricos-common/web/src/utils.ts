@@ -1,6 +1,7 @@
-import { Children, ReactElement, ComponentClass } from 'react';
-import { RichContentProps } from './types';
-import { DraftContent } from 'wix-rich-content-common';
+import type { ReactElement, ComponentClass } from 'react';
+import { Children } from 'react';
+import type { RichContentProps } from './types';
+import type { DraftContent } from 'wix-rich-content-common';
 
 export const emptyState: DraftContent = { blocks: [], entityMap: {} };
 

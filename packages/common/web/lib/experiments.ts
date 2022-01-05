@@ -1,4 +1,4 @@
-import { AvailableExperiments } from '../src/types';
+import type { AvailableExperiments } from '../src/types';
 
 export function parseExperiments(
   wixExperiments: Record<string, string | boolean>

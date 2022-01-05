@@ -1,10 +1,12 @@
 /* eslint-disable max-len */
-import React, { Component, ReactElement, ReactNode, Ref, FC } from 'react';
+import type { ReactElement, ReactNode, Ref, FC } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import ToolbarButton from './ToolbarButton';
 import DropdownArrowIcon from '../Icons/DropdownArrowIcon';
 import Styles from '../../statics/styles/inline-toolbar-button.scss';
-import { Helpers, mergeStyles } from 'wix-rich-content-common';
+import type { Helpers } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 
 type InlineToolbarButtonProps = {
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -74,15 +76,8 @@ class InlineToolbarButton extends Component<InlineToolbarButtonProps> {
   preventDefault = event => event.preventDefault();
 
   onClick: InlineToolbarButtonProps['onClick'] = e => {
-    const {
-      onClick,
-      helpers,
-      pluginType,
-      dataHook,
-      formattingButtonName,
-      isActive,
-      children,
-    } = this.props;
+    const { onClick, helpers, pluginType, dataHook, formattingButtonName, isActive, children } =
+      this.props;
     helpers?.onToolbarButtonClick?.({
       buttonName: formattingButtonName || dataHook || '',
       pluginId: pluginType,

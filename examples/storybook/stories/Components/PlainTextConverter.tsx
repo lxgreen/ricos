@@ -1,12 +1,14 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RichContentEditorBox, Section } from './StoryParts';
 import EditorWrapper from './EditorWrapper';
 import styles from '../Components/styles.scss';
+// eslint-disable-next-line import/no-unresolved
 import sourceCode from '!!raw-loader!./PlainTextConverter';
 import { toPlainText } from 'ricos-content/libs/toPlainText';
 import { fromDraft } from 'ricos-content/libs/migrateSchema';
-import { RichContentTheme } from 'wix-rich-content-common';
-import { DraftContent } from 'ricos-content';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import type { DraftContent } from 'ricos-content';
 
 const PlainTextConverter: FunctionComponent<{
   content: DraftContent;

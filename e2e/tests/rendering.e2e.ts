@@ -13,12 +13,12 @@ const eyesOpener = (
 };
 
 describe('editor rendering', () => {
-  before(function() {
+  before(function () {
     if (Cypress.env('MATCH_CONTENT_STATE') && !Cypress.env('debug')) this.skip();
   });
 
   context('seo', () => {
-    before(function() {
+    before(function () {
       eyesOpener(this.test.parent.title);
     });
 
@@ -39,7 +39,7 @@ describe('editor rendering', () => {
   });
 
   context('desktop', () => {
-    before(function() {
+    before(function () {
       eyesOpener(this.test.parent.title);
     });
 

@@ -1,5 +1,5 @@
 import { markInputRule, markPasteRule, mergeAttributes } from '@tiptap/core';
-import { RicosMarkExtension } from 'ricos-tiptap-types';
+import type { RicosMarkExtension } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -58,15 +58,21 @@ export const createBold = (): RicosMarkExtension => ({
 
     addCommands() {
       return {
-        setBold: () => ({ commands }) => {
-          return commands.setMark(this.name);
-        },
-        toggleBold: () => ({ commands }) => {
-          return commands.toggleMark(this.name);
-        },
-        unsetBold: () => ({ commands }) => {
-          return commands.unsetMark(this.name);
-        },
+        setBold:
+          () =>
+          ({ commands }) => {
+            return commands.setMark(this.name);
+          },
+        toggleBold:
+          () =>
+          ({ commands }) => {
+            return commands.toggleMark(this.name);
+          },
+        unsetBold:
+          () =>
+          ({ commands }) => {
+            return commands.unsetMark(this.name);
+          },
       };
     },
 

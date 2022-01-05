@@ -1,6 +1,6 @@
 import styles from './statics/styles.scss';
 import { mergeAttributes, wrappingInputRule } from '@tiptap/core';
-import { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
+import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -57,15 +57,21 @@ export const createBlockquote = (): RicosExtension => ({
 
     addCommands() {
       return {
-        setBlockquote: () => ({ commands }) => {
-          return commands.wrapIn(this.name);
-        },
-        toggleBlockquote: () => ({ commands }) => {
-          return commands.toggleWrap(this.name);
-        },
-        unsetBlockquote: () => ({ commands }) => {
-          return commands.lift(this.name);
-        },
+        setBlockquote:
+          () =>
+          ({ commands }) => {
+            return commands.wrapIn(this.name);
+          },
+        toggleBlockquote:
+          () =>
+          ({ commands }) => {
+            return commands.toggleWrap(this.name);
+          },
+        unsetBlockquote:
+          () =>
+          ({ commands }) => {
+            return commands.lift(this.name);
+          },
       };
     },
 

@@ -1,6 +1,6 @@
 import createInlineButtons from './inline-buttons';
 import createInsertButtons from './insert-buttons';
-import {
+import type {
   CreatePluginToolbar,
   AnchorTarget,
   TranslationFunction,
@@ -8,7 +8,7 @@ import {
   UISettings,
   AvailableExperiments,
 } from 'wix-rich-content-common';
-import { GalleryPluginEditorConfig } from '../types';
+import type { GalleryPluginEditorConfig } from '../types';
 
 const createToolbar: CreatePluginToolbar = ({
   settings,

@@ -2,8 +2,8 @@ import { BUTTONS } from 'wix-rich-content-plugin-commons';
 import { getModalStyles } from 'wix-rich-content-editor-common';
 import { Modals } from '../modals';
 import { MediaReplaceIcon } from '../icons';
-import { CreateInlineButtons, TranslationFunction } from 'wix-rich-content-common';
-import { SoundCloudPluginEditorConfig } from '../types';
+import type { CreateInlineButtons, TranslationFunction } from 'wix-rich-content-common';
+import type { SoundCloudPluginEditorConfig } from '../types';
 
 const createInlineButtons: CreateInlineButtons = ({
   t,

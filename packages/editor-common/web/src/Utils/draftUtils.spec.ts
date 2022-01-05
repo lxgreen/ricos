@@ -1,8 +1,9 @@
 import mockLinkEditorState from '../../../../../e2e/tests/fixtures/headers.json';
 import mockAlignmentEditorState from '../../../../../e2e/tests/fixtures/text-alignment.json';
 import mockGiphyContentState from '../../../../../e2e/tests/fixtures/giphy.json';
-import '../draftTypes';
-import { EditorState, convertToRaw, convertFromRaw, RawDraftContentState } from '@wix/draft-js';
+// import '../draftTypes';
+import type { RawDraftContentState } from '@wix/draft-js';
+import { EditorState, convertToRaw, convertFromRaw } from '@wix/draft-js';
 import {
   insertLinkAtCurrentSelection,
   insertLinkInPosition,

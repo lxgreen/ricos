@@ -1,5 +1,5 @@
 import { pickBy } from 'lodash';
-import { RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
 
 export const getToolbarTheme = (theme: RichContentTheme, type: string) => ({
   toolbarStyles: pickBy(theme, (_value, key) => key.startsWith(`${type}Toolbar`)),

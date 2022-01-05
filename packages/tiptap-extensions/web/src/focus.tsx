@@ -1,6 +1,7 @@
-import { Editor } from '@tiptap/react';
+import type { Editor } from '@tiptap/react';
 import { pipe } from 'fp-ts/function';
-import React, { ComponentType, useEffect, useState } from 'react';
+import type { ComponentType } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const name = 'focus';
 

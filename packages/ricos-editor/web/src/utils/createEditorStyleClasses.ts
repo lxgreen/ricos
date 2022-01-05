@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { AvailableExperiments, EditorStyleClasses } from 'wix-rich-content-common';
+import type { AvailableExperiments, EditorStyleClasses } from 'wix-rich-content-common';
 
 interface EditorStyleCreatorArgs {
   cssOverride?: Record<string, string>;

@@ -2,7 +2,7 @@ import * as A from 'fp-ts/Array';
 import { pipe } from 'fp-ts/function';
 import * as N from 'fp-ts/number';
 import * as O from 'fp-ts/Ord';
-import { Aggregate, IExtension } from './domain-types';
+import type { Aggregate, IExtension } from './domain-types';
 
 const byPriority: O.Ord<IExtension> = pipe(
   N.Ord,

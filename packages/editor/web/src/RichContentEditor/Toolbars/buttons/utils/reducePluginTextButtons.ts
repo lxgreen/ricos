@@ -1,4 +1,4 @@
-import { PluginTextButtons } from 'wix-rich-content-common';
+import type { PluginTextButtons } from 'wix-rich-content-common';
 
 /**
  * @param {Array<any>} pluginTextButtons array of button data entries

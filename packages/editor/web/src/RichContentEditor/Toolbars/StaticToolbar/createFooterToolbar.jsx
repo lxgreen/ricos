@@ -3,8 +3,12 @@ import createStaticToolbar from './createStaticToolbar';
 import toolbarStyles from '../../../../statics/styles/footer-toolbar.scss';
 
 const getFooterTheme = theme => {
-  const { toolbarStyles: toolbarTheme, buttonStyles, separatorStyles: separatorTheme, ...rest } =
-    theme || {};
+  const {
+    toolbarStyles: toolbarTheme,
+    buttonStyles,
+    separatorStyles: separatorTheme,
+    ...rest
+  } = theme || {};
 
   /* eslint-disable camelcase*/
   return {

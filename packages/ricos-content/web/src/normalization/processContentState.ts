@@ -7,7 +7,7 @@ import {
 } from './block-processors';
 import { linkify } from './linkify';
 import inlinePluginsRemover from './inlinePluginsRemover';
-import {
+import type {
   NormalizeConfig,
   DraftContent,
   RicosContentBlock,

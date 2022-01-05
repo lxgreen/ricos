@@ -1,4 +1,4 @@
-import { Pubsub } from 'wix-rich-content-common';
+import type { Pubsub } from 'wix-rich-content-common';
 
 /**
   createExternalToolbarPlugin

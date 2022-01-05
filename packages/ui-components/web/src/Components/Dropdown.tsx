@@ -1,7 +1,9 @@
-import React, { Component, ComponentType, ElementType } from 'react';
+import type { ComponentType, ElementType } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
-import { mergeStyles, isSSR, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles, isSSR } from 'wix-rich-content-common';
 import styles from '../../statics/styles/dropdown.scss';
 import DropdownArrowIcon from '../Icons/DropdownArrowIcon';
 

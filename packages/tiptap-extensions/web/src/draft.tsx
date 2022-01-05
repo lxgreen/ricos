@@ -1,6 +1,6 @@
 import React from 'react';
 import toConstantCase from 'to-constant-case';
-import { Node_Type } from 'ricos-schema';
+import type { Node_Type } from 'ricos-schema';
 import { tiptapNodeDataToDraft } from './content-utils';
 
 const name = 'draft';

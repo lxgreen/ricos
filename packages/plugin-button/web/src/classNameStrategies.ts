@@ -1,6 +1,7 @@
 import classnames from 'classnames';
 import { upperFirst } from 'lodash';
-import { mergeStyles, ClassNameStrategy } from 'wix-rich-content-common';
+import type { ClassNameStrategy } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import alignmentStyles from '../statics/styles/alignment.rtlignore.scss';
 import styles from '../statics/styles/default-styles.scss';
 

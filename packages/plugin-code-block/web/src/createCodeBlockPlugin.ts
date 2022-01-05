@@ -1,10 +1,12 @@
 import CodeUtils from 'draft-js-code';
 import { createBasePlugin } from 'wix-rich-content-plugin-commons';
-import { COMMANDS, EditorState } from 'wix-rich-content-editor-common';
-import { CODE_BLOCK_TYPE, CodeBlockPluginEditorConfig } from './types';
+import type { EditorState } from 'wix-rich-content-editor-common';
+import { COMMANDS } from 'wix-rich-content-editor-common';
+import type { CodeBlockPluginEditorConfig } from './types';
+import { CODE_BLOCK_TYPE } from './types';
 // import PrismDecorator from './PrismDecorator';
 import createCodeBlockToolbar from './toolbar/createToolbar';
-import { CreatePluginFunction, UnderlyingPlugin } from 'wix-rich-content-common';
+import type { CreatePluginFunction, UnderlyingPlugin } from 'wix-rich-content-common';
 import { DEFAULTS } from './defaults';
 
 const handleShiftTab = (editorState: EditorState) => {

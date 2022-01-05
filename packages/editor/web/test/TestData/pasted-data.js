@@ -36,7 +36,7 @@ export const raw = {
     },
   ],
   entityMap: {
-    '0': {
+    0: {
       type: 'wix-draft-plugin-image',
       mutability: 'IMMUTABLE',
       data: {
@@ -145,7 +145,7 @@ export const rawContent = {
     },
   ],
   entityMap: {
-    '0': {
+    0: {
       type: 'wix-rich-content-plugin-collapsible-list',
       mutability: 'IMMUTABLE',
       data: {
@@ -670,7 +670,7 @@ export const expectedRawContent = {
     },
   ],
   entityMap: {
-    '0': {
+    0: {
       type: 'wix-rich-content-plugin-collapsible-list',
       mutability: 'IMMUTABLE',
       data: {

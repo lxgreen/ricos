@@ -5,13 +5,12 @@ import complexFixture from '../../../../../../../e2e/tests/fixtures/migration-co
 import anchorBlocksFixture from '../../../../../../../e2e/tests/fixtures/all-blocks-with-anchors.json';
 import keyAndBulletFixture from './migration-content-with-key-and-bullet.json';
 import { ANCHOR_TYPE, WRAP } from '../../../consts';
+import type { FileData, Node } from 'ricos-schema';
 import {
   Decoration_Type,
-  FileData,
   Node_Type,
   PluginContainerData_Alignment,
   PluginContainerData_Width_Type,
-  Node,
 } from 'ricos-schema';
 import { convertDecorationToDraftData, convertNodeToDraftData } from './convertDraftPluginData';
 import external from './__tests__/external-blocks-and-decorations.json';

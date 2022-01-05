@@ -1,4 +1,4 @@
-import { TestAppConfig } from '../../examples/main/src/types';
+import type { TestAppConfig } from '../../examples/main/src/types';
 import { usePlugins, plugins, useConsumerTheming } from '../cypress/testAppConfig';
 
 export interface FixtureConfig {

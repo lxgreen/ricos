@@ -19,9 +19,9 @@ import { VIDEO_TYPE } from 'wix-rich-content-plugin-video';
 import { VERTICAL_EMBED_TYPE } from 'wix-rich-content-plugin-vertical-embed';
 import TabsWrapper from '../Components/TabsWrapper';
 import apiData from '../Plugins/apiData';
-import { DraftContent, ToolbarSettings } from 'ricos-editor';
+import type { DraftContent, ToolbarSettings } from 'ricos-editor';
 import { ToolbarType } from 'wix-rich-content-common';
-import { FooterToolbarConfig } from '../../../main/src/types';
+import type { FooterToolbarConfig } from '../../../main/src/types';
 
 export default () => {
   class ShortcutMenuStory extends Component<

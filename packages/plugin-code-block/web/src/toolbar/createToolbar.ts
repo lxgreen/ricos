@@ -1,17 +1,17 @@
+import type { EditorState } from 'wix-rich-content-editor-common';
 import {
   MODIFIERS,
   COMMANDS,
   FORMATTING_BUTTONS,
   TOOLBARS,
   BUTTON_TYPES,
-  EditorState,
 } from 'wix-rich-content-editor-common';
 import TextCodeBlockButton from './TextCodeBlockButton';
 import { CODE_BLOCK_TYPE } from '../types';
 import { toggleBlockTypeAndEnsureSpaces } from './blockTypeModifiers';
 import CodeBlockIcon from '../icons/CodeBlockIcon';
 import { getButtonProps } from './getCodeBlockButtonProps';
-import { CommandHandler, CreatePluginToolbar } from 'wix-rich-content-common';
+import type { CommandHandler, CreatePluginToolbar } from 'wix-rich-content-common';
 
 const codeBlockTexButtontMapper: CreatePluginToolbar = config => {
   const icon =

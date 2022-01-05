@@ -1,18 +1,16 @@
 import { setupContentBuilder } from './RicosContentBuilder';
+import type { ImageData, ParagraphData, AppEmbedData } from 'ricos-schema';
 import {
-  ImageData,
   PluginContainerData_Width_Type,
   PluginContainerData_Alignment,
   RichContent,
   Node_Type,
-  ParagraphData,
   TextStyle_TextAlignment,
   Decoration_Type,
-  AppEmbedData,
   AppEmbedData_AppType,
 } from 'ricos-schema';
-import { TableCell } from '../types/contentApi';
-import { RichText } from '../types/node-refined-types';
+import type { TableCell } from '../types/contentApi';
+import type { RichText } from '../types/node-refined-types';
 
 describe('Ricos Content Builder', () => {
   it('should implement ContentBuilder', () => {

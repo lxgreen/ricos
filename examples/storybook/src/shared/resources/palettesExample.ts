@@ -1,5 +1,5 @@
-import { PaletteColors } from 'wix-rich-content-common';
-import { WixColor } from 'ricos-common';
+import type { PaletteColors } from 'wix-rich-content-common';
+import type { WixColor } from 'ricos-common';
 
 const TEMPLATE_EXAMPLE: Omit<WixColor, 'value'>[] = [
   {

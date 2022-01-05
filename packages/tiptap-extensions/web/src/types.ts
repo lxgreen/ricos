@@ -1,7 +1,7 @@
-import { Editor, JSONContent } from '@tiptap/react';
-import { Node as ProseMirrorNode } from 'prosemirror-model';
-import { ElementType } from 'react';
-import {
+import type { Editor, JSONContent } from '@tiptap/react';
+import type { Node as ProseMirrorNode } from 'prosemirror-model';
+import type { ElementType } from 'react';
+import type {
   DraftContent,
   EditorCommands,
   EditorContextType,
@@ -11,7 +11,7 @@ import {
   TranslationFunction,
   RichContentTheme,
 } from 'wix-rich-content-common';
-import { RicosExtension } from 'ricos-tiptap-types';
+import type { RicosExtension } from 'ricos-tiptap-types';
 
 export interface PluginProps {
   context: {
@@ -33,9 +33,7 @@ export type TiptapAPI = {
     MobileToolbar?: ElementType;
     TextToolbar?: ElementType;
   };
-  getToolbarProps: (
-    type: ToolbarType
-  ) => {
+  getToolbarProps: (type: ToolbarType) => {
     buttons?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
     context?: EditorContextType;
     pubsub?: Pubsub;

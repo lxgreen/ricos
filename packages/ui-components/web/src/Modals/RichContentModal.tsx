@@ -1,7 +1,9 @@
-import React, { Component, ComponentType } from 'react';
+import type { ComponentType } from 'react';
+import React, { Component } from 'react';
 import FocusManager from '../Components/FocusManager';
 import { DECORATION_MODE } from '../consts';
-import { getLangDir, ModalDecorations, Helpers, generateKey } from 'wix-rich-content-common';
+import type { ModalDecorations, Helpers } from 'wix-rich-content-common';
+import { getLangDir, generateKey } from 'wix-rich-content-common';
 
 const renderWrappedModalElement = (wrapping, ModalElement, modalProps) => {
   if (wrapping.length === 0) {

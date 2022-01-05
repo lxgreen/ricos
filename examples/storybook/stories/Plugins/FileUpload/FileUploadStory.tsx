@@ -8,8 +8,10 @@ import {
 
 import fileUploadContentState from '../../../../../e2e/tests/fixtures/file-upload.json';
 import FileUploadEditor from './FileUploadEditor';
+// eslint-disable-next-line import/no-unresolved
 import editorSourcecode from '!!raw-loader!./FileUploadEditor.tsx';
 import FileUploadViewer from './FileUploadViewer';
+// eslint-disable-next-line import/no-unresolved
 import viewerSourcecode from '!!raw-loader!./FileUploadViewer.tsx';
 import SyntaxHighlighter from '../../Components/SyntaxHighlighter';
 

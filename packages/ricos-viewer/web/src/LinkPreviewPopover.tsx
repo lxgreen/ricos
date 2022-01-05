@@ -1,6 +1,6 @@
 import React from 'react';
 import { LinkPreviewPopover } from 'wix-rich-content-link-preview-popover';
-import { LinkPreviewData } from 'wix-rich-content-common';
+import type { LinkPreviewData } from 'wix-rich-content-common';
 import './linkPreviewPopoverStyles.css';
 interface Props {
   container: HTMLElement;

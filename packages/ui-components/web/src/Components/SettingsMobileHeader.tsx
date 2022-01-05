@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '..';
-import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import type { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 
 import styles from '../../statics/styles/settings-mobile-header.scss';
 

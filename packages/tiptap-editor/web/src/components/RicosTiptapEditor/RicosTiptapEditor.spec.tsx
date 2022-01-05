@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { Editor, EditorOptions, JSONContent } from '@tiptap/react';
+import type { Editor, EditorOptions, JSONContent } from '@tiptap/react';
 import { compact } from 'lodash';
 import React from 'react';
 import { compare } from 'ricos-content/lib/comparision';
@@ -12,7 +12,7 @@ import { fromTiptap, toTiptap } from 'wix-tiptap-extensions';
 import { pluginLink } from 'wix-rich-content-plugin-link';
 import supportedPluginsContent from './supportedPluginsContent.json';
 import { RicosTiptapEditor } from './RicosTiptapEditor';
-import { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 let editor: Editor | null = null;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component as VideoComponent } from '../video-component';
 import { VIDEO_TYPE } from '../types';
-import { PluginProps } from 'wix-rich-content-editor-common';
+import type { PluginProps } from 'wix-rich-content-editor-common';
 import { convertBlockDataToRicos } from 'ricos-content/libs/migrateSchema';
 
 export const Video: React.FC<PluginProps> = ({ context, componentData, updateAttributes }) => {

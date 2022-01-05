@@ -1,7 +1,9 @@
-import React, { Component, CSSProperties, RefCallback } from 'react';
+import type { CSSProperties, RefCallback } from 'react';
+import React, { Component } from 'react';
 import RichContentEditorModal from './RichContentEditorModal';
 import ClickOutside from 'react-click-outsider';
-import { getLangDir, ModalStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { ModalStyles, RichContentTheme } from 'wix-rich-content-common';
+import { getLangDir } from 'wix-rich-content-common';
 
 class InnerModal extends Component<{
   theme: RichContentTheme;

@@ -1,5 +1,5 @@
-import { Extension } from '@tiptap/core';
-import { FunctionalExtensionAggregate, IFunctionalExtension } from './domain-types';
+import type { Extension } from '@tiptap/core';
+import type { FunctionalExtensionAggregate, IFunctionalExtension } from './domain-types';
 import { IExtensionAggregate } from './IExtensionAggregate';
 import { NodeHocDecorator } from './NodeHocDecorator';
 

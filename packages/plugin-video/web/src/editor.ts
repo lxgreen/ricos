@@ -1,11 +1,12 @@
 import { createVideoPlugin } from './createVideoPlugin';
-import { VIDEO_TYPE, VideoPluginEditorConfig } from './types';
+import type { VideoPluginEditorConfig } from './types';
+import { VIDEO_TYPE } from './types';
 import { DEFAULTS } from './defaults';
 import { ModalsMap } from './modals';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createVideoData } from './createVideoData';
 import { createRicosExtensions } from './tiptap';
-import { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 export const pluginVideo: EditorPluginCreator<VideoPluginEditorConfig> = config => {
   const pluginConfig: VideoPluginEditorConfig = { ...DEFAULTS.config, ...config };

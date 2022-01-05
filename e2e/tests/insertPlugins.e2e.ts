@@ -13,9 +13,7 @@ const LINKS = {
 };
 
 const modalHandler = (INPUT: string, ADD_BUTTON: string, LINK: string) => {
-  cy.get(`[data-hook=${INPUT}]`)
-    .wait(500)
-    .type(LINK);
+  cy.get(`[data-hook=${INPUT}]`).wait(500).type(LINK);
   cy.get(`[data-hook=${ADD_BUTTON}]`).click();
   cy.waitForVideoToLoad();
 };
@@ -35,9 +33,7 @@ const additionalCommands = {
     cy.moveCursorToEnd(); //DO NOT REMOVE - fix flakiness
   },
   EMOJI: () => {
-    cy.get(`[data-hook=emoji-5]:first`)
-      .click()
-      .enterParagraphs(['.']);
+    cy.get(`[data-hook=emoji-5]:first`).click().enterParagraphs(['.']);
   },
   // GIPHY: () => {
   //   cy.get(`[data-hook=${GIPHY_PLUGIN.UPLOAD_MODAL}]`);
@@ -46,18 +42,18 @@ const additionalCommands = {
   // ADSENSE: () => {},
 };
 
-const testInsertPlugin = (toolbar: string) => ([plugin, pluginButtonName]: [string, string]) =>
-  it(`should insert ${plugin?.toLocaleLowerCase()}`, function() {
-    cy.loadRicosEditorAndViewer('empty')
-      .wait(500)
-      .insertPlugin(toolbar, pluginButtonName);
+const testInsertPlugin =
+  (toolbar: string) =>
+  ([plugin, pluginButtonName]: [string, string]) =>
+    it(`should insert ${plugin?.toLocaleLowerCase()}`, function () {
+      cy.loadRicosEditorAndViewer('empty').wait(500).insertPlugin(toolbar, pluginButtonName);
 
-    additionalCommands[plugin]?.();
+      additionalCommands[plugin]?.();
 
-    cy.wait(1500);
+      cy.wait(1500);
 
-    cy.eyesCheckWindow(this.test.title);
-  });
+      cy.eyesCheckWindow(this.test.title);
+    });
 
 // const testNativeUploadMediaPlugin = toolbar => ([plugin, pluginButtonName]) =>
 //   it(`should upload native ${plugin?.toLocaleLowerCase()}`, function() {
@@ -96,7 +92,7 @@ const eyesOpen = ({
   });
 
 describe('insert plugins tests', () => {
-  before(function() {
+  before(function () {
     eyesOpen(this);
   });
 

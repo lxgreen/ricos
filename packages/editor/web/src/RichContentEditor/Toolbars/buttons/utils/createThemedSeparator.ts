@@ -1,6 +1,6 @@
 import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
 import { Separator } from 'wix-rich-content-ui-components';
-import { RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
 
 export default ({ theme = {} }: { theme: RichContentTheme }) => {
   const separatorProps: { name: string; horizontal: boolean; className?: string } = {

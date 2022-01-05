@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { debounce } from 'lodash';
-import { getContentStateSchema, DraftContent } from 'wix-rich-content-common';
+import type { DraftContent } from 'wix-rich-content-common';
+import { getContentStateSchema } from 'wix-rich-content-common';
 
 import dividerSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-divider.schema.json';
 import imageSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-image.schema.json';
@@ -37,7 +38,8 @@ import { LINK_PREVIEW_TYPE } from 'wix-rich-content-plugin-link-preview';
 import { POLL_TYPE } from 'wix-rich-content-plugin-social-polls';
 import { TABLE_TYPE } from 'wix-rich-content-plugin-table';
 import { COLLAPSIBLE_LIST_TYPE } from 'wix-rich-content-plugin-collapsible-list';
-import MonacoEditor, { ChangeHandler, EditorWillMount } from 'react-monaco-editor';
+import type { ChangeHandler, EditorWillMount } from 'react-monaco-editor';
+import MonacoEditor from 'react-monaco-editor';
 import { ensureDraftContent, ensureRicosContent } from 'ricos-content/libs/migrateSchema';
 
 function nonSerializedAttribute(key, value) {

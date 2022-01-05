@@ -2,27 +2,26 @@ import { BUTTONS, PluginSettingsIcon, SizeSmallCenterIcon } from 'wix-rich-conte
 import { getModalStyles } from 'wix-rich-content-editor-common';
 import { MapSettingsModal } from './MapSettingsModal';
 import { DEFAULTS } from '../defaults';
-import {
+import type {
   CreateInlineButtons,
   TranslationFunction,
   GetEditorBounds,
   Helpers,
   ComponentData,
 } from 'wix-rich-content-common';
-import { MapPluginEditorConfig, MAP_TYPE } from '../types';
+import type { MapPluginEditorConfig } from '../types';
+import { MAP_TYPE } from '../types';
 
-const getAlignmentButtonPropsFn = (getEditorBounds: GetEditorBounds) => ({
-  componentData,
-}: {
-  componentData: ComponentData;
-}) => {
-  const MAX_ALIGNMENT_WIDTH = 739;
-  const editorBounds = getEditorBounds();
-  const maxAlignmentWidth = editorBounds ? editorBounds.width - 1 : MAX_ALIGNMENT_WIDTH;
-  return {
-    disabled: (componentData?.config?.width || 0) > maxAlignmentWidth,
+const getAlignmentButtonPropsFn =
+  (getEditorBounds: GetEditorBounds) =>
+  ({ componentData }: { componentData: ComponentData }) => {
+    const MAX_ALIGNMENT_WIDTH = 739;
+    const editorBounds = getEditorBounds();
+    const maxAlignmentWidth = editorBounds ? editorBounds.width - 1 : MAX_ALIGNMENT_WIDTH;
+    return {
+      disabled: (componentData?.config?.width || 0) > maxAlignmentWidth,
+    };
   };
-};
 
 const createInlineButtons: CreateInlineButtons = ({
   settings,

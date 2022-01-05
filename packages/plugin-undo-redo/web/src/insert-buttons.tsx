@@ -7,13 +7,13 @@ import {
 } from 'wix-rich-content-editor-common';
 import UndoIcon from './icons/UndoIcon';
 import RedoIcon from './icons/RedoIcon';
-import {
+import type {
   CreateInsertButtons,
   TranslationFunction,
   GetEditorState,
   SetEditorState,
 } from 'wix-rich-content-common';
-import { UndoRedoPluginEditorConfig } from './types';
+import type { UndoRedoPluginEditorConfig } from './types';
 
 const createInsertButtons: CreateInsertButtons = ({
   t,
@@ -40,10 +40,7 @@ const createInsertButtons: CreateInsertButtons = ({
         e.preventDefault();
         setEditorState(undo(getEditorState()));
       },
-      isDisabled: () =>
-        getEditorState()
-          .getUndoStack()
-          .isEmpty(),
+      isDisabled: () => getEditorState().getUndoStack().isEmpty(),
     },
     {
       type: BUTTON_TYPES.BUTTON,
@@ -56,10 +53,7 @@ const createInsertButtons: CreateInsertButtons = ({
         e.preventDefault();
         setEditorState(redo(getEditorState()));
       },
-      isDisabled: () =>
-        getEditorState()
-          .getRedoStack()
-          .isEmpty(),
+      isDisabled: () => getEditorState().getRedoStack().isEmpty(),
     },
   ];
 };

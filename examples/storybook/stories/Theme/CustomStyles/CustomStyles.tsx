@@ -3,7 +3,7 @@ import { Page, Section, ContentState } from '../../Components/StoryParts';
 import exapmleState from '../../../../../e2e/tests/fixtures/text-formatting-types.json';
 import ExampleApplication from '../../Components/ExampleApplication';
 import { merge } from 'lodash';
-import { StyleAttr } from './types';
+import type { StyleAttr } from './types';
 import { set, get } from 'local-storage';
 import CustomStylesCreator from './StylesPanel';
 

@@ -1,5 +1,5 @@
 import imageDataDefaults from 'ricos-schema/dist/statics/image.defaults.json';
-import { CreateRicosExtensions } from 'ricos-tiptap-types';
+import type { CreateRicosExtensions } from 'ricos-tiptap-types';
 import { Image as Component } from './component';
 import { TIPTAP_IMAGE_TYPE } from 'ricos-content';
 
@@ -39,12 +39,16 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
       addOptions: () => defaultOptions,
       addCommands() {
         return {
-          setImageUrl: url => ({ commands }) => {
-            return commands.updateAttributes(name, { image: { src: { custom: url } } });
-          },
-          setImageLoading: loading => ({ commands }) => {
-            return commands.updateAttributes(name, { loading });
-          },
+          setImageUrl:
+            url =>
+            ({ commands }) => {
+              return commands.updateAttributes(name, { image: { src: { custom: url } } });
+            },
+          setImageLoading:
+            loading =>
+            ({ commands }) => {
+              return commands.updateAttributes(name, { loading });
+            },
         };
       },
     }),

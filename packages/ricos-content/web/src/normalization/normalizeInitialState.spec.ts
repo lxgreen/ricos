@@ -19,7 +19,12 @@ import {
 } from './Fixtures';
 import { WRAP } from '..';
 import { compare } from '../comparision/compare';
-import { RicosInlineStyleRange, RicosEntityRange, DraftContent, RicosContentBlock } from '../types';
+import type {
+  RicosInlineStyleRange,
+  RicosEntityRange,
+  DraftContent,
+  RicosContentBlock,
+} from '../types';
 
 const createState = ({
   text = 'bla bla bla  bla   ',

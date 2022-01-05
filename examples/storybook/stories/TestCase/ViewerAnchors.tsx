@@ -7,7 +7,7 @@ import { Button } from 'wix-style-react';
 
 const anchorPrefix = 'test-anchors';
 const getAllAnchors = () =>
-  (document.querySelectorAll(`[data-hook^=${anchorPrefix}]`) as unknown) as Element[];
+  document.querySelectorAll(`[data-hook^=${anchorPrefix}]`) as unknown as Element[];
 
 class ViewerAnchors extends React.Component {
   addAfterAnchor = (el: Element, adFnc?: (e: Element) => string) => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
 import { UrlInputModal, BUTTON_SIZE } from 'wix-rich-content-ui-components';
-import {
+import type {
   OnConfirmFunction,
   Pubsub,
   Helpers,
@@ -10,7 +10,7 @@ import {
   TextDirection,
 } from 'wix-rich-content-common';
 import { videoButtonsTypes } from '../types';
-import { Required } from 'utility-types';
+import type { Required } from 'utility-types';
 
 interface Props {
   onConfirm?: OnConfirmFunction;

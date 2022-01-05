@@ -1,8 +1,8 @@
 import getType from 'jest-get-type';
 import themeStrategy from './themeStrategy';
-import { RicosTheme, RicosCssOverride } from './themeTypes';
+import type { RicosTheme, RicosCssOverride } from './themeTypes';
 import { wixPalettes } from '../../tests/palettesExample';
-import { BasePlugin } from '..';
+import type { BasePlugin } from '..';
 
 // eslint-disable-next-line mocha/no-skipped-tests
 interface strategyProps {

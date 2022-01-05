@@ -1,10 +1,11 @@
 import { createDividerPlugin } from './createDividerPlugin';
 import { DEFAULTS } from './defaults';
-import { DIVIDER_TYPE, DividerPluginEditorConfig } from './types';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import type { DividerPluginEditorConfig } from './types';
+import { DIVIDER_TYPE } from './types';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createDividerData } from './createDividerData';
 import { createTiptapExtensions } from './tiptap';
-import { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 export const pluginDivider: EditorPluginCreator<DividerPluginEditorConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };

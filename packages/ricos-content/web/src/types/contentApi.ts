@@ -1,4 +1,4 @@
-import {
+import type {
   AppEmbedData,
   EmbedData,
   ButtonData,
@@ -22,9 +22,9 @@ import {
   PollData,
   Node,
 } from 'ricos-schema';
-import { AddImageParams } from '../velo-adapter/types';
-import { RichText } from './node-refined-types';
-import { PickRenameMulti } from './typeUtils';
+import type { AddImageParams } from '../velo-adapter/types';
+import type { RichText } from './node-refined-types';
+import type { PickRenameMulti } from './typeUtils';
 
 export type PartialDeep<T> = {
   [P in keyof T]?: T[P] extends (infer U)[]

@@ -1,5 +1,5 @@
 import { version } from '../../package.json';
-import { DraftContent } from '../types';
+import type { DraftContent } from '../types';
 type BlockType =
   | 'unstyled'
   | 'blockquote'

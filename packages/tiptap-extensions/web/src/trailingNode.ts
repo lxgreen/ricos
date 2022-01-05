@@ -1,5 +1,5 @@
 import { PluginKey, Plugin } from 'prosemirror-state';
-import { RicosExtension } from 'ricos-tiptap-types';
+import type { RicosExtension } from 'ricos-tiptap-types';
 
 /**
  * Extension based on:

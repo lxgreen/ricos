@@ -1,5 +1,5 @@
-import { AugmentedRequired } from 'utility-types/dist/mapped-types';
-import { CSSProperties } from 'react';
+import type { AugmentedRequired } from 'utility-types/dist/mapped-types';
+import type { CSSProperties } from 'react';
 
 export interface ThemeUtils {
   isBright: (hexColor: string) => boolean;

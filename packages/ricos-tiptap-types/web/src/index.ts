@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
+import type {
   ExtensionConfig,
   MarkConfig,
   mergeAttributes as mergeAttributesFn,
@@ -9,9 +9,9 @@ import {
   NodeConfig,
   NodeViewRendererProps,
 } from '@tiptap/core';
-import { Plugin as IPlugin, PluginKey as IPluginKey } from 'prosemirror-state';
-import { ComponentType } from 'react';
-import {
+import type { Plugin as IPlugin, PluginKey as IPluginKey } from 'prosemirror-state';
+import type { ComponentType } from 'react';
+import type {
   TranslationFunction,
   EditorPlugin,
   LegacyEditorPluginConfig,
@@ -118,4 +118,4 @@ export type CreateRicosExtensions = <PluginType extends keyof LegacyEditorPlugin
   config: LegacyEditorPluginConfig[PluginType]
 ) => RicosExtension[];
 
-export { DOMOutputSpec } from 'prosemirror-model';
+export type { DOMOutputSpec } from 'prosemirror-model';

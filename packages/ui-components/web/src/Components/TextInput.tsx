@@ -1,6 +1,8 @@
-import React, { Component, Ref } from 'react';
+import type { Ref } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 import { ErrorIcon, SearchIcon } from '../Icons';
 import textInputStyles from '../../statics/styles/text-input.scss';

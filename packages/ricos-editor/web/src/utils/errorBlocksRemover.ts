@@ -1,11 +1,5 @@
-import {
-  RicosEntityMap,
-  DraftContent,
-  RicosContentBlock,
-  GALLERY_TYPE,
-  COLLAPSIBLE_LIST_TYPE,
-  TABLE_TYPE,
-} from 'wix-rich-content-common';
+import type { RicosEntityMap, DraftContent, RicosContentBlock } from 'wix-rich-content-common';
+import { GALLERY_TYPE, COLLAPSIBLE_LIST_TYPE, TABLE_TYPE } from 'wix-rich-content-common';
 import { cloneDeepWithoutEditorState } from 'wix-rich-content-editor-common';
 
 const getTableRowColumns = row => {

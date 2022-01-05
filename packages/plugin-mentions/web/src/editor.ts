@@ -1,10 +1,11 @@
 import { createExternalMentionsPlugin } from './createMentionsPlugin';
-import { MENTION_TYPE, MentionsPluginEditorConfig } from './types';
+import type { MentionsPluginEditorConfig } from './types';
+import { MENTION_TYPE } from './types';
 import { DEFAULTS } from './defaultSettings';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createMentionData } from './createMentionData';
 import { createTiptapExtensions } from './tiptap';
-import { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 export const pluginMentions: EditorPluginCreator<MentionsPluginEditorConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };

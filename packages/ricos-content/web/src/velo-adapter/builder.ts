@@ -1,5 +1,5 @@
 import { addNode } from '../RicosContentAPI/builder-utils';
-import { RichContent, Node } from 'ricos-schema';
+import type { Node, RichContent } from 'ricos-schema';
 class Builder {
   private callback?: (content: RichContent) => void;
 

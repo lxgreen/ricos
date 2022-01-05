@@ -19,7 +19,7 @@ import {
 } from '../index';
 import AddPluginButton from '../AddPluginButton';
 import createThemedSeparator from './createThemedSeparator';
-import {
+import type {
   AddPluginMenuConfig,
   GetEditorState,
   Helpers,

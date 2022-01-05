@@ -1,9 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 import Button from './Button';
-import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import type { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 import styles from '../../statics/styles/action-buttons.scss';
-import { BUTTON_SIZE } from '../consts';
+import type { BUTTON_SIZE } from '../consts';
 
 type ButtonSizeKeys = keyof typeof BUTTON_SIZE;
 

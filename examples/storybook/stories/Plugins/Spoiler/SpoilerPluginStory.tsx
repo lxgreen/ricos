@@ -8,8 +8,10 @@ import {
 
 import spoilerContentState from '../../../../../e2e/tests/fixtures/spoiler.json';
 import SpoilerEditor from './SpoilerEditor';
+// eslint-disable-next-line import/no-unresolved
 import editorSourcecode from '!!raw-loader!./SpoilerEditor.tsx';
 import SpoilerViewer from './SpoilerViewer';
+// eslint-disable-next-line import/no-unresolved
 import viewerSourcecode from '!!raw-loader!./SpoilerViewer.tsx';
 
 export default () => {

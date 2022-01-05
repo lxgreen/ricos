@@ -1,7 +1,8 @@
 import { typeMapper } from './typeMapper';
-import { SOUND_CLOUD_TYPE, SoundCloudPluginViewerConfig } from './types';
+import type { SoundCloudPluginViewerConfig } from './types';
+import { SOUND_CLOUD_TYPE } from './types';
 import { DEFAULTS } from './defaults';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
 export { typeMapper as soundCloudTypeMapper, SOUND_CLOUD_TYPE };
 
 export const pluginSoundCloud: ViewerPluginCreator<SoundCloudPluginViewerConfig> = config => {

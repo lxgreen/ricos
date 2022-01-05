@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component as FileUploadComponent } from '../file-upload-component';
 import { FILE_UPLOAD_TYPE } from '../types';
-import { PluginProps } from 'wix-rich-content-editor-common';
+import type { PluginProps } from 'wix-rich-content-editor-common';
 
 export const File: React.FC<PluginProps> = ({ context, componentData, node }) => {
   const { isMobile, theme, t, config = {} } = context;

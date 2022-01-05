@@ -1,5 +1,5 @@
 import { identity } from 'lodash';
-import {
+import type {
   AppEmbedData,
   CodeBlockData,
   FileData,
@@ -7,14 +7,14 @@ import {
   HeadingData,
   ImageData,
   LinkPreviewData,
-  Node_Type,
   ParagraphData,
   VideoData,
   GIFData,
   EmbedData,
 } from 'ricos-schema';
-import { ContentBuilder } from '../types';
-import { ListNode, RichTextNode } from '../types/node-refined-types';
+import { Node_Type } from 'ricos-schema';
+import type { ContentBuilder } from '../types';
+import type { ListNode, RichTextNode } from '../types/node-refined-types';
 import {
   DEFAULT_DIVIDER_DATA,
   DEFAULT_PARAGRAPH_DATA,
@@ -63,7 +63,7 @@ export const setupAbstractContentBuilder = <RT>(
       type: RichTextNode['type'];
       dataT: ParagraphData | CodeBlockData | HeadingData;
     }) => {
-      builderApis[name] = RicosContentBuilder.prototype[name] = function({
+      builderApis[name] = RicosContentBuilder.prototype[name] = function ({
         data = dataT,
         text,
         ...rest
@@ -82,7 +82,7 @@ export const setupAbstractContentBuilder = <RT>(
     { name: methodPrefix('bulletList'), type: Node_Type.BULLETED_LIST },
     { name: methodPrefix('orderedList'), type: Node_Type.ORDERED_LIST },
   ].forEach(({ name, type }: { name: string; type: ListNode['type'] }) => {
-    builderApis[name] = RicosContentBuilder.prototype[name] = function({
+    builderApis[name] = RicosContentBuilder.prototype[name] = function ({
       items,
       data,
       ...rest
@@ -110,7 +110,7 @@ export const setupAbstractContentBuilder = <RT>(
     { name: methodPrefix('map'), type: Node_Type.MAP, dataT: DEFAULT_MAP_DATA },
     { name: methodPrefix('poll'), type: Node_Type.POLL, dataT: DEFAULT_POLL_DATA },
   ].forEach(({ name, type, dataT }) => {
-    builderApis[name] = RicosContentBuilder.prototype[name] = function({
+    builderApis[name] = RicosContentBuilder.prototype[name] = function ({
       data = dataT,
       ...rest
     }): RT {
@@ -127,9 +127,8 @@ export const setupAbstractContentBuilder = <RT>(
     collapsibleList: collapsibleListNodeCreator,
   }).forEach(
     ([name, method]) =>
-      (builderApis[methodPrefix(name)] = RicosContentBuilder.prototype[methodPrefix(name)] = method(
-        generateId
-      ))
+      (builderApis[methodPrefix(name)] = RicosContentBuilder.prototype[methodPrefix(name)] =
+        method(generateId))
   );
 
   return builderApis;

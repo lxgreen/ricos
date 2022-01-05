@@ -1,4 +1,5 @@
-import { Node_Type, TextData } from 'ricos-schema';
+import type { TextData } from 'ricos-schema';
+import { Node_Type } from 'ricos-schema';
 import { addNode, toTextDataArray } from './builder-utils';
 
 describe('addNode util', () => {
@@ -73,7 +74,7 @@ describe('addNode util', () => {
 describe('toTextDataArray util', () => {
   it('should return [] for invalid input', () => {
     const expected = [];
-    const actual = toTextDataArray((123 as unknown) as TextData);
+    const actual = toTextDataArray(123 as unknown as TextData);
     expect(actual).toEqual(expected);
   });
 

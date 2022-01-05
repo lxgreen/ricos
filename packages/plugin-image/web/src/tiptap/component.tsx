@@ -1,7 +1,8 @@
 import React from 'react';
 import { ImageViewer } from '..';
-import { IMAGE_TYPE, ImageData } from '../types';
-import { PluginProps } from 'wix-rich-content-editor-common';
+import type { ImageData } from '../types';
+import { IMAGE_TYPE } from '../types';
+import type { PluginProps } from 'wix-rich-content-editor-common';
 import { MediaItemErrorMsg, Loader } from 'wix-rich-content-ui-components';
 
 export const Image: React.FC<PluginProps> = ({

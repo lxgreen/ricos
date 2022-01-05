@@ -1,8 +1,9 @@
 /* eslint-disable no-console, fp/no-loops, no-case-declarations */
 import { cloneDeep, isEmpty } from 'lodash';
-import { DraftContent, RicosContentBlock } from '../../../types';
+import type { DraftContent, RicosContentBlock } from '../../../types';
 import { BlockType, FROM_DRAFT_LIST_TYPE, HeaderLevel } from '../consts';
-import { RichContent, Node, Node_Type, Decoration_Type } from 'ricos-schema';
+import type { Node } from 'ricos-schema';
+import { RichContent, Node_Type, Decoration_Type } from 'ricos-schema';
 import { generateId } from '../../generateRandomId';
 import { getTextNodes } from './getTextNodes';
 import { getEntity, getNodeStyle, getTextStyle } from './getRicosEntityData';
@@ -60,9 +61,7 @@ const normalizeBlock = block => {
 export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}): RichContent => {
   const { blocks, entityMap, documentStyle, ID: id } = cloneDeep(draftJSON);
   const nodes: Node[] = [];
-  const contentIdPrefix = Math.random()
-    .toString(36)
-    .substr(2, 9);
+  const contentIdPrefix = Math.random().toString(36).substr(2, 9);
 
   const parseBlock = index => {
     const block = blocks[index];

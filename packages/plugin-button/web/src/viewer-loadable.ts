@@ -1,12 +1,8 @@
 import { typeMapper } from './typeMapper-loadable';
 import { DEFAULT_CONFIG } from './constants';
-import {
-  LINK_BUTTON_TYPE,
-  ACTION_BUTTON_TYPE,
-  LinkButtonPluginEditorConfig,
-  ActionButtonPluginEditorConfig,
-} from './types';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
+import type { LinkButtonPluginEditorConfig, ActionButtonPluginEditorConfig } from './types';
+import { LINK_BUTTON_TYPE, ACTION_BUTTON_TYPE } from './types';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
 export { typeMapper as buttonTypeMapper, LINK_BUTTON_TYPE, ACTION_BUTTON_TYPE };
 
 const pluginButton = (type, config) => {

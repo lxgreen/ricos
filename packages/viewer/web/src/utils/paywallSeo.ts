@@ -1,4 +1,4 @@
-import { SEOSettings } from 'wix-rich-content-common';
+import type { SEOSettings } from 'wix-rich-content-common';
 
 export const getPaywallSeoClass = ({ className = 'paywall', index = 3 }, blockIndex: number) =>
   blockIndex < index && className;

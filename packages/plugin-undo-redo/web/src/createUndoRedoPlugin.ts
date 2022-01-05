@@ -1,7 +1,8 @@
 import { createBasePlugin } from 'wix-rich-content-plugin-commons';
-import { UNDO_REDO_TYPE, UndoRedoPluginEditorConfig } from './types';
+import type { UndoRedoPluginEditorConfig } from './types';
+import { UNDO_REDO_TYPE } from './types';
 import createToolbar from './createToolbar';
-import { CreatePluginFunction } from 'wix-rich-content-common';
+import type { CreatePluginFunction } from 'wix-rich-content-common';
 import { DEFAULTS } from './defaults';
 
 const createUndoRedoPlugin: CreatePluginFunction<UndoRedoPluginEditorConfig> = config => {

@@ -1,4 +1,4 @@
-import { CreateRicosExtensions } from 'ricos-tiptap-types';
+import type { CreateRicosExtensions } from 'ricos-tiptap-types';
 import { Gif as Component } from './component';
 import gifDataDefaults from 'ricos-schema/dist/statics/gif.defaults.json';
 import { TIPTAP_GIF_TYPE } from 'ricos-content';

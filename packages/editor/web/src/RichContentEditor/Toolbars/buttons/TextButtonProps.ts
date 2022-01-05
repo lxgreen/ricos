@@ -1,10 +1,10 @@
-import {
+import type {
   GetEditorState,
-  HEADER_BLOCK,
   SetEditorState,
   ToolbarButtonProps,
   TranslationFunction,
 } from 'wix-rich-content-common';
+import { HEADER_BLOCK } from 'wix-rich-content-common';
 import {
   AlignLeftIcon,
   AlignTextCenterIcon,

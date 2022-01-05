@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
+import type {
   CODE_BLOCK_TYPE,
   RICOS_DIVIDER_TYPE,
   DIVIDER_TYPE,
@@ -32,7 +32,7 @@ import {
   DocumentStyle,
   EXTERNAL,
 } from 'ricos-content';
-import {
+import type {
   DividerData,
   GIFData,
   HTMLData,
@@ -45,9 +45,9 @@ import {
   ColorData,
   Link,
 } from 'ricos-schema';
-import { MentionData } from './pluginTypes';
-import { TextAlignment, InlineStyle } from './commonTypes';
-import { RicosCustomStyles } from './themeTypes';
+import type { MentionData } from './pluginTypes';
+import type { TextAlignment, InlineStyle } from './commonTypes';
+import type { RicosCustomStyles } from './themeTypes';
 export type ColorType = typeof RICOS_TEXT_COLOR_TYPE | typeof RICOS_TEXT_HIGHLIGHT_TYPE;
 
 type PluginsList = string[];

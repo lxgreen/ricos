@@ -1,6 +1,6 @@
 import React from 'react';
 import { isSSR } from '../index';
-import { DraftDecorator } from 'draft-js';
+import type { DraftDecorator } from 'draft-js';
 
 function isInEditor(contentBlock) {
   return contentBlock.toJS; //check if immutable to determine if editor or viewer

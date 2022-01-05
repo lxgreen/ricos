@@ -1,3 +1,4 @@
+import type { EditorState } from 'wix-rich-content-editor-common';
 import {
   isAtomicBlockFocused,
   BUTTON_TYPES,
@@ -5,12 +6,11 @@ import {
   indentSelectedBlocks,
   MODIFIERS,
   COMMANDS,
-  EditorState,
 } from 'wix-rich-content-editor-common';
 import decreaseIndentPluginIcon from '../icons/decreaseIndentPluginIcon';
 import increaseIndentPluginIcon from '../icons/increaseIndentPluginIcon';
 import { DecreaseIndentButton, IncreaseIndentButton } from './IndentButtons';
-import {
+import type {
   CreatePluginToolbar,
   SetEditorState,
   GetEditorState,
@@ -18,7 +18,8 @@ import {
   AvailableExperiments,
   OnKeyboardShortcutClick,
 } from 'wix-rich-content-common';
-import { IndentPluginEditorConfig, INDENT_TYPE } from '../types';
+import type { IndentPluginEditorConfig } from '../types';
+import { INDENT_TYPE } from '../types';
 
 const createToolbar: CreatePluginToolbar = ({
   getEditorState,

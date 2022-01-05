@@ -1,5 +1,5 @@
 import imageClientAPI from 'image-client-api/dist/imageClientSDK';
-import { ComponentData } from 'ricos-content';
+import type { ComponentData } from 'ricos-content';
 
 const WIX_STATIC_URL = 'https://static.wixstatic.com';
 const DEFAULT = {

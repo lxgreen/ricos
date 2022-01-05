@@ -11,12 +11,13 @@ import {
   SelectionModalCustomStyle,
   ExtendedSelectionModalCustomStyle,
 } from './selectionModalCustomStyles';
-import {
+import type {
   CreateInlineButtons,
   TranslationFunction,
   AvailableExperiments,
 } from 'wix-rich-content-common';
-import { VideoPluginEditorConfig, VIDEO_TYPE } from '../types';
+import type { VideoPluginEditorConfig } from '../types';
+import { VIDEO_TYPE } from '../types';
 import { videoModalContentStyles } from '../constants';
 
 const createInlineButtons: CreateInlineButtons = ({

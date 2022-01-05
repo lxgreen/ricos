@@ -1,7 +1,7 @@
 import { Extension } from '@tiptap/core';
 import { and, firstRight } from 'ricos-content';
 import { not } from 'fp-ts/Predicate';
-import {
+import type {
   ExtensionAggregate,
   IExtension,
   IFunctionalExtension,
@@ -9,12 +9,11 @@ import {
   IReactNodeExtension,
   IHtmlNodeExtension,
 } from './domain-types';
+import type { RicosExtension, RicosNodeExtension } from 'ricos-tiptap-types';
 import {
   isRicosFunctionalExtension,
   isRicosMarkExtension,
   isRicosNodeExtension,
-  RicosExtension,
-  RicosNodeExtension,
 } from 'ricos-tiptap-types';
 import { FunctionalExtension } from './FunctionalExtension';
 import { FunctionalExtensions } from './FunctionalExtensions';

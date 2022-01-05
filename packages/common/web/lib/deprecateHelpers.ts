@@ -1,5 +1,5 @@
 import { IMAGE_TYPE, GALLERY_TYPE } from 'ricos-content';
-import { Helpers } from '../src';
+import type { Helpers } from '../src';
 
 export const deprecateHelpers = (helpers: Helpers = {}, config) => {
   const { onExpand } = helpers;

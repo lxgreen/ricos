@@ -1,8 +1,9 @@
-import React, { Component, Fragment, Children, ReactElement, Suspense } from 'react';
+import type { ReactElement } from 'react';
+import React, { Component, Fragment, Children, Suspense } from 'react';
 import { emptyState } from 'ricos-common';
-import { Helpers, AvailableExperiments } from 'wix-rich-content-common';
+import type { Helpers, AvailableExperiments } from 'wix-rich-content-common';
 import getImagesData from 'wix-rich-content-fullscreen/libs/getImagesData';
-import { DraftContent, FullscreenProps } from '../../index';
+import type { DraftContent, FullscreenProps } from '../../index';
 
 interface Props {
   children: ReactElement;
@@ -76,8 +77,8 @@ export default class FullscreenProvider extends Component<Props, State> {
   }
 
   lazyLoadFullscreen() {
-    const FullscreenModal = React.lazy(() =>
-      import(/* webpackChunkName: "FullscreenModalViewer"  */ './FullscreenModal')
+    const FullscreenModal = React.lazy(
+      () => import(/* webpackChunkName: "FullscreenModalViewer"  */ './FullscreenModal')
     );
     this._FullscreenModal = FullscreenModal;
   }

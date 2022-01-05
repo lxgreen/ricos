@@ -1,5 +1,5 @@
 import colorDataDefaults from 'ricos-schema/dist/statics/color.defaults.json';
-import { CreateRicosExtensions } from 'ricos-tiptap-types';
+import type { CreateRicosExtensions } from 'ricos-tiptap-types';
 
 export interface ColorOptions {
   HTMLAttributes: Record<string, unknown>;
@@ -66,18 +66,26 @@ export const getTiptapExtensions: CreateRicosExtensions = defaultOptions => [
 
       addCommands() {
         return {
-          setColor: color => ({ commands }) => {
-            return commands.setMark('color', { foreground: color });
-          },
-          unsetColor: () => ({ commands }) => {
-            return commands.setMark('color', { foreground: null });
-          },
-          setHighlight: color => ({ commands }) => {
-            return commands.setMark('color', { background: color });
-          },
-          unsetHighlight: () => ({ commands }) => {
-            return commands.setMark('color', { background: null });
-          },
+          setColor:
+            color =>
+            ({ commands }) => {
+              return commands.setMark('color', { foreground: color });
+            },
+          unsetColor:
+            () =>
+            ({ commands }) => {
+              return commands.setMark('color', { foreground: null });
+            },
+          setHighlight:
+            color =>
+            ({ commands }) => {
+              return commands.setMark('color', { background: color });
+            },
+          unsetHighlight:
+            () =>
+            ({ commands }) => {
+              return commands.setMark('color', { background: null });
+            },
         };
       },
     }),

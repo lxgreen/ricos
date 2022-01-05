@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Tabs } from 'wix-style-react';
-import { APIData } from '../Plugins/apiData';
+import type { APIData } from '../Plugins/apiData';
 import { Section } from './StoryParts';
 
 export default class TabsWrapper extends Component<

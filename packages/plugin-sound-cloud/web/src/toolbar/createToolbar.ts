@@ -1,7 +1,7 @@
 import createInlineButtons from './inline-buttons';
 import createInsertButtons from './insert-buttons';
-import { CreatePluginToolbar, TranslationFunction } from 'wix-rich-content-common';
-import { SoundCloudPluginEditorConfig } from '../types';
+import type { CreatePluginToolbar, TranslationFunction } from 'wix-rich-content-common';
+import type { SoundCloudPluginEditorConfig } from '../types';
 
 const createToolbar: CreatePluginToolbar = ({
   t,

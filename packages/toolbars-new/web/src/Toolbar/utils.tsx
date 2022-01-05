@@ -1,10 +1,6 @@
 import React from 'react';
-import {
-  DocumentStyle,
-  EditorCommands,
-  DRAFT_TO_DOC_TYPE_WITH_LISTS,
-  normalizeUrl,
-} from 'wix-rich-content-common';
+import type { DocumentStyle, EditorCommands } from 'wix-rich-content-common';
+import { DRAFT_TO_DOC_TYPE_WITH_LISTS, normalizeUrl } from 'wix-rich-content-common';
 import {
   convertRelStringToObject,
   convertRelObjectToString,

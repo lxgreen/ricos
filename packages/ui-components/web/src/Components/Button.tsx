@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import { BUTTON_SIZE } from '..';
 import Styles from '../../statics/styles/button.scss';
 

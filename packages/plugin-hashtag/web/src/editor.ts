@@ -1,7 +1,8 @@
 import { createHashtagPlugin } from './createHashtagPlugin';
-import { HASHTAG_TYPE, HashtagPluginEditorConfig } from './types';
+import type { HashtagPluginEditorConfig } from './types';
+import { HASHTAG_TYPE } from './types';
 import { DEFAULTS } from './defaults';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
 
 export const pluginHashtag: EditorPluginCreator<HashtagPluginEditorConfig> = config => {
   return {

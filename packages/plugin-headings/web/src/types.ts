@@ -1,4 +1,4 @@
-import { EditorPluginConfig } from 'wix-rich-content-common';
+import type { EditorPluginConfig } from 'wix-rich-content-common';
 
 export const HEADINGS_DROPDOWN_TYPE = 'wix-rich-content-plugin-headings';
 

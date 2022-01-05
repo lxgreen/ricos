@@ -1,16 +1,15 @@
 import classNames from 'classnames';
 import editorStyles from '../../statics/styles/rich-content-editor.scss';
 import alignmentStyles from '../../statics/styles/rich-content-editor-alignment.rtlignore.scss';
+import type { TextDirection, RichContentTheme } from 'wix-rich-content-common';
 import {
   depthClassName,
   getTextDirection,
   getDirectionFromAlignmentAndTextDirection,
-  TextDirection,
-  RichContentTheme,
   DRAFT_TO_DOC_TYPE,
 } from 'wix-rich-content-common';
 import { isListType } from 'ricos-content';
-import { ContentBlock, EditorProps } from '@wix/draft-js';
+import type { ContentBlock, EditorProps } from '@wix/draft-js';
 import { DOC_STYLE_CLASSES } from './utils/consts';
 
 const styles = { ...editorStyles, ...alignmentStyles };

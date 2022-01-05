@@ -1,11 +1,11 @@
 import createInlineButtons from './inline-buttons';
 import createInsertButtons from './insert-buttons';
-import {
+import type {
   CreatePluginToolbar,
   TranslationFunction,
   AvailableExperiments,
 } from 'wix-rich-content-common';
-import { VideoPluginEditorConfig } from '../types';
+import type { VideoPluginEditorConfig } from '../types';
 
 const createToolbar: CreatePluginToolbar = ({
   t,

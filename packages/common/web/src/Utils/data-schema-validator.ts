@@ -1,7 +1,6 @@
 import contentStateSchema from '../../statics/schemas/content-state.schema.json';
 
-type Schema = import('jsonschema').Schema;
-type ValidatorResult = import('jsonschema').ValidatorResult;
+import type { Schema, ValidatorResult } from 'jsonschema';
 
 export const checkValidity = (data: Record<string, unknown>, schema: Schema): ValidatorResult => {
   const Validator = require('jsonschema').Validator;

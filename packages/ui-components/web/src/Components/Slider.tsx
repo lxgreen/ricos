@@ -1,12 +1,8 @@
-import React, {
-  FunctionComponent,
-  InputHTMLAttributes,
-  KeyboardEvent,
-  useEffect,
-  useState,
-} from 'react';
+import type { FunctionComponent, InputHTMLAttributes, KeyboardEvent } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import { ACTION_COLORS_CSS_VAR } from '..';
 import styles from '../../statics/styles/slider.scss';
 

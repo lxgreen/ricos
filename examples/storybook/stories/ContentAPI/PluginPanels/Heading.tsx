@@ -1,6 +1,7 @@
-import React, { FC, useState } from 'react';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import { Layout, Cell, InputWithLabel, Button } from 'wix-style-react';
-import { EditPanelProps } from '../types';
+import type { EditPanelProps } from '../types';
 import {
   PNLCommonFields,
   PNLTextStyle,

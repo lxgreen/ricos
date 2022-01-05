@@ -13,7 +13,7 @@ import { ContentStateTransformation } from 'ricos-content/libs/preview';
 import EditorWrapper from '../Components/EditorWrapper';
 import ViewerWrapper from '../Components/ViewerWrapper';
 import introState from '../../../../e2e/tests/fixtures/very-big-post.json';
-import { DraftContent } from 'ricos-common';
+import type { DraftContent } from 'ricos-common';
 
 export default () => {
   const [content, setContent] = useState<DraftContent>(introState);

@@ -13,12 +13,13 @@ import {
   SelectionModalCustomStyle,
   ExtendedSelectionModalCustomStyle,
 } from './selectionModalCustomStyles';
-import {
+import type {
   CreateInsertButtons,
   TranslationFunction,
   AvailableExperiments,
 } from 'wix-rich-content-common';
-import { VideoPluginEditorConfig, videoButtonsTypes } from '../types';
+import type { VideoPluginEditorConfig } from '../types';
+import { videoButtonsTypes } from '../types';
 import {
   DesktopFlyOutModalStyles,
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,

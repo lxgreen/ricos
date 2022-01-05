@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Page, Section, RichContentViewerBox } from '../../Components/StoryParts';
 import content from '../../../../../e2e/tests/fixtures/content.json';
 import TextSelectionViewer from './TextSelectionViewer';
+// eslint-disable-next-line import/no-unresolved
 import viewerSourcecode from '!!raw-loader!./TextSelectionViewer.tsx';
 
 export default () => {

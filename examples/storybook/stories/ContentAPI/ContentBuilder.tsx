@@ -17,7 +17,7 @@ import {
   Code,
 } from './PluginPanels';
 import { Sidebar } from './Sidebar';
-import { AddMethod, EditPanelProps, Plugins } from './types';
+import type { AddMethod, EditPanelProps, Plugins } from './types';
 import { newKey } from './blockKeyGenerator';
 import ViewerWrapper from '../Components/ViewerWrapper';
 import theme from '../../../main/shared/theme/theme';

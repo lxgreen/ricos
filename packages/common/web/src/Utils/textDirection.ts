@@ -1,5 +1,5 @@
-import { EditorProps } from '@wix/draft-js';
-import { TextDirection } from '../types';
+import type { EditorProps } from '@wix/draft-js';
+import type { TextDirection } from '../types';
 
 const RTL = '\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC';
 const LTR =
@@ -10,7 +10,8 @@ const LTR =
 const isRtlRegex = new RegExp('^[^' + LTR + ']*[' + RTL + ']');
 const isLtrRegex = new RegExp('^[^' + RTL + ']*[' + LTR + ']');
 // eslint-disable-next-line max-len
-const emojiRegex = /\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]/g;
+const emojiRegex =
+  /\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff]/g;
 
 export const getTextDirection = (text?: string): TextDirection => {
   let result = 'neutral' as TextDirection; // TODO: should 'neutral' be included in TextDirection?

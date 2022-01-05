@@ -1,6 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable fp/no-loops */
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
+import type {
+  InlineStyle,
+  DecorationsDataMap,
+  TextAlignment,
+  ColorType,
+} from 'wix-rich-content-common';
 import {
   CODE_BLOCK_TYPE,
   BLOCKQUOTE,
@@ -10,10 +17,6 @@ import {
   RICOS_LINE_SPACING_TYPE,
   RICOS_FONT_SIZE_TYPE,
   RICOS_LINK_TYPE,
-  InlineStyle,
-  DecorationsDataMap,
-  TextAlignment,
-  ColorType,
   RICOS_TEXT_COLOR_TYPE,
   RICOS_TEXT_HIGHLIGHT_TYPE,
 } from 'wix-rich-content-common';

@@ -2,11 +2,11 @@ import React, { PureComponent } from 'react';
 import Editor from '../../../../examples/main/shared/editor/Editor';
 import Viewer from '../../../../examples/main/shared/viewer/Viewer';
 import windowContentStateHoc from './WindowContentStateHoc';
-import { EditorState } from 'draft-js';
-import { DraftContent } from 'ricos-editor';
-import { SEOSettings } from 'wix-rich-content-common';
-import { RichContentEditorProps } from 'wix-rich-content-editor';
-import { TestAppConfig } from '../../../../examples/main/src/types';
+import type { EditorState } from 'draft-js';
+import type { DraftContent } from 'ricos-editor';
+import type { SEOSettings } from 'wix-rich-content-common';
+import type { RichContentEditorProps } from 'wix-rich-content-editor';
+import type { TestAppConfig } from '../../../../examples/main/src/types';
 
 interface Props {
   isMobile: boolean;
@@ -21,14 +21,8 @@ interface Props {
 
 class TestApp extends PureComponent<Props> {
   renderEditor = () => {
-    const {
-      editorState,
-      onEditorChange,
-      locale,
-      localeResource,
-      isMobile,
-      testAppConfig,
-    } = this.props;
+    const { editorState, onEditorChange, locale, localeResource, isMobile, testAppConfig } =
+      this.props;
     return (
       <Editor
         onChange={onEditorChange}

@@ -9,13 +9,13 @@ import {
 } from 'wix-rich-content-editor-common';
 import EmojiPreviewModal from './emojiPreviewModal';
 import EmojiPluginIcon from '../icons/EmojiPluginIcon';
-import {
+import type {
   CreateInsertButtons,
   TranslationFunction,
   GetEditorState,
   SetEditorState,
 } from 'wix-rich-content-common';
-import { EmojiPluginEditorConfig } from '../types';
+import type { EmojiPluginEditorConfig } from '../types';
 
 const createInsertButtons: CreateInsertButtons = ({
   t,

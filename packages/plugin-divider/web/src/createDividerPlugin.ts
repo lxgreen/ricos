@@ -1,8 +1,10 @@
-import { mergeStyles, CreatePluginFunction } from 'wix-rich-content-common';
+import type { CreatePluginFunction } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import { createBasePlugin } from 'wix-rich-content-plugin-commons';
 
 import { DEFAULTS } from './defaults';
-import { DIVIDER_TYPE, DividerPluginEditorConfig } from './types';
+import type { DividerPluginEditorConfig } from './types';
+import { DIVIDER_TYPE } from './types';
 import DividerComponent from './divider-component';
 import createToolbar from './toolbar/createToolbar';
 import Styles from '../statics/styles/default-styles.scss';

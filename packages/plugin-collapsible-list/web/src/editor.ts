@@ -1,10 +1,13 @@
 import { createCollapsibleListPlugin } from './createCollapsibleListPlugin';
-import { COLLAPSIBLE_LIST_TYPE, CollapsibleListPluginEditorConfig } from './types';
+import type { CollapsibleListPluginEditorConfig } from './types';
+import { COLLAPSIBLE_LIST_TYPE } from './types';
 import { ModalsMap } from './modals';
 import { DEFAULTS } from './defaults';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
 
-export const pluginCollapsibleList: EditorPluginCreator<CollapsibleListPluginEditorConfig> = config => {
+export const pluginCollapsibleList: EditorPluginCreator<
+  CollapsibleListPluginEditorConfig
+> = config => {
   return {
     config: { ...DEFAULTS.config, ...config },
     type: COLLAPSIBLE_LIST_TYPE,

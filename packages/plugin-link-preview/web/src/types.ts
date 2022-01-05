@@ -1,5 +1,9 @@
-import { EditorPluginConfig, ViewerPluginConfig, LinkPreviewData } from 'wix-rich-content-common';
-import { LinkPreviewProviders } from './consts';
+import type {
+  EditorPluginConfig,
+  ViewerPluginConfig,
+  LinkPreviewData,
+} from 'wix-rich-content-common';
+import type { LinkPreviewProviders } from './consts';
 
 export const LINK_PREVIEW_TYPE = 'wix-draft-plugin-link-preview';
 

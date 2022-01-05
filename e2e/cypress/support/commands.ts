@@ -17,7 +17,7 @@ import { defaultConfig, useExperiments } from '../testAppConfig';
 import { fireEvent as testFireEvent } from '@testing-library/react';
 import RicosDriver from '../../../packages/ricos-driver/web/src/RicosDriver';
 import { merge } from 'lodash';
-import { TestAppConfig } from '../../../examples/main/src/types';
+import type { TestAppConfig } from '../../../examples/main/src/types';
 import { TABLE_COMMANDS } from './tableCommands'; // eslint-disable-line @typescript-eslint/no-unused-vars
 import { checkValidity } from '../../../packages/common/web/src/Utils/data-schema-validator';
 import contentSchema from '../../../packages/common/web/statics/schemas/content-state.schema.json';
@@ -130,9 +130,7 @@ const COMMANDS = {
           expect(result.valid).to.equal(true);
         });
 
-      cy.window()
-        .its('__CONTENT_SNAPSHOT__')
-        .toMatchSnapshot();
+      cy.window().its('__CONTENT_SNAPSHOT__').toMatchSnapshot();
     }
   },
 
@@ -166,10 +164,7 @@ const COMMANDS = {
   },
 
   blurEditor: () => {
-    cy.getEditor()
-      .blur()
-      .get('[data-hook=inlineToolbar]')
-      .should('not.exist');
+    cy.getEditor().blur().get('[data-hook=inlineToolbar]').should('not.exist');
   },
 
   getEditor: () => cy.get(RicosDriver.editor.contentEditable),
@@ -179,23 +174,14 @@ const COMMANDS = {
   },
 
   focusCollapsibleList: (idx: number) => {
-    cy.getCollapsibleList()
-      .get(RicosDriver.editor.contentEditable)
-      .eq(idx)
-      .focus();
+    cy.getCollapsibleList().get(RicosDriver.editor.contentEditable).eq(idx).focus();
   },
 
   toggleCollapseExpand: (idx: number) => {
-    cy.get(`[data-hook=ExpandCollapseButton_${idx}]`)
-      .first()
-      .click();
+    cy.get(`[data-hook=ExpandCollapseButton_${idx}]`).first().click();
   },
 
-  focusEditor: () =>
-    cy
-      .getEditor()
-      .first()
-      .focus(),
+  focusEditor: () => cy.getEditor().first().focus(),
 
   moveCursorToStart: () => {
     cy.focusEditor().type('{selectall}{uparrow}');
@@ -222,9 +208,7 @@ const COMMANDS = {
   },
 
   setColorByHex: color => {
-    cy.get(`[data-hook="${COLOR_PICKER.COLOR_INPUT}"]`)
-      .clear()
-      .type(color);
+    cy.get(`[data-hook="${COLOR_PICKER.COLOR_INPUT}"]`).clear().type(color);
   },
 
   updateTextColor: () => {
@@ -303,17 +287,13 @@ const COMMANDS = {
   },
 
   openMapSettings: () => {
-    cy.get(`[data-hook=${PLUGIN_COMPONENT.MAP}]:first`)
-      .parent()
-      .click();
+    cy.get(`[data-hook=${PLUGIN_COMPONENT.MAP}]:first`).parent().click();
     cy.clickToolbarButton(PLUGIN_TOOLBAR_BUTTONS.SETTINGS);
     cy.get('[data-hook="mapSettings"]');
   },
 
   openGalleryAdvancedSettings: () => {
-    cy.get(`[data-hook=${PLUGIN_COMPONENT.GALLERY}]:first`)
-      .parent()
-      .click();
+    cy.get(`[data-hook=${PLUGIN_COMPONENT.GALLERY}]:first`).parent().click();
     cy.get(`[data-hook=${PLUGIN_TOOLBAR_BUTTONS.ADV_SETTINGS}]:first`)
       .scrollIntoView()
       .click({ force: true });
@@ -380,17 +360,11 @@ const COMMANDS = {
     cy.get(`[data-hook=${GALLERY_SETTINGS.TITLE}]`).type('Title');
     cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]:first`).click({ multiple: true });
     cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
-    pluginToClick &&
-      cy
-        .get(`[data-hook=${pluginToClick}]:first`)
-        .parent()
-        .click();
+    pluginToClick && cy.get(`[data-hook=${pluginToClick}]:first`).parent().click();
   },
 
   checkTitle: () => {
-    cy.get('[data-hook=galleryViewer]:first')
-      .parent()
-      .click();
+    cy.get('[data-hook=galleryViewer]:first').parent().click();
     cy.get(`[data-hook=${GALLERY_SETTINGS.VIEWER_IMAGE}]:first`);
   },
 
@@ -424,17 +398,12 @@ const COMMANDS = {
       default:
         button = PLUGIN_TOOLBAR_BUTTONS.SMALL_RIGHT;
     }
-    cy.get(`${RicosDriver.viewer.image.root}:first`)
-      .parent()
-      .click();
+    cy.get(`${RicosDriver.viewer.image.root}:first`).parent().click();
     cy.clickToolbarButton(button);
   },
 
   openPluginToolbar: (plugin: string) => {
-    cy.get(`[data-hook*=${plugin}]`)
-      .first()
-      .parent()
-      .click();
+    cy.get(`[data-hook*=${plugin}]`).first().parent().click();
     cy.get('[data-hook*="PluginToolbar"]:first');
   },
 
@@ -446,18 +415,12 @@ const COMMANDS = {
   },
 
   undo: () => {
-    cy.getEditor()
-      .first()
-      .type('{ctrl+z}')
-      .type('{cmd+z}');
+    cy.getEditor().first().type('{ctrl+z}').type('{cmd+z}');
     cy.wait(100);
   },
 
   redo: () => {
-    cy.getEditor()
-      .first()
-      .type('{ctrl+shift+z}')
-      .type('{cmd+shift+z}');
+    cy.getEditor().first().type('{ctrl+shift+z}').type('{cmd+shift+z}');
     cy.wait(100);
   },
 
@@ -476,9 +439,7 @@ const COMMANDS = {
       'https://soundcloud.com/nlechoppa/camelot'
     );
     cy.get(`[data-hook*=${ACTION_BUTTONS.SAVE}]`).click({ force: true });
-    cy.get(`[data-hook=${PLUGIN_COMPONENT.SOUND_CLOUD}]:first`)
-      .parent()
-      .click({ force: true });
+    cy.get(`[data-hook=${PLUGIN_COMPONENT.SOUND_CLOUD}]:first`).parent().click({ force: true });
   },
 
   addSocialEmbed: (url: string) => {
@@ -489,9 +450,7 @@ const COMMANDS = {
   addVideoFromURL: () => {
     cy.get(`[data-hook*=${VIDEO_PLUGIN.INPUT}]`).type('https://youtu.be/BBu5codsO6Y');
     cy.get(`[data-hook*=${VIDEO_PLUGIN.ADD}]`).click();
-    cy.get(`[data-hook=${PLUGIN_COMPONENT.VIDEO}]:first`)
-      .parent()
-      .click();
+    cy.get(`[data-hook=${PLUGIN_COMPONENT.VIDEO}]:first`).parent().click();
   },
 
   clickOnStaticButton: (dataHook: string, args: { force?: boolean } = {}) =>
@@ -513,9 +472,7 @@ const COMMANDS = {
 
   addCustomVideo: () => {
     cy.get(`[data-hook*=${VIDEO_PLUGIN.CUSTOM}]`).click();
-    cy.get(`[data-hook=${PLUGIN_COMPONENT.VIDEO}]:first`)
-      .parent()
-      .click();
+    cy.get(`[data-hook=${PLUGIN_COMPONENT.VIDEO}]:first`).parent().click();
   },
 
   dragAndDrop: (src, dest, elem: 0) => {
@@ -544,9 +501,7 @@ const COMMANDS = {
   waitForHtmlToLoad: () => {
     cy.get('iframe', { timeout: 15000 })
       .each($el => {
-        cy.wrap($el)
-          .its('0.contentDocument.body')
-          .should('not.be.undefined');
+        cy.wrap($el).its('0.contentDocument.body').should('not.be.undefined');
       })
       .wait(4000);
   },
@@ -570,9 +525,7 @@ const COMMANDS = {
 
   triggerLinkPreviewViewerUpdate: () => {
     cy.moveCursorToEnd();
-    cy.focusEditor()
-      .get('[data-hook=addPluginFloatingToolbar]')
-      .should('be.visible');
+    cy.focusEditor().get('[data-hook=addPluginFloatingToolbar]').should('be.visible');
   },
 
   insertPlugin: (toolbar: string, pluginInsertButtonName: string) => {
@@ -628,10 +581,7 @@ const COMMANDS = {
 
   loadOutOfViewImagesInGallery: () => {
     cy.get(`[data-hook=${'gallery-item-image-img'}]`).each($el =>
-      cy
-        .wrap($el)
-        .invoke('attr', 'loading', 'eager')
-        .should('have.attr', 'loading', 'eager')
+      cy.wrap($el).invoke('attr', 'loading', 'eager').should('have.attr', 'loading', 'eager')
     );
   },
 };
@@ -787,11 +737,7 @@ function getTextElements(rootElement: HTMLElement) {
 /* eslint-enable */
 
 function setInlineToolbarMenuItem(item: string, selection: [number, number], buttonIndex: number) {
-  cy.setTextStyle(item, selection)
-    .get('.ReactModalPortal')
-    .find('button')
-    .eq(buttonIndex)
-    .click();
+  cy.setTextStyle(item, selection).get('.ReactModalPortal').find('button').eq(buttonIndex).click();
 }
 
 function addHtmlPlugin(htmlSrc: string, isUrl = false) {
@@ -799,9 +745,7 @@ function addHtmlPlugin(htmlSrc: string, isUrl = false) {
   if (isUrl) {
     cy.get(`[data-hook*=${HTML_PLUGIN.RADIO_URL}]`).click();
   }
-  cy.get(`[data-hook*=${HTML_PLUGIN.INPUT}]`)
-    .click()
-    .clear();
+  cy.get(`[data-hook*=${HTML_PLUGIN.INPUT}]`).click().clear();
   cy.get(`[data-hook*=${HTML_PLUGIN.INPUT}]`).typeAllAtOnce(htmlSrc);
   cy.get(`[data-hook*=${HTML_PLUGIN.UPDATE}]`).click();
 }

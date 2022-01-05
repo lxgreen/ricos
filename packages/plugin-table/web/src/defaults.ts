@@ -1,6 +1,6 @@
-import { ThemeGeneratorFunction } from 'wix-rich-content-common';
+import type { ThemeGeneratorFunction } from 'wix-rich-content-common';
 import { COLORS } from './consts';
-import { TablePluginViewerConfig } from './types';
+import type { TablePluginViewerConfig } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const WRAPPER_PALETTE: any = {};

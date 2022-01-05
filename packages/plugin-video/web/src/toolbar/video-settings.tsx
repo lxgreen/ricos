@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { VideoSettingsProps } from '../types';
+import type { VideoSettingsProps } from '../types';
 import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
 import Styles from '../../statics/styles/video-settings.scss';

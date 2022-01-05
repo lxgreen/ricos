@@ -1,4 +1,5 @@
-import { RichContent, ImageData } from 'ricos-schema';
+import type { ImageData } from 'ricos-schema';
+import { RichContent } from 'ricos-schema';
 import { compare } from 'ricos-content/src/comparision/compare';
 import migrationContent from 'ricos-content/statics/json/migratedFixtures/migration-content.json';
 import draftMigrationContent from '../../../../../../e2e/tests/fixtures/migration-content.json';

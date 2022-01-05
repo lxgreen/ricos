@@ -1,14 +1,8 @@
-import React, {
-  Children,
-  Component,
-  ReactElement,
-  Suspense,
-  Fragment,
-  FunctionComponent,
-} from 'react';
+import type { ReactElement, FunctionComponent } from 'react';
+import React, { Children, Component, Suspense, Fragment } from 'react';
 import mergeModalStyles from './mergeModalStyles';
-import { ModalStyles, ModalsMap, AvailableExperiments } from 'wix-rich-content-common';
-import { ModalSettings } from 'ricos-common';
+import type { ModalStyles, ModalsMap, AvailableExperiments } from 'wix-rich-content-common';
+import type { ModalSettings } from 'ricos-common';
 import { merge } from 'lodash';
 import ReactDOM from 'react-dom';
 
@@ -64,8 +58,8 @@ export default class EditorModalProvider extends Component<Props, State> {
   loadEditorModalAfterLocaleResourceIsLoadedToPreventRemountHackFromBreakingModal() {
     const { locale, localeResource } = this.props.children.props;
     if (locale === 'en' || localeResource) {
-      const EditorModal = React.lazy(() =>
-        import(/* webpackChunkName: "RicosEditorModal"  */ './EditorModal')
+      const EditorModal = React.lazy(
+        () => import(/* webpackChunkName: "RicosEditorModal"  */ './EditorModal')
       );
       this.setState({ EditorModal });
     }

@@ -1,7 +1,8 @@
 // Copied from https://github.com/thibaudcolas/draftjs-conductor/blob/e8abd65b653f6eca239d4119ba635ada34bc0b0a/src/lib/api/copypaste.js
 // Used our convertToRaw to support Collapsible List & Table
 
-import { EditorState, ContentState } from 'wix-rich-content-editor-common';
+import type { EditorState } from 'wix-rich-content-editor-common';
+import { ContentState } from 'wix-rich-content-editor-common';
 import { convertToRaw } from '../../../lib/editorStateConversion';
 import getContentStateFragment from 'draft-js/lib/getContentStateFragment';
 import getDraftEditorSelection from 'draft-js/lib/getDraftEditorSelection';

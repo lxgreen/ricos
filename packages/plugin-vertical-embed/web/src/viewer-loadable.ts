@@ -1,6 +1,7 @@
-import { VERTICAL_EMBED_TYPE, VerticalEmbedPluginViewerConfig } from './types';
+import type { VerticalEmbedPluginViewerConfig } from './types';
+import { VERTICAL_EMBED_TYPE } from './types';
 import { typeMapper } from './typeMapper-loadable';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
 export { typeMapper as verticalEmbedTypeMapper, VERTICAL_EMBED_TYPE };
 
 export const pluginVerticalEmbed: ViewerPluginCreator<VerticalEmbedPluginViewerConfig> = config => {

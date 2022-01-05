@@ -1,5 +1,5 @@
 import { mergeAttributes, wrappingInputRule } from '@tiptap/core';
-import { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
+import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -56,16 +56,20 @@ export const createOrderedList = (): RicosExtension => ({
     renderHTML({ HTMLAttributes }) {
       const { start, ...attributesWithoutStart } = HTMLAttributes;
 
-      return (start === 1
-        ? ['ol', mergeAttributes(this.options.HTMLAttributes, attributesWithoutStart), 0]
-        : ['ol', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0]) as DOMOutputSpec;
+      return (
+        start === 1
+          ? ['ol', mergeAttributes(this.options.HTMLAttributes, attributesWithoutStart), 0]
+          : ['ol', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0]
+      ) as DOMOutputSpec;
     },
 
     addCommands() {
       return {
-        toggleOrderedList: () => ({ commands }) => {
-          return commands.toggleList(this.name, this.options.itemTypeName);
-        },
+        toggleOrderedList:
+          () =>
+          ({ commands }) => {
+            return commands.toggleList(this.name, this.options.itemTypeName);
+          },
       };
     },
 

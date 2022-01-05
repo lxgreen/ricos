@@ -4,8 +4,8 @@ import createTypography from './generators/typography';
 import createCustomStyles from './generators/customStyles';
 import { defaultTheme } from './defaults';
 import * as utils from './themeUtils';
-import { ThemeData } from 'wix-rich-content-common';
-import { ThemeStrategyArgs, ThemeStrategyResult } from './themeTypes';
+import type { ThemeData } from 'wix-rich-content-common';
+import type { ThemeStrategyArgs, ThemeStrategyResult } from './themeTypes';
 import { isDefined } from 'ts-is-present';
 
 export default function themeStrategy(args: ThemeStrategyArgs): ThemeStrategyResult {

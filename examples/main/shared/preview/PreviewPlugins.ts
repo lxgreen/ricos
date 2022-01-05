@@ -57,7 +57,7 @@ import 'wix-rich-content-plugin-file-upload/dist/styles.min.css';
 import 'wix-rich-content-plugin-giphy/dist/styles.min.css';
 import 'wix-rich-content-text-selection-toolbar/dist/styles.min.css';
 import 'wix-rich-content-plugin-spoiler/dist/styles.min.css';
-import { DraftContent } from 'wix-rich-content-common';
+import type { DraftContent } from 'wix-rich-content-common';
 
 const linkPluginSettings = {
   // eslint-disable-next-line no-console

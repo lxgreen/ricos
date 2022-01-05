@@ -1,7 +1,7 @@
 import React from 'react';
 import { PollEditor } from '../components';
 import { POLL_TYPE } from '../types';
-import { PluginProps } from 'wix-rich-content-editor-common';
+import type { PluginProps } from 'wix-rich-content-editor-common';
 import { convertBlockDataToRicos } from 'ricos-content/libs/migrateSchema';
 import { NodeSelection } from 'prosemirror-state';
 

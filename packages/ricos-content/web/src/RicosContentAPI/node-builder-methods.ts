@@ -1,25 +1,27 @@
-import {
+import type {
   ButtonData,
-  ButtonData_Type,
   CodeBlockData,
   DividerData,
-  DividerData_Alignment,
-  DividerData_LineStyle,
-  DividerData_Width,
   HeadingData,
   HTMLData,
   MapData,
-  MapType,
   Node,
-  Node_Type,
   ParagraphData,
   PluginContainerData,
-  PluginContainerData_Alignment,
-  PluginContainerData_Width_Type,
   RichContent,
   TextData,
-  TextStyle_TextAlignment,
   PollData,
+} from 'ricos-schema';
+import {
+  ButtonData_Type,
+  DividerData_Alignment,
+  DividerData_LineStyle,
+  DividerData_Width,
+  MapType,
+  Node_Type,
+  PluginContainerData_Alignment,
+  PluginContainerData_Width_Type,
+  TextStyle_TextAlignment,
   PollData_Poll_Settings_Permissions_ViewRole,
   PollData_Poll_Settings_Permissions_VoteRole,
   PollData_Layout_PollLayout_Type,
@@ -27,8 +29,13 @@ import {
   PollData_Design_PollDesign_Background_Type,
 } from 'ricos-schema';
 import { dataByNodeType } from '../converters/nodeUtils';
-import { BuilderFunctionsMetadata, ListItemData } from '../types/contentApi';
-import { ListItemNode, ListNode, ParagraphNode, RichTextNode } from '../types/node-refined-types';
+import type { BuilderFunctionsMetadata, ListItemData } from '../types/contentApi';
+import type {
+  ListItemNode,
+  ListNode,
+  ParagraphNode,
+  RichTextNode,
+} from '../types/node-refined-types';
 import { addNode as add, toListDataArray, toTextDataArray } from './builder-utils';
 
 export type AddMethodParams<TData> = {
@@ -142,98 +149,92 @@ export const DEFAULT_POLL_DATA: PollData = {
   },
 };
 
-export const createNode = <T = Node, NT = Node[]>(generateId: () => string) => (
-  type: Node_Type,
-  data: unknown,
-  nodes?: NT
-): T => ({ id: generateId(), type, ...dataByNodeType(type, data), nodes: nodes || [] });
-
-export const createListNode = <T extends ListNode>(generateId: () => string) => (
-  type: ListNode['type'],
-  items: ListItemData[]
-): T =>
-  createNode<T, ListItemNode[]>(generateId)(
+export const createNode =
+  <T = Node, NT = Node[]>(generateId: () => string) =>
+  (type: Node_Type, data: unknown, nodes?: NT): T => ({
+    id: generateId(),
     type,
-    {},
-    items.map(({ text, data }) =>
-      createNode<ListItemNode, ParagraphNode[]>(generateId)(Node_Type.LIST_ITEM, {}, [
-        createTextNode<ParagraphNode>(generateId)(Node_Type.PARAGRAPH, text, data),
-      ])
-    )
-  );
+    ...dataByNodeType(type, data),
+    nodes: nodes || [],
+  });
 
-export const createTextNode = <T extends RichTextNode>(generateId: () => string) => (
-  type: RichTextNode['type'],
-  text: TextData[],
-  data: unknown
-): T => ({
-  ...createNode<T>(generateId)(type, data),
-  nodes: text.map(textData => ({
-    nodes: [],
-    id: '',
-    type: Node_Type.TEXT,
-    ...dataByNodeType(Node_Type.TEXT, textData),
-  })),
-});
+export const createListNode =
+  <T extends ListNode>(generateId: () => string) =>
+  (type: ListNode['type'], items: ListItemData[]): T =>
+    createNode<T, ListItemNode[]>(generateId)(
+      type,
+      {},
+      items.map(({ text, data }) =>
+        createNode<ListItemNode, ParagraphNode[]>(generateId)(Node_Type.LIST_ITEM, {}, [
+          createTextNode<ParagraphNode>(generateId)(Node_Type.PARAGRAPH, text, data),
+        ])
+      )
+    );
 
-export const makeNode = (generateId: () => string) => <TData>({
-  data,
-  type,
-}: Omit<AddMethodParams<TData>, BuilderFunctionsMetadata>): Node =>
-  createNode(generateId)(type, data);
+export const createTextNode =
+  <T extends RichTextNode>(generateId: () => string) =>
+  (type: RichTextNode['type'], text: TextData[], data: unknown): T => ({
+    ...createNode<T>(generateId)(type, data),
+    nodes: text.map(textData => ({
+      nodes: [],
+      id: '',
+      type: Node_Type.TEXT,
+      ...dataByNodeType(Node_Type.TEXT, textData),
+    })),
+  });
 
-export const addNode = (generateId: () => string) => <TData>({
-  data,
-  type,
-  index,
-  before,
-  after,
-  content,
-}: AddMethodParams<TData>): RichContent => {
-  const node: Node = makeNode(generateId)({ type, data });
-  return add({ node: node as Node, index, before, after, content });
-};
+export const makeNode =
+  (generateId: () => string) =>
+  <TData>({ data, type }: Omit<AddMethodParams<TData>, BuilderFunctionsMetadata>): Node =>
+    createNode(generateId)(type, data);
 
-export const makeTextNode = (generateId: () => string) => <TData>({
-  text,
-  data,
-  type,
-}: Omit<AddTextMethodParams<TData>, BuilderFunctionsMetadata>): Node => {
-  const textData = toTextDataArray(text);
-  return createTextNode(generateId)(type, textData, data);
-};
+export const addNode =
+  (generateId: () => string) =>
+  <TData>({ data, type, index, before, after, content }: AddMethodParams<TData>): RichContent => {
+    const node: Node = makeNode(generateId)({ type, data });
+    return add({ node: node as Node, index, before, after, content });
+  };
 
-export const addTextNode = (generateId: () => string) => <TData>({
-  text,
-  data,
-  type,
-  index,
-  before,
-  after,
-  content,
-}: AddTextMethodParams<TData>): RichContent => {
-  const node = makeTextNode(generateId)({ text, data, type });
-  return add({ node: node as Node, index, before, after, content });
-};
+export const makeTextNode =
+  (generateId: () => string) =>
+  <TData>({
+    text,
+    data,
+    type,
+  }: Omit<AddTextMethodParams<TData>, BuilderFunctionsMetadata>): Node => {
+    const textData = toTextDataArray(text);
+    return createTextNode(generateId)(type, textData, data);
+  };
 
-export const makeListNode = (generateId: () => string) => ({
-  items,
-  data = DEFAULT_PARAGRAPH_DATA,
-  type,
-}: Omit<AddListMethodParams, BuilderFunctionsMetadata>): Node => {
-  const listItemData = toListDataArray(items, data);
-  return createListNode(generateId)(type, listItemData);
-};
+export const addTextNode =
+  (generateId: () => string) =>
+  <TData>({
+    text,
+    data,
+    type,
+    index,
+    before,
+    after,
+    content,
+  }: AddTextMethodParams<TData>): RichContent => {
+    const node = makeTextNode(generateId)({ text, data, type });
+    return add({ node: node as Node, index, before, after, content });
+  };
 
-export const addListNode = (generateId: () => string) => ({
-  items,
-  data,
-  type,
-  index,
-  before,
-  after,
-  content,
-}: AddListMethodParams): RichContent => {
-  const node = makeListNode(generateId)({ items, data, type });
-  return add({ node: node as Node, index, before, after, content });
-};
+export const makeListNode =
+  (generateId: () => string) =>
+  ({
+    items,
+    data = DEFAULT_PARAGRAPH_DATA,
+    type,
+  }: Omit<AddListMethodParams, BuilderFunctionsMetadata>): Node => {
+    const listItemData = toListDataArray(items, data);
+    return createListNode(generateId)(type, listItemData);
+  };
+
+export const addListNode =
+  (generateId: () => string) =>
+  ({ items, data, type, index, before, after, content }: AddListMethodParams): RichContent => {
+    const node = makeListNode(generateId)({ items, data, type });
+    return add({ node: node as Node, index, before, after, content });
+  };

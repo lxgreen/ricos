@@ -1,13 +1,14 @@
 import React from 'react';
-import { RichContentEditor, RichContentEditorProps } from 'wix-rich-content-editor';
-import {
+import type { RichContentEditorProps } from 'wix-rich-content-editor';
+import { RichContentEditor } from 'wix-rich-content-editor';
+import type {
   DraftContent,
-  RicosEditor,
   RicosEditorProps,
   RicosEditorType,
   RicosTheme,
   ToolbarSettings,
 } from 'ricos-editor';
+import { RicosEditor } from 'ricos-editor';
 import { pluginLinkButton, pluginActionButton } from 'wix-rich-content-plugin-button';
 import { pluginCodeBlock } from 'wix-rich-content-plugin-code-block';
 import { pluginDivider, createDividerPlugin } from 'wix-rich-content-plugin-divider';

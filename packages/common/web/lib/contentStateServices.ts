@@ -1,5 +1,5 @@
 import { truncateContent } from 'ricos-content/libs/truncateContent';
-import { DraftContent } from 'ricos-content';
+import type { DraftContent } from 'ricos-content';
 
 export const truncateContentState = (
   contentState: DraftContent,

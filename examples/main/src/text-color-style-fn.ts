@@ -1,4 +1,4 @@
-import { EditorProps } from 'draft-js';
+import type { EditorProps } from 'draft-js';
 import { isHexColor } from 'wix-rich-content-common';
 
 export const colorScheme = {

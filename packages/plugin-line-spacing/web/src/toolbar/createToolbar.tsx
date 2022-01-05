@@ -13,7 +13,7 @@ import {
   getModalStyles,
   isAtomicBlockFocused,
 } from 'wix-rich-content-editor-common';
-import { CreatePluginToolbar, ModalStyles } from 'wix-rich-content-common';
+import type { CreatePluginToolbar, ModalStyles } from 'wix-rich-content-common';
 
 const lineHeight = 'line-height';
 const spaceBefore = 'padding-top';

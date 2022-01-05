@@ -1,4 +1,5 @@
-import { anchorScroll, AvailableExperiments } from 'wix-rich-content-common';
+import type { AvailableExperiments } from 'wix-rich-content-common';
+import { anchorScroll } from 'wix-rich-content-common';
 
 export const scrollToBlock = (blockKey: string, experiments?: AvailableExperiments) => {
   const nodeListOfAllblocks = document.querySelectorAll(`[data-editor]`);

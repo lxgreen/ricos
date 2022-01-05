@@ -8,8 +8,10 @@ import {
 
 import videoContentState from '../../../../../e2e/tests/fixtures/facebook-video.json';
 import VideoEditor from './VideoEditor';
+// eslint-disable-next-line import/no-unresolved
 import editorSourcecode from '!!raw-loader!./VideoEditor.tsx';
 import VideoViewer from './VideoViewer';
+// eslint-disable-next-line import/no-unresolved
 import viewerSourcecode from '!!raw-loader!./VideoViewer.tsx';
 import SyntaxHighlighter from '../../Components/SyntaxHighlighter';
 import TabsWrapper from '../../Components/TabsWrapper';

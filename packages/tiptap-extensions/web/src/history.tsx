@@ -30,20 +30,28 @@ export const createHistoryConfig = () => ({
 
       addCommands() {
         return {
-          rebase: count => ({ tr }) => {
-            tr.setMeta('rebased', count);
-            return true;
-          },
-          silent: () => ({ tr }) => {
-            tr.setMeta('skip', true);
-            return true;
-          },
-          undo: () => ({ state, dispatch }) => {
-            return undo(state, dispatch);
-          },
-          redo: () => ({ state, dispatch }) => {
-            return redo(state, dispatch);
-          },
+          rebase:
+            count =>
+            ({ tr }) => {
+              tr.setMeta('rebased', count);
+              return true;
+            },
+          silent:
+            () =>
+            ({ tr }) => {
+              tr.setMeta('skip', true);
+              return true;
+            },
+          undo:
+            () =>
+            ({ state, dispatch }) => {
+              return undo(state, dispatch);
+            },
+          redo:
+            () =>
+            ({ state, dispatch }) => {
+              return redo(state, dispatch);
+            },
         };
       },
 

@@ -1,15 +1,16 @@
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import undoIcon from './icons/UndoIcon';
 import { InlineToolbarButton, undo, FORMATTING_BUTTONS } from 'wix-rich-content-editor-common';
 import { UNDO_REDO_TYPE } from './types';
-import {
+import type {
   RichContentTheme,
   Helpers,
   SetEditorState,
   GetEditorState,
 } from 'wix-rich-content-common/src';
-import { TranslationFunction } from 'i18next';
+import type { TranslationFunction } from 'i18next';
 
 interface UndoButtonProps {
   theme?: RichContentTheme;

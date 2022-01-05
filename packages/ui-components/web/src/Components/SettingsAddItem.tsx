@@ -1,9 +1,10 @@
-import React, { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
+import React from 'react';
 import FileInput from './FileInput';
 import PlusIcon from '../Icons/PlusIcon';
 import styles from '../../statics/styles/settings-add-item.scss';
 import classNames from 'classnames';
-import { RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
 
 interface SettingsAddItemProps {
   handleFileChange: () => void;

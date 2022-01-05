@@ -1,12 +1,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { FC, useCallback, useMemo } from 'react';
-import {
-  mergeStyles,
-  Helpers,
-  RichContentTheme,
-  AnchorTarget,
-  getRelValue,
-} from 'wix-rich-content-common';
+import type { FC } from 'react';
+import React, { useCallback, useMemo } from 'react';
+import type { Helpers, RichContentTheme, AnchorTarget } from 'wix-rich-content-common';
+import { mergeStyles, getRelValue } from 'wix-rich-content-common';
 import Styles from '../../statics/styles/default-styles.scss';
 import { ACTION_BUTTON_TYPE, LINK_BUTTON_TYPE } from '../types';
 import { merge } from 'lodash';

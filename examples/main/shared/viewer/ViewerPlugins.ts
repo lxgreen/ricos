@@ -118,16 +118,15 @@ import 'wix-rich-content-plugin-collapsible-list/dist/styles.min.css';
 import 'wix-rich-content-plugin-table/dist/styles.min.css';
 import 'wix-rich-content-plugin-vertical-embed/dist/styles.min.css';
 
-import { RichContentViewerProps } from 'wix-rich-content-viewer';
-import {
+import type { RichContentViewerProps } from 'wix-rich-content-viewer';
+import type {
   Decorator,
-  HASHTAG_TYPE,
   PluginTypeMapper,
   DraftContent,
   UISettings,
-  ViewerPlugin,
   ViewerPluginCreator,
 } from 'wix-rich-content-common';
+import { HASHTAG_TYPE, ViewerPlugin } from 'wix-rich-content-common';
 
 const linkPluginSettings = {
   // eslint-disable-next-line no-console

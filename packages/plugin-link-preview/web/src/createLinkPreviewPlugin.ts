@@ -1,16 +1,13 @@
 import { createBasePlugin } from 'wix-rich-content-plugin-commons';
-import {
-  getBlockAtStartOfSelection,
-  EditorState,
-  getDefaultKeyBinding,
-  DraftCommand,
-} from 'wix-rich-content-editor-common';
-import { LINK_PREVIEW_TYPE, LinkPreviewPluginEditorConfig } from './types';
+import type { EditorState, DraftCommand } from 'wix-rich-content-editor-common';
+import { getBlockAtStartOfSelection, getDefaultKeyBinding } from 'wix-rich-content-editor-common';
+import type { LinkPreviewPluginEditorConfig } from './types';
+import { LINK_PREVIEW_TYPE } from './types';
 import LinkPreviewComponent from './LinkPreviewComponent';
 import createLinkPreviewToolbar from './toolbar/createToolbar';
 import { convertLinkPreviewToLink } from '../lib/utils';
 import { REMOVE_LINK_PREVIEW } from './consts';
-import { CreatePluginFunction, GetEditorState, SetEditorState } from 'wix-rich-content-common';
+import type { CreatePluginFunction, GetEditorState, SetEditorState } from 'wix-rich-content-common';
 import { DEFAULTS } from './defaults';
 
 const createLinkPreviewPlugin: CreatePluginFunction<LinkPreviewPluginEditorConfig> = config => {
@@ -42,12 +39,7 @@ const createLinkPreviewPlugin: CreatePluginFunction<LinkPreviewPluginEditorConfi
     const editorState = getEditorState();
     const currentBlock = getBlockAtStartOfSelection(editorState);
     const entityKey = currentBlock.getEntityAt(0);
-    const entityType =
-      entityKey &&
-      editorState
-        .getCurrentContent()
-        .getEntity(entityKey)
-        .getType();
+    const entityType = entityKey && editorState.getCurrentContent().getEntity(entityKey).getType();
     if (entityType === LINK_PREVIEW_TYPE) {
       if (event.key === 'Backspace') {
         return REMOVE_LINK_PREVIEW;

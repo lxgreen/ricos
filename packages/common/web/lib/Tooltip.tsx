@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { ReactElement, Suspense } from 'react';
+import type { ReactElement } from 'react';
+import React, { Suspense } from 'react';
 import { getTooltipStyles } from './tooltipStyles';
 import { GlobalContext } from '../src/Utils/contexts';
 

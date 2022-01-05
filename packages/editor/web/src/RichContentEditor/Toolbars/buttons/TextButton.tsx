@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import { ToolbarButton } from 'wix-rich-content-editor-common';
 import styles from 'wix-rich-content-editor-common/dist/statics/styles/inline-toolbar-button.scss';
 

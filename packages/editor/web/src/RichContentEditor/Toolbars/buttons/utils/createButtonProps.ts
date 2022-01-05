@@ -1,5 +1,5 @@
 import { isObject } from 'lodash';
-import { ButtonProps, ToolbarButtonProps, TranslationFunction } from 'wix-rich-content-common';
+import type { ButtonProps, ToolbarButtonProps, TranslationFunction } from 'wix-rich-content-common';
 import { TOOLBARS, FORMATTING_BUTTONS, BUTTON_TYPES } from 'wix-rich-content-editor-common';
 import getTextButtonProps from '../TextButtonProps';
 

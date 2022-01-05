@@ -1,7 +1,7 @@
 import createInsertButtons from './insert-buttons';
 import createInlineButtons from './inline-buttons';
-import { CreatePluginToolbar, TranslationFunction } from 'wix-rich-content-common';
-import { FilePluginEditorConfig } from '../types';
+import type { CreatePluginToolbar, TranslationFunction } from 'wix-rich-content-common';
+import type { FilePluginEditorConfig } from '../types';
 
 const createToolbar: CreatePluginToolbar = ({
   settings,

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { EditorState } from 'draft-js';
-import { ComponentType } from 'react';
-import {
+import type { EditorState } from 'draft-js';
+import type { ComponentType } from 'react';
+import type {
   ToolbarType,
   InsertButton,
   ToolbarButtonProps,

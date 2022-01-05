@@ -16,7 +16,7 @@ import {
   genKey,
   SelectionState,
 } from 'draft-js';
-import { convertFromHTML as ConvertFromHTML } from 'draft-convert';
+import type { convertFromHTML as ConvertFromHTML } from 'draft-convert';
 
 function rangeSort(r1, r2) {
   if (r1.offset === r2.offset) {
@@ -520,10 +520,7 @@ function getChunkForHTML(
   options,
   DOMBuilder
 ) {
-  html = html
-    .trim()
-    .replace(REGEX_CR, '')
-    .replace(REGEX_NBSP, SPACE);
+  html = html.trim().replace(REGEX_CR, '').replace(REGEX_NBSP, SPACE);
 
   const safeBody = DOMBuilder(html);
   if (!safeBody) {
@@ -652,78 +649,80 @@ function convertFromHTMLtoContentBlocks(
   });
 }
 
-const convertFromHTML: typeof ConvertFromHTML = ({
-  htmlToStyle = defaultHTMLToStyle,
-  htmlToEntity = defaultHTMLToEntity,
-  textToEntity = defaultTextToEntity,
-  htmlToBlock = defaultHTMLToBlock,
-}) => (
-  html,
-  options = {
-    flat: false,
-  },
-  DOMBuilder = getSafeBodyFromHTML,
-  generateKey = genKey
-) => {
-  let contentState = ContentState.createFromText('');
-  const createEntityWithContentState = (...args) => {
-    if (contentState.createEntity) {
-      contentState = contentState.createEntity(...args);
-      return contentState.getLastCreatedEntityKey();
-    }
-
-    return Entity.create(...args);
-  };
-
-  const getEntityWithContentState = (...args) => {
-    if (contentState.getEntity) {
-      return contentState.getEntity(...args);
-    }
-
-    return Entity.get(...args);
-  };
-
-  const mergeEntityDataWithContentState = (...args) => {
-    if (contentState.mergeEntityData) {
-      contentState = contentState.mergeEntityData(...args);
-      return;
-    }
-
-    Entity.mergeData(...args);
-  };
-
-  const replaceEntityDataWithContentState = (...args) => {
-    if (contentState.replaceEntityData) {
-      contentState = contentState.replaceEntityData(...args);
-      return;
-    }
-
-    Entity.replaceData(...args);
-  };
-
-  const contentBlocks = convertFromHTMLtoContentBlocks(
+const convertFromHTML: typeof ConvertFromHTML =
+  ({
+    htmlToStyle = defaultHTMLToStyle,
+    htmlToEntity = defaultHTMLToEntity,
+    textToEntity = defaultTextToEntity,
+    htmlToBlock = defaultHTMLToBlock,
+  }) =>
+  (
     html,
-    handleMiddleware(htmlToStyle, baseProcessInlineTag),
-    handleMiddleware(htmlToEntity, defaultHTMLToEntity),
-    handleMiddleware(textToEntity, defaultTextToEntity),
-    handleMiddleware(htmlToBlock, baseCheckBlockType),
-    createEntityWithContentState,
-    getEntityWithContentState,
-    mergeEntityDataWithContentState,
-    replaceEntityDataWithContentState,
-    options,
-    DOMBuilder,
-    generateKey
-  );
+    options = {
+      flat: false,
+    },
+    DOMBuilder = getSafeBodyFromHTML,
+    generateKey = genKey
+  ) => {
+    let contentState = ContentState.createFromText('');
+    const createEntityWithContentState = (...args) => {
+      if (contentState.createEntity) {
+        contentState = contentState.createEntity(...args);
+        return contentState.getLastCreatedEntityKey();
+      }
 
-  const blockMap = BlockMapBuilder.createFromArray(contentBlocks);
-  const firstBlockKey = contentBlocks[0].getKey();
-  return contentState.merge({
-    blockMap,
-    selectionBefore: SelectionState.createEmpty(firstBlockKey),
-    selectionAfter: SelectionState.createEmpty(firstBlockKey),
-  });
-};
+      return Entity.create(...args);
+    };
+
+    const getEntityWithContentState = (...args) => {
+      if (contentState.getEntity) {
+        return contentState.getEntity(...args);
+      }
+
+      return Entity.get(...args);
+    };
+
+    const mergeEntityDataWithContentState = (...args) => {
+      if (contentState.mergeEntityData) {
+        contentState = contentState.mergeEntityData(...args);
+        return;
+      }
+
+      Entity.mergeData(...args);
+    };
+
+    const replaceEntityDataWithContentState = (...args) => {
+      if (contentState.replaceEntityData) {
+        contentState = contentState.replaceEntityData(...args);
+        return;
+      }
+
+      Entity.replaceData(...args);
+    };
+
+    const contentBlocks = convertFromHTMLtoContentBlocks(
+      html,
+      handleMiddleware(htmlToStyle, baseProcessInlineTag),
+      handleMiddleware(htmlToEntity, defaultHTMLToEntity),
+      handleMiddleware(textToEntity, defaultTextToEntity),
+      handleMiddleware(htmlToBlock, baseCheckBlockType),
+      createEntityWithContentState,
+      getEntityWithContentState,
+      mergeEntityDataWithContentState,
+      replaceEntityDataWithContentState,
+      options,
+      DOMBuilder,
+      generateKey
+    );
+
+    const blockMap = BlockMapBuilder.createFromArray(contentBlocks);
+    const firstBlockKey = contentBlocks[0].getKey();
+    return contentState.merge({
+      blockMap,
+      selectionBefore: SelectionState.createEmpty(firstBlockKey),
+      selectionAfter: SelectionState.createEmpty(firstBlockKey),
+    });
+  };
 
 const exportedConvertFromHTML: typeof ConvertFromHTML = (...args) => {
   if (args.length >= 1 && typeof args[0] === 'string') {

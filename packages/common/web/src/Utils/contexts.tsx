@@ -1,5 +1,5 @@
 import React from 'react';
-import { TranslationFunction, AvailableExperiments, TextDirection } from '../types';
+import type { TranslationFunction, AvailableExperiments, TextDirection } from '../types';
 
 export const GlobalContext = React.createContext<{
   experiments: AvailableExperiments;

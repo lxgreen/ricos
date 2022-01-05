@@ -1,26 +1,21 @@
-import React, {
-  Component,
-  Fragment,
-  ElementType,
-  FunctionComponent,
-  Suspense,
-  forwardRef,
-} from 'react';
+import type { ElementType, FunctionComponent } from 'react';
+import React, { Component, Fragment, Suspense, forwardRef } from 'react';
 import {
   RicosEngine,
   shouldRenderChild,
   localeStrategy,
   getBiCallback as getCallback,
 } from 'ricos-common';
-import { DraftContent } from 'ricos-content';
-import { RichContentEditor, RichContentEditorProps } from 'wix-rich-content-editor';
+import type { DraftContent } from 'ricos-content';
+import type { RichContentEditorProps } from 'wix-rich-content-editor';
+import { RichContentEditor } from 'wix-rich-content-editor';
 import { createDataConverter, filterDraftEditorSettings } from './utils/editorUtils';
 import ReactDOM from 'react-dom';
-import { EditorState, ContentState } from 'draft-js';
+import type { EditorState, ContentState } from 'draft-js';
 import RicosModal from './modals/RicosModal';
 import './styles.css';
 import editorCss from '../statics/styles/styles.scss';
-import { RicosEditorProps, EditorDataInstance } from '.';
+import type { RicosEditorProps, EditorDataInstance } from '.';
 import { hasActiveUploads } from './utils/hasActiveUploads';
 import {
   convertToRaw,
@@ -35,10 +30,10 @@ import {
 import { ToolbarType, Version, RicosTranslate, getLangDir } from 'wix-rich-content-common';
 import { getEmptyDraftContent, getEditorContentSummary } from 'wix-rich-content-editor-common';
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
-import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
+import type { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
 import { getBiFunctions } from './toolbars/utils/biUtils';
 import { renderSideBlockComponent } from './utils/renderBlockComponent';
-import { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 import { createEditorStyleClasses } from './utils/createEditorStyleClasses';
 
 // eslint-disable-next-line
@@ -196,7 +191,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   onPublish = async () => {
     // TODO: remove this param after getContent(postId) is deprecated
-    this.sendPublishBi((undefined as unknown) as string);
+    this.sendPublishBi(undefined as unknown as string);
     console.debug('editor publish callback'); // eslint-disable-line
     return {
       type: 'EDITOR_PUBLISH',
@@ -476,12 +471,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     if (!tiptapEditorModule) {
       return null;
     }
-    const {
-      RicosTiptapEditor,
-      RichContentAdapter,
-      draftToTiptap,
-      TIPTAP_TYPE_TO_RICOS_TYPE,
-    } = tiptapEditorModule;
+    const { RicosTiptapEditor, RichContentAdapter, draftToTiptap, TIPTAP_TYPE_TO_RICOS_TYPE } =
+      tiptapEditorModule;
     const { content, injectedContent, plugins, onAtomicBlockFocus } = this.props;
     const { tiptapToolbar } = this.state;
     // TODO: Enforce Content ID's existance (or generate it)

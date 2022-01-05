@@ -1,6 +1,6 @@
 import { LINK_BUTTON_TYPE, ACTION_BUTTON_TYPE } from './types';
 import { alignmentClassName, sizeClassName } from './classNameStrategies';
-import { PluginTypeMapper } from 'wix-rich-content-common';
+import type { PluginTypeMapper } from 'wix-rich-content-common';
 import loadable from '@loadable/component';
 
 const buttonTypeObj = {

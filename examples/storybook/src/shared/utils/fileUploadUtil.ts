@@ -1,6 +1,5 @@
-import {
+import type {
   FileComponentData,
-  Helpers,
   ImageComponentData,
   UpdateEntityFunc,
   VideoComponentData,
@@ -129,8 +128,7 @@ export const mockVideoNativeUploadFunc = (
 
 export const getVideoToUpload = (url: string, thumbnailUrl: string) => {
   const videoWithAbsoluteUrl = {
-    url:
-      'https://video.wixstatic.com/video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4',
+    url: 'https://video.wixstatic.com/video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4',
   };
   const videoWithRelativeUrl = {
     pathname: `video/${url}/1080p/mp4/file.mp4`,

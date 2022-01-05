@@ -1,4 +1,5 @@
-import React, { Component, CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
+import React, { Component } from 'react';
 
 class SideToolbarDecoration extends Component<{
   style?: CSSProperties;

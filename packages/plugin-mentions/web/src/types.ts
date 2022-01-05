@@ -1,4 +1,4 @@
-import { EditorPluginConfig, ViewerPluginConfig } from 'wix-rich-content-common';
+import type { EditorPluginConfig, ViewerPluginConfig } from 'wix-rich-content-common';
 
 export const EXTERNAL_MENTIONS_TYPE = 'wix-draft-plugin-external-mentions';
 export const MENTION_TYPE = 'mention';

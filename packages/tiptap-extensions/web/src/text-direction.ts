@@ -1,5 +1,6 @@
-import { TextDirection, isTextDirection } from 'wix-rich-content-common';
-import { RicosExtension } from 'ricos-tiptap-types';
+import type { TextDirection } from 'wix-rich-content-common';
+import { isTextDirection } from 'wix-rich-content-common';
+import type { RicosExtension } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -43,17 +44,21 @@ export const createTextDirection = (): RicosExtension => ({
     },
     addCommands() {
       return {
-        setTextDirection: direction => ({ commands }) => {
-          if (!isTextDirection(direction)) {
-            return false;
-          }
-          return this.options.types.every(type =>
-            commands.updateAttributes(type, { dir: direction })
-          );
-        },
-        unsetTextDirection: () => ({ commands }) => {
-          return this.options.types.every(type => commands.resetAttributes(type, 'dir'));
-        },
+        setTextDirection:
+          direction =>
+          ({ commands }) => {
+            if (!isTextDirection(direction)) {
+              return false;
+            }
+            return this.options.types.every(type =>
+              commands.updateAttributes(type, { dir: direction })
+            );
+          },
+        unsetTextDirection:
+          () =>
+          ({ commands }) => {
+            return this.options.types.every(type => commands.resetAttributes(type, 'dir'));
+          },
       };
     },
   }),

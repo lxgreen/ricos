@@ -1,5 +1,5 @@
 import { merge } from 'lodash';
-import { RicosTheme } from 'ricos-common';
+import type { RicosTheme } from 'ricos-common';
 
 type WithStyle = (theme?: RicosTheme) => RicosTheme;
 const bmActionColor = '#3899EC';

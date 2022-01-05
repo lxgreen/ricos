@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { setupImageEditor } from './image-editor-logic';
-import { ComponentData, Helpers, Pubsub } from 'wix-rich-content-common';
-import { ImageEditorWixSettings } from '../types';
+import type { ComponentData, Helpers, Pubsub } from 'wix-rich-content-common';
+import type { ImageEditorWixSettings } from '../types';
 
 export type ExtendedBlob = Blob & { lastModifiedDate: Date; name: string };
 

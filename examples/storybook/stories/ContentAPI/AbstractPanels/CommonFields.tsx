@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { Layout, Cell, InputWithLabel, Typography as t } from 'wix-style-react';
-import { AbstractPanelProps, CommonBuilderFields } from '../types';
+import type { AbstractPanelProps, CommonBuilderFields } from '../types';
 import { createAbstractPanelSetter } from './utils';
 
 export const emptyCommonBuilderFields = {} as CommonBuilderFields;

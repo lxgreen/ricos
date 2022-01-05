@@ -1,4 +1,5 @@
-import { EditorState, ContentBlock } from '../index';
+import type { ContentBlock } from '../index';
+import { EditorState } from '../index';
 import {
   shiftRedoStack,
   pushToRedoStack,

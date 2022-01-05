@@ -3,14 +3,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import {
-  mergeStyles,
-  AccessibilityListener,
-  normalizeInitialState,
-  getLangDir,
-  SPOILER_TYPE,
-  GlobalContext,
-  Version,
+import type {
   DraftContent,
   TranslationFunction,
   SEOSettings,
@@ -29,11 +22,20 @@ import {
   ViewerContextType,
   InlineStyleMapperFunction,
   AvailableExperiments,
+  DocumentStyle,
+} from 'wix-rich-content-common';
+import {
+  mergeStyles,
+  AccessibilityListener,
+  normalizeInitialState,
+  getLangDir,
+  SPOILER_TYPE,
+  GlobalContext,
+  Version,
   IMAGE_TYPE,
   GALLERY_TYPE,
   VIDEO_TYPE,
   createJustificationFixDecorator,
-  DocumentStyle,
 } from 'wix-rich-content-common';
 import draftDefaultStyles from 'wix-rich-content-common/dist/statics/styles/draftDefault.rtlignore.scss';
 import { convertToReact } from './utils/convertContentState';

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-import React, { Component, ReactElement } from 'react';
+import type { ReactElement } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 import styles from './ToolbarContainerNew.scss';

@@ -2,7 +2,7 @@ import { fixturesToTestOnSeo, DEFAULT_DESKTOP_BROWSERS } from './settings';
 import { usePluginsConfig } from '../cypress/testAppConfig';
 
 const testFixtureOnSsr = (fixture: string) =>
-  it(`render ${fixture} in ssr`, function() {
+  it(`render ${fixture} in ssr`, function () {
     const testAppConfig = {
       ...usePluginsConfig({
         video: {
@@ -15,12 +15,12 @@ const testFixtureOnSsr = (fixture: string) =>
   });
 
 describe('editor rendering', () => {
-  before(function() {
+  before(function () {
     if (Cypress.env('MATCH_CONTENT_STATE') && !Cypress.env('debug')) this.skip();
   });
 
   context('seoSSR', () => {
-    before(function() {
+    before(function () {
       cy.eyesOpen({
         appName: 'Rendering',
         testName: this.test.parent.title,

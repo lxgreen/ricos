@@ -1,5 +1,5 @@
+import type { RichContent } from 'ricos-schema';
 import {
-  RichContent,
   Node_Type,
   DividerData_Alignment,
   PluginContainerData_Alignment,
@@ -11,7 +11,7 @@ import {
 import { compare } from 'wix-rich-content-common';
 import { createBuilder } from './builder-old';
 import { emptyContent } from './consts';
-import { ImageElement } from './types';
+import type { ImageElement } from './types';
 
 const builder = createBuilder(emptyContent);
 
@@ -39,10 +39,7 @@ const imageUrlMock = [
 
 describe('general', () => {
   it('should chain additions', () => {
-    const result = builder
-      .addDivider()
-      .addHeading({ text: 'Ha' })
-      .get();
+    const result = builder.addDivider().addHeading({ text: 'Ha' }).get();
     const expected: RichContent = {
       nodes: [
         {

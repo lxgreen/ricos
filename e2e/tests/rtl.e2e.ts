@@ -8,7 +8,7 @@ describe('rtl', () => {
   afterEach(() => cy.matchContentSnapshot());
 
   context('desktop', () => {
-    before(function() {
+    before(function () {
       cy.eyesOpen({
         appName: 'RTL',
         testName: this.test.parent.title,
@@ -20,7 +20,7 @@ describe('rtl', () => {
 
     after(() => cy.eyesClose());
 
-    it('render plugin shortcut with search in rtl', function() {
+    it('render plugin shortcut with search in rtl', function () {
       cy.loadRicosEditorAndViewer(
         'newLines',
         getFooterToolbarConfig({ morePluginsMenu: { showSearch: true } })
@@ -30,14 +30,12 @@ describe('rtl', () => {
       cy.eyesCheckWindow(this.test.title);
     });
 
-    it('render plugin toolbar in rtl', function() {
-      cy.loadRicosEditorAndViewer()
-        .focusEditor()
-        .openSideToolbar();
+    it('render plugin toolbar in rtl', function () {
+      cy.loadRicosEditorAndViewer().focusEditor().openSideToolbar();
       cy.eyesCheckWindow(this.test.title);
     });
 
-    it('render text toolbar in rtl', function() {
+    it('render text toolbar in rtl', function () {
       cy.loadRicosEditorAndViewer('plain')
         .setEditorSelection(0, 8)
         .get('[data-hook=inlineToolbar]')
@@ -47,12 +45,12 @@ describe('rtl', () => {
       cy.eyesCheckWindow(this.test.title);
     });
 
-    it('render rtl and ltr text correctly', function() {
+    it('render rtl and ltr text correctly', function () {
       cy.loadRicosEditorAndViewer('hebrew');
       cy.eyesCheckWindow(this.test.title);
     });
 
-    it('render external modal in rtl', function() {
+    it('render external modal in rtl', function () {
       cy.loadRicosEditorAndViewer('images')
         .openPluginToolbar(PLUGIN_COMPONENT.IMAGE)
         .openSettings()
@@ -61,14 +59,14 @@ describe('rtl', () => {
       cy.eyesCheckWindow({ tag: this.test.title, target: 'window', fully: false });
     });
 
-    it('render text with indentation in rtl', function() {
+    it('render text with indentation in rtl', function () {
       cy.loadRicosEditorAndViewer('hebrew_with_indentation');
       cy.eyesCheckWindow(this.test.title);
     });
   });
 
   context('mobile', () => {
-    before(function() {
+    before(function () {
       cy.eyesOpen({
         appName: 'RTL',
         testName: this.test.parent.title,
@@ -80,20 +78,18 @@ describe('rtl', () => {
 
     after(() => cy.eyesClose());
 
-    it('render add plugin modal in rtl', function() {
-      cy.loadRicosEditorAndViewer()
-        .focusEditor()
-        .openAddPluginModal();
+    it('render add plugin modal in rtl', function () {
+      cy.loadRicosEditorAndViewer().focusEditor().openAddPluginModal();
       cy.wait(200);
       cy.eyesCheckWindow({ tag: this.test.title, target: 'window', fully: false });
     });
 
-    it('render rtl and ltr text correctly', function() {
+    it('render rtl and ltr text correctly', function () {
       cy.loadRicosEditorAndViewer('hebrew');
       cy.eyesCheckWindow(this.test.title);
     });
 
-    it('render external modal in rtl', function() {
+    it('render external modal in rtl', function () {
       cy.loadRicosEditorAndViewer('images')
         .openPluginToolbar(PLUGIN_COMPONENT.IMAGE)
         .openSettings()
@@ -102,7 +98,7 @@ describe('rtl', () => {
       cy.eyesCheckWindow({ tag: this.test.title, target: 'window', fully: false });
     });
 
-    it('render text with indentation in rtl', function() {
+    it('render text with indentation in rtl', function () {
       cy.loadRicosEditorAndViewer('hebrew_with_indentation');
       cy.eyesCheckWindow(this.test.title);
     });

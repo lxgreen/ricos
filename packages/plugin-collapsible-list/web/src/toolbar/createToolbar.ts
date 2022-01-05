@@ -1,7 +1,8 @@
 import createInlineButtons from './inline-buttons';
 import createInsertButtons from './insert-buttons';
-import { COLLAPSIBLE_LIST_TYPE, CollapsibleListPluginEditorConfig } from '../types';
-import {
+import type { CollapsibleListPluginEditorConfig } from '../types';
+import { COLLAPSIBLE_LIST_TYPE } from '../types';
+import type {
   CreatePluginToolbar,
   TranslationFunction,
   EditorContextType,

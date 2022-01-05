@@ -1,10 +1,11 @@
-import React, { Component, ReactNode, CSSProperties } from 'react';
+import type { ReactNode, CSSProperties } from 'react';
+import React, { Component } from 'react';
 import { InView } from 'react-intersection-observer';
 import classnames from 'classnames';
 import { mergeStyles } from '../Utils/mergeStyles';
 import { isSSR } from '../Utils/ssrUtils';
 import styles from '../../statics/styles/placeholder.scss';
-import { RichContentTheme } from '../types';
+import type { RichContentTheme } from '../types';
 
 interface Props {
   children: ReactNode;
@@ -28,13 +29,8 @@ class ViewportRenderer extends Component<Props> {
   };
 
   render() {
-    const {
-      children,
-      placeholderStyle,
-      placeholderClass,
-      containerStyle,
-      containerClass,
-    } = this.props;
+    const { children, placeholderStyle, placeholderClass, containerStyle, containerClass } =
+      this.props;
     const { theme } = this.props;
     this.styles = this.styles || mergeStyles({ styles, theme });
 

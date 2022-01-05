@@ -1,4 +1,4 @@
-import { CreateRicosExtensions } from 'ricos-tiptap-types';
+import type { CreateRicosExtensions } from 'ricos-tiptap-types';
 import { Video as Component } from './component';
 import videoDataDefaults from 'ricos-schema/dist/statics/video.defaults.json';
 import { TIPTAP_VIDEO_TYPE } from 'ricos-content';

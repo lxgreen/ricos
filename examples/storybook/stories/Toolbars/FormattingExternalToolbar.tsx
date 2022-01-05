@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
-import React, { FunctionComponent, MouseEventHandler, ReactElement, useState } from 'react';
+import type { FunctionComponent, MouseEventHandler, ReactElement } from 'react';
+import React, { useState } from 'react';
 import { Page, RichContentEditorBox } from '../Components/StoryParts';
 import { TOOLBARS, BUTTON_TYPES } from 'wix-rich-content-editor-common';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';

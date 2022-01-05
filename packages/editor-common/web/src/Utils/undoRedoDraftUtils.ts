@@ -1,6 +1,7 @@
-import { EditorState, ContentState, convertToRaw } from '../index';
+import type { ContentState } from '../index';
+import { EditorState, convertToRaw } from '../index';
 import { isEqual } from 'lodash';
-import { ContentBlock } from '@wix/draft-js';
+import type { ContentBlock } from '@wix/draft-js';
 
 export function removeCompositionModeFromEditorState(editorState: EditorState) {
   if (editorState.isInCompositionMode()) {
@@ -38,10 +39,7 @@ export function pushToRedoStack(editorState: EditorState, contentState: ContentS
 
 export function replaceComponentData(editorState: EditorState, blockKey: string, componentData) {
   const currentContent = editorState.getCurrentContent();
-  const entityKey = currentContent
-    .getBlockMap()
-    .get(blockKey)
-    .getEntityAt(0);
+  const entityKey = currentContent.getBlockMap().get(blockKey).getEntityAt(0);
   currentContent.replaceEntityData(entityKey, componentData);
 }
 

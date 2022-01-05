@@ -1,9 +1,10 @@
 import createToolbar from './toolbar/createToolbar';
 import { Component } from './table-component';
 import { getDefaultsSettings } from './tableUtil';
-import { TABLE_TYPE, TablePluginEditorConfig } from './types';
+import type { TablePluginEditorConfig } from './types';
+import { TABLE_TYPE } from './types';
 import { createBasePlugin } from 'wix-rich-content-plugin-commons';
-import { CreatePluginFunction } from 'wix-rich-content-common';
+import type { CreatePluginFunction } from 'wix-rich-content-common';
 import { COMMANDS } from 'wix-rich-content-editor-common';
 import CodeUtils from 'draft-js-code';
 

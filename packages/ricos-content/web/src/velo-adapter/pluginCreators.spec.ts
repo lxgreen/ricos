@@ -1,4 +1,5 @@
-import { AppEmbedData_AppType, Node, Node_Type } from 'ricos-schema';
+import type { Node } from 'ricos-schema';
+import { AppEmbedData_AppType, Node_Type } from 'ricos-schema';
 import plugins from './pluginCreators';
 
 describe('Plugin Creators', () => {

@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import {
   Layout,
   Cell,
@@ -7,8 +8,8 @@ import {
   Dropdown,
   ToggleSwitch,
 } from 'wix-style-react';
-import { Link, Link_Target } from 'ricos-schema';
-import { AbstractPanelProps } from '../types';
+import type { Link, Link_Target } from 'ricos-schema';
+import type { AbstractPanelProps } from '../types';
 import { createAbstractPanelSetter } from './utils';
 import { HorizontalField } from '../HorizontalField';
 

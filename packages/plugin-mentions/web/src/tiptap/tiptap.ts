@@ -1,7 +1,7 @@
 import mentionDataDefaults from 'ricos-schema/dist/statics/mention.defaults.json';
-import { CreateRicosExtensions } from 'ricos-tiptap-types';
-import { Node as ProseMirrorNode } from 'prosemirror-model';
-import { SuggestionOptions } from '@tiptap/suggestion';
+import type { CreateRicosExtensions } from 'ricos-tiptap-types';
+import type { Node as ProseMirrorNode } from 'prosemirror-model';
+import type { SuggestionOptions } from '@tiptap/suggestion';
 import styles from '../../statics/mentions.scss';
 import suggestion from './suggestion';
 
@@ -97,45 +97,47 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
 
       addCommands() {
         return {
-          insertMention: (attributes, pos) => ({ view, tr, editor }) => {
-            // increase range.to by one when the next node is of type "text"
-            // and starts with a space character
-            const nodeAfter = view.state.selection.$to.nodeAfter;
-            const overrideSpace = nodeAfter?.text?.startsWith(' ');
-            const range = pos ||
-              findMention(editor, defaultOptions.mentionTrigger) || {
-                from: tr.selection.from,
-                to: tr.selection.to,
-              };
+          insertMention:
+            (attributes, pos) =>
+            ({ view, tr, editor }) => {
+              // increase range.to by one when the next node is of type "text"
+              // and starts with a space character
+              const nodeAfter = view.state.selection.$to.nodeAfter;
+              const overrideSpace = nodeAfter?.text?.startsWith(' ');
+              const range = pos ||
+                findMention(editor, defaultOptions.mentionTrigger) || {
+                  from: tr.selection.from,
+                  to: tr.selection.to,
+                };
 
-            if (overrideSpace) {
-              range.to += 1;
-            }
+              if (overrideSpace) {
+                range.to += 1;
+              }
 
-            return editor
-              .chain()
-              .focus()
-              .insertContentAt(range, [
-                {
-                  type: 'text',
-                  text: attributes.name,
-                  marks: [
-                    {
-                      type: 'mention',
-                      attrs: {
-                        name: attributes.name,
-                        slug: attributes.name,
+              return editor
+                .chain()
+                .focus()
+                .insertContentAt(range, [
+                  {
+                    type: 'text',
+                    text: attributes.name,
+                    marks: [
+                      {
+                        type: 'mention',
+                        attrs: {
+                          name: attributes.name,
+                          slug: attributes.name,
+                        },
                       },
-                    },
-                  ],
-                },
-                {
-                  type: 'text',
-                  text: ' ',
-                },
-              ])
-              .run();
-          },
+                    ],
+                  },
+                  {
+                    type: 'text',
+                    text: ' ',
+                  },
+                ])
+                .run();
+            },
         };
       },
     }),

@@ -1,4 +1,4 @@
-import { ButtonProps, ToolbarButtonProps } from 'wix-rich-content-common';
+import type { ButtonProps, ToolbarButtonProps } from 'wix-rich-content-common';
 import {
   createTextButtonProps,
   createPluginButtonPropMap,

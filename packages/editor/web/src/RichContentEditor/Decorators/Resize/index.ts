@@ -1,10 +1,10 @@
 import createDecorator from './createDecorator';
-import { PluginFunctions } from 'draft-js-plugins-editor';
-import {
+import type { PluginFunctions } from 'draft-js-plugins-editor';
+import type {
   default as ResizableDecoratorType,
   ResizeablePluginConfig,
 } from '@draft-js-plugins/resizeable';
-import { RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
 
 export interface ExtendedResizeablePluginConfig extends ResizeablePluginConfig {
   minWidth?: number;

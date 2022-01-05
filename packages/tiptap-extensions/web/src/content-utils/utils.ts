@@ -1,7 +1,9 @@
-import { JSONContent } from '@tiptap/core';
+import type { JSONContent } from '@tiptap/core';
 import { capitalize } from 'lodash';
-import { Decoration, Node, Node_Type, RichContent, Decoration_Type } from 'ricos-schema';
-import { IMAGE_TYPE, DraftContent } from 'ricos-content';
+import type { Decoration, Node, RichContent, Decoration_Type } from 'ricos-schema';
+import { Node_Type } from 'ricos-schema';
+import type { DraftContent } from 'ricos-content';
+import { IMAGE_TYPE } from 'ricos-content';
 import { RICOS_NODE_TYPE_TO_DATA_FIELD } from 'ricos-content/libs/draftConsts';
 import { DECORATION_TYPES, NODE_MAP, NODE_TYPES } from './consts';
 import toCamelCase from 'to-camel-case';

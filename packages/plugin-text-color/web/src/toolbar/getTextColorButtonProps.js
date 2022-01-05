@@ -186,9 +186,7 @@ export const getButtonProps = ({ config, type }) => {
   };
 
   const isDisabled = () =>
-    getEditorState()
-      .getSelection()
-      .isCollapsed() || isAtomicBlockFocused(getEditorState());
+    getEditorState().getSelection().isCollapsed() || isAtomicBlockFocused(getEditorState());
 
   return {
     onClose: () => {},

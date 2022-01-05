@@ -1,7 +1,8 @@
 import { typeMapper } from './typeMapper';
-import { HTML_TYPE, HtmlPluginViewerConfig } from './types';
+import type { HtmlPluginViewerConfig } from './types';
+import { HTML_TYPE } from './types';
 import { DEFAULTS_VIEWER } from './defaults';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
 export { typeMapper as htmlTypeMapper, HTML_TYPE };
 
 export const pluginHtml: ViewerPluginCreator<HtmlPluginViewerConfig> = config => {

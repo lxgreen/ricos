@@ -1,7 +1,9 @@
-import { Node, Node_Type } from 'ricos-schema';
+import type { Node } from 'ricos-schema';
+import { Node_Type } from 'ricos-schema';
 import { toPlainText } from '..';
 import { LINK_TYPE } from '../../../consts';
-import { mergeTextNodes, RangedDecoration } from '../../draft/toDraft/decorationParsers';
+import type { RangedDecoration } from '../../draft/toDraft/decorationParsers';
+import { mergeTextNodes } from '../../draft/toDraft/decorationParsers';
 
 export const parseTextNodes = (node: Node) => {
   const {

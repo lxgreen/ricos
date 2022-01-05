@@ -25,19 +25,15 @@ describe('Extract by Types', () => {
           width: { custom: undefined, size: 'CONTENT' },
         },
         downsized: {
-          gif:
-            'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy-downsized.gif?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy-downsized.gif&ct=g',
-          mp4:
-            'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy-downsized-small.mp4?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy-downsized-small.mp4&ct=g',
+          gif: 'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy-downsized.gif?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy-downsized.gif&ct=g',
+          mp4: 'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy-downsized-small.mp4?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy-downsized-small.mp4&ct=g',
           still:
             'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy-downsized_s.gif?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy-downsized_s.gif&ct=g',
         },
         height: 268,
         original: {
-          gif:
-            'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy.gif?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy.gif&ct=g',
-          mp4:
-            'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy.mp4?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy.mp4&ct=g',
+          gif: 'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy.gif?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy.gif&ct=g',
+          mp4: 'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy.mp4?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy.mp4&ct=g',
           still:
             'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy_s.gif?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy_s.gif&ct=g',
         },

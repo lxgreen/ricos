@@ -1,4 +1,4 @@
-import { DraftContent, RicosContentBlock, RicosEntity } from '../../types/contentTypes';
+import type { DraftContent, RicosContentBlock, RicosEntity } from '../../types/contentTypes';
 
 export type BlockFilter = (block: RicosContentBlock) => boolean;
 export type BlockTypeFilter = (type: RicosContentBlock['type']) => boolean;

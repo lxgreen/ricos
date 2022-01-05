@@ -1,12 +1,13 @@
-import React, { Component, Children, FunctionComponent, ReactElement } from 'react';
+import type { FunctionComponent, ReactElement } from 'react';
+import React, { Component, Children } from 'react';
 
 import pluginsStrategy from './pluginsStrategy/pluginsStrategy';
 import themeStrategy from './themeStrategy/themeStrategy';
 import { merge } from 'lodash';
 
 import previewStrategy from './previewStrategy/previewStrategy';
-import { PreviewConfig } from 'wix-rich-content-preview';
-import { RicosEditorProps, RicosViewerProps, RichContentProps, BasePlugin } from './types';
+import type { PreviewConfig } from 'wix-rich-content-preview';
+import type { RicosEditorProps, RicosViewerProps, RichContentProps, BasePlugin } from './types';
 import {
   convertRelStringToObject,
   convertRelObjectToString,
@@ -110,14 +111,8 @@ export class RicosEngine extends Component<EngineProps> {
     const { useStaticTextToolbar, textToolbarContainer, getToolbarSettings } =
       toolbarSettings || {};
 
-    const {
-      openModal,
-      closeModal,
-      ariaHiddenId,
-      container,
-      onModalOpen,
-      onModalClose,
-    } = modalSettings;
+    const { openModal, closeModal, ariaHiddenId, container, onModalOpen, onModalClose } =
+      modalSettings;
     const { pauseMedia, disableRightClick, fullscreenProps } = mediaSettings;
     const { anchorTarget = '_blank', customAnchorScroll } = linkSettings;
     let { relValue, rel } = linkSettings;

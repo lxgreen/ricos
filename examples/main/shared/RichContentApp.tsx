@@ -1,15 +1,17 @@
-import React, { ElementType, PureComponent } from 'react';
+import type { ElementType } from 'react';
+import React, { PureComponent } from 'react';
 import { debounce } from 'lodash';
+import type { EditorState } from 'wix-rich-content-editor/libs/editorStateConversion';
 import {
   convertToRaw,
   convertFromRaw,
   createEmpty,
   createWithContent,
-  EditorState,
 } from 'wix-rich-content-editor/libs/editorStateConversion';
-import { isSSR, DraftContent, SEOSettings } from 'wix-rich-content-common';
+import type { DraftContent, SEOSettings } from 'wix-rich-content-common';
+import { isSSR } from 'wix-rich-content-common';
 import { getRequestedLocale, normalize } from '../src/utils';
-import { TestAppConfig } from '../src/types';
+import type { TestAppConfig } from '../src/types';
 
 type Mode = 'demo' | 'test';
 
@@ -110,14 +112,8 @@ class RichContentApp extends PureComponent<Props, State> {
   };
 
   render() {
-    const {
-      editorState,
-      contentState,
-      localeResource,
-      locale,
-      remountKey,
-      injectedContent,
-    } = this.state;
+    const { editorState, contentState, localeResource, locale, remountKey, injectedContent } =
+      this.state;
     const { allLocales, seoMode, isMobile, app: App, testAppConfig } = this.props;
     return (
       <App

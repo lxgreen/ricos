@@ -21,14 +21,8 @@ const headingElement = (heading, isSelected, onClick, translateHeading) => {
 
 class Panel extends Component {
   render() {
-    const {
-      customHeadingsOptions,
-      selected,
-      onSave,
-      styles,
-      translateHeading,
-      isMobile,
-    } = this.props;
+    const { customHeadingsOptions, selected, onSave, styles, translateHeading, isMobile } =
+      this.props;
     return (
       <div
         className={isMobile ? styles.headingsMobilePanel : styles.headingsPanel}

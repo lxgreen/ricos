@@ -1,5 +1,6 @@
-import { MentionData } from 'wix-rich-content-common';
-import { EditorState, Modifier, SelectionState } from '@wix/draft-js';
+import type { MentionData } from 'wix-rich-content-common';
+import type { SelectionState } from '@wix/draft-js';
+import { EditorState, Modifier } from '@wix/draft-js';
 
 export const triggerMention = (editorState: EditorState) => {
   // If the mention is being inserted after a character, a space is appended right after for
@@ -48,10 +49,7 @@ export const insertMention = (editorState: EditorState, mentionData: MentionData
   // If the mention is inserted at the end, a space is appended right after for
   // a smooth writing experience.
   const blockKey = mentionTextSelection.getAnchorKey();
-  const blockSize = editorState
-    .getCurrentContent()
-    .getBlockForKey(blockKey)
-    .getLength();
+  const blockSize = editorState.getCurrentContent().getBlockForKey(blockKey).getLength();
   if (blockSize === end) {
     mentionReplacedContent = Modifier.insertText(
       mentionReplacedContent,

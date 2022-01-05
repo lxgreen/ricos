@@ -1,9 +1,10 @@
 import createToolbar from './toolbar/createToolbar';
 import { DEFAULTS } from './defaults';
 import { Component } from './file-upload-component';
-import { FILE_UPLOAD_TYPE, FilePluginEditorConfig } from './types';
+import type { FilePluginEditorConfig } from './types';
+import { FILE_UPLOAD_TYPE } from './types';
 import { createBasePlugin, createBaseMediaPlugin } from 'wix-rich-content-plugin-commons';
-import { CreatePluginFunction } from 'wix-rich-content-common';
+import type { CreatePluginFunction } from 'wix-rich-content-common';
 
 const createFileUploadPlugin: CreatePluginFunction<FilePluginEditorConfig> = config => {
   const type = FILE_UPLOAD_TYPE;

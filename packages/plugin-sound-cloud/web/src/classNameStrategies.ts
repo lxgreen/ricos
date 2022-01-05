@@ -1,5 +1,6 @@
 import styles from '../statics/styles/sound-cloud-viewer.scss';
-import { mergeStyles, ContainerClassNameStrategy } from 'wix-rich-content-common';
+import type { ContainerClassNameStrategy } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 
 export const containerClassName: ContainerClassNameStrategy = theme => {
   const mergedStyles = mergeStyles({ styles, theme });

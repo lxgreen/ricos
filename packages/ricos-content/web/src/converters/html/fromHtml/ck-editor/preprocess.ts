@@ -1,8 +1,10 @@
 import { flow, identity } from 'fp-ts/function';
 import { not } from 'fp-ts/Predicate';
 import * as S from 'fp-ts/string';
-import { Element, TextNode, serialize, Attribute } from 'parse5';
-import { ContentNode } from '../core/models';
+import type { Element, TextNode, Attribute } from 'parse5';
+import { serialize } from 'parse5';
+import type { ContentNode } from '../core/models';
+import type { AstRule } from '../core/parse5-utils';
 import {
   isText,
   isLeaf,
@@ -12,7 +14,6 @@ import {
   hasTag,
   hasParent,
   oneOf,
-  AstRule,
   toAst,
   hasChild,
   hasClass,
@@ -22,14 +23,16 @@ import { partitionBy } from '../../../nodeUtils';
 import { traverseRoot, traverse } from '../core/ast-traversal';
 import { and, or } from '../../../../fp-utils';
 
-const addParagraph = (parentNode: Element, attrs: Attribute[] = []) => (): ContentNode => ({
-  nodeName: 'p',
-  tagName: 'p',
-  childNodes: [],
-  parentNode,
-  attrs: parentNode.attrs ? parentNode.attrs.concat(attrs) : attrs,
-  namespaceURI: parentNode.namespaceURI,
-});
+const addParagraph =
+  (parentNode: Element, attrs: Attribute[] = []) =>
+  (): ContentNode => ({
+    nodeName: 'p',
+    tagName: 'p',
+    childNodes: [],
+    parentNode,
+    attrs: parentNode.attrs ? parentNode.attrs.concat(attrs) : attrs,
+    namespaceURI: parentNode.namespaceURI,
+  });
 
 const rootTextToP: AstRule = [
   and([isRoot, or([hasChild(isText), hasChild(hasTag('a'))])]),

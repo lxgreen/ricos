@@ -1,4 +1,5 @@
-import React, { ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
+import React from 'react';
 import { renderToString } from 'react-dom/server';
 import RichContentApp from '../../../../examples/main/shared/RichContentApp';
 import serialize from 'serialize-javascript';

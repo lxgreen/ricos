@@ -1,19 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { RichContentEditor } from 'wix-rich-content-editor';
-import {
+import type { RichContentEditor } from 'wix-rich-content-editor';
+import type {
   EditorCommands,
   TextButtons,
   EditorPlugin,
   LinkPanelSettings,
-  ToolbarType,
   AvailableExperiments,
-  getLangDir,
   OnAddPluginLink,
   AddLinkData,
 } from 'wix-rich-content-common';
-import { LinkSettings, ToolbarSettings, RicosCssOverride, RicosTheme } from 'ricos-common';
+import { ToolbarType, getLangDir } from 'wix-rich-content-common';
+import type { LinkSettings, ToolbarSettings, RicosCssOverride, RicosTheme } from 'ricos-common';
 import {
   FloatingToolbarContainer,
   RicosToolbar,

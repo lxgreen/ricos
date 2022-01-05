@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import {
-  mergeStyles,
+import type {
   TranslationFunction,
   RichContentTheme,
   Helpers,
   TextDirection,
 } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import { SettingsMobileHeader, Button } from '..';
 import { BUTTON_SIZE } from '../consts';
 import Styles from '../../statics/styles/url-input-modal.scss';

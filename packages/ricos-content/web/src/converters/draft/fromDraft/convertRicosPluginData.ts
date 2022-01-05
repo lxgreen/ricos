@@ -23,18 +23,17 @@ import {
   NO_WRAP,
   EXTERNAL,
 } from '../../../consts';
-import {
+import type {
   PluginContainerData_Spoiler,
   FileSource,
-  PluginContainerData_Width_Type,
-  ButtonData_Type,
   Link,
   ButtonData,
   GIFData,
   GalleryData,
 } from 'ricos-schema';
+import { PluginContainerData_Width_Type, ButtonData_Type } from 'ricos-schema';
 import { TO_RICOS_DATA } from './consts';
-import {
+import type {
   ComponentData,
   FileComponentData,
   ImageComponentData,
@@ -42,7 +41,7 @@ import {
 } from '../../../types';
 import { createLink } from '../../nodeUtils';
 import toConstantCase from 'to-constant-case';
-import { DraftGalleryStyles } from '../consts';
+import type { DraftGalleryStyles } from '../consts';
 import { convertJsonToStruct } from './convertJsonToStruct';
 
 export const convertBlockDataToRicos = (type: string, data) => {
@@ -298,13 +297,8 @@ const convertPollData = (data: { containerData; layout; design; poll }) => {
       ...rest,
     })));
   if (has(data, 'poll.settings')) {
-    const {
-      multipleVotes,
-      voteRole,
-      resultsVisibility,
-      votersDisplay,
-      votesDisplay,
-    } = data.poll.settings;
+    const { multipleVotes, voteRole, resultsVisibility, votersDisplay, votesDisplay } =
+      data.poll.settings;
 
     const getViewRole = resultsVisibility =>
       resultsVisibility === 'ALWAYS'

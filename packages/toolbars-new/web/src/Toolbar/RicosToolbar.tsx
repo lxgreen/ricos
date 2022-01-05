@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import Toolbar from './Toolbar';
 import { createButtonsList } from './buttonsListCreator';
-import {
+import type {
   TranslationFunction,
   EditorCommands,
   AnchorTarget,
@@ -12,7 +12,7 @@ import {
   AvailableExperiments,
   OnAddPluginLink,
 } from 'wix-rich-content-common';
-import { RicosCssOverride, RicosTheme } from 'ricos-common';
+import type { RicosCssOverride, RicosTheme } from 'ricos-common';
 
 export type linkPanelDataType = {
   linkTypes?: any;

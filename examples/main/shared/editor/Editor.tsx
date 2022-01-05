@@ -1,5 +1,6 @@
-import React, { ElementType, PureComponent } from 'react';
-import { RichContentEditorProps } from 'wix-rich-content-editor';
+import type { ElementType } from 'react';
+import React, { PureComponent } from 'react';
+import type { RichContentEditorProps } from 'wix-rich-content-editor';
 import { testVideos } from '../../../storybook/src/shared/utils/mock';
 import * as Plugins from './EditorPlugins';
 import theme from '../theme/theme'; // must import after custom styles
@@ -8,15 +9,12 @@ import {
   mockImageUploadFunc,
   mockImageNativeUploadFunc,
 } from '../../../storybook/src/shared/utils/fileUploadUtil';
-import { TOOLBARS } from 'wix-rich-content-editor-common';
-import {
-  DraftContent,
-  TextToolbarType,
-  AvailableExperiments,
-  OnPluginAction,
-} from 'wix-rich-content-common';
-import { TestAppConfig } from '../../src/types';
-import { RicosEditor, RicosEditorProps, RicosEditorType } from 'ricos-editor';
+import type { TOOLBARS } from 'wix-rich-content-editor-common';
+import type { DraftContent, TextToolbarType, AvailableExperiments } from 'wix-rich-content-common';
+import { OnPluginAction } from 'wix-rich-content-common';
+import type { TestAppConfig } from '../../src/types';
+import type { RicosEditorProps, RicosEditorType } from 'ricos-editor';
+import { RicosEditor } from 'ricos-editor';
 import createSideBlockComponent from '../../src/Components/createSideBlockComponent';
 import styles from './editor.scss';
 import classNames from 'classnames';

@@ -1,6 +1,6 @@
-import { RichContent } from 'ricos-schema';
-import { Overwrite } from 'utility-types';
-import { ContentBuilder } from '../types';
+import type { RichContent } from 'ricos-schema';
+import type { Overwrite } from 'utility-types';
+import type { ContentBuilder } from '../types';
 
 export type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 

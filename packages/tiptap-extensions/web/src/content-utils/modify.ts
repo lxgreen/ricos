@@ -1,5 +1,5 @@
 import { pipe } from 'fp-ts/function';
-import { JSONContent } from '@tiptap/core';
+import type { JSONContent } from '@tiptap/core';
 import { getModifier } from 'ricos-content/libs/modifier-infra';
 
 export type JSONContentModifier = {

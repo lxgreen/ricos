@@ -1,10 +1,11 @@
 import { pipe } from 'fp-ts/function';
-import { Node, RichContent } from 'ricos-schema';
-import { Modifier } from '../modifier-infra';
-import { modify as richContentModify, RichContentModifier } from '../RicosContentAPI/modify';
+import type { Node, RichContent } from 'ricos-schema';
+import type { Modifier } from '../modifier-infra';
+import type { RichContentModifier } from '../RicosContentAPI/modify';
+import { modify as richContentModify } from '../RicosContentAPI/modify';
 
 const toAdapterModifier = (onSet: (content: RichContent) => void, content: RichContent) =>
-  function(modifier: RichContentModifier): RichContentModifier {
+  function (modifier: RichContentModifier): RichContentModifier {
     const self: { modifier: RichContentModifier } = { modifier };
     return {
       filter(predicate: Parameters<Modifier<Node>['filter']>[0]) {

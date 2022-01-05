@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { Layout, Cell, Dropdown, InputWithLabel, Typography as t } from 'wix-style-react';
-import { TextStyle } from 'ricos-schema';
-import { AbstractPanelProps } from '../types';
+import type { TextStyle } from 'ricos-schema';
+import type { AbstractPanelProps } from '../types';
 import { createAbstractPanelSetter } from './utils';
 
 const alignments = ['AUTO', 'LEFT', 'RIGHT', 'CENTER', 'JUSTIFY'];

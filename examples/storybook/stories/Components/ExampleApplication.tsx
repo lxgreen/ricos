@@ -1,11 +1,14 @@
-import React, { FunctionComponent, useMemo, useState } from 'react';
+import type { FunctionComponent } from 'react';
+import React, { useMemo, useState } from 'react';
 import { RichContentEditorBox, RichContentViewerBox, Section } from './StoryParts';
 import EditorWrapper from './EditorWrapper';
 import ViewerWrapper from './ViewerWrapper';
+// eslint-disable-next-line import/no-unresolved
 import editorSourceCode from '!!raw-loader!../Components/EditorWrapper';
+// eslint-disable-next-line import/no-unresolved
 import viewerSourceCode from '!!raw-loader!../Components/ViewerWrapper';
 import styles from './styles.scss';
-import { DraftContent, RicosTheme } from 'ricos-editor';
+import type { DraftContent, RicosTheme } from 'ricos-editor';
 
 const ExampleApplication: FunctionComponent<{
   initialState?: DraftContent;

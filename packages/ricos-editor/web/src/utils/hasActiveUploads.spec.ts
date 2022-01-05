@@ -1,13 +1,8 @@
 import { ContentState, AtomicBlockUtils } from 'wix-rich-content-editor-common';
 import { hasActiveUploads } from './hasActiveUploads';
 import { createWithContent } from 'wix-rich-content-editor/libs/editorStateConversion';
-import {
-  PluginType,
-  IMAGE_TYPE,
-  VIDEO_TYPE,
-  GALLERY_TYPE,
-  FILE_UPLOAD_TYPE,
-} from 'wix-rich-content-common';
+import type { PluginType } from 'wix-rich-content-common';
+import { IMAGE_TYPE, VIDEO_TYPE, GALLERY_TYPE, FILE_UPLOAD_TYPE } from 'wix-rich-content-common';
 
 const createEmptyContentState = () => ContentState.createFromText('');
 

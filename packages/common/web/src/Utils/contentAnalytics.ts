@@ -1,4 +1,4 @@
-import { DraftContent, RicosContentBlock } from 'ricos-content';
+import type { DraftContent, RicosContentBlock } from 'ricos-content';
 import { countBy } from 'lodash';
 
 export const getBlockTypePlugins = (blocks: RicosContentBlock[]): RicosContentBlock[] =>

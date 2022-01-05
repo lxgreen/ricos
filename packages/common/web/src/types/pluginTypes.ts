@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ComponentType } from 'react';
-import {
+import type { ComponentType } from 'react';
+import type {
   ClassNameStrategy,
   ContainerClassNameStrategy,
   Pubsub,
@@ -15,14 +15,14 @@ import {
   RichContentTheme,
   ThemeData,
 } from '.';
-import {
+import type {
   ContentBlock,
   EditorProps,
   DraftDecorator,
   CompositeDecorator,
   DraftEditorCommand,
 } from 'draft-js';
-import {
+import type {
   DraftContent,
   PREVIEW,
   LINK_BUTTON_TYPE,
@@ -71,7 +71,7 @@ import {
   RICOS_MENTION_TYPE,
   EXTERNAL,
 } from 'ricos-content';
-import {
+import type {
   DividerData,
   GIFData,
   HTMLData,
@@ -79,12 +79,10 @@ import {
   PollData,
   VideoData,
   FileData,
-  LinkData,
   ImageData,
   MentionData as MentionPluginData,
-  Node_Type,
-  Decoration_Type,
 } from 'ricos-schema';
+import { LinkData, Node_Type, Decoration_Type } from 'ricos-schema';
 export { Node_Type, Decoration_Type, LinkData };
 
 export type CreatePluginData<PluginData> = (
@@ -119,7 +117,7 @@ export interface CreatePluginsDataMap {
   [EXTERNAL]?: CreatePluginData<Record<string, any>>;
 }
 
-import { EditorPlugin as DraftEditorPlugin, PluginFunctions } from 'draft-js-plugins-editor';
+import type { EditorPlugin as DraftEditorPlugin, PluginFunctions } from 'draft-js-plugins-editor';
 
 export type PluginMapping = Partial<{
   [type: string]: {
@@ -264,11 +262,9 @@ export interface ViewerPluginConfig {}
 export type LegacyEditorPluginConfig<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   PluginConfig extends EditorPluginConfig = Record<string, any>
-> = Partial<
-  {
-    [key in PluginType]: PluginConfig;
-  }
-> & {
+> = Partial<{
+  [key in PluginType]: PluginConfig;
+}> & {
   uiSettings?: UISettings;
   getToolbarSettings?: GetToolbarSettings;
   themeData?: ThemeData;
@@ -277,11 +273,9 @@ export type LegacyEditorPluginConfig<
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type LegacyViewerPluginConfig<PluginConfig = Record<string, any>> = Partial<
-  {
-    [key in PluginType]: PluginConfig;
-  }
-> & {
+export type LegacyViewerPluginConfig<PluginConfig = Record<string, any>> = Partial<{
+  [key in PluginType]: PluginConfig;
+}> & {
   uiSettings?: UISettings;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [PREVIEW]?: any;

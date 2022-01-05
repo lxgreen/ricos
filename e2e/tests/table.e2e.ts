@@ -17,7 +17,7 @@ describe('plugins', () => {
   afterEach(() => cy.matchContentSnapshot());
 
   context('table', () => {
-    before(function() {
+    before(function () {
       eyesOpen(this);
     });
 
@@ -27,7 +27,7 @@ describe('plugins', () => {
 
     after(() => cy.eyesClose());
 
-    it('should open table modal and create table by the settings', function() {
+    it('should open table modal and create table by the settings', function () {
       cy.loadRicosEditorAndViewer('empty', usePlugins(plugins.table));
       cy.openTableModal();
       cy.eyesCheckWindow(this.test.title);
@@ -35,14 +35,14 @@ describe('plugins', () => {
       cy.eyesCheckWindow(this.test.title);
     });
 
-    it('should limit cells number', function() {
+    it('should limit cells number', function () {
       cy.loadRicosEditorAndViewer('empty', usePlugins(plugins.table));
       cy.openTableModal();
       cy.setTableRowNumAndColNum(100, 100);
       cy.eyesCheckWindow(this.test.title);
     });
 
-    it('should select/unSelect all cells', function() {
+    it('should select/unSelect all cells', function () {
       cy.loadRicosEditorAndViewer('table', usePlugins(plugins.table));
       cy.focusTable();
       cy.selectAllTableCells();
@@ -51,7 +51,7 @@ describe('plugins', () => {
       cy.eyesCheckWindow(this.test.title);
     });
 
-    it('should add rows and columns from table entry points', function() {
+    it('should add rows and columns from table entry points', function () {
       cy.loadRicosEditorAndViewer('table', usePlugins(plugins.table));
       cy.focusTable();
       cy.clickOnAddRow();
@@ -60,7 +60,7 @@ describe('plugins', () => {
       cy.eyesCheckWindow(this.test.title);
     });
 
-    it('should open table toolbars in different positions', function() {
+    it('should open table toolbars in different positions', function () {
       cy.loadRicosEditorAndViewer('table', usePlugins(plugins.all));
       cy.focusTable();
       cy.focusCell(0);
@@ -79,7 +79,7 @@ describe('plugins', () => {
       cy.eyesCheckWindow(this.test.title);
     });
 
-    it('should edit cell', function() {
+    it('should edit cell', function () {
       cy.loadRicosEditorAndViewer('table', usePlugins(plugins.table));
       cy.focusTable();
       cy.editCell(0);
@@ -88,7 +88,7 @@ describe('plugins', () => {
       cy.eyesCheckWindow(this.test.title);
     });
 
-    it('should use table toolbars', function() {
+    it('should use table toolbars', function () {
       cy.loadRicosEditorAndViewer('table', usePlugins(plugins.all));
       cy.focusTable();
       cy.clickOnRowDrag(0);
@@ -111,7 +111,7 @@ describe('plugins', () => {
       cy.eyesCheckWindow(this.test.title);
     });
 
-    it('should use cell alignment', function() {
+    it('should use cell alignment', function () {
       cy.loadRicosEditorAndViewer('table-alignment', usePlugins(plugins.all));
       cy.focusTable();
       cy.focusCell(0);
@@ -130,7 +130,7 @@ describe('plugins', () => {
       cy.eyesCheckWindow(this.test.title);
     });
 
-    it('should use table toolbar context menu', function() {
+    it('should use table toolbar context menu', function () {
       cy.loadRicosEditorAndViewer('table', usePlugins(plugins.all));
       cy.focusTable();
       cy.clickOnRowDrag(1);
@@ -151,7 +151,7 @@ describe('plugins', () => {
       cy.eyesCheckWindow(this.test.title);
     });
 
-    it('should test the first and last block logic', function() {
+    it('should test the first and last block logic', function () {
       cy.loadRicosEditorAndViewer('table-with-images', usePlugins(plugins.all));
       cy.focusTable();
       cy.eyesCheckWindow(this.test.title);
@@ -159,7 +159,7 @@ describe('plugins', () => {
       cy.eyesCheckWindow(this.test.title);
     });
 
-    it('should select all cell content after go out from edit', function() {
+    it('should select all cell content after go out from edit', function () {
       cy.loadRicosEditorAndViewer('table', usePlugins(plugins.all));
       cy.focusTable();
       cy.editCellAndGoOut(0);

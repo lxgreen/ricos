@@ -1,7 +1,7 @@
 import { pickBy, identity } from 'lodash';
 /* eslint-disable fp/no-delete */
-import { TextStyle, NodeStyle } from 'ricos-schema';
-import { RicosEntityMap, RicosContentBlock } from '../../../types';
+import type { TextStyle, NodeStyle } from 'ricos-schema';
+import type { RicosEntityMap, RicosContentBlock } from '../../../types';
 import {
   LINK_PREVIEW_TYPE,
   EMBED_TYPE,
@@ -59,8 +59,11 @@ export const getTextStyle = (blockData?: RicosContentBlock['data']): TextStyle =
 
 export const getNodeStyle = (blockData?: RicosContentBlock['data']): NodeStyle | undefined => {
   const { dynamicStyles } = blockData || {};
-  const { 'padding-top': paddingTop, 'padding-bottom': paddingBottom, backgroundColor } =
-    dynamicStyles || {};
+  const {
+    'padding-top': paddingTop,
+    'padding-bottom': paddingBottom,
+    backgroundColor,
+  } = dynamicStyles || {};
   const style = pickBy({ paddingTop, paddingBottom, backgroundColor }, identity);
   const hasStyle = Object.values(style).length > 0;
   return hasStyle ? style : undefined;

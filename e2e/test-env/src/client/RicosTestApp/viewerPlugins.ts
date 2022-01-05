@@ -31,8 +31,8 @@ import { pluginPoll } from 'wix-rich-content-plugin-social-polls/viewer';
 import { pluginCollapsibleList } from 'wix-rich-content-plugin-collapsible-list/viewer';
 import { pluginTable } from 'wix-rich-content-plugin-table/viewer';
 import { mockFileUploadFunc } from '../../../../../examples/storybook/src/shared/utils/fileUploadUtil';
-import { TestAppConfig } from '../../types';
-import { ViewerPlugin } from 'wix-rich-content-common';
+import type { TestAppConfig } from '../../types';
+import type { ViewerPlugin } from 'wix-rich-content-common';
 
 const configs: TestAppConfig['pluginsConfig'] = {
   fileUpload: {

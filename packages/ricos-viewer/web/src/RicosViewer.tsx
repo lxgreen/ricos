@@ -4,7 +4,7 @@ import { RichContentViewer } from 'wix-rich-content-viewer';
 import { Version } from 'wix-rich-content-common';
 import RicosModal from './modals/RicosModal';
 import './styles.css';
-import { RicosViewerProps } from './index';
+import type { RicosViewerProps } from './index';
 import { getContentSummary } from 'wix-rich-content-common/libs/contentAnalytics';
 
 interface State {

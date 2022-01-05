@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import { Layout, Cell, Button, InputWithLabel } from 'wix-style-react';
 import {
   emptyCommonBuilderFields,
@@ -6,7 +7,7 @@ import {
   PNLCommonFields,
   PNLContainerData,
 } from '../AbstractPanels';
-import { EditPanelProps } from '../types';
+import type { EditPanelProps } from '../types';
 
 export const File: FC<EditPanelProps<'addFile'>> = ({ addFunc }) => {
   const [commonFields, setCommonFields] = useState(emptyCommonBuilderFields);

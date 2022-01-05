@@ -1,4 +1,4 @@
-import { DraftEditorCommand } from '@wix/draft-js';
+import type { DraftEditorCommand } from '@wix/draft-js';
 
 export const COMMANDS: Record<string, DraftCommand> = {
   TITLE: 'header-two',

@@ -102,16 +102,8 @@ class CollapsibleListPairs extends Component {
   };
 
   render() {
-    const {
-      pairs,
-      PairWrapper,
-      t,
-      theme,
-      renderTitle,
-      renderContent,
-      helpers,
-      isInEditor,
-    } = this.props;
+    const { pairs, PairWrapper, t, theme, renderTitle, renderContent, helpers, isInEditor } =
+      this.props;
     const { pairsState } = this.state;
 
     return pairs.map((pair, idx) => (

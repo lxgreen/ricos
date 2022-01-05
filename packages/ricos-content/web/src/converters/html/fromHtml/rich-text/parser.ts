@@ -1,5 +1,5 @@
 import { flow } from 'fp-ts/function';
-import { TextNode } from 'parse5';
+import type { TextNode } from 'parse5';
 import { preprocess } from './preprocess';
 import parse from '../core/parser';
 import {
@@ -15,7 +15,7 @@ import {
   spanToSpoiler,
   aToAnchor,
 } from '../core/rules';
-import { Rule } from '../core/models';
+import type { Rule } from '../core/models';
 
 const noEmptyLineText: Rule = [
   node => textToText[0](node) && (node as TextNode).value !== '\n',

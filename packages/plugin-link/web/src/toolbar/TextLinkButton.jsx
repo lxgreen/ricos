@@ -121,17 +121,8 @@ export default class TextLinkButton extends Component {
   }
 
   render() {
-    const {
-      theme,
-      helpers,
-      isMobile,
-      tabIndex,
-      config,
-      isActive,
-      icon,
-      tooltipText,
-      disabled,
-    } = this.props;
+    const { theme, helpers, isMobile, tabIndex, config, isActive, icon, tooltipText, disabled } =
+      this.props;
     const buttonStyles = {
       button: theme.inlineToolbarButton,
       buttonWrapper: theme.inlineToolbarButton_wrapper,

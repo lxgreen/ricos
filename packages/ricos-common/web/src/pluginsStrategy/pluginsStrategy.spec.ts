@@ -13,7 +13,7 @@ import {
   TEXT_COLOR_TYPE,
 } from 'wix-rich-content-common';
 import pluginsStrategy from './pluginsStrategy';
-import { RCEPluginProps, RCVPluginProps } from './pluginTypes';
+import type { RCEPluginProps, RCVPluginProps } from './pluginTypes';
 import * as utils from '../themeStrategy/themeUtils';
 
 describe('PluginsStrategy', () => {

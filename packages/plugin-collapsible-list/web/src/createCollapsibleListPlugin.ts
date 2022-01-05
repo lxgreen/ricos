@@ -1,10 +1,13 @@
 import createToolbar from './toolbar/createToolbar';
 import { Component, DEFAULTS } from './collapsible-list-component';
-import { COLLAPSIBLE_LIST_TYPE, CollapsibleListPluginEditorConfig } from './types';
+import type { CollapsibleListPluginEditorConfig } from './types';
+import { COLLAPSIBLE_LIST_TYPE } from './types';
 import { createBasePlugin } from 'wix-rich-content-plugin-commons';
-import { CreatePluginFunction } from 'wix-rich-content-common';
+import type { CreatePluginFunction } from 'wix-rich-content-common';
 
-const createCollapsibleListPlugin: CreatePluginFunction<CollapsibleListPluginEditorConfig> = config => {
+const createCollapsibleListPlugin: CreatePluginFunction<
+  CollapsibleListPluginEditorConfig
+> = config => {
   const {
     localeContent,
     locale,

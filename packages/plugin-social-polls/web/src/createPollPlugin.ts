@@ -2,8 +2,9 @@ import { createBasePlugin } from 'wix-rich-content-plugin-commons';
 
 import { createToolbar } from './toolbar/createToolbar';
 import { PollEditor } from './components';
-import { POLL_TYPE, PollPluginEditorConfig } from './types';
-import { CreatePluginFunction } from 'wix-rich-content-common';
+import type { PollPluginEditorConfig } from './types';
+import { POLL_TYPE } from './types';
+import type { CreatePluginFunction } from 'wix-rich-content-common';
 import { DEFAULT_COMPONENT_DATA } from './defaults';
 
 const createPollPlugin: CreatePluginFunction<PollPluginEditorConfig> = config => {

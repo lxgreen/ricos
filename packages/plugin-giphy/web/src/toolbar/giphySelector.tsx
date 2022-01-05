@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import {
+import type {
   Pubsub,
-  Helpers,
   ComponentData,
   RichContentTheme,
   TranslationFunction,
-  mergeStyles,
 } from 'wix-rich-content-common';
+import { Helpers, mergeStyles } from 'wix-rich-content-common';
 import InfiniteScroll from 'react-infinite-scroller';
 import MDSpinner from 'react-md-spinner';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -14,7 +13,7 @@ import { SEARCH_TYPE, PAGE_SIZE, WAIT_INTERVAL } from '../constants';
 import { PoweredByGiphy } from '../icons';
 import GiphyEmptyState from './giphyEmptyState';
 import styles from '../../statics/styles/giphy-selecter.scss';
-import { GIFObject } from '../types';
+import type { GIFObject } from '../types';
 
 interface Props {
   pubsub: Pubsub;

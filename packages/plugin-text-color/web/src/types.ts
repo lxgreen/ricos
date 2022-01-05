@@ -1,4 +1,4 @@
-import { EditorPluginConfig, ViewerPluginConfig } from 'wix-rich-content-common';
+import type { EditorPluginConfig, ViewerPluginConfig } from 'wix-rich-content-common';
 
 export const TEXT_COLOR_TYPE = 'wix-rich-content-text-color';
 export const TEXT_HIGHLIGHT_TYPE = 'wix-rich-content-text-highlight';

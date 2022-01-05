@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import { find } from 'linkifyjs';
-import { Plugin } from 'prosemirror-state';
+import type { Plugin } from 'prosemirror-state';
 import { parseLink } from 'ricos-content/libs/nodeUtils';
-import { LinkData } from 'ricos-schema';
+import type { LinkData } from 'ricos-schema';
 import linkDataDefaults from 'ricos-schema/dist/statics/link.defaults.json';
-import { RicosExtension } from 'ricos-tiptap-types';
-import { DeepPartial } from 'utility-types';
+import type { RicosExtension } from 'ricos-tiptap-types';
+import type { DeepPartial } from 'utility-types';
 import styles from '../statics/styles.scss';
 import { autolink } from './helpers/autolink';
 import { clickHandler } from './helpers/clickHandler';
@@ -68,15 +68,21 @@ export const createLink = (defaultOptions): RicosExtension => ({
 
     addCommands() {
       return {
-        setLink: attributes => ({ commands }) => {
-          return commands.setMark(this.name, attributes);
-        },
-        toggleLink: attributes => ({ commands }) => {
-          return commands.toggleMark(this.name, attributes, { extendEmptyMarkRange: true });
-        },
-        unsetLink: () => ({ commands }) => {
-          return commands.unsetMark(this.name, { extendEmptyMarkRange: true });
-        },
+        setLink:
+          attributes =>
+          ({ commands }) => {
+            return commands.setMark(this.name, attributes);
+          },
+        toggleLink:
+          attributes =>
+          ({ commands }) => {
+            return commands.toggleMark(this.name, attributes, { extendEmptyMarkRange: true });
+          },
+        unsetLink:
+          () =>
+          ({ commands }) => {
+            return commands.unsetMark(this.name, { extendEmptyMarkRange: true });
+          },
       };
     },
 

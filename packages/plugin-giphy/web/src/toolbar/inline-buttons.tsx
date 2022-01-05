@@ -3,8 +3,8 @@ import { getModalStyles, decorateComponentWithProps } from 'wix-rich-content-edi
 import { MediaReplaceIcon } from '../icons';
 import GiphyApiInputModal from './giphyApiInputModal';
 import { MOBILE_FULL_SCREEN_CUSTOM_STYLE, DESKTOP_FLY_OUT_MODAL_STYLES } from '../constants';
-import { CreateInlineButtons, TranslationFunction } from 'wix-rich-content-common';
-import { GiphyPluginEditorConfig } from '../types';
+import type { CreateInlineButtons, TranslationFunction } from 'wix-rich-content-common';
+import type { GiphyPluginEditorConfig } from '../types';
 
 const createInlineButtons: CreateInlineButtons = ({
   t,

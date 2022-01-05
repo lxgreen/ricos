@@ -1,4 +1,4 @@
-import {
+import type {
   AvailableExperiments,
   RichContentTheme,
   PaletteColors,
@@ -6,8 +6,8 @@ import {
   RicosSettingsStyles,
   ThemeData,
 } from 'wix-rich-content-common';
-import { CSSProperties, ReactElement } from 'react';
-import { BasePlugin } from '../types';
+import type { CSSProperties, ReactElement } from 'react';
+import type { BasePlugin } from '../types';
 export type RicosCssOverride = RichContentTheme;
 
 export interface WixColor {

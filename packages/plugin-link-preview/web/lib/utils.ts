@@ -1,6 +1,8 @@
 import { pickBy } from 'lodash';
 import { DEFAULTS } from '../src/defaults';
-import { LinkPreviewPluginEditorConfig, LINK_PREVIEW_TYPE } from '../src/types';
+import type { LinkPreviewPluginEditorConfig } from '../src/types';
+import { LINK_PREVIEW_TYPE } from '../src/types';
+import type { ContentBlock } from 'wix-rich-content-editor-common';
 import {
   getBlockAtStartOfSelection,
   replaceWithEmptyBlock,
@@ -10,11 +12,10 @@ import {
   SelectionState,
   EditorState,
   Modifier,
-  ContentBlock,
 } from 'wix-rich-content-editor-common';
-import { CreatePluginConfig } from 'wix-rich-content-common';
-import { LinkPreviewData } from 'ricos-schema';
-import { LinkPreviewProviders } from '../src/consts';
+import type { CreatePluginConfig } from 'wix-rich-content-common';
+import type { LinkPreviewData } from 'ricos-schema';
+import type { LinkPreviewProviders } from '../src/consts';
 
 const addLinkPreview = async (
   editorState: EditorState,
@@ -26,8 +27,11 @@ const addLinkPreview = async (
     rel?: string;
   }
 ) => {
-  const { enableEmbed = true, enableLinkPreview = true, fetchData } =
-    config[LINK_PREVIEW_TYPE] || {};
+  const {
+    enableEmbed = true,
+    enableLinkPreview = true,
+    fetchData,
+  } = config[LINK_PREVIEW_TYPE] || {};
   const linkPreview = (await fetchLinkPreview(fetchData, linkData.url)) || {};
   const { title, html, fixedUrl } = linkPreview;
   if (
@@ -152,10 +156,7 @@ export const convertLinkPreviewToLink = (editorState: EditorState) => {
 
 const getLinkPreviewUrl = (editorState, block) => {
   const entityKey = block.getEntityAt(0);
-  const entityData = editorState
-    .getCurrentContent()
-    .getEntity(entityKey)
-    ?.getData();
+  const entityData = editorState.getCurrentContent().getEntity(entityKey)?.getData();
   return entityData?.config?.link?.url;
 };
 

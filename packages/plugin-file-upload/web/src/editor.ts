@@ -1,10 +1,11 @@
 import { createFileUploadPlugin } from './createFileUploadPlugin';
-import { FILE_UPLOAD_TYPE, FilePluginEditorConfig } from './types';
+import type { FilePluginEditorConfig } from './types';
+import { FILE_UPLOAD_TYPE } from './types';
 import { DEFAULTS } from './defaults';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createFileData } from './createFileData';
 import { createRicosExtensions } from './tiptap';
-import { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 export const pluginFileUpload: EditorPluginCreator<FilePluginEditorConfig> = config => {
   const pluginConfig: FilePluginEditorConfig = { ...DEFAULTS.config, ...config };

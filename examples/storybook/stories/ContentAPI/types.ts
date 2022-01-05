@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { setupContentBuilder } from 'ricos-content/libs/Content';
+import type { FC } from 'react';
+import type { setupContentBuilder } from 'ricos-content/libs/Content';
 
 export type BuilderFunctions = Omit<ReturnType<typeof setupContentBuilder>, 'RicosContentBuilder'>;
 export type AddMethod = <T extends keyof BuilderFunctions>(

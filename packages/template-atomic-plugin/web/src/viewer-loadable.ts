@@ -5,13 +5,16 @@
 */
 
 import { typeMapper } from './typeMapper-loadable';
-import { YOUR_PLUGIN_NAME_TYPE, YourPluginNamePluginViewerConfig } from './types';
+import type { YourPluginNamePluginViewerConfig } from './types';
+import { YOUR_PLUGIN_NAME_TYPE } from './types';
 import { DEFAULTS } from './defaults';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
 // import { theme } from './defaults'; // Optional
 export { YOUR_PLUGIN_NAME_TYPE, typeMapper as yourPluginNameTypeMapper };
 
-export const pluginYourPluginName: ViewerPluginCreator<YourPluginNamePluginViewerConfig> = config => {
+export const pluginYourPluginName: ViewerPluginCreator<
+  YourPluginNamePluginViewerConfig
+> = config => {
   return {
     config: { ...DEFAULTS.config, ...config },
     type: YOUR_PLUGIN_NAME_TYPE,

@@ -1,10 +1,11 @@
 import { identity, flow } from 'fp-ts/function';
 import * as E from 'fp-ts/Either';
-import { VideoData, Node_Type } from 'ricos-schema';
-import { Element } from 'parse5';
+import type { VideoData } from 'ricos-schema';
+import { Node_Type } from 'ricos-schema';
+import type { Element } from 'parse5';
 import { createNode } from '../../../nodeUtils';
 import { hasTag, getAttributes } from '../core/parse5-utils';
-import { Rule } from '../core/models';
+import type { Rule } from '../core/models';
 
 const toURL = (str: string) =>
   E.tryCatch(
@@ -30,7 +31,6 @@ const toVideoData = flow(
 
 export const iframeToVideo: Rule = [
   hasTag('iframe'),
-  () => (node: Element) => [
-    createNode(Node_Type.VIDEO, { nodes: [], data: { ...toVideoData(node) } }),
-  ],
+  () => (node: Element) =>
+    [createNode(Node_Type.VIDEO, { nodes: [], data: { ...toVideoData(node) } })],
 ];

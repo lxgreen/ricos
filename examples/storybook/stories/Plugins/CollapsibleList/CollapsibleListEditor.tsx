@@ -1,5 +1,7 @@
-import React, { FunctionComponent } from 'react';
-import { DraftContent, RicosEditor } from 'ricos-editor';
+import type { FunctionComponent } from 'react';
+import React from 'react';
+import type { DraftContent } from 'ricos-editor';
+import { RicosEditor } from 'ricos-editor';
 import { pluginCollapsibleList } from 'wix-rich-content-plugin-collapsible-list';
 import { pluginLink } from 'wix-rich-content-plugin-link';
 import { pluginIndent } from 'wix-rich-content-plugin-indent';

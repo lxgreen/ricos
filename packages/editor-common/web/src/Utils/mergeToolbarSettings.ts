@@ -1,5 +1,5 @@
 import { merge } from 'lodash';
-import { ToolbarSettingsFunctions } from 'wix-rich-content-common';
+import type { ToolbarSettingsFunctions } from 'wix-rich-content-common';
 
 export function mergeToolbarSettings({
   defaultSettings,

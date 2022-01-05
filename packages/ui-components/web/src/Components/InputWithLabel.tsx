@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
-import React, { ChangeEvent, Component } from 'react';
+import type { ChangeEvent } from 'react';
+import React, { Component } from 'react';
 import { omit } from 'lodash';
 import classNames from 'classnames';
 import Label from './Label';
-import { mergeStyles, RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import type { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../statics/styles/input-with-label.scss';
 import infoIconStyles from '../../statics/styles/info-icon.scss';
 
@@ -43,16 +45,8 @@ class InputWithLabel extends Component<InputWithLabelProps> {
 
   renderInput = () => {
     const { styles } = this;
-    const {
-      id,
-      isTextArea,
-      isFullHeight,
-      dataHook,
-      isMobile,
-      tooltipTextKey,
-      t,
-      ...otherProps
-    } = this.props;
+    const { id, isTextArea, isFullHeight, dataHook, isMobile, tooltipTextKey, t, ...otherProps } =
+      this.props;
     const inputProps = omit(otherProps, ['theme', 'onChange']);
     const inputClassName = classNames(styles.inputWithLabel_input, {
       [styles.inputWithLabel_textArea]: isTextArea,

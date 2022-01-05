@@ -1,4 +1,4 @@
-import { TranslationFunction } from 'wix-rich-content-common';
+import type { TranslationFunction } from 'wix-rich-content-common';
 
 const pluginTags = [
   { plugin: 'ImagePlugin_InsertButton', tags: 'Image_plugin_search_tags', pluginId: 'image' },
@@ -61,9 +61,7 @@ const getRelatedPlugins = (searchTag: string, t: TranslationFunction) => {
   }[] = [];
   pluginTags.map(data => {
     return (
-      t(data.tags)
-        .toLowerCase()
-        .includes(searchTag.toLowerCase()) && relatedPlugins.push(data)
+      t(data.tags).toLowerCase().includes(searchTag.toLowerCase()) && relatedPlugins.push(data)
     );
   });
   return relatedPlugins;

@@ -1,4 +1,4 @@
-import { DraftContent } from '../types/contentTypes';
+import type { DraftContent } from '../types/contentTypes';
 import extractEntityData from '../preview/ContentStateAnalyzer/extractEntityData';
 
 const toSeoImage = entityData => {

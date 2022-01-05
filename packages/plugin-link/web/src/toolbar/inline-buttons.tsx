@@ -8,7 +8,7 @@ import {
 import TextLinkButton from './TextLinkButton';
 import RemoveLinkButton from './RemoveLinkButton';
 import UrlLinkButton from './UrlLinkButton';
-import {
+import type {
   CreateInlineButtons,
   Helpers,
   AnchorTarget,
@@ -18,8 +18,8 @@ import {
   TranslationFunction,
   InnerModalType,
 } from 'wix-rich-content-common';
-import { SetEditorState, GetEditorState } from 'wix-rich-content-common/src';
-import { LinkPluginEditorConfig } from '../types';
+import type { SetEditorState, GetEditorState } from 'wix-rich-content-common/src';
+import type { LinkPluginEditorConfig } from '../types';
 
 const createInlineButtons: CreateInlineButtons = (config: {
   helpers: Helpers;

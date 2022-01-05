@@ -1,6 +1,7 @@
-import React, { Fragment, ComponentType, Children, FunctionComponent, ReactElement } from 'react';
+import type { ComponentType, FunctionComponent, ReactElement } from 'react';
+import React, { Fragment, Children } from 'react';
 import FullscreenProvider from './fullscreen/FullscreenProvider';
-import { RicosViewerProps } from 'ricos-common';
+import type { RicosViewerProps } from 'ricos-common';
 import { IMAGE_TYPE, GALLERY_TYPE } from 'wix-rich-content-common';
 
 const RicosModal: FunctionComponent<RicosViewerProps & { children: ReactElement }> = props => {

@@ -1,5 +1,6 @@
-import React, { FunctionComponent, ReactNodeArray } from 'react';
-import { DraftDecorator } from 'draft-js';
+import type { FunctionComponent, ReactNodeArray } from 'react';
+import React from 'react';
+import type { DraftDecorator } from 'draft-js';
 
 function findWithRegex(
   text: string,

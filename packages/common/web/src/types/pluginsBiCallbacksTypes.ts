@@ -1,10 +1,10 @@
-import { BICallbackParams } from './biCallbacksTypes';
-import {
+import type { BICallbackParams } from './biCallbacksTypes';
+import type {
   TableEventsName,
   TableBiCallbacksParams,
   TableEventsParamsMappers,
 } from './tableBiCallbacksTypes';
-import { AddLinkData } from './commonTypes';
+import type { AddLinkData } from './commonTypes';
 
 export type GenericEventsName = 'addPluginLink';
 export type EventName = TableEventsName | GenericEventsName;

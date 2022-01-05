@@ -1,11 +1,5 @@
-import {
-  IMAGE_TYPE,
-  GALLERY_TYPE,
-  VIDEO_TYPE,
-  FILE_UPLOAD_TYPE,
-  VideoComponentData,
-  ImageComponentData,
-} from 'wix-rich-content-common';
+import type { VideoComponentData, ImageComponentData } from 'wix-rich-content-common';
+import { IMAGE_TYPE, GALLERY_TYPE, VIDEO_TYPE, FILE_UPLOAD_TYPE } from 'wix-rich-content-common';
 
 export const GALLERY_FILE_TYPES = {
   IMAGE: 'image',

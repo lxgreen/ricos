@@ -1,6 +1,6 @@
 import { get } from 'lodash';
-import { RichContent, Node } from 'ricos-schema';
-import { Extractor } from '../extractor-infra';
+import type { RichContent, Node } from 'ricos-schema';
+import type { Extractor } from '../extractor-infra';
 import { extract } from '../RicosContentAPI/extract';
 
 const strCompare = (str1: string, str2: string) => str1.localeCompare(str2);

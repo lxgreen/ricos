@@ -1,4 +1,4 @@
-import { CreateRicosExtensions } from 'ricos-tiptap-types';
+import type { CreateRicosExtensions } from 'ricos-tiptap-types';
 import { File as Component } from './component';
 import fileDataDefaults from 'ricos-schema/dist/statics/file.defaults.json';
 import { TIPTAP_FILE_TYPE } from 'ricos-content';

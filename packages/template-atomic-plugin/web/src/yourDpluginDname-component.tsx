@@ -1,8 +1,9 @@
 import React from 'react';
 import YourPluginNameViewer from './yourDpluginDname-viewer';
-import { YOUR_PLUGIN_NAME_TYPE, YourPluginNamePluginEditorConfig } from './types';
+import type { YourPluginNamePluginEditorConfig } from './types';
+import { YOUR_PLUGIN_NAME_TYPE } from './types';
 import { DEFAULTS } from './defaults';
-import { ComponentData, RichContentTheme } from 'wix-rich-content-common';
+import type { ComponentData, RichContentTheme } from 'wix-rich-content-common';
 
 interface Props {
   componentData: ComponentData;

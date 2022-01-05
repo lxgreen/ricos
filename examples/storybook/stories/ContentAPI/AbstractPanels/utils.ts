@@ -1,8 +1,9 @@
 import { merge } from 'lodash';
 
-export const createAbstractPanelSetter = <T>(obj: T, setter: (obj: T) => void) => (
-  newObj: Partial<T>
-) => setter(merge({ ...obj }, newObj));
+export const createAbstractPanelSetter =
+  <T>(obj: T, setter: (obj: T) => void) =>
+  (newObj: Partial<T>) =>
+    setter(merge({ ...obj }, newObj));
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const prepareForDropdown = (arr: any[]) =>

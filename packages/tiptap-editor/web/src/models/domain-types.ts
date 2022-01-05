@@ -1,6 +1,6 @@
-import { AnyExtension, Node, Mark, Extension } from '@tiptap/core';
-import { ComponentType } from 'react';
-import { NodeHocDescriptor } from 'ricos-tiptap-types';
+import type { AnyExtension, Node, Mark, Extension } from '@tiptap/core';
+import type { ComponentType } from 'react';
+import type { NodeHocDescriptor } from 'ricos-tiptap-types';
 
 export const DEFAULT_PRIORITY = 100;
 

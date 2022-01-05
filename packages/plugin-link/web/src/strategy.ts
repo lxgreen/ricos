@@ -1,4 +1,4 @@
-import { ContentBlock, ContentState } from 'draft-js';
+import type { ContentBlock, ContentState } from 'draft-js';
 import { LINK_TYPE, CUSTOM_LINK_TYPE } from './types';
 export const linkEntityStrategy = (
   contentBlock: ContentBlock,

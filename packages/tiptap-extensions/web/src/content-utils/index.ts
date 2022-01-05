@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { JSONContent } from '@tiptap/core';
+import type { JSONContent } from '@tiptap/core';
 import { flow } from 'fp-ts/function';
-import { DraftContent } from 'ricos-content';
+import type { DraftContent } from 'ricos-content';
 import {
   convertBlockDataToRicos,
   toDraft,
   fromDraft,
   convertNodeDataToDraft,
 } from 'ricos-content/libs/migrateSchema';
-import { Node_Type, Node } from 'ricos-schema';
+import type { Node_Type, Node } from 'ricos-schema';
 import { fromTiptap } from './fromTiptap/fromTiptap';
 import { toTiptap } from './toTiptap/toTiptap';
 

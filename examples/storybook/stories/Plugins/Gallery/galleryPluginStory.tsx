@@ -8,8 +8,10 @@ import {
 } from '../../Components/StoryParts';
 
 import GalleryEditor from './galleryEditor';
+// eslint-disable-next-line import/no-unresolved
 import editorSourcecode from '!!raw-loader!./galleryEditor.tsx';
 import GalleryViewer from './galleryViewer';
+// eslint-disable-next-line import/no-unresolved
 import viewerSourcecode from '!!raw-loader!./galleryViewer.tsx';
 import SyntaxHighlighter from '../../Components/SyntaxHighlighter';
 import fixtrue from '../../../../../e2e/tests/fixtures/gallery-with-title-and-link.json';

@@ -1,6 +1,7 @@
-import { DraftContent } from '../../../types';
+import type { DraftContent } from '../../../types';
 import { generateId } from '../../generateRandomId';
-import { Node, Node_Type } from 'ricos-schema';
+import type { Node } from 'ricos-schema';
+import { Node_Type } from 'ricos-schema';
 import { fromDraft } from './fromDraft';
 
 interface Cell {

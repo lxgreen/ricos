@@ -1,9 +1,12 @@
-import { TiptapAPI } from '../../types';
+import type { TiptapAPI } from '../../types';
 import { capitalize } from 'lodash';
-import {
+import type {
   TranslationFunction,
   EditorPlugin,
   TextAlignment,
+  RicosCustomStyles,
+} from 'wix-rich-content-common';
+import {
   RICOS_LINK_TYPE,
   RICOS_TEXT_COLOR_TYPE,
   RICOS_TEXT_HIGHLIGHT_TYPE,
@@ -11,7 +14,6 @@ import {
   defaultFontSizes,
   defaultMobileFontSizes,
   DOC_STYLE_TYPES,
-  RicosCustomStyles,
 } from 'wix-rich-content-common';
 import {
   generateId,
@@ -24,7 +26,7 @@ import {
   NUMBERED_LIST_TYPE,
 } from 'ricos-content';
 import { TO_TIPTAP_TYPE } from '../../consts';
-import { Editor } from '@tiptap/core';
+import type { Editor } from '@tiptap/core';
 
 const headingTypeToLevelMap = {
   'header-one': 1,

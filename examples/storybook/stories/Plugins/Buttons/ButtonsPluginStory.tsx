@@ -8,8 +8,10 @@ import {
 
 import ButtonsContentState from '../../../../../e2e/tests/fixtures/buttons.json';
 import ButtonsEditor from './ButtonsEditor';
+// eslint-disable-next-line import/no-unresolved
 import editorSourcecode from '!!raw-loader!./ButtonsEditor.tsx';
 import ButtonsViewer from './ButtonsViewer';
+// eslint-disable-next-line import/no-unresolved
 import viewerSourcecode from '!!raw-loader!./ButtonsViewer.tsx';
 import TabsWrapper from '../../Components/TabsWrapper';
 import apiData from '../apiData';

@@ -1,7 +1,9 @@
 import React from 'react';
 import { MultiSelectLinkViewer, BasicLinkViewer } from './LinkViewer';
 import { BasicLinkEditor, BasicLinkEditorWithSettings, MultiSelectLinkEditor } from './LinkEditor';
+// eslint-disable-next-line import/no-unresolved
 import viewerSourcecode from '!!raw-loader!./LinkViewer.tsx';
+// eslint-disable-next-line import/no-unresolved
 import editorSourcecode from '!!raw-loader!./LinkEditor.tsx';
 import {
   RichContentEditorBox,

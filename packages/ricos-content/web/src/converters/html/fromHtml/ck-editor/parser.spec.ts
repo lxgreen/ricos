@@ -1,12 +1,13 @@
 import { flow, pipe } from 'fp-ts/function';
 import * as A from 'fp-ts/Array';
 import { readFileSync, writeFileSync } from 'fs';
-import { Node_Type, RichContent } from 'ricos-schema';
+import type { RichContent } from 'ricos-schema';
+import { Node_Type } from 'ricos-schema';
 import parse from './parser';
 import { tap } from '../../../../fp-utils';
 import { toDraft } from '../../../draft/toDraft/toDraft';
 import { extract } from '../../../../RicosContentAPI/extract';
-import { DraftContent } from '../../../../types/contentTypes';
+import type { DraftContent } from '../../../../types/contentTypes';
 
 const loadFile = (filename: string) =>
   readFileSync(`${__dirname}/../__tests__/${filename}`, 'utf8');

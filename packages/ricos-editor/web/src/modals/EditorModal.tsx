@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { RichContentEditorModal } from 'wix-rich-content-editor';
 import ReactModal from 'react-modal';
-import { ModalSettings } from 'ricos-common';
-import { ModalsMap } from 'wix-rich-content-common';
+import type { ModalSettings } from 'ricos-common';
+import type { ModalsMap } from 'wix-rich-content-common';
 
 interface Props {
   isOpen: boolean;
@@ -42,16 +42,8 @@ export default class EditorModal extends Component<Props> {
   };
 
   render() {
-    const {
-      isOpen,
-      contentLabel,
-      style,
-      role,
-      onRequestClose,
-      ModalsMap,
-      locale,
-      ...modalProps
-    } = this.props;
+    const { isOpen, contentLabel, style, role, onRequestClose, ModalsMap, locale, ...modalProps } =
+      this.props;
     return (
       <ReactModal
         isOpen={isOpen}

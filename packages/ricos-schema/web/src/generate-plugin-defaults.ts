@@ -10,15 +10,15 @@ import { identity, flow, pipe } from 'fp-ts/function';
 
 import { mkdirSync, writeFileSync, copySync } from 'fs-extra';
 import { resolve } from 'path';
+import type { Node } from '../generated/stringEnums/wix/rich_content/v1/'; // eslint-disable-line
 import {
   RichContent,
-  Node,
   Node_Type,
   Decoration_Type,
   LinkData,
   ColorData,
   MentionData,
-} from '../generated/stringEnums/wix/rich_content/v1/';
+} from '../generated/stringEnums/wix/rich_content/v1/'; // eslint-disable-line
 
 const pluginDataPropByType = {
   [Node_Type.APP_EMBED]: 'appEmbedData',
@@ -73,17 +73,19 @@ const defaultContent = {
   ],
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const stringify = (replacer: (key: string, value: any) => any, space = 0) => <A>(
-  a: A
-): E.Either<unknown, string> =>
-  E.tryCatch(() => {
-    const s = JSON.stringify(a, replacer, space);
-    if (typeof s !== 'string') {
-      throw new Error('Converting unsupported structure to JSON');
-    }
-    return s;
-  }, identity);
+const stringify =
+  (
+    replacer: (key: string, value: any) => any, // eslint-disable-line @typescript-eslint/no-explicit-any
+    space = 0
+  ) =>
+  <A>(a: A): E.Either<unknown, string> =>
+    E.tryCatch(() => {
+      const s = JSON.stringify(a, replacer, space);
+      if (typeof s !== 'string') {
+        throw new Error('Converting unsupported structure to JSON');
+      }
+      return s;
+    }, identity);
 
 const writeStaticsEntry = ([type, defaults]) => {
   const entryPath = resolve(__dirname, '..', 'statics', `${type}.defaults.json`);

@@ -13,6 +13,5 @@ export { pluginTextColor, pluginTextHighlight } from './editor';
 
 export const textColorInlineStyleMapper = getDynamicInlineStyleMapper(RICOS_TEXT_COLOR_TYPE);
 
-export const textHighlightInlineStyleMapper = getDynamicInlineStyleMapper(
-  RICOS_TEXT_HIGHLIGHT_TYPE
-);
+export const textHighlightInlineStyleMapper =
+  getDynamicInlineStyleMapper(RICOS_TEXT_HIGHLIGHT_TYPE);

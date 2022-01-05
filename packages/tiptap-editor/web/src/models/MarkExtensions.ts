@@ -1,5 +1,5 @@
-import { Mark } from '@tiptap/core';
-import { IMarkExtension, MarkExtensionAggregate } from './domain-types';
+import type { Mark } from '@tiptap/core';
+import type { IMarkExtension, MarkExtensionAggregate } from './domain-types';
 import { IExtensionAggregate } from './IExtensionAggregate';
 
 export class MarkExtensions implements MarkExtensionAggregate {

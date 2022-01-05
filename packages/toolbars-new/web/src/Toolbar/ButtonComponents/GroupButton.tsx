@@ -3,8 +3,8 @@ import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import ClickOutside from 'react-click-outsider';
 import Styles from '../ToolbarNew.scss';
-import ToolbarButton from '../ToolbarButton.jsx';
-import { RichContentTheme } from 'wix-rich-content-common';
+import ToolbarButton from '../ToolbarButton';
+import type { RichContentTheme } from 'wix-rich-content-common';
 
 interface GroupButtonProps {
   isMobile?: boolean;
@@ -58,10 +58,12 @@ class GroupButton extends PureComponent<GroupButtonProps, State> {
 
   hideOptions = () => this.setState({ isOpen: false });
 
-  onChange = ({ onClick, getIcon, isDisabled }) => e => {
-    onClick(e);
-    this.setState({ Icon: getIcon(), isOpen: false, isDisabled });
-  };
+  onChange =
+    ({ onClick, getIcon, isDisabled }) =>
+    e => {
+      onClick(e);
+      this.setState({ Icon: getIcon(), isOpen: false, isDisabled });
+    };
 
   renderOptions = () => {
     const { buttons, theme } = this.props;

@@ -40,10 +40,8 @@ export const convertItemData = ({ items, anchorTarget, relValue }) =>
           rel: 'noopener',
           url: normalizeUrl(item.url || ''),
         };
-        const {
-          pathname,
-          thumbnail: { pathname: thumbPathname, width, height } = {},
-        } = convertedData.metaData.poster;
+        const { pathname, thumbnail: { pathname: thumbPathname, width, height } = {} } =
+          convertedData.metaData.poster;
         if (pathname && thumbPathname) {
           convertedData.metaData.poster = {
             url: getAbsoluteUrl(thumbPathname, 'image'),

@@ -1,6 +1,9 @@
-import React, { FunctionComponent } from 'react';
-import { DraftContent, RicosTheme, RicosViewer, RicosViewerProps } from 'ricos-viewer';
-import { RichContentViewer, RichContentViewerProps } from 'wix-rich-content-viewer';
+import type { FunctionComponent } from 'react';
+import React from 'react';
+import type { DraftContent, RicosTheme, RicosViewerProps } from 'ricos-viewer';
+import { RicosViewer } from 'ricos-viewer';
+import type { RichContentViewerProps } from 'wix-rich-content-viewer';
+import { RichContentViewer } from 'wix-rich-content-viewer';
 import { pluginLinkButton, pluginActionButton } from 'wix-rich-content-plugin-button/viewer';
 import { pluginCodeBlock } from 'wix-rich-content-plugin-code-block/viewer';
 import { pluginDivider } from 'wix-rich-content-plugin-divider/viewer';
