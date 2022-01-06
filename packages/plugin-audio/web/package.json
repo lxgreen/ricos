@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-plugin-audio",
-  "version": "8.66.8",
+  "version": "8.66.9",
   "author": {
     "name": "undefined",
     "email": "tamratb@wix.com"
@@ -15,7 +15,9 @@
   },
   "homepage": "https://github.com/wix/ricos/tree/master/rich-content-plugin-audio",
   "files": [
-    "dist", "libs", "viewer"
+    "dist",
+    "libs",
+    "viewer"
   ],
   "main": "dist/module.cjs.js",
   "types": "dist/src/index.d.ts",
@@ -35,8 +37,8 @@
     "test:watchAll": "jest --verbose --watchAll"
   },
   "dependencies": {
-    "wix-rich-content-common": "8.66.8",
-    "wix-rich-content-editor-common": "8.66.8"
+    "wix-rich-content-common": "8.66.9",
+    "wix-rich-content-editor-common": "8.66.9"
   },
   "jest": {
     "globals": {

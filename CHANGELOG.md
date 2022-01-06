@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.66.9 (Jan 06, 2022)
+
 ### :bug: Bug Fix
 
 - `ricos-editor`
@@ -28,9 +33,6 @@
   - [#3364](https://github.com/wix/ricos/pull/3364) add plugin headings to supported plugins
 - `audio`
   - [#3367](https://github.com/wix/ricos/pull/3367) generated audio plugin
-
-</details>
-<hr/>
 
 ## 8.66.8 (Jan 04, 2022)
 
