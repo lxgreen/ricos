@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `ricos-editor`
+  - [#3366](https://github.com/wix/ricos/pull/3366) fix sideBlockComponent position
+
 ### :house: Internal
 
 - `collapsible-list`

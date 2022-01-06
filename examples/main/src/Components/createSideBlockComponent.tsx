@@ -8,8 +8,6 @@ const createSideBlockComponent =
       <button
         onClick={() => editorCommands?.toggleBlockOverlay(id)}
         style={{
-          marginTop: '10px',
-          paddingInlineEnd: '10px',
           cursor: 'pointer',
           border: 'none',
           backgroundColor: 'transparent',
