@@ -17,8 +17,12 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `collapsible-list`
+  - [#3364](https://github.com/wix/ricos/pull/3364) add plugin headings to supported plugins
 - `audio`
-  - [#3367](https://github.com/wix/ricos/pull/3367) generated audio plugin 
+  - [#3367](https://github.com/wix/ricos/pull/3367) generated audio plugin
 
 </details>
 <hr/>

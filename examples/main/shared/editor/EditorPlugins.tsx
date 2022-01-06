@@ -297,6 +297,7 @@ const innerRCEPlugins = [
   createCodeBlockPlugin,
   createUnsupportedBlocksPlugin,
   createSpoilerPlugin,
+  createHeadingsPlugin,
 ];
 
 const buttonDefaultPalette = ['#FEFDFD', '#D5D4D4', '#ABCAFF', '#81B0FF', '#0261FF', '#0141AA'];

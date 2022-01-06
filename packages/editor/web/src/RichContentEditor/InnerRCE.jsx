@@ -23,12 +23,13 @@ import {
   CODE_BLOCK_TYPE,
   UNSUPPORTED_BLOCKS_TYPE,
   SPOILER_TYPE,
+  HEADINGS_DROPDOWN_TYPE,
 } from 'wix-rich-content-common';
 import { cloneDeep } from 'lodash';
 import { isCursorAtStartOfContent, selectAllContent } from 'wix-rich-content-editor-common';
 import ClickOutside from 'react-click-outsider';
 
-const SupportedTablePlugins = [
+const basePlugins = [
   TEXT_COLOR_TYPE,
   TEXT_HIGHLIGHT_TYPE,
   INDENT_TYPE,
@@ -44,6 +45,8 @@ const SupportedTablePlugins = [
   UNSUPPORTED_BLOCKS_TYPE,
   SPOILER_TYPE,
 ];
+
+const supportedCollapsiblePlugins = [...basePlugins, HEADINGS_DROPDOWN_TYPE];
 
 class InnerRCE extends PureComponent {
   constructor(props) {
@@ -74,8 +77,10 @@ class InnerRCE extends PureComponent {
     } else {
       pluginsList = plugins;
     }
+    const supportedPlugins =
+      innerRCERenderedIn === TABLE_TYPE ? basePlugins : supportedCollapsiblePlugins;
     const innerRCEPlugins = pluginsList.filter(plugin =>
-      SupportedTablePlugins.includes(plugin.functionName)
+      supportedPlugins.includes(plugin.functionName)
     );
     return innerRCEPlugins;
   };
