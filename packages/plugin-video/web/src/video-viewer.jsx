@@ -99,7 +99,7 @@ class VideoViewer extends Component {
 
   onProgress = progress => {
     const { settings, blockKey } = this.props;
-    settings.onProgress({ ...progress, id: blockKey });
+    settings.onProgress?.({ ...progress, id: blockKey });
   };
 
   render() {

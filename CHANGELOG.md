@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+- `video`
+  - [#3369](https://github.com/wix/ricos/pull/3369) fix onProgress throws an error
+
+
 </details>
 <hr/>
 
