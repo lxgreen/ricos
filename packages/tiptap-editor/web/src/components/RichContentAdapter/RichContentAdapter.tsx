@@ -176,22 +176,7 @@ export class RichContentAdapter implements TiptapAPI {
           [UNSTYLED]: () => this.editor.commands.setParagraph(),
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          [HEADER_BLOCK.ONE]: () => this.editor.commands.toggleHeading({ level: 1 }),
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          [HEADER_BLOCK.TWO]: () => this.editor.commands.toggleHeading({ level: 2 }),
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          [HEADER_BLOCK.THREE]: () => this.editor.commands.toggleHeading({ level: 3 }),
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          [HEADER_BLOCK.FOUR]: () => this.editor.commands.toggleHeading({ level: 4 }),
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          [HEADER_BLOCK.FIVE]: () => this.editor.commands.toggleHeading({ level: 5 }),
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          [HEADER_BLOCK.SIX]: () => this.editor.commands.toggleHeading({ level: 6 }),
+          [HEADINGS_TYPE]: level => this.editor.commands.toggleHeading({ level }),
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           [BLOCKQUOTE]: () => this.editor.commands.toggleBlockquote(),
@@ -205,32 +190,12 @@ export class RichContentAdapter implements TiptapAPI {
           // @ts-ignore
           [NUMBERED_LIST_TYPE]: () => this.editor.commands.toggleOrderedList(),
         };
-        const currentSetBlockTypeCommand = blockTypeCommandMap[type];
-        if (currentSetBlockTypeCommand) {
-          currentSetBlockTypeCommand();
+        if (Object.values(HEADER_BLOCK).includes(type)) {
+          blockTypeCommandMap[HEADINGS_TYPE](headingTypeToLevelMap[type]);
+        } else if (blockTypeCommandMap[type]) {
+          blockTypeCommandMap[type]();
         } else {
-          throw new Error(`${type} block type not supported`);
-        }
-      },
-      isBlockTypeSelected: type => {
-        const blockTypeActiveCommandMap = {
-          [HEADER_BLOCK.ONE]: () => this.editor.isActive('heading', { level: 1 }),
-          [HEADER_BLOCK.TWO]: () => this.editor.isActive('heading', { level: 2 }),
-          [HEADER_BLOCK.THREE]: () => this.editor.isActive('heading', { level: 3 }),
-          [HEADER_BLOCK.FOUR]: () => this.editor.isActive('heading', { level: 4 }),
-          [HEADER_BLOCK.FIVE]: () => this.editor.isActive('heading', { level: 5 }),
-          [HEADER_BLOCK.SIX]: () => this.editor.isActive('heading', { level: 6 }),
-          [CODE_BLOCK_TYPE]: () => this.editor.isActive('codeBlock'),
-          [BLOCKQUOTE]: () => this.editor.isActive('blockquote'),
-          [NUMBERED_LIST_TYPE]: () => this.editor.isActive('orderedList'),
-          [BULLET_LIST_TYPE]: () => this.editor.isActive('bulletList'),
-        };
-        const currentBlockTypeActiveCommand = blockTypeActiveCommandMap[type];
-
-        if (currentBlockTypeActiveCommand) {
-          return currentBlockTypeActiveCommand();
-        } else {
-          throw new Error(`${type} block type not supported`);
+          console.error(`${type} block type not supported`);
         }
       },
       deleteDecoration: type => {
