@@ -31,6 +31,8 @@ const run = async () => {
       `${GEN_DIR}/proto/${PACKAGE_PATH}/${schema}`,
       schemaFile
         .replace(/\s*\[.*wix.*\];/g, ';')
+        .replace(/\s*option\s*\(wix\.api\.entity\)\s*=\s*\{.*\s*fqdn.*\s*.*\s*};/g, '')
+        .replace('import "wix/api/entity.proto";\n', '')
         .replace('import "wix/api/validations.proto";\n', '')
     );
   });

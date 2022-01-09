@@ -10,6 +10,7 @@ syntax = "proto3";
 
 package wix.rich_content.v1;
 
+import "wix/api/entity.proto";
 import "wix/api/validations.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
@@ -40,6 +41,10 @@ import "wix/rich_content/v1/plugin_table_cell.proto";
 import "wix/rich_content/v1/decoration_fontsize.proto";
 
 message RichContent {
+    option (wix.api.entity) = {
+        fqdn: "wix.ricos.v1.rich_content",
+        segment: PUBLIC
+    };
     repeated Node nodes = 1; // List of nodes
     Metadata metadata = 2;
     DocumentStyle document_style = 3;
