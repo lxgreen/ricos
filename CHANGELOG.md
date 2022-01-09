@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
 
+- `general`
+  - [#3361](https://github.com/wix/ricos/pull/3361) add pluginpopoverclick & pluginpopovertabswitch bi events
 
 </details>
 <hr/>

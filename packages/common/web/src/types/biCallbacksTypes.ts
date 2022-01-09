@@ -38,6 +38,11 @@ export interface onPluginAddStepArgs extends BICallbackParams {
   step: 'FileUploadDialog' | 'PluginModal';
 }
 
+export interface pluginsPopoverArgs extends BICallbackParams {
+  pluginId: string;
+  buttonName: string;
+}
+
 export interface onPluginDeleteArgs extends BICallbackParams {
   pluginId: string;
   pluginDetails: unknown;
@@ -107,6 +112,8 @@ export interface BICallbacks {
     contentId?: string
   ): void;
   onPluginAddStep?(params: onPluginAddStepArgs): void;
+  onPluginsPopOverTabSwitch?(params: pluginsPopoverArgs): void;
+  onPluginsPopoverClick?(params: pluginsPopoverArgs): void;
   onPluginDelete?(params: onPluginDeleteArgs): void;
   onPublish?(
     postId: string | undefined,
