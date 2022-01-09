@@ -17,14 +17,16 @@
     Click to see more.
   </summary>
 
-### :house: Internal
-
-- `general`
-  - [#3361](https://github.com/wix/ricos/pull/3361) add pluginpopoverclick & pluginpopovertabswitch bi events
 
 </details>
 <hr/>
 
+## 8.66.13 (Jan 09, 2022)
+
+### :house: Internal
+
+- `general`
+  - [#3361](https://github.com/wix/ricos/pull/3361) add pluginpopoverclick & pluginpopovertabswitch bi events
 
 ## 8.66.12 (Jan 07, 2022)
 ### :bug: Bug Fix
