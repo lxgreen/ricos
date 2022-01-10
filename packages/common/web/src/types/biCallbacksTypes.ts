@@ -113,7 +113,7 @@ export interface BICallbacks {
   ): void;
   onPluginAddStep?(params: onPluginAddStepArgs): void;
   onPluginsPopOverTabSwitch?(params: pluginsPopoverArgs): void;
-  onPluginsPopoverClick?(params: pluginsPopoverArgs): void;
+  onPluginsPopOverClick?(params: pluginsPopoverArgs): void;
   onPluginDelete?(params: onPluginDeleteArgs): void;
   onPublish?(
     postId: string | undefined,

@@ -17,8 +17,8 @@ export const applyBIGenerics =
         helpers.onPluginAddStep?.({ ...args, version, contentId: getContentId() }),
       onPluginsPopOverTabSwitch: args =>
         helpers.onPluginsPopOverTabSwitch?.({ ...args, version, contentId: getContentId() }),
-      onPluginsPopoverClick: args =>
-        helpers.onPluginsPopoverClick?.({ ...args, version, contentId: getContentId() }),
+      onPluginsPopOverClick: args =>
+        helpers.onPluginsPopOverClick?.({ ...args, version, contentId: getContentId() }),
       onPluginAddSuccess: (pluginId: string, entryPoint: string, params) =>
         helpers.onPluginAddSuccess?.(pluginId, entryPoint, params, version, getContentId()),
 
