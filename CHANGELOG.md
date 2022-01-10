@@ -17,13 +17,16 @@
     Click to see more.
   </summary>
 
+
+</details>
+<hr/>
+
+## 8.66.14 (Jan 09, 2022)
+
 ### :nail_care: Polish
 
 - `general`
   - [#3373](https://github.com/wix/ricos/pull/3373) refactor  pluginpopoverclick bi naming
-
-</details>
-<hr/>
 
 ## 8.66.13 (Jan 09, 2022)
 
