@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-plugin-audio",
-  "version": "8.66.13",
+  "version": "8.66.14",
   "author": {
     "name": "undefined",
     "email": "tamratb@wix.com"
@@ -37,9 +37,9 @@
     "test:watchAll": "jest --verbose --watchAll"
   },
   "dependencies": {
-    "wix-rich-content-common": "8.66.13",
-    "wix-rich-content-editor-common": "8.66.13",
-    "wix-rich-content-plugin-commons": "8.66.13"
+    "wix-rich-content-common": "8.66.14",
+    "wix-rich-content-editor-common": "8.66.14",
+    "wix-rich-content-plugin-commons": "8.66.14"
   },
   "jest": {
     "globals": {
