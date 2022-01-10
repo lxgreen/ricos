@@ -170,6 +170,7 @@ type buttonsFullDataType = {
   isInput?: boolean;
   useIconOnMobile?: boolean;
   closeOnChange?: boolean;
+  isActive?: () => boolean;
 };
 
 export const buttonsFullData: Record<string, buttonsFullDataType> = {
@@ -205,6 +206,7 @@ export const buttonsFullData: Record<string, buttonsFullDataType> = {
     loadSelection: true,
     useIconOnMobile: true,
     closeOnChange: true,
+    isActive: () => false,
   },
   FONT_SIZE: {
     icon: () => null,

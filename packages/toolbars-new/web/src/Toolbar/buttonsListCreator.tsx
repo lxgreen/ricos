@@ -81,7 +81,7 @@ export const createButtonsList = ({
       handleButtonArrow(buttonsList, index, buttonsOverrides);
       handleUseIconOnMobile(buttonsList, index, buttonsOverrides);
       handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData, experiments);
-      handleButtonIsActive(buttonsList, index, editorCommands);
+      handleButtonIsActive(buttonsList, index, editorCommands, buttonsOverrides);
       handleButtonIsDisabled(buttonsList, index, editorCommands);
       handleButtonModal(
         buttonsList,
@@ -435,9 +435,16 @@ const handleButtonIsDisabled = (buttonsList, index, editorCommands: editorComman
   }
 };
 
-const handleButtonIsActive = (buttonsList, index, editorCommands: editorCommands) => {
+const handleButtonIsActive = (
+  buttonsList,
+  index,
+  editorCommands: editorCommands,
+  buttonsOverrides
+) => {
   const buttonName = buttonsList[index].name;
-  if (Object.keys(inlineStyleButtons).includes(buttonName)) {
+  if (buttonsOverrides[buttonName].isActive) {
+    buttonsList[index].isActive = buttonsOverrides[buttonName].isActive;
+  } else if (Object.keys(inlineStyleButtons).includes(buttonName)) {
     buttonsList[index].isActive = () => {
       const blockStyle = getBlockStyle(editorCommands);
       const property = documentStyleCssProperties[buttonName];
