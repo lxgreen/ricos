@@ -17,12 +17,15 @@
     Click to see more.
   </summary>
 
-### :house: Internal
-- `general`
-  - [#3376](https://github.com/wix/ricos/pull/3376) implemented bi-events for switching tabs and clicking buttons in video/vertical-social embed popovers
 
 </details>
 <hr/>
+
+## 8.67.1 (Jan 11, 2022)
+
+### :house: Internal
+- `general`
+  - [#3376](https://github.com/wix/ricos/pull/3376) implemented bi-events for switching tabs and clicking buttons in video/vertical-social embed popovers
 
 ## 8.67.0 (Jan 11, 2022)
 
