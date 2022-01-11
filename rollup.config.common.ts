@@ -2,7 +2,7 @@
 
 import { readdirSync, existsSync } from 'fs';
 import { cloneDeep } from 'lodash';
-import { plugins, postcss, lastEntryPlugins } from './rollup.plugins';
+import { plugins as createPlugins, lastEntryPlugins } from './rollup.plugins';
 import { isExternal as external } from './rollup.externals';
 import { RollupOptions, OutputOptions, WatcherOptions } from 'rollup';
 
@@ -12,16 +12,16 @@ if (!process.env.MODULE_NAME) {
 }
 
 const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): RollupOptions[] => {
+  const plugins = createPlugins(shouldExtractCss);
   const watch: WatcherOptions = {
     exclude: ['node_modules/**'],
     clearScreen: false,
   };
-
-  const getCommonOptions = (entry?: string) => ({
-    plugins: [...plugins, postcss(shouldExtractCss, entry)],
+  const commonOptions = {
+    plugins,
     external,
     watch,
-  });
+  };
 
   output = output.map(o => ({ ...o, sourcemap: true }));
   if (process.env.MODULE_WATCH && !process.env.BUILD_CJS) {
@@ -37,7 +37,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
   const editorEntry: RollupOptions = {
     input: 'src/index.ts',
     output: cloneDeep(output),
-    ...getCommonOptions(),
+    ...commonOptions,
   };
 
   const libEntries: RollupOptions[] = [];
@@ -52,7 +52,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
           format,
           file: `dist/lib/${fileName}${format === 'cjs' ? '.cjs.js' : '.js'}`,
         })),
-        ...getCommonOptions(fileName),
+        ...commonOptions,
       });
     });
   } catch (_) {}
@@ -68,7 +68,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
         }
         return o;
       }),
-      ...getCommonOptions('viewer'),
+      ...commonOptions,
     });
   }
 
@@ -90,7 +90,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
     viewerEntry.push({
       input: viewerLoadablePath,
       output: viewerLoadableOutput,
-      ...getCommonOptions('viewer'),
+      ...commonOptions,
     });
   }
 
@@ -116,7 +116,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
           lodash: '_',
         },
       },
-      ...getCommonOptions('mobile'),
+      ...commonOptions,
       external: source => ['lodash', 'react', 'react-dom'].includes(source),
     });
   }

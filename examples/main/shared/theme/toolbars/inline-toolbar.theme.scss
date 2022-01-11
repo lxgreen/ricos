@@ -32,11 +32,11 @@
 }
 
 .inlineToolbarButton_wrapper:hover .inlineToolbarButton_icon {
-  color: #ed24d9;
+  color: #ED24D9; 
 }
 
-.inlineToolbarButton_active.inlineToolbarButton_active {
-  color: #ed24d9;
+.inlineToolbarButton_active {
+  color: #ED24D9;
 }
 
 .inlineToolbarSeparator {
@@ -48,7 +48,7 @@
 }
 
 .inlineToolbarDropdownButton_wrapper:hover {
-  .inlineToolbarDropdownButton_icon,
+  .inlineToolbarDropdownButton_icon, 
   .inlineToolbarButton_menuButton {
     color: cyan;
   }
