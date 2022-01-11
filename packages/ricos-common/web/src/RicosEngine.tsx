@@ -14,7 +14,7 @@ import {
 } from 'wix-rich-content-common/libs/linkConverters';
 import { applyBIGenerics } from './biCallbacks';
 import { pipe } from 'fp-ts/function';
-import { EditorCommands } from 'wix-rich-content-common';
+import type { EditorCommands } from 'wix-rich-content-common';
 
 interface EngineProps extends RicosEditorProps, RicosViewerProps {
   children: ReactElement;

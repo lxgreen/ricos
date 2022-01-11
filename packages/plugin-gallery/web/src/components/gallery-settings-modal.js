@@ -57,17 +57,8 @@ class ManageMediaSection extends Component {
   };
 
   render() {
-    const {
-      helpers,
-      store,
-      t,
-      relValue,
-      anchorTarget,
-      isMobile,
-      uiSettings,
-      accept,
-      updateData,
-    } = this.props;
+    const { helpers, store, t, relValue, anchorTarget, isMobile, uiSettings, accept, updateData } =
+      this.props;
     const { handleFileSelection } = helpers;
     const { languageDir } = this.context;
 

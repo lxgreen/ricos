@@ -97,7 +97,6 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
           onSave={modalsWithEditorCommands ? onSave : onDoneClick}
           title={experiments?.newSettingsUi?.enabled && t('VideoModal_MobileHeader')}
         />
-
       ) : experiments?.newSettingsUi?.enabled ? (
         <SettingsPanelHeader title={t('VideoPlugin_Settings_Header')} onClose={closeModal} />
       ) : (

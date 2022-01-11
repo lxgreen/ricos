@@ -1,5 +1,6 @@
-import React, { Component, ReactElement } from 'react';
-import { Pubsub } from 'wix-rich-content-common';
+import React, { Component } from 'react';
+import type { ReactElement } from 'react';
+import type { Pubsub } from 'wix-rich-content-common';
 
 interface BaseActionsProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

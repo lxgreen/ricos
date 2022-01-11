@@ -206,6 +206,4 @@ DesignSettingsSection.propTypes = {
   updateData: PropTypes.func.isRequired,
   store: PropTypes.object.isRequired,
   languageDir: PropTypes.string.isRequired,
-  updateData: PropTypes.func.isRequired,
-  experiments: PropTypes.object,
 };

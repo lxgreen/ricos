@@ -52,7 +52,7 @@ const createExternalMentionsPlugin: CreatePluginFunction<MentionsPluginEditorCon
       reposition: settings.repositionSuggestions,
       visibleItemsBeforeOverflow: settings.visibleItemsBeforeOverflow,
     }),
-    supportWhitespace: true,
+    supportWhitespace: 'supportWhitespace' in mSettings ? mSettings.supportWhitespace : true,
   });
 
   const inlineModals = [

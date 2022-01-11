@@ -1,7 +1,12 @@
 import type { ReactElement, FunctionComponent } from 'react';
 import React, { Children, Component, Suspense, Fragment } from 'react';
 import mergeModalStyles from './mergeModalStyles';
-import type { ModalStyles, ModalsMap, AvailableExperiments, EditorCommands } from 'wix-rich-content-common';
+import type {
+  ModalStyles,
+  ModalsMap,
+  AvailableExperiments,
+  EditorCommands,
+} from 'wix-rich-content-common';
 import type { ModalSettings } from 'ricos-common';
 import { merge } from 'lodash';
 import ReactDOM from 'react-dom';

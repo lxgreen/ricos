@@ -577,6 +577,7 @@ const config: RichContentEditorProps['config'] = {
           250
         )
       ),
+    // supportWhitespace: false
   },
   [COLLAPSIBLE_LIST_TYPE]: {
     innerRCEPlugins,

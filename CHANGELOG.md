@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+- `mention-plugin`
+  - [#3377](https://github.com/wix/ricos/pull/3377) add supportWhitespace config
+
 </details>
 <hr/>
 
