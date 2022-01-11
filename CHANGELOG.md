@@ -17,16 +17,22 @@
     Click to see more.
   </summary>
 
-
 </details>
 <hr/>
+
+## 8.67.0 (Jan 11, 2022)
+
+### :rocket: New Feature
+
+- `*`
+  - [#3354](https://github.com/wix/ricos/pull/3354) separate viewer and editor styles & include css inside js bundled files
 
 ## 8.66.14 (Jan 09, 2022)
 
 ### :nail_care: Polish
 
 - `general`
-  - [#3373](https://github.com/wix/ricos/pull/3373) refactor  pluginpopoverclick bi naming
+  - [#3373](https://github.com/wix/ricos/pull/3373) refactor pluginpopoverclick bi naming
 
 ## 8.66.13 (Jan 09, 2022)
 
@@ -36,7 +42,9 @@
   - [#3361](https://github.com/wix/ricos/pull/3361) add pluginpopoverclick & pluginpopovertabswitch bi events
 
 ## 8.66.12 (Jan 07, 2022)
+
 ### :bug: Bug Fix
+
 - `video`
   - [#3369](https://github.com/wix/ricos/pull/3369) fix onProgress throws an error
 
