@@ -2,15 +2,19 @@ import React, { useState } from 'react';
 import ReactPlayer from 'react-player';
 import classNames from 'classnames';
 import { Tab, Tabs, SettingsMobileHeader } from 'wix-rich-content-ui-components';
+import {
+  MEDIA_POPOVERS_BUTTONS_NAMES_BI,
+  MEDIA_POPOVERS_TABS_NAMES_BI,
+} from 'wix-rich-content-common';
 import VideoUploadModal from './videoUploadModal';
 import NewMediaURLInputModal from './NewMediaUrlInputModal';
-import { videoButtonsTypes } from '../types';
+import { videoButtonsTypes, VIDEO_TYPE } from '../types';
 import styles from '../../statics/styles/video-modal.scss';
 
 const VideoModal = props => {
   const {
     componentData: { isCustomVideo, src, type },
-    helpers: { closeModal },
+    helpers: { closeModal, onPluginsPopOverTabSwitch, onPluginsPopOverClick },
     t,
     theme,
     isMobile,
@@ -23,9 +27,19 @@ const VideoModal = props => {
   const [url, setUrl] = useState(initialUrl);
   const [submittedInvalidUrl, setSubmittedInvalidUrl] = useState(false);
   const isSoundCloud = type === videoButtonsTypes.soundCloud;
-  const onTabSelected = tab => setActiveTab(tab);
+  const onTabSelected = tab => {
+    onPluginsPopOverTabSwitch?.({
+      pluginId: VIDEO_TYPE,
+      buttonName: MEDIA_POPOVERS_TABS_NAMES_BI[tab.toLocaleLowerCase()],
+    });
+    setActiveTab(tab);
+  };
   const onUrlInputDoubleClick = () => setUrl('https://www.youtube.com/watch?v=vzKryaN44ss');
   const onConfirm = () => {
+    onPluginsPopOverClick?.({
+      pluginId: VIDEO_TYPE,
+      buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.embed,
+    });
     if (url && ReactPlayer.canPlay(url)) {
       const { componentData, helpers, pubsub, onConfirm } = props;
       if (onConfirm) {

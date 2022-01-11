@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { UrlInputModal, NewUrlInputModal, BUTTON_SIZE } from 'wix-rich-content-ui-components';
 import { DEFAULTS } from '../defaults';
-
+import { LINK_PREVIEW_TYPE } from '../types';
+import { MEDIA_POPOVERS_BUTTONS_NAMES_BI } from 'wix-rich-content-common';
 export default class EmbedURLInputModal extends Component {
   constructor(props) {
     super(props);
@@ -15,8 +16,12 @@ export default class EmbedURLInputModal extends Component {
 
   onConfirm = () => {
     const { url } = this.state;
+    const { componentData, pubsub, onConfirm, helpers, fetchData } = this.props;
+    helpers?.onPluginsPopOverClick?.({
+      pluginId: LINK_PREVIEW_TYPE,
+      buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.embed,
+    });
     if (url) {
-      const { componentData, pubsub, onConfirm, helpers, fetchData } = this.props;
       fetchData(url).then(({ html }) => {
         if (!html) {
           this.setState({ submittedInvalidUrl: true });
@@ -41,6 +46,15 @@ export default class EmbedURLInputModal extends Component {
     }
   };
 
+  onCloseRequested = () => {
+    const { helpers } = this.props;
+    helpers?.onPluginsPopOverClick?.({
+      pluginId: LINK_PREVIEW_TYPE,
+      buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.cancel,
+    });
+    helpers?.closeModal();
+  };
+
   render() {
     const { url, submittedInvalidUrl } = this.state;
     const { t, languageDir, socialType, helpers, isMobile, experiments } = this.props;
@@ -61,7 +75,7 @@ export default class EmbedURLInputModal extends Component {
         onInputChange={url => this.setState({ url })}
         errorMessage={t('SoundCloudUploadModal_Input_InvalidUrl')}
         placeholder={t(`EmbedURL_Social_${socialType}_Placeholder`)}
-        onCloseRequested={helpers.closeModal}
+        onCloseRequested={this.onCloseRequested}
         buttonSize={BUTTON_SIZE.medium}
         isMobile={isMobile}
       />

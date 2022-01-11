@@ -2,12 +2,15 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextInput, Button, CloseIcon, BUTTON_SIZE } from 'wix-rich-content-ui-components';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
-import { mergeStyles, isValidExactUrl } from 'wix-rich-content-common';
+import {
+  mergeStyles,
+  isValidExactUrl,
+  MEDIA_POPOVERS_BUTTONS_NAMES_BI,
+} from 'wix-rich-content-common';
 import styles from '../../statics/styles/video-selection-input-modal.scss';
 import ReactPlayer from 'react-player';
 import { VIDEO_TYPE } from '../types';
 import { handleUploadStart, handleUploadFinished } from 'wix-rich-content-plugin-commons';
-
 export default class VideoSelectionInputModal extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +41,6 @@ export default class VideoSelectionInputModal extends Component {
   onUrlVideoSelection = () => {
     const { componentData, helpers } = this.props;
     const { url = '' } = this.state;
-
     const src = url.trim();
     if (!(isValidExactUrl(src) && ReactPlayer.canPlay(src))) {
       this.setState({ showError: true });
@@ -48,7 +50,10 @@ export default class VideoSelectionInputModal extends Component {
     delete componentData.isCustomVideo;
     const data = { ...componentData, tempData: false, src };
     this.onConfirm(data);
-
+    helpers?.onPluginsPopOverClick?.({
+      pluginId: VIDEO_TYPE,
+      buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.embed,
+    });
     helpers?.onVideoSelected?.(
       src,
       metadata => setTimeout(() => this.updateComponentData({ ...data, metadata })),
@@ -131,10 +136,15 @@ export default class VideoSelectionInputModal extends Component {
     const hasCustomFileUpload = handleFileUpload || handleFileSelection;
     let handleClick;
     if (handleFileSelection) {
+      const { helpers } = this.props;
       handleClick = evt => {
         evt.preventDefault();
         return handleFileSelection(({ data, error }) => {
           this.addVideoComponent({ data, error }, true);
+          helpers?.onPluginsPopOverClick?.({
+            pluginId: VIDEO_TYPE,
+            buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.upload,
+          });
           this.closeModal();
         });
       };

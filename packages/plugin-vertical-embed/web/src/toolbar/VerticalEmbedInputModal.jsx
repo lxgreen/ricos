@@ -13,6 +13,8 @@ import ItemsList from './itemsList/ItemsList';
 import styles from '../../statics/styles/vertical-embed-modal.scss';
 import generalStyles from '../../statics/styles/general.scss';
 import { convertDuration } from '../utils';
+import { VERTICAL_EMBED_TYPE } from '../types';
+import { MEDIA_POPOVERS_BUTTONS_NAMES_BI } from 'wix-rich-content-common';
 
 const LOADING = 'LOADING';
 const NO_ITEMS = 'NO_ITEMS';
@@ -54,6 +56,10 @@ export default class VerticalEmbedInputModal extends Component {
   onConfirm = () => {
     const { onConfirm, componentData, helpers, onReplace } = this.props;
     const { selectedProduct } = this.state;
+    helpers?.onPluginsPopOverClick?.({
+      pluginId: VERTICAL_EMBED_TYPE,
+      buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.embed,
+    });
     if (!selectedProduct) {
       return;
     }
@@ -87,6 +93,15 @@ export default class VerticalEmbedInputModal extends Component {
       getDescription = product => `${product.scheduling} | ${product.location}`;
     }
     return getDescription ? items.map(product => ({ ...product, getDescription })) : items;
+  };
+
+  onCloseRequested = () => {
+    const { helpers } = this.props;
+    helpers?.onPluginsPopOverClick?.({
+      pluginId: VERTICAL_EMBED_TYPE,
+      buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.cancel,
+    });
+    helpers?.closeModal();
   };
 
   render() {
@@ -124,7 +139,7 @@ export default class VerticalEmbedInputModal extends Component {
         dataHook={'verticalEmbedModal'}
         placeholder={t(`Embed_Vertical_${contentType}_Placeholder`)}
         saveLabel={t('Embed_Add_Button_Label')}
-        onCloseRequested={helpers.closeModal}
+        onCloseRequested={this.onCloseRequested}
         onInputChange={this.onInputChange}
         input={inputString}
         isMobile={isMobile}

@@ -3,17 +3,24 @@ import React, { Component } from 'react';
 import { VIDEO_TYPE } from '../types';
 import { handleUploadStart, handleUploadFinished } from 'wix-rich-content-plugin-commons';
 import { MediaUploadModal } from 'wix-rich-content-ui-components';
-
+import { MEDIA_POPOVERS_BUTTONS_NAMES_BI } from 'wix-rich-content-common';
 export default class VideoUploadModal extends Component {
   constructor(props) {
     super(props);
-    const { componentData } = this.props;
+    const {
+      componentData,
+      helpers: { onPluginsPopOverClick },
+    } = this.props;
     this.state = {
       url: (!componentData.isCustomVideo && componentData.src) || '',
     };
     this.id = `VideoUploadModal_FileInput_${Math.floor(Math.random() * 9999)}`;
     const { onConfirm, onReplace } = props;
     this.onConfirm = obj => {
+      onPluginsPopOverClick?.({
+        pluginId: VIDEO_TYPE,
+        buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.upload,
+      });
       if (onConfirm) {
         const { newBlock } = onConfirm(obj);
         this.blockKey = newBlock.key;
