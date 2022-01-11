@@ -17,19 +17,28 @@
     Click to see more.
   </summary>
 
-
 </details>
 <hr/>
+
+## 8.67.3(Jan 11, 2022)
+
+### :house: Internal
+
+- `editor-modals`
+  - [#3337](https://github.com/wix/ricos/pull/3337) using editor commands in settings modals under modalsWithEditorCommands experiment
 
 ## 8.67.2(Jan 11, 2022)
 
 ### :house: Internal
+
 - `*`
+
   - [#3354](https://github.com/wix/ricos/pull/3354) revert
-  
+
 ## 8.67.1 (Jan 11, 2022)
 
 ### :house: Internal
+
 - `general`
   - [#3376](https://github.com/wix/ricos/pull/3376) implemented bi-events for switching tabs and clicking buttons in video/vertical-social embed popovers
 
