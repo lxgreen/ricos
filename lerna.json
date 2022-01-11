@@ -18,5 +18,5 @@
   "npmClientArgs": [
     "--no-lockfile"
   ],
-  "version": "8.67.2"
+  "version": "8.67.3"
 }
