@@ -21,6 +21,12 @@
 </details>
 <hr/>
 
+## 8.67.2(Jan 11, 2022)
+
+### :house: Internal
+- `*`
+  - [#3354](https://github.com/wix/ricos/pull/3354) revert
+  
 ## 8.67.1 (Jan 11, 2022)
 
 ### :house: Internal
