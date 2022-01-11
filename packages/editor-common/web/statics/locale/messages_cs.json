@@ -9,7 +9,7 @@
   "LinkTo_Modal_Section_Filter_Quotes": "Citace",
   "TablePlugin_SettingsModal_RowCount": "Kolik řádků?",
   "ImageSettings_Update": "Uložit",
-  "Poll_PollSettings_Tab_Design_Section_CornerRadius_Header": "Rádius rohů",
+  "Poll_PollSettings_Tab_Design_Section_CornerRadius_Header": "Poloměr rohů",
   "UploadAudio_Error_Unsupported_Bit_Rate": "Bitrate tohoto audio souboru není podporována a soubor nelze nahrát. Zkuste jiný soubor.",
   "SoundCloudUploadModal_Input_Placeholder": "např. https://soundcloud.com/priklad",
   "VideoPlugin_Settings_Header": "Video",
