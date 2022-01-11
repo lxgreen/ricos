@@ -19,27 +19,47 @@ import styles from './layout-settings-section.scss';
 export class LayoutSettingsSection extends Component {
   styles = mergeStyles({ styles, theme: this.props.theme });
 
+  modalsWithEditorCommands = this.props.experiments.modalsWithEditorCommands?.enabled;
+
   useNewSettingsUi = !!this.props.experiments.newSettingsUi?.enabled;
 
   updateSettings(layout) {
-    this.props.store.update('componentData', {
-      layout,
-    });
+    const { updateData, componentData } = this.props;
+    this.modalsWithEditorCommands
+      ? updateData({ layout: { ...componentData.layout, ...layout } })
+      : this.props.store.update('componentData', {
+          layout,
+        });
   }
 
   handlePollTypeChange = type => {
-    this.updateSettings({
-      poll: { type },
-      option: { enableImage: type === LAYOUT.GRID },
-    });
+    const {
+      componentData: { layout },
+    } = this.props;
+    this.modalsWithEditorCommands
+      ? this.updateSettings({
+          poll: { ...layout.poll, type },
+          option: { ...layout.option, enableImage: type === LAYOUT.GRID },
+        })
+      : this.updateSettings({
+          poll: { type },
+          option: { enableImage: type === LAYOUT.GRID },
+        });
 
     window.dispatchEvent(new Event('resize'));
   };
 
   handleDirectionChange = direction => {
-    this.updateSettings({
-      poll: { direction },
-    });
+    const {
+      componentData: { layout },
+    } = this.props;
+    this.modalsWithEditorCommands
+      ? this.updateSettings({
+          poll: { ...layout.poll, direction },
+        })
+      : this.updateSettings({
+          poll: { direction },
+        });
   };
 
   renderOption = ({ item, selected }) =>
@@ -68,7 +88,11 @@ export class LayoutSettingsSection extends Component {
             <LabeledToggle
               label={t('Poll_PollSettings_Tab_Layout_Section_Question_Image')}
               checked={poll?.enableImage}
-              onChange={() => this.updateSettings({ poll: { enableImage: !poll?.enableImage } })}
+              onChange={() =>
+                this.modalsWithEditorCommands
+                  ? this.updateSettings({ poll: { ...poll, enableImage: !poll?.enableImage } })
+                  : this.updateSettings({ poll: { enableImage: !poll?.enableImage } })
+              }
               theme={this.props.theme}
             />
 
@@ -106,7 +130,11 @@ export class LayoutSettingsSection extends Component {
           <LabeledToggle
             label={t('Poll_PollSettings_Tab_Layout_Section_Answers_Image')}
             checked={option?.enableImage}
-            onChange={() => this.updateSettings({ option: { enableImage: !option?.enableImage } })}
+            onChange={() =>
+              this.modalsWithEditorCommands
+                ? this.updateSettings({ option: { ...option, enableImage: !option?.enableImage } })
+                : this.updateSettings({ option: { enableImage: !option?.enableImage } })
+            }
             theme={this.props.theme}
           />
         )}

@@ -31,6 +31,7 @@ export default class ButtonInputModal extends Component {
     this.styles = mergeStyles({ styles, theme: props.theme });
     const {
       componentData: { button },
+      experiments,
     } = this.props;
 
     this.state = {
@@ -45,6 +46,7 @@ export default class ButtonInputModal extends Component {
     this.setScrollbarRef = element => {
       this.scrollbarRef = element;
     };
+    this.modalsWithEditorCommands = experiments.modalsWithEditorCommands?.enabled;
   }
 
   onSettingsChanged = settings => {
@@ -53,8 +55,11 @@ export default class ButtonInputModal extends Component {
       const {
         pubsub,
         componentData: { button },
+        updateData,
       } = this.props;
-      pubsub.update('componentData', { button: { ...button, settings, design } });
+      this.modalsWithEditorCommands
+        ? updateData({ button: { ...button, settings, design } })
+        : pubsub.update('componentData', { button: { ...button, settings, design } });
       this.setState({ settings });
     }
   };
@@ -68,8 +73,11 @@ export default class ButtonInputModal extends Component {
       const {
         pubsub,
         componentData: { button },
+        updateData,
       } = this.props;
-      pubsub.update('componentData', { button: { ...button, design, settings } });
+      this.modalsWithEditorCommands
+        ? updateData({ button: { ...button, design, settings } })
+        : pubsub.update('componentData', { button: { ...button, design, settings } });
       this.setState({ design });
     }
   };
@@ -92,14 +100,15 @@ export default class ButtonInputModal extends Component {
   onConfirm = () => {
     const {
       helpers: { closeModal },
+      onSave,
     } = this.props;
     const { initialComponentData, design } = this.state;
     if (!initialComponentData.design.color && this.currentColorEqualToConfig()) {
       this.removeColorsFromComponentData(design);
     }
-    this.setState({ submitted: true, isOpen: false });
+    !this.modalsWithEditorCommands && this.setState({ submitted: true, isOpen: false });
     this.triggerLinkBi();
-    closeModal();
+    this.modalsWithEditorCommands ? onSave() : closeModal();
   };
 
   currentColorEqualToConfig = () => {
@@ -116,10 +125,10 @@ export default class ButtonInputModal extends Component {
 
   handleKeyPress = e => {
     if (e.charCode === KEYS_CHARCODE.ENTER) {
-      this.onConfirm();
+      this.modalsWithEditorCommands ? this.onSave() : this.onConfirm();
     }
     if (e.charCode === KEYS_CHARCODE.ESCAPE) {
-      this.onCloseRequested();
+      this.modalsWithEditorCommands ? this.props.onCancel() : this.onCloseRequested();
     }
   };
 
@@ -145,15 +154,19 @@ export default class ButtonInputModal extends Component {
   };
 
   removeColorsFromComponentData = design => {
-    const { pubsub } = this.props;
+    const { pubsub, componentData, updateData } = this.props;
     const designToSave = {
       borderWidth: design.borderWidth,
       padding: design.padding,
       borderRadius: design.borderRadius,
     };
-    const componentDataToSave = pubsub.get('componentData');
+    const componentDataToSave = this.modalsWithEditorCommands
+      ? componentData
+      : pubsub.get('componentData');
     componentDataToSave.button.design = designToSave;
-    pubsub.set('componentData', componentDataToSave);
+    this.modalsWithEditorCommands
+      ? updateData(componentDataToSave)
+      : pubsub.set('componentData', componentDataToSave);
   };
 
   handleOnMouseEnterDesign = () => {
@@ -169,7 +182,7 @@ export default class ButtonInputModal extends Component {
   };
 
   render() {
-    const { theme, t, uiSettings, doneLabel, cancelLabel, isMobile, experiments = {} } = this.props;
+    const { theme, t, uiSettings, onCancel, isMobile, experiments = {} } = this.props;
     const { showLinkPanel } = this.state;
     const { styles } = this;
     const settingTabLabel = (
@@ -211,7 +224,7 @@ export default class ButtonInputModal extends Component {
         <div>
           <SettingsMobileHeader
             onSave={this.onConfirm}
-            onCancel={this.onCloseRequested}
+            onCancel={this.modalsWithEditorCommands ? onCancel : this.onCloseRequested}
             theme={styles}
             title={experiments?.newSettingsUi?.enabled && t('ButtonModal_Header')}
             t={t}
@@ -301,7 +314,7 @@ export default class ButtonInputModal extends Component {
             <SettingsPanelFooter
               fixed
               save={this.onConfirm}
-              cancel={this.onCloseRequested}
+              cancel={this.modalsWithEditorCommands ? onCancel : this.onCloseRequested}
               theme={styles}
               t={t}
               buttonSize={BUTTON_SIZE.small}
@@ -317,24 +330,14 @@ ButtonInputModal.propTypes = {
   componentData: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   t: PropTypes.func,
-  style: PropTypes.object,
-  buttonObj: PropTypes.object,
-  anchorTarget: PropTypes.string.isRequired,
-  relValue: PropTypes.string.isRequired,
   settings: PropTypes.object.isRequired,
-  blockProps: PropTypes.object,
-  pubsub: PropTypes.object,
-  onConfirm: PropTypes.func,
-  onCloseRequested: PropTypes.func,
-  doneLabel: PropTypes.string,
-  cancelLabel: PropTypes.string,
   uiSettings: PropTypes.object,
   helpers: PropTypes.object,
   experiments: PropTypes.object,
   isMobile: PropTypes.bool,
-};
-
-ButtonInputModal.defaultProps = {
-  doneLabel: 'Save',
-  cancelLabel: 'Cancel',
+  updateData: PropTypes.func,
+  onSave: PropTypes.func,
+  onCancel: PropTypes.func,
+  pubsub: PropTypes.object,
+  onCloseRequested: PropTypes.func,
 };

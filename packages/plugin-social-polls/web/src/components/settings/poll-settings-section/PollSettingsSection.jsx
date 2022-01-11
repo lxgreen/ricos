@@ -16,6 +16,8 @@ import styles from './poll-settings-section.scss';
 export class PollSettingsSection extends Component {
   styles = mergeStyles({ styles, theme: this.props.theme });
 
+  modalsWithEditorCommands = this.props.experiments.modalsWithEditorCommands?.enabled;
+
   VOTE_ROLE_OPTIONS = [
     {
       value: MEMBER_ROLES.SITE_MEMBERS,
@@ -75,11 +77,19 @@ export class PollSettingsSection extends Component {
   ];
 
   updateSettings(settings) {
-    this.props.store.update('componentData', {
-      poll: {
-        settings,
-      },
-    });
+    const { updateData, componentData } = this.props;
+    this.modalsWithEditorCommands
+      ? updateData({
+          poll: {
+            ...componentData.poll,
+            settings: { ...componentData.poll.settings, ...settings },
+          },
+        })
+      : this.props.store.update('componentData', {
+          poll: {
+            settings,
+          },
+        });
   }
 
   render() {
@@ -168,4 +178,6 @@ PollSettingsSection.propTypes = {
   store: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
   settings: PropTypes.object.isRequired,
+  updateData: PropTypes.func.isRequired,
+  experiments: PropTypes.object,
 };

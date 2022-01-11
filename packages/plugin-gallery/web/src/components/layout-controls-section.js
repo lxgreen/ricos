@@ -30,6 +30,7 @@ class Separator extends Component {
   constructor(props) {
     super(props);
     this.styles = mergeStyles({ styles, theme: props.theme });
+    this.modalsWithEditorCommands = props.experiments.modalsWithEditorCommands?.enabled;
   }
 
   render = () => {
@@ -51,6 +52,8 @@ class Separator extends Component {
 }
 
 class LayoutControlsSection extends Component {
+  modalsWithEditorCommands = this.props.experiments.modalsWithEditorCommands?.enabled;
+
   controlsByLayout = [
     ['|', 'scrollDirection', '|', 'imageOrientation', '|', 'thumbnailSize', '|', 'spacing'], // collage
     ['|', 'imageOrientation', '|', 'thumbnailSize', '|', 'spacing'], // masonry
@@ -67,9 +70,11 @@ class LayoutControlsSection extends Component {
   getValueFromComponentStyles = name => this.props.data.styles[name];
 
   applyGallerySetting = setting => {
-    const { data, store } = this.props;
+    const { data, store, updateData } = this.props;
     const componentData = { ...data, styles: { ...data.styles, ...setting } };
-    store.set('componentData', componentData);
+    this.modalsWithEditorCommands
+      ? updateData(componentData)
+      : store.set('componentData', componentData);
   };
 
   getControlData = t => ({
@@ -186,6 +191,7 @@ class LayoutControlsSection extends Component {
               decorateComponentWithProps(controls[name].component, {
                 ...controls[name].props,
                 theme: this.props.theme,
+                experiments: this.props.experiments,
               })
             )}
           </SettingsSection>
@@ -203,6 +209,8 @@ LayoutControlsSection.propTypes = {
   experiments: PropTypes.object,
   languageDir: PropTypes.string.isRequired,
   t: PropTypes.func,
+  updateData: PropTypes.func.isRequired,
+  experiments: PropTypes.experiments,
 };
 
 // export default translate(null)(LayoutControlsSection);

@@ -1,4 +1,5 @@
 export const EXPERIMENTS = [
+  { name: 'modalsWithEditorCommands', scope: 'ricos' },
   { name: 'newFormattingToolbar', scope: 'ricos' },
   { name: 'newSettingsUi', scope: 'ricos' },
   { name: 'tiptapEditor', scope: 'ricos' },

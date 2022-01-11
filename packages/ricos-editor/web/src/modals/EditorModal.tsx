@@ -42,8 +42,17 @@ export default class EditorModal extends Component<Props> {
   };
 
   render() {
-    const { isOpen, contentLabel, style, role, onRequestClose, ModalsMap, locale, ...modalProps } =
-      this.props;
+    const {
+      isOpen,
+      contentLabel,
+      style,
+      role,
+      onRequestClose,
+      ModalsMap,
+      locale,
+      editorCommands,
+      ...modalProps
+    } = this.props;
     return (
       <ReactModal
         isOpen={isOpen}
@@ -53,7 +62,12 @@ export default class EditorModal extends Component<Props> {
         parentSelector={this.parentSelector}
         onRequestClose={onRequestClose}
       >
-        <RichContentEditorModal modalsMap={ModalsMap} locale={locale} {...modalProps} />
+        <RichContentEditorModal
+          editorCommands={editorCommands}
+          modalsMap={ModalsMap}
+          locale={locale}
+          {...modalProps}
+        />
       </ReactModal>
     );
   }

@@ -19,7 +19,7 @@ import classNames from 'classnames';
 export class MapSettingsModal extends Component {
   constructor(props) {
     super(props);
-    const { componentData } = this.props;
+    const { componentData, experiments } = this.props;
 
     this.styles = mergeStyles({ styles, theme: props.theme });
 
@@ -36,19 +36,41 @@ export class MapSettingsModal extends Component {
       isViewControlShown: componentData.mapSettings.isViewControlShown,
       locationDisplayName: componentData.mapSettings.locationDisplayName,
       isLocationInputAlreadyFocused: false,
+      mapSettings: { ...componentData.mapSettings },
     };
+    this.modalsWithEditorCommands = experiments.modalsWithEditorCommands?.enabled;
   }
 
-  onLocationInputChange = value => this.setState({ locationSearchPhrase: value, address: value });
+  updateMapSettings = data =>
+    this.setState({ mapSettings: { ...this.state.mapSettings, ...data } });
+
+  onLocationInputChange = value =>
+    this.modalsWithEditorCommands
+      ? this.setState({
+          locationSearchPhrase: value,
+          mapSettings: { ...this.state.mapSettings, address: value },
+        })
+      : this.setState({ locationSearchPhrase: value, address: value });
 
   onLocationSuggestSelect = (geocodedPrediction, originalPrediction) =>
-    this.setState({
-      locationSearchPhrase: '',
-      address: originalPrediction.description,
-      locationDisplayName: originalPrediction.description,
-      lat: geocodedPrediction.geometry.location.lat(),
-      lng: geocodedPrediction.geometry.location.lng(),
-    });
+    this.modalsWithEditorCommands
+      ? this.setState({
+          locationSearchPhrase: '',
+          mapSettings: {
+            ...this.state.mapSettings,
+            address: originalPrediction.description,
+            locationDisplayName: originalPrediction.description,
+            lat: geocodedPrediction.geometry.location.lat(),
+            lng: geocodedPrediction.geometry.location.lng(),
+          },
+        })
+      : this.setState({
+          locationSearchPhrase: '',
+          address: originalPrediction.description,
+          locationDisplayName: originalPrediction.description,
+          lat: geocodedPrediction.geometry.location.lat(),
+          lng: geocodedPrediction.geometry.location.lng(),
+        });
 
   onSaveBtnClick = () => {
     const { componentData, onConfirm, pubsub, helpers } = this.props;
@@ -77,18 +99,31 @@ export class MapSettingsModal extends Component {
     helpers.closeModal();
   };
 
-  toggleState = key => () => {
+  onSave = () => {
+    const { updateData, onSave } = this.props;
+    updateData({ mapSettings: this.state.mapSettings });
+    onSave();
+  };
+
+  oldToggleState = key => () => {
     this.setState(prevState => ({
       [key]: !prevState[key],
     }));
   };
 
+  toggleState = key => () => this.updateMapSettings({ [key]: !this.state.mapSettings[key] });
+
   renderToggle = ({ toggleKey, labelKey }) => (
     <LabeledToggle
+      key={labelKey}
       theme={this.props.theme}
-      checked={this.state[toggleKey]}
+      checked={
+        this.modalsWithEditorCommands ? this.state.mapSettings[toggleKey] : this.state[toggleKey]
+      }
       label={this.props.t(labelKey)}
-      onChange={this.toggleState(toggleKey)}
+      onChange={
+        this.modalsWithEditorCommands ? this.toggleState(toggleKey) : this.oldToggleState(toggleKey)
+      }
     />
   );
 
@@ -117,8 +152,15 @@ export class MapSettingsModal extends Component {
 
   renderSettingsSections() {
     const { theme, t, isMobile } = this.props;
-    const { locationSearchPhrase, address } = this.state;
+    const { locationSearchPhrase } = this.state;
     const { googleMapApiKey } = this.props.settings;
+    const address = this.modalsWithEditorCommands
+      ? this.state.mapSettings.address
+      : this.state.address;
+
+    const locationDisplayName = this.modalsWithEditorCommands
+      ? this.state.mapSettings.locationDisplayName
+      : this.state.locationDisplayName;
 
     return (
       <div
@@ -199,8 +241,12 @@ export class MapSettingsModal extends Component {
           <TextInput
             type="text"
             id="location-display-name"
-            value={this.state.locationDisplayName}
-            onChange={locationDisplayName => this.setState({ locationDisplayName })}
+            value={locationDisplayName}
+            onChange={locationDisplayName =>
+              this.modalsWithEditorCommands
+                ? this.updateMapSettings({ locationDisplayName })
+                : this.setState({ locationDisplayName })
+            }
             theme={this.styles}
             autoComplete="off"
           />
@@ -235,6 +281,7 @@ export class MapSettingsModal extends Component {
       languageDir,
       helpers: { closeModal },
       theme,
+      onCancel,
       experiments = {},
     } = this.props;
 
@@ -253,8 +300,8 @@ export class MapSettingsModal extends Component {
       <div dir={languageDir}>
         {isMobile && (
           <SettingsMobileHeader
-            onSave={this.onSaveBtnClick}
-            onCancel={closeModal}
+            onSave={this.modalsWithEditorCommands ? this.onSave : this.onSaveBtnClick}
+            onCancel={this.modalsWithEditorCommands ? onCancel : closeModal}
             theme={theme}
             t={t}
             title={experiments?.newSettingsUi?.enabled && t('MapSettings_Title')}
@@ -282,8 +329,8 @@ export class MapSettingsModal extends Component {
           {!isMobile && (
             <SettingsPanelFooter
               fixed
-              cancel={closeModal}
-              save={this.onSaveBtnClick}
+              cancel={this.modalsWithEditorCommands ? onCancel : closeModal}
+              save={this.modalsWithEditorCommands ? this.onSave : this.onSaveBtnClick}
               theme={theme}
               t={t}
             />
@@ -304,5 +351,8 @@ MapSettingsModal.propTypes = {
   t: PropTypes.func,
   isMobile: PropTypes.bool,
   languageDir: PropTypes.string,
+  onSave: PropTypes.func,
+  onCancel: PropTypes.func,
+  updateData: PropTypes.func,
   experiments: PropTypes.object,
 };

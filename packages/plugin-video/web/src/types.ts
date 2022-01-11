@@ -31,5 +31,8 @@ export interface VideoSettingsProps {
   t: TranslationFunction;
   isMobile: boolean;
   settings: VideoPluginEditorConfig;
+  onSave: () => void;
+  onCancel: () => void;
+  updateData: (data) => void;
   experiments?: AvailableExperiments;
 }

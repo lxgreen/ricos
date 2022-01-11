@@ -24,6 +24,8 @@ export class DesignSettingsSection extends Component {
     [BACKGROUND_TYPE.GRADIENT]: 'Poll_PollSettings_Tab_Design_Section_Background_Gradient_Pick',
   };
 
+  modalsWithEditorCommands = this.props.experiments.modalsWithEditorCommands?.enabled;
+
   styles = mergeStyles({ styles, theme: this.props.theme });
 
   state = {
@@ -33,19 +35,28 @@ export class DesignSettingsSection extends Component {
   useNewSettingsUi = !!this.props.experiments.newSettingsUi?.enabled;
 
   updateDesign(design) {
-    this.props.store.update('componentData', { design });
+    const { updateData, componentData } = this.props;
+    this.modalsWithEditorCommands
+      ? updateData({ design: { ...componentData.design, ...design } })
+      : this.props.store.update('componentData', { design });
   }
 
   handleBackgroundChange = value => {
     const { backgroundType } = this.state;
-
+    const {
+      componentData: { design },
+    } = this.props;
     let background = value;
 
     if (backgroundType === BACKGROUND_TYPE.GRADIENT) {
       background = JSON.parse(value);
     }
 
-    this.updateDesign({ poll: { background, backgroundType } });
+    this.modalsWithEditorCommands
+      ? this.updateDesign({
+          poll: { ...design.poll, background, backgroundType },
+        })
+      : this.updateDesign({ poll: { background, backgroundType } });
   };
 
   handleBackgroundColorChange = ({ color }) => {
@@ -53,10 +64,18 @@ export class DesignSettingsSection extends Component {
   };
 
   handlePollBorderRadiusChange = borderRadius =>
-    this.updateDesign({ poll: { borderRadius: `${borderRadius}px` } });
+    this.modalsWithEditorCommands
+      ? this.updateDesign({
+          poll: { ...this.props.componentData.design.poll, borderRadius: `${borderRadius}px` },
+        })
+      : this.updateDesign({ poll: { borderRadius: `${borderRadius}px` } });
 
   handleOptionBorderRadiusChange = borderRadius =>
-    this.updateDesign({ option: { borderRadius: `${borderRadius}px` } });
+    this.modalsWithEditorCommands
+      ? this.updateDesign({
+          option: { ...this.props.componentData.design.option, borderRadius: `${borderRadius}px` },
+        })
+      : this.updateDesign({ option: { borderRadius: `${borderRadius}px` } });
 
   handleTypeChange = backgroundType => {
     this.setState({ backgroundType }, () =>
@@ -187,4 +206,6 @@ DesignSettingsSection.propTypes = {
   updateData: PropTypes.func.isRequired,
   store: PropTypes.object.isRequired,
   languageDir: PropTypes.string.isRequired,
+  updateData: PropTypes.func.isRequired,
+  experiments: PropTypes.object,
 };

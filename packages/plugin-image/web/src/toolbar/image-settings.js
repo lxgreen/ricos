@@ -22,7 +22,7 @@ class ImageSettings extends Component {
     super(props);
     this.state = this.propsToState(props);
     this.initialState = { ...this.state };
-    const { t, theme } = props;
+    const { t, theme, experiments } = props;
     this.styles = mergeStyles({ styles, theme });
     this.updateLabel = t('ImageSettings_Update');
     this.headerText = t('ImageSettings_Header');
@@ -31,6 +31,7 @@ class ImageSettings extends Component {
     this.altLabel = t('ImageSettings_Alt_Label');
     this.altTooltip = 'ImageSettings_Alt_Label_Tooltip';
     this.altInputPlaceholder = t('ImageSettings_Alt_Input_Placeholder');
+    this.modalsWithEditorCommands = experiments.modalsWithEditorCommands?.enabled;
   }
 
   propsToState(props) {
@@ -62,16 +63,28 @@ class ImageSettings extends Component {
     this.setState({ [key]: value }, onToggle?.(value));
   };
 
-  renderToggle = ({ toggleKey, labelKey, dataHook, tooltipText, onToggle, type }) => {
+  renderToggle = ({
+    isChecked,
+    toggleKey,
+    labelKey,
+    dataHook,
+    tooltipText,
+    onChange,
+    type,
+    onToggle,
+  }) => {
+    const { theme, t } = this.props;
     return type === DIVIDER ? (
-      <SettingsSeparator top />
+      <SettingsSeparator key={toggleKey} top />
     ) : (
       <div key={toggleKey} className={this.styles.imageSettings_toggleContainer}>
         <LabeledToggle
-          theme={this.props.theme}
-          checked={this.state[toggleKey]}
-          label={this.props.t(labelKey)}
-          onChange={this.toggleState(toggleKey, onToggle)}
+          theme={theme}
+          checked={this.modalsWithEditorCommands ? isChecked() : this.state[toggleKey]}
+          label={t(labelKey)}
+          onChange={
+            this.modalsWithEditorCommands ? onChange : this.toggleState(toggleKey, onToggle)
+          }
           dataHook={dataHook}
           tooltipText={tooltipText}
         />
@@ -85,12 +98,22 @@ class ImageSettings extends Component {
       labelKey: 'ImagePlugin_Settings_ImageOpensInExpandMode_Label',
       dataHook: 'imageExpandToggle',
       tooltipText: this.props.t('ImageSettings_Expand_Mode_Toggle'),
+      isChecked: () => !this.props.componentData.disableExpand,
+      onChange: () =>
+        this.props.updateData({
+          disableExpand: !this.props.componentData.disableExpand,
+        }),
     },
     {
       toggleKey: 'isDownloadEnabled',
       labelKey: 'ImagePlugin_Settings_ImageCanBeDownloaded_Label',
       dataHook: 'imageDownloadToggle',
       tooltipText: this.props.t('ImagePlugin_Settings_ImageCanBeDownloaded_Tooltip'),
+      isChecked: () => !this.props.componentData.disableDownload,
+      onChange: () =>
+        this.props.updateData({
+          disableDownload: !this.props.componentData.disableDownload,
+        }),
     },
   ];
 
@@ -105,27 +128,39 @@ class ImageSettings extends Component {
           labelKey: 'ImageSettings_Spoiler_Toggle',
           dataHook: 'imageSpoilerToggle',
           tooltipText: this.props.t('Spoiler_Toggle_Tooltip'),
-          onToggle: value => {
+          isChecked: () => this.props.componentData.config?.spoiler?.enabled,
+          onChange: value =>
+            this.props.updateData({
+              ...this.props.componentData,
+              ...this.getSpoilerConfig(!this.props.componentData.config?.spoiler?.enabled),
+            }),
+
+          onToggle: value =>
             this.props.pubsub.update('componentData', {
               ...this.props.componentData,
               ...this.getSpoilerConfig(value),
-            });
-          },
+            }),
         },
       ]
     : this.baseToggleData;
 
   componentDidMount() {
-    this.props.pubsub.subscribe('componentData', this.onComponentUpdate);
+    if (!this.modalsWithEditorCommands) {
+      this.props.pubsub.subscribe('componentData', this.onComponentUpdate);
+    }
   }
 
   componentWillUnmount() {
-    this.props.pubsub.unsubscribe('componentData', this.onComponentUpdate);
+    if (!this.modalsWithEditorCommands) {
+      this.props.pubsub.unsubscribe('componentData', this.onComponentUpdate);
+    }
   }
 
   onComponentUpdate = () => {
-    const componentData = this.props.pubsub.get('componentData');
-    this.setState({ src: componentData.src, error: componentData?.error });
+    if (!this.modalsWithEditorCommands) {
+      const componentData = this.props.pubsub.get('componentData');
+      this.setState({ src: componentData.src, error: componentData?.error });
+    }
   };
 
   revertComponentData = () => {
@@ -144,8 +179,18 @@ class ImageSettings extends Component {
     helpers.closeModal();
   };
 
+  onCancel = () => {
+    this.modalsWithEditorCommands ? this.props.onCancel() : this.revertComponentData();
+  };
+
+  onSave = () => {
+    this.modalsWithEditorCommands ? this.props.onSave() : this.onDoneClick();
+  };
+
   metadataUpdated = (metadata, value) => {
-    this.setState({ metadata: { ...metadata, ...value } });
+    this.modalsWithEditorCommands
+      ? this.props.updateData({ metadata: { ...metadata, ...value } })
+      : this.setState({ metadata: { ...metadata, ...value } });
   };
 
   onDoneClick = () => {
@@ -171,20 +216,21 @@ class ImageSettings extends Component {
     },
   });
 
-  setBlockLink = item => this.props.pubsub.setBlockData({ key: 'componentLink', item });
-
   render() {
     const { helpers, theme, t, isMobile, languageDir, experiments = {} } = this.props;
-    const { src, error, metadata = {} } = this.state;
+    const { src, error } = this.state;
+    const metadata =
+      (this.modalsWithEditorCommands ? this.props.componentData.metadata : this.state.metadata) ||
+      {};
     return (
       <div className={this.styles.imageSettings} data-hook="settings" dir={languageDir}>
         {isMobile ? (
           <SettingsMobileHeader
             theme={theme}
-            onCancel={this.revertComponentData}
-            onSave={this.onDoneClick}
-            title={experiments?.newSettingsUi?.enabled && t('ImageSettings_Header')}
+            onCancel={this.onCancel}
+            onSave={this.onSave}
             t={t}
+            title={experiments?.newSettingsUi?.enabled && t('ImageSettings_Header')}
           />
         ) : experiments?.newSettingsUi?.enabled ? (
           <SettingsPanelHeader title={this.headerText} onClose={this.revertComponentData} />
@@ -274,8 +320,8 @@ class ImageSettings extends Component {
           <SettingsPanelFooter
             fixed
             theme={theme}
-            cancel={this.revertComponentData}
-            save={this.onDoneClick}
+            cancel={this.onCancel}
+            save={this.onSave}
             t={t}
           />
         )}
@@ -293,6 +339,9 @@ ImageSettings.propTypes = {
   isMobile: PropTypes.bool,
   languageDir: PropTypes.string,
   shouldShowSpoiler: PropTypes.bool,
+  updateData: PropTypes.func,
+  onCancel: PropTypes.func,
+  onSave: PropTypes.func,
 };
 
 export default ImageSettings;

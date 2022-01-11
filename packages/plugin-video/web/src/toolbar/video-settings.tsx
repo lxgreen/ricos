@@ -20,7 +20,12 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
   isMobile,
   settings,
   experiments = {},
+  onSave,
+  onCancel,
+  updateData,
 }) => {
+  const modalsWithEditorCommands = experiments.modalsWithEditorCommands?.enabled;
+
   const disableDownload =
     componentData.disableDownload !== undefined
       ? componentData.disableDownload
@@ -50,11 +55,15 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
     labelKey: 'VideoSettings_Spoiler_Toggle',
     dataHook: 'videoSpoilerToggle',
     tooltipText: 'Spoiler_Toggle_Tooltip',
-    checked: isSpoilerEnabled,
+    checked: modalsWithEditorCommands ? isSpoilered : isSpoilerEnabled,
     onToggle: () => {
-      const value = !isSpoilerEnabled;
-      setIsSpoilerEnabled(value);
-      pubsub.update('componentData', { ...componentData, ...getSpoilerConfig(value) });
+      if (modalsWithEditorCommands) {
+        updateData({ config: { ...componentData.config, spoiler: { enabled: !isSpoilered } } });
+      } else {
+        const value = !isSpoilerEnabled;
+        setIsSpoilerEnabled(value);
+        pubsub.update('componentData', { ...componentData, ...getSpoilerConfig(value) });
+      }
     },
   };
   const downloadToggle = {
@@ -62,8 +71,11 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
     labelKey: 'VideoPlugin_Settings_VideoCanBeDownloaded_Label',
     dataHook: 'videoDownloadToggle',
     tooltipText: 'VideoPlugin_Settings_VideoCanBeDownloaded_Tooltip',
-    checked: isDownloadEnabled,
-    onToggle: () => setIsDownloadEnabled(!isDownloadEnabled),
+    checked: modalsWithEditorCommands ? !disableDownload : isDownloadEnabled,
+    onToggle: () =>
+      modalsWithEditorCommands
+        ? updateData({ disableDownload: !disableDownload })
+        : setIsDownloadEnabled(!isDownloadEnabled),
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -81,10 +93,11 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
         <SettingsMobileHeader
           t={t}
           theme={theme}
-          onCancel={closeModal}
-          onSave={onDoneClick}
+          onCancel={modalsWithEditorCommands ? onCancel : closeModal}
+          onSave={modalsWithEditorCommands ? onSave : onDoneClick}
           title={experiments?.newSettingsUi?.enabled && t('VideoModal_MobileHeader')}
         />
+
       ) : experiments?.newSettingsUi?.enabled ? (
         <SettingsPanelHeader title={t('VideoPlugin_Settings_Header')} onClose={closeModal} />
       ) : (
@@ -107,7 +120,13 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
         ))}
       </SettingsSection>
       {!isMobile && (
-        <SettingsPanelFooter fixed theme={theme} cancel={closeModal} save={onDoneClick} t={t} />
+        <SettingsPanelFooter
+          fixed
+          theme={theme}
+          cancel={modalsWithEditorCommands ? onCancel : closeModal}
+          save={modalsWithEditorCommands ? onSave : onDoneClick}
+          t={t}
+        />
       )}
     </div>
   );

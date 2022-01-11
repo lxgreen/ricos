@@ -1,5 +1,6 @@
 import { createMapPlugin } from './createMapPlugin';
 import { DEFAULTS } from './defaults';
+import { createMapData } from './createMapData';
 import type { MapPluginEditorConfig } from './types';
 import { MAP_TYPE } from './types';
 import type { EditorPluginCreator } from 'wix-rich-content-common';
@@ -10,5 +11,6 @@ export const pluginMap: EditorPluginCreator<MapPluginEditorConfig> = config => {
     type: MAP_TYPE,
     createPlugin: createMapPlugin,
     ModalsMap: {},
+    createPluginData: createMapData,
   };
 };
