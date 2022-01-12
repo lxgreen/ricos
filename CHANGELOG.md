@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.68.0(Jan 12, 2022)
+
 ### :rocket: New Feature
 
 - `mention-plugin`
@@ -26,9 +33,6 @@
 
 - `toolbars-new`
   - [#3379](https://github.com/wix/ricos/pull/3379) static toolbar overflow
-
-</details>
-<hr/>
 
 ## 8.67.3(Jan 11, 2022)
 
