@@ -36,4 +36,5 @@ jobs:
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       NPM_EMAIL: ${{ secrets.NPM_EMAIL}}
-      LAGE_NPM_TOKEN: ${{ secrets.LAGE_NPM_TOKEN }}
+      BACKFILL_CACHE_PROVIDER: ${{ secrets.BACKFILL_CACHE_PROVIDER }}
+      BACKFILL_CACHE_PROVIDER_OPTIONS: ${{ secrets.BACKFILL_CACHE_PROVIDER_OPTIONS }}
