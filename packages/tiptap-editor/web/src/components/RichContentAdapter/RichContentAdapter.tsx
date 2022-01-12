@@ -22,20 +22,10 @@ import {
   BULLET_LIST_TYPE,
   CODE_BLOCK_TYPE,
   BLOCKQUOTE,
-  HEADINGS_TYPE,
   NUMBERED_LIST_TYPE,
 } from 'ricos-content';
 import { TO_TIPTAP_TYPE } from '../../consts';
 import type { Editor } from '@tiptap/core';
-
-const headingTypeToLevelMap = {
-  'header-one': 1,
-  'header-two': 2,
-  'header-three': 3,
-  'header-four': 4,
-  'header-five': 5,
-  'header-six': 6,
-};
 
 // todo : should change to RichContentInterface
 export class RichContentAdapter implements TiptapAPI {

@@ -1180,8 +1180,8 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
         );
     }
 
-    blocks.forEach(block => {
-      const { dynamicStyles = {} } = block?.get('data').toJS();
+    blocks.forEach((block: ContentBlock) => {
+      const { dynamicStyles = {} } = block.get('data').toJS();
       Object.entries(dynamicStyles).forEach(
         style => (styles[this.styleToClass(style)] = this.styleToCss(style))
       );

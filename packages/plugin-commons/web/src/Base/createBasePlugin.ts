@@ -39,7 +39,7 @@ const getData =
     removeConfigFromData: boolean
   ) =>
   () => {
-    const { config, ...rest } = getEditorState?.()
+    const { config, ...rest } = getEditorState()
       .getCurrentContent()
       .getEntity(contentBlock.getEntityAt(0))
       .getData();

@@ -241,7 +241,7 @@ export const getAnchorBlockInlineStyles = (editorState: EditorState) => {
   const anchorKey = editorState.getSelection().getAnchorKey();
   const block = editorState.getCurrentContent().getBlockForKey(anchorKey);
   getBlockStyleRanges(block).forEach(range => {
-    const [key, value] = Object.entries(safeJsonParse(range.style) || { key: '' })?.[0];
+    const [key, value] = Object.entries(safeJsonParse(range.style) || { key: '' })[0];
     inlineStyles = {
       ...inlineStyles,
       ...draftDecorationsToCss[range.style],

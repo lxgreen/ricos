@@ -5,9 +5,7 @@ import ReadMore from '../Components/ReadMore';
 import SeeFullPost from '../Components/SeeFullPost';
 import ImageCounter from '../Components/ImageCounter';
 import type { PreviewConfig } from '..';
-interface GenericInteractionProps extends Record<string, unknown> {
-  onPreviewExpand: PreviewConfig['onPreviewExpand'];
-}
+
 export const interactionMap = (onPreviewExpand: PreviewConfig['onPreviewExpand']) =>
   Object.entries({
     [INTERACTIONS.READ_MORE]: ReadMore,
