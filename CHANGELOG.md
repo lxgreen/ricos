@@ -22,6 +22,11 @@
 - `mention-plugin`
   - [#3377](https://github.com/wix/ricos/pull/3377) add supportWhitespace config
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3379](https://github.com/wix/ricos/pull/3379) static toolbar overflow
+
 </details>
 <hr/>
 

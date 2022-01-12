@@ -112,7 +112,7 @@ class Toolbar extends Component<ToolbarProps, State> {
 
   setToolbarOverflow = () => {
     const { buttons } = this.props;
-    let difference = this.toolbarOverflowWithEditorWidth();
+    let difference = this.toolbarOverflowWithContainerWidth();
     const newButtons = [...buttons];
     const overflowedButtons: any[] = [];
     if (difference < 0) {
@@ -143,9 +143,14 @@ class Toolbar extends Component<ToolbarProps, State> {
     }
   };
 
-  toolbarOverflowWithEditorWidth = () => {
+  toolbarOverflowWithContainerWidth = () => {
     const { getEditorContainer } = this.props;
-    return getEditorContainer?.()?.clientWidth - this.toolbarRef?.clientWidth;
+    const editorContainer = getEditorContainer?.();
+    const providedStaticToolbarContainer = document.querySelector(
+      `[data-hook=provided-container-toolbar`
+    );
+    const containerToCheckToolbarOverflow = providedStaticToolbarContainer || editorContainer;
+    return containerToCheckToolbarOverflow?.clientWidth - this.toolbarRef?.clientWidth;
   };
 
   renderButton = buttonProps => {
