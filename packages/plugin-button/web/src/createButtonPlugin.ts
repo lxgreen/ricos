@@ -64,6 +64,7 @@ const createButtonPlugin = (
       customTooltip,
       relValue,
       anchorTarget,
+      type,
     }),
     helpers,
     t,

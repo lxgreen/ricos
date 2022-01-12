@@ -3,8 +3,7 @@ import { getModalStyles, decorateComponentWithProps } from 'wix-rich-content-edi
 import { Modals } from '../modals';
 import ButtonInputModal from './buttonInputModal';
 import type { CreateInlineButtons, RelValue, AnchorTarget } from 'wix-rich-content-common';
-import type { ButtonPluginEditorConfig } from '../types';
-import { ACTION_BUTTON_TYPE } from '../types';
+import type { ButtonPluginEditorConfig, ACTION_BUTTON_TYPE, LINK_BUTTON_TYPE } from '../types';
 
 const DesktopCustomModalStyles = {
   content: {
@@ -23,11 +22,13 @@ const createInlineButtons: CreateInlineButtons = ({
   isMobile,
   relValue,
   anchorTarget,
+  type,
 }: {
   settings: ButtonPluginEditorConfig;
   isMobile: boolean;
   relValue: RelValue;
   anchorTarget: AnchorTarget;
+  type: typeof LINK_BUTTON_TYPE | typeof ACTION_BUTTON_TYPE;
 }) => {
   const customStyles = isMobile ? MobileFullScreenCustomStyle : DesktopCustomModalStyles;
   const icon = settings?.toolbar?.icons?.advanced_settings || PluginSettingsIcon;
@@ -52,7 +53,7 @@ const createInlineButtons: CreateInlineButtons = ({
       triggerSettingsBi: true,
       relValue,
       anchorTarget,
-      pluginId: ACTION_BUTTON_TYPE,
+      pluginId: type,
     },
     { keyName: 'delete', type: BUTTONS.DELETE, mobile: true },
   ];
