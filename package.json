@@ -29,7 +29,7 @@
     "build:scope": "lerna run build --scope ",
     "lage:build": "lage build --logLevel silly",
     "lage:build:dev": "lage build:dev --logLevel silly --grouped",
-    "build": "npm run lage:build --",
+    "build": "export $(cat .env | xargs) && npm run lage:build --",
     "build:resetCache": "npm run build -- --reset-cache",
     "build:withoutCache": "npm run build -- --no-cache",
     "build:schema": "lerna run --scope 'ricos-schema' build",
