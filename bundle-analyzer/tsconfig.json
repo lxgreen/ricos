@@ -9,7 +9,6 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "allowJs": true, // required for gitPRComment script
-    "forceConsistentCasingInFileNames": true
   },
   "include": ["src", "*.ts", "../scripts/gitPRComment.js"]
 }

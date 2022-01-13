@@ -7,6 +7,10 @@ on:
       - v9.*
       - v8.*
       - v7.*
+env:
+  BACKFILL_CACHE_PROVIDER: 'azure-blob'
+  BACKFILL_CACHE_PROVIDER_OPTIONS: ${{ secrets.BACKFILL_CACHE_PROVIDER_OPTIONS }}
+
 jobs:
   publishPackages:
     runs-on: ubuntu-18.04
@@ -36,5 +40,3 @@ jobs:
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       NPM_EMAIL: ${{ secrets.NPM_EMAIL}}
-      BACKFILL_CACHE_PROVIDER: ${{ secrets.BACKFILL_CACHE_PROVIDER }}
-      BACKFILL_CACHE_PROVIDER_OPTIONS: ${{ secrets.BACKFILL_CACHE_PROVIDER_OPTIONS }}

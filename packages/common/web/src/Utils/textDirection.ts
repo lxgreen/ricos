@@ -1,4 +1,4 @@
-import type { EditorProps } from '@wix/draft-js';
+import type { EditorProps } from 'draft-js';
 import type { TextDirection } from '../types';
 
 const RTL = '\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC';

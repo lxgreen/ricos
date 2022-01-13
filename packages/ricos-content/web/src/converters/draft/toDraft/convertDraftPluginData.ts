@@ -153,6 +153,8 @@ const convertExternalData = (data: Struct) => {
   Object.entries(draftData).forEach(([k, v]) => {
     data[k] = v;
   });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   delete data.fields;
 };
 

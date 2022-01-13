@@ -1,5 +1,8 @@
 name: bundleTests
 on: [pull_request]
+env:
+  BACKFILL_CACHE_PROVIDER: 'azure-blob'
+  BACKFILL_CACHE_PROVIDER_OPTIONS: ${{ secrets.BACKFILL_CACHE_PROVIDER_OPTIONS }}
 
 jobs:
   analyze-bundles:
@@ -18,9 +21,6 @@ jobs:
       - run: npx midgard-yarn install --frozen-lockfile
 
       - name: build packages
-        env:
-          BACKFILL_CACHE_PROVIDER: ${{ secrets.BACKFILL_CACHE_PROVIDER }}
-          BACKFILL_CACHE_PROVIDER_OPTIONS: ${{ secrets.BACKFILL_CACHE_PROVIDER_OPTIONS }}
         run: npm run build:ci
 
       - run: npm run analyzeBundles:nobuild --silent

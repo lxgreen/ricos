@@ -10,6 +10,10 @@ on:
   pull_request:
     branches:
       - master
+env:
+  BACKFILL_CACHE_PROVIDER: 'azure-blob'
+  BACKFILL_CACHE_PROVIDER_OPTIONS: ${{ secrets.BACKFILL_CACHE_PROVIDER_OPTIONS }}
+
 jobs:
   surge-examples:
     runs-on: ubuntu-18.04
@@ -48,5 +52,3 @@ jobs:
       SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
       SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
       REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      BACKFILL_CACHE_PROVIDER: ${{ secrets.BACKFILL_CACHE_PROVIDER }}
-      BACKFILL_CACHE_PROVIDER_OPTIONS: ${{ secrets.BACKFILL_CACHE_PROVIDER_OPTIONS }}

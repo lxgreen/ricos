@@ -1,6 +1,6 @@
 import HappyPack from 'happypack';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import { Configuration } from 'webpack';
+import type { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import type { Configuration } from 'webpack';
 
 const rules = [
   {

@@ -9,63 +9,70 @@ const DEFAULT_STATE = { blocks: [], entityMap: {}, VERSION: Version.currentVersi
 
 type ContentBuildMethod = (
   textBlocksWithEntities: TextBlockWithEntities | TextBlockWithEntities[]
-) => ContentStateBuilder;
-type PluginBuildMethod = (pluginData: PluginData) => ContentStateBuilder;
-type InteractionBuildMethod = (settings?: Record<string, unknown>) => ContentStateBuilder;
+) => StateBuilder;
+type PluginBuildMethod = (pluginData: PluginData) => StateBuilder;
+type InteractionBuildMethod = (settings?: Record<string, unknown>) => StateBuilder;
+
+export interface StateBuilder {
+  h1: ContentBuildMethod;
+
+  h2: ContentBuildMethod;
+
+  h3: ContentBuildMethod;
+
+  h4: ContentBuildMethod;
+
+  h5: ContentBuildMethod;
+
+  h6: ContentBuildMethod;
+
+  quote: ContentBuildMethod;
+
+  plain: ContentBuildMethod;
+
+  code: ContentBuildMethod;
+
+  ol: ContentBuildMethod;
+
+  ul: ContentBuildMethod;
+
+  // Plugins
+  image: PluginBuildMethod;
+
+  video: PluginBuildMethod;
+
+  gallery: PluginBuildMethod;
+
+  soundCloud: PluginBuildMethod;
+
+  giphy: PluginBuildMethod;
+
+  map: PluginBuildMethod;
+
+  file: PluginBuildMethod;
+
+  divider: PluginBuildMethod;
+
+  link: PluginBuildMethod;
+
+  linkPreview: PluginBuildMethod;
+
+  // Interactions
+  readMore: InteractionBuildMethod;
+
+  seeFullPost: InteractionBuildMethod;
+
+  imageCounter: InteractionBuildMethod;
+
+  get(): DraftContent;
+
+  contentState: DraftContent;
+  // eslint-disable-next-line @typescript-eslint/no-misused-new
+  new (initialState?: DraftContent): StateBuilder;
+}
 
 class ContentStateBuilder {
   contentState: DraftContent;
-
-  // Content
-  h1!: ContentBuildMethod;
-
-  h2!: ContentBuildMethod;
-
-  h3!: ContentBuildMethod;
-
-  h4!: ContentBuildMethod;
-
-  h5!: ContentBuildMethod;
-
-  h6!: ContentBuildMethod;
-
-  quote!: ContentBuildMethod;
-
-  plain!: ContentBuildMethod;
-
-  code!: ContentBuildMethod;
-
-  ol!: ContentBuildMethod;
-
-  ul!: ContentBuildMethod;
-
-  // Plugins
-  image!: PluginBuildMethod;
-
-  video!: PluginBuildMethod;
-
-  gallery!: PluginBuildMethod;
-
-  soundCloud!: PluginBuildMethod;
-
-  giphy!: PluginBuildMethod;
-
-  map!: PluginBuildMethod;
-
-  file!: PluginBuildMethod;
-
-  divider!: PluginBuildMethod;
-
-  link!: PluginBuildMethod;
-
-  linkPreview!: PluginBuildMethod;
-
-  // Interactions
-  readMore!: InteractionBuildMethod;
-
-  seeFullPost!: InteractionBuildMethod;
-
-  imageCounter!: InteractionBuildMethod;
 
   constructor(initialState?: DraftContent) {
     this.contentState = { ...DEFAULT_STATE, ...(initialState || {}) };
@@ -120,4 +127,4 @@ Object.entries({ readMore, seeFullPost, imageCounter }).forEach(([key, method]) 
   };
 });
 
-export default ContentStateBuilder;
+export default ContentStateBuilder as unknown as StateBuilder;
