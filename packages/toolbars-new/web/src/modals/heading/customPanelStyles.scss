@@ -24,6 +24,7 @@
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  padding-right: 12px;
   height: 36px;
   @include phone {
     height: 39px;
@@ -39,7 +40,7 @@
 
 .buttonComponent {
   background-color: white;
-  width: 100%;
+  width: 210px;
   text-align: left;
   padding-left: 20px;
   border: none;
@@ -76,10 +77,6 @@
   width: calc(100% - 24px);
   margin: 8px 0 8px;
   align-self: center;
-}
-
-.infoIcon {
-  padding-left: 3px;
 }
 
 .disabled_icon {

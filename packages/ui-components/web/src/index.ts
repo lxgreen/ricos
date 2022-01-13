@@ -50,4 +50,5 @@ export { default as Label } from './Components/Label';
 export { default as SelectionListItem } from './Components/SelectionListItem';
 export { default as SettingsPanelHeader } from './Components/SettingsPanelHeader';
 export { default as SettingsAddItem } from './Components/SettingsAddItem';
+export { default as InfoIconComponent } from './Components/InfoIcon';
 // export { getSelectionStyles } from './Utils/inlineStyleUtils';

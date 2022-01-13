@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
 
+- `toolbars-new`
+  - [#3378](https://github.com/wix/ricos/pull/3378) fix headings panel context menu dimensions
 
 </details>
 <hr/>
