@@ -17,6 +17,7 @@ import anchorSchema from '../statics/schemas/anchor.schema.json';
 import tableSchema from '../statics/schemas/plugin-table.schema.json';
 import collapsibleListSchema from '../statics/schemas/plugin-collapsible-list.schema.json';
 import varticalEmbedSchema from '../statics/schemas/vertical-embed.schema.json';
+import emojiSchema from '../statics/schemas/plugin-emoji.schema.json';
 import {
   LINK_BUTTON_TYPE,
   ACTION_BUTTON_TYPE,
@@ -36,6 +37,7 @@ import {
   TABLE_TYPE,
   COLLAPSIBLE_LIST_TYPE,
   VERTICAL_EMBED_TYPE,
+  EMOJI_TYPE,
 } from 'ricos-content';
 
 export const isValidEditorData = payload => {
@@ -59,6 +61,8 @@ export const isValidEditorData = payload => {
     [TABLE_TYPE]: tableSchema,
     [COLLAPSIBLE_LIST_TYPE]: collapsibleListSchema,
     [VERTICAL_EMBED_TYPE]: varticalEmbedSchema,
+    [EMOJI_TYPE]: emojiSchema,
+    EMOJI_TYPE: emojiSchema,
   });
   return checkValidity(payload, schema);
 };
