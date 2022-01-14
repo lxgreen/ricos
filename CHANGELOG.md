@@ -17,13 +17,19 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.68.1(Jan 14, 2022)
+
 ### :bug: Bug Fix
+
+- `schema`
+
+  - [#3388](https://github.com/wix/ricos/pull/3388) add emoji to draft schema
 
 - `toolbars-new`
   - [#3378](https://github.com/wix/ricos/pull/3378) fix headings panel context menu dimensions
-
-</details>
-<hr/>
 
 ## 8.68.0(Jan 12, 2022)
 
