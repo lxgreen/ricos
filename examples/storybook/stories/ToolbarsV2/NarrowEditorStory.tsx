@@ -1,0 +1,29 @@
+import React from 'react';
+
+import {
+  RichContentEditorBox,
+  RichContentViewerBox,
+  Section,
+  Page,
+} from '../Components/StoryParts';
+
+import EditorWrapper from '../Components/EditorWrapper';
+import ViewerWrapper from '../Components/ViewerWrapper';
+import introState from '../../../../e2e/tests/fixtures/intro.json';
+
+const NarrowEditorStory = () => {
+  return (
+    <Page title="Wix Rich Content">
+      <Section type={Section.Types.COMPARISON}>
+        <RichContentEditorBox>
+          <EditorWrapper content={introState} />
+        </RichContentEditorBox>
+        <RichContentViewerBox>
+          <ViewerWrapper content={introState} />
+        </RichContentViewerBox>
+      </Section>
+    </Page>
+  );
+};
+
+export default NarrowEditorStory;
