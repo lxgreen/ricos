@@ -97,6 +97,9 @@ export const createRicosExtensions: CreateRicosExtensions = config => [
     Component,
     componentDataDefaults: linkPreviewDefaults,
     createExtensionConfig: () => ({
+      group: 'block',
+      selectable: true,
+      draggable: true,
       name,
       addCommands() {
         return {
@@ -110,12 +113,9 @@ export const createRicosExtensions: CreateRicosExtensions = config => [
     }),
   },
   {
-    type: 'extension',
+    type: 'extension' as const,
     createExtensionConfig: () => ({
       name: 'linkPreviewEnter',
-      group: 'block',
-      selectable: true,
-      draggable: true,
       addKeyboardShortcuts() {
         return {
           Enter: addLinkPreview(config),
