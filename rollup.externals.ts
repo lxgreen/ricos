@@ -13,6 +13,7 @@ const externals = [
   'wix-rich-content-plugin-commons',
   'wix-rich-content-ui-components',
   'wix-rich-content-toolbars-new',
+  'wix-rich-content-toolbars-v2',
   'wix-rich-content-toolbars',
   'i18next',
   'react-i18next',
