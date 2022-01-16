@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+
+- `ricos-content`
+  - [#3397](https://github.com/wix/ricos/pull/3397) velo-adapter: modifier syntax
+
 ### :bug: Bug Fix
 
 - `tiptap`

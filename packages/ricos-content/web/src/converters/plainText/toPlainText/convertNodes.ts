@@ -57,7 +57,7 @@ export const parseImage = async (
   urlShortener?: (url: string) => Promise<string>
 ): Promise<string> => {
   const { caption } = imageData || {};
-  const { src, width, height } = imageData?.image || {};
+  const { src } = imageData?.image || {};
   const id = src?.id || src?.custom;
   let url = `https://static.wixstatic.com/media/${id?.replace('media/', '')}`;
   if (urlShortener) {

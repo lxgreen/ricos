@@ -1,4 +1,3 @@
-import { readFileSync } from 'fs';
 import { preprocess } from './preprocess';
 
 describe('CKEditor preprocess', () => {
