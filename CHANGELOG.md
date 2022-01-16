@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `tiptap`
+  - [#3395](https://github.com/wix/ricos/pull/3395) link-preview: fix tiptap extension definition
+
 </details>
 <hr/>
 
