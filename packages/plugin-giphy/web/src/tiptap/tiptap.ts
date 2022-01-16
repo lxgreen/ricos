@@ -9,7 +9,7 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
     Component,
-    componentDataDefaults: { ...gifDataDefaults, id: '' },
+    componentDataDefaults: gifDataDefaults,
     createExtensionConfig: () => ({
       name,
       group: 'block',

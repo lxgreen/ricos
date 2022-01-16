@@ -95,7 +95,7 @@ export const createRicosExtensions: CreateRicosExtensions = config => [
   {
     type: 'node' as const,
     Component,
-    componentDataDefaults: { ...linkPreviewDefaults, id: '' },
+    componentDataDefaults: linkPreviewDefaults,
     createExtensionConfig: () => ({
       name,
       addCommands() {
