@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.68.2(Jan 17, 2022)
 ### :nail_care: Polish
 
 - `ricos-content`
@@ -26,9 +30,6 @@
 
 - `tiptap`
   - [#3395](https://github.com/wix/ricos/pull/3395) link-preview: fix tiptap extension definition
-
-</details>
-<hr/>
 
 ## 8.68.1(Jan 14, 2022)
 
