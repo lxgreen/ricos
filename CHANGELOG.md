@@ -17,10 +17,16 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `ricos-content`
+  - [#3349](https://github.com/wix/ricos/pull/3349) refactor keyAndBullet test
+
 </details>
 <hr/>
 
 ## 8.68.2(Jan 17, 2022)
+
 ### :nail_care: Polish
 
 - `ricos-content`

@@ -12,12 +12,7 @@ const bulletToBulleted = (v: any) => (v === 'BULLET_LIST' ? Node_Type.BULLETED_L
 
 const appEmbedIdToItemId = (v: any) => (v?.id && v?.imageSrc ? { ...v, itemId: v.id } : v);
 
-const pollIdToOptionId = (v: any) => (v?.id && v?.latestVoters ? { ...v, optionId: v.id } : v);
-
-const idToPollId = (v: any) => (v?.id && v?.options ? { ...v, pollId: v.id } : v);
-
-const replacer = (_: string, v: any) =>
-  pipe(v, keyToId, bulletToBulleted, appEmbedIdToItemId, pollIdToOptionId, idToPollId);
+const replacer = (_: string, v: any) => pipe(v, keyToId, bulletToBulleted, appEmbedIdToItemId);
 
 export default flow(
   stringifyWithReplace(replacer),

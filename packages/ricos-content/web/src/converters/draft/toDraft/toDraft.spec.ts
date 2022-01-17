@@ -4,6 +4,7 @@ import { compare } from '../../../comparision/compare';
 import complexFixture from '../../../../../../../e2e/tests/fixtures/migration-content.json';
 import anchorBlocksFixture from '../../../../../../../e2e/tests/fixtures/all-blocks-with-anchors.json';
 import keyAndBulletFixture from './migration-content-with-key-and-bullet.json';
+import keyAndBulletFixtureMigrated from './migration-content-with-key-and-bullet-migrated.json';
 import { ANCHOR_TYPE, WRAP } from '../../../consts';
 import type { FileData, Node } from 'ricos-schema';
 import {
@@ -203,7 +204,7 @@ describe('migrate to draft', () => {
     it('should fix whole content', () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const converted = toDraft(keyAndBulletFixture as any);
-      expect(compare(converted, complexFixture, { ignoredKeys: ['key', 'ID'] })).toEqual({});
+      expect(compare(converted, keyAndBulletFixtureMigrated, { ignoredKeys: ['ID'] })).toEqual({});
     });
   });
 });
