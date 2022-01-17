@@ -17,13 +17,14 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.69.1(Jan 17, 2022)
 ### :nail_care: Polish
 
 - `ricos-content`
   - [#3400](https://github.com/wix/ricos/pull/3400) velo-adapter: extractor and modifier are now combined under `select`
-
-</details>
-<hr/>
 
 ## 8.69.0(Jan 17, 2022)
 
