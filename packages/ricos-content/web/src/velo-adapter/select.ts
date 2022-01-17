@@ -1,24 +1,41 @@
 import { get } from 'lodash';
 import type { RichContent, Node } from 'ricos-schema';
 import type { Extractor } from '../extractor-infra';
+import type { Modifier } from '../modifier-infra';
+import type { RichContentModifier } from '../RicosContentAPI/modify';
+import { modify } from '../RicosContentAPI/modify';
 import { extract } from '../RicosContentAPI/extract';
 import { compare } from './utils';
 
-class Query {
+class Select {
   private extractor: Extractor<Node>;
+
+  private modifier: RichContentModifier;
+
+  private content: RichContent;
+
+  private onSet?: (content: RichContent) => void;
 
   private _limit: number;
 
-  constructor(content: RichContent) {
+  constructor(content: RichContent, onSet?: (content: RichContent) => void) {
     this.extractor = extract(content.nodes);
+    this.modifier = modify(content);
+    this.content = content;
+    this.onSet = onSet;
     this._limit = -1;
   }
 
   private filter(predicate: (node: Node) => boolean) {
     this.extractor = this.extractor.filter(predicate);
+    this.modifier = this.modifier.filter(predicate);
     return this;
   }
 
+  /**
+   * executes query selection
+   * @returns query result
+   */
   private get() {
     const results = this.extractor.get();
     if (this._limit >= 0) {
@@ -71,6 +88,14 @@ class Query {
   find() {
     return this.get();
   }
+
+  modify(setter: Parameters<Modifier<Node>['set']>[0]): RichContent {
+    const root = this.modifier.set(setter);
+    const modifiedContent = { ...this.content, nodes: root.nodes };
+    this.onSet?.(modifiedContent);
+    return modifiedContent;
+  }
 }
 
-export const query = (content: RichContent) => new Query(content);
+export const select = (content: RichContent, onSet?: (content: RichContent) => void) =>
+  new Select(content, onSet);

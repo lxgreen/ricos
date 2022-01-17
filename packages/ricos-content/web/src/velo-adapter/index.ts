@@ -1,4 +1,3 @@
 export { createBuilder } from './builder';
-export { modify } from './modify';
-export { query } from './query';
+export { select } from './select';
 export { default as pluginCreators } from './pluginCreators';

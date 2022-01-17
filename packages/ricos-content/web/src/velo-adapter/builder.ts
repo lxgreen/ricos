@@ -1,18 +1,17 @@
 import { addNode } from '../RicosContentAPI/builder-utils';
 import type { Node, RichContent } from 'ricos-schema';
 class Builder {
-  private callback?: (content: RichContent) => void;
+  private onRender?: (content: RichContent) => void;
 
   private content: RichContent;
 
-  constructor(content: RichContent, callback?: (content: RichContent) => void) {
+  constructor(content: RichContent, onRender?: (content: RichContent) => void) {
     this.content = content;
-    this.callback = callback;
+    this.onRender = onRender;
   }
 
   private add(addNodeParams: Parameters<typeof addNode>[0]) {
     this.content = addNode(addNodeParams);
-    this.callback?.(this.content);
     return this;
   }
 
@@ -32,10 +31,11 @@ class Builder {
     return this.add({ node, content: this.content, index });
   }
 
-  get() {
+  render() {
+    this.onRender?.(this.content);
     return this.content;
   }
 }
 
-export const createBuilder = (content: RichContent, callback?: (content: RichContent) => void) =>
-  new Builder(content, callback);
+export const createBuilder = (content: RichContent, onRender?: (content: RichContent) => void) =>
+  new Builder(content, onRender);

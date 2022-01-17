@@ -39,31 +39,31 @@ describe('Builder', () => {
   let builder = createBuilder(emptyContent);
 
   it('should get content', () => {
-    const content = builder.get();
+    const content = builder.render();
     expect(content).toStrictEqual(emptyContent);
   });
 
   it('should append nodes', () => {
     builder = builder.append(mockParagraphNode);
-    const content = builder.get();
+    const content = builder.render();
     expect(content.nodes).toStrictEqual([mockParagraphNode]);
   });
 
   it('should insertBefore', () => {
     builder = builder.insertBefore('1', mockDividerNode);
-    const content = builder.get();
+    const content = builder.render();
     expect(content.nodes).toStrictEqual([mockDividerNode, mockParagraphNode]);
   });
 
   it('should insertAfter', () => {
     builder = builder.insertAfter('2', mockImageNode);
-    const content = builder.get();
+    const content = builder.render();
     expect(content.nodes).toStrictEqual([mockDividerNode, mockImageNode, mockParagraphNode]);
   });
 
   it('should append on existing content', () => {
     builder = builder.append(mockImageNode);
-    const content = builder.get();
+    const content = builder.render();
     expect(content.nodes).toStrictEqual([
       mockDividerNode,
       mockImageNode,
