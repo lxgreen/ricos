@@ -16,14 +16,14 @@ export const updateNodeById: RawCommands['updateNodeById'] =
   (id, attrs = {}) =>
   ({ tr }) => {
     const predicate = node => node.attrs.id === id;
-    const nodeWithPos = findChildren(tr.doc, predicate);
+    const nodesWithPos = findChildren(tr.doc, predicate);
 
-    const { pos } = nodeWithPos?.[0] || {};
-    if (pos) {
+    if (nodesWithPos.length > 0) {
+      const { pos } = nodesWithPos[0];
       tr.setNodeMarkup(pos, undefined, { id, ...attrs });
       return true;
     } else {
-      console.error('Failed to find node by blockKey');
+      console.error('Failed to find node by id');
       return false;
     }
   };

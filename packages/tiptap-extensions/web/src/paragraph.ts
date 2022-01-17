@@ -20,11 +20,9 @@ declare module '@tiptap/core' {
 
 const createStyleAttribute = (node: ProsemirrorNode) => {
   const attrLineHeight = node.attrs.textStyle?.lineHeight;
-  const attrTextAlign = node.attrs.textStyle?.textAlignment;
-  const textAlign =
-    attrTextAlign && attrTextAlign !== 'AUTO' ? `text-align: ${attrTextAlign.toLowerCase()};` : '';
+
   const lineHeight = attrLineHeight ? `line-height: ${attrLineHeight};` : '';
-  const style = textAlign.concat(lineHeight);
+  const style = lineHeight;
   return { style };
 };
 

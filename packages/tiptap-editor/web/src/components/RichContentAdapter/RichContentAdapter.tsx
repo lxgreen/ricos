@@ -270,7 +270,27 @@ export class RichContentAdapter implements TiptapAPI {
     }),
     getColor: () => 'unset',
     getFontSize: () => 'big',
-    getTextAlignment: (): TextAlignment => 'center',
+    getTextAlignment: (): TextAlignment => {
+      const {
+        state: {
+          doc,
+          selection: { from, to },
+        },
+      } = this.editor;
+
+      const textStyles: string[] = [];
+      doc.nodesBetween(from, to, node => {
+        const textAlignment = node.attrs?.textStyle?.textAlignment;
+        if (textAlignment) {
+          textStyles.push(textAlignment);
+        }
+      });
+      let currentTextStyle = 'auto';
+      if (textStyles[0]) {
+        currentTextStyle = textStyles[0].toLowerCase();
+      }
+      return currentTextStyle as TextAlignment;
+    },
     isBlockTypeSelected: () => false,
     isUndoStackEmpty: () => false,
     isRedoStackEmpty: () => false,

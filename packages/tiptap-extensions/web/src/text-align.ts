@@ -7,9 +7,6 @@ declare module '@tiptap/core' {
        * Set the text align attribute
        */
       setTextAlign: (alignment: string) => ReturnType;
-      /**
-       * Unset the text align attribute
-       */
       unsetTextAlign: () => ReturnType;
     };
   }
@@ -32,11 +29,13 @@ export const createTextAlign = (): RicosExtension => ({
         {
           types: this.options.types,
           attributes: {
-            textAlign: {
+            textStyle: {
               parseHTML: element => element.style.textAlign,
               renderHTML: attributes => {
-                if (attributes.textAlign) {
-                  return { style: `text-align: ${attributes.textAlign}` };
+                if (attributes?.textStyle?.textAlignment) {
+                  return {
+                    style: `text-align: ${attributes.textStyle.textAlignment.toLowerCase()}`,
+                  };
                 }
                 return {};
               },
@@ -56,15 +55,15 @@ export const createTextAlign = (): RicosExtension => ({
             }
 
             return this.options.types.every(type =>
-              commands.updateAttributes(type, { textAlign: alignment })
+              commands.updateAttributes(type, {
+                textStyle: { textAlignment: alignment.toUpperCase() },
+              })
             );
           },
-
-        unsetTextAlign:
-          () =>
-          ({ commands }) => {
-            return this.options.types.every(type => commands.resetAttributes(type, 'textAlign'));
-          },
+        unsetTextAlign: () => () => {
+          console.error('unsetTextAlign : was not implemented');
+          return false;
+        },
       };
     },
 
