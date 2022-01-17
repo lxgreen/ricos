@@ -49,6 +49,8 @@ interface State {
   activeEditor: RichContentEditor | null;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tiptapEditorModule: Record<string, any> | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  toolbarsV2Module: Record<string, any> | null;
   tiptapToolbar: unknown;
   error?: string;
   contentId?: string;
@@ -67,6 +69,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   useTiptap = false;
 
   useNewFormattingToolbar = false;
+
+  useToolbarsV2 = false;
 
   dataInstance: EditorDataInstance;
 
@@ -99,12 +103,14 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       remountKey: false,
       activeEditor: null,
       tiptapEditorModule: null,
+      toolbarsV2Module: null,
       tiptapToolbar: null,
       TextFormattingToolbar: null,
     };
     this.useTiptap = !!props.experiments?.tiptapEditor?.enabled;
     this.useNewFormattingToolbar = !!props.experiments?.newFormattingToolbar?.enabled;
     this.useTiptap && this.fixPluginsConfig();
+    this.useToolbarsV2 = !!props.experiments?.toolbarsV2?.enabled;
   }
 
   static defaultProps = {
@@ -131,6 +137,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.updateLocale();
     this.loadEditor();
     this.loadToolbar();
+    this.loadToolbarsV2();
     const { isMobile, toolbarSettings } = this.props;
     const { useStaticTextToolbar } = toolbarSettings || {};
     const contentId = this.getContentId();
@@ -154,6 +161,17 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         'wix-tiptap-editor'
       ).then(tiptapEditorModule => {
         this.setState({ tiptapEditorModule });
+      });
+    }
+  }
+
+  loadToolbarsV2() {
+    if (this.useToolbarsV2) {
+      import(
+        /* webpackChunkName: "wix-rich-content-toolbars-v2" */
+        'wix-rich-content-toolbars-v2'
+      ).then(toolbarsV2Module => {
+        this.setState({ toolbarsV2Module });
       });
     }
   }
@@ -428,6 +446,9 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   }
 
   renderToolbars() {
+    if (this.useToolbarsV2) {
+      return <div>{this.state.toolbarsV2Module?.toolbarsV2()}</div>;
+    }
     const { StaticToolbar } = this.state;
     return this.useNewFormattingToolbar
       ? this.renderNewToolbars()

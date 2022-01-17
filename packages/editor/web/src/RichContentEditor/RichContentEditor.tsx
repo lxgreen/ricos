@@ -258,9 +258,10 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     this.state = {
       editorState: initialEditorState,
       innerModal: null,
-      toolbarsToIgnore: experiments?.newFormattingToolbar?.enabled
-        ? ['InlineTextToolbar', 'InlinePluginToolbar']
-        : [],
+      toolbarsToIgnore:
+        experiments?.newFormattingToolbar?.enabled || experiments?.toolbarsV2?.enabled
+          ? ['InlineTextToolbar', 'InlinePluginToolbar']
+          : [],
       readOnly: false,
       context: { experiments, isMobile, t },
       undoRedoStackChanged: false,

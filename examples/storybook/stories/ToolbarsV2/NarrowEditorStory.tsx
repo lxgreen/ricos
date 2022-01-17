@@ -12,11 +12,13 @@ import ViewerWrapper from '../Components/ViewerWrapper';
 import introState from '../../../../e2e/tests/fixtures/intro.json';
 
 const NarrowEditorStory = () => {
+  const experiments = { toolbarsV2: { enabled: true } };
+
   return (
     <Page title="Wix Rich Content">
       <Section type={Section.Types.COMPARISON}>
         <RichContentEditorBox>
-          <EditorWrapper content={introState} />
+          <EditorWrapper content={introState} experiments={experiments} />
         </RichContentEditorBox>
         <RichContentViewerBox>
           <ViewerWrapper content={introState} />
