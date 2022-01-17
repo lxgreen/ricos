@@ -55,14 +55,14 @@
 }
 
 .sizeSmall {
-  width: 350px !important;
+  width: 350px;
   .renderedInTable & {
     width: 50%;
   }
 }
 
 .sizeSmallCenter {
-  width: 350px !important;
+  width: 350px;
   margin-left: auto;
   margin-right: auto;
   .renderedInTable & {

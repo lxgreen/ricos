@@ -13,6 +13,7 @@ import { createDataConverter, filterDraftEditorSettings } from './utils/editorUt
 import ReactDOM from 'react-dom';
 import type { EditorState, ContentState } from 'draft-js';
 import RicosModal from './modals/RicosModal';
+import './styles.css';
 import editorCss from '../statics/styles/styles.scss';
 import type { RicosEditorProps, EditorDataInstance } from '.';
 import { hasActiveUploads } from './utils/hasActiveUploads';

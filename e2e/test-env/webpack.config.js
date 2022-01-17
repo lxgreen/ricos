@@ -115,7 +115,7 @@ const config = [
       publicPath: '/static/',
     },
     target: 'node',
-    externals: [nodeExternals({ whitelist: [/.css/, /^wix-rich-content/, /^ricos-/] })],
+    externals: [nodeExternals({ whitelist: [/.css/, /^wix-rich-content/] })],
     plugins: [
       new MiniCssExtractPlugin({
         filename: '[name].css',

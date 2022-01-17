@@ -19,13 +19,11 @@ import { terser } from 'rollup-plugin-terser';
 import visualizerPlugin from 'rollup-plugin-visualizer';
 import { Plugin } from 'rollup';
 import libsPackageJsonGeneratorPlugin from './scripts/rollupPlugin-libsPackageJsonGenerator';
-import { writeFileSync, readdirSync, existsSync, readFileSync } from 'fs';
+import { writeFileSync } from 'fs';
 import { createFilter } from '@rollup/pluginutils';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 
 const IS_DEV_ENV = process.env.NODE_ENV === 'development';
-const editorExtractedStylePath = 'dist/styles.min.global.css';
-const getExtractedCssPath = entry => `dist/styles.${entry}.min.global.css`;
 
 const resolve = (): Plugin => {
   return resolvePlugin({
@@ -138,7 +136,7 @@ const json = (): Plugin => {
   });
 };
 
-const postcss = (shouldExtract: boolean, entry?: string): Plugin => {
+const postcss = (shouldExtract: boolean): Plugin => {
   return postcssPlugin({
     minimize: {
       // reduceIdents: false,
@@ -150,7 +148,7 @@ const postcss = (shouldExtract: boolean, entry?: string): Plugin => {
       generateScopedName: IS_DEV_ENV ? '[name]__[local]___[hash:base64:5]' : '[hash:base64:5]',
       hashPrefix: process.env.MODULE_NAME,
     },
-    extract: shouldExtract && (entry ? getExtractedCssPath(entry) : editorExtractedStylePath),
+    extract: shouldExtract && 'dist/styles.min.css',
     plugins: [
       postcssExclude({
         filter: '**/*.rtlignore.scss',
@@ -196,77 +194,7 @@ const createFakeStylesFile = (): Plugin => ({
   },
 });
 
-function addStylesImport() {
-  return {
-    name: 'add-style-import',
-    writeBundle() {
-      const packageJson = require(process.cwd() + '/package.json');
-      const packageName = packageJson.name;
-
-      const getExtractedCssCjsFile = path => `require('${packageName}/${path}')`;
-      const getExtractedCssEsFile = path => `import '${packageName}/${path}'`;
-
-      const writeContent = (path, content) => {
-        if (existsSync(path)) {
-          const code = readFileSync(path, 'utf8');
-          const result = code.includes(content) ? code : `${content};\n` + code;
-          writeFileSync(path, result, 'utf8');
-        }
-      };
-      const writeCjsAndEsContent = (cjsPath, esPath, cssPath) => {
-        writeContent(esPath, getExtractedCssEsFile(cssPath));
-        writeContent(cjsPath, getExtractedCssCjsFile(cssPath));
-      };
-      const viewerExtractedStylePath = getExtractedCssPath('viewer');
-      const isExistEditorStyles = existsSync(editorExtractedStylePath);
-      const isExistViewerStyles = existsSync(viewerExtractedStylePath);
-      const loadableViewerPath = 'dist/loadable/viewer';
-
-      if (isExistEditorStyles) {
-        writeCjsAndEsContent(packageJson.main, packageJson.module, editorExtractedStylePath);
-      }
-      if (isExistViewerStyles) {
-        writeCjsAndEsContent(
-          'dist/module.viewer.cjs.js',
-          'dist/module.viewer.js',
-          viewerExtractedStylePath
-        );
-        if (existsSync(`${loadableViewerPath}/es`)) {
-          let dynamicLoadableChunkName;
-          readdirSync(`${loadableViewerPath}/es`).forEach(file => {
-            const fileName = file.split('.')[0];
-            !fileName.includes('viewer-loadable') && (dynamicLoadableChunkName = fileName);
-          });
-
-          if (dynamicLoadableChunkName) {
-            writeCjsAndEsContent(
-              `${loadableViewerPath}/cjs/${dynamicLoadableChunkName}.cjs.js`,
-              `${loadableViewerPath}/es/${dynamicLoadableChunkName}.js`,
-              viewerExtractedStylePath
-            );
-          }
-        }
-      }
-      if (existsSync('./lib/')) {
-        readdirSync('./lib/').forEach(file => {
-          const fileName = file.split('.')[0];
-          const cssPath = getExtractedCssPath(fileName);
-          if (existsSync(cssPath)) {
-            writeCjsAndEsContent(`dist/lib/${fileName}.cjs.js`, `dist/lib/${fileName}.js`, cssPath);
-          }
-        });
-      }
-      const cssMobilePath = getExtractedCssPath('mobile');
-      if (existsSync(cssMobilePath)) {
-        writeContent('dist/mobileNativeLoader.js', getExtractedCssEsFile(cssMobilePath));
-      }
-      // deprecated: create empty styles files for non breaking changes
-      writeFileSync('dist/styles.min.css', '');
-    },
-  };
-}
-
-let plugins: Plugin[] = [
+let _plugins: Plugin[] = [
   svgr(),
   resolveAlias(),
   resolve(),
@@ -277,21 +205,20 @@ let plugins: Plugin[] = [
 ];
 
 if (!IS_DEV_ENV) {
-  plugins = [...plugins, replace(), uglify()];
+  _plugins = [..._plugins, replace(), uglify()];
 }
 
 if (process.env.MODULE_ANALYZE_EDITOR || process.env.MODULE_ANALYZE_VIEWER) {
-  plugins = [...plugins, visualizer()];
+  _plugins = [..._plugins, visualizer()];
 }
 
 if (process.env.EXTRACT_CSS === 'false') {
-  plugins = [...plugins, createFakeStylesFile()];
+  _plugins = [..._plugins, createFakeStylesFile()];
 }
 
-const lastEntryPlugins = [
-  libsPackageJsonGeneratorPlugin(),
-  copy(),
-  copyAfterBundleWritten(),
-  addStylesImport(),
-];
-export { plugins, postcss, lastEntryPlugins };
+const plugins = (shouldExtractCss: boolean) => {
+  _plugins.push(postcss(shouldExtractCss));
+  return _plugins;
+};
+const lastEntryPlugins = [libsPackageJsonGeneratorPlugin(), copy(), copyAfterBundleWritten()];
+export { plugins, lastEntryPlugins };
