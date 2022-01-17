@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.69.0(Jan 17, 2022)
+
 ### :house: Internal
 
 - `ricos-schema`
@@ -24,8 +29,10 @@
 - `ricos-content`
   - [#3349](https://github.com/wix/ricos/pull/3349) refactor keyAndBullet test
 
-</details>
-<hr/>
+### :rocket: New Feature
+
+- `*`
+  - [#3399](https://github.com/wix/ricos/pull/3399) separate viewer and editor styles & include css inside js bundled files
 
 ## 8.68.2(Jan 17, 2022)
 
