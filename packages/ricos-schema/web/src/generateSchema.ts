@@ -34,6 +34,7 @@ const run = async () => {
         .replace(/\s*option\s*\(wix\.api\.entity\)\s*=\s*\{.*\s*fqdn.*\s*.*\s*};/g, '')
         .replace('import "wix/api/entity.proto";\n', '')
         .replace('import "wix/api/validations.proto";\n', '')
+        .replace('import "wix/api/annotations.proto";\n', '')
     );
   });
 

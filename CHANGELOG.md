@@ -19,6 +19,8 @@
 
 ### :house: Internal
 
+- `ricos-schema`
+  - [#3382](https://github.com/wix/ricos/pull/3382) `unannotated-pii-fields` flynt rule
 - `ricos-content`
   - [#3349](https://github.com/wix/ricos/pull/3349) refactor keyAndBullet test
 
