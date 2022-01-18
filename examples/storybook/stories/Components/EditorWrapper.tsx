@@ -44,6 +44,7 @@ import {
   createTextColorPlugin,
 } from 'wix-rich-content-plugin-text-color';
 import MobileDetect from 'mobile-detect';
+import '../styles.global.scss';
 import {
   mockFileUploadFunc,
   mockImageNativeUploadFunc,

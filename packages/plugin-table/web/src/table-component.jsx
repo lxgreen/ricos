@@ -13,6 +13,7 @@ import TableToolbar from './TableToolbar/TableToolbar';
 import { isPluginFocused, TOOLBARS, KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 import { isEmpty, isNumber, cloneDeep, isEqual } from 'lodash';
 import classNames from 'classnames';
+import './styles.css';
 import { TABLE_TYPE } from './types';
 import { SOURCE, LOCATION, CATEGORY, ACTION, ACTION_NAME } from './consts';
 import pluginTableSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-table.schema.json';
