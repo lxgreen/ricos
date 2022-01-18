@@ -16,6 +16,11 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
+  
+  ### :bug: Bug Fix
+
+- `image-plugin`
+  - [#3396](https://github.com/wix/ricos/pull/3396) CLS fix: add width & height attributes to img tag
 
 </details>
 <hr/>

@@ -51,7 +51,7 @@ export interface ImagePluginViewerConfig extends ViewerPluginConfig, ImageConfig
 
 export interface ImageData {
   config: ImageConfig;
-  src: { fallback: string; width: number };
+  src: { fallback: string; width: number; height: number };
   metadata?: { caption?: unknown; alt?: string | undefined };
   [key: string]: unknown;
   disableDownload?: boolean;

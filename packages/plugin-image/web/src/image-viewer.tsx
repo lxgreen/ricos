@@ -227,6 +227,18 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
     );
   };
 
+  getImageSize = opts => {
+    let width, height;
+    if (opts?.width && opts?.height) {
+      width = opts.width;
+      height = opts.height;
+    } else {
+      width = this.props.componentData?.src?.width;
+      height = this.props.componentData?.src?.height;
+    }
+    return { width, height };
+  };
+
   getImage(
     imageClassNames,
     src,
@@ -238,8 +250,9 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       height?: number | string;
     } = {}
   ) {
-    const { fadeIn = false, width, height } = opts;
+    const { fadeIn = false } = opts;
     const loading = this.context.experiments.lazyImagesAndIframes?.enabled ? 'lazy' : undefined;
+    const { width, height } = this.getImageSize(opts);
     return (
       <img
         {...props}
