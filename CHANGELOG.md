@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.69.4(Jan 19, 2022)
+
 ### :bug: Bug Fix
 
 - `ricos-editor`
   - [#3407](https://github.com/wix/ricos/pull/3407) notes indicator horizontal position
-
-</details>
-<hr/>
 
 ## 8.69.3(Jan 19, 2022)
 
