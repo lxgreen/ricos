@@ -16,15 +16,18 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-  
+
+</details>
+<hr/>
+
+## 8.69.3(Jan 19, 2022)
+
 ### :bug: Bug Fix
+
 - `vertical-embed`
   - [#3404](https://github.com/wix/ricos/pull/3404) loadable entry
 - `image-plugin`
   - [#3396](https://github.com/wix/ricos/pull/3396) CLS fix: add width & height attributes to img tag
-
-</details>
-<hr/>
 
 ## 8.69.1(Jan 17, 2022)
 
