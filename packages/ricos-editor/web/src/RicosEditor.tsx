@@ -462,7 +462,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     const dir = getLangDir(locale);
     const nodes = this.getEditorCommands()?.getAllBlocksKeys();
     return (
-      <div dir={dir} style={{ position: 'absolute', insetInlineEnd: 0 }}>
+      <div dir={dir} style={{ position: 'absolute' }}>
         {nodes?.map(id => renderSideBlockComponent(id, dir, sideBlockComponent))}
       </div>
     );
