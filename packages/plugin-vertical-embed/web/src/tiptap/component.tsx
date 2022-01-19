@@ -1,5 +1,5 @@
 import React from 'react';
-import VerticalEmbedComponent from '../components/vertical-embed-component';
+import VerticalEmbedComponent from '../vertical-embed-component';
 import type { PluginProps } from 'wix-rich-content-editor-common';
 import { VERTICAL_EMBED_TYPE } from '../types';
 

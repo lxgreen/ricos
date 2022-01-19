@@ -1,5 +1,5 @@
 import { VERTICAL_EMBED_TYPE } from './types';
-import VerticalEmbedComponent from './components/vertical-embed-component';
+import VerticalEmbedComponent from './vertical-embed-component';
 import type { PluginTypeMapper } from 'wix-rich-content-common';
 
 export const typeMapper: PluginTypeMapper = () => ({

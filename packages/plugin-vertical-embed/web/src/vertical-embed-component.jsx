@@ -5,10 +5,10 @@ import { validate, getLangDir } from 'wix-rich-content-common';
 // eslint-disable-next-line max-len
 import verticalEmbedSchema from 'wix-rich-content-common/dist/statics/schemas/vertical-embed.schema.json';
 import classnames from 'classnames';
-import styles from '../../statics/styles/widget.scss';
-import { VERTICAL_EMBED_TYPE } from '../types';
-import { dataTypeMapper } from '../utils';
-import Card from './Card';
+import styles from '../statics/styles/widget.scss';
+import { VERTICAL_EMBED_TYPE } from './types';
+import { dataTypeMapper } from './utils';
+import Card from './components/Card';
 class VerticalEmbedComponent extends PureComponent {
   constructor(props) {
     super(props);

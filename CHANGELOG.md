@@ -17,8 +17,9 @@
     Click to see more.
   </summary>
   
-  ### :bug: Bug Fix
-
+### :bug: Bug Fix
+- `vertical-embed`
+  - [#3404](https://github.com/wix/ricos/pull/3404) loadable entry
 - `image-plugin`
   - [#3396](https://github.com/wix/ricos/pull/3396) CLS fix: add width & height attributes to img tag
 
@@ -26,6 +27,7 @@
 <hr/>
 
 ## 8.69.1(Jan 17, 2022)
+
 ### :nail_care: Polish
 
 - `ricos-content`
