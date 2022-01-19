@@ -6,8 +6,6 @@ import { RicosEditor } from 'ricos-editor';
 import { RicosViewer } from 'ricos-viewer';
 import { default as editorPlugins } from './editorPlugins';
 import { default as viewerPlugins } from './viewerPlugins';
-import './styles.global.scss';
-import 'wix-rich-content-plugin-commons/dist/styles.min.css';
 import theme from '../../../../../examples/main/shared/theme/theme';
 import { testVideos } from '../../../../../examples/storybook/src/shared/utils/mock';
 import type { TestAppConfig } from '../../../../../examples/main/src/types';
