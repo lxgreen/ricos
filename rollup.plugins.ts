@@ -196,6 +196,43 @@ const createFakeStylesFile = (): Plugin => ({
   },
 });
 
+function createEntriesWithoutCssImport() {
+  return {
+    name: 'create-entries-without-css-import',
+    writeBundle() {
+      const writeOneAppEntriesIfNeeded = pathArray =>
+        pathArray.forEach(path => {
+          const pos = path.indexOf('.') + 1;
+          const oneAppPath = [path.slice(0, pos), 'oneApp.', path.slice(pos)].join('');
+          existsSync(path) &&
+            !existsSync(oneAppPath) &&
+            writeFileSync(oneAppPath, readFileSync(path, 'utf8'), 'utf8');
+        });
+
+      const pathArray = [
+        'dist/module.viewer.cjs.js',
+        'dist/module.viewer.js',
+        'dist/module.cjs.js',
+        'dist/module.js',
+        'dist/mobileNativeLoader.js',
+      ];
+
+      const addLibFilesPaths = () => {
+        if (existsSync('./lib/')) {
+          readdirSync('./lib/').forEach(file => {
+            const fileName = file.split('.')[0];
+            pathArray.push(`dist/lib/${fileName}.cjs.js`);
+            pathArray.push(`dist/lib/${fileName}.cjs.js`);
+          });
+        }
+      };
+
+      addLibFilesPaths();
+      writeOneAppEntriesIfNeeded(pathArray);
+    },
+  };
+}
+
 function addStylesImport() {
   return {
     name: 'add-style-import',
@@ -292,6 +329,7 @@ const lastEntryPlugins = [
   libsPackageJsonGeneratorPlugin(),
   copy(),
   copyAfterBundleWritten(),
+  createEntriesWithoutCssImport(),
   addStylesImport(),
 ];
 export { plugins, postcss, lastEntryPlugins };
