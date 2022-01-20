@@ -20,6 +20,17 @@
 </details>
 <hr/>
 
+## 8.69.5(Jan 20, 2022)
+
+### :bug: Bug Fix
+
+- `plugin-table`
+
+  - [#3409](https://github.com/wix/ricos/pull/3409) fix: parse columns width to integers
+
+- `plugin-image`
+  - [#3408](https://github.com/wix/ricos/pull/3408) fix: preload image width by size config
+
 ## 8.69.4(Jan 19, 2022)
 
 ### :bug: Bug Fix
