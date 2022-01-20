@@ -20,6 +20,13 @@
 </details>
 <hr/>
 
+## 8.69.6(Jan 20, 2022)
+
+### :house: Internal
+
+- `*`
+  - [#3410](https://github.com/wix/ricos/pull/3410) Add oneApp entries without css import
+
 ## 8.69.5(Jan 20, 2022)
 
 ### :bug: Bug Fix
