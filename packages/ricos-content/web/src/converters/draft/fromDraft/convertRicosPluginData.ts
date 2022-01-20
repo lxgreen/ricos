@@ -492,6 +492,7 @@ const convertTableData = data => {
   const {
     config: { colsWidth, rowsHeight, colsMinWidth, rowHeader },
   } = data;
-  data.dimensions = { colsWidthRatio: colsWidth, rowsHeight, colsMinWidth };
+  const colsWidthRatio = colsWidth.map(width => parseInt(width, 10));
+  data.dimensions = { colsWidthRatio, rowsHeight, colsMinWidth };
   data.header = rowHeader;
 };

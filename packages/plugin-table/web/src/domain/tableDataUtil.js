@@ -130,7 +130,7 @@ export class TableDataUtil {
   };
 
   getCellWidthAsRatio = (tableWidth, totalColsWidth, cellWidth) =>
-    (totalColsWidth * cellWidth) / tableWidth;
+    parseInt((totalColsWidth * cellWidth) / tableWidth, 10);
 
   //MERGE
   getCellMergeData = (i, j) => this.getCell(i, j)?.merge;
