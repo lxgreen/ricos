@@ -12,6 +12,12 @@ const PRELOAD = {
   WIDTH: 750,
   QUALITY: 20,
 };
+
+const IMAGE_SIZE = {
+  small: 350,
+  fullWidth: 940,
+};
+
 const resize = (w: number, h: number, rw: number, rh: number) => {
   if (rw > w && rh > h) {
     return { width: w, height: h };
@@ -28,13 +34,14 @@ const createUrl = (
   rw?: number,
   rh?: number,
   rq?: number,
-  type = DEFAULT.TYPE
+  type = DEFAULT.TYPE,
+  size?: string
 ) => {
   if (type === 'preload') {
     return createPreloadUrl(src, rw, rh, rq);
   }
   if (type === 'quailtyPreload') {
-    return createQuailtyPreloadUrl(src, rw, rq);
+    return createQuailtyPreloadUrl(src, rw, rq, size);
   }
   return createHiResUrl(src, rw, rh, rq, removeUsm);
 };
@@ -56,11 +63,13 @@ const createPreloadUrl = (
 
 const createQuailtyPreloadUrl = (
   { file_name: fileName, width: w, height: h }: ComponentData['src'] = {},
-  rw = PRELOAD.WIDTH,
-  rq = PRELOAD.QUALITY
+  rw,
+  rq = PRELOAD.QUALITY,
+  size
 ) => {
   if (fileName) {
-    const minW = Math.min(rw, w);
+    const width = rw || IMAGE_SIZE[size] || PRELOAD.WIDTH;
+    const minW = Math.min(width, w);
     const ratio = h / w;
     const tDim: Dimension = ceilDimension({ w: minW, h: minW * ratio });
     return `${WIX_STATIC_URL}/media/${fileName}/v1/fit/w_${tDim.w},h_${
@@ -104,6 +113,7 @@ const getImageSrc = (
     requiredQuality?: number;
     imageType?: string;
     removeUsm?: boolean;
+    size?: string;
   } = {}
 ) => {
   if (typeof src === 'object') {
@@ -128,7 +138,8 @@ const getImageSrc = (
         options.requiredWidth,
         options.requiredHeight,
         options.requiredQuality,
-        options.imageType
+        options.imageType,
+        options.size
       );
       return url;
     }

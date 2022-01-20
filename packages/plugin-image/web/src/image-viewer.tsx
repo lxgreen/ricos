@@ -157,12 +157,13 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       **/
     if (!this.props.isMobile && !isPNG(src)) {
       const {
-        componentData: { config: { alignment, width } = {} },
+        componentData: { config: { alignment, width, size } = {} },
       } = this.props;
       const usePredefinedWidth = (alignment === 'left' || alignment === 'right') && !width;
       imageSrcOpts = {
         removeUsm,
         imageType: 'quailtyPreload',
+        size: this.context.experiments.imagePreloadWidthByConfig?.enabled && size,
         ...(usePredefinedWidth && { requiredWidth: 300 }),
       };
     }
