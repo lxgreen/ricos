@@ -57,6 +57,7 @@ $track-radius: 3px !default;
   -webkit-appearance: none;
   margin: $thumb-height / 2 0;
   width: $track-width;
+  height: 6px;
 
   &:focus {
     &::-webkit-slider-runnable-track {

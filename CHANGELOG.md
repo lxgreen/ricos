@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+- `ui-components`
+  - [#3413](https://github.com/wix/ricos/pull/3413) fix slider ui on firefox
+
 </details>
 <hr/>
 
