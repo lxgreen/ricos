@@ -30,7 +30,7 @@ const VideoModal = props => {
   const onTabSelected = tab => {
     onPluginsPopOverTabSwitch?.({
       pluginId: VIDEO_TYPE,
-      buttonName: MEDIA_POPOVERS_TABS_NAMES_BI[tab.toLocaleLowerCase()],
+      buttonName: MEDIA_POPOVERS_TABS_NAMES_BI[tab.toLowerCase()],
     });
     setActiveTab(tab);
   };

@@ -24,6 +24,10 @@
 - `ui-components`
   - [#3413](https://github.com/wix/ricos/pull/3413) fix slider ui on firefox
 
+### :house: Internal
+- `video`
+  - [#3414](https://github.com/wix/ricos/pull/3414) fix upload & tab switch bi events
+
 </details>
 <hr/>
 

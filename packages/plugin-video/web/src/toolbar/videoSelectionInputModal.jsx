@@ -138,13 +138,13 @@ export default class VideoSelectionInputModal extends Component {
     if (handleFileSelection) {
       const { helpers } = this.props;
       handleClick = evt => {
+        helpers?.onPluginsPopOverClick?.({
+          pluginId: VIDEO_TYPE,
+          buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.upload,
+        });
         evt.preventDefault();
         return handleFileSelection(({ data, error }) => {
           this.addVideoComponent({ data, error }, true);
-          helpers?.onPluginsPopOverClick?.({
-            pluginId: VIDEO_TYPE,
-            buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.upload,
-          });
           this.closeModal();
         });
       };
