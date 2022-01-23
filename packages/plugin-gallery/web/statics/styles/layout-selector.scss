@@ -1,9 +1,9 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 
-.layoutsSelector_label {
-  display: block;
-  margin-bottom: 16px;
-}
+// .layoutsSelector_label {
+//   display: block;
+//   margin-bottom: 16px;
+// }
 
 @supports (display: grid) {
   .layoutsSelector_grid {
@@ -11,6 +11,7 @@
     grid-template-columns: auto auto auto auto;
     row-gap: 12px;
     column-gap: 4px;
+    margin-top: 12px;
   }
 }
 

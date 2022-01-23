@@ -37,6 +37,7 @@
 }
 
 .tabs_headers_option_label {
+  font-family: $ricos-settings-font-family;
   color: var(--ricos-settings-text-color, #000);
   cursor: pointer;
 }

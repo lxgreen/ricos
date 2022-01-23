@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
   SettingsSeparator,
   LabeledToggle,
-  InfoIcon,
+  InfoIconComponent as InfoIcon,
   RadioGroup,
   Label,
 } from 'wix-rich-content-ui-components';

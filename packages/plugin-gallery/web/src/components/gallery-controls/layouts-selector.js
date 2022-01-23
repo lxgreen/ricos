@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { getGalleryLayoutsSettings } from '../../layout-helper';
 import { mergeStyles } from 'wix-rich-content-common';
-import { SelectionList, SelectionListItem } from 'wix-rich-content-ui-components';
+import { SelectionList, SelectionListItem, Label } from 'wix-rich-content-ui-components';
 import styles from '../../../statics/styles/layout-selector.scss';
 
 class LayoutSelector extends Component {
@@ -48,7 +48,7 @@ class LayoutSelector extends Component {
     const layoutsLabel = t('GalleryPlugin_Layouts_Title');
     return (
       <div>
-        <span className={styles.layoutsSelector_label}>{layoutsLabel}</span>
+        <Label label={layoutsLabel} />
         <SelectionList
           theme={theme}
           className={styles.layoutsSelector_grid}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
-import { SelectionList, SelectionListItem } from 'wix-rich-content-ui-components';
+import { SelectionList, SelectionListItem, Label } from 'wix-rich-content-ui-components';
 import styles from '../../../statics/styles/image-ratio-selector.scss';
 class ImageRatioSelector extends Component {
   constructor(props) {
@@ -93,7 +93,7 @@ class ImageRatioSelector extends Component {
 
     return (
       <div>
-        <span className={styles.imageRatioSelector_label}>{imageRatioLabel}</span>
+        <Label label={imageRatioLabel} />
         <SelectionList
           theme={theme}
           className={styles.imageRatioSelector_grid}

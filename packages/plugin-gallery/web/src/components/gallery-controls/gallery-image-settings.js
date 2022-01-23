@@ -13,6 +13,7 @@ import {
   SettingsPanelHeader,
   FocusManager,
   SettingsMobileHeader,
+  Label,
 } from 'wix-rich-content-ui-components';
 import { LinkPanelWrapper } from 'wix-rich-content-editor-common';
 import { BackIcon, DeleteIcon, ReplaceIcon, NextIcon, PreviousIcon } from '../../icons';
@@ -227,9 +228,9 @@ class ImageSettings extends Component {
                     theme={theme}
                     className={this.styles.galleryImageSettings_section}
                   >
-                    <span id="gallery_image_link_lbl" className={this.styles.inputWithLabel_label}>
-                      {this.linkLabel}
-                    </span>
+                    <div id="gallery_image_link_lbl" className={this.styles.linkLabel}>
+                      <Label label={this.linkLabel} />
+                    </div>
                     <LinkPanelWrapper
                       linkValues={metadata.link || {}}
                       onChange={this.onLinkPanelChange}

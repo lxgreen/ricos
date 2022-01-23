@@ -18,6 +18,9 @@
   </summary>
 
 ### :bug: Bug Fix
+
+- `general`
+  - [#3411](https://github.com/wix/ricos/pull/3411) new settings ui refactor & ui bug fixes
 - `ui-components`
   - [#3413](https://github.com/wix/ricos/pull/3413) fix slider ui on firefox
 
