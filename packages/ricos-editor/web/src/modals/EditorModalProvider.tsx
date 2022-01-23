@@ -99,7 +99,7 @@ export default class EditorModalProvider extends Component<Props, State> {
       theme,
       ariaHiddenId,
       container,
-      experiments,
+      experiments = {},
       editorCommands,
     } = this.props;
     const childProps = merge(children.props, this.modalHandlers);
