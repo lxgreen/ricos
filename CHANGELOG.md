@@ -20,6 +20,7 @@
 ### :bug: Bug Fix
 
 - `general`
+  - [#3419](https://github.com/wix/ricos/pull/3419) new settings ui refactor & ui bug gallery a11y & selectionListItem ui
   - [#3411](https://github.com/wix/ricos/pull/3411) new settings ui refactor & ui bug fixes
 - `ui-components`
   - [#3413](https://github.com/wix/ricos/pull/3413) fix slider ui on firefox

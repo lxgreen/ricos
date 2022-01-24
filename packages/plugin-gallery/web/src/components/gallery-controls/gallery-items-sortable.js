@@ -244,6 +244,7 @@ const ItemActionsMenu = props => {
       multiple
       theme={theme}
       accept={accept}
+      tabIndex={0}
     >
       {isMobile ? <FabIcon className={styles.fab} /> : `+ ${addMediaLabel}`}
     </FileInput>

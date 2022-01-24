@@ -77,6 +77,7 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
     };
 
     return (
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
       <label
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore: disabled doesn't exist in label
@@ -88,6 +89,9 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
         })}
         style={this.props.style}
         title={title}
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+        tabIndex={0}
+        onKeyPress={e => e.key === 'Enter' && this.onClick()}
       >
         {handleFileSelection ? (
           <button
@@ -111,7 +115,7 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
             accept={accept}
             onFocus={() => this.onFocus()}
             onBlur={() => this.onBlur()}
-            tabIndex={tabIndex}
+            // tabIndex={tabIndex}
             {...hasMultiple}
           />
         )}

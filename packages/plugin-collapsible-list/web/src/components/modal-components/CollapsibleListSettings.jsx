@@ -10,6 +10,7 @@ import {
   SelectionListItem,
 } from 'wix-rich-content-ui-components';
 import { LTRIcon, RTLIcon } from 'wix-rich-content-plugin-commons';
+import classNames from 'classnames';
 import { directions, EXPANDED, COLLAPSED, FIRST_EXPANDED } from '../../defaults';
 import styles from '../../../statics/styles/collapsible-list-settings.scss';
 
@@ -116,7 +117,9 @@ class CollapsibleListSettings extends Component {
           renderItem={this.renderOption}
           value={getDataManager().getDirection()}
           onChange={getDataManager().changeDirection}
-          className={this.styles.direction_selector}
+          className={classNames(this.styles.direction_selector, {
+            [styles.direction_selector_newUi]: this.useNewSettingsUi,
+          })}
           optionClassName={this.styles.direction_selector_option}
           useNewSettingsUi={this.useNewSettingsUi}
         />
