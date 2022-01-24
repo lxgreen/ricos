@@ -17,6 +17,12 @@
     Click to see more.
   </summary>
 
+
+</details>
+<hr/>
+
+## 8.69.7(Jan 24, 2022)
+
 ### :bug: Bug Fix
 
 - `general`
@@ -26,11 +32,9 @@
   - [#3413](https://github.com/wix/ricos/pull/3413) fix slider ui on firefox
 
 ### :house: Internal
+
 - `video`
   - [#3414](https://github.com/wix/ricos/pull/3414) fix upload & tab switch bi events
-
-</details>
-<hr/>
 
 ## 8.69.6(Jan 20, 2022)
 
