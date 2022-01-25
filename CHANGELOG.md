@@ -17,17 +17,19 @@
     Click to see more.
   </summary>
 
-### :bug: Bug Fix
-- `ricos-content`
-  - [#3422](https://github.com/wix/ricos/pull/3422) from-html crash in ck-editor
-
-- `editor`
-  - [#3416](https://github.com/wix/ricos/pull/3416) Insert atomic plugin below focused atomic plugin (instead replacing it)
-
 </details>
 <hr/>
 
-## 8.69.7(Jan 24, 2022)
+## 8.69.8 (Jan 25, 2022)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3422](https://github.com/wix/ricos/pull/3422) from-html crash in ck-editor
+- `editor`
+  - [#3416](https://github.com/wix/ricos/pull/3416) Insert atomic plugin below focused atomic plugin (instead replacing it)
+
+## 8.69.7 (Jan 24, 2022)
 
 ### :bug: Bug Fix
 
@@ -42,14 +44,14 @@
 - `video`
   - [#3414](https://github.com/wix/ricos/pull/3414) fix upload & tab switch bi events
 
-## 8.69.6(Jan 20, 2022)
+## 8.69.6 (Jan 20, 2022)
 
 ### :house: Internal
 
 - `*`
   - [#3410](https://github.com/wix/ricos/pull/3410) Add oneApp entries without css import
 
-## 8.69.5(Jan 20, 2022)
+## 8.69.5 (Jan 20, 2022)
 
 ### :bug: Bug Fix
 
@@ -60,14 +62,14 @@
 - `plugin-image`
   - [#3408](https://github.com/wix/ricos/pull/3408) fix: preload image width by size config
 
-## 8.69.4(Jan 19, 2022)
+## 8.69.4 (Jan 19, 2022)
 
 ### :bug: Bug Fix
 
 - `ricos-editor`
   - [#3407](https://github.com/wix/ricos/pull/3407) notes indicator horizontal position
 
-## 8.69.3(Jan 19, 2022)
+## 8.69.3 (Jan 19, 2022)
 
 ### :bug: Bug Fix
 
@@ -76,14 +78,14 @@
 - `image-plugin`
   - [#3396](https://github.com/wix/ricos/pull/3396) CLS fix: add width & height attributes to img tag
 
-## 8.69.1(Jan 17, 2022)
+## 8.69.1 (Jan 17, 2022)
 
 ### :nail_care: Polish
 
 - `ricos-content`
   - [#3400](https://github.com/wix/ricos/pull/3400) velo-adapter: extractor and modifier are now combined under `select`
 
-## 8.69.0(Jan 17, 2022)
+## 8.69.0 (Jan 17, 2022)
 
 ### :house: Internal
 
@@ -97,7 +99,7 @@
 - `*`
   - [#3399](https://github.com/wix/ricos/pull/3399) separate viewer and editor styles & include css inside js bundled files
 
-## 8.68.2(Jan 17, 2022)
+## 8.68.2 (Jan 17, 2022)
 
 ### :nail_care: Polish
 
@@ -109,7 +111,7 @@
 - `tiptap`
   - [#3395](https://github.com/wix/ricos/pull/3395) link-preview: fix tiptap extension definition
 
-## 8.68.1(Jan 14, 2022)
+## 8.68.1 (Jan 14, 2022)
 
 ### :bug: Bug Fix
 
@@ -120,7 +122,7 @@
 - `toolbars-new`
   - [#3378](https://github.com/wix/ricos/pull/3378) fix headings panel context menu dimensions
 
-## 8.68.0(Jan 12, 2022)
+## 8.68.0 (Jan 12, 2022)
 
 ### :rocket: New Feature
 
@@ -132,14 +134,14 @@
 - `toolbars-new`
   - [#3379](https://github.com/wix/ricos/pull/3379) static toolbar overflow
 
-## 8.67.3(Jan 11, 2022)
+## 8.67.3 (Jan 11, 2022)
 
 ### :house: Internal
 
 - `editor-modals`
   - [#3337](https://github.com/wix/ricos/pull/3337) using editor commands in settings modals under modalsWithEditorCommands experiment
 
-## 8.67.2(Jan 11, 2022)
+## 8.67.2 (Jan 11, 2022)
 
 ### :house: Internal
 
