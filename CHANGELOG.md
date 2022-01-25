@@ -21,6 +21,8 @@
 
 - `video`
   - [#3424](https://github.com/wix/ricos/pull/3424) refactor upload & tab switch bi events
+- `audio`
+  - [#3426](https://github.com/wix/ricos/pull/3426) add audio imports to test-env/storybook/bundle-analyzer
 
 </details>
 <hr/>
