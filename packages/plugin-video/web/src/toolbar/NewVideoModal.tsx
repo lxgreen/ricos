@@ -28,10 +28,11 @@ const VideoModal = props => {
   const [submittedInvalidUrl, setSubmittedInvalidUrl] = useState(false);
   const isSoundCloud = type === videoButtonsTypes.soundCloud;
   const onTabSelected = tab => {
-    onPluginsPopOverTabSwitch?.({
-      pluginId: VIDEO_TYPE,
-      buttonName: MEDIA_POPOVERS_TABS_NAMES_BI[tab.toLowerCase()],
-    });
+    activeTab !== tab &&
+      onPluginsPopOverTabSwitch?.({
+        pluginId: VIDEO_TYPE,
+        buttonName: MEDIA_POPOVERS_TABS_NAMES_BI[tab.toLowerCase()],
+      });
     setActiveTab(tab);
   };
   const onUrlInputDoubleClick = () => setUrl('https://www.youtube.com/watch?v=vzKryaN44ss');

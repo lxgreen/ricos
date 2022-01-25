@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `video`
+  - [#3424](https://github.com/wix/ricos/pull/3424) refactor upload & tab switch bi events
+
 </details>
 <hr/>
 

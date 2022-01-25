@@ -7,20 +7,13 @@ import { MEDIA_POPOVERS_BUTTONS_NAMES_BI } from 'wix-rich-content-common';
 export default class VideoUploadModal extends Component {
   constructor(props) {
     super(props);
-    const {
-      componentData,
-      helpers: { onPluginsPopOverClick },
-    } = this.props;
+    const { componentData } = this.props;
     this.state = {
       url: (!componentData.isCustomVideo && componentData.src) || '',
     };
     this.id = `VideoUploadModal_FileInput_${Math.floor(Math.random() * 9999)}`;
     const { onConfirm, onReplace } = props;
     this.onConfirm = obj => {
-      onPluginsPopOverClick?.({
-        pluginId: VIDEO_TYPE,
-        buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.upload,
-      });
       if (onConfirm) {
         const { newBlock } = onConfirm(obj);
         this.blockKey = newBlock.key;
@@ -78,6 +71,7 @@ export default class VideoUploadModal extends Component {
       enableCustomUploadOnMobile,
       isMobile,
       languageDir,
+      helpers,
     } = this.props;
 
     const hasCustomFileUpload = handleFileUpload || handleFileSelection;
@@ -86,6 +80,10 @@ export default class VideoUploadModal extends Component {
     let handleClick;
     if (handleFileSelection) {
       handleClick = evt => {
+        helpers?.onPluginsPopOverClick?.({
+          pluginId: VIDEO_TYPE,
+          buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.upload,
+        });
         evt.preventDefault();
         return handleFileSelection(({ data, error }) => {
           this.addVideoComponent({ data, error }, true);
