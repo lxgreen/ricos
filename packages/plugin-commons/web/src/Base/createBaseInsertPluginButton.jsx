@@ -6,6 +6,7 @@ import { generateInsertPluginButtonProps } from '../Utils/generateInsertPluginBu
 import { FileInput } from 'wix-rich-content-ui-components';
 import { ToolbarButton, BUTTON_TYPES } from 'wix-rich-content-editor-common';
 import styles from '../../statics/styles/toolbar-button.scss';
+import { GlobalContext } from 'wix-rich-content-common';
 
 /**
  * createBaseInsertPluginButton
@@ -49,6 +50,8 @@ export default ({
       this.toolbarName = props.toolbarName;
     }
 
+    static contextType = GlobalContext;
+
     componentDidMount() {
       const { onButtonVisible } = this.props;
       if (button?.isVisiblePromise) {
@@ -65,6 +68,7 @@ export default ({
 
     getButtonProps = () => {
       const { setEditorState, getEditorState, closePluginMenu, pluginMenuButtonRef } = this.props;
+      const { experiments } = this.context;
       return generateInsertPluginButtonProps({
         blockType,
         button,
@@ -81,6 +85,7 @@ export default ({
         toolbarName: this.toolbarName,
         closePluginMenu,
         pluginMenuButtonRef,
+        experiments,
       });
     };
 

@@ -14,6 +14,7 @@ import type {
   onPluginAddStepArgs,
   PluginAddParams,
   SetEditorState,
+  AvailableExperiments,
 } from 'wix-rich-content-common';
 import { GALLERY_TYPE, Version } from 'wix-rich-content-common';
 import { getPluginParams } from './getPluginParams';
@@ -34,6 +35,7 @@ export function generateInsertPluginButtonProps({
   toolbarName,
   pluginMenuButtonRef,
   closePluginMenu,
+  experiments = {},
 }: {
   blockType: string;
   button: InsertButton;
@@ -51,6 +53,7 @@ export function generateInsertPluginButtonProps({
   toolbarName: ToolbarType;
   pluginMenuButtonRef?: HTMLElement;
   closePluginMenu?: CloseModalFunction;
+  experiments?: AvailableExperiments;
 }): ToolbarButtonProps {
   const onPluginAdd = () => helpers?.onPluginAdd?.(blockType, toolbarName);
   const onPluginAddStep = (
@@ -85,7 +88,8 @@ export function generateInsertPluginButtonProps({
     const { newBlock, newSelection, newEditorState } = createBlock(
       getEditorState(),
       componentData,
-      blockType
+      blockType,
+      experiments.shouldAddAtomicAsNewBlock?.enabled
     );
     const params = getPluginParams(data, blockType);
     const blockKey = newBlock.getKey();
@@ -111,7 +115,12 @@ export function generateInsertPluginButtonProps({
     let selection: SelectionState | undefined;
     files.forEach((file: File | File[]) => {
       onPluginAdd();
-      const { newBlock, newSelection, newEditorState } = createBlock(editorState, data, type);
+      const { newBlock, newSelection, newEditorState } = createBlock(
+        editorState,
+        data,
+        type,
+        experiments.shouldAddAtomicAsNewBlock?.enabled
+      );
       editorState = newEditorState;
       selection = selection || newSelection;
       updateEntity(newBlock.getKey(), file);

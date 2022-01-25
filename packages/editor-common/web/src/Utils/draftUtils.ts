@@ -1,6 +1,9 @@
 import type { DraftContent } from 'ricos-content';
-import type { ContentBlock, RawDraftEntity, EditorChangeType, EntityInstance } from '@wix/draft-js';
+import type { RawDraftEntity, EditorChangeType, EntityInstance } from '@wix/draft-js';
+import { List } from 'immutable';
 import {
+  genKey,
+  ContentBlock,
   EditorState,
   Modifier,
   RichUtils,
@@ -418,8 +421,55 @@ export const createBlockAndFocus = (editorState: EditorState, data, pluginType: 
   });
 };
 
-export const createBlock = (editorState: EditorState, data, type: string) => {
-  const currentEditorState = editorState;
+const addEmptyBlock = (direction, editorState) => {
+  const selection = editorState.getSelection();
+  const contentState = editorState.getCurrentContent();
+  const currentBlock = contentState.getBlockForKey(selection.getEndKey());
+
+  const blockMap = contentState.getBlockMap();
+  // Split the blocks
+  const blocksBefore = blockMap.toSeq().takeUntil(v => v === currentBlock);
+  const blocksAfter = blockMap
+    .toSeq()
+    .skipUntil(v => v === currentBlock)
+    .rest();
+  const newBlockKey = genKey();
+  const newBlocks = [
+    [currentBlock.getKey(), currentBlock],
+    [
+      newBlockKey,
+      new ContentBlock({
+        key: newBlockKey,
+        type: 'unstyled',
+        text: '',
+        characterList: List(),
+      }),
+    ],
+  ];
+  direction === 'before' && newBlocks.reverse();
+
+  const newBlockMap = blocksBefore.concat(newBlocks, blocksAfter).toOrderedMap();
+  const newContentState = contentState.merge({
+    blockMap: newBlockMap,
+    selectionBefore: selection,
+    selectionAfter: selection,
+  });
+
+  const newEditorState = EditorState.push(editorState, newContentState, 'insert-fragment');
+  const newSelection = SelectionState.createEmpty(newBlockKey);
+  return EditorState.forceSelection(newEditorState, newSelection);
+};
+
+export const createBlock = (
+  editorState: EditorState,
+  data,
+  type: string,
+  shouldAddAtomicAsNewBlock?: boolean
+) => {
+  const currentEditorState =
+    shouldAddAtomicAsNewBlock && isAtomicBlockInSelection(editorState)
+      ? addEmptyBlock('after', editorState)
+      : editorState;
   const contentState = currentEditorState.getCurrentContent();
   const contentStateWithEntity = contentState.createEntity(
     type,
@@ -427,6 +477,7 @@ export const createBlock = (editorState: EditorState, data, type: string) => {
     cloneDeepWithoutEditorState(data)
   );
   const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+
   const newEditorState = AtomicBlockUtils.insertAtomicBlock(currentEditorState, entityKey, ' ');
   const recentlyCreatedKey = newEditorState.getSelection().getAnchorKey();
   // when adding atomic block, there is the atomic itself, and then there is a text block with one space,

@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `editor`
+
+  - [#3416](https://github.com/wix/ricos/pull/3416) Insert atomic plugin below focused atomic plugin (instead replacing it)
 
 </details>
 <hr/>

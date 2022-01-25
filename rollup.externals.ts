@@ -22,6 +22,7 @@ const externals = [
   '@wix/draft-js',
   'downshift',
   'uuid',
+  'immutable',
   /^punycode$/,
   /^jss$/, //issue with ESM in CJS
   /^jss-plugin-camel-case$/, //issue with ESM in CJS

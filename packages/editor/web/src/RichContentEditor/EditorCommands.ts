@@ -295,7 +295,8 @@ export const createEditorCommands = (
       const { newBlock, newSelection, newEditorState } = createBlock(
         getEditorState(),
         pluginData,
-        draftType
+        draftType,
+        experiments?.shouldAddAtomicAsNewBlock?.enabled
       );
       setEditorState(EditorState.forceSelection(newEditorState, newSelection));
       return newBlock.getKey();
