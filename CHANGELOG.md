@@ -23,9 +23,10 @@
   - [#3424](https://github.com/wix/ricos/pull/3424) refactor upload & tab switch bi events
 - `audio`
   - [#3426](https://github.com/wix/ricos/pull/3426) add audio imports to test-env/storybook/bundle-analyzer
-
-</details>
-<hr/>
+- `image`
+  - [#3412](https://github.com/wix/ricos/pull/3412) performance: prevent double adjusment of DPI
+  </details>
+  <hr/>
 
 ## 8.69.8 (Jan 25, 2022)
 
