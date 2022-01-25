@@ -34,8 +34,7 @@ const addDecoration =
   (rules: Rule[], decorations: Decoration[]) =>
   (type: Decoration_Type, data: Omit<Decoration, 'type'> = {}, element: Element) => {
     const decoration = createDecoration(type, data);
-    const innerElement = getChildNodes(element)[0] as ContentNode;
-    return htmlToNodes(rules, [decoration, ...decorations])(innerElement);
+    return visit(rules, [decoration, ...decorations])(element);
   };
 
 const visit = (rules: Rule[], decorations: Decoration[]) => (element: Element | DocumentFragment) =>

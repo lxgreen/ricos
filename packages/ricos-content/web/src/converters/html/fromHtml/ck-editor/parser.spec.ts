@@ -43,17 +43,13 @@ describe('CKEditor parser', () => {
 
   it('should output valid content for toDraft', () => {
     const failedContent = pipe(
+      // 'crashes.json',
       'migration-failures.json',
       loadFile,
       JSON.parse,
-      // a => [a[0]],
+      // a => [a[7]],
       A.map(
-        flow(
-          parse,
-          // _writeFile('faq-rich.json'),
-          toDraft
-          //, _writeFile('faq-draft.json')
-        )
+        flow(parse, /* _writeFile('faq-rich.json'),  */ toDraft /* _writeFile('faq-draft.json')*/)
       )
     );
     expect(failedContent.length).toEqual(172);

@@ -205,6 +205,9 @@ const imgToAlignedImage: Rule = [
   },
 ];
 
+// missing:
+// <li> </li><li><span> </span></li> -- should add p around whitespace (postprocess?)
+
 export default flow(
   preprocess,
   parse([

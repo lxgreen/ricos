@@ -128,7 +128,10 @@ const wrapTextUnderLi: AstRule = [
 ];
 
 const nakedSpanToP: AstRule = [
-  and([hasTag('span'), hasParent(not(oneOf(['p', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'])))]),
+  and([
+    hasTag('span'),
+    hasParent(not(oneOf(['a', 'p', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']))),
+  ]),
   (node: Element) => ({
     ...node,
     nodeName: 'p',
