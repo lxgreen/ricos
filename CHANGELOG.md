@@ -18,9 +18,10 @@
   </summary>
 
 ### :bug: Bug Fix
+- `ricos-content`
+  - [#3422](https://github.com/wix/ricos/pull/3422) from-html crash in ck-editor
 
 - `editor`
-
   - [#3416](https://github.com/wix/ricos/pull/3416) Insert atomic plugin below focused atomic plugin (instead replacing it)
 
 </details>
