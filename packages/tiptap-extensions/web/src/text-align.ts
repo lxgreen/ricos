@@ -54,7 +54,7 @@ export const createTextAlign = (): RicosExtension => ({
               return false;
             }
 
-            return this.options.types.every(type =>
+            return this.options.types.some(type =>
               commands.updateAttributes(type, {
                 textStyle: { textAlignment: alignment.toUpperCase() },
               })
