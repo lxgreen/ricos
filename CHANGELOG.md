@@ -17,6 +17,12 @@
     Click to see more.
   </summary>
 
+
+  </details>
+  <hr/>
+
+## 8.69.9 (Jan 26, 2022)
+
 ### :house: Internal
 
 - `video`
@@ -25,8 +31,6 @@
   - [#3426](https://github.com/wix/ricos/pull/3426) add audio imports to test-env/storybook/bundle-analyzer
 - `image`
   - [#3412](https://github.com/wix/ricos/pull/3412) performance: prevent double adjusment of DPI
-  </details>
-  <hr/>
 
 ## 8.69.8 (Jan 25, 2022)
 
