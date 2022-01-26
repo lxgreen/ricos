@@ -28,7 +28,6 @@
 - `gallery`
   - [#3428](https://github.com/wix/ricos/pull/3428) fix settings media section layout
 
-
 ## 8.69.9 (Jan 26, 2022)
 
 ### :house: Internal
