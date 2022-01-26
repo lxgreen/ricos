@@ -17,13 +17,17 @@
     Click to see more.
   </summary>
 
+
+  </details>
+  <hr/>
+
+## 8.70.0 (Jan 26, 2022)
+
 ### :bug: Bug Fix
 
 - `gallery`
   - [#3428](https://github.com/wix/ricos/pull/3428) fix settings media section layout
 
-  </details>
-  <hr/>
 
 ## 8.69.9 (Jan 26, 2022)
 
