@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3428](https://github.com/wix/ricos/pull/3428) fix settings media section layout
 
   </details>
   <hr/>
