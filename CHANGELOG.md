@@ -17,6 +17,12 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `common`
+  - [#3432](https://github.com/wix/ricos/pull/3432) fix tooltip position non relative to scroll position
+
+
   </details>
   <hr/>
 

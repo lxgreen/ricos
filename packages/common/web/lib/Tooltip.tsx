@@ -60,7 +60,7 @@ class Tooltip extends React.Component<Props> {
   showTooltip = (e: MouseEvent) => {
     ToolTipComponent.preload();
     if (!(e.target as HTMLButtonElement).disabled) {
-      this.mousePosition = { x: e.clientX, y: e.clientY };
+      this.mousePosition = { x: e.pageX, y: e.pageY };
 
       this.timeoutId = setTimeout(() => {
         this.setState({ tooltipVisible: true }, () => {
@@ -73,7 +73,7 @@ class Tooltip extends React.Component<Props> {
 
   onMouseMove = (e: MouseEvent) => {
     if (this.props.followMouse) {
-      this.mousePosition = { x: e.clientX, y: e.clientY };
+      this.mousePosition = { x: e.pageX, y: e.pageY };
       this.updateTooltipPosition();
     }
   };
