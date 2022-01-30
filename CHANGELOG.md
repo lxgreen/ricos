@@ -20,7 +20,7 @@
   </details>
   <hr/>
 
-## 8.69.11 (Jan 30, 2022)
+## 8.69.12 (Jan 30, 2022)
 
 ### :house: Internal
 
