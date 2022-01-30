@@ -182,7 +182,7 @@
 	"AnchorPlugin_Modal_Description": "Les ancres sont invisibles sur votre site en ligne, mais vous pouvez créer des liens auxquels les connecter. Lorsque des visiteurs cliqueront sur les liens, ils atteindront la partie du site où se trouve l'ancre.",
 	"LineSpacing_beforeParagraph": "Avant le paragraphe",
 	"Gallery_plugin_search_tags": "galerie image collage montage photo image pixel appareil photo diaporama visuel mise en page exposition vitrine",
-	"UploadVideo_Error_Video_Audio_Duration_Mismatch": "La longueur vidéo {{videoDuration}} et la longueur audio {{audioDuration}} du fichier ne correspondent pas. Importez à nouveau le fichier.",
+	"UploadVideo_Error_Video_Audio_Duration_Mismatch": "La durée de la vidéo ({{videoDuration}}) et de l'audio ({{audioDuration}}) du fichier ne correspondent pas. Importez le fichier à nouveau.",
 	"Poll_PollSettings_Tab_Settings_Section_Results_Permission_Voters": "Les personnes qui votent",
 	"EmojiPlugin_EmojiGroups_Activity": "Activité",
 	"Twitter_InsertButton": "Twitter",

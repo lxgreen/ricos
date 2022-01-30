@@ -129,6 +129,7 @@ export default ({
       multiple,
       dataHook,
       isDisabled,
+      beforeChange,
     }) => {
       const { showName, tabIndex, forceDisabled, sideToolbar, className } = this.props;
       const { styles } = this;
@@ -149,6 +150,7 @@ export default ({
           multiple={multiple}
           theme={this.props.theme}
           tabIndex={tabIndex}
+          beforeChange={beforeChange}
         >
           <div className={styles.icon}>
             <Icon key="0" />

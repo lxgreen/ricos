@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `plugin-commons`
+  - [#3431](https://github.com/wix/ricos/pull/3431) fix input buttons `onPluginAdd` BI event
 
   </details>
   <hr/>

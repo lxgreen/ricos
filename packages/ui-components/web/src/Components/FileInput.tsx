@@ -9,6 +9,7 @@ interface FileInputProps {
   accept?: string;
   className?: string;
   onChange: (files: File[]) => void;
+  beforeChange?: () => void;
   handleFileSelection?: (multiple: boolean) => void;
   multiple: boolean;
   disabled?: boolean;
@@ -55,6 +56,11 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
   handleChange = (e: ChangeEvent<{ files: FileList | null; value }>) => {
     this.props.onChange(Array.from(e.target.files || []));
     e.target.value = null;
+  };
+
+  handleBeforeChange = () => {
+    this.props.beforeChange?.();
+    return this.value === null;
   };
 
   render() {
@@ -111,7 +117,7 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
             type={'file'}
             data-hook={dataHook}
             onChange={this.handleChange}
-            onClick={() => this.value === null}
+            onClick={this.handleBeforeChange}
             accept={accept}
             onFocus={() => this.onFocus()}
             onBlur={() => this.onBlur()}

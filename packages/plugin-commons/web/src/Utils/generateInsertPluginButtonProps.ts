@@ -114,7 +114,6 @@ export function generateInsertPluginButtonProps({
     let editorState = getEditorState();
     let selection: SelectionState | undefined;
     files.forEach((file: File | File[]) => {
-      onPluginAdd();
       const { newBlock, newSelection, newEditorState } = createBlock(
         editorState,
         data,
@@ -242,6 +241,7 @@ export function generateInsertPluginButtonProps({
   }
 
   function toggleFileSelection() {
+    onPluginAdd();
     if (settings?.handleFileSelection) {
       settings.handleFileSelection(handleExternalFileChanged);
     } else if (helpers?.handleFileSelection) {
@@ -270,7 +270,12 @@ export function generateInsertPluginButtonProps({
 
   function getPropsByButtonType(type) {
     return {
-      [BUTTON_TYPES.FILE]: { onChange, accept: settings.accept, multiple: button.multi },
+      [BUTTON_TYPES.FILE]: {
+        beforeChange: () => onPluginAdd(),
+        onChange,
+        accept: settings.accept,
+        multiple: button.multi,
+      },
       [BUTTON_TYPES.BUTTON]: { onClick },
     }[type];
   }
