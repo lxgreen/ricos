@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '..';
 import type { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
-
+import classNames from 'classnames';
 import styles from '../../statics/styles/settings-mobile-header.scss';
 
 export interface SettingsMobileHeaderProps {
@@ -12,6 +12,7 @@ export interface SettingsMobileHeaderProps {
   theme: RichContentTheme;
   title?: string;
   t: TranslationFunction;
+  useNewSettingsUi?: boolean; //!remove when experiment is done
 }
 
 const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
@@ -23,6 +24,7 @@ const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
   title,
   t,
   children,
+  useNewSettingsUi,
 }) => {
   const saveText = saveLabel || t('SettingsPanelFooter_Save');
   const cancelText = cancelLabel || t('SettingsPanelFooter_Cancel');
@@ -35,7 +37,11 @@ const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
   );
 
   return (
-    <div className={styles.setting_mobile_header}>
+    <div
+      className={classNames(styles.setting_mobile_header, {
+        [styles.setting_mobile_header_newUi]: useNewSettingsUi,
+      })}
+    >
       {renderButton(saveText, buttonsDataHook.save, onSave)}
       <>
         {title && <div className={styles.setting_mobile_header_title}>{title}</div>}

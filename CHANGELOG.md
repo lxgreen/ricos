@@ -29,6 +29,8 @@
 ### :house: Internal
 
 - `general`
+  - [#3429](https://github.com/wix/ricos/pull/3429) add a fixed header style to plugins settings
+- `general`
   - [#3430](https://github.com/wix/ricos/pull/3430) new settings ui refactor
   
   </details>

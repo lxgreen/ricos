@@ -41,6 +41,8 @@ export class MapSettingsModal extends Component {
     this.modalsWithEditorCommands = experiments.modalsWithEditorCommands?.enabled;
   }
 
+  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
+
   updateMapSettings = data =>
     this.setState({ mapSettings: { ...this.state.mapSettings, ...data } });
 
@@ -166,12 +168,18 @@ export class MapSettingsModal extends Component {
       <div
         className={classNames(
           this.styles.map_settings_modal_settings,
-          this.styles.map_settings_modal_main_content_block
+          this.styles.map_settings_modal_main_content_block,
+          {
+            [this.styles.map_settings_modal_main_content_block_newUi]: this.useNewSettingsUi,
+          }
         )}
       >
         <SettingsSection
           theme={theme}
-          className={this.styles.map_settings_modal_location_input_settings_section}
+          className={classNames(this.styles.map_settings_modal_location_input_settings_section, {
+            [this.styles.map_settings_modal_location_input_settings_section_newUi]:
+              this.useNewSettingsUi,
+          })}
           ariaProps={{ 'aria-label': 'location', role: 'region' }}
         >
           <div className={this.styles.map_settings_modal_text_input_label}>
@@ -304,22 +312,25 @@ export class MapSettingsModal extends Component {
             onCancel={this.modalsWithEditorCommands ? onCancel : closeModal}
             theme={theme}
             t={t}
-            title={experiments?.newSettingsUi?.enabled && t('MapSettings_Title')}
+            title={this.useNewSettingsUi && t('MapSettings_Title')}
+            useNewSettingsUi={this.useNewSettingsUi}
           />
         )}
 
         <div className={this.styles.map_settings_modal_settings_container} data-hook="mapSettings">
-          {experiments.newSettingsUi?.enabled ? (
+          {!isMobile && this.useNewSettingsUi ? (
             <SettingsPanelHeader title={t('MapSettings_Title')} onClose={closeModal} />
           ) : (
-            <div
-              className={classNames(
-                this.styles.map_settings_modal_title_container,
-                this.styles.map_settings_modal_main_content_block
-              )}
-            >
-              <h3 className={this.styles.map_settings_modal_title}>{t('MapSettings_Title')}</h3>
-            </div>
+            !isMobile && (
+              <div
+                className={classNames(
+                  this.styles.map_settings_modal_title_container,
+                  this.styles.map_settings_modal_main_content_block
+                )}
+              >
+                <h3 className={this.styles.map_settings_modal_title}>{t('MapSettings_Title')}</h3>
+              </div>
+            )
           )}
 
           {isMobile

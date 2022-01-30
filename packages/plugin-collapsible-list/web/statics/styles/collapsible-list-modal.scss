@@ -1,6 +1,8 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
 
 $TITLE_HEIGHT: 70px;
+$TITLE_HEIGHT_MOBILE: 50px;
 $FOOTER_HEIGHT: 96px;
 
 .collapsibleListModal {
@@ -24,8 +26,11 @@ $FOOTER_HEIGHT: 96px;
 .collapsibleListModal_scrollContainer {
   margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
   width: 100%;
-  &.collapsibleListModal_newUi_scrollContainer{
-    margin: 0 auto $FOOTER_HEIGHT auto;
+  &.collapsibleListModal_scrollContainer_newUi {
+    margin: 77px auto $FOOTER_HEIGHT auto;
+    @include phone {
+      margin: $TITLE_HEIGHT_MOBILE auto auto auto;
+    }
   }
 }
 

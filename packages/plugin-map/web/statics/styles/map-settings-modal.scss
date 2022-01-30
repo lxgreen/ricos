@@ -1,18 +1,35 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 
+$TITLE_HEIGHT: 77px;
+$TITLE_HEIGHT_MOBILE: 50px;
+$FOOTER_HEIGHT: 100px;
+
 .map_settings_modal_main_content_block {
   padding: 0px 24px;
   @include phone {
     padding: 0px 20px;
+  }
+
+  &.map_settings_modal_main_content_block_newUi {
+    height: calc(100% - #{$TITLE_HEIGHT} - #{$FOOTER_HEIGHT});
+    margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 24px;
+    @include phone {
+      height: calc(100% - #{$TITLE_HEIGHT_MOBILE});
+      margin: $TITLE_HEIGHT_MOBILE auto auto auto;
+      padding: 20px;
+    }
   }
 }
 
 .map_settings_modal_settings_container {
   display: flex;
   flex-direction: column;
+  text-align: left;
   height: 100vh;
-  text-align:left;
 
   @include phone {
     height: 100%;
@@ -150,6 +167,9 @@
 
   @include phone {
     padding-top: 0px;
+  }
+  &.map_settings_modal_location_input_settings_section_newUi {
+    padding: 0;
   }
 }
 

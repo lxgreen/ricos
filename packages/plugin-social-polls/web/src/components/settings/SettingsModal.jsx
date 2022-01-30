@@ -132,7 +132,12 @@ export class SettingsModal extends Component {
     const useNewSettingsUi = experiments?.newSettingsUi?.enabled;
 
     return (
-      <div ref={$container} className={this.styles.settings_container}>
+      <div
+        ref={$container}
+        className={cls(this.styles.settings_container, {
+          [this.styles.settings_container_newUi]: useNewSettingsUi,
+        })}
+      >
         <FocusManager dir={languageDir}>
           {isMobile ? (
             <SettingsMobileHeader
@@ -141,6 +146,7 @@ export class SettingsModal extends Component {
               theme={styles}
               title={useNewSettingsUi && t('Poll_PollSettings_Common_Header')}
               t={t}
+              useNewSettingsUi={useNewSettingsUi}
             >
               {!useNewSettingsUi && (
                 <div className={this.styles.preview_button}>
@@ -188,7 +194,12 @@ export class SettingsModal extends Component {
               </PollContextProvider>
             </RCEHelpersContext.Provider>
           ) : (
-            <Tabs value={activeTab} theme={theme} onTabSelected={this.handleTabChange}>
+            <Tabs
+              value={activeTab}
+              theme={theme}
+              headersStyle={useNewSettingsUi && styles.poll_tab_headers}
+              onTabSelected={this.handleTabChange}
+            >
               <Tab
                 label={t('Poll_PollSettings_Tab_Layout_TabName')}
                 value={TABS.LAYOUT}

@@ -1,8 +1,25 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 
+$TITLE_HEIGHT: 77px;
+$TITLE_HEIGHT_MOBILE: 50px;
+$TABS_HEIGHT: 50px;
+$FOOTER_HEIGHT: 100px;
+$HEADER_HEIGHT: $TITLE_HEIGHT + $TABS_HEIGHT;
+$HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
+
 .settings_container {
   text-align: left;
+  &.settings_container_newUi {
+    height: calc(100% - #{$HEADER_HEIGHT} - #{$FOOTER_HEIGHT});
+    margin: $HEADER_HEIGHT auto $FOOTER_HEIGHT auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    @include phone {
+      height: calc(100% - #{$HEADER_HEIGHT_MOBILE});
+      margin: $HEADER_HEIGHT_MOBILE auto auto auto;
+    }
+  }
 }
 
 .header {
@@ -193,4 +210,16 @@
   justify-content: flex-end;
   border-right: 1px solid #ededed;
   padding-right: 15px;
+}
+
+.poll_tab_headers {
+  position: fixed;
+  width: 100%;
+  max-width: 420px;
+  background-color: white;
+  z-index: 2;
+  top: $TITLE_HEIGHT;
+  @include phone {
+    top: $TITLE_HEIGHT_MOBILE;
+  }
 }

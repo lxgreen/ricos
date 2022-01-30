@@ -8,6 +8,7 @@ interface CommonTabProps {
   theme: RichContentTheme;
   value: string;
   className?: string;
+  headersStyle?: string;
   onTabSelected?: (value: string) => void;
 }
 
@@ -75,7 +76,7 @@ export class Tabs extends Component<TabsProps, { activeTab: string }> {
     const headers = this.getTabHeaders(props.children);
     return (
       <div role="tablist" className={styles.tabs} aria-orientation="horizontal">
-        <div className={styles.tabs_headers}>
+        <div className={classNames(styles.tabs_headers, this.props?.headersStyle)}>
           {headers.map(({ label, value }) => {
             const isSelected = value === this.state.activeTab;
             return (

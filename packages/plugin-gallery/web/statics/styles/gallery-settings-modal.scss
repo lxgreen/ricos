@@ -1,7 +1,11 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 
-$TITLE_HEIGHT: 0px;
+$TITLE_HEIGHT: 77px;
+$TITLE_HEIGHT_MOBILE: 50px;
+$TABS_HEIGHT: 50px;
 $FOOTER_HEIGHT: 100px;
+$HEADER_HEIGHT: $TITLE_HEIGHT + $TABS_HEIGHT;
+$HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
 
 .gallerySettings_settingsContainer {
   padding: 0;
@@ -44,15 +48,35 @@ $FOOTER_HEIGHT: 100px;
 }
 
 .gallerySettings {
-  height: calc(100% - #{$TITLE_HEIGHT} - #{$FOOTER_HEIGHT});
-  margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
+  height: calc(100% - #{$FOOTER_HEIGHT});
+  margin: 0 auto $FOOTER_HEIGHT auto;
   overflow-y: auto;
   overflow-x: hidden;
   text-align: left;
+  &.gallerySettings_newUi {
+    height: calc(100% - #{$HEADER_HEIGHT} - #{$FOOTER_HEIGHT});
+    margin: $HEADER_HEIGHT auto $FOOTER_HEIGHT auto;
+    @include phone {
+      height: calc(100% - #{$HEADER_HEIGHT_MOBILE});
+      margin: $HEADER_HEIGHT_MOBILE auto auto auto;
+    }
+  }
 }
 
 .gallerySettings_tab_section {
   padding: 24px 30px 30px;
+}
+
+.gallerySettings_tabs_header {
+  position: fixed;
+  top: $TITLE_HEIGHT;
+  width: 100%;
+  max-width: 420px;
+  background-color: white;
+  z-index: 2;
+  @include phone {
+    top: $TITLE_HEIGHT_MOBILE;
+  }
 }
 
 .gallerySettings_tab_section_newUi {

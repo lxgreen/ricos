@@ -19,6 +19,8 @@ class CollapsibleListModal extends Component {
     this.styles = mergeStyles({ styles, theme });
   }
 
+  useNewSettingsUi = this.props.experiments?.newSettingsUi?.enabled;
+
   initState(props) {
     return { initialComponentData: props.pubsub.get('componentData') };
   }
@@ -58,7 +60,7 @@ class CollapsibleListModal extends Component {
   renderDesktopHeader = () => {
     const { t, experiments = {} } = this.props;
 
-    return experiments?.newSettingsUi?.enabled ? (
+    return this.useNewSettingsUi ? (
       <SettingsPanelHeader
         title={t('CollapsibleList_CollapsibleListSettings_Common_Header')}
         onClose={this.revertComponentData}
@@ -71,7 +73,7 @@ class CollapsibleListModal extends Component {
   };
 
   renderMobileHeader = () => {
-    const { t, theme, experiments } = this.props;
+    const { t, theme } = this.props;
 
     return (
       <SettingsMobileHeader
@@ -79,10 +81,8 @@ class CollapsibleListModal extends Component {
         theme={theme}
         onCancel={this.revertComponentData}
         onSave={this.onDoneClick}
-        title={
-          experiments?.newSettingsUi?.enabled &&
-          t('CollapsibleList_CollapsibleListSettings_Common_Header')
-        }
+        title={this.useNewSettingsUi && t('CollapsibleList_CollapsibleListSettings_Common_Header')}
+        useNewSettingsUi={this.useNewSettingsUi}
       />
     );
   };
@@ -94,7 +94,7 @@ class CollapsibleListModal extends Component {
       <div
         className={classNames(styles.collapsibleListModal_scrollContainer, {
           [styles.collapsibleListModal_mobile]: isMobile,
-          [styles.collapsibleListModal_newUi_scrollContainer]: experiments?.newSettingsUi?.enabled,
+          [styles.collapsibleListModal_scrollContainer_newUi]: this.useNewSettingsUi,
         })}
       >
         <CollapsibleListSettings

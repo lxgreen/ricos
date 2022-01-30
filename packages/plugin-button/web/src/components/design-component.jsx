@@ -11,7 +11,7 @@ import ColorToggleComponent from './color-toggle-component';
 import { COLOR_PICKER_TYPE } from '../constants';
 import { DEFAULT_PALETTE } from '../defaults';
 import dcStyle from '../../statics/styles/design-component-styles.scss';
-
+import classNames from 'classnames';
 class DesignComponent extends PureComponent {
   constructor(props) {
     super(props);
@@ -37,6 +37,8 @@ class DesignComponent extends PureComponent {
   }
 
   static contextType = GlobalContext;
+
+  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
 
   getUserColors = () => {
     const {
@@ -202,12 +204,20 @@ class DesignComponent extends PureComponent {
     const { languageDir } = this.context;
     const { design } = this.state;
     return (
-      <div className={styles.button_designComponent_design_component}>
+      <div
+        className={classNames(styles.button_designComponent_design_component, {
+          [styles.button_designComponent_design_component_newUi]: this.useNewSettingsUi,
+        })}
+      >
         <SettingsSection
           theme={theme}
           ariaProps={{ 'aria-label': 'border selection', role: 'region' }}
         >
-          <div className={styles.button_designComponent_row}>
+          <div
+            className={classNames(styles.button_designComponent_row, {
+              [styles.button_designComponent_row_newUi]: this.useNewSettingsUi,
+            })}
+          >
             <div className={styles.button_designComponent_section_header_border}>
               {t('ButtonModal_Border_Section')}
             </div>
@@ -287,6 +297,7 @@ DesignComponent.propTypes = {
   designObj: PropTypes.object,
   settings: PropTypes.object,
   config: PropTypes.object,
+  experiments: PropTypes.object,
   onDesignChange: PropTypes.func.isRequired,
   getTextColors: PropTypes.func,
   getBorderColors: PropTypes.func,

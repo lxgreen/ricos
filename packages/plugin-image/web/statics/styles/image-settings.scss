@@ -3,7 +3,8 @@
 
 $TITLE_HEIGHT: 70px;
 $FOOTER_HEIGHT: 100px;
-$MOBILE_HEADER_HEIGHT: 50px;
+$TITLE_HEIGHT_MOBILE: 50px;
+
 .imageSettings {
   position: absolute;
   left: 0;
@@ -50,8 +51,11 @@ $MOBILE_HEADER_HEIGHT: 50px;
 .imageSettings_scrollContainer {
   margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
   width: 100%;
-  &.imageSettings_newUi_scrollContainer {
-    margin-top: 0;
+  &.imageSettings_scrollContainer_newUi {
+    margin: $TITLE_HEIGHT_MOBILE auto auto auto;
+    @include phone{
+      
+    }
   }
 }
 

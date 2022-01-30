@@ -58,6 +58,8 @@ class ImageSettings extends Component {
     };
   }
 
+  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
+
   toggleState = (key, onToggle) => () => {
     const value = !this.state[key];
     this.setState({ [key]: value }, onToggle?.(value));
@@ -230,16 +232,17 @@ class ImageSettings extends Component {
             onCancel={this.onCancel}
             onSave={this.onSave}
             t={t}
-            title={experiments?.newSettingsUi?.enabled && t('ImageSettings_Header')}
+            title={this.useNewSettingsUi && t('ImageSettings_Header')}
+            useNewSettingsUi={this.useNewSettingsUi}
           />
-        ) : experiments?.newSettingsUi?.enabled ? (
+        ) : this.useNewSettingsUi ? (
           <SettingsPanelHeader title={this.headerText} onClose={this.revertComponentData} />
         ) : (
           <h3 className={this.styles.imageSettingsTitle}>{this.headerText}</h3>
         )}
         <div
           className={classNames(styles.imageSettings_scrollContainer, {
-            [styles.imageSettings_newUi_scrollContainer]: experiments?.newSettingsUi?.enabled,
+            [styles.imageSettings_scrollContainer_newUi]: this.useNewSettingsUi,
             [styles.imageSettings_mobile]: isMobile,
           })}
         >

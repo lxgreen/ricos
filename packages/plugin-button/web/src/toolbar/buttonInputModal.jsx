@@ -24,7 +24,7 @@ import PreviewComponent from '../components/preview-component';
 import { settingsTabValue, designTabValue } from '../constants';
 import styles from '../../statics/styles/button-input-modal.scss';
 import { LINK_BUTTON_TYPE } from '../types';
-
+import classNames from 'classnames';
 export default class ButtonInputModal extends Component {
   constructor(props) {
     super(props);
@@ -48,6 +48,8 @@ export default class ButtonInputModal extends Component {
     };
     this.modalsWithEditorCommands = experiments.modalsWithEditorCommands?.enabled;
   }
+
+  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
 
   onSettingsChanged = settings => {
     const { design } = this.state;
@@ -226,7 +228,7 @@ export default class ButtonInputModal extends Component {
             onSave={this.onConfirm}
             onCancel={this.onCancel}
             theme={styles}
-            title={experiments?.newSettingsUi?.enabled && t('ButtonModal_Header')}
+            title={this.useNewSettingsUi && t('ButtonModal_Header')}
             t={t}
           />
           <PreviewComponent buttonObj={this.state} {...this.props} />
@@ -253,34 +255,59 @@ export default class ButtonInputModal extends Component {
     }
     return (
       <div>
-        {isMobile ? (
+        {isMobile && !this.useNewSettingsUi ? (
           mobileView
         ) : (
-          <div className={styles.button_inputModal_container} data-hook="ButtonInputModal">
+          <div
+            className={classNames(styles.button_inputModal_container, {
+              [styles.button_inputModal_container_newUi]: this.useNewSettingsUi,
+            })}
+            data-hook="ButtonInputModal"
+          >
+            {isMobile && this.useNewSettingsUi && (
+              <>
+                <SettingsMobileHeader
+                  onSave={this.onConfirm}
+                  onCancel={this.modalsWithEditorCommands ? onCancel : this.onCloseRequested}
+                  theme={styles}
+                  title={this.useNewSettingsUi && t('ButtonModal_Header')}
+                  t={t}
+                  useNewSettingsUi={this.useNewSettingsUi}
+                />
+              </>
+            )}
             <div>
-              {experiments?.newSettingsUi?.enabled ? (
+              {this.useNewSettingsUi && !isMobile ? (
                 <SettingsPanelHeader
                   title={t('ButtonModal_Header')}
                   onClose={this.onCloseRequested}
                 />
               ) : (
-                <div
-                  role="heading"
-                  aria-level={2}
-                  aria-labelledby="button_modal_hdr"
-                  className={styles.button_inputModal_header}
-                >
-                  <div className={styles.button_inputModal_header_text}>
-                    {t('ButtonModal_Header')}
+                !isMobile && (
+                  <div
+                    role="heading"
+                    aria-level={2}
+                    aria-labelledby="button_modal_hdr"
+                    className={styles.button_inputModal_header}
+                  >
+                    <div className={styles.button_inputModal_header_text}>
+                      {t('ButtonModal_Header')}
+                    </div>
                   </div>
-                </div>
+                )
               )}
               <FocusManager>
                 <div className={styles.button_inputModal_focus_manager}>
-                  <Tabs value={this.state.activeTab} theme={this.styles}>
+                  <Tabs
+                    value={this.state.activeTab}
+                    theme={this.styles}
+                    headersStyle={this.useNewSettingsUi && styles.button_tabs_headers}
+                  >
                     <Tab label={settingTabLabel} value={settingsTabValue} theme={this.styles}>
                       <div
-                        className={styles.button_tab_section}
+                        className={classNames(styles.button_tab_section, {
+                          [styles.button_tab_section_newUi]: this.useNewSettingsUi,
+                        })}
                         role="button"
                         tabIndex="0"
                         onMouseEnter={this.handleOnMouseEnterSettings}
@@ -289,7 +316,11 @@ export default class ButtonInputModal extends Component {
                       </div>
                     </Tab>
                     <Tab label={designTabLabel} value={designTabValue} theme={this.styles}>
-                      <div className={styles.button_tab_section}>
+                      <div
+                        className={classNames(styles.button_tab_section, {
+                          [styles.button_tab_section_newUi]: this.useNewSettingsUi,
+                        })}
+                      >
                         <Scrollbars
                           ref={this.setScrollbarRef}
                           renderThumbVertical={() =>
@@ -311,14 +342,16 @@ export default class ButtonInputModal extends Component {
                 </div>
               </FocusManager>
             </div>
-            <SettingsPanelFooter
-              fixed
-              save={this.onConfirm}
-              cancel={this.onCancel}
-              theme={styles}
-              t={t}
-              buttonSize={BUTTON_SIZE.small}
-            />
+            {!isMobile && (
+              <SettingsPanelFooter
+                fixed
+                save={this.onConfirm}
+                cancel={this.onCancel}
+                theme={styles}
+                t={t}
+                buttonSize={BUTTON_SIZE.small}
+              />
+            )}
           </div>
         )}
       </div>

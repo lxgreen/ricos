@@ -17,6 +17,8 @@ import styles from '../../statics/styles/gallery-settings-modal.scss';
 import LayoutControlsSection from './layout-controls-section';
 import { SortableComponent } from './gallery-controls/gallery-items-sortable';
 import { layoutData } from '../layout-data-provider';
+import classNames from 'classnames';
+
 const DIVIDER = 'divider';
 class ManageMediaSection extends Component {
   constructor(props) {
@@ -479,6 +481,7 @@ export class GallerySettingsModal extends Component {
     } = this.props;
     const { activeTab } = this.state;
     this.componentData = pubsub.get('componentData');
+    const useNewSettingsUi = !!experiments.newSettingsUi?.enabled;
 
     return (
       <div data-hook="settings" dir={languageDir}>
@@ -488,16 +491,19 @@ export class GallerySettingsModal extends Component {
             onCancel={this.modalsWithEditorCommands ? onCancel : this.revertComponentData}
             onSave={this.modalsWithEditorCommands ? onSave : this.onDoneClick}
             t={t}
-            title={experiments?.newSettingsUi?.enabled && t('GallerySettings_Header')}
+            title={useNewSettingsUi && t('GallerySettings_Header')}
+            useNewSettingsUi={useNewSettingsUi}
           />
         )}
         <FocusManager
           focusTrapOptions={{ initialFocus: `#${activeTab}_header` }}
-          className={styles.gallerySettings}
+          className={classNames(styles.gallerySettings, {
+            [styles.gallerySettings_newUi]: useNewSettingsUi,
+          })}
           dir={languageDir}
         >
           {!isMobile &&
-            (experiments?.newSettingsUi?.enabled ? (
+            (useNewSettingsUi ? (
               <SettingsPanelHeader
                 title={t('GallerySettings_Header')}
                 onClose={this.revertComponentData}
@@ -506,7 +512,12 @@ export class GallerySettingsModal extends Component {
               <div className={styles.gallerySettings_title}>{t('GallerySettings_Header')}</div>
             ))}
           <div className={this.useNewSettingsUi ? null : styles.gallerySettings_tabsContainer}>
-            <Tabs value={activeTab} theme={this.props.theme} onTabSelected={this.onTabSelected}>
+            <Tabs
+              value={activeTab}
+              theme={this.props.theme}
+              headersStyle={useNewSettingsUi && styles.gallerySettings_tabs_header}
+              onTabSelected={this.onTabSelected}
+            >
               {this.tabsToRender().map(tab => tab)}
             </Tabs>
           </div>
