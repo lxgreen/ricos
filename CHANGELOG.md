@@ -22,7 +22,11 @@
 - `common`
   - [#3432](https://github.com/wix/ricos/pull/3432) fix tooltip position non relative to scroll position
 
+### :house: Internal
 
+- `general`
+  - [#3430](https://github.com/wix/ricos/pull/3430) new settings ui refactor
+  
   </details>
   <hr/>
 

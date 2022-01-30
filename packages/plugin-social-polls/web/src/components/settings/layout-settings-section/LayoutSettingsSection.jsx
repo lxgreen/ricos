@@ -10,7 +10,7 @@ import {
   SelectionListItem,
 } from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
-
+import classNames from 'classnames';
 import { LAYOUT, DIRECTION } from '../../../defaults';
 import { LayoutGridIcon, LayoutListIcon } from '../../../assets/icons';
 
@@ -21,7 +21,7 @@ export class LayoutSettingsSection extends Component {
 
   modalsWithEditorCommands = this.props.experiments.modalsWithEditorCommands?.enabled;
 
-  useNewSettingsUi = !!this.props.experiments.newSettingsUi?.enabled;
+  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
 
   updateSettings(layout) {
     const { updateData, componentData } = this.props;
@@ -78,10 +78,14 @@ export class LayoutSettingsSection extends Component {
     const { poll, option } = componentData.layout;
 
     return (
-      <section className={styles.section}>
+      <section className={this.useNewSettingsUi ? styles.section_newUi : styles.section}>
         {!isMobile && (
           <>
-            <p className={styles.title}>
+            <p
+              className={classNames(styles.title, {
+                [styles.title_newUi]: this.useNewSettingsUi,
+              })}
+            >
               {t('Poll_PollSettings_Tab_Layout_Section_Question_Header')}
             </p>
 
@@ -94,6 +98,7 @@ export class LayoutSettingsSection extends Component {
                   : this.updateSettings({ poll: { enableImage: !poll?.enableImage } })
               }
               theme={this.props.theme}
+              style={this.useNewSettingsUi ? { paddingTop: 20 } : {}}
             />
 
             <SettingsSeparator top bottom />
@@ -136,6 +141,7 @@ export class LayoutSettingsSection extends Component {
                 : this.updateSettings({ option: { enableImage: !option?.enableImage } })
             }
             theme={this.props.theme}
+            style={this.useNewSettingsUi ? { paddingTop: 20 } : {}}
           />
         )}
 
@@ -145,6 +151,7 @@ export class LayoutSettingsSection extends Component {
           label={t('Poll_PollSettings_Tab_Layout_Section_TextDirection_Header')}
           tooltipText={t('Poll_PollSettings_Tab_Layout_Section_TextDirection_Header_Tooltip')}
           isMobile={isMobile}
+          style={this.useNewSettingsUi ? { fontSize: '16px' } : {}}
         />
 
         <SelectionList

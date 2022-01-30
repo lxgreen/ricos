@@ -37,6 +37,8 @@ class ManageMediaSection extends Component {
 
   static contextType = GlobalContext;
 
+  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
+
   handleFileChange = (files, itemPos) => {
     if (files.length > 0) {
       const handleFilesSelected = this.props.store.getBlockHandler('handleFilesSelected');
@@ -56,13 +58,29 @@ class ManageMediaSection extends Component {
   };
 
   render() {
-    const { helpers, store, t, relValue, anchorTarget, isMobile, uiSettings, accept, updateData } =
-      this.props;
+    const {
+      helpers,
+      store,
+      t,
+      relValue,
+      anchorTarget,
+      uiSettings,
+      accept,
+      updateData,
+      experiments = {},
+    } = this.props;
     const { handleFileSelection } = helpers;
-    const { languageDir } = this.context;
+    const { languageDir, isMobile } = this.context;
 
     return (
-      <div dir={languageDir} className={styles.gallerySettings_tab_section}>
+      <div
+        dir={languageDir}
+        className={
+          this.useNewSettingsUi
+            ? styles.gallerySettings_tab_section_newUi
+            : styles.gallerySettings_tab_section
+        }
+      >
         <SortableComponent
           theme={this.props.theme}
           items={this.props.data.items}
@@ -75,7 +93,7 @@ class ManageMediaSection extends Component {
           isMobile={isMobile}
           uiSettings={uiSettings}
           accept={accept}
-          experiments={this.props.experiments}
+          experiments={experiments}
         />
       </div>
     );
@@ -103,6 +121,8 @@ class AdvancedSettingsSection extends Component {
     super(props);
     this.modalsWithEditorCommands = props.experiments.modalsWithEditorCommands?.enabled;
   }
+
+  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
 
   applyGallerySetting = setting => {
     const { data, store, updateData } = this.props;
@@ -137,6 +157,8 @@ class AdvancedSettingsSection extends Component {
           className={
             isMobile
               ? styles.gallerySettings_settingsContainerMobile
+              : this.useNewSettingsUi
+              ? styles.gallerySettings_tab_section_newUi
               : styles.gallerySettings_tab_section
           }
           dir={languageDir}
@@ -202,6 +224,8 @@ export class GallerySettingsModal extends Component {
     this.switchTab = this.switchTab.bind(this);
     this.modalsWithEditorCommands = experiments.modalsWithEditorCommands?.enabled;
   }
+
+  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
 
   componentDidMount() {
     if (!this.modalsWithEditorCommands) {
@@ -347,7 +371,13 @@ export class GallerySettingsModal extends Component {
         value={'settings'}
         theme={this.props.theme}
       >
-        <div className={this.styles.gallerySettings_tab_section}>
+        <div
+          className={
+            this.useNewSettingsUi
+              ? this.styles.gallerySettings_tab_section_newUi
+              : this.styles.gallerySettings_tab_section
+          }
+        >
           {this.toggleData.map(this.renderToggle)}
         </div>
       </Tab>
@@ -368,6 +398,7 @@ export class GallerySettingsModal extends Component {
     type,
     isChecked,
     onToggle,
+    style,
   }) =>
     type === DIVIDER ? (
       <SettingsSeparator top />
@@ -380,6 +411,7 @@ export class GallerySettingsModal extends Component {
         dataHook={dataHook}
         onChange={this.modalsWithEditorCommands ? onChange : this.toggleState(toggleKey, onToggle)}
         tooltipText={tooltipText}
+        style={style}
       />
     );
 
@@ -389,6 +421,7 @@ export class GallerySettingsModal extends Component {
       labelKey: 'GalleryPlugin_Settings_ImagesOpenInExpandMode_Label',
       dataHook: 'galleryExpandToggle',
       tooltipText: this.props.t('GallerySettings_Expand_Mode_Toggle'),
+      style: this.useNewSettingsUi ? { paddingTop: 0 } : {},
       isChecked: () => !this.props.componentData.disableExpand,
       onChange: () =>
         this.props.updateData({ disableExpand: !this.props.componentData.disableExpand }),
@@ -398,6 +431,7 @@ export class GallerySettingsModal extends Component {
       labelKey: 'GalleryPlugin_Settings_ImagesCanBeDownloaded_Label',
       dataHook: 'imageDownloadToggle',
       tooltipText: this.props.t('GalleryPlugin_Settings_ImagesCanBeDownloaded_Tooltip'),
+      style: this.useNewSettingsUi ? { paddingTop: 20 } : {},
       isChecked: () => !this.props.componentData.disableDownload,
       onChange: () =>
         this.props.updateData({ disableDownload: !this.props.componentData.disableDownload }),
@@ -471,7 +505,7 @@ export class GallerySettingsModal extends Component {
             ) : (
               <div className={styles.gallerySettings_title}>{t('GallerySettings_Header')}</div>
             ))}
-          <div className={styles.gallerySettings_tabsContainer}>
+          <div className={this.useNewSettingsUi ? null : styles.gallerySettings_tabsContainer}>
             <Tabs value={activeTab} theme={this.props.theme} onTabSelected={this.onTabSelected}>
               {this.tabsToRender().map(tab => tab)}
             </Tabs>

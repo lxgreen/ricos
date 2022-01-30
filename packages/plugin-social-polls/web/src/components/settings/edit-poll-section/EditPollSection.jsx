@@ -146,6 +146,7 @@ class EditPollSectionComponent extends Component {
                 : this.updateSettings({ poll: { enableImage: !layout.poll?.enableImage } })
             }
             theme={this.props.theme}
+            style={this.useNewSettingsUi ? { paddingTop: 20 } : {}}
           />
 
           <LabeledToggle
@@ -159,6 +160,7 @@ class EditPollSectionComponent extends Component {
                 : this.updateSettings({ option: { enableImage: !layout.option?.enableImage } })
             }
             theme={this.props.theme}
+            style={this.useNewSettingsUi ? { paddingTop: 20 } : {}}
           />
         </div>
       </div>

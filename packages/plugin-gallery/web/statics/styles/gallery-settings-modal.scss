@@ -54,3 +54,10 @@ $FOOTER_HEIGHT: 100px;
 .gallerySettings_tab_section {
   padding: 24px 30px 30px;
 }
+
+.gallerySettings_tab_section_newUi {
+  padding: 24px;
+  @include phone {
+    padding: 20px;
+  }
+}

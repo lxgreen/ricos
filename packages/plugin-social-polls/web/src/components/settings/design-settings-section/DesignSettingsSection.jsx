@@ -32,7 +32,7 @@ export class DesignSettingsSection extends Component {
     backgroundType: this.props.componentData.design.poll?.backgroundType || BACKGROUND_TYPE.COLOR,
   };
 
-  useNewSettingsUi = !!this.props.experiments.newSettingsUi?.enabled;
+  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
 
   updateDesign(design) {
     const { updateData, componentData } = this.props;
@@ -118,7 +118,7 @@ export class DesignSettingsSection extends Component {
     const { design } = componentData;
 
     return (
-      <section className={styles.section}>
+      <section className={this.useNewSettingsUi ? styles.section_newUi : styles.section}>
         <p className={styles.title}>
           {t('Poll_PollSettings_Tab_Design_Section_Background_Header')}
         </p>

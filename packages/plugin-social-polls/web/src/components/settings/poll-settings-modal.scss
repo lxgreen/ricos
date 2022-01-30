@@ -56,6 +56,13 @@
   padding: 24px 30px 30px;
 }
 
+.section_newUi {
+  padding: 24px;
+  @include phone {
+    padding: 20px;
+  }
+}
+
 .title {
   font-size: 16px;
   line-height: 1.5;
@@ -63,6 +70,9 @@
   color: var(--ricos-settings-text-color, #000);
   &.title_radius_newUi {
     margin-bottom: 28px;
+  }
+  &.title_newUi {
+    margin-bottom: 0;
   }
 }
 
@@ -84,7 +94,6 @@
   margin: 10px 0;
 }
 
-.labeled_toggle_label,
 .checkbox_label {
   @extend .label;
 }

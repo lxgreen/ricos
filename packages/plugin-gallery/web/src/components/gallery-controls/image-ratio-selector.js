@@ -92,7 +92,7 @@ class ImageRatioSelector extends Component {
     const imageRatioLabel = t('GallerySettings_Image_Ratio');
 
     return (
-      <div>
+      <div className={this.useNewSettingsUi ? styles.imageRatio_selectionList : ''}>
         <Label label={imageRatioLabel} />
         <SelectionList
           theme={theme}

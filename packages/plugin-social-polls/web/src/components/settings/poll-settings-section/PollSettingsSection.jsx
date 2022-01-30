@@ -18,6 +18,8 @@ export class PollSettingsSection extends Component {
 
   modalsWithEditorCommands = this.props.experiments.modalsWithEditorCommands?.enabled;
 
+  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
+
   VOTE_ROLE_OPTIONS = [
     {
       value: MEMBER_ROLES.SITE_MEMBERS,
@@ -101,7 +103,7 @@ export class PollSettingsSection extends Component {
     const { showVoteRoleSetting } = settings;
 
     return (
-      <section className={styles.section}>
+      <section className={this.useNewSettingsUi ? styles.section_newUi : styles.section}>
         <h3 className={styles.title}>
           {t('Poll_PollSettings_Tab_Settings_Section_Voting_Header')}
         </h3>

@@ -74,6 +74,14 @@
   position: relative;
   box-sizing: border-box;
 
+  &.itemContainer_newUi {
+    margin: 6px;
+    svg {
+      position: absolute;
+      top: 2px;
+    }
+  }
+
   &.itemContainerSelected {
     box-shadow: 0 0 0 3px $settings-action-color-fallback;
   }

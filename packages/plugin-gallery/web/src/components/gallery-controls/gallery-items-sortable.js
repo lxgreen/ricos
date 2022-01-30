@@ -31,6 +31,7 @@ const isLocalObjectUrl = item => {
   return item.url.indexOf('data:') !== -1;
 };
 
+// eslint-disable-next-line complexity
 const SortableItem = sortableElement(props => {
   const {
     item,
@@ -48,14 +49,18 @@ const SortableItem = sortableElement(props => {
   } = props;
 
   const styles = mergeStyles({ styles: Styles, theme });
-  const imageSize =
-    isMobile && window && window.document
-      ? (window.document.body.getBoundingClientRect().width - 20) / 3
-      : 104;
+  const useNewSettingsUi = experiments?.newSettingsUi?.enabled;
+  const newUiImageSize = isMobile ? 85 : 116;
+  const imageSize = useNewSettingsUi
+    ? newUiImageSize
+    : isMobile && window && window.document
+    ? (window.document.body.getBoundingClientRect().width - 20) / 3
+    : 104;
+
   if (addItemsButton) {
     const uploadMediaLabel = t('GallerySettings_Upload_Media');
 
-    return experiments.newSettingsUi?.enabled ? (
+    return useNewSettingsUi ? (
       <SettingsAddItem
         handleFileChange={handleFileChange}
         handleFileSelection={handleFileSelection}
@@ -109,8 +114,9 @@ const SortableItem = sortableElement(props => {
         aria-selected={item.selected}
         className={classNames(styles.itemContainer, {
           [styles.itemContainerSelected]: item.selected && !isMobile,
+          [styles.itemContainer_newUi]: useNewSettingsUi,
           [styles.itemContainerSelectedMobile]: item.selected && isMobile,
-          [styles.mobile]: isMobile,
+          [styles.mobile]: !useNewSettingsUi && isMobile,
           [styles.sorting]: isMobileSorting,
         })}
         data-hook="galleryItemsSortable"
@@ -160,6 +166,7 @@ const SortableList = sortableContainer(props => {
     accept,
     experiments,
   } = props;
+  const useNewSettingsUi = experiments?.newSettingsUi?.enabled;
 
   const styles = mergeStyles({ styles: Styles, theme });
   return (
@@ -167,7 +174,9 @@ const SortableList = sortableContainer(props => {
       role="grid"
       aria-label="Gallery Media Management"
       aria-multiselectable="true"
-      className={classNames(styles.sortableContainer, { [styles.mobile]: isMobile })}
+      className={classNames(styles.sortableContainer, {
+        [styles.mobile]: !useNewSettingsUi && isMobile,
+      })}
     >
       {items.map((item, itemIdx) => (
         <SortableItem
@@ -220,8 +229,10 @@ const ItemActionsMenu = props => {
     t,
     isMobile,
     accept,
+    experiments = {},
   } = props;
 
+  const useNewSettingsUi = experiments?.newSettingsUi?.enabled;
   const styles = mergeStyles({ styles: Styles, theme });
   const hasUnselectedItems = items.some(item => !item.selected);
   const hasSelectedItems = items.some(item => item.selected);
@@ -244,9 +255,8 @@ const ItemActionsMenu = props => {
       multiple
       theme={theme}
       accept={accept}
-      tabIndex={0}
     >
-      {isMobile ? <FabIcon className={styles.fab} /> : `+ ${addMediaLabel}`}
+      {!useNewSettingsUi && isMobile ? <FabIcon className={styles.fab} /> : `+ ${addMediaLabel}`}
     </FileInput>
   );
 
@@ -319,7 +329,7 @@ const ItemActionsMenu = props => {
       {itemSettingsLabel}
     </button>
   );
-  if (isMobile && selectedItems.length === 0) {
+  if (!useNewSettingsUi && isMobile && selectedItems.length === 0) {
     buttons.push(toggleSortingButton);
     buttons.push(separator('sep-0'));
   }
@@ -342,7 +352,10 @@ const ItemActionsMenu = props => {
   buttons.splice(buttons.length - 1, 1);
 
   return (
-    <div role="menu" className={classNames(styles.topBar, { [styles.mobile]: isMobile })}>
+    <div
+      role="menu"
+      className={classNames(styles.topBar, { [styles.mobile]: !useNewSettingsUi && isMobile })}
+    >
       {buttons}
       {hasSelectedItems || isMobileSorting ? null : addItemButton}
     </div>
@@ -362,6 +375,7 @@ ItemActionsMenu.propTypes = {
   t: PropTypes.func,
   isMobile: PropTypes.bool,
   accept: PropTypes.string,
+  experiments: PropTypes.object,
 };
 
 export class SortableComponent extends Component {
@@ -609,6 +623,7 @@ export class SortableComponent extends Component {
             t={t}
             isMobile={this.props.isMobile}
             accept={accept}
+            experiments={experiments}
           />
           <SortableList
             items={this.state.items}
