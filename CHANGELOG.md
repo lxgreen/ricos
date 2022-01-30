@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+  </details>
+  <hr/>
+
+## 8.69.11 (Jan 30, 2022)
+
 ### :house: Internal
 
 - `plugin-commons`
   - [#3431](https://github.com/wix/ricos/pull/3431) fix input buttons `onPluginAdd` BI event
-
-  </details>
-  <hr/>
 
 ## 8.69.10 (Jan 26, 2022)
 
