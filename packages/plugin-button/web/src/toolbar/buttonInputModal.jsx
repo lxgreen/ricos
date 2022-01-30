@@ -53,16 +53,17 @@ export default class ButtonInputModal extends Component {
     const { design } = this.state;
     if (!isEqual(settings, this.state.settings)) {
       const {
-        pubsub,
         componentData: { button },
-        updateData,
       } = this.props;
-      this.modalsWithEditorCommands
-        ? updateData({ button: { ...button, settings, design } })
-        : pubsub.update('componentData', { button: { ...button, settings, design } });
+      this.updateComponentData({ button: { ...button, settings, design } });
       this.setState({ settings });
     }
   };
+
+  updateComponentData = data =>
+    this.modalsWithEditorCommands
+      ? this.props.updateData(data)
+      : this.props.pubsub.update('componentData', data);
 
   onDesignChanged = design => {
     const { settings } = this.state;
@@ -75,9 +76,7 @@ export default class ButtonInputModal extends Component {
         componentData: { button },
         updateData,
       } = this.props;
-      this.modalsWithEditorCommands
-        ? updateData({ button: { ...button, design, settings } })
-        : pubsub.update('componentData', { button: { ...button, design, settings } });
+      this.updateComponentData({ button: { ...button, design, settings } });
       this.setState({ design });
     }
   };
@@ -128,9 +127,12 @@ export default class ButtonInputModal extends Component {
       this.modalsWithEditorCommands ? this.onSave() : this.onConfirm();
     }
     if (e.charCode === KEYS_CHARCODE.ESCAPE) {
-      this.modalsWithEditorCommands ? this.props.onCancel() : this.onCloseRequested();
+      this.onCancel();
     }
   };
+
+  onCancel = () =>
+    this.modalsWithEditorCommands ? this.props.onCancel() : this.onCloseRequested();
 
   onCloseRequested = () => {
     const {
@@ -164,9 +166,7 @@ export default class ButtonInputModal extends Component {
       ? componentData
       : pubsub.get('componentData');
     componentDataToSave.button.design = designToSave;
-    this.modalsWithEditorCommands
-      ? updateData(componentDataToSave)
-      : pubsub.set('componentData', componentDataToSave);
+    this.updateComponentData(componentDataToSave);
   };
 
   handleOnMouseEnterDesign = () => {
@@ -224,7 +224,7 @@ export default class ButtonInputModal extends Component {
         <div>
           <SettingsMobileHeader
             onSave={this.onConfirm}
-            onCancel={this.modalsWithEditorCommands ? onCancel : this.onCloseRequested}
+            onCancel={this.onCancel}
             theme={styles}
             title={experiments?.newSettingsUi?.enabled && t('ButtonModal_Header')}
             t={t}
@@ -314,7 +314,7 @@ export default class ButtonInputModal extends Component {
             <SettingsPanelFooter
               fixed
               save={this.onConfirm}
-              cancel={this.modalsWithEditorCommands ? onCancel : this.onCloseRequested}
+              cancel={this.onCancel}
               theme={styles}
               t={t}
               buttonSize={BUTTON_SIZE.small}

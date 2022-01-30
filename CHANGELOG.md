@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+- `button-modal`
+  - [#3434](https://github.com/wix/ricos/pull/3434) refactor button settings modal
+
 ### :bug: Bug Fix
 
 - `common`
