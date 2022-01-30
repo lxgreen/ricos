@@ -28,6 +28,14 @@ class ModalBaseActions extends Component<Props, State> {
     this.state = { data: props.componentData };
   }
 
+  componentDidMount() {
+    this.props.pubsub.subscribe('componentData', this.updateComponentData); // TODO: Need to remove after upload functionality will change!
+  }
+
+  componentWillUnmount() {
+    this.props.pubsub.unsubscribe('componentData', this.updateComponentData); // TODO: Need to remove after upload functionality will change!
+  }
+
   updateData = data => {
     const { editorCommands, pubsub, pluginType } = this.props;
     const newData = { ...this.state.data, ...data };

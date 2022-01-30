@@ -51,9 +51,8 @@ class ManageMediaSection extends Component {
   };
 
   handleFilesAdded = (...args) => {
-    const { store, updateComponentData } = this.props;
+    const { store } = this.props;
     store.getBlockHandler('handleFilesAdded')?.(...args);
-    this.modalsWithEditorCommands && updateComponentData();
   };
 
   render() {
@@ -97,7 +96,6 @@ ManageMediaSection.propTypes = {
   languageDir: PropTypes.string,
   accept: PropTypes.string,
   updateData: PropTypes.func,
-  updateComponentData: PropTypes.func,
 };
 
 class AdvancedSettingsSection extends Component {
