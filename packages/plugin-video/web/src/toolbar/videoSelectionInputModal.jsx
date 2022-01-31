@@ -134,21 +134,22 @@ export default class VideoSelectionInputModal extends Component {
     } = this.props;
     const { styles } = this;
     const hasCustomFileUpload = handleFileUpload || handleFileSelection;
-    let handleClick;
-    if (handleFileSelection) {
+
+    const handleClick = evt => {
       const { helpers } = this.props;
-      handleClick = evt => {
-        helpers?.onPluginsPopOverClick?.({
-          pluginId: VIDEO_TYPE,
-          buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.upload,
-        });
+      helpers?.onPluginsPopOverClick?.({
+        pluginId: VIDEO_TYPE,
+        buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.upload,
+      });
+      if (handleFileSelection) {
         evt.preventDefault();
         return handleFileSelection(({ data, error }) => {
           this.addVideoComponent({ data, error }, true);
           this.closeModal();
         });
-      };
-    }
+      }
+    };
+
     const uploadVideoSection = (
       <div>
         <div className={styles.video_modal_or_upload_video_from}>

@@ -27,6 +27,8 @@
 
 - `toolbars-new`
   - [#3440](https://github.com/wix/ricos/pull/3440) headings update panel content menu apply button
+- `video-modal`
+  - [#3442](https://github.com/wix/ricos/pull/3442) fix modals tab switch and click BI
 
 ### :nail_care: Polish
 

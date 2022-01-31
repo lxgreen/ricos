@@ -77,20 +77,19 @@ export default class VideoUploadModal extends Component {
     const hasCustomFileUpload = handleFileUpload || handleFileSelection;
     const showUploadSection = (!isMobile || enableCustomUploadOnMobile) && hasCustomFileUpload;
 
-    let handleClick;
-    if (handleFileSelection) {
-      handleClick = evt => {
-        helpers?.onPluginsPopOverClick?.({
-          pluginId: VIDEO_TYPE,
-          buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.upload,
-        });
+    const handleClick = evt => {
+      helpers?.onPluginsPopOverClick?.({
+        pluginId: VIDEO_TYPE,
+        buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.upload,
+      });
+      if (handleFileSelection) {
         evt.preventDefault();
         return handleFileSelection(({ data, error }) => {
           this.addVideoComponent({ data, error }, true);
           this.closeModal();
         });
-      };
-    }
+      }
+    };
 
     return (
       <MediaUploadModal

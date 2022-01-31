@@ -27,11 +27,16 @@ const VideoModal = props => {
   const [url, setUrl] = useState(initialUrl);
   const [submittedInvalidUrl, setSubmittedInvalidUrl] = useState(false);
   const isSoundCloud = type === videoButtonsTypes.soundCloud;
+  const getTabsBiButtonName = tab =>
+    tab === videoTabs.embed
+      ? MEDIA_POPOVERS_TABS_NAMES_BI.embed
+      : MEDIA_POPOVERS_TABS_NAMES_BI.upload;
+
   const onTabSelected = tab => {
     activeTab !== tab &&
       onPluginsPopOverTabSwitch?.({
         pluginId: VIDEO_TYPE,
-        buttonName: MEDIA_POPOVERS_TABS_NAMES_BI[tab.toLowerCase()],
+        buttonName: getTabsBiButtonName(tab),
       });
     setActiveTab(tab);
   };
