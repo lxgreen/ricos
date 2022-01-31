@@ -17,23 +17,28 @@
     Click to see more.
   </summary>
 
-  
 ### :bug: Bug Fix
 
 - `map-settings-modal`
   - [#3436](https://github.com/wix/ricos/pull/3436) update plugin data on editing under modalsWithEditorCommands experiment
 - `link-preview-loadable`
+
   - [#3439](https://github.com/wix/ricos/pull/3439) fix link preview styles in viewer loadable
 
 - `toolbars-new`
   - [#3440](https://github.com/wix/ricos/pull/3440) headings update panel content menu apply button
 - `video-modal`
+
   - [#3442](https://github.com/wix/ricos/pull/3442) fix modals tab switch and click BI
   - [#3444](https://github.com/wix/ricos/pull/3444) fix modals ui on resize
+
+- `Docs`
+  - [#3445](https://github.com/wix/ricos/pull/3445) upgrade ricos version in docs packages to fix broken styles
 
 ### :nail_care: Polish
 
 - `button`
+
   - [#3438](https://github.com/wix/ricos/pull/3438) refactor button settings ui
 
   </details>
