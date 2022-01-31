@@ -16,8 +16,14 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
+  
+  </details>
+  <hr/>
+
+## 8.69.13 (Jan 31, 2022)
 
 ### :nail_care: Polish
+
 - `button-modal`
   - [#3434](https://github.com/wix/ricos/pull/3434) refactor button settings modal
 
@@ -32,9 +38,6 @@
   - [#3429](https://github.com/wix/ricos/pull/3429) add a fixed header style to plugins settings
 - `general`
   - [#3430](https://github.com/wix/ricos/pull/3430) new settings ui refactor
-  
-  </details>
-  <hr/>
 
 ## 8.69.12 (Jan 30, 2022)
 
