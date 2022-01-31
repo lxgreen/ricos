@@ -94,7 +94,11 @@ const VideoModal = props => {
   return isSoundCloud ? (
     renderMediaUrlInputModal()
   ) : (
-    <div className={styles.video_modal_container}>
+    <div
+      className={classNames(styles.video_modal_container, {
+        [styles.video_modal_mobile]: isMobile,
+      })}
+    >
       <div className={styles.video_modal_content}>
         {isMobile && (
           <SettingsMobileHeader

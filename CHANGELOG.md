@@ -29,6 +29,7 @@
   - [#3440](https://github.com/wix/ricos/pull/3440) headings update panel content menu apply button
 - `video-modal`
   - [#3442](https://github.com/wix/ricos/pull/3442) fix modals tab switch and click BI
+  - [#3444](https://github.com/wix/ricos/pull/3444) fix modals ui on resize
 
 ### :nail_care: Polish
 

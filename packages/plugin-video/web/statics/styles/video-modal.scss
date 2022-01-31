@@ -4,7 +4,7 @@
   position: relative;
   height: 100%;
   margin-top: -15px;
-  @include phone {
+  &.video_modal_mobile {
     position: absolute;
     top: 0;
     left: 0;
@@ -18,7 +18,7 @@
   width: calc(100% + 40px);
   margin-left: -20px;
   position: relative;
-  @include phone {
+  .video_modal_mobile & {
     width: 100%;
     margin: 0;
   }
@@ -28,12 +28,9 @@
   padding: 16px 20px 0;
   &.video_upload_tab {
     height: 58px;
-    @include phone {
+    .video_modal_mobile & {
       padding: 20px;
     }
-  }
-  @include phone {
-    padding: 0;
   }
 }
 
@@ -58,7 +55,7 @@
 
 .video_modal_add_button_inline {
   @extend %video_modal_add_button;
-  @include phone {
+  .video_modal_mobile & {
     flex-direction: column;
     gap: 24px;
     margin-bottom: 0;

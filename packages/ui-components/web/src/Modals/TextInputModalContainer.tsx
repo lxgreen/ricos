@@ -10,6 +10,7 @@ import { mergeStyles } from 'wix-rich-content-common';
 import { SettingsMobileHeader, Button } from '..';
 import { BUTTON_SIZE } from '../consts';
 import Styles from '../../statics/styles/url-input-modal.scss';
+import classNames from 'classnames';
 
 interface TextInputModalContainerProps {
   t: TranslationFunction;
@@ -79,7 +80,11 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
   );
 
   return (
-    <div className={styles.inputModal_container}>
+    <div
+      className={classNames(styles.inputModal_container, {
+        [styles.inputModal_mobile]: isMobile,
+      })}
+    >
       {isMobile && withMobileHeader && renderMobileHeader()}
       <div className={styles.inputModal_content} data-hook={dataHook} dir={languageDir}>
         {modalTitle}

@@ -110,7 +110,7 @@
 .inputModal_container {
   .inputModal_content {
     padding: 0;
-    @include phone {
+    .inputModal_mobile & {
       padding: 16px 20px;
     }
   }
@@ -126,7 +126,7 @@
 
   .inputModal_textInput {
     margin: 14px 0;
-    @include phone {
+    .inputModal_mobile & {
       margin: 0;
     }
   }
@@ -135,7 +135,7 @@
     font-size: 16px;
   }
 
-  @include phone {
+  .inputModal_mobile & {
     width: 100vw;
     height: 100vh;
   }
@@ -144,7 +144,7 @@
 %input_header_text {
   font-family: $ricos-settings-font-family;
   text-align: left;
-  @include phone {
+  .inputModal_mobile & {
     margin-bottom: 7px;
   }
 }
