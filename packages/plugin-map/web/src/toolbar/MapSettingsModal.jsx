@@ -43,36 +43,27 @@ export class MapSettingsModal extends Component {
 
   useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
 
-  updateMapSettings = data =>
-    this.setState({ mapSettings: { ...this.state.mapSettings, ...data } });
-
-  onLocationInputChange = value =>
+  updateComponentData = data => {
+    const { updateData, componentData } = this.props;
     this.modalsWithEditorCommands
-      ? this.setState({
-          locationSearchPhrase: value,
-          mapSettings: { ...this.state.mapSettings, address: value },
-        })
-      : this.setState({ locationSearchPhrase: value, address: value });
+      ? updateData({ mapSettings: { ...componentData.mapSettings, ...data } })
+      : this.setState({ ...data });
+  };
 
-  onLocationSuggestSelect = (geocodedPrediction, originalPrediction) =>
-    this.modalsWithEditorCommands
-      ? this.setState({
-          locationSearchPhrase: '',
-          mapSettings: {
-            ...this.state.mapSettings,
-            address: originalPrediction.description,
-            locationDisplayName: originalPrediction.description,
-            lat: geocodedPrediction.geometry.location.lat(),
-            lng: geocodedPrediction.geometry.location.lng(),
-          },
-        })
-      : this.setState({
-          locationSearchPhrase: '',
-          address: originalPrediction.description,
-          locationDisplayName: originalPrediction.description,
-          lat: geocodedPrediction.geometry.location.lat(),
-          lng: geocodedPrediction.geometry.location.lng(),
-        });
+  onLocationInputChange = value => {
+    this.setState({ locationSearchPhrase: value });
+    this.updateComponentData({ address: value });
+  };
+
+  onLocationSuggestSelect = (geocodedPrediction, originalPrediction) => {
+    this.setState({ locationSearchPhrase: '' });
+    this.updateComponentData({
+      address: originalPrediction.description,
+      locationDisplayName: originalPrediction.description,
+      lat: geocodedPrediction.geometry.location.lat(),
+      lng: geocodedPrediction.geometry.location.lng(),
+    });
+  };
 
   onSaveBtnClick = () => {
     const { componentData, onConfirm, pubsub, helpers } = this.props;
@@ -102,30 +93,32 @@ export class MapSettingsModal extends Component {
   };
 
   onSave = () => {
-    const { updateData, onSave } = this.props;
-    updateData({ mapSettings: this.state.mapSettings });
-    onSave();
+    this.modalsWithEditorCommands ? this.props.onSave() : this.onSaveBtnClick();
   };
 
-  oldToggleState = key => () => {
-    this.setState(prevState => ({
-      [key]: !prevState[key],
-    }));
+  onCancel = () => {
+    this.modalsWithEditorCommands ? this.props.onCancel() : this.props.helpers.closeModal();
   };
 
-  toggleState = key => () => this.updateMapSettings({ [key]: !this.state.mapSettings[key] });
+  toggleState = key => () => {
+    this.modalsWithEditorCommands
+      ? this.updateComponentData({ [key]: !this.props.componentData.mapSettings[key] })
+      : this.setState(prevState => ({
+          [key]: !prevState[key],
+        }));
+  };
 
   renderToggle = ({ toggleKey, labelKey }) => (
     <LabeledToggle
       key={labelKey}
       theme={this.props.theme}
       checked={
-        this.modalsWithEditorCommands ? this.state.mapSettings[toggleKey] : this.state[toggleKey]
+        this.modalsWithEditorCommands
+          ? this.props.componentData.mapSettings[toggleKey]
+          : this.state[toggleKey]
       }
       label={this.props.t(labelKey)}
-      onChange={
-        this.modalsWithEditorCommands ? this.toggleState(toggleKey) : this.oldToggleState(toggleKey)
-      }
+      onChange={this.toggleState(toggleKey)}
     />
   );
 
@@ -153,15 +146,15 @@ export class MapSettingsModal extends Component {
   ];
 
   renderSettingsSections() {
-    const { theme, t, isMobile } = this.props;
+    const { theme, t, isMobile, componentData } = this.props;
     const { locationSearchPhrase } = this.state;
     const { googleMapApiKey } = this.props.settings;
     const address = this.modalsWithEditorCommands
-      ? this.state.mapSettings.address
+      ? componentData.mapSettings.address
       : this.state.address;
 
     const locationDisplayName = this.modalsWithEditorCommands
-      ? this.state.mapSettings.locationDisplayName
+      ? componentData.mapSettings.locationDisplayName
       : this.state.locationDisplayName;
 
     return (
@@ -250,11 +243,7 @@ export class MapSettingsModal extends Component {
             type="text"
             id="location-display-name"
             value={locationDisplayName}
-            onChange={locationDisplayName =>
-              this.modalsWithEditorCommands
-                ? this.updateMapSettings({ locationDisplayName })
-                : this.setState({ locationDisplayName })
-            }
+            onChange={locationDisplayName => this.updateComponentData({ locationDisplayName })}
             theme={this.styles}
             autoComplete="off"
           />
@@ -283,15 +272,7 @@ export class MapSettingsModal extends Component {
   }
 
   render() {
-    const {
-      t,
-      isMobile,
-      languageDir,
-      helpers: { closeModal },
-      theme,
-      onCancel,
-      experiments = {},
-    } = this.props;
+    const { t, isMobile, languageDir, theme, experiments = {} } = this.props;
 
     const wrapWithScrollBars = jsx => (
       <Scrollbars
@@ -308,8 +289,8 @@ export class MapSettingsModal extends Component {
       <div dir={languageDir}>
         {isMobile && (
           <SettingsMobileHeader
-            onSave={this.modalsWithEditorCommands ? this.onSave : this.onSaveBtnClick}
-            onCancel={this.modalsWithEditorCommands ? onCancel : closeModal}
+            onSave={this.onSave}
+            onCancel={this.onCancel}
             theme={theme}
             t={t}
             title={this.useNewSettingsUi && t('MapSettings_Title')}
@@ -319,7 +300,7 @@ export class MapSettingsModal extends Component {
 
         <div className={this.styles.map_settings_modal_settings_container} data-hook="mapSettings">
           {!isMobile && this.useNewSettingsUi ? (
-            <SettingsPanelHeader title={t('MapSettings_Title')} onClose={closeModal} />
+            <SettingsPanelHeader title={t('MapSettings_Title')} onClose={this.onCancel} />
           ) : (
             !isMobile && (
               <div
@@ -340,8 +321,8 @@ export class MapSettingsModal extends Component {
           {!isMobile && (
             <SettingsPanelFooter
               fixed
-              cancel={this.modalsWithEditorCommands ? onCancel : closeModal}
-              save={this.modalsWithEditorCommands ? this.onSave : this.onSaveBtnClick}
+              cancel={this.onCancel}
+              save={this.onSave}
               theme={theme}
               t={t}
             />

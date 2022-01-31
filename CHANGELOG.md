@@ -17,10 +17,15 @@
     Click to see more.
   </summary>
   
+### :bug: Bug Fix
+
+- `map-settings-modal`
+  - [#3436](https://github.com/wix/ricos/pull/3436) update plugin data on editing under modalsWithEditorCommands experiment
 
 ### :nail_care: Polish
 
 - `button`
+
   - [#3438](https://github.com/wix/ricos/pull/3438) refactor button settings ui
 
   </details>

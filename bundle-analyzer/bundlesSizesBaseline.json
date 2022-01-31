@@ -29,16 +29,17 @@
   "wix-rich-content-plugin-image": 263,
   "wix-rich-content-plugin-indent": 227,
   "wix-rich-content-plugin-line-spacing": 227,
-  "wix-rich-content-plugin-link-preview": 244,
+  "wix-rich-content-plugin-link-preview": 243,
   "wix-rich-content-plugin-link": 231,
   "wix-rich-content-plugin-map": 354,
   "wix-rich-content-plugin-mentions": 230,
   "wix-rich-content-plugin-social-polls": 374,
   "wix-rich-content-plugin-soundcloud": 314,
-  "wix-rich-content-plugin-spoiler": 244,
+  "wix-rich-content-plugin-spoiler": 243,
   "wix-rich-content-plugin-table": 289,
   "wix-rich-content-plugin-text-color": 227,
   "wix-rich-content-plugin-undo-redo": 227,
   "wix-rich-content-plugin-vertical-embed": 255,
   "wix-rich-content-plugin-video": 317
 }
+
