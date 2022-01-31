@@ -192,7 +192,8 @@ export const preprocess = flow(
     traverse(containerPToDiv),
     traverse(wrapTextUnderLi),
     traverse(collapseWhitespaces),
-    traverse(nakedSpanToP),
+    // hack to make nakedSpanToP work -- otherwise does not work correctly
+    flow(serialize, toAst, traverse(nakedSpanToP)),
     traverse(textInDivToP)
   ),
   serialize,
