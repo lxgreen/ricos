@@ -28,6 +28,11 @@
 
   - [#3438](https://github.com/wix/ricos/pull/3438) refactor button settings ui
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3440](https://github.com/wix/ricos/pull/3440) headings update panel content menu apply button
+
   </details>
   <hr/>
 

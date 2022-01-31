@@ -20,7 +20,7 @@ const onKeyDown = (e, onClick, onClose, clickFromKeyBoard?: boolean) => {
 const UpdateHeadingPanel = ({
   optionName,
   theme,
-  // onApply,
+  onApply,
   onUpdate,
   onReset,
   t,
@@ -33,7 +33,7 @@ const UpdateHeadingPanel = ({
   const resetButtonDisabled = !resetEnabled();
   return (
     <div className={styles.panel}>
-      {/* <div
+      <div
         className={classNames(styles.panel_row, styles.buttonComponent)}
         onClick={() => onApply(false)}
         onKeyDown={e => onKeyDown(e, onApply, onClose, true)}
@@ -42,7 +42,7 @@ const UpdateHeadingPanel = ({
       >
         {t('FormattingToolbar_TextStyle_Heading_Apply', { optionName })}
       </div>
-      <div className={styles.separator} /> */}
+      <div className={styles.separator} />
       <div
         className={styles.panel_row}
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
