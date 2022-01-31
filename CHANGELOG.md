@@ -17,6 +17,12 @@
     Click to see more.
   </summary>
   
+
+### :nail_care: Polish
+
+- `button`
+  - [#3438](https://github.com/wix/ricos/pull/3438) refactor button settings ui
+
   </details>
   <hr/>
 
