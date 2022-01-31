@@ -19,6 +19,9 @@
 
 ### :bug: Bug Fix
 
+- `ricos-content`
+  - [#3446](https://github.com/wix/ricos/pull/3446) fix fromHtml/ck-editor span rules
+
 - `map-settings-modal`
   - [#3436](https://github.com/wix/ricos/pull/3436) update plugin data on editing under modalsWithEditorCommands experiment
 - `link-preview-loadable`
