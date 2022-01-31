@@ -12,6 +12,7 @@ import {
   SearchIcon,
   SettingsMobileHeader,
   SettingsPanelHeader,
+  InputWithLabel,
 } from 'wix-rich-content-ui-components';
 import { Scrollbars } from 'react-custom-scrollbars';
 import classNames from 'classnames';
@@ -108,7 +109,7 @@ export class MapSettingsModal extends Component {
         }));
   };
 
-  renderToggle = ({ toggleKey, labelKey }) => (
+  renderToggle = ({ toggleKey, labelKey, style }) => (
     <LabeledToggle
       key={labelKey}
       theme={this.props.theme}
@@ -119,6 +120,7 @@ export class MapSettingsModal extends Component {
       }
       label={this.props.t(labelKey)}
       onChange={this.toggleState(toggleKey)}
+      style={style}
     />
   );
 
@@ -126,6 +128,7 @@ export class MapSettingsModal extends Component {
     {
       toggleKey: 'isViewControlShown',
       labelKey: 'MapSettings_MapOption_Show_View_Control_Label',
+      style: this.useNewSettingsUi ? { paddingTop: 0 } : {},
     },
     {
       toggleKey: 'isMarkerShown',
@@ -170,14 +173,15 @@ export class MapSettingsModal extends Component {
         <SettingsSection
           theme={theme}
           className={classNames(this.styles.map_settings_modal_location_input_settings_section, {
-            [this.styles.map_settings_modal_location_input_settings_section_newUi]:
-              this.useNewSettingsUi,
+            [this.styles.settings_section_newUi]: this.useNewSettingsUi,
           })}
           ariaProps={{ 'aria-label': 'location', role: 'region' }}
         >
-          <div className={this.styles.map_settings_modal_text_input_label}>
-            <label htmlFor="location-input">{t('MapSettings_Location_Input_Label')}</label>
-          </div>
+          {!this.useNewSettingsUi && (
+            <div className={this.styles.map_settings_modal_text_input_label}>
+              <label htmlFor="location-input">{t('MapSettings_Location_Input_Label')}</label>
+            </div>
+          )}
           <ReactGoogleMapLoader
             params={{
               key: googleMapApiKey,
@@ -206,23 +210,36 @@ export class MapSettingsModal extends Component {
                       <div className={this.styles.map_settings_modal_search_icon}>
                         <SearchIcon />
                       </div>
-                      <TextInput
-                        tabIndex="0"
-                        theme={this.styles}
-                        type="option"
-                        placeholder={t('MapSettings_Location_Input_Placeholder')}
-                        value={address}
-                        id="location-input"
-                        autoComplete="off"
-                        onChange={this.onLocationInputChange}
-                        inputRef={ref => {
-                          // TODO: since this is a common logic, move it to the TextInput component, and encapsulate it in a prop
-                          if (ref !== null && !this.state.isLocationInputAlreadyFocused) {
-                            ref.focus();
-                            this.setState({ isLocationInputAlreadyFocused: true });
-                          }
-                        }}
-                      />
+                      {this.useNewSettingsUi ? (
+                        <InputWithLabel
+                          label={t('MapSettings_Location_Input_Label')}
+                          placeholder={t('MapSettings_Location_Input_Placeholder')}
+                          id="location-input"
+                          value={address}
+                          onChange={this.onLocationInputChange}
+                          autoComplete="off"
+                          onLoad={() => this.setState({ isLocationInputAlreadyFocused: true })}
+                          tabIndex={0}
+                        />
+                      ) : (
+                        <TextInput
+                          tabIndex="0"
+                          theme={this.styles}
+                          type="option"
+                          placeholder={t('MapSettings_Location_Input_Placeholder')}
+                          value={address}
+                          id="location-input"
+                          autoComplete="off"
+                          onChange={this.onLocationInputChange}
+                          inputRef={ref => {
+                            // TODO: since this is a common logic, move it to the TextInput component, and encapsulate it in a prop
+                            if (ref !== null && !this.state.isLocationInputAlreadyFocused) {
+                              ref.focus();
+                              this.setState({ isLocationInputAlreadyFocused: true });
+                            }
+                          }}
+                        />
+                      )}
                     </div>
                   </ReactGooglePlacesSuggest>
                 </div>
@@ -236,21 +253,40 @@ export class MapSettingsModal extends Component {
           className={this.styles.map_settings_modal_location_display_name_settings_section}
           ariaProps={{ 'aria-label': 'location', role: 'region' }}
         >
-          <div className={this.styles.map_settings_modal_text_input_label}>
-            <label htmlFor="location-display-name">{t('MapSettings_Location_Display_Name')}</label>
-          </div>
-          <TextInput
-            type="text"
-            id="location-display-name"
-            value={locationDisplayName}
-            onChange={locationDisplayName => this.updateComponentData({ locationDisplayName })}
-            theme={this.styles}
-            autoComplete="off"
-          />
+          {this.useNewSettingsUi ? (
+            <InputWithLabel
+              label={t('MapSettings_Location_Display_Name')}
+              id="location-display-name"
+              value={locationDisplayName}
+              onChange={locationDisplayName => this.updateComponentData({ locationDisplayName })}
+              theme={this.styles}
+              autoComplete="off"
+            />
+          ) : (
+            <>
+              <div className={this.styles.map_settings_modal_text_input_label}>
+                <label htmlFor="location-display-name">
+                  {t('MapSettings_Location_Display_Name')}
+                </label>
+              </div>
+              <TextInput
+                type="text"
+                id="location-display-name"
+                value={locationDisplayName}
+                onChange={locationDisplayName => this.updateComponentData({ locationDisplayName })}
+                theme={this.styles}
+                autoComplete="off"
+              />
+            </>
+          )}
         </SettingsSection>
 
-        {!isMobile && (
-          <div className={this.styles.map_settings_modal_divider_wrapper}>
+        {(!isMobile || this.useNewSettingsUi) && (
+          <div
+            className={classNames(this.styles.map_settings_modal_divider_wrapper, {
+              [this.styles.map_settings_modal_divider_newUi]: this.useNewSettingsUi,
+            })}
+          >
             <div className={this.styles.map_settings_modal_divider} />
           </div>
         )}
@@ -261,9 +297,11 @@ export class MapSettingsModal extends Component {
           ariaProps={{ 'aria-label': 'ckeckboxes', role: 'region' }}
         >
           <div className={this.styles.map_settings_modal_map_options}>
-            <p className={this.styles.map_settings_modal_map_options_sub_header}>
-              {t('MapSettings_MapOption_SubHeader')}
-            </p>
+            {!this.useNewSettingsUi && (
+              <p className={this.styles.map_settings_modal_map_options_sub_header}>
+                {t('MapSettings_MapOption_SubHeader')}
+              </p>
+            )}
             {this.toggleData.map(toggle => this.renderToggle(toggle))}
           </div>
         </SettingsSection>

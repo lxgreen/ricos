@@ -25,6 +25,7 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
   updateData,
 }) => {
   const modalsWithEditorCommands = experiments.modalsWithEditorCommands?.enabled;
+  const useNewSettingsUi = experiments.newSettingsUi?.enabled;
 
   const disableDownload =
     componentData.disableDownload !== undefined
@@ -87,6 +88,7 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
       data-hook="settings"
       className={classNames(styles.videoSettings, {
         [styles.videoSettings_mobile]: isMobile,
+        [styles.videoSettings_newUi]: useNewSettingsUi,
       })}
     >
       {isMobile ? (
@@ -95,7 +97,8 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
           theme={theme}
           onCancel={modalsWithEditorCommands ? onCancel : closeModal}
           onSave={modalsWithEditorCommands ? onSave : onDoneClick}
-          title={experiments?.newSettingsUi?.enabled && t('VideoModal_MobileHeader')}
+          title={useNewSettingsUi && t('VideoModal_MobileHeader')}
+          useNewSettingsUi={useNewSettingsUi}
         />
       ) : experiments?.newSettingsUi?.enabled ? (
         <SettingsPanelHeader title={t('VideoPlugin_Settings_Header')} onClose={closeModal} />

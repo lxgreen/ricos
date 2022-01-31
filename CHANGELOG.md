@@ -41,8 +41,9 @@
 ### :nail_care: Polish
 
 - `button`
-
   - [#3438](https://github.com/wix/ricos/pull/3438) refactor button settings ui
+- `general`
+  - [#3447](https://github.com/wix/ricos/pull/3447) refactor maps image video new settings ui
 
   </details>
   <hr/>

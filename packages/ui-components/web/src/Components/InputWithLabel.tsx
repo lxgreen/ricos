@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
-import type { ChangeEvent } from 'react';
+import type { ChangeEvent, Ref } from 'react';
 import React, { Component } from 'react';
 import { omit } from 'lodash';
 import classNames from 'classnames';
@@ -23,6 +23,8 @@ interface InputWithLabelProps {
   isMobile?: boolean;
   onChange: (e) => void;
   getTarget?: boolean;
+  tabIndex?: number;
+  inputRef?: Ref<HTMLInputElement>;
 }
 
 class InputWithLabel extends Component<InputWithLabelProps> {
@@ -45,8 +47,17 @@ class InputWithLabel extends Component<InputWithLabelProps> {
 
   renderInput = () => {
     const { styles } = this;
-    const { id, isTextArea, isFullHeight, dataHook, isMobile, tooltipTextKey, t, ...otherProps } =
-      this.props;
+    const {
+      id,
+      isTextArea,
+      isFullHeight,
+      dataHook,
+      isMobile,
+      tooltipTextKey,
+      t,
+      inputRef,
+      ...otherProps
+    } = this.props;
     const inputProps = omit(otherProps, ['theme', 'onChange']);
     const inputClassName = classNames(styles.inputWithLabel_input, {
       [styles.inputWithLabel_textArea]: isTextArea,
@@ -60,6 +71,8 @@ class InputWithLabel extends Component<InputWithLabelProps> {
         id={id}
         data-hook={dataHook}
         onChange={this.handleOnChange}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ref={inputRef as any}
         {...inputProps}
       />
     );

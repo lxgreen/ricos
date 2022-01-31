@@ -52,9 +52,9 @@ $TITLE_HEIGHT_MOBILE: 50px;
   margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
   width: 100%;
   &.imageSettings_scrollContainer_newUi {
-    margin: $TITLE_HEIGHT_MOBILE auto auto auto;
-    @include phone{
-      
+    margin: 77px auto $FOOTER_HEIGHT auto;
+    @include phone {
+      margin: $TITLE_HEIGHT_MOBILE auto auto auto;
     }
   }
 }

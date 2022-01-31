@@ -1,7 +1,19 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
+
+$TITLE_HEIGHT: 77px;
+$TITLE_HEIGHT_MOBILE: 50px;
+$FOOTER_HEIGHT: 100px;
 
 .videoSettings {
   text-align: left;
+  width: 100%;
+  &.videoSettings_newUi {
+    margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
+    @include phone {
+      margin: $TITLE_HEIGHT_MOBILE auto auto;
+    }
+  }
 }
 
 .separator {
