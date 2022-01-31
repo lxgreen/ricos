@@ -16,22 +16,22 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
+
   
 ### :bug: Bug Fix
 
 - `map-settings-modal`
   - [#3436](https://github.com/wix/ricos/pull/3436) update plugin data on editing under modalsWithEditorCommands experiment
+- `link-preview-loadable`
+  - [#3439](https://github.com/wix/ricos/pull/3439) fix link preview styles in viewer loadable
+
+- `toolbars-new`
+  - [#3440](https://github.com/wix/ricos/pull/3440) headings update panel content menu apply button
 
 ### :nail_care: Polish
 
 - `button`
-
   - [#3438](https://github.com/wix/ricos/pull/3438) refactor button settings ui
-
-### :bug: Bug Fix
-
-- `toolbars-new`
-  - [#3440](https://github.com/wix/ricos/pull/3440) headings update panel content menu apply button
 
   </details>
   <hr/>
