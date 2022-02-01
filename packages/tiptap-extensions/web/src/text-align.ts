@@ -54,11 +54,13 @@ export const createTextAlign = (): RicosExtension => ({
               return false;
             }
 
-            return this.options.types.some(type =>
-              commands.updateAttributes(type, {
-                textStyle: { textAlignment: alignment.toUpperCase() },
-              })
-            );
+            return (this.options.types as string[])
+              .map(type =>
+                commands.updateAttributes(type, {
+                  textStyle: { textAlignment: alignment.toUpperCase() },
+                })
+              )
+              .includes(true);
           },
         unsetTextAlign: () => () => {
           console.error('unsetTextAlign : was not implemented');
