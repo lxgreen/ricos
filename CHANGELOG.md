@@ -17,8 +17,15 @@
     Click to see more.
   </summary>
   </details>
-  <hr/>
-  
+
+### :nail_care: Polish
+
+- `*`
+
+  - [#3455](https://github.com/wix/ricos/pull/3455) fix js sourcemap
+
+<hr/>
+
 ## 8.69.14 (Feb 1, 2022)
 
 ### :bug: Bug Fix
@@ -54,6 +61,7 @@
 - `general`
 
   - [#3447](https://github.com/wix/ricos/pull/3447) refactor maps image video new settings ui
+
 ## 8.69.13 (Jan 31, 2022)
 
 ### :nail_care: Polish

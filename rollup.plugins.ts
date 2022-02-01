@@ -209,7 +209,7 @@ function addStylesImport() {
       const writeContent = (path, content) => {
         if (existsSync(path)) {
           const code = readFileSync(path, 'utf8');
-          const result = code.includes(content) ? code : `${content};\n` + code;
+          const result = code.includes(content) ? code : code + '\n' + content;
           writeFileSync(path, result, 'utf8');
         }
       };
