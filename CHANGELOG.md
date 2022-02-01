@@ -16,6 +16,10 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
+  </details>
+  <hr/>
+  
+## 8.69.14 (Feb 1, 2022)
 
 ### :bug: Bug Fix
 
@@ -50,10 +54,6 @@
 - `general`
 
   - [#3447](https://github.com/wix/ricos/pull/3447) refactor maps image video new settings ui
-
-  </details>
-  <hr/>
-
 ## 8.69.13 (Jan 31, 2022)
 
 ### :nail_care: Polish
