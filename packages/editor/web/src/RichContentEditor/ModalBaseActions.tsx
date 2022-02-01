@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import type { ReactElement } from 'react';
-import type { Pubsub } from 'wix-rich-content-common';
+import type { Pubsub, EditorCommands, PluginsDataMap } from 'wix-rich-content-common';
+
+type PluginType = keyof PluginsDataMap;
 
 interface BaseActionsProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  editorCommands: any;
+  editorCommands: EditorCommands;
   closeModal: () => void;
-  pubsub: Pubsub;
+  pubsub?: Pubsub;
   componentData: Record<string, unknown>;
-  pluginType: string;
+  pluginType: PluginType;
 }
 
 interface Props extends BaseActionsProps {
@@ -29,18 +30,19 @@ class ModalBaseActions extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.pubsub.subscribe('componentData', this.updateComponentData); // TODO: Need to remove after upload functionality will change!
+    this.props.pubsub?.subscribe('componentData', this.updateComponentData); // TODO: Need to remove after upload functionality will change!
   }
 
   componentWillUnmount() {
-    this.props.pubsub.unsubscribe('componentData', this.updateComponentData); // TODO: Need to remove after upload functionality will change!
+    this.props.pubsub?.unsubscribe('componentData', this.updateComponentData); // TODO: Need to remove after upload functionality will change!
   }
 
   updateData = data => {
     const { editorCommands, pubsub, pluginType } = this.props;
     const newData = { ...this.state.data, ...data };
-    editorCommands.setBlock(editorCommands.getSelection().startKey, pluginType, newData);
-    pubsub.set('componentData', newData); // TODO: Need to remove after toolbars will work with editorCommands !
+    const nodeId = editorCommands.getSelection().startKey;
+    nodeId && editorCommands.setBlock(nodeId, pluginType, newData);
+    pubsub?.set('componentData', newData); // TODO: Need to remove after toolbars will work with editorCommands !
     this.setState({ data: newData });
   };
 

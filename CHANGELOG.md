@@ -20,6 +20,7 @@
 ### :bug: Bug Fix
 
 - `ricos-content`
+
   - [#3446](https://github.com/wix/ricos/pull/3446) fix fromHtml/ck-editor span rules
 
 - `map-settings-modal`
@@ -36,13 +37,18 @@
   - [#3444](https://github.com/wix/ricos/pull/3444) fix modals ui on resize
 
 - `Docs`
+
   - [#3445](https://github.com/wix/ricos/pull/3445) upgrade ricos version in docs packages to fix broken styles
+
+- `Editor-modal`
+  - [#3451](https://github.com/wix/ricos/pull/3451) fix app crashes on opening link&headings modals when modalsWithEditorCommands experiments on
 
 ### :nail_care: Polish
 
 - `button`
   - [#3438](https://github.com/wix/ricos/pull/3438) refactor button settings ui
 - `general`
+
   - [#3447](https://github.com/wix/ricos/pull/3447) refactor maps image video new settings ui
 
   </details>
