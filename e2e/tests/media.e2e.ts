@@ -9,8 +9,8 @@ import {
   ACTION_BUTTONS,
   STATIC_TOOLBAR_BUTTONS,
 } from '../cypress/dataHooks';
-import { DEFAULT_DESKTOP_BROWSERS } from './settings';
-import { usePlugins, plugins, usePluginsConfig } from '../cypress/testAppConfig';
+import { DEFAULT_DESKTOP_BROWSERS, DEFAULT_MOBILE_BROWSERS } from './settings';
+import { usePlugins, plugins, usePluginsConfig, useExperiments } from '../cypress/testAppConfig';
 
 const eyesOpen = ({
   test: {
@@ -391,7 +391,7 @@ describe('plugins', () => {
       cy.loadRicosEditorAndViewer('video');
       cy.openPluginToolbar(PLUGIN_COMPONENT.VIDEO);
       cy.openSettings();
-      cy.wait(5000);
+      cy.wait(500);
       cy.eyesCheckWindow();
       cy.get(`[data-hook=${VIDEO_SETTINGS.DOWNLOAD_TOGGLE}]`).click();
       cy.eyesCheckWindow();
@@ -466,5 +466,97 @@ describe('plugins', () => {
     //   cy.get(`[data-hook=emoji-121]`).click();
     //   cy.eyesCheckWindow(this.test.title);
     // });
+  });
+});
+
+describe('New Url Input modals', () => {
+  context('render new url input modals on desktop', () => {
+    before(function () {
+      cy.eyesOpen({
+        appName: 'Media',
+        testName: this.test.parent.title,
+        browser: DEFAULT_DESKTOP_BROWSERS,
+      });
+    });
+
+    const testAppConfig = {
+      plugins: [plugins.linkPreview, plugins.video, plugins.verticalEmbed],
+      ...useExperiments({
+        newVideoVerticalAndSocialModals: { namespace: 'ricos', value: 'true', enabled: true },
+      }),
+    };
+
+    beforeEach('load editor', () => {
+      cy.switchToDesktop();
+      cy.loadRicosEditorAndViewer('empty', testAppConfig);
+    });
+
+    after(() => cy.eyesClose());
+
+    it('should render new video modals', () => {
+      cy.openVideoUploadModal();
+      cy.eyesCheckWindow('should render embed section');
+      cy.get(`[data-hook=Upload_Tab]`).click();
+      cy.eyesCheckWindow('should render upload section');
+    });
+
+    it(`should render new social embed modals`, () => {
+      cy.openEmbedModal(STATIC_TOOLBAR_BUTTONS.INSTAGRAM);
+      cy.eyesCheckWindow('should render instagram modal');
+    });
+
+    it('should render new vertical embed modals', () => {
+      cy.openEmbedModal(STATIC_TOOLBAR_BUTTONS.EVENT);
+      cy.eyesCheckWindow('should render events vertical modal');
+    });
+  });
+
+  context('render new url input modals on mobile', () => {
+    before(function () {
+      cy.eyesOpen({
+        appName: 'Media mobile',
+        testName: this.test.parent.title,
+        browser: DEFAULT_MOBILE_BROWSERS,
+      });
+    });
+
+    const testAppConfig = {
+      plugins: [plugins.linkPreview, plugins.video, plugins.verticalEmbed],
+      ...useExperiments({
+        newVideoVerticalAndSocialModals: { namespace: 'ricos', value: 'true', enabled: true },
+      }),
+    };
+
+    beforeEach('load editor', () => {
+      cy.switchToMobile();
+      cy.loadRicosEditorAndViewer('empty', testAppConfig);
+    });
+
+    after(() => cy.eyesClose());
+
+    it('should render new video modals on mobile', () => {
+      cy.openAddPluginModal();
+      cy.wait(500);
+      cy.get(`[data-hook=VideoPlugin_InsertButton]`).click();
+      cy.eyesCheckWindow('should render mobile embed section');
+      cy.get(`[data-hook=Upload_Tab]`).click();
+      cy.eyesCheckWindow('should render mobile upload section');
+    });
+
+    it('should render new vertical embed modals on mobile', () => {
+      cy.openAddPluginModal();
+      cy.wait(500);
+      cy.get(`[data-hook=Events_InsertButton]`)
+        .click()
+        .eyesCheckWindow('should render events vertical mobile modal');
+    });
+
+    it('should render new social embed modals on mobile', () => {
+      cy.openAddPluginModal();
+      cy.wait(500);
+      cy.get(`[data-hook=Instagram_InsertButton]`)
+        .click()
+        .eyesCheckWindow('should render instagram mobile modal');
+    });
   });
 });

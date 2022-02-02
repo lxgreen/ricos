@@ -114,6 +114,23 @@
       padding: 16px 20px;
     }
   }
+
+  &.inputModal_mobile_withHeader {
+    .inputModal_content {
+      @include border-box;
+      position: absolute;
+      top: 50px;
+      left: 0;
+      padding: 20px;
+      width: 100%;
+    }
+    .input_header_title {
+      font-size: 14px;
+      color: #646464;
+      margin-bottom: 8px;
+    }
+  }
+
   .input_header {
     border: none;
   }
@@ -124,13 +141,6 @@
     @extend %input_header_text;
   }
 
-  .inputModal_textInput {
-    margin: 14px 0;
-    .inputModal_mobile & {
-      margin: 0;
-    }
-  }
-
   input::placeholder {
     font-size: 16px;
   }
@@ -138,6 +148,13 @@
   .inputModal_mobile & {
     width: 100vw;
     height: 100vh;
+  }
+}
+
+.inputModal_textInput {
+  margin: 14px 0;
+  .inputModal_mobile & {
+    margin: 0;
   }
 }
 
@@ -151,7 +168,7 @@
 
 .header_subTitle {
   font-size: 14px;
-  color: #757575;
+  color: #646464;
   @extend %input_header_text;
 }
 

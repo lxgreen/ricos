@@ -107,6 +107,8 @@ const VideoModal = props => {
             onCancel={() => closeModal()}
             t={t}
             title={t('VideoModal_MobileHeader')}
+            useNewSettingsUi
+            showSaveBtn={false}
           />
         )}
         <Tabs
@@ -114,6 +116,7 @@ const VideoModal = props => {
           onTabSelected={onTabSelected}
           className={styles.video_modal_tabs_header}
           theme={theme}
+          headersStyle={isMobile && styles.video_tabs_headers}
         >
           <Tab label={videoTabs.embed} value={videoTabs.embed} theme={theme}>
             <div className={styles.video_modal_tab}>{renderMediaUrlInputModal()}</div>

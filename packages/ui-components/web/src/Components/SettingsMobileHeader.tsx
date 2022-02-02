@@ -13,6 +13,7 @@ export interface SettingsMobileHeaderProps {
   title?: string;
   t: TranslationFunction;
   useNewSettingsUi?: boolean; //!remove when experiment is done
+  showSaveBtn?: boolean;
 }
 
 const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
@@ -25,13 +26,21 @@ const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
   t,
   children,
   useNewSettingsUi,
+  showSaveBtn = true,
 }) => {
   const saveText = saveLabel || t('SettingsPanelFooter_Save');
   const cancelText = cancelLabel || t('SettingsPanelFooter_Cancel');
   const buttonsDataHook = { save: 'actionButtonSave', cancel: 'actionButtonCancel' };
 
-  const renderButton = (text, dataHook, onClick) => (
-    <Button ariaLabel={text} theme={theme} isMobile dataHook={dataHook} onClick={onClick}>
+  const renderButton = (text, dataHook, onClick, showBtn = true) => (
+    <Button
+      ariaLabel={text}
+      theme={theme}
+      isMobile
+      dataHook={dataHook}
+      onClick={onClick}
+      style={!showBtn ? { visibility: 'hidden' } : {}}
+    >
       {text}
     </Button>
   );
@@ -42,7 +51,7 @@ const SettingsMobileHeader: React.FC<SettingsMobileHeaderProps> = ({
         [styles.setting_mobile_header_newUi]: useNewSettingsUi,
       })}
     >
-      {renderButton(saveText, buttonsDataHook.save, onSave)}
+      {renderButton(saveText, buttonsDataHook.save, onSave, showSaveBtn)}
       <>
         {title && <div className={styles.setting_mobile_header_title}>{title}</div>}
         {children}

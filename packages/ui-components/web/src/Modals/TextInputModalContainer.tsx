@@ -64,6 +64,8 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
       onCancel={() => onCloseRequested?.()}
       t={t}
       title={t('EmbedURL_MobileHeader')}
+      useNewSettingsUi
+      showSaveBtn={false}
     />
   );
 
@@ -83,6 +85,7 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
     <div
       className={classNames(styles.inputModal_container, {
         [styles.inputModal_mobile]: isMobile,
+        [styles.inputModal_mobile_withHeader]: withMobileHeader && isMobile,
       })}
     >
       {isMobile && withMobileHeader && renderMobileHeader()}

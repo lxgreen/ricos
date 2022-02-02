@@ -221,5 +221,6 @@ $HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
   top: $TITLE_HEIGHT;
   @include phone {
     top: $TITLE_HEIGHT_MOBILE;
+    max-width: 100%;
   }
 }

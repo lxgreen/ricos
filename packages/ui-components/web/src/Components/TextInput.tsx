@@ -1,4 +1,4 @@
-import type { Ref } from 'react';
+import type { CSSProperties, Ref } from 'react';
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import type { RichContentTheme } from 'wix-rich-content-common';
@@ -25,6 +25,7 @@ interface TextInputProps {
   onDblClick?: (text) => void;
   value?: string;
   autoComplete?: string;
+  style?: CSSProperties;
 }
 export default class TextInput extends Component<TextInputProps, { focusSearchIcon: boolean }> {
   static defaultProps = {
@@ -62,6 +63,7 @@ export default class TextInput extends Component<TextInputProps, { focusSearchIc
       dataHook,
       showErrorIcon,
       placeholder,
+      style,
       ...otherProps
     } = this.props;
     const inputProps = omit(otherProps, ['onChange']);
@@ -88,6 +90,7 @@ export default class TextInput extends Component<TextInputProps, { focusSearchIc
           onFocus={this.focusSearchIcon}
           onBlur={this.unfocusSearchIcon}
           onDoubleClick={otherProps?.onDblClick}
+          style={style}
           {...inputProps}
         />
         {error &&

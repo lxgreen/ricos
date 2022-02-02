@@ -66,6 +66,7 @@ const NewUrlInputModal = props => {
         data-hook={`${dataHook}Input`}
         autoComplete="off"
         onDblClick={onDblClick}
+        style={{ paddingLeft: '12px' }}
       />
     </ModalContainer>
   );

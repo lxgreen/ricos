@@ -16,7 +16,12 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
+  
+### :nail_care: Polish
                               
+- `ui-components-video`
+  - [#3450](https://github.com/wix/ricos/pull/3450) refactor new input-modals ui and added tests
+                            
 </details>
 <hr/>
 
@@ -30,7 +35,7 @@
 ### :nail_care: Polish
 
 - `*`
-  - [#3455](https://github.com/wix/ricos/pull/3455) fix js sourcemap
+  - [#3455](https://github.com/wix/ricos/pull/3455) fix js sourcemap 
 
 ## 8.69.14 (Feb 1, 2022)
 
@@ -64,8 +69,8 @@
 
 - `button`
   - [#3438](https://github.com/wix/ricos/pull/3438) refactor button settings ui
-- `general`
 
+- `general`
   - [#3447](https://github.com/wix/ricos/pull/3447) refactor maps image video new settings ui
 
 ## 8.69.13 (Jan 31, 2022)

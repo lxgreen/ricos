@@ -95,13 +95,11 @@ export const MOBILE_FULL_SCREEN_CUSTOM_STYLE: ModalStyles = Object.freeze({
     backgroundColor: 'transparent',
   },
   content: {
+    position: 'absolute',
     top: 0,
     left: 0,
     overflow: 'hidden',
-    alignItems: 'center',
-    display: 'flex',
     width: '100vw',
-    justifyContent: 'center',
     boxSizing: 'border-box',
   },
 });

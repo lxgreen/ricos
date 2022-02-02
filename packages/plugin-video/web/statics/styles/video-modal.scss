@@ -1,16 +1,22 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 
+$TITLE_HEIGHT_MOBILE: 50px;
+$TABS_HEIGHT: 50px;
+$HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
+
 .video_modal_container {
   position: relative;
   height: 100%;
   margin-top: -15px;
   &.video_modal_mobile {
     position: absolute;
-    top: 0;
+    top: $HEADER_HEIGHT_MOBILE;
     left: 0;
-    height: 100vh;
+    height: calc(100vh - #{$HEADER_HEIGHT_MOBILE});
     width: 100%;
     margin: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }
 
@@ -70,4 +76,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.video_tabs_headers {
+  position: fixed;
+  top: $TITLE_HEIGHT_MOBILE;
+  width: 100%;
+  background-color: white;
+  z-index: 2;
 }
