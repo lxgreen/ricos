@@ -460,16 +460,10 @@ const addEmptyBlock = (direction, editorState) => {
   return EditorState.forceSelection(newEditorState, newSelection);
 };
 
-export const createBlock = (
-  editorState: EditorState,
-  data,
-  type: string,
-  shouldAddAtomicAsNewBlock?: boolean
-) => {
-  const currentEditorState =
-    shouldAddAtomicAsNewBlock && isAtomicBlockInSelection(editorState)
-      ? addEmptyBlock('after', editorState)
-      : editorState;
+export const createBlock = (editorState: EditorState, data, type: string) => {
+  const currentEditorState = isAtomicBlockInSelection(editorState)
+    ? addEmptyBlock('after', editorState)
+    : editorState;
   const contentState = currentEditorState.getCurrentContent();
   const contentStateWithEntity = contentState.createEntity(
     type,

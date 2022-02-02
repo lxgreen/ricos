@@ -88,8 +88,7 @@ export function generateInsertPluginButtonProps({
     const { newBlock, newSelection, newEditorState } = createBlock(
       getEditorState(),
       componentData,
-      blockType,
-      experiments.shouldAddAtomicAsNewBlock?.enabled
+      blockType
     );
     const params = getPluginParams(data, blockType);
     const blockKey = newBlock.getKey();
@@ -114,12 +113,7 @@ export function generateInsertPluginButtonProps({
     let editorState = getEditorState();
     let selection: SelectionState | undefined;
     files.forEach((file: File | File[]) => {
-      const { newBlock, newSelection, newEditorState } = createBlock(
-        editorState,
-        data,
-        type,
-        experiments.shouldAddAtomicAsNewBlock?.enabled
-      );
+      const { newBlock, newSelection, newEditorState } = createBlock(editorState, data, type);
       editorState = newEditorState;
       selection = selection || newSelection;
       updateEntity(newBlock.getKey(), file);

@@ -16,16 +16,21 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-  </details>
 
+### :bug: Bug Fix
+
+- `editor`
+  - [#3456](https://github.com/wix/ricos/pull/3456) external toolbar atomic plugin Insertion (merge experiment)
+
+                            
 ### :nail_care: Polish
 
 - `*`
-
   - [#3455](https://github.com/wix/ricos/pull/3455) fix js sourcemap
-
+                            
+</details>
 <hr/>
-
+  
 ## 8.69.14 (Feb 1, 2022)
 
 ### :bug: Bug Fix
