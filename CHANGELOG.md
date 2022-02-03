@@ -16,14 +16,18 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-  
+
+
+
+</details>
+<hr/>
+
+## 8.69.16 (Feb 3, 2022)
+
 ### :nail_care: Polish
                               
 - `ui-components-video`
   - [#3450](https://github.com/wix/ricos/pull/3450) refactor new input-modals ui and added tests
-                            
-</details>
-<hr/>
 
 ## 8.69.15 (Feb 2, 2022)
 
