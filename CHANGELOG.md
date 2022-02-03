@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
 
+- `image`
+  - [#3465](https://github.com/wix/ricos/pull/3465) use `enc_auto` on generated image URLs
 
 </details>
 <hr/>
@@ -25,7 +28,7 @@
 ## 8.69.16 (Feb 3, 2022)
 
 ### :nail_care: Polish
-                              
+
 - `ui-components-video`
   - [#3450](https://github.com/wix/ricos/pull/3450) refactor new input-modals ui and added tests
 
@@ -39,7 +42,7 @@
 ### :nail_care: Polish
 
 - `*`
-  - [#3455](https://github.com/wix/ricos/pull/3455) fix js sourcemap 
+  - [#3455](https://github.com/wix/ricos/pull/3455) fix js sourcemap
 
 ## 8.69.14 (Feb 1, 2022)
 
@@ -72,6 +75,7 @@
 ### :nail_care: Polish
 
 - `button`
+
   - [#3438](https://github.com/wix/ricos/pull/3438) refactor button settings ui
 
 - `general`

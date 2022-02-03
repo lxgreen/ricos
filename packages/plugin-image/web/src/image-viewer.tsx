@@ -129,6 +129,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
     }
 
     const removeUsm = this.context.experiments?.removeUsmFromImageUrls?.enabled;
+    const encAutoImageUrls = this.context.experiments?.encAutoImageUrls?.enabled;
 
     const imageUrl: ImageSrc = {
       preload: '',
@@ -161,6 +162,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       const usePredefinedWidth = (alignment === 'left' || alignment === 'right') && !width;
       imageSrcOpts = {
         removeUsm,
+        encAutoImageUrls,
         imageType: 'quailtyPreload',
         size: this.context.experiments.imagePreloadWidthByConfig?.enabled && size,
         ...(usePredefinedWidth && { requiredWidth: 300 }),

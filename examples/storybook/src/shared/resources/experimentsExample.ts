@@ -18,4 +18,5 @@ export const EXPERIMENTS = [
   { name: 'normalizePoll', scope: 'ricos' },
   { name: 'optimizeFullScreenModal', scope: 'ricos' },
   { name: 'useFilePluginAutoDownloadLinkRef', scope: 'ricos' },
+  { name: 'encAutoImageUrls', scope: 'ricos' },
 ];
