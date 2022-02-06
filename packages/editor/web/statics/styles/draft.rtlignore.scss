@@ -14,6 +14,8 @@
       color: #9197a3;
       position: absolute;
       direction: ltr;
+      font-family: var(--ricos-custom-p-font-family);
+      font-size: var(--ricos-custom-p-font-size);
     }
 
     .public-DraftEditor-content[contenteditable='true'] {
