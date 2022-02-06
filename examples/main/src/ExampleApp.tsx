@@ -14,7 +14,7 @@ import {
 import { SectionSettings, OnVisibilityChanged } from './types';
 import { DraftContent, ToolbarType } from 'wix-rich-content-common';
 import ContentStateEditorType from './Components/ContentStateEditor';
-import { ensureDraftContent } from 'ricos-content/libs/migrateSchema';
+import { ensureDraftContent } from 'ricos-content/libs/ensureDraftContent';
 import { themeStrategy } from 'ricos-common';
 import { FONTS, EXPERIMENTS, ricosPalettes } from '../../storybook/src/shared/resources';
 import { mockFetchUrlPreviewData } from '../../storybook/src/shared/utils/linkPreviewUtil';

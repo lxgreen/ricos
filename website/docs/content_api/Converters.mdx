@@ -24,7 +24,8 @@ The `opts: FromDraftOptions` parameter allows to alter it, by setting `{ ignoreU
 ### Example
 
 ```tsx
-import { fromDraft, toDraft } from 'ricos-content/libs/migrateSchema';
+import { fromDraft } from 'ricos-content/libs/fromDraft';
+import { toDraft } from 'ricos-content/libs/toDraft';
 import { RichContent } from 'ricos-schema';
 import { RicosEditor, DraftContent } from 'ricos-editor';
 import ricosContent from './ricosContent.json';
@@ -49,7 +50,7 @@ fromPlainText: (text: string) => RichContent;
 #### Example
 
 ```tsx
-import { toDraft } from 'ricos-content/libs/migrateSchema';
+import { toDraft } from 'ricos-content/libs/toDraft';
 import { fromPlainText } from 'ricos-content/libs/fromPlainText';
 import { RichContent } from 'ricos-schema';
 import { RicosEditor, DraftContent } from 'ricos-editor';

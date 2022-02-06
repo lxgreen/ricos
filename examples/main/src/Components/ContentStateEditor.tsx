@@ -42,7 +42,8 @@ import { COLLAPSIBLE_LIST_TYPE } from 'wix-rich-content-plugin-collapsible-list'
 import { EMOJI_TYPE } from 'wix-rich-content-plugin-emoji';
 import type { ChangeHandler, EditorWillMount } from 'react-monaco-editor';
 import MonacoEditor from 'react-monaco-editor';
-import { ensureDraftContent, ensureRicosContent } from 'ricos-content/libs/migrateSchema';
+import { ensureDraftContent } from 'ricos-content/libs/ensureDraftContent';
+import { ensureRicosContent } from 'ricos-content/libs/ensureRicosContent';
 
 function nonSerializedAttribute(key, value) {
   if (typeof value === 'function') {

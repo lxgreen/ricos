@@ -13,7 +13,7 @@ import {
   shouldAddEmbed,
   shouldAddLinkPreview,
 } from '../../lib/utils';
-import { convertBlockDataToRicos } from 'ricos-content/libs/migrateSchema';
+import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
 import type { DeepPartial } from 'utility-types';
 import type { ResolvedPos } from 'prosemirror-model';
 import { TIPTAP_LINK_PREVIEW_TYPE } from 'ricos-content';

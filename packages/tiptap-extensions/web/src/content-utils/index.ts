@@ -2,12 +2,10 @@
 import type { JSONContent } from '@tiptap/core';
 import { flow } from 'fp-ts/function';
 import type { DraftContent } from 'ricos-content';
-import {
-  convertBlockDataToRicos,
-  toDraft,
-  fromDraft,
-  convertNodeDataToDraft,
-} from 'ricos-content/libs/migrateSchema';
+import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
+import { toDraft } from 'ricos-content/libs/toDraft';
+import { fromDraft } from 'ricos-content/libs/fromDraft';
+import { convertNodeDataToDraft } from 'ricos-content/libs/convertNodeDataToDraft';
 import type { Node_Type, Node } from 'ricos-schema';
 import { fromTiptap } from './fromTiptap/fromTiptap';
 import { toTiptap } from './toTiptap/toTiptap';
