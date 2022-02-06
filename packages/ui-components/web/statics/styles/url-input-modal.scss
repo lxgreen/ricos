@@ -155,6 +155,9 @@
   margin: 14px 0;
   .inputModal_mobile & {
     margin: 0;
+    &.textInput_margin_bottom {
+      margin-bottom: 14px;
+    }
   }
 }
 

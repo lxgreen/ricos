@@ -46,6 +46,8 @@ export default class VerticalEmbedInputModal extends Component {
     }
   }
 
+  useNewModal = this.props.experiments?.newVideoVerticalAndSocialModals?.enabled;
+
   onInputChange = (inputString = '') => {
     this.verticalApi.search(inputString).then(items => {
       this.setState({ items, status: items.length === 0 ? NOT_FOUND : READY });
@@ -73,6 +75,9 @@ export default class VerticalEmbedInputModal extends Component {
 
   onItemClick = ({ getDescription, ...item }) => {
     const { selectedProduct, items } = this.state;
+    if (this.useNewModal && this.props.isMobile) {
+      this.setState({ selectedProduct: item }, this.onConfirm);
+    }
     if (item.id === selectedProduct?.id) {
       this.onConfirm();
     } else {
@@ -127,8 +132,7 @@ export default class VerticalEmbedInputModal extends Component {
     );
     const show = status !== NO_ITEMS;
     const textInput = show ? { searchIcon: true } : false; //! Needs to be removed when old UrlInputModal is no longer in use
-    const useNewModal = experiments?.newVideoVerticalAndSocialModals?.enabled;
-    const UrlInputModalComponent = useNewModal ? SearchInputModal : UrlInputModal;
+    const UrlInputModalComponent = this.useNewModal ? SearchInputModal : UrlInputModal;
 
     return (
       <UrlInputModalComponent

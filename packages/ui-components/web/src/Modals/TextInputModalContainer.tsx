@@ -34,6 +34,7 @@ interface TextInputModalContainerProps {
   onInputChange: (text) => void;
   input?: string;
   helpers?: Helpers;
+  withMobileSaveButton?: boolean;
 }
 
 const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
@@ -46,6 +47,7 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
   subTitle,
   isMobile,
   withMobileHeader = true,
+  withMobileSaveButton = false,
   selected = true,
   showTitle = true,
   onConfirm,
@@ -69,7 +71,7 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
     />
   );
 
-  const renderDesktopFooter = () => (
+  const renderActionButton = () => (
     <Button
       dataHook="actionButtonSave"
       disabled={!selected}
@@ -80,6 +82,8 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
       {saveLabelText}
     </Button>
   );
+
+  const shouldRenderActionButton = !isMobile || (isMobile && withMobileSaveButton);
 
   return (
     <div
@@ -92,8 +96,14 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
       <div className={styles.inputModal_content} data-hook={dataHook} dir={languageDir}>
         {modalTitle}
         {modalSubTitle}
-        <div className={styles.inputModal_textInput}>{children}</div>
-        {!isMobile && renderDesktopFooter()}
+        <div
+          className={classNames(styles.inputModal_textInput, {
+            [styles.textInput_margin_bottom]: withMobileSaveButton,
+          })}
+        >
+          {children}
+        </div>
+        {shouldRenderActionButton && renderActionButton()}
       </div>
     </div>
   );

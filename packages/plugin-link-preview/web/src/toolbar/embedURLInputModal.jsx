@@ -78,6 +78,7 @@ export default class EmbedURLInputModal extends Component {
         onCloseRequested={this.onCloseRequested}
         buttonSize={BUTTON_SIZE.medium}
         isMobile={isMobile}
+        withMobileSaveButton
       />
     );
   }
