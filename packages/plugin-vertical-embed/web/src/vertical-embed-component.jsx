@@ -7,7 +7,7 @@ import verticalEmbedSchema from 'wix-rich-content-common/dist/statics/schemas/ve
 import classnames from 'classnames';
 import styles from '../statics/styles/widget.scss';
 import { VERTICAL_EMBED_TYPE } from './types';
-import { dataTypeMapper } from './utils';
+import { verticalsDataBuilder } from './verticalsDataBuilder';
 import Card from './components/Card';
 class VerticalEmbedComponent extends PureComponent {
   constructor(props) {
@@ -26,13 +26,13 @@ class VerticalEmbedComponent extends PureComponent {
     const {
       componentData,
       className,
-      settings: { slimLayout = false },
+      settings: { slimLayout = false, changeBaseUrl },
       t,
       locale,
     } = this.props;
 
     const { selectedProduct, type } = componentData;
-    const props = dataTypeMapper[type](selectedProduct, t);
+    const props = verticalsDataBuilder(type, selectedProduct, t, changeBaseUrl);
     const direction = getLangDir(locale);
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events

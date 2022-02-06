@@ -12,7 +12,7 @@ import { contentTypeMap, verticalEmbedProviders } from '../constants';
 import ItemsList from './itemsList/ItemsList';
 import styles from '../../statics/styles/vertical-embed-modal.scss';
 import generalStyles from '../../statics/styles/general.scss';
-import { convertDuration } from '../utils';
+import { convertDuration } from '../convertDuration';
 import { VERTICAL_EMBED_TYPE } from '../types';
 import { MEDIA_POPOVERS_BUTTONS_NAMES_BI } from 'wix-rich-content-common';
 

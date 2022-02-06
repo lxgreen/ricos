@@ -206,6 +206,13 @@ const config: RichContentViewerProps['config'] = {
     },
     createHref: decoratedText => `/search/posts?query=${encodeURIComponent('#')}${decoratedText}`,
   },
+  [VERTICAL_EMBED_TYPE]: {
+    changeBaseUrl: url => {
+      // eslint-disable-next-line no-console
+      console.log('change vertical embed baseUrl');
+      return url;
+    },
+  },
 };
 
 export const ricosViewerPlugins: Record<string, ViewerPluginCreator<unknown>> = {

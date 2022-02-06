@@ -9,8 +9,10 @@ interface VerticalPluginConfig {
 export interface VerticalEmbedPluginEditorConfig extends EditorPluginConfig, VerticalPluginConfig {
   getIsVisiblePromise?: (type: string, locale: string) => Promise<boolean>;
   exposeEmbedButtons?: string[];
-  [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  slimLayout?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  verticalsApi?: (type: string) => any;
 }
 export interface VerticalEmbedPluginViewerConfig extends ViewerPluginConfig {
-  [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+  changeBaseUrl?: (url: string) => string;
 }
