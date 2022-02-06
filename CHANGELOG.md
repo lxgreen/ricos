@@ -17,15 +17,18 @@
     Click to see more.
   </summary>
 
+
+</details>
+<hr/>
+
+## 8.69.18 (Feb 6, 2022)
+
   ### :bug: Bug Fix
 
 - `ui-components/link-preview/vertical-embed`
   - [#3472](https://github.com/wix/ricos/pull/3472) fix social-embed ui & vertical-embed save logic on mobile
 - `ui-components`
   - [#3471](https://github.com/wix/ricos/pull/3471) fix labeled-toggle text dir
-
-</details>
-<hr/>
 
 ## 8.69.17 (Feb 6, 2022)
 
