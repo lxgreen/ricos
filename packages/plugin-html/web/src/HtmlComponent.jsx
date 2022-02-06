@@ -73,7 +73,7 @@ class HtmlComponent extends Component {
   }
 
   setHeight = iframeHeight => {
-    if (iframeHeight !== this.state.iframeHeight) {
+    if (iframeHeight > 0 && iframeHeight !== this.state.iframeHeight) {
       this.setState({ iframeHeight });
       this.props.store?.update('componentData', { config: { height: iframeHeight } });
     }
