@@ -17,13 +17,16 @@
     Click to see more.
   </summary>
 
+
+</details>
+<hr/>
+
+## 8.69.19 (Feb 6, 2022)
+
 ### :bug: Bug Fix
 
 - `editor`
   - [#3470](https://github.com/wix/ricos/pull/3470) wire editor's placeholder font-family & font-size
-
-</details>
-<hr/>
 
 ## 8.69.18 (Feb 6, 2022)
 
