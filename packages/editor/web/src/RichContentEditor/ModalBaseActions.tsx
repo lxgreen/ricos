@@ -37,12 +37,16 @@ class ModalBaseActions extends Component<Props, State> {
     this.props.pubsub?.unsubscribe('componentData', this.updateComponentData); // TODO: Need to remove after upload functionality will change!
   }
 
-  updateData = data => {
+  setData = data => {
     const { editorCommands, pubsub, pluginType } = this.props;
-    const newData = { ...this.state.data, ...data };
     const nodeId = editorCommands.getSelection().startKey;
-    nodeId && editorCommands.setBlock(nodeId, pluginType, newData);
-    pubsub?.set('componentData', newData); // TODO: Need to remove after toolbars will work with editorCommands !
+    nodeId && editorCommands.setBlock(nodeId, pluginType, data);
+    pubsub?.set('componentData', data); // TODO: Need to remove after toolbars will work with editorCommands !
+  };
+
+  updateData = data => {
+    const newData = { ...this.state.data, ...data };
+    this.setData(newData);
     this.setState({ data: newData });
   };
 
@@ -51,7 +55,7 @@ class ModalBaseActions extends Component<Props, State> {
   onSave = () => this.props.closeModal?.();
 
   onCancel = () => {
-    this.updateData(this.initialData);
+    this.setData(this.initialData);
     this.props.closeModal?.();
   };
 
