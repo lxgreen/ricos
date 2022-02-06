@@ -151,7 +151,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
     };
 
     let requiredWidth, requiredHeight;
-    let imageSrcOpts = {};
+    let webAndNonPngPreloadOpts = {};
     /**
         PNG files can't reduce quality via Wix services and we want to avoid downloading a big png image that will affect performance.
       **/
@@ -160,16 +160,21 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
         componentData: { config: { alignment, width, size } = {} },
       } = this.props;
       const usePredefinedWidth = (alignment === 'left' || alignment === 'right') && !width;
-      imageSrcOpts = {
-        removeUsm,
-        encAutoImageUrls,
+      webAndNonPngPreloadOpts = {
         imageType: 'quailtyPreload',
         size: this.context.experiments.imagePreloadWidthByConfig?.enabled && size,
         ...(usePredefinedWidth && { requiredWidth: 300 }),
       };
     }
 
-    imageUrl.preload = getImageSrc(src, helpers?.getImageUrl, imageSrcOpts);
+    const commonPreloadOpts = {
+      encAutoImageUrls,
+    };
+
+    imageUrl.preload = getImageSrc(src, helpers?.getImageUrl, {
+      ...commonPreloadOpts,
+      ...webAndNonPngPreloadOpts,
+    });
     if (seoMode) {
       requiredWidth = src?.width && Math.min(src.width, SEO_IMAGE_WIDTH);
       requiredHeight = this.calculateHeight(SEO_IMAGE_WIDTH, src);
