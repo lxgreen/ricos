@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+  ### :bug: Bug Fix
+
+- `ui-components`
+  - [#3471](https://github.com/wix/ricos/pull/3471) fix labeled-toggle text dir
+
 </details>
 <hr/>
 
