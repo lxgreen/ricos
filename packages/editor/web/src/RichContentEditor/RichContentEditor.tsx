@@ -81,7 +81,6 @@ import {
   DOC_STYLE_TYPES,
 } from 'wix-rich-content-common';
 import draftStyles from '../../statics/styles/draft.rtlignore.scss';
-import 'wix-rich-content-common/dist/statics/styles/draftDefault.rtlignore.scss';
 import InnerRCE from './InnerRCE';
 import { deprecateHelpers } from 'wix-rich-content-common/libs/deprecateHelpers';
 import InnerModal from './InnerModal';
