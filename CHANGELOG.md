@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.69.17 (Feb 6, 2022)
+
 ### :nail_care: Polish
 
 - `image`
   - [#3465](https://github.com/wix/ricos/pull/3465) use `enc_auto` on generated image URLs
-
-</details>
-<hr/>
 
 ## 8.69.16 (Feb 3, 2022)
 
