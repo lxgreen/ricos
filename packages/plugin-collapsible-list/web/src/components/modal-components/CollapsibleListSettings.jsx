@@ -129,7 +129,11 @@ class CollapsibleListSettings extends Component {
 
   render() {
     return (
-      <div className={this.styles.settingsContainer}>
+      <div
+        className={classNames(this.styles.settingsContainer, {
+          [styles.settingsContainer_newUi]: this.useNewSettingsUi,
+        })}
+      >
         {this.renderExpandOptions()}
         {this.renderSeparator()}
         {this.renderDirectionOptions()}

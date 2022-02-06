@@ -104,9 +104,7 @@ export class PollSettingsSection extends Component {
 
     return (
       <section className={this.useNewSettingsUi ? styles.section_newUi : styles.section}>
-        <h3 className={styles.title}>
-          {t('Poll_PollSettings_Tab_Settings_Section_Voting_Header')}
-        </h3>
+        <p className={styles.title}>{t('Poll_PollSettings_Tab_Settings_Section_Voting_Header')}</p>
         {showVoteRoleSetting && (
           <>
             <Label label={t('Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title')} />
@@ -130,9 +128,7 @@ export class PollSettingsSection extends Component {
 
         <SettingsSeparator top bottom />
 
-        <h3 className={styles.title}>
-          {t('Poll_PollSettings_Tab_Settings_Section_Results_Header')}
-        </h3>
+        <p className={styles.title}>{t('Poll_PollSettings_Tab_Settings_Section_Results_Header')}</p>
 
         <Label label={t('Poll_PollSettings_Tab_Settings_Section_Results_Permission_Title')} />
 

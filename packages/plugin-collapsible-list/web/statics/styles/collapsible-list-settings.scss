@@ -2,6 +2,9 @@
 
 .settingsContainer {
   padding: 24px;
+  &.settingsContainer_newUi {
+    padding: 20px;
+  }
   @include phone {
     padding: 20px;
   }

@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `editor`
+  - [#3479](https://github.com/wix/ricos/pull/3479) fix polls &  collapsible-list settings ui
 
 </details>
 <hr/>
