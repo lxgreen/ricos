@@ -21,6 +21,8 @@
 
 - `video`
   - [#3483](https://github.com/wix/ricos/pull/3483) fix new video modal on mobile
+- `ricos-content`
+  -[#3486](https://github.com/wix/ricos/pull/3486) toDraft: empty list item protection
 
 ### :house: Internal
 - `undo redo`
