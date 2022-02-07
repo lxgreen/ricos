@@ -118,7 +118,7 @@
 	"TablePlugin_Toolbar_DeleteTable_Tooltip": "Tabelle löschen",
 	"Poll_PollSettings_Tab_Design_Section_CornerRadius_Poll": "Umfrage (px)",
 	"TextCodeBlock_InsertButton_Tooltip": "Füge einen Codeausschnitt hinzu.",
-	"GallerySettings_Radios_Scroll_Direction_Tooltip": "Das vertikale Layout erlaubt es Besuchern hoch und runter zu scrollen, um Bilder anzusehen. Das horizontale Layout lässt Besucher links und rechts scrollen.",
+	"GallerySettings_Radios_Scroll_Direction_Tooltip": "Mit dem vertikalen Layout können Besucher hoch und runter scrollen, um Bilder anzusehen. Mit dem horizontalen Layout können Besucher links und rechts scrollen.",
 	"AnchorPlugin_Settings_Tooltip": "Ankernamen bearbeiten",
 	"Embed_Vertical_Stores_EmptyState_NoResults_Description": "Versuche es mit einem anderen Suchbegriff.",
 	"SoundCloud_plugin_search_tags": "Sound Soundcloud Lied Song Musik Echo Schall Stereo Audio Lautstärke Hörspur Track",
