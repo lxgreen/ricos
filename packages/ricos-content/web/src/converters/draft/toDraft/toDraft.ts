@@ -80,11 +80,13 @@ const convert = (ricosContent: RichContent): DraftContent => {
   const parseListNode = (node: Node, indentation = 0) => {
     node.nodes.forEach(listItem => {
       const [paragraph, childNode] = listItem.nodes;
-      parseTextNodes(paragraph, {
-        type: TO_DRAFT_LIST_TYPE[node.type],
-        key: listItem.id,
-        indentation,
-      });
+      if (paragraph) {
+        parseTextNodes(paragraph, {
+          type: TO_DRAFT_LIST_TYPE[node.type],
+          key: listItem.id,
+          indentation,
+        });
+      }
       if (childNode) {
         parseListNode(childNode, indentation + 1);
       }
