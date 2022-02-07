@@ -11,6 +11,7 @@ export const ToggleButton = ({ toolbarItem }: ToolbarItemProps) => {
       className={cx(styles.toggleButtonWrapper, toolbarItem.attributes.active ? styles.active : '')}
     >
       <div
+        onMouseDown={e => e.preventDefault()}
         className={styles.toggleButton}
         role="button"
         onClick={e => toolbarItem.commands?.click(e)}
