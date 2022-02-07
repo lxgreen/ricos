@@ -16,4 +16,6 @@ const buttonsNameMap = {
   LINK: ['link'],
   DECREASE_INDENT: ['decrease-indent'],
   INCREASE_INDENT: ['increase-indent'],
+  undo: ['ricosUndo'],
+  redo: ['ricosRedo'],
 };

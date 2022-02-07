@@ -22,6 +22,10 @@
 - `video`
   - [#3483](https://github.com/wix/ricos/pull/3483) fix new video modal on mobile
 
+### :house: Internal
+- `undo redo`
+  - [#3485](https://github.com/wix/ricos/pull/3485) BI events for undo redo shortcuts and buttons
+
 </details>
 <hr/>
 

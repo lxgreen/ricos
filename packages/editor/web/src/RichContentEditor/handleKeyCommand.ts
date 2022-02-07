@@ -42,6 +42,7 @@ export default (
       if (isTab(command)) {
         newState = handleTabCommand(editorState, blockType, customHandlers, command);
       } else if (isUndoRedo(command)) {
+        onKeyboardShortcutClick({ buttonName: command });
         // TODO: handleUndoCommand and handleRedoCommand return a DraftHandleValue, they should behave like any other CommandHandler (their updateEditorState should move here)
         return customHandlers[command](editorState, event) as unknown as DraftHandleValue;
       } else {
