@@ -196,4 +196,5 @@ export interface EditorCommands {
   isTextBlockInSelection: () => boolean;
   getAnchorBlockType: () => string;
   getAllBlocksKeys: () => string[];
+  focus: () => void;
 }

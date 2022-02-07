@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import type { ToolbarSpec } from '../types';
-import { RicosToolbar } from '../RicosToolbar';
+import type { ToolbarSpec } from '../../types';
+import { RicosToolbar } from '../../RicosToolbar';
+import styles from './Toolbar.scss';
 
 type ToolbarProps = {
   toolbar: RicosToolbar;
@@ -33,9 +34,9 @@ class ToolbarComponent extends Component<ToolbarProps, Record<string, unknown>> 
     const toolbarButtons = this.props.toolbar.getItemsBy(visibleOnlySpec);
     const { toolbarItemsRenders } = this.props;
     return (
-      <div className="toolbar">
-        {toolbarButtons.map((toolbarButton, index) => {
-          const ItemComponent = toolbarItemsRenders[toolbarButton.type](toolbarButton);
+      <div className={styles.toolbar}>
+        {toolbarButtons.map(toolbarButton => {
+          const ItemComponent = toolbarItemsRenders[toolbarButton.id](toolbarButton);
 
           return (
             <div key={toolbarButton.id} className="toolbarItem">

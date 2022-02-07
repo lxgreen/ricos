@@ -327,5 +327,6 @@ export class RichContentAdapter implements TiptapAPI {
     isTextBlockInSelection: () => true,
     getAnchorBlockType: () => 'paragraph',
     getAllBlocksKeys: () => [],
+    focus: () => {},
   };
 }

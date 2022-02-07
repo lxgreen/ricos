@@ -1,15 +1,16 @@
 import type { IToolbarItem, ToolbarSpec } from './types';
+import type { EditorCommands } from 'wix-rich-content-common';
 import EventEmitter from './lib/EventEmitter';
 import { Content } from './Content';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ToolbarItemCreator = (content: Content, editorCommands: any) => IToolbarItem;
+export type ToolbarItemCreator = (content: Content, editorCommands: EditorCommands) => IToolbarItem;
 
 type RicosToolbarProps = {
   toolbarItemCreators: ToolbarItemCreator[];
   content: Content;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  editor: any;
+  editorCommands: any;
 };
 
 export class RicosToolbar extends EventEmitter {
@@ -17,24 +18,24 @@ export class RicosToolbar extends EventEmitter {
     toolbarItemsCreated: 'toolbarsCreated',
   };
 
+  editorCommands;
+
   private toolbarItems: IToolbarItem[] = [];
 
   private toolbarItemCreators: ToolbarItemCreator[];
 
   private content: Content;
 
-  private editor = null;
-
-  static create({ toolbarItemCreators, content, editor }: RicosToolbarProps) {
-    return new RicosToolbar({ toolbarItemCreators, content, editor });
+  static create({ toolbarItemCreators, content, editorCommands }: RicosToolbarProps) {
+    return new RicosToolbar({ toolbarItemCreators, content, editorCommands });
   }
 
-  private constructor({ toolbarItemCreators, content, editor }: RicosToolbarProps) {
+  private constructor({ toolbarItemCreators, content, editorCommands }: RicosToolbarProps) {
     super();
     this.toolbarItems = [];
     this.toolbarItemCreators = toolbarItemCreators;
     this.content = content;
-    this.editor = editor;
+    this.editorCommands = editorCommands;
 
     this.toolbarItems = this.createToolbarItems();
 
@@ -52,12 +53,8 @@ export class RicosToolbar extends EventEmitter {
 
   private createToolbarItems() {
     return this.toolbarItemCreators.map(toolbarItemCreator => {
-      return toolbarItemCreator(this.content, this.editor);
+      return toolbarItemCreator(this.content, this.editorCommands);
     });
-  }
-
-  addToolbarItemCreator(toolbarItemCreator: ToolbarItemCreator) {
-    this.toolbarItemCreators.push(toolbarItemCreator);
   }
 
   getItems() {
@@ -70,5 +67,9 @@ export class RicosToolbar extends EventEmitter {
 
   getItemById(id) {
     return this.toolbarItems.find(item => item.id === id);
+  }
+
+  setEditorCommands(editorCommands) {
+    this.editorCommands = editorCommands;
   }
 }

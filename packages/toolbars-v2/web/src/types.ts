@@ -1,5 +1,6 @@
 //TODO: understand
 import type { IContentResolver } from './ContentResolver';
+import type { EditorCommands } from 'wix-rich-content-common';
 
 export type IToolbarItem = {
   id: string;
@@ -15,13 +16,26 @@ type Modify<T, R> = Omit<T, keyof R> & R;
 
 export type ToolbarSpec = (toolbarItem: IToolbarItem) => boolean;
 
-type Command = ({ attributes, editorCommands }) => (args) => void;
+type Command = ({
+  attributes,
+  editorCommands,
+}: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  attributes: any;
+  editorCommands: {
+    commands: EditorCommands;
+  };
+}) => (args) => void;
 
 export type IToolbarItemConfig = Modify<
   IToolbarItem,
   {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    attributes: Record<string, IContentResolver<any>>;
+    attributes: Record<string, any>;
     commands: Record<string, Command>;
   }
 >;
+
+export type ToolbarItemProps = {
+  toolbarItem: IToolbarItem;
+};

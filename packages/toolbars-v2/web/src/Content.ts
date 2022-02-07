@@ -1,4 +1,3 @@
-import type { TiptapContentResolver } from './ContentResolver';
 import EventEmitter from './lib/EventEmitter';
 
 export class Content extends EventEmitter {
@@ -12,7 +11,7 @@ export class Content extends EventEmitter {
 
   private resolved = {};
 
-  resolve(contentResolver: TiptapContentResolver) {
+  resolve(contentResolver) {
     if (this.resolved[contentResolver.id]) {
       return this.resolved[contentResolver.id];
     } else {
@@ -21,10 +20,14 @@ export class Content extends EventEmitter {
     return this.resolved[contentResolver.id];
   }
 
-  updateContent(content) {
+  update(content) {
     this.content = content;
     this.resolved = {};
     this.emit(Content.EVENTS.contentChangeEvent);
+  }
+
+  get value() {
+    return this.content;
   }
 
   isEmpty() {

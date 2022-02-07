@@ -1,36 +1,28 @@
 import type { Node as TiptapNode } from 'prosemirror-model';
-
+import type { EditorState } from '@wix/draft-js';
 export interface IContentResolver<T> {
   id: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   resolve: (content: T) => any;
-  description: string;
-  type: string;
 }
 
 export class TiptapContentResolver implements IContentResolver<TiptapNode[]> {
   // eslint-disable-next-line no-useless-constructor
   private constructor(readonly id, readonly resolve, readonly description) {}
 
-  get type() {
-    return 'content';
-  }
-
   static create({ resolve, description }) {
     return new TiptapContentResolver(Math.random().toString(), resolve, description);
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class DraftContentResolver implements IContentResolver<any> {
+export class DraftContentResolver implements IContentResolver<EditorState> {
   // eslint-disable-next-line no-useless-constructor
-  private constructor(readonly id, readonly resolve, readonly description) {}
+  private constructor(readonly id, readonly resolve) {}
 
-  get type() {
-    return 'content';
-  }
-
-  static create({ resolve, description }) {
-    return new DraftContentResolver(Math.random().toString(), resolve, description);
+  static create(
+    id: string,
+    resolve: IContentResolver<EditorState>['resolve']
+  ): IContentResolver<EditorState> {
+    return new DraftContentResolver(id, resolve);
   }
 }

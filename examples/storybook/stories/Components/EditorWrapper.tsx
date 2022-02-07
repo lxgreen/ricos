@@ -283,7 +283,8 @@ const getToolbarSettings = () => [
 interface Props {
   content?: DraftContent;
   injectedContent?: DraftContent;
-  onChange?: RicosEditorProps['onChange'];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChange?: any;
   isMobile?: boolean;
   pluginsToDisplay?: string[];
   toolbarSettings?: ToolbarSettings;
@@ -326,13 +327,6 @@ class EditorWrapper extends React.Component<Props> {
 
     return (
       <>
-        {/* <RicosTiptapEditor
-          content={tiptapContent}
-          extensions={[]}
-          onLoad={() => null}
-          theme={{}}
-          t={key => key}
-        /> */}
         <RicosEditor
           ref={ref => (this.editor = ref)}
           plugins={this.editorPlugins}
@@ -342,7 +336,9 @@ class EditorWrapper extends React.Component<Props> {
           isMobile={isMobile}
           placeholder={'Share something...'}
           toolbarSettings={toolbarSettings}
-          onChange={onChange}
+          onChange={(...args) => {
+            onChange?.(...args, this.editor);
+          }}
           experiments={experiments}
           _rcProps={rcProps}
           onAtomicBlockFocus={d => console.log('onAtomicBlockFocus', d)} // eslint-disable-line

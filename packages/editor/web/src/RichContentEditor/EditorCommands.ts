@@ -360,6 +360,8 @@ export const createEditorCommands = (
     ...pluginsCommands,
     ...decorationsCommands,
     ...editorState,
+    getEditorState: () => getEditorState(),
+    focus: () => {},
   };
 
   return editorCommands;
