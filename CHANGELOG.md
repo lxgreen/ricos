@@ -17,16 +17,19 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.69.20 (Feb 7, 2022)
+
 ### :bug: Bug Fix
 
 - `polls-collapsible-list`
   - [#3479](https://github.com/wix/ricos/pull/3479) fix polls &  collapsible-list settings ui
-  
 - `toolbars-new`
   - [#3482](https://github.com/wix/ricos/pull/3482) fix custom spacing key 
-
-</details>
-<hr/>
 
 ## 8.69.19 (Feb 6, 2022)
 
