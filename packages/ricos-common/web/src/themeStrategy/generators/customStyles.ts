@@ -1,8 +1,4 @@
-import type {
-  CustomTextualStyle,
-  RicosSettingsStyles,
-  RicosCustomStyles,
-} from 'wix-rich-content-common';
+import type { CustomTextualStyle, RicosSettingsStyles, RicosCustomStyles } from 'ricos-types';
 import type { CssVarsObject } from '../themeTypes';
 import { merge } from 'lodash';
 

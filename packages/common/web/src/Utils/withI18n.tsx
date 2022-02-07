@@ -3,7 +3,7 @@ import React, { PureComponent, useEffect, useState, useRef } from 'react';
 import { I18nextProvider, translate, Trans, I18n as I18nReact } from 'react-i18next';
 import i18n from './i18n';
 import createHocName from './createHocName';
-import type { LocaleResource } from '../types';
+import type { LocaleResource } from 'ricos-types';
 import type { i18n as I18n } from 'i18next';
 interface Props {
   locale: string;

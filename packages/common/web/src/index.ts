@@ -1,4 +1,4 @@
-export * from './types';
+export * from 'ricos-types';
 
 // Components
 export { default as AccessibilityListener } from './Components/AccessibilityListener';

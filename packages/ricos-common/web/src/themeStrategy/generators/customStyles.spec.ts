@@ -5,7 +5,7 @@ import {
   expectedOutput as settingsOutput,
 } from '../../../tests/settingsStylesExamples';
 import createCustomStyles from './customStyles';
-import type { RicosCustomStyles, RicosSettingsStyles } from 'wix-rich-content-common';
+import type { RicosCustomStyles, RicosSettingsStyles } from 'ricos-types';
 import { merge } from 'lodash';
 
 const makeCustomStyles = (customStyles?: RicosCustomStyles) => createCustomStyles({ customStyles });

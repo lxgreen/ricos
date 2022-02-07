@@ -14,7 +14,7 @@ import type {
   Link_Rel,
   AvailableExperiments,
   LinkPreviewData,
-} from 'wix-rich-content-common';
+} from 'ricos-types';
 import type { EditorState, EditorProps } from 'draft-js';
 import type { PreviewConfig } from 'wix-rich-content-preview';
 import type { ReactElement, FC } from 'react';

@@ -5,6 +5,7 @@ export type {
   RicosEntityRange,
   DraftContent,
 } from 'ricos-content';
+export * from './pubsubTypes';
 export * from './buttonTypes';
 export * from './themeTypes';
 export * from './commonTypes';

@@ -1,4 +1,4 @@
-import type { AvailableExperiments } from '../src/types';
+import type { AvailableExperiments } from 'ricos-types';
 
 export function parseExperiments(
   wixExperiments: Record<string, string | boolean>

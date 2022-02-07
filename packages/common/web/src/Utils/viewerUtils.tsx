@@ -1,5 +1,5 @@
 import React from 'react';
-import type { InlineStyleMapperFunction, InlineStyleMapper } from '../types';
+import type { InlineStyleMapperFunction, InlineStyleMapper } from 'ricos-types';
 import { safeJsonParse } from './jsonUtils';
 import type { DraftContent } from 'ricos-content';
 import {

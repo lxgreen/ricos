@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { mergeStyles } from '../Utils/mergeStyles';
 import { isSSR } from '../Utils/ssrUtils';
 import styles from '../../statics/styles/placeholder.scss';
-import type { RichContentTheme } from '../types';
+import type { RichContentTheme } from 'ricos-types';
 
 interface Props {
   children: ReactNode;

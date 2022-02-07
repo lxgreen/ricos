@@ -1,5 +1,5 @@
 import type { EditorProps } from 'draft-js';
-import type { TextDirection } from '../types';
+import type { TextDirection } from 'ricos-types';
 
 const RTL = '\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC';
 const LTR =

@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { merge } from 'lodash';
+import type { Callback, Pubsub } from 'ricos-types';
 
-type Callback = (...args: any[]) => any;
-
-export const simplePubsub = (initialState?: Record<string, any>) => {
+export const simplePubsub = (initialState?: Record<string, any>): Pubsub => {
   let state: { focusedBlock?: string; [key: string]: any } = initialState || {};
   const listeners: Record<string, Callback[]> = {};
 
-  const subscribe = (key: string, callback: Callback) => {
+  const subscribe = (key: string, callback: Callback): (() => void) => {
     if (typeof callback !== 'function') {
       throw 'Callback for key ' + key + ' is not a function';
     }
@@ -130,6 +129,3 @@ export const simplePubsub = (initialState?: Record<string, any>) => {
     subscribeOnBlock,
   };
 };
-
-export type Pubsub = ReturnType<typeof simplePubsub>;
-export type Store = Pubsub['store'];

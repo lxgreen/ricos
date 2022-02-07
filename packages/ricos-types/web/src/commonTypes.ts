@@ -12,8 +12,6 @@ import type { BoundingRect } from 'react-measure';
 import type { ContentBlock, SelectionState, EditorState } from 'draft-js';
 export { Link_Rel } from 'ricos-schema';
 
-export type { Pubsub, Store } from '../Utils/simplePubsub';
-
 export type ModalStyles = ReactModalStyles;
 export type Styles = Record<string, CSSProperties>;
 

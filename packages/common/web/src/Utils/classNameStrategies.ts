@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { camelCase, upperFirst } from 'lodash';
-import type { ClassNameStrategy } from '../types';
+import type { ClassNameStrategy } from 'ricos-types';
 
 export const alignmentClassName: ClassNameStrategy = (componentData, theme, styles) => {
   const { alignment } = componentData.config || {};

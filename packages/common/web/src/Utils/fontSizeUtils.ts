@@ -1,4 +1,4 @@
-import { DOC_STYLE_TYPES } from '../types';
+import { DOC_STYLE_TYPES } from 'ricos-types';
 
 // Taken from common/statics/styles/consts.scss any change here should also be done there and vice-versa.
 export const defaultFontSizes = {

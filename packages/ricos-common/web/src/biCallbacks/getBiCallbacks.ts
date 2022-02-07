@@ -1,4 +1,4 @@
-import type { BICallbacks } from 'wix-rich-content-common';
+import type { BICallbacks } from 'ricos-types';
 
 export function getBiCallback<T extends keyof BICallbacks>(key: T): BICallbacks[T] | undefined {
   const { children, _rcProps } = this.props;

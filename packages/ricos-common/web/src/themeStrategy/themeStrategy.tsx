@@ -4,7 +4,7 @@ import createTypography from './generators/typography';
 import createCustomStyles from './generators/customStyles';
 import { defaultTheme } from './defaults';
 import * as utils from './themeUtils';
-import type { ThemeData } from 'wix-rich-content-common';
+import type { ThemeData } from 'ricos-types';
 import type { ThemeStrategyArgs, ThemeStrategyResult } from './themeTypes';
 import { isDefined } from 'ts-is-present';
 

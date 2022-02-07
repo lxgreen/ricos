@@ -1,5 +1,5 @@
 import { version } from '../../package.json';
-import type { Helpers } from 'wix-rich-content-common';
+import type { Helpers } from 'ricos-types';
 import type { RichContentProps } from '../RicosTypes';
 import { createUploadEndBIData, createUploadStartBIData } from './mediaUploadBI';
 

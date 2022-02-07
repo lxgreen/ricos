@@ -1,6 +1,6 @@
 import type { FunctionComponent } from 'react';
 import React from 'react';
-import type { MediaUploadError } from 'wix-rich-content-common';
+import type { MediaUploadError } from 'ricos-content';
 import { MediaUploadErrorKey, Trans } from 'wix-rich-content-common';
 import Toast from './Toast';
 

@@ -14,7 +14,7 @@ import type {
   PluginTypeMapper,
   ThemeData,
   ViewerPlugin,
-} from 'wix-rich-content-common';
+} from 'ricos-types';
 import type { RCEPluginProps, RCVPluginProps, BasePlugin } from './pluginTypes';
 import type { RicosCssOverride, RichContentProps } from '../types';
 

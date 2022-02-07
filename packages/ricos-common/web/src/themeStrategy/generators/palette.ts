@@ -1,4 +1,4 @@
-import type { PaletteColors } from 'wix-rich-content-common';
+import type { PaletteColors } from 'ricos-types';
 import { adaptForeground, toRgbTuple, toHexFormat } from '../themeUtils';
 import { presets, assertWixPalette, COLORS, isRicosPalette, getColorValue } from '../palettes';
 import type { RicosTheme, CssVarsObject, PaletteConfig } from '../themeTypes';

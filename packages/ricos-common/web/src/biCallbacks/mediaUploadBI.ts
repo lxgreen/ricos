@@ -1,4 +1,4 @@
-import type { MediaUploadError } from 'wix-rich-content-common';
+import type { MediaUploadError } from 'ricos-content';
 import { uuid } from 'wix-rich-content-common/libs/uuid';
 
 interface UploadStartBIData {
