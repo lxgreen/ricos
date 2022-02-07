@@ -19,8 +19,11 @@
 
 ### :bug: Bug Fix
 
-- `editor`
+- `polls-collapsible-list`
   - [#3479](https://github.com/wix/ricos/pull/3479) fix polls &  collapsible-list settings ui
+  
+- `toolbars-new`
+  - [#3482](https://github.com/wix/ricos/pull/3482) fix custom spacing key 
 
 </details>
 <hr/>
