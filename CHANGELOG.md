@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
 
+- `video`
+  - [#3483](https://github.com/wix/ricos/pull/3483) fix new video modal on mobile
 
 </details>
 <hr/>

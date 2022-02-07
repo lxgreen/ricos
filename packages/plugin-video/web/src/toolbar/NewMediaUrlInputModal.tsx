@@ -55,6 +55,7 @@ const MediaURLInputModal: React.FC<MediaURLInputModalProps> = ({
       isMobile={isMobile}
       withMobileHeader={withMobileHeader}
       onDblClick={onDblClick}
+      withMobileSaveButton
     />
   );
 };
