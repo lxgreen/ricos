@@ -31,7 +31,7 @@
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "build:analyze:editor": "MODULE_ANALYZE_EDITOR=true npm run build && open stats.html",
     "build:analyze:viewer": "MODULE_ANALYZE_VIEWER=true npm run build && open stats.html",
-    "watch": "cross-env NODE_ENV=development MODULE_WATCH=1 npm run build:rollup -- --watch.chokidar",
+    "watch": "cross-env NODE_ENV=development npm run build:rollup -- --watch",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,d.ts}'"
   },
   "dependencies": {

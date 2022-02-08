@@ -30,7 +30,8 @@
     "gen-plugin-defaults": "ts-node --compiler-options={\\\"module\\\":\\\"commonJS\\\"} src/generate-plugin-defaults.ts",
     "buildESM": "tsc",
     "buildCJS": "tsc --module commonjs --outDir dist/cjs",
-    "build": "yarn generate && yarn gen-plugin-defaults && yarn buildESM && yarn buildCJS"
+    "build": "yarn generate && yarn gen-plugin-defaults && yarn buildESM && yarn buildCJS",
+    "build:dev": "yarn build"
   },
   "unpkg": true,
   "publishConfig": {

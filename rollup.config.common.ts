@@ -23,7 +23,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
   });
 
   output = output.map(o => ({ ...o, sourcemap: true }));
-  if (process.env.MODULE_WATCH && !process.env.BUILD_CJS) {
+  if (process.env.ROLLUP_WATCH && !process.env.BUILD_CJS) {
     output = output.filter(o => o.format === 'es');
   }
 
