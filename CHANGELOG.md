@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.69.21 (Feb 8, 2022)
+
 ### :bug: Bug Fix
 
 - `video`
@@ -25,20 +30,18 @@
   - [#3486](https://github.com/wix/ricos/pull/3486) toDraft: empty list item protection
 
 ### :house: Internal
+
 - `undo redo`
   - [#3485](https://github.com/wix/ricos/pull/3485) BI events for undo redo shortcuts and buttons
-
-</details>
-<hr/>
 
 ## 8.69.20 (Feb 7, 2022)
 
 ### :bug: Bug Fix
 
 - `polls-collapsible-list`
-  - [#3479](https://github.com/wix/ricos/pull/3479) fix polls &  collapsible-list settings ui
+  - [#3479](https://github.com/wix/ricos/pull/3479) fix polls & collapsible-list settings ui
 - `toolbars-new`
-  - [#3482](https://github.com/wix/ricos/pull/3482) fix custom spacing key 
+  - [#3482](https://github.com/wix/ricos/pull/3482) fix custom spacing key
 
 ## 8.69.19 (Feb 6, 2022)
 
