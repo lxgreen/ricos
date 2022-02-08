@@ -1,6 +1,6 @@
 {
   "name": "ricos-types",
-  "version": "8.69.21",
+  "version": "8.69.22",
   "author": {
     "name": "Oded Soffrin",
     "email": "odeds@wix.com"
@@ -33,15 +33,15 @@
     "test": "echo 'no tests for types only package'"
   },
   "devDependencies": {
-    "react": "^16.13.1",
-    "react-modal": "~3.4.1",
-    "react-measure": "~2.3.0",
     "@wix/draft-js": "0.0.11",
     "draft-js-plugins-editor": "~3.0.0",
     "i18next": "^11.6.0",
-    "utility-types": "^3.10.0",
-    "ricos-content": "8.69.21",
-    "ricos-schema": "8.69.21"
+    "react": "^16.13.1",
+    "react-measure": "~2.3.0",
+    "react-modal": "~3.4.1",
+    "ricos-content": "8.69.22",
+    "ricos-schema": "8.69.22",
+    "utility-types": "^3.10.0"
   },
   "unpkg": true,
   "publishConfig": {
