@@ -1,5 +1,6 @@
 @import '~wix-rich-content-common/dist/statics/styles/consts';
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
+@import '~wix-rich-content-common/dist/statics/styles/no-outline';
 
 [dir].wrapper {
   :global {
@@ -30,7 +31,7 @@
       /*!rtl:begin:ignore*/
       text-align: left;
       /*!rtl:end:ignore*/
-      -noop:1;
+      -noop: 1;
     }
 
     .DraftEditor-alignLeft .public-DraftEditorPlaceholder-root {
@@ -38,7 +39,7 @@
       left: 0;
       text-align: left;
       /*!rtl:end:ignore*/
-      -noop:1;
+      -noop: 1;
     }
 
     .DraftEditor-alignCenter .public-DraftStyleDefault-block {
@@ -55,7 +56,7 @@
       /*!rtl:begin:ignore*/
       text-align: right;
       /*!rtl:end:ignore*/
-      -noop:1;
+      -noop: 1;
     }
 
     .DraftEditor-alignRight .public-DraftEditorPlaceholder-root {
@@ -63,7 +64,7 @@
       right: 0;
       text-align: right;
       /*!rtl:end:ignore*/
-      -noop:1;
+      -noop: 1;
     }
 
     .public-DraftStyleDefault-block {

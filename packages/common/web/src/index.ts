@@ -2,7 +2,6 @@ export * from 'ricos-types';
 
 // Components
 export { default as AccessibilityListener } from './Components/AccessibilityListener';
-export { default as ViewportRenderer } from './Components/ViewportRenderer';
 
 // Utils
 export { default as withI18n, translate, Trans, RicosTranslate } from './Utils/withI18n';

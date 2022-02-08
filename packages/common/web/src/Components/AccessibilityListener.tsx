@@ -1,21 +1,21 @@
 import { Component } from 'react';
-import noOutlineStyle from '../../statics/styles/no-outline.scss';
 
+const CLASS_NAME = 'no-outline';
 export default class AccessibilityListener extends Component<{ isMobile?: boolean }> {
   handleTabKeyUp = (e: KeyboardEvent) => {
-    if (e.which === 9 && document.body.classList.contains(noOutlineStyle.noOutline)) {
-      document.body.classList.remove(noOutlineStyle.noOutline);
+    if (e.which === 9 && document.body.classList.contains(CLASS_NAME)) {
+      document.body.classList.remove(CLASS_NAME);
     }
   };
 
   handleClick = () => {
-    if (!document.body.classList.contains(noOutlineStyle.noOutline)) {
-      document.body.classList.add(noOutlineStyle.noOutline);
+    if (!document.body.classList.contains(CLASS_NAME)) {
+      document.body.classList.add(CLASS_NAME);
     }
   };
 
   componentDidMount() {
-    document.body.classList.add(noOutlineStyle.noOutline);
+    document.body.classList.add(CLASS_NAME);
 
     if (!this.props.isMobile) {
       document.addEventListener('keyup', this.handleTabKeyUp);
