@@ -8,10 +8,10 @@ export interface IContentResolver<T> {
 
 export class TiptapContentResolver implements IContentResolver<TiptapNode[]> {
   // eslint-disable-next-line no-useless-constructor
-  private constructor(readonly id, readonly resolve, readonly description) {}
+  private constructor(readonly id, readonly resolve) {}
 
-  static create({ resolve, description }) {
-    return new TiptapContentResolver(Math.random().toString(), resolve, description);
+  static create(id: string, resolve: IContentResolver<TiptapNode[]>['resolve']) {
+    return new TiptapContentResolver(Math.random().toString(), resolve);
   }
 }
 

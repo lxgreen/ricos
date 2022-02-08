@@ -9,9 +9,7 @@ type ToolbarProps = {
   toolbarItemsRenders: any;
 };
 
-const visibleOnlySpec: ToolbarSpec = toolbarItem => toolbarItem.attributes.visible === true;
-
-//RicosToolbar
+const visibleOnlySpec: ToolbarSpec = attributes => attributes.visible === true;
 
 class ToolbarComponent extends Component<ToolbarProps, Record<string, unknown>> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,14 +22,14 @@ class ToolbarComponent extends Component<ToolbarProps, Record<string, unknown>> 
   constructor(props) {
     super(props);
 
-    props.toolbar.on(RicosToolbar.EVENTS.toolbarItemsCreated, () => {
+    props.toolbar.on(RicosToolbar.EVENTS.UPDATED, () => {
       // force update
       this.setState({ dummyUpdate: this.state.dummyUpdate + 1 });
     });
   }
 
   render() {
-    const toolbarButtons = this.props.toolbar.getItemsBy(visibleOnlySpec);
+    const toolbarButtons = this.props.toolbar.getToolbarItemsBy(visibleOnlySpec);
     const { toolbarItemsRenders } = this.props;
     return (
       <div className={styles.toolbar}>

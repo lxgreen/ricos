@@ -1,5 +1,4 @@
 //TODO: understand
-import type { IContentResolver } from './ContentResolver';
 import type { EditorCommands } from 'wix-rich-content-common';
 
 export type IToolbarItem = {
@@ -14,7 +13,8 @@ export type IToolbarItem = {
 
 type Modify<T, R> = Omit<T, keyof R> & R;
 
-export type ToolbarSpec = (toolbarItem: IToolbarItem) => boolean;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ToolbarSpec = (attributes: Record<string, any>) => boolean;
 
 type Command = ({
   attributes,
@@ -27,12 +27,31 @@ type Command = ({
   };
 }) => (args) => void;
 
+type TiptapCommand = ({
+  attributes,
+  editorCommands,
+}: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  attributes: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  editorCommands: any;
+}) => (args) => void;
+
 export type IToolbarItemConfig = Modify<
   IToolbarItem,
   {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     attributes: Record<string, any>;
     commands: Record<string, Command>;
+  }
+>;
+
+export type IToolbarItemConfigTiptap = Modify<
+  IToolbarItem,
+  {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    attributes: Record<string, any>;
+    commands: Record<string, TiptapCommand>;
   }
 >;
 

@@ -1,10 +1,11 @@
-import type { IToolbarItem, ToolbarSpec } from './types';
+import { throttle } from 'lodash';
+import type { ToolbarSpec } from './types';
 import type { EditorCommands } from 'wix-rich-content-common';
 import EventEmitter from './lib/EventEmitter';
-import { Content } from './Content';
-
+import type { Content } from './Content';
+import { ToolbarItem } from './ToolbarItemCreator';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ToolbarItemCreator = (content: Content, editorCommands: EditorCommands) => IToolbarItem;
+export type ToolbarItemCreator = (content: Content, editorCommands: EditorCommands) => ToolbarItem;
 
 type RicosToolbarProps = {
   toolbarItemCreators: ToolbarItemCreator[];
@@ -15,12 +16,12 @@ type RicosToolbarProps = {
 
 export class RicosToolbar extends EventEmitter {
   static EVENTS = {
-    toolbarItemsCreated: 'toolbarsCreated',
+    UPDATED: 'UPDATED',
   };
 
   editorCommands;
 
-  private toolbarItems: IToolbarItem[] = [];
+  private toolbarItems: ToolbarItem[] = [];
 
   private toolbarItemCreators: ToolbarItemCreator[];
 
@@ -38,34 +39,27 @@ export class RicosToolbar extends EventEmitter {
     this.editorCommands = editorCommands;
 
     this.toolbarItems = this.createToolbarItems();
-
-    content.on(Content.EVENTS.contentChangeEvent, () => {
-      const previousToolbarItems = Object.freeze(this.toolbarItems);
-
-      this.toolbarItems = this.createToolbarItems();
-
-      this.emit(RicosToolbar.EVENTS.toolbarItemsCreated, {
-        previousToolbarItems,
-        toolbarItems: Object.freeze(this.toolbarItems),
-      });
-    });
   }
+
+  private handleToolbarItemChanged = throttle(() => {
+    this.emit(RicosToolbar.EVENTS.UPDATED);
+  }, 50);
 
   private createToolbarItems() {
     return this.toolbarItemCreators.map(toolbarItemCreator => {
-      return toolbarItemCreator(this.content, this.editorCommands);
+      const toolbarItem = toolbarItemCreator(this.content, this.editorCommands);
+      toolbarItem.on(ToolbarItem.EVENTS.ATTRIBUTES_CHANGED, this.handleToolbarItemChanged);
+      return toolbarItem;
     });
   }
 
-  getItems() {
-    return this.toolbarItems;
+  getToolbarItemsBy(spec: ToolbarSpec) {
+    return this.toolbarItems.filter(toolbarItem => {
+      return spec(toolbarItem.attributes);
+    });
   }
 
-  getItemsBy(spec: ToolbarSpec) {
-    return this.toolbarItems.filter(spec);
-  }
-
-  getItemById(id) {
+  getToolbarItemById(id) {
     return this.toolbarItems.find(item => item.id === id);
   }
 
