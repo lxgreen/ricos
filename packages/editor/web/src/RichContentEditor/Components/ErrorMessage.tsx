@@ -57,7 +57,9 @@ const ErrorMessage: FunctionComponent<{
 }> = props => {
   const { error, errorCount, ...rest } = props;
   const translationKey =
-    errorCount > 1 || !error.key ? 'UploadFile_Error_Generic_Toast_Multiple' : errorMap[error.key];
+    errorCount > 1 || typeof error.key === 'undefined'
+      ? 'UploadFile_Error_Generic_Toast_Multiple'
+      : errorMap[error.key];
   const upgradeUrl = error.args?.upgradeUrl as string;
 
   const errorMsg = translationKey ? (

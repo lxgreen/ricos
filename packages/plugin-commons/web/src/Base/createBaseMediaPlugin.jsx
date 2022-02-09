@@ -11,6 +11,7 @@ import {
   alignmentClassName,
   sizeClassName,
   textWrapClassName,
+  MediaUploadErrorKey,
 } from 'wix-rich-content-common';
 
 const fileReader = file => {
@@ -43,33 +44,38 @@ const handleUploadStart = (
   itemPos
 ) => {
   if (file) {
-    fileReader(file).then(url => {
-      const { type, commonPubsub } = props;
-      const tempData = tempDataBuilder[type]?.({
-        url,
-        file,
+    const { type, commonPubsub } = props;
+    fileReader(file)
+      .then(url => {
+        const tempData = tempDataBuilder[type]?.({
+          url,
+          file,
+        });
+        onLocalLoad?.(tempData);
+        const handleFileUpload = uploadFunctionGetter[type](props);
+        const {
+          helpers: { onMediaUploadStart, onMediaUploadEnd },
+        } = props;
+        const uploadBIData = onMediaUploadStart(type, file.size, file.type);
+        const fileType = getGalleryFileType(file.type);
+        handleFileUpload(file, ({ data, error }) => {
+          onMediaUploadEnd(uploadBIData, error);
+          error && commonPubsub.set('onMediaUploadError', error);
+          handleUploadFinished(
+            type,
+            getComponentData,
+            data,
+            error,
+            onUploadFinished,
+            itemPos,
+            fileType
+          );
+        });
+      })
+      .catch(e => {
+        commonPubsub.set('onMediaUploadError', { key: MediaUploadErrorKey.GENERIC });
+        console.error('Reading file locally failed', e);
       });
-      onLocalLoad?.(tempData);
-      const handleFileUpload = uploadFunctionGetter[type](props);
-      const {
-        helpers: { onMediaUploadStart, onMediaUploadEnd },
-      } = props;
-      const uploadBIData = onMediaUploadStart(type, file.size, file.type);
-      const fileType = getGalleryFileType(file.type);
-      handleFileUpload(file, ({ data, error }) => {
-        onMediaUploadEnd(uploadBIData, error);
-        error && commonPubsub.set('onMediaUploadError', error);
-        handleUploadFinished(
-          type,
-          getComponentData,
-          data,
-          error,
-          onUploadFinished,
-          itemPos,
-          fileType
-        );
-      });
-    });
   }
 };
 

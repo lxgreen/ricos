@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+- `media-plugins`
+  - [#3474](https://github.com/wix/ricos/pull/3474) raise generic error toast when local load fails and raise error in console
+
 </details>
 <hr/>
 
