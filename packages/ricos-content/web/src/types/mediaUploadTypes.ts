@@ -1,3 +1,5 @@
+import type { FileData_PDFSettings } from 'ricos-schema';
+
 export enum MediaUploadErrorKey {
   GENERIC,
   SIZE_LIMIT,
@@ -87,5 +89,7 @@ export interface FileComponentData {
   type: string;
   url?: string;
   id?: string;
+  size?: string | number;
   privacy?: MediaPrivacy;
+  pdfSettings?: FileData_PDFSettings;
 }

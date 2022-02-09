@@ -22,6 +22,10 @@
 - `media-plugins`
   - [#3474](https://github.com/wix/ricos/pull/3474) raise generic error toast when local load fails and raise error in console
 
+### :house: Internal
+
+- `ricos-schema`
+  - [#3478](https://github.com/wix/ricos/pull/3478) add `pdfSettings` to file plugin data
 ### :nail_care: Polish
 
 - `image`

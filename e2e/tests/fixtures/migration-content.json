@@ -1274,11 +1274,16 @@
           "size": "content",
           "textWrap": "wrap"
         },
-        "name": "image.jpg",
-        "type": "jpg",
+        "name": "document.pdf",
+        "type": "pdf",
         "url": "https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
         "privacy": "public",
-        "size": 150000
+        "size": 150000,
+        "pdfSettings": {
+          "viewMode": "FULL",
+          "disableDownload": false,
+          "disablePrint": false
+        }
       }
     },
     "17": {

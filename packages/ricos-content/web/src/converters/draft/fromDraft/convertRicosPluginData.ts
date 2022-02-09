@@ -30,6 +30,7 @@ import type {
   ButtonData,
   GIFData,
   GalleryData,
+  FileData,
 } from 'ricos-schema';
 import { PluginContainerData_Width_Type, ButtonData_Type } from 'ricos-schema';
 import { TO_RICOS_DATA } from './consts';
@@ -382,7 +383,7 @@ const convertMentionData = (data: {
   delete data.mention;
 };
 
-const convertFileData = (data: FileComponentData & { src }) => {
+const convertFileData = (data: FileComponentData & FileData) => {
   const { url, id, privacy } = data;
   const isPrivate = typeof privacy !== 'undefined' ? privacy === 'private' : undefined;
   const src: FileSource = { url, id, private: isPrivate };

@@ -861,9 +861,14 @@
           "url": "https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
           "private": false
         },
-        "name": "image.jpg",
-        "type": "jpg",
-        "size": 150000
+        "name": "document.pdf",
+        "type": "pdf",
+        "size": 150000,
+        "pdfSettings": {
+          "viewMode": "FULL",
+          "disableDownload": false,
+          "disablePrint": false
+        }
       }
     },
     {

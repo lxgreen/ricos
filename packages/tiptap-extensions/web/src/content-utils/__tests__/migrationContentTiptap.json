@@ -861,10 +861,15 @@
           "url": "https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
           "private": false
         },
-        "name": "image.jpg",
-        "type": "jpg",
+        "name": "document.pdf",
+        "type": "pdf",
         "size": 150000,
-        "id": "26"
+        "id": "26",
+        "pdfSettings": {
+          "viewMode": "FULL",
+          "disableDownload": false,
+          "disablePrint": false
+        }
       }
     },
     {
