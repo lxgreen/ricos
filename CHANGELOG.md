@@ -23,6 +23,7 @@
   - [#3474](https://github.com/wix/ricos/pull/3474) raise generic error toast when local load fails and raise error in console
 - `ricos-content`
   - [#3499](https://github.com/wix/ricos/pull/3499) fix `fromDraft` `inlineStyles` to `textDecoration` converter
+  - [#3500](https://github.com/wix/ricos/pull/3500) fromHtml/ck-editor: iframeToVimeoVideo rule added
 
 ### :house: Internal
 
