@@ -42,6 +42,7 @@ const mergeColorDecorations = (decorations: Decoration[]): Decoration[] => {
 
 const isDecorationType = (decorationType: string) =>
   TO_RICOS_DECORATION_TYPE[decorationType] !== undefined ||
+  TO_RICOS_INLINE_STYLE_TYPE[decorationType] !== undefined ||
   Object.keys(dynamicDecorationGetters).some(dynamicType => decorationType.includes(dynamicType));
 
 const dynamicDecorationGetters = {
