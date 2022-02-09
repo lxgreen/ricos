@@ -10,8 +10,11 @@ export class TiptapContentResolver implements IContentResolver<TiptapNode[]> {
   // eslint-disable-next-line no-useless-constructor
   private constructor(readonly id, readonly resolve) {}
 
-  static create(id: string, resolve: IContentResolver<TiptapNode[]>['resolve']) {
-    return new TiptapContentResolver(Math.random().toString(), resolve);
+  static create(
+    id: string,
+    resolve: IContentResolver<TiptapNode[]>['resolve']
+  ): IContentResolver<TiptapNode[]> {
+    return new TiptapContentResolver(id, resolve);
   }
 }
 

@@ -1,16 +1,73 @@
-import { alwaysVisible, isTextInSelection } from './tiptapResolvers';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import type { Node as TiptapNode } from 'prosemirror-model';
+import {
+  alwaysVisibleResolver,
+  isTextContainsBoldResolver,
+  isTextInSelection,
+  isTextContainsItalicResolver,
+  isTextContainsUnderlineResolver,
+} from './tiptapResolvers';
 
-describe('tiptap editor resolvers', () => {
-  it('test alwaysVisible resolver - should always return true', () => {
-    expect(alwaysVisible()).toBeTruthy();
+describe('tiptap resolvers', () => {
+  describe('alwaysVisibleResolver', () => {
+    it('should always return true', () => {
+      // @ts-ignore
+      const mockContent: TiptapNode[] = [{ type: 'paragraph' }];
+      expect(alwaysVisibleResolver.resolve(mockContent)).toBe(true);
+    });
   });
 
-  it('test isTextInSelection resolver - should check if the selection contains text', () => {
-    const mockContentWhenTextIsInSelection = [{ type: { name: 'text' } }];
+  describe('isTextContainsBold', () => {
+    it('should return true if selected text is bold', () => {
+      const mockContentWithBold: TiptapNode[] = [
+        // @ts-ignore
+        { type: { name: 'text' }, marks: [{ type: { name: 'bold' } }], text: 'World' },
+      ];
+      expect(isTextContainsBoldResolver.resolve(mockContentWithBold)).toBe(true);
+    });
 
-    expect(isTextInSelection.resolve(mockContentWhenTextIsInSelection)).toBeTruthy();
+    it('should return false if selected text is not bold', () => {
+      const mockContentWithoutBold: TiptapNode[] = [
+        // @ts-ignore
+        { type: { name: 'text' }, marks: [{ type: { name: 'underline' } }], text: 'World' },
+      ];
+      expect(isTextContainsBoldResolver.resolve(mockContentWithoutBold)).toBe(false);
+    });
+  });
 
-    const mockContentWhenTextIsNotInSelection = [{ type: { name: 'image' } }];
-    expect(isTextInSelection.resolve(mockContentWhenTextIsNotInSelection)).toBeFalsy();
+  describe('isTextContainsItalicResolver', () => {
+    it('should return true if selected text is italic', () => {
+      const mockContentWithItalic: TiptapNode[] = [
+        // @ts-ignore
+        { type: { name: 'text' }, marks: [{ type: { name: 'italic' } }], text: 'World' },
+      ];
+      expect(isTextContainsItalicResolver.resolve(mockContentWithItalic)).toBe(true);
+    });
+
+    it('should return false if selected text is not italic', () => {
+      const mockContentWithoutItalic: TiptapNode[] = [
+        // @ts-ignore
+        { type: { name: 'text' }, marks: [{ type: { name: 'bold' } }], text: 'World' },
+      ];
+      expect(isTextContainsItalicResolver.resolve(mockContentWithoutItalic)).toBe(false);
+    });
+  });
+
+  describe('isTextContainsUnderlineResolver', () => {
+    it('should return true if selected text is underline', () => {
+      const mockContentWithUnderline: TiptapNode[] = [
+        // @ts-ignore
+        { type: { name: 'text' }, marks: [{ type: { name: 'underline' } }], text: 'World' },
+      ];
+      expect(isTextContainsUnderlineResolver.resolve(mockContentWithUnderline)).toBe(true);
+    });
+
+    it('should return false if selected text is not underline', () => {
+      const mockContentWithoutUnderline: TiptapNode[] = [
+        // @ts-ignore
+        { type: { name: 'text' }, marks: [{ type: { name: 'italic' } }], text: 'World' },
+      ];
+      expect(isTextContainsUnderlineResolver.resolve(mockContentWithoutUnderline)).toBe(false);
+    });
   });
 });

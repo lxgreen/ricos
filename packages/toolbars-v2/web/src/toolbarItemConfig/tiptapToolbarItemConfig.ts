@@ -1,6 +1,11 @@
 // import { ContentResolver } from './ContentResolver';
-import { BoldIcon } from '../icons';
-import { isTextInSelection } from '../resolvers/tiptapResolvers';
+import { BoldIcon, ItalicIcon, UnderlineIcon } from '../icons';
+import {
+  alwaysVisibleResolver,
+  isTextContainsBoldResolver,
+  isTextContainsItalicResolver,
+  isTextContainsUnderlineResolver,
+} from '../resolvers/tiptapResolvers';
 import type { IToolbarItemConfigTiptap } from '../types';
 export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
   {
@@ -11,13 +16,52 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
       icon: BoldIcon,
     },
     attributes: {
-      visible: isTextInSelection,
+      visible: alwaysVisibleResolver,
+      active: isTextContainsBoldResolver,
     },
     commands: {
       click:
         ({ editorCommands }) =>
         () => {
           editorCommands.chain().focus().toggleBold().run();
+        },
+    },
+  },
+  {
+    id: 'italic',
+    type: 'toggle',
+    presentation: {
+      tooltip: 'Italic',
+      icon: ItalicIcon,
+    },
+    attributes: {
+      visible: alwaysVisibleResolver,
+      active: isTextContainsItalicResolver,
+    },
+    commands: {
+      click:
+        ({ editorCommands }) =>
+        () => {
+          editorCommands.chain().focus().toggleItalic().run();
+        },
+    },
+  },
+  {
+    id: 'underline',
+    type: 'toggle',
+    presentation: {
+      tooltip: 'Underline',
+      icon: UnderlineIcon,
+    },
+    attributes: {
+      visible: alwaysVisibleResolver,
+      active: isTextContainsUnderlineResolver,
+    },
+    commands: {
+      click:
+        ({ editorCommands }) =>
+        () => {
+          editorCommands.chain().focus().toggleUnderline().run();
         },
     },
   },
