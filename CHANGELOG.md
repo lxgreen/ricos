@@ -18,8 +18,14 @@
   </summary>
 
 ### :bug: Bug Fix
+
 - `media-plugins`
   - [#3474](https://github.com/wix/ricos/pull/3474) raise generic error toast when local load fails and raise error in console
+
+### :nail_care: Polish
+
+- `image`
+  - [#3493](https://github.com/wix/ricos/pull/3493) use quality preload for PNG when enc_auto is enabled
 
 </details>
 <hr/>

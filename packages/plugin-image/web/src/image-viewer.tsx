@@ -123,13 +123,16 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
   }
 
   getImageUrl(src): ImageSrc | null {
-    const { helpers, seoMode } = this.props || {};
+    const { helpers, seoMode, isMobile } = this.props || {};
+
     if (!src && helpers?.handleFileSelection) {
       return null;
     }
 
-    const removeUsm = this.context.experiments?.removeUsmFromImageUrls?.enabled;
-    const encAutoImageUrls = this.context.experiments?.encAutoImageUrls?.enabled;
+    const { experiments } = this.context;
+    const removeUsm = experiments?.removeUsmFromImageUrls?.enabled;
+    const encAutoImageUrls = experiments?.encAutoImageUrls?.enabled;
+    const qualityPreloadPngs = experiments?.qualityPreloadPngs?.enabled;
 
     const imageUrl: ImageSrc = {
       preload: '',
@@ -155,7 +158,8 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
     /**
         PNG files can't reduce quality via Wix services and we want to avoid downloading a big png image that will affect performance.
       **/
-    if (!this.props.isMobile && !isPNG(src)) {
+    const validQualtyPreloadFileType = (encAutoImageUrls && qualityPreloadPngs) || !isPNG(src);
+    if (!isMobile && validQualtyPreloadFileType) {
       const {
         componentData: { config: { alignment, width, size } = {} },
       } = this.props;
