@@ -18,7 +18,9 @@ export const simplePubsub = (initialState?: Record<string, any>): Pubsub => {
   };
 
   const unsubscribe = (key: string, callback: Callback): void => {
-    listeners[key] = listeners[key].filter(listener => listener !== callback);
+    if (listeners[key]) {
+      listeners[key] = listeners[key].filter(listener => listener !== callback);
+    }
   };
 
   // If unsubscribe is called on componentWillUnmount, the state.focusedBlock key is null
