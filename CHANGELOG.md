@@ -21,6 +21,8 @@
 
 - `gallery image`
   - [#3502](https://github.com/wix/ricos/pull/3502 fix error state display
+- `text color\highlight`
+  - [#3505](https://github.com/wix/ricos/pull/3505) fix `inlineStyleMapper` viewer endpoint
 
 
 </details>
