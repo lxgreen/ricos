@@ -29,6 +29,8 @@
 - `ricos-content`
   - [#3499](https://github.com/wix/ricos/pull/3499) fix `fromDraft` `inlineStyles` to `textDecoration` converter
   - [#3500](https://github.com/wix/ricos/pull/3500) fromHtml/ck-editor: iframeToVimeoVideo rule added
+- `link-preview`
+  - [#3501](https://github.com/wix/ricos/pull/3501) fix styles on loadable viewer
 
 ### :house: Internal
 
