@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.69.3 (Feb 10, 2022)
+
 ### :bug: Bug Fix
 
 - `media-plugins`
@@ -29,13 +34,11 @@
 
 - `ricos-schema`
   - [#3478](https://github.com/wix/ricos/pull/3478) add `pdfSettings` to file plugin data
+
 ### :nail_care: Polish
 
 - `image`
   - [#3493](https://github.com/wix/ricos/pull/3493) use quality preload for PNG when enc_auto is enabled
-
-</details>
-<hr/>
 
 ## 8.69.22 (Feb 8, 2022)
 
