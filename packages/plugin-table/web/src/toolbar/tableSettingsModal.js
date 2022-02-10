@@ -5,9 +5,7 @@ import styles from '../../statics/styles/table-settings-modal.scss';
 import TableSettingsCountSection from './TableSettingsCountSection';
 import { getDefaultsSettings, isCellsNumberInvalid } from '../tableUtil';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
-import { Button } from 'wix-rich-content-ui-components';
-import { CloseIcon } from '../icons';
-
+import { Button, SettingsMobileHeader } from 'wix-rich-content-ui-components';
 export default class tableSettingsModal extends Component {
   constructor(props) {
     super(props);
@@ -72,14 +70,18 @@ export default class tableSettingsModal extends Component {
     const { isMobile, helpers, t } = this.props;
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-      <div onKeyUp={this.onKeyUp}>
+      <div onKeyUp={this.onKeyUp} className={isMobile ? styles.settings_mobile_container : null}>
         {isMobile && (
-          // eslint-disable-next-line
-          <div onClick={helpers.closeModal} className={styles.closeButton}>
-            <CloseIcon />
-          </div>
+          <SettingsMobileHeader
+            theme={this.props.theme}
+            onCancel={helpers.closeModal}
+            t={t}
+            title={t('TablePlugin_MobileHeader')}
+            useNewSettingsUi
+            showSaveBtn={false}
+          />
         )}
-        <div className={styles.title}>{t('TablePlugin_SettingsModal_Title')}</div>
+        {!isMobile && <div className={styles.title}>{t('TablePlugin_SettingsModal_Title')}</div>}
         <div className={styles.subtitle}>{t('TablePlugin_SettingsModal_SubTitle')}</div>
         <div className={styles.tableConfig}>
           <TableSettingsCountSection

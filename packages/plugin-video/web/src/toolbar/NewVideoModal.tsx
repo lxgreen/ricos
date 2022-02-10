@@ -104,7 +104,7 @@ const VideoModal = props => {
           <SettingsMobileHeader
             theme={theme}
             onSave={onConfirm}
-            onCancel={() => closeModal()}
+            onCancel={closeModal}
             t={t}
             title={t('VideoModal_MobileHeader')}
             useNewSettingsUi

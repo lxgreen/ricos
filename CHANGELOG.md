@@ -16,7 +16,12 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-
+  
+### :bug: Bug Fix
+  
+- `table/giphy`
+  - [#3495](https://github.com/wix/ricos/pull/3495) fix modals ui on mobile
+  
 </details>
 <hr/>
 
