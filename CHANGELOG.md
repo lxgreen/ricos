@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `gallery image`
+  - [#3502](https://github.com/wix/ricos/pull/3502 fix error state display
+
 
 </details>
 <hr/>

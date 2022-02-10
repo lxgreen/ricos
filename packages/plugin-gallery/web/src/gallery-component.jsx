@@ -13,11 +13,12 @@ const renderMobileNativeLoader = ({ url }) =>
   );
 
 function GalleryComponent(props) {
-  const { error, t, isLoading } = props;
+  const { t, isLoading, componentData } = props;
+  const { error } = componentData;
   return (
     <>
       <GalleryViewer
-        componentData={props.componentData}
+        componentData={componentData}
         settings={props.settings}
         theme={props.theme}
         helpers={props.helpers}

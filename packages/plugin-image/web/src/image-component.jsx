@@ -47,9 +47,10 @@ class ImageComponent extends React.Component {
       setInPluginEditingMode,
       setComponentUrl,
       t,
-      error,
       isLoading,
     } = this.props;
+
+    const { error } = componentData;
 
     return (
       <>
@@ -92,7 +93,6 @@ ImageComponent.propTypes = {
   setComponentUrl: PropTypes.func,
   isLoading: PropTypes.bool,
   tempData: PropTypes.object,
-  error: PropTypes.object,
 };
 
 export { ImageComponent as Component, DEFAULTS };

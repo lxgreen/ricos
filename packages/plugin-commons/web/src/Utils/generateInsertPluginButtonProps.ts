@@ -105,14 +105,17 @@ export function generateInsertPluginButtonProps({
   }
 
   function createBlocksFromFiles(
-    files: File[] | File[][],
+    files: File[] | (File[] | Record<string, unknown>[])[] | Record<string, unknown>[],
     data,
     type: string,
-    updateEntity: (blockKey: string, file: File | File[]) => void
+    updateEntity: (
+      blockKey: string,
+      file: File | File[] | Record<string, unknown> | Record<string, unknown>[]
+    ) => void
   ) {
     let editorState = getEditorState();
     let selection: SelectionState | undefined;
-    files.forEach((file: File | File[]) => {
+    files.forEach((file: File | File[] | Record<string, unknown> | Record<string, unknown>[]) => {
       const { newBlock, newSelection, newEditorState } = createBlock(editorState, data, type);
       editorState = newEditorState;
       selection = selection || newSelection;
@@ -160,7 +163,10 @@ export function generateInsertPluginButtonProps({
     );
   }
 
-  function handleFileChange(files: File[], updateEntity: (blockKey: string, file: File) => void) {
+  function handleFileChange(
+    files: File[] | Record<string, unknown>[],
+    updateEntity: (blockKey: string, file: File) => void
+  ) {
     if (files.length > 0) {
       const galleryData = pluginDefaults[GALLERY_TYPE];
       const { newEditorState, newSelection } = shouldCreateGallery(files)
@@ -185,6 +191,13 @@ export function generateInsertPluginButtonProps({
       handleFileChange(data, (blockKey, file) => {
         onPluginAddStep('FileUploadDialog', blockKey);
         setTimeout(() => handleFilesAdded(blockKey)({ data: file, error }));
+      });
+    } else if (error) {
+      const handleFilesAdded = (blockKey: string) =>
+        pubsub.getBlockHandler('handleFilesAdded', blockKey);
+      handleFileChange([{}], blockKey => {
+        onPluginAddStep('FileUploadDialog', blockKey);
+        setTimeout(() => handleFilesAdded(blockKey)({ error }));
       });
     }
   }

@@ -30,7 +30,7 @@ const handleUploadFinished = (
   fileType
 ) => {
   return onUploadFinished({
-    data: data && dataBuilder[type]?.({ data, error }, getComponentData(), fileType, itemIndex),
+    data: dataBuilder[type]?.({ data, error }, getComponentData(), fileType, itemIndex),
     error,
   });
 };
