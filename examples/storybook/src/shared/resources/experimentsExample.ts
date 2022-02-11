@@ -1,8 +1,9 @@
 export const EXPERIMENTS = [
-  { name: 'modalsWithEditorCommands', scope: 'ricos' },
-  { name: 'newFormattingToolbar', scope: 'ricos' },
-  { name: 'newSettingsUi', scope: 'ricos' },
   { name: 'tiptapEditor', scope: 'ricos' },
+  { name: 'TiptapMockToolbar', scope: 'ricos' },
+  { name: 'newFormattingToolbar', scope: 'ricos' },
+  { name: 'modalsWithEditorCommands', scope: 'ricos' },
+  { name: 'newSettingsUi', scope: 'ricos' },
   { name: 'fixListLineHeight', scope: 'ricos' },
   { name: 'newVideoVerticalAndSocialModals', scope: 'ricos' },
   { name: 'fixedTabSize', scope: 'ricos' },

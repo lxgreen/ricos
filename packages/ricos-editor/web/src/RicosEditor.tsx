@@ -34,6 +34,7 @@ import { getBiFunctions } from './toolbars/utils/biUtils';
 import { renderSideBlockComponent } from './utils/renderBlockComponent';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 import { createEditorStyleClasses } from './utils/createEditorStyleClasses';
+import { TiptapMockToolbar } from './tiptapMockToolbar/TiptapMockToolbar';
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
 The getContent(postId, isPublishing) API is deprecated and will be removed in ricos v9.0.0`;
@@ -482,7 +483,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     }
     const { RicosTiptapEditor, RichContentAdapter, draftToTiptap, TIPTAP_TYPE_TO_RICOS_TYPE } =
       tiptapEditorModule;
-    const { content, injectedContent, plugins, onAtomicBlockFocus } = this.props;
+    const { content, injectedContent, plugins, onAtomicBlockFocus, experiments } = this.props;
     const { tiptapToolbar } = this.state;
     // TODO: Enforce Content ID's existance (or generate it)
     // when tiptap will eventually be released (ask @Barackos, @talevy17)
@@ -495,6 +496,9 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       <Fragment>
         {this.renderToolbars()}
         {tiptapToolbar && this.renderToolbarPortal(tiptapToolbar)}
+        {experiments?.TiptapMockToolbar?.enabled && (
+          <TiptapMockToolbar editor={this.state.activeEditor} />
+        )}
         {
           <RicosTranslate locale={locale} localeResource={localeResource || englishResources}>
             {t => {
