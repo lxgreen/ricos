@@ -91,6 +91,25 @@ describe('migrate to draft', () => {
     expect(blockData).toEqual(expectedImageBlockData);
   });
 
+  const videoData = {
+    containerData: {
+      width: { size: PluginContainerData_Width_Type.CONTENT },
+    },
+    video: { src: {} },
+  };
+
+  const expectedVideoBlockData = {
+    config: {
+      size: 'content',
+      textWrap: WRAP,
+    },
+  };
+
+  it('should convert video without src properly', () => {
+    const blockData = convertNodeDataToDraft(Node_Type.VIDEO, videoData);
+    expect(blockData).toEqual(expectedVideoBlockData);
+  });
+
   describe('FileSource', () => {
     it('should convert node data with id as source', () => {
       const { custom, ...rest } = imageNodeData.imageData.image.src;

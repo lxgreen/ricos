@@ -142,7 +142,7 @@ const convertVideoData = (data: VideoData & { src; metadata; title?; duration: n
       thumbnail: { pathname: src?.id || src?.custom, width, height },
     };
   }
-  data.duration = data.src.duration;
+  data.duration = data.src?.duration;
   delete data.video;
   delete data.title;
   delete data.thumbnail;

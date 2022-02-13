@@ -139,7 +139,7 @@ const convertVideoData = (data: {
       height: data.src.thumbnail.height,
     };
   }
-  data.video.duration = data.duration;
+  data.video && (data.video.duration = data.duration);
 };
 
 const convertGalleryStyles = styles => {
