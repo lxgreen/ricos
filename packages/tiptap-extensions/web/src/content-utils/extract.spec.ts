@@ -42,6 +42,7 @@ describe('JSONContent extract', () => {
       'table',
       'tableRow',
       'tableCell',
+      'audio',
     ];
     expect(actual).toEqual(expected);
   });

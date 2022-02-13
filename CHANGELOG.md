@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+- `schema/audio`
+  - [#3461](https://github.com/wix/ricos/pull/3461) add audio schema
+  
 ### :nail_care: Polish
 
 - `theme`

@@ -15,6 +15,8 @@ import type {
   IMAGE_TYPE,
   RICOS_VIDEO_TYPE,
   VIDEO_TYPE,
+  RICOS_AUDIO_TYPE,
+  AUDIO_TYPE,
   RICOS_POLL_TYPE,
   POLL_TYPE,
   RICOS_LINK_TYPE,
@@ -39,6 +41,7 @@ import type {
   GalleryData,
   PollData,
   VideoData,
+  AudioData,
   FileData,
   LinkData,
   ImageData,
@@ -96,6 +99,8 @@ export interface PluginsDataMap {
   [POLL_TYPE]?: any;
   [RICOS_VIDEO_TYPE]?: VideoData;
   [VIDEO_TYPE]?: any;
+  [RICOS_AUDIO_TYPE]?: AudioData;
+  [AUDIO_TYPE]?: AudioData;
   [RICOS_FILE_TYPE]?: FileData;
   [FILE_UPLOAD_TYPE]?: any;
   [RICOS_IMAGE_TYPE]?: ImageData;

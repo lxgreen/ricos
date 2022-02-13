@@ -149,7 +149,7 @@ describe('query', () => {
 
   it('should do count', () => {
     const result = select(content).count();
-    expect(result).toStrictEqual<number>(186);
+    expect(result).toStrictEqual<number>(188);
   });
 
   it('should do count + limit', () => {
