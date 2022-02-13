@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+
+- `theme`
+  - [#3494](https://github.com/wix/ricos/pull/3494) Support Font Family Inheritence
+
 </details>
 <hr/>
 

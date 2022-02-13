@@ -11,7 +11,6 @@ import {
 } from '../../../storybook/src/shared/utils/fileUploadUtil';
 import type { TOOLBARS } from 'wix-rich-content-editor-common';
 import type { DraftContent, TextToolbarType, AvailableExperiments } from 'wix-rich-content-common';
-import { OnPluginAction } from 'wix-rich-content-common';
 import type { TestAppConfig } from '../../src/types';
 import type { RicosEditorProps, RicosEditorType } from 'ricos-editor';
 import { RicosEditor } from 'ricos-editor';
