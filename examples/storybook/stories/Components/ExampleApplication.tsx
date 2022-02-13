@@ -22,28 +22,26 @@ const ExampleApplication: FunctionComponent<{
   const showViewer = useMemo(() => display === 'Both' || display === 'Viewer', [display]);
 
   return (
-    <div style={{ fontFamily: 'impact' }}>
-      <Section type={Section.Types.COMPARISON}>
-        {showEditor && (
-          <RichContentEditorBox sourcecode={editorSourceCode}>
-            <EditorWrapper
-              content={content}
-              theme={{ ...theme, parentClass: styles['rce-wrapper'] }}
-              onChange={setContent}
-              {...editorProps}
-            />
-          </RichContentEditorBox>
-        )}
-        {showViewer && (
-          <RichContentViewerBox sourcecode={viewerSourceCode}>
-            <ViewerWrapper
-              content={content}
-              theme={{ ...theme, parentClass: styles['rcv-wrapper'] }}
-            />
-          </RichContentViewerBox>
-        )}
-      </Section>
-    </div>
+    <Section type={Section.Types.COMPARISON}>
+      {showEditor && (
+        <RichContentEditorBox sourcecode={editorSourceCode}>
+          <EditorWrapper
+            content={content}
+            theme={{ ...theme, parentClass: styles['rce-wrapper'] }}
+            onChange={setContent}
+            {...editorProps}
+          />
+        </RichContentEditorBox>
+      )}
+      {showViewer && (
+        <RichContentViewerBox sourcecode={viewerSourceCode}>
+          <ViewerWrapper
+            content={content}
+            theme={{ ...theme, parentClass: styles['rcv-wrapper'] }}
+          />
+        </RichContentViewerBox>
+      )}
+    </Section>
   );
 };
 
