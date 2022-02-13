@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.69.25 (Feb 13, 2022)
+
 ### :bug: Bug Fix
 
 - `ricos-content`
@@ -25,10 +30,6 @@
   - [#3502](https://github.com/wix/ricos/pull/3502 fix error state display
 - `text color\highlight`
   - [#3505](https://github.com/wix/ricos/pull/3505) fix `inlineStyleMapper` viewer endpoint
-
-
-</details>
-<hr/>
 
 ## 8.69.24 (Feb 10, 2022)
 
