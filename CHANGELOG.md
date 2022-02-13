@@ -17,12 +17,15 @@
     Click to see more.
   </summary>
 
-### :house: Internal
-- `schema/audio`
-  - [#3507](https://github.com/wix/ricos/pull/3507) revert audio-schema
 
 </details>
 <hr/>
+
+## 8.69.27 (Feb 13, 2022)
+
+### :house: Internal
+- `schema/audio`
+  - [#3507](https://github.com/wix/ricos/pull/3507) revert audio-schema
 
 ## 8.69.26 (Feb 13, 2022)
 
