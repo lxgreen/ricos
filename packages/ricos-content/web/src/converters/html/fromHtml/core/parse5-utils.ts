@@ -1,8 +1,10 @@
-import { pipe, flow } from 'fp-ts/function';
+import { pipe, flow, constFalse } from 'fp-ts/function';
 import * as A from 'fp-ts/Array';
 import * as R from 'fp-ts/Record';
 import * as O from 'fp-ts/Option';
 import * as S from 'fp-ts/string';
+import type * as P from 'fp-ts/Predicate';
+
 import { MonoidAny } from 'fp-ts/boolean';
 import { concatAll } from 'fp-ts/Monoid';
 import * as RONEA from 'fp-ts/ReadonlyNonEmptyArray';
@@ -57,6 +59,9 @@ export const getAttributes = (el: Element) =>
     el => (el.attrs ? O.some(el.attrs) : O.none),
     O.fold(() => ({} as AttrRecord), toRecord)
   );
+
+export const hasAttribute = (key: string, valuePredicate: P.Predicate<string>) =>
+  flow(getAttributes, R.lookup(key), O.fold(constFalse, valuePredicate));
 
 export const getChildNodes = (element: Element | DocumentFragment): ContentNode[] =>
   isLeaf(element) ? [] : (element.childNodes as ContentNode[]);

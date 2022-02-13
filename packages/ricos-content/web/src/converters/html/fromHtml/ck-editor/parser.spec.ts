@@ -30,6 +30,19 @@ describe('CKEditor parser', () => {
     );
   });
 
+  it('iframe => video with vimeo url', async () => {
+    // eslint-disable-next-line max-len
+    const answer = `<p class="align-center font_8"><div id='innerContainer_oz4w1zch'><div id="innercomp_oz4w1zch" class="container-video s59" style="height: 263px;width: 475px;position: static;margin-top: 10px;margin-bottom: 10px;display: block;clear: both;float: none;border: 0px;min-width: 240px;min-height: 180px;"><div id="innercomp_oz4w1zchvideoFrame" class="container-video s59videoFrame"><iframe width="100%" height="100%" allow="fullscreen  accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" src="https://player.vimeo.com/video/391866790?badge=0"></iframe></div></div></div></p><br /><br /><p class="font_8"><br /><p class="font_8"> </p><br /></p><br />`;
+    const actual = parse(answer);
+    const videos = extract(actual.nodes)
+      .filter(({ type }) => type === Node_Type.VIDEO)
+      .get();
+    expect(videos.length).toEqual(1);
+    expect(videos[0].videoData?.video?.src?.url).toEqual(
+      'https://player.vimeo.com/video/391866790?badge=0'
+    );
+  });
+
   it('<a><img></a> => image with link', async () => {
     const images = extract(content.nodes)
       .filter(({ type }) => type === Node_Type.IMAGE)

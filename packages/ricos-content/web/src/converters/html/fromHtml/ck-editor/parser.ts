@@ -33,7 +33,7 @@ import {
 } from '../core/rules';
 import { aToCustomLink } from './aToCustomLink';
 import type { Rule } from '../core/models';
-import { iframeToVideo } from './iframeToVideo';
+import { iframeToYoutubeVideo, iframeToVimeoVideo } from './iframeToVideo';
 import postprocess from './postprocess';
 import { preprocess } from './preprocess';
 
@@ -167,12 +167,30 @@ const hToStyledHeading: Rule = [
     ),
 ];
 
-const iframeToAlignedVideo: Rule = [
-  iframeToVideo[0],
+const iframeToAlignedVimeoVideo: Rule = [
+  iframeToVimeoVideo[0],
   context => (element: Element) => {
     return pipe(
       element,
-      iframeToVideo[1](context),
+      iframeToVimeoVideo[1](context),
+      A.map(
+        hasAlignmentClass(element)
+          ? mergeWithContainerData(
+              'videoData',
+              pipe(element, getAlignmentByClass, alignmentToContainerData)
+            )
+          : identity
+      )
+    );
+  },
+];
+
+const iframeToAlignedYoutubeVideo: Rule = [
+  iframeToYoutubeVideo[0],
+  context => (element: Element) => {
+    return pipe(
+      element,
+      iframeToYoutubeVideo[1](context),
       A.map(
         hasAlignmentClass(element)
           ? mergeWithContainerData(
@@ -205,9 +223,6 @@ const imgToAlignedImage: Rule = [
   },
 ];
 
-// missing:
-// <li> </li><li><span> </span></li> -- should add p around whitespace (postprocess?)
-
 export default flow(
   preprocess,
   parse([
@@ -220,7 +235,8 @@ export default flow(
     fontWeightToBold,
     fontStyleToItalic,
     textDecorationToUnderline,
-    iframeToAlignedVideo,
+    iframeToAlignedYoutubeVideo,
+    iframeToAlignedVimeoVideo,
     imgToAlignedImage,
     traverseDiv,
     traverseSpan,
