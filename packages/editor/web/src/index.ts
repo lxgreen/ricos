@@ -13,3 +13,5 @@ export {
 export type { RichContentEditorProps } from './RichContentEditor/RichContentEditor';
 
 export { RichContentEditorModal, RichContentEditor };
+
+export { getFontSize } from './RichContentEditor/utils/editorCommandsUtils';

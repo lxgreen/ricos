@@ -1,5 +1,6 @@
 import React from 'react';
 import { ToggleButton } from './components/buttons/ToggleButton';
+import { AlignmentButton, HeadingButton } from './components/buttons/ModalButton';
 
 export const toolbarItemsRenders = {
   bold: toolbarItem => {
@@ -31,5 +32,11 @@ export const toolbarItemsRenders = {
   },
   decreaseIndent: toolbarItem => {
     return <ToggleButton toolbarItem={toolbarItem} />;
+  },
+  alignment: toolbarItem => {
+    return <AlignmentButton toolbarItem={toolbarItem} />;
+  },
+  heading: toolbarItem => {
+    return <HeadingButton toolbarItem={toolbarItem} />;
   },
 };

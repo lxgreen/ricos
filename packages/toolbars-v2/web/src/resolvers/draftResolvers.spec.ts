@@ -8,6 +8,12 @@ import {
   isTextContainsOrderedListResolver,
   isTextContainsUnorderedListResolver,
   isTextContainsSpoilerResolver,
+  getAlignmentInSelectionResolver,
+  getHeadingInSelectionResolver,
+  getLineSpacingInSelectionResolver,
+  getLineSpacingBeforeSelectionResolver,
+  getLineSpacingAfterSelectionResolver,
+  getFontSizeInSelectionResolver,
 } from './draftResolvers';
 import { EditorState } from '@wix/draft-js';
 
@@ -124,6 +130,205 @@ describe('draft resolvers', () => {
       currentInlineStyle.has = hasMock;
       expect(isTextContainsSpoilerResolver.resolve(editorState)).toBe(true);
       expect(hasMock).toBeCalledWith('wix-rich-content-plugin-spoiler');
+    });
+  });
+
+  describe('getAlignmentInSelectionResolver', () => {
+    it('should return "left" as the selected text alignment', () => {
+      const currentContentState = editorState.getCurrentContent();
+      const hasMock = jest.fn(_selectionStartKey => {
+        const contentBlock = {
+          toJS: () => {
+            return { data: { textAlignment: 'left' } };
+          },
+        };
+        return contentBlock;
+      });
+      currentContentState.getBlockForKey = hasMock;
+      expect(getAlignmentInSelectionResolver.resolve(editorState)).toBe('left');
+    });
+    it('should return "center" as the selected text alignment', () => {
+      const currentContentState = editorState.getCurrentContent();
+      const hasMock = jest.fn(_selectionStartKey => {
+        const contentBlock = {
+          toJS: () => {
+            return { data: { textAlignment: 'center' } };
+          },
+        };
+        return contentBlock;
+      });
+      currentContentState.getBlockForKey = hasMock;
+      expect(getAlignmentInSelectionResolver.resolve(editorState)).toBe('center');
+    });
+    it('should return "undefined" as the selected text alignment', () => {
+      const currentContentState = editorState.getCurrentContent();
+      const hasMock = jest.fn(_selectionStartKey => {
+        const contentBlock = {
+          toJS: () => {
+            return { data: {} };
+          },
+        };
+        return contentBlock;
+      });
+      currentContentState.getBlockForKey = hasMock;
+      expect(getAlignmentInSelectionResolver.resolve(editorState)).toBe(undefined);
+    });
+  });
+
+  describe('getHeadingInSelectionResolver', () => {
+    it('should return "header-two" as the selected text heading', () => {
+      const currentContentState = editorState.getCurrentContent();
+      const hasMock = jest.fn(_blockKey => {
+        const block = { getType: () => 'header-two' };
+        return block;
+      });
+      currentContentState.getBlockForKey = hasMock;
+      expect(getHeadingInSelectionResolver.resolve(editorState)).toBe('header-two');
+    });
+    it('should return "unstyled" as the selected text heading', () => {
+      const currentContentState = editorState.getCurrentContent();
+      const hasMock = jest.fn(_blockKey => {
+        const block = { getType: () => 'unstyled' };
+        return block;
+      });
+      currentContentState.getBlockForKey = hasMock;
+      expect(getHeadingInSelectionResolver.resolve(editorState)).toBe('unstyled');
+    });
+  });
+
+  describe('getLineSpacingInSelectionResolver', () => {
+    it('should return "2.5" as the selected text line spacing', () => {
+      const currentContentState = editorState.getCurrentContent();
+      const hasMock = jest.fn(_selectionStartKey => {
+        const contentBlock = {
+          toJS: () => {
+            return { data: { dynamicStyles: { 'line-height': '2.5' } } };
+          },
+        };
+        return contentBlock;
+      });
+      currentContentState.getBlockForKey = hasMock;
+      expect(getLineSpacingInSelectionResolver.resolve(editorState)).toBe('2.5');
+    });
+    it('should return "1" as the selected text line spacing', () => {
+      const currentContentState = editorState.getCurrentContent();
+      const hasMock = jest.fn(_selectionStartKey => {
+        const contentBlock = {
+          toJS: () => {
+            return { data: { dynamicStyles: { 'line-height': '1' } } };
+          },
+        };
+        return contentBlock;
+      });
+      currentContentState.getBlockForKey = hasMock;
+      expect(getLineSpacingInSelectionResolver.resolve(editorState)).toBe('1');
+    });
+    it('should return "undefined" as the selected text line spacing', () => {
+      const currentContentState = editorState.getCurrentContent();
+      const hasMock = jest.fn(_selectionStartKey => {
+        const contentBlock = {
+          toJS: () => {
+            return { data: {} };
+          },
+        };
+        return contentBlock;
+      });
+      currentContentState.getBlockForKey = hasMock;
+      expect(getLineSpacingInSelectionResolver.resolve(editorState)).toBe(undefined);
+    });
+  });
+
+  describe('getLineSpacingBeforeSelectionResolver', () => {
+    it('should return "2.5" as the text line spacing before the selection', () => {
+      const currentContentState = editorState.getCurrentContent();
+      const hasMock = jest.fn(_selectionStartKey => {
+        const contentBlock = {
+          toJS: () => {
+            return { data: { dynamicStyles: { 'padding-top': '2.5' } } };
+          },
+        };
+        return contentBlock;
+      });
+      currentContentState.getBlockForKey = hasMock;
+      expect(getLineSpacingBeforeSelectionResolver.resolve(editorState)).toBe('2.5');
+    });
+    it('should return "1" as the text line spacing before the selection', () => {
+      const currentContentState = editorState.getCurrentContent();
+      const hasMock = jest.fn(_selectionStartKey => {
+        const contentBlock = {
+          toJS: () => {
+            return { data: { dynamicStyles: { 'padding-top': '1' } } };
+          },
+        };
+        return contentBlock;
+      });
+      currentContentState.getBlockForKey = hasMock;
+      expect(getLineSpacingBeforeSelectionResolver.resolve(editorState)).toBe('1');
+    });
+    it('should return "undefined" as the text line spacing before the selection', () => {
+      const currentContentState = editorState.getCurrentContent();
+      const hasMock = jest.fn(_selectionStartKey => {
+        const contentBlock = {
+          toJS: () => {
+            return { data: {} };
+          },
+        };
+        return contentBlock;
+      });
+      currentContentState.getBlockForKey = hasMock;
+      expect(getLineSpacingBeforeSelectionResolver.resolve(editorState)).toBe(undefined);
+    });
+  });
+
+  describe('getLineSpacingAfterSelectionResolver', () => {
+    it('should return "2.5" as the text line spacing after the selection', () => {
+      const currentContentState = editorState.getCurrentContent();
+      const hasMock = jest.fn(_selectionStartKey => {
+        const contentBlock = {
+          toJS: () => {
+            return { data: { dynamicStyles: { 'padding-bottom': '2.5' } } };
+          },
+        };
+        return contentBlock;
+      });
+      currentContentState.getBlockForKey = hasMock;
+      expect(getLineSpacingAfterSelectionResolver.resolve(editorState)).toBe('2.5');
+    });
+    it('should return "1" as the text line spacing after the selection', () => {
+      const currentContentState = editorState.getCurrentContent();
+      const hasMock = jest.fn(_selectionStartKey => {
+        const contentBlock = {
+          toJS: () => {
+            return { data: { dynamicStyles: { 'padding-bottom': '1' } } };
+          },
+        };
+        return contentBlock;
+      });
+      currentContentState.getBlockForKey = hasMock;
+      expect(getLineSpacingAfterSelectionResolver.resolve(editorState)).toBe('1');
+    });
+    it('should return "undefined" as the text line spacing after the selection', () => {
+      const currentContentState = editorState.getCurrentContent();
+      const hasMock = jest.fn(_selectionStartKey => {
+        const contentBlock = {
+          toJS: () => {
+            return { data: {} };
+          },
+        };
+        return contentBlock;
+      });
+      currentContentState.getBlockForKey = hasMock;
+      expect(getLineSpacingAfterSelectionResolver.resolve(editorState)).toBe(undefined);
+    });
+  });
+
+  describe('getFontSizeInSelectionResolver', () => {
+    const wixRichContentEditorExported = require('wix-rich-content-editor');
+    it('should check if the function getFontSize from "wix-rich-content-editor" is called', () => {
+      const spy = jest.spyOn(wixRichContentEditorExported, 'getFontSize');
+      getFontSizeInSelectionResolver.resolve(editorState);
+      expect(spy).toBeCalled();
+      jest.resetModules();
     });
   });
 });

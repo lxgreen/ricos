@@ -59,8 +59,7 @@ export class ToolbarItem extends EventEmitter {
           attributes: this.toolbarItem.attributes,
           editorCommands: this.editorCommands,
         });
-
-        command(args);
+        command(...args);
 
         this.emit(ToolbarItem.EVENTS.COMMAND_EXECUTED, {
           commandName,

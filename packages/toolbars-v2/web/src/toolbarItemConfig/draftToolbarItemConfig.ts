@@ -22,6 +22,8 @@ import {
   isTextContainsOrderedListResolver,
   isTextContainsUnorderedListResolver,
   isTextContainsSpoilerResolver,
+  getAlignmentInSelectionResolver,
+  getHeadingInSelectionResolver,
 } from '../resolvers/draftResolvers';
 import type { IToolbarItemConfig } from '../types';
 
@@ -220,6 +222,44 @@ export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
         ({ editorCommands }) =>
         () => {
           editorCommands.commands.insertDecoration('ricos-indent', -1);
+          editorCommands.commands.focus();
+        },
+    },
+  },
+  {
+    id: 'alignment',
+    type: 'modal',
+    presentation: {
+      tooltip: 'Alignment',
+    },
+    attributes: {
+      visible: alwaysVisibleResolver,
+      selectedAlignment: getAlignmentInSelectionResolver,
+    },
+    commands: {
+      selectOption:
+        ({ editorCommands }) =>
+        alignment => {
+          editorCommands.commands.setTextAlignment(alignment);
+          editorCommands.commands.focus();
+        },
+    },
+  },
+  {
+    id: 'heading',
+    type: 'modal',
+    presentation: {
+      tooltip: 'Heading',
+    },
+    attributes: {
+      visible: alwaysVisibleResolver,
+      selectedHeading: getHeadingInSelectionResolver,
+    },
+    commands: {
+      selectOption:
+        ({ editorCommands }) =>
+        heading => {
+          editorCommands.commands.setBlockType(heading);
           editorCommands.commands.focus();
         },
     },
