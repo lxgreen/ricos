@@ -27,7 +27,7 @@
 - `ricos-content`
   - [#3500](https://github.com/wix/ricos/pull/3500) fromHtml/ck-editor: iframeToVimeoVideo rule added
 - `gallery image`
-  - [#3502](https://github.com/wix/ricos/pull/3502 fix error state display
+  - [#3502](https://github.com/wix/ricos/pull/3502) fix error state display
 - `text color\highlight`
   - [#3505](https://github.com/wix/ricos/pull/3505) fix `inlineStyleMapper` viewer endpoint
 
