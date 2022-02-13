@@ -9,7 +9,6 @@ import {
   parseTextNodes,
   parseAppEmbed,
   parseVideo,
-  parseAudio,
   parseEmbed,
   parseCollapsible,
 } from './convertNodes';
@@ -17,7 +16,6 @@ import {
 interface PlainTextOptions {
   urlShortener?: (url: string) => Promise<string>;
   getVideoUrl?: (fileId: string) => Promise<string>;
-  getAudioUrl?: (fileId: string) => Promise<string>;
   delimiter?: string;
 }
 
@@ -27,7 +25,7 @@ export const toPlainText = async (
 ): Promise<string> => {
   const ricosContent = RichContent.fromJSON(content);
   const { nodes } = ricosContent;
-  const { urlShortener, getVideoUrl, getAudioUrl, delimiter = '\n' } = options;
+  const { urlShortener, getVideoUrl, delimiter = '\n' } = options;
   let plainText = '';
 
   const parseNodes = async (index = 0) => {
@@ -54,9 +52,6 @@ export const toPlainText = async (
           break;
         case Node_Type.VIDEO:
           plainText += await parseVideo(node, delimiter, getVideoUrl);
-          break;
-        case Node_Type.AUDIO:
-          plainText += await parseAudio(node, delimiter, getAudioUrl);
           break;
         case Node_Type.GIF:
           plainText += parseGiphy(node);

@@ -17,7 +17,6 @@ import type {
   TableData,
   TextData,
   VideoData,
-  AudioData,
   TableCellData,
   CollapsibleListData,
   PollData,
@@ -100,7 +99,6 @@ type AddMap = {
   addHtml: HTMLData;
   addImage: ImageData;
   addVideo: VideoData;
-  addAudio: AudioData;
   addAppEmbed: AppEmbedData;
   addEmbed: EmbedData;
   addLinkPreview: LinkPreviewData;
@@ -197,7 +195,6 @@ type RenamedBuilderFunctions = PickRenameMulti<
     addPoll: 'poll';
     addTable: 'table';
     addVideo: 'video';
-    addAudio: 'audio';
   }
 >;
 

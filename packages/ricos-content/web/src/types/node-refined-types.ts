@@ -20,7 +20,6 @@ import type {
   TableData,
   TextData,
   VideoData,
-  AudioData,
 } from 'ricos-schema';
 
 type Identified = {
@@ -92,8 +91,7 @@ export type RichContentNode =
   | ImageNode
   | LinkPreviewNode
   | MapNode
-  | VideoNode
-  | AudioNode;
+  | VideoNode;
 
 // RichContent Containers
 type RichContainer = {
@@ -214,10 +212,4 @@ export type VideoNode = Identified &
   Leaf & {
     type: Node_Type.VIDEO;
     videoData: VideoData;
-  };
-
-export type AudioNode = Identified &
-  Leaf & {
-    type: Node_Type.AUDIO;
-    AudioData: AudioData;
   };

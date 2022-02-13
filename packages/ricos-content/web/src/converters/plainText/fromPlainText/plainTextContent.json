@@ -1259,56 +1259,6 @@
           "textAlignment": "AUTO"
         }
       }
-    },
-    {
-      "type": "PARAGRAPH",
-      "id": "83",
-      "nodes": [
-        {
-          "type": "TEXT",
-          "id": "",
-          "nodes": [],
-          "textData": {
-            "text": "Dear Fear",
-            "decorations": []
-          }
-        }
-      ],
-      "paragraphData": {
-        "textStyle": {
-          "textAlignment": "AUTO"
-        }
-      }
-    },
-    {
-      "type": "PARAGRAPH",
-      "id": "84",
-      "nodes": [
-        {
-          "type": "TEXT",
-          "id": "",
-          "nodes": [],
-          "textData": {
-            "text": "https://static.wixstatic.com/mp3/f0f74f_35a1cdce4973490eac49e74c3244364d.mp3",
-            "decorations": []
-          }
-        }
-      ],
-      "paragraphData": {
-        "textStyle": {
-          "textAlignment": "AUTO"
-        }
-      }
-    },
-    {
-      "type": "PARAGRAPH",
-      "id": "85",
-      "nodes": [],
-      "paragraphData": {
-        "textStyle": {
-          "textAlignment": "AUTO"
-        }
-      }
     }
   ],
   "metadata": {

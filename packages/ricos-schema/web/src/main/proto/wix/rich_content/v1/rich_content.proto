@@ -39,7 +39,6 @@ import "wix/rich_content/v1/plugin_embed.proto";
 import "wix/rich_content/v1/plugin_table.proto";
 import "wix/rich_content/v1/plugin_table_cell.proto";
 import "wix/rich_content/v1/decoration_fontsize.proto";
-import "wix/rich_content/v1/plugin_audio.proto";
 
 message RichContent {
     option (wix.api.entity) = {
@@ -82,7 +81,6 @@ message Node {
         TABLE_CELL = 26;
         TABLE_ROW = 27;
         EXTERNAL = 28;
-        AUDIO = 29;
     }
 
     Type type = 1; // Node type
@@ -111,7 +109,6 @@ message Node {
         TableData table_data = 23;
         TableCellData table_cell_data = 24;
         Struct externalData = 25;
-        AudioData audio_data = 26;
     }
 }
 

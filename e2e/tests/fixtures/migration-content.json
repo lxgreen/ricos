@@ -942,30 +942,6 @@
       "inlineStyleRanges": [],
       "entityRanges": [],
       "data": {}
-    },
-    {
-      "key": "34jmd",
-      "text": " ",
-      "type": "atomic",
-      "depth": 0,
-      "inlineStyleRanges": [],
-      "entityRanges": [
-        {
-          "offset": 0,
-          "length": 1,
-          "key": 28
-        }
-      ],
-      "data": {}
-    },
-    {
-      "key": "7pkrm",
-      "text": "",
-      "type": "unstyled",
-      "depth": 0,
-      "inlineStyleRanges": [],
-      "entityRanges": [],
-      "data": {}
     }
   ],
   "entityMap": {
@@ -1828,26 +1804,6 @@
             "borderRadius": "2px"
           }
         }
-      }
-    },
-    "28": {
-      "type": "ricos-audio",
-      "mutability": "IMMUTABLE",
-      "data": {
-        "config": {
-          "size": "content",
-          "alignment": "center",
-          "textWrap": "wrap"
-        },
-        "audio": {
-          "src": {
-            "id": "mp3/f0f74f_35a1cdce4973490eac49e74c3244364d.mp3"
-          },
-          "duration": 300
-        },
-        "title": "Dear Fear",
-        "authorName": "Kota",
-        "disableDownload": true
       }
     }
   },

@@ -30,7 +30,6 @@ export const NODE_TYPES = [
   Node_Type.TABLE_ROW,
   Node_Type.TABLE_CELL,
   Node_Type.EMBED,
-  Node_Type.AUDIO,
 ];
 
 export const NODE_MAP = fromEntries(NODE_TYPES.map(v => [v, v]));

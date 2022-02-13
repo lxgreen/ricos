@@ -73,7 +73,6 @@ export const UNDO_REDO_TYPE = 'wix-rich-content-undo-redo';
 export const APP_EMBED_TYPE = 'wix-draft-plugin-vertical-embed';
 export const VERTICAL_EMBED_TYPE = 'wix-draft-plugin-vertical-embed';
 export const VIDEO_TYPE = 'wix-draft-plugin-video';
-export const AUDIO_TYPE = 'ricos-audio';
 export const VIDEO_TYPE_LEGACY = 'VIDEO-EMBED';
 export const POLL_TYPE = 'wix-draft-plugin-poll';
 export const TABLE_TYPE = 'wix-rich-content-plugin-table';
@@ -112,7 +111,6 @@ export const RICOS_TEXT_HIGHLIGHT_TYPE = 'ricos-text-highlight';
 export const RICOS_UNDO_REDO_TYPE = 'ricos-undo-redo';
 export const RICOS_VERTICAL_EMBED_TYPE = 'ricos-vertical-embed';
 export const RICOS_VIDEO_TYPE = 'ricos-video';
-export const RICOS_AUDIO_TYPE = 'ricos-audio';
 export const RICOS_ANCHOR_TYPE = 'ricos-anchor';
 export const RICOS_COLOR_TYPE = 'ricos-color';
 export const RICOS_LINK_TYPE = 'ricos-link';
@@ -131,7 +129,6 @@ export const TIPTAP_GALLERY_TYPE = 'gallery';
 export const TIPTAP_FILE_TYPE = 'file';
 export const TIPTAP_GIF_TYPE = 'gif';
 export const TIPTAP_VIDEO_TYPE = 'video';
-export const TIPTAP_AUDIO_TYPE = 'audio';
 export const TIPTAP_LINK_PREVIEW_TYPE = 'linkPreview';
 export const TIPTAP_POLL_TYPE = 'poll';
 export const TIPTAP_APP_EMBED_TYPE = 'appEmbed';
@@ -159,5 +156,4 @@ export const RICOS_NODE_TYPE_TO_DATA_FIELD = {
   [Node_Type.BLOCKQUOTE]: 'paragraphData',
   [Node_Type.EMBED]: 'embedData',
   [Node_Type.EXTERNAL]: 'externalData',
-  [Node_Type.AUDIO]: 'audioData',
 } as const;

@@ -67,7 +67,6 @@ export const parseImage = async (
 };
 
 const getDefaultVideoUrl = async (fileId: string) => `https://video.wixstatic.com/${fileId}`;
-const getDefaultAudioUrl = async (fileId: string) => `https://static.wixstatic.com/${fileId}`;
 
 export const parseVideo = async (
   { videoData }: Node,
@@ -79,17 +78,6 @@ export const parseVideo = async (
   const vidId = id || custom;
   const videoUrl = (vidId ? getVideoUrl(vidId) : url) || '';
   return title ? title + delimiter + videoUrl : videoUrl;
-};
-
-export const parseAudio = async (
-  { audioData }: Node,
-  delimiter: string,
-  getAudioUrl: (fileId: string) => Promise<string> = getDefaultAudioUrl
-): Promise<string> => {
-  const { audio, title } = audioData || {};
-  const { id, url } = audio?.src || {};
-  const audioUrl = (id ? await getAudioUrl(id) : url) || '';
-  return title ? title + delimiter + audioUrl : audioUrl;
 };
 
 export const parseGiphy = ({ gifData }: Node): string => {
