@@ -19,6 +19,8 @@
 
 ### :bug: Bug Fix
 
+- `ricos-content`
+  - [#3500](https://github.com/wix/ricos/pull/3500) fromHtml/ck-editor: iframeToVimeoVideo rule added
 - `gallery image`
   - [#3502](https://github.com/wix/ricos/pull/3502 fix error state display
 - `text color\highlight`
@@ -43,7 +45,6 @@
   - [#3474](https://github.com/wix/ricos/pull/3474) raise generic error toast when local load fails and raise error in console
 - `ricos-content`
   - [#3499](https://github.com/wix/ricos/pull/3499) fix `fromDraft` `inlineStyles` to `textDecoration` converter
-  - [#3500](https://github.com/wix/ricos/pull/3500) fromHtml/ck-editor: iframeToVimeoVideo rule added
 - `link-preview`
   - [#3501](https://github.com/wix/ricos/pull/3501) fix styles on loadable viewer
 
