@@ -20,6 +20,9 @@
 ### :bug: Bug Fix
 - `table/vertical-embed`
   - [#3510](https://github.com/wix/ricos/pull/3510) fix vertical embed pop-over position & table title dir
+- `editor`
+  - [#3496](https://github.com/wix/ricos/pull/3496) fix invisible spacings difference from viewer
+
 
 </details>
 <hr/>
