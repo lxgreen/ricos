@@ -63,9 +63,13 @@ const createInlineButtons: CreateInlineButtons = ({
               fullScreen: true,
               isMobile,
             });
+            const modalHeight = modalContentStyles.height as number;
             const { top, left } = buttonRef.getBoundingClientRect();
             const modalLeft = left - 15;
-            const modalTop = top > 522 ? top - 540 : top + 40;
+            const heightLeftBelow = window?.innerHeight - (top + 40);
+            const dynamicModalTop =
+              heightLeftBelow < modalHeight ? modalHeight - heightLeftBelow : top + 40;
+            const modalTop = top > modalHeight ? top - 540 : dynamicModalTop;
             return {
               ...modalStyles,
               content: {

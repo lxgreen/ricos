@@ -17,6 +17,9 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+- `table/vertical-embed`
+  - [#3510](https://github.com/wix/ricos/pull/3510) fix vertical embed pop-over position & table title dir
 
 </details>
 <hr/>

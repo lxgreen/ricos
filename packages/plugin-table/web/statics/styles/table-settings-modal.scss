@@ -12,12 +12,14 @@ $TITLE_HEIGHT_MOBILE: 50px;
   padding: 20px;
 }
 .title {
+  text-align: left;
   font-size: 16px;
   @include phone {
     font-size: 20px;
   }
 }
 .subtitle {
+  text-align: left;
   padding-top: 7px;
   font-size: 14px;
   color: $settings-secondary-text-color;
