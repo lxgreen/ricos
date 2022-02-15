@@ -17,8 +17,6 @@ export const createUniqueId = (types: string[]): RicosExtension => ({
             attributes: {
               id: {
                 default: null,
-                rendered: false,
-                keepOnSplit: false,
               },
             },
           },
