@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { LINE_DOUBLE } from '../defaults';
+import { withSafariSvgCaretFixer } from './withSafariSvgCaretFixer';
 
 const lineProps = (width, lineDistance = 1) => ({
   x2: width,
@@ -37,7 +38,7 @@ const DividerLine = ({
     fillParent ? styles['divider--fill-parent'] : '',
     className
   );
-  return (
+  return withSafariSvgCaretFixer(
     <svg className={lineClassName}>
       {linesPropsArr.map((lineProp, i) => (
         <line key={i} {...lineProp} />
