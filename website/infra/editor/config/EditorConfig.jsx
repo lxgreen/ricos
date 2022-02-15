@@ -26,7 +26,6 @@ import {
   EXTERNAL_MENTIONS_TYPE,
 } from 'wix-rich-content-plugin-mentions';
 import { createCodeBlockPlugin, CODE_BLOCK_TYPE } from 'wix-rich-content-plugin-code-block';
-import { createSoundCloudPlugin, SOUND_CLOUD_TYPE } from 'wix-rich-content-plugin-sound-cloud';
 import { createGiphyPlugin, GIPHY_TYPE } from 'wix-rich-content-plugin-giphy';
 import {
   createHeadersMarkdownPlugin,
@@ -67,7 +66,6 @@ import 'wix-rich-content-plugin-mentions/dist/styles.min.css';
 import 'wix-rich-content-plugin-image/dist/styles.min.css';
 import 'wix-rich-content-plugin-gallery/dist/styles.min.css';
 import 'wix-rich-content-plugin-video/dist/styles.min.css';
-import 'wix-rich-content-plugin-sound-cloud/dist/styles.min.css';
 import 'wix-rich-content-plugin-giphy/dist/styles.min.css';
 import 'wix-rich-content-plugin-map/dist/styles.min.css';
 import 'wix-rich-content-plugin-file-upload/dist/styles.min.css';
@@ -100,7 +98,6 @@ export const editorPluginsPartialPreset = [
   createHashtagPlugin,
   createExternalMentionsPlugin,
   createCodeBlockPlugin,
-  createSoundCloudPlugin,
   createGiphyPlugin,
   createHeadersMarkdownPlugin,
   createMapPlugin,
@@ -139,7 +136,6 @@ export const editorPluginsMap = {
   hashtag: createHashtagPlugin,
   mentions: createExternalMentionsPlugin,
   codeBlock: createCodeBlockPlugin,
-  soundCloud: createSoundCloudPlugin,
   giphy: createGiphyPlugin,
   headers: createHeadersMarkdownPlugin,
   map: createMapPlugin,
@@ -237,8 +233,7 @@ const videoHandlers = {
   handleFileSelection: (updateEntity, removeEntity) => {
     console.log('consumer wants to upload custom video');
     const videoWithAbsoluteUrl = {
-      url:
-        'https://video.wixstatic.com/video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4',
+      url: 'https://video.wixstatic.com/video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4',
     };
     const videoWithRelativeUrl = {
       pathname: `video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4`,
@@ -262,8 +257,7 @@ const videoHandlers = {
     const mockVideoIndex = Math.floor(Math.random() * testWixVideos.length);
     const testVideo = testWixVideos[mockVideoIndex];
     const videoWithAbsoluteUrl = {
-      url:
-        'https://video.wixstatic.com/video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4',
+      url: 'https://video.wixstatic.com/video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4',
     };
     const videoWithRelativeUrl = {
       pathname: `video/${testVideo.url}/1080p/mp4/file.mp4`,
@@ -455,13 +449,6 @@ const config = {
     //   },
     // },
     onClick: (event, url) => console.log('link clicked!', url),
-  },
-  [SOUND_CLOUD_TYPE]: {
-    // toolbar: {
-    //   icons: {
-    //     InsertPluginButtonIcon: MyCustomIcon,
-    //   },
-    // },
   },
   [CODE_BLOCK_TYPE]: {
     // toolbar: {

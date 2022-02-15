@@ -10,7 +10,6 @@ import {
   DIVIDER_TYPE,
 } from 'wix-rich-content-plugin-divider/viewer';
 import { htmlTypeMapper, pluginHtml, HTML_TYPE } from 'wix-rich-content-plugin-html/viewer';
-import { soundCloudTypeMapper, pluginSoundCloud } from 'wix-rich-content-plugin-sound-cloud/viewer';
 import { linkTypeMapper, LINK_TYPE, pluginLink } from 'wix-rich-content-plugin-link/viewer';
 import {
   linkPreviewTypeMapper,
@@ -120,7 +119,6 @@ export const typeMappers: PluginTypeMapper[] = [
   htmlTypeMapper,
   linkTypeMapper,
   linkPreviewTypeMapper,
-  soundCloudTypeMapper,
   mentionsTypeMapper,
   imageTypeMapper,
   tableTypeMapper,

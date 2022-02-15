@@ -2,7 +2,6 @@ import theme from '../theme/theme';
 import { VIDEO_TYPE, videoTypeMapper } from 'wix-rich-content-plugin-video/viewer';
 import { dividerTypeMapper } from 'wix-rich-content-plugin-divider/viewer';
 import { htmlTypeMapper } from 'wix-rich-content-plugin-html/viewer';
-import { soundCloudTypeMapper } from 'wix-rich-content-plugin-sound-cloud/viewer';
 import { LINK_TYPE, linkTypeMapper } from 'wix-rich-content-plugin-link/viewer';
 import {
   LINK_PREVIEW_TYPE,
@@ -55,7 +54,6 @@ export const typeMappers = [
   htmlTypeMapper,
   linkTypeMapper,
   linkPreviewTypeMapper,
-  soundCloudTypeMapper,
   mentionsTypeMapper,
   imageTypeMapper,
   galleryTypeMapper,

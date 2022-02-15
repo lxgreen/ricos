@@ -43,8 +43,6 @@ export interface StateBuilder {
 
   gallery: PluginBuildMethod;
 
-  soundCloud: PluginBuildMethod;
-
   giphy: PluginBuildMethod;
 
   map: PluginBuildMethod;

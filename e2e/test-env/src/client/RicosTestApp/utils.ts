@@ -14,7 +14,6 @@ export const createPresets = <T extends EditorPlugin | ViewerPlugin>(
     plugins.hashtag,
     plugins.mentions,
     plugins.codeBlock,
-    plugins.soundCloud,
     plugins.giphy,
     plugins.headers,
     plugins.map,
