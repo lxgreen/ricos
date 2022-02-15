@@ -13,7 +13,7 @@ export const createListItem = (): RicosExtension => ({
     },
 
     // Note: this should remain paragraph until draft-js is supported
-    content: 'paragraph',
+    content: 'paragraph bulletedList listItem heading',
 
     defining: true,
 
