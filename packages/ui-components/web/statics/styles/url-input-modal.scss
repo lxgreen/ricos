@@ -126,7 +126,7 @@
     }
     .input_header_title {
       font-size: 14px;
-      color: $settings-secondary-text-color;
+      color: $secondary-text-color;
       margin-bottom: 8px;
     }
   }
@@ -171,7 +171,7 @@
 
 .header_subTitle {
   font-size: 14px;
-  color: $settings-secondary-text-color;
+  color: $secondary-text-color;
   @extend %input_header_text;
 }
 

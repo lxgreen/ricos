@@ -19,7 +19,9 @@
 
 ### :bug: Bug Fix
 - `table/vertical-embed`
-  - [#3510](https://github.com/wix/ricos/pull/3510) fix vertical embed pop-over position & table title dir
+  - [#3511](https://github.com/wix/ricos/pull/3511) fix vertical embed pop-over position & table title dir
+- `general`
+  - [#3513](https://github.com/wix/ricos/pull/3513) fix text secondary color
 - `editor`
   - [#3496](https://github.com/wix/ricos/pull/3496) fix invisible spacings difference from viewer
 
