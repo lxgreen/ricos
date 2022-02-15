@@ -111,6 +111,7 @@ class VideoComponent extends React.Component {
       onClick,
       t,
       componentData: { error },
+      isDraggable = true,
     } = this.props;
     const { isPlayable, isLoaded } = this.state;
     const containerClassNames = classNames(this.styles.video_container, className || '');
@@ -121,7 +122,7 @@ class VideoComponent extends React.Component {
         onClick={onClick}
         className={containerClassNames}
         onKeyDown={e => this.onKeyDown(e, onClick)}
-        draggable
+        draggable={isDraggable}
       >
         {!isPlayable && this.renderOverlay(this.styles, this.props.t)}
         {this.renderPlayer()}
@@ -145,6 +146,7 @@ VideoComponent.propTypes = {
   setComponentUrl: PropTypes.func,
   store: PropTypes.object.isRequired,
   block: PropTypes.object.isRequired,
+  isDraggable: PropTypes.bool,
 };
 
 export { VideoComponent as Component, DEFAULTS };

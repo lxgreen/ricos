@@ -25,6 +25,7 @@ export const Video: React.FC<PluginProps> = ({ context, componentData, updateAtt
       setComponentUrl={setComponentUrl}
       onClick={() => {}}
       store={store}
+      isDraggable={false}
     />
   );
 };
