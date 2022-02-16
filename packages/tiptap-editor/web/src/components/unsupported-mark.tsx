@@ -3,6 +3,7 @@ import type { MarkConfig } from '@tiptap/core';
 
 export const getUnsupportedMarkConfig = (name: string): RicosMarkExtension => ({
   type: 'mark' as const,
+  groups: [],
   createExtensionConfig: (): MarkConfig => ({
     name,
     addOptions: () => ({

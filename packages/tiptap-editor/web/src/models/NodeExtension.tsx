@@ -35,11 +35,15 @@ const toExtensionConfig = (ext: RicosNodeExtension) =>
 const toFullNodeConfig =
   (ext: RicosNodeExtension) =>
   (config: NodeConfig): NodeConfig => ({
-    parseHTML: () => [{ tag: `${config.name}-component` }],
-    renderHTML: ({ HTMLAttributes }) => [
-      `${config.name}-component`,
-      mergeAttributes(HTMLAttributes),
-    ],
+    ...(ext.groups.includes('text')
+      ? {}
+      : {
+          parseHTML: () => [{ tag: `${config.name}-component` }],
+          renderHTML: ({ HTMLAttributes }) => [
+            `${config.name}-component`,
+            mergeAttributes(HTMLAttributes),
+          ],
+        }),
     ...(ext.componentDataDefaults ? { addAttributes: () => ext.componentDataDefaults } : {}),
     ...config,
   });
@@ -59,9 +63,11 @@ export class ReactNodeExtension implements IReactNodeExtension {
 
   priority: number;
 
-  type = 'react-node' as const;
+  type = 'node' as const;
 
   name: string;
+
+  groups: RicosExtension['groups'];
 
   ricosExtension: RicosNodeExtension;
 
@@ -73,6 +79,7 @@ export class ReactNodeExtension implements IReactNodeExtension {
     this.config = createRicosNodeConfig(extension);
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
+    this.groups = extension.groups;
   }
 
   getComponent() {
@@ -103,11 +110,13 @@ export class HtmlNodeExtension implements IHtmlNodeExtension {
 
   priority: number;
 
-  type = 'html-node' as const;
+  type = 'node' as const;
 
   name: string;
 
   ricosExtension: RicosNodeExtension;
+
+  groups: RicosExtension['groups'];
 
   constructor(extension: RicosExtension) {
     if (!isRicosNodeExtension(extension)) {
@@ -117,6 +126,7 @@ export class HtmlNodeExtension implements IHtmlNodeExtension {
     this.config = createRicosNodeConfig(extension);
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
+    this.groups = extension.groups || [];
   }
 
   toTiptapExtension() {

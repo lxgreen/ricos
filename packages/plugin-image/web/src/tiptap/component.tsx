@@ -2,7 +2,7 @@ import React from 'react';
 import { ImageViewer } from '..';
 import type { ImageData } from '../types';
 import { IMAGE_TYPE } from '../types';
-import type { PluginProps } from 'wix-rich-content-editor-common';
+import type { PluginProps } from 'ricos-tiptap-types';
 import { MediaItemErrorMsg, Loader } from 'wix-rich-content-ui-components';
 
 export const Image: React.FC<PluginProps> = ({

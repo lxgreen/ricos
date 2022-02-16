@@ -1,6 +1,6 @@
 import type { AnyExtension, Node, Mark, Extension } from '@tiptap/core';
 import type { ComponentType } from 'react';
-import type { NodeHocDescriptor } from 'ricos-tiptap-types';
+import type { Group, NodeHocDescriptor } from 'ricos-tiptap-types';
 
 export const DEFAULT_PRIORITY = 100;
 
@@ -16,15 +16,20 @@ export interface IdentifiableExtension {
   name: string;
 }
 
+export interface Grouped {
+  groups: Group[];
+}
+
 export interface IMarkExtension
   extends ConvertableExtension,
     SortableExtension,
-    IdentifiableExtension {
+    IdentifiableExtension,
+    Grouped {
   type: 'mark';
 }
 
-export interface IReactNodeExtension extends SortableExtension, IdentifiableExtension {
-  type: 'react-node';
+export interface IReactNodeExtension extends SortableExtension, IdentifiableExtension, Grouped {
+  type: 'node';
   getComponent(): ComponentType;
   asRenderable: (decoratedComponent: ComponentType) => DecoratedNodeExtension;
 }
@@ -32,8 +37,9 @@ export interface IReactNodeExtension extends SortableExtension, IdentifiableExte
 export interface IHtmlNodeExtension
   extends SortableExtension,
     IdentifiableExtension,
-    ConvertableExtension {
-  type: 'html-node';
+    ConvertableExtension,
+    Grouped {
+  type: 'node';
 }
 
 export interface DecoratedNodeExtension extends IReactNodeExtension, ConvertableExtension {}
@@ -41,7 +47,8 @@ export interface DecoratedNodeExtension extends IReactNodeExtension, Convertable
 export interface IFunctionalExtension
   extends ConvertableExtension,
     IdentifiableExtension,
-    SortableExtension {
+    SortableExtension,
+    Grouped {
   type: 'extension';
   getNodeHocDescriptor(): NodeHocDescriptor;
 }

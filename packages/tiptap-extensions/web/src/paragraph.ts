@@ -28,6 +28,7 @@ const createStyleAttribute = (node: ProsemirrorNode) => {
 
 export const createParagraph = (): RicosExtension => ({
   type: 'node' as const,
+  groups: ['text-container'],
   createExtensionConfig: () => ({
     name: 'paragraph',
 

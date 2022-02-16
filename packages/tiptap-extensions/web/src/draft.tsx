@@ -2,6 +2,7 @@ import React from 'react';
 import toConstantCase from 'to-constant-case';
 import type { Node_Type } from 'ricos-schema';
 import { tiptapNodeDataToDraft } from './content-utils';
+import type { RicosExtension } from 'ricos-tiptap-types';
 
 const name = 'draft';
 
@@ -21,8 +22,10 @@ const DraftHOC = Component => {
   return Draft;
 };
 
-export const createDraftConfig = () => ({
+export const createDraftConfig = (): RicosExtension => ({
   type: 'extension' as const,
+  groups: [],
+
   createExtensionConfig: () => {
     return {
       name,

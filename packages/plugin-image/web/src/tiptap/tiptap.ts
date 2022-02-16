@@ -23,6 +23,7 @@ const name = TIPTAP_IMAGE_TYPE;
 export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
+    groups: ['react'],
     Component,
     componentDataDefaults: {
       ...imageDataDefaults,

@@ -97,7 +97,6 @@ export {
 export type { DraftCommand } from './consts';
 
 import './draftTypes';
-export * from './tiptapTypes';
 
 import type { RawDraftContentState, ContentState } from '@wix/draft-js';
 import { convertFromRaw as convertFromRawDraft } from '@wix/draft-js';

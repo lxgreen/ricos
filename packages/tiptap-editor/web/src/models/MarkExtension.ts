@@ -16,10 +16,13 @@ export class MarkExtension implements IMarkExtension {
 
   name: string;
 
+  groups: RicosExtension['groups'];
+
   constructor(extension: RicosExtension) {
     if (!isRicosMarkExtension(extension)) {
       throw new TypeError('invalid argument');
     }
+    this.groups = extension.groups || [];
     this.config = {
       addAttributes: () => extension.componentDataDefaults || {},
       ...extension.createExtensionConfig({

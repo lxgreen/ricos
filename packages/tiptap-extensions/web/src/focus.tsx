@@ -2,6 +2,7 @@ import type { Editor } from '@tiptap/react';
 import { pipe } from 'fp-ts/function';
 import type { ComponentType } from 'react';
 import React, { useEffect, useState } from 'react';
+import type { RicosExtension } from 'ricos-tiptap-types';
 
 const name = 'focus';
 
@@ -31,8 +32,9 @@ const FocusHoc = (Component: ComponentType) => {
   return Focus;
 };
 
-export const createFocusConfig = () => ({
+export const createFocusConfig = (): RicosExtension => ({
   type: 'extension' as const,
+  groups: [],
   createExtensionConfig: () => ({
     name,
     priority: 20,

@@ -24,6 +24,7 @@ const tildeInputRegex = /^~~~(?<language>[a-z]*)?[\s\n]$/;
 export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
+    groups: [],
     createExtensionConfig: ({ Plugin, PluginKey, textblockTypeInputRule }) => ({
       name: 'codeBlock',
 

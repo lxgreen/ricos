@@ -27,6 +27,7 @@ export const underscorePasteRegex = /(?:^|\s)((?:__)((?:[^__]+))(?:__))/g;
 
 export const createBold = (): RicosMarkExtension => ({
   type: 'mark' as const,
+  groups: [],
   createExtensionConfig: () => ({
     name: 'bold',
 

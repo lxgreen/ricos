@@ -6,6 +6,7 @@ import { TIPTAP_APP_EMBED_TYPE } from 'ricos-content';
 export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
+    groups: ['react'],
     Component,
     componentDataDefaults: appEmbedDataDefaults,
     createExtensionConfig: () => ({

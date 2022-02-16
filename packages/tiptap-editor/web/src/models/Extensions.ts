@@ -9,7 +9,7 @@ import type {
   IReactNodeExtension,
   IHtmlNodeExtension,
 } from './domain-types';
-import type { RicosExtension, RicosNodeExtension } from 'ricos-tiptap-types';
+import type { Group, RicosExtension, RicosNodeExtension } from 'ricos-tiptap-types';
 import {
   isRicosFunctionalExtension,
   isRicosMarkExtension,
@@ -77,13 +77,17 @@ export class Extensions implements ExtensionAggregate {
 
   getReactNodeExtensions() {
     return new ReactNodeExtensions(
-      this.extensions.filter(ext => ext.type === 'react-node').asArray() as IReactNodeExtension[]
+      this.extensions
+        .filter(ext => ext.type === 'node' && ext.groups.includes('react'))
+        .asArray() as IReactNodeExtension[]
     );
   }
 
   getHtmlNodeExtensions() {
     return new HtmlNodeExtensions(
-      this.extensions.filter(ext => ext.type === 'html-node').asArray() as IHtmlNodeExtension[]
+      this.extensions
+        .filter(ext => ext.type === 'node' && !ext.groups.includes('react'))
+        .asArray() as IHtmlNodeExtension[]
     );
   }
 
@@ -106,9 +110,17 @@ export class Extensions implements ExtensionAggregate {
     return [...extensions, ...marks, ...reactNodes, ...htmlNodes];
   }
 
+  asArray() {
+    return this.extensions.asArray();
+  }
+
   concat(extensions: RicosExtension[]): Extensions {
     const iExtensions = extensions.map(toIExtension);
     validate(iExtensions);
     return new Extensions(this.extensions.asArray().concat(iExtensions));
+  }
+
+  byGroup(group: Group) {
+    return new Extensions(this.extensions.filter(ext => ext.groups.includes(group)).asArray());
   }
 }

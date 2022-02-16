@@ -22,6 +22,7 @@ export const inputRegex = /^\s*([-+*])\s$/;
 
 export const createBulletedList = (): RicosExtension => ({
   type: 'node' as const,
+  groups: [],
   createExtensionConfig: ({ mergeAttributes }) => ({
     name: 'bulletedList',
 

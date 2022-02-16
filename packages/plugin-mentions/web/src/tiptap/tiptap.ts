@@ -37,6 +37,7 @@ const findMention = (editor, char) => {
 export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'mark',
+    groups: [],
     createExtensionConfig: ({ PluginKey }) => ({
       name: 'mention',
 

@@ -27,6 +27,8 @@ export const underscorePasteRegex = /(?:^|\s)((?:_)((?:[^_]+))(?:_))/g;
 
 export const createItalic = (): RicosExtension => ({
   type: 'mark' as const,
+  groups: [],
+
   createExtensionConfig: () => ({
     name: 'italic',
 

@@ -94,6 +94,7 @@ const addLinkPreview =
 export const createRicosExtensions: CreateRicosExtensions = config => [
   {
     type: 'node' as const,
+    groups: ['react'],
     Component,
     componentDataDefaults: linkPreviewDefaults,
     createExtensionConfig: () => ({
@@ -114,6 +115,7 @@ export const createRicosExtensions: CreateRicosExtensions = config => [
   },
   {
     type: 'extension' as const,
+    groups: [],
     createExtensionConfig: () => ({
       name: 'linkPreviewEnter',
       addKeyboardShortcuts() {

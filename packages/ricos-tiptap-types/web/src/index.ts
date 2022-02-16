@@ -15,8 +15,22 @@ import type {
   TranslationFunction,
   EditorPlugin,
   LegacyEditorPluginConfig,
+  ComponentData,
+  RichContentTheme,
 } from 'wix-rich-content-common';
 
+export type PluginProps = NodeViewRendererProps & {
+  context: {
+    isMobile: boolean;
+    theme: RichContentTheme;
+    t: (key: string) => string;
+    config: LegacyEditorPluginConfig;
+    iframeSandboxDomain: string;
+  };
+  componentData: ComponentData;
+  updateAttributes: (data: unknown) => null;
+  selected: boolean;
+};
 export type RicosNodeProps = NodeViewRendererProps &
   RicosTiptapContextValue & {
     componentData: NodeViewRendererProps['node']['attrs'];
@@ -51,8 +65,11 @@ export type NodeHocDescriptor = {
   priority: number;
 };
 
+export type Group = 'react' | 'text-container' | 'text';
+
 export type RicosNodeExtension = {
   type: 'node';
+  groups: Group[];
   createExtensionConfig: ({
     textblockTypeInputRule,
     mergeAttributes,
@@ -68,12 +85,13 @@ export type RicosNodeExtension = {
     Plugin: typeof IPlugin;
     PluginKey: typeof IPluginKey;
   }) => NodeConfig;
-  Component?: ComponentType;
+  Component?: ComponentType<PluginProps>;
   componentDataDefaults?: any;
 };
 
 export type RicosMarkExtension = {
   type: 'mark';
+  groups: Group[];
   createExtensionConfig: ({
     textblockTypeInputRule,
     mergeAttributes,
@@ -94,6 +112,7 @@ export type RicosMarkExtension = {
 
 export type RicosFunctionalExtension = {
   type: 'extension';
+  groups: Group[];
   createExtensionConfig: ({
     mergeAttributes,
   }: {

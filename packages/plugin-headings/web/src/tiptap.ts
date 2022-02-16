@@ -21,6 +21,7 @@ declare module '@tiptap/core' {
 export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
+    groups: ['text-container'],
     createExtensionConfig: ({ mergeAttributes, textblockTypeInputRule }) => ({
       name: 'heading',
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import LinkPreviewComponent from '../LinkPreviewComponent';
 import type { LinkPreviewPluginEditorConfig } from '../types';
-import type { PluginProps } from 'wix-rich-content-editor-common';
+import type { PluginProps } from 'ricos-tiptap-types';
 import { LINK_PREVIEW_TYPE } from 'ricos-content';
 
 export const LinkPreview: React.FC<PluginProps> = ({ context, componentData }) => {

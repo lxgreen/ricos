@@ -12,14 +12,14 @@ declare module '@tiptap/core' {
   }
 }
 
-export const createTextAlign = (): RicosExtension => ({
+export const createTextAlign = (types: string[]): RicosExtension => ({
   type: 'extension' as const,
+  groups: [],
   createExtensionConfig: () => ({
     name: 'textAlign',
 
     addOptions() {
       return {
-        types: ['heading', 'paragraph'],
         alignments: ['left', 'center', 'right', 'justify'],
       };
     },
@@ -27,7 +27,7 @@ export const createTextAlign = (): RicosExtension => ({
     addGlobalAttributes() {
       return [
         {
-          types: this.options.types,
+          types,
           attributes: {
             textStyle: {
               parseHTML: element => element.style.textAlign,
@@ -54,7 +54,7 @@ export const createTextAlign = (): RicosExtension => ({
               return false;
             }
 
-            return (this.options.types as string[])
+            return types
               .map(type =>
                 commands.updateAttributes(type, {
                   textStyle: { textAlignment: alignment.toUpperCase() },

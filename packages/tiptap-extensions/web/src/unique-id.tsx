@@ -6,6 +6,7 @@ const name = 'unique-id';
 
 export const createUniqueId = (types: string[]): RicosExtension => ({
   type: 'extension',
+  groups: [],
   createExtensionConfig: () => {
     return {
       name,

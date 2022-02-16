@@ -32,6 +32,8 @@ export const getTiptapExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'mark',
 
+    groups: [],
+
     createExtensionConfig: () => ({
       name: 'color',
       inclusive: false,

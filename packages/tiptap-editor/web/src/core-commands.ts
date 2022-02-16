@@ -5,6 +5,7 @@ import type { RicosExtension } from 'ricos-tiptap-types';
 
 export const createCommandsConfig = (): RicosExtension => ({
   type: 'extension' as const,
+  groups: [],
   createExtensionConfig: () => ({
     name: 'ricos-node-commands',
     addCommands() {

@@ -9,6 +9,7 @@ import type { RicosExtension } from 'ricos-tiptap-types';
 
 export const createTrailingNode = (): RicosExtension => ({
   type: 'extension' as const,
+  groups: [],
   createExtensionConfig: () => ({
     name: 'trailingNode',
 

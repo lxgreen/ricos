@@ -1,6 +1,6 @@
 import React from 'react';
 import VerticalEmbedComponent from '../vertical-embed-component';
-import type { PluginProps } from 'wix-rich-content-editor-common';
+import type { PluginProps } from 'ricos-tiptap-types';
 import { VERTICAL_EMBED_TYPE } from '../types';
 
 export const AppEmbed: React.FC<PluginProps> = ({ context, componentData }) => {

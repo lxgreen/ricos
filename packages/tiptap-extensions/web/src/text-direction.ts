@@ -17,19 +17,19 @@ declare module '@tiptap/core' {
   }
 }
 
-export const createTextDirection = (): RicosExtension => ({
+export const createTextDirection = (types: string[]): RicosExtension => ({
   type: 'extension' as const,
+  groups: [],
   createExtensionConfig: () => ({
     name: 'textDirection',
     addOptions: () => ({
-      types: ['heading', 'paragraph'],
       directions: ['ltr', 'rtl', 'auto'],
       defaultDirection: 'auto',
     }),
     addGlobalAttributes() {
       return [
         {
-          types: this.options.types,
+          types,
           attributes: {
             dir: {
               default: this.options.defaultDirection,
@@ -50,14 +50,12 @@ export const createTextDirection = (): RicosExtension => ({
             if (!isTextDirection(direction)) {
               return false;
             }
-            return this.options.types.every(type =>
-              commands.updateAttributes(type, { dir: direction })
-            );
+            return types.every(type => commands.updateAttributes(type, { dir: direction }));
           },
         unsetTextDirection:
           () =>
           ({ commands }) => {
-            return this.options.types.every(type => commands.resetAttributes(type, 'dir'));
+            return types.every(type => commands.resetAttributes(type, 'dir'));
           },
       };
     },

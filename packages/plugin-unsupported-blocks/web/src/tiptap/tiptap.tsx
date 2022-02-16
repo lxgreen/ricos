@@ -1,13 +1,14 @@
 import React from 'react';
 import { UnsupportedBlock as Component } from './component';
-import type { DOMOutputSpec } from 'ricos-tiptap-types';
+import type { PluginProps, DOMOutputSpec, RicosNodeExtension } from 'ricos-tiptap-types';
 
-export const getUnsupportedNodeConfig = (name: string) => ({
+export const getUnsupportedNodeConfig = (name: string): RicosNodeExtension => ({
   type: 'node' as const,
-  Component: props => (
+  groups: [],
+  Component: (props: PluginProps) => (
     <Component
       label={`'${name}' is not supported by editor. Check editor configuration.`}
-      {...props}
+      context={props.context}
     />
   ),
   createExtensionConfig: ({ mergeAttributes }) => ({

@@ -16,6 +16,7 @@ export const inputRegex = /^(\d+)\.\s$/;
 
 export const createOrderedList = (): RicosExtension => ({
   type: 'node' as const,
+  groups: [],
   createExtensionConfig: () => ({
     name: 'orderedList',
 

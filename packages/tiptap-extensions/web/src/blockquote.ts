@@ -25,6 +25,7 @@ export const inputRegex = /^\s*>\s$/;
 
 export const createBlockquote = (): RicosExtension => ({
   type: 'node' as const,
+  groups: [],
   createExtensionConfig: () => ({
     name: 'blockquote',
 

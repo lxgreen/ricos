@@ -3,6 +3,8 @@ import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
 
 export const createListItem = (): RicosExtension => ({
   type: 'node' as const,
+  groups: [],
+
   createExtensionConfig: () => ({
     name: 'listItem',
 

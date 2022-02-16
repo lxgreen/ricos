@@ -47,6 +47,7 @@ declare module '@tiptap/core' {
 export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'extension' as const,
+    groups: ['react'],
     createExtensionConfig: () => ({
       name: 'node-spoiler',
       priority: 10,
@@ -60,6 +61,7 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
   },
   {
     type: 'mark' as const,
+    groups: [],
     createExtensionConfig: () => ({
       name: 'spoiler',
 

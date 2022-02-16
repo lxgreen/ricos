@@ -3,7 +3,12 @@ import { mergeAttributes } from '@tiptap/react';
 import React from 'react';
 import type { IFunctionalExtension } from './domain-types';
 import { DEFAULT_PRIORITY } from './domain-types';
-import type { NodeHocDescriptor, RicosExtension, RicosExtensionConfig } from 'ricos-tiptap-types';
+import type {
+  Group,
+  NodeHocDescriptor,
+  RicosExtension,
+  RicosExtensionConfig,
+} from 'ricos-tiptap-types';
 import { isRicosFunctionalExtension } from 'ricos-tiptap-types';
 
 const DEFAULT_HOC_DESCRTIPTOR: NodeHocDescriptor = {
@@ -21,6 +26,8 @@ export class FunctionalExtension implements IFunctionalExtension {
 
   name: string;
 
+  groups: Group[];
+
   constructor(extension: RicosExtension) {
     if (!isRicosFunctionalExtension(extension)) {
       throw new TypeError('invalid argument');
@@ -31,6 +38,7 @@ export class FunctionalExtension implements IFunctionalExtension {
     };
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
+    this.groups = extension.groups || [];
   }
 
   toTiptapExtension() {

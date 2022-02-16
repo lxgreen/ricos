@@ -4,6 +4,7 @@ import { Plugin, PluginKey } from 'prosemirror-state';
 
 export const createPlaceholder = (): RicosExtension => ({
   type: 'extension' as const,
+  groups: [],
   createExtensionConfig: () => ({
     name: 'placeholder',
 

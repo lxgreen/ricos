@@ -32,6 +32,7 @@ declare module '@tiptap/core' {
 
 export const createLink = (defaultOptions): RicosExtension => ({
   type: 'mark' as const,
+  groups: [],
   createExtensionConfig: ({ markPasteRule }) => ({
     name: 'link',
 

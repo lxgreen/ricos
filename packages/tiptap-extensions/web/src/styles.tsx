@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { camelCase, upperFirst } from 'lodash';
 import type { CSSProperties } from 'react';
 import React from 'react';
+import type { RicosExtension } from 'ricos-tiptap-types';
 import type { RichContentTheme } from 'wix-rich-content-common';
 import generalRTLIgnoredStyles from 'wix-rich-content-common/dist/statics/styles/general.rtlignore.scss';
 import generalStyles from 'wix-rich-content-editor-common/dist/statics/styles/general.scss';
@@ -89,8 +90,9 @@ const StylesHOC = Component => {
   return Styles;
 };
 
-export const createStylesConfig = () => ({
+export const createStylesConfig = (): RicosExtension => ({
   type: 'extension' as const,
+  groups: [],
   createExtensionConfig: () => {
     return {
       name,
