@@ -4,7 +4,7 @@ import { readdirSync, existsSync } from 'fs';
 import { cloneDeep } from 'lodash';
 import { plugins, postcss, lastEntryPlugins } from './rollup.plugins';
 import { isExternal as external } from './rollup.externals';
-import { RollupOptions, OutputOptions, WatcherOptions } from 'rollup';
+import type { RollupOptions, OutputOptions, WatcherOptions } from 'rollup';
 
 if (!process.env.MODULE_NAME) {
   console.error('Environment variable "MODULE_NAME" is missing!');

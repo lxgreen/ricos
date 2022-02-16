@@ -28,10 +28,6 @@ class VideoComponent extends React.Component {
     };
   }
 
-  setPlayer = player => {
-    this.player = player;
-  };
-
   componentDidMount() {
     this.handlePlayerFocus();
   }
@@ -48,10 +44,22 @@ class VideoComponent extends React.Component {
     }
   }
 
-  handleReady = () => {
+  handleReady = player => {
     if (!this.state.isLoaded && !this.props.componentData.tempData) {
       this.setState({ isLoaded: true });
     }
+    this.handleDuration(player);
+  };
+
+  handleDuration = player => {
+    setTimeout(() => {
+      const duration = player.getDuration();
+      if (duration) {
+        this.saveDurationToData(duration);
+      } else {
+        this.setState({ shouldRenderDurationFix: true });
+      }
+    }, 3000);
   };
 
   renderOverlay = styles => {
@@ -71,7 +79,7 @@ class VideoComponent extends React.Component {
     this.setState({ isLoaded: false });
   };
 
-  onDuration = duration => {
+  saveDurationToData = duration => {
     const { componentData } = this.props;
     this.props.store.update(
       'componentData',
@@ -84,7 +92,6 @@ class VideoComponent extends React.Component {
     const { theme, componentData, disabled, settings, setComponentUrl } = this.props;
     return (
       <VideoViewer
-        ref={this.setPlayer}
         componentData={componentData}
         settings={settings}
         onReady={this.handleReady}
@@ -93,14 +100,42 @@ class VideoComponent extends React.Component {
         setComponentUrl={setComponentUrl}
         onReload={this.onReload}
         isLoaded={this.state.isLoaded}
-        onDuration={this.onDuration}
       />
     );
   };
 
-  onKeyDown = (e, handler) => {
+  renderPlayerDurationFix = () => {
+    const { theme, componentData, settings } = this.props;
+    const stylesHide = {
+      width: 0,
+      height: 0,
+      position: 'absolute',
+      overflow: 'hidden',
+      visibility: 'hidden',
+    };
+
+    return (
+      <div style={stylesHide}>
+        <VideoViewer
+          componentData={componentData}
+          theme={theme}
+          settings={settings}
+          onReady={player => {
+            player.getInternalPlayer().play();
+          }}
+          onDuration={duration => {
+            this.setState({ shouldRenderDurationFix: false });
+            this.saveDurationToData(duration);
+          }}
+          muted
+        />
+      </div>
+    );
+  };
+
+  onKeyDown = e => {
     if (e.key === 'Enter' || e.key === ' ') {
-      handler();
+      this.props.onClick();
     }
   };
 
@@ -113,7 +148,7 @@ class VideoComponent extends React.Component {
       componentData: { error },
       isDraggable = true,
     } = this.props;
-    const { isPlayable, isLoaded } = this.state;
+    const { isPlayable, isLoaded, shouldRenderDurationFix } = this.state;
     const containerClassNames = classNames(this.styles.video_container, className || '');
     /* eslint-disable jsx-a11y/no-static-element-interactions */
     return (
@@ -121,11 +156,12 @@ class VideoComponent extends React.Component {
         data-hook="videoPlayer"
         onClick={onClick}
         className={containerClassNames}
-        onKeyDown={e => this.onKeyDown(e, onClick)}
+        onKeyDown={this.onKeyDown}
         draggable={isDraggable}
       >
         {!isPlayable && this.renderOverlay(this.styles, this.props.t)}
         {this.renderPlayer()}
+        {shouldRenderDurationFix ? this.renderPlayerDurationFix() : null}
         {!isLoaded && !error && this.renderLoader()}
         {error && <MediaItemErrorMsg error={error} t={t} />}
       </div>

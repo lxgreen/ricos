@@ -65,13 +65,13 @@ class VideoViewer extends Component {
     return this.findFormalVideoRatio(element.clientHeight / element.clientWidth);
   };
 
-  onReactPlayerReady = () => {
+  onReactPlayerReady = player => {
     // eslint-disable-next-line react/no-find-dom-node
     const wrapper = ReactDOM.findDOMNode(this).parentNode;
     const ratio = this.getVideoRatio(wrapper);
     wrapper.style['padding-bottom'] = ratio * 100 + '%';
     if (!this.props.isLoaded) {
-      this.props.onReady?.() || this.setState({ isLoaded: true });
+      this.props.onReady?.(player) || this.setState({ isLoaded: true });
     }
   };
 
@@ -103,10 +103,13 @@ class VideoViewer extends Component {
   };
 
   render() {
-    const { theme, width, height, disabled, setComponentUrl, onDuration, settings } = this.props;
+    const { theme, width, height, disabled, setComponentUrl, onDuration, settings, muted } =
+      this.props;
     this.styles = this.styles || mergeStyles({ styles, theme });
     const { url, key } = this.state;
     setComponentUrl?.(url);
+    const isLoaded = this.props.isLoaded || this.state.isLoaded;
+
     const props = {
       url,
       onReady: this.onReactPlayerReady,
@@ -117,20 +120,18 @@ class VideoViewer extends Component {
       onDuration,
       onProgress: this.onProgress,
       progressInterval: settings.progressInterval || 1000,
+      muted,
+      isLoaded,
       ...this.disableDownloadProps(),
     };
 
-    const isLoaded = this.props.isLoaded || this.state.isLoaded;
     return (
-      <>
-        <ReactPlayerWrapper
-          className={classNames(this.styles.video_player)}
-          onContextMenu={this.handleContextMenu}
-          data-loaded={isLoaded}
-          controls={this.props.isLoaded !== false}
-          {...props}
-        />
-      </>
+      <ReactPlayerWrapper
+        className={classNames(this.styles.video_player)}
+        onContextMenu={this.handleContextMenu}
+        controls={this.props.isLoaded !== false}
+        {...props}
+      />
     );
   }
 }
@@ -149,6 +150,7 @@ VideoViewer.propTypes = {
   onReload: PropTypes.func,
   onDuration: PropTypes.func,
   blockKey: PropTypes.string,
+  muted: PropTypes.bool,
 };
 
 VideoViewer.defaultProps = {

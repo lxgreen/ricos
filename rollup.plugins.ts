@@ -17,7 +17,7 @@ import postcssRTL from 'postcss-rtl';
 import replacePlugin from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 import visualizerPlugin from 'rollup-plugin-visualizer';
-import { Plugin } from 'rollup';
+import type { Plugin } from 'rollup';
 import libsPackageJsonGeneratorPlugin from './scripts/rollupPlugin-libsPackageJsonGenerator';
 import { writeFileSync, readdirSync, existsSync, readFileSync } from 'fs';
 import { createFilter } from '@rollup/pluginutils';

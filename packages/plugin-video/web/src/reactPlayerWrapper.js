@@ -31,16 +31,43 @@ export default class ReactPlayerWrapper extends Component {
     if (!this.state.vimeoLoaded && this.isVimeoAndRequireJS()) {
       return null;
     }
-    const { isPlayable, styles, disabled } = this.props;
+    const {
+      isPlayable,
+      styles,
+      disabled,
+      onReady,
+      onDuration,
+      onProgress,
+      url,
+      width,
+      height,
+      progressInterval,
+      config,
+      muted,
+      isLoaded,
+      controls,
+      className,
+    } = this.props;
 
     return (
       <ReactPlayer
         playing={this.state.isPlaying && !disabled}
         onPlay={() => this.setState({ isPlaying: true })}
         onPause={() => this.setState({ isPlaying: false })}
+        controls={controls}
         style={styles}
-        {...this.props}
         light={!isPlayable}
+        onReady={onReady}
+        url={url}
+        width={width}
+        height={height}
+        onDuration={onDuration}
+        onProgress={onProgress}
+        progressInterval={progressInterval}
+        config={config}
+        muted={muted}
+        data-loaded={isLoaded}
+        className={className}
       />
     );
   }
@@ -51,6 +78,17 @@ ReactPlayerWrapper.propTypes = {
   disabled: PropTypes.bool,
   isPlayable: PropTypes.bool,
   styles: PropTypes.object,
+  onReady: PropTypes.func,
+  onDuration: PropTypes.func,
+  onProgress: PropTypes.func,
+  progressInterval: PropTypes.number,
+  config: PropTypes.object,
+  width: PropTypes.String,
+  height: PropTypes.String,
+  muted: PropTypes.bool,
+  isLoaded: PropTypes.bool,
+  controls: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 ReactPlayerWrapper.defaultProps = {
