@@ -101,8 +101,8 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
     if (this.getExperiments()?.newFormattingToolbar?.value === undefined) {
       this.onSetExperiment('newFormattingToolbar', 'true');
     }
-    if (this.getExperiments()?.modalsWithEditorCommands?.value === undefined) {
-      this.onSetExperiment('modalsWithEditorCommands', 'true');
+    if (this.getExperiments()?.modalBaseActionHoc?.value === undefined) {
+      this.onSetExperiment('modalBaseActionHoc', 'true');
     }
   }
 

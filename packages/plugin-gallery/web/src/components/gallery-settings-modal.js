@@ -23,7 +23,7 @@ const DIVIDER = 'divider';
 class ManageMediaSection extends Component {
   constructor(props) {
     super(props);
-    this.modalsWithEditorCommands = props.experiments.modalsWithEditorCommands?.enabled;
+    this.modalsWithEditorCommands = props.experiments.modalBaseActionHoc?.enabled;
   }
 
   applyItems = items => {
@@ -121,7 +121,7 @@ ManageMediaSection.propTypes = {
 class AdvancedSettingsSection extends Component {
   constructor(props) {
     super(props);
-    this.modalsWithEditorCommands = props.experiments.modalsWithEditorCommands?.enabled;
+    this.modalsWithEditorCommands = props.experiments.modalBaseActionHoc?.enabled;
   }
 
   useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
@@ -224,7 +224,7 @@ export class GallerySettingsModal extends Component {
     };
     this.styles = mergeStyles({ styles, theme: props.theme });
     this.switchTab = this.switchTab.bind(this);
-    this.modalsWithEditorCommands = experiments.modalsWithEditorCommands?.enabled;
+    this.modalsWithEditorCommands = experiments.modalBaseActionHoc?.enabled;
   }
 
   useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;

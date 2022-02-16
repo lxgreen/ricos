@@ -24,7 +24,7 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
   onCancel,
   updateData,
 }) => {
-  const modalsWithEditorCommands = experiments.modalsWithEditorCommands?.enabled;
+  const modalsWithEditorCommands = experiments.modalBaseActionHoc?.enabled;
   const useNewSettingsUi = experiments.newSettingsUi?.enabled;
 
   const disableDownload =

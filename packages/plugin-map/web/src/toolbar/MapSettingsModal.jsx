@@ -39,7 +39,7 @@ export class MapSettingsModal extends Component {
       isLocationInputAlreadyFocused: false,
       mapSettings: { ...componentData.mapSettings },
     };
-    this.modalsWithEditorCommands = experiments.modalsWithEditorCommands?.enabled;
+    this.modalsWithEditorCommands = experiments.modalBaseActionHoc?.enabled;
   }
 
   useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;

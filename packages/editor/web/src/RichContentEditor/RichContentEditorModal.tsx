@@ -39,7 +39,7 @@ const RichContentEditorModal: FunctionComponent<Props> = ({
     return null;
   }
 
-  if (modalProps.experiments?.modalsWithEditorCommands?.enabled) {
+  if (modalProps.experiments?.modalBaseActionHoc?.enabled) {
     const props = {
       editorCommands,
       componentData: modalProps.componentData,

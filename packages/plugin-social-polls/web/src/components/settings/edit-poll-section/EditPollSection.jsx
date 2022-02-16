@@ -17,7 +17,7 @@ import { debounce } from 'lodash';
 class EditPollSectionComponent extends Component {
   styles = mergeStyles({ styles, theme: this.props.rce.theme });
 
-  modalsWithEditorCommands = this.props.experiments.modalsWithEditorCommands?.enabled;
+  modalsWithEditorCommands = this.props.experiments.modalBaseActionHoc?.enabled;
 
   static propTypes = {
     ...PollContextPropTypes,
@@ -42,18 +42,10 @@ class EditPollSectionComponent extends Component {
 
   handleOptionTitleUpdate(index, option) {
     return title =>
-      this.modalsWithEditorCommands
-        ? debounce(
-            this.props.updatePollOption(index, {
-              ...option,
-              title,
-            }),
-            200
-          )
-        : this.props.updatePollOption(index, {
-            ...option,
-            title,
-          });
+      this.props.updatePollOption(index, {
+        ...option,
+        title,
+      });
   }
 
   handleOptionImageUpdate(index, option) {
