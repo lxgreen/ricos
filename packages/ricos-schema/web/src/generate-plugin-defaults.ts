@@ -38,6 +38,7 @@ const pluginDataPropByType = {
   [Node_Type.POLL]: 'pollData',
   [Node_Type.TEXT]: 'textData',
   [Node_Type.VIDEO]: 'videoData',
+  [Node_Type.AUDIO]: 'audioData',
 };
 
 // defaultContent has to include any non-primitive fields to make tiptap refer nested fields
@@ -70,6 +71,10 @@ const defaultContent = {
     },
     { type: 'TEXT', textData: {} },
     { type: 'VIDEO', videoData: { containerData, thumbnail: {}, video: {} } },
+    {
+      type: 'AUDIO',
+      audioData: { containerData, audio: {} },
+    },
   ],
 };
 

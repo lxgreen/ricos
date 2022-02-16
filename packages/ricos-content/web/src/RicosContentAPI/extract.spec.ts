@@ -63,6 +63,7 @@ describe('Content extract API', () => {
         'TABLE',
         'TABLE_ROW',
         'TABLE_CELL',
+        'AUDIO',
       ],
       decorations: [
         'BOLD',

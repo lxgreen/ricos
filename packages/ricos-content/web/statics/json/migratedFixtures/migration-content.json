@@ -2494,6 +2494,40 @@
         },
         "indentation": 0
       }
+    },
+    {
+      "type": "AUDIO",
+      "id": "125",
+      "nodes": [],
+      "audioData": {
+        "containerData": {
+          "alignment": "CENTER",
+          "width": {
+            "size": "CONTENT"
+          },
+          "textWrap": true
+        },
+        "audio": {
+          "src": {
+            "id": "mp3/f0f74f_35a1cdce4973490eac49e74c3244364d.mp3"
+          },
+          "duration": 300
+        },
+        "disableDownload": true,
+        "name": "Dear Fear",
+        "authorName": "Kota"
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "126",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
     }
   ],
   "metadata": {

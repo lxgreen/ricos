@@ -61,6 +61,7 @@ import type {
   RICOS_VIDEO_TYPE,
   VIDEO_TYPE,
   VIDEO_TYPE_LEGACY,
+  AUDIO_TYPE,
   RICOS_POLL_TYPE,
   POLL_TYPE,
   COLLAPSIBLE_LIST_TYPE,
@@ -78,6 +79,7 @@ import type {
   GalleryData,
   PollData,
   VideoData,
+  AudioData,
   FileData,
   ImageData,
   MentionData as MentionPluginData,
@@ -108,6 +110,7 @@ export interface CreatePluginsDataMap {
   [POLL_TYPE]?: CreatePluginData<PollData>;
   [RICOS_VIDEO_TYPE]?: CreatePluginData<VideoData>;
   [VIDEO_TYPE]?: CreatePluginData<VideoData>;
+  [AUDIO_TYPE]?: CreatePluginData<AudioData>;
   [RICOS_FILE_TYPE]?: CreatePluginData<FileData>;
   [FILE_UPLOAD_TYPE]?: CreatePluginData<FileData>;
   [RICOS_IMAGE_TYPE]?: CreatePluginData<ImageData>;
@@ -168,6 +171,7 @@ export type PluginType =
   | typeof UNDO_REDO_TYPE
   | typeof VERTICAL_EMBED_TYPE
   | typeof VIDEO_TYPE
+  | typeof AUDIO_TYPE
   | typeof VIDEO_TYPE_LEGACY
   | typeof POLL_TYPE
   | typeof COLLAPSIBLE_LIST_TYPE

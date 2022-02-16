@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+- `ricos-schema`
+  - [#3509](https://github.com/wix/ricos/pull/3509) add audio-schema
+
 </details>
 <hr/>
 
