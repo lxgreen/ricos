@@ -17,21 +17,37 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.69.28 (Feb 16, 2022)
+
 ### :bug: Bug Fix
+
 - `table/vertical-embed`
   - [#3511](https://github.com/wix/ricos/pull/3511) fix vertical embed pop-over position & table title dir
 - `general`
   - [#3513](https://github.com/wix/ricos/pull/3513) fix text secondary color
 - `editor`
   - [#3496](https://github.com/wix/ricos/pull/3496) fix invisible spacings difference from viewer
+- `tiptap`
+  - [#3515](https://github.com/wix/ricos/pull/3515) fix unique id extension
+- `tiptap`
+  - [#3519](https://github.com/wix/ricos/pull/3519) fix video selection on safari
+- `tiptap`
+  - [#3518](https://github.com/wix/ricos/pull/3518) fix divider selection on safari
 
+### :house: Internal
 
-</details>
-<hr/>
+- `sound-cloud`
+  - [#3514](https://github.com/wix/ricos/pull/3514) cleanup sound-cloud package
+- `editor-modal`
+  - [#3521](https://github.com/wix/ricos/pull/3521) use editor commands in settings modal
 
 ## 8.69.27 (Feb 13, 2022)
 
 ### :house: Internal
+
 - `schema/audio`
   - [#3507](https://github.com/wix/ricos/pull/3507) revert audio-schema
 
@@ -41,7 +57,6 @@
 
 - `theme`
   - [#3494](https://github.com/wix/ricos/pull/3494) Support Font Family Inheritence
-
 
 ## 8.69.25 (Feb 13, 2022)
 
