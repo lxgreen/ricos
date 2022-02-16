@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
-### :bug: Bug Fix
-- `video`
-  - [#3488](https://github.com/wix/ricos/pull/3488) fix facebook duration data in mobile
 
 
 </details>
 <hr/>
+
+## 8.70.1 (Feb 16, 2022)
+### :bug: Bug Fix
+- `video`
+  - [#3488](https://github.com/wix/ricos/pull/3488) fix facebook duration data in mobile
 
 ## 8.70.0 (Feb 16, 2022)
 
