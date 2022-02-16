@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
 
+- `tiptap-extensions`
+  - [#3522](https://github.com/wix/ricos/pull/3522) groups based filtering
 
 </details>
 <hr/>
