@@ -33,11 +33,7 @@ class EditPollSectionComponent extends Component {
   }
 
   handleInputChange(cb) {
-    return event => {
-      this.modalsWithEditorCommands
-        ? debounce(cb(event.target.value), 200)
-        : cb(event.target.value);
-    };
+    return event => cb(event.target.value);
   }
 
   handleOptionTitleUpdate(index, option) {
