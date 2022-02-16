@@ -26,6 +26,7 @@ import {
 } from 'ricos-content';
 import { TO_TIPTAP_TYPE } from '../../consts';
 import type { Editor } from '@tiptap/core';
+import { findNodeById } from '../../helpers';
 
 // todo : should change to RichContentInterface
 export class RichContentAdapter implements TiptapAPI {
@@ -86,9 +87,19 @@ export class RichContentAdapter implements TiptapAPI {
         const type = TO_TIPTAP_TYPE[pluginType];
         let id = '';
         if (type) {
-          id = generateId();
+          id = data.id || generateId();
           const attrs = { id, ...data };
-          this.editor.commands.insertNode(type, attrs);
+          this.editor
+            .chain()
+            .focus()
+            .insertContent([{ type: 'paragraph' }, { type, attrs }, { type: 'paragraph' }])
+            .command(({ tr, commands }) => {
+              const nodesWithPos = findNodeById(tr, id);
+              const { pos } = nodesWithPos?.[0] || {};
+              commands.setNodeSelection(pos);
+              return true;
+            })
+            .run();
         } else {
           console.error(`No such plugin type ${pluginType}`);
         }

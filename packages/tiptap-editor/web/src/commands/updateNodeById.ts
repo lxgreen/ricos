@@ -1,5 +1,5 @@
 import type { RawCommands } from '@tiptap/core';
-import { findChildren } from '@tiptap/core';
+import { findNodeById } from '../helpers';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -15,9 +15,7 @@ declare module '@tiptap/core' {
 export const updateNodeById: RawCommands['updateNodeById'] =
   (id, attrs = {}) =>
   ({ tr }) => {
-    const predicate = node => node.attrs.id === id;
-    const nodesWithPos = findChildren(tr.doc, predicate);
-
+    const nodesWithPos = findNodeById(tr, id);
     if (nodesWithPos.length > 0) {
       const { pos } = nodesWithPos[0];
       tr.setNodeMarkup(pos, undefined, { id, ...attrs });
