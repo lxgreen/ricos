@@ -22,7 +22,7 @@ const Card = props => {
   };
 
   const setRef = ref => {
-    if (ref && !imageSrc) {
+    if (ref) {
       const targetWidth = ref.getBoundingClientRect()?.width;
       if (imageWidth && imageHeight) {
         const imageSrc = getImageSrc(targetWidth);
