@@ -17,22 +17,33 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.70.2 (Feb 17, 2022)
+
+### :bug: Bug Fix
+
+- `tiptap`
+  - [#3529](https://github.com/wix/ricos/pull/3529) add empty line below & above nodes
 ### :rocket: New Feature
 
 - `tiptap-extensions`
   - [#3522](https://github.com/wix/ricos/pull/3522) groups based filtering
 
-</details>
-<hr/>
-
 ## 8.70.1 (Feb 16, 2022)
+
 ### :bug: Bug Fix
+
 - `video`
   - [#3488](https://github.com/wix/ricos/pull/3488) fix facebook duration data in mobile
 
 ## 8.70.0 (Feb 16, 2022)
 
 ### :rocket: New Feature
+
 - `ricos-schema`
   - [#3509](https://github.com/wix/ricos/pull/3509) add audio-schema
 
