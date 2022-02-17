@@ -59,7 +59,7 @@ class CustomColorPickerDialog extends Component {
     return (
       <div className={classNames(styles.colorPickerDialog, { [styles.mobile]: isMobile })}>
         {isMobile && this.renderActionButtons()}
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={''}>
           <CustomColorPicker
             color={this.state.color}
             onChange={this.onChange}

@@ -416,7 +416,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
             />
           )}
           {linkPluginInstalled && (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={''}>
               <LinkToolbar
                 ref={this.setLinkToolbarRef}
                 activeEditor={activeEditor}

@@ -17,6 +17,9 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+- `editor`
+  - [#3534](https://github.com/wix/ricos/pull/3534) Remove 'Loading...' string from dynamically loaded modals
 
 
 </details>
