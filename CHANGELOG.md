@@ -18,9 +18,14 @@
   </summary>
 
 ### :nail_care: Polish
+
 - `editor`
   - [#3534](https://github.com/wix/ricos/pull/3534) Remove 'Loading...' string from dynamically loaded modals
 
+### :house: Internal
+
+- `ui-components`
+  - [#3538](https://github.com/wix/ricos/pull/3538) revert file input BI
 
 </details>
 <hr/>
@@ -31,6 +36,7 @@
 
 - `tiptap`
   - [#3529](https://github.com/wix/ricos/pull/3529) add empty line below & above nodes
+
 ### :rocket: New Feature
 
 - `tiptap-extensions`
