@@ -25,7 +25,11 @@
 ### :house: Internal
 
 - `ui-components`
+
   - [#3538](https://github.com/wix/ricos/pull/3538) revert file input BI
+
+- `toolbar`
+  - [#3541](https://github.com/wix/ricos/pull/3541) Fix Plugin Toolbar inherited line-height
 
 </details>
 <hr/>
