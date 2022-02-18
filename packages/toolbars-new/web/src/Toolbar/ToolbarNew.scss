@@ -23,7 +23,7 @@
   }
 
   .separator {
-    height: 30px;
+    height: var(--ricos-settings-dividers-height, 30px);
     padding: 4px 0;
     margin: -4px 0;
     width: 1px;

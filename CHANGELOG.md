@@ -20,7 +20,11 @@
 ### :nail_care: Polish
 
 - `editor`
+
   - [#3534](https://github.com/wix/ricos/pull/3534) Remove 'Loading...' string from dynamically loaded modals
+
+- `theme`
+  - [#3540](https://github.com/wix/ricos/pull/3540) Support seperator height API
 
 ### :house: Internal
 

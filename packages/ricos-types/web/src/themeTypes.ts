@@ -88,6 +88,7 @@ export interface RicosSettingsStyles {
   };
   dividers?: {
     color?: CSSProperties['color'];
+    height?: CSSProperties['height'];
   };
   colorPaletteSelectedButton?: {
     borderRadius?: CSSProperties['borderRadius'];
