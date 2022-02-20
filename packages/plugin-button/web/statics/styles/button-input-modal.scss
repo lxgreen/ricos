@@ -15,14 +15,9 @@ $HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
     padding-bottom: 10px;
   }
   &.button_inputModal_container_newUi {
-    height: calc(100% - #{$HEADER_HEIGHT} - #{$FOOTER_HEIGHT});
-    margin: $HEADER_HEIGHT auto $FOOTER_HEIGHT auto;
-    overflow-y: auto;
-    overflow-x: hidden;
     @include phone {
       padding: 0;
       height: calc(100% - #{$HEADER_HEIGHT_MOBILE});
-      margin: $HEADER_HEIGHT_MOBILE auto auto auto;
     }
   }
 }
@@ -141,18 +136,24 @@ $HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
   @include phone {
     padding: 20px;
   }
-  &.button_tab_section_newUi {
+  .button_inputModal_container_newUi &{
+    @include border-box;
     padding: 24px;
-    overflow: auto;
+    height: calc(100% - #{$HEADER_HEIGHT} - #{$FOOTER_HEIGHT});
+    overflow: scroll;
+    position: absolute;
+    width: 100%;
+    top: $HEADER_HEIGHT;
     @include phone {
-      height: 100vh;
+      height: calc(100% - #{$HEADER_HEIGHT_MOBILE});
+      top: $HEADER_HEIGHT_MOBILE;
       padding: 20px;
     }
   }
 }
 
 .button_tabs_headers {
-  position: fixed;
+  position: absolute;
   top: $TITLE_HEIGHT;
   width: 100%;
   max-width: 420px;

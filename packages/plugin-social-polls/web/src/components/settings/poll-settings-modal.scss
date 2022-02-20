@@ -10,16 +10,6 @@ $HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
 
 .settings_container {
   text-align: left;
-  &.settings_container_newUi {
-    height: calc(100% - #{$HEADER_HEIGHT} - #{$FOOTER_HEIGHT});
-    margin: $HEADER_HEIGHT auto $FOOTER_HEIGHT auto;
-    overflow-y: auto;
-    overflow-x: hidden;
-    @include phone {
-      height: calc(100% - #{$HEADER_HEIGHT_MOBILE});
-      margin: $HEADER_HEIGHT_MOBILE auto auto auto;
-    }
-  }
 }
 
 .header {
@@ -74,8 +64,16 @@ $HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
 }
 
 .section_newUi {
+  @include border-box;
   padding: 24px;
+  height: calc(100% - #{$HEADER_HEIGHT} - #{$FOOTER_HEIGHT});
+  overflow: scroll;
+  position: absolute;
+  width: 100%;
+  top: $HEADER_HEIGHT;
   @include phone {
+    height: calc(100% - #{$HEADER_HEIGHT_MOBILE});
+    top: $HEADER_HEIGHT_MOBILE;
     padding: 20px;
   }
 }
@@ -213,7 +211,7 @@ $HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
 }
 
 .poll_tab_headers {
-  position: fixed;
+  position: absolute;
   width: 100%;
   max-width: 420px;
   background-color: white;

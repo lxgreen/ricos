@@ -2,7 +2,6 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 
 $TITLE_HEIGHT: 70px;
-$TITLE_HEIGHT_MOBILE: 50px;
 $FOOTER_HEIGHT: 96px;
 
 .collapsibleListModal {
@@ -15,6 +14,9 @@ $FOOTER_HEIGHT: 96px;
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
+  &.collapsibleListModal_newUi{
+    position: unset;
+  }
 }
 
 .collapsibleListModalTitle {
@@ -26,12 +28,6 @@ $FOOTER_HEIGHT: 96px;
 .collapsibleListModal_scrollContainer {
   margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
   width: 100%;
-  &.collapsibleListModal_scrollContainer_newUi {
-    margin: 77px auto $FOOTER_HEIGHT auto;
-    @include phone {
-      margin: $TITLE_HEIGHT_MOBILE auto auto auto;
-    }
-  }
 }
 
 .collapsibleListModal_mobile {

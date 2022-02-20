@@ -497,9 +497,7 @@ export class GallerySettingsModal extends Component {
         )}
         <FocusManager
           focusTrapOptions={{ initialFocus: `#${activeTab}_header` }}
-          className={classNames(styles.gallerySettings, {
-            [styles.gallerySettings_newUi]: useNewSettingsUi,
-          })}
+          className={styles.gallerySettings}
           dir={languageDir}
         >
           {!isMobile &&

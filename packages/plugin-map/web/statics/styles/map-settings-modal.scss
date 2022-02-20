@@ -14,13 +14,15 @@ $FOOTER_HEIGHT: 100px;
   &.map_settings_modal_main_content_block_newUi {
     @include border-box;
     height: calc(100% - #{$TITLE_HEIGHT} - #{$FOOTER_HEIGHT});
-    margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
+    position: absolute;
+    width: 100%;
+    top: $TITLE_HEIGHT;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 24px;
     @include phone {
       height: calc(100% - #{$TITLE_HEIGHT_MOBILE});
-      margin: $TITLE_HEIGHT_MOBILE 0 0 0;
+      top: $TITLE_HEIGHT_MOBILE;
       padding: 20px;
     }
   }

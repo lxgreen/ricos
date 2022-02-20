@@ -225,7 +225,13 @@ class ImageSettings extends Component {
       (this.modalsWithEditorCommands ? this.props.componentData.metadata : this.state.metadata) ||
       {};
     return (
-      <div className={this.styles.imageSettings} data-hook="settings" dir={languageDir}>
+      <div
+        className={classNames(this.styles.imageSettings, {
+          [this.styles.imageSettings_newUi]: this.useNewSettingsUi,
+        })}
+        data-hook="settings"
+        dir={languageDir}
+      >
         {isMobile ? (
           <SettingsMobileHeader
             theme={theme}
@@ -242,7 +248,6 @@ class ImageSettings extends Component {
         )}
         <div
           className={classNames(styles.imageSettings_scrollContainer, {
-            [styles.imageSettings_scrollContainer_newUi]: this.useNewSettingsUi,
             [styles.imageSettings_mobile]: isMobile,
           })}
         >

@@ -53,14 +53,6 @@ $HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
   overflow-y: auto;
   overflow-x: hidden;
   text-align: left;
-  &.gallerySettings_newUi {
-    height: calc(100% - #{$HEADER_HEIGHT} - #{$FOOTER_HEIGHT});
-    margin: $HEADER_HEIGHT auto $FOOTER_HEIGHT auto;
-    @include phone {
-      height: calc(100% - #{$HEADER_HEIGHT_MOBILE});
-      margin: $HEADER_HEIGHT_MOBILE auto auto auto;
-    }
-  }
 }
 
 .gallerySettings_tab_section {
@@ -68,7 +60,7 @@ $HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
 }
 
 .gallerySettings_tabs_header {
-  position: fixed;
+  position: absolute;
   top: $TITLE_HEIGHT;
   width: 100%;
   max-width: 420px;
@@ -81,8 +73,16 @@ $HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
 }
 
 .gallerySettings_tab_section_newUi {
+  @include border-box;
   padding: 24px;
+  height: calc(100% - #{$HEADER_HEIGHT} - #{$FOOTER_HEIGHT});
+  overflow: scroll;
+  position: absolute;
+  width: 100%;
+  top: $HEADER_HEIGHT;
   @include phone {
+    height: calc(100% - #{$HEADER_HEIGHT_MOBILE});
+    top: $HEADER_HEIGHT_MOBILE;
     padding: 20px;
   }
 }

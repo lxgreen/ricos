@@ -127,7 +127,9 @@ class CollapsibleListModal extends Component {
 
     return (
       <div
-        className={this.styles.collapsibleListModal}
+        className={classNames(this.styles.collapsibleListModal, {
+          [this.styles.collapsibleListModal_newUi]: this.useNewSettingsUi,
+        })}
         data-hook="collapsibleListModal"
         dir={languageDir}
       >

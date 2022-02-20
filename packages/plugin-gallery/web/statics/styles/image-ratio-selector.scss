@@ -45,6 +45,8 @@
     background-color: $settings-action-color-fallback;
   }
   &.newSettingsUi {
+    width: 64px;
+    height: 64px;
     padding: 16px;
     cursor: pointer;
     &:hover {

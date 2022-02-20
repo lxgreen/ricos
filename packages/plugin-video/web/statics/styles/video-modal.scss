@@ -10,7 +10,7 @@ $HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
   margin-top: -15px;
   &.video_modal_mobile {
     position: absolute;
-    top: $HEADER_HEIGHT_MOBILE;
+    top: 0;
     left: 0;
     height: calc(100vh - #{$HEADER_HEIGHT_MOBILE});
     width: 100%;
@@ -31,12 +31,17 @@ $HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
 }
 
 .video_modal_tab {
+  @include border-box;
   padding: 16px 20px 0;
+  .video_modal_mobile & {
+    padding: 20px;
+    position: absolute;
+    top: $HEADER_HEIGHT_MOBILE;
+    width: 100%;
+    background-color: white;
+  }
   &.video_upload_tab {
     height: 58px;
-    .video_modal_mobile & {
-      padding: 20px;
-    }
   }
 }
 
@@ -79,7 +84,7 @@ $HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
 }
 
 .video_tabs_headers {
-  position: fixed;
+  position: absolute;
   top: $TITLE_HEIGHT_MOBILE;
   width: 100%;
   background-color: white;

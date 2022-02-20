@@ -8,10 +8,16 @@ $FOOTER_HEIGHT: 100px;
 .videoSettings {
   text-align: left;
   width: 100%;
-  &.videoSettings_newUi {
-    margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
+  .videoSettings_scroll_container {
+    @include border-box;
+    overflow: scroll;
+    position: absolute;
+    height: calc(100% - #{$TITLE_HEIGHT} - #{$FOOTER_HEIGHT});
+    top: $TITLE_HEIGHT;
+    width: 100%;
     @include phone {
-      margin: $TITLE_HEIGHT_MOBILE auto auto;
+      height: calc(100% - #{$TITLE_HEIGHT_MOBILE});
+      top: $TITLE_HEIGHT_MOBILE;
     }
   }
 }

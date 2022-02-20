@@ -88,7 +88,6 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
       data-hook="settings"
       className={classNames(styles.videoSettings, {
         [styles.videoSettings_mobile]: isMobile,
-        [styles.videoSettings_newUi]: useNewSettingsUi,
       })}
     >
       {isMobile ? (
@@ -108,7 +107,12 @@ const VideoSettings: React.FC<VideoSettingsProps> = ({
           <div className={styles.separator} />
         </>
       )}
-      <SettingsSection theme={theme} className={classNames(styles.videoSettings_toggleContainer)}>
+      <SettingsSection
+        theme={theme}
+        className={classNames(styles.videoSettings_toggleContainer, {
+          [styles.videoSettings_scroll_container]: useNewSettingsUi,
+        })}
+      >
         {toggleData.map(({ toggleKey, labelKey, tooltipText, dataHook, onToggle, checked }) => (
           <LabeledToggle
             key={toggleKey}

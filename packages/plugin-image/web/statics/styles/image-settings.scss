@@ -16,6 +16,9 @@ $TITLE_HEIGHT_MOBILE: 50px;
   flex-direction: column;
   flex: 1 1 auto;
   text-align: left;
+  &.imageSettings_newUi {
+    position: unset;
+  }
 }
 
 .imageSettingsTitle {
@@ -28,6 +31,11 @@ $TITLE_HEIGHT_MOBILE: 50px;
   padding: 0 24px;
   @include phone {
     padding: 0;
+  }
+  .imageSettings_newUi & {
+    @include phone {
+      padding: 20px 20px 0 20px;
+    }
   }
 }
 
@@ -51,10 +59,16 @@ $TITLE_HEIGHT_MOBILE: 50px;
 .imageSettings_scrollContainer {
   margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
   width: 100%;
-  &.imageSettings_scrollContainer_newUi {
-    margin: 77px auto $FOOTER_HEIGHT auto;
+  .imageSettings_newUi & {
+    margin: 0;
+    height: calc(100% - #{$TITLE_HEIGHT} - #{$FOOTER_HEIGHT});
+    position: absolute;
+    width: 100%;
+    overflow: scroll;
+    top: $TITLE_HEIGHT;
     @include phone {
-      margin: $TITLE_HEIGHT_MOBILE auto auto auto;
+      height: calc(100% - #{$TITLE_HEIGHT_MOBILE});
+      top: $TITLE_HEIGHT_MOBILE;
     }
   }
 }

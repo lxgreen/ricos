@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `general`
+  - [#3537](https://github.com/wix/ricos/pull/3537) settings modal scroll fix
+
 ### :nail_care: Polish
 
 - `editor`
