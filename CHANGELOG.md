@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.70.5 (Feb 20, 2022)
+
 ### :bug: Bug Fix
 
 - `gallery`
@@ -28,9 +35,6 @@
 
 - `audio`
   - [#3543](https://github.com/wix/ricos/pull/3543) audio imports 
-
-</details>
-<hr/>
 
 ## 8.70.4 (Feb 20, 2022)
 
