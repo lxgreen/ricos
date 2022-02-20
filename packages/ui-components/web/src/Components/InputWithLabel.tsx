@@ -25,6 +25,7 @@ interface InputWithLabelProps {
   getTarget?: boolean;
   tabIndex?: number;
   inputRef?: Ref<HTMLInputElement>;
+  placeholder?: string;
 }
 
 class InputWithLabel extends Component<InputWithLabelProps> {
@@ -56,6 +57,7 @@ class InputWithLabel extends Component<InputWithLabelProps> {
       tooltipTextKey,
       t,
       inputRef,
+      placeholder,
       ...otherProps
     } = this.props;
     const inputProps = omit(otherProps, ['theme', 'onChange']);
@@ -71,6 +73,7 @@ class InputWithLabel extends Component<InputWithLabelProps> {
         id={id}
         data-hook={dataHook}
         onChange={this.handleOnChange}
+        placeholder={placeholder}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ref={inputRef as any}
         {...inputProps}

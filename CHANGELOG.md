@@ -22,6 +22,11 @@
 - `gallery`
   - [#3547](https://github.com/wix/ricos/pull/3547) gallery modal scroll fix
 
+### :house: Internal
+
+- `audio`
+  - [#3543](https://github.com/wix/ricos/pull/3543) audio imports 
+
 </details>
 <hr/>
 

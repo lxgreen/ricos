@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { CSSProperties } from 'react';
 import React from 'react';
 import FileInput from './FileInput';
@@ -7,7 +8,7 @@ import classNames from 'classnames';
 import type { RichContentTheme } from 'wix-rich-content-common';
 
 interface SettingsAddItemProps {
-  handleFileChange: () => void;
+  handleFileChange: (files?: any, itemPos?: any) => void;
   isMobile?: boolean;
   handleFileSelection?: () => void;
   inlineStyle?: CSSProperties;

@@ -31,6 +31,7 @@ import { pluginMap, createMapPlugin } from 'wix-rich-content-plugin-map';
 import { pluginMentions } from 'wix-rich-content-plugin-mentions';
 import { pluginUndoRedo } from 'wix-rich-content-plugin-undo-redo';
 import { pluginVideo, videoButtonsTypes } from 'wix-rich-content-plugin-video';
+import { pluginAudio, audioButtonsTypes } from 'wix-rich-content-plugin-audio';
 import { pluginPoll } from 'wix-rich-content-plugin-social-polls';
 import { pluginLinkPreview, LinkPreviewProviders } from 'wix-rich-content-plugin-link-preview';
 import {
@@ -202,6 +203,7 @@ const plugins = [
       pluginLink().createPlugin,
       pluginImage().createPlugin,
       pluginVideo().createPlugin,
+      pluginAudio().createPlugin,
       pluginGiphy().createPlugin,
       pluginEmoji().createPlugin,
       pluginFileUpload().createPlugin,
@@ -224,6 +226,10 @@ const plugins = [
   pluginVideo({
     getVideoUrl: src => `https://video.wixstatic.com/${src.pathname}`,
     exposeButtons: [videoButtonsTypes.video, videoButtonsTypes.soundCloud],
+  }),
+  pluginAudio({
+    getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,
+    exposeButtons: [audioButtonsTypes.audio, audioButtonsTypes.spotify],
   }),
   pluginLinkPreview(configs.linkPreview),
   pluginPoll(),
@@ -251,6 +257,7 @@ const pluginsMap = {
   map: pluginMap({ googleMapApiKey: process.env.GOOGLE_MAPS_API_KEY }),
   mentions: pluginMentions(),
   video: pluginVideo(),
+  audio: pluginAudio(),
   socialEmbed: pluginLinkPreview(configs.linkPreview),
   polls: pluginPoll(),
   undoRedo: pluginUndoRedo(),

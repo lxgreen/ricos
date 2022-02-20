@@ -1,5 +1,11 @@
 import type { VideoComponentData, ImageComponentData } from 'wix-rich-content-common';
-import { IMAGE_TYPE, GALLERY_TYPE, VIDEO_TYPE, FILE_UPLOAD_TYPE } from 'wix-rich-content-common';
+import {
+  IMAGE_TYPE,
+  GALLERY_TYPE,
+  VIDEO_TYPE,
+  FILE_UPLOAD_TYPE,
+  AUDIO_TYPE,
+} from 'wix-rich-content-common';
 
 export const GALLERY_FILE_TYPES = {
   IMAGE: 'image',
@@ -75,6 +81,20 @@ export const dataBuilder = {
     }
     return { ...componentData, src, error, tempData: undefined };
   },
+  [AUDIO_TYPE]: ({ data, error }, componentData) => {
+    let { audio } = componentData;
+    if (data) {
+      const { pathname, url } = data;
+      audio = { src: pathname ? { id: pathname } : url };
+    }
+    return {
+      ...componentData,
+      audio,
+      error,
+      name: data?.title,
+      authorName: data?.artist,
+    };
+  },
   [FILE_UPLOAD_TYPE]: ({ data, error }, componentData) => {
     return { ...componentData, ...data, error, tempData: undefined };
   },
@@ -98,6 +118,10 @@ export const tempDataBuilder = {
   [VIDEO_TYPE]: ({ url }) => {
     return { src: url, tempData: true };
   },
+  [AUDIO_TYPE]: ({ url, file: { name } }) => {
+    const audio = { src: { id: url } };
+    return { audio, name, tempData: true };
+  },
   [FILE_UPLOAD_TYPE]: ({ file }) => {
     const { name, size } = file;
     const type = name.split('.').pop();
@@ -108,6 +132,7 @@ export const tempDataBuilder = {
 export const uploadFunctionGetter = {
   [IMAGE_TYPE]: props => props.helpers?.handleFileUpload,
   [VIDEO_TYPE]: props => props.handleFileUpload,
+  [AUDIO_TYPE]: props => props.handleFileUpload,
   [FILE_UPLOAD_TYPE]: props => props.settings?.onFileSelected,
   [GALLERY_TYPE]: props => props.helpers?.handleFileUpload,
 };

@@ -298,6 +298,14 @@ export default function createAtomicPluginToolbar({
           };
           return shouldShowSettingsButton ? <Button {...videoSettingsProps} /> : null;
         }
+        case BUTTONS.AUDIO_SETTINGS: {
+          const shouldShowSettingsButton = !!this.state.componentData.audio.src?.id;
+          const audioSettingsProps = {
+            ...defaultButtonProps,
+            type: BUTTONS.EXTERNAL_MODAL,
+          };
+          return shouldShowSettingsButton ? <Button {...audioSettingsProps} /> : null;
+        }
         case BUTTONS.LINK_PREVIEW: {
           return (
             !this.state.componentData.html && (

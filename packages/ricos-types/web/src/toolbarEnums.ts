@@ -30,6 +30,7 @@ export enum ButtonType {
   DELETE = 'delete',
   LINK_PREVIEW = 'link-preview',
   VIDEO_SETTINGS = 'video-settings',
+  AUDIO_SETTINGS = 'audio-settings',
 }
 
 export enum ModifierKey {

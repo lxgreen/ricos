@@ -1,0 +1,92 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://wix-rich-content/audio-content-data-schema.json",
+    "type": "object",
+    "properties": {
+      "audio": {
+        "$id": "/properties/audio",
+        "type": "object",
+        "properties": {
+          "src":{
+            "$id": "/properties/audio",
+            "type": "object",
+            "oneOf": [
+              {
+                "$id": "/properties/audio/src/url",
+                "type": "string",
+                "title": "Audio Source url",
+                "examples": ["https://soundcloud.com/kotathefriend/colorado?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"] 
+              },
+              {
+                "$id": "/properties/audio/src/id",
+                "type": "string",
+                "title": "Audio Source id",
+                "examples": ["mp3/f0f74f_35a1cdce4973490eac49e74c3244364d.mp3"] 
+              }
+            ],
+            "duration": {
+              "$id": "/properties/audio/src/duration",
+              "type": "number",
+              "title": "audio duration",
+              "default": null
+            }
+        }
+      }
+    },
+      "coverImage": {
+        "$id": "/properties/coverImage",
+        "type": "object",
+        "properties": {
+          "src": {
+            "$id": "/properties/src/coverImage/id",
+            "id": "string",
+            "type": "string",
+            "title": "Audio cover image id",
+            "examples": ["media/441c23_84f5c058e5e4479ab9e626cd5560a21bf002.jpg"]
+          },
+          "height": {
+            "$id": "/properties/src/coverImage/height",
+            "type": "integer",
+            "title": "Audio cover image Height",
+            "examples": [1080]
+          },
+          "width": {
+            "$id": "/properties/src/coverImage/width",
+            "type": "integer",
+            "title": "Audio cover image Width",
+            "examples": [1920]
+          }
+        }
+      },
+      "config": {
+        "$id": "/properties/config",
+        "type": "object",
+        "title": "configuration",
+        "properties": {
+          "size": {
+            "$id": "/properties/config/properties/size",
+            "enum": ["content", "small", "fullWidth"],
+            "title": "Size",
+            "default": "large",
+            "examples": ["content", "small", "fullWidth"]
+          },
+          "alignment": {
+            "$id": "/properties/config/properties/alignment",
+            "enum": ["left", "right", "center"],
+            "title": "Alignment",
+            "default": "center",
+            "examples": ["left", "right", "center"]
+          },
+          "textWrap": {
+            "$id": "/properties/config/properties/textWrap",
+            "type": "string",
+            "title": "Text Wrap",
+            "default": "nowrap",
+            "examples": ["nowrap"]
+          }
+        }
+      }
+    },
+    "required": ["src"]
+  }
+  
