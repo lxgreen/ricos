@@ -17,34 +17,32 @@
     Click to see more.
   </summary>
 
+
+</details>
+<hr/>
+
+## 8.70.3 (Feb 20, 2022)
+
 ### :bug: Bug Fix
 
 - `general`
   - [#3537](https://github.com/wix/ricos/pull/3537) settings modal scroll fix
 
-### :nail_care: Polish
-
-- `editor`
-
-  - [#3534](https://github.com/wix/ricos/pull/3534) Remove 'Loading...' string from dynamically loaded modals
-
-- `theme`
-  - [#3540](https://github.com/wix/ricos/pull/3540) Support seperator height API
-
-- `general`
-  - [#3545](https://github.com/wix/ricos/pull/3545) replace newSettingsUi experiment to newSettingsModals
-
 ### :house: Internal
 
 - `ui-components`
-
   - [#3538](https://github.com/wix/ricos/pull/3538) revert file input BI
-
 - `toolbar`
   - [#3541](https://github.com/wix/ricos/pull/3541) Fix Plugin Toolbar inherited line-height
 
-</details>
-<hr/>
+### :nail_care: Polish
+
+- `editor`
+  - [#3534](https://github.com/wix/ricos/pull/3534) Remove 'Loading...' string from dynamically loaded modals
+- `theme`
+  - [#3540](https://github.com/wix/ricos/pull/3540) Support seperator height API
+- `general`
+  - [#3545](https://github.com/wix/ricos/pull/3545) replace newSettingsUi experiment to newSettingsModals
 
 ## 8.70.2 (Feb 17, 2022)
 
