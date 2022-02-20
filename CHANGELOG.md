@@ -21,6 +21,8 @@
 
 - `gallery`
   - [#3547](https://github.com/wix/ricos/pull/3547) gallery modal scroll fix
+- `toolbars-new`
+  - [#3549](https://github.com/wix/ricos/pull/3549) edit link from link toolbar
 
 ### :house: Internal
 

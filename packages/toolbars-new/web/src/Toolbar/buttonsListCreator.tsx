@@ -205,7 +205,7 @@ const handleButtonOnDone = (
     const buttonName = buttonsList[index].name;
     if (buttonName === 'LINK' || buttonName === 'editLink') {
       buttonsList[index].onDone = data => {
-        linkPanelData.onAddPluginLink(data);
+        linkPanelData.onAddPluginLink?.(data);
         editorCommands.insertDecoration(decorationButtons[buttonName], data);
       };
     }
