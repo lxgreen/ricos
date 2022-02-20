@@ -7,13 +7,13 @@ import { pluginLink } from 'wix-rich-content-plugin-link';
 import { pluginHtml } from 'wix-rich-content-plugin-html';
 import { mockFetchUrlPreviewData } from '../../../src/shared/utils/linkPreviewUtil';
 
-const { Instagram, Twitter, YouTube, TikTok } = LinkPreviewProviders;
+const { Instagram, Twitter, TikTok } = LinkPreviewProviders;
 
 const plugins = [
   pluginLink(),
   pluginLinkPreview({
     fetchData: mockFetchUrlPreviewData(),
-    exposeEmbedButtons: [Instagram, Twitter, YouTube, TikTok],
+    exposeEmbedButtons: [Instagram, Twitter, TikTok],
     enableEmbed: true,
   }),
   pluginHtml(),
