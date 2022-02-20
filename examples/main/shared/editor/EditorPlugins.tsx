@@ -876,6 +876,19 @@ const config: RichContentEditorProps['config'] = {
       //   };
       // },
     },
+    {
+      name: TOOLBARS.STATIC,
+      getButtons: () => ({
+        desktop: [
+          FORMATTING_BUTTONS.HEADINGS,
+          '|',
+          FORMATTING_BUTTONS.FONT_SIZE,
+          ...textButtons.desktop.filter(
+            b => b !== FORMATTING_BUTTONS.TITLE && b !== FORMATTING_BUTTONS.HEADINGS
+          ),
+        ],
+      }),
+    },
     // {
     //   name: TOOLBARS.STATIC,
     //   getButtons: () => ({
