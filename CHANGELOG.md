@@ -31,6 +31,9 @@
 - `theme`
   - [#3540](https://github.com/wix/ricos/pull/3540) Support seperator height API
 
+- `general`
+  - [#3545](https://github.com/wix/ricos/pull/3545) replace newSettingsUi experiment to newSettingsModals
+
 ### :house: Internal
 
 - `ui-components`

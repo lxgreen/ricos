@@ -12,7 +12,7 @@ class ImageRatioSelector extends Component {
 
   dataMapper = ({ ratio }) => ({ value: ratio });
 
-  useNewSettingsUi = !!this.props.experiments.newSettingsUi?.enabled;
+  useNewSettingsUi = !!this.props.experiments.newSettingsModals?.enabled;
 
   renderOption = ({ item, selected }) =>
     this.useNewSettingsUi ? (

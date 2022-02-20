@@ -129,7 +129,7 @@ export class SettingsModal extends Component {
       ? this.props.componentData
       : pubsub.store.get('componentData');
 
-    const useNewSettingsUi = experiments?.newSettingsUi?.enabled;
+    const useNewSettingsUi = experiments?.newSettingsModals?.enabled;
 
     return (
       <div ref={$container} className={this.styles.settings_container}>

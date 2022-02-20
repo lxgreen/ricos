@@ -13,7 +13,7 @@ class LayoutSelector extends Component {
     this.styles = mergeStyles({ styles, theme: props.theme });
   }
 
-  useNewSettingsUi = !!this.props.experiments.newSettingsUi?.enabled;
+  useNewSettingsUi = !!this.props.experiments.newSettingsModals?.enabled;
 
   getLayouts = t => {
     return getGalleryLayoutsSettings(t).map(layout => {

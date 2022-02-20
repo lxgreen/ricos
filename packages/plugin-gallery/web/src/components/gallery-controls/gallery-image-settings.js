@@ -86,7 +86,7 @@ class ImageSettings extends Component {
     const { showNewTabCheckbox, showNoFollowCheckbox, showSponsoredCheckbox, placeholder } =
       linkPanel || {};
     const { metadata = {} } = image || {};
-    const useNewSettingsUi = experiments?.newSettingsUi?.enabled;
+    const useNewSettingsUi = experiments?.newSettingsModals?.enabled;
 
     const altText = typeof metadata.altText === 'string' ? metadata.altText : metadata.title;
     /* eslint-disable jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events */

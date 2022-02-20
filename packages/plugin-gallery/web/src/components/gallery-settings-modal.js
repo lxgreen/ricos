@@ -39,7 +39,7 @@ class ManageMediaSection extends Component {
 
   static contextType = GlobalContext;
 
-  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
 
   handleFileChange = (files, itemPos) => {
     if (files.length > 0) {
@@ -124,7 +124,7 @@ class AdvancedSettingsSection extends Component {
     this.modalsWithEditorCommands = props.experiments.modalBaseActionHoc?.enabled;
   }
 
-  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
 
   applyGallerySetting = setting => {
     const { data, store, updateData } = this.props;
@@ -227,7 +227,7 @@ export class GallerySettingsModal extends Component {
     this.modalsWithEditorCommands = experiments.modalBaseActionHoc?.enabled;
   }
 
-  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
 
   componentDidMount() {
     if (!this.modalsWithEditorCommands) {
@@ -481,7 +481,7 @@ export class GallerySettingsModal extends Component {
     } = this.props;
     const { activeTab } = this.state;
     this.componentData = pubsub.get('componentData');
-    const useNewSettingsUi = !!experiments.newSettingsUi?.enabled;
+    const useNewSettingsUi = !!experiments.newSettingsModals?.enabled;
 
     return (
       <div data-hook="settings" dir={languageDir}>

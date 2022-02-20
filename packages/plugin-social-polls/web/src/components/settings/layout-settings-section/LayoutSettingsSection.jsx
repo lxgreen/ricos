@@ -21,7 +21,7 @@ export class LayoutSettingsSection extends Component {
 
   modalsWithEditorCommands = this.props.experiments.modalBaseActionHoc?.enabled;
 
-  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
 
   updateSettings(layout) {
     const { updateData, componentData } = this.props;

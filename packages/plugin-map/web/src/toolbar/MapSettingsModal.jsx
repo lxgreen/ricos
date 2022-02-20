@@ -42,7 +42,7 @@ export class MapSettingsModal extends Component {
     this.modalsWithEditorCommands = experiments.modalBaseActionHoc?.enabled;
   }
 
-  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
 
   updateComponentData = data => {
     const { updateData, componentData } = this.props;

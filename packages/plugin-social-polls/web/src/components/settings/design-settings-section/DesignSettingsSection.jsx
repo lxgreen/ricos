@@ -32,7 +32,7 @@ export class DesignSettingsSection extends Component {
     backgroundType: this.props.componentData.design.poll?.backgroundType || BACKGROUND_TYPE.COLOR,
   };
 
-  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
 
   updateDesign(design) {
     const { updateData, componentData } = this.props;

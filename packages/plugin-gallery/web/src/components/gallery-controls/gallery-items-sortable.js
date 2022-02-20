@@ -49,7 +49,7 @@ const SortableItem = sortableElement(props => {
   } = props;
 
   const styles = mergeStyles({ styles: Styles, theme });
-  const useNewSettingsUi = experiments?.newSettingsUi?.enabled;
+  const useNewSettingsUi = experiments?.newSettingsModals?.enabled;
   const newUiImageSize = isMobile ? 85 : 116;
   const imageSize = useNewSettingsUi
     ? newUiImageSize
@@ -166,7 +166,7 @@ const SortableList = sortableContainer(props => {
     accept,
     experiments,
   } = props;
-  const useNewSettingsUi = experiments?.newSettingsUi?.enabled;
+  const useNewSettingsUi = experiments?.newSettingsModals?.enabled;
 
   const styles = mergeStyles({ styles: Styles, theme });
   return (
@@ -232,7 +232,7 @@ const ItemActionsMenu = props => {
     experiments = {},
   } = props;
 
-  const useNewSettingsUi = experiments?.newSettingsUi?.enabled;
+  const useNewSettingsUi = experiments?.newSettingsModals?.enabled;
   const styles = mergeStyles({ styles: Styles, theme });
   const hasUnselectedItems = items.some(item => !item.selected);
   const hasSelectedItems = items.some(item => item.selected);

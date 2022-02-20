@@ -21,7 +21,7 @@ class CollapsibleListSettings extends Component {
     this.styles = mergeStyles({ styles, theme });
   }
 
-  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
 
   renderOption = ({ item, selected }) =>
     this.useNewSettingsUi ? (

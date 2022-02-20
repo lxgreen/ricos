@@ -23,7 +23,7 @@ class SettingsComponent extends PureComponent {
     };
   }
 
-  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
 
   componentDidUpdate = () => {
     this.props.onSettingsChange(this.state);

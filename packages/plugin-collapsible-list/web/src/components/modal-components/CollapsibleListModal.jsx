@@ -19,7 +19,7 @@ class CollapsibleListModal extends Component {
     this.styles = mergeStyles({ styles, theme });
   }
 
-  useNewSettingsUi = this.props.experiments?.newSettingsUi?.enabled;
+  useNewSettingsUi = this.props.experiments?.newSettingsModals?.enabled;
 
   initState(props) {
     return { initialComponentData: props.pubsub.get('componentData') };

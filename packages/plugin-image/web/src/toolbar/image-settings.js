@@ -58,7 +58,7 @@ class ImageSettings extends Component {
     };
   }
 
-  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
 
   toggleState = (key, onToggle) => () => {
     const value = !this.state[key];

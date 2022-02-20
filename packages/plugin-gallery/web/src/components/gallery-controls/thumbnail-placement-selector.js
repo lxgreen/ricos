@@ -18,7 +18,7 @@ class ThumbnailPlacementSelector extends Component {
     { alignment: 'right', dataHook: 'thumbnailPlacementRight' },
   ];
 
-  useNewSettingsUi = !!this.props.experiments.newSettingsUi?.enabled;
+  useNewSettingsUi = !!this.props.experiments.newSettingsModals?.enabled;
 
   dataMapper = ({ alignment }) => ({ value: alignment });
 

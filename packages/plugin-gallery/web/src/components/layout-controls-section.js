@@ -40,7 +40,7 @@ class Separator extends Component {
         return (
           <div
             className={classNames(this.styles.gallerySettings_spacer, {
-              [this.styles.gallerySettings_newUi_spacer]: experiments?.newSettingsUi?.enabled,
+              [this.styles.gallerySettings_newUi_spacer]: experiments?.newSettingsModals?.enabled,
             })}
           />
         );

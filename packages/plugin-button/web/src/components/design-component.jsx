@@ -38,7 +38,7 @@ class DesignComponent extends PureComponent {
 
   static contextType = GlobalContext;
 
-  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
 
   getUserColors = () => {
     const {

@@ -49,7 +49,7 @@ export default class ButtonInputModal extends Component {
     this.modalsWithEditorCommands = experiments.modalBaseActionHoc?.enabled;
   }
 
-  useNewSettingsUi = !!this.props.experiments?.newSettingsUi?.enabled;
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
 
   onSettingsChanged = settings => {
     const { design } = this.state;
