@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3547](https://github.com/wix/ricos/pull/3547) gallery modal scroll fix
 
 </details>
 <hr/>

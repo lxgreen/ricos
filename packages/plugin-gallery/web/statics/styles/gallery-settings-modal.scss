@@ -74,7 +74,7 @@ $HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
 
 .gallerySettings_tab_section_newUi {
   @include border-box;
-  padding: 24px;
+  padding: 24px 24px 60px 24px;
   height: calc(100% - #{$HEADER_HEIGHT} - #{$FOOTER_HEIGHT});
   overflow: scroll;
   position: absolute;
