@@ -97,7 +97,7 @@ export default class VideoUploadModal extends Component {
         isMobile={isMobile}
         inputFileRef={this.setInputFile}
         handleClick={handleClick}
-        handleNativeFileUpload={this.handleNativeFileUpload}
+        onChange={this.handleNativeFileUpload}
         languageDir={languageDir}
         title={t('VideoCustomUploadModal_Title')}
         labelText={t('VideoUploadModal_CustomVideoClickText')}

@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `ui-components`
+  - [#3546](https://github.com/wix/ricos/pull/3546) refactor mediaUploadModal & add icons
 
 
 </details>

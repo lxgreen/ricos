@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import styles from '../../statics/styles/url-input-modal.scss';
 
 interface MediaUploadModalProps {
   id?: string;
-  inputFileRef: () => void;
-  handleClick: () => void;
-  handleNativeFileUpload: () => void;
+  inputFileRef: (ref: any) => void;
+  handleClick: (e?: any) => void;
+  onChange: () => void;
   languageDir: string;
   title: string;
   labelText: string;
@@ -18,7 +19,7 @@ const MediaUploadModal: React.FC<MediaUploadModalProps> = ({
   id,
   inputFileRef,
   handleClick,
-  handleNativeFileUpload,
+  onChange,
   languageDir,
   title,
   labelText,
@@ -36,7 +37,7 @@ const MediaUploadModal: React.FC<MediaUploadModalProps> = ({
           className={styles.mediaUploadModal_fileInput}
           ref={inputFileRef}
           onClick={handleClick}
-          onChange={handleNativeFileUpload}
+          onChange={onChange}
         />
         <label
           htmlFor={id}
