@@ -95,9 +95,14 @@ export class RichContentAdapter implements TiptapAPI {
             .insertContent([{ type: 'paragraph' }, { type, attrs }, { type: 'paragraph' }])
             .command(({ tr, commands }) => {
               const nodesWithPos = findNodeById(tr, id);
-              const { pos } = nodesWithPos?.[0] || {};
-              commands.setNodeSelection(pos);
-              return true;
+              if (nodesWithPos[0]) {
+                const { pos } = nodesWithPos[0];
+                commands.setNodeSelection(pos);
+                return true;
+              } else {
+                console.error('Failed to find inserted node and focusing it');
+                return false;
+              }
             })
             .run();
         } else {
