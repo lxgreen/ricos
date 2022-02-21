@@ -229,7 +229,7 @@ const plugins = [
   }),
   pluginAudio({
     getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,
-    exposeButtons: [audioButtonsTypes.audio, audioButtonsTypes.spotify],
+    //    exposeButtons: [audioButtonsTypes.audio, audioButtonsTypes.spotify],
   }),
   pluginLinkPreview(configs.linkPreview),
   pluginPoll(),
