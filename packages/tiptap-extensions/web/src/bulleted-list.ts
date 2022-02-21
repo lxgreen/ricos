@@ -34,7 +34,9 @@ export const createBulletedList = (): RicosExtension => ({
 
     group: 'block list',
 
-    content: 'listItem+',
+    content() {
+      return `${this.options.itemTypeName}+`;
+    },
 
     parseHTML() {
       return [{ tag: 'ul' }];
