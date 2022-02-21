@@ -29,6 +29,7 @@ export const createBulletedList = (): RicosExtension => ({
     addOptions() {
       return {
         HTMLAttributes: {},
+        itemTypeName: 'listItem',
       };
     },
 

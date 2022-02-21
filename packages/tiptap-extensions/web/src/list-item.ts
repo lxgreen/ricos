@@ -15,7 +15,7 @@ export const createListItem = (): RicosExtension => ({
     },
 
     // Note: this should remain paragraph until draft-js is supported
-    content: '(paragraph|bulletedList|orderedList)*',
+    content: '(paragraph|bulletedList|orderedList)+',
     group: 'list',
     defining: true,
 
