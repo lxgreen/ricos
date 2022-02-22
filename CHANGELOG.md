@@ -17,14 +17,15 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.70.7 (Feb 21, 2022)
+
 ### :house: Internal
 
 - `ui-components`
   - [#3546](https://github.com/wix/ricos/pull/3546) refactor mediaUploadModal & add icons
-
-
-</details>
-<hr/>
 
 ## 8.70.5 (Feb 20, 2022)
 
@@ -38,7 +39,7 @@
 ### :house: Internal
 
 - `audio`
-  - [#3543](https://github.com/wix/ricos/pull/3543) audio imports 
+  - [#3543](https://github.com/wix/ricos/pull/3543) audio imports
 
 ## 8.70.4 (Feb 20, 2022)
 
