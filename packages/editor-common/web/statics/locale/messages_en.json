@@ -152,7 +152,7 @@
   "AudioModal_Upload_Title": "Upload an audio file from your computer",
   "AudioModal_Mobile_Upload_Title": "Upload an audio file from your device",
   "AudioPlugin_InsertButton": "Audio",
-  "AudioPlugin_InsertButton_Tooltip": "Add a audio",
+  "AudioPlugin_InsertButton_Tooltip": "Add an audio file",
   "AudioPlugin_Settings_Header": "Audio",
   "AudioPlugin_Settings_AudioCanBeDownloaded_Label": "Audio can be downloaded",
   "AudioPlugin_Settings_CoverImage_Label": "Cover image",
