@@ -17,9 +17,9 @@
     Click to see more.
   </summary>
 
-### :rocket: New Feature
+### :house: Internal
 
-- `*`
+- `[ricos-editor]`
   - [#3457](https://github.com/wix/ricos/pull/3457) command & ricos-content PoC
 
 </details>
