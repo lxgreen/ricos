@@ -161,7 +161,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
     return (
       <div style={{ height: '100%' }}>
         {this.renderExternalToolbar()}
-        {experiments.detachCommandsFromEditor.enabled && (
+        {!!experiments?.detachCommandsFromEditor?.enabled && (
           <>
             <button
               onClick={() => this?.editor?.getCommands().setBold('')}
