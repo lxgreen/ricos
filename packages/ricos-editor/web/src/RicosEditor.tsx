@@ -34,7 +34,11 @@ import { getBiFunctions } from './toolbars/utils/biUtils';
 import { renderSideBlockComponent } from './utils/renderBlockComponent';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 import { createEditorStyleClasses } from './utils/createEditorStyleClasses';
+import { DraftEditorStateTranslator } from './content-conversion/draft-editor-state-translator';
+import { DraftContentRepository } from './content-modification/services/draft-content-repository';
+import { EditorCommandRunner } from './content-modification/command-runner';
 import { TiptapMockToolbar } from './tiptapMockToolbar/TiptapMockToolbar';
+import { setBold, unsetBold } from './content-modification/commands/bold';
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
 The getContent(postId, isPublishing) API is deprecated and will be removed in ricos v9.0.0`;
@@ -69,7 +73,13 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   useToolbarsV2 = false;
 
-  dataInstance: EditorDataInstance;
+  detachCommands = false;
+
+  dataInstance!: EditorDataInstance;
+
+  draftEditorStateTranslator!: DraftEditorStateTranslator;
+
+  editorCommandRunner!: EditorCommandRunner;
 
   isBusy = false;
 
@@ -93,7 +103,14 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   constructor(props: RicosEditorProps) {
     super(props);
-    this.dataInstance = createDataConverter(props.onChange, props.content);
+    this.detachCommands = !!props.experiments?.detachCommandsFromEditor?.enabled;
+    if (this.detachCommands) {
+      this.draftEditorStateTranslator = new DraftEditorStateTranslator();
+    }
+    this.dataInstance = createDataConverter(
+      [this.props.onChange, this.draftEditorStateTranslator?.onChange],
+      this.props.content
+    );
     this.getBiCallback = getCallback.bind(this);
     this.state = {
       localeData: { locale: props.locale },
@@ -133,6 +150,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.updateLocale();
     this.loadEditor();
     this.loadToolbar();
+    this.loadConverters();
     const { isMobile, toolbarSettings } = this.props;
     const { useStaticTextToolbar } = toolbarSettings || {};
     const contentId = this.getContentId();
@@ -167,6 +185,24 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         './toolbars/TextFormattingToolbar'
       ).then(textFormattingToolbarModule => {
         this.setState({ TextFormattingToolbar: textFormattingToolbarModule?.default });
+      });
+    }
+  }
+
+  loadConverters() {
+    if (this.detachCommands) {
+      import(
+        /* webpackChunkName: "ricos-content/libs/converters" */
+        'ricos-content/libs/converters'
+      ).then(convertersModule => {
+        const draftRepo = new DraftContentRepository(
+          this.draftEditorStateTranslator,
+          convertersModule?.toDraft,
+          convertersModule?.fromDraft
+        );
+        this.editorCommandRunner = new EditorCommandRunner(draftRepo);
+        this.editorCommandRunner.register(setBold);
+        this.editorCommandRunner.register(unsetBold);
       });
     }
   }
@@ -217,7 +253,13 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       console.debug('new content provided as editorState'); // eslint-disable-line
       const editorState = createWithContent(convertFromRaw(newProps.injectedContent));
       this.setState({ editorState }, () => {
-        this.dataInstance = createDataConverter(this.props.onChange, this.props.injectedContent);
+        this.dataInstance = createDataConverter(
+          [
+            this.props.onChange,
+            this.detachCommands ? this.draftEditorStateTranslator.onChange : undefined,
+          ],
+          this.props.injectedContent
+        );
         this.dataInstance.refresh(editorState);
       });
     }
@@ -299,9 +341,14 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   setEditorRef = ref => {
     this.editor = ref;
     this.setActiveEditor(ref);
+    if (this.detachCommands && ref && !this.useTiptap) {
+      this.draftEditorStateTranslator.setEditorState = ref.setEditorState;
+    }
   };
 
   getEditorCommands = () => this.editor?.getEditorCommands();
+
+  getCommands = () => (this.detachCommands ? this.editorCommandRunner.getCommands() : {});
 
   getT = () => this.editor.getT();
 

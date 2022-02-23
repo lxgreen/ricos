@@ -35,6 +35,8 @@ export default class I18nRichContentEditor extends Component<Partial<RichContent
 
   isInnerRCERenderedInTable = () => this.editor.isInnerRCERenderedInTable();
 
+  setEditorState = editorState => this.editor?.updateEditorState(editorState);
+
   render() {
     return <WrappedEditor {...this.props} ref={this.setEditorRef} />;
   }

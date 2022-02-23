@@ -1,4 +1,13 @@
+/*
+ * This module introduces refined subtypes of loosely-typed proto based Node,
+ * along with appropriate type guards for run time validation.
+ * Currently, the schema validation relies on ts-proto generated fromJSON methods
+ * that have bundle size impact and potentially modify data rather than validate it.
+ */
+
+import { Node_Type } from 'ricos-schema';
 import type {
+  Node,
   AppEmbedData,
   ButtonData,
   CodeBlockData,
@@ -12,8 +21,6 @@ import type {
   HTMLData,
   LinkPreviewData,
   MapData,
-  Node,
-  Node_Type,
   ParagraphData,
   RichContent,
   TableCellData,
@@ -22,10 +29,13 @@ import type {
   VideoData,
   AudioData,
 } from 'ricos-schema';
+import { isTextData, isParagraphData } from './node-data-refined-types';
 
 type Identified = {
   id: Node['id'];
 };
+
+const isIdentified = (node: Node): boolean => typeof node.id === 'string' && node.id.length > 0;
 
 // RichText
 export type RichText = {
@@ -39,16 +49,27 @@ type TextNodeContainer = Identified & {
   nodes: TextNode[];
 };
 
+const isTextNodeContainer = (node: Node): boolean => node.nodes.every(isTextNode);
+
 export type TextNode = Leaf & {
   textData: TextData;
   type: Node_Type.TEXT;
   id: '';
 };
 
+export const isTextNode = (node: Node): node is TextNode =>
+  isLeaf(node) && isTextData(node.textData) && node.type === Node_Type.TEXT && node.id === '';
+
 export type ParagraphNode = TextNodeContainer & {
   paragraphData: ParagraphData;
   type: Node_Type.PARAGRAPH;
 };
+
+export const isParagraphNode = (node: Node): node is ParagraphNode =>
+  isIdentified(node) &&
+  isParagraphData(node.paragraphData) &&
+  node.type === Node_Type.PARAGRAPH &&
+  isTextNodeContainer(node);
 
 export type HeadingNode = TextNodeContainer & {
   headingData: HeadingData;
@@ -75,10 +96,8 @@ export type ListNode = Identified & {
   nodes: ListItemNode[];
 };
 
-// Top-level nodes
-export type RichContentNode =
-  | RichTextNode
-  | ListNode
+// TODO: refactor name
+export type RichContentNodeWithContainerData =
   | CollapsibleListNode
   | TableNode
   | AppEmbedNode
@@ -94,6 +113,9 @@ export type RichContentNode =
   | MapNode
   | VideoNode
   | AudioNode;
+
+// Top-level nodes
+export type RichContentNode = RichTextNode | ListNode | RichContentNodeWithContainerData;
 
 // RichContent Containers
 type RichContainer = {
@@ -140,9 +162,11 @@ export type TableCellNode = Identified &
   };
 
 // Atomic
-type Leaf = {
-  nodes: [];
+type Leaf = Omit<Node, 'nodes'> & {
+  nodes: never[];
 };
+
+const isLeaf = (node: Node): node is Leaf => node.nodes === [];
 
 export type DividerNode = Identified &
   Leaf & {
@@ -221,3 +245,12 @@ export type AudioNode = Identified &
     type: Node_Type.AUDIO;
     AudioData: AudioData;
   };
+
+export type RefinedNode =
+  | RichContentNode
+  | TextNode
+  | ListItemNode
+  | CollapsibleItemBodyNode
+  | CollapsibleItemTitleNode
+  | TableCellNode
+  | TableRowNode;
