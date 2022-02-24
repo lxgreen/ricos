@@ -21,6 +21,11 @@
 
 - `[ricos-editor]`
   - [#3457](https://github.com/wix/ricos/pull/3457) command & ricos-content PoC
+  
+### :bug: Bug Fix
+  
+- `ricos-content`
+  - [#3560](https://github.com/wix/ricos/pull/3560) ck-editor fromHtml: "wrap a in li" support added
 
 </details>
 <hr/>
