@@ -114,7 +114,7 @@ const cleanInvalidVideos: AstRule = [
 ];
 
 const wrapTextUnderLi: AstRule = [
-  and([hasTag('li'), hasChild(isText)]),
+  and([hasTag('li'), or([hasChild(isText), hasChild(hasTag('a'))])]),
   (node: Element) => ({
     ...node,
     childNodes: partitionBy<ContentNode>(
@@ -186,10 +186,12 @@ export const preprocess = flow(
   traverse(brToNewLineInRoot),
   flow(
     traverse(leafParagraphToDiv),
-    traverse(cleanListPadding),
-    traverse(cleanListItemPadding),
-    traverse(cleanInvalidVideos),
-    traverse(containerPToDiv),
+    flow(
+      traverse(cleanListPadding),
+      traverse(cleanListItemPadding),
+      traverse(cleanInvalidVideos),
+      traverse(containerPToDiv)
+    ),
     traverse(wrapTextUnderLi),
     traverse(collapseWhitespaces),
     // hack to make nakedSpanToP work -- otherwise does not work correctly
