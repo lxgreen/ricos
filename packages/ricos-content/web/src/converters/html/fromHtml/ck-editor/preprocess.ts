@@ -7,7 +7,6 @@ import type { ContentNode } from '../core/models';
 import type { AstRule } from '../core/parse5-utils';
 import {
   isText,
-  isLeaf,
   isWhitespace,
   hasDescendant,
   appendChild,
@@ -61,15 +60,6 @@ const containerPToDiv: AstRule = [
       addParagraph(node),
       appendChild
     )(node.childNodes),
-  }),
-];
-
-const leafParagraphToDiv: AstRule = [
-  and([isLeaf, hasTag('p')]),
-  (node: Element) => ({
-    ...node,
-    tagName: 'div',
-    nodeName: 'div',
   }),
 ];
 
@@ -182,22 +172,17 @@ const collapseBreaks = flow(
 export const preprocess = flow(
   toAst,
   traverseRoot(rootTextToP),
-  traverse(brToNewLineInP),
-  traverse(brToNewLineInRoot),
+  flow(traverse(brToNewLineInP), traverse(brToNewLineInRoot)),
   flow(
-    traverse(leafParagraphToDiv),
-    flow(
-      traverse(cleanListPadding),
-      traverse(cleanListItemPadding),
-      traverse(cleanInvalidVideos),
-      traverse(containerPToDiv)
-    ),
-    traverse(wrapTextUnderLi),
-    traverse(collapseWhitespaces),
-    // hack to make nakedSpanToP work -- otherwise does not work correctly
-    flow(serialize, toAst, traverse(nakedSpanToP)),
-    traverse(textInDivToP)
+    traverse(cleanListPadding),
+    traverse(cleanListItemPadding),
+    traverse(cleanInvalidVideos),
+    traverse(containerPToDiv)
   ),
+  flow(traverse(wrapTextUnderLi), traverse(collapseWhitespaces)),
+  // hack to make nakedSpanToP work -- otherwise does not work correctly
+  flow(serialize, toAst, traverse(nakedSpanToP)),
+  traverse(textInDivToP),
   serialize,
   collapseBreaks
 );
