@@ -1,6 +1,5 @@
 import type { RefinedNode } from 'wix-rich-content-common';
-import type { RicosNodes } from './ricos-content';
-import type { DescriptorManager as NodeDescriptorManager } from './ricos-descriptor';
+import type { Editables } from './editable-content';
 
 /**
  *
@@ -30,18 +29,18 @@ export interface CommandDescriptor<Args = never> {
   /**
    * Describes the command logic over provided content model, while optionally utilizing predefined commands
    *
-   * @param {RicosNodes<RefinedNode>} model
+   * @param {Editables<RefinedNode>} model
    * @param { [key: CommandDescriptor['name']]: Command } commands
-   * @returns  {RicosNodes<RefinedNode>}
+   * @returns  {Editables<RefinedNode>}
    * @memberof CommandDescriptor
    */
   execute({
     model,
     commands,
   }: {
-    model: RicosNodes<RefinedNode>;
+    model: Editables<RefinedNode>;
     commands: CommandDescriptors;
-  }): (args: Args) => RicosNodes<RefinedNode>;
+  }): (args: Args) => Editables<RefinedNode>;
 }
 
 declare class CommandDescriptors {

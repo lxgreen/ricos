@@ -1,6 +1,6 @@
 import { Decoration_Type } from 'ricos-schema';
 import type { CommandDescriptor } from '../../models/command';
-import type { RicosParagraphNode } from '../nodes/ricos-paragraph-node';
+import type { EditableParagraph } from '../nodes/editable-paragraph';
 
 export const setBold: CommandDescriptor = {
   name: 'setBold',
@@ -8,8 +8,8 @@ export const setBold: CommandDescriptor = {
     ({ model }) =>
     () =>
       model
-        .filter(n => n.getSelection())
-        .modify((n: RicosParagraphNode) =>
+        .filter((n: EditableParagraph) => n.getSelection())
+        .modify((n: EditableParagraph) =>
           n.setDecoration({ type: Decoration_Type.BOLD, fontWeightValue: 700 })
         ),
 };
@@ -20,8 +20,8 @@ export const unsetBold: CommandDescriptor = {
     ({ model }) =>
     () =>
       model
-        .filter(n => n.getSelection())
-        .modify((n: RicosParagraphNode) =>
+        .filter((n: EditableParagraph) => n.getSelection())
+        .modify((n: EditableParagraph) =>
           n.unsetDecoration({ type: Decoration_Type.BOLD, fontWeightValue: 700 })
         ),
 };

@@ -1,12 +1,12 @@
 import type { Decoration } from 'ricos-schema';
 import { Node_Type, TextStyle_TextAlignment, Decoration_Type } from 'ricos-schema';
-import { RicosParagraphNodes } from './ricos-paragraph-nodes';
+import { EditableParagraphs } from './editable-paragraphs';
 import type { ParagraphNode } from 'ricos-content';
-import type { RicosTextNode } from './ricos-text-node';
+import type { EditableText } from './editable-text';
 
 const decoration: Decoration = { type: Decoration_Type.BOLD, fontWeightValue: 700 };
 
-const containsText = (text: string) => (node: RicosTextNode) => node.getData().text === text;
+const containsText = (text: string) => (node: EditableText) => node.getData().text === text;
 
 describe('Ricos Paragraph Nodes aggregator', () => {
   const paragraphNodes: ParagraphNode[] = [
@@ -72,7 +72,7 @@ describe('Ricos Paragraph Nodes aggregator', () => {
     },
   ];
 
-  const nodes = RicosParagraphNodes.of(paragraphNodes);
+  const nodes = EditableParagraphs.of(paragraphNodes);
 
   it('Should filter only selected nodes', () => {
     const actual = nodes.filter(node => node.getSelection()).asArray();

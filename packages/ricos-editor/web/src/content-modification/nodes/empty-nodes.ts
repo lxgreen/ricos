@@ -1,5 +1,5 @@
-import type { RicosNodes } from '../../models/ricos-content';
-export default class EmptyNodes implements RicosNodes<never> {
+import type { Editables } from '../../models/editable-content';
+export default class EmptyNodes implements Editables<never> {
   filter(): EmptyNodes {
     return this;
   }

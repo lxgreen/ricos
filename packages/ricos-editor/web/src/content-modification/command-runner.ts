@@ -1,6 +1,6 @@
 import type { CommandDescriptor, CommandRunner, Commands } from '../models/command';
-import type { RicosNodesRepository } from '../models/ricos-content';
-import type { DescriptorManager } from '../models/ricos-descriptor';
+import type { EditablesRepository } from '../models/editable-content';
+import type { NodeDescriptorManager } from '../models/editable-node-descriptor';
 
 export class CommandDescriptors {
   private descriptors: CommandDescriptor<unknown>[];
@@ -38,9 +38,9 @@ export class CommandDescriptors {
 export class EditorCommandRunner implements CommandRunner {
   private descriptors: CommandDescriptors;
 
-  repository: RicosNodesRepository;
+  repository: EditablesRepository;
 
-  constructor(repository: RicosNodesRepository) {
+  constructor(repository: EditablesRepository) {
     this.repository = repository;
     this.descriptors = CommandDescriptors.of([]);
   }
@@ -54,12 +54,12 @@ export class EditorCommandRunner implements CommandRunner {
       (commands, descriptor) => ({
         ...commands,
         [descriptor.name]: <Args>(args: Args) => {
-          const model = this.repository.getRicosNodes();
+          const model = this.repository.getEditables();
           const modifiedModel = descriptor.execute({
             model,
             commands: this.descriptors.asMap(),
           })(args);
-          this.repository.commit(modifiedModel as unknown as DescriptorManager);
+          this.repository.commit(modifiedModel as unknown as NodeDescriptorManager);
         },
       }),
       {}

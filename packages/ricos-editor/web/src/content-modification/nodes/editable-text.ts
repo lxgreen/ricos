@@ -1,9 +1,9 @@
 import type { TextData, Decoration } from 'ricos-schema';
 import type { TextNode } from 'ricos-content';
-import type { RicosNode, RicosNodes } from '../../models/ricos-content';
+import type { Editable, Editables } from '../../models/editable-content';
 import EmptyNodes from './empty-nodes';
 
-export class RicosTextNode implements RicosNode<TextNode> {
+export class EditableText implements Editable<TextNode> {
   private readonly node: TextNode;
 
   private readonly selection: boolean;
@@ -14,14 +14,14 @@ export class RicosTextNode implements RicosNode<TextNode> {
   }
 
   static of(textNode: TextNode) {
-    return new RicosTextNode(textNode, false);
+    return new EditableText(textNode, false);
   }
 
   getRefinedNode(): TextNode {
     return this.node;
   }
 
-  getNodes(): RicosNodes<never> {
+  getNodes(): Editables<never> {
     return EmptyNodes.of(this.node.nodes);
   }
 
@@ -37,15 +37,15 @@ export class RicosTextNode implements RicosNode<TextNode> {
     return this.node.textData;
   }
 
-  setSelection(selection: boolean): RicosTextNode {
-    return new RicosTextNode(this.node, selection);
+  setSelection(selection: boolean): EditableText {
+    return new EditableText(this.node, selection);
   }
 
-  setData(data: TextData): RicosTextNode {
-    return new RicosTextNode({ ...this.node, textData: data }, this.selection);
+  setData(data: TextData): EditableText {
+    return new EditableText({ ...this.node, textData: data }, this.selection);
   }
 
-  setDecoration(decoration: Decoration): RicosTextNode {
+  setDecoration(decoration: Decoration): EditableText {
     const decorations = [
       ...this.getData().decorations.filter(
         currDecoration => currDecoration.type !== decoration.type
@@ -55,7 +55,7 @@ export class RicosTextNode implements RicosNode<TextNode> {
     return this.setData({ ...this.getData(), decorations });
   }
 
-  unsetDecoration(decoration: Decoration): RicosTextNode {
+  unsetDecoration(decoration: Decoration): EditableText {
     const decorations = this.getData().decorations.filter(
       currDecoration => currDecoration.type !== decoration.type
     );

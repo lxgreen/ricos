@@ -1,11 +1,11 @@
 import type { ParagraphNode } from 'ricos-content';
 import { Decoration_Type } from 'ricos-schema';
 import type { CommandDescriptor } from '../models/command';
-import type { RicosNodesRepository } from '../models/ricos-content';
-import type { DescriptorManager } from '../models/ricos-descriptor';
+import type { EditablesRepository } from '../models/editable-content';
+import type { NodeDescriptorManager } from '../models/editable-node-descriptor';
 import { EditorCommandRunner } from './command-runner';
-import type { RicosParagraphNode } from './nodes/ricos-paragraph-node';
-import { RicosParagraphNodes } from './nodes/ricos-paragraph-nodes';
+import type { EditableParagraph } from './nodes/editable-paragraph';
+import { EditableParagraphs } from './nodes/editable-paragraphs';
 
 const paragraph = {
   nodes: [
@@ -39,8 +39,8 @@ const paragraphWithBold = {
 
 const mockedTranslate = jest.fn();
 
-const repository: RicosNodesRepository = {
-  commit: (descriptorManager: DescriptorManager) => {
+const repository: EditablesRepository = {
+  commit: (descriptorManager: NodeDescriptorManager) => {
     mockedTranslate(
       descriptorManager
         .getDescriptors()
@@ -51,7 +51,7 @@ const repository: RicosNodesRepository = {
   },
   // TODO: RicosParagraphNodes to be exposed as RicosContent.getParagraphs API
   // TODO: RefinedNode.of should involve validation/type guards
-  getRicosNodes: () => RicosParagraphNodes.of(paragraph.nodes as unknown as ParagraphNode[]),
+  getEditables: () => EditableParagraphs.of(paragraph.nodes as unknown as ParagraphNode[]),
 };
 
 const setBoldCommand: CommandDescriptor = {
@@ -59,7 +59,7 @@ const setBoldCommand: CommandDescriptor = {
   execute:
     ({ model }) =>
     () =>
-      model.modify((n: RicosParagraphNode) => n.setDecoration({ type: Decoration_Type.BOLD })),
+      model.modify((n: EditableParagraph) => n.setDecoration({ type: Decoration_Type.BOLD })),
 };
 
 // TODO: command composition test

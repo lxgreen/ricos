@@ -1,6 +1,6 @@
 import type { Decoration } from 'ricos-schema';
 import { Node_Type, TextStyle_TextAlignment, Decoration_Type } from 'ricos-schema';
-import { RicosParagraphNode } from './ricos-paragraph-node';
+import { EditableParagraph } from './editable-paragraph';
 import type { ParagraphNode } from 'ricos-content';
 
 const decoration: Decoration = { type: Decoration_Type.BOLD, fontWeightValue: 700 };
@@ -37,7 +37,7 @@ describe('Ricos Text Node', () => {
     },
   };
 
-  const node = RicosParagraphNode.of(paragraphNode);
+  const node = EditableParagraph.of(paragraphNode);
 
   it('Should getSelection return false', () => {
     const actual = node.getSelection();

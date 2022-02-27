@@ -1,6 +1,6 @@
 import type { Decoration } from 'ricos-schema';
 import { Node_Type, Decoration_Type } from 'ricos-schema';
-import { RicosTextNodes } from './ricos-text-nodes';
+import { EditableTexts } from './editable-texts';
 import type { TextNode } from 'ricos-content';
 
 const decoration: Decoration = { type: Decoration_Type.BOLD, fontWeightValue: 700 };
@@ -26,7 +26,7 @@ describe('Ricos Text Nodes Aggregator', () => {
       },
     },
   ];
-  const ricosTextNodes = RicosTextNodes.of(textNodes);
+  const ricosTextNodes = EditableTexts.of(textNodes);
 
   it('Should filter nodes correctly', () => {
     const actual = ricosTextNodes

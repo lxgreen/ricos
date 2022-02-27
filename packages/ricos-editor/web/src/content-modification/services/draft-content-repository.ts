@@ -2,15 +2,14 @@ import type { ParagraphNode } from 'ricos-content';
 import type { fromDraft as fromDraftFn } from 'ricos-content/libs/fromDraft';
 import type { toDraft as toDraftFn } from 'ricos-content/libs/toDraft';
 import type { IDraftEditorStateTranslator } from '../../models/draft-editor-state-translator';
-import type { RicosNodesRepository } from '../../models/ricos-content';
-import type { DescriptorManager } from '../../models/ricos-descriptor';
-import type { RicosParagraphNode } from '../nodes/ricos-paragraph-node';
-import { RicosParagraphNodes } from '../nodes/ricos-paragraph-nodes';
+import type { EditablesRepository } from '../../models/editable-content';
+import type { NodeDescriptorManager } from '../../models/editable-node-descriptor';
+import { EditableParagraphs } from '../nodes/editable-paragraphs';
 
 type toDraft = typeof toDraftFn;
 type fromDraft = typeof fromDraftFn;
 
-export class DraftContentRepository implements RicosNodesRepository {
+export class DraftContentRepository implements EditablesRepository {
   editor: IDraftEditorStateTranslator;
 
   toDraft: toDraft;
@@ -23,19 +22,20 @@ export class DraftContentRepository implements RicosNodesRepository {
     this.fromDraft = fromDraft;
   }
 
-  getRicosNodes(): RicosParagraphNodes {
+  getEditables(): EditableParagraphs {
     const draftContent = this.editor.getDraftContent();
     const selectedBlocksKeys = this.editor.getSelectedBlocksKeys();
     const richContent = this.fromDraft(draftContent);
-    const ricosNodes = RicosParagraphNodes.of(richContent.nodes as ParagraphNode[]);
-    const withSelection = ricosNodes.setSelection(selectedBlocksKeys);
-    return withSelection;
+    const paragraphs = EditableParagraphs.of(richContent.nodes as ParagraphNode[]);
+    return paragraphs.setSelection(selectedBlocksKeys);
   }
 
-  commit(descriptorManager: DescriptorManager): void {
-    const nodes = (
-      descriptorManager.getDescriptors().getModified().getNodes() as RicosParagraphNode[]
-    ).map(node => node.getRefinedNode());
+  commit(descriptorManager: NodeDescriptorManager): void {
+    const nodes = descriptorManager
+      .getDescriptors()
+      .getModified()
+      .getNodes()
+      .map(node => node.getRefinedNode());
     const draftBlocks = this.toDraft({ nodes });
     this.editor.setBlocks(draftBlocks);
   }
