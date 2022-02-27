@@ -27,6 +27,7 @@
   
 - `ricos-content`
   - [#3560](https://github.com/wix/ricos/pull/3560) ck-editor fromHtml: "wrap a in li" support added
+  - [#3568](https://github.com/wix/ricos/pull/3568) ck-editor fromHtml: "leaf p to div" rule removed
 
 </details>
 <hr/>
