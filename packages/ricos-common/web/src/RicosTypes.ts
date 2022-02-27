@@ -14,6 +14,7 @@ import type {
   Link_Rel,
   AvailableExperiments,
   LinkPreviewData,
+  CommandDescriptor,
 } from 'ricos-types';
 import type { EditorState, EditorProps } from 'draft-js';
 import type { PreviewConfig } from 'wix-rich-content-preview';
@@ -69,6 +70,7 @@ export interface RicosEditorProps extends RicosProps {
   maxTextLength?: number;
   editorEvents?: EditorEvents;
   sideBlockComponent?: FC<{ id: string }>;
+  commands?: CommandDescriptor<unknown>[];
   /* Changes to this interface should also be reflected in the API docs */
 }
 

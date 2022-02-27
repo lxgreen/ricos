@@ -1,5 +1,4 @@
 import type { RefinedNode } from 'ricos-content';
-import type { NodeDescriptorManager } from './editable-node-descriptor';
 
 /**
  * Represents Editor content node in editing context.
@@ -72,27 +71,4 @@ export interface Editables<T extends RefinedNode> {
    * @memberof Editables
    */
   getRefinedNodes(): T[];
-}
-
-/**
- * Translates underlying editor state to Editable based model, back and forth
- *
- * @category internal
- */
-export interface EditablesRepository {
-  /**
-   * Constructs Editable based model
-   *
-   * @returns  Editables model
-   * @memberof EditablesRepository
-   */
-  getEditables(): Editables<RefinedNode>;
-
-  /**
-   * Commits the altered nodes to the underlying editor state
-   *
-   * @param {NodeDescriptorManager} descriptors
-   * @memberof EditablesRepository
-   */
-  commit(descriptors: NodeDescriptorManager): void;
 }

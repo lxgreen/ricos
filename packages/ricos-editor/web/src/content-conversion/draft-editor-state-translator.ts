@@ -30,19 +30,16 @@ export class DraftEditorStateTranslator implements IDraftEditorStateTranslator {
     const currContentState = convertFromRaw(blocks) as ContentState;
     const newBlockMap = currContentState.getBlockMap();
     const contentState = this._editorState.getCurrentContent();
+    const selection = this._editorState.getSelection();
     const blockMap = contentState.getBlockMap().merge(newBlockMap);
-    const selectionBefore = contentState.getSelectionBefore();
-    const selectionAfter = contentState.getSelectionAfter();
     const newContentState = contentState.merge({
       blockMap,
-      selectionAfter,
-      selectionBefore,
     }) as ContentState;
     const newEditorState = EditorState.push(
       this._editorState,
       newContentState,
       'change-block-data'
     );
-    this.setEditorState(newEditorState);
+    this.setEditorState(EditorState.forceSelection(newEditorState, selection));
   };
 }

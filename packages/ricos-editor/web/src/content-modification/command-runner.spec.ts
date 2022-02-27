@@ -1,7 +1,7 @@
+import type { CommandDescriptor } from 'ricos-types';
 import type { ParagraphNode } from 'ricos-content';
 import { Decoration_Type } from 'ricos-schema';
-import type { CommandDescriptor } from '../models/command';
-import type { EditablesRepository } from '../models/editable-content';
+import type { EditablesRepository } from '../models/editable-repository';
 import type { NodeDescriptorManager } from '../models/editable-node-descriptor';
 import { EditorCommandRunner } from './command-runner';
 import type { EditableParagraph } from './nodes/editable-paragraph';

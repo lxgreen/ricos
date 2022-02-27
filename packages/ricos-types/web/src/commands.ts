@@ -1,4 +1,4 @@
-import type { RefinedNode } from 'wix-rich-content-common';
+import type { RefinedNode } from 'ricos-content';
 import type { Editables } from './editable-content';
 
 /**
@@ -75,25 +75,4 @@ declare class CommandDescriptors {
  */
 export interface Commands {
   [name: CommandDescriptor['name']]: <Args>(args: Args) => void;
-}
-
-/**
- * Manages and runs Commands
- *
- */
-export interface CommandRunner {
-  /**
-   * Registers Command defined by descriptor, validates name uniqueness
-   *
-   * @param {CommandDescriptor} descriptor
-   * @memberof CommandRunner
-   */
-  register(descriptor: CommandDescriptor): void;
-  /**
-   * Gets registered commands, mapped by name
-   *
-   * @returns  {Commands}
-   * @memberof CommandRunner
-   */
-  getCommands(): Commands;
 }

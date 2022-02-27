@@ -6,11 +6,14 @@ import { RicosToolbar } from './RicosToolbar';
 import { ToolbarItemCreator } from './ToolbarItemCreator';
 import { toolbarItemsRenders } from './toolbarItemsRenders';
 import { draftStaticToolbarConfig } from './toolbarItemConfig/draftToolbarItemConfig';
+import { draftStaticToolbarConfigDetachCommands } from './toolbarItemConfig/draftToolbarItemConfigDetachCommands';
+import type { AvailableExperiments } from 'ricos-types';
 
 interface RicosToolbarWrapperProps {
   content: Content;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editorCommands: any;
+  experiments?: AvailableExperiments;
 }
 interface RicosToolbarWrapperState {}
 
@@ -18,11 +21,12 @@ class RicosToolbarWrapper extends Component<RicosToolbarWrapperProps, RicosToolb
   toolbar: RicosToolbar | null = null;
 
   componentDidMount() {
-    const { content, editorCommands } = this.props;
+    const { content, editorCommands, experiments } = this.props;
     this.toolbar = RicosToolbar.create({
-      toolbarItemCreators: draftStaticToolbarConfig.map(config =>
-        ToolbarItemCreator.create(config)
-      ),
+      toolbarItemCreators: (experiments?.detachCommandsFromEditor?.enabled
+        ? draftStaticToolbarConfigDetachCommands
+        : draftStaticToolbarConfig
+      ).map(config => ToolbarItemCreator.create(config)),
       content,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       editorCommands: editorCommands as any,

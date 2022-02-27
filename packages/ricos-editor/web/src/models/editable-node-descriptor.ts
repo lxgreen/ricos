@@ -1,5 +1,5 @@
 import type { RefinedNode } from 'ricos-content';
-import type { Editable } from './editable-content';
+import type { Editable } from 'ricos-types';
 
 export type Edit = 'none' | 'add' | 'modify' | 'delete';
 

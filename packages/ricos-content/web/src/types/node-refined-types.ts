@@ -19,6 +19,7 @@ import type {
   GIFData,
   HeadingData,
   HTMLData,
+  ImageData,
   LinkPreviewData,
   MapData,
   ParagraphData,

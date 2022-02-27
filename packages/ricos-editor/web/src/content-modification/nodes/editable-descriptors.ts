@@ -1,5 +1,5 @@
-import type { Editable } from '../../models/editable-content';
 import type { RefinedNode } from 'ricos-content';
+import type { Editable } from 'ricos-types';
 import type { EditableNodeDescriptors } from '../../models/editable-node-descriptor';
 import { EditableDescriptor } from './editable-descriptor';
 

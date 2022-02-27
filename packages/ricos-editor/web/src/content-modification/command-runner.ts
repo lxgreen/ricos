@@ -1,5 +1,6 @@
-import type { CommandDescriptor, CommandRunner, Commands } from '../models/command';
-import type { EditablesRepository } from '../models/editable-content';
+import type { CommandDescriptor, Commands } from 'ricos-types';
+import type { CommandRunner } from '../models/command-runner';
+import type { EditablesRepository } from '../models/editable-repository';
 import type { NodeDescriptorManager } from '../models/editable-node-descriptor';
 
 export class CommandDescriptors {

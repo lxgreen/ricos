@@ -1,4 +1,4 @@
-import type { CommandDescriptor } from '../models/command';
+import type { CommandDescriptor } from 'ricos-types';
 
 /**
  * Aggregates the CommandDescriptor.

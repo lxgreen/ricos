@@ -1,4 +1,4 @@
-import type { Editable } from '../../models/editable-content';
+import type { Editable } from 'ricos-types';
 import type { RefinedNode } from 'ricos-content';
 import type { EditableNodeDescriptor, EditMetadata } from '../../models/editable-node-descriptor';
 

@@ -1,6 +1,6 @@
 import type { TextData, Decoration } from 'ricos-schema';
+import type { Editable, Editables } from 'ricos-types';
 import type { TextNode } from 'ricos-content';
-import type { Editable, Editables } from '../../models/editable-content';
 import EmptyNodes from './empty-nodes';
 
 export class EditableText implements Editable<TextNode> {

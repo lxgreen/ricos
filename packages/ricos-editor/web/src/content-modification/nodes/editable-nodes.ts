@@ -1,14 +1,16 @@
+/* eslint-disable brace-style */
 import type { RefinedNode } from 'ricos-content';
-import type { Editable, Editables } from '../../models/editable-content';
+import type { Editable, Editables } from 'ricos-types';
 import type {
   NodeDescriptorManager,
   EditableNodeDescriptors,
 } from '../../models/editable-node-descriptor';
-import { EditableDescriptors } from './ricos-node-descriptors';
+import { EditableDescriptors } from './editable-descriptors';
 
 export class EditableNodes<TNode extends RefinedNode, TEditable extends Editable<TNode>>
   // eslint-disable-next-line prettier/prettier
-  implements Editables<TNode>, NodeDescriptorManager {
+  implements Editables<TNode>, NodeDescriptorManager
+{
   private readonly descriptors: EditableNodeDescriptors;
 
   private mapper: (nodes: TNode) => TEditable;

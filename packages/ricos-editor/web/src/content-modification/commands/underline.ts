@@ -3,20 +3,20 @@ import { Decoration_Type } from 'ricos-schema';
 import type { CommandDescriptor } from 'ricos-types';
 import type { EditableParagraph } from '../nodes/editable-paragraph';
 
-const decoration: Decoration = { type: Decoration_Type.BOLD, fontWeightValue: 700 };
+const decoration: Decoration = { type: Decoration_Type.UNDERLINE, underlineData: true };
 
-export const setBold: CommandDescriptor = {
-  name: 'setBold',
+export const setUnderline: CommandDescriptor = {
+  name: 'setUnderline',
   execute:
     ({ model }) =>
     () =>
       model
-        .filter((n: EditableParagraph) => n.getSelection())
+        .filter(n => n.getSelection())
         .modify((n: EditableParagraph) => n.setDecoration(decoration)),
 };
 
-export const unsetBold: CommandDescriptor = {
-  name: 'unsetBold',
+export const unsetUnderline: CommandDescriptor = {
+  name: 'unsetUnderline',
   execute:
     ({ model }) =>
     () =>
@@ -25,8 +25,8 @@ export const unsetBold: CommandDescriptor = {
         .modify((n: EditableParagraph) => n.unsetDecoration(decoration)),
 };
 
-export const toggleBold: CommandDescriptor = {
-  name: 'toggleBold',
+export const toggleUnderline: CommandDescriptor = {
+  name: 'toggleUnderline',
   execute:
     ({ model }) =>
     () =>

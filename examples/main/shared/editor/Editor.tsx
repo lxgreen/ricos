@@ -161,22 +161,6 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
     return (
       <div style={{ height: '100%' }}>
         {this.renderExternalToolbar()}
-        {!!experiments?.detachCommandsFromEditor?.enabled && (
-          <>
-            <button
-              onClick={() => this?.editor?.getCommands().setBold('')}
-              onMouseDown={e => e.preventDefault()}
-            >
-              set bold
-            </button>
-            <button
-              onClick={() => this?.editor?.getCommands().unsetBold('')}
-              onMouseDown={e => e.preventDefault()}
-            >
-              unset bold
-            </button>
-          </>
-        )}
         <div ref={ref => (this.staticToolbarContainer = ref)} />
         <div className={classNames('editor', styles.editorContainer)}>
           <RicosEditor

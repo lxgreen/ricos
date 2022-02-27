@@ -1,4 +1,4 @@
-import type { Editables } from '../../models/editable-content';
+import type { Editables } from 'ricos-types';
 export default class EmptyNodes implements Editables<never> {
   filter(): EmptyNodes {
     return this;

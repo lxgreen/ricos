@@ -1,6 +1,6 @@
 import type { ParagraphNode } from 'ricos-content';
 import type { Decoration } from 'ricos-schema';
-import type { Editables } from '../../models/editable-content';
+import type { Editables } from 'ricos-types';
 import type {
   NodeDescriptorManager,
   EditableNodeDescriptors,

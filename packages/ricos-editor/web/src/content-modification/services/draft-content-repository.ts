@@ -2,7 +2,7 @@ import type { ParagraphNode } from 'ricos-content';
 import type { fromDraft as fromDraftFn } from 'ricos-content/libs/fromDraft';
 import type { toDraft as toDraftFn } from 'ricos-content/libs/toDraft';
 import type { IDraftEditorStateTranslator } from '../../models/draft-editor-state-translator';
-import type { EditablesRepository } from '../../models/editable-content';
+import type { EditablesRepository } from '../../models/editable-repository';
 import type { NodeDescriptorManager } from '../../models/editable-node-descriptor';
 import { EditableParagraphs } from '../nodes/editable-paragraphs';
 

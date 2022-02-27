@@ -50,6 +50,7 @@ import {
   mockImageNativeUploadFunc,
 } from '../../src/shared/utils/fileUploadUtil';
 import { MockVerticalSearchModule } from '../../src/shared/utils/verticalEmbedUtil';
+import { commands } from '../../src/shared/utils/commands/commands';
 const tiptapContent = {
   type: 'doc',
   attrs: {
@@ -349,6 +350,7 @@ class EditorWrapper extends React.Component<Props> {
           experiments={experiments}
           _rcProps={rcProps}
           onAtomicBlockFocus={d => console.log('onAtomicBlockFocus', d)} // eslint-disable-line
+          commands={commands}
         >
           <RichContentEditor
             onFocus={onFocus}

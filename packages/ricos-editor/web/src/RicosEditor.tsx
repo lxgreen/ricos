@@ -38,7 +38,7 @@ import { DraftEditorStateTranslator } from './content-conversion/draft-editor-st
 import { DraftContentRepository } from './content-modification/services/draft-content-repository';
 import { EditorCommandRunner } from './content-modification/command-runner';
 import { TiptapMockToolbar } from './tiptapMockToolbar/TiptapMockToolbar';
-import { setBold, unsetBold } from './content-modification/commands/bold';
+import { coreCommands } from './content-modification/commands/core-commands';
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
 The getContent(postId, isPublishing) API is deprecated and will be removed in ricos v9.0.0`;
@@ -201,8 +201,9 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
           convertersModule?.fromDraft
         );
         this.editorCommandRunner = new EditorCommandRunner(draftRepo);
-        this.editorCommandRunner.register(setBold);
-        this.editorCommandRunner.register(unsetBold);
+        [...coreCommands, ...(this.props?.commands || [])].map(command =>
+          this.editorCommandRunner.register(command)
+        );
       });
     }
   }
