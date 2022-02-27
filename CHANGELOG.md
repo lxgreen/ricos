@@ -21,6 +21,7 @@
 
 - `[ricos-editor]`
   - [#3457](https://github.com/wix/ricos/pull/3457) command & ricos-content PoC
+  - [#3563](https://github.com/wix/ricos/pull/3563) editor-commands refactoring: RicosNode => Editable
   
 ### :bug: Bug Fix
   
