@@ -17,20 +17,22 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.70.8 (Feb 27, 2022)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3560](https://github.com/wix/ricos/pull/3560) ck-editor fromHtml: "wrap a in li" support added
+  - [#3568](https://github.com/wix/ricos/pull/3568) ck-editor fromHtml: "leaf p to div" rule removed
+
 ### :house: Internal
 
 - `[ricos-editor]`
   - [#3457](https://github.com/wix/ricos/pull/3457) command & ricos-content PoC
   - [#3563](https://github.com/wix/ricos/pull/3563) editor-commands refactoring: RicosNode => Editable
-  
-### :bug: Bug Fix
-  
-- `ricos-content`
-  - [#3560](https://github.com/wix/ricos/pull/3560) ck-editor fromHtml: "wrap a in li" support added
-  - [#3568](https://github.com/wix/ricos/pull/3568) ck-editor fromHtml: "leaf p to div" rule removed
-
-</details>
-<hr/>
 
 ## 8.70.7 (Feb 21, 2022)
 
