@@ -152,9 +152,12 @@
 	"AudioModal_Upload_Title": "Upload an audio file from your computer",
 	"AudioModal_Mobile_Upload_Title": "Upload an audio file from your device",
 	"AudioPlugin_InsertButton": "Audio",
-	"AudioPlugin_InsertButton_Tooltip": "Add a audio",
+	"AudioPlugin_InsertButton_Tooltip": "Add an audio file",
 	"AudioPlugin_Settings_Header": "Audio",
 	"AudioPlugin_Settings_AudioCanBeDownloaded_Label": "Audio can be downloaded",
+	"AudioPlugin_Settings_AudioCanBeDownloaded_Tooltip": "Give readers the option to download your audio.",
+	"AudioPlugin_Settings_Audio_Replace_Image_Tooltip": "Replace",
+	"AudioPlugin_Settings_Audio_Remove_Image_Tooltip": "Remove",
 	"AudioPlugin_Settings_CoverImage_Label": "Cover image",
 	"AudioPlugin_Settings_AuthorName_Label": "Creator",
 	"AudioPlugin_Settings_AudioName_Label": "Title",
@@ -638,6 +641,7 @@
 	"VerticalEmbed_Bookings_Button": "Book Now",
 	"VerticalEmbed_Events_Button": "Register Now",
 	"VerticalEmbed_Products_Button": "Buy Now",
+	"VerticalEmbed_Disabled_Button_Tooltip": "Product page will be available once you publish your site.",
 	"VerticalEmbed_Units_Hour": "{{hours}}h",
 	"VerticalEmbed_Units_Minute": "{{minutes}}min"
 }
