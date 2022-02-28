@@ -173,13 +173,13 @@
 
 .quote {
   composes: blockStyleSpacing;
-  border-inline-start-width: 3px;
+  border-inline-start-width: $ricos-quote-border-width;
   border-inline-start-style: solid;
   font-size: $quoteFontSize;
   line-height: $quoteLineHeight;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-inline-start: 18px;
+  padding-top: $ricos-quote-padding-top;
+  padding-bottom: $ricos-quote-padding-bottom;
+  padding-inline-start: $ricos-quote-padding-inline-start;
   font-style: normal;
   border-left-color: $ricos-quote-border-color;
   border-right-color: $ricos-quote-border-color;
@@ -210,9 +210,10 @@
   composes: blockStyleSpacing;
   background-color: rgba($fallbackColorTuple, 0.06);
   font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
-  font-size: 16px;
-  line-height: 26px;
-  padding: 2px 25px;
+  font-size: $ricos-code-block-font-size;
+  line-height: $ricos-code-block-line-height;
+  padding: $ricos-code-block-padding;
+  margin: $ricos-code-block-margin;
   white-space: pre-wrap;
 
   .renderedInTable & {

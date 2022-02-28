@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `theme`
+  - [#3555](https://github.com/wix/ricos/pull/3555) expand custom styles api (quote/code-block-mentions)
+
 </details>
 <hr/>
 

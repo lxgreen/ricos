@@ -11,13 +11,15 @@
   }
 }
 
+
 .code {
   composes: blockStyleSpacing;
   background-color: rgba($primary-text-color-tuple, 0.06);
   font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
-  font-size: 16px;
-  line-height: 26px;
-  padding: 2px 25px;
+  font-size: $ricos-code-block-font-size;
+  line-height: $ricos-code-block-line-height;
+  padding: $ricos-code-block-padding;
+  margin: $ricos-code-block-margin;
   white-space: pre-wrap;
 
   .renderedInTable & {

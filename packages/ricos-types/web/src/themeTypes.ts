@@ -51,6 +51,30 @@ export interface CustomTextualStyle {
   color?: CSSProperties['color'];
 }
 
+export interface CustomQuoteStyle extends CustomTextualStyle {
+  borderColor?: CSSProperties['borderColor'];
+  borderWidth?: CSSProperties['borderWidth'];
+  paddingTop?: CSSProperties['paddingTop'];
+  paddingBottom?: CSSProperties['paddingBottom'];
+  paddingInlineStart?: CSSProperties['paddingInlineStart'];
+}
+
+export interface CustomCodeBlockStyle {
+  margin?: CSSProperties['margin'];
+  padding?: CSSProperties['padding'];
+  fontSize?: CSSProperties['fontSize'];
+  lineHeight?: CSSProperties['lineHeight'];
+}
+
+export interface CustomMentionStyle {
+  color: CSSProperties['color'];
+  backgroundColor: CSSProperties['backgroundColor'];
+}
+
+export interface CustomFooterToolbarStyle {
+  marginTop?: CSSProperties['marginTop'];
+}
+
 export interface RicosCustomStyles {
   h1?: CustomTextualStyle;
   h2?: CustomTextualStyle;
@@ -59,10 +83,13 @@ export interface RicosCustomStyles {
   h5?: CustomTextualStyle;
   h6?: CustomTextualStyle;
   p?: CustomTextualStyle;
-  quote?: CustomTextualStyle & { borderColor?: CSSProperties['borderColor'] };
+  quote?: CustomQuoteStyle;
   link?: CustomTextualStyle;
   hashtag?: CustomTextualStyle;
   button?: Pick<CustomTextualStyle, 'color'>;
+  codeBlock?: CustomCodeBlockStyle;
+  mention?: CustomMentionStyle;
+  footerToolbar?: CustomFooterToolbarStyle;
 }
 
 export interface RicosSettingsStyles {

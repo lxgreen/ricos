@@ -28,7 +28,7 @@ const toVars: ToVars = (customStyles, prefix, fix = false) =>
       ...Object.entries(fix ? lineHeightFix(customStyle) : customStyle).reduce(
         (prevStyle, styleName) => ({
           ...prevStyle,
-          [`${prefix}-${fieldName.toLowerCase()}-${styleName[0]}`]: styleName[1],
+          [`${prefix}-${fieldName}-${styleName[0]}`]: styleName[1],
         }),
         {}
       ),

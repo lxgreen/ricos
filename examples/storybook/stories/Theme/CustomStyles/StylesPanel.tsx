@@ -17,6 +17,8 @@ interface Props {
 }
 
 const CustomStylesCreator: FunctionComponent<Props> = ({ stylesArray, setStyles }) => {
+  const emptyRow: StyleAttr = [undefined, '', ''];
+  const addEmptyRow = () => setStyles([...stylesArray, emptyRow]);
   return (
     <div className={styles.panel}>
       {stylesArray.map((item, idx) => (
@@ -27,7 +29,7 @@ const CustomStylesCreator: FunctionComponent<Props> = ({ stylesArray, setStyles 
           close={() => setStyles(stylesArray.filter((_, index) => index !== idx))}
         />
       ))}
-      <AddItem className={styles.addItem} onClick={() => setStyles([...stylesArray, ['', '', '']])}>
+      <AddItem className={styles.addItem} onClick={addEmptyRow}>
         Add Style
       </AddItem>
     </div>
