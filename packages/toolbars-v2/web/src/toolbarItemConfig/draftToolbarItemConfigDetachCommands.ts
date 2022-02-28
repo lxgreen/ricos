@@ -40,7 +40,7 @@ export const draftStaticToolbarConfigDetachCommands: IToolbarItemConfig[] = [
       active: isTextContainsBoldResolver,
     },
     commands: {
-      click:
+      toggleBold:
         ({ editorCommands }) =>
         () => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -61,7 +61,7 @@ export const draftStaticToolbarConfigDetachCommands: IToolbarItemConfig[] = [
       active: isTextContainsItalicResolver,
     },
     commands: {
-      click:
+      toggleItalic:
         ({ editorCommands }) =>
         () => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -82,7 +82,7 @@ export const draftStaticToolbarConfigDetachCommands: IToolbarItemConfig[] = [
       active: isTextContainsUnderlineResolver,
     },
     commands: {
-      click:
+      toggleUnderline:
         ({ editorCommands }) =>
         () => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -183,7 +183,7 @@ export const draftStaticToolbarConfigDetachCommands: IToolbarItemConfig[] = [
       active: isTextContainsSpoilerResolver,
     },
     commands: {
-      click:
+      toggleSpoiler:
         ({ editorCommands }) =>
         () => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
