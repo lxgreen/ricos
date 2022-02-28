@@ -38,6 +38,7 @@ import { DraftEditorStateTranslator } from './content-conversion/draft-editor-st
 import { DraftContentRepository } from './content-modification/services/draft-content-repository';
 import { EditorCommandRunner } from './content-modification/command-runner';
 import { TiptapMockToolbar } from './tiptapMockToolbar/TiptapMockToolbar';
+import { convertToolbarContext } from './toolbars/convertToolbarContext';
 import { coreCommands } from './content-modification/commands/core-commands';
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
@@ -151,7 +152,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.loadEditor();
     this.loadToolbar();
     this.loadConverters();
-    const { isMobile, toolbarSettings } = this.props;
+    const { isMobile, toolbarSettings, _rcProps = {} } = this.props;
     const { useStaticTextToolbar } = toolbarSettings || {};
     const contentId = this.getContentId();
     this.setState({ contentId });
@@ -165,6 +166,28 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       contentId
     );
     this.props.editorEvents?.subscribe(EditorEvents.RICOS_PUBLISH, this.onPublish);
+    if (_rcProps.onLoad) {
+      const { theme, locale, plugins, linkPanelSettings, linkSettings, experiments, cssOverride } =
+        this.props;
+      const { onLoad, helpers } = _rcProps;
+      onLoad(
+        convertToolbarContext({
+          contentId,
+          isMobile,
+          theme,
+          locale,
+          helpers,
+          plugins,
+          linkPanelSettings,
+          linkSettings,
+          experiments,
+          toolbarSettings,
+          cssOverride,
+          t: this.editor.getT(),
+          getEditorCommands: this.getEditorCommands,
+        })
+      );
+    }
   }
 
   loadEditor() {

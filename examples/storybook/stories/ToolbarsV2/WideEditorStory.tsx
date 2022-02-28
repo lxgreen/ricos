@@ -12,7 +12,12 @@ import {
 import EditorWrapper from '../Components/EditorWrapper';
 import ViewerWrapper from '../Components/ViewerWrapper';
 import introState from '../../../../e2e/tests/fixtures/intro.json';
-import { RicosToolbarWrapper, RicosTiptapToolbar, Content } from 'wix-rich-content-toolbars-v2';
+import {
+  RicosToolbarWrapper,
+  RicosTiptapToolbar,
+  Content,
+  ToolbarContext,
+} from 'wix-rich-content-toolbars-v2';
 
 const WideEditorStory = () => {
   const experiments = { toolbarsV2: { enabled: true }, tiptapEditor: { enabled: false } };
@@ -21,29 +26,38 @@ const WideEditorStory = () => {
     : useRef(Content.create([]));
   const editorCommands = useRef(null);
   const [counter, setCounter] = useState(1);
+  const [context, setContext] = useState(undefined);
 
   return (
     <Page title="Wix Rich Content">
       <Section>
         <div>
           <RichContentEditorBox>
-            <div dir="" data-hook="yaron123" style={{ border: 'solid 10px red', padding: 10 }}>
-              {editorCommands.current && !experiments.tiptapEditor.enabled && (
-                <>
-                  <RicosToolbarWrapper
+            <ToolbarContext.Provider value={context}>
+              <div dir="" data-hook="yaron123" style={{ border: 'solid 10px red', padding: 10 }}>
+                {editorCommands.current && !experiments.tiptapEditor.enabled && (
+                  <>
+                    <RicosToolbarWrapper
+                      content={currentContent.current}
+                      editorCommands={editorCommands.current}
+                    />
+                  </>
+                )}
+                {editorCommands.current && experiments.tiptapEditor.enabled && (
+                  <RicosTiptapToolbar
                     content={currentContent.current}
                     editorCommands={editorCommands.current}
                   />
-                </>
-              )}
-              {editorCommands.current && experiments.tiptapEditor.enabled && (
-                <RicosTiptapToolbar
-                  content={currentContent.current}
-                  editorCommands={editorCommands.current}
-                />
-              )}
-            </div>
+                )}
+              </div>
+            </ToolbarContext.Provider>
             <EditorWrapper
+              rcProps={{
+                onLoad: context =>
+                  setTimeout(() => {
+                    setContext(context);
+                  }),
+              }}
               content={introState}
               experiments={experiments}
               onChange={(content, editor) => {

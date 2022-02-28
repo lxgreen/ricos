@@ -1,5 +1,6 @@
 import { getFontSize } from 'wix-rich-content-editor';
 import { HEADER_BLOCK } from 'wix-rich-content-common';
+import { hasLinksInSelection } from 'wix-rich-content-editor-common';
 import { DraftContentResolver } from '../ContentResolver';
 import { RESOLVERS_IDS } from './resolvers-ids';
 
@@ -128,8 +129,17 @@ export const getLineSpacingAfterSelectionResolver = DraftContentResolver.create(
 export const getFontSizeInSelectionResolver = DraftContentResolver.create(
   RESOLVERS_IDS.GET_FONT_SIZE_IN_SELECTION,
   content => {
-    const fontSize = getFontSize(content);
-    return fontSize;
+    const fontSize = getFontSize(content) || '';
+    const pxRegex = new RegExp('[0-9]+[px]');
+    const fontSizeNumber = pxRegex.exec(fontSize) ? fontSize.split('p')[0] : '';
+    return fontSizeNumber;
+  }
+);
+
+export const isTextContainsLinkResolver = DraftContentResolver.create(
+  RESOLVERS_IDS.IS_TEXT_CONTAINS_LINK,
+  content => {
+    return hasLinksInSelection(content);
   }
 );
 

@@ -113,7 +113,7 @@ export interface DecorationsDataMap {
   [RICOS_TEXT_HIGHLIGHT_TYPE]?: { color?: ColorData['background'] };
   [RICOS_INDENT_TYPE]?: number;
   [RICOS_LINE_SPACING_TYPE]?: any;
-  [RICOS_FONT_SIZE_TYPE]?: string;
+  [RICOS_FONT_SIZE_TYPE]?: { fontSize?: string };
 }
 
 export interface EditorCommands {

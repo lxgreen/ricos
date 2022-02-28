@@ -129,6 +129,7 @@ type ToolbarsToIgnore = (
 
 export interface RichContentEditorProps extends PartialDraftEditorProps {
   /** This is a legacy API, chagnes should be made also in the new Ricos Editor API **/
+  onLoad?: (any) => void;
   editorKey?: string;
   editorState?: EditorState;
   initialState?: RicosContent;

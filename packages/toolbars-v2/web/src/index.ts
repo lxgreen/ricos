@@ -7,3 +7,4 @@ export const toolbarsV2 = () => {
 export { default as RicosToolbarWrapper } from './RicosToolbarWrapper';
 export { default as RicosTiptapToolbar } from './components/RicosTiptapToolbar';
 export { Content } from './Content';
+export { ToolbarContext } from './utils/toolbarContexts';

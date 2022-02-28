@@ -5,26 +5,20 @@ import ReactDOM from 'react-dom';
 import { usePopper } from 'react-popper';
 import { ClickOutside } from 'wix-rich-content-editor-common';
 import cx from 'classnames';
-import type { ToolbarItemProps } from '../../../../types';
 import styles from './AlignmentButton.scss';
-import {
-  AlignLeftIcon,
-  AlignTextCenterIcon,
-  AlignRightIcon,
-  AlignJustifyIcon,
-  DropdownArrowIcon,
-} from '../../../../icons';
+import { DropdownArrowIcon } from '../../../icons';
+import { withToolbarContext } from '../../../utils/withContext';
+import AlignmentPanel from '../../../modals/alignment/AlignmentPanel';
+import { getLangDir } from 'wix-rich-content-common';
+import { getDefaultAlignment, alignmentMap } from './utils';
 
-const defaultAlignment = 'left'; // TODO: check with isRtl / getLangDir when we have context
-
-const alignmentMap = {
-  left: AlignLeftIcon,
-  center: AlignTextCenterIcon,
-  right: AlignRightIcon,
-  justify: AlignJustifyIcon,
+const onSave = (data, toolbarItem, setModalOpen) => {
+  toolbarItem.commands?.setAlignment(data);
+  setModalOpen(false);
 };
 
-export const AlignmentButton = ({ toolbarItem }: ToolbarItemProps) => {
+const AlignmentButton = ({ toolbarItem, context }) => {
+  const { isMobile, t, theme, locale } = context || {};
   const [isModalOpen, setModalOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
@@ -48,7 +42,7 @@ export const AlignmentButton = ({ toolbarItem }: ToolbarItemProps) => {
     setModalOpen(false);
   };
 
-  const selectedAlignment = toolbarItem.attributes.selectedAlignment || defaultAlignment;
+  const selectedAlignment = toolbarItem.attributes.selectedAlignment || getDefaultAlignment(locale);
   const SelectedAlignmentIcon = alignmentMap[`${selectedAlignment}`];
   return (
     <ClickOutside onClickOutside={onClickOutside}>
@@ -68,22 +62,20 @@ export const AlignmentButton = ({ toolbarItem }: ToolbarItemProps) => {
       </div>
       {isModalOpen &&
         ReactDOM.createPortal(
-          <div dir="" ref={setPopperElement} style={popperStyles.popper} {...attributes.popper}>
-            <div className={styles.alignmentModalWrapper}>
-              {Object.keys(alignmentMap).map((alignment, i) => {
-                const OptionIcon = alignmentMap[`${alignment}`];
-                return (
-                  <div
-                    key={i}
-                    className={cx(styles.alignmentModalOptionButton, {
-                      [styles.alignmentModalOptionButton_active]: selectedAlignment === alignment,
-                    })}
-                    onClick={() => toolbarItem.commands?.selectOption(alignment)}
-                  >
-                    <OptionIcon />
-                  </div>
-                );
-              })}
+          <div
+            dir={getLangDir(locale)}
+            ref={setPopperElement}
+            style={popperStyles.popper}
+            {...attributes.popper}
+          >
+            <div data-id="toolbar-modal-button" tabIndex={-1} className={styles.modal}>
+              <AlignmentPanel
+                isMobile={isMobile}
+                t={t}
+                theme={theme}
+                currentSelect={selectedAlignment}
+                onSave={({ data }) => onSave(data, toolbarItem, setModalOpen)}
+              />
             </div>
           </div>,
           document.body
@@ -91,3 +83,5 @@ export const AlignmentButton = ({ toolbarItem }: ToolbarItemProps) => {
     </ClickOutside>
   );
 };
+
+export default withToolbarContext(AlignmentButton);

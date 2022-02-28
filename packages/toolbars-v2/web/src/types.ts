@@ -57,4 +57,5 @@ export type IToolbarItemConfigTiptap = Modify<
 
 export type ToolbarItemProps = {
   toolbarItem: IToolbarItem;
+  onClick: (any) => void;
 };

@@ -4,22 +4,24 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { usePopper } from 'react-popper';
 import { ClickOutside } from 'wix-rich-content-editor-common';
+import { getLangDir } from 'wix-rich-content-common';
 import cx from 'classnames';
-import type { ToolbarItemProps } from '../../../../types';
 import styles from './HeadingButton.scss';
-import { DropdownArrowIcon } from '../../../../icons';
+import { DropdownArrowIcon } from '../../../icons';
+import { withToolbarContext } from '../../../utils/withContext';
+import HeadingsPanel from '../../../modals/heading/HeadingsPanel';
+import { headingsMap, translateHeading } from './utils';
 
-const headingsMap = {
-  'header-one': 'Heading 1',
-  'header-two': 'Heading 2',
-  'header-three': 'Heading 3',
-  'header-four': 'Heading 4',
-  'header-five': 'Heading 5',
-  'header-six': 'Heading 6',
-  unstyled: 'Paragraph',
+const onSave = (data, selectedHeading, toolbarItem, setModalOpen) => {
+  toolbarItem.commands?.removeInlineStyles();
+  const shouldSetBlockType = selectedHeading !== data;
+  shouldSetBlockType && toolbarItem.commands?.setHeading(data);
+  setModalOpen(false);
 };
 
-export const HeadingButton = ({ toolbarItem }: ToolbarItemProps) => {
+const HeadingButton = ({ toolbarItem, context }) => {
+  const { isMobile, t, theme, headingsData, locale } = context || {};
+  if (!context) return null;
   const [isModalOpen, setModalOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
@@ -44,7 +46,7 @@ export const HeadingButton = ({ toolbarItem }: ToolbarItemProps) => {
   };
 
   const selectedHeading = toolbarItem.attributes.selectedHeading;
-  const SelectedHeadingLabel = headingsMap[`${selectedHeading}`];
+  const Label = translateHeading(headingsMap[selectedHeading], t);
   return (
     <ClickOutside onClickOutside={onClickOutside}>
       <div
@@ -57,29 +59,29 @@ export const HeadingButton = ({ toolbarItem }: ToolbarItemProps) => {
           onClick={() => setModalOpen(!isModalOpen)}
           tabIndex={0}
         >
-          {SelectedHeadingLabel}
+          {Label}
           <DropdownArrowIcon />
         </div>
       </div>
       {isModalOpen &&
         ReactDOM.createPortal(
-          <div dir="" ref={setPopperElement} style={popperStyles.popper} {...attributes.popper}>
-            <div className={styles.headingModalWrapper}>
-              {Object.keys(headingsMap).map((heading, i) => {
-                const OptionLabel = headingsMap[`${heading}`];
-                return (
-                  <div
-                    key={i}
-                    className={cx(styles.headingModalOptionButton, {
-                      [styles.headingModalOptionButton_active]:
-                        toolbarItem.attributes.selectedHeading === heading,
-                    })}
-                    onClick={() => toolbarItem.commands?.selectOption(heading)}
-                  >
-                    <div className={styles.headingModalOptionLabel}>{OptionLabel}</div>
-                  </div>
-                );
-              })}
+          <div
+            dir={getLangDir(locale)}
+            ref={setPopperElement}
+            style={popperStyles.popper}
+            {...attributes.popper}
+          >
+            <div data-id="toolbar-modal-button" tabIndex={-1} className={styles.modal}>
+              <HeadingsPanel
+                isMobile={isMobile}
+                t={t}
+                theme={theme}
+                translateHeading={translateHeading}
+                currentSelect={selectedHeading}
+                customHeadings={headingsData?.customHeadings}
+                allowHeadingCustomization={false}
+                onSave={({ data }) => onSave(data, selectedHeading, toolbarItem, setModalOpen)}
+              />
             </div>
           </div>,
           document.body
@@ -87,3 +89,5 @@ export const HeadingButton = ({ toolbarItem }: ToolbarItemProps) => {
     </ClickOutside>
   );
 };
+
+export default withToolbarContext(HeadingButton);

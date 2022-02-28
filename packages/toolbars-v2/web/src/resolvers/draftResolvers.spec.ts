@@ -14,6 +14,7 @@ import {
   getLineSpacingBeforeSelectionResolver,
   getLineSpacingAfterSelectionResolver,
   getFontSizeInSelectionResolver,
+  isTextContainsLinkResolver,
 } from './draftResolvers';
 import { EditorState } from '@wix/draft-js';
 
@@ -327,6 +328,16 @@ describe('draft resolvers', () => {
     it('should check if the function getFontSize from "wix-rich-content-editor" is called', () => {
       const spy = jest.spyOn(wixRichContentEditorExported, 'getFontSize');
       getFontSizeInSelectionResolver.resolve(editorState);
+      expect(spy).toBeCalled();
+      jest.resetModules();
+    });
+  });
+
+  describe('isTextContainsLinkResolver', () => {
+    const wixRichContentEditorCommonExported = require('wix-rich-content-editor-common');
+    it('should check if the function hasLinksInSelection from "wix-rich-content-editor-common" is called', () => {
+      const spy = jest.spyOn(wixRichContentEditorCommonExported, 'hasLinksInSelection');
+      isTextContainsLinkResolver.resolve(editorState);
       expect(spy).toBeCalled();
       jest.resetModules();
     });

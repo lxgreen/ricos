@@ -2,6 +2,37 @@ import { ToolbarType } from 'wix-rich-content-common';
 import type { AddLinkData } from 'wix-rich-content-common';
 import { getBiFunctions } from './utils/biUtils';
 
+const getPluginConfig = ({ pluginType, plugins }) =>
+  plugins?.find(plugin => plugin.type === pluginType)?.config;
+
+const getLinkPanelData = ({
+  helpers,
+  contentId,
+  plugins,
+  linkPanelSettings,
+  linkSettings,
+  isMobile,
+}) => {
+  const biFunctions = helpers && getBiFunctions(helpers, contentId);
+
+  const onAddPluginLink = (data: AddLinkData) => {
+    biFunctions?.onAddPluginLink?.(data, 'TEXT');
+  };
+
+  const linkConfig = getPluginConfig({ pluginType: 'LINK', plugins });
+
+  const linkPanelData = {
+    linkTypes: linkConfig?.linkTypes,
+    onLinkAdd: linkConfig?.onLinkAdd,
+    uiSettings: { linkPanel: linkPanelSettings },
+    linkSettings,
+    isMobile,
+    onAddPluginLink,
+  };
+
+  return linkPanelData;
+};
+
 export const convertToolbarContext = ({
   contentId,
   isMobile,
@@ -15,6 +46,7 @@ export const convertToolbarContext = ({
   toolbarSettings,
   cssOverride,
   t,
+  getEditorCommands,
 }) => {
   const { useStaticTextToolbar } = toolbarSettings || {};
   const textToolbarType = isMobile
@@ -63,37 +95,7 @@ export const convertToolbarContext = ({
     textToolbarType,
     toolbarSettings,
     locale,
+    getEditorCommands,
   };
   return toolbarsContextData;
-};
-
-const getPluginConfig = ({ pluginType, plugins }) =>
-  plugins?.find(plugin => plugin.type === pluginType)?.config;
-
-const getLinkPanelData = ({
-  helpers,
-  contentId,
-  plugins,
-  linkPanelSettings,
-  linkSettings,
-  isMobile,
-}) => {
-  const biFunctions = helpers && getBiFunctions(helpers, contentId);
-
-  const onAddPluginLink = (data: AddLinkData) => {
-    biFunctions?.onAddPluginLink?.(data, 'TEXT');
-  };
-
-  const linkConfig = getPluginConfig({ pluginType: 'LINK', plugins });
-
-  const linkPanelData = {
-    linkTypes: linkConfig?.linkTypes,
-    onLinkAdd: linkConfig?.onLinkAdd,
-    uiSettings: { linkPanel: linkPanelSettings },
-    linkSettings,
-    isMobile,
-    onAddPluginLink,
-  };
-
-  return linkPanelData;
 };

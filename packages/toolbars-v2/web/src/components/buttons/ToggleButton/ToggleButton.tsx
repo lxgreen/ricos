@@ -4,7 +4,7 @@ import cx from 'classnames';
 import type { ToolbarItemProps } from '../../../types';
 import styles from './ToggleButton.scss';
 
-export const ToggleButton = ({ toolbarItem }: ToolbarItemProps) => {
+export const ToggleButton = ({ toolbarItem, onClick }: ToolbarItemProps) => {
   const Icon = toolbarItem.presentation?.icon;
   return (
     <div
@@ -14,7 +14,7 @@ export const ToggleButton = ({ toolbarItem }: ToolbarItemProps) => {
         onMouseDown={e => e.preventDefault()}
         className={styles.toggleButton}
         role="button"
-        onClick={e => toolbarItem.commands?.click(e)}
+        onClick={onClick}
         tabIndex={0}
       >
         <Icon />

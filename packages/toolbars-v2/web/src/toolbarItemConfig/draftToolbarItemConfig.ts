@@ -10,6 +10,8 @@ import {
   SpoilerButtonIcon,
   increaseIndentPluginIcon,
   decreaseIndentPluginIcon,
+  LineSpacingIcon,
+  LinkIcon,
 } from '../icons';
 
 import {
@@ -24,8 +26,16 @@ import {
   isTextContainsSpoilerResolver,
   getAlignmentInSelectionResolver,
   getHeadingInSelectionResolver,
+  getLineSpacingInSelectionResolver,
+  getLineSpacingBeforeSelectionResolver,
+  getLineSpacingAfterSelectionResolver,
+  getFontSizeInSelectionResolver,
+  isTextContainsLinkResolver,
 } from '../resolvers/draftResolvers';
 import type { IToolbarItemConfig } from '../types';
+
+const MAX_FONT_SIZE = 900;
+const MIN_FONT_SIZE = 1;
 
 export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
   {
@@ -40,7 +50,7 @@ export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
       active: isTextContainsBoldResolver,
     },
     commands: {
-      click:
+      toggleBold:
         ({ editorCommands }) =>
         () => {
           editorCommands.commands.toggleInlineStyle('bold');
@@ -60,7 +70,7 @@ export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
       active: isTextContainsItalicResolver,
     },
     commands: {
-      click:
+      toggleItalic:
         ({ editorCommands }) =>
         () => {
           editorCommands.commands.toggleInlineStyle('italic');
@@ -80,7 +90,7 @@ export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
       active: isTextContainsUnderlineResolver,
     },
     commands: {
-      click:
+      toggleUnderline:
         ({ editorCommands }) =>
         () => {
           editorCommands.commands.toggleInlineStyle('underline');
@@ -100,7 +110,7 @@ export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
       active: isTextContainsQuoteResolver,
     },
     commands: {
-      click:
+      toggleQuote:
         ({ editorCommands }) =>
         () => {
           editorCommands.commands.setBlockType('blockquote');
@@ -120,7 +130,7 @@ export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
       active: isTextContainsCodeblockResolver,
     },
     commands: {
-      click:
+      toggleCodeblock:
         ({ editorCommands }) =>
         () => {
           editorCommands.commands.setBlockType('code-block');
@@ -140,7 +150,7 @@ export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
       active: isTextContainsOrderedListResolver,
     },
     commands: {
-      click:
+      toggleOrderedList:
         ({ editorCommands }) =>
         () => {
           editorCommands.commands.setBlockType('ordered-list-item');
@@ -160,7 +170,7 @@ export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
       active: isTextContainsUnorderedListResolver,
     },
     commands: {
-      click:
+      toggleUnorderedList:
         ({ editorCommands }) =>
         () => {
           editorCommands.commands.setBlockType('unordered-list-item');
@@ -180,7 +190,7 @@ export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
       active: isTextContainsSpoilerResolver,
     },
     commands: {
-      click:
+      toggleSpoiler:
         ({ editorCommands }) =>
         () => {
           editorCommands.commands.toggleInlineStyle('spoiler');
@@ -199,7 +209,7 @@ export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
       visible: alwaysVisibleResolver,
     },
     commands: {
-      click:
+      increaseIndent:
         ({ editorCommands }) =>
         () => {
           editorCommands.commands.insertDecoration('ricos-indent', 1);
@@ -218,7 +228,7 @@ export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
       visible: alwaysVisibleResolver,
     },
     commands: {
-      click:
+      decreaseIndent:
         ({ editorCommands }) =>
         () => {
           editorCommands.commands.insertDecoration('ricos-indent', -1);
@@ -237,7 +247,7 @@ export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
       selectedAlignment: getAlignmentInSelectionResolver,
     },
     commands: {
-      selectOption:
+      setAlignment:
         ({ editorCommands }) =>
         alignment => {
           editorCommands.commands.setTextAlignment(alignment);
@@ -256,10 +266,134 @@ export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
       selectedHeading: getHeadingInSelectionResolver,
     },
     commands: {
-      selectOption:
+      setHeading:
         ({ editorCommands }) =>
         heading => {
           editorCommands.commands.setBlockType(heading);
+          editorCommands.commands.focus();
+        },
+      removeInlineStyles:
+        ({ editorCommands }) =>
+        (exclude?: string[]) => {
+          editorCommands.commands.clearSelectedBlocksInlineStyles(exclude);
+        },
+    },
+  },
+  {
+    id: 'customHeading',
+    type: 'modal',
+    presentation: {
+      tooltip: 'Custom Heading',
+    },
+    attributes: {
+      visible: alwaysVisibleResolver,
+      selectedHeading: getHeadingInSelectionResolver,
+    },
+    commands: {
+      setHeading:
+        ({ editorCommands }) =>
+        heading => {
+          editorCommands.commands.setBlockType(heading);
+          editorCommands.commands.focus();
+        },
+      setAndSaveHeading:
+        ({ editorCommands }) =>
+        documentStyle => {
+          editorCommands.commands.updateDocumentStyle(documentStyle);
+          editorCommands.commands.focus();
+        },
+      removeInlineStyles:
+        ({ editorCommands }) =>
+        (exclude?: string[]) => {
+          editorCommands.commands.clearSelectedBlocksInlineStyles(exclude);
+        },
+    },
+  },
+  {
+    id: 'lineSpacing',
+    type: 'modal',
+    presentation: {
+      tooltip: 'Line Spacing',
+      icon: LineSpacingIcon,
+    },
+    attributes: {
+      visible: alwaysVisibleResolver,
+      selectedLineSpacing: getLineSpacingInSelectionResolver,
+      selectedLineSpacingBefore: getLineSpacingBeforeSelectionResolver,
+      selectedLineSpacingAfter: getLineSpacingAfterSelectionResolver,
+    },
+    commands: {
+      setLineSpacing:
+        ({ editorCommands }) =>
+        value => {
+          if (!value) return;
+          const data = { dynamicStyles: value };
+          editorCommands.commands.insertDecoration('ricos-line-spacing', { ...data });
+          editorCommands.commands.focus();
+        },
+      setLineSpacingWithoutFocus:
+        ({ editorCommands }) =>
+        value => {
+          if (!value) return;
+          const data = { dynamicStyles: value };
+          editorCommands.commands.insertDecoration('ricos-line-spacing', { ...data });
+        },
+    },
+  },
+  {
+    id: 'fontSize',
+    type: 'modal',
+    presentation: {
+      tooltip: 'Font Size',
+    },
+    attributes: {
+      visible: alwaysVisibleResolver,
+      selectedFontSize: getFontSizeInSelectionResolver,
+    },
+    commands: {
+      setFontSize:
+        ({ editorCommands }) =>
+        value => {
+          if (!value) return;
+          const data = {
+            fontSize: `${Math.min(Math.max(MIN_FONT_SIZE, value), MAX_FONT_SIZE)}`,
+          };
+          editorCommands.commands.insertDecoration('ricos-font-size', { ...data });
+          editorCommands.commands.focus();
+        },
+      setFontSizeWithoutFocus:
+        ({ editorCommands }) =>
+        value => {
+          if (!value) return;
+          const data = {
+            fontSize: `${Math.min(Math.max(MIN_FONT_SIZE, value), MAX_FONT_SIZE)}`,
+          };
+          editorCommands.commands.insertDecoration('ricos-font-size', { ...data });
+        },
+    },
+  },
+  {
+    id: 'link',
+    type: 'modal',
+    presentation: {
+      tooltip: 'Link',
+      icon: LinkIcon,
+    },
+    attributes: {
+      visible: alwaysVisibleResolver,
+      active: isTextContainsLinkResolver,
+    },
+    commands: {
+      insertLink:
+        ({ editorCommands }) =>
+        linkData => {
+          editorCommands.commands.insertDecoration('ricos-link', linkData);
+          editorCommands.commands.focus();
+        },
+      removeLink:
+        ({ editorCommands }) =>
+        () => {
+          editorCommands.commands.deleteDecoration('ricos-link');
           editorCommands.commands.focus();
         },
     },

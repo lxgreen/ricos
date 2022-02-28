@@ -47,6 +47,7 @@ import { combineMappers } from './utils/combineMappers';
 
 export interface RichContentViewerProps {
   /** This is a legacy API, changes should be made also in the new Ricos Viewer API **/
+  onLoad?: (any) => void;
   initialState?: DraftContent;
   isMobile?: boolean;
   renderStaticHtml?: boolean;
