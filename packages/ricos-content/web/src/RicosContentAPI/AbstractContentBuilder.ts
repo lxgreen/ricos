@@ -45,15 +45,46 @@ export const setupAbstractContentBuilder = <RT>(
 
   const builderApis: { [key: string]: (data: unknown) => RT } = {};
 
-  [
+  const addMethod = (name, method) => {
+    builderApis[methodPrefix(name)] = RicosContentBuilder.prototype[methodPrefix(name)] = method;
+  };
+
+  const TextNodes = [
     {
-      name: methodPrefix('paragraph'),
+      name: 'paragraph',
       type: Node_Type.PARAGRAPH,
       dataT: DEFAULT_PARAGRAPH_DATA,
     },
-    { name: methodPrefix('heading'), type: Node_Type.HEADING, dataT: DEFAULT_HEADING_DATA },
-    { name: methodPrefix('code'), type: Node_Type.CODE_BLOCK, dataT: DEFAULT_CODE_DATA },
-  ].forEach(
+    { name: 'heading', type: Node_Type.HEADING, dataT: DEFAULT_HEADING_DATA },
+    { name: 'code', type: Node_Type.CODE_BLOCK, dataT: DEFAULT_CODE_DATA },
+  ];
+
+  const ListNodes = [
+    { name: 'bulletList', type: Node_Type.BULLETED_LIST },
+    { name: 'orderedList', type: Node_Type.ORDERED_LIST },
+  ];
+
+  const PluginNodes = [
+    { name: 'divider', type: Node_Type.DIVIDER, dataT: DEFAULT_DIVIDER_DATA },
+    { name: 'file', type: Node_Type.FILE, dataT: {} as FileData },
+    { name: 'gallery', type: Node_Type.GALLERY, dataT: {} as GalleryData },
+    { name: 'html', type: Node_Type.HTML, dataT: DEFAULT_HTML_DATA },
+    { name: 'image', type: Node_Type.IMAGE, dataT: {} as ImageData },
+    { name: 'video', type: Node_Type.VIDEO, dataT: {} as VideoData },
+    { name: 'appEmbed', type: Node_Type.APP_EMBED, dataT: {} as AppEmbedData },
+    { name: 'embed', type: Node_Type.EMBED, dataT: {} as EmbedData },
+    {
+      name: 'linkPreview',
+      type: Node_Type.LINK_PREVIEW,
+      dataT: {} as LinkPreviewData,
+    },
+    { name: 'button', type: Node_Type.BUTTON, dataT: DEFAULT_BUTTON_DATA },
+    { name: 'gif', type: Node_Type.GIF, dataT: {} as GIFData },
+    { name: 'map', type: Node_Type.MAP, dataT: DEFAULT_MAP_DATA },
+    { name: 'poll', type: Node_Type.POLL, dataT: DEFAULT_POLL_DATA },
+  ];
+
+  TextNodes.forEach(
     ({
       name,
       type,
@@ -63,73 +94,37 @@ export const setupAbstractContentBuilder = <RT>(
       type: RichTextNode['type'];
       dataT: ParagraphData | CodeBlockData | HeadingData;
     }) => {
-      builderApis[name] = RicosContentBuilder.prototype[name] = function ({
-        data = dataT,
-        text,
-        ...rest
-      }): RT {
+      addMethod(name, ({ data = dataT, text, ...rest }): RT => {
         return textNodeCreator(generateId)({
           text,
           type,
           data,
           ...rest,
         });
-      };
+      });
     }
   );
 
-  [
-    { name: methodPrefix('bulletList'), type: Node_Type.BULLETED_LIST },
-    { name: methodPrefix('orderedList'), type: Node_Type.ORDERED_LIST },
-  ].forEach(({ name, type }: { name: string; type: ListNode['type'] }) => {
-    builderApis[name] = RicosContentBuilder.prototype[name] = function ({
-      items,
-      data,
-      ...rest
-    }): RT {
+  ListNodes.forEach(({ name, type }: { name: string; type: ListNode['type'] }) => {
+    addMethod(name, ({ items, data, ...rest }): RT => {
       return listNodeCreator(generateId)({ items, data, type, ...rest });
-    };
+    });
   });
 
-  [
-    { name: methodPrefix('divider'), type: Node_Type.DIVIDER, dataT: DEFAULT_DIVIDER_DATA },
-    { name: methodPrefix('file'), type: Node_Type.FILE, dataT: {} as FileData },
-    { name: methodPrefix('gallery'), type: Node_Type.GALLERY, dataT: {} as GalleryData },
-    { name: methodPrefix('html'), type: Node_Type.HTML, dataT: DEFAULT_HTML_DATA },
-    { name: methodPrefix('image'), type: Node_Type.IMAGE, dataT: {} as ImageData },
-    { name: methodPrefix('video'), type: Node_Type.VIDEO, dataT: {} as VideoData },
-    { name: methodPrefix('appEmbed'), type: Node_Type.APP_EMBED, dataT: {} as AppEmbedData },
-    { name: methodPrefix('embed'), type: Node_Type.EMBED, dataT: {} as EmbedData },
-    {
-      name: methodPrefix('linkPreview'),
-      type: Node_Type.LINK_PREVIEW,
-      dataT: {} as LinkPreviewData,
-    },
-    { name: methodPrefix('button'), type: Node_Type.BUTTON, dataT: DEFAULT_BUTTON_DATA },
-    { name: methodPrefix('gif'), type: Node_Type.GIF, dataT: {} as GIFData },
-    { name: methodPrefix('map'), type: Node_Type.MAP, dataT: DEFAULT_MAP_DATA },
-    { name: methodPrefix('poll'), type: Node_Type.POLL, dataT: DEFAULT_POLL_DATA },
-  ].forEach(({ name, type, dataT }) => {
-    builderApis[name] = RicosContentBuilder.prototype[name] = function ({
-      data = dataT,
-      ...rest
-    }): RT {
+  PluginNodes.forEach(({ name, type, dataT }) => {
+    addMethod(name, ({ data = dataT, ...rest }): RT => {
       return nodeCreator(generateId)({
         type,
         data,
         ...rest,
       });
-    };
+    });
   });
 
   Object.entries({
     table: tableNodeCreator,
     collapsibleList: collapsibleListNodeCreator,
-  }).forEach(
-    ([name, method]) =>
-      (builderApis[methodPrefix(name)] = RicosContentBuilder.prototype[methodPrefix(name)] =
-        method(generateId))
-  );
+  }).forEach(([name, method]) => addMethod(name, method(generateId)));
 
   return builderApis;
 };

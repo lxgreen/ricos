@@ -20,7 +20,11 @@
 ### :bug: Bug Fix
 
 - `theme`
+
   - [#3555](https://github.com/wix/ricos/pull/3555) expand custom styles api (quote/code-block-mentions)
+
+- `ricos-content`
+  - [#3569](https://github.com/wix/ricos/pull/3569) add `embed` plugin to converters
 
 </details>
 <hr/>
