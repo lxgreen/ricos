@@ -17,17 +17,20 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.70.9 (March 2, 2022)
+
 ### :bug: Bug Fix
 
 - `theme`
 
-  - [#3555](https://github.com/wix/ricos/pull/3555) expand custom styles api (quote/code-block-mentions)
+  - [#3555](https://github.com/wix/ricos/pull/3555) expand custom styles api (quote,code-block,mentions)
 
 - `ricos-content`
   - [#3569](https://github.com/wix/ricos/pull/3569) add `embed` plugin to converters
-
-</details>
-<hr/>
+-
 
 ## 8.70.8 (Feb 27, 2022)
 
