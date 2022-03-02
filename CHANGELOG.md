@@ -16,6 +16,11 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
+  
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3577](https://github.com/wix/ricos/pull/3577) ck-editor/parser: "b, strong to bold" rule added; span rule fix
 
 </details>
 <hr/>
