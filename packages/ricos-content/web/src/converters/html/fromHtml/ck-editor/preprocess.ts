@@ -6,6 +6,7 @@ import { serialize } from 'parse5';
 import type { ContentNode } from '../core/models';
 import type { AstRule } from '../core/parse5-utils';
 import {
+  hasStyleFor,
   isText,
   isWhitespace,
   hasDescendant,
@@ -108,7 +109,10 @@ const wrapTextUnderLi: AstRule = [
   (node: Element) => ({
     ...node,
     childNodes: partitionBy<ContentNode>(
-      or([hasTag('p'), hasDescendant(oneOf(['img', 'iframe', 'ol', 'ul']))]),
+      or([
+        hasTag('p'),
+        hasDescendant(oneOf(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'iframe', 'ol', 'ul'])),
+      ]),
       hasTag('p'),
       identity,
       addParagraph(node),
@@ -120,7 +124,10 @@ const wrapTextUnderLi: AstRule = [
 const nakedSpanToP: AstRule = [
   and([
     hasTag('span'),
-    hasParent(not(oneOf(['a', 'p', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']))),
+    not(hasStyleFor('text-decoration')),
+    not(hasStyleFor('font-weight')),
+    not(hasStyleFor('font-style')),
+    hasParent(not(oneOf(['strong', 'b', 'a', 'p', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']))),
   ]),
   (node: Element) => ({
     ...node,

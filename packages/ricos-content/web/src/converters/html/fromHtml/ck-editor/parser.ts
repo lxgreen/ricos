@@ -8,7 +8,7 @@ import * as S from 'fp-ts/string';
 import type { Element } from 'parse5';
 import type { Node, PluginContainerData, TextStyle, TextStyle_TextAlignment } from 'ricos-schema';
 import { Decoration_Type, PluginContainerData_Alignment } from 'ricos-schema';
-import { and } from '../../../../fp-utils';
+import { and, or } from '../../../../fp-utils';
 import { createParagraphNode } from '../../../nodeUtils';
 import {
   getClassNames,
@@ -21,6 +21,7 @@ import {
   isText,
   isWhitespace,
   hasChild,
+  oneOf,
 } from '../core/parse5-utils';
 import parse from '../core/parser';
 import {
@@ -68,7 +69,7 @@ const fontStyleToItalic: Rule = [
 ];
 
 const fontWeightToBold: Rule = [
-  and([hasTag('span'), hasStyleRule({ 'font-weight': 'bold' })]),
+  or([oneOf(['b', 'strong']), and([hasTag('span'), hasStyleRule({ 'font-weight': 'bold' })])]),
   ({ addDecoration }) =>
     (el: Element) =>
       addDecoration(Decoration_Type.BOLD, {}, el),
