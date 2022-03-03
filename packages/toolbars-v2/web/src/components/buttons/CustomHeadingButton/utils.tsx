@@ -32,8 +32,8 @@ export const translateHeading = (option = 'P', t, shouldAddShortcut = false) => 
 };
 
 export const getCustomHeadingsLabel = (selectedHeading, t, editorCommands) => {
-  let label = translateHeading(selectedHeading, t);
-  const inlineStyles = editorCommands.getAnchorBlockInlineStyles() || {};
+  let label = translateHeading(headingsMap[selectedHeading], t);
+  const inlineStyles = editorCommands.getInlineStylesInSelection() || {};
   if (hasStyleChanges(selectedHeading, inlineStyles, editorCommands.getDocumentStyle())) {
     label = (
       <>

@@ -127,6 +127,7 @@ export interface EditorCommands {
   getFontSize: () => string | undefined;
   getTextAlignment: () => TextAlignment;
   getAnchorBlockInlineStyles: () => Record<string, string>;
+  getInlineStylesInSelection: () => Record<string, string>;
   hasInlineStyle: (style: InlineStyle) => boolean;
   isBlockTypeSelected: (type: TextBlockType) => boolean;
   isUndoStackEmpty: () => boolean;

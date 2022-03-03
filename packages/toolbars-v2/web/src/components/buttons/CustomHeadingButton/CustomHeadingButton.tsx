@@ -4,23 +4,24 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { usePopper } from 'react-popper';
 import { ClickOutside } from 'wix-rich-content-editor-common';
-import { SPOILER_TYPE, getLangDir } from 'wix-rich-content-common';
+import { getLangDir } from 'wix-rich-content-common';
 import cx from 'classnames';
 import styles from './CustomHeadingButton.scss';
 import { DropdownArrowIcon } from '../../../icons';
 import { withToolbarContext } from '../../../utils/withContext';
 import HeadingsPanel from '../../../modals/heading/HeadingsPanel';
-import { headingsMap, translateHeading, getCustomHeadingsLabel } from './utils';
+import { translateHeading, getCustomHeadingsLabel } from './utils';
 
 const onSave = (data, selectedHeading, toolbarItem, setModalOpen) => {
   toolbarItem.commands?.removeInlineStyles();
-  const shouldSetBlockType = selectedHeading !== data;
-  shouldSetBlockType && toolbarItem.commands?.setHeading(data);
+  setTimeout(() => {
+    const shouldSetBlockType = selectedHeading !== data;
+    shouldSetBlockType && toolbarItem.commands?.setHeading(data);
+  });
   setModalOpen(false);
 };
 
 const onChange = (documentStyle, toolbarItem, setModalOpen) => {
-  toolbarItem.commands?.removeInlineStyles(['UNDERLINE', SPOILER_TYPE]);
   toolbarItem.commands?.setAndSaveHeading(documentStyle);
   setModalOpen(false);
 };
@@ -54,7 +55,7 @@ const CustomHeadingButton = ({ toolbarItem, context }) => {
   const editorCommands = getEditorCommands?.();
 
   const selectedHeading = toolbarItem.attributes.selectedHeading;
-  const Label = getCustomHeadingsLabel(headingsMap[selectedHeading], t, editorCommands);
+  const Label = getCustomHeadingsLabel(selectedHeading, t, editorCommands);
   return (
     <ClickOutside onClickOutside={onClickOutside}>
       <div
@@ -89,7 +90,7 @@ const CustomHeadingButton = ({ toolbarItem, context }) => {
                 documentStyle={editorCommands.getDocumentStyle()}
                 customHeadings={headingsData?.customHeadings}
                 allowHeadingCustomization
-                currentInlineStyles={editorCommands.getAnchorBlockInlineStyles()}
+                currentInlineStyles={editorCommands.getInlineStylesInSelection()}
                 wiredFontStyles={editorCommands.getWiredFontStyles(theme?.customStyles, isMobile)}
                 onSave={({ data }) => onSave(data, selectedHeading, toolbarItem, setModalOpen)}
                 onChange={documentStyle => onChange(documentStyle, toolbarItem, setModalOpen)}

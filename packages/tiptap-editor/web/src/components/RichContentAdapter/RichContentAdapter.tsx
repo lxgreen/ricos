@@ -327,6 +327,9 @@ export class RichContentAdapter implements TiptapAPI {
     getAnchorBlockInlineStyles: () => {
       return {};
     },
+    getInlineStylesInSelection: () => {
+      return {};
+    },
     updateDocumentStyle: () => {},
     clearSelectedBlocksInlineStyles: () => {},
     getWiredFontStyles: (customStyles?: RicosCustomStyles, isMobile?: boolean) => {

@@ -58,6 +58,7 @@ import {
   getWiredFontStyles,
   updateDocumentStyle,
   getAnchorBlockInlineStyles,
+  getInlineStylesInSelection,
   setFontSize,
   getFontSize,
   getColor,
@@ -167,6 +168,7 @@ export const createEditorCommands = (
     getDocumentStyle: EditorCommands['getDocumentStyle'];
     updateDocumentStyle: EditorCommands['updateDocumentStyle'];
     getAnchorBlockInlineStyles: EditorCommands['getAnchorBlockInlineStyles'];
+    getInlineStylesInSelection: EditorCommands['getInlineStylesInSelection'];
     getWiredFontStyles: EditorCommands['getWiredFontStyles'];
     isAtomicBlockInSelection: EditorCommands['isAtomicBlockInSelection'];
     isTextBlockInSelection: EditorCommands['isTextBlockInSelection'];
@@ -231,6 +233,7 @@ export const createEditorCommands = (
       }
     },
     getAnchorBlockInlineStyles: () => getAnchorBlockInlineStyles(getEditorState()),
+    getInlineStylesInSelection: () => getInlineStylesInSelection(getEditorState()),
     getWiredFontStyles: (customStyles?: RicosCustomStyles, isMobile?: boolean) =>
       getWiredFontStyles(documentStyleGetter(), customStyles, isMobile),
     scrollToBlock: blockKey => scrollToBlock(blockKey, experiments),

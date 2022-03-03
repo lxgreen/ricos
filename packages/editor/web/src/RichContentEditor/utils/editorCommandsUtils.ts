@@ -250,3 +250,22 @@ export const getAnchorBlockInlineStyles = (editorState: EditorState) => {
   });
   return inlineStyles;
 };
+
+export const getInlineStylesInSelection = (editorState: EditorState) => {
+  const { dynamicStyles = {} } = getAnchorBlockData(editorState);
+  let inlineStyles = pick(dynamicStyles, ['line-height', 'padding-top', 'padding-bottom']);
+  const anchorKey = editorState.getSelection().getAnchorKey();
+  const block = editorState.getCurrentContent().getBlockForKey(anchorKey);
+  const selectionStartIndex = editorState.getSelection().getStartOffset();
+  getBlockStyleRanges(block).forEach(range => {
+    if (selectionStartIndex >= range.start && selectionStartIndex < range.end) {
+      const [key, value] = Object.entries(safeJsonParse(range.style) || { key: '' })[0];
+      inlineStyles = {
+        ...inlineStyles,
+        ...draftDecorationsToCss[range.style],
+        ...dynamicDecorationGetters[key]?.(value),
+      };
+    }
+  });
+  return inlineStyles;
+};

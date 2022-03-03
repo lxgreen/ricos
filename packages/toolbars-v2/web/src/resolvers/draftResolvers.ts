@@ -38,7 +38,7 @@ export const isTextContainsBoldResolver = DraftContentResolver.create(
     const isBoldInDocumentStyle =
       blockStyleFromDocumentStyle?.[documentStyleProperty] &&
       blockStyleFromDocumentStyle[documentStyleProperty] === 'bold';
-    const isNotBoldInInlineStyle = content.getCurrentInlineStyle().has('not_bold');
+    const isNotBoldInInlineStyle = content.getCurrentInlineStyle().has('NOT_BOLD');
 
     return isBoldInDocumentStyle && !isNotBoldInInlineStyle;
   }
@@ -55,7 +55,7 @@ export const isTextContainsItalicResolver = DraftContentResolver.create(
     const isItalicInDocumentStyle =
       blockStyleFromDocumentStyle?.[documentStyleProperty] &&
       blockStyleFromDocumentStyle[documentStyleProperty] === 'italic';
-    const isNotItalicInInlineStyle = content.getCurrentInlineStyle().has('not_italic');
+    const isNotItalicInInlineStyle = content.getCurrentInlineStyle().has('NOT_ITALIC');
 
     return isItalicInDocumentStyle && !isNotItalicInInlineStyle;
   }
@@ -72,7 +72,7 @@ export const isTextContainsUnderlineResolver = DraftContentResolver.create(
     const isUnderlineInDocumentStyle =
       blockStyleFromDocumentStyle?.[documentStyleProperty] &&
       blockStyleFromDocumentStyle[documentStyleProperty] === 'underline';
-    const isNotUnderlineInInlineStyle = content.getCurrentInlineStyle().has('not_underline');
+    const isNotUnderlineInInlineStyle = content.getCurrentInlineStyle().has('NOT_UNDERLINE');
 
     return isUnderlineInDocumentStyle && !isNotUnderlineInInlineStyle;
   }
