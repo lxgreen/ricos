@@ -1,67 +1,108 @@
 import { getFontSize } from 'wix-rich-content-editor';
-import { HEADER_BLOCK } from 'wix-rich-content-common';
+import { HEADER_BLOCK, DRAFT_TO_DOC_TYPE_WITH_LISTS } from 'wix-rich-content-common';
 import { hasLinksInSelection } from 'wix-rich-content-editor-common';
 import { DraftContentResolver } from '../ContentResolver';
 import { RESOLVERS_IDS } from './resolvers-ids';
+import type { ContentState, EditorState } from 'wix-rich-content-editor-common';
+import type { DocumentStyle } from 'wix-rich-content-common';
+import { cloneDeep } from 'lodash';
+
+const getDocumentStyle = (editorState: EditorState) => {
+  const currentContent = editorState.getCurrentContent() as ContentState & {
+    documentStyle: DocumentStyle;
+  };
+  return cloneDeep(currentContent.documentStyle || {});
+};
+
+const getBlockType = (editorState: EditorState) => {
+  const contentState = editorState.getCurrentContent();
+  const blockKey = editorState.getSelection().getAnchorKey();
+  const block = contentState.getBlockForKey(blockKey);
+  return block.getType();
+};
+
+const getBlockStyleFromDocumentStyle = (editorState: EditorState) => {
+  const blockType = getBlockType(editorState);
+  const documentStyle = getDocumentStyle(editorState);
+  return documentStyle?.[DRAFT_TO_DOC_TYPE_WITH_LISTS[blockType]];
+};
 
 export const isTextContainsBoldResolver = DraftContentResolver.create(
   RESOLVERS_IDS.IS_TEXT_CONTAINS_BOLD,
   content => {
-    return content.getCurrentInlineStyle().has('BOLD');
+    const isBoldInInlineStyle = content.getCurrentInlineStyle().has('BOLD');
+    if (isBoldInInlineStyle) return true;
+
+    const blockStyleFromDocumentStyle = getBlockStyleFromDocumentStyle(content);
+    const documentStyleProperty = 'font-weight';
+    const isBoldInDocumentStyle =
+      blockStyleFromDocumentStyle?.[documentStyleProperty] &&
+      blockStyleFromDocumentStyle[documentStyleProperty] === 'bold';
+    const isNotBoldInInlineStyle = content.getCurrentInlineStyle().has('not_bold');
+
+    return isBoldInDocumentStyle && !isNotBoldInInlineStyle;
   }
 );
 
 export const isTextContainsItalicResolver = DraftContentResolver.create(
   RESOLVERS_IDS.IS_TEXT_CONTAINS_ITALIC,
   content => {
-    return content.getCurrentInlineStyle().has('ITALIC');
+    const isItalicInInlineStyle = content.getCurrentInlineStyle().has('ITALIC');
+    if (isItalicInInlineStyle) return true;
+
+    const blockStyleFromDocumentStyle = getBlockStyleFromDocumentStyle(content);
+    const documentStyleProperty = 'font-style';
+    const isItalicInDocumentStyle =
+      blockStyleFromDocumentStyle?.[documentStyleProperty] &&
+      blockStyleFromDocumentStyle[documentStyleProperty] === 'italic';
+    const isNotItalicInInlineStyle = content.getCurrentInlineStyle().has('not_italic');
+
+    return isItalicInDocumentStyle && !isNotItalicInInlineStyle;
   }
 );
 
 export const isTextContainsUnderlineResolver = DraftContentResolver.create(
   RESOLVERS_IDS.IS_TEXT_CONTAINS_UNDERLINE,
   content => {
-    return content.getCurrentInlineStyle().has('UNDERLINE');
+    const isUnderlineInInlineStyle = content.getCurrentInlineStyle().has('UNDERLINE');
+    if (isUnderlineInInlineStyle) return true;
+
+    const blockStyleFromDocumentStyle = getBlockStyleFromDocumentStyle(content);
+    const documentStyleProperty = 'text-decoration';
+    const isUnderlineInDocumentStyle =
+      blockStyleFromDocumentStyle?.[documentStyleProperty] &&
+      blockStyleFromDocumentStyle[documentStyleProperty] === 'underline';
+    const isNotUnderlineInInlineStyle = content.getCurrentInlineStyle().has('not_underline');
+
+    return isUnderlineInDocumentStyle && !isNotUnderlineInInlineStyle;
   }
 );
 
 export const isTextContainsQuoteResolver = DraftContentResolver.create(
   RESOLVERS_IDS.IS_TEXT_CONTAINS_QUOTE,
   content => {
-    const contentState = content.getCurrentContent();
-    const blockKey = content.getSelection().getAnchorKey();
-    const block = contentState.getBlockForKey(blockKey);
-    return block.getType() === 'blockquote';
+    return getBlockType(content) === 'blockquote';
   }
 );
 
 export const isTextContainsCodeblockResolver = DraftContentResolver.create(
   RESOLVERS_IDS.IS_TEXT_CONTAINS_CODE_BLOCK,
   content => {
-    const contentState = content.getCurrentContent();
-    const blockKey = content.getSelection().getAnchorKey();
-    const block = contentState.getBlockForKey(blockKey);
-    return block.getType() === 'code-block';
+    return getBlockType(content) === 'code-block';
   }
 );
 
 export const isTextContainsOrderedListResolver = DraftContentResolver.create(
   RESOLVERS_IDS.IS_TEXT_CONTAINS_ORDERED_LIST,
   content => {
-    const contentState = content.getCurrentContent();
-    const blockKey = content.getSelection().getAnchorKey();
-    const block = contentState.getBlockForKey(blockKey);
-    return block.getType() === 'ordered-list-item';
+    return getBlockType(content) === 'ordered-list-item';
   }
 );
 
 export const isTextContainsUnorderedListResolver = DraftContentResolver.create(
   RESOLVERS_IDS.IS_TEXT_CONTAINS_UNORDERED_LIST,
   content => {
-    const contentState = content.getCurrentContent();
-    const blockKey = content.getSelection().getAnchorKey();
-    const block = contentState.getBlockForKey(blockKey);
-    return block.getType() === 'unordered-list-item';
+    return getBlockType(content) === 'unordered-list-item';
   }
 );
 

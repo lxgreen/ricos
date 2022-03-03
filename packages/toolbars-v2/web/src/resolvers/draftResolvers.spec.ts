@@ -31,7 +31,7 @@ describe('draft resolvers', () => {
   });
 
   describe('isTextContainsBold', () => {
-    it('should return true if selected text is bold', () => {
+    it('should return true if selected text have bold in inlineStyle', () => {
       const currentInlineStyle = editorState.getCurrentInlineStyle();
       const hasMock = jest.fn(style => {
         if (style === 'BOLD') {
@@ -42,10 +42,29 @@ describe('draft resolvers', () => {
       expect(isTextContainsBoldResolver.resolve(editorState)).toBe(true);
       expect(hasMock).toBeCalledWith('BOLD');
     });
+
+    it('should return true if selected text have bold in documentStyle', () => {
+      const currentInlineStyle = editorState.getCurrentInlineStyle();
+      const hasMock = jest.fn(style => {
+        if (style === 'BOLD') {
+          return false;
+        }
+      });
+      currentInlineStyle.has = hasMock;
+
+      const currentContentState = editorState.getCurrentContent();
+      currentContentState.documentStyle = {
+        paragraph: {
+          'font-weight': 'bold',
+        },
+      };
+      expect(isTextContainsBoldResolver.resolve(editorState)).toBe(true);
+      expect(hasMock).toBeCalledWith('BOLD');
+    });
   });
 
   describe('isTextContainsItalicResolver', () => {
-    it('should return true if selected text is italic', () => {
+    it('should return true if selected text have italic in inlineStyle', () => {
       const currentInlineStyle = editorState.getCurrentInlineStyle();
       const hasMock = jest.fn(style => {
         if (style === 'ITALIC') {
@@ -56,10 +75,29 @@ describe('draft resolvers', () => {
       expect(isTextContainsItalicResolver.resolve(editorState)).toBe(true);
       expect(hasMock).toBeCalledWith('ITALIC');
     });
+
+    it('should return true if selected text have italic in documentStyle', () => {
+      const currentInlineStyle = editorState.getCurrentInlineStyle();
+      const hasMock = jest.fn(style => {
+        if (style === 'ITALIC') {
+          return false;
+        }
+      });
+      currentInlineStyle.has = hasMock;
+
+      const currentContentState = editorState.getCurrentContent();
+      currentContentState.documentStyle = {
+        paragraph: {
+          'font-style': 'italic',
+        },
+      };
+      expect(isTextContainsItalicResolver.resolve(editorState)).toBe(true);
+      expect(hasMock).toBeCalledWith('ITALIC');
+    });
   });
 
   describe('isTextContainsUnderlineResolver', () => {
-    it('should return true if selected text is underline', () => {
+    it('should return true if selected text have underline in inlineStyle', () => {
       const currentInlineStyle = editorState.getCurrentInlineStyle();
       const hasMock = jest.fn(style => {
         if (style === 'UNDERLINE') {
@@ -67,6 +105,25 @@ describe('draft resolvers', () => {
         }
       });
       currentInlineStyle.has = hasMock;
+      expect(isTextContainsUnderlineResolver.resolve(editorState)).toBe(true);
+      expect(hasMock).toBeCalledWith('UNDERLINE');
+    });
+
+    it('should return true if selected text have underline in documentStyle', () => {
+      const currentInlineStyle = editorState.getCurrentInlineStyle();
+      const hasMock = jest.fn(style => {
+        if (style === 'UNDERLINE') {
+          return false;
+        }
+      });
+      currentInlineStyle.has = hasMock;
+
+      const currentContentState = editorState.getCurrentContent();
+      currentContentState.documentStyle = {
+        paragraph: {
+          'text-decoration': 'underline',
+        },
+      };
       expect(isTextContainsUnderlineResolver.resolve(editorState)).toBe(true);
       expect(hasMock).toBeCalledWith('UNDERLINE');
     });
