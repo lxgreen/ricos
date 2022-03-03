@@ -16,20 +16,22 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-  
+
+
+</details>
+<hr/>
+
+## 8.70.10 (Mar 3, 2022)
+
 ### :bug: Bug Fix
 
 - `ricos-content`
   - [#3577](https://github.com/wix/ricos/pull/3577) ck-editor/parser: "b, strong to bold" rule added; span rule fix
 
-
 ### :nail_care: Polish
 
 - `common`
   - [#3578](https://github.com/wix/ricos/pull/3578) change color 4 & color 3 default values
-
-</details>
-<hr/>
 
 ## 8.70.9 (March 2, 2022)
 
