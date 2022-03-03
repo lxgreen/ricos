@@ -32,7 +32,7 @@ export const createDraftConfig = (): RicosExtension => ({
       priority: 1,
       addNodeHoc() {
         return {
-          priority: 100,
+          priority: 9,
           nodeTypes: ['*'],
           nodeHoc: DraftHOC,
         };
