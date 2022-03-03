@@ -7,6 +7,8 @@ import {
   LineSpacingButton,
   FontSizeButton,
   LinkButton,
+  TextColorButton,
+  HighlightColorButton,
 } from './components/buttons';
 
 export const toolbarItemsRenders = {
@@ -101,5 +103,11 @@ export const toolbarItemsRenders = {
   },
   link: toolbarItem => {
     return <LinkButton toolbarItem={toolbarItem} />;
+  },
+  textColor: toolbarItem => {
+    return <TextColorButton toolbarItem={toolbarItem} />;
+  },
+  highlightColor: toolbarItem => {
+    return <HighlightColorButton toolbarItem={toolbarItem} />;
   },
 };

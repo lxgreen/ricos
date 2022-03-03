@@ -1,4 +1,4 @@
-import { getFontSize } from 'wix-rich-content-editor';
+import { getFontSize, getColor } from 'wix-rich-content-editor';
 import { HEADER_BLOCK, DRAFT_TO_DOC_TYPE_WITH_LISTS } from 'wix-rich-content-common';
 import { hasLinksInSelection } from 'wix-rich-content-editor-common';
 import { DraftContentResolver } from '../ContentResolver';
@@ -188,6 +188,22 @@ export const isTextContainsSpoilerResolver = DraftContentResolver.create(
   RESOLVERS_IDS.IS_TEXT_CONTAINS_SPOILER,
   content => {
     return content.getCurrentInlineStyle().has('wix-rich-content-plugin-spoiler');
+  }
+);
+
+export const getTextColorInSelectionResolver = DraftContentResolver.create(
+  RESOLVERS_IDS.GET_TEXT_COLOR_IN_SELECTION,
+  content => {
+    const textColor = getColor(content, 'ricos-text-color');
+    return textColor;
+  }
+);
+
+export const getHighlightColorInSelectionResolver = DraftContentResolver.create(
+  RESOLVERS_IDS.GET_HIGHLIGHT_COLOR_IN_SELECTION,
+  content => {
+    const highlightColor = getColor(content, 'ricos-text-highlight');
+    return highlightColor;
   }
 );
 

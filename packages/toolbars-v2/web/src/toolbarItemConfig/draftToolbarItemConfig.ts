@@ -12,6 +12,8 @@ import {
   decreaseIndentPluginIcon,
   LineSpacingIcon,
   LinkIcon,
+  TextColorIcon,
+  TextHighlightIcon,
 } from '../icons';
 
 import {
@@ -31,6 +33,8 @@ import {
   getLineSpacingAfterSelectionResolver,
   getFontSizeInSelectionResolver,
   isTextContainsLinkResolver,
+  getTextColorInSelectionResolver,
+  getHighlightColorInSelectionResolver,
 } from '../resolvers/draftResolvers';
 import type { IToolbarItemConfig } from '../types';
 
@@ -394,6 +398,58 @@ export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
         ({ editorCommands }) =>
         () => {
           editorCommands.commands.deleteDecoration('ricos-link');
+          editorCommands.commands.focus();
+        },
+    },
+  },
+  {
+    id: 'textColor',
+    type: 'modal',
+    presentation: {
+      tooltip: 'Text Color',
+      icon: TextColorIcon,
+    },
+    attributes: {
+      visible: alwaysVisibleResolver,
+      selectedTextColor: getTextColorInSelectionResolver,
+    },
+    commands: {
+      setTextColor:
+        ({ editorCommands }) =>
+        color => {
+          editorCommands.commands.insertDecoration('ricos-text-color', color);
+          editorCommands.commands.focus();
+        },
+      resetTextColor:
+        ({ editorCommands }) =>
+        () => {
+          editorCommands.commands.insertDecoration('ricos-text-color');
+          editorCommands.commands.focus();
+        },
+    },
+  },
+  {
+    id: 'highlightColor',
+    type: 'modal',
+    presentation: {
+      tooltip: 'Highlight Color',
+      icon: TextHighlightIcon,
+    },
+    attributes: {
+      visible: alwaysVisibleResolver,
+      selectedHighlightColor: getHighlightColorInSelectionResolver,
+    },
+    commands: {
+      setHighlightColor:
+        ({ editorCommands }) =>
+        color => {
+          editorCommands.commands.insertDecoration('ricos-text-highlight', color);
+          editorCommands.commands.focus();
+        },
+      resetHighlightColor:
+        ({ editorCommands }) =>
+        () => {
+          editorCommands.commands.insertDecoration('ricos-text-highlight');
           editorCommands.commands.focus();
         },
     },

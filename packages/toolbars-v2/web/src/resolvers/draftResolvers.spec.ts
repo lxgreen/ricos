@@ -15,6 +15,8 @@ import {
   getLineSpacingAfterSelectionResolver,
   getFontSizeInSelectionResolver,
   isTextContainsLinkResolver,
+  getTextColorInSelectionResolver,
+  getHighlightColorInSelectionResolver,
 } from './draftResolvers';
 import { EditorState } from '@wix/draft-js';
 
@@ -396,6 +398,26 @@ describe('draft resolvers', () => {
       const spy = jest.spyOn(wixRichContentEditorCommonExported, 'hasLinksInSelection');
       isTextContainsLinkResolver.resolve(editorState);
       expect(spy).toBeCalled();
+      jest.resetModules();
+    });
+  });
+
+  describe('getTextColorInSelectionResolver', () => {
+    const wixRichContentEditorExported = require('wix-rich-content-editor');
+    it('should check if the function getColor from "wix-rich-content-editor" is called', () => {
+      const spy = jest.spyOn(wixRichContentEditorExported, 'getColor');
+      getTextColorInSelectionResolver.resolve(editorState);
+      expect(spy).toBeCalledWith(editorState, 'ricos-text-color');
+      jest.resetModules();
+    });
+  });
+
+  describe('getHighlightColorInSelectionResolver', () => {
+    const wixRichContentEditorExported = require('wix-rich-content-editor');
+    it('should check if the function getColor from "wix-rich-content-editor" is called', () => {
+      const spy = jest.spyOn(wixRichContentEditorExported, 'getColor');
+      getHighlightColorInSelectionResolver.resolve(editorState);
+      expect(spy).toBeCalledWith(editorState, 'ricos-text-highlight');
       jest.resetModules();
     });
   });
