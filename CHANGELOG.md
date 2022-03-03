@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `tiptap-extensions`
+  - [#3579](https://github.com/wix/ricos/pull/3579) spoiler extension priority
+  
 
 </details>
 <hr/>
