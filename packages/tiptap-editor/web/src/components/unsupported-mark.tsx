@@ -1,11 +1,18 @@
-import type { RicosMarkExtension } from 'ricos-tiptap-types';
 import type { MarkConfig } from '@tiptap/core';
+import type { RicosMarkExtension } from 'ricos-tiptap-types';
 
-export const getUnsupportedMarkConfig = (name: string): RicosMarkExtension => ({
+export const getUnsupportedMarkConfig = ({
+  type,
+  ...attrs
+}: {
+  type: string;
+  attrs: Record<string, unknown>;
+}): RicosMarkExtension => ({
   type: 'mark' as const,
   groups: [],
   createExtensionConfig: (): MarkConfig => ({
-    name,
+    name: type,
+    addAttributes: () => attrs,
     addOptions: () => ({
       HTMLAttributes: {},
     }),
@@ -21,7 +28,7 @@ export const getUnsupportedMarkConfig = (name: string): RicosMarkExtension => ({
       return [
         'abbr',
         {
-          title: `'${name}' decoration is not supported by editor. Check editor configuration.`,
+          title: `'${type}' decoration is not supported by editor. Check editor configuration.`,
           style: 'cursor: help',
         },
         0,

@@ -6,7 +6,6 @@ import colorDataDefaults from 'ricos-schema/dist/statics/color.defaults.json';
 const SPOILER_STYLE = 'blur(0.25em)';
 
 const SpoilerHoc = Component => {
-  // should use the new api containerData
   const Spoiler = props => {
     const { context, componentData } = props;
     const { isMobile, theme, t } = context;
