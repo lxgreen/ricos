@@ -26,7 +26,7 @@ class VideoViewer extends Component {
   componentWillReceiveProps(nextProps) {
     if (!isEqual(nextProps.componentData, this.props.componentData)) {
       validate(nextProps.componentData, pluginVideoSchema);
-      if (nextProps.componentData.src !== this.props.componentData.src) {
+      if (!isEqual(nextProps.componentData.src, this.props.componentData.src)) {
         const url = getVideoSrc(nextProps.componentData.src, nextProps.settings);
         if (typeof url === 'string') {
           this.setUrl(url);
