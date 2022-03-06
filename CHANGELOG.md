@@ -17,14 +17,17 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.70.11 (Mar 6, 2022)
+
 ### :bug: Bug Fix
 
 - `tiptap-extensions`
   - [#3579](https://github.com/wix/ricos/pull/3579) spoiler extension priority
-  
-
-</details>
-<hr/>
+- `plugin-video`
+  - [#3582](https://github.com/wix/ricos/pull/3582) fix video infinite loader
 
 ## 8.70.10 (Mar 3, 2022)
 
