@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `tiptap-editor`
+  - [#3581](https://github.com/wix/ricos/pull/3581) tiptap/unsupported-mark: attributes passed to extension
+
 </details>
 <hr/>
 
