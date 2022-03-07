@@ -21,6 +21,8 @@
 
 - `tiptap-editor`
   - [#3581](https://github.com/wix/ricos/pull/3581) tiptap/unsupported-mark: attributes passed to extension
+- `wix-rich-content-common`
+  - [#3587](https://github.com/wix/ricos/pull/3587) change ricos-types from dev-dep back to to dep
 
 ### :house: Internal
 
