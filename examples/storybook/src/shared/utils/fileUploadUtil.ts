@@ -5,6 +5,7 @@ import type {
   VideoComponentData,
 } from 'wix-rich-content-common';
 import { testImages, testWixVideos } from './mock';
+import { FILE_URLS } from './fileMockURL';
 
 export const mockImageNativeUploadFunc = (
   files: File,
@@ -58,14 +59,15 @@ export const mockFileNativeUploadFunc = (
   const name = file.name;
   let type;
   if (name && name.includes('.')) {
-    type = name.split('.').pop();
+    const currentType = name.split('.').pop();
+    type = FILE_URLS[currentType] ? currentType : 'pdf';
   }
   const size = file.size;
 
   const data = {
     name,
     type,
-    url: 'https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    url: FILE_URLS[type],
     size,
   };
   setTimeout(() => updateEntity({ data }), 5000);
@@ -85,7 +87,7 @@ export const mockFileUploadFunc = (updateEntity: UpdateEntityFunc<FileComponentD
     data.push({
       name,
       type,
-      url: 'https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      url: FILE_URLS[type],
       size: 150000,
     });
   });

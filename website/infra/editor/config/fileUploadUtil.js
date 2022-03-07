@@ -1,4 +1,5 @@
 import { testImages, testWixVideos } from './mock';
+import { FILE_URLS } from './fileMockURL';
 
 export const mockImageNativeUploadFunc = (files, updateEntity) => {
   const mockImageIndex = Math.floor(Math.random() * testImages.length);
@@ -39,14 +40,17 @@ export const mockFileNativeUploadFunc = (file, updateEntity) => {
   const name = file.name;
   let type;
   if (name && name.includes('.')) {
-    type = name.split('.').pop();
+    if (name && name.includes('.')) {
+      const currentType = name.split('.').pop();
+      type = FILE_URLS[currentType] ? currentType : 'pdf';
+    }
   }
   const size = file.size;
 
   const data = {
     name,
     type,
-    url: 'https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    url: FILE_URLS[type],
     size,
   };
   setTimeout(() => updateEntity({ data }), 5000);
@@ -66,7 +70,7 @@ export const mockFileUploadFunc = updateEntity => {
     data.push({
       name,
       type,
-      url: 'https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      url: FILE_URLS[type],
       size: 150000,
     });
   });
@@ -98,8 +102,7 @@ export const mockVideoNativeUploadFunc = (file, updateEntity, removeEntity) => {
 
 export const getVideoToUpload = (url, thumbnailUrl) => {
   const videoWithAbsoluteUrl = {
-    url:
-      'https://video.wixstatic.com/video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4',
+    url: 'https://video.wixstatic.com/video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4',
   };
   const videoWithRelativeUrl = {
     pathname: `video/${url}/1080p/mp4/file.mp4`,

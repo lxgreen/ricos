@@ -22,6 +22,11 @@
 - `tiptap-editor`
   - [#3581](https://github.com/wix/ricos/pull/3581) tiptap/unsupported-mark: attributes passed to extension
 
+### :house: Internal
+
+- `file-upload`
+  - [#3583](https://github.com/wix/ricos/pull/3583) refactor file mock upload urls
+
 </details>
 <hr/>
 
