@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.70.12 (Mar 7, 2022)
+
 ### :bug: Bug Fix
 
 - `tiptap-editor`
@@ -28,9 +33,6 @@
 
 - `file-upload`
   - [#3583](https://github.com/wix/ricos/pull/3583) refactor file mock upload urls
-
-</details>
-<hr/>
 
 ## 8.70.11 (Mar 6, 2022)
 
