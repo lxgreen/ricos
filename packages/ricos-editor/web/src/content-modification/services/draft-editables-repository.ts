@@ -9,7 +9,7 @@ import { EditableParagraphs } from '../nodes/editable-paragraphs';
 type toDraft = typeof toDraftFn;
 type fromDraft = typeof fromDraftFn;
 
-export class DraftContentRepository implements EditablesRepository {
+export class DraftEditablesRepository implements EditablesRepository {
   editor: IDraftEditorStateTranslator;
 
   toDraft: toDraft;

@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-ignore
 import React, { useRef, useState } from 'react';
 
 import {
@@ -12,37 +10,42 @@ import {
 import EditorWrapper from '../Components/EditorWrapper';
 import ViewerWrapper from '../Components/ViewerWrapper';
 import introState from '../../../../e2e/tests/fixtures/intro.json';
-import { RicosToolbarWrapper, Content } from 'wix-rich-content-toolbars-v2';
+import { RicosToolbarWrapper, Content, ToolbarContext } from 'wix-rich-content-toolbars-v2';
+import type { AvailableExperiments } from 'ricos-types';
 
-const WideEditorStory = () => {
-  const experiments = {
+const DraftWithDetachCommands = () => {
+  const experiments: AvailableExperiments = {
     toolbarsV2: { enabled: true },
-    tiptapEditor: { enabled: false },
     detachCommandsFromEditor: { enabled: true },
   };
-  const currentContent = !experiments.tiptapEditor.enabled
-    ? useRef(Content.create(null))
-    : useRef(Content.create([]));
+  const currentContent = useRef(Content.create(null));
   const editorCommands = useRef(null);
   const [counter, setCounter] = useState(1);
+  const [context, setContext] = useState(undefined);
 
   return (
     <Page title="Wix Rich Content">
       <Section>
         <div>
           <RichContentEditorBox>
-            <div dir="" data-hook="yaron123" style={{ border: 'solid 10px red', padding: 10 }}>
-              {editorCommands.current && !experiments.tiptapEditor.enabled && (
-                <>
+            <ToolbarContext.Provider value={context}>
+              <div dir="" data-hook="yaron123" style={{ border: 'solid 10px red', padding: 10 }}>
+                {editorCommands.current && (
                   <RicosToolbarWrapper
                     content={currentContent.current}
                     editorCommands={editorCommands.current}
                     experiments={experiments}
                   />
-                </>
-              )}
-            </div>
+                )}
+              </div>
+            </ToolbarContext.Provider>
             <EditorWrapper
+              rcProps={{
+                onLoad: context =>
+                  setTimeout(() => {
+                    setContext(context);
+                  }),
+              }}
               content={introState}
               experiments={experiments}
               onChange={(content, editor) => {
@@ -52,25 +55,23 @@ const WideEditorStory = () => {
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 //@ts-ignore
                 window.editorCommands = editor?.getEditorCommands();
-                if (!experiments.tiptapEditor.enabled) {
-                  const editorState = editor?.getEditorCommands().getEditorState();
-                  editorCommands.current = new Proxy(
-                    {},
-                    {
-                      get: (target, prop, receiver) => {
-                        return {
-                          ...editor?.getCommands(),
-                          focus: editor.focus,
-                        };
-                      },
-                    }
-                  );
-                  if (editorState) {
-                    if (counter < 2) {
-                      setCounter(counter + 1);
-                    }
-                    currentContent.current.update(editorState);
+                const editorState = editor?.getEditorCommands().getEditorState();
+                editorCommands.current = new Proxy(
+                  {},
+                  {
+                    get: (target, prop, receiver) => {
+                      return {
+                        ...editor?.getCommands(),
+                        focus: editor.focus,
+                      };
+                    },
                   }
+                );
+                if (editorState) {
+                  if (counter < 2) {
+                    setCounter(counter + 1);
+                  }
+                  currentContent.current.update(editorState);
                 }
               }}
             />
@@ -86,4 +87,4 @@ const WideEditorStory = () => {
   );
 };
 
-export default WideEditorStory;
+export default DraftWithDetachCommands;

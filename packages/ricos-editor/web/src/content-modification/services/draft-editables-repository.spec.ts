@@ -1,6 +1,6 @@
 import { RichContent } from 'ricos-schema';
 import type { IDraftEditorStateTranslator } from '../../models/draft-editor-state-translator';
-import { DraftContentRepository } from './draft-content-repository';
+import { DraftEditablesRepository } from './draft-editables-repository';
 
 const richContent = RichContent.fromJSON({
   nodes: [
@@ -64,7 +64,7 @@ const translator: IDraftEditorStateTranslator = {
 describe('Draft Content Repository', () => {
   it('getEditables should return a model with selection', () => {
     // Arrange
-    const repo = new DraftContentRepository(translator, toDraft, fromDraft);
+    const repo = new DraftEditablesRepository(translator, toDraft, fromDraft);
 
     // Act
     const actual = repo

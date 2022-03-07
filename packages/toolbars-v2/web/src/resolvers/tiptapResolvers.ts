@@ -53,3 +53,16 @@ export const isTextContainsUnderlineResolver = TiptapContentResolver.create(
     return false;
   }
 );
+
+export const isTextContainsSpoilerResolver = TiptapContentResolver.create(
+  RESOLVERS_IDS.IS_TEXT_CONTAINS_SPOILER,
+  content => {
+    if (Array.isArray(content)) {
+      const node = content.find(node => {
+        return node.type.name === 'text' && node.marks.length > 0;
+      });
+      return node?.marks.some(mark => mark.type.name === 'spoiler');
+    }
+    return false;
+  }
+);

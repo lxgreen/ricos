@@ -35,7 +35,9 @@ import { renderSideBlockComponent } from './utils/renderBlockComponent';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 import { createEditorStyleClasses } from './utils/createEditorStyleClasses';
 import { DraftEditorStateTranslator } from './content-conversion/draft-editor-state-translator';
-import { DraftContentRepository } from './content-modification/services/draft-content-repository';
+import { TiptapEditorStateTranslator } from './content-conversion/tiptap-editor-state-translator';
+import { DraftEditablesRepository } from './content-modification/services/draft-editables-repository';
+import { TiptapEditablesRepository } from './content-modification/services/tiptap-editables-repository';
 import { EditorCommandRunner } from './content-modification/command-runner';
 import { TiptapMockToolbar } from './tiptapMockToolbar/TiptapMockToolbar';
 import { convertToolbarContext } from './toolbars/convertToolbarContext';
@@ -43,7 +45,6 @@ import { coreCommands } from './content-modification/commands/core-commands';
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
 The getContent(postId, isPublishing) API is deprecated and will be removed in ricos v9.0.0`;
-
 const LinkToolbar = React.lazy(() => import('./toolbars/LinkToolbar'));
 interface State {
   StaticToolbar?: ElementType;
@@ -80,6 +81,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   draftEditorStateTranslator!: DraftEditorStateTranslator;
 
+  tiptapEditorStateTranslator!: TiptapEditorStateTranslator;
+
   editorCommandRunner!: EditorCommandRunner;
 
   isBusy = false;
@@ -107,6 +110,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.detachCommands = !!props.experiments?.detachCommandsFromEditor?.enabled;
     if (this.detachCommands) {
       this.draftEditorStateTranslator = new DraftEditorStateTranslator();
+      this.tiptapEditorStateTranslator = new TiptapEditorStateTranslator();
     }
     this.dataInstance = createDataConverter(
       [this.props.onChange, this.draftEditorStateTranslator?.onChange],
@@ -151,7 +155,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.updateLocale();
     this.loadEditor();
     this.loadToolbar();
-    this.loadConverters();
+    this.initCommandRunner();
     const { isMobile, toolbarSettings, _rcProps = {} } = this.props;
     const { useStaticTextToolbar } = toolbarSettings || {};
     const contentId = this.getContentId();
@@ -183,7 +187,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
           experiments,
           toolbarSettings,
           cssOverride,
-          t: this.editor.getT(),
+          t: this.editor?.getT?.(),
           getEditorCommands: this.getEditorCommands,
         })
       );
@@ -212,23 +216,36 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     }
   }
 
-  loadConverters() {
+  initCommandRunner = async () => {
     if (this.detachCommands) {
-      import(
-        /* webpackChunkName: "ricos-content/libs/converters" */
-        'ricos-content/libs/converters'
-      ).then(convertersModule => {
-        const draftRepo = new DraftContentRepository(
-          this.draftEditorStateTranslator,
-          convertersModule?.toDraft,
-          convertersModule?.fromDraft
-        );
-        this.editorCommandRunner = new EditorCommandRunner(draftRepo);
-        [...coreCommands, ...(this.props?.commands || [])].map(command =>
-          this.editorCommandRunner.register(command)
-        );
-      });
+      const repo = await (this.useTiptap
+        ? this.initTiptapRepository()
+        : this.initDraftRepository());
+      this.editorCommandRunner = new EditorCommandRunner(repo);
+      [...coreCommands, ...(this.props?.commands || [])].map(command =>
+        this.editorCommandRunner.register(command)
+      );
     }
+  };
+
+  initDraftRepository = () => {
+    return import(
+      /* webpackChunkName: "ricos-content/libs/converters" */
+      'ricos-content/libs/converters'
+    ).then(convertersModule => {
+      const { toDraft, fromDraft } = convertersModule;
+      return new DraftEditablesRepository(this.draftEditorStateTranslator, toDraft, fromDraft);
+    });
+  };
+
+  initTiptapRepository() {
+    return import(
+      /* webpackChunkName:"wix-tiptap-extensions" */
+      'wix-tiptap-extensions'
+    ).then(convertersModule => {
+      const { toTiptap, fromTiptap } = convertersModule;
+      return new TiptapEditablesRepository(this.tiptapEditorStateTranslator, toTiptap, fromTiptap);
+    });
   }
 
   onUpdate = ({ content }: { content: DraftContent }) => {
@@ -581,6 +598,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                   onLoad={editor => {
                     const richContentAdapter = new RichContentAdapter(editor, t, plugins);
                     this.setEditorRef(richContentAdapter);
+                    this.tiptapEditorStateTranslator.onChange(editor);
                     const TextToolbar = richContentAdapter.getToolbars().TextToolbar;
                     this.setState({ tiptapToolbar: TextToolbar });
                   }}
