@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.70.13 (Mar 8, 2022)
+
 ### :bug: Bug Fix
 
 - `ricos-editor`
@@ -26,9 +31,6 @@
 
 - `editor`
   - [#3584](https://github.com/wix/ricos/pull/3584) chore(experiments): merge `pastedFilesSupport`
-
-</details>
-<hr/>
 
 ## 8.70.12 (Mar 7, 2022)
 
