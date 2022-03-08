@@ -105,7 +105,7 @@ export default class BaseTextColor extends Component {
             top: panelTop,
             left: panelLeft,
             marginTop: 15,
-            borderRadius: 2,
+            borderRadius: 'var(--ricos-settings-whitebox-border-radius, 2px)',
             width: 184,
           },
     };

@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `theme`
+  - [#3594](https://github.com/wix/ricos/pull/3594) fix bizMgr theming
+
 </details>
 <hr/>
 

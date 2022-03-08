@@ -12,7 +12,7 @@ const TextColorIcon = props => (
     {...props}
   >
     <g id="Specs-for-devs" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-      <g id="Icons" transform="translate(-178.000000, -127.000000)" fill="#000000">
+      <g id="Icons" transform="translate(-178.000000, -127.000000)" fill="currentColor">
         <g
           id="Icons-/-Formatting-/-Text-color-/-All-Copy-11"
           transform="translate(178.000000, 127.000000)"

@@ -56,10 +56,10 @@ $settings-inputs-border-color: var(--ricos-settings-inputs-border-color, #0009);
 $settings-inputs-border-radius: var(--ricos-settings-inputs-border-radius, 0px);
 $settings-inputs-placeholder-color: var(--ricos-settings-inputs-placeholder-color, #000000);
 $settings-text-color: var(--ricos-settings-text-color, #333333);
-$settings-whitebox-border-radius: var(--ricos-settings-whitebox-border-radius, 0px);
+$settings-whitebox-border-radius: var(--ricos-settings-whitebox-border-radius, 2px);
 $settings-whitebox-box-shadow: var(--ricos-settings-whitebox-box-shadow, $default-box-shadow);
-$settings-colorPaletteButton-border-radius: var(--ricos-settings-colorpalettebutton-border-radius, 50%);
-$settings-colorPaletteSelectedButton-border-radius: var(--ricos-settings-colorpaletteselectedbutton-border-radius, 50%);
+$settings-colorPaletteButton-border-radius: var(--ricos-settings-color-palette-button-border-radius, 50%);
+$settings-colorPaletteSelectedButton-border-radius: var(--ricos-settings-color-palette-selected-button-border-radius, 50%);
 
 $modal-input-color: #333333;
 $toolbar-font-color: #333333;

@@ -14,7 +14,7 @@ const PIcon = () => (
       <g
         id="Mobile-headings"
         transform="translate(-134.000000, -687.000000)"
-        fill="#000000"
+        fill="currentColor"
         fillRule="nonzero"
       >
         <path
