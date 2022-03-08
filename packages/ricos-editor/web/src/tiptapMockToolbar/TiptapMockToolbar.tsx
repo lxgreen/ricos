@@ -113,6 +113,18 @@ const getButtons = (editorCommands, state) => {
         editorCommands.deleteBlock(id);
       },
     },
+    {
+      name: 'set Font Size 40px',
+      onClick: () => {
+        editorCommands.setFontSize(Number(40));
+      },
+    },
+    {
+      name: 'set Font Size 16px',
+      onClick: () => {
+        editorCommands.setFontSize(Number(16));
+      },
+    },
   ];
 };
 

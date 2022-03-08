@@ -202,6 +202,7 @@ export const ENTITY_DECORATION_TO_DATA_FIELD = {
 
 const DECORATION_TO_DATA_FIELD = {
   COLOR: 'colorData',
+  FONT_SIZE: 'fontSizeData',
 };
 
 export const TO_RICOS_DECORATION_DATA_FIELD = {

@@ -18,6 +18,7 @@ import {
   LinkData,
   ColorData,
   MentionData,
+  FontSizeData,
 } from '../generated/stringEnums/wix/rich_content/v1/'; // eslint-disable-line
 
 const pluginDataPropByType = {
@@ -132,6 +133,7 @@ const toDecorationDataDefaults = <T>(fromJSON: () => T) =>
 const generateDecorationDefaults = () =>
   pipe(
     {
+      [Decoration_Type.FONT_SIZE]: () => FontSizeData.fromJSON({ unit: '', value: 0 }),
       [Decoration_Type.LINK]: () => LinkData.fromJSON({ link: { url: '', anchor: '', rel: {} } }),
       [Decoration_Type.COLOR]: () => ColorData.fromJSON({}),
       [Decoration_Type.MENTION]: () => ({

@@ -18,6 +18,7 @@ import {
   createTrailingNode,
   createLink,
   createPlaceholder,
+  createFontSize,
 } from 'wix-tiptap-extensions';
 
 export const coreConfigs: RicosExtension[] = [
@@ -40,4 +41,5 @@ export const coreConfigs: RicosExtension[] = [
   // TODO: pass config?
   createLink({}),
   createPlaceholder(),
+  createFontSize(),
 ];

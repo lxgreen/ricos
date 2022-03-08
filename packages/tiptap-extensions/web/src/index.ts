@@ -19,3 +19,4 @@ export { createLink } from './link/link';
 export { createTextDirection } from './text-direction';
 export { createPlaceholder } from './placeholder';
 export { createTextAlign } from './text-align';
+export { createFontSize } from './font-size';
