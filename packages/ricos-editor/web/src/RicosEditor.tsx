@@ -598,7 +598,9 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                   onLoad={editor => {
                     const richContentAdapter = new RichContentAdapter(editor, t, plugins);
                     this.setEditorRef(richContentAdapter);
-                    this.tiptapEditorStateTranslator.onChange(editor);
+                    if (this.detachCommands) {
+                      this.tiptapEditorStateTranslator.onChange(editor);
+                    }
                     const TextToolbar = richContentAdapter.getToolbars().TextToolbar;
                     this.setState({ tiptapToolbar: TextToolbar });
                   }}

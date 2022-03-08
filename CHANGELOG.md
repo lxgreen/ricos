@@ -17,9 +17,16 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `ricos-editor`
+  - [#3591](https://github.com/wix/ricos/pull/3591) access tiptap-editor-state-translator under experiment detach-commands
+
+### :house: Internal
+
 - `editor`
   - [#3584](https://github.com/wix/ricos/pull/3584) chore(experiments): merge `pastedFilesSupport`
-  
+
 </details>
 <hr/>
 
