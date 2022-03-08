@@ -17,6 +17,9 @@
     Click to see more.
   </summary>
 
+- `editor`
+  - [#3584](https://github.com/wix/ricos/pull/3584) chore(experiments): merge `pastedFilesSupport`
+  
 </details>
 <hr/>
 

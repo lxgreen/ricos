@@ -1103,10 +1103,8 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
         onCopy={onCopy}
         textAlignment={textAlignment}
         readOnly={readOnly || this.state.readOnly}
-        {...(this.props.experiments?.pastedFilesSupport?.enabled && {
-          handlePastedFiles: this.handlePastedFiles,
-          handleDroppedFiles: this.handleDroppedFiles,
-        })}
+        handlePastedFiles={this.handlePastedFiles}
+        handleDroppedFiles={this.handleDroppedFiles}
       />
     );
   };
