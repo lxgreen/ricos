@@ -103,6 +103,15 @@ export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
     },
   },
   {
+    id: 'separator',
+    type: 'separator',
+    presentation: {},
+    attributes: {
+      visible: alwaysVisibleResolver,
+    },
+    commands: {},
+  },
+  {
     id: 'quote',
     type: 'toggle',
     presentation: {

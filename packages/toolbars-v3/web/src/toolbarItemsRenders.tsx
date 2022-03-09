@@ -10,8 +10,12 @@ import {
   TextColorButton,
   HighlightColorButton,
 } from './components/buttons';
+import { ToolbarButtonSeparator } from './components/ToolbarButtonSeparator';
 
 export const toolbarItemsRenders = {
+  separator: () => {
+    return <ToolbarButtonSeparator />;
+  },
   bold: toolbarItem => {
     return (
       <ToggleButton onClick={e => toolbarItem.commands?.toggleBold(e)} toolbarItem={toolbarItem} />
