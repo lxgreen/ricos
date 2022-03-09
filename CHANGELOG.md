@@ -17,15 +17,17 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.70.14 (Mar 9, 2022)
+
 ### :bug: Bug Fix
 
 - `theme`
   - [#3594](https://github.com/wix/ricos/pull/3594) fix bizMgr theming
 - `theme`
   - [#3595](https://github.com/wix/ricos/pull/3595) fix bizMgr theming gallery/polls settings & toolbar buttons
-
-</details>
-<hr/>
 
 ## 8.70.13 (Mar 8, 2022)
 
