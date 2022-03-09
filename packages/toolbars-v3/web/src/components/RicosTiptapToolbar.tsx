@@ -1,35 +1,34 @@
 import React, { Component } from 'react';
-import './style.scss';
-import ToolbarComponent from './components/Toolbar/Toolbar';
-import type { Content } from './Content';
-import { RicosToolbar } from './RicosToolbar';
-import { ToolbarItemCreator } from './ToolbarItemCreator';
-import { toolbarItemsRenders } from './toolbarItemsRenders';
-import { draftStaticToolbarConfig } from './toolbarItemConfig/draftToolbarItemConfig';
-import { draftStaticToolbarConfigDetachCommands } from './toolbarItemConfig/draftToolbarItemConfigDetachCommands';
+import '../style.scss';
+import ToolbarComponent from './Toolbar/Toolbar';
+import type { Content } from '../Content';
+import { RicosToolbar } from '../RicosToolbar';
+import { ToolbarItemCreator } from '../ToolbarItemCreator';
+import { toolbarItemsRenders } from '../toolbarItemsRenders';
+import { tiptapStaticToolbarConfig } from '../toolbarItemConfig/tiptapToolbarItemConfig';
+import { tiptapStaticToolbarConfigDetachCommands } from '../toolbarItemConfig/tiptapToolbarItemConfigDetachCommands';
 import type { AvailableExperiments } from 'ricos-types';
-
-interface RicosToolbarWrapperProps {
+interface RicosTiptapToolbarProps {
   content: Content;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editorCommands: any;
   experiments?: AvailableExperiments;
 }
-interface RicosToolbarWrapperState {}
+interface RicosTiptapToolbarState {}
 
-class RicosToolbarWrapper extends Component<RicosToolbarWrapperProps, RicosToolbarWrapperState> {
+class RicosTiptapToolbar extends Component<RicosTiptapToolbarProps, RicosTiptapToolbarState> {
   toolbar: RicosToolbar | null = null;
 
   componentDidMount() {
     const { content, editorCommands, experiments } = this.props;
     this.toolbar = RicosToolbar.create({
       toolbarItemCreators: (experiments?.detachCommandsFromEditor?.enabled
-        ? draftStaticToolbarConfigDetachCommands
-        : draftStaticToolbarConfig
+        ? tiptapStaticToolbarConfigDetachCommands
+        : tiptapStaticToolbarConfig
       ).map(config => ToolbarItemCreator.create(config)),
       content,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      editorCommands: editorCommands as any,
+      editorCommands,
     });
 
     this.forceUpdate();
@@ -52,4 +51,4 @@ class RicosToolbarWrapper extends Component<RicosToolbarWrapperProps, RicosToolb
   }
 }
 
-export default RicosToolbarWrapper;
+export default RicosTiptapToolbar;

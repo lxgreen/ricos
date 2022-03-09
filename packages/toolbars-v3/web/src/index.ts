@@ -1,10 +1,10 @@
-export const toolbarsV2 = () => {
+export const toolbarsV3 = () => {
   // eslint-disable-next-line no-console
-  console.log('toolbarsV2');
-  return 'toolbarsV2';
+  console.log('toolbarsV3');
+  return 'toolbarsV3';
 };
 
-export { default as RicosToolbarWrapper } from './RicosToolbarWrapper';
+export { default as RicosDraftToolbar } from './components/RicosDraftToolbar';
 export { default as RicosTiptapToolbar } from './components/RicosTiptapToolbar';
 export { Content } from './Content';
 export { ToolbarContext } from './utils/toolbarContexts';

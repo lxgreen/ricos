@@ -73,7 +73,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   useNewFormattingToolbar = false;
 
-  useToolbarsV2 = false;
+  useToolbarsV3 = false;
 
   detachCommands = false;
 
@@ -128,7 +128,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.useTiptap = !!props.experiments?.tiptapEditor?.enabled;
     this.useNewFormattingToolbar = !!props.experiments?.newFormattingToolbar?.enabled;
     this.useTiptap && this.fixPluginsConfig();
-    this.useToolbarsV2 = !!props.experiments?.toolbarsV2?.enabled;
+    this.useToolbarsV3 = !!props.experiments?.toolbarsV3?.enabled;
   }
 
   static defaultProps = {
@@ -518,7 +518,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   }
 
   renderToolbars() {
-    if (this.useToolbarsV2) {
+    if (this.useToolbarsV3) {
       return null;
     }
     const { StaticToolbar } = this.state;

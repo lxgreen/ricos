@@ -10,12 +10,12 @@ import {
 import EditorWrapper from '../Components/EditorWrapper';
 import ViewerWrapper from '../Components/ViewerWrapper';
 import introState from '../../../../e2e/tests/fixtures/intro.json';
-import { RicosToolbarWrapper, Content, ToolbarContext } from 'wix-rich-content-toolbars-v2';
+import { RicosDraftToolbar, Content, ToolbarContext } from 'wix-rich-content-toolbars-v3';
 import type { AvailableExperiments } from 'ricos-types';
 
 const DraftWithDetachCommands = () => {
   const experiments: AvailableExperiments = {
-    toolbarsV2: { enabled: true },
+    toolbarsV3: { enabled: true },
     detachCommandsFromEditor: { enabled: true },
   };
   const currentContent = useRef(Content.create(null));
@@ -31,7 +31,7 @@ const DraftWithDetachCommands = () => {
             <ToolbarContext.Provider value={context}>
               <div dir="" data-hook="yaron123" style={{ border: 'solid 10px red', padding: 10 }}>
                 {editorCommands.current && (
-                  <RicosToolbarWrapper
+                  <RicosDraftToolbar
                     content={currentContent.current}
                     editorCommands={editorCommands.current}
                     experiments={experiments}

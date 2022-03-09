@@ -5,30 +5,31 @@ import type { Content } from '../Content';
 import { RicosToolbar } from '../RicosToolbar';
 import { ToolbarItemCreator } from '../ToolbarItemCreator';
 import { toolbarItemsRenders } from '../toolbarItemsRenders';
-import { tiptapStaticToolbarConfig } from '../toolbarItemConfig/tiptapToolbarItemConfig';
-import { tiptapStaticToolbarConfigDetachCommands } from '../toolbarItemConfig/tiptapToolbarItemConfigDetachCommands';
+import { draftStaticToolbarConfig } from '../toolbarItemConfig/draftToolbarItemConfig';
+import { draftStaticToolbarConfigDetachCommands } from '../toolbarItemConfig/draftToolbarItemConfigDetachCommands';
 import type { AvailableExperiments } from 'ricos-types';
-interface RicosToolbarWrapperProps {
+
+interface RicosDraftToolbarProps {
   content: Content;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editorCommands: any;
   experiments?: AvailableExperiments;
 }
-interface RicosToolbarWrapperState {}
+interface RicosDraftToolbarState {}
 
-class RicosToolbarWrapper extends Component<RicosToolbarWrapperProps, RicosToolbarWrapperState> {
+class RicosDraftToolbar extends Component<RicosDraftToolbarProps, RicosDraftToolbarState> {
   toolbar: RicosToolbar | null = null;
 
   componentDidMount() {
     const { content, editorCommands, experiments } = this.props;
     this.toolbar = RicosToolbar.create({
       toolbarItemCreators: (experiments?.detachCommandsFromEditor?.enabled
-        ? tiptapStaticToolbarConfigDetachCommands
-        : tiptapStaticToolbarConfig
+        ? draftStaticToolbarConfigDetachCommands
+        : draftStaticToolbarConfig
       ).map(config => ToolbarItemCreator.create(config)),
       content,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      editorCommands,
+      editorCommands: editorCommands as any,
     });
 
     this.forceUpdate();
@@ -51,4 +52,4 @@ class RicosToolbarWrapper extends Component<RicosToolbarWrapperProps, RicosToolb
   }
 }
 
-export default RicosToolbarWrapper;
+export default RicosDraftToolbar;

@@ -12,12 +12,12 @@ import {
 import EditorWrapper from '../Components/EditorWrapper';
 import ViewerWrapper from '../Components/ViewerWrapper';
 import introState from '../../../../e2e/tests/fixtures/intro.json';
-import { RicosTiptapToolbar, Content, ToolbarContext } from 'wix-rich-content-toolbars-v2';
+import { RicosTiptapToolbar, Content, ToolbarContext } from 'wix-rich-content-toolbars-v3';
 import type { AvailableExperiments } from 'ricos-types';
 
 const TiptapWithDetachCommands = () => {
   const experiments: AvailableExperiments = {
-    toolbarsV2: { enabled: true },
+    toolbarsV3: { enabled: true },
     tiptapEditor: { enabled: true },
     detachCommandsFromEditor: { enabled: true },
   };

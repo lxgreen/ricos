@@ -1,5 +1,5 @@
 {
-  "name": "wix-rich-content-toolbars-v2",
+  "name": "wix-rich-content-toolbars-v3",
   "version": "8.70.13",
   "author": {
     "name": "Noam Tayri",
@@ -13,7 +13,7 @@
   "bugs": {
     "url": "https://github.com/wix/ricos/issues"
   },
-  "homepage": "https://github.com/wix/ricos/tree/master/rich-content-toolbars-v2",
+  "homepage": "https://github.com/wix/ricos/tree/master/rich-content-toolbars-v3",
   "files": [
     "dist"
   ],
@@ -24,7 +24,7 @@
   "scripts": {
     "clean": "rm -rf dist/",
     "prebuild": "npm run clean",
-    "build:rollup": "rollup --environment DYNAMIC_IMPORT,MODULE_NAME:toolbars-v2,EXTRACT_CSS:false,ALLOW_JS -c ../../../rollup.config.js",
+    "build:rollup": "rollup --environment DYNAMIC_IMPORT,MODULE_NAME:toolbars-v3,EXTRACT_CSS:false,ALLOW_JS -c ../../../rollup.config.js",
     "build": "npm run build:rollup && node ../../../scripts/cssFix.js",
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "build:analyze:editor": "npm run build -- --environment MODULE_ANALYZE_EDITOR  && open stats.html",

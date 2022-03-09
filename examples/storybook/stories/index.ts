@@ -3,7 +3,7 @@ require('./Plugins/');
 require('./Preview/');
 require('./Ricos/');
 require('./Theme/');
-require('./ToolbarsV2/');
+require('./ToolbarsV3/');
 require('./Toolbars/');
 require('./RicosComponents/');
 require('./Experiments/');

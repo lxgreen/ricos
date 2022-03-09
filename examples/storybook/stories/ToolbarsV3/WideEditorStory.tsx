@@ -13,14 +13,14 @@ import EditorWrapper from '../Components/EditorWrapper';
 import ViewerWrapper from '../Components/ViewerWrapper';
 import introState from '../../../../e2e/tests/fixtures/intro.json';
 import {
-  RicosToolbarWrapper,
+  RicosDraftToolbar,
   RicosTiptapToolbar,
   Content,
   ToolbarContext,
-} from 'wix-rich-content-toolbars-v2';
+} from 'wix-rich-content-toolbars-v3';
 
 const WideEditorStory = () => {
-  const experiments = { toolbarsV2: { enabled: true }, tiptapEditor: { enabled: false } };
+  const experiments = { toolbarsV3: { enabled: true }, tiptapEditor: { enabled: false } };
   const currentContent = !experiments.tiptapEditor.enabled
     ? useRef(Content.create(null))
     : useRef(Content.create([]));
@@ -37,7 +37,7 @@ const WideEditorStory = () => {
               <div dir="" data-hook="yaron123" style={{ border: 'solid 10px red', padding: 10 }}>
                 {editorCommands.current && !experiments.tiptapEditor.enabled && (
                   <>
-                    <RicosToolbarWrapper
+                    <RicosDraftToolbar
                       content={currentContent.current}
                       editorCommands={editorCommands.current}
                     />

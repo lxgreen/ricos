@@ -259,7 +259,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       editorState: initialEditorState,
       innerModal: null,
       toolbarsToIgnore:
-        experiments?.newFormattingToolbar?.enabled || experiments?.toolbarsV2?.enabled
+        experiments?.newFormattingToolbar?.enabled || experiments?.toolbarsV3?.enabled
           ? ['InlineTextToolbar', 'InlinePluginToolbar']
           : [],
       readOnly: false,
