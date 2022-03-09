@@ -30,6 +30,7 @@ export enum ButtonType {
   DELETE = 'delete',
   LINK_PREVIEW = 'link-preview',
   VIDEO_SETTINGS = 'video-settings',
+  FILE_UPLOAD_SETTINGS = 'file-upload-settings',
   AUDIO_SETTINGS = 'audio-settings',
 }
 

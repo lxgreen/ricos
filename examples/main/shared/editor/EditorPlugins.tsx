@@ -679,6 +679,7 @@ const config: RichContentEditorProps['config'] = {
     //   },
     // },
     accept: '*',
+    adobeAPIKey: '77266adc759d4dc2a9e071e3bde25095',
     // onFileSelected: mockFileNativeUploadFunc,
     // handleFileSelection: mockFileUploadFunc,
   },

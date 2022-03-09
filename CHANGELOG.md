@@ -51,6 +51,7 @@
 ### :house: Internal
 
 - `file-upload`
+  - [#3370](https://github.com/wix/ricos/pull/3370) open pdf viewer experiment `enableFilePluginPDFViewer`
   - [#3583](https://github.com/wix/ricos/pull/3583) refactor file mock upload urls
 
 ## 8.70.11 (Mar 6, 2022)

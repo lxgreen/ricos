@@ -8,7 +8,7 @@ import styles from '../../statics/styles/selection-list.scss';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SelectionItem = Record<string, any> | string | number;
-type SelectionOption = { value?: SelectionItem; label?: string };
+type SelectionOption = { value?: SelectionItem; label?: string; subText?: string };
 
 function defaultDataMapper(item: SelectionItem): SelectionOption {
   switch (typeof item) {
@@ -60,6 +60,7 @@ interface SelectionListProps {
   onChange: (value: string) => void;
   optionClassName?: string;
   useNewSettingsUi?: boolean;
+  renderOptionSubtext?: (props: { item: SelectionItem; selected: boolean }) => JSX.Element | null;
 }
 
 class SelectionList extends Component<SelectionListProps, { focusIndex: number }> {
@@ -133,16 +134,19 @@ class SelectionList extends Component<SelectionListProps, { focusIndex: number }
       optionClassName,
       useNewSettingsUi,
     } = this.props;
+    const optionsData = dataSource.map(item => this.mapItemToOptionData(item));
+    const subText = (
+      optionsData.filter(optionData => optionData.selected)?.[0].item as Record<string, string>
+    )?.subText;
     return (
-      <div
-        ref={el => (this.ref = el)}
-        className={classnames(this.styles.selectionList, className)}
-        role={'listbox'}
-        aria-orientation={'horizontal'}
-      >
-        {dataSource
-          .map(item => this.mapItemToOptionData(item))
-          .map(({ item, option, selected }, i) => (
+      <>
+        <div
+          ref={el => (this.ref = el)}
+          className={classnames(this.styles.selectionList, className)}
+          role={'listbox'}
+          aria-orientation={'horizontal'}
+        >
+          {optionsData.map(({ item, option, selected }, i) => (
             <SelectionListOption
               tabIndex={0}
               selected={selected}
@@ -160,7 +164,9 @@ class SelectionList extends Component<SelectionListProps, { focusIndex: number }
               {renderItem({ item, option, selected })}
             </SelectionListOption>
           ))}
-      </div>
+        </div>
+        {subText && <div className={this.styles.selectionSubText}> {subText} </div>}
+      </>
     );
   }
 }

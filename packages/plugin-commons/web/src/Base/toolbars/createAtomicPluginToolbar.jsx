@@ -298,6 +298,15 @@ export default function createAtomicPluginToolbar({
           };
           return shouldShowSettingsButton ? <Button {...videoSettingsProps} /> : null;
         }
+        case BUTTONS.FILE_UPLOAD_SETTINGS: {
+          const shouldShowSettingsButton =
+            this.state.componentData.type === 'pdf' && !innerRCERenderedIn;
+          const fileUploadSettingsProps = {
+            ...defaultButtonProps,
+            type: BUTTONS.EXTERNAL_MODAL,
+          };
+          return shouldShowSettingsButton ? <Button {...fileUploadSettingsProps} /> : null;
+        }
         case BUTTONS.AUDIO_SETTINGS: {
           const shouldShowSettingsButton = !!this.state.componentData.audio.src?.id;
           const audioSettingsProps = {

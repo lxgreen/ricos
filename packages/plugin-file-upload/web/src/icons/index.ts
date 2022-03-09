@@ -5,3 +5,5 @@ export { getIcon } from './getIcon';
 export { default as DownloadIcon } from './downloadIcon';
 export { default as ErrorIcon } from './errorIcon';
 export { default as ReadyIcon } from './readyIcon';
+export { default as FullViewerIcon } from './fullViewerIcon';
+export { default as MiniViewerIcon } from './miniViewerIcon';

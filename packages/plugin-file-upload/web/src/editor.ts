@@ -2,6 +2,7 @@ import { createFileUploadPlugin } from './createFileUploadPlugin';
 import type { FilePluginEditorConfig } from './types';
 import { FILE_UPLOAD_TYPE } from './types';
 import { DEFAULTS } from './defaults';
+import { ModalsMap } from './modals';
 import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createFileData } from './createFileData';
 import { createRicosExtensions } from './tiptap';
@@ -13,7 +14,7 @@ export const pluginFileUpload: EditorPluginCreator<FilePluginEditorConfig> = con
     config: pluginConfig,
     type: FILE_UPLOAD_TYPE,
     createPlugin: createFileUploadPlugin,
-    ModalsMap: {},
+    ModalsMap,
     createPluginData: createFileData,
     configFixer: () =>
       (pluginConfig.uploadHandler =

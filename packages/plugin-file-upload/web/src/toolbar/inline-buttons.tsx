@@ -1,16 +1,51 @@
-import { BUTTONS } from 'wix-rich-content-plugin-commons';
+import { BUTTONS, PluginSettingsIcon } from 'wix-rich-content-plugin-commons';
 import { MediaReplaceIcon } from '../icons';
-import type { CreateInlineButtons, TranslationFunction } from 'wix-rich-content-common';
+import type {
+  CreateInlineButtons,
+  TranslationFunction,
+  AnchorTarget,
+  RelValue,
+  UISettings,
+  AvailableExperiments,
+} from 'wix-rich-content-common';
 import type { FilePluginEditorConfig } from '../types';
+import { get } from 'lodash';
+import { getModalStyles } from 'wix-rich-content-editor-common';
+import { FILE_UPLOAD_TYPE } from '../types';
+import { Modals } from '../modals';
 
 const createInlineButtons: CreateInlineButtons = ({
-  settings,
   t,
+  isMobile,
+  settings = {},
+  experiments,
 }: {
   t: TranslationFunction;
   settings: FilePluginEditorConfig;
+  isMobile: boolean;
+  experiments?: AvailableExperiments;
 }) => {
-  const icon = settings?.toolbar?.icons?.replace || MediaReplaceIcon;
+  const icons = get(settings, 'toolbar.icons', {});
+  const modalStyles = getModalStyles({ isMobile });
+
+  const settingsButton = experiments?.enableFilePluginPDFViewer?.enabled
+    ? [
+        {
+          keyName: 'settings',
+          type: BUTTONS.FILE_UPLOAD_SETTINGS,
+          fullHeight: true,
+          icon: icons.settings || PluginSettingsIcon,
+          modalName: Modals.FILE_UPLOAD_SETTINGS,
+          modalStyles,
+          t,
+          mobile: true,
+          tooltipTextKey: 'SettingsButton_Tooltip',
+          triggerSettingsBi: true,
+          pluginId: FILE_UPLOAD_TYPE,
+        },
+      ]
+    : [];
+
   return [
     { keyName: 'sizeSmall', type: BUTTONS.SIZE_SMALL_CENTER, mobile: false },
     { keyName: 'sizeContent', type: BUTTONS.SIZE_CONTENT, mobile: false },
@@ -22,10 +57,11 @@ const createInlineButtons: CreateInlineButtons = ({
     {
       keyName: 'replace',
       type: BUTTONS.FILES,
-      icon,
+      icon: icons?.replace || MediaReplaceIcon,
       settings,
       tooltipTextKey: t('FileUploadReplaceButton_tooltip'),
     },
+    ...settingsButton,
     { keyName: 'delete', type: BUTTONS.DELETE, mobile: true },
   ];
 };

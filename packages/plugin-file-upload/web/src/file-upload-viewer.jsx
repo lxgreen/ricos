@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, debounce } from 'lodash';
+import { isEqual, debounce, pick } from 'lodash';
 import { mergeStyles, validate, GlobalContext } from 'wix-rich-content-common';
 import { LoaderIcon, getIcon, DownloadIcon, ErrorIcon, ReadyIcon } from './icons';
 // eslint-disable-next-line max-len
@@ -9,6 +9,7 @@ import styles from '../statics/styles/file-upload-viewer.scss';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 import classnames from 'classnames';
 import { FILE_UPLOAD_TYPE } from './types';
+import { PDF_STATUS, PDF_OPTIONS, PDFViewer } from './pdfViewer';
 
 const getNameWithoutType = fileName => {
   if (!fileName || !fileName.includes('.')) {
@@ -21,27 +22,40 @@ const getNameWithoutType = fileName => {
 const resizeWidths = { first: 320, second: 140, third: 100 };
 
 class FileUploadViewer extends PureComponent {
-  state = {
-    resolvedFileUrl: null,
-    resolvingUrl: false,
-    currentWidth: 0,
-  };
-
   static contextType = GlobalContext;
 
   constructor(props) {
     super(props);
-    const { componentData } = props;
+    const {
+      componentData,
+      componentData: { type, pdfSettings: { viewMode: pdfView } = { pdfView: PDF_OPTIONS.NONE } },
+      settings: { adobeAPIKey },
+    } = props;
     validate(componentData, pluginFileUploadSchema);
     this.downloaderRef = React.createRef();
     this.fileUploadViewerRef = React.createRef();
+    const pdfStatus =
+      type === 'pdf' && pdfView !== PDF_OPTIONS.NONE && adobeAPIKey
+        ? PDF_STATUS.PENDING
+        : PDF_STATUS.NONE;
+    this.state = {
+      resolvedFileUrl: null,
+      resolvingUrl: false,
+      currentWidth: 0,
+      pdfStatus,
+    };
   }
 
   isInResizeRange = resizeWidth => this.fileUploadViewerRef?.current?.clientWidth < resizeWidth;
 
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(nextProps.componentData, this.props.componentData)) {
-      validate(nextProps.componentData, pluginFileUploadSchema);
+    const {
+      componentData: nextComponentData,
+      settings: { adobeAPIKey },
+    } = nextProps;
+    const { componentData } = this.props;
+    if (!isEqual(nextComponentData, componentData)) {
+      validate(nextComponentData, pluginFileUploadSchema);
     }
     if (!nextProps.isLoading && this.props.isLoading) {
       this.switchReadyIcon();
@@ -89,8 +103,8 @@ class FileUploadViewer extends PureComponent {
       isMobile,
       componentData: { error },
     } = this.props;
-    const { showReadyIcon, resolvingUrl } = this.state;
-    const showLoader = isLoading || resolvingUrl;
+    const { showReadyIcon, resolvingUrl, pdfStatus } = this.state;
+    const showLoader = isLoading || resolvingUrl || pdfStatus === PDF_STATUS.LOADING_FILE;
     const showFileIcon = (!showLoader && !showReadyIcon && isMobile) || (!isMobile && Icon);
     if (showFileIcon) {
       return (
@@ -282,26 +296,64 @@ class FileUploadViewer extends PureComponent {
 
   onFileClick = () => this.props.helpers.onViewerAction?.(FILE_UPLOAD_TYPE, 'Click');
 
+  onPDFStatusChange = status => this.setState({ pdfStatus: status });
+
   render() {
-    const { componentData, theme, setComponentUrl, tempDataPlaceHolder } = this.props;
+    const {
+      componentData,
+      componentData: { pdfSettings = {} },
+      theme,
+      setComponentUrl,
+      tempDataPlaceHolder,
+      settings: { adobeAPIKey },
+      locale,
+      iframeSandboxDomain,
+    } = this.props;
+    const { pdfStatus } = this.state;
     this.styles = this.styles || mergeStyles({ styles, theme });
     const fileUrl = componentData.url || this.state.resolvedFileUrl;
     setComponentUrl?.(fileUrl);
     const viewer =
       fileUrl || tempDataPlaceHolder ? this.renderViewer(fileUrl) : this.renderFileUrlResolver();
+    const dataHook = 'fileUploadViewer';
+
+    const shouldRenderPDFViewer =
+      this.context.experiments.enableFilePluginPDFViewer?.enabled &&
+      typeof window !== 'undefined' &&
+      fileUrl &&
+      ![PDF_STATUS.ERROR, PDF_STATUS.NONE].includes(pdfStatus);
+
     const style = classnames(
       this.styles.file_upload_container,
       componentData.error && this.styles.file_upload_error_container
     );
+
     return (
       <Tooltip
         content={this.isInResizeRange(resizeWidths.first) && componentData.name}
         tooltipOffset={{ y: 25 }}
       >
-        <div className={style} data-hook="fileUploadViewer" ref={this.fileUploadViewerRef}>
-          {viewer}
-          {this.renderAutoDownloadLinkRef()}
-        </div>
+        {shouldRenderPDFViewer ? (
+          <div data-hook={dataHook} ref={this.fileUploadViewerRef}>
+            <PDFViewer
+              status={pdfStatus}
+              ref={this.fileUploadViewerRef}
+              fileData={{ url: fileUrl, fileName: componentData.name }}
+              setStatus={this.onPDFStatusChange}
+              pdfSettings={pdfSettings}
+              config={{
+                clientId: adobeAPIKey,
+                locale,
+              }}
+            />
+            {![PDF_STATUS.READY].includes(pdfStatus) && <div className={style}>{viewer}</div>}
+          </div>
+        ) : (
+          <div data-hook={dataHook} ref={this.fileUploadViewerRef} className={style}>
+            {viewer}
+            {this.renderAutoDownloadLinkRef()}
+          </div>
+        )}
       </Tooltip>
     );
   }
@@ -317,6 +369,8 @@ FileUploadViewer.propTypes = {
   t: PropTypes.func,
   isMobile: PropTypes.bool,
   helpers: PropTypes.object,
+  locale: PropTypes.string,
+  iframeSandboxDomain: PropTypes.string,
 };
 
 FileUploadViewer.defaultProps = {

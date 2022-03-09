@@ -1,4 +1,5 @@
 import type { FileData_PDFSettings } from 'ricos-schema';
+import Fullscreen from 'wix-rich-content-fullscreen/src';
 
 export enum MediaUploadErrorKey {
   GENERIC,
@@ -84,6 +85,8 @@ export interface VideoComponentData {
 
 export type MediaPrivacy = 'public' | 'private';
 
+export interface PDFSettings extends FileData_PDFSettings {}
+
 export interface FileComponentData {
   name: string;
   type: string;
@@ -91,5 +94,5 @@ export interface FileComponentData {
   id?: string;
   size?: string | number;
   privacy?: MediaPrivacy;
-  pdfSettings?: FileData_PDFSettings;
+  pdfSettings?: PDFSettings;
 }

@@ -9,6 +9,7 @@ interface SettingsSectionProps {
   className?: string;
   theme: RichContentTheme;
   ariaProps?: HTMLAttributes<HTMLDivElement>;
+  headerText?: string;
 }
 
 class SettingsSection extends React.Component<SettingsSectionProps> {
@@ -21,9 +22,10 @@ class SettingsSection extends React.Component<SettingsSectionProps> {
 
   render() {
     const { styles } = this;
-    const { children, ariaProps, className } = this.props;
+    const { children, ariaProps, className, headerText } = this.props;
     return (
       <div className={classNames(styles.section, className)} {...ariaProps}>
+        {headerText && <div className={styles.sectionHeader}> {headerText} </div>}
         {children}
       </div>
     );

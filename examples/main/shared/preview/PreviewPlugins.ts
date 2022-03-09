@@ -89,7 +89,11 @@ export const config = {
     resolveFileUrl: () =>
       new Promise(resolve =>
         setTimeout(
-          () => resolve('https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf'),
+          () =>
+            resolve(
+              // eslint-disable-next-line max-len
+              'https://cms.education.gov.il/NR/rdonlyres/BFBDB737-89E9-4B70-A1FF-1122B7AE8F1D/69371/14_HEB_ClassRecipeBook.pdf'
+            ),
           1000
         )
       ),

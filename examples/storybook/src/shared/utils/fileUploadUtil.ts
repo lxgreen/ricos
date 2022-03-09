@@ -209,7 +209,7 @@ export const mockTestFileNativeUpload = (
   const file = {
     name,
     type,
-    url: 'https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    url: SAMPLE_PDF,
   };
 
   setTimeout(() => {
@@ -226,7 +226,7 @@ export const mockTestFileUpload = (updateEntity: UpdateEntityFunc<FileComponentD
   data.push({
     name,
     type,
-    url: 'https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    url: SAMPLE_PDF,
   });
 
   setTimeout(() => updateEntity({ data }), 200);
