@@ -21,6 +21,8 @@
 
 - `theme`
   - [#3594](https://github.com/wix/ricos/pull/3594) fix bizMgr theming
+- `theme`
+  - [#3595](https://github.com/wix/ricos/pull/3595) fix bizMgr theming gallery/polls settings & toolbar buttons
 
 </details>
 <hr/>

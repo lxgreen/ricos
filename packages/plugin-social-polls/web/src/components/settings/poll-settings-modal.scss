@@ -160,11 +160,16 @@ $HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
 }
 
 .selectionListOption:hover:not(.selectionListOption_selected) {
-  background-color: rgba(2, 97, 255, 0.06);
+  // background-color: rgba(2, 97, 255, 0.06);
+  background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
+
 }
 
 .selectionListOption_selected {
-  background-color: rgba(2, 97, 255, 0.2);
+  background-color: rgba($settings-action-color-fallback-tuple, 0.1);
+  *{
+    color: $settings-action-color-fallback;
+  }
 }
 
 .labeled_toggle_root {

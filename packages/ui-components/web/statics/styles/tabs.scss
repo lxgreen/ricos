@@ -25,9 +25,10 @@
   font-size: 16px;
   font-weight: 300;
   &:hover:not(.tabs_headers_option_selected) {
-    border-bottom: solid 3px #00000066;
+    border-bottom: solid 3px var(--ricos-settings-text-color, #000000) ;
+    opacity: 0.5;
     .tabs_headers_option_label {
-      color: #00000066;
+      color: #000000;
     }
   }
 }

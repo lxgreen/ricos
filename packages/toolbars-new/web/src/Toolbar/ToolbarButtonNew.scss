@@ -59,6 +59,7 @@
 }
 
 .toolbarButton {
+  border-radius: var(--ricos-settings-small-buttons-border-radius, unset);
   display: flex;
   background: transparent;
   color: var(--ricos-settings-text-color, #000000);

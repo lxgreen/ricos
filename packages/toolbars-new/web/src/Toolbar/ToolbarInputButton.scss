@@ -21,6 +21,7 @@
 }
 
 .toolbarButton {
+  border-radius: var(--ricos-settings-small-buttons-border-radius, unset);
   display: flex;
   background: transparent;
   padding: 4px;

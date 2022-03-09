@@ -54,7 +54,7 @@
 
 .colorPicker_button {
   @extend %button;
-  border-radius: $settings-colorPaletteButton-border-radius;
+  border-radius: $settings-smallButtons-border-radius;
   border: solid 1px #ccc;
   &::after {
     content: ' ';

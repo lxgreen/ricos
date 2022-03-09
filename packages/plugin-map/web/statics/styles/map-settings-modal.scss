@@ -128,8 +128,7 @@ $FOOTER_HEIGHT: 100px;
 
 .map_settings_modal_divider {
   height: 1px;
-  opacity: 0.2;
-  background-color: $primary-text-color;
+  border-bottom: 1px solid $settings-dividers-color;
 }
 
 .map_settings_modal_map_modes {

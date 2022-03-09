@@ -43,7 +43,7 @@ export const withWixStyle: WithStyle = theme =>
         colorPaletteSelectedButton: {
           borderRadius: '6px',
         },
-        colorPaletteButton: {
+        smallButtons: {
           borderRadius: '4px',
         },
       },

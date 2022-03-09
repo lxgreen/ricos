@@ -35,7 +35,7 @@
   width: 32px;
   height: 32px;
   &:not(.newSettingsUi) {
-    background-color: rgba(51, 51, 51, 0.1);
+    background-color: rgba(var(--ricos-settings-action-color-tuple, (51, 51, 51)), 0.1);
   }
   border-radius: 2px;
   display: flex;

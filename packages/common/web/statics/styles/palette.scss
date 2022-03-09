@@ -50,7 +50,7 @@ $ricos-code-block-margin: var(--ricos-custom-code-block-margin, 15px 18px);
 // Settings Styles (panels & editor elements only)
 $settings-buttons-border-radius: var(--ricos-settings-buttons-border-radius, 0px);
 $settings-buttons-text-color: var(--ricos-settings-buttons-text-color, #ffffff);
-$settings-dividers-color: var(--ricos-settings-dividers-color, #000000);
+$settings-dividers-color: var(--ricos-settings-dividers-color, #00000050);
 $settings-icons-color: var(--ricos-settings-icons-color, #000000);
 $settings-inputs-border-color: var(--ricos-settings-inputs-border-color, #0009);
 $settings-inputs-border-radius: var(--ricos-settings-inputs-border-radius, 0px);
@@ -58,7 +58,7 @@ $settings-inputs-placeholder-color: var(--ricos-settings-inputs-placeholder-colo
 $settings-text-color: var(--ricos-settings-text-color, #333333);
 $settings-whitebox-border-radius: var(--ricos-settings-whitebox-border-radius, 2px);
 $settings-whitebox-box-shadow: var(--ricos-settings-whitebox-box-shadow, $default-box-shadow);
-$settings-colorPaletteButton-border-radius: var(--ricos-settings-color-palette-button-border-radius, 50%);
+$settings-smallButtons-border-radius: var(--ricos-settings-small-buttons-border-radius, 50%);
 $settings-colorPaletteSelectedButton-border-radius: var(--ricos-settings-color-palette-selected-button-border-radius, 50%);
 
 $modal-input-color: #333333;

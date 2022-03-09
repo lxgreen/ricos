@@ -120,7 +120,7 @@ export interface RicosSettingsStyles {
   colorPaletteSelectedButton?: {
     borderRadius?: CSSProperties['borderRadius'];
   };
-  colorPaletteButton?: {
+  smallButtons?: {
     borderRadius?: CSSProperties['borderRadius'];
   };
 }

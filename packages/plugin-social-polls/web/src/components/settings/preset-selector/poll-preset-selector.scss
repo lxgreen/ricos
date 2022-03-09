@@ -34,7 +34,7 @@
 
 .selectionListOption:hover:not(.selectionListOption_selected),
 .selectionListOption:hover {
-  background: rgba(0, 0, 0, 0.1);
+  background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
 }
 
 .preset_selector {

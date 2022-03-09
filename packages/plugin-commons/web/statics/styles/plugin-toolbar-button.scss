@@ -26,6 +26,7 @@
 .pluginToolbarButton {
   display: inline-block;
   background: transparent;
+  border-radius: var(--ricos-settings-small-buttons-border-radius, unset);
   color: $settings-text-color;
   padding: 5px;
   border: none;
