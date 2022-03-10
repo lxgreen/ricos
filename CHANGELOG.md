@@ -17,13 +17,16 @@
     Click to see more.
   </summary>
 
+
+</details>
+<hr/>
+
+## 8.70.15 (Mar 10, 2022)
+
 ### :bug: Bug Fix
 
 - `theme`
   - [#3599](https://github.com/wix/ricos/pull/3599) fix alignment icons color
-
-</details>
-<hr/>
 
 ## 8.70.14 (Mar 9, 2022)
 
