@@ -28,14 +28,15 @@ class FileUploadViewer extends PureComponent {
     super(props);
     const {
       componentData,
-      componentData: { type, pdfSettings: { viewMode: pdfView } = { pdfView: PDF_OPTIONS.NONE } },
+      componentData: { type, pdfSettings },
       settings: { adobeAPIKey },
     } = props;
+    const viewMode = pdfSettings?.viewMode || PDF_OPTIONS.NONE;
     validate(componentData, pluginFileUploadSchema);
     this.downloaderRef = React.createRef();
     this.fileUploadViewerRef = React.createRef();
     const pdfStatus =
-      type === 'pdf' && pdfView !== PDF_OPTIONS.NONE && adobeAPIKey
+      type === 'pdf' && viewMode !== PDF_OPTIONS.NONE && adobeAPIKey
         ? PDF_STATUS.PENDING
         : PDF_STATUS.NONE;
     this.state = {

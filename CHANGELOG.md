@@ -21,6 +21,7 @@
 
 - `file-upload`
   - [#3600](https://github.com/wix/ricos/pull/3600) fix pdf viewer loading experiment
+  - [#3601](https://github.com/wix/ricos/pull/3601) fix tiptap editor crash with files in content
 - `bundle-analyzer`
   - [#3580](https://github.com/wix/ricos/pull/3580) Speedup (use esbuild for minify) and general cleanup of code
   - [#3580](https://github.com/wix/ricos/pull/3580) general cleanup of code
