@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-plugin-link-preview",
-  "version": "8.70.14",
+  "version": "8.70.15",
   "author": {
     "name": "Alex Greenstein",
     "email": "alexgr@wix.com"
@@ -36,12 +36,12 @@
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,d.ts}'"
   },
   "dependencies": {
-    "ricos-tiptap-types": "8.70.14",
-    "wix-rich-content-common": "8.70.14",
-    "wix-rich-content-editor-common": "8.70.14",
-    "wix-rich-content-plugin-commons": "8.70.14",
-    "wix-rich-content-plugin-html": "8.70.14",
-    "wix-rich-content-ui-components": "8.70.14"
+    "ricos-tiptap-types": "8.70.15",
+    "wix-rich-content-common": "8.70.15",
+    "wix-rich-content-editor-common": "8.70.15",
+    "wix-rich-content-plugin-commons": "8.70.15",
+    "wix-rich-content-plugin-html": "8.70.15",
+    "wix-rich-content-ui-components": "8.70.15"
   },
   "unpkg": true,
   "publishConfig": {
