@@ -7,15 +7,11 @@
   padding: 10px 0;
 
   &:hover {
-    .inlineToolbarDropdownButton_active svg {
-      // @include fillWithSettingsActionColor();
+    .inlineToolbarDropdownButton_active {
+      @include svg-fill;
     }
     > div:not(.inlineToolbarDropdown_options) button {
       background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
-
-      svg {
-        // @include fillWithSettingsActionColor();
-      }
     }
   }
   > div:not(.inlineToolbarDropdown_options) .inlineToolbarDropdownButton_active {

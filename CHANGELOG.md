@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `theme`
+  - [#3599](https://github.com/wix/ricos/pull/3599) fix alignment icons color
+
 </details>
 <hr/>
 

@@ -21,6 +21,7 @@ const AlignJustifyIcon = props => {
       width={19}
       height={19}
       viewBox="0 0 19 19"
+      fill="currentColor"
       {...props}
     >
       <defs>
