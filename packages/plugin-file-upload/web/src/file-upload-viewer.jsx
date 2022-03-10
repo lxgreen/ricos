@@ -321,7 +321,7 @@ class FileUploadViewer extends PureComponent {
       this.context.experiments.enableFilePluginPDFViewer?.enabled &&
       typeof window !== 'undefined' &&
       fileUrl &&
-      ![PDF_STATUS.ERROR, PDF_STATUS.NONE].includes(pdfStatus);
+      ![PDF_STATUS.ERROR].includes(pdfStatus);
 
     const style = classnames(
       this.styles.file_upload_container,

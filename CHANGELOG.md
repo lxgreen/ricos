@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `file-upload`
+  - [#3600](https://github.com/wix/ricos/pull/3600) fix pdf viewer loading experiment
 
 </details>
 <hr/>
