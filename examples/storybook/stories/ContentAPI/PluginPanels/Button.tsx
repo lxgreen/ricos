@@ -14,6 +14,7 @@ import type { EditPanelProps } from '../types';
 import { HorizontalField } from '../HorizontalField';
 import { buttonTypes, buttonTypesOptions } from '../AbstractPanels/utils';
 
+// @ts-ignore
 export const Button: FC<EditPanelProps<'addLinkButton' | 'addActionButton'>> = ({ addFunc }) => {
   const [commonFields, setCommonFields] = useState(emptyCommonBuilderFields);
   const [link, setLink] = useState(emptyLink);
@@ -26,6 +27,7 @@ export const Button: FC<EditPanelProps<'addLinkButton' | 'addActionButton'>> = (
   const [textColor, setTextColor] = useState(undefined as string);
   const [containerData, setContainerData] = useState(emptyPluginContainerData);
   const onAdd = () => {
+    // @ts-ignore
     addFunc(type === 'LINK' ? 'addLinkButton' : 'addActionButton', {
       data: {
         containerData,

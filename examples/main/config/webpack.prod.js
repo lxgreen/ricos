@@ -2,7 +2,8 @@
 const merge = require('webpack-merge').merge;
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const path = require('path');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const prodConfig = {
@@ -10,14 +11,12 @@ const prodConfig = {
   module: {
     rules: [
       {
-        test: /\.js(x)?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            compact: true,
-            rootMode: 'upward',
-          },
+        test: /\.jsx?$/,
+        include: path.resolve(__dirname, '../src'),
+        loader: 'esbuild-loader',
+        options: {
+          loader: 'jsx',
+          target: 'esnext',
         },
       },
       {
@@ -46,7 +45,12 @@ const prodConfig = {
     }),
   ],
   optimization: {
-    minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin({})],
+    minimizer: [
+      new TerserPlugin({ minify: TerserPlugin.esbuildMinify }),
+      new CssMinimizerPlugin({
+        minify: CssMinimizerPlugin.esbuildMinify,
+      }),
+    ],
   },
 };
 

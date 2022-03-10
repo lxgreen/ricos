@@ -9,7 +9,7 @@ const DividerEditor: FunctionComponent<{
   injectedContent?: DraftContent;
   maxTextLength?: number;
 }> = ({ content, injectedContent, maxTextLength }) => {
-  const editorRef = useRef();
+  const editorRef = useRef(null);
   const logTraits = () => {
     const traits = editorRef.current?.getContentTraits();
     console.debug(traits); // eslint-disable-line

@@ -126,6 +126,7 @@ class RicosTestApp extends PureComponent<RicosTestAppProps> {
           helpers={{
             onVideoSelected,
             handleFileSelection: !isNativeUpload ? mockTestImageUpload : undefined,
+            // @ts-ignore
             handleFileUpload: isNativeUpload ? mockTestImageNativeUpload : undefined,
           }}
         />

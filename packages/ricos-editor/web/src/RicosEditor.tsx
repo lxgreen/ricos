@@ -336,7 +336,11 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   getContentTraits = () => this.dataInstance.getContentTraits();
 
-  getContent = async (postId?: string, forPublish?: boolean, shouldRemoveErrorBlocks = true) => {
+  getContent = async (
+    postId?: string,
+    forPublish?: boolean,
+    shouldRemoveErrorBlocks = true
+  ): Promise<DraftContent> => {
     if (postId && forPublish) {
       console.warn(PUBLISH_DEPRECATION_WARNING_v9); // eslint-disable-line
       this.sendPublishBi(postId); //async

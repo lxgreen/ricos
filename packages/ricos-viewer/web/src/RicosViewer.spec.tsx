@@ -25,7 +25,7 @@ const getRCV = (ricosViewerProps?: RicosViewerProps, asWrapper?: boolean) => {
       <RichContentViewer />
     </RicosViewer>
   );
-  const element = shallow(toRender).find('RicosEngine').dive().children();
+  const element = shallow(toRender).first().dive().children();
 
   return element.at(element.length - 1); // due to add html by strategies
 };

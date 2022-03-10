@@ -1,11 +1,13 @@
-import { analyze } from './analyzeBundles';
+import { getBundlesSize } from './utils/getBundlesSize';
 import fs from 'fs';
 
-async function saveBundles() {
-  const fileName = process.env.FILE_NAME;
-  const data = await analyze();
-  fs.writeFile(`${fileName}.json`, JSON.stringify(data, null, 2), err => {
+async function main() {
+  const bundlesSizes = await getBundlesSize();
+  const fileName = 'bundlesSizesBaseline';
+
+  fs.writeFile(`${fileName}.json`, JSON.stringify(bundlesSizes, null, 2), err => {
     if (err) throw err;
   });
 }
-saveBundles();
+
+main();

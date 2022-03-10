@@ -1,7 +1,6 @@
 /* eslint-disable */
 const path = require('path');
 const merge = require('webpack-merge').merge;
-const { HotModuleReplacementPlugin } = require('webpack');
 
 const PATHS = {
   monorepo_root: path.join(__dirname, '..', '..', '..'),
@@ -19,29 +18,22 @@ const devConfig = {
   module: {
     rules: [
       {
-        test: /\.js(x)?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            compact: true,
-            rootMode: 'upward',
-            plugins: ['react-hot-loader/babel'],
-          },
+        test: /\.jsx?$/,
+        include: path.resolve(__dirname, '../src'),
+        loader: 'esbuild-loader',
+        options: {
+          loader: 'jsx',
+          target: 'esnext',
         },
       },
     ],
   },
-  plugins: [new HotModuleReplacementPlugin()],
   devServer: {
     port: 3000,
     open: true,
     host: 'localhost',
-    hot: true,
     compress: true,
-    publicPath: '/',
-    stats: 'errors-only',
-    disableHostCheck: true,
+    allowedHosts: 'all',
     proxy: {
       '/_serverless/*': {
         target: 'https://www.wix.com/',

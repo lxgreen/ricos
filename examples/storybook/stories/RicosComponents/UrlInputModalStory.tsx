@@ -12,13 +12,14 @@ const trans = {
 const UrlInputModalWrapper = ({ children, ...props }) => {
   const [input, setInput] = useState('');
   return (
+    // @ts-ignore
     <UrlInputModal
       // eslint-disable-next-line no-console
-      save={() => console.log('Save!')}
+      onConfirm={() => console.log('Save!')}
       // eslint-disable-next-line no-console
-      cancel={() => console.log('Cancel!')}
+      onCloseRequested={() => console.log('Cancel!')}
       placeholder={placeholder}
-      t={x => trans[x] || x}
+      t={x => trans[x as string] || x}
       onInputChange={setInput}
       input={input}
       {...props}

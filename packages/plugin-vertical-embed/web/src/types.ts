@@ -11,7 +11,7 @@ export interface VerticalEmbedPluginEditorConfig extends EditorPluginConfig, Ver
   exposeEmbedButtons?: string[];
   slimLayout?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  verticalsApi?: (type: string) => any;
+  verticalsApi?: (type: 'event' | 'booking' | 'product') => any;
 }
 export interface VerticalEmbedPluginViewerConfig extends ViewerPluginConfig {
   changeBaseUrl?: (url: string) => string;

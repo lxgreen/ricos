@@ -20,7 +20,7 @@ import TabsWrapper from '../Components/TabsWrapper';
 import apiData from '../Plugins/apiData';
 import type { DraftContent, ToolbarSettings } from 'ricos-editor';
 import { ToolbarType } from 'wix-rich-content-common';
-import type { FooterToolbarConfig } from '../../../main/src/types';
+import type { FooterToolbarConfig } from 'wix-rich-content-common';
 
 export default () => {
   class ShortcutMenuStory extends Component<

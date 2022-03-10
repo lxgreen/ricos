@@ -23,7 +23,7 @@ jobs:
       - name: build packages
         run: npm run build:ci
 
-      - run: npm run analyzeBundles:nobuild --silent
+      - run: npm run analyzeBundlesSize:nobuild --silent
 
     env:
       REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}

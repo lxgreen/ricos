@@ -41,7 +41,9 @@ function run() {
   }
 
   for (const example of EXAMPLES_TO_DEPLOY) {
+    console.log('cwd: ' + process.cwd());
     process.chdir(path.resolve(process.cwd(), example.path));
+    console.log('cwd: ' + process.cwd());
 
     console.log(chalk.blue(`\nDeploying ${example.name} example...`));
     build(example);

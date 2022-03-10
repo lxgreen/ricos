@@ -7,7 +7,7 @@ exports.EXAMPLES_TO_DEPLOY = [
   {
     name: 'rich-content-storybook',
     path: 'examples/storybook',
-    buildCmd: 'build-storybook -s public',
+    buildCmd: 'yarn build-storybook -s public',
     dist: 'storybook-static',
   },
 ];
@@ -19,10 +19,7 @@ exports.generateSubdomain = exampleName => {
   const isPullRequest = !!process.env.GITHUB_HEAD_REF;
   const branchName = isPullRequest
     ? process.env.GITHUB_HEAD_REF
-    : process.env.GITHUB_REF.split('/')
-        .slice(2)
-        .join('/')
-        .replace(/\//g, '-');
+    : process.env.GITHUB_REF.split('/').slice(2).join('/').replace(/\//g, '-');
 
   const postfix = !branchName.startsWith('release') ? branchName : version;
   return exampleName + '-' + postfix.replace(/(\.)|(\/)/g, '-').replace(/^v(\d-)/, '$1');

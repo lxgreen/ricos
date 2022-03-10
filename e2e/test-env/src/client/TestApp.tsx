@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import Editor from '../../../../examples/main/shared/editor/Editor';
 import Viewer from '../../../../examples/main/shared/viewer/Viewer';
 import windowContentStateHoc from './WindowContentStateHoc';
-import type { EditorState } from 'draft-js';
+import type { EditorState } from '@wix/draft-js';
 import type { DraftContent } from 'ricos-editor';
 import type { SEOSettings } from 'wix-rich-content-common';
 import type { RichContentEditorProps } from 'wix-rich-content-editor';
@@ -25,6 +25,7 @@ class TestApp extends PureComponent<Props> {
       this.props;
     return (
       <Editor
+        // @ts-ignore
         onChange={onEditorChange}
         editorState={editorState}
         isMobile={isMobile}
@@ -40,6 +41,7 @@ class TestApp extends PureComponent<Props> {
   renderViewer = () => {
     const { isMobile, contentState, locale, seoMode } = this.props;
     return (
+      // @ts-ignore
       <Viewer initialState={contentState} isMobile={isMobile} locale={locale} seoMode={seoMode} />
     );
   };

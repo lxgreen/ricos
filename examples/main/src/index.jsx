@@ -7,8 +7,14 @@ import ExampleApp from './ExampleApp';
 import './styles.global.scss';
 import { isMobile } from './utils';
 
-// eslint-disable-next-line no-undef
-const allLocales = preval`module.exports = require('./getAllLocales')`;
+const locales = require.context(
+  'wix-rich-content-common/dist/statics/locale', // context folder
+  false, // include subdirectories
+  /.json/ // RegExp
+);
+const allLocales = locales
+  .keys()
+  .map(name => name.substring(name.indexOf('_') + 1, name.indexOf('.json')));
 
 ReactDOM.render(
   <RichContentApp

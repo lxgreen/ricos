@@ -53,7 +53,7 @@ const RicosPublishStory: FunctionComponent<EditorEventsProps> = ({ editorEvents 
             text={'Publish'}
             onClick={async () => {
               const editorContent = await publish();
-              setContent(editorContent);
+              setContent(editorContent as string);
             }}
           />
         </RichContentEditorBox>

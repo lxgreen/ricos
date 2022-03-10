@@ -3,7 +3,7 @@
 import chalk from 'chalk';
 import fs from 'fs';
 import { gitPRComment } from '../scripts/gitPRComment';
-import { analyze } from './analyzeBundles';
+import { getBundlesSize } from './utils/getBundlesSize';
 const PleaseUpdateMsg =
   'Please update the baseline files by running locally "npm run saveBundlesSizesBaseline" and push the changes.\n';
 
@@ -76,7 +76,7 @@ async function updatePRCommentAndConsole() {
 
 async function compareBundles() {
   savingBundles = JSON.parse(fs.readFileSync('./bundlesSizesBaseline.json').toString());
-  currentBundles = await analyze();
+  currentBundles = await getBundlesSize();
 
   console.log(chalk.magenta('compares bundle sizes to baseline...'));
   Object.keys(currentBundles).forEach(key => {

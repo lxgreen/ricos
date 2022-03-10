@@ -28,7 +28,9 @@ export const Gallery: FC<EditPanelProps<'addGallery'>> = ({ addFunc }) => {
     addFunc('addGallery', {
       data: {
         containerData,
-        config: { disableExpand, key, layout, spacing },
+        disableExpand,
+        // @ts-ignore
+        config: { key, layout, spacing },
         // TODO: items
         // TODO: styles
       },

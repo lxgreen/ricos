@@ -1,4 +1,4 @@
-import { IsExternal } from 'rollup';
+import type { IsExternal } from 'rollup';
 
 const externals = [
   'assert',

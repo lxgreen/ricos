@@ -23,15 +23,16 @@ jobs:
         with:
           node-version: '14'
 
-      - name: cache-node_modules
+      - name: cache node_modules
         id: cache-modules
         uses: actions/cache@v2
         with:
           path: |
             node_modules
-            */*/node_modules
+            **/node_modules
             ~/.cache
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+
       - name: npm install + bootstrap
         if: steps.cache-modules.outputs.cache-hit != 'true'
         run: npx midgard-yarn install --frozen-lockfile

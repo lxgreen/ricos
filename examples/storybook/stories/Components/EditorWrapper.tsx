@@ -1,13 +1,7 @@
 import React from 'react';
 import type { RichContentEditorProps } from 'wix-rich-content-editor';
 import { RichContentEditor } from 'wix-rich-content-editor';
-import type {
-  DraftContent,
-  RicosEditorProps,
-  RicosEditorType,
-  RicosTheme,
-  ToolbarSettings,
-} from 'ricos-editor';
+import type { DraftContent, RicosEditorType, RicosTheme, ToolbarSettings } from 'ricos-editor';
 import { RicosEditor } from 'ricos-editor';
 import { pluginLinkButton, pluginActionButton } from 'wix-rich-content-plugin-button';
 import { pluginCodeBlock } from 'wix-rich-content-plugin-code-block';
@@ -31,7 +25,7 @@ import { pluginMap, createMapPlugin } from 'wix-rich-content-plugin-map';
 import { pluginMentions } from 'wix-rich-content-plugin-mentions';
 import { pluginUndoRedo } from 'wix-rich-content-plugin-undo-redo';
 import { pluginVideo, videoButtonsTypes } from 'wix-rich-content-plugin-video';
-import { pluginAudio, audioButtonsTypes } from 'wix-rich-content-plugin-audio';
+import { pluginAudio } from 'wix-rich-content-plugin-audio';
 import { pluginPoll } from 'wix-rich-content-plugin-social-polls';
 import { pluginLinkPreview, LinkPreviewProviders } from 'wix-rich-content-plugin-link-preview';
 import {
@@ -230,7 +224,6 @@ const plugins = [
   }),
   pluginAudio({
     getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,
-    //    exposeButtons: [audioButtonsTypes.audio, audioButtonsTypes.spotify],
   }),
   pluginLinkPreview(configs.linkPreview),
   pluginPoll(),

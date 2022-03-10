@@ -91,7 +91,7 @@ export default class Viewer extends PureComponent<ExampleViewerProps, ExampleVie
         {!isMobile ? (
           <TextSelectionToolbar container={this.viewerRef.current}>
             {selectedText => (
-              <TwitterButton selectedText={selectedText} onViewerAction={helpers.onViewerAction} />
+              <TwitterButton selectedText={selectedText} onClick={helpers.onViewerAction} />
             )}
           </TextSelectionToolbar>
         ) : null}

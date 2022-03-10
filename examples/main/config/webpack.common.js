@@ -2,7 +2,6 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const DotenvWebpackPlugin = require('dotenv-webpack');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
-const HappyPack = require('happypack');
 
 const PATHS = {
   monorepo_root: path.join(__dirname, '..', '..', '..'),
@@ -38,7 +37,7 @@ module.exports = env => ({
         test: /\.js$/,
         use: ['source-map-loader'],
         enforce: 'pre',
-        include: [/wix-rich-content-*/, /ricos*/],
+        include: [/wix-rich-content-.*/, /ricos-.*/],
       },
       {
         test: /\.css$/,
@@ -80,15 +79,11 @@ module.exports = env => ({
       {
         test: /\.(png|jpg|gif)$/,
         issuer: /\.(css|sass|js|jsx)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8192,
-              fallback: 'file-loader',
-            },
-          },
-        ],
+        loader: 'url-loader',
+        options: {
+          limit: 8192,
+          fallback: 'file-loader',
+        },
       },
       {
         test: /\.(woff|eot|ttf|svg|woff2)$/,
@@ -96,34 +91,17 @@ module.exports = env => ({
         use: ['url-loader'],
       },
       {
-        test: /\.svg$/,
-        issuer: /\.js(x)?$/,
-        loaders: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-react'],
-            },
-          },
-          {
-            loader: 'react-svg-loader',
-            query: JSON.stringify({
-              jsx: true,
-              svgo: {
-                plugins: [
-                  { cleanupIDs: false },
-                  { removeViewBox: false },
-                  { removeDimensions: true },
-                ],
-              },
-            }),
-          },
-        ],
-      },
-      {
         test: /\.tsx?$/,
-        exclude: /node_modules/,
-        loader: 'happypack/loader?id=ts',
+        include: [
+          path.resolve(__dirname, '../src'),
+          path.resolve(__dirname, '../shared'),
+          path.resolve(__dirname, '../../storybook/src/shared'),
+        ],
+        loader: 'esbuild-loader',
+        options: {
+          loader: 'tsx',
+          target: 'esnext',
+        },
       },
     ],
   },
@@ -172,15 +150,6 @@ module.exports = env => ({
         'wordHighlighter',
         'wordOperations',
         'wordPartOperations',
-      ],
-    }),
-    new HappyPack({
-      id: 'ts',
-      loaders: [
-        {
-          path: 'ts-loader',
-          query: { happyPackMode: true },
-        },
       ],
     }),
   ],

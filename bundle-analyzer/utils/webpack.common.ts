@@ -1,11 +1,13 @@
-import HappyPack from 'happypack';
-import type { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import type { Configuration } from 'webpack';
+import type { Configuration, WebpackPluginInstance } from 'webpack';
+import path from 'path';
+const TerserPlugin = require('terser-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const { ESBuildMinifyPlugin } = require('esbuild-loader');
 
 const rules = [
   {
     test: /\.js(x)?$/,
-    exclude: /node_modules/,
+    include: path.resolve(__dirname, '../src'),
     use: {
       loader: 'babel-loader',
       options: {
@@ -48,14 +50,20 @@ const rules = [
   },
   {
     test: /\.tsx?$/,
-    exclude: /node_modules/,
-    loader: 'happypack/loader?id=ts',
+    include: path.resolve(__dirname, '../src'),
+    use: [
+      {
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+        },
+      },
+    ],
   },
 ];
 export const getWebpackConfig = (
   entry: string | Record<string, string>,
-  output?: string,
-  { plugins = [] }: { plugins?: BundleAnalyzerPlugin[] } = {}
+  plugins?: WebpackPluginInstance[]
 ): Configuration => {
   return {
     entry,
@@ -68,36 +76,24 @@ export const getWebpackConfig = (
     module: {
       rules,
     },
-    plugins: [
-      ...plugins,
-      new HappyPack({
-        id: 'ts',
-        loaders: [
-          {
-            path: 'ts-loader',
-            query: { happyPackMode: true },
-          },
-        ],
-      }),
-    ],
+    plugins,
     externals: {
       react: 'React',
       'react-dom': 'ReactDOM',
       lodash: '_',
+      i18next: 'i18next',
+      'react-i18next': 'react-i18next',
+      'regenerator-runtime': 'regenerator-runtime',
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
     },
+    optimization: {
+      minimizer: [
+        new ESBuildMinifyPlugin({
+          target: 'es2015', // Syntax to compile to (see options below for possible values)
+        }),
+      ],
+    },
   };
-};
-
-export const getWebpackPluginConfig = (
-  pkgName: string,
-  { plugins = [] }: { plugins?: BundleAnalyzerPlugin[] } = {}
-): Configuration => {
-  return getWebpackConfig(`./src/bundles/${pkgName}.tsx`, pkgName, { plugins });
-};
-
-export const getWebpackPluginsConfig = (entires: Record<string, string>): Configuration => {
-  return getWebpackConfig(entires);
 };

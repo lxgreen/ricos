@@ -21,6 +21,14 @@
 
 - `file-upload`
   - [#3600](https://github.com/wix/ricos/pull/3600) fix pdf viewer loading experiment
+- `bundle-analyzer`
+  - [#3580](https://github.com/wix/ricos/pull/3580) Speedup (use esbuild for minify) and general cleanup of code
+  - [#3580](https://github.com/wix/ricos/pull/3580) general cleanup of code
+  - [#3580](https://github.com/wix/ricos/pull/3580) fix bundle size measurement (webpack config)
+- `examples + e2e`
+  - [#3580](https://github.com/wix/ricos/pull/3580) Speedup (use esbuild)
+  - [#3580](https://github.com/wix/ricos/pull/3580) Fix typescript
+
 
 </details>
 <hr/>
