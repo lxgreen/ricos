@@ -46,6 +46,9 @@ export const withWixStyle: WithStyle = theme =>
         smallButtons: {
           borderRadius: '4px',
         },
+        bgColor: {
+          backgroundColor: '#DAEFFE',
+        },
       },
     },
     theme || {}

@@ -123,4 +123,7 @@ export interface RicosSettingsStyles {
   smallButtons?: {
     borderRadius?: CSSProperties['borderRadius'];
   };
+  bgColor?: {
+    backgroundColor?: CSSProperties['backgroundColor'];
+  };
 }

@@ -29,6 +29,8 @@
 - `examples + e2e`
   - [#3580](https://github.com/wix/ricos/pull/3580) Speedup (use esbuild)
   - [#3580](https://github.com/wix/ricos/pull/3580) Fix typescript
+- `ricos-types`
+  - [#3603](https://github.com/wix/ricos/pull/3603) add bg-color type to RicosSettingsStyles
 
 
 </details>
