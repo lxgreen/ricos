@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.70.16 (Mar 13, 2022)
+
 ### :house: Internal
 
 - `file-upload`
@@ -31,10 +38,6 @@
   - [#3580](https://github.com/wix/ricos/pull/3580) Fix typescript
 - `ricos-types`
   - [#3603](https://github.com/wix/ricos/pull/3603) add bg-color type to RicosSettingsStyles
-
-
-</details>
-<hr/>
 
 ## 8.70.15 (Mar 10, 2022)
 
