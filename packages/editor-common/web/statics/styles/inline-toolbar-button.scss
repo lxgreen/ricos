@@ -45,8 +45,10 @@
   }
   .inlineToolbarButton_active {
     color: $settings-action-color-fallback;
-    fill: $settings-action-color-fallback;
-    @include svg-fill;
+    svg {
+      color: var(--ricos-settings-action-color, currentColor);
+      fill: var(--ricos-settings-action-color, currentColor);
+    }
   }
 }
 

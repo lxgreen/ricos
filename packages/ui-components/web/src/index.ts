@@ -6,7 +6,8 @@ export {
   DesktopFlyOutModalStyles,
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,
   DesktopOverlayModalStyles,
-  ACTION_COLORS_CSS_VAR,
+  ACTION_COLOR_CSS_VAR,
+  BG_COLOR_CSS_VAR,
 } from './consts';
 
 // Modals

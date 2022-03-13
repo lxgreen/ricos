@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import type { RichContentTheme } from 'wix-rich-content-common';
 import { mergeStyles } from 'wix-rich-content-common';
-import { ACTION_COLORS_CSS_VAR } from '..';
+import { ACTION_COLOR_CSS_VAR, BG_COLOR_CSS_VAR } from '../consts';
 import styles from '../../statics/styles/slider.scss';
 
 interface SliderProps {
@@ -23,8 +23,8 @@ const Slider: FunctionComponent<SliderProps> = props => {
   const { min = 0, max = 10, onChange, dataHook, ariaProps, value, onSubmit, languageDir } = props;
   const [fillPercentage, setFillPercentage] = useState(0);
   const track = {
-    fill: ACTION_COLORS_CSS_VAR,
-    unFilled: 'rgba(0,0,0,.2)',
+    fill: ACTION_COLOR_CSS_VAR,
+    unFilled: BG_COLOR_CSS_VAR,
     gradientDeg: languageDir === 'rtl' ? '270deg' : '90deg',
   };
   const bgStyle = {

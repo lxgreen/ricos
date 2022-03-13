@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :Bug Fix
 
+- `theme`
+  - [#3605](https://github.com/wix/ricos/pull/3605) fix toolbars & slider bizMgr theming
 
 </details>
 <hr/>
