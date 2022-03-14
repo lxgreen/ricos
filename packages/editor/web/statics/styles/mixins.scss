@@ -3,6 +3,7 @@
 @mixin svg-fill {
   svg {
     fill: var(--ricos-settings-icons-color, currentColor);
+    color: var(--ricos-settings-icons-color, currentColor);
   }
 }
 

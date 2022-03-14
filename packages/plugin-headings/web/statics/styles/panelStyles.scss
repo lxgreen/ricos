@@ -21,13 +21,14 @@
 
     &:hover {
       cursor: pointer;
-      background-color: rgba(0, 0, 0, 0.05);
+      background-color:rgba(var(--ricos-settings-action-color-tuple, (0, 0, 0)), 0.05);
     }
   }
 }
 
 .headingsPanel_selectedHeading {
-  background-color: rgba(0, 0, 0, 0.1) !important;
+  background-color: rgba(var(--ricos-settings-action-color-tuple, (0, 0, 0)), 0.1) !important;
+  color: var(--ricos-settings-action-color)
 }
 
 .headingsMobilePanel {

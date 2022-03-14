@@ -2,10 +2,21 @@
 import React from 'react';
 
 const ArrowIcon = props => (
-  <svg width="5px" height="8px" viewBox="0 0 5 8" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width="5px"
+    height="8px"
+    viewBox="0 0 5 8"
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
     <title>09 Icons / 05 XLarge48 / 07 Arrow / 01 Arrow Right</title>
     <g id="📟--Specs-for-devs" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-      <g id="Icons" transform="translate(-316.000000, -65.000000)" fill="#000000">
+      <g
+        id="Icons"
+        transform="translate(-316.000000, -65.000000)"
+        fill="var(--ricos-settings-icons-color, #000000)"
+      >
         <g id="Fill-2" transform="translate(311.000000, 61.000000)">
           <polygon
             transform="translate(7.646500, 8.000000) scale(-1, 1) translate(-7.646500, -8.000000) "

@@ -15,6 +15,7 @@
   background-color: white;
   border: solid 1px #ededed;
   box-shadow: $settings-whitebox-box-shadow;
+  border-radius: $settings-whitebox-border-radius;
   position: absolute;
 }
 
@@ -54,6 +55,7 @@
 .panel_Container {
   border: solid 1px #ededed;
   box-shadow: $settings-whitebox-box-shadow;
+  border-radius: $settings-whitebox-border-radius;
   svg {
     height: unset;
     width: unset;

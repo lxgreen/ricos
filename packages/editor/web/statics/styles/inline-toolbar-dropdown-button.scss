@@ -5,11 +5,8 @@
   position: relative;
   margin-right: 10px;
   padding: 10px 0;
-
+  @include svg-fill;
   &:hover {
-    .inlineToolbarDropdownButton_active {
-      @include svg-fill;
-    }
     > div:not(.inlineToolbarDropdown_options) button {
       background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
     }
@@ -17,10 +14,13 @@
   > div:not(.inlineToolbarDropdown_options) .inlineToolbarDropdownButton_active {
     background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
   }
+  // .inlineToolbarDropdownButton_active {
+  //   @include fillWithSettingsActionColor;
+  // }
 }
 
-.inlineToolbarDropdownButton_active svg {
-  // @include fillWithSettingsActionColor();
+.inlineToolbarDropdownButton_active  {
+  @include fillWithSettingsActionColor;
 }
 
 .inlineToolbarDropdown_options {

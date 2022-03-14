@@ -100,14 +100,20 @@
   * {
     font-size: 14px;
   }
-
+  
   input {
+    border-radius: $settings-inputs-border-radius;
     width: 42px;
-    border: solid 1px rgba(51, 51, 51, 0.2);
+    border: solid 1px var(--ricos-settings-inputs-border-color, #33333333);
     padding-left: 12px;
+    color: $settings-text-color;
+
+    &::placeholder {
+      color: var(--ricos-settings-inputs-placeholder-color, rgba(0, 0, 0, 0.4));
+    }
 
     &:focus {
-      border: solid 1px rgba(51, 51, 51, 0.5);
+      border: solid 1px var(--ricos-settings-inputs-border-color, #33333333);
     }
 
     &::-webkit-inner-spin-button,

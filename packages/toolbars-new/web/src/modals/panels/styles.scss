@@ -11,6 +11,7 @@
 
   .showCustomPanel_button {
     font-family: $ricos-settings-font-family;
+    color: $settings-text-color;
     height: 36px;
     width: 100%;
     background-color: transparent;
@@ -106,6 +107,7 @@
   }
   &:not(.panel_selectedRow) {
     color: var(--ricos-settings-text-color, #000);
+    @include svg-fill;
   }
   @include phone {
     width: 100%;
@@ -131,7 +133,10 @@
 }
 
 %active {
-  background-color: rgba($action-color-fallback-tuple, 0.1);
+  background-color: rgba($settings-action-color-fallback-tuple, 0.1);
+  svg {
+    @include fillWithSettingsActionColor;
+  }
 }
 
 %hover {

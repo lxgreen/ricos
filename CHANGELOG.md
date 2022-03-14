@@ -21,6 +21,8 @@
 
 - `theme`
   - [#3605](https://github.com/wix/ricos/pull/3605) fix toolbars & slider bizMgr theming
+- `theme`
+  - [#3602](https://github.com/wix/ricos/pull/3602) fix toolbars-new & ui-components bizMgr theming
 
 </details>
 <hr/>

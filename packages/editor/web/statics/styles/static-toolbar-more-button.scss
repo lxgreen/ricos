@@ -20,7 +20,7 @@
       @include svg-fill;
     }
     &.active {
-      color: $settings-action-color;
+      @include fillWithSettingsActionColor;
     }
     .buttonText {
       padding-left: 4px;

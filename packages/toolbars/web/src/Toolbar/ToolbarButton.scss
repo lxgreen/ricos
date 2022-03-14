@@ -65,14 +65,10 @@
     height: unset;
   }
 
-  // @include svg-fill;
 }
 
 .toolbarButton_active {
-  svg {
-    color: $settings-action-color;
-    fill: $settings-action-color;
-  }
+  @include fillWithSettingsActionColor;
 }
 
 .toolbarButton_menuButton {
