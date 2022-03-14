@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :Bug Fix
+
+- `ui-components`
+
+  - [#3611](https://github.com/wix/ricos/pull/3611) fix selectionlist subtext issue in case of undefined item & wire link title in toolbars-new
 
 
 </details>

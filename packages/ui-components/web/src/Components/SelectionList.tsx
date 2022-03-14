@@ -136,7 +136,7 @@ class SelectionList extends Component<SelectionListProps, { focusIndex: number }
     } = this.props;
     const optionsData = dataSource.map(item => this.mapItemToOptionData(item));
     const subText = (
-      optionsData.filter(optionData => optionData.selected)?.[0].item as Record<string, string>
+      optionsData.filter(optionData => optionData.selected)?.[0]?.item as Record<string, string>
     )?.subText;
     return (
       <>
