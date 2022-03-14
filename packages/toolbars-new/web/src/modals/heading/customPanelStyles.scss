@@ -42,6 +42,7 @@
 .buttonComponent {
   background-color: white;
   width: 210px;
+  color: $settings-text-color;
   text-align: left;
   padding-left: 20px;
   border: none;
@@ -60,6 +61,7 @@
     height: unset;
     width: unset;
   }
+  @include svg-fill;
 }
 
 .mobile_Container {

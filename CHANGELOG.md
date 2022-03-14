@@ -20,8 +20,9 @@
 ### :Bug Fix
 
 - `theme`
-  - [#3605](https://github.com/wix/ricos/pull/3605) fix toolbars & slider bizMgr theming
   - [#3602](https://github.com/wix/ricos/pull/3602) fix toolbars-new & ui-components bizMgr theming
+  - [#3605](https://github.com/wix/ricos/pull/3605) fix toolbars & slider bizMgr theming
+  - [#3610](https://github.com/wix/ricos/pull/3610) fix toolbars-new bizMgr theming
 - `vertical-embed`
   - [#3564](https://github.com/wix/ricos/pull/3564) add disable mode to vertical-embed  
 
