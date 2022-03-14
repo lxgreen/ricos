@@ -18,6 +18,7 @@ interface Props {
   place?: 'top' | 'bottom' | 'left' | 'right';
   followMouse?: boolean;
   hideArrow?: boolean;
+  brightMode?: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -110,10 +111,19 @@ class Tooltip extends React.Component<Props> {
   };
 
   render() {
-    const { children, content, isError, place, tooltipOffset, followMouse, hideArrow } = this.props;
+    const {
+      children,
+      content,
+      isError,
+      place,
+      tooltipOffset,
+      followMouse,
+      hideArrow,
+      brightMode = false,
+    } = this.props;
     const { tooltipVisible } = this.state;
     const { isMobile } = this.context;
-    const style = getTooltipStyles(isError, followMouse, tooltipOffset, place);
+    const style = getTooltipStyles(isError, followMouse, tooltipOffset, place, brightMode);
 
     const elementProps = tooltipVisible
       ? { ...this.wrapperProps, 'data-tooltipid': true }

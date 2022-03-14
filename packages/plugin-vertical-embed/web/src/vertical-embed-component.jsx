@@ -26,7 +26,7 @@ class VerticalEmbedComponent extends PureComponent {
     const {
       componentData,
       className,
-      settings: { slimLayout = false, changeBaseUrl },
+      settings: { slimLayout = false, changeBaseUrl, disabled = false },
       t,
       locale,
     } = this.props;
@@ -41,7 +41,7 @@ class VerticalEmbedComponent extends PureComponent {
         data-hook="vertical-embed"
         onClick={this.onClick}
       >
-        <Card {...props} t={t} direction={direction} />
+        <Card {...props} t={t} direction={direction} disabled={disabled} />
       </div>
     );
   }

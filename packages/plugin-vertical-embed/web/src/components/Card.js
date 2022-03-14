@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import CardContent from './CardContent';
@@ -13,7 +14,7 @@ const getImageTargetHeight = (width, height, targetWidth) => {
 };
 
 const Card = props => {
-  const { url, content, direction, imageWidth, imageHeight } = props;
+  const { url, content, direction, imageWidth, imageHeight, t, disabled } = props;
   const [imageSrc, setImageSrc] = useState();
 
   const getImageSrc = targetWidth => {
@@ -42,13 +43,13 @@ const Card = props => {
 
   return (
     // eslint-disable-next-line react/jsx-no-target-blank
-    <a className={styles.link} href={url} target="_blank" ref={setRef}>
+    <a className={styles.link} href={disabled ? null : url} target="_blank" ref={setRef}>
       <div
         style={{ direction }}
         className={classNames(styles[direction], styles.container, styles.cardLayout)}
       >
         <div style={imageStyle} className={styles.image} />
-        <CardContent {...content} />
+        <CardContent {...content} disabled={disabled} t={t} />
       </div>
     </a>
   );
@@ -61,6 +62,8 @@ Card.propTypes = {
   url: PropTypes.string.isRequired,
   imageWidth: PropTypes.string,
   imageHeight: PropTypes.string,
+  disabled: PropTypes.boolean,
+  t: PropTypes.func.isRequired,
 };
 
 export default Card;

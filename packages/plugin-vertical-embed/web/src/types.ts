@@ -15,4 +15,5 @@ export interface VerticalEmbedPluginEditorConfig extends EditorPluginConfig, Ver
 }
 export interface VerticalEmbedPluginViewerConfig extends ViewerPluginConfig {
   changeBaseUrl?: (url: string) => string;
+  disabled?: boolean;
 }

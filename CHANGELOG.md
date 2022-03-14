@@ -21,10 +21,10 @@
 
 - `theme`
   - [#3605](https://github.com/wix/ricos/pull/3605) fix toolbars & slider bizMgr theming
-- `theme`
   - [#3602](https://github.com/wix/ricos/pull/3602) fix toolbars-new & ui-components bizMgr theming
+- `vertical-embed`
+  - [#3564](https://github.com/wix/ricos/pull/3564) add disable mode to vertical-embed  
 
-</details>
 <hr/>
 
 ## 8.70.16 (Mar 13, 2022)
