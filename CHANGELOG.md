@@ -17,15 +17,17 @@
     Click to see more.
   </summary>
 
-### :Bug Fix
-
-- `ui-components`
-
-  - [#3611](https://github.com/wix/ricos/pull/3611) fix selectionlist subtext issue in case of undefined item & wire link title in toolbars-new
 
 
 </details>
 <hr/>
+
+## 8.70.18 (Mar 14, 2022)
+
+### :Bug Fix
+
+- `ui-components`
+  - [#3611](https://github.com/wix/ricos/pull/3611) fix selectionlist subtext issue in case of undefined item & wire link title in toolbars-new
 
 ## 8.70.17 (Mar 14, 2022)
 
