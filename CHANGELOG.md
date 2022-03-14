@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.70.17 (Mar 14, 2022)
+
 ### :Bug Fix
 
 - `theme`
@@ -25,8 +32,6 @@
   - [#3610](https://github.com/wix/ricos/pull/3610) fix toolbars-new bizMgr theming
 - `vertical-embed`
   - [#3564](https://github.com/wix/ricos/pull/3564) add disable mode to vertical-embed  
-
-<hr/>
 
 ## 8.70.16 (Mar 13, 2022)
 
