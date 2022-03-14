@@ -14,6 +14,6 @@ if (!bundleName) {
 } else {
   console.log(chalk.magenta(`Analyzing ${bundleName} bundle...`)); //eslint-disable-line
   const entry = { [bundleName]: `./src/bundles/${bundleName}.tsx` };
-  const config = getWebpackConfig(entry, [new BundleAnalyzerPlugin()]);
+  const config = getWebpackConfig(entry, [new BundleAnalyzerPlugin({ analyzerPort: 'auto' })]);
   runWebpack(config);
 }
