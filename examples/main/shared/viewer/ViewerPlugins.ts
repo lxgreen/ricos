@@ -5,6 +5,11 @@ import {
   pluginVideo,
 } from 'wix-rich-content-plugin-video/loadable/viewer';
 import {
+  audioTypeMapper,
+  AUDIO_TYPE,
+  pluginAudio,
+} from 'wix-rich-content-plugin-audio/loadable/viewer';
+import {
   dividerTypeMapper,
   pluginDivider,
   DIVIDER_TYPE,
@@ -114,6 +119,7 @@ const mentionsPluginSettings = {
 
 export const typeMappers: PluginTypeMapper[] = [
   videoTypeMapper,
+  audioTypeMapper,
   buttonTypeMapper,
   dividerTypeMapper,
   htmlTypeMapper,
@@ -195,6 +201,9 @@ const config: RichContentViewerProps['config'] = {
   [VIDEO_TYPE]: {
     getVideoUrl: src => `https://video.wixstatic.com/${src.pathname}`,
   },
+  [AUDIO_TYPE]: {
+    getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,
+  },
   uiSettings,
   [ACTION_BUTTON_TYPE]: {
     onClick: () => {
@@ -223,6 +232,7 @@ export const ricosViewerPlugins: Record<string, ViewerPluginCreator<unknown>> = 
   [IMAGE_TYPE]: pluginImage,
   [GALLERY_TYPE]: pluginGallery,
   [VIDEO_TYPE]: pluginVideo,
+  [AUDIO_TYPE]: pluginAudio,
   [HTML_TYPE]: pluginHtml,
   [DIVIDER_TYPE]: pluginDivider,
   [LINK_TYPE]: pluginLink,

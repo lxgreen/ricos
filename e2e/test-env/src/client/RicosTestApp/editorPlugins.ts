@@ -22,6 +22,7 @@ import { pluginMap } from 'wix-rich-content-plugin-map';
 import { pluginMentions } from 'wix-rich-content-plugin-mentions';
 import { pluginUndoRedo } from 'wix-rich-content-plugin-undo-redo';
 import { pluginVideo, videoButtonsTypes } from 'wix-rich-content-plugin-video';
+import { pluginAudio, audioButtonsTypes } from 'wix-rich-content-plugin-audio';
 import { pluginLinkPreview, LinkPreviewProviders } from 'wix-rich-content-plugin-link-preview';
 import {
   pluginVerticalEmbed,
@@ -39,7 +40,10 @@ import {
   colorScheme,
   customBackgroundStyleFn,
 } from '../../../../../examples/main/src/text-color-style-fn';
-import { videoHandlers } from '../../../../../examples/main/shared/editor/EditorPlugins';
+import {
+  videoHandlers,
+  audioHandlers,
+} from '../../../../../examples/main/shared/editor/EditorPlugins';
 
 // eslint-disable-next-line max-len
 import { MockVerticalSearchModule } from '../../../../../examples/storybook/src/shared/utils/verticalEmbedUtil';
@@ -88,6 +92,16 @@ const defaultConfigs: TestAppConfig['pluginsConfig'] = {
     getVideoUrl: src => `https://video.wixstatic.com/${src.pathname}`,
     exposeButtons: [videoButtonsTypes.video, videoButtonsTypes.soundCloud],
   },
+  audio: {
+    handleFileSelection: audioHandlers.handleFileSelection,
+    enableCustomUploadOnMobile: true,
+    getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,
+    exposeButtons: [
+      audioButtonsTypes.audio,
+      audioButtonsTypes.soundCloud,
+      audioButtonsTypes.spotify,
+    ],
+  },
   gallery: {
     scrollingElement: () => window,
   },
@@ -110,6 +124,7 @@ const createPlugins = (
     image: pluginImage(),
     gallery: pluginGallery(configs.gallery),
     video: pluginVideo(configs.video),
+    audio: pluginAudio(configs.audio),
     html: pluginHtml(),
     divider: pluginDivider(),
     codeBlock: pluginCodeBlock(),

@@ -12,6 +12,7 @@ import { createImagePlugin, IMAGE_TYPE } from 'wix-rich-content-plugin-image';
 import { createUndoRedoPlugin, UNDO_REDO_TYPE } from 'wix-rich-content-plugin-undo-redo';
 import { createGalleryPlugin, GALLERY_TYPE } from 'wix-rich-content-plugin-gallery';
 import { createVideoPlugin, VIDEO_TYPE } from 'wix-rich-content-plugin-video';
+import { createAudioPlugin, AUDIO_TYPE } from 'wix-rich-content-plugin-audio';
 import { createHtmlPlugin, HTML_TYPE } from 'wix-rich-content-plugin-html';
 import { createDividerPlugin, DIVIDER_TYPE } from 'wix-rich-content-plugin-divider';
 import { createUnsupportedBlocksPlugin } from 'wix-rich-content-plugin-unsupported-blocks';
@@ -79,6 +80,7 @@ import {
 } from './text-color-style-fn';
 
 import { testWixVideos } from './mock';
+import { mockAudioData } from './mockAudioData';
 // import { MyCustomIcon, SizeSmallRightIcon, TOOLBARS } from 'wix-rich-content-editor-common';
 import { TOOLBARS, BUTTONS, DISPLAY_MODE } from 'wix-rich-content-editor-common';
 // import InlineToolbarDecoration from './Components/InlineToolbarDecoration';
@@ -91,6 +93,7 @@ export const editorPluginsPartialPreset = [
   createImagePlugin,
   createGalleryPlugin,
   createVideoPlugin,
+  createAudioPlugin,
   createHtmlPlugin,
   createDividerPlugin,
   createLineSpacingPlugin,
@@ -128,6 +131,7 @@ export const editorPluginsMap = {
   image: createImagePlugin,
   gallery: createGalleryPlugin,
   video: createVideoPlugin,
+  audio: createAudioPlugin,
   html: createHtmlPlugin,
   divider: createDividerPlugin,
   spacing: createLineSpacingPlugin,
@@ -273,6 +277,49 @@ const videoHandlers = {
     setTimeout(() => {
       updateEntity({ data: videoToUpload /*, error: { msg: 'upload failed' }*/ });
       console.log('consumer uploaded ', videoToUpload);
+    }, 2000);
+  },
+};
+
+const audioHandlers = {
+  //media manager - Here you can call your custom audio upload functionality (comment function to disable custom upload)
+  handleFileSelection: (updateEntity, removeEntity) => {
+    console.log('consumer wants to upload custom audio');
+    const audioWithAbsoluteUrl = {
+      url: 'https://static.wixstatic.com/mp3/f0f74f_43f712be42dc4377a075dcad3c358a80.mp3',
+    };
+    const audioWithRelativeUrl = {
+      audio: { src: { id: `mp3/f0f74f_43f712be42dc4377a075dcad3c358a80.mp3` } },
+      name: 'Dear Fear',
+      authorName: 'KOTA The Friend',
+    };
+    // You can provide either absolute or relative URL.
+    // If relative URL is provided, a function 'getAudioUrl' will be invoked to form a full URL.
+    const audioToUpload = audioWithRelativeUrl;
+    setTimeout(() => {
+      updateEntity({ data: audioToUpload });
+      console.log('consumer uploaded ', audioToUpload);
+    }, 500);
+  },
+  // this is for native file upload
+  handleFileUpload: (file, updateEntity, removeEntity) => {
+    console.log('consumer wants to upload custom Audio', file);
+    const mockAudioIndex = Math.floor(Math.random() * mockAudioData.length);
+    const testAudio = mockAudioData[mockAudioIndex];
+    const audioWithAbsoluteUrl = {
+      url: 'https://static.wixstatic.com/mp3/f0f74f_43f712be42dc4377a075dcad3c358a80.mp3',
+    };
+    const audioWithRelativeUrl = {
+      audio: { src: { id: `mp3/${testAudio.url}.mp3` } },
+      name: 'Dear Fear',
+      authorName: 'KOTA The Friend',
+    };
+    // You can provide either absolute or relative URL.
+    // If relative URL is provided, a function 'getVideoUrl' will be invoked to form a full URL.
+    const audioToUpload = audioWithRelativeUrl;
+    setTimeout(() => {
+      updateEntity({ data: audioToUpload /*, error: { msg: 'upload failed' }*/ });
+      console.log('consumer uploaded ', audioToUpload);
     }, 2000);
   },
 };
@@ -490,6 +537,22 @@ const config = {
     // Function is invoked when rendering video which has relative URL.
     // You should take the pathname and form a full URL.
     getVideoUrl: src => `https://video.wixstatic.com/${src.pathname}`,
+  },
+  [AUDIO_TYPE]: {
+    toolbar: {
+      hidden: [],
+      // icons: {
+      //   InsertPluginButtonIcon: MyCustomIcon,
+      // },
+    },
+    //media manager - Here you can call your custom video upload functionality (comment function to disable custom upload)
+    handleFileSelection: audioHandlers.handleFileSelection,
+    // this is for native file upload
+    // handleFileUpload: audioHandlers.handleFileUpload,
+    enableCustomUploadOnMobile: true,
+    // Function is invoked when rendering video which has relative URL.
+    // You should take the pathname and form a full URL.
+    getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,
   },
   [GIPHY_TYPE]: {
     giphySdkApiKey: process.env.GIPHY_API_KEY || 'HXSsAGVNzjeUjhKfhhD9noF8sIbpYDsV',

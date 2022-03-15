@@ -27,6 +27,12 @@ import {
   VIDEO_TYPE,
   videoButtonsTypes,
 } from 'wix-rich-content-plugin-video';
+import {
+  createAudioPlugin,
+  pluginAudio,
+  AUDIO_TYPE,
+  audioButtonsTypes,
+} from 'wix-rich-content-plugin-audio';
 import { createHtmlPlugin, HTML_TYPE, pluginHtml } from 'wix-rich-content-plugin-html';
 import { createDividerPlugin, DIVIDER_TYPE, pluginDivider } from 'wix-rich-content-plugin-divider';
 import {
@@ -123,6 +129,8 @@ import {
   mockFileNativeUploadFunc,
   mockVideoNativeUploadFunc,
   mockCustomVideoUploadFunc,
+  mockCustomAudioUploadFunc,
+  mockAudioNativeUploadFunc,
 } from '../../../storybook/src/shared/utils/fileUploadUtil';
 import type {
   CreatePluginFunction,
@@ -135,6 +143,7 @@ export const ricosEditorPlugins: Record<string, EditorPluginCreator<unknown>> = 
   [IMAGE_TYPE]: pluginImage,
   [GALLERY_TYPE]: pluginGallery,
   [VIDEO_TYPE]: pluginVideo,
+  [AUDIO_TYPE]: pluginAudio,
   [HTML_TYPE]: pluginHtml,
   [DIVIDER_TYPE]: pluginDivider,
   [LINE_SPACING_TYPE]: pluginLineSpacing,
@@ -167,6 +176,7 @@ export const editorPluginsPartialPreset: CreatePluginFunction[] = [
   createImagePlugin,
   createGalleryPlugin,
   createVideoPlugin,
+  createAudioPlugin,
   createHtmlPlugin,
   createDividerPlugin,
   createLineSpacingPlugin,
@@ -222,6 +232,7 @@ export const editorPluginsMap: Record<string, CreatePluginFunction | CreatePlugi
   image: createImagePlugin,
   gallery: createGalleryPlugin,
   video: createVideoPlugin,
+  audio: createAudioPlugin,
   html: createHtmlPlugin,
   divider: createDividerPlugin,
   spacing: createLineSpacingPlugin,
@@ -263,6 +274,7 @@ const innerRCEPlugins = [
   createLinkPlugin,
   createImagePlugin,
   createVideoPlugin,
+  createAudioPlugin,
   createGiphyPlugin,
   createEmojiPlugin,
   createFileUploadPlugin,
@@ -359,6 +371,13 @@ export const videoHandlers = {
   handleFileSelection: mockCustomVideoUploadFunc,
   // this is for native file upload
   handleFileUpload: mockVideoNativeUploadFunc,
+};
+
+export const audioHandlers = {
+  //media manager - Here you can call your custom video upload functionality (comment function to disable custom upload)
+  handleFileSelection: mockCustomAudioUploadFunc,
+  // this is for native file upload
+  handleFileUpload: mockAudioNativeUploadFunc,
 };
 
 const addPluginMenuConfig = {
@@ -637,6 +656,21 @@ const config: RichContentEditorProps['config'] = {
       videoButtonsTypes.video,
       videoButtonsTypes.soundCloud,
       videoButtonsTypes.youTube,
+    ],
+  },
+  [AUDIO_TYPE]: {
+    //media manager - Here you can call your custom audio upload functionality (comment function to disable custom upload)
+    // handleFileSelection: audioHandlers.handleFileSelection,
+    // this is for native file upload
+    // handleFileUpload: audioHandlers.handleFileUpload,
+    enableCustomUploadOnMobile: true,
+    // Function is invoked when rendering audio which has relative URL.
+    // You should take the pathname and form a full URL.
+    getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,
+    exposeButtons: [
+      audioButtonsTypes.audio,
+      audioButtonsTypes.soundCloud,
+      audioButtonsTypes.spotify,
     ],
   },
   [GIPHY_TYPE]: {
@@ -935,14 +969,18 @@ export const toggleNativeUploadConfig = (
     // native upload
     _config[FILE_UPLOAD_TYPE].onFileSelected = mockFileNativeUploadFunc;
     _config[VIDEO_TYPE].handleFileUpload = videoHandlers.handleFileUpload;
+    _config[AUDIO_TYPE].handleFileUpload = audioHandlers.handleFileUpload;
     delete _config[FILE_UPLOAD_TYPE].handleFileSelection;
     delete _config[VIDEO_TYPE].handleFileSelection;
+    delete _config[AUDIO_TYPE].handleFileSelection;
   } else {
     // media manager
     _config[FILE_UPLOAD_TYPE].handleFileSelection = mockFileUploadFunc;
     _config[VIDEO_TYPE].handleFileSelection = videoHandlers.handleFileSelection;
+    _config[AUDIO_TYPE].handleFileSelection = audioHandlers.handleFileSelection;
     delete _config[FILE_UPLOAD_TYPE].onFileSelected;
     delete _config[VIDEO_TYPE].handleFileUpload;
+    delete _config[AUDIO_TYPE].handleFileUpload;
   }
   return _config;
 };

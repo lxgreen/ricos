@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+- `audio`
+  - [#3539](https://github.com/wix/ricos/pull/3539) add audio mocks and button types
+
 ### :nail_care: Polish  
 
 - `[ui-components]`

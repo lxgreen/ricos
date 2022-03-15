@@ -162,6 +162,8 @@ export const INSERT_PLUGIN_BUTTONS = Object.freeze({
   TABLE: 'TablePlugin_InsertButton',
   COLLAPSIBLE_LIST: 'CollapsibleList_InsertButton',
   ADSENSE: 'AdSensePlugin_InsertButton',
+  AUDIO: 'AudioPlugin_InsertButton',
+  SPOTIFY: 'SpotifyPlugin_InsertButton',
 });
 
 export const BUTTON_TYPES = Object.freeze({

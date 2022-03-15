@@ -1,5 +1,5 @@
 import { DEFAULTS } from '../audio-component';
-import { TOOLBARS, BUTTON_TYPES } from 'wix-rich-content-editor-common';
+import { TOOLBARS, BUTTON_TYPES, INSERT_PLUGIN_BUTTONS } from 'wix-rich-content-editor-common';
 import InsertPluginIcon from '../icons/InsertPluginIcon';
 import type { CreateInsertButtons, TranslationFunction } from 'wix-rich-content-common';
 import type { AudioPluginEditorConfig } from '../types';
@@ -15,9 +15,9 @@ const createInsertButtons: CreateInsertButtons = ({
   return [
     {
       type: BUTTON_TYPES.BUTTON,
-      name: 'audio_InsertButton',
-      getLabel: () => t('audio_InsertButton'),
-      tooltip: t('audio_Tooltip'),
+      name: INSERT_PLUGIN_BUTTONS.AUDIO,
+      getLabel: () => t('AudioPlugin_InsertButton'),
+      tooltip: t('AudioPlugin_InsertButton_Tooltip'),
       getIcon: () => icon,
       isActive: () => false,
       isDisabled: () => false,
