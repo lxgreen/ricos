@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish  
 
+- `[ui-components]`
+  - [#3561](https://github.com/wix/ricos/pull/3561) refactor tabs & mediaupoadmodal a11y behavior 
 
 </details>
 <hr/>

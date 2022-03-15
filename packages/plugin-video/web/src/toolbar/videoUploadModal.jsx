@@ -48,15 +48,13 @@ export default class VideoUploadModal extends Component {
     this.onConfirm({ ...this.props.componentData, src, isCustomVideo: true, tempData });
   };
 
-  setInputFile = ref => (this.inputFile = ref);
-
   getComponentData = () => this.props.componentData;
 
-  handleNativeFileUpload = () => {
+  handleNativeFileUpload = file => {
     handleUploadStart(
       this.props,
       this.getComponentData,
-      this.inputFile.files[0],
+      file,
       this.onLocalLoad,
       this.getOnUploadFinished(true)
     );
@@ -95,9 +93,8 @@ export default class VideoUploadModal extends Component {
       <MediaUploadModal
         id={this.id}
         isMobile={isMobile}
-        inputFileRef={this.setInputFile}
         handleClick={handleClick}
-        onChange={this.handleNativeFileUpload}
+        handleChange={this.handleNativeFileUpload}
         languageDir={languageDir}
         title={t('VideoCustomUploadModal_Title')}
         labelText={t('VideoUploadModal_CustomVideoClickText')}

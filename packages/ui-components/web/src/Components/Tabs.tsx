@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import type { RichContentTheme } from 'wix-rich-content-common';
 import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../statics/styles/tabs.scss';
+import TabsHeader from './TabsHeader';
 
 interface CommonTabProps {
   theme: RichContentTheme;
@@ -39,13 +40,13 @@ export class Tab extends Component<TabProps> {
     );
 }
 interface TabsProps extends CommonTabProps {}
-export class Tabs extends Component<TabsProps, { activeTab: string }> {
+export class Tabs extends Component<TabsProps, { activeTab: string; focusIndex: number }> {
   styles: Record<string, string>;
 
   constructor(props: TabsProps) {
     super(props);
     this.styles = mergeStyles({ styles, theme: props.theme });
-    this.state = { activeTab: props.value };
+    this.state = { activeTab: props.value, focusIndex: -1 };
   }
 
   componentWillReceiveProps = (nextProps: TabsProps) => {
@@ -71,28 +72,52 @@ export class Tabs extends Component<TabsProps, { activeTab: string }> {
       })
     );
 
+  onKeyDown = (event, currentIndex) => {
+    const index = this.state.focusIndex === -1 ? 0 : this.state.focusIndex;
+    const headersLength = (this.props.children as React.ReactNode[])?.length;
+    let nextIndex = -1;
+    switch (event.key) {
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        nextIndex = index === 0 ? headersLength - 1 : index - 1;
+        break;
+      case 'ArrowRight':
+      case 'ArrowDown':
+        nextIndex = (index + 1) % headersLength;
+        break;
+      case 'Tab':
+        this.setState({ focusIndex: currentIndex });
+        break;
+      case ' ':
+      case 'Enter':
+        event.target.click();
+        break;
+      default:
+        break;
+    }
+
+    if (nextIndex > -1) {
+      this.setState({ focusIndex: nextIndex });
+    }
+  };
+
   render() {
     const { styles, props } = this;
     const headers = this.getTabHeaders(props.children);
     return (
       <div role="tablist" className={styles.tabs} aria-orientation="horizontal">
         <div className={classNames(styles.tabs_headers, this.props?.headersStyle)}>
-          {headers.map(({ label, value }) => {
+          {headers.map(({ label, value }, i) => {
             const isSelected = value === this.state.activeTab;
             return (
-              <button
-                id={`${value}_header`}
-                role="tab"
-                tabIndex={0}
-                name={`tabs`}
-                key={value}
-                className={classNames(styles.tabs_headers_option, {
-                  [styles.tabs_headers_option_selected]: isSelected,
-                })}
-                data-hook={`${value}_Tab`}
-                aria-controls={`${value}_panel`}
-                aria-label={label}
-                aria-selected={isSelected}
+              <TabsHeader
+                key={label}
+                label={label}
+                value={value}
+                focused={i === this.state.focusIndex}
+                isSelected={isSelected}
+                onKeyDown={e => this.onKeyDown(e, i)}
+                focusIndex={this.state.focusIndex}
                 onClick={() => {
                   this.setState({ activeTab: value });
                   if (this.props.onTabSelected) {
@@ -100,9 +125,7 @@ export class Tabs extends Component<TabsProps, { activeTab: string }> {
                   }
                   this.renderTabs();
                 }}
-              >
-                <span className={this.styles.tabs_headers_option_label}>{label}</span>
-              </button>
+              />
             );
           })}
         </div>
