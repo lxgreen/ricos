@@ -76,6 +76,9 @@
     @extend .glob_fontElementMap;
     font-family: $ricos-settings-font-family;
     color: $settings-text-color;
+    input {
+      font-family: $ricos-settings-font-family;
+    }
   }
 }
 
