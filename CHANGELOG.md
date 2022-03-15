@@ -17,17 +17,25 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.70.19 (Mar 15, 2022)
+
 ### :house: Internal
+
 - `audio`
   - [#3539](https://github.com/wix/ricos/pull/3539) add audio mocks and button types
 
-### :nail_care: Polish  
+### :nail_care: Polish
 
 - `[ui-components]`
-  - [#3561](https://github.com/wix/ricos/pull/3561) refactor tabs & mediaupoadmodal a11y behavior 
+  - [#3561](https://github.com/wix/ricos/pull/3561) refactor tabs & mediaupoadmodal a11y behavior
 
-</details>
-<hr/>
+### :Bug Fix
+
+- `[editor]`
+  - [#3614](https://github.com/wix/ricos/pull/3614) input fields font family inheritance
 
 ## 8.70.18 (Mar 14, 2022)
 
@@ -45,7 +53,7 @@
   - [#3605](https://github.com/wix/ricos/pull/3605) fix toolbars & slider bizMgr theming
   - [#3610](https://github.com/wix/ricos/pull/3610) fix toolbars-new bizMgr theming
 - `vertical-embed`
-  - [#3564](https://github.com/wix/ricos/pull/3564) add disable mode to vertical-embed  
+  - [#3564](https://github.com/wix/ricos/pull/3564) add disable mode to vertical-embed
 
 ## 8.70.16 (Mar 13, 2022)
 
