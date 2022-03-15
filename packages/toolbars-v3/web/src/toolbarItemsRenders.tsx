@@ -9,6 +9,7 @@ import {
   LinkButton,
   TextColorButton,
   HighlightColorButton,
+  TitleButton,
 } from './components/buttons';
 import { ToolbarButtonSeparator } from './components/ToolbarButtonSeparator';
 
@@ -92,6 +93,9 @@ export const toolbarItemsRenders = {
   },
   alignment: toolbarItem => {
     return <AlignmentButton toolbarItem={toolbarItem} />;
+  },
+  title: toolbarItem => {
+    return <TitleButton toolbarItem={toolbarItem} />;
   },
   heading: toolbarItem => {
     return <HeadingButton toolbarItem={toolbarItem} />;

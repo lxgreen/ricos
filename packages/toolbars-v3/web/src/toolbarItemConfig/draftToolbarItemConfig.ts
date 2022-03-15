@@ -269,6 +269,25 @@ export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
     },
   },
   {
+    id: 'title',
+    type: 'toggle',
+    presentation: {
+      tooltip: 'Title',
+    },
+    attributes: {
+      visible: alwaysVisibleResolver,
+      selectedHeading: getHeadingInSelectionResolver,
+    },
+    commands: {
+      setHeading:
+        ({ editorCommands }) =>
+        heading => {
+          editorCommands.commands.setBlockType(heading);
+          editorCommands.commands.focus();
+        },
+    },
+  },
+  {
     id: 'heading',
     type: 'modal',
     presentation: {
