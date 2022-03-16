@@ -9,7 +9,6 @@ import type {
   RelValue,
   Link_Rel,
   CustomAnchorScroll,
-  AvailableExperiments,
   OnAddPluginLink,
 } from 'wix-rich-content-common';
 import type { RicosCssOverride, RicosTheme } from 'ricos-common';
@@ -57,7 +56,6 @@ interface RicosToolbarProps {
   colorPickerData?: any;
   headingsData?: any;
   onToolbarButtonClick?: (name: string, value?: any) => void;
-  experiments?: AvailableExperiments;
   defaultLineSpacing?: defaultLineSpacingType;
   getEditorContainer: () => Element;
   cssOverride?: RicosCssOverride;
@@ -109,7 +107,6 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       setKeepOpen,
       afterClick,
       nestedMenu,
-      experiments,
       defaultLineSpacing,
       getEditorContainer,
       cssOverride,
@@ -124,7 +121,6 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       colorPickerData,
       headingsData,
       defaultLineSpacing,
-      experiments,
       theme,
       configButtonsOverrides,
     });

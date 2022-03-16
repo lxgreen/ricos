@@ -43,8 +43,7 @@
     "react-intersection-observer": "~8.24.1",
     "react-portal-tooltip": "^2.4.7",
     "ricos-content": "8.70.19",
-    "ricos-types": "8.70.19",
-    "smooth-scroll-into-view-if-needed": "^1.1.32"
+    "ricos-types": "8.70.19"
   },
   "unpkg": true,
   "publishConfig": {

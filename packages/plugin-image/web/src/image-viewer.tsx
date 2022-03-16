@@ -370,7 +370,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       const anchorString = `viewer-${anchor}`;
       const element = document.getElementById(anchorString);
       addAnchorTagToUrl(anchorString);
-      anchorScroll(element, this.context.experiments);
+      anchorScroll(element);
     }
   };
 

@@ -33,7 +33,6 @@ import {
   toggleBlockTypeWithSpaces,
 } from 'wix-rich-content-editor-common';
 import type {
-  AvailableExperiments,
   EditorCommands,
   GetEditorState,
   SetEditorState,
@@ -121,8 +120,7 @@ export const createEditorCommands = (
   plugins,
   getEditorState: GetEditorState,
   setEditorState: SetEditorState,
-  externalEditorProps,
-  experiments?: AvailableExperiments
+  externalEditorProps
 ): EditorCommands => {
   const setBlockType: EditorCommands['setBlockType'] = type => {
     if (type === CODE_BLOCK_TYPE) {
@@ -236,7 +234,7 @@ export const createEditorCommands = (
     getInlineStylesInSelection: () => getInlineStylesInSelection(getEditorState()),
     getWiredFontStyles: (customStyles?: RicosCustomStyles, isMobile?: boolean) =>
       getWiredFontStyles(documentStyleGetter(), customStyles, isMobile),
-    scrollToBlock: blockKey => scrollToBlock(blockKey, experiments),
+    scrollToBlock: blockKey => scrollToBlock(blockKey),
     isBlockInContent: blockKey => {
       const blocks = getEditorState().getCurrentContent().getBlocksAsArray();
       return blocks.some(block => block.getKey() === blockKey);

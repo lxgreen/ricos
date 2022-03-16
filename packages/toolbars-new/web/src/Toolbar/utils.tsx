@@ -80,14 +80,14 @@ export const handleLinkSettings = linkSettings => {
   return { relValue, anchorTarget, customAnchorScroll };
 };
 
-export const goToLink = (event, linkData, linkPanelData, experiments) => {
+export const goToLink = (event, linkData, linkPanelData) => {
   const { anchor, url, target } = linkData;
   if (anchor) {
     const { customAnchorScroll } = linkPanelData;
     if (customAnchorScroll) {
       customAnchorScroll(event, anchor);
     } else {
-      scrollToBlock(anchor, experiments);
+      scrollToBlock(anchor);
     }
   } else {
     const href = url ? normalizeUrl(url) : undefined;

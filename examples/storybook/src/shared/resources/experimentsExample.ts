@@ -14,7 +14,6 @@ export const EXPERIMENTS = [
   { name: 'removeUsmFromImageUrls', scope: 'ricos' },
   { name: 'lazyImagesAndIframes', scope: 'ricos' },
   { name: 'anchorScrollWithoutScrollIntoView', scope: 'ricos' },
-  { name: 'anchorScrollWithSmoothScrollIntoViewIfNeeded', scope: 'ricos' },
   { name: 'useSrcSet', scope: 'ricos' },
   { name: 'normalizePoll', scope: 'ricos' },
   { name: 'optimizeFullScreenModal', scope: 'ricos' },

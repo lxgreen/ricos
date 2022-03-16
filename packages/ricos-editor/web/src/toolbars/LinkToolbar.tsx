@@ -5,7 +5,6 @@ import type {
   EditorCommands,
   EditorPlugin,
   LinkPanelSettings,
-  AvailableExperiments,
   TextButtons,
 } from 'wix-rich-content-common';
 import { ToolbarType } from 'wix-rich-content-common';
@@ -28,7 +27,6 @@ interface LinkToolbarProps {
   linkSettings?: LinkSettings;
   onInlineToolbarOpen?: (toolbarType: ToolbarType) => void;
   onToolbarButtonClick?: (name: string, toolbarType: ToolbarType, value?: boolean | string) => void;
-  experiments?: AvailableExperiments;
   getEditorContainer: () => Element;
   cssOverride?: RicosCssOverride;
   toolbarSettings?: ToolbarSettings;
@@ -46,7 +44,6 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
       activeEditor,
       isMobile,
       theme,
-      experiments,
       getEditorContainer,
       cssOverride,
       toolbarSettings = {},
@@ -94,7 +91,6 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
         buttons={filteredFormattingToolbarButtons}
         linkPanelData={linkPanelData}
         // onToolbarButtonClick={onToolbarButtonClick}
-        experiments={experiments}
         getEditorContainer={getEditorContainer}
         cssOverride={cssOverride}
       />

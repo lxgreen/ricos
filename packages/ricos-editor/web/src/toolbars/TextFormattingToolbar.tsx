@@ -7,7 +7,6 @@ import type {
   TextButtons,
   EditorPlugin,
   LinkPanelSettings,
-  AvailableExperiments,
   OnAddPluginLink,
   AddLinkData,
 } from 'wix-rich-content-common';
@@ -40,7 +39,6 @@ interface TextFormattingToolbarProps {
     pluginId?: string
   ) => void;
   onAddPluginLink?: OnAddPluginLink;
-  experiments?: AvailableExperiments;
   getEditorContainer: () => Element;
   cssOverride?: RicosCssOverride;
 }
@@ -77,7 +75,6 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
       theme,
       toolbarSettings = {},
       locale,
-      experiments,
       getEditorContainer,
       cssOverride,
     } = this.props;
@@ -157,7 +154,6 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
         colorPickerData={colorPickerData}
         headingsData={headingsData}
         onToolbarButtonClick={onToolbarButtonClick}
-        experiments={experiments}
         defaultLineSpacing={defaultLineSpacing}
         getEditorContainer={getEditorContainer}
         cssOverride={cssOverride}

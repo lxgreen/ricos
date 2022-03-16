@@ -9,7 +9,6 @@ import {
   anchorScroll,
   addAnchorTagToUrl,
   getRelValue,
-  GlobalContext,
   LINK_VIEWER_DATA_HOOK,
   ANCHOR_VIEWER_DATA_HOOK,
 } from 'wix-rich-content-common';
@@ -39,8 +38,6 @@ class LinkViewer extends Component {
     this.styles = mergeStyles({ styles, theme });
   }
 
-  static contextType = GlobalContext;
-
   componentWillReceiveProps(nextProps) {
     if (!isEqual(nextProps.componentData, this.props.componentData)) {
       validate(nextProps.componentData, pluginLinkSchema);
@@ -65,7 +62,7 @@ class LinkViewer extends Component {
             const anchorString = `viewer-${anchor}`;
             const element = document.getElementById(anchorString);
             addAnchorTagToUrl(anchorString);
-            anchorScroll(element, this.context.experiments);
+            anchorScroll(element);
           }
         }
       }

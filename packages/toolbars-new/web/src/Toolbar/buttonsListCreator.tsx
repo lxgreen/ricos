@@ -3,12 +3,7 @@
 /* eslint-disable fp/no-loops */
 import React from 'react';
 import { merge, cloneDeep } from 'lodash';
-import type {
-  RICOS_LINK_TYPE,
-  EditorCommands,
-  TranslationFunction,
-  AvailableExperiments,
-} from 'wix-rich-content-common';
+import type { RICOS_LINK_TYPE, EditorCommands, TranslationFunction } from 'wix-rich-content-common';
 import { CUSTOM_LINK, SPOILER_TYPE } from 'wix-rich-content-common';
 import {
   buttonsFullData,
@@ -47,7 +42,6 @@ export const createButtonsList = ({
   colorPickerData,
   headingsData,
   defaultLineSpacing,
-  experiments,
   theme,
   configButtonsOverrides,
 }: {
@@ -58,7 +52,6 @@ export const createButtonsList = ({
   colorPickerData: any;
   headingsData: any;
   defaultLineSpacing?: defaultLineSpacingType;
-  experiments?: AvailableExperiments;
   theme?: RicosTheme;
   configButtonsOverrides: any;
 }) => {
@@ -80,7 +73,7 @@ export const createButtonsList = ({
       handleButtonLabel(buttonsList, index, editorCommands, t, headingsData, buttonsOverrides);
       handleButtonArrow(buttonsList, index, buttonsOverrides);
       handleUseIconOnMobile(buttonsList, index, buttonsOverrides);
-      handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData, experiments);
+      handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData);
       handleButtonIsActive(buttonsList, index, editorCommands, buttonsOverrides);
       handleButtonIsDisabled(buttonsList, index, editorCommands);
       handleButtonModal(
@@ -474,13 +467,7 @@ const handleButtonIsActive = (
   }
 };
 
-const handleButtonOnClick = (
-  buttonsList,
-  index,
-  editorCommands: editorCommands,
-  linkPanelData,
-  experiments
-) => {
+const handleButtonOnClick = (buttonsList, index, editorCommands: editorCommands, linkPanelData) => {
   const buttonName = buttonsList[index].name;
   if (Object.keys(inlineStyleButtons).includes(buttonName)) {
     buttonsList[index].onClick = () =>
@@ -507,7 +494,7 @@ const handleButtonOnClick = (
     buttonsList[index].onClick = () => editorCommands.redo();
   } else if (buttonName === 'goToLink') {
     buttonsList[index].onClick = event =>
-      goToLink(event, editorCommands.getLinkDataInSelection(), linkPanelData, experiments);
+      goToLink(event, editorCommands.getLinkDataInSelection(), linkPanelData);
   } else if (buttonName === 'AddPlugin') {
     buttonsList[index].onClick = () => {
       const addPluginButton = document.querySelector(

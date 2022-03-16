@@ -462,7 +462,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       plugins,
       linkPanelSettings,
       linkSettings,
-      experiments,
       toolbarSettings,
       cssOverride,
     } = this.props;
@@ -485,7 +484,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       linkPanelSettings,
       linkSettings,
       ...biFunctions,
-      experiments,
       cssOverride,
       getEditorContainer,
     };
