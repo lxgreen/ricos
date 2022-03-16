@@ -6,23 +6,14 @@ import {
   FILE_UPLOAD_TYPE,
   AUDIO_TYPE,
 } from 'wix-rich-content-common';
-
-export const GALLERY_FILE_TYPES = {
-  IMAGE: 'image',
-  VIDEO: 'video',
-};
-
+export const GALLERY_FILE_TYPES = { IMAGE: 'image', VIDEO: 'video' };
 const galleryItemBuilder = {
   [GALLERY_FILE_TYPES.IMAGE]: (
     img: ImageComponentData & HTMLImageElement,
     preloadImage?: boolean | undefined
   ) => {
     return {
-      metadata: {
-        type: GALLERY_FILE_TYPES.IMAGE,
-        height: img.height,
-        width: img.width,
-      },
+      metadata: { type: GALLERY_FILE_TYPES.IMAGE, height: img.height, width: img.width },
       url: preloadImage ? img.src : img.file_name,
       tempData: preloadImage,
     };
@@ -36,18 +27,13 @@ const galleryItemBuilder = {
         type: GALLERY_FILE_TYPES.VIDEO,
         height: video.height || height,
         width: video.width || width,
-        poster: {
-          url: pathname,
-          width,
-          height,
-        },
+        poster: { url: pathname, width, height },
       },
       url: video.pathname,
       tempData: preloadImage,
     };
   },
 };
-
 const setItemInGallery = (item, componentData, itemPos?: number) => {
   let { items, styles } = componentData;
   if (typeof itemPos === 'undefined') {
@@ -58,7 +44,6 @@ const setItemInGallery = (item, componentData, itemPos?: number) => {
   }
   return { items, styles, config: {} };
 };
-
 export const dataBuilder = {
   [IMAGE_TYPE]: ({ data, error }, componentData) => {
     const imageData = data?.length ? data[0] : data;
@@ -66,12 +51,7 @@ export const dataBuilder = {
     if (!config.alignment) {
       config.alignment = imageData.width >= 740 ? 'center' : 'left';
     }
-    return {
-      ...componentData,
-      config,
-      src: imageData,
-      error,
-    };
+    return { ...componentData, config, src: imageData, error };
   },
   [VIDEO_TYPE]: ({ data, error }, componentData) => {
     let { src } = componentData;
@@ -84,16 +64,12 @@ export const dataBuilder = {
   [AUDIO_TYPE]: ({ data, error }, componentData) => {
     let { audio } = componentData;
     if (data) {
-      const { pathname, url } = data;
-      audio = { src: pathname ? { id: pathname } : url };
+      if (audio?.src) {
+        audio.src = {};
+      }
+      audio = data.audio;
     }
-    return {
-      ...componentData,
-      audio,
-      error,
-      name: data?.title,
-      authorName: data?.artist,
-    };
+    return { ...componentData, audio, error, name: data?.name, authorName: data?.authorName };
   },
   [FILE_UPLOAD_TYPE]: ({ data, error }, componentData) => {
     return { ...componentData, ...data, error, tempData: undefined };

@@ -13,7 +13,7 @@ const createToolbar: CreatePluginToolbar = ({
   isMobile: boolean;
 }) => {
   return {
-    InlineButtons: createInlineButtons(),
+    InlineButtons: createInlineButtons({ t, settings, isMobile }),
     InsertButtons: createInsertButtons({ t, settings, isMobile }),
     name: 'audio',
   };

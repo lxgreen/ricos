@@ -7,14 +7,16 @@ import type { CreatePluginFunction } from 'wix-rich-content-common';
 
 const createAudioPlugin: CreatePluginFunction<AudioPluginEditorConfig> = config => {
   const { helpers, t, [AUDIO_TYPE]: settings = {}, isMobile, ...rest } = config;
-
+  const disableDownload = config?.uiSettings?.disableDownload;
+  const type = AUDIO_TYPE;
   return createBasePlugin({
     component: Component,
-    type: AUDIO_TYPE,
+    type,
     toolbar: createToolbar({
       t,
-      settings,
+      settings: { ...settings, type },
       isMobile,
+      disableDownload,
     }),
     helpers,
     settings,

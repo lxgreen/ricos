@@ -26,6 +26,8 @@
 
 - `audio`
   - [#3539](https://github.com/wix/ricos/pull/3539) add audio mocks and button types
+- `audio`
+  - [#3550](https://github.com/wix/ricos/pull/3550) add audio modal & inline toolbar
 - `common`
   - [#3608](https://github.com/wix/ricos/pull/3608) cleanup experiment from anchor scroll
 

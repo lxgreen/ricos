@@ -9,6 +9,11 @@ const pluginTags = [
     pluginId: 'video',
   },
   {
+    plugin: 'AudioPlugin_InsertButton',
+    tags: 'Audio_plugin_search_tags',
+    pluginId: 'audio',
+  },
+  {
     plugin: 'HTMLCodePlugin_InsertButton',
     tags: 'HTML_plugin_search_tags',
     pluginId: 'html',
