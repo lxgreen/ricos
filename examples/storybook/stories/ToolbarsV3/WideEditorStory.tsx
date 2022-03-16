@@ -34,7 +34,7 @@ const WideEditorStory = () => {
         <div>
           <RichContentEditorBox>
             <ToolbarContext.Provider value={context}>
-              <div dir="" data-hook="yaron123" style={{ border: 'solid 10px red', padding: 10 }}>
+              <div dir="" data-hook="yaron123">
                 {editorCommands.current && !experiments.tiptapEditor.enabled && (
                   <>
                     <RicosDraftToolbar

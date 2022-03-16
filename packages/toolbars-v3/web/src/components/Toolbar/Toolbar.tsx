@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import type { ToolbarSpec } from '../../types';
 import { RicosToolbar } from '../../RicosToolbar';
 import styles from './Toolbar.scss';
+import cx from 'classnames';
 
 type ToolbarProps = {
   toolbar: RicosToolbar;
@@ -32,7 +33,7 @@ class ToolbarComponent extends Component<ToolbarProps, Record<string, unknown>> 
     const toolbarButtons = this.props.toolbar.getToolbarItemsBy(visibleOnlySpec);
     const { toolbarItemsRenders } = this.props;
     return (
-      <div className={styles.toolbar}>
+      <div className={cx(styles.toolbar, styles.staticContainer)}>
         {toolbarButtons.map(toolbarButton => {
           const ItemComponent = toolbarItemsRenders[toolbarButton.id](toolbarButton);
 
