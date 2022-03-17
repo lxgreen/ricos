@@ -29,6 +29,7 @@ import type {
   TextData,
   VideoData,
   AudioData,
+  PollData,
 } from 'ricos-schema';
 import { isTextData, isParagraphData } from './node-data-refined-types';
 
@@ -244,7 +245,13 @@ export type VideoNode = Identified &
 export type AudioNode = Identified &
   Leaf & {
     type: Node_Type.AUDIO;
-    AudioData: AudioData;
+    audioData: AudioData;
+  };
+
+export type PollNode = Identified &
+  Leaf & {
+    type: Node_Type.POLL;
+    pollData: PollData;
   };
 
 export type RefinedNode =

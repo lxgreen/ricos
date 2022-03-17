@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :rocket: New Feature
+
+- `ricos-content`
+  - [#3615](https://github.com/wix/ricos/pull/3615) add PollNode to RefinedNode type
+
 </details>
 <hr/>
 
