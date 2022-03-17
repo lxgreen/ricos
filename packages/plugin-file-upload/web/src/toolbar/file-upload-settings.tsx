@@ -98,36 +98,6 @@ class FileUploadSettings extends Component<FileUploadSettingsProps, FileUploadSe
 
   toggleData = [
     {
-      toggleKey: PDF_CUSTOMIZATIONS.PRINT,
-      labelKey: 'FileUploadPlugin_Settings_ShowPrintPDF_Label',
-      dataHook: 'fileUploadShowPrintPDFToggle',
-      isChecked: () => {
-        const {
-          componentData: { pdfSettings },
-        } = this.props;
-        return this.modalsWithEditorCommands && pdfSettings
-          ? !pdfSettings[PDF_CUSTOMIZATIONS.PRINT]
-          : this.state.showPrintPDF;
-      },
-      onChange: () => {
-        const {
-          componentData: { pdfSettings },
-        } = this.props;
-        if (this.modalsWithEditorCommands && pdfSettings) {
-          this.props.updateData({
-            pdfSettings: {
-              ...pdfSettings,
-              [PDF_CUSTOMIZATIONS.PRINT]: !pdfSettings[PDF_CUSTOMIZATIONS.PRINT],
-            },
-          });
-        } else {
-          this.setState(({ showPrintPDF }) => {
-            return { showPrintPDF: !showPrintPDF };
-          });
-        }
-      },
-    },
-    {
       toggleKey: PDF_CUSTOMIZATIONS.DOWNLOAD,
       labelKey: 'FileUploadPlugin_Settings_ShowDownloadPDF_Label',
       dataHook: 'fileUploadShowDownloadPDFToggle',
@@ -153,6 +123,36 @@ class FileUploadSettings extends Component<FileUploadSettingsProps, FileUploadSe
         } else {
           this.setState(({ showDownloadPDF }) => {
             return { showDownloadPDF: !showDownloadPDF };
+          });
+        }
+      },
+    },
+    {
+      toggleKey: PDF_CUSTOMIZATIONS.PRINT,
+      labelKey: 'FileUploadPlugin_Settings_ShowPrintPDF_Label',
+      dataHook: 'fileUploadShowPrintPDFToggle',
+      isChecked: () => {
+        const {
+          componentData: { pdfSettings },
+        } = this.props;
+        return this.modalsWithEditorCommands && pdfSettings
+          ? !pdfSettings[PDF_CUSTOMIZATIONS.PRINT]
+          : this.state.showPrintPDF;
+      },
+      onChange: () => {
+        const {
+          componentData: { pdfSettings },
+        } = this.props;
+        if (this.modalsWithEditorCommands && pdfSettings) {
+          this.props.updateData({
+            pdfSettings: {
+              ...pdfSettings,
+              [PDF_CUSTOMIZATIONS.PRINT]: !pdfSettings[PDF_CUSTOMIZATIONS.PRINT],
+            },
+          });
+        } else {
+          this.setState(({ showPrintPDF }) => {
+            return { showPrintPDF: !showPrintPDF };
           });
         }
       },
@@ -300,7 +300,7 @@ class FileUploadSettings extends Component<FileUploadSettingsProps, FileUploadSe
                     useNewSettingsUi
                   />
                 </SettingsSection>
-                <SettingsSeparator top bottom />
+                <SettingsSeparator top />
                 <SettingsSection
                   theme={theme}
                   ariaProps={{ 'aria-label': 'pdf viewer customizations', role: 'region' }}

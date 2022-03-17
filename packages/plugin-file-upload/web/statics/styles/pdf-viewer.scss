@@ -1,3 +1,5 @@
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
+
 .iframe {
   width: 100%;
   height: 100%;
@@ -11,4 +13,8 @@
 
 .pdf_viewer {
   height: 800px;
+
+  @include phone {
+    height: 300px;
+  }
 }

@@ -22,6 +22,11 @@
 - `ricos-content`
   - [#3615](https://github.com/wix/ricos/pull/3615) add PollNode to RefinedNode type
 
+### :Bug Fix
+
+- `file-upload`
+  - [#3619](https://github.com/wix/ricos/pull/3619) settings modal design fixes
+
 </details>
 <hr/>
 
