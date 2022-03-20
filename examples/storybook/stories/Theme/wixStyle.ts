@@ -49,6 +49,9 @@ export const withWixStyle: WithStyle = theme =>
         bgColor: {
           backgroundColor: '#DAEFFE',
         },
+        disabled: {
+          backgroundColor: '#162d3d4d',
+        },
       },
     },
     theme || {}

@@ -126,4 +126,7 @@ export interface RicosSettingsStyles {
   bgColor?: {
     backgroundColor?: CSSProperties['backgroundColor'];
   };
+  disabled?: {
+    backgroundColor?: CSSProperties['backgroundColor'];
+  };
 }

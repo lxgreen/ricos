@@ -28,6 +28,9 @@
   - [#3619](https://github.com/wix/ricos/pull/3619) settings modal design fixes
 
 ### :house: Internal
+
+- `ricos-common`
+  - [#3623](https://github.com/wix/ricos/pull/3623) add settings disabled theme type
 - `audio`
   - [#3618](https://github.com/wix/ricos/pull/3618) add audio modal settings modal
 

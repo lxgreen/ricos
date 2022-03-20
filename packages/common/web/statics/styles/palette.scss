@@ -64,6 +64,7 @@ $settings-colorPaletteSelectedButton-border-radius: var(
   50%
 );
 $settings-bgColor-: var(--ricos-settings-bg-color-background-color, $background-color-container);
+$settings-disabled-color-: var(--ricos-settings-disabled-background-color, $ricos-disabled-color);
 
 $modal-input-color: #333333;
 $toolbar-font-color: #333333;

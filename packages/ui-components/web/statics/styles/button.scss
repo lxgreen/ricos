@@ -22,6 +22,10 @@
   }
 }
 
+%disabled {
+  background-color: var(--ricos-settings-disabled-background-color, rgba(0, 0, 0, 0.4));
+}
+
 .button_primary {
   @extend %button;
   color: #fff;
@@ -35,9 +39,9 @@
   }
 
   &:disabled {
+    @extend %disabled;
     cursor: auto;
     color: rgba(255, 255, 255, 0.6);
-    background-color: rgba(0, 0, 0, 0.4);
     border: none;
   }
 
@@ -57,8 +61,8 @@
   }
 
   &:disabled {
+    @extend %disabled;
     color: rgba(0, 0, 0, 0.4);
-    background-color: rgba(0, 0, 0, 0.4);
   }
 }
 
