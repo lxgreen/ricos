@@ -20,7 +20,6 @@ const AudioModal = props => {
     isMobile,
     embedType = false,
     pubsub,
-    helpers,
   } = props;
   const src = componentData?.audio?.src;
 
@@ -52,7 +51,7 @@ const AudioModal = props => {
     });
     if (url && ReactPlayer.canPlay(url)) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { audio, name, coverImage, authorName, ...rest } = componentData;
+      const { audio, name, coverImage, authorName, disableDownload, ...rest } = componentData;
       const { onConfirm } = props;
       if (onConfirm) {
         onConfirm({ ...rest, audio: { src: { url } } });

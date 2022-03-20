@@ -37,3 +37,44 @@
     background-color: rgba($settings-action-color-fallback-tuple, 0.1);
   }
 }
+
+.settingsAddItem_container {
+  position: relative;
+}
+
+.settingsAddItem_overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .settingsAddItem_overlay_icons {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    gap: 6px;
+    svg {
+      cursor: pointer;
+      background-color: white;
+      border-radius: 24px;
+      width: 24px;
+      height: 24px;
+      padding: 2px;
+    }
+  }
+  .settingsAddItem_overlay_image {
+    width: 120px;
+    height: 120px;
+  }
+  &:hover {
+    background-color: #000;
+    .settingsAddItem_overlay_icons {
+      display: flex;
+    }
+    .settingsAddItem_overlay_image {
+      opacity: 0.6;
+    }
+  }
+}

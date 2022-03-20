@@ -27,6 +27,10 @@
 - `file-upload`
   - [#3619](https://github.com/wix/ricos/pull/3619) settings modal design fixes
 
+### :house: Internal
+- `audio`
+  - [#3618](https://github.com/wix/ricos/pull/3618) add audio modal settings modal
+
 </details>
 <hr/>
 

@@ -16,3 +16,5 @@ export const embedModalContentStyles: React.CSSProperties = {
   height: 180,
   ...modalContentStyles,
 };
+
+export const SETTINGS_IMG_SIZE = '120px';

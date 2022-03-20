@@ -1,4 +1,4 @@
-import { BUTTONS } from 'wix-rich-content-plugin-commons';
+import { BUTTONS, PluginSettingsIcon } from 'wix-rich-content-plugin-commons';
 import type {
   CreateInlineButtons,
   TranslationFunction,
@@ -9,14 +9,18 @@ import {
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,
   MediaReplaceIcon,
 } from 'wix-rich-content-ui-components';
+import { AUDIO_TYPE } from '../types';
 import type { AudioPluginEditorConfig } from '../types';
 import { decorateComponentWithProps, getModalStyles } from 'wix-rich-content-editor-common';
 import AudioModal from './modals/AudioModal';
 import { audioModalContentStyles } from '../consts';
+import { Modals } from '../modals';
+import AudioSettings from './modals/AudioSettings';
 
 const createInlineButtons: CreateInlineButtons = ({
   settings,
   isMobile,
+  t,
 }: {
   t: TranslationFunction;
   settings: AudioPluginEditorConfig;
@@ -37,6 +41,23 @@ const createInlineButtons: CreateInlineButtons = ({
     : undefined;
 
   return [
+    {
+      keyName: 'settings',
+      type: BUTTONS.AUDIO_SETTINGS,
+      fullHeight: true,
+      icon: PluginSettingsIcon,
+      modalName: Modals.AUDIO_SETTINGS,
+      modalStyles: getModalStyles({
+        isMobile,
+      }),
+      t,
+      modalElement: AudioSettings,
+      mobile: true,
+      tooltipTextKey: 'SettingsButton_Tooltip',
+      settings,
+      triggerSettingsBi: true,
+      pluginId: AUDIO_TYPE,
+    },
     { keyName: 'sizeSmallCenter', type: BUTTONS.SIZE_SMALL_CENTER, mobile: false },
     { keyName: 'sizeContent', type: BUTTONS.SIZE_CONTENT, mobile: false },
     { keyName: 'sizeSmallLeft', type: BUTTONS.SIZE_SMALL_LEFT, mobile: false },

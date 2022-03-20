@@ -90,7 +90,7 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
         style={this.props.style}
         title={title}
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-        tabIndex={0}
+        tabIndex={tabIndex}
         onKeyPress={e => e.key === 'Enter' && this.onClick()}
       >
         {handleFileSelection ? (
@@ -99,6 +99,7 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
             className={styles.visuallyHidden}
             {...a11yProps}
             id={this.id}
+            tabIndex={-1}
             data-hook={dataHook}
             onClick={this.onClick}
           />
