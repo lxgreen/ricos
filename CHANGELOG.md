@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+</details>
+<hr/>
+
+## 8.70.20 (Mar 21, 2022)
+
 ### :rocket: New Feature
 
 - `ricos-content`
@@ -33,8 +38,11 @@
   - [#3623](https://github.com/wix/ricos/pull/3623) add settings disabled theme type
 - `audio`
   - [#3618](https://github.com/wix/ricos/pull/3618) add audio modal settings modal
+- `polls`
+  - [#3622](https://github.com/wix/ricos/pull/3622) fix polls in json schema
 
 </details>
+
 <hr/>
 
 ## 8.70.19 (Mar 15, 2022)
