@@ -10,9 +10,15 @@
       "properties": {
         "size": {
           "$id": "/properties/config/properties/size",
-          "enum": ["content", "small", "original", "fullWidth", "inline"],
+          "enum": ["large"],
           "title": "Widget Size",
-          "examples": ["content", "small", "original", "fullWidth", "inline"]
+          "examples": ["large"]
+        },
+        "width": {
+          "$id": "/properties/config/properties/size",
+          "enum": ["full-width"],
+          "title": "Widget Size",
+          "examples": ["full-width"]
         },
         "alignment": {
           "$id": "/properties/config/properties/alignment",

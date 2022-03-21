@@ -32,5 +32,14 @@ export const getContentStateSchema = (
     };
   });
 
+  Object.keys(pluginDataSchemas).forEach(pluginType => {
+    const { definitions } = pluginDataSchemas[pluginType];
+    if (definitions) {
+      Object.keys(definitions).forEach(definition => {
+        schema.definitions[definition] = definitions[definition];
+      });
+    }
+  });
+
   return schema;
 };
