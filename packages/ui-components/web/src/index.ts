@@ -8,6 +8,8 @@ export {
   DesktopOverlayModalStyles,
   ACTION_COLOR_CSS_VAR,
   BG_COLOR_CSS_VAR,
+  SLIDER_THUMB_VISIBILITY,
+  SLIDER_TRACK_SIZE,
 } from './consts';
 
 // Modals

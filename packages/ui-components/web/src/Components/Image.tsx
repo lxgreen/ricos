@@ -16,7 +16,7 @@ interface ImageProps {
   className?: string;
   alt?: string;
   error?: MediaUploadError;
-  t: TranslationFunction;
+  t?: TranslationFunction;
 }
 
 class Image extends Component<ImageProps> {

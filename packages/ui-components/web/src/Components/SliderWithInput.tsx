@@ -98,7 +98,7 @@ class SliderWithInput extends Component<SliderWithInputProps> {
             value={inputValue}
             dataHook={sliderDataHook}
             onChange={this.handleSliderChange}
-            onSubmit={this.submitInputValue}
+            onChangeCommitted={this.submitInputValue}
             min={min}
             max={max}
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment

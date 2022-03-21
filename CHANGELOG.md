@@ -38,6 +38,8 @@
   - [#3623](https://github.com/wix/ricos/pull/3623) add settings disabled theme type
 - `audio`
   - [#3618](https://github.com/wix/ricos/pull/3618) add audio modal settings modal
+- `audio`
+  - [#3620](https://github.com/wix/ricos/pull/3620) add react player 
 - `polls`
   - [#3622](https://github.com/wix/ricos/pull/3622) fix polls in json schema
 

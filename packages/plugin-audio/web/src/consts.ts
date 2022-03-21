@@ -17,4 +17,54 @@ export const embedModalContentStyles: React.CSSProperties = {
   ...modalContentStyles,
 };
 
+export const downloadFile = (url: string, fileName) => {
+  fetch(url, {
+    method: 'GET',
+  })
+    .then(response => response.blob())
+    .then(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
+      a.click();
+      a.remove(); //afterwards we remove the element again
+    });
+};
+
+export const playbackRates = [
+  {
+    text: '0.25',
+    rate: 0.25,
+  },
+  {
+    text: '0.5',
+    rate: 0.5,
+  },
+  {
+    text: '0.75',
+    rate: 0.75,
+  },
+  {
+    text: 'Normal',
+    rate: 1,
+  },
+  {
+    text: '1.25',
+    rate: 1.25,
+  },
+  {
+    text: '1.5',
+    rate: 1.5,
+  },
+  {
+    text: '1.75',
+    rate: 1.75,
+  },
+  {
+    text: '2',
+    rate: 2,
+  },
+];
 export const SETTINGS_IMG_SIZE = '120px';

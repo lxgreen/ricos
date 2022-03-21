@@ -6,9 +6,6 @@
 // Version 1.4.1
 // MIT License
 
-// $track-color: $settings-action-color-fallback;
-// $thumb-color: $settings-action-color-fallback;
-
 $thumb-radius: 8px !default;
 $thumb-height: 16px !default;
 $thumb-width: 16px !default;
@@ -41,9 +38,9 @@ $track-radius: 3px !default;
 }
 
 @mixin thumb {
-  @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
-  background: $settings-action-color-fallback;
-  border: $thumb-border-width solid $thumb-border-color;
+  box-shadow: none;
+  background: transparent;
+  border: $thumb-border-width solid transparent;
   border-radius: $thumb-radius;
   cursor: pointer;
   height: $thumb-height;
@@ -57,7 +54,13 @@ $track-radius: 3px !default;
   -webkit-appearance: none;
   margin: $thumb-height / 2 0;
   width: $track-width;
-  height: 6px;
+
+  &.small_track {
+    height: 4px;
+  }
+  &.medium_track {
+    height: 6px;
+  }
 
   &:focus {
     &::-webkit-slider-runnable-track {
@@ -70,6 +73,24 @@ $track-radius: 3px !default;
 
     &::-ms-fill-upper {
       background: $track-unfilled-color;
+    }
+  }
+
+  &:not(.slider_fixed_thumb) {
+    &:hover,
+    &:focus {
+      &::-webkit-slider-thumb {
+        @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
+        background: $thumb-border-color;
+        border: $thumb-border-width solid $thumb-border-color;
+      }
+    }
+  }
+  &.slider_fixed_thumb {
+    &::-webkit-slider-thumb {
+      @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
+      background: $thumb-border-color;
+      border: $thumb-border-width solid $thumb-border-color;
     }
   }
 

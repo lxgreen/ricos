@@ -18,14 +18,16 @@ const errorMessages = {
 
 interface MediaItemErrorMsgProps {
   error: MediaUploadError;
-  t: TranslationFunction;
+  t?: TranslationFunction;
   isTooltip?: boolean;
 }
 
 const MediaItemErrorMsg: FunctionComponent<MediaItemErrorMsgProps> = props => {
   const { error, t, isTooltip } = props;
   const errorMsg =
-    (error.key && t(errorMessages[error.key])) || error.msg || t('UploadFile_Error_Generic_Item');
+    (error.key && t?.(errorMessages[error.key])) ||
+    error.msg ||
+    t?.('UploadFile_Error_Generic_Item');
   const errorIconStyles = classnames(styles.errorIcon, !isTooltip && styles.errorIconWithMessage);
   return (
     <div className={styles.error}>

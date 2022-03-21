@@ -40,6 +40,10 @@ export const FOOTER_BUTTON_ALIGNMENT = Object.freeze({
   END: 'end',
 });
 
+export const SLIDER_THUMB_VISIBILITY = { hover: 'hover', fixed: 'fixed' };
+
+export const SLIDER_TRACK_SIZE = { small: 'small_track', medium: 'medium_track' };
+
 export const MODAL_CONTROLS_POSITION = Object.freeze({
   TOP: 'top',
   BOTTOM: 'bottom',

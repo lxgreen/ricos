@@ -25,6 +25,7 @@ class AudioComponent extends React.Component<Props> {
         theme={theme}
         helpers={helpers}
         isMobile={isMobile}
+        disabled
       />
     );
   }
