@@ -8,3 +8,4 @@ export { default as LinkButton } from './LinkButton/LinkButton';
 export { default as TextColorButton } from './TextColorButton/TextColorButton';
 export { default as HighlightColorButton } from './HighlightColorButton/HighlightColorButton';
 export { ToggleButton } from './ToggleButton';
+export { default as MoreButton } from './MoreButton/MoreButton';

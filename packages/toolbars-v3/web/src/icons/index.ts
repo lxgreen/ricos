@@ -33,3 +33,5 @@ export { default as H4Icon } from './H4Icon';
 export { default as H5Icon } from './H5Icon';
 export { default as H6Icon } from './H6Icon';
 export { default as ContextMenuIcon } from './ContextMenuIcon';
+export { default as ChevronUp } from './ChevronUp';
+export { default as ChevronDown } from './ChevronDown';
