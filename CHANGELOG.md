@@ -27,6 +27,7 @@
 - `audio`
 
   - [#3620](https://github.com/wix/ricos/pull/3620) add react player
+  - [#3626](https://github.com/wix/ricos/pull/3626) add spotify embed 
 
 ### :nail_care: Polish
 

@@ -66,6 +66,7 @@ class ModalBaseActions extends Component<Props, State> {
       updateData: this.updateData,
       updateComponentData: this.updateComponentData,
       componentData: this.state.data || this.props.componentData,
+      setData: this.setData,
     });
   }
 }

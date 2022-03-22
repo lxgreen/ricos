@@ -5,6 +5,7 @@ import { mergeStyles } from 'wix-rich-content-common';
 import type { AudioPluginViewerConfig } from './types';
 import ReactPlayerWrapper from './ReactPlayerWrapper';
 import styles from '../statics/styles/audio.scss';
+import AudioEmbedViewer from './AudioEmbedViewer';
 
 const getAudioSrc = (src, settings) => {
   if (src?.url) return src.url;
@@ -13,7 +14,6 @@ const getAudioSrc = (src, settings) => {
   } else {
     console.error('must set getAudioUrl in plugin config when using custom video source!', src); //eslint-disable-line no-console
   }
-
   return src;
 };
 
@@ -37,21 +37,31 @@ const AudioViewer: FC<Props> = ({
   const classes = useMemo(() => mergeStyles({ styles, theme }), [theme]);
   const { audio = {}, authorName, name, coverImage, disableDownload } = componentData;
   const url = getAudioSrc(audio?.src, settings);
+  const shouldEmbed = componentData.html;
 
   return (
     <div className={classes.container} data-hook="audio-container">
-      <ReactPlayerWrapper
-        theme={theme}
-        url={url}
-        name={name}
-        authorName={authorName}
-        coverImage={coverImage}
-        disableDownload={disableDownload}
-        helpers={helpers}
-        isMobile={isMobile}
-        showControls={!!audio?.src?.url}
-        disabled={disabled}
-      />
+      {!shouldEmbed ? (
+        <ReactPlayerWrapper
+          theme={theme}
+          url={url}
+          name={name}
+          authorName={authorName}
+          coverImage={coverImage}
+          disableDownload={disableDownload}
+          helpers={helpers}
+          isMobile={isMobile}
+          showControls={!!audio?.src?.url}
+          disabled={disabled}
+        />
+      ) : (
+        <AudioEmbedViewer
+          componentData={componentData}
+          settings={settings}
+          theme={theme}
+          isMobile={isMobile}
+        />
+      )}
     </div>
   );
 };

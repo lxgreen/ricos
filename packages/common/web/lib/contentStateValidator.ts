@@ -17,6 +17,7 @@ import tableSchema from '../statics/schemas/plugin-table.schema.json';
 import collapsibleListSchema from '../statics/schemas/plugin-collapsible-list.schema.json';
 import varticalEmbedSchema from '../statics/schemas/vertical-embed.schema.json';
 import emojiSchema from '../statics/schemas/plugin-emoji.schema.json';
+import audioSchema from '../statics/schemas/plugin-audio.schema.json';
 import {
   LINK_BUTTON_TYPE,
   ACTION_BUTTON_TYPE,
@@ -36,6 +37,7 @@ import {
   COLLAPSIBLE_LIST_TYPE,
   VERTICAL_EMBED_TYPE,
   EMOJI_TYPE,
+  AUDIO_TYPE,
 } from 'ricos-content';
 
 export const isValidEditorData = payload => {
@@ -43,6 +45,7 @@ export const isValidEditorData = payload => {
     [DIVIDER_TYPE]: dividerSchema,
     [IMAGE_TYPE]: imageSchema,
     [VIDEO_TYPE]: videoSchema,
+    [AUDIO_TYPE]: audioSchema,
     [GIPHY_TYPE]: giphySchema,
     [FILE_UPLOAD_TYPE]: fileUploadSchema,
     [MAP_TYPE]: mapSchema,

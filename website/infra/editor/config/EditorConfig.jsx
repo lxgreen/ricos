@@ -547,6 +547,7 @@ const config = {
     },
     //media manager - Here you can call your custom video upload functionality (comment function to disable custom upload)
     handleFileSelection: audioHandlers.handleFileSelection,
+    fetchData: mockFetchUrlPreviewData(),
     // this is for native file upload
     // handleFileUpload: audioHandlers.handleFileUpload,
     enableCustomUploadOnMobile: true,

@@ -6,7 +6,21 @@ import { MEDIA_POPOVERS_BUTTONS_NAMES_BI } from 'wix-rich-content-common';
 import * as id3 from 'id3js';
 
 const AudioUploadModal = props => {
-  const { onConfirm, onReplace } = props;
+  const {
+    t,
+    handleFileSelection,
+    handleFileUpload,
+    enableCustomUploadOnMobile,
+    isMobile = false,
+    languageDir,
+    helpers,
+    onConfirm,
+    onReplace,
+    pubsub,
+    componentData,
+    setData,
+  } = props;
+
   const id = `AudioUploadModal_FileInput_${Math.floor(Math.random() * 9999)}`;
   let blockKey;
 
@@ -20,11 +34,11 @@ const AudioUploadModal = props => {
   };
 
   const closeModal = () => {
-    props.helpers.closeModal();
+    helpers.closeModal();
   };
 
   const setComponentData = data => {
-    props.pubsub.set('componentData', data, blockKey);
+    pubsub.set('componentData', data, blockKey);
   };
 
   const getOnUploadFinished = () => {
@@ -46,10 +60,10 @@ const AudioUploadModal = props => {
   };
 
   const onLocalLoad = tempData => {
-    onUpload({ ...props.componentData, ...tempData });
+    onUpload({ ...componentData, ...tempData });
   };
 
-  const getComponentData = () => props.componentData;
+  const getComponentData = () => componentData;
 
   const getAudioTags = async file => {
     const tags = await id3.fromFile(file);
@@ -59,27 +73,20 @@ const AudioUploadModal = props => {
   const handleNativeFileUpload = async file => {
     const tags = await getAudioTags(file);
     const getComponentData = () => ({
-      ...props.componentData,
+      ...componentData,
       ...tags,
     });
     handleUploadStart(props, getComponentData, file, onLocalLoad, getOnUploadFinished(), undefined);
     closeModal();
   };
 
-  const {
-    t,
-    handleFileSelection,
-    handleFileUpload,
-    enableCustomUploadOnMobile,
-    isMobile = false,
-    languageDir,
-    helpers,
-  } = props;
-
   const hasCustomFileUpload = handleFileUpload || handleFileSelection;
   const showUploadSection = (!isMobile || enableCustomUploadOnMobile) && hasCustomFileUpload;
 
   const handleClick = evt => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { html, ...rest } = componentData;
+    setData(rest);
     helpers?.onPluginsPopOverClick?.({
       pluginId: AUDIO_TYPE,
       buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.upload,

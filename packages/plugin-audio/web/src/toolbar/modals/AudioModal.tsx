@@ -19,7 +19,8 @@ const AudioModal = props => {
     theme,
     isMobile,
     embedType = false,
-    pubsub,
+    onConfirm,
+    setData,
   } = props;
   const src = componentData?.audio?.src;
 
@@ -44,23 +45,43 @@ const AudioModal = props => {
       'https://soundcloud.com/kotathefriend/smile?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing'
     );
 
-  const onConfirm = () => {
+  const onEmbedClick = () => {
     onPluginsPopOverClick?.({
       pluginId: AUDIO_TYPE,
       buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.embed,
     });
     if (url && ReactPlayer.canPlay(url)) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { audio, name, coverImage, authorName, disableDownload, ...rest } = componentData;
+      const { audio, name, coverImage, authorName, disableDownload, html, ...rest } = componentData;
       const { onConfirm } = props;
       if (onConfirm) {
         onConfirm({ ...rest, audio: { src: { url } } });
       } else {
-        pubsub.set('componentData', { ...rest, audio: { src: { url } } });
+        setData({ ...rest, audio: { src: { url } } });
       }
       closeModal?.();
     } else {
-      setSubmittedInvalidUrl(true);
+      onSpotifyEmbed(url);
+    }
+  };
+
+  const onSpotifyEmbed = url => {
+    const { fetchData } = props;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { audio, name, coverImage, authorName, disableDownload, ...rest } = componentData;
+    if (url) {
+      fetchData(url).then(({ html }) => {
+        if (!html) {
+          setSubmittedInvalidUrl(true);
+        } else {
+          if (onConfirm) {
+            onConfirm({ ...rest, audio: { src: { url } }, html });
+          } else {
+            setData({ ...rest, audio: { src: { url } }, html });
+          }
+          closeModal?.();
+        }
+      });
     }
   };
 
@@ -97,7 +118,7 @@ const AudioModal = props => {
             <div className={styles.audio_modal_tab}>
               <MediaURLInputModal
                 {...props}
-                onConfirm={onConfirm}
+                onConfirm={onEmbedClick}
                 url={url}
                 setUrl={setUrl}
                 submittedInvalidUrl={submittedInvalidUrl}

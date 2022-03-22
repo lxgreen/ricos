@@ -667,6 +667,7 @@ const config: RichContentEditorProps['config'] = {
     // Function is invoked when rendering audio which has relative URL.
     // You should take the pathname and form a full URL.
     getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,
+    fetchData: mockFetchUrlPreviewData(),
     exposeButtons: [
       audioButtonsTypes.audio,
       audioButtonsTypes.soundCloud,

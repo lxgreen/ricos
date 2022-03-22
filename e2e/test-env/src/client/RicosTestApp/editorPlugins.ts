@@ -94,6 +94,7 @@ const defaultConfigs: TestAppConfig['pluginsConfig'] = {
   },
   audio: {
     handleFileSelection: audioHandlers.handleFileSelection,
+    fetchData: mockFetchUrlPreviewData(),
     enableCustomUploadOnMobile: true,
     getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,
     exposeButtons: [

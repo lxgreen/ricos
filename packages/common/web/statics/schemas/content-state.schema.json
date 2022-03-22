@@ -102,7 +102,8 @@
             "wix-rich-content-plugin-table",
             "wix-rich-content-plugin-collapsible-list",
             "EMOJI_TYPE",
-            "ricos-plugin-custom-link"
+            "ricos-plugin-custom-link",
+            "ricos-audio"
           ],
           "title": "entity type",
           "examples": ["wix-draft-plugin-image"]

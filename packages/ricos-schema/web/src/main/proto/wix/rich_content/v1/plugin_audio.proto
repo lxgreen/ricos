@@ -12,4 +12,5 @@ message AudioData {
   Media cover_image = 4;
   google.protobuf.StringValue name = 5;
   google.protobuf.StringValue author_name = 6;
+  google.protobuf.StringValue html = 7;
 }
