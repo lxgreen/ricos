@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-toolbars-v3",
-  "version": "8.70.20",
+  "version": "8.70.21",
   "author": {
     "name": "Noam Tayri",
     "email": "noamt@wix.com"
@@ -46,13 +46,13 @@
     "@popperjs/core": "2.11.2",
     "react-click-outsider": "1.1.1",
     "react-popper": "2.2.5",
-    "ricos-common": "8.70.20",
-    "wix-rich-content-common": "8.70.20",
-    "wix-rich-content-editor": "8.70.20",
-    "wix-rich-content-editor-common": "8.70.20",
-    "wix-rich-content-plugin-commons": "8.70.20",
-    "wix-rich-content-ui-components": "8.70.20",
-    "react-sizeme": "latest"
+    "react-sizeme": "latest",
+    "ricos-common": "8.70.21",
+    "wix-rich-content-common": "8.70.21",
+    "wix-rich-content-editor": "8.70.21",
+    "wix-rich-content-editor-common": "8.70.21",
+    "wix-rich-content-plugin-commons": "8.70.21",
+    "wix-rich-content-ui-components": "8.70.21"
   },
   "unpkg": true,
   "publishConfig": {
