@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+<hr/>
+
+## 8.70.21 (Mar 22, 2022)
+
 ### :Bug Fix
 
 - `file-upload`
@@ -33,9 +40,6 @@
 
 - `toolbars-new`
   - [#3629](https://github.com/wix/ricos/pull/3629) wire font size input to bizMgr
-
-</details>
-<hr/>
 
 ## 8.70.20 (Mar 21, 2022)
 
