@@ -17,11 +17,16 @@
     Click to see more.
   </summary>
 
-
 ### :house: Internal
 
 - `audio`
+
   - [#3620](https://github.com/wix/ricos/pull/3620) add react player 
+
+### :nail_care: Polish
+
+- `toolbars-new`
+  - [#3629](https://github.com/wix/ricos/pull/3629) wire font size input to bizMgr
 
 </details>
 <hr/>
