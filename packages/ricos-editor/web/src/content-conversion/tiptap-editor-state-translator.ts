@@ -12,11 +12,9 @@ export class TiptapEditorStateTranslator implements ITiptapEditorStateTranslator
   getSelectedNodesKeys = () => {
     const selection = this.editor.state.selection;
     const selectedNodes: string[] = [];
-    this.editor.state.doc.nodesBetween(
-      selection.from,
-      selection.to,
-      (node: Node) => node.attrs.id && selectedNodes.push(node.attrs.id)
-    );
+    this.editor.state.doc.nodesBetween(selection.from, selection.to, (node: Node) => {
+      node.attrs.id && selectedNodes.push(node.attrs.id);
+    });
     return selectedNodes;
   };
 

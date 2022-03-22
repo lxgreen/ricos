@@ -17,11 +17,16 @@
     Click to see more.
   </summary>
 
+### :Bug Fix
+
+- `file-upload`
+  - [#3633](https://github.com/wix/ricos/pull/3633) tiptap translator type fix
+
 ### :house: Internal
 
 - `audio`
 
-  - [#3620](https://github.com/wix/ricos/pull/3620) add react player 
+  - [#3620](https://github.com/wix/ricos/pull/3620) add react player
 
 ### :nail_care: Polish
 
