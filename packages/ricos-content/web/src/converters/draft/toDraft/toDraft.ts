@@ -142,8 +142,10 @@ const convert = (ricosContent: RichContent): DraftContent => {
   const parseDocStyle = documentStyle => {
     const draftDocStyle = {};
     Object.entries(documentStyle).forEach(([header, values]) => {
-      const { decorations } = values as TextNodeStyle;
-      draftDocStyle[header as string] = convertDocumentStyleDecorationTypes(decorations);
+      if (values) {
+        const { decorations } = values as TextNodeStyle;
+        draftDocStyle[header as string] = convertDocumentStyleDecorationTypes(decorations);
+      }
     });
     return draftDocStyle;
   };

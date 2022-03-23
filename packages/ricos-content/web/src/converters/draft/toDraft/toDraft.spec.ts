@@ -16,6 +16,8 @@ import {
 import { convertDecorationToDraftData, convertNodeToDraftData } from './convertDraftPluginData';
 import external from './__tests__/external-blocks-and-decorations.json';
 import externalMigrated from './__tests__/external-blocks-and-decorations-migrated.json';
+import nullishDocumentStyleRicos from './__tests__/nullishDocumentStyleRicos.json';
+import nullishDocumentStyleDraft from './__tests__/nullishDocumentStyleDraft.json';
 
 const fixtures = { complex: complexFixture };
 
@@ -224,6 +226,16 @@ describe('migrate to draft', () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const converted = toDraft(keyAndBulletFixture as any);
       expect(compare(converted, keyAndBulletFixtureMigrated, { ignoredKeys: ['ID'] })).toEqual({});
+    });
+  });
+
+  describe('migrate documentStyle properly', () => {
+    it('should work when documentStyle is null', () => {
+      expect(
+        compare(toDraft(nullishDocumentStyleRicos), nullishDocumentStyleDraft, {
+          ignoredKeys: ['ID'],
+        })
+      ).toEqual({});
     });
   });
 });

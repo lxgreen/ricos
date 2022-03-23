@@ -17,7 +17,8 @@
     Click to see more.
   </summary>
 
-
+- `ricos-content`
+  - [#3630](https://github.com/wix/ricos/pull/3630) Prevent converter crash on documentStyle w/ nulls
 
 </details>
 <hr/>
@@ -26,7 +27,7 @@
 
 ### :house: Internal
 
-  - [#3636](https://github.com/wix/ricos/pull/3636) refactor audioData import fix css dir & add loader
+- [#3636](https://github.com/wix/ricos/pull/3636) refactor audioData import fix css dir & add loader
 
 ## 8.70.21 (Mar 22, 2022)
 
@@ -40,7 +41,7 @@
 - `audio`
 
   - [#3620](https://github.com/wix/ricos/pull/3620) add react player
-  - [#3626](https://github.com/wix/ricos/pull/3626) add spotify embed 
+  - [#3626](https://github.com/wix/ricos/pull/3626) add spotify embed
 
 ### :nail_care: Polish
 
