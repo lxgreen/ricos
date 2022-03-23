@@ -4,7 +4,7 @@ import type { RichContentTheme, ComponentData, Helpers } from 'wix-rich-content-
 import { mergeStyles } from 'wix-rich-content-common';
 import type { AudioPluginViewerConfig } from './types';
 import ReactPlayerWrapper from './ReactPlayerWrapper';
-import styles from '../statics/styles/audio.scss';
+import styles from '../statics/styles/audio.rtlignore.scss';
 import AudioEmbedViewer from './AudioEmbedViewer';
 
 const getAudioSrc = (src, settings) => {

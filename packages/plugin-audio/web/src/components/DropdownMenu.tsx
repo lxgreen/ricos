@@ -1,7 +1,7 @@
 import React from 'react';
 import { FocusManager } from 'wix-rich-content-ui-components';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
-import styles from '../../statics/styles/audio.scss';
+import styles from '../../statics/styles/audio.rtlignore.scss';
 
 const optionElement = option => {
   const selected = option?.selected;

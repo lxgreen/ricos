@@ -35,6 +35,7 @@
 
   - [#3620](https://github.com/wix/ricos/pull/3620) add react player
   - [#3626](https://github.com/wix/ricos/pull/3626) add spotify embed 
+  - [#3636](https://github.com/wix/ricos/pull/3636) refactor audioData import fix css dir & add loader
 
 ### :nail_care: Polish
 

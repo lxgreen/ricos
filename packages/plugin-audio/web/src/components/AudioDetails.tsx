@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../statics/styles/audio.scss';
+import styles from '../../statics/styles/audio.rtlignore.scss';
 
 interface Props {
   authorName?: string;

@@ -4,6 +4,7 @@ import type { AudioPluginEditorConfig } from './types';
 import { AUDIO_TYPE } from './types';
 import { DEFAULTS } from './defaults';
 import type { ComponentData, Helpers, RichContentTheme } from 'wix-rich-content-common';
+import { Loader } from 'wix-rich-content-ui-components';
 
 interface Props {
   componentData: ComponentData;
@@ -11,22 +12,26 @@ interface Props {
   theme: RichContentTheme;
   helpers: Helpers;
   isMobile: boolean;
+  isLoading?: boolean;
 }
 
 class AudioComponent extends React.Component<Props> {
   static type = { AUDIO_TYPE };
 
   render() {
-    const { componentData, settings, theme, helpers, isMobile } = this.props;
+    const { componentData, settings, theme, helpers, isMobile, isLoading } = this.props;
     return (
-      <AudioViewer
-        componentData={componentData}
-        settings={settings}
-        theme={theme}
-        helpers={helpers}
-        isMobile={isMobile}
-        disabled
-      />
+      <>
+        <AudioViewer
+          componentData={componentData}
+          settings={settings}
+          theme={theme}
+          helpers={helpers}
+          isMobile={isMobile}
+          disabled
+        />
+        {isLoading && <Loader theme={theme} type={'medium'} />}
+      </>
     );
   }
 }

@@ -20,7 +20,7 @@ import { downloadFile, playbackRates } from './consts';
 import classNames from 'classnames';
 import type { Helpers } from 'wix-rich-content-common';
 import { debounce } from 'lodash';
-import styles from '../statics/styles/audio.scss';
+import styles from '../statics/styles/audio.rtlignore.scss';
 import type { RichContentTheme } from 'ricos-types/src/commonTypes';
 
 interface Props {

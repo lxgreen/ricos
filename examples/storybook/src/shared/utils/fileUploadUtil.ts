@@ -3,8 +3,8 @@ import type {
   ImageComponentData,
   UpdateEntityFunc,
   VideoComponentData,
+  AudioComponentData,
 } from 'wix-rich-content-common';
-import type { AudioData as AudioComponentData } from 'ricos-schema';
 import { testImages, testWixVideos } from './mock';
 import { mockAudioData } from './mockAudioData';
 import { FILE_URLS } from './fileMockURL';

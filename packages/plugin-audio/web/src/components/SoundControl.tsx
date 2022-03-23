@@ -5,7 +5,7 @@ import {
   Slider,
   SLIDER_TRACK_SIZE,
 } from 'wix-rich-content-ui-components';
-import styles from '../../statics/styles/audio.scss';
+import styles from '../../statics/styles/audio.rtlignore.scss';
 
 const SoundControl = ({ volume, setVolume, muted, handleMute, theme, handleVolumeChange }) => {
   const onKeyPress = e => {
