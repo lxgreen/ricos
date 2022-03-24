@@ -22,6 +22,7 @@
 - `tiptap-editor`
   - [#3647](https://github.com/wix/ricos/pull/3647) NodeViewContent passed within PluginProps to component
   - [#3652](https://github.com/wix/ricos/pull/3652) hasUnsupportedContent lib exposed
+  - [#3648](https://github.com/wix/ricos/pull/3648) unsupported extensions: prevent 'type' attribute name collision
 - `audio`
   - [#3649](https://github.com/wix/ricos/pull/3649) add ModalBaseActionHoc experiment & some code refactor
   
