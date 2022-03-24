@@ -9,6 +9,7 @@ import type {
   NodeConfig,
   NodeViewRendererProps,
 } from '@tiptap/core';
+import type { NodeViewContent } from '@tiptap/react';
 import type { Plugin as IPlugin, PluginKey as IPluginKey } from 'prosemirror-state';
 import type { ComponentType } from 'react';
 import type {
@@ -30,6 +31,7 @@ export type PluginProps = NodeViewRendererProps & {
   componentData: ComponentData;
   updateAttributes: (data: unknown) => null;
   selected: boolean;
+  NodeViewContent: typeof NodeViewContent;
 };
 export type RicosNodeProps = NodeViewRendererProps &
   RicosTiptapContextValue & {
