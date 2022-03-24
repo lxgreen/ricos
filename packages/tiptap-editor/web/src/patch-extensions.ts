@@ -9,7 +9,7 @@ import { extract } from 'wix-tiptap-extensions';
 import { getUnsupportedMarkConfig } from './components/unsupported-mark';
 import type { Extensions } from './models/Extensions';
 
-type ContentTypes = {
+export type ContentTypes = {
   marks: string[];
   nodes: string[];
 };
@@ -22,7 +22,7 @@ const attributeMerger: M.Monoid<Record<string, unknown>> = {
 const concatAttributes = (attrs: Record<string, unknown>[]): Record<string, unknown> =>
   M.concatAll(attributeMerger)(attrs);
 
-const extractNodeNames = (extensions: Extensions): ContentTypes['nodes'] => [
+export const extractNodeNames = (extensions: Extensions): ContentTypes['nodes'] => [
   ...extensions
     .getReactNodeExtensions()
     .asArray()
@@ -33,13 +33,13 @@ const extractNodeNames = (extensions: Extensions): ContentTypes['nodes'] => [
     .map(({ name }) => name),
 ];
 
-const extractMarkNames = (extensions: Extensions): ContentTypes['marks'] =>
+export const extractMarkNames = (extensions: Extensions): ContentTypes['marks'] =>
   extensions
     .getMarkExtensions()
     .asArray()
     .map(({ name }) => name);
 
-const toContentTypes = (extensions: Extensions): ContentTypes => ({
+export const toContentTypes = (extensions: Extensions): ContentTypes => ({
   marks: extractMarkNames(extensions),
   nodes: extractNodeNames(extensions),
 });
@@ -54,7 +54,7 @@ const toExtensions =
     marks: transform.marks(contentTypes.marks),
   });
 
-const extractUnsupportedMarks =
+export const extractUnsupportedMarks =
   (content: JSONContent) =>
   (supportedMarks: ContentTypes['marks']): ContentTypes['marks'] =>
     pipe(
@@ -88,7 +88,7 @@ const extractUnsupportedMarkAttributes =
       concatAttributes
     );
 
-const extractUnsupportedNodes =
+export const extractUnsupportedNodes =
   (content: JSONContent) =>
   (supportedNodes: ContentTypes['nodes']): ContentTypes['nodes'] =>
     pipe(
