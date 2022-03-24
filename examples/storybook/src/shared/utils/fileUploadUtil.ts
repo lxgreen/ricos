@@ -245,6 +245,8 @@ export const mockTestImageUpload = (
   }, 200);
 };
 
+const SAMPLE_PDF = 'https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
+
 export const mockTestFileNativeUpload = (
   _file: File,
   updateEntity: UpdateEntityFunc<FileComponentData>
