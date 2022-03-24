@@ -2,18 +2,21 @@ import React from 'react';
 import { UnsupportedBlock as Component } from './component';
 import type { PluginProps, DOMOutputSpec, RicosNodeExtension } from 'ricos-tiptap-types';
 
-export const getUnsupportedNodeConfig = ({ type, ...attrs }): RicosNodeExtension => ({
+export const getUnsupportedNodeConfig = ({
+  unsupportedNodeType,
+  ...attrs
+}): RicosNodeExtension => ({
   type: 'node' as const,
   groups: ['react'],
   Component: (props: PluginProps) => (
     <Component
-      label={`'${type}' is not supported by editor. Check editor configuration.`}
+      label={`'${unsupportedNodeType}' is not supported by editor. Check editor configuration.`}
       context={props.context}
     />
   ),
-  name: type,
+  name: unsupportedNodeType,
   createExtensionConfig: ({ mergeAttributes }) => ({
-    name: type,
+    name: unsupportedNodeType,
     atom: true,
     addOptions() {
       return {
@@ -28,12 +31,12 @@ export const getUnsupportedNodeConfig = ({ type, ...attrs }): RicosNodeExtension
     group: 'block',
 
     parseHTML() {
-      return [{ tag: type }];
+      return [{ tag: unsupportedNodeType }];
     },
 
     renderHTML({ HTMLAttributes }) {
       return [
-        type,
+        unsupportedNodeType,
         mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
         0,
       ] as DOMOutputSpec;

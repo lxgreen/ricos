@@ -80,7 +80,7 @@ const extractUnsupportedMarkAttributes =
           flow(
             ({ marks }: { marks: JSONContent['marks'] }) => marks || [],
             A.filter(({ type }) => type === markType),
-            A.map(({ type, attrs, ...rest }) => ({ type, ...attrs, ...rest }))
+            A.map(({ type, attrs, ...rest }) => ({ unsupportedMarkType: type, ...attrs, ...rest }))
           )
         )
         .get(),
@@ -105,7 +105,7 @@ const extractUnsupportedNodeAttributes =
     pipe(
       extract(content)
         .filter(({ type }) => type === nodeType)
-        .map(({ type, attrs }) => ({ type, ...attrs }))
+        .map(({ type, attrs }) => ({ unsupportedNodeType: type, ...attrs }))
         .get(),
       concatAttributes
     );
