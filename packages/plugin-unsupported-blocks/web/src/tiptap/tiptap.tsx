@@ -11,6 +11,7 @@ export const getUnsupportedNodeConfig = ({ type, ...attrs }): RicosNodeExtension
       context={props.context}
     />
   ),
+  name: type,
   createExtensionConfig: ({ mergeAttributes }) => ({
     name: type,
     atom: true,
