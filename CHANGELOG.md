@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
 
+- `plugins`
+  - [#3639](https://github.com/wix-incubator/rich-content/pull/3639) RicosExtension exposes dynamicConfiguration API
 
 </details>
 <hr/>
