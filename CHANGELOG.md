@@ -16,6 +16,12 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
+
+### :house: Internal
+
+- `tiptap-editor`
+  - [#3647](https://github.com/wix/ricos/pull/3647) NodeViewContent passed within PluginProps to component
+  
 </details>
   <hr/>
 
@@ -25,7 +31,7 @@
 
 - `plugins`
 
-  - [#3639](https://github.com/wix-incubator/rich-content/pull/3639) RicosExtension exposes dynamicConfiguration API
+  - [#3639](https://github.com/wix/ricos/pull/3639) RicosExtension exposes dynamicConfiguration API
 
 - `ricos-content`
   - [#3638](https://github.com/wix/ricos/pull/3638) bugfix: remove invalid inline style ranges
