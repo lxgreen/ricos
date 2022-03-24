@@ -74,6 +74,7 @@
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
+  border-radius: var(--ricos-settings-whitebox-border-radius, 0px);
 
   &.itemContainer_newUi {
     margin: 6px;

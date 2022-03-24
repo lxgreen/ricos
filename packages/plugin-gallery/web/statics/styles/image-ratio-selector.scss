@@ -64,7 +64,7 @@
 }
 
 .imageRatioSelector_ratioIcon {
-  border: 1px solid #111;
+  border: 1px solid $settings-icons-color;
   margin: auto;
   &:focus {
     border: 1px solid #fff;

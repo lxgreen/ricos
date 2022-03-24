@@ -21,6 +21,8 @@
 
 - `audio`
   - [#3640](https://github.com/wix/ricos/pull/3640) fix audio loader & getAudioSrc func
+- `gallery`
+  - [#3641](https://github.com/wix/ricos/pull/3641) fix settings theming
 - `ricos-content`
   - [#3630](https://github.com/wix/ricos/pull/3630) Prevent converter crash on documentStyle w/ nulls
 
