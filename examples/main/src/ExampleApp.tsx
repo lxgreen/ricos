@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { hot } from 'react-hot-loader/root';
 import React, { PureComponent } from 'react';
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex';
 import { compact, flatMap, debounce } from 'lodash';
@@ -514,4 +513,4 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
   }
 }
 
-export default hot(ExampleApp);
+export default ExampleApp;

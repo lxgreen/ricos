@@ -20,7 +20,6 @@ module.exports = env => ({
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
-    symlinks: false,
     alias: {
       'wix-rich-content-common': path.resolve(PATHS.monorepo_root, 'packages', 'common', 'web'),
       'wix-rich-content-editor-common': path.resolve(

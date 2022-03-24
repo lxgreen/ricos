@@ -1,6 +1,7 @@
 /* eslint-disable */
 const path = require('path');
 const merge = require('webpack-merge').merge;
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const PATHS = {
   monorepo_root: path.join(__dirname, '..', '..', '..'),
@@ -9,12 +10,6 @@ const PATHS = {
 const devConfig = {
   mode: 'development',
   devtool: 'eval-source-map',
-  resolve: {
-    alias: {
-      'react-hot-loader': path.resolve(PATHS.monorepo_root, 'node_modules', 'react-hot-loader'),
-      'react-dom': path.resolve(PATHS.monorepo_root, 'node_modules', '@hot-loader', 'react-dom'),
-    },
-  },
   module: {
     rules: [
       {
@@ -28,6 +23,7 @@ const devConfig = {
       },
     ],
   },
+  plugins: [new ReactRefreshWebpackPlugin()],
   devServer: {
     port: 3000,
     open: true,
