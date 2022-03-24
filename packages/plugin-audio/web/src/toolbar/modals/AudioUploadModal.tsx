@@ -18,9 +18,7 @@ const AudioUploadModal = props => {
     onReplace,
     pubsub,
     componentData,
-    setData,
   } = props;
-
   const id = `AudioUploadModal_FileInput_${Math.floor(Math.random() * 9999)}`;
   let blockKey;
 
@@ -57,6 +55,7 @@ const AudioUploadModal = props => {
       undefined,
       undefined
     );
+    setComponentData(data);
   };
 
   const onLocalLoad = tempData => {
@@ -84,9 +83,6 @@ const AudioUploadModal = props => {
   const showUploadSection = (!isMobile || enableCustomUploadOnMobile) && hasCustomFileUpload;
 
   const handleClick = evt => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { html, ...rest } = componentData;
-    setData(rest);
     helpers?.onPluginsPopOverClick?.({
       pluginId: AUDIO_TYPE,
       buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.upload,

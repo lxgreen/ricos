@@ -35,14 +35,11 @@ export const downloadFile = (url: string, fileName) => {
 
 export const getAudioSrc = (src, settings) => {
   if (src?.url) return src.url;
-  if (typeof src === 'object') {
-    if (settings && settings?.getAudioUrl) {
-      return settings.getAudioUrl(src);
-    } else {
-      console.error('must set getVideoUrl in plugin config when using custom video source!', src); //
-    }
+  if (settings && settings?.getAudioUrl) {
+    return settings.getAudioUrl(src);
+  } else {
+    console.error('must set getAudioUrl in plugin config when using custom video source!', src); //eslint-disable-line no-console
   }
-
   return src;
 };
 

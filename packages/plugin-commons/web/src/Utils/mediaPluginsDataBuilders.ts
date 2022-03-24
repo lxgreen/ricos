@@ -102,7 +102,7 @@ export const tempDataBuilder = {
     return { src: url, tempData: true };
   },
   [AUDIO_TYPE]: ({ url, file: { name } }) => {
-    const audio = { src: url };
+    const audio = { src: { id: url } };
     return { audio, name, tempData: true };
   },
   [FILE_UPLOAD_TYPE]: ({ file }) => {

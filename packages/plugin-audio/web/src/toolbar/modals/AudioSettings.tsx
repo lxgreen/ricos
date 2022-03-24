@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
 import { getImageSrc } from 'wix-rich-content-common/libs/imageUtils';
 import { SETTINGS_IMG_SIZE } from '../../consts';
-import { debounce } from 'lodash';
 import {
   LabeledToggle,
   SettingsSection,
@@ -26,15 +25,23 @@ const AudioSettings = ({
   t,
   isMobile,
   settings,
+  experiments,
 }) => {
-  const { coverImage, authorName, name, disableDownload } = componentData;
+  const { disableDownload } = componentData;
   const styles = mergeStyles({ styles: Styles, theme });
-  const labeledToggleState = !(disableDownload ?? !!settings.disableDownload);
-  const onDownlandToggle = () => updateData({ disableDownload: !disableDownload });
+  const [isDownloadEnabled, setIsDownloadEnabled] = useState(
+    !(disableDownload ?? !!settings.disableDownload)
+  );
+  const [coverImage, setCoverImage] = useState(componentData?.coverImage || null);
+  const [name, setName] = useState(componentData?.name || '');
+  const [authorName, setAuthorName] = useState(componentData?.authorName || '');
+  const useModalBaseActionHoc = experiments?.modalBaseActionHoc?.enabled;
+
+  const onDownlandToggle = () => setIsDownloadEnabled(!isDownloadEnabled);
 
   const handleFilesAdded = args => {
-    const coverImage = args.data[0] || args.data;
-    updateData({ coverImage });
+    const img = args.data[0] || args.data;
+    setCoverImage(img);
   };
 
   const handleFileSelection = () => {
@@ -46,23 +53,19 @@ const AudioSettings = ({
     helpers.handleFileUpload(file, handleFilesAdded);
   };
 
-  const handleCoverImageDelete = () => updateData({ coverImage: null });
-
-  const handleChange = debounce((filed, value) => {
-    updateData({ [filed]: value });
-  }, 40);
+  const handleCoverImageDelete = () => setCoverImage(null);
 
   const inputsData = [
     {
       label: t('AudioPlugin_Settings_AudioName_Label'),
       value: name,
-      onChange: value => handleChange('name', value),
+      onChange: value => setName(value),
       dataHook: 'audioSettingsAudioNameInput',
     },
     {
       label: t('AudioPlugin_Settings_AuthorName_Label'),
       value: authorName,
-      onChange: value => handleChange('authorName', value),
+      onChange: value => setAuthorName(value),
       dataHook: 'audioSettingsAuthorNameInput',
     },
   ];
@@ -91,6 +94,24 @@ const AudioSettings = ({
       requiredHeight: 120,
       requiredQuality: 70,
     });
+
+  useEffect(() => {
+    useModalBaseActionHoc
+      ? updateData({
+          ...componentData,
+          name,
+          authorName,
+          disableDownload: !isDownloadEnabled,
+          coverImage,
+        })
+      : pubsub.update('componentData', {
+          ...componentData,
+          name,
+          authorName,
+          disableDownload: !isDownloadEnabled,
+          coverImage,
+        });
+  }, [name, authorName, isDownloadEnabled, coverImage]);
 
   return (
     <div
@@ -130,7 +151,7 @@ const AudioSettings = ({
           <LabeledToggle
             key="disableDownload"
             theme={theme}
-            checked={labeledToggleState}
+            checked={isDownloadEnabled}
             label={t('AudioPlugin_Settings_AudioCanBeDownloaded_Label')}
             onChange={onDownlandToggle}
             tooltipText={t('AudioPlugin_Settings_AudioCanBeDownloaded_Tooltip')}

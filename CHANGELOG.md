@@ -21,6 +21,8 @@
 
 - `tiptap-editor`
   - [#3647](https://github.com/wix/ricos/pull/3647) NodeViewContent passed within PluginProps to component
+- `audio`
+  - [#3649](https://github.com/wix/ricos/pull/3649) add ModalBaseActionHoc experiment & some code refactor
   
 </details>
   <hr/>

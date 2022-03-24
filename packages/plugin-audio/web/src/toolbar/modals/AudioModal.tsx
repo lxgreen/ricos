@@ -21,9 +21,10 @@ const AudioModal = props => {
     embedType = false,
     onConfirm,
     setData,
+    pubsub,
+    experiments,
   } = props;
   const src = componentData?.audio?.src;
-
   const audioTabs = { embed: t('MediaModal_Tabs_Embed'), upload: t('MediaModal_Tabs_Upload') };
   const initialUrl = src?.url || '';
   const isEmbedType = embedType || src?.url;
@@ -31,6 +32,7 @@ const AudioModal = props => {
   const [activeTab, setActiveTab] = useState(isEmbedType ? audioTabs.embed : audioTabs.upload);
   const [url, setUrl] = useState(initialUrl);
   const [submittedInvalidUrl, setSubmittedInvalidUrl] = useState(false);
+  const useModalBaseActionHoc = experiments?.modalBaseActionHoc?.enabled;
 
   const onTabSelected = tab => {
     onPluginsPopOverTabSwitch?.({
@@ -57,7 +59,9 @@ const AudioModal = props => {
       if (onConfirm) {
         onConfirm({ ...rest, audio: { src: { url } } });
       } else {
-        setData({ ...rest, audio: { src: { url } } });
+        useModalBaseActionHoc
+          ? setData({ ...rest, audio: { src: { url } } })
+          : pubsub.set('componentData', { ...rest, audio: { src: { url } } });
       }
       closeModal?.();
     } else {
@@ -77,7 +81,9 @@ const AudioModal = props => {
           if (onConfirm) {
             onConfirm({ ...rest, audio: { src: { url } }, html });
           } else {
-            setData({ ...rest, audio: { src: { url } }, html });
+            useModalBaseActionHoc
+              ? setData({ ...rest, audio: { src: { url } }, html })
+              : pubsub.set('componentData', { ...rest, audio: { src: { url } }, html });
           }
           closeModal?.();
         }

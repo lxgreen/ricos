@@ -1,4 +1,5 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette';
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
 
 .settingsAddItem {
   margin: 6px;
@@ -55,6 +56,7 @@
     position: absolute;
     z-index: 2;
     gap: 6px;
+    @include svg-fill;
     svg {
       cursor: pointer;
       background-color: white;
