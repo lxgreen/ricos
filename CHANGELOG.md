@@ -19,11 +19,17 @@
 
 ### :bug: Bug Fix
 
+- `ricos-content`
+  - [#3630](https://github.com/wix/ricos/pull/3630) Prevent converter crash on documentStyle w/ nulls
+                                
 - `plugins`
   - [#3639](https://github.com/wix-incubator/rich-content/pull/3639) RicosExtension exposes dynamicConfiguration API
 
-</details>
-<hr/>
+
+- `ricos-content`
+  - [#3638](https://github.com/wix/ricos/pull/3638) bugfix: invalid inline style ranges
+  </details>
+  <hr/>
 
 ## 8.70.23 (Mar 24, 2022)
 

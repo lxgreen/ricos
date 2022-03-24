@@ -7,6 +7,7 @@ import {
 } from './block-processors';
 import { linkify } from './linkify';
 import inlinePluginsRemover from './inlinePluginsRemover';
+import { removeInvalidInlineStyles } from './removeInvalidInlineStyles';
 import type {
   NormalizeConfig,
   DraftContent,
@@ -141,6 +142,10 @@ export const processContentState = (contentState: DraftContent, config: Normaliz
           }
         });
       }
+
+      processedBlock.inlineStyleRanges = removeInvalidInlineStyles(
+        processedBlock.inlineStyleRanges
+      );
 
       return processedBlock;
     }),
