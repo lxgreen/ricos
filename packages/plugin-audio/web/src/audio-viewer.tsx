@@ -6,16 +6,7 @@ import type { AudioPluginViewerConfig } from './types';
 import ReactPlayerWrapper from './ReactPlayerWrapper';
 import styles from '../statics/styles/audio.rtlignore.scss';
 import AudioEmbedViewer from './AudioEmbedViewer';
-
-const getAudioSrc = (src, settings) => {
-  if (src?.url) return src.url;
-  if (settings && settings?.getAudioUrl) {
-    return settings.getAudioUrl(src);
-  } else {
-    console.error('must set getAudioUrl in plugin config when using custom video source!', src); //eslint-disable-line no-console
-  }
-  return src;
-};
+import { getAudioSrc } from './consts';
 
 interface Props {
   componentData: ComponentData;

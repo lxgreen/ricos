@@ -33,6 +33,19 @@ export const downloadFile = (url: string, fileName) => {
     });
 };
 
+export const getAudioSrc = (src, settings) => {
+  if (src?.url) return src.url;
+  if (typeof src === 'object') {
+    if (settings && settings?.getAudioUrl) {
+      return settings.getAudioUrl(src);
+    } else {
+      console.error('must set getVideoUrl in plugin config when using custom video source!', src); //
+    }
+  }
+
+  return src;
+};
+
 export const playbackRates = [
   {
     text: '0.25',

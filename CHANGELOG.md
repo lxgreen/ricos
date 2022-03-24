@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `audio`
+  - [#3640](https://github.com/wix/ricos/pull/3640) fix audio loader & getAudioSrc func
 - `ricos-content`
   - [#3630](https://github.com/wix/ricos/pull/3630) Prevent converter crash on documentStyle w/ nulls
 

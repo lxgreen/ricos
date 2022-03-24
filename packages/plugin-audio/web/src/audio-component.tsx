@@ -13,6 +13,7 @@ interface Props {
   helpers: Helpers;
   isMobile: boolean;
   isLoading?: boolean;
+  tempData?: boolean;
 }
 
 class AudioComponent extends React.Component<Props> {
@@ -30,7 +31,7 @@ class AudioComponent extends React.Component<Props> {
           isMobile={isMobile}
           disabled
         />
-        {isLoading && <Loader theme={theme} type={'medium'} />}
+        {(componentData?.tempData || isLoading) && <Loader theme={theme} type={'medium'} />}
       </>
     );
   }
