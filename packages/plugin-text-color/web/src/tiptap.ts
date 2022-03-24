@@ -31,65 +31,66 @@ declare module '@tiptap/core' {
 export const getTiptapExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'mark',
-
+    name: 'color',
     groups: [],
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        inclusive: false,
+        addOptions: () => ({
+          HTMLAttributes: {},
+          ...defaultOptions,
+        }),
+        addAttributes() {
+          return colorDataDefaults;
+        },
+        parseHTML() {
+          return [
+            {
+              tag: 'span',
+              getAttrs: element => {
+                const { color, backgroundColor } = (element as HTMLElement).style || {};
+                return color || backgroundColor ? {} : false;
+              },
+            },
+          ];
+        },
 
-    createExtensionConfig: () => ({
-      name: 'color',
-      inclusive: false,
-      addOptions: () => ({
-        HTMLAttributes: {},
-        ...defaultOptions,
-      }),
-      addAttributes() {
-        return colorDataDefaults;
-      },
-      parseHTML() {
-        return [
-          {
-            tag: 'span',
-            getAttrs: element => {
-              const { color, backgroundColor } = (element as HTMLElement).style || {};
-              return color || backgroundColor ? {} : false;
+        renderHTML({ HTMLAttributes }) {
+          return [
+            'span',
+            {
+              style: `color: ${HTMLAttributes.foreground}; background-color: ${HTMLAttributes.background}`,
             },
-          },
-        ];
-      },
+            0,
+          ];
+        },
 
-      renderHTML({ HTMLAttributes }) {
-        return [
-          'span',
-          {
-            style: `color: ${HTMLAttributes.foreground}; background-color: ${HTMLAttributes.background}`,
-          },
-          0,
-        ];
-      },
-
-      addCommands() {
-        return {
-          setColor:
-            color =>
-            ({ commands }) => {
-              return commands.setMark('color', { foreground: color });
-            },
-          unsetColor:
-            () =>
-            ({ commands }) => {
-              return commands.setMark('color', { foreground: null });
-            },
-          setHighlight:
-            color =>
-            ({ commands }) => {
-              return commands.setMark('color', { background: color });
-            },
-          unsetHighlight:
-            () =>
-            ({ commands }) => {
-              return commands.setMark('color', { background: null });
-            },
-        };
-      },
-    }),
+        addCommands() {
+          return {
+            setColor:
+              color =>
+              ({ commands }) => {
+                return commands.setMark('color', { foreground: color });
+              },
+            unsetColor:
+              () =>
+              ({ commands }) => {
+                return commands.setMark('color', { foreground: null });
+              },
+            setHighlight:
+              color =>
+              ({ commands }) => {
+                return commands.setMark('color', { background: color });
+              },
+            unsetHighlight:
+              () =>
+              ({ commands }) => {
+                return commands.setMark('color', { background: null });
+              },
+          };
+        },
+      };
+    },
   },
 ];

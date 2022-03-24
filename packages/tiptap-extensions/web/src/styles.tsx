@@ -61,8 +61,6 @@ export const getComponentStyles = ({ componentData, theme, isFocused, isMobile }
   };
 };
 
-const name = 'styles';
-
 const StylesHOC = Component => {
   const Styles = props => {
     const { context, componentData, selected } = props;
@@ -93,9 +91,10 @@ const StylesHOC = Component => {
 export const createStylesConfig = (): RicosExtension => ({
   type: 'extension' as const,
   groups: [],
-  createExtensionConfig: () => {
+  name: 'style',
+  createExtensionConfig() {
     return {
-      name,
+      name: this.name,
       priority: 30,
       addOptions: () => ({}),
       addNodeHoc() {

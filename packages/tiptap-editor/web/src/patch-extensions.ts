@@ -5,12 +5,7 @@ import * as M from 'fp-ts/Monoid';
 import * as S from 'fp-ts/string';
 import type { RicosMarkExtension, RicosNodeExtension } from 'ricos-tiptap-types';
 import { getUnsupportedNodeConfig } from 'wix-rich-content-plugin-unsupported-blocks';
-import {
-  createTextAlign,
-  createTextDirection,
-  createUniqueId,
-  extract,
-} from 'wix-tiptap-extensions';
+import { extract } from 'wix-tiptap-extensions';
 import { getUnsupportedMarkConfig } from './components/unsupported-mark';
 import type { Extensions } from './models/Extensions';
 
@@ -120,25 +115,6 @@ const mergeExtensions =
   ({ nodes, marks }: { nodes: RicosNodeExtension[]; marks: RicosMarkExtension[] }): Extensions =>
     extensions.concat([...nodes, ...marks]);
 
-const appendUniqueId = (extensions: Extensions): Extensions => {
-  const identifiedNodeNames = extractNodeNames(extensions).filter(n => n !== 'text');
-  return extensions.concat([createUniqueId(identifiedNodeNames)]);
-};
-
-const extractNamesGroupedByText = (extensions: Extensions): string[] =>
-  extensions
-    .byGroup('text-container')
-    .asArray()
-    .map(({ name }) => name);
-
-const appendTextExtensions = (extensions: Extensions): Extensions => {
-  const textContainerNames = extractNamesGroupedByText(extensions);
-  return extensions.concat([
-    createTextDirection(textContainerNames),
-    createTextAlign(textContainerNames),
-  ]);
-};
-
 export const patchExtensions = (content: JSONContent, extensions: Extensions): Extensions =>
   pipe(
     extensions,
@@ -153,7 +129,5 @@ export const patchExtensions = (content: JSONContent, extensions: Extensions): E
         A.map(flow(extractUnsupportedMarkAttributes(content), getUnsupportedMarkConfig))
       ),
     }),
-    mergeExtensions(extensions),
-    appendTextExtensions,
-    appendUniqueId
+    mergeExtensions(extensions)
   );

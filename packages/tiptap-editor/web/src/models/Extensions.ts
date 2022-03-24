@@ -69,6 +69,10 @@ export class Extensions implements ExtensionAggregate {
     return new Extensions(iExtensions);
   }
 
+  getRicosExtensions() {
+    return this.extensions.asArray().map(ext => ext.getRicosExtension());
+  }
+
   getFunctionalExtensions() {
     return new FunctionalExtensions(
       this.extensions.filter(ext => ext.type === 'extension').asArray() as IFunctionalExtension[]
@@ -98,15 +102,15 @@ export class Extensions implements ExtensionAggregate {
   }
 
   getDecoratedNodeExtensions() {
-    const hocComposer = this.getFunctionalExtensions().getNodeHocComposer();
+    const hocComposer = this.getFunctionalExtensions().getNodeHocComposer(this);
     return this.getReactNodeExtensions().getDecoratedNodeExtensions(hocComposer);
   }
 
   getTiptapExtensions() {
-    const reactNodes = this.getDecoratedNodeExtensions().toTiptapExtensions();
-    const htmlNodes = this.getHtmlNodeExtensions().toTiptapExtensions();
-    const marks = this.getMarkExtensions().toTiptapExtensions();
-    const extensions = this.getFunctionalExtensions().toTiptapExtensions();
+    const reactNodes = this.getDecoratedNodeExtensions().toTiptapExtensions(this);
+    const htmlNodes = this.getHtmlNodeExtensions().toTiptapExtensions(this);
+    const marks = this.getMarkExtensions().toTiptapExtensions(this);
+    const extensions = this.getFunctionalExtensions().toTiptapExtensions(this);
     return [...extensions, ...marks, ...reactNodes, ...htmlNodes];
   }
 

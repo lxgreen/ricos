@@ -8,13 +8,16 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
     type: 'node' as const,
     groups: ['react'],
     Component,
-    componentDataDefaults: dividerDataDefaults,
-    createExtensionConfig: () => ({
-      name: TIPTAP_DIVIDER_TYPE,
-      group: 'block',
-      selectable: true,
-      draggable: true,
-      addOptions: () => defaultOptions,
-    }),
+    name: TIPTAP_DIVIDER_TYPE,
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        group: 'block',
+        selectable: true,
+        draggable: true,
+        addAttributes: () => dividerDataDefaults,
+        addOptions: () => defaultOptions,
+      };
+    },
   },
 ];

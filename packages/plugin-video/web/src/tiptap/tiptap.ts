@@ -8,23 +8,26 @@ const name = TIPTAP_VIDEO_TYPE;
 export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
-    groups: ['react'],
+    groups: ['react', 'spoilerable'],
+    name,
     Component,
-    componentDataDefaults: {
-      ...videoDataDefaults,
-      loading: {
-        default: false,
-      },
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        group: 'block',
+        selectable: true,
+        draggable: true,
+        addAttributes: () => ({
+          ...videoDataDefaults,
+          loading: {
+            default: false,
+          },
+        }),
+        addOptions: () => defaultOptions,
+        addCommands() {
+          return {};
+        },
+      };
     },
-    createExtensionConfig: () => ({
-      name,
-      group: 'block',
-      selectable: true,
-      draggable: true,
-      addOptions: () => defaultOptions,
-      addCommands() {
-        return {};
-      },
-    }),
   },
 ];

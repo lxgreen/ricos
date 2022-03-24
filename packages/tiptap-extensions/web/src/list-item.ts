@@ -1,46 +1,48 @@
-import { mergeAttributes } from '@tiptap/core';
+import { mergeAttributes, NodeConfig } from '@tiptap/core';
 import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
 
 export const createListItem = (): RicosExtension => ({
   type: 'node' as const,
   groups: [],
+  name: 'listItem',
+  createExtensionConfig() {
+    return {
+      name: this.name,
+      addOptions() {
+        return {
+          HTMLAttributes: {},
+        };
+      },
 
-  createExtensionConfig: () => ({
-    name: 'listItem',
+      // Note: this should remain paragraph until draft-js is supported
+      // Note: these types could remain hard-coded since all of them always available
+      content: '(paragraph|bulletedList|orderedList)+',
+      group: 'list',
+      defining: true,
 
-    addOptions() {
-      return {
-        HTMLAttributes: {},
-      };
-    },
+      parseHTML() {
+        return [
+          {
+            tag: 'li',
+          },
+        ];
+      },
 
-    // Note: this should remain paragraph until draft-js is supported
-    content: '(paragraph|bulletedList|orderedList)+',
-    group: 'list',
-    defining: true,
+      renderHTML({ HTMLAttributes }) {
+        return [
+          'li',
+          mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+          0,
+        ] as DOMOutputSpec;
+      },
 
-    parseHTML() {
-      return [
-        {
-          tag: 'li',
-        },
-      ];
-    },
-
-    renderHTML({ HTMLAttributes }) {
-      return [
-        'li',
-        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-        0,
-      ] as DOMOutputSpec;
-    },
-
-    addKeyboardShortcuts() {
-      return {
-        Enter: () => this.editor.commands.splitListItem(this.name),
-        Tab: () => this.editor.commands.sinkListItem(this.name),
-        'Shift-Tab': () => this.editor.commands.liftListItem(this.name),
-      };
-    },
-  }),
+      addKeyboardShortcuts() {
+        return {
+          Enter: () => this.editor.commands.splitListItem(this.name),
+          Tab: () => this.editor.commands.sinkListItem(this.name),
+          'Shift-Tab': () => this.editor.commands.liftListItem(this.name),
+        };
+      },
+    };
+  },
 });

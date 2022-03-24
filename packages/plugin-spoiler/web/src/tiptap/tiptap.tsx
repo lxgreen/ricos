@@ -1,5 +1,10 @@
 import React from 'react';
-import type { CreateRicosExtensions, DOMOutputSpec } from 'ricos-tiptap-types';
+import type {
+  CreateRicosExtensions,
+  DOMOutputSpec,
+  RicosExtensionConfig,
+  RicosExtension,
+} from 'ricos-tiptap-types';
 import { BlockSpoilerComponent } from '..';
 import colorDataDefaults from 'ricos-schema/dist/statics/color.defaults.json';
 
@@ -46,57 +51,67 @@ declare module '@tiptap/core' {
 export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'extension' as const,
-    groups: ['react'],
-    createExtensionConfig: () => ({
-      name: 'node-spoiler',
-      priority: 10,
-      addOptions: () => defaultOptions,
+    name: 'node-spoiler',
+    groups: [],
+    dynamicConfiguration: (config: RicosExtensionConfig, extensions: RicosExtension[]) => ({
+      ...config,
       addNodeHoc: () => ({
-        nodeTypes: ['image'],
+        nodeTypes: extensions
+          .filter(extension => extension.groups.includes('spoilerable'))
+          .map(({ name }) => name),
         priority: 10,
         nodeHoc: SpoilerHoc,
       }),
     }),
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        priority: 10,
+        addOptions: () => defaultOptions,
+      };
+    },
   },
   {
     type: 'mark' as const,
     groups: [],
-    createExtensionConfig: () => ({
-      name: 'spoiler',
+    name: 'spoiler',
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        addOptions: () => ({
+          HTMLAttributes: {},
+        }),
 
-      addOptions: () => ({
-        HTMLAttributes: {},
-      }),
+        addAttributes() {
+          return colorDataDefaults;
+        },
 
-      addAttributes() {
-        return colorDataDefaults;
-      },
-
-      parseHTML() {
-        return [
-          {
-            tag: 'span',
-            getAttrs: element => {
-              const { filter } = (element as HTMLElement).style || {};
-              return filter === SPOILER_STYLE ? {} : false;
+        parseHTML() {
+          return [
+            {
+              tag: 'span',
+              getAttrs: element => {
+                const { filter } = (element as HTMLElement).style || {};
+                return filter === SPOILER_STYLE ? {} : false;
+              },
             },
-          },
-        ];
-      },
+          ];
+        },
 
-      renderHTML() {
-        return ['span', { style: `filter: ${SPOILER_STYLE}` }, 0] as DOMOutputSpec;
-      },
+        renderHTML() {
+          return ['span', { style: `filter: ${SPOILER_STYLE}` }, 0] as DOMOutputSpec;
+        },
 
-      addCommands() {
-        return {
-          toggleSpoiler:
-            () =>
-            ({ commands }) => {
-              return commands.toggleMark('spoiler');
-            },
-        };
-      },
-    }),
+        addCommands() {
+          return {
+            toggleSpoiler:
+              () =>
+              ({ commands }) => {
+                return commands.toggleMark('spoiler');
+              },
+          };
+        },
+      };
+    },
   },
 ];

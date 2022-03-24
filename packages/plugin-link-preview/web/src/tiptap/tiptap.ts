@@ -94,35 +94,41 @@ const addLinkPreview =
 export const createRicosExtensions: CreateRicosExtensions = config => [
   {
     type: 'node' as const,
+    name,
     groups: ['react'],
     Component,
-    componentDataDefaults: linkPreviewDefaults,
-    createExtensionConfig: () => ({
-      group: 'block',
-      selectable: true,
-      draggable: true,
-      name,
-      addCommands() {
-        return {
-          setLinkPreview:
-            attributes =>
-            ({ commands }) => {
-              return commands.setNode('linkPreview', attributes);
-            },
-        };
-      },
-    }),
+    createExtensionConfig() {
+      return {
+        group: 'block',
+        selectable: true,
+        draggable: true,
+        name: this.name,
+        addAttributes: () => linkPreviewDefaults,
+        addCommands() {
+          return {
+            setLinkPreview:
+              attributes =>
+              ({ commands }) => {
+                return commands.setNode('linkPreview', attributes);
+              },
+          };
+        },
+      };
+    },
   },
   {
     type: 'extension' as const,
     groups: [],
-    createExtensionConfig: () => ({
-      name: 'linkPreviewEnter',
-      addKeyboardShortcuts() {
-        return {
-          Enter: addLinkPreview(config),
-        };
-      },
-    }),
+    name: 'linkPreviewEnter',
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        addKeyboardShortcuts() {
+          return {
+            Enter: addLinkPreview(config),
+          };
+        },
+      };
+    },
   },
 ];

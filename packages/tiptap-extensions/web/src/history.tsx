@@ -1,8 +1,6 @@
 import type { RicosExtension } from 'ricos-tiptap-types';
 import { history, undo, redo } from './history-infra';
 
-const name = 'ricosHistory';
-
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     ricosHistory: {
@@ -20,9 +18,10 @@ declare module '@tiptap/core' {
 export const createHistoryConfig = (): RicosExtension => ({
   type: 'extension' as const,
   groups: [],
-  createExtensionConfig: () => {
+  name: 'ricosHistory',
+  createExtensionConfig() {
     return {
-      name,
+      name: this.name,
 
       priority: 1000,
       addOptions: () => ({

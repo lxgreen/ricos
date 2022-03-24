@@ -1,7 +1,7 @@
 import { Extension } from '@tiptap/core';
 import { mergeAttributes } from '@tiptap/react';
 import React from 'react';
-import type { IFunctionalExtension } from './domain-types';
+import type { ExtensionAggregate, IFunctionalExtension } from './domain-types';
 import { DEFAULT_PRIORITY } from './domain-types';
 import type {
   Group,
@@ -28,6 +28,13 @@ export class FunctionalExtension implements IFunctionalExtension {
 
   groups: Group[];
 
+  private readonly ricosExtension: RicosExtension;
+
+  private readonly dynamicConfiguration: (
+    config: RicosExtensionConfig,
+    extensions: RicosExtension[]
+  ) => RicosExtensionConfig;
+
   constructor(extension: RicosExtension) {
     if (!isRicosFunctionalExtension(extension)) {
       throw new TypeError('invalid argument');
@@ -39,13 +46,21 @@ export class FunctionalExtension implements IFunctionalExtension {
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
     this.groups = extension.groups || [];
+    this.ricosExtension = extension;
+    this.dynamicConfiguration = extension.dynamicConfiguration || (() => this.config);
   }
 
-  toTiptapExtension() {
-    return Extension.create(this.config);
+  getRicosExtension() {
+    return this.ricosExtension;
   }
 
-  getNodeHocDescriptor() {
-    return this.config.addNodeHoc?.() || DEFAULT_HOC_DESCRTIPTOR;
+  toTiptapExtension(extensions: ExtensionAggregate) {
+    const config = this.dynamicConfiguration(this.config, extensions.getRicosExtensions());
+    return Extension.create(config);
+  }
+
+  getNodeHocDescriptor(extensions: ExtensionAggregate) {
+    const config = this.dynamicConfiguration(this.config, extensions.getRicosExtensions());
+    return config.addNodeHoc?.() || DEFAULT_HOC_DESCRTIPTOR;
   }
 }

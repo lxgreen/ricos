@@ -9,22 +9,25 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
     groups: ['react'],
+    name,
     Component,
-    componentDataDefaults: {
-      ...fileDataDefaults,
-      loading: {
-        default: false,
-      },
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        group: 'block',
+        selectable: true,
+        draggable: true,
+        addAttributes: () => ({
+          ...fileDataDefaults,
+          loading: {
+            default: false,
+          },
+        }),
+        addOptions: () => defaultOptions,
+        addCommands() {
+          return {};
+        },
+      };
     },
-    createExtensionConfig: () => ({
-      name,
-      group: 'block',
-      selectable: true,
-      draggable: true,
-      addOptions: () => defaultOptions,
-      addCommands() {
-        return {};
-      },
-    }),
   },
 ];

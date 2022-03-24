@@ -8,13 +8,16 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
     type: 'node' as const,
     groups: ['react'],
     Component,
-    componentDataDefaults: appEmbedDataDefaults,
-    createExtensionConfig: () => ({
-      name: TIPTAP_APP_EMBED_TYPE,
-      group: 'block',
-      selectable: true,
-      draggable: true,
-      addOptions: () => defaultOptions,
-    }),
+    name: TIPTAP_APP_EMBED_TYPE,
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        group: 'block',
+        selectable: true,
+        draggable: true,
+        addAttributes: () => appEmbedDataDefaults,
+        addOptions: () => defaultOptions,
+      };
+    },
   },
 ];

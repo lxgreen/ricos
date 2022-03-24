@@ -10,6 +10,7 @@ export const getUnsupportedMarkConfig = ({
 }): RicosMarkExtension => ({
   type: 'mark' as const,
   groups: [],
+  name: type,
   createExtensionConfig: (): MarkConfig => ({
     name: type,
     addAttributes: () => attrs,

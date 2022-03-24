@@ -10,32 +10,34 @@ import type { RicosExtension } from 'ricos-tiptap-types';
 export const createTrailingNode = (): RicosExtension => ({
   type: 'extension' as const,
   groups: [],
-  createExtensionConfig: () => ({
-    name: 'trailingNode',
+  name: 'trailingNode',
+  createExtensionConfig() {
+    return {
+      name: this.name,
+      defaultOptions: {
+        node: 'paragraph',
+        notAfter: ['paragraph'],
+      },
 
-    defaultOptions: {
-      node: 'paragraph',
-      notAfter: ['paragraph'],
-    },
+      addProseMirrorPlugins() {
+        const plugin = new PluginKey(this.name);
+        return [
+          new Plugin({
+            key: plugin,
+            appendTransaction: (_, __, state) => {
+              const { doc, tr, schema } = state;
+              const lastNode = state.tr.doc.lastChild;
+              if (this.options.notAfter.includes(lastNode?.type.name)) {
+                return;
+              }
+              const endPosition = doc.content.size;
+              const type = schema.nodes[this.options.node];
 
-    addProseMirrorPlugins() {
-      const plugin = new PluginKey(this.name);
-      return [
-        new Plugin({
-          key: plugin,
-          appendTransaction: (_, __, state) => {
-            const { doc, tr, schema } = state;
-            const lastNode = state.tr.doc.lastChild;
-            if (this.options.notAfter.includes(lastNode?.type.name)) {
-              return;
-            }
-            const endPosition = doc.content.size;
-            const type = schema.nodes[this.options.node];
-
-            return tr.insert(endPosition, type.create());
-          },
-        }),
-      ];
-    },
-  }),
+              return tr.insert(endPosition, type.create());
+            },
+          }),
+        ];
+      },
+    };
+  },
 });

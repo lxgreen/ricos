@@ -29,52 +29,54 @@ const createStyleAttribute = (node: ProsemirrorNode) => {
 export const createParagraph = (): RicosExtension => ({
   type: 'node' as const,
   groups: ['text-container'],
-  createExtensionConfig: () => ({
-    name: 'paragraph',
+  name: 'paragraph',
+  createExtensionConfig() {
+    return {
+      name: this.name,
+      priority: 1000,
 
-    priority: 1000,
+      addOptions() {
+        return {
+          HTMLAttributes: {},
+        };
+      },
 
-    addOptions() {
-      return {
-        HTMLAttributes: {},
-      };
-    },
+      group: 'block',
 
-    group: 'block',
+      content: 'inline*',
 
-    content: 'inline*',
+      addAttributes() {
+        return paragraphDataDefaults;
+      },
 
-    addAttributes() {
-      return paragraphDataDefaults;
-    },
+      parseHTML() {
+        return [{ tag: 'div' }];
+      },
 
-    parseHTML() {
-      return [{ tag: 'div' }];
-    },
+      renderHTML({ HTMLAttributes, node }) {
+        const styles = createStyleAttribute(node);
+        return [
+          'div',
+          mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, styles),
+          0,
+        ] as DOMOutputSpec;
+      },
 
-    renderHTML({ HTMLAttributes, node }) {
-      const styles = createStyleAttribute(node);
-      return [
-        'div',
-        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, styles),
-        0,
-      ] as DOMOutputSpec;
-    },
+      addCommands() {
+        return {
+          setParagraph:
+            () =>
+            ({ commands }) => {
+              return commands.setNode(this.name);
+            },
+        };
+      },
 
-    addCommands() {
-      return {
-        setParagraph:
-          () =>
-          ({ commands }) => {
-            return commands.setNode(this.name);
-          },
-      };
-    },
-
-    addKeyboardShortcuts() {
-      return {
-        'Mod-Alt-0': () => this.editor.commands.setParagraph(),
-      };
-    },
-  }),
+      addKeyboardShortcuts() {
+        return {
+          'Mod-Alt-0': () => this.editor.commands.setParagraph(),
+        };
+      },
+    };
+  },
 });

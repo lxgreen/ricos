@@ -23,35 +23,38 @@ const name = TIPTAP_IMAGE_TYPE;
 export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
-    groups: ['react'],
+    name,
+    groups: ['react', 'spoilerable'],
     Component,
-    componentDataDefaults: {
-      ...imageDataDefaults,
-      loading: {
-        default: false,
-      },
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        atom: false,
+        group: 'block',
+        selectable: true,
+        draggable: true,
+        addAttributes: () => ({
+          ...imageDataDefaults,
+          loading: {
+            default: false,
+          },
+        }),
+        addOptions: () => defaultOptions,
+        addCommands() {
+          return {
+            setImageUrl:
+              url =>
+              ({ commands }) => {
+                return commands.updateAttributes(name, { image: { src: { custom: url } } });
+              },
+            setImageLoading:
+              loading =>
+              ({ commands }) => {
+                return commands.updateAttributes(name, { loading });
+              },
+          };
+        },
+      };
     },
-    createExtensionConfig: () => ({
-      name,
-      atom: false,
-      group: 'block',
-      selectable: true,
-      draggable: true,
-      addOptions: () => defaultOptions,
-      addCommands() {
-        return {
-          setImageUrl:
-            url =>
-            ({ commands }) => {
-              return commands.updateAttributes(name, { image: { src: { custom: url } } });
-            },
-          setImageLoading:
-            loading =>
-            ({ commands }) => {
-              return commands.updateAttributes(name, { loading });
-            },
-        };
-      },
-    }),
   },
 ];

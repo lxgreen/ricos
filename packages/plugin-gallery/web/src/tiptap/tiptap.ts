@@ -8,23 +8,26 @@ const name = TIPTAP_GALLERY_TYPE;
 export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
-    groups: ['react'],
+    name,
+    groups: ['react', 'spoilerable'],
     Component,
-    componentDataDefaults: {
-      ...galleryDataDefaults,
-      loading: {
-        default: false,
-      },
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        group: 'block',
+        selectable: true,
+        draggable: true,
+        addAttributes: () => ({
+          ...galleryDataDefaults,
+          loading: {
+            default: false,
+          },
+        }),
+        addOptions: () => defaultOptions,
+        addCommands() {
+          return {};
+        },
+      };
     },
-    createExtensionConfig: () => ({
-      name,
-      group: 'block',
-      selectable: true,
-      draggable: true,
-      addOptions: () => defaultOptions,
-      addCommands() {
-        return {};
-      },
-    }),
   },
 ];

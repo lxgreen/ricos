@@ -1,4 +1,4 @@
-import type { RicosExtension } from 'ricos-tiptap-types';
+import type { RicosExtension, RicosExtensionConfig } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -12,70 +12,78 @@ declare module '@tiptap/core' {
   }
 }
 
-export const createTextAlign = (types: string[]): RicosExtension => ({
+export const createTextAlign = (): RicosExtension => ({
   type: 'extension' as const,
   groups: [],
-  createExtensionConfig: () => ({
-    name: 'textAlign',
-
-    addOptions() {
-      return {
-        alignments: ['left', 'center', 'right', 'justify'],
-      };
-    },
-
-    addGlobalAttributes() {
-      return [
-        {
-          types,
-          attributes: {
-            textStyle: {
-              parseHTML: element => element.style.textAlign,
-              renderHTML: attributes => {
-                if (attributes?.textStyle?.textAlignment) {
-                  return {
-                    style: `text-align: ${attributes.textStyle.textAlignment.toLowerCase()}`,
-                  };
-                }
-                return {};
+  name: 'textAlign',
+  dynamicConfiguration(config: RicosExtensionConfig, extensions: RicosExtension[]) {
+    const types = extensions
+      .filter(extension => extension.groups.includes('text-container'))
+      .map(({ name }) => name);
+    return {
+      ...config,
+      addGlobalAttributes() {
+        return [
+          {
+            types,
+            attributes: {
+              textStyle: {
+                parseHTML: element => element.style.textAlign,
+                renderHTML: attributes => {
+                  if (attributes?.textStyle?.textAlignment) {
+                    return {
+                      style: `text-align: ${attributes.textStyle.textAlignment.toLowerCase()}`,
+                    };
+                  }
+                  return {};
+                },
               },
             },
           },
-        },
-      ];
-    },
+        ];
+      },
+      addCommands() {
+        return {
+          setTextAlign:
+            (alignment: string) =>
+            ({ commands }) => {
+              if (!this.options.alignments.includes(alignment)) {
+                return false;
+              }
 
-    addCommands() {
-      return {
-        setTextAlign:
-          (alignment: string) =>
-          ({ commands }) => {
-            if (!this.options.alignments.includes(alignment)) {
-              return false;
-            }
-
-            return types
-              .map(type =>
-                commands.updateAttributes(type, {
-                  textStyle: { textAlignment: alignment.toUpperCase() },
-                })
-              )
-              .includes(true);
+              return types
+                .map(type =>
+                  commands.updateAttributes(type, {
+                    textStyle: { textAlignment: alignment.toUpperCase() },
+                  })
+                )
+                .includes(true);
+            },
+          unsetTextAlign: () => () => {
+            console.error('unsetTextAlign : was not implemented');
+            return false;
           },
-        unsetTextAlign: () => () => {
-          console.error('unsetTextAlign : was not implemented');
-          return false;
-        },
-      };
-    },
+        };
+      },
+    };
+  },
+  createExtensionConfig() {
+    return {
+      name: this.name,
+      addOptions() {
+        return {
+          alignments: ['left', 'center', 'right', 'justify'],
+        };
+      },
 
-    addKeyboardShortcuts() {
-      return {
-        'Mod-Shift-l': () => this.editor.commands.setTextAlign('left'),
-        'Mod-Shift-e': () => this.editor.commands.setTextAlign('center'),
-        'Mod-Shift-r': () => this.editor.commands.setTextAlign('right'),
-        'Mod-Shift-j': () => this.editor.commands.setTextAlign('justify'),
-      };
-    },
-  }),
+      addKeyboardShortcuts() {
+        return {
+          'Mod-Shift-l': () => this.editor.commands.setTextAlign('left'),
+          'Mod-Shift-e': () => this.editor.commands.setTextAlign('center'),
+          'Mod-Shift-r': () => this.editor.commands.setTextAlign('right'),
+          'Mod-Shift-j': () => this.editor.commands.setTextAlign('justify'),
+        };
+      },
+    };
+  },
 });

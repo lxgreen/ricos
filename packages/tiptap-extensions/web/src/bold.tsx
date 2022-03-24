@@ -28,85 +28,87 @@ export const underscorePasteRegex = /(?:^|\s)((?:__)((?:[^__]+))(?:__))/g;
 export const createBold = (): RicosMarkExtension => ({
   type: 'mark' as const,
   groups: [],
-  createExtensionConfig: () => ({
-    name: 'bold',
+  name: 'bold',
+  createExtensionConfig() {
+    return {
+      name: this.name,
+      addOptions() {
+        return {
+          HTMLAttributes: {},
+        };
+      },
 
-    addOptions() {
-      return {
-        HTMLAttributes: {},
-      };
-    },
-
-    parseHTML() {
-      return [
-        {
-          tag: 'strong',
-        },
-        {
-          tag: 'b',
-          getAttrs: node => (node as HTMLElement).style.fontWeight !== 'normal' && null,
-        },
-        {
-          style: 'font-weight',
-          getAttrs: value => /^(bold(er)?|[5-9]\d{2,})$/.test(value as string) && null,
-        },
-      ];
-    },
-
-    renderHTML({ HTMLAttributes }) {
-      return ['strong', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
-    },
-
-    addCommands() {
-      return {
-        setBold:
-          () =>
-          ({ commands }) => {
-            return commands.setMark(this.name);
+      parseHTML() {
+        return [
+          {
+            tag: 'strong',
           },
-        toggleBold:
-          () =>
-          ({ commands }) => {
-            return commands.toggleMark(this.name);
+          {
+            tag: 'b',
+            getAttrs: node => (node as HTMLElement).style.fontWeight !== 'normal' && null,
           },
-        unsetBold:
-          () =>
-          ({ commands }) => {
-            return commands.unsetMark(this.name);
+          {
+            style: 'font-weight',
+            getAttrs: value => /^(bold(er)?|[5-9]\d{2,})$/.test(value as string) && null,
           },
-      };
-    },
+        ];
+      },
 
-    addKeyboardShortcuts() {
-      return {
-        'Mod-b': () => this.editor.commands.toggleBold(),
-      };
-    },
+      renderHTML({ HTMLAttributes }) {
+        return ['strong', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
+      },
 
-    addInputRules() {
-      return [
-        markInputRule({
-          find: starInputRegex,
-          type: this.type,
-        }),
-        markInputRule({
-          find: underscoreInputRegex,
-          type: this.type,
-        }),
-      ];
-    },
+      addCommands() {
+        return {
+          setBold:
+            () =>
+            ({ commands }) => {
+              return commands.setMark(this.name);
+            },
+          toggleBold:
+            () =>
+            ({ commands }) => {
+              return commands.toggleMark(this.name);
+            },
+          unsetBold:
+            () =>
+            ({ commands }) => {
+              return commands.unsetMark(this.name);
+            },
+        };
+      },
 
-    addPasteRules() {
-      return [
-        markPasteRule({
-          find: starPasteRegex,
-          type: this.type,
-        }),
-        markPasteRule({
-          find: underscorePasteRegex,
-          type: this.type,
-        }),
-      ];
-    },
-  }),
+      addKeyboardShortcuts() {
+        return {
+          'Mod-b': () => this.editor.commands.toggleBold(),
+        };
+      },
+
+      addInputRules() {
+        return [
+          markInputRule({
+            find: starInputRegex,
+            type: this.type,
+          }),
+          markInputRule({
+            find: underscoreInputRegex,
+            type: this.type,
+          }),
+        ];
+      },
+
+      addPasteRules() {
+        return [
+          markPasteRule({
+            find: starPasteRegex,
+            type: this.type,
+          }),
+          markPasteRule({
+            find: underscorePasteRegex,
+            type: this.type,
+          }),
+        ];
+      },
+    };
+  },
 });

@@ -15,34 +15,36 @@ declare module '@tiptap/core' {
 export const createFontSize = (): RicosMarkExtension => ({
   type: 'mark' as const,
   groups: [],
-  createExtensionConfig: ({ mergeAttributes }) => ({
-    name: 'fontSize',
+  name: 'fontSize',
+  createExtensionConfig({ mergeAttributes }) {
+    return {
+      name: this.name,
+      addAttributes() {
+        return fontSizeDataDefaults;
+      },
 
-    addAttributes() {
-      return fontSizeDataDefaults;
-    },
+      renderHTML({ HTMLAttributes }) {
+        const htmlAttrs = {
+          style: `font-size: ${HTMLAttributes.value}${HTMLAttributes.unit.toLowerCase()}`,
+        };
+        return ['span', mergeAttributes(htmlAttrs), 0];
+      },
+      addCommands() {
+        return {
+          setFontSize:
+            (size: number) =>
+            ({ commands }) => {
+              if (!Number.isInteger(size) || size <= 0 || size > 900) {
+                return false;
+              }
 
-    renderHTML({ HTMLAttributes }) {
-      const htmlAttrs = {
-        style: `font-size: ${HTMLAttributes.value}${HTMLAttributes.unit.toLowerCase()}`,
-      };
-      return ['span', mergeAttributes(htmlAttrs), 0];
-    },
-    addCommands() {
-      return {
-        setFontSize:
-          (size: number) =>
-          ({ commands }) => {
-            if (!Number.isInteger(size) || size <= 0 || size > 900) {
-              return false;
-            }
-
-            return commands.setMark(this.name, {
-              value: size,
-              unit: 'PX',
-            });
-          },
-      };
-    },
-  }),
+              return commands.setMark(this.name, {
+                value: size,
+                unit: 'PX',
+              });
+            },
+        };
+      },
+    };
+  },
 });

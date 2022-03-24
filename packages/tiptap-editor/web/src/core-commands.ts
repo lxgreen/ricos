@@ -8,16 +8,19 @@ import type { RicosExtension } from 'ricos-tiptap-types';
 export const createCommandsConfig = (): RicosExtension => ({
   type: 'extension' as const,
   groups: [],
-  createExtensionConfig: () => ({
-    name: 'ricos-node-commands',
-    addCommands() {
-      return {
-        ...insertNode,
-        ...updateNodeById,
-        ...deleteNode,
-        ...replaceNode,
-        ...replaceNodes,
-      };
-    },
-  }),
+  name: 'ricos-node-commands',
+  createExtensionConfig() {
+    return {
+      name: this.name,
+      addCommands() {
+        return {
+          ...insertNode,
+          ...updateNodeById,
+          ...deleteNode,
+          ...replaceNode,
+          ...replaceNodes,
+        };
+      },
+    };
+  },
 });

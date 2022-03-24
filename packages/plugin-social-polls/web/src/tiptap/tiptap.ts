@@ -8,22 +8,25 @@ const name = TIPTAP_POLL_TYPE;
 export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
+    name,
     groups: ['react'],
     Component,
-    componentDataDefaults: {
-      ...pollDataDefaults,
-      loading: {
-        default: false,
-      },
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        atom: false,
+        group: 'block',
+        addAttributes: () => ({
+          ...pollDataDefaults,
+          loading: {
+            default: false,
+          },
+        }),
+        addOptions: () => defaultOptions,
+        addCommands() {
+          return {};
+        },
+      };
     },
-    createExtensionConfig: () => ({
-      name,
-      atom: false,
-      group: 'block',
-      addOptions: () => defaultOptions,
-      addCommands() {
-        return {};
-      },
-    }),
   },
 ];

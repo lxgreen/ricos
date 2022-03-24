@@ -15,6 +15,7 @@ import type {
   DecoratedNodeExtension,
   IReactNodeExtension,
   IHtmlNodeExtension,
+  ExtensionAggregate,
 } from './domain-types';
 import { DEFAULT_PRIORITY } from './domain-types';
 import type { RicosExtension, RicosNodeExtension } from 'ricos-tiptap-types';
@@ -44,7 +45,6 @@ const toFullNodeConfig =
             mergeAttributes(HTMLAttributes),
           ],
         }),
-    ...(ext.componentDataDefaults ? { addAttributes: () => ext.componentDataDefaults } : {}),
     ...config,
   });
 
@@ -69,7 +69,12 @@ export class ReactNodeExtension implements IReactNodeExtension {
 
   groups: RicosExtension['groups'];
 
-  ricosExtension: RicosNodeExtension;
+  private readonly ricosExtension: RicosNodeExtension;
+
+  protected readonly dynamicConfiguration: (
+    config: NodeConfig,
+    extensions: RicosExtension[]
+  ) => NodeConfig;
 
   constructor(extension: RicosExtension) {
     if (!isRicosNodeExtension(extension)) {
@@ -80,6 +85,7 @@ export class ReactNodeExtension implements IReactNodeExtension {
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
     this.groups = extension.groups;
+    this.dynamicConfiguration = extension.dynamicConfiguration || (() => this.config);
   }
 
   getComponent() {
@@ -88,6 +94,10 @@ export class ReactNodeExtension implements IReactNodeExtension {
 
   asRenderable(decoratedComponent: ComponentType) {
     return new RenderableNodeExtension(decoratedComponent, this.ricosExtension);
+  }
+
+  getRicosExtension() {
+    return this.ricosExtension;
   }
 }
 
@@ -100,8 +110,10 @@ class RenderableNodeExtension extends ReactNodeExtension implements DecoratedNod
     };
   }
 
-  toTiptapExtension() {
-    return Node.create(this.config);
+  toTiptapExtension(extensions: ExtensionAggregate) {
+    const ricosExtensions = extensions.getRicosExtensions();
+    const config = this.dynamicConfiguration(this.config, ricosExtensions);
+    return Node.create(config);
   }
 }
 
@@ -114,7 +126,12 @@ export class HtmlNodeExtension implements IHtmlNodeExtension {
 
   name: string;
 
-  ricosExtension: RicosNodeExtension;
+  private readonly ricosExtension: RicosNodeExtension;
+
+  private readonly dynamicConfiguration: (
+    config: NodeConfig,
+    extensions: RicosExtension[]
+  ) => NodeConfig;
 
   groups: RicosExtension['groups'];
 
@@ -127,9 +144,16 @@ export class HtmlNodeExtension implements IHtmlNodeExtension {
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
     this.groups = extension.groups || [];
+    this.dynamicConfiguration = extension.dynamicConfiguration || (() => this.config);
   }
 
-  toTiptapExtension() {
-    return Node.create(this.config);
+  getRicosExtension() {
+    return this.ricosExtension;
+  }
+
+  toTiptapExtension(extensions: ExtensionAggregate) {
+    const ricosExtensions = extensions.getRicosExtensions();
+    const config = this.dynamicConfiguration(this.config, ricosExtensions);
+    return Node.create(config);
   }
 }

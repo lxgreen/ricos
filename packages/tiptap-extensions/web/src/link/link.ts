@@ -33,108 +33,110 @@ declare module '@tiptap/core' {
 export const createLink = (defaultOptions): RicosExtension => ({
   type: 'mark' as const,
   groups: [],
-  createExtensionConfig: ({ markPasteRule }) => ({
-    name: 'link',
+  name: 'link',
+  createExtensionConfig({ markPasteRule }) {
+    return {
+      name: this.name,
+      keepOnSplit: false,
 
-    keepOnSplit: false,
+      priority: 1000,
 
-    priority: 1000,
+      inclusive() {
+        return this.options.autolink;
+      },
 
-    inclusive() {
-      return this.options.autolink;
-    },
+      addOptions: () => ({
+        openOnClick: true,
+        linkOnPaste: true,
+        autolink: true,
+        HTMLAttributes: { link: {} },
+        ...defaultOptions,
+      }),
 
-    addOptions: () => ({
-      openOnClick: true,
-      linkOnPaste: true,
-      autolink: true,
-      HTMLAttributes: { link: {} },
-      ...defaultOptions,
-    }),
+      addAttributes() {
+        return linkDataDefaults;
+      },
 
-    addAttributes() {
-      return linkDataDefaults;
-    },
+      parseHTML() {
+        return [{ tag: 'a[href]' }];
+      },
 
-    parseHTML() {
-      return [{ tag: 'a[href]' }];
-    },
+      renderHTML({ HTMLAttributes }) {
+        const { link, linkInViewer } = styles;
+        const classes = classNames(link, linkInViewer);
+        const { url: href, rel, target } = parseLink(HTMLAttributes.link);
+        return { 0: 'a', 1: { href, rel, target, class: classes } };
+      },
 
-    renderHTML({ HTMLAttributes }) {
-      const { link, linkInViewer } = styles;
-      const classes = classNames(link, linkInViewer);
-      const { url: href, rel, target } = parseLink(HTMLAttributes.link);
-      return { 0: 'a', 1: { href, rel, target, class: classes } };
-    },
+      addCommands() {
+        return {
+          setLink:
+            attributes =>
+            ({ commands }) => {
+              return commands.setMark(this.name, attributes);
+            },
+          toggleLink:
+            attributes =>
+            ({ commands }) => {
+              return commands.toggleMark(this.name, attributes, { extendEmptyMarkRange: true });
+            },
+          unsetLink:
+            () =>
+            ({ commands }) => {
+              return commands.unsetMark(this.name, { extendEmptyMarkRange: true });
+            },
+        };
+      },
 
-    addCommands() {
-      return {
-        setLink:
-          attributes =>
-          ({ commands }) => {
-            return commands.setMark(this.name, attributes);
-          },
-        toggleLink:
-          attributes =>
-          ({ commands }) => {
-            return commands.toggleMark(this.name, attributes, { extendEmptyMarkRange: true });
-          },
-        unsetLink:
-          () =>
-          ({ commands }) => {
-            return commands.unsetMark(this.name, { extendEmptyMarkRange: true });
-          },
-      };
-    },
-
-    addPasteRules() {
-      return [
-        markPasteRule({
-          find: (text: string) =>
-            find(text)
-              .filter(link => link.isLink)
-              .map(link => ({
-                text: link.value,
-                index: link.start,
-                data: link,
-              })),
-          type: this.type,
-          getAttributes: match => ({
-            href: match.data?.href,
+      addPasteRules() {
+        return [
+          markPasteRule({
+            find: (text: string) =>
+              find(text)
+                .filter(link => link.isLink)
+                .map(link => ({
+                  text: link.value,
+                  index: link.start,
+                  data: link,
+                })),
+            type: this.type,
+            getAttributes: match => ({
+              href: match.data?.href,
+            }),
           }),
-        }),
-      ];
-    },
+        ];
+      },
 
-    addProseMirrorPlugins() {
-      const plugins: Plugin[] = [];
+      addProseMirrorPlugins() {
+        const plugins: Plugin[] = [];
 
-      if (this.options.autolink) {
-        plugins.push(
-          autolink({
-            type: this.type,
-          })
-        );
-      }
+        if (this.options.autolink) {
+          plugins.push(
+            autolink({
+              type: this.type,
+            })
+          );
+        }
 
-      if (this.options.openOnClick) {
-        plugins.push(
-          clickHandler({
-            type: this.type,
-          })
-        );
-      }
+        if (this.options.openOnClick) {
+          plugins.push(
+            clickHandler({
+              type: this.type,
+            })
+          );
+        }
 
-      if (this.options.linkOnPaste) {
-        plugins.push(
-          pasteHandler({
-            editor: this.editor,
-            type: this.type,
-          })
-        );
-      }
+        if (this.options.linkOnPaste) {
+          plugins.push(
+            pasteHandler({
+              editor: this.editor,
+              type: this.type,
+            })
+          );
+        }
 
-      return plugins;
-    },
-  }),
+        return plugins;
+      },
+    };
+  },
 });

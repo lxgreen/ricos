@@ -29,88 +29,90 @@ export const createItalic = (): RicosExtension => ({
   type: 'mark' as const,
   groups: [],
 
-  createExtensionConfig: () => ({
-    name: 'italic',
+  name: 'italic',
+  createExtensionConfig() {
+    return {
+      name: this.name,
+      addOptions() {
+        return {
+          HTMLAttributes: {},
+        };
+      },
 
-    addOptions() {
-      return {
-        HTMLAttributes: {},
-      };
-    },
-
-    parseHTML() {
-      return [
-        {
-          tag: 'em',
-        },
-        {
-          tag: 'i',
-          getAttrs: node => (node as HTMLElement).style.fontStyle !== 'normal' && null,
-        },
-        {
-          style: 'font-style=italic',
-        },
-      ];
-    },
-
-    renderHTML({ HTMLAttributes }) {
-      return [
-        'em',
-        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-        0,
-      ] as DOMOutputSpec;
-    },
-
-    addCommands() {
-      return {
-        setItalic:
-          () =>
-          ({ commands }) => {
-            return commands.setMark(this.name);
+      parseHTML() {
+        return [
+          {
+            tag: 'em',
           },
-        toggleItalic:
-          () =>
-          ({ commands }) => {
-            return commands.toggleMark(this.name);
+          {
+            tag: 'i',
+            getAttrs: node => (node as HTMLElement).style.fontStyle !== 'normal' && null,
           },
-        unsetItalic:
-          () =>
-          ({ commands }) => {
-            return commands.unsetMark(this.name);
+          {
+            style: 'font-style=italic',
           },
-      };
-    },
+        ];
+      },
 
-    addKeyboardShortcuts() {
-      return {
-        'Mod-i': () => this.editor.commands.toggleItalic(),
-      };
-    },
+      renderHTML({ HTMLAttributes }) {
+        return [
+          'em',
+          mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+          0,
+        ] as DOMOutputSpec;
+      },
 
-    addInputRules() {
-      return [
-        markInputRule({
-          find: starInputRegex,
-          type: this.type,
-        }),
-        markInputRule({
-          find: underscoreInputRegex,
-          type: this.type,
-        }),
-      ];
-    },
+      addCommands() {
+        return {
+          setItalic:
+            () =>
+            ({ commands }) => {
+              return commands.setMark(this.name);
+            },
+          toggleItalic:
+            () =>
+            ({ commands }) => {
+              return commands.toggleMark(this.name);
+            },
+          unsetItalic:
+            () =>
+            ({ commands }) => {
+              return commands.unsetMark(this.name);
+            },
+        };
+      },
 
-    addPasteRules() {
-      return [
-        markPasteRule({
-          find: starPasteRegex,
-          type: this.type,
-        }),
-        markPasteRule({
-          find: underscorePasteRegex,
-          type: this.type,
-        }),
-      ];
-    },
-  }),
+      addKeyboardShortcuts() {
+        return {
+          'Mod-i': () => this.editor.commands.toggleItalic(),
+        };
+      },
+
+      addInputRules() {
+        return [
+          markInputRule({
+            find: starInputRegex,
+            type: this.type,
+          }),
+          markInputRule({
+            find: underscoreInputRegex,
+            type: this.type,
+          }),
+        ];
+      },
+
+      addPasteRules() {
+        return [
+          markPasteRule({
+            find: starPasteRegex,
+            type: this.type,
+          }),
+          markPasteRule({
+            find: underscorePasteRegex,
+            type: this.type,
+          }),
+        ];
+      },
+    };
+  },
 });

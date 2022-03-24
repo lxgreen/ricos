@@ -4,8 +4,6 @@ import type { ComponentType } from 'react';
 import React, { useEffect, useState } from 'react';
 import type { RicosExtension } from 'ricos-tiptap-types';
 
-const name = 'focus';
-
 const isInSelection = (selection: Editor['state']['selection']) => (position: number) =>
   position >= selection.$from.pos && position <= selection.$to.pos;
 
@@ -35,13 +33,16 @@ const FocusHoc = (Component: ComponentType) => {
 export const createFocusConfig = (): RicosExtension => ({
   type: 'extension' as const,
   groups: [],
-  createExtensionConfig: () => ({
-    name,
-    priority: 20,
-    addNodeHoc: () => ({
-      priority: 100,
-      nodeTypes: ['*'],
-      nodeHoc: FocusHoc,
-    }),
-  }),
+  name: 'focus',
+  createExtensionConfig() {
+    return {
+      name: this.name,
+      priority: 20,
+      addNodeHoc: () => ({
+        priority: 100,
+        nodeTypes: ['*'],
+        nodeHoc: FocusHoc,
+      }),
+    };
+  },
 });

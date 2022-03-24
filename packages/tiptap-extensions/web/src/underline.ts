@@ -23,60 +23,62 @@ declare module '@tiptap/core' {
 export const createUnderline = (): RicosExtension => ({
   type: 'mark' as const,
   groups: [],
-  createExtensionConfig: () => ({
-    name: 'underline',
+  name: 'underline',
+  createExtensionConfig() {
+    return {
+      name: this.name,
+      addOptions() {
+        return {
+          HTMLAttributes: {},
+        };
+      },
 
-    addOptions() {
-      return {
-        HTMLAttributes: {},
-      };
-    },
-
-    parseHTML() {
-      return [
-        {
-          tag: 'u',
-        },
-        {
-          style: 'text-decoration',
-          consuming: false,
-          getAttrs: style => ((style as string).includes('underline') ? {} : false),
-        },
-      ];
-    },
-
-    renderHTML({ HTMLAttributes }) {
-      return [
-        'u',
-        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-        0,
-      ] as DOMOutputSpec;
-    },
-
-    addCommands() {
-      return {
-        setUnderline:
-          () =>
-          ({ commands }) => {
-            return commands.setMark(this.name);
+      parseHTML() {
+        return [
+          {
+            tag: 'u',
           },
-        toggleUnderline:
-          () =>
-          ({ commands }) => {
-            return commands.toggleMark(this.name);
+          {
+            style: 'text-decoration',
+            consuming: false,
+            getAttrs: style => ((style as string).includes('underline') ? {} : false),
           },
-        unsetUnderline:
-          () =>
-          ({ commands }) => {
-            return commands.unsetMark(this.name);
-          },
-      };
-    },
+        ];
+      },
 
-    addKeyboardShortcuts() {
-      return {
-        'Mod-u': () => this.editor.commands.toggleUnderline(),
-      };
-    },
-  }),
+      renderHTML({ HTMLAttributes }) {
+        return [
+          'u',
+          mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+          0,
+        ] as DOMOutputSpec;
+      },
+
+      addCommands() {
+        return {
+          setUnderline:
+            () =>
+            ({ commands }) => {
+              return commands.setMark(this.name);
+            },
+          toggleUnderline:
+            () =>
+            ({ commands }) => {
+              return commands.toggleMark(this.name);
+            },
+          unsetUnderline:
+            () =>
+            ({ commands }) => {
+              return commands.unsetMark(this.name);
+            },
+        };
+      },
+
+      addKeyboardShortcuts() {
+        return {
+          'Mod-u': () => this.editor.commands.toggleUnderline(),
+        };
+      },
+    };
+  },
 });

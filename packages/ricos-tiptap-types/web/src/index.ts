@@ -65,11 +65,13 @@ export type NodeHocDescriptor = {
   priority: number;
 };
 
-export type Group = 'react' | 'text-container' | 'text';
+export type Group = 'react' | 'text-container' | 'text' | 'spoilerable';
 
 export type RicosNodeExtension = {
+  name: string;
   type: 'node';
   groups: Group[];
+  dynamicConfiguration?: (config: NodeConfig, extensions: RicosExtension[]) => NodeConfig;
   createExtensionConfig: ({
     textblockTypeInputRule,
     mergeAttributes,
@@ -86,12 +88,13 @@ export type RicosNodeExtension = {
     PluginKey: typeof IPluginKey;
   }) => NodeConfig;
   Component?: ComponentType<PluginProps>;
-  componentDataDefaults?: any;
 };
 
 export type RicosMarkExtension = {
+  name: string;
   type: 'mark';
   groups: Group[];
+  dynamicConfiguration?: (config: MarkConfig, extensions: RicosExtension[]) => MarkConfig;
   createExtensionConfig: ({
     textblockTypeInputRule,
     mergeAttributes,
@@ -107,12 +110,16 @@ export type RicosMarkExtension = {
     Plugin: typeof IPlugin;
     PluginKey: typeof IPluginKey;
   }) => MarkConfig;
-  componentDataDefaults?: any;
 };
 
 export type RicosFunctionalExtension = {
+  name: string;
   type: 'extension';
   groups: Group[];
+  dynamicConfiguration?: (
+    config: RicosExtensionConfig,
+    extensions: RicosExtension[]
+  ) => RicosExtensionConfig;
   createExtensionConfig: ({
     mergeAttributes,
   }: {

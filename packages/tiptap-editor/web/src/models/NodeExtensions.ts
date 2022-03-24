@@ -6,6 +6,7 @@ import type {
   ReactNodeExtensionAggregate,
   NodeHocComposer,
   IHtmlNodeExtension,
+  ExtensionAggregate,
 } from './domain-types';
 import { IExtensionAggregate } from './IExtensionAggregate';
 
@@ -34,8 +35,8 @@ export class DecoratedNodeExtensions implements ConvertableNodeExtensionAggregat
     this.extensions = new IExtensionAggregate(extensions);
   }
 
-  toTiptapExtensions() {
-    return this.extensions.asArray().map(e => e.toTiptapExtension()) as Node[];
+  toTiptapExtensions(extensions: ExtensionAggregate) {
+    return this.extensions.asArray().map(e => e.toTiptapExtension(extensions)) as Node[];
   }
 }
 
@@ -50,7 +51,7 @@ export class HtmlNodeExtensions implements ConvertableNodeExtensionAggregate {
     return this.extensions.asArray();
   }
 
-  toTiptapExtensions() {
-    return this.extensions.asArray().map(e => e.toTiptapExtension()) as Node[];
+  toTiptapExtensions(extensions: ExtensionAggregate) {
+    return this.extensions.asArray().map(e => e.toTiptapExtension(extensions)) as Node[];
   }
 }

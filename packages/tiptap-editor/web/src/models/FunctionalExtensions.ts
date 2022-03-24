@@ -1,5 +1,9 @@
 import type { Extension } from '@tiptap/core';
-import type { FunctionalExtensionAggregate, IFunctionalExtension } from './domain-types';
+import type {
+  ExtensionAggregate,
+  FunctionalExtensionAggregate,
+  IFunctionalExtension,
+} from './domain-types';
 import { IExtensionAggregate } from './IExtensionAggregate';
 import { NodeHocDecorator } from './NodeHocDecorator';
 
@@ -10,12 +14,14 @@ export class FunctionalExtensions implements FunctionalExtensionAggregate {
     this.extensions = new IExtensionAggregate(extensions);
   }
 
-  getNodeHocComposer() {
-    return new NodeHocDecorator(this.extensions.asArray().map(ex => ex.getNodeHocDescriptor()));
+  getNodeHocComposer(extensions: ExtensionAggregate) {
+    return new NodeHocDecorator(
+      this.extensions.asArray().map(ex => ex.getNodeHocDescriptor(extensions))
+    );
   }
 
-  toTiptapExtensions() {
-    return this.extensions.asArray().map(e => e.toTiptapExtension()) as Extension[];
+  toTiptapExtensions(extensions: ExtensionAggregate) {
+    return this.extensions.asArray().map(e => e.toTiptapExtension(extensions)) as Extension[];
   }
 
   asArray() {

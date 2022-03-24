@@ -8,18 +8,21 @@ const name = TIPTAP_GIF_TYPE;
 export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
+    name,
     groups: ['react'],
     Component,
-    componentDataDefaults: gifDataDefaults,
-    createExtensionConfig: () => ({
-      name,
-      group: 'block',
-      selectable: true,
-      draggable: true,
-      addOptions: () => defaultOptions,
-      addCommands() {
-        return {};
-      },
-    }),
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        group: 'block',
+        selectable: true,
+        draggable: true,
+        addAttributes: () => gifDataDefaults,
+        addOptions: () => defaultOptions,
+        addCommands() {
+          return {};
+        },
+      };
+    },
   },
 ];

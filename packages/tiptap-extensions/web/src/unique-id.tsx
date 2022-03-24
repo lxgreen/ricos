@@ -1,20 +1,20 @@
-import type { RicosExtension } from 'ricos-tiptap-types';
+import type { RicosExtension, RicosExtensionConfig } from 'ricos-tiptap-types';
 import { Plugin, PluginKey } from 'prosemirror-state';
 import { generateId } from 'ricos-content';
 
-const name = 'unique-id';
-
-export const createUniqueId = (types: string[]): RicosExtension => ({
+export const createUniqueId = (): RicosExtension => ({
   type: 'extension',
   groups: [],
-  createExtensionConfig: () => {
+  name: 'unique-id',
+  dynamicConfiguration(config: RicosExtensionConfig, extensions: RicosExtension[]) {
     return {
-      name,
-      priority: 1,
+      ...config,
       addGlobalAttributes() {
         return [
           {
-            types,
+            types: extensions
+              .filter(extension => extension.type === 'node' && !extension.groups.includes('text'))
+              .map(({ name }) => name),
             attributes: {
               id: {
                 default: null,
@@ -23,6 +23,12 @@ export const createUniqueId = (types: string[]): RicosExtension => ({
           },
         ];
       },
+    };
+  },
+  createExtensionConfig() {
+    return {
+      name: this.name,
+      priority: 1,
       addProseMirrorPlugins() {
         return [
           new Plugin({
