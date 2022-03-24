@@ -258,6 +258,7 @@ export type RefinedNode =
   | RichContentNode
   | TextNode
   | ListItemNode
+  | CollapsibleItemNode
   | CollapsibleItemBodyNode
   | CollapsibleItemTitleNode
   | TableCellNode
