@@ -7,5 +7,9 @@ export const UnsupportedBlock: React.FC<Pick<PluginProps, 'context'> & { label: 
   label,
 }) => {
   const { theme, t } = context;
-  return <Component theme={theme} t={t} label={label} />;
+  return (
+    <div contentEditable={false}>
+      <Component theme={theme} t={t} label={label} />
+    </div>
+  );
 };

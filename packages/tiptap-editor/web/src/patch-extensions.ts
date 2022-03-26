@@ -105,7 +105,12 @@ const extractUnsupportedNodeAttributes =
     pipe(
       extract(content)
         .filter(({ type }) => type === nodeType)
-        .map(({ type, attrs }) => ({ unsupportedNodeType: type, ...attrs }))
+        .map(({ type, content: _, text, marks: __, attrs, ...rest }) => ({
+          unsupportedNodeType: type,
+          text,
+          ...attrs,
+          ...rest,
+        }))
         .get(),
       concatAttributes
     );

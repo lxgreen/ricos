@@ -22,7 +22,6 @@ export const draftBlockDataToTiptap = (
 
 export const tiptapToDraft: (proseContent: JSONContent) => DraftContent = flow(fromTiptap, toDraft);
 
-// TODO: pass actual nodes to support nested plugin structure
 export const tiptapNodeDataToDraft = (
   nodeType: Node_Type,
   nodeData: Record<string, any>
