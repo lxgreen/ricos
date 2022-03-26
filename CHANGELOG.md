@@ -23,6 +23,7 @@
   - [#3647](https://github.com/wix/ricos/pull/3647) NodeViewContent passed within PluginProps to component
   - [#3652](https://github.com/wix/ricos/pull/3652) hasUnsupportedContent lib exposed
   - [#3648](https://github.com/wix/ricos/pull/3648) unsupported extensions: prevent 'type' attribute name collision
+  - [#3653](https://github.com/wix/ricos/pull/3653) unsupported extensions: non-editable non-selectable component, data preserved
 - `audio`
   - [#3649](https://github.com/wix/ricos/pull/3649) add ModalBaseActionHoc experiment & some code refactor
   
