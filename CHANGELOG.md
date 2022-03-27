@@ -17,13 +17,20 @@
     Click to see more.
   </summary>
 
-### :Bug Fix
+</details>
+  <hr/>
+
+## 8.70.27 (Mar 27, 2022)
+
+### :bug: Bug Fix
 
 - `toolbars-new`
   - [#3655](https://github.com/wix/ricos/pull/3655) headings panel hover gap and line height
 
-</details>
-  <hr/>
+### :rocket: New Feature
+
+- `media-plugins`
+  - [#3597](https://github.com/wix/ricos/pull/3597) upload progress- add loading percentage update api
 
 ## 8.70.26 (Mar 27, 2022)
 
@@ -36,7 +43,7 @@
   - [#3653](https://github.com/wix/ricos/pull/3653) unsupported extensions: non-editable non-selectable component, data preserved
 - `audio`
   - [#3649](https://github.com/wix/ricos/pull/3649) add ModalBaseActionHoc experiment & some code refactor
-  - [#3654](https://github.com/wix/ricos/pull/3654)  clean audio config
+  - [#3654](https://github.com/wix/ricos/pull/3654) clean audio config
 
 ## 8.70.25 (Mar 24, 2022)
 
