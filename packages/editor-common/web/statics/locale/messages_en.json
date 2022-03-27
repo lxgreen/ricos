@@ -267,7 +267,7 @@
   "ButtonModal_Size_Section": "Size",
   "ButtonModal_Border_Section": "Border",
   "ButtonModal_Color_Section": "Button Colors",
-  "ButtonModal_Width_Input": "Width (px)",
+  "ButtonModal_Width_Input": "Border width (px)",
   "ButtonModal_Radius_Input": "Corner radius (px)",
   "ButtonModal_Text_Color": "Text",
   "ButtonModal_Border_Color": "Border",
