@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-plugin-spoiler",
-  "version": "8.70.26",
+  "version": "8.70.27",
   "author": {
     "name": "undefined",
     "email": "barb@wix.com"
@@ -35,10 +35,10 @@
     "lint": "eslint 'src/**/*.{js,jsx}'"
   },
   "dependencies": {
-    "ricos-tiptap-types": "8.70.26",
-    "wix-rich-content-common": "8.70.26",
-    "wix-rich-content-editor-common": "8.70.26",
-    "wix-rich-content-plugin-commons": "8.70.26"
+    "ricos-tiptap-types": "8.70.27",
+    "wix-rich-content-common": "8.70.27",
+    "wix-rich-content-editor-common": "8.70.27",
+    "wix-rich-content-plugin-commons": "8.70.27"
   },
   "unpkg": true,
   "publishConfig": {
