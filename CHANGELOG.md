@@ -17,6 +17,14 @@
     Click to see more.
   </summary>
 
+
+
+
+</details>
+  <hr/>
+
+## 8.70.28 (Mar 27, 2022)
+
 ### :bug: Bug Fix
 
 - `toolbars-new`
@@ -26,8 +34,6 @@
 - `plugin-button`
   - [#3660](https://github.com/wix/ricos/pull/3660) extend button round corners
 
-</details>
-  <hr/>
 
 ## 8.70.27 (Mar 27, 2022)
 
