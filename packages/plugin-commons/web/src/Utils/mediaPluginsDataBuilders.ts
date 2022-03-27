@@ -63,19 +63,22 @@ export const dataBuilder = {
   },
   [AUDIO_TYPE]: ({ data, error }, componentData) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    let { audio, html, ...rest } = componentData;
+    let { audio, html, tempData, ...rest } = componentData;
     if (data) {
       if (audio?.src) {
         audio.src = {};
       }
       audio = data.audio;
     }
+    const name = data?.name ?? componentData?.name;
+    const authorName = data?.authorName ?? componentData?.authorName;
+
     return {
       ...rest,
       audio,
       error,
-      name: data?.name,
-      authorName: data?.authorName,
+      name,
+      authorName,
     };
   },
   [FILE_UPLOAD_TYPE]: ({ data, error }, componentData) => {

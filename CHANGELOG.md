@@ -19,6 +19,10 @@
 
 ### :bug: Bug Fix
 
+- `toolbars-new`
+  - [#3655](https://github.com/wix/ricos/pull/3655) headings panel hover gap and line height
+- `audio`
+  - [#3661](https://github.com/wix/ricos/pull/3661) fix audio image upload & audio data builder
 - `plugin-button`
   - [#3660](https://github.com/wix/ricos/pull/3660) extend button round corners
 

@@ -58,10 +58,10 @@ const AudioUploadModal = props => {
   };
 
   const onLocalLoad = tempData => {
-    onUpload({ ...componentData, ...tempData });
+    onUpload({ ...getComponentData(), ...tempData });
   };
 
-  const getComponentData = () => componentData;
+  const getComponentData = () => pubsub.get('componentData');
 
   const getAudioTags = async file => {
     const tags = await id3.fromFile(file);
@@ -70,16 +70,12 @@ const AudioUploadModal = props => {
 
   const handleNativeFileUpload = async file => {
     const tags = await getAudioTags(file);
-    const getComponentData = () => ({
-      ...componentData,
-      ...tags,
-    });
+    setComponentData({ ...componentData, ...tags });
     handleUploadStart(props, getComponentData, file, onLocalLoad, getOnUploadFinished(), undefined);
     closeModal();
   };
 
   const hasCustomFileUpload = handleFileUpload || handleFileSelection;
-  const showUploadSection = !isMobile && hasCustomFileUpload;
 
   const handleClick = evt => {
     helpers?.onPluginsPopOverClick?.({
@@ -104,7 +100,7 @@ const AudioUploadModal = props => {
       title={t('AudioModal_Upload_Title')}
       labelText={t('AudioModal_Upload_ButtonText')}
       dataHook="AudioUploadModalCustomVideo"
-      showUploadSection={showUploadSection}
+      showUploadSection={hasCustomFileUpload}
       accept="audio/*"
     />
   );

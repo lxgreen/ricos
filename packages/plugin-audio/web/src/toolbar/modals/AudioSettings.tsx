@@ -49,7 +49,7 @@ const AudioSettings = ({
     helpers.handleFileSelection(undefined, false, handleFilesAdded, deleteBlock, componentData);
   };
 
-  const handleFileChange = file => {
+  const handleFileChange = ([file]) => {
     helpers.handleFileUpload(file, handleFilesAdded);
   };
 
