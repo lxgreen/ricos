@@ -1,5 +1,6 @@
 import React from 'react';
 import { hasStyleChanges } from '../../../modals/utils';
+import styles from './CustomHeadingButton.scss';
 
 export const headingsMap = {
   'header-one': 'Heading 1',
@@ -38,7 +39,7 @@ export const getCustomHeadingsLabel = (selectedHeading, t, editorCommands) => {
     label = (
       <>
         {label}
-        <span>*</span>
+        <span className={styles.toolbarLabelUpdate}>*</span>
       </>
     );
   }

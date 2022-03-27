@@ -63,6 +63,7 @@ const CustomHeadingButton = ({ toolbarItem, context }) => {
         ref={setReferenceElement}
       >
         <div
+          dir={getLangDir(locale)}
           className={styles.customHeadingModalButton}
           role="button"
           onClick={() => setModalOpen(!isModalOpen)}

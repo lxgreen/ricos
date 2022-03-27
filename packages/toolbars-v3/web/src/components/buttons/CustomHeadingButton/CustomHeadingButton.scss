@@ -23,11 +23,13 @@
 }
 
 .customHeadingModalButton {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 20px;
     min-width: 20px;
+    width: max-content;
     gap: 8px;
 }
 
@@ -50,4 +52,9 @@
         max-height: 100vh;
         }
     }
+}
+
+.toolbarLabelUpdate {
+    position: absolute;
+    right: 10px;
 }
