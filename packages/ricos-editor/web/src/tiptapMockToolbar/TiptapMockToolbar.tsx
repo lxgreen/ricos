@@ -32,6 +32,36 @@ const getButtons = (editorCommands, state) => {
         editorCommands.insertBlock(RICOS_GALLERY_TYPE, mockMediaData[RICOS_GALLERY_TYPE].loading),
     },
     {
+      name: 'insert loading gallery with percent',
+      onClick: () => {
+        const data = {
+          ...mockMediaData[RICOS_GALLERY_TYPE].loading,
+          componentState: {
+            loading: true,
+            loadingPercentage: 0,
+          },
+        };
+        editorCommands.insertBlock(RICOS_GALLERY_TYPE, data);
+      },
+    },
+    {
+      name: 'set gallery loading percent',
+      onClick: () => {
+        let galleryNode;
+        state.doc.descendants(node => {
+          if (node.attrs.id === 'galleryMockId') galleryNode = node;
+        });
+        const { loadingPercentage } = galleryNode.attrs;
+        const data = {
+          componentState: {
+            loading: true,
+            loadingPercentage: loadingPercentage + 1,
+          },
+        };
+        editorCommands.updateBlock('galleryMockId', RICOS_GALLERY_TYPE, data);
+      },
+    },
+    {
       name: 'finish upload gallery',
       onClick: () =>
         editorCommands.setBlock(
@@ -46,6 +76,36 @@ const getButtons = (editorCommands, state) => {
         editorCommands.insertBlock(RICOS_VIDEO_TYPE, mockMediaData[RICOS_VIDEO_TYPE].loading),
     },
     {
+      name: 'insert loading video with percent',
+      onClick: () => {
+        const data = {
+          ...mockMediaData[RICOS_VIDEO_TYPE].loading,
+          componentState: {
+            loading: true,
+            loadingPercentage: 0,
+          },
+        };
+        editorCommands.insertBlock(RICOS_VIDEO_TYPE, data);
+      },
+    },
+    {
+      name: 'set video loading percent',
+      onClick: () => {
+        let videoNode;
+        state.doc.descendants(node => {
+          if (node.attrs.id === 'videoMockId') videoNode = node;
+        });
+        const { loadingPercentage } = videoNode.attrs;
+        const data = {
+          componentState: {
+            loading: true,
+            loadingPercentage: loadingPercentage + 1,
+          },
+        };
+        editorCommands.updateBlock('videoMockId', RICOS_VIDEO_TYPE, data);
+      },
+    },
+    {
       name: 'finish upload video',
       onClick: () =>
         editorCommands.setBlock(
@@ -58,6 +118,36 @@ const getButtons = (editorCommands, state) => {
       name: 'insert loading image',
       onClick: () =>
         editorCommands.insertBlock(RICOS_IMAGE_TYPE, mockMediaData[RICOS_IMAGE_TYPE].loading),
+    },
+    {
+      name: 'insert loading image with percent',
+      onClick: () => {
+        const data = {
+          ...mockMediaData[RICOS_IMAGE_TYPE].loading,
+          componentState: {
+            loading: true,
+            loadingPercentage: 0,
+          },
+        };
+        editorCommands.insertBlock(RICOS_IMAGE_TYPE, data);
+      },
+    },
+    {
+      name: 'set image loading percent',
+      onClick: () => {
+        let imageNode;
+        state.doc.descendants(node => {
+          if (node.attrs.id === 'imageMockId') imageNode = node;
+        });
+        const { loadingPercentage } = imageNode.attrs;
+        const data = {
+          componentState: {
+            loading: true,
+            loadingPercentage: loadingPercentage + 1,
+          },
+        };
+        editorCommands.updateBlock('imageMockId', RICOS_IMAGE_TYPE, data);
+      },
     },
     {
       name: 'finish upload image',

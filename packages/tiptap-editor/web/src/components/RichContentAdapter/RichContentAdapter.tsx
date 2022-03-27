@@ -88,7 +88,7 @@ export class RichContentAdapter implements TiptapAPI {
         let id = '';
         if (type) {
           id = data.id || generateId();
-          const attrs = { id, ...data };
+          const attrs = { id, ...flatComponentState(data) };
           this.editor
             .chain()
             .focus()
@@ -115,7 +115,10 @@ export class RichContentAdapter implements TiptapAPI {
       },
       findNodeByKey() {},
       setBlock: (blockKey, pluginType, data) => {
-        return this.editor.commands.updateNodeById(blockKey, data);
+        return this.editor.commands.setNodeAttrsById(blockKey, flatComponentState(data));
+      },
+      updateBlock: (blockKey, pluginType, data) => {
+        return this.editor.commands.updateNodeAttrsById(blockKey, flatComponentState(data));
       },
       getSelection: () => ({
         isFocused: this.editor.isFocused,
@@ -349,3 +352,8 @@ export class RichContentAdapter implements TiptapAPI {
     focus: () => {},
   };
 }
+
+const flatComponentState = data => {
+  const { componentState, ...rest } = data;
+  return { ...(rest || {}), ...(componentState || {}) };
+};

@@ -1,5 +1,6 @@
 import * as insertNode from './commands/insertNode';
-import * as updateNodeById from './commands/updateNodeById';
+import * as setNodeAttrsById from './commands/setNodeAttrsById';
+import * as updateNodeAttrsById from './commands/updateNodeAttrsById';
 import * as replaceNode from './commands/replaceNode';
 import * as replaceNodes from './commands/replaceNodes';
 import * as deleteNode from './commands/deleteNode';
@@ -15,7 +16,8 @@ export const createCommandsConfig = (): RicosExtension => ({
       addCommands() {
         return {
           ...insertNode,
-          ...updateNodeById,
+          ...setNodeAttrsById,
+          ...updateNodeAttrsById,
           ...deleteNode,
           ...replaceNode,
           ...replaceNodes,

@@ -11,7 +11,9 @@ import {
 export const mockMediaData = {
   [RICOS_FILE_TYPE]: {
     loading: {
-      loading: true,
+      componentState: {
+        loading: true,
+      },
       name: 'mock-file',
       type: 'mp4',
       id: 'fileMockId',
@@ -27,7 +29,9 @@ export const mockMediaData = {
   },
   [RICOS_GALLERY_TYPE]: {
     loading: {
-      loading: true,
+      componentState: {
+        loading: true,
+      },
       items: [
         { image: { media: { src: {} } }, uploadId: '12345' },
         { image: { media: { src: {} } }, uploadId: '123456' },
@@ -70,11 +74,10 @@ export const mockMediaData = {
   },
   [RICOS_IMAGE_TYPE]: {
     loading: {
-      loading: true,
-      metadata: {},
-      src: {
-        id: '',
+      componentState: {
+        loading: true,
       },
+      metadata: {},
       id: 'imageMockId',
     },
     loaded: {
@@ -90,8 +93,11 @@ export const mockMediaData = {
   },
   [RICOS_VIDEO_TYPE]: {
     loading: {
+      componentState: {
+        loading: true,
+      },
       id: 'videoMockId',
-      video: { src: { url: '' }, thumbnail: { src: {} }, loading: true },
+      video: { src: { url: '' }, thumbnail: { src: {} } },
     },
     loaded: {
       loading: false,

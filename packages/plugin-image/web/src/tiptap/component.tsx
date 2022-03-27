@@ -18,8 +18,7 @@ export const Image: React.FC<PluginProps> = ({
     setFocusToBlock: () => null,
   };
   const setComponentUrl = () => null;
-  const isLoading = node.attrs.loading;
-  const error = node.attrs.error;
+  const { loading, loadingPercentage, error } = node.attrs;
 
   const handleCaptionChange = caption => {
     updateAttributes({ caption });
@@ -33,8 +32,8 @@ export const Image: React.FC<PluginProps> = ({
         isMobile={isMobile}
         helpers={helpers}
         componentData={componentData as ImageData}
-        isLoading={isLoading}
-        dataUrl={isLoading && node.attrs.image?.src?.url}
+        isLoading={loading}
+        dataUrl={loading && node.attrs.image?.src?.url}
         settings={settings}
         defaultCaption={t('ImageViewer_Caption')}
         onCaptionChange={handleCaptionChange}
@@ -42,7 +41,7 @@ export const Image: React.FC<PluginProps> = ({
         setComponentUrl={setComponentUrl}
         blockKey={blockKey}
       />
-      {(isLoading || componentData.loading) && <Loader theme={theme} type={'medium'} />}
+      {loading && <Loader theme={theme} type={'medium'} percent={loadingPercentage} />}
       {error && <MediaItemErrorMsg error={error} t={t} />}
     </>
   );

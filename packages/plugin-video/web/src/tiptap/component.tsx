@@ -4,7 +4,12 @@ import { VIDEO_TYPE } from '../types';
 import type { PluginProps } from 'ricos-tiptap-types';
 import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
 
-export const Video: React.FC<PluginProps> = ({ context, componentData, updateAttributes }) => {
+export const Video: React.FC<PluginProps> = ({
+  context,
+  componentData,
+  updateAttributes,
+  node,
+}) => {
   const { theme, t, config = {} } = context;
   const settings = config[VIDEO_TYPE] || {};
   const blockProps = {
@@ -14,6 +19,8 @@ export const Video: React.FC<PluginProps> = ({ context, componentData, updateAtt
   const store = {
     update: (type, data) => updateAttributes(convertBlockDataToRicos(VIDEO_TYPE, data)),
   };
+
+  const { loading, loadingPercentage } = node.attrs;
 
   return (
     <VideoComponent
@@ -26,6 +33,8 @@ export const Video: React.FC<PluginProps> = ({ context, componentData, updateAtt
       onClick={() => {}}
       store={store}
       isDraggable={false}
+      isLoading={loading}
+      loadingPercentage={loadingPercentage}
     />
   );
 };

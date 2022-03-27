@@ -67,10 +67,19 @@ class VideoComponent extends React.Component {
   };
 
   renderLoader = () => {
-    const isCustomVideo = get(this.props, 'componentData.isCustomVideo');
+    const {
+      isLoading,
+      componentData: { tempData, isCustomVideo },
+    } = this.props;
+    const loading = isLoading || tempData;
     return (
       <div className={this.styles.videoOverlay}>
-        <Loader type={'medium'} isVerySlowFakeLoader={isCustomVideo} />
+        <Loader
+          type={'medium'}
+          isVerySlowFakeLoader={isCustomVideo}
+          percent={this.props.loadingPercentage}
+          disableProgress={!loading && !this.state.isLoaded}
+        />
       </div>
     );
   };
@@ -145,11 +154,13 @@ class VideoComponent extends React.Component {
       className,
       onClick,
       t,
-      componentData: { error },
+      componentData: { error, tempData },
       isDraggable = true,
+      isLoading,
     } = this.props;
     const { isPlayable, isLoaded, shouldRenderDurationFix } = this.state;
     const containerClassNames = classNames(this.styles.video_container, className || '');
+    const loading = isLoading || tempData || !isLoaded;
     /* eslint-disable jsx-a11y/no-static-element-interactions */
     return (
       <div
@@ -162,7 +173,7 @@ class VideoComponent extends React.Component {
         {!isPlayable && this.renderOverlay(this.styles, this.props.t)}
         {this.renderPlayer()}
         {shouldRenderDurationFix ? this.renderPlayerDurationFix() : null}
-        {!isLoaded && !error && this.renderLoader()}
+        {loading && !error && this.renderLoader()}
         {error && <MediaItemErrorMsg error={error} t={t} />}
       </div>
     );
@@ -183,6 +194,8 @@ VideoComponent.propTypes = {
   store: PropTypes.object.isRequired,
   block: PropTypes.object.isRequired,
   isDraggable: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  loadingPercentage: PropTypes.number,
 };
 
 export { VideoComponent as Component, DEFAULTS };

@@ -22,6 +22,9 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
           loading: {
             default: false,
           },
+          loadingPercentage: {
+            default: null,
+          },
         }),
         addOptions: () => defaultOptions,
         addCommands() {

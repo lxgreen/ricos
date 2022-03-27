@@ -10,8 +10,7 @@ export const Gallery: React.FC<PluginProps> = ({ context, componentData, node })
   const block = {
     getKey: () => node.attrs.id,
   };
-  const isLoading = node.attrs.loading;
-  const error = node.attrs.error;
+  const { loading, loadingPercentage, error } = node.attrs;
   const anchorTarget = '';
   const relValue = '';
 
@@ -26,7 +25,8 @@ export const Gallery: React.FC<PluginProps> = ({ context, componentData, node })
       block={block}
       anchorTarget={anchorTarget}
       relValue={relValue}
-      isLoading={isLoading}
+      isLoading={loading}
+      loadingPercentage={loadingPercentage}
       error={error}
     />
   );

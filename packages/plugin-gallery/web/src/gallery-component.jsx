@@ -13,7 +13,7 @@ const renderMobileNativeLoader = ({ url }) =>
   );
 
 function GalleryComponent(props) {
-  const { t, isLoading, componentData } = props;
+  const { t, isLoading, componentData, loadingPercentage } = props;
   const { error } = componentData;
   return (
     <>
@@ -28,7 +28,9 @@ function GalleryComponent(props) {
         blockKey={props.block.getKey()}
         itemOverlayElement={renderMobileNativeLoader}
       />
-      {!error && isLoading && <Loader type={'medium'} />}
+      {!error && (isLoading || loadingPercentage) && (
+        <Loader type={'medium'} percent={loadingPercentage} />
+      )}
       {error && <MediaItemErrorMsg error={error} t={t} />}
     </>
   );
@@ -46,6 +48,7 @@ GalleryComponent.propTypes = {
   error: PropTypes.object,
   t: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
+  loadingPercentage: PropTypes.number,
 };
 
 export { GalleryComponent as Component, DEFAULTS };
