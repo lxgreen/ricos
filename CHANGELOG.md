@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+  <hr/>
+
+## 8.70.26 (Mar 27, 2022)
+
 ### :house: Internal
 
 - `tiptap-editor`
@@ -27,9 +34,6 @@
 - `audio`
   - [#3649](https://github.com/wix/ricos/pull/3649) add ModalBaseActionHoc experiment & some code refactor
   - [#3654](https://github.com/wix/ricos/pull/3654)  clean audio config
-  
-</details>
-  <hr/>
 
 ## 8.70.25 (Mar 24, 2022)
 
