@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :Bug Fix
 
+- `toolbars-new`
+  - [#3655](https://github.com/wix/ricos/pull/3655) headings panel hover gap and line height
 
 </details>
   <hr/>

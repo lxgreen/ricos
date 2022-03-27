@@ -1,5 +1,4 @@
 import type { FileData_PDFSettings, AudioData as AudioComponentData } from 'ricos-schema';
-import Fullscreen from 'wix-rich-content-fullscreen/src';
 export { AudioComponentData };
 
 export enum MediaUploadErrorKey {
