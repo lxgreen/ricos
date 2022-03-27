@@ -23,24 +23,18 @@
 </details>
   <hr/>
 
-## 8.70.28 (Mar 27, 2022)
-
-### :bug: Bug Fix
-
-- `toolbars-new`
-  - [#3655](https://github.com/wix/ricos/pull/3655) headings panel hover gap and line height
-- `audio`
-  - [#3661](https://github.com/wix/ricos/pull/3661) fix audio image upload & audio data builder
-- `plugin-button`
-  - [#3660](https://github.com/wix/ricos/pull/3660) extend button round corners
-
-
 ## 8.70.27 (Mar 27, 2022)
 
 ### :bug: Bug Fix
 
 - `toolbars-new`
   - [#3655](https://github.com/wix/ricos/pull/3655) headings panel hover gap and line height
+- `toolbars-new`
+  - [#3655](https://github.com/wix/ricos/pull/3655) headings panel hover gap and line height
+- `audio`
+  - [#3661](https://github.com/wix/ricos/pull/3661) fix audio image upload & audio data builder
+- `plugin-button`
+  - [#3660](https://github.com/wix/ricos/pull/3660) extend button round corners
 
 ### :rocket: New Feature
 
