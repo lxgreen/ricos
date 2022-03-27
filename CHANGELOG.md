@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `plugin-button`
+  - [#3660](https://github.com/wix/ricos/pull/3660) extend button round corners
+
 </details>
   <hr/>
 
