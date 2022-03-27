@@ -30,13 +30,14 @@ module.exports = env => ({
       ),
     },
   },
+  ignoreWarnings: [/Failed to parse source map/],
   module: {
     rules: [
       {
         test: /\.js$/,
         use: ['source-map-loader'],
         enforce: 'pre',
-        include: [/wix-rich-content-.*/, /ricos-.*/],
+        include: [/\/packages\//],
       },
       {
         test: /\.css$/,
