@@ -550,7 +550,6 @@ const config = {
     fetchData: mockFetchUrlPreviewData(),
     // this is for native file upload
     // handleFileUpload: audioHandlers.handleFileUpload,
-    enableCustomUploadOnMobile: true,
     // Function is invoked when rendering video which has relative URL.
     // You should take the pathname and form a full URL.
     getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,

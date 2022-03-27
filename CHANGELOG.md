@@ -26,6 +26,7 @@
   - [#3653](https://github.com/wix/ricos/pull/3653) unsupported extensions: non-editable non-selectable component, data preserved
 - `audio`
   - [#3649](https://github.com/wix/ricos/pull/3649) add ModalBaseActionHoc experiment & some code refactor
+  - [#3654](https://github.com/wix/ricos/pull/3654)  clean audio config
   
 </details>
   <hr/>

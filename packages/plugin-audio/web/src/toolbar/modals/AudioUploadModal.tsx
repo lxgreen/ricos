@@ -10,7 +10,6 @@ const AudioUploadModal = props => {
     t,
     handleFileSelection,
     handleFileUpload,
-    enableCustomUploadOnMobile,
     isMobile = false,
     languageDir,
     helpers,
@@ -80,7 +79,7 @@ const AudioUploadModal = props => {
   };
 
   const hasCustomFileUpload = handleFileUpload || handleFileSelection;
-  const showUploadSection = (!isMobile || enableCustomUploadOnMobile) && hasCustomFileUpload;
+  const showUploadSection = !isMobile && hasCustomFileUpload;
 
   const handleClick = evt => {
     helpers?.onPluginsPopOverClick?.({

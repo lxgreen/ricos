@@ -663,7 +663,6 @@ const config: RichContentEditorProps['config'] = {
     // handleFileSelection: audioHandlers.handleFileSelection,
     // this is for native file upload
     // handleFileUpload: audioHandlers.handleFileUpload,
-    enableCustomUploadOnMobile: true,
     // Function is invoked when rendering audio which has relative URL.
     // You should take the pathname and form a full URL.
     getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,
