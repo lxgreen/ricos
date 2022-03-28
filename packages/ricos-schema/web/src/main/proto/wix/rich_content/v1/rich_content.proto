@@ -40,6 +40,7 @@ import "wix/rich_content/v1/plugin_table.proto";
 import "wix/rich_content/v1/plugin_table_cell.proto";
 import "wix/rich_content/v1/decoration_fontsize.proto";
 import "wix/rich_content/v1/plugin_audio.proto";
+import "wix/rich_content/v1/node_list.proto";
 
 message RichContent {
     option (wix.api.entity) = {
@@ -112,6 +113,8 @@ message Node {
         TableCellData table_cell_data = 24;
         Struct externalData = 25;
         AudioData audio_data = 26;
+        OrderedListData ordered_list_data = 27;
+        BulletedListData bulleted_list_data = 28;
     }
 }
 

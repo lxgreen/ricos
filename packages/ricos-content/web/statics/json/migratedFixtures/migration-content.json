@@ -1255,7 +1255,7 @@
                         "textStyle": {
                           "textAlignment": "AUTO"
                         },
-                        "indentation": 1
+                        "indentation": 0
                       }
                     },
                     {
@@ -1284,7 +1284,7 @@
                                 "textStyle": {
                                   "textAlignment": "AUTO"
                                 },
-                                "indentation": 2
+                                "indentation": 0
                               }
                             },
                             {
@@ -1313,7 +1313,7 @@
                                         "textStyle": {
                                           "textAlignment": "AUTO"
                                         },
-                                        "indentation": 3
+                                        "indentation": 0
                                       }
                                     },
                                     {
@@ -1342,7 +1342,7 @@
                                                 "textStyle": {
                                                   "textAlignment": "AUTO"
                                                 },
-                                                "indentation": 4
+                                                "indentation": 0
                                               }
                                             }
                                           ]
@@ -1369,24 +1369,36 @@
                                                 "textStyle": {
                                                   "textAlignment": "AUTO"
                                                 },
-                                                "indentation": 4
+                                                "indentation": 0
                                               }
                                             }
                                           ]
                                         }
-                                      ]
+                                      ],
+                                      "orderedListData": {
+                                        "indentation": 4
+                                      }
                                     }
                                   ]
                                 }
-                              ]
+                              ],
+                              "orderedListData": {
+                                "indentation": 3
+                              }
                             }
                           ]
                         }
-                      ]
+                      ],
+                      "orderedListData": {
+                        "indentation": 2
+                      }
                     }
                   ]
                 }
-              ]
+              ],
+              "orderedListData": {
+                "indentation": 1
+              }
             }
           ]
         },
@@ -1441,12 +1453,15 @@
                         "textStyle": {
                           "textAlignment": "AUTO"
                         },
-                        "indentation": 1
+                        "indentation": 0
                       }
                     }
                   ]
                 }
-              ]
+              ],
+              "bulletedListData": {
+                "indentation": 1
+              }
             }
           ]
         },
@@ -1477,7 +1492,10 @@
             }
           ]
         }
-      ]
+      ],
+      "orderedListData": {
+        "indentation": 0
+      }
     },
     {
       "type": "PARAGRAPH",
@@ -1545,7 +1563,7 @@
                         "textStyle": {
                           "textAlignment": "AUTO"
                         },
-                        "indentation": 1
+                        "indentation": 0
                       }
                     },
                     {
@@ -1574,7 +1592,7 @@
                                 "textStyle": {
                                   "textAlignment": "AUTO"
                                 },
-                                "indentation": 2
+                                "indentation": 0
                               }
                             },
                             {
@@ -1603,7 +1621,7 @@
                                         "textStyle": {
                                           "textAlignment": "AUTO"
                                         },
-                                        "indentation": 3
+                                        "indentation": 0
                                       }
                                     },
                                     {
@@ -1632,7 +1650,7 @@
                                                 "textStyle": {
                                                   "textAlignment": "AUTO"
                                                 },
-                                                "indentation": 4
+                                                "indentation": 0
                                               }
                                             }
                                           ]
@@ -1659,24 +1677,36 @@
                                                 "textStyle": {
                                                   "textAlignment": "AUTO"
                                                 },
-                                                "indentation": 4
+                                                "indentation": 0
                                               }
                                             }
                                           ]
                                         }
-                                      ]
+                                      ],
+                                      "bulletedListData": {
+                                        "indentation": 4
+                                      }
                                     }
                                   ]
                                 }
-                              ]
+                              ],
+                              "bulletedListData": {
+                                "indentation": 3
+                              }
                             }
                           ]
                         }
-                      ]
+                      ],
+                      "bulletedListData": {
+                        "indentation": 2
+                      }
                     }
                   ]
                 }
-              ]
+              ],
+              "bulletedListData": {
+                "indentation": 1
+              }
             }
           ]
         },
@@ -1734,7 +1764,10 @@
             }
           ]
         }
-      ]
+      ],
+      "bulletedListData": {
+        "indentation": 0
+      }
     },
     {
       "type": "PARAGRAPH",
@@ -2501,10 +2534,10 @@
       "nodes": [],
       "audioData": {
         "containerData": {
-          "alignment": "CENTER",
           "width": {
             "size": "CONTENT"
           },
+          "alignment": "CENTER",
           "textWrap": true
         },
         "audio": {

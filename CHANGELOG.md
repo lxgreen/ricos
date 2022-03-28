@@ -17,8 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
 
-
+- `ricos-schema`
+  - [#3617](https://github.com/wix/ricos/pull/3617) add lists indentation
 
 </details>
   <hr/>

@@ -1,4 +1,5 @@
 import { mergeAttributes, wrappingInputRule } from '@tiptap/core';
+import orderedListDataDefaults from 'ricos-schema/dist/statics/ordered_list.defaults.json';
 import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
@@ -36,6 +37,7 @@ export const createOrderedList = (): RicosExtension => ({
 
       addAttributes() {
         return {
+          ...orderedListDataDefaults,
           start: {
             default: 1,
             parseHTML: element => {

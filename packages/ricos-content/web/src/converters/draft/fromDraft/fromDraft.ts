@@ -195,7 +195,7 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
   const createListItem = (block: RicosContentBlock): Node => ({
     id: block.key,
     type: Node_Type.LIST_ITEM,
-    nodes: [parseTextBlock(block)],
+    nodes: [parseTextBlock({ ...block, depth: 0 })],
   });
 
   const isListBlock = (block: RicosContentBlock): boolean =>
@@ -218,11 +218,18 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
       }
       nextBlock = blocks[searchIndex];
     }
+
+    const listData =
+      FROM_DRAFT_LIST_TYPE[listType] === Node_Type.ORDERED_LIST
+        ? 'orderedListData'
+        : 'bulletedListData';
+
     return {
       node: {
         id: generateId(contentIdPrefix),
         type: FROM_DRAFT_LIST_TYPE[listType],
         nodes: listNodes,
+        [listData]: { indentation: depth },
       },
       nextIndex: searchIndex,
     };

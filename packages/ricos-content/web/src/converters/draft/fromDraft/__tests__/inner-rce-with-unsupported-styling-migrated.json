@@ -1365,7 +1365,10 @@
             }
           ]
         }
-      ]
+      ],
+      "bulletedListData":  {
+        "indentation": 0
+      }
     },
     {
       "type": "PARAGRAPH",
@@ -1954,7 +1957,10 @@
             }
           ]
         }
-      ]
+      ],
+      "bulletedListData":  {
+        "indentation": 0
+      }
     },
     {
       "type": "PARAGRAPH",

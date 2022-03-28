@@ -65,7 +65,7 @@ const FROM_HTML_BASELINE = getAbsPath(
   '../packages/ricos-content/web/src/converters/html/fromHtml/__tests__/richTextContent.json'
 );
 const TIPTAP_BASELINE = getAbsPath(
-  '../packages/tiptap-editor/web/src/converters/toTiptap/__tests__/migrationContentTiptap.json'
+  '../packages/tiptap-extensions/web/src/content-utils/__tests__/migrationContentTiptap.json'
 );
 const TRANSLATABLES_BASELINE = getAbsPath(
   '../packages/ricos-content/web/__tests__/translatablesMock.json'

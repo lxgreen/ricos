@@ -1,5 +1,6 @@
 import { wrappingInputRule } from '@tiptap/core';
 import type { RicosExtension } from 'ricos-tiptap-types';
+import bulletedListDataDefaults from 'ricos-schema/dist/statics/bulleted_list.defaults.json';
 import type { DOMOutputSpec } from 'prosemirror-model';
 
 export interface BulletListOptions {
@@ -42,6 +43,10 @@ export const createBulletedList = (): RicosExtension => ({
 
       parseHTML() {
         return [{ tag: 'ul' }];
+      },
+
+      addAttributes() {
+        return bulletedListDataDefaults;
       },
 
       renderHTML({ HTMLAttributes }) {

@@ -323,6 +323,9 @@ describe('migrate from draft', () => {
               ],
             },
           ],
+          orderedListData: {
+            indentation: 0,
+          },
         },
       ],
       metadata: {
@@ -420,6 +423,195 @@ describe('migrate from draft', () => {
     const converted = fromDraft(faultyDividerValues, { ignoreUnsupportedValues: true });
     expect(
       compare(converted, RichContent.fromJSON(faultyDividerValuesMigrated), {
+        ignoredKeys: ['id'],
+      })
+    ).toEqual({});
+  });
+
+  it('should convert list nodes correctly', () => {
+    const draftContent = {
+      blocks: [
+        {
+          key: 'foo',
+          text: 'AAA',
+          type: 'ordered-list-item',
+          depth: 0,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        },
+        {
+          key: 'bquqe',
+          text: 'BBB',
+          type: 'ordered-list-item',
+          depth: 1,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        },
+        {
+          key: '641f',
+          text: 'CCC',
+          type: 'ordered-list-item',
+          depth: 1,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        },
+        {
+          key: '7mcq2',
+          text: 'DDD',
+          type: 'ordered-list-item',
+          depth: 0,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        },
+      ],
+      entityMap: {},
+      documentStyle: {},
+      VERSION: '8.70.19',
+      ID: '60c2c68e-d169-4084-aaf7-ec7fe883a600',
+    };
+
+    const expected = {
+      nodes: [
+        {
+          type: 'ORDERED_LIST',
+          id: '9kc0kh68v571e424',
+          nodes: [
+            {
+              type: 'LIST_ITEM',
+              id: 'foo',
+              nodes: [
+                {
+                  type: 'PARAGRAPH',
+                  id: '6qzay19',
+                  nodes: [
+                    {
+                      type: 'TEXT',
+                      id: '',
+                      nodes: [],
+                      textData: {
+                        text: 'AAA',
+                        decorations: [],
+                      },
+                    },
+                  ],
+                  paragraphData: {
+                    textStyle: {
+                      textAlignment: 'AUTO',
+                    },
+                    indentation: 0,
+                  },
+                },
+                {
+                  type: 'ORDERED_LIST',
+                  id: '6ifqkh68v571e422',
+                  nodes: [
+                    {
+                      type: 'LIST_ITEM',
+                      id: 'bquqe',
+                      nodes: [
+                        {
+                          type: 'PARAGRAPH',
+                          id: 'kafw920',
+                          nodes: [
+                            {
+                              type: 'TEXT',
+                              id: '',
+                              nodes: [],
+                              textData: {
+                                text: 'BBB',
+                                decorations: [],
+                              },
+                            },
+                          ],
+                          paragraphData: {
+                            textStyle: {
+                              textAlignment: 'AUTO',
+                            },
+                            indentation: 0,
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      type: 'LIST_ITEM',
+                      id: '641f',
+                      nodes: [
+                        {
+                          type: 'PARAGRAPH',
+                          id: 'v46b921',
+                          nodes: [
+                            {
+                              type: 'TEXT',
+                              id: '',
+                              nodes: [],
+                              textData: {
+                                text: 'CCC',
+                                decorations: [],
+                              },
+                            },
+                          ],
+                          paragraphData: {
+                            textStyle: {
+                              textAlignment: 'AUTO',
+                            },
+                            indentation: 0,
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                  orderedListData: { indentation: 1 },
+                },
+              ],
+            },
+            {
+              type: 'LIST_ITEM',
+              id: '7mcq2',
+              nodes: [
+                {
+                  type: 'PARAGRAPH',
+                  id: 'ccita23',
+                  nodes: [
+                    {
+                      type: 'TEXT',
+                      id: '',
+                      nodes: [],
+                      textData: {
+                        text: 'DDD',
+                        decorations: [],
+                      },
+                    },
+                  ],
+                  paragraphData: {
+                    textStyle: {
+                      textAlignment: 'AUTO',
+                    },
+                    indentation: 0,
+                  },
+                },
+              ],
+            },
+          ],
+          orderedListData: { indentation: 0 },
+        },
+      ],
+      metadata: {
+        version: 1,
+        createdTimestamp: '2022-03-16T11:20:53.697Z',
+        updatedTimestamp: '2022-03-16T11:20:53.697Z',
+        id: '60c2c68e-d169-4084-aaf7-ec7fe883a600',
+      },
+      documentStyle: {},
+    };
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const converted = fromDraft(draftContent, { ignoreUnsupportedValues: true });
+    expect(
+      compare(converted, RichContent.fromJSON(expected), {
         ignoredKeys: ['id'],
       })
     ).toEqual({});
