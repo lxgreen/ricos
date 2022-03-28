@@ -21,6 +21,8 @@
 
 - `ricos-schema`
   - [#3617](https://github.com/wix/ricos/pull/3617) add lists indentation
+- `toolbars-new/ui-components`
+  - [#3665](https://github.com/wix/ricos/pull/3665) wire icons color 
 
 </details>
   <hr/>

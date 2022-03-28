@@ -4,7 +4,7 @@ import type { CSSProperties } from 'react';
 import FileInput from './FileInput';
 import Image from './Image';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
-import { PlusIcon, ReplaceIcon, DeleteIcon } from '../Icons';
+import { PlusIcon, ReplaceIcon, TrashIcon } from '../Icons';
 import styles from '../../statics/styles/settings-add-item.scss';
 import classNames from 'classnames';
 import type { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
@@ -32,7 +32,7 @@ const AddItemOverlay: React.FC<AddItemOverlayProps> = ({
         <ReplaceIcon tabIndex={0} onClick={handleReplace} />
       </Tooltip>
       <Tooltip content={t('Settings_Remove_Image_Tooltip')} place="top">
-        <DeleteIcon tabIndex={0} onClick={handleDelete} />
+        <TrashIcon tabIndex={0} onClick={handleDelete} />
       </Tooltip>
     </div>
     <Image

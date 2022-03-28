@@ -16,7 +16,7 @@ export { default as MediaReplaceIcon } from './MediaReplaceIcon';
 export { default as ContextMenuIcon } from './ContextMenuIcon';
 export { default as PlaybackIcon } from './PlaybackIcon';
 export { default as ReplaceIcon } from './ReplaceIcon';
-export { default as DeleteIcon } from './DeleteIcon';
+export { default as TrashIcon } from './TrashIcon';
 export { default as SoundCloudIcon } from './SoundCloudIcon';
 export { default as SpotifyIcon } from './SpotifyIcon';
 
