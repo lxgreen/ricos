@@ -7,8 +7,6 @@ sidebar_label: Video Plugin
 import { RicosViewer } from 'ricos-viewer';
 import { pluginVideo } from 'wix-rich-content-plugin-video';
 import { pluginVideo as pluginVideoViewer } from 'wix-rich-content-plugin-video/viewer';
-import 'wix-rich-content-plugin-video/dist/styles.min.css';
-import 'ricos-editor/dist/styles.min.css';
 import { createContent } from 'ricos-content';
 import videoContent from '../../infra/editor/content/video-content.json';
 import { RicosEditorWithMobile } from '../../infra/editor/components/RicosEditorWithMobile.tsx';
@@ -33,15 +31,12 @@ If a Picture is Worth a Thousand Words, Then Is a Video Worth a Million?
 ```jsx
 /* Editor */
 import { RicosEditor } from 'ricos-editor';
-import 'ricos-editor/dist/styles.min.css';
 import { pluginVideo } from 'wix-rich-content-plugin-video';
-import 'wix-rich-content-plugin-video/dist/styles.min.css';
 <RicosEditor plugins={[pluginVideo(VideoConfig)]} />;
 
 /* Viewer */
 import { RicosViewer } from 'ricos-viewer';
 import { pluginVideo } from 'wix-rich-content-plugin-video/viewer';
-import 'wix-rich-content-plugin-video/dist/styles.min.css';
 <RicosViewer plugins={[pluginVideo(VideoConfig)]} />;
 ```
 
@@ -80,9 +75,10 @@ getVideoUrl?: (src: { pathname: string }) => string;
 ### `onProgress`
 
 Callback containing
-* `played` and `loaded` progress as a fraction.
-* `playedSeconds` and `loadedSeconds` in seconds.
-* `id` of video
+
+- `played` and `loaded` progress as a fraction.
+- `playedSeconds` and `loadedSeconds` in seconds.
+- `id` of video
 
 ```jsx
 onProgress?: () => ({ played: number, playedSeconds: number, loaded: number, loadedSeconds: number, id: string });
@@ -179,15 +175,12 @@ see documentation above.
 ```jsx
 /* Editor */
 import { RicosEditor } from 'ricos-editor';
-import 'ricos-editor/dist/styles.min.css';
 import { pluginVideo, videoButtonsTypes } from 'wix-rich-content-plugin-video';
-import 'wix-rich-content-plugin-video/dist/styles.min.css';
 <RicosEditor plugins={[pluginVideo({ exposeButtons: [videoButtonsTypes.soundCloud] })]} />;
 
 /* Viewer */
 import { RicosViewer } from 'ricos-viewer';
 import { pluginVideo } from 'wix-rich-content-plugin-video/viewer';
-import 'wix-rich-content-plugin-video/dist/styles.min.css';
 <RicosViewer plugins={[pluginVideo(VideoConfig)]} />;
 ```
 
@@ -229,15 +222,12 @@ see documentation above.
 ```jsx
 /* Editor */
 import { RicosEditor } from 'ricos-editor';
-import 'ricos-editor/dist/styles.min.css';
 import { pluginVideo, videoButtonsTypes } from 'wix-rich-content-plugin-video';
-import 'wix-rich-content-plugin-video/dist/styles.min.css';
 <RicosEditor plugins={[pluginVideo({ exposeButtons: [videoButtonsTypes.youTube] })]} />;
 
 /* Viewer */
 import { RicosViewer } from 'ricos-viewer';
 import { pluginVideo } from 'wix-rich-content-plugin-video/viewer';
-import 'wix-rich-content-plugin-video/dist/styles.min.css';
 <RicosViewer plugins={[pluginVideo(VideoConfig)]} />;
 ```
 

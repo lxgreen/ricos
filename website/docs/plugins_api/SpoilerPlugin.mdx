@@ -5,14 +5,9 @@ sidebar_label: Spoiler Plugin
 ---
 
 import { pluginSpoiler, SpoilerEditorWrapper } from 'wix-rich-content-plugin-spoiler';
-import 'wix-rich-content-plugin-spoiler/dist/styles.min.css';
 import { pluginGallery, GALLERY_TYPE } from 'wix-rich-content-plugin-gallery';
-import 'wix-rich-content-plugin-gallery/dist/styles.min.css';
 import { pluginImage, IMAGE_TYPE } from 'wix-rich-content-plugin-image';
-import 'wix-rich-content-plugin-image/dist/styles.min.css';
 import { pluginVideo, VIDEO_TYPE } from 'wix-rich-content-plugin-video';
-import 'wix-rich-content-plugin-video/dist/styles.min.css';
-import 'ricos-editor/dist/styles.min.css';
 import { createContent } from 'ricos-content';
 import { RicosEditorWithMobile } from '../../infra/editor/components/RicosEditorWithMobile.tsx';
 
@@ -47,8 +42,6 @@ For consume Spoiler you need to:
 /* Editor */
 import { RicosEditor } from 'ricos-editor';
 import { pluginSpoiler, SpoilerEditorWrapper } from 'wix-rich-content-plugin-spoiler';
-import 'ricos-editor/dist/styles.min.css';
-import 'wix-rich-content-plugin-spoiler/dist/styles.min.css';
 <RicosEditor plugins={[pluginSpoiler({SpoilerEditorWrapper, supportedPlugins: [IMAGE_TYPE, GALLERY_TYPE, VIDEO_TYPE]})]} />;
 /* For support inline spoiler (for text), you should add spoiler button to text formatting toolbar by add it to getToolbarSettings config.
 For more information click [here](https://ricos.js.org/docs/rce_api/ToolbarCustomization/#gettoolbarsettings-api) */
@@ -66,7 +59,6 @@ import {
   SPOILER_TYPE,
   pluginSpoiler,
 } from 'wix-rich-content-plugin-spoiler/viewer';
-import 'wix-rich-content-plugin-spoiler/dist/styles.min.css';
 <RicosViewer
   plugins={[pluginSpoiler({initSpoilersContentState, SpoilerViewerWrapper})]}
   inlineStyleMappers={spoilerInlineStyleMapper(config, initialState)}

@@ -13253,17 +13253,6 @@ wix-rich-content-plugin-mentions@8.69.13:
     wix-rich-content-editor-common "8.69.13"
     wix-rich-content-plugin-commons "8.69.13"
 
-wix-rich-content-plugin-sound-cloud@8.69.13:
-  version "8.69.13"
-  resolved "https://registry.yarnpkg.com/wix-rich-content-plugin-sound-cloud/-/wix-rich-content-plugin-sound-cloud-8.69.13.tgz#60bca4dd55c7dd50e63fe015a07007029b1c2893"
-  integrity sha512-HihEbOmkLoUIRalDUkvz8RtvsBGzlYYTeZ2k23jxVRY0BnLYMSBI+cy0zC2WdblcZpRVd3+eTn6S3g+CrhuXWQ==
-  dependencies:
-    react-player "~1.14.0"
-    wix-rich-content-common "8.69.13"
-    wix-rich-content-editor-common "8.69.13"
-    wix-rich-content-plugin-commons "8.69.13"
-    wix-rich-content-ui-components "8.69.13"
-
 wix-rich-content-plugin-spoiler@8.69.13:
   version "8.69.13"
   resolved "https://registry.yarnpkg.com/wix-rich-content-plugin-spoiler/-/wix-rich-content-plugin-spoiler-8.69.13.tgz#f97af45cc968bb2ea5e200a9180b985acb03633f"
