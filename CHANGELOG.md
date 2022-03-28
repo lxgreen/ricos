@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+  <hr/>
+
+## 8.70.28 (Mar 28, 2022)
+
 ### :bug: Bug Fix
 
 - `ricos-schema`
@@ -27,9 +34,6 @@
   - [#3667](https://github.com/wix/ricos/pull/3667) support print css
   - `audio`
   - [#3666](https://github.com/wix/ricos/pull/3666) fix audio data loader & settings replace modal
-
-</details>
-  <hr/>
 
 ## 8.70.27 (Mar 27, 2022)
 
