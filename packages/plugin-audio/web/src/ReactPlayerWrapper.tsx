@@ -33,6 +33,7 @@ interface Props {
   disableDownload?: boolean;
   showControls?: boolean;
   disabled?: boolean;
+  isLoading?: boolean;
   helpers?: Helpers;
 }
 
@@ -47,6 +48,7 @@ const ReactPlayerWrapper: React.FC<Props> = ({
   showControls,
   disabled,
   theme,
+  isLoading,
 }) => {
   const [URL, setURL] = useState(url);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -63,7 +65,6 @@ const ReactPlayerWrapper: React.FC<Props> = ({
   const resizeWidths = { small: 320 };
   const reactPlayerSize = showControls ? '100%' : 0;
   const hasDetails = authorName || name;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const reactPlayerRef = useRef<ReactPlayer>(null);
   const customPlayerRef = useRef<HTMLDivElement>(null);
   const onDownload = () => downloadFile(URL, name || 'untitled');
@@ -196,6 +197,7 @@ const ReactPlayerWrapper: React.FC<Props> = ({
                 handlePause={handlePause}
                 isPlaying={isPlaying}
                 disabled={disabled}
+                isLoading={isLoading}
               />
               {!isMobile && renderAudioDuration()}
               <div className={styles.track_sliders_wrapper}>

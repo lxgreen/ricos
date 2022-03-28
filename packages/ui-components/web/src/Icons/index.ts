@@ -19,6 +19,7 @@ export { default as ReplaceIcon } from './ReplaceIcon';
 export { default as TrashIcon } from './TrashIcon';
 export { default as SoundCloudIcon } from './SoundCloudIcon';
 export { default as SpotifyIcon } from './SpotifyIcon';
+export { default as LoaderIcon } from './LoaderIcon';
 
 //need to import from plugin-commons
 // export { default as AlignCenterIcon } from './AlignCenterIcon';

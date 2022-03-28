@@ -104,8 +104,9 @@ export const tempDataBuilder = {
   [VIDEO_TYPE]: ({ url }) => {
     return { src: url, tempData: true };
   },
-  [AUDIO_TYPE]: ({ url, file: { name } }) => {
+  [AUDIO_TYPE]: ({ url, file }) => {
     const audio = { src: { id: url } };
+    const name = file.name.split('.')[0];
     return { audio, name, tempData: true };
   },
   [FILE_UPLOAD_TYPE]: ({ file }) => {

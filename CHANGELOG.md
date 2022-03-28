@@ -25,6 +25,8 @@
   - [#3665](https://github.com/wix/ricos/pull/3665) wire icons color
 - `ricos-viewer`
   - [#3667](https://github.com/wix/ricos/pull/3667) support print css
+  - `audio`
+  - [#3666](https://github.com/wix/ricos/pull/3666) fix audio data loader & settings replace modal
 
 </details>
   <hr/>

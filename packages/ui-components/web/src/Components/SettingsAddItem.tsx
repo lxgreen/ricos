@@ -28,9 +28,11 @@ const AddItemOverlay: React.FC<AddItemOverlayProps> = ({
 }) => (
   <div className={styles.settingsAddItem_overlay}>
     <div className={styles.settingsAddItem_overlay_icons}>
-      <Tooltip content={t('Settings_Replace_Image_Tooltip')} place="top">
-        <ReplaceIcon tabIndex={0} onClick={handleReplace} />
-      </Tooltip>
+      {handleReplace && (
+        <Tooltip content={t('Settings_Replace_Image_Tooltip')} place="top">
+          <ReplaceIcon tabIndex={0} onClick={handleReplace} />
+        </Tooltip>
+      )}
       <Tooltip content={t('Settings_Remove_Image_Tooltip')} place="top">
         <TrashIcon tabIndex={0} onClick={handleDelete} />
       </Tooltip>
@@ -94,14 +96,7 @@ const SettingsAddItem: React.FC<SettingsAddItemProps> = ({
         <PlusIcon />
       </FileInput>
       {src && (
-        <AddItemOverlay
-          handleDelete={handleDelete}
-          handleReplace={handleFileSelection}
-          theme={theme}
-          src={src}
-          alt={alt}
-          t={t}
-        />
+        <AddItemOverlay handleDelete={handleDelete} theme={theme} src={src} alt={alt} t={t} />
       )}
     </div>
   );

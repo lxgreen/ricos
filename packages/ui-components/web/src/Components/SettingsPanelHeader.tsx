@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/tabindex-no-positive */
 import React from 'react';
 import styles from '../../statics/styles/settings-panel-header.scss';
 import { CloseIcon } from '../Icons';

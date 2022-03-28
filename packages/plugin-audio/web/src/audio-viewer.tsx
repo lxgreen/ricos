@@ -15,6 +15,7 @@ interface Props {
   helpers: Helpers;
   isMobile: boolean;
   disabled?: boolean;
+  isLoading?: boolean;
 }
 
 const AudioViewer: FC<Props> = ({
@@ -24,6 +25,7 @@ const AudioViewer: FC<Props> = ({
   settings,
   disabled,
   componentData,
+  isLoading,
 }) => {
   const classes = useMemo(() => mergeStyles({ styles, theme }), [theme]);
   const { audio = {}, authorName, name, coverImage, disableDownload } = componentData;
@@ -44,6 +46,7 @@ const AudioViewer: FC<Props> = ({
           isMobile={isMobile}
           showControls={!!audio?.src?.url}
           disabled={disabled}
+          isLoading={isLoading}
         />
       ) : (
         <AudioEmbedViewer

@@ -53,6 +53,8 @@ const AudioSettings = ({
     helpers.handleFileUpload(file, handleFilesAdded);
   };
 
+  const handleClose = () => (useModalBaseActionHoc ? onCancel() : helpers.closeModal());
+
   const handleCoverImageDelete = () => setCoverImage(null);
 
   const inputsData = [
@@ -61,6 +63,7 @@ const AudioSettings = ({
       value: name,
       onChange: value => setName(value),
       dataHook: 'audioSettingsAudioNameInput',
+      focused: true,
     },
     {
       label: t('AudioPlugin_Settings_AuthorName_Label'),
@@ -79,12 +82,12 @@ const AudioSettings = ({
         t={t}
         theme={theme}
         title={t('AudioPlugin_Settings_Header')}
-        onCancel={onCancel}
-        onSave={helpers?.closeModal}
+        onCancel={handleClose}
+        onSave={helpers.closeModal}
         useNewSettingsUi
       />
     ) : (
-      <SettingsPanelHeader title={t('AudioPlugin_Settings_Header')} onClose={onCancel} />
+      <SettingsPanelHeader title={t('AudioPlugin_Settings_Header')} onClose={handleClose} />
     );
 
   const imgSrc =
@@ -120,7 +123,6 @@ const AudioSettings = ({
         [styles.audio_settings_mobile]: isMobile,
       })}
     >
-      {renderHeader()}
       <div className={styles.audio_settings_wrapper}>
         <SettingsSection theme={theme} className={classNames(styles.audio_settings_inputs_wrapper)}>
           {renderInputs()}
@@ -163,6 +165,7 @@ const AudioSettings = ({
             {t('AudioPlugin_Settings_AudioCanBeDownloaded_Tooltip')}
           </div>
         )}
+        {renderHeader()}
       </div>
     </div>
   );

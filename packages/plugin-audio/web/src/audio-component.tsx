@@ -4,7 +4,6 @@ import type { AudioPluginEditorConfig } from './types';
 import { AUDIO_TYPE } from './types';
 import { DEFAULTS } from './defaults';
 import type { ComponentData, Helpers, RichContentTheme } from 'wix-rich-content-common';
-import { Loader } from 'wix-rich-content-ui-components';
 
 interface Props {
   componentData: ComponentData;
@@ -22,17 +21,15 @@ class AudioComponent extends React.Component<Props> {
   render() {
     const { componentData, settings, theme, helpers, isMobile, isLoading } = this.props;
     return (
-      <>
-        <AudioViewer
-          componentData={componentData}
-          settings={settings}
-          theme={theme}
-          helpers={helpers}
-          isMobile={isMobile}
-          disabled
-        />
-        {(componentData?.tempData || isLoading) && <Loader theme={theme} type={'medium'} />}
-      </>
+      <AudioViewer
+        componentData={componentData}
+        settings={settings}
+        theme={theme}
+        helpers={helpers}
+        isMobile={isMobile}
+        isLoading={componentData?.tempData || isLoading}
+        disabled
+      />
     );
   }
 }

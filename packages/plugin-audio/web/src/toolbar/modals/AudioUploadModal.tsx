@@ -10,7 +10,6 @@ const AudioUploadModal = props => {
     t,
     handleFileSelection,
     handleFileUpload,
-    isMobile = false,
     languageDir,
     helpers,
     onConfirm,
@@ -58,10 +57,13 @@ const AudioUploadModal = props => {
   };
 
   const onLocalLoad = tempData => {
-    onUpload({ ...getComponentData(), ...tempData });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { name, ...rest } = tempData;
+    const tempComponentData = getComponentData()?.name ? rest : tempData;
+    onUpload({ ...getComponentData(), ...tempComponentData });
   };
 
-  const getComponentData = () => pubsub.get('componentData');
+  const getComponentData = () => pubsub.get('componentData') ?? componentData;
 
   const getAudioTags = async file => {
     const tags = await id3.fromFile(file);

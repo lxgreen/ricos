@@ -1,14 +1,21 @@
 import React from 'react';
-import { PlayIcon, PauseIcon } from 'wix-rich-content-ui-components';
-
+import { PlayIcon, PauseIcon, LoaderIcon } from 'wix-rich-content-ui-components';
+import styles from '../../statics/styles/audio.rtlignore.scss';
 interface Props {
   handlePause: () => void;
   handlePlay: () => void;
   isPlaying: boolean;
   disabled?: boolean;
+  isLoading?: boolean;
 }
 
-const AudioActionIcons: React.FC<Props> = ({ isPlaying, handlePause, handlePlay, disabled }) => {
+const AudioActionIcons: React.FC<Props> = ({
+  isPlaying,
+  handlePause,
+  handlePlay,
+  disabled,
+  isLoading,
+}) => {
   const onKeyPress = e => {
     if (e.key === 'Enter') {
       isPlaying ? handlePause() : handlePlay();
@@ -22,7 +29,11 @@ const AudioActionIcons: React.FC<Props> = ({ isPlaying, handlePause, handlePlay,
 
   const PlayPauseIconComponent = disabled || !isPlaying ? PlayIcon : PauseIcon;
 
-  return <PlayPauseIconComponent {...props} />;
+  return isLoading ? (
+    <LoaderIcon className={styles.audio_loader_icon} />
+  ) : (
+    <PlayPauseIconComponent {...props} />
+  );
 };
 
 export default AudioActionIcons;
