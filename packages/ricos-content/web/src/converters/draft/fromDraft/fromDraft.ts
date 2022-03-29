@@ -62,6 +62,7 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
   const { blocks, entityMap, documentStyle, ID: id } = cloneDeep(draftJSON);
   const nodes: Node[] = [];
   const contentIdPrefix = Math.random().toString(36).substr(2, 9);
+  const withDepth = (block: RicosContentBlock, depth = 0) => ({ ...block, depth });
 
   const parseBlock = index => {
     const block = blocks[index];
@@ -128,8 +129,9 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
   const parseQuoteBlock = (block: RicosContentBlock): Node => ({
     id: block.key,
     type: Node_Type.BLOCKQUOTE,
-    nodes: [parseTextBlock(block)],
+    nodes: [parseTextBlock(withDepth(block))],
     style: getNodeStyle(block.data),
+    blockquoteData: { indentation: block.depth },
   });
 
   const parseCodeBlock = (block: RicosContentBlock): Node => ({
@@ -195,7 +197,7 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
   const createListItem = (block: RicosContentBlock): Node => ({
     id: block.key,
     type: Node_Type.LIST_ITEM,
-    nodes: [parseTextBlock({ ...block, depth: 0 })],
+    nodes: [parseTextBlock(withDepth(block))],
   });
 
   const isListBlock = (block: RicosContentBlock): boolean =>

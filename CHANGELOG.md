@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
 
+- `ricos-schema`
+  - [#3635](https://github.com/wix/ricos/pull/3635) add blockquote indentation
 
 </details>
   <hr/>

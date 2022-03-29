@@ -40,6 +40,9 @@ const pluginDataPropByType = {
   [Node_Type.TEXT]: 'textData',
   [Node_Type.VIDEO]: 'videoData',
   [Node_Type.AUDIO]: 'audioData',
+  [Node_Type.ORDERED_LIST]: 'orderedListData',
+  [Node_Type.BULLETED_LIST]: 'bulletedListData',
+  [Node_Type.BLOCKQUOTE]: 'blockquoteData',
 };
 
 // defaultContent has to include any non-primitive fields to make tiptap refer nested fields
@@ -75,6 +78,18 @@ const defaultContent = {
     {
       type: 'AUDIO',
       audioData: { containerData, audio: {} },
+    },
+    {
+      type: 'ORDERED_LIST',
+      orderedListData: {},
+    },
+    {
+      type: 'BULLETED_LIST',
+      bulletedListData: {},
+    },
+    {
+      type: 'BLOCKQUOTE',
+      blockquoteData: {},
     },
   ],
 };

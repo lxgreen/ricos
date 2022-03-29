@@ -1198,7 +1198,10 @@
             "indentation": 0
           }
         }
-      ]
+      ],
+      "blockquoteData": {
+        "indentation": 0
+      }
     },
     {
       "type": "ORDERED_LIST",
@@ -2042,7 +2045,10 @@
                         "indentation": 0
                       }
                     }
-                  ]
+                  ],
+                  "blockquoteData": {
+                    "indentation": 0
+                  }
                 }
               ]
             },

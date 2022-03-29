@@ -341,6 +341,70 @@ describe('migrate from draft', () => {
     ).toEqual({});
   });
 
+  it('should convert blockquote correctly', () => {
+    const draftContent = {
+      blocks: [
+        {
+          key: '5lrjt',
+          text: 'asdsadasd',
+          type: 'blockquote',
+          depth: 4,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        },
+      ],
+      entityMap: {},
+      documentStyle: {},
+      VERSION: '8.70.20',
+      ID: '06198048-7c9f-4be1-b495-32722fbddf8a',
+    };
+    const expected = {
+      nodes: [
+        {
+          type: 'BLOCKQUOTE',
+          id: '5lrjt',
+          nodes: [
+            {
+              type: 'PARAGRAPH',
+              id: '62kaz3',
+              nodes: [
+                {
+                  type: 'TEXT',
+                  id: '',
+                  nodes: [],
+                  textData: {
+                    text: 'asdsadasd',
+                    decorations: [],
+                  },
+                },
+              ],
+              paragraphData: {
+                textStyle: {
+                  textAlignment: 'AUTO',
+                },
+                indentation: 0,
+              },
+            },
+          ],
+          blockquoteData: { indentation: 4 },
+        },
+      ],
+      metadata: {
+        version: 1,
+        createdTimestamp: '2022-03-21T14:13:07.937Z',
+        updatedTimestamp: '2022-03-21T14:13:07.937Z',
+        id: '06198048-7c9f-4be1-b495-32722fbddf8a',
+      },
+      documentStyle: {},
+    };
+    expect(
+      compare(fromDraft(draftContent), RichContent.fromJSON(expected), {
+        ignoredKeys: ['id'],
+      })
+    ).toEqual({});
+  });
+
   it('should ignore unsupported blocks and decorations', () => {
     expect(
       compare(

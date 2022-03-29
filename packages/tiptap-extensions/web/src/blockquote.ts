@@ -1,5 +1,6 @@
 import styles from './statics/styles.scss';
 import { mergeAttributes, wrappingInputRule } from '@tiptap/core';
+import blockquoteDataDefaults from 'ricos-schema/dist/statics/blockquote.defaults.json';
 import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
@@ -47,6 +48,10 @@ export const createBlockquote = (): RicosExtension => ({
 
       parseHTML() {
         return [{ tag: 'blockquote' }];
+      },
+
+      addAttributes() {
+        return blockquoteDataDefaults;
       },
 
       renderHTML({ HTMLAttributes }) {

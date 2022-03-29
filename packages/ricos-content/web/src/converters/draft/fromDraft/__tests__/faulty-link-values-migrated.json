@@ -10,12 +10,20 @@
           "nodes": [],
           "textData": {
             "text": "Create a blog post subtitle that summarizes your post in a few short, punchy sentences and entices your audience to continue reading.",
-            "decorations": [{ "type": "BOLD", "fontWeightValue": 700 }]
+            "decorations": [
+              {
+                "type": "BOLD",
+                "fontWeightValue": 700
+              }
+            ]
           }
         }
       ],
       "paragraphData": {
-        "textStyle": { "textAlignment": "AUTO", "lineHeight": "1.38" },
+        "textStyle": {
+          "textAlignment": "AUTO",
+          "lineHeight": "1.38"
+        },
         "indentation": 0
       }
     },
@@ -26,11 +34,15 @@
       "imageData": {
         "containerData": {
           "alignment": "CENTER",
-          "width": { "size": "CONTENT" },
+          "width": {
+            "size": "CONTENT"
+          },
           "textWrap": true
         },
         "image": {
-          "src": { "id": "84770f_d9b23fce65354d53a8866f9b8da0dcf1~mv2.jpg" },
+          "src": {
+            "id": "84770f_d9b23fce65354d53a8866f9b8da0dcf1~mv2.jpg"
+          },
           "width": 7500,
           "height": 11000
         }
@@ -41,7 +53,10 @@
       "id": "68abh",
       "nodes": [],
       "paragraphData": {
-        "textStyle": { "textAlignment": "AUTO", "lineHeight": "1.38" },
+        "textStyle": {
+          "textAlignment": "AUTO",
+          "lineHeight": "1.38"
+        },
         "indentation": 0
       }
     },
@@ -60,7 +75,10 @@
         }
       ],
       "paragraphData": {
-        "textStyle": { "textAlignment": "AUTO", "lineHeight": "1.38" },
+        "textStyle": {
+          "textAlignment": "AUTO",
+          "lineHeight": "1.38"
+        },
         "indentation": 0
       }
     },
@@ -69,7 +87,10 @@
       "id": "fu3gd",
       "nodes": [],
       "paragraphData": {
-        "textStyle": { "textAlignment": "AUTO", "lineHeight": "1.38" },
+        "textStyle": {
+          "textAlignment": "AUTO",
+          "lineHeight": "1.38"
+        },
         "indentation": 0
       }
     },
@@ -77,7 +98,12 @@
       "type": "PARAGRAPH",
       "id": "faqrn",
       "nodes": [],
-      "paragraphData": { "textStyle": { "textAlignment": "AUTO" }, "indentation": 0 }
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
     },
     {
       "type": "BUTTON",
@@ -87,29 +113,49 @@
         "type": "LINK",
         "containerData": {
           "alignment": "CENTER",
-          "width": { "size": "ORIGINAL" },
+          "width": {
+            "size": "ORIGINAL"
+          },
           "textWrap": true
         },
         "styles": {
-          "border": { "width": 0, "radius": 0 },
-          "colors": { "text": "#FFFFFF", "border": "#0261FF", "background": "#0261FF" }
+          "border": {
+            "width": 0,
+            "radius": 0
+          },
+          "colors": {
+            "text": "#FFFFFF",
+            "border": "#0261FF",
+            "background": "#0261FF"
+          }
         },
         "text": "Click Me",
-        "link": { "target": "SELF", "url": "google.com" }
+        "link": {
+          "target": "SELF",
+          "url": "google.com"
+        }
       }
     },
     {
       "type": "PARAGRAPH",
       "id": "ef7an",
       "nodes": [],
-      "paragraphData": { "textStyle": { "textAlignment": "AUTO" }, "indentation": 0 }
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
     },
     {
       "type": "PARAGRAPH",
       "id": "foic5",
       "nodes": [],
       "paragraphData": {
-        "textStyle": { "textAlignment": "AUTO", "lineHeight": "1.38" },
+        "textStyle": {
+          "textAlignment": "AUTO",
+          "lineHeight": "1.38"
+        },
         "indentation": 0
       }
     },
@@ -119,7 +165,7 @@
       "nodes": [
         {
           "type": "PARAGRAPH",
-          "id": "eqxw18",
+          "id": "4jtph8",
           "nodes": [
             {
               "type": "TEXT",
@@ -127,23 +173,37 @@
               "nodes": [],
               "textData": {
                 "text": "“Do you have a design in mind for your blog? Whether you prefer a trendy postcard look or you’re going for a more editorial style blog - there’s a stunning layout for everyone.”",
-                "decorations": [{ "type": "ITALIC", "italicData": true }]
+                "decorations": [
+                  {
+                    "type": "ITALIC",
+                    "italicData": true
+                  }
+                ]
               }
             }
           ],
           "paragraphData": {
-            "textStyle": { "textAlignment": "AUTO", "lineHeight": "1.38" },
+            "textStyle": {
+              "textAlignment": "AUTO",
+              "lineHeight": "1.38"
+            },
             "indentation": 0
           }
         }
-      ]
+      ],
+      "blockquoteData": {
+        "indentation": 0
+      }
     },
     {
       "type": "PARAGRAPH",
       "id": "2dqdi",
       "nodes": [],
       "paragraphData": {
-        "textStyle": { "textAlignment": "AUTO", "lineHeight": "1.38" },
+        "textStyle": {
+          "textAlignment": "AUTO",
+          "lineHeight": "1.38"
+        },
         "indentation": 0
       }
     },
@@ -162,7 +222,10 @@
         }
       ],
       "paragraphData": {
-        "textStyle": { "textAlignment": "AUTO", "lineHeight": "1.38" },
+        "textStyle": {
+          "textAlignment": "AUTO",
+          "lineHeight": "1.38"
+        },
         "indentation": 0
       }
     },
@@ -170,7 +233,12 @@
       "type": "PARAGRAPH",
       "id": "8o512",
       "nodes": [],
-      "paragraphData": { "textStyle": { "textAlignment": "AUTO" }, "indentation": 0 }
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
     },
     {
       "type": "HEADING",
@@ -180,16 +248,31 @@
           "type": "TEXT",
           "id": "",
           "nodes": [],
-          "textData": { "text": "Create Relevant Content", "decorations": [] }
+          "textData": {
+            "text": "Create Relevant Content",
+            "decorations": []
+          }
         }
       ],
-      "headingData": { "level": 2, "textStyle": { "textAlignment": "AUTO", "lineHeight": "1.38" }, "indentation": 0 }
+      "headingData": {
+        "level": 2,
+        "textStyle": {
+          "textAlignment": "AUTO",
+          "lineHeight": "1.38"
+        },
+        "indentation": 0
+      }
     },
     {
       "type": "PARAGRAPH",
       "id": "4tj4u",
       "nodes": [],
-      "paragraphData": { "textStyle": { "textAlignment": "AUTO" }, "indentation": 0 }
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
     },
     {
       "type": "PARAGRAPH",
@@ -206,7 +289,10 @@
         }
       ],
       "paragraphData": {
-        "textStyle": { "textAlignment": "AUTO", "lineHeight": "1.38" },
+        "textStyle": {
+          "textAlignment": "AUTO",
+          "lineHeight": "1.38"
+        },
         "indentation": 0
       }
     },
@@ -215,7 +301,10 @@
       "id": "aaap8",
       "nodes": [],
       "paragraphData": {
-        "textStyle": { "textAlignment": "AUTO", "lineHeight": "1.38" },
+        "textStyle": {
+          "textAlignment": "AUTO",
+          "lineHeight": "1.38"
+        },
         "indentation": 0
       }
     },
@@ -234,7 +323,10 @@
         }
       ],
       "paragraphData": {
-        "textStyle": { "textAlignment": "AUTO", "lineHeight": "1.38" },
+        "textStyle": {
+          "textAlignment": "AUTO",
+          "lineHeight": "1.38"
+        },
         "indentation": 0
       }
     },
@@ -242,13 +334,18 @@
       "type": "PARAGRAPH",
       "id": "6lqok",
       "nodes": [],
-      "paragraphData": { "textStyle": { "textAlignment": "AUTO" }, "indentation": 0 }
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
     }
   ],
   "metadata": {
     "version": 1,
-    "createdTimestamp": "2021-12-16T17:45:46.480Z",
-    "updatedTimestamp": "2021-12-16T17:45:46.480Z",
-    "id": "9d3fb40b-dd5b-46c0-8802-ba9ce9ad5ece"
+    "createdTimestamp": "2022-03-27T10:56:23.725Z",
+    "updatedTimestamp": "2022-03-27T10:56:23.725Z",
+    "id": "f01796bf-9e35-453c-a061-13563111932a"
   }
 }
