@@ -21,6 +21,8 @@
 
 - `ricos-schema`
   - [#3635](https://github.com/wix/ricos/pull/3635) add blockquote indentation
+- `audio`
+  - [#3673](https://github.com/wix/ricos/pull/3673) fix image settings & context menu scroll
 
 </details>
   <hr/>

@@ -2,13 +2,15 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 
 .settingsAddItem {
-  margin: 6px;
   display: inline-block;
   vertical-align: top;
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
   border-radius: var(--ricos-settings-whitebox-border-radius, 0px);
+  &:not(.withOverlay) {
+    margin: 6px;
+  }
   &.itemContainerSelected {
     box-shadow: 0 0 0 3px $settings-action-color-fallback;
   }
