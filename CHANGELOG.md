@@ -16,6 +16,11 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
+  
+  ### :rocket: New Feature
+
+- `mention-plugin`
+  - [#3675](https://github.com/wix/ricos/pull/3675) add viewer/loadable entry
 
 </details>
   <hr/>
@@ -28,6 +33,7 @@
   - [#3635](https://github.com/wix/ricos/pull/3635) add blockquote indentation
 - `audio`
   - [#3673](https://github.com/wix/ricos/pull/3673) fix image settings & context menu scroll
+
 
 ## 8.70.28 (Mar 28, 2022)
 

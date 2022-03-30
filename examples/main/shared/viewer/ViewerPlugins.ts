@@ -60,7 +60,7 @@ import {
   mentionsTypeMapper,
   MENTION_TYPE,
   pluginMentions,
-} from 'wix-rich-content-plugin-mentions/viewer';
+} from 'wix-rich-content-plugin-mentions/loadable/viewer';
 import {
   fileUploadTypeMapper,
   pluginFileUpload,
