@@ -16,8 +16,11 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-  
 
+### :bug: Bug Fix
+
+- `ricos-schema`
+  - [#3677](https://github.com/wix/ricos/pull/3677) draft converters: button converter considers button type
 
 </details>
   <hr/>
