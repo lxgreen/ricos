@@ -19,7 +19,7 @@
 
 ### :bug: Bug Fix
 
-- `ricos-schema`
+- `ricos-content`
   - [#3677](https://github.com/wix/ricos/pull/3677) draft converters: button converter considers button type
 
 </details>
