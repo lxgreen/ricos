@@ -8,7 +8,10 @@ export const ToggleButton = ({ toolbarItem, onClick }: ToolbarItemProps) => {
   const Icon = toolbarItem.presentation?.icon;
   return (
     <div
-      className={cx(styles.toggleButtonWrapper, toolbarItem.attributes.active ? styles.active : '')}
+      className={cx(styles.toggleButtonWrapper, {
+        [styles.active]: toolbarItem.attributes.active,
+        [styles.disabled]: toolbarItem.attributes.disabled,
+      })}
     >
       <div
         onMouseDown={e => e.preventDefault()}

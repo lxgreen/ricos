@@ -14,6 +14,8 @@ import {
   LinkIcon,
   TextColorIcon,
   TextHighlightIcon,
+  UndoIcon,
+  RedoIcon,
 } from '../icons';
 
 import {
@@ -35,6 +37,8 @@ import {
   isTextContainsLinkResolver,
   getTextColorInSelectionResolver,
   getHighlightColorInSelectionResolver,
+  isUndoStackEmptyResolver,
+  isRedoStackEmptyResolver,
 } from '../resolvers/draftResolvers';
 import type { IToolbarItemConfig } from '../types';
 
@@ -42,6 +46,46 @@ const MAX_FONT_SIZE = 900;
 const MIN_FONT_SIZE = 1;
 
 export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
+  {
+    id: 'undo',
+    type: 'toggle',
+    presentation: {
+      tooltip: 'Undo',
+      icon: UndoIcon,
+    },
+    attributes: {
+      visible: alwaysVisibleResolver,
+      disabled: isUndoStackEmptyResolver,
+    },
+    commands: {
+      undo:
+        ({ editorCommands }) =>
+        () => {
+          editorCommands.commands.undo();
+          editorCommands.commands.focus();
+        },
+    },
+  },
+  {
+    id: 'redo',
+    type: 'toggle',
+    presentation: {
+      tooltip: 'Redo',
+      icon: RedoIcon,
+    },
+    attributes: {
+      visible: alwaysVisibleResolver,
+      disabled: isRedoStackEmptyResolver,
+    },
+    commands: {
+      redo:
+        ({ editorCommands }) =>
+        () => {
+          editorCommands.commands.redo();
+          editorCommands.commands.focus();
+        },
+    },
+  },
   {
     id: 'bold',
     type: 'toggle',

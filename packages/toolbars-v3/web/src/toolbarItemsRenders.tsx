@@ -17,6 +17,12 @@ export const toolbarItemsRenders = {
   separator: () => {
     return <ToolbarButtonSeparator />;
   },
+  undo: toolbarItem => {
+    return <ToggleButton onClick={e => toolbarItem.commands?.undo(e)} toolbarItem={toolbarItem} />;
+  },
+  redo: toolbarItem => {
+    return <ToggleButton onClick={e => toolbarItem.commands?.redo(e)} toolbarItem={toolbarItem} />;
+  },
   bold: toolbarItem => {
     return (
       <ToggleButton onClick={e => toolbarItem.commands?.toggleBold(e)} toolbarItem={toolbarItem} />

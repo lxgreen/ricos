@@ -17,6 +17,8 @@ import {
   isTextContainsLinkResolver,
   getTextColorInSelectionResolver,
   getHighlightColorInSelectionResolver,
+  isUndoStackEmptyResolver,
+  isRedoStackEmptyResolver,
 } from './draftResolvers';
 import { EditorState } from '@wix/draft-js';
 
@@ -419,6 +421,46 @@ describe('draft resolvers', () => {
       getHighlightColorInSelectionResolver.resolve(editorState);
       expect(spy).toBeCalledWith(editorState, 'ricos-text-highlight');
       jest.resetModules();
+    });
+  });
+
+  describe('isUndoStackEmptyResolver', () => {
+    it('should return true if the undo stack is empty', () => {
+      const getUndoStackMock = jest.fn(() => {
+        return { size: 0 };
+      });
+      editorState.getUndoStack = getUndoStackMock;
+      expect(isUndoStackEmptyResolver.resolve(editorState)).toBe(true);
+      expect(getUndoStackMock).toBeCalled();
+    });
+
+    it('should return false if the undo stack is not empty', () => {
+      const getUndoStackMock = jest.fn(() => {
+        return { size: 1 };
+      });
+      editorState.getUndoStack = getUndoStackMock;
+      expect(isUndoStackEmptyResolver.resolve(editorState)).toBe(false);
+      expect(getUndoStackMock).toBeCalled();
+    });
+  });
+
+  describe('isRedoStackEmptyResolver', () => {
+    it('should return true if the redo stack is empty', () => {
+      const getRedoStackMock = jest.fn(() => {
+        return { size: 0 };
+      });
+      editorState.getRedoStack = getRedoStackMock;
+      expect(isRedoStackEmptyResolver.resolve(editorState)).toBe(true);
+      expect(getRedoStackMock).toBeCalled();
+    });
+
+    it('should return false if the redo stack is not empty', () => {
+      const getRedoStackMock = jest.fn(() => {
+        return { size: 1 };
+      });
+      editorState.getRedoStack = getRedoStackMock;
+      expect(isRedoStackEmptyResolver.resolve(editorState)).toBe(false);
+      expect(getRedoStackMock).toBeCalled();
     });
   });
 });

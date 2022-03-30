@@ -207,6 +207,20 @@ export const getHighlightColorInSelectionResolver = DraftContentResolver.create(
   }
 );
 
+export const isUndoStackEmptyResolver = DraftContentResolver.create(
+  RESOLVERS_IDS.IS_UNDO_STACK_EMPTY,
+  content => {
+    return content.getUndoStack().size === 0;
+  }
+);
+
+export const isRedoStackEmptyResolver = DraftContentResolver.create(
+  RESOLVERS_IDS.IS_REDO_STACK_EMPTY,
+  content => {
+    return content.getRedoStack().size === 0;
+  }
+);
+
 export const alwaysVisibleResolver = DraftContentResolver.create(
   RESOLVERS_IDS.ALWAYS_VISIBLE,
   () => {
