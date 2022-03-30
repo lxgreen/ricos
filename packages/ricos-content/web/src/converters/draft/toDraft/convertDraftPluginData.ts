@@ -17,7 +17,7 @@ import type {
   CollapsibleListData_InitialExpandedItems,
   Struct,
 } from 'ricos-schema';
-import { Node_Type, Decoration_Type } from 'ricos-schema';
+import { Node_Type, Decoration_Type, ButtonData_Type } from 'ricos-schema';
 import { cloneDeep, has, merge } from 'lodash';
 import toCamelCase from 'to-camel-case';
 import type { DraftGalleryStyles } from '../consts';
@@ -464,10 +464,10 @@ const convertCollapsibleListData = (
 };
 
 const convertButtonData = (data: Partial<ButtonData> & { button }) => {
-  const { link, text, styles } = data;
+  const { link, text, type, styles } = data;
   const { colors, border } = styles || {};
   const { width, radius } = border || {};
-  const convertedLink = link ? parseLink(link) : {};
+  const convertedLink = type === ButtonData_Type.LINK && link ? parseLink(link) : {};
   data.button = {
     settings: {
       buttonText: text,

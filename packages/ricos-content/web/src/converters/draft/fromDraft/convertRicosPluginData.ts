@@ -427,7 +427,7 @@ const convertButtonData = (
   };
   data.type = blockType === ACTION_BUTTON_TYPE ? ButtonData_Type.ACTION : ButtonData_Type.LINK;
   data.text = buttonText;
-  if (url) {
+  if (data.type === ButtonData_Type.LINK && url) {
     data.link = createLink({
       url,
       rel,
