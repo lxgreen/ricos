@@ -24,7 +24,7 @@ export const getTooltipStyles = (
   const getFontFamily = () => {
     let fontFamily = 'HelveticaNeue';
     if (typeof window !== 'undefined') {
-      const stylesContainer = document.querySelector(`[data-hook=root-editor`) || document.body;
+      const stylesContainer = document.querySelector(`[data-hook=root-editor]`) || document.body;
       const styles = window.getComputedStyle(stylesContainer);
       fontFamily = styles.getPropertyValue('--ricos-settings-text-font-family') || 'HelveticaNeue';
     }
