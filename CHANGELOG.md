@@ -17,15 +17,19 @@
     Click to see more.
   </summary>
   
+
+
+</details>
+  <hr/>
+
+## 8.70.30 (Mar 30, 2022)
+
   ### :rocket: New Feature
 
 - `mention-plugin`
   - [#3675](https://github.com/wix/ricos/pull/3675) add viewer/loadable entry
 - `audio`
   - [#3676](https://github.com/wix/ricos/pull/3676) add viewer/loadable entry
-
-</details>
-  <hr/>
 
 ## 8.70.29 (Mar 30, 2022)
 
