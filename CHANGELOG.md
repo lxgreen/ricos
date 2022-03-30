@@ -17,15 +17,17 @@
     Click to see more.
   </summary>
 
+</details>
+  <hr/>
+
+## 8.70.29 (Mar 30, 2022)
+
 ### :bug: Bug Fix
 
 - `ricos-schema`
   - [#3635](https://github.com/wix/ricos/pull/3635) add blockquote indentation
 - `audio`
   - [#3673](https://github.com/wix/ricos/pull/3673) fix image settings & context menu scroll
-
-</details>
-  <hr/>
 
 ## 8.70.28 (Mar 28, 2022)
 
