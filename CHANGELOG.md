@@ -21,6 +21,8 @@
 
 - `mention-plugin`
   - [#3675](https://github.com/wix/ricos/pull/3675) add viewer/loadable entry
+- `audio`
+  - [#3676](https://github.com/wix/ricos/pull/3676) add viewer/loadable entry
 
 </details>
   <hr/>
