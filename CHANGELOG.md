@@ -23,13 +23,15 @@
   - [#3677](https://github.com/wix/ricos/pull/3677) draft converters: button converter considers button type
 - `audio`
   - [#3681](https://github.com/wix/ricos/pull/3681) add placeholders & fix wiring
+- `image`
+  - [#3686](https://github.com/wix/ricos/pull/3686) fix image settings crashing when experiments is undefined
 
 </details>
   <hr/>
 
 ## 8.70.30 (Mar 30, 2022)
 
-  ### :rocket: New Feature
+### :rocket: New Feature
 
 - `mention-plugin`
   - [#3675](https://github.com/wix/ricos/pull/3675) add viewer/loadable entry
@@ -44,7 +46,6 @@
   - [#3635](https://github.com/wix/ricos/pull/3635) add blockquote indentation
 - `audio`
   - [#3673](https://github.com/wix/ricos/pull/3673) fix image settings & context menu scroll
-
 
 ## 8.70.28 (Mar 28, 2022)
 
