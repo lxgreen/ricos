@@ -23,7 +23,7 @@ import AudioModal from './modals/AudioModal';
 const createInsertButtons: CreateInsertButtons = ({
   t,
   settings,
-  disableDownload,
+  disableDownload = true,
   isMobile,
 }: {
   t: TranslationFunction;
@@ -56,7 +56,7 @@ const createInsertButtons: CreateInsertButtons = ({
     [audioButtonsTypes.audio]: {
       name: INSERT_PLUGIN_BUTTONS.AUDIO,
       modalElement: decorateComponentWithProps(AudioModal, settings),
-      tooltip: t('VideoPlugin_InsertButton_Tooltip'),
+      tooltip: t('AudioPlugin_InsertButton_Tooltip'),
       getIcon: () => icon,
     },
     [audioButtonsTypes.soundCloud]: {

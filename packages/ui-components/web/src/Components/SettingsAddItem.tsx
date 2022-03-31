@@ -82,7 +82,7 @@ const SettingsAddItem: React.FC<SettingsAddItemProps> = ({
       <FileInput
         className={classNames(styles.settingsAddItem, styles.filesItem, {
           [styles.mobile]: isMobile,
-          [styles.withOverlay]: src,
+          [styles.withOverlay]: handleDelete,
         })}
         dataHook={dataHook}
         onChange={handleFileChange}

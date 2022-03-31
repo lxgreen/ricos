@@ -53,7 +53,7 @@ const AudioUploadModal = props => {
       undefined,
       undefined
     );
-    setComponentData(data);
+    setComponentData({ ...componentData, ...data });
   };
 
   const onLocalLoad = tempData => {
@@ -63,7 +63,7 @@ const AudioUploadModal = props => {
     onUpload({ ...getComponentData(), ...tempComponentData });
   };
 
-  const getComponentData = () => pubsub.get('componentData') ?? componentData;
+  const getComponentData = () => ({ ...pubsub.get('componentData'), ...componentData });
 
   const getAudioTags = async file => {
     const tags = await id3.fromFile(file);

@@ -27,11 +27,9 @@ const AudioSettings = ({
   settings,
   experiments,
 }) => {
-  const { disableDownload } = componentData;
   const styles = mergeStyles({ styles: Styles, theme });
-  const [isDownloadEnabled, setIsDownloadEnabled] = useState(
-    !(disableDownload ?? !!settings.disableDownload)
-  );
+  const downLoadEnabled = !(componentData?.disableDownload ?? settings.disableDownload);
+  const [isDownloadEnabled, setIsDownloadEnabled] = useState(downLoadEnabled);
   const [coverImage, setCoverImage] = useState(componentData?.coverImage || null);
   const [name, setName] = useState(componentData?.name || '');
   const [authorName, setAuthorName] = useState(componentData?.authorName || '');
@@ -63,13 +61,14 @@ const AudioSettings = ({
       value: name,
       onChange: value => setName(value),
       dataHook: 'audioSettingsAudioNameInput',
-      focused: true,
+      placeholder: t('AudioPlugin_Settings_AudioName_Label_Placeholder'),
     },
     {
       label: t('AudioPlugin_Settings_AuthorName_Label'),
       value: authorName,
       onChange: value => setAuthorName(value),
       dataHook: 'audioSettingsAuthorNameInput',
+      placeholder: t('AudioPlugin_Settings_AuthorName_Label_Placeholder'),
     },
   ];
 

@@ -22,6 +22,8 @@ interface FileInputProps {
 class FileInput extends Component<FileInputProps, { focused: boolean }> {
   styles: Record<string, string>;
 
+  inputRef: React.RefObject<HTMLInputElement>;
+
   id: string;
 
   value = null;
@@ -37,6 +39,7 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
     this.styles = mergeStyles({ styles, theme: props.theme });
     this.state = { focused: false };
     this.id = `file_input_${Math.floor(Math.random() * 9999)}`;
+    this.inputRef = React.createRef();
   }
 
   onFocus() {
@@ -56,6 +59,8 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
     this.props.onChange(Array.from(e.target.files || []));
     e.target.value = null;
   };
+
+  onKeyPress = e => e.key === 'Enter' && this.inputRef?.current?.click();
 
   render() {
     const {
@@ -91,10 +96,10 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
         title={title}
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
         tabIndex={tabIndex}
-        onKeyPress={e => e.key === 'Enter' && this.onClick()}
+        onKeyPress={this.onKeyPress}
       >
         {handleFileSelection ? (
-          <button
+          <input
             disabled={disabled}
             className={styles.visuallyHidden}
             {...a11yProps}
@@ -102,6 +107,7 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
             tabIndex={-1}
             data-hook={dataHook}
             onClick={this.onClick}
+            ref={this.inputRef}
           />
         ) : (
           <input
@@ -116,7 +122,8 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
             accept={accept}
             onFocus={() => this.onFocus()}
             onBlur={() => this.onBlur()}
-            // tabIndex={tabIndex}
+            ref={this.inputRef}
+            tabIndex={-1}
             {...hasMultiple}
           />
         )}

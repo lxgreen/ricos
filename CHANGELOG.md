@@ -21,6 +21,8 @@
 
 - `ricos-content`
   - [#3677](https://github.com/wix/ricos/pull/3677) draft converters: button converter considers button type
+- `audio`
+  - [#3681](https://github.com/wix/ricos/pull/3681) add placeholders & fix wiring
 
 </details>
   <hr/>

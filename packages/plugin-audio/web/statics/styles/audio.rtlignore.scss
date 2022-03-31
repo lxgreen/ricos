@@ -9,7 +9,7 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
 
 .customPlayer {
   direction: ltr !important;
-  border: 1px solid;
+  border: 1px solid rgba($primary-text-color-tuple, 0.2);
   width: 100%;
   min-width: 320px;
   height: 96px;
@@ -44,8 +44,13 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
     min-width: 20px;
     max-width: 20px;
     height: 20px;
+    color: $primary-text-color;
+    fill: $primary-text-color;
+    &:hover {
+      color: rgba($primary-text-color-tuple, 0.5);
+      fill: rgba($primary-text-color-tuple, 0.5);
+    }
   }
-  @include svg-fill;
   &.customPlayer_mobile {
     min-width: 192px;
   }
@@ -218,6 +223,10 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
     cursor: pointer;
     &:hover {
       background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.05);
+    }
+    svg {
+      color: #000;
+      fill: #000;
     }
   }
   .dropdown_selected_button {
