@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+
+</details>
+  <hr/>
+
+## 8.70.31 (Mar 31, 2022)
 ### :bug: Bug Fix
 
 - `ricos-content`
@@ -25,9 +30,6 @@
   - [#3681](https://github.com/wix/ricos/pull/3681) add placeholders & fix wiring
 - `image`
   - [#3686](https://github.com/wix/ricos/pull/3686) fix image settings crashing when experiments is undefined
-
-</details>
-  <hr/>
 
 ## 8.70.30 (Mar 30, 2022)
 
