@@ -2,7 +2,7 @@ import type { RicosExtension } from 'ricos-tiptap-types';
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import { Plugin, PluginKey } from 'prosemirror-state';
 
-export const createPlaceholder = (): RicosExtension => ({
+export const createPlaceholder = ({ placeholder }): RicosExtension => ({
   type: 'extension' as const,
   groups: [],
   name: 'placeholder',
@@ -13,7 +13,7 @@ export const createPlaceholder = (): RicosExtension => ({
         return {
           emptyEditorClass: 'is-editor-empty',
           emptyNodeClass: 'is-empty',
-          placeholder: '',
+          placeholder: placeholder || '',
           showOnlyWhenEditable: true,
           showOnlyCurrent: true,
           includeChildren: false,

@@ -24,7 +24,7 @@ import {
   createTextDirection,
 } from 'wix-tiptap-extensions';
 
-export const coreConfigs: RicosExtension[] = [
+export const coreConfigs = ({ placeholder }) => [
   createDraftConfig(),
   createHistoryConfig(),
   createStylesConfig(),
@@ -43,7 +43,7 @@ export const coreConfigs: RicosExtension[] = [
   createTrailingNode(),
   // TODO: pass config?
   createLink({}),
-  createPlaceholder(),
+  createPlaceholder({ placeholder }),
   createFontSize(),
   createUniqueId(),
   createTextAlign(),

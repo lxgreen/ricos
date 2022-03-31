@@ -33,6 +33,7 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   onBlur,
   locale,
   editorStyleClasses,
+  placeholder = '',
   ...context
 }) => {
   const forceUpdate = useForceUpdate();
@@ -41,7 +42,7 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   const getContent = editor => tiptapToDraft(editor.getJSON() as JSONContent);
 
   useEffect(() => {
-    const mergedExtensions = Extensions.of([...coreConfigs, ...extensions]);
+    const mergedExtensions = Extensions.of([...coreConfigs({ placeholder }), ...extensions]);
     const patchedExtensions = patchExtensions(content, mergedExtensions);
     const tiptapExtensions = patchedExtensions.getTiptapExtensions();
     console.debug({ tiptapExtensions, content }); // eslint-disable-line no-console
