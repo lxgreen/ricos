@@ -24,7 +24,13 @@
       "type": "atomic",
       "depth": 0,
       "inlineStyleRanges": [],
-      "entityRanges": [{ "offset": 0, "length": 1, "key": 0 }],
+      "entityRanges": [
+        {
+          "offset": 0,
+          "length": 1,
+          "key": 0
+        }
+      ],
       "data": {}
     },
     {
@@ -42,7 +48,11 @@
       "type": "wix-draft-plugin-poll",
       "mutability": "IMMUTABLE",
       "data": {
-        "config": { "alignment": "center", "size": "large", "width": "full-width" },
+        "config": {
+          "alignment": "center",
+          "size": "large",
+          "width": "full-width"
+        },
         "poll": {
           "ownVotes": [],
           "title": "",
@@ -70,21 +80,29 @@
           "mediaId": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
         },
         "layout": {
-          "poll": { "type": "list", "direction": "ltr", "enableImage": false },
-          "option": { "enableImage": false }
+          "poll": {
+            "type": "list",
+            "direction": "ltr",
+            "enableImage": false
+          },
+          "option": {
+            "enableImage": false
+          }
         },
         "design": {
           "poll": {
             "backgroundType": "image",
             "background": "https://static.wixstatic.com/media/2dfdd3_03c2331b19bb41108b34938edf8951dd~mv2.jpg",
-            "borderRadius": 0
+            "borderRadius": "10px"
           },
-          "option": { "borderRadius": 0 }
+          "option": {
+            "borderRadius": "6px"
+          }
         }
       }
     }
   },
   "documentStyle": {},
-  "VERSION": "8.70.18",
+  "VERSION": "8.70.31",
   "ID": "cfd64b0e-1506-4c2b-88e0-004fd4cd4450"
 }

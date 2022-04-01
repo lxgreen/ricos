@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
-
+- `polls-plugin`
+  - [#3687](https://github.com/wix/ricos/pull/3687) fix polls schema error
+  
+  
 </details>
   <hr/>
 

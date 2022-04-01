@@ -212,7 +212,7 @@
             },
             "borderRadius": {
               "$id": "/properties/design/properties/poll/properties/borderRadius",
-              "type": "number",
+              "type": ["string", "number"],
               "title": "Poll border radius",
               "default": "0",
               "examples": ["5", "10"]
@@ -226,7 +226,7 @@
           "properties": {
             "borderRadius": {
               "$id": "/properties/design/properties/option/properties/borderRadius",
-              "type": "number",
+              "type": ["string", "number"],
               "title": "Poll option border radius",
               "default": "0",
               "examples": ["5", "10"]
