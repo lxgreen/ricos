@@ -16,11 +16,14 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
+  
+### :bug: Bug Fix
 
 - `polls-plugin`
   - [#3687](https://github.com/wix/ricos/pull/3687) fix polls schema error
-  
-  
+- `unsupported-blocks`
+  - [#3688](https://github.com/wix/ricos/pull/3688) default label instead of prop
+
 </details>
   <hr/>
 
