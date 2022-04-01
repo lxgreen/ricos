@@ -1,6 +1,5 @@
-import React from 'react';
 import { UnsupportedBlock as Component } from './component';
-import type { PluginProps, DOMOutputSpec, RicosNodeExtension } from 'ricos-tiptap-types';
+import type { DOMOutputSpec, RicosNodeExtension } from 'ricos-tiptap-types';
 import { firstRight } from 'wix-rich-content-common';
 import { isObject } from 'lodash';
 
@@ -26,12 +25,7 @@ export const getUnsupportedNodeConfig = ({ unsupportedNodeType, ...attrs }): Ric
   return {
     type: 'node' as const,
     groups: ['react'],
-    Component: (props: PluginProps) => (
-      <Component
-        label={`'${unsupportedNodeType}' is not supported by editor. Check editor configuration.`}
-        context={props.context}
-      />
-    ),
+    Component,
     name: unsupportedNodeType,
     createExtensionConfig: ({ mergeAttributes }) => ({
       name: unsupportedNodeType,
