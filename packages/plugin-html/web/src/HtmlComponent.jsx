@@ -62,7 +62,10 @@ class HtmlComponent extends Component {
     if (componentData.srcType === 'html') {
       let html = componentData && componentData.src;
       const pageURL = getPageURL(state.siteDomain);
-      if (pageURL && html && html.includes && html.includes('adsbygoogle')) {
+      const isGoogleAds = html?.includes('adsbygoogle');
+      const isIncludePageUrl = html?.includes('data-page-url=');
+      if (pageURL && isGoogleAds && !isIncludePageUrl) {
+        // Google Adsense must include data-page-url - if there is no data-page-url, add one
         const updatedAd = `<ins class="adsbygoogle"\n\tdata-page-url="${pageURL}"`;
         html = html.replace(new RegExp('<ins class="adsbygoogle"', 'g'), updatedAd);
       }
