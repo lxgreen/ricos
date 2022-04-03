@@ -17,6 +17,9 @@
     Click to see more.
   </summary>
 
+### :book: Documentation
+ - `audio`
+  - [#3689](https://github.com/wix/ricos/pull/3689) add audio docs
 
 </details>
   <hr/>

@@ -70,25 +70,6 @@ This function take the id and form a full URL (invoked when rendering audio whic
 getAudioUrl?: (src: { id: string }) => string;
 ```
 
-### `onProgress`
-
-Callback containing
-
-- `played` and `loaded` progress as a fraction.
-- `playedSeconds` and `loadedSeconds` in seconds.
-- `id` of audio
-
-```jsx
-onProgress?: () => ({ played: number, playedSeconds: number, loaded: number, loadedSeconds: number, id: string });
-```
-
-### `progressInterval`
-
-The time between onProgress callbacks, in milliseconds (default `1000`)
-
-```jsx
-progressInterval?: number;
-```
 
 ### `toolbar`
 
@@ -105,14 +86,6 @@ toolbar?: {
 
 `icons` - An object of toolbar button keynames to custom icons map (e.g { replace: MyCustomReplaceIcon }, { InsertPluginButtonIcon: MyCustomInsertIcon } etc...)
 
-### `enableCustomUploadOnMobile`
-
-Apply the extended input modal styles in mobile (if `handleFileSelection` is available)
-
-```jsx
-enableCustomUploadOnMobile?: boolean;
-```
-
 ### `handleFileSelection`
 
 Here you can call your custom audio upload functionality
@@ -128,8 +101,7 @@ dataType =
     src: {id?: string, url?: string},
     duration?: number,
   },
-  html?:string,
-}
+};
 ```
 
 ### `handleFileUpload`
@@ -141,13 +113,13 @@ handleFileUpload?: (file: File, updateEntity: ({ data: dataType }) => void) => v
 
 dataType =
   {
-    pathname: string,
-    thumbnail: {
-      pathname: string,
-      height: number,
-      width: number,
-    },
-  };
+  name?: string,
+  authorName?: string,
+  audio: {
+    src: {id?: string, url?: string},
+    duration?: number,
+  },
+};
 ```
 
 ## Sound Cloud Plugin
