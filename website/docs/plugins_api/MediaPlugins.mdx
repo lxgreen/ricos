@@ -8,7 +8,7 @@ In this section we'll further drill into media upload and error handling in Rico
 
 ## Upload Functions API
 
-This functions should be passed to the media plugins via config \ helpers (i.e image, gallery, video and file upload).
+This functions should be passed to the media plugins via config \ helpers (i.e image, gallery, video , audio and file upload).
 
 ```jsx
 handleFileUpload: (files: File[], updateEntity: UpdateEntityFunction) => void
@@ -48,6 +48,20 @@ data?: {
     height: number,
     width: number,
   },
+}
+```
+
+### Audio
+
+```jsx
+data?: {
+  name?: string,
+  authorName?: string,
+  audio: {
+    src: {id?: string, url?: string},
+    duration?: number,
+  },
+  html?:string,
 }
 ```
 

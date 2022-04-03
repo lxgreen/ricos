@@ -13032,6 +13032,15 @@ wix-rich-content-link-preview-popover@8.69.13:
   dependencies:
     wix-rich-content-common "8.69.13"
 
+wix-rich-content-plugin-audio@8.69.13:
+  version "8.69.13"
+  resolved "https://registry.yarnpkg.com/wix-rich-content-plugin-audio/-/wix-rich-content-plugin-audio-8.69.13.tgz#c028eedd16e7805b206f0a808e2e8b6cf8a68b93"
+  integrity sha512-T11PzkUXKR51fOor0D5gQcIyLDQnesP95iVTILoMCnDUl1jXSFFOYkcQ6we2FpNg9Q/5ubgF9pXc1bOa0ep00A==
+  dependencies:
+    wix-rich-content-common "8.69.13"
+    wix-rich-content-editor-common "8.69.13"
+    wix-rich-content-plugin-commons "8.69.13"
+
 wix-rich-content-plugin-button@8.69.13:
   version "8.69.13"
   resolved "https://registry.yarnpkg.com/wix-rich-content-plugin-button/-/wix-rich-content-plugin-button-8.69.13.tgz#d25937bec425033b96d4423bf28a16ff1565c32e"

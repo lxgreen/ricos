@@ -18,6 +18,7 @@ module.exports = {
           'plugins_api/HashtagPlugin',
           'plugins_api/LinkPlugin',
           'plugins_api/VideoPlugin',
+          'plugins_api/AudioPlugin',
           'plugins_api/GalleryPlugin',
           'plugins_api/ImagePlugin',
           'plugins_api/FileUploadPlugin',

@@ -18,6 +18,9 @@ To sum it up the recommended plugin configuration for uploading via browser file
       [VIDEO_TYPE]: {
         handleFileUpload: videoUploadHandler,
       },
+      [AUDIO_TYPE]: {
+        handleFileUpload: audioUploadHandler,
+      },
       [FILE_UPLOAD_TYPE]: {
         onFileSelected: fileUploadHandler,
       },
@@ -34,6 +37,9 @@ And the recommended config for uploading via custom file selector is
     config: {
       [VIDEO_TYPE]: {
         handleFilSelection: videoSelectionHandler,
+      },
+      [AUDIO_TYPE]: {
+        handleFilSelection: audioSelectionHandler,
       },
       [FILE_UPLOAD_TYPE]: {
         handleFileSelection: fileSelectionHandler,
