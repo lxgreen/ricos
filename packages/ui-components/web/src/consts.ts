@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import type { ModalStyles } from 'wix-rich-content-common';
 // export const HEADER_TYPE_MAP = {
 //   H1: 'header-one',
@@ -30,10 +31,17 @@ import type { ModalStyles } from 'wix-rich-content-common';
 //   top: 12,
 //   left: 15,
 // });
-export const ACTION_COLOR_CSS_VAR =
+
+export const ACTION_COLOR =
   'var(--ricos-settings-action-color, var(--ricos-action-color-fallback, #0261ff))';
 
-export const BG_COLOR_CSS_VAR = 'var(--ricos-settings-bg-color-background-color, rgba(0,0,0,.2))';
+export const BG_COLOR = 'var(--ricos-settings-bg-color-background-color, rgba(0,0,0,.2))';
+
+export const ACTION_COLOR_LIVESITE =
+  'var(--ricos-oneapp-text-color,  var(--ricos-action-color, #0261ff))';
+
+export const BG_COLOR_LIVESITE =
+  'var(--ricos-oneapp-secondary-bg-color-background-color, rgba(var(--ricos-text-color-low-tuple, 150, 150, 150),.2) )';
 
 export const FOOTER_BUTTON_ALIGNMENT = Object.freeze({
   CENTER: 'center',

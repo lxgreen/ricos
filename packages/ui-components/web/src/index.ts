@@ -6,8 +6,8 @@ export {
   DesktopFlyOutModalStyles,
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,
   DesktopOverlayModalStyles,
-  ACTION_COLOR_CSS_VAR,
-  BG_COLOR_CSS_VAR,
+  ACTION_COLOR,
+  BG_COLOR,
   SLIDER_THUMB_VISIBILITY,
   SLIDER_TRACK_SIZE,
 } from './consts';

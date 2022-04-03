@@ -318,6 +318,30 @@
       "data": {}
     },
     {
+      "key": "9nqq7",
+      "text": " ",
+      "type": "atomic",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [
+        {
+          "offset": 0,
+          "length": 1,
+          "key": 8
+        }
+      ],
+      "data": {}
+    },
+    {
+      "key": "4jqif",
+      "text": "",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
       "key": "cn5q6",
       "text": "",
       "type": "unstyled",
@@ -336,7 +360,7 @@
         {
           "offset": 0,
           "length": 1,
-          "key": 8
+          "key": 9
         }
       ],
       "data": {}
@@ -369,7 +393,7 @@
         {
           "offset": 0,
           "length": 1,
-          "key": 9
+          "key": 10
         }
       ],
       "data": {}
@@ -393,7 +417,7 @@
         {
           "offset": 0,
           "length": 1,
-          "key": 10
+          "key": 11
         }
       ],
       "data": {}
@@ -590,6 +614,27 @@
       }
     },
     "8": {
+      "type": "ricos-audio",
+      "mutability": "IMMUTABLE",
+      "data": {
+        "audio": {
+          "src": {
+            "id": "mp3/f0f74f_35a1cdce4973490eac49e74c3244364d.mp3"
+          }
+        },
+        "name": "Dear Fear",
+        "authorName": "KOTA The Friend",
+        "disableDownload": false,
+        "coverImage": {
+          "id": "9e6bb2d0c554dcd559a32ab89c9092f0",
+          "original_file_name": "8bb438_cbe02f139b8e479387eb7f5f9e8424c9.jpg",
+          "file_name": "8bb438_cbe02f139b8e479387eb7f5f9e8424c9.jpg",
+          "width": 3180,
+          "height": 3710
+        }
+      }
+    },
+    "9": {
       "type": "wix-draft-plugin-vertical-embed",
       "mutability": "IMMUTABLE",
       "data": {
@@ -602,7 +647,7 @@
         }
       }
     },
-    "9": {
+    "10": {
       "type": "wix-draft-plugin-vertical-embed",
       "mutability": "IMMUTABLE",
       "data": {
@@ -616,7 +661,7 @@
         }
       }
     },
-    "10": {
+    "11": {
       "type": "wix-draft-plugin-vertical-embed",
       "mutability": "IMMUTABLE",
       "data": {
@@ -631,5 +676,6 @@
       }
     }
   },
-  "VERSION": "8.36.5"
+  "documentStyle": {},
+  "VERSION": "8.70.30"
 }

@@ -4,8 +4,10 @@ import classNames from 'classnames';
 import type { RichContentTheme } from 'wix-rich-content-common';
 import { mergeStyles } from 'wix-rich-content-common';
 import {
-  ACTION_COLOR_CSS_VAR,
-  BG_COLOR_CSS_VAR,
+  ACTION_COLOR,
+  ACTION_COLOR_LIVESITE,
+  BG_COLOR_LIVESITE,
+  BG_COLOR,
   SLIDER_THUMB_VISIBILITY,
   SLIDER_TRACK_SIZE,
 } from '../consts';
@@ -28,6 +30,7 @@ interface SliderProps {
   height?: number;
   ariaProps?: InputHTMLAttributes<HTMLInputElement>;
   languageDir: string;
+  liveSiteWiring?: boolean;
 }
 
 const Slider: FunctionComponent<SliderProps> = props => {
@@ -44,11 +47,12 @@ const Slider: FunctionComponent<SliderProps> = props => {
     thumbVisibility = SLIDER_THUMB_VISIBILITY.fixed,
     trackSize = SLIDER_TRACK_SIZE.medium,
     step,
+    liveSiteWiring = false,
   } = props;
   const [fillPercentage, setFillPercentage] = useState(0);
   const track = {
-    fill: ACTION_COLOR_CSS_VAR,
-    unFilled: BG_COLOR_CSS_VAR,
+    fill: liveSiteWiring ? ACTION_COLOR_LIVESITE : ACTION_COLOR,
+    unFilled: liveSiteWiring ? BG_COLOR_LIVESITE : BG_COLOR,
     gradientDeg: languageDir === 'rtl' ? '270deg' : '90deg',
   };
   const bgStyle = {
@@ -108,6 +112,7 @@ const Slider: FunctionComponent<SliderProps> = props => {
         mergedStyles[trackSize],
         {
           [mergedStyles.slider_fixed_thumb]: isFixedThumb,
+          [mergedStyles.slider_livesite]: liveSiteWiring,
         }
       )}
       data-hook={dataHook}

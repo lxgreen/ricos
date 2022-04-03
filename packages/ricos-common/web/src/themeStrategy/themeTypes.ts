@@ -4,6 +4,7 @@ import type {
   PaletteColors,
   RicosCustomStyles,
   RicosSettingsStyles,
+  RicosOneAppStyles,
   ThemeData,
 } from 'ricos-types';
 import type { CSSProperties, ReactElement } from 'react';
@@ -76,6 +77,7 @@ export interface RicosTheme {
   typography?: RicosTypography;
   customStyles?: RicosCustomStyles;
   settingsStyles?: RicosSettingsStyles;
+  oneAppStyles?: RicosOneAppStyles;
 }
 
 export interface PaletteConfig {

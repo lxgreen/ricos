@@ -130,3 +130,27 @@ export interface RicosSettingsStyles {
     backgroundColor?: CSSProperties['backgroundColor'];
   };
 }
+export interface RicosOneAppStyles {
+  text?: {
+    fontFamily?: CSSProperties['fontFamily'];
+    color?: CSSProperties['color'];
+  };
+  bgColor?: {
+    backgroundColor?: CSSProperties['backgroundColor'];
+  };
+  primaryText?: {
+    fontWeight?: CSSProperties['fontWeight'];
+  };
+  secondary?: {
+    backgroundColor?: CSSProperties['backgroundColor'];
+  };
+  whitebox?: {
+    borderRadius?: CSSProperties['borderRadius'];
+  };
+  coverImage?: {
+    width?: CSSProperties['width'];
+    height?: CSSProperties['height'];
+    border?: CSSProperties['border'];
+    margin?: CSSProperties['margin'];
+  };
+}

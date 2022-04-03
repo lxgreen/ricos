@@ -4,7 +4,7 @@
 
 $COVER_IMAGE_SIZE_DEFAULT: 94px;
 $COVER_IMAGE_SIZE_SMALL: 54px;
-$COVER_IMAGE_SIZE_DEFAULT_MOBILE: 84px;
+$COVER_IMAGE_SIZE_DEFAULT_MOBILE: var(--ricos-oneapp-cover-image-width, 84px);
 $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
 
 .customPlayer {
@@ -12,7 +12,7 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
   border: 1px solid rgba($primary-text-color-tuple, 0.2);
   width: 100%;
   min-width: 320px;
-  height: 96px;
+  height: calc(#{$COVER_IMAGE_SIZE_DEFAULT} + 2px);
   display: flex;
   &.customPlayer_basic {
     height: $COVER_IMAGE_SIZE_SMALL;
@@ -29,10 +29,19 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
     }
   }
   &.customPlayer_mobile {
+    border-radius: $oneApp-whitebox-border-radius;
+    background-color: var(--ricos-oneapp-bg-color-background-color, unset);
+    height: 86px;
     .audio_coverImg {
+      align-self: center;
+      margin: $oneApp-coverImage-margin;
+      height: var(--ricos-oneapp-cover-image-height, 100%);
+      border-radius: $oneApp-whitebox-border-radius;
+      border: $oneApp-coverImage-border;
       max-width: $COVER_IMAGE_SIZE_DEFAULT_MOBILE;
       min-width: $COVER_IMAGE_SIZE_DEFAULT_MOBILE;
       &.audio_small_cover_image {
+        margin: 0;
         max-width: $COVER_IMAGE_SIZE_SMALL_MOBILE;
         min-width: $COVER_IMAGE_SIZE_SMALL_MOBILE;
       }
@@ -44,13 +53,14 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
     min-width: 20px;
     max-width: 20px;
     height: 20px;
-    color: $primary-text-color;
-    fill: $primary-text-color;
+    fill: var(--ricos-oneapp-text-color, $primary-text-color);
+    color: var(--ricos-oneapp-text-color, $primary-text-color);
     &:hover {
       color: rgba($primary-text-color-tuple, 0.5);
       fill: rgba($primary-text-color-tuple, 0.5);
     }
   }
+
   &.customPlayer_mobile {
     min-width: 192px;
   }
@@ -87,6 +97,9 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
   justify-content: space-around;
   padding: 0 20px;
   width: 100%;
+  .customPlayer_mobile & {
+    padding: 0 8px;
+  }
 }
 
 .trackContainer {
@@ -98,8 +111,8 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
 
 .audio_download_icon {
   position: absolute;
-  right: 0;
-  bottom: 41px;
+  top: 12px;
+  right: 12px;
 }
 
 .audio_duration {
@@ -153,7 +166,7 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
 }
 
 %audioDetails_text {
-  font-family: var(--ricos-custom-p-font-family, unset);
+  font-family: var(--ricos-oneapp-text-font-family, var(--ricos-custom-p-font-family, unset));
   font-size: 16px;
   max-width: 85%;
   height: 24px;
@@ -169,11 +182,12 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
   width: 100%;
   .author_name {
     @extend %audioDetails_text;
-    color: $ricos-text-color-low;
+    color: var(--ricos-oneapp-text-color, var(--ricos-text-color-low, #646464));
   }
   .title {
     @extend %audioDetails_text;
-    color: $primary-text-color;
+    color: $oneApp-text-color;
+    font-weight: $oneApp-primary-text-weight;
   }
   .customPlayer_mobile & {
     flex-direction: column;
@@ -205,8 +219,8 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
   overflow: scroll;
   background-color: white;
   border: solid 1px #ededed;
-  box-shadow: $settings-whitebox-box-shadow;
-  border-radius: $settings-whitebox-border-radius;
+  box-shadow: $default-box-shadow;
+  border-radius: $oneApp-whitebox-border-radius;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -222,7 +236,7 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
     background-color: white;
     cursor: pointer;
     &:hover {
-      background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.05);
+      background-color: rgba(var(--ricos-text-color-tuple, (0, 0, 0)), 0.06);
     }
     svg {
       color: #000;
@@ -230,8 +244,8 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
     }
   }
   .dropdown_selected_button {
-    background-color: rgba($settings-action-color-fallback-tuple, 0.1);
-    color: var(--ricos-settings-text-color, $action-color-fallback);
+    background-color: rgba($action-color-fallback-tuple, 0.1);
+    color: var(--ricos-action-color-fallback, #0261ff);
   }
 }
 

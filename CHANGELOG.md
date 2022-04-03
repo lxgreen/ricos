@@ -34,6 +34,7 @@
   - [#3677](https://github.com/wix/ricos/pull/3677) draft converters: button converter considers button type
 - `audio`
   - [#3681](https://github.com/wix/ricos/pull/3681) add placeholders & fix wiring
+  - [#3670](https://github.com/wix/ricos/pull/3670) add oneapp wiring
 - `image`
   - [#3686](https://github.com/wix/ricos/pull/3686) fix image settings crashing when experiments is undefined
 

@@ -8,6 +8,7 @@ import ExampleApplication from '../Components/ExampleApplication';
 import { SelectorCell } from './SelectorCell';
 import type { RicosTheme } from 'ricos-common';
 import { withWixStyle } from './wixStyle';
+import { withOneAppStyle } from './oneAppStyle';
 
 const palettes = Object.keys(wixPalettes);
 
@@ -16,10 +17,20 @@ const ThemeSelector = () => {
   const [fontPage, setFontPage] = useState(0);
   const [isFallback, setFallback] = useState(false);
   const [isFloatingBM, setFloatingBM] = useState(false);
+  const [isOneApp, setOneApp] = useState(false);
   const fallbackColor = isFallback ? '#FF0000' : undefined;
   const palette = ricosPalettes[palettePage];
   const values = Object.values(palette);
-  const createTheme = (theme: RicosTheme) => (isFloatingBM ? withWixStyle(theme) : theme);
+  const createTheme = (theme: RicosTheme) => {
+    let currentTheme = theme;
+    if (isOneApp) {
+      currentTheme = withOneAppStyle(currentTheme);
+    }
+    if (isFloatingBM) {
+      currentTheme = withWixStyle(currentTheme);
+    }
+    return currentTheme;
+  };
 
   useEffect(() => {
     document.onkeyup = event => {
@@ -76,6 +87,10 @@ const ThemeSelector = () => {
           onChange={({ target }) => setFloatingBM(target.checked)}
         />
         <span>Use BM Blue floating action color</span>
+      </div>
+      <div>
+        <ToggleSwitch checked={isOneApp} onChange={({ target }) => setOneApp(target.checked)} />
+        <span>Use OneApp styles</span>
       </div>
       <div style={{ backgroundColor: palette.bgColor, padding: 4 }}>
         <ExampleApplication

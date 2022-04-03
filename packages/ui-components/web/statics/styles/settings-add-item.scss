@@ -52,7 +52,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
+  
   .settingsAddItem_overlay_icons {
     display: none;
     position: absolute;
@@ -71,6 +71,7 @@
   .settingsAddItem_overlay_image {
     width: 120px;
     height: 120px;
+    border-radius: var(--ricos-settings-whitebox-border-radius, 0px);
   }
   &:hover {
     background-color: #000;

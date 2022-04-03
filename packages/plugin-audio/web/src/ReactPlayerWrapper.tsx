@@ -191,6 +191,9 @@ const ReactPlayerWrapper: React.FC<Props> = ({
           )}
           <div className={styles.track_wrapper}>
             {hasDetails && <AudioDetails authorName={authorName} title={name} />}
+            {isMobile && hasDetails && !disableDownload && (
+              <DownloadIcon className={styles.audio_download_icon} onClick={onDownload} />
+            )}
             <div className={styles.trackContainer}>
               <AudioActionIcons
                 handlePlay={handlePlay}
@@ -213,6 +216,7 @@ const ReactPlayerWrapper: React.FC<Props> = ({
                   max={1}
                   thumbVisibility={SLIDER_THUMB_VISIBILITY.hover}
                   trackSize={SLIDER_TRACK_SIZE.small}
+                  liveSiteWiring
                 />
                 <SoundControl
                   theme={theme}
@@ -236,9 +240,6 @@ const ReactPlayerWrapper: React.FC<Props> = ({
                   />
                 )}
               </div>
-              {isMobile && hasDetails && !disableDownload && (
-                <DownloadIcon className={styles.audio_download_icon} onClick={onDownload} />
-              )}
             </div>
           </div>
         </div>

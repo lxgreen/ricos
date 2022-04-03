@@ -44,6 +44,7 @@ const SoundControl = ({ volume, setVolume, muted, handleMute, theme, handleVolum
           languageDir="ltr"
           dataHook="audioVolumeSlider"
           trackSize={SLIDER_TRACK_SIZE.small}
+          liveSiteWiring
         />
       </div>
       <SoundIconComponent className={styles.audio_sound_icon} onClick={handleMute} />

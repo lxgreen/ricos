@@ -66,6 +66,17 @@ $settings-colorPaletteSelectedButton-border-radius: var(
 $settings-bgColor-: var(--ricos-settings-bg-color-background-color, $background-color-container);
 $settings-disabled-color-: var(--ricos-settings-disabled-background-color, $ricos-disabled-color);
 
+// OneApp Styles (Native App styles)
+$oneApp-whitebox-border-radius: var(--ricos-oneapp-whitebox-border-radius, 0px);
+$oneApp-text-color: var(--ricos-oneapp-text-color, $primary-text-color);
+$oneApp-primary-text-weight: var(--ricos-oneapp-primary-text-font-weight, unset);
+$oneApp-bgColor: var(--ricos-oneapp-bg-color-background-color, $background-color-container);
+$oneApp-secondary-bgColor: var(--ricos-oneapp-secondary-bg-color-background-color, $background-color-container);
+$oneApp-coverImage-width: var(--ricos-oneapp-cover-image-width, unset);
+$oneApp-coverImage-height: var(--ricos-oneapp-cover-image-height, unset);
+$oneApp-coverImage-margin: var(--ricos-oneapp-cover-image-margin, unset);
+$oneApp-coverImage-border: var(--ricos-oneapp-cover-image-border, unset);
+
 $modal-input-color: #333333;
 $toolbar-font-color: #333333;
 $toolbar-border-color: #ededed;

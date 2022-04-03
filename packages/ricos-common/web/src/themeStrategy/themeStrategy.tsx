@@ -18,6 +18,7 @@ export default function themeStrategy(args: ThemeStrategyArgs): ThemeStrategyRes
     typography,
     customStyles,
     settingsStyles,
+    oneAppStyles,
   } = ricosTheme;
   const themeGeneratorFunctions = plugins.map(plugin => plugin.theme).filter(isDefined);
 
@@ -27,6 +28,7 @@ export default function themeStrategy(args: ThemeStrategyArgs): ThemeStrategyRes
   const customsVarsObject = createCustomStyles({
     customStyles,
     settingsStyles,
+    oneAppStyles,
   });
 
   const themeData: ThemeData = {
