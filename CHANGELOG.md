@@ -16,7 +16,13 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-  
+
+
+</details>
+  <hr/>
+
+## 8.70.32 (April 3, 2022)
+
 ### :bug: Bug Fix
 
 - `polls-plugin`
@@ -25,9 +31,6 @@
   - [#3688](https://github.com/wix/ricos/pull/3688) default label instead of prop
 - `adsense`
   - [#3690](https://github.com/wix/ricos/pull/3690) fix adsense doesnt show in the editor
-
-</details>
-  <hr/>
 
 ## 8.70.31 (Mar 31, 2022)
 
