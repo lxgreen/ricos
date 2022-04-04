@@ -33,7 +33,8 @@
     "build:analyze:editor": "npm run build -- --environment MODULE_ANALYZE_EDITOR  && open stats.html",
     "build:analyze:viewer": "npm run build -- --environment MODULE_ANALYZE_VIEWER && open stats.html",
     "watch": "cross-env NODE_ENV=development npm run build:rollup -- --watch",
-    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,d.ts}'"
+    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,d.ts}'",
+    "test": "jest --verbose"
   },
   "dependencies": {
     "ricos-content": "8.70.32",
@@ -43,6 +44,21 @@
     "wix-rich-content-ui-components": "8.70.32"
   },
   "unpkg": true,
+  "jest": {
+    "globals": {
+      "NODE_ENV": "test"
+    },
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "testMatch": [
+      "**/?(*.)+(spec|test).+(ts|tsx|js)"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)?$": "ts-jest",
+      "^.+\\.jsx?$": "<rootDir>/../../../babel.jest.monorepo.js"
+    }
+  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   }
