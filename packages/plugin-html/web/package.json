@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-plugin-html",
-  "version": "8.70.32",
+  "version": "8.70.33",
   "author": {
     "name": "Jonathan Bachman",
     "email": "jonathanb@wix.com"
@@ -37,11 +37,11 @@
     "test": "jest --verbose"
   },
   "dependencies": {
-    "ricos-content": "8.70.32",
-    "wix-rich-content-common": "8.70.32",
-    "wix-rich-content-editor-common": "8.70.32",
-    "wix-rich-content-plugin-commons": "8.70.32",
-    "wix-rich-content-ui-components": "8.70.32"
+    "ricos-content": "8.70.33",
+    "wix-rich-content-common": "8.70.33",
+    "wix-rich-content-editor-common": "8.70.33",
+    "wix-rich-content-plugin-commons": "8.70.33",
+    "wix-rich-content-ui-components": "8.70.33"
   },
   "unpkg": true,
   "jest": {
