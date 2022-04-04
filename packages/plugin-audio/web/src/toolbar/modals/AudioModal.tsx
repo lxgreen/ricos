@@ -133,7 +133,7 @@ const AudioModal = props => {
                 saveLabel={t('AudioModal_Embed_ButtonText')}
                 subTitle={t('AudioModal_Embed_Title')}
                 withMobileSaveButton
-                onDblClick={onUrlInputDoubleClick}
+                onDoubleClick={onUrlInputDoubleClick}
               />
             </div>
           </Tab>

@@ -86,7 +86,7 @@ const VideoModal = props => {
         title={isSoundCloud && title}
         saveLabel={isSoundCloud ? t('Embed_Add_Button_Label') : t('VideoModal_Embed_ButtonText')}
         subTitle={!isSoundCloud && t('VideoModal_Embed_Title')}
-        onDblClick={onUrlInputDoubleClick}
+        onDoubleClick={onUrlInputDoubleClick}
       />
     );
   };

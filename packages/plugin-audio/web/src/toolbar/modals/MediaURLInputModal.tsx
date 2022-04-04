@@ -11,7 +11,7 @@ interface MediaURLInputModalProps {
   url: string;
   submittedInvalidUrl: boolean;
   setUrl: (url) => void;
-  onDblClick: (url) => void;
+  onDoubleClick: (url) => void;
   withMobileHeader?: boolean;
   dataHook?: string;
   title?: string;
@@ -33,7 +33,7 @@ const MediaURLInputModal: React.FC<MediaURLInputModalProps> = ({
   title,
   subTitle,
   saveLabel,
-  onDblClick,
+  onDoubleClick,
 }) => {
   return (
     <UrlInputModal
@@ -54,7 +54,7 @@ const MediaURLInputModal: React.FC<MediaURLInputModalProps> = ({
       buttonSize={BUTTON_SIZE.medium}
       isMobile={isMobile}
       withMobileHeader={withMobileHeader}
-      onDblClick={onDblClick}
+      onDoubleClick={onDoubleClick}
       withMobileSaveButton
     />
   );

@@ -17,8 +17,9 @@
     Click to see more.
   </summary>
 
-
-
+### :nail_care: Polish
+ - `audio`
+  - [#3700](https://github.com/wix/ricos/pull/3700) change TextInput doubleClick prop name 
 
 </details>
   <hr/>
