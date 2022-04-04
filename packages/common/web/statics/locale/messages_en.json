@@ -173,6 +173,8 @@
 	"AudioPlugin_Settings_CoverImage_Label": "Cover image",
 	"AudioPlugin_Settings_AuthorName_Label": "Creator",
 	"AudioPlugin_Settings_AudioName_Label": "Title",
+	"AudioPlugin_Settings_AudioName_Label_Placeholder": "Add a title",
+	"AudioPlugin_Settings_AuthorName_Label_Placeholder": "Add the creator’s name ",
 	"Spotify_InsertButton": "Spotify",
 	"Spotify_InsertButton_Tooltip": "Add a Spotify track",
 	"SoundCloudPlugin_InsertButton_Tooltip": "Add a SoundCloud track",
