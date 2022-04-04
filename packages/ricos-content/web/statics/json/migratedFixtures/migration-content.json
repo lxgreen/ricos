@@ -419,7 +419,8 @@
         "video": {
           "src": {
             "url": "https://www.youtube.com/watch?v=CoJ23XNHgG0"
-          }
+          },
+          "duration": 14
         },
         "thumbnail": {
           "src": {
@@ -457,7 +458,8 @@
         "video": {
           "src": {
             "id": "video/d3dd72_9397c7bfa03f4fa8920b16bdd667f73b/1080p/mp4/file.mp4"
-          }
+          },
+          "duration": 666
         },
         "thumbnail": {
           "src": {

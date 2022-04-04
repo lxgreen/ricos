@@ -31,7 +31,7 @@ const videoMock: VideoNode = {
       width: 480,
     },
     title: 'iJustine | Create a Website with Wix Artificial Design Intelligence',
-    video: { src: { url: videoUrl } },
+    video: { src: { url: videoUrl }, duration: 14 },
   },
 };
 
@@ -51,7 +51,10 @@ const videoMock_BiggerWidth: VideoNode = {
       src: { id: 'media/d3dd72_9397c7bfa03f4fa8920b16bdd667f73bf000.jpg' },
       width: 1920,
     },
-    video: { src: { id: 'video/d3dd72_9397c7bfa03f4fa8920b16bdd667f73b/1080p/mp4/file.mp4' } },
+    video: {
+      src: { id: 'video/d3dd72_9397c7bfa03f4fa8920b16bdd667f73b/1080p/mp4/file.mp4' },
+      duration: 666,
+    },
   },
 };
 

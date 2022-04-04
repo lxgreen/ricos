@@ -15,6 +15,7 @@ export const Video: React.FC<PluginProps> = ({
   const blockProps = {
     setFocusToBlock: () => null,
   };
+  const block = { getKey: () => null };
   const setComponentUrl = () => null;
   const store = {
     update: (type, data) => updateAttributes(convertBlockDataToRicos(VIDEO_TYPE, data)),
@@ -35,6 +36,7 @@ export const Video: React.FC<PluginProps> = ({
       isDraggable={false}
       isLoading={loading}
       loadingPercentage={loadingPercentage}
+      block={block}
     />
   );
 };

@@ -130,7 +130,7 @@ const convertContainerData = (
   delete data.containerData;
 };
 
-const convertVideoData = (data: VideoData & { src; metadata; title?; duration: number }) => {
+const convertVideoData = (data: VideoData & { src; metadata; title?; duration?: number }) => {
   const videoSrc = data.video?.src;
   const { src, width, height } = data.thumbnail || {};
   if (videoSrc?.url) {
@@ -142,7 +142,7 @@ const convertVideoData = (data: VideoData & { src; metadata; title?; duration: n
       thumbnail: { pathname: src?.id || src?.custom, width, height },
     };
   }
-  data.duration = data.src?.duration;
+  data.duration = data.video?.duration;
   delete data.video;
   delete data.title;
   delete data.thumbnail;

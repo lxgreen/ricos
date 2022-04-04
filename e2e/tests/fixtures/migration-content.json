@@ -1067,7 +1067,8 @@
           "title": "iJustine | Create a Website with Wix Artificial Design Intelligence",
           "html": "<iframe width=\"480\" height=\"270\" src=\"https://www.youtube.com/embed/BBu5codsO6Y?feature=oembed\" frameborder=\"0\" allow=\"autoplay; encrypted-media\" allowfullscreen></iframe>",
           "video_url": "https://youtu.be/BBu5codsO6Y"
-        }
+        },
+        "duration": 14
       }
     },
     "7": {
@@ -1089,7 +1090,8 @@
         },
         "disableDownload": false,
         "isCustomVideo": true,
-        "tempData": false
+        "tempData": false,
+        "duration": 666
       }
     },
     "8": {
