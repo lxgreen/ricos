@@ -66,7 +66,13 @@ const AudioUploadModal = props => {
   const getComponentData = () => ({ ...pubsub.get('componentData'), ...componentData });
 
   const getAudioTags = async file => {
-    const tags = await id3.fromFile(file);
+    let tags;
+    try {
+      tags = await id3.fromFile(file);
+    } catch (error) {
+      console.error(error);
+    }
+
     return { name: tags?.title, authorName: tags?.artist };
   };
 

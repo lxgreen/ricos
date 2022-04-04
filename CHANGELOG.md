@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+
+### :bug: Bug Fix
+ - `audio`
+  - [#3697](https://github.com/wix/ricos/pull/3697) fix audio settings ui & handle tags error on audio upload
+
 ### :book: Documentation
  - `audio`
   - [#3689](https://github.com/wix/ricos/pull/3689) add audio docs
