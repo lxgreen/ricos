@@ -17,6 +17,7 @@ import { pluginLink } from 'wix-rich-content-plugin-link/viewer';
 import { pluginMap } from 'wix-rich-content-plugin-map/viewer';
 import { pluginMentions } from 'wix-rich-content-plugin-mentions/viewer';
 import { pluginVideo } from 'wix-rich-content-plugin-video/viewer';
+import { pluginAudio } from 'wix-rich-content-plugin-audio/viewer';
 import { pluginLinkPreview } from 'wix-rich-content-plugin-link-preview/viewer';
 import { pluginVerticalEmbed } from 'wix-rich-content-plugin-vertical-embed/viewer';
 import { pluginTextColor, pluginTextHighlight } from 'wix-rich-content-plugin-text-color/viewer';
@@ -71,6 +72,7 @@ const plugins = {
   image: pluginImage(),
   gallery: pluginGallery(configs.gallery),
   video: pluginVideo(),
+  audio: pluginAudio(),
   html: pluginHtml(),
   divider: pluginDivider(),
   spacing: pluginLineSpacing(),

@@ -1,4 +1,4 @@
-import { HTML_TYPE, VIDEO_TYPE } from 'ricos-content';
+import { HTML_TYPE, VIDEO_TYPE, AUDIO_TYPE } from 'ricos-content';
 import type {
   AvailableExperiments,
   AddPluginMenuConfig,
@@ -15,6 +15,9 @@ export const defaultConfig: TestAppConfig = {
     },
     [VIDEO_TYPE]: {
       exposeButtons: ['video', 'soundCloud'],
+    },
+    [AUDIO_TYPE]: {
+      exposeButtons: ['audio', 'soundCloud', 'spotify'],
     },
   },
 };
@@ -98,6 +101,7 @@ export const plugins = {
   table: 'table',
   video: 'video',
   poll: 'poll',
+  audio: 'audio',
 };
 
 export const useExperiments = (experiment: AvailableExperiments): TestAppConfig => {

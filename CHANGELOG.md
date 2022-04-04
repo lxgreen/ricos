@@ -21,6 +21,8 @@
 ### :bug: Bug Fix
 - `video`
   - [#3682](https://github.com/wix/ricos/pull/3682) fix video duration on tiptap and converter
+- `audio`
+  - [#3701](https://github.com/wix/ricos/pull/3701) add missing audio imports 
 
 ### :nail_care: Polish
  - `audio`

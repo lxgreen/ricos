@@ -72,6 +72,7 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
 .customPlayer_with_image {
   .track_wrapper {
     width: calc(100% - #{$COVER_IMAGE_SIZE_DEFAULT});
+    position: relative;
   }
   &.customPlayer_mobile {
     .track_wrapper {

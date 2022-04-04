@@ -7,6 +7,7 @@ export const createPresets = <T extends EditorPlugin | ViewerPlugin>(
     plugins.image,
     plugins.gallery,
     plugins.video,
+    plugins.audio,
     plugins.html,
     plugins.divider,
     plugins.spacing,

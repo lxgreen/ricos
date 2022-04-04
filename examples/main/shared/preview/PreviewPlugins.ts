@@ -1,5 +1,6 @@
 import theme from '../theme/theme';
 import { VIDEO_TYPE, videoTypeMapper } from 'wix-rich-content-plugin-video/viewer';
+import { AUDIO_TYPE, audioTypeMapper } from 'wix-rich-content-plugin-audio/viewer';
 import { dividerTypeMapper } from 'wix-rich-content-plugin-divider/viewer';
 import { htmlTypeMapper } from 'wix-rich-content-plugin-html/viewer';
 import { LINK_TYPE, linkTypeMapper } from 'wix-rich-content-plugin-link/viewer';
@@ -49,6 +50,7 @@ const mentionsPluginSettings = {
 
 export const typeMappers = [
   videoTypeMapper,
+  audioTypeMapper,
   buttonTypeMapper,
   dividerTypeMapper,
   htmlTypeMapper,
@@ -100,6 +102,9 @@ export const config = {
   },
   [VIDEO_TYPE]: {
     getVideoUrl: src => `https://video.wixstatic.com/${src.pathname}`,
+  },
+  [AUDIO_TYPE]: {
+    getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,
   },
   [SPOILER_TYPE]: { initSpoilersContentState, SpoilerViewerWrapper },
 };

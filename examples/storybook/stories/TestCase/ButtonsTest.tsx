@@ -15,6 +15,7 @@ import { pluginLinkPreview, LinkPreviewProviders } from 'wix-rich-content-plugin
 import { pluginMentions } from 'wix-rich-content-plugin-mentions';
 import { pluginUndoRedo } from 'wix-rich-content-plugin-undo-redo';
 import { pluginVideo, videoButtonsTypes } from 'wix-rich-content-plugin-video';
+import { pluginAudio, audioButtonsTypes } from 'wix-rich-content-plugin-audio';
 import { pluginGiphy } from 'wix-rich-content-plugin-giphy';
 import { TOOLBARS, DISPLAY_MODE } from 'wix-rich-content-editor-common';
 
@@ -43,6 +44,13 @@ const plugins = [
       videoButtonsTypes.video,
       videoButtonsTypes.youTube,
       videoButtonsTypes.soundCloud,
+    ],
+  }),
+  pluginAudio({
+    exposeEmbedButtons: [
+      audioButtonsTypes.audio,
+      audioButtonsTypes.soundCloud,
+      audioButtonsTypes.spotify,
     ],
   }),
   pluginUndoRedo(),
