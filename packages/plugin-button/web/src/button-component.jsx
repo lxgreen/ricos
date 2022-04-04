@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { normalizeUrl } from 'wix-rich-content-common';
-import { alignmentClassName, sizeClassName } from '../classNameStrategies';
-import ButtonViewer from './button-viewer';
+import { alignmentClassName, sizeClassName } from './classNameStrategies';
+import ButtonViewer from './components/button-viewer';
 
 class ButtonComponent extends Component {
   static alignmentClassName = (componentData, theme, styles, isMobile) =>

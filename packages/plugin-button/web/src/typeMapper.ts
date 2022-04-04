@@ -1,6 +1,6 @@
 import { LINK_BUTTON_TYPE, ACTION_BUTTON_TYPE } from './types';
 import { alignmentClassName, sizeClassName } from './classNameStrategies';
-import ButtonViewer from './components/button-component';
+import ButtonViewer from './button-component';
 import type { PluginTypeMapper } from 'wix-rich-content-common';
 
 const buttonTypeObj = {

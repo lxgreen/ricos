@@ -16,7 +16,7 @@ import { LINK_BUTTON_TYPE, ACTION_BUTTON_TYPE } from './types';
 import { DEFAULTS } from './defaults';
 
 import Styles from '../statics/styles/default-styles.scss';
-import ButtonComponent from './components/button-component';
+import ButtonComponent from './button-component';
 import { isNumber } from 'lodash';
 
 const createLinkButtonPlugin: CreatePluginFunction<LinkButtonPluginEditorConfig> = config => {

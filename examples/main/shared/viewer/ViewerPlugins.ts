@@ -39,7 +39,7 @@ import {
   buttonTypeMapper,
   pluginActionButton,
   ACTION_BUTTON_TYPE,
-} from 'wix-rich-content-plugin-button/viewer';
+} from 'wix-rich-content-plugin-button/loadable/viewer';
 import { HashtagDecorator, pluginHashtag } from 'wix-rich-content-plugin-hashtag/viewer';
 import {
   verticalEmbedTypeMapper,

@@ -4,7 +4,7 @@ import type { PluginTypeMapper } from 'wix-rich-content-common';
 import loadable from '@loadable/component';
 
 const buttonTypeObj = {
-  component: loadable(() => import('./components/button-component')),
+  component: loadable(() => import('./button-component')),
   classNameStrategies: { alignment: alignmentClassName, size: sizeClassName },
 };
 
