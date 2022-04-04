@@ -18,6 +18,13 @@
   </summary>
 
 
+
+
+</details>
+  <hr/>
+
+## 8.70.33 (April 4, 2022)
+
 ### :bug: Bug Fix
  - `audio`
   - [#3697](https://github.com/wix/ricos/pull/3697) fix audio settings ui & handle tags error on audio upload
@@ -25,9 +32,6 @@
 ### :book: Documentation
  - `audio`
   - [#3689](https://github.com/wix/ricos/pull/3689) add audio docs
-
-</details>
-  <hr/>
 
 ## 8.70.32 (April 3, 2022)
 
