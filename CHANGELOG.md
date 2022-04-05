@@ -24,6 +24,10 @@
 - `audio`
   - [#3701](https://github.com/wix/ricos/pull/3701) add missing audio imports 
 
+### :house: Internal
+- `audio`
+  - [#3707](https://github.com/wix/ricos/pull/3707) add audio bi
+
 ### :nail_care: Polish
  - `audio`
   - [#3700](https://github.com/wix/ricos/pull/3700) change TextInput doubleClick prop name 

@@ -78,3 +78,14 @@ export const playbackRates = [
   },
 ];
 export const SETTINGS_IMG_SIZE = '120px';
+
+export const AUDIO_BUTTON_NAMES = { downloadAudio: 'downloadAudio' };
+
+export const AUDIO_BI_VALUES = {
+  PLAY: 'play',
+  PAUSE: 'pause',
+  FILE_DOWNLOADED: 'fileDownloaded',
+  PLAYBACK_COMPLETED: 'playbackCompleted',
+  YES: 'yes',
+  NO: 'no',
+};

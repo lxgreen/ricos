@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
 import { getImageSrc } from 'wix-rich-content-common/libs/imageUtils';
-import { SETTINGS_IMG_SIZE } from '../../consts';
+import { SETTINGS_IMG_SIZE, AUDIO_BUTTON_NAMES, AUDIO_BI_VALUES } from '../../consts';
+import { AUDIO_TYPE } from '../../types';
 import {
   LabeledToggle,
   SettingsSection,
@@ -35,7 +36,14 @@ const AudioSettings = ({
   const [authorName, setAuthorName] = useState(componentData?.authorName || '');
   const useModalBaseActionHoc = experiments?.modalBaseActionHoc?.enabled;
 
-  const onDownlandToggle = () => setIsDownloadEnabled(!isDownloadEnabled);
+  const onDownlandToggle = () => {
+    helpers?.onPluginsPopOverClick?.({
+      pluginId: AUDIO_TYPE,
+      buttonName: AUDIO_BUTTON_NAMES.downloadAudio,
+      value: isDownloadEnabled ? AUDIO_BI_VALUES.NO : AUDIO_BI_VALUES.YES,
+    });
+    setIsDownloadEnabled(!isDownloadEnabled);
+  };
 
   const handleFilesAdded = args => {
     const img = args.data[0] || args.data;

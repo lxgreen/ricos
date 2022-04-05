@@ -16,9 +16,10 @@ import {
   SLIDER_TRACK_SIZE,
   SLIDER_THUMB_VISIBILITY,
 } from 'wix-rich-content-ui-components';
-import { downloadFile, playbackRates } from './consts';
+import { downloadFile, playbackRates, AUDIO_BI_VALUES } from './consts';
 import classNames from 'classnames';
 import type { Helpers } from 'wix-rich-content-common';
+import { AUDIO_TYPE } from './types';
 import { debounce } from 'lodash';
 import styles from '../statics/styles/audio.rtlignore.scss';
 import type { RichContentTheme } from 'ricos-types/src/commonTypes';
@@ -80,6 +81,7 @@ const ReactPlayerWrapper: React.FC<Props> = ({
     download: {
       text: 'Download',
       onClick: () => {
+        helpers?.onViewerAction?.(AUDIO_TYPE, 'Click', AUDIO_BI_VALUES.FILE_DOWNLOADED);
         onDownload();
         setShowContextMenu(false);
       },
@@ -104,6 +106,8 @@ const ReactPlayerWrapper: React.FC<Props> = ({
       setPlayed(state.played);
     }
   };
+  const onEnded = () =>
+    helpers?.onViewerAction?.(AUDIO_TYPE, 'playAudio', AUDIO_BI_VALUES.PLAYBACK_COMPLETED);
 
   const handleDuration = (num: number) => setDuration(num);
   const handleSeekChange = (num: number) => {
@@ -201,6 +205,7 @@ const ReactPlayerWrapper: React.FC<Props> = ({
                 isPlaying={isPlaying}
                 disabled={disabled}
                 isLoading={isLoading}
+                helpers={helpers}
               />
               {!isMobile && renderAudioDuration()}
               <div className={styles.track_sliders_wrapper}>
@@ -258,6 +263,7 @@ const ReactPlayerWrapper: React.FC<Props> = ({
         volume={volume}
         onProgress={handleProgress}
         onDuration={handleDuration}
+        onEnded={onEnded}
       />
     </div>
   );

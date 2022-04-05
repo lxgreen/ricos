@@ -172,4 +172,4 @@ export interface BICallbacks {
   onPluginAction?: OnPluginAction;
 }
 
-type ActionName = 'expand_gallery' | 'expand_image' | 'Click';
+type ActionName = 'expand_gallery' | 'expand_image' | 'Click' | 'playAudio';
