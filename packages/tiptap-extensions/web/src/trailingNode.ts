@@ -14,10 +14,10 @@ export const createTrailingNode = (): RicosExtension => ({
   createExtensionConfig() {
     return {
       name: this.name,
-      defaultOptions: {
+      addOptions: () => ({
         node: 'paragraph',
         notAfter: ['paragraph'],
-      },
+      }),
 
       addProseMirrorPlugins() {
         const plugin = new PluginKey(this.name);
