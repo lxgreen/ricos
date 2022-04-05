@@ -19,7 +19,6 @@ export const mockMediaData = {
       id: 'fileMockId',
     },
     loaded: {
-      loading: false,
       name: 'mock-file',
       type: 'mp4',
       src: {
@@ -40,7 +39,6 @@ export const mockMediaData = {
       id: 'galleryMockId',
     },
     loaded: {
-      loading: false,
       items: [
         {
           image: {
@@ -81,7 +79,6 @@ export const mockMediaData = {
       id: 'imageMockId',
     },
     loaded: {
-      loading: false,
       image: {
         src: {
           id: '8bb438_eed704a5a8d74b40aeb5a11914eb4dc5.jpg',
@@ -100,7 +97,6 @@ export const mockMediaData = {
       video: { src: { url: '' }, thumbnail: { src: {} } },
     },
     loaded: {
-      loading: false,
       thumbnail: {
         src: 'media/11062b_a552731f40854d16a91627687fb8d1a6f000.jpg',
         height: 1080,
