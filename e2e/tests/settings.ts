@@ -25,7 +25,7 @@ export const fixtures: Fixture[] = [
   // {
   //   fixture: 'facebook-video',
   //   additionalCommands: cy => {
-  //     cy.waitForVideoToLoad();
+  //     cy.waitForMediaToLoad();
   //     cy.wait(200);
   //   },
   // },
@@ -74,6 +74,10 @@ export const fixtures: Fixture[] = [
   {
     fixture: 'poll',
     config: usePlugins(plugins.poll),
+  },
+  {
+    fixture: 'audio-layouts',
+    config: usePlugins(plugins.audio),
   },
   'nowrap-plugins-and-text',
 ];

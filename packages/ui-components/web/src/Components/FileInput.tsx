@@ -96,7 +96,9 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
         title={title}
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
         tabIndex={tabIndex}
+        data-hook="file-input-label"
         onKeyPress={this.onKeyPress}
+        onClick={this.onKeyPress}
       >
         {handleFileSelection ? (
           <input

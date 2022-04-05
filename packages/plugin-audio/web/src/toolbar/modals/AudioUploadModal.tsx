@@ -107,7 +107,7 @@ const AudioUploadModal = props => {
       languageDir={languageDir}
       title={t('AudioModal_Upload_Title')}
       labelText={t('AudioModal_Upload_ButtonText')}
-      dataHook="AudioUploadModalCustomVideo"
+      dataHook="AudioModalCustomUpload"
       showUploadSection={hasCustomFileUpload}
       accept="audio/*"
     />

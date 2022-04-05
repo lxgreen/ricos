@@ -21,7 +21,14 @@ const SettingsPanelHeader: React.FC<SettingsPanelHeaderProps> = ({
     <div className={styles.settingsPanelHeader}>
       <div className={styles.settingsPanelHeader_title}>{children || title}</div>
       <div className={styles.settingsPanelHeader_closeIcon}>
-        {showCloseIcon && <CloseIcon onClick={onClose} onKeyPress={onKeyPress} tabIndex={0} />}
+        {showCloseIcon && (
+          <CloseIcon
+            onClick={onClose}
+            onKeyPress={onKeyPress}
+            tabIndex={0}
+            data-hook="settingsCloseIcon"
+          />
+        )}
       </div>
     </div>
   );

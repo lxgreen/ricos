@@ -85,6 +85,7 @@ const ReactPlayerWrapper: React.FC<Props> = ({
         onDownload();
         setShowContextMenu(false);
       },
+      dataHook: 'audioDownloadIcon',
       icon: DownloadIcon,
     },
     playback: {
@@ -93,6 +94,7 @@ const ReactPlayerWrapper: React.FC<Props> = ({
         setShowContextMenu(false);
         setShowPlaybackMenu(true);
       },
+      dataHook: 'audioPlaybackIcon',
       icon: PlaybackIcon,
     },
   };
@@ -263,6 +265,7 @@ const ReactPlayerWrapper: React.FC<Props> = ({
         volume={volume}
         onProgress={handleProgress}
         onDuration={handleDuration}
+        data-loaded={!isLoading}
         onEnded={onEnded}
       />
     </div>

@@ -25,6 +25,7 @@ const ContextMenu = ({
         {showPlaybackMenu && <DropdownMenu options={playBackMenuData} onClose={onClickOutside} />}
       </ClickOutside>
       <ContextMenuIcon
+        data-hook="audioContextMenu"
         tabIndex={0}
         onKeyPress={onKeyPress}
         className={styles.audio_contextMenuIcon}

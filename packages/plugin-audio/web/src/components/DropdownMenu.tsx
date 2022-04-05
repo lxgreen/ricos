@@ -25,6 +25,7 @@ const optionElement = option => {
       className={selected ? styles.dropdown_selected_button : ''}
       onKeyDown={onKeyDown}
       onClick={option.onClick}
+      data-hook={option?.dataHook}
     >
       {content}
     </button>

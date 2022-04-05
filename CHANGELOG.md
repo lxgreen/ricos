@@ -26,6 +26,7 @@
 
 ### :house: Internal
 - `audio`
+  - [#3692](https://github.com/wix/ricos/pull/3692) add audio tests
   - [#3707](https://github.com/wix/ricos/pull/3707) add audio bi
 
 ### :nail_care: Polish

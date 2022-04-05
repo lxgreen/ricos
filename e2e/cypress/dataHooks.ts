@@ -42,6 +42,7 @@ export const STATIC_TOOLBAR_BUTTONS_BASIC = {
 
 export const STATIC_TOOLBAR_BUTTONS_WITH_MODAL = {
   VIDEO: 'VideoPlugin_InsertButton',
+  AUDIO: 'AudioPlugin_InsertButton',
   // SOUND_CLOUD: 'SoundcloudPlugin_InsertButton', //TODO: fix this flaky test
   // GIPHY: 'GIFPlugin_InsertButton', //Flaky test, TODO: think of a way to get same gif
   // ADSENSE: 'AdSensePlugin_InsertButton',
@@ -64,6 +65,8 @@ export const STATIC_TOOLBAR_BUTTONS_EMBED = {
   EVENT: 'Events_InsertButton',
   PRODUCT: 'Stores_InsertButton',
   BOOKING: 'Bookings_InsertButton',
+  SPOTIFY: 'Spotify_InsertButton',
+  SOUNDCLOUD: 'SoundcloudPlugin_InsertButton',
 };
 
 export const STATIC_TOOLBAR_BUTTONS_WITHOUT_EMBED = {
@@ -149,6 +152,12 @@ export const VIDEO_PLUGIN = {
   CUSTOM: 'videoUploadModalCustomVideo',
 };
 
+export const AUDIO_PLUGIN = {
+  INPUT: 'audioModalEmbedInput',
+  EMBED: ACTION_BUTTONS.SAVE,
+  CUSTOM: 'AudioModalCustomUpload',
+};
+
 export const TABLE_PLUGIN = {
   STATIC_TOOLBAR_BUTTON: 'TablePlugin_InsertButton',
   ROW_COUNT_INPUT: 'rowCount',
@@ -201,6 +210,7 @@ export const PLUGIN_COMPONENT = {
   COLLAPSIBLE_LIST: 'collapsibleListComponent',
   IMAGE: 'imageViewer',
   VIDEO: 'videoPlayer',
+  AUDIO: 'audioViewer',
   GALLERY: 'galleryViewer',
   HTML: 'HtmlComponent',
   DIVIDER: 'divider',

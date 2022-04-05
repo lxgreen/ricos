@@ -2,6 +2,7 @@ import {
   TOOLBARS,
   STATIC_TOOLBAR_BUTTONS_WITHOUT_EMBED,
   VIDEO_PLUGIN,
+  AUDIO_PLUGIN,
   SOUND_CLOUD,
   SOCIAL_EMBED,
 } from '../cypress/dataHooks';
@@ -12,28 +13,32 @@ const LINKS = {
   SOUNDCLOUD: 'https://soundcloud.com/martingarrix/martin-garrix-animals-original',
 };
 
-const modalHandler = (INPUT: string, ADD_BUTTON: string, LINK: string) => {
-  cy.get(`[data-hook=${INPUT}]`).wait(500).type(LINK);
+const modalHandler = (ADD_BUTTON: string, INPUT?: string, LINK?: string) => {
+  LINK && INPUT && cy.get(`[data-hook=${INPUT}]`).wait(500).type(LINK);
   cy.get(`[data-hook=${ADD_BUTTON}]`).click();
-  cy.waitForVideoToLoad();
+  cy.waitForMediaToLoad();
 };
 
 const additionalCommands = {
   VIDEO: () => {
     cy.wait(500);
-    modalHandler(VIDEO_PLUGIN.INPUT, VIDEO_PLUGIN.ADD, LINKS.YOUTUBE);
+    modalHandler(VIDEO_PLUGIN.ADD, VIDEO_PLUGIN.INPUT, LINKS.YOUTUBE);
   },
   SOUND_CLOUD: () => {
-    modalHandler(SOUND_CLOUD.INPUT, SOUND_CLOUD.ADD, LINKS.SOUNDCLOUD);
+    modalHandler(SOUND_CLOUD.ADD, SOUND_CLOUD.INPUT, LINKS.SOUNDCLOUD);
   },
   YOUTUBE: () => {
-    modalHandler(SOCIAL_EMBED.INPUT, SOCIAL_EMBED.ADD, LINKS.YOUTUBE);
+    modalHandler(SOCIAL_EMBED.ADD, SOCIAL_EMBED.INPUT, LINKS.YOUTUBE);
   },
   CODE_BLOCK: () => {
     cy.moveCursorToEnd(); //DO NOT REMOVE - fix flakiness
   },
   EMOJI: () => {
     cy.get(`[data-hook=emoji-5]:first`).click().enterParagraphs(['.']);
+  },
+  AUDIO: () => {
+    cy.wait(500);
+    modalHandler(AUDIO_PLUGIN.CUSTOM);
   },
   // GIPHY: () => {
   //   cy.get(`[data-hook=${GIPHY_PLUGIN.UPLOAD_MODAL}]`);

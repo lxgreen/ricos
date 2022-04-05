@@ -141,7 +141,7 @@ describe('plugins', () => {
     // it(`check spoilers on a video in editor and reveal it in viewer`, () => {
     //   cy.loadRicosEditorAndViewer('empty', usePlugins(plugins.spoilerPreset));
     //   cy.openVideoUploadModal().addVideoFromURL();
-    //   cy.waitForVideoToLoad();
+    //   cy.waitForMediaToLoad();
     //   cy.get('[data-hook="videoPlayer"]:first')
     //     .parent()
     //     .click();

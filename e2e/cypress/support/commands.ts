@@ -50,7 +50,7 @@ type ChainableCommands = {
 // Commands that use the prevSubject option
 interface ChainableCommandsWithSubject {
   typeAllAtOnce: RemoveFirstArg<ToCommand<typeof typeAllAtOnce>>;
-  waitForVideoToLoad: RemoveFirstArg<ToCommand<typeof waitForVideoToLoad>>;
+  waitForMediaToLoad: RemoveFirstArg<ToCommand<typeof waitForMediaToLoad>>;
   fireEvent: RemoveFirstArg<ToCommand<typeof fireEvent>>;
 }
 
@@ -597,7 +597,7 @@ const typeAllAtOnce = ($subject: HTMLElement, value: string) => {
   return cy.wrap($subject).type('t{backspace}');
 };
 
-const waitForVideoToLoad = () => {
+const waitForMediaToLoad = () => {
   cy.get('[data-loaded=true]', { timeout: 15000 }).should('have.length', 2);
 };
 
@@ -608,7 +608,7 @@ const fireEvent = (element: HTMLElement, event: string, value: string) => {
 
 // Add all commands with prevSubject
 Cypress.Commands.add('typeAllAtOnce', { prevSubject: 'element' }, typeAllAtOnce);
-Cypress.Commands.add('waitForVideoToLoad', { prevSubject: 'optional' }, waitForVideoToLoad);
+Cypress.Commands.add('waitForMediaToLoad', { prevSubject: 'optional' }, waitForMediaToLoad);
 Cypress.Commands.add('fireEvent', { prevSubject: true }, fireEvent);
 
 //////// Non-command functions ////////

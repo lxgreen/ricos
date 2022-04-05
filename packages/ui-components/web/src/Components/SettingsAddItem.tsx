@@ -26,7 +26,7 @@ const AddItemOverlay: React.FC<AddItemOverlayProps> = ({
   alt,
   t,
 }) => (
-  <div className={styles.settingsAddItem_overlay}>
+  <div className={styles.settingsAddItem_overlay} data-hook={'addItemOverlay'}>
     <div className={styles.settingsAddItem_overlay_icons}>
       {handleReplace && (
         <Tooltip content={t('Settings_Replace_Image_Tooltip')} place="top">
@@ -34,7 +34,7 @@ const AddItemOverlay: React.FC<AddItemOverlayProps> = ({
         </Tooltip>
       )}
       <Tooltip content={t('Settings_Remove_Image_Tooltip')} place="top">
-        <TrashIcon tabIndex={0} onClick={handleDelete} />
+        <TrashIcon tabIndex={0} onClick={handleDelete} data-hook={'addItemOverlay-deleteIcon'} />
       </Tooltip>
     </div>
     <Image
@@ -78,7 +78,7 @@ const SettingsAddItem: React.FC<SettingsAddItemProps> = ({
   t,
 }) => {
   return (
-    <div className={styles.settingsAddItem_container}>
+    <div className={styles.settingsAddItem_container} data-hook="settingsAddItem_container">
       <FileInput
         className={classNames(styles.settingsAddItem, styles.filesItem, {
           [styles.mobile]: isMobile,

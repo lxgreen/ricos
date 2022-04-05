@@ -129,7 +129,7 @@ const AudioModal = props => {
                 setUrl={setUrl}
                 submittedInvalidUrl={submittedInvalidUrl}
                 withMobileHeader={false}
-                dataHook="audio-data-hook"
+                dataHook="audioModalEmbedInput"
                 saveLabel={t('AudioModal_Embed_ButtonText')}
                 subTitle={t('AudioModal_Embed_Title')}
                 withMobileSaveButton

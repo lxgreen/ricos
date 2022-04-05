@@ -33,7 +33,7 @@ const AudioViewer: FC<Props> = ({
   const shouldEmbed = componentData.html;
 
   return (
-    <div className={classes.container} data-hook="audio-container">
+    <div className={classes.container} data-hook="audioViewer">
       {!shouldEmbed ? (
         <ReactPlayerWrapper
           theme={theme}

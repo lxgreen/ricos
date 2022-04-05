@@ -6,6 +6,7 @@ import {
   GIPHY_PLUGIN,
   IMAGE_SETTINGS,
   VIDEO_SETTINGS,
+  AUDIO_PLUGIN,
   ACTION_BUTTONS,
   STATIC_TOOLBAR_BUTTONS,
 } from '../cypress/dataHooks';
@@ -372,7 +373,7 @@ describe('plugins', () => {
         .type('{uparrow}') //try to fix bug where sometimes it doesn't type
         .type('{uparrow}')
         .type('Will this fix the flakiness?');
-      cy.waitForVideoToLoad();
+      cy.waitForMediaToLoad();
       cy.eyesCheckWindow(this.test.title);
     });
 
@@ -383,7 +384,7 @@ describe('plugins', () => {
         .type('{uparrow}') //try to fix bug where sometimes it doesn't type
         .type('{uparrow}')
         .type('Will this fix the flakiness?');
-      cy.waitForVideoToLoad();
+      cy.waitForMediaToLoad();
       cy.eyesCheckWindow(this.test.title);
     });
 
@@ -466,6 +467,65 @@ describe('plugins', () => {
     //   cy.get(`[data-hook=emoji-121]`).click();
     //   cy.eyesCheckWindow(this.test.title);
     // });
+  });
+
+  context('audio', () => {
+    before('load editor', function () {
+      eyesOpen(this);
+    });
+    const testAppConfig = {
+      ...usePlugins(plugins.audio),
+      ...usePluginsConfig({
+        audio: {
+          exposeButtons: ['audio', 'soundCloud', 'spotify'],
+        },
+      }),
+    };
+
+    beforeEach('load editor', () => {
+      cy.switchToDesktop();
+      cy.loadRicosEditorAndViewer('empty', testAppConfig);
+    });
+
+    after(() => cy.eyesClose());
+
+    it('should render custom audio modals', () => {
+      cy.clickOnStaticButton(STATIC_TOOLBAR_BUTTONS.AUDIO);
+      cy.eyesCheckWindow('should render upload tab section');
+      cy.get(`[data-hook=Embed_Tab]`).click();
+      cy.eyesCheckWindow('should render embed section');
+    });
+
+    it('should render audio player', () => {
+      cy.clickOnStaticButton(STATIC_TOOLBAR_BUTTONS.AUDIO);
+      cy.get(`[data-hook=${AUDIO_PLUGIN.CUSTOM}]`).click().waitForMediaToLoad();
+      cy.eyesCheckWindow('should render custom audio player');
+      cy.get(`button[data-hook=${PLUGIN_TOOLBAR_BUTTONS.REPLACE}]`).click();
+      cy.get(`[data-hook=Embed_Tab]`).click();
+      cy.get(`[data-hook=${AUDIO_PLUGIN.INPUT}]`).clear().type('spotify.com');
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click().wait(1000);
+      cy.eyesCheckWindow('should replace player with spotify embed');
+    });
+
+    it('should render audio settings', () => {
+      cy.loadRicosEditorAndViewer('audio', testAppConfig);
+      cy.openPluginToolbar(PLUGIN_COMPONENT.AUDIO);
+      cy.clickToolbarButton(PLUGIN_TOOLBAR_BUTTONS.SETTINGS);
+      cy.get(`[data-hook=audioSettings]`);
+      cy.eyesCheckWindow('should render audio settings');
+      cy.get(`[data-hook=audioSettingsAudioNameInput]`).clear();
+      cy.get(`[data-hook=audioSettingsAuthorNameInput]`).clear();
+      cy.eyesCheckWindow('should render settings with empty inputs');
+      cy.get(`[data-hook=file-input-label]`).click();
+      cy.eyesCheckWindow('should render settings without cover image');
+      cy.get(`[data-hook=AudioDownloadToggle]`).click();
+      cy.eyesCheckWindow('should enable audio download');
+      cy.get(`[data-hook=settingsCloseIcon]`).click();
+      cy.get(`[data-hook=audioContextMenu]`).eq(1).click();
+      cy.get(`[data-hook=audioDownloadIcon]`).should('be.visible');
+      cy.eyesCheckWindow('should render audio with enabled download options');
+    });
   });
 });
 
