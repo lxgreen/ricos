@@ -14,7 +14,7 @@ import "wix/api/entity.proto";
 import "wix/api/validations.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
-import "wix/rich_content/v1/struct.proto";
+import "google/protobuf/struct.proto";
 import "wix/rich_content/v1/decoration_anchor.proto";
 import "wix/rich_content/v1/decoration_color.proto";
 import "wix/rich_content/v1/decoration_link.proto";
@@ -112,7 +112,7 @@ message Node {
         CollapsibleListData collapsible_list_data = 22;
         TableData table_data = 23;
         TableCellData table_cell_data = 24;
-        Struct externalData = 25;
+        google.protobuf.Struct externalData = 25;
         AudioData audio_data = 26;
         OrderedListData ordered_list_data = 27;
         BulletedListData bulleted_list_data = 28;

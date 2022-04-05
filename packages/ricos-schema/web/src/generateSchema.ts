@@ -35,6 +35,11 @@ const run = async () => {
         .replace('import "wix/api/entity.proto";\n', '')
         .replace('import "wix/api/validations.proto";\n', '')
         .replace('import "wix/api/annotations.proto";\n', '')
+        .replace(
+          'import "google/protobuf/struct.proto"',
+          'import "wix/rich_content/v1/struct.proto"'
+        )
+        .replace('google.protobuf.Struct externalData = 25', 'Struct externalData = 25')
     );
   });
 
