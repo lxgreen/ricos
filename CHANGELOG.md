@@ -18,6 +18,12 @@
   </summary>
 
 
+
+</details>
+  <hr/>
+
+## 8.70.34 (April 6, 2022)
+
 ### :bug: Bug Fix
 - `video`
   - [#3682](https://github.com/wix/ricos/pull/3682) fix video duration on tiptap and converter
@@ -33,10 +39,6 @@
 ### :nail_care: Polish
  - `audio`
   - [#3700](https://github.com/wix/ricos/pull/3700) change TextInput doubleClick prop name 
-
-
-</details>
-  <hr/>
 
 ## 8.70.33 (April 4, 2022)
 
