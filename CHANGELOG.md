@@ -28,6 +28,7 @@
 - `audio`
   - [#3692](https://github.com/wix/ricos/pull/3692) add audio tests
   - [#3707](https://github.com/wix/ricos/pull/3707) add audio bi
+  - [#3710](https://github.com/wix/ricos/pull/3710) add tiptap support
 
 ### :nail_care: Polish
  - `audio`
