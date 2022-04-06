@@ -28,9 +28,7 @@ function GalleryComponent(props) {
         blockKey={props.block.getKey()}
         itemOverlayElement={renderMobileNativeLoader}
       />
-      {!error && (isLoading || loadingPercentage) && (
-        <Loader type={'medium'} percent={loadingPercentage} />
-      )}
+      {!error && isLoading && <Loader type={'medium'} percent={loadingPercentage} />}
       {error && <MediaItemErrorMsg error={error} t={t} />}
     </>
   );
