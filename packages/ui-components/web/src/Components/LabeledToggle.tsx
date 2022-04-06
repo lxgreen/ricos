@@ -14,6 +14,7 @@ interface LabeledToggleProps {
   style?: CSSProperties;
   dataHook?: string;
   tooltipText?: string;
+  isMobile?: boolean;
 }
 
 export default class LabeledToggle extends Component<LabeledToggleProps> {
@@ -25,7 +26,7 @@ export default class LabeledToggle extends Component<LabeledToggleProps> {
   }
 
   render() {
-    const { label, onChange, checked, style, dataHook, tooltipText } = this.props;
+    const { label, onChange, checked, style, dataHook, tooltipText, isMobile = false } = this.props;
     return (
       <div className={this.styles.labeled_toggle_root} style={style}>
         <div className={this.styles.labeled_toggle_label_wrapper}>
@@ -37,7 +38,9 @@ export default class LabeledToggle extends Component<LabeledToggleProps> {
           >
             <p className={this.styles.labeled_toggle_label}>{label}</p>
           </div>
-          {tooltipText && <InfoIcon iconStyles={styles.infoIcon} tooltipText={tooltipText} />}
+          {tooltipText && !isMobile && (
+            <InfoIcon iconStyles={styles.infoIcon} tooltipText={tooltipText} />
+          )}
         </div>
         <div
           className={this.styles.labeled_toggle_input_root}

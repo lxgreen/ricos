@@ -165,6 +165,7 @@ const AudioSettings = ({
             onChange={onDownlandToggle}
             tooltipText={t('AudioPlugin_Settings_AudioCanBeDownloaded_Tooltip')}
             dataHook="AudioDownloadToggle"
+            isMobile={isMobile}
           />
         </SettingsSection>
         {isMobile && (

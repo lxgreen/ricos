@@ -267,6 +267,11 @@ const ReactPlayerWrapper: React.FC<Props> = ({
         onDuration={handleDuration}
         data-loaded={!isLoading}
         onEnded={onEnded}
+        config={{
+          file: {
+            forceAudio: true,
+          },
+        }}
       />
     </div>
   );
