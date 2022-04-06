@@ -70,6 +70,21 @@ describe('plugin menu test', () => {
         getFooterToolbarConfig({ morePluginsMenu: { splitToSections: true } })
       );
     });
+    it('should filter out shortcut plugins from more menu', function () {
+      footerPluginMenuRenderer(
+        this.test.title,
+        getFooterToolbarConfig({
+          pluginsToDisplayInToolbar: [
+            'wix-draft-plugin-divider',
+            'wix-draft-plugin-image',
+            'wix-draft-plugin-html',
+            'wix-draft-plugin-map',
+            'wix-draft-plugin-gallery',
+          ],
+          morePluginsMenu: {},
+        })
+      );
+    });
   });
 
   context('side menu modals', () => {

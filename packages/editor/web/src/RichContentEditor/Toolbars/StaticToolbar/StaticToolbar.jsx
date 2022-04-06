@@ -69,7 +69,8 @@ export default class StaticToolbar extends React.PureComponent {
         footerToolbarConfig.pluginsToDisplayInToolbar.includes(blockType)
       );
       this.pluginMenuPlugins = structure.filter(
-        ({ name }) => !footerToolbarConfig.pluginsToDisplayInToolbar.includes(name)
+        ({ blockType: pluginId }) =>
+          !footerToolbarConfig.pluginsToDisplayInToolbar.includes(pluginId)
       );
     } else if (footerToolbarConfig.morePluginsMenu) {
       this.structure = structure.slice(0, 8);
@@ -77,7 +78,7 @@ export default class StaticToolbar extends React.PureComponent {
     } else {
       this.structure = structure;
     }
-    this.shouldShowSortcut =
+    this.shouldShowShortcut =
       footerToolbarConfig.morePluginsMenu && this.pluginMenuPlugins?.length > 0;
   }
 
@@ -190,7 +191,7 @@ export default class StaticToolbar extends React.PureComponent {
             </div>
           )}
         </Measure>
-        {this.shouldShowSortcut ? (
+        {this.shouldShowShortcut ? (
           <MoreButton
             t={t}
             helpers={helpers}
