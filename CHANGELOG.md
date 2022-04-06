@@ -17,38 +17,48 @@
     Click to see more.
   </summary>
 
-
-
 </details>
   <hr/>
+
+## 8.70.35 (April 6, 2022)
+
+### :bug: Bug Fix
+
+- `more-menu`
+  - [#3711](https://github.com/wix/ricos/pull/3711) fix: filter out shortcut plugins from more menu
 
 ## 8.70.34 (April 6, 2022)
 
 ### :bug: Bug Fix
+
 - `video`
   - [#3682](https://github.com/wix/ricos/pull/3682) fix video duration on tiptap and converter
 - `audio`
-  - [#3701](https://github.com/wix/ricos/pull/3701) add missing audio imports 
+  - [#3701](https://github.com/wix/ricos/pull/3701) add missing audio imports
 
 ### :house: Internal
+
 - `audio`
   - [#3692](https://github.com/wix/ricos/pull/3692) add audio tests
   - [#3707](https://github.com/wix/ricos/pull/3707) add audio bi
   - [#3710](https://github.com/wix/ricos/pull/3710) add tiptap support
 
 ### :nail_care: Polish
- - `audio`
-  - [#3700](https://github.com/wix/ricos/pull/3700) change TextInput doubleClick prop name 
+
+- `audio`
+- [#3700](https://github.com/wix/ricos/pull/3700) change TextInput doubleClick prop name
 
 ## 8.70.33 (April 4, 2022)
 
 ### :bug: Bug Fix
- - `audio`
-  - [#3697](https://github.com/wix/ricos/pull/3697) fix audio settings ui & handle tags error on audio upload
+
+- `audio`
+- [#3697](https://github.com/wix/ricos/pull/3697) fix audio settings ui & handle tags error on audio upload
 
 ### :book: Documentation
- - `audio`
-  - [#3689](https://github.com/wix/ricos/pull/3689) add audio docs
+
+- `audio`
+- [#3689](https://github.com/wix/ricos/pull/3689) add audio docs
 
 ## 8.70.32 (April 3, 2022)
 
