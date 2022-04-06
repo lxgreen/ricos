@@ -12,8 +12,10 @@ if (!process.env.MODULE_NAME) {
 }
 
 const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): RollupOptions[] => {
+  const onlyCurrentPackageRegex = new RegExp(`/${process.env.MODULE_NAME}/`);
   const watch: WatcherOptions = {
-    exclude: ['node_modules/**'],
+    // exclude: ['node_modules/**'],
+    include: [onlyCurrentPackageRegex],
     clearScreen: false,
   };
   const getCommonOptions = (entry?: string) => ({
@@ -23,9 +25,6 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
   });
 
   output = output.map(o => ({ ...o, sourcemap: true }));
-  if (process.env.ROLLUP_WATCH && !process.env.BUILD_CJS) {
-    output = output.filter(o => o.format === 'es');
-  }
 
   let addPartToFilename = (fileName: string, fileNamePart: string) => {
     const anchor = fileName.indexOf('.');
@@ -71,19 +70,6 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
     });
   }
 
-  const viewerLoadableOutput: OutputOptions[] = [
-    {
-      dir: 'dist/loadable/viewer/es/',
-      format: 'es',
-      chunkFileNames: '[name].js',
-    },
-    {
-      dir: 'dist/loadable/viewer/cjs/',
-      format: 'cjs',
-      chunkFileNames: '[name].cjs.js',
-    },
-  ];
-
   const viewerLoadablePath = 'src/viewer-loadable.ts';
   if (existsSync(`./${viewerLoadablePath}`)) {
     viewerEntry.push({
@@ -124,7 +110,20 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
   return entries.filter(x => x);
 };
 
-const output: OutputOptions[] = process.env.DYNAMIC_IMPORT
+let viewerLoadableOutput: OutputOptions[] = [
+  {
+    dir: 'dist/loadable/viewer/es/',
+    format: 'es',
+    chunkFileNames: '[name].js',
+  },
+  {
+    dir: 'dist/loadable/viewer/cjs/',
+    format: 'cjs',
+    chunkFileNames: '[name].cjs.js',
+  },
+];
+
+let output: OutputOptions[] = process.env.DYNAMIC_IMPORT
   ? [
       {
         dir: 'dist/es',
@@ -149,5 +148,10 @@ const output: OutputOptions[] = process.env.DYNAMIC_IMPORT
         exports: 'auto',
       },
     ];
+
+if (process.env.ROLLUP_WATCH && !process.env.BUILD_CJS) {
+  output = output.filter(o => o.format === 'es');
+  viewerLoadableOutput = viewerLoadableOutput.filter(o => o.format === 'es');
+}
 
 export default commonConfig(output, process.env.EXTRACT_CSS !== 'false');
