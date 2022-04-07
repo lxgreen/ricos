@@ -31,6 +31,7 @@ interface SliderProps {
   ariaProps?: InputHTMLAttributes<HTMLInputElement>;
   languageDir: string;
   liveSiteWiring?: boolean;
+  ariaLabel?: string;
 }
 
 const Slider: FunctionComponent<SliderProps> = props => {
@@ -49,6 +50,7 @@ const Slider: FunctionComponent<SliderProps> = props => {
     trackSize = SLIDER_TRACK_SIZE.medium,
     step,
     liveSiteWiring = false,
+    ariaLabel,
   } = props;
   const [fillPercentage, setFillPercentage] = useState(0);
   const track = {
@@ -105,6 +107,7 @@ const Slider: FunctionComponent<SliderProps> = props => {
   return (
     <input
       {...ariaProps}
+      aria-label={ariaLabel}
       tabIndex={tabIndex}
       type={'range'}
       className={classNames(

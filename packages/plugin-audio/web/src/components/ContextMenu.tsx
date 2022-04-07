@@ -30,6 +30,7 @@ const ContextMenu = ({
         onKeyPress={onKeyPress}
         className={styles.audio_contextMenuIcon}
         onClick={onClick}
+        aria-label="context menu"
       />
     </>
   );

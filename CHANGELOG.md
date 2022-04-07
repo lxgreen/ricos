@@ -17,7 +17,9 @@
     Click to see more.
   </summary>
 
-
+### :bug: Bug Fix
+- `audio`
+  - [#3718](https://github.com/wix/ricos/pull/3718) fix audio bi &  a11y (clear naming for screen readers)
 
 </details>
   <hr/>

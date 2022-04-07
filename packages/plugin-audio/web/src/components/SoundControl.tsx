@@ -29,6 +29,7 @@ const SoundControl = ({ volume, setVolume, muted, handleMute, theme, handleVolum
       className={classNames(styles.audio_icon_button, styles.audio_volume_wrapper)}
       onKeyPress={onKeyPress}
       onKeyDown={onKeyDown}
+      aria-label="sound"
     >
       <div className={styles.volume_slider_wrapper}>
         <Slider

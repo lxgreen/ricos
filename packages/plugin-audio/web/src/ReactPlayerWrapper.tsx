@@ -16,7 +16,7 @@ import {
   SLIDER_TRACK_SIZE,
   SLIDER_THUMB_VISIBILITY,
 } from 'wix-rich-content-ui-components';
-import { downloadFile, playbackRates, AUDIO_BI_VALUES } from './consts';
+import { downloadFile, playbackRates, AUDIO_BI_VALUES, AUDIO_ACTION_NAMES } from './consts';
 import classNames from 'classnames';
 import type { Helpers } from 'wix-rich-content-common';
 import { AUDIO_TYPE } from './types';
@@ -81,7 +81,11 @@ const ReactPlayerWrapper: React.FC<Props> = ({
     download: {
       text: 'Download',
       onClick: () => {
-        helpers?.onViewerAction?.(AUDIO_TYPE, 'Click', AUDIO_BI_VALUES.FILE_DOWNLOADED);
+        helpers?.onViewerAction?.(
+          AUDIO_TYPE,
+          AUDIO_ACTION_NAMES.fileDownloaded,
+          AUDIO_BI_VALUES.click
+        );
         onDownload();
         setShowContextMenu(false);
       },
@@ -109,7 +113,11 @@ const ReactPlayerWrapper: React.FC<Props> = ({
     }
   };
   const onEnded = () =>
-    helpers?.onViewerAction?.(AUDIO_TYPE, 'playAudio', AUDIO_BI_VALUES.PLAYBACK_COMPLETED);
+    helpers?.onViewerAction?.(
+      AUDIO_TYPE,
+      AUDIO_ACTION_NAMES.playAudio,
+      AUDIO_BI_VALUES.PLAYBACK_COMPLETED
+    );
 
   const handleDuration = (num: number) => setDuration(num);
   const handleSeekChange = (num: number) => {
@@ -224,6 +232,7 @@ const ReactPlayerWrapper: React.FC<Props> = ({
                   thumbVisibility={SLIDER_THUMB_VISIBILITY.hover}
                   trackSize={SLIDER_TRACK_SIZE.small}
                   liveSiteWiring
+                  ariaLabel="audio Slider"
                 />
                 <SoundControl
                   theme={theme}

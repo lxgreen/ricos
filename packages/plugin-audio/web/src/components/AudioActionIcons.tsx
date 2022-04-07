@@ -34,11 +34,17 @@ const AudioActionIcons: React.FC<Props> = ({
   };
 
   const ComponentIcon = disabled || !isPlaying ? PlayIcon : PauseIcon;
+  const ariaLabel = isPlaying ? 'pause' : 'play';
 
   return isLoading ? (
     <LoaderIcon className={styles.audio_loader_icon} />
   ) : (
-    <button className={styles.audio_icon_button} onClick={onClick} onKeyPress={onKeyPress}>
+    <button
+      className={styles.audio_icon_button}
+      onClick={onClick}
+      onKeyPress={onKeyPress}
+      aria-label={ariaLabel}
+    >
       <ComponentIcon />
     </button>
   );
