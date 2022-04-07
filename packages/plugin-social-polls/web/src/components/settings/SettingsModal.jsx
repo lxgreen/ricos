@@ -39,7 +39,7 @@ export class SettingsModal extends Component {
     relValue: PropTypes.string,
     anchorTarget: PropTypes.string,
     settings: PropTypes.object.isRequired,
-    experiments: PropTypes.propTypes.object,
+    experiments: PropTypes.object,
     updateData: PropTypes.func,
     onSave: PropTypes.func,
     onCancel: PropTypes.func,
