@@ -6,6 +6,7 @@ import copyPlugin from 'rollup-plugin-copy';
 /* @ts-ignore typescript-plugin external types issue */
 import babelPlugin from '@rollup/plugin-babel';
 import typescriptPlugin from 'rollup-plugin-typescript2';
+import esbuild from 'rollup-plugin-esbuild';
 import commonjsPlugin from '@rollup/plugin-commonjs';
 import jsonPlugin from '@rollup/plugin-json';
 import postcssPlugin from 'rollup-plugin-postcss';
@@ -35,10 +36,23 @@ const resolve = (): Plugin => {
 };
 
 const resolveAlias = (): Plugin => {
-  return aliasPlugin({
-    entries: {
-      'draft-js': '@wix/draft-js',
+  const entries: {
+    find: string | RegExp;
+    replacement: string;
+  }[] = [
+    {
+      find: 'draft-js',
+      replacement: '@wix/draft-js',
     },
+  ];
+  if (IS_DEV_ENV) {
+    entries.push({
+      find: /^ricos-schema$/,
+      replacement: 'ricos-schema/generated/stringEnums/wix/rich_content/v1/index.ts',
+    });
+  }
+  return aliasPlugin({
+    entries,
   });
 };
 
@@ -124,6 +138,33 @@ const typescript = (): Plugin => {
     // clean: true,
   });
 };
+
+const esbuildPlugin: Plugin = esbuild({
+  // All options are optional
+  include: /\.[jt]sx?$/, // default, inferred from `loaders` option
+  exclude: /node_modules/, // default
+  // sourceMap: true, // by default inferred from rollup's `output.sourcemap` option
+  minify: process.env.NODE_ENV === 'production',
+  target: 'esnext', // default, or 'es20XX', 'esnext'
+  jsx: 'transform', // default, or 'preserve'
+  jsxFactory: 'React.createElement',
+  jsxFragment: 'React.Fragment',
+  // Like @rollup/plugin-replace
+  define: {
+    // __VERSION__: '"x.y.z"',
+  },
+  // tsconfig: `tsconfig.json`, // default looks for it recursively
+  // Add extra loaders
+  // @ts-ignore
+  // external: ['ricos-schema'],
+  loaders: {
+    // Add .json files support
+    // require @rollup/plugin-commonjs
+    '.json': 'json',
+    // Enable JSX in .js files too
+    '.js': 'jsx',
+  },
+});
 
 const json = (): Plugin => {
   return jsonPlugin({
@@ -266,18 +307,19 @@ function addStylesImport() {
   };
 }
 
+const transpilePlugins = IS_DEV_ENV ? [esbuildPlugin] : [typescript(), babel()];
+
 let plugins: Plugin[] = [
   svgr(),
   resolveAlias(),
   resolve(),
-  typescript(),
-  babel(),
+  ...transpilePlugins,
   commonjsPlugin(),
   json(),
 ];
 
 if (!IS_DEV_ENV) {
-  plugins = [...plugins, replace(), uglify()];
+  plugins = [replace(), ...plugins, uglify()];
 }
 
 if (process.env.MODULE_ANALYZE_EDITOR || process.env.MODULE_ANALYZE_VIEWER) {

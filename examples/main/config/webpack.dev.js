@@ -23,6 +23,9 @@ const devConfig = {
       },
     ],
   },
+  watchOptions: {
+    aggregateTimeout: 500,
+  },
   plugins: [new ReactRefreshWebpackPlugin()],
   devServer: {
     port: 3000,
