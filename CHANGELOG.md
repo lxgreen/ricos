@@ -17,13 +17,18 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+  <hr/>
+
+## 8.70.36 (April 7, 2022)
+
 ### :bug: Bug Fix
 - `audio`
   - [#3713](https://github.com/wix/ricos/pull/3713) fix settings ui & force audio tag usage
   - [#3715](https://github.com/wix/ricos/pull/3715) refactor docs & some bug fixes
 
-</details>
-  <hr/>
 
 ## 8.70.35 (April 6, 2022)
 
