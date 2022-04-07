@@ -14,6 +14,7 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
   min-width: 320px;
   height: calc(#{$COVER_IMAGE_SIZE_DEFAULT} + 2px);
   display: flex;
+  position: relative;
   &.customPlayer_basic {
     height: $COVER_IMAGE_SIZE_SMALL;
     &.customPlayer_mobile {
@@ -48,11 +49,7 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
     }
   }
   svg {
-    cursor: pointer;
-    width: 20px;
-    min-width: 20px;
-    max-width: 20px;
-    height: 20px;
+    @extend %iconButton;
     fill: var(--ricos-oneapp-text-color, $primary-text-color);
     color: var(--ricos-oneapp-text-color, $primary-text-color);
     &:hover {
@@ -67,6 +64,21 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
   &.audio_coverImg {
     height: 56px;
   }
+  .audio_icon_button {
+    @extend %iconButton;
+    border: none;
+    background: none;
+  }
+}
+
+%iconButton {
+  cursor: pointer;
+  width: 20px;
+  min-width: 20px;
+  max-width: 20px;
+  height: 20px;
+  padding: 0;
+  margin: 0;
 }
 
 .customPlayer_with_image {
@@ -203,6 +215,7 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
 }
 
 .audio_contextMenu_wrapper {
+  @extend .audio_icon_button;
   @extend %flexCenter;
   position: relative;
 }

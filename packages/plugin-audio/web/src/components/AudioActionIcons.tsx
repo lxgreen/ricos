@@ -32,18 +32,15 @@ const AudioActionIcons: React.FC<Props> = ({
       onClick();
     }
   };
-  const props = {
-    tabIndex: 0,
-    onClick,
-    onKeyPress: e => onKeyPress(e),
-  };
 
-  const PlayPauseIconComponent = disabled || !isPlaying ? PlayIcon : PauseIcon;
+  const ComponentIcon = disabled || !isPlaying ? PlayIcon : PauseIcon;
 
   return isLoading ? (
     <LoaderIcon className={styles.audio_loader_icon} />
   ) : (
-    <PlayPauseIconComponent {...props} />
+    <button className={styles.audio_icon_button} onClick={onClick} onKeyPress={onKeyPress}>
+      <ComponentIcon />
+    </button>
   );
 };
 

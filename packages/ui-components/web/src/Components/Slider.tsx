@@ -27,7 +27,7 @@ interface SliderProps {
   step?: string;
   thumbVisibility?: typeof SLIDER_THUMB_VISIBILITY[ThumbVisibilityKeys];
   trackSize?: typeof SLIDER_TRACK_SIZE[TrackSizeKeys];
-  height?: number;
+  tabIndex?: number;
   ariaProps?: InputHTMLAttributes<HTMLInputElement>;
   languageDir: string;
   liveSiteWiring?: boolean;
@@ -38,6 +38,7 @@ const Slider: FunctionComponent<SliderProps> = props => {
   const {
     min = 0,
     max = 10,
+    tabIndex = 0,
     onChange,
     dataHook,
     ariaProps,
@@ -104,7 +105,7 @@ const Slider: FunctionComponent<SliderProps> = props => {
   return (
     <input
       {...ariaProps}
-      tabIndex={0}
+      tabIndex={tabIndex}
       type={'range'}
       className={classNames(
         mergedStyles.slider,
@@ -122,6 +123,7 @@ const Slider: FunctionComponent<SliderProps> = props => {
       max={max}
       step={step}
       onMouseUp={e => onChangeCommitted?.((e.target as HTMLInputElement).valueAsNumber)}
+      onTouchEnd={e => onChangeCommitted?.((e.target as HTMLInputElement).valueAsNumber)}
       onKeyUp={onKeyUp}
       onKeyDown={onKeyDown}
       style={bgStyle}

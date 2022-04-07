@@ -503,9 +503,8 @@ describe('plugins', () => {
       cy.get(`button[data-hook=${PLUGIN_TOOLBAR_BUTTONS.REPLACE}]`).click();
       cy.get(`[data-hook=Embed_Tab]`).click();
       cy.get(`[data-hook=${AUDIO_PLUGIN.INPUT}]`).clear().type('spotify.com');
-      // eslint-disable-next-line cypress/no-unnecessary-waiting
-      cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click().wait(1000);
-      cy.eyesCheckWindow('should replace player with spotify embed');
+      cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
+      cy.get('iframe').should('be.visible');
     });
 
     it('should render audio settings', () => {

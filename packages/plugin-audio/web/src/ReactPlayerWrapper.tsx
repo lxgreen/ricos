@@ -235,8 +235,8 @@ const ReactPlayerWrapper: React.FC<Props> = ({
                 />
               </div>
               {isMobile && renderAudioDuration()}
-              <div className={styles.audio_contextMenu_wrapper}>
-                {!isMobile && (
+              {!isMobile && (
+                <button className={styles.audio_contextMenu_wrapper} tabIndex={-1}>
                   <ContextMenu
                     onClickOutside={onClickOutside}
                     contextMenuData={contextMenuData}
@@ -245,8 +245,8 @@ const ReactPlayerWrapper: React.FC<Props> = ({
                     showPlaybackMenu={showPlaybackMenu}
                     onClick={handleContextMenuClick}
                   />
-                )}
-              </div>
+                </button>
+              )}
             </div>
           </div>
         </div>

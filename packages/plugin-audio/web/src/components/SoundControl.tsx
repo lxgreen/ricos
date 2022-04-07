@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 import {
   SoundIcon,
@@ -24,12 +25,9 @@ const SoundControl = ({ volume, setVolume, muted, handleMute, theme, handleVolum
   const SoundIconComponent = muted ? SoundMutedIcon : SoundIcon;
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div
-      className={styles.audio_volume_wrapper}
+    <button
+      className={classNames(styles.audio_icon_button, styles.audio_volume_wrapper)}
       onKeyPress={onKeyPress}
-      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-      tabIndex={0}
       onKeyDown={onKeyDown}
     >
       <div className={styles.volume_slider_wrapper}>
@@ -45,10 +43,11 @@ const SoundControl = ({ volume, setVolume, muted, handleMute, theme, handleVolum
           dataHook="audioVolumeSlider"
           trackSize={SLIDER_TRACK_SIZE.small}
           liveSiteWiring
+          tabIndex={-1}
         />
       </div>
       <SoundIconComponent className={styles.audio_sound_icon} onClick={handleMute} />
-    </div>
+    </button>
   );
 };
 
