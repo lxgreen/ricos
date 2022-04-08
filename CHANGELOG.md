@@ -18,10 +18,16 @@
   </summary>
 
 ### :bug: Bug Fix
+
 - `audio`
   - [#3718](https://github.com/wix/ricos/pull/3718) fix audio bi &  a11y (clear naming for screen readers)
 - `button`
   - [#3719](https://github.com/wix/ricos/pull/3719) fix button settings BM theming
+
+### :house: Internal
+
+- `tiptap-editor`
+  - [#3722](https://github.com/wix/ricos/pull/3722) dev-tools applied if debug is ON
 
 </details>
   <hr/>
