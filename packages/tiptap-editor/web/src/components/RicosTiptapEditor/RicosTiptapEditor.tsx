@@ -12,6 +12,7 @@ import type { RicosTiptapEditorProps } from '../../types';
 import { coreConfigs } from './core-configs';
 import { patchExtensions } from '../../patch-extensions';
 import '../../statics/styles/tiptap-editor-styles.scss';
+import { applyDevTools } from './apply-dev-tools';
 
 // TODO: maybe should move it to utils ?
 const getSelectedNodes = ({ editor }) => {
@@ -58,6 +59,8 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
         onBlur?.();
       },
     });
+
+    applyDevTools(editorInstance);
 
     editorInstance.on('selectionUpdate', ({ editor }) => {
       const selectedNodes = getSelectedNodes({ editor });
