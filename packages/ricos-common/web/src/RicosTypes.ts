@@ -122,7 +122,7 @@ export interface ModalSettings {
 export interface ToolbarSettings {
   getToolbarSettings?: GetToolbarSettings;
   textToolbarContainer?: HTMLElement;
-  useStaticTextToolbar?: boolean;
+  useStaticTextToolbar?: boolean | { disabled: boolean };
 }
 
 export type FullscreenProps = { backgroundColor?: string; foregroundColor?: string };
