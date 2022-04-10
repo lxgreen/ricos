@@ -71,6 +71,7 @@ import type {
   RICOS_MENTION_TYPE,
   EXTERNAL,
   RICOS_MAP_TYPE,
+  RICOS_COLLAPSIBLE_LIST_TYPE,
 } from 'ricos-content';
 import type {
   DividerData,
@@ -85,6 +86,7 @@ import type {
   MentionData as MentionPluginData,
   ButtonData,
   MapData,
+  CollapsibleListData,
 } from 'ricos-schema';
 import { LinkData, Node_Type, Decoration_Type } from 'ricos-schema';
 export { Node_Type, Decoration_Type, LinkData };
@@ -123,6 +125,7 @@ export interface CreatePluginsDataMap {
   [LINK_BUTTON_TYPE]?: CreatePluginData<ButtonData>;
   [ACTION_BUTTON_TYPE]?: CreatePluginData<ButtonData>;
   [RICOS_MAP_TYPE]?: CreatePluginData<MapData>;
+  [RICOS_COLLAPSIBLE_LIST_TYPE]?: CreatePluginData<CollapsibleListData>;
 }
 
 import type { EditorPlugin as DraftEditorPlugin, PluginFunctions } from 'draft-js-plugins-editor';

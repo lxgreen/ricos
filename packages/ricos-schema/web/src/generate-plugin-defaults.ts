@@ -40,6 +40,10 @@ const pluginDataPropByType = {
   [Node_Type.TEXT]: 'textData',
   [Node_Type.VIDEO]: 'videoData',
   [Node_Type.AUDIO]: 'audioData',
+  [Node_Type.COLLAPSIBLE_LIST]: 'collapsibleListData',
+  [Node_Type.COLLAPSIBLE_ITEM]: 'collapsibleItemData',
+  [Node_Type.COLLAPSIBLE_ITEM_TITLE]: 'collapsibleItemTitle',
+  [Node_Type.COLLAPSIBLE_ITEM_BODY]: 'collapsibleItemBody',
   [Node_Type.ORDERED_LIST]: 'orderedListData',
   [Node_Type.BULLETED_LIST]: 'bulletedListData',
   [Node_Type.BLOCKQUOTE]: 'blockquoteData',
@@ -78,6 +82,15 @@ const defaultContent = {
     {
       type: 'AUDIO',
       audioData: { containerData, audio: {} },
+    },
+    {
+      type: 'COLLAPSIBLE_LIST',
+      collapsibleListData: {
+        containerData,
+        initialExpandedItems: 'FIRST',
+        direction: 'LTR',
+        expandOnlyOne: false,
+      },
     },
     {
       type: 'ORDERED_LIST',

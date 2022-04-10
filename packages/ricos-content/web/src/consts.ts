@@ -133,6 +133,10 @@ export const TIPTAP_AUDIO_TYPE = 'audio';
 export const TIPTAP_LINK_PREVIEW_TYPE = 'linkPreview';
 export const TIPTAP_POLL_TYPE = 'poll';
 export const TIPTAP_APP_EMBED_TYPE = 'appEmbed';
+export const TIPTAP_COLLAPSIBLE_LIST_TYPE = 'collapsibleList';
+export const TIPTAP_COLLAPSIBLE_ITEM_TYPE = 'collapsibleItem';
+export const TIPTAP_COLLAPSIBLE_ITEM_TITLE_TYPE = 'collapsibleItemTitle';
+export const TIPTAP_COLLAPSIBLE_ITEM_BODY_TYPE = 'collapsibleItemBody';
 
 export const RICOS_NODE_TYPE_TO_DATA_FIELD = {
   [Node_Type.BUTTON]: 'buttonData',

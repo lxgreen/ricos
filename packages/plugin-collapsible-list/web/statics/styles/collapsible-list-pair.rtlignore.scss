@@ -18,3 +18,21 @@
     display: none;
   }
 }
+
+.expandIcon {
+  display: flex;
+  align-self: start;
+  padding-top: 12px;
+}
+
+.dndIcon {
+  padding-top: 12px;
+  left: -23px;
+  position: absolute;
+}
+
+.itemContainer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+}
