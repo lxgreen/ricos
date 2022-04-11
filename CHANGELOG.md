@@ -17,23 +17,29 @@
     Click to see more.
   </summary>
 
-### :house: Internal
-- `audio`
-  - [#3724](https://github.com/wix/ricos/pull/3724) add audio to storybook
-### :bug: Bug Fix
-- `audio`
-  - [#3721](https://github.com/wix/ricos/pull/3721) add err msg when upload fails & some bug fixes
-
-
 </details>
   <hr/>
+
+## 8.70.38 (April 11, 2022)
+
+### :house: Internal
+
+- `audio`
+  - [#3724](https://github.com/wix/ricos/pull/3724) add audio to storybook
+
+### :bug: Bug Fix
+
+- `audio`
+  - [#3721](https://github.com/wix/ricos/pull/3721) add err msg when upload fails & some bug fixes
+- `poll`
+  - [#3726](https://github.com/wix/ricos/pull/3726) fix validation schema error
 
 ## 8.70.37 (April 11, 2022)
 
 ### :bug: Bug Fix
 
 - `audio`
-  - [#3718](https://github.com/wix/ricos/pull/3718) fix audio bi &  a11y (clear naming for screen readers)
+  - [#3718](https://github.com/wix/ricos/pull/3718) fix audio bi & a11y (clear naming for screen readers)
 - `button`
   - [#3719](https://github.com/wix/ricos/pull/3719) fix button settings BM theming
 
@@ -45,10 +51,10 @@
 ## 8.70.36 (April 7, 2022)
 
 ### :bug: Bug Fix
+
 - `audio`
   - [#3713](https://github.com/wix/ricos/pull/3713) fix settings ui & force audio tag usage
   - [#3715](https://github.com/wix/ricos/pull/3715) refactor docs & some bug fixes
-
 
 ## 8.70.35 (April 6, 2022)
 
