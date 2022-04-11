@@ -202,7 +202,7 @@
             },
             "background": {
               "$id": "/properties/design/properties/poll/properties/background",
-              "type": "string",
+              "type": ["string", "object"],
               "title": "Poll background",
               "examples": [
                 "#EF4538",
