@@ -97,3 +97,5 @@ export const AUDIO_BI_VALUES = {
   NO: 'no',
   click: 'Click',
 };
+
+export const audioFileTypes = '.mp3,.pcm,.wav,.aiff,.aif,.aac,.ogg,.wma,.m4a,.flac';

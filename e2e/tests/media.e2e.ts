@@ -516,8 +516,9 @@ describe('plugins', () => {
       cy.get(`[data-hook=audioSettingsAudioNameInput]`).clear();
       cy.get(`[data-hook=audioSettingsAuthorNameInput]`).clear();
       cy.eyesCheckWindow('should render settings with empty inputs');
-      cy.get(`[data-hook=file-input-label]`).click();
-      cy.eyesCheckWindow('should render settings without cover image');
+      // eslint-disable-next-line cypress/no-unnecessary-waiting
+      cy.get(`[data-hook=file-input-label]`).click().wait(300);
+      cy.eyesCheckWindow('should render settings with cover image');
       cy.get(`[data-hook=AudioDownloadToggle]`).click();
       cy.eyesCheckWindow('should enable audio download');
       cy.get(`[data-hook=settingsCloseIcon]`).click();

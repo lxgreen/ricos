@@ -1,5 +1,6 @@
 import React from 'react';
 import { AUDIO_TYPE } from '../../types';
+import { audioFileTypes } from '../../consts';
 import { handleUploadStart, handleUploadFinished } from 'wix-rich-content-plugin-commons';
 import { MediaUploadModal } from 'wix-rich-content-ui-components';
 import { MEDIA_POPOVERS_BUTTONS_NAMES_BI } from 'wix-rich-content-common';
@@ -57,13 +58,19 @@ const AudioUploadModal = props => {
   };
 
   const onLocalLoad = tempData => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { name, ...rest } = tempData;
-    const tempComponentData = getComponentData()?.name ? rest : tempData;
-    onUpload({ ...getComponentData(), ...tempComponentData });
+    const { name, authorName, ...rest } = getComponentData();
+    const isReplace = getComponentData()?.audio;
+    const audioDetails = isReplace
+      ? { name: tempData?.name, authorName: tempData?.authorName }
+      : { name, authorName };
+    onUpload({ ...rest, ...tempData, ...audioDetails });
   };
 
-  const getComponentData = () => ({ ...pubsub.get('componentData'), ...componentData });
+  const getComponentData = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { html = null, ...rest } = { ...pubsub.get('componentData'), ...componentData };
+    return rest;
+  };
 
   const getAudioTags = async file => {
     let tags;
@@ -72,13 +79,12 @@ const AudioUploadModal = props => {
     } catch (error) {
       console.error(error);
     }
-
     return { name: tags?.title, authorName: tags?.artist };
   };
 
   const handleNativeFileUpload = async file => {
     const tags = await getAudioTags(file);
-    setComponentData({ ...componentData, ...tags });
+    setComponentData({ ...getComponentData(), audio: { src: {} }, ...tags });
     handleUploadStart(props, getComponentData, file, onLocalLoad, getOnUploadFinished(), undefined);
     closeModal();
   };
@@ -109,7 +115,7 @@ const AudioUploadModal = props => {
       labelText={t('AudioModal_Upload_ButtonText')}
       dataHook="AudioModalCustomUpload"
       showUploadSection={hasCustomFileUpload}
-      accept="audio/*"
+      accept={audioFileTypes}
     />
   );
 };

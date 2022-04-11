@@ -63,19 +63,13 @@ export const dataBuilder = {
   },
   [AUDIO_TYPE]: ({ data, error }, componentData) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    let { audio, html, tempData, ...rest } = componentData;
-    if (data) {
-      if (audio?.src) {
-        audio.src = {};
-      }
-      audio = data.audio;
-    }
+    const { html, tempData, ...rest } = componentData;
     const name = data?.name ?? componentData?.name;
     const authorName = data?.authorName ?? componentData?.authorName;
 
     return {
       ...rest,
-      audio,
+      audio: data?.audio,
       error,
       name,
       authorName,

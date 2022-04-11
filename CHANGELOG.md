@@ -28,6 +28,7 @@
 
 - `audio`
   - [#3718](https://github.com/wix/ricos/pull/3718) fix audio bi &  a11y (clear naming for screen readers)
+  - [#3721](https://github.com/wix/ricos/pull/3721) add err msg when upload fails & some bug fixes
 - `button`
   - [#3719](https://github.com/wix/ricos/pull/3719) fix button settings BM theming
 
