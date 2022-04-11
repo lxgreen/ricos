@@ -4,6 +4,7 @@ import type { HeadersMarkdownPluginViewerConfig, HeadersMarkdownPluginEditorConf
 import { HEADERS_MARKDOWN_TYPE as type } from './types';
 import { DEFAULTS } from './defaults';
 import type { ViewerPluginCreator } from 'wix-rich-content-common';
+export { HeadersMarkdownPluginViewerConfig };
 
 export const createHeadersMarkdownDecorator = (
   config: HeadersMarkdownPluginEditorConfig

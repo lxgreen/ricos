@@ -2,7 +2,12 @@ import type { TextColorPluginViewerConfig, TextHighlightPluginViewerConfig } fro
 import { TEXT_COLOR_TYPE, TEXT_HIGHLIGHT_TYPE } from './types';
 import { DEFAULTS } from './constants';
 import type { ViewerPluginCreator } from 'wix-rich-content-common';
-export { TEXT_COLOR_TYPE, TEXT_HIGHLIGHT_TYPE };
+export {
+  TEXT_COLOR_TYPE,
+  TEXT_HIGHLIGHT_TYPE,
+  TextColorPluginViewerConfig,
+  TextHighlightPluginViewerConfig,
+};
 import {
   RICOS_TEXT_COLOR_TYPE,
   RICOS_TEXT_HIGHLIGHT_TYPE,

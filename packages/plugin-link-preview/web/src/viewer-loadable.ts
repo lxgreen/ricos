@@ -4,7 +4,7 @@ import { typeMapper } from './typeMapper-loadable';
 import { DEFAULTS } from './defaults';
 import type { ViewerPluginCreator } from 'wix-rich-content-common';
 
-export { typeMapper as linkPreviewTypeMapper, LINK_PREVIEW_TYPE };
+export { typeMapper as linkPreviewTypeMapper, LINK_PREVIEW_TYPE, LinkPreviewPluginViewerConfig };
 
 export const pluginLinkPreview: ViewerPluginCreator<LinkPreviewPluginViewerConfig> = config => {
   return {

@@ -1,7 +1,7 @@
 import { typeMapper } from './typeMapper-loadable';
 import type { FilePluginViewerConfig } from './types';
 import { FILE_UPLOAD_TYPE } from './types';
-export { typeMapper as fileUploadTypeMapper, FILE_UPLOAD_TYPE };
+export { typeMapper as fileUploadTypeMapper, FILE_UPLOAD_TYPE, FilePluginViewerConfig };
 import { DEFAULTS } from './defaults';
 import type { ViewerPluginCreator } from 'wix-rich-content-common';
 

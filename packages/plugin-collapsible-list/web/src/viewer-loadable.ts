@@ -9,7 +9,11 @@ import type { CollapsibleListPluginViewerConfig } from './types';
 import { COLLAPSIBLE_LIST_TYPE } from './types';
 import { DEFAULTS } from './defaults';
 import type { ViewerPluginCreator } from 'wix-rich-content-common';
-export { COLLAPSIBLE_LIST_TYPE, typeMapper as collapsibleListTypeMapper };
+export {
+  COLLAPSIBLE_LIST_TYPE,
+  typeMapper as collapsibleListTypeMapper,
+  CollapsibleListPluginViewerConfig,
+};
 
 export const pluginCollapsibleList: ViewerPluginCreator<
   CollapsibleListPluginViewerConfig

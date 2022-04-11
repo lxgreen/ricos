@@ -5,7 +5,7 @@ import type { HashtagPluginViewerConfig } from './types';
 import { HASHTAG_TYPE } from './types';
 import { DEFAULTS } from './defaults';
 const HashtagDecorator = createHashtagDecorator(getLinkRangesInBlock);
-export { HashtagDecorator };
+export { HashtagDecorator, HashtagPluginViewerConfig };
 
 export const pluginHashtag: ViewerPluginCreator<HashtagPluginViewerConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };
