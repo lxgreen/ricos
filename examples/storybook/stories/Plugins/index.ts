@@ -9,6 +9,7 @@ import AnchorPluginStory from './Anchor';
 import ButtonsPluginStory from './Buttons';
 import Image from './Image';
 import Video from './Video';
+import Audio from './Audio';
 import VerticalEmbedStory from './VerticalEmbed';
 import HtmlPluginStory from './HtmlPlugin';
 import FileUploadStory from './FileUpload';
@@ -25,6 +26,7 @@ storiesOf('Plugins', module)
   .add('Anchor', AnchorPluginStory)
   .add('Image', Image)
   .add('Video', Video)
+  .add('Audio', Audio)
   .add('Gallery', GalleryPluginStory)
   .add('Link Preview', LinkPreviewStory)
   .add('Buttons', ButtonsPluginStory)

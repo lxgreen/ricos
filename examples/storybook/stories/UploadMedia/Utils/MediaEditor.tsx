@@ -2,6 +2,7 @@ import React from 'react';
 import type { DraftContent, RicosEditorType } from 'ricos-editor';
 import { RicosEditor } from 'ricos-editor';
 import { pluginVideo } from 'wix-rich-content-plugin-video';
+import { pluginAudio } from 'wix-rich-content-plugin-audio';
 import { pluginImage } from 'wix-rich-content-plugin-image';
 import { pluginGallery } from 'wix-rich-content-plugin-gallery';
 import { pluginFileUpload } from 'wix-rich-content-plugin-file-upload';
@@ -12,7 +13,7 @@ import { pluginCollapsibleList } from 'wix-rich-content-plugin-collapsible-list'
 import { RichContentEditor } from 'wix-rich-content-editor';
 import type { Helpers } from 'wix-rich-content-common';
 
-function getPlugins(handleVideoUpload, handleFileUpload) {
+function getPlugins(handleVideoUpload, handleAudioUpload, handleFileUpload) {
   return [
     pluginImage({
       imageEditorWixSettings: {
@@ -25,6 +26,7 @@ function getPlugins(handleVideoUpload, handleFileUpload) {
       },
     }),
     pluginVideo({ handleFileUpload: handleVideoUpload }),
+    pluginAudio({ handleFileUpload: handleAudioUpload }),
     pluginGallery({ scrollingElement: () => document.body }),
     pluginFileUpload({ handleFileSelection: handleFileUpload }),
     pluginTable({
@@ -50,13 +52,14 @@ interface Props {
   content: DraftContent;
   handleFileUpload: (updateEntity) => void;
   handleVideoUpload: (file, updateEntity, removeEntity) => void;
+  handleAudioUpload: (file, updateEntity, removeEntity) => void;
   handleImageUpload: Helpers['handleFileSelection'];
 }
 
 const MediaEditor = React.forwardRef<RicosEditorType, Props>(
-  ({ content, handleFileUpload, handleVideoUpload, handleImageUpload }, ref) => (
+  ({ content, handleFileUpload, handleVideoUpload, handleAudioUpload, handleImageUpload }, ref) => (
     <RicosEditor
-      plugins={getPlugins(handleVideoUpload, handleFileUpload)}
+      plugins={getPlugins(handleVideoUpload, handleAudioUpload, handleFileUpload)}
       content={content}
       ref={ref}
     >

@@ -29,7 +29,7 @@ export default class ErrorBlocksRemovalApp extends Component<
   }
 
   render() {
-    const { handleFileUpload, handleVideoUpload, handleImageUpload } =
+    const { handleFileUpload, handleVideoUpload, handleAudioUpload, handleImageUpload } =
       getMediaUploadErrorFunctions();
     const { isEditing, content } = this.state;
     return (
@@ -42,6 +42,7 @@ export default class ErrorBlocksRemovalApp extends Component<
                 content={content}
                 handleFileUpload={handleFileUpload}
                 handleVideoUpload={handleVideoUpload}
+                handleAudioUpload={handleAudioUpload}
                 handleImageUpload={handleImageUpload}
                 ref={ref => (this.editor = ref)}
               />

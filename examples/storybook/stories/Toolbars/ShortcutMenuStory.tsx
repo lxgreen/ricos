@@ -15,6 +15,7 @@ import { IMAGE_TYPE } from 'wix-rich-content-plugin-image';
 import { LINK_TYPE } from 'wix-rich-content-plugin-link';
 import { MAP_TYPE } from 'wix-rich-content-plugin-map';
 import { VIDEO_TYPE } from 'wix-rich-content-plugin-video';
+import { AUDIO_TYPE } from 'wix-rich-content-plugin-audio';
 import { VERTICAL_EMBED_TYPE } from 'wix-rich-content-plugin-vertical-embed';
 import TabsWrapper from '../Components/TabsWrapper';
 import apiData from '../Plugins/apiData';
@@ -89,6 +90,7 @@ export default () => {
               { value: 'image', id: IMAGE_TYPE },
               { value: 'map', id: MAP_TYPE },
               { value: 'video', id: VIDEO_TYPE },
+              { value: 'audio', id: AUDIO_TYPE },
               { value: 'socialEmbed', id: LINK_TYPE },
               { value: 'verticalEmbed', id: VERTICAL_EMBED_TYPE },
               { value: 'emoji', id: EMOJI_TYPE },

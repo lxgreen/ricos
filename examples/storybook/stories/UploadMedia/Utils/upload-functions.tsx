@@ -1,5 +1,7 @@
 import { getVideoToUpload } from '../../../src/shared/utils/fileUploadUtil';
+import { getAudioToUpload } from '../../../src/shared/utils/fileUploadUtil';
 import { testImages, testWixVideos } from '../../../src/shared/utils/mock';
+import { mockAudioData } from '../../../src/shared/utils/mockAudioData';
 
 const errors = [
   { key: 0 },
@@ -39,6 +41,16 @@ export const getMediaUploadErrorFunctions = () => {
     }, 2000);
   };
 
+  const handleAudioUpload = (file, updateEntity, _removeEntity) => {
+    const mockAudioIndex = Math.floor(Math.random() * mockAudioData.length);
+    const testAudio = mockAudioData[mockAudioIndex];
+    const audioToUpload = getAudioToUpload(testAudio.url);
+    const error = errors[Math.floor(Math.random() * errors.length)];
+    setTimeout(() => {
+      updateEntity({ data: audioToUpload, error });
+    }, 2000);
+  };
+
   const handleFileUpload = updateEntity => {
     const multiple = false;
     const count = multiple ? [1, 2, 3] : [1];
@@ -61,5 +73,5 @@ export const getMediaUploadErrorFunctions = () => {
     setTimeout(() => updateEntity({ data, error }), 500);
   };
 
-  return { handleFileUpload, handleVideoUpload, handleImageUpload };
+  return { handleFileUpload, handleVideoUpload, handleAudioUpload, handleImageUpload };
 };
