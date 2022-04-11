@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+
+
+</details>
+  <hr/>
+
+## 8.70.37 (April 11, 2022)
+
 ### :bug: Bug Fix
 
 - `audio`
@@ -28,9 +35,6 @@
 
 - `tiptap-editor`
   - [#3722](https://github.com/wix/ricos/pull/3722) dev-tools applied if debug is ON
-
-</details>
-  <hr/>
 
 ## 8.70.36 (April 7, 2022)
 
