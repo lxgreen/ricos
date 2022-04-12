@@ -2,7 +2,7 @@
 
 import { readdirSync, existsSync } from 'fs';
 import { cloneDeep } from 'lodash';
-import { plugins, postcss, lastEntryPlugins } from './rollup.plugins';
+import { plugins, postcss, addStylesImport, lastEntryPlugins } from './rollup.plugins';
 import { isExternal as external } from './rollup.externals';
 import type { RollupOptions, OutputOptions, WatcherOptions } from 'rollup';
 
@@ -19,7 +19,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
     clearScreen: false,
   };
   const getCommonOptions = (entry?: string) => ({
-    plugins: [...plugins, postcss(shouldExtractCss, entry)],
+    plugins: [...plugins, postcss(shouldExtractCss, entry), addStylesImport()],
     external,
     watch,
   });

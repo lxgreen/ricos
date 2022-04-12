@@ -199,7 +199,21 @@ const createFakeStylesFile = (): Plugin => ({
 function addStylesImport() {
   return {
     name: 'add-style-import',
-    writeBundle() {
+    // async generateBundle(options, bundle: { [key: string]: { fileName: string; code?: string } }) {
+    //   const files = Object.values(bundle);
+    //   const jsFile = files.find(({fileName}) => fileName.endsWith('.js'))!;
+    //   const cssFile = files.find(({fileName}) => fileName.endsWith('.css'));
+    //   // const files: string[] = Object.keys(bundle);
+    //   if (cssFile) {
+    //     debugger;
+    //     const cssImport =
+    //         options.format === 'es'
+    //             ? `import './${cssFile.fileName}';`
+    //             : `require('./${cssFile.fileName}');`;
+    //     jsFile.code += `\n${cssImport}\n`;
+    //   }
+    // },
+    async writeBundle() {
       const packageJson = require(process.cwd() + '/package.json');
       const packageName = packageJson.name;
 
@@ -288,10 +302,5 @@ if (process.env.EXTRACT_CSS === 'false') {
   plugins = [...plugins, createFakeStylesFile()];
 }
 
-const lastEntryPlugins = [
-  libsPackageJsonGeneratorPlugin(),
-  copy(),
-  copyAfterBundleWritten(),
-  addStylesImport(),
-];
-export { plugins, postcss, lastEntryPlugins };
+const lastEntryPlugins = [libsPackageJsonGeneratorPlugin(), copy(), copyAfterBundleWritten()];
+export { plugins, postcss, addStylesImport, lastEntryPlugins };
