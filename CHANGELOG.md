@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+</details>
+  <hr/>
+
+## 8.70.39 (April 12, 2022)
+
 ### :nail_care: Polish
 
 - `audio`
   - [#3730](https://github.com/wix/ricos/pull/3730) refactor audio TypeScript
-
-</details>
-  <hr/>
 
 ## 8.70.38 (April 11, 2022)
 
