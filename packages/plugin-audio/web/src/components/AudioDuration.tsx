@@ -28,10 +28,15 @@ interface AudioDurationProps {
   elapsed: number;
   duration: number;
   isMobile?: boolean;
-  isBasic?: boolean;
+  isSmallWidth?: boolean;
 }
-const AudioDuration: React.FC<AudioDurationProps> = ({ elapsed, duration, isMobile, isBasic }) => {
-  const shouldRenderElapsed = !(isMobile || isBasic);
+const AudioDuration: React.FC<AudioDurationProps> = ({
+  elapsed,
+  duration,
+  isMobile,
+  isSmallWidth,
+}) => {
+  const shouldRenderElapsed = !(isMobile || isSmallWidth);
   return (
     <div className={styles.audio_duration}>
       {shouldRenderElapsed && (

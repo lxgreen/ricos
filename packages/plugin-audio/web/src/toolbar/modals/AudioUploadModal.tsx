@@ -59,7 +59,7 @@ const AudioUploadModal = props => {
 
   const onLocalLoad = tempData => {
     const { name, authorName, ...rest } = getComponentData();
-    const isReplace = getComponentData()?.audio;
+    const isReplace = Object.keys(getComponentData()?.audio?.src).length;
     const audioDetails = isReplace
       ? { name: tempData?.name, authorName: tempData?.authorName }
       : { name, authorName };

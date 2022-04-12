@@ -3,7 +3,7 @@ import type { Helpers } from 'wix-rich-content-common';
 import { PlayIcon, PauseIcon, LoaderIcon } from 'wix-rich-content-ui-components';
 import { AUDIO_TYPE } from '../types';
 import styles from '../../statics/styles/audio.rtlignore.scss';
-import { AUDIO_BI_VALUES } from '../consts';
+import { AUDIO_BI_VALUES, AUDIO_ACTION_NAMES } from '../consts';
 
 interface Props {
   handlePause: () => void;
@@ -24,9 +24,10 @@ const AudioActionIcons: React.FC<Props> = ({
 }) => {
   const onClick = () => {
     const ACTION_BI_VALUE = isPlaying ? AUDIO_BI_VALUES.PAUSE : AUDIO_BI_VALUES.PLAY;
-    helpers?.onViewerAction?.(AUDIO_TYPE, 'playAudio', ACTION_BI_VALUE);
+    helpers?.onViewerAction?.(AUDIO_TYPE, AUDIO_ACTION_NAMES.playAudio, ACTION_BI_VALUE);
     isPlaying ? handlePause() : handlePlay();
   };
+
   const onKeyPress = e => {
     if (e.key === 'Enter') {
       onClick();

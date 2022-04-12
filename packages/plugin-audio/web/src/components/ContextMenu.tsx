@@ -3,8 +3,18 @@ import styles from '../../statics/styles/audio.rtlignore.scss';
 import { ClickOutside } from 'wix-rich-content-editor-common';
 import DropdownMenu from './DropdownMenu';
 import { ContextMenuIcon } from 'wix-rich-content-ui-components';
+import type { audioMenuDataType } from '../types';
 
-const ContextMenu = ({
+interface Props {
+  onClickOutside: () => void;
+  contextMenuData: audioMenuDataType;
+  playBackMenuData: audioMenuDataType;
+  showContextMenu: boolean;
+  showPlaybackMenu: boolean;
+  onClick: () => void;
+}
+
+const ContextMenu: React.FC<Props> = ({
   onClickOutside,
   contextMenuData,
   playBackMenuData,

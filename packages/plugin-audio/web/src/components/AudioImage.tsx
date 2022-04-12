@@ -3,8 +3,18 @@ import styles from '../../statics/styles/audio.rtlignore.scss';
 import classNames from 'classnames';
 import { Image } from 'wix-rich-content-ui-components';
 import { getImageSrc } from 'wix-rich-content-common/libs/imageUtils';
+import type { Helpers } from 'wix-rich-content-common';
 
-const AudioImage = ({ getImageUrl, coverImage, isSmallImage }) => {
+interface Props {
+  getImageUrl: Helpers['getImageUrl'];
+  coverImage: {
+    id: string;
+    original_file_name: string;
+  };
+  isSmallImage?: boolean;
+}
+
+const AudioImage: React.FC<Props> = ({ getImageUrl, coverImage, isSmallImage }) => {
   return (
     <Image
       src={getImageSrc(coverImage, getImageUrl, {

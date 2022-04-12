@@ -2,8 +2,14 @@ import React from 'react';
 import { FocusManager } from 'wix-rich-content-ui-components';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 import styles from '../../statics/styles/audio.rtlignore.scss';
+import type { audioMenuDataType } from '../types';
 
-const optionElement = option => {
+interface Props {
+  options: audioMenuDataType;
+  onClose: () => void;
+}
+
+const optionElement = (option: audioMenuDataType[0]) => {
   const selected = option?.selected;
   const content = option.icon ? (
     <span className={styles.dropdown_content_withIcon}>
@@ -32,14 +38,13 @@ const optionElement = option => {
   );
 };
 
-const DropdownMenu = ({ options, onClose }) => {
+const DropdownMenu: React.FC<Props> = ({ options, onClose }) => {
   const onKeyDown = e => {
     if (e.keyCode === KEYS_CHARCODE.ESCAPE) {
       onClose();
     }
   };
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <FocusManager onKeyDown={onKeyDown}>
       <div className={styles.dropdown_menu_wrapper}>
         {options.map(option => optionElement(option))}

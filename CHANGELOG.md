@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :nail_care: Polish
+
+- `audio`
+  - [#3730](https://github.com/wix/ricos/pull/3730) refactor audio TypeScript
+
 </details>
   <hr/>
 

@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
+import type { RichContentTheme } from 'wix-rich-content-common';
 import {
   SoundIcon,
   SoundMutedIcon,
@@ -8,7 +9,21 @@ import {
 } from 'wix-rich-content-ui-components';
 import styles from '../../statics/styles/audio.rtlignore.scss';
 
-const SoundControl = ({ volume, setVolume, muted, handleMute, theme, handleVolumeChange }) => {
+interface Props {
+  volume: number;
+  muted: boolean;
+  handleMute: () => void;
+  theme: RichContentTheme;
+  handleVolumeChange: (number: number) => void;
+}
+
+const SoundControl: React.FC<Props> = ({
+  volume,
+  muted,
+  handleMute,
+  theme,
+  handleVolumeChange,
+}) => {
   const onKeyPress = e => {
     if (e.key === 'Enter') {
       handleMute();
@@ -19,7 +34,7 @@ const SoundControl = ({ volume, setVolume, muted, handleMute, theme, handleVolum
     const shouldDecrease = e.key === 'ArrowDown' && volume > 0;
     const shouldIncrease = e.key === 'ArrowUp' && volume < 1;
     const newVolume = shouldDecrease ? volume - 0.1 : shouldIncrease ? volume + 0.1 : volume;
-    setVolume(parseFloat(newVolume.toFixed(1)));
+    handleVolumeChange(parseFloat(newVolume.toFixed(1)));
   };
 
   const SoundIconComponent = muted ? SoundMutedIcon : SoundIcon;

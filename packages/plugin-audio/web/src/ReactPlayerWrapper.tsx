@@ -126,7 +126,6 @@ const ReactPlayerWrapper: React.FC<Props> = ({
     setSeeking(true);
     setPlayed(num);
   };
-  const handleVolumeChange = (num: number) => setVolume(num);
   const handlePlay = () => setIsPlaying(true);
   const handlePause = () => setIsPlaying(false);
 
@@ -160,7 +159,7 @@ const ReactPlayerWrapper: React.FC<Props> = ({
       elapsed={played * duration}
       duration={duration}
       isMobile={isMobile}
-      isBasic={resizeWidths.small >= currentWidth}
+      isSmallWidth={resizeWidths.small >= currentWidth}
     />
   );
 
@@ -237,10 +236,9 @@ const ReactPlayerWrapper: React.FC<Props> = ({
                 <SoundControl
                   theme={theme}
                   volume={volume}
-                  setVolume={setVolume}
                   handleMute={handleMute}
                   muted={volume === 0}
-                  handleVolumeChange={handleVolumeChange}
+                  handleVolumeChange={setVolume}
                 />
               </div>
               {isMobile && renderAudioDuration()}
