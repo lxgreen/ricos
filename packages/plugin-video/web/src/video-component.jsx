@@ -124,6 +124,7 @@ class VideoComponent extends React.Component {
   };
 
   renderPlayerDurationFix = () => {
+    // In some instances the video doesn't completely load, and we don't get its duration. This is a fix for that. (happens in facebook)
     const { theme, componentData, settings } = this.props;
     const stylesHide = {
       width: 0,
@@ -133,18 +134,30 @@ class VideoComponent extends React.Component {
       visibility: 'hidden',
     };
 
+    let timeoutId;
+    const onReady = player => {
+      const internalPlayer = player.getInternalPlayer();
+      if (internalPlayer.play) {
+        internalPlayer.play();
+      } else {
+        timeoutId = setTimeout(() => {
+          // try again, sometimes it takes a while
+          player.getInternalPlayer()?.play();
+        }, 10000);
+      }
+    };
+
     return (
       <div style={stylesHide}>
         <VideoViewer
           componentData={componentData}
           theme={theme}
           settings={settings}
-          onReady={player => {
-            player.getInternalPlayer().play();
-          }}
+          onReady={onReady}
           onDuration={duration => {
             this.setState({ shouldRenderDurationFix: false });
             this.saveDurationToData(duration);
+            clearTimeout(timeoutId);
           }}
           muted
         />

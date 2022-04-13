@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+- `video`
+  - [#3737](https://github.com/wix/ricos/pull/#3737) fix "getInternalPlayer().play(), play is not a function"
+
 </details>
   <hr/>
 
@@ -265,9 +269,6 @@
 - `polls`
   - [#3622](https://github.com/wix/ricos/pull/3622) fix polls in json schema
 
-</details>
-
-<hr/>
 
 ## 8.70.19 (Mar 15, 2022)
 
