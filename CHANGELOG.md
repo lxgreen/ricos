@@ -20,6 +20,15 @@
 </details>
   <hr/>
 
+## 8.70.40 (April 13, 2022)
+
+### :bug: Bug Fix
+
+- `more-menu`
+  - [#3734](https://github.com/wix/ricos/pull/3734) fix icon
+- `video`
+  - [#3735](https://github.com/wix/ricos/pull/3735) fix replace video src bug on ios
+
 ## 8.70.39 (April 12, 2022)
 
 ### :nail_care: Polish
