@@ -10,7 +10,16 @@ import ViewerWrapper from '../Components/ViewerWrapper';
 import s from './GroupsStory.scss';
 import { INSERT_PLUGIN_BUTTONS, TOOLBARS } from 'wix-rich-content-editor-common';
 
-const GropusPlugins = ['image', 'gallery', 'video', 'gif', 'fileUpload', 'emoji', 'undoRedo'];
+const GropusPlugins = [
+  'image',
+  'gallery',
+  'video',
+  'gif',
+  'fileUpload',
+  'emoji',
+  'undoRedo',
+  'verticalEmbed',
+];
 
 let editor;
 
@@ -65,6 +74,7 @@ export default () => {
                     ],
                   }),
                 },
+                { name: TOOLBARS.FOOTER, footerToolbarConfig: { morePluginsMenu: {} } },
               ];
             },
           }}
