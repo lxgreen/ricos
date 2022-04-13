@@ -108,10 +108,28 @@ const getButtons = (editorCommands, state) => {
     {
       name: 'finish upload video',
       onClick: () =>
-        editorCommands.setBlock(
+        editorCommands.updateBlock(
           'videoMockId',
           RICOS_VIDEO_TYPE,
           mockMediaData[RICOS_VIDEO_TYPE].loaded
+        ),
+    },
+    {
+      name: 'replace video',
+      onClick: () =>
+        editorCommands.setBlock(
+          'videoMockId',
+          RICOS_VIDEO_TYPE,
+          mockMediaData[RICOS_VIDEO_TYPE].replace
+        ),
+    },
+    {
+      name: 'finish replace video',
+      onClick: () =>
+        editorCommands.updateBlock(
+          'videoMockId',
+          RICOS_VIDEO_TYPE,
+          mockMediaData[RICOS_VIDEO_TYPE].finishReplace
         ),
     },
     {

@@ -4,10 +4,10 @@ import classNames from 'classnames';
 import { findDOMNode } from 'react-dom';
 import { mergeStyles } from 'wix-rich-content-common';
 import { MediaItemErrorMsg, Loader } from 'wix-rich-content-ui-components';
-import { get } from 'lodash';
 import VideoViewer from './video-viewer';
 import styles from '../statics/styles/default-video-styles.scss';
 import { VIDEO_TYPE_LEGACY, VIDEO_TYPE } from './types';
+import { isiOS } from 'wix-rich-content-editor-common';
 
 const DEFAULTS = Object.freeze({
   config: {
@@ -25,6 +25,7 @@ class VideoComponent extends React.Component {
     this.state = {
       isLoaded: false,
       isPlayable,
+      iosFixKey: 1,
     };
   }
 
@@ -84,8 +85,16 @@ class VideoComponent extends React.Component {
     );
   };
 
+  onReloadIosFix = () => {
+    //fixing IOS bug in Safari: when replace video src the new video src is not load
+    if (isiOS()) {
+      this.setState({ iosFixKey: this.state.iosFixKey + 1 });
+    }
+  };
+
   onReload = () => {
     this.setState({ isLoaded: false });
+    this.onReloadIosFix();
   };
 
   saveDurationToData = duration => {
@@ -109,6 +118,7 @@ class VideoComponent extends React.Component {
         setComponentUrl={setComponentUrl}
         onReload={this.onReload}
         isLoaded={this.state.isLoaded}
+        key={this.state.iosFixKey}
       />
     );
   };

@@ -113,6 +113,26 @@ export const mockMediaData = {
       },
       isCustomVideo: true,
     },
+    replace: {
+      componentState: {
+        loading: true,
+      },
+      video: { src: { url: '' }, thumbnail: { src: {} } },
+    },
+    finishReplace: {
+      componentState: { loading: false },
+      thumbnail: {
+        src: 'media/11062b_a552731f40854d16a91627687fb8d1a6f000.jpg',
+        height: 1080,
+        width: 1920,
+      },
+      video: {
+        src: {
+          id: 'video/c5366f_b919798317fb4c478ae708560b381d38/480p/mp4/file.mp4',
+        },
+      },
+      isCustomVideo: true,
+    },
   },
 };
 
