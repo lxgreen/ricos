@@ -16,7 +16,7 @@ const prodConfig = {
         loader: 'esbuild-loader',
         options: {
           loader: 'jsx',
-          target: 'esnext',
+          target: 'es6',
         },
       },
       {

@@ -18,7 +18,7 @@ const devConfig = {
         loader: 'esbuild-loader',
         options: {
           loader: 'jsx',
-          target: 'esnext',
+          target: 'es6',
         },
       },
     ],
