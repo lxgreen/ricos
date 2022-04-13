@@ -379,7 +379,10 @@ class Toolbar extends Component<ToolbarProps, State> {
         data-hook="toolbar"
         onKeyDown={this.onKeyDown}
         ref={this.setToolbarRef}
-        className={classNames(styles.toolbar, { [styles.vertical]: vertical })}
+        className={classNames(styles.toolbar, {
+          [styles.vertical]: vertical,
+          [styles.disabled]: disabled,
+        })}
       >
         {buttons.map((buttonProps, i) => {
           const Button = this.buttonMap[buttonProps.type];

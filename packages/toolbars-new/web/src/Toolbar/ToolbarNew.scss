@@ -22,6 +22,10 @@
     border: none;
   }
 
+  &.disabled {
+    pointer-events: none;
+  }
+
   .separator {
     height: var(--ricos-settings-dividers-height, 30px);
     padding: 4px 0;
