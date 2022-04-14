@@ -127,7 +127,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     };
     this.useTiptap = !!props.experiments?.tiptapEditor?.enabled;
     this.useNewFormattingToolbar = !!props.experiments?.newFormattingToolbar?.enabled;
-    this.useTiptap && this.fixPluginsConfig();
     this.useToolbarsV3 = !!props.experiments?.toolbarsV3?.enabled;
   }
 
@@ -136,11 +135,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       throw err;
     },
     locale: 'en',
-  };
-
-  fixPluginsConfig = () => {
-    const { _rcProps = {}, plugins } = this.props;
-    plugins?.forEach(plugin => plugin.configFixer?.({ helpers: _rcProps?.helpers }));
   };
 
   updateLocale = async () => {

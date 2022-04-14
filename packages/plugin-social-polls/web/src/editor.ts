@@ -16,7 +16,6 @@ export const pluginPoll: EditorPluginCreator<PollPluginEditorConfig> = config =>
     createPlugin: createPollPlugin,
     ModalsMap,
     createPluginData: createPollData,
-    configFixer: ({ helpers }) => (pluginConfig.uploadHandler = helpers?.handleFileUpload),
     tiptapExtensions: createRicosExtensions(pluginConfig),
   } as TiptapEditorPlugin;
 };

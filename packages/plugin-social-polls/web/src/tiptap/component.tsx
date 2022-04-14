@@ -17,7 +17,7 @@ export const Poll: React.FC<PluginProps> = ({
   const { theme, t, config = {}, isMobile } = context;
   const settings = config[POLL_TYPE] || {};
   const block = { getKey: () => node.attrs.id };
-  const helpers = { handleFileUpload: settings.uploadHandler };
+  const helpers = { handleFileUpload: () => {} };
   //mocks
   const store = {
     update: (type, data) => updateAttributes(convertBlockDataToRicos(POLL_TYPE, data)),
