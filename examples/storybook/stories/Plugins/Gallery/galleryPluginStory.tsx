@@ -9,10 +9,10 @@ import {
 
 import GalleryEditor from './galleryEditor';
 // eslint-disable-next-line import/no-unresolved
-import editorSourcecode from '!!raw-loader!./galleryEditor.tsx';
+import editorSourcecode from './galleryEditor.tsx?raw';
 import GalleryViewer from './galleryViewer';
 // eslint-disable-next-line import/no-unresolved
-import viewerSourcecode from '!!raw-loader!./galleryViewer.tsx';
+import viewerSourcecode from './galleryViewer.tsx?raw';
 import SyntaxHighlighter from '../../Components/SyntaxHighlighter';
 import fixtrue from '../../../../../e2e/tests/fixtures/gallery-with-title-and-link.json';
 import ActionButton from '../../Components/ActionButton';

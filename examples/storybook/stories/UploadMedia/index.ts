@@ -1,4 +1,5 @@
-import { storiesOf } from '@storybook/react';
-import ErrorToastStory from './ErrorToasts';
+export { default as ErrorToasts } from './ErrorToasts';
 
-storiesOf('Media Upload', module).add('Error Toasts', ErrorToastStory);
+export default {
+  title: 'Media Upload',
+};

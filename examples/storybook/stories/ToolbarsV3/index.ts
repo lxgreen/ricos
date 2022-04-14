@@ -1,8 +1,7 @@
-import { storiesOf } from '@storybook/react';
-import WideEditorStory from './WideEditorStory';
-import DraftWithDetachCommands from './DraftWithDetachCommands';
-import TiptapWithDetachCommands from './TiptapWithDetachCommands';
+export { default as FloatingInWideEditor } from './WideEditorStory';
+export { default as DraftEditorWithDetachCommands } from './DraftWithDetachCommands';
+export { default as TiptapEditorWithDetachCommands } from './TiptapWithDetachCommands';
 
-storiesOf('ToolbarsV3', module).add('Floating in Wide Editor', WideEditorStory);
-storiesOf('ToolbarsV3', module).add('Draft Editor With Detach Commands', DraftWithDetachCommands);
-storiesOf('ToolbarsV3', module).add('Tiptap Editor With Detach Commands', TiptapWithDetachCommands);
+export default {
+  title: 'ToolbarsV3',
+};

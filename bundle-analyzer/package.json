@@ -18,16 +18,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@types/webpack": "^5.28.0",
-    "@types/webpack-bundle-analyzer": "^4.4.1",
-    "ts-loader": "^8.3.0",
-    "webpack": "^5.69.1"
-  },
   "dependencies": {
     "ricos-common": "8.70.40",
     "ricos-editor": "8.70.40",
     "ricos-viewer": "8.70.40",
+    "ts-loader": "^9.2.8",
     "wix-rich-content-common": "8.70.40",
     "wix-rich-content-editor": "8.70.40",
     "wix-rich-content-editor-common": "8.70.40",

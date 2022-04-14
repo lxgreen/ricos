@@ -4,7 +4,7 @@ import viewerFixtrue from '../../../../e2e/tests/fixtures/vertical-embed.json';
 import VerticalEmbedViewer from '../Plugins/VerticalEmbed/VerticalEmbedViewer';
 // eslint-disable-next-line import/no-unresolved
 // eslint-disable-next-line import/no-unresolved
-import viewerSourcecode from '!!raw-loader!../Plugins/VerticalEmbed/VerticalEmbedViewer.tsx';
+import viewerSourcecode from '../Plugins/VerticalEmbed/VerticalEmbedViewer.tsx?raw';
 // eslint-disable-next-line import/no-unresolved
 import { ContentState, Section, Page, RichContentViewerBox } from '../Components/StoryParts';
 

@@ -7,7 +7,7 @@ exports.EXAMPLES_TO_DEPLOY = [
   {
     name: 'rich-content-storybook',
     path: 'examples/storybook',
-    buildCmd: 'yarn build-storybook -s public',
+    buildCmd: 'yarn build-storybook',
     dist: 'storybook-static',
   },
 ];

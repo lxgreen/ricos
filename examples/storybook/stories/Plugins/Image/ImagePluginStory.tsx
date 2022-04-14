@@ -9,10 +9,10 @@ import {
 import imageContentState from '../../../../../e2e/tests/fixtures/images.json';
 import ImageEditor from './ImageEditor';
 // eslint-disable-next-line import/no-unresolved
-import editorSourcecode from '!!raw-loader!./ImageEditor.tsx';
+import editorSourcecode from './ImageEditor.tsx?raw';
 import ImageViewer from './ImageViewer';
 // eslint-disable-next-line import/no-unresolved
-import viewerSourcecode from '!!raw-loader!./ImageViewer.tsx';
+import viewerSourcecode from './ImageViewer.tsx?raw';
 import SyntaxHighlighter from '../../Components/SyntaxHighlighter';
 import { mockImageNativeUploadFunc } from '../../../src/shared/utils/fileUploadUtil';
 import ActionButton from '../../Components/ActionButton';

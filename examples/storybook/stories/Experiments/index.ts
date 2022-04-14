@@ -1,5 +1,5 @@
-import { storiesOf } from '@storybook/react';
+export { default as ImagePluginPreloadExperiment } from './ImagePluginQualityPreload';
 
-import ImagePluginQualityPreload from './ImagePluginQualityPreload';
-
-storiesOf('Experiments', module).add('Image Plugin Preload Experiment', ImagePluginQualityPreload);
+export default {
+  title: 'Experiments',
+};

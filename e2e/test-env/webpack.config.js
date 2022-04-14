@@ -2,6 +2,7 @@ const nodeExternals = require('webpack-node-externals');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const DotenvWebpackPlugin = require('dotenv-webpack');
+const esbuild = require('esbuild');
 
 const monorepo_root = path.join(__dirname, '..', '..');
 
@@ -35,6 +36,7 @@ const jsRule = {
   options: {
     loader: 'jsx',
     target: 'esnext',
+    implementation: esbuild,
   },
 };
 
@@ -44,6 +46,7 @@ const tsRule = {
   options: {
     loader: 'tsx',
     target: 'esnext',
+    implementation: esbuild,
   },
 };
 

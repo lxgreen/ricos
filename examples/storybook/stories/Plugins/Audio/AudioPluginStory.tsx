@@ -9,10 +9,10 @@ import {
 import audioContentState from '../../../../../e2e/tests/fixtures/audio.json';
 import AudioEditor from './AudioEditor';
 // eslint-disable-next-line import/no-unresolved
-import editorSourcecode from '!!raw-loader!./AudioEditor.tsx';
+import editorSourcecode from './AudioEditor.tsx?raw';
 import AudioViewer from './AudioViewer';
 // eslint-disable-next-line import/no-unresolved
-import viewerSourcecode from '!!raw-loader!./AudioViewer.tsx';
+import viewerSourcecode from './AudioViewer.tsx?raw';
 import SyntaxHighlighter from '../../Components/SyntaxHighlighter';
 import TabsWrapper from '../../Components/TabsWrapper';
 import apiData from '../apiData';

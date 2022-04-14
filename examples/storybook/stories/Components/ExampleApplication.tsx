@@ -4,9 +4,9 @@ import { RichContentEditorBox, RichContentViewerBox, Section } from './StoryPart
 import EditorWrapper from './EditorWrapper';
 import ViewerWrapper from './ViewerWrapper';
 // eslint-disable-next-line import/no-unresolved
-import editorSourceCode from '!!raw-loader!../Components/EditorWrapper';
+import editorSourceCode from '../Components/EditorWrapper?raw';
 // eslint-disable-next-line import/no-unresolved
-import viewerSourceCode from '!!raw-loader!../Components/ViewerWrapper';
+import viewerSourceCode from '../Components/ViewerWrapper?raw';
 import styles from './styles.scss';
 import type { DraftContent, RicosTheme } from 'ricos-editor';
 

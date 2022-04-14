@@ -3,7 +3,7 @@ import { RichContentEditorBox, Section, Page } from '../../Components/StoryParts
 import headingsContentState from '../../../../../e2e/tests/fixtures/headings.json';
 import HeadingsEditor from './HeadingsEditor';
 // eslint-disable-next-line import/no-unresolved
-import editorSourcecode from '!!raw-loader!./HeadingsEditor.tsx';
+import editorSourcecode from './HeadingsEditor.tsx?raw';
 
 export default () => {
   return (

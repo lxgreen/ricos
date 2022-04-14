@@ -1,33 +1,18 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+export { default as HTMLInstagramHeight } from './HtmlPlugin';
+export { default as BlogLefties } from './BlogLefties';
+export { default as ImageFloatSpacing } from './ImageFloatSpacing';
+export { default as MaxHeight } from './MaxHeight';
+export { default as OneLiner } from './OneLiner';
+export { default as VeryBigPost } from './VeryBigPost';
+export { default as ViewerAnchors } from './ViewerAnchors';
+export { default as MobileView } from './MobileViewStory';
+export { default as ShakeyTwitter } from './ShakeyTwitter';
+export { default as Groups } from './GroupsStory';
+export { default as Normalizer } from './NormalizerStory';
+export { default as ExternalUndo } from './ExternalUndoStory';
+export { default as ButtonsTest } from './ButtonsTest';
+export { default as DuplicatedContent } from './DuplicateContent';
 
-import HTMLPluginStory from './HtmlPlugin';
-import BlogLefties from './BlogLefties';
-import ImageFloatSpacing from './ImageFloatSpacing';
-import MaxHeight from './MaxHeight';
-import OneLiner from './OneLiner';
-import VeryBigPost from './VeryBigPost';
-import ViewerAnchors from './ViewerAnchors';
-import MobileView from './MobileViewStory';
-import ShakeyTwitter from './ShakeyTwitter';
-import GroupsStory from './GroupsStory';
-import NormalizerStory from './NormalizerStory';
-import ExternalUndoStory from './ExternalUndoStory';
-import ButtonsTest from './ButtonsTest';
-import DuplicateContent from './DuplicateContent';
-
-storiesOf('Test Cases', module)
-  .add('Groups', GroupsStory)
-  .add('External Undo', ExternalUndoStory)
-  .add('Normalizer', NormalizerStory)
-  .add('Viewer Anchors', () => <ViewerAnchors />)
-  .add('Mobile view', MobileView)
-  .add('Shakey Twitter', ShakeyTwitter)
-  .add('Very Big Post', VeryBigPost)
-  .add('One-Liner', OneLiner)
-  .add('Image Float Spacing', ImageFloatSpacing)
-  .add('Blog Lefties', BlogLefties)
-  .add('HTML Instagram Height', HTMLPluginStory)
-  .add('Max Height', MaxHeight)
-  .add('Buttons Test', ButtonsTest)
-  .add('Duplicated Content', DuplicateContent);
+export default {
+  title: 'Test Cases',
+};

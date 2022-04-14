@@ -71,4 +71,4 @@ class ViewerAnchors extends React.Component {
     );
   }
 }
-export default ViewerAnchors;
+export default () => <ViewerAnchors />;

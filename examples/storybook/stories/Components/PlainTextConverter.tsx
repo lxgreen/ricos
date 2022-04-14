@@ -4,7 +4,7 @@ import { RichContentEditorBox, Section } from './StoryParts';
 import EditorWrapper from './EditorWrapper';
 import styles from '../Components/styles.scss';
 // eslint-disable-next-line import/no-unresolved
-import sourceCode from '!!raw-loader!./PlainTextConverter';
+import sourceCode from './PlainTextConverter?raw';
 import { toPlainText } from 'ricos-content/libs/toPlainText';
 import { fromDraft } from 'ricos-content/libs/fromDraft';
 import type { RichContentTheme } from 'wix-rich-content-common';

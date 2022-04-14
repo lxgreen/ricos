@@ -14,7 +14,7 @@ declare module 'deep-freeze';
 declare module 'to-*-case' {
   export default function (string: string): string;
 }
-declare module '!!raw-loader!*' {
+declare module '*?raw' {
   const contents: string;
   export = contents;
 }
