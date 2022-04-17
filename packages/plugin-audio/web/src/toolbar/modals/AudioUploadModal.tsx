@@ -59,16 +59,13 @@ const AudioUploadModal = props => {
 
   const onLocalLoad = tempData => {
     const { name, authorName, ...rest } = getComponentData();
-    const isReplace = Object.keys(getComponentData()?.audio?.src).length;
-    const audioDetails = isReplace
-      ? { name: tempData?.name, authorName: tempData?.authorName }
-      : { name, authorName };
+    const audioDetails = { name: name ?? tempData?.name, authorName };
     onUpload({ ...rest, ...tempData, ...audioDetails });
   };
 
   const getComponentData = () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { html = null, ...rest } = { ...pubsub.get('componentData'), ...componentData };
+    const { html = null, ...rest } = { ...componentData, ...pubsub.get('componentData') };
     return rest;
   };
 

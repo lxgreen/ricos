@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { ComponentData, Helpers, RichContentTheme } from 'wix-rich-content-common';
+import { AUDIO_TYPE } from 'wix-rich-content-common';
 import HtmlComponent from 'wix-rich-content-plugin-html/libs/HtmlComponent';
+import { AUDIO_TYPES } from './consts';
 import type { AudioPluginEditorConfig } from './types';
 
 interface Props {
@@ -11,7 +13,13 @@ interface Props {
   helpers?: Helpers;
 }
 
-const AudioEmbedViewer: React.FC<Props> = ({ isMobile, componentData, settings, theme }) => {
+const AudioEmbedViewer: React.FC<Props> = ({
+  isMobile,
+  componentData,
+  settings,
+  theme,
+  helpers,
+}) => {
   const {
     audio: {
       src: { url },
@@ -34,6 +42,18 @@ const AudioEmbedViewer: React.FC<Props> = ({ isMobile, componentData, settings, 
     theme,
     isMobile,
   };
+
+  useEffect(() => {
+    helpers?.mediaPluginsDetails?.({
+      pluginId: AUDIO_TYPE,
+      creator: undefined,
+      title: undefined,
+      track_duration: undefined,
+      type: AUDIO_TYPES.spotify,
+      url,
+    });
+  }, []);
+
   return <HtmlComponent {...htmlCompProps} />;
 };
 

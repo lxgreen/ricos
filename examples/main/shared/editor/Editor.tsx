@@ -88,6 +88,8 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       onPluginAddSuccess: async (...args) => console.log('onPluginAddSuccess', ...args),
       onPluginsPopOverTabSwitch: async params => console.log('onPluginsPopOverTabSwitch', params),
       onPluginsPopOverClick: async params => console.log('onPluginsPopOverClick', params),
+      onChangePluginSettings: async params => console.log('onChangePluginSettings', params),
+      mediaPluginsDetails: async params => console.log('mediaPluginsDetails', params),
       onPluginDelete: async params => console.log('onPluginDelete', params),
       onPluginChange: async (...args) => console.log('onPluginChange', ...args),
       onPublish: async (...args) => console.log('onPublish', ...args),

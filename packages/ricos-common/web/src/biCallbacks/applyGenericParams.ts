@@ -19,6 +19,10 @@ export const applyBIGenerics =
         helpers.onPluginsPopOverTabSwitch?.({ ...args, version, contentId: getContentId() }),
       onPluginsPopOverClick: args =>
         helpers.onPluginsPopOverClick?.({ ...args, version, contentId: getContentId() }),
+      onChangePluginSettings: args =>
+        helpers.onChangePluginSettings?.({ ...args, version, contentId: getContentId() }),
+      mediaPluginsDetails: args =>
+        helpers.mediaPluginsDetails?.({ ...args, version, contentId: getContentId() }),
       onPluginAddSuccess: (pluginId: string, entryPoint: string, params) =>
         helpers.onPluginAddSuccess?.(pluginId, entryPoint, params, version, getContentId()),
 

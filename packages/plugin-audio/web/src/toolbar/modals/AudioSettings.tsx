@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
 import { getImageSrc } from 'wix-rich-content-common/libs/imageUtils';
-import { SETTINGS_IMG_SIZE, AUDIO_BUTTON_NAMES, AUDIO_BI_VALUES } from '../../consts';
+import { SETTINGS_IMG_SIZE, AUDIO_BI_VALUES, AUDIO_ACTION_NAMES, AUDIO_TYPES } from '../../consts';
 import { AUDIO_TYPE } from '../../types';
 import {
   LabeledToggle,
@@ -38,18 +38,32 @@ const AudioSettings = ({
   const useModalBaseActionHoc = experiments?.modalBaseActionHoc?.enabled;
 
   const onDownlandToggle = () => {
-    helpers?.onPluginsPopOverClick?.({
-      pluginId: AUDIO_TYPE,
-      buttonName: AUDIO_BUTTON_NAMES.downloadAudio,
-      value: isDownloadEnabled ? AUDIO_BI_VALUES.NO : AUDIO_BI_VALUES.YES,
-    });
     setIsDownloadEnabled(!isDownloadEnabled);
+    const toggleBIValue = isDownloadEnabled ? AUDIO_BI_VALUES.NO : AUDIO_BI_VALUES.YES;
+    helpers?.onChangePluginSettings({
+      pluginId: AUDIO_TYPE,
+      actionName: AUDIO_ACTION_NAMES.downloadAudio,
+      value: toggleBIValue,
+    });
+  };
+
+  const onInputBlur = (actionName, value) => {
+    helpers?.onChangePluginSettings({
+      pluginId: AUDIO_TYPE,
+      actionName,
+      value,
+    });
   };
 
   const handleFilesAdded = args => {
     const img = args.data[0] || args.data;
     setCoverImage(img);
     setIsLoadingImage(false);
+    helpers?.onChangePluginSettings({
+      pluginId: AUDIO_TYPE,
+      actionName: AUDIO_ACTION_NAMES.changeCover,
+      value: AUDIO_BI_VALUES.YES,
+    });
   };
 
   const handleFileSelection = () => {
@@ -64,7 +78,14 @@ const AudioSettings = ({
 
   const handleClose = () => (useModalBaseActionHoc ? onCancel() : helpers.closeModal());
 
-  const handleCoverImageDelete = () => setCoverImage(null);
+  const handleCoverImageDelete = () => {
+    setCoverImage(null);
+    helpers?.onChangePluginSettings({
+      pluginId: AUDIO_TYPE,
+      actionName: AUDIO_ACTION_NAMES.changeCover,
+      value: AUDIO_BI_VALUES.NO,
+    });
+  };
 
   const inputsData = [
     {
@@ -73,6 +94,7 @@ const AudioSettings = ({
       onChange: value => setName(value),
       dataHook: 'audioSettingsAudioNameInput',
       placeholder: t('AudioPlugin_Settings_AudioName_Label_Placeholder'),
+      onBlur: e => onInputBlur(AUDIO_ACTION_NAMES.changeTitle, e.target.value),
     },
     {
       label: t('AudioPlugin_Settings_AuthorName_Label'),
@@ -80,6 +102,7 @@ const AudioSettings = ({
       onChange: value => setAuthorName(value),
       dataHook: 'audioSettingsAuthorNameInput',
       placeholder: t('AudioPlugin_Settings_AuthorName_Label_Placeholder'),
+      onBlur: e => onInputBlur(AUDIO_ACTION_NAMES.changeCreator, e.target.value),
     },
   ];
 
@@ -124,6 +147,17 @@ const AudioSettings = ({
           disableDownload: !isDownloadEnabled,
           coverImage,
         });
+    return () => {
+      const { duration, src } = componentData.audio;
+      helpers?.mediaPluginsDetails?.({
+        pluginId: AUDIO_TYPE,
+        creator: authorName,
+        title: name,
+        track_duration: duration,
+        type: AUDIO_TYPES.custom,
+        url: src.id,
+      });
+    };
   }, [name, authorName, isDownloadEnabled, coverImage]);
 
   return (
@@ -162,7 +196,6 @@ const AudioSettings = ({
 
         <SettingsSection theme={theme} className={classNames(styles.audio_settings_toggle_wrapper)}>
           <LabeledToggle
-            key="disableDownload"
             theme={theme}
             checked={isDownloadEnabled}
             label={t('AudioPlugin_Settings_AudioCanBeDownloaded_Label')}

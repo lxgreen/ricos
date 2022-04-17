@@ -43,6 +43,19 @@ export interface pluginsPopoverArgs extends BICallbackParams {
   pluginId: string;
   buttonName: string;
 }
+export interface changePluginSettingsArgs extends BICallbackParams {
+  pluginId: string;
+  actionName: string;
+  value: string;
+}
+export interface mediaPluginsDetailsArgs extends BICallbackParams {
+  pluginId: string;
+  creator?: string;
+  title?: string;
+  track_duration?: number;
+  type: 'File Upload' | 'Spotify' | 'SoundCloud';
+  url: string;
+}
 
 export interface onPluginDeleteArgs extends BICallbackParams {
   pluginId: string;
@@ -115,6 +128,8 @@ export interface BICallbacks {
   onPluginAddStep?(params: onPluginAddStepArgs): void;
   onPluginsPopOverTabSwitch?(params: pluginsPopoverArgs): void;
   onPluginsPopOverClick?(params: pluginsPopoverArgs): void;
+  onChangePluginSettings?(params: changePluginSettingsArgs): void;
+  mediaPluginsDetails?(params: mediaPluginsDetailsArgs): void;
   onPluginDelete?(params: onPluginDeleteArgs): void;
   onPublish?(
     postId: string | undefined,

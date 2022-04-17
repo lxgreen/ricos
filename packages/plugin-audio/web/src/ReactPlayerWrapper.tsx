@@ -16,7 +16,13 @@ import {
   SLIDER_TRACK_SIZE,
   SLIDER_THUMB_VISIBILITY,
 } from 'wix-rich-content-ui-components';
-import { downloadFile, playbackRates, AUDIO_BI_VALUES, AUDIO_ACTION_NAMES } from './consts';
+import {
+  downloadFile,
+  playbackRates,
+  AUDIO_BI_VALUES,
+  AUDIO_ACTION_NAMES,
+  AUDIO_TYPES,
+} from './consts';
 import classNames from 'classnames';
 import type { Helpers } from 'wix-rich-content-common';
 import { AUDIO_TYPE } from './types';
@@ -36,6 +42,7 @@ interface Props {
   disabled?: boolean;
   isLoading?: boolean;
   helpers?: Helpers;
+  saveDurationToData: (duration) => void;
 }
 
 const ReactPlayerWrapper: React.FC<Props> = ({
@@ -50,6 +57,7 @@ const ReactPlayerWrapper: React.FC<Props> = ({
   disabled,
   theme,
   isLoading,
+  saveDurationToData,
 }) => {
   const [URL, setURL] = useState(url);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -119,7 +127,19 @@ const ReactPlayerWrapper: React.FC<Props> = ({
       AUDIO_BI_VALUES.PLAYBACK_COMPLETED
     );
 
-  const handleDuration = (num: number) => setDuration(num);
+  const handleDuration = (num: number) => {
+    setDuration(num);
+    saveDurationToData(num);
+    const audioType = showControls ? AUDIO_TYPES.soundCloud : AUDIO_TYPES.custom;
+    helpers?.mediaPluginsDetails?.({
+      pluginId: AUDIO_TYPE,
+      creator: authorName,
+      title: name,
+      track_duration: num,
+      type: audioType,
+      url,
+    });
+  };
   const handleSeekChange = (num: number) => {
     isPlaying && setIsStoppedBySeek(true);
     handlePause();
@@ -164,6 +184,11 @@ const ReactPlayerWrapper: React.FC<Props> = ({
   );
 
   useEffect(() => {
+    handlePause();
+    setURL(url);
+  }, [showControls, url]);
+
+  useEffect(() => {
     let resizer;
     if (window?.ResizeObserver) {
       resizer = new ResizeObserver(
@@ -177,11 +202,6 @@ const ReactPlayerWrapper: React.FC<Props> = ({
       resizer?.unobserve?.(customPlayerRef?.current);
     };
   }, []);
-
-  useEffect(() => {
-    handlePause();
-    setURL(url);
-  }, [showControls, url]);
 
   return (
     <div>

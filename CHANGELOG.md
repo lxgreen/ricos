@@ -20,6 +20,8 @@
 ### :bug: Bug Fix
 - `video`
   - [#3737](https://github.com/wix/ricos/pull/#3737) fix "getInternalPlayer().play(), play is not a function"
+- `audio`
+  - [#3738](https://github.com/wix/ricos/pull/3738) fix audio tags issue & added BI
 - `ui-components`
   - [#3745](https://github.com/wix/ricos/pull/#3745) add loader to SettingsAddItem component
 

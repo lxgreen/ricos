@@ -22,6 +22,7 @@ interface InputWithLabelProps {
   t?: TranslationFunction;
   isMobile?: boolean;
   onChange: (e) => void;
+  onBlur?: (e) => void;
   getTarget?: boolean;
   tabIndex?: number;
   inputRef?: Ref<HTMLInputElement>;
@@ -58,6 +59,7 @@ class InputWithLabel extends Component<InputWithLabelProps> {
       t,
       inputRef,
       placeholder,
+      onBlur,
       ...otherProps
     } = this.props;
     const inputProps = omit(otherProps, ['theme', 'onChange']);
@@ -73,6 +75,7 @@ class InputWithLabel extends Component<InputWithLabelProps> {
         id={id}
         data-hook={dataHook}
         onChange={this.handleOnChange}
+        onBlur={onBlur}
         placeholder={placeholder}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ref={inputRef as any}

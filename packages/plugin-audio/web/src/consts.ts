@@ -77,16 +77,25 @@ export const playbackRates = [
     rate: 2,
   },
 ];
+
 export const SETTINGS_IMG_SIZE = '120px';
 
-export const AUDIO_BUTTON_NAMES = { downloadAudio: 'downloadAudio' };
-
-export const AUDIO_ACTION_NAMES: {
+interface IAudioActionNames {
   fileDownloaded: 'fileDownloaded';
   playAudio: 'playAudio';
-} = {
+  changeTitle: 'changeTitle';
+  changeCreator: 'changeCreator';
+  changeCover: 'changeCover';
+  downloadAudio: 'downloadAudio';
+}
+
+export const AUDIO_ACTION_NAMES: IAudioActionNames = {
   fileDownloaded: 'fileDownloaded',
   playAudio: 'playAudio',
+  changeTitle: 'changeTitle',
+  changeCreator: 'changeCreator',
+  changeCover: 'changeCover',
+  downloadAudio: 'downloadAudio',
 };
 
 export const AUDIO_BI_VALUES = {
@@ -97,5 +106,8 @@ export const AUDIO_BI_VALUES = {
   NO: 'no',
   click: 'Click',
 };
+
+export const AUDIO_TYPES: { custom: 'File Upload'; spotify: 'Spotify'; soundCloud: 'SoundCloud' } =
+  { custom: 'File Upload', spotify: 'Spotify', soundCloud: 'SoundCloud' };
 
 export const audioFileTypes = '.mp3,.pcm,.wav,.aiff,.aif,.aac,.ogg,.wma,.m4a,.flac';
