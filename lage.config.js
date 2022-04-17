@@ -13,7 +13,13 @@ module.exports = {
     outputGlob: ['dist/**', 'lib/**', 'generated/**'],
     // These are relative to the git root, and affects the hash of the cache
     // Any of these file changes will invalidate cache
-    environmentGlob: ['./rollup.plugins.ts', './rollup.externals.ts', './rollup.config.common.ts'],
+    environmentGlob: [
+      './rollup.plugins.ts',
+      './rollup.externals.ts',
+      './rollup.config.common.ts',
+      './package.json',
+      './lage.config.js',
+    ],
     internalCacheFolder: '../../../.cache/backfill',
   },
   npmClient: 'yarn',
