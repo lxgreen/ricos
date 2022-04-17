@@ -4,18 +4,20 @@ import type { CSSProperties } from 'react';
 import FileInput from './FileInput';
 import Image from './Image';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
-import { PlusIcon, ReplaceIcon, TrashIcon } from '../Icons';
+import { LoaderIcon, PlusIcon, ReplaceIcon, TrashIcon } from '../Icons';
 import styles from '../../statics/styles/settings-add-item.scss';
 import classNames from 'classnames';
 import type { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import Loader from './Loader';
 
 interface AddItemOverlayProps {
   handleReplace?: () => void;
   handleDelete?: () => void;
   t: TranslationFunction;
-  src: string;
+  src?: string;
   theme?: RichContentTheme;
   alt?: string;
+  isLoading?: boolean;
 }
 
 const AddItemOverlay: React.FC<AddItemOverlayProps> = ({
@@ -25,28 +27,46 @@ const AddItemOverlay: React.FC<AddItemOverlayProps> = ({
   theme,
   alt,
   t,
-}) => (
-  <div className={styles.settingsAddItem_overlay} data-hook={'addItemOverlay'}>
-    <div className={styles.settingsAddItem_overlay_icons}>
-      {handleReplace && (
-        <Tooltip content={t('Settings_Replace_Image_Tooltip')} place="top">
-          <ReplaceIcon tabIndex={0} onClick={handleReplace} />
-        </Tooltip>
+  isLoading,
+}) => {
+  return (
+    <div
+      className={classNames(styles.settingsAddItem_overlay, {
+        [styles.withImage]: src,
+        [styles.overlay_loading]: isLoading,
+      })}
+      data-hook="addItemOverlay"
+    >
+      {src && (
+        <>
+          <div className={styles.settingsAddItem_overlay_icons}>
+            {handleReplace && (
+              <Tooltip content={t('Settings_Replace_Image_Tooltip')} place="top">
+                <ReplaceIcon tabIndex={0} onClick={handleReplace} />
+              </Tooltip>
+            )}
+            <Tooltip content={t('Settings_Remove_Image_Tooltip')} place="top">
+              <TrashIcon
+                tabIndex={0}
+                onClick={handleDelete}
+                data-hook={'addItemOverlay-deleteIcon'}
+              />
+            </Tooltip>
+          </div>
+          <Image
+            className={styles.settingsAddItem_overlay_image}
+            src={src}
+            resizeMode={'cover'}
+            theme={theme || styles}
+            alt={alt}
+            t={t}
+          />
+        </>
       )}
-      <Tooltip content={t('Settings_Remove_Image_Tooltip')} place="top">
-        <TrashIcon tabIndex={0} onClick={handleDelete} data-hook={'addItemOverlay-deleteIcon'} />
-      </Tooltip>
+      {isLoading && <LoaderIcon className={styles.loader_icon} />}
     </div>
-    <Image
-      className={styles.settingsAddItem_overlay_image}
-      src={src}
-      resizeMode={'cover'}
-      theme={theme || styles}
-      alt={alt}
-      t={t}
-    />
-  </div>
-);
+  );
+};
 
 interface SettingsAddItemProps {
   handleFileChange: (files?: any, itemPos?: any) => void;
@@ -61,6 +81,7 @@ interface SettingsAddItemProps {
   uploadMediaLabel: string;
   accept?: string;
   dataHook: string;
+  isLoading?: boolean;
 }
 
 const SettingsAddItem: React.FC<SettingsAddItemProps> = ({
@@ -76,13 +97,15 @@ const SettingsAddItem: React.FC<SettingsAddItemProps> = ({
   src,
   alt,
   t,
+  isLoading,
 }) => {
+  const hasOverlay = handleDelete;
   return (
     <div className={styles.settingsAddItem_container} data-hook="settingsAddItem_container">
       <FileInput
         className={classNames(styles.settingsAddItem, styles.filesItem, {
           [styles.mobile]: isMobile,
-          [styles.withOverlay]: handleDelete,
+          [styles.withOverlay]: hasOverlay,
         })}
         dataHook={dataHook}
         onChange={handleFileChange}
@@ -96,8 +119,15 @@ const SettingsAddItem: React.FC<SettingsAddItemProps> = ({
       >
         <PlusIcon />
       </FileInput>
-      {src && (
-        <AddItemOverlay handleDelete={handleDelete} theme={theme} src={src} alt={alt} t={t} />
+      {hasOverlay && (
+        <AddItemOverlay
+          handleDelete={handleDelete}
+          theme={theme}
+          src={src}
+          alt={alt}
+          t={t}
+          isLoading={isLoading}
+        />
       )}
     </div>
   );

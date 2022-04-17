@@ -34,6 +34,7 @@ const AudioSettings = ({
   const [coverImage, setCoverImage] = useState(componentData?.coverImage || null);
   const [name, setName] = useState(componentData?.name || '');
   const [authorName, setAuthorName] = useState(componentData?.authorName || '');
+  const [isLoadingImage, setIsLoadingImage] = useState(false);
   const useModalBaseActionHoc = experiments?.modalBaseActionHoc?.enabled;
 
   const onDownlandToggle = () => {
@@ -48,6 +49,7 @@ const AudioSettings = ({
   const handleFilesAdded = args => {
     const img = args.data[0] || args.data;
     setCoverImage(img);
+    setIsLoadingImage(false);
   };
 
   const handleFileSelection = () => {
@@ -56,6 +58,7 @@ const AudioSettings = ({
   };
 
   const handleFileChange = ([file]) => {
+    setIsLoadingImage(true);
     helpers.handleFileUpload(file, handleFilesAdded);
   };
 
@@ -150,6 +153,7 @@ const AudioSettings = ({
               handleDelete={handleCoverImageDelete}
               t={t}
               alt={name}
+              isLoading={isLoadingImage}
             />
           </div>
         </SettingsSection>
