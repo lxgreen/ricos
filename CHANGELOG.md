@@ -17,12 +17,13 @@
     Click to see more.
   </summary>
 
-
 ### :bug: Bug Fix
 
 - `gallery`
+
   - [#3748](https://github.com/wix/ricos/pull/3748) use hash for deterministic masonry layout
 
+- `tiptap` -[#3752](https://github.com/wix/ricos/pull/3752) fix emoji content with inline styles
 
 </details>
   <hr/>
@@ -30,6 +31,7 @@
 ## 8.70.41 (April 17, 2022)
 
 ### :bug: Bug Fix
+
 - `video`
   - [#3737](https://github.com/wix/ricos/pull/#3737) fix "getInternalPlayer().play(), play is not a function"
 - `audio`
@@ -281,7 +283,6 @@
   - [#3618](https://github.com/wix/ricos/pull/3618) add audio modal settings modal
 - `polls`
   - [#3622](https://github.com/wix/ricos/pull/3622) fix polls in json schema
-
 
 ## 8.70.19 (Mar 15, 2022)
 

@@ -36,6 +36,9 @@ import {
 import { convertBlockDataToRicos } from '../convertRicosPluginData';
 import { IMAGE_TYPE, FILE_UPLOAD_TYPE, WRAP } from '../../../../consts';
 
+import emojiWithInlineStyleRicos from './emojiWithInlineStyleRicos.json';
+import emojiWithInlineStyleDraft from './emojiWithInlineStyleDraft.json';
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const filterIds = objArr => objArr.map(({ id, ...rest }) => rest); //disable
 describe('migrate from draft', () => {
@@ -678,6 +681,18 @@ describe('migrate from draft', () => {
       compare(converted, RichContent.fromJSON(expected), {
         ignoredKeys: ['id'],
       })
+    ).toEqual({});
+  });
+
+  it('should convert with emoji', () => {
+    expect(
+      compare(
+        fromDraft(emojiWithInlineStyleDraft),
+        RichContent.fromJSON(emojiWithInlineStyleRicos),
+        {
+          ignoredKeys: ['ID'],
+        }
+      )
     ).toEqual({});
   });
 });
