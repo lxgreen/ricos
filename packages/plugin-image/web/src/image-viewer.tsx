@@ -27,18 +27,13 @@ import InPluginInput from './InPluginInput';
 
 const isSafari = () => /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-const replaceUrlFileExtenstion = (url, extensionTarget) => {
-  // replace png or jpg file to extensionTarget
-  return url.replace(/(.*)\.(jp(e)?g|png)$/, `$1.${extensionTarget}`);
-};
-
 interface ImageViewerProps {
   componentData: ImageData;
   className?: string;
   dataUrl: string;
   settings: ImagePluginViewerConfig;
   defaultCaption: string;
-  onCaptionChange: (caption: string) => void;
+  onCaptionChange?: (caption: string) => void;
   setFocusToBlock: () => void;
   theme: RichContentTheme;
   helpers: Helpers;
@@ -217,8 +212,13 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
     }
   };
 
-  renderImage = (imageClassName, imageSrc, alt, props, isGif, onlyHighRes) => {
-    return this.getImage(
+  shouldRenderEditableCaption = () => {
+    const { onCaptionChange } = this.props;
+    return this.context.experiments.imageFigureCaption?.enabled ? !!onCaptionChange : true;
+  };
+
+  renderImage = (imageClassName, imageSrc, alt, props, isGif, onlyHighRes, caption) => {
+    const imgElement = this.getImage(
       classNames(imageClassName, this.styles.imageHighres, {
         [this.styles.onlyHighRes]: onlyHighRes,
       }),
@@ -226,6 +226,16 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       alt,
       props,
       { fadeIn: !isGif, width: imageSrc.highresWidth, height: imageSrc.highresHeight }
+    );
+
+    if (this.shouldRenderEditableCaption() || !this.shouldRenderCaption()) {
+      return imgElement;
+    }
+    return (
+      <figure>
+        {imgElement}
+        {this.renderCaption(caption)}
+      </figure>
     );
   };
 
@@ -320,9 +330,9 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
         setFocusToBlock={setFocusToBlock}
       />
     ) : (
-      <span dir="auto" className={classes}>
+      <figcaption dir="auto" className={classes}>
         {caption}
-      </span>
+      </figcaption>
     );
   }
 
@@ -476,12 +486,22 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
           {shouldRenderPreloadImage &&
             this.renderPreloadImage(imageClassName, imageSrc, metadata.alt, imageProps)}
           {shouldRenderImage &&
-            this.renderImage(imageClassName, imageSrc, metadata.alt, imageProps, isGif, onlyHiRes)}
+            this.renderImage(
+              imageClassName,
+              imageSrc,
+              metadata.alt,
+              imageProps,
+              isGif,
+              onlyHiRes,
+              metadata.caption
+            )}
           {this.hasExpand() && this.renderExpandIcon()}
         </div>
         {this.renderTitle(data, this.styles)}
         {this.renderDescription(data, this.styles)}
-        {this.shouldRenderCaption() && this.renderCaption(metadata.caption)}
+        {this.shouldRenderEditableCaption() &&
+          this.shouldRenderCaption() &&
+          this.renderCaption(metadata.caption)}
       </div>
     );
   }
