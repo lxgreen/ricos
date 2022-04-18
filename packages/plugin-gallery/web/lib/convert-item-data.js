@@ -85,5 +85,6 @@ export const convertItemData = ({ items, anchorTarget, relValue }) =>
       // uuid is used to guarentee there are no 2 gallery items on the DOM with the same ID (on different galleries) due to a pro gallery issues with videos - it gives console errors and might also break the video controls behavoiur.
       // TODO: remove uuid when gallery fixes the issue \ release version 4.
       itemId: uuid() + '_' + index.toString(),
+      hash: item.url + '_' + index.toString(),
     };
   });

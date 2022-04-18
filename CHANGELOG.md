@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3748](https://github.com/wix/ricos/pull/3748) use hash for deterministic masonry layout
+
 ### :nail_care: Polish
 
 - `image`
