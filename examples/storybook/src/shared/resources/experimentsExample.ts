@@ -20,5 +20,4 @@ export const EXPERIMENTS = [
   { name: 'useFilePluginAutoDownloadLinkRef', scope: 'ricos' },
   { name: 'enableFilePluginPDFViewer', scope: 'ricos' },
   { name: 'encAutoImageUrls', scope: 'ricos' },
-  { name: 'imageFigureCaption', scope: 'ricos' },
 ];

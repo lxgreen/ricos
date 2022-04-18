@@ -8,10 +8,6 @@ $opacityTransition: opacity 0.8s ease;
   position: relative;
   overflow: hidden;
   @include ricosTypography('p', true);
-
-  figure {
-    margin: 0;
-  }
 }
 .expandContainer {
   height: 28px;
