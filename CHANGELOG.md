@@ -20,10 +20,11 @@
 ### :bug: Bug Fix
 
 - `gallery`
-
   - [#3748](https://github.com/wix/ricos/pull/3748) use hash for deterministic masonry layout
-
-- `tiptap` -[#3752](https://github.com/wix/ricos/pull/3752) fix emoji content with inline styles
+- `tiptap` 
+  -[#3752](https://github.com/wix/ricos/pull/3752) fix emoji content with inline styles
+- `ricos-content`
+  - [#3753](https://github.com/wix/ricos/pull/3753) ckeditor/preprocess: wrapNakedStyledSpanWithP rule added
 
 </details>
   <hr/>
