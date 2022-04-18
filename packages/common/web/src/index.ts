@@ -4,7 +4,7 @@ export * from 'ricos-types';
 export { default as AccessibilityListener } from './Components/AccessibilityListener';
 
 // Utils
-export { default as withI18n, translate, Trans, RicosTranslate } from './Utils/withI18n';
+export { default as withI18n, translate, Trans } from './Utils/withI18n';
 export { default as createHocName } from './Utils/createHocName';
 export {
   sizeClassName,
