@@ -1,27 +1,27 @@
 import { flow, identity } from 'fp-ts/function';
 import { not } from 'fp-ts/Predicate';
 import * as S from 'fp-ts/string';
-import type { Element, TextNode, Attribute } from 'parse5';
+import type { Attribute, Element, TextNode } from 'parse5';
 import { serialize } from 'parse5';
+import { and, or } from '../../../../fp-utils';
+import { partitionBy } from '../../../nodeUtils';
+import { traverse, traverseRoot } from '../core/ast-traversal';
 import type { ContentNode } from '../core/models';
 import type { AstRule } from '../core/parse5-utils';
 import {
-  hasStyleFor,
-  isText,
-  isWhitespace,
-  hasDescendant,
   appendChild,
-  hasTag,
-  hasParent,
-  oneOf,
-  toAst,
   hasChild,
   hasClass,
+  hasDescendant,
+  hasParent,
+  hasStyleFor,
+  hasTag,
   isRoot,
+  isText,
+  isWhitespace,
+  oneOf,
+  toAst,
 } from '../core/parse5-utils';
-import { partitionBy } from '../../../nodeUtils';
-import { traverseRoot, traverse } from '../core/ast-traversal';
-import { and, or } from '../../../../fp-utils';
 
 const addParagraph =
   (parentNode: Element, attrs: Attribute[] = []) =>
@@ -121,6 +121,27 @@ const wrapTextUnderLi: AstRule = [
   }),
 ];
 
+const wrapNakedStyledSpanWithP: AstRule = [
+  and([
+    hasTag('span'),
+    or([hasStyleFor('text-decoration'), hasStyleFor('font-weight'), hasStyleFor('font-style')]),
+    hasParent(not(oneOf(['strong', 'b', 'a', 'p', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']))),
+  ]),
+  (node: Element) => {
+    const paragraph: Element = {
+      nodeName: 'p',
+      tagName: 'p',
+      childNodes: [] as Element[],
+      attrs: [] as Attribute[],
+      parentNode: node.parentNode,
+      namespaceURI: node.namespaceURI,
+    };
+    const childNode: Element = { ...node, parentNode: paragraph };
+    paragraph.childNodes.push(childNode);
+    return paragraph;
+  },
+];
+
 const nakedSpanToP: AstRule = [
   and([
     hasTag('span'),
@@ -188,7 +209,7 @@ export const preprocess = flow(
   ),
   flow(traverse(wrapTextUnderLi), traverse(collapseWhitespaces)),
   // hack to make nakedSpanToP work -- otherwise does not work correctly
-  flow(serialize, toAst, traverse(nakedSpanToP)),
+  flow(serialize, toAst, traverse(nakedSpanToP), traverse(wrapNakedStyledSpanWithP)),
   traverse(textInDivToP),
   serialize,
   collapseBreaks
