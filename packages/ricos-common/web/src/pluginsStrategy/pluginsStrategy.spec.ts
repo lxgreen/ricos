@@ -1,6 +1,7 @@
 import { pluginImage } from 'wix-rich-content-plugin-image';
 import { pluginGallery } from 'wix-rich-content-plugin-gallery';
 import { pluginVideo } from 'wix-rich-content-plugin-video';
+import { pluginAudio } from 'wix-rich-content-plugin-audio';
 import { pluginImage as pluginImageV } from 'wix-rich-content-plugin-image/viewer';
 import { pluginGallery as pluginGalleryV } from 'wix-rich-content-plugin-gallery/viewer';
 import { pluginTextColor } from 'wix-rich-content-plugin-text-color/viewer';
@@ -10,6 +11,7 @@ import {
   GALLERY_TYPE,
   FILE_UPLOAD_TYPE,
   VIDEO_TYPE,
+  AUDIO_TYPE,
   TEXT_COLOR_TYPE,
 } from 'wix-rich-content-common';
 import pluginsStrategy from './pluginsStrategy';
@@ -22,6 +24,10 @@ describe('PluginsStrategy', () => {
     pluginVideo({
       handleFileUpload: () => {},
       getVideoUrl: () => `video url`,
+    }),
+    pluginAudio({
+      handleFileUpload: () => {},
+      getAudioUrl: () => `audio url`,
     }),
     pluginGallery(),
   ];
@@ -54,9 +60,16 @@ describe('PluginsStrategy', () => {
 
   it('should supply editor props', () => {
     const result = driver.runStrategy(false) as RCEPluginProps;
-    const expected = [IMAGE_TYPE, VIDEO_TYPE, GALLERY_TYPE, FILE_UPLOAD_TYPE, 'themeData'];
+    const expected = [
+      IMAGE_TYPE,
+      VIDEO_TYPE,
+      AUDIO_TYPE,
+      GALLERY_TYPE,
+      FILE_UPLOAD_TYPE,
+      'themeData',
+    ];
     expect(Object.keys(result.config)).toStrictEqual(expected);
-    expect(result.plugins.length).toEqual(3);
+    expect(result.plugins.length).toEqual(4);
   });
 
   it('should supply viewer props', () => {

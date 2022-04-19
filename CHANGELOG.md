@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `audio`
+  - [#3757](https://github.com/wix/ricos/pull/3757) fix coverimage & error toast issues
+
 </details>
   <hr/>
 

@@ -153,7 +153,7 @@ const AudioSettings = ({
         pluginId: AUDIO_TYPE,
         creator: authorName,
         title: name,
-        track_duration: duration,
+        track_duration: duration?.toString(),
         type: AUDIO_TYPES.custom,
         url: src.id,
       });

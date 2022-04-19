@@ -36,13 +36,13 @@ const AudioViewer: FC<Props> = ({
   const { audio = {}, authorName, name, coverImage, disableDownload } = componentData;
   const url = getAudioSrc(audio?.src, settings);
   const shouldEmbed = componentData.html;
-  const saveDurationToData = duration =>
-    store?.update(
+  const saveDurationToData = duration => {
+    store?.set(
       'componentData',
       { ...componentData, audio: { ...componentData.audio, duration } },
       block?.getKey()
     );
-
+  };
   return (
     <div className={classes.container} data-hook="audioViewer">
       {!shouldEmbed ? (

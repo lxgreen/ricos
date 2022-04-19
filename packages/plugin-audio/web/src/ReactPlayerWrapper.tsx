@@ -135,7 +135,7 @@ const ReactPlayerWrapper: React.FC<Props> = ({
       pluginId: AUDIO_TYPE,
       creator: authorName,
       title: name,
-      track_duration: num,
+      track_duration: num?.toString(),
       type: audioType,
       url,
     });

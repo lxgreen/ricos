@@ -52,7 +52,7 @@ export interface mediaPluginsDetailsArgs extends BICallbackParams {
   pluginId: string;
   creator?: string;
   title?: string;
-  track_duration?: number;
+  track_duration?: string;
   type: 'File Upload' | 'Spotify' | 'SoundCloud';
   url: string;
 }

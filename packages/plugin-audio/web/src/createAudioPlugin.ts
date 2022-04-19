@@ -6,7 +6,7 @@ import { createBaseMediaPlugin, createBasePlugin } from 'wix-rich-content-plugin
 import type { CreatePluginFunction } from 'wix-rich-content-common';
 
 const createAudioPlugin: CreatePluginFunction<AudioPluginEditorConfig> = config => {
-  const { helpers, t, [AUDIO_TYPE]: settings = {}, isMobile, ...rest } = config;
+  const { helpers, t, [AUDIO_TYPE]: settings = {}, isMobile, commonPubsub, ...rest } = config;
   const disableDownload = config?.uiSettings?.disableDownload;
   const type = AUDIO_TYPE;
   return createBasePlugin({
@@ -14,7 +14,7 @@ const createAudioPlugin: CreatePluginFunction<AudioPluginEditorConfig> = config 
     type,
     toolbar: createToolbar({
       t,
-      settings: { ...settings, type },
+      settings: { ...settings, type, commonPubsub },
       isMobile,
       disableDownload,
     }),
@@ -23,6 +23,7 @@ const createAudioPlugin: CreatePluginFunction<AudioPluginEditorConfig> = config 
     t,
     isMobile,
     defaultPluginData: DEFAULTS,
+    commonPubsub,
     ...rest,
   });
 };

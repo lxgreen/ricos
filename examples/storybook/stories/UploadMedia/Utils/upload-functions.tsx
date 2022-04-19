@@ -1,5 +1,4 @@
-import { getVideoToUpload } from '../../../src/shared/utils/fileUploadUtil';
-import { getAudioToUpload } from '../../../src/shared/utils/fileUploadUtil';
+import { getVideoToUpload, getAudioToUpload } from '../../../src/shared/utils/fileUploadUtil';
 import { testImages, testWixVideos } from '../../../src/shared/utils/mock';
 import { mockAudioData } from '../../../src/shared/utils/mockAudioData';
 

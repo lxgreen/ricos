@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { AUDIO_TYPE } from '../../types';
 import { audioFileTypes } from '../../consts';
@@ -64,8 +65,11 @@ const AudioUploadModal = props => {
   };
 
   const getComponentData = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { html = null, ...rest } = { ...componentData, ...pubsub.get('componentData') };
+    const {
+      html = null,
+      coverImage = null,
+      ...rest
+    } = { ...componentData, ...pubsub.get('componentData') };
     return rest;
   };
 
