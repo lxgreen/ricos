@@ -11,6 +11,15 @@ module.exports = {
     react: {
       version: '16.6.3',
     },
+    'import/resolver': {
+      'eslint-import-resolver-custom-alias': {
+        alias: {
+          'draft-js': '../../../node_modules/@wix/draft-js',
+        },
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        packages: ['packages/*'],
+      },
+    },
   },
   rules: {
     '@typescript-eslint/consistent-type-imports': 'error',

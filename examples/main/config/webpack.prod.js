@@ -1,8 +1,8 @@
 /* eslint-disable */
 const merge = require('webpack-merge').merge;
-const TerserPlugin = require('terser-webpack-plugin');
+const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+
 const path = require('path');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -46,9 +46,9 @@ const prodConfig = {
   ],
   optimization: {
     minimizer: [
-      new TerserPlugin({ minify: TerserPlugin.esbuildMinify }),
-      new CssMinimizerPlugin({
-        minify: CssMinimizerPlugin.esbuildMinify,
+      new ESBuildMinifyPlugin({
+        target: 'es2015', // Syntax to compile to (see options below for possible values)
+        css: true, // Apply minification to CSS assets
       }),
     ],
   },

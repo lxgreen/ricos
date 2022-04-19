@@ -1,7 +1,5 @@
 import type { Configuration, WebpackPluginInstance } from 'webpack';
 import path from 'path';
-const TerserPlugin = require('terser-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { ESBuildMinifyPlugin } = require('esbuild-loader');
 
 const rules = [
@@ -92,6 +90,7 @@ export const getWebpackConfig = (
       minimizer: [
         new ESBuildMinifyPlugin({
           target: 'es2015', // Syntax to compile to (see options below for possible values)
+          css: true, // Apply minification to CSS assets
         }),
       ],
     },
