@@ -308,7 +308,7 @@ export default function createAtomicPluginToolbar({
           return shouldShowSettingsButton ? <Button {...fileUploadSettingsProps} /> : null;
         }
         case BUTTONS.AUDIO_SETTINGS: {
-          const shouldShowSettingsButton = !!this.state.componentData.audio.src?.id;
+          const shouldShowSettingsButton = !!this.state.componentData?.audio?.src?.id;
           const audioSettingsProps = {
             ...defaultButtonProps,
             type: BUTTONS.EXTERNAL_MODAL,

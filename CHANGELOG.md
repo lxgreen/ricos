@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `audio`
+  - [#3760](https://github.com/wix/ricos/pull/3760) fix getAudioSrc func
+
 </details>
   <hr/>
 
