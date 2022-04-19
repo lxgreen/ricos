@@ -19,15 +19,20 @@
 
 ### :bug: Bug Fix
 
-- `gallery`
-  - [#3748](https://github.com/wix/ricos/pull/3748) use hash for deterministic masonry layout
-- `tiptap` 
-  -[#3752](https://github.com/wix/ricos/pull/3752) fix emoji content with inline styles
-- `ricos-content`
+  - `ricos-content`
   - [#3753](https://github.com/wix/ricos/pull/3753) ckeditor/preprocess: wrapNakedStyledSpanWithP rule added
 
 </details>
   <hr/>
+
+## 8.70.42 (April 18, 2022)
+
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3748](https://github.com/wix/ricos/pull/3748) use hash for deterministic masonry layout
+- `tiptap` 
+  -[#3752](https://github.com/wix/ricos/pull/3752) fix emoji content with inline styles
 
 ## 8.70.41 (April 17, 2022)
 
