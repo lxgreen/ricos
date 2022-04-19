@@ -17,9 +17,15 @@
     Click to see more.
   </summary>
 
-
 </details>
   <hr/>
+
+## 8.70.45 (April 19, 2022)
+
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3733](https://github.com/wix/ricos/pull/3733) fix OrderedListNode & BulletedListNode refined node types
 
 ## 8.70.44 (April 19, 2022)
 
