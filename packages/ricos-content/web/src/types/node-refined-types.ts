@@ -30,6 +30,8 @@ import type {
   VideoData,
   AudioData,
   PollData,
+  OrderedListData,
+  BulletedListData,
 } from 'ricos-schema';
 import { isTextData, isParagraphData } from './node-data-refined-types';
 
@@ -93,9 +95,18 @@ export type ListItemNode = Identified & {
   nodes: ParagraphNode[]; // until editor is based on draft
 };
 
-export type ListNode = Identified & {
-  type: Node_Type.ORDERED_LIST | Node_Type.BULLETED_LIST;
+export type ListNode = OrderedListNode | BulletedListNode;
+
+export type OrderedListNode = Identified & {
+  type: Node_Type.ORDERED_LIST;
   nodes: ListItemNode[];
+  orderedListData: OrderedListData;
+};
+
+export type BulletedListNode = Identified & {
+  type: Node_Type.BULLETED_LIST;
+  nodes: ListItemNode[];
+  bulletedListData: BulletedListData;
 };
 
 // TODO: refactor name
