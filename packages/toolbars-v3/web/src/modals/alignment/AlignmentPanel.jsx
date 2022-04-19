@@ -6,11 +6,12 @@ import DesktopPanel from '../panels/DesktopPanel';
 import classNames from 'classnames';
 import { alignmentsModalData as alignments } from '../consts';
 
-const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, ...props }) => {
+const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, closeModal, ...props }) => {
   const panelHeader = t('FormattingToolbar_AlignmentPanelHeader');
   const onChange = (alignment, clickFromKeyboard) => {
     props?.onToolbarButtonClick?.(alignment);
     onSave({ data: alignment, clickFromKeyboard });
+    !isMobile && closeModal();
   };
 
   const panel = isMobile ? (
@@ -21,6 +22,7 @@ const AlignmentPanel = ({ isMobile, t, theme, currentSelect, onSave, ...props })
         options: alignments,
         onChange,
         t,
+        onCancel: closeModal,
       }}
     />
   ) : (

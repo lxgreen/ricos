@@ -29,8 +29,23 @@
     border-right: none;
 }
 
+.mobileToolbar {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    padding: 0;
+    background-color: #ffffff;
+    border-left: none;
+    border-right: none;
+    width: 100%;
+    min-width: 100%;
+    overflow: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
 .visibleItems, .overflowedItems {
     display: flex;
+    align-items: center;
     grid-column-gap: 4px;
 }
 

@@ -8,10 +8,13 @@ import { toolbarItemsRenders } from '../toolbarItemsRenders';
 import { tiptapStaticToolbarConfig } from '../toolbarItemConfig/tiptapToolbarItemConfig';
 import { tiptapStaticToolbarConfigDetachCommands } from '../toolbarItemConfig/tiptapToolbarItemConfigDetachCommands';
 import type { AvailableExperiments } from 'ricos-types';
+import { withToolbarContext } from '../utils/withContext';
+import type { ToolbarContextType } from '../utils/toolbarContexts';
 interface RicosTiptapToolbarProps {
   content: Content;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editorCommands: any;
+  context: ToolbarContextType;
   experiments?: AvailableExperiments;
 }
 interface RicosTiptapToolbarState {}
@@ -39,11 +42,17 @@ class RicosTiptapToolbar extends Component<RicosTiptapToolbarProps, RicosTiptapT
   }
 
   render() {
+    const { context } = this.props;
+    const { isMobile } = context || {};
     return (
       <div>
         <div>
           {this.toolbar && (
-            <ToolbarComponent toolbar={this.toolbar} toolbarItemsRenders={toolbarItemsRenders} />
+            <ToolbarComponent
+              toolbar={this.toolbar}
+              toolbarItemsRenders={toolbarItemsRenders}
+              isMobile={isMobile}
+            />
           )}
         </div>
       </div>
@@ -51,4 +60,4 @@ class RicosTiptapToolbar extends Component<RicosTiptapToolbarProps, RicosTiptapT
   }
 }
 
-export default RicosTiptapToolbar;
+export default withToolbarContext(RicosTiptapToolbar);

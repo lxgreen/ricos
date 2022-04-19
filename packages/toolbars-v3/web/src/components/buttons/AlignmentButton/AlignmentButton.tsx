@@ -12,9 +12,8 @@ import AlignmentPanel from '../../../modals/alignment/AlignmentPanel';
 import { getLangDir } from 'wix-rich-content-common';
 import { getDefaultAlignment, alignmentMap } from './utils';
 
-const onSave = (data, toolbarItem, setModalOpen) => {
+const onSave = (data, toolbarItem) => {
   toolbarItem.commands?.setAlignment(data);
-  setModalOpen(false);
 };
 
 const AlignmentButton = ({ toolbarItem, context }) => {
@@ -47,11 +46,15 @@ const AlignmentButton = ({ toolbarItem, context }) => {
   return (
     <ClickOutside onClickOutside={onClickOutside}>
       <div
-        className={cx(styles.alignmentModalButtonWrapper, isModalOpen ? styles.active : '')}
+        className={cx(styles.alignmentModalButtonWrapper, isModalOpen ? styles.active : '', {
+          [styles.mobileAlignmentModalButtonWrapper]: isMobile,
+        })}
         ref={setReferenceElement}
       >
         <div
-          className={styles.alignmentModalButton}
+          className={cx(styles.alignmentModalButton, {
+            [styles.mobileAlignmentModalButton]: isMobile,
+          })}
           role="button"
           onClick={() => setModalOpen(!isModalOpen)}
           tabIndex={0}
@@ -65,7 +68,7 @@ const AlignmentButton = ({ toolbarItem, context }) => {
           <div
             dir={getLangDir(locale)}
             ref={setPopperElement}
-            style={popperStyles.popper}
+            style={isMobile ? {} : popperStyles.popper}
             {...attributes.popper}
           >
             <div data-id="toolbar-modal-button" tabIndex={-1} className={styles.modal}>
@@ -74,7 +77,8 @@ const AlignmentButton = ({ toolbarItem, context }) => {
                 t={t}
                 theme={theme}
                 currentSelect={selectedAlignment}
-                onSave={({ data }) => onSave(data, toolbarItem, setModalOpen)}
+                onSave={({ data }) => onSave(data, toolbarItem)}
+                closeModal={() => setModalOpen(false)}
               />
             </div>
           </div>,

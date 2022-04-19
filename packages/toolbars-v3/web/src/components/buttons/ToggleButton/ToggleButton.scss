@@ -22,6 +22,12 @@
         cursor: default;
         opacity: 0.4;
     }
+
+    &.mobileToggleButtonWrapper:not(.active) {
+        &:hover {
+            background-color: unset;
+        }
+    }
 }
 
 .toggleButton {
@@ -30,4 +36,9 @@
     justify-content: center;
     width: 20px;
     height: 20px;
+
+    &.mobileToggleButton {
+        width: 32px;
+        height: 32px;
+    }
 }

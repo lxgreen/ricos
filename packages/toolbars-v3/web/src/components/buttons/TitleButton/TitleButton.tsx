@@ -4,6 +4,7 @@ import React from 'react';
 import cx from 'classnames';
 import styles from './TitleButton.scss';
 import { TitleIcon, TitleOneIcon, TitleTwoIcon } from '../../../icons';
+import { withToolbarContext } from '../../../utils/withContext';
 
 const titleStateMap = {
   unstyled: {
@@ -23,7 +24,8 @@ const titleStateMap = {
   },
 };
 
-const TitleButton = ({ toolbarItem }) => {
+const TitleButton = ({ toolbarItem, context }) => {
+  const { isMobile } = context || {};
   const selectedHeading = toolbarItem.attributes.selectedHeading;
   const currentTitleState = titleStateMap[selectedHeading] || titleStateMap.unstyled;
 
@@ -32,10 +34,15 @@ const TitleButton = ({ toolbarItem }) => {
   const isActive = currentTitleState.active;
 
   return (
-    <div className={cx(styles.titleButtonWrapper, isActive ? styles.active : '')}>
+    <div
+      className={cx(styles.titleButtonWrapper, {
+        [styles.mobileTitleButtonWrapper]: isMobile,
+        [styles.active]: isActive,
+      })}
+    >
       <div
         onMouseDown={e => e.preventDefault()}
-        className={styles.titleButton}
+        className={cx(styles.titleButton, { [styles.mobileTitleButton]: isMobile })}
         role="button"
         onClick={onClick}
         tabIndex={0}
@@ -46,4 +53,4 @@ const TitleButton = ({ toolbarItem }) => {
   );
 };
 
-export default TitleButton;
+export default withToolbarContext(TitleButton);

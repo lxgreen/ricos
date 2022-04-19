@@ -67,11 +67,15 @@ const HighlightColorButton = ({ toolbarItem, context }) => {
     <ClickOutside onClickOutside={onClickOutside}>
       <div
         onMouseDown={e => e.preventDefault()}
-        className={cx(styles.highlightColorModalButtonWrapper)}
+        className={cx(styles.highlightColorModalButtonWrapper, {
+          [styles.mobileHighlightColorModalButtonWrapper]: isMobile,
+        })}
         ref={setReferenceElement}
       >
         <div
-          className={styles.highlightColorModalButton}
+          className={cx(styles.highlightColorModalButton, {
+            [styles.mobileHighlightColorModalButton]: isMobile,
+          })}
           role="button"
           onClick={() => setModalOpen(!isModalOpen)}
           tabIndex={0}
@@ -85,7 +89,7 @@ const HighlightColorButton = ({ toolbarItem, context }) => {
             onMouseDown={e => e.preventDefault()}
             dir={getLangDir(locale)}
             ref={setPopperElement}
-            style={popperStyles.popper}
+            style={isMobile ? {} : popperStyles.popper}
             {...attributes.popper}
           >
             <div data-id="toolbar-modal-button" tabIndex={-1} className={styles.modal}>

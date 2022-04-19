@@ -8,11 +8,14 @@ import { toolbarItemsRenders } from '../toolbarItemsRenders';
 import { draftStaticToolbarConfig } from '../toolbarItemConfig/draftToolbarItemConfig';
 import { draftStaticToolbarConfigDetachCommands } from '../toolbarItemConfig/draftToolbarItemConfigDetachCommands';
 import type { AvailableExperiments } from 'ricos-types';
+import { withToolbarContext } from '../utils/withContext';
+import type { ToolbarContextType } from '../utils/toolbarContexts';
 
 interface RicosDraftToolbarProps {
   content: Content;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editorCommands: any;
+  context: ToolbarContextType;
   experiments?: AvailableExperiments;
 }
 interface RicosDraftToolbarState {}
@@ -40,11 +43,17 @@ class RicosDraftToolbar extends Component<RicosDraftToolbarProps, RicosDraftTool
   }
 
   render() {
+    const { context } = this.props;
+    const { isMobile } = context || {};
     return (
       <div>
         <div>
           {this.toolbar && (
-            <ToolbarComponent toolbar={this.toolbar} toolbarItemsRenders={toolbarItemsRenders} />
+            <ToolbarComponent
+              toolbar={this.toolbar}
+              toolbarItemsRenders={toolbarItemsRenders}
+              isMobile={isMobile}
+            />
           )}
         </div>
       </div>
@@ -52,4 +61,4 @@ class RicosDraftToolbar extends Component<RicosDraftToolbarProps, RicosDraftTool
   }
 }
 
-export default RicosDraftToolbar;
+export default withToolbarContext(RicosDraftToolbar);

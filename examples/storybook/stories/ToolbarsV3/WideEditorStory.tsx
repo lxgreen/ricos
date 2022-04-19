@@ -28,13 +28,20 @@ const WideEditorStory = () => {
   const [counter, setCounter] = useState(1);
   const [context, setContext] = useState(undefined);
 
+  const baseStyles = { flex: 'none', webkitTapHighlightColor: 'transparent' };
+  const baseMobileStyles = { ...baseStyles, position: 'sticky', top: 0, zIndex: 9 };
+
   return (
     <Page title="Wix Rich Content">
       <Section>
         <div>
           <RichContentEditorBox>
             <ToolbarContext.Provider value={context}>
-              <div dir="" data-hook="yaron123">
+              <div
+                style={context?.isMobile ? baseMobileStyles : baseStyles}
+                dir=""
+                data-hook="yaron123"
+              >
                 {editorCommands.current && !experiments.tiptapEditor.enabled && (
                   <>
                     <RicosDraftToolbar

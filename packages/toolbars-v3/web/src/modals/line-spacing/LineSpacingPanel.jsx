@@ -61,6 +61,7 @@ class LineSpacingPanel extends Component {
           options: generateOptions(),
           onChange: onChangeLineHeight,
           t,
+          onCancel: this.props.closeModal,
         }}
       />
     ) : isCustomPanel ? (

@@ -20,6 +20,12 @@
         fill: var(--ricos-settings-text-color, $action-color-fallback);
         @include svg-fill;
     }
+
+    &.mobileTextColorModalButtonWrapper:not(.active) {
+        &:hover {
+            background-color: unset;
+        }
+    }
 }
 
 .textColorModalButton {
@@ -29,6 +35,11 @@
     height: 20px;
     min-width: 20px;
     gap: 8px;
+
+    &.mobileTextColorModalButton {
+        height: 32px;
+        min-width: 32px;
+    }
 }
 
 .modal {
@@ -45,9 +56,10 @@
     min-width: 42px;
     @include border-box;
     @include phone {
-        &:not(.colorPickerMobile) {
-        height: 100vh;
-        max-height: 100vh;
-        }
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
     }
 }

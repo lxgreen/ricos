@@ -12,6 +12,7 @@ type ToolbarProps = {
   toolbar: RicosToolbar;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   toolbarItemsRenders: any;
+  isMobile: boolean;
 };
 
 const visibleOnlySpec: ToolbarSpec = attributes => attributes.visible === true;
@@ -45,13 +46,13 @@ class ToolbarComponent extends Component<ToolbarProps, Record<string, unknown>> 
 
   render() {
     const { showMore } = this.state;
-    const { toolbarItemsRenders, toolbar } = this.props;
+    const { toolbarItemsRenders, toolbar, isMobile } = this.props;
     const toolbarButtons = toolbar.getToolbarItemsBy(visibleOnlySpec);
     const toolbarItems = toolbarButtons.map(toolbarButton => {
       return toolbarItemsRenders[toolbarButton.id](toolbarButton);
     });
 
-    return (
+    return !isMobile ? (
       <SizeMe refreshRate={100}>
         {({ size }) => {
           if (!size.width) {
@@ -97,6 +98,18 @@ class ToolbarComponent extends Component<ToolbarProps, Record<string, unknown>> 
           );
         }}
       </SizeMe>
+    ) : (
+      <div
+        dir="ltr"
+        data-hook="toolbar-v3"
+        className={cx(styles.toolbar, styles.staticToolbar, styles.mobileToolbar)}
+      >
+        <div className={styles.visibleItems}>
+          {toolbarItems.map((component, index) => (
+            <div key={index}>{component}</div>
+          ))}
+        </div>
+      </div>
     );
   }
 }

@@ -10,10 +10,14 @@ import {
   TextColorButton,
   HighlightColorButton,
   TitleButton,
+  OpenAddPluginPanel,
 } from './components/buttons';
 import { ToolbarButtonSeparator } from './components/ToolbarButtonSeparator';
 
 export const toolbarItemsRenders = {
+  openAddPluginPanel: toolbarItem => {
+    return <OpenAddPluginPanel toolbarItem={toolbarItem} />;
+  },
   separator: () => {
     return <ToolbarButtonSeparator />;
   },

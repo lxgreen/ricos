@@ -70,11 +70,17 @@ const LinkButton = ({ toolbarItem, context }) => {
       <div
         className={cx(
           styles.linkModalButtonWrapper,
-          isModalOpen || toolbarItem.attributes.active ? styles.active : ''
+          isModalOpen || toolbarItem.attributes.active ? styles.active : '',
+          { [styles.mobileLinkModalButtonWrapper]: isMobile }
         )}
         ref={setReferenceElement}
       >
-        <div className={styles.linkModalButton} role="button" onClick={openCloseModal} tabIndex={0}>
+        <div
+          className={cx(styles.linkModalButton, { [styles.mobileLinkModalButton]: isMobile })}
+          role="button"
+          onClick={openCloseModal}
+          tabIndex={0}
+        >
           <Icon />
         </div>
       </div>
@@ -83,7 +89,7 @@ const LinkButton = ({ toolbarItem, context }) => {
           <div
             dir={getLangDir(locale)}
             ref={setPopperElement}
-            style={popperStyles.popper}
+            style={isMobile ? {} : popperStyles.popper}
             {...attributes.popper}
           >
             <div data-id="toolbar-modal-button" tabIndex={-1} className={styles.modal}>

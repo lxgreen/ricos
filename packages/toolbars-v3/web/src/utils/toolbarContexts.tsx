@@ -10,7 +10,7 @@ import type {
 } from 'ricos-types';
 import type { LinkSettings, ToolbarSettings, RicosCssOverride, RicosTheme } from 'ricos-common';
 
-export const ToolbarContext = React.createContext<{
+export type ToolbarContextType = {
   contentId: string;
   isMobile: boolean;
   theme: RicosTheme;
@@ -24,7 +24,9 @@ export const ToolbarContext = React.createContext<{
   cssOverride: RicosCssOverride;
   t: TranslationFunction;
   getEditorCommands: () => EditorCommands | void;
-}>({
+};
+
+export const ToolbarContext = React.createContext<ToolbarContextType>({
   contentId: '',
   isMobile: false,
   theme: {},

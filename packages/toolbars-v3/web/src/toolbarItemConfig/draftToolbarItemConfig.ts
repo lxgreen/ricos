@@ -16,6 +16,7 @@ import {
   TextHighlightIcon,
   UndoIcon,
   RedoIcon,
+  PlusIcon,
 } from '../icons';
 
 import {
@@ -46,6 +47,24 @@ const MAX_FONT_SIZE = 900;
 const MIN_FONT_SIZE = 1;
 
 export const draftStaticToolbarConfig: IToolbarItemConfig[] = [
+  {
+    id: 'openAddPluginPanel',
+    type: 'toggle',
+    presentation: {
+      icon: PlusIcon,
+    },
+    attributes: {
+      visible: alwaysVisibleResolver,
+    },
+    commands: {
+      openAddPluginPanel: () => () => {
+        const addPluginButton = document.querySelector(
+          '[data-hook=addPluginFloatingToolbar]'
+        ) as HTMLElement;
+        addPluginButton?.click();
+      },
+    },
+  },
   {
     id: 'undo',
     type: 'toggle',

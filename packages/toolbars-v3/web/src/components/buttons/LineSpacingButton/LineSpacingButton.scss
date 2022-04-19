@@ -20,6 +20,12 @@
         fill: var(--ricos-settings-text-color, $action-color-fallback);
         @include svg-fill;
     }
+
+    &.mobileLineSpacingModalButtonWrapper:not(.active) {
+        &:hover {
+            background-color: unset;
+        }
+    }
 }
 
 .lineSpacingModalButton {
@@ -29,6 +35,11 @@
     height: 20px;
     min-width: 20px;
     gap: 8px;
+
+    &.mobileLineSpacingModalButton {
+        height: 32px;
+        min-width: 32px;
+    }
 }
 
 .modal {
@@ -44,10 +55,4 @@
     width: max-content;
     min-width: 42px;
     @include border-box;
-    @include phone {
-        &:not(.colorPickerMobile) {
-        height: 100vh;
-        max-height: 100vh;
-        }
-    }
 }

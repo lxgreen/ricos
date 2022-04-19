@@ -1,5 +1,6 @@
 //TODO: understand
 import type { EditorCommands } from 'wix-rich-content-common';
+import type { ToolbarContextType } from './utils/toolbarContexts';
 
 export type IToolbarItem = {
   id: string;
@@ -65,4 +66,5 @@ export type IToolbarItemConfigTiptap = Modify<
 export type ToolbarItemProps = {
   toolbarItem: IToolbarItem;
   onClick: (any) => void;
+  context?: ToolbarContextType;
 };

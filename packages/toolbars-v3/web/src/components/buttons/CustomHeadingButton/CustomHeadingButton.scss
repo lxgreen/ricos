@@ -46,12 +46,6 @@
     width: max-content;
     min-width: 42px;
     @include border-box;
-    @include phone {
-        &:not(.colorPickerMobile) {
-        height: 100vh;
-        max-height: 100vh;
-        }
-    }
 }
 
 .toolbarLabelUpdate {

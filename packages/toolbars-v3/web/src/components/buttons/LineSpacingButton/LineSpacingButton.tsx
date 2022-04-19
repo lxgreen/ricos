@@ -69,11 +69,15 @@ const LineSpacingButton = ({ toolbarItem, context }) => {
   return (
     <ClickOutside onClickOutside={onClickOutside}>
       <div
-        className={cx(styles.lineSpacingModalButtonWrapper, isModalOpen ? styles.active : '')}
+        className={cx(styles.lineSpacingModalButtonWrapper, isModalOpen ? styles.active : '', {
+          [styles.mobileLineSpacingModalButtonWrapper]: isMobile,
+        })}
         ref={setReferenceElement}
       >
         <div
-          className={styles.lineSpacingModalButton}
+          className={cx(styles.lineSpacingModalButton, {
+            [styles.mobileLineSpacingModalButton]: isMobile,
+          })}
           role="button"
           onClick={openCloseModal}
           tabIndex={0}
@@ -87,7 +91,7 @@ const LineSpacingButton = ({ toolbarItem, context }) => {
           <div
             dir={getLangDir(locale)}
             ref={setPopperElement}
-            style={popperStyles.popper}
+            style={isMobile ? {} : popperStyles.popper}
             {...attributes.popper}
           >
             <div data-id="toolbar-modal-button" tabIndex={-1} className={styles.modal}>
@@ -99,6 +103,7 @@ const LineSpacingButton = ({ toolbarItem, context }) => {
                 onSave={({ data }) => onSave(data, toolbarItem, setModalOpen)}
                 onChange={data => toolbarItem.commands?.setLineSpacingWithoutFocus(data)}
                 onCancel={() => onCancel(toolbarItem, original, setModalOpen)}
+                closeModal={() => setModalOpen(false)}
               />
             </div>
           </div>,
