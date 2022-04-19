@@ -17,13 +17,16 @@
     Click to see more.
   </summary>
 
+
+</details>
+  <hr/>
+
+## 8.70.46 (April 19, 2022)
+
 ### :bug: Bug Fix
 
 - `audio`
   - [#3760](https://github.com/wix/ricos/pull/3760) fix getAudioSrc func
-
-</details>
-  <hr/>
 
 ## 8.70.45 (April 19, 2022)
 
