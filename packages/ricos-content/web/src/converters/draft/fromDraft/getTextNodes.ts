@@ -7,7 +7,7 @@ import type {
 } from '../../../types';
 import { EMOJI_TYPE } from '../../../consts';
 import type { Decoration, Node } from 'ricos-schema';
-import { Decoration_Type } from 'ricos-schema';
+import { Decoration_Type, Node_Type } from 'ricos-schema';
 import { TO_RICOS_DECORATION_TYPE, TO_RICOS_INLINE_STYLE_TYPE } from '../consts';
 
 import { isEmpty, merge } from 'lodash';
@@ -17,6 +17,8 @@ import type { FromDraftOptions } from './fromDraft';
 
 type KeyType = string | number;
 type StyleType = string;
+
+const isEmptyTextNode = node => node.type === Node_Type.TEXT && node.textData?.text === '';
 
 const removeEmojiEntities = (
   entityRanges: RicosEntityRange[],
@@ -175,5 +177,5 @@ export const getTextNodes = (
     }
   });
 
-  return textNodes;
+  return textNodes.filter(node => !isEmptyTextNode(node));
 };

@@ -1,7 +1,22 @@
 {
   "blocks": [
     {
-      "key": "7ji0b",
+      "key": "1dz8t19",
+      "text": "😜",
+      "type": "header-two",
+      "depth": 0,
+      "inlineStyleRanges": [
+        {
+          "offset": 0,
+          "length": 1,
+          "style": "BOLD"
+        }
+      ],
+      "entityRanges": [],
+      "data": {}
+    },
+    {
+      "key": "3bo4o25",
       "text": "😂",
       "type": "unstyled",
       "depth": 0,

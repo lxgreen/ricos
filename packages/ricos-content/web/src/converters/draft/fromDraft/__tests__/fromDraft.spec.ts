@@ -685,14 +685,11 @@ describe('migrate from draft', () => {
   });
 
   it('should convert with emoji', () => {
+    const content = fromDraft(emojiWithInlineStyleDraft);
     expect(
-      compare(
-        fromDraft(emojiWithInlineStyleDraft),
-        RichContent.fromJSON(emojiWithInlineStyleRicos),
-        {
-          ignoredKeys: ['ID'],
-        }
-      )
+      compare(content, RichContent.fromJSON(emojiWithInlineStyleRicos), {
+        ignoredKeys: ['ID'],
+      })
     ).toEqual({});
   });
 });

@@ -185,8 +185,7 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
       default:
     }
 
-    const isEmptyTextNode = node => node.type === Node_Type.TEXT && node.textData?.text === '';
-    const nodes = getTextNodes(block, entityMap, opts).filter(node => !isEmptyTextNode(node));
+    const nodes = getTextNodes(block, entityMap, opts);
 
     if (!isEmpty(nodes)) {
       paragraphNode.nodes = nodes;
