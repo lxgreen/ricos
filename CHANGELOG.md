@@ -17,13 +17,16 @@
     Click to see more.
   </summary>
 
-### :bug: Bug Fix
-
-- `audio`
-  - [#3757](https://github.com/wix/ricos/pull/3757) fix coverimage & error toast issues
 
 </details>
   <hr/>
+
+## 8.70.44 (April 19, 2022)
+
+### :bug: Bug Fix
+
+- `audio`
+  - [#3757](https://github.com/wix/ricos/pull/3757) fix coverImage & error toast issues
 
 ## 8.70.43 (April 19, 2022)
 
