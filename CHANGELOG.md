@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
 
+### :feat: New Feature
+
+- `ricos-content`
+  - [#3761](https://github.com/wix/ricos/pull/3761) toDraft: ignoreUnsupportedTypes option
 
 </details>
   <hr/>
