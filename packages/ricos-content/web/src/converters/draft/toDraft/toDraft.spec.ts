@@ -1,23 +1,23 @@
 import { merge } from 'lodash';
-import { toDraft, fromDraft, convertNodeDataToDraft, convertDecorationDataToDraft } from '..';
-import { compare } from '../../../comparision/compare';
-import complexFixture from '../../../../../../../e2e/tests/fixtures/migration-content.json';
-import anchorBlocksFixture from '../../../../../../../e2e/tests/fixtures/all-blocks-with-anchors.json';
-import keyAndBulletFixture from './migration-content-with-key-and-bullet.json';
-import keyAndBulletFixtureMigrated from './migration-content-with-key-and-bullet-migrated.json';
-import { ANCHOR_TYPE, WRAP } from '../../../consts';
-import type { FileData, Node } from 'ricos-schema';
+import type { FileData, Node, RichContent } from 'ricos-schema';
 import {
   Decoration_Type,
   Node_Type,
   PluginContainerData_Alignment,
   PluginContainerData_Width_Type,
 } from 'ricos-schema';
+import { convertDecorationDataToDraft, convertNodeDataToDraft, fromDraft, toDraft } from '..';
+import anchorBlocksFixture from '../../../../../../../e2e/tests/fixtures/all-blocks-with-anchors.json';
+import complexFixture from '../../../../../../../e2e/tests/fixtures/migration-content.json';
+import { compare } from '../../../comparision/compare';
+import { ANCHOR_TYPE, WRAP } from '../../../consts';
 import { convertDecorationToDraftData, convertNodeToDraftData } from './convertDraftPluginData';
-import external from './__tests__/external-blocks-and-decorations.json';
+import keyAndBulletFixtureMigrated from './migration-content-with-key-and-bullet-migrated.json';
+import keyAndBulletFixture from './migration-content-with-key-and-bullet.json';
 import externalMigrated from './__tests__/external-blocks-and-decorations-migrated.json';
-import nullishDocumentStyleRicos from './__tests__/nullishDocumentStyleRicos.json';
+import external from './__tests__/external-blocks-and-decorations.json';
 import nullishDocumentStyleDraft from './__tests__/nullishDocumentStyleDraft.json';
+import nullishDocumentStyleRicos from './__tests__/nullishDocumentStyleRicos.json';
 
 const fixtures = { complex: complexFixture };
 
@@ -232,9 +232,13 @@ describe('migrate to draft', () => {
   describe('migrate documentStyle properly', () => {
     it('should work when documentStyle is null', () => {
       expect(
-        compare(toDraft(nullishDocumentStyleRicos), nullishDocumentStyleDraft, {
-          ignoredKeys: ['ID'],
-        })
+        compare(
+          toDraft(nullishDocumentStyleRicos as unknown as RichContent),
+          nullishDocumentStyleDraft,
+          {
+            ignoredKeys: ['ID'],
+          }
+        )
       ).toEqual({});
     });
   });
@@ -242,7 +246,11 @@ describe('migrate to draft', () => {
 
 describe('toDraft EXTERNAL', () => {
   it('should migrate external node and decoration', () => {
-    expect(compare(toDraft(external), externalMigrated, { ignoredKeys: ['ID'] })).toEqual({});
+    expect(
+      compare(toDraft(external as unknown as RichContent), externalMigrated, {
+        ignoredKeys: ['ID'],
+      })
+    ).toEqual({});
   });
 });
 

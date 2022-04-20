@@ -76,6 +76,23 @@ const collapseWhitespaces: AstRule = [
   }),
 ];
 
+const wrapPWithLiInList: AstRule = [
+  and([hasTag('p'), hasParent(oneOf(['ul', 'ol']))]),
+  (node: Element) => {
+    const listItem: Element = {
+      nodeName: 'li',
+      tagName: 'li',
+      childNodes: [] as Element[],
+      attrs: [] as Attribute[],
+      parentNode: node.parentNode,
+      namespaceURI: node.namespaceURI,
+    };
+    const childNode: Element = { ...node, parentNode: listItem };
+    listItem.childNodes.push(childNode);
+    return listItem;
+  },
+];
+
 const cleanListPadding: AstRule = [
   oneOf(['ol', 'ul']),
   (node: Element) => ({
@@ -204,6 +221,7 @@ export const preprocess = flow(
   flow(
     traverse(cleanListPadding),
     traverse(cleanListItemPadding),
+    traverse(wrapPWithLiInList),
     traverse(cleanInvalidVideos),
     traverse(containerPToDiv)
   ),

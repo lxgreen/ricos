@@ -103,7 +103,7 @@ describe('Draft Editor State Translator', () => {
     ],
   };
 
-  const draftContent = toDraft(richContent);
+  const draftContent = toDraft(richContent as unknown as RichContent);
   const editorState = EditorState.createWithContent(convertFromRaw(draftContent));
   const editor = new DraftEditorStateTranslator();
   let data: RichContent | undefined;
@@ -155,7 +155,7 @@ describe('Draft Editor State Translator', () => {
         },
       ],
     };
-    editor.setBlocks(toDraft(newRichContent));
+    editor.setBlocks(toDraft(newRichContent as unknown as RichContent));
     const nodes = data?.nodes.filter(node => node.id === 'foo') || [];
     const hasBoldDecoration = nodes[0].nodes[1].textData?.decorations.some(
       decoration => decoration.type === 'BOLD'
@@ -192,7 +192,7 @@ describe('Draft Editor State Translator', () => {
         },
       ],
     };
-    editor.setBlocks(toDraft(newRichContent));
+    editor.setBlocks(toDraft(newRichContent as unknown as RichContent));
     const nodes = data?.nodes.filter(node => node.id === '6t3f0') || [];
     const alignmentChanged = nodes[0].imageData?.containerData?.alignment === 'LEFT';
     const widthHeightChanged =
