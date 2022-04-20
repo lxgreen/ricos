@@ -37,8 +37,6 @@
     "test:watchAll": "jest --verbose --watchAll"
   },
   "dependencies": {
-    "i18next": "^11.6.0",
-    "react-i18next": "^7.0.0",
     "ts-is-present": "^1.1.1",
     "wix-rich-content-common": "8.70.47",
     "wix-rich-content-editor": "8.70.47",
