@@ -17,13 +17,20 @@
     Click to see more.
   </summary>
 
+</details>
+  <hr/>
+
+## 8.71.0 (April 20, 2022)
+
 ### :feat: New Feature
 
 - `ricos-content`
   - [#3761](https://github.com/wix/ricos/pull/3761) toDraft: ignoreUnsupportedTypes option
 
-</details>
-  <hr/>
+### :bug: Bug Fix
+
+- `ricos-common`
+  - [#3766](https://github.com/wix/ricos/pull/3766) restore translation to rich-content-common
 
 ## 8.70.46 (April 19, 2022)
 
