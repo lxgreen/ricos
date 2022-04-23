@@ -5,7 +5,7 @@ import EventEmitter from './lib/EventEmitter';
 export class ToolbarItemCreator {
   static create(toolbarItemConfig: IToolbarItemConfig) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return (content: Content, editorCommands: any) => {
+    return (content: Content<unknown>, editorCommands: any) => {
       return new ToolbarItem(toolbarItemConfig, content, editorCommands);
     };
   }
@@ -27,7 +27,7 @@ export class ToolbarItem extends EventEmitter {
 
   constructor(
     private toolbarItemConfig: IToolbarItemConfig,
-    private content: Content,
+    private content: Content<unknown>,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private editorCommands: any
   ) {
@@ -54,12 +54,13 @@ export class ToolbarItem extends EventEmitter {
 
   assignCommands() {
     Object.keys(this.toolbarItemConfig.commands).forEach(commandName => {
-      this.toolbarItem.commands[commandName] = (...args) => {
+      this.toolbarItem.commands[commandName] = (...args: any[]) => {
         const command = this.toolbarItemConfig.commands[commandName]({
           attributes: this.toolbarItem.attributes,
           editorCommands: this.editorCommands,
         });
-        command(...args);
+        // eslint-disable-next-line prefer-spread
+        command.apply(null, ...args);
 
         this.emit(ToolbarItem.EVENTS.COMMAND_EXECUTED, {
           commandName,

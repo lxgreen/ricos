@@ -56,11 +56,18 @@ export class FunctionalExtension implements IFunctionalExtension {
 
   toTiptapExtension(extensions: ExtensionAggregate) {
     const config = this.dynamicConfiguration(this.config, extensions.getRicosExtensions());
-    return Extension.create(config);
+    return Extension.create(config).configure(config);
   }
 
   getNodeHocDescriptor(extensions: ExtensionAggregate) {
     const config = this.dynamicConfiguration(this.config, extensions.getRicosExtensions());
     return config.addNodeHoc?.() || DEFAULT_HOC_DESCRTIPTOR;
   }
+
+  configure = (config: Record<string, unknown>) => {
+    this.config = {
+      ...this.config,
+      ...config,
+    };
+  };
 }

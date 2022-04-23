@@ -2,6 +2,7 @@
 import { BoldIcon, ItalicIcon, UnderlineIcon } from '../icons';
 import {
   alwaysVisibleResolver,
+  isOnlyTextSelected,
   isTextContainsBoldResolver,
   isTextContainsItalicResolver,
   isTextContainsUnderlineResolver,
@@ -16,11 +17,11 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
       icon: BoldIcon,
     },
     attributes: {
-      visible: alwaysVisibleResolver,
+      visible: isOnlyTextSelected,
       active: isTextContainsBoldResolver,
     },
     commands: {
-      click:
+      toggleBold:
         ({ editorCommands }) =>
         () => {
           editorCommands.chain().focus().toggleBold().run();
@@ -39,7 +40,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
       active: isTextContainsItalicResolver,
     },
     commands: {
-      click:
+      toggleItalic:
         ({ editorCommands }) =>
         () => {
           editorCommands.chain().focus().toggleItalic().run();

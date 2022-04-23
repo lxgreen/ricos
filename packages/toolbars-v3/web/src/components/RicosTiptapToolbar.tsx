@@ -6,16 +6,11 @@ import { RicosToolbar } from '../RicosToolbar';
 import { ToolbarItemCreator } from '../ToolbarItemCreator';
 import { toolbarItemsRenders } from '../toolbarItemsRenders';
 import { tiptapStaticToolbarConfig } from '../toolbarItemConfig/tiptapToolbarItemConfig';
-import { tiptapStaticToolbarConfigDetachCommands } from '../toolbarItemConfig/tiptapToolbarItemConfigDetachCommands';
-import type { AvailableExperiments } from 'ricos-types';
-import { withToolbarContext } from '../utils/withContext';
-import type { ToolbarContextType } from '../utils/toolbarContexts';
+import type { Node } from 'prosemirror-model';
 interface RicosTiptapToolbarProps {
-  content: Content;
+  content: Content<Node[]>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editorCommands: any;
-  context: ToolbarContextType;
-  experiments?: AvailableExperiments;
 }
 interface RicosTiptapToolbarState {}
 
@@ -23,12 +18,12 @@ class RicosTiptapToolbar extends Component<RicosTiptapToolbarProps, RicosTiptapT
   toolbar: RicosToolbar | null = null;
 
   componentDidMount() {
-    const { content, editorCommands, experiments } = this.props;
+    const { content, editorCommands } = this.props;
+
     this.toolbar = RicosToolbar.create({
-      toolbarItemCreators: (experiments?.detachCommandsFromEditor?.enabled
-        ? tiptapStaticToolbarConfigDetachCommands
-        : tiptapStaticToolbarConfig
-      ).map(config => ToolbarItemCreator.create(config)),
+      toolbarItemCreators: tiptapStaticToolbarConfig.map(config =>
+        ToolbarItemCreator.create(config)
+      ),
       content,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       editorCommands,
@@ -38,12 +33,12 @@ class RicosTiptapToolbar extends Component<RicosTiptapToolbarProps, RicosTiptapT
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    this.toolbar?.setEditorCommands(nextProps.editorCommands);
+    if (nextProps.editorCommands !== this.props.editorCommands) {
+      this.toolbar?.setEditorCommands(nextProps.editorCommands);
+    }
   }
 
   render() {
-    const { context } = this.props;
-    const { isMobile } = context || {};
     return (
       <div>
         <div>
@@ -51,7 +46,7 @@ class RicosTiptapToolbar extends Component<RicosTiptapToolbarProps, RicosTiptapT
             <ToolbarComponent
               toolbar={this.toolbar}
               toolbarItemsRenders={toolbarItemsRenders}
-              isMobile={isMobile}
+              isMobile={false}
             />
           )}
         </div>
@@ -60,4 +55,4 @@ class RicosTiptapToolbar extends Component<RicosTiptapToolbarProps, RicosTiptapT
   }
 }
 
-export default withToolbarContext(RicosTiptapToolbar);
+export default RicosTiptapToolbar;

@@ -30,12 +30,18 @@ export const createTextAlign = (): RicosExtension => ({
               textStyle: {
                 parseHTML: element => element.style.textAlign,
                 renderHTML: attributes => {
-                  if (attributes?.textStyle?.textAlignment) {
+                  if (
+                    attributes?.textStyle?.textAlignment &&
+                    attributes?.textStyle?.textAlignment !== 'AUTO'
+                  ) {
                     return {
                       style: `text-align: ${attributes.textStyle.textAlignment.toLowerCase()}`,
                     };
                   }
-                  return {};
+                  const textAlignmentDefault = this.options.textAlignment || 'unset';
+                  return {
+                    style: `text-align: ${textAlignmentDefault.toLowerCase()}`,
+                  };
                 },
               },
             },
@@ -73,6 +79,7 @@ export const createTextAlign = (): RicosExtension => ({
       addOptions() {
         return {
           alignments: ['left', 'center', 'right', 'justify'],
+          textAlignment: '',
         };
       },
 

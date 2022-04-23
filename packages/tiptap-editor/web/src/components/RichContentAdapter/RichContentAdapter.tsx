@@ -31,7 +31,7 @@ import { findNodeById } from '../../helpers';
 // todo : should change to RichContentInterface
 export class RichContentAdapter implements TiptapAPI {
   constructor(
-    private editor: Editor,
+    public editor: Editor,
     private t: TranslationFunction,
     private plugins: EditorPlugin[]
   ) {

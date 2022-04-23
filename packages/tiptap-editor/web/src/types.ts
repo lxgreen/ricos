@@ -11,7 +11,8 @@ import type {
   RichContentTheme,
   EditorStyleClasses,
 } from 'wix-rich-content-common';
-import type { RicosExtension } from 'ricos-tiptap-types';
+import type { Extensions } from './models/Extensions';
+// import type { RicosExtension } from 'ricos-tiptap-types';
 
 export interface PluginProps {
   context: {
@@ -43,8 +44,7 @@ export type TiptapAPI = {
 
 export interface RicosTiptapEditorProps {
   content: JSONContent;
-  placeholder?: string;
-  extensions?: RicosExtension[];
+  extensions?: Extensions;
   onLoad?: (editor: Editor) => void;
   t: TranslationFunction;
   onUpdate?: ({ content }: { content: DraftContent }) => void;

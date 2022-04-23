@@ -50,6 +50,13 @@ export class MarkExtension implements IMarkExtension {
 
   toTiptapExtension(extensions: ExtensionAggregate) {
     const config = this.dynamicConfiguration(this.config, extensions.getRicosExtensions());
-    return Mark.create(config);
+    return Mark.create(config).configure(config);
+  }
+
+  configure(config: Record<string, unknown>) {
+    this.config = {
+      ...this.config,
+      ...config,
+    };
   }
 }

@@ -34,7 +34,7 @@ const getLinkPanelData = ({
 };
 
 export const convertToolbarContext = ({
-  contentId,
+  contentId = '',
   isMobile,
   theme,
   locale,

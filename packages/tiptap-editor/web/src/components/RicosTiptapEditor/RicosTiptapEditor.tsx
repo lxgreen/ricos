@@ -7,12 +7,13 @@ import { getLangDir } from 'wix-rich-content-common';
 import { tiptapToDraft } from 'wix-tiptap-extensions';
 import { RicosTiptapContext } from '../../context';
 import { useForceUpdate } from '../../lib/useForceUpdate';
-import { Extensions } from '../../models/Extensions';
+// import { Extensions } from '../../models/Extensions';
 import type { RicosTiptapEditorProps } from '../../types';
 import { coreConfigs } from './core-configs';
 import { patchExtensions } from '../../patch-extensions';
 import '../../statics/styles/tiptap-editor-styles.scss';
 import { applyDevTools } from './apply-dev-tools';
+import { Extensions } from '../../models/Extensions';
 
 // TODO: maybe should move it to utils ?
 const getSelectedNodes = ({ editor }) => {
@@ -27,14 +28,13 @@ const getSelectedNodes = ({ editor }) => {
 
 export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   content,
-  extensions = [],
+  extensions = Extensions.of([]),
   onLoad,
   onUpdate,
   onSelectionUpdate,
   onBlur,
   locale,
   editorStyleClasses,
-  placeholder = '',
   ...context
 }) => {
   const forceUpdate = useForceUpdate();
@@ -43,8 +43,8 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   const getContent = editor => tiptapToDraft(editor.getJSON() as JSONContent);
 
   useEffect(() => {
-    const mergedExtensions = Extensions.of([...coreConfigs({ placeholder }), ...extensions]);
-    const patchedExtensions = patchExtensions(content, mergedExtensions);
+    const allExtensions = extensions.concat(coreConfigs);
+    const patchedExtensions = patchExtensions(content, allExtensions);
     const tiptapExtensions = patchedExtensions.getTiptapExtensions();
     console.debug({ tiptapExtensions, content }); // eslint-disable-line no-console
     const editorInstance = new Editor({

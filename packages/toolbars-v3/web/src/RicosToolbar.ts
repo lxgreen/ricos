@@ -5,11 +5,14 @@ import EventEmitter from './lib/EventEmitter';
 import type { Content } from './Content';
 import { ToolbarItem } from './ToolbarItemCreator';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ToolbarItemCreator = (content: Content, editorCommands: EditorCommands) => ToolbarItem;
+export type ToolbarItemCreator = (
+  content: Content<unknown>,
+  editorCommands: EditorCommands
+) => ToolbarItem;
 
 type RicosToolbarProps = {
   toolbarItemCreators: ToolbarItemCreator[];
-  content: Content;
+  content: Content<unknown>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editorCommands: any;
 };
@@ -19,13 +22,13 @@ export class RicosToolbar extends EventEmitter {
     UPDATED: 'UPDATED',
   };
 
-  editorCommands;
+  private editorCommands;
 
   private toolbarItems: ToolbarItem[] = [];
 
   private toolbarItemCreators: ToolbarItemCreator[];
 
-  private content: Content;
+  private content: Content<unknown>;
 
   static create({ toolbarItemCreators, content, editorCommands }: RicosToolbarProps) {
     return new RicosToolbar({ toolbarItemCreators, content, editorCommands });
@@ -38,7 +41,7 @@ export class RicosToolbar extends EventEmitter {
     this.content = content;
     this.editorCommands = editorCommands;
 
-    this.toolbarItems = this.createToolbarItems();
+    this.createToolbarItems();
   }
 
   private handleToolbarItemChanged = throttle(() => {
@@ -46,7 +49,7 @@ export class RicosToolbar extends EventEmitter {
   }, 50);
 
   private createToolbarItems() {
-    return this.toolbarItemCreators.map(toolbarItemCreator => {
+    this.toolbarItems = this.toolbarItemCreators.map(toolbarItemCreator => {
       const toolbarItem = toolbarItemCreator(this.content, this.editorCommands);
       toolbarItem.on(ToolbarItem.EVENTS.ATTRIBUTES_CHANGED, this.handleToolbarItemChanged);
       return toolbarItem;
@@ -65,5 +68,6 @@ export class RicosToolbar extends EventEmitter {
 
   setEditorCommands(editorCommands) {
     this.editorCommands = editorCommands;
+    this.createToolbarItems();
   }
 }

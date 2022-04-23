@@ -1,11 +1,11 @@
 import EventEmitter from './lib/EventEmitter';
 
-export class Content extends EventEmitter {
+export class Content<T> extends EventEmitter {
   static EVENTS = {
     contentChangeEvent: 'contentChange',
   };
 
-  private constructor(private content) {
+  private constructor(private content: T) {
     super();
   }
 
@@ -20,7 +20,7 @@ export class Content extends EventEmitter {
     return this.resolved[contentResolver.id];
   }
 
-  update(content) {
+  update(content: T) {
     this.content = content;
     this.resolved = {};
     this.emit(Content.EVENTS.contentChangeEvent);
@@ -34,7 +34,7 @@ export class Content extends EventEmitter {
     return !!this.content;
   }
 
-  static create(content) {
+  static create<T>(content: T) {
     return new Content(content);
   }
 }

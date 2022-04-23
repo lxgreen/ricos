@@ -1,5 +1,6 @@
 //TODO: understand
 import type { EditorCommands } from 'wix-rich-content-common';
+import type { Editor } from '@tiptap/core';
 import type { ToolbarContextType } from './utils/toolbarContexts';
 
 export type IToolbarItem = {
@@ -41,6 +42,8 @@ type TiptapCommand = ({
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   attributes: any;
+
+  // editorCommands: Editor;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editorCommands: any;
 }) => (args) => void;
@@ -50,7 +53,8 @@ export type IToolbarItemConfig = Modify<
   {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     attributes: Record<string, any>;
-    commands: Record<string, Command>;
+    // commands: Record<string, Command | TiptapCommand>;
+    commands: Record<string, TiptapCommand>;
   }
 >;
 

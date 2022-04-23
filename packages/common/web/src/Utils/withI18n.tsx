@@ -5,6 +5,7 @@ import i18n from './i18n';
 import createHocName from './createHocName';
 import type { LocaleResource } from 'ricos-types';
 import type { i18n as I18n } from 'i18next';
+
 interface Props {
   locale: string;
   localeResource: LocaleResource;

@@ -20,16 +20,25 @@ export interface Grouped {
   groups: Group[];
 }
 
+export interface Configurable {
+  configure: (config: Record<string, unknown>) => void;
+}
+
 export interface IMarkExtension
   extends ConvertableExtension,
     SortableExtension,
     IdentifiableExtension,
+    Configurable,
     Grouped {
   type: 'mark';
   getRicosExtension: () => RicosExtension;
 }
 
-export interface IReactNodeExtension extends SortableExtension, IdentifiableExtension, Grouped {
+export interface IReactNodeExtension
+  extends SortableExtension,
+    IdentifiableExtension,
+    Grouped,
+    Configurable {
   type: 'node';
   getComponent(): ComponentType;
   asRenderable: (decoratedComponent: ComponentType) => DecoratedNodeExtension;
@@ -40,6 +49,7 @@ export interface IHtmlNodeExtension
   extends SortableExtension,
     IdentifiableExtension,
     ConvertableExtension,
+    Configurable,
     Grouped {
   type: 'node';
   getRicosExtension: () => RicosExtension;
@@ -51,6 +61,7 @@ export interface IFunctionalExtension
   extends ConvertableExtension,
     IdentifiableExtension,
     SortableExtension,
+    Configurable,
     Grouped {
   type: 'extension';
   getNodeHocDescriptor(extensions: ExtensionAggregate): NodeHocDescriptor;

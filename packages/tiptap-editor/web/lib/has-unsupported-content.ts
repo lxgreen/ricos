@@ -16,7 +16,7 @@ import {
 
 const toSupportedContentTypes: (plugins: TiptapEditorPlugin[]) => ContentTypes = flow(
   A.chain(p => p.tiptapExtensions || []),
-  A.concat(coreConfigs({ placeholder: '' })),
+  A.concat(coreConfigs),
   Extensions.of,
   toContentTypes
 );

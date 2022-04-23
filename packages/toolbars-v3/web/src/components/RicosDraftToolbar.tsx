@@ -12,7 +12,8 @@ import { withToolbarContext } from '../utils/withContext';
 import type { ToolbarContextType } from '../utils/toolbarContexts';
 
 interface RicosDraftToolbarProps {
-  content: Content;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  content: Content<any>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editorCommands: any;
   context: ToolbarContextType;

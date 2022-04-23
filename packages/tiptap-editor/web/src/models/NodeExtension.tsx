@@ -99,6 +99,13 @@ export class ReactNodeExtension implements IReactNodeExtension {
   getRicosExtension() {
     return this.ricosExtension;
   }
+
+  configure(config: Record<string, unknown>) {
+    this.config = {
+      ...this.config,
+      ...config,
+    };
+  }
 }
 
 class RenderableNodeExtension extends ReactNodeExtension implements DecoratedNodeExtension {
@@ -154,6 +161,13 @@ export class HtmlNodeExtension implements IHtmlNodeExtension {
   toTiptapExtension(extensions: ExtensionAggregate) {
     const ricosExtensions = extensions.getRicosExtensions();
     const config = this.dynamicConfiguration(this.config, ricosExtensions);
-    return Node.create(config);
+    return Node.create(config).configure(config);
+  }
+
+  configure(config: Record<string, unknown>) {
+    this.config = {
+      ...this.config,
+      ...config,
+    };
   }
 }

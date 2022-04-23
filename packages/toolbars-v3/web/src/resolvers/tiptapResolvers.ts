@@ -66,3 +66,18 @@ export const isTextContainsSpoilerResolver = TiptapContentResolver.create(
     return false;
   }
 );
+
+export const isOnlyTextSelected = TiptapContentResolver.create('yaronResolverExample', content => {
+  if (Array.isArray(content)) {
+    const noneTextNode = content.find(
+      node =>
+        node.type.name !== 'paragraph' && node.type.name !== 'heading' && node.type.name !== 'text'
+    );
+    if (noneTextNode) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  return false;
+});

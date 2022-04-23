@@ -71,6 +71,8 @@ export interface RicosEditorProps extends RicosProps {
   editorEvents?: EditorEvents;
   sideBlockComponent?: FC<{ id: string }>;
   commands?: CommandDescriptor<unknown>[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onLoad?: (editor: any) => void;
   /* Changes to this interface should also be reflected in the API docs */
 }
 
