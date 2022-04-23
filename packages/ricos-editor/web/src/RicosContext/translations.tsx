@@ -1,6 +1,8 @@
+import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
+
 export const fetchLocaleResource = async (locale = 'en') => {
   if (locale === 'en') {
-    return { locale };
+    return { locale, localeResource: englishResources };
   }
   try {
     const localeResource = await import(
