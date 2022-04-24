@@ -32,6 +32,7 @@ import type {
   PollData,
   OrderedListData,
   BulletedListData,
+  BlockquoteData,
 } from 'ricos-schema';
 import { isTextData, isParagraphData } from './node-data-refined-types';
 
@@ -85,8 +86,10 @@ export type CodeBlockNode = TextNodeContainer & {
   type: Node_Type.CODE_BLOCK;
 };
 
-export type BlockquoteNode = TextNodeContainer & {
+export type BlockquoteNode = Identified & {
   type: Node_Type.BLOCKQUOTE;
+  nodes: ParagraphNode[]; // until editor is based on draft
+  blockquoteData: BlockquoteData;
 };
 
 // Lists

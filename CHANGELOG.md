@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `ricos-content`
+  - [#3769](https://github.com/wix/ricos/pull/3769) blockquote refined-node type
+
 </details>
   <hr/>
 
