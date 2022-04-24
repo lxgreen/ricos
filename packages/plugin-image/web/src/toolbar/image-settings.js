@@ -35,7 +35,7 @@ class ImageSettings extends Component {
   }
 
   propsToState(props) {
-    const { componentData } = props;
+    const { getComponentData } = props;
     const {
       src,
       metadata,
@@ -43,7 +43,7 @@ class ImageSettings extends Component {
       disableExpand,
       disableDownload,
       config: { spoiler = {} },
-    } = componentData;
+    } = getComponentData();
     const isExpandEnabled = !disableExpand;
     const isDownloadEnabled = !disableDownload;
     const isSpoilerEnabled = spoiler.enabled;
@@ -196,9 +196,9 @@ class ImageSettings extends Component {
   };
 
   onDoneClick = () => {
-    const { helpers, componentData, pubsub } = this.props;
+    const { helpers, getComponentData, pubsub } = this.props;
     const newComponentData = {
-      ...componentData,
+      ...getComponentData(),
       ...this.getSpoilerConfig(this.state.isSpoilerEnabled),
       disableDownload: !this.state.isDownloadEnabled,
       disableExpand: !this.state.isExpandEnabled,
@@ -350,6 +350,7 @@ ImageSettings.propTypes = {
   updateData: PropTypes.func,
   onCancel: PropTypes.func,
   onSave: PropTypes.func,
+  getComponentData: PropTypes.func,
 };
 
 export default ImageSettings;

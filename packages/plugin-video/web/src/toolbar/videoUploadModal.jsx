@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { VIDEO_TYPE } from '../types';
-import { handleUploadStart, handleUploadFinished } from 'wix-rich-content-plugin-commons';
+import { handleUploadStart, handleUploadFinished, Uploader } from 'wix-rich-content-plugin-commons';
 import { MediaUploadModal } from 'wix-rich-content-ui-components';
 import { MEDIA_POPOVERS_BUTTONS_NAMES_BI } from 'wix-rich-content-common';
+import { VideoPluginService } from './videoPluginService';
 export default class VideoUploadModal extends Component {
   constructor(props) {
     super(props);
-    const { componentData } = this.props;
+    const { componentData } = props;
     this.state = {
       url: (!componentData.isCustomVideo && componentData.src) || '',
     };
@@ -19,6 +20,25 @@ export default class VideoUploadModal extends Component {
         this.blockKey = newBlock.key;
       } else {
         onReplace(obj, this.blockKey);
+      }
+    };
+    this.VideoPluginService = new VideoPluginService();
+    this.Uploader = new Uploader(props.handleFileUpload);
+    this.uploadContextOnConfirm = (data, isCustomVideo) => {
+      if (onConfirm) {
+        const componentData = this.VideoPluginService.createPluginData(
+          { data },
+          this.props.componentData
+        );
+        const { newBlock } = onConfirm({ ...componentData, isCustomVideo });
+        this.blockKey = newBlock.key;
+      } else {
+        this.props.updateService.updatePluginData(
+          { data },
+          this.blockKey || this.props.blockKey,
+          VIDEO_TYPE,
+          this.VideoPluginService
+        );
       }
     };
   }
@@ -35,9 +55,14 @@ export default class VideoUploadModal extends Component {
   };
 
   addVideoComponent = ({ data, error }, isCustomVideo = false) => {
-    handleUploadFinished(VIDEO_TYPE, this.getComponentData, data, error, ({ data, error }) =>
-      this.onConfirm({ ...data, error, isCustomVideo })
-    );
+    const { uploadService } = this.props;
+    if (uploadService) {
+      this.uploadContextOnConfirm(data);
+    } else {
+      handleUploadFinished(VIDEO_TYPE, this.getComponentData, data, error, ({ data, error }) =>
+        this.onConfirm({ ...data, error, isCustomVideo })
+      );
+    }
   };
 
   setComponentData = data => {
@@ -51,13 +76,30 @@ export default class VideoUploadModal extends Component {
   getComponentData = () => this.props.componentData;
 
   handleNativeFileUpload = file => {
-    handleUploadStart(
-      this.props,
-      this.getComponentData,
-      file,
-      this.onLocalLoad,
-      this.getOnUploadFinished(true)
-    );
+    const { uploadService, onConfirm } = this.props;
+    if (uploadService) {
+      if (onConfirm && !this.blockKey) {
+        const { newBlock } = onConfirm({ ...this.props.componentData, isCustomVideo: true });
+        this.blockKey = newBlock.key;
+      }
+      setTimeout(() =>
+        uploadService.uploadFile(
+          file,
+          this.blockKey || this.props.blockKey,
+          this.Uploader,
+          VIDEO_TYPE,
+          this.VideoPluginService
+        )
+      );
+    } else {
+      handleUploadStart(
+        this.props,
+        this.getComponentData,
+        file,
+        this.onLocalLoad,
+        this.getOnUploadFinished(true)
+      );
+    }
     this.closeModal();
   };
 
@@ -121,4 +163,6 @@ VideoUploadModal.propTypes = {
   isMobile: PropTypes.bool,
   languageDir: PropTypes.string,
   blockKey: PropTypes.string,
+  uploadService: PropTypes.func,
+  updateService: PropTypes.func,
 };

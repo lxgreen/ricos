@@ -39,7 +39,7 @@ const removeEntitiesWithErrors = (entityMap: RicosEntityMap): RicosEntityMap => 
     const newData = complexPluginHandlers[entityType]?.(data, newEntityMap[entityKey].data);
     if (newData) {
       newEntityMap[entityKey].data = newData;
-    } else if (data?.error) {
+    } else if (data?.error || data?.tempData) {
       // eslint-disable-next-line fp/no-delete
       delete newEntityMap[entityKey];
     }
@@ -51,7 +51,7 @@ const isErroredBlock = (block: RicosContentBlock, entityMap: RicosEntityMap): bo
   const { entityRanges = [], type } = block;
   const entityKey = entityRanges[0]?.key;
   const { data } = entityMap[entityKey] || {};
-  return type === 'atomic' && !!data?.error;
+  return type === 'atomic' && (!!data?.error || !!data?.tempData);
 };
 
 export default function errorBlocksRemover(contentState: DraftContent): DraftContent {

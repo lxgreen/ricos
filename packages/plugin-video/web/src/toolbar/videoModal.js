@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import VideoSelectionInputModal from './videoSelectionInputModal';
 import MediaURLInputModal from './mediaURLInputModal';
 import NewVideoModal from './NewVideoModal';
 import { mediaTypes } from '../types';
+import { UploadServiceContext } from 'wix-rich-content-common';
 
 const VideoModal = props => {
   const {
@@ -11,11 +12,15 @@ const VideoModal = props => {
     experiments,
   } = props;
 
+  const { uploadService, updateService } = experiments?.useNewUploadContext?.enabled
+    ? useContext(UploadServiceContext)
+    : {};
+
   const useNewModal = experiments?.newVideoVerticalAndSocialModals?.enabled;
   const oldVideoModal = mediaTypes.includes(type) ? MediaURLInputModal : VideoSelectionInputModal;
   const Component = useNewModal ? NewVideoModal : oldVideoModal;
 
-  return <Component {...props} />;
+  return <Component {...props} uploadService={uploadService} updateService={updateService} />;
 };
 
 export default VideoModal;

@@ -14,7 +14,8 @@ import {
 } from 'wix-rich-content-common/libs/linkConverters';
 import { applyBIGenerics } from './biCallbacks';
 import { pipe } from 'fp-ts/function';
-import type { EditorCommands } from 'ricos-types';
+import type { EditorCommands, IUploadObserver } from 'ricos-types';
+import UploadContextWrapper from './withUploadContext';
 
 interface EngineProps extends RicosEditorProps, RicosViewerProps {
   children: ReactElement;
@@ -25,6 +26,8 @@ interface EngineProps extends RicosEditorProps, RicosViewerProps {
   onPreviewExpand?: PreviewConfig['onPreviewExpand'];
   getContentId: () => string | undefined;
   editorCommands?: EditorCommands;
+  localeResource?: Record<string, string>;
+  UploadObserver?: IUploadObserver;
 }
 
 export class RicosEngine extends Component<EngineProps> {
@@ -107,6 +110,10 @@ export class RicosEngine extends Component<EngineProps> {
       iframeSandboxDomain,
       textWrap = true,
       editorCommands,
+      isViewer,
+      locale,
+      localeResource,
+      UploadObserver,
     } = this.props;
 
     const { strategyProps, previewContent, htmls } = this.runStrategies();
@@ -189,22 +196,43 @@ export class RicosEngine extends Component<EngineProps> {
       applyBIGenerics(getContentId)
     );
 
-    return [
-      ...htmls,
+    const useUploadContext = !isViewer && experiments?.useNewUploadContext?.enabled;
+
+    const modal = (
       <RicosModal
+        key={'ricosElement'}
         ariaHiddenId={ariaHiddenId}
         isModalSuspended={isPreview()}
         container={container}
         fullscreenProps={fullscreenProps}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         {...(mergedRCProps as any)}
-        key={'ricosElement'}
         onModalOpen={onModalOpen}
         onModalClose={onModalClose}
         editorCommands={editorCommands}
       >
-        {Children.only(React.cloneElement(children, { ...mergedRCProps }))}
-      </RicosModal>,
+        {Children.only(React.cloneElement(children, mergedRCProps))}
+      </RicosModal>
+    );
+
+    return [
+      ...htmls,
+      useUploadContext ? (
+        <UploadContextWrapper
+          {...{
+            locale,
+            localeResource,
+            editorCommands,
+            helpers: mergedRCProps.helpers,
+            UploadObserver,
+            isMobile,
+          }}
+        >
+          {modal}
+        </UploadContextWrapper>
+      ) : (
+        modal
+      ),
     ];
   }
 }

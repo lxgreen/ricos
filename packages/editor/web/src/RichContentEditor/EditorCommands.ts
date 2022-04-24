@@ -31,6 +31,7 @@ import {
   insertCustomLink,
   getSelectedBlocks,
   toggleBlockTypeWithSpaces,
+  getBlockEntity,
 } from 'wix-rich-content-editor-common';
 import type {
   EditorCommands,
@@ -172,6 +173,7 @@ export const createEditorCommands = (
     isTextBlockInSelection: EditorCommands['isTextBlockInSelection'];
     getAnchorBlockType: EditorCommands['getAnchorBlockType'];
     getAllBlocksKeys: EditorCommands['getAllBlocksKeys'];
+    getBlockComponentData: EditorCommands['getBlockComponentData'];
   } = {
     getSelection: () => {
       const selection = getEditorState().getSelection();
@@ -217,8 +219,10 @@ export const createEditorCommands = (
       const pluginsList = plugins?.map(plugin =>
         isRicosSchema ? TO_RICOS_PLUGIN_TYPE_MAP[plugin.blockType] : plugin.blockType
       );
-      return pluginsList.filter(
-        (pluginName: string) => pluginName && !PluginsToExclude.includes[pluginName]
+      return (
+        pluginsList?.filter(
+          (pluginName: string) => pluginName && !PluginsToExclude.includes[pluginName]
+        ) || []
       );
     },
     getDocumentStyle: () => documentStyleGetter(),
@@ -247,6 +251,10 @@ export const createEditorCommands = (
         .getCurrentContent()
         .getBlocksAsArray()
         .map(block => block.getKey()),
+    getBlockComponentData: (blockKey: string) => {
+      const editorState = getEditorState();
+      return getBlockEntity(editorState, blockKey)?.getData() || {};
+    },
   };
 
   const toggleOverlayBGColor = (element: HTMLElement) => {

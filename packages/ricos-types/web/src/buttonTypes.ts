@@ -14,6 +14,10 @@ import type {
   SetEditorState,
   GetEditorState,
   AvailableExperiments,
+  IMediaPluginService,
+  Helpers,
+  EditorPluginConfig,
+  IFileUploader,
 } from '.';
 
 export type InlineButton = {
@@ -37,6 +41,17 @@ export type InlineButton = {
   disabled?: boolean;
   desktop?: boolean;
   getEditorBounds?: GetEditorBounds;
+};
+
+export type InlineUploadButton = InlineButton & {
+  mediaPluginService?: IMediaPluginService;
+  getUploader?: (
+    helpers: Helpers,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    settings: Record<string, any> & EditorPluginConfig
+  ) => IFileUploader;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  settings: Record<string, any> & EditorPluginConfig;
 };
 
 export type ToolbarButtonProps = {
@@ -71,6 +86,12 @@ export type InsertButton = ToolbarButtonProps & {
   modalDecorations?: ModalDecorations;
   multi?: boolean;
   addBlockHandler?: (editorState: EditorState) => void;
+  mediaPluginService?: IMediaPluginService;
+  getUploader?: (
+    helpers: Helpers,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    settings: Record<string, any> & EditorPluginConfig
+  ) => IFileUploader;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

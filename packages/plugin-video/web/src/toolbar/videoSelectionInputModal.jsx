@@ -10,7 +10,9 @@ import {
 import styles from '../../statics/styles/video-selection-input-modal.scss';
 import ReactPlayer from 'react-player';
 import { VIDEO_TYPE } from '../types';
-import { handleUploadStart, handleUploadFinished } from 'wix-rich-content-plugin-commons';
+import { handleUploadStart, handleUploadFinished, Uploader } from 'wix-rich-content-plugin-commons';
+import { VideoPluginService } from './videoPluginService';
+
 export default class VideoSelectionInputModal extends Component {
   constructor(props) {
     super(props);
@@ -28,6 +30,25 @@ export default class VideoSelectionInputModal extends Component {
         this.blockKey = newBlock.key;
       } else {
         onReplace(obj, this.blockKey);
+      }
+    };
+    this.VideoPluginService = new VideoPluginService();
+    this.Uploader = new Uploader(props.handleFileUpload);
+    this.uploadContextOnConfirm = (data, isCustomVideo) => {
+      if (onConfirm) {
+        const componentData = this.VideoPluginService.createPluginData(
+          { data },
+          this.props.componentData
+        );
+        const { newBlock } = onConfirm({ ...componentData, isCustomVideo });
+        this.blockKey = newBlock.key;
+      } else {
+        this.props.updateService.updatePluginData(
+          { data },
+          this.blockKey || this.props.blockKey,
+          VIDEO_TYPE,
+          this.VideoPluginService
+        );
       }
     };
   }
@@ -90,9 +111,14 @@ export default class VideoSelectionInputModal extends Component {
   };
 
   addVideoComponent = ({ data, error }, isCustomVideo = false) => {
-    handleUploadFinished(VIDEO_TYPE, this.getComponentData, data, error, ({ data, error }) =>
-      this.onConfirm({ ...data, error, isCustomVideo })
-    );
+    const { uploadService } = this.props;
+    if (uploadService) {
+      this.uploadContextOnConfirm(data);
+    } else {
+      handleUploadFinished(VIDEO_TYPE, this.getComponentData, data, error, ({ data, error }) =>
+        this.onConfirm({ ...data, error, isCustomVideo })
+      );
+    }
   };
 
   setComponentData = data => {
@@ -109,14 +135,31 @@ export default class VideoSelectionInputModal extends Component {
 
   getComponentData = () => this.props.componentData;
 
-  handleNativeFileUpload = () => {
-    handleUploadStart(
-      this.props,
-      this.getComponentData,
-      this.inputFile.files[0],
-      this.onLocalLoad,
-      this.getOnUploadFinished(true)
-    );
+  handleNativeFileUpload = file => {
+    const { uploadService, onConfirm } = this.props;
+    if (uploadService) {
+      if (onConfirm && !this.blockKey) {
+        const { newBlock } = onConfirm({ ...this.props.componentData, isCustomVideo: true });
+        this.blockKey = newBlock.key;
+      }
+      setTimeout(() =>
+        uploadService.uploadFile(
+          this.inputFile.files[0],
+          this.blockKey || this.props.blockKey,
+          this.Uploader,
+          VIDEO_TYPE,
+          this.VideoPluginService
+        )
+      );
+    } else {
+      handleUploadStart(
+        this.props,
+        this.getComponentData,
+        this.inputFile.files[0],
+        this.onLocalLoad,
+        this.getOnUploadFinished(true)
+      );
+    }
     this.closeModal();
   };
 
@@ -253,4 +296,6 @@ VideoSelectionInputModal.propTypes = {
   isMobile: PropTypes.bool,
   languageDir: PropTypes.string,
   blockKey: PropTypes.string,
+  uploadService: PropTypes.func,
+  updateService: PropTypes.func,
 };

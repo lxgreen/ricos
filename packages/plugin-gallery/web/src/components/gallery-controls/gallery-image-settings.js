@@ -18,6 +18,7 @@ import {
 import { LinkPanelWrapper } from 'wix-rich-content-editor-common';
 import { BackIcon, DeleteIcon, ReplaceIcon, NextIcon, PreviousIcon } from '../../icons';
 import styles from '../../../statics/styles/gallery-image-settings.scss';
+import { sampleItems } from '../../defaults';
 
 class ImageSettings extends Component {
   constructor(props) {
@@ -43,14 +44,21 @@ class ImageSettings extends Component {
     this.props.handleFileChange(files);
   };
 
-  getMediaUrl = item =>
-    imageClientAPI.getScaleToFillImageURL(
-      'media/' + (item.metadata.type !== 'video' ? item.url : item.metadata.poster),
-      item.metadata.width,
-      item.metadata.height,
+  getMediaUrl = item => {
+    const itemToScale = item.url && item.metadata ? item : sampleItems[0];
+    const {
+      metadata: { width, height, type = 'image', poster },
+      url,
+    } = itemToScale;
+
+    return imageClientAPI.getScaleToFillImageURL(
+      (item.url ? 'media/' : '') + (type !== 'video' ? url : poster),
+      width,
+      height,
       420,
       240
     );
+  };
 
   onTitleChange = title => this.props.onUpdateItem({ title });
 

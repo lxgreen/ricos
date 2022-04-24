@@ -59,13 +59,21 @@ class ModalBaseActions extends Component<Props, State> {
     this.props.closeModal?.();
   };
 
+  getBlockKey = () => this.props.editorCommands.getSelection().startKey;
+
+  getComponentData = () => {
+    const blockKey = this.getBlockKey();
+    return blockKey ? this.props.editorCommands.getBlockComponentData(blockKey) : undefined;
+  };
+
   render() {
     return React.cloneElement(this.props.children, {
       onSave: this.onSave,
       onCancel: this.onCancel,
       updateData: this.updateData,
       updateComponentData: this.updateComponentData,
-      componentData: this.state.data || this.props.componentData,
+      componentData: this.getComponentData() || this.state.data,
+      blockKey: this.getBlockKey(),
       setData: this.setData,
     });
   }

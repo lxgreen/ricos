@@ -86,7 +86,7 @@ import { deprecateHelpers } from 'wix-rich-content-common/libs/deprecateHelpers'
 import InnerModal from './InnerModal';
 import { onCut, onCopy } from './utils/onCutAndCopy';
 import preventWixFocusRingAccessibility from './preventWixFocusRingAccessibility';
-import { ErrorToast } from './Components';
+import { RCEErrorToast } from './Components';
 import { getBiButtonName } from './utils/biUtils';
 import { DOC_STYLE_CLASSES } from './utils/consts';
 import classNames from 'classnames';
@@ -1205,7 +1205,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
   };
 
   renderErrorToast = () => {
-    return <ErrorToast commonPubsub={this.commonPubsub} />;
+    return <RCEErrorToast commonPubsub={this.commonPubsub} />;
   };
 
   onFocus = (e: FocusEvent) => {
@@ -1248,6 +1248,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
       showToolbars = true,
       isInnerRCE,
       editorStyleClasses = {},
+      experiments,
     } = this.props;
     const { innerModal } = this.state;
 
@@ -1285,7 +1286,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
                   {this.renderEditor()}
                   {showToolbars && this.renderToolbars()}
                   {this.renderInlineModals()}
-                  {this.renderErrorToast()}
+                  {!experiments?.useNewUploadContext?.enabled && this.renderErrorToast()}
                   <InnerModal
                     theme={theme}
                     locale={locale}

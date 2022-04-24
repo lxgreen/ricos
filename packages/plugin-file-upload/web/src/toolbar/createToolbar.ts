@@ -25,7 +25,7 @@ const createToolbar: CreatePluginToolbar = ({
       isMobile,
       experiments,
     }),
-    InsertButtons: createInsertButtons({ settings, t }),
+    InsertButtons: createInsertButtons({ settings, t, experiments }),
     name: 'FileUpload',
   };
 };

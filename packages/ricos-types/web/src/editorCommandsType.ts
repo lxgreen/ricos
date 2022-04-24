@@ -198,4 +198,7 @@ export interface EditorCommands {
   getAnchorBlockType: () => string;
   getAllBlocksKeys: () => string[];
   focus: () => void;
+  getBlockComponentData: <K extends keyof PluginsDataMap>(
+    blockKey: string
+  ) => PluginsDataMap[K] | Record<string, string>;
 }

@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { mergeStyles, GlobalContext } from 'wix-rich-content-common';
+import {
+  mergeStyles,
+  GlobalContext,
+  GALLERY_TYPE,
+  UploadServiceContext,
+} from 'wix-rich-content-common';
 import {
   Tabs,
   Tab,
@@ -18,12 +23,18 @@ import LayoutControlsSection from './layout-controls-section';
 import { SortableComponent } from './gallery-controls/gallery-items-sortable';
 import { layoutData } from '../layout-data-provider';
 import classNames from 'classnames';
+import { Uploader } from 'wix-rich-content-plugin-commons';
+import { GalleryPluginService } from '../toolbar/galleryPluginService';
 
 const DIVIDER = 'divider';
+
+const isValidIndex = index => typeof index === 'number' && index >= 0;
 class ManageMediaSection extends Component {
   constructor(props) {
     super(props);
     this.modalsWithEditorCommands = props.experiments.modalBaseActionHoc?.enabled;
+    this.uploader = new Uploader(this.props.helpers?.handleFileUpload);
+    this.mediaPluginService = new GalleryPluginService();
   }
 
   applyItems = items => {
@@ -43,20 +54,54 @@ class ManageMediaSection extends Component {
 
   handleFileChange = (files, itemPos) => {
     if (files.length > 0) {
-      const handleFilesSelected = this.props.store.getBlockHandler('handleFilesSelected');
-      handleFilesSelected(files, itemPos);
+      if (this.props.experiments.useNewUploadContext?.enabled) {
+        files.forEach((file, index) => {
+          const fileState = isValidIndex(itemPos) ? { itemIndex: itemPos + index } : {};
+          this.props.uploadService?.uploadFile(
+            file,
+            this.props.blockKey,
+            this.uploader,
+            GALLERY_TYPE,
+            this.mediaPluginService,
+            fileState
+          );
+        });
+      } else {
+        const handleFilesSelected = this.props.store.getBlockHandler('handleFilesSelected');
+        handleFilesSelected(files, itemPos);
+      }
     }
   };
 
   handleFileSelection = (index, multiple) => {
     const { helpers, data, store } = this.props;
     const deleteBlock = store.get('deleteBlock');
-    helpers.handleFileSelection(index, multiple, this.handleFilesAdded, deleteBlock, data);
+    const handleFilesAdded = this.props.experiments.useNewUploadContext?.enabled
+      ? this.handleFilesAddedWithIndex(index)
+      : this.handleFilesAdded;
+    helpers.handleFileSelection(index, multiple, handleFilesAdded, deleteBlock, data);
   };
 
   handleFilesAdded = (...args) => {
     const { store } = this.props;
     store.getBlockHandler('handleFilesAdded')?.(...args);
+  };
+
+  handleFilesAddedWithIndex = index => {
+    return (...args) => {
+      args.forEach(arg =>
+        arg.data.forEach((data, currIndex) => {
+          const fileState = isValidIndex(index) ? { itemIndex: index + currIndex } : {};
+          this.props.updateService.updatePluginData(
+            { data },
+            this.props.blockKey,
+            GALLERY_TYPE,
+            this.mediaPluginService,
+            fileState
+          );
+        })
+      );
+    };
   };
 
   render() {
@@ -116,6 +161,9 @@ ManageMediaSection.propTypes = {
   languageDir: PropTypes.string,
   accept: PropTypes.string,
   updateData: PropTypes.func,
+  uploadService: PropTypes.func,
+  updateService: PropTypes.func,
+  blockKey: PropTypes.string,
 };
 
 class AdvancedSettingsSection extends Component {
@@ -232,7 +280,7 @@ export class GallerySettingsModal extends Component {
   componentDidMount() {
     if (!this.modalsWithEditorCommands) {
       this.props.pubsub.subscribe('componentData', this.onComponentUpdate);
-      const componentData = this.props.pubsub.get('componentData');
+      const componentData = this.props.getComponentData() || this.props.pubsub.get('componentData');
       this.setState({
         initComponentData: { ...componentData, items: this.getItems(componentData.items) },
       });
@@ -291,8 +339,8 @@ export class GallerySettingsModal extends Component {
   };
 
   onDoneClick = () => {
-    const { helpers, pubsub } = this.props;
-    const componentData = pubsub.get('componentData');
+    const { helpers, pubsub, getComponentData } = this.props;
+    const componentData = getComponentData() || pubsub.get('componentData');
     const newComponentData = {
       ...componentData,
       items: this.getItems(componentData.items),
@@ -318,73 +366,88 @@ export class GallerySettingsModal extends Component {
     },
   });
 
-  tabsList = () => ({
-    mangeMedia: (
-      <Tab
-        label={this.tabName('manage_media', this.props.t)}
-        value={'manage_media'}
-        theme={this.props.theme}
-      >
-        <ManageMediaSection
-          data={
-            this.modalsWithEditorCommands
-              ? this.props.componentData
-              : this.props.pubsub.get('componentData')
-          }
-          store={this.props.pubsub.store}
-          helpers={this.props.helpers}
+  tabsList = () => {
+    const mediaSectionProps = {
+      data: this.modalsWithEditorCommands
+        ? this.props.componentData
+        : this.props.getComponentData(),
+
+      store: this.props.pubsub.store,
+      helpers: this.props.helpers,
+      theme: this.props.theme,
+      t: this.props.t,
+      anchorTarget: this.props.anchorTarget,
+      relValue: this.props.relValue,
+      uiSettings: this.props.uiSettings,
+      accept: this.props.accept,
+      updateData: this.props.updateData,
+      experiments: this.props.experiments,
+      updateComponentData: this.props.updateComponentData,
+    };
+    return {
+      mangeMedia: (
+        <Tab
+          label={this.tabName('manage_media', this.props.t)}
+          value={'manage_media'}
           theme={this.props.theme}
-          t={this.props.t}
-          anchorTarget={this.props.anchorTarget}
-          relValue={this.props.relValue}
-          uiSettings={this.props.uiSettings}
-          accept={this.props.accept}
-          updateData={this.props.updateData}
-          experiments={this.props.experiments}
-          updateComponentData={this.props.updateComponentData}
-        />
-      </Tab>
-    ),
-    advancedSettings: (
-      <Tab
-        label={this.tabName('advanced_settings', this.props.t)}
-        value={'advanced_settings'}
-        theme={this.props.theme}
-      >
-        <AdvancedSettingsSection
-          theme={this.props.theme}
-          data={
-            this.modalsWithEditorCommands
-              ? this.props.componentData
-              : this.props.pubsub.get('componentData')
-          }
-          store={this.props.pubsub.store}
-          helpers={this.props.helpers}
-          t={this.props.t}
-          languageDir={this.props.languageDir}
-          updateData={this.props.updateData}
-          experiments={this.props.experiments}
-        />
-      </Tab>
-    ),
-    settings: (
-      <Tab
-        label={this.tabName('settings', this.props.t)}
-        value={'settings'}
-        theme={this.props.theme}
-      >
-        <div
-          className={
-            this.useNewSettingsUi
-              ? this.styles.gallerySettings_tab_section_newUi
-              : this.styles.gallerySettings_tab_section
-          }
         >
-          {this.toggleData.map(this.renderToggle)}
-        </div>
-      </Tab>
-    ),
-  });
+          {this.props.experiments.useNewUploadContext?.enabled ? (
+            <UploadServiceContext.Consumer>
+              {({ uploadService, updateService }) => (
+                <ManageMediaSection
+                  {...mediaSectionProps}
+                  uploadService={uploadService}
+                  updateService={updateService}
+                  blockKey={this.props.blockKey}
+                />
+              )}
+            </UploadServiceContext.Consumer>
+          ) : (
+            <ManageMediaSection {...mediaSectionProps} />
+          )}
+        </Tab>
+      ),
+      advancedSettings: (
+        <Tab
+          label={this.tabName('advanced_settings', this.props.t)}
+          value={'advanced_settings'}
+          theme={this.props.theme}
+        >
+          <AdvancedSettingsSection
+            theme={this.props.theme}
+            data={
+              this.modalsWithEditorCommands
+                ? this.props.componentData
+                : this.props.pubsub.get('componentData')
+            }
+            store={this.props.pubsub.store}
+            helpers={this.props.helpers}
+            t={this.props.t}
+            languageDir={this.props.languageDir}
+            updateData={this.props.updateData}
+            experiments={this.props.experiments}
+          />
+        </Tab>
+      ),
+      settings: (
+        <Tab
+          label={this.tabName('settings', this.props.t)}
+          value={'settings'}
+          theme={this.props.theme}
+        >
+          <div
+            className={
+              this.useNewSettingsUi
+                ? this.styles.gallerySettings_tab_section_newUi
+                : this.styles.gallerySettings_tab_section
+            }
+          >
+            {this.toggleData.map(this.renderToggle)}
+          </div>
+        </Tab>
+      ),
+    };
+  };
 
   tabsToRender = () =>
     this.props.isMobile
@@ -553,6 +616,8 @@ GallerySettingsModal.propTypes = {
   onCancel: PropTypes.func,
   updateData: PropTypes.func,
   updateComponentData: PropTypes.func,
+  blockKey: PropTypes.string,
+  getComponentData: PropTypes.func,
 };
 
 export default GallerySettingsModal;

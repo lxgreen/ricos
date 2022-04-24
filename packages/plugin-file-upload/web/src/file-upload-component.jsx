@@ -15,6 +15,7 @@ function FileUploadComponent(props) {
     locale,
     settings,
   } = props;
+  const tempDataPlaceHolder = tempData || (componentData.tempData ? componentData : undefined);
   return (
     <FileUploadViewer
       componentData={componentData}
@@ -23,7 +24,7 @@ function FileUploadComponent(props) {
       setComponentUrl={setComponentUrl}
       t={t}
       isMobile={isMobile}
-      tempDataPlaceHolder={tempData}
+      tempDataPlaceHolder={tempDataPlaceHolder}
       locale={locale}
       settings={settings}
     />

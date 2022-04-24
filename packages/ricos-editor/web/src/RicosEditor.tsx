@@ -42,6 +42,7 @@ import { EditorCommandRunner } from './content-modification/command-runner';
 import { TiptapMockToolbar } from './tiptapMockToolbar/TiptapMockToolbar';
 import { convertToolbarContext } from './toolbars/convertToolbarContext';
 import { coreCommands } from './content-modification/commands/core-commands';
+import UploadObserver from './utils/UploadObserver';
 // eslint-disable-next-line
 const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
 The getContent(postId, isPublishing) API is deprecated and will be removed in ricos v9.0.0`;
@@ -97,6 +98,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   linkToolbarRef!: Record<'updateToolbar', () => void>;
 
+  UploadObserver?: UploadObserver;
+
   static getDerivedStateFromError(error: string) {
     return { error };
   }
@@ -128,6 +131,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.useTiptap = !!props.experiments?.tiptapEditor?.enabled;
     this.useNewFormattingToolbar = !!props.experiments?.newFormattingToolbar?.enabled;
     this.useToolbarsV3 = !!props.experiments?.toolbarsV3?.enabled;
+    props.experiments?.useNewUploadContext?.enabled && (this.UploadObserver = new UploadObserver());
   }
 
   static defaultProps = {
@@ -360,8 +364,10 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   };
 
   onBusyChange = (contentState: ContentState) => {
-    const { onBusyChange, onChange } = this.props;
-    const isBusy = hasActiveUploads(contentState);
+    const { onBusyChange, onChange, experiments } = this.props;
+    const isBusy = experiments?.useNewUploadContext?.enabled
+      ? !!this.UploadObserver?.hasActiveUploads()
+      : hasActiveUploads(contentState);
     if (this.isBusy !== isBusy) {
       this.isBusy = isBusy;
       onBusyChange?.(isBusy);
@@ -417,6 +423,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         editorCommands={this.getEditorCommands()}
         {...contentProp.content}
         {...props}
+        {...this.state.localeData}
+        UploadObserver={this.UploadObserver}
       >
         {React.cloneElement(child, {
           editorKey: 'editor',

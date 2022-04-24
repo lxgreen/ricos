@@ -1,5 +1,5 @@
 import { isEmpty, get } from 'lodash';
-import { BUTTONS, PluginSettingsIcon } from 'wix-rich-content-plugin-commons';
+import { BUTTONS, PluginSettingsIcon, Uploader } from 'wix-rich-content-plugin-commons';
 import { getModalStyles } from 'wix-rich-content-editor-common';
 import { Modals } from '../modals';
 import { MediaReplaceIcon, ImageEditorIcon } from '../icons';
@@ -10,9 +10,12 @@ import type {
   RelValue,
   UISettings,
   AvailableExperiments,
+  Helpers,
+  EditorPluginConfig,
 } from 'wix-rich-content-common';
 import type { ImagePluginEditorConfig } from '../types';
 import { IMAGE_TYPE } from '../types';
+import { ImagePluginService } from './imagePluginService';
 
 const createInlineButtons: CreateInlineButtons = ({
   t,
@@ -63,6 +66,29 @@ const createInlineButtons: CreateInlineButtons = ({
           },
         ]
       : [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const replaceButton: any = {
+    keyName: 'replace',
+    type: BUTTONS.FILES,
+    onFilesSelected: (pubsub, files) => {
+      if (files.length > 0) {
+        pubsub.getBlockHandler('handleFilesSelected')(files);
+      }
+    },
+    icon: icons.replace || MediaReplaceIcon,
+    mobile: true,
+    tooltipTextKey: 'ReplaceImageButton_Tooltip',
+    t,
+  };
+
+  if (experiments?.useNewUploadContext?.enabled) {
+    replaceButton.mediaPluginService = new ImagePluginService();
+    replaceButton.getUploader = (
+      helpers: Helpers,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      _: Record<string, any> & EditorPluginConfig
+    ) => new Uploader(helpers?.handleFileUpload);
+  }
   return [
     { keyName: 'sizeOriginal', type: BUTTONS.SIZE_ORIGINAL, mobile: false },
     { keyName: 'sizeSmallCenter', type: BUTTONS.SIZE_SMALL_CENTER, mobile: false },
@@ -93,19 +119,7 @@ const createInlineButtons: CreateInlineButtons = ({
       shouldShowSpoiler: settings.spoiler,
     },
     { keyName: 'link', type: BUTTONS.LINK, mobile: true },
-    {
-      keyName: 'replace',
-      type: BUTTONS.FILES,
-      onFilesSelected: (pubsub, files) => {
-        if (files.length > 0) {
-          pubsub.getBlockHandler('handleFilesSelected')(files);
-        }
-      },
-      icon: icons.replace || MediaReplaceIcon,
-      mobile: true,
-      tooltipTextKey: 'ReplaceImageButton_Tooltip',
-      t,
-    },
+    replaceButton,
     { keyName: 'delete', type: BUTTONS.DELETE, mobile: true },
   ];
 };

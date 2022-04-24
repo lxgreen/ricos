@@ -248,6 +248,7 @@ export default function createAtomicPluginToolbar({
         hideInlinePanel: this.hidePanels,
         uiSettings,
         getEditorBounds,
+        blockKey: this.focusedBlock,
         ...buttonProps,
       };
       switch (button.type) {

@@ -48,7 +48,7 @@ export enum MediaUploadErrorKey {
 
 export interface MediaUploadError {
   msg?: string | JSX.Element;
-  key?: MediaUploadErrorKey;
+  key?: number | MediaUploadErrorKey;
   args?: Record<string, string | number>;
 }
 

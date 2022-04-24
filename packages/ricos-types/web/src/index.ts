@@ -18,3 +18,4 @@ export * from './pluginsBiCallbacksTypes';
 export * from './editorCommandsType';
 export * from './editable-content';
 export * from './commands';
+export * from './uploadServicesTypes';

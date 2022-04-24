@@ -1,1 +1,1 @@
-export { default as ErrorToast } from './ErrorToast';
+export { default as RCEErrorToast } from './RCEErrorToast';

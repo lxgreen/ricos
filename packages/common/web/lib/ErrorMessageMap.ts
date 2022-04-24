@@ -1,10 +1,6 @@
-import type { FunctionComponent } from 'react';
-import React from 'react';
-import type { MediaUploadError } from 'ricos-content';
-import { MediaUploadErrorKey, Trans } from 'wix-rich-content-common';
-import Toast from './Toast';
+import { MediaUploadErrorKey } from 'ricos-content';
 
-const errorMap = {
+export const ErrorMessageMap = {
   [MediaUploadErrorKey.GENERIC]: 'UploadFile_Error_Generic_Toast',
   [MediaUploadErrorKey.QUOTA_STORAGE_VISITOR]: 'UploadFile_Error_StorageExceeded_Visitor',
   [MediaUploadErrorKey.QUOTA_STORAGE_OWNER]: 'UploadFile_Error_StorageExceeded_SiteOwner',
@@ -48,33 +44,3 @@ const errorMap = {
   [MediaUploadErrorKey.VIDEO_DURATION_MISMATCH]: 'UploadVideo_Error_Video_Audio_Duration_Mismatch',
   [MediaUploadErrorKey.VIDEO_CODEC]: 'UploadVideo_Error_Unsupported_Video_Codec',
 };
-
-const ErrorMessage: FunctionComponent<{
-  error: MediaUploadError;
-  errorCount: number;
-  onClose?: () => void;
-  isMobile?: boolean;
-}> = props => {
-  const { error, errorCount, ...rest } = props;
-  const translationKey =
-    errorCount > 1 || typeof error.key === 'undefined'
-      ? 'UploadFile_Error_Generic_Toast_Multiple'
-      : errorMap[error.key];
-  const upgradeUrl = error.args?.upgradeUrl as string;
-
-  const errorMsg = translationKey ? (
-    <Trans i18nKey={translationKey} values={{ ...error.args, errors: errorCount }}>
-      {error.msg}
-      {upgradeUrl && (
-        <a href={upgradeUrl} target="_blank" rel="noreferrer">
-          {' '}
-        </a>
-      )}
-    </Trans>
-  ) : (
-    error.msg
-  );
-  return <Toast message={errorMsg || ''} isError {...rest} />;
-};
-
-export default ErrorMessage;

@@ -1,7 +1,7 @@
 import type { FunctionComponent } from 'react';
 import React from 'react';
 import classnames from 'classnames';
-import styles from '../../../statics/styles/toast.scss';
+import styles from '../../statics/styles/toast.scss';
 import { CloseIcon } from '../Icons';
 
 const Toast: FunctionComponent<{

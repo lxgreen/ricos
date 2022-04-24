@@ -1,5 +1,6 @@
 import type { SelectionState } from 'wix-rich-content-editor-common';
 import { BUTTON_TYPES, createBlock, EditorState } from 'wix-rich-content-editor-common';
+import type { IUploadService, IUpdateService } from 'ricos-types';
 import type {
   Helpers,
   ToolbarType,
@@ -15,9 +16,14 @@ import type {
   PluginAddParams,
   SetEditorState,
   AvailableExperiments,
+  ImageComponentData,
+  VideoComponentData,
+  FileComponentData,
 } from 'wix-rich-content-common';
 import { GALLERY_TYPE, Version } from 'wix-rich-content-common';
 import { getPluginParams } from './getPluginParams';
+
+type fileData = ImageComponentData | VideoComponentData | FileComponentData;
 
 export function generateInsertPluginButtonProps({
   blockType,
@@ -36,6 +42,8 @@ export function generateInsertPluginButtonProps({
   pluginMenuButtonRef,
   closePluginMenu,
   experiments = {},
+  uploadService,
+  updateService,
 }: {
   blockType: string;
   button: InsertButton;
@@ -54,6 +62,8 @@ export function generateInsertPluginButtonProps({
   pluginMenuButtonRef?: HTMLElement;
   closePluginMenu?: CloseModalFunction;
   experiments?: AvailableExperiments;
+  uploadService?: IUploadService;
+  updateService?: IUpdateService;
 }): ToolbarButtonProps {
   const onPluginAdd = () => helpers?.onPluginAdd?.(blockType, toolbarName);
   const onPluginAddStep = (
@@ -105,26 +115,28 @@ export function generateInsertPluginButtonProps({
   }
 
   function createBlocksFromFiles(
-    files: File[] | (File[] | Record<string, unknown>[])[] | Record<string, unknown>[],
+    files: File[] | (File[] | fileData[])[] | fileData[],
     data,
     type: string,
-    updateEntity: (
-      blockKey: string,
-      file: File | File[] | Record<string, unknown> | Record<string, unknown>[]
-    ) => void
+    updateEntity: (blockKey: string, file: File | File[] | fileData | fileData[]) => void
   ) {
     let editorState = getEditorState();
     let selection: SelectionState | undefined;
     onPluginAdd();
-    files.forEach((file: File | File[] | Record<string, unknown> | Record<string, unknown>[]) => {
+    const updateEntities: (() => void)[] = [];
+    files.forEach((file: File | File[] | fileData | fileData[]) => {
       const { newBlock, newSelection, newEditorState } = createBlock(editorState, data, type);
       editorState = newEditorState;
       selection = selection || newSelection;
-      updateEntity(newBlock.getKey(), file);
+      updateEntities.push(() => updateEntity(newBlock.getKey(), file));
       onPluginAddSuccess({ pluginDetails: newBlock.getKey() });
     });
 
-    return { newEditorState: editorState, newSelection: selection as SelectionState };
+    return {
+      newEditorState: editorState,
+      newSelection: selection as SelectionState,
+      updateEntities,
+    };
   }
 
   function onClick(event: MouseEvent) {
@@ -165,41 +177,74 @@ export function generateInsertPluginButtonProps({
   }
 
   function handleFileChange(
-    files: File[] | Record<string, unknown>[],
-    updateEntity: (blockKey: string, file: File) => void
+    files: File[] | fileData[],
+    updateEntity: (blockKey: string, file: File | File[] | fileData | fileData[]) => void
   ) {
     if (files.length > 0) {
       const galleryData = pluginDefaults[GALLERY_TYPE];
-      const { newEditorState, newSelection } = shouldCreateGallery(files)
+      const { newEditorState, newSelection, updateEntities } = shouldCreateGallery(files)
         ? createBlocksFromFiles([files], galleryData, GALLERY_TYPE, updateEntity)
         : createBlocksFromFiles(files, button.componentData, blockType, updateEntity);
       setEditorState(EditorState.forceSelection(newEditorState, newSelection));
+      updateEntities.forEach(updateEntity => updateEntity());
     }
   }
 
   function onChange(files: File[]) {
-    return handleFileChange(files, (blockKey: string, file: File) => {
+    const updateEntity = (blockKey: string, file: File) => {
       const state = { userSelectedFiles: { files: Array.isArray(file) ? file : [file] } };
       commonPubsub.set('initialState_' + blockKey, state);
-    });
+    };
+    return handleFileChange(files, updateEntity);
+  }
+
+  function uploadFiles(files: File[]) {
+    const getUploader = button.getUploader;
+    const mediaPluginService = button.mediaPluginService;
+    if (getUploader && mediaPluginService) {
+      const uploader = getUploader(helpers, settings);
+      const updateEntity = (blockKey: string, file: File | File[]) => {
+        const files = file instanceof Array ? file : [file];
+        files.forEach((fileToUpload: File) => {
+          uploadService?.uploadFile(
+            fileToUpload,
+            blockKey,
+            uploader,
+            blockType,
+            mediaPluginService
+          );
+        });
+      };
+      handleFileChange(files, updateEntity);
+    }
   }
 
   function handleExternalFileChanged({ data, error }) {
+    const mediaPluginService = button.mediaPluginService;
+    let updateEntity;
     if (data) {
-      const handleFilesAdded = shouldCreateGallery(data)
-        ? (blockKey: string) => commonPubsub.getBlockHandler('galleryHandleFilesAdded', blockKey)
-        : (blockKey: string) => pubsub.getBlockHandler('handleFilesAdded', blockKey);
-      handleFileChange(data, (blockKey, file) => {
-        onPluginAddStep('FileUploadDialog', blockKey);
-        setTimeout(() => handleFilesAdded(blockKey)({ data: file, error }));
-      });
-    } else if (error) {
-      const handleFilesAdded = (blockKey: string) =>
-        pubsub.getBlockHandler('handleFilesAdded', blockKey);
-      handleFileChange([{}], blockKey => {
-        onPluginAddStep('FileUploadDialog', blockKey);
-        setTimeout(() => handleFilesAdded(blockKey)({ error }));
-      });
+      if (experiments?.useNewUploadContext?.enabled && mediaPluginService) {
+        updateEntity = (blockKey: string, file: fileData | fileData[]) => {
+          onPluginAddStep('FileUploadDialog', blockKey);
+          setTimeout(() => {
+            const files = file instanceof Array ? file : [file];
+            files.forEach((data: fileData) => {
+              updateService?.updatePluginData({ data }, blockKey, blockType, mediaPluginService);
+            });
+          });
+        };
+      } else {
+        const handleFilesAdded = shouldCreateGallery(data)
+          ? (blockKey: string) => commonPubsub.getBlockHandler('galleryHandleFilesAdded', blockKey)
+          : (blockKey: string) => pubsub.getBlockHandler('handleFilesAdded', blockKey);
+        updateEntity = (blockKey: string, file: fileData) => {
+          onPluginAddStep('FileUploadDialog', blockKey);
+          setTimeout(() => {
+            handleFilesAdded(blockKey)({ data: file, error });
+          });
+        };
+      }
+      handleFileChange(data, updateEntity);
     }
   }
 
@@ -277,7 +322,11 @@ export function generateInsertPluginButtonProps({
 
   function getPropsByButtonType(type) {
     return {
-      [BUTTON_TYPES.FILE]: { onChange, accept: settings.accept, multiple: button.multi },
+      [BUTTON_TYPES.FILE]: experiments?.useNewUploadContext?.enabled
+        ? {
+            onClick: () => uploadService?.selectFiles(settings.accept, !!button.multi, uploadFiles),
+          }
+        : { onChange, accept: settings.accept, multiple: button.multi },
       [BUTTON_TYPES.BUTTON]: { onClick },
     }[type];
   }

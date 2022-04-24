@@ -1,19 +1,24 @@
 import React, { Component, Suspense } from 'react';
-import type { MediaUploadError, Pubsub } from 'wix-rich-content-common';
 import { GlobalContext } from 'wix-rich-content-common';
+import type { Pubsub, IMessage } from 'ricos-types';
+const ErrorToast = React.lazy(() => import('../../../lib/ErrorToast'));
 
 declare global {
   interface Window {
-    __internalRicosOnError__: (error: MediaUploadError) => void;
+    __internalRicosOnError__: (error: IMessage) => void;
   }
 }
 
-const ErrorMessage = React.lazy(() => import('./ErrorMessage'));
+type ErrorToastProps = {
+  commonPubsub: Pubsub;
+};
 
-export default class ErrorToast extends Component<
-  { commonPubsub: Pubsub },
-  { error: MediaUploadError; errorCount: number }
-> {
+type ErrorToastState = {
+  error: IMessage;
+  errorCount: number;
+};
+
+export default class RCEErrorToast extends Component<ErrorToastProps, ErrorToastState> {
   timer?: NodeJS.Timeout;
 
   constructor(props) {
@@ -39,7 +44,7 @@ export default class ErrorToast extends Component<
     this.timer = setTimeout(this.close, 4000);
   };
 
-  onError = (error: MediaUploadError) => {
+  onError = (error: IMessage) => {
     this.setState(state => ({ error, errorCount: state.errorCount + 1 }));
     this.closeToastAfterDelay();
   };
@@ -49,21 +54,14 @@ export default class ErrorToast extends Component<
   };
 
   render() {
-    const { errorCount, error } = this.state;
-    const isOpen = errorCount > 0;
-    if (!isOpen) {
+    const { isMobile } = this.context;
+    const { error, errorCount } = this.state;
+    if (errorCount <= 0) {
       return null;
     }
-    const { isMobile } = this.context;
-
     return (
       <Suspense fallback={<div />}>
-        <ErrorMessage
-          error={error}
-          errorCount={errorCount}
-          onClose={this.close}
-          isMobile={isMobile}
-        />
+        <ErrorToast {...{ error, errorCount, onClose: this.close, isMobile }} />;
       </Suspense>
     );
   }

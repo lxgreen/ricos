@@ -10,7 +10,9 @@ const createFileUploadPlugin: CreatePluginFunction<FilePluginEditorConfig> = con
   const type = FILE_UPLOAD_TYPE;
   const { helpers, t, [type]: settings = {}, isMobile, experiments, ...rest } = config;
   return createBasePlugin({
-    component: createBaseMediaPlugin(Component),
+    component: experiments?.useNewUploadContext?.enabled
+      ? Component
+      : createBaseMediaPlugin(Component),
     type: FILE_UPLOAD_TYPE,
     toolbar: createToolbar({
       helpers,

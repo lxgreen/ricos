@@ -7,6 +7,7 @@ import { MediaItemErrorMsg, Loader } from 'wix-rich-content-ui-components';
 import VideoViewer from './video-viewer';
 import styles from '../statics/styles/default-video-styles.scss';
 import { VIDEO_TYPE_LEGACY, VIDEO_TYPE } from './types';
+import { omit } from 'lodash';
 import { isiOS } from 'wix-rich-content-editor-common';
 
 const DEFAULTS = Object.freeze({
@@ -101,7 +102,7 @@ class VideoComponent extends React.Component {
     const { componentData } = this.props;
     this.props.store.update(
       'componentData',
-      { ...componentData, duration },
+      { ...omit(componentData, ['tempData']), duration },
       this.props.block.getKey()
     );
   };

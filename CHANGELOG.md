@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `*`
+  - [#3572](https://github.com/wix/ricos/pull/3572) media upload mechanism overhaul, open `useNewUploadContext` experiment
+
 </details>
   <hr/>
 

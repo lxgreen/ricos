@@ -43,6 +43,7 @@ export { simplePubsub } from './Utils/simplePubsub';
 // export type { Pubsub, Store } from './Utils/simplePubsub';
 export { generateKey } from './Utils/generateKey';
 export { getBlocksFromContentState } from './Utils/innerRCEBlocksUtils';
+export { UploadServiceContext } from './Utils/uploadServiceContext';
 export * from './consts';
 
 export { default as createJustificationFixDecorator } from './draftDecorators/createJustificationFixDecorator';

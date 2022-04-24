@@ -40,7 +40,13 @@ const createToolbar: CreatePluginToolbar = ({
       settings,
       experiments,
     }),
-    InsertButtons: createInsertButtons({ t, settings, disableDownload, disableExpand }),
+    InsertButtons: createInsertButtons({
+      t,
+      settings,
+      disableDownload,
+      disableExpand,
+      experiments,
+    }),
     name: 'image',
   };
 };

@@ -28,7 +28,7 @@ const onKeyDown = (e, handler) => {
 };
 
 const isLocalObjectUrl = item => {
-  return item.url.indexOf('data:') !== -1;
+  return !!item.url && item.url?.indexOf('data:') !== -1;
 };
 
 // eslint-disable-next-line complexity
@@ -91,12 +91,12 @@ const SortableItem = sortableElement(props => {
     );
   } else {
     let prefix = '';
-    if (item.url.indexOf('/') < 0) {
+    if (item.url?.indexOf('/') < 0) {
       prefix = 'media/';
     }
 
     let url;
-    if (!isLocalObjectUrl(item)) {
+    if (!isLocalObjectUrl(item) && item.metadata) {
       url = imageClientAPI.getScaleToFillImageURL(
         prefix +
           (item.metadata.type !== GALLERY_ITEMS_TYPES.VIDEO ? item.url : item.metadata.poster),
@@ -422,10 +422,7 @@ export class SortableComponent extends Component {
     this.setState({
       items,
       editedItem: selectedItems.length ? selectedItems[0] : null,
-      editedItemIndex:
-        selectedItems.length === 1
-          ? findIndex(items, i => i.itemId === selectedItems[0].itemId)
-          : -1,
+      editedItemIndex: selectedItems.length === 1 ? findIndex(items, i => i.selected) : -1,
     });
   };
 
