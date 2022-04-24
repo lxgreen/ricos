@@ -1,6 +1,6 @@
 export * from 'ricos-common';
 
-import { RicosEditorSwitcher } from './RicosEditorSwitcher';
+import RicosEditorSwitcher from './RicosEditorSwitcher';
 
 export default RicosEditorSwitcher;
 export { RicosEditorSwitcher as RicosEditor };

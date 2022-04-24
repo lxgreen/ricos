@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { RicosEditor } from './RicosEditor';
 
 const FullRicosEditorTiptapLazy = React.lazy(
@@ -15,4 +15,4 @@ const RicosEditorSwitcher = props => {
   }
 };
 
-export { RicosEditorSwitcher };
+export default forwardRef((props, ref) => RicosEditorSwitcher({ ...props, ref }));
