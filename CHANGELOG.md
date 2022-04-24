@@ -17,9 +17,15 @@
     Click to see more.
   </summary>
 
-
 </details>
   <hr/>
+
+## 8.71.3 (April 24, 2022)
+
+### :bug: Bug Fix
+
+- `ricos-editor`
+  - [#3770](https://github.com/wix/ricos/pull/3770) ricos editor's ref
 
 ## 8.71.2 (April 24, 2022)
 
