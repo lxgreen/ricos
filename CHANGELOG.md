@@ -17,13 +17,16 @@
     Click to see more.
   </summary>
 
+
+</details>
+  <hr/>
+
+## 8.71.2 (April 24, 2022)
+
 ### :house: Internal
 
 - `*`
   - [#3572](https://github.com/wix/ricos/pull/3572) media upload mechanism overhaul, open `useNewUploadContext` experiment
-
-</details>
-  <hr/>
 
 ## 8.71.1 (April 20, 2022)
 
