@@ -338,7 +338,6 @@ class FileUploadViewer extends PureComponent {
           <div data-hook={dataHook} ref={this.fileUploadViewerRef}>
             <PDFViewer
               status={pdfStatus}
-              ref={this.fileUploadViewerRef}
               fileData={{ url: fileUrl, fileName: componentData.name }}
               setStatus={this.onPDFStatusChange}
               pdfSettings={pdfSettings}

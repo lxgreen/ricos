@@ -415,7 +415,7 @@
 	"TextAlignmentButton_Tooltip": "การจัดเรียง",
 	"EditButton_Tooltip": "แก้ไข",
 	"FileUploadPlugin_Settings_FullPDFViewer_SubText": "Visitors can easily scroll down through your PDF and zoom in or out. We recommend this layout for mobile.",
-	"Poll_Preview_Close_CTA": "ปิดตัวอย่าง",
+	"Poll_Preview_Close_CTA": "ปิดดูตัวอย่าง",
 	"TitleButton_Tooltip": "ชื่อ",
 	"LinkPanel_Nofollow_Checkbox_Tooltip": "คุณสามารถเพิ่มแท็ก Nofollow ไปที่ลิงก์ เครื่องมือการค้นหาจะไม่นับรวมลิงก์นี้ไว้ในการคำนวนของ SEO และการจัดอันดับเว็บไซต์",
 	"TwitterPlugin_InsertButton_Tooltip": "เพิ่มโพสต์ Twitter",

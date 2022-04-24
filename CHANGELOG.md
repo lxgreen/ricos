@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `file-upload`
+  - [#3771](https://github.com/wix/ricos/pull/3771) file replace button under `useNewUploadContext` experiment
+
 </details>
   <hr/>
 
