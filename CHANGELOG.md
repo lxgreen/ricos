@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+</details>
+  <hr/>
+
+## 8.71.1 (April 20, 2022)
+
 ### :bug: Bug Fix
 
 - `ricos-content`
   - [#3769](https://github.com/wix/ricos/pull/3769) blockquote refined-node type
-
-</details>
-  <hr/>
 
 ## 8.71.0 (April 20, 2022)
 
