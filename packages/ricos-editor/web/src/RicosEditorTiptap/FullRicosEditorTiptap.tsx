@@ -51,7 +51,7 @@ class FullRicosEditorTiptap extends React.Component<RicosEditorProps> {
       cssOverride,
       contentId: '',
       t: this.editorAdapter?.getT?.(),
-      getEditorCommands: () => this.editorAdapter.getEditorCommands,
+      getEditorCommands: () => this.editorAdapter.getEditorCommands(),
     });
 
     return toolbarContext;

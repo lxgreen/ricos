@@ -60,7 +60,7 @@ export class ToolbarItem extends EventEmitter {
           editorCommands: this.editorCommands,
         });
         // eslint-disable-next-line prefer-spread
-        command.apply(null, ...args);
+        command.apply(null, args);
 
         this.emit(ToolbarItem.EVENTS.COMMAND_EXECUTED, {
           commandName,
