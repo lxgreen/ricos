@@ -127,4 +127,8 @@ export class Extensions implements ExtensionAggregate {
   byGroup(group: Group) {
     return new Extensions(this.extensions.filter(ext => ext.groups.includes(group)).asArray());
   }
+
+  configure(config: Record<string, unknown>) {
+    return new Extensions(this.extensions.asArray().map(e => e.configure(config) as IExtension));
+  }
 }

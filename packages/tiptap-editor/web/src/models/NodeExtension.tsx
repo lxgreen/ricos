@@ -76,12 +76,12 @@ export class ReactNodeExtension implements IReactNodeExtension {
     extensions: RicosExtension[]
   ) => NodeConfig;
 
-  constructor(extension: RicosExtension) {
+  constructor(extension: RicosExtension, config?: NodeConfig) {
     if (!isRicosNodeExtension(extension)) {
       throw new TypeError('invalid argument');
     }
     this.ricosExtension = extension;
-    this.config = createRicosNodeConfig(extension);
+    this.config = config || createRicosNodeConfig(extension);
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
     this.groups = extension.groups;
@@ -100,12 +100,11 @@ export class ReactNodeExtension implements IReactNodeExtension {
     return this.ricosExtension;
   }
 
-  configure(config: Record<string, unknown>) {
-    this.config = {
+  configure = (config: Record<string, unknown>) =>
+    new ReactNodeExtension(this.ricosExtension, {
       ...this.config,
       ...config,
-    };
-  }
+    });
 }
 
 class RenderableNodeExtension extends ReactNodeExtension implements DecoratedNodeExtension {
@@ -142,12 +141,12 @@ export class HtmlNodeExtension implements IHtmlNodeExtension {
 
   groups: RicosExtension['groups'];
 
-  constructor(extension: RicosExtension) {
+  constructor(extension: RicosExtension, config?: NodeConfig) {
     if (!isRicosNodeExtension(extension)) {
       throw new TypeError('invalid argument');
     }
     this.ricosExtension = extension;
-    this.config = createRicosNodeConfig(extension);
+    this.config = config || createRicosNodeConfig(extension);
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
     this.groups = extension.groups || [];
@@ -164,10 +163,9 @@ export class HtmlNodeExtension implements IHtmlNodeExtension {
     return Node.create(config).configure(config);
   }
 
-  configure(config: Record<string, unknown>) {
-    this.config = {
+  configure = (config: Record<string, unknown>) =>
+    new HtmlNodeExtension(this.ricosExtension, {
       ...this.config,
       ...config,
-    };
-  }
+    });
 }

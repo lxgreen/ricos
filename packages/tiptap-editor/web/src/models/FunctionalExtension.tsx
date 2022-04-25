@@ -35,11 +35,11 @@ export class FunctionalExtension implements IFunctionalExtension {
     extensions: RicosExtension[]
   ) => RicosExtensionConfig;
 
-  constructor(extension: RicosExtension) {
+  constructor(extension: RicosExtension, config?: RicosExtensionConfig) {
     if (!isRicosFunctionalExtension(extension)) {
       throw new TypeError('invalid argument');
     }
-    this.config = {
+    this.config = config || {
       ...extension.createExtensionConfig({ mergeAttributes }),
       type: 'extension',
     };
@@ -65,9 +65,9 @@ export class FunctionalExtension implements IFunctionalExtension {
   }
 
   configure = (config: Record<string, unknown>) => {
-    this.config = {
+    return new FunctionalExtension(this.ricosExtension, {
       ...this.config,
       ...config,
-    };
+    });
   };
 }

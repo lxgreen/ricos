@@ -22,12 +22,12 @@ export class MarkExtension implements IMarkExtension {
 
   private readonly ricosExtension: RicosExtension;
 
-  constructor(extension: RicosExtension) {
+  constructor(extension: RicosExtension, config?: MarkConfig) {
     if (!isRicosMarkExtension(extension)) {
       throw new TypeError('invalid argument');
     }
     this.groups = extension.groups || [];
-    this.config = {
+    this.config = config || {
       ...extension.createExtensionConfig({
         textblockTypeInputRule,
         mergeAttributes,
@@ -53,10 +53,9 @@ export class MarkExtension implements IMarkExtension {
     return Mark.create(config).configure(config);
   }
 
-  configure(config: Record<string, unknown>) {
-    this.config = {
+  configure = (config: Record<string, unknown>) =>
+    new MarkExtension(this.ricosExtension, {
       ...this.config,
       ...config,
-    };
-  }
+    });
 }

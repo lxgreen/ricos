@@ -6,6 +6,7 @@ import type { RichContent } from 'ricos-schema';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 import { toTiptap } from 'wix-tiptap-extensions';
 import { coreConfigs } from '../src/components/RicosTiptapEditor/core-configs';
+import { commonExtensions } from '../src/common-extensions';
 import { Extensions } from '../src/models/Extensions';
 import type { ContentTypes } from '../src/patch-extensions';
 import {
@@ -17,6 +18,7 @@ import {
 const toSupportedContentTypes: (plugins: TiptapEditorPlugin[]) => ContentTypes = flow(
   A.chain(p => p.tiptapExtensions || []),
   A.concat(coreConfigs),
+  A.concat(commonExtensions),
   Extensions.of,
   toContentTypes
 );

@@ -77,26 +77,17 @@ class RicosEditorTiptap extends React.Component<RicosEditorProps & IRicosContext
       maxTextLength = 500000,
       linkSettings,
     } = this.props;
-    const configureableExtensions = [
-      ...extensions.getMarkExtensions().asArray(),
-      ...extensions.getFunctionalExtensions().asArray(),
-      ...extensions.getHtmlNodeExtensions().asArray(),
-      ...extensions.getReactNodeExtensions().asArray(),
-    ];
-
     const { anchorTarget, relValue, rel } = linkSettings || {};
 
-    configureableExtensions.forEach(extension => {
-      extension.configure({
-        placeholder,
-        textAlignment,
-        iframeSandboxDomain,
-        isTextWrap: textWrap,
-        maxTextLength,
-        anchorTarget,
-        relValue,
-        rel,
-      });
+    return extensions.configure({
+      placeholder,
+      textAlignment,
+      iframeSandboxDomain,
+      isTextWrap: textWrap,
+      maxTextLength,
+      anchorTarget,
+      relValue,
+      rel,
     });
   }
 
@@ -107,10 +98,10 @@ class RicosEditorTiptap extends React.Component<RicosEditorProps & IRicosContext
       compact(plugins?.flatMap((plugin: TiptapEditorPlugin) => plugin.tiptapExtensions)) || [];
     const initialContent = draftToTiptap(content ?? injectedContent ?? getEmptyDraftContent());
     const allExtensions = Extensions.of([...extensions, ...commonExtensions]);
-    this.configureExtensions(allExtensions);
+    const configuredExtensions = this.configureExtensions(allExtensions);
     return (
       <RicosTiptapEditor
-        extensions={allExtensions}
+        extensions={configuredExtensions}
         content={initialContent}
         t={ricosContext.t}
         // editorStyleClasses

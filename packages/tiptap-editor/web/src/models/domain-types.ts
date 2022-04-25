@@ -21,7 +21,7 @@ export interface Grouped {
 }
 
 export interface Configurable {
-  configure: (config: Record<string, unknown>) => void;
+  configure: (config: Record<string, unknown>) => Configurable;
 }
 
 export interface IMarkExtension
@@ -103,6 +103,7 @@ export type ExtensionAggregate = {
   getMarkExtensions: () => MarkExtensionAggregate;
   getFunctionalExtensions: () => FunctionalExtensionAggregate;
   getRicosExtensions: () => RicosExtension[];
+  configure: (config: Record<string, unknown>) => ExtensionAggregate;
 };
 
 export type NodeHocComposer = {
