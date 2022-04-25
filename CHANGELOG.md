@@ -17,6 +17,12 @@
     Click to see more.
   </summary>
 
+
+</details>
+  <hr/>
+
+## 8.71.4 (April 25, 2022)
+
 ### :bug: Bug Fix
 
 - `ricos-editor`
@@ -26,9 +32,6 @@
 
 - `file-upload`
   - [#3771](https://github.com/wix/ricos/pull/3771) file replace button under `useNewUploadContext` experiment
-
-</details>
-  <hr/>
 
 ## 8.71.3 (April 24, 2022)
 
