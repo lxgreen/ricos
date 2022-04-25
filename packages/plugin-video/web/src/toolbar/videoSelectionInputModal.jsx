@@ -135,16 +135,17 @@ export default class VideoSelectionInputModal extends Component {
 
   getComponentData = () => this.props.componentData;
 
-  handleNativeFileUpload = file => {
+  handleNativeFileUpload = () => {
     const { uploadService, onConfirm } = this.props;
     if (uploadService) {
       if (onConfirm && !this.blockKey) {
         const { newBlock } = onConfirm({ ...this.props.componentData, isCustomVideo: true });
         this.blockKey = newBlock.key;
       }
+      const file = this.inputFile.files[0];
       setTimeout(() =>
         uploadService.uploadFile(
-          this.inputFile.files[0],
+          file,
           this.blockKey || this.props.blockKey,
           this.Uploader,
           VIDEO_TYPE,
