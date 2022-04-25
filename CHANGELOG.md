@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `ricos-editor`
+  - [#3775](https://github.com/wix/ricos/pull/3775) fix `RicosEditor` export
+
 ### :house: Internal
 
 - `file-upload`

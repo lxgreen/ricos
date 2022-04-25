@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { RicosEditor } from './RicosEditor';
+import { default as RicosEditor } from './RicosEditor';
 
 const FullRicosEditorTiptapLazy = React.lazy(
   /* webpackChunkName: "FullRicosEditorTiptap" */
