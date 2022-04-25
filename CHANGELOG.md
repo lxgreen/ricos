@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `ricos-editor`
+  - [#3773](https://github.com/wix/ricos/pull/3773) keyboard shortcuts: domain model
+
 
 </details>
   <hr/>
