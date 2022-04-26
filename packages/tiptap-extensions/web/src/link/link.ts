@@ -82,7 +82,9 @@ export const createLink = (defaultOptions): RicosExtension => ({
             },
           unsetLink:
             () =>
-            ({ commands }) => {
+            ({ commands, tr }) => {
+              const from = tr.selection.from;
+              commands.setTextSelection(from);
               return commands.unsetMark(this.name, { extendEmptyMarkRange: true });
             },
         };
