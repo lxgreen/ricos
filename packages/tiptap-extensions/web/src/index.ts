@@ -21,3 +21,4 @@ export { createPlaceholder } from './placeholder';
 export { createTextAlign } from './text-align';
 export { createFontSize } from './font-size';
 export { createCharacterCount } from './character-count';
+export { createCommonNodeCommands } from './common-node-commands';
