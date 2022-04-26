@@ -17,11 +17,6 @@
     Click to see more.
   </summary>
 
-### :bug: Bug Fix
-
-- `plugin-video`
-  - [#3776](https://github.com/wix/ricos/pull/3776) fix legacy video modal upload context usage
-
 ### :house: Internal
 
 - `ricos-editor`
