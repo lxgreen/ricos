@@ -28,6 +28,11 @@
   - [#3773](https://github.com/wix/ricos/pull/3773) keyboard shortcuts: domain model
 
 
+### :nail_care: Polish
+
+- `audio`
+  - [#3772](https://github.com/wix/ricos/pull/3772) add settings footer buttons
+
 </details>
   <hr/>
 

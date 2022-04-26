@@ -31,7 +31,10 @@ const createInsertButtons: CreateInsertButtons = ({
   isMobile: boolean;
   disableDownload: boolean;
 }) => {
-  const componentData = { ...DEFAULTS, disableDownload };
+  const componentData = {
+    ...DEFAULTS,
+    disableDownload: settings?.disableDownload ?? disableDownload,
+  };
   const icon = settings?.toolbar?.icons?.InsertPluginButtonIcon || InsertPluginIcon;
   const { exposeButtons = [audioButtonsTypes.audio] } = settings || {};
 
@@ -55,7 +58,7 @@ const createInsertButtons: CreateInsertButtons = ({
   const buttonsMap = {
     [audioButtonsTypes.audio]: {
       name: INSERT_PLUGIN_BUTTONS.AUDIO,
-      modalElement: decorateComponentWithProps(AudioModal, settings),
+      modalElement: decorateComponentWithProps(AudioModal, { ...settings, componentData }),
       tooltip: t('AudioPlugin_InsertButton_Tooltip'),
       getIcon: () => icon,
     },

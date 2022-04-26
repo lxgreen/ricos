@@ -4,14 +4,10 @@
 
 $TITLE_HEIGHT: 77px;
 $TITLE_HEIGHT_MOBILE: 50px;
+$FOOTER_HEIGHT: 100px;
 
 .audio_settings {
   text-align: left;
-  width: 100%;
-  margin: $TITLE_HEIGHT auto auto auto;
-  &.audio_settings_mobile {
-    margin: $TITLE_HEIGHT_MOBILE auto auto;
-  }
 }
 .audio_settings_inputs_wrapper {
   display: flex;
@@ -22,6 +18,17 @@ $TITLE_HEIGHT_MOBILE: 50px;
 
 .audio_settings_wrapper {
   padding: 20px;
+  text-align: left;
+  position: absolute;
+  width: 100%;
+  height: calc(100% - #{$TITLE_HEIGHT} - #{$FOOTER_HEIGHT});
+  margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
+  overflow: scroll;
+  @include border-box;
+  .audio_settings_mobile & {
+    height: calc(100% - #{$TITLE_HEIGHT_MOBILE});
+    margin: $TITLE_HEIGHT_MOBILE auto auto auto;
+  }
 }
 
 .audio_settings_coverImage_wrapper {

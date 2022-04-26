@@ -521,7 +521,7 @@ describe('plugins', () => {
       cy.eyesCheckWindow('should render settings with cover image');
       cy.get(`[data-hook=AudioDownloadToggle]`).click();
       cy.eyesCheckWindow('should enable audio download');
-      cy.get(`[data-hook=settingsCloseIcon]`).click();
+      cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
       cy.get(`[data-hook=audioContextMenu]`).eq(1).click();
       cy.get(`[data-hook=audioDownloadIcon]`).should('be.visible');
       cy.eyesCheckWindow('should render audio with enabled download options');

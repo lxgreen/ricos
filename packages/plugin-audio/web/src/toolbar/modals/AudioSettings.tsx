@@ -13,6 +13,7 @@ import {
   SettingsAddItem,
   InputWithLabel,
   Label,
+  SettingsPanelFooter,
 } from 'wix-rich-content-ui-components';
 import Styles from '../../../statics/styles/audio-settings.scss';
 
@@ -25,15 +26,19 @@ const AudioSettings = ({
   theme,
   t,
   isMobile,
-  settings,
   experiments,
 }) => {
   const styles = mergeStyles({ styles: Styles, theme });
-  const downLoadEnabled = !(componentData?.disableDownload ?? settings.disableDownload);
-  const [isDownloadEnabled, setIsDownloadEnabled] = useState(downLoadEnabled);
-  const [coverImage, setCoverImage] = useState(componentData?.coverImage || null);
-  const [name, setName] = useState(componentData?.name || '');
-  const [authorName, setAuthorName] = useState(componentData?.authorName || '');
+  const initialState = {
+    name: componentData?.name,
+    authorName: componentData?.authorName,
+    disableDownload: componentData?.disableDownload,
+    coverImage: componentData?.coverImage,
+  };
+  const [isDownloadEnabled, setIsDownloadEnabled] = useState(!initialState.disableDownload);
+  const [coverImage, setCoverImage] = useState(initialState?.coverImage || null);
+  const [name, setName] = useState(initialState.name || '');
+  const [authorName, setAuthorName] = useState(initialState.authorName || '');
   const [isLoadingImage, setIsLoadingImage] = useState(false);
   const useModalBaseActionHoc = experiments?.modalBaseActionHoc?.enabled;
 
@@ -76,7 +81,19 @@ const AudioSettings = ({
     helpers.handleFileUpload(file, handleFilesAdded);
   };
 
-  const handleClose = () => (useModalBaseActionHoc ? onCancel() : helpers.closeModal());
+  const handleClose = () => {
+    const onClose = () => {
+      pubsub.update('componentData', {
+        ...componentData,
+        name: initialState.name,
+        authorName: initialState.authorName,
+        disableDownload: initialState.disableDownload,
+        coverImage: initialState.coverImage,
+      });
+      helpers.closeModal();
+    };
+    return useModalBaseActionHoc ? onCancel() : onClose();
+  };
 
   const handleCoverImageDelete = () => {
     setCoverImage(null);
@@ -210,8 +227,17 @@ const AudioSettings = ({
             {t('AudioPlugin_Settings_AudioCanBeDownloaded_Tooltip')}
           </div>
         )}
-        {renderHeader()}
+        {!isMobile && (
+          <SettingsPanelFooter
+            fixed
+            theme={theme}
+            cancel={handleClose}
+            save={helpers.closeModal}
+            t={t}
+          />
+        )}
       </div>
+      {renderHeader()}
     </div>
   );
 };
