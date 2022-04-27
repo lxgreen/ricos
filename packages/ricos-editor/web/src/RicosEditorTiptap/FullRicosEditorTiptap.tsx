@@ -1,5 +1,7 @@
+/* eslint-disable brace-style */
 import React from 'react';
 import type { RicosEditorProps } from 'ricos-common';
+import type { RicosEditorRef } from '../RicosEditorRef';
 import { RicosTiptapToolbar, Content, ToolbarContext } from 'wix-rich-content-toolbars-v3';
 import RicosEditorTiptap from './RicosEditorTiptap';
 import { convertToolbarContext } from '../toolbars/convertToolbarContext';
@@ -9,7 +11,7 @@ import FloatingAddPluginMenu from '../toolbars/FloatingAddPluginMenu';
 import { ModalService, ModalContextProvider } from 'ricos-modals';
 import { getLangDir } from 'wix-rich-content-common';
 
-class FullRicosEditorTiptap extends React.Component<RicosEditorProps> {
+class FullRicosEditorTiptap extends React.Component<RicosEditorProps> implements RicosEditorRef {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editor: any;
 
@@ -29,6 +31,35 @@ class FullRicosEditorTiptap extends React.Component<RicosEditorProps> {
     this.editorAdapter = null;
     this.modalService = new ModalService();
   }
+
+  focus(): void {
+    throw new Error('Method not implemented.');
+  }
+
+  blur(): void {
+    throw new Error('Method not implemented.');
+  }
+
+  getContent: RicosEditorRef['getContent'] = () => {
+    throw new Error('Method not implemented.');
+  };
+
+  getContentPromise: RicosEditorRef['getContentPromise'] = () => {
+    throw new Error('Method not implemented.');
+  };
+
+  getContentTraits: RicosEditorRef['getContentTraits'] = () => {
+    throw new Error('Method not implemented.');
+  };
+
+  // @ts-ignore
+  getToolbarProps: RicosEditorRef['getToolbarProps'] = () => {
+    return { buttons: {} };
+  };
+
+  getEditorCommands: RicosEditorRef['getEditorCommands'] = () => {
+    throw new Error('Method not implemented.');
+  };
 
   getToolbarContext() {
     const {

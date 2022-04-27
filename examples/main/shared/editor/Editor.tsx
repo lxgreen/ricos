@@ -160,11 +160,9 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
     const textToolbarType: TextToolbarType = staticToolbar && !isMobile ? STATIC_TOOLBAR : null;
     const useStaticTextToolbar = textToolbarType === STATIC_TOOLBAR;
 
-    const useTiptap = !!experiments?.tiptapEditor?.enabled;
-
     return (
       <div style={{ height: '100%' }}>
-        {!useTiptap && this.renderExternalToolbar()}
+        {this.renderExternalToolbar()}
         <div ref={ref => (this.staticToolbarContainer = ref)} />
         <div className={classNames('editor', styles.editorContainer)}>
           <RicosEditor

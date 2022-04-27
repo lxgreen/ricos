@@ -1,3 +1,4 @@
+/* eslint-disable brace-style */
 import type { ElementType, FunctionComponent } from 'react';
 import React, { Component, Fragment, Suspense, forwardRef } from 'react';
 import {
@@ -15,6 +16,7 @@ import type { EditorState, ContentState } from 'draft-js';
 import RicosModal from './modals/RicosModal';
 import editorCss from '../statics/styles/styles.scss';
 import type { RicosEditorProps, EditorDataInstance } from '.';
+import type { RicosEditorRef } from './RicosEditorRef';
 import { hasActiveUploads } from './utils/hasActiveUploads';
 import {
   convertToRaw,
@@ -67,7 +69,7 @@ interface State {
 // awares of tiptap
 // sort , filter
 
-export class RicosEditor extends Component<RicosEditorProps, State> {
+export class RicosEditor extends Component<RicosEditorProps, State> implements RicosEditorRef {
   editor!: RichContentEditor;
 
   useTiptap = false;
