@@ -19,4 +19,5 @@ export * from './editorCommandsType';
 export * from './editable-content';
 export * from './commands';
 export * from './uploadServicesTypes';
+export * from './modalTypes';
 export * from './shortcuts';
