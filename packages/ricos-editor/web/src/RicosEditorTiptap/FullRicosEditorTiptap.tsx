@@ -5,6 +5,7 @@ import RicosEditorTiptap from './RicosEditorTiptap';
 import { convertToolbarContext } from '../toolbars/convertToolbarContext';
 import { RicosContextProvider } from '../RicosContext/RicosContext';
 import type { Node } from 'prosemirror-model';
+import FloatingAddPluginMenu from '../toolbars/FloatingAddPluginMenu';
 
 class FullRicosEditorTiptap extends React.Component<RicosEditorProps> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -102,6 +103,7 @@ class FullRicosEditorTiptap extends React.Component<RicosEditorProps> {
                 content={this.content}
                 editorCommands={this.editor.commandManager}
               />
+              <FloatingAddPluginMenu editor={this.editor} />
             </ToolbarContext.Provider>
           )}
           <RicosEditorTiptap

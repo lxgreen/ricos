@@ -26,6 +26,7 @@
 
 - `ricos-editor`
   - [#3773](https://github.com/wix/ricos/pull/3773) keyboard shortcuts: domain model
+  - [#3785](https://github.com/wix/ricos/pull/3785) add floating plugin menu button for tiptap editor
 
 
 ### :nail_care: Polish
