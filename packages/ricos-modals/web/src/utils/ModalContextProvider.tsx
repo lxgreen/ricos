@@ -30,10 +30,10 @@ export class ModalContextProvider extends PureComponent<ModalContextValue> {
           return (
             <ModalPopper
               key={id}
-              modalComponent={Component}
+              Component={Component}
               referenceElement={positioning.referenceElement}
               groups={groups}
-              modalId={id}
+              id={id}
               languageDir={context.languageDir}
             />
           );

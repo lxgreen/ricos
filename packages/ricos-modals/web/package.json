@@ -13,19 +13,18 @@
   "bugs": {
     "url": "https://github.com/wix/ricos/issues"
   },
-  "homepage": "https://github.com/wix/ricos/tree/master/rich-content-toolbars-v3",
+  "homepage": "https://github.com/wix/ricos/tree/master/packages/ricos-modals",
   "files": [
     "dist"
   ],
   "main": "dist/cjs/index.js",
   "types": "dist/src/index.d.ts",
   "module": "dist/es/index.js",
-  "style": "dist/styles.min.scss",
   "scripts": {
     "clean": "rm -rf dist/",
     "prebuild": "npm run clean",
-    "build:rollup": "rollup --environment DYNAMIC_IMPORT,MODULE_NAME:toolbars-v3,EXTRACT_CSS:false,ALLOW_JS -c ../../../rollup.config.js",
-    "build": "npm run build:rollup && node ../../../scripts/cssFix.js",
+    "build:rollup": "rollup --environment DYNAMIC_IMPORT,MODULE_NAME:ricos-modals,EXTRACT_CSS:false -c ../../../rollup.config.js",
+    "build": "npm run build:rollup",
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "build:analyze:editor": "npm run build -- --environment MODULE_ANALYZE_EDITOR  && open stats.html",
     "build:analyze:viewer": "npm run build -- --environment MODULE_ANALYZE_VIEWER && open stats.html",
@@ -34,13 +33,14 @@
     "test": "jest --verbose",
     "test:watchAll": "jest --verbose --watchAll"
   },
-  "peerDependencies": {
-    "@babel/runtime": "^7.17.2",
-    "classnames": "^2.0.0",
-    "lodash": "^4.0.0",
-    "prop-types": "^15.0.0",
+  "devDependencies": {
+    "@wix/draft-js": "0.0.11",
+    "draft-js-plugins-editor": "~3.0.0",
+    "i18next": "^11.6.0",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-measure": "~2.3.0",
+    "react-modal": "~3.4.1",
+    "utility-types": "^3.10.0"
   },
   "dependencies": {
     "react-popper": "2.2.5",

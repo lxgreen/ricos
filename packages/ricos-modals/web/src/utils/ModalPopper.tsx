@@ -4,13 +4,13 @@ import { usePopper } from 'react-popper';
 import { ClickOutside } from 'wix-rich-content-editor-common';
 import { ModalContext } from './ModalContext';
 
-export const ModalPopper = ({ modalComponent, referenceElement, modalId, languageDir, groups }) => {
+export const ModalPopper = ({ Component, referenceElement, id, languageDir, groups }) => {
   const { ModalService } = useContext(ModalContext) || {};
 
   const [modalElement, setModalElement] = useState<HTMLDivElement | null>(null);
 
   const onClickOutside = () => {
-    ModalService?.closeModal?.(modalId);
+    ModalService?.closeModal?.(id);
   };
 
   const { styles: popperStyles, attributes } = usePopper(referenceElement, modalElement, {
@@ -48,7 +48,7 @@ export const ModalPopper = ({ modalComponent, referenceElement, modalId, languag
         style={{ ...popperStyles.popper, ...getModalStyles(groups) }}
         {...attributes.popper}
       >
-        {modalComponent}
+        <Component />
       </div>
     </ClickOutside>,
     document.body

@@ -1,5 +1,4 @@
 import type { ModalConfig } from 'ricos-types';
-import { idText } from 'typescript';
 import type { IModalService } from './types';
 
 const EVENTS = {
@@ -35,7 +34,7 @@ export class ModalService implements IModalService {
     const modal = this.getModal(id);
     if (modal?.state.open) {
       modal.state = { open: false };
-      this.emit(EVENTS.modalCloseEvent, idText);
+      this.emit(EVENTS.modalCloseEvent, id);
     } else {
       console.error(`Fail to close modal: ${id} is not open`);
     }
