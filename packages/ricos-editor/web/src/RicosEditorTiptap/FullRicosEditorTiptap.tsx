@@ -6,6 +6,8 @@ import { convertToolbarContext } from '../toolbars/convertToolbarContext';
 import { RicosContextProvider } from '../RicosContext/RicosContext';
 import type { Node } from 'prosemirror-model';
 import FloatingAddPluginMenu from '../toolbars/FloatingAddPluginMenu';
+import { ModalService, ModalContextProvider } from 'ricos-modals';
+import { getLangDir } from 'wix-rich-content-common';
 
 class FullRicosEditorTiptap extends React.Component<RicosEditorProps> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,10 +21,13 @@ class FullRicosEditorTiptap extends React.Component<RicosEditorProps> {
 
   content = Content.create<Node[]>([]);
 
+  modalService: ModalService;
+
   constructor(props) {
     super(props);
     this.editor = null;
     this.editorAdapter = null;
+    this.modalService = new ModalService();
   }
 
   getToolbarContext() {
@@ -58,6 +63,21 @@ class FullRicosEditorTiptap extends React.Component<RicosEditorProps> {
     return toolbarContext;
   }
 
+  getModalContext() {
+    const { theme, experiments, isMobile, _rcProps, locale } = this.props;
+    const helpers = _rcProps?.helpers;
+    return {
+      ModalService: this.modalService,
+      experiments,
+      getEditorCommands: () => this.editorAdapter.getEditorCommands(),
+      t: this.editorAdapter?.getT?.(),
+      helpers,
+      theme,
+      isMobile,
+      languageDir: getLangDir(locale),
+    };
+  }
+
   onSelectionUpdate = ({ editor }) => {
     const getSelectedNodes = ({ editor }) => {
       const selection = editor.state.selection;
@@ -88,6 +108,7 @@ class FullRicosEditorTiptap extends React.Component<RicosEditorProps> {
   render() {
     const { isMobile, experiments, locale, localeContent } = this.props;
     const toolbarContext = this.getToolbarContext();
+    const modalContext = this.getModalContext();
     return (
       <RicosContextProvider
         isMobile={isMobile}
@@ -97,14 +118,16 @@ class FullRicosEditorTiptap extends React.Component<RicosEditorProps> {
       >
         <div>
           {this.editor && (
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            <ToolbarContext.Provider value={toolbarContext as any}>
-              <RicosTiptapToolbar
-                content={this.content}
-                editorCommands={this.editor.commandManager}
-              />
-              <FloatingAddPluginMenu editor={this.editor} />
-            </ToolbarContext.Provider>
+            <ModalContextProvider {...modalContext}>
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+              <ToolbarContext.Provider value={toolbarContext as any}>
+                <RicosTiptapToolbar
+                  content={this.content}
+                  editorCommands={this.editor.commandManager}
+                />
+                <FloatingAddPluginMenu editor={this.editor} />
+              </ToolbarContext.Provider>
+            </ModalContextProvider>
           )}
           <RicosEditorTiptap
             {...this.props}
