@@ -35,6 +35,8 @@
   - [#3790](https://github.com/wix/ricos/pull/3790) mobile native loader (mobile forward comptability)
 - `ricos-editor`
   - [#3784](https://github.com/wix/ricos/pull/3784) RicosEditorRef
+- `ricos-editor`
+  - [#3791](https://github.com/wix/ricos/pull/3791) FullRicosEditorTiptap impl RicosEditorRef
 
 </details>
   <hr/>

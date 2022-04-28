@@ -5,6 +5,7 @@ import type {
   EditorPlugin,
   TextAlignment,
   RicosCustomStyles,
+  ToolbarType,
 } from 'wix-rich-content-common';
 import {
   RICOS_LINK_TYPE,
@@ -28,7 +29,6 @@ import { TO_TIPTAP_TYPE } from '../../consts';
 import type { Editor } from '@tiptap/core';
 import { findNodeById } from '../../helpers';
 
-// todo : should change to RichContentInterface
 export class RichContentAdapter implements TiptapAPI {
   constructor(
     public editor: Editor,
@@ -39,6 +39,23 @@ export class RichContentAdapter implements TiptapAPI {
     this.t = t;
     this.plugins = plugins;
   }
+
+  getContent: TiptapAPI['getContent'] = async (postId, forPublish, shouldRemoveErrorBlocks) => {
+    throw new Error('Method not implemented.');
+  };
+
+  getContentPromise: TiptapAPI['getContentPromise'] = async ({ flush, publishId } = {}) => {
+    throw new Error('Method not implemented.');
+  };
+
+  getContentTraits: TiptapAPI['getContentTraits'] = () => {
+    throw new Error('Method not implemented.');
+  };
+
+  //@ts-ignore
+  getToolbarProps: TiptapAPI['getToolbarProps'] = (type: ToolbarType) => {
+    return { buttons: {} };
+  };
 
   getContainer = () => {
     return this.editor?.options?.element;
@@ -266,10 +283,6 @@ export class RichContentAdapter implements TiptapAPI {
       // MobileToolbar: () => <Toolbar editor={this.editor} />,
       // TextToolbar: () => <Toolbar editor={this.editor} />,
     };
-  }
-
-  getToolbarProps() {
-    return {};
   }
 
   destroy!: () => null;

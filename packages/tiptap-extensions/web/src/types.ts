@@ -1,13 +1,8 @@
 import type { Editor, JSONContent } from '@tiptap/react';
 import type { Node as ProseMirrorNode } from 'prosemirror-model';
-import type { ElementType } from 'react';
 import type {
   DraftContent,
-  EditorCommands,
-  EditorContextType,
   LegacyEditorPluginConfig,
-  Pubsub,
-  ToolbarType,
   TranslationFunction,
   RichContentTheme,
 } from 'wix-rich-content-common';
@@ -24,22 +19,6 @@ export interface PluginProps {
   editorCommands: unknown;
   updateAttributes: (data: unknown) => null;
 }
-
-export type TiptapAPI = {
-  blur: () => void;
-  focus: () => void;
-  getEditorCommands: () => EditorCommands;
-  getToolbars: () => {
-    MobileToolbar?: ElementType;
-    TextToolbar?: ElementType;
-  };
-  getToolbarProps: (type: ToolbarType) => {
-    buttons?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-    context?: EditorContextType;
-    pubsub?: Pubsub;
-  }; // to be deprecated
-  destroy: Editor['destroy'];
-};
 
 export interface RicosTiptapEditorProps {
   content: JSONContent;

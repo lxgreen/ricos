@@ -3,15 +3,12 @@ import type { Node as ProseMirrorNode } from 'prosemirror-model';
 import type { ElementType } from 'react';
 import type {
   DraftContent,
-  EditorCommands,
-  EditorContextType,
-  Pubsub,
-  ToolbarType,
   TranslationFunction,
   RichContentTheme,
   EditorStyleClasses,
 } from 'wix-rich-content-common';
 import type { Extensions } from './models/Extensions';
+import type { RicosEditorAPI } from 'ricos-types';
 // import type { RicosExtension } from 'ricos-tiptap-types';
 
 export interface PluginProps {
@@ -26,21 +23,13 @@ export interface PluginProps {
   updateAttributes: (data: unknown) => null;
 }
 
-export type TiptapAPI = {
-  blur: () => void;
-  focus: () => void;
-  getEditorCommands: () => EditorCommands;
+export interface TiptapAPI extends RicosEditorAPI {
   getToolbars: () => {
     MobileToolbar?: ElementType;
     TextToolbar?: ElementType;
   };
-  getToolbarProps: (type: ToolbarType) => {
-    buttons?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-    context?: EditorContextType;
-    pubsub?: Pubsub;
-  }; // to be deprecated
   destroy: Editor['destroy'];
-};
+}
 
 export interface RicosTiptapEditorProps {
   content: JSONContent;

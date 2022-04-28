@@ -1,4 +1,12 @@
-import type { ComponentData, BICallbacks } from '.';
+import type {
+  ComponentData,
+  BICallbacks,
+  DraftContent,
+  EditorContextType,
+  Pubsub,
+  ToolbarType,
+  EditorCommands,
+} from '.';
 import type { CSSProperties } from 'react';
 import type { EditorState } from 'draft-js';
 import type { OnPluginAction } from './pluginsBiCallbacksTypes';
@@ -84,3 +92,32 @@ export const DRAFT_TO_DOC_TYPE_WITH_LISTS = {
   'ordered-list-item': 'paragraph',
   'unordered-list-item': 'paragraph',
 };
+
+export interface RicosEditorAPI {
+  focus(): void;
+  blur(): void;
+  getContent(
+    postId?: string,
+    forPublish?: boolean,
+    shouldRemoveErrorBlocks?: boolean
+  ): Promise<DraftContent>;
+  getContentPromise({
+    flush,
+    publishId,
+  }?: {
+    flush?: boolean | undefined;
+    publishId?: string | undefined;
+  }): Promise<DraftContent>;
+  getContentTraits(): {
+    isEmpty: boolean;
+    isContentChanged: boolean;
+    isLastChangeEdit: boolean;
+  };
+  getToolbarProps(type: ToolbarType): {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    buttons: any;
+    context: EditorContextType;
+    pubsub: Pubsub;
+  };
+  getEditorCommands(): EditorCommands;
+}

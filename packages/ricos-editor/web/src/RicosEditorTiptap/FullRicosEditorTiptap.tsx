@@ -10,13 +10,13 @@ import type { Node } from 'prosemirror-model';
 import FloatingAddPluginMenu from '../toolbars/FloatingAddPluginMenu';
 import { ModalService, ModalContextProvider } from 'ricos-modals';
 import { getLangDir } from 'wix-rich-content-common';
+import type { RichContentAdapter } from 'wix-tiptap-editor';
 
 class FullRicosEditorTiptap extends React.Component<RicosEditorProps> implements RicosEditorRef {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editor: any;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  editorAdapter: any;
+  editorAdapter!: RichContentAdapter;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   toolbarContext: any;
@@ -28,37 +28,35 @@ class FullRicosEditorTiptap extends React.Component<RicosEditorProps> implements
   constructor(props) {
     super(props);
     this.editor = null;
-    this.editorAdapter = null;
     this.modalService = new ModalService();
   }
 
-  focus(): void {
-    throw new Error('Method not implemented.');
-  }
-
-  blur(): void {
-    throw new Error('Method not implemented.');
-  }
-
-  getContent: RicosEditorRef['getContent'] = () => {
-    throw new Error('Method not implemented.');
+  focus: RicosEditorRef['focus'] = () => {
+    this.editorAdapter.focus();
   };
 
-  getContentPromise: RicosEditorRef['getContentPromise'] = () => {
-    throw new Error('Method not implemented.');
+  blur: RicosEditorRef['blur'] = () => {
+    this.editorAdapter.blur();
+  };
+
+  getContent: RicosEditorRef['getContent'] = (postId, forPublish) => {
+    return this.editorAdapter.getContent(postId, forPublish);
+  };
+
+  getContentPromise: RicosEditorRef['getContentPromise'] = ({ flush, publishId } = {}) => {
+    return this.editorAdapter.getContentPromise({ flush, publishId });
   };
 
   getContentTraits: RicosEditorRef['getContentTraits'] = () => {
-    throw new Error('Method not implemented.');
+    return this.editorAdapter.getContentTraits();
   };
 
-  // @ts-ignore
-  getToolbarProps: RicosEditorRef['getToolbarProps'] = () => {
-    return { buttons: {} };
+  getToolbarProps: RicosEditorRef['getToolbarProps'] = type => {
+    return this.editorAdapter.getToolbarProps(type);
   };
 
   getEditorCommands: RicosEditorRef['getEditorCommands'] = () => {
-    throw new Error('Method not implemented.');
+    return this.editorAdapter.getEditorCommands();
   };
 
   getToolbarContext() {
