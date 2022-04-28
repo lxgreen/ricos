@@ -8,7 +8,7 @@ import {
 } from 'wix-rich-content-editor-common';
 import { InsertPluginIcon } from '../icons';
 import type { CreateInsertButtons, TranslationFunction } from 'wix-rich-content-common';
-import tableSettingsModal from './tableSettingsModal';
+import tableInsertModal from './tableInsertModal';
 import {
   DesktopFlyOutModalStyles,
   externalPopupStyles,
@@ -35,7 +35,7 @@ const createInsertButtons: CreateInsertButtons = ({
     isActive: () => false,
     isDisabled: () => false,
     componentData: getDefaultsSettings(),
-    modalElement: decorateComponentWithProps(tableSettingsModal, { ...settings, isMobile }),
+    modalElement: decorateComponentWithProps(tableInsertModal, { ...settings, isMobile }),
   };
   return [
     {

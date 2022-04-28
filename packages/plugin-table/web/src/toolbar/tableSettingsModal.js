@@ -24,17 +24,9 @@ export default class tableSettingsModal extends Component {
     const { colCount, rowCount, submittedInvalidCol, submittedInvalidRow, invalidCellNum } =
       this.state;
     if (!invalidCellNum && colCount && rowCount && !submittedInvalidCol && !submittedInvalidRow) {
-      const { componentData, pubsub, onConfirm, helpers } = this.props;
+      const { onTableAdd } = this.props;
       const { config } = getDefaultsSettings(parseInt(rowCount), parseInt(colCount));
-      if (onConfirm) {
-        onConfirm({
-          ...componentData,
-          config,
-        });
-      } else {
-        pubsub.update('componentData', { config });
-      }
-      helpers.closeModal();
+      onTableAdd({ config });
     }
   };
 
@@ -67,14 +59,14 @@ export default class tableSettingsModal extends Component {
     const { styles } = this;
     const { colCount, rowCount, submittedInvalidCol, submittedInvalidRow, invalidCellNum } =
       this.state;
-    const { isMobile, helpers, t } = this.props;
+    const { isMobile, closeModal, t, theme } = this.props;
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div onKeyUp={this.onKeyUp} className={isMobile ? styles.settings_mobile_container : null}>
         {isMobile && (
           <SettingsMobileHeader
-            theme={this.props.theme}
-            onCancel={helpers.closeModal}
+            theme={theme}
+            onCancel={closeModal}
             t={t}
             title={t('TablePlugin_MobileHeader')}
             useNewSettingsUi
@@ -86,7 +78,7 @@ export default class tableSettingsModal extends Component {
         <div className={styles.tableConfig}>
           <TableSettingsCountSection
             title={t('TablePlugin_SettingsModal_ColCount')}
-            theme={this.props.theme}
+            theme={theme}
             input={colCount}
             onCountChange={this.onColCountChange}
             error={
@@ -98,7 +90,7 @@ export default class tableSettingsModal extends Component {
           />
           <TableSettingsCountSection
             title={t('TablePlugin_SettingsModal_RowCount')}
-            theme={this.props.theme}
+            theme={theme}
             input={rowCount}
             onCountChange={this.onRowCountChange}
             error={
@@ -128,8 +120,7 @@ tableSettingsModal.propTypes = {
   componentData: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   t: PropTypes.func,
-  pubsub: PropTypes.object,
-  onConfirm: PropTypes.func,
-  helpers: PropTypes.object,
   isMobile: PropTypes.bool,
+  closeModal: PropTypes.func,
+  onTableAdd: PropTypes.func,
 };
