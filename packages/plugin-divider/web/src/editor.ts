@@ -6,6 +6,7 @@ import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createDividerData } from './createDividerData';
 import { createTiptapExtensions } from './tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { getAddButtons } from './getAddButtons';
 
 export const pluginDivider: EditorPluginCreator<DividerPluginEditorConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };
@@ -16,5 +17,6 @@ export const pluginDivider: EditorPluginCreator<DividerPluginEditorConfig> = con
     ModalsMap: {},
     createPluginData: createDividerData,
     tiptapExtensions: createTiptapExtensions(pluginConfig),
+    addButtons: getAddButtons(),
   } as TiptapEditorPlugin;
 };

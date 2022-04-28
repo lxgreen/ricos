@@ -89,6 +89,9 @@ import type {
   CollapsibleListData,
 } from 'ricos-schema';
 import { LinkData, Node_Type, Decoration_Type } from 'ricos-schema';
+import type { EditorCommands } from './editorCommandsType';
+import type { ModalConfig } from './modalTypes';
+
 export { Node_Type, Decoration_Type, LinkData };
 
 export type CreatePluginData<PluginData> = (
@@ -230,13 +233,26 @@ interface BasePluginConfig {
   theme?: ThemeGeneratorFunction;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type MenuConfig = {
+  group?: 'basic' | 'advanced' | 'embed' | 'embed_wix';
+  tags?: string;
+};
+
+export type AddButton = {
+  icon: ComponentType;
+  command: (editorCommands: EditorCommands) => boolean;
+  modal?: ModalConfig;
+  label?: string;
+  tooltip?: string;
+  menuConfig?: MenuConfig;
+};
 export interface EditorPlugin<PluginConfig extends EditorPluginConfig = Record<string, any>>
   extends BasePluginConfig {
   config: PluginConfig;
   createPlugin?: CreatePluginFunction<PluginConfig>;
   ModalsMap?: ModalsMap;
   createPluginData?: CreatePluginData<PluginConfig>;
+  addButtons?: AddButton[];
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import { debounce } from 'lodash';
 import { GIPHY_TYPE } from '../types';
 
-export default class GiphyApiInputModal extends Component {
+class GiphyApiInputModal extends Component {
   constructor(props) {
     super(props);
     this.styles = mergeStyles({ styles, theme: props.theme });
@@ -19,7 +19,7 @@ export default class GiphyApiInputModal extends Component {
 
   triggerBi = debounce(() => {
     const { helpers, toolbarName } = this.props;
-    helpers.onPluginAction('searchInsideThePlugin', {
+    helpers?.onPluginAction('searchInsideThePlugin', {
       searchTerm: this.state.searchTag,
       plugin_id: GIPHY_TYPE,
       entry_point: toolbarName,
@@ -31,26 +31,21 @@ export default class GiphyApiInputModal extends Component {
     this.triggerBi();
   };
 
-  onCloseRequested = () => {
-    this.setState({ isOpen: false });
-    this.props.helpers.closeModal();
-  };
-
   handleClearText = () => {
     this.setState({ searchTag: '' });
   };
 
   render() {
     const { styles } = this;
-    const { t, isMobile, languageDir } = this.props;
+    const { onGifAdd, t, isMobile, languageDir, theme, onCloseRequested } = this.props;
     const searchTag = this.state.searchTag;
 
     return (
       <div dir={languageDir} className={isMobile ? styles.gif_modal_mobile_container : null}>
         {isMobile && (
           <SettingsMobileHeader
-            theme={this.props.theme}
-            onCancel={this.onCloseRequested}
+            theme={theme}
+            onCancel={onCloseRequested}
             t={t}
             title={t('GIFPlugin_Mobile_Header')}
             useNewSettingsUi
@@ -65,7 +60,7 @@ export default class GiphyApiInputModal extends Component {
         >
           <TextSearchInput
             inputRef={ref => (this.input = ref)}
-            onClose={this.onCloseRequested}
+            onClose={onCloseRequested}
             placeHolder={t('GiphyUploadModal_Search_Placeholder')}
             onChange={this.onChange}
             value={this.state.searchTag}
@@ -73,7 +68,8 @@ export default class GiphyApiInputModal extends Component {
           />
           <GiphySelector
             searchTag={searchTag}
-            onCloseRequested={this.onCloseRequested}
+            onCloseRequested={onCloseRequested}
+            onGifAdd={onGifAdd}
             {...this.props}
           />
         </div>
@@ -83,12 +79,14 @@ export default class GiphyApiInputModal extends Component {
 }
 
 GiphyApiInputModal.propTypes = {
-  onChange: PropTypes.func,
   helpers: PropTypes.object.isRequired,
-  searchTag: PropTypes.string,
   theme: PropTypes.object.isRequired,
   t: PropTypes.func,
   isMobile: PropTypes.bool,
   languageDir: PropTypes.string,
   toolbarName: PropTypes.string,
+  onGifAdd: PropTypes.func,
+  onCloseRequested: PropTypes.func,
 };
+
+export default GiphyApiInputModal;

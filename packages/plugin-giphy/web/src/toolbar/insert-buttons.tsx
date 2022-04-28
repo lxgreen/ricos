@@ -12,7 +12,7 @@ import {
   decorateComponentWithProps,
   getBottomToolbarModalStyles,
 } from 'wix-rich-content-editor-common';
-import GiphyApiInputModal from './giphyApiInputModal';
+import GiphyInsertModal from './giphyInsertModal';
 import { InsertPluginIcon } from '../icons';
 import type { CreateInsertButtons, TranslationFunction } from 'wix-rich-content-common';
 import type { GiphyPluginEditorConfig } from '../types';
@@ -51,7 +51,7 @@ const createInsertButtons: CreateInsertButtons = ({
     tooltip: t('GiphyPlugin_InsertButton_Tooltip'),
     getIcon: () => icon,
     componentData: settings.componentDataDefaults || DEFAULTS,
-    modalElement: decorateComponentWithProps(GiphyApiInputModal, settings),
+    modalElement: decorateComponentWithProps(GiphyInsertModal, settings),
   };
 
   return [

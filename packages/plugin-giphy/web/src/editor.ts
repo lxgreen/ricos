@@ -7,6 +7,7 @@ import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createGiphyData } from './createGiphyData';
 import { createRicosExtensions } from './tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { getAddButtons } from './getAddButtons';
 
 export const pluginGiphy: EditorPluginCreator<GiphyPluginEditorConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };
@@ -17,5 +18,6 @@ export const pluginGiphy: EditorPluginCreator<GiphyPluginEditorConfig> = config 
     ModalsMap,
     createPluginData: createGiphyData,
     tiptapExtensions: createRicosExtensions(pluginConfig),
+    addButtons: getAddButtons(config),
   } as TiptapEditorPlugin;
 };
