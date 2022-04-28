@@ -1,10 +1,10 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable max-len */
 import React from 'react';
-import { version } from '../package.json';
-import type { RicosEditorProps, DraftEditorSettings } from './index';
-import { RicosEditor } from './RicosEditor';
-import type { RicosEditor as RicosEditorType } from './RicosEditor';
+import { version } from '../../package.json';
+import type { RicosEditorProps, DraftEditorSettings } from '../index';
+import { RicosEditor } from '../RicosEditor';
+import type { RicosEditor as RicosEditorType } from '../RicosEditor';
 import { RichContentEditor } from 'wix-rich-content-editor';
 import type { BICallbacks, InlineStyle } from 'wix-rich-content-common';
 import {
@@ -26,21 +26,21 @@ import {
   TEXT_HIGHLIGHT_TYPE,
   ToolbarType,
 } from 'wix-rich-content-common';
-import introState from '../../../../e2e/tests/fixtures/intro.json';
-import { pluginHashtag, HASHTAG_TYPE } from '../../../plugin-hashtag/web/src';
-import { pluginDivider, DIVIDER_TYPE } from '../../../plugin-divider/web/src';
-import { pluginGiphy, GIPHY_TYPE } from '../../../plugin-giphy/web/src';
-import { pluginHtml, HTML_TYPE } from '../../../plugin-html/web/src';
-import { pluginGallery, GALLERY_TYPE } from '../../../plugin-gallery/web/src';
-import { pluginPoll, POLL_TYPE } from '../../../plugin-social-polls/web/src';
-import { pluginVideo, VIDEO_TYPE } from '../../../plugin-video/web/src';
-import { pluginFileUpload, FILE_UPLOAD_TYPE } from '../../../plugin-file-upload/web/src';
-import { pluginImage, IMAGE_TYPE } from '../../../plugin-image/web/src';
-import { pluginLink, LINK_TYPE } from '../../../plugin-link/web/src';
-import { pluginMentions, MENTION_TYPE } from '../../../plugin-mentions/web/src';
-import { pluginSpoiler, SPOILER_TYPE } from '../../../plugin-spoiler/web/src';
-import { pluginTextColor, pluginTextHighlight } from '../../../plugin-text-color/web/src';
-import { colorScheme } from '../../../../examples/main/src/text-color-style-fn';
+import introState from '../../../../../e2e/tests/fixtures/intro.json';
+import { pluginHashtag, HASHTAG_TYPE } from '../../../../plugin-hashtag/web/src';
+import { pluginDivider, DIVIDER_TYPE } from '../../../../plugin-divider/web/src';
+import { pluginGiphy, GIPHY_TYPE } from '../../../../plugin-giphy/web/src';
+import { pluginHtml, HTML_TYPE } from 'wix-rich-content-plugin-html/src';
+import { pluginGallery, GALLERY_TYPE } from 'wix-rich-content-plugin-gallery/src';
+import { pluginPoll, POLL_TYPE } from '../../../../plugin-social-polls/web/src';
+import { pluginVideo, VIDEO_TYPE } from 'wix-rich-content-plugin-video/src';
+import { pluginFileUpload, FILE_UPLOAD_TYPE } from '../../../../plugin-file-upload/web/src';
+import { pluginImage, IMAGE_TYPE } from 'wix-rich-content-plugin-image/src';
+import { pluginLink, LINK_TYPE } from '../../../../plugin-link/web/src';
+import { pluginMentions, MENTION_TYPE } from '../../../../plugin-mentions/web/src';
+import { pluginSpoiler, SPOILER_TYPE } from '../../../../plugin-spoiler/web/src';
+import { pluginTextColor, pluginTextHighlight } from 'wix-rich-content-plugin-text-color/src';
+import { colorScheme } from '../../../../../examples/main/src/text-color-style-fn';
 
 import { convertNodeDataToDraft } from 'ricos-content/libs/toDraftData';
 import {
@@ -51,11 +51,10 @@ import {
   pluginsTestConfig,
   decorationsTestConfig,
   contentWithDocumentStyleTest,
-} from './utils/editorCommandsTestsUtil';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+} from '../utils/editorCommandsTestsUtil';
+import { shallow, mount } from 'enzyme';
 import { default as hebResource } from 'wix-rich-content-common/dist/statics/locale/messages_he.json';
-import { RICOS_FONT_SIZE_TYPE } from '../../../common/web/src';
+import { RICOS_FONT_SIZE_TYPE } from 'wix-rich-content-common/src';
 import { getEmptyDraftContent } from 'wix-rich-content-editor-common';
 
 const expectedPluginsList = [
@@ -105,9 +104,6 @@ jest.mock('react-modal', () => {
   };
   return TestReactModal;
 });
-
-Enzyme.configure({ adapter: new Adapter() });
-const { shallow, mount } = Enzyme;
 
 const configs = {
   textColor: {

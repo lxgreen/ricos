@@ -77,7 +77,8 @@
       "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js",
       "^draft-js$": "<rootDir>/../../../node_modules/@wix/draft-js",
       "^draft-js/": "<rootDir>/../../../node_modules/@wix/draft-js/"
-    }
+    },
+    "setupFilesAfterEnv": ["./setupTests.js"]
   },
   "unpkg": true,
   "publishConfig": {
