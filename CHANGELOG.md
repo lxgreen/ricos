@@ -32,6 +32,7 @@
 
 - `audio`
   - [#3772](https://github.com/wix/ricos/pull/3772) add settings footer buttons
+  - [#3790](https://github.com/wix/ricos/pull/3790) mobile native loader (mobile forward comptability)
 - `ricos-editor`
   - [#3784](https://github.com/wix/ricos/pull/3784) RicosEditorRef
 
