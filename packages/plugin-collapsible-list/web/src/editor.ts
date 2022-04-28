@@ -7,6 +7,7 @@ import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createCollapsibleListData } from './createCollapsibleListData';
 import { createRicosExtensions } from './tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { getAddButtons } from './getAddButtons';
 
 export const pluginCollapsibleList: EditorPluginCreator<
   CollapsibleListPluginEditorConfig
@@ -19,5 +20,6 @@ export const pluginCollapsibleList: EditorPluginCreator<
     ModalsMap,
     createPluginData: createCollapsibleListData,
     tiptapExtensions: createRicosExtensions(pluginConfig),
+    addButtons: getAddButtons(),
   } as TiptapEditorPlugin;
 };
