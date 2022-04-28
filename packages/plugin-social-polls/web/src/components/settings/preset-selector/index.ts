@@ -1,1 +1,1 @@
-export * from './PollPresetSelector';
+export * from './PollPresetSelectorModal';

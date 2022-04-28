@@ -41,6 +41,7 @@
     "react-infinite-scroller": "^1.2.4",
     "react-modal": "~3.4.1",
     "ricos-content": "8.71.4",
+    "ricos-modals": "8.71.4",
     "ricos-tiptap-types": "8.71.4",
     "wix-rich-content-common": "8.71.4",
     "wix-rich-content-editor-common": "8.71.4",

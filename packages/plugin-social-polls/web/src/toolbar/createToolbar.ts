@@ -12,7 +12,7 @@ import { TABS } from '../components/settings';
 import { DEFAULT_COMPONENT_DATA, MEMBER_ROLES } from '../defaults';
 import { InsertPluginIcon } from '../assets/icons';
 import { Modals } from '../modals';
-import { PollPresetSelector } from '../components/settings/preset-selector';
+import { PollPresetSelectorModal } from '../components/settings/preset-selector';
 import type { ModalStyles, CreatePluginToolbar } from 'wix-rich-content-common';
 import { merge } from 'lodash';
 import { POLL_TYPE } from '../types';
@@ -82,7 +82,7 @@ export const createToolbar: CreatePluginToolbar = ({ isMobile, settings, t }) =>
     tooltip: t('Poll_InsertPoll_Tooltip'),
     getIcon: () => InsertPluginIcon,
     componentData,
-    modalElement: decorateComponentWithProps(PollPresetSelector, {
+    modalElement: decorateComponentWithProps(PollPresetSelectorModal, {
       componentData,
       pluginId: POLL_TYPE,
     }),

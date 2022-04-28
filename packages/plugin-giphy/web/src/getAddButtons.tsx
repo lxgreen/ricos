@@ -3,6 +3,7 @@ import { INSERT_PLUGIN_BUTTONS, decorateComponentWithProps } from 'wix-rich-cont
 import type { AddButton } from 'ricos-types';
 import { DEFAULTS } from './constants';
 import InsertModal from './modals/InsertModal';
+import { gifModals } from './types';
 
 export const getAddButtons = (config): AddButton[] => {
   return [
@@ -12,7 +13,7 @@ export const getAddButtons = (config): AddButton[] => {
       tooltip: 'GiphyPlugin_InsertButton_Tooltip',
       command: editorCommands => true,
       modal: {
-        id: 'gifModal',
+        id: gifModals.insert,
         Component: decorateComponentWithProps(InsertModal, {
           ...config,
           componentData: DEFAULTS,

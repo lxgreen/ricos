@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { GIPHY_TYPE } from '../types';
+import { GIPHY_TYPE, gifModals } from '../types';
 import { withModalContext } from 'ricos-modals';
 import type { ModalContextValue } from 'ricos-modals';
 import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
@@ -17,7 +17,7 @@ interface Props {
 
 class InsertModal extends Component<Props> {
   closeModal = () => {
-    this.props.context.ModalService?.closeModal('gifModal');
+    this.props.context.ModalService?.closeModal(gifModals.insert);
   };
 
   onGifAdd = gif => {

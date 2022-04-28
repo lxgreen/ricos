@@ -7,6 +7,7 @@ import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createPollData } from './createPollData';
 import { createRicosExtensions } from './tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { getAddButtons } from './getAddButtons';
 
 export const pluginPoll: EditorPluginCreator<PollPluginEditorConfig> = config => {
   const pluginConfig: PollPluginEditorConfig = { ...DEFAULT_COMPONENT_DATA.config, ...config };
@@ -17,5 +18,6 @@ export const pluginPoll: EditorPluginCreator<PollPluginEditorConfig> = config =>
     ModalsMap,
     createPluginData: createPollData,
     tiptapExtensions: createRicosExtensions(pluginConfig),
+    addButtons: getAddButtons(config),
   } as TiptapEditorPlugin;
 };
