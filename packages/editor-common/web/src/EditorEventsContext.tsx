@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { remove } from 'lodash';
+import type { DraftContent } from 'ricos-types';
 
 export const EditorEvents = { PUBLISH: 'plugin:publish', RICOS_PUBLISH: 'ricos:publish' };
 
@@ -12,7 +13,9 @@ export const EditorEventsContext = React.createContext({
   dispatch() {
     return Promise.resolve(true);
   },
-  publish() {},
+  publish() {
+    return Promise.resolve({} as DraftContent);
+  },
 });
 
 export interface EditorEventsProps {
@@ -56,13 +59,13 @@ export class EditorEventsProvider extends React.Component {
     return Promise.all(callbacks.map(cb => cb(data)));
   }
 
-  publish() {
+  publish(): Promise<DraftContent> {
     return this.dispatch(EditorEvents.PUBLISH, undefined).then(() => {
       return this.dispatch(EditorEvents.RICOS_PUBLISH, undefined).then(async publishResponse => {
         const editorResponse = publishResponse.filter(
           ({ type } = {}) => type === 'EDITOR_PUBLISH'
         )[0];
-        return (editorResponse as Record<string, unknown>)?.data;
+        return (editorResponse as Record<string, unknown>)?.data as DraftContent;
       });
     });
   }

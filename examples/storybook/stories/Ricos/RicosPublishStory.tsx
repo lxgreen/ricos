@@ -22,6 +22,7 @@ const RicosPublishStory: FunctionComponent<EditorEventsProps> = ({ editorEvents 
   };
   const isMobile = mobileDetect.mobile() !== null;
   const [content, setContent] = useState('');
+  const [isTiptap, setIsTiptap] = useState(false);
   const { publish } = editorEvents;
 
   return (
@@ -37,8 +38,12 @@ const RicosPublishStory: FunctionComponent<EditorEventsProps> = ({ editorEvents 
         </a>
       </h4>
       <Section>
+        <button style={{ fontSize: 18 }} onClick={() => setIsTiptap(!isTiptap)}>
+          {`use ${isTiptap ? 'Draft' : 'Tiptap'}`}
+        </button>
         <RichContentEditorBox>
           <RicosEditor
+            experiments={{ tiptapEditor: { enabled: isTiptap } }}
             isMobile={isMobile}
             plugins={plugins}
             modalSettings={modalSettings}

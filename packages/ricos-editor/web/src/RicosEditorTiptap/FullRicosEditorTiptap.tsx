@@ -1,5 +1,5 @@
 /* eslint-disable brace-style */
-import React from 'react';
+import React, { forwardRef } from 'react';
 import type { RicosEditorProps } from 'ricos-common';
 import type { RicosEditorRef } from '../RicosEditorRef';
 import { RicosTiptapToolbar, Content, ToolbarContext } from 'wix-rich-content-toolbars-v3';
@@ -11,8 +11,16 @@ import FloatingAddPluginMenu from '../toolbars/FloatingAddPluginMenu';
 import { ModalService, ModalContextProvider } from 'ricos-modals';
 import { getLangDir } from 'wix-rich-content-common';
 import type { RichContentAdapter } from 'wix-tiptap-editor';
+import {
+  EditorEventsContext,
+  EditorEvents,
+} from 'wix-rich-content-editor-common/libs/EditorEventsContext';
+import { publishBI } from '../utils/bi/publish';
 
-class FullRicosEditorTiptap extends React.Component<RicosEditorProps> implements RicosEditorRef {
+export class FullRicosEditorTiptap
+  extends React.Component<RicosEditorProps>
+  implements RicosEditorRef
+{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editor: any;
 
@@ -30,6 +38,25 @@ class FullRicosEditorTiptap extends React.Component<RicosEditorProps> implements
     this.editor = null;
     this.modalService = new ModalService();
   }
+
+  componentDidMount() {
+    this.props.editorEvents?.subscribe(EditorEvents.RICOS_PUBLISH, this.onPublish);
+  }
+
+  componentWillUnmount() {
+    this.props.editorEvents?.unsubscribe(EditorEvents.RICOS_PUBLISH, this.onPublish);
+  }
+
+  onPublish = async () => {
+    const draftContent = this.editorAdapter.getDraftContent();
+    const onPublish = this.props._rcProps?.helpers?.onPublish;
+    publishBI(draftContent, onPublish);
+    console.log('editor publish callback'); // eslint-disable-line
+    return {
+      type: 'EDITOR_PUBLISH',
+      data: await Promise.resolve(draftContent),
+    };
+  };
 
   focus: RicosEditorRef['focus'] = () => {
     this.editorAdapter.focus();
@@ -171,4 +198,8 @@ class FullRicosEditorTiptap extends React.Component<RicosEditorProps> implements
   }
 }
 
-export default FullRicosEditorTiptap;
+export default forwardRef<FullRicosEditorTiptap, RicosEditorProps>((props, ref) => (
+  <EditorEventsContext.Consumer>
+    {contextValue => <FullRicosEditorTiptap editorEvents={contextValue} {...props} ref={ref} />}
+  </EditorEventsContext.Consumer>
+));

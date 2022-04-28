@@ -28,6 +28,8 @@ import {
 import { TO_TIPTAP_TYPE } from '../../consts';
 import type { Editor } from '@tiptap/core';
 import { findNodeById } from '../../helpers';
+import { tiptapToDraft } from 'wix-tiptap-extensions';
+import type { JSONContent } from '@tiptap/react';
 
 export class RichContentAdapter implements TiptapAPI {
   constructor(
@@ -60,6 +62,8 @@ export class RichContentAdapter implements TiptapAPI {
   getContainer = () => {
     return this.editor?.options?.element;
   };
+
+  getDraftContent = () => tiptapToDraft(this.editor.getJSON() as JSONContent);
 
   focus() {
     this.editor.commands.focus();

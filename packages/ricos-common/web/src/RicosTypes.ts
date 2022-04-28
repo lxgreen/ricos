@@ -54,6 +54,7 @@ interface EditorEvents {
   ) => (event: string, callback: () => Promise<{ type: string; data: unknown }>) => void;
   unsubscribe: (event: string, callback: () => Promise<{ type: string; data: unknown }>) => void;
   dispatch: (event: string) => Promise<unknown>;
+  publish: () => Promise<DraftContent>;
 }
 
 export interface RicosEditorProps extends RicosProps {

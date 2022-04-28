@@ -37,6 +37,8 @@
   - [#3784](https://github.com/wix/ricos/pull/3784) RicosEditorRef
 - `ricos-editor`
   - [#3791](https://github.com/wix/ricos/pull/3791) FullRicosEditorTiptap impl RicosEditorRef
+- `ricos-editor`
+  - [#3792](https://github.com/wix/ricos/pull/3792) tiptap publish
 
 </details>
   <hr/>
