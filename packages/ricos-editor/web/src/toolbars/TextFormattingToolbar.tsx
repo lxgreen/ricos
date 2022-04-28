@@ -166,6 +166,7 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
         cssOverride={cssOverride}
         configButtonsOverrides={configButtonsOverrides}
         disabled={disableFormattingToolbar}
+        dataHook={'inlineToolbar'}
       />
     );
     const ToolbarContainer =

@@ -654,9 +654,6 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     const formattingToolbar = document.querySelectorAll(
       `[data-hook=inlineToolbar]`
     )[0] as HTMLElement;
-    const newFormattingToolbar = document.querySelectorAll(
-      `[data-hook="toolbar"]`
-    )[0] as HTMLElement;
     if (pluginToolbar && pluginToolbar.dataset.hook !== 'linkPluginToolbar') {
       const editorState = this.getEditorState();
       const focusedAtomicPluginKey = editorState.getSelection().getFocusKey();
@@ -664,7 +661,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
         .getCurrentContent()
         .getBlockForKey(focusedAtomicPluginKey);
     }
-    const toolbar = pluginToolbar || formattingToolbar || newFormattingToolbar;
+    const toolbar = pluginToolbar || formattingToolbar;
     if (toolbar) {
       const buttonToFocus = toolbar.querySelectorAll('Button')[0] as HTMLElement;
       buttonToFocus.focus();

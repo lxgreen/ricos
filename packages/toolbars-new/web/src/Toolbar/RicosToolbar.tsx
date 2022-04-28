@@ -61,6 +61,7 @@ interface RicosToolbarProps {
   cssOverride?: RicosCssOverride;
   configButtonsOverrides?: any;
   disabled?: boolean;
+  dataHook?: string;
 }
 
 class RicosToolbar extends Component<RicosToolbarProps> {
@@ -112,6 +113,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       cssOverride,
       configButtonsOverrides,
       disabled,
+      dataHook,
     } = this.props;
     const updatedButtons = createButtonsList({
       buttons,
@@ -141,6 +143,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
         onToolbarButtonClick={this.props.onToolbarButtonClick}
         getEditorContainer={getEditorContainer}
         disabled={disabled}
+        dataHook={dataHook}
       />
     );
   }

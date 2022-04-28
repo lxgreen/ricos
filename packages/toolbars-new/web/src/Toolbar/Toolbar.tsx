@@ -39,6 +39,7 @@ interface ToolbarProps {
   onToolbarButtonClick?: any;
   getEditorContainer: () => Element;
   disabled?: boolean;
+  dataHook?: string;
 }
 
 interface State {
@@ -370,13 +371,13 @@ class Toolbar extends Component<ToolbarProps, State> {
   setToolbarRef = ref => (this.toolbarRef = ref);
 
   render() {
-    const { vertical, disabled } = this.props;
+    const { vertical, disabled, dataHook } = this.props;
     const { buttons } = this.state;
 
     // return buttons.map((buttonsWithoutGaps, index) => {
     return (
       <div
-        data-hook="toolbar"
+        data-hook={dataHook || 'toolbar'}
         onKeyDown={this.onKeyDown}
         ref={this.setToolbarRef}
         className={classNames(styles.toolbar, {
