@@ -1,8 +1,27 @@
+@import '~wix-rich-content-common/dist/statics/styles/palette';
+
 .floatingAddPluginMenu_wrapper {
   position: relative;
+  width: 100%;
 }
 
 .floatingAddPluginMenu_button {
   position: absolute;
-  top: 0;
+  padding: 0;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  left: -40px;
+
+  svg {
+    color: $settings-action-color-fallback;
+    fill: $settings-action-color-fallback;
+  }
+  &.floatingAddPluginMenu_button_mobile {
+    left: 0;
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
 }

@@ -17,11 +17,17 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `ricos-editor`
+  - [#3799](https://github.com/wix/ricos/pull/3799) fix add plugin menu position & dir
+
 ### :house: Internal
 
 - `editor-common`
   - [#3806](https://github.com/wix/ricos/pull/3806) RicosContext split from translation handling
   - [#3803](https://github.com/wix/ricos/pull/3803) Modals/Context refactoring
+  
   </details>
   <hr/>
 

@@ -166,7 +166,11 @@ export class FullRicosEditorTiptap
                   content={this.content}
                   editorCommands={this.editor.commandManager}
                 />
-                <FloatingAddPluginMenu editor={this.editor} />
+                <FloatingAddPluginMenu
+                  editor={this.editor}
+                  isMobile={isMobile}
+                  languageDir={getLangDir(locale)}
+                />
               </ToolbarContext.Provider>
             </ModalProvider>
           )}
