@@ -132,7 +132,7 @@
 	"ImageSettings_Spoiler_Toggle": "Alerta de spoiler",
 	"SizeSmallRightButton_Tooltip": "Alinhar à direita",
 	"Emoji_plugin_search_tags": "emoji emoticon gif reação ícone smile símbolo curtir facebook foto imagem like",
-	"FormattingToolbar_TextStyle_Heading_Apply": "Aplicar '{{optionName}}'",
+	"FormattingToolbar_TextStyle_Heading_Apply": "Aplicar \"{{optionName}}\"",
 	"GiphyUploadModal_Search_Placeholder": "Buscar um GIF",
 	"SoundCloudUploadModal_Header": "Adicione uma faixa do SoundCloud",
 	"Poll_PollSettings_Tab_Settings_Section_Results_Header": "Resultados",

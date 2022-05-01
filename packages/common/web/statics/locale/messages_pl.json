@@ -515,7 +515,7 @@
 	"VideoUploadModal_Input_Placeholder": "np. https://youtu.be/6sx-xGiFIjk",
 	"ButtonModal_Size_Section": "Rozmiar",
 	"HtmlEditPanel_Update": "Zapisz",
-	"FormattingToolbar_TextStyle_Paragraph": "Akapit",
+	"FormattingToolbar_TextStyle_Paragraph": "Akapit{{shortcut}}",
 	"LinkTo_Modal_Section_Item_Map": "Mapa",
 	"ItalicButton_Tooltip": "Kursywa",
 	"VideoUploadModal_Title": "Dodaj film",
