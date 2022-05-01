@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `editor-common`
+  - [#3806](https://github.com/wix/ricos/pull/3806) RicosContext split from translation handling
+  - [#3803](https://github.com/wix/ricos/pull/3803) Modals/Context refactoring
   </details>
   <hr/>
 
