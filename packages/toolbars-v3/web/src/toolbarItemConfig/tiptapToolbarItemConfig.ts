@@ -89,7 +89,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
       icon: BoldIcon,
     },
     attributes: {
-      visible: isOnlyTextSelected,
+      visible: alwaysVisibleResolver,
       active: isTextContainsBoldResolver,
     },
     commands: {

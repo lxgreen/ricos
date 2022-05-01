@@ -36,7 +36,7 @@ export const getTiptapExtensions: CreateRicosExtensions = defaultOptions => [
     createExtensionConfig() {
       return {
         name: this.name,
-        inclusive: false,
+
         addOptions: () => ({
           HTMLAttributes: {},
           ...defaultOptions,
