@@ -3,6 +3,7 @@ import { INSERT_PLUGIN_BUTTONS, decorateComponentWithProps } from 'wix-rich-cont
 import InsertModal from './modals/InsertModal';
 import type { AddButton } from 'ricos-types';
 import { getDefaultsSettings } from './tableUtil';
+import { tableModals } from './types';
 
 export const getAddButtons = (): AddButton[] => {
   return [
@@ -12,7 +13,7 @@ export const getAddButtons = (): AddButton[] => {
       tooltip: 'TablePlugin_InsertButton_Tooltip',
       command: editorCommands => true,
       modal: {
-        id: 'tableModal',
+        id: tableModals.insert,
         Component: decorateComponentWithProps(InsertModal, {
           componentData: getDefaultsSettings(),
         }),
