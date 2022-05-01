@@ -11,7 +11,44 @@ import {
   isTextContainsOrderedListResolver,
   isTextContainsUnorderedListResolver,
   isTextContainsSpoilerResolver,
+  isImageSelected,
+  isVideoSelected,
+  isGallerySelected,
+  isDividerSelected,
+  isVerticalEmbedSelected,
+  isSocialEmbedSelected,
+  isMapSelected,
+  isGifSelected,
+  isTableSelected,
+  isCollapsibleListSelected,
+  isButtonSelected,
+  isPollsSelected,
+  isHtmlEmbedSelected,
+  isAudioSelected,
+  isFileSelected,
 } from './tiptapResolvers';
+
+import toCamelCase from 'to-camel-case';
+import { Node_Type } from 'wix-rich-content-common';
+import type { TiptapContentResolver } from '../ContentResolver';
+
+const pluginSelectedResolvers = {
+  [Node_Type.IMAGE]: isImageSelected,
+  [Node_Type.VIDEO]: isVideoSelected,
+  [Node_Type.GALLERY]: isGallerySelected,
+  [Node_Type.FILE]: isFileSelected,
+  [Node_Type.AUDIO]: isAudioSelected,
+  [Node_Type.HTML]: isHtmlEmbedSelected,
+  [Node_Type.POLL]: isPollsSelected,
+  [Node_Type.BUTTON]: isButtonSelected,
+  [Node_Type.COLLAPSIBLE_LIST]: isCollapsibleListSelected,
+  [Node_Type.TABLE]: isTableSelected,
+  [Node_Type.GIF]: isGifSelected,
+  [Node_Type.MAP]: isMapSelected,
+  [Node_Type.EMBED]: isSocialEmbedSelected,
+  [Node_Type.APP_EMBED]: isVerticalEmbedSelected,
+  [Node_Type.DIVIDER]: isDividerSelected,
+};
 
 describe('tiptap resolvers', () => {
   describe('alwaysVisibleResolver', () => {
@@ -148,5 +185,26 @@ describe('tiptap resolvers', () => {
       ];
       expect(isTextContainsSpoilerResolver.resolve(mockContent)).toBe(false);
     });
+  });
+
+  describe('Plugin Selected Resolvers', () => {
+    Object.entries(pluginSelectedResolvers).forEach(
+      ([type, isPluginSelectedResolver]: [Node_Type, TiptapContentResolver]) => {
+        const tiptapPluginType = toCamelCase(type);
+        it(`should return true if ${tiptapPluginType} is selected`, () => {
+          const mockContentWithPlugin: TiptapNode[] = [
+            // @ts-ignore
+            { type: { name: tiptapPluginType } },
+          ];
+          expect(isPluginSelectedResolver.resolve(mockContentWithPlugin)).toBe(true);
+        });
+
+        it(`should return false if ${tiptapPluginType} is not selected`, () => {
+          // @ts-ignore
+          const mockContentWithoutPlugin: TiptapNode[] = [{ type: { name: 'text' } }];
+          expect(isPluginSelectedResolver.resolve(mockContentWithoutPlugin)).toBe(false);
+        });
+      }
+    );
   });
 });

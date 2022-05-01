@@ -222,3 +222,60 @@ export const isOnlyTextSelected = TiptapContentResolver.create('yaronResolverExa
   }
   return false;
 });
+
+const getPluginSelectedResolver = (resolverId: string, tiptapPluginName: string) =>
+  TiptapContentResolver.create(
+    resolverId,
+    content => content.length === 1 && content[0].type.name === tiptapPluginName
+  );
+
+export const isImageSelected = getPluginSelectedResolver(RESOLVERS_IDS.IS_IMAGE_SELECTED, 'image');
+
+export const isVideoSelected = getPluginSelectedResolver(RESOLVERS_IDS.IS_VIDEO_SELECTED, 'video');
+
+export const isGallerySelected = getPluginSelectedResolver(
+  RESOLVERS_IDS.IS_GALLERY_SELECTED,
+  'gallery'
+);
+
+export const isFileSelected = getPluginSelectedResolver(RESOLVERS_IDS.IS_FILE_SELECTED, 'file');
+
+export const isAudioSelected = getPluginSelectedResolver(RESOLVERS_IDS.IS_AUDIO_SELECTED, 'audio');
+
+export const isHtmlEmbedSelected = getPluginSelectedResolver(
+  RESOLVERS_IDS.IS_HTML_EMBED_SELECTED,
+  'html'
+);
+
+export const isPollsSelected = getPluginSelectedResolver(RESOLVERS_IDS.IS_POLLS_SELECTED, 'poll');
+
+export const isButtonSelected = getPluginSelectedResolver(
+  RESOLVERS_IDS.IS_BUTTON_SELECTED,
+  'button'
+);
+
+export const isCollapsibleListSelected = getPluginSelectedResolver(
+  RESOLVERS_IDS.IS_COLLAPSIBLE_LIST_SELECTED,
+  'collapsibleList'
+);
+
+export const isTableSelected = getPluginSelectedResolver(RESOLVERS_IDS.IS_TABLE_SELECTED, 'table');
+
+export const isGifSelected = getPluginSelectedResolver(RESOLVERS_IDS.IS_GIF_SELECTED, 'gif');
+
+export const isMapSelected = getPluginSelectedResolver(RESOLVERS_IDS.IS_MAP_SELECTED, 'map');
+
+export const isSocialEmbedSelected = getPluginSelectedResolver(
+  RESOLVERS_IDS.IS_SOCIAL_EMBED_SELECTED,
+  'embed'
+);
+
+export const isVerticalEmbedSelected = getPluginSelectedResolver(
+  RESOLVERS_IDS.IS_VERTICAL_EMBED_SELECTED,
+  'appEmbed'
+);
+
+export const isDividerSelected = getPluginSelectedResolver(
+  RESOLVERS_IDS.IS_DIVIDER_SELECTED,
+  'divider'
+);
