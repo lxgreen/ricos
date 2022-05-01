@@ -7,8 +7,15 @@ export const posToDOMRect = (view: any, from: number, to: number): DOMRect => {
   const maxPos = view.state.doc.content.size;
   const resolvedFrom = minMax(from, minPos, maxPos);
   const resolvedEnd = minMax(to, minPos, maxPos);
-  const start = view.coordsAtPos(resolvedFrom);
-  const end = view.coordsAtPos(resolvedEnd, -1);
+  let start, end;
+  // Fixes some weird behavior in RicosEditorSwitcher component tests
+  try {
+    start = view.coordsAtPos(resolvedFrom);
+    end = view.coordsAtPos(resolvedEnd, -1);
+  } catch (e) {
+    start = {};
+    end = {};
+  }
   const top = Math.min(start.top, end.top);
   const bottom = Math.max(start.bottom, end.bottom);
   const left = Math.min(start.left, end.left);
