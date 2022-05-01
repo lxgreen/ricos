@@ -128,4 +128,7 @@ export const toolbarItemsRenders = {
   highlightColor: toolbarItem => {
     return <HighlightColorButton toolbarItem={toolbarItem} />;
   },
+  delete: toolbarItem => {
+    return <ToggleButton onClick={e => toolbarItem.commands.delete(e)} toolbarItem={toolbarItem} />;
+  },
 };

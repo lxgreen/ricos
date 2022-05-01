@@ -27,7 +27,9 @@
 - `editor-common`
   - [#3806](https://github.com/wix/ricos/pull/3806) RicosContext split from translation handling
   - [#3803](https://github.com/wix/ricos/pull/3803) Modals/Context refactoring
-  
+- `toolbars-v3`
+  - [#3804](https://github.com/wix/ricos/pull/3804) `tiptapPluginToolbarConfig` and delete atomic nodes action
+
   </details>
   <hr/>
 

@@ -279,3 +279,26 @@ export const isDividerSelected = getPluginSelectedResolver(
   RESOLVERS_IDS.IS_DIVIDER_SELECTED,
   'divider'
 );
+
+const pluginSelectedResolvers = [
+  isImageSelected,
+  isVideoSelected,
+  isGallerySelected,
+  isDividerSelected,
+  isVerticalEmbedSelected,
+  isSocialEmbedSelected,
+  isMapSelected,
+  isGifSelected,
+  isTableSelected,
+  isCollapsibleListSelected,
+  isButtonSelected,
+  isPollsSelected,
+  isHtmlEmbedSelected,
+  isAudioSelected,
+  isFileSelected,
+];
+
+export const isPluginSelectedResolver = TiptapContentResolver.create(
+  RESOLVERS_IDS.IS_PLUGIN_SELECTED,
+  content => pluginSelectedResolvers.some(isPluginSelected => isPluginSelected.resolve(content))
+);

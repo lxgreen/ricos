@@ -6,6 +6,7 @@ import { RicosToolbar } from '../RicosToolbar';
 import { ToolbarItemCreator } from '../ToolbarItemCreator';
 import { toolbarItemsRenders } from '../toolbarItemsRenders';
 import { tiptapStaticToolbarConfig } from '../toolbarItemConfig/tiptapToolbarItemConfig';
+import { tiptapPluginToolbarConfig } from '../toolbarItemConfig/tiptapPluginToolbarItemConfig';
 import type { Node } from 'prosemirror-model';
 interface RicosTiptapToolbarProps {
   content: Content<Node[]>;
@@ -15,13 +16,24 @@ interface RicosTiptapToolbarProps {
 interface RicosTiptapToolbarState {}
 
 class RicosTiptapToolbar extends Component<RicosTiptapToolbarProps, RicosTiptapToolbarState> {
-  toolbar: RicosToolbar | null = null;
+  staticToolbar: RicosToolbar | null = null;
+
+  pluginToolbar: RicosToolbar | null = null;
 
   componentDidMount() {
     const { content, editorCommands } = this.props;
 
-    this.toolbar = RicosToolbar.create({
+    this.staticToolbar = RicosToolbar.create({
       toolbarItemCreators: tiptapStaticToolbarConfig.map(config =>
+        ToolbarItemCreator.create(config)
+      ),
+      content,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      editorCommands,
+    });
+
+    this.pluginToolbar = RicosToolbar.create({
+      toolbarItemCreators: tiptapPluginToolbarConfig.map(config =>
         ToolbarItemCreator.create(config)
       ),
       content,
@@ -34,7 +46,8 @@ class RicosTiptapToolbar extends Component<RicosTiptapToolbarProps, RicosTiptapT
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.editorCommands !== this.props.editorCommands) {
-      this.toolbar?.setEditorCommands(nextProps.editorCommands);
+      this.staticToolbar?.setEditorCommands(nextProps.editorCommands);
+      this.pluginToolbar?.setEditorCommands(nextProps.editorCommands);
     }
   }
 
@@ -42,9 +55,16 @@ class RicosTiptapToolbar extends Component<RicosTiptapToolbarProps, RicosTiptapT
     return (
       <div>
         <div>
-          {this.toolbar && (
+          {this.staticToolbar && (
             <ToolbarComponent
-              toolbar={this.toolbar}
+              toolbar={this.staticToolbar}
+              toolbarItemsRenders={toolbarItemsRenders}
+              isMobile={false}
+            />
+          )}
+          {this.pluginToolbar && (
+            <ToolbarComponent
+              toolbar={this.pluginToolbar}
               toolbarItemsRenders={toolbarItemsRenders}
               isMobile={false}
             />
