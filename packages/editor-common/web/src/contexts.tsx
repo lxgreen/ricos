@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { fetchLocaleResource } from './translations';
-import { RicosTranslate } from 'wix-rich-content-common';
-import type { RicosTheme, EditorCommands, GeneralContext, TranslationFunction } from 'ricos-types';
+import React from 'react';
+import type { EditorCommands, GeneralContext, RicosTheme } from 'ricos-types';
 
 export const RicosContext = React.createContext<GeneralContext>({
   locale: 'en',
@@ -23,52 +21,23 @@ export const RicosContextProvider = ({
   languageDir,
   getEditorCommands,
   theme,
+  t,
 }) => {
-  const [currentLocaleResource, setLocaleResource] = useState<{
-    locale: string;
-    localeResource?: Record<string, string>;
-  }>(
-    null as unknown as {
-      locale: string;
-      localeResource?: Record<string, string>;
-    }
-  );
-
-  // custom hook
-  useEffect(() => {
-    const hanldeLocaleResource = async () => {
-      const localeResource = await fetchLocaleResource(locale);
-      setLocaleResource(localeResource);
-    };
-
-    hanldeLocaleResource();
-  }, []);
-
-  if (!currentLocaleResource) {
-    return <div />;
-  }
   return (
-    <RicosTranslate
-      locale={currentLocaleResource.locale}
-      localeResource={currentLocaleResource.localeResource}
+    <RicosContext.Provider
+      value={{
+        t,
+        locale,
+        localeContent,
+        isMobile,
+        experiments,
+        languageDir,
+        getEditorCommands,
+        theme,
+      }}
     >
-      {(t: TranslationFunction) => (
-        <RicosContext.Provider
-          value={{
-            t,
-            locale: currentLocaleResource.locale,
-            localeContent,
-            isMobile,
-            experiments,
-            languageDir,
-            getEditorCommands,
-            theme,
-          }}
-        >
-          {React.cloneElement(React.Children.only(children))}
-        </RicosContext.Provider>
-      )}
-    </RicosTranslate>
+      {React.cloneElement(React.Children.only(children))}
+    </RicosContext.Provider>
   );
 };
 

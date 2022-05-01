@@ -4,13 +4,13 @@ import React, { forwardRef } from 'react';
 import type { RicosEditorProps } from 'ricos-common';
 import { ModalProvider } from 'ricos-modals';
 import { getLangDir } from 'wix-rich-content-common';
-import { RicosContextProvider } from 'wix-rich-content-editor-common';
 import {
   EditorEvents,
   EditorEventsContext,
 } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
 import { Content, RicosTiptapToolbar, ToolbarContext } from 'wix-rich-content-toolbars-v3';
 import type { RichContentAdapter } from 'wix-tiptap-editor';
+import { LocaleResourceProvider } from '../RicosContext/locale-resource-provider';
 import type { RicosEditorRef } from '../RicosEditorRef';
 import { convertToolbarContext } from '../toolbars/convertToolbarContext';
 import FloatingAddPluginMenu from '../toolbars/FloatingAddPluginMenu';
@@ -148,7 +148,7 @@ export class FullRicosEditorTiptap
     const { isMobile, experiments, locale, localeContent } = this.props;
     const toolbarContext = this.getToolbarContext();
     return (
-      <RicosContextProvider
+      <LocaleResourceProvider
         isMobile={isMobile}
         experiments={experiments}
         locale={locale}
@@ -178,7 +178,7 @@ export class FullRicosEditorTiptap
             }}
           />
         </div>
-      </RicosContextProvider>
+      </LocaleResourceProvider>
     );
   }
 }
