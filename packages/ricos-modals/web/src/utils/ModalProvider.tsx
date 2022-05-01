@@ -17,14 +17,11 @@ export const ModalProvider: FC = ({ children }) => {
       {({ languageDir }) => (
         <>
           {children}
-          {openModals.map(({ id, Component, groups, positioning = {} }) => {
+          {openModals.map(modalConfig => {
             return (
               <ModalPopper
-                key={id}
-                Component={Component}
-                referenceElement={positioning.referenceElement}
-                groups={groups}
-                id={id}
+                key={modalConfig.id}
+                modalConfig={modalConfig}
                 languageDir={languageDir}
               />
             );
