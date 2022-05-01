@@ -1,21 +1,21 @@
 /* eslint-disable brace-style */
+import type { Node } from 'prosemirror-model';
 import React, { forwardRef } from 'react';
 import type { RicosEditorProps } from 'ricos-common';
-import type { RicosEditorRef } from '../RicosEditorRef';
-import { RicosTiptapToolbar, Content, ToolbarContext } from 'wix-rich-content-toolbars-v3';
-import RicosEditorTiptap from './RicosEditorTiptap';
-import { convertToolbarContext } from '../toolbars/convertToolbarContext';
-import { RicosContextProvider } from '../RicosContext/RicosContext';
-import type { Node } from 'prosemirror-model';
-import FloatingAddPluginMenu from '../toolbars/FloatingAddPluginMenu';
-import { ModalService, ModalContextProvider } from 'ricos-modals';
+import { ModalProvider } from 'ricos-modals';
 import { getLangDir } from 'wix-rich-content-common';
-import type { RichContentAdapter } from 'wix-tiptap-editor';
+import { RicosContextProvider } from 'wix-rich-content-editor-common';
 import {
-  EditorEventsContext,
   EditorEvents,
+  EditorEventsContext,
 } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
+import { Content, RicosTiptapToolbar, ToolbarContext } from 'wix-rich-content-toolbars-v3';
+import type { RichContentAdapter } from 'wix-tiptap-editor';
+import type { RicosEditorRef } from '../RicosEditorRef';
+import { convertToolbarContext } from '../toolbars/convertToolbarContext';
+import FloatingAddPluginMenu from '../toolbars/FloatingAddPluginMenu';
 import { publishBI } from '../utils/bi/publish';
+import RicosEditorTiptap from './RicosEditorTiptap';
 
 export class FullRicosEditorTiptap
   extends React.Component<RicosEditorProps>
@@ -31,12 +31,10 @@ export class FullRicosEditorTiptap
 
   content = Content.create<Node[]>([]);
 
-  modalService: ModalService;
-
   constructor(props) {
     super(props);
     this.editor = null;
-    this.modalService = new ModalService();
+    this.getEditorCommands = this.getEditorCommands.bind(this);
   }
 
   componentDidMount() {
@@ -113,25 +111,10 @@ export class FullRicosEditorTiptap
       cssOverride,
       contentId: '',
       t: this.editorAdapter?.getT?.(),
-      getEditorCommands: () => this.editorAdapter.getEditorCommands(),
+      getEditorCommands: this.getEditorCommands,
     });
 
     return toolbarContext;
-  }
-
-  getModalContext() {
-    const { theme, experiments, isMobile, _rcProps, locale } = this.props;
-    const helpers = _rcProps?.helpers;
-    return {
-      ModalService: this.modalService,
-      experiments,
-      getEditorCommands: () => this.editorAdapter.getEditorCommands(),
-      t: this.editorAdapter?.getT?.(),
-      helpers,
-      theme,
-      isMobile,
-      languageDir: getLangDir(locale),
-    };
   }
 
   onSelectionUpdate = ({ editor }) => {
@@ -164,17 +147,19 @@ export class FullRicosEditorTiptap
   render() {
     const { isMobile, experiments, locale, localeContent } = this.props;
     const toolbarContext = this.getToolbarContext();
-    const modalContext = this.getModalContext();
     return (
       <RicosContextProvider
         isMobile={isMobile}
         experiments={experiments}
         locale={locale}
         localeContent={localeContent}
+        languageDir={getLangDir(locale)}
+        getEditorCommands={this.getEditorCommands}
+        theme={this.props.theme}
       >
         <div>
           {this.editor && (
-            <ModalContextProvider {...modalContext}>
+            <ModalProvider>
               {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               <ToolbarContext.Provider value={toolbarContext as any}>
                 <RicosTiptapToolbar
@@ -183,7 +168,7 @@ export class FullRicosEditorTiptap
                 />
                 <FloatingAddPluginMenu editor={this.editor} />
               </ToolbarContext.Provider>
-            </ModalContextProvider>
+            </ModalProvider>
           )}
           <RicosEditorTiptap
             {...this.props}

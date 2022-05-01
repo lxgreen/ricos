@@ -39,10 +39,10 @@ export class FunctionalExtension implements IFunctionalExtension {
     if (!isRicosFunctionalExtension(extension)) {
       throw new TypeError('invalid argument');
     }
-    this.config = config || {
-      ...extension.createExtensionConfig({ mergeAttributes }),
-      type: 'extension',
-    };
+    // omit addKeyboardShortcuts
+    const { addKeyboardShortcuts: _, ...rest } =
+      config || extension.createExtensionConfig({ mergeAttributes });
+    this.config = { ...rest, type: 'extension' };
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
     this.groups = extension.groups || [];

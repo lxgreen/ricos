@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
-import { withModalContext } from 'ricos-modals';
-import type { ModalContextValue } from 'ricos-modals';
 import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
+import type { ModalContextValue } from 'ricos-modals';
+import { withModalContext } from 'ricos-modals';
+import type { GeneralContext } from 'ricos-types';
+import { withRicosContext } from 'wix-rich-content-editor-common';
+import { pollModals, POLL_TYPE } from '../../types';
 import { PollPresetSelector } from '../settings/preset-selector/PollPresetSelector.jsx';
-import { POLL_TYPE, pollModals } from '../../types';
 
 interface Props {
   context: ModalContextValue;
+  ricosContext: GeneralContext;
   giphySdkApiKey: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  componentData: Record<string, any>;
+  componentData: Record<string, unknown>;
 }
 
 class InsertModal extends Component<Props> {
   closeModal = () => {
-    this.props.context.ModalService?.closeModal(pollModals.insert);
+    this.props.context.modalService.closeModal(pollModals.insert);
   };
 
   onPollAdd = poll => {
     const {
-      context: { getEditorCommands },
+      ricosContext: { getEditorCommands },
     } = this.props;
     const editorCommands = getEditorCommands();
     const data = convertBlockDataToRicos(POLL_TYPE, poll);
@@ -30,7 +32,7 @@ class InsertModal extends Component<Props> {
   render() {
     const {
       componentData,
-      context: { theme, t, isMobile },
+      ricosContext: { theme, t, isMobile },
     } = this.props;
     return (
       <PollPresetSelector
@@ -45,4 +47,4 @@ class InsertModal extends Component<Props> {
   }
 }
 
-export default withModalContext(InsertModal);
+export default withRicosContext()(withModalContext(InsertModal));

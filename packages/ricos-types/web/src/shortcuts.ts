@@ -1,6 +1,5 @@
 import type { EditorCommands } from './editorCommandsType';
-
-export type ShortcutContext = 'formatting' | 'add-plugin' | 'plugin-settings';
+import type { BasicKeyCombination } from './key-types';
 
 /**
  * Keyboard shortcut configuration
@@ -10,12 +9,37 @@ export type ShortcutContext = 'formatting' | 'add-plugin' | 'plugin-settings';
  */
 export interface KeyboardShortcut {
   /**
-   * The shortcut keys like Ctrl+B
+   * Shortcut identifier, used as localized display data
    *
    * @type {string}
    * @memberof KeyboardShortcut
    */
-  keys: string; // TODO: implement Keys as refined string allowing certain combinations like 'ctrl+m'
+  name: string;
+  /**
+   * Shortcut description, used as localized display data
+   *
+   * @type {string}
+   * @memberof KeyboardShortcut
+   */
+  description: string;
+  /**
+   * Shortcut group (context), used both as grouping key and localized display data
+   *
+   * @type {string}
+   * @memberof KeyboardShortcut
+   */
+  group: string;
+  /**
+   * The shortcut keys like Control+B
+   * Limited up to 2 modifiers and single Latin/number/some special character key
+   *
+   * The key names based on standard Web KeyboardEvent.key values:
+   * https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
+   *
+   * @type {BasicKeyCombination}
+   * @memberof KeyboardShortcut
+   */
+  keys: BasicKeyCombination;
   /**
    * Command for execution
    *
@@ -23,19 +47,12 @@ export interface KeyboardShortcut {
    */
   command: (commands: EditorCommands) => void; // TODO: define return value type
   /**
-   * Contexts the shortcut is relevant to
-   *
-   * @type {ShortcutContext[]}
-   * @memberof KeyboardShortcut
-   */
-  contexts: ShortcutContext[];
-  /**
    * Textual representation of key combination like 'Ctrl+B' or '⌘ B' (optional)
    *
    * @type {string}
    * @memberof KeyboardShortcut
    */
-  tooltipHint?: string;
+  keyCombinationText?: string;
   /**
    * Enables shortcut
    *

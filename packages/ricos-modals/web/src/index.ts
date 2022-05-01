@@ -1,5 +1,5 @@
-export { ModalService } from './ModalService';
+export { RicosModalService } from './ModalService';
 export { ModalContext } from './utils/ModalContext';
-export { ModalContextProvider } from './utils/ModalContextProvider';
+export { ModalProvider } from './utils/ModalProvider';
 export { withModalContext } from './utils/withModalContext';
 export type { ModalContextValue } from './types';

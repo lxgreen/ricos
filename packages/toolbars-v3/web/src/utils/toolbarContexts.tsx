@@ -7,8 +7,9 @@ import type {
   EditorCommands,
   EditorPlugin,
   LinkPanelSettings,
+  RicosTheme,
 } from 'ricos-types';
-import type { LinkSettings, ToolbarSettings, RicosCssOverride, RicosTheme } from 'ricos-common';
+import type { LinkSettings, ToolbarSettings, RicosCssOverride } from 'ricos-common';
 
 export type ToolbarContextType = {
   contentId: string;

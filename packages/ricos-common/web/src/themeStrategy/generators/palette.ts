@@ -1,7 +1,7 @@
-import type { PaletteColors } from 'ricos-types';
+import type { RicosTheme, PaletteColors, PaletteConfig } from 'ricos-types';
 import { adaptForeground, toRgbTuple, toHexFormat } from '../themeUtils';
 import { presets, assertWixPalette, COLORS, isRicosPalette, getColorValue } from '../palettes';
-import type { RicosTheme, CssVarsObject, PaletteConfig } from '../themeTypes';
+import type { CssVarsObject } from '../themeTypes';
 
 const createCssVars = (colors: PaletteColors, config?: PaletteConfig): CssVarsObject => {
   const { contentBgColor = false, focusActionColor, settingsActionColor } = config || {};

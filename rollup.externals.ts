@@ -12,6 +12,7 @@ const externals = [
   /i18next/,
   /react-i18next/,
   /react-flip-move/,
+  /react-hotkeys/,
   /image-client-api\/dist\/imageClientSDK/,
   /@wix\/draft-js/,
   /downshift/,
@@ -30,13 +31,7 @@ const externals = [
   /linkifyjs/,
 ];
 
-const excludedExternalsRegexArr = [
-  /react-click-outsider/,
-  /@tiptap/,
-  /ricos-schema/,
-  /ricos-types/,
-  /\.scss/,
-];
+const excludedExternalsRegexArr = [/react-click-outsider/, /@tiptap/, /ricos-schema/, /\.scss/];
 
 const localPrefixes = ['\0', '.', '/'];
 

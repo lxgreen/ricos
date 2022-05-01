@@ -11,7 +11,8 @@ import type {
   AddLinkData,
 } from 'wix-rich-content-common';
 import { ToolbarType, getLangDir } from 'wix-rich-content-common';
-import type { LinkSettings, ToolbarSettings, RicosCssOverride, RicosTheme } from 'ricos-common';
+import type { LinkSettings, ToolbarSettings, RicosCssOverride } from 'ricos-common';
+import type { RicosTheme } from 'ricos-types';
 import {
   FloatingToolbarContainer,
   RicosToolbar,

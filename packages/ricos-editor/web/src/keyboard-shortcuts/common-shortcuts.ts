@@ -1,11 +1,13 @@
 import type { EditorCommands, KeyboardShortcut } from 'ricos-types';
 
 export const boldShortcut: KeyboardShortcut = {
-  keys: 'Cmd+B',
+  name: 'Bold',
+  description: 'Toggles bold style of selected text',
+  keys: 'Meta+B',
   command(editorCommands: EditorCommands) {
     editorCommands.toggleInlineStyle('bold');
   },
-  contexts: [],
-  tooltipHint: '',
-  enabled: false,
+  group: 'formatting',
+  keyCombinationText: '⌘B',
+  enabled: true,
 };

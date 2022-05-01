@@ -1,20 +1,21 @@
+import { compact } from 'lodash';
 import React, { forwardRef } from 'react';
+import type { RicosEditorProps } from 'ricos-common';
+import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import type { GeneralContext } from 'ricos-types';
+import { getEmptyDraftContent, withRicosContext } from 'wix-rich-content-editor-common';
 import {
+  draftToTiptap,
+  Extensions,
+  RichContentAdapter,
   RicosTiptapEditor,
   TIPTAP_TYPE_TO_RICOS_TYPE,
-  draftToTiptap,
-  RichContentAdapter,
-  Extensions,
 } from 'wix-tiptap-editor';
-import { getEmptyDraftContent } from 'wix-rich-content-editor-common';
-import { compact } from 'lodash';
-import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
-import type { RicosEditorProps } from 'ricos-common';
 import { commonExtensions } from './common-extensions';
-import type { IRicosContext } from '../RicosContext/RicosContext';
-import { withRicosContext } from '../RicosContext/RicosContext';
 
-class RicosEditorTiptap extends React.Component<RicosEditorProps & IRicosContext> {
+class RicosEditorTiptap extends React.Component<
+  RicosEditorProps & { ricosContext: GeneralContext }
+> {
   // add OnLoad
   editorAdapter: RichContentAdapter | null;
 

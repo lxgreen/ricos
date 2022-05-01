@@ -11,7 +11,8 @@ import type {
   CustomAnchorScroll,
   OnAddPluginLink,
 } from 'wix-rich-content-common';
-import type { RicosCssOverride, RicosTheme } from 'ricos-common';
+import type { RicosCssOverride } from 'ricos-common';
+import type { RicosTheme } from 'ricos-types';
 
 export type linkPanelDataType = {
   linkTypes?: any;

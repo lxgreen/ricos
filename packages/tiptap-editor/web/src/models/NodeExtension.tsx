@@ -35,18 +35,22 @@ const toExtensionConfig = (ext: RicosNodeExtension) =>
 
 const toFullNodeConfig =
   (ext: RicosNodeExtension) =>
-  (config: NodeConfig): NodeConfig => ({
-    ...(ext.groups.includes('text')
-      ? {}
-      : {
-          parseHTML: () => [{ tag: `${config.name}-component` }],
-          renderHTML: ({ HTMLAttributes }) => [
-            `${config.name}-component`,
-            mergeAttributes(HTMLAttributes),
-          ],
-        }),
-    ...config,
-  });
+  (config: NodeConfig): NodeConfig => {
+    // omit addKeyboardShortcuts
+    const { addKeyboardShortcuts: _, ...rest } = config;
+    return {
+      ...(ext.groups.includes('text')
+        ? {}
+        : {
+            parseHTML: () => [{ tag: `${config.name}-component` }],
+            renderHTML: ({ HTMLAttributes }) => [
+              `${config.name}-component`,
+              mergeAttributes(HTMLAttributes),
+            ],
+          }),
+      ...rest,
+    };
+  };
 
 const createRicosNodeConfig = (ext: RicosNodeExtension): NodeConfig =>
   pipe(ext, toExtensionConfig, toFullNodeConfig(ext));

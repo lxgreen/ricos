@@ -5,12 +5,12 @@ import { ClickOutside } from 'wix-rich-content-editor-common';
 import { ModalContext } from './ModalContext';
 
 export const ModalPopper = ({ Component, referenceElement, id, languageDir, groups }) => {
-  const { ModalService } = useContext(ModalContext) || {};
+  const { modalService } = useContext(ModalContext);
 
   const [modalElement, setModalElement] = useState<HTMLDivElement | null>(null);
 
   const onClickOutside = () => {
-    ModalService?.closeModal?.(id);
+    modalService?.closeModal?.(id);
   };
 
   const { styles: popperStyles, attributes } = usePopper(referenceElement, modalElement, {

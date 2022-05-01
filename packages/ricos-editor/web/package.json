@@ -45,9 +45,10 @@
   },
   "dependencies": {
     "react-modal": "~3.4.1",
+    "react-hotkeys": "^2.0.0",
     "ricos-common": "8.71.5",
-    "ricos-modals": "8.71.5",
     "ricos-schema": "8.71.5",
+    "ricos-modals": "8.71.5",
     "ricos-tiptap-types": "8.71.5",
     "uuid": "^3.4.0",
     "wix-rich-content-common": "8.71.5",

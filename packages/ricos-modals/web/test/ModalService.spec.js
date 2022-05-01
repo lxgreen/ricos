@@ -1,8 +1,8 @@
 import React from 'react';
-import { ModalService } from '../src/ModalService';
+import { RicosModalService } from '../src/ModalService';
 
 describe('Modal Service', () => {
-  const modalService = new ModalService();
+  const modalService = new RicosModalService();
   const openCallback = jest.fn(() => {});
   const closeCallback = jest.fn(() => {});
 

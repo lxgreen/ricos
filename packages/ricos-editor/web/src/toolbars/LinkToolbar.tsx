@@ -8,13 +8,14 @@ import type {
   TextButtons,
 } from 'wix-rich-content-common';
 import { ToolbarType } from 'wix-rich-content-common';
-import type { LinkSettings, RicosCssOverride, RicosTheme, ToolbarSettings } from 'ricos-common';
+import type { LinkSettings, RicosCssOverride, ToolbarSettings } from 'ricos-common';
 import {
   FloatingToolbarContainer,
   RicosToolbar,
   StaticToolbarContainer,
 } from 'wix-rich-content-toolbars-new';
 import { filterButtons } from './utils/toolbarsUtils';
+import type { RicosTheme } from 'ricos-types';
 import { toolbarSettingsFromConfig } from './utils/toolbarsConfig';
 
 interface LinkToolbarProps {

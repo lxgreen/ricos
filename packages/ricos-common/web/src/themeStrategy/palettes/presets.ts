@@ -1,5 +1,4 @@
-import type { PalettePreset } from '../themeTypes';
-import type { PaletteColors } from 'ricos-types';
+import type { PalettePreset, PaletteColors } from 'ricos-types';
 
 const darkTheme: PaletteColors = {
   textColor: '#000000',

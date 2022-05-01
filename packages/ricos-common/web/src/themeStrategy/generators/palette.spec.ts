@@ -1,6 +1,6 @@
 import createPalette from './palette';
 import { ricosPalettes, wixPalettes } from '../../../tests/palettesExample';
-import type { PalettePreset } from '../themeTypes';
+import type { PalettePreset } from 'ricos-types';
 
 describe('Palette', () => {
   const expected = {

@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import { tableModals } from '../types';
 import { withModalContext } from 'ricos-modals';
+import { withRicosContext } from 'wix-rich-content-editor-common';
 import type { ModalContextValue } from 'ricos-modals';
 import TableSettingsModal from '../toolbar/tableSettingsModal';
+import type { GeneralContext } from 'ricos-types';
 
 interface Props {
+  ricosContext: GeneralContext;
   context: ModalContextValue;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  componentData: Record<string, any>;
+  componentData: Record<string, unknown>;
 }
 
 class InsertModal extends Component<Props> {
   closeModal = () => {
-    this.props.context.ModalService?.closeModal(tableModals.insert);
+    this.props.context.modalService.closeModal(tableModals.insert);
   };
 
   onTableAdd = table => {
@@ -22,7 +24,7 @@ class InsertModal extends Component<Props> {
   render() {
     const {
       componentData,
-      context: { theme, t, isMobile },
+      ricosContext: { theme, t, isMobile },
     } = this.props;
     return (
       <TableSettingsModal
@@ -37,4 +39,4 @@ class InsertModal extends Component<Props> {
   }
 }
 
-export default withModalContext(InsertModal);
+export default withRicosContext()(withModalContext(InsertModal));

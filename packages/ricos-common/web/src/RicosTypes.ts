@@ -1,4 +1,3 @@
-import type { RicosTheme } from './themeStrategy/themeTypes';
 import type {
   DraftContent,
   OnErrorFunction,
@@ -15,6 +14,7 @@ import type {
   AvailableExperiments,
   LinkPreviewData,
   CommandDescriptor,
+  RicosTheme,
 } from 'ricos-types';
 import type { EditorState, EditorProps } from 'draft-js';
 import type { PreviewConfig } from 'wix-rich-content-preview';

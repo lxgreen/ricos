@@ -1,54 +1,6 @@
-import type { EditorCommands, KeyboardShortcut, ShortcutContext } from 'ricos-types';
-import type { Shortcut, Shortcuts } from '../models/shortcuts';
-import { Keys } from './keys';
-
-export class EditorKeyboardShortcut implements Shortcut {
-  shortcut: KeyboardShortcut;
-
-  keys: Keys;
-
-  static of(shortcut: KeyboardShortcut) {
-    return new EditorKeyboardShortcut(shortcut);
-  }
-
-  private constructor(shortcut: KeyboardShortcut) {
-    this.shortcut = shortcut;
-    this.keys = Keys.parse(shortcut.keys);
-  }
-
-  // TODO: generate locale/platform-dependent hint
-  private createTooltipHint(keys: KeyboardShortcut['keys']) {
-    return keys;
-  }
-
-  getKeyboardShortcut() {
-    return this.shortcut;
-  }
-
-  getKeys(): string {
-    return this.keys.toString();
-  }
-
-  getCommand(): (commands: EditorCommands) => void {
-    return this.shortcut.command;
-  }
-
-  getContexts(): ShortcutContext[] {
-    return this.shortcut.contexts;
-  }
-
-  isEnabled(): boolean {
-    return this.shortcut.enabled;
-  }
-
-  getTooltipHint() {
-    return this.shortcut.tooltipHint || this.createTooltipHint(this.shortcut.keys);
-  }
-
-  configure(config: Partial<KeyboardShortcut>): EditorKeyboardShortcut {
-    return new EditorKeyboardShortcut({ ...this.shortcut, ...config });
-  }
-}
+import type { EditorCommands, KeyboardShortcut, TranslationFunction } from 'ricos-types';
+import type { HotKeysProps, LocalizedDisplayData, Shortcut, Shortcuts } from '../models/shortcuts';
+import { EditorKeyboardShortcut } from './editor-keyboard-shortcut';
 
 export class ShortcutCollisionError extends Error {}
 
@@ -59,23 +11,48 @@ export class EditorKeyboardShortcuts implements Shortcuts {
     this.shortcuts = shortcuts;
   }
 
-  // TODO: validate vs browser built-in shortcuts
-  private isDuplicate(shortcut: KeyboardShortcut) {
+  private hasDuplicate(shortcut: Shortcut) {
+    return this.shortcuts.find(s => s.equals(shortcut));
+  }
+
+  getHotKeysProps(group: string, commands: EditorCommands): HotKeysProps {
     return this.shortcuts
-      .map(shortcut => shortcut.getKeys())
-      .includes(Keys.parse(shortcut.keys).toString());
+      .filter(s => s.getGroup() === group)
+      .reduce(
+        ({ keyMap, handlers }, shortcut) => {
+          return {
+            allowChanges: false,
+            keyMap: { ...keyMap, [shortcut.getName()]: shortcut.getKeys().toString() },
+            handlers: {
+              ...handlers,
+              [shortcut.getName()]: (e: KeyboardEvent) => {
+                e.preventDefault();
+                e.stopPropagation();
+                shortcut.getCommand()(commands);
+              },
+            },
+          };
+        },
+        { keyMap: {}, handlers: {}, allowChanges: false }
+      );
   }
 
   register(shortcut: KeyboardShortcut) {
-    if (this.isDuplicate(shortcut)) {
-      throw new ShortcutCollisionError(`the shortcut ${shortcut.keys} already defined`);
+    const candidate = EditorKeyboardShortcut.of(shortcut);
+
+    // TODO: validate vs browser built-in shortcuts
+    const duplicate = this.hasDuplicate(candidate);
+    if (duplicate) {
+      throw new ShortcutCollisionError(
+        `the shortcut ${candidate.getName()} conflicts with ${duplicate.getName()}`
+      );
     }
 
-    return new EditorKeyboardShortcuts([...this.shortcuts, EditorKeyboardShortcut.of(shortcut)]);
+    return new EditorKeyboardShortcuts([...this.shortcuts, candidate]);
   }
 
-  unregister(shortcut: KeyboardShortcut) {
-    return this.filter(s => s.getKeyboardShortcut().keys !== shortcut.keys);
+  unregister(shortcut: Shortcut) {
+    return this.filter(s => !s.equals(shortcut));
   }
 
   filter(predicate: (shortcut: Shortcut) => boolean) {
@@ -84,5 +61,15 @@ export class EditorKeyboardShortcuts implements Shortcuts {
 
   asArray() {
     return this.shortcuts;
+  }
+
+  getDisplayData(t: TranslationFunction) {
+    return this.shortcuts.reduce(
+      (map, shortcut) => ({
+        ...map,
+        [shortcut.getGroup()]: [...(map[shortcut.getGroup()] || []), shortcut.getDisplayData(t)],
+      }),
+      {} as { [group: string]: LocalizedDisplayData[] }
+    );
   }
 }

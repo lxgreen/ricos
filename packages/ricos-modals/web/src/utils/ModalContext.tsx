@@ -1,11 +1,6 @@
 import React from 'react';
+import { RicosModalService } from '../ModalService';
 import type { ModalContextValue } from '../types';
 
-export const ModalContext = React.createContext<ModalContextValue>({
-  isMobile: false,
-  theme: {},
-  experiments: {},
-  t: key => key,
-  getEditorCommands: () => {},
-  languageDir: 'ltr',
-});
+const modalService = new RicosModalService();
+export const ModalContext = React.createContext<ModalContextValue>({ modalService });

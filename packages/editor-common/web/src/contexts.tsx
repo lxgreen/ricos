@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { fetchLocaleResource } from './translations';
 import { RicosTranslate } from 'wix-rich-content-common';
-import type { TranslationFunction } from 'wix-rich-content-common';
+import type { RicosTheme, EditorCommands, GeneralContext, TranslationFunction } from 'ricos-types';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type RicosContextFields = {
-  locale: string;
-  localeContent: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  experiments: Record<string, any>;
-  isMobile: boolean;
-  t: TranslationFunction;
-};
-
-export interface IRicosContext {
-  ricosContext: RicosContextFields;
-}
-
-const RicosContext = React.createContext<RicosContextFields>(null as unknown as RicosContextFields);
+export const RicosContext = React.createContext<GeneralContext>({
+  locale: 'en',
+  localeContent: 'en',
+  experiments: {},
+  isMobile: false,
+  t: (text: string) => text,
+  languageDir: 'ltr',
+  getEditorCommands: () => ({} as EditorCommands),
+  theme: {} as RicosTheme,
+});
 
 export const RicosContextProvider = ({
   children,
@@ -25,6 +20,9 @@ export const RicosContextProvider = ({
   locale,
   localeContent,
   experiments,
+  languageDir,
+  getEditorCommands,
+  theme,
 }) => {
   const [currentLocaleResource, setLocaleResource] = useState<{
     locale: string;
@@ -62,6 +60,9 @@ export const RicosContextProvider = ({
             localeContent,
             isMobile,
             experiments,
+            languageDir,
+            getEditorCommands,
+            theme,
           }}
         >
           {React.cloneElement(React.Children.only(children))}
@@ -76,7 +77,7 @@ export function withRicosContext() {
     return props => {
       return (
         <RicosContext.Consumer>
-          {(value: RicosContextFields) => <Component {...props} ricosContext={value} />}
+          {(value: GeneralContext) => <Component {...props} ricosContext={value} />}
         </RicosContext.Consumer>
       );
     };
@@ -85,6 +86,6 @@ export function withRicosContext() {
 
 export const RicosContextConsumer = ({ children }) => {
   return (
-    <RicosContext.Consumer>{(value: RicosContextFields) => children(value)}</RicosContext.Consumer>
+    <RicosContext.Consumer>{(value: GeneralContext) => children(value)}</RicosContext.Consumer>
   );
 };

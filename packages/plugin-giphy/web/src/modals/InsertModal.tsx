@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { GIPHY_TYPE, gifModals } from '../types';
 import { withModalContext } from 'ricos-modals';
+import { withRicosContext } from 'wix-rich-content-editor-common';
 import type { ModalContextValue } from 'ricos-modals';
 import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
 import GiphyApiInputModal from '../toolbar/giphyApiInputModal';
 import type { Helpers } from 'wix-rich-content-common';
+import type { GeneralContext } from 'ricos-types';
 
 interface Props {
   context: ModalContextValue;
+  ricosContext: GeneralContext;
   giphySdkApiKey: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   componentData: Record<string, any>;
@@ -17,12 +20,12 @@ interface Props {
 
 class InsertModal extends Component<Props> {
   closeModal = () => {
-    this.props.context.ModalService?.closeModal(gifModals.insert);
+    this.props.context.modalService.closeModal(gifModals.insert);
   };
 
   onGifAdd = gif => {
-    const { context, componentData, nodeId } = this.props;
-    const editorCommands = context.getEditorCommands();
+    const { context, ricosContext, componentData, nodeId } = this.props;
+    const editorCommands = ricosContext.getEditorCommands();
     const data = convertBlockDataToRicos(GIPHY_TYPE, { ...componentData, gif });
     if (nodeId) {
       editorCommands?.setBlock(GIPHY_TYPE, data);
@@ -35,7 +38,7 @@ class InsertModal extends Component<Props> {
     const {
       componentData,
       giphySdkApiKey,
-      context: { theme, t, isMobile, languageDir },
+      ricosContext: { theme, t, isMobile, languageDir },
     } = this.props;
     return (
       <GiphyApiInputModal
@@ -52,4 +55,4 @@ class InsertModal extends Component<Props> {
   }
 }
 
-export default withModalContext(InsertModal);
+export default withRicosContext()(withModalContext(InsertModal));

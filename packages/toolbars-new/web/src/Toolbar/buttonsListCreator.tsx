@@ -16,7 +16,7 @@ import {
   inlineOverrideStyles,
 } from './buttonsListCreatorConsts';
 import { HEADER_TYPE_MAP } from 'wix-rich-content-plugin-commons';
-import type { RicosTheme } from 'ricos-common';
+import type { RicosTheme } from 'ricos-types';
 import {
   getBlockStyle,
   findOsName,

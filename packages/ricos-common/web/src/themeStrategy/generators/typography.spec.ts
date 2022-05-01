@@ -1,4 +1,5 @@
-import type { CssVarsObject, RicosTypography } from '../themeTypes';
+import type { RicosTypography } from 'ricos-types';
+import type { CssVarsObject } from '../themeTypes';
 import { wixTypographyTestCase, expectedOutput } from '../../../tests/wixTypographyExamples';
 import createTypography from './typography';
 

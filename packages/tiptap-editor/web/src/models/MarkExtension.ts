@@ -27,15 +27,19 @@ export class MarkExtension implements IMarkExtension {
       throw new TypeError('invalid argument');
     }
     this.groups = extension.groups || [];
-    this.config = config || {
-      ...extension.createExtensionConfig({
+    // omit addKeyboardShortcuts
+    const { addKeyboardShortcuts: _, ...rest } =
+      config ||
+      extension.createExtensionConfig({
         textblockTypeInputRule,
         mergeAttributes,
         markInputRule,
         markPasteRule,
         Plugin,
         PluginKey,
-      }),
+      });
+    this.config = {
+      ...rest,
       type: 'mark',
     };
     this.priority = this.config.priority || DEFAULT_PRIORITY;
