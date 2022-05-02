@@ -25,12 +25,12 @@ export interface PluginProps {
 
 // TODO: refine types
 export type HtmlAttributes = {
-  autocapitalize: string;
+  autoCapitalize: string;
   // explicit true/false enumeration
-  spellcheck: 'true' | 'false';
-  autocomplete: string;
-  autocorrect: string;
-  tabindex: number;
+  spellCheck: 'true' | 'false';
+  autoComplete: string;
+  autoCorrect: string;
+  tabIndex: number;
 };
 
 export interface TiptapAPI extends RicosEditorAPI {

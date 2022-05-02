@@ -17,19 +17,25 @@ import FloatingAddPluginMenu from '../toolbars/FloatingPluginMenu/FloatingAddPlu
 import { publishBI } from '../utils/bi/publish';
 import RicosEditorTiptap from './RicosEditorTiptap';
 
+type State = {
+  error: string;
+};
+
 export class FullRicosEditorTiptap
-  extends React.Component<RicosEditorProps>
+  extends React.Component<RicosEditorProps, State>
   implements RicosEditorRef
 {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  editor: any;
+  private editor: any;
 
-  editorAdapter!: RichContentAdapter;
+  private editorAdapter!: RichContentAdapter;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  toolbarContext: any;
+  private toolbarContext: any;
 
   content = Content.create<Node[]>([]);
+
+  state = { error: '' };
 
   constructor(props) {
     super(props);
@@ -43,6 +49,14 @@ export class FullRicosEditorTiptap
 
   componentWillUnmount() {
     this.props.editorEvents?.unsubscribe(EditorEvents.RICOS_PUBLISH, this.onPublish);
+  }
+
+  static getDerivedStateFromError(error: string) {
+    return { error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error({ error, errorInfo });
   }
 
   onPublish = async () => {
@@ -145,6 +159,20 @@ export class FullRicosEditorTiptap
   }
 
   render() {
+    try {
+      if (this.state.error) {
+        this.props.onError?.(this.state.error);
+        return null;
+      }
+
+      return this.renderEditor();
+    } catch (e) {
+      this.props.onError?.(e);
+      return null;
+    }
+  }
+
+  private renderEditor() {
     const { isMobile, experiments, locale, localeContent, plugins, theme = {} } = this.props;
     const toolbarContext = this.getToolbarContext();
     return (

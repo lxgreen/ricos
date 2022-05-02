@@ -167,6 +167,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
         <div className={classNames('editor', styles.editorContainer)}>
           <RicosEditor
             ref={ref => (this.editor = ref)}
+            onError={e => console.error(e)}
             onChange={onRicosEditorChange}
             content={contentState}
             injectedContent={injectedContent}

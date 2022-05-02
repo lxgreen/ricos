@@ -76,11 +76,11 @@ export class RichContentAdapter implements TiptapAPI {
 
   getHtmlAttributes(props: RicosEditorProps): HtmlAttributes {
     return {
-      autocapitalize: props.draftEditorSettings?.autoCapitalize || 'off',
-      spellcheck: props.draftEditorSettings?.spellCheck ? 'true' : 'false',
-      autocomplete: props.draftEditorSettings?.autoComplete || 'off',
-      autocorrect: props.draftEditorSettings?.autoCorrect || 'off',
-      tabindex: props.draftEditorSettings?.tabIndex || 0,
+      autoCapitalize: props.draftEditorSettings?.autoCapitalize || 'off',
+      spellCheck: props.draftEditorSettings?.spellCheck ? 'true' : 'false',
+      autoComplete: props.draftEditorSettings?.autoComplete || 'off',
+      autoCorrect: props.draftEditorSettings?.autoCorrect || 'off',
+      tabIndex: props.draftEditorSettings?.tabIndex || 0,
     };
   }
 
