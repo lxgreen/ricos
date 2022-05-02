@@ -1,5 +1,7 @@
+import { OrderedSet } from 'immutable';
 import colorDataDefaults from 'ricos-schema/dist/statics/color.defaults.json';
 import type { CreateRicosExtensions } from 'ricos-tiptap-types';
+import type { Color } from './types';
 
 export interface ColorOptions {
   HTMLAttributes: Record<string, unknown>;
@@ -57,10 +59,19 @@ export const getTiptapExtensions: CreateRicosExtensions = defaultOptions => [
         },
 
         renderHTML({ HTMLAttributes }) {
+          const shouldParseColor = (color: Color) =>
+            defaultOptions?.styleSelectionPredicate?.(color);
+
+          const parseColor = (color: Color) =>
+            defaultOptions?.customStyleFn?.(OrderedSet([color]))?.color;
+
+          const getColor = (color: Color) => (shouldParseColor(color) ? parseColor(color) : color);
           return [
             'span',
             {
-              style: `color: ${HTMLAttributes.foreground}; background-color: ${HTMLAttributes.background}`,
+              style: `color: ${getColor(HTMLAttributes.foreground)}; background-color: ${getColor(
+                HTMLAttributes.background
+              )}`,
             },
             0,
           ];
