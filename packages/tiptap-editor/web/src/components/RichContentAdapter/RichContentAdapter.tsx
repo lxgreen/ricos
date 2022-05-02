@@ -1,4 +1,4 @@
-import type { TiptapAPI } from '../../types';
+import type { HtmlAttributes, TiptapAPI } from '../../types';
 import { capitalize } from 'lodash';
 import type {
   TranslationFunction,
@@ -30,6 +30,7 @@ import type { Editor } from '@tiptap/core';
 import { findNodeById } from '../../helpers';
 import { tiptapToDraft } from 'wix-tiptap-extensions';
 import type { JSONContent } from '@tiptap/react';
+import type { RicosEditorProps } from 'ricos-common';
 
 export class RichContentAdapter implements TiptapAPI {
   constructor(
@@ -71,6 +72,16 @@ export class RichContentAdapter implements TiptapAPI {
 
   blur() {
     this.editor.commands.blur();
+  }
+
+  getHtmlAttributes(props: RicosEditorProps): HtmlAttributes {
+    return {
+      autocapitalize: props.draftEditorSettings?.autoCapitalize || 'off',
+      spellcheck: props.draftEditorSettings?.spellCheck ? 'true' : 'false',
+      autocomplete: props.draftEditorSettings?.autoComplete || 'off',
+      autocorrect: props.draftEditorSettings?.autoCorrect || 'off',
+      tabindex: props.draftEditorSettings?.tabIndex || 0,
+    };
   }
 
   getEditorCommands() {

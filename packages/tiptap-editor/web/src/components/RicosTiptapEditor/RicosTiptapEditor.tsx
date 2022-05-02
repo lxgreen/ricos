@@ -35,6 +35,7 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   onBlur,
   locale,
   editorStyleClasses,
+  htmlAttributes,
   ...context
 }) => {
   const forceUpdate = useForceUpdate();
@@ -85,7 +86,7 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
         },
       }}
     >
-      <div dir={getLangDir(locale)} className={containerClassName}>
+      <div dir={getLangDir(locale)} className={containerClassName} {...htmlAttributes}>
         <EditorContent editor={editor} className={editorClassName} />
       </div>
     </RicosTiptapContext.Provider>

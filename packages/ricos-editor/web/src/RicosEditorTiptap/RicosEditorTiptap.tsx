@@ -17,12 +17,7 @@ class RicosEditorTiptap extends React.Component<
   RicosEditorProps & { ricosContext: GeneralContext }
 > {
   // add OnLoad
-  editorAdapter: RichContentAdapter | null;
-
-  constructor(props) {
-    super(props);
-    this.editorAdapter = null;
-  }
+  private editorAdapter!: RichContentAdapter;
 
   onSelectionUpdate = ({ selectedNodes, content }) => {
     const { onAtomicBlockFocus, onChange } = this.props;
@@ -69,7 +64,7 @@ class RicosEditorTiptap extends React.Component<
     }
   };
 
-  configureExtensions(extensions: Extensions) {
+  private configureExtensions(extensions: Extensions) {
     const {
       placeholder,
       textAlignment,
@@ -100,6 +95,7 @@ class RicosEditorTiptap extends React.Component<
     const initialContent = draftToTiptap(content ?? injectedContent ?? getEmptyDraftContent());
     const allExtensions = Extensions.of([...extensions, ...commonExtensions]);
     const configuredExtensions = this.configureExtensions(allExtensions);
+    const htmlAttributes = this.editorAdapter?.getHtmlAttributes(this.props) || {};
     return (
       <RicosTiptapEditor
         extensions={configuredExtensions}
@@ -113,6 +109,7 @@ class RicosEditorTiptap extends React.Component<
         theme={{
           modalTheme: undefined,
         }}
+        htmlAttributes={htmlAttributes}
       />
     );
   }
