@@ -8,6 +8,6 @@ type ModalPositioning = { referenceElement: any };
 export type ModalConfig = {
   Component: ComponentType;
   id: string;
-  groups?: Group[];
+  groups: Group[];
   positioning?: ModalPositioning;
 };
