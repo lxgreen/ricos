@@ -279,6 +279,15 @@ export class RichContentAdapter implements TiptapAPI {
       },
       undo: () => this.editor.commands.undo(),
       redo: () => this.editor.commands.redo(),
+      insertText: text =>
+        this.editor
+          .chain()
+          .focus()
+          .command(({ tr }) => {
+            tr.insertText(text);
+            return true;
+          })
+          .run(),
     };
   }
 

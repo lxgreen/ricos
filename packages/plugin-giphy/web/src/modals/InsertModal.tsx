@@ -24,7 +24,7 @@ class InsertModal extends Component<Props> {
   };
 
   onGifAdd = gif => {
-    const { context, ricosContext, componentData, nodeId } = this.props;
+    const { ricosContext, componentData, nodeId } = this.props;
     const editorCommands = ricosContext.getEditorCommands();
     const data = convertBlockDataToRicos(GIPHY_TYPE, { ...componentData, gif });
     if (nodeId) {

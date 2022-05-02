@@ -65,11 +65,7 @@ export default class EmojiPreviewModal extends Component {
   }
 
   addEmoji(emoji) {
-    const { helpers, setEditorState, getEditorState } = this.props;
-    const newEditorState = addEmoji(getEditorState(), emoji);
-    setEditorState(newEditorState);
-    helpers.onPluginAddSuccess?.(EMOJI_TYPE);
-    helpers.closeModal();
+    this.props.onAdd(emoji);
   }
 
   onScroll = event => {
@@ -138,14 +134,7 @@ export default class EmojiPreviewModal extends Component {
 }
 
 EmojiPreviewModal.propTypes = {
-  componentData: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   t: PropTypes.func,
-  pubsub: PropTypes.object,
-  onConfirm: PropTypes.func,
-  onCloseRequested: PropTypes.func,
-  helpers: PropTypes.object,
-  isMobile: PropTypes.bool,
-  getEditorState: PropTypes.func,
-  setEditorState: PropTypes.func,
+  onAdd: PropTypes.func,
 };

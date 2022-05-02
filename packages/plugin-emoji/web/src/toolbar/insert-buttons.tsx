@@ -7,7 +7,7 @@ import {
   getBottomToolbarModalStyles,
   getModalStyles,
 } from 'wix-rich-content-editor-common';
-import EmojiPreviewModal from './emojiPreviewModal';
+import EmojiInsertModal from './emojiInsertModal';
 import EmojiPluginIcon from '../icons/EmojiPluginIcon';
 import type {
   CreateInsertButtons,
@@ -38,7 +38,7 @@ const createInsertButtons: CreateInsertButtons = ({
     tooltip: t('EmojiPlugin_InsertButton_Tooltip'),
     getIcon: () => icon,
     componentData: settings.componentDataDefaults || {},
-    modalElement: decorateComponentWithProps(EmojiPreviewModal, {
+    modalElement: decorateComponentWithProps(EmojiInsertModal, {
       getEditorState,
       setEditorState,
       ...settings,

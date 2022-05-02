@@ -201,4 +201,5 @@ export interface EditorCommands {
   getBlockComponentData: <K extends keyof PluginsDataMap>(
     blockKey: string
   ) => PluginsDataMap[K] | Record<string, string>;
+  insertText: (text: string) => void;
 }
