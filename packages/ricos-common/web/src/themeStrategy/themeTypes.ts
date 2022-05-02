@@ -1,5 +1,11 @@
 import type { ReactElement } from 'react';
-import type { AvailableExperiments, RichContentTheme, ThemeData, RicosTheme } from 'ricos-types';
+import type {
+  AvailableExperiments,
+  RichContentTheme,
+  ThemeData,
+  RicosTheme,
+  WixPalette,
+} from 'ricos-types';
 import type { BasePlugin } from '../types';
 export type RicosCssOverride = RichContentTheme;
 
@@ -17,3 +23,5 @@ export interface ThemeStrategyResult {
 }
 
 export type CssVarsObject = Record<string, unknown>;
+
+export { RicosTheme, WixPalette };
