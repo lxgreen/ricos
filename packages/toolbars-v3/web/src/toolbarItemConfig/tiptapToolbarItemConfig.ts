@@ -256,8 +256,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
       increaseIndent:
         ({ editorCommands }) =>
         () => {
-          // eslint-disable-next-line no-console
-          console.log('TODO: increaseIndent');
+          editorCommands.chain().focus().indent().run();
         },
     },
   },
@@ -275,8 +274,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
       decreaseIndent:
         ({ editorCommands }) =>
         () => {
-          // eslint-disable-next-line no-console
-          console.log('TODO: decreaseIndent');
+          editorCommands.chain().focus().outdent().run();
         },
     },
   },
