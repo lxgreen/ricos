@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `ricos-editor`
+  - [#3821](https://github.com/wix/ricos/pull/3821) Error boundary + onError wiring
+
   </details>
   <hr/>
 
