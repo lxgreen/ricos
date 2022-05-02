@@ -16,14 +16,16 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-  
+
+  </details>
+  <hr/>
+
+## 8.71.7 (May 2, 2022)
+
 ### :house: Internal
 
 - `ricos-editor`
   - [#3814](https://github.com/wix/ricos/pull/3814) wire draftEditorSettings to tiptap html attributes
-
-  </details>
-  <hr/>
 
 ## 8.71.6 (May 2, 2022)
 
