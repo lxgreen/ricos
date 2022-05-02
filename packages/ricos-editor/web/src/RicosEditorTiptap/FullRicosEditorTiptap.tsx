@@ -13,7 +13,7 @@ import type { RichContentAdapter } from 'wix-tiptap-editor';
 import { LocaleResourceProvider } from '../RicosContext/locale-resource-provider';
 import type { RicosEditorRef } from '../RicosEditorRef';
 import { convertToolbarContext } from '../toolbars/convertToolbarContext';
-import FloatingAddPluginMenu from '../toolbars/FloatingAddPluginMenu';
+import FloatingAddPluginMenu from '../toolbars/FloatingPluginMenu/FloatingAddPluginMenu';
 import { publishBI } from '../utils/bi/publish';
 import RicosEditorTiptap from './RicosEditorTiptap';
 
@@ -145,7 +145,7 @@ export class FullRicosEditorTiptap
   }
 
   render() {
-    const { isMobile, experiments, locale, localeContent } = this.props;
+    const { isMobile, experiments, locale, localeContent, plugins, theme = {} } = this.props;
     const toolbarContext = this.getToolbarContext();
     return (
       <LocaleResourceProvider
@@ -167,9 +167,10 @@ export class FullRicosEditorTiptap
                   editorCommands={this.editor.commandManager}
                 />
                 <FloatingAddPluginMenu
+                  pluginsButtons={plugins
+                    ?.filter(plugin => plugin.addButtons)
+                    .map(plugin => plugin.addButtons)}
                   editor={this.editor}
-                  isMobile={isMobile}
-                  languageDir={getLangDir(locale)}
                 />
               </ToolbarContext.Provider>
             </ModalProvider>

@@ -27,6 +27,9 @@
 - `ricos-editor`
   - [#3814](https://github.com/wix/ricos/pull/3814) wire draftEditorSettings to tiptap html attributes
 
+- `ricos-editor`
+  - [#3800](https://github.com/wix/ricos/pull/3800) connect add plugin + button to modal services
+
 ## 8.71.6 (May 2, 2022)
 
 ### :feat: New Feature

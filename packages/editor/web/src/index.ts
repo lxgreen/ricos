@@ -15,3 +15,5 @@ export type { RichContentEditorProps } from './RichContentEditor/RichContentEdit
 export { RichContentEditorModal, RichContentEditor };
 
 export { getFontSize, getColor } from './RichContentEditor/utils/editorCommandsUtils';
+
+export { default as AddPluginMenu } from './RichContentEditor/Toolbars/SideToolbar/AddPluginMenu';
