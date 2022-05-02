@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
-import { ClickOutside } from 'wix-rich-content-editor-common';
 import { ModalContext } from './ModalContext';
 import { Popover } from '../components/Popover';
+import { Drawer } from '../components/Drawer';
 import type { ModalConfig, TextDirection } from 'ricos-types';
 
 type Props = {
@@ -13,22 +13,24 @@ type Props = {
 export const ModalPopper = ({ modalConfig, languageDir }: Props) => {
   const { modalService } = useContext(ModalContext) || {};
 
-  const onClickOutside = () => {
+  const closeModal = () => {
     modalService?.closeModal?.(modalConfig.id);
   };
 
-  const ModalWrapper = modalConfig.groups?.includes('popover') ? Popover : 'div';
+  const ModalWrapper = modalConfig.groups?.includes('popover')
+    ? Popover
+    : modalConfig.groups?.includes('drawer')
+    ? Drawer
+    : 'div';
 
   const ModalComponent = modalConfig.Component;
 
   return ReactDOM.createPortal(
-    <ClickOutside onClickOutside={onClickOutside}>
-      <div dir={languageDir}>
-        <ModalWrapper modalConfig={modalConfig} dir={languageDir}>
-          <ModalComponent />
-        </ModalWrapper>
-      </div>
-    </ClickOutside>,
+    <div dir={languageDir}>
+      <ModalWrapper closeModal={closeModal} modalConfig={modalConfig} dir={languageDir}>
+        <ModalComponent />
+      </ModalWrapper>
+    </div>,
     document.body
   );
 };

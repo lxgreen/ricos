@@ -1,0 +1,25 @@
+.overlay {
+  position: fixed;
+  inset: 0px 0px auto auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: calc(100% + 85px);
+  z-index: 666666;
+
+  .content {
+    position: fixed;
+    inset: 0px 0px auto auto;
+    border: none;
+    background: rgb(255, 255, 255);
+    overflow: auto;
+    border-radius: 4px;
+    outline: none;
+    padding: 0px;
+    color: var(--ricos-settings-text-color, #000);
+    height: 100%;
+    width: 100%;
+    max-width: 420px;
+    direction: ltr;
+    z-index: 20001;
+  }
+}
