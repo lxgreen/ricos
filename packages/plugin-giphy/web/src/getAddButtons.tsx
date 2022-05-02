@@ -18,7 +18,7 @@ export const getAddButtons = (config): AddButton[] => {
           ...config,
           componentData: DEFAULTS,
         }),
-        groups: ['dialog'],
+        groups: ['popover'],
       },
       menuConfig: {
         tags: 'Gif_plugin_search_tags',

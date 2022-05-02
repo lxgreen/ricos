@@ -17,7 +17,7 @@ export const ModalPopper = ({ modalConfig, languageDir }: Props) => {
     modalService?.closeModal?.(modalConfig.id);
   };
 
-  const ModalWrapper = modalConfig.groups?.includes('dialog') ? Popover : 'div';
+  const ModalWrapper = modalConfig.groups?.includes('popover') ? Popover : 'div';
 
   const ModalComponent = modalConfig.Component;
 

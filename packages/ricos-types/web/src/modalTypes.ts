@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 
-type Group = 'dialog' | 'fullscreen';
+type Group = 'popover' | 'drawer' | 'dialog' | 'fullscreen';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ModalPositioning = { referenceElement: any };
