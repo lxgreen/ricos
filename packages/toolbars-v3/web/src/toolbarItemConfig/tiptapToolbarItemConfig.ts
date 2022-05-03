@@ -10,7 +10,7 @@ import {
   SpoilerButtonIcon,
   increaseIndentPluginIcon,
   decreaseIndentPluginIcon,
-  // LineSpacingIcon,
+  LineSpacingIcon,
   LinkIcon,
   TextColorIcon,
   TextHighlightIcon,
@@ -34,6 +34,9 @@ import {
   isTextContainsLinkResolver,
   getTextColorInSelectionResolver,
   getHighlightColorInSelectionResolver,
+  getLineSpacingInSelectionResolver,
+  getLineSpacingBeforeSelectionResolver,
+  getLineSpacingAfterSelectionResolver,
 } from '../resolvers/tiptapResolvers';
 import type { IToolbarItemConfigTiptap } from '../types';
 
@@ -407,37 +410,65 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
         },
     },
   },
-  // {
-  //   id: 'lineSpacing',
-  //   type: 'modal',
-  //   presentation: {
-  //     tooltip: 'Line Spacing',
-  //     icon: LineSpacingIcon,
-  //   },
-  //   attributes: {
-  //     visible: alwaysVisibleResolver,
-  //     selectedLineSpacing: getLineSpacingInSelectionResolver,
-  //     selectedLineSpacingBefore: getLineSpacingBeforeSelectionResolver,
-  //     selectedLineSpacingAfter: getLineSpacingAfterSelectionResolver,
-  //   },
-  //   commands: {
-  //     setLineSpacing:
-  //       ({ editorCommands }) =>
-  //       value => {
-  //         if (!value) return;
-  //         const data = { dynamicStyles: value };
-  //         editorCommands.commands.insertDecoration('ricos-line-spacing', { ...data });
-  //         editorCommands.commands.focus();
-  //       },
-  //     setLineSpacingWithoutFocus:
-  //       ({ editorCommands }) =>
-  //       value => {
-  //         if (!value) return;
-  //         const data = { dynamicStyles: value };
-  //         editorCommands.commands.insertDecoration('ricos-line-spacing', { ...data });
-  //       },
-  //   },
-  // },
+  {
+    id: 'lineSpacing',
+    type: 'modal',
+    presentation: {
+      tooltip: 'Line Spacing',
+      icon: LineSpacingIcon,
+    },
+    attributes: {
+      visible: alwaysVisibleResolver,
+      selectedLineSpacing: getLineSpacingInSelectionResolver,
+      selectedLineSpacingBefore: getLineSpacingBeforeSelectionResolver,
+      selectedLineSpacingAfter: getLineSpacingAfterSelectionResolver,
+    },
+    commands: {
+      setLineSpacing:
+        ({ editorCommands }) =>
+        value => {
+          if (!value) return;
+          const {
+            'line-height': stringLineHeight,
+            'padding-bottom': stringPaddingBottom,
+            'padding-top': stringPaddingTop,
+          } = value;
+
+          const lineHeight = parseFloat(stringLineHeight);
+          const paddingBottom = parseFloat(stringPaddingBottom);
+          const paddingTop = parseFloat(stringPaddingTop);
+
+          editorCommands
+            .chain()
+            .focus()
+            .setLineSpacing(lineHeight)
+            .setLineSpacingBefore(paddingTop)
+            .setLineSpacingAfter(paddingBottom)
+            .run();
+        },
+      setLineSpacingWithoutFocus:
+        ({ editorCommands }) =>
+        value => {
+          if (!value) return;
+          const {
+            'line-height': stringLineHeight,
+            'padding-bottom': stringPaddingBottom,
+            'padding-top': stringPaddingTop,
+          } = value;
+
+          const lineHeight = parseFloat(stringLineHeight);
+          const paddingBottom = parseFloat(stringPaddingBottom);
+          const paddingTop = parseFloat(stringPaddingTop);
+
+          editorCommands
+            .chain()
+            .setLineSpacing(lineHeight)
+            .setLineSpacingBefore(paddingTop)
+            .setLineSpacingAfter(paddingBottom)
+            .run();
+        },
+    },
+  },
   {
     id: 'fontSize',
     type: 'modal',

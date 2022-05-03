@@ -11,6 +11,7 @@ import {
   createFontSize,
   createTextAlign,
   createCharacterCount,
+  createLineSpacing,
   createIndent,
 } from 'wix-tiptap-extensions';
 
@@ -27,5 +28,6 @@ export const commonExtensions = [
   createFontSize(),
   createTextAlign(),
   createCharacterCount(),
+  createLineSpacing(),
   createIndent(),
 ];

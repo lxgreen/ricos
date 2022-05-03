@@ -22,4 +22,5 @@ export { createTextAlign } from './text-align';
 export { createFontSize } from './font-size';
 export { createCharacterCount } from './character-count';
 export { createCommonNodeCommands } from './common-node-commands';
+export { createLineSpacing } from './line-spacing';
 export { createIndent } from './indent';

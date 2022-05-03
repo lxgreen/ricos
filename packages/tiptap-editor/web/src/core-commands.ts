@@ -4,6 +4,7 @@ import * as updateNodeAttrsById from './commands/updateNodeAttrsById';
 import * as replaceNode from './commands/replaceNode';
 import * as replaceNodes from './commands/replaceNodes';
 import * as deleteNode from './commands/deleteNode';
+import * as updateAttributesWithDeepMerge from './commands/updateAttributesWithDeepMerge';
 import type { RicosExtension } from 'ricos-tiptap-types';
 
 export const createCommandsConfig = (): RicosExtension => ({
@@ -21,6 +22,7 @@ export const createCommandsConfig = (): RicosExtension => ({
           ...deleteNode,
           ...replaceNode,
           ...replaceNodes,
+          ...updateAttributesWithDeepMerge,
         };
       },
     };

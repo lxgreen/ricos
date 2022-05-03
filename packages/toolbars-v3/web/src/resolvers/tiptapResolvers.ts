@@ -129,16 +129,44 @@ export const getHeadingInSelectionResolver = TiptapContentResolver.create(
   }
 );
 
-// export const getLineSpacingInSelectionResolver = TiptapContentResolver.create(
-//   RESOLVERS_IDS.GET_LINE_SPACING_IN_SELECTION,
-//   content => {
-//     if (Array.isArray(content) && content.length > 0) {
-//       return content[0].attrs.textStyle?.lineHeight;
-//     } else {
-//       return undefined;
-//     }
-//   }
-// );
+export const getLineSpacingInSelectionResolver = TiptapContentResolver.create(
+  RESOLVERS_IDS.GET_LINE_SPACING_IN_SELECTION,
+  content => {
+    if (Array.isArray(content) && content.length > 0) {
+      const lineHeight = content[0].attrs.textStyle?.lineHeight;
+      if (!lineHeight) return undefined;
+      return `${lineHeight}`;
+    } else {
+      return undefined;
+    }
+  }
+);
+
+export const getLineSpacingBeforeSelectionResolver = TiptapContentResolver.create(
+  RESOLVERS_IDS.GET_LINE_SPACING_BEFORE_SELECTION,
+  content => {
+    if (Array.isArray(content) && content.length > 0) {
+      const paddingTop = content[0].attrs.style?.paddingTop;
+      if (!paddingTop) return undefined;
+      return paddingTop;
+    } else {
+      return undefined;
+    }
+  }
+);
+
+export const getLineSpacingAfterSelectionResolver = TiptapContentResolver.create(
+  RESOLVERS_IDS.GET_LINE_SPACING_AFTER_SELECTION,
+  content => {
+    if (Array.isArray(content) && content.length > 0) {
+      const paddingBottom = content[0].attrs.style?.paddingBottom;
+      if (!paddingBottom) return undefined;
+      return paddingBottom;
+    } else {
+      return undefined;
+    }
+  }
+);
 
 export const getFontSizeInSelectionResolver = TiptapContentResolver.create(
   RESOLVERS_IDS.GET_FONT_SIZE_IN_SELECTION,
