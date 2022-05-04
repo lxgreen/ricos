@@ -17,6 +17,13 @@
     Click to see more.
   </summary>
 
+
+
+  </details>
+  <hr/>
+
+## 8.71.8 (May 4, 2022)
+
 ### :house: Internal
 
 - `ricos-editor`
@@ -26,9 +33,6 @@
 
 - `toolbars-new`
   - [#3829](https://github.com/wix/ricos/pull/3829) fix provided-container-toolbar query selector
-
-  </details>
-  <hr/>
 
 ## 8.71.7 (May 2, 2022)
 
