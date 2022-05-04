@@ -148,7 +148,7 @@ class Toolbar extends Component<ToolbarProps, State> {
     const { getEditorContainer } = this.props;
     const editorContainer = getEditorContainer?.();
     const providedStaticToolbarContainer = document.querySelector(
-      `[data-hook=provided-container-toolbar`
+      `[data-hook=provided-container-toolbar]`
     );
     const containerToCheckToolbarOverflow = providedStaticToolbarContainer || editorContainer;
     return containerToCheckToolbarOverflow?.clientWidth - this.toolbarRef?.clientWidth;

@@ -22,6 +22,11 @@
 - `ricos-editor`
   - [#3821](https://github.com/wix/ricos/pull/3821) Error boundary + onError wiring
 
+### :bug: Bug Fix
+
+- `toolbars-new`
+  - [#3829](https://github.com/wix/ricos/pull/3829) fix provided-container-toolbar query selector
+
   </details>
   <hr/>
 
