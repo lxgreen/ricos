@@ -17,7 +17,10 @@
     Click to see more.
   </summary>
 
+### :house: Internal
 
+- `ricos-shortcuts`
+  - [#3827](https://github.com/wix/ricos/pull/3827) package added
 
   </details>
   <hr/>
