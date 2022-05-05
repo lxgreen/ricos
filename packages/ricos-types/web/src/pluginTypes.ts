@@ -1,3 +1,4 @@
+// TODO: refactor this file
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ComponentType } from 'react';
 import type {
@@ -132,6 +133,7 @@ export interface CreatePluginsDataMap {
 }
 
 import type { EditorPlugin as DraftEditorPlugin, PluginFunctions } from 'draft-js-plugins-editor';
+import type { KeyboardShortcut } from './shortcuts';
 
 export type PluginMapping = Partial<{
   [type: string]: {
@@ -245,6 +247,7 @@ export type AddButton = {
   label?: string;
   tooltip?: string;
   menuConfig?: MenuConfig;
+  shortcuts?: KeyboardShortcut[];
 };
 export interface EditorPlugin<PluginConfig extends EditorPluginConfig = Record<string, any>>
   extends BasePluginConfig {

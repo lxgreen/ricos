@@ -41,23 +41,25 @@ describe('Editor Keyboard Shortcuts', () => {
   };
 
   it('should register/unregister shortcut', () => {
-    const registered = new EditorKeyboardShortcuts().register(bold);
+    const registered = new EditorKeyboardShortcuts();
+    registered.register(bold);
     expect(registered.asArray().length).toEqual(1);
-    const unregistered = registered.unregister(registered.asArray()[0]);
-    expect(unregistered.asArray().length).toEqual(0);
+    registered.unregister(registered.asArray()[0]);
+    expect(registered.asArray().length).toEqual(0);
   });
 
   it('should filter shortcuts', () => {
-    const registered = new EditorKeyboardShortcuts().register(bold);
+    const registered = new EditorKeyboardShortcuts();
+    registered.register(bold);
     const filtered = registered.filter(shortcut => shortcut.getGroup() === 'add-plugin');
     expect(filtered.asArray().length).toEqual(0);
   });
 
   it('should produce grouped display data', () => {
-    const registered = new EditorKeyboardShortcuts()
-      .register(bold)
-      .register(italic)
-      .register(addDivider);
+    const registered = new EditorKeyboardShortcuts();
+    registered.register(bold);
+    registered.register(italic);
+    registered.register(addDivider);
 
     const expected = {
       formatting: [
@@ -93,19 +95,35 @@ describe('Editor Keyboard Shortcuts', () => {
       insertBlock: identity,
     };
 
-    const actual = new EditorKeyboardShortcuts()
-      .register(bold)
-      .register(italic)
-      .register(addDivider)
-      .getHotKeysProps('formatting', commands as EditorCommands);
+    const actual = new EditorKeyboardShortcuts();
+    actual.register(bold);
+    actual.register(italic);
+    actual.register(addDivider);
+    const { keyMap, handlers } = actual.getHotKeysProps(
+      'formatting',
+      commands as EditorCommands,
+      identity
+    );
 
-    expect(actual.keyMap).toEqual({
-      Bold: 'Meta+Shift+B',
-      Italic: 'Meta+I',
+    expect(keyMap).toEqual({
+      Bold: {
+        description: 'Toggles bold style of selected text',
+        group: 'formatting',
+        keyCombinationText: 'Cmd+B',
+        name: 'Bold',
+        sequence: 'meta+shift+b',
+      },
+      Italic: {
+        description: 'Toggles italic style of selected text',
+        group: 'formatting',
+        keyCombinationText: 'Cmd+I',
+        name: 'Italic',
+        sequence: 'meta+i',
+      },
     });
 
-    expect(typeof actual.handlers.Bold).toEqual('function');
-    expect(typeof actual.handlers.Italic).toEqual('function');
-    expect(typeof actual.handlers.AddDivider).toEqual('undefined');
+    expect(typeof handlers.Bold).toEqual('function');
+    expect(typeof handlers.Italic).toEqual('function');
+    expect(typeof handlers.AddDivider).toEqual('undefined');
   });
 });

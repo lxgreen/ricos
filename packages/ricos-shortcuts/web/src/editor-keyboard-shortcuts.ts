@@ -1,33 +1,43 @@
 import type { EditorCommands, KeyboardShortcut, TranslationFunction } from 'ricos-types';
-import type { HotKeysProps, LocalizedDisplayData, Shortcut, Shortcuts } from '../models/shortcuts';
+import type { HotKeysProps, LocalizedDisplayData, Shortcut, Shortcuts } from './models/shortcuts';
 import { EditorKeyboardShortcut } from './editor-keyboard-shortcut';
 
 export class ShortcutCollisionError extends Error {}
 
 export class EditorKeyboardShortcuts implements Shortcuts {
-  private readonly shortcuts: Shortcut[];
+  private shortcuts: Shortcut[];
 
   constructor(shortcuts: Shortcut[] = []) {
     this.shortcuts = shortcuts;
+    EditorKeyboardShortcuts.id += 1;
   }
+
+  public static id = 0;
 
   private hasDuplicate(shortcut: Shortcut) {
     return this.shortcuts.find(s => s.equals(shortcut));
   }
 
-  getHotKeysProps(group: string, commands: EditorCommands): HotKeysProps {
+  getHotKeysProps(group: string, commands: EditorCommands, t: TranslationFunction): HotKeysProps {
     return this.shortcuts
       .filter(s => s.getGroup() === group)
       .reduce(
         ({ keyMap, handlers }, shortcut) => {
           return {
             allowChanges: false,
-            keyMap: { ...keyMap, [shortcut.getName()]: shortcut.getKeys().toString() },
+            keyMap: {
+              ...keyMap,
+              [shortcut.getName()]: {
+                sequence: shortcut.getKeys().toString().toLowerCase(),
+                ...shortcut.getDisplayData(t),
+              },
+            },
             handlers: {
               ...handlers,
               [shortcut.getName()]: (e: KeyboardEvent) => {
+                console.log(`${shortcut.getName()} COMMAND RUNS`); // eslint-disable-line no-console
                 e.preventDefault();
-                e.stopPropagation();
+                // e.stopPropagation();
                 shortcut.getCommand()(commands);
               },
             },
@@ -48,11 +58,11 @@ export class EditorKeyboardShortcuts implements Shortcuts {
       );
     }
 
-    return new EditorKeyboardShortcuts([...this.shortcuts, candidate]);
+    this.shortcuts.push(candidate);
   }
 
   unregister(shortcut: Shortcut) {
-    return this.filter(s => !s.equals(shortcut));
+    this.shortcuts = this.shortcuts.filter(s => !s.equals(shortcut));
   }
 
   filter(predicate: (shortcut: Shortcut) => boolean) {

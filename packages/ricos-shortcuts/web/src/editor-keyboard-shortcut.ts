@@ -1,5 +1,5 @@
 import type { EditorCommands, KeyboardShortcut, TranslationFunction } from 'ricos-types';
-import type { LocalizedDisplayData, Shortcut } from '../models/shortcuts';
+import type { LocalizedDisplayData, Shortcut } from './models/shortcuts';
 import { Keys } from './keys';
 
 export class EditorKeyboardShortcut implements Shortcut {

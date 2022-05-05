@@ -104,13 +104,13 @@ export interface Shortcuts {
    *
    * @memberof Shortcuts
    */
-  register: (shortcut: KeyboardShortcut) => Shortcuts;
+  register: (shortcut: KeyboardShortcut) => void;
   /**
    * Removes shortcut
    *
    * @memberof Shortcuts
    */
-  unregister: (shortcut: Shortcut) => Shortcuts;
+  unregister: (shortcut: Shortcut) => void;
   /**
    * Filters shortcuts according to predicate
    *
@@ -134,5 +134,9 @@ export interface Shortcuts {
    *
    * @memberof Shortcuts
    */
-  getHotKeysProps: (group: string, commands: EditorCommands) => HotKeysProps;
+  getHotKeysProps: (
+    group: string,
+    commands: EditorCommands,
+    t: TranslationFunction
+  ) => HotKeysProps;
 }

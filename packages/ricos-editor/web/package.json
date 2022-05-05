@@ -44,10 +44,10 @@
     "react-dom": "^16.13.1"
   },
   "dependencies": {
-    "react-hotkeys": "^2.0.0",
     "react-modal": "~3.4.1",
     "ricos-common": "8.71.8",
     "ricos-modals": "8.71.8",
+    "ricos-shortcuts": "8.71.8",
     "ricos-schema": "8.71.8",
     "ricos-tiptap-types": "8.71.8",
     "uuid": "^3.4.0",

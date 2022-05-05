@@ -1,6 +1,6 @@
 /* eslint-disable brace-style */
 import type { Node } from 'prosemirror-model';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useContext } from 'react';
 import type { RicosEditorProps } from 'ricos-common';
 import { ModalProvider } from 'ricos-modals';
 import { getLangDir } from 'wix-rich-content-common';
@@ -10,6 +10,7 @@ import {
 } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
 import { Content, RicosTiptapToolbar, ToolbarContext } from 'wix-rich-content-toolbars-v3';
 import type { RichContentAdapter } from 'wix-tiptap-editor';
+import { Shortcuts } from 'ricos-shortcuts';
 import { LocaleResourceProvider } from '../RicosContext/locale-resource-provider';
 import type { RicosEditorRef } from '../RicosEditorRef';
 import { convertToolbarContext } from '../toolbars/convertToolbarContext';
@@ -175,6 +176,17 @@ export class FullRicosEditorTiptap
   private renderEditor() {
     const { isMobile, experiments, locale, localeContent, plugins, theme = {} } = this.props;
     const toolbarContext = this.getToolbarContext();
+    if (!this.editor) {
+      return (
+        <RicosEditorTiptap
+          {...this.props}
+          onLoad={editor => {
+            this.onEditorLoad(editor);
+            this.forceUpdate();
+          }}
+        />
+      );
+    }
     return (
       <LocaleResourceProvider
         isMobile={isMobile}
@@ -185,32 +197,34 @@ export class FullRicosEditorTiptap
         getEditorCommands={this.getEditorCommands}
         theme={this.props.theme}
       >
-        <div>
-          {this.editor && (
-            <ModalProvider>
-              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-              <ToolbarContext.Provider value={toolbarContext as any}>
-                <RicosTiptapToolbar
-                  content={this.content}
-                  editorCommands={this.editor.commandManager}
-                />
-                <FloatingAddPluginMenu
-                  pluginsButtons={plugins
-                    ?.filter(plugin => plugin.addButtons)
-                    .map(plugin => plugin.addButtons)}
-                  editor={this.editor}
-                />
-              </ToolbarContext.Provider>
-            </ModalProvider>
-          )}
-          <RicosEditorTiptap
-            {...this.props}
-            onLoad={editor => {
-              this.onEditorLoad(editor);
-              this.forceUpdate();
-            }}
-          />
-        </div>
+        <Shortcuts group="global" root>
+          <div>
+            {this.editor && (
+              <ModalProvider>
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                <ToolbarContext.Provider value={toolbarContext as any}>
+                  <RicosTiptapToolbar
+                    content={this.content}
+                    editorCommands={this.editor.commandManager}
+                  />
+                  <FloatingAddPluginMenu
+                    pluginsButtons={plugins
+                      ?.filter(plugin => plugin.addButtons)
+                      .map(plugin => plugin.addButtons)}
+                    editor={this.editor}
+                  />
+                </ToolbarContext.Provider>
+              </ModalProvider>
+            )}
+            <RicosEditorTiptap
+              {...this.props}
+              onLoad={editor => {
+                this.onEditorLoad(editor);
+                this.forceUpdate();
+              }}
+            />
+          </div>
+        </Shortcuts>
       </LocaleResourceProvider>
     );
   }
