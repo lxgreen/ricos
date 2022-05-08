@@ -1,16 +1,18 @@
-import type { CreateRicosExtensions } from 'ricos-tiptap-types';
-import { Video as Component } from './component';
+import type { CreateRicosExtensions, PluginProps } from 'ricos-tiptap-types';
+import { Video } from './component';
 import videoDataDefaults from 'ricos-schema/dist/statics/video.defaults.json';
 import { TIPTAP_VIDEO_TYPE } from 'ricos-content';
+import type { ComponentType } from 'react';
+import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
 
 const name = TIPTAP_VIDEO_TYPE;
 
-export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
+export const createRicosExtensions: CreateRicosExtensions = settings => [
   {
     type: 'node' as const,
     groups: ['react', 'spoilerable'],
     name,
-    Component,
+    Component: decorateComponentWithProps(Video, { settings }) as ComponentType<PluginProps>,
     createExtensionConfig() {
       return {
         name: this.name,
@@ -26,7 +28,7 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
             default: null,
           },
         }),
-        addOptions: () => defaultOptions,
+        addOptions: () => settings,
         addCommands() {
           return {};
         },

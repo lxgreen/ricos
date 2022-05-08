@@ -1,6 +1,5 @@
-// import linkPreviewDataDefaults from 'ricos-schema/dist/statics/link_preview.defaults.json';
-import type { CreateRicosExtensions } from 'ricos-tiptap-types';
-import { LinkPreview as Component } from './component';
+import type { CreateRicosExtensions, PluginProps } from 'ricos-tiptap-types';
+import { LinkPreview } from './component';
 import type { Editor } from '@tiptap/core';
 import type { KeyboardShortcutCommand } from '@tiptap/react';
 import type { LinkPreviewPluginEditorConfig } from '../types';
@@ -17,6 +16,8 @@ import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRi
 import type { DeepPartial } from 'utility-types';
 import type { ResolvedPos } from 'prosemirror-model';
 import { TIPTAP_LINK_PREVIEW_TYPE } from 'ricos-content';
+import type { ComponentType } from 'react';
+import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -91,12 +92,12 @@ const addLinkPreview =
     return false;
   };
 
-export const createRicosExtensions: CreateRicosExtensions = config => [
+export const createRicosExtensions: CreateRicosExtensions = settings => [
   {
     type: 'node' as const,
     name,
     groups: ['react'],
-    Component,
+    Component: decorateComponentWithProps(LinkPreview, { settings }) as ComponentType<PluginProps>,
     createExtensionConfig() {
       return {
         group: 'block',
@@ -125,7 +126,7 @@ export const createRicosExtensions: CreateRicosExtensions = config => [
         name: this.name,
         addKeyboardShortcuts() {
           return {
-            Enter: addLinkPreview(config),
+            Enter: addLinkPreview(settings),
           };
         },
       };

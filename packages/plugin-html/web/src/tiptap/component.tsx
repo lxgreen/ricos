@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Component as HtmlComponent } from '../HtmlComponent';
-import { HTML_TYPE } from '../types';
 import type { PluginProps } from 'ricos-tiptap-types';
+import { RicosContext } from 'wix-rich-content-editor-common';
 
-export const Html: React.FC<PluginProps> = ({ context, componentData, updateAttributes, node }) => {
-  const { isMobile, theme, config = {}, iframeSandboxDomain } = context;
-  const settings = config[HTML_TYPE] || {};
+export const Html: React.FC<PluginProps> = ({
+  settings,
+  componentData,
+  updateAttributes,
+  node,
+}) => {
+  const { theme, isMobile } = useContext(RicosContext);
+
   const updateHtmlHeight = data => {
     updateAttributes({
       containerData: { ...node.attrs.containerData, height: { custom: data.config.height } },
@@ -18,7 +23,7 @@ export const Html: React.FC<PluginProps> = ({ context, componentData, updateAttr
   return (
     <HtmlComponent
       componentData={componentData}
-      iframeSandboxDomain={iframeSandboxDomain}
+      iframeSandboxDomain={''}
       store={store}
       settings={settings}
       isMobile={isMobile}

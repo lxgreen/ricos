@@ -1,16 +1,18 @@
-import type { CreateRicosExtensions } from 'ricos-tiptap-types';
-import { Audio as Component } from './component';
+import type { CreateRicosExtensions, PluginProps } from 'ricos-tiptap-types';
+import { Audio } from './component';
 import audioDataDefaults from 'ricos-schema/dist/statics/audio.defaults.json';
 import { TIPTAP_AUDIO_TYPE } from 'ricos-content';
+import type { ComponentType } from 'react';
+import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
 
 const name = TIPTAP_AUDIO_TYPE;
 
-export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
+export const createRicosExtensions: CreateRicosExtensions = settings => [
   {
     type: 'node' as const,
     groups: ['react'],
     name,
-    Component,
+    Component: decorateComponentWithProps(Audio, { settings }) as ComponentType<PluginProps>,
     createExtensionConfig() {
       return {
         name: this.name,
@@ -23,7 +25,7 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
             default: false,
           },
         }),
-        addOptions: () => defaultOptions,
+        addOptions: () => settings,
         addCommands() {
           return {};
         },

@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Component as VideoComponent } from '../video-component';
 import { VIDEO_TYPE } from '../types';
 import type { PluginProps } from 'ricos-tiptap-types';
 import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
+import { RicosContext } from 'wix-rich-content-editor-common';
 
 export const Video: React.FC<PluginProps> = ({
-  context,
+  settings,
   componentData,
   updateAttributes,
   node,
 }) => {
-  const { theme, t, config = {} } = context;
-  const settings = config[VIDEO_TYPE] || {};
+  const { theme, t } = useContext(RicosContext);
   const blockProps = {
     setFocusToBlock: () => null,
   };

@@ -1,5 +1,5 @@
 import collapsibleListDataDefaults from 'ricos-schema/dist/statics/collapsible_list.defaults.json';
-import type { CreateRicosExtensions } from 'ricos-tiptap-types';
+import type { CreateRicosExtensions, PluginProps } from 'ricos-tiptap-types';
 import {
   CollapsibleList,
   CollapsibleListItem,
@@ -14,6 +14,8 @@ import {
 } from 'ricos-content';
 import { defaultCollapsibleItem } from './defaults';
 import { keyboardShortcuts } from './keyboardShortcuts';
+import type { ComponentType } from 'react';
+import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -26,11 +28,13 @@ declare module '@tiptap/core' {
   }
 }
 
-export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
+export const createRicosExtensions: CreateRicosExtensions = settings => [
   {
     type: 'node' as const,
     groups: ['react'],
-    Component: CollapsibleList,
+    Component: decorateComponentWithProps(CollapsibleList, {
+      settings,
+    }) as ComponentType<PluginProps>,
     name: TIPTAP_COLLAPSIBLE_LIST_TYPE,
     createExtensionConfig() {
       return {
@@ -40,7 +44,7 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
         draggable: true,
         content: `(${TIPTAP_COLLAPSIBLE_ITEM_TYPE})+`,
         addAttributes: () => collapsibleListDataDefaults,
-        addOptions: () => defaultOptions,
+        addOptions: () => settings,
         addKeyboardShortcuts() {
           return keyboardShortcuts;
         },
@@ -59,7 +63,9 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
   {
     type: 'node' as const,
     groups: ['react'],
-    Component: CollapsibleListItem,
+    Component: decorateComponentWithProps(CollapsibleListItem, {
+      settings,
+    }) as ComponentType<PluginProps>,
     name: TIPTAP_COLLAPSIBLE_ITEM_TYPE,
     createExtensionConfig() {
       return {
@@ -70,14 +76,16 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
         addAttributes: () => ({
           isExpanded: { default: true },
         }),
-        addOptions: () => defaultOptions,
+        addOptions: () => settings,
       };
     },
   },
   {
     type: 'node' as const,
     groups: ['react'],
-    Component: CollapsibleListItemTitle,
+    Component: decorateComponentWithProps(CollapsibleListItemTitle, {
+      settings,
+    }) as ComponentType<PluginProps>,
     name: TIPTAP_COLLAPSIBLE_ITEM_TITLE_TYPE,
     createExtensionConfig() {
       return {
@@ -85,14 +93,16 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
         group: 'block',
         draggable: true,
         content: 'block+',
-        addOptions: () => defaultOptions,
+        addOptions: () => settings,
       };
     },
   },
   {
     type: 'node' as const,
     groups: ['react'],
-    Component: CollapsibleListItemBody,
+    Component: decorateComponentWithProps(CollapsibleListItemBody, {
+      settings,
+    }) as ComponentType<PluginProps>,
     name: TIPTAP_COLLAPSIBLE_ITEM_BODY_TYPE,
     createExtensionConfig() {
       return {
@@ -100,7 +110,7 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
         group: 'block',
         draggable: true,
         content: 'block+',
-        addOptions: () => defaultOptions,
+        addOptions: () => settings,
       };
     },
   },

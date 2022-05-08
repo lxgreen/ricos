@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Component as GalleryComponent } from '../gallery-component';
-import { GALLERY_TYPE } from '../types';
 import type { PluginProps } from 'ricos-tiptap-types';
+import { RicosContext } from 'wix-rich-content-editor-common';
 
-export const Gallery: React.FC<PluginProps> = ({ context, componentData, node }) => {
-  const { isMobile, theme, t, config = {} } = context;
+export const Gallery: React.FC<PluginProps> = ({ settings, componentData, node }) => {
+  const { theme, t, isMobile } = useContext(RicosContext);
   const helpers = {};
-  const settings = config[GALLERY_TYPE] || {};
   const block = {
     getKey: () => node.attrs.id,
   };

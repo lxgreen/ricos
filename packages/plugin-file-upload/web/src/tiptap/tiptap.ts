@@ -1,16 +1,18 @@
-import type { CreateRicosExtensions } from 'ricos-tiptap-types';
-import { File as Component } from './component';
+import type { CreateRicosExtensions, PluginProps } from 'ricos-tiptap-types';
+import { File } from './component';
 import fileDataDefaults from 'ricos-schema/dist/statics/file.defaults.json';
 import { TIPTAP_FILE_TYPE } from 'ricos-content';
+import type { ComponentType } from 'react';
+import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
 
 const name = TIPTAP_FILE_TYPE;
 
-export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
+export const createRicosExtensions: CreateRicosExtensions = settings => [
   {
     type: 'node' as const,
     groups: ['react'],
     name,
-    Component,
+    Component: decorateComponentWithProps(File, { settings }) as ComponentType<PluginProps>,
     createExtensionConfig() {
       return {
         name: this.name,
@@ -23,7 +25,7 @@ export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
             default: false,
           },
         }),
-        addOptions: () => defaultOptions,
+        addOptions: () => settings,
         addCommands() {
           return {};
         },

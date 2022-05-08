@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import type { PluginProps } from 'ricos-tiptap-types';
 import NewPairButton from '../components/NewPairButton';
 import { mergeStyles } from 'wix-rich-content-common';
@@ -8,15 +8,16 @@ import ExpandCollapseButton from '../components/ExpandCollapseButton';
 import { DndIcon } from '../icons';
 import { TIPTAP_COLLAPSIBLE_ITEM_TYPE } from 'ricos-content';
 import { findParentNodeClosestToPos, isInCollapsibleList } from './utils';
+import { RicosContext } from 'wix-rich-content-editor-common';
 
 export const CollapsibleList: React.FC<PluginProps> = ({
   editor,
   node,
   NodeViewContent,
-  context: { t, theme },
   componentData,
   getPos,
 }) => {
+  const { theme, t } = useContext(RicosContext);
   const styles = mergeStyles({ styles: collapsibleListStyles, theme });
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const pos = (getPos as any)();
@@ -57,9 +58,9 @@ export const CollapsibleListItem: React.FC<PluginProps> = ({
   editor,
   node,
   NodeViewContent,
-  context: { t, theme },
   updateAttributes,
 }) => {
+  const { theme, t } = useContext(RicosContext);
   const styles = mergeStyles({ styles: collapsibleListItemStyles, theme });
   const isExpanded = node.attrs.isExpanded;
   const toggleCollapsibleListBody = () => {

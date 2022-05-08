@@ -17,17 +17,10 @@ import type {
   EditorPlugin,
   LegacyEditorPluginConfig,
   ComponentData,
-  RichContentTheme,
 } from 'wix-rich-content-common';
 
 export type PluginProps = NodeViewRendererProps & {
-  context: {
-    isMobile: boolean;
-    theme: RichContentTheme;
-    t: (key: string) => string;
-    config: LegacyEditorPluginConfig;
-    iframeSandboxDomain: string;
-  };
+  settings: LegacyEditorPluginConfig;
   componentData: ComponentData;
   updateAttributes: (data: unknown) => null;
   selected: boolean;

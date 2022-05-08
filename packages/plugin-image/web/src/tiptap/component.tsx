@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ImageViewer } from '..';
-import type { ImageData } from '../types';
-import { IMAGE_TYPE } from '../types';
+import type { ImageData, ImagePluginViewerConfig } from '../types';
 import type { PluginProps } from 'ricos-tiptap-types';
 import { MediaItemErrorMsg, Loader } from 'wix-rich-content-ui-components';
+import { RicosContext } from 'wix-rich-content-editor-common';
 
 export const Image: React.FC<PluginProps> = ({
-  context,
+  settings,
   componentData,
   updateAttributes,
   node,
 }) => {
-  const { isMobile, theme, t, config = {} } = context;
+  const { theme, t, isMobile } = useContext(RicosContext);
   const helpers = {};
-  const settings = config[IMAGE_TYPE] || {};
   const blockProps = {
     setFocusToBlock: () => null,
   };
@@ -34,7 +33,7 @@ export const Image: React.FC<PluginProps> = ({
         componentData={componentData as ImageData}
         isLoading={loading}
         dataUrl={loading && node.attrs.image?.src?.url}
-        settings={settings}
+        settings={settings as ImagePluginViewerConfig}
         defaultCaption={t('ImageViewer_Caption')}
         onCaptionChange={handleCaptionChange}
         setFocusToBlock={blockProps.setFocusToBlock}
