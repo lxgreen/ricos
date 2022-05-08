@@ -1,6 +1,6 @@
 {
   "name": "ricos-editor",
-  "version": "8.71.8",
+  "version": "8.71.9",
   "author": {
     "name": "Matan Harsat",
     "email": "matanha@wix.com"
@@ -45,19 +45,19 @@
   },
   "dependencies": {
     "react-modal": "~3.4.1",
-    "ricos-common": "8.71.8",
-    "ricos-modals": "8.71.8",
-    "ricos-shortcuts": "8.71.8",
-    "ricos-schema": "8.71.8",
-    "ricos-tiptap-types": "8.71.8",
+    "ricos-common": "8.71.9",
+    "ricos-modals": "8.71.9",
+    "ricos-schema": "8.71.9",
+    "ricos-shortcuts": "8.71.9",
+    "ricos-tiptap-types": "8.71.9",
     "uuid": "^3.4.0",
-    "wix-rich-content-common": "8.71.8",
-    "wix-rich-content-editor": "8.71.8",
-    "wix-rich-content-editor-common": "8.71.8",
-    "wix-rich-content-toolbars-new": "8.71.8",
-    "wix-rich-content-toolbars-v3": "8.71.8",
-    "wix-tiptap-editor": "8.71.8",
-    "wix-tiptap-extensions": "8.71.8"
+    "wix-rich-content-common": "8.71.9",
+    "wix-rich-content-editor": "8.71.9",
+    "wix-rich-content-editor-common": "8.71.9",
+    "wix-rich-content-toolbars-new": "8.71.9",
+    "wix-rich-content-toolbars-v3": "8.71.9",
+    "wix-tiptap-editor": "8.71.9",
+    "wix-tiptap-extensions": "8.71.9"
   },
   "jest": {
     "globals": {

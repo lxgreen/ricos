@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+  </details>
+  <hr/>
+
+## 8.71.9 (May 8, 2022)
+
 ### :house: Internal
 
 - `ricos-shortcuts`
   - [#3827](https://github.com/wix/ricos/pull/3827) package added
-
-  </details>
-  <hr/>
 
 ## 8.71.8 (May 4, 2022)
 
@@ -42,6 +44,7 @@
 ### :house: Internal
 
 - `ricos-editor`
+
   - [#3814](https://github.com/wix/ricos/pull/3814) wire draftEditorSettings to tiptap html attributes
 
 - `ricos-editor`
