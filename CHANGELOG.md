@@ -20,6 +20,13 @@
   </details>
   <hr/>
 
+## 8.71.10 (May 8, 2022)
+
+### :house: Internal
+
+- `upload-service`
+  - [#3809](https://github.com/wix/ricos/pull/3809) upload on paste & experiment renaming
+
 ## 8.71.9 (May 8, 2022)
 
 ### :house: Internal
