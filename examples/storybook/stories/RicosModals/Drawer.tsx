@@ -17,7 +17,7 @@ const Drawer = () => {
     modalService.openModal({
       Component: () => <div className={styles.modalComp}>My drawer modal</div>,
       id: 'drawerStory',
-      groups: ['drawer'],
+      layout: 'drawer',
       positioning: { placement },
     });
   };

@@ -17,7 +17,7 @@ const Dialog = () => {
     modalService.openModal({
       Component: () => <div className={styles.modalComp}>My dialog modal</div>,
       id: 'dialogStory',
-      groups: ['dialog'],
+      layout: 'dialog',
     });
   };
   return (

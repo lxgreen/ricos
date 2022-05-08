@@ -26,9 +26,7 @@ export const ModalPopper = ({ modalConfig, languageDir }: Props) => {
     modalService?.closeModal?.(modalConfig.id);
   };
 
-  let ModalLayout;
-
-  modalConfig.groups.forEach(group => layoutMapper[group] && (ModalLayout = layoutMapper[group]));
+  const ModalLayout = layoutMapper[modalConfig.layout];
 
   const ModalComponent = modalConfig.Component;
 

@@ -22,7 +22,7 @@ const Fullscreen = () => {
         </div>
       ),
       id: 'fullscreenStory',
-      groups: ['fullscreen'],
+      layout: 'fullscreen',
     });
   };
   return (

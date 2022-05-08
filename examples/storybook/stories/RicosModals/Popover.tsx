@@ -22,7 +22,7 @@ const Popover = () => {
     modalService.openModal({
       Component: () => <div className={styles.modalComp}>My popover modal</div>,
       id: 'popoverStory',
-      groups: ['popover'],
+      layout: 'popover',
       positioning: { referenceElement, placement },
     });
   };

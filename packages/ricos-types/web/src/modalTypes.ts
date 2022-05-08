@@ -1,7 +1,7 @@
 import type { ComponentType } from 'react';
 import type { KeyboardShortcut } from './shortcuts';
 
-type Group = 'popover' | 'drawer' | 'dialog' | 'fullscreen';
+type Layout = 'popover' | 'drawer' | 'dialog' | 'fullscreen';
 export type Placement =
   | 'top-start'
   | 'top'
@@ -25,7 +25,7 @@ type ModalPositioning = {
 export type ModalConfig = {
   Component: ComponentType;
   id: string;
-  groups: Group[];
+  layout: Layout;
   positioning?: ModalPositioning;
   shortcuts?: KeyboardShortcut[];
 };

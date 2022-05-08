@@ -26,7 +26,7 @@ const FloatingAddPluginMenu = ({ editor, pluginsButtons }) => {
       }),
       id: PLUGIN_MENU_MODAL_ID,
       positioning: { referenceElement: buttonRef?.current },
-      groups: ['popover'],
+      layout: 'popover',
     });
   };
 
