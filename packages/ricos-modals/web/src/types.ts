@@ -5,8 +5,8 @@ export interface ModalContextValue {
 }
 
 export interface ModalService {
-  openModal: (modalConfig: ModalConfig) => void;
-  closeModal: (id: string) => void;
+  openModal: (modalConfig: ModalConfig) => boolean;
+  closeModal: (id: string) => boolean;
   getOpenModals: () => ModalConfig[];
   onModalOpened: (onOpen: (id: string) => unknown) => void;
   onModalClosed: (onClose: (id: string) => unknown) => void;

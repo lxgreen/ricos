@@ -6,9 +6,7 @@ const EVENTS = {
   modalCloseEvent: 'modalClose',
 };
 
-type ModalState = { state: { open?: boolean; close?: boolean } };
-
-type IModal = ModalConfig & ModalState;
+type IModal = ModalConfig;
 
 export class RicosModalService implements ModalService {
   private modals: IModal[] = [];
@@ -22,26 +20,29 @@ export class RicosModalService implements ModalService {
   public openModal(modalConfig: ModalConfig) {
     const modal = this.getModal(modalConfig.id);
     if (modal) {
-      modal.state = { open: true };
+      console.error(`Attempt to open ${modalConfig.id} that's already open`);
+      return false;
     } else {
-      this.modals.push({ ...modalConfig, state: { open: true } });
+      this.modals.push(modalConfig);
+      this.emit(EVENTS.modalOpenEvent, this.getModal(modalConfig.id));
+      return true;
     }
-    this.emit(EVENTS.modalOpenEvent, this.getModal(modalConfig.id));
   }
 
   public closeModal(id: string) {
     const modal = this.getModal(id);
-    if (modal?.state.open) {
-      modal.state = { open: false };
+    if (modal) {
+      this.modals = this.modals.filter(modal => modal.id !== id);
       this.emit(EVENTS.modalCloseEvent, id);
+      return true;
     } else {
       console.error(`Fail to close modal: ${id} is not open`);
+      return false;
     }
   }
 
-  // TODO: separate Modal entity and ModalConfig type
   public getOpenModals() {
-    return this.modals.filter(modal => modal.state.open).map(({ state: _, ...rest }) => rest);
+    return this.modals;
   }
 
   private getModal(id: string) {

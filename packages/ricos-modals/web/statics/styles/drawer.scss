@@ -8,18 +8,55 @@
 
   .content {
     position: fixed;
-    inset: 0px 0px auto auto;
     border: none;
     background: rgb(255, 255, 255);
     overflow: auto;
     border-radius: 4px;
     outline: none;
-    padding: 0px;
+    padding: 20px;
     color: var(--ricos-settings-text-color, #000);
-    height: 100%;
     width: 100%;
-    max-width: 420px;
-    direction: ltr;
     z-index: 20001;
+  }
+
+  .drawerT,
+  .drawerB {
+    left: 0px;
+    right: 0px;
+    height: max-content;
+  }
+
+  .drawerT {
+    top: 0px;
+  }
+
+  .drawerB {
+    bottom: 0px;
+  }
+
+  .drawerR,
+  .drawerL {
+    height: 100%;
+    max-width: 420px;
+  }
+
+  .drawerR {
+    inset: 0px 0px auto auto;
+    direction: ltr;
+  }
+
+  .drawerL {
+    inset: 0px auto 0px auto;
+    direction: rtl;
+  }
+
+  .dialog {
+    transform: translateY(-50%);
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    height: max-content;
+    width: fit-content;
+    inset: calc(50%) 0px auto;
   }
 }

@@ -2,9 +2,25 @@ import type { ComponentType } from 'react';
 import type { KeyboardShortcut } from './shortcuts';
 
 type Group = 'popover' | 'drawer' | 'dialog' | 'fullscreen';
+export type Placement =
+  | 'top-start'
+  | 'top'
+  | 'top-end'
+  | 'right-start'
+  | 'right'
+  | 'right-end'
+  | 'bottom-start'
+  | 'bottom'
+  | 'bottom-end'
+  | 'left-start'
+  | 'left'
+  | 'left-end';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ModalPositioning = { referenceElement: any };
+type ModalPositioning = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  referenceElement?: any;
+  placement?: Placement;
+};
 
 export type ModalConfig = {
   Component: ComponentType;

@@ -10,3 +10,4 @@ require('./Experiments/');
 require('./TestCase/');
 require('./UploadMedia/');
 require('./ContentAPI/');
+require('./RicosModals/');

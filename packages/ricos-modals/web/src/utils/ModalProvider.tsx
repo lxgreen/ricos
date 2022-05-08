@@ -8,7 +8,7 @@ import { ModalPopper } from './ModalPopper';
 export const ModalProvider: FC = ({ children }) => {
   const [openModals, setOpenModals] = useState<ModalConfig[]>([]);
   const { modalService } = useContext(ModalContext);
-  const updateOpenModals = () => setOpenModals(modalService.getOpenModals());
+  const updateOpenModals = () => setOpenModals([...modalService.getOpenModals()]);
   modalService.onModalOpened(updateOpenModals);
   modalService.onModalClosed(updateOpenModals);
 
