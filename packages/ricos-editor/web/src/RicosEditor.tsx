@@ -133,7 +133,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> implements R
     this.useTiptap = !!props.experiments?.tiptapEditor?.enabled;
     this.useNewFormattingToolbar = !!props.experiments?.newFormattingToolbar?.enabled;
     this.useToolbarsV3 = !!props.experiments?.toolbarsV3?.enabled;
-    props.experiments?.useNewUploadContext?.enabled && (this.UploadObserver = new UploadObserver());
+    props.experiments?.useUploadContext?.enabled && (this.UploadObserver = new UploadObserver());
   }
 
   static defaultProps = {
@@ -367,7 +367,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> implements R
 
   onBusyChange = (contentState: ContentState) => {
     const { onBusyChange, onChange, experiments } = this.props;
-    const isBusy = experiments?.useNewUploadContext?.enabled
+    const isBusy = experiments?.useUploadContext?.enabled
       ? !!this.UploadObserver?.hasActiveUploads()
       : hasActiveUploads(contentState);
     if (this.isBusy !== isBusy) {

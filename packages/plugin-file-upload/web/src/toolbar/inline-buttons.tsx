@@ -53,7 +53,7 @@ const createInlineButtons: CreateInlineButtons = ({
     tooltipTextKey: t('FileUploadReplaceButton_tooltip'),
   };
 
-  if (experiments?.useNewUploadContext?.enabled) {
+  if (experiments?.useUploadContext?.enabled) {
     replaceButton.mediaPluginService = new FilePluginService();
     replaceButton.getUploader = () => new Uploader(settings.onFileSelected);
   }

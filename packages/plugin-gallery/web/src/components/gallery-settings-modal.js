@@ -54,7 +54,7 @@ class ManageMediaSection extends Component {
 
   handleFileChange = (files, itemPos) => {
     if (files.length > 0) {
-      if (this.props.experiments.useNewUploadContext?.enabled) {
+      if (this.props.experiments.useUploadContext?.enabled) {
         files.forEach((file, index) => {
           const fileState = isValidIndex(itemPos) ? { itemIndex: itemPos + index } : {};
           this.props.uploadService?.uploadFile(
@@ -76,7 +76,7 @@ class ManageMediaSection extends Component {
   handleFileSelection = (index, multiple) => {
     const { helpers, data, store } = this.props;
     const deleteBlock = store.get('deleteBlock');
-    const handleFilesAdded = this.props.experiments.useNewUploadContext?.enabled
+    const handleFilesAdded = this.props.experiments.useUploadContext?.enabled
       ? this.handleFilesAddedWithIndex(index)
       : this.handleFilesAdded;
     helpers.handleFileSelection(index, multiple, handleFilesAdded, deleteBlock, data);
@@ -391,7 +391,7 @@ export class GallerySettingsModal extends Component {
           value={'manage_media'}
           theme={this.props.theme}
         >
-          {this.props.experiments.useNewUploadContext?.enabled ? (
+          {this.props.experiments.useUploadContext?.enabled ? (
             <UploadServiceContext.Consumer>
               {({ uploadService, updateService }) => (
                 <ManageMediaSection

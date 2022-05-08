@@ -175,7 +175,7 @@ export default ({
       const buttonWrapperClassNames = classNames(styles.buttonWrapper, {
         [styles.mobile]: isMobile,
       });
-      const hasUploadContext = this.context.experiments?.useNewUploadContext?.enabled;
+      const hasUploadContext = this.context.experiments?.useUploadContext?.enabled;
       const buttonRenderer =
         buttonProps.type === BUTTON_TYPES.FILE && !hasUploadContext
           ? this.renderFileUploadButton

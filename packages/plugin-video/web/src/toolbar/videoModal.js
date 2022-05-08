@@ -12,7 +12,7 @@ const VideoModal = props => {
     experiments,
   } = props;
 
-  const { uploadService, updateService } = experiments?.useNewUploadContext?.enabled
+  const { uploadService, updateService } = experiments?.useUploadContext?.enabled
     ? useContext(UploadServiceContext)
     : {};
 

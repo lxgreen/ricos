@@ -33,7 +33,7 @@ const createInsertButtons: CreateInsertButtons = ({
     toolbars: [TOOLBARS.INSERT_PLUGIN, TOOLBARS.MOBILE, TOOLBARS.FOOTER, TOOLBARS.SIDE],
   };
 
-  if (experiments?.useNewUploadContext?.enabled) {
+  if (experiments?.useUploadContext?.enabled) {
     fileInsertButton.mediaPluginService = new FilePluginService();
     fileInsertButton.getUploader = () => new Uploader(settings.onFileSelected);
   }

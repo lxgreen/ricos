@@ -223,7 +223,7 @@ export function generateInsertPluginButtonProps({
     const mediaPluginService = button.mediaPluginService;
     let updateEntity;
     if (data) {
-      if (experiments?.useNewUploadContext?.enabled && mediaPluginService) {
+      if (experiments?.useUploadContext?.enabled && mediaPluginService) {
         updateEntity = (blockKey: string, file: fileData | fileData[]) => {
           onPluginAddStep('FileUploadDialog', blockKey);
           setTimeout(() => {
@@ -322,7 +322,7 @@ export function generateInsertPluginButtonProps({
 
   function getPropsByButtonType(type) {
     return {
-      [BUTTON_TYPES.FILE]: experiments?.useNewUploadContext?.enabled
+      [BUTTON_TYPES.FILE]: experiments?.useUploadContext?.enabled
         ? {
             onClick: () => uploadService?.selectFiles(settings.accept, !!button.multi, uploadFiles),
           }

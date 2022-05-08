@@ -196,7 +196,7 @@ export class RicosEngine extends Component<EngineProps> {
       applyBIGenerics(getContentId)
     );
 
-    const useUploadContext = !isViewer && experiments?.useNewUploadContext?.enabled;
+    const useUploadContext = !isViewer && experiments?.useUploadContext?.enabled;
 
     const modal = (
       <RicosModal

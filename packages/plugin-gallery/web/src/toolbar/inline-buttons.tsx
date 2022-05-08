@@ -64,7 +64,7 @@ const createInlineButtons: CreateInlineButtons = ({
     settings,
   };
 
-  if (experiments?.useNewUploadContext?.enabled) {
+  if (experiments?.useUploadContext?.enabled) {
     addFilesButton.mediaPluginService = new GalleryPluginService();
     addFilesButton.getUploader = (
       helpers: Helpers,

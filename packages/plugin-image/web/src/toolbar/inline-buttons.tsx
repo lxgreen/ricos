@@ -81,7 +81,7 @@ const createInlineButtons: CreateInlineButtons = ({
     t,
   };
 
-  if (experiments?.useNewUploadContext?.enabled) {
+  if (experiments?.useUploadContext?.enabled) {
     replaceButton.mediaPluginService = new ImagePluginService();
     replaceButton.getUploader = (
       helpers: Helpers,

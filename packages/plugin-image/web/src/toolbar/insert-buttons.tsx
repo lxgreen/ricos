@@ -41,7 +41,7 @@ const createInsertButtons: CreateInsertButtons = ({
     componentData,
   };
 
-  if (experiments?.useNewUploadContext?.enabled) {
+  if (experiments?.useUploadContext?.enabled) {
     imageInsertButton.mediaPluginService = new ImagePluginService();
     imageInsertButton.getUploader = (
       helpers: Helpers,
