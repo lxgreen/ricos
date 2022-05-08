@@ -5,13 +5,18 @@ import { RichContentEditorBox, Section, Page } from '../Components/StoryParts';
 import { pluginImage } from 'wix-rich-content-plugin-image';
 import { pluginGallery } from 'wix-rich-content-plugin-gallery';
 import { pluginPoll } from 'wix-rich-content-plugin-social-polls';
+import { SocialPollsServiceMock } from '../../../main/src/Components/SocialPollsServiceMock/SocialPollsServiceMock';
 import MobileDetect from 'mobile-detect';
 import ActionButton from '../Components/ActionButton';
 import type { EditorEventsProps } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
 import { withEditorContext } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
 
 const mobileDetect = new MobileDetect(window.navigator.userAgent);
-const plugins = [pluginImage(), pluginGallery(), pluginPoll()];
+const plugins = [
+  pluginImage(),
+  pluginGallery(),
+  pluginPoll({ pollServiceApi: new SocialPollsServiceMock() }),
+];
 
 const RicosPublishStory: FunctionComponent<EditorEventsProps> = ({ editorEvents }) => {
   const modalSettings = {
