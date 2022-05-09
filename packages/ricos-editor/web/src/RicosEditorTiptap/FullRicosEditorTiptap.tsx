@@ -1,8 +1,9 @@
 /* eslint-disable brace-style */
 import type { Node } from 'prosemirror-model';
-import React, { forwardRef, useContext } from 'react';
+import React, { forwardRef } from 'react';
 import type { RicosEditorProps } from 'ricos-common';
 import { ModalProvider } from 'ricos-modals';
+import { Shortcuts } from 'ricos-shortcuts';
 import { getLangDir } from 'wix-rich-content-common';
 import {
   EditorEvents,
@@ -10,7 +11,6 @@ import {
 } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
 import { Content, RicosTiptapToolbar, ToolbarContext } from 'wix-rich-content-toolbars-v3';
 import type { RichContentAdapter } from 'wix-tiptap-editor';
-import { Shortcuts } from 'ricos-shortcuts';
 import { LocaleResourceProvider } from '../RicosContext/locale-resource-provider';
 import type { RicosEditorRef } from '../RicosEditorRef';
 import { convertToolbarContext } from '../toolbars/convertToolbarContext';
@@ -216,13 +216,15 @@ export class FullRicosEditorTiptap
                 </ToolbarContext.Provider>
               </ModalProvider>
             )}
-            <RicosEditorTiptap
-              {...this.props}
-              onLoad={editor => {
-                this.onEditorLoad(editor);
-                this.forceUpdate();
-              }}
-            />
+            <Shortcuts group="formatting">
+              <RicosEditorTiptap
+                {...this.props}
+                onLoad={editor => {
+                  this.onEditorLoad(editor);
+                  this.forceUpdate();
+                }}
+              />
+            </Shortcuts>
           </div>
         </Shortcuts>
       </LocaleResourceProvider>

@@ -37,6 +37,7 @@
     "react-hotkeys": "^2.0.0",
     "ricos-common": "8.71.11",
     "ricos-types": "8.71.11",
+    "ricos-modals": "8.71.11",
     "wix-rich-content-editor-common": "8.71.11"
   },
   "unpkg": true,

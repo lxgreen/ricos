@@ -9,10 +9,7 @@ export class EditorKeyboardShortcuts implements Shortcuts {
 
   constructor(shortcuts: Shortcut[] = []) {
     this.shortcuts = shortcuts;
-    EditorKeyboardShortcuts.id += 1;
   }
-
-  public static id = 0;
 
   private hasDuplicate(shortcut: Shortcut) {
     return this.shortcuts.find(s => s.equals(shortcut));
@@ -20,7 +17,7 @@ export class EditorKeyboardShortcuts implements Shortcuts {
 
   getHotKeysProps(group: string, commands: EditorCommands, t: TranslationFunction): HotKeysProps {
     return this.shortcuts
-      .filter(s => s.getGroup() === group)
+      .filter(s => s.getGroup() === group || s.getGroup() === 'global')
       .reduce(
         ({ keyMap, handlers }, shortcut) => {
           return {
@@ -28,16 +25,14 @@ export class EditorKeyboardShortcuts implements Shortcuts {
             keyMap: {
               ...keyMap,
               [shortcut.getName()]: {
-                sequence: shortcut.getKeys().toString().toLowerCase(),
+                sequences: [shortcut.getKeys().toString().toLowerCase()],
                 ...shortcut.getDisplayData(t),
               },
             },
             handlers: {
               ...handlers,
               [shortcut.getName()]: (e: KeyboardEvent) => {
-                console.log(`${shortcut.getName()} COMMAND RUNS`); // eslint-disable-line no-console
                 e.preventDefault();
-                // e.stopPropagation();
                 shortcut.getCommand()(commands);
               },
             },

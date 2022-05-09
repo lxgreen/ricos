@@ -111,14 +111,14 @@ describe('Editor Keyboard Shortcuts', () => {
         group: 'formatting',
         keyCombinationText: 'Cmd+B',
         name: 'Bold',
-        sequence: 'meta+shift+b',
+        sequences: ['meta+shift+b'],
       },
       Italic: {
         description: 'Toggles italic style of selected text',
         group: 'formatting',
         keyCombinationText: 'Cmd+I',
         name: 'Italic',
-        sequence: 'meta+i',
+        sequences: ['meta+i'],
       },
     });
 

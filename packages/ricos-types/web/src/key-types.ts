@@ -21,7 +21,7 @@ export const isModifierKey = (key: string): key is ModifierKeys =>
     'Alt',
     'AltGraph',
     'CapsLock',
-    'Control',
+    'Ctrl',
     'Fn',
     'FnLock',
     'Hyper',
