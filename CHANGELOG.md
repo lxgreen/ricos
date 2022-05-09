@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `ricos-shortcuts`
+  - [#3835](https://github.com/wix/ricos/pull/3835) react-hotkeys works with tiptap
+
   </details>
   <hr/>
 
