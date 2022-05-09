@@ -17,13 +17,15 @@
     Click to see more.
   </summary>
 
+  </details>
+  <hr/>
+
+## 8.71.11 (May 9, 2022)
+
 ### :bug: Bug Fix
 
 - `gallery`
-  - [#3839](https://github.com/wix/ricos/pull/3839) gallery items are updated in settings when new files are uploaded
-
-  </details>
-  <hr/>
+  - [#3839](https://github.com/wix/ricos/pull/3839) update gallery items in settings when new files are uploaded
 
 ## 8.71.10 (May 8, 2022)
 
