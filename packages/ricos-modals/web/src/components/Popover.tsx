@@ -27,8 +27,12 @@ export const Popover = ({ children, modalConfig, closeModal }: Props) => {
     ],
   });
 
+  const onClickOutside = e => {
+    !referenceElement.contains(e.target) && closeModal();
+  };
+
   return (
-    <ClickOutside onClickOutside={closeModal}>
+    <ClickOutside onClickOutside={onClickOutside}>
       <div
         ref={setModalElement}
         style={popperStyles.popper}

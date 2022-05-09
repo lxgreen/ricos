@@ -15,9 +15,15 @@ const FloatingAddPluginMenu = ({ editor, pluginsButtons }) => {
   const offsetTop = floatingMenuWrapperRef?.current?.getBoundingClientRect().top;
   const PLUGIN_MENU_MODAL_ID = 'pluginMenu';
 
+  const toggleAddPluginMenu = () => {
+    modalService?.getOpenModals().find(({ id }) => id === PLUGIN_MENU_MODAL_ID)
+      ? handleClose()
+      : handleOpen();
+  };
+
   const handleOpen = () => {
     modalService?.openModal({
-      Component: decorateComponentWithProps(pluginMenuModal, {
+      Component: decorateComponentWithProps(AddPluginMenu, {
         t,
         plugins: pluginMenuButtons,
         isMobile,
@@ -62,16 +68,6 @@ const FloatingAddPluginMenu = ({ editor, pluginsButtons }) => {
     };
   });
 
-  const pluginMenuModal = () => (
-    <AddPluginMenu
-      t={t}
-      plugins={pluginMenuButtons}
-      isMobile={isMobile}
-      theme={theme}
-      pluginMenuButtonRef={buttonRef}
-    />
-  );
-
   return (
     <div
       dir={languageDir}
@@ -79,7 +75,7 @@ const FloatingAddPluginMenu = ({ editor, pluginsButtons }) => {
       ref={floatingMenuWrapperRef}
     >
       <EditorSelectionToPos editor={editor} offsetTop={offsetTop}>
-        <AddButton isMobile={isMobile} onClick={handleOpen} buttonRef={buttonRef} />
+        <AddButton isMobile={isMobile} onClick={toggleAddPluginMenu} buttonRef={buttonRef} />
       </EditorSelectionToPos>
     </div>
   );
