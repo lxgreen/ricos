@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `gallery`
+  - [#3839](https://github.com/wix/ricos/pull/3839) gallery items are updated in settings when new files are uploaded
+
   </details>
   <hr/>
 
