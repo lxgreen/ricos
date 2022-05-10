@@ -17,7 +17,18 @@
     Click to see more.
   </summary>
 
+### :bug: Bug Fix
+
+- `tiptap-extensions`
+  - [#3728](https://github.com/wix/ricos/pull/3728) auto text direction in tiptap fixed
+
 ### :house: Internal
+
+- `general`
+  - [#3728](https://github.com/wix/ricos/pull/3728) RicosEditor API types moved to ricos-types
+
+- `ricos-editor`
+  - [#3728](https://github.com/wix/ricos/pull/3728) individual reconfiguration of extensions according to RicosEditor props
 
 - `ricos-shortcuts`
   - [#3835](https://github.com/wix/ricos/pull/3835) react-hotkeys works with tiptap
