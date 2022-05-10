@@ -31,6 +31,7 @@ import { findNodeById } from '../../helpers';
 import { tiptapToDraft } from 'wix-tiptap-extensions';
 import type { JSONContent } from '@tiptap/react';
 import type { RicosEditorProps } from 'ricos-common';
+import type { Node as ProseMirrorNode } from 'prosemirror-model';
 
 export class RichContentAdapter implements TiptapAPI {
   constructor(
@@ -299,6 +300,24 @@ export class RichContentAdapter implements TiptapAPI {
             return true;
           })
           .run(),
+
+      getAllBlocksKeys: () => {
+        const keys: string[] = [];
+        this.editor.state.doc.descendants((node: ProseMirrorNode) => {
+          keys.push(node.attrs.id);
+        });
+
+        return keys;
+      },
+      getBlockComponentData: id => {
+        const nodesWithPos = findNodeById(this.editor.state.tr, id);
+        if (nodesWithPos[0]) {
+          const { node } = nodesWithPos[0];
+          return node.attrs;
+        } else {
+          console.error('Failed to find node and return its data');
+        }
+      },
     };
   }
 
@@ -385,11 +404,7 @@ export class RichContentAdapter implements TiptapAPI {
     isAtomicBlockInSelection: () => false,
     isTextBlockInSelection: () => true,
     getAnchorBlockType: () => 'paragraph',
-    getAllBlocksKeys: () => [],
     focus: () => {},
-    getBlockComponentData: () => {
-      return {};
-    },
   };
 }
 
