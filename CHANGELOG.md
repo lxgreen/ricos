@@ -21,6 +21,7 @@
 
 - `ricos-shortcuts`
   - [#3835](https://github.com/wix/ricos/pull/3835) react-hotkeys works with tiptap
+  - [#3841](https://github.com/wix/ricos/pull/3841) fix keys 
 
   </details>
   <hr/>
