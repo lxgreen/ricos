@@ -2,22 +2,24 @@
 import type {
   ExtensionConfig,
   MarkConfig,
-  mergeAttributes as mergeAttributesFn,
-  markPasteRule as markPasteRuleFn,
   markInputRule as markInputRuleFn,
-  textblockTypeInputRule as textblockTypeInputRuleFn,
+  markPasteRule as markPasteRuleFn,
+  mergeAttributes as mergeAttributesFn,
   NodeConfig,
   NodeViewRendererProps,
+  textblockTypeInputRule as textblockTypeInputRuleFn,
 } from '@tiptap/core';
 import type { NodeViewContent } from '@tiptap/react';
 import type { Plugin as IPlugin, PluginKey as IPluginKey } from 'prosemirror-state';
 import type { ComponentType } from 'react';
 import type {
-  TranslationFunction,
   EditorPlugin,
   LegacyEditorPluginConfig,
-  ComponentData,
-} from 'wix-rich-content-common';
+  LinkSettings,
+  TextAlignment,
+  TranslationFunction,
+} from 'ricos-types';
+import type { ComponentData } from 'wix-rich-content-common';
 
 export type PluginProps = NodeViewRendererProps & {
   settings: LegacyEditorPluginConfig;
@@ -66,7 +68,11 @@ export type RicosNodeExtension = {
   name: string;
   type: 'node';
   groups: Group[];
-  dynamicConfiguration?: (config: NodeConfig, extensions: RicosExtension[]) => NodeConfig;
+  reconfigure?: (
+    config: NodeConfig,
+    extensions: RicosExtension[],
+    ricosProps: ExtensionProps
+  ) => NodeConfig;
   createExtensionConfig: ({
     textblockTypeInputRule,
     mergeAttributes,
@@ -89,7 +95,11 @@ export type RicosMarkExtension = {
   name: string;
   type: 'mark';
   groups: Group[];
-  dynamicConfiguration?: (config: MarkConfig, extensions: RicosExtension[]) => MarkConfig;
+  reconfigure?: (
+    config: MarkConfig,
+    extensions: RicosExtension[],
+    ricosProps: ExtensionProps
+  ) => MarkConfig;
   createExtensionConfig: ({
     textblockTypeInputRule,
     mergeAttributes,
@@ -111,9 +121,10 @@ export type RicosFunctionalExtension = {
   name: string;
   type: 'extension';
   groups: Group[];
-  dynamicConfiguration?: (
+  reconfigure?: (
     config: RicosExtensionConfig,
-    extensions: RicosExtension[]
+    extensions: RicosExtension[],
+    ricosProps: ExtensionProps
   ) => RicosExtensionConfig;
   createExtensionConfig: ({
     mergeAttributes,
@@ -140,3 +151,14 @@ export type CreateRicosExtensions = <PluginType extends keyof LegacyEditorPlugin
 ) => RicosExtension[];
 
 export type { DOMOutputSpec } from 'prosemirror-model';
+
+export type ExtensionProps = {
+  placeholder?: string;
+  textAlignment?: TextAlignment;
+  iframeSandboxDomain?: string;
+  isTextWrap?: boolean;
+  maxTextLength?: number;
+  anchorTarget?: LinkSettings['anchorTarget'];
+  relValue?: LinkSettings['relValue'];
+  rel?: LinkSettings['rel'];
+};

@@ -1,26 +1,33 @@
-import type { RicosExtension } from 'ricos-tiptap-types';
+import type { ExtensionProps, RicosExtension } from 'ricos-tiptap-types';
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import { Plugin, PluginKey } from 'prosemirror-state';
+import type { ExtensionConfig } from '@tiptap/core';
 
 export const createPlaceholder = (defaultOptions): RicosExtension => ({
   type: 'extension' as const,
   groups: [],
   name: 'placeholder',
+  reconfigure: (
+    config: ExtensionConfig,
+    _extensions: RicosExtension[],
+    ricosProps: ExtensionProps
+  ) => ({
+    ...config,
+    addOptions() {
+      return {
+        emptyEditorClass: 'is-editor-empty',
+        emptyNodeClass: 'is-empty',
+        placeholder: ricosProps.placeholder || '',
+        showOnlyWhenEditable: true,
+        showOnlyCurrent: true,
+        includeChildren: false,
+        ...defaultOptions,
+      };
+    },
+  }),
   createExtensionConfig() {
     return {
       name: this.name,
-      addOptions() {
-        return {
-          emptyEditorClass: 'is-editor-empty',
-          emptyNodeClass: 'is-empty',
-          placeholder: 'yaron123',
-          showOnlyWhenEditable: true,
-          showOnlyCurrent: true,
-          includeChildren: false,
-          ...defaultOptions,
-        };
-      },
-
       addProseMirrorPlugins() {
         return [
           new Plugin({

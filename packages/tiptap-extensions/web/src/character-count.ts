@@ -1,19 +1,28 @@
 import { Plugin, PluginKey } from 'prosemirror-state';
-import type { RicosExtension } from 'ricos-tiptap-types';
+import type { ExtensionProps, RicosExtension, RicosExtensionConfig } from 'ricos-tiptap-types';
+
+const MAX_TEXT_LENGTH = 500000;
 
 export const createCharacterCount = (): RicosExtension => ({
   type: 'extension' as const,
   groups: [],
   name: 'characterCount',
+  reconfigure: (
+    config: RicosExtensionConfig,
+    _extensions: RicosExtension[],
+    ricosProps: ExtensionProps
+  ) => ({
+    ...config,
+    addOptions() {
+      return {
+        maxTextLength: Math.min(ricosProps.maxTextLength || MAX_TEXT_LENGTH, MAX_TEXT_LENGTH),
+        mode: 'textSize',
+      };
+    },
+  }),
   createExtensionConfig() {
     return {
       name: this.name,
-      addOptions() {
-        return {
-          maxTextLength: null,
-          mode: 'textSize',
-        };
-      },
 
       addStorage() {
         return {

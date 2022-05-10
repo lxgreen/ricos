@@ -6,7 +6,7 @@ export const createUniqueId = (): RicosExtension => ({
   type: 'extension',
   groups: [],
   name: 'unique-id',
-  dynamicConfiguration(config: RicosExtensionConfig, extensions: RicosExtension[]) {
+  reconfigure(config: RicosExtensionConfig, extensions: RicosExtension[]) {
     return {
       ...config,
       addGlobalAttributes() {

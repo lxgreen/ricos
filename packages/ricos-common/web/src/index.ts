@@ -1,4 +1,14 @@
 export * from './types';
+export {
+  ModalSettings,
+  TextAlignment,
+  MediaSettings,
+  LinkSettings,
+  ToolbarSettings,
+  OnContentChangeFunction,
+  OnBusyChangeFunction,
+  FullscreenProps,
+} from 'ricos-types';
 export * from './utils';
 export * from './biCallbacks';
 export { RicosEngine } from './RicosEngine';

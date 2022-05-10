@@ -1,4 +1,5 @@
 import type { Mark } from '@tiptap/core';
+import type { RicosEditorProps } from 'ricos-common';
 import type { ExtensionAggregate, IMarkExtension, MarkExtensionAggregate } from './domain-types';
 import { IExtensionAggregate } from './IExtensionAggregate';
 
@@ -9,8 +10,10 @@ export class MarkExtensions implements MarkExtensionAggregate {
     this.extensions = new IExtensionAggregate(extensions);
   }
 
-  toTiptapExtensions(extensions: ExtensionAggregate) {
-    return this.extensions.asArray().map(e => e.toTiptapExtension(extensions)) as Mark[];
+  toTiptapExtensions(extensions: ExtensionAggregate, ricosProps: RicosEditorProps) {
+    return this.extensions
+      .asArray()
+      .map(e => e.toTiptapExtension(extensions, ricosProps)) as Mark[];
   }
 
   asArray() {

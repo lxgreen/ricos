@@ -9,7 +9,6 @@ import type {
 } from 'wix-rich-content-common';
 import type { Extensions } from './models/Extensions';
 import type { RicosEditorAPI } from 'ricos-types';
-// import type { RicosExtension } from 'ricos-tiptap-types';
 
 export interface PluginProps {
   context: {

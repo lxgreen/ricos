@@ -24,7 +24,7 @@ export const createLineSpacing = (): RicosExtension => ({
   type: 'extension' as const,
   groups: [],
   name: 'lineSpacing',
-  dynamicConfiguration(config: RicosExtensionConfig, extensions: RicosExtension[]) {
+  reconfigure(config: RicosExtensionConfig, extensions: RicosExtension[]) {
     const types = extensions
       .filter(extension => extension.groups.includes('text-container'))
       .map(({ name }) => name);

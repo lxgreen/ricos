@@ -3,6 +3,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import type { TextAlignment } from 'ricos-types';
 import type {
   DraftContent,
   TranslationFunction,
@@ -65,7 +66,7 @@ export interface RichContentViewerProps {
   config: LegacyViewerPluginConfig;
   textDirection?: TextDirection;
   direction?: TextDirection;
-  textAlignment?: 'left' | 'right';
+  textAlignment?: TextAlignment;
   disabled?: boolean;
   seoMode?: SEOSettings;
   iframeSandboxDomain?: string;

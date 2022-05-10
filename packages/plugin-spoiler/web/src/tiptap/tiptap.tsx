@@ -53,7 +53,7 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
     type: 'extension' as const,
     name: 'node-spoiler',
     groups: [],
-    dynamicConfiguration: (config: RicosExtensionConfig, extensions: RicosExtension[]) => ({
+    reconfigure: (config: RicosExtensionConfig, extensions: RicosExtension[]) => ({
       ...config,
       addNodeHoc: () => ({
         nodeTypes: extensions

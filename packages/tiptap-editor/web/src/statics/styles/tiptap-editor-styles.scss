@@ -2,6 +2,8 @@
 
 :global {
   .ProseMirror {
+    // TODO: reset all editor-related styles
+    text-align: initial;
     &:focus-visible {
       outline: none;
     }

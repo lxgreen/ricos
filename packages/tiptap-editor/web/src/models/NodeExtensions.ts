@@ -1,4 +1,5 @@
 import type { Node } from '@tiptap/core';
+import type { RicosEditorProps } from 'ricos-common';
 import type {
   DecoratedNodeExtension,
   ConvertableNodeExtensionAggregate,
@@ -35,8 +36,10 @@ export class DecoratedNodeExtensions implements ConvertableNodeExtensionAggregat
     this.extensions = new IExtensionAggregate(extensions);
   }
 
-  toTiptapExtensions(extensions: ExtensionAggregate) {
-    return this.extensions.asArray().map(e => e.toTiptapExtension(extensions)) as Node[];
+  toTiptapExtensions(extensions: ExtensionAggregate, ricosProps: RicosEditorProps) {
+    return this.extensions
+      .asArray()
+      .map(e => e.toTiptapExtension(extensions, ricosProps)) as Node[];
   }
 }
 
@@ -51,7 +54,9 @@ export class HtmlNodeExtensions implements ConvertableNodeExtensionAggregate {
     return this.extensions.asArray();
   }
 
-  toTiptapExtensions(extensions: ExtensionAggregate) {
-    return this.extensions.asArray().map(e => e.toTiptapExtension(extensions)) as Node[];
+  toTiptapExtensions(extensions: ExtensionAggregate, ricosProps: RicosEditorProps) {
+    return this.extensions
+      .asArray()
+      .map(e => e.toTiptapExtension(extensions, ricosProps)) as Node[];
   }
 }

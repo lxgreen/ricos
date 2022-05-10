@@ -1,15 +1,15 @@
-import type { ReactElement, FunctionComponent } from 'react';
-import React, { Children, Component, Suspense, Fragment } from 'react';
-import mergeModalStyles from './mergeModalStyles';
+import { merge } from 'lodash';
+import type { FunctionComponent, ReactElement } from 'react';
+import React, { Children, Component, Fragment, Suspense } from 'react';
+import ReactDOM from 'react-dom';
+import type { ModalSettings } from 'ricos-common';
 import type {
-  ModalStyles,
-  ModalsMap,
   AvailableExperiments,
   EditorCommands,
+  ModalsMap,
+  ModalStyles,
 } from 'wix-rich-content-common';
-import type { ModalSettings } from 'ricos-common';
-import { merge } from 'lodash';
-import ReactDOM from 'react-dom';
+import mergeModalStyles from './mergeModalStyles';
 
 interface Props {
   children: ReactElement;

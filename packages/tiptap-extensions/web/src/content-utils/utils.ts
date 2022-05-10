@@ -14,7 +14,10 @@ const TYPES = [...NODE_TYPES, ...DECORATION_TYPES];
 export const isTextNode = (object): boolean =>
   object?.type?.toUpperCase?.() === Node_Type.TEXT && ('text' in object || 'textData' in object);
 
-const isParagraphNode = (object): boolean => object?.type?.toUpperCase() === Node_Type.PARAGRAPH;
+export const isHeadingNode = (object): boolean => object?.type?.toUpperCase() === Node_Type.HEADING;
+
+export const isParagraphNode = (object): boolean =>
+  object?.type?.toUpperCase() === Node_Type.PARAGRAPH;
 
 const hasData = (object): boolean =>
   RICOS_NODE_TYPE_TO_DATA_FIELD[object?.type] in object || 'attrs' in object;

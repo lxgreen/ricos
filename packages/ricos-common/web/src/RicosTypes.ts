@@ -1,82 +1,31 @@
-import type {
-  DraftContent,
-  OnErrorFunction,
-  SEOSettings,
-  LinkPanelSettings,
-  GetToolbarSettings,
-  AnchorTarget,
-  RelValue,
-  EditorPlugin,
-  ViewerPlugin,
-  onAtomicBlockFocus,
-  CustomAnchorScroll,
-  Link_Rel,
-  AvailableExperiments,
-  LinkPreviewData,
-  CommandDescriptor,
-  RicosTheme,
-} from 'ricos-types';
-import type { EditorState, EditorProps } from 'draft-js';
+import type { EditorState, EditorProps as DraftEditorProps } from 'draft-js';
 import type { PreviewConfig } from 'wix-rich-content-preview';
-import type { ReactElement, FC } from 'react';
 import type { RicosCssOverride } from './types';
 import type { DRAFT_EDITOR_PROPS } from './consts';
 import type { RichContentEditorProps } from 'wix-rich-content-editor';
 import type { RichContentViewerProps } from 'wix-rich-content-viewer';
+import type {
+  CommonProps,
+  DraftContent,
+  EditorProps,
+  LinkPreviewData,
+  OnErrorFunction,
+  SEOSettings,
+  ViewerPlugin,
+} from 'ricos-types';
 
 export type RichContentProps = Partial<RichContentEditorProps | RichContentViewerProps>;
 
-export interface RicosProps {
-  /* Changes to this interface should also be reflected in the API docs */
+export interface RicosProps extends CommonProps {
   _rcProps?: RichContentProps; // For internal use by WixRicos only
-  children?: ReactElement;
-  content?: DraftContent;
   cssOverride?: RicosCssOverride;
-  isMobile?: boolean;
-  linkSettings?: LinkSettings;
-  locale?: string;
-  localeContent?: string;
-  mediaSettings?: MediaSettings;
-  onError?: OnErrorFunction;
-  theme?: RicosTheme;
-  textAlignment?: TextAlignment;
-  onAtomicBlockFocus?: onAtomicBlockFocus;
-  experiments?: AvailableExperiments;
-  iframeSandboxDomain?: string;
-  textWrap?: boolean;
-  /* Changes to this interface should also be reflected in the API docs */
 }
 
-interface EditorEvents {
-  subscribe: (
-    event: string,
-    callback: () => Promise<{ type: string; data: unknown }>
-  ) => (event: string, callback: () => Promise<{ type: string; data: unknown }>) => void;
-  unsubscribe: (event: string, callback: () => Promise<{ type: string; data: unknown }>) => void;
-  dispatch: (event: string) => Promise<unknown>;
-  publish: () => Promise<DraftContent>;
-}
-
-export interface RicosEditorProps extends RicosProps {
-  /* Changes to this interface should also be reflected in the API docs */
-  plugins?: EditorPlugin[];
+export interface RicosEditorProps extends RicosProps, EditorProps {
   draftEditorSettings?: DraftEditorSettings;
-  linkPanelSettings?: LinkPanelSettings;
-  modalSettings?: ModalSettings;
-  onChange?: OnContentChangeFunction;
-  placeholder?: string;
-  toolbarSettings?: ToolbarSettings;
-  onBusyChange?: OnBusyChangeFunction;
-  injectedContent?: DraftContent;
-  maxTextLength?: number;
-  editorEvents?: EditorEvents;
-  sideBlockComponent?: FC<{ id: string }>;
-  commands?: CommandDescriptor<unknown>[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onLoad?: (editor: any) => void;
-  /* Changes to this interface should also be reflected in the API docs */
 }
 
+// TODO: move Viewer public types to ricos-types
 export interface RicosViewerProps extends RicosProps, Pick<RichContentViewerProps, 'addAnchors'> {
   /* Changes to this interface should also be reflected in the API docs */
   plugins?: ViewerPlugin[];
@@ -106,42 +55,5 @@ export interface EditorDataInstance {
   getContentStatePromise: () => Promise<DraftContent>;
 }
 
-export type OnContentChangeFunction = (content: DraftContent) => void;
-
-export type OnBusyChangeFunction = (isBusy: boolean) => void;
-
 // draft-js props - https://draftjs.org/docs/api-reference-editor
-export type DraftEditorSettings = Pick<EditorProps, typeof DRAFT_EDITOR_PROPS[number]>;
-
-export interface ModalSettings {
-  openModal?: (data: Record<string, unknown>) => void;
-  closeModal?: () => void;
-  ariaHiddenId?: string;
-  container?: HTMLElement;
-  onModalOpen?: (data: Record<string, unknown>) => void;
-  onModalClose?: () => void;
-}
-
-export interface ToolbarSettings {
-  getToolbarSettings?: GetToolbarSettings;
-  textToolbarContainer?: HTMLElement;
-  useStaticTextToolbar?: boolean | { disabled: boolean };
-}
-
-export type FullscreenProps = { backgroundColor?: string; foregroundColor?: string };
-
-export interface MediaSettings {
-  pauseMedia?: boolean;
-  disableRightClick?: boolean;
-  disableDownload?: boolean;
-  fullscreenProps?: FullscreenProps;
-}
-
-export interface LinkSettings {
-  anchorTarget?: AnchorTarget;
-  relValue?: RelValue;
-  rel?: Link_Rel;
-  customAnchorScroll?: CustomAnchorScroll;
-}
-
-export type TextAlignment = 'left' | 'right';
+export type DraftEditorSettings = Pick<DraftEditorProps, typeof DRAFT_EDITOR_PROPS[number]>;

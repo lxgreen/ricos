@@ -20,6 +20,7 @@ import type {
   AvailableExperiments,
 } from 'wix-rich-content-common';
 import type { EditorProps } from 'draft-js';
+import type { TextAlignment } from 'ricos-types';
 
 const createEditorToolbars = ({
   buttons,
@@ -37,7 +38,7 @@ const createEditorToolbars = ({
     pluginButtons: PluginButton[];
     pluginTextButtons: PluginTextButtons[];
   };
-  textAlignment: EditorProps['textAlignment'];
+  textAlignment: TextAlignment;
   refId: number;
   context: EditorContextType;
   pluginButtonProps: ToolbarButtonProps[];

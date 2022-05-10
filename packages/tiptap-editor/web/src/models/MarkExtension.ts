@@ -1,11 +1,11 @@
 import { Mark, markInputRule, markPasteRule, textblockTypeInputRule } from '@tiptap/core';
 import type { MarkConfig } from '@tiptap/react';
 import { mergeAttributes } from '@tiptap/react';
-import type { RicosExtension } from 'ricos-tiptap-types';
+import { Plugin, PluginKey } from 'prosemirror-state';
+import type { ExtensionProps, RicosExtension } from 'ricos-tiptap-types';
 import { isRicosMarkExtension } from 'ricos-tiptap-types';
 import type { ExtensionAggregate, IMarkExtension } from './domain-types';
 import { DEFAULT_PRIORITY } from './domain-types';
-import { Plugin, PluginKey } from 'prosemirror-state';
 
 export class MarkExtension implements IMarkExtension {
   config: MarkConfig;
@@ -18,7 +18,11 @@ export class MarkExtension implements IMarkExtension {
 
   groups: RicosExtension['groups'];
 
-  dynamicConfiguration: (config: MarkConfig, extensions: RicosExtension[]) => MarkConfig;
+  private readonly reconfigure: (
+    config: MarkConfig,
+    extensions: RicosExtension[],
+    ricosProps: ExtensionProps
+  ) => MarkConfig;
 
   private readonly ricosExtension: RicosExtension;
 
@@ -45,21 +49,15 @@ export class MarkExtension implements IMarkExtension {
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
     this.ricosExtension = extension;
-    this.dynamicConfiguration = extension.dynamicConfiguration || (() => this.config);
+    this.reconfigure = extension.reconfigure || (() => this.config);
   }
 
   getRicosExtension() {
     return this.ricosExtension;
   }
 
-  toTiptapExtension(extensions: ExtensionAggregate) {
-    const config = this.dynamicConfiguration(this.config, extensions.getRicosExtensions());
-    return Mark.create(config).configure(config);
+  toTiptapExtension(extensions: ExtensionAggregate, ricosProps: ExtensionProps) {
+    const config = this.reconfigure(this.config, extensions.getRicosExtensions(), ricosProps);
+    return Mark.create(config);
   }
-
-  configure = (config: Record<string, unknown>) =>
-    new MarkExtension(this.ricosExtension, {
-      ...this.config,
-      ...config,
-    });
 }

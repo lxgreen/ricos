@@ -598,6 +598,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> implements R
             {t => {
               const tiptapEditor = (
                 <RicosTiptapEditor
+                  ricosProps={this.props}
                   placeholder={this.props.placeholder}
                   extensions={extensions}
                   content={initialContent}

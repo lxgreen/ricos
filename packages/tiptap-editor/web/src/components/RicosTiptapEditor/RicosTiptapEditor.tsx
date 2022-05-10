@@ -7,7 +7,6 @@ import { getLangDir } from 'wix-rich-content-common';
 import { tiptapToDraft } from 'wix-tiptap-extensions';
 import { RicosTiptapContext } from '../../context';
 import { useForceUpdate } from '../../lib/useForceUpdate';
-// import { Extensions } from '../../models/Extensions';
 import type { RicosTiptapEditorProps } from '../../types';
 import { coreConfigs } from './core-configs';
 import { patchExtensions } from '../../patch-extensions';
@@ -28,7 +27,7 @@ const getSelectedNodes = ({ editor }) => {
 
 export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   content,
-  extensions = Extensions.of([]),
+  extensions = Extensions.of([], {}),
   onLoad,
   onUpdate,
   onSelectionUpdate,

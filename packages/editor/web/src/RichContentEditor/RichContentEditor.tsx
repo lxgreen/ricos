@@ -15,7 +15,7 @@ import handlePastedText from './handlePastedText';
 import blockStyleFn from './blockStyleFn';
 import { combineStyleFns } from './combineStyleFns';
 import { getStaticTextToolbarId } from './Toolbars/toolbar-id';
-import type { ContentBlock } from '@wix/draft-js';
+import type { ContentBlock, EditorProps } from '@wix/draft-js';
 import type { ContentState, SelectionState } from 'wix-rich-content-editor-common';
 import {
   EditorState,
@@ -91,6 +91,7 @@ import { RCEErrorToast } from './Components';
 import { getBiButtonName } from './utils/biUtils';
 import { DOC_STYLE_CLASSES } from './utils/consts';
 import classNames from 'classnames';
+import type { TextAlignment } from 'ricos-types';
 
 type PartialDraftEditorProps = Pick<
   Partial<DraftEditorProps>,
@@ -109,7 +110,6 @@ type PartialDraftEditorProps = Pick<
   | 'ariaMultiline'
   | 'onBlur'
   | 'onFocus'
-  | 'textAlignment'
   | 'handleBeforeInput'
   | 'handlePastedText'
   | 'readOnly'
@@ -175,6 +175,7 @@ export interface RichContentEditorProps extends PartialDraftEditorProps {
   experiments?: AvailableExperiments;
   disableKeyboardEvents?: (shouldEnable: boolean) => void;
   textWrap: boolean;
+  textAlignment: TextAlignment;
   getDocumentStyle?: EditorCommands['getDocumentStyle'];
   updateDocumentStyle?: EditorCommands['updateDocumentStyle'];
   /** This is a legacy API, chagnes should be made also in the new Ricos Editor API **/
@@ -1031,6 +1032,10 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     }
   };
 
+  toDraftTextAlignment(textAlignment: TextAlignment): EditorProps['textAlignment'] {
+    return textAlignment === 'justify' ? 'left' : (textAlignment as EditorProps['textAlignment']);
+  }
+
   renderEditor = () => {
     const {
       editorKey,
@@ -1078,7 +1083,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
               blockStyleFn={blockStyleFn(
                 theme,
                 this.styleToClass,
-                textAlignment,
+                this.toDraftTextAlignment(textAlignment),
                 experiments?.fixedTabSize?.enabled
               )}
               handleKeyCommand={handleKeyCommand(
@@ -1113,7 +1118,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
               onCopy={onCopy}
-              textAlignment={textAlignment}
+              textAlignment={this.toDraftTextAlignment(textAlignment)}
               readOnly={readOnly || this.state.readOnly}
               handlePastedFiles={this.handlePastedFiles(uploadService)}
               handleDroppedFiles={this.handleDroppedFiles(uploadService)}

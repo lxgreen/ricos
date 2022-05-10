@@ -125,7 +125,7 @@ export interface ViewerContextType extends CommonContextType {
   seoMode?: SEOSettings;
   disableRightClick?: boolean;
   contentState?: DraftContent;
-  textAlignment?: 'left' | 'right';
+  textAlignment?: TextAlignment;
   experiments?: AvailableExperiments;
 }
 

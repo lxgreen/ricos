@@ -21,7 +21,7 @@ export const createTextDirection = (): RicosExtension => ({
   type: 'extension' as const,
   groups: [],
   name: 'textDirection',
-  dynamicConfiguration(config: RicosExtensionConfig, extensions: RicosExtension[]) {
+  reconfigure(config: RicosExtensionConfig, extensions: RicosExtension[]) {
     const types = extensions
       .filter(extension => extension.groups.includes('text-container'))
       .map(({ name }) => name);

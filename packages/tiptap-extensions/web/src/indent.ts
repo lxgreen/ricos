@@ -25,7 +25,7 @@ export const createIndent = (): RicosExtension => ({
   type: 'extension' as const,
   groups: [],
   name: 'indent',
-  dynamicConfiguration(config: RicosExtensionConfig, extensions: RicosExtension[]) {
+  reconfigure(config: RicosExtensionConfig, extensions: RicosExtension[]) {
     const types = extensions
       .filter(extension => extension.groups.includes('text-container'))
       .map(({ name }) => name);

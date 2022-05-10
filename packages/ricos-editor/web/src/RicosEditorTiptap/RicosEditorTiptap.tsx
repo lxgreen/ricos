@@ -1,7 +1,7 @@
 import { compact } from 'lodash';
 import React, { forwardRef } from 'react';
 import type { RicosEditorProps } from 'ricos-common';
-import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import type { TiptapEditorPlugin, ExtensionProps } from 'ricos-tiptap-types';
 import type { GeneralContext } from 'ricos-types';
 import { getEmptyDraftContent, withRicosContext } from 'wix-rich-content-editor-common';
 import {
@@ -64,18 +64,19 @@ class RicosEditorTiptap extends React.Component<
     }
   };
 
-  private configureExtensions(extensions: Extensions) {
+  private extractExtensionProps(): ExtensionProps {
     const {
       placeholder,
       textAlignment,
       iframeSandboxDomain,
       textWrap,
-      maxTextLength = 500000,
+      maxTextLength,
       linkSettings,
     } = this.props;
-    const { anchorTarget, relValue, rel } = linkSettings || {};
 
-    return extensions.configure({
+    const { anchorTarget, rel, relValue } = linkSettings || {};
+
+    return {
       placeholder,
       textAlignment,
       iframeSandboxDomain,
@@ -84,7 +85,7 @@ class RicosEditorTiptap extends React.Component<
       anchorTarget,
       relValue,
       rel,
-    });
+    };
   }
 
   render() {
@@ -93,12 +94,14 @@ class RicosEditorTiptap extends React.Component<
     const extensions =
       compact(plugins?.flatMap((plugin: TiptapEditorPlugin) => plugin.tiptapExtensions)) || [];
     const initialContent = draftToTiptap(content ?? injectedContent ?? getEmptyDraftContent());
-    const allExtensions = Extensions.of([...extensions, ...commonExtensions]);
-    const configuredExtensions = this.configureExtensions(allExtensions);
+    const allExtensions = Extensions.of(
+      [...extensions, ...commonExtensions],
+      this.extractExtensionProps()
+    );
     const htmlAttributes = this.editorAdapter?.getHtmlAttributes(this.props) || {};
     return (
       <RicosTiptapEditor
-        extensions={configuredExtensions}
+        extensions={allExtensions}
         content={initialContent}
         t={ricosContext.t}
         // editorStyleClasses

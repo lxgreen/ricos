@@ -1,15 +1,16 @@
 import { Extension } from '@tiptap/core';
 import { mergeAttributes } from '@tiptap/react';
 import React from 'react';
-import type { ExtensionAggregate, IFunctionalExtension } from './domain-types';
-import { DEFAULT_PRIORITY } from './domain-types';
 import type {
+  ExtensionProps,
   Group,
   NodeHocDescriptor,
   RicosExtension,
   RicosExtensionConfig,
 } from 'ricos-tiptap-types';
 import { isRicosFunctionalExtension } from 'ricos-tiptap-types';
+import type { ExtensionAggregate, IFunctionalExtension } from './domain-types';
+import { DEFAULT_PRIORITY } from './domain-types';
 
 const DEFAULT_HOC_DESCRTIPTOR: NodeHocDescriptor = {
   nodeTypes: [],
@@ -30,9 +31,10 @@ export class FunctionalExtension implements IFunctionalExtension {
 
   private readonly ricosExtension: RicosExtension;
 
-  private readonly dynamicConfiguration: (
+  private readonly reconfigure: (
     config: RicosExtensionConfig,
-    extensions: RicosExtension[]
+    extensions: RicosExtension[],
+    props: ExtensionProps
   ) => RicosExtensionConfig;
 
   constructor(extension: RicosExtension, config?: RicosExtensionConfig) {
@@ -47,27 +49,20 @@ export class FunctionalExtension implements IFunctionalExtension {
     this.name = this.config.name;
     this.groups = extension.groups || [];
     this.ricosExtension = extension;
-    this.dynamicConfiguration = extension.dynamicConfiguration || (() => this.config);
+    this.reconfigure = extension.reconfigure || (() => this.config);
   }
 
   getRicosExtension() {
     return this.ricosExtension;
   }
 
-  toTiptapExtension(extensions: ExtensionAggregate) {
-    const config = this.dynamicConfiguration(this.config, extensions.getRicosExtensions());
-    return Extension.create(config).configure(config);
+  toTiptapExtension(extensions: ExtensionAggregate, ricosProps: ExtensionProps) {
+    const config = this.reconfigure(this.config, extensions.getRicosExtensions(), ricosProps);
+    return Extension.create(config);
   }
 
-  getNodeHocDescriptor(extensions: ExtensionAggregate) {
-    const config = this.dynamicConfiguration(this.config, extensions.getRicosExtensions());
+  getNodeHocDescriptor(extensions: ExtensionAggregate, ricosProps: ExtensionProps) {
+    const config = this.reconfigure(this.config, extensions.getRicosExtensions(), ricosProps);
     return config.addNodeHoc?.() || DEFAULT_HOC_DESCRTIPTOR;
   }
-
-  configure = (config: Record<string, unknown>) => {
-    return new FunctionalExtension(this.ricosExtension, {
-      ...this.config,
-      ...config,
-    });
-  };
 }

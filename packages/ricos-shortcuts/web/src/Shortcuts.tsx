@@ -69,7 +69,7 @@ export const Shortcuts: FC<ShortcutsProps> = (props: ShortcutsProps) => {
         ignoreTags: [],
         simulateMissingKeyPressEvents: false,
         ignoreEventsCondition: () => false,
-        logLevel: 'debug',
+        logLevel: 'warn',
       });
     }
   });

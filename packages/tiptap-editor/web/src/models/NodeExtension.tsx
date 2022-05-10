@@ -1,27 +1,27 @@
 import type { NodeConfig, NodeViewRendererProps } from '@tiptap/react';
 import {
-  mergeAttributes,
-  textblockTypeInputRule,
-  markPasteRule,
   markInputRule,
+  markPasteRule,
+  mergeAttributes,
   Node,
   NodeViewWrapper,
   ReactNodeViewRenderer,
+  textblockTypeInputRule,
 } from '@tiptap/react';
 import { pipe } from 'fp-ts/function';
+import { Plugin, PluginKey } from 'prosemirror-state';
 import type { ComponentType } from 'react';
 import React from 'react';
-import type {
-  DecoratedNodeExtension,
-  IReactNodeExtension,
-  IHtmlNodeExtension,
-  ExtensionAggregate,
-} from './domain-types';
-import { DEFAULT_PRIORITY } from './domain-types';
-import type { RicosExtension, RicosNodeExtension } from 'ricos-tiptap-types';
+import type { ExtensionProps, RicosExtension, RicosNodeExtension } from 'ricos-tiptap-types';
 import { isRicosNodeExtension } from 'ricos-tiptap-types';
 import { RicosNode } from '../components/RicosNode';
-import { Plugin, PluginKey } from 'prosemirror-state';
+import type {
+  DecoratedNodeExtension,
+  ExtensionAggregate,
+  IHtmlNodeExtension,
+  IReactNodeExtension,
+} from './domain-types';
+import { DEFAULT_PRIORITY } from './domain-types';
 
 const toExtensionConfig = (ext: RicosNodeExtension) =>
   ext.createExtensionConfig({
@@ -75,9 +75,10 @@ export class ReactNodeExtension implements IReactNodeExtension {
 
   private readonly ricosExtension: RicosNodeExtension;
 
-  protected readonly dynamicConfiguration: (
+  protected readonly reconfigure: (
     config: NodeConfig,
-    extensions: RicosExtension[]
+    extensions: RicosExtension[],
+    ricosProps: ExtensionProps
   ) => NodeConfig;
 
   constructor(extension: RicosExtension, config?: NodeConfig) {
@@ -89,7 +90,7 @@ export class ReactNodeExtension implements IReactNodeExtension {
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
     this.groups = extension.groups;
-    this.dynamicConfiguration = extension.dynamicConfiguration || (() => this.config);
+    this.reconfigure = extension.reconfigure || (() => this.config);
   }
 
   getComponent() {
@@ -103,12 +104,6 @@ export class ReactNodeExtension implements IReactNodeExtension {
   getRicosExtension() {
     return this.ricosExtension;
   }
-
-  configure = (config: Record<string, unknown>) =>
-    new ReactNodeExtension(this.ricosExtension, {
-      ...this.config,
-      ...config,
-    });
 }
 
 class RenderableNodeExtension extends ReactNodeExtension implements DecoratedNodeExtension {
@@ -120,9 +115,9 @@ class RenderableNodeExtension extends ReactNodeExtension implements DecoratedNod
     };
   }
 
-  toTiptapExtension(extensions: ExtensionAggregate) {
+  toTiptapExtension(extensions: ExtensionAggregate, ricosProps: ExtensionProps) {
     const ricosExtensions = extensions.getRicosExtensions();
-    const config = this.dynamicConfiguration(this.config, ricosExtensions);
+    const config = this.reconfigure(this.config, ricosExtensions, ricosProps);
     return Node.create(config);
   }
 }
@@ -138,9 +133,10 @@ export class HtmlNodeExtension implements IHtmlNodeExtension {
 
   private readonly ricosExtension: RicosNodeExtension;
 
-  private readonly dynamicConfiguration: (
+  private readonly reconfigure: (
     config: NodeConfig,
-    extensions: RicosExtension[]
+    extensions: RicosExtension[],
+    ricosProps: ExtensionProps
   ) => NodeConfig;
 
   groups: RicosExtension['groups'];
@@ -154,22 +150,16 @@ export class HtmlNodeExtension implements IHtmlNodeExtension {
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
     this.groups = extension.groups || [];
-    this.dynamicConfiguration = extension.dynamicConfiguration || (() => this.config);
+    this.reconfigure = extension.reconfigure || (() => this.config);
   }
 
   getRicosExtension() {
     return this.ricosExtension;
   }
 
-  toTiptapExtension(extensions: ExtensionAggregate) {
+  toTiptapExtension(extensions: ExtensionAggregate, ricosProps: ExtensionProps) {
     const ricosExtensions = extensions.getRicosExtensions();
-    const config = this.dynamicConfiguration(this.config, ricosExtensions);
-    return Node.create(config).configure(config);
+    const config = this.reconfigure(this.config, ricosExtensions, ricosProps);
+    return Node.create(config);
   }
-
-  configure = (config: Record<string, unknown>) =>
-    new HtmlNodeExtension(this.ricosExtension, {
-      ...this.config,
-      ...config,
-    });
 }
