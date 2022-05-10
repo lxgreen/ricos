@@ -4,7 +4,7 @@ export type ModifierKeys =
   | 'Alt'
   | 'AltGraph'
   | 'CapsLock'
-  | 'Control'
+  | 'Ctrl'
   | 'Fn'
   | 'FnLock'
   | 'Hyper'
