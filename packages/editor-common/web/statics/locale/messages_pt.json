@@ -464,7 +464,7 @@
   "HeadingOneButton_label": "Cabeçalho 1",
   "EmbedURL_Common_CTA_Secondary": "Cancelar",
   "UploadVideo_Error_Unsupported_Bit_Rate": "A taxa de bits ({{fps}}) do vídeo é muito alta e o arquivo não pode ser carregado. Tente um arquivo diferente.",
-  "EmbedURL_Social_Pinterest_Placeholder": "Cole a URL de uma pasta ou pin",
+  "EmbedURL_Social_Pinterest_Placeholder": "Cole o URL de uma pasta ou pin",
   "MapSettings_MapOption_Allow_Dragging_Label": "Permitir arrastar",
   "FormattingToolbar_TextStyle_Heading_Update": "Atualize \"{{optionName}}\" para corresponder",
   "MapSettings_MapOption_Show_View_Control_Label": "Mapa e imagens de satélite",
