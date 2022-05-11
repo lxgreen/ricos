@@ -14,7 +14,7 @@ import {
 } from 'wix-rich-content-common/libs/linkConverters';
 import { applyBIGenerics } from './biCallbacks';
 import { pipe } from 'fp-ts/function';
-import type { EditorCommands, IUploadObserver } from 'ricos-types';
+import type { EditorCommands, IUploadObserver, RichContentTheme, ThemeData } from 'ricos-types';
 import UploadContextWrapper from './withUploadContext';
 
 interface EngineProps extends RicosEditorProps, RicosViewerProps {
@@ -61,11 +61,11 @@ export class RicosEngine extends Component<EngineProps> {
     const strategiesProps = merge(
       { theme },
       pluginsStrategy({
-        themeData,
+        themeData: themeData as ThemeData,
         isViewer,
         plugins,
         childProps: children.props,
-        cssOverride: theme,
+        cssOverride: theme as RichContentTheme,
         content,
         experiments,
       })

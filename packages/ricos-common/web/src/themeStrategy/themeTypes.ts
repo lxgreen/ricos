@@ -17,9 +17,9 @@ export interface ThemeStrategyArgs {
 }
 
 export interface ThemeStrategyResult {
-  theme: RicosCssOverride;
-  html?: ReactElement;
-  themeData: ThemeData;
+  theme?: RicosCssOverride;
+  html: ReactElement;
+  themeData?: ThemeData;
 }
 
 export type CssVarsObject = Record<string, unknown>;

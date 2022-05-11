@@ -1,7 +1,8 @@
 /* eslint-disable brace-style */
 import type { Node } from 'prosemirror-model';
 import React, { forwardRef } from 'react';
-import type { RicosEditorProps } from 'ricos-common';
+import type { RicosEditorProps, ThemeStrategyResult } from 'ricos-common';
+import { themeStrategy } from 'ricos-common';
 import { ModalProvider } from 'ricos-modals';
 import { Shortcuts } from 'ricos-shortcuts';
 import { getLangDir } from 'wix-rich-content-common';
@@ -40,12 +41,15 @@ export class FullRicosEditorTiptap
 
   state = { error: '' };
 
+  themeStylesCss: ThemeStrategyResult['html'];
+
   plugins: RicosEditorProps['plugins'];
 
   constructor(props) {
     super(props);
     this.editor = null;
     this.getEditorCommands = this.getEditorCommands.bind(this);
+    this.themeStylesCss = themeStrategy({ ricosTheme: props.ricosTheme }).html;
     this.plugins = pluginsConfigMerger(props.plugins, props._rcProps);
   }
 
@@ -178,7 +182,7 @@ export class FullRicosEditorTiptap
   }
 
   private renderEditor() {
-    const { isMobile, experiments, locale, localeContent, _rcProps } = this.props;
+    const { isMobile, experiments, locale, localeContent, theme, _rcProps } = this.props;
     const toolbarContext = this.getToolbarContext();
     if (!this.editor) {
       return (
@@ -200,10 +204,11 @@ export class FullRicosEditorTiptap
         localeContent={localeContent}
         languageDir={getLangDir(locale)}
         getEditorCommands={this.getEditorCommands}
-        theme={this.props.theme}
+        theme={theme}
       >
         <Shortcuts group="global" root>
           <div>
+            {this.themeStylesCss}
             {this.editor && (
               <UploadProvider helpers={_rcProps?.helpers}>
                 <ModalProvider>

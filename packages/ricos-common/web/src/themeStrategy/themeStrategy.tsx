@@ -10,7 +10,7 @@ import { isDefined } from 'ts-is-present';
 
 export default function themeStrategy(args: ThemeStrategyArgs): ThemeStrategyResult {
   const { buildCssVars } = utils;
-  const { ricosTheme = {}, plugins = [], cssOverride = {} } = args;
+  const { ricosTheme = {}, plugins = [], cssOverride = {}, experiments } = args;
   const {
     parentClass = '',
     palette,
@@ -20,6 +20,9 @@ export default function themeStrategy(args: ThemeStrategyArgs): ThemeStrategyRes
     settingsStyles,
     oneAppStyles,
   } = ricosTheme;
+
+  const isTiptap = experiments?.tiptapEditor?.enabled;
+
   const themeGeneratorFunctions = plugins.map(plugin => plugin.theme).filter(isDefined);
 
   // Create CSS Vars
@@ -48,9 +51,11 @@ export default function themeStrategy(args: ThemeStrategyArgs): ThemeStrategyRes
     </style>
   );
 
-  return {
-    theme: { ...defaultTheme, ...cssOverride },
-    html,
-    themeData,
-  };
+  return isTiptap
+    ? { html }
+    : {
+        theme: { ...defaultTheme, ...cssOverride },
+        html,
+        themeData,
+      };
 }

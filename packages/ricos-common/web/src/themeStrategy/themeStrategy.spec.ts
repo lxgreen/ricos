@@ -35,8 +35,8 @@ describe('ThemeStrategy', () => {
   });
 
   it('should include modalTheme', () => {
-    expect(emptyResult.theme.modalTheme).toBeTruthy();
-    expect(getType(emptyResult.theme.modalTheme)).toBe('object');
+    expect(emptyResult.theme?.modalTheme).toBeTruthy();
+    expect(getType(emptyResult.theme?.modalTheme)).toBe('object');
   });
 
   it('should wrap classnames with parentClass prop, if given with a palette', () => {
