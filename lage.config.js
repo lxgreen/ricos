@@ -19,6 +19,7 @@ module.exports = {
       './rollup.config.common.ts',
       './package.json',
       './lage.config.js',
+      './cacheBust'
     ],
     internalCacheFolder: '../../../.cache/backfill',
   },

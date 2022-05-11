@@ -82,7 +82,8 @@
     "createLoadable": "node scripts/createLoadable",
     "migrateFixtures": "cd scripts && ts-node --compiler-options={\\\"module\\\":\\\"commonJS\\\"} migrateSchema",
     "toPlainText": "cd scripts && ts-node --compiler-options={\\\"module\\\":\\\"commonJS\\\"} toPlainText",
-    "link": "lerna link"
+    "link": "lerna link",
+    "cacheBust": "echo `date` > cacheBust"
   },
   "ultra": {
     "concurrent": [
