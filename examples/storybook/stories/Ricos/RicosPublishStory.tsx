@@ -10,13 +10,10 @@ import MobileDetect from 'mobile-detect';
 import ActionButton from '../Components/ActionButton';
 import type { EditorEventsProps } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
 import { withEditorContext } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
+import { POLL_TYPE } from 'ricos-content';
 
 const mobileDetect = new MobileDetect(window.navigator.userAgent);
-const plugins = [
-  pluginImage(),
-  pluginGallery(),
-  pluginPoll({ pollServiceApi: new SocialPollsServiceMock() }),
-];
+const plugins = [pluginImage(), pluginGallery(), pluginPoll()];
 
 const RicosPublishStory: FunctionComponent<EditorEventsProps> = ({ editorEvents }) => {
   const modalSettings = {
@@ -57,6 +54,7 @@ const RicosPublishStory: FunctionComponent<EditorEventsProps> = ({ editorEvents 
                 // eslint-disable-next-line no-console
                 onPublish: async (...args) => console.log('biOnPublish', args),
               },
+              config: { [POLL_TYPE]: { pollServiceApi: new SocialPollsServiceMock() } },
             }}
           />
           <ActionButton

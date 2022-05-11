@@ -18,6 +18,7 @@ import { convertToolbarContext } from '../toolbars/convertToolbarContext';
 import FloatingAddPluginMenu from '../toolbars/FloatingPluginMenu/FloatingAddPluginMenu';
 import { publishBI } from '../utils/bi/publish';
 import RicosEditorTiptap from './RicosEditorTiptap';
+import pluginsConfigMerger from '../utils/pluginsConfigMerger/pluginsConfigMerger';
 
 type State = {
   error: string;
@@ -39,10 +40,13 @@ export class FullRicosEditorTiptap
 
   state = { error: '' };
 
+  plugins: RicosEditorProps['plugins'];
+
   constructor(props) {
     super(props);
     this.editor = null;
     this.getEditorCommands = this.getEditorCommands.bind(this);
+    this.plugins = pluginsConfigMerger(props.plugins, props._rcProps);
   }
 
   componentDidMount() {
@@ -104,7 +108,6 @@ export class FullRicosEditorTiptap
     const {
       theme,
       locale,
-      plugins,
       linkPanelSettings,
       linkSettings,
       experiments,
@@ -119,7 +122,7 @@ export class FullRicosEditorTiptap
       theme,
       locale,
       helpers,
-      plugins,
+      plugins: this.plugins,
       linkPanelSettings,
       linkSettings,
       experiments,
@@ -175,12 +178,13 @@ export class FullRicosEditorTiptap
   }
 
   private renderEditor() {
-    const { isMobile, experiments, locale, localeContent, plugins, _rcProps } = this.props;
+    const { isMobile, experiments, locale, localeContent, _rcProps } = this.props;
     const toolbarContext = this.getToolbarContext();
     if (!this.editor) {
       return (
         <RicosEditorTiptap
           {...this.props}
+          plugins={this.plugins}
           onLoad={editor => {
             this.onEditorLoad(editor);
             this.forceUpdate();
@@ -210,7 +214,7 @@ export class FullRicosEditorTiptap
                       editorCommands={this.editor.commandManager}
                     />
                     <FloatingAddPluginMenu
-                      pluginsButtons={plugins
+                      pluginsButtons={this.plugins
                         ?.filter(plugin => plugin.addButtons)
                         .map(plugin => plugin.addButtons)}
                       editor={this.editor}
@@ -222,6 +226,7 @@ export class FullRicosEditorTiptap
             <Shortcuts group="formatting">
               <RicosEditorTiptap
                 {...this.props}
+                plugins={this.plugins}
                 onLoad={editor => {
                   this.onEditorLoad(editor);
                   this.forceUpdate();

@@ -106,7 +106,6 @@ import {
   pluginUnsupportedBlocks,
 } from 'wix-rich-content-plugin-unsupported-blocks';
 import { UNSUPPORTED_BLOCKS_TYPE } from 'wix-rich-content-plugin-commons';
-import { SocialPollsServiceMock } from '../../src/Components/SocialPollsServiceMock/SocialPollsServiceMock';
 
 import {
   customForegroundStyleFn,
@@ -432,7 +431,6 @@ const config: RichContentEditorProps['config'] = {
   },
   [POLL_TYPE]: {
     showVoteRoleSetting: true,
-    pollServiceApi: new SocialPollsServiceMock(),
   },
   [LINK_PREVIEW_TYPE]: {
     enableEmbed: true, // [Twitter, TikTok]

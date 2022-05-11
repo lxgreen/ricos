@@ -17,6 +17,8 @@ import { RicosEditor } from 'ricos-editor';
 import createSideBlockComponent from '../../src/Components/createSideBlockComponent';
 import styles from './editor.scss';
 import classNames from 'classnames';
+import { SocialPollsServiceMock } from '../../src/Components/SocialPollsServiceMock/SocialPollsServiceMock';
+import { POLL_TYPE } from 'wix-rich-content-common';
 
 const STATIC_TOOLBAR = 'static';
 
@@ -182,7 +184,10 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
             placeholder={'Add some text!'}
             plugins={this.ricosPlugins}
             linkPanelSettings={{ ...(Plugins.uiSettings.linkPanel || {}), externalPopups }}
-            _rcProps={{ helpers: this.helpers }}
+            _rcProps={{
+              helpers: this.helpers,
+              config: { [POLL_TYPE]: { pollsClientApi: new SocialPollsServiceMock() } },
+            }}
             experiments={experiments}
             textWrap={textWrap}
             onAtomicBlockFocus={d => console.debug('onAtomicBlockFocus', d)} // eslint-disable-line
