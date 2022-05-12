@@ -24,7 +24,7 @@ declare module '@tiptap/core' {
 
 export const inputRegex = /^\s*>\s$/;
 
-export const createBlockquote = (): RicosExtension => ({
+export const blockquote: RicosExtension = {
   type: 'node' as const,
   groups: [],
   name: 'blockquote',
@@ -98,4 +98,4 @@ export const createBlockquote = (): RicosExtension => ({
       },
     };
   },
-});
+};

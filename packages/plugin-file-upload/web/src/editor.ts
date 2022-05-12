@@ -5,7 +5,7 @@ import { DEFAULTS } from './defaults';
 import { ModalsMap } from './modals';
 import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createFileData } from './createFileData';
-import { createRicosExtensions } from './tiptap';
+import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 export const pluginFileUpload: EditorPluginCreator<FilePluginEditorConfig> = config => {
@@ -16,6 +16,6 @@ export const pluginFileUpload: EditorPluginCreator<FilePluginEditorConfig> = con
     createPlugin: createFileUploadPlugin,
     ModalsMap,
     createPluginData: createFileData,
-    tiptapExtensions: createRicosExtensions(pluginConfig),
+    tiptapExtensions,
   } as TiptapEditorPlugin;
 };

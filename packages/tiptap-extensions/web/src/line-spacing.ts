@@ -20,7 +20,7 @@ declare module '@tiptap/core' {
   }
 }
 
-export const createLineSpacing = (): RicosExtension => ({
+export const lineSpacing: RicosExtension = {
   type: 'extension' as const,
   groups: [],
   name: 'lineSpacing',
@@ -121,4 +121,4 @@ export const createLineSpacing = (): RicosExtension => ({
       name: this.name,
     };
   },
-});
+};

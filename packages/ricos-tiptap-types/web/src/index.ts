@@ -62,16 +62,18 @@ export type NodeHocDescriptor = {
   priority: number;
 };
 
-export type Group = 'react' | 'text-container' | 'text' | 'spoilerable';
+export type Group = 'react' | 'text-container' | 'text' | 'spoilerable' | 'shortcuts-enabled';
 
 export type RicosNodeExtension = {
   name: string;
   type: 'node';
   groups: Group[];
+  settings?: Record<string, unknown>;
   reconfigure?: (
     config: NodeConfig,
     extensions: RicosExtension[],
-    ricosProps: ExtensionProps
+    ricosProps: ExtensionProps,
+    settings: Record<string, unknown>
   ) => NodeConfig;
   createExtensionConfig: ({
     textblockTypeInputRule,
@@ -95,10 +97,12 @@ export type RicosMarkExtension = {
   name: string;
   type: 'mark';
   groups: Group[];
+  settings?: Record<string, unknown>;
   reconfigure?: (
     config: MarkConfig,
     extensions: RicosExtension[],
-    ricosProps: ExtensionProps
+    ricosProps: ExtensionProps,
+    settings: Record<string, unknown>
   ) => MarkConfig;
   createExtensionConfig: ({
     textblockTypeInputRule,
@@ -121,10 +125,12 @@ export type RicosFunctionalExtension = {
   name: string;
   type: 'extension';
   groups: Group[];
+  settings?: Record<string, unknown>;
   reconfigure?: (
     config: RicosExtensionConfig,
     extensions: RicosExtension[],
-    ricosProps: ExtensionProps
+    ricosProps: ExtensionProps,
+    settings: Record<string, unknown>
   ) => RicosExtensionConfig;
   createExtensionConfig: ({
     mergeAttributes,
@@ -146,10 +152,6 @@ export interface TiptapEditorPlugin extends EditorPlugin {
   tiptapExtensions: RicosExtension[];
 }
 
-export type CreateRicosExtensions = <PluginType extends keyof LegacyEditorPluginConfig>(
-  config: LegacyEditorPluginConfig[PluginType]
-) => RicosExtension[];
-
 export type { DOMOutputSpec } from 'prosemirror-model';
 
 export type ExtensionProps = {
@@ -162,3 +164,14 @@ export type ExtensionProps = {
   relValue?: LinkSettings['relValue'];
   rel?: LinkSettings['rel'];
 };
+
+export type HtmlAttributes = {
+  autoCapitalize: string;
+  // explicit true/false enumeration
+  spellCheck: 'true' | 'false';
+  autoComplete: string;
+  autoCorrect: string;
+  tabIndex: number;
+};
+
+export { NodeConfig, MarkConfig };

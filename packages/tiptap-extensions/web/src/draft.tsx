@@ -20,7 +20,7 @@ const DraftHOC = Component => {
   return Draft;
 };
 
-export const createDraftConfig = (): RicosExtension => ({
+export const draft: RicosExtension = {
   type: 'extension' as const,
   groups: [],
   name: 'draft',
@@ -37,4 +37,4 @@ export const createDraftConfig = (): RicosExtension => ({
       },
     };
   },
-});
+};

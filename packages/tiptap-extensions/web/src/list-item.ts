@@ -1,7 +1,7 @@
 import { mergeAttributes, NodeConfig } from '@tiptap/core';
 import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
 
-export const createListItem = (): RicosExtension => ({
+export const listItem: RicosExtension = {
   type: 'node' as const,
   groups: [],
   name: 'listItem',
@@ -45,4 +45,4 @@ export const createListItem = (): RicosExtension => ({
       },
     };
   },
-});
+};

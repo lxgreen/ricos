@@ -1,6 +1,6 @@
 import { OrderedSet } from 'immutable';
 import colorDataDefaults from 'ricos-schema/dist/statics/color.defaults.json';
-import type { CreateRicosExtensions } from 'ricos-tiptap-types';
+import type { ExtensionProps, NodeConfig, RicosExtension } from 'ricos-tiptap-types';
 import type { Color } from './types';
 
 export interface ColorOptions {
@@ -30,19 +30,29 @@ declare module '@tiptap/core' {
   }
 }
 
-export const getTiptapExtensions: CreateRicosExtensions = defaultOptions => [
+export const tiptapExtensions = [
   {
     type: 'mark',
     name: 'color',
     groups: [],
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions() {
+        return {
+          HTMLAttributes: {},
+          ...settings,
+        };
+      },
+    }),
     createExtensionConfig() {
       return {
         name: this.name,
 
-        addOptions: () => ({
-          HTMLAttributes: {},
-          ...defaultOptions,
-        }),
         addAttributes() {
           return colorDataDefaults;
         },
@@ -59,11 +69,10 @@ export const getTiptapExtensions: CreateRicosExtensions = defaultOptions => [
         },
 
         renderHTML({ HTMLAttributes }) {
-          const shouldParseColor = (color: Color) =>
-            defaultOptions?.styleSelectionPredicate?.(color);
+          const shouldParseColor = (color: Color) => this.options.styleSelectionPredicate?.(color);
 
           const parseColor = (color: Color) =>
-            defaultOptions?.customStyleFn?.(OrderedSet([color]))?.color;
+            this.options.customStyleFn?.(OrderedSet([color]))?.color;
 
           const getColor = (color: Color) => (shouldParseColor(color) ? parseColor(color) : color);
           return [

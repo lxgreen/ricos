@@ -1,16 +1,23 @@
-import htmlDataDefaults from 'ricos-schema/dist/statics/html.defaults.json';
-import type { CreateRicosExtensions, PluginProps } from 'ricos-tiptap-types';
-import { Html } from './component';
 import { TIPTAP_HTML_TYPE } from 'ricos-content';
-import type { ComponentType } from 'react';
-import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
+import htmlDataDefaults from 'ricos-schema/dist/statics/html.defaults.json';
+import type { ExtensionProps, NodeConfig, RicosExtension } from 'ricos-tiptap-types';
+import { Html as Component } from './component';
 
-export const createRicosExtensions: CreateRicosExtensions = settings => [
+export const tiptapExtensions = [
   {
     type: 'node' as const,
     name: TIPTAP_HTML_TYPE,
     groups: ['react'],
-    Component: decorateComponentWithProps(Html, { settings }) as ComponentType<PluginProps>,
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions: () => settings,
+    }),
+    Component,
     createExtensionConfig() {
       return {
         name: this.name,
@@ -19,7 +26,6 @@ export const createRicosExtensions: CreateRicosExtensions = settings => [
         selectable: true,
         draggable: true,
         addAttributes: () => htmlDataDefaults,
-        addOptions: () => settings,
       };
     },
   },

@@ -25,7 +25,7 @@ export const starPasteRegex = /(?:^|\s)((?:\*)((?:[^*]+))(?:\*))/g;
 export const underscoreInputRegex = /(?:^|\s)((?:_)((?:[^_]+))(?:_))$/;
 export const underscorePasteRegex = /(?:^|\s)((?:_)((?:[^_]+))(?:_))/g;
 
-export const createItalic = (): RicosExtension => ({
+export const italic: RicosExtension = {
   type: 'mark' as const,
   groups: [],
 
@@ -115,4 +115,4 @@ export const createItalic = (): RicosExtension => ({
       },
     };
   },
-});
+};

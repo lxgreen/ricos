@@ -1,6 +1,6 @@
 import type { RicosExtension } from 'ricos-tiptap-types';
 
-export const createText = (): RicosExtension => ({
+export const text: RicosExtension = {
   type: 'node' as const,
   groups: ['text'],
   name: 'text',
@@ -10,4 +10,4 @@ export const createText = (): RicosExtension => ({
       group: 'inline',
     };
   },
-});
+};

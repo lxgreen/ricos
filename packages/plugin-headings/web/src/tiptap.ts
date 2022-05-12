@@ -1,5 +1,5 @@
-import type { CreateRicosExtensions, DOMOutputSpec } from 'ricos-tiptap-types';
 import headingDataDefaults from 'ricos-schema/dist/statics/heading.defaults.json';
+import type { DOMOutputSpec, ExtensionProps, NodeConfig, RicosExtension } from 'ricos-tiptap-types';
 
 type Level = 1 | 2 | 3 | 4 | 5 | 6;
 
@@ -18,21 +18,29 @@ declare module '@tiptap/core' {
   }
 }
 
-export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
+export const tiptapExtensions = [
   {
     type: 'node' as const,
     groups: ['text-container'],
     name: 'heading',
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions() {
+        return {
+          levels: [1, 2, 3, 4, 5, 6],
+          HTMLAttributes: {},
+          ...settings,
+        };
+      },
+    }),
     createExtensionConfig({ mergeAttributes, textblockTypeInputRule }) {
       return {
         name: this.name,
-        addOptions() {
-          return {
-            levels: [1, 2, 3, 4, 5, 6],
-            HTMLAttributes: {},
-            ...defaultOptions,
-          };
-        },
 
         content: 'inline*',
 

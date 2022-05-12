@@ -20,7 +20,7 @@ declare module '@tiptap/core' {
   }
 }
 
-export const createUnderline = (): RicosExtension => ({
+export const underline: RicosExtension = {
   type: 'mark' as const,
   groups: [],
   name: 'underline',
@@ -81,4 +81,4 @@ export const createUnderline = (): RicosExtension => ({
       },
     };
   },
-});
+};

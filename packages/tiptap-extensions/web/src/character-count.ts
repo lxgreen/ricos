@@ -3,7 +3,7 @@ import type { ExtensionProps, RicosExtension, RicosExtensionConfig } from 'ricos
 
 const MAX_TEXT_LENGTH = 500000;
 
-export const createCharacterCount = (): RicosExtension => ({
+export const characterCount: RicosExtension = {
   type: 'extension' as const,
   groups: [],
   name: 'characterCount',
@@ -117,4 +117,4 @@ export const createCharacterCount = (): RicosExtension => ({
       },
     };
   },
-});
+};

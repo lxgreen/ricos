@@ -1,18 +1,25 @@
-import type { CreateRicosExtensions, PluginProps } from 'ricos-tiptap-types';
-import { Gallery } from './component';
-import galleryDataDefaults from 'ricos-schema/dist/statics/gallery.defaults.json';
 import { TIPTAP_GALLERY_TYPE } from 'ricos-content';
-import type { ComponentType } from 'react';
-import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
+import galleryDataDefaults from 'ricos-schema/dist/statics/gallery.defaults.json';
+import type { ExtensionProps, NodeConfig, RicosExtension } from 'ricos-tiptap-types';
+import { Gallery as Component } from './component';
 
 const name = TIPTAP_GALLERY_TYPE;
 
-export const createRicosExtensions: CreateRicosExtensions = settings => [
+export const tiptapExtensions = [
   {
     type: 'node' as const,
     name,
     groups: ['react', 'spoilerable'],
-    Component: decorateComponentWithProps(Gallery, { settings }) as ComponentType<PluginProps>,
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions: () => settings,
+    }),
+    Component,
     createExtensionConfig() {
       return {
         name: this.name,
@@ -28,7 +35,6 @@ export const createRicosExtensions: CreateRicosExtensions = settings => [
             default: null,
           },
         }),
-        addOptions: () => settings,
         addCommands() {
           return {};
         },

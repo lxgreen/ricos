@@ -21,7 +21,7 @@ declare module '@tiptap/core' {
 
 const INDENT_SIZE = 24;
 
-export const createIndent = (): RicosExtension => ({
+export const indent: RicosExtension = {
   type: 'extension' as const,
   groups: [],
   name: 'indent',
@@ -128,4 +128,4 @@ export const createIndent = (): RicosExtension => ({
       },
     };
   },
-});
+};

@@ -1,18 +1,25 @@
-import type { CreateRicosExtensions, PluginProps } from 'ricos-tiptap-types';
-import { Poll } from './component';
-import pollDataDefaults from 'ricos-schema/dist/statics/poll.defaults.json';
 import { TIPTAP_POLL_TYPE } from 'ricos-content';
-import type { ComponentType } from 'react';
-import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
+import pollDataDefaults from 'ricos-schema/dist/statics/poll.defaults.json';
+import type { ExtensionProps, NodeConfig, RicosExtension } from 'ricos-tiptap-types';
+import { Poll as Component } from './component';
 
 const name = TIPTAP_POLL_TYPE;
 
-export const createRicosExtensions: CreateRicosExtensions = settings => [
+export const tiptapExtensions = [
   {
     type: 'node' as const,
     name,
     groups: ['react'],
-    Component: decorateComponentWithProps(Poll, { settings }) as ComponentType<PluginProps>,
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions: () => settings,
+    }),
+    Component,
     createExtensionConfig() {
       return {
         name: this.name,
@@ -24,7 +31,6 @@ export const createRicosExtensions: CreateRicosExtensions = settings => [
             default: false,
           },
         }),
-        addOptions: () => settings,
         addCommands() {
           return {};
         },

@@ -22,16 +22,6 @@ export interface PluginProps {
   updateAttributes: (data: unknown) => null;
 }
 
-// TODO: refine types
-export type HtmlAttributes = {
-  autoCapitalize: string;
-  // explicit true/false enumeration
-  spellCheck: 'true' | 'false';
-  autoComplete: string;
-  autoCorrect: string;
-  tabIndex: number;
-};
-
 export interface TiptapAPI extends RicosEditorAPI {
   getToolbars: () => {
     MobileToolbar?: ElementType;

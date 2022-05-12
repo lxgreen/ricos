@@ -3,7 +3,7 @@ import * as setNodeAlignment from './node-commands/setNodeAlignment';
 import * as toggleNodeTextWrap from './node-commands/toggleNodeTextWrap';
 import type { RicosExtension } from 'ricos-tiptap-types';
 
-export const createCommonNodeCommands = (): RicosExtension => ({
+export const commonNodeCommands: RicosExtension = {
   type: 'extension' as const,
   groups: [],
   name: 'ricos-common-node-commands',
@@ -19,4 +19,4 @@ export const createCommonNodeCommands = (): RicosExtension => ({
       },
     };
   },
-});
+};

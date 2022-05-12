@@ -4,7 +4,7 @@ import { HTML_TYPE } from './types';
 import { DEFAULTS_CONFIG } from './defaults';
 import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createHtmlData } from './createHtmlData';
-import { createRicosExtensions } from './tiptap';
+import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 import { getAddButtons } from './getAddButtons';
 
@@ -16,7 +16,7 @@ export const pluginHtml: EditorPluginCreator<HtmlPluginEditorConfig> = config =>
     createPlugin: createHtmlPlugin,
     ModalsMap: {},
     createPluginData: createHtmlData,
-    tiptapExtensions: createRicosExtensions(pluginConfig),
+    tiptapExtensions,
     addButtons: getAddButtons(config),
   } as TiptapEditorPlugin;
 };

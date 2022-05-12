@@ -31,23 +31,26 @@ export class FunctionalExtension implements IFunctionalExtension {
 
   private readonly ricosExtension: RicosExtension;
 
+  private readonly settings: Record<string, unknown>;
+
   private readonly reconfigure: (
     config: RicosExtensionConfig,
     extensions: RicosExtension[],
-    props: ExtensionProps
+    props: ExtensionProps,
+    settings: Record<string, unknown>
   ) => RicosExtensionConfig;
 
   constructor(extension: RicosExtension, config?: RicosExtensionConfig) {
     if (!isRicosFunctionalExtension(extension)) {
       throw new TypeError('invalid argument');
     }
-    // omit addKeyboardShortcuts
     const { addKeyboardShortcuts: _, ...rest } =
       config || extension.createExtensionConfig({ mergeAttributes });
     this.config = { ...rest, type: 'extension' };
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
     this.groups = extension.groups || [];
+    this.settings = extension.settings || {};
     this.ricosExtension = extension;
     this.reconfigure = extension.reconfigure || (() => this.config);
   }
@@ -57,12 +60,22 @@ export class FunctionalExtension implements IFunctionalExtension {
   }
 
   toTiptapExtension(extensions: ExtensionAggregate, ricosProps: ExtensionProps) {
-    const config = this.reconfigure(this.config, extensions.getRicosExtensions(), ricosProps);
+    const config = this.reconfigure(
+      this.config,
+      extensions.getRicosExtensions(),
+      ricosProps,
+      this.settings
+    );
     return Extension.create(config);
   }
 
   getNodeHocDescriptor(extensions: ExtensionAggregate, ricosProps: ExtensionProps) {
-    const config = this.reconfigure(this.config, extensions.getRicosExtensions(), ricosProps);
+    const config = this.reconfigure(
+      this.config,
+      extensions.getRicosExtensions(),
+      ricosProps,
+      this.settings
+    );
     return config.addNodeHoc?.() || DEFAULT_HOC_DESCRTIPTOR;
   }
 }

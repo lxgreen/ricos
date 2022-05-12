@@ -3,7 +3,7 @@ import type { LinkPreviewPluginEditorConfig } from './types';
 import { LINK_PREVIEW_TYPE } from './types';
 import { DEFAULTS } from './defaults';
 import type { EditorPluginCreator } from 'wix-rich-content-common';
-import { createRicosExtensions } from './tiptap';
+import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 export const pluginLinkPreview: EditorPluginCreator<LinkPreviewPluginEditorConfig> = config => {
@@ -13,6 +13,6 @@ export const pluginLinkPreview: EditorPluginCreator<LinkPreviewPluginEditorConfi
     type: LINK_PREVIEW_TYPE,
     createPlugin: createLinkPreviewPlugin,
     ModalsMap: {},
-    tiptapExtensions: createRicosExtensions(pluginConfig),
+    tiptapExtensions,
   } as TiptapEditorPlugin;
 };

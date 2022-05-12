@@ -2,7 +2,7 @@ import { createHashtagPlugin } from './createHashtagPlugin';
 import type { HashtagPluginEditorConfig } from './types';
 import { HASHTAG_TYPE } from './types';
 import { DEFAULTS } from './defaults';
-import { createTiptapExtensions } from './tiptap';
+import { tiptapExtensions } from './tiptap/tiptap';
 import type { EditorPluginCreator } from 'wix-rich-content-common';
 
 export const pluginHashtag: EditorPluginCreator<HashtagPluginEditorConfig> = config => {
@@ -12,6 +12,6 @@ export const pluginHashtag: EditorPluginCreator<HashtagPluginEditorConfig> = con
     type: HASHTAG_TYPE,
     createPlugin: createHashtagPlugin,
     ModalsMap: {},
-    tiptapExtensions: createTiptapExtensions(pluginConfig),
+    tiptapExtensions,
   };
 };

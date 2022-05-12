@@ -30,7 +30,7 @@ declare module '@tiptap/core' {
   }
 }
 
-export const createLink = (defaultOptions): RicosExtension => ({
+export const link: RicosExtension = {
   type: 'mark' as const,
   groups: [],
   name: 'link',
@@ -50,7 +50,6 @@ export const createLink = (defaultOptions): RicosExtension => ({
         linkOnPaste: true,
         autolink: true,
         HTMLAttributes: { link: {} },
-        ...defaultOptions,
       }),
 
       addAttributes() {
@@ -141,4 +140,4 @@ export const createLink = (defaultOptions): RicosExtension => ({
       },
     };
   },
-});
+};

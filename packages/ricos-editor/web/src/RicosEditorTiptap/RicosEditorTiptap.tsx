@@ -1,10 +1,9 @@
-import { compact } from 'lodash';
 import React, { forwardRef } from 'react';
 import type { RicosEditorProps } from 'ricos-common';
-import type { TiptapEditorPlugin, ExtensionProps } from 'ricos-tiptap-types';
+import type { ExtensionProps, HtmlAttributes, TiptapEditorPlugin } from 'ricos-tiptap-types';
 import type { GeneralContext } from 'ricos-types';
 import { getEmptyDraftContent, withRicosContext } from 'wix-rich-content-editor-common';
-
+import type { JSONContent } from '@tiptap/core';
 import {
   draftToTiptap,
   Extensions,
@@ -15,23 +14,20 @@ import {
 import { commonExtensions } from './common-extensions';
 
 type RicosEditorState = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  initialContent?: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  htmlAttributes?: any;
-  allExtensions?: Extensions;
+  initialContent: JSONContent;
+  htmlAttributes: HtmlAttributes;
+  extensions: Extensions;
 };
 class RicosEditorTiptap extends React.Component<
   RicosEditorProps & { ricosContext: GeneralContext },
   RicosEditorState
 > {
   state: Readonly<RicosEditorState> = {
-    initialContent: null,
-    htmlAttributes: {},
-    allExtensions: undefined,
+    initialContent: null as unknown as JSONContent,
+    htmlAttributes: {} as HtmlAttributes,
+    extensions: Extensions.of([], {}),
   };
 
-  // add OnLoad
   private editorAdapter!: RichContentAdapter;
 
   onSelectionUpdate = ({ selectedNodes, content }) => {
@@ -67,6 +63,7 @@ class RicosEditorTiptap extends React.Component<
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const richContentAdapter = new RichContentAdapter(editor, ricosContext.t, plugins as any);
     this.editorAdapter = richContentAdapter;
+    this.setState({ htmlAttributes: richContentAdapter.getHtmlAttributes(this.props) });
     if (this.props.onLoad) {
       this.props.onLoad(richContentAdapter);
     }
@@ -103,34 +100,35 @@ class RicosEditorTiptap extends React.Component<
     };
   }
 
+  private extractExtensions(plugins: TiptapEditorPlugin[] = []): Extensions {
+    const extensions = plugins
+      .filter(plugin => plugin.tiptapExtensions)
+      .flatMap(plugin =>
+        plugin.tiptapExtensions.map(extension => ({ ...extension, settings: plugin.config }))
+      );
+    return Extensions.of([...extensions, ...commonExtensions], this.extractExtensionProps());
+  }
+
   componentDidMount() {
     const { content, injectedContent, plugins } = this.props;
-
-    const extensions =
-      compact(plugins?.flatMap((plugin: TiptapEditorPlugin) => plugin.tiptapExtensions)) || [];
     const initialContent = draftToTiptap(content ?? injectedContent ?? getEmptyDraftContent());
-    const allExtensions = Extensions.of(
-      [...extensions, ...commonExtensions],
-      this.extractExtensionProps()
-    );
-    const htmlAttributes = this.editorAdapter?.getHtmlAttributes(this.props) || {};
+    const extensions = this.extractExtensions(plugins as TiptapEditorPlugin[]);
 
     this.setState({
       initialContent,
-      allExtensions,
-      htmlAttributes,
+      extensions,
     });
   }
 
   render() {
     const { ricosContext } = this.props;
-    const { initialContent, allExtensions, htmlAttributes } = this.state;
-    if (!initialContent || !allExtensions) {
+    const { initialContent, extensions, htmlAttributes } = this.state;
+    if (!initialContent || !extensions) {
       return null;
     }
     return (
       <RicosTiptapEditor
-        extensions={allExtensions}
+        extensions={extensions}
         content={initialContent}
         t={ricosContext.t}
         // editorStyleClasses

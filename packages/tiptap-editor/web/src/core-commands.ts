@@ -7,7 +7,7 @@ import * as deleteNode from './commands/deleteNode';
 import * as updateAttributesWithDeepMerge from './commands/updateAttributesWithDeepMerge';
 import type { RicosExtension } from 'ricos-tiptap-types';
 
-export const createCommandsConfig = (): RicosExtension => ({
+export const commands: RicosExtension = {
   type: 'extension' as const,
   groups: [],
   name: 'ricos-node-commands',
@@ -27,4 +27,4 @@ export const createCommandsConfig = (): RicosExtension => ({
       },
     };
   },
-});
+};

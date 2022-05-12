@@ -1,4 +1,5 @@
-import type { HtmlAttributes, TiptapAPI } from '../../types';
+import type { TiptapAPI } from '../../types';
+import type { HtmlAttributes } from 'ricos-tiptap-types';
 import { capitalize } from 'lodash';
 import type {
   TranslationFunction,

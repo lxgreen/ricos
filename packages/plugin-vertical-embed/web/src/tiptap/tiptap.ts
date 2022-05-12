@@ -1,15 +1,25 @@
-import appEmbedDataDefaults from 'ricos-schema/dist/statics/app_embed.defaults.json';
-import type { CreateRicosExtensions, PluginProps } from 'ricos-tiptap-types';
-import { AppEmbed } from './component';
-import { TIPTAP_APP_EMBED_TYPE } from 'ricos-content';
 import type { ComponentType } from 'react';
+import { TIPTAP_APP_EMBED_TYPE } from 'ricos-content';
+import appEmbedDataDefaults from 'ricos-schema/dist/statics/app_embed.defaults.json';
+import type { ExtensionProps, NodeConfig, PluginProps, RicosExtension } from 'ricos-tiptap-types';
 import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
+import { AppEmbed } from './component';
 
-export const createTiptapExtensions: CreateRicosExtensions = settings => [
+export const tiptapExtensions = [
   {
     type: 'node' as const,
     groups: ['react'],
-    Component: decorateComponentWithProps(AppEmbed, { settings }) as ComponentType<PluginProps>,
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      Component: decorateComponentWithProps(AppEmbed, { settings }) as ComponentType<PluginProps>,
+      addOptions: () => settings,
+    }),
+
     name: TIPTAP_APP_EMBED_TYPE,
     createExtensionConfig() {
       return {
@@ -18,7 +28,6 @@ export const createTiptapExtensions: CreateRicosExtensions = settings => [
         selectable: true,
         draggable: true,
         addAttributes: () => appEmbedDataDefaults,
-        addOptions: () => settings,
       };
     },
   },

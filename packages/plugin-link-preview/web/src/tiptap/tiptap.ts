@@ -1,23 +1,26 @@
-import type { CreateRicosExtensions, PluginProps } from 'ricos-tiptap-types';
-import { LinkPreview } from './component';
 import type { Editor } from '@tiptap/core';
 import type { KeyboardShortcutCommand } from '@tiptap/react';
-import type { LinkPreviewPluginEditorConfig } from '../types';
-import { LINK_PREVIEW_TYPE } from '../types';
-import linkPreviewDefaults from 'ricos-schema/dist/statics/link_preview.defaults.json';
+import type { ResolvedPos } from 'prosemirror-model';
+import { TIPTAP_LINK_PREVIEW_TYPE } from 'ricos-content';
+import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
 import type { LinkPreviewData } from 'ricos-schema';
+import linkPreviewDefaults from 'ricos-schema/dist/statics/link_preview.defaults.json';
+import type {
+  ExtensionProps,
+  NodeConfig,
+  RicosExtension,
+  RicosExtensionConfig,
+} from 'ricos-tiptap-types';
+import type { DeepPartial } from 'utility-types';
 import {
   createLinkPreviewData,
   fetchLinkPreview,
   shouldAddEmbed,
   shouldAddLinkPreview,
 } from '../../lib/utils';
-import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
-import type { DeepPartial } from 'utility-types';
-import type { ResolvedPos } from 'prosemirror-model';
-import { TIPTAP_LINK_PREVIEW_TYPE } from 'ricos-content';
-import type { ComponentType } from 'react';
-import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
+import type { LinkPreviewPluginEditorConfig } from '../types';
+import { LINK_PREVIEW_TYPE } from '../types';
+import { LinkPreview as Component } from './component';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -92,12 +95,21 @@ const addLinkPreview =
     return false;
   };
 
-export const createRicosExtensions: CreateRicosExtensions = settings => [
+export const tiptapExtensions = [
   {
     type: 'node' as const,
     name,
     groups: ['react'],
-    Component: decorateComponentWithProps(LinkPreview, { settings }) as ComponentType<PluginProps>,
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions: () => settings,
+    }),
+    Component,
     createExtensionConfig() {
       return {
         group: 'block',
@@ -119,16 +131,24 @@ export const createRicosExtensions: CreateRicosExtensions = settings => [
   },
   {
     type: 'extension' as const,
-    groups: [],
+    groups: ['shortcuts-enabled'],
     name: 'linkPreviewEnter',
+    reconfigure: (
+      config: RicosExtensionConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addKeyboardShortcuts() {
+        return {
+          Enter: addLinkPreview(settings),
+        };
+      },
+    }),
     createExtensionConfig() {
       return {
         name: this.name,
-        addKeyboardShortcuts() {
-          return {
-            Enter: addLinkPreview(settings),
-          };
-        },
       };
     },
   },

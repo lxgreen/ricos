@@ -1,15 +1,22 @@
-import dividerDataDefaults from 'ricos-schema/dist/statics/divider.defaults.json';
-import type { CreateRicosExtensions, PluginProps } from 'ricos-tiptap-types';
-import { Divider } from './component';
 import { TIPTAP_DIVIDER_TYPE } from 'ricos-content';
-import type { ComponentType } from 'react';
-import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
+import dividerDataDefaults from 'ricos-schema/dist/statics/divider.defaults.json';
+import type { ExtensionProps, NodeConfig, RicosExtension } from 'ricos-tiptap-types';
+import { Divider as Component } from './component';
 
-export const createTiptapExtensions: CreateRicosExtensions = settings => [
+export const tiptapExtensions = [
   {
     type: 'node' as const,
     groups: ['react'],
-    Component: decorateComponentWithProps(Divider, { settings }) as ComponentType<PluginProps>,
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions: () => settings,
+    }),
+    Component,
     name: TIPTAP_DIVIDER_TYPE,
     createExtensionConfig() {
       return {
@@ -18,7 +25,6 @@ export const createTiptapExtensions: CreateRicosExtensions = settings => [
         selectable: true,
         draggable: true,
         addAttributes: () => dividerDataDefaults,
-        addOptions: () => settings,
       };
     },
   },

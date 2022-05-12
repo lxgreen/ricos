@@ -2,7 +2,7 @@ import type { RicosExtension, RicosExtensionConfig } from 'ricos-tiptap-types';
 import { Plugin, PluginKey } from 'prosemirror-state';
 import { generateId } from 'ricos-content';
 
-export const createUniqueId = (): RicosExtension => ({
+export const uniqueId: RicosExtension = {
   type: 'extension',
   groups: [],
   name: 'unique-id',
@@ -59,4 +59,4 @@ export const createUniqueId = (): RicosExtension => ({
       },
     };
   },
-});
+};

@@ -18,10 +18,13 @@ export class MarkExtension implements IMarkExtension {
 
   groups: RicosExtension['groups'];
 
+  private readonly settings: Record<string, unknown>;
+
   private readonly reconfigure: (
     config: MarkConfig,
     extensions: RicosExtension[],
-    ricosProps: ExtensionProps
+    ricosProps: ExtensionProps,
+    settings: Record<string, unknown>
   ) => MarkConfig;
 
   private readonly ricosExtension: RicosExtension;
@@ -31,8 +34,8 @@ export class MarkExtension implements IMarkExtension {
       throw new TypeError('invalid argument');
     }
     this.groups = extension.groups || [];
-    // omit addKeyboardShortcuts
-    const { addKeyboardShortcuts: _, ...rest } =
+    this.settings = extension.settings || {};
+    const { addKeyboardShortcuts, ...rest } =
       config ||
       extension.createExtensionConfig({
         textblockTypeInputRule,
@@ -44,6 +47,7 @@ export class MarkExtension implements IMarkExtension {
       });
     this.config = {
       ...rest,
+      ...(extension.groups.includes('shortcuts-enabled') ? { addKeyboardShortcuts } : {}),
       type: 'mark',
     };
     this.priority = this.config.priority || DEFAULT_PRIORITY;
@@ -57,7 +61,12 @@ export class MarkExtension implements IMarkExtension {
   }
 
   toTiptapExtension(extensions: ExtensionAggregate, ricosProps: ExtensionProps) {
-    const config = this.reconfigure(this.config, extensions.getRicosExtensions(), ricosProps);
+    const config = this.reconfigure(
+      this.config,
+      extensions.getRicosExtensions(),
+      ricosProps,
+      this.settings
+    );
     return Mark.create(config);
   }
 }

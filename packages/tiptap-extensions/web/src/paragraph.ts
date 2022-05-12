@@ -26,7 +26,7 @@ const createStyleAttribute = (node: ProsemirrorNode) => {
   return { style };
 };
 
-export const createParagraph = (): RicosExtension => ({
+export const paragraph: RicosExtension = {
   type: 'node' as const,
   groups: ['text-container'],
   name: 'paragraph',
@@ -79,4 +79,4 @@ export const createParagraph = (): RicosExtension => ({
       },
     };
   },
-});
+};

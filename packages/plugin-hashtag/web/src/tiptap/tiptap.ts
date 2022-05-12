@@ -1,7 +1,6 @@
-import type { CreateRicosExtensions } from 'ricos-tiptap-types';
 import findHashTag from './findHashTag';
 
-export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
+export const tiptapExtensions = [
   {
     type: 'mark' as const,
     groups: [],

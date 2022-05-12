@@ -1,4 +1,4 @@
-import { NodeViewContent, NodeViewWrapper } from '@tiptap/react';
+import { NodeViewContent } from '@tiptap/react';
 import React, { useContext } from 'react';
 import { RicosTiptapContext } from '../context';
 
@@ -11,9 +11,5 @@ export const RicosNode = ({ Component, tiptapNodeProps }) => {
     ...tiptapNodeProps,
     NodeViewContent,
   };
-  return (
-    <NodeViewWrapper>
-      <Component {...componentProps} />
-    </NodeViewWrapper>
-  );
+  return <Component {...componentProps} />;
 };

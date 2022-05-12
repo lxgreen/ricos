@@ -1,12 +1,12 @@
 import React from 'react';
+import colorDataDefaults from 'ricos-schema/dist/statics/color.defaults.json';
 import type {
-  CreateRicosExtensions,
   DOMOutputSpec,
-  RicosExtensionConfig,
+  ExtensionProps,
   RicosExtension,
+  RicosExtensionConfig,
 } from 'ricos-tiptap-types';
 import { BlockSpoilerComponent } from '..';
-import colorDataDefaults from 'ricos-schema/dist/statics/color.defaults.json';
 
 const SPOILER_STYLE = 'blur(0.25em)';
 
@@ -48,13 +48,19 @@ declare module '@tiptap/core' {
   }
 }
 
-export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
+export const tiptapExtensions = [
   {
     type: 'extension' as const,
     name: 'node-spoiler',
     groups: [],
-    reconfigure: (config: RicosExtensionConfig, extensions: RicosExtension[]) => ({
+    reconfigure: (
+      config: RicosExtensionConfig,
+      extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
       ...config,
+      addOptions: () => settings,
       addNodeHoc: () => ({
         nodeTypes: extensions
           .filter(extension => extension.groups.includes('spoilerable'))
@@ -67,7 +73,6 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
       return {
         name: this.name,
         priority: 10,
-        addOptions: () => defaultOptions,
       };
     },
   },

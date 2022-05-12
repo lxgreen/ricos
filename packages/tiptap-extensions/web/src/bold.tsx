@@ -1,5 +1,5 @@
 import { markInputRule, markPasteRule, mergeAttributes } from '@tiptap/core';
-import type { RicosMarkExtension } from 'ricos-tiptap-types';
+import type { DOMOutputSpec, RicosExtension } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -25,7 +25,7 @@ export const starPasteRegex = /(?:^|\s)((?:\*\*)((?:[^*]+))(?:\*\*))/g;
 export const underscoreInputRegex = /(?:^|\s)((?:__)((?:[^__]+))(?:__))$/;
 export const underscorePasteRegex = /(?:^|\s)((?:__)((?:[^__]+))(?:__))/g;
 
-export const createBold = (): RicosMarkExtension => ({
+export const bold: RicosExtension = {
   type: 'mark' as const,
   groups: [],
   name: 'bold',
@@ -55,7 +55,11 @@ export const createBold = (): RicosMarkExtension => ({
       },
 
       renderHTML({ HTMLAttributes }) {
-        return ['strong', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
+        return [
+          'strong',
+          mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+          0,
+        ] as DOMOutputSpec;
       },
 
       addCommands() {
@@ -111,4 +115,4 @@ export const createBold = (): RicosMarkExtension => ({
       },
     };
   },
-});
+};

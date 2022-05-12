@@ -1,9 +1,7 @@
-import imageDataDefaults from 'ricos-schema/dist/statics/image.defaults.json';
-import type { CreateRicosExtensions, PluginProps } from 'ricos-tiptap-types';
-import { Image } from './component';
 import { TIPTAP_IMAGE_TYPE } from 'ricos-content';
-import type { ComponentType } from 'react';
-import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
+import imageDataDefaults from 'ricos-schema/dist/statics/image.defaults.json';
+import type { ExtensionProps, NodeConfig, RicosExtension } from 'ricos-tiptap-types';
+import { Image as Component } from './component';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -22,12 +20,21 @@ declare module '@tiptap/core' {
 
 const name = TIPTAP_IMAGE_TYPE;
 
-export const createRicosExtensions: CreateRicosExtensions = settings => [
+export const tiptapExtensions = [
   {
     type: 'node' as const,
     name,
     groups: ['react', 'spoilerable'],
-    Component: decorateComponentWithProps(Image, { settings }) as ComponentType<PluginProps>,
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions: () => settings,
+    }),
+    Component,
     createExtensionConfig() {
       return {
         name: this.name,
@@ -44,7 +51,6 @@ export const createRicosExtensions: CreateRicosExtensions = settings => [
             default: null,
           },
         }),
-        addOptions: () => settings,
         addCommands() {
           return {
             setImageUrl:

@@ -1,5 +1,5 @@
-import type { RicosMarkExtension } from 'ricos-tiptap-types';
 import fontSizeDataDefaults from 'ricos-schema/dist/statics/font_size.defaults.json';
+import type { DOMOutputSpec, RicosExtension } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -12,7 +12,7 @@ declare module '@tiptap/core' {
   }
 }
 
-export const createFontSize = (): RicosMarkExtension => ({
+export const fontSize: RicosExtension = {
   type: 'mark' as const,
   groups: [],
   name: 'fontSize',
@@ -27,7 +27,7 @@ export const createFontSize = (): RicosMarkExtension => ({
         const htmlAttrs = {
           style: `font-size: ${HTMLAttributes.value}${HTMLAttributes.unit.toLowerCase()}`,
         };
-        return ['span', mergeAttributes(htmlAttrs), 0];
+        return ['span', mergeAttributes(htmlAttrs), 0] as DOMOutputSpec;
       },
       addCommands() {
         return {
@@ -47,4 +47,4 @@ export const createFontSize = (): RicosMarkExtension => ({
       },
     };
   },
-});
+};

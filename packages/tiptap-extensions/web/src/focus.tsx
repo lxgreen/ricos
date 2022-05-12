@@ -30,7 +30,7 @@ const FocusHoc = (Component: ComponentType) => {
   return Focus;
 };
 
-export const createFocusConfig = (): RicosExtension => ({
+export const focus: RicosExtension = {
   type: 'extension' as const,
   groups: [],
   name: 'focus',
@@ -45,4 +45,4 @@ export const createFocusConfig = (): RicosExtension => ({
       }),
     };
   },
-});
+};

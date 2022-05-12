@@ -7,7 +7,7 @@ import type { RicosExtension } from 'ricos-tiptap-types';
  * - https://github.com/remirror/remirror/blob/e0f1bec4a1e8073ce8f5500d62193e52321155b9/packages/prosemirror-trailing-node/src/trailing-node-plugin.ts
  */
 
-export const createTrailingNode = (): RicosExtension => ({
+export const trailingNode: RicosExtension = {
   type: 'extension' as const,
   groups: [],
   name: 'trailingNode',
@@ -40,4 +40,4 @@ export const createTrailingNode = (): RicosExtension => ({
       },
     };
   },
-});
+};

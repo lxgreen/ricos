@@ -1,14 +1,13 @@
-import type { ExtensionProps, RicosExtension } from 'ricos-tiptap-types';
-import { Decoration, DecorationSet } from 'prosemirror-view';
 import { Plugin, PluginKey } from 'prosemirror-state';
-import type { ExtensionConfig } from '@tiptap/core';
+import { Decoration, DecorationSet } from 'prosemirror-view';
+import type { ExtensionProps, RicosExtension, RicosExtensionConfig } from 'ricos-tiptap-types';
 
-export const createPlaceholder = (defaultOptions): RicosExtension => ({
+export const placeholder: RicosExtension = {
   type: 'extension' as const,
   groups: [],
   name: 'placeholder',
   reconfigure: (
-    config: ExtensionConfig,
+    config: RicosExtensionConfig,
     _extensions: RicosExtension[],
     ricosProps: ExtensionProps
   ) => ({
@@ -21,7 +20,6 @@ export const createPlaceholder = (defaultOptions): RicosExtension => ({
         showOnlyWhenEditable: true,
         showOnlyCurrent: true,
         includeChildren: false,
-        ...defaultOptions,
       };
     },
   }),
@@ -83,4 +81,4 @@ export const createPlaceholder = (defaultOptions): RicosExtension => ({
       },
     };
   },
-});
+};

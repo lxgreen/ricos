@@ -4,7 +4,7 @@ import { MENTION_TYPE } from './types';
 import { DEFAULTS } from './defaultSettings';
 import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createMentionData } from './createMentionData';
-import { createTiptapExtensions } from './tiptap';
+import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 export const pluginMentions: EditorPluginCreator<MentionsPluginEditorConfig> = config => {
@@ -15,6 +15,6 @@ export const pluginMentions: EditorPluginCreator<MentionsPluginEditorConfig> = c
     createPlugin: createExternalMentionsPlugin,
     ModalsMap: {},
     createPluginData: createMentionData,
-    tiptapExtensions: createTiptapExtensions(pluginConfig),
+    tiptapExtensions,
   } as TiptapEditorPlugin;
 };

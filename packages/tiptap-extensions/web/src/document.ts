@@ -1,5 +1,5 @@
 import type { RicosExtension } from 'ricos-tiptap-types';
-export const createDoc = (): RicosExtension => ({
+export const doc: RicosExtension = {
   type: 'node' as const,
   groups: [],
   name: 'doc',
@@ -13,4 +13,4 @@ export const createDoc = (): RicosExtension => ({
       }),
     };
   },
-});
+};

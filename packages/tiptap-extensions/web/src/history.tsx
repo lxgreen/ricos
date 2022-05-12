@@ -15,7 +15,7 @@ declare module '@tiptap/core' {
   }
 }
 
-export const createHistoryConfig = (): RicosExtension => ({
+export const undoRedo: RicosExtension = {
   type: 'extension' as const,
   groups: [],
   name: 'ricosHistory',
@@ -69,7 +69,7 @@ export const createHistoryConfig = (): RicosExtension => ({
       },
     };
   },
-});
+};
 
 export interface HistoryOptions {
   depth: number;

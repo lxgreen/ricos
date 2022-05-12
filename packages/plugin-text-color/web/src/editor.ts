@@ -6,7 +6,7 @@ import { DEFAULTS } from './constants';
 import { ModalsMap } from './modals';
 import type { EditorPluginCreator } from 'wix-rich-content-common';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
-import { getTiptapExtensions } from './tiptap';
+import { tiptapExtensions } from './tiptap';
 
 export const pluginTextColor: EditorPluginCreator<TextColorPluginEditorConfig> = config => {
   return {
@@ -14,7 +14,7 @@ export const pluginTextColor: EditorPluginCreator<TextColorPluginEditorConfig> =
     type: TEXT_COLOR_TYPE,
     createPlugin: createTextColorPlugin,
     ModalsMap,
-    tiptapExtensions: getTiptapExtensions(config),
+    tiptapExtensions,
   } as TiptapEditorPlugin;
 };
 

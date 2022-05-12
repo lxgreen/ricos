@@ -5,7 +5,7 @@ import type { AudioPluginEditorConfig } from './types';
 import { AUDIO_TYPE } from './types';
 import { DEFAULTS } from './defaults';
 import type { EditorPluginCreator } from 'wix-rich-content-common';
-import { createRicosExtensions } from './tiptap';
+import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 export const pluginAudio: EditorPluginCreator<AudioPluginEditorConfig> = config => {
@@ -15,6 +15,6 @@ export const pluginAudio: EditorPluginCreator<AudioPluginEditorConfig> = config 
     type: AUDIO_TYPE,
     createPlugin: createAudioPlugin,
     createPluginData: createAudioData,
-    tiptapExtensions: createRicosExtensions(pluginConfig),
+    tiptapExtensions,
   } as TiptapEditorPlugin;
 };

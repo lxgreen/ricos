@@ -21,7 +21,7 @@ const styleToEnum = (textAlign?: string): TextStyle_TextAlignment =>
     ? TextStyle_TextAlignment.AUTO
     : (textAlign.toUpperCase() as TextStyle_TextAlignment);
 
-export const createTextAlign = (): RicosExtension => ({
+export const textAlign: RicosExtension = {
   type: 'extension' as const,
   groups: [],
   name: 'textAlign',
@@ -120,4 +120,4 @@ export const createTextAlign = (): RicosExtension => ({
       },
     };
   },
-});
+};

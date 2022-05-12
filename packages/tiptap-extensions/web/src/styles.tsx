@@ -88,7 +88,7 @@ const StylesHOC = Component => {
   return Styles;
 };
 
-export const createStylesConfig = (): RicosExtension => ({
+export const styles: RicosExtension = {
   type: 'extension' as const,
   groups: [],
   name: 'style',
@@ -106,4 +106,4 @@ export const createStylesConfig = (): RicosExtension => ({
       },
     };
   },
-});
+};

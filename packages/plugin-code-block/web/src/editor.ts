@@ -3,7 +3,7 @@ import type { CodeBlockPluginEditorConfig } from './types';
 import { CODE_BLOCK_TYPE } from './types';
 import { DEFAULTS } from './defaults';
 import type { EditorPluginCreator } from 'wix-rich-content-common';
-import { createTiptapExtensions } from './tiptap';
+import { tiptapExtensions } from './tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 
 export const pluginCodeBlock: EditorPluginCreator<CodeBlockPluginEditorConfig> = config => {
@@ -13,6 +13,6 @@ export const pluginCodeBlock: EditorPluginCreator<CodeBlockPluginEditorConfig> =
     type: CODE_BLOCK_TYPE,
     createPlugin: createCodeBlockPlugin,
     ModalsMap: {},
-    tiptapExtensions: createTiptapExtensions(pluginConfig),
+    tiptapExtensions,
   } as TiptapEditorPlugin;
 };

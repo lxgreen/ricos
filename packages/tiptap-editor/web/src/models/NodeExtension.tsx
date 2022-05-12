@@ -37,7 +37,7 @@ const toFullNodeConfig =
   (ext: RicosNodeExtension) =>
   (config: NodeConfig): NodeConfig => {
     // omit addKeyboardShortcuts
-    const { addKeyboardShortcuts: _, ...rest } = config;
+    const { addKeyboardShortcuts, ...rest } = config;
     return {
       ...(ext.groups.includes('text')
         ? {}
@@ -49,18 +49,22 @@ const toFullNodeConfig =
             ],
           }),
       ...rest,
+      ...(ext.groups.includes('shortcuts-enabled') ? { addKeyboardShortcuts } : {}),
     };
   };
 
 const createRicosNodeConfig = (ext: RicosNodeExtension): NodeConfig =>
   pipe(ext, toExtensionConfig, toFullNodeConfig(ext));
 
-const createRicosNodeHOC = (Component: ComponentType) => (props: NodeViewRendererProps) =>
-  (
-    <NodeViewWrapper as="div">
-      <RicosNode Component={Component} tiptapNodeProps={props} />
-    </NodeViewWrapper>
-  );
+const createRicosNodeHOC =
+  (settings: Record<string, unknown>) =>
+  (Component: ComponentType) =>
+  (props: NodeViewRendererProps) =>
+    (
+      <NodeViewWrapper as="div">
+        <RicosNode Component={Component} tiptapNodeProps={{ ...props, settings }} />
+      </NodeViewWrapper>
+    );
 
 export class ReactNodeExtension implements IReactNodeExtension {
   config: NodeConfig;
@@ -73,12 +77,15 @@ export class ReactNodeExtension implements IReactNodeExtension {
 
   groups: RicosExtension['groups'];
 
+  protected readonly settings: Record<string, unknown>;
+
   private readonly ricosExtension: RicosNodeExtension;
 
   protected readonly reconfigure: (
     config: NodeConfig,
     extensions: RicosExtension[],
-    ricosProps: ExtensionProps
+    ricosProps: ExtensionProps,
+    settings: Record<string, unknown>
   ) => NodeConfig;
 
   constructor(extension: RicosExtension, config?: NodeConfig) {
@@ -90,6 +97,7 @@ export class ReactNodeExtension implements IReactNodeExtension {
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
     this.groups = extension.groups;
+    this.settings = extension.settings || {};
     this.reconfigure = extension.reconfigure || (() => this.config);
   }
 
@@ -111,13 +119,13 @@ class RenderableNodeExtension extends ReactNodeExtension implements DecoratedNod
     super(extension);
     this.config = {
       ...this.config,
-      addNodeView: () => pipe(component, createRicosNodeHOC, ReactNodeViewRenderer),
+      addNodeView: () => pipe(component, createRicosNodeHOC(this.settings), ReactNodeViewRenderer),
     };
   }
 
   toTiptapExtension(extensions: ExtensionAggregate, ricosProps: ExtensionProps) {
     const ricosExtensions = extensions.getRicosExtensions();
-    const config = this.reconfigure(this.config, ricosExtensions, ricosProps);
+    const config = this.reconfigure(this.config, ricosExtensions, ricosProps, this.settings);
     return Node.create(config);
   }
 }
@@ -133,10 +141,13 @@ export class HtmlNodeExtension implements IHtmlNodeExtension {
 
   private readonly ricosExtension: RicosNodeExtension;
 
+  private readonly settings: Record<string, unknown>;
+
   private readonly reconfigure: (
     config: NodeConfig,
     extensions: RicosExtension[],
-    ricosProps: ExtensionProps
+    ricosProps: ExtensionProps,
+    settings: Record<string, unknown>
   ) => NodeConfig;
 
   groups: RicosExtension['groups'];
@@ -150,6 +161,7 @@ export class HtmlNodeExtension implements IHtmlNodeExtension {
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
     this.groups = extension.groups || [];
+    this.settings = extension.settings || {};
     this.reconfigure = extension.reconfigure || (() => this.config);
   }
 
@@ -159,7 +171,7 @@ export class HtmlNodeExtension implements IHtmlNodeExtension {
 
   toTiptapExtension(extensions: ExtensionAggregate, ricosProps: ExtensionProps) {
     const ricosExtensions = extensions.getRicosExtensions();
-    const config = this.reconfigure(this.config, ricosExtensions, ricosProps);
+    const config = this.reconfigure(this.config, ricosExtensions, ricosProps, this.settings);
     return Node.create(config);
   }
 }

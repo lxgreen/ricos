@@ -1,7 +1,7 @@
-import type { CreateRicosExtensions, DOMOutputSpec } from 'ricos-tiptap-types';
-import codeBlockDataDefaults from 'ricos-schema/dist/statics/code_block.defaults.json';
-import styles from '../statics/styles/code-block.scss';
 import { TextSelection } from 'prosemirror-state';
+import codeBlockDataDefaults from 'ricos-schema/dist/statics/code_block.defaults.json';
+import type { DOMOutputSpec, NodeConfig, ExtensionProps, RicosExtension } from 'ricos-tiptap-types';
+import styles from '../statics/styles/code-block.scss';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -21,23 +21,32 @@ declare module '@tiptap/core' {
 const backtickInputRegex = /^```(?<language>[a-z]*)?[\s\n]$/;
 const tildeInputRegex = /^~~~(?<language>[a-z]*)?[\s\n]$/;
 
-export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
+export const tiptapExtensions = [
   {
     type: 'node' as const,
     groups: [],
     name: 'codeBlock',
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions() {
+        return {
+          languageClassPrefix: 'language-',
+          HTMLAttributes: {
+            class: styles.code,
+          },
+          ...settings,
+        };
+      },
+    }),
+
     createExtensionConfig({ Plugin, PluginKey, textblockTypeInputRule }) {
       return {
         name: this.name,
-        addOptions() {
-          return {
-            languageClassPrefix: 'language-',
-            HTMLAttributes: {
-              class: styles.code,
-            },
-            ...defaultOptions,
-          };
-        },
 
         content: 'text*',
 

@@ -17,7 +17,7 @@ declare module '@tiptap/core' {
   }
 }
 
-export const createTextDirection = (): RicosExtension => ({
+export const textDirection: RicosExtension = {
   type: 'extension' as const,
   groups: [],
   name: 'textDirection',
@@ -71,4 +71,4 @@ export const createTextDirection = (): RicosExtension => ({
       }),
     };
   },
-});
+};

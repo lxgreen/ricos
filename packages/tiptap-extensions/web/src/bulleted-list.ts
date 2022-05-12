@@ -21,7 +21,7 @@ declare module '@tiptap/core' {
 
 export const inputRegex = /^\s*([-+*])\s$/;
 
-export const createBulletedList = (): RicosExtension => ({
+export const bulletedList: RicosExtension = {
   type: 'node' as const,
   groups: [],
   name: 'bulletedList',
@@ -83,4 +83,4 @@ export const createBulletedList = (): RicosExtension => ({
       },
     };
   },
-});
+};

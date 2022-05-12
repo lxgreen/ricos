@@ -1,7 +1,7 @@
-import mentionDataDefaults from 'ricos-schema/dist/statics/mention.defaults.json';
-import type { CreateRicosExtensions } from 'ricos-tiptap-types';
-import type { Node as ProseMirrorNode } from 'prosemirror-model';
 import type { SuggestionOptions } from '@tiptap/suggestion';
+import type { Node as ProseMirrorNode } from 'prosemirror-model';
+import mentionDataDefaults from 'ricos-schema/dist/statics/mention.defaults.json';
+import type { ExtensionProps, MarkConfig, RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
 import styles from '../../statics/mentions.scss';
 import suggestion from './suggestion';
 
@@ -34,22 +34,30 @@ const findMention = (editor, char) => {
   }
 };
 
-export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
+export const tiptapExtensions = [
   {
-    type: 'mark',
+    type: 'mark' as const,
     groups: [],
     name: 'mention',
+    reconfigure: (
+      config: MarkConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions: () => ({
+        settings,
+        HTMLAttributes: {},
+        renderLabel({ node }) {
+          return `${settings.mentionTrigger}${node.attrs.label ?? node.attrs.id}`;
+        },
+      }),
+    }),
+
     createExtensionConfig({ PluginKey }) {
       return {
         name: this.name,
-        addOptions() {
-          return {
-            HTMLAttributes: {},
-            renderLabel({ node }) {
-              return `${defaultOptions.mentionTrigger}${node.attrs.label ?? node.attrs.id}`;
-            },
-          };
-        },
 
         group: 'inline',
 
@@ -64,7 +72,7 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
         },
 
         renderHTML() {
-          return ['span', { class: styles.mention }, 0];
+          return ['span', { class: styles.mention }, 0] as DOMOutputSpec;
         },
 
         addKeyboardShortcuts() {
@@ -82,7 +90,11 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
                 state.doc.nodesBetween(anchor - 1, anchor, (node, pos) => {
                   if (node.type.name === this.name) {
                     isMention = true;
-                    tr.insertText(defaultOptions.mentionTrigger || '', pos, pos + node.nodeSize);
+                    tr.insertText(
+                      this.options.settings.mentionTrigger || '',
+                      pos,
+                      pos + node.nodeSize
+                    );
 
                     return false;
                   }
@@ -94,7 +106,7 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
         },
 
         addProseMirrorPlugins() {
-          return [suggestion(this.editor, defaultOptions, PluginKey)];
+          return [suggestion(this.editor, this.options.settings, PluginKey)];
         },
 
         addCommands() {
@@ -107,7 +119,7 @@ export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
                 const nodeAfter = view.state.selection.$to.nodeAfter;
                 const overrideSpace = nodeAfter?.text?.startsWith(' ');
                 const range = pos ||
-                  findMention(editor, defaultOptions.mentionTrigger) || {
+                  findMention(editor, this.options.settings.mentionTrigger) || {
                     from: tr.selection.from,
                     to: tr.selection.to,
                   };
