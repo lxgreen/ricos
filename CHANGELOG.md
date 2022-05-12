@@ -21,13 +21,18 @@
 
 - `tiptap-editor`
   - [#3855](https://github.com/wix/ricos/pull/3855) Extensions: settings injected to component
+- `ricos-editor`
+  - [#3825](https://github.com/wix/ricos/pull/3825) tiptap getContent & getContentPromise
 
   </details>
   <hr/>
-  
+
+## 8.71.13 (May 12, 2022)
+
 ### :house: Internal
-- `ricos-editor`
-  - [#3825](https://github.com/wix/ricos/pull/3825) tiptap getContent & getContentPromise
+
+- `tiptap-editor`
+  - [#3849](https://github.com/wix/ricos/pull/3849) upload service adujustments for tiptap
 
 ## 8.71.12 (May 12, 2022)
 
