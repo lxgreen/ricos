@@ -22,8 +22,8 @@ export class UploadService implements IUploadService {
   onInputChange: ((this: HTMLInputElement, event: any) => any) | null;
 
   BICallbacks?: {
-    onMediaUploadStart: any;
-    onMediaUploadEnd: any;
+    onMediaUploadStart?: any;
+    onMediaUploadEnd?: any;
   };
 
   UploadObserver?: IUploadObserver;
@@ -34,8 +34,8 @@ export class UploadService implements IUploadService {
     UpdateService: IUpdateService,
     hiddenInputElement: HTMLInputElement,
     BICallbacks?: {
-      onMediaUploadStart: any;
-      onMediaUploadEnd: any;
+      onMediaUploadStart?: any;
+      onMediaUploadEnd?: any;
     },
     UploadObserver?: IUploadObserver
   ) {
@@ -80,7 +80,7 @@ export class UploadService implements IUploadService {
         MediaPluginService,
         fileState
       );
-      const uploadBIData = this.BICallbacks?.onMediaUploadStart(type, file.size, file.type);
+      const uploadBIData = this.BICallbacks?.onMediaUploadStart?.(type, file.size, file.type);
       let error = null;
       try {
         const uploadedFile = await uploader.upload(file);
@@ -97,7 +97,7 @@ export class UploadService implements IUploadService {
         this.ErrorNotifier.notify(e);
         this.UpdateService.updateErrorState(e, nodeId, type, MediaPluginService, newFileState);
       } finally {
-        this.BICallbacks?.onMediaUploadEnd(uploadBIData, error);
+        this.BICallbacks?.onMediaUploadEnd?.(uploadBIData, error);
       }
     } catch (e) {
       this.ErrorNotifier.notify({ msg: 'Failed reading file locally' });

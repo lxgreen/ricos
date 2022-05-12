@@ -7,9 +7,12 @@ export class VideoPluginService implements IMediaPluginService {
     return {
       componentData: {
         ...componentData,
-        src: url,
-        tempData: true,
         isCustomVideo: true,
+        src: url,
+      },
+      componentState: {
+        loading: true,
+        tempData: true,
       },
     };
   }

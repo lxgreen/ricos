@@ -7,6 +7,8 @@ export class ImagePluginService implements IMediaPluginService {
     return {
       componentData: {
         ...componentData,
+      },
+      componentState: {
         tempData: {
           dataUrl: url,
         },

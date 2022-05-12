@@ -73,7 +73,8 @@ export class GalleryPluginService implements IMediaPluginService {
     // const itemIndex = fileState?.itemIndex || componentData.items.length;
     // const newComponentData = setItemInGallery(galleryItem, componentData, itemIndex);
     return {
-      componentData: { ...componentData, loading: true },
+      componentData,
+      componentState: { loading: true },
       fileState,
     };
   }
