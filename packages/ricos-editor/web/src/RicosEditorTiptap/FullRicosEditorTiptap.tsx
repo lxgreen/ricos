@@ -1,3 +1,4 @@
+/* eslint-disable brace-style */
 import type { Node } from 'prosemirror-model';
 import React, { forwardRef } from 'react';
 import type { RicosEditorProps, ThemeStrategyResult } from 'ricos-common';
@@ -14,6 +15,8 @@ import { LocaleResourceProvider } from '../RicosContext/locale-resource-provider
 import { UploadProvider } from '../RicosContext/UploadProvider';
 import type { RicosEditorRef } from '../RicosEditorRef';
 import RicosEditorTiptap from './RicosEditorTiptap';
+import { PUBLISH_DEPRECATION_WARNING_v9 } from '../RicosEditor';
+import errorBlocksRemover from '../utils/errorBlocksRemover';
 import RicosToolbars from './RicosToolbars';
 import { publishBI } from '../utils/bi/publish';
 import pluginsConfigMerger from '../utils/pluginsConfigMerger/pluginsConfigMerger';
@@ -28,7 +31,8 @@ type State = {
 export class FullRicosEditorTiptap
   extends React.Component<RicosEditorProps, State>
   // eslint-disable-next-line prettier/prettier
-  implements RicosEditorRef {
+  implements RicosEditorRef
+{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private editor: any;
 
@@ -88,13 +92,24 @@ export class FullRicosEditorTiptap
     this.editorAdapter.blur();
   };
 
-  getContent: RicosEditorRef['getContent'] = (postId, forPublish) => {
-    return this.editorAdapter.getContent(postId, forPublish);
+  getContent: RicosEditorRef['getContent'] = (
+    postId,
+    forPublish,
+    shouldRemoveErrorBlocks = true
+  ) => {
+    const draftContent = this.editorAdapter.getDraftContent();
+    const content = shouldRemoveErrorBlocks ? errorBlocksRemover(draftContent) : draftContent;
+    if (postId && forPublish) {
+      console.warn(PUBLISH_DEPRECATION_WARNING_v9); // eslint-disable-line
+      const onPublish = this.props._rcProps?.helpers?.onPublish;
+      publishBI(content, onPublish, postId);
+    }
+    return Promise.resolve(content);
   };
 
-  getContentPromise: RicosEditorRef['getContentPromise'] = ({ flush, publishId } = {}) => {
-    return this.editorAdapter.getContentPromise({ flush, publishId });
-  };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getContentPromise: RicosEditorRef['getContentPromise'] = ({ flush, publishId } = {}) =>
+    this.getContent(publishId, !!publishId);
 
   getContentTraits: RicosEditorRef['getContentTraits'] = () => {
     return this.editorAdapter.getContentTraits();

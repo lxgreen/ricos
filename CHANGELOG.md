@@ -17,9 +17,12 @@
     Click to see more.
   </summary>
 
-
   </details>
   <hr/>
+  
+### :house: Internal
+- `ricos-editor`
+  - [#3825](https://github.com/wix/ricos/pull/3825) tiptap getContent & getContentPromise
 
 ## 8.71.12 (May 12, 2022)
 
@@ -35,6 +38,7 @@
 - `general`
   - [#3728](https://github.com/wix/ricos/pull/3728) RicosEditor API types moved to ricos-types
 - `ricos-editor`
+
   - [#3728](https://github.com/wix/ricos/pull/3728) individual reconfiguration of extensions according to RicosEditor props
   - [#3844](https://github.com/wix/ricos/pull/3844) tiptap plugins config merger
   - [#3843](https://github.com/wix/ricos/pull/3843) tiptap theme strategy
@@ -43,7 +47,7 @@
 - `ricos-shortcuts`
   - [#3835](https://github.com/wix/ricos/pull/3835) react-hotkeys works with tiptap
   - [#3841](https://github.com/wix/ricos/pull/3841) fix keys
-  
+
 ## 8.71.11 (May 9, 2022)
 
 ### :bug: Bug Fix

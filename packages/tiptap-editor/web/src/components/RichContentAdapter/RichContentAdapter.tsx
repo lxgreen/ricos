@@ -33,7 +33,7 @@ import type { JSONContent } from '@tiptap/react';
 import type { RicosEditorProps } from 'ricos-common';
 import type { Node as ProseMirrorNode } from 'prosemirror-model';
 
-export class RichContentAdapter implements TiptapAPI {
+export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getContentPromise'> {
   constructor(
     public editor: Editor,
     private t: TranslationFunction,
@@ -43,14 +43,6 @@ export class RichContentAdapter implements TiptapAPI {
     this.t = t;
     this.plugins = plugins;
   }
-
-  getContent: TiptapAPI['getContent'] = async (postId, forPublish, shouldRemoveErrorBlocks) => {
-    throw new Error('Method not implemented.');
-  };
-
-  getContentPromise: TiptapAPI['getContentPromise'] = async ({ flush, publishId } = {}) => {
-    throw new Error('Method not implemented.');
-  };
 
   getContentTraits: TiptapAPI['getContentTraits'] = () => {
     throw new Error('Method not implemented.');

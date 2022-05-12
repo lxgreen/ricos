@@ -46,7 +46,7 @@ import { convertToolbarContext } from './toolbars/convertToolbarContext';
 import { coreCommands } from './content-modification/commands/core-commands';
 import UploadObserver from './utils/UploadObserver';
 // eslint-disable-next-line
-const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
+export const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use editorEvents.publish() APIs for publishing.
 The getContent(postId, isPublishing) API is deprecated and will be removed in ricos v9.0.0`;
 const LinkToolbar = React.lazy(() => import('./toolbars/LinkToolbar'));
 interface State {

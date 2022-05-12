@@ -5,6 +5,7 @@ import { pluginImage } from 'wix-rich-content-plugin-image';
 import { pluginGallery } from 'wix-rich-content-plugin-gallery';
 import MobileDetect from 'mobile-detect';
 import ActionButton from '../Components/ActionButton';
+import { ToggleEditorButton } from '../Components/ToogleEditorButton';
 
 const mobileDetect = new MobileDetect(window.navigator.userAgent);
 const plugins = [pluginImage(), pluginGallery()];
@@ -19,6 +20,7 @@ export default () => {
   };
   const isMobile = mobileDetect.mobile() !== null;
   const [content, setContent] = useState('');
+  const [isTiptap, setIsTiptap] = useState(false);
 
   return (
     <Page title="Ricos - getContentPromise">
@@ -33,12 +35,14 @@ export default () => {
         </a>
       </h4>
       <Section>
+        <ToggleEditorButton isTiptap={isTiptap} setIsTiptap={setIsTiptap} />
         <RichContentEditorBox>
           <RicosEditor
             ref={editorEl}
             isMobile={isMobile}
             plugins={plugins}
             modalSettings={modalSettings}
+            experiments={{ tiptapEditor: { enabled: isTiptap } }}
           />
           <ActionButton
             text={'getContentPromise()'}
