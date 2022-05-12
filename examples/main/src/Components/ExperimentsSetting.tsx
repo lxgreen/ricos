@@ -22,7 +22,7 @@ export const ExperimentsSetting = ({ items, active, action }) => {
       </li>
       {items.map(
         ({ name, scope, input = ['true', 'false'] }) =>
-          name.includes(experimentSearchTerm) && (
+          name.toLowerCase().includes(experimentSearchTerm.toLowerCase()) && (
             <li key={name} className="experimentContainer">
               <div className="experiment">
                 <div className="scope">{scope}</div>
