@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+### :house: Internal
+
+- `tiptap-editor`
+  - [#3855](https://github.com/wix/ricos/pull/3855) Extensions: settings injected to component
+
   </details>
   <hr/>
   
