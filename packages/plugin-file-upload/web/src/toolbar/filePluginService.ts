@@ -12,6 +12,9 @@ export class FilePluginService implements IMediaPluginService {
         name,
         size,
         type,
+      },
+      componentState: {
+        loading: true,
         tempData: true,
       },
     };

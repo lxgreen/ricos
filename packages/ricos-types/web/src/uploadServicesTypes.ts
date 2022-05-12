@@ -42,6 +42,10 @@ export interface IFileUploader {
 export interface MediaPluginLocalLoadedData {
   componentData: ComponentData;
   fileState?: Record<string, string | number>;
+  componentState?: {
+    loading?: boolean;
+    tempData?: any;
+  };
 }
 
 export interface IMediaPluginService {
@@ -104,8 +108,8 @@ export interface IUploadService {
   onInputChange: ((this: HTMLInputElement, event: any) => any) | null;
 
   BICallbacks?: {
-    onMediaUploadStart: any;
-    onMediaUploadEnd: any;
+    onMediaUploadStart?: any;
+    onMediaUploadEnd?: any;
   };
 
   UploadObserver?: IUploadObserver;

@@ -6,6 +6,7 @@ import type {
   PluginsDataMap,
   IUpdateService,
 } from 'ricos-types';
+import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
 
 const doesNodeExist = (nodeId: string, editorCommands?: EditorCommands) =>
   editorCommands?.getAllBlocksKeys().includes(nodeId);
@@ -32,7 +33,10 @@ export class UpdateService implements IUpdateService {
         componentData,
         fileState
       );
-      this.EditorCommands?.setBlock(nodeId, type as keyof PluginsDataMap, newComponentData);
+      const data = convertBlockDataToRicos(type, newComponentData);
+      this.EditorCommands?.setBlock(nodeId, type as keyof PluginsDataMap, data, {
+        isRicosSchema: true,
+      });
     }
   }
 
@@ -46,13 +50,21 @@ export class UpdateService implements IUpdateService {
   ) {
     if (doesNodeExist(nodeId, this.EditorCommands)) {
       const currentComponentData = this.EditorCommands?.getBlockComponentData(nodeId);
-      const { componentData, fileState: newFileState } = mediaPluginService.createLoadingData(
-        file,
-        url,
-        currentComponentData,
-        fileState
+      const {
+        componentState,
+        componentData,
+        fileState: newFileState,
+      } = mediaPluginService.createLoadingData(file, url, currentComponentData, fileState);
+      const data = convertBlockDataToRicos(type, componentData);
+
+      this.EditorCommands?.setBlock(
+        nodeId,
+        type as keyof PluginsDataMap,
+        { ...data, ...componentState },
+        {
+          isRicosSchema: true,
+        }
       );
-      this.EditorCommands?.setBlock(nodeId, type as keyof PluginsDataMap, componentData);
       return newFileState;
     }
   }
