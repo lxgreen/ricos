@@ -4,6 +4,7 @@ import type { RicosEditorProps } from 'ricos-common';
 import type { TiptapEditorPlugin, ExtensionProps } from 'ricos-tiptap-types';
 import type { GeneralContext } from 'ricos-types';
 import { getEmptyDraftContent, withRicosContext } from 'wix-rich-content-editor-common';
+
 import {
   draftToTiptap,
   Extensions,
@@ -13,9 +14,23 @@ import {
 } from 'wix-tiptap-editor';
 import { commonExtensions } from './common-extensions';
 
+type RicosEditorState = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  initialContent?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  htmlAttributes?: any;
+  allExtensions?: Extensions;
+};
 class RicosEditorTiptap extends React.Component<
-  RicosEditorProps & { ricosContext: GeneralContext }
+  RicosEditorProps & { ricosContext: GeneralContext },
+  RicosEditorState
 > {
+  state: Readonly<RicosEditorState> = {
+    initialContent: null,
+    htmlAttributes: {},
+    allExtensions: undefined,
+  };
+
   // add OnLoad
   private editorAdapter!: RichContentAdapter;
 
@@ -88,8 +103,8 @@ class RicosEditorTiptap extends React.Component<
     };
   }
 
-  render() {
-    const { content, injectedContent, plugins, ricosContext } = this.props;
+  componentDidMount() {
+    const { content, injectedContent, plugins } = this.props;
 
     const extensions =
       compact(plugins?.flatMap((plugin: TiptapEditorPlugin) => plugin.tiptapExtensions)) || [];
@@ -99,6 +114,20 @@ class RicosEditorTiptap extends React.Component<
       this.extractExtensionProps()
     );
     const htmlAttributes = this.editorAdapter?.getHtmlAttributes(this.props) || {};
+
+    this.setState({
+      initialContent,
+      allExtensions,
+      htmlAttributes,
+    });
+  }
+
+  render() {
+    const { ricosContext } = this.props;
+    const { initialContent, allExtensions, htmlAttributes } = this.state;
+    if (!initialContent || !allExtensions) {
+      return null;
+    }
     return (
       <RicosTiptapEditor
         extensions={allExtensions}

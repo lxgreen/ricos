@@ -154,10 +154,6 @@ export class FullRicosEditorTiptap
       ?.getToolbarSettings?.({})
       ?.find(toolbar => toolbar.name === TOOLBARS.SIDE)?.addPluginMenuConfig || {};
 
-  shouldComponentUpdate() {
-    return false;
-  }
-
   render() {
     try {
       if (this.state.error) {
