@@ -30,7 +30,10 @@ export const FloatingToolbar = ({ editor, children }: { editor: Editor; children
       offset(8),
     ],
 
-    whileElementsMounted: autoUpdate,
+    whileElementsMounted: (referenceEl, floatingEl, update) =>
+      autoUpdate(referenceEl, floatingEl, update, {
+        animationFrame: true, // this fix issue of reposition when scrolling
+      }),
   });
 
   const forceUpdate = useCallback(() => {

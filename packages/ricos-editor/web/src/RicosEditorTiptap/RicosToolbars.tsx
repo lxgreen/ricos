@@ -27,7 +27,17 @@ type RicosToolbarProps = {
   toolbarSettings?: ToolbarSettings;
 };
 
-class RicosToolbars extends React.Component<RicosToolbarProps & { ricosContext: GeneralContext }> {
+type RicosToolbarState = {
+  finalToolbarSettings?: ToolbarSettingsFunctions[];
+};
+class RicosToolbars extends React.Component<
+  RicosToolbarProps & { ricosContext: GeneralContext },
+  RicosToolbarState
+> {
+  state: Readonly<RicosToolbarState> = {
+    finalToolbarSettings: undefined,
+  };
+
   onSelectionUpdate = ({ editor }) => {
     const { content } = this.props;
     const getSelectedNodes = ({ editor }) => {
@@ -53,13 +63,43 @@ class RicosToolbars extends React.Component<RicosToolbarProps & { ricosContext: 
     return toolbarConfig;
   }
 
-  componentDidMount() {
-    const { editor } = this.props;
-    editor.on('selectionUpdate', this.onSelectionUpdate);
-    editor.on('update', this.onSelectionUpdate);
+  initToolbarSettings() {
+    const { toolbarSettings } = this.props;
+    if (toolbarSettings?.getToolbarSettings) {
+      const textButtons: TextButtons = {
+        mobile: mobileTextButtonList,
+        desktop: desktopTextButtonList,
+      };
+
+      const defaultSettings = getDefaultToolbarSettings({
+        // pluginButtons,
+        // pluginButtonNames,
+        textButtons,
+        // pluginTextButtons: pluginTextButtonMap,
+        // pluginButtonProps,
+        // tablePluginMenu,
+      });
+      const customSettings = toolbarSettings.getToolbarSettings({
+        textButtons,
+      });
+
+      const finalToolbarSettings = mergeToolbarSettings({ defaultSettings, customSettings });
+      this.setState({
+        finalToolbarSettings,
+      });
+    }
   }
 
-  UNSAFE_componentWillUnmount() {
+  componentDidMount() {
+    const { editor } = this.props;
+
+    editor.on('selectionUpdate', this.onSelectionUpdate);
+    editor.on('update', this.onSelectionUpdate);
+
+    this.initToolbarSettings();
+  }
+
+  componentWillUnmount() {
     const { editor } = this.props;
     editor.off('selectionUpdate', this.onSelectionUpdate);
     editor.off('update', this.onSelectionUpdate);
@@ -169,26 +209,10 @@ class RicosToolbars extends React.Component<RicosToolbarProps & { ricosContext: 
       console.error('RicosToolbars: getToolbarSettings is missing');
       return null;
     }
-
-    const textButtons: TextButtons = {
-      mobile: mobileTextButtonList,
-      desktop: desktopTextButtonList,
-    };
-
-    const defaultSettings = getDefaultToolbarSettings({
-      // pluginButtons,
-      // pluginButtonNames,
-      textButtons,
-      // pluginTextButtons: pluginTextButtonMap,
-      // pluginButtonProps,
-      // tablePluginMenu,
-    });
-    const customSettings = toolbarSettings.getToolbarSettings({
-      textButtons,
-    });
-
-    const finalToolbarSettings = mergeToolbarSettings({ defaultSettings, customSettings });
-
+    const { finalToolbarSettings } = this.state;
+    if (!finalToolbarSettings) {
+      return null;
+    }
     return (
       <>
         {this.renderStaticToolbar(finalToolbarSettings)}

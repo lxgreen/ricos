@@ -53,7 +53,7 @@ export class ToolbarConfig {
       if (buttonConfig) {
         tiptapToolbarItemsConfig.push(buttonConfig);
       } else {
-        console.error(`buttonId:${button} is missing`);
+        console.error(`ricosToolbarConfig:buttonId:${button} is missing`);
       }
     });
     return tiptapToolbarItemsConfig;
