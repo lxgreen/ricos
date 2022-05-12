@@ -45,7 +45,6 @@ export const convertToolbarContext = ({
   experiments,
   toolbarSettings,
   cssOverride,
-  t,
   getEditorCommands,
 }) => {
   const { useStaticTextToolbar } = toolbarSettings || {};
@@ -84,7 +83,6 @@ export const convertToolbarContext = ({
   const toolbarsContextData = {
     theme,
     isMobile,
-    t,
     linkPanelData,
     colorPickerData,
     headingsData,

@@ -34,16 +34,17 @@ const Overflow = ({
           width: Math.ceil(child.getBoundingClientRect().width),
         };
       });
-
+      let stackIsFull = false;
       elements.forEach((element, index) => {
-        if (sumVisible + element.width <= width) {
+        if (!stackIsFull && sumVisible + element.width <= width) {
           visible.push(components[index]);
+
           sumVisible += element.width;
         } else {
+          stackIsFull = true;
           overflowed.push(components[index]);
         }
       });
-
       onChange({
         visible,
         overflowed,

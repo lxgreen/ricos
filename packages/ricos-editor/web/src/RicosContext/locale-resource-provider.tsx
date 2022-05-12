@@ -11,7 +11,6 @@ export const LocaleResourceProvider = ({
   localeContent,
   experiments,
   languageDir,
-  getEditorCommands,
   theme,
 }) => {
   const [currentLocaleResource, setLocaleResource] = useState<{
@@ -50,7 +49,6 @@ export const LocaleResourceProvider = ({
           isMobile={isMobile}
           experiments={experiments}
           languageDir={languageDir}
-          getEditorCommands={getEditorCommands}
           theme={theme}
         >
           {children}

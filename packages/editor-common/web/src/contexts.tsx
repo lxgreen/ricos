@@ -1,5 +1,6 @@
 import React from 'react';
-import type { EditorCommands, GeneralContext, RicosTheme } from 'ricos-types';
+import type { GeneralContext, RicosTheme } from 'ricos-types';
+import type { EditorCommands } from 'wix-rich-content-common';
 
 export const RicosContext = React.createContext<GeneralContext>({
   locale: 'en',
@@ -8,7 +9,6 @@ export const RicosContext = React.createContext<GeneralContext>({
   isMobile: false,
   t: (text: string) => text,
   languageDir: 'ltr',
-  getEditorCommands: () => ({} as EditorCommands),
   theme: {} as RicosTheme,
 });
 
@@ -19,7 +19,6 @@ export const RicosContextProvider = ({
   localeContent,
   experiments,
   languageDir,
-  getEditorCommands,
   theme,
   t,
 }) => {
@@ -32,7 +31,6 @@ export const RicosContextProvider = ({
         isMobile,
         experiments,
         languageDir,
-        getEditorCommands,
         theme,
       }}
     >
@@ -41,9 +39,10 @@ export const RicosContextProvider = ({
   );
 };
 
-export function withRicosContext() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function withRicosContext<T = any>() {
   return Component => {
-    return props => {
+    return (props: T) => {
       return (
         <RicosContext.Consumer>
           {(value: GeneralContext) => <Component {...props} ricosContext={value} />}
@@ -58,3 +57,25 @@ export const RicosContextConsumer = ({ children }) => {
     <RicosContext.Consumer>{(value: GeneralContext) => children(value)}</RicosContext.Consumer>
   );
 };
+
+export type EditorContextValue = {
+  getEditorCommands: () => EditorCommands;
+};
+export const EditorCommandsContext = React.createContext<EditorContextValue>({
+  getEditorCommands: () => null as unknown as EditorCommands,
+});
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function withEditorCommands<T = any>() {
+  return Component => {
+    return (props: T) => {
+      return (
+        <EditorCommandsContext.Consumer>
+          {(value: EditorContextValue) => {
+            return <Component {...props} editorCommandsContext={value} />;
+          }}
+        </EditorCommandsContext.Consumer>
+      );
+    };
+  };
+}

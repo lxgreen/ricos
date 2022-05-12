@@ -151,7 +151,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     commands: {},
   },
   {
-    id: 'quote',
+    id: 'blockquote',
     type: 'toggle',
     presentation: {
       tooltip: 'Quote',
@@ -227,7 +227,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     },
   },
   {
-    id: 'textSpoiler',
+    id: 'spoiler',
     type: 'toggle',
     presentation: {
       tooltip: 'Spoiler',
@@ -331,7 +331,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     },
   },
   {
-    id: 'heading',
+    id: 'headings',
     type: 'modal',
     presentation: {
       tooltip: 'Heading',
@@ -549,7 +549,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     },
   },
   {
-    id: 'highlightColor',
+    id: 'textHighlight',
     type: 'modal',
     presentation: {
       tooltip: 'Highlight Color',

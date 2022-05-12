@@ -1,7 +1,6 @@
 /* eslint-disable func-call-spacing */
 import React from 'react';
 import type {
-  TranslationFunction,
   AvailableExperiments,
   Helpers,
   EditorCommands,
@@ -23,7 +22,6 @@ export type ToolbarContextType = {
   experiments: AvailableExperiments;
   toolbarSettings: ToolbarSettings;
   cssOverride: RicosCssOverride;
-  t: TranslationFunction;
   getEditorCommands: () => EditorCommands | void;
 };
 
@@ -39,6 +37,5 @@ export const ToolbarContext = React.createContext<ToolbarContextType>({
   experiments: {},
   toolbarSettings: {},
   cssOverride: {},
-  t: key => key,
   getEditorCommands: () => {},
 });

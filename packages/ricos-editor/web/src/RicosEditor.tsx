@@ -187,7 +187,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> implements R
           experiments,
           toolbarSettings,
           cssOverride,
-          t: this.editor?.getT?.(),
           getEditorCommands: this.getEditorCommands,
         })
       );

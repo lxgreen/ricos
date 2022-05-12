@@ -1,7 +1,11 @@
 import React, { useContext, useRef } from 'react';
 import styles from '../../../statics/styles/floating-add-plugin-menu.scss';
 import { ModalContext } from 'ricos-modals';
-import { RicosContext, decorateComponentWithProps } from 'wix-rich-content-editor-common';
+import {
+  RicosContext,
+  decorateComponentWithProps,
+  EditorCommandsContext,
+} from 'wix-rich-content-editor-common';
 import PluginMenuButton from './PluginMenuButton';
 import { AddPluginMenu } from 'wix-rich-content-editor';
 import EditorSelectionToPos from './EditorSelectionToPos';
@@ -11,7 +15,9 @@ const FloatingAddPluginMenu = ({ editor, pluginsButtons }) => {
   const floatingMenuWrapperRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { modalService } = useContext(ModalContext) || {};
-  const { t, isMobile, getEditorCommands, theme, languageDir } = useContext(RicosContext) || {};
+  const { t, isMobile, theme, languageDir } = useContext(RicosContext) || {};
+  const { getEditorCommands } = useContext(EditorCommandsContext);
+
   const offsetTop = floatingMenuWrapperRef?.current?.getBoundingClientRect().top;
   const PLUGIN_MENU_MODAL_ID = 'pluginMenu';
 

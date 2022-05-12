@@ -6,24 +6,26 @@ import { RicosToolbar } from '../RicosToolbar';
 import { ToolbarItemCreator } from '../ToolbarItemCreator';
 import { toolbarItemsRenders } from '../toolbarItemsRenders';
 import { tiptapStaticToolbarConfig } from '../toolbarItemConfig/tiptapToolbarItemConfig';
-import { tiptapPluginToolbarConfig } from '../toolbarItemConfig/tiptapPluginToolbarItemConfig';
 import type { Node } from 'prosemirror-model';
+import type { IToolbarItemConfigTiptap } from '../types';
 interface RicosTiptapToolbarProps {
   content: Content<Node[]>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editorCommands: any;
+  toolbarItemsConfig: IToolbarItemConfigTiptap[];
+  onLoad?: (toolbar: RicosToolbar) => void;
+  isMobile: boolean;
+  maxWidth?: number;
 }
 interface RicosTiptapToolbarState {}
 
 class RicosTiptapToolbar extends Component<RicosTiptapToolbarProps, RicosTiptapToolbarState> {
-  staticToolbar: RicosToolbar | null = null;
-
-  pluginToolbar: RicosToolbar | null = null;
+  toolbar: RicosToolbar | null = null;
 
   componentDidMount() {
-    const { content, editorCommands } = this.props;
+    const { content, editorCommands, toolbarItemsConfig, onLoad } = this.props;
 
-    this.staticToolbar = RicosToolbar.create({
+    this.toolbar = RicosToolbar.create({
       toolbarItemCreators: tiptapStaticToolbarConfig.map(config =>
         ToolbarItemCreator.create(config)
       ),
@@ -32,41 +34,27 @@ class RicosTiptapToolbar extends Component<RicosTiptapToolbarProps, RicosTiptapT
       editorCommands,
     });
 
-    this.pluginToolbar = RicosToolbar.create({
-      toolbarItemCreators: tiptapPluginToolbarConfig.map(config =>
-        ToolbarItemCreator.create(config)
-      ),
-      content,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      editorCommands,
-    });
-
     this.forceUpdate();
+    onLoad?.(this.toolbar);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.editorCommands !== this.props.editorCommands) {
-      this.staticToolbar?.setEditorCommands(nextProps.editorCommands);
-      this.pluginToolbar?.setEditorCommands(nextProps.editorCommands);
+      this.toolbar?.setEditorCommands(nextProps.editorCommands);
     }
   }
 
   render() {
+    const { isMobile = false, maxWidth } = this.props;
     return (
       <div>
         <div>
-          {this.staticToolbar && (
+          {this.toolbar && (
             <ToolbarComponent
-              toolbar={this.staticToolbar}
+              toolbar={this.toolbar}
               toolbarItemsRenders={toolbarItemsRenders}
-              isMobile={false}
-            />
-          )}
-          {this.pluginToolbar && (
-            <ToolbarComponent
-              toolbar={this.pluginToolbar}
-              toolbarItemsRenders={toolbarItemsRenders}
-              isMobile={false}
+              isMobile={isMobile}
+              maxWidth={maxWidth}
             />
           )}
         </div>

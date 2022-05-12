@@ -1,5 +1,6 @@
 import RichContentEditor from './RichContentEditor/I18nRichContentEditor';
 import RichContentEditorModal from './RichContentEditor/RichContentEditorModal';
+export { getDefaultToolbarSettings } from './RichContentEditor/Toolbars/default-toolbar-settings';
 
 export {
   EditorState,

@@ -3,7 +3,8 @@ import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRi
 import type { ModalContextValue } from 'ricos-modals';
 import { withModalContext } from 'ricos-modals';
 import type { GeneralContext } from 'ricos-types';
-import { withRicosContext } from 'wix-rich-content-editor-common';
+import type { EditorContextValue } from 'wix-rich-content-editor-common';
+import { withEditorCommands, withRicosContext } from 'wix-rich-content-editor-common';
 import { pollModals, POLL_TYPE } from '../../types';
 import { PollPresetSelector } from '../settings/preset-selector/PollPresetSelector.jsx';
 
@@ -12,6 +13,7 @@ interface Props {
   ricosContext: GeneralContext;
   giphySdkApiKey: string;
   componentData: Record<string, unknown>;
+  editorCommandsContext: EditorContextValue;
 }
 
 class InsertModal extends Component<Props> {
@@ -20,10 +22,8 @@ class InsertModal extends Component<Props> {
   };
 
   onPollAdd = poll => {
-    const {
-      ricosContext: { getEditorCommands },
-    } = this.props;
-    const editorCommands = getEditorCommands();
+    const { editorCommandsContext } = this.props;
+    const editorCommands = editorCommandsContext.getEditorCommands();
     const data = convertBlockDataToRicos(POLL_TYPE, poll);
     editorCommands?.insertBlock(POLL_TYPE, data);
     this.closeModal();
@@ -47,4 +47,4 @@ class InsertModal extends Component<Props> {
   }
 }
 
-export default withRicosContext()(withModalContext(InsertModal));
+export default withRicosContext()(withModalContext(withEditorCommands()(InsertModal)));

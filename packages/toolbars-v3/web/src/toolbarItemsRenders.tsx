@@ -48,7 +48,7 @@ export const toolbarItemsRenders = {
       />
     );
   },
-  quote: toolbarItem => {
+  blockquote: toolbarItem => {
     return (
       <ToggleButton onClick={e => toolbarItem.commands?.toggleQuote(e)} toolbarItem={toolbarItem} />
     );
@@ -77,7 +77,7 @@ export const toolbarItemsRenders = {
       />
     );
   },
-  textSpoiler: toolbarItem => {
+  spoiler: toolbarItem => {
     return (
       <ToggleButton
         onClick={e => toolbarItem.commands?.toggleSpoiler(e)}
@@ -107,7 +107,7 @@ export const toolbarItemsRenders = {
   title: toolbarItem => {
     return <TitleButton toolbarItem={toolbarItem} />;
   },
-  heading: toolbarItem => {
+  headings: toolbarItem => {
     return <HeadingButton toolbarItem={toolbarItem} />;
   },
   customHeading: toolbarItem => {
@@ -125,7 +125,7 @@ export const toolbarItemsRenders = {
   textColor: toolbarItem => {
     return <TextColorButton toolbarItem={toolbarItem} />;
   },
-  highlightColor: toolbarItem => {
+  textHighlight: toolbarItem => {
     return <HighlightColorButton toolbarItem={toolbarItem} />;
   },
   delete: toolbarItem => {
