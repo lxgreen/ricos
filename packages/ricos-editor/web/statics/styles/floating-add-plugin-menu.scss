@@ -5,23 +5,38 @@
   width: 100%;
 }
 
-.floatingAddPluginMenu_button {
+.floatingAddPluginMenu_plus_button {
+  @extend %button;
   position: absolute;
   padding: 0;
-  cursor: pointer;
-  border: none;
-  background-color: transparent;
   left: -40px;
+  z-index: 3;
 
   svg {
     color: $settings-action-color-fallback;
     fill: $settings-action-color-fallback;
   }
-  &.floatingAddPluginMenu_button_mobile {
+  &.floatingAddPluginMenu_plus_button_mobile {
     left: 0;
     svg {
       width: 20px;
       height: 20px;
     }
   }
+}
+
+.floatingAddPluginMenu_addPlugin_button {
+  @extend %button;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+%button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
 }

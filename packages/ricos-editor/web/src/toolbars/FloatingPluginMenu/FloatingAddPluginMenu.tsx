@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from 'react';
 import styles from '../../../statics/styles/floating-add-plugin-menu.scss';
-import { ModalContext } from 'ricos-modals';
+import { ModalContext, PLACEMENTS, LAYOUTS } from 'ricos-modals';
 import {
   RicosContext,
   decorateComponentWithProps,
@@ -8,18 +8,29 @@ import {
 } from 'wix-rich-content-editor-common';
 import PluginMenuButton from './PluginMenuButton';
 import { AddPluginMenu } from 'wix-rich-content-editor';
-import EditorSelectionToPos from './EditorSelectionToPos';
-import AddButton from './AddButton';
+import EditorSelectionToPosition from './EditorSelectionToPosition';
+import PlusButton from './PlusButton';
 
-const FloatingAddPluginMenu = ({ editor, pluginsButtons }) => {
+const FloatingAddPluginMenu = ({ editor, pluginsButtons, addPluginMenuConfig, helpers }) => {
   const floatingMenuWrapperRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { modalService } = useContext(ModalContext) || {};
   const { t, isMobile, theme, languageDir } = useContext(RicosContext) || {};
   const { getEditorCommands } = useContext(EditorCommandsContext);
 
-  const offsetTop = floatingMenuWrapperRef?.current?.getBoundingClientRect().top;
   const PLUGIN_MENU_MODAL_ID = 'pluginMenu';
+  const layout = isMobile ? LAYOUTS.DRAWER : LAYOUTS.POPOVER;
+  const placement = isMobile
+    ? PLACEMENTS.BOTTOM
+    : languageDir === 'ltr'
+    ? PLACEMENTS.RIGHT_START
+    : PLACEMENTS.LEFT_START;
+
+  const calcButtonPosition = position => {
+    const offsetTop = floatingMenuWrapperRef?.current?.getBoundingClientRect().top || 0;
+    const { top = 0 } = position;
+    return { top: `${top - offsetTop}px` };
+  };
 
   const toggleAddPluginMenu = () => {
     modalService?.getOpenModals().find(({ id }) => id === PLUGIN_MENU_MODAL_ID)
@@ -35,10 +46,13 @@ const FloatingAddPluginMenu = ({ editor, pluginsButtons }) => {
         isMobile,
         theme,
         pluginMenuButtonRef: buttonRef,
+        addPluginMenuConfig,
+        isActive: true,
+        helpers,
       }),
       id: PLUGIN_MENU_MODAL_ID,
-      positioning: { referenceElement: buttonRef?.current },
-      layout: 'popover',
+      positioning: { referenceElement: buttonRef?.current, placement },
+      layout,
     });
   };
 
@@ -46,11 +60,12 @@ const FloatingAddPluginMenu = ({ editor, pluginsButtons }) => {
 
   const renderPluginButton = ({ modal, label, command, tooltip, icon }) => {
     const onButtonClick = () => {
-      modal && handleClose();
+      handleClose();
       return modal
         ? modalService?.openModal({
             positioning: {
               referenceElement: buttonRef?.current,
+              placement,
             },
             ...modal,
           })
@@ -63,6 +78,7 @@ const FloatingAddPluginMenu = ({ editor, pluginsButtons }) => {
         onClick={onButtonClick}
         tooltipText={t(tooltip)}
         t={t}
+        languageDir={languageDir}
       />
     );
   };
@@ -80,9 +96,16 @@ const FloatingAddPluginMenu = ({ editor, pluginsButtons }) => {
       className={styles.floatingAddPluginMenu_wrapper}
       ref={floatingMenuWrapperRef}
     >
-      <EditorSelectionToPos editor={editor} offsetTop={offsetTop}>
-        <AddButton isMobile={isMobile} onClick={toggleAddPluginMenu} buttonRef={buttonRef} />
-      </EditorSelectionToPos>
+      <EditorSelectionToPosition editor={editor}>
+        {position => (
+          <PlusButton
+            isMobile={isMobile}
+            onClick={toggleAddPluginMenu}
+            position={calcButtonPosition(position)}
+            ref={buttonRef}
+          />
+        )}
+      </EditorSelectionToPosition>
     </div>
   );
 };

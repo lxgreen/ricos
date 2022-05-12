@@ -19,7 +19,7 @@ import { publishBI } from '../utils/bi/publish';
 import pluginsConfigMerger from '../utils/pluginsConfigMerger/pluginsConfigMerger';
 import FloatingAddPluginMenu from '../toolbars/FloatingPluginMenu/FloatingAddPluginMenu';
 import { convertToolbarContext } from '../toolbars/convertToolbarContext';
-import { EditorCommandsContext } from 'wix-rich-content-editor-common';
+import { EditorCommandsContext, TOOLBARS } from 'wix-rich-content-editor-common';
 
 type State = {
   error: string;
@@ -149,6 +149,11 @@ export class FullRicosEditorTiptap
     }
   }
 
+  getPluginMenuConfig = () =>
+    this.props?.toolbarSettings
+      ?.getToolbarSettings?.({})
+      ?.find(toolbar => toolbar.name === TOOLBARS.SIDE)?.addPluginMenuConfig || {};
+
   shouldComponentUpdate() {
     return false;
   }
@@ -168,8 +173,16 @@ export class FullRicosEditorTiptap
   }
 
   private renderEditor() {
-    const { isMobile, experiments, locale, localeContent, theme, _rcProps, toolbarSettings } =
-      this.props;
+    const {
+      isMobile,
+      experiments,
+      locale,
+      localeContent,
+      theme,
+      plugins,
+      _rcProps,
+      toolbarSettings,
+    } = this.props;
     const toolbarContext = this.getToolbarContext();
     return (
       <LocaleResourceProvider
@@ -198,10 +211,12 @@ export class FullRicosEditorTiptap
                       toolbarSettings={toolbarSettings}
                     />
                     <FloatingAddPluginMenu
-                      pluginsButtons={this.plugins
+                      pluginsButtons={plugins
                         ?.filter(plugin => plugin.addButtons)
                         .map(plugin => plugin.addButtons)}
                       editor={this.editor}
+                      addPluginMenuConfig={this.getPluginMenuConfig()}
+                      helpers={_rcProps?.helpers}
                     />
                   </ToolbarContext.Provider>
                 </ModalProvider>

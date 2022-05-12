@@ -37,6 +37,9 @@
   - [#3835](https://github.com/wix/ricos/pull/3835) react-hotkeys works with tiptap
   - [#3841](https://github.com/wix/ricos/pull/3841) fix keys
 
+- `ricos-editor`
+  - [#3832](https://github.com/wix/ricos/pull/3832) add config to floatingPluginMenu and refactor modal positioning & layouts
+
   </details>
   <hr/>
 
