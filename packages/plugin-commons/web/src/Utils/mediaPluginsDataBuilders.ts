@@ -6,7 +6,9 @@ import {
   FILE_UPLOAD_TYPE,
   AUDIO_TYPE,
 } from 'wix-rich-content-common';
+
 export const GALLERY_FILE_TYPES = { IMAGE: 'image', VIDEO: 'video' };
+
 const galleryItemBuilder = {
   [GALLERY_FILE_TYPES.IMAGE]: (
     img: ImageComponentData & HTMLImageElement,
@@ -34,6 +36,7 @@ const galleryItemBuilder = {
     };
   },
 };
+
 const setItemInGallery = (item, componentData, itemPos?: number) => {
   let { items, styles } = componentData;
   if (typeof itemPos === 'undefined') {
@@ -44,6 +47,7 @@ const setItemInGallery = (item, componentData, itemPos?: number) => {
   }
   return { items, styles, config: {} };
 };
+
 export const dataBuilder = {
   [IMAGE_TYPE]: ({ data, error }, componentData) => {
     const imageData = data?.length ? data[0] : data;

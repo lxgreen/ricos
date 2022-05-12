@@ -19,6 +19,8 @@
 
 ### :bug: Bug Fix
 
+- `ricos-editor`
+  - [#3742](https://github.com/wix/ricos/pull/3742) `isBusy` indicates files and galleries uploads
 - `tiptap-extensions`
   - [#3728](https://github.com/wix/ricos/pull/3728) auto text direction in tiptap fixed
 
@@ -38,6 +40,7 @@
   - [#3841](https://github.com/wix/ricos/pull/3841) fix keys
 
 - `ricos-editor`
+
   - [#3832](https://github.com/wix/ricos/pull/3832) add config to floatingPluginMenu and refactor modal positioning & layouts
 
   </details>

@@ -91,8 +91,11 @@ describe('hasActiveUploads service', () => {
       expect(hasActiveUploads(contentState)).toBe(true);
     });
 
-    it('should return false if file exists and tempData !== true', () => {
-      const contentState = createContentState(FILE_UPLOAD_TYPE, { name: 'myfile.txt' });
+    it('should return false if file exists and tempData !== true or there is a url', () => {
+      const contentState = createContentState(FILE_UPLOAD_TYPE, {
+        name: 'myfile.txt',
+        type: 'txt',
+      });
       expect(hasActiveUploads(contentState)).toBe(false);
     });
   });

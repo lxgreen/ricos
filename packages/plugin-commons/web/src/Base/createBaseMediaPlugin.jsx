@@ -125,8 +125,16 @@ const createBaseMediaPlugin = PluginComponent => {
       this.updateComponent();
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(_, prevState) {
       this.updateComponent();
+      const { type, store, block, componentData } = this.props;
+      if (type === GALLERY_TYPE) {
+        if (prevState.isLoading && !this.state.isLoading) {
+          store.set('componentData', { ...componentData, loading: undefined }, block.getKey());
+        } else if (this.state.isLoading && !prevState.isLoading) {
+          store.set('componentData', { ...componentData, loading: true }, block.getKey());
+        }
+      }
     }
 
     updateComponent() {

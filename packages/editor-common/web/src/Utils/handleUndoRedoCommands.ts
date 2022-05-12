@@ -364,6 +364,8 @@ const entityDataFixers = {
     const { fixedItems, didChange } = applyActionForGalleryItems(currentData.items, newData.items);
     if (didChange) {
       return { ...newData, items: fixedItems };
+    } else if (!currentData.loading && newData.loading) {
+      return currentData;
     }
   },
   [IGNORE_TYPE]: currentData => {

@@ -8,8 +8,10 @@ const isUploadingImage = (entity: EntityInstance) =>
 const isUploadingVideo = (entity: EntityInstance) =>
   entity.getType() === VIDEO_TYPE && entity.getData().tempData === true;
 
-const isUploadingFile = (entity: EntityInstance) =>
-  entity.getType() === FILE_UPLOAD_TYPE && entity.getData().tempData === true;
+const isUploadingFile = (entity: EntityInstance) => {
+  const { tempData, name, type } = entity.getData();
+  return entity.getType() === FILE_UPLOAD_TYPE && (tempData === true || !name || !type);
+};
 
 const isUploadingGallery = (entity: EntityInstance) => {
   const data = entity.getData();
