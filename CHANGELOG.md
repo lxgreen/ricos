@@ -17,6 +17,19 @@
     Click to see more.
   </summary>
 
+
+
+
+  </details>
+  <hr/>
+
+
+## 8.71.14 (May 15, 2022)
+
+### :bug: Bug Fix
+- `ricos-editor`
+  - [#3860](https://github.com/wix/ricos/pull/3860) fix crash on undefined experiments
+
 ### :house: Internal
 
 - `tiptap-editor`
@@ -24,8 +37,6 @@
 - `ricos-editor`
   - [#3825](https://github.com/wix/ricos/pull/3825) tiptap getContent & getContentPromise
 
-  </details>
-  <hr/>
 
 ## 8.71.13 (May 12, 2022)
 
