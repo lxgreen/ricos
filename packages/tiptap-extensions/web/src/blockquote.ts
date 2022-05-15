@@ -1,7 +1,11 @@
 import styles from './statics/styles.scss';
-import { mergeAttributes, wrappingInputRule } from '@tiptap/core';
+import { mergeAttributes, wrappingInputRule, findChildren } from '@tiptap/core';
 import blockquoteDataDefaults from 'ricos-schema/dist/statics/blockquote.defaults.json';
 import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
+import type { Transaction } from 'prosemirror-state';
+import { NodeSelection } from 'prosemirror-state';
+import type { Node } from 'prosemirror-model';
+import type { SingleCommands } from '@tiptap/core';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -24,10 +28,50 @@ declare module '@tiptap/core' {
 
 export const inputRegex = /^\s*>\s$/;
 
+const name = 'blockquote';
+
+const isBlockQuote = (node: Node): boolean => node.type.name === 'blockquote';
+
+const getNodesInSelection = (doc: Node, from: number, to: number): Node[] => {
+  const nodes: Node[] = [];
+  doc.nodesBetween(from, to, node => {
+    if ((node.isTextblock && node.textContent !== '') || isBlockQuote(node)) {
+      nodes.push(node);
+    }
+  });
+  return nodes;
+};
+
+const byId = (node: Node): ((node: Node) => boolean) => {
+  const id = node.attrs.id;
+  return node => node.attrs.id === id;
+};
+
+const getNodePosition = (node: Node, tr: Transaction): number => {
+  const nodesWithPos = findChildren(tr.doc, byId(node));
+  const { pos } = nodesWithPos[0];
+  return pos;
+};
+
+const setSelectionToNode =
+  (node: Node) =>
+  ({ tr }: { tr: Transaction }) => {
+    const pos = getNodePosition(node, tr);
+    const newSelection = NodeSelection.create(tr.doc, pos);
+    tr.setSelection(newSelection);
+  };
+
+const toggleBlockquote =
+  (referenceNode: Node) =>
+  ({ commands }: { commands: SingleCommands }) => {
+    const commandName = isBlockQuote(referenceNode) ? 'lift' : 'wrapIn';
+    return commands[commandName](name);
+  };
+
 export const blockquote: RicosExtension = {
   type: 'node' as const,
   groups: [],
-  name: 'blockquote',
+  name,
   createExtensionConfig() {
     return {
       name: this.name,
@@ -71,8 +115,25 @@ export const blockquote: RicosExtension = {
             },
           toggleBlockquote:
             () =>
-            ({ commands }) => {
-              return commands.toggleWrap(this.name);
+            ({ editor, chain }) => {
+              const {
+                state: {
+                  doc,
+                  selection: { from, to },
+                },
+              } = editor;
+
+              const nodes: Node[] = getNodesInSelection(doc, from, to);
+              if (nodes.length === 0) return false;
+
+              nodes
+                .reduce((chain, node) => {
+                  return chain
+                    .command(setSelectionToNode(node))
+                    .command(toggleBlockquote(nodes[0]));
+                }, chain().focus())
+                .run();
+              return true;
             },
           unsetBlockquote:
             () =>
