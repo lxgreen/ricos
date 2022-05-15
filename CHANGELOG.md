@@ -20,13 +20,19 @@
   </details>
   <hr/>
 
+## 8.71.15 (May 15, 2022)
+
+### :bug: Bug Fix
+
+- `ricos-editor`
+  - [#3859](https://github.com/wix/ricos/pull/3859) theme tiptap
+
 ## 8.71.14 (May 15, 2022)
 
 ### :bug: Bug Fix
 
 - `ricos-editor`
   - [#3860](https://github.com/wix/ricos/pull/3860) fix crash on undefined experiments
-  - [#3859](https://github.com/wix/ricos/pull/3859) theme tiptap
 
 ### :house: Internal
 
