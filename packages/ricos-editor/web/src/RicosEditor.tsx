@@ -411,7 +411,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> implements R
 
   renderRicosEngine(child, childProps) {
     const { toolbarSettings, draftEditorSettings = {}, localeContent, ...props } = this.props;
-    const { isMobile, experiments, cssOverride } = props;
+    const { isMobile, experiments = {}, cssOverride } = props;
     const supportedDraftEditorSettings = filterDraftEditorSettings(draftEditorSettings);
     const contentProp = this.getContentProp();
     return (
@@ -426,6 +426,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> implements R
         {...props}
         {...this.state.localeData}
         UploadObserver={this.UploadObserver}
+        experiments={experiments}
       >
         {React.cloneElement(child, {
           editorKey: 'editor',

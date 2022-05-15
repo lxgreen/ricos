@@ -5,6 +5,7 @@ import { version } from '../../package.json';
 import type { RicosEditorProps, DraftEditorSettings } from '../index';
 import { RicosEditor } from '../RicosEditor';
 import type { RicosEditor as RicosEditorType } from '../RicosEditor';
+import type { RicosEngine } from 'ricos-common';
 import { RichContentEditor } from 'wix-rich-content-editor';
 import type { BICallbacks, InlineStyle } from 'wix-rich-content-common';
 import {
@@ -56,6 +57,7 @@ import { shallow, mount } from 'enzyme';
 import { default as hebResource } from 'wix-rich-content-common/dist/statics/locale/messages_he.json';
 import { RICOS_FONT_SIZE_TYPE } from 'wix-rich-content-common/src';
 import { getEmptyDraftContent } from 'wix-rich-content-editor-common';
+import { experiments } from 'webpack';
 
 const expectedPluginsList = [
   DIVIDER_TYPE,
@@ -133,11 +135,8 @@ const getRicosEditor = (ricosEditorProps?: RicosEditorProps) =>
 
 const getStaticToolbar = ricosEditor => ricosEditor.children().first();
 
-// const getRicosEngine = (ricosEditorProps?: RicosEditorProps) =>
-//   getRicosEditor(ricosEditorProps)
-//     .children()
-//     .last()
-//     .instance();
+const getRicosEngine = (ricosEditorProps?: RicosEditorProps) =>
+  getRicosEditor(ricosEditorProps).children().last().instance();
 
 const getRicosEditorInstance = (ricosEditorProps?: RicosEditorProps) =>
   getRicosEditor(ricosEditorProps).instance() as RicosEditorType;
@@ -284,6 +283,10 @@ describe('RicosEditor', () => {
     const rceProps = getRCE({ theme: { palette: 'darkTheme' } }).props();
     expect(rceProps).toHaveProperty('theme');
     expect(rceProps.theme).toHaveProperty('modalTheme');
+  });
+  it('should initial experiments if not defined', () => {
+    const ricosEngineInstance = getRicosEngine() as RicosEngine;
+    expect(ricosEngineInstance.props).toMatchObject({ experiments: {} });
   });
   // locale strategy moved from RicosEngine to RicosEditor/RicosViewer
   //
