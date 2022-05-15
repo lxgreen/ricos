@@ -1,8 +1,8 @@
 /* eslint-disable brace-style */
 import type { Node } from 'prosemirror-model';
 import React, { forwardRef } from 'react';
-import type { RicosEditorProps, ThemeStrategyResult } from 'ricos-common';
-import { themeStrategy } from 'ricos-common';
+import type { RicosEditorProps } from 'ricos-common';
+import ThemeStyleTag from './ThemeStyleTag';
 import { ModalProvider } from 'ricos-modals';
 import { getLangDir } from 'wix-rich-content-common';
 import {
@@ -45,15 +45,12 @@ export class FullRicosEditorTiptap
 
   state = { error: '' };
 
-  themeStylesCss: ThemeStrategyResult['html'];
-
   plugins: RicosEditorProps['plugins'];
 
-  constructor(props) {
+  constructor(props: RicosEditorProps) {
     super(props);
     this.editor = null;
     this.getEditorCommands = this.getEditorCommands.bind(this);
-    this.themeStylesCss = themeStrategy({ ricosTheme: props.ricosTheme }).html;
     this.plugins = pluginsConfigMerger(props.plugins, props._rcProps);
   }
 
@@ -205,7 +202,7 @@ export class FullRicosEditorTiptap
         theme={theme}
       >
         <div>
-          {this.themeStylesCss}
+          <ThemeStyleTag theme={theme} />
           {this.editor && (
             <EditorCommandsContext.Provider
               value={{

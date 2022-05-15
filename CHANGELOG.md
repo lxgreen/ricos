@@ -17,18 +17,16 @@
     Click to see more.
   </summary>
 
-
-
-
   </details>
   <hr/>
-
 
 ## 8.71.14 (May 15, 2022)
 
 ### :bug: Bug Fix
+
 - `ricos-editor`
   - [#3860](https://github.com/wix/ricos/pull/3860) fix crash on undefined experiments
+  - [#3859](https://github.com/wix/ricos/pull/3859) theme tiptap
 
 ### :house: Internal
 
@@ -36,7 +34,6 @@
   - [#3855](https://github.com/wix/ricos/pull/3855) Extensions: settings injected to component
 - `ricos-editor`
   - [#3825](https://github.com/wix/ricos/pull/3825) tiptap getContent & getContentPromise
-
 
 ## 8.71.13 (May 12, 2022)
 
