@@ -1,0 +1,557 @@
+{
+    "blocks": [
+      {
+        "key": "80vi2",
+        "text": "Live Content Example!",
+        "type": "header-two",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {
+          "textAlignment": "center"
+        }
+      },
+      {
+        "key": "3aa90",
+        "text": "",
+        "type": "header-two",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {
+          "textAlignment": "center"
+        }
+      },
+      {
+        "key": "56l6f",
+        "text": " ",
+        "type": "atomic",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [
+          {
+            "offset": 0,
+            "length": 1,
+            "key": 0
+          }
+        ],
+        "data": {}
+      },
+      {
+        "key": "cs200",
+        "text": "Try editing this #content and see what @Happens!",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [
+          {
+            "offset": 39,
+            "length": 8,
+            "key": 1
+          }
+        ],
+        "data": {}
+      },
+      {
+        "key": "4qd0m",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "dpu5",
+        "text": "Add some plugins, see how they look in the viewer",
+        "type": "blockquote",
+        "depth": 0,
+        "inlineStyleRanges": [
+          {
+            "offset": 9,
+            "length": 8,
+            "style": "BOLD"
+          },
+          {
+            "offset": 9,
+            "length": 8,
+            "style": "UNDERLINE"
+          },
+          {
+            "offset": 9,
+            "length": 8,
+            "style": "ITALIC"
+          }
+        ],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "6jq0t",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "9kqh0",
+        "text": "Here's a link to Wix's Homepage.",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [
+          {
+            "offset": 17,
+            "length": 14,
+            "style": "UNDERLINE"
+          }
+        ],
+        "entityRanges": [
+          {
+            "offset": 17,
+            "length": 14,
+            "key": 2
+          }
+        ],
+        "data": {}
+      },
+      {
+        "key": "bb0ut",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "2ibim",
+        "text": " ",
+        "type": "atomic",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [
+          {
+            "offset": 0,
+            "length": 1,
+            "key": 3
+          }
+        ],
+        "data": {}
+      },
+      {
+        "key": "726op",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "fu5ne",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "2vkiq",
+        "text": " ",
+        "type": "atomic",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [
+          {
+            "offset": 0,
+            "length": 1,
+            "key": 4
+          }
+        ],
+        "data": {}
+      },
+      {
+        "key": "a4dnj",
+        "text": " ",
+        "type": "atomic",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [
+          {
+            "offset": 0,
+            "length": 1,
+            "key": 5
+          }
+        ],
+        "data": {}
+      },
+      {
+        "key": "12spa",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "bbojf",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "7brv7",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "8sejm",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "bu2i4",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "5h99s",
+        "text": " ",
+        "type": "atomic",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [
+          {
+            "offset": 0,
+            "length": 1,
+            "key": 6
+          }
+        ],
+        "data": {}
+      },
+      {
+        "key": "eqv13",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "7kn4t",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "2bc7g",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "ef3qv",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "4286h",
+        "text": " ",
+        "type": "atomic",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [
+          {
+            "offset": 0,
+            "length": 1,
+            "key": 7
+          }
+        ],
+        "data": {}
+      },
+      {
+        "key": "br61e",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "3hdeq",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      },
+      {
+        "key": "9nqq7",
+        "text": " ",
+        "type": "atomic",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [
+          {
+            "offset": 0,
+            "length": 1,
+            "key": 8
+          }
+        ],
+        "data": {}
+      },
+      {
+        "key": "4jqif",
+        "text": "",
+        "type": "unstyled",
+        "depth": 0,
+        "inlineStyleRanges": [],
+        "entityRanges": [],
+        "data": {}
+      }
+    ],
+    "entityMap": {
+      "0": {
+        "type": "wix-draft-plugin-image",
+        "mutability": "IMMUTABLE",
+        "data": {
+          "config": {
+            "size": "small",
+            "alignment": "right",
+            "showTitle": true,
+            "showDescription": true,
+            "link": {
+              "url": "www.wix.com",
+              "target": "_blank",
+              "rel": "noopener"
+            },
+            "textWrap": "wrap"
+          },
+          "src": {
+            "id": "bcb5bc2f8a914694b8dc0c9ff2575f79",
+            "width": 5120,
+            "height": 3413,
+            "file_name": "8bb438_53cc82c7bc8a4b41baf4db640e8b5641.jpg",
+            "original_file_name": "8bb438_53cc82c7bc8a4b41baf4db640e8b5641.jpg"
+          },
+          "metadata": {
+            "caption": "Image Caption Example (with link)"
+          }
+        }
+      },
+      "1": {
+        "type": "mention",
+        "mutability": "SEGMENTED",
+        "data": {
+          "mention": {
+            "name": "Happens",
+            "slug": "Happens"
+          }
+        }
+      },
+      "2": {
+        "type": "LINK",
+        "mutability": "MUTABLE",
+        "data": {
+          "rel": "noopener",
+          "url": "wix.com",
+          "target": "_blank"
+        }
+      },
+      "3": {
+        "type": "wix-draft-plugin-action-button",
+        "mutability": "IMMUTABLE",
+        "data": {
+          "config": {
+            "alignment": "left",
+            "size": "small",
+            "width": "fit-content",
+            "textWrap": "wrap"
+          },
+          "button": {
+            "settings": {
+              "buttonText": "מדליק מי שמקליק ראשון"
+            },
+            "design": {
+              "borderWidth": 0,
+              "borderRadius": 0
+            }
+          }
+        }
+      },
+      "4": {
+        "type": "wix-draft-plugin-divider",
+        "mutability": "IMMUTABLE",
+        "data": {
+          "type": "single",
+          "config": {
+            "size": "large",
+            "textWrap": "nowrap",
+            "alignment": "center"
+          }
+        }
+      },
+      "5": {
+        "type": "wix-draft-plugin-gallery",
+        "mutability": "IMMUTABLE",
+        "data": {
+          "items": [
+            {
+              "url": "8bb438_e78b371c75ce42de8719dccfc97298a4.jpg",
+              "itemId": "9c0c752ebc1b7b27dc3b02b98f2a4181",
+              "metadata": {
+                "type": "image",
+                "width": 4200,
+                "height": 2800
+              }
+            },
+            {
+              "url": "8bb438_b9d7f38696d84e288f0cd37d2fd472ac.jpg",
+              "itemId": "3b99fd57189241f69534dc4bb0528ffb",
+              "metadata": {
+                "type": "image",
+                "width": 3370,
+                "height": 2247
+              }
+            },
+            {
+              "url": "8bb438_277609c27d9346c38d480b6da8237820.jpg",
+              "itemId": "17ef104520dd9a0711f1cc900d970b79",
+              "metadata": {
+                "type": "image",
+                "width": 1920,
+                "height": 1280
+              }
+            }
+          ],
+          "config": {
+            "size": "small",
+            "layout": "small",
+            "spacing": 0,
+            "alignment": "left",
+            "textWrap": "wrap"
+          },
+          "styles": {
+            "oneRow": false,
+            "cubeType": "fill",
+            "cubeRatio": 1,
+            "gridStyle": 1,
+            "itemClick": "link",
+            "videoPlay": "onClick",
+            "allowHover": true,
+            "fullscreen": false,
+            "isVertical": false,
+            "loveButton": false,
+            "showArrows": false,
+            "allowSocial": false,
+            "imageMargin": 20,
+            "allowDownload": false,
+            "galleryLayout": 2,
+            "galleryMargin": 0,
+            "gallerySizePx": 300,
+            "thumbnailSize": 120,
+            "gotStyleParams": true,
+            "titlePlacement": "SHOW_ON_HOVER",
+            "gallerySizeType": "px",
+            "thumbnailSpacings": 0,
+            "showVideoPlayButton": true,
+            "enableInfiniteScroll": true,
+            "mobileSwipeAnimation": "NO_EFFECT",
+            "galleryThumbnailsAlignment": "bottom"
+          }
+        }
+      },
+      "6": {
+        "type": "wix-draft-plugin-file-upload",
+        "mutability": "IMMUTABLE",
+        "data": {
+          "url": "https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "name": "music.mp3",
+          "size": 150000,
+          "type": "mp3",
+          "config": {
+            "size": "small",
+            "alignment": "left",
+            "textWrap": "wrap"
+          }
+        }
+      },
+      "7": {
+        "type": "wix-draft-plugin-link-preview",
+        "mutability": "IMMUTABLE",
+        "data": {
+          "title": "Free Website Builder | Create a Free Website | Wix.com",
+          "config": {
+            "link": {
+              "rel": "noopener",
+              "url": "wix.com",
+              "target": "_blank"
+            },
+            "size": "content",
+            "alignment": "center",
+            "textWrap": "wrap"
+          },
+          "description": "\tCreate a free website with Wix.com. Choose a stunning template and customize anything with the Wix website builder—no coding skills needed. Create yours today!",
+          "provider_url": "www.wix.com",
+          "thumbnail_url": "https://static.wixstatic.com/media/5305c5_5f112df56dcd40a29e855baae08f19ce~mv2.jpg/v1/fill/w_600,h_315,al_c/5305c5_5f112df56dcd40a29e855baae08f19ce~mv2.jpg"
+        }
+      },
+      "8": {
+        "type": "ricos-audio",
+        "mutability": "IMMUTABLE",
+        "data": {
+          "audio": {
+            "src": {
+              "id": "mp3/f0f74f_35a1cdce4973490eac49e74c3244364d.mp3"
+            },
+            "duration": 199.632
+          },
+          "name": "Dear Fear",
+          "authorName": "KOTA The Friend",
+          "disableDownload": false,
+          "coverImage": {
+            "id": "9e6bb2d0c554dcd559a32ab89c9092f0",
+            "original_file_name": "8bb438_cbe02f139b8e479387eb7f5f9e8424c9.jpg",
+            "file_name": "8bb438_cbe02f139b8e479387eb7f5f9e8424c9.jpg",
+            "width": 3180,
+            "height": 3710
+          }
+        }
+      }
+    },
+    "documentStyle": {},
+    "VERSION": "8.71.15",
+    "ID": "1beb0c48-ed00-4034-aacb-b3716dd5391b"
+  }

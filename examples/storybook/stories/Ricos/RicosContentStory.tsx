@@ -5,7 +5,7 @@ import { pluginImage } from 'wix-rich-content-plugin-image';
 import { pluginGallery } from 'wix-rich-content-plugin-gallery';
 import MobileDetect from 'mobile-detect';
 import ActionButton from '../Components/ActionButton';
-import { ToggleEditorButton } from '../Components/ToogleEditorButton';
+import { ToggleTiptapButton } from '../Components/ToggleTiptapButton';
 
 const mobileDetect = new MobileDetect(window.navigator.userAgent);
 const plugins = [pluginImage(), pluginGallery()];
@@ -35,7 +35,7 @@ export default () => {
         </a>
       </h4>
       <Section>
-        <ToggleEditorButton isTiptap={isTiptap} setIsTiptap={setIsTiptap} />
+        <ToggleTiptapButton isTiptap={isTiptap} setIsTiptap={setIsTiptap} />
         <RichContentEditorBox>
           <RicosEditor
             ref={editorEl}

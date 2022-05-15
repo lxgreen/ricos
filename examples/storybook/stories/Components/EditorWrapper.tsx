@@ -45,6 +45,8 @@ import {
 } from '../../src/shared/utils/fileUploadUtil';
 import { MockVerticalSearchModule } from '../../src/shared/utils/verticalEmbedUtil';
 import { commands } from '../../src/shared/utils/commands/commands';
+import styles from './styles.scss';
+
 const tiptapContent = {
   type: 'doc',
   attrs: {
@@ -332,7 +334,7 @@ class EditorWrapper extends React.Component<Props> {
     } = this.props;
 
     return (
-      <>
+      <div className={styles['rce-wrapper']}>
         <RicosEditor
           ref={ref => (this.editor = ref)}
           plugins={this.editorPlugins}
@@ -356,7 +358,7 @@ class EditorWrapper extends React.Component<Props> {
             helpers={{ handleFileUpload: mockImageNativeUploadFunc }}
           />
         </RicosEditor>
-      </>
+      </div>
     );
   }
 }

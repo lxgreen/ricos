@@ -6,6 +6,7 @@ import { merge } from 'lodash';
 import type { StyleAttr } from './types';
 import { set, get } from 'local-storage';
 import CustomStylesCreator from './StylesPanel';
+import { ToggleTiptapButton } from '../../Components/ToggleTiptapButton';
 
 const storageKey = 'storyCustomStyles';
 const loadStyles = () => get(storageKey) as StyleAttr[];
@@ -23,6 +24,7 @@ export default () => {
         ['', '', ''],
       ] as StyleAttr[])
   );
+  const [isTiptap, setIsTiptap] = useState(false);
   const customStyles = stylesArray.reduce(
     (prev, style) => merge({ ...prev }, createStyle(style)),
     {}
@@ -49,8 +51,13 @@ export default () => {
           here
         </a>
         <CustomStylesCreator stylesArray={stylesArray} setStyles={setStyles} />
+        <ToggleTiptapButton isTiptap={isTiptap} setIsTiptap={setIsTiptap} />
         <div style={{ padding: 4 }}>
-          <ExampleApplication initialState={exapmleState} theme={{ customStyles }} />
+          <ExampleApplication
+            initialState={exapmleState}
+            theme={{ customStyles }}
+            experiments={{ tiptapEditor: { enabled: isTiptap } }}
+          />
         </div>
         <Section title="Content State">
           <ContentState json={exapmleState} />

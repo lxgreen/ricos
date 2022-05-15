@@ -20,6 +20,11 @@
   </details>
   <hr/>
 
+### :house: Internal
+
+- `storybook`
+  - [#3864](https://github.com/wix/ricos/pull/3864) add tiptap to Theme stories
+
 ## 8.71.15 (May 15, 2022)
 
 ### :bug: Bug Fix

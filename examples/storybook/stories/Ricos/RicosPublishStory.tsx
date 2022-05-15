@@ -10,7 +10,7 @@ import MobileDetect from 'mobile-detect';
 import ActionButton from '../Components/ActionButton';
 import type { EditorEventsProps } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
 import { withEditorContext } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
-import { ToggleEditorButton } from '../Components/ToogleEditorButton';
+import { ToggleTiptapButton } from '../Components/ToggleTiptapButton';
 import { POLL_TYPE } from 'ricos-content';
 
 const mobileDetect = new MobileDetect(window.navigator.userAgent);
@@ -41,7 +41,7 @@ const RicosPublishStory: FunctionComponent<EditorEventsProps> = ({ editorEvents 
         </a>
       </h4>
       <Section>
-        <ToggleEditorButton isTiptap={isTiptap} setIsTiptap={setIsTiptap} />
+        <ToggleTiptapButton isTiptap={isTiptap} setIsTiptap={setIsTiptap} />
         <RichContentEditorBox>
           <RicosEditor
             experiments={{ tiptapEditor: { enabled: isTiptap } }}

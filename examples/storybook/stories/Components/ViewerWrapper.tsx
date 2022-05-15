@@ -27,6 +27,7 @@ import { pluginVerticalEmbed } from 'wix-rich-content-plugin-vertical-embed/view
 import { pluginTextColor, pluginTextHighlight } from 'wix-rich-content-plugin-text-color/viewer';
 import MobileDetect from 'mobile-detect';
 import { mockFileUploadFunc } from '../../src/shared/utils/fileUploadUtil';
+import styles from './styles.scss';
 
 const configs = {
   fileUpload: {
@@ -89,17 +90,19 @@ const ViewerWrapper: FunctionComponent<Props> = ({
   preview,
 }) => {
   return (
-    <RicosViewer
-      plugins={plugins}
-      theme={theme}
-      content={content}
-      isMobile={isMobile}
-      preview={preview}
-      addAnchors={addAnchors}
-      mediaSettings={{ fullscreenProps: { backgroundColor: 'black', foregroundColor: 'white' } }}
-    >
-      <RichContentViewer normalize={normalize} />
-    </RicosViewer>
+    <div className={styles['rcv-wrapper']}>
+      <RicosViewer
+        plugins={plugins}
+        theme={theme}
+        content={content}
+        isMobile={isMobile}
+        preview={preview}
+        addAnchors={addAnchors}
+        mediaSettings={{ fullscreenProps: { backgroundColor: 'black', foregroundColor: 'white' } }}
+      >
+        <RichContentViewer normalize={normalize} />
+      </RicosViewer>
+    </div>
   );
 };
 
