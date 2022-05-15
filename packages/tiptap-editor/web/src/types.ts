@@ -1,14 +1,13 @@
-import type { Editor, JSONContent } from '@tiptap/react';
+import type { Editor } from '@tiptap/react';
 import type { Node as ProseMirrorNode } from 'prosemirror-model';
 import type { ElementType } from 'react';
+import type { RicosEditorAPI } from 'ricos-types';
 import type {
   DraftContent,
-  TranslationFunction,
-  RichContentTheme,
   EditorStyleClasses,
+  RichContentTheme,
+  TranslationFunction,
 } from 'wix-rich-content-common';
-import type { Extensions } from './models/Extensions';
-import type { RicosEditorAPI } from 'ricos-types';
 
 export interface PluginProps {
   context: {
@@ -31,12 +30,9 @@ export interface TiptapAPI extends RicosEditorAPI {
 }
 
 export interface RicosTiptapEditorProps {
-  content: JSONContent;
-  extensions?: Extensions;
-  onLoad?: (editor: Editor) => void;
+  editor: Editor;
   t: TranslationFunction;
   onUpdate?: ({ content }: { content: DraftContent }) => void;
-  onBlur?: () => void;
   editorStyleClasses?: EditorStyleClasses;
   onSelectionUpdate?: ({
     selectedNodes,

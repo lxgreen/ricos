@@ -57,25 +57,3 @@ export const RicosContextConsumer = ({ children }) => {
     <RicosContext.Consumer>{(value: GeneralContext) => children(value)}</RicosContext.Consumer>
   );
 };
-
-export type EditorContextValue = {
-  getEditorCommands: () => EditorCommands;
-};
-export const EditorCommandsContext = React.createContext<EditorContextValue>({
-  getEditorCommands: () => null as unknown as EditorCommands,
-});
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function withEditorCommands<T = any>() {
-  return Component => {
-    return (props: T) => {
-      return (
-        <EditorCommandsContext.Consumer>
-          {(value: EditorContextValue) => {
-            return <Component {...props} editorCommandsContext={value} />;
-          }}
-        </EditorCommandsContext.Consumer>
-      );
-    };
-  };
-}

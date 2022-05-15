@@ -3,11 +3,11 @@ import type { RicosEditorProps } from 'ricos-common';
 import type { RicosEditorRef } from './RicosEditorRef';
 import RicosEditorWithRef from './RicosEditor';
 import type { RicosEditor } from './RicosEditor';
-import type { FullRicosEditorTiptap } from './RicosEditorTiptap/FullRicosEditorTiptap';
+import type { FullRicosEditor } from './tiptap/FullRicosEditor';
 
-const FullRicosEditorTiptapLazy = React.lazy(
-  /* webpackChunkName: "FullRicosEditorTiptap" */
-  () => import('./RicosEditorTiptap/FullRicosEditorTiptap')
+const FullRicosEditorLazy = React.lazy(
+  /* webpackChunkName: "FullRicosEditor" */
+  () => import('./tiptap/FullRicosEditor')
 );
 
 const RicosEditorSwitcher = React.forwardRef<RicosEditorRef, RicosEditorProps>((props, ref) => {
@@ -15,10 +15,7 @@ const RicosEditorSwitcher = React.forwardRef<RicosEditorRef, RicosEditorProps>((
   if (useTiptap) {
     return (
       <Suspense fallback={<div />}>
-        <FullRicosEditorTiptapLazy
-          {...props}
-          ref={ref as React.ForwardedRef<FullRicosEditorTiptap>}
-        />
+        <FullRicosEditorLazy {...props} ref={ref as React.ForwardedRef<FullRicosEditor>} />
       </Suspense>
     );
   } else {

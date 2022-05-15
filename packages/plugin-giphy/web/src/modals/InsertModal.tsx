@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import { GIPHY_TYPE, gifModals } from '../types';
-import { withModalContext } from 'ricos-modals';
-import type { EditorContextValue } from 'wix-rich-content-editor-common';
-import { withRicosContext, withEditorCommands } from 'wix-rich-content-editor-common';
-import type { ModalContextValue } from 'ricos-modals';
 import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
-import GiphyApiInputModal from '../toolbar/giphyApiInputModal';
-import type { Helpers } from 'wix-rich-content-common';
+import type { ModalContextValue } from 'ricos-modals';
+import { withModalContext } from 'ricos-modals';
 import type { GeneralContext } from 'ricos-types';
+import type { Helpers } from 'wix-rich-content-common';
+import { withRicosContext } from 'wix-rich-content-editor-common';
+import type { RichContentAdapter } from 'wix-tiptap-editor';
+import { withTiptapEditorContext } from 'wix-tiptap-editor';
+import GiphyApiInputModal from '../toolbar/giphyApiInputModal';
+import { gifModals, GIPHY_TYPE } from '../types';
 
 interface Props {
   context: ModalContextValue;
   ricosContext: GeneralContext;
-  editorCommandsContext: EditorContextValue;
+  editor: RichContentAdapter;
   giphySdkApiKey: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   componentData: Record<string, any>;
@@ -26,11 +27,15 @@ class InsertModal extends Component<Props> {
   };
 
   onGifAdd = gif => {
-    const { componentData, nodeId, editorCommandsContext } = this.props;
-    const editorCommands = editorCommandsContext.getEditorCommands();
+    const {
+      componentData,
+      nodeId,
+      editor: { getEditorCommands },
+    } = this.props;
+    const editorCommands = getEditorCommands();
     const data = convertBlockDataToRicos(GIPHY_TYPE, { ...componentData, gif });
     if (nodeId) {
-      editorCommands?.setBlock(GIPHY_TYPE, data);
+      editorCommands?.setBlock(nodeId, GIPHY_TYPE, data);
     } else {
       editorCommands?.insertBlock(GIPHY_TYPE, data);
     }
@@ -57,4 +62,4 @@ class InsertModal extends Component<Props> {
   }
 }
 
-export default withRicosContext()(withModalContext(withEditorCommands()(InsertModal)));
+export default withRicosContext()(withModalContext(withTiptapEditorContext(InsertModal)));

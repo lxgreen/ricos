@@ -38,6 +38,7 @@
     "ricos-common": "8.71.15",
     "ricos-modals": "8.71.15",
     "ricos-types": "8.71.15",
+    "wix-tiptap-editor": "8.71.15",
     "wix-rich-content-editor-common": "8.71.15"
   },
   "unpkg": true,

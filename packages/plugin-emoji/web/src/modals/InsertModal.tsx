@@ -1,37 +1,38 @@
-import React from 'react';
-import { emojiModals } from '../types';
-import EmojiPreviewModal from '../toolbar/emojiPreviewModal';
-import { withEditorCommands, withRicosContext } from 'wix-rich-content-editor-common';
-import { withModalContext } from 'ricos-modals';
 import type { FC } from 'react';
-import type { RichContentTheme } from 'wix-rich-content-common';
-import type { TranslationFunction, GeneralContext } from 'ricos-types';
+import React from 'react';
 import type { ModalContextValue } from 'ricos-modals';
-import type { EditorContextValue } from 'wix-rich-content-editor-common';
+import { withModalContext } from 'ricos-modals';
+import type { GeneralContext, TranslationFunction } from 'ricos-types';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { withRicosContext } from 'wix-rich-content-editor-common';
+import type { RichContentAdapter } from 'wix-tiptap-editor';
+import { withTiptapEditorContext } from 'wix-tiptap-editor';
+import EmojiPreviewModal from '../toolbar/emojiPreviewModal';
+import { emojiModals } from '../types';
 
 interface Props {
   theme: RichContentTheme;
   t: TranslationFunction;
   context: ModalContextValue;
   ricosContext: GeneralContext;
-  editorCommandsContext: EditorContextValue;
+  editor: RichContentAdapter;
 }
 
 const EmojiInsertModal: FC<Props> = ({
   context: { modalService },
   ricosContext: { theme, t },
-  editorCommandsContext,
+  editor: { getEditorCommands },
 }) => {
   const closeModal = () => {
     modalService?.closeModal(emojiModals.insert);
   };
 
   const onEmojiAdd = emoji => {
-    editorCommandsContext.getEditorCommands()?.insertText(emoji);
+    getEditorCommands()?.insertText(emoji);
     closeModal();
   };
 
   return <EmojiPreviewModal onAdd={onEmojiAdd} theme={theme} t={t} />;
 };
 
-export default withRicosContext()(withModalContext(withEditorCommands()(EmojiInsertModal)));
+export default withRicosContext()(withModalContext(withTiptapEditorContext(EmojiInsertModal)));

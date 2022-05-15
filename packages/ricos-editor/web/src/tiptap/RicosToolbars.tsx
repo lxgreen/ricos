@@ -14,15 +14,14 @@ import {
 } from '../toolbars/utils/defaultTextFormattingButtons';
 import type { TextButtons, ToolbarSettingsFunctions } from 'wix-rich-content-common';
 import { TOOLBARS, mergeToolbarSettings, withRicosContext } from 'wix-rich-content-editor-common';
+import type { RichContentAdapter } from 'wix-tiptap-editor';
+import { withTiptapEditorContext } from 'wix-tiptap-editor';
 import { getDefaultToolbarSettings } from 'wix-rich-content-editor';
 
 import { ToolbarConfig } from './ricosToolbarConfig';
 import type { GeneralContext } from 'ricos-types';
-import type { Editor } from '@tiptap/react';
 
 type RicosToolbarProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  editor: Editor;
   content: Content<Node[]>;
   toolbarSettings?: ToolbarSettings;
 };
@@ -31,7 +30,7 @@ type RicosToolbarState = {
   finalToolbarSettings?: ToolbarSettingsFunctions[];
 };
 class RicosToolbars extends React.Component<
-  RicosToolbarProps & { ricosContext: GeneralContext },
+  RicosToolbarProps & { ricosContext: GeneralContext; editor: RichContentAdapter },
   RicosToolbarState
 > {
   state: Readonly<RicosToolbarState> = {
@@ -91,22 +90,30 @@ class RicosToolbars extends React.Component<
   }
 
   componentDidMount() {
-    const { editor } = this.props;
+    const {
+      editor: { tiptapEditor },
+    } = this.props;
 
-    editor.on('selectionUpdate', this.onSelectionUpdate);
-    editor.on('update', this.onSelectionUpdate);
+    tiptapEditor.on('selectionUpdate', this.onSelectionUpdate);
+    tiptapEditor.on('update', this.onSelectionUpdate);
 
     this.initToolbarSettings();
   }
 
   componentWillUnmount() {
-    const { editor } = this.props;
-    editor.off('selectionUpdate', this.onSelectionUpdate);
-    editor.off('update', this.onSelectionUpdate);
+    const {
+      editor: { tiptapEditor },
+    } = this.props;
+    tiptapEditor.off('selectionUpdate', this.onSelectionUpdate);
+    tiptapEditor.off('update', this.onSelectionUpdate);
   }
 
   renderFormattingToolbar(finaltoolbarSettings: ToolbarSettingsFunctions[]) {
-    const { ricosContext, editor, toolbarSettings } = this.props;
+    const {
+      ricosContext,
+      editor: { tiptapEditor },
+      toolbarSettings,
+    } = this.props;
 
     const toolbarType = TOOLBARS.FORMATTING;
     const toolbarConfig = this.getToolbarConfig(finaltoolbarSettings, toolbarType);
@@ -130,9 +137,9 @@ class RicosToolbars extends React.Component<
       };
 
       return (
-        <FloatingToolbar editor={editor}>
+        <FloatingToolbar editor={tiptapEditor}>
           {() => {
-            const maxWidth = editor.view.dom.clientWidth;
+            const maxWidth = tiptapEditor.view.dom.clientWidth;
             return (
               <div data-hook="floating-formatting-toolbar" style={floatingFrameStyles}>
                 <div style={{ width: maxWidth, maxWidth: 'fit-content' }}>
@@ -189,14 +196,18 @@ class RicosToolbars extends React.Component<
   }
 
   renderToolbar(toolbarItemsConfig, options = {} as { maxWidth: number }) {
-    const { content, editor, ricosContext } = this.props;
+    const {
+      content,
+      editor: { tiptapEditor },
+      ricosContext,
+    } = this.props;
     const { maxWidth } = options;
 
     return (
       <RicosTiptapToolbar
         isMobile={ricosContext.isMobile}
         content={content}
-        editorCommands={editor}
+        editorCommands={tiptapEditor}
         toolbarItemsConfig={toolbarItemsConfig}
         maxWidth={maxWidth}
       />
@@ -222,5 +233,7 @@ class RicosToolbars extends React.Component<
     );
   }
 }
-const RicosToolbarsWithContext = withRicosContext<RicosToolbarProps>()(RicosToolbars);
+const RicosToolbarsWithContext = withRicosContext<RicosToolbarProps>()(
+  withTiptapEditorContext<RicosToolbarProps>(RicosToolbars)
+);
 export default RicosToolbarsWithContext;

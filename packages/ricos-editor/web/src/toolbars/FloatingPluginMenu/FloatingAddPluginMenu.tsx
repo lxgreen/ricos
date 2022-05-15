@@ -1,22 +1,19 @@
 import React, { useContext, useRef } from 'react';
 import styles from '../../../statics/styles/floating-add-plugin-menu.scss';
 import { ModalContext, PLACEMENTS, LAYOUTS } from 'ricos-modals';
-import {
-  RicosContext,
-  decorateComponentWithProps,
-  EditorCommandsContext,
-} from 'wix-rich-content-editor-common';
+import { RicosContext, decorateComponentWithProps } from 'wix-rich-content-editor-common';
 import PluginMenuButton from './PluginMenuButton';
 import { AddPluginMenu } from 'wix-rich-content-editor';
 import EditorSelectionToPosition from './EditorSelectionToPosition';
 import PlusButton from './PlusButton';
+import { TiptapEditorContext } from 'wix-tiptap-editor';
 
-const FloatingAddPluginMenu = ({ editor, pluginsButtons, addPluginMenuConfig, helpers }) => {
+const FloatingAddPluginMenu = ({ pluginsButtons, addPluginMenuConfig, helpers }) => {
   const floatingMenuWrapperRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { modalService } = useContext(ModalContext) || {};
   const { t, isMobile, theme, languageDir } = useContext(RicosContext) || {};
-  const { getEditorCommands } = useContext(EditorCommandsContext);
+  const { getEditorCommands, tiptapEditor } = useContext(TiptapEditorContext);
 
   const PLUGIN_MENU_MODAL_ID = 'pluginMenu';
   const layout = isMobile ? LAYOUTS.DRAWER : LAYOUTS.POPOVER;
@@ -96,7 +93,7 @@ const FloatingAddPluginMenu = ({ editor, pluginsButtons, addPluginMenuConfig, he
       className={styles.floatingAddPluginMenu_wrapper}
       ref={floatingMenuWrapperRef}
     >
-      <EditorSelectionToPosition editor={editor}>
+      <EditorSelectionToPosition editor={tiptapEditor}>
         {position => (
           <PlusButton
             isMobile={isMobile}

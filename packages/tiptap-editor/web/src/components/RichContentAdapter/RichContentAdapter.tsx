@@ -1,5 +1,4 @@
 import type { TiptapAPI } from '../../types';
-import type { HtmlAttributes } from 'ricos-tiptap-types';
 import { capitalize } from 'lodash';
 import type {
   TranslationFunction,
@@ -27,22 +26,22 @@ import {
   NUMBERED_LIST_TYPE,
 } from 'ricos-content';
 import { TO_TIPTAP_TYPE } from '../../consts';
-import type { Editor } from '@tiptap/core';
 import { findNodeById } from '../../helpers';
 import { tiptapToDraft } from 'wix-tiptap-extensions';
-import type { JSONContent } from '@tiptap/react';
-import type { RicosEditorProps } from 'ricos-common';
+import type { Editor, JSONContent } from '@tiptap/react';
 import type { Node as ProseMirrorNode } from 'prosemirror-model';
 
 export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getContentPromise'> {
   constructor(
-    public editor: Editor,
+    public tiptapEditor: Editor,
     private t: TranslationFunction,
     private plugins: EditorPlugin[]
   ) {
-    this.editor = editor;
+    this.tiptapEditor = tiptapEditor;
     this.t = t;
     this.plugins = plugins;
+
+    this.getEditorCommands = this.getEditorCommands.bind(this);
   }
 
   getContentTraits: TiptapAPI['getContentTraits'] = () => {
@@ -55,34 +54,24 @@ export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getCo
   };
 
   getContainer = () => {
-    return this.editor?.options?.element;
+    return this.tiptapEditor?.options?.element;
   };
 
-  getDraftContent = () => tiptapToDraft(this.editor.getJSON() as JSONContent);
+  getDraftContent = () => tiptapToDraft(this.tiptapEditor.getJSON() as JSONContent);
 
   focus() {
-    this.editor.commands.focus();
+    this.tiptapEditor.commands.focus();
   }
 
   blur() {
-    this.editor.commands.blur();
-  }
-
-  getHtmlAttributes(props: RicosEditorProps): HtmlAttributes {
-    return {
-      autoCapitalize: props.draftEditorSettings?.autoCapitalize || 'off',
-      spellCheck: props.draftEditorSettings?.spellCheck ? 'true' : 'false',
-      autoComplete: props.draftEditorSettings?.autoComplete || 'off',
-      autoCorrect: props.draftEditorSettings?.autoCorrect || 'off',
-      tabIndex: props.draftEditorSettings?.tabIndex || 0,
-    };
+    this.tiptapEditor.commands.blur();
   }
 
   getEditorCommands() {
     return {
       ...this.editorMocks,
       toggleInlineStyle: inlineStyle => {
-        const editorCommand = this.editor.chain().focus();
+        const editorCommand = this.tiptapEditor.chain().focus();
         const styleName = `toggle${capitalize(inlineStyle)}`;
         editorCommand[styleName]().run();
       },
@@ -92,7 +81,7 @@ export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getCo
             doc,
             selection: { from, to, $from },
           },
-        } = this.editor;
+        } = this.tiptapEditor;
 
         const marks = {};
         if (from === to) {
@@ -115,7 +104,7 @@ export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getCo
         if (type) {
           id = data.id || generateId();
           const attrs = { id, ...flatComponentState(data) };
-          this.editor
+          this.tiptapEditor
             .chain()
             .focus()
             .insertContent([{ type: 'paragraph' }, { type, attrs }, { type: 'paragraph' }])
@@ -137,18 +126,18 @@ export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getCo
         return id;
       },
       deleteBlock: blockKey => {
-        return this.editor.commands.deleteNode(blockKey);
+        return this.tiptapEditor.commands.deleteNode(blockKey);
       },
       findNodeByKey() {},
       setBlock: (blockKey, pluginType, data) => {
-        return this.editor.commands.setNodeAttrsById(blockKey, flatComponentState(data));
+        return this.tiptapEditor.commands.setNodeAttrsById(blockKey, flatComponentState(data));
       },
       updateBlock: (blockKey, pluginType, data) => {
-        return this.editor.commands.updateNodeAttrsById(blockKey, flatComponentState(data));
+        return this.tiptapEditor.commands.updateNodeAttrsById(blockKey, flatComponentState(data));
       },
       getSelection: () => ({
-        isFocused: this.editor.isFocused,
-        isCollapsed: this.editor.state.selection.empty,
+        isFocused: this.tiptapEditor.isFocused,
+        isCollapsed: this.tiptapEditor.state.selection.empty,
       }),
 
       insertDecoration: (type, data) => {
@@ -160,7 +149,7 @@ export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getCo
         };
         if (decorationCommandMap[type]) {
           const { command, args } = decorationCommandMap[type](data);
-          const editorCommand = this.editor.chain().focus();
+          const editorCommand = this.tiptapEditor.chain().focus();
           editorCommand[command](args).run();
         } else {
           console.error(`${type} decoration not supported`);
@@ -172,7 +161,7 @@ export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getCo
             doc,
             selection: { from, to },
           },
-        } = this.editor;
+        } = this.tiptapEditor;
 
         const marks: Record<string, boolean> = {};
         doc.nodesBetween(from, to, node => {
@@ -189,7 +178,7 @@ export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getCo
             doc,
             selection: { from, to },
           },
-        } = this.editor;
+        } = this.tiptapEditor;
 
         let link;
         doc.nodesBetween(from, to, node => {
@@ -208,37 +197,37 @@ export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getCo
         const blockTypeCommandMap = {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          [UNSTYLED]: () => this.editor.commands.setParagraph(),
+          [UNSTYLED]: () => this.tiptapEditor.commands.setParagraph(),
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          [HEADER_BLOCK.ONE]: () => this.editor.commands.toggleHeading({ level: 1 }),
+          [HEADER_BLOCK.ONE]: () => this.tiptapEditor.commands.toggleHeading({ level: 1 }),
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          [HEADER_BLOCK.TWO]: () => this.editor.commands.toggleHeading({ level: 2 }),
+          [HEADER_BLOCK.TWO]: () => this.tiptapEditor.commands.toggleHeading({ level: 2 }),
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          [HEADER_BLOCK.THREE]: () => this.editor.commands.toggleHeading({ level: 3 }),
+          [HEADER_BLOCK.THREE]: () => this.tiptapEditor.commands.toggleHeading({ level: 3 }),
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          [HEADER_BLOCK.FOUR]: () => this.editor.commands.toggleHeading({ level: 4 }),
+          [HEADER_BLOCK.FOUR]: () => this.tiptapEditor.commands.toggleHeading({ level: 4 }),
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          [HEADER_BLOCK.FIVE]: () => this.editor.commands.toggleHeading({ level: 5 }),
+          [HEADER_BLOCK.FIVE]: () => this.tiptapEditor.commands.toggleHeading({ level: 5 }),
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          [HEADER_BLOCK.SIX]: () => this.editor.commands.toggleHeading({ level: 6 }),
+          [HEADER_BLOCK.SIX]: () => this.tiptapEditor.commands.toggleHeading({ level: 6 }),
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          [BLOCKQUOTE]: () => this.editor.commands.toggleBlockquote(),
+          [BLOCKQUOTE]: () => this.tiptapEditor.commands.toggleBlockquote(),
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          [CODE_BLOCK_TYPE]: () => this.editor.commands.toggleCodeBlock(),
+          [CODE_BLOCK_TYPE]: () => this.tiptapEditor.commands.toggleCodeBlock(),
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          [BULLET_LIST_TYPE]: () => this.editor.commands.toggleBulletList(),
+          [BULLET_LIST_TYPE]: () => this.tiptapEditor.commands.toggleBulletList(),
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          [NUMBERED_LIST_TYPE]: () => this.editor.commands.toggleOrderedList(),
+          [NUMBERED_LIST_TYPE]: () => this.tiptapEditor.commands.toggleOrderedList(),
         };
         const currentSetBlockTypeCommand = blockTypeCommandMap[type];
         if (currentSetBlockTypeCommand) {
@@ -249,17 +238,17 @@ export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getCo
       },
       isBlockTypeSelected: type => {
         const blockTypeActiveCommandMap = {
-          [UNSTYLED]: () => this.editor.isActive('unstyled'),
-          [HEADER_BLOCK.ONE]: () => this.editor.isActive('heading', { level: 1 }),
-          [HEADER_BLOCK.TWO]: () => this.editor.isActive('heading', { level: 2 }),
-          [HEADER_BLOCK.THREE]: () => this.editor.isActive('heading', { level: 3 }),
-          [HEADER_BLOCK.FOUR]: () => this.editor.isActive('heading', { level: 4 }),
-          [HEADER_BLOCK.FIVE]: () => this.editor.isActive('heading', { level: 5 }),
-          [HEADER_BLOCK.SIX]: () => this.editor.isActive('heading', { level: 6 }),
-          [CODE_BLOCK_TYPE]: () => this.editor.isActive('codeBlock'),
-          [BLOCKQUOTE]: () => this.editor.isActive('blockquote'),
-          [NUMBERED_LIST_TYPE]: () => this.editor.isActive('orderedList'),
-          [BULLET_LIST_TYPE]: () => this.editor.isActive('bulletList'),
+          [UNSTYLED]: () => this.tiptapEditor.isActive('unstyled'),
+          [HEADER_BLOCK.ONE]: () => this.tiptapEditor.isActive('heading', { level: 1 }),
+          [HEADER_BLOCK.TWO]: () => this.tiptapEditor.isActive('heading', { level: 2 }),
+          [HEADER_BLOCK.THREE]: () => this.tiptapEditor.isActive('heading', { level: 3 }),
+          [HEADER_BLOCK.FOUR]: () => this.tiptapEditor.isActive('heading', { level: 4 }),
+          [HEADER_BLOCK.FIVE]: () => this.tiptapEditor.isActive('heading', { level: 5 }),
+          [HEADER_BLOCK.SIX]: () => this.tiptapEditor.isActive('heading', { level: 6 }),
+          [CODE_BLOCK_TYPE]: () => this.tiptapEditor.isActive('codeBlock'),
+          [BLOCKQUOTE]: () => this.tiptapEditor.isActive('blockquote'),
+          [NUMBERED_LIST_TYPE]: () => this.tiptapEditor.isActive('orderedList'),
+          [BULLET_LIST_TYPE]: () => this.tiptapEditor.isActive('bulletList'),
         };
         const currentBlockTypeActiveCommand = blockTypeActiveCommandMap[type];
 
@@ -271,7 +260,7 @@ export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getCo
       },
       deleteDecoration: type => {
         const deleteDecorationCommandMap = {
-          [RICOS_LINK_TYPE]: () => this.editor.commands.unsetLink(),
+          [RICOS_LINK_TYPE]: () => this.tiptapEditor.commands.unsetLink(),
         };
         if (deleteDecorationCommandMap[type]) {
           deleteDecorationCommandMap[type]();
@@ -280,12 +269,12 @@ export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getCo
         }
       },
       setTextAlignment: alignment => {
-        this.editor.commands.setTextAlign(alignment);
+        this.tiptapEditor.commands.setTextAlign(alignment);
       },
-      undo: () => this.editor.commands.undo(),
-      redo: () => this.editor.commands.redo(),
+      undo: () => this.tiptapEditor.commands.undo(),
+      redo: () => this.tiptapEditor.commands.redo(),
       insertText: text =>
-        this.editor
+        this.tiptapEditor
           .chain()
           .focus()
           .command(({ tr }) => {
@@ -296,14 +285,14 @@ export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getCo
 
       getAllBlocksKeys: () => {
         const keys: string[] = [];
-        this.editor.state.doc.descendants((node: ProseMirrorNode) => {
+        this.tiptapEditor.state.doc.descendants((node: ProseMirrorNode) => {
           keys.push(node.attrs.id);
         });
 
         return keys;
       },
       getBlockComponentData: id => {
-        const nodesWithPos = findNodeById(this.editor.state.tr, id);
+        const nodesWithPos = findNodeById(this.tiptapEditor.state.tr, id);
         if (nodesWithPos[0]) {
           const { node } = nodesWithPos[0];
           return node.attrs;
@@ -344,7 +333,7 @@ export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getCo
           doc,
           selection: { from, to },
         },
-      } = this.editor;
+      } = this.tiptapEditor;
 
       const textStyles: string[] = [];
       doc.nodesBetween(from, to, node => {

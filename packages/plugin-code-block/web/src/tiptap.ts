@@ -24,7 +24,7 @@ const tildeInputRegex = /^~~~(?<language>[a-z]*)?[\s\n]$/;
 export const tiptapExtensions = [
   {
     type: 'node' as const,
-    groups: [],
+    groups: ['text-container'],
     name: 'codeBlock',
     reconfigure: (
       config: NodeConfig,
