@@ -416,17 +416,12 @@ describe('plugins', () => {
       eyesOpen(this);
     });
 
-    [false, true].forEach(enabled => {
-      it(`specs.ricos.fixListLineHeight=${enabled}`, function () {
-        cy.loadRicosEditorAndViewer(
-          'lists-with-line-height',
-          merge(
-            useTheming({ skipCssOverride: true, useParagraphLineHeight: true }),
-            useExperiments({ fixListLineHeight: { enabled } })
-          )
-        );
-        cy.eyesCheckWindow(this.test.title);
-      });
+    it(`lists with line height`, function () {
+      cy.loadRicosEditorAndViewer(
+        'lists-with-line-height',
+        useTheming({ skipCssOverride: true, useParagraphLineHeight: true })
+      );
+      cy.eyesCheckWindow(this.test.title);
     });
 
     after(() => cy.eyesClose());

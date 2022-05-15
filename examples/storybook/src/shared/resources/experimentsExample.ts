@@ -5,7 +5,6 @@ export const EXPERIMENTS = [
   { name: 'newFormattingToolbar', scope: 'ricos' },
   { name: 'modalBaseActionHoc', scope: 'ricos' },
   { name: 'newSettingsModals', scope: 'ricos' },
-  { name: 'fixListLineHeight', scope: 'ricos' },
   { name: 'newVideoVerticalAndSocialModals', scope: 'ricos' },
   { name: 'fixedTabSize', scope: 'ricos' },
   { name: 'forceIframeSandboxDomain', scope: 'ricos' },
