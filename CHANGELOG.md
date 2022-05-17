@@ -16,6 +16,11 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
+  
+  ### :house: Internal
+  
+  - `plugins`
+    - [#3869](https://github.com/wix/ricos/pull/3869) tiptap formatting extensions style wiring
 
   </details>
   <hr/>
