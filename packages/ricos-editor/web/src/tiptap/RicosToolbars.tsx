@@ -17,6 +17,7 @@ import { TOOLBARS, mergeToolbarSettings, withRicosContext } from 'wix-rich-conte
 import type { RichContentAdapter } from 'wix-tiptap-editor';
 import { withTiptapEditorContext } from 'wix-tiptap-editor';
 import { getDefaultToolbarSettings } from 'wix-rich-content-editor';
+import RicosPortal from './RicosPortal';
 
 import { ToolbarConfig } from './ricosToolbarConfig';
 import type { GeneralContext } from 'ricos-types';
@@ -137,7 +138,7 @@ class RicosToolbars extends React.Component<
       };
 
       return (
-        <FloatingToolbar editor={tiptapEditor}>
+        <FloatingToolbar editor={tiptapEditor} portal={ricosContext.portal}>
           {() => {
             const maxWidth = tiptapEditor.view.dom.clientWidth;
             return (
@@ -174,7 +175,7 @@ class RicosToolbars extends React.Component<
   }
 
   renderStaticToolbar(finaltoolbarSettings: ToolbarSettingsFunctions[]) {
-    const { toolbarSettings } = this.props;
+    const { toolbarSettings, ricosContext } = this.props;
     const toolbarType = TOOLBARS.STATIC;
     const toolbarConfig = this.getToolbarConfig(finaltoolbarSettings, toolbarType);
     const htmlContainer = toolbarSettings?.textToolbarContainer;
@@ -186,7 +187,11 @@ class RicosToolbars extends React.Component<
     );
 
     if (htmlContainer && toolbarConfig?.shouldCreate?.()) {
-      return ReactDOM.createPortal(this.renderToolbar(toolbarItemsConfig), htmlContainer);
+      return (
+        <RicosPortal className={ricosContext.theme.parentClass} container={htmlContainer}>
+          {this.renderToolbar(toolbarItemsConfig)}
+        </RicosPortal>
+      );
     }
     if (toolbarSettings?.useStaticTextToolbar && toolbarConfig?.shouldCreate?.()) {
       return this.renderToolbar(toolbarItemsConfig);

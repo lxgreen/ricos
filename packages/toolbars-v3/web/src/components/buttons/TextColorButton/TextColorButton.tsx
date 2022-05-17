@@ -22,7 +22,7 @@ const onResetColor = (toolbarItem, setModalOpen) => {
 };
 
 const TextColorButton = ({ toolbarItem, context }) => {
-  const { isMobile, t, theme, locale, getEditorCommands, colorPickerData } = context || {};
+  const { isMobile, t, theme, locale, getEditorCommands, colorPickerData, portal } = context || {};
   if (!context) return null;
   const [isModalOpen, setModalOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
@@ -106,7 +106,7 @@ const TextColorButton = ({ toolbarItem, context }) => {
               </ColorPicker>
             </div>
           </div>,
-          document.body
+          portal
         )}
     </ClickOutside>
   );

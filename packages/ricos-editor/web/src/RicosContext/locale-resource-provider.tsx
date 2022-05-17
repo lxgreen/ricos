@@ -12,6 +12,7 @@ export const LocaleResourceProvider = ({
   experiments,
   languageDir,
   theme,
+  portal,
 }) => {
   const [currentLocaleResource, setLocaleResource] = useState<{
     locale: string;
@@ -50,6 +51,7 @@ export const LocaleResourceProvider = ({
           experiments={experiments}
           languageDir={languageDir}
           theme={theme}
+          portal={portal}
         >
           {children}
         </RicosContextProvider>

@@ -22,7 +22,15 @@ const onDelete = (toolbarItem, setModalOpen) => {
 };
 
 const LinkButton = ({ toolbarItem, context }) => {
-  const { isMobile, t, theme, getEditorCommands, linkPanelData = {}, locale } = context || {};
+  const {
+    isMobile,
+    t,
+    theme,
+    getEditorCommands,
+    linkPanelData = {},
+    locale,
+    portal,
+  } = context || {};
   const [isModalOpen, setModalOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
@@ -108,7 +116,7 @@ const LinkButton = ({ toolbarItem, context }) => {
               />
             </div>
           </div>,
-          document.body
+          portal
         )}
     </ClickOutside>
   );

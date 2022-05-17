@@ -29,6 +29,7 @@ const LineSpacingButton = ({ toolbarItem, context }) => {
     theme,
     defaultLineSpacing: defaultLineSpacingFromApi,
     locale,
+    portal,
   } = context || {};
   const [isModalOpen, setModalOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
@@ -107,7 +108,7 @@ const LineSpacingButton = ({ toolbarItem, context }) => {
               />
             </div>
           </div>,
-          document.body
+          portal
         )}
     </ClickOutside>
   );

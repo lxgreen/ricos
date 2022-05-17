@@ -27,7 +27,7 @@ const onChange = (documentStyle, toolbarItem, setModalOpen) => {
 };
 
 const CustomHeadingButton = ({ toolbarItem, context }) => {
-  const { isMobile, t, theme, getEditorCommands, headingsData, locale } = context || {};
+  const { isMobile, t, theme, getEditorCommands, headingsData, locale, portal } = context || {};
   if (!context) return null;
   const [isModalOpen, setModalOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
@@ -99,7 +99,7 @@ const CustomHeadingButton = ({ toolbarItem, context }) => {
               />
             </div>
           </div>,
-          document.body
+          portal
         )}
     </ClickOutside>
   );

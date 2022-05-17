@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 import { ModalContext } from './ModalContext';
+import { RicosContext } from 'wix-rich-content-editor-common';
 import { Popover } from '../components/Popover';
 import { Drawer } from '../components/Drawer';
 import { Fullscreen } from '../components/Fullscreen';
 import { Dialog } from '../components/Dialog';
-import type { ModalConfig, TextDirection } from 'ricos-types';
+import type { ModalConfig } from 'ricos-types';
 
 type Props = {
   modalConfig: ModalConfig;
-  languageDir: TextDirection;
 };
 
 const layoutMapper = {
@@ -19,8 +19,9 @@ const layoutMapper = {
   dialog: Dialog,
 };
 
-export const ModalPopper = ({ modalConfig, languageDir }: Props) => {
+export const ModalPopper = ({ modalConfig }: Props) => {
   const { modalService } = useContext(ModalContext) || {};
+  const { languageDir, portal } = useContext(RicosContext);
 
   const closeModal = () => {
     modalService?.closeModal?.(modalConfig.id);
@@ -36,6 +37,6 @@ export const ModalPopper = ({ modalConfig, languageDir }: Props) => {
         <ModalComponent />
       </ModalLayout>
     </div>,
-    document.body
+    portal
   );
 };

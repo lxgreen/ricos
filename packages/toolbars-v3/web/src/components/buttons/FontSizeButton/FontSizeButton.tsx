@@ -25,7 +25,7 @@ const onInputChange = (e, setInputValue, toolbarItem) => {
 };
 
 const FontSizeButton = ({ toolbarItem, context }) => {
-  const { t, theme, locale } = context || {};
+  const { t, theme, locale, portal } = context || {};
   const [isModalOpen, setModalOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
@@ -93,7 +93,7 @@ const FontSizeButton = ({ toolbarItem, context }) => {
               />
             </div>
           </div>,
-          document.body
+          portal
         )}
     </ClickOutside>
   );

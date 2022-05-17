@@ -20,7 +20,7 @@ const onSave = (data, selectedHeading, toolbarItem, setModalOpen) => {
 };
 
 const HeadingButton = ({ toolbarItem, context }) => {
-  const { isMobile, t, theme, headingsData, locale } = context || {};
+  const { isMobile, t, theme, headingsData, locale, portal } = context || {};
   if (!context) return null;
   const [isModalOpen, setModalOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
@@ -84,7 +84,7 @@ const HeadingButton = ({ toolbarItem, context }) => {
               />
             </div>
           </div>,
-          document.body
+          portal
         )}
     </ClickOutside>
   );

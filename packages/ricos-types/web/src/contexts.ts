@@ -1,4 +1,5 @@
 import type { AvailableExperiments, TextDirection, TranslationFunction } from './commonTypes';
+import type { RicosPortal } from './RicosTypes';
 import type { RicosTheme } from './themeTypes';
 
 export interface GeneralContext {
@@ -9,4 +10,5 @@ export interface GeneralContext {
   t: TranslationFunction;
   languageDir: TextDirection;
   theme: RicosTheme;
+  portal: RicosPortal;
 }

@@ -7,6 +7,7 @@ import type {
   EditorPlugin,
   LinkPanelSettings,
   RicosTheme,
+  RicosPortal,
 } from 'ricos-types';
 import type { LinkSettings, ToolbarSettings, RicosCssOverride } from 'ricos-common';
 
@@ -23,6 +24,7 @@ export type ToolbarContextType = {
   toolbarSettings: ToolbarSettings;
   cssOverride: RicosCssOverride;
   getEditorCommands: () => EditorCommands | void;
+  portal: RicosPortal;
 };
 
 export const ToolbarContext = React.createContext<ToolbarContextType>({
@@ -38,4 +40,5 @@ export const ToolbarContext = React.createContext<ToolbarContextType>({
   toolbarSettings: {},
   cssOverride: {},
   getEditorCommands: () => {},
+  portal: null as unknown as RicosPortal,
 });

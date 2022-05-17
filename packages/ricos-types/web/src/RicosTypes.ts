@@ -93,3 +93,5 @@ export interface LinkSettings {
   rel?: Link_Rel;
   customAnchorScroll?: CustomAnchorScroll;
 }
+
+export type RicosPortal = HTMLDivElement;

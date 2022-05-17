@@ -17,10 +17,15 @@
     Click to see more.
   </summary>
 
-  ### :house: Internal
-  
-  - `tiptap-editor`
-    - [#3865](https://github.com/wix/ricos/pull/3865) tiptap editor instance via context
+### :house: Internal
+
+- `tiptap-editor`
+
+  - [#3865](https://github.com/wix/ricos/pull/3865) tiptap editor instance via context
+
+- `ricos-editor
+
+  - [#3866](https://github.com/wix/ricos/pull/3866) Ricos Portal
 
   </details>
   <hr/>

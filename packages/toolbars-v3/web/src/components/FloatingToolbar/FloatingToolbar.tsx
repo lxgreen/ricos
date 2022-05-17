@@ -1,15 +1,24 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { useFloating, shift, offset, autoUpdate, flip } from '@floating-ui/react-dom';
 import { ClickOutside } from '../Clickoutside/ClickOutside';
+import type { RicosPortal } from 'ricos-types';
 
 //TODO: remove this import and find solution
 import { posToDOMRect } from '@tiptap/core';
 import type { Editor } from '@tiptap/core';
 import { debounce } from 'lodash';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const FloatingToolbar = ({ editor, children }: { editor: Editor; children: any }) => {
+export const FloatingToolbar = ({
+  editor,
+  portal,
+  children,
+}: {
+  editor: Editor;
+  portal: RicosPortal;
+  children: any;
+}) => {
   const { state, view } = editor;
   const { from, to } = state.selection;
   const isCollapsed = to - from <= 0;
@@ -101,7 +110,7 @@ export const FloatingToolbar = ({ editor, children }: { editor: Editor; children
               {children()}
             </div>
           </div>,
-          document.body
+          portal
         )}
     </ClickOutside>
   );

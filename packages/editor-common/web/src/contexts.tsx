@@ -1,6 +1,5 @@
 import React from 'react';
-import type { GeneralContext, RicosTheme } from 'ricos-types';
-import type { EditorCommands } from 'wix-rich-content-common';
+import type { GeneralContext, RicosTheme, RicosPortal } from 'ricos-types';
 
 export const RicosContext = React.createContext<GeneralContext>({
   locale: 'en',
@@ -10,6 +9,7 @@ export const RicosContext = React.createContext<GeneralContext>({
   t: (text: string) => text,
   languageDir: 'ltr',
   theme: {} as RicosTheme,
+  portal: null as unknown as RicosPortal,
 });
 
 export const RicosContextProvider = ({
@@ -21,6 +21,7 @@ export const RicosContextProvider = ({
   languageDir,
   theme,
   t,
+  portal,
 }) => {
   return (
     <RicosContext.Provider
@@ -32,6 +33,7 @@ export const RicosContextProvider = ({
         experiments,
         languageDir,
         theme,
+        portal,
       }}
     >
       {React.cloneElement(React.Children.only(children))}

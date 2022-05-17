@@ -17,7 +17,7 @@ const onSave = (data, toolbarItem) => {
 };
 
 const AlignmentButton = ({ toolbarItem, context }) => {
-  const { isMobile, t, theme, locale } = context || {};
+  const { isMobile, t, theme, locale, portal } = context || {};
   const [isModalOpen, setModalOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
   const [popperElement, setPopperElement] = useState<HTMLDivElement | null>(null);
@@ -82,7 +82,7 @@ const AlignmentButton = ({ toolbarItem, context }) => {
               />
             </div>
           </div>,
-          document.body
+          portal
         )}
     </ClickOutside>
   );

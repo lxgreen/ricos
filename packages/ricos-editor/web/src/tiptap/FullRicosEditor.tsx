@@ -1,6 +1,7 @@
 /* eslint-disable brace-style */
 import type { Node } from 'prosemirror-model';
-import React, { forwardRef } from 'react';
+import type { RefObject } from 'react';
+import React, { createRef, forwardRef } from 'react';
 import type { RicosEditorProps } from 'ricos-common';
 import { ModalProvider } from 'ricos-modals';
 import type {
@@ -25,6 +26,8 @@ import RicosEditor from './RicosEditor';
 import RicosToolbars from './RicosToolbars';
 import ThemeStyleTag from './ThemeStyleTag';
 import { UploadProvider } from './UploadProvider';
+import RicosPortal from './RicosPortal';
+import type { RicosPortal as RicosPortalType } from 'ricos-types';
 
 type State = {
   error: string;
@@ -45,9 +48,12 @@ export class FullRicosEditor
 
   editor = React.createRef<RicosEditorRef>();
 
+  portalRef: RefObject<RicosPortalType>;
+
   constructor(props) {
     super(props);
     this.plugins = pluginsConfigMerger(props.plugins, props._rcProps) || [];
+    this.portalRef = createRef<RicosPortalType>();
   }
 
   static getDerivedStateFromError(error: string) {
@@ -160,52 +166,65 @@ export class FullRicosEditor
       injectedContent,
     } = this.props;
     return (
-      <LocaleResourceProvider
-        isMobile={isMobile}
-        experiments={experiments}
-        locale={locale}
-        localeContent={localeContent}
-        languageDir={getLangDir(locale)}
-        theme={theme}
-      >
-        <TiptapEditorProvider
-          plugins={this.plugins}
-          content={injectedContent ?? content ?? getEmptyDraftContent()}
-          ricosEditorProps={this.props}
-        >
-          <div>
-            <Shortcuts group="global" root>
+      <>
+        <RicosPortal ref={this.portalRef} className={theme?.parentClass}>
+          <ThemeStyleTag theme={theme} />
+        </RicosPortal>
+        {this.portalRef && (
+          <LocaleResourceProvider
+            isMobile={isMobile}
+            experiments={experiments}
+            locale={locale}
+            localeContent={localeContent}
+            languageDir={getLangDir(locale)}
+            theme={theme}
+            portal={this.portalRef.current}
+          >
+            <TiptapEditorProvider
+              plugins={this.plugins}
+              content={injectedContent ?? content ?? getEmptyDraftContent()}
+              ricosEditorProps={this.props}
+            >
               <>
-                <ThemeStyleTag theme={theme} />
-                <UploadProvider helpers={_rcProps?.helpers}>
-                  <ModalProvider>
-                    <TiptapEditorConsumer>
-                      {(editor: RichContentAdapter) => (
-                        <ToolbarContext.Provider
-                          value={this.getToolbarContext(editor.getEditorCommands)}
-                        >
-                          <RicosToolbars content={this.content} toolbarSettings={toolbarSettings} />
-                          <FloatingAddPluginMenu
-                            pluginsButtons={plugins
-                              ?.filter(plugin => plugin.addButtons)
-                              .map(plugin => plugin.addButtons)}
-                            addPluginMenuConfig={this.getPluginMenuConfig()}
-                            helpers={_rcProps?.helpers}
-                          />
-                        </ToolbarContext.Provider>
-                      )}
-                    </TiptapEditorConsumer>
-                  </ModalProvider>
-                </UploadProvider>
+                <Shortcuts group="global" root>
+                  <>
+                    <UploadProvider helpers={_rcProps?.helpers}>
+                      <ModalProvider>
+                        <TiptapEditorConsumer>
+                          {(editor: RichContentAdapter) => (
+                            <ToolbarContext.Provider
+                              value={{
+                                ...this.getToolbarContext(editor.getEditorCommands),
+                                portal: this.portalRef.current as RicosPortalType,
+                              }}
+                            >
+                              <RicosToolbars
+                                content={this.content}
+                                toolbarSettings={toolbarSettings}
+                              />
+                              <FloatingAddPluginMenu
+                                pluginsButtons={plugins
+                                  ?.filter(plugin => plugin.addButtons)
+                                  .map(plugin => plugin.addButtons)}
+                                addPluginMenuConfig={this.getPluginMenuConfig()}
+                                helpers={_rcProps?.helpers}
+                              />
+                            </ToolbarContext.Provider>
+                          )}
+                        </TiptapEditorConsumer>
+                      </ModalProvider>
+                    </UploadProvider>
 
-                <Shortcuts group="formatting">
-                  <RicosEditor {...this.props} plugins={this.plugins} ref={this.editor} />
+                    <Shortcuts group="formatting">
+                      <RicosEditor {...this.props} plugins={this.plugins} ref={this.editor} />
+                    </Shortcuts>
+                  </>
                 </Shortcuts>
               </>
-            </Shortcuts>
-          </div>
-        </TiptapEditorProvider>
-      </LocaleResourceProvider>
+            </TiptapEditorProvider>
+          </LocaleResourceProvider>
+        )}
+      </>
     );
   }
 }
