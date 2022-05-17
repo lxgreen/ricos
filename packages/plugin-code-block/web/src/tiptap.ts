@@ -21,10 +21,10 @@ declare module '@tiptap/core' {
 const backtickInputRegex = /^```(?<language>[a-z]*)?[\s\n]$/;
 const tildeInputRegex = /^~~~(?<language>[a-z]*)?[\s\n]$/;
 
-export const tiptapExtensions = [
+export const tiptapExtensions: RicosExtension[] = [
   {
     type: 'node' as const,
-    groups: ['text-container'],
+    groups: ['text-container', 'shortcuts-enabled'],
     name: 'codeBlock',
     reconfigure: (
       config: NodeConfig,
@@ -107,7 +107,7 @@ export const tiptapExtensions = [
 
         addKeyboardShortcuts() {
           return {
-            'Mod-Alt-c': () => this.editor.commands.toggleCodeBlock(),
+            // 'Mod-Alt-c': () => this.editor.commands.toggleCodeBlock(),
 
             // remove code block when at start of document or code block is empty
             Backspace: () => {

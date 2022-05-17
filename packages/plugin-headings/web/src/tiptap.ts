@@ -1,7 +1,9 @@
 import headingDataDefaults from 'ricos-schema/dist/statics/heading.defaults.json';
 import type { DOMOutputSpec, ExtensionProps, NodeConfig, RicosExtension } from 'ricos-tiptap-types';
+import styles from '../statics/styles/headings.scss';
 
 type Level = 1 | 2 | 3 | 4 | 5 | 6;
+const HEADER_NAMES = ['One', 'Two', 'Three', 'Four', 'Five', 'Six'];
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -65,7 +67,9 @@ export const tiptapExtensions = [
 
           return [
             `h${level}`,
-            mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+            mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
+              class: styles[`header${HEADER_NAMES[level - 1]}`],
+            }),
             0,
           ] as DOMOutputSpec;
         },

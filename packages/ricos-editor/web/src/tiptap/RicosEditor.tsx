@@ -2,7 +2,7 @@ import type { JSONContent } from '@tiptap/core';
 import React, { forwardRef } from 'react';
 import type { RicosEditorProps } from 'ricos-common';
 import type { HtmlAttributes } from 'ricos-tiptap-types';
-import type { GeneralContext } from 'ricos-types';
+import type { EditorStyleClasses, GeneralContext } from 'ricos-types';
 import { getEmptyDraftContent, withRicosContext } from 'wix-rich-content-editor-common';
 import {
   EditorEvents,
@@ -19,6 +19,8 @@ import { PUBLISH_DEPRECATION_WARNING_v9 } from '../RicosEditor';
 import type { RicosEditorRef } from '../RicosEditorRef';
 import { publishBI } from '../utils/bi/publish';
 import errorBlocksRemover from '../utils/errorBlocksRemover';
+import editorCss from '../../statics/styles/editor-styles.scss';
+import { createEditorStyleClasses } from '../utils/createEditorStyleClasses';
 
 type RicosEditorState = {
   initialContent: JSONContent;
@@ -36,6 +38,18 @@ class RicosEditor
     initialContent: null as unknown as JSONContent,
     htmlAttributes: {} as HtmlAttributes,
   };
+
+  private readonly editorStyleClasses: EditorStyleClasses;
+
+  constructor(props) {
+    super(props);
+    const { isMobile, experiments } = props;
+    this.editorStyleClasses = createEditorStyleClasses({
+      isMobile,
+      experiments,
+      editorCss,
+    });
+  }
 
   focus: RicosEditorRef['focus'] = () => {
     this.props.editor.focus();
@@ -158,6 +172,7 @@ class RicosEditor
           modalTheme: undefined,
         }}
         htmlAttributes={htmlAttributes}
+        editorStyleClasses={this.editorStyleClasses}
       />
     );
   }

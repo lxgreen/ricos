@@ -1,5 +1,6 @@
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import type { Node } from 'prosemirror-model';
+import styles from '../../statics/hashtag.scss';
 
 const hasLink = node => {
   return node.marks.map(mark => mark.type.name).includes('link');
@@ -36,7 +37,7 @@ export default function (doc: Node): DecorationSet {
         from,
         to,
         {
-          class: 'hash-tag',
+          class: styles.hashtag,
         },
         { name: 'hashtag' }
       );

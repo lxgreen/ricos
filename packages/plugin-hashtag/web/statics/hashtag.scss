@@ -2,10 +2,9 @@
 @import "~wix-rich-content-common/dist/statics/styles/fonts";
 
 .hashtag {
+  &:hover {
+    text-decoration: underline;
+  }
   color: $ricos-hashtag-color;
   @include ricosTypography('hashtag', false);
-}
-
-.hashtag_hover span:hover {
-  text-decoration: underline;
 }
