@@ -17,7 +17,16 @@
     Click to see more.
   </summary>
 
+  </details>
+  <hr/>
+
+## 8.71.16 (May 17, 2022)
+
 ### :house: Internal
+
+- `storybook`
+
+  - [#3864](https://github.com/wix/ricos/pull/3864) add tiptap to Theme stories
 
 - `tiptap-editor`
 
@@ -26,14 +35,6 @@
 - `ricos-editor
 
   - [#3866](https://github.com/wix/ricos/pull/3866) Ricos Portal
-
-  </details>
-  <hr/>
-
-### :house: Internal
-
-- `storybook`
-  - [#3864](https://github.com/wix/ricos/pull/3864) add tiptap to Theme stories
 
 ## 8.71.15 (May 15, 2022)
 
