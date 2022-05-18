@@ -17,6 +17,10 @@
     Click to see more.
   </summary>
   
+### :bug: Bug Fix
+- `mentions`
+  - [#3871](https://github.com/wix/ricos/pull/3871) allow spaces in tiptap mentions
+
 ### :house: Internal
 - `plugins`
   - [#3869](https://github.com/wix/ricos/pull/3869) tiptap formatting extensions style wiring

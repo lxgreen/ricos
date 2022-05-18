@@ -19,6 +19,7 @@ export default (
   Suggestion({
     editor,
     char: mentionTrigger,
+    allowSpaces: true,
     pluginKey: new PluginKey('mention'),
     command: ({ editor, range, props }) => {
       editor.commands.insertMention({ name: props.id }, range);
