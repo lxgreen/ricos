@@ -17,10 +17,11 @@
     Click to see more.
   </summary>
   
-  ### :house: Internal
-  
-  - `plugins`
-    - [#3869](https://github.com/wix/ricos/pull/3869) tiptap formatting extensions style wiring
+### :house: Internal
+- `plugins`
+  - [#3869](https://github.com/wix/ricos/pull/3869) tiptap formatting extensions style wiring
+- `ricos-styles`
+  - [#3870](https://github.com/wix/ricos/pull/3870) ricos-styles package
 
   </details>
   <hr/>
