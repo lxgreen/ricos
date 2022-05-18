@@ -14,6 +14,7 @@ import {
   characterCount,
   lineSpacing,
   indent,
+  anchor,
 } from 'wix-tiptap-extensions';
 
 export const commonExtensions = [
@@ -32,4 +33,5 @@ export const commonExtensions = [
   lineSpacing,
   indent,
   commonNodeCommands,
+  anchor,
 ];

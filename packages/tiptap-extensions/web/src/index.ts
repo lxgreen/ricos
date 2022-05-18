@@ -24,3 +24,4 @@ export { characterCount } from './character-count';
 export { commonNodeCommands } from './common-node-commands';
 export { lineSpacing } from './line-spacing';
 export { indent } from './indent';
+export { anchor } from './anchor';
