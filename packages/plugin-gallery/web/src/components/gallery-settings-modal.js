@@ -32,7 +32,7 @@ const isValidIndex = index => typeof index === 'number' && index >= 0;
 class ManageMediaSection extends Component {
   constructor(props) {
     super(props);
-    this.modalsWithEditorCommands = props.experiments.modalBaseActionHoc?.enabled;
+    this.modalsWithEditorCommands = props.experiments?.modalBaseActionHoc?.enabled;
     this.uploader = new Uploader(this.props.helpers?.handleFileUpload);
     this.mediaPluginService = new GalleryPluginService();
   }
@@ -54,7 +54,7 @@ class ManageMediaSection extends Component {
 
   handleFileChange = (files, itemPos) => {
     if (files.length > 0) {
-      if (this.props.experiments.useUploadContext?.enabled) {
+      if (this.props.experiments?.useUploadContext?.enabled) {
         files.forEach((file, index) => {
           const fileState = isValidIndex(itemPos) ? { itemIndex: itemPos + index } : {};
           this.props.uploadService?.uploadFile(
@@ -76,10 +76,10 @@ class ManageMediaSection extends Component {
   };
 
   handleFileSelection = (index, multiple) => {
-    const { helpers, getData, store } = this.props;
+    const { helpers, getData, store, experiments = {} } = this.props;
     const deleteBlock = store.get('deleteBlock');
     const data = getData();
-    const handleFilesAdded = this.props.experiments.useUploadContext?.enabled
+    const handleFilesAdded = experiments.useUploadContext?.enabled
       ? this.handleFilesAddedWithIndex(index)
       : this.handleFilesAdded;
     helpers.handleFileSelection(index, multiple, handleFilesAdded, deleteBlock, data);
@@ -175,7 +175,7 @@ ManageMediaSection.propTypes = {
 class AdvancedSettingsSection extends Component {
   constructor(props) {
     super(props);
-    this.modalsWithEditorCommands = props.experiments.modalBaseActionHoc?.enabled;
+    this.modalsWithEditorCommands = props.experiments?.modalBaseActionHoc?.enabled;
   }
 
   useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
@@ -268,7 +268,7 @@ export class GallerySettingsModal extends Component {
         disableDownload,
         config: { spoiler = {} },
       },
-      experiments,
+      experiments = {},
     } = this.props;
     this.state = {
       activeTab: this.props.activeTab,
@@ -286,7 +286,8 @@ export class GallerySettingsModal extends Component {
   componentDidMount() {
     if (!this.modalsWithEditorCommands) {
       this.props.pubsub.subscribe('componentData', this.onComponentUpdate);
-      const componentData = this.props.getComponentData() || this.props.pubsub.get('componentData');
+      const componentData =
+        this.props.getComponentData?.() || this.props.pubsub.get('componentData');
       this.setState({
         initComponentData: { ...componentData, items: this.getItems(componentData.items) },
       });
@@ -346,7 +347,7 @@ export class GallerySettingsModal extends Component {
 
   onDoneClick = () => {
     const { helpers, pubsub, getComponentData } = this.props;
-    const componentData = getComponentData() || pubsub.get('componentData');
+    const componentData = getComponentData?.() || pubsub.get('componentData');
     const newComponentData = {
       ...componentData,
       items: this.getItems(componentData.items),
@@ -397,7 +398,7 @@ export class GallerySettingsModal extends Component {
           value={'manage_media'}
           theme={this.props.theme}
         >
-          {this.props.experiments.useUploadContext?.enabled ? (
+          {this.props.experiments?.useUploadContext?.enabled ? (
             <UploadServiceContext.Consumer>
               {({ uploadService, updateService }) => (
                 <ManageMediaSection

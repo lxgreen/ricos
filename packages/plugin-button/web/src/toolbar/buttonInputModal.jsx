@@ -31,7 +31,7 @@ export default class ButtonInputModal extends Component {
     this.styles = mergeStyles({ styles, theme: props.theme });
     const {
       componentData: { button },
-      experiments,
+      experiments = {},
     } = this.props;
 
     this.state = {

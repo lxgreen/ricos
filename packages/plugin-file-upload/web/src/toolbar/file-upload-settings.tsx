@@ -27,7 +27,7 @@ class FileUploadSettings extends Component<FileUploadSettingsProps, FileUploadSe
     super(props);
     this.state = this.propsToState(props);
     this.initialState = { ...this.state };
-    const { theme, experiments } = props;
+    const { theme, experiments = {} } = props;
     this.styles = mergeStyles({ styles, theme });
     this.modalsWithEditorCommands = !!experiments.modalBaseActionHoc?.enabled;
   }

@@ -20,11 +20,15 @@
 ### :bug: Bug Fix
 - `mentions`
   - [#3871](https://github.com/wix/ricos/pull/3871) allow spaces in tiptap mentions
+- `settings-modals`
+  - [#3867](https://github.com/wix/ricos/pull/3868) relate experiments & getComponentData as optional
 
 ### :house: Internal
+
 - `plugins`
   - [#3869](https://github.com/wix/ricos/pull/3869) tiptap formatting extensions style wiring
 - `ricos-styles`
+
   - [#3870](https://github.com/wix/ricos/pull/3870) ricos-styles package
 
   </details>

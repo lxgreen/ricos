@@ -49,7 +49,7 @@ export class SettingsModal extends Component {
     activeTab: TABS.LAYOUT,
   };
 
-  modalsWithEditorCommands = this.props.experiments.modalBaseActionHoc?.enabled;
+  modalsWithEditorCommands = this.props.experiments?.modalBaseActionHoc?.enabled;
 
   state = {
     activeTab: this.props.activeTab,
@@ -178,7 +178,7 @@ export class SettingsModal extends Component {
                 poll={componentData.poll}
                 setPoll={this.setPoll}
                 t={t}
-                experiments={this.props.experiments}
+                experiments={experiments}
               >
                 <EditPollSection
                   store={pubsub.store}
@@ -237,7 +237,7 @@ export class SettingsModal extends Component {
                   componentData={componentData}
                   t={t}
                   settings={settings}
-                  experiments={this.props.experiments}
+                  experiments={experiments}
                 />
               </Tab>
             </Tabs>
@@ -271,7 +271,7 @@ export class SettingsModal extends Component {
                 onRequestClose={this.closePreview}
                 theme={theme}
                 t={t}
-                experiments={this.props.experiments}
+                experiments={experiments}
               />
               &nbsp;
               <button

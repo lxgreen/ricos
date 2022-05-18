@@ -22,7 +22,7 @@ class ImageSettings extends Component {
     super(props);
     this.state = this.propsToState(props);
     this.initialState = { ...this.state };
-    const { t, theme, experiments } = props;
+    const { t, theme, experiments = {} } = props;
     this.styles = mergeStyles({ styles, theme });
     this.updateLabel = t('ImageSettings_Update');
     this.headerText = t('ImageSettings_Header');
@@ -35,7 +35,7 @@ class ImageSettings extends Component {
   }
 
   propsToState(props) {
-    const { getComponentData } = props;
+    const { getComponentData, componentData } = props;
     const {
       src,
       metadata,
@@ -43,7 +43,7 @@ class ImageSettings extends Component {
       disableExpand,
       disableDownload,
       config: { spoiler = {} },
-    } = getComponentData();
+    } = getComponentData?.() || componentData;
     const isExpandEnabled = !disableExpand;
     const isDownloadEnabled = !disableDownload;
     const isSpoilerEnabled = spoiler.enabled;
@@ -196,9 +196,9 @@ class ImageSettings extends Component {
   };
 
   onDoneClick = () => {
-    const { helpers, getComponentData, pubsub } = this.props;
+    const { helpers, getComponentData, pubsub, componentData } = this.props;
     const newComponentData = {
-      ...getComponentData(),
+      ...(getComponentData?.() || componentData),
       ...this.getSpoilerConfig(this.state.isSpoilerEnabled),
       disableDownload: !this.state.isDownloadEnabled,
       disableExpand: !this.state.isExpandEnabled,
