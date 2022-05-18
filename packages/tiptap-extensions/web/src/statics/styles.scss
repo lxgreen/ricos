@@ -36,6 +36,7 @@
   @include ricosTypography('quote', false);
   // this is required since the blockquote wraps paragraph
   div {
+    color: $ricos-quote-color;
     @include ricosTypography('quote', false);
   }
 }
