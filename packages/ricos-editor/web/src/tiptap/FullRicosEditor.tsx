@@ -60,6 +60,10 @@ export class FullRicosEditor
     return { error };
   }
 
+  componentDidMount() {
+    this.forceUpdate();
+  }
+
   componentDidCatch(error, errorInfo) {
     console.error({ error, errorInfo });
   }
@@ -170,7 +174,7 @@ export class FullRicosEditor
         <RicosPortal ref={this.portalRef} className={theme?.parentClass}>
           <ThemeStyleTag theme={theme} />
         </RicosPortal>
-        {this.portalRef && (
+        {this.portalRef.current && (
           <LocaleResourceProvider
             isMobile={isMobile}
             experiments={experiments}
