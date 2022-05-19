@@ -50,8 +50,6 @@ export const tiptapExtensions: RicosExtension[] = [
 
         content: 'text*',
 
-        marks: '',
-
         group: 'block',
 
         code: true,

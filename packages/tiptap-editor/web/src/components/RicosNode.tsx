@@ -1,6 +1,7 @@
 import { NodeViewContent } from '@tiptap/react';
 import React, { useContext } from 'react';
 import { RicosTiptapContext } from '../context';
+import styles from '../statics/styles/tiptap-editor-styles.scss';
 
 export const RicosNode = ({ Component, tiptapNodeProps }) => {
   const ricosTiptapContext = useContext(RicosTiptapContext) || {};
@@ -11,5 +12,9 @@ export const RicosNode = ({ Component, tiptapNodeProps }) => {
     ...tiptapNodeProps,
     NodeViewContent,
   };
-  return <Component {...componentProps} />;
+  return (
+    <div className={styles['ricos-node']}>
+      <Component {...componentProps} />
+    </div>
+  );
 };

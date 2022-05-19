@@ -28,6 +28,7 @@ export const indent: RicosExtension = {
   reconfigure(config: RicosExtensionConfig, extensions: RicosExtension[]) {
     const types = extensions
       .filter(extension => extension.groups.includes('text-container'))
+      .filter(extension => extension.name !== 'codeBlock')
       .map(({ name }) => name);
     const minLevel = 0;
     const maxLevel = 4;
