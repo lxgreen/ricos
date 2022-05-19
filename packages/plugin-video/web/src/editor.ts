@@ -7,6 +7,7 @@ import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createVideoData } from './createVideoData';
 import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { getAddButtons } from './getAddButtons';
 
 export const pluginVideo: EditorPluginCreator<VideoPluginEditorConfig> = config => {
   const pluginConfig: VideoPluginEditorConfig = { ...DEFAULTS.config, ...config };
@@ -17,5 +18,6 @@ export const pluginVideo: EditorPluginCreator<VideoPluginEditorConfig> = config 
     ModalsMap,
     createPluginData: createVideoData,
     tiptapExtensions,
+    addButtons: getAddButtons(config),
   } as TiptapEditorPlugin;
 };

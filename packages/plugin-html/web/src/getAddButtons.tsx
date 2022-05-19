@@ -6,7 +6,7 @@ import { HTML_TYPE } from './types';
 import htmlDataDefaults from 'ricos-schema/dist/statics/html.defaults.json';
 
 export const getAddButtons = (config): AddButton[] => {
-  const { exposeButtons = [], siteDomain } = config || {};
+  const { exposeButtons = [htmlButtonsTypes.html], siteDomain } = config || {};
   const index = exposeButtons.indexOf(htmlButtonsTypes.adsense);
   if (!siteDomain && index > -1) {
     exposeButtons.splice(index, 1);

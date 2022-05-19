@@ -44,8 +44,7 @@ export default class VideoUploadModal extends Component {
   }
 
   closeModal = () => {
-    this.setState({ isOpen: false });
-    this.props.helpers.closeModal();
+    this.props.closeModal();
   };
 
   getOnUploadFinished = isCustomVideo => {
@@ -165,4 +164,5 @@ VideoUploadModal.propTypes = {
   blockKey: PropTypes.string,
   uploadService: PropTypes.func,
   updateService: PropTypes.func,
+  closeModal: PropTypes.func,
 };

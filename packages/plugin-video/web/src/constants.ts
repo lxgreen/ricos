@@ -16,3 +16,7 @@ export const embedModalContentStyles: React.CSSProperties = {
   height: 180,
   ...modalContentStyles,
 };
+
+export const videoModals = {
+  insert: 'videoInsertModal',
+};
