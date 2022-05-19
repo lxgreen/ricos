@@ -1,4 +1,4 @@
-import { getTextDirection } from './textDirection';
+import { getTextDirection } from './getTextDirection';
 
 describe('text direction utility', () => {
   it('should resolve empty text as neutral', () => {

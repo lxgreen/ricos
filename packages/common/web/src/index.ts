@@ -33,7 +33,7 @@ export { default as getDisplayName } from './Utils/getDisplayName';
 export { hasLinksInBlock, getLinkRangesInBlock } from './Utils/draftUtils';
 export { validate, getContentStateSchema } from './Utils/data-schema-validator';
 export { isSSR } from './Utils/ssrUtils';
-export { getTextDirection, getDirectionFromAlignmentAndTextDirection } from './Utils/textDirection';
+export { getDirectionFromAlignmentAndTextDirection } from './Utils/textDirection';
 export { GlobalContext } from './Utils/contexts';
 
 export { isHexColor } from './Utils/colorUtils';
@@ -43,6 +43,7 @@ export { simplePubsub } from './Utils/simplePubsub';
 // export type { Pubsub, Store } from './Utils/simplePubsub';
 export { generateKey } from './Utils/generateKey';
 export { getBlocksFromContentState } from './Utils/innerRCEBlocksUtils';
+export { default as getTextDirection } from 'ricos-content/libs/getTextDirection';
 export { UploadServiceContext } from './Utils/uploadServiceContext';
 export * from './consts';
 

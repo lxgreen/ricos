@@ -1,3 +1,3 @@
-import { getTextDirection } from '../src/Utils/textDirection';
+import getTextDirection from 'ricos-content/libs/getTextDirection';
 
 export default getTextDirection;

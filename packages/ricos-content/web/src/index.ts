@@ -22,3 +22,5 @@ export { createContent } from './contentStateUtils/createContent';
 export { compare } from './comparision/compare';
 
 export * from './fp-utils';
+
+export { getTextDirection } from './getTextDirection';
