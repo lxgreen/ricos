@@ -1,0 +1,82 @@
+import TextualTheme from './textual-theme';
+import { ricosPalettes } from '../../../../examples/storybook/src/shared/resources/palettesExample';
+import { FONTS } from '../../../../examples/storybook/src/shared/resources/fontsExample';
+import type { RicosTheme } from 'ricos-types';
+import { Decoration_Type } from 'ricos-schema';
+
+describe('Textual Theme', () => {
+  const theme: RicosTheme = {
+    palette: ricosPalettes[0],
+    customStyles: FONTS[0],
+  };
+
+  it('Should toStyleTag match expected', () => {
+    const styleTag = new TextualTheme(theme).toStyleTag();
+    expect(styleTag.type).toStrictEqual('style');
+    expect(
+      JSON.stringify(styleTag.props.children).includes('--ricos-text-color: #414141')
+    ).toBeTruthy();
+  });
+
+  it('Should getDecoration FontSize match expected', () => {
+    const decoration = new TextualTheme({
+      customStyles: { h1: { fontSize: 18 } },
+    }).getDecoration('headerOne', Decoration_Type.FONT_SIZE);
+    expect(decoration).toStrictEqual({
+      fontSizeData: { unit: 'PX', value: 18 },
+      type: Decoration_Type.FONT_SIZE,
+    });
+  });
+
+  it('Should getDecoration Color match expected', () => {
+    const decoration = new TextualTheme({
+      customStyles: { h2: { color: '#717171' } },
+    }).getDecoration('headerTwo', Decoration_Type.COLOR);
+    expect(decoration).toStrictEqual({
+      colorData: { foreground: '#717171' },
+      type: Decoration_Type.COLOR,
+    });
+  });
+
+  it('Should getDecoration Bold match expected', () => {
+    const decoration = new TextualTheme({
+      customStyles: { h3: { fontWeight: 700 } },
+    }).getDecoration('headerThree', Decoration_Type.BOLD);
+    expect(decoration).toStrictEqual({
+      fontWeightValue: 700,
+      type: Decoration_Type.BOLD,
+    });
+  });
+
+  it('Should getDecoration Underline match expected', () => {
+    const decoration = new TextualTheme({
+      customStyles: { h4: { textDecoration: 'underline' } },
+    }).getDecoration('headerFour', Decoration_Type.UNDERLINE);
+    expect(decoration).toStrictEqual({
+      underlineData: true,
+      type: Decoration_Type.UNDERLINE,
+    });
+  });
+
+  it('Should getDecoration Italic match expected', () => {
+    const decoration = new TextualTheme({
+      customStyles: { p: { fontStyle: 'italic' } },
+    }).getDecoration('paragraph', Decoration_Type.ITALIC);
+    expect(decoration).toStrictEqual({
+      italicData: true,
+      type: Decoration_Type.ITALIC,
+    });
+  });
+
+  it('Should setTheme match expected', () => {
+    const styleTag = new TextualTheme(theme)
+      .setTheme({
+        palette: { textColor: '#515151' },
+      })
+      .toStyleTag();
+    expect(styleTag.type).toStrictEqual('style');
+    expect(
+      JSON.stringify(styleTag.props.children).includes('--ricos-text-color: #515151')
+    ).toBeTruthy();
+  });
+});

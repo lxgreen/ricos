@@ -30,12 +30,13 @@
     "build:analyze:viewer": "npm run build -- --environment MODULE_ANALYZE_VIEWER && open stats.html",
     "watch": "cross-env NODE_ENV=development npm run build:rollup -- --watch",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,d.ts}'",
-    "test": "echo 'no tests to run'",
+    "test": "jest --verbose",
     "test:watchAll": "jest --verbose --watchAll"
   },
   "dependencies": {
     "ricos-types": "8.71.16",
-    "ricos-schema": "8.71.16"
+    "ricos-schema": "8.71.16",
+    "to-camel-case": "1.0.0"
   },
   "unpkg": true,
   "publishConfig": {

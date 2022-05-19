@@ -6,24 +6,24 @@ import type {
 } from 'ricos-schema';
 import type { RicosTheme } from 'ricos-types';
 
-type StyledNodeType = keyof Required<DocumentStyle>;
+type TextNodeType = keyof Required<RichContentDocumentStyle>;
 
 export interface TextualTheme {
-  getDecoration(type: StyledNodeType, decoration: Decoration_Type): Decoration;
+  getDecoration(nodeType: TextNodeType, decorationType: Decoration_Type): Decoration | undefined;
   toStyleTag(): ReactElement;
   setTheme(theme: RicosTheme): TextualTheme;
 }
 
 export interface DocumentStyle {
-  getDecoration(type: StyledNodeType, decoration: Decoration_Type): Decoration;
+  getDecoration(nodeType: TextNodeType, decorationType: Decoration_Type): Decoration | undefined;
   toStyleTag(): ReactElement;
   toContent(): RichContentDocumentStyle;
-  setStyle(type: StyledNodeType, decorations: Decoration[]): DocumentStyle;
+  setStyle(nodeType: TextNodeType, decorations: Decoration[]): DocumentStyle;
   setDocumentStyle(documentStyle: RichContentDocumentStyle): DocumentStyle;
 }
 
 export interface Styles {
-  getDecoration(type: StyledNodeType, decoration: Decoration_Type): Decoration;
+  getDecoration(nodeType: TextNodeType, decorationType: Decoration_Type): Decoration | undefined;
   getTheme(): TextualTheme;
   getDocumentStyle(): DocumentStyle;
 }

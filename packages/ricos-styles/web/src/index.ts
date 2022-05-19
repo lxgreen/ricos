@@ -1,1 +1,1 @@
-export * from './models/styles';
+export { default as Styles } from './styles';
