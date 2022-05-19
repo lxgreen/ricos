@@ -3,23 +3,15 @@ import type { FC } from 'react';
 import { VIDEO_TYPE } from '../types';
 import { videoModals } from '../constants';
 import VideoInsertModal from '../toolbar/NewVideoInsertModal';
-import { withModalContext } from 'ricos-modals';
-import { withRicosContext } from 'wix-rich-content-editor-common';
-import { withTiptapEditorContext } from 'wix-tiptap-editor';
-import type { ModalContextValue } from 'ricos-modals';
-import type { Helpers } from 'wix-rich-content-common';
-import type { GeneralContext } from 'ricos-types';
+import { ModalContext } from 'ricos-modals';
+import { RicosContext } from 'wix-rich-content-editor-common';
+import { TiptapEditorContext } from 'wix-tiptap-editor';
 import { UploadServiceContext } from 'wix-rich-content-common';
 import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
-import type { RichContentAdapter } from 'wix-tiptap-editor';
 interface Props {
-  context: ModalContextValue;
-  ricosContext: GeneralContext;
-  editor: RichContentAdapter;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   componentData: Record<string, any>;
   nodeId?: string;
-  helpers?: Helpers;
   enableCustomUploadOnMobile?: boolean;
   getVideoUrl: (src) => string;
   handleFileSelection: (updateEntity) => void;
@@ -27,14 +19,14 @@ interface Props {
 }
 
 const InsertModal: FC<Props> = ({
-  context: { modalService },
-  ricosContext: { theme, t, isMobile, languageDir },
-  editor: { getEditorCommands },
   nodeId,
   componentData,
   handleFileSelection,
   handleFileUpload,
 }) => {
+  const { theme, t, isMobile, languageDir } = useContext(RicosContext);
+  const { getEditorCommands } = useContext(TiptapEditorContext);
+  const { modalService } = useContext(ModalContext) || {};
   const { uploadService, updateService } = useContext(UploadServiceContext);
   const closeModal = () => {
     modalService.closeModal(videoModals.insert);
@@ -70,4 +62,4 @@ const InsertModal: FC<Props> = ({
   );
 };
 
-export default withRicosContext()(withModalContext(withTiptapEditorContext(InsertModal)));
+export default InsertModal;

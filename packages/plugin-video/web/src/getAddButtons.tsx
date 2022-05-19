@@ -5,6 +5,7 @@ import InsertModal from './modals/InsertModal';
 import type { AddButton } from 'ricos-types';
 import { videoButtonsTypes } from './types';
 import { videoModals } from './constants';
+import { compact } from 'lodash';
 
 export const getAddButtons = (config): AddButton[] => {
   const {
@@ -62,5 +63,5 @@ export const getAddButtons = (config): AddButton[] => {
     },
   };
 
-  return exposeButtons.map(buttonType => buttonsMap[buttonType]);
+  return compact(exposeButtons.map(buttonType => buttonsMap[buttonType]));
 };

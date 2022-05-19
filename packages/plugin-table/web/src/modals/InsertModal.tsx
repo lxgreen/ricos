@@ -1,42 +1,36 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
+import type { FC } from 'react';
 import { tableModals } from '../types';
-import { withModalContext } from 'ricos-modals';
-import { withRicosContext } from 'wix-rich-content-editor-common';
-import type { ModalContextValue } from 'ricos-modals';
+import { ModalContext } from 'ricos-modals';
+import { RicosContext } from 'wix-rich-content-editor-common';
 import TableSettingsModal from '../toolbar/tableSettingsModal';
-import type { GeneralContext } from 'ricos-types';
 
 interface Props {
-  ricosContext: GeneralContext;
-  context: ModalContextValue;
   componentData: Record<string, unknown>;
 }
 
-class InsertModal extends Component<Props> {
-  closeModal = () => {
-    this.props.context.modalService.closeModal(tableModals.insert);
+const TableInsertModal: FC<Props> = ({ componentData }) => {
+  const { theme, t, isMobile } = useContext(RicosContext);
+  const { modalService } = useContext(ModalContext) || {};
+
+  const closeModal = () => {
+    modalService.closeModal(tableModals.insert);
   };
 
-  onTableAdd = table => {
-    this.closeModal();
+  const onTableAdd = table => {
+    closeModal();
   };
 
-  render() {
-    const {
-      componentData,
-      ricosContext: { theme, t, isMobile },
-    } = this.props;
-    return (
-      <TableSettingsModal
-        componentData={componentData}
-        theme={theme}
-        t={t}
-        isMobile={isMobile}
-        onTableAdd={this.onTableAdd}
-        onCloseRequested={this.closeModal}
-      />
-    );
-  }
-}
+  return (
+    <TableSettingsModal
+      componentData={componentData}
+      theme={theme}
+      t={t}
+      isMobile={isMobile}
+      onTableAdd={onTableAdd}
+      onCloseRequested={closeModal}
+    />
+  );
+};
 
-export default withRicosContext()(withModalContext(InsertModal));
+export default TableInsertModal;

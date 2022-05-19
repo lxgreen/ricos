@@ -86,7 +86,6 @@ const FloatingAddPluginMenu = ({ pluginsButtons, addPluginMenuConfig, helpers })
       name: addButton.label,
     };
   });
-
   return (
     <div
       dir={languageDir}
