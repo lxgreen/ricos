@@ -41,6 +41,8 @@ export default (
             props: { ...props, container: popoverComponent },
           });
 
+          component.element.setAttribute('dir', '');
+
           popup = tippy('body', {
             getReferenceClientRect: props.clientRect,
             appendTo: () => document.body,

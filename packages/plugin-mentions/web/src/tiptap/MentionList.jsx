@@ -1,9 +1,16 @@
-import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/mouse-events-have-key-events */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useState, useEffect, forwardRef, useImperativeHandle, useContext } from 'react';
 import PropTypes from 'prop-types';
-import styles from '../../statics/mention-list.scss';
+import AvatarIcon from '../icons/AvatarIcon';
 import classNames from 'classnames';
+import { RicosContext } from 'wix-rich-content-editor-common';
+import styles from '../../statics/mention-list.scss';
 
 const MentionList = forwardRef((props, ref) => {
+  const { languageDir } = useContext(RicosContext) || {};
+
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const selectItem = index => {
@@ -49,20 +56,23 @@ const MentionList = forwardRef((props, ref) => {
     },
   }));
 
-  const Container = props.container.type || 'div';
-  return (
-    <Container className={styles.items} {...(props.container.props || {})}>
-      {props.items.map((item, index) => (
-        <button
-          className={classNames(styles.item, index === selectedIndex && styles.selected)}
-          key={index}
-          onClick={() => selectItem(index)}
+  return props.items.length ? (
+    <div dir={languageDir} className={styles.mention_list}>
+      {props.items.map((item, i) => (
+        <div
+          key={i}
+          className={classNames(styles.mention_item, {
+            [styles.mention_item_selected]: i === selectedIndex,
+          })}
+          onMouseOver={() => setSelectedIndex(i)}
+          onClick={() => selectItem(i)}
         >
+          <AvatarIcon />
           {item}
-        </button>
+        </div>
       ))}
-    </Container>
-  );
+    </div>
+  ) : null;
 });
 
 MentionList.propTypes = {

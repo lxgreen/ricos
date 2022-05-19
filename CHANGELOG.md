@@ -20,8 +20,9 @@
 ### :bug: Bug Fix
 - `mentions`
   - [#3871](https://github.com/wix/ricos/pull/3871) allow spaces in tiptap mentions
+  - [#3868](https://github.com/wix/ricos/pull/3868) fix mentions popover ui
 - `settings-modals`
-  - [#3867](https://github.com/wix/ricos/pull/3868) relate experiments & getComponentData as optional
+  - [#3867](https://github.com/wix/ricos/pull/3867) relate experiments & getComponentData as optional
 
 ### :house: Internal
 
