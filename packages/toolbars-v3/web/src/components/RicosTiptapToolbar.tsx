@@ -26,9 +26,7 @@ class RicosTiptapToolbar extends Component<RicosTiptapToolbarProps, RicosTiptapT
     const { content, editorCommands, toolbarItemsConfig, onLoad } = this.props;
 
     this.toolbar = RicosToolbar.create({
-      toolbarItemCreators: tiptapStaticToolbarConfig.map(config =>
-        ToolbarItemCreator.create(config)
-      ),
+      toolbarItemCreators: toolbarItemsConfig.map(config => ToolbarItemCreator.create(config)),
       content,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       editorCommands,
