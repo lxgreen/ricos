@@ -21,6 +21,7 @@
 - `mentions`
   - [#3871](https://github.com/wix/ricos/pull/3871) allow spaces in tiptap mentions
   - [#3868](https://github.com/wix/ricos/pull/3868) fix mentions popover ui
+  - [#3878](https://github.com/wix/ricos/pull/3878) fix mentions selected / hovered background
 - `settings-modals`
   - [#3867](https://github.com/wix/ricos/pull/3867) relate experiments & getComponentData as optional
 
