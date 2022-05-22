@@ -102,12 +102,13 @@ export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getCo
         const type = TO_TIPTAP_TYPE[pluginType];
         let id = '';
         if (type) {
+          const { content, ..._attrs } = data;
           id = data.id || generateId();
-          const attrs = { id, ...flatComponentState(data) };
+          const attrs = { id, ...flatComponentState(_attrs) };
           this.tiptapEditor
             .chain()
             .focus()
-            .insertContent([{ type: 'paragraph' }, { type, attrs }, { type: 'paragraph' }])
+            .insertContent([{ type, attrs, content }])
             .command(({ tr, commands }) => {
               const nodesWithPos = findNodeById(tr, id);
               if (nodesWithPos[0]) {

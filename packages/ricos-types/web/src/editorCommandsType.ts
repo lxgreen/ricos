@@ -31,6 +31,8 @@ import type {
   RICOS_FONT_SIZE_TYPE,
   DocumentStyle,
   EXTERNAL,
+  COLLAPSIBLE_LIST_TYPE,
+  RICOS_COLLAPSIBLE_LIST_TYPE,
 } from 'ricos-content';
 import type {
   DividerData,
@@ -44,6 +46,7 @@ import type {
   ImageData,
   ColorData,
   Link,
+  CollapsibleListData,
 } from 'ricos-schema';
 import type { MentionData } from './pluginTypes';
 import type { TextAlignment, InlineStyle } from './commonTypes';
@@ -100,6 +103,8 @@ export interface PluginsDataMap {
   [FILE_UPLOAD_TYPE]?: any;
   [RICOS_IMAGE_TYPE]?: ImageData;
   [IMAGE_TYPE]?: any;
+  [COLLAPSIBLE_LIST_TYPE]?: any;
+  [RICOS_COLLAPSIBLE_LIST_TYPE]?: any;
   [EXTERNAL]?: any;
 }
 
