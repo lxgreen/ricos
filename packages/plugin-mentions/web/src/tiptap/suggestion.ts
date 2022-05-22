@@ -22,7 +22,7 @@ export default (
     allowSpaces: true,
     pluginKey: new PluginKey('mention'),
     command: ({ editor, range, props }) => {
-      editor.commands.insertMention({ name: props.id }, range);
+      editor.chain().focus().insertMention({ name: props.id }, range).run;
     },
     items: async ({ query }) => {
       const mentions = await getMentions(query);
