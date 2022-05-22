@@ -105,22 +105,7 @@ export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getCo
           const { content, ..._attrs } = data;
           id = data.id || generateId();
           const attrs = { id, ...flatComponentState(_attrs) };
-          this.tiptapEditor
-            .chain()
-            .focus()
-            .insertContent([{ type, attrs, content }])
-            .command(({ tr, commands }) => {
-              const nodesWithPos = findNodeById(tr, id);
-              if (nodesWithPos[0]) {
-                const { pos } = nodesWithPos[0];
-                commands.setNodeSelection(pos);
-                return true;
-              } else {
-                console.error('Failed to find inserted node and focusing it');
-                return false;
-              }
-            })
-            .run();
+          this.tiptapEditor.chain().focus().insertContent([{ type, attrs, content }]).run();
         } else {
           console.error(`No such plugin type ${pluginType}`);
         }
