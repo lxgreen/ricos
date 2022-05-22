@@ -24,6 +24,8 @@
   - [#3878](https://github.com/wix/ricos/pull/3878) fix mentions selected / hovered background
 - `settings-modals`
   - [#3867](https://github.com/wix/ricos/pull/3867) relate experiments & getComponentData as optional
+- `ricos-eitor`
+  - [#3886](https://github.com/wix/ricos/pull/3886) fix flaky plus button position on tiptap
 
 ### :house: Internal
 
