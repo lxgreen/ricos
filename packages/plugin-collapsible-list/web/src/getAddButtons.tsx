@@ -5,6 +5,7 @@ import type { AddButton } from 'ricos-types';
 export const getAddButtons = (): AddButton[] => {
   return [
     {
+      id: 'collapsibleList',
       icon: InsertPluginIcon,
       label: INSERT_PLUGIN_BUTTONS.COLLAPSIBLE_LIST,
       tooltip: 'CollapsibleListPlugin_InsertButton_Tooltip',

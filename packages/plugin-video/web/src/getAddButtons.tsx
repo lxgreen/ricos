@@ -26,6 +26,7 @@ export const getAddButtons = (config): AddButton[] => {
 
   const buttonsMap: Record<string, AddButton> = {
     [videoButtonsTypes.video]: {
+      id: 'video',
       label: INSERT_PLUGIN_BUTTONS.VIDEO,
       icon: VideoInsertPluginIcon,
       tooltip: 'VideoPlugin_InsertButton_Tooltip',
@@ -44,6 +45,7 @@ export const getAddButtons = (config): AddButton[] => {
       },
     },
     [videoButtonsTypes.youTube]: {
+      id: 'youtube',
       label: INSERT_PLUGIN_BUTTONS.YOUTUBE,
       icon: YoutubeIcon,
       tooltip: 'YouTubePlugin_InsertButton_Tooltip',

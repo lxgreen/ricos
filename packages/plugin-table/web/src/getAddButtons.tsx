@@ -8,6 +8,7 @@ import { tableModals } from './types';
 export const getAddButtons = (): AddButton[] => {
   return [
     {
+      id: 'table',
       label: INSERT_PLUGIN_BUTTONS.TABLE,
       icon: InsertPluginIcon,
       tooltip: 'TablePlugin_InsertButton_Tooltip',

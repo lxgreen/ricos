@@ -7,6 +7,7 @@ import { emojiModals } from './types';
 export const getAddButtons = (config): AddButton[] => {
   return [
     {
+      id: 'emoji',
       label: INSERT_PLUGIN_BUTTONS.EMOJI,
       icon: EmojiPluginIcon,
       tooltip: 'EmojiPlugin_InsertButton_Tooltip',

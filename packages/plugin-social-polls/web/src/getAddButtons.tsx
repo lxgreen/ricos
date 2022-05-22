@@ -12,6 +12,7 @@ export const getAddButtons = (config): AddButton[] => {
   });
   return [
     {
+      id: 'polls',
       label: INSERT_PLUGIN_BUTTONS.POLLS,
       icon: InsertPluginIcon,
       tooltip: 'Poll_InsertPoll_Tooltip',

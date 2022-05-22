@@ -13,6 +13,7 @@ export const getAddButtons = (config): AddButton[] => {
   }
   const buttonsMap: Record<string, AddButton> = {
     [htmlButtonsTypes.html]: {
+      id: 'html',
       label: INSERT_PLUGIN_BUTTONS.HTML,
       icon: InsertPluginIcon,
       tooltip: 'HtmlPlugin_InsertButton_Tooltip',
@@ -25,6 +26,7 @@ export const getAddButtons = (config): AddButton[] => {
       },
     },
     [htmlButtonsTypes.adsense]: {
+      id: 'adsense',
       label: INSERT_PLUGIN_BUTTONS.ADSENSE,
       icon: AdsenseIcon,
       tooltip: 'AdSensePlugin_InsertButton_Tooltip',

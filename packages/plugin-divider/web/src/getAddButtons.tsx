@@ -6,6 +6,7 @@ import { DIVIDER_TYPE } from './types';
 export const getAddButtons = (): AddButton[] => {
   return [
     {
+      id: 'divider',
       icon: InsertPluginIcon,
       label: INSERT_PLUGIN_BUTTONS.DIVIDER,
       tooltip: 'DividerPlugin_InsertButton_Tooltip',

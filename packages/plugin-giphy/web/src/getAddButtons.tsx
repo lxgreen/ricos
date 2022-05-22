@@ -8,6 +8,7 @@ import { gifModals } from './types';
 export const getAddButtons = (config): AddButton[] => {
   return [
     {
+      id: 'gif',
       label: INSERT_PLUGIN_BUTTONS.GIF,
       icon: InsertPluginIcon,
       tooltip: 'GiphyPlugin_InsertButton_Tooltip',

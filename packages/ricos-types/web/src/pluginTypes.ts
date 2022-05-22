@@ -241,6 +241,7 @@ type MenuConfig = {
 };
 
 export type AddButton = {
+  id: string;
   icon: ComponentType;
   command: (editorCommands: EditorCommands) => boolean;
   modal?: ModalConfig;
