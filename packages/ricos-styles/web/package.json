@@ -36,6 +36,7 @@
   "dependencies": {
     "ricos-types": "8.71.16",
     "ricos-schema": "8.71.16",
+    "ricos-common": "8.71.16",
     "to-camel-case": "1.0.0"
   },
   "unpkg": true,
