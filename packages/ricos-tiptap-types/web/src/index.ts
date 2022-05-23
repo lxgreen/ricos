@@ -161,8 +161,7 @@ export type ExtensionProps = {
   isTextWrap?: boolean;
   maxTextLength?: number;
   anchorTarget?: LinkSettings['anchorTarget'];
-  relValue?: LinkSettings['relValue'];
-  rel?: LinkSettings['rel'];
+  rel?: string;
 };
 
 export type HtmlAttributes = {

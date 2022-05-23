@@ -1,7 +1,13 @@
 import React from 'react';
 import type { RichContentEditorProps } from 'wix-rich-content-editor';
 import { RichContentEditor } from 'wix-rich-content-editor';
-import type { DraftContent, RicosEditorType, RicosTheme, ToolbarSettings } from 'ricos-editor';
+import type {
+  DraftContent,
+  LinkSettings,
+  RicosEditorType,
+  RicosTheme,
+  ToolbarSettings,
+} from 'ricos-editor';
 import { RicosEditor } from 'ricos-editor';
 import { pluginLinkButton, pluginActionButton } from 'wix-rich-content-plugin-button';
 import { pluginCodeBlock } from 'wix-rich-content-plugin-code-block';
@@ -296,6 +302,7 @@ interface Props {
   isMobile?: boolean;
   pluginsToDisplay?: string[];
   toolbarSettings?: ToolbarSettings;
+  linkSettings?: LinkSettings;
   onBlur?: RichContentEditorProps['onBlur'];
   onFocus?: RichContentEditorProps['onFocus'];
   theme?: RicosTheme;
@@ -326,6 +333,7 @@ class EditorWrapper extends React.Component<Props> {
       theme,
       onChange,
       isMobile,
+      linkSettings,
       toolbarSettings,
       onBlur,
       onFocus,
@@ -343,6 +351,7 @@ class EditorWrapper extends React.Component<Props> {
           injectedContent={injectedContent}
           isMobile={isMobile}
           placeholder={'Share something...'}
+          linkSettings={linkSettings}
           toolbarSettings={toolbarSettings}
           onChange={(...args) => {
             onChange?.(...args, this.editor);

@@ -4,7 +4,7 @@ import type { Plugin } from 'prosemirror-state';
 import { parseLink } from 'ricos-content/libs/nodeUtils';
 import type { LinkData } from 'ricos-schema';
 import linkDataDefaults from 'ricos-schema/dist/statics/link.defaults.json';
-import type { RicosExtension } from 'ricos-tiptap-types';
+import type { DOMOutputSpec, ExtensionProps, MarkConfig, RicosExtension } from 'ricos-tiptap-types';
 import type { DeepPartial } from 'utility-types';
 import styles from '../statics/styles.scss';
 import { autolink } from './helpers/autolink';
@@ -34,6 +34,16 @@ export const link: RicosExtension = {
   type: 'mark' as const,
   groups: [],
   name: 'link',
+  reconfigure: (config: MarkConfig, _extensions: RicosExtension[], props: ExtensionProps) => ({
+    ...config,
+    addOptions: () => ({
+      openOnClick: true,
+      linkOnPaste: true,
+      autolink: true,
+      HTMLAttributes: { link: {} },
+      defaults: { target: props.anchorTarget || '_self', rel: props.rel || 'noopener noreferrer' },
+    }),
+  }),
   createExtensionConfig({ markPasteRule }) {
     return {
       name: this.name,
@@ -45,26 +55,23 @@ export const link: RicosExtension = {
         return this.options.autolink;
       },
 
-      addOptions: () => ({
-        openOnClick: true,
-        linkOnPaste: true,
-        autolink: true,
-        HTMLAttributes: { link: {} },
-      }),
-
       addAttributes() {
         return linkDataDefaults;
       },
 
       parseHTML() {
-        return [{ tag: 'a[href]' }];
+        return [{ tag: 'a[href]:not([href *= "javascript:" i])' }];
       },
 
       renderHTML({ HTMLAttributes }) {
         const { link, linkInViewer } = styles;
         const classes = classNames(link, linkInViewer);
-        const { url: href, rel, target } = parseLink(HTMLAttributes.link);
-        return { 0: 'a', 1: { href, rel, target, class: classes } };
+        const {
+          url: href,
+          rel = this.options.defaults.rel,
+          target = this.options.defaults.target,
+        } = parseLink(HTMLAttributes.link);
+        return ['a', { href, rel, target, class: classes }, 0] as DOMOutputSpec;
       },
 
       addCommands() {
@@ -92,8 +99,15 @@ export const link: RicosExtension = {
       addPasteRules() {
         return [
           markPasteRule({
-            find: (text: string) =>
+            find: text =>
               find(text)
+                .filter(link => {
+                  if (this.options.validate) {
+                    return this.options.validate(link.value);
+                  }
+
+                  return true;
+                })
                 .filter(link => link.isLink)
                 .map(link => ({
                   text: link.value,
@@ -132,6 +146,7 @@ export const link: RicosExtension = {
             pasteHandler({
               editor: this.editor,
               type: this.type,
+              defaults: this.options.defaults,
             })
           );
         }

@@ -81,7 +81,6 @@ export const textAlign: RicosExtension = {
             (alignment: string) =>
             ({ commands }) => {
               const textAlignment = styleToEnum(alignment);
-              console.log('set alignment call', textAlignment); // eslint-disable-line no-console
               if (!this.options.alignments.includes(textAlignment)) {
                 console.error(
                   `invalid text alignment ${alignment} provided to setTextAlign command`

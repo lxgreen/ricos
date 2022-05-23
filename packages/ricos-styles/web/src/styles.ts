@@ -1,3 +1,4 @@
+import type { ReactElement, JSXElementConstructor } from 'react';
 import type { DocumentStyle as RichContentDocumentStyle } from 'ricos-schema';
 import type { RicosTheme } from 'ricos-types';
 import DocumentStyle from './document-style';
@@ -12,6 +13,10 @@ export default class Styles implements IStyles {
   constructor(theme: RicosTheme, documentStyle: RichContentDocumentStyle) {
     this.theme = theme;
     this.documentStyle = documentStyle;
+  }
+
+  toStyleTags(): ReactElement[] {
+    throw new Error('Method not implemented.');
   }
 
   getDecoration: IStyles['getDecoration'] = (nodeType, decorationType) => {

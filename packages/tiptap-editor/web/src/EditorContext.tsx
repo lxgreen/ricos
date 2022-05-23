@@ -4,6 +4,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import type { RicosEditorProps } from 'ricos-common';
 import type { ExtensionProps, TiptapEditorPlugin } from 'ricos-tiptap-types';
 import type { DraftContent, EditorPlugin } from 'wix-rich-content-common';
+import { convertRelObjectToString, convertRelStringToObject } from 'wix-rich-content-common';
 import { commonExtensions } from './common-extensions';
 import { RichContentAdapter } from './components/RichContentAdapter/RichContentAdapter';
 import { applyDevTools } from './components/RicosTiptapEditor/apply-dev-tools';
@@ -30,6 +31,10 @@ const extractExtensionProps = (props: RicosEditorProps): ExtensionProps => {
 
   const { anchorTarget, rel, relValue } = linkSettings || {};
 
+  const processedRel = convertRelObjectToString(
+    relValue ? convertRelStringToObject(relValue) : rel
+  );
+
   return {
     placeholder,
     textAlignment,
@@ -37,8 +42,7 @@ const extractExtensionProps = (props: RicosEditorProps): ExtensionProps => {
     isTextWrap: textWrap,
     maxTextLength,
     anchorTarget,
-    relValue,
-    rel,
+    rel: processedRel,
   };
 };
 

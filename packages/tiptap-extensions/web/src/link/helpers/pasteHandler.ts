@@ -6,6 +6,10 @@ import { find } from 'linkifyjs';
 type PasteHandlerOptions = {
   editor: Editor;
   type: MarkType;
+  defaults: {
+    target: string;
+    rel: string;
+  };
 };
 
 export function pasteHandler(options: PasteHandlerOptions): Plugin {
@@ -34,7 +38,7 @@ export function pasteHandler(options: PasteHandlerOptions): Plugin {
         }
 
         options.editor.commands.setMark(options.type, {
-          href: link.href,
+          link: { href: link.href, ...options.defaults },
         });
 
         return true;
