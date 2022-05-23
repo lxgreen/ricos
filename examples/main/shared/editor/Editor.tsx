@@ -184,13 +184,13 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
             placeholder={'Add some text!'}
             plugins={this.ricosPlugins}
             linkPanelSettings={{ ...(Plugins.uiSettings.linkPanel || {}), externalPopups }}
+            linkSettings={{ anchorTarget: '_blank', relValue: 'nofollow' }}
             _rcProps={{
               helpers: this.helpers,
               config: { [POLL_TYPE]: { pollsClientApi: new SocialPollsServiceMock() } },
             }}
             experiments={experiments}
             textWrap={textWrap}
-            onAtomicBlockFocus={d => console.debug('onAtomicBlockFocus', d)} // eslint-disable-line
             sideBlockComponent={
               showSideBlockComponent && createSideBlockComponent(this.editor?.getEditorCommands())
             }

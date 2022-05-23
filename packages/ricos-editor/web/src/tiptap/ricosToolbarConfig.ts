@@ -52,8 +52,6 @@ export class ToolbarConfig {
       const buttonConfig = tiptapToolbarConfig.find(config => config.id === button);
       if (buttonConfig) {
         tiptapToolbarItemsConfig.push(buttonConfig);
-      } else {
-        console.error(`ricosToolbarConfig:buttonId:${button} is missing`);
       }
     });
     return tiptapToolbarItemsConfig;

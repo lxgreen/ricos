@@ -7,8 +7,8 @@ export const createUploadServiceContextValue = (
   hiddenInputElement: HTMLInputElement,
   editorCommands?: any,
   BICallbacks?: {
-    onMediaUploadStart: any;
-    onMediaUploadEnd: any;
+    onMediaUploadStart?: any;
+    onMediaUploadEnd?: any;
   },
   UploadObserver?: IUploadObserver
 ) => {

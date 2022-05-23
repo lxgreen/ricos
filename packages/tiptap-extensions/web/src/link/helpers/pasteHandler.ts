@@ -1,15 +1,13 @@
 import type { Editor } from '@tiptap/core';
-import { Plugin, PluginKey } from 'prosemirror-state';
-import type { MarkType } from 'prosemirror-model';
 import { find } from 'linkifyjs';
+import type { MarkType } from 'prosemirror-model';
+import { Plugin, PluginKey } from 'prosemirror-state';
+import type { RicosLink } from '../models';
 
 type PasteHandlerOptions = {
   editor: Editor;
   type: MarkType;
-  defaults: {
-    target: string;
-    rel: string;
-  };
+  defaultLink: RicosLink;
 };
 
 export function pasteHandler(options: PasteHandlerOptions): Plugin {
@@ -37,8 +35,10 @@ export function pasteHandler(options: PasteHandlerOptions): Plugin {
           return false;
         }
 
+        const ricosLink = options.defaultLink.setUrl(link.href);
+
         options.editor.commands.setMark(options.type, {
-          link: { href: link.href, ...options.defaults },
+          link: ricosLink.toLink(),
         });
 
         return true;

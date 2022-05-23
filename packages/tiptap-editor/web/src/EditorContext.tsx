@@ -1,18 +1,17 @@
 import { Editor } from '@tiptap/react';
 import type { ComponentType, FC, ReactChild } from 'react';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import type { RicosEditorProps } from 'ricos-common';
 import type { ExtensionProps, TiptapEditorPlugin } from 'ricos-tiptap-types';
 import type { DraftContent, EditorPlugin } from 'wix-rich-content-common';
-import { convertRelObjectToString, convertRelStringToObject } from 'wix-rich-content-common';
+import { RicosContext } from 'wix-rich-content-editor-common';
+import { draftToTiptap } from 'wix-tiptap-extensions';
 import { commonExtensions } from './common-extensions';
 import { RichContentAdapter } from './components/RichContentAdapter/RichContentAdapter';
 import { applyDevTools } from './components/RicosTiptapEditor/apply-dev-tools';
 import { coreConfigs } from './components/RicosTiptapEditor/core-configs';
 import { Extensions } from './models/Extensions';
 import { patchExtensions } from './patch-extensions';
-import { RicosContext } from 'wix-rich-content-editor-common';
-import { draftToTiptap } from 'wix-tiptap-extensions';
 
 type TiptapEditorProviderProps = {
   content: DraftContent;
@@ -31,10 +30,6 @@ const extractExtensionProps = (props: RicosEditorProps): ExtensionProps => {
 
   const { anchorTarget, rel, relValue } = linkSettings || {};
 
-  const processedRel = convertRelObjectToString(
-    relValue ? convertRelStringToObject(relValue) : rel
-  );
-
   return {
     placeholder,
     textAlignment,
@@ -42,7 +37,8 @@ const extractExtensionProps = (props: RicosEditorProps): ExtensionProps => {
     isTextWrap: textWrap,
     maxTextLength,
     anchorTarget,
-    rel: processedRel,
+    rel,
+    relValue,
   };
 };
 

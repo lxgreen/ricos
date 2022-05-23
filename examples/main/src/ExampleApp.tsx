@@ -338,7 +338,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
           className="section editor-example"
         >
           <SectionHeader
-            title="Editor"
+            title={experiments?.tiptapEditor?.enabled ? 'Tiptap 👍' : 'Draft 👎'}
             settings={this.editorSettings}
             onHide={this.onSectionVisibilityChange}
           />

@@ -1,15 +1,15 @@
+import type { ExtendedRegExpMatchArray } from '@tiptap/core';
 import classNames from 'classnames';
 import { find } from 'linkifyjs';
 import type { Plugin } from 'prosemirror-state';
-import { parseLink } from 'ricos-content/libs/nodeUtils';
 import type { LinkData } from 'ricos-schema';
-import linkDataDefaults from 'ricos-schema/dist/statics/link.defaults.json';
 import type { DOMOutputSpec, ExtensionProps, MarkConfig, RicosExtension } from 'ricos-tiptap-types';
 import type { DeepPartial } from 'utility-types';
 import styles from '../statics/styles.scss';
 import { autolink } from './helpers/autolink';
 import { clickHandler } from './helpers/clickHandler';
 import { pasteHandler } from './helpers/pasteHandler';
+import { RicosLink } from './models';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -34,16 +34,19 @@ export const link: RicosExtension = {
   type: 'mark' as const,
   groups: [],
   name: 'link',
-  reconfigure: (config: MarkConfig, _extensions: RicosExtension[], props: ExtensionProps) => ({
-    ...config,
-    addOptions: () => ({
-      openOnClick: true,
-      linkOnPaste: true,
-      autolink: true,
-      HTMLAttributes: { link: {} },
-      defaults: { target: props.anchorTarget || '_self', rel: props.rel || 'noopener noreferrer' },
-    }),
-  }),
+  reconfigure: (config: MarkConfig, _extensions: RicosExtension[], props: ExtensionProps) => {
+    const { rel, relValue, anchorTarget } = props;
+    return {
+      ...config,
+      addOptions: () => ({
+        openOnClick: false,
+        linkOnPaste: true,
+        autolink: true,
+        HTMLAttributes: { link: {} },
+        defaultLink: RicosLink.of('', anchorTarget, relValue, rel),
+      }),
+    };
+  },
   createExtensionConfig({ markPasteRule }) {
     return {
       name: this.name,
@@ -56,7 +59,7 @@ export const link: RicosExtension = {
       },
 
       addAttributes() {
-        return linkDataDefaults;
+        return RicosLink.getLinkDefaults();
       },
 
       parseHTML() {
@@ -68,23 +71,25 @@ export const link: RicosExtension = {
         const classes = classNames(link, linkInViewer);
         const {
           url: href,
-          rel = this.options.defaults.rel,
-          target = this.options.defaults.target,
-        } = parseLink(HTMLAttributes.link);
+          rel,
+          target,
+        } = HTMLAttributes.link
+          ? RicosLink.fromLink(HTMLAttributes.link).toHtmlAttributes()
+          : this.options.defaultLink.toHtmlAttributes();
         return ['a', { href, rel, target, class: classes }, 0] as DOMOutputSpec;
       },
 
       addCommands() {
         return {
           setLink:
-            attributes =>
+            (link: LinkData) =>
             ({ commands }) => {
-              return commands.setMark(this.name, attributes);
+              return commands.setMark(this.name, link);
             },
           toggleLink:
-            attributes =>
+            (link: LinkData) =>
             ({ commands }) => {
-              return commands.toggleMark(this.name, attributes, { extendEmptyMarkRange: true });
+              return commands.toggleMark(this.name, link, { extendEmptyMarkRange: true });
             },
           unsetLink:
             () =>
@@ -99,8 +104,8 @@ export const link: RicosExtension = {
       addPasteRules() {
         return [
           markPasteRule({
-            find: text =>
-              find(text)
+            find: (text: string) => {
+              return find(text)
                 .filter(link => {
                   if (this.options.validate) {
                     return this.options.validate(link.value);
@@ -113,11 +118,12 @@ export const link: RicosExtension = {
                   text: link.value,
                   index: link.start,
                   data: link,
-                })),
+                }));
+            },
             type: this.type,
-            getAttributes: match => ({
-              href: match.data?.href,
-            }),
+            getAttributes: (match: ExtendedRegExpMatchArray) => {
+              return this.options.defaultLink.setUrl(match.data?.href || '');
+            },
           }),
         ];
       },
@@ -129,6 +135,7 @@ export const link: RicosExtension = {
           plugins.push(
             autolink({
               type: this.type,
+              defaultLink: this.options.defaultLink,
             })
           );
         }
@@ -146,7 +153,7 @@ export const link: RicosExtension = {
             pasteHandler({
               editor: this.editor,
               type: this.type,
-              defaults: this.options.defaults,
+              defaultLink: this.options.defaultLink,
             })
           );
         }

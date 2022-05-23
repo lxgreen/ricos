@@ -7,9 +7,11 @@ import {
 import { Plugin, PluginKey } from 'prosemirror-state';
 import type { MarkType } from 'prosemirror-model';
 import { find, test } from 'linkifyjs';
+import type { RicosLink } from '../models';
 
 type AutolinkOptions = {
   type: MarkType;
+  defaultLink: RicosLink;
 };
 
 export function autolink(options: AutolinkOptions): Plugin {
@@ -88,7 +90,7 @@ export function autolink(options: AutolinkOptions): Plugin {
                 link.from,
                 link.to,
                 options.type.create({
-                  link: { url: link.href },
+                  link: options.defaultLink.setUrl(link.href).toLink(),
                 })
               );
             });
