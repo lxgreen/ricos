@@ -1,4 +1,3 @@
-import { DEFAULT_MOBILE_BROWSERS } from './settings';
 import { testFixtures } from './testFixtures';
 
 describe('editor rendering', () => {
@@ -7,20 +6,8 @@ describe('editor rendering', () => {
   });
 
   context('mobile', () => {
-    before(function () {
-      cy.eyesOpen({
-        appName: 'Rendering',
-        testName: this.test.parent.title,
-        browser: DEFAULT_MOBILE_BROWSERS,
-      });
-    });
-
     beforeEach(() => cy.switchToMobile());
 
-    after(() => {
-      cy.eyesClose();
-    });
-
-    testFixtures();
+    testFixtures({ isMobile: true });
   });
 });

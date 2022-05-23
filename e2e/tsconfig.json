@@ -8,8 +8,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["**/*.ts", "**/*.json"],
-  "files": [
-    "../node_modules/cypress-plugin-snapshots/types/index.d.ts",
-    "../node_modules/@applitools/eyes-cypress/eyes-index.d.ts"
-  ]
+  "files": ["../node_modules/cypress-plugin-snapshots/types/index.d.ts"]
 }

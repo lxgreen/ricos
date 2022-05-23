@@ -1,31 +1,13 @@
 import { IMAGE_SETTINGS, PLUGIN_COMPONENT, STATIC_TOOLBAR_BUTTONS } from '../cypress/dataHooks';
-import { DEFAULT_DESKTOP_BROWSERS } from './settings';
 import { usePlugins, plugins } from '../cypress/testAppConfig';
-
-const eyesOpen = ({
-  test: {
-    parent: { title },
-  },
-}: Mocha.Context) =>
-  cy.eyesOpen({
-    appName: 'Plugins',
-    testName: title,
-    browser: DEFAULT_DESKTOP_BROWSERS,
-  });
 
 describe('plugins', () => {
   context('undo redo', () => {
-    before(function () {
-      eyesOpen(this);
-    });
-
     beforeEach('load editor', () => {
       cy.switchToDesktop();
     });
 
-    after(() => cy.eyesClose());
-
-    it('should undo and redo image plugin customizations', function () {
+    it('should undo and redo image plugin customizations', () => {
       cy.loadRicosEditorAndViewer('empty');
       cy.clickOnStaticButton(STATIC_TOOLBAR_BUTTONS.IMAGE, { force: true });
       cy.wait(500);
@@ -49,10 +31,10 @@ describe('plugins', () => {
       );
       cy.redo();
       cy.get('textarea').should('have.value', 'Title');
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
 
-    it('should undo and redo collapsible list plugin customizations', function () {
+    it('should undo and redo collapsible list plugin customizations', () => {
       cy.loadRicosEditorAndViewer('empty', {
         ...usePlugins(plugins.all),
       });
@@ -67,7 +49,7 @@ describe('plugins', () => {
       cy.get(`[data-rbd-draggable-context-id=${0}]`).eq(1).should('not.exist');
       cy.wait(100);
       cy.undo().undo().undo().undo();
-      cy.eyesCheckWindow('should be an empty collapsible list');
+      cy.percySnapshot('should be an empty collapsible list');
       cy.undo();
       cy.get(`[data-hook=${PLUGIN_COMPONENT.COLLAPSIBLE_LIST}]:first`).should('not.exist');
       cy.redo();
@@ -76,10 +58,10 @@ describe('plugins', () => {
       cy.get(`[data-rbd-draggable-context-id=${1}]`).eq(1).should('exist');
       cy.redo();
       cy.get(`[data-hook=${PLUGIN_COMPONENT.IMAGE}]:first`).should('exist');
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
 
-    it('should undo and redo table plugin customizations', function () {
+    it('should undo and redo table plugin customizations', () => {
       cy.loadRicosEditorAndViewer('empty', {
         ...usePlugins(plugins.all),
       });
@@ -120,7 +102,7 @@ describe('plugins', () => {
       cy.redo();
       cy.redo();
       cy.redo();
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
   });
 });

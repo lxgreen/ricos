@@ -6,7 +6,6 @@ import {
   SOUND_CLOUD,
   SOCIAL_EMBED,
 } from '../cypress/dataHooks';
-import { DEFAULT_DESKTOP_BROWSERS } from './settings';
 
 const LINKS = {
   YOUTUBE: 'https://www.youtube.com/watch?v=whbidPR4nVA',
@@ -50,14 +49,11 @@ const additionalCommands = {
 const testInsertPlugin =
   (toolbar: string) =>
   ([plugin, pluginButtonName]: [string, string]) =>
-    it(`should insert ${plugin?.toLocaleLowerCase()}`, function () {
+    it(`should insert ${plugin?.toLocaleLowerCase()}`, () => {
       cy.loadRicosEditorAndViewer('empty').wait(500).insertPlugin(toolbar, pluginButtonName);
-
       additionalCommands[plugin]?.();
-
       cy.wait(1500);
-
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
 
 // const testNativeUploadMediaPlugin = toolbar => ([plugin, pluginButtonName]) =>
@@ -82,32 +78,15 @@ const testInsertPlugin =
 
 //     cy.wait(2000);
 
-//     cy.eyesCheckWindow(this.test.title);
+//     cy.percySnapshot();
 //   });
 
-const eyesOpen = ({
-  test: {
-    parent: { title },
-  },
-}: Mocha.Context) =>
-  cy.eyesOpen({
-    appName: 'Insert Plugins',
-    testName: title,
-    browser: DEFAULT_DESKTOP_BROWSERS,
-  });
-
 describe('insert plugins tests', () => {
-  before(function () {
-    eyesOpen(this);
-  });
-
   beforeEach('load editor', () => {
     cy.switchToDesktop();
   });
 
   afterEach(() => cy.matchContentSnapshot());
-
-  after(() => cy.eyesClose());
 
   context('side toolbar', () => {
     Object.entries(STATIC_TOOLBAR_BUTTONS_WITHOUT_EMBED).forEach(testInsertPlugin(TOOLBARS.SIDE));

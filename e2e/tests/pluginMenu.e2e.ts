@@ -1,30 +1,19 @@
-import { DEFAULT_DESKTOP_BROWSERS } from './settings';
 import { getPluginMenuConfig, getFooterToolbarConfig, plugins } from '../cypress/testAppConfig';
 import { STATIC_TOOLBAR_BUTTONS } from '../cypress/dataHooks';
 import type { TestAppConfig } from '../../examples/main/src/types';
 
 const pluginMenuRenderer = (title: string, config?: TestAppConfig) => {
   cy.loadRicosEditorAndViewer('newLines', config).focusEditor().openSideToolbar();
-  cy.eyesCheckWindow(title);
+  cy.percySnapshot(title);
 };
 
 const footerPluginMenuRenderer = (title: string, config?: TestAppConfig) => {
   cy.loadRicosEditorAndViewer('newLines', config).focusEditor().openFooterPluginMenu();
-  cy.eyesCheckWindow(title);
+  cy.percySnapshot(title);
 };
 
 describe('plugin menu test', () => {
   context('plugin menu', () => {
-    before(function () {
-      cy.eyesOpen({
-        appName: 'pluginMenu',
-        testName: this.test.parent.title,
-        browser: DEFAULT_DESKTOP_BROWSERS,
-      });
-    });
-
-    after(() => cy.eyesClose());
-
     it('should render horizontal plugin menu', function () {
       pluginMenuRenderer(this.test.title);
     });
@@ -45,16 +34,6 @@ describe('plugin menu test', () => {
     });
   });
   context('footer toolbar', () => {
-    before(function () {
-      cy.eyesOpen({
-        appName: 'footerPluginMenu',
-        testName: this.test.parent.title,
-        browser: DEFAULT_DESKTOP_BROWSERS,
-      });
-    });
-
-    after(() => cy.eyesClose());
-
     it('should render shortcut menu', function () {
       footerPluginMenuRenderer(this.test.title, getFooterToolbarConfig({ morePluginsMenu: {} }));
     });
@@ -88,14 +67,6 @@ describe('plugin menu test', () => {
   });
 
   context('side menu modals', () => {
-    before(function () {
-      cy.eyesOpen({
-        appName: 'pluginMenuModals',
-        testName: this.test.parent.title,
-        browser: DEFAULT_DESKTOP_BROWSERS,
-      });
-    });
-
     beforeEach('load editor', () => {
       const config = {
         plugins: [plugins.emoji, plugins.giphy],
@@ -103,11 +74,9 @@ describe('plugin menu test', () => {
       cy.loadRicosEditorAndViewer('newLines', config);
     });
 
-    after(() => cy.eyesClose());
-
-    it('open emoji modal from side menu', function () {
+    it('open emoji modal from side menu', () => {
       cy.focusEditor().openSideToolbar().clickOnPluginMenuButton(STATIC_TOOLBAR_BUTTONS.EMOJI);
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
   });
 });

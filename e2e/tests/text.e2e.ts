@@ -1,37 +1,27 @@
 import { INLINE_TOOLBAR_BUTTONS, ACTION_BUTTONS } from '../cypress/dataHooks';
-import { DEFAULT_DESKTOP_BROWSERS, DEFAULT_MOBILE_BROWSERS } from './settings';
 import { usePlugins, usePluginsConfig, plugins } from '../cypress/testAppConfig';
-
-const changeTextColor = (title: string) => {
+import { DEFAULT_MOBILE_WIDTHS } from './settings';
+const changeTextColor = (title: string, isMobile = false) => {
+  const percyParam = isMobile ? DEFAULT_MOBILE_WIDTHS : {};
   cy.loadRicosEditorAndViewer('plain')
     .setTextStyle(INLINE_TOOLBAR_BUTTONS.COLOR, [20, 15])
     .openCustomColorModal();
-  cy.eyesCheckWindow(title);
+  cy.percySnapshot(title + ' - custom color modal', percyParam);
   cy.setColorByHex('d932c3');
   cy.updateTextColor();
-  cy.eyesCheckWindow(title);
+  cy.percySnapshot(title + ' - update color', percyParam);
   if (!title.includes('mobile')) {
     cy.setTextStyle(INLINE_TOOLBAR_BUTTONS.COLOR, [20, 5]).resetColor();
-    cy.eyesCheckWindow(title);
+    cy.percySnapshot(title + ' - final', percyParam);
   }
 };
 
 describe('text', () => {
-  before(function () {
-    cy.eyesOpen({
-      appName: 'Text',
-      testName: this.test.parent.title,
-      browser: DEFAULT_DESKTOP_BROWSERS,
-    });
-  });
-
   beforeEach(() => cy.switchToDesktop());
 
   afterEach(() => cy.matchContentSnapshot());
 
-  after(() => cy.eyesClose());
-
-  it('allow to enter text', function () {
+  it('allow to enter text', () => {
     cy.loadRicosEditorAndViewer()
       .enterParagraphs([
         'Leverage agile frameworks',
@@ -39,14 +29,14 @@ describe('text', () => {
       ])
       .setEditorSelection(0, 0)
       .blurEditor();
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
   it('allow to change text color', function () {
     changeTextColor(this.test.title);
   });
 
-  it('allow to apply inline styles and links', function () {
+  it('allow to apply inline styles and links', () => {
     cy.loadRicosEditorAndViewer('plain')
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.BOLD, [40, 10])
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.UNDERLINE, [10, 5])
@@ -80,7 +70,7 @@ describe('text', () => {
       .setLink([0, 10], 'https://www.wix.com/')
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.CODE_BLOCK, [0, 10])
       .blurEditor();
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
   // it('allow to apply inline styles and links - isolated', function() {
@@ -103,34 +93,34 @@ describe('text', () => {
   //     .enterParagraphs(['#LIVING THE DREAM\n'])
   //     .setEditorSelection(0, 0)
   //     .blurEditor();
-  //   cy.eyesCheckWindow(this.test.title);
+  //   cy.percySnapshot();
   // });
 
-  it('allow to enter hashtag with link', function () {
+  it('allow to enter hashtag with link', () => {
     cy.loadRicosEditorAndViewer()
       .enterParagraphs([
         '#wix.com wix.com #this_is_not_a_link #will_be_a_link thisislink#youknow.com ',
       ])
       .setLink([37, 15], 'https://www.wix.com/');
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
-  it('remove hashtag inside quotes', function () {
+  it('remove hashtag inside quotes', () => {
     cy.loadRicosEditorAndViewer().enterParagraphs([
       'This is #hashtag! This #is not \'#hashtag\'! This is also not "#hashtag" ! hashtag #Test ',
     ]);
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
-  it('allow to create lists', function () {
+  it('allow to create lists', () => {
     cy.loadRicosEditorAndViewer('plain')
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.ORDERED_LIST, [300, 100])
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.UNORDERED_LIST, [550, 1])
       .blurEditor();
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
-  it('open link toolbar (InlinePluginToolbar)', function () {
+  it('open link toolbar (InlinePluginToolbar)', () => {
     // set link
     cy.loadRicosEditorAndViewer('plain')
       .setLink([0, 10], 'https://www.wix.com/')
@@ -138,7 +128,7 @@ describe('text', () => {
       .setEditorSelection(5, 0)
       .wait(200);
     // take snapshot of the toolbar
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
     // edit link
     cy.get(`[data-hook=linkPluginToolbar] [data-hook=LinkButton]`)
       .click()
@@ -155,7 +145,7 @@ describe('text', () => {
     cy.blurEditor();
   });
 
-  it('should insert custom link', function () {
+  it('should insert custom link', () => {
     const testAppConfig = {
       ...usePluginsConfig({
         link: {
@@ -167,10 +157,10 @@ describe('text', () => {
     cy.loadRicosEditorAndViewer('empty', testAppConfig)
       .enterParagraphs(['Custom link.'])
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.LINK, selection);
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
-  it('should enter text without linkify links (disableAutoLink set to true)', function () {
+  it('should enter text without linkify links (disableAutoLink set to true)', () => {
     const testAppConfig = {
       ...usePluginsConfig({
         link: {
@@ -181,37 +171,37 @@ describe('text', () => {
     cy.loadRicosEditorAndViewer('empty', testAppConfig).enterParagraphs([
       'www.wix.com\nwww.wix.com ',
     ]);
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
-  it('should break the link when enter new soft line', function () {
+  it('should break the link when enter new soft line', () => {
     cy.loadRicosEditorAndViewer('empty').enterParagraphs(['www.thisIs\nseperateLink.com ']);
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
-  it('should paste plain text', function () {
+  it('should paste plain text', () => {
     cy.loadRicosEditorAndViewer().focusEditor().paste('This is pasted text');
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
-  it('should paste html correctly', function () {
+  it('should paste html correctly', () => {
     cy.loadRicosEditorAndViewer().focusEditor().paste(
       // eslint-disable-next-line max-len
       `<meta charset='utf-8'><span style="color: rgb(32, 33, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">called<span> </span></span><a href="https://en.wikipedia.org/wiki/Anchor_text" title="Anchor text" style="text-decoration: none; color: rgb(11, 0, 128); background: none rgb(255, 255, 255); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">anchor text</a><span style="color: rgb(32, 33, 34); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">.<span> </span></span>`
     );
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
-  it('allow to enter tab character', function () {
+  it('allow to enter tab character', () => {
     cy.loadRicosEditorAndViewer()
       .focusEditor()
       .tab()
       .enterParagraphs(['How to eat healthy is a good question.'])
       .blurEditor();
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
-  it('allow to enter tab character and delete it using shift+tab', function () {
+  it('allow to enter tab character and delete it using shift+tab', () => {
     cy.loadRicosEditorAndViewer()
       .focusEditor()
       .tab()
@@ -220,10 +210,10 @@ describe('text', () => {
       .tab({ shift: true })
       .enterParagraphs(['Text should not include tab.'])
       .blurEditor();
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
-  it('Enter click should create new block with the same alignment', function () {
+  it('Enter click should create new block with the same alignment', () => {
     cy.loadRicosEditorAndViewer()
       .enterParagraphs(['Hey, next line should be centered!'])
       .setTextStyle(INLINE_TOOLBAR_BUTTONS.BOLD, [0, 33])
@@ -233,29 +223,29 @@ describe('text', () => {
       .type('{enter}')
       .enterParagraphs(['I am centered!'])
       .blurEditor();
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
-  it('esc key event should make editor blurred', function () {
+  it('esc key event should make editor blurred', () => {
     cy.loadRicosEditorAndViewer().enterParagraphs(['Magic! I am blurred.']).type('{esc}');
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
-  it('should enter link and further text in current block has no inline style', function () {
+  it('should enter link and further text in current block has no inline style', () => {
     cy.loadRicosEditorAndViewer()
       .enterParagraphs(['wix.com '])
       .enterParagraphs(['no inline style'])
       .blurEditor();
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
-  it('should enter link and further text in next block has no inline style', function () {
+  it('should enter link and further text in next block has no inline style', () => {
     cy.loadRicosEditorAndViewer()
       .enterParagraphs(['wix.com'])
       .type('{enter}')
       .enterParagraphs(['no inline style'])
       .blurEditor();
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
   it('should not allow applying link to atomic blocks in selection', function () {
@@ -263,13 +253,13 @@ describe('text', () => {
     cy.waitForMediaToLoad();
     cy.setEditorSelection(0, 5);
     cy.getInlineButton(INLINE_TOOLBAR_BUTTONS.LINK).should('not.be.disabled');
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
     cy.setEditorSelection(0, 40).getInlineButton(INLINE_TOOLBAR_BUTTONS.LINK).should('be.disabled');
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot(this.test.title + ' - final');
   });
 
   context('indentation', () => {
-    it('allow to apply indent on a single block with inline styling', function () {
+    it('allow to apply indent on a single block with inline styling', () => {
       cy.loadRicosEditorAndViewer('plain', usePlugins(plugins.textPlugins))
         .setTextStyle(INLINE_TOOLBAR_BUTTONS.BOLD, [40, 10])
         .setTextStyle(INLINE_TOOLBAR_BUTTONS.UNDERLINE, [10, 5])
@@ -284,10 +274,10 @@ describe('text', () => {
         .decreaseIndent([200, 100])
         .decreaseIndent([200, 100])
         .blurEditor();
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
 
-    it('allow to apply indent on multiple text blocks', function () {
+    it('allow to apply indent on multiple text blocks', () => {
       cy.loadRicosEditorAndViewer('text-blocks', usePlugins(plugins.textPlugins))
         .increaseIndent([0, 550])
         .increaseIndent([0, 550])
@@ -295,20 +285,20 @@ describe('text', () => {
         .decreaseIndent([0, 550])
         .moveCursorToStart()
         .blurEditor();
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
 
-    it('allow to apply indent only on text blocks', function () {
+    it('allow to apply indent only on text blocks', () => {
       cy.loadRicosEditorAndViewer('non-text-only-blocks', usePlugins(plugins.textPlugins))
         .increaseIndent([0, 550])
         .increaseIndent([0, 550])
         .increaseIndent([0, 550])
         .moveCursorToStart()
         .blurEditor();
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
 
-    it('allow to apply indent and delete it when clicking backspace where cursor is at start of block', function () {
+    it('allow to apply indent and delete it when clicking backspace where cursor is at start of block', () => {
       cy.loadRicosEditorAndViewer('', usePlugins(plugins.textPlugins))
         .enterParagraphs(['Text should have depth 1.'])
         .increaseIndent([0, 20])
@@ -316,12 +306,12 @@ describe('text', () => {
         .moveCursorToStart()
         .type('{backspace}')
         .blurEditor();
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
 
     // TODO: figure out how to test keyboard combinations of command/ctrl keys in cypress ci
     // eslint-disable-next-line mocha/no-skipped-tests
-    it.skip('allow to apply indent when clicking CMD+M on selected block', function () {
+    it.skip('allow to apply indent when clicking CMD+M on selected block', () => {
       cy.loadRicosEditorAndViewer('', usePlugins(plugins.textPlugins))
         .focusEditor()
         .enterParagraphs(['Text should not include indentation.'])
@@ -330,24 +320,15 @@ describe('text', () => {
         .moveCursorToStart()
         .type('{command+shift+m}')
         .blurEditor();
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
   });
 });
 
 describe('text color mobile', () => {
-  before(function () {
-    cy.eyesOpen({
-      appName: 'Text',
-      testName: this.test.parent.title,
-      browser: DEFAULT_MOBILE_BROWSERS,
-    });
-  });
   beforeEach(() => cy.switchToMobile());
 
-  after(() => cy.eyesClose());
-
   it('allow to change text color on mobile', function () {
-    changeTextColor(this.test.title);
+    changeTextColor(this.test.title, true);
   });
 });

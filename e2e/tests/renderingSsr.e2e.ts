@@ -1,8 +1,8 @@
-import { fixturesToTestOnSeo, DEFAULT_DESKTOP_BROWSERS } from './settings';
+import { fixturesToTestOnSeo } from './settings';
 import { usePluginsConfig } from '../cypress/testAppConfig';
 
 const testFixtureOnSsr = (fixture: string) =>
-  it(`render ${fixture} in ssr`, function () {
+  it(`render ${fixture} in ssr`, () => {
     const testAppConfig = {
       ...usePluginsConfig({
         video: {
@@ -11,7 +11,7 @@ const testFixtureOnSsr = (fixture: string) =>
       }),
     };
     cy.loadTestAppOnSsr('ricos', fixture, testAppConfig);
-    cy.eyesCheckWindow(this.test.title);
+    cy.percySnapshot();
   });
 
 describe('editor rendering', () => {
@@ -20,20 +20,10 @@ describe('editor rendering', () => {
   });
 
   context('seoSSR', () => {
-    before(function () {
-      cy.eyesOpen({
-        appName: 'Rendering',
-        testName: this.test.parent.title,
-        browser: DEFAULT_DESKTOP_BROWSERS,
-      });
-    });
-
     beforeEach(() => {
       cy.switchToDesktop();
       cy.switchOnSeoMode();
     });
-
-    after(() => cy.eyesClose());
 
     fixturesToTestOnSeo.forEach(testFixtureOnSsr);
   });

@@ -7,63 +7,34 @@ import {
   COLLAPSIBLE_LIST_SETTINGS,
   ACTION_BUTTONS,
 } from '../cypress/dataHooks';
-import { DEFAULT_DESKTOP_BROWSERS, DEFAULT_MOBILE_BROWSERS } from './settings';
-import {
-  usePlugins,
-  plugins,
-  usePluginsConfig,
-  useExperiments,
-  useTheming,
-} from '../cypress/testAppConfig';
-import { merge } from 'lodash';
-
-const eyesOpen = ({
-  test: {
-    parent: { title },
-  },
-}: Mocha.Context) =>
-  cy.eyesOpen({
-    appName: 'Plugins',
-    testName: title,
-    browser: DEFAULT_DESKTOP_BROWSERS,
-  });
+import { usePlugins, plugins, usePluginsConfig, useTheming } from '../cypress/testAppConfig';
+import { DEFAULT_MOBILE_WIDTHS } from './settings';
 
 describe('plugins', () => {
   afterEach(() => cy.matchContentSnapshot());
 
   context('html', () => {
-    before(function () {
-      eyesOpen(this);
-    });
-
     beforeEach('load editor', () => {
       cy.switchToDesktop();
     });
 
-    after(() => cy.eyesClose());
-
-    it('render html plugin with url', function () {
+    it('render html plugin with url', () => {
       cy.loadRicosEditorAndViewer('empty').addUrl().waitForHtmlToLoad();
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
 
-    it('render html plugin toolbar', function () {
+    it('render html plugin toolbar', () => {
       cy.loadRicosEditorAndViewer('empty').addHtml().waitForHtmlToLoad();
       cy.get(`[data-hook*=${PLUGIN_TOOLBAR_BUTTONS.EDIT}]`).click({ multiple: true }).click();
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
   });
 
   context('spoiler', () => {
-    before(function () {
-      eyesOpen(this);
-    });
-
     beforeEach('load editor', () => {
       cy.switchToDesktop();
     });
 
-    after(() => cy.eyesClose());
     it(`check text spoilers in editor and reveal it in viewer`, () => {
       cy.loadRicosEditorAndViewer('empty', usePlugins(plugins.spoilerPreset)).enterParagraphs([
         'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
@@ -73,30 +44,29 @@ describe('plugins', () => {
       cy.setTextStyle('textSpoilerButton', [15, 5]);
       cy.blurEditor();
       cy.setTextStyle('textSpoilerButton', [30, 10]);
-      cy.eyesCheckWindow('adding some spoilers');
+      cy.percySnapshot('adding some spoilers');
       cy.setLink([5, 5], 'https://www.wix.com/');
       cy.setTextStyle('textSpoilerButton', [0, 13]);
-      cy.eyesCheckWindow('adding spoiler around link');
+      cy.percySnapshot('adding spoiler around link');
       cy.setTextStyle('textSpoilerButton', [20, 10]);
-      cy.eyesCheckWindow('apply spoiler on two existing spoilers');
+      cy.percySnapshot('apply spoiler on two existing spoilers');
       cy.setTextStyle('textSpoilerButton', [20, 5]);
-      cy.eyesCheckWindow('split spoiler');
+      cy.percySnapshot('split spoiler');
       cy.setTextStyle('textSpoilerButton', [70, 35]);
-      cy.eyesCheckWindow('spoiler on multiple blocks');
+      cy.percySnapshot('spoiler on multiple blocks');
       cy.get('[data-hook="spoiler_0"]:first').click();
-      cy.eyesCheckWindow('reveal spoiler');
+      cy.percySnapshot('reveal spoiler');
       cy.get('[data-hook="spoiler_3"]:last').click();
-      cy.eyesCheckWindow('reveal spoiler on multiple blocks');
+      cy.percySnapshot('reveal spoiler on multiple blocks');
     });
 
     function editText(dataHook, title) {
       cy.get(`[data-hook="${dataHook}"]`).click().type(' - In Plugin Editing').blur();
-      cy.eyesCheckWindow(title);
+      cy.percySnapshot(title);
     }
 
     function revealSpoilerOnBlock() {
       cy.get('[data-hook="revealSpoilerBtn"]').click({ multiple: true });
-      cy.eyesCheckWindow('reveal spoiler in viewer');
     }
 
     it(`check spoilers on an image in editor and reveal it in viewer`, () => {
@@ -112,10 +82,11 @@ describe('plugins', () => {
       cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
 
       cy.wait(100); //wait for setRef to get width and adjust correct blur
-      cy.eyesCheckWindow('adding spoiler on an image');
-      editText('spoilerTextArea', 'change the description');
-      editText('revealSpoilerContent', 'change the reveal button content');
+      cy.percySnapshot('adding spoiler on an image');
+      editText('spoilerTextArea', 'change the description - image');
+      editText('revealSpoilerContent', 'change the reveal button content - image');
       revealSpoilerOnBlock();
+      cy.percySnapshot('reveal spoiler in viewer - image');
     });
 
     it(`check spoilers on a gallery in editor and reveal it in viewer`, () => {
@@ -132,10 +103,11 @@ describe('plugins', () => {
       cy.clickToolbarButton(PLUGIN_TOOLBAR_BUTTONS.ADV_SETTINGS);
       cy.get(`[data-hook=gallerySpoilerToggle]`).click();
       cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
-      cy.eyesCheckWindow('adding spoiler on a gallery');
-      editText('spoilerTextArea', 'change the description');
-      editText('revealSpoilerContent', 'change the reveal button content');
+      cy.percySnapshot('adding spoiler on a gallery');
+      editText('spoilerTextArea', 'change the description - gallery');
+      editText('revealSpoilerContent', 'change the reveal button content - gallery');
       revealSpoilerOnBlock();
+      cy.percySnapshot('reveal spoiler in viewer - gallery');
     });
 
     // it(`check spoilers on a video in editor and reveal it in viewer`, () => {
@@ -146,7 +118,7 @@ describe('plugins', () => {
     //     .parent()
     //     .click();
     //   cy.get(`[data-hook=${PLUGIN_TOOLBAR_BUTTONS.SPOILER}]:visible`).click();
-    //   cy.eyesCheckWindow('adding spoiler on a video');
+    //   cy.percySnapshot('adding spoiler on a video');
     //   editText('spoilerTextArea', 'change the description');
     //   editText('revealSpoilerContent', 'change the reveal button content');
     //   revealSpoilerOnBlock();
@@ -154,21 +126,15 @@ describe('plugins', () => {
   });
 
   context('divider', () => {
-    before(function () {
-      eyesOpen(this);
-    });
-
     beforeEach('load editor', () => {
       cy.switchToDesktop();
     });
-
-    after(() => cy.eyesClose());
 
     it('render plugin toolbar and change styling', () => {
       cy.loadRicosEditorAndViewer('divider')
         .openPluginToolbar(PLUGIN_COMPONENT.DIVIDER)
         .openDropdownMenu();
-      cy.eyesCheckWindow('render divider plugin toolbar');
+      cy.percySnapshot('render divider plugin toolbar');
 
       cy.clickToolbarButton(PLUGIN_TOOLBAR_BUTTONS.SMALL);
       cy.clickToolbarButton(PLUGIN_TOOLBAR_BUTTONS.ALIGN_LEFT);
@@ -183,79 +149,64 @@ describe('plugins', () => {
       cy.get('[data-hook*="PluginToolbar"]:first').openDropdownMenu(
         `[data-hook=${DIVIDER_DROPDOWN_OPTIONS.DOUBLE}]`
       );
-      cy.eyesCheckWindow('change divider styling');
+      cy.percySnapshot('change divider styling');
     });
   });
 
   context('map', () => {
-    before('load editor', function () {
-      eyesOpen(this);
+    before('load editor', () => {
       cy.switchToDesktop();
       cy.loadRicosEditorAndViewer('map');
       cy.get('.dismissButton').eq(1);
     });
 
-    after(() => cy.eyesClose());
-
     it('render map plugin toolbar and settings', () => {
       cy.openPluginToolbar(PLUGIN_COMPONENT.MAP);
-      cy.eyesCheckWindow('render map plugin toolbar');
+      cy.percySnapshot('render map plugin toolbar');
       cy.openMapSettings();
       cy.get('.gm-style-cc');
-      cy.eyesCheckWindow('render map settings');
+      cy.percySnapshot('render map settings');
     });
   });
 
   context('file-upload', () => {
-    before('load editor', function () {
-      eyesOpen(this);
+    before('load editor', () => {
       cy.switchToDesktop();
       cy.loadRicosEditorAndViewer('file-upload');
     });
 
-    after(() => cy.eyesClose());
-
-    it('render file-upload plugin toolbar', function () {
+    it('render file-upload plugin toolbar', () => {
       cy.openPluginToolbar(PLUGIN_COMPONENT.FILE_UPLOAD);
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
   });
 
   context('drag and drop', () => {
-    before('load editor', function () {
-      eyesOpen(this);
+    before('load editor', () => {
       cy.switchToDesktop();
       cy.loadRicosEditorAndViewer('dragAndDrop');
     });
 
-    after(() => cy.eyesClose());
-
     // eslint-disable-next-line mocha/no-skipped-tests
-    it.skip('drag and drop plugins', function () {
+    it.skip('drag and drop plugins', () => {
       cy.focusEditor();
       const src = `[data-hook=${PLUGIN_COMPONENT.IMAGE}] + [data-hook=componentOverlay]`;
       const dest = `span[data-offset-key="fjkhf-0-0"]`;
       cy.dragAndDropPlugin(src, dest);
       cy.get('img[style="opacity: 1;"]');
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
   });
 
   context('alignment', () => {
-    before(function () {
-      eyesOpen(this);
-    });
-
     beforeEach('load editor', () => {
       cy.switchToDesktop();
     });
 
-    after(() => cy.eyesClose());
-
     function testAtomicBlockAlignment(align: 'left' | 'right' | 'center') {
-      it('align atomic block ' + align, function () {
+      it('align atomic block ' + align, () => {
         cy.loadRicosEditorAndViewer('images').alignImage(align);
-        cy.eyesCheckWindow(this.test.title);
+        cy.percySnapshot();
       });
     }
 
@@ -265,45 +216,41 @@ describe('plugins', () => {
   });
 
   context('link preview', () => {
-    before(function () {
-      eyesOpen(this);
-    });
-    after(() => cy.eyesClose());
-
     beforeEach('load editor', () =>
       cy.loadRicosEditorAndViewer('link-preview', usePlugins(plugins.embedsPreset))
     );
 
-    afterEach('take snapshot', function () {
+    const takeSnapshot = name => {
       cy.waitForHtmlToLoad();
       cy.triggerLinkPreviewViewerUpdate();
-      cy.eyesCheckWindow(this.test.title);
-    });
+      cy.percySnapshot();
+    };
 
-    it('change link preview settings', () => {
+    it('change link preview settings', function () {
       cy.openPluginToolbar(PLUGIN_COMPONENT.LINK_PREVIEW);
       cy.setLinkSettings();
+      takeSnapshot(this.test.title);
     });
     //TODO: fix this flaky test
     // eslint-disable-next-line mocha/no-skipped-tests
-    it('convert link preview to regular link', () => {
+    it('convert link preview to regular link', function () {
       cy.openPluginToolbar(PLUGIN_COMPONENT.LINK_PREVIEW);
       cy.clickToolbarButton('baseToolbarButton_replaceToLink');
+      takeSnapshot(this.test.title);
     });
-    it('backspace key should convert link preview to regular link', () => {
+    it('backspace key should convert link preview to regular link', function () {
       cy.focusEditor().type('{downarrow}{downarrow}').type('{backspace}');
+      takeSnapshot(this.test.title);
     });
-    it('delete link preview', () => {
+    it('delete link preview', function () {
       cy.openPluginToolbar(PLUGIN_COMPONENT.LINK_PREVIEW).wait(100);
       cy.clickToolbarButton('blockButton_delete');
+      takeSnapshot(this.test.title);
     });
   });
 
   context('convert link to preview', () => {
     context('with default config', () => {
-      before(function () {
-        eyesOpen(this);
-      });
       const testAppConfig = {
         ...usePlugins(plugins.embedsPreset),
         ...usePluginsConfig({
@@ -313,23 +260,20 @@ describe('plugins', () => {
           },
         }),
       };
-      after(() => cy.eyesClose());
+
       beforeEach('load editor', () => cy.loadRicosEditorAndViewer('empty', testAppConfig));
 
-      it('should create link preview from link after enter key', function () {
+      it('should create link preview from link after enter key', () => {
         cy.insertLinkAndEnter('www.wix.com', { isPreview: true });
-        cy.eyesCheckWindow(this.test.title);
+        cy.percySnapshot();
       });
 
-      it('should embed link that supports embed', function () {
+      it('should embed link that supports embed', () => {
         cy.insertLinkAndEnter('www.mockUrl.com');
-        cy.eyesCheckWindow(this.test.title);
+        cy.percySnapshot();
       });
     });
     context('with custom config', () => {
-      before(function () {
-        eyesOpen(this);
-      });
       const testAppConfig = {
         ...usePlugins(plugins.embedsPreset),
         ...usePluginsConfig({
@@ -339,25 +283,22 @@ describe('plugins', () => {
           },
         }),
       };
-      after(() => cy.eyesClose());
+
       beforeEach('load editor', () => cy.loadRicosEditorAndViewer('empty', testAppConfig));
 
-      it('should not create link preview when enableLinkPreview is off', function () {
+      it('should not create link preview when enableLinkPreview is off', () => {
         cy.insertLinkAndEnter('www.wix.com');
-        cy.eyesCheckWindow(this.test.title);
+        cy.percySnapshot();
       });
 
-      it('should not embed link when enableEmbed is off', function () {
+      it('should not embed link when enableEmbed is off', () => {
         cy.insertLinkAndEnter('www.mockUrl.com');
-        cy.eyesCheckWindow(this.test.title);
+        cy.percySnapshot();
       });
     });
   });
 
   context('social embed', () => {
-    before(function () {
-      eyesOpen(this);
-    });
     const testAppConfig = {
       plugins: [plugins.linkPreview],
     };
@@ -366,31 +307,24 @@ describe('plugins', () => {
       cy.loadRicosEditorAndViewer('empty', testAppConfig);
     });
 
-    after(() => cy.eyesClose());
     const embedTypes = ['TWITTER', 'INSTAGRAM'];
     embedTypes.forEach(embedType => {
       it(`render ${embedType.toLowerCase()} upload modals`, function () {
         cy.openEmbedModal(STATIC_TOOLBAR_BUTTONS[embedType]);
-        cy.eyesCheckWindow(this.test.title + ' modal');
+        cy.percySnapshot(this.test.title + ' modal');
         cy.addSocialEmbed('www.mockUrl.com').waitForHtmlToLoad();
         cy.get(`#RicosViewerContainer [data-hook=HtmlComponent]`);
-        cy.eyesCheckWindow(this.test.title + ' added');
+        cy.percySnapshot(this.test.title + ' added');
       });
     });
   });
 
   context('list', () => {
-    before(function () {
-      eyesOpen(this);
-    });
-
     beforeEach('load editor', () => cy.loadRicosEditorAndViewer());
-
-    after(() => cy.eyesClose());
 
     // TODO: figure out how to test keyboard combinations of command/ctrl keys in cypress ci
     // eslint-disable-next-line mocha/no-skipped-tests
-    it.skip('create nested lists using CMD+M/CMD+SHIFT+M', function () {
+    it.skip('create nested lists using CMD+M/CMD+SHIFT+M', () => {
       cy.loadRicosEditorAndViewer()
         .enterParagraphs(['1. Hey I am an ordered list in depth 1.'])
         .type('{command+m}')
@@ -407,32 +341,21 @@ describe('plugins', () => {
       // .enterParagraphs(['\n Hey I am an unordered list in depth 1.'])
       // .tab({ shift: true })
       // .enterParagraphs(['\n\n- Hey I am an unordered list in depth 0.']);
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
   });
 
   context('lists', () => {
-    before(function () {
-      eyesOpen(this);
-    });
-
     it(`lists with line height`, function () {
       cy.loadRicosEditorAndViewer(
         'lists-with-line-height',
         useTheming({ skipCssOverride: true, useParagraphLineHeight: true })
       );
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot(this.test.title);
     });
-
-    after(() => cy.eyesClose());
   });
 
   context('verticals embed', () => {
-    before(function () {
-      eyesOpen(this);
-    });
-    after(() => cy.eyesClose());
-
     context('verticals embed modal', () => {
       beforeEach('load editor', () => {
         cy.switchToDesktop();
@@ -440,10 +363,10 @@ describe('plugins', () => {
       });
       // const embedTypes = ['EVENT', 'PRODUCT', 'BOOKING'];
       const embedTypes = ['PRODUCT', 'BOOKING', 'EVENT'];
-      it('render upload modals', function () {
+      it('render upload modals', () => {
         embedTypes.forEach(embedType => {
           cy.openEmbedModal(STATIC_TOOLBAR_BUTTONS[embedType]);
-          cy.eyesCheckWindow(this.test.title);
+          cy.percySnapshot(`verticals embed modal ${embedType}`);
           cy.get(`[data-hook*=verticalsItemsList]`).children().first().click();
           cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
         });
@@ -465,13 +388,7 @@ describe('plugins', () => {
   });
 
   context('link button', () => {
-    before(function () {
-      eyesOpen(this);
-    });
-
     beforeEach('load editor', () => cy.loadRicosEditorAndViewer('link-button'));
-
-    after(() => cy.eyesClose());
 
     //TODO: fix this flaky test
     // eslint-disable-next-line mocha/no-skipped-tests
@@ -487,20 +404,15 @@ describe('plugins', () => {
     //     .click()
     //     .get(`[data-hook*=${BUTTON_PLUGIN_MODAL.DONE}]`)
     //     .click();
-    //   cy.eyesCheckWindow(this.test.title);
+    //   cy.percySnapshot();
     // });
   });
 
   context('action button', () => {
-    before(function () {
-      eyesOpen(this);
-    });
-
     beforeEach('load editor', () =>
       cy.loadRicosEditorAndViewer('action-button', usePlugins(plugins.actionButton))
     );
 
-    after(() => cy.eyesClose());
     // it('create action button & customize it', function() {
     //   cy.focusEditor();
     //   cy.openPluginToolbar(PLUGIN_COMPONENT.BUTTON)
@@ -516,10 +428,10 @@ describe('plugins', () => {
     //     .wait(100)
     //     .get(`[data-hook*=${BUTTON_PLUGIN_MODAL.DONE}]`)
     //     .click({ force: true });
-    //   cy.eyesCheckWindow(this.test.title);
+    //   cy.percySnapshot();
     // });
 
-    it('create action button & click it', function () {
+    it('create action button & click it', () => {
       const stub = cy.stub();
       cy.on('window:alert', stub);
       cy.get(`[data-hook*=${PLUGIN_COMPONENT.BUTTON}]`)
@@ -528,15 +440,11 @@ describe('plugins', () => {
         .then(() => {
           expect(stub.getCall(0)).to.be.calledWith('onClick event..');
         });
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
   });
 
   context('headings', () => {
-    before(function () {
-      eyesOpen(this);
-    });
-
     const testAppConfig = {
       ...usePlugins(plugins.headings),
       ...usePluginsConfig({
@@ -553,70 +461,49 @@ describe('plugins', () => {
         .wait(500);
     }
 
-    function testHeaders(config) {
+    function testHeaders(config, title) {
       cy.loadRicosEditorAndViewer('empty', config).enterParagraphs([
         'Leverage agile frameworks',
         'to provide a robust synopsis for high level overviews.',
       ]);
       setHeader(3, [0, 24]);
-      cy.eyesCheckWindow('change heading type');
+      cy.percySnapshot(title);
       setHeader(2, [28, 40]);
       cy.setTextStyle('headingsDropdownButton', [28, 40]);
-      cy.eyesCheckWindow('change heading type');
+      cy.percySnapshot(title + ' - final');
     }
 
-    after(() => cy.eyesClose());
-
     it('Change headers - with customHeadings config', () => {
-      testHeaders(testAppConfig);
+      testHeaders(testAppConfig, 'change headers (custom heading)');
     });
 
     it('Change headers - without customHeadings config', () => {
-      testHeaders(usePlugins(plugins.headings));
+      testHeaders(usePlugins(plugins.headings), 'change headers');
     });
   });
 
   context('Headers markdown', () => {
-    before(function () {
-      cy.eyesOpen({
-        appName: 'Headers markdown',
-        testName: this.test.parent.title,
-        browser: DEFAULT_DESKTOP_BROWSERS,
-      });
-    });
-
     beforeEach(() => cy.switchToDesktop());
 
-    after(() => cy.eyesClose());
-
-    it('Should render header-two', function () {
+    it('Should render header-two', () => {
       cy.loadRicosEditorAndViewer().type('{$h').type('2}Header-two{$h').type('}');
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
   });
 
   context('Text/Highlight Color - mobile', () => {
-    before(function () {
-      cy.eyesOpen({
-        appName: 'Text/Highlight Color - mobile',
-        testName: this.test.parent.title,
-        browser: DEFAULT_MOBILE_BROWSERS,
-      });
-    });
     beforeEach(() => cy.switchToMobile());
-
-    after(() => cy.eyesClose());
 
     it('allow to color text', function () {
       cy.loadRicosEditorAndViewer().enterParagraphs(['Color.']).setTextColor([0, 5], 'color4');
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot(this.test.title, DEFAULT_MOBILE_WIDTHS);
     });
 
-    it('allow to highlight text', function () {
+    it('allow to highlight text', () => {
       cy.loadRicosEditorAndViewer()
         .enterParagraphs(['Highlight.'])
         .setHighlightColor([0, 9], 'color4');
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
   });
 
@@ -635,26 +522,13 @@ describe('plugins', () => {
       cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
     }
 
-    // before(function() {
-    //   eyesOpen(this);
-    // });
-    // after(() => cy.eyesClose());
-
     context('anchor desktop', () => {
-      before(function () {
-        cy.eyesOpen({
-          appName: 'anchor',
-          testName: this.test.parent.title,
-          browser: DEFAULT_DESKTOP_BROWSERS,
-        });
-      });
       beforeEach('load editor', () => {
         cy.switchToDesktop();
         cy.loadRicosEditorAndViewer('plugins-for-anchors', testAppConfig);
       });
-      after(() => cy.eyesClose());
 
-      it('should create anchor in text', function () {
+      it('should create anchor in text', () => {
         cy.setEditorSelection(0, 6);
         cy.wait(500);
         cy.get(`[data-hook=inlineToolbar] [data-hook=${INLINE_TOOLBAR_BUTTONS.LINK}]`).click({
@@ -662,40 +536,32 @@ describe('plugins', () => {
         });
         cy.get(`[data-hook=linkPanelContainer] [data-hook=anchor-radio]`).click();
         cy.wait(1000);
-        cy.eyesCheckWindow(this.test.title);
+        cy.percySnapshot();
         selectAnchorAndSave();
       });
 
-      it('should create anchor in image', function () {
+      it('should create anchor in image', () => {
         cy.openPluginToolbar(PLUGIN_COMPONENT.IMAGE);
         cy.clickToolbarButton(PLUGIN_TOOLBAR_BUTTONS.LINK);
         cy.get(`[data-hook=linkPanelContainer] [data-hook=anchor-radio]`).click();
         cy.wait(1000);
-        cy.eyesCheckWindow(this.test.title);
+        cy.percySnapshot();
         selectAnchorAndSave();
       });
     });
 
     context('anchor mobile', () => {
-      before(function () {
-        cy.eyesOpen({
-          appName: 'anchor',
-          testName: this.test.parent.title,
-          browser: DEFAULT_MOBILE_BROWSERS,
-        });
-      });
       beforeEach('load editor', () => {
         cy.switchToMobile();
         cy.loadRicosEditorAndViewer('plugins-for-anchors', testAppConfig);
       });
-      after(() => cy.eyesClose());
 
       it('should create anchor in text', function () {
         cy.setEditorSelection(0, 6);
         cy.get(`[data-hook=mobileToolbar] [data-hook=LinkButton]`).click({ force: true });
         cy.get(`[data-hook=linkPanelContainerAnchorTab]`).click({ force: true });
         cy.wait(1000);
-        cy.eyesCheckWindow(this.test.title);
+        cy.percySnapshot(this.test.title, DEFAULT_MOBILE_WIDTHS);
         selectAnchorAndSave();
       });
 
@@ -704,22 +570,16 @@ describe('plugins', () => {
         cy.clickToolbarButton(PLUGIN_TOOLBAR_BUTTONS.LINK);
         cy.get(`[data-hook=linkPanelContainerAnchorTab]`).click({ force: true });
         cy.wait(1000);
-        cy.eyesCheckWindow(this.test.title);
+        cy.percySnapshot(this.test.title, DEFAULT_MOBILE_WIDTHS);
         selectAnchorAndSave();
       });
     });
   });
 
   context('collapsible list', () => {
-    before(function () {
-      eyesOpen(this);
-    });
-
     beforeEach('load editor', () => {
       cy.switchToDesktop();
     });
-
-    after(() => cy.eyesClose());
 
     const setCollapsibleListSetting = setting => {
       cy.clickToolbarButton(PLUGIN_TOOLBAR_BUTTONS.SETTINGS);
@@ -733,51 +593,51 @@ describe('plugins', () => {
       });
       cy.getCollapsibleList();
       setCollapsibleListSetting(COLLAPSIBLE_LIST_SETTINGS.RTL_DIRECTION);
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot(this.test.title + ' - rtl direction');
       setCollapsibleListSetting(COLLAPSIBLE_LIST_SETTINGS.COLLAPSED);
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot(this.test.title + ' - collapsed');
       setCollapsibleListSetting(COLLAPSIBLE_LIST_SETTINGS.EXPANDED);
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot(this.test.title + ' - final');
     });
 
-    it('should focus & type', function () {
+    it('should focus & type', () => {
       cy.loadRicosEditorAndViewer('empty-collapsible-list', usePlugins(plugins.collapsibleList))
         .focusCollapsibleList(1)
         .type('Yes\n')
         .focusCollapsibleList(2);
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
 
-    it('should insert image in collapsible list', function () {
+    it('should insert image in collapsible list', () => {
       cy.loadRicosEditorAndViewer('empty-collapsible-list', usePlugins(plugins.all))
         .focusCollapsibleList(2)
         .type('Image in collapsible list');
       cy.insertPluginFromSideToolbar('ImagePlugin_InsertButton');
       cy.wait(1000);
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
 
-    it('should collapse first pair', function () {
+    it('should collapse first pair', () => {
       cy.loadRicosEditorAndViewer('empty-collapsible-list', usePlugins(plugins.collapsibleList))
         .getCollapsibleList()
         .toggleCollapseExpand(0);
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
 
-    it('should have only one expanded pair', function () {
+    it('should have only one expanded pair', () => {
       cy.loadRicosEditorAndViewer(
         'empty-collapsible-list',
         usePlugins(plugins.collapsibleList)
       ).getCollapsibleList();
       setCollapsibleListSetting(COLLAPSIBLE_LIST_SETTINGS.ONE_PAIR_EXPANDED);
       cy.getCollapsibleList().toggleCollapseExpand(1);
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
 
-    it('should delete second pair', function () {
+    it('should delete second pair', () => {
       cy.loadRicosEditorAndViewer('empty-collapsible-list', usePlugins(plugins.collapsibleList));
       cy.focusCollapsibleList(3).type('{backspace}');
-      cy.eyesCheckWindow(this.test.title);
+      cy.percySnapshot();
     });
   });
 });
