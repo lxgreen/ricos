@@ -1,9 +1,11 @@
+/* eslint-disable brace-style */
 import type { JSONContent } from '@tiptap/core';
 import React, { forwardRef } from 'react';
 import type { RicosEditorProps } from 'ricos-common';
 import type { HtmlAttributes } from 'ricos-tiptap-types';
 import type { EditorStyleClasses, GeneralContext } from 'ricos-types';
 import { getEmptyDraftContent, withRicosContext } from 'wix-rich-content-editor-common';
+import { isContentStateEmpty } from 'ricos-content';
 import {
   EditorEvents,
   withEditorEvents,
@@ -33,13 +35,16 @@ class RicosEditor
     RicosEditorState
   >
   // eslint-disable-next-line prettier/prettier
-  implements RicosEditorRef {
+  implements RicosEditorRef
+{
   state: Readonly<RicosEditorState> = {
     initialContent: null as unknown as JSONContent,
     htmlAttributes: {} as HtmlAttributes,
   };
 
   private readonly editorStyleClasses: EditorStyleClasses;
+
+  isLastChangeEdit: boolean;
 
   constructor(props) {
     super(props);
@@ -49,6 +54,7 @@ class RicosEditor
       experiments,
       editorCss,
     });
+    this.isLastChangeEdit = false;
   }
 
   focus: RicosEditorRef['focus'] = () => {
@@ -78,7 +84,11 @@ class RicosEditor
     this.getContent(publishId, !!publishId);
 
   getContentTraits: RicosEditorRef['getContentTraits'] = () => {
-    return this.props.editor.getContentTraits();
+    return {
+      isEmpty: isContentStateEmpty(this.props.editor.getDraftContent()),
+      isContentChanged: this.props.editor.isContentChanged(),
+      isLastChangeEdit: this.isLastChangeEdit,
+    };
   };
 
   getToolbarProps: RicosEditorRef['getToolbarProps'] = type => {
@@ -91,6 +101,7 @@ class RicosEditor
 
   onSelectionUpdate = ({ selectedNodes, content }) => {
     const { onAtomicBlockFocus, onChange } = this.props;
+    this.isLastChangeEdit = false;
     const textContainers = ['paragraph', 'codeBlock', 'heading'];
     const parentNodes =
       selectedNodes.length === 1
@@ -125,7 +136,10 @@ class RicosEditor
     };
   }
 
-  onUpdate = ({ content }) => this.props.onChange?.(content);
+  onUpdate = ({ content }) => {
+    this.isLastChangeEdit = true;
+    this.props.onChange?.(content);
+  };
 
   componentDidMount() {
     const { content, injectedContent } = this.props;

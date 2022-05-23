@@ -1,3 +1,4 @@
+/* eslint-disable brace-style */
 import type { TiptapAPI } from '../../types';
 import { capitalize } from 'lodash';
 import type {
@@ -29,9 +30,13 @@ import { TO_TIPTAP_TYPE } from '../../consts';
 import { findNodeById } from '../../helpers';
 import { tiptapToDraft } from 'wix-tiptap-extensions';
 import type { Editor, JSONContent } from '@tiptap/react';
-import type { Node as ProseMirrorNode } from 'prosemirror-model';
+import type { Node as ProseMirrorNode, Fragment } from 'prosemirror-model';
 
-export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getContentPromise'> {
+export class RichContentAdapter
+  implements Omit<TiptapAPI, 'getContent' | 'getContentPromise' | 'getContentTraits'>
+{
+  initialContent: Fragment;
+
   constructor(
     public tiptapEditor: Editor,
     private t: TranslationFunction,
@@ -40,13 +45,11 @@ export class RichContentAdapter implements Omit<TiptapAPI, 'getContent' | 'getCo
     this.tiptapEditor = tiptapEditor;
     this.t = t;
     this.plugins = plugins;
-
+    this.initialContent = this.tiptapEditor.state.doc.content;
     this.getEditorCommands = this.getEditorCommands.bind(this);
   }
 
-  getContentTraits: TiptapAPI['getContentTraits'] = () => {
-    throw new Error('Method not implemented.');
-  };
+  isContentChanged = (): boolean => !this.initialContent.eq(this.tiptapEditor.state.doc.content);
 
   //@ts-ignore
   getToolbarProps: TiptapAPI['getToolbarProps'] = (type: ToolbarType) => {

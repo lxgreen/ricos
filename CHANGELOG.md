@@ -29,6 +29,8 @@
 
 ### :house: Internal
 
+- `ricos-editor`
+  - [#3888](https://github.com/wix/ricos/pull/3888) tiptap getContentTraits
 - `plugins`
   - [#3869](https://github.com/wix/ricos/pull/3869) tiptap formatting extensions style wiring
 - `ricos-styles`
