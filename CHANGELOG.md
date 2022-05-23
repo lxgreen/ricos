@@ -18,6 +18,9 @@
   </summary>
   
 ### :bug: Bug Fix
+
+- `tiptap-extensions`
+  - [#3894](https://github.com/wix/ricos/pull/3894) link fixes
 - `mentions`
   - [#3871](https://github.com/wix/ricos/pull/3871) allow spaces in tiptap mentions
   - [#3868](https://github.com/wix/ricos/pull/3868) fix mentions popover ui
