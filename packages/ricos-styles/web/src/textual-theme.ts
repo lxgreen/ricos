@@ -1,22 +1,31 @@
-import type { TextualTheme as ITextualTheme } from './models/styles';
+// TODO: move themeStrategy from ricos-common to this package
 import { themeStrategy } from 'ricos-common';
-import { toCustomStyleType, toDecoration } from './converters';
-import type { RicosTheme, CustomTextualStyle } from 'ricos-types';
+import type { Decoration_Type } from 'ricos-schema';
+import type { RicosTheme } from 'ricos-types';
+import { Decorations } from './decorations';
+import type { TextNodeType, TextualTheme } from './models/styles';
+import { TextStyle } from './text-style';
 
-export default class TextualTheme implements ITextualTheme {
+export default class RicosTextualTheme implements TextualTheme {
   theme: RicosTheme;
 
   constructor(theme: RicosTheme) {
     this.theme = theme;
   }
 
-  getDecoration: ITextualTheme['getDecoration'] = (nodeType, decorationType) => {
-    const textType = toCustomStyleType(nodeType);
-    const textStyle = this.theme.customStyles?.[textType] as CustomTextualStyle;
-    return textStyle && toDecoration(textStyle, decorationType);
-  };
+  getDecoration(nodeType: TextNodeType, decorationType: Decoration_Type) {
+    const documentStyle = TextStyle.fromTheme(this.theme).toDocumentStyle();
+    const textNodeStyle = documentStyle[nodeType];
+    return Decorations.of(textNodeStyle?.decorations || [])
+      .byType(decorationType)
+      .getDecoration();
+  }
 
-  toStyleTag: ITextualTheme['toStyleTag'] = () => themeStrategy({ ricosTheme: this.theme }).html;
+  toStyleTag() {
+    return themeStrategy({ ricosTheme: this.theme }).html;
+  }
 
-  setTheme: ITextualTheme['setTheme'] = theme => new TextualTheme(theme);
+  setTheme(theme: RicosTheme) {
+    return new RicosTextualTheme(theme);
+  }
 }

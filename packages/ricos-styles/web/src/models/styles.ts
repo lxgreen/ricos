@@ -6,7 +6,7 @@ import type {
 } from 'ricos-schema';
 import type { RicosTheme } from 'ricos-types';
 
-type TextNodeType = keyof Required<RichContentDocumentStyle>;
+export type TextNodeType = keyof Required<RichContentDocumentStyle>;
 
 /**
  * Represents textual portion of Ricos Theme
@@ -18,12 +18,12 @@ export interface TextualTheme {
   /**
    * Extracts given decoration settings for specific node type from the current theme.
    *
-   * @param {StyledNodeType} type
-   * @param {Decoration_Type} decoration
+   * @param {TextNodeType} type
+   * @param {Decoration_Type} decoration type
    * @returns  {Decoration}
    * @memberof TextualTheme
    */
-  getDecoration(type: StyledNodeType, decoration: Decoration_Type): Decoration | undefined;
+  getDecoration(type: TextNodeType, decoration: Decoration_Type): Decoration;
   /**
    * Translates RicosTheme to HTML style tag with CSS variable definitions
    *
@@ -51,12 +51,12 @@ export interface DocumentStyle {
   /**
    * Extracts given decoration settings for specific node type from the current Document Style.
    *
-   * @param {StyledNodeType} type
-   * @param {Decoration_Type} decoration
+   * @param {TextNodeType} type
+   * @param {Decoration_Type} decoration type
    * @returns  {Decoration}
    * @memberof DocumentStyle
    */
-  getDecoration(type: StyledNodeType, decoration: Decoration_Type): Decoration | undefined;
+  getDecoration(type: TextNodeType, decoration: Decoration_Type): Decoration;
   /**
    * Translates DocumentStyle to HTML style tag with CSS variable definitions
    *
@@ -74,12 +74,12 @@ export interface DocumentStyle {
   /**
    * DocumentStyle modification
    *
-   * @param {StyledNodeType} type
+   * @param {TextNodeType} type
    * @param {Decoration[]} decorations
    * @returns  {DocumentStyle}
    * @memberof DocumentStyle
    */
-  setStyle(type: StyledNodeType, decorations: Decoration[]): DocumentStyle;
+  setStyle(type: TextNodeType, decorations: Decoration[]): DocumentStyle;
   /**
    * Initializes entity with DocumentStyle
    *
@@ -105,12 +105,12 @@ export interface Styles {
    * Extracts given decoration settings for specific node type from the current Document Style and Theme conjunction
    *
    *
-   * @param {StyledNodeType} type
-   * @param {Decoration_Type} decoration
+   * @param {TextNodeType} type
+   * @param {Decoration_Type} decoration type
    * @returns  {Decoration}
    * @memberof Styles
    */
-  getDecoration(type: StyledNodeType, decoration: Decoration_Type): Decoration | undefined;
+  getDecoration(type: TextNodeType, decoration: Decoration_Type): Decoration;
   /**
    * Exposes TextualTheme
    *

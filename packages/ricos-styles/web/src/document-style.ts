@@ -1,28 +1,40 @@
-import type { DocumentStyle as IDocumentStyle } from './models/styles';
-import type { DocumentStyle as RichContentDocumentStyle } from 'ricos-schema';
-import { toTheme } from './converters';
-import TextualTheme from './textual-theme';
+import type {
+  Decoration,
+  Decoration_Type,
+  DocumentStyle as RichContentDocumentStyle,
+} from 'ricos-schema';
+import { Decorations } from './decorations';
+import type { DocumentStyle, TextNodeType } from './models/styles';
+import { TextStyle } from './text-style';
+import RicosTextualTheme from './textual-theme';
 
-export default class DocumentStyle implements IDocumentStyle {
+export default class RicosDocumentStyle implements DocumentStyle {
   documentStyle: RichContentDocumentStyle;
 
   constructor(documentStyle: RichContentDocumentStyle) {
     this.documentStyle = documentStyle;
   }
 
-  getDecoration: IDocumentStyle['getDecoration'] = (nodeType, decorationType) =>
-    this.documentStyle[nodeType]?.decorations.filter(
-      decoration => decoration.type === decorationType
-    )[0];
+  getDecoration(nodeType: TextNodeType, decorationType: Decoration_Type): Decoration {
+    return Decorations.of(this.documentStyle[nodeType]?.decorations || [])
+      .byType(decorationType)
+      .getDecoration();
+  }
 
-  toStyleTag: IDocumentStyle['toStyleTag'] = () =>
-    new TextualTheme(toTheme(this.documentStyle)).toStyleTag();
+  toStyleTag() {
+    const customStyles = TextStyle.fromDocumentStyle(this.documentStyle).toThemeCustomStyles();
+    return new RicosTextualTheme({ customStyles }).toStyleTag();
+  }
 
-  toContent: IDocumentStyle['toContent'] = () => this.documentStyle;
+  toContent() {
+    return this.documentStyle;
+  }
 
-  setStyle: IDocumentStyle['setStyle'] = (nodeType, decorations) =>
-    new DocumentStyle({ ...this.documentStyle, [nodeType]: { decorations } });
+  setStyle(nodeType: TextNodeType, decorations: Decoration[]) {
+    return new RicosDocumentStyle({ ...this.documentStyle, [nodeType]: { decorations } });
+  }
 
-  setDocumentStyle: IDocumentStyle['setDocumentStyle'] = documentStyle =>
-    new DocumentStyle(documentStyle);
+  setDocumentStyle(documentStyle: RichContentDocumentStyle) {
+    return new RicosDocumentStyle(documentStyle);
+  }
 }

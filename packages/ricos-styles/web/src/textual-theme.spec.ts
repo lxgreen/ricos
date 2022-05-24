@@ -48,16 +48,6 @@ describe('Textual Theme', () => {
     });
   });
 
-  it('Should getDecoration Underline match expected', () => {
-    const decoration = new TextualTheme({
-      customStyles: { h4: { textDecoration: 'underline' } },
-    }).getDecoration('headerFour', Decoration_Type.UNDERLINE);
-    expect(decoration).toStrictEqual({
-      underlineData: true,
-      type: Decoration_Type.UNDERLINE,
-    });
-  });
-
   it('Should getDecoration Italic match expected', () => {
     const decoration = new TextualTheme({
       customStyles: { p: { fontStyle: 'italic' } },

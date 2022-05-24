@@ -21,11 +21,6 @@ describe('Document Style', () => {
       JSON.stringify(styleTag.props.children).includes('--ricos-custom-h1-font-weight: 700')
     ).toBeTruthy();
     expect(
-      JSON.stringify(styleTag.props.children).includes(
-        '--ricos-custom-h1-text-decoration: underline'
-      )
-    ).toBeTruthy();
-    expect(
       JSON.stringify(styleTag.props.children).includes('--ricos-custom-p-color: #414141')
     ).toBeTruthy();
   });

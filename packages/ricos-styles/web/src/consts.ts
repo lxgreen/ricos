@@ -8,7 +8,6 @@ export const decorations = [
     fontSizeData: { unit: FontSizeData_fontType.PX, value: 18 },
   },
   { type: Decoration_Type.ITALIC, italicData: true },
-  { type: Decoration_Type.UNDERLINE, underlineData: true },
 ];
 
 export const customStyle = {
@@ -16,5 +15,4 @@ export const customStyle = {
   fontWeight: 700,
   fontSize: 18,
   fontStyle: 'italic',
-  textDecoration: 'underline',
 };
