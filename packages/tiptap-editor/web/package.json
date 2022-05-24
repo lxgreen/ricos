@@ -49,7 +49,8 @@
     "uuid": "^3.4.0",
     "wix-rich-content-common": "8.71.16",
     "wix-rich-content-editor-common": "8.71.16",
-    "wix-tiptap-extensions": "8.71.16"
+    "wix-tiptap-extensions": "8.71.16",
+    "ricos-plugins": "8.71.16"
   },
   "jest": {
     "globals": {

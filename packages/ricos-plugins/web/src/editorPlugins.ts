@@ -1,0 +1,58 @@
+import { EditorPlugin } from './editorPlugin';
+import { PluginAddButtons } from './pluginAddButton';
+import type { Plugins, Plugin } from './models/plugins';
+import type { EditorPlugin as EditorPluginType } from 'ricos-types';
+import { compact } from 'lodash';
+
+export class PluginCollisionError extends Error {}
+
+export class EditorPlugins implements Plugins {
+  private plugins: Plugin[] = [];
+
+  private hasDuplicate(plugin: Plugin) {
+    return this.plugins.find(p => p.equals(plugin));
+  }
+
+  register(plugin: EditorPluginType) {
+    const candidate = EditorPlugin.of(plugin);
+
+    const duplicate = this.hasDuplicate(candidate);
+    if (duplicate) {
+      throw new PluginCollisionError(
+        `the plugin ${candidate.getType()} conflicts with ${duplicate.getType()}`
+      );
+    }
+
+    this.plugins.push(candidate);
+  }
+
+  unregister(plugin: Plugin): EditorPlugins {
+    return this.filter(p => !p.equals(plugin));
+  }
+
+  filter(predicate: (plugin: Plugin) => boolean): EditorPlugins {
+    this.plugins = this.plugins.filter(predicate);
+    return this;
+  }
+
+  asArray() {
+    return this.plugins;
+  }
+
+  getConfig(type: string) {
+    return this.plugins.filter(plugin => plugin.getType() === type)[0]?.getConfig() || {};
+  }
+
+  getAddButtons() {
+    //maybe use filter class func
+    const addButtons = this.plugins.reduce(
+      (prev, curr) => [...prev, ...(curr.getAddButtons() || [])],
+      []
+    );
+    return new PluginAddButtons(addButtons);
+  }
+
+  getTiptapExtensions() {
+    return compact(this.plugins.flatMap(plugin => plugin.getTiptapExtensions?.()));
+  }
+}

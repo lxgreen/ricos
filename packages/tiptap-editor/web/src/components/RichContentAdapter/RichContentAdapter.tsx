@@ -3,7 +3,6 @@ import type { TiptapAPI } from '../../types';
 import { capitalize } from 'lodash';
 import type {
   TranslationFunction,
-  EditorPlugin,
   TextAlignment,
   RicosCustomStyles,
   ToolbarType,
@@ -30,6 +29,7 @@ import { TO_TIPTAP_TYPE } from '../../consts';
 import { findNodeById } from '../../helpers';
 import { tiptapToDraft } from 'wix-tiptap-extensions';
 import type { Editor, JSONContent } from '@tiptap/react';
+import type { EditorPlugins } from 'ricos-plugins';
 import type { Node as ProseMirrorNode, Fragment } from 'prosemirror-model';
 
 export class RichContentAdapter
@@ -40,7 +40,7 @@ export class RichContentAdapter
   constructor(
     public tiptapEditor: Editor,
     private t: TranslationFunction,
-    private plugins: EditorPlugin[]
+    private plugins: EditorPlugins
   ) {
     this.tiptapEditor = tiptapEditor;
     this.t = t;

@@ -1,15 +1,10 @@
 /* eslint-disable brace-style */
 import type { Node } from 'prosemirror-model';
 import type { RefObject } from 'react';
-import React, { createRef, forwardRef } from 'react';
+import React, { createRef, forwardRef, useContext } from 'react';
 import type { RicosEditorProps } from 'ricos-common';
 import { ModalProvider } from 'ricos-modals';
-import type {
-  EditorCommands,
-  EditorContextType,
-  EditorPlugin,
-  Pubsub,
-} from 'wix-rich-content-common';
+import type { EditorCommands, EditorContextType, Pubsub } from 'wix-rich-content-common';
 import { getLangDir } from 'wix-rich-content-common';
 import { getEmptyDraftContent, TOOLBARS } from 'wix-rich-content-editor-common';
 import { Content, ToolbarContext } from 'wix-rich-content-toolbars-v3';
@@ -26,6 +21,9 @@ import RicosEditor from './RicosEditor';
 import RicosToolbars from './RicosToolbars';
 import ThemeStyleTag from './ThemeStyleTag';
 import { UploadProvider } from './UploadProvider';
+import { PluginsContext } from 'ricos-plugins';
+import type { PluginsContextValue } from 'ricos-plugins';
+import { FooterToolbar } from '../toolbars/FooterToolbar';
 import RicosPortal from '../modals/RicosPortal';
 import type { RicosPortal as RicosPortalType } from 'ricos-types';
 
@@ -33,10 +31,11 @@ type State = {
   error: string;
 };
 
-export class FullRicosEditor
-  extends React.Component<RicosEditorProps, State>
-  implements RicosEditorRef
-{
+interface Props extends RicosEditorProps {
+  pluginsContext: PluginsContextValue;
+}
+
+export class FullRicosEditor extends React.Component<Props, State> implements RicosEditorRef {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private toolbarContext: any;
 
@@ -44,21 +43,23 @@ export class FullRicosEditor
 
   state = { error: '' };
 
-  plugins!: EditorPlugin[];
-
   editor = React.createRef<RicosEditorRef>();
 
   portalRef: RefObject<RicosPortalType>;
 
   constructor(props) {
     super(props);
-    this.plugins = pluginsConfigMerger(props.plugins, props._rcProps) || [];
+    const configuredPlugins = pluginsConfigMerger(props.plugins, props._rcProps) || [];
+    this.initPlugins(configuredPlugins);
     this.portalRef = createRef<RicosPortalType>();
   }
 
   static getDerivedStateFromError(error: string) {
     return { error };
   }
+
+  initPlugins = plugins =>
+    plugins.forEach(plugin => this.props.pluginsContext.plugins.register(plugin));
 
   componentDidMount() {
     this.forceUpdate();
@@ -117,6 +118,7 @@ export class FullRicosEditor
       cssOverride,
       isMobile,
       toolbarSettings,
+      pluginsContext: { plugins },
     } = this.props;
     const helpers = this.props._rcProps?.helpers;
 
@@ -125,7 +127,7 @@ export class FullRicosEditor
       theme,
       locale,
       helpers,
-      plugins: this.plugins,
+      plugins,
       linkPanelSettings,
       linkSettings,
       experiments,
@@ -163,7 +165,6 @@ export class FullRicosEditor
       locale,
       localeContent,
       theme,
-      plugins,
       _rcProps,
       toolbarSettings,
       content,
@@ -185,7 +186,6 @@ export class FullRicosEditor
             portal={this.portalRef.current}
           >
             <TiptapEditorProvider
-              plugins={this.plugins}
               content={injectedContent ?? content ?? getEmptyDraftContent()}
               ricosEditorProps={this.props}
             >
@@ -197,22 +197,17 @@ export class FullRicosEditor
                         <TiptapEditorConsumer>
                           {(editor: RichContentAdapter) => (
                             <ToolbarContext.Provider
-                              value={{
-                                ...this.getToolbarContext(editor.getEditorCommands),
-                                portal: this.portalRef.current as RicosPortalType,
-                              }}
+                              value={this.getToolbarContext(editor.getEditorCommands)}
                             >
                               <RicosToolbars
                                 content={this.content}
                                 toolbarSettings={toolbarSettings}
                               />
                               <FloatingAddPluginMenu
-                                pluginsButtons={plugins
-                                  ?.filter(plugin => plugin.addButtons)
-                                  .map(plugin => plugin.addButtons)}
                                 addPluginMenuConfig={this.getPluginMenuConfig()}
                                 helpers={_rcProps?.helpers}
                               />
+                              <FooterToolbar />
                             </ToolbarContext.Provider>
                           )}
                         </TiptapEditorConsumer>
@@ -220,7 +215,7 @@ export class FullRicosEditor
                     </UploadProvider>
 
                     <Shortcuts group="formatting">
-                      <RicosEditor {...this.props} plugins={this.plugins} ref={this.editor} />
+                      <RicosEditor {...this.props} ref={this.editor} />
                     </Shortcuts>
                   </>
                 </Shortcuts>
@@ -233,6 +228,7 @@ export class FullRicosEditor
   }
 }
 
-export default forwardRef<FullRicosEditor, RicosEditorProps>((props, ref) => (
-  <FullRicosEditor {...props} ref={ref} />
-));
+export default forwardRef<FullRicosEditor, RicosEditorProps>((props, ref) => {
+  const { plugins } = useContext(PluginsContext);
+  return <FullRicosEditor {...props} ref={ref} pluginsContext={{ plugins }} />;
+});

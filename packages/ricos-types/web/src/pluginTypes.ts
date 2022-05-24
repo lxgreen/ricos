@@ -235,8 +235,10 @@ interface BasePluginConfig {
   theme?: ThemeGeneratorFunction;
 }
 
+export type MenuGroups = 'basic' | 'advanced' | 'embed' | 'embed_wix';
+
 type MenuConfig = {
-  group?: 'basic' | 'advanced' | 'embed' | 'embed_wix';
+  group?: MenuGroups;
   tags?: string;
 };
 
@@ -244,9 +246,9 @@ export type AddButton = {
   id: string;
   icon: ComponentType;
   command: (editorCommands: EditorCommands) => boolean;
-  modal?: ModalConfig;
+  tooltip: string;
   label?: string;
-  tooltip?: string;
+  modal?: ModalConfig;
   menuConfig?: MenuConfig;
   shortcuts?: KeyboardShortcut[];
 };

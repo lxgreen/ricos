@@ -2,9 +2,6 @@ import { ToolbarType } from 'wix-rich-content-common';
 import type { AddLinkData } from 'wix-rich-content-common';
 import { getBiFunctions } from './utils/biUtils';
 
-const getPluginConfig = ({ pluginType, plugins }) =>
-  plugins?.find(plugin => plugin.type === pluginType)?.config;
-
 const getLinkPanelData = ({
   helpers,
   contentId,
@@ -19,7 +16,7 @@ const getLinkPanelData = ({
     biFunctions?.onAddPluginLink?.(data, 'TEXT');
   };
 
-  const linkConfig = getPluginConfig({ pluginType: 'LINK', plugins });
+  const linkConfig = plugins.getConfig('LINK');
 
   const linkPanelData = {
     linkTypes: linkConfig?.linkTypes,
@@ -54,21 +51,15 @@ export const convertToolbarContext = ({
     ? ToolbarType.STATIC
     : ToolbarType.INLINE;
 
-  const defaultLineSpacing = getPluginConfig({
-    pluginType: 'line-spacing',
-    plugins,
-  })?.defaultSpacing;
+  const defaultLineSpacing = plugins.getConfig('line-spacing')?.defaultSpacing;
 
   const headingsData = {
-    ...getPluginConfig({ pluginType: 'wix-rich-content-plugin-headings', plugins }),
+    ...plugins.getConfig('wix-rich-content-plugin-headings'),
   };
 
   const colorPickerData = {
-    TEXT_COLOR: getPluginConfig({ pluginType: 'wix-rich-content-text-color', plugins }),
-    TEXT_HIGHLIGHT: getPluginConfig({
-      pluginType: 'wix-rich-content-text-highlight',
-      plugins,
-    }),
+    TEXT_COLOR: plugins.getConfig('wix-rich-content-text-color'),
+    TEXT_HIGHLIGHT: plugins.getConfig('wix-rich-content-text-highlight'),
   };
 
   const linkPanelData = getLinkPanelData({
@@ -89,7 +80,6 @@ export const convertToolbarContext = ({
     experiments,
     defaultLineSpacing,
     cssOverride,
-    //
     textToolbarType,
     toolbarSettings,
     locale,

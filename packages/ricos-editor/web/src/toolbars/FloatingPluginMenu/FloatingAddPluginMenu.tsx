@@ -7,11 +7,14 @@ import { AddPluginMenu } from 'wix-rich-content-editor';
 import EditorSelectionToPosition from './EditorSelectionToPosition';
 import PlusButton from './PlusButton';
 import { TiptapEditorContext } from 'wix-tiptap-editor';
+import { PluginsContext } from 'ricos-plugins';
+import type { AddButton } from 'ricos-types';
 
-const FloatingAddPluginMenu = ({ pluginsButtons, addPluginMenuConfig, helpers }) => {
+const FloatingAddPluginMenu = ({ addPluginMenuConfig, helpers }) => {
   const floatingMenuWrapperRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { modalService } = useContext(ModalContext) || {};
+  const { plugins } = useContext(PluginsContext);
   const { t, isMobile, theme, languageDir } = useContext(RicosContext) || {};
   const { getEditorCommands, tiptapEditor } = useContext(TiptapEditorContext);
 
@@ -56,7 +59,7 @@ const FloatingAddPluginMenu = ({ pluginsButtons, addPluginMenuConfig, helpers })
 
   const handleClose = () => modalService?.closeModal(PLUGIN_MENU_MODAL_ID);
 
-  const renderPluginButton = ({ modal, label, command, tooltip, icon }) => {
+  const renderPluginButton = ({ modal, command, icon, label, tooltip }: AddButton) => {
     const onButtonClick = () => {
       handleClose();
       return modal
@@ -81,12 +84,17 @@ const FloatingAddPluginMenu = ({ pluginsButtons, addPluginMenuConfig, helpers })
     );
   };
 
-  const pluginMenuButtons = pluginsButtons.flat().map(addButton => {
-    return {
-      component: () => renderPluginButton(addButton),
-      name: addButton.label,
-    };
-  });
+  const pluginMenuButtons = plugins
+    .getAddButtons()
+    .asArray()
+    .map(addButton => {
+      const button = addButton.getButton();
+      return {
+        component: () => renderPluginButton(button),
+        name: button.label,
+      };
+    });
+
   return (
     <div
       dir={languageDir}

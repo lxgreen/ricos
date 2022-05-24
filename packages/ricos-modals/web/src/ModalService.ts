@@ -1,5 +1,4 @@
-import type { ModalConfig } from 'ricos-types';
-import type { ModalService } from './types';
+import type { ModalConfig, ModalService } from 'ricos-types';
 
 const EVENTS = {
   modalOpenEvent: 'modalOpen',
@@ -16,6 +15,10 @@ export class RicosModalService implements ModalService {
   constructor() {
     this.modals = [];
   }
+
+  public register(modalConfig: ModalConfig) {}
+
+  public unregister(id: string) {}
 
   public openModal(modalConfig: ModalConfig) {
     const modal = this.getModal(modalConfig.id);

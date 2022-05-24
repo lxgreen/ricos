@@ -12,3 +12,6 @@ export { Content } from './Content';
 export { ToolbarContext } from './utils/toolbarContexts';
 export { IToolbarItemConfigTiptap } from './types';
 export { FloatingToolbar } from './components/FloatingToolbar/FloatingToolbar';
+export * from './resolvers/tiptapResolvers';
+export { ToggleButton } from './components/buttons';
+export { default as RicosToolbarComponent } from './components/RicosToolbarComponent';
