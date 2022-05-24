@@ -46,8 +46,9 @@
   - [#3869](https://github.com/wix/ricos/pull/3869) tiptap formatting extensions style wiring
 - `ricos-styles`
   - [#3870](https://github.com/wix/ricos/pull/3870) ricos-styles package
-- `getTextDirection`
-
+  - [#3896](https://github.com/wix/ricos/pull/3896) Decorations and TextStyle aggregates
+ 
+- `ricos-content`
   - [#3873](https://github.com/wix/ricos/pull/3873) expose getTextDirection from ricos-content package
 
   </details>
