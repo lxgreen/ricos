@@ -101,6 +101,10 @@ body {
               h3 {
                 margin: 0;
                 padding-left: 3px;
+
+                &.cursor {
+                  cursor: pointer;
+                }
               }
             }
 

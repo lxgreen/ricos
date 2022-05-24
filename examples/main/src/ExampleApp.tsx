@@ -339,6 +339,12 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
         >
           <SectionHeader
             title={experiments?.tiptapEditor?.enabled ? 'Tiptap 👍' : 'Draft 👎'}
+            onClick={() =>
+              this.onSetExperiment(
+                'tiptapEditor',
+                experiments?.tiptapEditor?.enabled ? 'false' : 'true'
+              )
+            }
             settings={this.editorSettings}
             onHide={this.onSectionVisibilityChange}
           />

@@ -8,6 +8,7 @@ export default class SectionHeader extends PureComponent<{
   title?: string;
   settings: SectionSettings[];
   onHide: OnVisibilityChanged;
+  onClick?: () => void;
 }> {
   static defaultProps = {
     settings: [],
@@ -18,14 +19,16 @@ export default class SectionHeader extends PureComponent<{
   };
 
   render() {
-    const { title, settings } = this.props;
+    const { title, settings, onClick } = this.props;
     const hasSettings = !!settings.length;
 
     return (
       <div className="header">
         <div className="title">
           <MdClose onClick={this.onHideClick} />
-          <h3>{title}</h3>
+          <h3 className={onClick ? 'cursor' : ''} onClick={onClick || (() => {})}>
+            {title}
+          </h3>
         </div>
         {hasSettings && (
           <div className="settings">
