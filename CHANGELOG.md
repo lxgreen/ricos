@@ -16,7 +16,14 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-  
+
+
+</details>
+
+<hr/>
+
+## 8.71.17 (May 24, 2022)
+
 ### :bug: Bug Fix
 
 - `tiptap-extensions`
