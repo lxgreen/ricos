@@ -10,6 +10,7 @@ import type {
   ModalStyles,
 } from 'wix-rich-content-common';
 import mergeModalStyles from './mergeModalStyles';
+import RicosPortal from './RicosPortal';
 
 interface Props {
   children: ReactElement;
@@ -22,6 +23,7 @@ interface Props {
   onModalOpen: (modalProps: Record<string, unknown>) => void;
   onModalClose: () => void;
   editorCommands: EditorCommands;
+  parentClass?: string;
 }
 
 type ModalProps = {
@@ -101,12 +103,13 @@ export default class EditorModalProvider extends Component<Props, State> {
       container,
       experiments = {},
       editorCommands,
+      parentClass,
     } = this.props;
     const childProps = merge(children.props, this.modalHandlers);
     return (
       <Fragment>
         {Children.only(React.cloneElement(children, childProps))}
-        <MaybePortal container={container}>
+        <RicosPortal className={parentClass} container={container}>
           <div className="ricos-editor-modal">
             <div id={editorModalId} />
             {EditorModal && (
@@ -129,18 +132,8 @@ export default class EditorModalProvider extends Component<Props, State> {
               </Suspense>
             )}
           </div>
-        </MaybePortal>
+        </RicosPortal>
       </Fragment>
     );
   }
 }
-
-const MaybePortal: FunctionComponent<{
-  children: ReactElement;
-  container?: HTMLElement;
-}> = ({ children, container }) => {
-  if (container) {
-    return ReactDOM.createPortal(children, container);
-  }
-  return children;
-};

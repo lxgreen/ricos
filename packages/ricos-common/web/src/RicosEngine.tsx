@@ -201,6 +201,7 @@ export class RicosEngine extends Component<EngineProps> {
     const modal = (
       <RicosModal
         key={'ricosElement'}
+        parentClass={this.props?.theme?.parentClass}
         ariaHiddenId={ariaHiddenId}
         isModalSuspended={isPreview()}
         container={container}

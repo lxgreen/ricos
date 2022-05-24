@@ -8,6 +8,7 @@ const RicosModal: FunctionComponent<
   RicosEditorProps & {
     container?: HTMLElement;
     children: ReactElement;
+    parentClass?: string;
   }
 > = props => {
   let ModalProvider: ComponentType = Fragment;

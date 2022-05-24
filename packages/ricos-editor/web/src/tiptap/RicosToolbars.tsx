@@ -17,7 +17,7 @@ import { TOOLBARS, mergeToolbarSettings, withRicosContext } from 'wix-rich-conte
 import type { RichContentAdapter } from 'wix-tiptap-editor';
 import { withTiptapEditorContext } from 'wix-tiptap-editor';
 import { getDefaultToolbarSettings } from 'wix-rich-content-editor';
-import RicosPortal from './RicosPortal';
+import RicosPortal from '../modals/RicosPortal';
 
 import { ToolbarConfig } from './ricosToolbarConfig';
 import type { GeneralContext } from 'ricos-types';

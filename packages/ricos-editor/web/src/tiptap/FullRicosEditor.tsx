@@ -26,7 +26,7 @@ import RicosEditor from './RicosEditor';
 import RicosToolbars from './RicosToolbars';
 import ThemeStyleTag from './ThemeStyleTag';
 import { UploadProvider } from './UploadProvider';
-import RicosPortal from './RicosPortal';
+import RicosPortal from '../modals/RicosPortal';
 import type { RicosPortal as RicosPortalType } from 'ricos-types';
 
 type State = {

@@ -18,7 +18,15 @@ const ExampleApplication: FunctionComponent<{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editorProps?: Record<string, any>;
   experiments?: AvailableExperiments;
-}> = ({ initialState, theme, display = 'Both', editorProps = {}, experiments = {} }) => {
+  modalSettings?: { container: HTMLElement };
+}> = ({
+  initialState,
+  theme,
+  display = 'Both',
+  editorProps = {},
+  experiments = {},
+  modalSettings,
+}) => {
   const [content, setContent] = useState(initialState);
   const showEditor = useMemo(() => display === 'Both' || display === 'Editor', [display]);
   const showViewer = useMemo(() => display === 'Both' || display === 'Viewer', [display]);
@@ -32,6 +40,7 @@ const ExampleApplication: FunctionComponent<{
             theme={{ ...theme, parentClass: styles['rce-wrapper'] }}
             onChange={setContent}
             experiments={experiments}
+            modalSettings={modalSettings}
             {...editorProps}
           />
         </RichContentEditorBox>

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable react/self-closing-comp */
+import React, { useState, useEffect, useRef } from 'react';
 import { Layout, Palette, ToggleSwitch } from 'wix-style-react';
 import { Page, Section, ContentState } from '../Components/StoryParts';
 import exampleState from '../../../../e2e/tests/fixtures/storybook-example-app-without-vertical-embed.json';
@@ -20,6 +21,8 @@ const ThemeSelector = () => {
   const [isFloatingBM, setFloatingBM] = useState(false);
   const [isOneApp, setOneApp] = useState(false);
   const [isTiptap, setIsTiptap] = useState(false);
+  const [useExternalModalsContainer, setUseExternalModalsContainer] = useState(false);
+  const modalsContainerRef = useRef<HTMLDivElement>(null);
   const fallbackColor = isFallback ? '#FF0000' : undefined;
   const palette = ricosPalettes[palettePage];
   const values = Object.values(palette);
@@ -56,6 +59,8 @@ const ThemeSelector = () => {
 
   return (
     <>
+      <div id="modalsExternalContainer" ref={modalsContainerRef}></div>
+
       <Layout cols={12} justifyItems={'center'}>
         <SelectorCell
           type={'a Palette'}
@@ -94,6 +99,13 @@ const ThemeSelector = () => {
         <ToggleSwitch checked={isOneApp} onChange={({ target }) => setOneApp(target.checked)} />
         <span> Use OneApp styles</span>
       </div>
+      <div>
+        <ToggleSwitch
+          checked={useExternalModalsContainer}
+          onChange={({ target }) => setUseExternalModalsContainer(target.checked)}
+        />
+        <span> Use External Modals Container</span>
+      </div>
       <ToggleTiptapButton isTiptap={isTiptap} setIsTiptap={setIsTiptap} />
       <div style={{ backgroundColor: palette.bgColor, padding: 4 }}>
         <ExampleApplication
@@ -104,6 +116,13 @@ const ThemeSelector = () => {
             customStyles: FONTS[fontPage],
           })}
           experiments={{ tiptapEditor: { enabled: isTiptap } }}
+          modalSettings={
+            useExternalModalsContainer
+              ? {
+                  container: modalsContainerRef.current,
+                }
+              : undefined
+          }
         />
       </div>
     </>

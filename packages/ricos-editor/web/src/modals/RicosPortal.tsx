@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import React, { forwardRef } from 'react';
 import ReactDOM from 'react-dom';
+import { isSSR } from 'wix-rich-content-common';
 
 interface Props {
   className?: string;
@@ -17,8 +18,9 @@ const RicosPortal = forwardRef<HTMLDivElement, Props>((props, ref) => {
 });
 
 export default forwardRef<HTMLDivElement, Props>((props, ref) => {
-  return ReactDOM.createPortal(
-    <RicosPortal {...props} ref={ref} />,
-    props?.container || document.body
-  );
+  if (!isSSR()) {
+    const container = props?.container ?? document?.body;
+    return ReactDOM.createPortal(<RicosPortal {...props} ref={ref} />, container);
+  }
+  return <RicosPortal {...props} ref={ref} />;
 });
