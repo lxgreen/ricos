@@ -202,7 +202,10 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
                         <TiptapEditorConsumer>
                           {(editor: RichContentAdapter) => (
                             <ToolbarContext.Provider
-                              value={this.getToolbarContext(editor.getEditorCommands)}
+                              value={{
+                                ...this.getToolbarContext(editor.getEditorCommands),
+                                portal: this.portalRef.current as RicosPortalType,
+                              }}
                             >
                               <RicosToolbars
                                 content={this.content}
