@@ -23,10 +23,14 @@
   - [#3879](https://github.com/wix/ricos/pull/3879) `documentStyle` schema support `lineHeight` and `NodeStyle = {paddingTop, paddingBoyttom}`
 - `ricos-content`
   - [#3879](https://github.com/wix/ricos/pull/3879) fix `fontSize` and `documentStyle` converters
+
 ### :house: Internal
   
+- `ricos-editor`
+  - [#3898](https://github.com/wix/ricos/pull/3898) StylesContext integration in RicosEditor (tiptap)
 - `ricos-styles`
   - [#3896](https://github.com/wix/ricos/pull/3896) Decorations and TextStyle aggregates
+  - [#3898](https://github.com/wix/ricos/pull/3898) StylesContext
 
 </details>
 
