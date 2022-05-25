@@ -31,7 +31,7 @@ jobs:
             node_modules
             **/node_modules
             ~/.cache
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock', 'cacheBust') }}
 
       - name: npm install + bootstrap
         if: steps.cache-modules.outputs.cache-hit != 'true'
