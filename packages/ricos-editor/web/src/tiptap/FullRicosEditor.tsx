@@ -65,6 +65,10 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
     this.forceUpdate();
   }
 
+  componentWillUnmount() {
+    this.props.pluginsContext.plugins.destroy();
+  }
+
   componentDidCatch(error, errorInfo) {
     console.error({ error, errorInfo });
   }
