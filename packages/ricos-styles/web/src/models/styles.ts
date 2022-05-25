@@ -5,6 +5,7 @@ import type {
   Decoration_Type,
 } from 'ricos-schema';
 import type { RicosTheme } from 'ricos-types';
+import type { TextDecoration } from './decoration';
 
 export type TextNodeType = keyof Required<RichContentDocumentStyle>;
 
@@ -23,7 +24,7 @@ export interface TextualTheme {
    * @returns  {Decoration}
    * @memberof TextualTheme
    */
-  getDecoration(type: TextNodeType, decoration: Decoration_Type): Decoration;
+  getDecoration(type: TextNodeType, decoration: Decoration_Type): TextDecoration;
   /**
    * Translates RicosTheme to HTML style tag with CSS variable definitions
    *
@@ -31,14 +32,6 @@ export interface TextualTheme {
    * @memberof TextualTheme
    */
   toStyleTag(): ReactElement;
-  /**
-   * Initializes TextualTheme entity with given RicosTheme
-   *
-   * @param {RicosTheme} theme
-   * @returns  {TextualTheme}
-   * @memberof TextualTheme
-   */
-  setTheme(theme: RicosTheme): TextualTheme;
 }
 
 /**
@@ -56,7 +49,7 @@ export interface DocumentStyle {
    * @returns  {Decoration}
    * @memberof DocumentStyle
    */
-  getDecoration(type: TextNodeType, decoration: Decoration_Type): Decoration;
+  getDecoration(type: TextNodeType, decoration: Decoration_Type): TextDecoration;
   /**
    * Translates DocumentStyle to HTML style tag with CSS variable definitions
    *
@@ -80,14 +73,6 @@ export interface DocumentStyle {
    * @memberof DocumentStyle
    */
   setStyle(type: TextNodeType, decorations: Decoration[]): DocumentStyle;
-  /**
-   * Initializes entity with DocumentStyle
-   *
-   * @param {RichContentDocumentStyle} documentStyle
-   * @returns  {DocumentStyle}
-   * @memberof DocumentStyle
-   */
-  setDocumentStyle(documentStyle: RichContentDocumentStyle): DocumentStyle;
 }
 
 /**
@@ -119,6 +104,13 @@ export interface Styles {
    */
   getTheme(): TextualTheme;
   /**
+   * Sets new theme
+   *
+   * @param {RicosTheme} theme
+   * @memberof Styles
+   */
+  setTheme(theme: RicosTheme): Styles;
+  /**
    * Exposes DocumentStyle
    *
    * @returns  {DocumentStyle}
@@ -126,9 +118,16 @@ export interface Styles {
    */
   getDocumentStyle(): DocumentStyle;
   /**
+   * Sets new Document Style
+   *
+   * @param {RichContentDocumentStyle} documentStyle
+   * @memberof Styles
+   */
+  setDocumentStyle(documentStyle: RichContentDocumentStyle): Styles;
+  /**
    * Produces HTML style tags for DocumentStyle and Theme, guarantees correct precedence
    *
-   * @returns  {ReactElement[]}
+   * @returns  {ReactElement[]} style tag elements
    * @memberof Styles
    */
   toStyleTags(): ReactElement[];

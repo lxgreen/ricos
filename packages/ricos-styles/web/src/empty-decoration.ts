@@ -17,4 +17,8 @@ export class EmptyDecoration implements TextDecoration {
   toCustomStyle(): CustomTextualStyle {
     return {};
   }
+
+  overrideWith(decoration: TextDecoration): TextDecoration {
+    return decoration;
+  }
 }

@@ -1,35 +1,40 @@
-import type { ReactElement, JSXElementConstructor } from 'react';
-import type { DocumentStyle as RichContentDocumentStyle } from 'ricos-schema';
+import type { ReactElement } from 'react';
+import type { Decoration_Type, DocumentStyle as RichContentDocumentStyle } from 'ricos-schema';
 import type { RicosTheme } from 'ricos-types';
 import DocumentStyle from './document-style';
-import type { Styles as IStyles } from './models/styles';
+import type { Styles, TextNodeType } from './models/styles';
 import TextualTheme from './textual-theme';
 
-export default class Styles implements IStyles {
-  theme: RicosTheme;
+export default class RicosStyles implements Styles {
+  private theme!: TextualTheme;
 
-  documentStyle: RichContentDocumentStyle;
-
-  constructor(theme: RicosTheme, documentStyle: RichContentDocumentStyle) {
-    this.theme = theme;
-    this.documentStyle = documentStyle;
-  }
+  private documentStyle!: DocumentStyle;
 
   toStyleTags(): ReactElement[] {
-    throw new Error('Method not implemented.');
+    return [this.theme.toStyleTag(), this.documentStyle.toStyleTag()];
   }
 
-  getDecoration: IStyles['getDecoration'] = (nodeType, decorationType) => {
-    const documentStyleDecoration = this.getDocumentStyle().getDecoration(nodeType, decorationType);
-    const themeDecoration = this.getTheme().getDecoration(nodeType, decorationType);
-    return documentStyleDecoration && themeDecoration
-      ? { ...themeDecoration, ...documentStyleDecoration }
-      : documentStyleDecoration
-      ? documentStyleDecoration
-      : themeDecoration;
-  };
+  getDecoration(nodeType: TextNodeType, decorationType: Decoration_Type) {
+    const documentStyleDecoration = this.documentStyle.getDecoration(nodeType, decorationType);
+    const themeDecoration = this.theme.getDecoration(nodeType, decorationType);
+    return themeDecoration.overrideWith(documentStyleDecoration).getDecoration();
+  }
 
-  getTheme: IStyles['getTheme'] = () => new TextualTheme(this.theme);
+  getTheme() {
+    return this.theme;
+  }
 
-  getDocumentStyle: IStyles['getDocumentStyle'] = () => new DocumentStyle(this.documentStyle);
+  setTheme(theme: RicosTheme) {
+    this.theme = new TextualTheme(theme);
+    return this;
+  }
+
+  getDocumentStyle() {
+    return this.documentStyle;
+  }
+
+  setDocumentStyle(documentStyle: RichContentDocumentStyle) {
+    this.documentStyle = new DocumentStyle(documentStyle);
+    return this;
+  }
 }

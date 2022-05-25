@@ -1,8 +1,9 @@
 /* eslint-disable react/self-closing-comp */
 import React, { useState, useEffect, useRef } from 'react';
+// eslint-disable-next-line wix-style-react/no-full-wsr-lib
 import { Layout, Palette, ToggleSwitch } from 'wix-style-react';
 import { Page, Section, ContentState } from '../Components/StoryParts';
-import exampleState from '../../../../e2e/tests/fixtures/storybook-example-app-without-vertical-embed.json';
+import exampleState from '../../../../e2e/tests/fixtures/storybook-example-app-doc-style.json';
 import { wixPalettes, ricosPalettes } from '../../src/shared/resources/palettesExample';
 import { FONTS } from '../../src/shared/resources/fontsExample';
 import ExampleApplication from '../Components/ExampleApplication';

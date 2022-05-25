@@ -1,6 +1,7 @@
 import type { Decoration } from 'ricos-schema';
 import { Decoration_Type } from 'ricos-schema';
 import type { CustomTextualStyle } from 'ricos-types';
+import { EmptyDecoration } from './empty-decoration';
 import type { TextDecoration } from './models/decoration';
 
 const DEFAULT_BOLD_WEIGHT = 700;
@@ -39,5 +40,13 @@ export class BoldDecoration implements TextDecoration {
 
   toCustomStyle(): CustomTextualStyle {
     return this.customStyle;
+  }
+
+  overrideWith(decoration: TextDecoration): TextDecoration {
+    if (!(decoration instanceof BoldDecoration || decoration instanceof EmptyDecoration)) {
+      throw new TypeError(`invalid merge decoration ${decoration}`);
+    }
+    const customStyle = { ...this.customStyle, ...decoration.toCustomStyle() };
+    return new BoldDecoration(customStyle);
   }
 }

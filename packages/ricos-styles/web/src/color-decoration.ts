@@ -1,6 +1,7 @@
 import type { Decoration } from 'ricos-schema';
 import { Decoration_Type } from 'ricos-schema';
 import type { CustomTextualStyle } from 'ricos-types';
+import { EmptyDecoration } from './empty-decoration';
 import type { TextDecoration } from './models/decoration';
 
 export class ColorDecoration implements TextDecoration {
@@ -43,5 +44,13 @@ export class ColorDecoration implements TextDecoration {
 
   toCustomStyle(): CustomTextualStyle {
     return this.customStyle;
+  }
+
+  overrideWith(decoration: TextDecoration): TextDecoration {
+    if (!(decoration instanceof ColorDecoration || decoration instanceof EmptyDecoration)) {
+      throw new TypeError(`invalid merge decoration ${decoration}`);
+    }
+    const customStyle = { ...this.customStyle, ...decoration.toCustomStyle() };
+    return new ColorDecoration(customStyle);
   }
 }

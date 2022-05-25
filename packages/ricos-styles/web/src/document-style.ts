@@ -4,6 +4,7 @@ import type {
   DocumentStyle as RichContentDocumentStyle,
 } from 'ricos-schema';
 import { Decorations } from './decorations';
+import type { TextDecoration } from './models/decoration';
 import type { DocumentStyle, TextNodeType } from './models/styles';
 import { TextStyle } from './text-style';
 import RicosTextualTheme from './textual-theme';
@@ -15,10 +16,8 @@ export default class RicosDocumentStyle implements DocumentStyle {
     this.documentStyle = documentStyle;
   }
 
-  getDecoration(nodeType: TextNodeType, decorationType: Decoration_Type): Decoration {
-    return Decorations.of(this.documentStyle[nodeType]?.decorations || [])
-      .byType(decorationType)
-      .getDecoration();
+  getDecoration(nodeType: TextNodeType, decorationType: Decoration_Type): TextDecoration {
+    return Decorations.of(this.documentStyle[nodeType]?.decorations || []).byType(decorationType);
   }
 
   toStyleTag() {
@@ -32,9 +31,5 @@ export default class RicosDocumentStyle implements DocumentStyle {
 
   setStyle(nodeType: TextNodeType, decorations: Decoration[]) {
     return new RicosDocumentStyle({ ...this.documentStyle, [nodeType]: { decorations } });
-  }
-
-  setDocumentStyle(documentStyle: RichContentDocumentStyle) {
-    return new RicosDocumentStyle(documentStyle);
   }
 }

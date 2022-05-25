@@ -1,6 +1,7 @@
 import type { Decoration } from 'ricos-schema';
 import { FontSizeData_fontType, Decoration_Type } from 'ricos-schema';
 import type { CustomTextualStyle } from 'ricos-types';
+import { EmptyDecoration } from './empty-decoration';
 import type { TextDecoration } from './models/decoration';
 
 export class FontSizeDecoration implements TextDecoration {
@@ -42,5 +43,13 @@ export class FontSizeDecoration implements TextDecoration {
 
   toCustomStyle(): CustomTextualStyle {
     return this.customStyle;
+  }
+
+  overrideWith(decoration: TextDecoration): TextDecoration {
+    if (!(decoration instanceof FontSizeDecoration || decoration instanceof EmptyDecoration)) {
+      throw new TypeError(`invalid merge decoration ${decoration}`);
+    }
+    const customStyle = { ...this.customStyle, ...decoration.toCustomStyle() };
+    return new FontSizeDecoration(customStyle);
   }
 }

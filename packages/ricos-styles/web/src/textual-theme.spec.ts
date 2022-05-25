@@ -21,7 +21,9 @@ describe('Textual Theme', () => {
   it('Should getDecoration FontSize match expected', () => {
     const decoration = new TextualTheme({
       customStyles: { h1: { fontSize: 18 } },
-    }).getDecoration('headerOne', Decoration_Type.FONT_SIZE);
+    })
+      .getDecoration('headerOne', Decoration_Type.FONT_SIZE)
+      .getDecoration();
     expect(decoration).toStrictEqual({
       fontSizeData: { unit: 'PX', value: 18 },
       type: Decoration_Type.FONT_SIZE,
@@ -31,7 +33,9 @@ describe('Textual Theme', () => {
   it('Should getDecoration Color match expected', () => {
     const decoration = new TextualTheme({
       customStyles: { h2: { color: '#717171' } },
-    }).getDecoration('headerTwo', Decoration_Type.COLOR);
+    })
+      .getDecoration('headerTwo', Decoration_Type.COLOR)
+      .getDecoration();
     expect(decoration).toStrictEqual({
       colorData: { foreground: '#717171' },
       type: Decoration_Type.COLOR,
@@ -41,7 +45,9 @@ describe('Textual Theme', () => {
   it('Should getDecoration Bold match expected', () => {
     const decoration = new TextualTheme({
       customStyles: { h3: { fontWeight: 700 } },
-    }).getDecoration('headerThree', Decoration_Type.BOLD);
+    })
+      .getDecoration('headerThree', Decoration_Type.BOLD)
+      .getDecoration();
     expect(decoration).toStrictEqual({
       fontWeightValue: 700,
       type: Decoration_Type.BOLD,
@@ -51,22 +57,12 @@ describe('Textual Theme', () => {
   it('Should getDecoration Italic match expected', () => {
     const decoration = new TextualTheme({
       customStyles: { p: { fontStyle: 'italic' } },
-    }).getDecoration('paragraph', Decoration_Type.ITALIC);
+    })
+      .getDecoration('paragraph', Decoration_Type.ITALIC)
+      .getDecoration();
     expect(decoration).toStrictEqual({
       italicData: true,
       type: Decoration_Type.ITALIC,
     });
-  });
-
-  it('Should setTheme match expected', () => {
-    const styleTag = new TextualTheme(theme)
-      .setTheme({
-        palette: { textColor: '#515151' },
-      })
-      .toStyleTag();
-    expect(styleTag.type).toStrictEqual('style');
-    expect(
-      JSON.stringify(styleTag.props.children).includes('--ricos-text-color: #515151')
-    ).toBeTruthy();
   });
 });

@@ -15,10 +15,8 @@ describe('Styles', () => {
         h1: { ...customStyle, color: '#888888' },
       },
     };
-    const decoration = new Styles(theme, documentStyle).getDecoration(
-      'headerOne',
-      Decoration_Type.COLOR
-    );
+    const styles = new Styles().setTheme(theme).setDocumentStyle(documentStyle);
+    const decoration = styles.getDecoration('headerOne', Decoration_Type.COLOR);
     expect(decoration).toEqual({
       colorData: {
         foreground: '#414141',
@@ -38,10 +36,8 @@ describe('Styles', () => {
         p: { ...customStyle, color: '#888888' },
       },
     };
-    const decoration = new Styles(theme, documentStyle).getDecoration(
-      'paragraph',
-      Decoration_Type.COLOR
-    );
+    const styles = new Styles().setTheme(theme).setDocumentStyle(documentStyle);
+    const decoration = styles.getDecoration('paragraph', Decoration_Type.COLOR);
     expect(decoration).toEqual({
       colorData: {
         foreground: '#888888',

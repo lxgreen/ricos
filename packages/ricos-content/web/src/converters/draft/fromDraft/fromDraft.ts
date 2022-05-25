@@ -1,14 +1,15 @@
 /* eslint-disable no-console, fp/no-loops, no-case-declarations */
 import { cloneDeep, isEmpty } from 'lodash';
-import type { DraftContent, RicosContentBlock, DocumentStyle } from '../../../types';
-import { BlockType, FROM_DRAFT_LIST_TYPE, HeaderLevel } from '../consts';
-import type { Node, DocumentStyle as RicosDocumentStyle } from 'ricos-schema';
-import { RichContent, Node_Type, Decoration_Type } from 'ricos-schema';
+import type { Node } from 'ricos-schema';
+import { Node_Type, RichContent } from 'ricos-schema';
+import type { DraftContent, RicosContentBlock } from '../../../types';
 import { generateId } from '../../generateRandomId';
-import { getTextNodes } from './getTextNodes';
-import { getEntity, getNodeStyle, getTextStyle } from './getRicosEntityData';
 import { createParagraphNode, initializeMetadata } from '../../nodeUtils';
+import { BlockType, FROM_DRAFT_LIST_TYPE, HeaderLevel } from '../consts';
+import { getEntity, getNodeStyle, getTextStyle } from './getRicosEntityData';
+import { getTextNodes } from './getTextNodes';
 import { nestedNodesConverters } from './nestedNodesUtils';
+import { parseDocStyle } from './parse-doc-style';
 
 export interface FromDraftOptions {
   ignoreUnsupportedValues?: boolean;
@@ -16,63 +17,6 @@ export interface FromDraftOptions {
 
 export const ensureRicosContent = (content: RichContent | DraftContent): RichContent =>
   'blocks' in content ? fromDraft(content) : content;
-
-const cssToRicosDecoration = {
-  color: (style: string) => {
-    return { type: Decoration_Type.COLOR, colorData: { foreground: style } };
-  },
-  'background-color': (style: string) => {
-    return { type: Decoration_Type.COLOR, colorData: { background: style } };
-  },
-  'font-weight': (style: string) => {
-    return { type: Decoration_Type.BOLD, fontWeightValue: style === 'bold' ? 700 : 400 };
-  },
-  'font-style': (style: string) => {
-    return { type: Decoration_Type.ITALIC, italicData: style === 'italic' };
-  },
-  'text-decoration': (style: string) => {
-    return { type: Decoration_Type.UNDERLINE, underlineData: style === 'underline' };
-  },
-  'font-size': (style: string) => {
-    const [value, unit] = style.split(/(px|em)/gi);
-    return {
-      type: Decoration_Type.FONT_SIZE,
-      fontSizeData: { unit: unit.toUpperCase(), value: parseInt(value) },
-    };
-  },
-};
-
-const convertHeaderToRicosDecorations = styles =>
-  Object.entries(styles)
-    .filter(([key, _]) => cssToRicosDecoration[key])
-    .map(([key, style]) => cssToRicosDecoration[key](style));
-
-const convertCssToNodeStyle = styles => {
-  return styles['padding-top'] || styles['padding-bottom']
-    ? {
-        paddingTop: styles['padding-top'],
-        paddingBottom: styles['padding-bottom'],
-      }
-    : undefined;
-};
-
-const parseDocStyle = (documentStyle?: DocumentStyle): RicosDocumentStyle | undefined => {
-  if (documentStyle) {
-    const ricosDoucmentStyle: RicosDocumentStyle = {};
-    Object.entries(documentStyle).forEach(([header, styles]) => {
-      if (header) {
-        const decorations = convertHeaderToRicosDecorations(styles);
-        const nodeStyle = convertCssToNodeStyle(styles);
-        const lineHeight = styles['line-height'];
-        ricosDoucmentStyle[header] = {};
-        decorations?.length > 0 && (ricosDoucmentStyle[header].decorations = decorations);
-        nodeStyle && (ricosDoucmentStyle[header].nodeStyle = nodeStyle);
-        lineHeight && (ricosDoucmentStyle[header].lineHeight = lineHeight);
-      }
-    });
-    return ricosDoucmentStyle;
-  }
-};
 
 const normalizeBlock = block => {
   block.depth = block.depth || 0;

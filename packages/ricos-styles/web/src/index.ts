@@ -1,1 +1,1 @@
-export { default as Styles } from './styles';
+export { StylesContext } from './context';
