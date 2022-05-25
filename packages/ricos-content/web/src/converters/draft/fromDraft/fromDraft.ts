@@ -1,8 +1,8 @@
 /* eslint-disable no-console, fp/no-loops, no-case-declarations */
 import { cloneDeep, isEmpty } from 'lodash';
-import type { DraftContent, RicosContentBlock } from '../../../types';
+import type { DraftContent, RicosContentBlock, DocumentStyle } from '../../../types';
 import { BlockType, FROM_DRAFT_LIST_TYPE, HeaderLevel } from '../consts';
-import type { Node } from 'ricos-schema';
+import type { Node, DocumentStyle as RicosDocumentStyle } from 'ricos-schema';
 import { RichContent, Node_Type, Decoration_Type } from 'ricos-schema';
 import { generateId } from '../../generateRandomId';
 import { getTextNodes } from './getTextNodes';
@@ -34,22 +34,44 @@ const cssToRicosDecoration = {
     return { type: Decoration_Type.UNDERLINE, underlineData: style === 'underline' };
   },
   'font-size': (style: string) => {
-    return { type: Decoration_Type.FONT_SIZE, fontSize: style };
+    const [value, unit] = style.split(/(px|em)/gi);
+    return {
+      type: Decoration_Type.FONT_SIZE,
+      fontSizeData: { unit: unit.toUpperCase(), value: parseInt(value) },
+    };
   },
 };
 
-const convertHeaderToInlineStyles = styles =>
-  Object.entries(styles).map(([key, style]) => cssToRicosDecoration[key](style));
+const convertHeaderToRicosDecorations = styles =>
+  Object.entries(styles)
+    .filter(([key, _]) => cssToRicosDecoration[key])
+    .map(([key, style]) => cssToRicosDecoration[key](style));
 
-const parseDocStyle = documentStyle => {
-  documentStyle &&
+const convertCssToNodeStyle = styles => {
+  return styles['padding-top'] || styles['padding-bottom']
+    ? {
+        paddingTop: styles['padding-top'],
+        paddingBottom: styles['padding-bottom'],
+      }
+    : undefined;
+};
+
+const parseDocStyle = (documentStyle?: DocumentStyle): RicosDocumentStyle | undefined => {
+  if (documentStyle) {
+    const ricosDoucmentStyle: RicosDocumentStyle = {};
     Object.entries(documentStyle).forEach(([header, styles]) => {
-      header &&
-        (documentStyle[header] = {
-          decorations: convertHeaderToInlineStyles(styles),
-        });
+      if (header) {
+        const decorations = convertHeaderToRicosDecorations(styles);
+        const nodeStyle = convertCssToNodeStyle(styles);
+        const lineHeight = styles['line-height'];
+        ricosDoucmentStyle[header] = {};
+        decorations?.length > 0 && (ricosDoucmentStyle[header].decorations = decorations);
+        nodeStyle && (ricosDoucmentStyle[header].nodeStyle = nodeStyle);
+        lineHeight && (ricosDoucmentStyle[header].lineHeight = lineHeight);
+      }
     });
-  return documentStyle;
+    return ricosDoucmentStyle;
+  }
 };
 
 const normalizeBlock = block => {

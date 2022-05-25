@@ -178,10 +178,11 @@ const convertDecorationTypes = (decorations: Decoration[]): DraftTypedDecoration
 export const convertDocumentStyleDecorationTypes = (decorations: Decoration[]) => {
   let draftBlockStyles = {};
   decorations.forEach(decoration => {
-    draftBlockStyles = {
-      ...draftBlockStyles,
-      ...ricosDecorationToCss[decoration.type](decoration),
-    };
+    decoration &&
+      (draftBlockStyles = {
+        ...draftBlockStyles,
+        ...ricosDecorationToCss[decoration.type](decoration),
+      });
   });
   return draftBlockStyles;
 };
@@ -203,7 +204,9 @@ const ricosDecorationToCss = {
       : {};
   },
   [Decoration_Type.FONT_SIZE]: ({ fontSizeData }) => {
-    return fontSizeData ? { 'font-size': fontSizeData.value + (fontSizeData.unit || 'px') } : {};
+    return fontSizeData
+      ? { 'font-size': fontSizeData.value + (fontSizeData.unit.toLowerCase() || 'px') }
+      : {};
   },
   [Decoration_Type.COLOR]: ({ colorData }) => {
     const { foreground, background } = colorData;
@@ -237,7 +240,7 @@ const toDraftDecorationType = (decoration: Decoration): DraftTypedDecoration => 
     Decoration_Type.BOLD,
     Decoration_Type.ITALIC,
     Decoration_Type.UNDERLINE,
-  ])[decoration.type];
+  ])[decoration?.type];
   return type ? { ...decoration, type } : decoration;
 };
 

@@ -1857,6 +1857,23 @@
     "headerOne": {
       "color": "red",
       "font-weight": "bold"
+    },
+    "headerThree": {
+      "font-size": "24px",
+      "color": "#bfad80"
+    },
+    "paragraph": {
+      "line-height": "2",
+      "padding-top": "2px",
+      "padding-bottom": "3px"
+    },
+    "headerSix": {
+      "line-height": "3",
+      "padding-top": "2px",
+      "padding-bottom": "3px",
+      "font-style": "italic",
+      "font-weight": "bold",
+      "background-color": "#bf695c"
     }
   },
   "VERSION": "8.53.1",

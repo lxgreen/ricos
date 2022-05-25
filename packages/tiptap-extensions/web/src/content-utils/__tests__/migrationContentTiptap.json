@@ -2636,6 +2636,54 @@
           "fontWeightValue": 700
         }
       ]
+    },
+    "headerThree": {
+      "marks": [
+        {
+          "type": "fontSize",
+          "attrs": {
+            "unit": "PX",
+            "value": 24
+          }
+        },
+        {
+          "type": "color",
+          "attrs": {
+            "foreground": "#bfad80"
+          }
+        }
+      ]
+    },
+    "headerSix": {
+      "marks": [
+        {
+          "type": "italic",
+          "italicData": true
+        },
+        {
+          "type": "bold",
+          "fontWeightValue": 700
+        },
+        {
+          "type": "color",
+          "attrs": {
+            "background": "#bf695c"
+          }
+        }
+      ],
+      "nodeStyle": {
+        "paddingTop": "2px",
+        "paddingBottom": "3px"
+      },
+      "lineHeight": "3"
+    },
+    "paragraph": {
+      "marks": [],
+      "nodeStyle": {
+        "paddingTop": "2px",
+        "paddingBottom": "3px"
+      },
+      "lineHeight": "2"
     }
   },
   "attrs": {

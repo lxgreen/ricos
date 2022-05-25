@@ -145,8 +145,11 @@ const convert =
       const draftDocStyle = {};
       Object.entries(documentStyle).forEach(([header, values]) => {
         if (values) {
-          const { decorations } = values as TextNodeStyle;
-          draftDocStyle[header as string] = convertDocumentStyleDecorationTypes(decorations);
+          const { decorations, nodeStyle, lineHeight } = values as TextNodeStyle;
+          draftDocStyle[header as string] = {
+            ...convertDocumentStyleDecorationTypes(decorations),
+            ...convertNodeStyleToCss({ ...nodeStyle, lineHeight }),
+          };
         }
       });
       return draftDocStyle;
@@ -158,6 +161,14 @@ const convert =
     draftContent.ID = ricosContent.metadata?.id || uuid();
     return draftContent;
   };
+
+const convertNodeStyleToCss = nodeStyle => {
+  const css = {};
+  nodeStyle.paddingTop && (css['padding-top'] = nodeStyle.paddingTop);
+  nodeStyle.paddingBottom && (css['padding-bottom'] = nodeStyle.paddingBottom);
+  nodeStyle.lineHeight && (css['line-height'] = nodeStyle.lineHeight);
+  return css;
+};
 
 export const toDraft = (content: RichContent, options = { ignoreUnsupportedTypes: false }) =>
   pipe(content, preprocess, convert(options));

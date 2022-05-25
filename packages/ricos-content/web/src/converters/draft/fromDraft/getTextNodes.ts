@@ -48,25 +48,25 @@ const isDecorationType = (decorationType: string) =>
   Object.keys(dynamicDecorationGetters).some(dynamicType => decorationType.includes(dynamicType));
 
 const dynamicDecorationGetters = {
-  FG: (value: string) => {
+  FG: (style: string) => {
     return {
       type: Decoration_Type.COLOR,
-      colorData: { foreground: value },
+      colorData: { foreground: style },
     };
   },
-  BG: (value: string) => {
+  BG: (style: string) => {
     return {
       type: Decoration_Type.COLOR,
-      colorData: { background: value },
+      colorData: { background: style },
     };
   },
-  'font-size': (value: string) => {
-    const values = value.split(/(px)/g).length >= 2 ? value.split(/(px)/g) : value.split(/(em)/g);
+  'font-size': (style: string) => {
+    const [value, unit] = style.split(/(px|em)/gi);
     return {
       type: Decoration_Type.FONT_SIZE,
       fontSizeData: {
-        unit: values[1].toUpperCase(),
-        value: parseInt(values[0]),
+        unit: unit.toUpperCase(),
+        value: parseInt(value),
       },
     };
   },

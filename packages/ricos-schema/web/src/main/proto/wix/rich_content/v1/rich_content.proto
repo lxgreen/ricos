@@ -168,6 +168,9 @@ message Metadata {
 
 message TextNodeStyle {
     repeated Decoration decorations = 1;
+    NodeStyle node_style = 2;
+    google.protobuf.StringValue line_height = 3;
+
 }
 
 message DocumentStyle {

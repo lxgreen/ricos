@@ -10,12 +10,15 @@ import type {
 } from 'draft-js';
 
 export interface TextBlockStyle {
-  'font-size'?: number;
+  'font-size'?: string;
   color?: string;
   'background-color'?: string;
   'font-weight'?: string;
   'font-style'?: string;
   'text-decoration'?: string;
+  'line-height'?: string;
+  'margin-top'?: string;
+  'margin-bottom'?: string;
 }
 export interface DocumentStyle {
   headerOne?: TextBlockStyle;

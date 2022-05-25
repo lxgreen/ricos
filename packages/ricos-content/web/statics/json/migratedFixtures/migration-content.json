@@ -2591,6 +2591,54 @@
           "fontWeightValue": 700
         }
       ]
+    },
+    "headerThree": {
+      "decorations": [
+        {
+          "type": "FONT_SIZE",
+          "fontSizeData": {
+            "unit": "PX",
+            "value": 24
+          }
+        },
+        {
+          "type": "COLOR",
+          "colorData": {
+            "foreground": "#bfad80"
+          }
+        }
+      ]
+    },
+    "headerSix": {
+      "decorations": [
+        {
+          "type": "ITALIC",
+          "italicData": true
+        },
+        {
+          "type": "BOLD",
+          "fontWeightValue": 700
+        },
+        {
+          "type": "COLOR",
+          "colorData": {
+            "background": "#bf695c"
+          }
+        }
+      ],
+      "nodeStyle": {
+        "paddingTop": "2px",
+        "paddingBottom": "3px"
+      },
+      "lineHeight": "3"
+    },
+    "paragraph": {
+      "decorations": [],
+      "nodeStyle": {
+        "paddingTop": "2px",
+        "paddingBottom": "3px"
+      },
+      "lineHeight": "2"
     }
   }
 }

@@ -17,9 +17,15 @@
     Click to see more.
   </summary>
 
-  ### :house: Internal
+### :bug: Bug Fix
+
+- `ricos-schema`
+  - [#3879](https://github.com/wix/ricos/pull/3879) `documentStyle` schema support `lineHeight` and `NodeStyle = {paddingTop, paddingBoyttom}`
+- `ricos-content`
+  - [#3879](https://github.com/wix/ricos/pull/3879) fix `fontSize` and `documentStyle` converters
+### :house: Internal
   
-  - `ricos-styles`
+- `ricos-styles`
   - [#3896](https://github.com/wix/ricos/pull/3896) Decorations and TextStyle aggregates
 
 </details>
@@ -41,6 +47,7 @@
 - `ricos-editor`
   - [#3885](https://github.com/wix/ricos/pull/3885) fix modal scoping issue /use RicosPortal in RicosModal
   - [#3886](https://github.com/wix/ricos/pull/3886) fix flaky plus button position on tiptap
+
 
 ### :house: Internal
 
