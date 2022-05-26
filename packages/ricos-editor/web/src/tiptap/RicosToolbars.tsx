@@ -188,7 +188,7 @@ class RicosToolbars extends React.Component<
 
     if (htmlContainer && toolbarConfig?.shouldCreate?.()) {
       return (
-        <RicosPortal className={ricosContext.theme.parentClass} container={htmlContainer}>
+        <RicosPortal className={ricosContext.theme?.parentClass} container={htmlContainer}>
           {this.renderToolbar(toolbarItemsConfig)}
         </RicosPortal>
       );
