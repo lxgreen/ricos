@@ -3,7 +3,6 @@ import '../style.scss';
 import type { Content } from '../Content';
 import type { RicosToolbar } from '../RicosToolbar';
 import { toolbarItemsRenders } from '../toolbarItemsRenders';
-import { tiptapStaticToolbarConfig } from '../toolbarItemConfig/tiptapToolbarItemConfig';
 import RicosToolbarComponent from './RicosToolbarComponent';
 import type { Node } from 'prosemirror-model';
 import type { IToolbarItemConfigTiptap } from '../types';
@@ -22,11 +21,18 @@ class RicosTiptapToolbar extends Component<RicosTiptapToolbarProps, RicosTiptapT
   toolbar: RicosToolbar | null = null;
 
   render() {
-    const { isMobile = false, maxWidth, onLoad, editorCommands, content } = this.props;
+    const {
+      isMobile = false,
+      maxWidth,
+      onLoad,
+      editorCommands,
+      content,
+      toolbarItemsConfig,
+    } = this.props;
     return (
       <RicosToolbarComponent
         toolbarItemsRenders={toolbarItemsRenders}
-        toolbarItemsConfig={tiptapStaticToolbarConfig}
+        toolbarItemsConfig={toolbarItemsConfig}
         isMobile={isMobile}
         maxWidth={maxWidth}
         onLoad={onLoad}

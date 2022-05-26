@@ -135,6 +135,10 @@ class RicosToolbars extends React.Component<
         borderRadius: 'var(--ricos-settings-whitebox-border-radius, 2px)',
         boxShadow: 'var(--ricos-settings-whitebox-box-shadow, 0 4px 8px 0 rgba(0, 0, 0, 0.07))',
         backgroundColor: '#FFF',
+        height: '36px',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 4px',
       };
 
       return (
