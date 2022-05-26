@@ -548,11 +548,27 @@ const config: RichContentEditorProps['config'] = {
           () =>
             resolve(
               [
-                { name: 'Test One', slug: 'testone' },
-                { name: 'Test One.1', slug: 'testone1' },
-                { name: 'Test One.2', slug: 'testone2' },
-                { name: 'Test One.3', slug: 'testone3' },
-                { name: 'Test One.4', slug: 'testone4' },
+                {
+                  name: 'Oded Soffrin',
+                  slug: 'oddedsoffrin',
+                  avatar: 'https://ca.slack-edge.com/T02T01M9Y-U0MN7A3H8-38d64543367b-192',
+                },
+                {
+                  name: 'Alex Greenstein',
+                  slug: 'alexgreenstein',
+                  avatar: 'https://ca.slack-edge.com/T02T01M9Y-U6FQCJ5GT-65d722ddfc28-192',
+                },
+                { name: 'Yaron Nachshon', slug: 'yaronnachshon' },
+                {
+                  name: 'Dana Rish',
+                  slug: 'danarish',
+                  avatar: 'https://ca.slack-edge.com/T02T01M9Y-UEBDPSU2W-ad52085040c0-192',
+                },
+                {
+                  name: 'Judith Jaroslavsky UX Designer',
+                  slug: 'judithjaroslavsky',
+                  avatar: 'https://ca.slack-edge.com/T02T01M9Y-UHMNZJ9P1-c693bb66ca93-512',
+                },
                 { name: 'Test One.5', slug: 'testone5' },
                 { name: 'Test One.6', slug: 'testone6' },
                 { name: 'Test One.7', slug: 'testone7' },

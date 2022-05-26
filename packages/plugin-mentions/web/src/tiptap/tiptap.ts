@@ -118,8 +118,9 @@ export const tiptapExtensions = [
                 // and starts with a space character
                 const nodeAfter = view.state.selection.$to.nodeAfter;
                 const overrideSpace = nodeAfter?.text?.startsWith(' ');
+                const { mentionTrigger } = this.options.settings;
                 const range = pos ||
-                  findMention(editor, this.options.settings.mentionTrigger) || {
+                  findMention(editor, mentionTrigger) || {
                     from: tr.selection.from,
                     to: tr.selection.to,
                   };
@@ -134,7 +135,7 @@ export const tiptapExtensions = [
                   .insertContentAt(range, [
                     {
                       type: 'text',
-                      text: attributes.name,
+                      text: `${mentionTrigger}${attributes.name}`,
                       marks: [
                         {
                           type: 'mention',

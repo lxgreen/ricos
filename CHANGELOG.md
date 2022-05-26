@@ -23,6 +23,8 @@
   - [#3879](https://github.com/wix/ricos/pull/3879) `documentStyle` schema support `lineHeight` and `NodeStyle = {paddingTop, paddingBoyttom}`
 - `ricos-content`
   - [#3879](https://github.com/wix/ricos/pull/3879) fix `fontSize` and `documentStyle` converters
+- `mentions`
+  - [#3912](https://github.com/wix/ricos/pull/3912) fix mentions white space issue && refactor ui
 
 ### :house: Internal
   

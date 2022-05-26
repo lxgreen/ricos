@@ -22,9 +22,6 @@
   font-family: $ricos-settings-font-family;
   color: $primary-text-color;
   font-size: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   width: 220px;
   display: flex;
   justify-content: start;
@@ -32,13 +29,20 @@
   align-items: center;
   gap: 12px;
   padding-left: 12px;
-
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   &.mention_item_selected {
     background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
   }
 
-  svg {
+  .avatar {
     min-width: 28px;
     min-height: 28px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
   }
 }

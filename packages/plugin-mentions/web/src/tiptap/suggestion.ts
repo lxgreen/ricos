@@ -15,8 +15,15 @@ export default (
     handleDropdownClose,
   },
   PluginKey
-) =>
-  Suggestion({
+) => {
+  const shouldEndMentioningProcess = (query, items) => {
+    //There is no way to programmatically end mentioning process
+    //https://github.com/ueberdosis/tiptap/issues/823
+    const names = items.map(item => item.name.toLowerCase());
+    return !names.some(name => name.includes(query.toLowerCase()));
+  };
+
+  return Suggestion({
     editor,
     char: mentionTrigger,
     allowSpaces: true,
@@ -26,7 +33,12 @@ export default (
     },
     items: async ({ query }) => {
       const mentions = await getMentions(query);
-      return mentions.map(mention => mention.name).slice(0, visibleItemsBeforeOverflow);
+      return mentions
+        .map(mention => ({
+          name: mention.name,
+          avatar: mention.avatar,
+        }))
+        .slice(0, visibleItemsBeforeOverflow);
     },
     render: () => {
       let component;
@@ -70,6 +82,11 @@ export default (
             return true;
           }
 
+          const { items, query } = component.props;
+          if (shouldEndMentioningProcess(query, items)) {
+            this.onExit();
+          }
+
           return component.ref?.onKeyDown(props);
         },
 
@@ -81,3 +98,4 @@ export default (
       };
     },
   });
+};

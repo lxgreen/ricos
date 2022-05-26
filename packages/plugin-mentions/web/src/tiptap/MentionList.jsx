@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect, forwardRef, useImperativeHandle, useContext } from 'react';
 import PropTypes from 'prop-types';
-import AvatarIcon from '../icons/AvatarIcon';
+import MentionAvatar from './MentionAvatar';
 import classNames from 'classnames';
 import { RicosContext } from 'wix-rich-content-editor-common';
 import styles from '../../statics/mention-list.scss';
@@ -14,7 +14,7 @@ const MentionList = forwardRef((props, ref) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const selectItem = index => {
-    const item = props.items[index];
+    const item = props.items[index]?.name;
 
     if (item) {
       props.command({ id: item });
@@ -67,8 +67,8 @@ const MentionList = forwardRef((props, ref) => {
           onMouseOver={() => setSelectedIndex(i)}
           onClick={() => selectItem(i)}
         >
-          <AvatarIcon />
-          {item}
+          <MentionAvatar src={item?.avatar} alt={item.name} />
+          <span>{item.name}</span>
         </div>
       ))}
     </div>
