@@ -178,66 +178,74 @@ const AudioSettings = ({
   }, [name, authorName, isDownloadEnabled, coverImage]);
 
   return (
-    <div
-      data-hook="audioSettings"
-      className={classNames(styles.audio_settings, {
-        [styles.audio_settings_mobile]: isMobile,
-      })}
-    >
-      <div className={styles.audio_settings_wrapper}>
-        <SettingsSection theme={theme} className={classNames(styles.audio_settings_inputs_wrapper)}>
-          {renderInputs()}
-        </SettingsSection>
+    <div>
+      <div
+        data-hook="audioSettings"
+        className={classNames(styles.audio_settings, {
+          [styles.audio_settings_mobile]: isMobile,
+        })}
+      >
+        <div className={styles.audio_settings_wrapper}>
+          <SettingsSection
+            theme={theme}
+            className={classNames(styles.audio_settings_inputs_wrapper)}
+          >
+            {renderInputs()}
+          </SettingsSection>
 
-        <SettingsSection theme={theme}>
-          <Label label={t('AudioPlugin_Settings_CoverImage_Label')} />
-          <div className={styles.audio_settings_coverImage_wrapper}>
-            <SettingsAddItem
-              handleFileChange={handleFileChange}
-              handleFileSelection={helpers.handleFileSelection && handleFileSelection}
-              isMobile={isMobile}
-              uploadMediaLabel={t('AudioPlugin_Settings_CoverImage_Label')}
+          <SettingsSection theme={theme}>
+            <Label label={t('AudioPlugin_Settings_CoverImage_Label')} />
+            <div className={styles.audio_settings_coverImage_wrapper}>
+              <SettingsAddItem
+                handleFileChange={handleFileChange}
+                handleFileSelection={helpers.handleFileSelection && handleFileSelection}
+                isMobile={isMobile}
+                uploadMediaLabel={t('AudioPlugin_Settings_CoverImage_Label')}
+                theme={theme}
+                dataHook="audioCoverImage"
+                inlineStyle={{ width: SETTINGS_IMG_SIZE, height: SETTINGS_IMG_SIZE, marginLeft: 0 }}
+                src={imgSrc}
+                handleDelete={handleCoverImageDelete}
+                t={t}
+                alt={name}
+                isLoading={isLoadingImage}
+              />
+            </div>
+          </SettingsSection>
+
+          <SettingsSeparator top />
+
+          <SettingsSection
+            theme={theme}
+            className={classNames(styles.audio_settings_toggle_wrapper)}
+          >
+            <LabeledToggle
               theme={theme}
-              dataHook="audioCoverImage"
-              inlineStyle={{ width: SETTINGS_IMG_SIZE, height: SETTINGS_IMG_SIZE, marginLeft: 0 }}
-              src={imgSrc}
-              handleDelete={handleCoverImageDelete}
-              t={t}
-              alt={name}
-              isLoading={isLoadingImage}
+              checked={isDownloadEnabled}
+              label={t('AudioPlugin_Settings_AudioCanBeDownloaded_Label')}
+              onChange={onDownlandToggle}
+              tooltipText={t('AudioPlugin_Settings_AudioCanBeDownloaded_Tooltip')}
+              dataHook="AudioDownloadToggle"
+              isMobile={isMobile}
             />
-          </div>
-        </SettingsSection>
-
-        <SettingsSeparator top />
-
-        <SettingsSection theme={theme} className={classNames(styles.audio_settings_toggle_wrapper)}>
-          <LabeledToggle
-            theme={theme}
-            checked={isDownloadEnabled}
-            label={t('AudioPlugin_Settings_AudioCanBeDownloaded_Label')}
-            onChange={onDownlandToggle}
-            tooltipText={t('AudioPlugin_Settings_AudioCanBeDownloaded_Tooltip')}
-            dataHook="AudioDownloadToggle"
-            isMobile={isMobile}
-          />
-        </SettingsSection>
-        {isMobile && (
-          <div className={classNames(styles.audio_settings_download_label)}>
-            {t('AudioPlugin_Settings_AudioCanBeDownloaded_Tooltip')}
-          </div>
-        )}
-        {!isMobile && (
-          <SettingsPanelFooter
-            fixed
-            theme={theme}
-            cancel={handleClose}
-            save={helpers.closeModal}
-            t={t}
-          />
-        )}
+          </SettingsSection>
+          {isMobile && (
+            <div className={classNames(styles.audio_settings_download_label)}>
+              {t('AudioPlugin_Settings_AudioCanBeDownloaded_Tooltip')}
+            </div>
+          )}
+        </div>
+        {renderHeader()}
       </div>
-      {renderHeader()}
+      {!isMobile && (
+        <SettingsPanelFooter
+          fixed
+          theme={theme}
+          cancel={handleClose}
+          save={helpers.closeModal}
+          t={t}
+        />
+      )}
     </div>
   );
 };
