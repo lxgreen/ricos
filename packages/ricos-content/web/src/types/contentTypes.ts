@@ -17,8 +17,8 @@ export interface TextBlockStyle {
   'font-style'?: string;
   'text-decoration'?: string;
   'line-height'?: string;
-  'margin-top'?: string;
-  'margin-bottom'?: string;
+  'padding-top'?: string;
+  'padding-bottom'?: string;
 }
 export interface DocumentStyle {
   headerOne?: TextBlockStyle;

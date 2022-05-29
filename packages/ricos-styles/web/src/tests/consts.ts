@@ -18,8 +18,8 @@ export const customStyle = {
 };
 
 export const nodeStyle = {
-  marginBottom: '3px',
-  marginTop: '2px',
+  paddingBottom: '3px',
+  paddingTop: '2px',
 };
 
 export const textStyle = { lineHeight: '3' };

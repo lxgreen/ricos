@@ -12,16 +12,16 @@ export default class RicosNodeStyle implements NodeStyle {
   getNodeStyle: NodeStyle['getNodeStyle'] = () => this.nodeStyle;
 
   static fromCustomStyle = (customStyle: CustomTextualStyle): NodeStyle => {
-    const { marginBottom, marginTop } = customStyle;
+    const { paddingBottom, paddingTop } = customStyle;
     const nodeStyle = {
-      marginBottom,
-      marginTop,
+      paddingBottom,
+      paddingTop,
     };
     return new RicosNodeStyle(nodeStyle as NodeStyleRichContent);
   };
 
   toCustomStyle: NodeStyle['toCustomStyle'] = () => {
-    return { marginBottom: this.nodeStyle.marginBottom, marginTop: this.nodeStyle.marginTop };
+    return { paddingBottom: this.nodeStyle.paddingBottom, paddingTop: this.nodeStyle.paddingTop };
   };
 
   overrideWith: NodeStyle['overrideWith'] = NodeStyle => {

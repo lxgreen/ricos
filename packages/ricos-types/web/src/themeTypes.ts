@@ -50,15 +50,13 @@ export interface CustomTextualStyle {
   minHeight?: CSSProperties['minHeight'];
   color?: CSSProperties['color'];
   backgroundColor?: CSSProperties['backgroundColor'];
-  marginBottom?: CSSProperties['marginBottom'];
-  marginTop?: CSSProperties['marginTop'];
+  paddingTop?: CSSProperties['paddingTop'];
+  paddingBottom?: CSSProperties['paddingBottom'];
 }
 
 export interface CustomQuoteStyle extends CustomTextualStyle {
   borderColor?: CSSProperties['borderColor'];
   borderWidth?: CSSProperties['borderWidth'];
-  paddingTop?: CSSProperties['paddingTop'];
-  paddingBottom?: CSSProperties['paddingBottom'];
   paddingInlineStart?: CSSProperties['paddingInlineStart'];
 }
 

@@ -15,7 +15,7 @@ describe('Node Style', () => {
   it('Should overrideWith match expected', () => {
     const nodeStyle = NodeStyle.fromCustomStyle(customStyle);
     expect(
-      nodeStyle.overrideWith({ backgroundColor: '#909090', marginBottom: '6px' }).getNodeStyle()
-    ).toStrictEqual({ ...customStyle, backgroundColor: '#909090', marginBottom: '6px' });
+      nodeStyle.overrideWith({ backgroundColor: '#909090', paddingBottom: '6px' }).getNodeStyle()
+    ).toStrictEqual({ ...customStyle, backgroundColor: '#909090', paddingBottom: '6px' });
   });
 });

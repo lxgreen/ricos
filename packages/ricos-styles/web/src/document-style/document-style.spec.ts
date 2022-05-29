@@ -29,10 +29,10 @@ describe('Document Style', () => {
       JSON.stringify(styleTag.props.children).includes('--ricos-custom-h1-line-height: 3')
     ).toBeTruthy();
     expect(
-      JSON.stringify(styleTag.props.children).includes('--ricos-custom-h1-margin-bottom: 3px')
+      JSON.stringify(styleTag.props.children).includes('--ricos-custom-h1-padding-bottom: 3px')
     ).toBeTruthy();
     expect(
-      JSON.stringify(styleTag.props.children).includes('--ricos-custom-h1-margin-top: 2px')
+      JSON.stringify(styleTag.props.children).includes('--ricos-custom-h1-padding-top: 2px')
     ).toBeTruthy();
     expect(
       JSON.stringify(styleTag.props.children).includes('--ricos-custom-p-background-color: #808080')
