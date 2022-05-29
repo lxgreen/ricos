@@ -49,6 +49,9 @@ export interface CustomTextualStyle {
   lineHeight?: CSSProperties['lineHeight'];
   minHeight?: CSSProperties['minHeight'];
   color?: CSSProperties['color'];
+  backgroundColor?: CSSProperties['backgroundColor'];
+  marginBottom?: CSSProperties['marginBottom'];
+  marginTop?: CSSProperties['marginTop'];
 }
 
 export interface CustomQuoteStyle extends CustomTextualStyle {

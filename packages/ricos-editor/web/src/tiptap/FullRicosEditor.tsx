@@ -19,7 +19,7 @@ import FloatingAddPluginMenu from '../toolbars/FloatingPluginMenu/FloatingAddPlu
 import pluginsConfigMerger from '../utils/pluginsConfigMerger/pluginsConfigMerger';
 import RicosEditor from './RicosEditor';
 import RicosToolbars from './RicosToolbars';
-import ThemeStyleTag from './ThemeStyleTag';
+import RicosStyles from './RicosStyles';
 import { UploadProvider } from './UploadProvider';
 import { PluginsContext } from 'ricos-plugins';
 import type { PluginsContextValue } from 'ricos-plugins';
@@ -178,7 +178,7 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
     return (
       <>
         <RicosPortal ref={this.portalRef} className={theme?.parentClass}>
-          <ThemeStyleTag theme={theme || {}} documentStyle={content?.documentStyle || {}} />
+          <RicosStyles theme={theme || {}} documentStyle={content?.documentStyle || {}} />
         </RicosPortal>
         {this.portalRef.current && (
           <LocaleResourceProvider

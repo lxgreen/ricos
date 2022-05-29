@@ -1,6 +1,6 @@
 import type { RicosTheme } from 'ricos-types';
 import { Decoration_Type } from 'ricos-types';
-import { decorations, customStyle } from './consts';
+import { decorations, customStyle } from './tests/consts';
 import Styles from './styles';
 
 describe('Styles', () => {
@@ -20,6 +20,7 @@ describe('Styles', () => {
     expect(decoration).toEqual({
       colorData: {
         foreground: '#414141',
+        background: '#808080',
       },
       type: 'COLOR',
     });

@@ -7,7 +7,7 @@ import { ColorDecoration } from './color-decoration';
 import { EmptyDecoration } from './empty-decoration';
 import { FontSizeDecoration } from './font-size-decoration';
 import { ItalicDecoration } from './italic-decoration';
-import type { TextDecoration, TextDecorations } from './models/decoration';
+import type { TextDecoration, TextDecorations } from '../../models/decoration';
 
 export class Decorations implements TextDecorations {
   private readonly decorations: TextDecoration[];
@@ -24,13 +24,17 @@ export class Decorations implements TextDecorations {
   }
 
   static fromCustomStyle(customStyle: CustomTextualStyle): Decorations {
+    const { color, backgroundColor, ...rest } = customStyle;
+    const colorStyle = { color, backgroundColor };
     // TODO refactor to splitStyles method
-    const styles = Object.entries(customStyle).map(([k, v]) => ({ [k]: v }));
-    const textDecorations = styles.map(Decorations.styleToDecoraiton);
+    const styles = Object.entries(rest)
+      .map(([k, v]) => ({ [k]: v }))
+      .concat([colorStyle]);
+    const textDecorations = styles.map(Decorations.styleToDecoration);
     return new Decorations(textDecorations);
   }
 
-  private static styleToDecoraiton(style: CustomTextualStyle): TextDecoration {
+  private static styleToDecoration(style: CustomTextualStyle): TextDecoration {
     return firstRight(style, Decorations.empty, [
       [s => !!s.fontWeight, s => BoldDecoration.fromCustomStyle(s)],
       [s => !!s.fontSize, s => FontSizeDecoration.fromCustomStyle(s)],

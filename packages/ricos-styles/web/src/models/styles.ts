@@ -3,6 +3,8 @@ import type {
   DocumentStyle as RichContentDocumentStyle,
   Decoration,
   Decoration_Type,
+  TextStyle,
+  NodeStyle,
 } from 'ricos-schema';
 import type { RicosTheme } from 'ricos-types';
 import type { TextDecoration } from './decoration';
@@ -96,6 +98,24 @@ export interface Styles {
    * @memberof Styles
    */
   getDecoration(type: TextNodeType, decoration: Decoration_Type): Decoration;
+  /**
+   * Extracts given text style (line height) settings for specific node type from the current Document Style and Theme conjunction
+   *
+   *
+   * @param {TextNodeType} type
+   * @returns  {Omit<TextStyle, 'textAlignment'>}
+   * @memberof Styles
+   */
+  getTextStyle(type: TextNodeType): Omit<TextStyle, 'textAlignment'>;
+  /**
+   * Extracts given node style (margins) settings for specific node type from the current Document Style and Theme conjunction
+   *
+   *
+   * @param {TextNodeType} type
+   * @returns  {NodeStyle}
+   * @memberof Styles
+   */
+  getNodeStyle(type: TextNodeType): NodeStyle;
   /**
    * Exposes TextualTheme
    *

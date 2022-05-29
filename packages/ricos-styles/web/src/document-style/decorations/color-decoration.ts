@@ -2,10 +2,10 @@ import type { Decoration } from 'ricos-schema';
 import { Decoration_Type } from 'ricos-schema';
 import type { CustomTextualStyle } from 'ricos-types';
 import { EmptyDecoration } from './empty-decoration';
-import type { TextDecoration } from './models/decoration';
+import type { TextDecoration } from '../../models/decoration';
 
-export class ItalicDecoration implements TextDecoration {
-  type = Decoration_Type.ITALIC;
+export class ColorDecoration implements TextDecoration {
+  type = Decoration_Type.COLOR;
 
   private readonly customStyle: CustomTextualStyle;
 
@@ -14,26 +14,30 @@ export class ItalicDecoration implements TextDecoration {
   }
 
   static of(decoration: Decoration) {
-    if (decoration.type !== Decoration_Type.ITALIC) {
+    if (decoration.type !== Decoration_Type.COLOR) {
       throw new TypeError(`invalid decoration initializer ${decoration}`);
     }
 
-    return new ItalicDecoration(decoration.italicData ? { fontStyle: 'italic' } : {});
+    const { foreground: color, background: backgroundColor } = decoration.colorData || {};
+    return new ColorDecoration({ color, backgroundColor });
   }
 
   getDecoration(): Decoration {
     return {
       type: this.type,
-      italicData: this.customStyle.fontStyle?.includes('italic'),
+      colorData: {
+        foreground: this.customStyle.color,
+        background: this.customStyle.backgroundColor,
+      },
     };
   }
 
   static fromCustomStyle(customStyle: CustomTextualStyle): TextDecoration {
-    return new ItalicDecoration(customStyle);
+    return new ColorDecoration(customStyle);
   }
 
   fromCustomStyle(customStyle: CustomTextualStyle): TextDecoration {
-    return ItalicDecoration.fromCustomStyle(customStyle);
+    return ColorDecoration.fromCustomStyle(customStyle);
   }
 
   toCustomStyle(): CustomTextualStyle {
@@ -41,10 +45,10 @@ export class ItalicDecoration implements TextDecoration {
   }
 
   overrideWith(decoration: TextDecoration): TextDecoration {
-    if (!(decoration instanceof ItalicDecoration || decoration instanceof EmptyDecoration)) {
+    if (!(decoration instanceof ColorDecoration || decoration instanceof EmptyDecoration)) {
       throw new TypeError(`invalid merge decoration ${decoration}`);
     }
     const customStyle = { ...this.customStyle, ...decoration.toCustomStyle() };
-    return new ItalicDecoration(customStyle);
+    return new ColorDecoration(customStyle);
   }
 }

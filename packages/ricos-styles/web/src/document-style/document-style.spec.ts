@@ -1,10 +1,12 @@
 import DocumentStyle from './document-style';
-import { decorations } from './consts';
+import { decorations, nodeStyle, textStyle } from '../tests/consts';
 
 describe('Document Style', () => {
   const documentStyle = {
     headerOne: {
       decorations,
+      nodeStyle,
+      ...textStyle,
     },
     paragraph: {
       decorations,
@@ -22,6 +24,18 @@ describe('Document Style', () => {
     ).toBeTruthy();
     expect(
       JSON.stringify(styleTag.props.children).includes('--ricos-custom-p-color: #414141')
+    ).toBeTruthy();
+    expect(
+      JSON.stringify(styleTag.props.children).includes('--ricos-custom-h1-line-height: 3')
+    ).toBeTruthy();
+    expect(
+      JSON.stringify(styleTag.props.children).includes('--ricos-custom-h1-margin-bottom: 3px')
+    ).toBeTruthy();
+    expect(
+      JSON.stringify(styleTag.props.children).includes('--ricos-custom-h1-margin-top: 2px')
+    ).toBeTruthy();
+    expect(
+      JSON.stringify(styleTag.props.children).includes('--ricos-custom-p-background-color: #808080')
     ).toBeTruthy();
   });
 });

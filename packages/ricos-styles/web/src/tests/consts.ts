@@ -1,7 +1,7 @@
 import { Decoration_Type, FontSizeData_fontType } from 'ricos-schema';
 
 export const decorations = [
-  { type: Decoration_Type.COLOR, colorData: { foreground: '#414141' } },
+  { type: Decoration_Type.COLOR, colorData: { foreground: '#414141', background: '#808080' } },
   { type: Decoration_Type.BOLD, fontWeightValue: 700 },
   {
     type: Decoration_Type.FONT_SIZE,
@@ -16,3 +16,10 @@ export const customStyle = {
   fontSize: 18,
   fontStyle: 'italic',
 };
+
+export const nodeStyle = {
+  marginBottom: '3px',
+  marginTop: '2px',
+};
+
+export const textStyle = { lineHeight: '3' };

@@ -14,7 +14,7 @@ function usePrevious(value) {
   return ref.current;
 }
 
-const ThemeStyleTag: FC<{ theme: RicosTheme; documentStyle: DocumentStyle }> = props => {
+const RicosStyles: FC<{ theme: RicosTheme; documentStyle: DocumentStyle }> = props => {
   const prevTheme = usePrevious(props.theme);
   const prevDocumentStyle = usePrevious(props.documentStyle);
   const styles = useContext(StylesContext);
@@ -35,4 +35,4 @@ const ThemeStyleTag: FC<{ theme: RicosTheme; documentStyle: DocumentStyle }> = p
   return <>{styles.toStyleTags().map((tag, i) => React.cloneElement(tag, { key: i }))}</>;
 };
 
-export default ThemeStyleTag;
+export default RicosStyles;

@@ -1,6 +1,6 @@
 import TextualTheme from './textual-theme';
-import { ricosPalettes } from '../../../../examples/storybook/src/shared/resources/palettesExample';
-import { FONTS } from '../../../../examples/storybook/src/shared/resources/fontsExample';
+import { ricosPalettes } from '../../../../../examples/storybook/src/shared/resources/palettesExample';
+import { FONTS } from '../../../../../examples/storybook/src/shared/resources/fontsExample';
 import type { RicosTheme } from 'ricos-types';
 import { Decoration_Type } from 'ricos-schema';
 
@@ -32,12 +32,12 @@ describe('Textual Theme', () => {
 
   it('Should getDecoration Color match expected', () => {
     const decoration = new TextualTheme({
-      customStyles: { h2: { color: '#717171' } },
+      customStyles: { h2: { color: '#717171', backgroundColor: '#909090' } },
     })
       .getDecoration('headerTwo', Decoration_Type.COLOR)
       .getDecoration();
     expect(decoration).toStrictEqual({
-      colorData: { foreground: '#717171' },
+      colorData: { foreground: '#717171', background: '#909090' },
       type: Decoration_Type.COLOR,
     });
   });
