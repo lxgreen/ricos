@@ -17,6 +17,12 @@
     Click to see more.
   </summary>
 
+</details>
+
+<hr/>
+
+## 8.71.18 (May 29, 2022)
+
 ### :bug: Bug Fix
 
 - `toolbars-new`
@@ -31,16 +37,12 @@
   - [#3916](https://github.com/wix/ricos/pull/3916) fix audio ui & onAtomicBlockFocus issue
 
 ### :house: Internal
-  
+
 - `ricos-editor`
   - [#3898](https://github.com/wix/ricos/pull/3898) StylesContext integration in RicosEditor (tiptap)
 - `ricos-styles`
   - [#3896](https://github.com/wix/ricos/pull/3896) Decorations and TextStyle aggregates
   - [#3898](https://github.com/wix/ricos/pull/3898) StylesContext
-
-</details>
-
-<hr/>
 
 ## 8.71.17 (May 24, 2022)
 
@@ -58,7 +60,6 @@
   - [#3885](https://github.com/wix/ricos/pull/3885) fix modal scoping issue /use RicosPortal in RicosModal
   - [#3886](https://github.com/wix/ricos/pull/3886) fix flaky plus button position on tiptap
 
-
 ### :house: Internal
 
 - `ricos-editor`
@@ -66,9 +67,11 @@
 - `plugins`
   - [#3869](https://github.com/wix/ricos/pull/3869) tiptap formatting extensions style wiring
 - `ricos-styles`
+
   - [#3870](https://github.com/wix/ricos/pull/3870) ricos-styles package
- 
+
 - `ricos-content`
+
   - [#3873](https://github.com/wix/ricos/pull/3873) expose getTextDirection from ricos-content package
 
   </details>
