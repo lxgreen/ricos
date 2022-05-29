@@ -53,19 +53,14 @@ export const toTiptap = (
   content: RichContent,
   transforms: Transforms<Node, TiptapNode>
 ): JSONContent => {
+  const ricosRoot = { id: 'root', type: Node_Type.UNRECOGNIZED, nodes: content.nodes };
   return {
     type: 'doc',
     attrs: {
       metadata: convertMetadata(content.metadata || { version: 1 }),
       documentStyle: content.documentStyle,
     },
-    ...tiptapTree.setNodes(
-      visit<Node, TiptapNode>(
-        richContentTree,
-        tiptapTree,
-        transforms
-      )({ id: 'root', type: Node_Type.UNRECOGNIZED, nodes: content.nodes })
-    ),
+    ...tiptapTree.setNodes(visit(richContentTree, tiptapTree, transforms)(ricosRoot)),
   };
 };
 

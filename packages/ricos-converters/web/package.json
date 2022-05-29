@@ -39,7 +39,8 @@
     "ricos-common": "8.71.17",
     "ricos-schema": "8.71.17",
     "ricos-types": "8.71.17",
-    "to-camel-case": "1.0.0"
+    "to-camel-case": "1.0.0",
+    "to-constant-case": "1.0.0"
   },
   "unpkg": true,
   "publishConfig": {
