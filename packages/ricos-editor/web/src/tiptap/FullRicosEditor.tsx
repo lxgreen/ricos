@@ -50,8 +50,6 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
 
   constructor(props) {
     super(props);
-    const configuredPlugins = pluginsConfigMerger(props.plugins, props._rcProps) || [];
-    this.initPlugins(configuredPlugins);
     this.portalRef = createRef<RicosPortalType>();
   }
 
@@ -63,7 +61,14 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
     plugins.forEach(plugin => this.props.pluginsContext.plugins.register(plugin));
 
   componentDidMount() {
+    const { plugins, _rcProps } = this.props;
+    const configuredPlugins = pluginsConfigMerger(plugins, _rcProps) || [];
+    this.initPlugins(configuredPlugins);
     this.forceUpdate();
+  }
+
+  componentWillUnmount() {
+    this.props.pluginsContext.plugins.destroy();
   }
 
   componentDidCatch(error, errorInfo) {
