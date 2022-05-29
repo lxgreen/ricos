@@ -35,6 +35,8 @@
   - [#3912](https://github.com/wix/ricos/pull/3912) fix mentions white space issue && refactor ui
 - `audio`
   - [#3916](https://github.com/wix/ricos/pull/3916) fix audio ui & onAtomicBlockFocus issue
+- `mentions`
+  - [#3936](https://github.com/wix/ricos/pull/3936) fix modals transparent bg color
 
 ### :house: Internal
 

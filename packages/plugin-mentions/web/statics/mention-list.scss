@@ -3,6 +3,7 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 
 .mention_list {
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   max-height: 360px;
