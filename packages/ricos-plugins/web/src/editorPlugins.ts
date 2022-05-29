@@ -30,11 +30,6 @@ export class EditorPlugins implements Plugins {
     return this.filter(p => !p.equals(plugin));
   }
 
-  destroy(): EditorPlugins {
-    this.plugins = [];
-    return this;
-  }
-
   filter(predicate: (plugin: Plugin) => boolean): EditorPlugins {
     this.plugins = this.plugins.filter(predicate);
     return this;

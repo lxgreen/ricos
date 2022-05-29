@@ -69,12 +69,6 @@ export interface Plugins {
    */
   unregister: (plugin: Plugin) => void;
   /**
-   * Removes all plugins
-   *
-   * @memberof Plugins
-   */
-  destroy: () => Plugins;
-  /**
    * Filters plugins according to predicate
    *
    * @memberof Plugins

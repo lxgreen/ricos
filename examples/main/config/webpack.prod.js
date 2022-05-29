@@ -8,6 +8,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 const prodConfig = {
   mode: 'production',
+  devtool: 'eval-source-map',
   module: {
     rules: [
       {
