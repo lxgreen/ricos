@@ -124,10 +124,25 @@ export class RichContentAdapter
       updateBlock: (blockKey, pluginType, data) => {
         return this.tiptapEditor.commands.updateNodeAttrsById(blockKey, flatComponentState(data));
       },
-      getSelection: () => ({
-        isFocused: this.tiptapEditor.isFocused,
-        isCollapsed: this.tiptapEditor.state.selection.empty,
-      }),
+      getSelection: () => {
+        const {
+          state: {
+            doc,
+            selection: { from, to },
+          },
+        } = this.tiptapEditor;
+
+        const selectedNodes: ProseMirrorNode[] = [];
+        doc.nodesBetween(from, to, node => {
+          selectedNodes.push(node);
+        });
+        return {
+          isFocused: this.tiptapEditor.isFocused,
+          isCollapsed: this.tiptapEditor.state.selection.empty,
+          startKey: selectedNodes[0].attrs.id,
+          endKey: selectedNodes[selectedNodes.length - 1].attrs.id,
+        };
+      },
 
       insertDecoration: (type, data) => {
         const decorationCommandMap = {
@@ -177,6 +192,8 @@ export class RichContentAdapter
             } = mark;
             if (name === 'link') {
               link = mark.attrs.link;
+            } else if (name === 'anchor') {
+              link = { anchor: mark.attrs.anchor };
             }
           });
         });

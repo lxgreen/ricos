@@ -203,7 +203,7 @@ export const isTextContainsLinkResolver = TiptapContentResolver.create(
       const node = content.find(node => {
         return node.type.name === 'text';
       });
-      return node?.marks.some(mark => mark.type.name === 'link');
+      return node?.marks.some(mark => mark.type.name === 'link' || mark.type.name === 'anchor');
     }
     return false;
   }

@@ -12,6 +12,7 @@ import type { ToolbarContextType } from 'wix-rich-content-toolbars-v3/src/utils/
 import type { RichContentAdapter } from 'wix-tiptap-editor';
 import { Shortcuts } from 'ricos-shortcuts';
 import { TiptapEditorConsumer, TiptapEditorProvider } from 'wix-tiptap-editor';
+import { ContentQueryProvider } from 'ricos-content-query';
 import { LocaleResourceProvider } from '../RicosContext/locale-resource-provider';
 import type { RicosEditorRef } from '../RicosEditorRef';
 import { convertToolbarContext } from '../toolbars/convertToolbarContext';
@@ -203,15 +204,17 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
                                 portal: this.portalRef.current as RicosPortalType,
                               }}
                             >
-                              <RicosToolbars
-                                content={this.content}
-                                toolbarSettings={toolbarSettings}
-                              />
-                              <FloatingAddPluginMenu
-                                addPluginMenuConfig={this.getPluginMenuConfig()}
-                                helpers={_rcProps?.helpers}
-                              />
-                              <FooterToolbar />
+                              <ContentQueryProvider editor={editor.tiptapEditor}>
+                                <RicosToolbars
+                                  content={this.content}
+                                  toolbarSettings={toolbarSettings}
+                                />
+                                <FloatingAddPluginMenu
+                                  addPluginMenuConfig={this.getPluginMenuConfig()}
+                                  helpers={_rcProps?.helpers}
+                                />
+                                <FooterToolbar />
+                              </ContentQueryProvider>
                             </ToolbarContext.Provider>
                           )}
                         </TiptapEditorConsumer>

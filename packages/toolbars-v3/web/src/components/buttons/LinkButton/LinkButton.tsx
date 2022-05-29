@@ -10,18 +10,27 @@ import { withToolbarContext } from '../../../utils/withContext';
 import LinkModal from '../../../modals/link/LinkComponents/LinkModal';
 import { getLangDir, CUSTOM_LINK } from 'wix-rich-content-common';
 import { getLinkModalProps } from './utils';
+import { withContentQueryContext } from 'ricos-content-query';
 
 const onDone = (data, toolbarItem, setModalOpen) => {
-  toolbarItem.commands?.insertLink(data);
+  if (data.url) {
+    toolbarItem.commands?.insertLink(data);
+  } else if (data.anchor) {
+    toolbarItem.commands?.insertAnchor(data.anchor);
+  }
   setModalOpen(false);
 };
 
-const onDelete = (toolbarItem, setModalOpen) => {
-  toolbarItem.commands?.removeLink();
+const onDelete = (toolbarItem, setModalOpen, linkData) => {
+  if (linkData.url) {
+    toolbarItem.commands?.removeLink();
+  } else if (linkData.anchor) {
+    toolbarItem.commands?.removeAnchor();
+  }
   setModalOpen(false);
 };
 
-const LinkButton = ({ toolbarItem, context }) => {
+const LinkButton = ({ toolbarItem, context, contentQueryService }) => {
   const {
     isMobile,
     t,
@@ -29,6 +38,7 @@ const LinkButton = ({ toolbarItem, context }) => {
     getEditorCommands,
     linkPanelData = {},
     locale,
+    experiments,
     portal,
   } = context || {};
   const [isModalOpen, setModalOpen] = useState(false);
@@ -58,7 +68,9 @@ const LinkButton = ({ toolbarItem, context }) => {
   const { onLinkAdd, linkSettings = {}, ...rest } = linkPanelData;
   const { linkData, anchorableBlocks, linkSettingsData } = getLinkModalProps(
     editorCommands,
-    linkSettings
+    linkSettings,
+    contentQueryService,
+    experiments
   );
 
   const openCloseModal = () => {
@@ -112,7 +124,7 @@ const LinkButton = ({ toolbarItem, context }) => {
                 isActive={toolbarItem.attributes.active}
                 onDone={({ data }) => onDone(data, toolbarItem, setModalOpen)}
                 onCancel={() => setModalOpen(false)}
-                onDelete={() => onDelete(toolbarItem, setModalOpen)}
+                onDelete={() => onDelete(toolbarItem, setModalOpen, linkData)}
               />
             </div>
           </div>,
@@ -122,4 +134,4 @@ const LinkButton = ({ toolbarItem, context }) => {
   );
 };
 
-export default withToolbarContext(LinkButton);
+export default withContentQueryContext(withToolbarContext(LinkButton));

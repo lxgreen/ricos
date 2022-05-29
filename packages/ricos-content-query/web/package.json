@@ -1,5 +1,5 @@
 {
-  "name": "wix-rich-content-toolbars-v3",
+  "name": "ricos-content-query",
   "version": "8.71.18",
   "author": {
     "name": "Noam Tayri",
@@ -13,19 +13,18 @@
   "bugs": {
     "url": "https://github.com/wix/ricos/issues"
   },
-  "homepage": "https://github.com/wix/ricos/tree/master/rich-content-toolbars-v3",
+  "homepage": "https://github.com/wix/ricos/tree/master/packages/ricos-content-query",
   "files": [
     "dist"
   ],
   "main": "dist/cjs/index.js",
   "types": "dist/src/index.d.ts",
   "module": "dist/es/index.js",
-  "style": "dist/styles.min.scss",
   "scripts": {
     "clean": "rm -rf dist/",
     "prebuild": "npm run clean",
-    "build:rollup": "rollup --environment DYNAMIC_IMPORT,MODULE_NAME:toolbars-v3,EXTRACT_CSS:false,ALLOW_JS -c ../../../rollup.config.js",
-    "build": "npm run build:rollup && node ../../../scripts/cssFix.js",
+    "build:rollup": "rollup --environment DYNAMIC_IMPORT,MODULE_NAME:ricos-content-query,EXTRACT_CSS:false -c ../../../rollup.config.js",
+    "build": "npm run build:rollup",
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "build:analyze:editor": "npm run build -- --environment MODULE_ANALYZE_EDITOR  && open stats.html",
     "build:analyze:viewer": "npm run build -- --environment MODULE_ANALYZE_VIEWER && open stats.html",
@@ -34,28 +33,12 @@
     "test": "jest --verbose",
     "test:watchAll": "jest --verbose --watchAll"
   },
-  "peerDependencies": {
-    "@babel/runtime": "^7.17.2",
-    "classnames": "^2.0.0",
-    "lodash": "^4.0.0",
-    "prop-types": "^15.0.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
-  },
   "dependencies": {
-    "fp-ts": "^2.11.0",
-    "@floating-ui/react-dom": "^0.7.0",
-    "@popperjs/core": "2.11.2",
-    "react-click-outsider": "1.1.1",
-    "react-popper": "2.2.5",
-    "react-sizeme": "^3.0.2",
+    "ricos-content": "8.71.18",
     "ricos-common": "8.71.18",
-    "ricos-content-query": "8.71.18",
-    "wix-rich-content-common": "8.71.18",
-    "wix-rich-content-editor": "8.71.18",
-    "wix-rich-content-editor-common": "8.71.18",
-    "wix-rich-content-plugin-commons": "8.71.18",
-    "wix-rich-content-ui-components": "8.71.18"
+    "ricos-schema": "8.71.18",
+    "wix-tiptap-extensions": "8.71.18",
+    "wix-rich-content-editor-common": "8.71.18"
   },
   "unpkg": true,
   "publishConfig": {
@@ -75,9 +58,7 @@
     },
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js",
-      "^draft-js$": "<rootDir>/../../../node_modules/@wix/draft-js",
-      "^draft-js/": "<rootDir>/../../../node_modules/@wix/draft-js/"
+      "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js"
     }
   }
 }

@@ -2,6 +2,8 @@ import {
   convertRelStringToObject,
   convertRelObjectToString,
 } from 'wix-rich-content-common/libs/linkConverters';
+import { getAnchorableBlocksFromAnchorableNodes, getAnchorableNodesQuery } from './anchorAdapter';
+import type { ContentQueryService } from 'ricos-content-query';
 
 const handleLinkSettings = linkSettings => {
   const { anchorTarget = '_blank', customAnchorScroll } = linkSettings;
@@ -14,9 +16,23 @@ const handleLinkSettings = linkSettings => {
   return { relValue, anchorTarget, customAnchorScroll };
 };
 
-export const getLinkModalProps = (editorCommands, linkSettings) => {
+export const getLinkModalProps = (
+  editorCommands,
+  linkSettings,
+  contentQueryService: ContentQueryService,
+  experiments
+) => {
   const linkData = editorCommands?.getLinkDataInSelection();
-  const anchorableBlocks = editorCommands?.getAnchorableBlocks();
+  let anchorableBlocks;
+  if (experiments.tiptapEditor.enabled) {
+    const contentExtractor = contentQueryService.getContentExtractor();
+    if (contentExtractor) {
+      const anchorableNodes = getAnchorableNodesQuery(contentExtractor, editorCommands);
+      anchorableBlocks = getAnchorableBlocksFromAnchorableNodes(anchorableNodes);
+    }
+  } else {
+    anchorableBlocks = editorCommands?.getAnchorableBlocks();
+  }
   const linkSettingsData = handleLinkSettings(linkSettings);
   return { linkData, anchorableBlocks, linkSettingsData };
 };
