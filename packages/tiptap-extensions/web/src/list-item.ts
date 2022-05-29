@@ -1,9 +1,9 @@
-import { mergeAttributes, NodeConfig } from '@tiptap/core';
+import { mergeAttributes } from '@tiptap/core';
 import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
 
 export const listItem: RicosExtension = {
   type: 'node' as const,
-  groups: [],
+  groups: ['shortcuts-enabled'],
   name: 'listItem',
   createExtensionConfig() {
     return {
@@ -39,8 +39,6 @@ export const listItem: RicosExtension = {
       addKeyboardShortcuts() {
         return {
           Enter: () => this.editor.commands.splitListItem(this.name),
-          Tab: () => this.editor.commands.sinkListItem(this.name),
-          'Shift-Tab': () => this.editor.commands.liftListItem(this.name),
         };
       },
     };
