@@ -19,6 +19,8 @@
 
 ### :bug: Bug Fix
 
+- `toolbars-new`
+  - [#3910](https://github.com/wix/ricos/pull/3910) hot fix: modal buttons - when text and atomic plugin selected
 - `ricos-schema`
   - [#3879](https://github.com/wix/ricos/pull/3879) `documentStyle` schema support `lineHeight` and `NodeStyle = {paddingTop, paddingBoyttom}`
 - `ricos-content`

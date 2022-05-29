@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import type { FC } from 'react';
+import type { FC, Ref } from 'react';
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import ClickOutside from 'react-click-outsider';
@@ -59,6 +59,8 @@ interface State {
 class ModalButton extends Component<ModalButtonProps, State> {
   modalRef?: HTMLDivElement | null;
 
+  buttonRef: React.RefObject<any> = React.createRef();
+
   constructor(props) {
     super(props);
     this.state = {
@@ -74,7 +76,8 @@ class ModalButton extends Component<ModalButtonProps, State> {
   toggleModal = e => {
     const { isModalOpen } = this.state;
     if (!isModalOpen) {
-      this.openModal();
+      this.buttonRef?.current.focus();
+      setTimeout(() => this.openModal());
     } else {
       this.closeModal();
     }
@@ -204,6 +207,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
       tabIndex,
       isMobile,
       disabled: isDisabled(),
+      ref: this.buttonRef as Ref<any>,
     };
     const Button = isInput ? (
       <ToolbarInputButton onChange={this.onChange} {...toolbarButtonProps} />
