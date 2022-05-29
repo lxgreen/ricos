@@ -551,7 +551,7 @@
   "UploadAudio_Error_aac_Unsupported_Format": "Diese Audiodatei ist nicht in einem unterstützten AAC-Format und kann nicht hochgeladen werden. Versuche es mit einer anderen Datei.",
   "Pinterest_plugin_search_tags": "Pinterest Post Beitrag Board Social Media soziale Netzwerke einbetten",
   "UploadFile_Error_Unsupported_Extension": "{{extension}}-Dateien werden nicht unterstützt. Versuche es mit einer anderen Datei.",
-  "LineSpacing_customSpacing": "Angepasst",
+  "LineSpacing_customSpacing": "Benutzerdefiniert",
   "Poll_Presets_Popup_Option_TextList": "Text in einer Liste",
   "GiphyPlugin_Search_EmptyState_Title": "Es wurden keine GIFs gefunden.",
   "EmbedURL_Social_Instagram_Title": "Instagram-Beitrag hinzufügen",
