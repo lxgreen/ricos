@@ -6,6 +6,7 @@ import {
   FILE_UPLOAD_TYPE,
   HTML_TYPE,
   IMAGE_TYPE,
+  IMAGE_TYPE_LEGACY,
   LINK_BUTTON_TYPE,
   LINK_PREVIEW_TYPE,
   MENTION_TYPE,
@@ -53,6 +54,7 @@ export const convertBlockDataToRicos = (type: string, data) => {
     [FILE_UPLOAD_TYPE]: convertFileData,
     [GIPHY_TYPE]: convertGIFData,
     [IMAGE_TYPE]: convertImageData,
+    [IMAGE_TYPE_LEGACY]: convertImageData,
     [POLL_TYPE]: convertPollData,
     [APP_EMBED_TYPE]: convertAppEmbedData,
     [LINK_PREVIEW_TYPE]: convertLinkPreviewData,
@@ -213,10 +215,20 @@ const convertImageData = (data: {
   link;
   altText;
   caption;
+  width;
+  height;
 }) => {
-  const { file_name, width, height } = data.src || {};
+  if (typeof data.src === 'string') {
+    data.image = {
+      src: { source: 'static', url: data.src },
+      width: data.width,
+      height: data.height,
+    };
+  } else if (typeof data.src === 'object') {
+    const { file_name, width, height } = data.src || {};
+    data.image = { src: { id: file_name }, width, height };
+  }
   const { link, anchor } = data.config || {};
-  data.image = { src: { id: file_name }, width, height };
   data.link = (link || anchor) && createLink({ ...link, anchor });
   data.altText = data.metadata?.alt;
   data.caption = data.metadata?.caption;

@@ -22,6 +22,7 @@ import faultyBlockValuesMigrated from './faulty-block-values-migrated.json';
 import faultyDividerValues from './faulty-divider-values.json';
 import faultyDividerValuesMigrated from './faulty-divider-values-migrated.json';
 import polyfills from '../../../../../../../../e2e/tests/fixtures/polyfills.json';
+import oldImageFormat from '../../../../../../../../e2e/tests/fixtures/old-image-format.json';
 import { getTextNodes } from '../getTextNodes';
 import complexRicosFixture from '../../../../../statics/json/migratedFixtures/migration-content.json';
 import {
@@ -689,6 +690,85 @@ describe('migrate from draft', () => {
     expect(
       compare(content, RichContent.fromJSON(emojiWithInlineStyleRicos), {
         ignoredKeys: ['ID'],
+      })
+    ).toEqual({});
+  });
+
+  it('should convert legacy image data correctly', () => {
+    const expected = {
+      nodes: [
+        {
+          type: 'PARAGRAPH',
+          id: '13iji',
+          nodes: [
+            {
+              type: 'TEXT',
+              id: '',
+              nodes: [],
+              textData: {
+                text: 'Test',
+                decorations: [],
+              },
+            },
+          ],
+          paragraphData: {
+            textStyle: {
+              textAlignment: 'AUTO',
+            },
+            indentation: 0,
+          },
+        },
+        {
+          type: 'IMAGE',
+          id: 'a8q8p',
+          nodes: [],
+          imageData: {
+            image: {
+              src: {
+                id: '212af3_8337022e2b2f4e1c8b1e602ad9016dac~mv2.jpg',
+              },
+              width: 1080,
+              height: 708,
+            },
+          },
+        },
+        {
+          type: 'IMAGE',
+          id: '1khfq',
+          nodes: [],
+          imageData: {
+            image: {
+              src: {
+                // eslint-disable-next-line max-len
+                url: '//static.wixstatic.com/media/9916f5_f3a135d986354da09522bd288f51d4a6~mv2.jpg/v1/fill/w_626,h_417/9916f5_f3a135d986354da09522bd288f51d4a6~mv2.jpg',
+              },
+              width: 626,
+              height: 417,
+            },
+          },
+        },
+        {
+          type: 'PARAGRAPH',
+          id: '9sb1r',
+          nodes: [],
+          paragraphData: {
+            textStyle: {
+              textAlignment: 'AUTO',
+            },
+            indentation: 0,
+          },
+        },
+      ],
+      metadata: {
+        version: 1,
+        createdTimestamp: '2022-05-30T08:00:04.297Z',
+        updatedTimestamp: '2022-05-30T08:00:04.297Z',
+        id: '8d5b9a02-65d6-4771-ae56-9548c87ebf9a',
+      },
+    };
+    expect(
+      compare(fromDraft(oldImageFormat), RichContent.fromJSON(expected), {
+        ignoredKeys: ['id'],
       })
     ).toEqual({});
   });
