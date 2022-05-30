@@ -176,7 +176,6 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
       content,
       injectedContent,
     } = this.props;
-    console.log('renderEditor', content); // eslint-disable-line no-console
     return (
       <>
         <RicosPortal ref={this.portalRef} className={theme?.parentClass}>
