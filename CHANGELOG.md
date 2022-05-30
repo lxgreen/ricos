@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
   
+### :bug: Bug Fix
+
+  - `ricos-editor`
+  - [#3892](https://github.com/wix/ricos/pull/3892) adjust plus button position using offset on tiptap
+
   ## :house: Internal
   
   - `ricos-converters`

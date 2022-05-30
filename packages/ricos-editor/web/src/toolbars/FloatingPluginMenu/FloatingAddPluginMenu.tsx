@@ -29,7 +29,10 @@ const FloatingAddPluginMenu = ({ addPluginMenuConfig, helpers }) => {
   const calcButtonPosition = position => {
     const offsetTop = floatingMenuWrapperRef?.current?.getBoundingClientRect().top || 0;
     const { top = 0 } = position;
-    const topPosition = top ? Math.abs(top - offsetTop) : top;
+    const lineHeightOffset = 2;
+    const topWithOffset =
+      Math.floor(top - offsetTop) !== 0 ? Math.floor(top - offsetTop - lineHeightOffset) : 0;
+    const topPosition = top !== 0 ? Math.abs(topWithOffset) : 0;
     return { top: `${topPosition}px` };
   };
 
