@@ -77,9 +77,13 @@ const createInsertButtons: CreateInsertButtons = ({
       tooltip: t(`${contentType}Plugin_InsertButton_Tooltip`),
       getIcon: () => iconsMap[type],
       Icon: iconsMap[type],
-      componentData: { type },
       section: 'BlockToolbar_Section_Embed_Wix',
-      modalElement: decorateComponentWithProps(VerticalEmbedInputModal, { ...settings, locale }),
+      modalElement: decorateComponentWithProps(VerticalEmbedInputModal, {
+        ...settings,
+        locale,
+        type,
+        componentData: { type },
+      }),
       isVisiblePromise: getIsVisiblePromise?.(type, locale),
       modalStylesFn,
     };

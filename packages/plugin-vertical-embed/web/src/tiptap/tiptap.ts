@@ -1,9 +1,7 @@
-import type { ComponentType } from 'react';
 import { TIPTAP_APP_EMBED_TYPE } from 'ricos-content';
 import appEmbedDataDefaults from 'ricos-schema/dist/statics/app_embed.defaults.json';
-import type { ExtensionProps, NodeConfig, PluginProps, RicosExtension } from 'ricos-tiptap-types';
-import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
-import { AppEmbed } from './component';
+import type { ExtensionProps, NodeConfig, RicosExtension } from 'ricos-tiptap-types';
+import { AppEmbed as Component } from './component';
 
 export const tiptapExtensions = [
   {
@@ -16,10 +14,9 @@ export const tiptapExtensions = [
       settings: Record<string, unknown>
     ) => ({
       ...config,
-      Component: decorateComponentWithProps(AppEmbed, { settings }) as ComponentType<PluginProps>,
       addOptions: () => settings,
     }),
-
+    Component,
     name: TIPTAP_APP_EMBED_TYPE,
     createExtensionConfig() {
       return {

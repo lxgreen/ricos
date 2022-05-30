@@ -15,3 +15,7 @@ export const modalContentStyles: React.CSSProperties = {
   borderRadius: 'var(--ricos-settings-whitebox-border-radius, 2px)',
   boxShadow: 'var(--ricos-settings-whitebox-box-shadow, 0 0 10px 0 rgba(0, 0, 0, 0.06))',
 };
+
+export const verticalEmbedModals = {
+  insert: 'verticalEmbedInsertModal',
+};
