@@ -159,7 +159,7 @@ class GiphySelector extends Component<Props, State> {
       </div>
     );
     return (
-      <div>
+      <div data-hook="giphySelector">
         <div className={styles.giphy_selecter_infinite_scroll_container}>
           {!gifs.length && searchTag ? (
             <GiphyEmptyState t={t} />
