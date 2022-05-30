@@ -454,7 +454,7 @@
   "SizeLargeButton_Tooltip": "Groot",
   "LinkTo_Modal_Website_Placeholder": "Plak de URL",
   "UploadFile_Error_Empty_File": "Dit bestand is leeg. Probeer een ander bestand.",
-  "TablePlugin_SettingsModal_ErrorMessage": "Voer een getal in dat hoger is dan 0",
+  "TablePlugin_SettingsModal_ErrorMessage": "Voer een getal in dat groter is dan 0",
   "Poll_PollSettings_Tab_Layout_Section_Answers_Header": "Antwoorden",
   "Embed_Vertical_Events_EmptyState_NotInstalled_Title": "Voeg Wix Events aan je site toe",
   "GalleryPlugin_Layout_Slides": "Slider",
