@@ -131,6 +131,7 @@ export const TIPTAP_GIF_TYPE = 'gif';
 export const TIPTAP_VIDEO_TYPE = 'video';
 export const TIPTAP_AUDIO_TYPE = 'audio';
 export const TIPTAP_LINK_PREVIEW_TYPE = 'linkPreview';
+export const TIPTAP_EMBED_TYPE = 'embed';
 export const TIPTAP_POLL_TYPE = 'poll';
 export const TIPTAP_APP_EMBED_TYPE = 'appEmbed';
 export const TIPTAP_COLLAPSIBLE_LIST_TYPE = 'collapsibleList';

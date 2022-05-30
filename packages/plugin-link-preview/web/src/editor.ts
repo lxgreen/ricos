@@ -5,6 +5,7 @@ import { DEFAULTS } from './defaults';
 import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { getAddButtons } from './getAddButtons';
 
 export const pluginLinkPreview: EditorPluginCreator<LinkPreviewPluginEditorConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };
@@ -14,5 +15,6 @@ export const pluginLinkPreview: EditorPluginCreator<LinkPreviewPluginEditorConfi
     createPlugin: createLinkPreviewPlugin,
     ModalsMap: {},
     tiptapExtensions,
+    addButtons: getAddButtons(config),
   } as TiptapEditorPlugin;
 };

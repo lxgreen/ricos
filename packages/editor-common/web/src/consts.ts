@@ -147,6 +147,8 @@ export const INSERT_PLUGIN_BUTTONS = Object.freeze({
   YOUTUBE: 'YouTube_InsertButton',
   TIKTOK: 'TikTok_InsertButton',
   TWITTER: 'Twitter_InsertButton',
+  PINTEREST: 'Pinterest_InsertButton',
+  FACEBOOK: 'Facebook_InsertButton',
   STORES: 'Stores_InsertButton',
   EVENTS: 'Events_InsertButton',
   BOOKINGS: 'Bookings_InsertButton',

@@ -1,10 +1,11 @@
 import type { Editor } from '@tiptap/core';
 import type { KeyboardShortcutCommand } from '@tiptap/react';
 import type { ResolvedPos } from 'prosemirror-model';
-import { TIPTAP_LINK_PREVIEW_TYPE } from 'ricos-content';
+import { TIPTAP_LINK_PREVIEW_TYPE, TIPTAP_EMBED_TYPE } from 'ricos-content';
 import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
 import type { LinkPreviewData } from 'ricos-schema';
 import linkPreviewDefaults from 'ricos-schema/dist/statics/link_preview.defaults.json';
+import embedDefaults from 'ricos-schema/dist/statics/embed.defaults.json';
 import type {
   ExtensionProps,
   NodeConfig,
@@ -32,8 +33,6 @@ declare module '@tiptap/core' {
     };
   }
 }
-
-const name = TIPTAP_LINK_PREVIEW_TYPE;
 
 //// Regexes should be shared with link extension
 
@@ -83,7 +82,10 @@ const addLinkPreview =
                 editor
                   .chain()
                   .deleteRange({ from: pos.pos - (pos.nodeBefore?.nodeSize || 0), to: pos.pos })
-                  .insertContent({ type: name, attrs: convertedLinkPreviewData })
+                  .insertContent({
+                    type: TIPTAP_LINK_PREVIEW_TYPE,
+                    attrs: convertedLinkPreviewData,
+                  })
                   .run();
               }
             );
@@ -98,7 +100,7 @@ const addLinkPreview =
 export const tiptapExtensions = [
   {
     type: 'node' as const,
-    name,
+    name: TIPTAP_LINK_PREVIEW_TYPE,
     groups: ['react'],
     reconfigure: (
       config: NodeConfig,
@@ -126,6 +128,30 @@ export const tiptapExtensions = [
               },
           };
         },
+      };
+    },
+  },
+  {
+    type: 'node' as const,
+    name: TIPTAP_EMBED_TYPE,
+    groups: ['react'],
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions: () => settings,
+    }),
+    Component,
+    createExtensionConfig() {
+      return {
+        group: 'block',
+        selectable: true,
+        draggable: true,
+        name: this.name,
+        addAttributes: () => embedDefaults,
       };
     },
   },
