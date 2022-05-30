@@ -1,3 +1,6 @@
+import { toTiptap as legacyTo } from 'wix-tiptap-extensions';
+import { toTiptap } from './index';
+import migrationContent from 'ricos-content/statics/json/migratedFixtures/migration-content.json';
 import type { RichContent } from 'ricos-schema';
 import {
   Decoration_Type,
@@ -9,13 +12,9 @@ import {
   PluginContainerData_Width_Type,
   TextStyle_TextAlignment,
 } from 'ricos-schema';
-import { fromTiptap as legacyFrom, toTiptap as legacyTo } from 'wix-tiptap-extensions';
-import { imageConverter, textConverter } from './node-converters';
-import { fromTiptap, toTiptap } from './tiptap-converters';
-import { TiptapNodeBidiTransfoms } from './tiptap-node-transforms';
 
-describe('toTiptap', () => {
-  it('should convert unsupported content', () => {
+describe('to Tiptap', () => {
+  it('should convert paragraph & divider', () => {
     const content: RichContent = {
       nodes: [
         {
@@ -91,57 +90,23 @@ describe('toTiptap', () => {
         id: '1dda5bc8-0920-4ccd-b4b3-331bcda058f9',
       },
     };
-    const legacyConversion = legacyTo(content);
-    const expected = {
-      ...legacyConversion,
-      attrs: { ...legacyConversion.attrs, documentStyle: content.documentStyle },
-    };
-    const transforms = new TiptapNodeBidiTransfoms([textConverter, imageConverter]);
-    const actual = toTiptap(content, transforms.toTiptap());
+    const expected = legacyTo(content);
+    const actual = toTiptap(content);
     expect(actual).toStrictEqual(expected);
   });
-});
-describe('fromTiptap', () => {
-  it('should convert content with image', () => {
+  // eslint-disable-next-line mocha/no-skipped-tests
+  it.skip('should convert content', () => {
     const content = {
-      type: 'doc',
-      attrs: {
-        metadata: {
-          version: 1,
-          createdTimestamp: '2022-05-28T14:09:10.655Z',
-          updatedTimestamp: '2022-05-28T14:09:10.655Z',
-          id: '1dda5bc8-0920-4ccd-b4b3-331bcda058f9',
-        },
-        documentStyle: {},
+      ...migrationContent,
+      // TODO: remove and fix metadata converters
+      metadata: {
+        version: 1,
       },
-      content: [
-        {
-          type: 'image',
-          content: [],
-          attrs: {
-            id: 'foo',
-            containerData: {
-              width: {
-                size: 'SMALL',
-              },
-              alignment: 'LEFT',
-              textWrap: true,
-            },
-            image: {
-              src: {
-                id: '8bb438_e353d9a6ec324041a17a28d10e21819d.jpg',
-              },
-              width: 5600,
-              height: 3727,
-            },
-          },
-        },
-      ],
-    };
-
-    const expected = { ...legacyFrom(content), documentStyle: {} };
-    const transforms = new TiptapNodeBidiTransfoms([imageConverter]);
-    const actual = fromTiptap(content, transforms.fromTiptap());
-    expect(actual).toStrictEqual(expected);
+      documentStyle: {},
+    } as RichContent;
+    const actual = toTiptap(content);
+    // TODO: implement document style converter
+    const expected = legacyTo(content);
+    expect(actual).toEqual(expected);
   });
 });

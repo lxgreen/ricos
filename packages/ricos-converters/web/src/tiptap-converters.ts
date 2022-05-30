@@ -3,7 +3,9 @@ import { firstRight } from 'ricos-content';
 import type { Metadata, Node, RichContent } from 'ricos-schema';
 import { Node_Type } from 'ricos-schema';
 import type { ConvertableNode, Transforms, Tree } from './models/converter';
-import type { TiptapNode } from './types';
+import { nodeConverters } from './node-converters';
+import { TiptapNodeBidiTransfoms } from './tiptap-node-transforms';
+import type { TiptapNode, TiptapNodeConverter } from './types';
 
 const richContentTree: Tree<Node> = {
   getNodes: (root: Node) => root.nodes,
@@ -40,7 +42,7 @@ const visit =
 const convertTimestamp = (timestamp: unknown): string =>
   firstRight(timestamp, '', [
     [t => typeof t === 'string', t => t as string],
-    [t => typeof (t as Date).toISOString === 'function', (t: Date) => t.toISOString()],
+    [t => typeof (t as Date)?.toISOString === 'function', (t: Date) => t.toISOString()],
   ]);
 
 const convertMetadata = (metadata: Metadata) => ({
@@ -49,30 +51,31 @@ const convertMetadata = (metadata: Metadata) => ({
   updatedTimestamp: convertTimestamp(metadata.updatedTimestamp),
 });
 
-export const toTiptap = (
-  content: RichContent,
-  transforms: Transforms<Node, TiptapNode>
-): JSONContent => {
+const toTiptap = (content: RichContent, converters: TiptapNodeConverter[] = []): JSONContent => {
+  const transforms = new TiptapNodeBidiTransfoms(converters).toTiptap();
   const ricosRoot = { id: 'root', type: Node_Type.UNRECOGNIZED, nodes: content.nodes };
   return {
     type: 'doc',
     attrs: {
       metadata: convertMetadata(content.metadata || { version: 1 }),
-      documentStyle: content.documentStyle,
     },
     ...tiptapTree.setNodes(visit(richContentTree, tiptapTree, transforms)(ricosRoot)),
   };
 };
 
-export const fromTiptap = (
-  content: JSONContent,
-  transforms: Transforms<TiptapNode, Node>
-): RichContent => {
+const fromTiptap = (content: JSONContent, converters: TiptapNodeConverter[] = []): RichContent => {
+  const transforms = new TiptapNodeBidiTransfoms(converters).fromTiptap();
   return {
     metadata: content.attrs?.metadata,
-    documentStyle: content.attrs?.documentStyle,
+    // TODO: implement document style converter
+    documentStyle: {} /*content?.documentStyle*/,
     ...richContentTree.setNodes(
       visit(tiptapTree, richContentTree, transforms)(content as TiptapNode)
     ),
   } as RichContent;
 };
+
+export const fromTiptapWithConverters = (content: JSONContent) =>
+  fromTiptap(content, nodeConverters);
+
+export const toTiptapWithConverters = (content: RichContent) => toTiptap(content, nodeConverters);

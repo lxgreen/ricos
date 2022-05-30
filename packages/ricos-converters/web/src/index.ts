@@ -1,2 +1,5 @@
-export { toTiptap, fromTiptap } from './tiptap-converters';
+export {
+  toTiptapWithConverters as toTiptap,
+  fromTiptapWithConverters as fromTiptap,
+} from './tiptap-converters';
 export * from './types';

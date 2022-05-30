@@ -33,6 +33,7 @@ import type {
   OrderedListData,
   BulletedListData,
   BlockquoteData,
+  NodeStyle,
 } from 'ricos-schema';
 import { isTextData, isParagraphData } from './node-data-refined-types';
 
@@ -68,6 +69,7 @@ export const isTextNode = (node: Node): node is TextNode =>
 export type ParagraphNode = TextNodeContainer & {
   paragraphData: ParagraphData;
   type: Node_Type.PARAGRAPH;
+  style?: NodeStyle;
 };
 
 export const isParagraphNode = (node: Node): node is ParagraphNode =>
@@ -79,6 +81,7 @@ export const isParagraphNode = (node: Node): node is ParagraphNode =>
 export type HeadingNode = TextNodeContainer & {
   headingData: HeadingData;
   type: Node_Type.HEADING;
+  style?: NodeStyle;
 };
 
 export type CodeBlockNode = TextNodeContainer & {
