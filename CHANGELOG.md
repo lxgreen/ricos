@@ -21,6 +21,8 @@
 
   - `ricos-editor`
   - [#3892](https://github.com/wix/ricos/pull/3892) adjust plus button position using offset on tiptap
+  - `audio`
+  - [#3950](https://github.com/wix/ricos/pull/3950) fix audio slider & duration ui
 
   ## :house: Internal
   

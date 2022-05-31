@@ -129,12 +129,12 @@ $COVER_IMAGE_SIZE_SMALL_MOBILE: 40px;
 }
 
 .audio_duration {
-  max-width: 60px;
+  max-width: 63px;
   width: 100%;
   font-size: 12px;
   .customPlayer_mobile &,
   .customPlayer_small_fit & {
-    max-width: 25px;
+    max-width: 27px;
     text-align: end;
   }
 }

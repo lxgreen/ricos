@@ -120,11 +120,21 @@ $track-radius: 3px !default;
   }
 
   &::-webkit-slider-runnable-track {
-    @include track;
     @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
     background: transparent;
     border: $track-border-width solid $track-border-color;
     border-radius: $track-radius;
+  }
+
+  &:not(.small_track) {
+    &::-webkit-slider-runnable-track {
+      @include track;
+    }
+  }
+  &.small_track {
+    &::-webkit-slider-runnable-track {
+      height: 4px !important;
+    }
   }
 
   &::-webkit-slider-thumb {
