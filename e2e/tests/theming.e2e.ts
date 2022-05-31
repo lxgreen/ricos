@@ -12,7 +12,7 @@ function testFlow(title: string) {
 }
 
 const snapshot = (title, isDesktop) => {
-  cy.wait(200);
+  cy.wait(200).setEditorSelection(0, 0).wait(200);
   cy.percySnapshot(
     `${title}  - ${isDesktop ? 'desktop' : 'mobile'}`,
     isDesktop ? {} : DEFAULT_MOBILE_WIDTHS
