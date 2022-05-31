@@ -26,6 +26,7 @@
   
   - `ricos-converters`
     - [#3932](https://github.com/wix/ricos/pull/3932) package added
+    - [#3949](https://github.com/wix/ricos/pull/3949) [converters] separated to modules
 
 </details>
 
