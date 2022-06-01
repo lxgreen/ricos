@@ -70,7 +70,12 @@ const EditorSettings: FC<Props> = ({ editorSettings = {}, setEditorSettings }) =
           label="use horizontal menu"
           checked={editorSettings?.toolbarConfig?.addPluginMenuConfig?.horizontalMenuLayout}
           onChange={() =>
-            setPluginMenuConfig({ tablePluginMenu: false, horizontalMenuLayout: true })
+            setPluginMenuConfig({
+              tablePluginMenu: false,
+              horizontalMenuLayout: true,
+              showSearch: false,
+              splitToSections: false,
+            })
           }
         />
         <Toggle
