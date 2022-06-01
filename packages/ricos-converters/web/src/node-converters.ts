@@ -1,7 +1,6 @@
 // TODO: distribute specific implementations to appropriate packages
 
 import type { Node, Node_Type } from 'ricos-schema';
-import toConstantCase from 'to-constant-case';
 import { linkButtonConverter } from './nodes/button-converters';
 import {
   collapsibleItemBodyConverter,
@@ -15,14 +14,16 @@ import { listItemConverter } from './nodes/list-converters';
 import { paragraphConverter } from './nodes/paragraph-converter';
 import { tableRowConverter } from './nodes/table-converters';
 import { textConverter } from './nodes/text-converter';
+import toCamelCase from 'to-camel-case';
+import toConstantCase from 'to-constant-case';
 import type { TiptapNode, TiptapNodeConverter } from './types';
 
 export const getUnsupportedToTiptap = (node: Node): TiptapNodeConverter['toTiptap'] => {
-  const dataProp = Object.keys(node).find(p => p.endsWith('Data'));
+  const dataProp = Object.keys(node).find(p => p.endsWith(`${toCamelCase(node.type)}Data`));
   return {
-    type: node.type as Node_Type,
+    type: node.type,
     convert: (node: Node) => ({
-      type: node.type.toLowerCase(),
+      type: toCamelCase(node.type),
       attrs: {
         id: node.id,
         ...(dataProp ? node[dataProp] : {}),
@@ -38,7 +39,7 @@ export const getUnsupportedFromTiptap = (node: TiptapNode): TiptapNodeConverter[
     convert: (node: TiptapNode) => ({
       type: toConstantCase(node.type) as Node_Type,
       id,
-      [`${node.type}Data`]: { ...data },
+      [`${toCamelCase(node.type)}Data`]: { ...data },
       nodes: [],
     }),
   };

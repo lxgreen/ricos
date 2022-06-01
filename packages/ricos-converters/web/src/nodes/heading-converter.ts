@@ -7,12 +7,12 @@ export const headingConverter: TiptapNodeConverter = {
   toTiptap: {
     type: Node_Type.HEADING,
     convert: (node: HeadingNode) => {
-      const { id, /*style,*/ headingData } = node || {};
+      const { id, style, headingData } = node || {};
       return {
         type: 'heading',
         attrs: {
           id,
-          // ...(style ? { style } : {}),
+          ...(style ? { style } : {}),
           ...headingData,
         },
       };

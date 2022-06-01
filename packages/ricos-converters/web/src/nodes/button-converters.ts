@@ -1,6 +1,7 @@
 import type { ButtonNode } from 'ricos-content';
 import type { ButtonData } from 'ricos-schema';
 import { Node_Type, ButtonData_Type } from 'ricos-schema';
+import toCamelCase from 'to-camel-case';
 import type { TiptapNodeConverter, TiptapNode } from '../types';
 
 export const linkButtonConverter: TiptapNodeConverter = {
@@ -11,6 +12,7 @@ export const linkButtonConverter: TiptapNodeConverter = {
       attrs: {
         id: node.id,
         ...node.buttonData,
+        type: toCamelCase(node.buttonData.type),
       },
     }),
   },

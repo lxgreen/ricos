@@ -37,7 +37,7 @@ const visit =
     transforms: Transforms<SrcNode, DestNode>
   ) =>
   (node: SrcNode): DestNode[] =>
-    srcTree.getNodes(node).map(transformNode(srcTree, destTree, transforms));
+    (srcTree.getNodes(node) || []).map(transformNode(srcTree, destTree, transforms));
 
 const convertTimestamp = (timestamp: unknown): string =>
   firstRight(timestamp, '', [
@@ -56,10 +56,11 @@ const toTiptap = (content: RichContent, converters: TiptapNodeConverter[] = []):
   const ricosRoot = { id: 'root', type: Node_Type.UNRECOGNIZED, nodes: content.nodes };
   return {
     type: 'doc',
+    ...tiptapTree.setNodes(visit(richContentTree, tiptapTree, transforms)(ricosRoot)),
+    documentStyle: content.documentStyle || {},
     attrs: {
       metadata: convertMetadata(content.metadata || { version: 1 }),
     },
-    ...tiptapTree.setNodes(visit(richContentTree, tiptapTree, transforms)(ricosRoot)),
   };
 };
 
@@ -67,8 +68,7 @@ const fromTiptap = (content: JSONContent, converters: TiptapNodeConverter[] = []
   const transforms = new TiptapNodeBidiTransfoms(converters).fromTiptap();
   return {
     metadata: content.attrs?.metadata,
-    // TODO: implement document style converter
-    documentStyle: {} /*content?.documentStyle*/,
+    documentStyle: content.documentStyle,
     ...richContentTree.setNodes(
       visit(tiptapTree, richContentTree, transforms)(content as TiptapNode)
     ),

@@ -10,6 +10,7 @@ import { fontSizeConverter } from './marks/font-size-converter';
 import { italicConverter } from './marks/italic-converter';
 import { linkConverter } from './marks/link-converter';
 import { mentionConverter } from './marks/mention-converter';
+import { spoilerConverter } from './marks/spoiler-converter';
 import { underlineConverter } from './marks/underline-converter';
 import type { TiptapMark, TiptapMarkConverter } from './types';
 
@@ -42,13 +43,13 @@ export const getUnsupportedMarkFromTiptap = (
 });
 
 export const markConverters = [
-  boldConverter,
-  italicConverter,
-  underlineConverter,
-  // TODO: add spoiler converter
   anchorConverter,
-  mentionConverter,
-  linkConverter,
+  boldConverter,
   colorConverter,
   fontSizeConverter,
+  italicConverter,
+  linkConverter,
+  mentionConverter,
+  spoilerConverter,
+  underlineConverter,
 ];

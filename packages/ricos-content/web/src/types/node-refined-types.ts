@@ -41,6 +41,8 @@ type Identified = {
   id: Node['id'];
 };
 
+type Styled = { style?: NodeStyle };
+
 const isIdentified = (node: Node): boolean => typeof node.id === 'string' && node.id.length > 0;
 
 // RichText
@@ -51,9 +53,10 @@ export type RichText = {
 
 export type RichTextNode = ParagraphNode | HeadingNode | CodeBlockNode | BlockquoteNode;
 
-type TextNodeContainer = Identified & {
-  nodes: TextNode[];
-};
+type TextNodeContainer = Identified &
+  Styled & {
+    nodes: TextNode[];
+  };
 
 const isTextNodeContainer = (node: Node): boolean => node.nodes.every(isTextNode);
 
@@ -69,7 +72,6 @@ export const isTextNode = (node: Node): node is TextNode =>
 export type ParagraphNode = TextNodeContainer & {
   paragraphData: ParagraphData;
   type: Node_Type.PARAGRAPH;
-  style?: NodeStyle;
 };
 
 export const isParagraphNode = (node: Node): node is ParagraphNode =>
@@ -81,7 +83,6 @@ export const isParagraphNode = (node: Node): node is ParagraphNode =>
 export type HeadingNode = TextNodeContainer & {
   headingData: HeadingData;
   type: Node_Type.HEADING;
-  style?: NodeStyle;
 };
 
 export type CodeBlockNode = TextNodeContainer & {
@@ -89,31 +90,35 @@ export type CodeBlockNode = TextNodeContainer & {
   type: Node_Type.CODE_BLOCK;
 };
 
-export type BlockquoteNode = Identified & {
-  type: Node_Type.BLOCKQUOTE;
-  nodes: ParagraphNode[]; // until editor is based on draft
-  blockquoteData: BlockquoteData;
-};
+export type BlockquoteNode = Identified &
+  Styled & {
+    type: Node_Type.BLOCKQUOTE;
+    nodes: ParagraphNode[]; // until editor is based on draft
+    blockquoteData: BlockquoteData;
+  };
 
 // Lists
-export type ListItemNode = Identified & {
-  type: Node_Type.LIST_ITEM;
-  nodes: ParagraphNode[]; // until editor is based on draft
-};
+export type ListItemNode = Identified &
+  Styled & {
+    type: Node_Type.LIST_ITEM;
+    nodes: ParagraphNode[]; // until editor is based on draft
+  };
 
 export type ListNode = OrderedListNode | BulletedListNode;
 
-export type OrderedListNode = Identified & {
-  type: Node_Type.ORDERED_LIST;
-  nodes: ListItemNode[];
-  orderedListData: OrderedListData;
-};
+export type OrderedListNode = Identified &
+  Styled & {
+    type: Node_Type.ORDERED_LIST;
+    nodes: ListItemNode[];
+    orderedListData: OrderedListData;
+  };
 
-export type BulletedListNode = Identified & {
-  type: Node_Type.BULLETED_LIST;
-  nodes: ListItemNode[];
-  bulletedListData: BulletedListData;
-};
+export type BulletedListNode = Identified &
+  Styled & {
+    type: Node_Type.BULLETED_LIST;
+    nodes: ListItemNode[];
+    bulletedListData: BulletedListData;
+  };
 
 // TODO: refactor name
 export type RichContentNodeWithContainerData =
@@ -141,40 +146,47 @@ type RichContainer = {
   nodes: RichContentNode[];
 };
 
-export type CollapsibleListNode = Identified & {
-  type: Node_Type.COLLAPSIBLE_LIST;
-  nodes: CollapsibleItemNode[];
-  data: CollapsibleListData;
-};
+export type CollapsibleListNode = Identified &
+  Styled & {
+    type: Node_Type.COLLAPSIBLE_LIST;
+    nodes: CollapsibleItemNode[];
+    data: CollapsibleListData;
+  };
 
-export type CollapsibleItemNode = Identified & {
-  type: Node_Type.COLLAPSIBLE_ITEM;
-  nodes: [CollapsibleItemTitleNode, CollapsibleItemBodyNode];
-};
+export type CollapsibleItemNode = Identified &
+  Styled & {
+    type: Node_Type.COLLAPSIBLE_ITEM;
+    nodes: [CollapsibleItemTitleNode, CollapsibleItemBodyNode];
+  };
 
-export type CollapsibleItemTitleNode = Identified & {
-  type: Node_Type.COLLAPSIBLE_ITEM_TITLE;
-  nodes: RichTextNode[];
-};
+export type CollapsibleItemTitleNode = Identified &
+  Styled & {
+    type: Node_Type.COLLAPSIBLE_ITEM_TITLE;
+    nodes: RichTextNode[];
+  };
 
 export type CollapsibleItemBodyNode = Identified &
+  Styled &
   RichContainer & {
     type: Node_Type.COLLAPSIBLE_ITEM_BODY;
   };
 
 // Table
-export type TableNode = Identified & {
-  type: Node_Type.TABLE;
-  nodes: TableRowNode[];
-  tableData: TableData;
-};
+export type TableNode = Identified &
+  Styled & {
+    type: Node_Type.TABLE;
+    nodes: TableRowNode[];
+    tableData: TableData;
+  };
 
-export type TableRowNode = Identified & {
-  type: Node_Type.TABLE_ROW;
-  nodes: TableCellNode[];
-};
+export type TableRowNode = Identified &
+  Styled & {
+    type: Node_Type.TABLE_ROW;
+    nodes: TableCellNode[];
+  };
 
 export type TableCellNode = Identified &
+  Styled &
   RichContainer & {
     type: Node_Type.TABLE_CELL;
     tableCellData: TableCellData;
@@ -188,84 +200,98 @@ type Leaf = Omit<Node, 'nodes'> & {
 const isLeaf = (node: Node): node is Leaf => node.nodes === [];
 
 export type DividerNode = Identified &
+  Styled &
   Leaf & {
     type: Node_Type.DIVIDER;
     dividerData: DividerData;
   };
 
 export type ButtonNode = Identified &
+  Styled &
   Leaf & {
     type: Node_Type.BUTTON;
     buttonData: ButtonData;
   };
 
 export type FileNode = Identified &
+  Styled &
   Leaf & {
     type: Node_Type.FILE;
     fileData: FileData;
   };
 
 export type GalleryNode = Identified &
+  Styled &
   Leaf & {
     type: Node_Type.GALLERY;
     galleryData: GalleryData;
   };
 
 export type GifNode = Identified &
+  Styled &
   Leaf & {
     type: Node_Type.GIF;
     gifData: GIFData;
   };
 
 export type HtmlNode = Identified &
+  Styled &
   Leaf & {
     type: Node_Type.HTML;
     htmlData: HTMLData;
   };
 
 export type ImageNode = Identified &
+  Styled &
   Leaf & {
     type: Node_Type.IMAGE;
     imageData: ImageData;
   };
 
 export type LinkPreviewNode = Identified &
+  Styled &
   Leaf & {
     type: Node_Type.LINK_PREVIEW;
     linkPreviewData: LinkPreviewData;
   };
 
 export type MapNode = Identified &
+  Styled &
   Leaf & {
     type: Node_Type.MAP;
     mapData: MapData;
   };
 
 export type AppEmbedNode = Identified &
+  Styled &
   Leaf & {
     type: Node_Type.APP_EMBED;
     appEmbedData: AppEmbedData;
   };
 
 export type EmbedNode = Identified &
+  Styled &
   Leaf & {
     type: Node_Type.EMBED;
     embedData: EmbedData;
   };
 
 export type VideoNode = Identified &
+  Styled &
   Leaf & {
     type: Node_Type.VIDEO;
     videoData: VideoData;
   };
 
 export type AudioNode = Identified &
+  Styled &
   Leaf & {
     type: Node_Type.AUDIO;
     audioData: AudioData;
   };
 
 export type PollNode = Identified &
+  Styled &
   Leaf & {
     type: Node_Type.POLL;
     pollData: PollData;

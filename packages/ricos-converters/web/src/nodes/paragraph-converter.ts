@@ -7,12 +7,12 @@ export const paragraphConverter: TiptapNodeConverter = {
   toTiptap: {
     type: Node_Type.PARAGRAPH,
     convert: (node: ParagraphNode) => {
-      const { id, /*style,*/ paragraphData } = node || {};
+      const { id, style, paragraphData } = node || {};
       return {
         type: 'paragraph',
         attrs: {
           id,
-          // ...(style ? { style } : {}),
+          ...(style ? { style } : {}),
           ...paragraphData,
         },
       };

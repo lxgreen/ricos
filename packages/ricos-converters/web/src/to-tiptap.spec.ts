@@ -3,6 +3,7 @@ import { toTiptap } from './index';
 import migrationContent from 'ricos-content/statics/json/migratedFixtures/migration-content.json';
 import type { RichContent } from 'ricos-schema';
 import {
+  Metadata,
   Decoration_Type,
   DividerData_Alignment,
   DividerData_LineStyle,
@@ -89,6 +90,7 @@ describe('to Tiptap', () => {
         updatedTimestamp: new Date('2022-05-28T20:09:10.749Z'),
         id: '1dda5bc8-0920-4ccd-b4b3-331bcda058f9',
       },
+      documentStyle: {},
     };
     const expected = legacyTo(content);
     const actual = toTiptap(content);
@@ -98,9 +100,8 @@ describe('to Tiptap', () => {
   it.skip('should convert content', () => {
     const content = {
       ...migrationContent,
-      // TODO: remove and fix metadata converters
       metadata: {
-        version: 1,
+        ...Metadata.fromJSON(migrationContent.metadata),
       },
       documentStyle: {},
     } as RichContent;
