@@ -4,6 +4,7 @@ import type { AddButton } from 'ricos-types';
 import { htmlButtonsTypes } from './defaults';
 import { HTML_TYPE } from './types';
 import htmlDataDefaults from 'ricos-schema/dist/statics/html.defaults.json';
+import { compact } from 'lodash';
 
 export const getAddButtons = (config): AddButton[] => {
   const { exposeButtons = [htmlButtonsTypes.html], siteDomain } = config || {};
@@ -41,5 +42,5 @@ export const getAddButtons = (config): AddButton[] => {
     },
   };
 
-  return exposeButtons.map(buttonType => buttonsMap[buttonType]);
+  return compact(exposeButtons.map(buttonType => buttonsMap[buttonType]));
 };
