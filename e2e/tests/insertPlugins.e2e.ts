@@ -46,15 +46,21 @@ const additionalCommands = {
   // ADSENSE: () => {},
 };
 
+const EXCLUDE_PLUGINS = ['map'];
+
 const testInsertPlugin =
   (toolbar: string) =>
-  ([plugin, pluginButtonName]: [string, string]) =>
-    it(`should insert ${plugin?.toLocaleLowerCase()}`, () => {
-      cy.loadRicosEditorAndViewer('empty').wait(500).insertPlugin(toolbar, pluginButtonName);
-      additionalCommands[plugin]?.();
-      cy.wait(1500);
-      cy.percySnapshot();
-    });
+  ([plugin = '', pluginButtonName]: [string, string]) => {
+    const pluginLowercase = plugin.toLocaleLowerCase();
+    if (EXCLUDE_PLUGINS.indexOf(pluginLowercase) === -1) {
+      it(`should insert ${pluginLowercase}`, () => {
+        cy.loadRicosEditorAndViewer('empty').wait(500).insertPlugin(toolbar, pluginButtonName);
+        additionalCommands[plugin]?.();
+        cy.wait(1500);
+        cy.percySnapshot();
+      });
+    }
+  };
 
 // const testNativeUploadMediaPlugin = toolbar => ([plugin, pluginButtonName]) =>
 //   it(`should upload native ${plugin?.toLocaleLowerCase()}`, function() {

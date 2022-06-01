@@ -8,7 +8,7 @@ const testFixture = (fixture: Fixture, opts: { isMobile?: boolean; sufix?: strin
   const name = label || fixtureName;
   it(`render ${name}`, function () {
     cy.loadRicosEditorAndViewer(fixtureName, config).focusEditor();
-    cy.wait(200);
+    cy.wait(200).setEditorSelection(0, 0).wait(200);
     if (additionalCommands) {
       additionalCommands(cy);
     }

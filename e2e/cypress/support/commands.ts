@@ -664,11 +664,13 @@ export function setSelection(start: number, offset: number, container: Cypress.C
     const document = args[0].ownerDocument;
     const range = document.createRange();
     const startObj = getTextElmentAndLocalOffset(start);
-    range.setStart(startObj.element, startObj.offset);
-    const endObj = getTextElmentAndLocalOffset(start + offset);
-    range.setEnd(endObj.element, endObj.offset);
-    document.getSelection().removeAllRanges(range);
-    document.getSelection().addRange(range);
+    if (startObj.element) {
+      range.setStart(startObj.element, startObj.offset);
+      const endObj = getTextElmentAndLocalOffset(start + offset);
+      range.setEnd(endObj.element, endObj.offset);
+      document.getSelection().removeAllRanges(range);
+      document.getSelection().addRange(range);
+    }
   });
 }
 
