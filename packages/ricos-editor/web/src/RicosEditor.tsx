@@ -28,7 +28,13 @@ import {
   EditorEventsContext,
   EditorEvents,
 } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
-import { ToolbarType, Version, RicosTranslate, getLangDir } from 'wix-rich-content-common';
+import {
+  ToolbarType,
+  Version,
+  RicosTranslate,
+  getLangDir,
+  GlobalContext,
+} from 'wix-rich-content-common';
 import { getEmptyDraftContent, getEditorContentSummary } from 'wix-rich-content-editor-common';
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
 import type { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
@@ -459,7 +465,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> implements R
   renderNewToolbars() {
     const { TextFormattingToolbar, activeEditor, contentId } = this.state;
     const {
-      isMobile,
+      isMobile = false,
       theme,
       locale,
       _rcProps: { helpers } = {},
@@ -468,6 +474,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> implements R
       linkSettings,
       toolbarSettings,
       cssOverride,
+      experiments = {},
     } = this.props;
     const getEditorContainer = this.editor?.getContainer;
     const { useStaticTextToolbar } = toolbarSettings || {};
@@ -497,28 +504,30 @@ export class RicosEditor extends Component<RicosEditorProps, State> implements R
     return (
       !activeEditorIsTableCell &&
       activeEditor && (
-        <div
-          data-hook={'ricos-editor-toolbars'}
-          style={isMobile ? baseMobileStyles : baseStyles}
-          dir={getLangDir(locale)}
-        >
-          {TextFormattingToolbar && (
-            <TextFormattingToolbar
-              ref={this.setTextFormattingToolbarRef}
-              activeEditor={activeEditor}
-              {...toolbarsProps}
-            />
-          )}
-          {linkPluginInstalled && (
-            <Suspense fallback={''}>
-              <LinkToolbar
-                ref={this.setLinkToolbarRef}
+        <GlobalContext.Provider value={{ experiments, isMobile }}>
+          <div
+            data-hook={'ricos-editor-toolbars'}
+            style={isMobile ? baseMobileStyles : baseStyles}
+            dir={getLangDir(locale)}
+          >
+            {TextFormattingToolbar && (
+              <TextFormattingToolbar
+                ref={this.setTextFormattingToolbarRef}
                 activeEditor={activeEditor}
                 {...toolbarsProps}
               />
-            </Suspense>
-          )}
-        </div>
+            )}
+            {linkPluginInstalled && (
+              <Suspense fallback={''}>
+                <LinkToolbar
+                  ref={this.setLinkToolbarRef}
+                  activeEditor={activeEditor}
+                  {...toolbarsProps}
+                />
+              </Suspense>
+            )}
+          </div>
+        </GlobalContext.Provider>
       )
     );
   }

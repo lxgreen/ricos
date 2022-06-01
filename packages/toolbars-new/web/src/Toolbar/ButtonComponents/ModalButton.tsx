@@ -11,6 +11,7 @@ import ToolbarButton from '../ToolbarButton';
 import type { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 import { elementOverflowWithEditor, KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 import { FocusManager } from 'wix-rich-content-ui-components';
+import { GlobalContext } from 'wix-rich-content-common';
 
 type dropDownPropsType = {
   isMobile?: boolean;
@@ -71,6 +72,8 @@ class ModalButton extends Component<ModalButtonProps, State> {
     };
   }
 
+  static contextType = GlobalContext;
+
   setModalRef = ref => (this.modalRef = ref);
 
   toggleModal = e => {
@@ -85,10 +88,14 @@ class ModalButton extends Component<ModalButtonProps, State> {
 
   handleOverflow = () => {
     const { isMobile, getEditorContainer } = this.props;
+    const { experiments } = this.context;
+    const modalOverflowByBoundingClientRect =
+      !!experiments?.modalOverflowByBoundingClientRect?.enabled;
     if (this.modalRef) {
       const modalOverflowWithEditor = elementOverflowWithEditor(
         this.modalRef,
-        getEditorContainer() as HTMLElement
+        getEditorContainer() as HTMLElement,
+        modalOverflowByBoundingClientRect
       );
       const isModalWidthOverflow = !!modalOverflowWithEditor.overflowRight;
       const isModalOverflowByHeight = !!modalOverflowWithEditor.overflowBottom;
