@@ -8,6 +8,7 @@ import { createGiphyData } from './createGiphyData';
 import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 import { getAddButtons } from './getAddButtons';
+import { getToolbarButtons } from './getToolbarButtons';
 
 export const pluginGiphy: EditorPluginCreator<GiphyPluginEditorConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };
@@ -19,5 +20,6 @@ export const pluginGiphy: EditorPluginCreator<GiphyPluginEditorConfig> = config 
     createPluginData: createGiphyData,
     tiptapExtensions,
     addButtons: getAddButtons(config),
+    toolbarButtons: getToolbarButtons(config),
   } as TiptapEditorPlugin;
 };

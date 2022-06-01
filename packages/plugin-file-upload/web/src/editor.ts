@@ -7,6 +7,7 @@ import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createFileData } from './createFileData';
 import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { getToolbarButtons } from './getToolbarButtons';
 import { getAddButtons } from './getAddButtons';
 
 export const pluginFileUpload: EditorPluginCreator<FilePluginEditorConfig> = config => {
@@ -18,6 +19,7 @@ export const pluginFileUpload: EditorPluginCreator<FilePluginEditorConfig> = con
     ModalsMap,
     createPluginData: createFileData,
     tiptapExtensions,
+    toolbarButtons: getToolbarButtons(config),
     addButtons: getAddButtons(config),
   } as TiptapEditorPlugin;
 };

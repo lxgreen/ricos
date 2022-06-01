@@ -7,6 +7,7 @@ import { createDividerData } from './createDividerData';
 import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 import { getAddButtons } from './getAddButtons';
+import { getToolbarButtons } from './getToolbarButtons';
 
 export const pluginDivider: EditorPluginCreator<DividerPluginEditorConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };
@@ -18,5 +19,6 @@ export const pluginDivider: EditorPluginCreator<DividerPluginEditorConfig> = con
     createPluginData: createDividerData,
     tiptapExtensions,
     addButtons: getAddButtons(),
+    toolbarButtons: getToolbarButtons(config),
   } as TiptapEditorPlugin;
 };

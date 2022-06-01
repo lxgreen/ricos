@@ -7,6 +7,7 @@ import { createHtmlData } from './createHtmlData';
 import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 import { getAddButtons } from './getAddButtons';
+import { getToolbarButtons } from './getToolbarButtons';
 
 export const pluginHtml: EditorPluginCreator<HtmlPluginEditorConfig> = config => {
   const pluginConfig: HtmlPluginEditorConfig = { ...DEFAULTS_CONFIG, ...config };
@@ -18,5 +19,6 @@ export const pluginHtml: EditorPluginCreator<HtmlPluginEditorConfig> = config =>
     createPluginData: createHtmlData,
     tiptapExtensions,
     addButtons: getAddButtons(config),
+    toolbarButtons: getToolbarButtons(config),
   } as TiptapEditorPlugin;
 };

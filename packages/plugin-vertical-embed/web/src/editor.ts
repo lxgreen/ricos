@@ -5,6 +5,7 @@ import { ModalsMap } from './modals';
 import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { getToolbarButtons } from './getToolbarButtons';
 import { getAddButtons } from './getAddButtons';
 
 export const pluginVerticalEmbed: EditorPluginCreator<VerticalEmbedPluginEditorConfig> = config => {
@@ -15,6 +16,7 @@ export const pluginVerticalEmbed: EditorPluginCreator<VerticalEmbedPluginEditorC
     createPlugin: createVerticalEmbedPlugin,
     ModalsMap,
     tiptapExtensions,
+    toolbarButtons: getToolbarButtons(config),
     addButtons: getAddButtons(config),
   } as TiptapEditorPlugin;
 };

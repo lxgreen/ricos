@@ -19,18 +19,21 @@
   
 ### :bug: Bug Fix
 
-  - `ricos-editor`
-  - [#3892](https://github.com/wix/ricos/pull/3892) adjust plus button position using offset on tiptap
-  - `audio`
-  - [#3950](https://github.com/wix/ricos/pull/3950) fix audio slider & duration ui
+- `ricos-editor`
+- [#3892](https://github.com/wix/ricos/pull/3892) adjust plus button position using offset on tiptap
+- `audio`
+- [#3950](https://github.com/wix/ricos/pull/3950) fix audio slider & duration ui
 
-  ## :house: Internal
-  
-  - `ricos-converters`
-    - [#3932](https://github.com/wix/ricos/pull/3932) package added
-    - [#3949](https://github.com/wix/ricos/pull/3949) [converters] separated to modules
-     - `ricos-modals`
-    - [#3957](https://github.com/wix/ricos/pull/3957) add toolbar layout to ricos modals
+## :house: Internal
+
+- `ricos-converters`
+  - [#3932](https://github.com/wix/ricos/pull/3932) package added
+  - [#3949](https://github.com/wix/ricos/pull/3949) [converters] separated to modules
+- `ricos-modals`
+  - [#3957](https://github.com/wix/ricos/pull/3957) add toolbar layout to ricos modals
+- `ricos-plugins ricos-editor toolbar-v3`
+  - [#3890](https://github.com/wix/ricos/pull/3890) `pluginToolbar` API
+
 </details>
 
 <hr/>

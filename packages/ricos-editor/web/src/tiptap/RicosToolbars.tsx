@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import type { Node } from 'prosemirror-model';
 import type { Content } from 'wix-rich-content-toolbars-v3';
 import {

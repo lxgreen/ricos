@@ -8,6 +8,7 @@ import { createVideoData } from './createVideoData';
 import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 import { getAddButtons } from './getAddButtons';
+import { getToolbarButtons } from './getToolbarButtons';
 
 export const pluginVideo: EditorPluginCreator<VideoPluginEditorConfig> = config => {
   const pluginConfig: VideoPluginEditorConfig = { ...DEFAULTS.config, ...config };
@@ -19,5 +20,6 @@ export const pluginVideo: EditorPluginCreator<VideoPluginEditorConfig> = config 
     createPluginData: createVideoData,
     tiptapExtensions,
     addButtons: getAddButtons(config),
+    toolbarButtons: getToolbarButtons(config),
   } as TiptapEditorPlugin;
 };

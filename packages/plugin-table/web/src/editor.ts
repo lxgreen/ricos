@@ -5,6 +5,7 @@ import type { TablePluginEditorConfig } from './types';
 import { TABLE_TYPE } from './types';
 import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { getAddButtons } from './getAddButtons';
+import { getToolbarButtons } from './getToolbarButtons';
 
 export const pluginTable: EditorPluginCreator<TablePluginEditorConfig> = config => {
   return {
@@ -14,5 +15,6 @@ export const pluginTable: EditorPluginCreator<TablePluginEditorConfig> = config 
     ModalsMap,
     theme,
     addButtons: getAddButtons(),
+    toolbarButtons: getToolbarButtons(config),
   };
 };

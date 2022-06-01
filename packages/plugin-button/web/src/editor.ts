@@ -5,6 +5,7 @@ import { LINK_BUTTON_TYPE, ACTION_BUTTON_TYPE } from './types';
 import { ModalsMap } from './modals';
 import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createButtonData } from './createButtonData';
+import { getToolbarButtons } from './getToolbarButtons';
 
 const pluginButton = (createPlugin, type, config) => {
   return {
@@ -13,6 +14,7 @@ const pluginButton = (createPlugin, type, config) => {
     createPlugin,
     ModalsMap,
     createPluginData: createButtonData,
+    toolbarButtons: getToolbarButtons(config),
   };
 };
 

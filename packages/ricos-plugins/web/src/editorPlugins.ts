@@ -1,5 +1,6 @@
 import { EditorPlugin } from './editorPlugin';
 import { PluginAddButtons } from './pluginAddButton';
+import type { PluginToolbar } from './pluginToolbar';
 import type { Plugins, Plugin } from './models/plugins';
 import type { EditorPlugin as EditorPluginType } from 'ricos-types';
 import { compact } from 'lodash';
@@ -55,6 +56,16 @@ export class EditorPlugins implements Plugins {
       []
     );
     return new PluginAddButtons(addButtons);
+  }
+
+  getVisibleToolbar(content) {
+    const toolbar: PluginToolbar = this.plugins
+      .map(plugin => plugin.getToolbar())
+      .filter(
+        (toolbar: PluginToolbar | undefined): toolbar is PluginToolbar =>
+          !!toolbar?.isVisible(content)
+      )[0];
+    return toolbar;
   }
 
   getTiptapExtensions() {

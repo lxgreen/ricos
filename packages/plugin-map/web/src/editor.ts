@@ -4,6 +4,7 @@ import { createMapData } from './createMapData';
 import type { MapPluginEditorConfig } from './types';
 import { MAP_TYPE } from './types';
 import type { EditorPluginCreator } from 'wix-rich-content-common';
+import { getToolbarButtons } from './getToolbarButtons';
 
 export const pluginMap: EditorPluginCreator<MapPluginEditorConfig> = config => {
   return {
@@ -12,5 +13,6 @@ export const pluginMap: EditorPluginCreator<MapPluginEditorConfig> = config => {
     createPlugin: createMapPlugin,
     ModalsMap: {},
     createPluginData: createMapData,
+    toolbarButtons: getToolbarButtons(config),
   };
 };

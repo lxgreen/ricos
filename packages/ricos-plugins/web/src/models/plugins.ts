@@ -1,6 +1,7 @@
 import type { RicosExtension } from 'ricos-tiptap-types';
 import type { LegacyEditorPluginConfig, EditorPlugin as EditorPluginType } from 'ricos-types';
 import type { PluginAddButton, PluginAddButtons } from '../pluginAddButton';
+import type { PluginToolbar } from '../pluginToolbar';
 
 /**
  * Represents a plugin in Ricos Editor.
@@ -38,6 +39,13 @@ export interface Plugin {
    * @memberof Plugin
    */
   getAddButtons(): PluginAddButton[] | undefined;
+  /**
+   * Toolbar Buttons
+   *
+   * @returns  {PluginToolbar}
+   * @memberof Plugin
+   */
+  getToolbar(): PluginToolbar | undefined;
   /**
    * Determines whether plugin equals to another plugin, based on type
    *
@@ -93,6 +101,13 @@ export interface Plugins {
    * @memberof Plugin
    */
   getAddButtons(): PluginAddButtons | undefined;
+  /**
+   * Plugins toolbar Buttons
+   *
+   * @returns  {PluginsToolbar}
+   * @memberof Plugins
+   */
+  getVisibleToolbar(content): PluginToolbar | undefined;
   /**
    * Plugins tiptap extensions
    *

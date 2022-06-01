@@ -7,6 +7,7 @@ import { DEFAULTS } from './defaults';
 import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { getToolbarButtons } from './getToolbarButtons';
 
 export const pluginAudio: EditorPluginCreator<AudioPluginEditorConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };
@@ -16,5 +17,6 @@ export const pluginAudio: EditorPluginCreator<AudioPluginEditorConfig> = config 
     createPlugin: createAudioPlugin,
     createPluginData: createAudioData,
     tiptapExtensions,
+    toolbarButtons: getToolbarButtons(config),
   } as TiptapEditorPlugin;
 };

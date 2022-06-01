@@ -25,6 +25,7 @@ import { UploadProvider } from './UploadProvider';
 import { PluginsContext } from 'ricos-plugins';
 import type { PluginsContextValue } from 'ricos-plugins';
 import { FooterToolbar } from '../toolbars/FooterToolbar';
+import PluginsToolbar from '../toolbars/PluginToolbar';
 import RicosPortal from '../modals/RicosPortal';
 import type { RicosPortal as RicosPortalType } from 'ricos-types';
 
@@ -219,6 +220,7 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
                                     helpers={_rcProps?.helpers}
                                   />
                                 )}
+                                <PluginsToolbar content={this.content} />
                                 <FooterToolbar />
                               </ContentQueryProvider>
                             </ToolbarContext.Provider>

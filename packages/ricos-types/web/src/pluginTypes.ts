@@ -252,6 +252,28 @@ export type AddButton = {
   menuConfig?: MenuConfig;
   shortcuts?: KeyboardShortcut[];
 };
+
+export type ToolbarButtonConfig = {
+  icon?: ComponentType;
+  tooltip?: string;
+  command?: (editorCommands: any) => void;
+  attributes?: Record<string, string>;
+};
+
+export type Resolver = Record<string, (content) => boolean | string>;
+
+export type ToolbarButton = {
+  id: string;
+  type?: string;
+  renderer?: ComponentType;
+  config?: ToolbarButtonConfig;
+};
+
+export type PluginToolbarButtons = {
+  buttons: ToolbarButton[];
+  resolvers?: Resolver;
+};
+
 export interface EditorPlugin<PluginConfig extends EditorPluginConfig = Record<string, any>>
   extends BasePluginConfig {
   config: PluginConfig;
@@ -259,6 +281,7 @@ export interface EditorPlugin<PluginConfig extends EditorPluginConfig = Record<s
   ModalsMap?: ModalsMap;
   createPluginData?: CreatePluginData<PluginConfig>;
   addButtons?: AddButton[];
+  toolbarButtons?: PluginToolbarButtons;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

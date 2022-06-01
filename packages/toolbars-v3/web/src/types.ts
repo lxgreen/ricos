@@ -2,6 +2,7 @@
 import type { EditorCommands } from 'wix-rich-content-common';
 import type { Editor } from '@tiptap/core';
 import type { ToolbarContextType } from './utils/toolbarContexts';
+import type { TiptapContentResolver } from './ContentResolver';
 
 export type IToolbarItem = {
   id: string;
@@ -66,6 +67,10 @@ export type IToolbarItemConfigTiptap = Modify<
     commands: Record<string, TiptapCommand>;
   }
 >;
+
+type PluginButtonId = 'delete';
+
+export type IPluginToolbarButtonsConfig = Record<PluginButtonId, IToolbarItemConfigTiptap>;
 
 export type ToolbarItemProps = {
   toolbarItem: IToolbarItem;

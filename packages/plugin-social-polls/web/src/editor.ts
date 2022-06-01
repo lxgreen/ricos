@@ -8,6 +8,7 @@ import { createPollData } from './createPollData';
 import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 import { getAddButtons } from './getAddButtons';
+import { getToolbarButtons } from './getToolbarButtons';
 
 export const pluginPoll: EditorPluginCreator<PollPluginEditorConfig> = config => {
   const pluginConfig: PollPluginEditorConfig = { ...DEFAULT_COMPONENT_DATA.config, ...config };
@@ -19,5 +20,6 @@ export const pluginPoll: EditorPluginCreator<PollPluginEditorConfig> = config =>
     createPluginData: createPollData,
     tiptapExtensions,
     addButtons: getAddButtons(config),
+    toolbarButtons: getToolbarButtons(config),
   } as TiptapEditorPlugin;
 };
