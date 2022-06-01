@@ -1,7 +1,7 @@
 import type { ComponentType } from 'react';
 import type { KeyboardShortcut } from './shortcuts';
 
-export type Layout = 'popover' | 'drawer' | 'dialog' | 'fullscreen';
+export type Layout = 'popover' | 'drawer' | 'dialog' | 'fullscreen' | 'toolbar';
 export type Placement =
   | 'top-start'
   | 'top'

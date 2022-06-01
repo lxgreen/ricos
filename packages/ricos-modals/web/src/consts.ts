@@ -20,4 +20,5 @@ export const LAYOUTS: Record<string, Layout> = {
   DRAWER: 'drawer',
   DIALOG: 'dialog',
   FULLSCREEN: 'fullscreen',
+  TOOLBAR: 'toolbar',
 };

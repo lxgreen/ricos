@@ -19,7 +19,7 @@ const FloatingAddPluginMenu = ({ addPluginMenuConfig, helpers }) => {
   const { getEditorCommands, tiptapEditor } = useContext(TiptapEditorContext);
 
   const PLUGIN_MENU_MODAL_ID = 'pluginMenu';
-  const layout = isMobile ? LAYOUTS.DRAWER : LAYOUTS.POPOVER;
+  const layout = isMobile ? LAYOUTS.DRAWER : LAYOUTS.TOOLBAR;
   const placement = isMobile
     ? PLACEMENTS.BOTTOM
     : languageDir === 'ltr'

@@ -6,6 +6,7 @@ import { Popover } from '../components/Popover';
 import { Drawer } from '../components/Drawer';
 import { Fullscreen } from '../components/Fullscreen';
 import { Dialog } from '../components/Dialog';
+import { Toolbar } from '../components/Toolbar';
 import type { ModalConfig } from 'ricos-types';
 
 type Props = {
@@ -17,6 +18,7 @@ const layoutMapper = {
   drawer: Drawer,
   fullscreen: Fullscreen,
   dialog: Dialog,
+  toolbar: Toolbar,
 };
 
 export const ModalPopper = ({ modalConfig }: Props) => {

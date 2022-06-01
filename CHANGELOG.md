@@ -29,7 +29,8 @@
   - `ricos-converters`
     - [#3932](https://github.com/wix/ricos/pull/3932) package added
     - [#3949](https://github.com/wix/ricos/pull/3949) [converters] separated to modules
-
+     - `ricos-modals`
+    - [#3957](https://github.com/wix/ricos/pull/3957) add toolbar layout to ricos modals
 </details>
 
 <hr/>
