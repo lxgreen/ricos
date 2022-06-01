@@ -379,7 +379,7 @@ export const audioHandlers = {
   handleFileUpload: mockAudioNativeUploadFunc,
 };
 
-const addPluginMenuConfig = {
+export const addPluginMenuConfig = {
   showSearch: true,
   splitToSections: true,
 };
@@ -424,7 +424,7 @@ const buttonConfig = {
   getBackgroundColors: () => userButtonBackgroundColors,
 };
 const { Instagram, Twitter, TikTok } = LinkPreviewProviders;
-const config: RichContentEditorProps['config'] = {
+export const config: RichContentEditorProps['config'] = {
   [SPOILER_TYPE]: {
     SpoilerEditorWrapper,
     // supportedPlugins: [GALLERY_TYPE, IMAGE_TYPE, VIDEO_TYPE],

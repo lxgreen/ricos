@@ -17,8 +17,10 @@ import { ensureDraftContent } from 'ricos-content/libs/ensureDraftContent';
 import { themeStrategy } from 'ricos-common';
 import { FONTS, EXPERIMENTS, ricosPalettes } from '../../storybook/src/shared/resources';
 import { mockFetchUrlPreviewData } from '../../storybook/src/shared/utils/linkPreviewUtil';
+import { config as initialPluginConfig, addPluginMenuConfig } from '../shared/editor/EditorPlugins';
 
 const ContentStateEditor = React.lazy(() => import('./Components/ContentStateEditor'));
+const EditorSettings = React.lazy(() => import('./Components/EditorSettings'));
 const Editor = React.lazy(() => import('../shared/editor/Editor'));
 const Viewer = React.lazy(() => import('../shared/viewer/Viewer'));
 const Preview = React.lazy(() => import('../shared/preview/Preview'));
@@ -41,6 +43,7 @@ interface ExampleAppState {
   isViewerShown?: boolean;
   isPreviewShown?: boolean;
   isContentStateShown?: boolean;
+  isEditorSettingsShown?: boolean;
   viewerResetKey?: number;
   previewResetKey?: number;
   editorResetKey?: number;
@@ -73,6 +76,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
       isViewerShown: !isMobile,
       isPreviewShown: false,
       isContentStateShown: false,
+      isEditorSettingsShown: false,
       viewerResetKey: 0,
       previewResetKey: 0,
       editorResetKey: 0,
@@ -83,6 +87,11 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
       externalToolbarToShow: ToolbarType.FORMATTING,
       textWrap: true,
       showSideBlockComponent: false,
+      editorKey: 1,
+      editorSettings: {
+        pluginsConfig: initialPluginConfig,
+        toolbarConfig: { addPluginMenuConfig },
+      },
       ...localState,
     };
   }
@@ -132,6 +141,9 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
   onSetLocale = (locale: string) => {
     this.props.setLocale && this.props.setLocale(locale);
   };
+
+  setEditorSettings = editorSettings =>
+    this.setState({ editorSettings, editorKey: this.state.editorKey + 1 });
 
   initSectionsSettings = () => {
     const {
@@ -366,6 +378,8 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
                 experiments={experiments}
                 textWrap={textWrap}
                 showSideBlockComponent={showSideBlockComponent}
+                testAppConfig={this.state.editorSettings}
+                key={this.state.editorKey}
               />
             </ErrorBoundary>
           </SectionContent>
@@ -469,6 +483,23 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
     );
   };
 
+  renderEditorSettings = () => {
+    const { isEditorSettingsShown } = this.state;
+    return (
+      isEditorSettingsShown && (
+        <ReflexElement key="editorsettings-section" className="section">
+          <SectionHeader title="Editor Settings" onHide={this.onSectionVisibilityChange} />
+          <SectionContent>
+            <EditorSettings
+              setEditorSettings={this.setEditorSettings}
+              editorSettings={this.state.editorSettings}
+            />
+          </SectionContent>
+        </ReflexElement>
+      )
+    );
+  };
+
   setSectionVisibility: OnVisibilityChanged = (sectionName, isVisible) =>
     this.setState({ [`show${sectionName}`]: isVisible });
 
@@ -478,6 +509,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
       this.renderViewer(),
       this.renderPreview(),
       this.renderContentState(),
+      this.renderEditorSettings(),
     ]);
 
     return flatMap(sections, (val, i, arr) =>
@@ -489,7 +521,13 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
 
   render() {
     const { isMobile } = this.props;
-    const { isEditorShown, isViewerShown, isContentStateShown, isPreviewShown } = this.state;
+    const {
+      isEditorShown,
+      isViewerShown,
+      isContentStateShown,
+      isPreviewShown,
+      isEditorSettingsShown,
+    } = this.state;
     const showEmptyState =
       !isEditorShown && !isViewerShown && !isContentStateShown && !isPreviewShown;
     this.initSectionsSettings();
@@ -509,6 +547,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
           isViewerShown={isViewerShown}
           isPreviewShown={isPreviewShown}
           isContentStateShown={isContentStateShown}
+          isEditorSettingsShown={isEditorSettingsShown}
           toggleSectionVisibility={this.onSectionVisibilityChange}
         />
       </div>
