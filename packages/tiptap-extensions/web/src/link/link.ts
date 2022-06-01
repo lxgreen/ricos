@@ -10,6 +10,7 @@ import { autolink } from './helpers/autolink';
 import { clickHandler } from './helpers/clickHandler';
 import { pasteHandler } from './helpers/pasteHandler';
 import { RicosLink } from './models';
+import { setCommand } from './utils';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -83,8 +84,17 @@ export const link: RicosExtension = {
         return {
           setLink:
             (link: LinkData) =>
-            ({ commands }) => {
-              return commands.setMark(this.name, link);
+            ({ commands, tr, state }) => {
+              return setCommand(
+                this.name,
+                'anchor',
+                commands.unsetAnchor,
+                state.schema,
+                tr.selection,
+                state.doc,
+                commands,
+                link
+              );
             },
           toggleLink:
             (link: LinkData) =>

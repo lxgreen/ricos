@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import type { RicosExtension } from 'ricos-tiptap-types';
 import { findChildren } from '@tiptap/core';
-import styles from './statics/styles.scss';
+import styles from '../statics/styles.scss';
+import { setCommand } from './utils';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -59,10 +60,19 @@ export const anchor: RicosExtension = {
         return {
           setAnchor:
             anchor =>
-            ({ commands }) => {
-              return commands.setMark(this.name, {
-                anchor,
-              });
+            ({ commands, state, tr }) => {
+              return setCommand(
+                this.name,
+                'link',
+                commands.unsetLink,
+                state.schema,
+                tr.selection,
+                state.doc,
+                commands,
+                {
+                  anchor,
+                }
+              );
             },
 
           unsetAnchor:
