@@ -2,8 +2,6 @@ import React from 'react';
 import {
   ToggleButton,
   AlignmentButton,
-  HeadingButton,
-  CustomHeadingButton,
   LineSpacingButton,
   FontSizeButton,
   LinkButton,
@@ -11,6 +9,7 @@ import {
   HighlightColorButton,
   TitleButton,
   OpenAddPluginPanel,
+  HeadingButtonSwitch,
 } from './components/buttons';
 import { ToolbarButtonSeparator } from './components/ToolbarButtonSeparator';
 
@@ -108,10 +107,7 @@ export const toolbarItemsRenders = {
     return <TitleButton toolbarItem={toolbarItem} />;
   },
   headings: toolbarItem => {
-    return <HeadingButton toolbarItem={toolbarItem} />;
-  },
-  customHeading: toolbarItem => {
-    return <CustomHeadingButton toolbarItem={toolbarItem} />;
+    return <HeadingButtonSwitch toolbarItem={toolbarItem} />;
   },
   lineSpacing: toolbarItem => {
     return <LineSpacingButton toolbarItem={toolbarItem} />;
