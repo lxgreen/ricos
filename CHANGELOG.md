@@ -48,6 +48,8 @@
   - [#3957](https://github.com/wix/ricos/pull/3957) add toolbar layout to ricos modals
 - `ricos-plugins ricos-editor toolbar-v3`
   - [#3890](https://github.com/wix/ricos/pull/3890) `pluginToolbar` API
+- `audio`
+  - [#3938](https://github.com/wix/ricos/pull/3938) use uploadService 
 
 ## 8.71.18 (May 29, 2022)
 

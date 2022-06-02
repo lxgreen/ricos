@@ -2605,6 +2605,13 @@
           "duration": 300
         },
         "disableDownload": true,
+        "coverImage": {
+          "src": {
+            "id": "8bb438_aab736569612405a8381d4965c769f51.jpg"
+          },
+          "width": 5472,
+          "height": 3648
+        },
         "name": "Dear Fear",
         "authorName": "Kota",
         "id": "125"

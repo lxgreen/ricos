@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import classNames from 'classnames';
-import { mergeStyles } from 'wix-rich-content-common';
+import { mergeStyles, UploadServiceContext } from 'wix-rich-content-common';
 import { getImageSrc } from 'wix-rich-content-common/libs/imageUtils';
 import { SETTINGS_IMG_SIZE, AUDIO_BI_VALUES, AUDIO_ACTION_NAMES, AUDIO_TYPES } from '../../consts';
 import { AUDIO_TYPE } from '../../types';
@@ -16,6 +16,9 @@ import {
   SettingsPanelFooter,
 } from 'wix-rich-content-ui-components';
 import Styles from '../../../statics/styles/audio-settings.scss';
+import { Uploader } from 'wix-rich-content-plugin-commons';
+import type { UploadContextType } from 'wix-rich-content-common';
+import { AudioPluginService as audioPluginService } from './audioPluginService';
 
 const AudioSettings = ({
   onCancel,
@@ -27,7 +30,13 @@ const AudioSettings = ({
   t,
   isMobile,
   experiments,
+  blockKey,
+  getComponentData,
 }) => {
+  const useUploadService = !!experiments?.useUploadContext?.enabled;
+  const { uploadService }: UploadContextType = useUploadService
+    ? useContext(UploadServiceContext)
+    : {};
   const styles = mergeStyles({ styles: Styles, theme });
   const initialState = {
     name: componentData?.name,
@@ -60,6 +69,8 @@ const AudioSettings = ({
     });
   };
 
+  const AudioPluginService = new audioPluginService();
+
   const handleFilesAdded = args => {
     const img = args.data[0] || args.data;
     setCoverImage(img);
@@ -76,9 +87,17 @@ const AudioSettings = ({
     helpers.handleFileSelection(undefined, false, handleFilesAdded, deleteBlock, componentData);
   };
 
-  const handleFileChange = ([file]) => {
-    setIsLoadingImage(true);
-    helpers.handleFileUpload(file, handleFilesAdded);
+  const handleFileChange = async ([file]) => {
+    if (uploadService) {
+      const uploader = new Uploader(helpers?.handleFileUpload);
+      setIsLoadingImage(true);
+      await uploadService.uploadFile(file, blockKey, uploader, AUDIO_TYPE, AudioPluginService);
+      setCoverImage(getComponentData().coverImage);
+      setIsLoadingImage(false);
+    } else {
+      setIsLoadingImage(true);
+      helpers.handleFileUpload(file, handleFilesAdded);
+    }
   };
 
   const handleClose = () => {
@@ -208,6 +227,7 @@ const AudioSettings = ({
                 handleDelete={handleCoverImageDelete}
                 t={t}
                 alt={name}
+                hasReplace={useUploadService}
                 isLoading={isLoadingImage}
               />
             </div>

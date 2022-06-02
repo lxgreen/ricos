@@ -16,6 +16,7 @@ import type {
   GIFData,
   CollapsibleListData_InitialExpandedItems,
   Struct,
+  AudioData,
 } from 'ricos-schema';
 import { Node_Type, Decoration_Type, ButtonData_Type } from 'ricos-schema';
 import { cloneDeep, has, merge } from 'lodash';
@@ -57,6 +58,7 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data, nodes?: Node[]
   const newData = cloneDeep(data);
   const converters = {
     [Node_Type.VIDEO]: convertVideoData,
+    [Node_Type.AUDIO]: convertAudioData,
     [Node_Type.DIVIDER]: convertDividerData,
     [Node_Type.FILE]: convertFileData,
     [Node_Type.GIF]: convertGIFData,
@@ -146,6 +148,20 @@ const convertVideoData = (data: VideoData & { src; metadata; title?; duration?: 
   delete data.video;
   delete data.title;
   delete data.thumbnail;
+};
+
+const convertAudioData = (
+  data: AudioData & { coverImage?: { file_name?: string; id?: string } }
+) => {
+  const { coverImage } = data;
+  if (coverImage) {
+    data.coverImage = {
+      id: coverImage?.src?.id,
+      file_name: coverImage?.src?.id,
+      width: coverImage?.width,
+      height: coverImage?.height,
+    };
+  }
 };
 
 const convertExternalData = (data: Struct) => {

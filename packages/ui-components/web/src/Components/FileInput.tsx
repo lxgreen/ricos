@@ -17,6 +17,8 @@ interface FileInputProps {
   theme?: RichContentTheme;
   dataHook?: string;
   tabIndex?: number;
+  inputRef?: React.RefObject<HTMLInputElement>;
+  children?: React.ReactElement | React.ReactNode;
 }
 
 class FileInput extends Component<FileInputProps, { focused: boolean }> {
@@ -39,7 +41,7 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
     this.styles = mergeStyles({ styles, theme: props.theme });
     this.state = { focused: false };
     this.id = `file_input_${Math.floor(Math.random() * 9999)}`;
-    this.inputRef = React.createRef();
+    this.inputRef = props?.inputRef;
   }
 
   onFocus() {
@@ -135,4 +137,6 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
   }
 }
 
-export default FileInput;
+export default React.forwardRef((props: FileInputProps, ref: React.RefObject<HTMLInputElement>) => (
+  <FileInput inputRef={ref} {...props} />
+));

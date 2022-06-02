@@ -23,6 +23,7 @@ import {
   WRAP,
   NO_WRAP,
   EXTERNAL,
+  AUDIO_TYPE,
 } from '../../../consts';
 import type {
   PluginContainerData_Spoiler,
@@ -36,6 +37,7 @@ import type {
 import { PluginContainerData_Width_Type, ButtonData_Type } from 'ricos-schema';
 import { TO_RICOS_DATA } from './consts';
 import type {
+  AudioComponentData,
   ComponentData,
   FileComponentData,
   ImageComponentData,
@@ -50,6 +52,7 @@ export const convertBlockDataToRicos = (type: string, data) => {
   const newData = cloneDeep(data);
   const converters = {
     [VIDEO_TYPE]: convertVideoData,
+    [AUDIO_TYPE]: convertAudioData,
     [DIVIDER_TYPE]: convertDividerData,
     [FILE_UPLOAD_TYPE]: convertFileData,
     [GIPHY_TYPE]: convertGIFData,
@@ -142,6 +145,14 @@ const convertVideoData = (data: {
     };
   }
   data.video && (data.video.duration = data.duration);
+};
+
+const convertAudioData = (data: AudioComponentData & { coverImage: { file_name: string } }) => {
+  const { coverImage } = data;
+  if (coverImage) {
+    const { file_name, width, height } = coverImage;
+    data.coverImage = { file_name, src: { id: file_name }, width, height };
+  }
 };
 
 const convertGalleryStyles = styles => {

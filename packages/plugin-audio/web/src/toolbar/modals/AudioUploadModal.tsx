@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
+import React, { useContext } from 'react';
 import { AUDIO_TYPE } from '../../types';
 import { audioFileTypes } from '../../consts';
-import { handleUploadStart, handleUploadFinished } from 'wix-rich-content-plugin-commons';
+import { handleUploadStart, handleUploadFinished, Uploader } from 'wix-rich-content-plugin-commons';
 import { MediaUploadModal } from 'wix-rich-content-ui-components';
-import { MEDIA_POPOVERS_BUTTONS_NAMES_BI } from 'wix-rich-content-common';
+import type { UploadContextType } from 'wix-rich-content-common';
+import { MEDIA_POPOVERS_BUTTONS_NAMES_BI, UploadServiceContext } from 'wix-rich-content-common';
 import * as id3 from 'id3js';
+import { AudioPluginService as audioPluginService } from './audioPluginService';
 
 const AudioUploadModal = props => {
   const {
@@ -18,7 +20,12 @@ const AudioUploadModal = props => {
     onReplace,
     pubsub,
     componentData,
+    experiments,
   } = props;
+  const { uploadService, updateService }: UploadContextType = experiments?.useUploadContext?.enabled
+    ? useContext(UploadServiceContext)
+    : {};
+
   const id = `AudioUploadModal_FileInput_${Math.floor(Math.random() * 9999)}`;
   let blockKey;
 
@@ -28,6 +35,22 @@ const AudioUploadModal = props => {
       blockKey = newBlock.key;
     } else {
       onReplace(obj, blockKey);
+    }
+  };
+  const AudioPluginService = new audioPluginService();
+
+  const uploadContextOnConfirm = data => {
+    if (onConfirm) {
+      const componentData = AudioPluginService.createPluginData({ data }, props.componentData);
+      const { newBlock } = onConfirm({ ...componentData });
+      blockKey = newBlock.key;
+    } else {
+      updateService?.updatePluginData(
+        { data },
+        blockKey || props.blockKey,
+        AUDIO_TYPE,
+        AudioPluginService
+      );
     }
   };
 
@@ -46,16 +69,20 @@ const AudioUploadModal = props => {
   };
 
   const addAudioComponent = ({ data, error }) => {
-    handleUploadFinished(
-      AUDIO_TYPE,
-      getComponentData,
-      data,
-      error,
-      ({ data, error }) => onUpload({ ...data, error }),
-      undefined,
-      undefined
-    );
-    setComponentData({ ...componentData, ...data });
+    if (uploadService) {
+      uploadContextOnConfirm(data);
+    } else {
+      handleUploadFinished(
+        AUDIO_TYPE,
+        getComponentData,
+        data,
+        error,
+        ({ data, error }) => onUpload({ ...data, error }),
+        undefined,
+        undefined
+      );
+      setComponentData({ ...componentData, ...data });
+    }
   };
 
   const onLocalLoad = tempData => {
@@ -85,8 +112,32 @@ const AudioUploadModal = props => {
 
   const handleNativeFileUpload = async file => {
     const tags = await getAudioTags(file);
+    if (uploadService) {
+      const uploader = new Uploader(props?.handleFileUpload);
+      if (onConfirm && !blockKey) {
+        const { newBlock } = onConfirm({ ...props.componentData });
+        blockKey = newBlock.key;
+      }
+      setTimeout(() =>
+        uploadService.uploadFile(
+          file,
+          blockKey || props.blockKey,
+          uploader,
+          AUDIO_TYPE,
+          AudioPluginService
+        )
+      );
+    } else {
+      handleUploadStart(
+        props,
+        getComponentData,
+        file,
+        onLocalLoad,
+        getOnUploadFinished(),
+        undefined
+      );
+    }
     setComponentData({ ...getComponentData(), audio: { src: {} }, ...tags });
-    handleUploadStart(props, getComponentData, file, onLocalLoad, getOnUploadFinished(), undefined);
     closeModal();
   };
 
