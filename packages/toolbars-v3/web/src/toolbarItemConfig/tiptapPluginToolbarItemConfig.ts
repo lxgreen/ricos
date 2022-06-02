@@ -1,4 +1,4 @@
-import { TrashIcon } from '../icons';
+import { TrashIcon, AlignLeftIcon } from '../icons';
 import type { IPluginToolbarButtonsConfig } from '../types';
 import { PLUGIN_TOOLBAR_BUTTON_ID } from 'wix-rich-content-editor-common';
 
@@ -17,6 +17,22 @@ export const pluginToolbarButtonsConfig: IPluginToolbarButtonsConfig = {
         ({ editorCommands }) =>
         () => {
           editorCommands.chain().focus().deleteSelection().run();
+        },
+    },
+  },
+  alignLeft: {
+    id: PLUGIN_TOOLBAR_BUTTON_ID.ALIGN_LEFT,
+    type: 'toggle',
+    presentation: {
+      tooltip: 'Align left',
+      icon: AlignLeftIcon,
+    },
+    attributes: {},
+    commands: {
+      alignLeft:
+        ({ editorCommands }) =>
+        () => {
+          editorCommands.chain().focus().setNodeAlignment('LEFT').run();
         },
     },
   },

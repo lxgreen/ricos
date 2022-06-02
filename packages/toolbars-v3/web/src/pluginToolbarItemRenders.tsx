@@ -6,4 +6,9 @@ export const pluginToolbarItemsRenders = {
   [PLUGIN_TOOLBAR_BUTTON_ID.DELETE]: toolbarItem => {
     return <ToggleButton onClick={e => toolbarItem.commands.delete(e)} toolbarItem={toolbarItem} />;
   },
+  [PLUGIN_TOOLBAR_BUTTON_ID.ALIGN_LEFT]: toolbarItem => {
+    return (
+      <ToggleButton onClick={e => toolbarItem.commands.alignLeft(e)} toolbarItem={toolbarItem} />
+    );
+  },
 };
