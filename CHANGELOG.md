@@ -16,8 +16,13 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-  
 
+## :house: Internal
+
+- `ricos-plugins ricos-editor`
+  - [#3972](https://github.com/wix/ricos/pull/3972) media upload add buttons support
+- `file-plugin`
+  - [#3972](https://github.com/wix/ricos/pull/3972) expose addButton
 
 </details>
 

@@ -92,6 +92,7 @@ import type {
 import { LinkData, Node_Type, Decoration_Type } from 'ricos-schema';
 import type { EditorCommands } from './editorCommandsType';
 import type { ModalConfig } from './modalTypes';
+import type { UploadContextType } from './uploadServicesTypes';
 
 export { Node_Type, Decoration_Type, LinkData };
 
@@ -245,7 +246,7 @@ type MenuConfig = {
 export type AddButton = {
   id: string;
   icon: ComponentType;
-  command: (editorCommands: EditorCommands) => boolean;
+  command: (editorCommands: EditorCommands, uploadContext?: UploadContextType) => boolean;
   tooltip: string;
   label?: string;
   modal?: ModalConfig;

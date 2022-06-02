@@ -9,12 +9,14 @@ import PlusButton from './PlusButton';
 import { TiptapEditorContext } from 'wix-tiptap-editor';
 import { PluginsContext } from 'ricos-plugins';
 import type { AddButton } from 'ricos-types';
+import { UploadServiceContext } from 'wix-rich-content-common';
 
 const FloatingAddPluginMenu = ({ addPluginMenuConfig, helpers }) => {
   const floatingMenuWrapperRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { modalService } = useContext(ModalContext) || {};
   const { plugins } = useContext(PluginsContext);
+  const uploadContext = useContext(UploadServiceContext);
   const { t, isMobile, theme, languageDir } = useContext(RicosContext) || {};
   const { getEditorCommands, tiptapEditor } = useContext(TiptapEditorContext);
 
@@ -73,7 +75,7 @@ const FloatingAddPluginMenu = ({ addPluginMenuConfig, helpers }) => {
             },
             ...modal,
           })
-        : command(getEditorCommands?.());
+        : command(getEditorCommands?.(), uploadContext);
     };
     return (
       <PluginMenuButton
