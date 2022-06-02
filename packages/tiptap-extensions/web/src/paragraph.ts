@@ -3,6 +3,7 @@ import { mergeAttributes } from '@tiptap/core';
 import type { Node as ProsemirrorNode } from 'prosemirror-model';
 import paragraphDataDefaults from 'ricos-schema/dist/statics/paragraph.defaults.json';
 import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
+import { Node_Type } from 'ricos-schema';
 
 export interface ParagraphOptions {
   HTMLAttributes: Record<string, unknown>;
@@ -30,7 +31,7 @@ const createStyleAttribute = (node: ProsemirrorNode) => {
 export const paragraph: RicosExtension = {
   type: 'node' as const,
   groups: ['text-container'],
-  name: 'paragraph',
+  name: Node_Type.PARAGRAPH,
   createExtensionConfig() {
     return {
       name: this.name,

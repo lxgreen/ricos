@@ -1,5 +1,6 @@
 import { TiptapContentResolver } from '../ContentResolver';
 import { RESOLVERS_IDS } from './resolvers-ids';
+import { Node_Type, Decoration_Type } from 'ricos-schema';
 
 export const alwaysVisibleResolver = TiptapContentResolver.create(
   RESOLVERS_IDS.ALWAYS_VISIBLE,
@@ -22,7 +23,7 @@ export const isTextContainsBoldResolver = TiptapContentResolver.create(
       const node = content.find(node => {
         return node.type.name === 'text';
       });
-      return node?.marks.some(mark => mark.type.name === 'bold');
+      return node?.marks.some(mark => mark.type.name === Decoration_Type.BOLD);
     }
     return false;
   }
@@ -35,7 +36,7 @@ export const isTextContainsItalicResolver = TiptapContentResolver.create(
       const node = content.find(node => {
         return node.type.name === 'text';
       });
-      return node?.marks.some(mark => mark.type.name === 'italic');
+      return node?.marks.some(mark => mark.type.name === Decoration_Type.ITALIC);
     }
     return false;
   }
@@ -48,7 +49,7 @@ export const isTextContainsUnderlineResolver = TiptapContentResolver.create(
       const node = content.find(node => {
         return node.type.name === 'text';
       });
-      return node?.marks.some(mark => mark.type.name === 'underline');
+      return node?.marks.some(mark => mark.type.name === Decoration_Type.UNDERLINE);
     }
     return false;
   }
@@ -57,28 +58,40 @@ export const isTextContainsUnderlineResolver = TiptapContentResolver.create(
 export const isTextContainsQuoteResolver = TiptapContentResolver.create(
   RESOLVERS_IDS.IS_TEXT_CONTAINS_QUOTE,
   content => {
-    return Array.isArray(content) && content.length > 0 && content[0].type.name === 'blockquote';
+    return (
+      Array.isArray(content) && content.length > 0 && content[0].type.name === Node_Type.BLOCKQUOTE
+    );
   }
 );
 
 export const isTextContainsCodeblockResolver = TiptapContentResolver.create(
   RESOLVERS_IDS.IS_TEXT_CONTAINS_CODE_BLOCK,
   content => {
-    return Array.isArray(content) && content.length > 0 && content[0].type.name === 'codeBlock';
+    return (
+      Array.isArray(content) && content.length > 0 && content[0].type.name === Node_Type.CODE_BLOCK
+    );
   }
 );
 
 export const isTextContainsOrderedListResolver = TiptapContentResolver.create(
   RESOLVERS_IDS.IS_TEXT_CONTAINS_ORDERED_LIST,
   content => {
-    return Array.isArray(content) && content.length > 0 && content[0].type.name === 'orderedList';
+    return (
+      Array.isArray(content) &&
+      content.length > 0 &&
+      content[0].type.name === Node_Type.ORDERED_LIST
+    );
   }
 );
 
 export const isTextContainsUnorderedListResolver = TiptapContentResolver.create(
   RESOLVERS_IDS.IS_TEXT_CONTAINS_UNORDERED_LIST,
   content => {
-    return Array.isArray(content) && content.length > 0 && content[0].type.name === 'bulletedList';
+    return (
+      Array.isArray(content) &&
+      content.length > 0 &&
+      content[0].type.name === Node_Type.BULLETED_LIST
+    );
   }
 );
 
@@ -89,7 +102,7 @@ export const isTextContainsSpoilerResolver = TiptapContentResolver.create(
       const node = content.find(node => {
         return node.type.name === 'text';
       });
-      return node?.marks.some(mark => mark.type.name === 'spoiler');
+      return node?.marks.some(mark => mark.type.name === Decoration_Type.SPOILER);
     }
     return false;
   }
@@ -180,11 +193,16 @@ export const getFontSizeInSelectionResolver = TiptapContentResolver.create(
         const node = content[i];
 
         if (node.type.name === 'text') {
-          if (node.marks.length === 0 || !node?.marks.some(mark => mark.type.name === 'fontSize')) {
+          if (
+            node.marks.length === 0 ||
+            !node?.marks.some(mark => mark.type.name === Decoration_Type.FONT_SIZE)
+          ) {
             //TODO: take font size from documentStyle
             currentFontSize = '16';
           } else {
-            const fontSizeMark = node?.marks.find(mark => mark.type.name === 'fontSize');
+            const fontSizeMark = node?.marks.find(
+              mark => mark.type.name === Decoration_Type.FONT_SIZE
+            );
             currentFontSize = `${fontSizeMark?.attrs.value}`;
           }
           if (returnedFontSize !== '' && returnedFontSize !== currentFontSize) return '';
@@ -203,7 +221,9 @@ export const isTextContainsLinkResolver = TiptapContentResolver.create(
       const node = content.find(node => {
         return node.type.name === 'text';
       });
-      return node?.marks.some(mark => mark.type.name === 'link' || mark.type.name === 'anchor');
+      return node?.marks.some(
+        mark => mark.type.name === Decoration_Type.LINK || mark.type.name === Decoration_Type.ANCHOR
+      );
     }
     return false;
   }
@@ -216,7 +236,7 @@ export const getTextColorInSelectionResolver = TiptapContentResolver.create(
       const node = content.find(node => {
         return node.type.name === 'text';
       });
-      const colorMark = node?.marks.find(mark => mark.type.name === 'color');
+      const colorMark = node?.marks.find(mark => mark.type.name === Decoration_Type.COLOR);
       return colorMark?.attrs.foreground;
     }
     return false;
@@ -230,7 +250,7 @@ export const getHighlightColorInSelectionResolver = TiptapContentResolver.create
       const node = content.find(node => {
         return node.type.name === 'text';
       });
-      const colorMark = node?.marks.find(mark => mark.type.name === 'color');
+      const colorMark = node?.marks.find(mark => mark.type.name === Decoration_Type.COLOR);
       return colorMark?.attrs.background;
     }
     return false;
@@ -240,7 +260,9 @@ export const isOnlyTextSelected = TiptapContentResolver.create('yaronResolverExa
   if (Array.isArray(content)) {
     const noneTextNode = content.find(
       node =>
-        node.type.name !== 'paragraph' && node.type.name !== 'heading' && node.type.name !== 'text'
+        node.type.name !== Node_Type.PARAGRAPH &&
+        node.type.name !== Node_Type.HEADING &&
+        node.type.name !== 'text'
     );
     if (noneTextNode) {
       return false;
@@ -257,55 +279,79 @@ const getPluginSelectedResolver = (resolverId: string, tiptapPluginName: string)
     content => content.length === 1 && content[0].type.name === tiptapPluginName
   );
 
-export const isImageSelected = getPluginSelectedResolver(RESOLVERS_IDS.IS_IMAGE_SELECTED, 'image');
+export const isImageSelected = getPluginSelectedResolver(
+  RESOLVERS_IDS.IS_IMAGE_SELECTED,
+  Node_Type.IMAGE
+);
 
-export const isVideoSelected = getPluginSelectedResolver(RESOLVERS_IDS.IS_VIDEO_SELECTED, 'video');
+export const isVideoSelected = getPluginSelectedResolver(
+  RESOLVERS_IDS.IS_VIDEO_SELECTED,
+  Node_Type.VIDEO
+);
 
 export const isGallerySelected = getPluginSelectedResolver(
   RESOLVERS_IDS.IS_GALLERY_SELECTED,
-  'gallery'
+  Node_Type.GALLERY
 );
 
-export const isFileSelected = getPluginSelectedResolver(RESOLVERS_IDS.IS_FILE_SELECTED, 'file');
+export const isFileSelected = getPluginSelectedResolver(
+  RESOLVERS_IDS.IS_FILE_SELECTED,
+  Node_Type.FILE
+);
 
-export const isAudioSelected = getPluginSelectedResolver(RESOLVERS_IDS.IS_AUDIO_SELECTED, 'audio');
+export const isAudioSelected = getPluginSelectedResolver(
+  RESOLVERS_IDS.IS_AUDIO_SELECTED,
+  Node_Type.AUDIO
+);
 
 export const isHtmlEmbedSelected = getPluginSelectedResolver(
   RESOLVERS_IDS.IS_HTML_EMBED_SELECTED,
-  'html'
+  Node_Type.HTML
 );
 
-export const isPollsSelected = getPluginSelectedResolver(RESOLVERS_IDS.IS_POLLS_SELECTED, 'poll');
+export const isPollsSelected = getPluginSelectedResolver(
+  RESOLVERS_IDS.IS_POLLS_SELECTED,
+  Node_Type.POLL
+);
 
 export const isButtonSelected = getPluginSelectedResolver(
   RESOLVERS_IDS.IS_BUTTON_SELECTED,
-  'button'
+  Node_Type.BUTTON
 );
 
 export const isCollapsibleListSelected = getPluginSelectedResolver(
   RESOLVERS_IDS.IS_COLLAPSIBLE_LIST_SELECTED,
-  'collapsibleList'
+  Node_Type.COLLAPSIBLE_LIST
 );
 
-export const isTableSelected = getPluginSelectedResolver(RESOLVERS_IDS.IS_TABLE_SELECTED, 'table');
+export const isTableSelected = getPluginSelectedResolver(
+  RESOLVERS_IDS.IS_TABLE_SELECTED,
+  Node_Type.TABLE
+);
 
-export const isGifSelected = getPluginSelectedResolver(RESOLVERS_IDS.IS_GIF_SELECTED, 'gif');
+export const isGifSelected = getPluginSelectedResolver(
+  RESOLVERS_IDS.IS_GIF_SELECTED,
+  Node_Type.GIF
+);
 
-export const isMapSelected = getPluginSelectedResolver(RESOLVERS_IDS.IS_MAP_SELECTED, 'map');
+export const isMapSelected = getPluginSelectedResolver(
+  RESOLVERS_IDS.IS_MAP_SELECTED,
+  Node_Type.MAP
+);
 
 export const isSocialEmbedSelected = getPluginSelectedResolver(
   RESOLVERS_IDS.IS_SOCIAL_EMBED_SELECTED,
-  'embed'
+  Node_Type.EMBED
 );
 
 export const isVerticalEmbedSelected = getPluginSelectedResolver(
   RESOLVERS_IDS.IS_VERTICAL_EMBED_SELECTED,
-  'appEmbed'
+  Node_Type.APP_EMBED
 );
 
 export const isDividerSelected = getPluginSelectedResolver(
   RESOLVERS_IDS.IS_DIVIDER_SELECTED,
-  'divider'
+  Node_Type.DIVIDER
 );
 
 const pluginSelectedResolvers = [

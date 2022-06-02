@@ -1,8 +1,6 @@
 // TODO: distribute specific implementations to appropriate packages
 
 import type { Decoration, Decoration_Type } from 'ricos-schema';
-import toCamelCase from 'to-camel-case';
-import toConstantCase from 'to-constant-case';
 import { anchorConverter } from './marks/anchor-converter';
 import { boldConverter } from './marks/bold-converter';
 import { colorConverter } from './marks/color-converter';
@@ -22,7 +20,7 @@ export const getUnsupportedDecorationToTiptap = (
     const { type, ...data } = decoration;
     return {
       ...(data ? { attrs: { ...data } } : {}),
-      type: toCamelCase(type.toString()),
+      type,
     };
   },
 });
@@ -33,9 +31,8 @@ export const getUnsupportedMarkFromTiptap = (
   type: mark.type,
   convert: mark => {
     const { type, attrs, ...data } = mark;
-    const decorationType = toConstantCase(type) as Decoration_Type;
     return {
-      type: decorationType,
+      type: type as Decoration_Type,
       ...data,
       ...attrs,
     };

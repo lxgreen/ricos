@@ -6,14 +6,14 @@ export const listItemConverter: TiptapNodeConverter = {
   toTiptap: {
     type: Node_Type.LIST_ITEM,
     convert: (node: ListItemNode) => ({
-      type: 'listItem',
+      type: Node_Type.LIST_ITEM,
       attrs: {
         id: node.id,
       },
     }),
   },
   fromTiptap: {
-    type: 'listItem',
+    type: Node_Type.LIST_ITEM,
     convert: (node: TiptapNode) => {
       const { attrs = {} } = node;
       const { id } = attrs;

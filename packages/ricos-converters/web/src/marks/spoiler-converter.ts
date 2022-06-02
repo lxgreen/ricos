@@ -3,8 +3,8 @@ import type { TiptapMarkConverter } from '../types';
 
 export const spoilerConverter: TiptapMarkConverter = {
   fromTiptap: {
-    type: 'spoiler',
-    convert: _mark => {
+    type: Decoration_Type.SPOILER,
+    convert: () => {
       return {
         type: Decoration_Type.SPOILER,
       };
@@ -12,9 +12,9 @@ export const spoilerConverter: TiptapMarkConverter = {
   },
   toTiptap: {
     type: Decoration_Type.SPOILER,
-    convert: _decoration => {
+    convert: () => {
       return {
-        type: 'spoiler',
+        type: Decoration_Type.SPOILER,
       };
     },
   },

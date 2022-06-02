@@ -1,4 +1,5 @@
 import type { MarkConfig } from '@tiptap/core';
+import type { Decoration_Type } from 'ricos-schema';
 import type { RicosMarkExtension } from 'ricos-tiptap-types';
 
 export const getUnsupportedMarkConfig = ({
@@ -10,7 +11,7 @@ export const getUnsupportedMarkConfig = ({
 }): RicosMarkExtension => ({
   type: 'mark' as const,
   groups: [],
-  name: unsupportedMarkType,
+  name: unsupportedMarkType as Decoration_Type,
   createExtensionConfig: (): MarkConfig => ({
     name: unsupportedMarkType,
     addAttributes: () => attrs,

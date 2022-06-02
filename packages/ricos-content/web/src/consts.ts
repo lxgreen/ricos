@@ -123,22 +123,22 @@ export const RICOS_EXTERNAL_LINK_TYPE = 'ricos-external-link'; // TODO: is this 
 export const RICOS_EXTERNAL_MENTION_TYPE = 'ricos-external-mention'; // TODO: is this type needed?
 
 // tiptap plugins types
-export const TIPTAP_DIVIDER_TYPE = 'divider';
-export const TIPTAP_IMAGE_TYPE = 'image';
-export const TIPTAP_GALLERY_TYPE = 'gallery';
-export const TIPTAP_FILE_TYPE = 'file';
-export const TIPTAP_GIF_TYPE = 'gif';
-export const TIPTAP_VIDEO_TYPE = 'video';
-export const TIPTAP_AUDIO_TYPE = 'audio';
-export const TIPTAP_LINK_PREVIEW_TYPE = 'linkPreview';
-export const TIPTAP_EMBED_TYPE = 'embed';
-export const TIPTAP_POLL_TYPE = 'poll';
-export const TIPTAP_APP_EMBED_TYPE = 'appEmbed';
-export const TIPTAP_COLLAPSIBLE_LIST_TYPE = 'collapsibleList';
-export const TIPTAP_COLLAPSIBLE_ITEM_TYPE = 'collapsibleItem';
-export const TIPTAP_COLLAPSIBLE_ITEM_TITLE_TYPE = 'collapsibleItemTitle';
-export const TIPTAP_COLLAPSIBLE_ITEM_BODY_TYPE = 'collapsibleItemBody';
-export const TIPTAP_HTML_TYPE = 'html';
+export const TIPTAP_DIVIDER_TYPE = Node_Type.DIVIDER;
+export const TIPTAP_IMAGE_TYPE = Node_Type.IMAGE;
+export const TIPTAP_GALLERY_TYPE = Node_Type.GALLERY;
+export const TIPTAP_FILE_TYPE = Node_Type.FILE;
+export const TIPTAP_GIF_TYPE = Node_Type.GIF;
+export const TIPTAP_VIDEO_TYPE = Node_Type.VIDEO;
+export const TIPTAP_AUDIO_TYPE = Node_Type.AUDIO;
+export const TIPTAP_LINK_PREVIEW_TYPE = Node_Type.LINK_PREVIEW;
+export const TIPTAP_EMBED_TYPE = Node_Type.EMBED;
+export const TIPTAP_POLL_TYPE = Node_Type.POLL;
+export const TIPTAP_APP_EMBED_TYPE = Node_Type.APP_EMBED;
+export const TIPTAP_COLLAPSIBLE_LIST_TYPE = Node_Type.COLLAPSIBLE_LIST;
+export const TIPTAP_COLLAPSIBLE_ITEM_TYPE = Node_Type.COLLAPSIBLE_ITEM;
+export const TIPTAP_COLLAPSIBLE_ITEM_TITLE_TYPE = Node_Type.COLLAPSIBLE_ITEM_TITLE;
+export const TIPTAP_COLLAPSIBLE_ITEM_BODY_TYPE = Node_Type.COLLAPSIBLE_ITEM_BODY;
+export const TIPTAP_HTML_TYPE = Node_Type.HTML;
 
 export const RICOS_NODE_TYPE_TO_DATA_FIELD = {
   [Node_Type.BUTTON]: 'buttonData',

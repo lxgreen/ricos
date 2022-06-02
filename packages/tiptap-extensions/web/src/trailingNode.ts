@@ -1,5 +1,6 @@
 import { PluginKey, Plugin } from 'prosemirror-state';
 import type { RicosExtension } from 'ricos-tiptap-types';
+import { Node_Type } from 'ricos-schema';
 
 /**
  * Extension based on:
@@ -15,8 +16,8 @@ export const trailingNode: RicosExtension = {
     return {
       name: this.name,
       addOptions: () => ({
-        node: 'paragraph',
-        notAfter: ['paragraph'],
+        node: Node_Type.PARAGRAPH,
+        notAfter: [Node_Type.PARAGRAPH],
       }),
 
       addProseMirrorPlugins() {

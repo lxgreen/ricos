@@ -13,9 +13,11 @@ import type { NodeViewContent } from '@tiptap/react';
 import type { Plugin as IPlugin, PluginKey as IPluginKey } from 'prosemirror-state';
 import type { ComponentType } from 'react';
 import type {
+  Decoration_Type,
   EditorPlugin,
   LegacyEditorPluginConfig,
   LinkSettings,
+  Node_Type,
   TextAlignment,
   TranslationFunction,
 } from 'ricos-types';
@@ -65,7 +67,7 @@ export type NodeHocDescriptor = {
 export type Group = 'react' | 'text-container' | 'text' | 'spoilerable' | 'shortcuts-enabled';
 
 export type RicosNodeExtension = {
-  name: string;
+  name: Node_Type | string;
   type: 'node';
   groups: Group[];
   settings?: Record<string, unknown>;
@@ -94,7 +96,7 @@ export type RicosNodeExtension = {
 };
 
 export type RicosMarkExtension = {
-  name: string;
+  name: Decoration_Type | string;
   type: 'mark';
   groups: Group[];
   settings?: Record<string, unknown>;

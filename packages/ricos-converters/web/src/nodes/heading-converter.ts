@@ -9,17 +9,17 @@ export const headingConverter: TiptapNodeConverter = {
     convert: (node: HeadingNode) => {
       const { id, style, headingData } = node || {};
       return {
-        type: 'heading',
+        type: Node_Type.HEADING,
         attrs: {
-          id,
-          ...(style ? { style } : {}),
           ...headingData,
+          ...(style ? { style } : {}),
+          id,
         },
       };
     },
   },
   fromTiptap: {
-    type: 'heading',
+    type: Node_Type.HEADING,
     convert: (node: TiptapNode) => {
       const { id, style, ...data } = node.attrs || {};
       return {

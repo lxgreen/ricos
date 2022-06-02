@@ -9,17 +9,17 @@ export const paragraphConverter: TiptapNodeConverter = {
     convert: (node: ParagraphNode) => {
       const { id, style, paragraphData } = node || {};
       return {
-        type: 'paragraph',
+        type: Node_Type.PARAGRAPH,
         attrs: {
-          id,
-          ...(style ? { style } : {}),
           ...paragraphData,
+          ...(style ? { style } : {}),
+          id,
         },
       };
     },
   },
   fromTiptap: {
-    type: 'paragraph',
+    type: Node_Type.PARAGRAPH,
     convert: (node: TiptapNode) => {
       const { id, style, ...data } = node.attrs || {};
       return {

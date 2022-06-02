@@ -6,15 +6,15 @@ export const imageConverter: TiptapNodeConverter = {
   toTiptap: {
     type: Node_Type.IMAGE,
     convert: (node: ImageNode) => ({
-      type: 'image',
+      type: Node_Type.IMAGE,
       attrs: {
-        id: node.id,
         ...node.imageData,
+        id: node.id,
       },
     }),
   },
   fromTiptap: {
-    type: 'image',
+    type: Node_Type.IMAGE,
     convert: (node: TiptapNode) => {
       const { id, ...data } = node.attrs || {};
       return {

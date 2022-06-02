@@ -2,6 +2,7 @@ import type { ExtendedRegExpMatchArray } from '@tiptap/core';
 import classNames from 'classnames';
 import { find } from 'linkifyjs';
 import type { Plugin } from 'prosemirror-state';
+import { Decoration_Type } from 'ricos-schema';
 import type { LinkData } from 'ricos-schema';
 import type { DOMOutputSpec, ExtensionProps, MarkConfig, RicosExtension } from 'ricos-tiptap-types';
 import type { DeepPartial } from 'utility-types';
@@ -34,7 +35,7 @@ declare module '@tiptap/core' {
 export const link: RicosExtension = {
   type: 'mark' as const,
   groups: [],
-  name: 'link',
+  name: Decoration_Type.LINK,
   reconfigure: (config: MarkConfig, _extensions: RicosExtension[], props: ExtensionProps) => {
     const { rel, relValue, anchorTarget } = props;
     return {
@@ -87,7 +88,7 @@ export const link: RicosExtension = {
             ({ commands, tr, state }) => {
               return setCommand(
                 this.name,
-                'anchor',
+                Decoration_Type.ANCHOR,
                 commands.unsetAnchor,
                 state.schema,
                 tr.selection,

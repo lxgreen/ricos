@@ -1,10 +1,11 @@
 import { mergeAttributes } from '@tiptap/core';
-import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
+import { Node_Type } from 'ricos-schema';
+import type { DOMOutputSpec, RicosExtension } from 'ricos-tiptap-types';
 
 export const listItem: RicosExtension = {
   type: 'node' as const,
   groups: ['shortcuts-enabled'],
-  name: 'listItem',
+  name: Node_Type.LIST_ITEM,
   createExtensionConfig() {
     return {
       name: this.name,
@@ -16,7 +17,7 @@ export const listItem: RicosExtension = {
 
       // Note: this should remain paragraph until draft-js is supported
       // Note: these types could remain hard-coded since all of them always available
-      content: '(paragraph|bulletedList|orderedList)+',
+      content: `(${Node_Type.PARAGRAPH}|${Node_Type.BULLETED_LIST}|${Node_Type.ORDERED_LIST})+`,
 
       defining: true,
 

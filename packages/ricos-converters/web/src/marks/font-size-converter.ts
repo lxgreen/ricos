@@ -4,7 +4,7 @@ import type { TiptapMarkConverter } from '../types';
 
 export const fontSizeConverter: TiptapMarkConverter = {
   fromTiptap: {
-    type: 'fontSize',
+    type: Decoration_Type.FONT_SIZE,
     convert: mark => {
       const { attrs } = mark;
       return {
@@ -18,7 +18,7 @@ export const fontSizeConverter: TiptapMarkConverter = {
     convert: decoration => {
       const { fontSizeData } = decoration;
       return {
-        type: 'fontSize',
+        type: Decoration_Type.FONT_SIZE,
         attrs: { ...fontSizeData },
       };
     },

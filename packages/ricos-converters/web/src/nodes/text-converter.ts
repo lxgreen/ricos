@@ -12,10 +12,10 @@ export const textConverter: TiptapNodeConverter = {
       return {
         type: 'text',
         text: node.textData.text,
+        marks: node.textData.decorations.map(d => transforms.byType(d).convert(d)),
         attrs: {
           id: '',
         },
-        marks: node.textData.decorations.map(d => transforms.byType(d).convert(d)),
       };
     },
   },

@@ -2,6 +2,7 @@ import type { SuggestionOptions } from '@tiptap/suggestion';
 import type { Node as ProseMirrorNode } from 'prosemirror-model';
 import mentionDataDefaults from 'ricos-schema/dist/statics/mention.defaults.json';
 import type { ExtensionProps, MarkConfig, RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
+import { Decoration_Type } from 'ricos-schema';
 import styles from '../../statics/mentions.scss';
 import suggestion from './suggestion';
 
@@ -38,7 +39,7 @@ export const tiptapExtensions = [
   {
     type: 'mark' as const,
     groups: [],
-    name: 'mention',
+    name: Decoration_Type.MENTION,
     reconfigure: (
       config: MarkConfig,
       _extensions: RicosExtension[],

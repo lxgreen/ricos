@@ -4,7 +4,7 @@ import type { TiptapMarkConverter } from '../types';
 
 export const mentionConverter: TiptapMarkConverter = {
   fromTiptap: {
-    type: 'mention',
+    type: Decoration_Type.MENTION,
     convert: mark => {
       const { attrs } = mark;
       return {
@@ -18,7 +18,7 @@ export const mentionConverter: TiptapMarkConverter = {
     convert: decoration => {
       const { mentionData } = decoration;
       return {
-        type: 'mention',
+        type: Decoration_Type.MENTION,
         attrs: { ...mentionData },
       };
     },

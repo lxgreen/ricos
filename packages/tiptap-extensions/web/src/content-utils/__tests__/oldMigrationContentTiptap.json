@@ -2,7 +2,344 @@
   "type": "doc",
   "content": [
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "content": [],
+          "text": "Lorem ipsum dolor sit amet",
+          "marks": [
+            {
+              "type": "bold",
+              "fontWeightValue": 700
+            },
+            {
+              "type": "fontSize",
+              "attrs": {
+                "unit": "PX",
+                "value": 20
+              }
+            }
+          ],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": " 😎, ",
+          "marks": [],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": "consectetur adipiscing",
+          "marks": [
+            {
+              "type": "underline",
+              "underlineData": true
+            }
+          ],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": " elit. Quisque quis ex ",
+          "marks": [],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": "auctor",
+          "marks": [
+            {
+              "type": "italic",
+              "italicData": true
+            }
+          ],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": ", facilisis lectus id, sodales ipsum. In ",
+          "marks": [],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": "sagittis ",
+          "marks": [
+            {
+              "type": "bold",
+              "fontWeightValue": 700
+            }
+          ],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": "ultrices",
+          "marks": [
+            {
+              "type": "bold",
+              "fontWeightValue": 700
+            },
+            {
+              "type": "underline",
+              "underlineData": true
+            }
+          ],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": " sem",
+          "marks": [
+            {
+              "type": "underline",
+              "underlineData": true
+            }
+          ],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": " ac elementum. Ut ",
+          "marks": [],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": "ut",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "link": {
+                  "url": "www.google.com",
+                  "target": "BLANK",
+                  "rel": {
+                    "nofollow": true,
+                    "sponsored": true,
+                    "ugc": true
+                  }
+                }
+              }
+            },
+            {
+              "type": "underline",
+              "underlineData": true
+            }
+          ],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": " iaculis ex. ",
+          "marks": [],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": "Lorem ipsum",
+          "marks": [
+            {
+              "type": "spoiler"
+            }
+          ],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": " dolor sit ",
+          "marks": [],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": "@amet",
+          "marks": [
+            {
+              "type": "mention",
+              "attrs": {
+                "name": "amet",
+                "slug": "amet"
+              }
+            }
+          ],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": ", consectetur adipiscing elit. In hac ",
+          "marks": [],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": "habitasse ",
+          "marks": [
+            {
+              "type": "color",
+              "attrs": {
+                "foreground": "color4"
+              }
+            }
+          ],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": "platea",
+          "marks": [
+            {
+              "type": "color",
+              "attrs": {
+                "background": "color3",
+                "foreground": "color4"
+              }
+            }
+          ],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": " dictumst",
+          "marks": [
+            {
+              "type": "color",
+              "attrs": {
+                "background": "color3"
+              }
+            }
+          ],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": ". Aenean placerat, quam eget vestibulum ",
+          "marks": [],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": "varius",
+          "marks": [
+            {
+              "type": "link",
+              "attrs": {
+                "link": {
+                  "url": "www.link.com",
+                  "target": "BLANK"
+                }
+              }
+            },
+            {
+              "type": "underline",
+              "underlineData": true
+            }
+          ],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": ", nisl ligula vulputate ",
+          "marks": [],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": "tortor",
+          "marks": [
+            {
+              "type": "anchor",
+              "attrs": {
+                "anchor": "98ccj"
+              }
+            },
+            {
+              "type": "underline",
+              "underlineData": true
+            }
+          ],
+          "attrs": {
+            "id": ""
+          }
+        },
+        {
+          "type": "text",
+          "content": [],
+          "text": ", id lacinia odio magna eu arcu.",
+          "marks": [],
+          "attrs": {
+            "id": ""
+          }
+        }
+      ],
       "attrs": {
         "textStyle": {
           "textAlignment": "JUSTIFY"
@@ -13,364 +350,28 @@
           "paddingBottom": "0px"
         },
         "id": "0"
-      },
-      "content": [
-        {
-          "type": "text",
-          "text": "Lorem ipsum dolor sit amet",
-          "marks": [
-            {
-              "type": "BOLD",
-              "fontWeightValue": 700
-            },
-            {
-              "type": "FONT_SIZE",
-              "attrs": {
-                "unit": "PX",
-                "value": 20
-              }
-            }
-          ],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": " 😎, ",
-          "marks": [],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": "consectetur adipiscing",
-          "marks": [
-            {
-              "type": "UNDERLINE",
-              "underlineData": true
-            }
-          ],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": " elit. Quisque quis ex ",
-          "marks": [],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": "auctor",
-          "marks": [
-            {
-              "type": "ITALIC",
-              "italicData": true
-            }
-          ],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": ", facilisis lectus id, sodales ipsum. In ",
-          "marks": [],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": "sagittis ",
-          "marks": [
-            {
-              "type": "BOLD",
-              "fontWeightValue": 700
-            }
-          ],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": "ultrices",
-          "marks": [
-            {
-              "type": "BOLD",
-              "fontWeightValue": 700
-            },
-            {
-              "type": "UNDERLINE",
-              "underlineData": true
-            }
-          ],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": " sem",
-          "marks": [
-            {
-              "type": "UNDERLINE",
-              "underlineData": true
-            }
-          ],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": " ac elementum. Ut ",
-          "marks": [],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": "ut",
-          "marks": [
-            {
-              "type": "LINK",
-              "attrs": {
-                "link": {
-                  "target": "BLANK",
-                  "url": "www.google.com",
-                  "rel": {
-                    "nofollow": true,
-                    "sponsored": true,
-                    "ugc": true
-                  }
-                }
-              }
-            },
-            {
-              "type": "UNDERLINE",
-              "underlineData": true
-            }
-          ],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": " iaculis ex. ",
-          "marks": [],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": "Lorem ipsum",
-          "marks": [
-            {
-              "type": "SPOILER"
-            }
-          ],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": " dolor sit ",
-          "marks": [],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": "@amet",
-          "marks": [
-            {
-              "type": "MENTION",
-              "attrs": {
-                "name": "amet",
-                "slug": "amet"
-              }
-            }
-          ],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": ", consectetur adipiscing elit. In hac ",
-          "marks": [],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": "habitasse ",
-          "marks": [
-            {
-              "type": "COLOR",
-              "attrs": {
-                "foreground": "color4"
-              }
-            }
-          ],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": "platea",
-          "marks": [
-            {
-              "type": "COLOR",
-              "attrs": {
-                "background": "color3",
-                "foreground": "color4"
-              }
-            }
-          ],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": " dictumst",
-          "marks": [
-            {
-              "type": "COLOR",
-              "attrs": {
-                "background": "color3"
-              }
-            }
-          ],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": ". Aenean placerat, quam eget vestibulum ",
-          "marks": [],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": "varius",
-          "marks": [
-            {
-              "type": "LINK",
-              "attrs": {
-                "link": {
-                  "target": "BLANK",
-                  "url": "www.link.com"
-                }
-              }
-            },
-            {
-              "type": "UNDERLINE",
-              "underlineData": true
-            }
-          ],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": ", nisl ligula vulputate ",
-          "marks": [],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": "tortor",
-          "marks": [
-            {
-              "type": "ANCHOR",
-              "attrs": {
-                "anchor": "98ccj"
-              }
-            },
-            {
-              "type": "UNDERLINE",
-              "underlineData": true
-            }
-          ],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        },
-        {
-          "type": "text",
-          "text": ", id lacinia odio magna eu arcu.",
-          "marks": [],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        }
-      ]
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "1"
-      },
-      "content": []
+      }
     },
     {
-      "type": "IMAGE",
+      "type": "image",
+      "content": [],
       "attrs": {
         "containerData": {
-          "alignment": "CENTER",
           "width": {
             "size": "FULL_WIDTH"
           },
+          "alignment": "CENTER",
           "spoiler": {
             "enabled": true,
             "description": "SPOILER ALERT!!!",
@@ -386,33 +387,33 @@
           "height": 2124
         },
         "link": {
-          "target": "BLANK",
-          "url": "www.image-link.com"
+          "url": "www.image-link.com",
+          "target": "BLANK"
         },
         "caption": "Dad holding his baby",
         "id": "2"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "3"
-      },
-      "content": []
+      }
     },
     {
-      "type": "VIDEO",
+      "type": "video",
+      "content": [],
       "attrs": {
         "containerData": {
-          "alignment": "CENTER",
           "width": {
             "size": "CONTENT"
           },
+          "alignment": "CENTER",
           "textWrap": true
         },
         "video": {
@@ -430,28 +431,28 @@
         },
         "title": "iJustine | Create a Website with Wix Artificial Design Intelligence",
         "id": "4"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "5"
-      },
-      "content": []
+      }
     },
     {
-      "type": "VIDEO",
+      "type": "video",
+      "content": [],
       "attrs": {
         "containerData": {
-          "alignment": "CENTER",
           "width": {
             "size": "SMALL"
           },
+          "alignment": "CENTER",
           "textWrap": true
         },
         "video": {
@@ -469,23 +470,30 @@
         },
         "disableDownload": false,
         "id": "6"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "7"
-      },
-      "content": []
+      }
     },
     {
-      "type": "GALLERY",
+      "type": "gallery",
+      "content": [],
       "attrs": {
+        "containerData": {
+          "width": {
+            "size": "CONTENT"
+          },
+          "alignment": "CENTER",
+          "textWrap": true
+        },
         "items": [
           {
             "image": {
@@ -528,25 +536,18 @@
             }
           }
         ],
-        "containerData": {
-          "alignment": "CENTER",
-          "width": {
-            "size": "CONTENT"
-          },
-          "textWrap": true
-        },
         "options": {
           "layout": {
             "type": "GRID",
-            "orientation": "ROWS",
             "horizontalScroll": false,
+            "orientation": "ROWS",
             "numberOfColumns": 3,
             "mobileNumberOfColumns": 3
           },
           "item": {
-            "crop": "FILL",
             "targetSize": 300,
             "ratio": 1,
+            "crop": "FILL",
             "spacing": 20
           },
           "thumbnails": {
@@ -556,28 +557,28 @@
         },
         "disableExpand": false,
         "id": "8"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "9"
-      },
-      "content": []
+      }
     },
     {
-      "type": "HTML",
+      "type": "html",
+      "content": [],
       "attrs": {
         "containerData": {
-          "alignment": "CENTER",
           "width": {
             "custom": "350"
           },
+          "alignment": "CENTER",
           "height": {
             "custom": "490"
           },
@@ -585,28 +586,28 @@
         },
         "html": "<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">How we cut cost on 55% of our storage without deleting a single file? We understood that NOT all files should be treated equally. <br><br>Here’s the full story:<a href=\"https://t.co/zC3d0uBkEA\">https://t.co/zC3d0uBkEA</a> <a href=\"https://t.co/j8ND7GfOEg\">pic.twitter.com/j8ND7GfOEg</a></p>&mdash; Wix Engineering (@WixEng) <a href=\"https://twitter.com/WixEng/status/1348206215336259584?ref_src=twsrc%5Etfw\">January 10, 2021</a></blockquote> <script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>",
         "id": "10"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "11"
-      },
-      "content": []
+      }
     },
     {
-      "type": "EMBED",
+      "type": "embed",
+      "content": [],
       "attrs": {
         "containerData": {
-          "alignment": "CENTER",
           "width": {
             "custom": "350"
           },
+          "alignment": "CENTER",
           "textWrap": true
         },
         "oembed": {
@@ -615,31 +616,31 @@
         },
         "src": "https://twitter.com/CNN/status/1244886173409034240",
         "id": "12"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "13"
-      },
-      "content": []
+      }
     },
     {
-      "type": "BUTTON",
+      "type": "button",
+      "content": [],
       "attrs": {
-        "type": "LINK",
         "containerData": {
-          "alignment": "CENTER",
           "width": {
             "custom": "212"
           },
+          "alignment": "CENTER",
           "textWrap": true
         },
+        "type": "link",
         "styles": {
           "border": {
             "width": 7,
@@ -653,38 +654,38 @@
         },
         "text": "Link Button",
         "link": {
-          "target": "BLANK",
           "url": "www.wix.com",
+          "target": "BLANK",
           "rel": {
             "nofollow": true
           }
         },
         "id": "14"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "15"
-      },
-      "content": []
+      }
     },
     {
-      "type": "BUTTON",
+      "type": "button",
+      "content": [],
       "attrs": {
-        "type": "ACTION",
         "containerData": {
-          "alignment": "LEFT",
           "width": {
             "size": "ORIGINAL"
           },
+          "alignment": "LEFT",
           "textWrap": true
         },
+        "type": "ACTION",
         "styles": {
           "border": {
             "width": 0,
@@ -698,89 +699,87 @@
         },
         "text": "Action Button",
         "id": "16"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "17"
-      },
-      "content": []
+      }
     },
     {
-      "type": "DIVIDER",
+      "type": "divider",
+      "content": [],
       "attrs": {
-        "lineStyle": "DOUBLE",
-        "width": "MEDIUM",
-        "alignment": "CENTER",
         "containerData": {
-          "alignment": "CENTER",
           "width": {
             "size": "CONTENT"
           },
+          "alignment": "CENTER",
           "textWrap": false
         },
+        "lineStyle": "DOUBLE",
+        "width": "MEDIUM",
+        "alignment": "CENTER",
         "id": "18"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "19"
-      },
-      "content": []
+      }
     },
     {
-      "type": "CODE_BLOCK",
+      "type": "codeBlock",
+      "content": [
+        {
+          "type": "text",
+          "content": [],
+          "text": "songs = pd.read_csv(SONGS_FILE)",
+          "marks": [],
+          "attrs": {
+            "id": ""
+          }
+        }
+      ],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "id": "20"
-      },
-      "content": [
-        {
-          "type": "text",
-          "text": "songs = pd.read_csv(SONGS_FILE)",
-          "marks": [],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        }
-      ]
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "21"
-      },
-      "content": []
+      }
     },
     {
-      "type": "GIF",
+      "type": "gif",
+      "content": [],
       "attrs": {
-        "height": 281,
-        "width": 500,
         "containerData": {
-          "alignment": "CENTER",
           "width": {
             "size": "SMALL"
           },
+          "alignment": "CENTER",
           "textWrap": true
         },
         "original": {
@@ -793,36 +792,37 @@
           "mp4": "https://media1.giphy.com/media/Cn44PUsTVimwBAtIRx/giphy-downsized-small.mp4?cid=558f2fbejldbq3cgzrasbh2j4z47w8nn51qcbjzc6dg7g7af&rid=giphy-downsized-small.mp4",
           "still": "https://media1.giphy.com/media/Cn44PUsTVimwBAtIRx/giphy-downsized_s.gif?cid=558f2fbejldbq3cgzrasbh2j4z47w8nn51qcbjzc6dg7g7af&rid=giphy-downsized_s.gif"
         },
+        "height": 281,
+        "width": 500,
         "id": "22"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "23"
-      },
-      "content": []
+      }
     },
     {
-      "type": "MAP",
+      "type": "map",
+      "content": [],
       "attrs": {
         "containerData": {
-          "alignment": "CENTER",
           "width": {
             "custom": "286"
           },
+          "alignment": "CENTER",
           "height": {
             "custom": "271"
           },
           "textWrap": true
         },
         "mapSettings": {
-          "mapType": "ROADMAP",
           "address": "Wix HQ, Nemal Tel Aviv Street, Tel Aviv-Yafo, Israel",
           "draggable": true,
           "marker": true,
@@ -831,31 +831,32 @@
           "lat": 32.097235,
           "lng": 34.77427,
           "locationName": "Wix HQ, Nemal Tel Aviv Street, Tel Aviv-Yafo, Israel",
-          "initialZoom": 18
+          "initialZoom": 18,
+          "mapType": "ROADMAP"
         },
         "id": "24"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "25"
-      },
-      "content": []
+      }
     },
     {
-      "type": "FILE",
+      "type": "file",
+      "content": [],
       "attrs": {
         "containerData": {
-          "alignment": "CENTER",
           "width": {
             "size": "CONTENT"
           },
+          "alignment": "CENTER",
           "textWrap": true
         },
         "src": {
@@ -871,22 +872,22 @@
           "disablePrint": false
         },
         "id": "26"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "27"
-      },
-      "content": []
+      }
     },
     {
-      "type": "APP_EMBED",
+      "type": "appEmbed",
+      "content": [],
       "attrs": {
         "type": "PRODUCT",
         "itemId": "265beaf5-3008-c5c2-fa5e-1447e0bebf71",
@@ -899,22 +900,22 @@
           }
         },
         "id": "28"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "29"
-      },
-      "content": []
+      }
     },
     {
-      "type": "APP_EMBED",
+      "type": "appEmbed",
+      "content": [],
       "attrs": {
         "type": "EVENT",
         "itemId": "65129504-3bfc-44c8-90cc-f9eedfea9321",
@@ -931,22 +932,22 @@
           "location": " Suzanna Baby Shop"
         },
         "id": "30"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "31"
-      },
-      "content": []
+      }
     },
     {
-      "type": "APP_EMBED",
+      "type": "appEmbed",
+      "content": [],
       "attrs": {
         "type": "BOOKING",
         "itemId": "03ef6546-985d-4739-951e-ca897375b967",
@@ -962,63 +963,71 @@
           "durations": "90"
         },
         "id": "32"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "33"
-      },
-      "content": []
+      }
     },
     {
-      "type": "LINK_PREVIEW",
+      "type": "linkPreview",
+      "content": [],
       "attrs": {
         "containerData": {
-          "alignment": "CENTER",
           "width": {
             "size": "CONTENT"
           },
+          "alignment": "CENTER",
           "textWrap": true
         },
         "link": {
-          "target": "BLANK",
-          "url": "www.wix.com"
+          "url": "www.wix.com",
+          "target": "BLANK"
         },
         "title": "A mock title",
         "thumbnailUrl": "https://image.insider.com/5de5784979d757159d0b6838?width=1100&format=jpeg&auto=webp",
         "description": "A mock description",
         "id": "34"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "35"
-      },
-      "content": []
+      }
     },
     {
-      "type": "POLL",
+      "type": "poll",
+      "content": [],
       "attrs": {
         "containerData": {
-          "alignment": "CENTER",
           "width": {
             "size": "CONTENT"
           },
+          "alignment": "CENTER",
           "textWrap": true
         },
         "poll": {
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "image": {
+            "src": {
+              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
+            }
+          },
           "options": [
             {
               "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
@@ -1057,14 +1066,6 @@
               }
             }
           ],
-          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
-          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
-          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
-          "image": {
-            "src": {
-              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
-            }
-          },
           "settings": {
             "permissions": {
               "view": "VOTERS",
@@ -1102,87 +1103,76 @@
           }
         },
         "id": "36"
-      },
-      "content": []
+      }
     },
     {
-      "type": "BLOCKQUOTE",
-      "attrs": {
-        "indentation": 0,
-        "id": "37"
-      },
+      "type": "blockquote",
       "content": [
         {
-          "type": "PARAGRAPH",
-          "attrs": {
-            "textStyle": {
-              "textAlignment": "AUTO"
-            },
-            "indentation": 0,
-            "id": "38"
-          },
+          "type": "paragraph",
           "content": [
             {
               "type": "text",
+              "content": [],
               "text": "Nunc eros ante , porttitor ",
               "marks": [],
               "attrs": {
                 "id": ""
-              },
-              "content": []
+              }
             },
             {
               "type": "text",
+              "content": [],
               "text": "sed",
               "marks": [
                 {
-                  "type": "BOLD",
+                  "type": "bold",
                   "fontWeightValue": 700
                 }
               ],
               "attrs": {
                 "id": ""
-              },
-              "content": []
+              }
             },
             {
               "type": "text",
+              "content": [],
               "text": " tempor nec, sagittis non mi. Nulla non ",
               "marks": [],
               "attrs": {
                 "id": ""
-              },
-              "content": []
+              }
             },
             {
               "type": "text",
+              "content": [],
               "text": "vulputate",
               "marks": [
                 {
-                  "type": "UNDERLINE",
+                  "type": "underline",
                   "underlineData": true
                 }
               ],
               "attrs": {
                 "id": ""
-              },
-              "content": []
+              }
             },
             {
               "type": "text",
+              "content": [],
               "text": " ",
               "marks": [],
               "attrs": {
                 "id": ""
-              },
-              "content": []
+              }
             },
             {
               "type": "text",
+              "content": [],
               "text": "magna",
               "marks": [
                 {
-                  "type": "COLOR",
+                  "type": "color",
                   "attrs": {
                     "background": "color4"
                   }
@@ -1190,638 +1180,659 @@
               ],
               "attrs": {
                 "id": ""
-              },
-              "content": []
+              }
             },
             {
               "type": "text",
+              "content": [],
               "text": ", semper convallis sapien.",
               "marks": [],
               "attrs": {
                 "id": ""
-              },
-              "content": []
+              }
             }
-          ]
+          ],
+          "attrs": {
+            "textStyle": {
+              "textAlignment": "AUTO"
+            },
+            "indentation": 0,
+            "id": "37"
+          }
         }
-      ]
-    },
-    {
-      "type": "ORDERED_LIST",
+      ],
       "attrs": {
         "indentation": 0,
-        "id": "39"
-      },
+        "id": "38"
+      }
+    },
+    {
+      "type": "orderedList",
       "content": [
         {
-          "type": "LIST_ITEM",
-          "attrs": {
-            "id": "40"
-          },
+          "type": "listItem",
           "content": [
             {
-              "type": "PARAGRAPH",
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "content": [],
+                  "text": "In imperdiet eros elementum nulla fringilla sollicitudin.",
+                  "marks": [],
+                  "attrs": {
+                    "id": ""
+                  }
+                }
+              ],
               "attrs": {
                 "textStyle": {
                   "textAlignment": "AUTO"
                 },
                 "indentation": 0,
-                "id": "41"
-              },
-              "content": [
-                {
-                  "type": "text",
-                  "text": "In imperdiet eros elementum nulla fringilla sollicitudin.",
-                  "marks": [],
-                  "attrs": {
-                    "id": ""
-                  },
-                  "content": []
-                }
-              ]
+                "id": "39"
+              }
             },
             {
-              "type": "ORDERED_LIST",
-              "attrs": {
-                "indentation": 1,
-                "id": "42"
-              },
+              "type": "orderedList",
               "content": [
                 {
-                  "type": "LIST_ITEM",
-                  "attrs": {
-                    "id": "43"
-                  },
+                  "type": "listItem",
                   "content": [
                     {
-                      "type": "PARAGRAPH",
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "content": [],
+                          "text": "Proin dictum aliquam sapien at pretium.",
+                          "marks": [],
+                          "attrs": {
+                            "id": ""
+                          }
+                        }
+                      ],
                       "attrs": {
                         "textStyle": {
                           "textAlignment": "AUTO"
                         },
                         "indentation": 0,
-                        "id": "44"
-                      },
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "Proin dictum aliquam sapien at pretium.",
-                          "marks": [],
-                          "attrs": {
-                            "id": ""
-                          },
-                          "content": []
-                        }
-                      ]
+                        "id": "40"
+                      }
                     },
                     {
-                      "type": "ORDERED_LIST",
-                      "attrs": {
-                        "indentation": 2,
-                        "id": "45"
-                      },
+                      "type": "orderedList",
                       "content": [
                         {
-                          "type": "LIST_ITEM",
-                          "attrs": {
-                            "id": "46"
-                          },
+                          "type": "listItem",
                           "content": [
                             {
-                              "type": "PARAGRAPH",
+                              "type": "paragraph",
+                              "content": [
+                                {
+                                  "type": "text",
+                                  "content": [],
+                                  "text": "Quisque pulvinar ac erat vitae imperdiet.",
+                                  "marks": [],
+                                  "attrs": {
+                                    "id": ""
+                                  }
+                                }
+                              ],
                               "attrs": {
                                 "textStyle": {
                                   "textAlignment": "AUTO"
                                 },
                                 "indentation": 0,
-                                "id": "47"
-                              },
-                              "content": [
-                                {
-                                  "type": "text",
-                                  "text": "Quisque pulvinar ac erat vitae imperdiet.",
-                                  "marks": [],
-                                  "attrs": {
-                                    "id": ""
-                                  },
-                                  "content": []
-                                }
-                              ]
+                                "id": "41"
+                              }
                             },
                             {
-                              "type": "ORDERED_LIST",
-                              "attrs": {
-                                "indentation": 3,
-                                "id": "48"
-                              },
+                              "type": "orderedList",
                               "content": [
                                 {
-                                  "type": "LIST_ITEM",
-                                  "attrs": {
-                                    "id": "49"
-                                  },
+                                  "type": "listItem",
                                   "content": [
                                     {
-                                      "type": "PARAGRAPH",
+                                      "type": "paragraph",
+                                      "content": [
+                                        {
+                                          "type": "text",
+                                          "content": [],
+                                          "text": "Phasellus ultricies urna ut ultrices imperdiet.",
+                                          "marks": [],
+                                          "attrs": {
+                                            "id": ""
+                                          }
+                                        }
+                                      ],
                                       "attrs": {
                                         "textStyle": {
                                           "textAlignment": "AUTO"
                                         },
                                         "indentation": 0,
-                                        "id": "50"
-                                      },
-                                      "content": [
-                                        {
-                                          "type": "text",
-                                          "text": "Phasellus ultricies urna ut ultrices imperdiet.",
-                                          "marks": [],
-                                          "attrs": {
-                                            "id": ""
-                                          },
-                                          "content": []
-                                        }
-                                      ]
+                                        "id": "42"
+                                      }
                                     },
                                     {
-                                      "type": "ORDERED_LIST",
-                                      "attrs": {
-                                        "indentation": 4,
-                                        "id": "51"
-                                      },
+                                      "type": "orderedList",
                                       "content": [
                                         {
-                                          "type": "LIST_ITEM",
-                                          "attrs": {
-                                            "id": "52"
-                                          },
+                                          "type": "listItem",
                                           "content": [
                                             {
-                                              "type": "PARAGRAPH",
-                                              "attrs": {
-                                                "textStyle": {
-                                                  "textAlignment": "AUTO"
-                                                },
-                                                "indentation": 0,
-                                                "id": "53"
-                                              },
+                                              "type": "paragraph",
                                               "content": [
                                                 {
                                                   "type": "text",
+                                                  "content": [],
                                                   "text": "Nulla non varius ipsum, sit amet consectetur quam.",
                                                   "marks": [],
                                                   "attrs": {
                                                     "id": ""
-                                                  },
-                                                  "content": []
+                                                  }
                                                 }
-                                              ]
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "LIST_ITEM",
-                                          "attrs": {
-                                            "id": "54"
-                                          },
-                                          "content": [
-                                            {
-                                              "type": "PARAGRAPH",
+                                              ],
                                               "attrs": {
                                                 "textStyle": {
                                                   "textAlignment": "AUTO"
                                                 },
                                                 "indentation": 0,
-                                                "id": "55"
-                                              },
+                                                "id": "43"
+                                              }
+                                            }
+                                          ],
+                                          "attrs": {
+                                            "id": "44"
+                                          }
+                                        },
+                                        {
+                                          "type": "listItem",
+                                          "content": [
+                                            {
+                                              "type": "paragraph",
                                               "content": [
                                                 {
                                                   "type": "text",
+                                                  "content": [],
                                                   "text": "Nunc scelerisque fringilla aliquet.",
                                                   "marks": [],
                                                   "attrs": {
                                                     "id": ""
-                                                  },
-                                                  "content": []
+                                                  }
                                                 }
-                                              ]
+                                              ],
+                                              "attrs": {
+                                                "textStyle": {
+                                                  "textAlignment": "AUTO"
+                                                },
+                                                "indentation": 0,
+                                                "id": "45"
+                                              }
                                             }
-                                          ]
+                                          ],
+                                          "attrs": {
+                                            "id": "46"
+                                          }
                                         }
-                                      ]
+                                      ],
+                                      "attrs": {
+                                        "indentation": 4,
+                                        "id": "47"
+                                      }
                                     }
-                                  ]
+                                  ],
+                                  "attrs": {
+                                    "id": "48"
+                                  }
                                 }
-                              ]
+                              ],
+                              "attrs": {
+                                "indentation": 3,
+                                "id": "49"
+                              }
                             }
-                          ]
+                          ],
+                          "attrs": {
+                            "id": "50"
+                          }
                         }
-                      ]
+                      ],
+                      "attrs": {
+                        "indentation": 2,
+                        "id": "51"
+                      }
                     }
-                  ]
+                  ],
+                  "attrs": {
+                    "id": "52"
+                  }
                 }
-              ]
+              ],
+              "attrs": {
+                "indentation": 1,
+                "id": "53"
+              }
             }
-          ]
+          ],
+          "attrs": {
+            "id": "54"
+          }
         },
         {
-          "type": "LIST_ITEM",
-          "attrs": {
-            "id": "56"
-          },
+          "type": "listItem",
           "content": [
             {
-              "type": "PARAGRAPH",
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "content": [],
+                  "text": "Praesent purus nibh, sodales",
+                  "marks": [],
+                  "attrs": {
+                    "id": ""
+                  }
+                }
+              ],
               "attrs": {
                 "textStyle": {
                   "textAlignment": "AUTO"
                 },
                 "indentation": 0,
-                "id": "57"
-              },
-              "content": [
-                {
-                  "type": "text",
-                  "text": "Praesent purus nibh, sodales",
-                  "marks": [],
-                  "attrs": {
-                    "id": ""
-                  },
-                  "content": []
-                }
-              ]
+                "id": "55"
+              }
             },
             {
-              "type": "BULLETED_LIST",
-              "attrs": {
-                "indentation": 1,
-                "id": "58"
-              },
+              "type": "bulletedList",
               "content": [
                 {
-                  "type": "LIST_ITEM",
-                  "attrs": {
-                    "id": "59"
-                  },
+                  "type": "listItem",
                   "content": [
                     {
-                      "type": "PARAGRAPH",
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "content": [],
+                          "text": "non efficitur a",
+                          "marks": [],
+                          "attrs": {
+                            "id": ""
+                          }
+                        }
+                      ],
                       "attrs": {
                         "textStyle": {
                           "textAlignment": "AUTO"
                         },
                         "indentation": 0,
-                        "id": "60"
-                      },
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "non efficitur a",
-                          "marks": [],
-                          "attrs": {
-                            "id": ""
-                          },
-                          "content": []
-                        }
-                      ]
+                        "id": "56"
+                      }
                     }
-                  ]
+                  ],
+                  "attrs": {
+                    "id": "57"
+                  }
                 }
-              ]
+              ],
+              "attrs": {
+                "indentation": 1,
+                "id": "58"
+              }
             }
-          ]
+          ],
+          "attrs": {
+            "id": "59"
+          }
         },
         {
-          "type": "LIST_ITEM",
-          "attrs": {
-            "id": "61"
-          },
+          "type": "listItem",
           "content": [
             {
-              "type": "PARAGRAPH",
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "content": [],
+                  "text": "consequat ac ante.",
+                  "marks": [],
+                  "attrs": {
+                    "id": ""
+                  }
+                }
+              ],
               "attrs": {
                 "textStyle": {
                   "textAlignment": "AUTO"
                 },
                 "indentation": 0,
-                "id": "62"
-              },
-              "content": [
-                {
-                  "type": "text",
-                  "text": "consequat ac ante.",
-                  "marks": [],
-                  "attrs": {
-                    "id": ""
-                  },
-                  "content": []
-                }
-              ]
+                "id": "60"
+              }
             }
-          ]
+          ],
+          "attrs": {
+            "id": "61"
+          }
         }
-      ]
+      ],
+      "attrs": {
+        "indentation": 0,
+        "id": "62"
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "63"
-      },
-      "content": []
+      }
     },
     {
-      "type": "BULLETED_LIST",
-      "attrs": {
-        "indentation": 0,
-        "id": "64"
-      },
+      "type": "bulletedList",
       "content": [
         {
-          "type": "LIST_ITEM",
-          "attrs": {
-            "id": "65"
-          },
+          "type": "listItem",
           "content": [
             {
-              "type": "PARAGRAPH",
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "content": [],
+                  "text": "Aenean sed posuere odio.",
+                  "marks": [],
+                  "attrs": {
+                    "id": ""
+                  }
+                }
+              ],
               "attrs": {
                 "textStyle": {
                   "textAlignment": "AUTO"
                 },
                 "indentation": 0,
-                "id": "66"
-              },
-              "content": [
-                {
-                  "type": "text",
-                  "text": "Aenean sed posuere odio.",
-                  "marks": [],
-                  "attrs": {
-                    "id": ""
-                  },
-                  "content": []
-                }
-              ]
+                "id": "64"
+              }
             },
             {
-              "type": "BULLETED_LIST",
-              "attrs": {
-                "indentation": 1,
-                "id": "67"
-              },
+              "type": "bulletedList",
               "content": [
                 {
-                  "type": "LIST_ITEM",
-                  "attrs": {
-                    "id": "68"
-                  },
+                  "type": "listItem",
                   "content": [
                     {
-                      "type": "PARAGRAPH",
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "content": [],
+                          "text": "Pellentesque imperdiet maximus turpis nec faucibus.",
+                          "marks": [],
+                          "attrs": {
+                            "id": ""
+                          }
+                        }
+                      ],
                       "attrs": {
                         "textStyle": {
                           "textAlignment": "AUTO"
                         },
                         "indentation": 0,
-                        "id": "69"
-                      },
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "Pellentesque imperdiet maximus turpis nec faucibus.",
-                          "marks": [],
-                          "attrs": {
-                            "id": ""
-                          },
-                          "content": []
-                        }
-                      ]
+                        "id": "65"
+                      }
                     },
                     {
-                      "type": "BULLETED_LIST",
-                      "attrs": {
-                        "indentation": 2,
-                        "id": "70"
-                      },
+                      "type": "bulletedList",
                       "content": [
                         {
-                          "type": "LIST_ITEM",
-                          "attrs": {
-                            "id": "71"
-                          },
+                          "type": "listItem",
                           "content": [
                             {
-                              "type": "PARAGRAPH",
+                              "type": "paragraph",
+                              "content": [
+                                {
+                                  "type": "text",
+                                  "content": [],
+                                  "text": "Nulla at tempus lectus,",
+                                  "marks": [],
+                                  "attrs": {
+                                    "id": ""
+                                  }
+                                }
+                              ],
                               "attrs": {
                                 "textStyle": {
                                   "textAlignment": "AUTO"
                                 },
                                 "indentation": 0,
-                                "id": "72"
-                              },
-                              "content": [
-                                {
-                                  "type": "text",
-                                  "text": "Nulla at tempus lectus,",
-                                  "marks": [],
-                                  "attrs": {
-                                    "id": ""
-                                  },
-                                  "content": []
-                                }
-                              ]
+                                "id": "66"
+                              }
                             },
                             {
-                              "type": "BULLETED_LIST",
-                              "attrs": {
-                                "indentation": 3,
-                                "id": "73"
-                              },
+                              "type": "bulletedList",
                               "content": [
                                 {
-                                  "type": "LIST_ITEM",
-                                  "attrs": {
-                                    "id": "74"
-                                  },
+                                  "type": "listItem",
                                   "content": [
                                     {
-                                      "type": "PARAGRAPH",
+                                      "type": "paragraph",
+                                      "content": [
+                                        {
+                                          "type": "text",
+                                          "content": [],
+                                          "text": "non tempor tortor.",
+                                          "marks": [],
+                                          "attrs": {
+                                            "id": ""
+                                          }
+                                        }
+                                      ],
                                       "attrs": {
                                         "textStyle": {
                                           "textAlignment": "AUTO"
                                         },
                                         "indentation": 0,
-                                        "id": "75"
-                                      },
-                                      "content": [
-                                        {
-                                          "type": "text",
-                                          "text": "non tempor tortor.",
-                                          "marks": [],
-                                          "attrs": {
-                                            "id": ""
-                                          },
-                                          "content": []
-                                        }
-                                      ]
+                                        "id": "67"
+                                      }
                                     },
                                     {
-                                      "type": "BULLETED_LIST",
-                                      "attrs": {
-                                        "indentation": 4,
-                                        "id": "76"
-                                      },
+                                      "type": "bulletedList",
                                       "content": [
                                         {
-                                          "type": "LIST_ITEM",
-                                          "attrs": {
-                                            "id": "77"
-                                          },
+                                          "type": "listItem",
                                           "content": [
                                             {
-                                              "type": "PARAGRAPH",
-                                              "attrs": {
-                                                "textStyle": {
-                                                  "textAlignment": "AUTO"
-                                                },
-                                                "indentation": 0,
-                                                "id": "78"
-                                              },
+                                              "type": "paragraph",
                                               "content": [
                                                 {
                                                   "type": "text",
+                                                  "content": [],
                                                   "text": "Vivamus mauris",
                                                   "marks": [],
                                                   "attrs": {
                                                     "id": ""
-                                                  },
-                                                  "content": []
+                                                  }
                                                 }
-                                              ]
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "LIST_ITEM",
-                                          "attrs": {
-                                            "id": "79"
-                                          },
-                                          "content": [
-                                            {
-                                              "type": "PARAGRAPH",
+                                              ],
                                               "attrs": {
                                                 "textStyle": {
                                                   "textAlignment": "AUTO"
                                                 },
                                                 "indentation": 0,
-                                                "id": "80"
-                                              },
+                                                "id": "68"
+                                              }
+                                            }
+                                          ],
+                                          "attrs": {
+                                            "id": "69"
+                                          }
+                                        },
+                                        {
+                                          "type": "listItem",
+                                          "content": [
+                                            {
+                                              "type": "paragraph",
                                               "content": [
                                                 {
                                                   "type": "text",
+                                                  "content": [],
                                                   "text": "diam",
                                                   "marks": [],
                                                   "attrs": {
                                                     "id": ""
-                                                  },
-                                                  "content": []
+                                                  }
                                                 }
-                                              ]
+                                              ],
+                                              "attrs": {
+                                                "textStyle": {
+                                                  "textAlignment": "AUTO"
+                                                },
+                                                "indentation": 0,
+                                                "id": "70"
+                                              }
                                             }
-                                          ]
+                                          ],
+                                          "attrs": {
+                                            "id": "71"
+                                          }
                                         }
-                                      ]
+                                      ],
+                                      "attrs": {
+                                        "indentation": 4,
+                                        "id": "72"
+                                      }
                                     }
-                                  ]
+                                  ],
+                                  "attrs": {
+                                    "id": "73"
+                                  }
                                 }
-                              ]
+                              ],
+                              "attrs": {
+                                "indentation": 3,
+                                "id": "74"
+                              }
                             }
-                          ]
+                          ],
+                          "attrs": {
+                            "id": "75"
+                          }
                         }
-                      ]
+                      ],
+                      "attrs": {
+                        "indentation": 2,
+                        "id": "76"
+                      }
                     }
-                  ]
+                  ],
+                  "attrs": {
+                    "id": "77"
+                  }
                 }
-              ]
+              ],
+              "attrs": {
+                "indentation": 1,
+                "id": "78"
+              }
             }
-          ]
+          ],
+          "attrs": {
+            "id": "79"
+          }
         },
         {
-          "type": "LIST_ITEM",
-          "attrs": {
-            "id": "81"
-          },
+          "type": "listItem",
           "content": [
             {
-              "type": "PARAGRAPH",
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "content": [],
+                  "text": "Auctor in sollicitudin eget, suscipit sed nulla.",
+                  "marks": [],
+                  "attrs": {
+                    "id": ""
+                  }
+                }
+              ],
               "attrs": {
                 "textStyle": {
                   "textAlignment": "RIGHT"
                 },
                 "indentation": 0,
-                "id": "82"
-              },
+                "id": "80"
+              }
+            }
+          ],
+          "attrs": {
+            "id": "81"
+          }
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
               "content": [
                 {
                   "type": "text",
-                  "text": "Auctor in sollicitudin eget, suscipit sed nulla.",
+                  "content": [],
+                  "text": "Aenean sapien lectus, interdum ultrices enim a, sodales ultrices mi. Quisque ut mi metus.",
                   "marks": [],
                   "attrs": {
                     "id": ""
-                  },
-                  "content": []
+                  }
                 }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "LIST_ITEM",
-          "attrs": {
-            "id": "83"
-          },
-          "content": [
-            {
-              "type": "PARAGRAPH",
+              ],
               "attrs": {
                 "textStyle": {
                   "textAlignment": "AUTO"
                 },
                 "indentation": 0,
-                "id": "84"
-              },
-              "content": [
-                {
-                  "type": "text",
-                  "text": "Aenean sapien lectus, interdum ultrices enim a, sodales ultrices mi. Quisque ut mi metus.",
-                  "marks": [],
-                  "attrs": {
-                    "id": ""
-                  },
-                  "content": []
-                }
-              ]
+                "id": "82"
+              }
             }
-          ]
+          ],
+          "attrs": {
+            "id": "83"
+          }
         }
-      ]
+      ],
+      "attrs": {
+        "indentation": 0,
+        "id": "84"
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "85"
-      },
-      "content": []
+      }
     },
     {
-      "type": "HEADING",
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "content": [],
+          "text": "Donec sit amet sapien quis velit ultrices sollicitudin id facilisis ligula.",
+          "marks": [],
+          "attrs": {
+            "id": ""
+          }
+        }
+      ],
       "attrs": {
         "level": 3,
         "textStyle": {
@@ -1833,21 +1844,11 @@
           "paddingBottom": "0px"
         },
         "id": "86"
-      },
-      "content": [
-        {
-          "type": "text",
-          "text": "Donec sit amet sapien quis velit ultrices sollicitudin id facilisis ligula.",
-          "marks": [],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        }
-      ]
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "JUSTIFY"
@@ -1858,11 +1859,21 @@
           "paddingBottom": "0px"
         },
         "id": "87"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "content": [],
+          "text": "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In hac 👨‍👩‍👦‍👦 habitasse platea dictumst. In hac habitasse platea dictumst. Cras porta dolor lorem, ac luctus justo pretium quis. Vestibulum et lacinia tortor, in viverra ipsum.",
+          "marks": [],
+          "attrs": {
+            "id": ""
+          }
+        }
+      ],
       "attrs": {
         "textStyle": {
           "textAlignment": "JUSTIFY",
@@ -1874,38 +1885,28 @@
           "paddingBottom": "0px"
         },
         "id": "88"
-      },
-      "content": [
-        {
-          "type": "text",
-          "text": "Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In hac 👨‍👩‍👦‍👦 habitasse platea dictumst. In hac habitasse platea dictumst. Cras porta dolor lorem, ac luctus justo pretium quis. Vestibulum et lacinia tortor, in viverra ipsum.",
-          "marks": [],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        }
-      ]
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 1,
         "id": "89"
-      },
-      "content": []
+      }
     },
     {
-      "type": "IMAGE",
+      "type": "image",
+      "content": [],
       "attrs": {
         "containerData": {
-          "alignment": "RIGHT",
           "width": {
             "custom": "300"
           },
+          "alignment": "RIGHT",
           "spoiler": {
             "enabled": true
           },
@@ -1921,114 +1922,91 @@
         "disableExpand": false,
         "disableDownload": false,
         "id": "90"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "content": [],
+          "text": "לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק.",
+          "marks": [],
+          "attrs": {
+            "id": ""
+          }
+        }
+      ],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "91"
-      },
+      }
+    },
+    {
+      "type": "paragraph",
       "content": [
         {
           "type": "text",
-          "text": "לורם איפסום דולור סיט אמט, קונסקטורר אדיפיסינג אלית גולר מונפרר סוברט לורם שבצק יהול, לכנוץ בעריר גק ליץ, ושבעגט ליבם סולגק.",
+          "content": [],
+          "text": "בראיט ולחת צורק מונחף, בגורמי מגמש.\n",
           "marks": [],
           "attrs": {
             "id": ""
-          },
-          "content": []
+          }
         }
-      ]
-    },
-    {
-      "type": "PARAGRAPH",
+      ],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "92"
-      },
-      "content": [
-        {
-          "type": "text",
-          "text": "בראיט ולחת צורק מונחף, בגורמי מגמש.\n",
-          "marks": [],
-          "attrs": {
-            "id": ""
-          },
-          "content": []
-        }
-      ]
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "93"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "94"
-      },
-      "content": []
+      }
     },
     {
-      "type": "COLLAPSIBLE_LIST",
-      "attrs": {
-        "initialExpandedItems": "FIRST",
-        "direction": "LTR",
-        "containerData": {
-          "alignment": "CENTER",
-          "textWrap": true
-        },
-        "expandOnlyOne": false,
-        "id": "95"
-      },
+      "type": "collapsibleList",
       "content": [
         {
-          "type": "COLLAPSIBLE_ITEM",
-          "attrs": {
-            "id": "96"
-          },
+          "type": "collapsibleItem",
           "content": [
             {
-              "type": "COLLAPSIBLE_ITEM_TITLE",
-              "attrs": {
-                "id": "97"
-              },
+              "type": "collapsibleItemTitle",
               "content": [
                 {
-                  "type": "PARAGRAPH",
-                  "attrs": {
-                    "textStyle": {
-                      "textAlignment": "AUTO"
-                    },
-                    "indentation": 0,
-                    "id": "98"
-                  },
+                  "type": "paragraph",
                   "content": [
                     {
                       "type": "text",
+                      "content": [],
                       "text": "Collapsible List",
                       "marks": [
                         {
-                          "type": "COLOR",
+                          "type": "color",
                           "attrs": {
                             "foreground": "color4"
                           }
@@ -2036,129 +2014,322 @@
                       ],
                       "attrs": {
                         "id": ""
-                      },
-                      "content": []
+                      }
                     }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "COLLAPSIBLE_ITEM_BODY",
-              "attrs": {
-                "id": "99"
-              },
-              "content": [
-                {
-                  "type": "PARAGRAPH",
+                  ],
                   "attrs": {
                     "textStyle": {
                       "textAlignment": "AUTO"
                     },
                     "indentation": 0,
-                    "id": "100"
-                  },
-                  "content": []
+                    "id": "95"
+                  }
                 }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "COLLAPSIBLE_ITEM",
-          "attrs": {
-            "id": "101"
-          },
-          "content": [
-            {
-              "type": "COLLAPSIBLE_ITEM_TITLE",
+              ],
               "attrs": {
-                "id": "102"
-              },
+                "id": "96"
+              }
+            },
+            {
+              "type": "collapsibleItemBody",
               "content": [
                 {
-                  "type": "BLOCKQUOTE",
+                  "type": "paragraph",
+                  "content": [],
                   "attrs": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
                     "indentation": 0,
-                    "id": "103"
-                  },
+                    "id": "97"
+                  }
+                }
+              ],
+              "attrs": {
+                "id": "98"
+              }
+            }
+          ],
+          "attrs": {
+            "id": "99"
+          }
+        },
+        {
+          "type": "collapsibleItem",
+          "content": [
+            {
+              "type": "collapsibleItemTitle",
+              "content": [
+                {
+                  "type": "blockquote",
                   "content": [
                     {
-                      "type": "PARAGRAPH",
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "content": [],
+                          "text": "#LivingTheDream",
+                          "marks": [],
+                          "attrs": {
+                            "id": ""
+                          }
+                        }
+                      ],
                       "attrs": {
                         "textStyle": {
                           "textAlignment": "AUTO"
                         },
                         "indentation": 0,
-                        "id": "104"
-                      },
-                      "content": [
-                        {
-                          "type": "text",
-                          "text": "#LivingTheDream",
-                          "marks": [],
-                          "attrs": {
-                            "id": ""
-                          },
-                          "content": []
-                        }
-                      ]
+                        "id": "100"
+                      }
                     }
-                  ]
+                  ],
+                  "attrs": {
+                    "indentation": 0,
+                    "id": "101"
+                  }
                 }
-              ]
+              ],
+              "attrs": {
+                "id": "102"
+              }
             },
             {
-              "type": "COLLAPSIBLE_ITEM_BODY",
-              "attrs": {
-                "id": "105"
-              },
+              "type": "collapsibleItemBody",
               "content": [
                 {
-                  "type": "PARAGRAPH",
-                  "attrs": {
-                    "textStyle": {
-                      "textAlignment": "AUTO"
-                    },
-                    "indentation": 0,
-                    "id": "106"
-                  },
+                  "type": "paragraph",
                   "content": [
                     {
                       "type": "text",
+                      "content": [],
                       "text": "Yo yo yo!",
                       "marks": [
                         {
-                          "type": "BOLD",
+                          "type": "bold",
                           "fontWeightValue": 700
                         }
                       ],
                       "attrs": {
                         "id": ""
-                      },
-                      "content": []
+                      }
                     }
-                  ]
+                  ],
+                  "attrs": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0,
+                    "id": "103"
+                  }
                 }
-              ]
+              ],
+              "attrs": {
+                "id": "104"
+              }
             }
-          ]
+          ],
+          "attrs": {
+            "id": "105"
+          }
         }
-      ]
+      ],
+      "attrs": {
+        "containerData": {
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "expandOnlyOne": false,
+        "initialExpandedItems": "FIRST",
+        "direction": "LTR",
+        "id": "106"
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "107"
-      },
-      "content": []
+      }
     },
     {
-      "type": "TABLE",
+      "type": "table",
+      "content": [
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "content": [],
+                      "text": "​",
+                      "marks": [],
+                      "attrs": {
+                        "id": ""
+                      }
+                    }
+                  ],
+                  "attrs": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0,
+                    "id": "108"
+                  }
+                }
+              ],
+              "attrs": {
+                "cellStyle": {
+                  "verticalAlignment": "TOP",
+                  "backgroundColor": "#FF0000"
+                },
+                "borderColors": {},
+                "id": "109"
+              }
+            },
+            {
+              "type": "tableCell",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "content": [],
+                      "text": "Yo yo yo!",
+                      "marks": [
+                        {
+                          "type": "bold",
+                          "fontWeightValue": 700
+                        }
+                      ],
+                      "attrs": {
+                        "id": ""
+                      }
+                    }
+                  ],
+                  "attrs": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0,
+                    "id": "110"
+                  }
+                }
+              ],
+              "attrs": {
+                "cellStyle": {
+                  "verticalAlignment": "TOP"
+                },
+                "borderColors": {
+                  "left": "#3A54B4",
+                  "right": "#3A54B4",
+                  "top": "#3A54B4",
+                  "bottom": "#3A54B4"
+                },
+                "id": "111"
+              }
+            }
+          ],
+          "attrs": {
+            "id": "112"
+          }
+        },
+        {
+          "type": "tableRow",
+          "content": [
+            {
+              "type": "tableCell",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "content": [],
+                      "text": "​SPOILER ALERT!",
+                      "marks": [
+                        {
+                          "type": "spoiler"
+                        },
+                        {
+                          "type": "color",
+                          "attrs": {
+                            "foreground": "color3"
+                          }
+                        }
+                      ],
+                      "attrs": {
+                        "id": ""
+                      }
+                    }
+                  ],
+                  "attrs": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 1,
+                    "id": "113"
+                  }
+                }
+              ],
+              "attrs": {
+                "cellStyle": {
+                  "verticalAlignment": "TOP"
+                },
+                "borderColors": {},
+                "id": "114"
+              }
+            },
+            {
+              "type": "tableCell",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "content": [],
+                      "text": "​",
+                      "marks": [],
+                      "attrs": {
+                        "id": ""
+                      }
+                    }
+                  ],
+                  "attrs": {
+                    "textStyle": {
+                      "textAlignment": "AUTO"
+                    },
+                    "indentation": 0,
+                    "id": "115"
+                  }
+                }
+              ],
+              "attrs": {
+                "cellStyle": {
+                  "verticalAlignment": "TOP"
+                },
+                "borderColors": {},
+                "id": "116"
+              }
+            }
+          ],
+          "attrs": {
+            "id": "117"
+          }
+        }
+      ],
       "attrs": {
         "containerData": {
           "alignment": "CENTER",
@@ -2179,213 +2350,51 @@
           ]
         },
         "header": true,
-        "id": "108"
-      },
-      "content": [
-        {
-          "type": "TABLE_ROW",
-          "attrs": {
-            "id": "109"
-          },
-          "content": [
-            {
-              "type": "TABLE_CELL",
-              "attrs": {
-                "cellStyle": {
-                  "verticalAlignment": "TOP",
-                  "backgroundColor": "#FF0000"
-                },
-                "borderColors": {},
-                "id": "110"
-              },
-              "content": [
-                {
-                  "type": "PARAGRAPH",
-                  "attrs": {
-                    "textStyle": {
-                      "textAlignment": "AUTO"
-                    },
-                    "indentation": 0,
-                    "id": "111"
-                  },
-                  "content": [
-                    {
-                      "type": "text",
-                      "text": "​",
-                      "marks": [],
-                      "attrs": {
-                        "id": ""
-                      },
-                      "content": []
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "TABLE_CELL",
-              "attrs": {
-                "cellStyle": {
-                  "verticalAlignment": "TOP"
-                },
-                "borderColors": {
-                  "left": "#3A54B4",
-                  "right": "#3A54B4",
-                  "top": "#3A54B4",
-                  "bottom": "#3A54B4"
-                },
-                "id": "112"
-              },
-              "content": [
-                {
-                  "type": "PARAGRAPH",
-                  "attrs": {
-                    "textStyle": {
-                      "textAlignment": "AUTO"
-                    },
-                    "indentation": 0,
-                    "id": "113"
-                  },
-                  "content": [
-                    {
-                      "type": "text",
-                      "text": "Yo yo yo!",
-                      "marks": [
-                        {
-                          "type": "BOLD",
-                          "fontWeightValue": 700
-                        }
-                      ],
-                      "attrs": {
-                        "id": ""
-                      },
-                      "content": []
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "TABLE_ROW",
-          "attrs": {
-            "id": "114"
-          },
-          "content": [
-            {
-              "type": "TABLE_CELL",
-              "attrs": {
-                "cellStyle": {
-                  "verticalAlignment": "TOP"
-                },
-                "borderColors": {},
-                "id": "115"
-              },
-              "content": [
-                {
-                  "type": "PARAGRAPH",
-                  "attrs": {
-                    "textStyle": {
-                      "textAlignment": "AUTO"
-                    },
-                    "indentation": 1,
-                    "id": "116"
-                  },
-                  "content": [
-                    {
-                      "type": "text",
-                      "text": "​SPOILER ALERT!",
-                      "marks": [
-                        {
-                          "type": "SPOILER"
-                        },
-                        {
-                          "type": "COLOR",
-                          "attrs": {
-                            "foreground": "color3"
-                          }
-                        }
-                      ],
-                      "attrs": {
-                        "id": ""
-                      },
-                      "content": []
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "TABLE_CELL",
-              "attrs": {
-                "cellStyle": {
-                  "verticalAlignment": "TOP"
-                },
-                "borderColors": {},
-                "id": "117"
-              },
-              "content": [
-                {
-                  "type": "PARAGRAPH",
-                  "attrs": {
-                    "textStyle": {
-                      "textAlignment": "AUTO"
-                    },
-                    "indentation": 0,
-                    "id": "118"
-                  },
-                  "content": [
-                    {
-                      "type": "text",
-                      "text": "​",
-                      "marks": [],
-                      "attrs": {
-                        "id": ""
-                      },
-                      "content": []
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
+        "id": "118"
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "119"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "120"
-      },
-      "content": []
+      }
     },
     {
-      "type": "POLL",
+      "type": "poll",
+      "content": [],
       "attrs": {
         "containerData": {
-          "alignment": "CENTER",
           "width": {
             "size": "CONTENT"
           },
+          "alignment": "CENTER",
           "textWrap": true
         },
         "poll": {
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "image": {
+            "src": {
+              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
+            }
+          },
           "options": [
             {
               "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
@@ -2424,14 +2433,6 @@
               }
             }
           ],
-          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
-          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
-          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
-          "image": {
-            "src": {
-              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
-            }
-          },
           "settings": {
             "permissions": {
               "view": "EVERYONE",
@@ -2469,31 +2470,39 @@
           }
         },
         "id": "121"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "122"
-      },
-      "content": []
+      }
     },
     {
-      "type": "POLL",
+      "type": "poll",
+      "content": [],
       "attrs": {
         "containerData": {
-          "alignment": "CENTER",
           "width": {
             "size": "CONTENT"
           },
+          "alignment": "CENTER",
           "textWrap": true
         },
         "poll": {
+          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
+          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
+          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
+          "image": {
+            "src": {
+              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
+            }
+          },
           "options": [
             {
               "id": "067ed3b5-f19d-4886-8f23-acd84a586522",
@@ -2532,14 +2541,6 @@
               }
             }
           ],
-          "id": "f3fa62b4-6d75-4016-a895-acb793ca6f5c",
-          "title": "Where do you want to have breakfast tomorrow to use the monthly budget?",
-          "creatorId": "3efa7e86-fc25-4ef1-a002-19769b84202f",
-          "image": {
-            "src": {
-              "url": "https://static.wixstatic.com/media/436483e6ed9e41fe91b9f286d2ea4efb.jpg"
-            }
-          },
           "settings": {
             "permissions": {
               "view": "CREATOR",
@@ -2563,7 +2564,7 @@
         "design": {
           "poll": {
             "background": {
-              "type": "COLOR",
+              "type": "color",
               "color": "#EF4538"
             },
             "borderRadius": 8
@@ -2573,28 +2574,28 @@
           }
         },
         "id": "123"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "124"
-      },
-      "content": []
+      }
     },
     {
-      "type": "AUDIO",
+      "type": "audio",
+      "content": [],
       "attrs": {
         "containerData": {
-          "alignment": "CENTER",
           "width": {
             "size": "CONTENT"
           },
+          "alignment": "CENTER",
           "textWrap": true
         },
         "audio": {
@@ -2614,66 +2615,65 @@
         "name": "Dear Fear",
         "authorName": "Kota",
         "id": "125"
-      },
-      "content": []
+      }
     },
     {
-      "type": "PARAGRAPH",
+      "type": "paragraph",
+      "content": [],
       "attrs": {
         "textStyle": {
           "textAlignment": "AUTO"
         },
         "indentation": 0,
         "id": "126"
-      },
-      "content": []
+      }
     }
   ],
   "documentStyle": {
     "headerOne": {
-      "decorations": [
+      "marks": [
         {
-          "type": "COLOR",
-          "colorData": {
+          "type": "color",
+          "attrs": {
             "foreground": "red"
           }
         },
         {
-          "type": "BOLD",
+          "type": "bold",
           "fontWeightValue": 700
         }
       ]
     },
     "headerThree": {
-      "decorations": [
+      "marks": [
         {
-          "type": "FONT_SIZE",
-          "fontSizeData": {
+          "type": "fontSize",
+          "attrs": {
             "unit": "PX",
             "value": 24
           }
         },
         {
-          "type": "COLOR",
-          "colorData": {
+          "type": "color",
+          "attrs": {
             "foreground": "#bfad80"
           }
         }
       ]
     },
     "headerSix": {
-      "decorations": [
+      "marks": [
         {
-          "type": "ITALIC",
+          "type": "italic",
           "italicData": true
         },
         {
-          "type": "BOLD",
+          "type": "bold",
           "fontWeightValue": 700
         },
         {
-          "type": "COLOR",
-          "colorData": {
+          "type": "color",
+          "attrs": {
             "background": "#bf695c"
           }
         }
@@ -2685,7 +2685,7 @@
       "lineHeight": "3"
     },
     "paragraph": {
-      "decorations": [],
+      "marks": [],
       "nodeStyle": {
         "paddingTop": "2px",
         "paddingBottom": "3px"
@@ -2695,10 +2695,10 @@
   },
   "attrs": {
     "metadata": {
+      "id": "c444e53d-12e2-4460-9d79-76f6ab639a16",
       "version": 1,
       "createdTimestamp": "2021-07-15T07:42:30.023Z",
-      "updatedTimestamp": "2021-07-15T07:42:30.023Z",
-      "id": "c444e53d-12e2-4460-9d79-76f6ab639a16"
+      "updatedTimestamp": "2021-07-15T07:42:30.023Z"
     }
   }
 }

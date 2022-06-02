@@ -3,7 +3,7 @@ import type { TiptapMarkConverter } from '../types';
 
 export const colorConverter: TiptapMarkConverter = {
   fromTiptap: {
-    type: 'color',
+    type: Decoration_Type.COLOR,
     convert: mark => {
       const { attrs } = mark;
       return {
@@ -15,9 +15,9 @@ export const colorConverter: TiptapMarkConverter = {
   toTiptap: {
     type: Decoration_Type.COLOR,
     convert: decoration => {
-      const { type: _, colorData } = decoration;
+      const { colorData } = decoration;
       return {
-        type: 'color',
+        type: Decoration_Type.COLOR,
         attrs: { ...colorData },
       };
     },

@@ -27,10 +27,11 @@ import {
 } from 'ricos-content';
 import { TO_TIPTAP_TYPE } from '../../consts';
 import { findNodeById } from '../../helpers';
-import { tiptapToDraft } from 'wix-tiptap-extensions';
+import { tiptapToDraft } from 'ricos-converters';
 import type { Editor, JSONContent } from '@tiptap/react';
 import type { EditorPlugins } from 'ricos-plugins';
 import type { Node as ProseMirrorNode, Fragment } from 'prosemirror-model';
+import { Decoration_Type, Node_Type } from 'ricos-schema';
 
 export class RichContentAdapter
   implements Omit<TiptapAPI, 'getContent' | 'getContentPromise' | 'getContentTraits'>
@@ -190,9 +191,9 @@ export class RichContentAdapter
             const {
               type: { name },
             } = mark;
-            if (name === 'link') {
+            if (name === Decoration_Type.LINK) {
               link = mark.attrs.link;
-            } else if (name === 'anchor') {
+            } else if (name === Decoration_Type.ANCHOR) {
               link = { anchor: mark.attrs.anchor };
             }
           });
@@ -245,16 +246,16 @@ export class RichContentAdapter
       isBlockTypeSelected: type => {
         const blockTypeActiveCommandMap = {
           [UNSTYLED]: () => this.tiptapEditor.isActive('unstyled'),
-          [HEADER_BLOCK.ONE]: () => this.tiptapEditor.isActive('heading', { level: 1 }),
-          [HEADER_BLOCK.TWO]: () => this.tiptapEditor.isActive('heading', { level: 2 }),
-          [HEADER_BLOCK.THREE]: () => this.tiptapEditor.isActive('heading', { level: 3 }),
-          [HEADER_BLOCK.FOUR]: () => this.tiptapEditor.isActive('heading', { level: 4 }),
-          [HEADER_BLOCK.FIVE]: () => this.tiptapEditor.isActive('heading', { level: 5 }),
-          [HEADER_BLOCK.SIX]: () => this.tiptapEditor.isActive('heading', { level: 6 }),
-          [CODE_BLOCK_TYPE]: () => this.tiptapEditor.isActive('codeBlock'),
-          [BLOCKQUOTE]: () => this.tiptapEditor.isActive('blockquote'),
-          [NUMBERED_LIST_TYPE]: () => this.tiptapEditor.isActive('orderedList'),
-          [BULLET_LIST_TYPE]: () => this.tiptapEditor.isActive('bulletList'),
+          [HEADER_BLOCK.ONE]: () => this.tiptapEditor.isActive(Node_Type.HEADING, { level: 1 }),
+          [HEADER_BLOCK.TWO]: () => this.tiptapEditor.isActive(Node_Type.HEADING, { level: 2 }),
+          [HEADER_BLOCK.THREE]: () => this.tiptapEditor.isActive(Node_Type.HEADING, { level: 3 }),
+          [HEADER_BLOCK.FOUR]: () => this.tiptapEditor.isActive(Node_Type.HEADING, { level: 4 }),
+          [HEADER_BLOCK.FIVE]: () => this.tiptapEditor.isActive(Node_Type.HEADING, { level: 5 }),
+          [HEADER_BLOCK.SIX]: () => this.tiptapEditor.isActive(Node_Type.HEADING, { level: 6 }),
+          [CODE_BLOCK_TYPE]: () => this.tiptapEditor.isActive(Node_Type.CODE_BLOCK),
+          [BLOCKQUOTE]: () => this.tiptapEditor.isActive(Node_Type.BLOCKQUOTE),
+          [NUMBERED_LIST_TYPE]: () => this.tiptapEditor.isActive(Node_Type.ORDERED_LIST),
+          [BULLET_LIST_TYPE]: () => this.tiptapEditor.isActive(Node_Type.BULLETED_LIST),
         };
         const currentBlockTypeActiveCommand = blockTypeActiveCommandMap[type];
 

@@ -5,7 +5,7 @@ import type { RicosEditorProps } from 'ricos-common';
 import type { ExtensionProps } from 'ricos-tiptap-types';
 import type { DraftContent } from 'wix-rich-content-common';
 import { RicosContext } from 'wix-rich-content-editor-common';
-import { draftToTiptap } from 'wix-tiptap-extensions';
+import { draftToTiptap } from 'ricos-converters';
 import { commonExtensions } from './common-extensions';
 import { RichContentAdapter } from './components/RichContentAdapter/RichContentAdapter';
 import { applyDevTools } from './components/RicosTiptapEditor/apply-dev-tools';

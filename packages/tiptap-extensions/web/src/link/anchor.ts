@@ -3,6 +3,7 @@ import type { RicosExtension } from 'ricos-tiptap-types';
 import { findChildren } from '@tiptap/core';
 import styles from '../statics/styles.scss';
 import { setCommand } from './utils';
+import { Decoration_Type } from 'ricos-schema';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -26,7 +27,7 @@ declare module '@tiptap/core' {
 export const anchor: RicosExtension = {
   type: 'mark' as const,
   groups: [],
-  name: 'anchor',
+  name: Decoration_Type.ANCHOR,
   createExtensionConfig() {
     return {
       name: this.name,
@@ -63,7 +64,7 @@ export const anchor: RicosExtension = {
             ({ commands, state, tr }) => {
               return setCommand(
                 this.name,
-                'link',
+                Decoration_Type.LINK,
                 commands.unsetLink,
                 state.schema,
                 tr.selection,

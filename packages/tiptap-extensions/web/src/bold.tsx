@@ -1,4 +1,5 @@
 import { markInputRule, markPasteRule, mergeAttributes } from '@tiptap/core';
+import { Decoration_Type } from 'ricos-schema';
 import type { DOMOutputSpec, RicosExtension } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
@@ -28,7 +29,7 @@ export const underscorePasteRegex = /(?:^|\s)((?:__)((?:[^__]+))(?:__))/g;
 export const bold: RicosExtension = {
   type: 'mark' as const,
   groups: [],
-  name: 'bold',
+  name: Decoration_Type.BOLD,
   createExtensionConfig() {
     return {
       name: this.name,

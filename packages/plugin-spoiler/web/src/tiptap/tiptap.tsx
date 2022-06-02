@@ -6,6 +6,7 @@ import type {
   RicosExtension,
   RicosExtensionConfig,
 } from 'ricos-tiptap-types';
+import { Decoration_Type } from 'ricos-schema';
 import { BlockSpoilerComponent } from '..';
 
 const SPOILER_STYLE = 'blur(0.25em)';
@@ -48,7 +49,7 @@ declare module '@tiptap/core' {
   }
 }
 
-export const tiptapExtensions = [
+export const tiptapExtensions: RicosExtension[] = [
   {
     type: 'extension' as const,
     name: 'node-spoiler',
@@ -79,7 +80,7 @@ export const tiptapExtensions = [
   {
     type: 'mark' as const,
     groups: [],
-    name: 'spoiler',
+    name: Decoration_Type.SPOILER,
     createExtensionConfig() {
       return {
         name: this.name,
@@ -112,7 +113,7 @@ export const tiptapExtensions = [
             toggleSpoiler:
               () =>
               ({ commands }) => {
-                return commands.toggleMark('spoiler');
+                return commands.toggleMark(this.name);
               },
           };
         },

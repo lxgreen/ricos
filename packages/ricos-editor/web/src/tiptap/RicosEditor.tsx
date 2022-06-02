@@ -23,6 +23,7 @@ import { publishBI } from '../utils/bi/publish';
 import errorBlocksRemover from '../utils/errorBlocksRemover';
 import editorCss from '../../statics/styles/editor-styles.scss';
 import { createEditorStyleClasses } from '../utils/createEditorStyleClasses';
+import { Node_Type } from 'ricos-schema';
 
 type RicosEditorState = {
   initialContent: JSONContent;
@@ -102,7 +103,7 @@ class RicosEditor
   onSelectionUpdate = ({ selectedNodes, content }) => {
     const { onAtomicBlockFocus, onChange } = this.props;
     this.isLastChangeEdit = false;
-    const textContainers = ['paragraph', 'codeBlock', 'heading'];
+    const textContainers = [Node_Type.PARAGRAPH, Node_Type.CODE_BLOCK, Node_Type.HEADING];
     const parentNodes =
       selectedNodes.length === 1
         ? selectedNodes

@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import type { Node as TiptapNode } from 'prosemirror-model';
 import {
   alwaysVisibleResolver,
   isTextContainsBoldResolver,
-  isTextInSelection,
   isTextContainsItalicResolver,
   isTextContainsUnderlineResolver,
   isTextContainsQuoteResolver,
@@ -29,7 +27,7 @@ import {
 } from './tiptapResolvers';
 
 import toCamelCase from 'to-camel-case';
-import { Node_Type } from 'wix-rich-content-common';
+import { Node_Type, Decoration_Type } from 'ricos-schema';
 import type { TiptapContentResolver } from '../ContentResolver';
 
 const pluginSelectedResolvers = {
@@ -53,156 +51,188 @@ const pluginSelectedResolvers = {
 describe('tiptap resolvers', () => {
   describe('alwaysVisibleResolver', () => {
     it('should always return true', () => {
-      // @ts-ignore
-      const mockContent: TiptapNode[] = [{ type: 'paragraph' }];
-      expect(alwaysVisibleResolver.resolve(mockContent)).toBe(true);
+      const mockContent = [{ type: Node_Type.PARAGRAPH }];
+      expect(alwaysVisibleResolver.resolve(mockContent as unknown as TiptapNode[])).toBe(true);
     });
   });
 
   describe('isTextContainsBold', () => {
     it('should return true if selected text is bold', () => {
-      const mockContentWithBold: TiptapNode[] = [
-        // @ts-ignore
-        { type: { name: 'text' }, marks: [{ type: { name: 'bold' } }], text: 'World' },
+      const mockContentWithBold = [
+        {
+          type: { name: 'text' },
+          marks: [{ type: { name: Decoration_Type.BOLD } }],
+          text: 'World',
+        },
       ];
-      expect(isTextContainsBoldResolver.resolve(mockContentWithBold)).toBe(true);
+      expect(isTextContainsBoldResolver.resolve(mockContentWithBold as TiptapNode[])).toBe(true);
     });
 
     it('should return false if selected text is not bold', () => {
-      const mockContentWithoutBold: TiptapNode[] = [
-        // @ts-ignore
-        { type: { name: 'text' }, marks: [{ type: { name: 'underline' } }], text: 'World' },
+      const mockContentWithoutBold = [
+        {
+          type: { name: 'text' },
+          marks: [{ type: { name: Decoration_Type.UNDERLINE } }],
+          text: 'World',
+        },
       ];
-      expect(isTextContainsBoldResolver.resolve(mockContentWithoutBold)).toBe(false);
+      expect(isTextContainsBoldResolver.resolve(mockContentWithoutBold as TiptapNode[])).toBe(
+        false
+      );
     });
   });
 
   describe('isTextContainsItalicResolver', () => {
     it('should return true if selected text is italic', () => {
-      const mockContentWithItalic: TiptapNode[] = [
-        // @ts-ignore
-        { type: { name: 'text' }, marks: [{ type: { name: 'italic' } }], text: 'World' },
+      const mockContentWithItalic = [
+        {
+          type: { name: 'text' },
+          marks: [{ type: { name: Decoration_Type.ITALIC } }],
+          text: 'World',
+        },
       ];
-      expect(isTextContainsItalicResolver.resolve(mockContentWithItalic)).toBe(true);
+      expect(isTextContainsItalicResolver.resolve(mockContentWithItalic as TiptapNode[])).toBe(
+        true
+      );
     });
 
     it('should return false if selected text is not italic', () => {
-      const mockContentWithoutItalic: TiptapNode[] = [
-        // @ts-ignore
-        { type: { name: 'text' }, marks: [{ type: { name: 'bold' } }], text: 'World' },
+      const mockContentWithoutItalic = [
+        {
+          type: { name: 'text' },
+          marks: [{ type: { name: Decoration_Type.BOLD } }],
+          text: 'World',
+        },
       ];
-      expect(isTextContainsItalicResolver.resolve(mockContentWithoutItalic)).toBe(false);
+      expect(isTextContainsItalicResolver.resolve(mockContentWithoutItalic as TiptapNode[])).toBe(
+        false
+      );
     });
   });
 
   describe('isTextContainsUnderlineResolver', () => {
     it('should return true if selected text is underline', () => {
-      const mockContentWithUnderline: TiptapNode[] = [
-        // @ts-ignore
-        { type: { name: 'text' }, marks: [{ type: { name: 'underline' } }], text: 'World' },
+      const mockContentWithUnderline = [
+        {
+          type: { name: 'text' },
+          marks: [{ type: { name: Decoration_Type.UNDERLINE } }],
+          text: 'World',
+        },
       ];
-      expect(isTextContainsUnderlineResolver.resolve(mockContentWithUnderline)).toBe(true);
+      expect(
+        isTextContainsUnderlineResolver.resolve(mockContentWithUnderline as TiptapNode[])
+      ).toBe(true);
     });
 
     it('should return false if selected text is not underline', () => {
-      const mockContentWithoutUnderline: TiptapNode[] = [
-        // @ts-ignore
-        { type: { name: 'text' }, marks: [{ type: { name: 'italic' } }], text: 'World' },
+      const mockContentWithoutUnderline = [
+        {
+          type: { name: 'text' },
+          marks: [{ type: { name: Decoration_Type.ITALIC } }],
+          text: 'World',
+        },
       ];
-      expect(isTextContainsUnderlineResolver.resolve(mockContentWithoutUnderline)).toBe(false);
+      expect(
+        isTextContainsUnderlineResolver.resolve(mockContentWithoutUnderline as TiptapNode[])
+      ).toBe(false);
     });
   });
 
   describe('isTextContainsQuoteResolver', () => {
     it('should return true if selected text is quote', () => {
-      // @ts-ignore
-      const mockContent: TiptapNode[] = [{ type: { name: 'blockquote' } }];
-      expect(isTextContainsQuoteResolver.resolve(mockContent)).toBe(true);
+      const mockContent = [{ type: { name: Node_Type.BLOCKQUOTE } }];
+      expect(isTextContainsQuoteResolver.resolve(mockContent as TiptapNode[])).toBe(true);
     });
 
     it('should return false if selected text is not quote', () => {
-      // @ts-ignore
-      const mockContentWithoutGif: TiptapNode[] = [{ type: { name: 'text' } }];
-      expect(isTextContainsQuoteResolver.resolve(mockContentWithoutGif)).toBe(false);
+      const mockContentWithoutGif = [{ type: { name: 'text' } }];
+      expect(isTextContainsQuoteResolver.resolve(mockContentWithoutGif as TiptapNode[])).toBe(
+        false
+      );
     });
   });
 
   describe('isTextContainsCodeblockResolver', () => {
     it('should return true if selected text is code block', () => {
-      // @ts-ignore
-      const mockContent: TiptapNode[] = [{ type: { name: 'codeBlock' } }];
-      expect(isTextContainsCodeblockResolver.resolve(mockContent)).toBe(true);
+      const mockContent = [{ type: { name: Node_Type.CODE_BLOCK } }];
+      expect(isTextContainsCodeblockResolver.resolve(mockContent as TiptapNode[])).toBe(true);
     });
 
     it('should return false if selected text is not code block', () => {
-      // @ts-ignore
-      const mockContentWithoutGif: TiptapNode[] = [{ type: { name: 'text' } }];
-      expect(isTextContainsCodeblockResolver.resolve(mockContentWithoutGif)).toBe(false);
+      const mockContentWithoutGif = [{ type: { name: 'text' } }];
+      expect(isTextContainsCodeblockResolver.resolve(mockContentWithoutGif as TiptapNode[])).toBe(
+        false
+      );
     });
   });
 
   describe('isTextContainsOrderedListResolver', () => {
     it('should return true if selected text is ordered list', () => {
-      // @ts-ignore
-      const mockContent: TiptapNode[] = [{ type: { name: 'orderedList' } }];
-      expect(isTextContainsOrderedListResolver.resolve(mockContent)).toBe(true);
+      const mockContent = [{ type: { name: Node_Type.ORDERED_LIST } }];
+      expect(isTextContainsOrderedListResolver.resolve(mockContent as TiptapNode[])).toBe(true);
     });
 
     it('should return false if selected text is not ordered list', () => {
-      // @ts-ignore
-      const mockContentWithoutGif: TiptapNode[] = [{ type: { name: 'text' } }];
-      expect(isTextContainsOrderedListResolver.resolve(mockContentWithoutGif)).toBe(false);
+      const mockContentWithoutGif = [{ type: { name: 'text' } }];
+      expect(isTextContainsOrderedListResolver.resolve(mockContentWithoutGif as TiptapNode[])).toBe(
+        false
+      );
     });
   });
 
   describe('isTextContainsUnorderedListResolver', () => {
     it('should return true if selected text is unordered list', () => {
-      // @ts-ignore
-      const mockContent: TiptapNode[] = [{ type: { name: 'bulletedList' } }];
-      expect(isTextContainsUnorderedListResolver.resolve(mockContent)).toBe(true);
+      const mockContent = [{ type: { name: Node_Type.BULLETED_LIST } }];
+      expect(isTextContainsUnorderedListResolver.resolve(mockContent as TiptapNode[])).toBe(true);
     });
 
     it('should return false if selected text is not unordered list', () => {
-      // @ts-ignore
-      const mockContentWithoutGif: TiptapNode[] = [{ type: { name: 'text' } }];
-      expect(isTextContainsUnorderedListResolver.resolve(mockContentWithoutGif)).toBe(false);
+      const mockContentWithoutGif = [{ type: { name: 'text' } }];
+      expect(
+        isTextContainsUnorderedListResolver.resolve(mockContentWithoutGif as TiptapNode[])
+      ).toBe(false);
     });
   });
 
   describe('isTextContainsSpoilerResolver', () => {
     it('should return true if selected text is spoiler', () => {
-      const mockContent: TiptapNode[] = [
-        // @ts-ignore
-        { type: { name: 'text' }, marks: [{ type: { name: 'spoiler' } }], text: 'World' },
+      const mockContent = [
+        {
+          type: { name: 'text' },
+          marks: [{ type: { name: Decoration_Type.SPOILER } }],
+          text: 'World',
+        },
       ];
-      expect(isTextContainsSpoilerResolver.resolve(mockContent)).toBe(true);
+      expect(isTextContainsSpoilerResolver.resolve(mockContent as TiptapNode[])).toBe(true);
     });
 
     it('should return false if selected text is not spoiler', () => {
-      const mockContent: TiptapNode[] = [
-        // @ts-ignore
-        { type: { name: 'text' }, marks: [{ type: { name: 'italic' } }], text: 'World' },
+      const mockContent = [
+        {
+          type: { name: 'text' },
+          marks: [{ type: { name: Decoration_Type.ITALIC } }],
+          text: 'World',
+        },
       ];
-      expect(isTextContainsSpoilerResolver.resolve(mockContent)).toBe(false);
+      expect(isTextContainsSpoilerResolver.resolve(mockContent as TiptapNode[])).toBe(false);
     });
   });
 
   describe('Plugin Selected Resolvers', () => {
     Object.entries(pluginSelectedResolvers).forEach(
       ([type, isPluginSelectedResolver]: [Node_Type, TiptapContentResolver]) => {
-        const tiptapPluginType = toCamelCase(type);
-        it(`should return true if ${tiptapPluginType} is selected`, () => {
-          const mockContentWithPlugin: TiptapNode[] = [
-            // @ts-ignore
-            { type: { name: tiptapPluginType } },
-          ];
-          expect(isPluginSelectedResolver.resolve(mockContentWithPlugin)).toBe(true);
+        it(`should return true if ${type} is selected`, () => {
+          const mockContentWithPlugin = [{ type: { name: type } }];
+          expect(isPluginSelectedResolver.resolve(mockContentWithPlugin as TiptapNode[])).toBe(
+            true
+          );
         });
 
-        it(`should return false if ${tiptapPluginType} is not selected`, () => {
-          // @ts-ignore
-          const mockContentWithoutPlugin: TiptapNode[] = [{ type: { name: 'text' } }];
-          expect(isPluginSelectedResolver.resolve(mockContentWithoutPlugin)).toBe(false);
+        it(`should return false if ${type} is not selected`, () => {
+          const mockContentWithoutPlugin = [{ type: { name: 'text' } }];
+          expect(isPluginSelectedResolver.resolve(mockContentWithoutPlugin as TiptapNode[])).toBe(
+            false
+          );
         });
       }
     );

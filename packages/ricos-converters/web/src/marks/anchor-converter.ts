@@ -4,7 +4,7 @@ import type { TiptapMarkConverter } from '../types';
 
 export const anchorConverter: TiptapMarkConverter = {
   fromTiptap: {
-    type: 'anchor',
+    type: Decoration_Type.ANCHOR,
     convert: mark => {
       const { attrs } = mark;
       return {
@@ -16,9 +16,9 @@ export const anchorConverter: TiptapMarkConverter = {
   toTiptap: {
     type: Decoration_Type.ANCHOR,
     convert: decoration => {
-      const { type: _, anchorData } = decoration;
+      const { anchorData } = decoration;
       return {
-        type: 'anchor',
+        type: Decoration_Type.ANCHOR,
         attrs: { ...anchorData },
       };
     },

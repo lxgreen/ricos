@@ -4,7 +4,7 @@ import type { Node } from 'prosemirror-model';
 import type { FunctionComponent } from 'react';
 import React, { useEffect } from 'react';
 import { getLangDir } from 'wix-rich-content-common';
-import { tiptapToDraft } from 'wix-tiptap-extensions';
+import { tiptapToDraft } from 'ricos-converters';
 import { RicosTiptapContext } from '../../context';
 import { useForceUpdate } from '../../lib/useForceUpdate';
 import '../../statics/styles/tiptap-editor-styles.scss';

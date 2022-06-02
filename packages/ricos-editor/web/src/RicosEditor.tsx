@@ -51,6 +51,7 @@ import { TiptapMockToolbar } from './tiptapMockToolbar/TiptapMockToolbar';
 import { convertToolbarContext } from './toolbars/convertToolbarContext';
 import { coreCommands } from './content-modification/commands/core-commands';
 import UploadObserver from './utils/UploadObserver';
+import { Node_Type } from 'ricos-schema';
 // eslint-disable-next-line
 export const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use editorEvents.publish() APIs for publishing.
 The getContent(postId, isPublishing) API is deprecated and will be removed in ricos v9.0.0`;
@@ -625,7 +626,11 @@ export class RicosEditor extends Component<RicosEditorProps, State> implements R
                   onBlur={this.updateNewFormattingToolbar}
                   onSelectionUpdate={({ selectedNodes, content }) => {
                     //TODO: add 'textContainer' to group field of this extension config
-                    const textContainers = ['paragraph', 'codeBlock', 'heading'];
+                    const textContainers = [
+                      Node_Type.PARAGRAPH,
+                      Node_Type.CODE_BLOCK,
+                      Node_Type.HEADING,
+                    ];
                     const parentNodes =
                       selectedNodes.length === 1
                         ? selectedNodes

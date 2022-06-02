@@ -6,7 +6,8 @@ import { fromDraft } from '../packages/ricos-content/web/src/converters/draft';
 import { fromPlainText, toPlainText } from '../packages/ricos-content/web/src/converters/plainText';
 import { fromRichTextHtml, toHtml } from '../packages/ricos-content/web/src/converters/html';
 import { toTranslatables } from '../packages/ricos-content/web/src/TranslatableAPI/extract/toTranslatables';
-import { toTiptap } from '../packages/tiptap-extensions/web/src/content-utils/toTiptap/toTiptap';
+import { toTiptap } from '../packages/ricos-converters/web/src';
+import { toTiptap as toLegacy } from '../packages/tiptap-extensions/web/src/content-utils/toTiptap/toTiptap';
 import migrationContent from '../e2e/tests/fixtures/migration-content.json';
 import { RichContent } from 'ricos-schema';
 
@@ -67,6 +68,9 @@ const FROM_HTML_BASELINE = getAbsPath(
 const TIPTAP_BASELINE = getAbsPath(
   '../packages/tiptap-extensions/web/src/content-utils/__tests__/migrationContentTiptap.json'
 );
+const LEGACY_TIPTAP_BASELINE = getAbsPath(
+  '../packages/tiptap-extensions/web/src/content-utils/__tests__/oldMigrationContentTiptap.json'
+);
 const TRANSLATABLES_BASELINE = getAbsPath(
   '../packages/ricos-content/web/__tests__/translatablesMock.json'
 );
@@ -76,6 +80,7 @@ enum Target {
   TEXT = 'text',
   HTML = 'html',
   TIPTAP = 'tiptap',
+  LEGACY_TIPTAP = 'legacyTiptap',
 }
 
 const convertToRichContent = async () => {
@@ -132,6 +137,13 @@ const convertToTiptap = async () => {
   console.log('Saved tiptap baseline ⚪️\n');
 };
 
+const convertToLegacyTiptap = async () => {
+  console.log('Converting to ' + chalk.green('legacy tiptap') + '...');
+  const legacyTiptap = toLegacy(richContent);
+  writeBaseLine(LEGACY_TIPTAP_BASELINE, legacyTiptap);
+  console.log('Saved legacy tiptap baseline ⚪️\n');
+};
+
 const updateTranslatables = async () => {
   console.log(`Updating ${chalk.green('translatables')}...`);
   const content = require(RICH_CONTENT_BASELINE);
@@ -154,6 +166,9 @@ switch (target) {
   case Target.TIPTAP:
     updateTasks.push(convertToTiptap());
     break;
+  case Target.LEGACY_TIPTAP:
+    updateTasks.push(convertToLegacyTiptap());
+    break;
   case Target.TEXT:
     updateTasks.push(convertPlainText());
     break;
@@ -162,6 +177,7 @@ switch (target) {
       convertToRichContent(),
       convertHtml(),
       convertToTiptap(),
+      convertToLegacyTiptap(),
       convertPlainText(),
       updateTranslatables()
     );

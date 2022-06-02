@@ -2,6 +2,7 @@ import { wrappingInputRule } from '@tiptap/core';
 import type { RicosExtension } from 'ricos-tiptap-types';
 import bulletedListDataDefaults from 'ricos-schema/dist/statics/bulleted_list.defaults.json';
 import type { DOMOutputSpec } from 'prosemirror-model';
+import { Node_Type } from 'ricos-schema';
 
 export interface BulletListOptions {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,14 +25,14 @@ export const inputRegex = /^\s*([-+*])\s$/;
 export const bulletedList: RicosExtension = {
   type: 'node' as const,
   groups: [],
-  name: 'bulletedList',
+  name: Node_Type.BULLETED_LIST,
   createExtensionConfig({ mergeAttributes }) {
     return {
       name: this.name,
       addOptions() {
         return {
           HTMLAttributes: {},
-          itemTypeName: 'listItem',
+          itemTypeName: Node_Type.LIST_ITEM,
         };
       },
 
@@ -62,7 +63,7 @@ export const bulletedList: RicosExtension = {
           toggleBulletList:
             () =>
             ({ commands }) => {
-              return commands.toggleList(this.name, 'listItem');
+              return commands.toggleList(this.name, Node_Type.LIST_ITEM);
             },
         };
       },

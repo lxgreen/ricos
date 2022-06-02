@@ -1,14 +1,14 @@
+import type { Group, RicosExtension } from 'ricos-tiptap-types';
 import findHashTag from './findHashTag';
 
-export const tiptapExtensions = [
+export const tiptapExtensions: RicosExtension[] = [
   {
     type: 'mark' as const,
-    groups: [],
-    name: 'hashtag',
+    groups: [] as Group[],
+    name: 'HASHTAG',
     createExtensionConfig({ Plugin }) {
       return {
         name: this.name,
-
         addProseMirrorPlugins() {
           return [
             new Plugin({

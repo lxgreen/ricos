@@ -3,7 +3,7 @@ import type { TiptapMarkConverter } from '../types';
 
 export const italicConverter: TiptapMarkConverter = {
   fromTiptap: {
-    type: 'italic',
+    type: Decoration_Type.ITALIC,
     convert: mark => {
       const { type: _, ...data } = mark;
       return {
@@ -17,7 +17,7 @@ export const italicConverter: TiptapMarkConverter = {
     convert: decoration => {
       const { type: _, ...data } = decoration;
       return {
-        type: 'italic',
+        type: Decoration_Type.ITALIC,
         ...data,
       };
     },

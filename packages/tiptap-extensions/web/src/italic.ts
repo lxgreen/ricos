@@ -1,5 +1,6 @@
 import { markInputRule, markPasteRule, mergeAttributes } from '@tiptap/core';
-import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
+import { Decoration_Type } from 'ricos-schema';
+import type { DOMOutputSpec, RicosExtension } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -29,7 +30,7 @@ export const italic: RicosExtension = {
   type: 'mark' as const,
   groups: [],
 
-  name: 'italic',
+  name: Decoration_Type.ITALIC,
   createExtensionConfig() {
     return {
       name: this.name,

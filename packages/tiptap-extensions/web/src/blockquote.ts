@@ -6,6 +6,7 @@ import type { Transaction } from 'prosemirror-state';
 import { NodeSelection } from 'prosemirror-state';
 import type { Node } from 'prosemirror-model';
 import type { SingleCommands } from '@tiptap/core';
+import { Node_Type } from 'ricos-schema';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -28,9 +29,9 @@ declare module '@tiptap/core' {
 
 export const inputRegex = /^\s*>\s$/;
 
-const name = 'blockquote';
+const name = Node_Type.BLOCKQUOTE;
 
-const isBlockQuote = (node: Node): boolean => node.type.name === 'blockquote';
+const isBlockQuote = (node: Node): boolean => node.type.name === Node_Type.BLOCKQUOTE;
 
 const getNodesInSelection = (doc: Node, from: number, to: number): Node[] => {
   const nodes: Node[] = [];
@@ -84,7 +85,7 @@ export const blockquote: RicosExtension = {
       },
 
       // Note: this should be changed to 'block+' once the draft-js support is dropped
-      content: 'paragraph',
+      content: Node_Type.PARAGRAPH,
 
       group: 'block',
 

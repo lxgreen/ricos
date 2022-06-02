@@ -3,7 +3,7 @@ import type { TiptapMarkConverter } from '../types';
 
 export const underlineConverter: TiptapMarkConverter = {
   fromTiptap: {
-    type: 'underline',
+    type: Decoration_Type.UNDERLINE,
     convert: mark => {
       const { type: _, ...data } = mark;
       return {
@@ -17,7 +17,7 @@ export const underlineConverter: TiptapMarkConverter = {
     convert: decoration => {
       const { type: _, ...data } = decoration;
       return {
-        type: 'underline',
+        type: Decoration_Type.UNDERLINE,
         ...data,
       };
     },

@@ -1,6 +1,7 @@
 import { TextSelection } from 'prosemirror-state';
 import codeBlockDataDefaults from 'ricos-schema/dist/statics/code_block.defaults.json';
 import type { DOMOutputSpec, NodeConfig, ExtensionProps, RicosExtension } from 'ricos-tiptap-types';
+import { Node_Type } from 'ricos-schema';
 import styles from '../statics/styles/code-block.scss';
 
 declare module '@tiptap/core' {
@@ -25,7 +26,7 @@ export const tiptapExtensions: RicosExtension[] = [
   {
     type: 'node' as const,
     groups: ['text-container', 'shortcuts-enabled'],
-    name: 'codeBlock',
+    name: Node_Type.CODE_BLOCK,
     reconfigure: (
       config: NodeConfig,
       _extensions: RicosExtension[],
@@ -98,7 +99,7 @@ export const tiptapExtensions: RicosExtension[] = [
             toggleCodeBlock:
               attributes =>
               ({ commands }) => {
-                return commands.toggleNode(this.name, 'paragraph', attributes);
+                return commands.toggleNode(this.name, Node_Type.PARAGRAPH, attributes);
               },
           };
         },

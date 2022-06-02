@@ -1,3 +1,4 @@
+import { Decoration_Type } from 'ricos-schema';
 import fontSizeDataDefaults from 'ricos-schema/dist/statics/font_size.defaults.json';
 import type { DOMOutputSpec, RicosExtension } from 'ricos-tiptap-types';
 
@@ -15,7 +16,7 @@ declare module '@tiptap/core' {
 export const fontSize: RicosExtension = {
   type: 'mark' as const,
   groups: [],
-  name: 'fontSize',
+  name: Decoration_Type.FONT_SIZE,
   createExtensionConfig({ mergeAttributes }) {
     return {
       name: this.name,

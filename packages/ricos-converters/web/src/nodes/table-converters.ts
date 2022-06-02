@@ -6,14 +6,14 @@ export const tableRowConverter: TiptapNodeConverter = {
   toTiptap: {
     type: Node_Type.TABLE_ROW,
     convert: (node: TableRowNode) => ({
-      type: 'tableRow',
+      type: Node_Type.TABLE_ROW,
       attrs: {
         id: node.id,
       },
     }),
   },
   fromTiptap: {
-    type: 'tableRow',
+    type: Node_Type.TABLE_ROW,
     convert: (node: TiptapNode) => {
       const { attrs = {} } = node;
       const { id } = attrs;

@@ -1,9 +1,5 @@
-import { toTiptap as legacyTo } from 'wix-tiptap-extensions';
-import { toTiptap } from './index';
-import migrationContent from 'ricos-content/statics/json/migratedFixtures/migration-content.json';
 import type { RichContent } from 'ricos-schema';
 import {
-  Metadata,
   Decoration_Type,
   DividerData_Alignment,
   DividerData_LineStyle,
@@ -13,6 +9,8 @@ import {
   PluginContainerData_Width_Type,
   TextStyle_TextAlignment,
 } from 'ricos-schema';
+
+import { toTiptap } from './index';
 
 describe('to Tiptap', () => {
   it('should convert paragraph & divider', () => {
@@ -92,22 +90,86 @@ describe('to Tiptap', () => {
       },
       documentStyle: {},
     };
-    const expected = legacyTo(content);
+    const expected = {
+      type: 'doc',
+      content: [
+        {
+          type: Node_Type.PARAGRAPH,
+          content: [
+            {
+              type: 'text',
+              content: [],
+              text: 'test',
+              marks: [
+                {
+                  type: Decoration_Type.BOLD,
+                  fontWeightValue: 700,
+                },
+              ],
+              attrs: {
+                id: '',
+              },
+            },
+          ],
+          attrs: {
+            textStyle: {
+              textAlignment: 'AUTO',
+            },
+            indentation: 0,
+            id: 'leohf3',
+          },
+        },
+        {
+          type: Node_Type.PARAGRAPH,
+          content: [],
+          attrs: {
+            textStyle: {
+              textAlignment: 'AUTO',
+            },
+            indentation: 0,
+            id: '6du4s354',
+          },
+        },
+        {
+          type: Node_Type.DIVIDER,
+          content: [],
+          attrs: {
+            containerData: {
+              width: {
+                size: 'CONTENT',
+              },
+              alignment: 'CENTER',
+              textWrap: true,
+            },
+            lineStyle: 'SINGLE',
+            width: 'LARGE',
+            alignment: 'CENTER',
+            id: 'n2d72352',
+          },
+        },
+        {
+          type: Node_Type.PARAGRAPH,
+          content: [],
+          attrs: {
+            textStyle: {
+              textAlignment: 'AUTO',
+            },
+            indentation: 0,
+            id: 'd6064355',
+          },
+        },
+      ],
+      documentStyle: {},
+      attrs: {
+        metadata: {
+          id: '1dda5bc8-0920-4ccd-b4b3-331bcda058f9',
+          version: 1,
+          createdTimestamp: '2022-05-28T20:09:10.749Z',
+          updatedTimestamp: '2022-05-28T20:09:10.749Z',
+        },
+      },
+    };
     const actual = toTiptap(content);
     expect(actual).toStrictEqual(expected);
-  });
-  // eslint-disable-next-line mocha/no-skipped-tests
-  it.skip('should convert content', () => {
-    const content = {
-      ...migrationContent,
-      metadata: {
-        ...Metadata.fromJSON(migrationContent.metadata),
-      },
-      documentStyle: {},
-    } as RichContent;
-    const actual = toTiptap(content);
-    // TODO: implement document style converter
-    const expected = legacyTo(content);
-    expect(actual).toEqual(expected);
   });
 });

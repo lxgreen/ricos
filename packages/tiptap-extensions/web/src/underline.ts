@@ -1,5 +1,6 @@
 import { mergeAttributes } from '@tiptap/core';
-import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
+import { Decoration_Type } from 'ricos-schema';
+import type { DOMOutputSpec, RicosExtension } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -23,7 +24,7 @@ declare module '@tiptap/core' {
 export const underline: RicosExtension = {
   type: 'mark' as const,
   groups: [],
-  name: 'underline',
+  name: Decoration_Type.UNDERLINE,
   createExtensionConfig() {
     return {
       name: this.name,

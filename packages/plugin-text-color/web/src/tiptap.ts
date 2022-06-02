@@ -1,6 +1,7 @@
 import { OrderedSet } from 'immutable';
 import colorDataDefaults from 'ricos-schema/dist/statics/color.defaults.json';
 import type { ExtensionProps, NodeConfig, RicosExtension } from 'ricos-tiptap-types';
+import { Decoration_Type } from 'ricos-schema';
 import type { Color } from './types';
 
 export interface ColorOptions {
@@ -33,7 +34,7 @@ declare module '@tiptap/core' {
 export const tiptapExtensions = [
   {
     type: 'mark',
-    name: 'color',
+    name: Decoration_Type.COLOR,
     groups: [],
     reconfigure: (
       config: NodeConfig,
@@ -91,22 +92,22 @@ export const tiptapExtensions = [
             setColor:
               color =>
               ({ commands }) => {
-                return commands.setMark('color', { foreground: color });
+                return commands.setMark(this.name, { foreground: color });
               },
             unsetColor:
               () =>
               ({ commands }) => {
-                return commands.setMark('color', { foreground: null });
+                return commands.setMark(this.name, { foreground: null });
               },
             setHighlight:
               color =>
               ({ commands }) => {
-                return commands.setMark('color', { background: color });
+                return commands.setMark(this.name, { background: color });
               },
             unsetHighlight:
               () =>
               ({ commands }) => {
-                return commands.setMark('color', { background: null });
+                return commands.setMark(this.name, { background: null });
               },
           };
         },

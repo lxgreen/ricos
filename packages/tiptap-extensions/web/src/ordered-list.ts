@@ -1,6 +1,7 @@
 import { mergeAttributes, wrappingInputRule } from '@tiptap/core';
+import { Node_Type } from 'ricos-schema';
 import orderedListDataDefaults from 'ricos-schema/dist/statics/ordered_list.defaults.json';
-import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
+import type { DOMOutputSpec, RicosExtension } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -18,13 +19,13 @@ export const inputRegex = /^(\d+)\.\s$/;
 export const orderedList: RicosExtension = {
   type: 'node' as const,
   groups: [],
-  name: 'orderedList',
+  name: Node_Type.ORDERED_LIST,
   createExtensionConfig() {
     return {
       name: this.name,
       addOptions() {
         return {
-          itemTypeName: 'listItem',
+          itemTypeName: Node_Type.LIST_ITEM,
           HTMLAttributes: {},
         };
       },

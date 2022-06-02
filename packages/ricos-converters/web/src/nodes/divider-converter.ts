@@ -7,15 +7,15 @@ export const dividerConverter: TiptapNodeConverter = {
   toTiptap: {
     type: Node_Type.DIVIDER,
     convert: (node: DividerNode) => ({
-      type: 'divider',
+      type: Node_Type.DIVIDER,
       attrs: {
-        id: node.id,
         ...node.dividerData,
+        id: node.id,
       },
     }),
   },
   fromTiptap: {
-    type: 'divider',
+    type: Node_Type.DIVIDER,
     convert: (node: TiptapNode) => {
       const { id, ...data } = node.attrs || {};
       return {

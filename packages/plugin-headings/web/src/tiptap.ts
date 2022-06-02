@@ -1,3 +1,4 @@
+import { Node_Type } from 'ricos-schema';
 import headingDataDefaults from 'ricos-schema/dist/statics/heading.defaults.json';
 import type { DOMOutputSpec, ExtensionProps, NodeConfig, RicosExtension } from 'ricos-tiptap-types';
 import styles from '../statics/styles/headings.scss';
@@ -24,7 +25,7 @@ export const tiptapExtensions = [
   {
     type: 'node' as const,
     groups: ['text-container'],
-    name: 'heading',
+    name: Node_Type.HEADING,
     reconfigure: (
       config: NodeConfig,
       _extensions: RicosExtension[],
@@ -92,7 +93,7 @@ export const tiptapExtensions = [
                   return false;
                 }
 
-                return commands.toggleNode(this.name, 'paragraph', attributes);
+                return commands.toggleNode(this.name, Node_Type.PARAGRAPH, attributes);
               },
           };
         },
