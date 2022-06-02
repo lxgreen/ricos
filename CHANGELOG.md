@@ -17,12 +17,22 @@
     Click to see more.
   </summary>
   
+
+
+</details>
+
+<hr/>
+
+## 8.71.19 (Jun 2, 2022)
+
 ### :bug: Bug Fix
 
+- `toolbars-v2`
+  - [#3961](https://github.com/wix/ricos/pull/3961) modal overflow logic using only getBoundingClientRect (under experiment)
 - `ricos-editor`
-- [#3892](https://github.com/wix/ricos/pull/3892) adjust plus button position using offset on tiptap
+  - [#3892](https://github.com/wix/ricos/pull/3892) adjust plus button position using offset on tiptap
 - `audio`
-- [#3950](https://github.com/wix/ricos/pull/3950) fix audio slider & duration ui
+  - [#3950](https://github.com/wix/ricos/pull/3950) fix audio slider & duration ui
 
 ## :house: Internal
 
@@ -33,10 +43,6 @@
   - [#3957](https://github.com/wix/ricos/pull/3957) add toolbar layout to ricos modals
 - `ricos-plugins ricos-editor toolbar-v3`
   - [#3890](https://github.com/wix/ricos/pull/3890) `pluginToolbar` API
-
-</details>
-
-<hr/>
 
 ## 8.71.18 (May 29, 2022)
 

@@ -1,6 +1,6 @@
 {
   "name": "ricos-plugins",
-  "version": "8.71.18",
+  "version": "8.71.19",
   "author": {
     "name": "Dana Rish",
     "email": "danari@wix.com"
@@ -34,8 +34,8 @@
     "test:watchAll": "jest --verbose --watchAll"
   },
   "dependencies": {
-    "ricos-types": "8.71.18",
-    "wix-rich-content-toolbars-v3": "8.71.18"
+    "ricos-types": "8.71.19",
+    "wix-rich-content-toolbars-v3": "8.71.19"
   },
   "peerDependencies": {
     "lodash": "^4.0.0"
