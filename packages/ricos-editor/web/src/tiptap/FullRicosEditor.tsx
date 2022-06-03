@@ -214,12 +214,12 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
                                   content={this.content}
                                   toolbarSettings={toolbarSettings}
                                 />
-                                {!isMobile && (
-                                  <FloatingAddPluginMenu
-                                    addPluginMenuConfig={this.getPluginMenuConfig()}
-                                    helpers={_rcProps?.helpers}
-                                  />
-                                )}
+                                <FloatingAddPluginMenu
+                                  addPluginMenuConfig={this.getPluginMenuConfig()}
+                                  helpers={_rcProps?.helpers}
+                                  isMobile={isMobile}
+                                />
+
                                 <PluginsToolbar content={this.content} />
                                 <FooterToolbar />
                               </ContentQueryProvider>

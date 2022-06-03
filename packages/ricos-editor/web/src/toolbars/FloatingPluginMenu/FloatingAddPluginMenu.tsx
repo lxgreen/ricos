@@ -3,23 +3,24 @@ import styles from '../../../statics/styles/floating-add-plugin-menu.scss';
 import { ModalContext, PLACEMENTS, LAYOUTS } from 'ricos-modals';
 import { RicosContext, decorateComponentWithProps } from 'wix-rich-content-editor-common';
 import PluginMenuButton from './PluginMenuButton';
-import { AddPluginMenu } from 'wix-rich-content-editor';
+import { AddPluginMenu, SECTIONS } from 'wix-rich-content-editor';
 import EditorSelectionToPosition from './EditorSelectionToPosition';
 import PlusButton from './PlusButton';
 import { TiptapEditorContext } from 'wix-tiptap-editor';
 import { PluginsContext } from 'ricos-plugins';
 import type { AddButton } from 'ricos-types';
+import AddPluginMenuHorizontal from './AddPluginMenuHorizontal';
 import { UploadServiceContext } from 'wix-rich-content-common';
 
-const FloatingAddPluginMenu = ({ addPluginMenuConfig, helpers }) => {
+const FloatingAddPluginMenu = ({ addPluginMenuConfig, helpers, isMobile = false }) => {
   const floatingMenuWrapperRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { modalService } = useContext(ModalContext) || {};
   const { plugins } = useContext(PluginsContext);
+  const { t, theme, languageDir } = useContext(RicosContext) || {};
   const uploadContext = useContext(UploadServiceContext);
-  const { t, isMobile, theme, languageDir } = useContext(RicosContext) || {};
   const { getEditorCommands, tiptapEditor } = useContext(TiptapEditorContext);
-
+  const isHorizontalMenu = !addPluginMenuConfig || addPluginMenuConfig?.horizontalMenuLayout;
   const PLUGIN_MENU_MODAL_ID = 'pluginMenu';
   const layout = isMobile ? LAYOUTS.DRAWER : LAYOUTS.TOOLBAR;
   const placement = isMobile
@@ -38,15 +39,53 @@ const FloatingAddPluginMenu = ({ addPluginMenuConfig, helpers }) => {
     return { top: `${topPosition}px` };
   };
 
+  const isPluginMenuModalOpen = () =>
+    modalService?.getOpenModals().some(({ id }) => id === PLUGIN_MENU_MODAL_ID);
+
   const toggleAddPluginMenu = () => {
-    modalService?.getOpenModals().find(({ id }) => id === PLUGIN_MENU_MODAL_ID)
-      ? handleClose()
-      : handleOpen();
+    isPluginMenuModalOpen()
+      ? closeModal(PLUGIN_MENU_MODAL_ID)
+      : openModal(PLUGIN_MENU_MODAL_ID, placement, layout, floatingMenuComponent);
   };
 
-  const handleOpen = () => {
+  const openModal = (id, placement, layout, component) => {
     modalService?.openModal({
-      Component: decorateComponentWithProps(AddPluginMenu, {
+      Component: component,
+      id,
+      positioning: { referenceElement: buttonRef?.current, placement },
+      layout,
+    });
+  };
+
+  const closeModal = id => modalService?.closeModal(id);
+
+  const onPluginMenuButtonClick = (id, modal, command) => {
+    closeModal(PLUGIN_MENU_MODAL_ID);
+    const pluginModalLayout = isMobile ? LAYOUTS.FULLSCREEN : LAYOUTS.POPOVER;
+    return modal
+      ? openModal(id, placement, pluginModalLayout, modal)
+      : command(getEditorCommands?.(), uploadContext);
+  };
+
+  const pluginMenuButtons = plugins
+    .getAddButtons()
+    .asArray()
+    .map(addButton => {
+      const button = addButton.getButton();
+      const { id, command, modal } = button;
+      const onButtonClick = () => onPluginMenuButtonClick(id, modal?.Component, command);
+      return {
+        component: props => renderPluginButton(button, onButtonClick, props.onButtonVisible),
+        name: button.label,
+        section: button.menuConfig?.group && SECTIONS[button.menuConfig?.group],
+      };
+    });
+
+  const floatingMenuComponent = isHorizontalMenu
+    ? decorateComponentWithProps(AddPluginMenuHorizontal, {
+        onPluginMenuButtonClick,
+      })
+    : decorateComponentWithProps(AddPluginMenu, {
         t,
         plugins: pluginMenuButtons,
         isMobile,
@@ -55,52 +94,23 @@ const FloatingAddPluginMenu = ({ addPluginMenuConfig, helpers }) => {
         addPluginMenuConfig,
         isActive: true,
         helpers,
-      }),
-      id: PLUGIN_MENU_MODAL_ID,
-      positioning: { referenceElement: buttonRef?.current, placement },
-      layout,
-    });
-  };
+      });
 
-  const handleClose = () => modalService?.closeModal(PLUGIN_MENU_MODAL_ID);
-
-  const renderPluginButton = ({ modal, command, icon, label, tooltip }: AddButton) => {
-    const onButtonClick = () => {
-      handleClose();
-      return modal
-        ? modalService?.openModal({
-            positioning: {
-              referenceElement: buttonRef?.current,
-              placement,
-            },
-            ...modal,
-          })
-        : command(getEditorCommands?.(), uploadContext);
-    };
+  const renderPluginButton = ({ icon, label, tooltip }: AddButton, onClick, onButtonVisible) => {
     return (
       <PluginMenuButton
         Icon={icon}
         label={label}
-        onClick={onButtonClick}
+        onClick={onClick}
         tooltipText={t(tooltip)}
         t={t}
         languageDir={languageDir}
+        onButtonVisible={onButtonVisible}
       />
     );
   };
 
-  const pluginMenuButtons = plugins
-    .getAddButtons()
-    .asArray()
-    .map(addButton => {
-      const button = addButton.getButton();
-      return {
-        component: () => renderPluginButton(button),
-        name: button.label,
-      };
-    });
-
-  return (
+  return !isMobile ? (
     <div
       dir={languageDir}
       className={styles.floatingAddPluginMenu_wrapper}
@@ -109,7 +119,6 @@ const FloatingAddPluginMenu = ({ addPluginMenuConfig, helpers }) => {
       <EditorSelectionToPosition editor={tiptapEditor}>
         {position => (
           <PlusButton
-            isMobile={isMobile}
             onClick={toggleAddPluginMenu}
             position={calcButtonPosition(position)}
             ref={buttonRef}
@@ -117,7 +126,7 @@ const FloatingAddPluginMenu = ({ addPluginMenuConfig, helpers }) => {
         )}
       </EditorSelectionToPosition>
     </div>
-  );
+  ) : null;
 };
 
 export default FloatingAddPluginMenu;

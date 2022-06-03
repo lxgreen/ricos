@@ -10,6 +10,8 @@
   justify-content: center;
   height: max-content;
   max-height: 400px;
+  min-width: 318px;
+  box-sizing: border-box;
   font-family: $ricos-settings-font-family;
   color: $settings-text-color;
 
@@ -23,11 +25,10 @@
 
   .searchWrapper {
     position: absolute;
-    width: 100%;
     align-self: start;
     background-color: white;
-    z-index: 3;
-    padding: 12px;
+    padding: 12px 0;
+    width: calc(100% - 24px);
     @media only screen and (max-width: 640px) {
       padding: 0;
     }

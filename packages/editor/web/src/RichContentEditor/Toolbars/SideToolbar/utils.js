@@ -1,11 +1,13 @@
+export const SECTIONS = {
+  no_section: 'BlockToolbar_Section_NoSections_ShortcutToolbar',
+  basic: 'BlockToolbar_Section_Basic',
+  advanced: 'BlockToolbar_Section_Advanced',
+  embed_wix: 'BlockToolbar_Section_Embed_Wix',
+  embed: 'BlockToolbar_Section_Embed_Anywhere',
+};
+
 export const getSortedSections = sectionsArr => {
-  const sortedSections = [
-    'BlockToolbar_Section_NoSections_ShortcutToolbar',
-    'BlockToolbar_Section_Basic',
-    'BlockToolbar_Section_Advanced',
-    'BlockToolbar_Section_Embed_Wix',
-    'BlockToolbar_Section_Embed_Anywhere',
-  ];
+  const sortedSections = Object.keys(SECTIONS).map(key => SECTIONS[key]);
   return sortedSections
     .map(section => (sectionsArr.includes(section) ? section : false))
     .filter(section => section);

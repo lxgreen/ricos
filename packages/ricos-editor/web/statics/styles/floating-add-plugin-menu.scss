@@ -16,13 +16,6 @@
     color: $settings-action-color-fallback;
     fill: $settings-action-color-fallback;
   }
-  &.floatingAddPluginMenu_plus_button_mobile {
-    left: 0;
-    svg {
-      width: 20px;
-      height: 20px;
-    }
-  }
 }
 
 .floatingAddPluginMenu_addPlugin_button {
@@ -33,6 +26,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.floating_add_plugin_menu_hor {
+  width: 100%;
+  min-width: 500px;
 }
 
 %button {

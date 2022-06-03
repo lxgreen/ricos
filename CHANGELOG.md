@@ -23,6 +23,10 @@
   - [#3972](https://github.com/wix/ricos/pull/3972) media upload add buttons support
 - `file-plugin`
   - [#3972](https://github.com/wix/ricos/pull/3972) expose addButton
+- `audio`
+  - [#3938](https://github.com/wix/ricos/pull/3938) use uploadService 
+- `ricos-editor`
+  - [#3939](https://github.com/wix/ricos/pull/3939) add horizontal add plugin menu & mobile ui
 - `general`
   - [#3967](https://github.com/wix/ricos/pull/3967) tiptap type changed to ricos schema type
 
@@ -50,8 +54,6 @@
   - [#3957](https://github.com/wix/ricos/pull/3957) add toolbar layout to ricos modals
 - `ricos-plugins ricos-editor toolbar-v3`
   - [#3890](https://github.com/wix/ricos/pull/3890) `pluginToolbar` API
-- `audio`
-  - [#3938](https://github.com/wix/ricos/pull/3938) use uploadService
 
 ## 8.71.18 (May 29, 2022)
 

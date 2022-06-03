@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ToolbarButton } from 'wix-rich-content-editor-common';
 import styles from '../../../statics/styles/floating-add-plugin-menu.scss';
 
-const PluginMenuButton = ({ Icon, label, onClick, t, tooltipText, languageDir }) => {
+const PluginMenuButton = ({
+  Icon,
+  label,
+  onClick,
+  t,
+  tooltipText,
+  languageDir,
+  onButtonVisible,
+}) => {
+  useEffect(() => {
+    onButtonVisible?.();
+  }, []);
   const pluginButton = (
     <button
       dir={languageDir}
