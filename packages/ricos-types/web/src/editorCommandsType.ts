@@ -177,6 +177,14 @@ export interface EditorCommands {
       isRicosSchema?: boolean;
     }
   ) => string;
+  insertBlockWithBlankLines?: <K extends keyof PluginsDataMap>(
+    type: K,
+    data?: PluginsDataMap[K],
+    settings?: {
+      isRicosSchema?: boolean;
+      updateSelection?: boolean;
+    }
+  ) => string;
   setBlock: <K extends keyof PluginsDataMap>(
     blockKey: BlockKey,
     type: K,

@@ -11,9 +11,13 @@ const handleExternalFileChange =
   (editorCommands, updateService) =>
   ({ data }) => {
     if (data instanceof Array) {
-      data.forEach(file => {
+      data.forEach((file, index) => {
         setTimeout(() => {
-          const nodeId = editorCommands.insertBlock(FILE_UPLOAD_TYPE, {});
+          const nodeId = editorCommands.insertBlockWithBlankLines?.(
+            FILE_UPLOAD_TYPE,
+            {},
+            { updateSelection: data.length === index + 1 }
+          );
           updateService.updatePluginData(
             { data: file },
             nodeId,
@@ -23,16 +27,20 @@ const handleExternalFileChange =
         });
       });
     } else {
-      const nodeId = editorCommands.insertBlock(FILE_UPLOAD_TYPE, {});
+      const nodeId = editorCommands.insertBlockWithBlankLines?.(FILE_UPLOAD_TYPE, {});
       updateService.updatePluginData({ data }, nodeId, FILE_UPLOAD_TYPE, filePluginService);
     }
   };
 
 const handleNativeFileChange = (editorCommands, uploadService, uploader) => (files: File[]) => {
-  files.forEach(file => {
+  files.forEach((file, index) => {
     // prevents rerenders when next file starts uploading
     setTimeout(() => {
-      const nodeId = editorCommands.insertBlock(FILE_UPLOAD_TYPE, {});
+      const nodeId = editorCommands.insertBlockWithBlankLines?.(
+        FILE_UPLOAD_TYPE,
+        {},
+        { updateSelection: files.length === index + 1 }
+      );
       uploadService.uploadFile(file, nodeId, uploader, FILE_UPLOAD_TYPE, filePluginService);
     });
   });

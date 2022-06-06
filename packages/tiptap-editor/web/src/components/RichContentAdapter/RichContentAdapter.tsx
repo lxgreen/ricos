@@ -122,6 +122,34 @@ export class RichContentAdapter
         }
         return id;
       },
+      insertBlockWithBlankLines: (pluginType, data, settings = { updateSelection: true }) => {
+        const type = TO_TIPTAP_TYPE[pluginType];
+        let id = '';
+        if (type) {
+          const { content, ..._attrs } = data;
+          id = data.id || generateId();
+          const attrs = { id, ...flatComponentState(_attrs) };
+          const {
+            state: {
+              selection: { to: lastNodePosition },
+            },
+          } = this.tiptapEditor;
+          const { updateSelection } = settings;
+          this.tiptapEditor
+            .chain()
+            .focus()
+            .insertContent([
+              { type: 'PARAGRAPH', attrs: { id: generateId() } },
+              { type, attrs, content },
+              { type: 'PARAGRAPH', attrs: { id: generateId() } },
+            ])
+            .setNodeSelection(updateSelection ? lastNodePosition + 1 : lastNodePosition + 2)
+            .run();
+        } else {
+          console.error(`No such plugin type ${pluginType}`);
+        }
+        return id;
+      },
       deleteBlock: blockKey => {
         return this.tiptapEditor.commands.deleteNode(blockKey);
       },

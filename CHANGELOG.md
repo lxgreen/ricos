@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+## :house: Internal
+
+- `ricos-editor`
+  - [#3973](https://github.com/wix/ricos/pull/3973) add `insertBlockWithBlankLines` commands to tiptap `editorCommands`
+
 </details>
 
 <hr/>
