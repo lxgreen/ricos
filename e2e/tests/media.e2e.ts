@@ -54,7 +54,7 @@ describe('plugins', () => {
     });
 
     it('render image toolbar and settings', function () {
-      cy.loadRicosEditorAndViewer('images');
+      cy.loadRicosEditor('images');
       cy.openPluginToolbar(PLUGIN_COMPONENT.IMAGE);
       cy.openSettings();
       cy.percySnapshot(this.test.title + ' - settings');
