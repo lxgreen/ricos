@@ -63,9 +63,9 @@ export class TableDataUtil {
 
   getRow = i => this.getRows()?.[i];
 
-  getRowNum = () => Object.entries(this.getRows()).length;
+  getRowNum = () => Object.entries(this.getRows() || {}).length;
 
-  getColNum = () => Object.entries(this.getRowColumns(0)).length;
+  getColNum = () => Object.entries(this.getRowColumns(0) || {}).length;
 
   getCell = (i, j) => this.getRow(i) && this.getRowColumns(i)[j];
 

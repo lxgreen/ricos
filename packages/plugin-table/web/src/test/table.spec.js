@@ -1,5 +1,5 @@
 import Table from '../domain/table';
-import { getMockComponentData } from './TestData/cell-content-state';
+import { getMockComponentData, invalidTableData } from './TestData/cell-content-state';
 import { convertTableConfigToRaw } from 'wix-rich-content-editor';
 
 const removeBlockKey = config => {
@@ -97,5 +97,16 @@ describe('Test Table domain functions', () => {
     expect(removeBlockKey(convertTableConfigToRaw(componentData.config))).toMatchSnapshot();
     table.toggleRowHeader();
     table.toggleColHeader();
+  });
+  it('Should not crash on invalid content', () => {
+    const table = new Table(
+      invalidTableData,
+      () => {},
+      () => {}
+    );
+    const rowNum = table.getRowNum();
+    const colNum = table.getColNum();
+    expect(rowNum).toEqual(0);
+    expect(colNum).toEqual(0);
   });
 });
