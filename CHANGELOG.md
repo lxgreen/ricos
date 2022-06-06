@@ -17,12 +17,21 @@
     Click to see more.
   </summary>
 
+</details>
+
+<hr/>
+
+## 8.71.20 (Jun 6, 2022)
+
 ## :bug: Bug Fix
 
+- `table`
+  - [#3985](https://github.com/wix/ricos/pull/3985) fix editor crash on invalid content
 - `mentions`
   - [#3959](https://github.com/wix/ricos/pull/3959) fix mentions backspace issue && refactor ui
 
 ## :house: Internal
+
 - `ricos-editor`
   - [#3981](https://github.com/wix/ricos/pull/3981) fix horizontalAddPluginMenu open modal func
 
@@ -40,10 +49,6 @@
   - [#3967](https://github.com/wix/ricos/pull/3967) tiptap type changed to ricos schema type
 - `ricos-converters`
   - [#3980](https://github.com/wix/ricos/pull/3980) add rich content schema normalizer under experiment
-
-</details>
-
-<hr/>
 
 ## 8.71.19 (Jun 2, 2022)
 
