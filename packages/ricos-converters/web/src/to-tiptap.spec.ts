@@ -159,7 +159,6 @@ describe('to Tiptap', () => {
           },
         },
       ],
-      documentStyle: {},
       attrs: {
         metadata: {
           id: '1dda5bc8-0920-4ccd-b4b3-331bcda058f9',
@@ -167,6 +166,7 @@ describe('to Tiptap', () => {
           createdTimestamp: '2022-05-28T20:09:10.749Z',
           updatedTimestamp: '2022-05-28T20:09:10.749Z',
         },
+        documentStyle: {},
       },
     };
     const actual = toTiptap(content);

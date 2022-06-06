@@ -12,6 +12,7 @@ describe('from Tiptap', () => {
           updatedTimestamp: '2022-05-28T14:09:10.655Z',
           id: '1dda5bc8-0920-4ccd-b4b3-331bcda058f9',
         },
+        documentStyle: {},
       },
       content: [
         {
@@ -36,7 +37,6 @@ describe('from Tiptap', () => {
           },
         },
       ],
-      documentStyle: {},
     };
 
     const expected = {

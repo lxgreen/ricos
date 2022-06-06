@@ -82,7 +82,8 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
       editorResetKey: 0,
       shouldNativeUpload: false,
       shouldUseNewContent: false,
-      styleElement: this.getInitialStyleElement(),
+      activeFont: 0,
+      activePalette: 0,
       experiments: get('experiments') || {},
       externalToolbarToShow: ToolbarType.FORMATTING,
       textWrap: true,
@@ -285,37 +286,21 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
 
   getThemeObj = (activeFont, activePalette) => {
     const themeObj: any = {};
-    activeFont && (themeObj.customStyles = FONTS[activeFont]);
-    activePalette && (themeObj.palette = ricosPalettes[activePalette]);
+    activeFont !== undefined && (themeObj.customStyles = FONTS[activeFont]);
+    activePalette !== undefined && (themeObj.palette = ricosPalettes[activePalette]);
     return themeObj;
   };
 
   onPaletteChange = i => {
     this.setState({
-      styleElement: this.getHtmlTheme({ palette: ricosPalettes[i] }),
       activePalette: i,
     });
     set('activePalette', i);
   };
 
   onFontChange = i => {
-    this.setState({ styleElement: this.getHtmlTheme({ customStyles: FONTS[i] }), activeFont: i });
+    this.setState({ activeFont: i });
     set('activeFont', i);
-  };
-
-  getHtmlTheme = themeObj => {
-    const { activeFont, activePalette } = this.state;
-    const { html } = themeStrategy({
-      ricosTheme: { ...this.getThemeObj(activeFont, activePalette), ...themeObj },
-    });
-    return html ? [html] : [];
-  };
-
-  getInitialStyleElement = () => {
-    const activePalette = get('activePalette');
-    const activeFont = get('activeFont');
-    const { html } = themeStrategy({ ricosTheme: this.getThemeObj(activeFont, activePalette) });
-    return html ? [html] : [];
   };
 
   onSetExperiment = (name: string, value: any) => {
@@ -337,7 +322,6 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
       editorIsMobile,
       shouldNativeUpload,
       experiments,
-      styleElement,
       externalPopups,
       textWrap,
       showSideBlockComponent,
@@ -362,7 +346,6 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
           />
           <SectionContent>
             <ErrorBoundary>
-              {...styleElement}
               <Editor
                 isMobile={editorIsMobile || isMobile}
                 shouldNativeUpload={shouldNativeUpload}
@@ -380,6 +363,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
                 showSideBlockComponent={showSideBlockComponent}
                 testAppConfig={this.state.editorSettings}
                 key={this.state.editorKey}
+                ricosTheme={this.getThemeObj(this.state.activeFont, this.state.activePalette)}
               />
             </ErrorBoundary>
           </SectionContent>

@@ -11,6 +11,7 @@ import {
 } from '../../../storybook/src/shared/utils/fileUploadUtil';
 import type { TOOLBARS } from 'wix-rich-content-editor-common';
 import type { DraftContent, TextToolbarType, AvailableExperiments } from 'wix-rich-content-common';
+import type { RicosTheme } from 'ricos-types';
 import type { TestAppConfig } from '../../src/types';
 import type { RicosEditorProps, RicosEditorType } from 'ricos-editor';
 import { RicosEditor } from 'ricos-editor';
@@ -40,6 +41,7 @@ interface ExampleEditorProps {
   externalPopups: boolean;
   textWrap?: boolean;
   showSideBlockComponent?: boolean;
+  ricosTheme?: RicosTheme;
 }
 
 export default class Editor extends PureComponent<ExampleEditorProps> {
@@ -158,6 +160,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       externalPopups,
       textWrap,
       showSideBlockComponent,
+      ricosTheme,
     } = this.props;
     const textToolbarType: TextToolbarType = staticToolbar && !isMobile ? STATIC_TOOLBAR : null;
     const useStaticTextToolbar = textToolbarType === STATIC_TOOLBAR;
@@ -194,6 +197,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
             sideBlockComponent={
               showSideBlockComponent && createSideBlockComponent(this.editor?.getEditorCommands())
             }
+            theme={ricosTheme}
           />
         </div>
       </div>
