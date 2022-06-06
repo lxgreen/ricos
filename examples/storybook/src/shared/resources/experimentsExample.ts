@@ -21,4 +21,5 @@ export const EXPERIMENTS = [
   { name: 'encAutoImageUrls', scope: 'ricos' },
   { name: 'useUploadContext', scope: 'ricos' },
   { name: 'imageFigureCaption', scope: 'ricos' },
+  { name: 'removeRichContentSchemaNormalizer', scope: 'ricos' },
 ];

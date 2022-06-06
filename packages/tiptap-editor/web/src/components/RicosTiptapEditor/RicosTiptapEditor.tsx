@@ -2,10 +2,11 @@ import type { JSONContent } from '@tiptap/react';
 import { EditorContent } from '@tiptap/react';
 import type { Node } from 'prosemirror-model';
 import type { FunctionComponent } from 'react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { getLangDir } from 'wix-rich-content-common';
 import { tiptapToDraft } from 'ricos-converters';
 import { RicosTiptapContext } from '../../context';
+import { RicosContext } from 'wix-rich-content-editor-common';
 import { useForceUpdate } from '../../lib/useForceUpdate';
 import '../../statics/styles/tiptap-editor-styles.scss';
 import type { RicosTiptapEditorProps } from '../../types';
@@ -31,16 +32,25 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
   ...context
 }) => {
   const forceUpdate = useForceUpdate();
+  const { experiments } = useContext(RicosContext);
 
   useEffect(() => {
     editor.on('update', ({ editor }) => {
-      onUpdate?.({ content: tiptapToDraft(editor.getJSON() as JSONContent) });
+      onUpdate?.({
+        content: tiptapToDraft(
+          editor.getJSON() as JSONContent,
+          experiments.removeRichContentSchemaNormalizer?.enabled
+        ),
+      });
     });
     editor.on('selectionUpdate', ({ editor }) => {
       const selectedNodes = getSelectedNodes({ editor });
       onSelectionUpdate?.({
         selectedNodes,
-        content: tiptapToDraft(editor.getJSON() as JSONContent),
+        content: tiptapToDraft(
+          editor.getJSON() as JSONContent,
+          experiments.removeRichContentSchemaNormalizer?.enabled
+        ),
       });
     });
     editor.on('transaction', forceUpdate);

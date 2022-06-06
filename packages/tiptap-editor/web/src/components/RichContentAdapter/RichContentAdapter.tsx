@@ -32,6 +32,7 @@ import type { Editor, JSONContent } from '@tiptap/react';
 import type { EditorPlugins } from 'ricos-plugins';
 import type { Node as ProseMirrorNode, Fragment } from 'prosemirror-model';
 import { Decoration_Type, Node_Type } from 'ricos-schema';
+import type { AvailableExperiments } from 'ricos-types/src';
 
 export class RichContentAdapter
   implements Omit<TiptapAPI, 'getContent' | 'getContentPromise' | 'getContentTraits'>
@@ -41,13 +42,15 @@ export class RichContentAdapter
   constructor(
     public tiptapEditor: Editor,
     private t: TranslationFunction,
-    private plugins: EditorPlugins
+    private plugins: EditorPlugins,
+    private experiments: AvailableExperiments
   ) {
     this.tiptapEditor = tiptapEditor;
     this.t = t;
     this.plugins = plugins;
     this.initialContent = this.tiptapEditor.state.doc.content;
     this.getEditorCommands = this.getEditorCommands.bind(this);
+    this.experiments = experiments;
   }
 
   isContentChanged = (): boolean => !this.initialContent.eq(this.tiptapEditor.state.doc.content);
@@ -61,7 +64,11 @@ export class RichContentAdapter
     return this.tiptapEditor?.options?.element;
   };
 
-  getDraftContent = () => tiptapToDraft(this.tiptapEditor.getJSON() as JSONContent);
+  getDraftContent = () =>
+    tiptapToDraft(
+      this.tiptapEditor.getJSON() as JSONContent,
+      this.experiments.removeRichContentSchemaNormalizer?.enabled
+    );
 
   focus() {
     this.tiptapEditor.commands.focus();

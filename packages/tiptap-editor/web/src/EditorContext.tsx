@@ -52,7 +52,7 @@ export const TiptapEditorProvider: FC<TiptapEditorProviderProps> = ({
   ricosEditorProps,
 }) => {
   const [adapter, setAdapter] = useState<RichContentAdapter>(null as unknown as RichContentAdapter);
-  const { t } = useContext(RicosContext);
+  const { t, experiments } = useContext(RicosContext);
   const { plugins } = useContext(PluginsContext);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export const TiptapEditorProvider: FC<TiptapEditorProviderProps> = ({
 
     applyDevTools(editor);
 
-    setAdapter(new RichContentAdapter(editor, t, plugins));
+    setAdapter(new RichContentAdapter(editor, t, plugins, experiments));
   }, []);
   return adapter ? (
     <TiptapEditorContext.Provider value={adapter}>{children}</TiptapEditorContext.Provider>

@@ -29,11 +29,13 @@
 - `file-plugin`
   - [#3972](https://github.com/wix/ricos/pull/3972) expose addButton
 - `audio`
-  - [#3938](https://github.com/wix/ricos/pull/3938) use uploadService 
+  - [#3938](https://github.com/wix/ricos/pull/3938) use uploadService
 - `ricos-editor`
   - [#3939](https://github.com/wix/ricos/pull/3939) add horizontal add plugin menu & mobile ui
 - `general`
   - [#3967](https://github.com/wix/ricos/pull/3967) tiptap type changed to ricos schema type
+- `ricos-converters`
+  - [#3980](https://github.com/wix/ricos/pull/3980) add rich content schema normalizer under experiment
 
 </details>
 
