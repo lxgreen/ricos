@@ -1,6 +1,7 @@
-import { TrashIcon, AlignLeftIcon } from '../icons';
+import { TrashIcon, AlignLeftIcon, SettingsIcon } from '../icons';
 import type { IPluginToolbarButtonsConfig } from '../types';
 import { PLUGIN_TOOLBAR_BUTTON_ID } from 'wix-rich-content-editor-common';
+import { getNodeInSelectionResolver } from '../resolvers/tiptapResolvers';
 
 export const pluginToolbarButtonsConfig: IPluginToolbarButtonsConfig = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -35,5 +36,17 @@ export const pluginToolbarButtonsConfig: IPluginToolbarButtonsConfig = {
           editorCommands.chain().focus().setNodeAlignment('LEFT').run();
         },
     },
+  },
+  settings: {
+    id: PLUGIN_TOOLBAR_BUTTON_ID.SETTINGS,
+    type: 'modal',
+    presentation: {
+      tooltip: 'Settings',
+      icon: SettingsIcon,
+    },
+    attributes: {
+      selectedNode: getNodeInSelectionResolver,
+    },
+    commands: {},
   },
 };

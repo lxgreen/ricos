@@ -257,7 +257,7 @@ export type AddButton = {
 export type ToolbarButtonConfig = {
   icon?: ComponentType;
   tooltip?: string;
-  command?: (editorCommands: any) => void;
+  command?: (args: Record<string, any>) => void;
   attributes?: Record<string, string>;
 };
 

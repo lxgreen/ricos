@@ -61,13 +61,13 @@ export class PluginToolbarButton {
         tooltip: tooltip || presentation.tooltip,
         icon: icon || presentation.icon,
       },
-      attributes: buttonResolvers,
+      attributes: { ...buttonResolvers, ...toolbarItemConfig.attributes },
       commands: command
         ? {
             click:
               ({ editorCommands }) =>
-              () => {
-                command(editorCommands);
+              args => {
+                command({ editorCommands, ...args });
               },
           }
         : { ...commands },

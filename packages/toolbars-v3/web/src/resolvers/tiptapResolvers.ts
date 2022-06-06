@@ -354,6 +354,17 @@ export const isDividerSelected = getPluginSelectedResolver(
   Node_Type.DIVIDER
 );
 
+export const getNodeInSelectionResolver = TiptapContentResolver.create(
+  RESOLVERS_IDS.GET_NODE_IN_SELECTION,
+  content => {
+    if (Array.isArray(content) && content.length > 0) {
+      return content[0];
+    } else {
+      return undefined;
+    }
+  }
+);
+
 const pluginSelectedResolvers = [
   isImageSelected,
   isVideoSelected,
