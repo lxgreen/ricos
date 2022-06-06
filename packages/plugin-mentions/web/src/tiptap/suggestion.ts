@@ -83,7 +83,7 @@ export default (
           }
 
           const { items, query } = component.props;
-          if (shouldEndMentioningProcess(query, items)) {
+          if (props.event.key === 'Enter' && shouldEndMentioningProcess(query, items)) {
             this.onExit();
           }
 

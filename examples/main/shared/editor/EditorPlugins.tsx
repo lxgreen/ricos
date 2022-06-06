@@ -565,7 +565,7 @@ export const config: RichContentEditorProps['config'] = {
                   avatar: 'https://ca.slack-edge.com/T02T01M9Y-UEBDPSU2W-ad52085040c0-192',
                 },
                 {
-                  name: 'Judith Jaroslavsky UX Designer',
+                  name: 'Judith Gabriela Jaroslavsky',
                   slug: 'judithjaroslavsky',
                   avatar: 'https://ca.slack-edge.com/T02T01M9Y-UHMNZJ9P1-c693bb66ca93-512',
                 },

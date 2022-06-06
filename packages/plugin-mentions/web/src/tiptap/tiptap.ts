@@ -139,7 +139,7 @@ export const tiptapExtensions = [
                       text: `${mentionTrigger}${attributes.name}`,
                       marks: [
                         {
-                          type: 'mention',
+                          type: Decoration_Type.MENTION,
                           attrs: {
                             name: attributes.name,
                             slug: attributes.name,

@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+## :bug: Bug Fix
+
+- `mentions`
+  - [#3959](https://github.com/wix/ricos/pull/3959) fix mentions backspace issue && refactor ui
+
 ## :house: Internal
 
 - `ricos-plugins ricos-editor`

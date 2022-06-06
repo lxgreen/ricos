@@ -7,6 +7,7 @@ import MentionAvatar from './MentionAvatar';
 import classNames from 'classnames';
 import { RicosContext } from 'wix-rich-content-editor-common';
 import styles from '../../statics/mention-list.scss';
+import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 
 const MentionList = forwardRef((props, ref) => {
   const { languageDir } = useContext(RicosContext) || {};
@@ -56,21 +57,31 @@ const MentionList = forwardRef((props, ref) => {
     },
   }));
 
+  const hasEllipsis = name => {
+    const charactersLimit = 23;
+    return name.length > charactersLimit;
+  };
+
   return props.items.length ? (
     <div dir={languageDir} className={styles.mention_list}>
-      {props.items.map((item, i) => (
-        <div
-          key={i}
-          className={classNames(styles.mention_item, {
-            [styles.mention_item_selected]: i === selectedIndex,
-          })}
-          onMouseOver={() => setSelectedIndex(i)}
-          onClick={() => selectItem(i)}
-        >
-          <MentionAvatar src={item?.avatar} alt={item.name} />
-          <span>{item.name}</span>
-        </div>
-      ))}
+      {props.items.map((item, i) => {
+        const tooltipContent = hasEllipsis(item.name) ? item.name : null;
+        return (
+          <Tooltip key={i} content={tooltipContent} place="top">
+            <div
+              key={i}
+              className={classNames(styles.mention_item, {
+                [styles.mention_item_selected]: i === selectedIndex,
+              })}
+              onMouseOver={() => setSelectedIndex(i)}
+              onClick={() => selectItem(i)}
+            >
+              <MentionAvatar src={item?.avatar} alt={item.name} />
+              <span>{item.name}</span>
+            </div>
+          </Tooltip>
+        );
+      })}
     </div>
   ) : null;
 });
