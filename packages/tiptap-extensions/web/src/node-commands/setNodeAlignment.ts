@@ -19,6 +19,6 @@ export const setNodeAlignment: RawCommands['setNodeAlignment'] =
     const nodeType = selectedNode?.type.name || '';
     const nodeContainerData = selectedNode?.attrs.containerData;
     return commands.updateAttributes(nodeType, {
-      containerData: { ...nodeContainerData, width: { size: 'SMALL' }, alignment },
+      containerData: { ...nodeContainerData, alignment },
     });
   };
