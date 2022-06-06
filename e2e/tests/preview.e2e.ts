@@ -7,11 +7,13 @@ describe('preview', () => {
 
   describe('desktop', () => {
     fixturesNames.forEach((name, index) => {
-      it(name, () => {
-        cy.loadRicosEditorAndViewer(`preview/example${index + 1}`, { showDefaultPreview: true });
-        cy.wait(5000);
-        cy.percySnapshot();
-      });
+      if (index !== 8) {
+        it(name, () => {
+          cy.loadRicosEditorAndViewer(`preview/example${index + 1}`, { showDefaultPreview: true });
+          cy.wait(5000);
+          cy.percySnapshot();
+        });
+      }
     });
   });
 });

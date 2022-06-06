@@ -161,13 +161,13 @@ describe('plugins', () => {
       cy.get('.dismissButton').eq(1);
     });
 
-    it('render map plugin toolbar and settings', () => {
-      cy.openPluginToolbar(PLUGIN_COMPONENT.MAP);
-      cy.percySnapshot('render map plugin toolbar');
-      cy.openMapSettings();
-      cy.get('.gm-style-cc');
-      cy.percySnapshot('render map settings');
-    });
+    // it('render map plugin toolbar and settings', () => {
+    //   cy.openPluginToolbar(PLUGIN_COMPONENT.MAP);
+    //   cy.percySnapshot('render map plugin toolbar');
+    //   cy.openMapSettings();
+    //   cy.get('.gm-style-cc');
+    //   cy.percySnapshot('render map settings');
+    // });
   });
 
   context('file-upload', () => {

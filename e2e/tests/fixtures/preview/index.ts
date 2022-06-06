@@ -23,17 +23,17 @@ export const fixtures = {
 };
 
 const fixturesNames = [
-  'Small content',
-  'Small content + style',
-  'ReadMore (lines > 3)',
-  'ReadMore + 1x Image',
-  'ReadMore + 2x Image',
-  'ReadMore + 5x Image',
-  'ReadMore + 5x Image + Text in-between',
-  'ReadMore + 1x Gif + 5x Image',
-  'ReadMore + 1x Vid + 1x Gif + 5x Image',
-  'ReadMore + 2x Vid + 1x Gif + 5x Image',
-  'Text Fragmentation Example',
+  'Small content', //1
+  'Small content + style', //2
+  'ReadMore (lines > 3)', //3
+  'ReadMore + 1x Image', //4
+  'ReadMore + 2x Image', //5
+  'ReadMore + 5x Image', //6
+  'ReadMore + 5x Image + Text in-between', //7
+  'ReadMore + 1x Gif + 5x Image', //8
+  'ReadMore + 1x Vid + 1x Gif + 5x Image', //9
+  'ReadMore + 2x Vid + 1x Gif + 5x Image', //10
+  'Text Fragmentation Example', //11
 ];
 
 export default fixturesNames;

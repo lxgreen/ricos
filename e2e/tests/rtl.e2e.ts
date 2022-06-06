@@ -10,7 +10,7 @@ describe('rtl', () => {
     beforeEach(() => cy.switchToDesktop());
 
     it('render plugin shortcut with search in rtl', () => {
-      cy.loadRicosEditorAndViewer(
+      cy.loadRicosEditor(
         'newLines',
         getFooterToolbarConfig({ morePluginsMenu: { showSearch: true } })
       )
@@ -20,12 +20,12 @@ describe('rtl', () => {
     });
 
     it('render plugin toolbar in rtl', () => {
-      cy.loadRicosEditorAndViewer().focusEditor().openSideToolbar();
+      cy.loadRicosEditor().focusEditor().openSideToolbar();
       cy.percySnapshot();
     });
 
     it('render text toolbar in rtl', () => {
-      cy.loadRicosEditorAndViewer('plain')
+      cy.loadRicosEditor('plain')
         .setEditorSelection(0, 8)
         .get('[data-hook=inlineToolbar]')
         .should('be.visible')
@@ -40,7 +40,7 @@ describe('rtl', () => {
     });
 
     it('render external modal in rtl', () => {
-      cy.loadRicosEditorAndViewer('images')
+      cy.loadRicosEditor('images')
         .openPluginToolbar(PLUGIN_COMPONENT.IMAGE)
         .openSettings()
         .get('[data-hook="imageSettingsCaptionInput"]')
