@@ -10,6 +10,7 @@ export const doc: RicosExtension = {
       content: 'block+',
       addAttributes: () => ({
         metadata: {},
+        documentStyle: {},
       }),
     };
   },

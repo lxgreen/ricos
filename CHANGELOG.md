@@ -49,6 +49,8 @@
   - [#3967](https://github.com/wix/ricos/pull/3967) tiptap type changed to ricos schema type
 - `ricos-converters`
   - [#3980](https://github.com/wix/ricos/pull/3980) add rich content schema normalizer under experiment
+- `ricos-converters`
+  - [#3984](https://github.com/wix/ricos/pull/3984) document style in tiptap schema
 
 ## 8.71.19 (Jun 2, 2022)
 

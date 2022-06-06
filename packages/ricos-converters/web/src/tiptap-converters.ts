@@ -57,9 +57,9 @@ const toTiptap = (content: RichContent, converters: TiptapNodeConverter[] = []):
   return {
     type: 'doc',
     ...tiptapTree.setNodes(visit(richContentTree, tiptapTree, transforms)(ricosRoot)),
-    documentStyle: content.documentStyle || {},
     attrs: {
       metadata: convertMetadata(content.metadata || { version: 1 }),
+      documentStyle: content.documentStyle || {},
     },
   };
 };
@@ -68,7 +68,7 @@ const fromTiptap = (content: JSONContent, converters: TiptapNodeConverter[] = []
   const transforms = new TiptapNodeBidiTransfoms(converters).fromTiptap();
   return {
     metadata: content.attrs?.metadata,
-    documentStyle: content.documentStyle,
+    documentStyle: content.attrs?.documentStyle,
     ...richContentTree.setNodes(
       visit(tiptapTree, richContentTree, transforms)(content as TiptapNode)
     ),

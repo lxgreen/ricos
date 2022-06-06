@@ -2629,76 +2629,76 @@
       "content": []
     }
   ],
-  "documentStyle": {
-    "headerOne": {
-      "decorations": [
-        {
-          "type": "COLOR",
-          "colorData": {
-            "foreground": "red"
-          }
-        },
-        {
-          "type": "BOLD",
-          "fontWeightValue": 700
-        }
-      ]
-    },
-    "headerThree": {
-      "decorations": [
-        {
-          "type": "FONT_SIZE",
-          "fontSizeData": {
-            "unit": "PX",
-            "value": 24
-          }
-        },
-        {
-          "type": "COLOR",
-          "colorData": {
-            "foreground": "#bfad80"
-          }
-        }
-      ]
-    },
-    "headerSix": {
-      "decorations": [
-        {
-          "type": "ITALIC",
-          "italicData": true
-        },
-        {
-          "type": "BOLD",
-          "fontWeightValue": 700
-        },
-        {
-          "type": "COLOR",
-          "colorData": {
-            "background": "#bf695c"
-          }
-        }
-      ],
-      "nodeStyle": {
-        "paddingTop": "2px",
-        "paddingBottom": "3px"
-      },
-      "lineHeight": "3"
-    },
-    "paragraph": {
-      "decorations": [],
-      "nodeStyle": {
-        "paddingTop": "2px",
-        "paddingBottom": "3px"
-      },
-      "lineHeight": "2"
-    }
-  },
   "attrs": {
     "metadata": {
       "version": 1,
       "createdTimestamp": "2021-07-15T07:42:30.023Z",
       "updatedTimestamp": "2021-07-15T07:42:30.023Z",
       "id": "c444e53d-12e2-4460-9d79-76f6ab639a16"
+    },
+    "documentStyle": {
+      "headerOne": {
+        "decorations": [
+          {
+            "type": "COLOR",
+            "colorData": {
+              "foreground": "red"
+            }
+          },
+          {
+            "type": "BOLD",
+            "fontWeightValue": 700
+          }
+        ]
+      },
+      "headerThree": {
+        "decorations": [
+          {
+            "type": "FONT_SIZE",
+            "fontSizeData": {
+              "unit": "PX",
+              "value": 24
+            }
+          },
+          {
+            "type": "COLOR",
+            "colorData": {
+              "foreground": "#bfad80"
+            }
+          }
+        ]
+      },
+      "headerSix": {
+        "decorations": [
+          {
+            "type": "ITALIC",
+            "italicData": true
+          },
+          {
+            "type": "BOLD",
+            "fontWeightValue": 700
+          },
+          {
+            "type": "COLOR",
+            "colorData": {
+              "background": "#bf695c"
+            }
+          }
+        ],
+        "nodeStyle": {
+          "paddingTop": "2px",
+          "paddingBottom": "3px"
+        },
+        "lineHeight": "3"
+      },
+      "paragraph": {
+        "decorations": [],
+        "nodeStyle": {
+          "paddingTop": "2px",
+          "paddingBottom": "3px"
+        },
+        "lineHeight": "2"
+      }
     }
   }
 }
