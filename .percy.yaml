@@ -8,3 +8,7 @@ snapshot:
     video[aria-label="gif"] {
       display: none;
     }
+
+    [data-hook="addPluginFloatingToolbar"] {
+      display: none;
+    }

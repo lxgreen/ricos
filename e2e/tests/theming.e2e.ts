@@ -3,11 +3,11 @@ import { DEFAULT_MOBILE_WIDTHS } from './settings';
 
 function testFlow(title: string) {
   cy.setEditorSelection(111, 7);
-  cy.wait(200);
+  cy.wait(400);
   cy.percySnapshot(title + ' (formatting selection)');
 
   cy.setEditorSelection(171, 14);
-  cy.wait(200);
+  cy.wait(400);
   cy.percySnapshot(title + ' (link selection)');
 }
 
