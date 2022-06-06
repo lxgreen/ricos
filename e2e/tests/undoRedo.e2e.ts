@@ -8,7 +8,7 @@ describe('plugins', () => {
     });
 
     it('should undo and redo image plugin customizations', () => {
-      cy.loadRicosEditorAndViewer('empty');
+      cy.loadRicosEditor('empty');
       cy.clickOnStaticButton(STATIC_TOOLBAR_BUTTONS.IMAGE, { force: true });
       cy.wait(500);
       cy.enterText('testing undo redo for plugins');
@@ -35,7 +35,7 @@ describe('plugins', () => {
     });
 
     it('should undo and redo collapsible list plugin customizations', () => {
-      cy.loadRicosEditorAndViewer('empty', {
+      cy.loadRicosEditor('empty', {
         ...usePlugins(plugins.all),
       });
       cy.clickOnStaticButton(STATIC_TOOLBAR_BUTTONS.COLLAPSIBLE_LIST, { force: true });
@@ -62,7 +62,7 @@ describe('plugins', () => {
     });
 
     it('should undo and redo table plugin customizations', () => {
-      cy.loadRicosEditorAndViewer('empty', {
+      cy.loadRicosEditor('empty', {
         ...usePlugins(plugins.all),
       });
       cy.openTableModal();

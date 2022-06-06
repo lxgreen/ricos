@@ -101,6 +101,12 @@ const COMMANDS = {
   loadRicosEditorAndViewer: (fixtureName?: string, config?: TestAppConfig) =>
     run('ricos', fixtureName, config),
 
+  loadRicosEditor: (fixtureName?: string, config?: TestAppConfig) =>
+    run('ricos', fixtureName, { ...config, viewMode: 'EDITOR' }),
+
+  loadRicosViewer: (fixtureName?: string, config?: TestAppConfig) =>
+    run('ricos', fixtureName, { ...config, viewMode: 'VIEWER' }),
+
   loadTestAppOnSsr: (compName: string, fixtureName?: string, config?: TestAppConfig) => {
     cy.request(getUrl(compName, fixtureName, config))
       .its('body')
@@ -597,8 +603,8 @@ const typeAllAtOnce = ($subject: HTMLElement, value: string) => {
   return cy.wrap($subject).type('t{backspace}');
 };
 
-const waitForMediaToLoad = () => {
-  cy.get('[data-loaded=true]', { timeout: 15000 }).should('have.length', 2);
+const waitForMediaToLoad = (_, count = 2) => {
+  cy.get('[data-loaded=true]', { timeout: 15000 }).should('have.length', count);
 };
 
 const fireEvent = (element: HTMLElement, event: string, value: string) => {

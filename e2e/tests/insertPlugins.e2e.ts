@@ -15,13 +15,14 @@ const LINKS = {
 const modalHandler = (ADD_BUTTON: string, INPUT?: string, LINK?: string) => {
   LINK && INPUT && cy.get(`[data-hook=${INPUT}]`).wait(500).type(LINK);
   cy.get(`[data-hook=${ADD_BUTTON}]`).click();
-  cy.waitForMediaToLoad();
+  cy.waitForMediaToLoad(1); //editor only
 };
 
 const additionalCommands = {
   VIDEO: () => {
     cy.wait(500);
     modalHandler(VIDEO_PLUGIN.ADD, VIDEO_PLUGIN.INPUT, LINKS.YOUTUBE);
+    cy.wait(500);
   },
   SOUND_CLOUD: () => {
     modalHandler(SOUND_CLOUD.ADD, SOUND_CLOUD.INPUT, LINKS.SOUNDCLOUD);
@@ -54,7 +55,7 @@ const testInsertPlugin =
     const pluginLowercase = plugin.toLocaleLowerCase();
     if (EXCLUDE_PLUGINS.indexOf(pluginLowercase) === -1) {
       it(`should insert ${pluginLowercase}`, () => {
-        cy.loadRicosEditorAndViewer('empty').wait(500).insertPlugin(toolbar, pluginButtonName);
+        cy.loadRicosEditor('empty').wait(500).insertPlugin(toolbar, pluginButtonName);
         additionalCommands[plugin]?.();
         cy.wait(1500);
         cy.percySnapshot();

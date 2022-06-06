@@ -41,4 +41,5 @@ export interface TestAppConfig {
   showDefaultPreview?: boolean;
   isNativeUpload?: boolean;
   experiments?: AvailableExperiments;
+  viewMode?: 'EDITOR' | 'VIEWER';
 }

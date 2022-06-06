@@ -103,7 +103,8 @@ describe('plugins', () => {
       cy.clickToolbarButton(PLUGIN_TOOLBAR_BUTTONS.ADV_SETTINGS);
       cy.get(`[data-hook=gallerySpoilerToggle]`).click();
       cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
-      cy.percySnapshot('adding spoiler on a gallery');
+      // cy.wait(300);
+      // cy.percySnapshot('adding spoiler on a gallery');
       editText('spoilerTextArea', 'change the description - gallery');
       editText('revealSpoilerContent', 'change the reveal button content - gallery');
       revealSpoilerOnBlock();

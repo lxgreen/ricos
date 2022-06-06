@@ -24,7 +24,6 @@ import type { EditorState } from '@wix/draft-js';
 import { merge } from 'lodash';
 import { customStylesMock } from './customStylesMock';
 
-const VIEWER_ONLY = false;
 const onVideoSelected = (url: string, updateEntity) => {
   setTimeout(() => updateEntity(testVideos[1]), 1);
 };
@@ -176,7 +175,14 @@ class RicosTestApp extends PureComponent<RicosTestAppProps> {
 
   render() {
     const { isMobile, testAppConfig = {} } = this.props;
-    const { theme: { paletteType, disableContainer } = {}, applyOuterStyle } = testAppConfig;
+    const {
+      theme: { paletteType, disableContainer } = {},
+      applyOuterStyle,
+      viewMode,
+    } = testAppConfig;
+
+    const viewerOnly = viewMode === 'VIEWER';
+    const editorOnly = viewMode === 'EDITOR';
     const palette = determinePalette(paletteType);
     const addStyle = applyOuterStyle
       ? { color: 'white', fontFamily: 'Times', backgroundColor: 'black' }
@@ -186,25 +192,27 @@ class RicosTestApp extends PureComponent<RicosTestAppProps> {
         className={`testApp ${isMobile ? 'mobile' : ''}`}
         style={{ ...setBackground(palette, disableContainer), ...addStyle }}
       >
-        {!VIEWER_ONLY && (
-          <div>
+        {!viewerOnly && (
+          <div className={`${editorOnly ? 'full-width' : ''}`}>
             <h3 style={setForeground(palette)}>Editor</h3>
             <div className="rcWrapper rce" id="RicosEditorContainer" data-hook="ricos-editor">
               {this.renderEditor()}
             </div>
           </div>
         )}
-        <div className={`${VIEWER_ONLY ? 'full-width' : ''}`}>
-          <h3 style={setForeground(palette)}>Viewer</h3>
-          <div
-            className="rcWrapper rcv"
-            id="RicosViewerContainer"
-            data-hook="ricos-viewer"
-            ref={this.viewerRef}
-          >
-            {this.renderViewer()}
+        {!editorOnly && (
+          <div className={`${viewerOnly ? 'full-width' : ''}`}>
+            <h3 style={setForeground(palette)}>Viewer</h3>
+            <div
+              className="rcWrapper rcv"
+              id="RicosViewerContainer"
+              data-hook="ricos-viewer"
+              ref={this.viewerRef}
+            >
+              {this.renderViewer()}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }
