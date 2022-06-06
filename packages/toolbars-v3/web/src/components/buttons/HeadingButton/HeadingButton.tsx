@@ -11,6 +11,7 @@ import { DropdownArrowIcon } from '../../../icons';
 import { withToolbarContext } from '../../../utils/withContext';
 import HeadingsPanel from '../../../modals/heading/HeadingsPanel';
 import { headingsMap, translateHeading } from './utils';
+import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 
 const onSave = (data, selectedHeading, toolbarItem, setModalOpen) => {
   toolbarItem.commands?.removeInlineStyles();
@@ -47,22 +48,26 @@ const HeadingButton = ({ toolbarItem, context }) => {
 
   const selectedHeading = toolbarItem.attributes.selectedHeading;
   const Label = translateHeading(headingsMap[selectedHeading], t);
+
+  const tooltip = t(toolbarItem.presentation?.tooltip);
   return (
     <ClickOutside onClickOutside={onClickOutside}>
-      <div
-        className={cx(styles.headingModalButtonWrapper, isModalOpen ? styles.active : '')}
-        ref={setReferenceElement}
-      >
+      <Tooltip key={tooltip} content={tooltip} tooltipOffset={{ x: 0, y: -8 }}>
         <div
-          className={styles.headingModalButton}
-          role="button"
-          onClick={() => setModalOpen(!isModalOpen)}
-          tabIndex={0}
+          className={cx(styles.headingModalButtonWrapper, isModalOpen ? styles.active : '')}
+          ref={setReferenceElement}
         >
-          {Label}
-          <DropdownArrowIcon />
+          <div
+            className={styles.headingModalButton}
+            role="button"
+            onClick={() => setModalOpen(!isModalOpen)}
+            tabIndex={0}
+          >
+            {Label}
+            <DropdownArrowIcon />
+          </div>
         </div>
-      </div>
+      </Tooltip>
       {isModalOpen &&
         ReactDOM.createPortal(
           <div

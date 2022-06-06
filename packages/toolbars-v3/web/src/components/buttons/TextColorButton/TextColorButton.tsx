@@ -10,6 +10,7 @@ import { withToolbarContext } from '../../../utils/withContext';
 import { ColorPicker } from 'wix-rich-content-plugin-commons';
 import { getLangDir } from 'wix-rich-content-common';
 import { extractPalette, getBlockDocumentStyle, colorPicker } from './utils';
+import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 
 const onChange = (color, toolbarItem, setModalOpen) => {
   toolbarItem.commands?.setTextColor({ color });
@@ -61,26 +62,30 @@ const TextColorButton = ({ toolbarItem, context }) => {
   const currentColor = toolbarItem.attributes.selectedTextColor || documentStyles?.color;
 
   const Icon = toolbarItem.presentation?.icon;
+
+  const tooltip = t(toolbarItem.presentation?.tooltip);
   return (
     <ClickOutside onClickOutside={onClickOutside}>
-      <div
-        onMouseDown={e => e.preventDefault()}
-        className={cx(styles.textColorModalButtonWrapper, {
-          [styles.mobileTextColorModalButtonWrapper]: isMobile,
-        })}
-        ref={setReferenceElement}
-      >
+      <Tooltip key={tooltip} content={tooltip} tooltipOffset={{ x: 0, y: -8 }}>
         <div
-          className={cx(styles.textColorModalButton, {
-            [styles.mobileTextColorModalButton]: isMobile,
+          onMouseDown={e => e.preventDefault()}
+          className={cx(styles.textColorModalButtonWrapper, {
+            [styles.mobileTextColorModalButtonWrapper]: isMobile,
           })}
-          role="button"
-          onClick={() => setModalOpen(!isModalOpen)}
-          tabIndex={0}
+          ref={setReferenceElement}
         >
-          <Icon style={{ color: currentColor }} />
+          <div
+            className={cx(styles.textColorModalButton, {
+              [styles.mobileTextColorModalButton]: isMobile,
+            })}
+            role="button"
+            onClick={() => setModalOpen(!isModalOpen)}
+            tabIndex={0}
+          >
+            <Icon style={{ color: currentColor }} />
+          </div>
         </div>
-      </div>
+      </Tooltip>
       {isModalOpen &&
         ReactDOM.createPortal(
           <div

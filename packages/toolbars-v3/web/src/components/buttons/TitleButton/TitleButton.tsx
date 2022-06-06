@@ -5,6 +5,7 @@ import cx from 'classnames';
 import styles from './TitleButton.scss';
 import { TitleIcon, TitleOneIcon, TitleTwoIcon } from '../../../icons';
 import { withToolbarContext } from '../../../utils/withContext';
+import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 
 const titleStateMap = {
   unstyled: {
@@ -25,7 +26,7 @@ const titleStateMap = {
 };
 
 const TitleButton = ({ toolbarItem, context }) => {
-  const { isMobile } = context || {};
+  const { isMobile, t } = context || {};
   const selectedHeading = toolbarItem.attributes.selectedHeading;
   const currentTitleState = titleStateMap[selectedHeading] || titleStateMap.unstyled;
 
@@ -33,23 +34,26 @@ const TitleButton = ({ toolbarItem, context }) => {
   const onClick = () => toolbarItem.commands?.setHeading(currentTitleState.action);
   const isActive = currentTitleState.active;
 
+  const tooltip = t(toolbarItem.presentation?.tooltip);
   return (
-    <div
-      className={cx(styles.titleButtonWrapper, {
-        [styles.mobileTitleButtonWrapper]: isMobile,
-        [styles.active]: isActive,
-      })}
-    >
+    <Tooltip key={tooltip} content={tooltip} tooltipOffset={{ x: 0, y: -8 }}>
       <div
-        onMouseDown={e => e.preventDefault()}
-        className={cx(styles.titleButton, { [styles.mobileTitleButton]: isMobile })}
-        role="button"
-        onClick={onClick}
-        tabIndex={0}
+        className={cx(styles.titleButtonWrapper, {
+          [styles.mobileTitleButtonWrapper]: isMobile,
+          [styles.active]: isActive,
+        })}
       >
-        <Icon />
+        <div
+          onMouseDown={e => e.preventDefault()}
+          className={cx(styles.titleButton, { [styles.mobileTitleButton]: isMobile })}
+          role="button"
+          onClick={onClick}
+          tabIndex={0}
+        >
+          <Icon />
+        </div>
       </div>
-    </div>
+    </Tooltip>
   );
 };
 

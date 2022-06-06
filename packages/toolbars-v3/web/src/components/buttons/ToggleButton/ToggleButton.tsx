@@ -4,29 +4,39 @@ import cx from 'classnames';
 import type { ToolbarItemProps } from '../../../types';
 import styles from './ToggleButton.scss';
 import { withToolbarContext } from '../../../utils/withContext';
+import Tooltip from 'wix-rich-content-common/libs/Tooltip';
+import { getTooltip } from '../tooltipUtils';
 
 const ToggleButton = ({ toolbarItem, onClick, context }: ToolbarItemProps) => {
-  const { isMobile } = context || {};
+  const { isMobile, t } = context || {};
 
   const Icon = toolbarItem.presentation?.icon;
+
+  const tooltipShortcutKey = toolbarItem.presentation?.tooltipShortcut;
+  const tooltipKey = toolbarItem.presentation?.tooltip;
+
+  const tooltip = t && getTooltip(t, tooltipKey, tooltipShortcutKey);
+
   return (
-    <div
-      className={cx(styles.toggleButtonWrapper, {
-        [styles.mobileToggleButtonWrapper]: isMobile,
-        [styles.active]: toolbarItem.attributes.active,
-        [styles.disabled]: toolbarItem.attributes.disabled,
-      })}
-    >
+    <Tooltip key={tooltip} content={tooltip} tooltipOffset={{ x: 0, y: -8 }}>
       <div
-        onMouseDown={e => e.preventDefault()}
-        className={cx(styles.toggleButton, { [styles.mobileToggleButton]: isMobile })}
-        role="button"
-        onClick={onClick}
-        tabIndex={0}
+        className={cx(styles.toggleButtonWrapper, {
+          [styles.mobileToggleButtonWrapper]: isMobile,
+          [styles.active]: toolbarItem.attributes.active,
+          [styles.disabled]: toolbarItem.attributes.disabled,
+        })}
       >
-        <Icon />
+        <div
+          onMouseDown={e => e.preventDefault()}
+          className={cx(styles.toggleButton, { [styles.mobileToggleButton]: isMobile })}
+          role="button"
+          onClick={onClick}
+          tabIndex={0}
+        >
+          <Icon />
+        </div>
       </div>
-    </div>
+    </Tooltip>
   );
 };
 

@@ -11,6 +11,7 @@ import { withToolbarContext } from '../../../utils/withContext';
 import LineSpacingPanel from '../../../modals/line-spacing/LineSpacingPanel';
 import { getLangDir } from 'wix-rich-content-common';
 import { getCurrentSelection } from './utils';
+import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 
 const onSave = (data, toolbarItem, setModalOpen) => {
   toolbarItem.commands?.setLineSpacing(data);
@@ -67,26 +68,30 @@ const LineSpacingButton = ({ toolbarItem, context }) => {
   const spacing = getCurrentSelection(toolbarItem, defaultLineSpacingFromApi);
 
   const Icon = toolbarItem.presentation?.icon;
+
+  const tooltip = t(toolbarItem.presentation?.tooltip);
   return (
     <ClickOutside onClickOutside={onClickOutside}>
-      <div
-        className={cx(styles.lineSpacingModalButtonWrapper, isModalOpen ? styles.active : '', {
-          [styles.mobileLineSpacingModalButtonWrapper]: isMobile,
-        })}
-        ref={setReferenceElement}
-      >
+      <Tooltip key={tooltip} content={tooltip} tooltipOffset={{ x: 0, y: -8 }}>
         <div
-          className={cx(styles.lineSpacingModalButton, {
-            [styles.mobileLineSpacingModalButton]: isMobile,
+          className={cx(styles.lineSpacingModalButtonWrapper, isModalOpen ? styles.active : '', {
+            [styles.mobileLineSpacingModalButtonWrapper]: isMobile,
           })}
-          role="button"
-          onClick={openCloseModal}
-          tabIndex={0}
+          ref={setReferenceElement}
         >
-          <Icon />
-          <DropdownArrowIcon />
+          <div
+            className={cx(styles.lineSpacingModalButton, {
+              [styles.mobileLineSpacingModalButton]: isMobile,
+            })}
+            role="button"
+            onClick={openCloseModal}
+            tabIndex={0}
+          >
+            <Icon />
+            <DropdownArrowIcon />
+          </div>
         </div>
-      </div>
+      </Tooltip>
       {isModalOpen &&
         ReactDOM.createPortal(
           <div

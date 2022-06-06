@@ -11,6 +11,7 @@ import { withToolbarContext } from '../../../utils/withContext';
 import AlignmentPanel from '../../../modals/alignment/AlignmentPanel';
 import { getLangDir } from 'wix-rich-content-common';
 import { getDefaultAlignment, alignmentMap } from './utils';
+import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 
 const onSave = (data, toolbarItem) => {
   toolbarItem.commands?.setAlignment(data);
@@ -43,26 +44,30 @@ const AlignmentButton = ({ toolbarItem, context }) => {
 
   const selectedAlignment = toolbarItem.attributes.selectedAlignment || getDefaultAlignment(locale);
   const SelectedAlignmentIcon = alignmentMap[`${selectedAlignment}`];
+
+  const tooltip = t(toolbarItem.presentation?.tooltip);
   return (
     <ClickOutside onClickOutside={onClickOutside}>
-      <div
-        className={cx(styles.alignmentModalButtonWrapper, isModalOpen ? styles.active : '', {
-          [styles.mobileAlignmentModalButtonWrapper]: isMobile,
-        })}
-        ref={setReferenceElement}
-      >
+      <Tooltip key={tooltip} content={tooltip} tooltipOffset={{ x: 0, y: -8 }}>
         <div
-          className={cx(styles.alignmentModalButton, {
-            [styles.mobileAlignmentModalButton]: isMobile,
+          className={cx(styles.alignmentModalButtonWrapper, isModalOpen ? styles.active : '', {
+            [styles.mobileAlignmentModalButtonWrapper]: isMobile,
           })}
-          role="button"
-          onClick={() => setModalOpen(!isModalOpen)}
-          tabIndex={0}
+          ref={setReferenceElement}
         >
-          <SelectedAlignmentIcon />
-          <DropdownArrowIcon />
+          <div
+            className={cx(styles.alignmentModalButton, {
+              [styles.mobileAlignmentModalButton]: isMobile,
+            })}
+            role="button"
+            onClick={() => setModalOpen(!isModalOpen)}
+            tabIndex={0}
+          >
+            <SelectedAlignmentIcon />
+            <DropdownArrowIcon />
+          </div>
         </div>
-      </div>
+      </Tooltip>
       {isModalOpen &&
         ReactDOM.createPortal(
           <div

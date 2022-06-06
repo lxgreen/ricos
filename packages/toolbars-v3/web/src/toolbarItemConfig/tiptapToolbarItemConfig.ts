@@ -48,7 +48,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'undo',
     type: 'toggle',
     presentation: {
-      tooltip: 'Undo',
+      tooltip: 'UndoButton_Tooltip',
       icon: UndoIcon,
     },
     attributes: {
@@ -68,7 +68,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'redo',
     type: 'toggle',
     presentation: {
-      tooltip: 'Redo',
+      tooltip: 'RedoButton_Tooltip',
       icon: RedoIcon,
     },
     attributes: {
@@ -88,7 +88,11 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'bold',
     type: 'toggle',
     presentation: {
-      tooltip: 'Bold',
+      tooltip: 'BoldButton_Tooltip',
+      tooltipShortcut: {
+        MacOS: ' (⌘B)',
+        Windows: ' (Ctrl+B)',
+      },
       icon: BoldIcon,
     },
     attributes: {
@@ -107,7 +111,11 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'italic',
     type: 'toggle',
     presentation: {
-      tooltip: 'Italic',
+      tooltip: 'ItalicButton_Tooltip',
+      tooltipShortcut: {
+        MacOS: ' (⌘I)',
+        Windows: ' (Ctrl+I)',
+      },
       icon: ItalicIcon,
     },
     attributes: {
@@ -126,7 +134,11 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'underline',
     type: 'toggle',
     presentation: {
-      tooltip: 'Underline',
+      tooltip: 'UnderlineButton_Tooltip',
+      tooltipShortcut: {
+        MacOS: ' (⌘U)',
+        Windows: ' (Ctrl+U)',
+      },
       icon: UnderlineIcon,
     },
     attributes: {
@@ -154,7 +166,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'blockquote',
     type: 'toggle',
     presentation: {
-      tooltip: 'Quote',
+      tooltip: 'QuoteButton_Tooltip',
       icon: BlockQuoteIcon,
     },
     attributes: {
@@ -173,7 +185,11 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'codeBlock',
     type: 'toggle',
     presentation: {
-      tooltip: 'Code Block',
+      tooltip: 'TextCodeBlockButton_Tooltip',
+      tooltipShortcut: {
+        MacOS: ' (⌘⇧C)',
+        Windows: ' (Ctrl+⇧+C)',
+      },
       icon: CodeBlockIcon,
     },
     attributes: {
@@ -192,7 +208,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'orderedList',
     type: 'toggle',
     presentation: {
-      tooltip: 'Ordered List',
+      tooltip: 'OrderedListButton_Tooltip',
       icon: OrderedListIcon,
     },
     attributes: {
@@ -211,7 +227,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'unorderedList',
     type: 'toggle',
     presentation: {
-      tooltip: 'Unordered List',
+      tooltip: 'UnorderedListButton_Tooltip',
       icon: UnorderedListIcon,
     },
     attributes: {
@@ -230,7 +246,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'spoiler',
     type: 'toggle',
     presentation: {
-      tooltip: 'Spoiler',
+      tooltip: 'Spoiler_Insert_Tooltip',
       icon: SpoilerButtonIcon,
     },
     attributes: {
@@ -249,7 +265,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'increaseIndent',
     type: 'toggle',
     presentation: {
-      tooltip: 'Increase indent',
+      tooltip: 'increaseIndentButton_Tooltip',
       icon: increaseIndentPluginIcon,
     },
     attributes: {
@@ -267,7 +283,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'decreaseIndent',
     type: 'toggle',
     presentation: {
-      tooltip: 'Decrease indent',
+      tooltip: 'decreaseIndentButton_Tooltip',
       icon: decreaseIndentPluginIcon,
     },
     attributes: {
@@ -285,7 +301,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'alignment',
     type: 'modal',
     presentation: {
-      tooltip: 'Alignment',
+      tooltip: 'AlignTextDropdownButton_Tooltip',
     },
     attributes: {
       visible: alwaysVisibleResolver,
@@ -303,7 +319,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'title',
     type: 'toggle',
     presentation: {
-      tooltip: 'Title',
+      tooltip: 'TitleButton_Tooltip',
     },
     attributes: {
       visible: alwaysVisibleResolver,
@@ -334,7 +350,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'headings',
     type: 'modal',
     presentation: {
-      tooltip: 'Heading',
+      tooltip: 'FormattingToolbar_TextStyleButton_Tooltip',
     },
     attributes: {
       visible: alwaysVisibleResolver,
@@ -377,7 +393,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'lineSpacing',
     type: 'modal',
     presentation: {
-      tooltip: 'Line Spacing',
+      tooltip: 'LineSpacingButton_Tooltip',
       icon: LineSpacingIcon,
     },
     attributes: {
@@ -436,7 +452,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'fontSize',
     type: 'modal',
     presentation: {
-      tooltip: 'Font Size',
+      tooltip: 'FormattingToolbar_CustomFontSizeButton_Tooltip',
     },
     attributes: {
       visible: alwaysVisibleResolver,
@@ -463,7 +479,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'link',
     type: 'modal',
     presentation: {
-      tooltip: 'Link',
+      tooltip: 'TextLinkButton_Tooltip',
       icon: LinkIcon,
     },
     attributes: {
@@ -501,7 +517,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'textColor',
     type: 'modal',
     presentation: {
-      tooltip: 'Text Color',
+      tooltip: 'TextColorButton_Tooltip',
       icon: TextColorIcon,
     },
     attributes: {
@@ -525,7 +541,7 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     id: 'textHighlight',
     type: 'modal',
     presentation: {
-      tooltip: 'Highlight Color',
+      tooltip: 'TextHighlightButton_Tooltip',
       icon: TextHighlightIcon,
     },
     attributes: {

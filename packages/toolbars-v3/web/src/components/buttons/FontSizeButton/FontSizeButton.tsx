@@ -10,6 +10,7 @@ import { DropdownArrowIcon } from '../../../icons';
 import { withToolbarContext } from '../../../utils/withContext';
 import FontSizePanel from '../../../modals/fontSize/FontSizePanel';
 import { getLangDir } from 'wix-rich-content-common';
+import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 
 const onSave = (data, toolbarItem, setModalOpen) => {
   toolbarItem.commands?.setFontSize(data);
@@ -55,27 +56,31 @@ const FontSizeButton = ({ toolbarItem, context }) => {
   };
 
   const selectedFontSize = toolbarItem.attributes.selectedFontSize;
+
+  const tooltip = t(toolbarItem.presentation?.tooltip);
   return (
     <ClickOutside onClickOutside={onClickOutside}>
-      <div
-        className={cx(styles.fontSizeModalButtonWrapper, isModalOpen ? styles.active : '')}
-        ref={setReferenceElement}
-      >
+      <Tooltip key={tooltip} content={tooltip} tooltipOffset={{ x: 0, y: -8 }}>
         <div
-          className={styles.fontSizeModalButton}
-          role="button"
-          onClick={() => setModalOpen(!isModalOpen)}
-          tabIndex={0}
+          className={cx(styles.fontSizeModalButtonWrapper, isModalOpen ? styles.active : '')}
+          ref={setReferenceElement}
         >
-          <input
-            className={styles.fontSizeModalInputButton}
-            required
-            value={inputValue}
-            onChange={e => onInputChange(e, setInputValue, toolbarItem)}
-          />
-          <DropdownArrowIcon />
+          <div
+            className={styles.fontSizeModalButton}
+            role="button"
+            onClick={() => setModalOpen(!isModalOpen)}
+            tabIndex={0}
+          >
+            <input
+              className={styles.fontSizeModalInputButton}
+              required
+              value={inputValue}
+              onChange={e => onInputChange(e, setInputValue, toolbarItem)}
+            />
+            <DropdownArrowIcon />
+          </div>
         </div>
-      </div>
+      </Tooltip>
       {isModalOpen &&
         ReactDOM.createPortal(
           <div

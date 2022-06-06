@@ -11,6 +11,7 @@ import { ColorPicker } from 'wix-rich-content-plugin-commons';
 import { getLangDir } from 'wix-rich-content-common';
 import { extractPalette, getBlockDocumentStyle } from './utils';
 import { colorPicker } from '../TextColorButton/utils';
+import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 
 const onChange = (color, toolbarItem, setModalOpen) => {
   toolbarItem.commands?.setHighlightColor({ color });
@@ -63,26 +64,33 @@ const HighlightColorButton = ({ toolbarItem, context }) => {
     toolbarItem.attributes.selectedHighlightColor || documentStyles?.['background-color'];
 
   const Icon = toolbarItem.presentation?.icon;
+
+  const tooltip = t(toolbarItem.presentation?.tooltip);
   return (
     <ClickOutside onClickOutside={onClickOutside}>
-      <div
-        onMouseDown={e => e.preventDefault()}
-        className={cx(styles.highlightColorModalButtonWrapper, {
-          [styles.mobileHighlightColorModalButtonWrapper]: isMobile,
-        })}
-        ref={setReferenceElement}
-      >
+      <Tooltip key={tooltip} content={tooltip} tooltipOffset={{ x: 0, y: -8 }}>
         <div
-          className={cx(styles.highlightColorModalButton, {
-            [styles.mobileHighlightColorModalButton]: isMobile,
+          onMouseDown={e => e.preventDefault()}
+          className={cx(styles.highlightColorModalButtonWrapper, {
+            [styles.mobileHighlightColorModalButtonWrapper]: isMobile,
           })}
-          role="button"
-          onClick={() => setModalOpen(!isModalOpen)}
-          tabIndex={0}
+          ref={setReferenceElement}
         >
-          <Icon className={styles.highlightColorModalButtonIcon} style={{ color: currentColor }} />
+          <div
+            className={cx(styles.highlightColorModalButton, {
+              [styles.mobileHighlightColorModalButton]: isMobile,
+            })}
+            role="button"
+            onClick={() => setModalOpen(!isModalOpen)}
+            tabIndex={0}
+          >
+            <Icon
+              className={styles.highlightColorModalButtonIcon}
+              style={{ color: currentColor }}
+            />
+          </div>
         </div>
-      </div>
+      </Tooltip>
       {isModalOpen &&
         ReactDOM.createPortal(
           <div

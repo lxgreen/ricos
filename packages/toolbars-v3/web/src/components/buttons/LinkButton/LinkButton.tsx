@@ -11,6 +11,7 @@ import LinkModal from '../../../modals/link/LinkComponents/LinkModal';
 import { getLangDir, CUSTOM_LINK } from 'wix-rich-content-common';
 import { getLinkModalProps } from './utils';
 import { withContentQueryContext } from 'ricos-content-query';
+import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 
 const onDone = (data, toolbarItem, setModalOpen) => {
   if (data.url) {
@@ -85,25 +86,29 @@ const LinkButton = ({ toolbarItem, context, contentQueryService }) => {
   };
 
   const Icon = toolbarItem.presentation?.icon;
+
+  const tooltip = t(toolbarItem.presentation?.tooltip);
   return (
     <ClickOutside onClickOutside={onClickOutside}>
-      <div
-        className={cx(
-          styles.linkModalButtonWrapper,
-          isModalOpen || toolbarItem.attributes.active ? styles.active : '',
-          { [styles.mobileLinkModalButtonWrapper]: isMobile }
-        )}
-        ref={setReferenceElement}
-      >
+      <Tooltip key={tooltip} content={tooltip} tooltipOffset={{ x: 0, y: -8 }}>
         <div
-          className={cx(styles.linkModalButton, { [styles.mobileLinkModalButton]: isMobile })}
-          role="button"
-          onClick={openCloseModal}
-          tabIndex={0}
+          className={cx(
+            styles.linkModalButtonWrapper,
+            isModalOpen || toolbarItem.attributes.active ? styles.active : '',
+            { [styles.mobileLinkModalButtonWrapper]: isMobile }
+          )}
+          ref={setReferenceElement}
         >
-          <Icon />
+          <div
+            className={cx(styles.linkModalButton, { [styles.mobileLinkModalButton]: isMobile })}
+            role="button"
+            onClick={openCloseModal}
+            tabIndex={0}
+          >
+            <Icon />
+          </div>
         </div>
-      </div>
+      </Tooltip>
       {isModalOpen &&
         ReactDOM.createPortal(
           <div

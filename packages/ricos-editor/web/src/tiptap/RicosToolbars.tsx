@@ -115,7 +115,7 @@ class RicosToolbars extends React.Component<
       toolbarSettings,
     } = this.props;
 
-    const toolbarType = TOOLBARS.FORMATTING;
+    const toolbarType = TOOLBARS.INLINE;
     const toolbarConfig = this.getToolbarConfig(finaltoolbarSettings, toolbarType);
     const toolbarItemsConfig = ToolbarConfig.toTiptapToolbarItemsConfig(
       toolbarConfig,
