@@ -23,6 +23,10 @@
   - [#3959](https://github.com/wix/ricos/pull/3959) fix mentions backspace issue && refactor ui
 
 ## :house: Internal
+- `ricos-editor`
+  - [#3981](https://github.com/wix/ricos/pull/3981) fix horizontalAddPluginMenu open modal func
+
+## :house: Internal
 
 - `ricos-plugins ricos-editor`
   - [#3972](https://github.com/wix/ricos/pull/3972) media upload add buttons support
