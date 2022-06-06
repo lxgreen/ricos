@@ -214,8 +214,8 @@ export const getFontSizeInSelectionResolver = TiptapContentResolver.create(
   }
 );
 
-export const isTextContainsLinkResolver = TiptapContentResolver.create(
-  RESOLVERS_IDS.IS_TEXT_CONTAINS_LINK,
+export const isTextContainsLinkOrAnchorResolver = TiptapContentResolver.create(
+  RESOLVERS_IDS.IS_TEXT_CONTAINS_LINK_OR_ANCHOR,
   content => {
     if (Array.isArray(content)) {
       const node = content.find(node => {
@@ -224,6 +224,32 @@ export const isTextContainsLinkResolver = TiptapContentResolver.create(
       return node?.marks.some(
         mark => mark.type.name === Decoration_Type.LINK || mark.type.name === Decoration_Type.ANCHOR
       );
+    }
+    return false;
+  }
+);
+
+export const isTextContainsLinkResolver = TiptapContentResolver.create(
+  RESOLVERS_IDS.IS_TEXT_CONTAINS_LINK,
+  content => {
+    if (Array.isArray(content)) {
+      const node = content.find(node => {
+        return node.type.name === 'text';
+      });
+      return node?.marks.some(mark => mark.type.name === Decoration_Type.LINK);
+    }
+    return false;
+  }
+);
+
+export const isTextContainsAnchorResolver = TiptapContentResolver.create(
+  RESOLVERS_IDS.IS_TEXT_CONTAINS_ANCHOR,
+  content => {
+    if (Array.isArray(content)) {
+      const node = content.find(node => {
+        return node.type.name === 'text';
+      });
+      return node?.marks.some(mark => mark.type.name === Decoration_Type.ANCHOR);
     }
     return false;
   }
@@ -387,3 +413,15 @@ export const isPluginSelectedResolver = TiptapContentResolver.create(
   RESOLVERS_IDS.IS_PLUGIN_SELECTED,
   content => pluginSelectedResolvers.some(isPluginSelected => isPluginSelected.resolve(content))
 );
+
+export const getLinkData = TiptapContentResolver.create(RESOLVERS_IDS.GET_LINK_DATA, content => {
+  if (Array.isArray(content)) {
+    const node = content.find(node => {
+      return node.type.name === 'text';
+    });
+    if (node?.marks.some(mark => mark.type.name === Decoration_Type.LINK)) {
+      return node.marks[0].attrs.link;
+    }
+  }
+  return false;
+});

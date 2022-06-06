@@ -1,10 +1,11 @@
 import React from 'react';
 import type { Node } from 'prosemirror-model';
-import type { Content } from 'wix-rich-content-toolbars-v3';
+import type { Content, IToolbarItemConfigTiptap } from 'wix-rich-content-toolbars-v3';
 import {
   FloatingToolbar,
   RicosTiptapToolbar,
   tiptapStaticToolbarConfig,
+  linkToolbarItemConfig,
 } from 'wix-rich-content-toolbars-v3';
 import type { ToolbarSettings } from 'ricos-common';
 import {
@@ -17,7 +18,7 @@ import type { RichContentAdapter } from 'wix-tiptap-editor';
 import { withTiptapEditorContext } from 'wix-tiptap-editor';
 import { getDefaultToolbarSettings } from 'wix-rich-content-editor';
 import RicosPortal from '../modals/RicosPortal';
-
+import type { Selection } from 'prosemirror-state';
 import { ToolbarConfig } from './ricosToolbarConfig';
 import type { GeneralContext } from 'ricos-types';
 
@@ -29,6 +30,7 @@ type RicosToolbarProps = {
 type RicosToolbarState = {
   finalToolbarSettings?: ToolbarSettingsFunctions[];
 };
+
 class RicosToolbars extends React.Component<
   RicosToolbarProps & { ricosContext: GeneralContext; editor: RichContentAdapter },
   RicosToolbarState
@@ -108,6 +110,42 @@ class RicosToolbars extends React.Component<
     tiptapEditor.off('update', this.onSelectionUpdate);
   }
 
+  isSelectionCollapsed = (selection: Selection): boolean => {
+    const { from, to } = selection;
+    return to - from <= 0;
+  };
+
+  isLinkInCollapsedSelection = (selection: Selection, editor: RichContentAdapter): boolean => {
+    const isCollapsed = this.isSelectionCollapsed(selection);
+    const isLinkInSelection = editor.getEditorCommands().hasLinkInSelection();
+    return isCollapsed && isLinkInSelection;
+  };
+
+  floatingToolbarChildren = (
+    dataHook: string,
+    maxWidth: number,
+    toolbarItemsConfig: IToolbarItemConfigTiptap[]
+  ): JSX.Element => {
+    const floatingFrameStyles = {
+      border: 'solid 1px #ededed',
+      borderRadius: 'var(--ricos-settings-whitebox-border-radius, 2px)',
+      boxShadow: 'var(--ricos-settings-whitebox-box-shadow, 0 4px 8px 0 rgba(0, 0, 0, 0.07))',
+      backgroundColor: '#FFF',
+      height: '36px',
+      display: 'flex',
+      alignItems: 'center',
+      padding: '0 4px',
+    };
+
+    return (
+      <div data-hook={dataHook} style={floatingFrameStyles}>
+        <div style={{ width: maxWidth, maxWidth: 'fit-content' }}>
+          {this.renderToolbar(toolbarItemsConfig, { maxWidth })}
+        </div>
+      </div>
+    );
+  };
+
   renderFormattingToolbar(finaltoolbarSettings: ToolbarSettingsFunctions[]) {
     const {
       ricosContext,
@@ -129,29 +167,47 @@ class RicosToolbars extends React.Component<
       toolbarConfig?.shouldCreate?.() &&
       !toolbarSettings?.useStaticTextToolbar
     ) {
-      const floatingFrameStyles = {
-        border: 'solid 1px #ededed',
-        borderRadius: 'var(--ricos-settings-whitebox-border-radius, 2px)',
-        boxShadow: 'var(--ricos-settings-whitebox-box-shadow, 0 4px 8px 0 rgba(0, 0, 0, 0.07))',
-        backgroundColor: '#FFF',
-        height: '36px',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 4px',
-      };
-
       return (
-        <FloatingToolbar editor={tiptapEditor} portal={ricosContext.portal}>
-          {() => {
-            const maxWidth = tiptapEditor.view.dom.clientWidth;
-            return (
-              <div data-hook="floating-formatting-toolbar" style={floatingFrameStyles}>
-                <div style={{ width: maxWidth, maxWidth: 'fit-content' }}>
-                  {this.renderToolbar(toolbarItemsConfig, { maxWidth })}
-                </div>
-              </div>
-            );
-          }}
+        <FloatingToolbar
+          editor={tiptapEditor}
+          portal={ricosContext.portal}
+          isVisible={!this.isSelectionCollapsed(tiptapEditor.state.selection)}
+        >
+          {() =>
+            this.floatingToolbarChildren(
+              'floating-formatting-toolbar',
+              tiptapEditor.view.dom.clientWidth,
+              toolbarItemsConfig
+            )
+          }
+        </FloatingToolbar>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  renderLinkToolbar() {
+    const {
+      ricosContext,
+      editor,
+      editor: { tiptapEditor },
+    } = this.props;
+
+    if (!ricosContext.isMobile) {
+      return (
+        <FloatingToolbar
+          editor={tiptapEditor}
+          portal={ricosContext.portal}
+          isVisible={this.isLinkInCollapsedSelection(tiptapEditor.state.selection, editor)}
+        >
+          {() =>
+            this.floatingToolbarChildren(
+              'floating-link-toolbar',
+              tiptapEditor.view.dom.clientWidth,
+              linkToolbarItemConfig
+            )
+          }
         </FloatingToolbar>
       );
     } else {
@@ -237,6 +293,7 @@ class RicosToolbars extends React.Component<
         {this.renderStaticToolbar(finalToolbarSettings)}
         {this.renderMobileToolbar(finalToolbarSettings)}
         {this.renderFormattingToolbar(finalToolbarSettings)}
+        {this.renderLinkToolbar()}
       </>
     );
   }

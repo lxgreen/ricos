@@ -126,7 +126,7 @@ const LinkButton = ({ toolbarItem, context, contentQueryService }) => {
                 {...linkSettingsData}
                 {...linkData}
                 anchorableBlocksData={anchorableBlocks}
-                isActive={toolbarItem.attributes.active}
+                isActive={!!linkData.url || !!linkData.anchor}
                 onDone={({ data }) => onDone(data, toolbarItem, setModalOpen)}
                 onCancel={() => setModalOpen(false)}
                 onDelete={() => onDelete(toolbarItem, setModalOpen, linkData)}

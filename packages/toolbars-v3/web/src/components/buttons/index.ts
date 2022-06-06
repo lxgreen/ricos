@@ -10,3 +10,5 @@ export { ToggleButton } from './ToggleButton';
 export { SettingsButton } from './SettingsButton';
 export { default as MoreButton } from './MoreButton/MoreButton';
 export { OpenAddPluginPanel } from './OpenAddPluginPanel';
+export { default as UrlLinkButton } from './UrlLinkButton/UrlLinkButton';
+export { default as AnchorLinkButton } from './AnchorLinkButton/AnchorLinkButton';

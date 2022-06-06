@@ -1,4 +1,5 @@
 export { tiptapStaticToolbarConfig } from './toolbarItemConfig/tiptapToolbarItemConfig';
+export { linkToolbarItemConfig } from './toolbarItemConfig/linkToolbarItemConfig';
 
 export const toolbarsV3 = () => {
   // eslint-disable-next-line no-console

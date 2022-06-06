@@ -181,7 +181,7 @@ export class RichContentAdapter
             marks[name] = true;
           });
         });
-        return marks.link;
+        return marks[Decoration_Type.LINK] || marks[Decoration_Type.ANCHOR];
       },
 
       getLinkDataInSelection: () => {

@@ -9,11 +9,35 @@ import {
   HighlightColorButton,
   TitleButton,
   OpenAddPluginPanel,
+  UrlLinkButton,
+  AnchorLinkButton,
   HeadingButtonSwitch,
 } from './components/buttons';
 import { ToolbarButtonSeparator } from './components/ToolbarButtonSeparator';
 
 export const toolbarItemsRenders = {
+  anchorLink: toolbarItem => {
+    return <AnchorLinkButton toolbarItem={toolbarItem} />;
+  },
+  removeLink: toolbarItem => {
+    return (
+      <ToggleButton onClick={e => toolbarItem.commands?.removeLink(e)} toolbarItem={toolbarItem} />
+    );
+  },
+  removeAnchor: toolbarItem => {
+    return (
+      <ToggleButton
+        onClick={e => toolbarItem.commands?.removeAnchor(e)}
+        toolbarItem={toolbarItem}
+      />
+    );
+  },
+  editLink: toolbarItem => {
+    return <LinkButton toolbarItem={toolbarItem} />;
+  },
+  urlLink: toolbarItem => {
+    return <UrlLinkButton toolbarItem={toolbarItem} />;
+  },
   openAddPluginPanel: toolbarItem => {
     return <OpenAddPluginPanel toolbarItem={toolbarItem} />;
   },

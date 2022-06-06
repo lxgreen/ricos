@@ -1,3 +1,5 @@
+import { createLink } from 'ricos-content/libs/nodeUtils';
+import { convertRelObjectToString, convertRelStringToObject } from 'wix-rich-content-common';
 // import { ContentResolver } from './ContentResolver';
 import {
   BoldIcon,
@@ -31,7 +33,7 @@ import {
   getAlignmentInSelectionResolver,
   getHeadingInSelectionResolver,
   getFontSizeInSelectionResolver,
-  isTextContainsLinkResolver,
+  isTextContainsLinkOrAnchorResolver,
   getTextColorInSelectionResolver,
   getHighlightColorInSelectionResolver,
   getLineSpacingInSelectionResolver,
@@ -484,17 +486,16 @@ export const tiptapStaticToolbarConfig: IToolbarItemConfigTiptap[] = [
     },
     attributes: {
       visible: alwaysVisibleResolver,
-      active: isTextContainsLinkResolver,
+      active: isTextContainsLinkOrAnchorResolver,
     },
     commands: {
       insertLink:
         ({ editorCommands }) =>
         linkData => {
-          editorCommands
-            .chain()
-            .focus()
-            .setLink({ link: { ...linkData } })
-            .run();
+          const { rel, target, url } = linkData;
+          const relValue = convertRelObjectToString(convertRelStringToObject(rel));
+          const link = createLink({ url, rel: relValue, target });
+          editorCommands.chain().focus().setLink({ link }).run();
         },
       insertAnchor:
         ({ editorCommands }) =>

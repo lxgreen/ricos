@@ -13,15 +13,16 @@ import { debounce } from 'lodash';
 export const FloatingToolbar = ({
   editor,
   portal,
+  isVisible,
   children,
 }: {
   editor: Editor;
   portal: RicosPortal;
+  isVisible: boolean;
   children: any;
 }) => {
   const { state, view } = editor;
   const { from, to } = state.selection;
-  const isCollapsed = to - from <= 0;
 
   const [dummyUpdate, setForceUpdate] = useState<number>(1);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
@@ -94,7 +95,7 @@ export const FloatingToolbar = ({
 
   return (
     <ClickOutside onClickOutside={onClickOutside} wrapper="div">
-      {!isCollapsed &&
+      {isVisible &&
         isModalOpen &&
         ReactDOM.createPortal(
           <div
