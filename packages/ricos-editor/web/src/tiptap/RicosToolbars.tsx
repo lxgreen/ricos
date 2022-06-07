@@ -21,6 +21,7 @@ import RicosPortal from '../modals/RicosPortal';
 import type { Selection } from 'prosemirror-state';
 import { ToolbarConfig } from './ricosToolbarConfig';
 import type { GeneralContext } from 'ricos-types';
+import { isTextSelection } from '@tiptap/core';
 
 type RicosToolbarProps = {
   content: Content<Node[]>;
@@ -171,7 +172,10 @@ class RicosToolbars extends React.Component<
         <FloatingToolbar
           editor={tiptapEditor}
           portal={ricosContext.portal}
-          isVisible={!this.isSelectionCollapsed(tiptapEditor.state.selection)}
+          isVisible={
+            !this.isSelectionCollapsed(tiptapEditor.state.selection) &&
+            isTextSelection(tiptapEditor.state.selection)
+          }
         >
           {() =>
             this.floatingToolbarChildren(
