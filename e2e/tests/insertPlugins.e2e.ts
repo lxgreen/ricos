@@ -47,7 +47,7 @@ const additionalCommands = {
   // ADSENSE: () => {},
 };
 
-const EXCLUDE_PLUGINS = ['map'];
+const EXCLUDE_PLUGINS = ['map', 'video'];
 
 const testInsertPlugin =
   (toolbar: string) =>
