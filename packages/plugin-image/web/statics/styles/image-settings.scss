@@ -62,6 +62,7 @@ $TITLE_HEIGHT_MOBILE: 50px;
   .imageSettings_newUi & {
     margin: 0;
     height: calc(100% - #{$TITLE_HEIGHT} - #{$FOOTER_HEIGHT});
+    padding-bottom: 30px;
     position: absolute;
     width: 100%;
     overflow: scroll;

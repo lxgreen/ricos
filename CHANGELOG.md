@@ -34,6 +34,8 @@
   - [#3985](https://github.com/wix/ricos/pull/3985) fix editor crash on invalid content
 - `mentions`
   - [#3959](https://github.com/wix/ricos/pull/3959) fix mentions backspace issue && refactor ui
+- `image`
+  - [#3991](https://github.com/wix/ricos/pull/3991) fix settings scroll
 
 ## :house: Internal
 
