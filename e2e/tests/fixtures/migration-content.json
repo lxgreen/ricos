@@ -532,7 +532,7 @@
       "key": "f5rqu",
       "text": "Nunc eros ante , porttitor sed tempor nec, sagittis non mi. Nulla non vulputate magna, semper convallis sapien.",
       "type": "blockquote",
-      "depth": 0,
+      "depth": 1,
       "inlineStyleRanges": [
         {
           "offset": 27,

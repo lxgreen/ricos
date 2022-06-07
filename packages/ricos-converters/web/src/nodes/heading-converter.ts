@@ -1,12 +1,12 @@
 import type { HeadingNode } from 'ricos-content';
-import type { HeadingData } from 'ricos-schema';
+import type { Node, HeadingData } from 'ricos-schema';
 import { Node_Type } from 'ricos-schema';
 import type { TiptapNodeConverter, TiptapNode } from '../types';
 
 export const headingConverter: TiptapNodeConverter = {
   toTiptap: {
     type: Node_Type.HEADING,
-    convert: (node: HeadingNode) => {
+    convert: (node: HeadingNode, visit: (node: HeadingNode) => TiptapNode[]) => {
       const { id, style, headingData } = node || {};
       return {
         type: Node_Type.HEADING,
@@ -15,17 +15,18 @@ export const headingConverter: TiptapNodeConverter = {
           ...(style ? { style } : {}),
           id,
         },
+        content: visit(node),
       };
     },
   },
   fromTiptap: {
     type: Node_Type.HEADING,
-    convert: (node: TiptapNode) => {
+    convert: (node: TiptapNode, visit: (node: TiptapNode) => Node[]) => {
       const { id, style, ...data } = node.attrs || {};
       return {
         type: Node_Type.HEADING,
         id,
-        nodes: [],
+        nodes: visit(node),
         ...(style ? { style } : {}),
         headingData: {
           ...(data as HeadingData),

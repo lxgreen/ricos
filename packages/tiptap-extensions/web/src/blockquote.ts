@@ -1,12 +1,8 @@
-import styles from './statics/styles.scss';
-import { mergeAttributes, wrappingInputRule, findChildren } from '@tiptap/core';
+import { generateId } from 'ricos-content';
+import { Node_Type, TextStyle_TextAlignment } from 'ricos-schema';
 import blockquoteDataDefaults from 'ricos-schema/dist/statics/blockquote.defaults.json';
-import type { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
-import type { Transaction } from 'prosemirror-state';
-import { NodeSelection } from 'prosemirror-state';
-import type { Node } from 'prosemirror-model';
-import type { SingleCommands } from '@tiptap/core';
-import { Node_Type } from 'ricos-schema';
+import type { DOMOutputSpec, ExtensionProps, NodeConfig, RicosExtension } from 'ricos-tiptap-types';
+import styles from './statics/styles.scss';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -29,74 +25,49 @@ declare module '@tiptap/core' {
 
 export const inputRegex = /^\s*>\s$/;
 
-const name = Node_Type.BLOCKQUOTE;
-
-const isBlockQuote = (node: Node): boolean => node.type.name === Node_Type.BLOCKQUOTE;
-
-const getNodesInSelection = (doc: Node, from: number, to: number): Node[] => {
-  const nodes: Node[] = [];
-  doc.nodesBetween(from, to, node => {
-    if ((node.isTextblock && node.textContent !== '') || isBlockQuote(node)) {
-      nodes.push(node);
-    }
-  });
-  return nodes;
-};
-
-const byId = (node: Node): ((node: Node) => boolean) => {
-  const id = node.attrs.id;
-  return node => node.attrs.id === id;
-};
-
-const getNodePosition = (node: Node, tr: Transaction): number => {
-  const nodesWithPos = findChildren(tr.doc, byId(node));
-  const { pos } = nodesWithPos[0];
-  return pos;
-};
-
-const setSelectionToNode =
-  (node: Node) =>
-  ({ tr }: { tr: Transaction }) => {
-    const pos = getNodePosition(node, tr);
-    const newSelection = NodeSelection.create(tr.doc, pos);
-    tr.setSelection(newSelection);
-  };
-
-const toggleBlockquote =
-  (referenceNode: Node) =>
-  ({ commands }: { commands: SingleCommands }) => {
-    const commandName = isBlockQuote(referenceNode) ? 'lift' : 'wrapIn';
-    return commands[commandName](name);
-  };
-
-export const blockquote: RicosExtension = {
+export const blockquote = {
   type: 'node' as const,
-  groups: [],
-  name,
-  createExtensionConfig() {
+  groups: ['text-container', 'shortcuts-enabled'],
+  name: Node_Type.BLOCKQUOTE,
+  reconfigure: (
+    config: NodeConfig,
+    _extensions: RicosExtension[],
+    _props: ExtensionProps,
+    settings: Record<string, unknown>
+  ) => ({
+    ...config,
+    addOptions() {
+      return {
+        HTMLAttributes: {
+          class: styles.quote,
+        },
+        ...settings,
+      };
+    },
+  }),
+
+  createExtensionConfig({ mergeAttributes, textblockTypeInputRule }) {
     return {
       name: this.name,
-      addOptions() {
-        return {
-          HTMLAttributes: {
-            class: styles.quote,
-          },
-        };
-      },
 
-      // Note: this should be changed to 'block+' once the draft-js support is dropped
-      content: Node_Type.PARAGRAPH,
+      content: 'text*',
 
       group: 'block',
 
       defining: true,
 
-      parseHTML() {
-        return [{ tag: 'blockquote' }];
+      addAttributes() {
+        return {
+          ...blockquoteDataDefaults,
+          textStyle: {
+            textAlignment: TextStyle_TextAlignment.AUTO,
+          },
+          paragraphId: '',
+        };
       },
 
-      addAttributes() {
-        return blockquoteDataDefaults;
+      parseHTML() {
+        return [{ tag: 'blockquote' }];
       },
 
       renderHTML({ HTMLAttributes }) {
@@ -112,49 +83,75 @@ export const blockquote: RicosExtension = {
           setBlockquote:
             () =>
             ({ commands }) => {
-              return commands.wrapIn(this.name);
+              return commands.setNode(this.name, { paragraphId: generateId() });
             },
           toggleBlockquote:
             () =>
-            ({ editor, chain }) => {
-              const {
-                state: {
-                  doc,
-                  selection: { from, to },
-                },
-              } = editor;
-
-              const nodes: Node[] = getNodesInSelection(doc, from, to);
-              if (nodes.length === 0) return false;
-
-              nodes
-                .reduce((chain, node) => {
-                  return chain
-                    .command(setSelectionToNode(node))
-                    .command(toggleBlockquote(nodes[0]));
-                }, chain().focus())
-                .run();
-              return true;
+            ({ commands }) => {
+              return commands.toggleNode(this.name, Node_Type.PARAGRAPH, {
+                paragraphId: generateId(),
+              });
             },
           unsetBlockquote:
             () =>
             ({ commands }) => {
-              return commands.lift(this.name);
+              return commands.setNode(Node_Type.PARAGRAPH, {});
             },
         };
       },
-
       addKeyboardShortcuts() {
         return {
-          'Mod-Shift-b': () => this.editor.commands.toggleBlockquote(),
+          Backspace: () => {
+            const { empty, $anchor } = this.editor.state.selection;
+            const isAtStart = $anchor.pos === 1;
+
+            if (!empty || $anchor.parent.type.name !== this.name) {
+              return false;
+            }
+
+            if (isAtStart || !$anchor.parent.textContent.length) {
+              return this.editor.commands.clearNodes();
+            }
+
+            return false;
+          },
+
+          // escape node on triple enter
+          Enter: () => {
+            const { state } = this.editor;
+            const { selection } = state;
+            const { $from, empty } = selection;
+
+            if (!empty || $from.parent.type !== this.type) {
+              return false;
+            }
+
+            const isAtEnd = $from.parentOffset === $from.parent.nodeSize - 2;
+            const endsWithDoubleNewline = $from.parent.textContent.endsWith('\n\n');
+
+            if (!isAtEnd || !endsWithDoubleNewline) {
+              return false;
+            }
+
+            return this.editor
+              .chain()
+              .command(({ tr }) => {
+                tr.delete($from.pos - 2, $from.pos);
+
+                return true;
+              })
+              .exitCode()
+              .run();
+          },
         };
       },
 
       addInputRules() {
         return [
-          wrappingInputRule({
+          textblockTypeInputRule({
             find: inputRegex,
             type: this.type,
+            getAttributes: ({ groups }) => groups,
           }),
         ];
       },

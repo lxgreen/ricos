@@ -98,7 +98,6 @@ describe('to Tiptap', () => {
           content: [
             {
               type: 'text',
-              content: [],
               text: 'test',
               marks: [
                 {
@@ -132,7 +131,6 @@ describe('to Tiptap', () => {
         },
         {
           type: Node_Type.DIVIDER,
-          content: [],
           attrs: {
             containerData: {
               width: {

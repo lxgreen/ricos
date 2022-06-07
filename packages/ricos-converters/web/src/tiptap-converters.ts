@@ -24,10 +24,7 @@ const transformNode =
     transforms: Transforms<SrcNode, DestNode>
   ) =>
   (node: SrcNode): DestNode => {
-    return {
-      ...transforms.byType(node).convert(node),
-      ...destTree.setNodes(visit(srcTree, destTree, transforms)(node)),
-    };
+    return transforms.byType(node).convert(node, visit(srcTree, destTree, transforms));
   };
 
 const visit =
@@ -51,12 +48,23 @@ const convertMetadata = (metadata: Metadata) => ({
   updatedTimestamp: convertTimestamp(metadata.updatedTimestamp),
 });
 
-const toTiptap = (content: RichContent, converters: TiptapNodeConverter[] = []): JSONContent => {
-  const transforms = new TiptapNodeBidiTransfoms(converters).toTiptap();
+export const tiptapNodeVisitor = visit(
+  tiptapTree,
+  richContentTree,
+  new TiptapNodeBidiTransfoms(nodeConverters).fromTiptap()
+);
+
+export const ricosNodeVisitor = visit(
+  richContentTree,
+  tiptapTree,
+  new TiptapNodeBidiTransfoms(nodeConverters).toTiptap()
+);
+
+export const toTiptap = (content: RichContent): JSONContent => {
   const ricosRoot = { id: 'root', type: Node_Type.UNRECOGNIZED, nodes: content.nodes };
   return {
     type: 'doc',
-    ...tiptapTree.setNodes(visit(richContentTree, tiptapTree, transforms)(ricosRoot)),
+    ...tiptapTree.setNodes(ricosNodeVisitor(ricosRoot)),
     attrs: {
       metadata: convertMetadata(content.metadata || { version: 1 }),
       documentStyle: content.documentStyle || {},
@@ -64,18 +72,10 @@ const toTiptap = (content: RichContent, converters: TiptapNodeConverter[] = []):
   };
 };
 
-const fromTiptap = (content: JSONContent, converters: TiptapNodeConverter[] = []): RichContent => {
-  const transforms = new TiptapNodeBidiTransfoms(converters).fromTiptap();
+export const fromTiptap = (content: JSONContent): RichContent => {
   return {
     metadata: content.attrs?.metadata,
     documentStyle: content.attrs?.documentStyle,
-    ...richContentTree.setNodes(
-      visit(tiptapTree, richContentTree, transforms)(content as TiptapNode)
-    ),
+    ...richContentTree.setNodes(tiptapNodeVisitor(content as TiptapNode)),
   } as RichContent;
 };
-
-export const fromTiptapWithConverters = (content: JSONContent) =>
-  fromTiptap(content, nodeConverters);
-
-export const toTiptapWithConverters = (content: RichContent) => toTiptap(content, nodeConverters);

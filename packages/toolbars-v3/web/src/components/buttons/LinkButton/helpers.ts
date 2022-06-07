@@ -58,11 +58,6 @@ export const isThumbnailNode = (node: Node): boolean => {
   );
 };
 
-export const isWrappingNode = (node: Node): boolean => {
-  const { type } = node;
-  return type === Node_Type.BLOCKQUOTE;
-};
-
 export const isAnchorableNode = (node: Node): boolean => {
   return isAnchorableAtomicPluginNode(node) || isAnchorableTextNode(node);
 };

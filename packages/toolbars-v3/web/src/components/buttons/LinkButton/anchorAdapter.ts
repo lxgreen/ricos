@@ -1,5 +1,4 @@
 import { Node_Type } from 'ricos-schema';
-import { cloneDeep } from 'lodash';
 import type { Node } from 'ricos-schema';
 import type { AnchorableBlock, TypesWithIndices, AnchorableBlockWithThumbnail } from './types';
 import type { extract } from 'ricos-content/libs/extract';
@@ -7,7 +6,6 @@ import { and } from 'ricos-content';
 import { not } from 'fp-ts/Predicate';
 import {
   Anchorable_Blocks_Types,
-  isWrappingNode,
   isAnchorableNode,
   isEmptyTextNodes,
   isSelectedNode,
@@ -19,43 +17,15 @@ import {
   isThumbnailNode,
 } from './helpers';
 
-const handleWrappingNodes = (anchorableNodes: Node[]): Node[] => {
-  let deleteNextNode = false;
-
-  const anchorableNodesWithoutWrappedNodes = anchorableNodes.reduce(
-    (previousValue: Node[], currentValue: Node) => {
-      if (isWrappingNode(currentValue)) {
-        const textData = currentValue.nodes[0].nodes[0].textData;
-        currentValue.nodes[0].textData = textData;
-        deleteNextNode = true;
-      }
-
-      previousValue.push(currentValue);
-
-      if (!isWrappingNode(currentValue) && deleteNextNode) {
-        previousValue.pop();
-        deleteNextNode = false;
-      }
-
-      return previousValue;
-    },
-    []
-  );
-
-  return anchorableNodesWithoutWrappedNodes;
-};
-
 export const getAnchorableNodesQuery = (
   contentExtractor: ReturnType<typeof extract>,
   editorCommands
 ): Node[] => {
   const selectedNodeId = editorCommands.getSelection().startKey;
 
-  let anchorableNodes: Node[] = contentExtractor
+  const anchorableNodes: Node[] = contentExtractor
     .filter(and([isAnchorableNode, isEmptyTextNodes, not(isSelectedNode(selectedNodeId))]))
     .get();
-
-  anchorableNodes = handleWrappingNodes(cloneDeep(anchorableNodes));
 
   return anchorableNodes;
 };

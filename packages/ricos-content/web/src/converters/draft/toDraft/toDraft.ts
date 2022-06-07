@@ -38,7 +38,11 @@ const convert =
       if (node) {
         switch (node.type) {
           case Node_Type.BLOCKQUOTE:
-            parseTextNodes(getParagraphNode(node), { type: BlockType.Blockquote, key: node.id });
+            parseTextNodes(getParagraphNode(node), {
+              type: BlockType.Blockquote,
+              key: node.id,
+              indentation: node.blockquoteData?.indentation,
+            });
             break;
           case Node_Type.CODE_BLOCK:
             parseTextNodes(node, { type: BlockType.CodeBlock, key: node.id });

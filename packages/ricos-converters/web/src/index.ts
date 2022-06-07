@@ -3,10 +3,7 @@ import type { JSONContent } from '@tiptap/core';
 import type { DraftContent } from 'ricos-content';
 import { toDraft } from 'ricos-content/libs/toDraft';
 import { fromDraft } from 'ricos-content/libs/fromDraft';
-import {
-  toTiptapWithConverters as toTiptap,
-  fromTiptapWithConverters as fromTiptap,
-} from './tiptap-converters';
+import { toTiptap, fromTiptap } from './tiptap-converters';
 import { RichContent } from 'ricos-schema';
 export * from './types';
 

@@ -1,5 +1,6 @@
 import type { Node, Node_Type } from 'ricos-schema';
 import toCamelCase from 'to-camel-case';
+import { blockquoteConverter } from './nodes/blockquote-converter';
 import { linkButtonConverter } from './nodes/button-converters';
 import {
   collapsibleItemBodyConverter,
@@ -19,13 +20,17 @@ export const getUnsupportedToTiptap = (node: Node): TiptapNodeConverter['toTipta
   const dataProp = Object.keys(node).find(p => p.endsWith(`${toCamelCase(node.type)}Data`));
   return {
     type: node.type,
-    convert: (node: Node) => ({
-      type: node.type,
-      attrs: {
-        ...(dataProp ? node[dataProp] : {}),
-        id: node.id,
-      },
-    }),
+    convert: (node: Node, visit: (node: Node) => TiptapNode[]) => {
+      const content = visit(node);
+      return {
+        type: node.type,
+        attrs: {
+          ...(dataProp ? node[dataProp] : {}),
+          id: node.id,
+        },
+        ...(content.length > 0 ? { content } : {}),
+      };
+    },
   };
 };
 
@@ -33,11 +38,11 @@ export const getUnsupportedFromTiptap = (node: TiptapNode): TiptapNodeConverter[
   const { id, ...data } = node.attrs || {};
   return {
     type: node.type,
-    convert: (node: TiptapNode) => ({
+    convert: (node: TiptapNode, visit: (node: TiptapNode) => Node[]) => ({
       type: node.type as Node_Type,
       id,
       [`${toCamelCase(node.type)}Data`]: { ...data },
-      nodes: [],
+      nodes: visit(node),
     }),
   };
 };
@@ -47,6 +52,7 @@ export const nodeConverters = [
   dividerConverter,
   textConverter,
   paragraphConverter,
+  blockquoteConverter,
   headingConverter,
   linkButtonConverter,
   listItemConverter,
