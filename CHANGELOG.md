@@ -17,6 +17,12 @@
     Click to see more.
   </summary>
 
+</details>
+
+<hr/>
+
+## 8.71.21 (Jun 8, 2022)
+
 ## :bug: Bug Fix
 
 - `editor`
@@ -34,10 +40,6 @@
   - [#3993](https://github.com/wix/ricos/pull/3993) `fromNode` document style support
 - `gallery`
   - [#3992](https://github.com/wix/ricos/pull/3992) gallery tiptap add button
-
-</details>
-
-<hr/>
 
 ## 8.71.20 (Jun 6, 2022)
 
