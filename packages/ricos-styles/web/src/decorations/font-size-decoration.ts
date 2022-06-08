@@ -1,11 +1,11 @@
 import type { Decoration } from 'ricos-schema';
-import { Decoration_Type } from 'ricos-schema';
+import { FontSizeData_fontType, Decoration_Type } from 'ricos-schema';
 import type { CustomTextualStyle } from 'ricos-types';
 import { EmptyDecoration } from './empty-decoration';
-import type { TextDecoration } from '../../models/decoration';
+import type { TextDecoration } from '../models/decoration';
 
-export class ColorDecoration implements TextDecoration {
-  type = Decoration_Type.COLOR;
+export class FontSizeDecoration implements TextDecoration {
+  type = Decoration_Type.FONT_SIZE;
 
   private readonly customStyle: CustomTextualStyle;
 
@@ -14,30 +14,31 @@ export class ColorDecoration implements TextDecoration {
   }
 
   static of(decoration: Decoration) {
-    if (decoration.type !== Decoration_Type.COLOR) {
+    if (decoration.type !== Decoration_Type.FONT_SIZE) {
       throw new TypeError(`invalid decoration initializer ${decoration}`);
     }
 
-    const { foreground: color, background: backgroundColor } = decoration.colorData || {};
-    return new ColorDecoration({ color, backgroundColor });
+    return new FontSizeDecoration(
+      decoration.fontSizeData?.value ? { fontSize: decoration.fontSizeData?.value } : {}
+    );
   }
 
   getDecoration(): Decoration {
     return {
       type: this.type,
-      colorData: {
-        foreground: this.customStyle.color,
-        background: this.customStyle.backgroundColor,
+      fontSizeData: {
+        value: parseInt(this.customStyle.fontSize as string),
+        unit: FontSizeData_fontType.PX,
       },
     };
   }
 
   static fromCustomStyle(customStyle: CustomTextualStyle): TextDecoration {
-    return new ColorDecoration(customStyle);
+    return new FontSizeDecoration(customStyle);
   }
 
   fromCustomStyle(customStyle: CustomTextualStyle): TextDecoration {
-    return ColorDecoration.fromCustomStyle(customStyle);
+    return FontSizeDecoration.fromCustomStyle(customStyle);
   }
 
   toCustomStyle(): CustomTextualStyle {
@@ -45,10 +46,10 @@ export class ColorDecoration implements TextDecoration {
   }
 
   overrideWith(decoration: TextDecoration): TextDecoration {
-    if (!(decoration instanceof ColorDecoration || decoration instanceof EmptyDecoration)) {
+    if (!(decoration instanceof FontSizeDecoration || decoration instanceof EmptyDecoration)) {
       throw new TypeError(`invalid merge decoration ${decoration}`);
     }
     const customStyle = { ...this.customStyle, ...decoration.toCustomStyle() };
-    return new ColorDecoration(customStyle);
+    return new FontSizeDecoration(customStyle);
   }
 }

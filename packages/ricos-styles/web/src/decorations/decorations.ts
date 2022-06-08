@@ -7,7 +7,7 @@ import { ColorDecoration } from './color-decoration';
 import { EmptyDecoration } from './empty-decoration';
 import { FontSizeDecoration } from './font-size-decoration';
 import { ItalicDecoration } from './italic-decoration';
-import type { TextDecoration, TextDecorations } from '../../models/decoration';
+import type { TextDecoration, TextDecorations } from '../models/decoration';
 
 export class Decorations implements TextDecorations {
   private readonly decorations: TextDecoration[];
@@ -68,5 +68,17 @@ export class Decorations implements TextDecorations {
       }),
       {} as CustomTextualStyle
     );
+  }
+
+  overrideWith(decorations: Decoration[]): Decorations {
+    const textDecorations = decorations.map(Decorations.toTextDecoration);
+    const overridenDecorations = textDecorations.map(decoration =>
+      this.byType(decoration.type).overrideWith(decoration)
+    );
+    const types = overridenDecorations.map(decoration => decoration.type);
+    const mergedDecorations = this.decorations
+      .filter(decoration => !types.includes(decoration.type))
+      .concat(overridenDecorations);
+    return new Decorations(mergedDecorations);
   }
 }

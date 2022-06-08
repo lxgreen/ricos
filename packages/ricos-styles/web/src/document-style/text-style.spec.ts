@@ -1,5 +1,5 @@
 import TextStyle from './text-style';
-import { textStyle as customStyle } from '../tests/consts';
+import { textStyle as customStyle } from '../tests/test-cases';
 
 describe('Text Style', () => {
   it('Should fromCustomStyle match expected', () => {

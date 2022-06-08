@@ -2,7 +2,7 @@
 import { themeStrategy } from 'ricos-common';
 import type { Decoration_Type, DocumentStyle } from 'ricos-schema';
 import type { RicosTheme } from 'ricos-types';
-import { Decorations } from '../document-style/decorations';
+import { Decorations } from '../decorations';
 import type { TextDecoration } from '../models/decoration';
 import type { TextNodeType, TextualTheme } from '../models/styles';
 import { TextStyleTransformer } from '../text-style-transformer';

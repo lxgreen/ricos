@@ -5,7 +5,7 @@ import * as T from 'fp-ts/Tuple';
 import { fromEntries } from 'ricos-content/libs/utils';
 import type { DocumentStyle, TextNodeStyle } from 'ricos-schema';
 import type { CustomTextualStyle, RicosCustomStyles, RicosTheme } from 'ricos-types';
-import { Decorations } from './document-style/decorations';
+import { Decorations } from './decorations';
 import NodeStyle from './document-style/node-style';
 import TextStyle from './document-style/text-style';
 import type { TextNodeType } from './models/styles';

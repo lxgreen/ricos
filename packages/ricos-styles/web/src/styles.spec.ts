@@ -1,6 +1,6 @@
 import type { RicosTheme } from 'ricos-types';
 import { Decoration_Type } from 'ricos-types';
-import { decorations, customStyle } from './tests/consts';
+import { decorations, customStyle } from './tests/test-cases';
 import Styles from './styles';
 
 describe('Styles', () => {

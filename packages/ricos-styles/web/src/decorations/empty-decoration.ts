@@ -1,7 +1,7 @@
 import type { Decoration } from 'ricos-schema';
 import { Decoration_Type } from 'ricos-schema';
 import type { CustomTextualStyle } from 'ricos-types';
-import type { TextDecoration } from '../../models/decoration';
+import type { TextDecoration } from '../models/decoration';
 
 export class EmptyDecoration implements TextDecoration {
   type = Decoration_Type.UNRECOGNIZED;

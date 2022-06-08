@@ -21,6 +21,8 @@
 
 - `ricos-editor`
   - [#3973](https://github.com/wix/ricos/pull/3973) add `insertBlockWithBlankLines` commands to tiptap `editorCommands`
+- `ricos-styles`
+  - [#3993](https://github.com/wix/ricos/pull/3993) `fromNode` document style support
 
 </details>
 

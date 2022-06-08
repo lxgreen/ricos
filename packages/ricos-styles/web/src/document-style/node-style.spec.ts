@@ -1,5 +1,5 @@
 import NodeStyle from './node-style';
-import { nodeStyle as customStyle } from '../tests/consts';
+import { nodeStyle as customStyle } from '../tests/test-cases';
 
 describe('Node Style', () => {
   it('Should fromCustomStyle match expected', () => {
