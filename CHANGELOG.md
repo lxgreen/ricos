@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+## :bug: Bug Fix
+
+- `editor`
+  - [#4010](https://github.com/wix/ricos/pull/4010) fix reset to default paragraph\headings style
+
 ## :house: Internal
 
 - `ricos-editor`

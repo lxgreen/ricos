@@ -1186,7 +1186,7 @@ class RichContentEditor extends Component<RichContentEditorProps, RichContentEdi
     const blocks = editorState.getCurrentContent().getBlockMap();
     const styles = {};
     const documentStyle = this.EditorCommands.getDocumentStyle();
-    if (documentStyle) {
+    if (documentStyle && !this.props.isInnerRCE) {
       Object.entries(documentStyle).forEach(([key, values]) => {
         [' > div > span', ' > div > a > span'].forEach(
           selector => (styles[DOC_STYLE_CLASSES[key] + selector] = this.objectToCss(values))
