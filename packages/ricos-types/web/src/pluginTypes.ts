@@ -283,6 +283,7 @@ export interface EditorPlugin<PluginConfig extends EditorPluginConfig = Record<s
   createPluginData?: CreatePluginData<PluginConfig>;
   addButtons?: AddButton[];
   toolbarButtons?: PluginToolbarButtons;
+  reconfigure?: (config: PluginConfig) => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

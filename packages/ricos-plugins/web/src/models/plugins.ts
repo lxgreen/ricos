@@ -54,6 +54,13 @@ export interface Plugin {
    * @memberof Plugin
    */
   equals(plugin: Plugin): boolean;
+  /**
+   * Reconfigure Plugin
+   *
+   * @param {Partial<LegacyEditorPluginConfig>} config
+   * @memberof Plugin
+   */
+  configure(config: Partial<LegacyEditorPluginConfig>); // runtime configuration
 }
 
 /**
@@ -115,4 +122,12 @@ export interface Plugins {
    * @memberof Plugin
    */
   getTiptapExtensions?: () => RicosExtension[];
+  /**
+   * Reconfigure Plugin
+   *
+   * @param {string} type
+   * @param {Partial<LegacyEditorPluginConfig>} config
+   * @memberof Plugin
+   */
+  configure(config: Partial<LegacyEditorPluginConfig>); // runtime configuration
 }

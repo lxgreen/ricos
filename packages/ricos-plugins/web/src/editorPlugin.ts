@@ -42,6 +42,10 @@ export class EditorPlugin implements Plugin {
     }
   }
 
+  configure(config: Partial<LegacyEditorPluginConfig>) {
+    this.plugin.reconfigure?.(config);
+  }
+
   getType(): string {
     return this.plugin.type;
   }

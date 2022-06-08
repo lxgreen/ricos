@@ -2,7 +2,7 @@ import { EditorPlugin } from './editorPlugin';
 import { PluginAddButtons } from './pluginAddButton';
 import type { PluginToolbar } from './pluginToolbar';
 import type { Plugins, Plugin } from './models/plugins';
-import type { EditorPlugin as EditorPluginType } from 'ricos-types';
+import type { EditorPlugin as EditorPluginType, LegacyEditorPluginConfig } from 'ricos-types';
 import { compact } from 'lodash';
 
 export class PluginCollisionError extends Error {}
@@ -47,6 +47,10 @@ export class EditorPlugins implements Plugins {
 
   getConfig(type: string) {
     return this.plugins.filter(plugin => plugin.getType() === type)[0]?.getConfig() || {};
+  }
+
+  configure(config: Partial<LegacyEditorPluginConfig>) {
+    return this.plugins.forEach(plugin => plugin.configure(config));
   }
 
   getAddButtons() {

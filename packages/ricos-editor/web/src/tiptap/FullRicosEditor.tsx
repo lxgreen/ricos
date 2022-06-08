@@ -58,8 +58,12 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
     return { error };
   }
 
-  initPlugins = plugins =>
-    plugins.forEach(plugin => this.props.pluginsContext.plugins.register(plugin));
+  initPlugins = plugins => {
+    const { _rcProps, pluginsContext } = this.props;
+    plugins.forEach(plugin => pluginsContext.plugins.register(plugin));
+    const { handleFileUpload, handleFileSelection } = _rcProps?.helpers || {};
+    pluginsContext.plugins.configure({ handleFileUpload, handleFileSelection });
+  };
 
   componentDidMount() {
     const { plugins, _rcProps } = this.props;

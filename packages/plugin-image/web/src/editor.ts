@@ -19,5 +19,9 @@ export const pluginImage: EditorPluginCreator<ImagePluginEditorConfig> = config 
     createPluginData: createImageData,
     tiptapExtensions,
     toolbarButtons: getToolbarButtons(config),
+    reconfigure: helpers => {
+      pluginConfig.handleFileSelection = helpers.handleFileSelection;
+      pluginConfig.handleFileUpload = helpers.handleFileUpload;
+    },
   } as TiptapEditorPlugin;
 };
