@@ -265,7 +265,7 @@ export type Resolver = Record<string, (content) => boolean | string>;
 
 export type ToolbarButton = {
   id: string;
-  type?: string;
+  type?: 'toggle' | 'modal' | 'separator';
   renderer?: ComponentType;
   config?: ToolbarButtonConfig;
 };

@@ -1,4 +1,5 @@
 import { TiptapContentResolver } from 'wix-rich-content-toolbars-v3';
+import type { IToolbarItemConfigTiptap } from 'wix-rich-content-toolbars-v3';
 import type { ToolbarButton, Resolver } from 'ricos-types';
 import { PluginToolbarButton } from './pluginToolbarButton';
 
@@ -42,7 +43,7 @@ export class PluginToolbar {
     return this.buttons;
   }
 
-  toToolbarItemsConfig() {
+  toToolbarItemsConfig(): IToolbarItemConfigTiptap[] {
     return this.buttons.map(button => button.toToolbarItemConfig(this.resolvers));
   }
 

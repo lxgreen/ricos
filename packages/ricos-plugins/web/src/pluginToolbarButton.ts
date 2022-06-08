@@ -3,7 +3,7 @@ import {
   pluginToolbarItemsRenders,
   alwaysVisibleResolver,
 } from 'wix-rich-content-toolbars-v3';
-import type { TiptapContentResolver } from 'wix-rich-content-toolbars-v3';
+import type { TiptapContentResolver, IToolbarItemConfigTiptap } from 'wix-rich-content-toolbars-v3';
 import type { ToolbarButton } from 'ricos-types';
 import type { ComponentType } from 'react';
 
@@ -35,7 +35,7 @@ export class PluginToolbarButton {
     return this.button.id === button.getButton().id;
   }
 
-  toToolbarItemConfig(resolvers: Record<string, TiptapContentResolver>) {
+  toToolbarItemConfig(resolvers: Record<string, TiptapContentResolver>): IToolbarItemConfigTiptap {
     const { id, type, config: { icon, tooltip, command, attributes } = {} } = this.button;
 
     const buttonResolvers: Record<string, TiptapContentResolver> = Object.entries(
