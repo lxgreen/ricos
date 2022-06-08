@@ -1,6 +1,6 @@
 import type { IMediaPluginService, UploadedData, IMessage } from 'ricos-types';
 import { omit } from 'lodash';
-import type { ComponentData } from 'wix-rich-content-common';
+import type { ComponentData, FileComponentData } from 'wix-rich-content-common';
 
 export class FilePluginService implements IMediaPluginService {
   createLoadingData(file: File, _: unknown, componentData: ComponentData) {
@@ -21,15 +21,21 @@ export class FilePluginService implements IMediaPluginService {
   }
 
   createPluginData(uploadedData: UploadedData, componentData: ComponentData) {
+    const { data } = uploadedData;
+    const { url, id, privacy } = data as FileComponentData;
+
+    const src = url ? { url } : { id };
+
     return {
-      ...omit(componentData, ['tempData']),
-      ...uploadedData.data,
+      ...omit(componentData, ['tempData', 'loading']),
+      ...omit(data, 'url', 'id', 'privacy'),
+      src: { ...src, privacy },
     };
   }
 
   createErrorData(error: IMessage, componentData: ComponentData) {
     return {
-      ...omit(componentData, ['tempData']),
+      ...omit(componentData, ['tempData', 'loading']),
       error,
     };
   }

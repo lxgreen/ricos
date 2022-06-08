@@ -7,8 +7,7 @@ export class VideoPluginService implements IMediaPluginService {
     return {
       componentData: {
         ...componentData,
-        isCustomVideo: true,
-        src: url,
+        video: { src: { url } },
       },
       componentState: {
         loading: true,
@@ -19,20 +18,27 @@ export class VideoPluginService implements IMediaPluginService {
 
   createPluginData(uploadedData: UploadedData, componentData: ComponentData) {
     let src;
+    let thumbnail;
     const data = uploadedData.data as VideoComponentData & { url: unknown };
     if (data) {
-      const { pathname, thumbnail, url } = data;
-      src = pathname ? { pathname, thumbnail } : url;
+      const { pathname, thumbnail: uploadedThumbnail, url } = data;
+      src = pathname ? { id: pathname } : { url };
+      thumbnail = {
+        src: { id: uploadedThumbnail.pathname },
+        width: uploadedThumbnail.width,
+        height: uploadedThumbnail.height,
+      };
     }
     return {
-      ...omit(componentData, ['src', 'tempData']),
-      src,
+      ...omit(componentData, ['tempData', 'loading']),
+      video: { src },
+      thumbnail,
     };
   }
 
   createErrorData(error: IMessage, componentData: ComponentData) {
     return {
-      ...omit(componentData, ['tempData']),
+      ...omit(componentData, ['tempData', 'loading']),
       error,
     };
   }

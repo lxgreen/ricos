@@ -50,6 +50,9 @@ export const tiptapExtensions = [
           loadingPercentage: {
             default: null,
           },
+          tempData: {
+            default: null,
+          },
         }),
         addCommands() {
           return {

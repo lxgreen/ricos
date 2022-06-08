@@ -17,6 +17,16 @@ const DEFAULTS = Object.freeze({
   },
 });
 
+const RICOS_DEFAULTS = Object.freeze({
+  containerData: {
+    alignment: 'CENTER',
+    width: {
+      size: 'CONTENT',
+    },
+    textWrap: true,
+  },
+});
+
 class VideoComponent extends React.Component {
   static type = { VIDEO_TYPE_LEGACY, VIDEO_TYPE };
 
@@ -222,4 +232,4 @@ VideoComponent.propTypes = {
   loadingPercentage: PropTypes.number,
 };
 
-export { VideoComponent as Component, DEFAULTS };
+export { VideoComponent as Component, DEFAULTS, RICOS_DEFAULTS };

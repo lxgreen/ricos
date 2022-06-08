@@ -1,4 +1,4 @@
-import { DEFAULTS } from './video-component';
+import { RICOS_DEFAULTS } from './video-component';
 import { VideoInsertPluginIcon, YoutubeIcon } from './icons';
 import { INSERT_PLUGIN_BUTTONS, decorateComponentWithProps } from 'wix-rich-content-editor-common';
 import InsertModal from './modals/InsertModal';
@@ -34,7 +34,7 @@ export const getAddButtons = (config): AddButton[] => {
       modal: {
         id: videoModals.insert,
         Component: decorateComponentWithProps(InsertModal, {
-          componentData: { ...DEFAULTS, disableDownload },
+          componentData: { ...RICOS_DEFAULTS, disableDownload },
           ...modalBaseProps,
         }),
         layout: 'popover',
@@ -53,7 +53,7 @@ export const getAddButtons = (config): AddButton[] => {
       modal: {
         id: videoModals.insert,
         Component: decorateComponentWithProps(InsertModal, {
-          componentData: { ...DEFAULTS, type: videoButtonsTypes.youTube },
+          componentData: { ...RICOS_DEFAULTS, type: videoButtonsTypes.youTube },
           ...modalBaseProps,
         }),
         layout: 'popover',

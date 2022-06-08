@@ -21,6 +21,10 @@
 
 - `ricos-editor`
   - [#3973](https://github.com/wix/ricos/pull/3973) add `insertBlockWithBlankLines` commands to tiptap `editorCommands`
+- `*`
+  - [#4007](https://github.com/wix/ricos/pull/4007) deprecate draft data in upload service
+- `image`
+  - [#4007](https://github.com/wix/ricos/pull/4007) image tiptap addButtons
 - `ricos-styles`
   - [#3993](https://github.com/wix/ricos/pull/3993) `fromNode` document style support
 

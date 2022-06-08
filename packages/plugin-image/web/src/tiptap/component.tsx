@@ -17,7 +17,7 @@ export const Image: React.FC<PluginProps> = ({
     setFocusToBlock: () => null,
   };
   const setComponentUrl = () => null;
-  const { loading, loadingPercentage, error } = node.attrs;
+  const { loading, loadingPercentage, error, tempData } = node.attrs;
 
   const handleCaptionChange = caption => {
     updateAttributes({ caption });
@@ -32,7 +32,7 @@ export const Image: React.FC<PluginProps> = ({
         helpers={helpers}
         componentData={componentData as ImageData}
         isLoading={loading}
-        dataUrl={loading && node.attrs.image?.src?.url}
+        dataUrl={tempData}
         settings={settings as ImagePluginViewerConfig}
         defaultCaption={t('ImageViewer_Caption')}
         onCaptionChange={handleCaptionChange}

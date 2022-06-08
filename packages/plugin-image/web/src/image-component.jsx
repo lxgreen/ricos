@@ -50,7 +50,7 @@ class ImageComponent extends React.Component {
     } = this.props;
 
     const { error } = componentData;
-    const dataUrl = this.props.tempData?.dataUrl || componentData.tempData?.dataUrl;
+    const dataUrl = this.props.tempData?.dataUrl || componentData.tempData;
     const isLoading =
       !error && (this.props.isLoading || componentData.loading || componentData.tempData);
 

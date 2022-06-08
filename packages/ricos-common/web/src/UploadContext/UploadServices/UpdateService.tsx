@@ -6,7 +6,6 @@ import type {
   PluginsDataMap,
   IUpdateService,
 } from 'ricos-types';
-import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
 
 const doesNodeExist = (nodeId: string, editorCommands?: EditorCommands) =>
   editorCommands?.getAllBlocksKeys().includes(nodeId);
@@ -33,8 +32,7 @@ export class UpdateService implements IUpdateService {
         componentData,
         fileState
       );
-      const data = convertBlockDataToRicos(type, newComponentData);
-      this.EditorCommands?.setBlock(nodeId, type as keyof PluginsDataMap, data, {
+      this.EditorCommands?.setBlock(nodeId, type as keyof PluginsDataMap, newComponentData, {
         isRicosSchema: true,
       });
     }
@@ -55,12 +53,11 @@ export class UpdateService implements IUpdateService {
         componentData,
         fileState: newFileState,
       } = mediaPluginService.createLoadingData(file, url, currentComponentData, fileState);
-      const data = convertBlockDataToRicos(type, componentData);
 
       this.EditorCommands?.setBlock(
         nodeId,
         type as keyof PluginsDataMap,
-        { ...data, ...componentState },
+        { ...componentData, ...componentState },
         {
           isRicosSchema: true,
         }
