@@ -3,6 +3,7 @@ import {
   TIPTAP_COLLAPSIBLE_ITEM_TITLE_TYPE,
   TIPTAP_COLLAPSIBLE_ITEM_BODY_TYPE,
 } from 'ricos-content';
+import { Node_Type } from 'wix-rich-content-common';
 
 export const defaultCollapsibleItem = [
   {
@@ -12,7 +13,7 @@ export const defaultCollapsibleItem = [
         type: TIPTAP_COLLAPSIBLE_ITEM_TITLE_TYPE,
         content: [
           {
-            type: 'paragraph',
+            type: Node_Type.PARAGRAPH,
             content: [],
           },
         ],
@@ -21,7 +22,7 @@ export const defaultCollapsibleItem = [
         type: TIPTAP_COLLAPSIBLE_ITEM_BODY_TYPE,
         content: [
           {
-            type: 'paragraph',
+            type: Node_Type.PARAGRAPH,
             content: [],
           },
         ],
