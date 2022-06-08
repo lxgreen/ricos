@@ -130,6 +130,8 @@ import {
   mockCustomVideoUploadFunc,
   mockCustomAudioUploadFunc,
   mockAudioNativeUploadFunc,
+  mockImageNativeUploadFunc,
+  mockImageUploadFunc,
 } from '../../../storybook/src/shared/utils/fileUploadUtil';
 import type {
   CreatePluginFunction,

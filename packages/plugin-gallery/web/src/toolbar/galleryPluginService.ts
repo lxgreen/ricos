@@ -21,31 +21,31 @@ const GALLERY_FILE_TYPES = {
 
 const galleryImageBuilder = (img: ImageComponentData) => {
   return {
-    metadata: {
-      type: GALLERY_FILE_TYPES.IMAGE,
-      height: img.height,
-      width: img.width,
+    image: {
+      media: {
+        src: { url: img.file_name },
+        height: img.height,
+        width: img.width,
+      },
     },
-    url: img.file_name,
   };
 };
 
 const galleryVideoBuilder = (video: VideoComponentData) => {
   const {
-    thumbnail: { pathname, width, height },
+    thumbnail: { pathname: url, width, height },
   } = video;
   return {
-    metadata: {
-      type: GALLERY_FILE_TYPES.VIDEO,
+    video: {
+      src: { url: video.pathname },
       height: video.height || height,
       width: video.width || width,
-      poster: {
-        url: pathname,
-        width,
-        height,
-      },
     },
-    url: video.pathname,
+    thumbnail: {
+      src: { url },
+      width,
+      height,
+    },
   };
 };
 

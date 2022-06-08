@@ -27,6 +27,8 @@
   - [#4007](https://github.com/wix/ricos/pull/4007) image tiptap addButtons
 - `ricos-styles`
   - [#3993](https://github.com/wix/ricos/pull/3993) `fromNode` document style support
+- `gallery`
+  - [#3992](https://github.com/wix/ricos/pull/3992) gallery tiptap add button
 
 </details>
 
