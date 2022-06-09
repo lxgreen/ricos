@@ -4,6 +4,7 @@ const PLUGIN_TOOLBAR_BUTTON_ID = {
   ALIGN_RIGHT: 'alignRight',
   ALIGN_CENTER: 'alignCenter',
   SETTINGS: 'settings',
+  REPLACE: 'replace',
   LINK: 'link',
 };
 

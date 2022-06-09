@@ -17,6 +17,12 @@
     Click to see more.
   </summary>
 
+
+## :house: Internal
+
+- `image`
+  - [#4014](https://github.com/wix/ricos/pull/4014) replace button
+
 </details>
 
 <hr/>

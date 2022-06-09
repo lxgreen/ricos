@@ -5,6 +5,7 @@ import {
   AlignRightIcon,
   AlignJustifyIcon,
   LinkIcon,
+  ReplaceIcon,
 } from '../icons';
 import type { IPluginToolbarButtonsConfig } from '../types';
 import { PLUGIN_TOOLBAR_BUTTON_ID } from 'wix-rich-content-editor-common';
@@ -87,6 +88,17 @@ export const pluginToolbarButtonsConfig: IPluginToolbarButtonsConfig = {
     presentation: {
       tooltip: 'Settings',
       icon: SettingsIcon,
+    },
+    attributes: {
+      selectedNode: getNodeInSelectionResolver,
+    },
+    commands: {},
+  },
+  replace: {
+    id: PLUGIN_TOOLBAR_BUTTON_ID.REPLACE,
+    type: 'toggle',
+    presentation: {
+      icon: ReplaceIcon,
     },
     attributes: {
       selectedNode: getNodeInSelectionResolver,

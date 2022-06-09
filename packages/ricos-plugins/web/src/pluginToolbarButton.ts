@@ -6,6 +6,7 @@ import {
 import type { TiptapContentResolver, IToolbarItemConfigTiptap } from 'wix-rich-content-toolbars-v3';
 import type { ToolbarButton } from 'ricos-types';
 import type { ComponentType } from 'react';
+import { getToolbarButtonRenderer } from './utils';
 
 export class PluginToolbarButtonCollisionError extends Error {}
 
@@ -75,9 +76,9 @@ export class PluginToolbarButton {
   }
 
   getRenderer(): Record<string, ComponentType> | undefined {
-    const { id } = this.button;
+    const { id, renderer } = this.button;
     return {
-      [id]: this.button.renderer || pluginToolbarItemsRenders[id],
+      [id]: renderer ? getToolbarButtonRenderer(renderer) : pluginToolbarItemsRenders[id],
     };
   }
 }

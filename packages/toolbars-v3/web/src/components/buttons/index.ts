@@ -7,6 +7,7 @@ export { default as TextColorButton } from './TextColorButton/TextColorButton';
 export { default as HighlightColorButton } from './HighlightColorButton/HighlightColorButton';
 export { default as HeadingButtonSwitch } from './HeadingButtonSwitch/HeadingButtonSwitch';
 export { ToggleButton } from './ToggleButton';
+export { ReplaceButton } from './ReplaceButton';
 export { SettingsButton } from './SettingsButton';
 export { default as MoreButton } from './MoreButton/MoreButton';
 export { OpenAddPluginPanel } from './OpenAddPluginPanel';

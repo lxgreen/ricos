@@ -36,3 +36,4 @@ export { default as ContextMenuIcon } from './ContextMenuIcon';
 export { default as ChevronUp } from './ChevronUp';
 export { default as ChevronDown } from './ChevronDown';
 export { default as SettingsIcon } from './SettingsIcon';
+export { default as ReplaceIcon } from './ReplaceIcon';

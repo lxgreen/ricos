@@ -19,3 +19,4 @@ export { pluginToolbarItemsRenders } from './pluginToolbarItemRenders';
 export * from './resolvers/tiptapResolvers';
 export { ToggleButton } from './components/buttons';
 export { default as RicosToolbarComponent } from './components/RicosToolbarComponent';
+export { withToolbarContext } from './utils/withContext';
