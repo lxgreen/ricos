@@ -38,7 +38,7 @@
     "mobile-detect": "^1.4.5",
     "react-json-view": "^1.19.1",
     "react-syntax-highlighter": "12.2.1",
-    "wix-style-react": "^10.32.0",
+    "wix-style-react": "10.32.0",
     "wix-ui-icons-common": "^2.0.313"
   },
   "eslintConfig": {
