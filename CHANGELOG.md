@@ -17,9 +17,10 @@
     Click to see more.
   </summary>
 
-
 ## :house: Internal
 
+- `tiptap/audio`
+  - [#3996](https://github.com/wix/ricos/pull/3996) add audio button
 - `image`
   - [#4014](https://github.com/wix/ricos/pull/4014) replace button
 

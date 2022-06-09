@@ -18,7 +18,7 @@ import {
 import { audioButtonsTypes } from '../types';
 import type { AudioPluginEditorConfig } from '../types';
 import { audioModalContentStyles } from '../consts';
-import AudioModal from './modals/AudioModal';
+import AudioModal from '../modals/AudioModal';
 
 const createInsertButtons: CreateInsertButtons = ({
   t,

@@ -14,13 +14,14 @@ export class AudioPluginService implements IMediaPluginService {
       },
       componentState: {
         tempData: true,
+        loading: true,
       },
     };
   }
 
   createPluginData(uploadedData: UploadedData, componentData: ComponentData) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { html, tempData, ...rest } = componentData;
+    const { html, tempData, loading, ...rest } = componentData;
     const data = uploadedData.data as AudioComponentData & {
       file_name: string;
     };

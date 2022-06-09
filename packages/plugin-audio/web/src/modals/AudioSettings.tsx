@@ -2,8 +2,8 @@ import React, { useEffect, useState, useContext } from 'react';
 import classNames from 'classnames';
 import { mergeStyles, UploadServiceContext } from 'wix-rich-content-common';
 import { getImageSrc } from 'wix-rich-content-common/libs/imageUtils';
-import { SETTINGS_IMG_SIZE, AUDIO_BI_VALUES, AUDIO_ACTION_NAMES, AUDIO_TYPES } from '../../consts';
-import { AUDIO_TYPE } from '../../types';
+import { SETTINGS_IMG_SIZE, AUDIO_BI_VALUES, AUDIO_ACTION_NAMES, AUDIO_TYPES } from '../consts';
+import { AUDIO_TYPE } from '../types';
 import {
   LabeledToggle,
   SettingsSection,
@@ -15,10 +15,10 @@ import {
   Label,
   SettingsPanelFooter,
 } from 'wix-rich-content-ui-components';
-import Styles from '../../../statics/styles/audio-settings.scss';
+import Styles from '../../statics/styles/audio-settings.scss';
 import { Uploader } from 'wix-rich-content-plugin-commons';
 import type { UploadContextType } from 'wix-rich-content-common';
-import { AudioPluginService as audioPluginService } from './audioPluginService';
+import { AudioPluginService as audioPluginService } from '../toolbar/audioPluginService';
 
 const AudioSettings = ({
   onCancel,

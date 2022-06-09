@@ -12,10 +12,10 @@ import {
 import { AUDIO_TYPE } from '../types';
 import type { AudioPluginEditorConfig } from '../types';
 import { decorateComponentWithProps, getModalStyles } from 'wix-rich-content-editor-common';
-import AudioModal from './modals/AudioModal';
+import AudioModal from '../modals/AudioModal';
 import { audioModalContentStyles } from '../consts';
 import { Modals } from '../modals';
-import AudioSettings from './modals/AudioSettings';
+import AudioSettings from '../modals/AudioSettings';
 
 const createInlineButtons: CreateInlineButtons = ({
   settings,

@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useContext } from 'react';
-import { AUDIO_TYPE } from '../../types';
-import { audioFileTypes } from '../../consts';
+import { AUDIO_TYPE } from '../types';
+import { audioFileTypes } from '../consts';
 import { handleUploadStart, handleUploadFinished, Uploader } from 'wix-rich-content-plugin-commons';
 import { MediaUploadModal } from 'wix-rich-content-ui-components';
 import type { UploadContextType } from 'wix-rich-content-common';
 import { MEDIA_POPOVERS_BUTTONS_NAMES_BI, UploadServiceContext } from 'wix-rich-content-common';
 import * as id3 from 'id3js';
-import { AudioPluginService as audioPluginService } from './audioPluginService';
+import { AudioPluginService as audioPluginService } from '../toolbar/audioPluginService';
 
 const AudioUploadModal = props => {
   const {
@@ -20,11 +20,10 @@ const AudioUploadModal = props => {
     onReplace,
     pubsub,
     componentData,
-    experiments,
+    closeModal,
+    uploadService,
+    updateService,
   } = props;
-  const { uploadService, updateService }: UploadContextType = experiments?.useUploadContext?.enabled
-    ? useContext(UploadServiceContext)
-    : {};
 
   const id = `AudioUploadModal_FileInput_${Math.floor(Math.random() * 9999)}`;
   let blockKey;
@@ -54,12 +53,8 @@ const AudioUploadModal = props => {
     }
   };
 
-  const closeModal = () => {
-    helpers.closeModal();
-  };
-
   const setComponentData = data => {
-    pubsub.set('componentData', data, blockKey);
+    pubsub?.set('componentData', data, blockKey);
   };
 
   const getOnUploadFinished = () => {
@@ -96,7 +91,7 @@ const AudioUploadModal = props => {
       html = null,
       coverImage = null,
       ...rest
-    } = { ...componentData, ...pubsub.get('componentData') };
+    } = { ...componentData, ...pubsub?.get('componentData') };
     return rest;
   };
 

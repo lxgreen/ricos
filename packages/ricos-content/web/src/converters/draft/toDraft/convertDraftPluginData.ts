@@ -155,11 +155,14 @@ const convertAudioData = (
 ) => {
   const { coverImage } = data;
   if (coverImage) {
+    const { width, height } = coverImage;
+    const id = coverImage?.id ?? coverImage?.src?.id;
+    const file_name = coverImage?.file_name ?? coverImage?.src?.id;
     data.coverImage = {
-      id: coverImage?.src?.id,
-      file_name: coverImage?.src?.id,
-      width: coverImage?.width,
-      height: coverImage?.height,
+      id,
+      file_name,
+      width,
+      height,
     };
   }
 };

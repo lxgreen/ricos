@@ -4,17 +4,49 @@ import classNames from 'classnames';
 import { Tab, Tabs, SettingsMobileHeader } from 'wix-rich-content-ui-components';
 import AudioUploadModal from './AudioUploadModal';
 import MediaURLInputModal from './MediaURLInputModal';
+import type {
+  AvailableExperiments,
+  ComponentData,
+  Helpers,
+  IUpdateService,
+  IUploadService,
+  Pubsub,
+  RicosTheme,
+  TextDirection,
+  TranslationFunction,
+} from 'wix-rich-content-common';
 import {
   MEDIA_POPOVERS_BUTTONS_NAMES_BI,
   MEDIA_POPOVERS_TABS_NAMES_BI,
 } from 'wix-rich-content-common';
-import { AUDIO_TYPE } from '../../types';
-import styles from '../../../statics/styles/audio-modal.scss';
+import { AUDIO_TYPE } from '../types';
+import styles from '../../statics/styles/audio-modal.scss';
 
-const AudioModal = props => {
+interface Props {
+  componentData: ComponentData;
+  closeModal: () => void;
+  t: TranslationFunction;
+  theme: RicosTheme;
+  isMobile: boolean;
+  embedType: boolean;
+  onConfirm?: (data?: ComponentData) => void;
+  onReplace?: (data?: ComponentData) => void;
+  languageDir?: TextDirection;
+  setData?: (data) => void;
+  pubsub?: Pubsub;
+  experiments?: AvailableExperiments;
+  helpers?: Helpers;
+  handleFileSelection: (updateEntity) => void;
+  handleFileUpload: (files, updateEntity) => void;
+  fetchData: (url: string) => Promise<unknown>;
+  uploadService?: IUploadService;
+  updateService?: IUpdateService;
+}
+
+const AudioInsertModal: React.FC<Props> = props => {
   const {
     componentData = {},
-    helpers: { closeModal, onPluginsPopOverTabSwitch, onPluginsPopOverClick },
+    closeModal,
     t,
     theme,
     isMobile,
@@ -22,7 +54,9 @@ const AudioModal = props => {
     onConfirm,
     setData,
     pubsub,
+    languageDir,
     experiments,
+    helpers = {},
   } = props;
   const src = componentData?.audio?.src;
   const audioTabs = { embed: t('MediaModal_Tabs_Embed'), upload: t('MediaModal_Tabs_Upload') };
@@ -33,7 +67,7 @@ const AudioModal = props => {
   const [url, setUrl] = useState(initialUrl);
   const [submittedInvalidUrl, setSubmittedInvalidUrl] = useState(false);
   const useModalBaseActionHoc = experiments?.modalBaseActionHoc?.enabled;
-
+  const { onPluginsPopOverTabSwitch, onPluginsPopOverClick, onAudioSelected } = helpers || {};
   const onTabSelected = tab => {
     onPluginsPopOverTabSwitch?.({
       pluginId: AUDIO_TYPE,
@@ -60,8 +94,8 @@ const AudioModal = props => {
         onConfirm({ ...rest, audio: { src: { url } } });
       } else {
         useModalBaseActionHoc
-          ? setData({ ...rest, audio: { src: { url } } })
-          : pubsub.set('componentData', { ...rest, audio: { src: { url } } });
+          ? setData?.({ ...rest, audio: { src: { url } } })
+          : pubsub?.set('componentData', { ...rest, audio: { src: { url } } });
       }
       closeModal?.();
     } else {
@@ -82,8 +116,8 @@ const AudioModal = props => {
             onConfirm({ ...rest, audio: { src: { url } }, html });
           } else {
             useModalBaseActionHoc
-              ? setData({ ...rest, audio: { src: { url } }, html })
-              : pubsub.set('componentData', { ...rest, audio: { src: { url } }, html });
+              ? setData?.({ ...rest, audio: { src: { url } }, html })
+              : pubsub?.set('componentData', { ...rest, audio: { src: { url } }, html });
           }
           closeModal?.();
         }
@@ -101,7 +135,7 @@ const AudioModal = props => {
         {isMobile && (
           <SettingsMobileHeader
             theme={theme}
-            onSave={onConfirm}
+            onSave={onConfirm ? onConfirm : closeModal}
             onCancel={() => closeModal()}
             t={t}
             title={t('AudioPlugin_Settings_Header')}
@@ -112,7 +146,7 @@ const AudioModal = props => {
         <Tabs
           value={activeTab}
           onTabSelected={onTabSelected}
-          headersStyle={isMobile && styles.audio_tabs_headers}
+          headersStyle={isMobile ? styles.audio_tabs_headers : undefined}
           theme={theme}
         >
           <Tab label={audioTabs.upload} value={audioTabs.upload} theme={theme}>
@@ -127,13 +161,16 @@ const AudioModal = props => {
                 onConfirm={onEmbedClick}
                 url={url}
                 setUrl={setUrl}
+                languageDir={languageDir}
                 submittedInvalidUrl={submittedInvalidUrl}
                 withMobileHeader={false}
                 dataHook="audioModalEmbedInput"
                 saveLabel={t('AudioModal_Embed_ButtonText')}
                 subTitle={t('AudioModal_Embed_Title')}
-                withMobileSaveButton
                 onDoubleClick={onUrlInputDoubleClick}
+                helpers={helpers}
+                t={t}
+                isMobile={isMobile}
               />
             </div>
           </Tab>
@@ -143,4 +180,4 @@ const AudioModal = props => {
   );
 };
 
-export default AudioModal;
+export default AudioInsertModal;

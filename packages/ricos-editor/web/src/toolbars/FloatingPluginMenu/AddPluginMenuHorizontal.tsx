@@ -25,8 +25,8 @@ const AddPluginMenuHorizontal = props => {
     .map(addButton => {
       const button = addButton.getButton();
       const { id, command, modal } = button;
-      const onButtonClick = () => onPluginMenuButtonClick(id, modal?.Component, command);
-      return setRenderers(button.id, onButtonClick);
+      const onButtonClick = () => onPluginMenuButtonClick(modal, command);
+      return setRenderers(id, onButtonClick);
     });
 
   return (

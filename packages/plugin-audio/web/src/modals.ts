@@ -1,5 +1,5 @@
-import AudioModal from './toolbar/modals/AudioModal';
-import AudioSettings from './toolbar/modals/AudioSettings';
+import AudioModal from './modals/AudioModal';
+import AudioSettings from './modals/AudioSettings';
 
 const Modals = {
   AUDIO_SETTINGS: 'audio-settings',
