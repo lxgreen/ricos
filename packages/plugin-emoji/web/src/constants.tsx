@@ -1,4 +1,5 @@
 import React from 'react';
+import type { CSSProperties } from 'react';
 import FaBell from './icons/FaBell';
 import FaFlag from './icons/FaFlag';
 import FaHeart from './icons/FaHeart';
@@ -60,26 +61,27 @@ export const getEmojiGroups = (t: TranslationFunction) => [
   },
 ];
 
+const DesktopFlyoutModalContentStyles: CSSProperties = {
+  width: '320px',
+  boxSizing: 'border-box',
+  height: '364px',
+  overflow: 'visible',
+  border: 'solid 1px rgba(51, 51, 51, 0.1)',
+  paddingRight: '0px',
+  paddingLeft: '0px',
+  display: 'block',
+  borderRadius: 'var(--ricos-settings-whitebox-border-radius, 2px)',
+  position: 'absolute',
+  zIndex: 6,
+  paddingTop: '20px',
+  boxShadow: 'var(--ricos-settings-whitebox-box-shadow, 0 0 10px 0 rgba(0, 0, 0, 0.06))',
+};
 export const DesktopFlyOutModalStyles: ModalStyles = Object.freeze({
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, 0)',
     zIndex: 5,
   },
-  content: {
-    width: '320px',
-    boxSizing: 'border-box',
-    height: '364px',
-    overflow: 'visible',
-    border: 'solid 1px rgba(51, 51, 51, 0.1)',
-    paddingRight: '0px',
-    paddingLeft: '0px',
-    display: 'block',
-    borderRadius: 'var(--ricos-settings-whitebox-border-radius, 2px)',
-    position: 'absolute',
-    zIndex: 6,
-    paddingTop: '20px',
-    boxShadow: 'var(--ricos-settings-whitebox-box-shadow, 0 0 10px 0 rgba(0, 0, 0, 0.06))',
-  },
+  content: DesktopFlyoutModalContentStyles,
 });
 
 export const DEFAULT_CONFIG = {};

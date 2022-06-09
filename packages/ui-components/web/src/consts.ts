@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import type { ModalStyles } from 'wix-rich-content-common';
+import type { CSSProperties } from 'react';
 // export const HEADER_TYPE_MAP = {
 //   H1: 'header-one',
 //   H2: 'header-two',
@@ -78,6 +79,23 @@ export {
   DecorationMode as DECORATION_MODE,
 } from 'wix-rich-content-common';
 
+const DesktopFlyOutModalContentStyles: CSSProperties = {
+  boxSizing: 'border-box',
+  height: 'fit-content',
+  minHeight: 165,
+  width: 'fit-content',
+  minWidth: 365,
+  maxHeight: '100%',
+  maxWidth: 444,
+  overflow: 'visible',
+  border: 'solid 1px rgba(51, 51, 51, 0.1)',
+  display: 'block',
+  borderRadius: 'var(--ricos-settings-whitebox-border-radius, 2px)',
+  position: 'absolute',
+  zIndex: 6,
+  padding: 20,
+  boxShadow: 'var(--ricos-settings-whitebox-box-shadow, 0 0 10px 0 rgba(0, 0, 0, 0.06))',
+};
 // export const UNSUPPORTED_BLOCKS_TYPE = 'unsupported-blocks';
 
 export const DesktopFlyOutModalStyles: ModalStyles = Object.freeze({
@@ -85,37 +103,22 @@ export const DesktopFlyOutModalStyles: ModalStyles = Object.freeze({
     backgroundColor: 'rgba(0, 0, 0, 0)',
     zIndex: 5,
   },
-  content: {
-    boxSizing: 'border-box',
-    height: 'fit-content',
-    minHeight: 165,
-    width: 'fit-content',
-    minWidth: 365,
-    maxHeight: '100%',
-    maxWidth: 444,
-    overflow: 'visible',
-    border: 'solid 1px rgba(51, 51, 51, 0.1)',
-    display: 'block',
-    borderRadius: 'var(--ricos-settings-whitebox-border-radius, 2px)',
-    position: 'absolute',
-    zIndex: 6,
-    padding: 20,
-    boxShadow: 'var(--ricos-settings-whitebox-box-shadow, 0 0 10px 0 rgba(0, 0, 0, 0.06))',
-  },
+  content: DesktopFlyOutModalContentStyles,
 });
 
+const MobileFullscreenCustomContentStyle: CSSProperties = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  overflow: 'hidden',
+  width: '100vw',
+  boxSizing: 'border-box',
+};
 export const MOBILE_FULL_SCREEN_CUSTOM_STYLE: ModalStyles = Object.freeze({
   overlay: {
     backgroundColor: 'transparent',
   },
-  content: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    overflow: 'hidden',
-    width: '100vw',
-    boxSizing: 'border-box',
-  },
+  content: MobileFullscreenCustomContentStyle,
 });
 
 export const DesktopOverlayModalStyles: ModalStyles = Object.freeze({

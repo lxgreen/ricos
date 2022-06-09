@@ -61,6 +61,7 @@ import HeadingsPanel from '../modals/heading/HeadingsPanel';
 import LineSpacingPanel from '../modals/line-spacing/LineSpacingPanel';
 import FontSizePanel from '../modals/fontSize/FontSizePanel';
 import { translateHeading } from './utils';
+import type { TextBlockType } from 'ricos-types';
 
 export const HEADING_TYPE_TO_ELEMENT = Object.freeze({
   'header-one': 'H1',
@@ -485,12 +486,11 @@ export const documentStyleCssProperties: Record<string, string> = {
   TEXT_HIGHLIGHT: 'background-color',
 };
 
-export const textBlockButtons: Record<string, string> = {
+export const textBlockButtons: Record<string, TextBlockType> = {
   CODE_BLOCK: CODE_BLOCK_TYPE,
   Blockquote: BLOCKQUOTE,
   OrderedList: NUMBERED_LIST_TYPE,
   UnorderedList: BULLET_LIST_TYPE,
-  HEADINGS: 'HEADINGS',
 };
 
 export const decorationButtons: Record<string, keyof DecorationsDataMap> = {

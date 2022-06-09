@@ -15,6 +15,7 @@ import {
   setTextAlignment,
 } from './buttonsListCreatorConsts';
 import style from './ToolbarButtonNew.scss';
+import type { TextBlockType } from 'ricos-types';
 
 type editorCommands = EditorCommands;
 
@@ -106,7 +107,7 @@ export const updateDynamicStyles = (value, editorCommands: editorCommands, butto
 export const getCurrentHeading = (editorCommands: editorCommands) => {
   let currentHeading = 'P';
   Object.keys(HEADING_TYPE_TO_ELEMENT).forEach(headingType => {
-    if (editorCommands.isBlockTypeSelected(headingType)) {
+    if (editorCommands.isBlockTypeSelected(headingType as TextBlockType)) {
       currentHeading = HEADING_TYPE_TO_ELEMENT[headingType];
     }
   });

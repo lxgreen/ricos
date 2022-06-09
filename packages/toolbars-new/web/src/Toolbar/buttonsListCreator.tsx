@@ -316,12 +316,15 @@ const handleButtonOnSave = (
     const buttonName = buttonsList[index].name;
     if (Object.keys(textBlockButtons).includes(buttonName)) {
       buttonsList[index].onSave = type => {
-        let shouldSetBlockType = true;
-        if (buttonName === 'HEADINGS') {
-          editorCommands.clearSelectedBlocksInlineStyles();
-          const currentHeading = HEADER_TYPE_MAP[getCurrentHeading(editorCommands)];
-          shouldSetBlockType = currentHeading !== type;
-        }
+        setTimeout(() => {
+          editorCommands.setBlockType(type);
+        });
+      };
+    } else if (buttonName === 'HEADINGS') {
+      buttonsList[index].onSave = type => {
+        editorCommands.clearSelectedBlocksInlineStyles();
+        const currentHeading = HEADER_TYPE_MAP[getCurrentHeading(editorCommands)];
+        const shouldSetBlockType = currentHeading !== type;
         shouldSetBlockType &&
           setTimeout(() => {
             editorCommands.setBlockType(type);

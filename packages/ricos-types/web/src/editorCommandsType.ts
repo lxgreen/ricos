@@ -57,7 +57,7 @@ type PluginsList = string[];
 
 type BlockKey = string;
 
-type TextBlockType =
+export type TextBlockType =
   | typeof UNSTYLED
   | typeof NUMBERED_LIST_TYPE
   | typeof BULLET_LIST_TYPE

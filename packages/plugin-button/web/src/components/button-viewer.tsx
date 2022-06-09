@@ -43,23 +43,23 @@ const ButtonViewer: FC<Props> = ({
     [helpers.onViewerAction]
   );
   const Component = isActionButton ? 'div' : 'a';
-  const props = merge(
-    {
-      className: styles.button_container,
-      style,
-      tabIndex: 0,
-      role: 'button',
-      onKeyDown: e => {
+
+  return (
+    <Component
+      className={styles.button_container}
+      style={style}
+      data-hook="buttonViewer"
+      onClick={onClickHandler}
+      tabIndex={0}
+      role="button"
+      onKeyDown={e => {
         if (e.key === ' ' || e.key === 'Enter') {
           e.preventDefault();
           onClickHandler(e);
         }
-      },
-    },
-    !isActionButton && { href: url, target, rel: getRelValue(rel) }
-  );
-  return (
-    <Component {...props} data-hook="buttonViewer" onClick={onClickHandler}>
+      }}
+      {...(!isActionButton && { href: url, target, rel: getRelValue(rel) })}
+    >
       <div className={styles.button_text}>{buttonText}</div>
     </Component>
   );
