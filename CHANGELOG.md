@@ -27,6 +27,8 @@
 
 - `editor`
   - [#4010](https://github.com/wix/ricos/pull/4010) fix reset to default paragraph\headings style
+- `viewer`
+  - [#4011](https://github.com/wix/ricos/pull/4011) fix text-align override
 
 ## :house: Internal
 
