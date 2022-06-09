@@ -21,6 +21,13 @@
 
 <hr/>
 
+## 8.71.22 Jun 9, 2022)
+
+## :bug: Bug Fix
+
+- `viewer`
+  - [#4011](https://github.com/wix/ricos/pull/4011) fix text-align override
+
 ## 8.71.21 (Jun 8, 2022)
 
 ## :bug: Bug Fix
