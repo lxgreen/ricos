@@ -1,7 +1,19 @@
-import { TrashIcon, AlignLeftIcon, SettingsIcon, AlignRightIcon, AlignJustifyIcon } from '../icons';
+import {
+  TrashIcon,
+  AlignLeftIcon,
+  SettingsIcon,
+  AlignRightIcon,
+  AlignJustifyIcon,
+  LinkIcon,
+} from '../icons';
 import type { IPluginToolbarButtonsConfig } from '../types';
 import { PLUGIN_TOOLBAR_BUTTON_ID } from 'wix-rich-content-editor-common';
-import { getNodeInSelectionResolver } from '../resolvers/tiptapResolvers';
+import {
+  getNodeInSelectionResolver,
+  isNodeContainsLinkOrAnchorResolver,
+} from '../resolvers/tiptapResolvers';
+import { createLink } from 'ricos-content/libs/nodeUtils';
+import { convertRelObjectToString, convertRelStringToObject } from 'wix-rich-content-common';
 
 export const pluginToolbarButtonsConfig: IPluginToolbarButtonsConfig = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -80,5 +92,48 @@ export const pluginToolbarButtonsConfig: IPluginToolbarButtonsConfig = {
       selectedNode: getNodeInSelectionResolver,
     },
     commands: {},
+  },
+  link: {
+    id: PLUGIN_TOOLBAR_BUTTON_ID.LINK,
+    type: 'modal',
+    presentation: {
+      tooltip: 'TextLinkButton_Tooltip',
+      icon: LinkIcon,
+    },
+    attributes: {
+      selectedNode: getNodeInSelectionResolver,
+      active: isNodeContainsLinkOrAnchorResolver,
+    },
+    commands: {
+      insertLink:
+        ({ editorCommands, attributes: { selectedNode } }) =>
+        linkData => {
+          const { rel, target, url } = linkData;
+          const relValue = convertRelObjectToString(convertRelStringToObject(rel));
+          const link = createLink({ url, rel: relValue, target });
+          editorCommands.chain().focus().updateAttributes(selectedNode.type.name, { link }).run();
+        },
+      insertAnchor:
+        ({ editorCommands, attributes: { selectedNode } }) =>
+        anchor => {
+          editorCommands
+            .chain()
+            .focus()
+            .updateAttributes(selectedNode.type.name, { link: { anchor, target: 'SELF' } })
+            .run();
+        },
+      removeLink:
+        ({ editorCommands, attributes: { selectedNode } }) =>
+        () => {
+          const { link, ...attrs } = selectedNode.attrs;
+          editorCommands.chain().focus().updateAttributes(attrs).run();
+        },
+      removeAnchor:
+        ({ editorCommands, attributes: { selectedNode } }) =>
+        () => {
+          const { link, ...attrs } = selectedNode.attrs;
+          editorCommands.chain().focus().updateAttributes(attrs).run();
+        },
+    },
   },
 };

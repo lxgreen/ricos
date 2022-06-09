@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToggleButton, SettingsButton } from './components/buttons';
+import { ToggleButton, SettingsButton, LinkButton } from './components/buttons';
 import { PLUGIN_TOOLBAR_BUTTON_ID } from 'wix-rich-content-editor-common';
 
 export const pluginToolbarItemsRenders = {
@@ -23,5 +23,8 @@ export const pluginToolbarItemsRenders = {
   },
   [PLUGIN_TOOLBAR_BUTTON_ID.SETTINGS]: toolbarItem => {
     return <SettingsButton toolbarItem={toolbarItem} />;
+  },
+  [PLUGIN_TOOLBAR_BUTTON_ID.LINK]: toolbarItem => {
+    return <LinkButton toolbarItem={toolbarItem} />;
   },
 };

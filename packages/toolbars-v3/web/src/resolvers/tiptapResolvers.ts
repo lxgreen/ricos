@@ -299,6 +299,17 @@ export const isOnlyTextSelected = TiptapContentResolver.create('yaronResolverExa
   return false;
 });
 
+export const isNodeContainsLinkOrAnchorResolver = TiptapContentResolver.create(
+  RESOLVERS_IDS.IS_NODE_CONTAINS_LINK_OR_ANCHOR,
+  content => {
+    if (Array.isArray(content) && content.length > 0) {
+      return content[0].attrs.link;
+    } else {
+      return undefined;
+    }
+  }
+);
+
 const getPluginSelectedResolver = (resolverId: string, tiptapPluginName: string) =>
   TiptapContentResolver.create(
     resolverId,
