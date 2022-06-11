@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Component as GiphyComponent } from '../giphy-component';
 import type { PluginProps } from 'ricos-tiptap-types';
-import { RicosContext } from 'wix-rich-content-editor-common';
+import { RicosContext } from 'ricos-context';
 
 export const Gif: React.FC<PluginProps> = ({ settings, componentData }) => {
   const { theme, isMobile } = useContext(RicosContext);

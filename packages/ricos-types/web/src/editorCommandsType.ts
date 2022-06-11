@@ -33,6 +33,9 @@ import type {
   EXTERNAL,
   COLLAPSIBLE_LIST_TYPE,
   RICOS_COLLAPSIBLE_LIST_TYPE,
+  VERTICAL_EMBED_TYPE,
+  EMBED_TYPE,
+  AUDIO_TYPE,
 } from 'ricos-content';
 import type {
   DividerData,
@@ -106,6 +109,9 @@ export interface PluginsDataMap {
   [COLLAPSIBLE_LIST_TYPE]?: any;
   [RICOS_COLLAPSIBLE_LIST_TYPE]?: any;
   [EXTERNAL]?: any;
+  [VERTICAL_EMBED_TYPE]?: any;
+  [EMBED_TYPE]?: any;
+  [AUDIO_TYPE]?: any;
 }
 
 export const CUSTOM_LINK = 'custom-link';

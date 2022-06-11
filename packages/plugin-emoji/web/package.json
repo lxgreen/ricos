@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "react-custom-scrollbars": "^4.2.1",
+    "ricos-context": "8.71.22",
     "ricos-modals": "8.71.22",
     "wix-rich-content-common": "8.71.22",
     "wix-rich-content-editor-common": "8.71.22",

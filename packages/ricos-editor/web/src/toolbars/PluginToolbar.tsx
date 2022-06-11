@@ -2,12 +2,11 @@ import React from 'react';
 import type { Node } from 'prosemirror-model';
 import type { Content } from 'wix-rich-content-toolbars-v3';
 import { RicosToolbarComponent, FloatingToolbar } from 'wix-rich-content-toolbars-v3';
-import { withRicosContext } from 'wix-rich-content-editor-common';
+import { withRicosContext, withEditorContext } from 'ricos-context';
+import type { GeneralContext } from 'ricos-context';
 import type { RichContentAdapter } from 'wix-tiptap-editor';
-import { withTiptapEditorContext } from 'wix-tiptap-editor';
 import { withPluginsContext } from 'ricos-plugins';
 import type { PluginsContextValue } from 'ricos-plugins';
-import type { GeneralContext } from 'ricos-types';
 import { isNodeSelection } from '@tiptap/core';
 import styles from '../../statics/styles/plugin-toolbar.scss';
 
@@ -70,8 +69,6 @@ class PluginsToolbar extends React.Component<
   }
 }
 const PluginsToolbarWithContext = withPluginsContext(
-  withRicosContext<PluginsToolbarProps>()(
-    withTiptapEditorContext<PluginsToolbarProps>(PluginsToolbar)
-  )
+  withRicosContext<PluginsToolbarProps>()(withEditorContext<PluginsToolbarProps>(PluginsToolbar))
 );
 export default PluginsToolbarWithContext;

@@ -1,3 +1,4 @@
+import type { RicosExtension } from 'ricos-tiptap-types';
 import {
   bulletedList,
   bold,
@@ -17,7 +18,7 @@ import {
   anchor,
 } from 'wix-tiptap-extensions';
 
-export const commonExtensions = [
+export const commonExtensions: RicosExtension[] = [
   placeholder,
   bulletedList,
   bold,

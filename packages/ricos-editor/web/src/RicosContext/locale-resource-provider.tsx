@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import type { TranslationFunction } from 'ricos-types';
 import { RicosTranslate } from 'wix-rich-content-common';
-import { RicosContextProvider } from 'wix-rich-content-editor-common';
+import { RicosContextProvider } from 'ricos-context';
 import { fetchLocaleResource } from './translations';
 
 export const LocaleResourceProvider = ({

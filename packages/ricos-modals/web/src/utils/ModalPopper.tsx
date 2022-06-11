@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import ReactDOM from 'react-dom';
 import { ModalContext } from './ModalContext';
-import { RicosContext } from 'wix-rich-content-editor-common';
+import { RicosContext } from 'ricos-context';
 import { Popover } from '../components/Popover';
 import { Drawer } from '../components/Drawer';
 import { Fullscreen } from '../components/Fullscreen';

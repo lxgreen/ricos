@@ -3,8 +3,7 @@ import type { FC } from 'react';
 import { Content, RicosToolbarComponent, ToggleButton } from 'wix-rich-content-toolbars-v3';
 import type { IToolbarItemConfigTiptap } from 'wix-rich-content-toolbars-v3';
 import { PluginsContext } from 'ricos-plugins';
-import { RicosContext } from 'wix-rich-content-editor-common';
-import { TiptapEditorContext } from 'wix-tiptap-editor';
+import { RicosContext, EditorContext } from 'ricos-context';
 import type { Node } from 'prosemirror-model';
 import styles from '../../statics/styles/footer-toolbar.scss';
 
@@ -15,7 +14,7 @@ const content = Content.create<Node[]>([]);
 export const FooterToolbar: FC<Props> = () => {
   const { plugins } = useContext(PluginsContext);
   const { isMobile } = useContext(RicosContext) || {};
-  const { getEditorCommands } = useContext(TiptapEditorContext);
+  const { getEditorCommands } = useContext(EditorContext);
 
   const renderers = {};
   plugins

@@ -3,7 +3,7 @@ import { Component as VideoComponent } from '../video-component';
 import { VIDEO_TYPE } from '../types';
 import type { PluginProps } from 'ricos-tiptap-types';
 import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
-import { RicosContext } from 'wix-rich-content-editor-common';
+import { RicosContext } from 'ricos-context';
 
 export const Video: React.FC<PluginProps> = ({
   settings,

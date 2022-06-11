@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { RicosContext } from 'wix-rich-content-editor-common';
+import { RicosContext } from 'ricos-context';
 import { ToolbarContext } from './toolbarContexts';
 
 export const withToolbarContext = WrappedComponent => {

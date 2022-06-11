@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Component as AudioComponent } from '../audio-component';
 import type { PluginProps } from 'ricos-tiptap-types';
-import { RicosContext } from 'wix-rich-content-editor-common';
+import { RicosContext } from 'ricos-context';
 
 export const Audio: React.FC<PluginProps> = ({ settings, componentData, node }) => {
   const { theme, isMobile } = useContext(RicosContext);

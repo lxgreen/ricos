@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import type { FC } from 'react';
 import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
 import { ModalContext } from 'ricos-modals';
-import { RicosContext } from 'wix-rich-content-editor-common';
-import { TiptapEditorContext } from 'wix-tiptap-editor';
+import { RicosContext, EditorContext } from 'ricos-context';
 import GiphyApiInputModal from '../toolbar/giphyApiInputModal';
 import { gifModals, GIPHY_TYPE } from '../types';
 
@@ -16,7 +15,7 @@ interface Props {
 
 const GiphyInsertModal: FC<Props> = ({ componentData, giphySdkApiKey, nodeId }) => {
   const { theme, t, isMobile, languageDir } = useContext(RicosContext);
-  const { getEditorCommands } = useContext(TiptapEditorContext);
+  const { getEditorCommands } = useContext(EditorContext);
   const { modalService } = useContext(ModalContext) || {};
   const closeModal = () => {
     modalService.closeModal(gifModals.insert);

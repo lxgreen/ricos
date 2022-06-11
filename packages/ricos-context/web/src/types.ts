@@ -1,6 +1,10 @@
-import type { AvailableExperiments, TextDirection, TranslationFunction } from './commonTypes';
-import type { RicosPortal } from './RicosTypes';
-import type { RicosTheme } from './themeTypes';
+import type {
+  AvailableExperiments,
+  RicosPortal,
+  RicosTheme,
+  TextDirection,
+  TranslationFunction,
+} from 'ricos-types';
 
 export interface GeneralContext {
   locale: string;

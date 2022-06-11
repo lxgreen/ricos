@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import type { FC } from 'react';
 import { tableModals } from '../types';
 import { ModalContext } from 'ricos-modals';
-import { RicosContext } from 'wix-rich-content-editor-common';
+import { RicosContext } from 'ricos-context';
 import TableSettingsModal from '../toolbar/tableSettingsModal';
 
 interface Props {

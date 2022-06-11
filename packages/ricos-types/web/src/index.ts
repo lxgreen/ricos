@@ -22,5 +22,4 @@ export * from './uploadServicesTypes';
 export * from './modalTypes';
 export * from './shortcuts';
 export * from './key-types';
-export * from './contexts';
 export * from './RicosTypes';

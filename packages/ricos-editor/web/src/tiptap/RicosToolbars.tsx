@@ -13,14 +13,15 @@ import {
   mobileTextButtonList,
 } from '../toolbars/utils/defaultTextFormattingButtons';
 import type { TextButtons, ToolbarSettingsFunctions } from 'wix-rich-content-common';
-import { TOOLBARS, mergeToolbarSettings, withRicosContext } from 'wix-rich-content-editor-common';
+import { TOOLBARS, mergeToolbarSettings } from 'wix-rich-content-editor-common';
 import type { RichContentAdapter } from 'wix-tiptap-editor';
-import { withTiptapEditorContext } from 'wix-tiptap-editor';
 import { getDefaultToolbarSettings } from 'wix-rich-content-editor';
 import RicosPortal from '../modals/RicosPortal';
 import type { Selection } from 'prosemirror-state';
 import { ToolbarConfig } from './ricosToolbarConfig';
-import type { GeneralContext } from 'ricos-types';
+import type { GeneralContext } from 'ricos-context';
+import { withEditorContext, withRicosContext } from 'ricos-context';
+
 import { isTextSelection } from '@tiptap/core';
 
 type RicosToolbarProps = {
@@ -303,6 +304,6 @@ class RicosToolbars extends React.Component<
   }
 }
 const RicosToolbarsWithContext = withRicosContext<RicosToolbarProps>()(
-  withTiptapEditorContext<RicosToolbarProps>(RicosToolbars)
+  withEditorContext<RicosToolbarProps>(RicosToolbars)
 );
 export default RicosToolbarsWithContext;

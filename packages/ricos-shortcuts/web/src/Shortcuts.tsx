@@ -3,8 +3,7 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { configure, HotKeys } from 'react-hotkeys';
 import { ModalContext } from 'ricos-modals';
 import type { KeyboardShortcut, ModalConfig } from 'ricos-types';
-import { RicosContext } from 'wix-rich-content-editor-common';
-import { TiptapEditorContext } from 'wix-tiptap-editor';
+import { RicosContext, EditorContext } from 'ricos-context';
 import { ShortcutsContext } from './ShortcutsContext';
 import { ShortcutsDialog } from './ShortcutsDialog';
 
@@ -60,7 +59,7 @@ export const Shortcuts: FC<ShortcutsProps> = (props: ShortcutsProps) => {
   }
 
   const { t } = useContext(RicosContext);
-  const { getEditorCommands } = useContext(TiptapEditorContext);
+  const { getEditorCommands } = useContext(EditorContext);
   const commands = getEditorCommands();
   const { handlers, keyMap } = shortcuts.getHotKeysProps(group, commands, t);
 

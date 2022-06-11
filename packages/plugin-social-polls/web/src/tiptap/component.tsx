@@ -4,7 +4,7 @@ import { POLL_TYPE } from '../types';
 import type { PluginProps } from 'ricos-tiptap-types';
 import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
 import { NodeSelection } from 'prosemirror-state';
-import { RicosContext } from 'wix-rich-content-editor-common';
+import { RicosContext } from 'ricos-context';
 
 export const Poll: React.FC<PluginProps> = ({
   settings,

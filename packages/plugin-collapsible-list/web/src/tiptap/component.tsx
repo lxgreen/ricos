@@ -8,7 +8,7 @@ import ExpandCollapseButton from '../components/ExpandCollapseButton';
 import { DndIcon } from '../icons';
 import { TIPTAP_COLLAPSIBLE_ITEM_TYPE } from 'ricos-content';
 import { findParentNodeClosestToPos, isInCollapsibleList } from './utils';
-import { RicosContext } from 'wix-rich-content-editor-common';
+import { RicosContext } from 'ricos-context';
 
 export const CollapsibleList: React.FC<PluginProps> = ({
   editor,

@@ -3,31 +3,33 @@ import type { Node } from 'prosemirror-model';
 import type { RefObject } from 'react';
 import React, { createRef, forwardRef, useContext } from 'react';
 import type { RicosEditorProps } from 'ricos-common';
+import { ContentQueryProvider } from 'ricos-content-query';
+import { EditorContextConsumer, EditorContextProvider } from 'ricos-context';
 import { ModalProvider } from 'ricos-modals';
+import type { PluginsContextValue } from 'ricos-plugins';
+import { PluginsContext } from 'ricos-plugins';
+import { Shortcuts } from 'ricos-shortcuts';
+import type { TiptapAdapter } from 'ricos-tiptap-types';
+import type { RicosPortal as RicosPortalType } from 'ricos-types';
 import type { EditorCommands, EditorContextType, Pubsub } from 'wix-rich-content-common';
 import { getLangDir } from 'wix-rich-content-common';
 import { getEmptyDraftContent, TOOLBARS } from 'wix-rich-content-editor-common';
 import { Content, ToolbarContext } from 'wix-rich-content-toolbars-v3';
 import type { ToolbarContextType } from 'wix-rich-content-toolbars-v3/src/utils/toolbarContexts';
 import type { RichContentAdapter } from 'wix-tiptap-editor';
-import { Shortcuts } from 'ricos-shortcuts';
-import { TiptapEditorConsumer, TiptapEditorProvider } from 'wix-tiptap-editor';
-import { ContentQueryProvider } from 'ricos-content-query';
+import { initializeTiptapAdapter } from 'wix-tiptap-editor';
+import RicosPortal from '../modals/RicosPortal';
 import { LocaleResourceProvider } from '../RicosContext/locale-resource-provider';
 import type { RicosEditorRef } from '../RicosEditorRef';
 import { convertToolbarContext } from '../toolbars/convertToolbarContext';
 import FloatingAddPluginMenu from '../toolbars/FloatingPluginMenu/FloatingAddPluginMenu';
-import pluginsConfigMerger from '../utils/pluginsConfigMerger/pluginsConfigMerger';
-import RicosEditor from './RicosEditor';
-import RicosToolbars from './RicosToolbars';
-import RicosStyles from './RicosStyles';
-import { UploadProvider } from './UploadProvider';
-import { PluginsContext } from 'ricos-plugins';
-import type { PluginsContextValue } from 'ricos-plugins';
 import { FooterToolbar } from '../toolbars/FooterToolbar';
 import PluginsToolbar from '../toolbars/PluginToolbar';
-import RicosPortal from '../modals/RicosPortal';
-import type { RicosPortal as RicosPortalType } from 'ricos-types';
+import pluginsConfigMerger from '../utils/pluginsConfigMerger/pluginsConfigMerger';
+import RicosEditor from './RicosEditor';
+import RicosStyles from './RicosStyles';
+import RicosToolbars from './RicosToolbars';
+import { UploadProvider } from './UploadProvider';
 
 type State = {
   error: string;
@@ -38,9 +40,6 @@ interface Props extends RicosEditorProps {
 }
 
 export class FullRicosEditor extends React.Component<Props, State> implements RicosEditorRef {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private toolbarContext: any;
-
   content = Content.create<Node[]>([]);
 
   state = { error: '' };
@@ -49,9 +48,12 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
 
   portalRef: RefObject<RicosPortalType>;
 
+  private readonly tiptapAdapter: TiptapAdapter;
+
   constructor(props) {
     super(props);
     this.portalRef = createRef<RicosPortalType>();
+    this.tiptapAdapter = initializeTiptapAdapter(props);
   }
 
   static getDerivedStateFromError(error: string) {
@@ -179,7 +181,6 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
       _rcProps,
       toolbarSettings,
       content,
-      injectedContent,
     } = this.props;
     return (
       <>
@@ -196,16 +197,13 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
             theme={theme}
             portal={this.portalRef.current}
           >
-            <TiptapEditorProvider
-              content={injectedContent ?? content ?? getEmptyDraftContent()}
-              ricosEditorProps={this.props}
-            >
+            <EditorContextProvider adapter={this.tiptapAdapter}>
               <>
                 <Shortcuts group="global" root>
                   <>
                     <UploadProvider helpers={_rcProps?.helpers}>
                       <ModalProvider>
-                        <TiptapEditorConsumer>
+                        <EditorContextConsumer>
                           {(editor: RichContentAdapter) => (
                             <ToolbarContext.Provider
                               value={{
@@ -229,7 +227,7 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
                               </ContentQueryProvider>
                             </ToolbarContext.Provider>
                           )}
-                        </TiptapEditorConsumer>
+                        </EditorContextConsumer>
                       </ModalProvider>
                     </UploadProvider>
 
@@ -239,7 +237,7 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
                   </>
                 </Shortcuts>
               </>
-            </TiptapEditorProvider>
+            </EditorContextProvider>
           </LocaleResourceProvider>
         )}
       </>

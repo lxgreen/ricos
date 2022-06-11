@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import type { FC } from 'react';
 import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
 import { ModalContext } from 'ricos-modals';
-import { RicosContext } from 'wix-rich-content-editor-common';
-import { TiptapEditorContext } from 'wix-tiptap-editor';
+import { RicosContext, EditorContext } from 'ricos-context';
 import SocialEmbedInsertModal from '../toolbar/SocialEmbedInsertModal';
 import { socialModals } from '../consts';
 import { EMBED_TYPE } from 'wix-rich-content-common';
@@ -18,7 +17,7 @@ interface Props {
 
 const InsertModal: FC<Props> = ({ componentData, fetchData, nodeId, socialType }) => {
   const { theme, t, isMobile, languageDir, experiments } = useContext(RicosContext);
-  const { getEditorCommands } = useContext(TiptapEditorContext);
+  const { getEditorCommands } = useContext(EditorContext);
   const { modalService } = useContext(ModalContext) || {};
   const closeModal = () => {
     modalService.closeModal(socialModals.insert);

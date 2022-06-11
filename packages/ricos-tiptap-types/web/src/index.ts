@@ -1,23 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type {
   ExtensionConfig,
-  MarkConfig,
   markInputRule as markInputRuleFn,
   markPasteRule as markPasteRuleFn,
   mergeAttributes as mergeAttributesFn,
-  NodeConfig,
   NodeViewRendererProps,
   textblockTypeInputRule as textblockTypeInputRuleFn,
 } from '@tiptap/core';
-import type { NodeViewContent } from '@tiptap/react';
+import { MarkConfig, NodeConfig } from '@tiptap/core';
+import type { Editor, NodeViewContent } from '@tiptap/react';
 import type { Plugin as IPlugin, PluginKey as IPluginKey } from 'prosemirror-state';
 import type { ComponentType } from 'react';
 import type {
   Decoration_Type,
+  DraftContent,
   EditorPlugin,
   LegacyEditorPluginConfig,
   LinkSettings,
   Node_Type,
+  RicosEditorAPI,
   TextAlignment,
   TranslationFunction,
 } from 'ricos-types';
@@ -155,6 +156,7 @@ export interface TiptapEditorPlugin extends EditorPlugin {
 }
 
 export type { DOMOutputSpec } from 'prosemirror-model';
+export { NodeConfig, MarkConfig };
 
 export type ExtensionProps = {
   placeholder?: string;
@@ -169,11 +171,18 @@ export type ExtensionProps = {
 
 export type HtmlAttributes = {
   autoCapitalize: string;
-  // explicit true/false enumeration
+  // explicit true/false enumeration as required by the HTML spec
   spellCheck: 'true' | 'false';
   autoComplete: string;
   autoCorrect: string;
   tabIndex: number;
 };
 
-export { NodeConfig, MarkConfig };
+export interface TiptapAdapter {
+  getEditorCommands: RicosEditorAPI['getEditorCommands'];
+  focus: RicosEditorAPI['focus'];
+  blur: RicosEditorAPI['blur'];
+  tiptapEditor: Editor;
+  getDraftContent: () => DraftContent;
+  isContentChanged: () => boolean;
+}

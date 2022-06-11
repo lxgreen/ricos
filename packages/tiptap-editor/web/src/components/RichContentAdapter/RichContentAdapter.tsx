@@ -1,74 +1,54 @@
 /* eslint-disable brace-style */
-import type { TiptapAPI } from '../../types';
+import type { Editor, JSONContent } from '@tiptap/react';
 import { capitalize } from 'lodash';
-import type {
-  TranslationFunction,
-  TextAlignment,
-  RicosCustomStyles,
-  ToolbarType,
-} from 'wix-rich-content-common';
+import type { Fragment, Node as ProseMirrorNode } from 'prosemirror-model';
+import type { RicosEditorProps } from 'ricos-common';
 import {
-  RICOS_LINK_TYPE,
-  RICOS_TEXT_COLOR_TYPE,
-  RICOS_TEXT_HIGHLIGHT_TYPE,
-  RICOS_MENTION_TYPE,
+  BLOCKQUOTE,
+  BULLET_LIST_TYPE,
+  CODE_BLOCK_TYPE,
+  generateId,
+  HEADER_BLOCK,
+  NUMBERED_LIST_TYPE,
+  UNSTYLED,
+} from 'ricos-content';
+import { tiptapToDraft } from 'ricos-converters';
+import { Decoration_Type, Node_Type } from 'ricos-schema';
+import type { TiptapAdapter } from 'ricos-tiptap-types';
+import type { RicosCustomStyles, TextAlignment } from 'wix-rich-content-common';
+import {
   defaultFontSizes,
   defaultMobileFontSizes,
   DOC_STYLE_TYPES,
+  RICOS_LINK_TYPE,
+  RICOS_MENTION_TYPE,
+  RICOS_TEXT_COLOR_TYPE,
+  RICOS_TEXT_HIGHLIGHT_TYPE,
 } from 'wix-rich-content-common';
-import {
-  generateId,
-  HEADER_BLOCK,
-  UNSTYLED,
-  BULLET_LIST_TYPE,
-  CODE_BLOCK_TYPE,
-  BLOCKQUOTE,
-  NUMBERED_LIST_TYPE,
-} from 'ricos-content';
 import { TO_TIPTAP_TYPE } from '../../consts';
 import { findNodeById } from '../../helpers';
-import { tiptapToDraft } from 'ricos-converters';
-import type { Editor, JSONContent } from '@tiptap/react';
-import type { EditorPlugins } from 'ricos-plugins';
-import type { Node as ProseMirrorNode, Fragment } from 'prosemirror-model';
-import { Decoration_Type, Node_Type } from 'ricos-schema';
-import type { AvailableExperiments } from 'ricos-types/src';
 
-export class RichContentAdapter
-  implements Omit<TiptapAPI, 'getContent' | 'getContentPromise' | 'getContentTraits'>
-{
-  initialContent: Fragment;
+export class RichContentAdapter implements TiptapAdapter {
+  private readonly initialContent: Fragment;
 
-  constructor(
-    public tiptapEditor: Editor,
-    private t: TranslationFunction,
-    private plugins: EditorPlugins,
-    private experiments: AvailableExperiments
-  ) {
+  private readonly shouldRevealConverterErrors: boolean | undefined;
+
+  constructor(public tiptapEditor: Editor, ricosEditorProps: RicosEditorProps) {
     this.tiptapEditor = tiptapEditor;
-    this.t = t;
-    this.plugins = plugins;
     this.initialContent = this.tiptapEditor.state.doc.content;
     this.getEditorCommands = this.getEditorCommands.bind(this);
-    this.experiments = experiments;
+    this.shouldRevealConverterErrors =
+      ricosEditorProps.experiments?.removeRichContentSchemaNormalizer?.enabled;
   }
 
   isContentChanged = (): boolean => !this.initialContent.eq(this.tiptapEditor.state.doc.content);
-
-  //@ts-ignore
-  getToolbarProps: TiptapAPI['getToolbarProps'] = (type: ToolbarType) => {
-    return { buttons: {} };
-  };
 
   getContainer = () => {
     return this.tiptapEditor?.options?.element;
   };
 
   getDraftContent = () =>
-    tiptapToDraft(
-      this.tiptapEditor.getJSON() as JSONContent,
-      this.experiments.removeRichContentSchemaNormalizer?.enabled
-    );
+    tiptapToDraft(this.tiptapEditor.getJSON() as JSONContent, this.shouldRevealConverterErrors);
 
   focus() {
     this.tiptapEditor.commands.focus();
@@ -343,23 +323,6 @@ export class RichContentAdapter
         }
       },
     };
-  }
-
-  getToolbars() {
-    return {
-      // MobileToolbar: () => <Toolbar editor={this.editor} />,
-      // TextToolbar: () => <Toolbar editor={this.editor} />,
-    };
-  }
-
-  destroy!: () => null;
-
-  getT() {
-    return this.t;
-  }
-
-  getPlugins() {
-    return this.plugins;
   }
 
   editorMocks = {

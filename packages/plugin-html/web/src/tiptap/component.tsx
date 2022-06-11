@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Component as HtmlComponent } from '../HtmlComponent';
 import type { PluginProps } from 'ricos-tiptap-types';
-import { RicosContext } from 'wix-rich-content-editor-common';
+import { RicosContext } from 'ricos-context';
 
 export const Html: React.FC<PluginProps> = ({
   settings,

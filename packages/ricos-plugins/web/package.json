@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "ricos-types": "8.71.22",
+    "ricos-context": "8.71.22",
     "wix-rich-content-toolbars-v3": "8.71.22"
   },
   "peerDependencies": {

@@ -25,9 +25,9 @@ declare module '@tiptap/core' {
 
 export const inputRegex = /^\s*>\s$/;
 
-export const blockquote = {
+export const blockquote: RicosExtension = {
   type: 'node' as const,
-  groups: ['text-container', 'shortcuts-enabled'],
+  groups: ['text-container' as const, 'shortcuts-enabled' as const],
   name: Node_Type.BLOCKQUOTE,
   reconfigure: (
     config: NodeConfig,

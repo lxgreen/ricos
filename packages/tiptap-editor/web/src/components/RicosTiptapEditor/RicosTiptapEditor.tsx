@@ -6,7 +6,7 @@ import React, { useEffect, useContext } from 'react';
 import { getLangDir } from 'wix-rich-content-common';
 import { tiptapToDraft } from 'ricos-converters';
 import { RicosTiptapContext } from '../../context';
-import { RicosContext } from 'wix-rich-content-editor-common';
+import { RicosContext } from 'ricos-context';
 import { useForceUpdate } from '../../lib/useForceUpdate';
 import '../../statics/styles/tiptap-editor-styles.scss';
 import type { RicosTiptapEditorProps } from '../../types';

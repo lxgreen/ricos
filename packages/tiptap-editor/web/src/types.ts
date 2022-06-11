@@ -1,7 +1,5 @@
 import type { Editor } from '@tiptap/react';
 import type { Node as ProseMirrorNode } from 'prosemirror-model';
-import type { ElementType } from 'react';
-import type { RicosEditorAPI } from 'ricos-types';
 import type {
   DraftContent,
   EditorStyleClasses,
@@ -19,14 +17,6 @@ export interface PluginProps {
   node: ProseMirrorNode;
   editorCommands: unknown;
   updateAttributes: (data: unknown) => null;
-}
-
-export interface TiptapAPI extends RicosEditorAPI {
-  getToolbars: () => {
-    MobileToolbar?: ElementType;
-    TextToolbar?: ElementType;
-  };
-  destroy: Editor['destroy'];
 }
 
 export interface RicosTiptapEditorProps {

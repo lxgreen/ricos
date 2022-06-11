@@ -2,21 +2,17 @@
 import type { JSONContent } from '@tiptap/core';
 import React, { forwardRef } from 'react';
 import type { RicosEditorProps } from 'ricos-common';
-import type { HtmlAttributes } from 'ricos-tiptap-types';
-import type { EditorStyleClasses, GeneralContext } from 'ricos-types';
-import { getEmptyDraftContent, withRicosContext } from 'wix-rich-content-editor-common';
+import type { HtmlAttributes, TiptapAdapter } from 'ricos-tiptap-types';
+import type { EditorContextType, EditorStyleClasses, Pubsub } from 'ricos-types';
+import type { GeneralContext } from 'ricos-context';
+import { withRicosContext, withEditorContext } from 'ricos-context';
+import { getEmptyDraftContent } from 'wix-rich-content-editor-common';
 import { isContentStateEmpty } from 'ricos-content';
 import {
   EditorEvents,
   withEditorEvents,
 } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
-import type { RichContentAdapter } from 'wix-tiptap-editor';
-import {
-  draftToTiptap,
-  RicosTiptapEditor,
-  TIPTAP_TYPE_TO_RICOS_TYPE,
-  withTiptapEditorContext,
-} from 'wix-tiptap-editor';
+import { draftToTiptap, RicosTiptapEditor, TIPTAP_TYPE_TO_RICOS_TYPE } from 'wix-tiptap-editor';
 import { PUBLISH_DEPRECATION_WARNING_v9 } from '../RicosEditor';
 import type { RicosEditorRef } from '../RicosEditorRef';
 import { publishBI } from '../utils/bi/publish';
@@ -32,7 +28,7 @@ type RicosEditorState = {
 
 class RicosEditor
   extends React.Component<
-    RicosEditorProps & { ricosContext: GeneralContext; editor: RichContentAdapter },
+    RicosEditorProps & { ricosContext: GeneralContext; editor: TiptapAdapter },
     RicosEditorState
   >
   // eslint-disable-next-line prettier/prettier
@@ -92,9 +88,11 @@ class RicosEditor
     };
   };
 
-  getToolbarProps: RicosEditorRef['getToolbarProps'] = type => {
-    return this.props.editor.getToolbarProps(type);
-  };
+  getToolbarProps: RicosEditorRef['getToolbarProps'] = _type => ({
+    buttons: {},
+    context: {} as EditorContextType,
+    pubsub: {} as Pubsub,
+  });
 
   getEditorCommands: RicosEditorRef['getEditorCommands'] = () => {
     return this.props.editor.getEditorCommands();
@@ -193,9 +191,7 @@ class RicosEditor
   }
 }
 
-const RicosEditorWithContext = withRicosContext()(
-  withTiptapEditorContext(withEditorEvents(RicosEditor))
-);
+const RicosEditorWithContext = withRicosContext()(withEditorContext(withEditorEvents(RicosEditor)));
 
 const RicosEditorWithForwardRef = forwardRef<RicosEditorRef, RicosEditorProps>((props, ref) => (
   <RicosEditorWithContext {...props} ref={ref} />

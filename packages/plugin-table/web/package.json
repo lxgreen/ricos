@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "ricos-modals": "8.71.22",
+    "ricos-context": "8.71.22",
     "wix-react-datasheet": "1.5.7",
     "wix-rich-content-common": "8.71.22",
     "wix-rich-content-editor-common": "8.71.22",

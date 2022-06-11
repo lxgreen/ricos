@@ -1,8 +1,7 @@
 import type { FC } from 'react';
 import React, { useContext } from 'react';
 import { ModalContext } from 'ricos-modals';
-import { RicosContext } from 'wix-rich-content-editor-common';
-import { TiptapEditorContext } from 'wix-tiptap-editor';
+import { RicosContext, EditorContext } from 'ricos-context';
 import EmojiPreviewModal from '../toolbar/emojiPreviewModal';
 import { emojiModals } from '../types';
 
@@ -10,7 +9,7 @@ interface Props {}
 
 const EmojiInsertModal: FC<Props> = () => {
   const { theme, t } = useContext(RicosContext);
-  const { getEditorCommands } = useContext(TiptapEditorContext);
+  const { getEditorCommands } = useContext(EditorContext);
   const { modalService } = useContext(ModalContext) || {};
 
   const closeModal = () => {

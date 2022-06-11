@@ -1,5 +1,7 @@
+import type { ComponentType } from 'react';
 import React from 'react';
-import type { GeneralContext, RicosTheme, RicosPortal } from 'ricos-types';
+import type { RicosTheme, RicosPortal } from 'ricos-types';
+import type { GeneralContext } from './types';
 
 export const RicosContext = React.createContext<GeneralContext>({
   locale: 'en',
@@ -43,7 +45,7 @@ export const RicosContextProvider = ({
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function withRicosContext<T = any>() {
-  return Component => {
+  return (Component: ComponentType<T>) => {
     return (props: T) => {
       return (
         <RicosContext.Consumer>

@@ -1,14 +1,14 @@
+import type { Node } from 'prosemirror-model';
 import React, { useContext } from 'react';
+import { EditorContext } from 'ricos-context';
+import { PluginsContext } from 'ricos-plugins';
 import type { IToolbarItemConfigTiptap } from 'wix-rich-content-toolbars-v3';
 import { Content, RicosToolbarComponent, ToggleButton } from 'wix-rich-content-toolbars-v3';
-import type { Node } from 'prosemirror-model';
-import { TiptapEditorContext } from 'wix-tiptap-editor';
-import { PluginsContext } from 'ricos-plugins';
 import styles from '../../../statics/styles/floating-add-plugin-menu.scss';
 const content = Content.create<Node[]>([]);
 
 const AddPluginMenuHorizontal = props => {
-  const { getEditorCommands } = useContext(TiptapEditorContext);
+  const { getEditorCommands } = useContext(EditorContext);
   const { plugins } = useContext(PluginsContext);
   const { onPluginMenuButtonClick } = props;
 

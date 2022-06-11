@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import VerticalEmbedComponent from '../vertical-embed-component';
 import type { PluginProps } from 'ricos-tiptap-types';
-import { RicosContext } from 'wix-rich-content-editor-common';
+import { RicosContext } from 'ricos-context';
 
 export const AppEmbed: React.FC<PluginProps> = ({ settings, componentData }) => {
   const { t } = useContext(RicosContext);

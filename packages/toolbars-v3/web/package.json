@@ -50,6 +50,7 @@
     "react-popper": "2.2.5",
     "react-sizeme": "^3.0.2",
     "ricos-common": "8.71.22",
+    "ricos-context": "8.71.22",
     "ricos-content-query": "8.71.22",
     "ricos-modals": "8.71.22",
     "wix-rich-content-common": "8.71.22",

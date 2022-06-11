@@ -3,7 +3,7 @@ import { ImageViewer } from '..';
 import type { ImageData, ImagePluginViewerConfig } from '../types';
 import type { PluginProps } from 'ricos-tiptap-types';
 import { MediaItemErrorMsg, Loader } from 'wix-rich-content-ui-components';
-import { RicosContext } from 'wix-rich-content-editor-common';
+import { RicosContext } from 'ricos-context';
 
 export const Image: React.FC<PluginProps> = ({
   settings,

@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import type { FC } from 'react';
 import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
 import { ModalContext } from 'ricos-modals';
-import { RicosContext } from 'wix-rich-content-editor-common';
-import { TiptapEditorContext } from 'wix-tiptap-editor';
+import { RicosContext, EditorContext } from 'ricos-context';
 import VerticalEmbedInsertModal from '../toolbar/VerticalEmbedInsertModal';
 import { verticalEmbedModals } from '../constants';
 import { VERTICAL_EMBED_TYPE } from '../types';
@@ -18,7 +17,7 @@ interface Props {
 
 const InsertModal: FC<Props> = ({ componentData, verticalsApi, nodeId }) => {
   const { locale, t, isMobile, experiments } = useContext(RicosContext);
-  const { getEditorCommands } = useContext(TiptapEditorContext);
+  const { getEditorCommands } = useContext(EditorContext);
   const { modalService } = useContext(ModalContext) || {};
   const closeModal = () => {
     modalService.closeModal(verticalEmbedModals.insert);

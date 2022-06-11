@@ -19,11 +19,9 @@ export const draftToTiptap: (draftContent: DraftContent) => JSONContent = flow(
 
 export const tiptapToDraft = (
   proseContent: JSONContent,
-  removeRichContentSchemaNormalizer = false
+  shouldRevealConverterErrors = false
 ): DraftContent => {
   const richContent = fromTiptap(proseContent);
-  return toDraft(
-    removeRichContentSchemaNormalizer ? richContent : richContentNormalizer(richContent)
-  );
+  return toDraft(shouldRevealConverterErrors ? richContent : richContentNormalizer(richContent));
 };
 export { fromTiptap, toTiptap };

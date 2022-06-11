@@ -7,7 +7,7 @@ import type {
   ToolbarType,
   EditorCommands,
 } from '.';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ElementType } from 'react';
 import type { EditorState } from 'draft-js';
 import type { OnPluginAction } from './pluginsBiCallbacksTypes';
 import type {

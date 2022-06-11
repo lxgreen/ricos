@@ -161,6 +161,4 @@ export {
 } from './Utils/inlineStyleUtils';
 
 export { scrollToBlock } from './Utils/scrollToBlock';
-export * from './contexts';
-
 export { default as PLUGIN_TOOLBAR_BUTTON_ID } from './pluginToolbarButtonsIds';

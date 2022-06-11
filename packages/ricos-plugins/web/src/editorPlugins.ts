@@ -4,6 +4,7 @@ import type { PluginToolbar } from './pluginToolbar';
 import type { Plugins, Plugin } from './models/plugins';
 import type { EditorPlugin as EditorPluginType, LegacyEditorPluginConfig } from 'ricos-types';
 import { compact } from 'lodash';
+import type { RicosExtension } from 'ricos-tiptap-types';
 
 export class PluginCollisionError extends Error {}
 
@@ -72,7 +73,7 @@ export class EditorPlugins implements Plugins {
     return toolbar;
   }
 
-  getTiptapExtensions() {
-    return compact(this.plugins.flatMap(plugin => plugin.getTiptapExtensions?.()));
+  getTiptapExtensions(): RicosExtension[] {
+    return compact(this.plugins.flatMap(plugin => plugin.getTiptapExtensions?.() || []));
   }
 }

@@ -5,7 +5,7 @@ import React, { useState, useEffect, forwardRef, useImperativeHandle, useContext
 import PropTypes from 'prop-types';
 import MentionAvatar from './MentionAvatar';
 import classNames from 'classnames';
-import { RicosContext } from 'wix-rich-content-editor-common';
+import { RicosContext } from 'ricos-context';
 import styles from '../../statics/mention-list.scss';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 

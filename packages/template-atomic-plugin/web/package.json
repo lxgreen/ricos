@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "wix-rich-content-common": "yourPluginVersion",
+    "ricos-context": "8.71.20",
     "wix-rich-content-editor-common": "yourPluginVersion"
   },
   "jest": {
