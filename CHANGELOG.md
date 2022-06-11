@@ -23,6 +23,8 @@
   - [#3996](https://github.com/wix/ricos/pull/3996) add audio button
 - `image`
   - [#4014](https://github.com/wix/ricos/pull/4014) replace button
+- `ricos-context`
+  - [#4020](https://github.com/wix/ricos/pull/4020) package added
 
 </details>
 
