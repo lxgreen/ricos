@@ -17,20 +17,22 @@
     Click to see more.
   </summary>
 
+</details>
+
+<hr/>
+
+## 8.71.23 (Jun 11, 2022)
+
 ## :house: Internal
 
-- `tiptap/audio`
+- `audio`
   - [#3996](https://github.com/wix/ricos/pull/3996) add audio button
 - `image`
   - [#4014](https://github.com/wix/ricos/pull/4014) replace button
 - `ricos-context`
   - [#4020](https://github.com/wix/ricos/pull/4020) package added
 
-</details>
-
-<hr/>
-
-## 8.71.22 Jun 9, 2022)
+## 8.71.22 (Jun 9, 2022)
 
 ## :bug: Bug Fix
 
