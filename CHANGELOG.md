@@ -16,7 +16,7 @@
     Changes that have landed in master but are not yet released.
     Click to see more.
   </summary>
-
+  
 ## :bug: Bug Fix
 
 - `ricos-editor`
@@ -28,6 +28,8 @@
   - [#4027](https://github.com/wix/ricos/pull/4027) add media button
 - `file-upload`
   - [#4027](https://github.com/wix/ricos/pull/4027) file replace button
+- `ricos-converters`
+  - [#4021](https://github.com/wix/ricos/pull/4021) tiptap converters for single node
 
 </details>
 
