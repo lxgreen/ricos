@@ -17,6 +17,11 @@
     Click to see more.
   </summary>
 
+  ## :bug: Bug Fix
+
+- `ricos-editor`
+  - [#4025](https://github.com/wix/ricos/pull/4025) fix open modal func on FloatingAddPluginMenu.tsx
+
 </details>
 
 <hr/>

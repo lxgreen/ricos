@@ -43,15 +43,16 @@ const FloatingAddPluginMenu = ({ addPluginMenuConfig, helpers, isMobile = false 
     modalService?.getOpenModals().some(({ id }) => id === PLUGIN_MENU_MODAL_ID);
 
   const toggleAddPluginMenu = () => {
+    const modal = { Component: floatingMenuComponent, id: PLUGIN_MENU_MODAL_ID };
     isPluginMenuModalOpen()
       ? closeModal(PLUGIN_MENU_MODAL_ID)
-      : openModal(PLUGIN_MENU_MODAL_ID, placement, layout, floatingMenuComponent);
+      : openModal(modal, placement, layout);
   };
 
-  const openModal = (id, placement, layout, component) => {
+  const openModal = (modal, placement, layout) => {
     modalService?.openModal({
-      Component: component,
-      id,
+      Component: modal.Component,
+      id: modal.id,
       positioning: { referenceElement: buttonRef?.current, placement },
       layout,
     });
@@ -60,11 +61,10 @@ const FloatingAddPluginMenu = ({ addPluginMenuConfig, helpers, isMobile = false 
   const closeModal = id => modalService?.closeModal(id);
 
   const onPluginMenuButtonClick = (modal, command) => {
-    const { id, Component } = modal;
     closeModal(PLUGIN_MENU_MODAL_ID);
     const pluginModalLayout = isMobile ? LAYOUTS.FULLSCREEN : LAYOUTS.POPOVER;
     return modal
-      ? openModal(id, placement, pluginModalLayout, Component)
+      ? openModal(modal, placement, pluginModalLayout)
       : command(getEditorCommands?.(), uploadContext);
   };
 
