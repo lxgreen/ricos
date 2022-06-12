@@ -49,7 +49,6 @@ import type {
   ImageData,
   ColorData,
   Link,
-  CollapsibleListData,
 } from 'ricos-schema';
 import type { MentionData } from './pluginTypes';
 import type { TextAlignment, InlineStyle } from './commonTypes';
@@ -108,6 +107,7 @@ export interface PluginsDataMap {
   [IMAGE_TYPE]?: any;
   [COLLAPSIBLE_LIST_TYPE]?: any;
   [RICOS_COLLAPSIBLE_LIST_TYPE]?: any;
+  [CODE_BLOCK_TYPE]?: any;
   [EXTERNAL]?: any;
   [VERTICAL_EMBED_TYPE]?: any;
   [EMBED_TYPE]?: any;
