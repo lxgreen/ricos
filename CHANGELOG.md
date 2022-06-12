@@ -20,7 +20,7 @@
   ## :bug: Bug Fix
 
 - `ricos-editor`
-  - [#4025](https://github.com/wix/ricos/pull/4025) fix open modal func on FloatingAddPluginMenu.tsx
+  - [#4025](https://github.com/wix/ricos/pull/4025) fix open modal func on FloatingAddPluginMenu
 
 </details>
 
@@ -57,7 +57,7 @@
 
 - `ricos-editor`
   - [#3973](https://github.com/wix/ricos/pull/3973) add `insertBlockWithBlankLines` commands to tiptap `editorCommands`
-- `*`
+- `general`
   - [#4007](https://github.com/wix/ricos/pull/4007) deprecate draft data in upload service
 - `image`
   - [#4007](https://github.com/wix/ricos/pull/4007) image tiptap addButtons
@@ -79,12 +79,7 @@
 
 ## :house: Internal
 
-- `ricos-editor`
-  - [#3981](https://github.com/wix/ricos/pull/3981) fix horizontalAddPluginMenu open modal func
-
-## :house: Internal
-
-- `ricos-plugins ricos-editor`
+- `ricos-plugins`
   - [#3972](https://github.com/wix/ricos/pull/3972) media upload add buttons support
 - `file-plugin`
   - [#3972](https://github.com/wix/ricos/pull/3972) expose addButton
@@ -92,11 +87,12 @@
   - [#3938](https://github.com/wix/ricos/pull/3938) use uploadService
 - `ricos-editor`
   - [#3939](https://github.com/wix/ricos/pull/3939) add horizontal add plugin menu & mobile ui
+  - [#3981](https://github.com/wix/ricos/pull/3981) fix horizontalAddPluginMenu open modal func
+  - [#3972](https://github.com/wix/ricos/pull/3972) media upload add buttons support
 - `general`
   - [#3967](https://github.com/wix/ricos/pull/3967) tiptap type changed to ricos schema type
 - `ricos-converters`
   - [#3980](https://github.com/wix/ricos/pull/3980) add rich content schema normalizer under experiment
-- `ricos-converters`
   - [#3984](https://github.com/wix/ricos/pull/3984) document style in tiptap schema
 
 ## 8.71.19 (Jun 2, 2022)
