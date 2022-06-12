@@ -1,8 +1,9 @@
 import type { RicosExtension, RicosExtensionConfig } from 'ricos-tiptap-types';
 import type { Transaction } from 'prosemirror-state';
-import { TextSelection, AllSelection } from 'prosemirror-state';
+import { AllSelection } from 'prosemirror-state';
 import type { Command } from '@tiptap/core';
 import { isTextSelection } from '@tiptap/core';
+import { Node_Type } from 'ricos-schema';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -28,7 +29,7 @@ export const indent: RicosExtension = {
   reconfigure(config: RicosExtensionConfig, extensions: RicosExtension[]) {
     const types = extensions
       .filter(extension => extension.groups.includes('text-container'))
-      .filter(extension => extension.name !== 'codeBlock')
+      .filter(extension => extension.name !== Node_Type.CODE_BLOCK)
       .map(({ name }) => name);
     const minLevel = 0;
     const maxLevel = 4;
@@ -46,7 +47,7 @@ export const indent: RicosExtension = {
                   }
 
                   return {
-                    style: `margin-left: ${attributes.indentation * INDENT_SIZE}px`,
+                    style: `margin-inline-start: ${attributes.indentation * INDENT_SIZE}px`,
                   };
                 },
               },
@@ -64,7 +65,7 @@ export const indent: RicosExtension = {
               nextLevel < minLevel ? minLevel : nextLevel > maxLevel ? maxLevel : nextLevel;
 
             if (indent !== node.attrs.indentation) {
-              const { indentation: oldIndent, ...currentAttrs } = node.attrs;
+              const { indentation: _, ...currentAttrs } = node.attrs;
               const nodeAttrs =
                 indent > minLevel ? { ...currentAttrs, indentation: indent } : currentAttrs;
               return tr.setNodeMarkup(pos, node.type, nodeAttrs, node.marks);
