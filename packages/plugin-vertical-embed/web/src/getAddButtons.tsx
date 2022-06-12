@@ -16,7 +16,7 @@ export const getAddButtons = (config): AddButton[] => {
       modal: {
         id: verticalEmbedModals.insert,
         Component: decorateComponentWithProps(InsertModal, {
-          ...config,
+          verticalsApi: config.verticalsApi,
           componentData: { type: 'event' },
         }),
         layout: 'popover',

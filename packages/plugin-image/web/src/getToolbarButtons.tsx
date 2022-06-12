@@ -13,7 +13,7 @@ export const getToolbarButtons = (config): PluginToolbarButtons => {
         id: PLUGIN_TOOLBAR_BUTTON_ID.REPLACE,
         config: {
           tooltip: 'ReplaceImageButton_Tooltip',
-          command: ({ nodeId, uploadService, updateService }) => {
+          command: ({ node, uploadContext: { uploadService, updateService } }) => {
             if (config.handleFileSelection) {
               config.handleFileSelection(
                 undefined,
@@ -22,7 +22,7 @@ export const getToolbarButtons = (config): PluginToolbarButtons => {
                   const file = Array.isArray(data) ? data[0] : data;
                   updateService.updatePluginData(
                     { data: file },
-                    nodeId,
+                    node.attrs.id,
                     IMAGE_TYPE,
                     imagePluginService
                   );
@@ -35,7 +35,7 @@ export const getToolbarButtons = (config): PluginToolbarButtons => {
               uploadService.selectFiles(accept, false, (files: File[]) =>
                 uploadService.uploadFile(
                   files[0],
-                  nodeId,
+                  node.attrs.id,
                   new Uploader(handleFileUpload),
                   IMAGE_TYPE,
                   imagePluginService

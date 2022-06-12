@@ -19,8 +19,6 @@ const VideoInsertModal = props => {
     theme,
     isMobile,
     closeModal,
-    onVideoAdd,
-    onVideoReplace,
   } = props;
 
   const videoTabs = { embed: t('VideoModal_Tabs_Embed'), upload: t('VideoModal_Tabs_Upload') };
@@ -35,7 +33,7 @@ const VideoInsertModal = props => {
       ? MEDIA_POPOVERS_TABS_NAMES_BI.embed
       : MEDIA_POPOVERS_TABS_NAMES_BI.upload;
 
-  const { onPluginsPopOverTabSwitch, onPluginsPopOverClick, onVideoSelected } = helpers || {};
+  const { onPluginsPopOverTabSwitch, onPluginsPopOverClick } = helpers || {};
 
   const onTabSelected = tab => {
     activeTab !== tab &&

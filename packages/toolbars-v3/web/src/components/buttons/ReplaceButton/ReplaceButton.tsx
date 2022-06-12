@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import type { FC } from 'react';
 import cx from 'classnames';
 import styles from './ReplaceButton.scss';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 import { UploadServiceContext } from 'wix-rich-content-common';
 import { withToolbarContext } from '../../../utils/withContext';
+import { ModalContext } from 'ricos-modals';
 
 type Props = {
   toolbarItem;
@@ -16,11 +17,13 @@ type Props = {
 const ReplaceButton: FC<Props> = ({ toolbarItem, onClick, context }) => {
   const { isMobile, t } = context || {};
   const uploadContext = useContext(UploadServiceContext);
+  const { modalService } = useContext(ModalContext) || {};
+  const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
 
   const Icon = toolbarItem.presentation?.icon;
   const tooltipKey = toolbarItem.presentation?.tooltip;
   const tooltip = t?.(tooltipKey);
-  const nodeId = toolbarItem.attributes.selectedNode.attrs.id;
+  const node = toolbarItem.attributes.selectedNode;
 
   return (
     <Tooltip key={tooltip} content={tooltip} tooltipOffset={{ x: 0, y: -8 }}>
@@ -30,12 +33,13 @@ const ReplaceButton: FC<Props> = ({ toolbarItem, onClick, context }) => {
           [styles.active]: toolbarItem.attributes.active,
           [styles.disabled]: toolbarItem.attributes.disabled,
         })}
+        ref={setReferenceElement}
       >
         <div
           onMouseDown={e => e.preventDefault()}
           className={cx(styles.toggleButton, { [styles.mobileToggleButton]: isMobile })}
           role="button"
-          onClick={() => onClick({ nodeId, ...uploadContext })}
+          onClick={() => onClick({ node, referenceElement, uploadContext, modalService })}
           tabIndex={0}
         >
           <Icon />

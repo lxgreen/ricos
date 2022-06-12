@@ -31,15 +31,20 @@ const InsertModal: FC<Props> = ({
     modalService.closeModal(videoModals.insert);
   };
 
-  const onConfirm = video => {
+  const onReplace = video => {
     const data = convertBlockDataToRicos(VIDEO_TYPE, video);
-    const nodeId = getEditorCommands().insertBlock(VIDEO_TYPE, data);
+    getEditorCommands().setBlock(nodeId as string, VIDEO_TYPE, data);
     return { newBlock: { key: nodeId } };
   };
 
-  const onReplace = video => {
-    const data = convertBlockDataToRicos(VIDEO_TYPE, video);
-    nodeId && getEditorCommands().setBlock(nodeId, VIDEO_TYPE, data);
+  const onConfirm = video => {
+    if (nodeId) {
+      onReplace(video);
+    } else {
+      const data = convertBlockDataToRicos(VIDEO_TYPE, video);
+      const nodeId = getEditorCommands().insertBlock(VIDEO_TYPE, data);
+      return { newBlock: { key: nodeId } };
+    }
   };
 
   return (
@@ -57,6 +62,7 @@ const InsertModal: FC<Props> = ({
       helpers={{}}
       handleFileSelection={handleFileSelection}
       handleFileUpload={handleFileUpload}
+      blockKey={nodeId}
     />
   );
 };

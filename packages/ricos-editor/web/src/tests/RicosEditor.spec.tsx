@@ -111,11 +111,14 @@ const configs = {
   textColor: {
     colorScheme,
   },
+  gif: {
+    giphySdkApiKey: 'mockGiphySdkApiKey',
+  },
 };
 
 const plugins = [
   pluginDivider(),
-  pluginGiphy(),
+  pluginGiphy(configs.gif),
   pluginHtml(),
   pluginGallery(),
   pluginPoll(),
