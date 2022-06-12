@@ -5,7 +5,7 @@ import { Node_Type } from 'ricos-schema';
 import type { ConvertableNode, Transforms, Tree } from './models/converter';
 import { nodeConverters } from './node-converters';
 import { TiptapNodeBidiTransfoms } from './tiptap-node-transforms';
-import type { TiptapNode, TiptapNodeConverter } from './types';
+import type { TiptapNode } from './types';
 
 const richContentTree: Tree<Node> = {
   getNodes: (root: Node) => root.nodes,
@@ -71,6 +71,9 @@ export const toTiptap = (content: RichContent): JSONContent => {
     },
   };
 };
+
+export const toTiptapNodeAttrs = (node: Node): TiptapNode['attrs'] =>
+  new TiptapNodeBidiTransfoms(nodeConverters).toTiptap().byType(node).convert(node).attrs;
 
 export const fromTiptap = (content: JSONContent): RichContent => {
   return {

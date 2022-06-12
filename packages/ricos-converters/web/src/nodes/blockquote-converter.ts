@@ -1,5 +1,5 @@
 import type { BlockquoteNode, ParagraphNode, TextNode } from 'ricos-content';
-import type { BlockquoteData, Node, ParagraphData } from 'ricos-schema';
+import type { Node, ParagraphData } from 'ricos-schema';
 import { Node_Type } from 'ricos-schema';
 import type { TiptapNode, TiptapNodeConverter } from '../types';
 
