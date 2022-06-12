@@ -9,6 +9,9 @@ import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 import { getToolbarButtons } from './getToolbarButtons';
 import { getAddButtons } from './getAddButtons';
+import { FilePluginService } from './toolbar/filePluginService';
+
+const filePluginService = new FilePluginService();
 
 export const pluginFileUpload: EditorPluginCreator<FilePluginEditorConfig> = config => {
   const pluginConfig: FilePluginEditorConfig = { ...DEFAULTS.config, ...config };
@@ -19,7 +22,7 @@ export const pluginFileUpload: EditorPluginCreator<FilePluginEditorConfig> = con
     ModalsMap,
     createPluginData: createFileData,
     tiptapExtensions,
-    toolbarButtons: getToolbarButtons(config),
-    addButtons: getAddButtons(config),
+    toolbarButtons: getToolbarButtons(config, filePluginService),
+    addButtons: getAddButtons(config, filePluginService),
   } as TiptapEditorPlugin;
 };

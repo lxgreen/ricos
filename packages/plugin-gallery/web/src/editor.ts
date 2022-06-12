@@ -9,6 +9,9 @@ import { tiptapExtensions } from './tiptap/tiptap';
 import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 import { getToolbarButtons } from './getToolbarButtons';
 import { getAddButtons } from './getAddButtons';
+import { GalleryPluginService } from './toolbar/galleryPluginService';
+
+const galleryPluginService = new GalleryPluginService();
 
 export const pluginGallery: EditorPluginCreator<GalleryPluginEditorConfig> = config => {
   const pluginConfig: GalleryPluginEditorConfig = { ...DEFAULTS.config, ...config };
@@ -19,8 +22,8 @@ export const pluginGallery: EditorPluginCreator<GalleryPluginEditorConfig> = con
     ModalsMap,
     createPluginData: createGalleryData,
     tiptapExtensions,
-    addButtons: getAddButtons(pluginConfig),
-    toolbarButtons: getToolbarButtons(pluginConfig),
+    addButtons: getAddButtons(pluginConfig, galleryPluginService),
+    toolbarButtons: getToolbarButtons(pluginConfig, galleryPluginService),
     reconfigure: helpers => {
       pluginConfig.handleFileSelection = helpers.handleFileSelection;
       pluginConfig.handleFileUpload = helpers.handleFileUpload;

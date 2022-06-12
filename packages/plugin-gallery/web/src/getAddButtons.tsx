@@ -2,11 +2,8 @@ import { InsertPluginIcon } from './icons';
 import { INSERT_PLUGIN_BUTTONS } from 'wix-rich-content-editor-common';
 import type { AddButton } from 'ricos-types';
 import { GALLERY_TYPE } from './types';
-import { GalleryPluginService } from './toolbar/galleryPluginService';
 import { Uploader } from 'wix-rich-content-plugin-commons';
 import { GALLERY_LAYOUTS, layoutRicosData } from './layout-data-provider';
-
-const galleryPluginService = new GalleryPluginService();
 
 const defaultData = {
   items: [],
@@ -14,7 +11,7 @@ const defaultData = {
 };
 
 const handleExternalFileChange =
-  (editorCommands, updateService) =>
+  (editorCommands, updateService, galleryPluginService) =>
   ({ data }) => {
     const nodeId = editorCommands.insertBlockWithBlankLines?.(GALLERY_TYPE, defaultData);
     if (data instanceof Array) {
@@ -33,14 +30,15 @@ const handleExternalFileChange =
     }
   };
 
-const handleNativeFileChange = (editorCommands, uploadService, uploader) => (files: File[]) => {
-  const nodeId = editorCommands.insertBlockWithBlankLines?.(GALLERY_TYPE, defaultData);
-  files.forEach(file => {
-    uploadService.uploadFile(file, nodeId, uploader, GALLERY_TYPE, galleryPluginService);
-  });
-};
+const handleNativeFileChange =
+  (editorCommands, uploadService, uploader, galleryPluginService) => (files: File[]) => {
+    const nodeId = editorCommands.insertBlockWithBlankLines?.(GALLERY_TYPE, defaultData);
+    files.forEach(file => {
+      uploadService.uploadFile(file, nodeId, uploader, GALLERY_TYPE, galleryPluginService);
+    });
+  };
 
-export const getAddButtons = (config): AddButton[] => {
+export const getAddButtons = (config, galleryPluginService): AddButton[] => {
   return [
     {
       id: 'gallery',
@@ -53,8 +51,8 @@ export const getAddButtons = (config): AddButton[] => {
           if (config.handleFileSelection) {
             config.handleFileSelection(
               undefined,
-              !!config.multi,
-              handleExternalFileChange(editorCommands, updateService),
+              true,
+              handleExternalFileChange(editorCommands, updateService, galleryPluginService),
               undefined,
               defaultData
             );
@@ -63,7 +61,12 @@ export const getAddButtons = (config): AddButton[] => {
             uploadService?.selectFiles(
               accept,
               multi,
-              handleNativeFileChange(editorCommands, uploadService, new Uploader(handleFileUpload))
+              handleNativeFileChange(
+                editorCommands,
+                uploadService,
+                new Uploader(handleFileUpload),
+                galleryPluginService
+              )
             );
           }
           return true;

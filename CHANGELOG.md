@@ -17,10 +17,17 @@
     Click to see more.
   </summary>
 
-  ## :bug: Bug Fix
+## :bug: Bug Fix
 
 - `ricos-editor`
   - [#4025](https://github.com/wix/ricos/pull/4025) fix open modal func on FloatingAddPluginMenu
+
+## :house: Internal
+
+- `gallery`
+  - [#4027](https://github.com/wix/ricos/pull/4027) add media button
+- `file-upload`
+  - [#4027](https://github.com/wix/ricos/pull/4027) file replace button
 
 </details>
 

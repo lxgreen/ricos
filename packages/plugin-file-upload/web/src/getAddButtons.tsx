@@ -2,13 +2,10 @@ import { InsertPluginIcon } from './icons';
 import { INSERT_PLUGIN_BUTTONS } from 'wix-rich-content-editor-common';
 import type { AddButton } from 'ricos-types';
 import { FILE_UPLOAD_TYPE } from './types';
-import { FilePluginService } from './toolbar/filePluginService';
 import { Uploader } from 'wix-rich-content-plugin-commons';
 
-const filePluginService = new FilePluginService();
-
 const handleExternalFileChange =
-  (editorCommands, updateService) =>
+  (editorCommands, updateService, filePluginService) =>
   ({ data }) => {
     if (data instanceof Array) {
       data.forEach((file, index) => {
@@ -32,21 +29,22 @@ const handleExternalFileChange =
     }
   };
 
-const handleNativeFileChange = (editorCommands, uploadService, uploader) => (files: File[]) => {
-  files.forEach((file, index) => {
-    // prevents rerenders when next file starts uploading
-    setTimeout(() => {
-      const nodeId = editorCommands.insertBlockWithBlankLines?.(
-        FILE_UPLOAD_TYPE,
-        {},
-        { updateSelection: files.length === index + 1 }
-      );
-      uploadService.uploadFile(file, nodeId, uploader, FILE_UPLOAD_TYPE, filePluginService);
+const handleNativeFileChange =
+  (editorCommands, uploadService, uploader, filePluginService) => (files: File[]) => {
+    files.forEach((file, index) => {
+      // prevents rerenders when next file starts uploading
+      setTimeout(() => {
+        const nodeId = editorCommands.insertBlockWithBlankLines?.(
+          FILE_UPLOAD_TYPE,
+          {},
+          { updateSelection: files.length === index + 1 }
+        );
+        uploadService.uploadFile(file, nodeId, uploader, FILE_UPLOAD_TYPE, filePluginService);
+      });
     });
-  });
-};
+  };
 
-export const getAddButtons = (config): AddButton[] => {
+export const getAddButtons = (config, filePluginService): AddButton[] => {
   return [
     {
       id: 'file-upload',
@@ -57,13 +55,20 @@ export const getAddButtons = (config): AddButton[] => {
         if (uploadContext) {
           const { uploadService, updateService } = uploadContext;
           if (config.handleFileSelection) {
-            config.handleFileSelection(handleExternalFileChange(editorCommands, updateService));
+            config.handleFileSelection(
+              handleExternalFileChange(editorCommands, updateService, filePluginService)
+            );
           } else {
             const { accept = '*', multi = true, onFileSelected } = config;
             uploadService?.selectFiles(
               accept,
               multi,
-              handleNativeFileChange(editorCommands, uploadService, new Uploader(onFileSelected))
+              handleNativeFileChange(
+                editorCommands,
+                uploadService,
+                new Uploader(onFileSelected),
+                filePluginService
+              )
             );
           }
           return true;
