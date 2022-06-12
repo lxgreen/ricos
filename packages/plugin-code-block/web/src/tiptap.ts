@@ -45,7 +45,7 @@ export const tiptapExtensions: RicosExtension[] = [
       },
     }),
 
-    createExtensionConfig({ Plugin, PluginKey, textblockTypeInputRule }) {
+    createExtensionConfig({ Plugin, PluginKey, textblockTypeInputRule, mergeAttributes }) {
       return {
         name: this.name,
 
@@ -86,7 +86,11 @@ export const tiptapExtensions: RicosExtension[] = [
         },
 
         renderHTML({ HTMLAttributes }) {
-          return ['pre', this.options.HTMLAttributes, ['code', HTMLAttributes, 0]] as DOMOutputSpec;
+          return [
+            'pre',
+            mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+            0,
+          ] as DOMOutputSpec;
         },
 
         addCommands() {
