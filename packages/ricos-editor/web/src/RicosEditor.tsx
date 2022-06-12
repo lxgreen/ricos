@@ -246,8 +246,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> implements R
 
   initTiptapRepository() {
     return import(
-      /* webpackChunkName:"wix-tiptap-extensions" */
-      'wix-tiptap-extensions'
+      /* webpackChunkName:"ricos-converters" */
+      'ricos-converters'
     ).then(convertersModule => {
       const { toTiptap, fromTiptap } = convertersModule;
       return new TiptapEditablesRepository(this.tiptapEditorStateTranslator, toTiptap, fromTiptap);

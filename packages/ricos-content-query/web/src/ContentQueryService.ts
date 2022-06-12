@@ -1,7 +1,7 @@
 import type { ContentQueryService } from './types';
 import type { Editor } from '@tiptap/react';
 import { extract } from 'ricos-content/libs/extract';
-import { fromTiptap } from 'wix-tiptap-extensions';
+import { fromTiptap } from 'ricos-converters';
 
 class GetContentExtractorError extends Error {}
 

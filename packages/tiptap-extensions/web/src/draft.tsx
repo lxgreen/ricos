@@ -2,7 +2,7 @@ import React from 'react';
 import type { Node_Type } from 'ricos-schema';
 import type { RicosExtension } from 'ricos-tiptap-types';
 import toConstantCase from 'to-constant-case';
-import { tiptapNodeDataToDraft } from './content-utils';
+import { tiptapNodeDataToDraft } from 'ricos-converters';
 
 const DraftHOC = Component => {
   const Draft = props => {

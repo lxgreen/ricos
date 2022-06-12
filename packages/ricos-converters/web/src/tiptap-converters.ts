@@ -3,7 +3,11 @@ import { firstRight } from 'ricos-content';
 import type { Metadata, Node, RichContent } from 'ricos-schema';
 import { Node_Type } from 'ricos-schema';
 import type { ConvertableNode, Transforms, Tree } from './models/converter';
-import { nodeConverters } from './node-converters';
+import {
+  getUnsupportedFromTiptap,
+  getUnsupportedToTiptap,
+  nodeConverters,
+} from './node-converters';
 import { TiptapNodeBidiTransfoms } from './tiptap-node-transforms';
 import type { TiptapNode } from './types';
 
@@ -81,4 +85,18 @@ export const fromTiptap = (content: JSONContent): RichContent => {
     documentStyle: content.attrs?.documentStyle,
     ...richContentTree.setNodes(tiptapNodeVisitor(content as TiptapNode)),
   } as RichContent;
+};
+
+export const fromTiptapNode = (node: TiptapNode): Node => {
+  const converter = nodeConverters.find(c => c.fromTiptap.type === node.type) || {
+    fromTiptap: getUnsupportedFromTiptap(node),
+  };
+  return converter.fromTiptap.convert(node, tiptapNodeVisitor);
+};
+
+export const toTiptapNode = (node: Node): TiptapNode => {
+  const converter = nodeConverters.find(c => c.toTiptap.type === node.type) || {
+    toTiptap: getUnsupportedToTiptap(node),
+  };
+  return converter.toTiptap.convert(node, ricosNodeVisitor);
 };

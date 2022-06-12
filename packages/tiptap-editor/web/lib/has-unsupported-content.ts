@@ -4,7 +4,7 @@ import { flow, pipe } from 'fp-ts/function';
 import { not } from 'fp-ts/Predicate';
 import type { RichContent } from 'ricos-schema';
 import type { ExtensionProps, RicosExtension, TiptapEditorPlugin } from 'ricos-tiptap-types';
-import { toTiptap } from 'wix-tiptap-extensions';
+import { toTiptap } from 'ricos-converters';
 import { coreConfigs } from '../src/components/RicosTiptapEditor/core-configs';
 import { commonExtensions } from '../src/common-extensions';
 import { Extensions } from '../src/models/Extensions';

@@ -1,5 +1,5 @@
 import type { ParagraphNode } from 'ricos-content';
-import type { fromTiptap as fromTiptapFn, toTiptap as toTiptapFn } from 'wix-tiptap-extensions';
+import type { fromTiptap as fromTiptapFn, toTiptap as toTiptapFn } from 'ricos-converters';
 import type { ITiptapEditorStateTranslator } from '../../models/tiptap-editor-state-translator';
 import type { EditablesRepository } from '../../models/editable-repository';
 import type { NodeDescriptorManager } from '../../models/editable-node-descriptor';
