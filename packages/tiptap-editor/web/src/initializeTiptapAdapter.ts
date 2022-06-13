@@ -1,7 +1,8 @@
 import { Editor } from '@tiptap/react';
 import type { RicosEditorProps } from 'ricos-common';
 import { draftToTiptap } from 'ricos-converters';
-import type { ExtensionProps, TiptapEditorPlugin } from 'ricos-tiptap-types';
+import type { EditorPlugins } from 'ricos-plugins';
+import type { ExtensionProps } from 'ricos-tiptap-types';
 import { getEmptyDraftContent } from 'wix-rich-content-editor-common';
 import { commonExtensions } from './common-extensions';
 import { RichContentAdapter } from './components/RichContentAdapter/RichContentAdapter';
@@ -28,17 +29,19 @@ const extractExtensionProps = (props: RicosEditorProps): ExtensionProps => {
   };
 };
 
-const extractExtensions = (props: RicosEditorProps): Extensions => {
-  const extensions =
-    props.plugins?.flatMap((plugin: TiptapEditorPlugin) => plugin.tiptapExtensions || []) || [];
+const extractExtensions = (plugins: EditorPlugins, props: RicosEditorProps): Extensions => {
+  const extensions = plugins.getTiptapExtensions();
   return Extensions.of([...extensions, ...commonExtensions], extractExtensionProps(props));
 };
 
-export const initializeTiptapAdapter = (ricosEditorProps: RicosEditorProps) => {
+export const initializeTiptapAdapter = (
+  ricosEditorProps: RicosEditorProps,
+  plugins: EditorPlugins
+) => {
   const content =
     ricosEditorProps.injectedContent || ricosEditorProps.content || getEmptyDraftContent();
   const tiptapContent = draftToTiptap(content);
-  const extensions = extractExtensions(ricosEditorProps);
+  const extensions = extractExtensions(plugins, ricosEditorProps);
   const allExtensions = extensions.concat(coreConfigs);
   const patchedExtensions = patchExtensions(tiptapContent, allExtensions);
   const tiptapExtensions = patchedExtensions.getTiptapExtensions();

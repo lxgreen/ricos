@@ -10,7 +10,7 @@ import type { PluginsContextValue } from 'ricos-plugins';
 import { PluginsContext } from 'ricos-plugins';
 import { Shortcuts } from 'ricos-shortcuts';
 import type { TiptapAdapter } from 'ricos-tiptap-types';
-import type { RicosPortal as RicosPortalType } from 'ricos-types';
+import type { EditorPlugin, RicosPortal as RicosPortalType } from 'ricos-types';
 import type { EditorCommands, EditorContextType, Pubsub } from 'wix-rich-content-common';
 import { getLangDir } from 'wix-rich-content-common';
 import { getEmptyDraftContent, TOOLBARS } from 'wix-rich-content-editor-common';
@@ -47,29 +47,29 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
 
   portalRef: RefObject<RicosPortalType>;
 
-  private readonly tiptapAdapter: TiptapAdapter;
+  private tiptapAdapter!: TiptapAdapter;
 
   constructor(props) {
     super(props);
     this.portalRef = createRef<RicosPortalType>();
-    this.tiptapAdapter = initializeTiptapAdapter(props);
   }
 
   static getDerivedStateFromError(error: string) {
     return { error };
   }
 
-  initPlugins = plugins => {
-    const { _rcProps, pluginsContext } = this.props;
-    plugins.forEach(plugin => pluginsContext.plugins.register(plugin));
+  initPlugins = () => {
+    const { plugins, _rcProps, pluginsContext } = this.props;
+    const configuredPlugins = pluginsConfigMerger(plugins, _rcProps) || [];
+    configuredPlugins.forEach(plugin => pluginsContext.plugins.register(plugin));
     const { handleFileUpload, handleFileSelection } = _rcProps?.helpers || {};
     pluginsContext.plugins.configure({ handleFileUpload, handleFileSelection });
   };
 
   componentDidMount() {
-    const { plugins, _rcProps } = this.props;
-    const configuredPlugins = pluginsConfigMerger(plugins, _rcProps) || [];
-    this.initPlugins(configuredPlugins);
+    this.initPlugins();
+    this.tiptapAdapter = initializeTiptapAdapter(this.props, this.props.pluginsContext.plugins);
+
     this.forceUpdate();
   }
 
