@@ -1,7 +1,8 @@
 import { getFooterToolbarConfig } from '../cypress/testAppConfig';
 import { PLUGIN_COMPONENT, ACTION_BUTTONS } from '../cypress/dataHooks';
 import { DEFAULT_MOBILE_WIDTHS } from './settings';
-import RicosDriver from 'ricos-driver';
+
+import RicosDriver from '../../packages/ricos-driver/web/src/RicosDriver';
 
 describe('rtl', () => {
   beforeEach(() => cy.switchToHebrew());
