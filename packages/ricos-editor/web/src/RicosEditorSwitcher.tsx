@@ -4,6 +4,7 @@ import type { RicosEditorRef } from './RicosEditorRef';
 import RicosEditorWithRef from './RicosEditor';
 import type { RicosEditor } from './RicosEditor';
 import type { FullRicosEditor } from './tiptap/FullRicosEditor';
+import { isSSR } from 'wix-rich-content-common';
 
 const FullRicosEditorLazy = React.lazy(
   /* webpackChunkName: "FullRicosEditor" */
@@ -13,7 +14,9 @@ const FullRicosEditorLazy = React.lazy(
 const RicosEditorSwitcher = React.forwardRef<RicosEditorRef, RicosEditorProps>((props, ref) => {
   const useTiptap = !!props.experiments?.tiptapEditor?.enabled;
   if (useTiptap) {
-    return (
+    return isSSR() ? (
+      <div />
+    ) : (
       <Suspense fallback={<div />}>
         <FullRicosEditorLazy {...props} ref={ref as React.ForwardedRef<FullRicosEditor>} />
       </Suspense>

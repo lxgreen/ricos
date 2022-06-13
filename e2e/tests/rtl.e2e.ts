@@ -1,6 +1,8 @@
 import { getFooterToolbarConfig } from '../cypress/testAppConfig';
 import { PLUGIN_COMPONENT, ACTION_BUTTONS } from '../cypress/dataHooks';
 import { DEFAULT_MOBILE_WIDTHS } from './settings';
+import RicosDriver from 'ricos-driver';
+
 describe('rtl', () => {
   beforeEach(() => cy.switchToHebrew());
 
@@ -27,9 +29,9 @@ describe('rtl', () => {
     it('render text toolbar in rtl', () => {
       cy.loadRicosEditor('plain')
         .setEditorSelection(0, 8)
-        .get('[data-hook=inlineToolbar]')
+        .get(RicosDriver.editor.floatingFormattingToolbar(false))
         .should('be.visible')
-        .get('[data-hook=addPluginFloatingToolbar]')
+        .get(RicosDriver.editor.addPanelButton)
         .should('be.visible');
       cy.percySnapshot();
     });

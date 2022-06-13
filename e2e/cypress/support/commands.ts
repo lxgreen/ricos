@@ -15,7 +15,7 @@ import {
 } from '../dataHooks';
 import { defaultConfig, useExperiments } from '../testAppConfig';
 import { fireEvent as testFireEvent } from '@testing-library/react';
-import RicosDriver from '../../../packages/ricos-driver/web/src/RicosDriver';
+import RicosDriver from 'ricos-driver';
 import { merge } from 'lodash';
 import type { TestAppConfig } from '../../../examples/main/src/types';
 import { TABLE_COMMANDS } from './tableCommands'; // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -63,6 +63,7 @@ const ONCHANGE_DEBOUNCE_TIME = 200;
 let isMobile = false;
 let isHebrew = false;
 let isSeoMode = false;
+let isTiptap = false;
 
 // All new commands should be added to the COMMANDS object
 const COMMANDS = {
@@ -93,16 +94,26 @@ const COMMANDS = {
     isHebrew = false;
   },
 
-  loadEditorAndViewer: (fixtureName?: string, config?: TestAppConfig) =>
-    run('rce', fixtureName, config),
+  toggleTiptap: (useTiptap: boolean) => {
+    isTiptap = useTiptap;
+  },
+  switchToTiptap: () => {
+    isTiptap = true;
+  },
+
+  switchToDraft: () => {
+    isTiptap = false;
+  },
 
   loadIsolatedEditorAndViewer: (fixtureName?: string) => run('rce-isolated', fixtureName),
 
   loadRicosEditorAndViewer: (fixtureName?: string, config?: TestAppConfig) =>
-    run('ricos', fixtureName, config),
+    isTiptap ? loadTiptap(fixtureName, config) : run('ricos', fixtureName, config),
 
   loadRicosEditor: (fixtureName?: string, config?: TestAppConfig) =>
-    run('ricos', fixtureName, { ...config, viewMode: 'EDITOR' }),
+    isTiptap
+      ? loadTiptap(fixtureName, { ...config, viewMode: 'EDITOR' })
+      : run('ricos', fixtureName, { ...config, viewMode: 'EDITOR' }),
 
   loadRicosViewer: (fixtureName?: string, config?: TestAppConfig) =>
     run('ricos', fixtureName, { ...config, viewMode: 'VIEWER' }),
@@ -170,7 +181,12 @@ const COMMANDS = {
   },
 
   blurEditor: () => {
-    cy.getEditor().blur().get('[data-hook=inlineToolbar]').should('not.exist');
+    cy.getEditor().blur();
+
+    //TIPTAP TODO - blur should remove floating toolbar
+    if (!isTiptap) {
+      cy.get(RicosDriver.editor.floatingFormattingToolbar(isTiptap)).should('not.exist');
+    }
   },
 
   getEditor: () => cy.get(RicosDriver.editor.contentEditable),
@@ -202,7 +218,11 @@ const COMMANDS = {
       cy.setEditorSelection(selection[0], selection[1]);
     }
     cy.get(
-      `[data-hook=${isMobile ? 'mobileToolbar' : 'inlineToolbar'}] [data-hook=${buttonSelector}]`
+      `${
+        isMobile
+          ? RicosDriver.editor.mobileToolbar
+          : RicosDriver.editor.floatingFormattingToolbar(isTiptap)
+      } [data-hook=${buttonSelector}]`
     );
   },
 
@@ -273,7 +293,7 @@ const COMMANDS = {
   },
 
   openSideToolbar: () => {
-    cy.get('[aria-label="Plugin Toolbar"]').click();
+    cy.get(RicosDriver.editor.addPanelButton).click();
     cy.get('[data-hook="floatingAddPluginMenu"]');
   },
 
@@ -531,7 +551,7 @@ const COMMANDS = {
 
   triggerLinkPreviewViewerUpdate: () => {
     cy.moveCursorToEnd();
-    cy.focusEditor().get('[data-hook=addPluginFloatingToolbar]').should('be.visible');
+    cy.focusEditor().get(RicosDriver.editor.addPanelButton).should('be.visible');
   },
 
   insertPlugin: (toolbar: string, pluginInsertButtonName: string) => {
@@ -566,15 +586,18 @@ const COMMANDS = {
       await waitForMutations(doc.body);
     });
   },
-  paste: (pastePayload: string, pasteType = 'text') => {
+  paste: (pastePayload: string, isHtml = false) => {
     cy.getEditor().then($destination => {
       const pasteEvent = Object.assign(new Event('paste', { bubbles: true, cancelable: true }), {
         clipboardData: {
-          getData: (type = pasteType) => {
-            return pastePayload;
+          getData: (type = 'Text') => {
+            if (type === 'Text' || type === (isHtml ? 'text/html' : 'text/plain')) {
+              return pastePayload;
+            }
           },
         },
       });
+
       $destination[0].dispatchEvent(pasteEvent);
     });
   },
@@ -651,17 +674,23 @@ const getUrl = (componentId: string, fixtureName = '', config: TestAppConfig = {
 const run = (app: string, fixtureName?: string, config?: TestAppConfig) => {
   cy.visit(getUrl(app, fixtureName, config)).then(contentWindow => {
     disableTransitions();
-    findEditorElement();
+    cy.get(RicosDriver.editor.root(app === 'tiptap'), { timeout: 60000 });
     contentWindow.richContentHideTooltips = true;
   });
 };
 
+const loadTiptap = (fixtureName?: string, config?: TestAppConfig) =>
+  run('tiptap', fixtureName, {
+    ...(config || {}),
+    experiments: {
+      ...(config?.experiments || {}),
+      tiptapEditor: { enabled: true },
+      newFormattingToolbar: { enabled: true },
+    },
+  });
+
 function disableTransitions() {
   Cypress.$('head').append('<style> * {transition: none !important;}</style>');
-}
-
-function findEditorElement() {
-  cy.get('.DraftEditor-root', { timeout: 60000 });
 }
 
 export function setSelection(start: number, offset: number, container: Cypress.Chainable) {
