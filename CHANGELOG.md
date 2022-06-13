@@ -21,6 +21,7 @@
 
 - `ricos-editor`
   - [#4025](https://github.com/wix/ricos/pull/4025) fix open modal func on FloatingAddPluginMenu
+  - [#4038](https://github.com/wix/ricos/pull/4038) plugins initialized with updated settings
 
 ## :house: Internal
 
