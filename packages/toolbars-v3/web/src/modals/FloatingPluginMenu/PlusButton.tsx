@@ -1,6 +1,6 @@
 import React from 'react';
 import { CirclePlusIcon as PlusIcon } from 'wix-rich-content-ui-components';
-import styles from '../../../statics/styles/floating-add-plugin-menu.scss';
+import styles from './styles/floating-add-plugin-menu.scss';
 
 type PlusButtonProps = {
   onClick: () => void;

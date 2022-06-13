@@ -28,6 +28,8 @@
   - [#4027](https://github.com/wix/ricos/pull/4027) add media button
 - `file-upload`
   - [#4027](https://github.com/wix/ricos/pull/4027) file replace button
+- `toolbars-v3`
+  - [#4006](https://github.com/wix/ricos/pull/4006) move FloatingPluginMenu to toolbars-v3 and split to smaller components
 - `ricos-converters`
   - [#4021](https://github.com/wix/ricos/pull/4021) tiptap converters for single node
 

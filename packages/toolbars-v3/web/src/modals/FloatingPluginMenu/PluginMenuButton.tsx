@@ -1,8 +1,20 @@
 import React, { useEffect } from 'react';
+import type { TextDirection, TranslationFunction } from 'ricos-types';
 import { ToolbarButton } from 'wix-rich-content-editor-common';
-import styles from '../../../statics/styles/floating-add-plugin-menu.scss';
+import styles from './styles/floating-add-plugin-menu.scss';
 
-const PluginMenuButton = ({
+interface Props {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  Icon: React.ComponentType<{}>;
+  label?: string;
+  onClick?: () => void;
+  t: TranslationFunction;
+  tooltipText: string;
+  languageDir: TextDirection;
+  onButtonVisible?: () => void;
+}
+
+const PluginMenuButton: React.FC<Props> = ({
   Icon,
   label,
   onClick,
@@ -21,7 +33,7 @@ const PluginMenuButton = ({
       onClick={onClick}
     >
       <Icon />
-      <div>{t(label)}</div>
+      {label && <div>{t(label)}</div>}
     </button>
   );
 

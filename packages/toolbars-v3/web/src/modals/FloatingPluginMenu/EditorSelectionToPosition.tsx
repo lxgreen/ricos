@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { posToDOMRect } from '../utils/posToDOMRect';
+import { posToDOMRect } from '@tiptap/core';
 import { debounce } from 'lodash';
 
 const EditorSelectionToPosition = ({ children, editor }) => {

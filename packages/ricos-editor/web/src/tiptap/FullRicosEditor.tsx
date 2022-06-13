@@ -14,7 +14,7 @@ import type { RicosPortal as RicosPortalType } from 'ricos-types';
 import type { EditorCommands, EditorContextType, Pubsub } from 'wix-rich-content-common';
 import { getLangDir } from 'wix-rich-content-common';
 import { getEmptyDraftContent, TOOLBARS } from 'wix-rich-content-editor-common';
-import { Content, ToolbarContext } from 'wix-rich-content-toolbars-v3';
+import { Content, ToolbarContext, FloatingAddPluginMenu } from 'wix-rich-content-toolbars-v3';
 import type { ToolbarContextType } from 'wix-rich-content-toolbars-v3/src/utils/toolbarContexts';
 import type { RichContentAdapter } from 'wix-tiptap-editor';
 import { initializeTiptapAdapter } from 'wix-tiptap-editor';
@@ -22,7 +22,6 @@ import RicosPortal from '../modals/RicosPortal';
 import { LocaleResourceProvider } from '../RicosContext/locale-resource-provider';
 import type { RicosEditorRef } from '../RicosEditorRef';
 import { convertToolbarContext } from '../toolbars/convertToolbarContext';
-import FloatingAddPluginMenu from '../toolbars/FloatingPluginMenu/FloatingAddPluginMenu';
 import { FooterToolbar } from '../toolbars/FooterToolbar';
 import PluginsToolbar from '../toolbars/PluginToolbar';
 import pluginsConfigMerger from '../utils/pluginsConfigMerger/pluginsConfigMerger';
@@ -219,7 +218,7 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
                                 <FloatingAddPluginMenu
                                   addPluginMenuConfig={this.getPluginMenuConfig()}
                                   helpers={_rcProps?.helpers}
-                                  isMobile={isMobile}
+                                  plugins={this.props.pluginsContext.plugins}
                                 />
 
                                 <PluginsToolbar content={this.content} />
