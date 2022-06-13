@@ -1,6 +1,6 @@
 import React from 'react';
 import type { ComponentType } from 'react';
-import { withToolbarContext } from 'wix-rich-content-toolbars-v3';
+import { withToolbarContext } from 'ricos-context';
 
 const getOnClick = toolbarItem => args => {
   toolbarItem.commands.click(args);

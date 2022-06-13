@@ -3,7 +3,7 @@ import React, { useContext, useRef } from 'react';
 import cx from 'classnames';
 import type { IToolbarItem } from '../../../types';
 import styles from './SettingsButton.scss';
-import { ToolbarContext } from '../../../utils/toolbarContexts';
+import { ToolbarContext } from 'ricos-context';
 import { ModalContext } from 'ricos-modals';
 
 const SettingsButton = ({ toolbarItem }: { toolbarItem: IToolbarItem }) => {

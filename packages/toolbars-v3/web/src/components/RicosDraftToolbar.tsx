@@ -8,8 +8,8 @@ import { toolbarItemsRenders } from '../toolbarItemsRenders';
 import { draftStaticToolbarConfig } from '../toolbarItemConfig/draftToolbarItemConfig';
 import { draftStaticToolbarConfigDetachCommands } from '../toolbarItemConfig/draftToolbarItemConfigDetachCommands';
 import type { AvailableExperiments } from 'ricos-types';
-import { withToolbarContext } from '../utils/withContext';
-import type { ToolbarContextType } from '../utils/toolbarContexts';
+import { withToolbarContext } from 'ricos-context';
+import type { ToolbarContextType } from 'ricos-context';
 
 interface RicosDraftToolbarProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

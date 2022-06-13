@@ -3,7 +3,7 @@
 import React from 'react';
 import cx from 'classnames';
 import styles from '../UrlLinkButton/UrlLinkButton.scss';
-import { withToolbarContext } from '../../../utils/withContext';
+import { withToolbarContext } from 'ricos-context';
 
 const onClick = (event, toolbarItem, anchor) => {
   event.preventDefault();

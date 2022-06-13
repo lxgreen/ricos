@@ -7,7 +7,7 @@ import { ClickOutside } from 'wix-rich-content-editor-common';
 import cx from 'classnames';
 import styles from './AlignmentButton.scss';
 import { DropdownArrowIcon } from '../../../icons';
-import { withToolbarContext } from '../../../utils/withContext';
+import { withToolbarContext } from 'ricos-context';
 import AlignmentPanel from '../../../modals/alignment/AlignmentPanel';
 import { getLangDir } from 'wix-rich-content-common';
 import { getDefaultAlignment, alignmentMap } from './utils';

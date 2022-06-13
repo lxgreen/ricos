@@ -1,5 +1,5 @@
 /* eslint-disable func-call-spacing */
-import React from 'react';
+import React, { useContext } from 'react';
 import type {
   AvailableExperiments,
   Helpers,
@@ -10,6 +10,7 @@ import type {
   RicosPortal,
 } from 'ricos-types';
 import type { LinkSettings, ToolbarSettings, RicosCssOverride } from 'ricos-common';
+import { RicosContext } from './RicosContext';
 
 export type ToolbarContextType = {
   contentId: string;
@@ -42,3 +43,14 @@ export const ToolbarContext = React.createContext<ToolbarContextType>({
   getEditorCommands: () => {},
   portal: null as unknown as RicosPortal,
 });
+
+export const withToolbarContext = WrappedComponent => {
+  return props => {
+    const { t } = useContext(RicosContext);
+    return (
+      <ToolbarContext.Consumer>
+        {contexts => <WrappedComponent {...props} context={{ ...contexts, t }} />}
+      </ToolbarContext.Consumer>
+    );
+  };
+};

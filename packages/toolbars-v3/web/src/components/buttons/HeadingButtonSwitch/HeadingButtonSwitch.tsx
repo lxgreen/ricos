@@ -1,5 +1,5 @@
 import React from 'react';
-import { withToolbarContext } from '../../../utils/withContext';
+import { withToolbarContext } from 'ricos-context';
 import CustomHeadingButton from '../CustomHeadingButton/CustomHeadingButton';
 import HeadingButton from '../HeadingButton/HeadingButton';
 

@@ -3,7 +3,7 @@ import React from 'react';
 import cx from 'classnames';
 import type { ToolbarItemProps } from '../../../types';
 import styles from './ToggleButton.scss';
-import { withToolbarContext } from '../../../utils/withContext';
+import { withToolbarContext } from 'ricos-context';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 import { getTooltip } from '../tooltipUtils';
 

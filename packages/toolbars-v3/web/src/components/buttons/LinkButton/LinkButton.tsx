@@ -6,7 +6,7 @@ import { usePopper } from 'react-popper';
 import { ClickOutside } from 'wix-rich-content-editor-common';
 import cx from 'classnames';
 import styles from './LinkButton.scss';
-import { withToolbarContext } from '../../../utils/withContext';
+import { withToolbarContext } from 'ricos-context';
 import LinkModal from '../../../modals/link/LinkComponents/LinkModal';
 import { getLangDir, CUSTOM_LINK } from 'wix-rich-content-common';
 import { getLinkModalProps } from './utils';

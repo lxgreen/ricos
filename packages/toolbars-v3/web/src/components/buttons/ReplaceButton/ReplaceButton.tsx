@@ -5,7 +5,7 @@ import cx from 'classnames';
 import styles from './ReplaceButton.scss';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 import { UploadServiceContext } from 'wix-rich-content-common';
-import { withToolbarContext } from '../../../utils/withContext';
+import { withToolbarContext } from 'ricos-context';
 import { ModalContext } from 'ricos-modals';
 
 type Props = {

@@ -7,7 +7,7 @@ import { ClickOutside } from 'wix-rich-content-editor-common';
 import cx from 'classnames';
 import styles from './LineSpacingButton.scss';
 import { DropdownArrowIcon } from '../../../icons';
-import { withToolbarContext } from '../../../utils/withContext';
+import { withToolbarContext } from 'ricos-context';
 import LineSpacingPanel from '../../../modals/line-spacing/LineSpacingPanel';
 import { getLangDir } from 'wix-rich-content-common';
 import { getCurrentSelection } from './utils';

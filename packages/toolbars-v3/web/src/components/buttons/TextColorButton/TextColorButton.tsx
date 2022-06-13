@@ -6,7 +6,7 @@ import { usePopper } from 'react-popper';
 import { ClickOutside } from 'wix-rich-content-editor-common';
 import cx from 'classnames';
 import styles from './TextColorButton.scss';
-import { withToolbarContext } from '../../../utils/withContext';
+import { withToolbarContext } from 'ricos-context';
 import { ColorPicker } from 'wix-rich-content-plugin-commons';
 import { getLangDir } from 'wix-rich-content-common';
 import { extractPalette, getBlockDocumentStyle, colorPicker } from './utils';

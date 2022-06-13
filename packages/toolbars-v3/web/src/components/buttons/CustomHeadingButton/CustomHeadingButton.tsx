@@ -8,7 +8,7 @@ import { getLangDir } from 'wix-rich-content-common';
 import cx from 'classnames';
 import styles from './CustomHeadingButton.scss';
 import { DropdownArrowIcon } from '../../../icons';
-import { withToolbarContext } from '../../../utils/withContext';
+import { withToolbarContext } from 'ricos-context';
 import HeadingsPanel from '../../../modals/heading/HeadingsPanel';
 import { translateHeading, getCustomHeadingsLabel } from './utils';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
