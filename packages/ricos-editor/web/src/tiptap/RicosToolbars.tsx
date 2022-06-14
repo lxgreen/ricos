@@ -21,6 +21,8 @@ import type { Selection } from 'prosemirror-state';
 import { ToolbarConfig } from './ricosToolbarConfig';
 import type { GeneralContext } from 'ricos-context';
 import { withEditorContext, withRicosContext } from 'ricos-context';
+import { and } from 'ricos-content';
+import { not } from 'fp-ts/Predicate';
 
 import { isTextSelection } from '@tiptap/core';
 
@@ -123,6 +125,14 @@ class RicosToolbars extends React.Component<
     return isCollapsed && isLinkInSelection;
   };
 
+  isFormattingToolbarVisible: (selection: Selection) => boolean = and([
+    isTextSelection,
+    not(this.isSelectionCollapsed),
+  ]);
+
+  isLinkToolbarVisible = (selection: Selection) =>
+    this.isLinkInCollapsedSelection(selection, this.props.editor);
+
   floatingToolbarChildren = (
     dataHook: string,
     maxWidth: number,
@@ -173,10 +183,7 @@ class RicosToolbars extends React.Component<
         <FloatingToolbar
           editor={tiptapEditor}
           portal={ricosContext.portal}
-          isVisible={
-            !this.isSelectionCollapsed(tiptapEditor.state.selection) &&
-            isTextSelection(tiptapEditor.state.selection)
-          }
+          isVisible={this.isFormattingToolbarVisible}
         >
           {() =>
             this.floatingToolbarChildren(
@@ -195,7 +202,6 @@ class RicosToolbars extends React.Component<
   renderLinkToolbar() {
     const {
       ricosContext,
-      editor,
       editor: { tiptapEditor },
     } = this.props;
 
@@ -204,7 +210,7 @@ class RicosToolbars extends React.Component<
         <FloatingToolbar
           editor={tiptapEditor}
           portal={ricosContext.portal}
-          isVisible={this.isLinkInCollapsedSelection(tiptapEditor.state.selection, editor)}
+          isVisible={this.isLinkToolbarVisible}
         >
           {() =>
             this.floatingToolbarChildren(

@@ -45,6 +45,8 @@
   },
   "dependencies": {
     "react-modal": "~3.4.1",
+    "fp-ts": "^2.11.0",
+    "ricos-content": "8.71.23",
     "ricos-common": "8.71.23",
     "ricos-content-query": "8.71.23",
     "ricos-context": "8.71.23",

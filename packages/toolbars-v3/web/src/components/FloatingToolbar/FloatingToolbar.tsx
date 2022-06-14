@@ -8,6 +8,7 @@ import type { RicosPortal } from 'ricos-types';
 //TODO: remove this import and find solution
 import { posToDOMRect } from '@tiptap/core';
 import type { Editor } from '@tiptap/core';
+import type { Selection } from 'prosemirror-state';
 import { debounce } from 'lodash';
 
 export const FloatingToolbar = ({
@@ -18,7 +19,7 @@ export const FloatingToolbar = ({
 }: {
   editor: Editor;
   portal: RicosPortal;
-  isVisible: boolean;
+  isVisible: (selection: Selection) => boolean;
   children: any;
 }) => {
   const { state, view } = editor;
@@ -95,7 +96,7 @@ export const FloatingToolbar = ({
 
   return (
     <ClickOutside onClickOutside={onClickOutside} wrapper="div">
-      {isVisible &&
+      {isVisible(state.selection) &&
         isModalOpen &&
         ReactDOM.createPortal(
           <div

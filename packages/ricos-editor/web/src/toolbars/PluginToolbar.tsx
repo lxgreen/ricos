@@ -53,7 +53,7 @@ class PluginsToolbar extends React.Component<
       <FloatingToolbar
         editor={tiptapEditor}
         portal={ricosContext.portal}
-        isVisible={isNodeSelection(tiptapEditor.state.selection)}
+        isVisible={isNodeSelection}
       >
         {() => (
           <div
