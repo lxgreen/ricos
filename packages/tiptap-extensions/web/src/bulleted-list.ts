@@ -3,6 +3,7 @@ import type { RicosExtension } from 'ricos-tiptap-types';
 import bulletedListDataDefaults from 'ricos-schema/dist/statics/bulleted_list.defaults.json';
 import type { DOMOutputSpec } from 'prosemirror-model';
 import { Node_Type } from 'ricos-schema';
+import styles from './statics/styles.scss';
 
 export interface BulletListOptions {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,7 +32,7 @@ export const bulletedList: RicosExtension = {
       name: this.name,
       addOptions() {
         return {
-          HTMLAttributes: {},
+          HTMLAttributes: { class: styles.bulletedList },
           itemTypeName: Node_Type.LIST_ITEM,
         };
       },
@@ -47,7 +48,7 @@ export const bulletedList: RicosExtension = {
       },
 
       addAttributes() {
-        return bulletedListDataDefaults;
+        return { ...bulletedListDataDefaults, indentation: { default: 0 } };
       },
 
       renderHTML({ HTMLAttributes }) {

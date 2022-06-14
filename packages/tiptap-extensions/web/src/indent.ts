@@ -1,13 +1,14 @@
 import type { RicosExtension, RicosExtensionConfig } from 'ricos-tiptap-types';
 import type { Transaction } from 'prosemirror-state';
 import { AllSelection } from 'prosemirror-state';
-import type { Command } from '@tiptap/core';
 import { isTextSelection } from '@tiptap/core';
+import type { Node } from 'prosemirror-model';
 import { Node_Type } from 'ricos-schema';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     indentation: {
+      applyIndentation: (direction: number) => ReturnType;
       /**
        * Increase text indent
        */
@@ -95,25 +96,42 @@ export const indent: RicosExtension = {
 
           return tr;
         };
-        const applyIndentation: (direction: number) => () => Command =
-          direction =>
-          () =>
-          ({ tr, state, dispatch }) => {
-            const { selection } = state;
-            tr = tr.setSelection(selection);
-            tr = updateIndentationLevel(tr, direction);
 
-            if (tr.docChanged) {
-              dispatch?.(tr);
-              return true;
-            }
-
-            return false;
-          };
+        const isListNode = state => {
+          let isListNode = false;
+          state.doc.nodesBetween(state.selection.from, state.selection.to, (node: Node) => {
+            node.attrs.id &&
+              (node.type.name === Node_Type.ORDERED_LIST ||
+                node.type.name === Node_Type.BULLETED_LIST) &&
+              (isListNode = true);
+          });
+          return isListNode;
+        };
 
         return {
-          indent: applyIndentation(1),
-          outdent: applyIndentation(-1),
+          applyIndentation:
+            direction =>
+            ({ tr, state, dispatch }) => {
+              const { selection } = state;
+              tr = tr.setSelection(selection);
+              tr = updateIndentationLevel(tr, direction);
+
+              if (tr.docChanged) {
+                dispatch?.(tr);
+                return true;
+              }
+
+              return false;
+            },
+          indent:
+            () =>
+            ({ state, commands }) =>
+              isListNode(state) ? commands.indentList() : commands.applyIndentation(1),
+
+          outdent:
+            () =>
+            ({ state, commands }) =>
+              isListNode(state) ? commands.outdentList() : commands.applyIndentation(-1),
         };
       },
     };

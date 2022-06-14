@@ -19,7 +19,6 @@
   }
 }
 
-
 .quote {
   composes: blockStyleSpacing;
   border-inline-start-width: $ricos-quote-border-width;
@@ -63,4 +62,42 @@
   &:hover {
     cursor: pointer;
   }
+}
+
+.orderedList,
+.bulletedList {
+  margin: 0;
+  padding-inline-start: 3em;
+  @include ricosTypography('p', false);
+}
+
+.orderedList .orderedList,
+.bulletedList .bulletedList {
+  padding-inline-start: 1.5em;
+}
+
+.orderedList,
+.orderedList .orderedList .orderedList .orderedList {
+  list-style-type: decimal;
+}
+
+.orderedList .orderedList,
+.orderedList .orderedList .orderedList .orderedList .orderedList {
+  list-style-type: lower-alpha;
+}
+
+.orderedList .orderedList .orderedList {
+  list-style-type: lower-roman;
+}
+
+.bulletedList {
+  list-style-type: disc;
+}
+
+.bulletedList .bulletedList {
+  list-style-type: circle;
+}
+
+.bulletedList .bulletedList .bulletedList {
+  list-style-type: square;
 }

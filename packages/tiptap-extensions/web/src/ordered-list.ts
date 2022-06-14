@@ -2,6 +2,7 @@ import { mergeAttributes, wrappingInputRule } from '@tiptap/core';
 import { Node_Type } from 'ricos-schema';
 import orderedListDataDefaults from 'ricos-schema/dist/statics/ordered_list.defaults.json';
 import type { DOMOutputSpec, RicosExtension } from 'ricos-tiptap-types';
+import styles from './statics/styles.scss';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -26,7 +27,7 @@ export const orderedList: RicosExtension = {
       addOptions() {
         return {
           itemTypeName: Node_Type.LIST_ITEM,
-          HTMLAttributes: {},
+          HTMLAttributes: { class: styles.orderedList },
         };
       },
 
@@ -47,6 +48,7 @@ export const orderedList: RicosExtension = {
                 : 1;
             },
           },
+          indentation: { default: 0 },
         };
       },
 
