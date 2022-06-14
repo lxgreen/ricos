@@ -6,7 +6,12 @@ import styles from './SettingsButton.scss';
 import { ToolbarContext } from 'ricos-context';
 import { ModalContext } from 'ricos-modals';
 
-const SettingsButton = ({ toolbarItem }: { toolbarItem: IToolbarItem }) => {
+interface Props {
+  toolbarItem: IToolbarItem;
+  onClick: (args) => void;
+}
+
+const SettingsButton = ({ toolbarItem, onClick }: Props) => {
   const { modalService } = useContext(ModalContext) || {};
   const { isMobile } = useContext(ToolbarContext) || {};
   const buttonRef = useRef<HTMLDivElement>(null);
@@ -27,7 +32,7 @@ const SettingsButton = ({ toolbarItem }: { toolbarItem: IToolbarItem }) => {
         onMouseDown={e => e.preventDefault()}
         className={cx(styles.settingsButton, { [styles.mobileSettingsButton]: isMobile })}
         role="button"
-        onClick={() => toolbarItem.commands.click({ modalService, isMobile, node })}
+        onClick={() => onClick({ modalService, isMobile, node })}
         tabIndex={0}
       >
         <Icon />

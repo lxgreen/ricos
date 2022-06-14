@@ -1,5 +1,10 @@
 import type { PluginToolbarButtons } from 'ricos-types';
-import { PLUGIN_TOOLBAR_BUTTON_ID } from 'wix-rich-content-editor-common';
+import {
+  PLUGIN_TOOLBAR_BUTTON_ID,
+  decorateComponentWithProps,
+} from 'wix-rich-content-editor-common';
+import ImageSettingsModal from './modals/SettingsModal';
+import { imageModals } from './consts';
 import { IMAGE_TYPE } from './types';
 import { ImagePluginService } from './toolbar/imagePluginService';
 import { Uploader } from 'wix-rich-content-plugin-commons';
@@ -59,6 +64,21 @@ export const getToolbarButtons = (config): PluginToolbarButtons => {
       },
       {
         id: PLUGIN_TOOLBAR_BUTTON_ID.DELETE,
+      },
+      {
+        id: PLUGIN_TOOLBAR_BUTTON_ID.SETTINGS,
+        config: {
+          command: ({ modalService, isMobile, node }) => {
+            modalService?.openModal({
+              Component: decorateComponentWithProps(ImageSettingsModal, {
+                nodeId: node.attrs.id,
+              }),
+              id: imageModals.settings,
+              positioning: { placement: 'right' },
+              layout: isMobile ? 'fullscreen' : 'drawer',
+            });
+          },
+        },
       },
     ],
   };

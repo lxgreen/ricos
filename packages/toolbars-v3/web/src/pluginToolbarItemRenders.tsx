@@ -22,7 +22,7 @@ export const pluginToolbarItemsRenders = {
     );
   },
   [PLUGIN_TOOLBAR_BUTTON_ID.SETTINGS]: toolbarItem => {
-    return <SettingsButton toolbarItem={toolbarItem} />;
+    return <SettingsButton onClick={toolbarItem.commands.click} toolbarItem={toolbarItem} />;
   },
   [PLUGIN_TOOLBAR_BUTTON_ID.REPLACE]: toolbarItem => {
     return (

@@ -20,15 +20,19 @@ export interface ImageConfig {
     url: string;
   };
   width?: number;
+  textWrap?: string;
+  spoiler?: SpoilerConfig;
 }
+
+type SpoilerConfig = {
+  buttonContent?: string | undefined;
+  description?: string | undefined;
+  enabled: boolean | undefined;
+};
 
 export interface ImagePluginEditorConfig extends EditorPluginConfig, ImageConfig {
   [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-  spoiler?: {
-    buttonContent: string | undefined;
-    description: string | undefined;
-    enabled: boolean | undefined;
-  };
+  spoiler?: SpoilerConfig;
   defaultData?: {
     config?: ImageConfig;
     disableExpand?: boolean;
@@ -50,9 +54,30 @@ export interface ImagePluginViewerConfig extends ViewerPluginConfig, ImageConfig
 
 export interface ImageData {
   config: ImageConfig;
-  src: { fallback: string; width: number; height: number };
-  metadata?: { caption?: unknown; alt?: string | undefined };
+  src: { fallback?: string; width: number; height: number; id?: string; file_name?: string };
+  metadata?: { caption?: string; alt?: string | undefined };
   [key: string]: unknown;
   disableDownload?: boolean;
   disableExpand?: boolean;
+}
+
+export interface TiptapImageData {
+  containerData: {
+    alignment?: string;
+    width?: { size?: string };
+    textWrap?: boolean;
+    spoiler?: SpoilerConfig;
+  };
+  link?;
+  disableExpand?: boolean;
+  disableDownload?: boolean;
+  caption?: string;
+  altText?: string;
+  image: {
+    src: {
+      id?: string;
+    };
+    width: number;
+    height: number;
+  };
 }
