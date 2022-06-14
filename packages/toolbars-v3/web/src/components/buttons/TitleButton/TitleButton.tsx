@@ -25,7 +25,7 @@ const titleStateMap = {
   },
 };
 
-const TitleButton = ({ toolbarItem, context }) => {
+const TitleButton = ({ toolbarItem, context, dataHook }) => {
   const { isMobile, t } = context || {};
   const selectedHeading = toolbarItem.attributes.selectedHeading;
   const currentTitleState = titleStateMap[selectedHeading] || titleStateMap.unstyled;
@@ -44,6 +44,7 @@ const TitleButton = ({ toolbarItem, context }) => {
         })}
       >
         <div
+          data-hook={dataHook}
           onMouseDown={e => e.preventDefault()}
           className={cx(styles.titleButton, { [styles.mobileTitleButton]: isMobile })}
           role="button"

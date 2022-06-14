@@ -27,7 +27,7 @@ const onChange = (documentStyle, toolbarItem, setModalOpen) => {
   setModalOpen(false);
 };
 
-const CustomHeadingButton = ({ toolbarItem, context }) => {
+const CustomHeadingButton = ({ toolbarItem, context, dataHook }) => {
   const { isMobile, t, theme, getEditorCommands, headingsData, locale, portal } = context || {};
   if (!context) return null;
   const [isModalOpen, setModalOpen] = useState(false);
@@ -67,6 +67,7 @@ const CustomHeadingButton = ({ toolbarItem, context }) => {
           ref={setReferenceElement}
         >
           <div
+            data-hook={dataHook}
             dir={getLangDir(locale)}
             className={styles.customHeadingModalButton}
             role="button"

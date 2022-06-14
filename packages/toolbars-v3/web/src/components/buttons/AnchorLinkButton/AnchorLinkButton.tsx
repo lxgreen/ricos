@@ -10,14 +10,14 @@ const onClick = (event, toolbarItem, anchor) => {
   toolbarItem.commands?.scrollToAnchor(anchor);
 };
 
-const AnchorLinkButton = ({ toolbarItem, context }) => {
+const AnchorLinkButton = ({ toolbarItem, context, dataHook }) => {
   const { t } = context || {};
   const selectedLinkData = toolbarItem.attributes.selectedLinkData;
   const { anchor } = selectedLinkData;
-
   return (
     <div className={styles.toolbarUrlContainer}>
       <div
+        data-hook={dataHook}
         className={cx(styles.toolbarUrl, styles.toolbarUrlAnchor)}
         onClick={e => onClick(e, toolbarItem, anchor)}
       >

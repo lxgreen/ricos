@@ -7,6 +7,7 @@ import { RicosToolbar } from '../../RicosToolbar';
 import { SizeCalculator } from '../SizeCalculator';
 import { ClickOutside } from '../Clickoutside/ClickOutside';
 import { MoreButton } from '../buttons';
+import { ToolbarButton, ToolbarButtons } from '../../models';
 
 type ToolbarProps = {
   toolbar: RicosToolbar;
@@ -48,14 +49,18 @@ class ToolbarComponent extends Component<ToolbarProps, Record<string, unknown>> 
   render() {
     const { showMore } = this.state;
     const { toolbarItemsRenders, toolbar, isMobile, maxWidth } = this.props;
-    const toolbarButtons = toolbar.getToolbarItemsBy(visibleOnlySpec);
-    // console.log('toolbarButtons', toolbarButtons);
-    const toolbarItems = toolbarButtons.map(toolbarButton => {
-      if (!toolbarItemsRenders[toolbarButton.id]) {
+    const toolbarItems = toolbar.getToolbarItemsBy(visibleOnlySpec);
+
+    const toolbarButtonArray: ToolbarButton[] = toolbarItems.map(toolbarButton => {
+      const toolbarItemRender = toolbarItemsRenders[toolbarButton.id];
+      if (!toolbarItemRender) {
         throw `Toolbar: missing toolbar item renderer for '${toolbarButton.id}'`;
       }
-      return toolbarItemsRenders[toolbarButton.id](toolbarButton);
+      const toolbarItemRenderElement = toolbarItemRender(toolbarButton);
+      return new ToolbarButton(toolbarButton, toolbarItemRenderElement);
     });
+
+    const toolbarButtons = new ToolbarButtons(toolbarButtonArray);
 
     return !isMobile ? (
       <SizeMe refreshRate={100}>
@@ -75,16 +80,14 @@ class ToolbarComponent extends Component<ToolbarProps, Record<string, unknown>> 
               className={cx(styles.toolbar, styles.staticToolbar)}
             >
               <ClickOutside onClickOutside={this.onClickOutside} wrapper="div">
-                <SizeCalculator width={width} components={toolbarItems}>
-                  {({ visible, overflowed }) => {
+                <SizeCalculator width={width} toolbarButtons={toolbarButtons}>
+                  {({ visibleButtons, overflowedButtons }) => {
                     return (
                       <div>
-                        {visible && (
+                        {!visibleButtons.isEmpty() && (
                           <div className={styles.visibleItems}>
-                            {visible.map((component, index) => (
-                              <div key={index}>{component}</div>
-                            ))}
-                            {overflowed.length > 0 && (
+                            {visibleButtons.getButtonsElementsWithDataHook()}
+                            {!overflowedButtons.isEmpty() && (
                               <MoreButton
                                 key={'more-button'}
                                 onClick={this.toggleMoreItems}
@@ -93,13 +96,10 @@ class ToolbarComponent extends Component<ToolbarProps, Record<string, unknown>> 
                             )}
                           </div>
                         )}
-
-                        {showMore && overflowed && (
+                        {showMore && overflowedButtons && (
                           <div className={styles.moreItems}>
                             <div className={styles.overflowedItems}>
-                              {overflowed.map((component, index) => (
-                                <div key={index}>{component}</div>
-                              ))}
+                              {overflowedButtons.getButtonsElementsWithDataHook()}
                             </div>
                           </div>
                         )}
@@ -118,11 +118,7 @@ class ToolbarComponent extends Component<ToolbarProps, Record<string, unknown>> 
         data-hook="toolbar-v3"
         className={cx(styles.toolbar, styles.staticToolbar, styles.mobileToolbar)}
       >
-        <div className={styles.visibleItems}>
-          {toolbarItems.map((component, index) => (
-            <div key={index}>{component}</div>
-          ))}
-        </div>
+        <div className={styles.visibleItems}>{toolbarButtons.getButtonsElementsWithDataHook()}</div>
       </div>
     );
   }

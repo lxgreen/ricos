@@ -17,7 +17,7 @@ const onSave = (data, toolbarItem) => {
   toolbarItem.commands?.setAlignment(data);
 };
 
-const AlignmentButton = ({ toolbarItem, context }) => {
+const AlignmentButton = ({ toolbarItem, context, dataHook }) => {
   const { isMobile, t, theme, locale, portal } = context || {};
   const [isModalOpen, setModalOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
@@ -56,6 +56,7 @@ const AlignmentButton = ({ toolbarItem, context }) => {
           ref={setReferenceElement}
         >
           <div
+            data-hook={dataHook}
             className={cx(styles.alignmentModalButton, {
               [styles.mobileAlignmentModalButton]: isMobile,
             })}

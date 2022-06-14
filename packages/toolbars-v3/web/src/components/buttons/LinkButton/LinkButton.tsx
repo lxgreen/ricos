@@ -31,7 +31,7 @@ const onDelete = (toolbarItem, setModalOpen, linkData) => {
   setModalOpen(false);
 };
 
-const LinkButton = ({ toolbarItem, context, contentQueryService }) => {
+const LinkButton = ({ toolbarItem, context, contentQueryService, dataHook }) => {
   const {
     isMobile,
     t,
@@ -100,6 +100,7 @@ const LinkButton = ({ toolbarItem, context, contentQueryService }) => {
           ref={setReferenceElement}
         >
           <div
+            data-hook={dataHook}
             className={cx(styles.linkModalButton, { [styles.mobileLinkModalButton]: isMobile })}
             role="button"
             onClick={openCloseModal}

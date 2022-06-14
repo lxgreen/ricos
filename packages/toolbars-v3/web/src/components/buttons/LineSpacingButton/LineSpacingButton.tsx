@@ -23,7 +23,7 @@ const onCancel = (toolbarItem, original, setModalOpen) => {
   setModalOpen(false);
 };
 
-const LineSpacingButton = ({ toolbarItem, context }) => {
+const LineSpacingButton = ({ toolbarItem, context, dataHook }) => {
   const {
     isMobile,
     t,
@@ -80,6 +80,7 @@ const LineSpacingButton = ({ toolbarItem, context }) => {
           ref={setReferenceElement}
         >
           <div
+            data-hook={dataHook}
             className={cx(styles.lineSpacingModalButton, {
               [styles.mobileLineSpacingModalButton]: isMobile,
             })}

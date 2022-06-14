@@ -25,7 +25,7 @@ const onInputChange = (e, setInputValue, toolbarItem) => {
   toolbarItem.commands?.setFontSizeWithoutFocus(value);
 };
 
-const FontSizeButton = ({ toolbarItem, context }) => {
+const FontSizeButton = ({ toolbarItem, context, dataHook }) => {
   const { t, theme, locale, portal } = context || {};
   const [isModalOpen, setModalOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState<HTMLDivElement | null>(null);
@@ -66,6 +66,7 @@ const FontSizeButton = ({ toolbarItem, context }) => {
           ref={setReferenceElement}
         >
           <div
+            data-hook={dataHook}
             className={styles.fontSizeModalButton}
             role="button"
             onClick={() => setModalOpen(!isModalOpen)}

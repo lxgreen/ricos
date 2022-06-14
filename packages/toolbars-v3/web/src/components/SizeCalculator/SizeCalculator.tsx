@@ -1,31 +1,32 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { ToolbarButtons } from '../../models';
 
 type SizeResult = {
-  visible: React.Component[];
-  overflowed: React.Component[];
+  visibleButtons: ToolbarButtons;
+  overflowedButtons: ToolbarButtons;
 };
 
 type SizeCalculatorProps = {
   width: number;
-  components: React.Component[];
+  toolbarButtons: ToolbarButtons;
   children: (result: SizeResult) => unknown;
 };
 
 const Overflow = ({
   width,
-  components,
+  toolbarButtons,
   onChange,
 }: {
   width: number;
-  components: React.Component[];
+  toolbarButtons: ToolbarButtons;
   onChange;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let sumVisible = 0;
-    const visible: React.Component[] = [];
-    const overflowed: React.Component[] = [];
+    const visibleButtons: ToolbarButtons = new ToolbarButtons([]);
+    const overflowedButtons: ToolbarButtons = new ToolbarButtons([]);
 
     if (containerRef.current) {
       const elements = Array.from(containerRef.current.children).map((child: HTMLElement) => {
@@ -37,29 +38,29 @@ const Overflow = ({
       let stackIsFull = false;
       elements.forEach((element, index) => {
         if (!stackIsFull && sumVisible + element.width <= width) {
-          visible.push(components[index]);
+          visibleButtons.addButton(toolbarButtons.getButtonByIndex(index));
 
           sumVisible += element.width;
         } else {
           stackIsFull = true;
-          overflowed.push(components[index]);
+          overflowedButtons.addButton(toolbarButtons.getButtonByIndex(index));
         }
       });
       onChange({
-        visible,
-        overflowed,
+        visibleButtons,
+        overflowedButtons,
       });
     }
-  }, [width, components]);
+  }, [width, toolbarButtons]);
 
   return (
     <div style={{ visibility: 'hidden', position: 'absolute', display: 'flex' }} ref={containerRef}>
-      {components}
+      {toolbarButtons.getButtonsElements()}
     </div>
   );
 };
 
-export const SizeCalculator = ({ width, components, children }: SizeCalculatorProps) => {
+export const SizeCalculator = ({ width, toolbarButtons, children }: SizeCalculatorProps) => {
   const [data, setData] = useState<SizeResult>();
 
   const onChange = data => {
@@ -68,7 +69,7 @@ export const SizeCalculator = ({ width, components, children }: SizeCalculatorPr
 
   return (
     <>
-      <Overflow width={Number(width)} components={components} onChange={onChange} />
+      <Overflow width={Number(width)} toolbarButtons={toolbarButtons} onChange={onChange} />
       {data && children(data)}
     </>
   );

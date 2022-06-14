@@ -23,7 +23,7 @@ const onResetColor = (toolbarItem, setModalOpen) => {
   setModalOpen(false);
 };
 
-const HighlightColorButton = ({ toolbarItem, context }) => {
+const HighlightColorButton = ({ toolbarItem, context, dataHook }) => {
   const { isMobile, t, theme, locale, getEditorCommands, colorPickerData, portal } = context || {};
   if (!context) return null;
   const [isModalOpen, setModalOpen] = useState(false);
@@ -77,6 +77,7 @@ const HighlightColorButton = ({ toolbarItem, context }) => {
           ref={setReferenceElement}
         >
           <div
+            data-hook={dataHook}
             className={cx(styles.highlightColorModalButton, {
               [styles.mobileHighlightColorModalButton]: isMobile,
             })}

@@ -7,7 +7,7 @@ import { withToolbarContext } from 'ricos-context';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 import { getTooltip } from '../tooltipUtils';
 
-const ToggleButton = ({ toolbarItem, onClick, context }: ToolbarItemProps) => {
+const ToggleButton = ({ toolbarItem, onClick, context, dataHook }: ToolbarItemProps) => {
   const { isMobile, t } = context || {};
 
   const Icon = toolbarItem.presentation?.icon;
@@ -16,7 +16,6 @@ const ToggleButton = ({ toolbarItem, onClick, context }: ToolbarItemProps) => {
   const tooltipKey = toolbarItem.presentation?.tooltip;
 
   const tooltip = t && getTooltip(t, tooltipKey, tooltipShortcutKey);
-
   return (
     <Tooltip key={tooltip} content={tooltip} tooltipOffset={{ x: 0, y: -8 }}>
       <div
@@ -27,6 +26,7 @@ const ToggleButton = ({ toolbarItem, onClick, context }: ToolbarItemProps) => {
         })}
       >
         <div
+          data-hook={dataHook}
           onMouseDown={e => e.preventDefault()}
           className={cx(styles.toggleButton, { [styles.mobileToggleButton]: isMobile })}
           role="button"

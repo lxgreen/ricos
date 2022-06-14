@@ -78,4 +78,5 @@ export type ToolbarItemProps = {
   toolbarItem: IToolbarItem;
   onClick: (any) => void;
   context?: ToolbarContextType & { t: TranslationFunction };
+  dataHook?: string;
 };

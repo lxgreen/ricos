@@ -14,6 +14,7 @@ export const linkToolbarItemConfig: IToolbarItemConfigTiptap[] = [
     id: 'anchorLink',
     type: 'toggle',
     presentation: {
+      dataHook: 'ScrollToAnchorButton',
       tooltip: 'anchor link',
     },
     attributes: {
@@ -32,6 +33,7 @@ export const linkToolbarItemConfig: IToolbarItemConfigTiptap[] = [
     id: 'urlLink',
     type: 'toggle',
     presentation: {
+      dataHook: 'GoToLinkButton',
       tooltip: 'url link',
     },
     attributes: {
@@ -44,6 +46,7 @@ export const linkToolbarItemConfig: IToolbarItemConfigTiptap[] = [
     id: 'editLink',
     type: 'modal',
     presentation: {
+      dataHook: 'LinkButton',
       tooltip: 'LinkTo_Edit_Tooltip',
       icon: EditIcon,
     },
@@ -80,6 +83,7 @@ export const linkToolbarItemConfig: IToolbarItemConfigTiptap[] = [
     id: 'removeLink',
     type: 'toggle',
     presentation: {
+      dataHook: 'RemoveLinkButton',
       tooltip: 'LinkPanelContainer_RemoveButton',
       icon: TrashIcon,
     },
@@ -98,6 +102,7 @@ export const linkToolbarItemConfig: IToolbarItemConfigTiptap[] = [
     id: 'removeAnchor',
     type: 'toggle',
     presentation: {
+      dataHook: 'RemoveLinkButton',
       tooltip: 'LinkPanelContainer_RemoveButton',
       icon: TrashIcon,
     },

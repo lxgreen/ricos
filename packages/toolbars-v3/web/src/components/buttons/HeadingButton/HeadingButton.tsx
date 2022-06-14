@@ -20,7 +20,7 @@ const onSave = (data, selectedHeading, toolbarItem, setModalOpen) => {
   setModalOpen(false);
 };
 
-const HeadingButton = ({ toolbarItem, context }) => {
+const HeadingButton = ({ toolbarItem, context, dataHook }) => {
   const { isMobile, t, theme, headingsData, locale, portal } = context || {};
   if (!context) return null;
   const [isModalOpen, setModalOpen] = useState(false);
@@ -58,6 +58,7 @@ const HeadingButton = ({ toolbarItem, context }) => {
           ref={setReferenceElement}
         >
           <div
+            data-hook={dataHook}
             className={styles.headingModalButton}
             role="button"
             onClick={() => setModalOpen(!isModalOpen)}
