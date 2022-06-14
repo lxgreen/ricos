@@ -18,7 +18,7 @@ type ToolbarProps = {
 };
 
 const visibleOnlySpec: ToolbarSpec = attributes => attributes.visible === true;
-const MORE_BUTTON_WIDTH = 80;
+
 class ToolbarComponent extends Component<ToolbarProps, Record<string, unknown>> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   items: Record<string, any> = {};
@@ -69,16 +69,9 @@ class ToolbarComponent extends Component<ToolbarProps, Record<string, unknown>> 
             return <div style={{ width: '100%' }}>.</div>;
           }
 
-          let width = size.width - MORE_BUTTON_WIDTH;
-          if (maxWidth) {
-            width = maxWidth - MORE_BUTTON_WIDTH;
-          }
+          const width = maxWidth || size.width;
           return (
-            <div
-              dir="ltr"
-              data-hook="toolbar-v3"
-              className={cx(styles.toolbar, styles.staticToolbar)}
-            >
+            <div dir="ltr" data-hook="toolbar-v3" className={styles.toolbar}>
               <ClickOutside onClickOutside={this.onClickOutside} wrapper="div">
                 <SizeCalculator width={width} toolbarButtons={toolbarButtons}>
                   {({ visibleButtons, overflowedButtons }) => {
@@ -113,11 +106,7 @@ class ToolbarComponent extends Component<ToolbarProps, Record<string, unknown>> 
         }}
       </SizeMe>
     ) : (
-      <div
-        dir="ltr"
-        data-hook="toolbar-v3"
-        className={cx(styles.toolbar, styles.staticToolbar, styles.mobileToolbar)}
-      >
+      <div dir="ltr" data-hook="toolbar-v3" className={cx(styles.toolbar, styles.mobileToolbar)}>
         <div className={styles.visibleItems}>{toolbarButtons.getButtonsElementsWithDataHook()}</div>
       </div>
     );

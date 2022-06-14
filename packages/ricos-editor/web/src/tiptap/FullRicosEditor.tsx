@@ -181,9 +181,11 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
       toolbarSettings,
       content,
     } = this.props;
+
+    const languageDir = getLangDir(locale);
     return (
       <>
-        <RicosPortal ref={this.portalRef} className={theme?.parentClass}>
+        <RicosPortal languageDir={languageDir} ref={this.portalRef} className={theme?.parentClass}>
           <RicosStyles theme={theme || {}} documentStyle={content?.documentStyle || {}} />
         </RicosPortal>
         {this.portalRef.current && (
@@ -192,7 +194,7 @@ export class FullRicosEditor extends React.Component<Props, State> implements Ri
             experiments={experiments}
             locale={locale}
             localeContent={localeContent}
-            languageDir={getLangDir(locale)}
+            languageDir={languageDir}
             theme={theme}
             portal={this.portalRef.current}
           >

@@ -138,19 +138,8 @@ class RicosToolbars extends React.Component<
     maxWidth: number,
     toolbarItemsConfig: IToolbarItemConfigTiptap[]
   ): JSX.Element => {
-    const floatingFrameStyles = {
-      border: 'solid 1px #ededed',
-      borderRadius: 'var(--ricos-settings-whitebox-border-radius, 2px)',
-      boxShadow: 'var(--ricos-settings-whitebox-box-shadow, 0 4px 8px 0 rgba(0, 0, 0, 0.07))',
-      backgroundColor: '#FFF',
-      height: '36px',
-      display: 'flex',
-      alignItems: 'center',
-      padding: '0 4px',
-    };
-
     return (
-      <div data-hook={dataHook} style={floatingFrameStyles}>
+      <div toolbar-type="floating" data-hook={dataHook}>
         <div style={{ width: maxWidth, maxWidth: 'fit-content' }}>
           {this.renderToolbar(toolbarItemsConfig, { maxWidth })}
         </div>
@@ -238,7 +227,7 @@ class RicosToolbars extends React.Component<
     );
 
     if (ricosContext.isMobile && toolbarConfig?.shouldCreate?.()) {
-      return this.renderToolbar(toolbarItemsConfig);
+      return <div dir={ricosContext.languageDir}>{this.renderToolbar(toolbarItemsConfig)}</div>;
     } else {
       return null;
     }
@@ -258,8 +247,12 @@ class RicosToolbars extends React.Component<
 
     if (htmlContainer && toolbarConfig?.shouldCreate?.()) {
       return (
-        <RicosPortal className={ricosContext.theme?.parentClass} container={htmlContainer}>
-          {this.renderToolbar(toolbarItemsConfig)}
+        <RicosPortal
+          languageDir={ricosContext.languageDir}
+          className={ricosContext.theme?.parentClass}
+          container={htmlContainer}
+        >
+          <div toolbar-type="static">{this.renderToolbar(toolbarItemsConfig)}</div>
         </RicosPortal>
       );
     }

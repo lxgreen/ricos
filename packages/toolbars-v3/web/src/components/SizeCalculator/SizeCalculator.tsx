@@ -12,6 +12,9 @@ type SizeCalculatorProps = {
   children: (result: SizeResult) => unknown;
 };
 
+const MORE_BUTTON_WIDTH = 80;
+const GAP_BETWEEN_BUTTONS = 4;
+
 const Overflow = ({
   width,
   toolbarButtons,
@@ -37,10 +40,10 @@ const Overflow = ({
       });
       let stackIsFull = false;
       elements.forEach((element, index) => {
-        if (!stackIsFull && sumVisible + element.width <= width) {
+        if (!stackIsFull && sumVisible + element.width <= width - MORE_BUTTON_WIDTH) {
           visibleButtons.addButton(toolbarButtons.getButtonByIndex(index));
 
-          sumVisible += element.width;
+          sumVisible += element.width + GAP_BETWEEN_BUTTONS;
         } else {
           stackIsFull = true;
           overflowedButtons.addButton(toolbarButtons.getButtonByIndex(index));
