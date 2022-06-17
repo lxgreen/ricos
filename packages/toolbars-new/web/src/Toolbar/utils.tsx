@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-  DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE,
-  DocumentStyle,
-  EditorCommands,
-  DRAFT_TO_RICOS_DOC_TYPE,
-  normalizeUrl,
-} from 'wix-rich-content-common';
+import type { DocumentStyle, EditorCommands } from 'wix-rich-content-common';
+import { DRAFT_TO_DOC_TYPE_WITH_LISTS, normalizeUrl } from 'wix-rich-content-common';
 import {
   convertRelStringToObject,
   convertRelObjectToString,
@@ -20,6 +15,7 @@ import {
   setTextAlignment,
 } from './buttonsListCreatorConsts';
 import style from './ToolbarButtonNew.scss';
+import type { TextBlockType } from 'ricos-types';
 
 type editorCommands = EditorCommands;
 
@@ -33,14 +29,14 @@ export const hasStyleChanges = (
   inlineStyles: Record<string, string>,
   documentStyle?: DocumentStyle
 ) => {
-  const headerStyle = documentStyle?.[DROPDOWN_OPTIONS_TO_DOC_STYLE_TYPE[currentHeading]] || {};
+  const headerStyle = documentStyle?.[DRAFT_TO_DOC_TYPE_WITH_LISTS[currentHeading]] || {};
   return Object.entries(inlineStyles).some(([key, value]) => headerStyle[key] !== value);
 };
 
 export const getBlockStyle = (editorCommands: EditorCommands) => {
   const blockType = editorCommands.getAnchorBlockType();
   const documentStyle = editorCommands.getDocumentStyle();
-  return documentStyle?.[DRAFT_TO_RICOS_DOC_TYPE[blockType]];
+  return documentStyle?.[DRAFT_TO_DOC_TYPE_WITH_LISTS[blockType]];
 };
 
 export const findOsName = () => {
@@ -85,14 +81,14 @@ export const handleLinkSettings = linkSettings => {
   return { relValue, anchorTarget, customAnchorScroll };
 };
 
-export const goToLink = (event, linkData, linkPanelData, experiments) => {
+export const goToLink = (event, linkData, linkPanelData) => {
   const { anchor, url, target } = linkData;
   if (anchor) {
     const { customAnchorScroll } = linkPanelData;
     if (customAnchorScroll) {
       customAnchorScroll(event, anchor);
     } else {
-      scrollToBlock(anchor, experiments);
+      scrollToBlock(anchor);
     }
   } else {
     const href = url ? normalizeUrl(url) : undefined;
@@ -111,7 +107,7 @@ export const updateDynamicStyles = (value, editorCommands: editorCommands, butto
 export const getCurrentHeading = (editorCommands: editorCommands) => {
   let currentHeading = 'P';
   Object.keys(HEADING_TYPE_TO_ELEMENT).forEach(headingType => {
-    if (editorCommands.isBlockTypeSelected(headingType)) {
+    if (editorCommands.isBlockTypeSelected(headingType as TextBlockType)) {
       currentHeading = HEADING_TYPE_TO_ELEMENT[headingType];
     }
   });

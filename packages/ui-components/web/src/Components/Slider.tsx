@@ -1,14 +1,20 @@
-import React, {
-  FunctionComponent,
-  InputHTMLAttributes,
-  KeyboardEvent,
-  useEffect,
-  useState,
-} from 'react';
+import type { FunctionComponent, InputHTMLAttributes, KeyboardEvent } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
-import { ACTION_COLORS_CSS_VAR } from '..';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
+import {
+  ACTION_COLOR,
+  ACTION_COLOR_LIVESITE,
+  BG_COLOR_LIVESITE,
+  BG_COLOR,
+  SLIDER_THUMB_VISIBILITY,
+  SLIDER_TRACK_SIZE,
+} from '../consts';
 import styles from '../../statics/styles/slider.scss';
+
+type ThumbVisibilityKeys = keyof typeof SLIDER_THUMB_VISIBILITY;
+type TrackSizeKeys = keyof typeof SLIDER_TRACK_SIZE;
 
 interface SliderProps {
   value: number;
@@ -16,19 +22,40 @@ interface SliderProps {
   max?: number;
   theme: RichContentTheme;
   onChange: (value: number) => void;
-  onSubmit: (value: number) => void;
+  onChangeCommitted?: (value: number) => void;
   dataHook?: string;
+  step?: string;
+  thumbVisibility?: typeof SLIDER_THUMB_VISIBILITY[ThumbVisibilityKeys];
+  trackSize?: typeof SLIDER_TRACK_SIZE[TrackSizeKeys];
+  tabIndex?: number;
   ariaProps?: InputHTMLAttributes<HTMLInputElement>;
   languageDir: string;
+  liveSiteWiring?: boolean;
+  ariaLabel?: string;
 }
 
 const Slider: FunctionComponent<SliderProps> = props => {
   const mergedStyles = mergeStyles({ styles, theme: props.theme });
-  const { min = 0, max = 10, onChange, dataHook, ariaProps, value, onSubmit, languageDir } = props;
+  const {
+    min = 0,
+    max = 10,
+    tabIndex = 0,
+    onChange,
+    dataHook,
+    ariaProps,
+    value,
+    onChangeCommitted,
+    languageDir,
+    thumbVisibility = SLIDER_THUMB_VISIBILITY.fixed,
+    trackSize = SLIDER_TRACK_SIZE.medium,
+    step,
+    liveSiteWiring = false,
+    ariaLabel,
+  } = props;
   const [fillPercentage, setFillPercentage] = useState(0);
   const track = {
-    fill: ACTION_COLORS_CSS_VAR,
-    unFilled: 'rgba(0,0,0,.2)',
+    fill: liveSiteWiring ? ACTION_COLOR_LIVESITE : ACTION_COLOR,
+    unFilled: liveSiteWiring ? BG_COLOR_LIVESITE : BG_COLOR,
     gradientDeg: languageDir === 'rtl' ? '270deg' : '90deg',
   };
   const bgStyle = {
@@ -36,6 +63,8 @@ const Slider: FunctionComponent<SliderProps> = props => {
       track.unFilled
     } ${fillPercentage + 0.1}%)`,
   };
+
+  const isFixedThumb = thumbVisibility === SLIDER_THUMB_VISIBILITY.fixed;
 
   const onKeyUp = (event: KeyboardEvent) => {
     switch (event.key) {
@@ -47,7 +76,24 @@ const Slider: FunctionComponent<SliderProps> = props => {
       case 'End':
       case 'PageUp':
       case 'PageDown':
-        onSubmit((event.target as HTMLInputElement).valueAsNumber);
+        onChangeCommitted?.((event.target as HTMLInputElement).valueAsNumber);
+        break;
+      default:
+        return;
+    }
+  };
+
+  const onKeyDown = e => {
+    switch (e.key) {
+      case 'ArrowUp':
+      case 'ArrowDown':
+      case 'ArrowRight':
+      case 'ArrowLeft':
+      case 'Home':
+      case 'End':
+      case 'PageUp':
+      case 'PageDown':
+        onChange?.(e.target.valueAsNumber);
         break;
       default:
         return;
@@ -61,16 +107,28 @@ const Slider: FunctionComponent<SliderProps> = props => {
   return (
     <input
       {...ariaProps}
-      tabIndex={0}
+      aria-label={ariaLabel}
+      tabIndex={tabIndex}
       type={'range'}
-      className={classNames(mergedStyles.slider, mergedStyles.wrapperSlider)}
+      className={classNames(
+        mergedStyles.slider,
+        mergedStyles.wrapperSlider,
+        mergedStyles[trackSize],
+        {
+          [mergedStyles.slider_fixed_thumb]: isFixedThumb,
+          [mergedStyles.slider_livesite]: liveSiteWiring,
+        }
+      )}
       data-hook={dataHook}
       onChange={e => onChange(e.target.valueAsNumber)}
       value={value}
       min={min}
       max={max}
-      onMouseUp={e => onSubmit((e.target as HTMLInputElement).valueAsNumber)}
+      step={step}
+      onMouseUp={e => onChangeCommitted?.((e.target as HTMLInputElement).valueAsNumber)}
+      onTouchEnd={e => onChangeCommitted?.((e.target as HTMLInputElement).valueAsNumber)}
       onKeyUp={onKeyUp}
+      onKeyDown={onKeyDown}
       style={bgStyle}
     />
   );

@@ -23,8 +23,7 @@ describe('toTranslatables', () => {
     expect(toTranslatables(content)).toStrictEqual([
       {
         id: '0',
-        text:
-          '<p>Hello, this is a dummy text with <strong>bold</strong> and <u>underline</u> and <em>italic</em>.</p>',
+        text: '<p>Hello, this is a dummy text with <strong>bold</strong> and <u>underline</u> and <em>italic</em>.</p>',
         type: 'PARAGRAPH',
       },
     ]);
@@ -34,8 +33,8 @@ describe('toTranslatables', () => {
     expect(toTranslatables(content)).toStrictEqual([
       {
         id: '0',
-        text:
-          '<h2>Hello, this is a dummy text with <strong>bold</strong> and <u>underline</u> and <em>italic</em>.</h2>',
+        // eslint-disable-next-line max-len
+        text: '<h2>Hello, this is a dummy text with <strong>bold</strong> and <u>underline</u> and <em>italic</em>.</h2>',
         type: 'HEADING',
       },
     ]);

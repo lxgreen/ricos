@@ -1,7 +1,9 @@
-import React, { FunctionComponent } from 'react';
-import SliderWithInput, { SliderWithInputProps } from './SliderWithInput';
+import type { FunctionComponent } from 'react';
+import React from 'react';
+import type { SliderWithInputProps } from './SliderWithInput';
+import SliderWithInput from './SliderWithInput';
 import styles from '../../statics/styles/slider-panel.scss';
-import { GetEditorBounds, RichContentTheme } from 'wix-rich-content-common';
+import type { GetEditorBounds, RichContentTheme } from 'wix-rich-content-common';
 
 interface SliderPanelProps {
   getValue: (props: SliderPanelProps) => number;

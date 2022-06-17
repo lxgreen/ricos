@@ -1,6 +1,6 @@
 import { getImageStudioPackage } from './image-studio-opener-loader';
-import { ExtendedBlob } from './image-editor';
-import { ImageEditorWixSettings } from '../types';
+import type { ExtendedBlob } from './image-editor';
+import type { ImageEditorWixSettings } from '../types';
 
 async function setupImageEditor(
   imageEditorWixSettings: ImageEditorWixSettings,
@@ -9,11 +9,8 @@ async function setupImageEditor(
   onSave: (file: ExtendedBlob) => void,
   onClose: () => void
 ) {
-  const {
-    MediaImageStudio,
-    MediaImageStudioEvents,
-    MediaImageStudioMode,
-  } = await getImageStudioPackage();
+  const { MediaImageStudio, MediaImageStudioEvents, MediaImageStudioMode } =
+    await getImageStudioPackage();
   const mediaImageStudio = new MediaImageStudio({
     ...(await Promise.resolve(imageEditorWixSettings)),
     appendTo: document.querySelector(`[id=${rootElementId}]`),

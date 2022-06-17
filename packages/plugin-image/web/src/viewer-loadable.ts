@@ -1,8 +1,9 @@
 import { typeMapper } from './typeMapper-loadable';
-import { IMAGE_TYPE, ImagePluginViewerConfig } from './types';
+import type { ImagePluginViewerConfig } from './types';
+import { IMAGE_TYPE } from './types';
 import { DEFAULTS } from './consts';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
-export { typeMapper as imageTypeMapper, IMAGE_TYPE };
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
+export { typeMapper as imageTypeMapper, IMAGE_TYPE, ImagePluginViewerConfig };
 
 export const pluginImage: ViewerPluginCreator<ImagePluginViewerConfig> = config => {
   return {

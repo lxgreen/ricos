@@ -1,4 +1,4 @@
-import { DraftEditorCommand } from '@wix/draft-js';
+import type { DraftEditorCommand } from '@wix/draft-js';
 
 export const COMMANDS: Record<string, DraftCommand> = {
   TITLE: 'header-two',
@@ -147,6 +147,8 @@ export const INSERT_PLUGIN_BUTTONS = Object.freeze({
   YOUTUBE: 'YouTube_InsertButton',
   TIKTOK: 'TikTok_InsertButton',
   TWITTER: 'Twitter_InsertButton',
+  PINTEREST: 'Pinterest_InsertButton',
+  FACEBOOK: 'Facebook_InsertButton',
   STORES: 'Stores_InsertButton',
   EVENTS: 'Events_InsertButton',
   BOOKINGS: 'Bookings_InsertButton',
@@ -162,6 +164,8 @@ export const INSERT_PLUGIN_BUTTONS = Object.freeze({
   TABLE: 'TablePlugin_InsertButton',
   COLLAPSIBLE_LIST: 'CollapsibleList_InsertButton',
   ADSENSE: 'AdSensePlugin_InsertButton',
+  AUDIO: 'AudioPlugin_InsertButton',
+  SPOTIFY: 'Spotify_InsertButton',
 });
 
 export const BUTTON_TYPES = Object.freeze({

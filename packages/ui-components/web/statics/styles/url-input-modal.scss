@@ -110,10 +110,27 @@
 .inputModal_container {
   .inputModal_content {
     padding: 0;
-    @include phone {
+    .inputModal_mobile & {
       padding: 16px 20px;
     }
   }
+
+  &.inputModal_mobile_withHeader {
+    .inputModal_content {
+      @include border-box;
+      position: absolute;
+      top: 50px;
+      left: 0;
+      padding: 20px;
+      width: 100%;
+    }
+    .input_header_title {
+      font-size: 14px;
+      color: $secondary-text-color;
+      margin-bottom: 8px;
+    }
+  }
+
   .input_header {
     border: none;
   }
@@ -124,34 +141,37 @@
     @extend %input_header_text;
   }
 
-  .inputModal_textInput {
-    margin: 14px 0;
-    @include phone {
-      margin: 0;
-    }
-  }
-
   input::placeholder {
     font-size: 16px;
   }
 
-  @include phone {
+  .inputModal_mobile & {
     width: 100vw;
     height: 100vh;
+  }
+}
+
+.inputModal_textInput {
+  margin: 14px 0;
+  .inputModal_mobile & {
+    margin: 0;
+    &.textInput_margin_bottom {
+      margin-bottom: 14px;
+    }
   }
 }
 
 %input_header_text {
   font-family: $ricos-settings-font-family;
   text-align: left;
-  @include phone {
+  .inputModal_mobile & {
     margin-bottom: 7px;
   }
 }
 
 .header_subTitle {
   font-size: 14px;
-  color: #757575;
+  color: $secondary-text-color;
   @extend %input_header_text;
 }
 

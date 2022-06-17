@@ -1,6 +1,6 @@
-import { DraftContent, RicosContentBlock } from '../../types/contentTypes';
+import type { DraftContent, RicosContentBlock } from '../../types/contentTypes';
 import { INTERACTIONS } from '../const';
-import ContentStateBuilder from '../ContentStateBuilder/ContentStateBuilder';
+import type { StateBuilder } from '../ContentStateBuilder/ContentStateBuilder';
 
 interface InteractionDataMerger {
   contentState: DraftContent;
@@ -78,7 +78,7 @@ const interactionDataMerger = ({
   }
 };
 
-export const readMore = (builder: ContentStateBuilder, settings = {}) => {
+export const readMore = (builder: StateBuilder, settings = {}) => {
   builder.contentState = interactionDataMerger({
     contentState: builder.contentState,
     settings,
@@ -89,7 +89,7 @@ export const readMore = (builder: ContentStateBuilder, settings = {}) => {
   return builder;
 };
 
-export const seeFullPost = (builder: ContentStateBuilder, settings = {}) => {
+export const seeFullPost = (builder: StateBuilder, settings = {}) => {
   builder.contentState = interactionDataMerger({
     contentState: builder.contentState,
     settings,

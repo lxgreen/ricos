@@ -1,4 +1,5 @@
-import { RichContent, Node } from 'ricos-schema';
+import type { Node } from 'ricos-schema';
+import { RichContent } from 'ricos-schema';
 import { createParagraphNode, createTextNode, initializeMetadata } from '../../nodeUtils';
 
 export const fromPlainText = (text: string): RichContent => {

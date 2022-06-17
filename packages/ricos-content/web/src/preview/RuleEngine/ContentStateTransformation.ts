@@ -1,8 +1,8 @@
 import { isFunction } from 'lodash';
 import ContentStateBuilder from '../ContentStateBuilder/ContentStateBuilder';
 import getContentStateMetadata from '../ContentStateAnalyzer/ContentStateMetadata';
-import { DraftContent } from '../../types/contentTypes';
-import { PreviewRule } from '../types';
+import type { DraftContent } from '../../types/contentTypes';
+import type { PreviewRule } from '../types';
 
 interface Constructor extends PreviewRule {
   initialPreviewState?: DraftContent;

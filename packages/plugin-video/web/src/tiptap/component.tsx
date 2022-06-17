@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Component as VideoComponent } from '../video-component';
 import { VIDEO_TYPE } from '../types';
-import { PluginProps } from 'wix-rich-content-editor-common';
+import type { PluginProps } from 'ricos-tiptap-types';
+import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
+import { RicosContext } from 'ricos-context';
 
-export const Video: React.FC<PluginProps> = ({ context, componentData }) => {
-  const { theme, t, config = {} } = context;
-  const settings = config[VIDEO_TYPE] || {};
+export const Video: React.FC<PluginProps> = ({
+  settings,
+  componentData,
+  updateAttributes,
+  node,
+}) => {
+  const { theme, t } = useContext(RicosContext);
   const blockProps = {
     setFocusToBlock: () => null,
   };
+  const block = { getKey: () => null };
   const setComponentUrl = () => null;
+  const store = {
+    update: (type, data) => updateAttributes(convertBlockDataToRicos(VIDEO_TYPE, data)),
+  };
+
+  const { loading, loadingPercentage } = node.attrs;
 
   return (
     <VideoComponent
@@ -20,6 +32,11 @@ export const Video: React.FC<PluginProps> = ({ context, componentData }) => {
       blockProps={blockProps}
       setComponentUrl={setComponentUrl}
       onClick={() => {}}
+      store={store}
+      isDraggable={false}
+      isLoading={loading}
+      loadingPercentage={loadingPercentage}
+      block={block}
     />
   );
 };

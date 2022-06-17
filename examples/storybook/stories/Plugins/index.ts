@@ -1,37 +1,22 @@
-import { storiesOf } from '@storybook/react';
-import LinkPreviewStory from './LinkPreview';
-import GalleryPluginStory from './Gallery';
-import DividerPluginStory from './Divider';
-import CollapsibleListPluginStory from './CollapsibleList';
-import HeadingsPluginStory from './Headings';
-import SpoilerPluginStory from './Spoiler';
-import AnchorPluginStory from './Anchor';
-import ButtonsPluginStory from './Buttons';
-import Image from './Image';
-import Video from './Video';
-import VerticalEmbedStory from './VerticalEmbed';
-import HtmlPluginStory from './HtmlPlugin';
-import FileUploadStory from './FileUpload';
-import MapPluginStory from './Map';
-import TablePluginStory from './Table';
-import LinkPluginStory from './Link';
-import PollPluginStory from './Poll';
+export { default as HTML_Plugin } from './HtmlPlugin';
+export { default as anchor } from './Anchor';
+export { default as audio } from './Audio';
+export { default as buttons } from './Buttons';
+export { default as collapsibleList } from './CollapsibleList';
+export { default as divider } from './Divider';
+export { default as gallery } from './Gallery';
+export { default as headings } from './Headings';
+export { default as image } from './Image';
+export { default as fileUpload } from './FileUpload';
+export { default as link } from './Link';
+export { default as linkPreview } from './LinkPreview';
+export { default as map } from './Map';
+export { default as poll } from './Poll';
+export { default as spoiler } from './Spoiler';
+export { default as table } from './Table';
+export { default as verticalEmbed } from './VerticalEmbed';
+export { default as video } from './Video';
 
-storiesOf('Plugins', module)
-  .add('Divider', DividerPluginStory)
-  .add('Collapsible List', CollapsibleListPluginStory)
-  .add('Spoiler', SpoilerPluginStory)
-  .add('Headings', HeadingsPluginStory)
-  .add('Anchor', AnchorPluginStory)
-  .add('Image', Image)
-  .add('Video', Video)
-  .add('Gallery', GalleryPluginStory)
-  .add('Link Preview', LinkPreviewStory)
-  .add('Buttons', ButtonsPluginStory)
-  .add('Vertical Embed', VerticalEmbedStory)
-  .add('HTML Plugin', HtmlPluginStory)
-  .add('File Upload', FileUploadStory)
-  .add('Map', MapPluginStory)
-  .add('Table', TablePluginStory)
-  .add('Link', LinkPluginStory)
-  .add('Poll', PollPluginStory);
+export default {
+  title: 'Plugins',
+};

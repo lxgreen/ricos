@@ -18,11 +18,17 @@
 
   &:hover {
     cursor: pointer;
-    background-color: rgba(0, 0, 0, .05);
+    background-color: rgba(
+      var(--ricos-settings-action-color-tuple, var(--ricos-fallback-color-tuple, 0, 0, 0)),
+      0.05
+    );
   }
 
   &.AnchorableElement_selected {
-    background-color: rgba(0, 0, 0, .1);
+    background-color: rgba(
+      var(--ricos-settings-action-color-tuple, var(--ricos-fallback-color-tuple, 0, 0, 0)),
+      0.1
+    );
   }
 
   .AnchorableElement_thumbnail {
@@ -49,11 +55,11 @@
     justify-content: center;
 
     .AnchorableElement_contentType {
-      color: #757575;
+      color: var(--ricos-settings-text-color, $secondary-text-color);
       font-size: 12px;
       line-height: 1.33;
     }
-  
+
     .AnchorableElement_blockContent {
       font-size: 14px;
       line-height: 1.43;
@@ -75,10 +81,11 @@
   .AnchorPanel_title {
     font-size: 16px;
     line-height: 1.5;
-    opacity: 0.4;
+    color: var(--ricos-settings-text-color, #0006);
   }
 
-  .AnchorPanel_dropdownWrapper{}
+  .AnchorPanel_dropdownWrapper {
+  }
 
   .AnchorPanel_dropdownControl {
     font-size: 14px;
@@ -116,14 +123,14 @@
   justify-content: center;
   margin: 0 60px;
 
-  .AnchorPanel_emptyStateTitle{
+  .AnchorPanel_emptyStateTitle {
     font-size: 16px;
     line-height: 1.5;
     align-self: center;
     text-align: center;
   }
 
-  .AnchorPanel_emptyStateText{
+  .AnchorPanel_emptyStateText {
     opacity: 0.4;
     font-size: 16px;
     line-height: 1.5;
@@ -140,7 +147,7 @@
   .AnchorPanel_Content {
     margin: 10px 1px 0;
   }
-  
+
   .AnchorPanel_header {
     margin-left: 0;
     margin-bottom: 7px;
@@ -149,12 +156,12 @@
   .AnchorPanel_emptyStateContainer {
     align-self: flex-start;
     margin: 80px 35px 0 35px;
-  
-    .AnchorPanel_emptyStateTitle{
+
+    .AnchorPanel_emptyStateTitle {
       font-size: 14px;
     }
-  
-    .AnchorPanel_emptyStateText{
+
+    .AnchorPanel_emptyStateText {
       font-size: 14px;
     }
   }

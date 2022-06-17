@@ -318,7 +318,10 @@
             "indentation": 0
           }
         }
-      ]
+      ],
+      "blockquoteData": {
+        "indentation": 0
+      }
     },
     {
       "type": "ORDERED_LIST",
@@ -375,12 +378,12 @@
                         "textStyle": {
                           "textAlignment": "AUTO"
                         },
-                        "indentation": 1
+                        "indentation": 0
                       }
                     },
                     {
                       "type": "ORDERED_LIST",
-                      "id": "573l3",
+                      "id": "wxddsnbbxa7nb851",
                       "nodes": [
                         {
                           "type": "LIST_ITEM",
@@ -388,7 +391,7 @@
                           "nodes": [
                             {
                               "type": "PARAGRAPH",
-                              "id": "1m3u3",
+                              "id": "vomia45",
                               "nodes": [
                                 {
                                   "type": "TEXT",
@@ -404,12 +407,12 @@
                                 "textStyle": {
                                   "textAlignment": "AUTO"
                                 },
-                                "indentation": 2
+                                "indentation": 0
                               }
                             },
                             {
                               "type": "ORDERED_LIST",
-                              "id": "aup55",
+                              "id": "8ts38nbbxa7nb850",
                               "nodes": [
                                 {
                                   "type": "LIST_ITEM",
@@ -417,7 +420,7 @@
                                   "nodes": [
                                     {
                                       "type": "PARAGRAPH",
-                                      "id": "fo4tm",
+                                      "id": "z1kdr46",
                                       "nodes": [
                                         {
                                           "type": "TEXT",
@@ -433,12 +436,12 @@
                                         "textStyle": {
                                           "textAlignment": "AUTO"
                                         },
-                                        "indentation": 3
+                                        "indentation": 0
                                       }
                                     },
                                     {
                                       "type": "ORDERED_LIST",
-                                      "id": "6n0bp",
+                                      "id": "nizdnnbbxa7nb849",
                                       "nodes": [
                                         {
                                           "type": "LIST_ITEM",
@@ -446,7 +449,7 @@
                                           "nodes": [
                                             {
                                               "type": "PARAGRAPH",
-                                              "id": "fhpmo",
+                                              "id": "jjaur47",
                                               "nodes": [
                                                 {
                                                   "type": "TEXT",
@@ -462,7 +465,7 @@
                                                 "textStyle": {
                                                   "textAlignment": "AUTO"
                                                 },
-                                                "indentation": 4
+                                                "indentation": 0
                                               }
                                             }
                                           ]
@@ -473,7 +476,7 @@
                                           "nodes": [
                                             {
                                               "type": "PARAGRAPH",
-                                              "id": "7m97e",
+                                              "id": "64ufh48",
                                               "nodes": [
                                                 {
                                                   "type": "TEXT",
@@ -489,24 +492,36 @@
                                                 "textStyle": {
                                                   "textAlignment": "AUTO"
                                                 },
-                                                "indentation": 4
+                                                "indentation": 0
                                               }
                                             }
                                           ]
                                         }
-                                      ]
+                                      ],
+                                      "orderedListData": {
+                                        "indentation": 4
+                                      }
                                     }
                                   ]
                                 }
-                              ]
+                              ],
+                              "orderedListData": {
+                                "indentation": 3
+                              }
                             }
                           ]
                         }
-                      ]
+                      ],
+                      "orderedListData": {
+                        "indentation": 2
+                      }
                     }
                   ]
                 }
-              ]
+              ],
+              "orderedListData": {
+                "indentation": 1
+              }
             }
           ]
         },
@@ -516,7 +531,7 @@
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "id": "8tj53",
+              "id": "neigx53",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -537,7 +552,7 @@
             },
             {
               "type": "BULLETED_LIST",
-              "id": "ft6r4",
+              "id": "dc2cbnbbxa7nb855",
               "nodes": [
                 {
                   "type": "LIST_ITEM",
@@ -545,7 +560,7 @@
                   "nodes": [
                     {
                       "type": "PARAGRAPH",
-                      "id": "617q5",
+                      "id": "0eayh54",
                       "nodes": [
                         {
                           "type": "TEXT",
@@ -561,12 +576,15 @@
                         "textStyle": {
                           "textAlignment": "AUTO"
                         },
-                        "indentation": 1
+                        "indentation": 0
                       }
                     }
                   ]
                 }
-              ]
+              ],
+              "bulletedListData": {
+                "indentation": 1
+              }
             }
           ]
         },
@@ -576,7 +594,7 @@
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "id": "7t7d1",
+              "id": "tpmrm56",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -597,7 +615,10 @@
             }
           ]
         }
-      ]
+      ],
+      "orderedListData": {
+        "indentation": 0
+      }
     },
     {
       "type": "PARAGRAPH",
@@ -612,7 +633,7 @@
     },
     {
       "type": "BULLETED_LIST",
-      "id": "f3tet",
+      "id": "whhs8nbbxa7nb871",
       "nodes": [
         {
           "type": "LIST_ITEM",
@@ -620,7 +641,7 @@
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "id": "avf4g",
+              "id": "aua5059",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -641,7 +662,7 @@
             },
             {
               "type": "BULLETED_LIST",
-              "id": "dl8e2",
+              "id": "i6l3anbbxa7nb868",
               "nodes": [
                 {
                   "type": "LIST_ITEM",
@@ -649,7 +670,7 @@
                   "nodes": [
                     {
                       "type": "PARAGRAPH",
-                      "id": "4p5tt",
+                      "id": "36cmj60",
                       "nodes": [
                         {
                           "type": "TEXT",
@@ -665,12 +686,12 @@
                         "textStyle": {
                           "textAlignment": "AUTO"
                         },
-                        "indentation": 1
+                        "indentation": 0
                       }
                     },
                     {
                       "type": "BULLETED_LIST",
-                      "id": "f0cmd",
+                      "id": "j5yrwnbbxa7nb867",
                       "nodes": [
                         {
                           "type": "LIST_ITEM",
@@ -678,7 +699,7 @@
                           "nodes": [
                             {
                               "type": "PARAGRAPH",
-                              "id": "8or1i",
+                              "id": "44znu61",
                               "nodes": [
                                 {
                                   "type": "TEXT",
@@ -694,12 +715,12 @@
                                 "textStyle": {
                                   "textAlignment": "AUTO"
                                 },
-                                "indentation": 2
+                                "indentation": 0
                               }
                             },
                             {
                               "type": "BULLETED_LIST",
-                              "id": "4j9uc",
+                              "id": "av5zpnbbxa7nb866",
                               "nodes": [
                                 {
                                   "type": "LIST_ITEM",
@@ -707,7 +728,7 @@
                                   "nodes": [
                                     {
                                       "type": "PARAGRAPH",
-                                      "id": "5dtrd",
+                                      "id": "wc4y162",
                                       "nodes": [
                                         {
                                           "type": "TEXT",
@@ -723,12 +744,12 @@
                                         "textStyle": {
                                           "textAlignment": "AUTO"
                                         },
-                                        "indentation": 3
+                                        "indentation": 0
                                       }
                                     },
                                     {
                                       "type": "BULLETED_LIST",
-                                      "id": "12vhi",
+                                      "id": "2g2d3nbbxa7nb865",
                                       "nodes": [
                                         {
                                           "type": "LIST_ITEM",
@@ -736,7 +757,7 @@
                                           "nodes": [
                                             {
                                               "type": "PARAGRAPH",
-                                              "id": "7ih2p",
+                                              "id": "9ek5863",
                                               "nodes": [
                                                 {
                                                   "type": "TEXT",
@@ -752,7 +773,7 @@
                                                 "textStyle": {
                                                   "textAlignment": "AUTO"
                                                 },
-                                                "indentation": 4
+                                                "indentation": 0
                                               }
                                             }
                                           ]
@@ -763,7 +784,7 @@
                                           "nodes": [
                                             {
                                               "type": "PARAGRAPH",
-                                              "id": "766la",
+                                              "id": "zbrf764",
                                               "nodes": [
                                                 {
                                                   "type": "TEXT",
@@ -779,24 +800,36 @@
                                                 "textStyle": {
                                                   "textAlignment": "AUTO"
                                                 },
-                                                "indentation": 4
+                                                "indentation": 0
                                               }
                                             }
                                           ]
                                         }
-                                      ]
+                                      ],
+                                      "bulletedListData": {
+                                        "indentation": 4
+                                      }
                                     }
                                   ]
                                 }
-                              ]
+                              ],
+                              "bulletedListData": {
+                                "indentation": 3
+                              }
                             }
                           ]
                         }
-                      ]
+                      ],
+                      "bulletedListData": {
+                        "indentation": 2
+                      }
                     }
                   ]
                 }
-              ]
+              ],
+              "bulletedListData": {
+                "indentation": 1
+              }
             }
           ]
         },
@@ -806,7 +839,7 @@
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "id": "5rv8o",
+              "id": "ycv4c69",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -833,7 +866,7 @@
           "nodes": [
             {
               "type": "PARAGRAPH",
-              "id": "6jii3",
+              "id": "v72f570",
               "nodes": [
                 {
                   "type": "TEXT",
@@ -854,7 +887,10 @@
             }
           ]
         }
-      ]
+      ],
+      "bulletedListData": {
+        "indentation": 0
+      }
     },
     {
       "type": "PARAGRAPH",
@@ -885,7 +921,8 @@
         "level": 3,
         "textStyle": {
           "textAlignment": "JUSTIFY"
-        }
+        },
+        "indentation": 0
       }
     },
     {
@@ -988,8 +1025,9 @@
   ],
   "metadata": {
     "version": 1,
-    "createdTimestamp": "2021-08-05T10:40:15.682Z",
-    "updatedTimestamp": "2021-08-05T10:40:15.682Z",
+    "createdTimestamp": "2022-03-17T08:21:25.996Z",
+    "updatedTimestamp": "2022-03-17T08:21:25.996Z",
     "id": "test-uid"
-  }
+  },
+  "documentStyle": {}
 }

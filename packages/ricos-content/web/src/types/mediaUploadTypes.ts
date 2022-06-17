@@ -1,3 +1,6 @@
+import type { FileData_PDFSettings, AudioData as AudioComponentData } from 'ricos-schema';
+export { AudioComponentData };
+
 export enum MediaUploadErrorKey {
   GENERIC,
   SIZE_LIMIT,
@@ -45,7 +48,7 @@ export enum MediaUploadErrorKey {
 
 export interface MediaUploadError {
   msg?: string | JSX.Element;
-  key?: MediaUploadErrorKey;
+  key?: number | MediaUploadErrorKey;
   args?: Record<string, string | number>;
 }
 
@@ -82,10 +85,14 @@ export interface VideoComponentData {
 
 export type MediaPrivacy = 'public' | 'private';
 
+export interface PDFSettings extends FileData_PDFSettings {}
+
 export interface FileComponentData {
   name: string;
   type: string;
   url?: string;
   id?: string;
+  size?: string | number;
   privacy?: MediaPrivacy;
+  pdfSettings?: PDFSettings;
 }

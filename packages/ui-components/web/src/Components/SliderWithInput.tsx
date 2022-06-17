@@ -1,7 +1,9 @@
-import React, { Component, InputHTMLAttributes } from 'react';
+import type { InputHTMLAttributes } from 'react';
+import React, { Component } from 'react';
 import { debounce, isNumber } from 'lodash';
 import Label from './Label';
-import { mergeStyles, RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import type { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import Slider from './Slider';
 import styles from '../../statics/styles/slider-with-input.scss';
 import infoIconStyles from '../../statics/styles/info-icon.scss';
@@ -96,7 +98,7 @@ class SliderWithInput extends Component<SliderWithInputProps> {
             value={inputValue}
             dataHook={sliderDataHook}
             onChange={this.handleSliderChange}
-            onSubmit={this.submitInputValue}
+            onChangeCommitted={this.submitInputValue}
             min={min}
             max={max}
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment

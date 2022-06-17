@@ -17,7 +17,12 @@ import innerWithUnsupported from './inner-rce-with-unsupported-styling.json';
 import innerWithUnsupportedMigrated from './inner-rce-with-unsupported-styling-migrated.json';
 import faultyLinkValues from './faulty-link-values.json';
 import faultyLinkValuesMigrated from './faulty-link-values-migrated.json';
+import faultyBlockValues from './faulty-block-values.json';
+import faultyBlockValuesMigrated from './faulty-block-values-migrated.json';
+import faultyDividerValues from './faulty-divider-values.json';
+import faultyDividerValuesMigrated from './faulty-divider-values-migrated.json';
 import polyfills from '../../../../../../../../e2e/tests/fixtures/polyfills.json';
+import oldImageFormat from '../../../../../../../../e2e/tests/fixtures/old-image-format.json';
 import { getTextNodes } from '../getTextNodes';
 import complexRicosFixture from '../../../../../statics/json/migratedFixtures/migration-content.json';
 import {
@@ -31,6 +36,9 @@ import {
 } from 'ricos-schema';
 import { convertBlockDataToRicos } from '../convertRicosPluginData';
 import { IMAGE_TYPE, FILE_UPLOAD_TYPE, WRAP } from '../../../../consts';
+
+import emojiWithInlineStyleRicos from './emojiWithInlineStyleRicos.json';
+import emojiWithInlineStyleDraft from './emojiWithInlineStyleDraft.json';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const filterIds = objArr => objArr.map(({ id, ...rest }) => rest); //disable
@@ -319,6 +327,9 @@ describe('migrate from draft', () => {
               ],
             },
           ],
+          orderedListData: {
+            indentation: 0,
+          },
         },
       ],
       metadata: {
@@ -326,6 +337,70 @@ describe('migrate from draft', () => {
         createdTimestamp: '2021-06-06T11:42:01.065Z',
         updatedTimestamp: '2021-06-06T11:42:01.065Z',
       },
+    };
+    expect(
+      compare(fromDraft(draftContent), RichContent.fromJSON(expected), {
+        ignoredKeys: ['id'],
+      })
+    ).toEqual({});
+  });
+
+  it('should convert blockquote correctly', () => {
+    const draftContent = {
+      blocks: [
+        {
+          key: '5lrjt',
+          text: 'asdsadasd',
+          type: 'blockquote',
+          depth: 4,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        },
+      ],
+      entityMap: {},
+      documentStyle: {},
+      VERSION: '8.70.20',
+      ID: '06198048-7c9f-4be1-b495-32722fbddf8a',
+    };
+    const expected = {
+      nodes: [
+        {
+          type: 'BLOCKQUOTE',
+          id: '5lrjt',
+          nodes: [
+            {
+              type: 'PARAGRAPH',
+              id: '62kaz3',
+              nodes: [
+                {
+                  type: 'TEXT',
+                  id: '',
+                  nodes: [],
+                  textData: {
+                    text: 'asdsadasd',
+                    decorations: [],
+                  },
+                },
+              ],
+              paragraphData: {
+                textStyle: {
+                  textAlignment: 'AUTO',
+                },
+                indentation: 0,
+              },
+            },
+          ],
+          blockquoteData: { indentation: 4 },
+        },
+      ],
+      metadata: {
+        version: 1,
+        createdTimestamp: '2022-03-21T14:13:07.937Z',
+        updatedTimestamp: '2022-03-21T14:13:07.937Z',
+        id: '06198048-7c9f-4be1-b495-32722fbddf8a',
+      },
+      documentStyle: {},
     };
     expect(
       compare(fromDraft(draftContent), RichContent.fromJSON(expected), {
@@ -394,6 +469,305 @@ describe('migrate from draft', () => {
     const converted = fromDraft(faultyLinkValues, { ignoreUnsupportedValues: true });
     expect(
       compare(converted, RichContent.fromJSON(faultyLinkValuesMigrated), {
+        ignoredKeys: ['id'],
+      })
+    ).toEqual({});
+  });
+
+  it('should convert faulty blocks content correctly', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const converted = fromDraft(faultyBlockValues, { ignoreUnsupportedValues: true });
+    expect(
+      compare(converted, RichContent.fromJSON(faultyBlockValuesMigrated), {
+        ignoredKeys: ['id'],
+      })
+    ).toEqual({});
+  });
+
+  it('should convert faulty divider content correctly', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const converted = fromDraft(faultyDividerValues, { ignoreUnsupportedValues: true });
+    expect(
+      compare(converted, RichContent.fromJSON(faultyDividerValuesMigrated), {
+        ignoredKeys: ['id'],
+      })
+    ).toEqual({});
+  });
+
+  it('should convert list nodes correctly', () => {
+    const draftContent = {
+      blocks: [
+        {
+          key: 'foo',
+          text: 'AAA',
+          type: 'ordered-list-item',
+          depth: 0,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        },
+        {
+          key: 'bquqe',
+          text: 'BBB',
+          type: 'ordered-list-item',
+          depth: 1,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        },
+        {
+          key: '641f',
+          text: 'CCC',
+          type: 'ordered-list-item',
+          depth: 1,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        },
+        {
+          key: '7mcq2',
+          text: 'DDD',
+          type: 'ordered-list-item',
+          depth: 0,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {},
+        },
+      ],
+      entityMap: {},
+      documentStyle: {},
+      VERSION: '8.70.19',
+      ID: '60c2c68e-d169-4084-aaf7-ec7fe883a600',
+    };
+
+    const expected = {
+      nodes: [
+        {
+          type: 'ORDERED_LIST',
+          id: '9kc0kh68v571e424',
+          nodes: [
+            {
+              type: 'LIST_ITEM',
+              id: 'foo',
+              nodes: [
+                {
+                  type: 'PARAGRAPH',
+                  id: '6qzay19',
+                  nodes: [
+                    {
+                      type: 'TEXT',
+                      id: '',
+                      nodes: [],
+                      textData: {
+                        text: 'AAA',
+                        decorations: [],
+                      },
+                    },
+                  ],
+                  paragraphData: {
+                    textStyle: {
+                      textAlignment: 'AUTO',
+                    },
+                    indentation: 0,
+                  },
+                },
+                {
+                  type: 'ORDERED_LIST',
+                  id: '6ifqkh68v571e422',
+                  nodes: [
+                    {
+                      type: 'LIST_ITEM',
+                      id: 'bquqe',
+                      nodes: [
+                        {
+                          type: 'PARAGRAPH',
+                          id: 'kafw920',
+                          nodes: [
+                            {
+                              type: 'TEXT',
+                              id: '',
+                              nodes: [],
+                              textData: {
+                                text: 'BBB',
+                                decorations: [],
+                              },
+                            },
+                          ],
+                          paragraphData: {
+                            textStyle: {
+                              textAlignment: 'AUTO',
+                            },
+                            indentation: 0,
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      type: 'LIST_ITEM',
+                      id: '641f',
+                      nodes: [
+                        {
+                          type: 'PARAGRAPH',
+                          id: 'v46b921',
+                          nodes: [
+                            {
+                              type: 'TEXT',
+                              id: '',
+                              nodes: [],
+                              textData: {
+                                text: 'CCC',
+                                decorations: [],
+                              },
+                            },
+                          ],
+                          paragraphData: {
+                            textStyle: {
+                              textAlignment: 'AUTO',
+                            },
+                            indentation: 0,
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                  orderedListData: { indentation: 1 },
+                },
+              ],
+            },
+            {
+              type: 'LIST_ITEM',
+              id: '7mcq2',
+              nodes: [
+                {
+                  type: 'PARAGRAPH',
+                  id: 'ccita23',
+                  nodes: [
+                    {
+                      type: 'TEXT',
+                      id: '',
+                      nodes: [],
+                      textData: {
+                        text: 'DDD',
+                        decorations: [],
+                      },
+                    },
+                  ],
+                  paragraphData: {
+                    textStyle: {
+                      textAlignment: 'AUTO',
+                    },
+                    indentation: 0,
+                  },
+                },
+              ],
+            },
+          ],
+          orderedListData: { indentation: 0 },
+        },
+      ],
+      metadata: {
+        version: 1,
+        createdTimestamp: '2022-03-16T11:20:53.697Z',
+        updatedTimestamp: '2022-03-16T11:20:53.697Z',
+        id: '60c2c68e-d169-4084-aaf7-ec7fe883a600',
+      },
+      documentStyle: {},
+    };
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const converted = fromDraft(draftContent, { ignoreUnsupportedValues: true });
+    expect(
+      compare(converted, RichContent.fromJSON(expected), {
+        ignoredKeys: ['id'],
+      })
+    ).toEqual({});
+  });
+
+  it('should convert with emoji', () => {
+    const content = fromDraft(emojiWithInlineStyleDraft);
+    expect(
+      compare(content, RichContent.fromJSON(emojiWithInlineStyleRicos), {
+        ignoredKeys: ['ID'],
+      })
+    ).toEqual({});
+  });
+
+  it('should convert legacy image data correctly', () => {
+    const expected = {
+      nodes: [
+        {
+          type: 'PARAGRAPH',
+          id: '13iji',
+          nodes: [
+            {
+              type: 'TEXT',
+              id: '',
+              nodes: [],
+              textData: {
+                text: 'Test',
+                decorations: [],
+              },
+            },
+          ],
+          paragraphData: {
+            textStyle: {
+              textAlignment: 'AUTO',
+            },
+            indentation: 0,
+          },
+        },
+        {
+          type: 'IMAGE',
+          id: 'a8q8p',
+          nodes: [],
+          imageData: {
+            image: {
+              src: {
+                id: '212af3_8337022e2b2f4e1c8b1e602ad9016dac~mv2.jpg',
+              },
+              width: 1080,
+              height: 708,
+            },
+          },
+        },
+        {
+          type: 'IMAGE',
+          id: '1khfq',
+          nodes: [],
+          imageData: {
+            image: {
+              src: {
+                // eslint-disable-next-line max-len
+                url: '//static.wixstatic.com/media/9916f5_f3a135d986354da09522bd288f51d4a6~mv2.jpg/v1/fill/w_626,h_417/9916f5_f3a135d986354da09522bd288f51d4a6~mv2.jpg',
+              },
+              width: 626,
+              height: 417,
+            },
+          },
+        },
+        {
+          type: 'PARAGRAPH',
+          id: '9sb1r',
+          nodes: [],
+          paragraphData: {
+            textStyle: {
+              textAlignment: 'AUTO',
+            },
+            indentation: 0,
+          },
+        },
+      ],
+      metadata: {
+        version: 1,
+        createdTimestamp: '2022-05-30T08:00:04.297Z',
+        updatedTimestamp: '2022-05-30T08:00:04.297Z',
+        id: '8d5b9a02-65d6-4771-ae56-9548c87ebf9a',
+      },
+    };
+    expect(
+      compare(fromDraft(oldImageFormat), RichContent.fromJSON(expected), {
         ignoredKeys: ['id'],
       })
     ).toEqual({});

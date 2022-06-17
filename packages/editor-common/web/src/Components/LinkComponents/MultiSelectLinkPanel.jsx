@@ -68,7 +68,7 @@ class MultiSelectLinkPanel extends PureComponent {
   renderMultiSelectActions = () => {
     const { isMobile, buttonsProps, t } = this.props;
     return (
-      <div className={isMobile && styles.multiSelectLinkPanel_actionsWrapper_mobile}>
+      <div className={isMobile ? styles.multiSelectLinkPanel_actionsWrapper_mobile : null}>
         {isMobile ? (
           <div>
             <SettingsMobileHeader {...buttonsProps} title={t('MobileLinkModal_Title')} />

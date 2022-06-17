@@ -1,3 +1,5 @@
+@import '~wix-rich-content-common/dist/statics/styles/palette';
+
 .card {
   .link {
     cursor: default;
@@ -68,13 +70,17 @@
       display: flex;
       justify-content: center;
       height: 40px;
-
-      &:hover {
-        opacity: 0.7;
-        cursor: pointer;
+      &.button_disabled {
+        background-color: $ricos-disabled-color;
       }
-      &:focus {
-        opacity: 0.7;
+      &:not(.button_disabled) {
+        &:hover {
+          opacity: 0.7;
+          cursor: pointer;
+        }
+        &:focus {
+          opacity: 0.7;
+        }
       }
     }
 

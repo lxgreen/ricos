@@ -1,8 +1,9 @@
 import { createBasePlugin } from 'wix-rich-content-plugin-commons';
-import { VERTICAL_EMBED_TYPE, VerticalEmbedPluginEditorConfig } from './types';
-import VerticalEmbedComponent from './components/vertical-embed-component';
+import type { VerticalEmbedPluginEditorConfig } from './types';
+import { VERTICAL_EMBED_TYPE } from './types';
+import VerticalEmbedComponent from './vertical-embed-component';
 import createToolbar from './toolbar/createToolbar';
-import { CreatePluginFunction } from 'wix-rich-content-common';
+import type { CreatePluginFunction } from 'wix-rich-content-common';
 
 const createVerticalEmbedPlugin: CreatePluginFunction<VerticalEmbedPluginEditorConfig> = config => {
   const type = VERTICAL_EMBED_TYPE;

@@ -1,7 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 import styles from '../statics/styles/adsense.scss';
 import { InfoIcon } from 'wix-rich-content-ui-components';
-import { TranslationFunction } from 'wix-rich-content-common';
+import type { TranslationFunction } from 'wix-rich-content-common';
 
 const AdsenseTitle: FunctionComponent<{ t: TranslationFunction }> = ({ t }) => {
   return (

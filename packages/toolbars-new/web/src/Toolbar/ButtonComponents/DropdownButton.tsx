@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component } from 'react';
 import ClickOutside from 'react-click-outsider';
-import ToolbarButton, { ToolbarButtonType } from '../ToolbarButton';
-import { RichContentTheme } from 'wix-rich-content-common';
+import type { ToolbarButtonType } from '../ToolbarButton';
+import ToolbarButton from '../ToolbarButton';
+import type { RichContentTheme } from 'wix-rich-content-common';
 
 interface DropdownButtonProps {
   isMobile: boolean;

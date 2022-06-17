@@ -2,8 +2,8 @@ import { BUTTONS, PluginSettingsIcon } from 'wix-rich-content-plugin-commons';
 import { getModalStyles, decorateComponentWithProps } from 'wix-rich-content-editor-common';
 import { Modals } from '../modals';
 import ButtonInputModal from './buttonInputModal';
-import { CreateInlineButtons, RelValue, AnchorTarget } from 'wix-rich-content-common';
-import { ButtonPluginEditorConfig, ACTION_BUTTON_TYPE } from '../types';
+import type { CreateInlineButtons, RelValue, AnchorTarget } from 'wix-rich-content-common';
+import type { ButtonPluginEditorConfig, ACTION_BUTTON_TYPE, LINK_BUTTON_TYPE } from '../types';
 
 const DesktopCustomModalStyles = {
   content: {
@@ -22,14 +22,16 @@ const createInlineButtons: CreateInlineButtons = ({
   isMobile,
   relValue,
   anchorTarget,
+  type,
 }: {
   settings: ButtonPluginEditorConfig;
   isMobile: boolean;
   relValue: RelValue;
   anchorTarget: AnchorTarget;
+  type: typeof LINK_BUTTON_TYPE | typeof ACTION_BUTTON_TYPE;
 }) => {
   const customStyles = isMobile ? MobileFullScreenCustomStyle : DesktopCustomModalStyles;
-  const icon = settings?.toolbar?.icons?.['advanced_settings'] || PluginSettingsIcon;
+  const icon = settings?.toolbar?.icons?.advanced_settings || PluginSettingsIcon;
   return [
     { keyName: 'alignLeft', type: BUTTONS.ALIGN_LEFT, mobile: false },
     { keyName: 'alignCenter', type: BUTTONS.ALIGN_CENTER, mobile: false },
@@ -51,7 +53,7 @@ const createInlineButtons: CreateInlineButtons = ({
       triggerSettingsBi: true,
       relValue,
       anchorTarget,
-      pluginId: ACTION_BUTTON_TYPE,
+      pluginId: type,
     },
     { keyName: 'delete', type: BUTTONS.DELETE, mobile: true },
   ];

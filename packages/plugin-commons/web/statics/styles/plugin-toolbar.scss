@@ -1,6 +1,7 @@
 @import '~wix-rich-content-common/dist/statics/styles/consts';
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
+@import '~wix-rich-content-common/dist/statics/styles/fonts';
 
 $MARGIN_LEFT: 10px;
 
@@ -19,6 +20,7 @@ $MARGIN_LEFT: 10px;
   transition: transform 0.15s cubic-bezier(0.3, 1.2, 0.2, 1);
   direction: ltr;
   margin-left: $MARGIN_LEFT;
+  font-family: $ricos-settings-font-family;
 
   &.overflowToolbar {
     max-width: unset;

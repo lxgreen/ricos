@@ -8,7 +8,7 @@ import {
 import TextSpoilerButton from './TextSpoilerButton';
 import { SPOILER_TYPE } from '../types';
 import { SpoilerButtonIcon } from 'wix-rich-content-plugin-commons';
-import {
+import type {
   CreatePluginToolbar,
   TranslationFunction,
   GetEditorState,
@@ -45,14 +45,8 @@ const createToolbar: CreatePluginToolbar = ({
             }),
           onClick: () =>
             setEditorState(RichUtils.toggleInlineStyle(getEditorState(), SPOILER_TYPE)),
-          isActive: () =>
-            getEditorState()
-              .getCurrentInlineStyle()
-              .has(SPOILER_TYPE),
-          isDisabled: () =>
-            getEditorState()
-              .getSelection()
-              .isCollapsed(),
+          isActive: () => getEditorState().getCurrentInlineStyle().has(SPOILER_TYPE),
+          isDisabled: () => getEditorState().getSelection().isCollapsed(),
         },
       },
     }),

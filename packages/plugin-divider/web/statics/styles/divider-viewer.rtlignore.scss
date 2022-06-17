@@ -66,3 +66,10 @@
     width: inherit;
   }
 }
+
+.svgFixerContainer {
+  height: 100%;
+  .emptyChar {
+    height: 1px;
+  }
+}

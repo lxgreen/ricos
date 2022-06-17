@@ -1,12 +1,11 @@
-import React, { ComponentType } from 'react';
+import type { ComponentType } from 'react';
+import React from 'react';
 import { INTERACTIONS } from 'ricos-content/libs/preview';
 import ReadMore from '../Components/ReadMore';
 import SeeFullPost from '../Components/SeeFullPost';
 import ImageCounter from '../Components/ImageCounter';
-import { PreviewConfig } from '..';
-interface GenericInteractionProps extends Record<string, unknown> {
-  onPreviewExpand: PreviewConfig['onPreviewExpand'];
-}
+import type { PreviewConfig } from '..';
+
 export const interactionMap = (onPreviewExpand: PreviewConfig['onPreviewExpand']) =>
   Object.entries({
     [INTERACTIONS.READ_MORE]: ReadMore,

@@ -1,7 +1,10 @@
 const nodeExternals = require('webpack-node-externals');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HappyPack = require('happypack');
 const path = require('path');
+const DotenvWebpackPlugin = require('dotenv-webpack');
+const esbuild = require('esbuild');
+
+const monorepo_root = path.join(__dirname, '..', '..');
 
 const output = {
   path: path.resolve(__dirname, 'dist/'),
@@ -26,15 +29,24 @@ const common = {
   },
 };
 
-const babelRule = {
-  test: /\.js(x)?$/,
-  exclude: /node_modules/,
-  use: {
-    loader: 'babel-loader',
-    options: {
-      compact: true,
-      rootMode: 'upward',
-    },
+const jsRule = {
+  test: /\.js$/,
+  include: path.resolve(__dirname, 'src'),
+  loader: 'esbuild-loader',
+  options: {
+    loader: 'jsx',
+    target: 'esnext',
+    implementation: esbuild,
+  },
+};
+
+const tsRule = {
+  test: /\.tsx?$/,
+  loader: 'esbuild-loader',
+  options: {
+    loader: 'tsx',
+    target: 'esnext',
+    implementation: esbuild,
   },
 };
 
@@ -63,79 +75,70 @@ const urlRule = {
   use: ['url-loader'],
 };
 
-const typescriptRule = {
-  test: /\.tsx?$/,
-  exclude: /node_modules/,
-  loader: 'happypack/loader?id=ts',
+const commonPlugins = [
+  new DotenvWebpackPlugin({
+    path: path.resolve(monorepo_root, '.env'),
+  }),
+];
+
+const clientConfig = {
+  ...common,
+  name: 'client',
+  entry: {
+    index: './src/client/index',
+  },
+  output,
+  plugins: [...commonPlugins],
+  module: {
+    rules: [
+      jsRule,
+      tsRule,
+      scssRule({
+        loader: 'style-loader',
+      }),
+      urlRule,
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
 };
 
-const happyPackPlugin = new HappyPack({
-  id: 'ts',
-  loaders: [
-    {
-      path: 'ts-loader',
-      query: { happyPackMode: true },
-    },
+const serverConfig = {
+  ...common,
+  name: 'server',
+  entry: {
+    renderer: './src/server/renderer',
+  },
+  output: {
+    ...output,
+    libraryTarget: 'commonjs2',
+    publicPath: '/static/',
+  },
+  target: 'node',
+  externals: [nodeExternals({ allowlist: [/.css/, /^wix-rich-content/, /^ricos-/] })],
+  plugins: [
+    ...commonPlugins,
+    new MiniCssExtractPlugin({
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+    }),
   ],
-});
-
-const config = [
-  {
-    ...common,
-    name: 'client',
-    entry: {
-      index: './src/client/index',
-    },
-    output,
-    plugins: [happyPackPlugin],
-    module: {
-      rules: [
-        babelRule,
-        scssRule({
-          loader: 'style-loader',
-        }),
-        urlRule,
-        {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
-        },
-        typescriptRule,
-      ],
-    },
-  },
-  {
-    ...common,
-    name: 'server',
-    entry: {
-      renderer: './src/server/renderer',
-    },
-    output: {
-      ...output,
-      libraryTarget: 'commonjs2',
-      publicPath: '/static/',
-    },
-    target: 'node',
-    externals: [nodeExternals({ whitelist: [/.css/, /^wix-rich-content/] })],
-    plugins: [
-      new MiniCssExtractPlugin({
-        filename: '[name].css',
-        chunkFilename: '[id].css',
-      }),
-      happyPackPlugin,
+  module: {
+    rules: [
+      jsRule,
+      tsRule,
+      scssRule(MiniCssExtractPlugin.loader),
+      urlRule,
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
     ],
-    module: {
-      rules: [
-        babelRule,
-        scssRule(MiniCssExtractPlugin.loader),
-        urlRule,
-        {
-          test: /\.css$/,
-          use: [MiniCssExtractPlugin.loader, 'css-loader'],
-        },
-        typescriptRule,
-      ],
-    },
   },
-];
+};
+
+const config = [clientConfig, serverConfig];
 
 module.exports = config;

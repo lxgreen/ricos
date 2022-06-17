@@ -1,4 +1,4 @@
-import {
+import type {
   PluginTypeMapper,
   CreatePluginFunction,
   ModalsMap,
@@ -6,7 +6,7 @@ import {
   EditorPlugin,
   InlineStyleMapper,
   CreatePluginsDataMap,
-} from 'wix-rich-content-common';
+} from 'ricos-types';
 
 export type BasePlugin = EditorPlugin & ViewerPlugin;
 

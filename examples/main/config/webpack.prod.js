@@ -1,23 +1,23 @@
 /* eslint-disable */
 const merge = require('webpack-merge').merge;
-const TerserPlugin = require('terser-webpack-plugin');
+const { ESBuildMinifyPlugin } = require('esbuild-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+const path = require('path');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const prodConfig = {
   mode: 'production',
+  devtool: 'eval-source-map',
   module: {
     rules: [
       {
-        test: /\.js(x)?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            compact: true,
-            rootMode: 'upward',
-          },
+        test: /\.jsx?$/,
+        include: path.resolve(__dirname, '../src'),
+        loader: 'esbuild-loader',
+        options: {
+          loader: 'jsx',
+          target: 'es6',
         },
       },
       {
@@ -46,7 +46,12 @@ const prodConfig = {
     }),
   ],
   optimization: {
-    minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin({})],
+    minimizer: [
+      new ESBuildMinifyPlugin({
+        target: 'es2015', // Syntax to compile to (see options below for possible values)
+        css: true, // Apply minification to CSS assets
+      }),
+    ],
   },
 };
 

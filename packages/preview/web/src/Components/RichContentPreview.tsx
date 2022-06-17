@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { RichContentViewer, RichContentViewerProps } from 'wix-rich-content-viewer';
-import { mergeStyles, DraftContent } from 'wix-rich-content-common';
+import type { RichContentViewerProps } from 'wix-rich-content-viewer';
+import { RichContentViewer } from 'wix-rich-content-viewer';
+import type { DraftContent } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import { interactionMap } from '../Interactions/interactionMap';
 import { defaultTransformation } from './default-transformation';
-import { ContentStateTransformation } from 'ricos-content/libs/preview';
+import type { ContentStateTransformation } from 'ricos-content/libs/preview';
 import styles from '../../statics/styles/preview.scss';
 import { merge } from 'lodash';
 

@@ -1,9 +1,10 @@
-import { TestAppConfig } from '../../examples/main/src/types';
+import type { TestAppConfig } from '../../examples/main/src/types';
 import { usePlugins, plugins, useConsumerTheming } from '../cypress/testAppConfig';
 
 export interface FixtureConfig {
   fixture: string;
   config?: TestAppConfig;
+  label?: string;
   additionalCommands?: (cy: Cypress.cy) => void;
 }
 
@@ -25,7 +26,7 @@ export const fixtures: Fixture[] = [
   // {
   //   fixture: 'facebook-video',
   //   additionalCommands: cy => {
-  //     cy.waitForVideoToLoad();
+  //     cy.waitForMediaToLoad();
   //     cy.wait(200);
   //   },
   // },
@@ -65,26 +66,24 @@ export const fixtures: Fixture[] = [
   },
   {
     fixture: 'blog-fixture',
+    label: 'blog fixture - apply outer style',
     config: useConsumerTheming('blog', true),
   },
   {
     fixture: 'blog-fixture',
+    label: 'blog fixture',
     config: useConsumerTheming('blog'),
   },
   {
     fixture: 'poll',
     config: usePlugins(plugins.poll),
   },
+  {
+    fixture: 'audio-layouts',
+    config: usePlugins(plugins.audio),
+  },
   'nowrap-plugins-and-text',
 ];
 
 export const fixturesToTestOnSeo: Fixture[] = ['images'];
-
-export const DEFAULT_DESKTOP_BROWSERS: Eyes.Open.Options['browser'] = [
-  { width: 1440, height: 900, name: 'chrome' },
-];
-
-export const DEFAULT_MOBILE_BROWSERS: Eyes.Open.Options['browser'] = [
-  { deviceName: 'iPhone X' },
-  { deviceName: 'iPad' },
-];
+export const DEFAULT_MOBILE_WIDTHS = { widths: [375, 768] };

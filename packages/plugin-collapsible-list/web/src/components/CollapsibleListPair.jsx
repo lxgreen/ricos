@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { mergeStyles, anchorScroll, GlobalContext } from 'wix-rich-content-common';
+import { mergeStyles, anchorScroll } from 'wix-rich-content-common';
 import ExpandCollapseButton from './ExpandCollapseButton';
 import styles from '../../statics/styles/collapsible-list-pair.rtlignore.scss';
 import { COLLAPSIBLE_LIST_TYPE } from '../types';
@@ -14,8 +14,6 @@ class CollapsibleListPair extends Component {
     this.contentEditorRef = React.createRef();
     this.pairRef = React.createRef();
   }
-
-  static contextType = GlobalContext;
 
   focusTitle = () => this.titleEditorRef.current?.focus();
 
@@ -48,7 +46,7 @@ class CollapsibleListPair extends Component {
     if (!isInEditor) {
       e.preventDefault();
       // Let scrolling begin after pair is rendered
-      setTimeout(() => anchorScroll(this.pairRef, this.context.experiments));
+      setTimeout(() => anchorScroll(this.pairRef));
     }
   };
 

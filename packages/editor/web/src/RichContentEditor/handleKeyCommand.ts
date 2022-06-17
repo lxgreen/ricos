@@ -1,8 +1,9 @@
 /* eslint-disable complexity */
 /* eslint-disable no-restricted-globals */
-import { DraftHandleValue, EditorProps } from '@wix/draft-js';
-import { CommandHandler, OnKeyboardShortcutClick } from 'wix-rich-content-common';
-import { COMMANDS, EditorState, mergeBlockData, RichUtils } from 'wix-rich-content-editor-common';
+import type { DraftHandleValue, EditorProps } from '@wix/draft-js';
+import type { CommandHandler, OnKeyboardShortcutClick } from 'wix-rich-content-common';
+import type { EditorState } from 'wix-rich-content-editor-common';
+import { COMMANDS, mergeBlockData, RichUtils } from 'wix-rich-content-editor-common';
 import handleBackspaceCommand from './handleBackspaceCommand';
 import handleDeleteCommand from './handleDeleteCommand';
 import handleTabCommand from './handleTabCommand';
@@ -28,72 +29,74 @@ const decrementFontSize = (editorState: EditorState) => {
 };
 
 export default (
-  updateEditorState: (editorState: EditorState) => void,
-  customHandlers: Record<string, CommandHandler>,
-  blockType: string,
-  onKeyboardShortcutClick: OnKeyboardShortcutClick,
-  onBackspace?: (editorState: EditorState) => void
-): EditorProps['handleKeyCommand'] => (command, editorState) => {
-  let newState: EditorState | null;
+    updateEditorState: (editorState: EditorState) => void,
+    customHandlers: Record<string, CommandHandler>,
+    blockType: string,
+    onKeyboardShortcutClick: OnKeyboardShortcutClick,
+    onBackspace?: (editorState: EditorState) => void
+  ): EditorProps['handleKeyCommand'] =>
+  (command, editorState) => {
+    let newState: EditorState | null;
 
-  if (customHandlers[command]) {
-    if (isTab(command)) {
-      newState = handleTabCommand(editorState, blockType, customHandlers, command);
-    } else if (isUndoRedo(command)) {
-      // TODO: handleUndoCommand and handleRedoCommand return a DraftHandleValue, they should behave like any other CommandHandler (their updateEditorState should move here)
-      return (customHandlers[command](editorState, event) as unknown) as DraftHandleValue;
+    if (customHandlers[command]) {
+      if (isTab(command)) {
+        newState = handleTabCommand(editorState, blockType, customHandlers, command);
+      } else if (isUndoRedo(command)) {
+        onKeyboardShortcutClick({ buttonName: command });
+        // TODO: handleUndoCommand and handleRedoCommand return a DraftHandleValue, they should behave like any other CommandHandler (their updateEditorState should move here)
+        return customHandlers[command](editorState, event) as unknown as DraftHandleValue;
+      } else {
+        newState = customHandlers[command](editorState, event) || null;
+      }
     } else {
-      newState = customHandlers[command](editorState, event) || null;
+      switch (command) {
+        case COMMANDS.ALIGN_RIGHT:
+        case COMMANDS.ALIGN_LEFT:
+        case COMMANDS.ALIGN_CENTER:
+        case COMMANDS.JUSTIFY:
+          onKeyboardShortcutClick({ buttonName: command });
+          newState = mergeBlockData(editorState, { textAlignment: command });
+          break;
+        case COMMANDS.TITLE:
+        case COMMANDS.SUBTITLE:
+        case COMMANDS.PARAGRAPH:
+        case COMMANDS.H1:
+        case COMMANDS.H2:
+        case COMMANDS.H3:
+        case COMMANDS.H4:
+        case COMMANDS.H5:
+        case COMMANDS.H6:
+        case COMMANDS.NUMBERED_LIST:
+        case COMMANDS.BULLETED_LIST:
+        case COMMANDS.BLOCKQUOTE:
+        case COMMANDS.CODE:
+          onKeyboardShortcutClick({ buttonName: command });
+          newState = RichUtils.toggleBlockType(editorState, command);
+          break;
+        case COMMANDS.BACKSPACE:
+          onBackspace?.(editorState);
+          newState = handleBackspaceCommand(editorState);
+          break;
+        case COMMANDS.DELETE:
+          newState = handleDeleteCommand(editorState);
+          break;
+        case COMMANDS.INCREASE_FONT_SIZE:
+          newState = incrementFontSize(editorState);
+          break;
+        case COMMANDS.DECREASE_FONT_SIZE:
+          newState = decrementFontSize(editorState);
+          break;
+        default:
+          newState = RichUtils.handleKeyCommand(editorState, command);
+          onKeyboardShortcutClick({ buttonName: command });
+          break;
+      }
     }
-  } else {
-    switch (command) {
-      case COMMANDS.ALIGN_RIGHT:
-      case COMMANDS.ALIGN_LEFT:
-      case COMMANDS.ALIGN_CENTER:
-      case COMMANDS.JUSTIFY:
-        onKeyboardShortcutClick({ buttonName: command });
-        newState = mergeBlockData(editorState, { textAlignment: command });
-        break;
-      case COMMANDS.TITLE:
-      case COMMANDS.SUBTITLE:
-      case COMMANDS.PARAGRAPH:
-      case COMMANDS.H1:
-      case COMMANDS.H2:
-      case COMMANDS.H3:
-      case COMMANDS.H4:
-      case COMMANDS.H5:
-      case COMMANDS.H6:
-      case COMMANDS.NUMBERED_LIST:
-      case COMMANDS.BULLETED_LIST:
-      case COMMANDS.BLOCKQUOTE:
-      case COMMANDS.CODE:
-        onKeyboardShortcutClick({ buttonName: command });
-        newState = RichUtils.toggleBlockType(editorState, command);
-        break;
-      case COMMANDS.BACKSPACE:
-        onBackspace?.(editorState);
-        newState = handleBackspaceCommand(editorState);
-        break;
-      case COMMANDS.DELETE:
-        newState = handleDeleteCommand(editorState);
-        break;
-      case COMMANDS.INCREASE_FONT_SIZE:
-        newState = incrementFontSize(editorState);
-        break;
-      case COMMANDS.DECREASE_FONT_SIZE:
-        newState = decrementFontSize(editorState);
-        break;
-      default:
-        newState = RichUtils.handleKeyCommand(editorState, command);
-        onKeyboardShortcutClick({ buttonName: command });
-        break;
+
+    if (newState) {
+      updateEditorState(newState);
+      return 'handled';
     }
-  }
 
-  if (newState) {
-    updateEditorState(newState);
-    return 'handled';
-  }
-
-  return 'not-handled';
-};
+    return 'not-handled';
+  };

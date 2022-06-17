@@ -1,9 +1,11 @@
 import { createCodeBlockPlugin } from './createCodeBlockPlugin';
-import { CODE_BLOCK_TYPE, CodeBlockPluginEditorConfig } from './types';
+import type { CodeBlockPluginEditorConfig } from './types';
+import { CODE_BLOCK_TYPE } from './types';
 import { DEFAULTS } from './defaults';
-import { EditorPluginCreator } from 'wix-rich-content-common';
-import { createTiptapExtensions } from './tiptap';
-import { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
+import { tiptapExtensions } from './tiptap';
+import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { getAddButtons } from './getAddButtons';
 
 export const pluginCodeBlock: EditorPluginCreator<CodeBlockPluginEditorConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };
@@ -12,6 +14,7 @@ export const pluginCodeBlock: EditorPluginCreator<CodeBlockPluginEditorConfig> =
     type: CODE_BLOCK_TYPE,
     createPlugin: createCodeBlockPlugin,
     ModalsMap: {},
-    tiptapExtensions: createTiptapExtensions(pluginConfig),
+    addButtons: getAddButtons(),
+    tiptapExtensions,
   } as TiptapEditorPlugin;
 };

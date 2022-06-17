@@ -1,6 +1,8 @@
 import { pipe } from 'fp-ts/function';
-import { Node, Node_Type, RichContent } from 'ricos-schema';
-import { getModifier, Modifier } from '../modifier-infra';
+import type { Node, RichContent } from 'ricos-schema';
+import { Node_Type } from 'ricos-schema';
+import type { Modifier } from '../modifier-infra';
+import { getModifier } from '../modifier-infra';
 
 export type RichContentModifier = {
   filter: (predicate: (node: Node) => boolean) => RichContentModifier;
@@ -21,7 +23,7 @@ const getRootNode = (content: RichContent): Node => ({
  * Utilizes function binding and scope to override Modifier.set behavior
  */
 const toRichContentModifier = (content: RichContent) =>
-  function(modifier: Modifier<Node>): RichContentModifier {
+  function (modifier: Modifier<Node>): RichContentModifier {
     const self: { modifier: RichContentModifier } = { modifier };
     return {
       filter(predicate: Parameters<Modifier<Node>['filter']>[0]) {

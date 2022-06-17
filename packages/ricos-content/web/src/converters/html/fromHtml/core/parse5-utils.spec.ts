@@ -1,5 +1,5 @@
 import { toAst, hasStyleRule, hasStyleFor } from './parse5-utils';
-import { Element } from 'parse5';
+import type { Element } from 'parse5';
 
 describe('parse5 utils', () => {
   it('should determine whether element has a style', () => {

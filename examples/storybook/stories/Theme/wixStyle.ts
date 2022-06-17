@@ -1,5 +1,5 @@
 import { merge } from 'lodash';
-import { RicosTheme } from 'ricos-common';
+import type { RicosTheme } from 'ricos-common';
 
 type WithStyle = (theme?: RicosTheme) => RicosTheme;
 const bmActionColor = '#3899EC';
@@ -39,6 +39,18 @@ export const withWixStyle: WithStyle = theme =>
         whitebox: {
           borderRadius: '8px',
           boxShadow: '0 8px 8px 0 rgba(22, 45, 61, 0.12), 0 3px 24px 0 rgba(22, 45, 61, 0.18)',
+        },
+        colorPaletteSelectedButton: {
+          borderRadius: '6px',
+        },
+        smallButtons: {
+          borderRadius: '4px',
+        },
+        bgColor: {
+          backgroundColor: '#DAEFFE',
+        },
+        disabled: {
+          backgroundColor: '#162d3d4d',
         },
       },
     },

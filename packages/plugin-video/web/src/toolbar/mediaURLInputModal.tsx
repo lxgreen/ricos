@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
 import { UrlInputModal, BUTTON_SIZE } from 'wix-rich-content-ui-components';
-import {
+import { MEDIA_POPOVERS_BUTTONS_NAMES_BI } from 'wix-rich-content-common';
+import type {
   OnConfirmFunction,
   Pubsub,
   Helpers,
@@ -9,8 +10,8 @@ import {
   TranslationFunction,
   TextDirection,
 } from 'wix-rich-content-common';
-import { videoButtonsTypes } from '../types';
-import { Required } from 'utility-types';
+import { videoButtonsTypes, VIDEO_TYPE } from '../types';
+import type { Required } from 'utility-types';
 
 interface Props {
   onConfirm?: OnConfirmFunction;
@@ -52,7 +53,10 @@ export default class MediaURLInputModal extends Component<Props, State> {
           pubsub.update('componentData', { metadata: { ...data } })
         );
       }
-
+      helpers?.onPluginsPopOverClick?.({
+        pluginId: VIDEO_TYPE,
+        buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.embed,
+      });
       helpers.closeModal?.();
     } else {
       this.setState({ submittedInvalidUrl: true });
@@ -82,9 +86,18 @@ export default class MediaURLInputModal extends Component<Props, State> {
     return { title, placeholder, dataHook };
   };
 
+  onCloseRequested = () => {
+    const { helpers } = this.props;
+    helpers?.onPluginsPopOverClick?.({
+      pluginId: VIDEO_TYPE,
+      buttonName: MEDIA_POPOVERS_BUTTONS_NAMES_BI.cancel,
+    });
+    helpers?.closeModal();
+  };
+
   render() {
     const { url, submittedInvalidUrl } = this.state;
-    const { t, languageDir, helpers } = this.props;
+    const { t, languageDir } = this.props;
     const { title, placeholder, dataHook } = this.getRenderData();
     return (
       <UrlInputModal
@@ -98,7 +111,7 @@ export default class MediaURLInputModal extends Component<Props, State> {
         onInputChange={url => this.setState({ url })}
         errorMessage={t('SoundCloudUploadModal_Input_InvalidUrl')}
         placeholder={placeholder}
-        onCloseRequested={helpers.closeModal}
+        onCloseRequested={this.onCloseRequested}
         buttonSize={BUTTON_SIZE.medium}
       />
     );

@@ -1,17 +1,22 @@
-import { BUTTONS, PluginSettingsIcon } from 'wix-rich-content-plugin-commons';
+import { BUTTONS, PluginSettingsIcon, Uploader } from 'wix-rich-content-plugin-commons';
 import { getModalStyles } from 'wix-rich-content-editor-common';
 import { Modals } from '../modals';
 import { ManageMediaIcon, UploadIcon } from '../icons';
 import { getGalleryLayoutsDropdown, switchLayout, getCurrentLayout } from '../layout-helper';
-import {
+import type {
   CreateInlineButtons,
   TranslationFunction,
   AnchorTarget,
   RelValue,
   AvailableExperiments,
   UISettings,
+  Helpers,
+  EditorPluginConfig,
+  InlineUploadButton,
 } from 'wix-rich-content-common';
-import { GalleryPluginEditorConfig, GALLERY_TYPE } from '../types';
+import type { GalleryPluginEditorConfig } from '../types';
+import { GALLERY_TYPE } from '../types';
+import { GalleryPluginService } from './galleryPluginService';
 
 const createInlineButtons: CreateInlineButtons = ({
   t,
@@ -44,21 +49,32 @@ const createInlineButtons: CreateInlineButtons = ({
         ]
       : [];
 
-  return [
-    {
-      keyName: 'add',
-      type: BUTTONS.FILES,
-      icon: icons.add || UploadIcon,
-      onFilesSelected: (pubsub, files) => {
-        if (files.length > 0) {
-          pubsub.getBlockHandler('handleFilesSelected')(files);
-        }
-      },
-      mobile: false,
-      multiple: true,
-      tooltipTextKey: 'UploadMediaButton_Tooltip',
-      settings,
+  const addFilesButton: InlineUploadButton = {
+    keyName: 'add',
+    type: BUTTONS.FILES,
+    icon: icons.add || UploadIcon,
+    onFilesSelected: (pubsub, files) => {
+      if (files.length > 0) {
+        pubsub.getBlockHandler('handleFilesSelected')(files);
+      }
     },
+    mobile: false,
+    multiple: true,
+    tooltipTextKey: 'UploadMediaButton_Tooltip',
+    settings,
+  };
+
+  if (experiments?.useUploadContext?.enabled) {
+    addFilesButton.mediaPluginService = new GalleryPluginService();
+    addFilesButton.getUploader = (
+      helpers: Helpers,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      _: Record<string, any> & EditorPluginConfig
+    ) => new Uploader(helpers?.handleFileUpload);
+  }
+
+  return [
+    addFilesButton,
     { type: BUTTONS.SEPARATOR, mobile: false, keyName: 'separator0' },
     {
       keyName: 'layout',

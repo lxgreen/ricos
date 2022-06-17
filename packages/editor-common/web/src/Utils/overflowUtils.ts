@@ -21,11 +21,19 @@ const getElementCoordsInWindow = (elem: HTMLElement): ElementCoords => {
   return { top: Math.round(top), left: Math.round(left) };
 };
 
+const getElementCoordsInWindowByBoundingClientRect = (elem: HTMLElement): ElementCoords => {
+  const { top, left } = elem.getBoundingClientRect();
+  return { top: Math.round(top), left: Math.round(left) };
+};
+
 export const elementOverflowWithEditor = (
   element: HTMLElement,
-  rootEditorElement?: HTMLElement
+  rootEditorElement?: HTMLElement,
+  modalOverflowByBoundingClientRect?: boolean
 ): Record<string, number> => {
-  const elementCoordsInWindow = getElementCoordsInWindow(element);
+  const elementCoordsInWindow = modalOverflowByBoundingClientRect
+    ? getElementCoordsInWindowByBoundingClientRect(element)
+    : getElementCoordsInWindow(element);
   const elementOffsetLeft = elementCoordsInWindow.left;
   const elementOffsetTop = elementCoordsInWindow.top;
   const elementWidth = element.clientWidth;
@@ -33,7 +41,10 @@ export const elementOverflowWithEditor = (
   const rootEditor =
     rootEditorElement || (element.closest('[data-hook=root-editor]') as HTMLElement);
   if (rootEditor) {
-    const rootEditorCoordsInWindow = rootEditor && getElementCoordsInWindow(rootEditor);
+    const rootEditorCoordsInWindow =
+      rootEditor && modalOverflowByBoundingClientRect
+        ? getElementCoordsInWindowByBoundingClientRect(rootEditor)
+        : getElementCoordsInWindow(rootEditor);
     const rootEditorOffsetLeft = rootEditorCoordsInWindow.left;
     const rootEditorOffsetTop = rootEditorCoordsInWindow.top;
     const editorWidth = (rootEditor && rootEditor.getBoundingClientRect().width) || 999999;

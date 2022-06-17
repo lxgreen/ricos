@@ -1,12 +1,12 @@
 import createInlineButtons from './inline-buttons';
 import createInsertButtons from './insert-buttons';
-import {
+import type {
   AnchorTarget,
   CreatePluginToolbar,
   RelValue,
   TranslationFunction,
 } from 'wix-rich-content-common';
-import { ButtonPluginEditorConfig } from '../types';
+import type { ButtonPluginEditorConfig, LINK_BUTTON_TYPE, ACTION_BUTTON_TYPE } from '../types';
 
 const createToolbar: CreatePluginToolbar = ({
   settings,
@@ -15,6 +15,7 @@ const createToolbar: CreatePluginToolbar = ({
   customTooltip,
   relValue,
   anchorTarget,
+  type,
 }: {
   t: TranslationFunction;
   settings: ButtonPluginEditorConfig;
@@ -22,9 +23,10 @@ const createToolbar: CreatePluginToolbar = ({
   customTooltip: string;
   relValue: RelValue;
   anchorTarget: AnchorTarget;
+  type: typeof LINK_BUTTON_TYPE | typeof ACTION_BUTTON_TYPE;
 }) => {
   return {
-    InlineButtons: createInlineButtons({ settings, isMobile, relValue, anchorTarget }),
+    InlineButtons: createInlineButtons({ settings, isMobile, relValue, anchorTarget, type }),
     InsertButtons: createInsertButtons({ t, settings, customTooltip, relValue, anchorTarget }),
     name: 'button',
   };

@@ -3,7 +3,7 @@ import React from 'react';
 import styles from '../../statics/styles/selection-list-item.scss';
 
 interface SelectionListItemProps {
-  icon?: () => JSX.Element;
+  icon?: JSX.Element;
   label?: string;
   selected?: boolean;
   children?: React.ElementType;

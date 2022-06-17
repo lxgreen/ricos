@@ -47,9 +47,12 @@ class ImageComponent extends React.Component {
       setInPluginEditingMode,
       setComponentUrl,
       t,
-      error,
-      isLoading,
     } = this.props;
+
+    const { error } = componentData;
+    const dataUrl = this.props.tempData?.dataUrl || componentData.tempData;
+    const isLoading =
+      !error && (this.props.isLoading || componentData.loading || componentData.tempData);
 
     return (
       <>
@@ -61,15 +64,15 @@ class ImageComponent extends React.Component {
           setInPluginEditingMode={setInPluginEditingMode}
           componentData={componentData}
           className={className}
-          isLoading={this.props.isLoading}
-          dataUrl={this.props.tempData?.dataUrl}
+          isLoading={isLoading}
+          dataUrl={dataUrl}
           settings={settings}
           defaultCaption={this.props.t('ImageViewer_Caption')}
           onCaptionChange={this.handleCaptionChange}
           setFocusToBlock={blockProps.setFocusToBlock}
           setComponentUrl={setComponentUrl}
         />
-        {(isLoading || componentData.loading) && <Loader type={'medium'} />}
+        {isLoading && <Loader type={'medium'} />}
         {error && <MediaItemErrorMsg error={error} t={t} />}
       </>
     );
@@ -92,7 +95,6 @@ ImageComponent.propTypes = {
   setComponentUrl: PropTypes.func,
   isLoading: PropTypes.bool,
   tempData: PropTypes.object,
-  error: PropTypes.object,
 };
 
 export { ImageComponent as Component, DEFAULTS };

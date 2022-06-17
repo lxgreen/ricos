@@ -1,7 +1,7 @@
 @import '~wix-rich-content-common/dist/statics/styles/consts';
 .footerToolbar {
   height: $footer-toolbar-height;
-  margin-top: 60px;
+  margin-top: var(--ricos-custom-footer-toolbar-margin-top, 60px);
 }
 
 .footerToolbar_buttons {

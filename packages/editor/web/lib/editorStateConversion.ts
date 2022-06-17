@@ -1,10 +1,6 @@
 import { EditorState, cloneDeepWithoutEditorState } from 'wix-rich-content-editor-common';
-import {
-  convertFromRaw as fromRaw,
-  convertToRaw as toRaw,
-  RawDraftEntity,
-  RawDraftContentState,
-} from '@wix/draft-js';
+import type { RawDraftEntity, RawDraftContentState } from '@wix/draft-js';
+import { convertFromRaw as fromRaw, convertToRaw as toRaw } from '@wix/draft-js';
 import { COLLAPSIBLE_LIST_TYPE, TABLE_TYPE, SOUND_CLOUD_TYPE, VIDEO_TYPE } from 'ricos-content';
 import { version } from '../package.json';
 import { v4 as uuid } from 'uuid';

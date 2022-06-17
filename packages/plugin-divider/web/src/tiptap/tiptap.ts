@@ -1,19 +1,31 @@
-import dividerDataDefaults from 'ricos-schema/dist/statics/divider.defaults.json';
-import { CreateRicosExtensions } from 'ricos-tiptap-types';
-import { Divider as Component } from './component';
 import { TIPTAP_DIVIDER_TYPE } from 'ricos-content';
+import dividerDataDefaults from 'ricos-schema/dist/statics/divider.defaults.json';
+import type { ExtensionProps, NodeConfig, RicosExtension } from 'ricos-tiptap-types';
+import { Divider as Component } from './component';
 
-export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
+export const tiptapExtensions = [
   {
     type: 'node' as const,
-    Component,
-    componentDataDefaults: { ...dividerDataDefaults, id: '' },
-    createExtensionConfig: () => ({
-      name: TIPTAP_DIVIDER_TYPE,
-      group: 'block',
-      selectable: true,
-      draggable: true,
-      addOptions: () => defaultOptions,
+    groups: ['react'],
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions: () => settings,
     }),
+    Component,
+    name: TIPTAP_DIVIDER_TYPE,
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        group: 'block',
+        selectable: true,
+        draggable: true,
+        addAttributes: () => dividerDataDefaults,
+      };
+    },
   },
 ];

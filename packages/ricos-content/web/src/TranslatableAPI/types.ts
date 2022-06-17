@@ -1,7 +1,7 @@
-import { PropertyPath } from 'lodash';
-import { Optional } from 'monocle-ts';
-import { Node, Node_Type } from 'ricos-schema';
-import { RICOS_NODE_TYPE_TO_DATA_FIELD } from '../consts';
+import type { PropertyPath } from 'lodash';
+import type { Node } from 'ricos-schema';
+import { Node_Type } from 'ricos-schema';
+import type { RICOS_NODE_TYPE_TO_DATA_FIELD } from '../consts';
 
 interface TranslatableCommons {
   id: Node['id'];

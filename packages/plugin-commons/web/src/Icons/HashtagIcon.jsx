@@ -21,7 +21,7 @@ const HashtagIcon = props => (
       <g
         id="Text-Formatting-Toolbar-"
         transform="translate(-914.000000, -4635.000000)"
-        fill="#757575"
+        fill="currentColor"
         fillRule="nonzero"
       >
         <path

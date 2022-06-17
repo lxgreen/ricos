@@ -178,6 +178,31 @@ export default <Record<string, APIData[]>>{
         'A function that invoked when rendering video which has relative URL - take the pathname and form a full URL',
     },
   ],
+  AUDIO: [
+    {
+      name: 'handleFileSelection',
+      type: 'function',
+      defaultValue: '',
+      required: '',
+      description:
+        'media manager - here you can call your custom audio upload functionality (comment function to disable custom upload)',
+    },
+    {
+      name: 'handleFileUpload',
+      type: 'function',
+      defaultValue: '',
+      required: '',
+      description: 'for native file upload',
+    },
+    {
+      name: 'getAudioUrl',
+      type: 'function',
+      defaultValue: '',
+      required: '',
+      description:
+        'A function that invoked when rendering audio which has relative URL - take the pathname and form a full URL',
+    },
+  ],
   FOOTER_TOOLBAR: [
     {
       name: 'pluginsToDisplayInToolbar',

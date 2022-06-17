@@ -1,4 +1,4 @@
-import { RawCommands } from '@tiptap/core';
+import type { RawCommands } from '@tiptap/core';
 import { generateId } from 'ricos-content';
 
 declare module '@tiptap/core' {
@@ -12,12 +12,14 @@ declare module '@tiptap/core' {
   }
 }
 
-export const insertNode: RawCommands['insertNode'] = (type, attrs = {}) => ({ chain }) => {
-  return chain()
-    .focus()
-    .insertContent({
-      type,
-      attrs: { id: attrs.id || generateId(), ...attrs },
-    })
-    .run();
-};
+export const insertNode: RawCommands['insertNode'] =
+  (type, attrs = {}) =>
+  ({ chain }) => {
+    return chain()
+      .focus()
+      .insertContent({
+        type,
+        attrs: { id: attrs.id || generateId(), ...attrs },
+      })
+      .run();
+  };

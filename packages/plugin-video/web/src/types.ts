@@ -1,4 +1,4 @@
-import {
+import type {
   EditorPluginConfig,
   ViewerPluginConfig,
   ComponentData,
@@ -6,6 +6,7 @@ import {
   Pubsub,
   TranslationFunction,
   RichContentTheme,
+  AvailableExperiments,
 } from 'wix-rich-content-common';
 
 export const VIDEO_TYPE = 'wix-draft-plugin-video';
@@ -30,4 +31,8 @@ export interface VideoSettingsProps {
   t: TranslationFunction;
   isMobile: boolean;
   settings: VideoPluginEditorConfig;
+  onSave: () => void;
+  onCancel: () => void;
+  updateData: (data) => void;
+  experiments?: AvailableExperiments;
 }

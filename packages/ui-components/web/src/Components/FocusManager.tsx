@@ -1,10 +1,12 @@
+import type { KeyboardEventHandler } from 'react';
 import React, { Component, Fragment } from 'react';
 import FocusTrap from './FocusTrapReact';
-import { Options as FocusTrapOptions } from 'focus-trap';
+import type { Options as FocusTrapOptions } from 'focus-trap';
 
 interface FocusManagerProps {
   focusTrapOptions?: FocusTrapOptions;
   isMobile?: boolean;
+  onKeyDown?: KeyboardEventHandler;
 }
 
 class FocusManager extends Component<FocusManagerProps> {

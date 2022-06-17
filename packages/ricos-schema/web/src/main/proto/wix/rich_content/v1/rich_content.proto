@@ -10,6 +10,7 @@ syntax = "proto3";
 
 package wix.rich_content.v1;
 
+import "wix/api/entity.proto";
 import "wix/api/validations.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
@@ -38,8 +39,15 @@ import "wix/rich_content/v1/plugin_embed.proto";
 import "wix/rich_content/v1/plugin_table.proto";
 import "wix/rich_content/v1/plugin_table_cell.proto";
 import "wix/rich_content/v1/decoration_fontsize.proto";
+import "wix/rich_content/v1/plugin_audio.proto";
+import "wix/rich_content/v1/node_list.proto";
+import "wix/rich_content/v1/node_blockquote.proto";
 
 message RichContent {
+    option (wix.api.entity) = {
+        fqdn: "wix.ricos.v1.rich_content",
+        segment: PUBLIC
+    };
     repeated Node nodes = 1; // List of nodes
     Metadata metadata = 2;
     DocumentStyle document_style = 3;
@@ -76,6 +84,7 @@ message Node {
         TABLE_CELL = 26;
         TABLE_ROW = 27;
         EXTERNAL = 28;
+        AUDIO = 29;
     }
 
     Type type = 1; // Node type
@@ -104,6 +113,10 @@ message Node {
         TableData table_data = 23;
         TableCellData table_cell_data = 24;
         Struct externalData = 25;
+        AudioData audio_data = 26;
+        OrderedListData ordered_list_data = 27;
+        BulletedListData bulleted_list_data = 28;
+        BlockquoteData blockquote_data = 29;
     }
 }
 
@@ -111,6 +124,8 @@ message NodeStyle {
     google.protobuf.StringValue padding_top = 1;
     google.protobuf.StringValue padding_bottom = 2;
     google.protobuf.StringValue background_color = 3;
+    google.protobuf.StringValue margin_top = 4;
+    google.protobuf.StringValue margin_bottom = 5;
 }
 
 message TextData {
@@ -155,6 +170,9 @@ message Metadata {
 
 message TextNodeStyle {
     repeated Decoration decorations = 1;
+    NodeStyle node_style = 2;
+    google.protobuf.StringValue line_height = 3;
+
 }
 
 message DocumentStyle {

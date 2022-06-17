@@ -18,7 +18,8 @@
         "level": 1,
         "textStyle": {
           "textAlignment": "AUTO"
-        }
+        },
+        "indentation": 0
       }
     },
     {
@@ -39,7 +40,8 @@
         "level": 3,
         "textStyle": {
           "textAlignment": "AUTO"
-        }
+        },
+        "indentation": 0
       }
     },
     {
@@ -142,7 +144,8 @@
         "video": {
           "src": {
             "id": "video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4"
-          }
+          },
+          "duration": 666
         },
         "thumbnail": {
           "src": {
@@ -332,7 +335,8 @@
                     "video": {
                       "src": {
                         "url": "https://www.youtube.com/watch?v=iecNmOXDOHM"
-                      }
+                      },
+                      "duration": 666
                     },
                     "thumbnail": {
                       "src": {
@@ -393,7 +397,8 @@
                     "video": {
                       "src": {
                         "id": "video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4"
-                      }
+                      },
+                      "duration": 666
                     },
                     "thumbnail": {
                       "src": {

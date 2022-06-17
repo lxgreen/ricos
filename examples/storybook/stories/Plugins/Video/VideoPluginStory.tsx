@@ -8,9 +8,11 @@ import {
 
 import videoContentState from '../../../../../e2e/tests/fixtures/facebook-video.json';
 import VideoEditor from './VideoEditor';
-import editorSourcecode from '!!raw-loader!./VideoEditor.tsx';
+// eslint-disable-next-line import/no-unresolved
+import editorSourcecode from './VideoEditor.tsx?raw';
 import VideoViewer from './VideoViewer';
-import viewerSourcecode from '!!raw-loader!./VideoViewer.tsx';
+// eslint-disable-next-line import/no-unresolved
+import viewerSourcecode from './VideoViewer.tsx?raw';
 import SyntaxHighlighter from '../../Components/SyntaxHighlighter';
 import TabsWrapper from '../../Components/TabsWrapper';
 import apiData from '../apiData';

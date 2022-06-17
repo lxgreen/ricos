@@ -208,6 +208,7 @@ export default class AddPluginFloatingToolbar extends PureComponent {
       smallPlusIcon && Styles.sideToolbar_smallPlusIcon
     );
     const Icon = smallPlusIcon ? PlusIconSmall : PlusIcon;
+    const SideToolbarPanel = this.SideToolbarPanel;
 
     return (
       <FocusManager
@@ -239,7 +240,7 @@ export default class AddPluginFloatingToolbar extends PureComponent {
             elementMarginBottom={45}
             targetElement={this.selectButton}
           >
-            <this.SideToolbarPanel />
+            <SideToolbarPanel />
           </PopupOffsetnHoc>
         )}
       </FocusManager>

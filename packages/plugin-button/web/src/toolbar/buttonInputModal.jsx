@@ -24,12 +24,14 @@ import PreviewComponent from '../components/preview-component';
 import { settingsTabValue, designTabValue } from '../constants';
 import styles from '../../statics/styles/button-input-modal.scss';
 import { LINK_BUTTON_TYPE } from '../types';
+import classNames from 'classnames';
 export default class ButtonInputModal extends Component {
   constructor(props) {
     super(props);
     this.styles = mergeStyles({ styles, theme: props.theme });
     const {
       componentData: { button },
+      experiments = {},
     } = this.props;
 
     this.state = {
@@ -44,19 +46,26 @@ export default class ButtonInputModal extends Component {
     this.setScrollbarRef = element => {
       this.scrollbarRef = element;
     };
+    this.modalsWithEditorCommands = experiments.modalBaseActionHoc?.enabled;
   }
+
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
 
   onSettingsChanged = settings => {
     const { design } = this.state;
     if (!isEqual(settings, this.state.settings)) {
       const {
-        pubsub,
         componentData: { button },
       } = this.props;
-      pubsub.update('componentData', { button: { ...button, settings, design } });
+      this.updateComponentData({ button: { ...button, settings, design } });
       this.setState({ settings });
     }
   };
+
+  updateComponentData = data =>
+    this.modalsWithEditorCommands
+      ? this.props.updateData(data)
+      : this.props.pubsub.update('componentData', data);
 
   onDesignChanged = design => {
     const { settings } = this.state;
@@ -67,8 +76,9 @@ export default class ButtonInputModal extends Component {
       const {
         pubsub,
         componentData: { button },
+        updateData,
       } = this.props;
-      pubsub.update('componentData', { button: { ...button, design, settings } });
+      this.updateComponentData({ button: { ...button, design, settings } });
       this.setState({ design });
     }
   };
@@ -91,14 +101,15 @@ export default class ButtonInputModal extends Component {
   onConfirm = () => {
     const {
       helpers: { closeModal },
+      onSave,
     } = this.props;
     const { initialComponentData, design } = this.state;
     if (!initialComponentData.design.color && this.currentColorEqualToConfig()) {
       this.removeColorsFromComponentData(design);
     }
-    this.setState({ submitted: true, isOpen: false });
+    !this.modalsWithEditorCommands && this.setState({ submitted: true, isOpen: false });
     this.triggerLinkBi();
-    closeModal();
+    this.modalsWithEditorCommands ? onSave() : closeModal();
   };
 
   currentColorEqualToConfig = () => {
@@ -115,12 +126,15 @@ export default class ButtonInputModal extends Component {
 
   handleKeyPress = e => {
     if (e.charCode === KEYS_CHARCODE.ENTER) {
-      this.onConfirm();
+      this.modalsWithEditorCommands ? this.onSave() : this.onConfirm();
     }
     if (e.charCode === KEYS_CHARCODE.ESCAPE) {
-      this.onCloseRequested();
+      this.onCancel();
     }
   };
+
+  onCancel = () =>
+    this.modalsWithEditorCommands ? this.props.onCancel() : this.onCloseRequested();
 
   onCloseRequested = () => {
     const {
@@ -144,15 +158,17 @@ export default class ButtonInputModal extends Component {
   };
 
   removeColorsFromComponentData = design => {
-    const { pubsub } = this.props;
+    const { pubsub, componentData, updateData } = this.props;
     const designToSave = {
       borderWidth: design.borderWidth,
       padding: design.padding,
       borderRadius: design.borderRadius,
     };
-    const componentDataToSave = pubsub.get('componentData');
+    const componentDataToSave = this.modalsWithEditorCommands
+      ? componentData
+      : pubsub.get('componentData');
     componentDataToSave.button.design = designToSave;
-    pubsub.set('componentData', componentDataToSave);
+    this.updateComponentData(componentDataToSave);
   };
 
   handleOnMouseEnterDesign = () => {
@@ -168,7 +184,7 @@ export default class ButtonInputModal extends Component {
   };
 
   render() {
-    const { theme, t, uiSettings, doneLabel, cancelLabel, isMobile } = this.props;
+    const { theme, t, uiSettings, onCancel, isMobile, experiments = {} } = this.props;
     const { showLinkPanel } = this.state;
     const { styles } = this;
     const settingTabLabel = (
@@ -210,8 +226,9 @@ export default class ButtonInputModal extends Component {
         <div>
           <SettingsMobileHeader
             onSave={this.onConfirm}
-            onCancel={this.onCloseRequested}
+            onCancel={this.onCancel}
             theme={styles}
+            title={this.useNewSettingsUi && t('ButtonModal_Header')}
             t={t}
           />
           <PreviewComponent buttonObj={this.state} {...this.props} />
@@ -238,21 +255,59 @@ export default class ButtonInputModal extends Component {
     }
     return (
       <div>
-        {isMobile ? (
+        {isMobile && !this.useNewSettingsUi ? (
           mobileView
         ) : (
-          <div className={styles.button_inputModal_container} data-hook="ButtonInputModal">
+          <div
+            className={classNames(styles.button_inputModal_container, {
+              [styles.button_inputModal_container_newUi]: this.useNewSettingsUi,
+            })}
+            data-hook="ButtonInputModal"
+          >
+            {isMobile && this.useNewSettingsUi && (
+              <>
+                <SettingsMobileHeader
+                  onSave={this.onConfirm}
+                  onCancel={this.modalsWithEditorCommands ? onCancel : this.onCloseRequested}
+                  theme={styles}
+                  title={this.useNewSettingsUi && t('ButtonModal_Header')}
+                  t={t}
+                  useNewSettingsUi={this.useNewSettingsUi}
+                />
+              </>
+            )}
             <div>
-              <SettingsPanelHeader
-                title={t('ButtonModal_Header')}
-                onClose={this.onCloseRequested}
-              />
+              {this.useNewSettingsUi && !isMobile ? (
+                <SettingsPanelHeader
+                  title={t('ButtonModal_Header')}
+                  onClose={this.onCloseRequested}
+                />
+              ) : (
+                !isMobile && (
+                  <div
+                    role="heading"
+                    aria-level={2}
+                    aria-labelledby="button_modal_hdr"
+                    className={styles.button_inputModal_header}
+                  >
+                    <div className={styles.button_inputModal_header_text}>
+                      {t('ButtonModal_Header')}
+                    </div>
+                  </div>
+                )
+              )}
               <FocusManager>
                 <div className={styles.button_inputModal_focus_manager}>
-                  <Tabs value={this.state.activeTab} theme={this.styles}>
+                  <Tabs
+                    value={this.state.activeTab}
+                    theme={this.styles}
+                    headersStyle={this.useNewSettingsUi && styles.button_tabs_headers}
+                  >
                     <Tab label={settingTabLabel} value={settingsTabValue} theme={this.styles}>
                       <div
-                        className={styles.button_tab_section}
+                        className={classNames(styles.button_tab_section, {
+                          [styles.button_tab_section_newUi]: this.useNewSettingsUi,
+                        })}
                         role="button"
                         tabIndex="0"
                         onMouseEnter={this.handleOnMouseEnterSettings}
@@ -261,7 +316,11 @@ export default class ButtonInputModal extends Component {
                       </div>
                     </Tab>
                     <Tab label={designTabLabel} value={designTabValue} theme={this.styles}>
-                      <div className={styles.button_tab_section}>
+                      <div
+                        className={classNames(styles.button_tab_section, {
+                          [styles.button_tab_section_newUi]: this.useNewSettingsUi,
+                        })}
+                      >
                         <Scrollbars
                           ref={this.setScrollbarRef}
                           renderThumbVertical={() =>
@@ -283,14 +342,16 @@ export default class ButtonInputModal extends Component {
                 </div>
               </FocusManager>
             </div>
-            <SettingsPanelFooter
-              fixed
-              save={this.onConfirm}
-              cancel={this.onCloseRequested}
-              theme={styles}
-              t={t}
-              buttonSize={BUTTON_SIZE.small}
-            />
+            {!isMobile && (
+              <SettingsPanelFooter
+                fixed
+                save={this.onConfirm}
+                cancel={this.onCancel}
+                theme={styles}
+                t={t}
+                buttonSize={BUTTON_SIZE.small}
+              />
+            )}
           </div>
         )}
       </div>
@@ -302,23 +363,14 @@ ButtonInputModal.propTypes = {
   componentData: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   t: PropTypes.func,
-  style: PropTypes.object,
-  buttonObj: PropTypes.object,
-  anchorTarget: PropTypes.string.isRequired,
-  relValue: PropTypes.string.isRequired,
   settings: PropTypes.object.isRequired,
-  blockProps: PropTypes.object,
-  pubsub: PropTypes.object,
-  onConfirm: PropTypes.func,
-  onCloseRequested: PropTypes.func,
-  doneLabel: PropTypes.string,
-  cancelLabel: PropTypes.string,
   uiSettings: PropTypes.object,
   helpers: PropTypes.object,
+  experiments: PropTypes.object,
   isMobile: PropTypes.bool,
-};
-
-ButtonInputModal.defaultProps = {
-  doneLabel: 'Save',
-  cancelLabel: 'Cancel',
+  updateData: PropTypes.func,
+  onSave: PropTypes.func,
+  onCancel: PropTypes.func,
+  pubsub: PropTypes.object,
+  onCloseRequested: PropTypes.func,
 };

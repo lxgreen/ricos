@@ -6,22 +6,28 @@
   }
 }
 
+%sortableButton {
+  color: var(--ricos-settings-action-color, var(--ricos-action-color-fallback, #0261ff));
+  &:hover {
+    cursor: pointer;
+    color: rgba($settings-action-color-tuple, 0.7);
+  }
+}
+
 .filesButton {
   position: relative;
   height: 30px;
-  color: #666;
   float: right;
   overflow: visible;
   white-space: nowrap;
   text-align: right;
   font-size: 14px;
   line-height: 40px;
-  color: var(--ricos-settings-text-color, #666);
-
-  &:hover {
-    cursor: pointer;
-    color: #00000066;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 6px;
+  @extend %sortableButton;
 }
 
 .filesItem {
@@ -30,6 +36,7 @@
   border: 1px dashed rgba(51, 51, 51, 0.2);
   box-sizing: border-box;
   overflow: hidden;
+  border-radius: var(--ricos-settings-whitebox-border-radius, 0px);
 
   &:after {
     display: none !important;
@@ -67,6 +74,15 @@
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
+  border-radius: var(--ricos-settings-whitebox-border-radius, 0px);
+
+  &.itemContainer_newUi {
+    margin: 6px;
+    svg {
+      position: absolute;
+      top: 2px;
+    }
+  }
 
   &.itemContainerSelected {
     box-shadow: 0 0 0 3px $settings-action-color-fallback;
@@ -107,7 +123,7 @@
 
 .itemImage {
   cursor: grab;
-
+  border-radius: var(--ricos-settings-whitebox-border-radius, 0px);
   &:active {
     cursor: grabbing;
   }
@@ -140,13 +156,8 @@
   font-size: 14px;
   font-weight: 300;
   line-height: 40px;
-  color: var(--ricos-settings-text-color, #666);
   font-family: inherit;
-
-  &:hover {
-    cursor: pointer;
-    color: #00000066;
-  }
+  @extend %sortableButton;
 }
 
 .seperator {

@@ -18,18 +18,27 @@ class ThumbnailPlacementSelector extends Component {
     { alignment: 'right', dataHook: 'thumbnailPlacementRight' },
   ];
 
+  useNewSettingsUi = !!this.props.experiments.newSettingsModals?.enabled;
+
   dataMapper = ({ alignment }) => ({ value: alignment });
 
-  renderOption = ({ item, selected }) => (
-    <SelectionListItem
-      icon={
+  renderOption = ({ item, selected }) =>
+    this.useNewSettingsUi ? (
+      <SelectionListItem
+        icon={
+          <LayoutThumbnailsIcon
+            className={this.styles[`thumbnailPlacementSelector_${item.alignment}`]}
+          />
+        }
+        selected={selected}
+      />
+    ) : (
+      <div className={this.styles.thumbnailPlacementSelector_tile}>
         <LayoutThumbnailsIcon
           className={this.styles[`thumbnailPlacementSelector_${item.alignment}`]}
         />
-      }
-      selected={selected}
-    />
-  );
+      </div>
+    );
 
   render() {
     const { value, onChange, t } = this.props;
@@ -47,6 +56,8 @@ class ThumbnailPlacementSelector extends Component {
           renderItem={this.renderOption}
           value={value}
           onChange={onChange}
+          optionClassName={styles.thumbnailPlacementSelector_option}
+          useNewSettingsUi={this.useNewSettingsUi}
         />
       </div>
     );
@@ -56,6 +67,7 @@ class ThumbnailPlacementSelector extends Component {
 ThumbnailPlacementSelector.propTypes = {
   value: PropTypes.oneOf(['bottom', 'left', 'top', 'right']),
   theme: PropTypes.object.isRequired,
+  experiments: PropTypes.object,
   onChange: PropTypes.func.isRequired,
   t: PropTypes.func,
 };

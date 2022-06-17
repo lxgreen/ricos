@@ -1,32 +1,27 @@
-@import "~wix-rich-content-common/dist/statics/styles/mixins";
-@import "../poll-settings-modal.scss";
+@import '~wix-rich-content-common/dist/statics/styles/mixins';
+@import '../poll-settings-modal.scss';
 
-.colorPicker_button {
-  width: 36px;
-  height: 36px;
-
-  @include phone {
-    width: 26px;
-    height: 26px;
-
-    margin: 0 10px 0 0;
+.colorPicker_palette {
+  display: flex;
+  gap: 12px;
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
   }
 }
-
-.colorPicker_button:first-child {
-  margin-left: 0;
+.colorPicker_button {
+  width: 36px !important;
+  height: 36px !important;
+  cursor: pointer;
 }
 
 .colorPicker_button::after {
-  width: 46px;
-  height: 46px;
-  top: -7px;
-  left: -7px;
+  width: 36px !important;
+  height: 36px !important;
+}
 
-  @include phone {
-    width: 30px;
-    height: 30px;
-    top: -4px;
-    left: -4px;
-  }
+.pollsSettings_spacer{
+  height: 28px;
+  display: block;
 }

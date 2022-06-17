@@ -9,12 +9,12 @@ import { EventIcon, ProductIcon, BookingIcon } from '../icons';
 import VerticalEmbedInputModal from './VerticalEmbedInputModal';
 import { contentTypeMap, modalContentStyles } from '../constants';
 import getModalCustomStyles from './ModalCustomStyles';
-import {
+import type {
   AvailableExperiments,
   CreateInsertButtons,
   TranslationFunction,
 } from 'wix-rich-content-common';
-import { VerticalEmbedPluginEditorConfig } from '../types';
+import type { VerticalEmbedPluginEditorConfig } from '../types';
 import {
   DesktopFlyOutModalStyles,
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,
@@ -77,9 +77,13 @@ const createInsertButtons: CreateInsertButtons = ({
       tooltip: t(`${contentType}Plugin_InsertButton_Tooltip`),
       getIcon: () => iconsMap[type],
       Icon: iconsMap[type],
-      componentData: { type },
       section: 'BlockToolbar_Section_Embed_Wix',
-      modalElement: decorateComponentWithProps(VerticalEmbedInputModal, { ...settings, locale }),
+      modalElement: decorateComponentWithProps(VerticalEmbedInputModal, {
+        ...settings,
+        locale,
+        type,
+        componentData: { type },
+      }),
       isVisiblePromise: getIsVisiblePromise?.(type, locale),
       modalStylesFn,
     };

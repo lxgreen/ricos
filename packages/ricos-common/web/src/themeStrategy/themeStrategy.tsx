@@ -4,13 +4,13 @@ import createTypography from './generators/typography';
 import createCustomStyles from './generators/customStyles';
 import { defaultTheme } from './defaults';
 import * as utils from './themeUtils';
-import { ThemeData } from 'wix-rich-content-common';
-import { ThemeStrategyArgs, ThemeStrategyResult } from './themeTypes';
+import type { ThemeData } from 'ricos-types';
+import type { ThemeStrategyArgs, ThemeStrategyResult } from './themeTypes';
 import { isDefined } from 'ts-is-present';
 
 export default function themeStrategy(args: ThemeStrategyArgs): ThemeStrategyResult {
   const { buildCssVars } = utils;
-  const { ricosTheme = {}, plugins = [], cssOverride = {} } = args;
+  const { ricosTheme = {}, plugins = [], cssOverride = {}, experiments } = args;
   const {
     parentClass = '',
     palette,
@@ -18,7 +18,11 @@ export default function themeStrategy(args: ThemeStrategyArgs): ThemeStrategyRes
     typography,
     customStyles,
     settingsStyles,
+    oneAppStyles,
   } = ricosTheme;
+
+  const isTiptap = experiments?.tiptapEditor?.enabled;
+
   const themeGeneratorFunctions = plugins.map(plugin => plugin.theme).filter(isDefined);
 
   // Create CSS Vars
@@ -27,6 +31,7 @@ export default function themeStrategy(args: ThemeStrategyArgs): ThemeStrategyRes
   const customsVarsObject = createCustomStyles({
     customStyles,
     settingsStyles,
+    oneAppStyles,
   });
 
   const themeData: ThemeData = {
@@ -46,9 +51,11 @@ export default function themeStrategy(args: ThemeStrategyArgs): ThemeStrategyRes
     </style>
   );
 
-  return {
-    theme: { ...defaultTheme, ...cssOverride },
-    html,
-    themeData,
-  };
+  return isTiptap
+    ? { html }
+    : {
+        theme: { ...defaultTheme, ...cssOverride },
+        html,
+        themeData,
+      };
 }

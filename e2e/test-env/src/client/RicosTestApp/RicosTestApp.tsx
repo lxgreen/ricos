@@ -1,15 +1,14 @@
 import React, { PureComponent } from 'react';
 import windowContentStateHoc from '../WindowContentStateHoc';
 import { RichContentEditor } from 'wix-rich-content-editor';
-import { RicosEditor, RicosEditorProps } from 'ricos-editor';
+import type { RicosEditorProps } from 'ricos-editor';
+import { RicosEditor } from 'ricos-editor';
 import { RicosViewer } from 'ricos-viewer';
 import { default as editorPlugins } from './editorPlugins';
 import { default as viewerPlugins } from './viewerPlugins';
-import './styles.global.scss';
-import 'wix-rich-content-plugin-commons/dist/styles.min.css';
 import theme from '../../../../../examples/main/shared/theme/theme';
 import { testVideos } from '../../../../../examples/storybook/src/shared/utils/mock';
-import { TestAppConfig } from '../../../../../examples/main/src/types';
+import type { TestAppConfig } from '../../../../../examples/main/src/types';
 import {
   mockTestImageUpload,
   mockTestImageNativeUpload,
@@ -20,11 +19,11 @@ import { createPreview } from 'wix-rich-content-preview';
 import { TOOLBARS } from 'wix-rich-content-editor-common';
 import { ricosPalettes } from '../../../../../examples/storybook/src/shared/resources/palettesExample';
 import { themes } from '../consumersThemes/themes';
-import { PaletteColors, DraftContent, SEOSettings } from 'wix-rich-content-common';
-import { EditorState } from '@wix/draft-js';
+import type { PaletteColors, DraftContent, SEOSettings } from 'wix-rich-content-common';
+import type { EditorState } from '@wix/draft-js';
 import { merge } from 'lodash';
+import { customStylesMock } from './customStylesMock';
 
-const VIEWER_ONLY = false;
 const onVideoSelected = (url: string, updateEntity) => {
   setTimeout(() => updateEntity(testVideos[1]), 1);
 };
@@ -37,35 +36,6 @@ const determinePalette = (paletteType: 'light' | 'dark', fallbackColor?: string)
 const setBackground = (palette: PaletteColors, disableContainer: boolean) =>
   !disableContainer && palette ? { backgroundColor: palette.bgColor } : {};
 const setForeground = (palette: PaletteColors) => (palette ? { color: palette.textColor } : {});
-const customStyles = [
-  'h1',
-  'h2',
-  'h3',
-  'h4',
-  'h5',
-  'h6',
-  'p',
-  'quote',
-  'link',
-  'hashtag',
-  'button',
-].reduce(
-  (prev, curr) => ({
-    ...prev,
-    [curr]: {
-      fontFamily: 'Times',
-      fontSize: '40px',
-      color: 'orange',
-      fontStyle: 'italic',
-      textDecoration: 'underline',
-      fontWeight: 'bold',
-      lineHeight: '40px',
-      minHeight: '40px',
-      borderColor: 'brown',
-    },
-  }),
-  {}
-);
 
 interface RicosTestAppProps {
   isMobile: boolean;
@@ -141,7 +111,7 @@ class RicosTestApp extends PureComponent<RicosTestAppProps> {
           palette,
           paletteConfig: { contentBgColor, settingsActionColor, focusActionColor },
           customStyles: useCustomStyles
-            ? customStyles
+            ? customStylesMock
             : useParagraphLineHeight
             ? { p: { lineHeight: '60px' } }
             : {},
@@ -155,6 +125,7 @@ class RicosTestApp extends PureComponent<RicosTestAppProps> {
           helpers={{
             onVideoSelected,
             handleFileSelection: !isNativeUpload ? mockTestImageUpload : undefined,
+            // @ts-ignore
             handleFileUpload: isNativeUpload ? mockTestImageNativeUpload : undefined,
           }}
         />
@@ -188,7 +159,7 @@ class RicosTestApp extends PureComponent<RicosTestAppProps> {
           palette,
           paletteConfig: { contentBgColor, settingsActionColor, focusActionColor },
           customStyles: useCustomStyles
-            ? customStyles
+            ? customStylesMock
             : useParagraphLineHeight
             ? { p: { lineHeight: '60px' } }
             : {},
@@ -204,7 +175,14 @@ class RicosTestApp extends PureComponent<RicosTestAppProps> {
 
   render() {
     const { isMobile, testAppConfig = {} } = this.props;
-    const { theme: { paletteType, disableContainer } = {}, applyOuterStyle } = testAppConfig;
+    const {
+      theme: { paletteType, disableContainer } = {},
+      applyOuterStyle,
+      viewMode,
+    } = testAppConfig;
+
+    const viewerOnly = viewMode === 'VIEWER';
+    const editorOnly = viewMode === 'EDITOR';
     const palette = determinePalette(paletteType);
     const addStyle = applyOuterStyle
       ? { color: 'white', fontFamily: 'Times', backgroundColor: 'black' }
@@ -214,25 +192,27 @@ class RicosTestApp extends PureComponent<RicosTestAppProps> {
         className={`testApp ${isMobile ? 'mobile' : ''}`}
         style={{ ...setBackground(palette, disableContainer), ...addStyle }}
       >
-        {!VIEWER_ONLY && (
-          <div>
+        {!viewerOnly && (
+          <div className={`${editorOnly ? 'full-width' : ''}`}>
             <h3 style={setForeground(palette)}>Editor</h3>
             <div className="rcWrapper rce" id="RicosEditorContainer" data-hook="ricos-editor">
               {this.renderEditor()}
             </div>
           </div>
         )}
-        <div className={`${VIEWER_ONLY ? 'full-width' : ''}`}>
-          <h3 style={setForeground(palette)}>Viewer</h3>
-          <div
-            className="rcWrapper rcv"
-            id="RicosViewerContainer"
-            data-hook="ricos-viewer"
-            ref={this.viewerRef}
-          >
-            {this.renderViewer()}
+        {!editorOnly && (
+          <div className={`${viewerOnly ? 'full-width' : ''}`}>
+            <h3 style={setForeground(palette)}>Viewer</h3>
+            <div
+              className="rcWrapper rcv"
+              id="RicosViewerContainer"
+              data-hook="ricos-viewer"
+              ref={this.viewerRef}
+            >
+              {this.renderViewer()}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }

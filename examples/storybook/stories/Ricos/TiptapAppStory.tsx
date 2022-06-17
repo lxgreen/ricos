@@ -5,6 +5,10 @@ import exampleAppContent from '../../../../e2e/tests/fixtures/storybook-tiptap-e
 
 export default () => {
   const editorProps = {
+    linkSettings: {
+      anchorTarget: '_blank',
+      relValue: 'nofollow',
+    },
     experiments: {
       tiptapEditor: {
         enabled: true,

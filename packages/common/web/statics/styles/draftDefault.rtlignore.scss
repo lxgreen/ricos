@@ -3,12 +3,14 @@
   .public-DraftStyleDefault-ltr {
     /*!rtl:begin:ignore*/
     direction: ltr;
+    text-align: inherit !important;
     /*!rtl:end:ignore*/
     -noop: 1;
   }
   .public-DraftStyleDefault-rtl {
     /*!rtl:begin:ignore*/
     direction: rtl;
+    text-align: inherit !important;
     /*!rtl:end:ignore*/
     -noop: 1;
   }

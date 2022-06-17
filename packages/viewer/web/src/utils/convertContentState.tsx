@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  BLOCK_TYPES,
-  depthClassName,
-  getTextDirection,
-  getDirectionFromAlignmentAndTextDirection,
+import type {
   DraftContent,
   TextDirection,
   PluginMapping,
@@ -13,6 +9,13 @@ import {
   LegacyViewerPluginConfig,
   InlineStyleMapperFunction,
   DocumentStyle,
+} from 'wix-rich-content-common';
+import {
+  BLOCK_TYPES,
+  depthClassName,
+  getTextDirection,
+  getDirectionFromAlignmentAndTextDirection,
+  DOC_STYLE_TYPES,
 } from 'wix-rich-content-common';
 import redraft from 'wix-redraft';
 import classNames from 'classnames';
@@ -79,7 +82,12 @@ const getBlocks = (
       textDirection,
       blockProps,
       getBlockStyleClasses,
-      blockDataToStyle,
+      blockDataToStyle: ({ dynamicStyles }) => {
+        return {
+          ...kebabToCamelObjectKeys(documentStyle?.[DOC_STYLE_TYPES.P]),
+          ...blockDataToStyle({ dynamicStyles }),
+        };
+      },
       context,
       fixedTabSize,
     };
@@ -98,9 +106,9 @@ const getBlocks = (
 
         const hasJustifyText = alignment === 'justify' && hasText(child);
         const directionBlockClassName = `public-DraftStyleDefault-text-${blockDirection}`;
-        const directionTextClassName = `public-DraftStyleDefault-${textDirection ||
-          blockProps.data[i]?.textDirection ||
-          'ltr'}`;
+        const directionTextClassName = `public-DraftStyleDefault-${
+          textDirection || blockProps.data[i]?.textDirection || 'ltr'
+        }`;
 
         const ChildTag = typeof type === 'string' ? type : type(child);
         const blockIndex = blockProps.data[i].index;
@@ -108,7 +116,7 @@ const getBlocks = (
 
         const _child = isEmptyBlock(child) ? <br role="presentation" /> : child;
 
-        const nodeStyle = documentStyle?.[style === 'text' ? 'paragraph' : style];
+        const nodeStyle = documentStyle?.[style === 'text' ? DOC_STYLE_TYPES.P : style];
         const parsedNodeStyle = kebabToCamelObjectKeys(nodeStyle);
         const content = isEmpty(nodeStyle) ? (
           _child

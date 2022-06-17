@@ -1,13 +1,15 @@
 /* eslint-disable no-console, fp/no-loops, no-case-declarations */
 import { cloneDeep, isEmpty } from 'lodash';
-import { DraftContent, RicosContentBlock } from '../../../types';
-import { BlockType, FROM_DRAFT_LIST_TYPE, HeaderLevel } from '../consts';
-import { RichContent, Node, Node_Type, Decoration_Type } from 'ricos-schema';
+import type { Node } from 'ricos-schema';
+import { Node_Type, RichContent } from 'ricos-schema';
+import type { DraftContent, RicosContentBlock } from '../../../types';
 import { generateId } from '../../generateRandomId';
-import { getTextNodes } from './getTextNodes';
-import { getEntity, getNodeStyle, getTextStyle } from './getRicosEntityData';
 import { createParagraphNode, initializeMetadata } from '../../nodeUtils';
+import { BlockType, FROM_DRAFT_LIST_TYPE, HeaderLevel } from '../consts';
+import { getEntity, getNodeStyle, getTextStyle } from './getRicosEntityData';
+import { getTextNodes } from './getTextNodes';
 import { nestedNodesConverters } from './nestedNodesUtils';
+import { parseDocStyle } from './parse-doc-style';
 
 export interface FromDraftOptions {
   ignoreUnsupportedValues?: boolean;
@@ -16,53 +18,25 @@ export interface FromDraftOptions {
 export const ensureRicosContent = (content: RichContent | DraftContent): RichContent =>
   'blocks' in content ? fromDraft(content) : content;
 
-const cssToRicosDecoration = {
-  color: (style: string) => {
-    return { type: Decoration_Type.COLOR, colorData: { foreground: style } };
-  },
-  'background-color': (style: string) => {
-    return { type: Decoration_Type.COLOR, colorData: { background: style } };
-  },
-  'font-weight': (style: string) => {
-    return { type: Decoration_Type.BOLD, fontWeightValue: style === 'bold' ? 700 : 400 };
-  },
-  'font-style': (style: string) => {
-    return { type: Decoration_Type.ITALIC, italicData: style === 'italic' };
-  },
-  'text-decoration': (style: string) => {
-    return { type: Decoration_Type.UNDERLINE, underlineData: style === 'underline' };
-  },
-  'font-size': (style: string) => {
-    return { type: Decoration_Type.FONT_SIZE, fontSize: style };
-  },
-};
-
-const convertHeaderToInlineStyles = styles =>
-  Object.entries(styles).map(([key, style]) => cssToRicosDecoration[key](style));
-
-const parseDocStyle = documentStyle => {
-  documentStyle &&
-    Object.entries(documentStyle).forEach(([header, styles]) => {
-      header &&
-        (documentStyle[header] = {
-          decorations: convertHeaderToInlineStyles(styles),
-        });
-    });
-  return documentStyle;
+const normalizeBlock = block => {
+  block.depth = block.depth || 0;
+  block.entityRanges = block.entityRanges || [];
+  block.inlineStyleRanges = block.inlineStyleRanges || [];
 };
 
 export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}): RichContent => {
   const { blocks, entityMap, documentStyle, ID: id } = cloneDeep(draftJSON);
   const nodes: Node[] = [];
-  const contentIdPrefix = Math.random()
-    .toString(36)
-    .substr(2, 9);
+  const contentIdPrefix = Math.random().toString(36).substr(2, 9);
+  const withDepth = (block: RicosContentBlock, depth = 0) => ({ ...block, depth });
 
   const parseBlock = index => {
     const block = blocks[index];
     if (!block) {
       return -1;
     }
+
+    normalizeBlock(block);
 
     switch (block.type) {
       case BlockType.Atomic:
@@ -121,8 +95,9 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
   const parseQuoteBlock = (block: RicosContentBlock): Node => ({
     id: block.key,
     type: Node_Type.BLOCKQUOTE,
-    nodes: [parseTextBlock(block)],
+    nodes: [parseTextBlock(withDepth(block))],
     style: getNodeStyle(block.data),
+    blockquoteData: { indentation: block.depth },
   });
 
   const parseCodeBlock = (block: RicosContentBlock): Node => ({
@@ -147,7 +122,7 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
       type: Node_Type.HEADING,
       headingData: {
         level: getLevel(block.type),
-        indentation: block.depth || undefined,
+        indentation: block.depth,
         textStyle: getTextStyle(block.data),
       },
       nodes: getTextNodes(block, entityMap, opts),
@@ -188,7 +163,7 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
   const createListItem = (block: RicosContentBlock): Node => ({
     id: block.key,
     type: Node_Type.LIST_ITEM,
-    nodes: [parseTextBlock(block)],
+    nodes: [parseTextBlock(withDepth(block))],
   });
 
   const isListBlock = (block: RicosContentBlock): boolean =>
@@ -211,11 +186,18 @@ export const fromDraft = (draftJSON: DraftContent, opts: FromDraftOptions = {}):
       }
       nextBlock = blocks[searchIndex];
     }
+
+    const listData =
+      FROM_DRAFT_LIST_TYPE[listType] === Node_Type.ORDERED_LIST
+        ? 'orderedListData'
+        : 'bulletedListData';
+
     return {
       node: {
         id: generateId(contentIdPrefix),
         type: FROM_DRAFT_LIST_TYPE[listType],
         nodes: listNodes,
+        [listData]: { indentation: depth },
       },
       nextIndex: searchIndex,
     };

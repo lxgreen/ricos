@@ -1,8 +1,9 @@
 import { findIndex, isEqual } from 'lodash';
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 import { AddItem } from 'wix-style-react';
 import ListItem from './ListItem';
-import { StyleAttr } from './types';
+import type { StyleAttr } from './types';
 import styles from './StylesPanel.scss';
 
 const replace = (array: StyleAttr[], existingItem: StyleAttr, newItem: StyleAttr) => {
@@ -16,6 +17,8 @@ interface Props {
 }
 
 const CustomStylesCreator: FunctionComponent<Props> = ({ stylesArray, setStyles }) => {
+  const emptyRow: StyleAttr = [undefined, '', ''];
+  const addEmptyRow = () => setStyles([...stylesArray, emptyRow]);
   return (
     <div className={styles.panel}>
       {stylesArray.map((item, idx) => (
@@ -26,7 +29,7 @@ const CustomStylesCreator: FunctionComponent<Props> = ({ stylesArray, setStyles 
           close={() => setStyles(stylesArray.filter((_, index) => index !== idx))}
         />
       ))}
-      <AddItem className={styles.addItem} onClick={() => setStyles([...stylesArray, ['', '', '']])}>
+      <AddItem className={styles.addItem} onClick={addEmptyRow}>
         Add Style
       </AddItem>
     </div>

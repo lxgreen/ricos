@@ -1,4 +1,4 @@
-import { RichContent } from 'ricos-schema';
+import type { RichContent } from 'ricos-schema';
 import { createEmptyContent } from './createEmptyContent';
 
 describe('createEmptyContent', () => {

@@ -1,4 +1,4 @@
-import { ModalStyles } from 'wix-rich-content-common';
+import type { ModalStyles } from 'wix-rich-content-common';
 
 export const PAGE_SIZE = 25;
 export const WAIT_INTERVAL = 300;

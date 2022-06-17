@@ -3,16 +3,17 @@ import * as E from 'fp-ts/Endomorphism';
 import { pipe } from 'fp-ts/function';
 import { concatAll } from 'fp-ts/Monoid';
 import * as N from 'fp-ts/number';
-import { contramap, Ord } from 'fp-ts/Ord';
-import { ComponentType } from 'react';
-import {
+import type { Ord } from 'fp-ts/Ord';
+import { contramap } from 'fp-ts/Ord';
+import type { ComponentType } from 'react';
+import type {
   Aggregate,
   DecoratedNodeExtension,
-  DEFAULT_PRIORITY,
   IReactNodeExtension,
   NodeHocComposer,
 } from './domain-types';
-import { NodeHoc, NodeHocDescriptor, RicosNodeProps } from 'ricos-tiptap-types';
+import { DEFAULT_PRIORITY } from './domain-types';
+import type { NodeHoc, NodeHocDescriptor, RicosNodeProps } from 'ricos-tiptap-types';
 
 const byPriority: Ord<NodeHocDescriptor> = pipe(
   N.Ord,

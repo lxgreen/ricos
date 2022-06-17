@@ -1,4 +1,5 @@
-import React, { FC, FunctionComponent } from 'react';
+import type { FC, FunctionComponent } from 'react';
+import React from 'react';
 import {
   InlineToolbarButton,
   indentSelectedBlocks,
@@ -7,7 +8,7 @@ import {
 import decreaseIndentPluginIcon from '../icons/decreaseIndentPluginIcon';
 import increaseIndentPluginIcon from '../icons/increaseIndentPluginIcon';
 import { INDENT_TYPE } from '../types';
-import {
+import type {
   TranslationFunction,
   RichContentTheme,
   GetEditorState,

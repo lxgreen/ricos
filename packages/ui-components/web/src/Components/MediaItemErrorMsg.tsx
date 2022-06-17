@@ -1,13 +1,11 @@
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 import { ErrorIcon } from '../Icons';
 import styles from '../../statics/styles/media-item-error-msg.scss';
 import classnames from 'classnames';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
-import {
-  MediaUploadErrorKey,
-  MediaUploadError,
-  TranslationFunction,
-} from 'wix-rich-content-common';
+import type { MediaUploadError, TranslationFunction } from 'wix-rich-content-common';
+import { MediaUploadErrorKey } from 'wix-rich-content-common';
 
 const errorMessages = {
   [MediaUploadErrorKey.GENERIC]: 'UploadFile_Error_Generic_Item',
@@ -20,14 +18,16 @@ const errorMessages = {
 
 interface MediaItemErrorMsgProps {
   error: MediaUploadError;
-  t: TranslationFunction;
+  t?: TranslationFunction;
   isTooltip?: boolean;
 }
 
 const MediaItemErrorMsg: FunctionComponent<MediaItemErrorMsgProps> = props => {
   const { error, t, isTooltip } = props;
   const errorMsg =
-    (error.key && t(errorMessages[error.key])) || error.msg || t('UploadFile_Error_Generic_Item');
+    (error.key && t?.(errorMessages[error.key])) ||
+    error.msg ||
+    t?.('UploadFile_Error_Generic_Item');
   const errorIconStyles = classnames(styles.errorIcon, !isTooltip && styles.errorIconWithMessage);
   return (
     <div className={styles.error}>

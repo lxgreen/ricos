@@ -1,10 +1,8 @@
 import { updatePrivacyField } from './utils';
 /* eslint-disable fp/no-delete */
 // TODO: purify this module
-import {
+import type {
   Node,
-  Node_Type,
-  Decoration_Type,
   ImageData,
   Decoration,
   PluginContainerData,
@@ -18,18 +16,20 @@ import {
   GIFData,
   CollapsibleListData_InitialExpandedItems,
   Struct,
+  AudioData,
 } from 'ricos-schema';
+import { Node_Type, Decoration_Type, ButtonData_Type } from 'ricos-schema';
 import { cloneDeep, has, merge } from 'lodash';
 import toCamelCase from 'to-camel-case';
+import type { DraftGalleryStyles } from '../consts';
 import {
   TO_RICOS_DECORATION_DATA_FIELD,
   FROM_RICOS_DECORATION_TYPE,
   FROM_RICOS_ENTITY_TYPE,
   TO_RICOS_DATA_FIELD,
-  DraftGalleryStyles,
 } from '../consts';
 import { WRAP, NO_WRAP } from '../../../consts';
-import { ComponentData, FileComponentData } from '../../../types';
+import type { ComponentData, FileComponentData } from '../../../types';
 import { parseLink } from '../../nodeUtils';
 import { toDraft } from './toDraft';
 import { convertStructToJson } from './convertStructToJson';
@@ -58,6 +58,7 @@ export const convertNodeDataToDraft = (nodeType: Node_Type, data, nodes?: Node[]
   const newData = cloneDeep(data);
   const converters = {
     [Node_Type.VIDEO]: convertVideoData,
+    [Node_Type.AUDIO]: convertAudioData,
     [Node_Type.DIVIDER]: convertDividerData,
     [Node_Type.FILE]: convertFileData,
     [Node_Type.GIF]: convertGIFData,
@@ -131,7 +132,7 @@ const convertContainerData = (
   delete data.containerData;
 };
 
-const convertVideoData = (data: VideoData & { src; metadata; title? }) => {
+const convertVideoData = (data: VideoData & { src; metadata; title?; duration?: number }) => {
   const videoSrc = data.video?.src;
   const { src, width, height } = data.thumbnail || {};
   if (videoSrc?.url) {
@@ -143,9 +144,27 @@ const convertVideoData = (data: VideoData & { src; metadata; title? }) => {
       thumbnail: { pathname: src?.id || src?.custom, width, height },
     };
   }
+  data.duration = data.video?.duration;
   delete data.video;
   delete data.title;
   delete data.thumbnail;
+};
+
+const convertAudioData = (
+  data: AudioData & { coverImage?: { file_name?: string; id?: string } }
+) => {
+  const { coverImage } = data;
+  if (coverImage) {
+    const { width, height } = coverImage;
+    const id = coverImage?.id ?? coverImage?.src?.id;
+    const file_name = coverImage?.file_name ?? coverImage?.src?.id;
+    data.coverImage = {
+      id,
+      file_name,
+      width,
+      height,
+    };
+  }
 };
 
 const convertExternalData = (data: Struct) => {
@@ -153,6 +172,8 @@ const convertExternalData = (data: Struct) => {
   Object.entries(draftData).forEach(([k, v]) => {
     data[k] = v;
   });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   delete data.fields;
 };
 
@@ -200,6 +221,8 @@ const convertGalleryStyles = options => {
     (styles.isVertical = options.layout.orientation === 'COLUMNS');
   has(options, 'layout.numberOfColumns') &&
     (styles.numberOfImagesPerRow = options.layout.numberOfColumns);
+  has(options, 'layout.mobileNumberOfColumns') &&
+    (styles.m_numberOfImagesPerRow = options.layout.mobileNumberOfColumns);
   has(options, 'item.targetSize') && (styles.gallerySizePx = options.item.targetSize);
   has(options, 'item.ratio') && (styles.cubeRatio = options.item.ratio);
   has(options, 'item.crop') && (styles.cubeType = options.item.crop.toLowerCase());
@@ -362,21 +385,25 @@ const convertPollData = data => {
 };
 
 const convertAppEmbedData = data => {
-  const { type, itemId, name, imageSrc, url, bookingData, eventData } = data;
+  const { type, itemId, name, image, url, bookingData, eventData, imageSrc } = data;
+  const { src, width, height } = image || {};
   data.type = type.toLowerCase();
   const selectedProduct: Record<string, unknown> = {
     id: itemId,
     name,
-    imageSrc,
+    imageSrc: src?.url || imageSrc,
     pageUrl: url,
     ...(bookingData || {}),
     ...(eventData || {}),
   };
+  width && (selectedProduct.imageWidth = width);
+  height && (selectedProduct.imageHeight = height);
   data.selectedProduct = selectedProduct;
   delete data.id;
   delete data.itemId;
   delete data.name;
   delete data.imageSrc;
+  delete data.image;
   delete data.url;
   bookingData && delete data.bookingData;
   eventData && delete data.eventData;
@@ -456,10 +483,10 @@ const convertCollapsibleListData = (
 };
 
 const convertButtonData = (data: Partial<ButtonData> & { button }) => {
-  const { link, text, styles } = data;
+  const { link, text, type, styles } = data;
   const { colors, border } = styles || {};
   const { width, radius } = border || {};
-  const convertedLink = link ? parseLink(link) : {};
+  const convertedLink = type === ButtonData_Type.LINK && link ? parseLink(link) : {};
   data.button = {
     settings: {
       buttonText: text,

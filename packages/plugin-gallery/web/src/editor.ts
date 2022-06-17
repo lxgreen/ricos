@@ -1,11 +1,17 @@
 import { createGalleryPlugin } from './createGalleryPlugin';
-import { GALLERY_TYPE, GalleryPluginEditorConfig } from './types';
+import type { GalleryPluginEditorConfig } from './types';
+import { GALLERY_TYPE } from './types';
 import { ModalsMap } from './modals';
 import { DEFAULTS } from './defaults';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createGalleryData } from './createGalleryData';
-import { createRicosExtensions } from './tiptap';
-import { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { tiptapExtensions } from './tiptap/tiptap';
+import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { getToolbarButtons } from './getToolbarButtons';
+import { getAddButtons } from './getAddButtons';
+import { GalleryPluginService } from './toolbar/galleryPluginService';
+
+const galleryPluginService = new GalleryPluginService();
 
 export const pluginGallery: EditorPluginCreator<GalleryPluginEditorConfig> = config => {
   const pluginConfig: GalleryPluginEditorConfig = { ...DEFAULTS.config, ...config };
@@ -15,8 +21,12 @@ export const pluginGallery: EditorPluginCreator<GalleryPluginEditorConfig> = con
     createPlugin: createGalleryPlugin,
     ModalsMap,
     createPluginData: createGalleryData,
-    configFixer: ({ helpers }) =>
-      (pluginConfig.uploadHandler = helpers?.handleFileSelection || helpers?.handleFileUpload),
-    tiptapExtensions: createRicosExtensions(pluginConfig),
+    tiptapExtensions,
+    addButtons: getAddButtons(pluginConfig, galleryPluginService),
+    toolbarButtons: getToolbarButtons(pluginConfig, galleryPluginService),
+    reconfigure: helpers => {
+      pluginConfig.handleFileSelection = helpers.handleFileSelection;
+      pluginConfig.handleFileUpload = helpers.handleFileUpload;
+    },
   } as TiptapEditorPlugin;
 };

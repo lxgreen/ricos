@@ -13,9 +13,9 @@ import { pluginLineSpacing } from 'wix-rich-content-plugin-line-spacing';
 import { pluginLink } from 'wix-rich-content-plugin-link';
 import { pluginLinkPreview, LinkPreviewProviders } from 'wix-rich-content-plugin-link-preview';
 import { pluginMentions } from 'wix-rich-content-plugin-mentions';
-import { pluginSoundCloud } from 'wix-rich-content-plugin-sound-cloud';
 import { pluginUndoRedo } from 'wix-rich-content-plugin-undo-redo';
-import { pluginVideo } from 'wix-rich-content-plugin-video';
+import { pluginVideo, videoButtonsTypes } from 'wix-rich-content-plugin-video';
+import { pluginAudio, audioButtonsTypes } from 'wix-rich-content-plugin-audio';
 import { pluginGiphy } from 'wix-rich-content-plugin-giphy';
 import { TOOLBARS, DISPLAY_MODE } from 'wix-rich-content-editor-common';
 
@@ -25,7 +25,7 @@ const configs = {
     sizes: { desktop: 'original', mobile: 'original' }, // original or downsizedSmall are supported
   },
 };
-const { Instagram, Twitter, YouTube, TikTok } = LinkPreviewProviders;
+const { Instagram, Twitter, TikTok } = LinkPreviewProviders;
 const plugins = [
   pluginLinkButton(),
   pluginActionButton(),
@@ -39,12 +39,24 @@ const plugins = [
   pluginLineSpacing(),
   pluginLink(),
   pluginMentions(),
-  pluginSoundCloud(),
-  pluginVideo(),
+  pluginVideo({
+    exposeEmbedButtons: [
+      videoButtonsTypes.video,
+      videoButtonsTypes.youTube,
+      videoButtonsTypes.soundCloud,
+    ],
+  }),
+  pluginAudio({
+    exposeEmbedButtons: [
+      audioButtonsTypes.audio,
+      audioButtonsTypes.soundCloud,
+      audioButtonsTypes.spotify,
+    ],
+  }),
   pluginUndoRedo(),
   pluginEmoji(),
   pluginLinkPreview({
-    exposeEmbedButtons: [Instagram, Twitter, YouTube, TikTok],
+    exposeEmbedButtons: [Instagram, Twitter, TikTok],
     enableEmbed: true,
   }),
   pluginGiphy(configs.giphy),

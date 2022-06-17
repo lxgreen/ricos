@@ -1,6 +1,6 @@
 import { has, isString } from 'lodash';
-import { RicosEntity } from '../../types/contentTypes';
-import { PreviewEntityData } from '../types';
+import type { RicosEntity } from '../../types/contentTypes';
+import type { PreviewEntityData } from '../types';
 /*
  *  The converter functions convert different plugin entities to a common structure objects, accordingly to media type.
  *  every converter function signature:

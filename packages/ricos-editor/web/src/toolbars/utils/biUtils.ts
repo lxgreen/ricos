@@ -1,12 +1,9 @@
+import type { Helpers, ToolbarType, BICallbacks, OnAddPluginLink } from 'wix-rich-content-common';
 import {
   Version,
-  Helpers,
-  ToolbarType,
-  BICallbacks,
   ANCHOR_CATEGORY,
   WEB_ADDRESS_CATEGORY,
   ADD_PLUGIN_LINK_BI,
-  OnAddPluginLink,
 } from 'wix-rich-content-common';
 interface SimplifiedBICallbacks
   extends Omit<BICallbacks, 'onToolbarButtonClick' | 'onInlineToolbarOpen'> {

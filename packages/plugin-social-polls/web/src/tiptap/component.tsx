@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { PollEditor } from '../components';
 import { POLL_TYPE } from '../types';
-import { PluginProps } from 'wix-rich-content-editor-common';
-import { convertBlockDataToRicos } from 'ricos-content/libs/migrateSchema';
+import type { PluginProps } from 'ricos-tiptap-types';
+import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
 import { NodeSelection } from 'prosemirror-state';
+import { RicosContext } from 'ricos-context';
 
 export const Poll: React.FC<PluginProps> = ({
-  context,
+  settings,
   componentData,
   node,
   updateAttributes,
@@ -14,10 +15,9 @@ export const Poll: React.FC<PluginProps> = ({
   editor,
   getPos,
 }) => {
-  const { theme, t, config = {}, isMobile } = context;
-  const settings = config[POLL_TYPE] || {};
+  const { theme, t, isMobile } = useContext(RicosContext);
   const block = { getKey: () => node.attrs.id };
-  const helpers = { handleFileUpload: settings.uploadHandler };
+  const helpers = { handleFileUpload: () => {} };
   //mocks
   const store = {
     update: (type, data) => updateAttributes(convertBlockDataToRicos(POLL_TYPE, data)),

@@ -1,12 +1,16 @@
-import React, { Fragment, ComponentType, Children, FunctionComponent, ReactElement } from 'react';
+import type { ComponentType, FunctionComponent, ReactElement } from 'react';
+import React, { Fragment, Children } from 'react';
 import EditorModalProvider from './EditorModalProvider';
-import { RicosEditorProps } from 'ricos-common';
+import type { RicosEditorProps } from 'ricos-common';
 import { GlobalContext, getLangDir } from 'wix-rich-content-common';
 
-const RicosModal: FunctionComponent<RicosEditorProps & {
-  container?: HTMLElement;
-  children: ReactElement;
-}> = props => {
+const RicosModal: FunctionComponent<
+  RicosEditorProps & {
+    container?: HTMLElement;
+    children: ReactElement;
+    parentClass?: string;
+  }
+> = props => {
   let ModalProvider: ComponentType = Fragment;
   const {
     children: {

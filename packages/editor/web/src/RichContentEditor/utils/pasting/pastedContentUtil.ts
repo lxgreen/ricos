@@ -1,10 +1,11 @@
 import { OrderedSet } from 'immutable';
 import rgbToHex from './rgbToHex';
-import { ContentState, Modifier, SelectionState } from 'wix-rich-content-editor-common';
+import type { ContentState } from 'wix-rich-content-editor-common';
+import { Modifier, SelectionState } from 'wix-rich-content-editor-common';
 import htmlToBlock from './htmlToBlock';
 import { colorNameToHex } from './colorNameToHex';
 import { reduce } from 'lodash';
-import { IConvertFromHTMLConfig } from 'draft-convert';
+import type { IConvertFromHTMLConfig } from 'draft-convert';
 
 const isBlack = (color: string) => color === '#000000';
 

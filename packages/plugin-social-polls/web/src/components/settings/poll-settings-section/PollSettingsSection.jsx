@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {
   SettingsSeparator,
   LabeledToggle,
-  InfoIcon,
+  InfoIconComponent as InfoIcon,
   RadioGroup,
   Label,
 } from 'wix-rich-content-ui-components';
@@ -15,6 +15,10 @@ import styles from './poll-settings-section.scss';
 
 export class PollSettingsSection extends Component {
   styles = mergeStyles({ styles, theme: this.props.theme });
+
+  modalsWithEditorCommands = this.props.experiments.modalBaseActionHoc?.enabled;
+
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
 
   VOTE_ROLE_OPTIONS = [
     {
@@ -75,31 +79,32 @@ export class PollSettingsSection extends Component {
   ];
 
   updateSettings(settings) {
-    this.props.store.update('componentData', {
-      poll: {
-        settings,
-      },
-    });
+    const { updateData, componentData } = this.props;
+    this.modalsWithEditorCommands
+      ? updateData({
+          poll: {
+            ...componentData.poll,
+            settings: { ...componentData.poll.settings, ...settings },
+          },
+        })
+      : this.props.store.update('componentData', {
+          poll: {
+            settings,
+          },
+        });
   }
 
   render() {
     const { componentData, t, settings = {} } = this.props;
 
-    const {
-      votersDisplay,
-      votesDisplay,
-      multipleVotes,
-      resultsVisibility,
-      voteRole,
-    } = componentData.poll.settings;
+    const { votersDisplay, votesDisplay, multipleVotes, resultsVisibility, voteRole } =
+      componentData.poll.settings;
 
     const { showVoteRoleSetting } = settings;
 
     return (
-      <section className={styles.section}>
-        <h3 className={styles.title}>
-          {t('Poll_PollSettings_Tab_Settings_Section_Voting_Header')}
-        </h3>
+      <section className={this.useNewSettingsUi ? styles.section_newUi : styles.section}>
+        <p className={styles.title}>{t('Poll_PollSettings_Tab_Settings_Section_Voting_Header')}</p>
         {showVoteRoleSetting && (
           <>
             <Label label={t('Poll_PollSettings_Tab_Settings_Section_Voting_Permission_Title')} />
@@ -123,9 +128,7 @@ export class PollSettingsSection extends Component {
 
         <SettingsSeparator top bottom />
 
-        <h3 className={styles.title}>
-          {t('Poll_PollSettings_Tab_Settings_Section_Results_Header')}
-        </h3>
+        <p className={styles.title}>{t('Poll_PollSettings_Tab_Settings_Section_Results_Header')}</p>
 
         <Label label={t('Poll_PollSettings_Tab_Settings_Section_Results_Permission_Title')} />
 
@@ -173,4 +176,6 @@ PollSettingsSection.propTypes = {
   store: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
   settings: PropTypes.object.isRequired,
+  updateData: PropTypes.func.isRequired,
+  experiments: PropTypes.object,
 };

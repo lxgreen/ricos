@@ -1,9 +1,6 @@
 const parseRGB = (rgbString: string) => {
   const sep = rgbString.indexOf(',') > -1 ? ',' : ' ';
-  const rgb = rgbString
-    .substr(4)
-    .split(')')[0]
-    .split(sep);
+  const rgb = rgbString.substr(4).split(')')[0].split(sep);
 
   if (rgb?.length !== 3) {
     return null;

@@ -2,15 +2,9 @@ import { pipe, flow } from 'fp-ts/function';
 import * as O from 'fp-ts/Option';
 import * as R from 'fp-ts/Record';
 
-import { TextNode, Element } from 'parse5';
-import {
-  Node_Type,
-  Decoration_Type,
-  ImageData,
-  Decoration,
-  PluginContainerData_Alignment,
-  ColorData,
-} from 'ricos-schema';
+import type { TextNode, Element } from 'parse5';
+import type { ImageData, Decoration, ColorData } from 'ricos-schema';
+import { Node_Type, Decoration_Type, PluginContainerData_Alignment } from 'ricos-schema';
 import {
   getAttributes,
   getStyle,
@@ -21,7 +15,7 @@ import {
   oneOf,
 } from './parse5-utils';
 import { and } from '../../../../fp-utils';
-import { Context, Rule } from './models';
+import type { Context, Rule } from './models';
 import {
   createTextNode,
   createParagraphNode,
@@ -30,7 +24,12 @@ import {
   createLink,
 } from '../../../nodeUtils';
 
-export const identityRule: Rule = [() => true, ({ visit }) => (node: Element) => visit(node)];
+export const identityRule: Rule = [
+  () => true,
+  ({ visit }) =>
+    (node: Element) =>
+      visit(node),
+];
 
 export const textToText: Rule = [
   isText,
@@ -44,11 +43,12 @@ export const pToParagraph: Rule = [
 
 export const hToHeading: Rule = [
   flow(toName, /h[1-6]/.test.bind(/h[1-6]/)),
-  context => (node: Element) => [
-    createHeadingNode(context.visit(node), {
-      level: Number(node.nodeName.replace('h', '')),
-    }),
-  ],
+  context => (node: Element) =>
+    [
+      createHeadingNode(context.visit(node), {
+        level: Number(node.nodeName.replace('h', '')),
+      }),
+    ],
 ];
 
 export const aToLink: Rule = [
@@ -77,19 +77,20 @@ export const aToAnchor: Rule = [
 
 export const lToList: Rule = [
   oneOf(['ul', 'ol', 'li']),
-  context => (node: Element) => [
-    createNode(
-      {
-        ul: Node_Type.BULLETED_LIST,
-        ol: Node_Type.ORDERED_LIST,
-        li: Node_Type.LIST_ITEM,
-      }[node.nodeName],
-      {
-        nodes: context.visit(node),
-        data: {},
-      }
-    ),
-  ],
+  context => (node: Element) =>
+    [
+      createNode(
+        {
+          ul: Node_Type.BULLETED_LIST,
+          ol: Node_Type.ORDERED_LIST,
+          li: Node_Type.LIST_ITEM,
+        }[node.nodeName as Node_Type],
+        {
+          nodes: context.visit(node),
+          data: {},
+        }
+      ),
+    ],
 ];
 
 export const strongEmUToDecoration: Rule = [
@@ -97,7 +98,7 @@ export const strongEmUToDecoration: Rule = [
   context => (node: Element) =>
     context.addDecoration(
       { strong: Decoration_Type.BOLD, em: Decoration_Type.ITALIC, u: Decoration_Type.UNDERLINE }[
-        node.nodeName
+        node.nodeName as Decoration_Type
       ],
       {},
       node
@@ -175,7 +176,6 @@ const toImageData = (decorations: Decoration[], node: Element): ImageData => {
 
 export const imgToImage: Rule = [
   hasTag('img'),
-  context => (node: Element) => [
-    createNode(Node_Type.IMAGE, { nodes: [], data: toImageData(context.decorations, node) }),
-  ],
+  context => (node: Element) =>
+    [createNode(Node_Type.IMAGE, { nodes: [], data: toImageData(context.decorations, node) })],
 ];

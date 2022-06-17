@@ -1,8 +1,13 @@
-import React from 'react';
-import { Component as UnsupportedBlocksComponent } from '../unsupported-blocks-component';
-import { PluginProps } from 'wix-rich-content-editor-common';
+import React, { useContext } from 'react';
+import { Component } from '../unsupported-blocks-component';
+import type { PluginProps } from 'ricos-tiptap-types';
+import { RicosContext } from 'ricos-context';
 
-export const Image: React.FC<PluginProps> = ({ context }) => {
-  const { theme, t } = context;
-  return <UnsupportedBlocksComponent theme={theme} t={t} />;
+export const UnsupportedBlock: React.FC<PluginProps> = () => {
+  const { theme, t } = useContext(RicosContext);
+  return (
+    <div contentEditable={false}>
+      <Component theme={theme} t={t} />
+    </div>
+  );
 };

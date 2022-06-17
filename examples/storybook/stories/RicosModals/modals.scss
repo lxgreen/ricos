@@ -1,0 +1,21 @@
+.modalComp {
+  padding: 50px;
+}
+
+.placement {
+  padding-top: 50px;
+  width: max-content;
+}
+
+.singleButton {
+  padding-top: 100px;
+  justify-content: center;
+  display: flex;
+}
+
+.multipleButtons {
+  padding-top: 100px;
+  justify-content: center;
+  display: flex;
+  column-gap: 10px;
+}

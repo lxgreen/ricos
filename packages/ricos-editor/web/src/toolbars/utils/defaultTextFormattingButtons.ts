@@ -1,10 +1,5 @@
 import { FORMATTING_BUTTONS } from 'wix-rich-content-editor-common';
 
-const ALIGN_LEFT = 'AlignLeft';
-const ALIGN_RIGHT = 'AlignRight';
-const ALIGN_CENTER = 'AlignCenter';
-const ALIGN_JUSTIFY = 'Justify';
-
 export const desktopTextButtonList = [
   FORMATTING_BUTTONS.HEADINGS,
   '|',

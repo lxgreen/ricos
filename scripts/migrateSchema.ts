@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import path from 'path';
-import { fromDraft, toDraft } from 'ricos-content/libs/migrateSchema';
-import { RichContent } from 'ricos-schema';
-import { DraftContent } from 'ricos-content';
+import { fromDraft } from 'ricos-content/libs/fromDraft';
+import { toDraft } from 'ricos-content/libs/toDraft';
+import type { RichContent } from 'ricos-schema';
+import type { DraftContent } from 'ricos-content';
 import { compare } from 'ricos-content/libs/comparision';
 const FIXTURES_PATH = '../e2e/tests/fixtures';
 const MIGRATED_FIXTURES_PATH = '../packages/ricos-content/web/statics/json/migratedFixtures';
@@ -38,7 +39,7 @@ const convertRicosFile = (filename: string): DraftContent => {
   }
 
   const ricosSchema = require(filepath);
-  const draftData = toDraft(ricosSchema);
+  const draftData = toDraft(ricosSchema as unknown as RichContent);
   return draftData;
 };
 

@@ -1,12 +1,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { FC, useCallback, useMemo } from 'react';
-import {
-  mergeStyles,
-  Helpers,
-  RichContentTheme,
-  AnchorTarget,
-  getRelValue,
-} from 'wix-rich-content-common';
+import type { FC } from 'react';
+import React, { useCallback, useMemo } from 'react';
+import type { Helpers, RichContentTheme, AnchorTarget } from 'wix-rich-content-common';
+import { mergeStyles, getRelValue } from 'wix-rich-content-common';
 import Styles from '../../statics/styles/default-styles.scss';
 import { ACTION_BUTTON_TYPE, LINK_BUTTON_TYPE } from '../types';
 import { merge } from 'lodash';
@@ -47,23 +43,23 @@ const ButtonViewer: FC<Props> = ({
     [helpers.onViewerAction]
   );
   const Component = isActionButton ? 'div' : 'a';
-  const props = merge(
-    {
-      className: styles.button_container,
-      style,
-      tabIndex: 0,
-      role: 'button',
-      onKeyDown: e => {
+
+  return (
+    <Component
+      className={styles.button_container}
+      style={style}
+      data-hook="buttonViewer"
+      onClick={onClickHandler}
+      tabIndex={0}
+      role="button"
+      onKeyDown={e => {
         if (e.key === ' ' || e.key === 'Enter') {
           e.preventDefault();
           onClickHandler(e);
         }
-      },
-    },
-    !isActionButton && { href: url, target, rel: getRelValue(rel) }
-  );
-  return (
-    <Component {...props} data-hook="buttonViewer" onClick={onClickHandler}>
+      }}
+      {...(!isActionButton && { href: url, target, rel: getRelValue(rel) })}
+    >
       <div className={styles.button_text}>{buttonText}</div>
     </Component>
   );

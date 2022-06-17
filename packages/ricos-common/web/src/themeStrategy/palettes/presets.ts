@@ -1,5 +1,4 @@
-import { PalettePreset } from '../themeTypes';
-import { PaletteColors } from 'wix-rich-content-common';
+import type { PalettePreset, PaletteColors } from 'ricos-types';
 
 const darkTheme: PaletteColors = {
   textColor: '#000000',

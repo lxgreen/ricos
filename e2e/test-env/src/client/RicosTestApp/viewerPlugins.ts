@@ -16,8 +16,8 @@ import { pluginLineSpacing } from 'wix-rich-content-plugin-line-spacing/viewer';
 import { pluginLink } from 'wix-rich-content-plugin-link/viewer';
 import { pluginMap } from 'wix-rich-content-plugin-map/viewer';
 import { pluginMentions } from 'wix-rich-content-plugin-mentions/viewer';
-import { pluginSoundCloud } from 'wix-rich-content-plugin-sound-cloud/viewer';
 import { pluginVideo } from 'wix-rich-content-plugin-video/viewer';
+import { pluginAudio } from 'wix-rich-content-plugin-audio/viewer';
 import { pluginLinkPreview } from 'wix-rich-content-plugin-link-preview/viewer';
 import { pluginVerticalEmbed } from 'wix-rich-content-plugin-vertical-embed/viewer';
 import { pluginTextColor, pluginTextHighlight } from 'wix-rich-content-plugin-text-color/viewer';
@@ -31,8 +31,8 @@ import { pluginPoll } from 'wix-rich-content-plugin-social-polls/viewer';
 import { pluginCollapsibleList } from 'wix-rich-content-plugin-collapsible-list/viewer';
 import { pluginTable } from 'wix-rich-content-plugin-table/viewer';
 import { mockFileUploadFunc } from '../../../../../examples/storybook/src/shared/utils/fileUploadUtil';
-import { TestAppConfig } from '../../types';
-import { ViewerPlugin } from 'wix-rich-content-common';
+import type { TestAppConfig } from '../../types';
+import type { ViewerPlugin } from 'wix-rich-content-common';
 
 const configs: TestAppConfig['pluginsConfig'] = {
   fileUpload: {
@@ -72,6 +72,7 @@ const plugins = {
   image: pluginImage(),
   gallery: pluginGallery(configs.gallery),
   video: pluginVideo(),
+  audio: pluginAudio(),
   html: pluginHtml(),
   divider: pluginDivider(),
   spacing: pluginLineSpacing(),
@@ -81,7 +82,6 @@ const plugins = {
   hashtag: pluginHashtag(),
   mentions: pluginMentions(),
   codeBlock: pluginCodeBlock(),
-  soundCloud: pluginSoundCloud(),
   giphy: pluginGiphy(configs.giphy),
   headers: pluginHeadersMarkdown(configs.headersMarkdown),
   map: pluginMap({ googleMapApiKey: process.env.GOOGLE_MAPS_API_KEY }),

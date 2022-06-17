@@ -1,39 +1,39 @@
 import { Extension } from '@tiptap/core';
-import { and, firstRight } from 'ricos-content';
 import { not } from 'fp-ts/Predicate';
-import {
-  ExtensionAggregate,
-  IExtension,
-  IFunctionalExtension,
-  IMarkExtension,
-  IReactNodeExtension,
-  IHtmlNodeExtension,
-} from './domain-types';
+import { and, firstRight } from 'ricos-content';
+import type { Group, RicosExtension, RicosNodeExtension, ExtensionProps } from 'ricos-tiptap-types';
 import {
   isRicosFunctionalExtension,
   isRicosMarkExtension,
   isRicosNodeExtension,
-  RicosExtension,
-  RicosNodeExtension,
 } from 'ricos-tiptap-types';
+import type {
+  ExtensionAggregate,
+  IExtension,
+  IFunctionalExtension,
+  IHtmlNodeExtension,
+  IMarkExtension,
+  IReactNodeExtension,
+} from './domain-types';
 import { FunctionalExtension } from './FunctionalExtension';
 import { FunctionalExtensions } from './FunctionalExtensions';
 import { IExtensionAggregate } from './IExtensionAggregate';
 import { MarkExtension } from './MarkExtension';
 import { MarkExtensions } from './MarkExtensions';
-import { ReactNodeExtension, HtmlNodeExtension } from './NodeExtension';
-import { ReactNodeExtensions, HtmlNodeExtensions } from './NodeExtensions';
+import { HtmlNodeExtension, ReactNodeExtension } from './NodeExtension';
+import { HtmlNodeExtensions, ReactNodeExtensions } from './NodeExtensions';
 
+const hasReactGroup = (ext: RicosNodeExtension): boolean => ext.groups.includes('react');
+
+// TODO: default extension should be FunctionalExtension with empty functionality
 const defaultIExtension = {
   toTiptapExtension: Extension.create,
 };
 
-const hasComponentConfig = (ext: RicosNodeExtension): boolean => !!ext.Component;
-
 const toIExtension = (ext: RicosExtension): IExtension =>
-  firstRight(ext, defaultIExtension as IExtension, [
-    [and([isRicosNodeExtension, hasComponentConfig]), () => new ReactNodeExtension(ext)],
-    [and([isRicosNodeExtension, not(hasComponentConfig)]), () => new HtmlNodeExtension(ext)],
+  firstRight(ext, defaultIExtension as unknown as IExtension, [
+    [and([isRicosNodeExtension, hasReactGroup]), () => new ReactNodeExtension(ext)],
+    [and([isRicosNodeExtension, not(hasReactGroup)]), () => new HtmlNodeExtension(ext)],
     [isRicosMarkExtension, () => new MarkExtension(ext)],
     [isRicosFunctionalExtension, () => new FunctionalExtension(ext)],
   ]);
@@ -60,14 +60,21 @@ class NameCollisionError extends Error {}
 export class Extensions implements ExtensionAggregate {
   private extensions: IExtensionAggregate<IExtension>;
 
-  private constructor(extensions: IExtension[]) {
+  private readonly ricosProps: ExtensionProps;
+
+  private constructor(extensions: IExtension[], props: ExtensionProps) {
     this.extensions = new IExtensionAggregate<IExtension>(extensions);
+    this.ricosProps = props;
   }
 
-  static of(extensions: RicosExtension[]) {
+  static of(extensions: RicosExtension[], props: ExtensionProps) {
     const iExtensions = extensions.map(toIExtension);
     validate(iExtensions);
-    return new Extensions(iExtensions);
+    return new Extensions(iExtensions, props);
+  }
+
+  getRicosExtensions() {
+    return this.extensions.asArray().map(ext => ext.getRicosExtension());
   }
 
   getFunctionalExtensions() {
@@ -78,13 +85,17 @@ export class Extensions implements ExtensionAggregate {
 
   getReactNodeExtensions() {
     return new ReactNodeExtensions(
-      this.extensions.filter(ext => ext.type === 'react-node').asArray() as IReactNodeExtension[]
+      this.extensions
+        .filter(ext => ext.type === 'node' && ext.groups.includes('react'))
+        .asArray() as IReactNodeExtension[]
     );
   }
 
   getHtmlNodeExtensions() {
     return new HtmlNodeExtensions(
-      this.extensions.filter(ext => ext.type === 'html-node').asArray() as IHtmlNodeExtension[]
+      this.extensions
+        .filter(ext => ext.type === 'node' && !ext.groups.includes('react'))
+        .asArray() as IHtmlNodeExtension[]
     );
   }
 
@@ -95,15 +106,32 @@ export class Extensions implements ExtensionAggregate {
   }
 
   getDecoratedNodeExtensions() {
-    const hocComposer = this.getFunctionalExtensions().getNodeHocComposer();
+    const hocComposer = this.getFunctionalExtensions().getNodeHocComposer(this, this.ricosProps);
     return this.getReactNodeExtensions().getDecoratedNodeExtensions(hocComposer);
   }
 
   getTiptapExtensions() {
-    const reactNodes = this.getDecoratedNodeExtensions().toTiptapExtensions();
-    const htmlNodes = this.getHtmlNodeExtensions().toTiptapExtensions();
-    const marks = this.getMarkExtensions().toTiptapExtensions();
-    const extensions = this.getFunctionalExtensions().toTiptapExtensions();
+    const reactNodes = this.getDecoratedNodeExtensions().toTiptapExtensions(this, this.ricosProps);
+    const htmlNodes = this.getHtmlNodeExtensions().toTiptapExtensions(this, this.ricosProps);
+    const marks = this.getMarkExtensions().toTiptapExtensions(this, this.ricosProps);
+    const extensions = this.getFunctionalExtensions().toTiptapExtensions(this, this.ricosProps);
     return [...extensions, ...marks, ...reactNodes, ...htmlNodes];
+  }
+
+  asArray() {
+    return this.extensions.asArray();
+  }
+
+  concat(extensions: RicosExtension[]): Extensions {
+    const iExtensions = extensions.map(toIExtension);
+    validate(iExtensions);
+    return new Extensions(this.extensions.asArray().concat(iExtensions), this.ricosProps);
+  }
+
+  byGroup(group: Group) {
+    return new Extensions(
+      this.extensions.filter(ext => ext.groups.includes(group)).asArray(),
+      this.ricosProps
+    );
   }
 }

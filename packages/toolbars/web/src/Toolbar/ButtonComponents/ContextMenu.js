@@ -57,11 +57,13 @@ class ContextMenu extends PureComponent {
 
   hideOptions = () => this.setState({ isOpen: false });
 
-  onChange = ({ onClick, text }) => e => {
-    this.props.onOptionClick?.(text);
-    onClick(e);
-    this.setState({ isOpen: false });
-  };
+  onChange =
+    ({ onClick, text }) =>
+    e => {
+      this.props.onOptionClick?.(text);
+      onClick(e);
+      this.setState({ isOpen: false });
+    };
 
   renderOptions = () => {
     const { buttonList, theme } = this.props;

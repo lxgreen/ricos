@@ -5,12 +5,12 @@ import { LTRIcon, RTLIcon } from 'wix-rich-content-plugin-commons';
 import {
   SettingsSeparator,
   SelectionList,
-  SelectionListItem,
   LabeledToggle,
   Label,
+  SelectionListItem,
 } from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
-
+import classNames from 'classnames';
 import { LAYOUT, DIRECTION } from '../../../defaults';
 import { LayoutGridIcon, LayoutListIcon } from '../../../assets/icons';
 
@@ -19,30 +19,58 @@ import styles from './layout-settings-section.scss';
 export class LayoutSettingsSection extends Component {
   styles = mergeStyles({ styles, theme: this.props.theme });
 
+  modalsWithEditorCommands = this.props.experiments.modalBaseActionHoc?.enabled;
+
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
+
   updateSettings(layout) {
-    this.props.store.update('componentData', {
-      layout,
-    });
+    const { updateData, componentData } = this.props;
+    this.modalsWithEditorCommands
+      ? updateData({ layout: { ...componentData.layout, ...layout } })
+      : this.props.store.update('componentData', {
+          layout,
+        });
   }
 
   handlePollTypeChange = type => {
-    this.updateSettings({
-      poll: { type },
-      option: { enableImage: type === LAYOUT.GRID },
-    });
+    const {
+      componentData: { layout },
+    } = this.props;
+    this.modalsWithEditorCommands
+      ? this.updateSettings({
+          poll: { ...layout.poll, type },
+          option: { ...layout.option, enableImage: type === LAYOUT.GRID },
+        })
+      : this.updateSettings({
+          poll: { type },
+          option: { enableImage: type === LAYOUT.GRID },
+        });
 
     window.dispatchEvent(new Event('resize'));
   };
 
   handleDirectionChange = direction => {
-    this.updateSettings({
-      poll: { direction },
-    });
+    const {
+      componentData: { layout },
+    } = this.props;
+    this.modalsWithEditorCommands
+      ? this.updateSettings({
+          poll: { ...layout.poll, direction },
+        })
+      : this.updateSettings({
+          poll: { direction },
+        });
   };
 
-  renderOption = ({ item, selected }) => (
-    <SelectionListItem icon={<item.icon />} selected={selected} label={item.label} />
-  );
+  renderOption = ({ item, selected }) =>
+    this.useNewSettingsUi ? (
+      <SelectionListItem icon={<item.icon />} selected={selected} label={item.label} />
+    ) : (
+      <>
+        <item.icon />
+        <p className={styles.selectionListOptionLabel}>{item.label}</p>
+      </>
+    );
 
   render() {
     const { componentData, t, isMobile } = this.props;
@@ -50,18 +78,27 @@ export class LayoutSettingsSection extends Component {
     const { poll, option } = componentData.layout;
 
     return (
-      <section className={styles.section}>
+      <section className={this.useNewSettingsUi ? styles.section_newUi : styles.section}>
         {!isMobile && (
           <>
-            <p className={styles.title}>
+            <p
+              className={classNames(styles.title, {
+                [styles.title_newUi]: this.useNewSettingsUi,
+              })}
+            >
               {t('Poll_PollSettings_Tab_Layout_Section_Question_Header')}
             </p>
 
             <LabeledToggle
               label={t('Poll_PollSettings_Tab_Layout_Section_Question_Image')}
               checked={poll?.enableImage}
-              onChange={() => this.updateSettings({ poll: { enableImage: !poll?.enableImage } })}
+              onChange={() =>
+                this.modalsWithEditorCommands
+                  ? this.updateSettings({ poll: { ...poll, enableImage: !poll?.enableImage } })
+                  : this.updateSettings({ poll: { enableImage: !poll?.enableImage } })
+              }
               theme={this.props.theme}
+              style={this.useNewSettingsUi ? { paddingTop: 20 } : {}}
             />
 
             <SettingsSeparator top bottom />
@@ -91,14 +128,20 @@ export class LayoutSettingsSection extends Component {
           value={poll?.type}
           onChange={this.handlePollTypeChange}
           className={styles.layout_selector}
+          useNewSettingsUi={this.useNewSettingsUi}
         />
 
         {!isMobile && (
           <LabeledToggle
             label={t('Poll_PollSettings_Tab_Layout_Section_Answers_Image')}
             checked={option?.enableImage}
-            onChange={() => this.updateSettings({ option: { enableImage: !option?.enableImage } })}
+            onChange={() =>
+              this.modalsWithEditorCommands
+                ? this.updateSettings({ option: { ...option, enableImage: !option?.enableImage } })
+                : this.updateSettings({ option: { enableImage: !option?.enableImage } })
+            }
             theme={this.props.theme}
+            style={this.useNewSettingsUi ? { paddingTop: 20 } : {}}
           />
         )}
 
@@ -108,6 +151,7 @@ export class LayoutSettingsSection extends Component {
           label={t('Poll_PollSettings_Tab_Layout_Section_TextDirection_Header')}
           tooltipText={t('Poll_PollSettings_Tab_Layout_Section_TextDirection_Header_Tooltip')}
           isMobile={isMobile}
+          style={this.useNewSettingsUi ? { fontSize: '16px' } : {}}
         />
 
         <SelectionList
@@ -128,6 +172,7 @@ export class LayoutSettingsSection extends Component {
           value={poll?.direction}
           onChange={this.handleDirectionChange}
           className={styles.layout_selector}
+          useNewSettingsUi={this.useNewSettingsUi}
         />
       </section>
     );
@@ -139,5 +184,7 @@ LayoutSettingsSection.propTypes = {
   theme: PropTypes.object.isRequired,
   isMobile: PropTypes.bool.isRequired,
   componentData: PropTypes.object.isRequired,
+  experiments: PropTypes.object,
+  updateData: PropTypes.func.isRequired,
   store: PropTypes.object.isRequired,
 };

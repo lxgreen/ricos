@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-plugin-undo-redo",
-  "version": "8.65.22",
+  "version": "8.71.28",
   "author": {
     "name": "Bar Boaron",
     "email": "barb@wix.com"
@@ -26,18 +26,18 @@
   "scripts": {
     "clean": "rm -rf dist/",
     "prebuild": "npm run clean",
-    "build:rollup": "rollup --environment MODULE_NAME:plugin-link -c ../../../rollup.config.js",
+    "build:rollup": "rollup --environment MODULE_NAME:plugin-undo-redo -c ../../../rollup.config.js",
     "build": "npm run build:rollup && node ../../../scripts/cssFix.js",
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "build:analyze:editor": "npm run build -- --environment MODULE_ANALYZE_EDITOR  && open stats.html",
     "build:analyze:viewer": "npm run build -- --environment MODULE_ANALYZE_VIEWER && open stats.html",
-    "watch": "cross-env NODE_ENV=development MODULE_WATCH=1 npm run build:rollup -- --watch.chokidar",
+    "watch": "cross-env NODE_ENV=development npm run build:rollup -- --watch",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,d.ts}'"
   },
   "dependencies": {
-    "wix-rich-content-common": "8.65.22",
-    "wix-rich-content-editor-common": "8.65.22",
-    "wix-rich-content-plugin-commons": "8.65.22"
+    "wix-rich-content-common": "8.71.28",
+    "wix-rich-content-editor-common": "8.71.28",
+    "wix-rich-content-plugin-commons": "8.71.28"
   },
   "unpkg": true,
   "publishConfig": {

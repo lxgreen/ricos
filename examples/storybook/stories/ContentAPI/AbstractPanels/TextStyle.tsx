@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { Layout, Cell, Dropdown, InputWithLabel, Typography as t } from 'wix-style-react';
-import { TextStyle } from 'ricos-schema';
-import { AbstractPanelProps } from '../types';
+import type { TextStyle, NodeStyle } from 'ricos-schema';
+import type { AbstractPanelProps } from '../types';
 import { createAbstractPanelSetter } from './utils';
 
 const alignments = ['AUTO', 'LEFT', 'RIGHT', 'CENTER', 'JUSTIFY'];
@@ -12,7 +13,7 @@ const options = alignments.map((value, id) => ({
 
 export const emptyTextStyle = { textAlignment: undefined } as TextStyle;
 
-export const PNLTextStyle: FC<AbstractPanelProps<TextStyle>> = ({ obj, setter }) => {
+export const PNLTextStyle: FC<AbstractPanelProps<TextStyle & NodeStyle>> = ({ obj, setter }) => {
   const set = createAbstractPanelSetter(obj, setter);
   const { textAlignment, lineHeight, paddingBottom, paddingTop } = obj;
   return (

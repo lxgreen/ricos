@@ -2,7 +2,6 @@ import React from 'react';
 import { withEditorContext } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
 import { RicosEditor } from 'ricos-editor';
 import content from '../../../infra/editor/content/intro.json';
-import 'ricos-editor/dist/styles.min.css';
 
 const YourComponent = ({ editorEvents }) => {
   const onPublish = async () => {

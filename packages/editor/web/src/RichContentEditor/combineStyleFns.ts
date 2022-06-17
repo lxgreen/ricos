@@ -1,4 +1,4 @@
-import { EditorProps, DraftInlineStyle, ContentBlock } from 'draft-js';
+import type { EditorProps, DraftInlineStyle, ContentBlock } from 'draft-js';
 
 /**
  * combines plugins and consumer customStyleFn into a single function

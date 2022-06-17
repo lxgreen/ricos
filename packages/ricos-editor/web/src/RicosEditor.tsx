@@ -1,26 +1,22 @@
-import React, {
-  Component,
-  Fragment,
-  ElementType,
-  FunctionComponent,
-  Suspense,
-  forwardRef,
-} from 'react';
+/* eslint-disable brace-style */
+import type { ElementType, FunctionComponent } from 'react';
+import React, { Component, Fragment, Suspense, forwardRef } from 'react';
 import {
   RicosEngine,
   shouldRenderChild,
   localeStrategy,
   getBiCallback as getCallback,
 } from 'ricos-common';
-import { DraftContent } from 'ricos-content';
-import { RichContentEditor, RichContentEditorProps } from 'wix-rich-content-editor';
+import type { DraftContent } from 'ricos-content';
+import type { RichContentEditorProps } from 'wix-rich-content-editor';
+import { RichContentEditor } from 'wix-rich-content-editor';
 import { createDataConverter, filterDraftEditorSettings } from './utils/editorUtils';
 import ReactDOM from 'react-dom';
-import { EditorState, ContentState } from 'draft-js';
+import type { EditorState, ContentState } from 'draft-js';
 import RicosModal from './modals/RicosModal';
-import './styles.css';
 import editorCss from '../statics/styles/styles.scss';
-import { RicosEditorProps, EditorDataInstance } from '.';
+import type { RicosEditorProps, EditorDataInstance } from '.';
+import type { RicosEditorRef } from './RicosEditorRef';
 import { hasActiveUploads } from './utils/hasActiveUploads';
 import {
   convertToRaw,
@@ -32,19 +28,33 @@ import {
   EditorEventsContext,
   EditorEvents,
 } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
-import { ToolbarType, Version, RicosTranslate, getLangDir } from 'wix-rich-content-common';
+import {
+  ToolbarType,
+  Version,
+  RicosTranslate,
+  getLangDir,
+  GlobalContext,
+} from 'wix-rich-content-common';
 import { getEmptyDraftContent, getEditorContentSummary } from 'wix-rich-content-editor-common';
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
-import { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
+import type { TextFormattingToolbarType } from './toolbars/TextFormattingToolbar';
 import { getBiFunctions } from './toolbars/utils/biUtils';
 import { renderSideBlockComponent } from './utils/renderBlockComponent';
-import { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
 import { createEditorStyleClasses } from './utils/createEditorStyleClasses';
-
+import { DraftEditorStateTranslator } from './content-conversion/draft-editor-state-translator';
+import { TiptapEditorStateTranslator } from './content-conversion/tiptap-editor-state-translator';
+import { DraftEditablesRepository } from './content-modification/services/draft-editables-repository';
+import { TiptapEditablesRepository } from './content-modification/services/tiptap-editables-repository';
+import { EditorCommandRunner } from './content-modification/command-runner';
+import { TiptapMockToolbar } from './tiptapMockToolbar/TiptapMockToolbar';
+import { convertToolbarContext } from './toolbars/convertToolbarContext';
+import { coreCommands } from './content-modification/commands/core-commands';
+import UploadObserver from './utils/UploadObserver';
+import { Node_Type } from 'ricos-schema';
 // eslint-disable-next-line
-const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use one of editorRef.publish() or editorEvents.publish() APIs for publishing.
+export const PUBLISH_DEPRECATION_WARNING_v9 = `Please provide the postId via RicosEditor biSettings prop and use editorEvents.publish() APIs for publishing.
 The getContent(postId, isPublishing) API is deprecated and will be removed in ricos v9.0.0`;
-
 const LinkToolbar = React.lazy(() => import('./toolbars/LinkToolbar'));
 interface State {
   StaticToolbar?: ElementType;
@@ -66,14 +76,24 @@ interface State {
 // awares of tiptap
 // sort , filter
 
-export class RicosEditor extends Component<RicosEditorProps, State> {
+export class RicosEditor extends Component<RicosEditorProps, State> implements RicosEditorRef {
   editor!: RichContentEditor;
 
   useTiptap = false;
 
   useNewFormattingToolbar = false;
 
-  dataInstance: EditorDataInstance;
+  useToolbarsV3 = false;
+
+  detachCommands = false;
+
+  dataInstance!: EditorDataInstance;
+
+  draftEditorStateTranslator!: DraftEditorStateTranslator;
+
+  tiptapEditorStateTranslator!: TiptapEditorStateTranslator;
+
+  editorCommandRunner!: EditorCommandRunner;
 
   isBusy = false;
 
@@ -87,6 +107,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   linkToolbarRef!: Record<'updateToolbar', () => void>;
 
+  UploadObserver?: UploadObserver;
+
   static getDerivedStateFromError(error: string) {
     return { error };
   }
@@ -97,7 +119,15 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   constructor(props: RicosEditorProps) {
     super(props);
-    this.dataInstance = createDataConverter(props.onChange, props.content);
+    this.detachCommands = !!props.experiments?.detachCommandsFromEditor?.enabled;
+    if (this.detachCommands) {
+      this.draftEditorStateTranslator = new DraftEditorStateTranslator();
+      this.tiptapEditorStateTranslator = new TiptapEditorStateTranslator();
+    }
+    this.dataInstance = createDataConverter(
+      [this.props.onChange, this.draftEditorStateTranslator?.onChange],
+      this.props.content
+    );
     this.getBiCallback = getCallback.bind(this);
     this.state = {
       localeData: { locale: props.locale },
@@ -109,7 +139,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     };
     this.useTiptap = !!props.experiments?.tiptapEditor?.enabled;
     this.useNewFormattingToolbar = !!props.experiments?.newFormattingToolbar?.enabled;
-    this.useTiptap && this.fixPluginsConfig();
+    this.useToolbarsV3 = !!props.experiments?.toolbarsV3?.enabled;
+    props.experiments?.useUploadContext?.enabled && (this.UploadObserver = new UploadObserver());
   }
 
   static defaultProps = {
@@ -117,11 +148,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       throw err;
     },
     locale: 'en',
-  };
-
-  fixPluginsConfig = () => {
-    const { _rcProps = {}, plugins } = this.props;
-    plugins?.forEach(plugin => plugin.configFixer?.({ helpers: _rcProps?.helpers }));
   };
 
   updateLocale = async () => {
@@ -136,7 +162,8 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     this.updateLocale();
     this.loadEditor();
     this.loadToolbar();
-    const { isMobile, toolbarSettings } = this.props;
+    this.initCommandRunner();
+    const { isMobile, toolbarSettings, _rcProps = {} } = this.props;
     const { useStaticTextToolbar } = toolbarSettings || {};
     const contentId = this.getContentId();
     this.setState({ contentId });
@@ -150,6 +177,27 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       contentId
     );
     this.props.editorEvents?.subscribe(EditorEvents.RICOS_PUBLISH, this.onPublish);
+    if (_rcProps.onLoad) {
+      const { theme, locale, plugins, linkPanelSettings, linkSettings, experiments, cssOverride } =
+        this.props;
+      const { onLoad, helpers } = _rcProps;
+      onLoad(
+        convertToolbarContext({
+          contentId,
+          isMobile,
+          theme,
+          locale,
+          helpers,
+          plugins,
+          linkPanelSettings,
+          linkSettings,
+          experiments,
+          toolbarSettings,
+          cssOverride,
+          getEditorCommands: this.getEditorCommands,
+        })
+      );
+    }
   }
 
   loadEditor() {
@@ -174,6 +222,38 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     }
   }
 
+  initCommandRunner = async () => {
+    if (this.detachCommands) {
+      const repo = await (this.useTiptap
+        ? this.initTiptapRepository()
+        : this.initDraftRepository());
+      this.editorCommandRunner = new EditorCommandRunner(repo);
+      [...coreCommands, ...(this.props?.commands || [])].map(command =>
+        this.editorCommandRunner.register(command)
+      );
+    }
+  };
+
+  initDraftRepository = () => {
+    return import(
+      /* webpackChunkName: "ricos-content/libs/converters" */
+      'ricos-content/libs/converters'
+    ).then(convertersModule => {
+      const { toDraft, fromDraft } = convertersModule;
+      return new DraftEditablesRepository(this.draftEditorStateTranslator, toDraft, fromDraft);
+    });
+  };
+
+  initTiptapRepository() {
+    return import(
+      /* webpackChunkName:"ricos-converters" */
+      'ricos-converters'
+    ).then(convertersModule => {
+      const { toTiptap, fromTiptap } = convertersModule;
+      return new TiptapEditablesRepository(this.tiptapEditorStateTranslator, toTiptap, fromTiptap);
+    });
+  }
+
   onUpdate = ({ content }: { content: DraftContent }) => {
     const editorState = createWithContent(convertFromRaw(content));
     this.onChange()(editorState);
@@ -196,7 +276,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   onPublish = async () => {
     // TODO: remove this param after getContent(postId) is deprecated
-    this.sendPublishBi((undefined as unknown) as string);
+    this.sendPublishBi(undefined as unknown as string);
     console.debug('editor publish callback'); // eslint-disable-line
     return {
       type: 'EDITOR_PUBLISH',
@@ -220,7 +300,13 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       console.debug('new content provided as editorState'); // eslint-disable-line
       const editorState = createWithContent(convertFromRaw(newProps.injectedContent));
       this.setState({ editorState }, () => {
-        this.dataInstance = createDataConverter(this.props.onChange, this.props.injectedContent);
+        this.dataInstance = createDataConverter(
+          [
+            this.props.onChange,
+            this.detachCommands ? this.draftEditorStateTranslator.onChange : undefined,
+          ],
+          this.props.injectedContent
+        );
         this.dataInstance.refresh(editorState);
       });
     }
@@ -256,7 +342,11 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   getContentTraits = () => this.dataInstance.getContentTraits();
 
-  getContent = async (postId?: string, forPublish?: boolean, shouldRemoveErrorBlocks = true) => {
+  getContent = async (
+    postId?: string,
+    forPublish?: boolean,
+    shouldRemoveErrorBlocks = true
+  ): Promise<DraftContent> => {
     if (postId && forPublish) {
       console.warn(PUBLISH_DEPRECATION_WARNING_v9); // eslint-disable-line
       this.sendPublishBi(postId); //async
@@ -282,8 +372,10 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   };
 
   onBusyChange = (contentState: ContentState) => {
-    const { onBusyChange, onChange } = this.props;
-    const isBusy = hasActiveUploads(contentState);
+    const { onBusyChange, onChange, experiments } = this.props;
+    const isBusy = experiments?.useUploadContext?.enabled
+      ? !!this.UploadObserver?.hasActiveUploads()
+      : hasActiveUploads(contentState);
     if (this.isBusy !== isBusy) {
       this.isBusy = isBusy;
       onBusyChange?.(isBusy);
@@ -302,9 +394,14 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   setEditorRef = ref => {
     this.editor = ref;
     this.setActiveEditor(ref);
+    if (this.detachCommands && ref && !this.useTiptap) {
+      this.draftEditorStateTranslator.setEditorState = ref.setEditorState;
+    }
   };
 
   getEditorCommands = () => this.editor?.getEditorCommands();
+
+  getCommands = () => (this.detachCommands ? this.editorCommandRunner.getCommands() : {});
 
   getT = () => this.editor.getT();
 
@@ -321,7 +418,7 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
 
   renderRicosEngine(child, childProps) {
     const { toolbarSettings, draftEditorSettings = {}, localeContent, ...props } = this.props;
-    const { isMobile, experiments, cssOverride } = props;
+    const { isMobile, experiments = {}, cssOverride } = props;
     const supportedDraftEditorSettings = filterDraftEditorSettings(draftEditorSettings);
     const contentProp = this.getContentProp();
     return (
@@ -331,8 +428,12 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
         key={'editor'}
         toolbarSettings={toolbarSettings}
         getContentId={this.getContentId}
+        editorCommands={this.getEditorCommands()}
         {...contentProp.content}
         {...props}
+        {...this.state.localeData}
+        UploadObserver={this.UploadObserver}
+        experiments={experiments}
       >
         {React.cloneElement(child, {
           editorKey: 'editor',
@@ -365,16 +466,16 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
   renderNewToolbars() {
     const { TextFormattingToolbar, activeEditor, contentId } = this.state;
     const {
-      isMobile,
+      isMobile = false,
       theme,
       locale,
       _rcProps: { helpers } = {},
       plugins,
       linkPanelSettings,
       linkSettings,
-      experiments,
       toolbarSettings,
       cssOverride,
+      experiments = {},
     } = this.props;
     const getEditorContainer = this.editor?.getContainer;
     const { useStaticTextToolbar } = toolbarSettings || {};
@@ -395,7 +496,6 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       linkPanelSettings,
       linkSettings,
       ...biFunctions,
-      experiments,
       cssOverride,
       getEditorContainer,
     };
@@ -405,33 +505,38 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     return (
       !activeEditorIsTableCell &&
       activeEditor && (
-        <div
-          data-hook={'ricos-editor-toolbars'}
-          style={isMobile ? baseMobileStyles : baseStyles}
-          dir={getLangDir(locale)}
-        >
-          {TextFormattingToolbar && (
-            <TextFormattingToolbar
-              ref={this.setTextFormattingToolbarRef}
-              activeEditor={activeEditor}
-              {...toolbarsProps}
-            />
-          )}
-          {linkPluginInstalled && (
-            <Suspense fallback={<div>Loading...</div>}>
-              <LinkToolbar
-                ref={this.setLinkToolbarRef}
+        <GlobalContext.Provider value={{ experiments, isMobile }}>
+          <div
+            data-hook={'ricos-editor-toolbars'}
+            style={isMobile ? baseMobileStyles : baseStyles}
+            dir={getLangDir(locale)}
+          >
+            {TextFormattingToolbar && (
+              <TextFormattingToolbar
+                ref={this.setTextFormattingToolbarRef}
                 activeEditor={activeEditor}
                 {...toolbarsProps}
               />
-            </Suspense>
-          )}
-        </div>
+            )}
+            {linkPluginInstalled && (
+              <Suspense fallback={''}>
+                <LinkToolbar
+                  ref={this.setLinkToolbarRef}
+                  activeEditor={activeEditor}
+                  {...toolbarsProps}
+                />
+              </Suspense>
+            )}
+          </div>
+        </GlobalContext.Provider>
       )
     );
   }
 
   renderToolbars() {
+    if (this.useToolbarsV3) {
+      return null;
+    }
     const { StaticToolbar } = this.state;
     return this.useNewFormattingToolbar
       ? this.renderNewToolbars()
@@ -445,7 +550,11 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     }
     const dir = getLangDir(locale);
     const nodes = this.getEditorCommands()?.getAllBlocksKeys();
-    return nodes?.map(id => renderSideBlockComponent(id, dir, sideBlockComponent));
+    return (
+      <div dir={dir} style={{ position: 'absolute' }}>
+        {nodes?.map(id => renderSideBlockComponent(id, dir, sideBlockComponent))}
+      </div>
+    );
   };
 
   renderDraftEditor() {
@@ -476,13 +585,9 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
     if (!tiptapEditorModule) {
       return null;
     }
-    const {
-      RicosTiptapEditor,
-      RichContentAdapter,
-      draftToTiptap,
-      TIPTAP_TYPE_TO_RICOS_TYPE,
-    } = tiptapEditorModule;
-    const { content, injectedContent, plugins, onAtomicBlockFocus } = this.props;
+    const { RicosTiptapEditor, RichContentAdapter, draftToTiptap, TIPTAP_TYPE_TO_RICOS_TYPE } =
+      tiptapEditorModule;
+    const { content, injectedContent, plugins, onAtomicBlockFocus, experiments } = this.props;
     const { tiptapToolbar } = this.state;
     // TODO: Enforce Content ID's existance (or generate it)
     // when tiptap will eventually be released (ask @Barackos, @talevy17)
@@ -495,17 +600,25 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
       <Fragment>
         {this.renderToolbars()}
         {tiptapToolbar && this.renderToolbarPortal(tiptapToolbar)}
+        {experiments?.TiptapMockToolbar?.enabled && (
+          <TiptapMockToolbar editor={this.state.activeEditor} />
+        )}
         {
           <RicosTranslate locale={locale} localeResource={localeResource || englishResources}>
             {t => {
               const tiptapEditor = (
                 <RicosTiptapEditor
+                  ricosProps={this.props}
+                  placeholder={this.props.placeholder}
                   extensions={extensions}
                   content={initialContent}
                   t={t}
                   onLoad={editor => {
                     const richContentAdapter = new RichContentAdapter(editor, t, plugins);
                     this.setEditorRef(richContentAdapter);
+                    if (this.detachCommands) {
+                      this.tiptapEditorStateTranslator.onChange(editor);
+                    }
                     const TextToolbar = richContentAdapter.getToolbars().TextToolbar;
                     this.setState({ tiptapToolbar: TextToolbar });
                   }}
@@ -513,7 +626,11 @@ export class RicosEditor extends Component<RicosEditorProps, State> {
                   onBlur={this.updateNewFormattingToolbar}
                   onSelectionUpdate={({ selectedNodes, content }) => {
                     //TODO: add 'textContainer' to group field of this extension config
-                    const textContainers = ['paragraph', 'codeBlock', 'heading'];
+                    const textContainers = [
+                      Node_Type.PARAGRAPH,
+                      Node_Type.CODE_BLOCK,
+                      Node_Type.HEADING,
+                    ];
                     const parentNodes =
                       selectedNodes.length === 1
                         ? selectedNodes

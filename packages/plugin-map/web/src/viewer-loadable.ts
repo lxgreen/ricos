@@ -1,8 +1,9 @@
 import { typeMapper } from './typeMapper-loadable';
 import { DEFAULTS } from './defaults';
-import { MAP_TYPE, MapPluginViewerConfig } from './types';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
-export { typeMapper as mapTypeMapper, MAP_TYPE };
+import type { MapPluginViewerConfig } from './types';
+import { MAP_TYPE } from './types';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
+export { typeMapper as mapTypeMapper, MAP_TYPE, MapPluginViewerConfig };
 
 export const pluginMap: ViewerPluginCreator<MapPluginViewerConfig> = config => {
   return {

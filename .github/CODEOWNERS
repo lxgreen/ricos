@@ -1,1 +1,15 @@
-* @lxgreen @shaulgo
+# general PRs
+*   @oded-soffrin @lxgreen 
+
+# Editor Packages
+packages/tiptap-*   @justame @lxgreen @oded-soffrin
+
+# Viewer & Plugins 
+packages/plugin-*   @danarish4 @lxgreen @oded-soffrin
+packages/ricos-viewer  @danarish4 @lxgreen @oded-soffrin
+
+# Platform & Schema
+packages/ricos-schema   @maimonav @lxgreen @oded-soffrin
+packages/ricos-content   @maimonav @lxgreen @oded-soffrin
+
+packages/toolbars* @noamtwix @justame

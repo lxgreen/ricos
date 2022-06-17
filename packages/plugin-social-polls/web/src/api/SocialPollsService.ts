@@ -1,4 +1,5 @@
-import axios, { CancelTokenSource, AxiosInstance } from 'axios';
+import type { CancelTokenSource, AxiosInstance } from 'axios';
+import axios from 'axios';
 
 type CancelTokens = {
   createPoll: CancelTokenSource | null;

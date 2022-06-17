@@ -419,7 +419,8 @@
         "video": {
           "src": {
             "url": "https://www.youtube.com/watch?v=CoJ23XNHgG0"
-          }
+          },
+          "duration": 14
         },
         "thumbnail": {
           "src": {
@@ -457,7 +458,8 @@
         "video": {
           "src": {
             "id": "video/d3dd72_9397c7bfa03f4fa8920b16bdd667f73b/1080p/mp4/file.mp4"
-          }
+          },
+          "duration": 666
         },
         "thumbnail": {
           "src": {
@@ -539,7 +541,8 @@
             "type": "GRID",
             "horizontalScroll": false,
             "orientation": "ROWS",
-            "numberOfColumns": 3
+            "numberOfColumns": 3,
+            "mobileNumberOfColumns": 3
           },
           "item": {
             "targetSize": 300,
@@ -860,9 +863,14 @@
           "url": "https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
           "private": false
         },
-        "name": "image.jpg",
-        "type": "jpg",
-        "size": 150000
+        "name": "document.pdf",
+        "type": "pdf",
+        "size": 150000,
+        "pdfSettings": {
+          "viewMode": "FULL",
+          "disableDownload": false,
+          "disablePrint": false
+        }
       }
     },
     {
@@ -885,7 +893,12 @@
         "itemId": "265beaf5-3008-c5c2-fa5e-1447e0bebf71",
         "name": "flowers",
         "imageSrc": "https://static.wixstatic.com/media/11062b_3a93dbce5ab64e7c90d9b2a83a598893~mv2.jpg/v1/fit/w_6720,h_4480,q_90/file.jpg",
-        "url": "https://www.wix.app/stores/54e7b326-49ec-434f-a7cc-c2ad1eaec049/catalog/265beaf5-3008-c5c2-fa5e-1447e0bebf71?d=https://sapirs0.wixsite.com/mysite/product-page/flowers"
+        "url": "https://www.wix.app/stores/54e7b326-49ec-434f-a7cc-c2ad1eaec049/catalog/265beaf5-3008-c5c2-fa5e-1447e0bebf71?d=https://sapirs0.wixsite.com/mysite/product-page/flowers",
+        "image": {
+          "src": {
+            "url": "https://static.wixstatic.com/media/11062b_3a93dbce5ab64e7c90d9b2a83a598893~mv2.jpg/v1/fit/w_6720,h_4480,q_90/file.jpg"
+          }
+        }
       }
     },
     {
@@ -909,6 +922,11 @@
         "name": "2-week course of intensive physical research, with a sense of plenty of time for process and discovery. Rooted in Ohad N",
         "imageSrc": "https://static.wixstatic.com/media/2571849c6b0749a4bbd008a06fd65762.jpg",
         "url": "https://www.wix.app/events/54e7b326-49ec-434f-a7cc-c2ad1eaec049/65129504-3bfc-44c8-90cc-f9eedfea9321/details?d=https://sapirs0.wixsite.com/mysite/event-details/2-week-course-of-intensive-physical-research-with-a-sense-of-plenty-of-time-for-process-and-discovery-rooted-in-ohad-n",
+        "image": {
+          "src": {
+            "url": "https://static.wixstatic.com/media/2571849c6b0749a4bbd008a06fd65762.jpg"
+          }
+        },
         "eventData": {
           "scheduling": "13 de octubre de 2020 19:00–27 de octubre de 2020 23:00 ",
           "location": " Suzanna Baby Shop"
@@ -936,6 +954,11 @@
         "name": "CUPCAKE MASTER",
         "imageSrc": "https://static.wixstatic.com/media/78ccafc88f7fce3e55bd7a33f166704b.jpg",
         "url": "https://www.wix.app/bookings/54e7b326-49ec-434f-a7cc-c2ad1eaec049/service/03ef6546-985d-4739-951e-ca897375b967/details?d=https://sapirs0.wixsite.com/mysite/bookings-checkout/cupcake-master",
+        "image": {
+          "src": {
+            "url": "https://static.wixstatic.com/media/78ccafc88f7fce3e55bd7a33f166704b.jpg"
+          }
+        },
         "bookingData": {
           "durations": "90"
         }
@@ -1177,7 +1200,10 @@
             "indentation": 0
           }
         }
-      ]
+      ],
+      "blockquoteData": {
+        "indentation": 1
+      }
     },
     {
       "type": "ORDERED_LIST",
@@ -1234,7 +1260,7 @@
                         "textStyle": {
                           "textAlignment": "AUTO"
                         },
-                        "indentation": 1
+                        "indentation": 0
                       }
                     },
                     {
@@ -1263,7 +1289,7 @@
                                 "textStyle": {
                                   "textAlignment": "AUTO"
                                 },
-                                "indentation": 2
+                                "indentation": 0
                               }
                             },
                             {
@@ -1292,7 +1318,7 @@
                                         "textStyle": {
                                           "textAlignment": "AUTO"
                                         },
-                                        "indentation": 3
+                                        "indentation": 0
                                       }
                                     },
                                     {
@@ -1321,7 +1347,7 @@
                                                 "textStyle": {
                                                   "textAlignment": "AUTO"
                                                 },
-                                                "indentation": 4
+                                                "indentation": 0
                                               }
                                             }
                                           ]
@@ -1348,24 +1374,36 @@
                                                 "textStyle": {
                                                   "textAlignment": "AUTO"
                                                 },
-                                                "indentation": 4
+                                                "indentation": 0
                                               }
                                             }
                                           ]
                                         }
-                                      ]
+                                      ],
+                                      "orderedListData": {
+                                        "indentation": 4
+                                      }
                                     }
                                   ]
                                 }
-                              ]
+                              ],
+                              "orderedListData": {
+                                "indentation": 3
+                              }
                             }
                           ]
                         }
-                      ]
+                      ],
+                      "orderedListData": {
+                        "indentation": 2
+                      }
                     }
                   ]
                 }
-              ]
+              ],
+              "orderedListData": {
+                "indentation": 1
+              }
             }
           ]
         },
@@ -1420,12 +1458,15 @@
                         "textStyle": {
                           "textAlignment": "AUTO"
                         },
-                        "indentation": 1
+                        "indentation": 0
                       }
                     }
                   ]
                 }
-              ]
+              ],
+              "bulletedListData": {
+                "indentation": 1
+              }
             }
           ]
         },
@@ -1456,7 +1497,10 @@
             }
           ]
         }
-      ]
+      ],
+      "orderedListData": {
+        "indentation": 0
+      }
     },
     {
       "type": "PARAGRAPH",
@@ -1524,7 +1568,7 @@
                         "textStyle": {
                           "textAlignment": "AUTO"
                         },
-                        "indentation": 1
+                        "indentation": 0
                       }
                     },
                     {
@@ -1553,7 +1597,7 @@
                                 "textStyle": {
                                   "textAlignment": "AUTO"
                                 },
-                                "indentation": 2
+                                "indentation": 0
                               }
                             },
                             {
@@ -1582,7 +1626,7 @@
                                         "textStyle": {
                                           "textAlignment": "AUTO"
                                         },
-                                        "indentation": 3
+                                        "indentation": 0
                                       }
                                     },
                                     {
@@ -1611,7 +1655,7 @@
                                                 "textStyle": {
                                                   "textAlignment": "AUTO"
                                                 },
-                                                "indentation": 4
+                                                "indentation": 0
                                               }
                                             }
                                           ]
@@ -1638,24 +1682,36 @@
                                                 "textStyle": {
                                                   "textAlignment": "AUTO"
                                                 },
-                                                "indentation": 4
+                                                "indentation": 0
                                               }
                                             }
                                           ]
                                         }
-                                      ]
+                                      ],
+                                      "bulletedListData": {
+                                        "indentation": 4
+                                      }
                                     }
                                   ]
                                 }
-                              ]
+                              ],
+                              "bulletedListData": {
+                                "indentation": 3
+                              }
                             }
                           ]
                         }
-                      ]
+                      ],
+                      "bulletedListData": {
+                        "indentation": 2
+                      }
                     }
                   ]
                 }
-              ]
+              ],
+              "bulletedListData": {
+                "indentation": 1
+              }
             }
           ]
         },
@@ -1713,7 +1769,10 @@
             }
           ]
         }
-      ]
+      ],
+      "bulletedListData": {
+        "indentation": 0
+      }
     },
     {
       "type": "PARAGRAPH",
@@ -1748,7 +1807,8 @@
         "level": 3,
         "textStyle": {
           "textAlignment": "JUSTIFY"
-        }
+        },
+        "indentation": 0
       }
     },
     {
@@ -1987,7 +2047,10 @@
                         "indentation": 0
                       }
                     }
-                  ]
+                  ],
+                  "blockquoteData": {
+                    "indentation": 0
+                  }
                 }
               ]
             },
@@ -2472,6 +2535,47 @@
         },
         "indentation": 0
       }
+    },
+    {
+      "type": "AUDIO",
+      "id": "125",
+      "nodes": [],
+      "audioData": {
+        "containerData": {
+          "width": {
+            "size": "CONTENT"
+          },
+          "alignment": "CENTER",
+          "textWrap": true
+        },
+        "audio": {
+          "src": {
+            "id": "mp3/f0f74f_35a1cdce4973490eac49e74c3244364d.mp3"
+          },
+          "duration": 300
+        },
+        "disableDownload": true,
+        "coverImage": {
+          "src": {
+            "id": "8bb438_aab736569612405a8381d4965c769f51.jpg"
+          },
+          "width": 5472,
+          "height": 3648
+        },
+        "name": "Dear Fear",
+        "authorName": "Kota"
+      }
+    },
+    {
+      "type": "PARAGRAPH",
+      "id": "126",
+      "nodes": [],
+      "paragraphData": {
+        "textStyle": {
+          "textAlignment": "AUTO"
+        },
+        "indentation": 0
+      }
     }
   ],
   "metadata": {
@@ -2494,6 +2598,54 @@
           "fontWeightValue": 700
         }
       ]
+    },
+    "headerThree": {
+      "decorations": [
+        {
+          "type": "FONT_SIZE",
+          "fontSizeData": {
+            "unit": "PX",
+            "value": 24
+          }
+        },
+        {
+          "type": "COLOR",
+          "colorData": {
+            "foreground": "#bfad80"
+          }
+        }
+      ]
+    },
+    "headerSix": {
+      "decorations": [
+        {
+          "type": "ITALIC",
+          "italicData": true
+        },
+        {
+          "type": "BOLD",
+          "fontWeightValue": 700
+        },
+        {
+          "type": "COLOR",
+          "colorData": {
+            "background": "#bf695c"
+          }
+        }
+      ],
+      "nodeStyle": {
+        "paddingTop": "2px",
+        "paddingBottom": "3px"
+      },
+      "lineHeight": "3"
+    },
+    "paragraph": {
+      "decorations": [],
+      "nodeStyle": {
+        "paddingTop": "2px",
+        "paddingBottom": "3px"
+      },
+      "lineHeight": "2"
     }
   }
 }

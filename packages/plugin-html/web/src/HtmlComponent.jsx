@@ -14,6 +14,7 @@ import { SRC_TYPE_HTML, SRC_TYPE_URL, INIT_HEIGHT, INIT_WIDTH, defaults } from '
 import IframeHtml from './IframeHtml';
 import IframeUrl from './IframeUrl';
 import htmlComponentStyles from '../statics/styles/HtmlComponent.scss';
+import { htmlFixer } from './htmlFixer';
 
 const getPageURL = siteDomain => {
   if (!siteDomain) {
@@ -60,20 +61,15 @@ class HtmlComponent extends Component {
   static getDerivedStateFromProps(props, state) {
     const { componentData } = props;
     if (componentData.srcType === 'html') {
-      let html = componentData && componentData.src;
       const pageURL = getPageURL(state.siteDomain);
-      if (pageURL && html && html.includes && html.includes('adsbygoogle')) {
-        const updatedAd = `<ins class="adsbygoogle"\n\tdata-page-url="${pageURL}"`;
-        html = html.replace(new RegExp('<ins class="adsbygoogle"', 'g'), updatedAd);
-      }
       return {
-        html,
+        html: htmlFixer(componentData.src, pageURL),
       };
     }
   }
 
   setHeight = iframeHeight => {
-    if (iframeHeight !== this.state.iframeHeight) {
+    if (iframeHeight > 0 && iframeHeight !== this.state.iframeHeight) {
       this.setState({ iframeHeight });
       this.props.store?.update('componentData', { config: { height: iframeHeight } });
     }

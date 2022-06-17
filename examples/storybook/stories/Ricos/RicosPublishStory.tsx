@@ -1,15 +1,17 @@
-import React, { useState, FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React, { useState } from 'react';
 import { RicosEditor } from 'ricos-editor';
 import { RichContentEditorBox, Section, Page } from '../Components/StoryParts';
 import { pluginImage } from 'wix-rich-content-plugin-image';
 import { pluginGallery } from 'wix-rich-content-plugin-gallery';
 import { pluginPoll } from 'wix-rich-content-plugin-social-polls';
+import { SocialPollsServiceMock } from '../../../main/src/Components/SocialPollsServiceMock/SocialPollsServiceMock';
 import MobileDetect from 'mobile-detect';
 import ActionButton from '../Components/ActionButton';
-import {
-  withEditorContext,
-  EditorEventsProps,
-} from 'wix-rich-content-editor-common/libs/EditorEventsContext';
+import type { EditorEventsProps } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
+import { withEditorContext } from 'wix-rich-content-editor-common/libs/EditorEventsContext';
+import { ToggleTiptapButton } from '../Components/ToggleTiptapButton';
+import { POLL_TYPE } from 'ricos-content';
 
 const mobileDetect = new MobileDetect(window.navigator.userAgent);
 const plugins = [pluginImage(), pluginGallery(), pluginPoll()];
@@ -23,6 +25,7 @@ const RicosPublishStory: FunctionComponent<EditorEventsProps> = ({ editorEvents 
   };
   const isMobile = mobileDetect.mobile() !== null;
   const [content, setContent] = useState('');
+  const [isTiptap, setIsTiptap] = useState(false);
   const { publish } = editorEvents;
 
   return (
@@ -38,8 +41,10 @@ const RicosPublishStory: FunctionComponent<EditorEventsProps> = ({ editorEvents 
         </a>
       </h4>
       <Section>
+        <ToggleTiptapButton isTiptap={isTiptap} setIsTiptap={setIsTiptap} />
         <RichContentEditorBox>
           <RicosEditor
+            experiments={{ tiptapEditor: { enabled: isTiptap } }}
             isMobile={isMobile}
             plugins={plugins}
             modalSettings={modalSettings}
@@ -48,13 +53,14 @@ const RicosPublishStory: FunctionComponent<EditorEventsProps> = ({ editorEvents 
                 // eslint-disable-next-line no-console
                 onPublish: async (...args) => console.log('biOnPublish', args),
               },
+              config: { [POLL_TYPE]: { pollServiceApi: new SocialPollsServiceMock() } },
             }}
           />
           <ActionButton
             text={'Publish'}
             onClick={async () => {
               const editorContent = await publish();
-              setContent(editorContent);
+              setContent(editorContent as string);
             }}
           />
         </RichContentEditorBox>

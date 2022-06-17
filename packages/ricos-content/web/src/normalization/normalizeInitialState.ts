@@ -21,7 +21,13 @@ import {
   verticalEmbedDataNormalizer,
   pollsDataNormalizer,
 } from './dataNormalizers';
-import { ComponentData, DraftContent, NormalizeConfig, RicosEntity, RicosContent } from '../types';
+import type {
+  ComponentData,
+  DraftContent,
+  NormalizeConfig,
+  RicosEntity,
+  RicosContent,
+} from '../types';
 
 const dataNormalizers: {
   [entityType: string]: (

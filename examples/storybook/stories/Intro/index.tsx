@@ -1,5 +1,4 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 
 import {
   RichContentEditorBox,
@@ -12,7 +11,11 @@ import EditorWrapper from '../Components/EditorWrapper';
 import ViewerWrapper from '../Components/ViewerWrapper';
 import introState from '../../../../e2e/tests/fixtures/intro.json';
 
-storiesOf('Intro', module).add('Hello!', () => {
+export default {
+  title: 'Intro',
+};
+
+export const Hello = () => {
   return (
     <Page title="Wix Rich Content">
       <Section>
@@ -27,4 +30,4 @@ storiesOf('Intro', module).add('Hello!', () => {
       </Section>
     </Page>
   );
-});
+};

@@ -1,12 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { DividerComponent } from '..';
-import { PluginProps } from 'wix-rich-content-editor-common';
+import type { PluginProps } from 'ricos-tiptap-types';
+import { RicosContext } from 'ricos-context';
 
-export const Divider: React.FC<PluginProps> = ({ context, componentData }) => {
-  const { isMobile, theme } = context;
-  return (
-    <div>
-      <DividerComponent componentData={componentData} isMobile={isMobile} theme={theme} />
-    </div>
-  );
+export const Divider: React.FC<PluginProps> = ({ componentData }) => {
+  const { theme, t, isMobile } = useContext(RicosContext);
+  return <DividerComponent componentData={componentData} isMobile={isMobile} theme={theme} />;
 };

@@ -25,6 +25,9 @@
   &::placeholder {
     color: var(--ricos-settings-inputs-placeholder-color, rgba(0, 0, 0, 0.6));
   }
+  &:hover {
+    border: 1px solid rgba(var(--ricos-settings-action-color-tuple, (0, 0, 0)), 0.5) !important;
+  }
 
   &.searchIcon {
     padding-left: 34px;

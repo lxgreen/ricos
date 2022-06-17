@@ -1,21 +1,23 @@
 import { merge } from 'lodash';
-import { toDraft, fromDraft, convertNodeDataToDraft, convertDecorationDataToDraft } from '..';
-import { compare } from '../../../comparision/compare';
-import complexFixture from '../../../../../../../e2e/tests/fixtures/migration-content.json';
-import anchorBlocksFixture from '../../../../../../../e2e/tests/fixtures/all-blocks-with-anchors.json';
-import keyAndBulletFixture from './migration-content-with-key-and-bullet.json';
-import { ANCHOR_TYPE, WRAP } from '../../../consts';
+import type { FileData, Node, RichContent } from 'ricos-schema';
 import {
   Decoration_Type,
-  FileData,
   Node_Type,
   PluginContainerData_Alignment,
   PluginContainerData_Width_Type,
-  Node,
 } from 'ricos-schema';
+import { convertDecorationDataToDraft, convertNodeDataToDraft, fromDraft, toDraft } from '..';
+import anchorBlocksFixture from '../../../../../../../e2e/tests/fixtures/all-blocks-with-anchors.json';
+import complexFixture from '../../../../../../../e2e/tests/fixtures/migration-content.json';
+import { compare } from '../../../comparision/compare';
+import { ANCHOR_TYPE, WRAP } from '../../../consts';
 import { convertDecorationToDraftData, convertNodeToDraftData } from './convertDraftPluginData';
-import external from './__tests__/external-blocks-and-decorations.json';
+import keyAndBulletFixtureMigrated from './migration-content-with-key-and-bullet-migrated.json';
+import keyAndBulletFixture from './migration-content-with-key-and-bullet.json';
 import externalMigrated from './__tests__/external-blocks-and-decorations-migrated.json';
+import external from './__tests__/external-blocks-and-decorations.json';
+import nullishDocumentStyleDraft from './__tests__/nullishDocumentStyleDraft.json';
+import nullishDocumentStyleRicos from './__tests__/nullishDocumentStyleRicos.json';
 
 const fixtures = { complex: complexFixture };
 
@@ -89,6 +91,25 @@ describe('migrate to draft', () => {
     const blockData = convertNodeToDraftData(imageNodeData);
 
     expect(blockData).toEqual(expectedImageBlockData);
+  });
+
+  const videoData = {
+    containerData: {
+      width: { size: PluginContainerData_Width_Type.CONTENT },
+    },
+    video: { src: {} },
+  };
+
+  const expectedVideoBlockData = {
+    config: {
+      size: 'content',
+      textWrap: WRAP,
+    },
+  };
+
+  it('should convert video without src properly', () => {
+    const blockData = convertNodeDataToDraft(Node_Type.VIDEO, videoData);
+    expect(blockData).toEqual(expectedVideoBlockData);
   });
 
   describe('FileSource', () => {
@@ -204,14 +225,32 @@ describe('migrate to draft', () => {
     it('should fix whole content', () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const converted = toDraft(keyAndBulletFixture as any);
-      expect(compare(converted, complexFixture, { ignoredKeys: ['key', 'ID'] })).toEqual({});
+      expect(compare(converted, keyAndBulletFixtureMigrated, { ignoredKeys: ['ID'] })).toEqual({});
+    });
+  });
+
+  describe('migrate documentStyle properly', () => {
+    it('should work when documentStyle is null', () => {
+      expect(
+        compare(
+          toDraft(nullishDocumentStyleRicos as unknown as RichContent),
+          nullishDocumentStyleDraft,
+          {
+            ignoredKeys: ['ID'],
+          }
+        )
+      ).toEqual({});
     });
   });
 });
 
 describe('toDraft EXTERNAL', () => {
   it('should migrate external node and decoration', () => {
-    expect(compare(toDraft(external), externalMigrated, { ignoredKeys: ['ID'] })).toEqual({});
+    expect(
+      compare(toDraft(external as unknown as RichContent), externalMigrated, {
+        ignoredKeys: ['ID'],
+      })
+    ).toEqual({});
   });
 });
 

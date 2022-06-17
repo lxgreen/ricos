@@ -25,6 +25,7 @@
 }
 
 .toolbarButton {
+  border-radius: var(--ricos-settings-small-buttons-border-radius, unset);
   display: flex;
   background: transparent;
   color: $settings-icons-color;
@@ -64,13 +65,10 @@
     height: unset;
   }
 
-  @include svg-fill;
 }
 
 .toolbarButton_active {
-  color: $settings-action-color-fallback;
-  fill: $settings-action-color-fallback;
-  @include svg-fill;
+  @include fillWithSettingsActionColor;
 }
 
 .toolbarButton_menuButton {

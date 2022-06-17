@@ -1,6 +1,9 @@
 import { wrappingInputRule } from '@tiptap/core';
-import { RicosExtension } from 'ricos-tiptap-types';
-import { DOMOutputSpec } from 'prosemirror-model';
+import type { RicosExtension } from 'ricos-tiptap-types';
+import bulletedListDataDefaults from 'ricos-schema/dist/statics/bulleted_list.defaults.json';
+import type { DOMOutputSpec } from 'prosemirror-model';
+import { Node_Type } from 'ricos-schema';
+import styles from './statics/styles.scss';
 
 export interface BulletListOptions {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,54 +23,66 @@ declare module '@tiptap/core' {
 
 export const inputRegex = /^\s*([-+*])\s$/;
 
-export const createBulletedList = (): RicosExtension => ({
+export const bulletedList: RicosExtension = {
   type: 'node' as const,
-  createExtensionConfig: ({ mergeAttributes }) => ({
-    name: 'bulletedList',
+  groups: [],
+  name: Node_Type.BULLETED_LIST,
+  createExtensionConfig({ mergeAttributes }) {
+    return {
+      name: this.name,
+      addOptions() {
+        return {
+          HTMLAttributes: { class: styles.bulletedList },
+          itemTypeName: Node_Type.LIST_ITEM,
+        };
+      },
 
-    addOptions() {
-      return {
-        HTMLAttributes: {},
-      };
-    },
+      group: 'block list',
 
-    group: 'block list',
+      content() {
+        return `${this.options.itemTypeName}+`;
+      },
 
-    content: 'listItem+',
+      parseHTML() {
+        return [{ tag: 'ul' }];
+      },
 
-    parseHTML() {
-      return [{ tag: 'ul' }];
-    },
+      addAttributes() {
+        return { ...bulletedListDataDefaults, indentation: { default: 0 } };
+      },
 
-    renderHTML({ HTMLAttributes }) {
-      return [
-        'ul',
-        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-        0,
-      ] as DOMOutputSpec;
-    },
+      renderHTML({ HTMLAttributes }) {
+        return [
+          'ul',
+          mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+          0,
+        ] as DOMOutputSpec;
+      },
 
-    addCommands() {
-      return {
-        toggleBulletList: () => ({ commands }) => {
-          return commands.toggleList(this.name, 'listItem');
-        },
-      };
-    },
+      addCommands() {
+        return {
+          toggleBulletList:
+            () =>
+            ({ commands }) => {
+              return commands.toggleList(this.name, Node_Type.LIST_ITEM);
+            },
+        };
+      },
 
-    addKeyboardShortcuts() {
-      return {
-        'Mod-Shift-8': () => this.editor.commands.toggleBulletList(),
-      };
-    },
+      addKeyboardShortcuts() {
+        return {
+          'Mod-Shift-8': () => this.editor.commands.toggleBulletList(),
+        };
+      },
 
-    addInputRules() {
-      return [
-        wrappingInputRule({
-          find: inputRegex,
-          type: this.type,
-        }),
-      ];
-    },
-  }),
-});
+      addInputRules() {
+        return [
+          wrappingInputRule({
+            find: inputRegex,
+            type: this.type,
+          }),
+        ];
+      },
+    };
+  },
+};

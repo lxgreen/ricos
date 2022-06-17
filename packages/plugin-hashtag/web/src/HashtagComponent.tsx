@@ -1,7 +1,9 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import type { FunctionComponent, ReactElement } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import styles from '../statics/hashtag.scss';
-import { RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 
 export interface HashtagProps {
   decoratedText: string;
@@ -17,9 +19,10 @@ const Hashtag: FunctionComponent<HashtagProps> = props => {
   const href = createHref ? createHref(text) : null;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const Component: any = href ? 'a' : 'span';
-  const className = classNames(styles.hashtag, theme && theme.hashtag, {
-    [styles.hashtag_hover]: !!href,
-    [theme.hashtag_hover]: theme && theme.hashtag_hover && !!href,
+  const hashtagStyles = mergeStyles({ styles, theme });
+  const className = classNames(hashtagStyles.hashtag, {
+    [hashtagStyles.hashtag_hover]: !!href,
+    [hashtagStyles.hashtag_hover]: hashtagStyles.hashtag_hover && !!href,
   });
 
   const decoratedOnClick = onClick ? event => onClick(event, text) : null;

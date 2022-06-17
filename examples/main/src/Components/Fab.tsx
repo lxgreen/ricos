@@ -1,8 +1,9 @@
-import React, { ReactElement } from 'react';
+import type { ReactElement } from 'react';
+import React from 'react';
 import { Fab as FabButton, Action } from 'react-tiny-fab';
-import { MdAdd, MdEdit, MdRemoveRedEye, MdCode } from 'react-icons/md';
+import { MdAdd, MdEdit, MdRemoveRedEye, MdCode, MdSettings } from 'react-icons/md';
 import 'react-tiny-fab/dist/styles.min.css';
-import { OnVisibilityChanged } from '../types';
+import type { OnVisibilityChanged } from '../types';
 
 const Fab = React.memo<{
   isMobile: boolean;
@@ -10,6 +11,7 @@ const Fab = React.memo<{
   isPreviewShown: boolean;
   isViewerShown: boolean;
   isContentStateShown: boolean;
+  isEditorSettingsShown: boolean;
   toggleSectionVisibility: OnVisibilityChanged;
 }>(
   ({
@@ -18,13 +20,24 @@ const Fab = React.memo<{
     isPreviewShown,
     isViewerShown,
     isContentStateShown,
+    isEditorSettingsShown,
     toggleSectionVisibility,
   }) => {
     let hideFab = true;
     if (!isMobile) {
-      hideFab = isEditorShown && isViewerShown && isContentStateShown && isPreviewShown;
+      hideFab =
+        isEditorShown &&
+        isViewerShown &&
+        isContentStateShown &&
+        isPreviewShown &&
+        isEditorSettingsShown;
     } else {
-      hideFab = isEditorShown || isViewerShown || isContentStateShown || isPreviewShown;
+      hideFab =
+        isEditorShown ||
+        isViewerShown ||
+        isContentStateShown ||
+        isPreviewShown ||
+        isEditorSettingsShown;
     }
     if (hideFab) {
       return null;
@@ -72,6 +85,18 @@ const Fab = React.memo<{
           onClick={() => toggleSectionVisibility('ContentState', true)}
         >
           <MdCode />
+        </Action>
+      );
+    }
+
+    if (!isEditorSettingsShown) {
+      FabActions.push(
+        <Action
+          text="Editor Settings"
+          key="editor-settings"
+          onClick={() => toggleSectionVisibility('EditorSettings', true)}
+        >
+          <MdSettings />
         </Action>
       );
     }

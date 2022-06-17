@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import RadioGroup, { RadioGroupDataSource } from './RadioGroup';
+import type { RadioGroupDataSource } from './RadioGroup';
+import RadioGroup from './RadioGroup';
 import Label from './Label';
-import { mergeStyles, RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import type { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../statics/styles/radio-group-horizontal.scss';
 import infoIconStyles from '../../statics/styles/info-icon.scss';
 

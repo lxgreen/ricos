@@ -55,17 +55,17 @@ const List = ({
           alignment
         );
         const hasJustifyText = alignment === 'justify' && hasText(children);
-        const shouldFixHeight = context.experiments?.fixListLineHeight?.enabled;
+
         const blockStyle = blockDataToStyle(blockProps.data[childIndex]);
-        const style = shouldFixHeight ? { lineHeight: blockStyle.lineHeight } : undefined;
         const elementProps = key => ({
           className: classNames(mergedStyles.elementSpacing, textClassName, {
             [styles.hasJustifyText]: hasJustifyText,
             [styles.contentCenterAlignment]: alignment === 'center',
           }),
-          style,
+          style: { lineHeight: blockStyle.lineHeight },
           key,
         });
+
         React.Children.forEach(children, (child, i) => {
           if (child) {
             if (typeof child.type === 'string' && /h\d/.exec(child.type)) {
@@ -109,7 +109,7 @@ const List = ({
               getBlockStyleClasses(mergedStyles, listItemDirection, alignment, className, true),
               isPaywallSeo(context.seoMode) &&
                 getPaywallSeoClass(context.seoMode.paywall, blockIndex),
-              shouldFixHeight && blockStyle.lineHeight && styles.lineHeightFix
+              blockStyle.lineHeight && styles.lineHeightFix
             )}
             key={blockProps.keys[childIndex]}
             style={blockDataToStyle(blockProps.data[childIndex])}

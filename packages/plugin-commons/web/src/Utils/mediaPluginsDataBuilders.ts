@@ -1,16 +1,13 @@
+import type { VideoComponentData, ImageComponentData } from 'wix-rich-content-common';
 import {
   IMAGE_TYPE,
   GALLERY_TYPE,
   VIDEO_TYPE,
   FILE_UPLOAD_TYPE,
-  VideoComponentData,
-  ImageComponentData,
+  AUDIO_TYPE,
 } from 'wix-rich-content-common';
 
-export const GALLERY_FILE_TYPES = {
-  IMAGE: 'image',
-  VIDEO: 'video',
-};
+export const GALLERY_FILE_TYPES = { IMAGE: 'image', VIDEO: 'video' };
 
 const galleryItemBuilder = {
   [GALLERY_FILE_TYPES.IMAGE]: (
@@ -18,11 +15,7 @@ const galleryItemBuilder = {
     preloadImage?: boolean | undefined
   ) => {
     return {
-      metadata: {
-        type: GALLERY_FILE_TYPES.IMAGE,
-        height: img.height,
-        width: img.width,
-      },
+      metadata: { type: GALLERY_FILE_TYPES.IMAGE, height: img.height, width: img.width },
       url: preloadImage ? img.src : img.file_name,
       tempData: preloadImage,
     };
@@ -36,11 +29,7 @@ const galleryItemBuilder = {
         type: GALLERY_FILE_TYPES.VIDEO,
         height: video.height || height,
         width: video.width || width,
-        poster: {
-          url: pathname,
-          width,
-          height,
-        },
+        poster: { url: pathname, width, height },
       },
       url: video.pathname,
       tempData: preloadImage,
@@ -66,12 +55,7 @@ export const dataBuilder = {
     if (!config.alignment) {
       config.alignment = imageData.width >= 740 ? 'center' : 'left';
     }
-    return {
-      ...componentData,
-      config,
-      src: imageData,
-      error,
-    };
+    return { ...componentData, config, src: imageData, error };
   },
   [VIDEO_TYPE]: ({ data, error }, componentData) => {
     let { src } = componentData;
@@ -80,6 +64,20 @@ export const dataBuilder = {
       src = pathname ? { pathname, thumbnail } : url;
     }
     return { ...componentData, src, error, tempData: undefined };
+  },
+  [AUDIO_TYPE]: ({ data, error }, componentData) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { html, tempData, ...rest } = componentData;
+    const name = data?.name ?? componentData?.name;
+    const authorName = data?.authorName ?? componentData?.authorName;
+
+    return {
+      ...rest,
+      audio: data?.audio,
+      error,
+      name,
+      authorName,
+    };
   },
   [FILE_UPLOAD_TYPE]: ({ data, error }, componentData) => {
     return { ...componentData, ...data, error, tempData: undefined };
@@ -104,6 +102,11 @@ export const tempDataBuilder = {
   [VIDEO_TYPE]: ({ url }) => {
     return { src: url, tempData: true };
   },
+  [AUDIO_TYPE]: ({ url, file }) => {
+    const audio = { src: { id: url } };
+    const name = file.name.split('.')[0];
+    return { audio, name, tempData: true };
+  },
   [FILE_UPLOAD_TYPE]: ({ file }) => {
     const { name, size } = file;
     const type = name.split('.').pop();
@@ -114,6 +117,7 @@ export const tempDataBuilder = {
 export const uploadFunctionGetter = {
   [IMAGE_TYPE]: props => props.helpers?.handleFileUpload,
   [VIDEO_TYPE]: props => props.handleFileUpload,
+  [AUDIO_TYPE]: props => props.handleFileUpload,
   [FILE_UPLOAD_TYPE]: props => props.settings?.onFileSelected,
   [GALLERY_TYPE]: props => props.helpers?.handleFileUpload,
 };

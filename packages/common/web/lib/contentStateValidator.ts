@@ -11,12 +11,13 @@ import linkPreviewSchema from '../statics/schemas/plugin-link-preview.schema.jso
 import pollsSchema from '../statics/schemas/plugin-polls.schema.json';
 import mapSchema from '../statics/schemas/plugin-map.schema.json';
 import mentionsSchema from '../statics/schemas/plugin-mentions.schema.json';
-import soundCloudSchema from '../statics/schemas/plugin-sound-cloud.schema.json';
 import videoSchema from '../statics/schemas/plugin-video.schema.json';
 import anchorSchema from '../statics/schemas/anchor.schema.json';
 import tableSchema from '../statics/schemas/plugin-table.schema.json';
 import collapsibleListSchema from '../statics/schemas/plugin-collapsible-list.schema.json';
 import varticalEmbedSchema from '../statics/schemas/vertical-embed.schema.json';
+import emojiSchema from '../statics/schemas/plugin-emoji.schema.json';
+import audioSchema from '../statics/schemas/plugin-audio.schema.json';
 import {
   LINK_BUTTON_TYPE,
   ACTION_BUTTON_TYPE,
@@ -31,11 +32,12 @@ import {
   POLL_TYPE,
   MAP_TYPE,
   MENTION_TYPE,
-  SOUND_CLOUD_TYPE,
   VIDEO_TYPE,
   TABLE_TYPE,
   COLLAPSIBLE_LIST_TYPE,
   VERTICAL_EMBED_TYPE,
+  EMOJI_TYPE,
+  AUDIO_TYPE,
 } from 'ricos-content';
 
 export const isValidEditorData = payload => {
@@ -43,9 +45,9 @@ export const isValidEditorData = payload => {
     [DIVIDER_TYPE]: dividerSchema,
     [IMAGE_TYPE]: imageSchema,
     [VIDEO_TYPE]: videoSchema,
+    [AUDIO_TYPE]: audioSchema,
     [GIPHY_TYPE]: giphySchema,
     [FILE_UPLOAD_TYPE]: fileUploadSchema,
-    [SOUND_CLOUD_TYPE]: soundCloudSchema,
     [MAP_TYPE]: mapSchema,
     [LINK_BUTTON_TYPE]: buttonSchema,
     [ACTION_BUTTON_TYPE]: buttonSchema,
@@ -59,6 +61,8 @@ export const isValidEditorData = payload => {
     [TABLE_TYPE]: tableSchema,
     [COLLAPSIBLE_LIST_TYPE]: collapsibleListSchema,
     [VERTICAL_EMBED_TYPE]: varticalEmbedSchema,
+    [EMOJI_TYPE]: emojiSchema,
+    EMOJI_TYPE: emojiSchema,
   });
   return checkValidity(payload, schema);
 };

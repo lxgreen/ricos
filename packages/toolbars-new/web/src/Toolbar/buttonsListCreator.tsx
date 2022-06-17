@@ -3,14 +3,8 @@
 /* eslint-disable fp/no-loops */
 import React from 'react';
 import { merge, cloneDeep } from 'lodash';
-import {
-  RICOS_LINK_TYPE,
-  EditorCommands,
-  CUSTOM_LINK,
-  SPOILER_TYPE,
-  TranslationFunction,
-  AvailableExperiments,
-} from 'wix-rich-content-common';
+import type { RICOS_LINK_TYPE, EditorCommands, TranslationFunction } from 'wix-rich-content-common';
+import { CUSTOM_LINK, SPOILER_TYPE } from 'wix-rich-content-common';
 import {
   buttonsFullData,
   inlineStyleButtons,
@@ -22,7 +16,7 @@ import {
   inlineOverrideStyles,
 } from './buttonsListCreatorConsts';
 import { HEADER_TYPE_MAP } from 'wix-rich-content-plugin-commons';
-import { RicosTheme } from 'ricos-common';
+import type { RicosTheme } from 'ricos-types';
 import {
   getBlockStyle,
   findOsName,
@@ -36,7 +30,7 @@ import {
   getHeadingsLabel,
   getFontSize,
 } from './utils';
-import { linkPanelDataType, defaultLineSpacingType } from './RicosToolbar';
+import type { linkPanelDataType, defaultLineSpacingType } from './RicosToolbar';
 
 type editorCommands = EditorCommands;
 
@@ -48,7 +42,6 @@ export const createButtonsList = ({
   colorPickerData,
   headingsData,
   defaultLineSpacing,
-  experiments,
   theme,
   configButtonsOverrides,
 }: {
@@ -59,7 +52,6 @@ export const createButtonsList = ({
   colorPickerData: any;
   headingsData: any;
   defaultLineSpacing?: defaultLineSpacingType;
-  experiments?: AvailableExperiments;
   theme?: RicosTheme;
   configButtonsOverrides: any;
 }) => {
@@ -81,8 +73,8 @@ export const createButtonsList = ({
       handleButtonLabel(buttonsList, index, editorCommands, t, headingsData, buttonsOverrides);
       handleButtonArrow(buttonsList, index, buttonsOverrides);
       handleUseIconOnMobile(buttonsList, index, buttonsOverrides);
-      handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData, experiments);
-      handleButtonIsActive(buttonsList, index, editorCommands);
+      handleButtonOnClick(buttonsList, index, editorCommands, linkPanelData);
+      handleButtonIsActive(buttonsList, index, editorCommands, buttonsOverrides);
       handleButtonIsDisabled(buttonsList, index, editorCommands);
       handleButtonModal(
         buttonsList,
@@ -206,7 +198,7 @@ const handleButtonOnDone = (
     const buttonName = buttonsList[index].name;
     if (buttonName === 'LINK' || buttonName === 'editLink') {
       buttonsList[index].onDone = data => {
-        linkPanelData.onAddPluginLink(data);
+        linkPanelData.onAddPluginLink?.(data);
         editorCommands.insertDecoration(decorationButtons[buttonName], data);
       };
     }
@@ -324,12 +316,15 @@ const handleButtonOnSave = (
     const buttonName = buttonsList[index].name;
     if (Object.keys(textBlockButtons).includes(buttonName)) {
       buttonsList[index].onSave = type => {
-        let shouldSetBlockType = true;
-        if (buttonName === 'HEADINGS') {
-          editorCommands.clearSelectedBlocksInlineStyles();
-          const currentHeading = HEADER_TYPE_MAP[getCurrentHeading(editorCommands)];
-          shouldSetBlockType = currentHeading !== type;
-        }
+        setTimeout(() => {
+          editorCommands.setBlockType(type);
+        });
+      };
+    } else if (buttonName === 'HEADINGS') {
+      buttonsList[index].onSave = type => {
+        editorCommands.clearSelectedBlocksInlineStyles();
+        const currentHeading = HEADER_TYPE_MAP[getCurrentHeading(editorCommands)];
+        const shouldSetBlockType = currentHeading !== type;
         shouldSetBlockType &&
           setTimeout(() => {
             editorCommands.setBlockType(type);
@@ -436,9 +431,16 @@ const handleButtonIsDisabled = (buttonsList, index, editorCommands: editorComman
   }
 };
 
-const handleButtonIsActive = (buttonsList, index, editorCommands: editorCommands) => {
+const handleButtonIsActive = (
+  buttonsList,
+  index,
+  editorCommands: editorCommands,
+  buttonsOverrides
+) => {
   const buttonName = buttonsList[index].name;
-  if (Object.keys(inlineStyleButtons).includes(buttonName)) {
+  if (buttonsOverrides[buttonName].isActive) {
+    buttonsList[index].isActive = buttonsOverrides[buttonName].isActive;
+  } else if (Object.keys(inlineStyleButtons).includes(buttonName)) {
     buttonsList[index].isActive = () => {
       const blockStyle = getBlockStyle(editorCommands);
       const property = documentStyleCssProperties[buttonName];
@@ -468,13 +470,7 @@ const handleButtonIsActive = (buttonsList, index, editorCommands: editorCommands
   }
 };
 
-const handleButtonOnClick = (
-  buttonsList,
-  index,
-  editorCommands: editorCommands,
-  linkPanelData,
-  experiments
-) => {
+const handleButtonOnClick = (buttonsList, index, editorCommands: editorCommands, linkPanelData) => {
   const buttonName = buttonsList[index].name;
   if (Object.keys(inlineStyleButtons).includes(buttonName)) {
     buttonsList[index].onClick = () =>
@@ -501,7 +497,7 @@ const handleButtonOnClick = (
     buttonsList[index].onClick = () => editorCommands.redo();
   } else if (buttonName === 'goToLink') {
     buttonsList[index].onClick = event =>
-      goToLink(event, editorCommands.getLinkDataInSelection(), linkPanelData, experiments);
+      goToLink(event, editorCommands.getLinkDataInSelection(), linkPanelData);
   } else if (buttonName === 'AddPlugin') {
     buttonsList[index].onClick = () => {
       const addPluginButton = document.querySelector(

@@ -5,8 +5,6 @@ sidebar_label: Headings Plugin
 ---
 
 import { pluginHeadings } from 'wix-rich-content-plugin-headings';
-import 'wix-rich-content-plugin-headings/dist/styles.min.css';
-import 'ricos-editor/dist/styles.min.css';
 import { createContent } from 'ricos-content';
 import { RicosEditorWithMobile } from '../../infra/editor/components/RicosEditorWithMobile.tsx';
 
@@ -27,14 +25,11 @@ Headings plugin enables users to set different headings type to their content
 /* Editor */
 import { RicosEditor } from 'ricos-editor';
 import { pluginHeadings } from 'wix-rich-content-plugin-headings';
-import 'ricos-editor/dist/styles.min.css';
-import 'wix-rich-content-plugin-headings/dist/styles.min.css';
 <RicosEditor plugins={[pluginHeadings(HeadingsConfig)]} />;
 
 /* Viewer */
 import { RicosViewer } from 'ricos-viewer';
 import { pluginHeadings } from 'wix-rich-content-plugin-headings/viewer';
-import 'wix-rich-content-plugin-headings/dist/styles.min.css';
 <RicosViewer plugins={[pluginHeadings(HeadingsConfig)]} />;
 ```
 

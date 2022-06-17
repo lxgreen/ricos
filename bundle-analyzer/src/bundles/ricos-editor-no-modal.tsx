@@ -1,6 +1,5 @@
 import React from 'react';
-import { RicosEditorType } from 'ricos-editor';
-import 'ricos-editor/dist/styles.min.css';
+import { RicosEditor } from 'ricos-editor';
 
 const modalSettings = {
   openModal: () => {},
@@ -8,5 +7,5 @@ const modalSettings = {
 };
 
 export default () => {
-  <RicosEditorType modalSettings={modalSettings} />;
+  <RicosEditor modalSettings={modalSettings} />;
 };

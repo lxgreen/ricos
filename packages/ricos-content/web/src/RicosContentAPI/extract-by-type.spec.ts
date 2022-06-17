@@ -25,19 +25,15 @@ describe('Extract by Types', () => {
           width: { custom: undefined, size: 'CONTENT' },
         },
         downsized: {
-          gif:
-            'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy-downsized.gif?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy-downsized.gif&ct=g',
-          mp4:
-            'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy-downsized-small.mp4?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy-downsized-small.mp4&ct=g',
+          gif: 'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy-downsized.gif?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy-downsized.gif&ct=g',
+          mp4: 'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy-downsized-small.mp4?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy-downsized-small.mp4&ct=g',
           still:
             'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy-downsized_s.gif?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy-downsized_s.gif&ct=g',
         },
         height: 268,
         original: {
-          gif:
-            'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy.gif?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy.gif&ct=g',
-          mp4:
-            'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy.mp4?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy.mp4&ct=g',
+          gif: 'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy.gif?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy.gif&ct=g',
+          mp4: 'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy.mp4?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy.mp4&ct=g',
           still:
             'https://media0.giphy.com/media/QybFXLVvG7PnQm6uPl/giphy_s.gif?cid=558f2fbe6w20o2v7ghy27q2iavxoeb2dgq0vkvgsn0hkxi3x&rid=giphy_s.gif&ct=g',
         },
@@ -48,6 +44,7 @@ describe('Extract by Types', () => {
   it('should run getMedia on all plugins', () => {
     expect(getMedia(content)).toStrictEqual([
       {
+        duration: undefined,
         src: {
           url: undefined,
           custom: undefined,
@@ -58,6 +55,7 @@ describe('Extract by Types', () => {
         height: 5577,
       },
       {
+        duration: undefined,
         src: {
           url: undefined,
           custom: undefined,
@@ -68,6 +66,7 @@ describe('Extract by Types', () => {
         height: 3727,
       },
       {
+        duration: 666,
         src: {
           url: undefined,
           custom: undefined,
@@ -78,6 +77,7 @@ describe('Extract by Types', () => {
         height: undefined,
       },
       {
+        duration: 666,
         src: {
           url: 'https://www.youtube.com/watch?v=iecNmOXDOHM',
           custom: undefined,
@@ -88,6 +88,7 @@ describe('Extract by Types', () => {
         height: undefined,
       },
       {
+        duration: 666,
         src: {
           url: undefined,
           custom: undefined,
@@ -98,6 +99,7 @@ describe('Extract by Types', () => {
         height: undefined,
       },
       {
+        duration: undefined,
         src: {
           url: '8bb438_2ecb6a1a9d5b4e148bd83a1ea3920860.jpg',
           custom: undefined,
@@ -108,6 +110,7 @@ describe('Extract by Types', () => {
         height: 3737,
       },
       {
+        duration: undefined,
         src: {
           url: '8bb438_131e9bbd900c42a29ed2db01d18256e5.jpg',
           custom: undefined,
@@ -118,6 +121,7 @@ describe('Extract by Types', () => {
         height: 1081,
       },
       {
+        duration: undefined,
         src: {
           url: '8bb438_a132b18dea524d48a68a37f0075fcc1e.jpg',
           custom: undefined,

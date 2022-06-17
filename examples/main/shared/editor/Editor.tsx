@@ -1,5 +1,6 @@
-import React, { ElementType, PureComponent } from 'react';
-import { RichContentEditorProps } from 'wix-rich-content-editor';
+import type { ElementType } from 'react';
+import React, { PureComponent } from 'react';
+import type { RichContentEditorProps } from 'wix-rich-content-editor';
 import { testVideos } from '../../../storybook/src/shared/utils/mock';
 import * as Plugins from './EditorPlugins';
 import theme from '../theme/theme'; // must import after custom styles
@@ -8,16 +9,17 @@ import {
   mockImageUploadFunc,
   mockImageNativeUploadFunc,
 } from '../../../storybook/src/shared/utils/fileUploadUtil';
-import { TOOLBARS } from 'wix-rich-content-editor-common';
-import {
-  DraftContent,
-  TextToolbarType,
-  AvailableExperiments,
-  OnPluginAction,
-} from 'wix-rich-content-common';
-import { TestAppConfig } from '../../src/types';
-import { RicosEditor, RicosEditorProps, RicosEditorType } from 'ricos-editor';
+import type { TOOLBARS } from 'wix-rich-content-editor-common';
+import type { DraftContent, TextToolbarType, AvailableExperiments } from 'wix-rich-content-common';
+import type { RicosTheme } from 'ricos-types';
+import type { TestAppConfig } from '../../src/types';
+import type { RicosEditorProps, RicosEditorType } from 'ricos-editor';
+import { RicosEditor } from 'ricos-editor';
 import createSideBlockComponent from '../../src/Components/createSideBlockComponent';
+import styles from './editor.scss';
+import classNames from 'classnames';
+import { SocialPollsServiceMock } from '../../src/Components/SocialPollsServiceMock/SocialPollsServiceMock';
+import { POLL_TYPE } from 'wix-rich-content-common';
 
 const STATIC_TOOLBAR = 'static';
 
@@ -39,6 +41,7 @@ interface ExampleEditorProps {
   externalPopups: boolean;
   textWrap?: boolean;
   showSideBlockComponent?: boolean;
+  ricosTheme?: RicosTheme;
 }
 
 export default class Editor extends PureComponent<ExampleEditorProps> {
@@ -87,6 +90,10 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       onPluginAdd: async (...args) => console.log('onPluginAdd', ...args),
       onPluginAddStep: async params => console.log('onPluginAddStep', params),
       onPluginAddSuccess: async (...args) => console.log('onPluginAddSuccess', ...args),
+      onPluginsPopOverTabSwitch: async params => console.log('onPluginsPopOverTabSwitch', params),
+      onPluginsPopOverClick: async params => console.log('onPluginsPopOverClick', params),
+      onChangePluginSettings: async params => console.log('onChangePluginSettings', params),
+      mediaPluginsDetails: async params => console.log('mediaPluginsDetails', params),
       onPluginDelete: async params => console.log('onPluginDelete', params),
       onPluginChange: async (...args) => console.log('onPluginChange', ...args),
       onPublish: async (...args) => console.log('onPublish', ...args),
@@ -153,6 +160,7 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       externalPopups,
       textWrap,
       showSideBlockComponent,
+      ricosTheme,
     } = this.props;
     const textToolbarType: TextToolbarType = staticToolbar && !isMobile ? STATIC_TOOLBAR : null;
     const useStaticTextToolbar = textToolbarType === STATIC_TOOLBAR;
@@ -161,9 +169,10 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
       <div style={{ height: '100%' }}>
         {this.renderExternalToolbar()}
         <div ref={ref => (this.staticToolbarContainer = ref)} />
-        <div className="editor">
+        <div className={classNames('editor', styles.editorContainer)}>
           <RicosEditor
             ref={ref => (this.editor = ref)}
+            onError={e => console.error(e)}
             onChange={onRicosEditorChange}
             content={contentState}
             injectedContent={injectedContent}
@@ -178,13 +187,17 @@ export default class Editor extends PureComponent<ExampleEditorProps> {
             placeholder={'Add some text!'}
             plugins={this.ricosPlugins}
             linkPanelSettings={{ ...(Plugins.uiSettings.linkPanel || {}), externalPopups }}
-            _rcProps={{ helpers: this.helpers }}
+            linkSettings={{ anchorTarget: '_blank', relValue: 'nofollow' }}
+            _rcProps={{
+              helpers: this.helpers,
+              config: { [POLL_TYPE]: { pollsClientApi: new SocialPollsServiceMock() } },
+            }}
             experiments={experiments}
             textWrap={textWrap}
-            onAtomicBlockFocus={d => console.debug('onAtomicBlockFocus', d)} // eslint-disable-line
             sideBlockComponent={
               showSideBlockComponent && createSideBlockComponent(this.editor?.getEditorCommands())
             }
+            theme={ricosTheme}
           />
         </div>
       </div>

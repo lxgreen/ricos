@@ -1,4 +1,4 @@
-import { DraftContent, RicosContentBlock, RicosEntityMap } from '..';
+import type { DraftContent, RicosContentBlock, RicosEntityMap } from '..';
 
 export const truncateContent = (
   content: DraftContent, // The content to truncate

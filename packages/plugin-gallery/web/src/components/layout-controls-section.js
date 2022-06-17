@@ -13,6 +13,7 @@ import {
 } from './gallery-controls/radio-groups';
 import ImageRatioSelector from './gallery-controls/image-ratio-selector';
 import ThumbnailPlacementSelector from './gallery-controls/thumbnail-placement-selector';
+import classNames from 'classnames';
 
 const scrollDirectionOptions = {
   horizontal: { oneRow: true },
@@ -23,17 +24,26 @@ class Separator extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
     theme: PropTypes.object.isRequired,
+    experiments: PropTypes.object,
   };
 
   constructor(props) {
     super(props);
     this.styles = mergeStyles({ styles, theme: props.theme });
+    this.modalsWithEditorCommands = props.experiments.modalBaseActionHoc?.enabled;
   }
 
   render = () => {
-    switch (this.props.type) {
+    const { type, experiments = {} } = this.props;
+    switch (type) {
       case 'space':
-        return <div className={this.styles.gallerySettings_spacer} />;
+        return (
+          <div
+            className={classNames(this.styles.gallerySettings_spacer, {
+              [this.styles.gallerySettings_newUi_spacer]: experiments?.newSettingsModals?.enabled,
+            })}
+          />
+        );
       case 'hr':
       default:
         return <SettingsSeparator top bottom />;
@@ -42,6 +52,8 @@ class Separator extends Component {
 }
 
 class LayoutControlsSection extends Component {
+  modalsWithEditorCommands = this.props.experiments.modalBaseActionHoc?.enabled;
+
   controlsByLayout = [
     ['|', 'scrollDirection', '|', 'imageOrientation', '|', 'thumbnailSize', '|', 'spacing'], // collage
     ['|', 'imageOrientation', '|', 'thumbnailSize', '|', 'spacing'], // masonry
@@ -58,14 +70,16 @@ class LayoutControlsSection extends Component {
   getValueFromComponentStyles = name => this.props.data.styles[name];
 
   applyGallerySetting = setting => {
-    const { data, store } = this.props;
+    const { data, store, updateData } = this.props;
     const componentData = { ...data, styles: { ...data.styles, ...setting } };
-    store.set('componentData', componentData);
+    this.modalsWithEditorCommands
+      ? updateData(componentData)
+      : store.set('componentData', componentData);
   };
 
   getControlData = t => ({
     '|': { component: Separator, props: { type: 'hr' } }, //separator
-    _: { component: Separator, props: { type: 'space' } }, //separator
+    _: { component: Separator, props: { type: 'space', experiments: this.props.experiments } }, //separator
     itemsPerRow: {
       component: ItemsPerRow,
       props: {
@@ -111,6 +125,7 @@ class LayoutControlsSection extends Component {
         onChange: value => this.applyGallerySetting({ cubeType: value }),
         value: this.getValueFromComponentStyles('cubeType'),
         t,
+        experiments: this.props.experiments,
       },
     },
     titleButtonPlacement: {
@@ -119,6 +134,7 @@ class LayoutControlsSection extends Component {
         onChange: value => this.applyGallerySetting({ titlePlacement: value }),
         value: this.getValueFromComponentStyles('titlePlacement'),
         t,
+        experiments: this.props.experiments,
       },
     },
     imageRatio: {
@@ -127,6 +143,7 @@ class LayoutControlsSection extends Component {
         onChange: value => this.applyGallerySetting({ cubeRatio: value }),
         value: this.getValueFromComponentStyles('cubeRatio'),
         t,
+        experiments: this.props.experiments,
       },
     },
     imageOrientation: {
@@ -137,6 +154,7 @@ class LayoutControlsSection extends Component {
         },
         value: this.getValueFromComponentStyles('isVertical') ? '1' : '0',
         t,
+        experiments: this.props.experiments,
       },
     },
     scrollDirection: {
@@ -147,6 +165,7 @@ class LayoutControlsSection extends Component {
         },
         value: this.getValueFromComponentStyles('oneRow') ? 'horizontal' : 'vertical',
         t,
+        experiments: this.props.experiments,
       },
     },
     thumbnailPlacement: {
@@ -155,6 +174,7 @@ class LayoutControlsSection extends Component {
         onChange: value => this.applyGallerySetting({ galleryThumbnailsAlignment: value }),
         value: this.getValueFromComponentStyles('galleryThumbnailsAlignment'),
         t,
+        experiments: this.props.experiments,
       },
     },
   });
@@ -171,6 +191,7 @@ class LayoutControlsSection extends Component {
               decorateComponentWithProps(controls[name].component, {
                 ...controls[name].props,
                 theme: this.props.theme,
+                experiments: this.props.experiments,
               })
             )}
           </SettingsSection>
@@ -185,8 +206,10 @@ LayoutControlsSection.propTypes = {
   theme: PropTypes.object.isRequired,
   store: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  experiments: PropTypes.object,
   languageDir: PropTypes.string.isRequired,
   t: PropTypes.func,
+  updateData: PropTypes.func.isRequired,
 };
 
 // export default translate(null)(LayoutControlsSection);

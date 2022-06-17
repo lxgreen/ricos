@@ -1,7 +1,6 @@
 import contentStateSchema from '../../statics/schemas/content-state.schema.json';
 
-type Schema = import('jsonschema').Schema;
-type ValidatorResult = import('jsonschema').ValidatorResult;
+import type { Schema, ValidatorResult } from 'jsonschema';
 
 export const checkValidity = (data: Record<string, unknown>, schema: Schema): ValidatorResult => {
   const Validator = require('jsonschema').Validator;
@@ -31,6 +30,15 @@ export const getContentStateSchema = (
         data: pluginDataSchemas[pluginType],
       },
     };
+  });
+
+  Object.keys(pluginDataSchemas).forEach(pluginType => {
+    const { definitions } = pluginDataSchemas[pluginType];
+    if (definitions) {
+      Object.keys(definitions).forEach(definition => {
+        schema.definitions[definition] = definitions[definition];
+      });
+    }
   });
 
   return schema;

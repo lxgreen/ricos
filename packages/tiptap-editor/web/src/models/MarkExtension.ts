@@ -1,8 +1,11 @@
 import { Mark, markInputRule, markPasteRule, textblockTypeInputRule } from '@tiptap/core';
-import { MarkConfig, mergeAttributes } from '@tiptap/react';
-import { isRicosMarkExtension, RicosExtension } from 'ricos-tiptap-types';
-import { DEFAULT_PRIORITY, IMarkExtension } from './domain-types';
+import type { MarkConfig } from '@tiptap/react';
+import { mergeAttributes } from '@tiptap/react';
 import { Plugin, PluginKey } from 'prosemirror-state';
+import type { ExtensionProps, RicosExtension } from 'ricos-tiptap-types';
+import { isRicosMarkExtension } from 'ricos-tiptap-types';
+import type { ExtensionAggregate, IMarkExtension } from './domain-types';
+import { DEFAULT_PRIORITY } from './domain-types';
 
 export class MarkExtension implements IMarkExtension {
   config: MarkConfig;
@@ -13,27 +16,57 @@ export class MarkExtension implements IMarkExtension {
 
   name: string;
 
-  constructor(extension: RicosExtension) {
+  groups: RicosExtension['groups'];
+
+  private readonly settings: Record<string, unknown>;
+
+  private readonly reconfigure: (
+    config: MarkConfig,
+    extensions: RicosExtension[],
+    ricosProps: ExtensionProps,
+    settings: Record<string, unknown>
+  ) => MarkConfig;
+
+  private readonly ricosExtension: RicosExtension;
+
+  constructor(extension: RicosExtension, config?: MarkConfig) {
     if (!isRicosMarkExtension(extension)) {
       throw new TypeError('invalid argument');
     }
-    this.config = {
-      addAttributes: () => extension.componentDataDefaults || {},
-      ...extension.createExtensionConfig({
+    this.groups = extension.groups || [];
+    this.settings = extension.settings || {};
+    const { addKeyboardShortcuts, ...rest } =
+      config ||
+      extension.createExtensionConfig({
         textblockTypeInputRule,
         mergeAttributes,
         markInputRule,
         markPasteRule,
         Plugin,
         PluginKey,
-      }),
+      });
+    this.config = {
+      ...rest,
+      ...(extension.groups.includes('shortcuts-enabled') ? { addKeyboardShortcuts } : {}),
       type: 'mark',
     };
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
+    this.ricosExtension = extension;
+    this.reconfigure = extension.reconfigure || (() => this.config);
   }
 
-  toTiptapExtension() {
-    return Mark.create(this.config);
+  getRicosExtension() {
+    return this.ricosExtension;
+  }
+
+  toTiptapExtension(extensions: ExtensionAggregate, ricosProps: ExtensionProps) {
+    const config = this.reconfigure(
+      this.config,
+      extensions.getRicosExtensions(),
+      ricosProps,
+      this.settings
+    );
+    return Mark.create(config);
   }
 }

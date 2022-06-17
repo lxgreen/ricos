@@ -1,7 +1,8 @@
-import { LINK_TYPE, LinkPluginViewerConfig } from './types';
+import type { LinkPluginViewerConfig } from './types';
+import { LINK_TYPE } from './types';
 import { typeMapper } from './typeMapper';
 import { DEFAULTS } from './defaults';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
 export { typeMapper as linkTypeMapper, LINK_TYPE };
 export { default as LinkViewer } from './LinkViewer';
 

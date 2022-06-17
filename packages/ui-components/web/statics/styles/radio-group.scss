@@ -15,7 +15,7 @@
   height: 16px;
   border-radius: 50%;
   box-sizing: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--ricos-settings-text-color, #00000099);
   background: #fff;
   margin-right: 12px;
   display: inline-block;
@@ -37,7 +37,7 @@
 }
 
 .radioGroup_input:checked + .radioGroup_button {
-  border-color: rgba(0, 0, 0, 0.6);
+  border-color: var(--ricos-settings-text-color, #00000099);
 
   &::after {
     background-color: $settings-action-color-fallback;

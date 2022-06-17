@@ -1,21 +1,24 @@
 /* eslint-disable no-console, fp/no-loops, no-case-declarations */
-import {
+import type {
   RicosContentBlock,
   RicosEntityMap,
   RicosEntityRange,
   RicosInlineStyleRange,
 } from '../../../types';
 import { EMOJI_TYPE } from '../../../consts';
-import { Decoration, Decoration_Type, Node } from 'ricos-schema';
+import type { Decoration, Node } from 'ricos-schema';
+import { Decoration_Type, Node_Type } from 'ricos-schema';
 import { TO_RICOS_DECORATION_TYPE, TO_RICOS_INLINE_STYLE_TYPE } from '../consts';
 
 import { isEmpty, merge } from 'lodash';
 import { getEntity } from './getRicosEntityData';
 import { createTextNode } from '../../nodeUtils';
-import { FromDraftOptions } from './fromDraft';
+import type { FromDraftOptions } from './fromDraft';
 
 type KeyType = string | number;
 type StyleType = string;
+
+const isEmptyTextNode = node => node.type === Node_Type.TEXT && node.textData?.text === '';
 
 const removeEmojiEntities = (
   entityRanges: RicosEntityRange[],
@@ -41,28 +44,29 @@ const mergeColorDecorations = (decorations: Decoration[]): Decoration[] => {
 
 const isDecorationType = (decorationType: string) =>
   TO_RICOS_DECORATION_TYPE[decorationType] !== undefined ||
+  TO_RICOS_INLINE_STYLE_TYPE[decorationType] !== undefined ||
   Object.keys(dynamicDecorationGetters).some(dynamicType => decorationType.includes(dynamicType));
 
 const dynamicDecorationGetters = {
-  FG: (value: string) => {
+  FG: (style: string) => {
     return {
       type: Decoration_Type.COLOR,
-      colorData: { foreground: value },
+      colorData: { foreground: style },
     };
   },
-  BG: (value: string) => {
+  BG: (style: string) => {
     return {
       type: Decoration_Type.COLOR,
-      colorData: { background: value },
+      colorData: { background: style },
     };
   },
-  'font-size': (value: string) => {
-    const values = value.split(/(px)/g).length >= 2 ? value.split(/(px)/g) : value.split(/(em)/g);
+  'font-size': (style: string) => {
+    const [value, unit] = style.split(/(px|em)/gi);
     return {
       type: Decoration_Type.FONT_SIZE,
       fontSizeData: {
-        unit: values[1].toUpperCase(),
-        value: parseInt(values[0]),
+        unit: unit.toUpperCase(),
+        value: parseInt(value),
       },
     };
   },
@@ -173,5 +177,5 @@ export const getTextNodes = (
     }
   });
 
-  return textNodes;
+  return textNodes.filter(node => !isEmptyTextNode(node));
 };

@@ -1,7 +1,7 @@
-import imageDataDefaults from 'ricos-schema/dist/statics/image.defaults.json';
-import { CreateRicosExtensions } from 'ricos-tiptap-types';
-import { Image as Component } from './component';
 import { TIPTAP_IMAGE_TYPE } from 'ricos-content';
+import imageDataDefaults from 'ricos-schema/dist/statics/image.defaults.json';
+import type { ExtensionProps, NodeConfig, RicosExtension } from 'ricos-tiptap-types';
+import { Image as Component } from './component';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -20,33 +20,55 @@ declare module '@tiptap/core' {
 
 const name = TIPTAP_IMAGE_TYPE;
 
-export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
+export const tiptapExtensions = [
   {
     type: 'node' as const,
-    Component,
-    componentDataDefaults: {
-      ...imageDataDefaults,
-      loading: {
-        default: false,
-      },
-    },
-    createExtensionConfig: () => ({
-      name,
-      atom: false,
-      group: 'block',
-      selectable: true,
-      draggable: true,
-      addOptions: () => defaultOptions,
-      addCommands() {
-        return {
-          setImageUrl: url => ({ commands }) => {
-            return commands.updateAttributes(name, { image: { src: { custom: url } } });
-          },
-          setImageLoading: loading => ({ commands }) => {
-            return commands.updateAttributes(name, { loading });
-          },
-        };
-      },
+    name,
+    groups: ['react', 'spoilerable'],
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions: () => settings,
     }),
+    Component,
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        atom: false,
+        group: 'block',
+        selectable: true,
+        draggable: true,
+        addAttributes: () => ({
+          ...imageDataDefaults,
+          loading: {
+            default: false,
+          },
+          loadingPercentage: {
+            default: null,
+          },
+          tempData: {
+            default: null,
+          },
+        }),
+        addCommands() {
+          return {
+            setImageUrl:
+              url =>
+              ({ commands }) => {
+                return commands.updateAttributes(name, { image: { src: { custom: url } } });
+              },
+            setImageLoading:
+              loading =>
+              ({ commands }) => {
+                return commands.updateAttributes(name, { loading });
+              },
+          };
+        },
+      };
+    },
   },
 ];

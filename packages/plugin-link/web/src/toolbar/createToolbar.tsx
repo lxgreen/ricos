@@ -1,4 +1,5 @@
 import React from 'react';
+import type { EditorState } from 'wix-rich-content-editor-common';
 import {
   MODIFIERS,
   hasLinksInSelection,
@@ -12,12 +13,11 @@ import {
   BUTTON_TYPES,
   FORMATTING_BUTTONS,
   isAtomicBlockInSelection,
-  EditorState,
   COMMANDS,
 } from 'wix-rich-content-editor-common';
 import createInlineButtons from './inline-buttons';
 import TextLinkButton from './TextLinkButton';
-import {
+import type {
   CreatePluginToolbar,
   TranslationFunction,
   InnerModalType,
@@ -29,8 +29,9 @@ import {
   AvailableExperiments,
   OnKeyboardShortcutClick,
 } from 'wix-rich-content-common';
-import { LINK_TYPE, LinkPluginEditorConfig } from '../types';
-import { GetEditorState, SetEditorState } from 'wix-rich-content-common/src';
+import type { LinkPluginEditorConfig } from '../types';
+import { LINK_TYPE } from '../types';
+import type { GetEditorState, SetEditorState } from 'wix-rich-content-common/src';
 
 const openLinkModal = ({
   helpers,

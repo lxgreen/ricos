@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component } from 'react';
-import { RichContentEditor } from 'wix-rich-content-editor';
-import {
+import type { RichContentEditor } from 'wix-rich-content-editor';
+import type {
   EditorCommands,
   EditorPlugin,
   LinkPanelSettings,
-  ToolbarType,
-  AvailableExperiments,
   TextButtons,
 } from 'wix-rich-content-common';
-import { LinkSettings, RicosCssOverride, RicosTheme, ToolbarSettings } from 'ricos-common';
+import { ToolbarType } from 'wix-rich-content-common';
+import type { LinkSettings, RicosCssOverride, ToolbarSettings } from 'ricos-common';
 import {
   FloatingToolbarContainer,
   RicosToolbar,
   StaticToolbarContainer,
 } from 'wix-rich-content-toolbars-new';
 import { filterButtons } from './utils/toolbarsUtils';
+import type { RicosTheme } from 'ricos-types';
 import { toolbarSettingsFromConfig } from './utils/toolbarsConfig';
 
 interface LinkToolbarProps {
@@ -28,7 +28,6 @@ interface LinkToolbarProps {
   linkSettings?: LinkSettings;
   onInlineToolbarOpen?: (toolbarType: ToolbarType) => void;
   onToolbarButtonClick?: (name: string, toolbarType: ToolbarType, value?: boolean | string) => void;
-  experiments?: AvailableExperiments;
   getEditorContainer: () => Element;
   cssOverride?: RicosCssOverride;
   toolbarSettings?: ToolbarSettings;
@@ -46,7 +45,6 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
       activeEditor,
       isMobile,
       theme,
-      experiments,
       getEditorContainer,
       cssOverride,
       toolbarSettings = {},
@@ -94,7 +92,6 @@ class LinkToolbar extends Component<LinkToolbarProps, State> {
         buttons={filteredFormattingToolbarButtons}
         linkPanelData={linkPanelData}
         // onToolbarButtonClick={onToolbarButtonClick}
-        experiments={experiments}
         getEditorContainer={getEditorContainer}
         cssOverride={cssOverride}
       />

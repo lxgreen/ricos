@@ -1,18 +1,30 @@
 import * as insertNode from './commands/insertNode';
-import * as updateNodeById from './commands/updateNodeById';
+import * as setNodeAttrsById from './commands/setNodeAttrsById';
+import * as updateNodeAttrsById from './commands/updateNodeAttrsById';
+import * as replaceNode from './commands/replaceNode';
+import * as replaceNodes from './commands/replaceNodes';
 import * as deleteNode from './commands/deleteNode';
-import { RicosExtension } from 'ricos-tiptap-types';
+import * as updateAttributesWithDeepMerge from './commands/updateAttributesWithDeepMerge';
+import type { RicosExtension } from 'ricos-tiptap-types';
 
-export const createCommandsConfig = (): RicosExtension => ({
+export const commands: RicosExtension = {
   type: 'extension' as const,
-  createExtensionConfig: () => ({
-    name: 'ricos-node-commands',
-    addCommands() {
-      return {
-        ...insertNode,
-        ...updateNodeById,
-        ...deleteNode,
-      };
-    },
-  }),
-});
+  groups: [],
+  name: 'ricos-node-commands',
+  createExtensionConfig() {
+    return {
+      name: this.name,
+      addCommands() {
+        return {
+          ...insertNode,
+          ...setNodeAttrsById,
+          ...updateNodeAttrsById,
+          ...deleteNode,
+          ...replaceNode,
+          ...replaceNodes,
+          ...updateAttributesWithDeepMerge,
+        };
+      },
+    };
+  },
+};

@@ -1,6 +1,17 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 
+$TITLE_HEIGHT: 77px;
+$TITLE_HEIGHT_MOBILE: 50px;
+$TABS_HEIGHT: 50px;
+$FOOTER_HEIGHT: 100px;
+$HEADER_HEIGHT: $TITLE_HEIGHT + $TABS_HEIGHT;
+$HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
+
+.settings_container {
+  text-align: left;
+}
+
 .header {
   padding: 0 20px;
   border-bottom: 1px solid #ededed;
@@ -49,21 +60,42 @@
 }
 
 .section {
-  margin: 0 -10px;
   padding: 24px 30px 30px;
+}
+
+.section_newUi {
+  @include border-box;
+  padding: 24px;
+  height: calc(100% - #{$HEADER_HEIGHT} - #{$FOOTER_HEIGHT});
+  overflow: scroll;
+  position: absolute;
+  width: 100%;
+  top: $HEADER_HEIGHT;
+  @include phone {
+    height: calc(100% - #{$HEADER_HEIGHT_MOBILE});
+    top: $HEADER_HEIGHT_MOBILE;
+    padding: 20px;
+  }
 }
 
 .title {
   font-size: 16px;
   line-height: 1.5;
   margin: 0 0 15px;
+  color: var(--ricos-settings-text-color, #000);
+  &.title_radius_newUi {
+    margin-bottom: 28px;
+  }
+  &.title_newUi {
+    margin-bottom: 0;
+  }
 }
 
 .subtitle {
   font-size: 14px;
   line-height: 1.43;
-  opacity: 0.6;
   margin: 0 0 5px;
+  color: var(--ricos-settings-text-color, #000);
 }
 
 .sliderWithInput_label,
@@ -77,7 +109,6 @@
   margin: 10px 0;
 }
 
-.labeled_toggle_label,
 .checkbox_label {
   @extend .label;
 }
@@ -124,12 +155,21 @@
   box-sizing: border-box;
 }
 
+.selectionListOptionLabel {
+  margin: 5px 0;
+}
+
 .selectionListOption:hover:not(.selectionListOption_selected) {
-  background-color: rgba(2, 97, 255, 0.06);
+  // background-color: rgba(2, 97, 255, 0.06);
+  background-color: rgba(var(--ricos-settings-action-color-tuple, $fallbackColorTuple), 0.06);
+
 }
 
 .selectionListOption_selected {
-  background-color: rgba(2, 97, 255, 0.2);
+  background-color: rgba($settings-action-color-fallback-tuple, 0.1);
+  *{
+    color: $settings-action-color-fallback;
+  }
 }
 
 .labeled_toggle_root {
@@ -173,4 +213,17 @@
   justify-content: flex-end;
   border-right: 1px solid #ededed;
   padding-right: 15px;
+}
+
+.poll_tab_headers {
+  position: absolute;
+  width: 100%;
+  max-width: 420px;
+  background-color: white;
+  z-index: 2;
+  top: $TITLE_HEIGHT;
+  @include phone {
+    top: $TITLE_HEIGHT_MOBILE;
+    max-width: 100%;
+  }
 }

@@ -5,8 +5,6 @@ sidebar_label: Ricos API
 ---
 
 import { RicosEditor } from 'ricos-editor';
-import 'ricos-editor/dist/styles.min.css';
-import 'ricos-viewer/dist/styles.min.css';
 import viewerContent from '../../infra/editor/content/intro.json';
 import { RicosViewer } from 'ricos-viewer';
 
@@ -68,8 +66,7 @@ Will render in mobile optimized mode
 
 ### `linkSettings`
 
-*** `relValue` is Deprecated ***, please use `rel` instead.
-
+**_ `relValue` is Deprecated _**, please use `rel` instead.
 
 ```jsx
 CustomAnchorScroll: (event: Event, anchor: string) => void;
@@ -180,7 +177,6 @@ For every plugin you install, import it and add it to the plugins array.
 import { RicosEditor } from 'ricos-editor';
 
 import { pluginVideo } from 'wix-rich-content-plugin-video';
-import 'wix-rich-content-plugin-video/dist/styles.min.css';
 
 <RicosEditor plugins={[pluginVideo()]} />;
 ```
@@ -198,7 +194,6 @@ Further read in [Theming](./Theming) page.
 
 In order for the UGC source code to be rendered in an isolated environment, `iframeSandboxDomain` config on viewer & editor must be supplied, and be easily changed by consumer in case of DDOS on domain or subdomain
 
-
 ### `textWrap`
 
 ```jsx
@@ -212,7 +207,6 @@ Default value:
 ```jsx
 textWrap: true;
 ```
-
 
 ## Ricos Editor API
 
@@ -273,14 +267,14 @@ By default, it's hidden.
 
 #### `blankTargetToggleVisibilityFn`
 
-*** Deprecated ***, please use `showNewTabCheckbox` instead.
+**_ Deprecated _**, please use `showNewTabCheckbox` instead.
 
 Determines the 'Open link in a new tab' link panel checkbox visiblity.
 By default, it's visible.
 
 #### `nofollowRelToggleVisibilityFn`
 
-*** Deprecated ***, please use `showNoFollowCheckbox` instead.
+**_ Deprecated _**, please use `showNoFollowCheckbox` instead.
 
 Determines the 'Add a nofollow tag' link panel checkbox visiblity.
 By default, it's visible.
@@ -293,7 +287,7 @@ By default, its value is `"Enter a URL here"` translated by localization
 #### `externalPopups`
 
 Determines the position of the link modal.
-Passing *true* places the link modal on the topmost layer.
+Passing _true_ places the link modal on the topmost layer.
 By default, this value is false.
 
 Examples:
@@ -550,13 +544,12 @@ When given a truthy value, text-selection-toolbar appears inline when selecting 
 
 ```jsx
 import { RicosViewer } from 'ricos-viewer';
-import 'ricos-viewer/dist/styles.min.css';
 
 <RicosViewer textSelectionToolbar />;
 ```
 
 Select some text below to see text-selection-toolbar
 
-<div className="card" style={{position: 'relative' }}>
+<div className="card" style={{ position: 'relative' }}>
   <RicosViewer content={viewerContent} textSelectionToolbar />
 </div>

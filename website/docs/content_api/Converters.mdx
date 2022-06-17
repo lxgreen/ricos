@@ -17,14 +17,15 @@ ensureDraftContent: (content: RichContent | DraftContent) => DraftContent;
 
 ### FromDraftOptions
 
-By default, the `fromDraft` API throws error when it encounters invalid `DraftContent`. Sometimes, this behavior is not desired. 
+By default, the `fromDraft` API throws error when it encounters invalid `DraftContent`. Sometimes, this behavior is not desired.
 
 The `opts: FromDraftOptions` parameter allows to alter it, by setting `{ ignoreUnsupportedValues: true }`. In this case, any invalid values are gracefully ignored.
 
 ### Example
 
 ```tsx
-import { fromDraft, toDraft } from 'ricos-content/libs/migrateSchema';
+import { fromDraft } from 'ricos-content/libs/fromDraft';
+import { toDraft } from 'ricos-content/libs/toDraft';
 import { RichContent } from 'ricos-schema';
 import { RicosEditor, DraftContent } from 'ricos-editor';
 import ricosContent from './ricosContent.json';
@@ -49,7 +50,7 @@ fromPlainText: (text: string) => RichContent;
 #### Example
 
 ```tsx
-import { toDraft } from 'ricos-content/libs/migrateSchema';
+import { toDraft } from 'ricos-content/libs/toDraft';
 import { fromPlainText } from 'ricos-content/libs/fromPlainText';
 import { RichContent } from 'ricos-schema';
 import { RicosEditor, DraftContent } from 'ricos-editor';
@@ -86,7 +87,7 @@ Defaults to `src => https://video.wixstatic.com/${src.pathname}`
 import { toPlainText } from 'ricos-content/libs/toPlainText';
 import ricosContent from './ricosCotnent.json';
 
-const text: string = toPlainText(ricosContent);
+const text: string = await toPlainText(ricosContent);
 
 console.log(text);
 ```

@@ -1,8 +1,8 @@
 import { DEFAULTS } from '../yourDpluginDname-component';
 import { TOOLBARS, BUTTON_TYPES } from 'wix-rich-content-editor-common';
 import InsertPluginIcon from '../icons/InsertPluginIcon';
-import { CreateInsertButtons, TranslationFunction } from 'wix-rich-content-common';
-import { YourPluginNamePluginEditorConfig } from '../types';
+import type { CreateInsertButtons, TranslationFunction } from 'wix-rich-content-common';
+import type { YourPluginNamePluginEditorConfig } from '../types';
 
 const createInsertButtons: CreateInsertButtons = ({
   t,

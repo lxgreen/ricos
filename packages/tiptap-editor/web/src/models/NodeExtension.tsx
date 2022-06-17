@@ -1,25 +1,27 @@
+import type { NodeConfig, NodeViewRendererProps } from '@tiptap/react';
 import {
-  mergeAttributes,
-  textblockTypeInputRule,
-  markPasteRule,
   markInputRule,
+  markPasteRule,
+  mergeAttributes,
   Node,
-  NodeConfig,
-  NodeViewRendererProps,
   NodeViewWrapper,
   ReactNodeViewRenderer,
+  textblockTypeInputRule,
 } from '@tiptap/react';
 import { pipe } from 'fp-ts/function';
-import React, { ComponentType } from 'react';
-import {
-  DecoratedNodeExtension,
-  DEFAULT_PRIORITY,
-  IReactNodeExtension,
-  IHtmlNodeExtension,
-} from './domain-types';
-import { isRicosNodeExtension, RicosExtension, RicosNodeExtension } from 'ricos-tiptap-types';
-import { RicosNode } from '../components/RicosNode';
 import { Plugin, PluginKey } from 'prosemirror-state';
+import type { ComponentType } from 'react';
+import React from 'react';
+import type { ExtensionProps, RicosExtension, RicosNodeExtension } from 'ricos-tiptap-types';
+import { isRicosNodeExtension } from 'ricos-tiptap-types';
+import { RicosNode } from '../components/RicosNode';
+import type {
+  DecoratedNodeExtension,
+  ExtensionAggregate,
+  IHtmlNodeExtension,
+  IReactNodeExtension,
+} from './domain-types';
+import { DEFAULT_PRIORITY } from './domain-types';
 
 const toExtensionConfig = (ext: RicosNodeExtension) =>
   ext.createExtensionConfig({
@@ -31,41 +33,72 @@ const toExtensionConfig = (ext: RicosNodeExtension) =>
     PluginKey,
   });
 
-const toFullNodeConfig = (ext: RicosNodeExtension) => (config: NodeConfig): NodeConfig => ({
-  parseHTML: () => [{ tag: `${config.name}-component` }],
-  renderHTML: ({ HTMLAttributes }) => [`${config.name}-component`, mergeAttributes(HTMLAttributes)],
-  ...(ext.componentDataDefaults ? { addAttributes: () => ext.componentDataDefaults } : {}),
-  ...config,
-});
+const toFullNodeConfig =
+  (ext: RicosNodeExtension) =>
+  (config: NodeConfig): NodeConfig => {
+    // omit addKeyboardShortcuts
+    const { addKeyboardShortcuts, ...rest } = config;
+    return {
+      ...(ext.groups.includes('text')
+        ? {}
+        : {
+            parseHTML: () => [{ tag: `${config.name}-component` }],
+            renderHTML: ({ HTMLAttributes }) => [
+              `${config.name}-component`,
+              mergeAttributes(HTMLAttributes),
+            ],
+          }),
+      ...rest,
+      ...(ext.groups.includes('shortcuts-enabled') ? { addKeyboardShortcuts } : {}),
+    };
+  };
 
 const createRicosNodeConfig = (ext: RicosNodeExtension): NodeConfig =>
   pipe(ext, toExtensionConfig, toFullNodeConfig(ext));
 
-const createRicosNodeHOC = (Component: ComponentType) => (props: NodeViewRendererProps) => (
-  <NodeViewWrapper as="div">
-    <RicosNode Component={Component} tiptapNodeProps={props} />
-  </NodeViewWrapper>
-);
+const createRicosNodeHOC =
+  (settings: Record<string, unknown>) =>
+  (Component: ComponentType) =>
+  (props: NodeViewRendererProps) =>
+    (
+      <NodeViewWrapper as="div">
+        <RicosNode Component={Component} tiptapNodeProps={{ ...props, settings }} />
+      </NodeViewWrapper>
+    );
 
 export class ReactNodeExtension implements IReactNodeExtension {
   config: NodeConfig;
 
   priority: number;
 
-  type = 'react-node' as const;
+  type = 'node' as const;
 
   name: string;
 
-  ricosExtension: RicosNodeExtension;
+  groups: RicosExtension['groups'];
 
-  constructor(extension: RicosExtension) {
+  protected readonly settings: Record<string, unknown>;
+
+  private readonly ricosExtension: RicosNodeExtension;
+
+  protected readonly reconfigure: (
+    config: NodeConfig,
+    extensions: RicosExtension[],
+    ricosProps: ExtensionProps,
+    settings: Record<string, unknown>
+  ) => NodeConfig;
+
+  constructor(extension: RicosExtension, config?: NodeConfig) {
     if (!isRicosNodeExtension(extension)) {
       throw new TypeError('invalid argument');
     }
     this.ricosExtension = extension;
-    this.config = createRicosNodeConfig(extension);
+    this.config = config || createRicosNodeConfig(extension);
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
+    this.groups = extension.groups;
+    this.settings = extension.settings || {};
+    this.reconfigure = extension.reconfigure || (() => this.config);
   }
 
   getComponent() {
@@ -75,6 +108,10 @@ export class ReactNodeExtension implements IReactNodeExtension {
   asRenderable(decoratedComponent: ComponentType) {
     return new RenderableNodeExtension(decoratedComponent, this.ricosExtension);
   }
+
+  getRicosExtension() {
+    return this.ricosExtension;
+  }
 }
 
 class RenderableNodeExtension extends ReactNodeExtension implements DecoratedNodeExtension {
@@ -82,12 +119,14 @@ class RenderableNodeExtension extends ReactNodeExtension implements DecoratedNod
     super(extension);
     this.config = {
       ...this.config,
-      addNodeView: () => pipe(component, createRicosNodeHOC, ReactNodeViewRenderer),
+      addNodeView: () => pipe(component, createRicosNodeHOC(this.settings), ReactNodeViewRenderer),
     };
   }
 
-  toTiptapExtension() {
-    return Node.create(this.config);
+  toTiptapExtension(extensions: ExtensionAggregate, ricosProps: ExtensionProps) {
+    const ricosExtensions = extensions.getRicosExtensions();
+    const config = this.reconfigure(this.config, ricosExtensions, ricosProps, this.settings);
+    return Node.create(config);
   }
 }
 
@@ -96,23 +135,43 @@ export class HtmlNodeExtension implements IHtmlNodeExtension {
 
   priority: number;
 
-  type = 'html-node' as const;
+  type = 'node' as const;
 
   name: string;
 
-  ricosExtension: RicosNodeExtension;
+  private readonly ricosExtension: RicosNodeExtension;
 
-  constructor(extension: RicosExtension) {
+  private readonly settings: Record<string, unknown>;
+
+  private readonly reconfigure: (
+    config: NodeConfig,
+    extensions: RicosExtension[],
+    ricosProps: ExtensionProps,
+    settings: Record<string, unknown>
+  ) => NodeConfig;
+
+  groups: RicosExtension['groups'];
+
+  constructor(extension: RicosExtension, config?: NodeConfig) {
     if (!isRicosNodeExtension(extension)) {
       throw new TypeError('invalid argument');
     }
     this.ricosExtension = extension;
-    this.config = createRicosNodeConfig(extension);
+    this.config = config || createRicosNodeConfig(extension);
     this.priority = this.config.priority || DEFAULT_PRIORITY;
     this.name = this.config.name;
+    this.groups = extension.groups || [];
+    this.settings = extension.settings || {};
+    this.reconfigure = extension.reconfigure || (() => this.config);
   }
 
-  toTiptapExtension() {
-    return Node.create(this.config);
+  getRicosExtension() {
+    return this.ricosExtension;
+  }
+
+  toTiptapExtension(extensions: ExtensionAggregate, ricosProps: ExtensionProps) {
+    const ricosExtensions = extensions.getRicosExtensions();
+    const config = this.reconfigure(this.config, ricosExtensions, ricosProps, this.settings);
+    return Node.create(config);
   }
 }

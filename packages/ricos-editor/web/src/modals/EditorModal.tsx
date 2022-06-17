@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { RichContentEditorModal } from 'wix-rich-content-editor';
 import ReactModal from 'react-modal';
-import { ModalSettings } from 'ricos-common';
-import { ModalsMap } from 'wix-rich-content-common';
+import type { ModalSettings } from 'ricos-common';
+import type { ModalsMap } from 'wix-rich-content-common';
 
 interface Props {
   isOpen: boolean;
@@ -50,6 +50,7 @@ export default class EditorModal extends Component<Props> {
       onRequestClose,
       ModalsMap,
       locale,
+      editorCommands,
       ...modalProps
     } = this.props;
     return (
@@ -61,7 +62,12 @@ export default class EditorModal extends Component<Props> {
         parentSelector={this.parentSelector}
         onRequestClose={onRequestClose}
       >
-        <RichContentEditorModal modalsMap={ModalsMap} locale={locale} {...modalProps} />
+        <RichContentEditorModal
+          editorCommands={editorCommands}
+          modalsMap={ModalsMap}
+          locale={locale}
+          {...modalProps}
+        />
       </ReactModal>
     );
   }

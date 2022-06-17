@@ -5,7 +5,7 @@ import {
   BUTTON_TYPES,
   isAtomicBlockFocused,
 } from 'wix-rich-content-editor-common';
-import {
+import type {
   GetEditorState,
   SetEditorState,
   ToolbarButtonProps,
@@ -46,19 +46,13 @@ export default ({
   function getSelectedBlockType() {
     const editorState = getEditorState();
     const blockKey = editorState.getSelection().getStartKey();
-    return editorState
-      .getCurrentContent()
-      .getBlockForKey(blockKey)
-      ?.getType();
+    return editorState.getCurrentContent().getBlockForKey(blockKey)?.getType();
   }
 
   function getSelectedBlockTextAlignment() {
     const editorState = getEditorState();
     const blockKey = editorState.getSelection().getStartKey();
-    const data = editorState
-      .getCurrentContent()
-      .getBlockForKey(blockKey)
-      .getData();
+    const data = editorState.getCurrentContent().getBlockForKey(blockKey).getData();
     return data.get('textAlignment') || alignment || 'left';
   }
 
@@ -102,9 +96,7 @@ export default ({
   };
 
   const isActiveInlineStyle = () => {
-    return getEditorState()
-      .getCurrentInlineStyle()
-      .has(styles[0]);
+    return getEditorState().getCurrentInlineStyle().has(styles[0]);
   };
 
   const atomicBlockSelected = () => isAtomicBlockFocused(getEditorState());

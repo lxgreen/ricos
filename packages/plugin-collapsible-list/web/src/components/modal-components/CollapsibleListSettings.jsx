@@ -4,12 +4,13 @@ import { mergeStyles } from 'wix-rich-content-common';
 import {
   RadioGroupVertical,
   SelectionList,
-  SelectionListItem,
   Separator,
   LabeledToggle,
   Label,
+  SelectionListItem,
 } from 'wix-rich-content-ui-components';
 import { LTRIcon, RTLIcon } from 'wix-rich-content-plugin-commons';
+import classNames from 'classnames';
 import { directions, EXPANDED, COLLAPSED, FIRST_EXPANDED } from '../../defaults';
 import styles from '../../../statics/styles/collapsible-list-settings.scss';
 
@@ -20,9 +21,17 @@ class CollapsibleListSettings extends Component {
     this.styles = mergeStyles({ styles, theme });
   }
 
-  renderOption = ({ item, selected }) => (
-    <SelectionListItem icon={<item.icon />} selected={selected} label={item.label} />
-  );
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
+
+  renderOption = ({ item, selected }) =>
+    this.useNewSettingsUi ? (
+      <SelectionListItem icon={<item.icon />} selected={selected} label={item.label} />
+    ) : (
+      <>
+        <item.icon />
+        <p>{item.label}</p>
+      </>
+    );
 
   renderExpandOptions = () => {
     const { getDataManager, t, theme, isMobile } = this.props;
@@ -108,7 +117,11 @@ class CollapsibleListSettings extends Component {
           renderItem={this.renderOption}
           value={getDataManager().getDirection()}
           onChange={getDataManager().changeDirection}
-          className={this.styles.direction_selector}
+          className={classNames(this.styles.direction_selector, {
+            [styles.direction_selector_newUi]: this.useNewSettingsUi,
+          })}
+          optionClassName={this.styles.direction_selector_option}
+          useNewSettingsUi={this.useNewSettingsUi}
         />
       </>
     );
@@ -116,7 +129,11 @@ class CollapsibleListSettings extends Component {
 
   render() {
     return (
-      <div className={this.styles.settingsContainer}>
+      <div
+        className={classNames(this.styles.settingsContainer, {
+          [styles.settingsContainer_newUi]: this.useNewSettingsUi,
+        })}
+      >
         {this.renderExpandOptions()}
         {this.renderSeparator()}
         {this.renderDirectionOptions()}
@@ -130,6 +147,7 @@ CollapsibleListSettings.propTypes = {
   theme: PropTypes.object.isRequired,
   t: PropTypes.func.isRequired,
   isMobile: PropTypes.bool,
+  experiments: PropTypes.object,
 };
 
 export default CollapsibleListSettings;

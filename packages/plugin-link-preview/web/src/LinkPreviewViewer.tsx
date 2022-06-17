@@ -2,18 +2,13 @@
 /* eslint-disable camelcase */
 import React, { Component } from 'react';
 import { isEqual } from 'lodash';
-import {
-  mergeStyles,
-  validate,
-  getHost,
-  ComponentData,
-  Helpers,
-  RichContentTheme,
-} from 'wix-rich-content-common';
+import type { ComponentData, Helpers, RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles, validate, getHost } from 'wix-rich-content-common';
 import pluginLinkPreviewSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-link-preview.schema.json';
 import styles from '../statics/styles/link-preview.scss';
 import HtmlComponent from 'wix-rich-content-plugin-html/libs/HtmlComponent';
-import { LinkPreviewPluginEditorConfig, LINK_PREVIEW_TYPE } from './types';
+import type { LinkPreviewPluginEditorConfig } from './types';
+import { LINK_PREVIEW_TYPE } from './types';
 
 interface LinkPreviewViewerProps {
   componentData: Omit<ComponentData, 'link'> & {

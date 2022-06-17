@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
+import type { AnchorTarget, RelValue, TranslationFunction } from 'wix-rich-content-common';
 import {
   convertRelObjectToString,
   convertRelStringToObject,
   convertTargetStringToBoolean,
   convertTargetBooleanToString,
-  AnchorTarget,
-  RelValue,
-  TranslationFunction,
 } from 'wix-rich-content-common';
 import LinkPanel from './LinkPanel';
 import { merge } from 'lodash';

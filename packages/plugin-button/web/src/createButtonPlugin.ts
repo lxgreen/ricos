@@ -1,22 +1,22 @@
 import createToolbar from './toolbar/createToolbar';
-import { mergeStyles, CreatePluginFunction, CreatePluginConfig } from 'wix-rich-content-common';
+import type { CreatePluginFunction, CreatePluginConfig } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import {
   createBasePlugin,
   PLUGIN_DECORATION_PROPS,
   PLUGIN_DECORATIONS,
 } from 'wix-rich-content-plugin-commons';
 
-import {
-  LINK_BUTTON_TYPE,
-  ACTION_BUTTON_TYPE,
+import type {
   LinkButtonPluginEditorConfig,
   ActionButtonPluginEditorConfig,
   ButtonPluginEditorConfig,
 } from './types';
+import { LINK_BUTTON_TYPE, ACTION_BUTTON_TYPE } from './types';
 import { DEFAULTS } from './defaults';
 
 import Styles from '../statics/styles/default-styles.scss';
-import ButtonComponent from './components/button-component';
+import ButtonComponent from './button-component';
 import { isNumber } from 'lodash';
 
 const createLinkButtonPlugin: CreatePluginFunction<LinkButtonPluginEditorConfig> = config => {
@@ -64,6 +64,7 @@ const createButtonPlugin = (
       customTooltip,
       relValue,
       anchorTarget,
+      type,
     }),
     helpers,
     t,
@@ -86,9 +87,8 @@ const createButtonPlugin = (
     },
     componentWillReceiveDecorationProps: (props, nextProps, onPropsChange) => {
       const { width } = PLUGIN_DECORATION_PROPS[PLUGIN_DECORATIONS.RESIZEABLE](props);
-      const { width: nextWidth } = PLUGIN_DECORATION_PROPS[PLUGIN_DECORATIONS.RESIZEABLE](
-        nextProps
-      );
+      const { width: nextWidth } =
+        PLUGIN_DECORATION_PROPS[PLUGIN_DECORATIONS.RESIZEABLE](nextProps);
       if (width !== nextWidth) {
         onPropsChange({ width: nextWidth, size: 'inline' });
       }

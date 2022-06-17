@@ -1,6 +1,6 @@
-import { RichContent } from 'ricos-schema';
-import { Overwrite } from 'utility-types';
-import { ContentBuilder } from '../types';
+import type { RichContent } from 'ricos-schema';
+import type { Overwrite } from 'utility-types';
+import type { ContentBuilder } from '../types';
 
 export type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
@@ -11,6 +11,7 @@ export interface ImageElement {
   alt?: string;
 }
 
+// TODO: modify `addImage.ts` file to work with the new pattern, and change this type
 export type AddImageParams = Omit<
   Overwrite<
     OriginalAddImageParams,
@@ -21,16 +22,17 @@ export type AddImageParams = Omit<
   'content'
 >;
 
-export type ContentBuilderAdapter = {
+// Old version of builder
+export type ContentBuilderAdapterOld = {
   [key in keyof ContentBuilder]: (
     param?: Omit<Parameters<ContentBuilder[key]>[0], 'content'>
-  ) => ContentBuilderAdapter;
+  ) => ContentBuilderAdapterOld;
 } & {
-  addImage: (params: AddImageParams) => ContentBuilderAdapter;
+  addImage: (params: AddImageParams) => ContentBuilderAdapterOld;
   get: () => RichContent;
 };
 
-export type CreateBuilder = (
+export type CreateBuilderOld = (
   content: RichContent,
   callback?: (content: RichContent) => void
-) => ContentBuilderAdapter;
+) => ContentBuilderAdapterOld;

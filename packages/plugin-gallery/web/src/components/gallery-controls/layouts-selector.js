@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import { getGalleryLayoutsSettings } from '../../layout-helper';
 import { mergeStyles } from 'wix-rich-content-common';
-import { SelectionList, SelectionListItem } from 'wix-rich-content-ui-components';
+import { SelectionList, SelectionListItem, Label } from 'wix-rich-content-ui-components';
 import styles from '../../../statics/styles/layout-selector.scss';
 
 class LayoutSelector extends Component {
@@ -11,6 +12,8 @@ class LayoutSelector extends Component {
     super(props);
     this.styles = mergeStyles({ styles, theme: props.theme });
   }
+
+  useNewSettingsUi = !!this.props.experiments.newSettingsModals?.enabled;
 
   getLayouts = t => {
     return getGalleryLayoutsSettings(t).map(layout => {
@@ -25,9 +28,19 @@ class LayoutSelector extends Component {
 
   dataMapper = ({ layoutId }) => ({ value: layoutId });
 
-  renderOption = ({ item, selected }) => (
-    <SelectionListItem label={item.name} selected={selected} icon={<item.icon />} />
-  );
+  renderOption = ({ item, selected }) =>
+    this.useNewSettingsUi ? (
+      <SelectionListItem label={item.name} selected={selected} icon={<item.icon />} />
+    ) : (
+      <div className={this.styles.layoutsSelector_tile}>
+        <item.icon
+          className={classNames(this.styles.layoutsSelector_icon, {
+            [this.styles.layoutsSelector_icon_selected]: selected,
+          })}
+        />
+        <span className={this.styles.layoutsSelector_tile_label}>{item.name}</span>
+      </div>
+    );
 
   render() {
     const styles = this.styles;
@@ -35,7 +48,7 @@ class LayoutSelector extends Component {
     const layoutsLabel = t('GalleryPlugin_Layouts_Title');
     return (
       <div>
-        <span className={styles.layoutsSelector_label}>{layoutsLabel}</span>
+        <Label label={layoutsLabel} />
         <SelectionList
           theme={theme}
           className={styles.layoutsSelector_grid}
@@ -44,6 +57,8 @@ class LayoutSelector extends Component {
           renderItem={this.renderOption}
           value={value}
           onChange={value => onChange(value)}
+          optionClassName={styles.layoutsSelector_option}
+          useNewSettingsUi={this.useNewSettingsUi}
         />
       </div>
     );
@@ -53,6 +68,7 @@ class LayoutSelector extends Component {
 LayoutSelector.propTypes = {
   value: PropTypes.number.isRequired,
   theme: PropTypes.object.isRequired,
+  experiments: PropTypes.object,
   onChange: PropTypes.func.isRequired,
   t: PropTypes.func,
 };

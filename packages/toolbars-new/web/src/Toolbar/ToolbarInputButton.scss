@@ -21,6 +21,7 @@
 }
 
 .toolbarButton {
+  border-radius: var(--ricos-settings-small-buttons-border-radius, unset);
   display: flex;
   background: transparent;
   padding: 4px;
@@ -39,6 +40,7 @@
     background-color: transparent;
     font-size: 14px;
     font-family: inherit;
+    color: $settings-text-color;
   }
 
   &:focus {

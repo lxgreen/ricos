@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { withI18n, ToolbarType } from 'wix-rich-content-common';
+import type { ToolbarType } from 'wix-rich-content-common';
+import { withI18n } from 'wix-rich-content-common';
 import englishResources from 'wix-rich-content-common/dist/statics/locale/messages_en.json';
-import RichContentEditor, { RichContentEditorProps } from './RichContentEditor';
+import type { RichContentEditorProps } from './RichContentEditor';
+import RichContentEditor from './RichContentEditor';
 
 const WrappedEditor = withI18n<RichContentEditor, Partial<RichContentEditorProps>>(
   RichContentEditor,
@@ -32,6 +34,8 @@ export default class I18nRichContentEditor extends Component<Partial<RichContent
   getEditorCommands = () => this.editor.EditorCommands;
 
   isInnerRCERenderedInTable = () => this.editor.isInnerRCERenderedInTable();
+
+  setEditorState = editorState => this.editor?.updateEditorState(editorState);
 
   render() {
     return <WrappedEditor {...this.props} ref={this.setEditorRef} />;

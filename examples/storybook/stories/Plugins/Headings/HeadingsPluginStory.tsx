@@ -2,7 +2,8 @@ import React from 'react';
 import { RichContentEditorBox, Section, Page } from '../../Components/StoryParts';
 import headingsContentState from '../../../../../e2e/tests/fixtures/headings.json';
 import HeadingsEditor from './HeadingsEditor';
-import editorSourcecode from '!!raw-loader!./HeadingsEditor.tsx';
+// eslint-disable-next-line import/no-unresolved
+import editorSourcecode from './HeadingsEditor.tsx?raw';
 
 export default () => {
   return (

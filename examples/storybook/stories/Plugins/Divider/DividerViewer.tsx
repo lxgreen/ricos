@@ -1,5 +1,7 @@
-import React, { FunctionComponent } from 'react';
-import { DraftContent, RicosViewer } from 'ricos-viewer';
+import type { FunctionComponent } from 'react';
+import React from 'react';
+import type { DraftContent } from 'ricos-viewer';
+import { RicosViewer } from 'ricos-viewer';
 import { pluginDivider } from 'wix-rich-content-plugin-divider/dist/module.viewer';
 
 const DividerViewer: FunctionComponent<{ content?: DraftContent }> = ({ content }) => (

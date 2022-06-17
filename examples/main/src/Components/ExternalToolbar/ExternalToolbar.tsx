@@ -1,11 +1,12 @@
-import React, { Component, RefObject } from 'react';
+import type { RefObject } from 'react';
+import React, { Component } from 'react';
 import { FileInput } from 'wix-rich-content-ui-components';
 import { BUTTON_TYPES } from 'wix-rich-content-editor-common';
 import FormattingGroupButton from 'wix-rich-content-editor-common/libs/FormattingGroupButton';
 import FormattingDropdownButton from 'wix-rich-content-editor-common/libs/FormattingDropdownButton';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 import styles from './ExternalToolbar.scss';
-import { RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
 
 class ExternalToolbar extends Component<{
   buttons;

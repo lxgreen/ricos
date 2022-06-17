@@ -18,11 +18,17 @@
 
   &:hover {
     cursor: pointer;
-    background-color: rgba(0, 0, 0, .05);
+    background-color: rgba(
+      var(--ricos-settings-action-color-tuple, var(--ricos-fallback-color-tuple, 0, 0, 0)),
+      0.05
+    );
   }
 
   &.AnchorableElement_selected {
-    background-color: rgba(0, 0, 0, .1);
+    background-color: rgba(
+      var(--ricos-settings-action-color-tuple, var(--ricos-fallback-color-tuple, 0, 0, 0)),
+      0.1
+    );
   }
 
   .AnchorableElement_thumbnail {
@@ -49,7 +55,7 @@
     justify-content: center;
 
     .AnchorableElement_contentType {
-      color: #757575;
+      color: $secondary-text-color;
       font-size: 12px;
       line-height: 1.33;
     }
@@ -75,7 +81,7 @@
   .AnchorPanel_title {
     font-size: 16px;
     line-height: 1.5;
-    opacity: 0.4;
+    color: var(--ricos-settings-text-color, #0006);
   }
 
   .AnchorPanel_dropdownWrapper{}

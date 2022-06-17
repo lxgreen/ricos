@@ -1,4 +1,4 @@
-import { IConvertFromHTMLConfig } from 'draft-convert';
+import type { IConvertFromHTMLConfig } from 'draft-convert';
 import { pickBy } from 'lodash';
 
 const headerElementToDraftType = {
@@ -71,31 +71,29 @@ const getTextAlignment = (style: CSSStyleDeclaration) => {
   return !!nodeTextAlign && nodeTextAlign !== 'start' ? nodeTextAlign : undefined;
 };
 
-export default (customHeadings: string[] = []): IConvertFromHTMLConfig['htmlToBlock'] => (
-  nodeName,
-  node
-) => {
-  let type: string, style: CSSStyleDeclaration;
+export default (customHeadings: string[] = []): IConvertFromHTMLConfig['htmlToBlock'] =>
+  (nodeName, node) => {
+    let type: string, style: CSSStyleDeclaration;
 
-  // eslint-disable-next-line no-param-reassign
-  customHeadings = customHeadings.map(header => header.toLowerCase());
-  if (shouldConvertElementToBlock(nodeName)) {
-    if (nodeName === 'li') {
-      type = node.parentElement?.nodeName === 'OL' ? 'ordered-list-item' : 'unordered-list-item';
-      style = (node.firstChild as typeof node).style || node.style;
-    } else {
-      type = getBlockTypeOfElement(nodeName, customHeadings);
-      style = node.style;
+    // eslint-disable-next-line no-param-reassign
+    customHeadings = customHeadings.map(header => header.toLowerCase());
+    if (shouldConvertElementToBlock(nodeName)) {
+      if (nodeName === 'li') {
+        type = node.parentElement?.nodeName === 'OL' ? 'ordered-list-item' : 'unordered-list-item';
+        style = (node.firstChild as typeof node).style || node.style;
+      } else {
+        type = getBlockTypeOfElement(nodeName, customHeadings);
+        style = node.style;
+      }
+
+      const data = {
+        textAlignment: getTextAlignment(style),
+        dynamicStyles: getDynamicStyles(style),
+      };
+
+      return {
+        type,
+        data: pickBy(data),
+      };
     }
-
-    const data = {
-      textAlignment: getTextAlignment(style),
-      dynamicStyles: getDynamicStyles(style),
-    };
-
-    return {
-      type,
-      data: pickBy(data),
-    };
-  }
-};
+  };

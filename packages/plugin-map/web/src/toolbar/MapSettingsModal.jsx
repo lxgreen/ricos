@@ -9,9 +9,10 @@ import {
   SettingsSection,
   TextInput,
   SettingsPanelFooter,
-  SettingsPanelHeader,
   SearchIcon,
   SettingsMobileHeader,
+  SettingsPanelHeader,
+  InputWithLabel,
 } from 'wix-rich-content-ui-components';
 import { Scrollbars } from 'react-custom-scrollbars';
 import classNames from 'classnames';
@@ -19,7 +20,7 @@ import classNames from 'classnames';
 export class MapSettingsModal extends Component {
   constructor(props) {
     super(props);
-    const { componentData } = this.props;
+    const { componentData, experiments } = this.props;
 
     this.styles = mergeStyles({ styles, theme: props.theme });
 
@@ -36,19 +37,34 @@ export class MapSettingsModal extends Component {
       isViewControlShown: componentData.mapSettings.isViewControlShown,
       locationDisplayName: componentData.mapSettings.locationDisplayName,
       isLocationInputAlreadyFocused: false,
+      mapSettings: { ...componentData.mapSettings },
     };
+    this.modalsWithEditorCommands = experiments.modalBaseActionHoc?.enabled;
   }
 
-  onLocationInputChange = value => this.setState({ locationSearchPhrase: value, address: value });
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
 
-  onLocationSuggestSelect = (geocodedPrediction, originalPrediction) =>
-    this.setState({
-      locationSearchPhrase: '',
+  updateComponentData = data => {
+    const { updateData, componentData } = this.props;
+    this.modalsWithEditorCommands
+      ? updateData({ mapSettings: { ...componentData.mapSettings, ...data } })
+      : this.setState({ ...data });
+  };
+
+  onLocationInputChange = value => {
+    this.setState({ locationSearchPhrase: value });
+    this.updateComponentData({ address: value });
+  };
+
+  onLocationSuggestSelect = (geocodedPrediction, originalPrediction) => {
+    this.setState({ locationSearchPhrase: '' });
+    this.updateComponentData({
       address: originalPrediction.description,
       locationDisplayName: originalPrediction.description,
       lat: geocodedPrediction.geometry.location.lat(),
       lng: geocodedPrediction.geometry.location.lng(),
     });
+  };
 
   onSaveBtnClick = () => {
     const { componentData, onConfirm, pubsub, helpers } = this.props;
@@ -77,18 +93,34 @@ export class MapSettingsModal extends Component {
     helpers.closeModal();
   };
 
-  toggleState = key => () => {
-    this.setState(prevState => ({
-      [key]: !prevState[key],
-    }));
+  onSave = () => {
+    this.modalsWithEditorCommands ? this.props.onSave() : this.onSaveBtnClick();
   };
 
-  renderToggle = ({ toggleKey, labelKey }) => (
+  onCancel = () => {
+    this.modalsWithEditorCommands ? this.props.onCancel() : this.props.helpers.closeModal();
+  };
+
+  toggleState = key => () => {
+    this.modalsWithEditorCommands
+      ? this.updateComponentData({ [key]: !this.props.componentData.mapSettings[key] })
+      : this.setState(prevState => ({
+          [key]: !prevState[key],
+        }));
+  };
+
+  renderToggle = ({ toggleKey, labelKey, style }) => (
     <LabeledToggle
+      key={labelKey}
       theme={this.props.theme}
-      checked={this.state[toggleKey]}
+      checked={
+        this.modalsWithEditorCommands
+          ? this.props.componentData.mapSettings[toggleKey]
+          : this.state[toggleKey]
+      }
       label={this.props.t(labelKey)}
       onChange={this.toggleState(toggleKey)}
+      style={style}
     />
   );
 
@@ -96,6 +128,7 @@ export class MapSettingsModal extends Component {
     {
       toggleKey: 'isViewControlShown',
       labelKey: 'MapSettings_MapOption_Show_View_Control_Label',
+      style: this.useNewSettingsUi ? { paddingTop: 0 } : {},
     },
     {
       toggleKey: 'isMarkerShown',
@@ -116,25 +149,39 @@ export class MapSettingsModal extends Component {
   ];
 
   renderSettingsSections() {
-    const { theme, t, isMobile } = this.props;
-    const { locationSearchPhrase, address } = this.state;
+    const { theme, t, isMobile, componentData } = this.props;
+    const { locationSearchPhrase } = this.state;
     const { googleMapApiKey } = this.props.settings;
+    const address = this.modalsWithEditorCommands
+      ? componentData.mapSettings.address
+      : this.state.address;
+
+    const locationDisplayName = this.modalsWithEditorCommands
+      ? componentData.mapSettings.locationDisplayName
+      : this.state.locationDisplayName;
 
     return (
       <div
         className={classNames(
           this.styles.map_settings_modal_settings,
-          this.styles.map_settings_modal_main_content_block
+          this.styles.map_settings_modal_main_content_block,
+          {
+            [this.styles.map_settings_modal_main_content_block_newUi]: this.useNewSettingsUi,
+          }
         )}
       >
         <SettingsSection
           theme={theme}
-          className={this.styles.map_settings_modal_location_input_settings_section}
+          className={classNames(this.styles.map_settings_modal_location_input_settings_section, {
+            [this.styles.settings_section_newUi]: this.useNewSettingsUi,
+          })}
           ariaProps={{ 'aria-label': 'location', role: 'region' }}
         >
-          <div className={this.styles.map_settings_modal_text_input_label}>
-            <label htmlFor="location-input">{t('MapSettings_Location_Input_Label')}</label>
-          </div>
+          {!this.useNewSettingsUi && (
+            <div className={this.styles.map_settings_modal_text_input_label}>
+              <label htmlFor="location-input">{t('MapSettings_Location_Input_Label')}</label>
+            </div>
+          )}
           <ReactGoogleMapLoader
             params={{
               key: googleMapApiKey,
@@ -163,23 +210,36 @@ export class MapSettingsModal extends Component {
                       <div className={this.styles.map_settings_modal_search_icon}>
                         <SearchIcon />
                       </div>
-                      <TextInput
-                        tabIndex="0"
-                        theme={this.styles}
-                        type="option"
-                        placeholder={t('MapSettings_Location_Input_Placeholder')}
-                        value={address}
-                        id="location-input"
-                        autoComplete="off"
-                        onChange={this.onLocationInputChange}
-                        inputRef={ref => {
-                          // TODO: since this is a common logic, move it to the TextInput component, and encapsulate it in a prop
-                          if (ref !== null && !this.state.isLocationInputAlreadyFocused) {
-                            ref.focus();
-                            this.setState({ isLocationInputAlreadyFocused: true });
-                          }
-                        }}
-                      />
+                      {this.useNewSettingsUi ? (
+                        <InputWithLabel
+                          label={t('MapSettings_Location_Input_Label')}
+                          placeholder={t('MapSettings_Location_Input_Placeholder')}
+                          id="location-input"
+                          value={address}
+                          onChange={this.onLocationInputChange}
+                          autoComplete="off"
+                          onLoad={() => this.setState({ isLocationInputAlreadyFocused: true })}
+                          tabIndex={0}
+                        />
+                      ) : (
+                        <TextInput
+                          tabIndex="0"
+                          theme={this.styles}
+                          type="option"
+                          placeholder={t('MapSettings_Location_Input_Placeholder')}
+                          value={address}
+                          id="location-input"
+                          autoComplete="off"
+                          onChange={this.onLocationInputChange}
+                          inputRef={ref => {
+                            // TODO: since this is a common logic, move it to the TextInput component, and encapsulate it in a prop
+                            if (ref !== null && !this.state.isLocationInputAlreadyFocused) {
+                              ref.focus();
+                              this.setState({ isLocationInputAlreadyFocused: true });
+                            }
+                          }}
+                        />
+                      )}
                     </div>
                   </ReactGooglePlacesSuggest>
                 </div>
@@ -193,21 +253,40 @@ export class MapSettingsModal extends Component {
           className={this.styles.map_settings_modal_location_display_name_settings_section}
           ariaProps={{ 'aria-label': 'location', role: 'region' }}
         >
-          <div className={this.styles.map_settings_modal_text_input_label}>
-            <label htmlFor="location-display-name">{t('MapSettings_Location_Display_Name')}</label>
-          </div>
-          <TextInput
-            type="text"
-            id="location-display-name"
-            value={this.state.locationDisplayName}
-            onChange={locationDisplayName => this.setState({ locationDisplayName })}
-            theme={this.styles}
-            autoComplete="off"
-          />
+          {this.useNewSettingsUi ? (
+            <InputWithLabel
+              label={t('MapSettings_Location_Display_Name')}
+              id="location-display-name"
+              value={locationDisplayName}
+              onChange={locationDisplayName => this.updateComponentData({ locationDisplayName })}
+              theme={this.styles}
+              autoComplete="off"
+            />
+          ) : (
+            <>
+              <div className={this.styles.map_settings_modal_text_input_label}>
+                <label htmlFor="location-display-name">
+                  {t('MapSettings_Location_Display_Name')}
+                </label>
+              </div>
+              <TextInput
+                type="text"
+                id="location-display-name"
+                value={locationDisplayName}
+                onChange={locationDisplayName => this.updateComponentData({ locationDisplayName })}
+                theme={this.styles}
+                autoComplete="off"
+              />
+            </>
+          )}
         </SettingsSection>
 
-        {!isMobile && (
-          <div className={this.styles.map_settings_modal_divider_wrapper}>
+        {(!isMobile || this.useNewSettingsUi) && (
+          <div
+            className={classNames(this.styles.map_settings_modal_divider_wrapper, {
+              [this.styles.map_settings_modal_divider_newUi]: this.useNewSettingsUi,
+            })}
+          >
             <div className={this.styles.map_settings_modal_divider} />
           </div>
         )}
@@ -218,9 +297,11 @@ export class MapSettingsModal extends Component {
           ariaProps={{ 'aria-label': 'ckeckboxes', role: 'region' }}
         >
           <div className={this.styles.map_settings_modal_map_options}>
-            <p className={this.styles.map_settings_modal_map_options_sub_header}>
-              {t('MapSettings_MapOption_SubHeader')}
-            </p>
+            {!this.useNewSettingsUi && (
+              <p className={this.styles.map_settings_modal_map_options_sub_header}>
+                {t('MapSettings_MapOption_SubHeader')}
+              </p>
+            )}
             {this.toggleData.map(toggle => this.renderToggle(toggle))}
           </div>
         </SettingsSection>
@@ -229,13 +310,7 @@ export class MapSettingsModal extends Component {
   }
 
   render() {
-    const {
-      t,
-      isMobile,
-      languageDir,
-      helpers: { closeModal },
-      theme,
-    } = this.props;
+    const { t, isMobile, languageDir, theme, experiments = {} } = this.props;
 
     const wrapWithScrollBars = jsx => (
       <Scrollbars
@@ -252,15 +327,31 @@ export class MapSettingsModal extends Component {
       <div dir={languageDir}>
         {isMobile && (
           <SettingsMobileHeader
-            onSave={this.onSaveBtnClick}
-            onCancel={closeModal}
+            onSave={this.onSave}
+            onCancel={this.onCancel}
             theme={theme}
             t={t}
+            title={this.useNewSettingsUi && t('MapSettings_Title')}
+            useNewSettingsUi={this.useNewSettingsUi}
           />
         )}
 
         <div className={this.styles.map_settings_modal_settings_container} data-hook="mapSettings">
-          <SettingsPanelHeader title={t('MapSettings_Title')} onClose={closeModal} />
+          {!isMobile && this.useNewSettingsUi ? (
+            <SettingsPanelHeader title={t('MapSettings_Title')} onClose={this.onCancel} />
+          ) : (
+            !isMobile && (
+              <div
+                className={classNames(
+                  this.styles.map_settings_modal_title_container,
+                  this.styles.map_settings_modal_main_content_block
+                )}
+              >
+                <h3 className={this.styles.map_settings_modal_title}>{t('MapSettings_Title')}</h3>
+              </div>
+            )
+          )}
+
           {isMobile
             ? this.renderSettingsSections()
             : wrapWithScrollBars(this.renderSettingsSections())}
@@ -268,8 +359,8 @@ export class MapSettingsModal extends Component {
           {!isMobile && (
             <SettingsPanelFooter
               fixed
-              cancel={closeModal}
-              save={this.onSaveBtnClick}
+              cancel={this.onCancel}
+              save={this.onSave}
               theme={theme}
               t={t}
             />
@@ -290,4 +381,8 @@ MapSettingsModal.propTypes = {
   t: PropTypes.func,
   isMobile: PropTypes.bool,
   languageDir: PropTypes.string,
+  onSave: PropTypes.func,
+  onCancel: PropTypes.func,
+  updateData: PropTypes.func,
+  experiments: PropTypes.object,
 };

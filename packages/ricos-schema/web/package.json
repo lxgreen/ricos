@@ -1,6 +1,6 @@
 {
   "name": "ricos-schema",
-  "version": "8.65.22",
+  "version": "8.71.28",
   "author": {
     "name": "Matan Harsat",
     "email": "matanha@wix.com"
@@ -30,7 +30,8 @@
     "gen-plugin-defaults": "ts-node --compiler-options={\\\"module\\\":\\\"commonJS\\\"} src/generate-plugin-defaults.ts",
     "buildESM": "tsc",
     "buildCJS": "tsc --module commonjs --outDir dist/cjs",
-    "build": "yarn generate && yarn gen-plugin-defaults && yarn buildESM && yarn buildCJS"
+    "build": "yarn generate && yarn gen-plugin-defaults && yarn buildESM && yarn buildCJS",
+    "build:dev": "yarn build"
   },
   "unpkg": true,
   "publishConfig": {

@@ -6,6 +6,7 @@ import {
   FILE_UPLOAD_TYPE,
   HTML_TYPE,
   IMAGE_TYPE,
+  IMAGE_TYPE_LEGACY,
   LINK_BUTTON_TYPE,
   LINK_PREVIEW_TYPE,
   MENTION_TYPE,
@@ -22,19 +23,21 @@ import {
   WRAP,
   NO_WRAP,
   EXTERNAL,
+  AUDIO_TYPE,
 } from '../../../consts';
-import {
+import type {
   PluginContainerData_Spoiler,
   FileSource,
-  PluginContainerData_Width_Type,
-  ButtonData_Type,
   Link,
   ButtonData,
   GIFData,
   GalleryData,
+  FileData,
 } from 'ricos-schema';
+import { PluginContainerData_Width_Type, ButtonData_Type } from 'ricos-schema';
 import { TO_RICOS_DATA } from './consts';
-import {
+import type {
+  AudioComponentData,
   ComponentData,
   FileComponentData,
   ImageComponentData,
@@ -42,17 +45,19 @@ import {
 } from '../../../types';
 import { createLink } from '../../nodeUtils';
 import toConstantCase from 'to-constant-case';
-import { DraftGalleryStyles } from '../consts';
+import type { DraftGalleryStyles } from '../consts';
 import { convertJsonToStruct } from './convertJsonToStruct';
 
 export const convertBlockDataToRicos = (type: string, data) => {
   const newData = cloneDeep(data);
   const converters = {
     [VIDEO_TYPE]: convertVideoData,
+    [AUDIO_TYPE]: convertAudioData,
     [DIVIDER_TYPE]: convertDividerData,
     [FILE_UPLOAD_TYPE]: convertFileData,
     [GIPHY_TYPE]: convertGIFData,
     [IMAGE_TYPE]: convertImageData,
+    [IMAGE_TYPE_LEGACY]: convertImageData,
     [POLL_TYPE]: convertPollData,
     [APP_EMBED_TYPE]: convertAppEmbedData,
     [LINK_PREVIEW_TYPE]: convertLinkPreviewData,
@@ -120,6 +125,7 @@ const convertVideoData = (data: {
   video;
   thumbnail;
   title?;
+  duration?: number;
 }) => {
   if (typeof data.src === 'string') {
     data.video = { src: { url: data.src } };
@@ -138,6 +144,15 @@ const convertVideoData = (data: {
       height: data.src.thumbnail.height,
     };
   }
+  data.video && (data.video.duration = data.duration);
+};
+
+const convertAudioData = (data: AudioComponentData & { coverImage: { file_name: string } }) => {
+  const { coverImage } = data;
+  if (coverImage) {
+    const { file_name, width, height } = coverImage;
+    data.coverImage = { file_name, src: { id: file_name }, width, height };
+  }
 };
 
 const convertGalleryStyles = styles => {
@@ -149,6 +164,8 @@ const convertGalleryStyles = styles => {
   has(styles, 'isVertical') && (styles.layout.orientation = styles.isVertical ? 'COLUMNS' : 'ROWS');
   has(styles, 'numberOfImagesPerRow') &&
     (styles.layout.numberOfColumns = styles.numberOfImagesPerRow);
+  has(styles, 'm_numberOfImagesPerRow') &&
+    (styles.layout.mobileNumberOfColumns = styles.m_numberOfImagesPerRow);
   has(styles, 'gallerySizePx') && (styles.item.targetSize = styles.gallerySizePx);
   has(styles, 'cubeRatio') && (styles.item.ratio = styles.cubeRatio);
   const cubeType = styles?.cubeType?.toUpperCase();
@@ -209,10 +226,20 @@ const convertImageData = (data: {
   link;
   altText;
   caption;
+  width;
+  height;
 }) => {
-  const { file_name, width, height } = data.src || {};
+  if (typeof data.src === 'string') {
+    data.image = {
+      src: { source: 'static', url: data.src },
+      width: data.width,
+      height: data.height,
+    };
+  } else if (typeof data.src === 'object') {
+    const { file_name, width, height } = data.src || {};
+    data.image = { src: { id: file_name }, width, height };
+  }
   const { link, anchor } = data.config || {};
-  data.image = { src: { id: file_name }, width, height };
   data.link = (link || anchor) && createLink({ ...link, anchor });
   data.altText = data.metadata?.alt;
   data.caption = data.metadata?.caption;
@@ -294,13 +321,8 @@ const convertPollData = (data: { containerData; layout; design; poll }) => {
       ...rest,
     })));
   if (has(data, 'poll.settings')) {
-    const {
-      multipleVotes,
-      voteRole,
-      resultsVisibility,
-      votersDisplay,
-      votesDisplay,
-    } = data.poll.settings;
+    const { multipleVotes, voteRole, resultsVisibility, votersDisplay, votesDisplay } =
+      data.poll.settings;
 
     const getViewRole = resultsVisibility =>
       resultsVisibility === 'ALWAYS'
@@ -327,15 +349,20 @@ const convertAppEmbedData = (data: {
   selectedProduct: Record<string, string>;
   url;
   imageSrc;
+  imageWidth;
+  imageHeight;
   itemId;
   name;
   bookingData;
   eventData;
+  image;
 }) => {
   const {
     id,
     name,
     imageSrc,
+    imageHeight,
+    imageWidth,
     description,
     pageUrl,
     scheduling,
@@ -347,6 +374,7 @@ const convertAppEmbedData = (data: {
   data.itemId = id;
   data.name = name;
   data.imageSrc = imageSrc;
+  data.image = { src: { url: imageSrc }, width: imageWidth, height: imageHeight };
   if (data.type === 'booking') {
     data.bookingData = { durations: durations || description };
   } else if (data.type === 'event') {
@@ -378,7 +406,7 @@ const convertMentionData = (data: {
   delete data.mention;
 };
 
-const convertFileData = (data: FileComponentData & { src }) => {
+const convertFileData = (data: FileComponentData & FileData) => {
   const { url, id, privacy } = data;
   const isPrivate = typeof privacy !== 'undefined' ? privacy === 'private' : undefined;
   const src: FileSource = { url, id, private: isPrivate };
@@ -422,7 +450,7 @@ const convertButtonData = (
   };
   data.type = blockType === ACTION_BUTTON_TYPE ? ButtonData_Type.ACTION : ButtonData_Type.LINK;
   data.text = buttonText;
-  if (url) {
+  if (data.type === ButtonData_Type.LINK && url) {
     data.link = createLink({
       url,
       rel,
@@ -488,6 +516,7 @@ const convertTableData = data => {
   const {
     config: { colsWidth, rowsHeight, colsMinWidth, rowHeader },
   } = data;
-  data.dimensions = { colsWidthRatio: colsWidth, rowsHeight, colsMinWidth };
+  const colsWidthRatio = colsWidth.map(width => parseInt(width, 10));
+  data.dimensions = { colsWidthRatio, rowsHeight, colsMinWidth };
   data.header = rowHeader;
 };

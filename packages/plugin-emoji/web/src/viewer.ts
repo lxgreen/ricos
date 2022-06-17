@@ -1,6 +1,8 @@
 import { DEFAULT_CONFIG } from './constants';
-import { EMOJI_TYPE, EmojiPluginViewerConfig } from './types';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
+import type { EmojiPluginViewerConfig } from './types';
+import { EMOJI_TYPE } from './types';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
+export type { EmojiPluginViewerConfig } from './types';
 
 export const pluginEmoji: ViewerPluginCreator<EmojiPluginViewerConfig> = config => {
   return {

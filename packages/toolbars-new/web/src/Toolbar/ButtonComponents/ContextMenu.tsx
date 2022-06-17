@@ -2,9 +2,9 @@
 import React, { PureComponent } from 'react';
 import ClickOutside from 'react-click-outsider';
 import Styles from '../ToolbarNew.scss';
-import ToolbarButton from '../ToolbarButton.jsx';
+import ToolbarButton from '../ToolbarButton';
 import { elementOverflowWithEditor } from 'wix-rich-content-editor-common';
-import { RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
 
 interface ContextMenuProps {
   isMobile: boolean;
@@ -59,10 +59,12 @@ class ContextMenu extends PureComponent<ContextMenuProps, State> {
 
   hideOptions = () => this.setState({ isOpen: false });
 
-  onChange = ({ onClick }) => e => {
-    onClick(e);
-    this.setState({ isOpen: false });
-  };
+  onChange =
+    ({ onClick }) =>
+    e => {
+      onClick(e);
+      this.setState({ isOpen: false });
+    };
 
   renderOptions = () => {
     const { buttonList, theme } = this.props;

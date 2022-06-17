@@ -4,7 +4,18 @@ import FileUploadViewer from './file-upload-viewer';
 import { FILE_UPLOAD_TYPE } from './types';
 
 function FileUploadComponent(props) {
-  const { componentData, theme, setComponentUrl, t, isMobile, tempData, isLoading } = props;
+  const {
+    componentData,
+    theme,
+    setComponentUrl,
+    t,
+    isMobile,
+    tempData,
+    isLoading,
+    locale,
+    settings,
+  } = props;
+  const tempDataPlaceHolder = tempData || (componentData.tempData ? componentData : undefined);
   return (
     <FileUploadViewer
       componentData={componentData}
@@ -13,7 +24,9 @@ function FileUploadComponent(props) {
       setComponentUrl={setComponentUrl}
       t={t}
       isMobile={isMobile}
-      tempDataPlaceHolder={tempData}
+      tempDataPlaceHolder={tempDataPlaceHolder}
+      locale={locale}
+      settings={settings}
     />
   );
 }
@@ -26,6 +39,8 @@ FileUploadComponent.propTypes = {
   isMobile: PropTypes.bool,
   tempData: PropTypes.object,
   isLoading: PropTypes.bool,
+  locale: PropTypes.string,
+  settings: PropTypes.object,
 };
 
 FileUploadComponent.defaultProps = {

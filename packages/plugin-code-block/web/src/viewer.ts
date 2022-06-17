@@ -1,9 +1,10 @@
 import { default as CodeBlockDecorator } from './PrismDecorator';
 
-import { CODE_BLOCK_TYPE, CodeBlockPluginViewerConfig } from './types';
-export { CodeBlockDecorator, CODE_BLOCK_TYPE };
+import type { CodeBlockPluginViewerConfig } from './types';
+import { CODE_BLOCK_TYPE } from './types';
+export { CodeBlockDecorator, CODE_BLOCK_TYPE, CodeBlockPluginViewerConfig };
 import { DEFAULTS } from './defaults';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
 
 export const pluginCodeBlock: ViewerPluginCreator<CodeBlockPluginViewerConfig> = config => {
   return {

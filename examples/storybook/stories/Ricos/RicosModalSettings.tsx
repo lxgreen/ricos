@@ -4,7 +4,8 @@ import { RichContentEditorBox, Section, Page } from '../Components/StoryParts';
 import { pluginImage } from 'wix-rich-content-plugin-image';
 import { pluginGallery } from 'wix-rich-content-plugin-gallery';
 import MobileDetect from 'mobile-detect';
-import { Layout, Cell, FormField, Input, InputStatus } from 'wix-style-react';
+import type { InputStatus } from 'wix-style-react';
+import { Layout, Cell, FormField, Input } from 'wix-style-react';
 
 import galleryState from '../../../../e2e/tests/fixtures/gallery-simple.json';
 

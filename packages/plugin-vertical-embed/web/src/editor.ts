@@ -1,13 +1,22 @@
 import { createVerticalEmbedPlugin } from './createVerticalEmbedPlugin';
-import { VERTICAL_EMBED_TYPE, VerticalEmbedPluginEditorConfig } from './types';
+import type { VerticalEmbedPluginEditorConfig } from './types';
+import { VERTICAL_EMBED_TYPE } from './types';
 import { ModalsMap } from './modals';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
+import { tiptapExtensions } from './tiptap/tiptap';
+import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { getToolbarButtons } from './getToolbarButtons';
+import { getAddButtons } from './getAddButtons';
 
 export const pluginVerticalEmbed: EditorPluginCreator<VerticalEmbedPluginEditorConfig> = config => {
+  const pluginConfig = { ...config };
   return {
-    config: { ...config },
+    config: pluginConfig,
     type: VERTICAL_EMBED_TYPE,
     createPlugin: createVerticalEmbedPlugin,
     ModalsMap,
-  };
+    tiptapExtensions,
+    toolbarButtons: getToolbarButtons(config),
+    addButtons: getAddButtons(config),
+  } as TiptapEditorPlugin;
 };

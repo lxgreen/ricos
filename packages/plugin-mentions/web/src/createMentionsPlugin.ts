@@ -1,9 +1,11 @@
-import { mergeStyles, CreatePluginFunction } from 'wix-rich-content-common';
+import type { CreatePluginFunction } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import { createBasePlugin } from 'wix-rich-content-plugin-commons';
 import { decorateComponentWithProps } from 'wix-rich-content-editor-common';
 import createMentionPlugin from 'draft-js-mention-plugin';
 import { DEFAULT_SETTINGS, DEFAULTS } from './defaultSettings';
-import { EXTERNAL_MENTIONS_TYPE, MENTION_TYPE, MentionsPluginEditorConfig } from './types';
+import type { MentionsPluginEditorConfig } from './types';
+import { EXTERNAL_MENTIONS_TYPE, MENTION_TYPE } from './types';
 import { positionSuggestions } from './positionSuggestions';
 import MentionComponent from './MentionComponent';
 import MentionSuggestionsWrapper from './MentionSuggestionsWrapper';
@@ -50,7 +52,7 @@ const createExternalMentionsPlugin: CreatePluginFunction<MentionsPluginEditorCon
       reposition: settings.repositionSuggestions,
       visibleItemsBeforeOverflow: settings.visibleItemsBeforeOverflow,
     }),
-    supportWhitespace: true,
+    supportWhitespace: 'supportWhitespace' in mSettings ? mSettings.supportWhitespace : true,
   });
 
   const inlineModals = [

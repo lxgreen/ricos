@@ -13,7 +13,7 @@ import {
   LINK_BUTTON_TYPE,
   ACTION_BUTTON_TYPE,
 } from 'wix-rich-content-common';
-import { EditorState, ContentBlock } from '@wix/draft-js';
+import type { EditorState, ContentBlock } from '@wix/draft-js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnchorableBlockType = any;

@@ -1,6 +1,5 @@
+import type { RicosExtension } from 'ricos-tiptap-types';
 import { history, undo, redo } from './history-infra';
-
-const name = 'ricosHistory';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -16,11 +15,13 @@ declare module '@tiptap/core' {
   }
 }
 
-export const createHistoryConfig = () => ({
+export const undoRedo: RicosExtension = {
   type: 'extension' as const,
-  createExtensionConfig: () => {
+  groups: [],
+  name: 'ricosHistory',
+  createExtensionConfig() {
     return {
-      name,
+      name: this.name,
 
       priority: 1000,
       addOptions: () => ({
@@ -30,20 +31,28 @@ export const createHistoryConfig = () => ({
 
       addCommands() {
         return {
-          rebase: count => ({ tr }) => {
-            tr.setMeta('rebased', count);
-            return true;
-          },
-          silent: () => ({ tr }) => {
-            tr.setMeta('skip', true);
-            return true;
-          },
-          undo: () => ({ state, dispatch }) => {
-            return undo(state, dispatch);
-          },
-          redo: () => ({ state, dispatch }) => {
-            return redo(state, dispatch);
-          },
+          rebase:
+            count =>
+            ({ tr }) => {
+              tr.setMeta('rebased', count);
+              return true;
+            },
+          silent:
+            () =>
+            ({ tr }) => {
+              tr.setMeta('skip', true);
+              return true;
+            },
+          undo:
+            () =>
+            ({ state, dispatch }) => {
+              return undo(state, dispatch);
+            },
+          redo:
+            () =>
+            ({ state, dispatch }) => {
+              return redo(state, dispatch);
+            },
         };
       },
 
@@ -60,7 +69,7 @@ export const createHistoryConfig = () => ({
       },
     };
   },
-});
+};
 
 export interface HistoryOptions {
   depth: number;

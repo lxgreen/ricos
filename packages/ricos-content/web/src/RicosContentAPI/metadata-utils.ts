@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash';
 import { createEmptyContent } from './createEmptyContent';
-import { RichContent } from 'ricos-schema';
+import type { RichContent } from 'ricos-schema';
 import { v4 as uuid } from 'uuid';
 import { initializeMetadata } from '../converters/nodeUtils';
 

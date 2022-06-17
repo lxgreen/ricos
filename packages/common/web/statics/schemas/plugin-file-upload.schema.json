@@ -57,6 +57,38 @@
         "title": "The File ID Schema ",
         "default": "",
         "examples": ["d3dd72_e4310321765e48f44803b92424d5edb8"]
+      },
+      "size": {
+        "$id": "/properties/size",
+        "type": ["number", "string"],
+        "title": "The File size Schema ",
+        "default": "",
+        "examples": ["15000", 15000]
+      },
+      "pdfSettings": {
+        "$id": "/properties/pdfSettings",
+        "type": "object",
+        "properties": {
+          "viewMode": {
+            "$id": "/properties/pdfSettings/properties/viewMode",
+            "type": "string",
+            "title": "The File PDF view modes Schema ",
+            "default": "",
+            "examples": ["NONE", "FULL", "MINI"]
+          },
+          "disableDownload": {
+            "$id": "/properties/pdfSettings/properties/disableDownload",
+            "type": "boolean",
+            "title": "The File disable download PDF property Schema ",
+            "default": ""
+          },
+          "disablePrint": {
+            "$id": "/properties/pdfSettings/properties/disablePrint",
+            "type": "boolean",
+            "title": "The File disable print PDF property Schema ",
+            "default": ""
+          }
+        }
       }
     }
   }

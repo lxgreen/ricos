@@ -4,7 +4,7 @@ import { TextInput } from 'wix-rich-content-ui-components';
 import { LinkPanelWrapper } from 'wix-rich-content-editor-common';
 import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../statics/styles/settings-component-styles.scss';
-
+import classNames from 'classnames';
 class SettingsComponent extends PureComponent {
   constructor(props) {
     super(props);
@@ -22,6 +22,8 @@ class SettingsComponent extends PureComponent {
       ...linkButtonSettings,
     };
   }
+
+  useNewSettingsUi = !!this.props.experiments?.newSettingsModals?.enabled;
 
   componentDidUpdate = () => {
     this.props.onSettingsChange(this.state);
@@ -52,7 +54,11 @@ class SettingsComponent extends PureComponent {
       'data-hook': 'ButtonInputModal',
     };
     return (
-      <div className={this.styles.button_settingsComponent_section_content}>
+      <div
+        className={classNames(this.styles.button_settingsComponent_section_content, {
+          [this.styles.button_settingsComponent_section_content_newUi]: this.useNewSettingsUi,
+        })}
+      >
         <div className={this.styles.button_settingsComponent_name_feild}>
           <div className={this.styles.button_settingsComponent_header_ButtonText}>
             {t('ButtonModal_Button_Text')}
@@ -91,6 +97,7 @@ class SettingsComponent extends PureComponent {
 
 SettingsComponent.propTypes = {
   theme: PropTypes.object.isRequired,
+  experiments: PropTypes.object,
   t: PropTypes.func,
   isValidUrl: PropTypes.func,
   onSettingsChange: PropTypes.func.isRequired,

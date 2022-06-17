@@ -1,16 +1,9 @@
-import {
-  DraftContent,
-  RicosContentBlock,
-  isDraftContent,
-  isRichContent,
-} from '../src/types/contentTypes';
+import type { DraftContent, RicosContentBlock } from '../src/types/contentTypes';
+import { isDraftContent, isRichContent } from '../src/types/contentTypes';
 import { extract } from './RicosContentAPI/extract';
-import { RichContent } from 'ricos-schema';
+import type { RichContent } from 'ricos-schema';
 import { fromTraversable, Lens } from 'monocle-ts';
 import * as A from 'fp-ts/Array';
-
-export function getContentLength(content: DraftContent): number;
-export function getContentLength(content: RichContent): number;
 
 export function getContentLength(content: RichContent | DraftContent): number {
   if (isDraftContent(content)) {

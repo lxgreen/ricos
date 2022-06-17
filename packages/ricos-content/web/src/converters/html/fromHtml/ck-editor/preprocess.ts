@@ -1,35 +1,38 @@
 import { flow, identity } from 'fp-ts/function';
 import { not } from 'fp-ts/Predicate';
 import * as S from 'fp-ts/string';
-import { Element, TextNode, serialize, Attribute } from 'parse5';
-import { ContentNode } from '../core/models';
+import type { Attribute, Element, TextNode } from 'parse5';
+import { serialize } from 'parse5';
+import { and, or } from '../../../../fp-utils';
+import { partitionBy } from '../../../nodeUtils';
+import { traverse, traverseRoot } from '../core/ast-traversal';
+import type { ContentNode } from '../core/models';
+import type { AstRule } from '../core/parse5-utils';
 import {
-  isText,
-  isLeaf,
-  isWhitespace,
-  hasDescendant,
   appendChild,
-  hasTag,
-  hasParent,
-  oneOf,
-  AstRule,
-  toAst,
   hasChild,
   hasClass,
+  hasDescendant,
+  hasParent,
+  hasStyleFor,
+  hasTag,
   isRoot,
+  isText,
+  isWhitespace,
+  oneOf,
+  toAst,
 } from '../core/parse5-utils';
-import { partitionBy } from '../../../nodeUtils';
-import { traverseRoot, traverse } from '../core/ast-traversal';
-import { and, or } from '../../../../fp-utils';
 
-const addParagraph = (parentNode: Element, attrs: Attribute[] = []) => (): ContentNode => ({
-  nodeName: 'p',
-  tagName: 'p',
-  childNodes: [],
-  parentNode,
-  attrs: parentNode.attrs ? parentNode.attrs.concat(attrs) : attrs,
-  namespaceURI: parentNode.namespaceURI,
-});
+const addParagraph =
+  (parentNode: Element, attrs: Attribute[] = []) =>
+  (): ContentNode => ({
+    nodeName: 'p',
+    tagName: 'p',
+    childNodes: [],
+    parentNode,
+    attrs: parentNode.attrs ? parentNode.attrs.concat(attrs) : attrs,
+    namespaceURI: parentNode.namespaceURI,
+  });
 
 const rootTextToP: AstRule = [
   and([isRoot, or([hasChild(isText), hasChild(hasTag('a'))])]),
@@ -61,15 +64,6 @@ const containerPToDiv: AstRule = [
   }),
 ];
 
-const leafParagraphToDiv: AstRule = [
-  and([isLeaf, hasTag('p')]),
-  (node: Element) => ({
-    ...node,
-    tagName: 'div',
-    nodeName: 'div',
-  }),
-];
-
 const collapseWhitespaces: AstRule = [
   and([
     isText,
@@ -80,6 +74,23 @@ const collapseWhitespaces: AstRule = [
     ...node,
     value: '',
   }),
+];
+
+const wrapPWithLiInList: AstRule = [
+  and([hasTag('p'), hasParent(oneOf(['ul', 'ol']))]),
+  (node: Element) => {
+    const listItem: Element = {
+      nodeName: 'li',
+      tagName: 'li',
+      childNodes: [] as Element[],
+      attrs: [] as Attribute[],
+      parentNode: node.parentNode,
+      namespaceURI: node.namespaceURI,
+    };
+    const childNode: Element = { ...node, parentNode: listItem };
+    listItem.childNodes.push(childNode);
+    return listItem;
+  },
 ];
 
 const cleanListPadding: AstRule = [
@@ -111,11 +122,14 @@ const cleanInvalidVideos: AstRule = [
 ];
 
 const wrapTextUnderLi: AstRule = [
-  and([hasTag('li'), hasChild(isText)]),
+  and([hasTag('li'), or([hasChild(isText), hasChild(hasTag('a'))])]),
   (node: Element) => ({
     ...node,
     childNodes: partitionBy<ContentNode>(
-      or([hasTag('p'), hasDescendant(oneOf(['img', 'iframe', 'ol', 'ul']))]),
+      or([
+        hasTag('p'),
+        hasDescendant(oneOf(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'iframe', 'ol', 'ul'])),
+      ]),
       hasTag('p'),
       identity,
       addParagraph(node),
@@ -124,8 +138,35 @@ const wrapTextUnderLi: AstRule = [
   }),
 ];
 
+const wrapNakedStyledSpanWithP: AstRule = [
+  and([
+    hasTag('span'),
+    or([hasStyleFor('text-decoration'), hasStyleFor('font-weight'), hasStyleFor('font-style')]),
+    hasParent(not(oneOf(['strong', 'b', 'a', 'p', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']))),
+  ]),
+  (node: Element) => {
+    const paragraph: Element = {
+      nodeName: 'p',
+      tagName: 'p',
+      childNodes: [] as Element[],
+      attrs: [] as Attribute[],
+      parentNode: node.parentNode,
+      namespaceURI: node.namespaceURI,
+    };
+    const childNode: Element = { ...node, parentNode: paragraph };
+    paragraph.childNodes.push(childNode);
+    return paragraph;
+  },
+];
+
 const nakedSpanToP: AstRule = [
-  and([hasTag('span'), hasParent(not(oneOf(['p', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'])))]),
+  and([
+    hasTag('span'),
+    not(hasStyleFor('text-decoration')),
+    not(hasStyleFor('font-weight')),
+    not(hasStyleFor('font-style')),
+    hasParent(not(oneOf(['strong', 'b', 'a', 'p', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']))),
+  ]),
   (node: Element) => ({
     ...node,
     nodeName: 'p',
@@ -176,19 +217,18 @@ const collapseBreaks = flow(
 export const preprocess = flow(
   toAst,
   traverseRoot(rootTextToP),
-  traverse(brToNewLineInP),
-  traverse(brToNewLineInRoot),
+  flow(traverse(brToNewLineInP), traverse(brToNewLineInRoot)),
   flow(
-    traverse(leafParagraphToDiv),
     traverse(cleanListPadding),
     traverse(cleanListItemPadding),
+    traverse(wrapPWithLiInList),
     traverse(cleanInvalidVideos),
-    traverse(containerPToDiv),
-    traverse(wrapTextUnderLi),
-    traverse(collapseWhitespaces),
-    traverse(nakedSpanToP),
-    traverse(textInDivToP)
+    traverse(containerPToDiv)
   ),
+  flow(traverse(wrapTextUnderLi), traverse(collapseWhitespaces)),
+  // hack to make nakedSpanToP work -- otherwise does not work correctly
+  flow(serialize, toAst, traverse(nakedSpanToP), traverse(wrapNakedStyledSpanWithP)),
+  traverse(textInDivToP),
   serialize,
   collapseBreaks
 );

@@ -1,10 +1,10 @@
 import { BUTTONS } from 'wix-rich-content-plugin-commons';
 import { getModalStyles, decorateComponentWithProps } from 'wix-rich-content-editor-common';
 import { MediaReplaceIcon } from '../icons';
-import GiphyApiInputModal from './giphyApiInputModal';
+import GiphyInsertModal from './giphyInsertModal';
 import { MOBILE_FULL_SCREEN_CUSTOM_STYLE, DESKTOP_FLY_OUT_MODAL_STYLES } from '../constants';
-import { CreateInlineButtons, TranslationFunction } from 'wix-rich-content-common';
-import { GiphyPluginEditorConfig } from '../types';
+import type { CreateInlineButtons, TranslationFunction } from 'wix-rich-content-common';
+import type { GiphyPluginEditorConfig } from '../types';
 
 const createInlineButtons: CreateInlineButtons = ({
   t,
@@ -32,7 +32,7 @@ const createInlineButtons: CreateInlineButtons = ({
       keyName: 'replace',
       type: BUTTONS.EXTERNAL_MODAL,
       icon,
-      modalElement: decorateComponentWithProps(GiphyApiInputModal, settings),
+      modalElement: decorateComponentWithProps(GiphyInsertModal, settings),
       modalStyles,
       modalStylesFn: ({ buttonRef }) => {
         const modalStyles = getModalStyles({

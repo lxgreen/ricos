@@ -4,16 +4,10 @@ import * as A from 'fp-ts/Array';
 import * as R from 'fp-ts/Record';
 import { pipe, flow, constFalse, constTrue, identity } from 'fp-ts/function';
 import { set, cloneDeep, get } from 'lodash';
-import { RichContent, Node } from 'ricos-schema';
+import type { RichContent, Node } from 'ricos-schema';
 
-import {
-  TextualNode,
-  NonTextualNode,
-  NonTextualTranslatable,
-  Translatable,
-  isTextualNode,
-  isNonTextualNode,
-} from '../types';
+import type { TextualNode, NonTextualNode, NonTextualTranslatable, Translatable } from '../types';
+import { isTextualNode, isNonTextualNode } from '../types';
 import { modify } from '../../RicosContentAPI/modify';
 import { fromRichTextHtml } from '../../converters/html';
 import { firstRight } from '../../fp-utils';
@@ -33,13 +27,15 @@ const fromHtml = (node: TextualNode) => (translatable: Translatable[]) => ({
   nodes: fromRichTextHtml(translatable[0].text).nodes[0].nodes,
 });
 
-const translateTextualNode = (translations: TranslatableMap) => (node: TextualNode): Node =>
-  pipe(
-    translations,
-    R.lookup(node.id),
-    O.map(fromHtml(node)),
-    O.fold(() => node, identity)
-  );
+const translateTextualNode =
+  (translations: TranslatableMap) =>
+  (node: TextualNode): Node =>
+    pipe(
+      translations,
+      R.lookup(node.id),
+      O.map(fromHtml(node)),
+      O.fold(() => node, identity)
+    );
 
 const setWithTranslations = (node: NonTextualNode) => (translatables: NonTextualTranslatable[]) => {
   const newNode = cloneDeep(node);
@@ -49,21 +45,25 @@ const setWithTranslations = (node: NonTextualNode) => (translatables: NonTextual
   return newNode;
 };
 
-const translateNonTextualNode = (translations: TranslatableMap) => (node: NonTextualNode): Node =>
-  pipe(
-    translations,
-    R.lookup(node.id),
-    O.map(setWithTranslations(node)),
-    O.fold(() => node, identity)
-  );
+const translateNonTextualNode =
+  (translations: TranslatableMap) =>
+  (node: NonTextualNode): Node =>
+    pipe(
+      translations,
+      R.lookup(node.id),
+      O.map(setWithTranslations(node)),
+      O.fold(() => node, identity)
+    );
 
 const toTranslatableMap: (translatables: Translatable[]) => TranslatableMap = flow(
   A.map(toTranslatableById),
   M.concatAll(TranslatableMapM)
 );
 
-const translatableNode = (translations: TranslatableMap) => (node: Node): boolean =>
-  pipe(translations, R.lookup(node.id), O.fold(constFalse, constTrue));
+const translatableNode =
+  (translations: TranslatableMap) =>
+  (node: Node): boolean =>
+    pipe(translations, R.lookup(node.id), O.fold(constFalse, constTrue));
 
 const translatedNode = (translations: TranslatableMap) => (node: Node) =>
   firstRight(node, node, [

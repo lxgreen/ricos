@@ -10,9 +10,15 @@
       "properties": {
         "size": {
           "$id": "/properties/config/properties/size",
-          "enum": ["content", "small", "original", "fullWidth", "inline"],
+          "enum": ["large"],
           "title": "Widget Size",
-          "examples": ["content", "small", "original", "fullWidth", "inline"]
+          "examples": ["large"]
+        },
+        "width": {
+          "$id": "/properties/config/properties/size",
+          "enum": ["full-width"],
+          "title": "Widget Size",
+          "examples": ["full-width"]
         },
         "alignment": {
           "$id": "/properties/config/properties/alignment",
@@ -196,7 +202,7 @@
             },
             "background": {
               "$id": "/properties/design/properties/poll/properties/background",
-              "type": "string",
+              "type": ["string", "object"],
               "title": "Poll background",
               "examples": [
                 "#EF4538",
@@ -206,7 +212,7 @@
             },
             "borderRadius": {
               "$id": "/properties/design/properties/poll/properties/borderRadius",
-              "type": "number",
+              "type": ["string", "number"],
               "title": "Poll border radius",
               "default": "0",
               "examples": ["5", "10"]
@@ -220,7 +226,7 @@
           "properties": {
             "borderRadius": {
               "$id": "/properties/design/properties/option/properties/borderRadius",
-              "type": "number",
+              "type": ["string", "number"],
               "title": "Poll option border radius",
               "default": "0",
               "examples": ["5", "10"]

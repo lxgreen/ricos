@@ -1,8 +1,9 @@
 import { typeMapper } from './typeMapper';
-import { FILE_UPLOAD_TYPE, FilePluginViewerConfig } from './types';
+import type { FilePluginViewerConfig } from './types';
+import { FILE_UPLOAD_TYPE } from './types';
 export { typeMapper as fileUploadTypeMapper, FILE_UPLOAD_TYPE };
 import { DEFAULTS } from './defaults';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
 
 export const pluginFileUpload: ViewerPluginCreator<FilePluginViewerConfig> = config => {
   return {

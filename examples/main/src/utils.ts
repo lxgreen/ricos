@@ -1,7 +1,8 @@
 import { debounce, pick } from 'lodash';
 import { set, get } from 'local-storage';
 import MobileDetect from 'mobile-detect';
-import { normalizeInitialState, isSSR, DraftContent } from 'wix-rich-content-common';
+import type { DraftContent } from 'wix-rich-content-common';
+import { normalizeInitialState, isSSR } from 'wix-rich-content-common';
 import * as CONSTS from './consts';
 
 const mobileDetect = !isSSR() ? new MobileDetect(window.navigator.userAgent) : null;
@@ -57,12 +58,12 @@ function getUrlParameter(name: string) {
 }
 
 export function disableBrowserBackButton() {
-  (function(global) {
+  (function (global) {
     if (typeof global === 'undefined') {
       throw new Error('window is undefined');
     }
     const _hash = '!';
-    const noBackPlease = function() {
+    const noBackPlease = function () {
       global.location.href = '#';
 
       // making sure we have the fruit available for juice (^__^)
@@ -71,13 +72,13 @@ export function disableBrowserBackButton() {
       }, 50);
     };
 
-    global.onhashchange = function() {
+    global.onhashchange = function () {
       if (!global.location.hash) {
         global.location.hash = _hash;
       }
     };
 
-    global.onload = function() {
+    global.onload = function () {
       noBackPlease();
     };
   })(window);

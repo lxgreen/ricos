@@ -27,6 +27,12 @@ import {
   VIDEO_TYPE,
   videoButtonsTypes,
 } from 'wix-rich-content-plugin-video';
+import {
+  createAudioPlugin,
+  pluginAudio,
+  AUDIO_TYPE,
+  audioButtonsTypes,
+} from 'wix-rich-content-plugin-audio';
 import { createHtmlPlugin, HTML_TYPE, pluginHtml } from 'wix-rich-content-plugin-html';
 import { createDividerPlugin, DIVIDER_TYPE, pluginDivider } from 'wix-rich-content-plugin-divider';
 import {
@@ -100,34 +106,6 @@ import {
   pluginUnsupportedBlocks,
 } from 'wix-rich-content-plugin-unsupported-blocks';
 import { UNSUPPORTED_BLOCKS_TYPE } from 'wix-rich-content-plugin-commons';
-import { SocialPollsServiceMock } from '../../src/Components/SocialPollsServiceMock/SocialPollsServiceMock';
-
-import 'ricos-editor/dist/styles.min.css';
-import 'wix-rich-content-plugin-commons/dist/styles.min.css';
-import 'wix-rich-content-plugin-button/dist/styles.min.css';
-import 'wix-rich-content-plugin-code-block/dist/styles.min.css';
-import 'wix-rich-content-plugin-divider/dist/styles.min.css';
-import 'wix-rich-content-plugin-emoji/dist/styles.min.css';
-import 'wix-rich-content-plugin-html/dist/styles.min.css';
-import 'wix-rich-content-plugin-hashtag/dist/styles.min.css';
-import 'wix-rich-content-plugin-line-spacing/dist/styles.min.css';
-import 'wix-rich-content-plugin-link/dist/styles.min.css';
-import 'wix-rich-content-plugin-link-preview/dist/styles.min.css';
-import 'wix-rich-content-plugin-mentions/dist/styles.min.css';
-import 'wix-rich-content-plugin-image/dist/styles.min.css';
-import 'wix-rich-content-plugin-gallery/dist/styles.min.css';
-import 'wix-rich-content-plugin-video/dist/styles.min.css';
-import 'wix-rich-content-plugin-giphy/dist/styles.min.css';
-import 'wix-rich-content-plugin-map/dist/styles.min.css';
-import 'wix-rich-content-plugin-social-polls/dist/styles.min.css';
-import 'wix-rich-content-plugin-file-upload/dist/styles.min.css';
-import 'wix-rich-content-plugin-spoiler/dist/styles.min.css';
-import 'wix-rich-content-plugin-text-color/dist/styles.min.css';
-import 'wix-rich-content-plugin-headings/dist/styles.min.css';
-import 'wix-rich-content-plugin-vertical-embed/dist/styles.min.css';
-import 'wix-rich-content-plugin-table/dist/styles.min.css';
-import 'wix-rich-content-plugin-collapsible-list/dist/styles.min.css';
-import 'wix-rich-content-plugin-unsupported-blocks/dist/styles.min.css';
 
 import {
   customForegroundStyleFn,
@@ -150,14 +128,23 @@ import {
   mockFileNativeUploadFunc,
   mockVideoNativeUploadFunc,
   mockCustomVideoUploadFunc,
+  mockCustomAudioUploadFunc,
+  mockAudioNativeUploadFunc,
+  mockImageNativeUploadFunc,
+  mockImageUploadFunc,
 } from '../../../storybook/src/shared/utils/fileUploadUtil';
-import { CreatePluginFunction, EditorPluginCreator, UISettings } from 'wix-rich-content-common';
-import { RichContentEditorProps } from 'wix-rich-content-editor';
+import type {
+  CreatePluginFunction,
+  EditorPluginCreator,
+  UISettings,
+} from 'wix-rich-content-common';
+import type { RichContentEditorProps } from 'wix-rich-content-editor';
 
 export const ricosEditorPlugins: Record<string, EditorPluginCreator<unknown>> = {
   [IMAGE_TYPE]: pluginImage,
   [GALLERY_TYPE]: pluginGallery,
   [VIDEO_TYPE]: pluginVideo,
+  [AUDIO_TYPE]: pluginAudio,
   [HTML_TYPE]: pluginHtml,
   [DIVIDER_TYPE]: pluginDivider,
   [LINE_SPACING_TYPE]: pluginLineSpacing,
@@ -190,6 +177,7 @@ export const editorPluginsPartialPreset: CreatePluginFunction[] = [
   createImagePlugin,
   createGalleryPlugin,
   createVideoPlugin,
+  createAudioPlugin,
   createHtmlPlugin,
   createDividerPlugin,
   createLineSpacingPlugin,
@@ -245,6 +233,7 @@ export const editorPluginsMap: Record<string, CreatePluginFunction | CreatePlugi
   image: createImagePlugin,
   gallery: createGalleryPlugin,
   video: createVideoPlugin,
+  audio: createAudioPlugin,
   html: createHtmlPlugin,
   divider: createDividerPlugin,
   spacing: createLineSpacingPlugin,
@@ -286,6 +275,7 @@ const innerRCEPlugins = [
   createLinkPlugin,
   createImagePlugin,
   createVideoPlugin,
+  createAudioPlugin,
   createGiphyPlugin,
   createEmojiPlugin,
   createFileUploadPlugin,
@@ -293,6 +283,7 @@ const innerRCEPlugins = [
   createCodeBlockPlugin,
   createUnsupportedBlocksPlugin,
   createSpoilerPlugin,
+  createHeadingsPlugin,
 ];
 
 const buttonDefaultPalette = ['#FEFDFD', '#D5D4D4', '#ABCAFF', '#81B0FF', '#0261FF', '#0141AA'];
@@ -383,7 +374,14 @@ export const videoHandlers = {
   handleFileUpload: mockVideoNativeUploadFunc,
 };
 
-const addPluginMenuConfig = {
+export const audioHandlers = {
+  //media manager - Here you can call your custom video upload functionality (comment function to disable custom upload)
+  handleFileSelection: mockCustomAudioUploadFunc,
+  // this is for native file upload
+  handleFileUpload: mockAudioNativeUploadFunc,
+};
+
+export const addPluginMenuConfig = {
   showSearch: true,
   splitToSections: true,
 };
@@ -428,14 +426,13 @@ const buttonConfig = {
   getBackgroundColors: () => userButtonBackgroundColors,
 };
 const { Instagram, Twitter, TikTok } = LinkPreviewProviders;
-const config: RichContentEditorProps['config'] = {
+export const config: RichContentEditorProps['config'] = {
   [SPOILER_TYPE]: {
     SpoilerEditorWrapper,
     // supportedPlugins: [GALLERY_TYPE, IMAGE_TYPE, VIDEO_TYPE],
   },
   [POLL_TYPE]: {
     showVoteRoleSetting: true,
-    pollServiceApi: new SocialPollsServiceMock(),
   },
   [LINK_PREVIEW_TYPE]: {
     enableEmbed: true, // [Twitter, TikTok]
@@ -553,11 +550,27 @@ const config: RichContentEditorProps['config'] = {
           () =>
             resolve(
               [
-                { name: 'Test One', slug: 'testone' },
-                { name: 'Test One.1', slug: 'testone1' },
-                { name: 'Test One.2', slug: 'testone2' },
-                { name: 'Test One.3', slug: 'testone3' },
-                { name: 'Test One.4', slug: 'testone4' },
+                {
+                  name: 'Oded Soffrin',
+                  slug: 'oddedsoffrin',
+                  avatar: 'https://ca.slack-edge.com/T02T01M9Y-U0MN7A3H8-38d64543367b-192',
+                },
+                {
+                  name: 'Alex Greenstein',
+                  slug: 'alexgreenstein',
+                  avatar: 'https://ca.slack-edge.com/T02T01M9Y-U6FQCJ5GT-65d722ddfc28-192',
+                },
+                { name: 'Yaron Nachshon', slug: 'yaronnachshon' },
+                {
+                  name: 'Dana Rish',
+                  slug: 'danarish',
+                  avatar: 'https://ca.slack-edge.com/T02T01M9Y-UEBDPSU2W-ad52085040c0-192',
+                },
+                {
+                  name: 'Judith Gabriela Jaroslavsky',
+                  slug: 'judithjaroslavsky',
+                  avatar: 'https://ca.slack-edge.com/T02T01M9Y-UHMNZJ9P1-c693bb66ca93-512',
+                },
                 { name: 'Test One.5', slug: 'testone5' },
                 { name: 'Test One.6', slug: 'testone6' },
                 { name: 'Test One.7', slug: 'testone7' },
@@ -572,6 +585,7 @@ const config: RichContentEditorProps['config'] = {
           250
         )
       ),
+    // supportWhitespace: false
   },
   [COLLAPSIBLE_LIST_TYPE]: {
     innerRCEPlugins,
@@ -660,6 +674,21 @@ const config: RichContentEditorProps['config'] = {
       videoButtonsTypes.youTube,
     ],
   },
+  [AUDIO_TYPE]: {
+    //media manager - Here you can call your custom audio upload functionality (comment function to disable custom upload)
+    // handleFileSelection: audioHandlers.handleFileSelection,
+    // this is for native file upload
+    // handleFileUpload: audioHandlers.handleFileUpload,
+    // Function is invoked when rendering audio which has relative URL.
+    // You should take the pathname and form a full URL.
+    getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,
+    fetchData: mockFetchUrlPreviewData(),
+    exposeButtons: [
+      audioButtonsTypes.audio,
+      audioButtonsTypes.soundCloud,
+      audioButtonsTypes.spotify,
+    ],
+  },
   [GIPHY_TYPE]: {
     giphySdkApiKey: process.env.GIPHY_API_KEY || 'HXSsAGVNzjeUjhKfhhD9noF8sIbpYDsV',
     // toolbar: {
@@ -700,6 +729,7 @@ const config: RichContentEditorProps['config'] = {
     //   },
     // },
     accept: '*',
+    adobeAPIKey: '77266adc759d4dc2a9e071e3bde25095',
     // onFileSelected: mockFileNativeUploadFunc,
     // handleFileSelection: mockFileUploadFunc,
   },
@@ -897,6 +927,19 @@ const config: RichContentEditorProps['config'] = {
       //   };
       // },
     },
+    {
+      name: TOOLBARS.STATIC,
+      getButtons: () => ({
+        desktop: [
+          FORMATTING_BUTTONS.HEADINGS,
+          '|',
+          FORMATTING_BUTTONS.FONT_SIZE,
+          ...textButtons.desktop.filter(
+            b => b !== FORMATTING_BUTTONS.TITLE && b !== FORMATTING_BUTTONS.HEADINGS
+          ),
+        ],
+      }),
+    },
     // {
     //   name: TOOLBARS.STATIC,
     //   getButtons: () => ({
@@ -942,14 +985,18 @@ export const toggleNativeUploadConfig = (
     // native upload
     _config[FILE_UPLOAD_TYPE].onFileSelected = mockFileNativeUploadFunc;
     _config[VIDEO_TYPE].handleFileUpload = videoHandlers.handleFileUpload;
+    _config[AUDIO_TYPE].handleFileUpload = audioHandlers.handleFileUpload;
     delete _config[FILE_UPLOAD_TYPE].handleFileSelection;
     delete _config[VIDEO_TYPE].handleFileSelection;
+    delete _config[AUDIO_TYPE].handleFileSelection;
   } else {
     // media manager
     _config[FILE_UPLOAD_TYPE].handleFileSelection = mockFileUploadFunc;
     _config[VIDEO_TYPE].handleFileSelection = videoHandlers.handleFileSelection;
+    _config[AUDIO_TYPE].handleFileSelection = audioHandlers.handleFileSelection;
     delete _config[FILE_UPLOAD_TYPE].onFileSelected;
     delete _config[VIDEO_TYPE].handleFileUpload;
+    delete _config[AUDIO_TYPE].handleFileUpload;
   }
   return _config;
 };

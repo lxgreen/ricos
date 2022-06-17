@@ -12,7 +12,11 @@ import ColorPickerButton from './ButtonComponents/ColorPickerButton';
 import ToolbarButton from './ToolbarButton';
 import ContextMenu from './ButtonComponents/ContextMenu';
 import NestedMenu from './ButtonComponents/NestedMenu';
-import { RichContentTheme, TranslationFunction, DesktopTextButtons } from 'wix-rich-content-common';
+import type {
+  RichContentTheme,
+  TranslationFunction,
+  DesktopTextButtons,
+} from 'wix-rich-content-common';
 import { ContextMenuIcon } from '../icons';
 
 type formattingToolbarButtonsKeysType =
@@ -35,6 +39,7 @@ interface ToolbarProps {
   onToolbarButtonClick?: any;
   getEditorContainer: () => Element;
   disabled?: boolean;
+  dataHook?: string;
 }
 
 interface State {
@@ -108,7 +113,7 @@ class Toolbar extends Component<ToolbarProps, State> {
 
   setToolbarOverflow = () => {
     const { buttons } = this.props;
-    let difference = this.toolbarOverflowWithEditorWidth();
+    let difference = this.toolbarOverflowWithContainerWidth();
     const newButtons = [...buttons];
     const overflowedButtons: any[] = [];
     if (difference < 0) {
@@ -139,9 +144,14 @@ class Toolbar extends Component<ToolbarProps, State> {
     }
   };
 
-  toolbarOverflowWithEditorWidth = () => {
+  toolbarOverflowWithContainerWidth = () => {
     const { getEditorContainer } = this.props;
-    return getEditorContainer?.()?.clientWidth - this.toolbarRef?.clientWidth;
+    const editorContainer = getEditorContainer?.();
+    const providedStaticToolbarContainer = document.querySelector(
+      `[data-hook=provided-container-toolbar]`
+    );
+    const containerToCheckToolbarOverflow = providedStaticToolbarContainer || editorContainer;
+    return containerToCheckToolbarOverflow?.clientWidth - this.toolbarRef?.clientWidth;
   };
 
   renderButton = buttonProps => {
@@ -361,16 +371,19 @@ class Toolbar extends Component<ToolbarProps, State> {
   setToolbarRef = ref => (this.toolbarRef = ref);
 
   render() {
-    const { vertical, disabled } = this.props;
+    const { vertical, disabled, dataHook } = this.props;
     const { buttons } = this.state;
 
     // return buttons.map((buttonsWithoutGaps, index) => {
     return (
       <div
-        data-hook="toolbar"
+        data-hook={dataHook || 'toolbar'}
         onKeyDown={this.onKeyDown}
         ref={this.setToolbarRef}
-        className={classNames(styles.toolbar, { [styles.vertical]: vertical })}
+        className={classNames(styles.toolbar, {
+          [styles.vertical]: vertical,
+          [styles.disabled]: disabled,
+        })}
       >
         {buttons.map((buttonProps, i) => {
           const Button = this.buttonMap[buttonProps.type];

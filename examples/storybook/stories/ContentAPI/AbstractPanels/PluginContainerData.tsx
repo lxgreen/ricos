@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 import { Layout, Cell, InputWithLabel, Typography as t, Dropdown } from 'wix-style-react';
-import { PluginContainerData, PluginContainerData_Alignment } from 'ricos-schema';
-import { AbstractPanelProps } from '../types';
+import type { PluginContainerData, PluginContainerData_Alignment } from 'ricos-schema';
+import type { AbstractPanelProps } from '../types';
 import { alignmentOptions, alignments, createAbstractPanelSetter } from './utils';
 
 export const emptyPluginContainerData: PluginContainerData = {

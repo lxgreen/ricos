@@ -3,12 +3,12 @@ import { getModalStyles, decorateComponentWithProps } from 'wix-rich-content-edi
 import { ReplaceIcon } from '../icons';
 import getModalCustomStyles from './ModalCustomStyles';
 import VerticalEmbedInputModal from './VerticalEmbedInputModal';
-import {
+import type {
   AvailableExperiments,
   CreateInlineButtons,
   TranslationFunction,
 } from 'wix-rich-content-common';
-import { VerticalEmbedPluginEditorConfig } from '../types';
+import type { VerticalEmbedPluginEditorConfig } from '../types';
 import {
   DesktopFlyOutModalStyles,
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,
@@ -63,9 +63,13 @@ const createInlineButtons: CreateInlineButtons = ({
               fullScreen: true,
               isMobile,
             });
+            const modalHeight = modalContentStyles.height as number;
             const { top, left } = buttonRef.getBoundingClientRect();
             const modalLeft = left - 15;
-            const modalTop = top > 522 ? top - 540 : top + 40;
+            const heightLeftBelow = window?.innerHeight - (top + 40);
+            const dynamicModalTop =
+              heightLeftBelow < modalHeight ? modalHeight - heightLeftBelow : top + 40;
+            const modalTop = top > modalHeight ? top - 540 : dynamicModalTop;
             return {
               ...modalStyles,
               content: {

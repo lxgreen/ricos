@@ -1,4 +1,5 @@
-import React, { FunctionComponent, Ref, useContext } from 'react';
+import type { FunctionComponent, Ref } from 'react';
+import React, { useContext } from 'react';
 import styles from '../statics/styles/Iframe.scss';
 import { GlobalContext } from 'wix-rich-content-common';
 

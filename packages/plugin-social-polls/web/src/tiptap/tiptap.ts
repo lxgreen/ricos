@@ -1,28 +1,40 @@
-import { CreateRicosExtensions } from 'ricos-tiptap-types';
-import { Poll as Component } from './component';
-import pollDataDefaults from 'ricos-schema/dist/statics/poll.defaults.json';
 import { TIPTAP_POLL_TYPE } from 'ricos-content';
+import pollDataDefaults from 'ricos-schema/dist/statics/poll.defaults.json';
+import type { ExtensionProps, NodeConfig, RicosExtension } from 'ricos-tiptap-types';
+import { Poll as Component } from './component';
 
 const name = TIPTAP_POLL_TYPE;
 
-export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
+export const tiptapExtensions = [
   {
     type: 'node' as const,
-    Component,
-    componentDataDefaults: {
-      ...pollDataDefaults,
-      loading: {
-        default: false,
-      },
-    },
-    createExtensionConfig: () => ({
-      name,
-      atom: false,
-      group: 'block',
-      addOptions: () => defaultOptions,
-      addCommands() {
-        return {};
-      },
+    name,
+    groups: ['react'],
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions: () => settings,
     }),
+    Component,
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        atom: false,
+        group: 'block',
+        addAttributes: () => ({
+          ...pollDataDefaults,
+          loading: {
+            default: false,
+          },
+        }),
+        addCommands() {
+          return {};
+        },
+      };
+    },
   },
 ];

@@ -8,10 +8,11 @@ import {
 } from '../utils';
 import { v4 as uuid } from 'uuid';
 import { transform, isObject, pickBy } from 'lodash';
-import { Node, Decoration, RichContent } from 'ricos-schema';
+import type { Decoration } from 'ricos-schema';
+import { Node, RichContent } from 'ricos-schema';
 import { TO_RICOS_DATA_FIELD } from 'ricos-content/libs/draftConsts';
 import { fromEntries } from 'ricos-content/libs/utils';
-import { JSONContent } from '@tiptap/core';
+import type { JSONContent } from '@tiptap/core';
 import toCamelCase from 'to-camel-case';
 
 declare const a: RichContent;

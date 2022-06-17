@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 import styles from '../../statics/styles/giphy-selecter.scss';
-import { TranslationFunction } from 'wix-rich-content-common';
+import type { TranslationFunction } from 'wix-rich-content-common';
 
 const GiphyEmptyState: FunctionComponent<{ t: TranslationFunction }> = ({ t }) => (
   <div className={styles.giphy_empty_state}>

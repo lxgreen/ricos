@@ -7,14 +7,14 @@ import {
   getModalStyles,
 } from 'wix-rich-content-editor-common';
 import { InsertPluginIcon } from '../icons';
-import { CreateInsertButtons, TranslationFunction } from 'wix-rich-content-common';
-import tableSettingsModal from './tableSettingsModal';
+import type { CreateInsertButtons, TranslationFunction } from 'wix-rich-content-common';
+import tableInsertModal from './tableInsertModal';
 import {
   DesktopFlyOutModalStyles,
   externalPopupStyles,
   MOBILE_FULL_SCREEN_CUSTOM_STYLE,
 } from '../consts';
-import { TablePluginEditorConfig } from '../types';
+import type { TablePluginEditorConfig } from '../types';
 
 const createInsertButtons: CreateInsertButtons = ({
   t,
@@ -35,7 +35,7 @@ const createInsertButtons: CreateInsertButtons = ({
     isActive: () => false,
     isDisabled: () => false,
     componentData: getDefaultsSettings(),
-    modalElement: decorateComponentWithProps(tableSettingsModal, { ...settings, isMobile }),
+    modalElement: decorateComponentWithProps(tableInsertModal, { ...settings, isMobile }),
   };
   return [
     {

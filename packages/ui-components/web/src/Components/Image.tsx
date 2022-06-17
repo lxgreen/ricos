@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import styles from '../../statics/styles/image.scss';
-import {
+import type {
   MediaUploadError,
-  mergeStyles,
   RichContentTheme,
   TranslationFunction,
 } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import MediaItemErrorMsg from './MediaItemErrorMsg';
 
 interface ImageProps {
@@ -16,7 +16,7 @@ interface ImageProps {
   className?: string;
   alt?: string;
   error?: MediaUploadError;
-  t: TranslationFunction;
+  t?: TranslationFunction;
 }
 
 class Image extends Component<ImageProps> {

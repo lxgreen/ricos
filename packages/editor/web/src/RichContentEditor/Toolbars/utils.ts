@@ -1,4 +1,5 @@
-import { Helpers, ToolbarType, onToolbarButtonClickArgs } from 'wix-rich-content-common';
+import type { Helpers, onToolbarButtonClickArgs } from 'wix-rich-content-common';
+import { ToolbarType } from 'wix-rich-content-common';
 
 /**
  * Corrects 'Inline' toolbar for monitoring purposes

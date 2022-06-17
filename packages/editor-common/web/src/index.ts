@@ -78,13 +78,13 @@ export {
   hasBlockType,
   setNativeSelectionToBlock,
   toggleBlockTypeWithSpaces,
+  getBlockEntity,
 } from './Utils/draftUtils';
 export { triggerMention, insertMention } from './Utils/mentionUtils';
 export { isiOS } from './Utils/isiOS';
 export { mergeToolbarSettings } from './Utils/mergeToolbarSettings';
 export {
   COMMANDS,
-  DraftCommand,
   TEXT_TYPES,
   MODIFIERS,
   TOOLBARS,
@@ -95,16 +95,13 @@ export {
   BUTTON_TYPES,
   KEYS_CHARCODE,
 } from './consts';
+export type { DraftCommand } from './consts';
 
 import './draftTypes';
-export * from './tiptapTypes';
 
-import {
-  convertFromRaw as convertFromRawDraft,
-  RawDraftContentState,
-  ContentState,
-} from '@wix/draft-js';
-import { DraftContent } from 'wix-rich-content-common';
+import type { RawDraftContentState, ContentState } from '@wix/draft-js';
+import { convertFromRaw as convertFromRawDraft } from '@wix/draft-js';
+import type { DraftContent } from 'wix-rich-content-common';
 import { v4 as uuid } from 'uuid';
 
 // makes draft-js's convertFromRaw match our own DraftContent type
@@ -125,13 +122,11 @@ export {
   BlockMapBuilder,
   AtomicBlockUtils,
   ContentState,
-  RawDraftContentState,
-  EditorChangeType,
   convertFromHTML,
   CharacterMetadata,
-  BlockMap,
   getDefaultKeyBinding,
 } from '@wix/draft-js';
+export type { RawDraftContentState, EditorChangeType, BlockMap } from '@wix/draft-js';
 
 import DraftOffsetKey from '@wix/draft-js/lib/DraftOffsetKey';
 export { DraftOffsetKey };
@@ -166,3 +161,4 @@ export {
 } from './Utils/inlineStyleUtils';
 
 export { scrollToBlock } from './Utils/scrollToBlock';
+export { default as PLUGIN_TOOLBAR_BUTTON_ID } from './pluginToolbarButtonsIds';

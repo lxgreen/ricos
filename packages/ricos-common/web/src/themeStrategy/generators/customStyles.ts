@@ -1,9 +1,10 @@
-import {
+import type {
   CustomTextualStyle,
   RicosSettingsStyles,
   RicosCustomStyles,
-} from 'wix-rich-content-common';
-import { CssVarsObject } from '../themeTypes';
+  RicosOneAppStyles,
+} from 'ricos-types';
+import type { CssVarsObject } from '../themeTypes';
 import { merge } from 'lodash';
 
 /**
@@ -21,7 +22,7 @@ const lineHeightFix = ({
 });
 
 type ToVars = (
-  customStyles: RicosCustomStyles | RicosSettingsStyles,
+  customStyles: RicosCustomStyles | RicosSettingsStyles | RicosOneAppStyles,
   prefix: string,
   withLineHeightFix?: boolean
 ) => CssVarsObject;
@@ -32,7 +33,7 @@ const toVars: ToVars = (customStyles, prefix, fix = false) =>
       ...Object.entries(fix ? lineHeightFix(customStyle) : customStyle).reduce(
         (prevStyle, styleName) => ({
           ...prevStyle,
-          [`${prefix}-${fieldName.toLowerCase()}-${styleName[0]}`]: styleName[1],
+          [`${prefix}-${fieldName}-${styleName[0]}`]: styleName[1],
         }),
         {}
       ),
@@ -43,10 +44,20 @@ const toVars: ToVars = (customStyles, prefix, fix = false) =>
 type CreateCustomStyles = (param: {
   customStyles?: RicosCustomStyles;
   settingsStyles?: RicosSettingsStyles;
+  oneAppStyles?: RicosOneAppStyles;
 }) => CssVarsObject;
 
-const createCustomStyles: CreateCustomStyles = ({ customStyles = {}, settingsStyles = {} }) => {
-  return merge({}, toVars(customStyles, 'custom', true), toVars(settingsStyles, 'settings'));
+const createCustomStyles: CreateCustomStyles = ({
+  customStyles = {},
+  settingsStyles = {},
+  oneAppStyles = {},
+}) => {
+  return merge(
+    {},
+    toVars(customStyles, 'custom', true),
+    toVars(settingsStyles, 'settings'),
+    toVars(oneAppStyles, 'oneapp')
+  );
 };
 
 export default createCustomStyles;

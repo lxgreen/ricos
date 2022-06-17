@@ -16,6 +16,7 @@ import {
   LINK_TYPE,
   IMAGE_TYPE,
   VIDEO_TYPE,
+  AUDIO_TYPE,
   GIPHY_TYPE,
   EMOJI_TYPE,
   FILE_UPLOAD_TYPE,
@@ -23,12 +24,13 @@ import {
   CODE_BLOCK_TYPE,
   UNSUPPORTED_BLOCKS_TYPE,
   SPOILER_TYPE,
+  HEADINGS_DROPDOWN_TYPE,
 } from 'wix-rich-content-common';
 import { cloneDeep } from 'lodash';
 import { isCursorAtStartOfContent, selectAllContent } from 'wix-rich-content-editor-common';
 import ClickOutside from 'react-click-outsider';
 
-const SupportedTablePlugins = [
+const basePlugins = [
   TEXT_COLOR_TYPE,
   TEXT_HIGHLIGHT_TYPE,
   INDENT_TYPE,
@@ -36,6 +38,7 @@ const SupportedTablePlugins = [
   LINK_TYPE,
   IMAGE_TYPE,
   VIDEO_TYPE,
+  AUDIO_TYPE,
   GIPHY_TYPE,
   EMOJI_TYPE,
   FILE_UPLOAD_TYPE,
@@ -44,6 +47,8 @@ const SupportedTablePlugins = [
   UNSUPPORTED_BLOCKS_TYPE,
   SPOILER_TYPE,
 ];
+
+const supportedCollapsiblePlugins = [...basePlugins, HEADINGS_DROPDOWN_TYPE];
 
 class InnerRCE extends PureComponent {
   constructor(props) {
@@ -74,8 +79,10 @@ class InnerRCE extends PureComponent {
     } else {
       pluginsList = plugins;
     }
+    const supportedPlugins =
+      innerRCERenderedIn === TABLE_TYPE ? basePlugins : supportedCollapsiblePlugins;
     const innerRCEPlugins = pluginsList.filter(plugin =>
-      SupportedTablePlugins.includes(plugin.functionName)
+      supportedPlugins.includes(plugin.functionName)
     );
     return innerRCEPlugins;
   };
@@ -157,8 +164,7 @@ class InnerRCE extends PureComponent {
       !e.target.closest('[data-id=rich-content-editor-modal]') &&
       !e.target.closest('[class=ReactModalPortal]') &&
       !this.editorWrapper.contains(e.target) &&
-      !e.target.closest('[data-hook=table-plugin-cell]') &&
-      !e.target.closest('[data-hook="toolbar"]')
+      !e.target.closest('[data-hook=table-plugin-cell]')
     ) {
       this.setState({ showToolbars: false });
     }

@@ -1,13 +1,13 @@
-import { EditorPlugin, composeDecorators } from 'draft-js-plugins-editor';
+import type { EditorPlugin } from 'draft-js-plugins-editor';
+import { composeDecorators } from 'draft-js-plugins-editor';
 import createFocusPlugin from 'forked-draft-js-focus-plugin';
 import createResizeDecoration from './Decorators/Resize';
 import createBlockDndPlugin from 'draft-js-drag-n-drop-plugin';
 import createHandleDrop from './handleDrop';
 import createExternalToolbarPlugin from './externalToolbarPlugin';
 import createListPlugin from 'draft-js-list-plugin';
-import { EditorProps, DraftDecorator } from 'draft-js';
-import {
-  createJustificationFixDecorator,
+import type { EditorProps, DraftDecorator } from 'draft-js';
+import type {
   CreatePluginFunction,
   CreatePluginConfig,
   EditorContextType,
@@ -17,6 +17,7 @@ import {
   PluginTextButtons,
   PluginButton,
 } from 'wix-rich-content-common';
+import { createJustificationFixDecorator } from 'wix-rich-content-common';
 import { SPOILER_TYPE } from 'ricos-content';
 
 const enableSpoilerInConfig = (context, wixPluginConfig, spoilerWrapper) => {
@@ -68,12 +69,12 @@ const createPlugins = ({
   const handleDrop = dndPlugin.handleDrop as Required<EditorPlugin>['handleDrop'];
   dndPlugin.handleDrop = createHandleDrop(handleDrop);
 
-  const wixPluginsDecorators = (composeDecorators(
+  const wixPluginsDecorators = composeDecorators(
     dndPlugin.decorator,
     resizePlugin.decorator,
     focusPlugin.decorator
     // due to incorrect type definition of composeDecorators
-  ) as unknown) as PluginsDecorator;
+  ) as unknown as PluginsDecorator;
 
   const externalToolbarPlugin = createExternalToolbarPlugin(commonPubsub);
 

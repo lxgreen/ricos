@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../statics/styles/preview-component.scss';
-import ButtonComponent from './button-component';
+import ButtonComponent from '../button-component';
 
 class PreviewComponent extends PureComponent {
   constructor(props) {

@@ -3,7 +3,7 @@ import React from 'react';
 import styles from '../statics/styles/link-preview-popover.rtlignore.scss';
 import addLinkPreviewPopoverListener from './LinkPreviewPopoverListener';
 import LinkPreviewPopoverViewer from './LinkPreviewPopoverViewer';
-import { LinkPreviewData } from 'wix-rich-content-common';
+import type { LinkPreviewData } from 'wix-rich-content-common';
 
 export type LinkNodePreviewData = {
   position: { top: number; left: number };

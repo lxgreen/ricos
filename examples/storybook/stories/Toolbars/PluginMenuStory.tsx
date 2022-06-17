@@ -3,7 +3,7 @@ import { Section, Page, RichContentEditorBox } from '../Components/StoryParts';
 import EditorWrapper from '../Components/EditorWrapper';
 import emptyContentState from '../../../../e2e/tests/fixtures/empty.json';
 import { Box, MultiSelectCheckbox, Checkbox } from 'wix-style-react';
-import { DraftContent, ToolbarSettings } from 'ricos-editor';
+import type { DraftContent, ToolbarSettings } from 'ricos-editor';
 
 export default (isMobile = false) => {
   class PluginMenuStory extends Component<
@@ -72,7 +72,6 @@ export default (isMobile = false) => {
               { value: 'html', id: 'html' },
               { value: 'image', id: 'image' },
               { value: 'map', id: 'map' },
-              { value: 'soundCloud', id: 'soundCloud' },
               { value: 'video', id: 'video' },
               { value: 'socialEmbed', id: 'socialEmbed' },
               { value: 'verticalEmbed', id: 'verticalEmbed' },

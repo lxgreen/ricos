@@ -2,8 +2,10 @@ import React from 'react';
 import fixtrue from '../../../../../e2e/tests/fixtures/linkPreview.json';
 import LinkPreviewEditor from './LinkPreviewEditor';
 import LinkPreviewViewer from './LinkPreviewViewer';
-import editorSourcecode from '!!raw-loader!./LinkPreviewEditor.tsx';
-import viewerSourcecode from '!!raw-loader!./LinkPreviewViewer.tsx';
+// eslint-disable-next-line import/no-unresolved
+import editorSourcecode from './LinkPreviewEditor.tsx?raw';
+// eslint-disable-next-line import/no-unresolved
+import viewerSourcecode from './LinkPreviewViewer.tsx?raw';
 import TabsWrapper from '../../Components/TabsWrapper';
 import {
   RichContentEditorBox,

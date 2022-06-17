@@ -24,14 +24,8 @@ function filterItems(items, str) {
 
 class ItemRenderer extends PureComponent {
   render() {
-    const {
-      items,
-      getItemProps,
-      highlightedIndex,
-      selectedItem,
-      formatMenuItem,
-      inputValue,
-    } = this.props.data;
+    const { items, getItemProps, highlightedIndex, selectedItem, formatMenuItem, inputValue } =
+      this.props.data;
     const { index, style } = this.props;
     const item = items[index];
     return (
@@ -132,7 +126,7 @@ export class LinkPanelDropdown extends Component {
                   placeholder={t('LinkPanel_InputPlaceholder')}
                 />
                 {(isOpen || this.props.isOpen) && List && (
-                  <Suspense fallback={<div>Loading...</div>}>
+                  <Suspense fallback={''}>
                     <List
                       className={styles.linkPanel_dropdownList}
                       height={Math.min(items.length * itemHeight + 1, 200)}

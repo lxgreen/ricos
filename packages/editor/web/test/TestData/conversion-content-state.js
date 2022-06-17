@@ -99,14 +99,14 @@ export const rawWithAnchorsInText = {
     },
   ],
   entityMap: {
-    '0': {
+    0: {
       type: 'LINK',
       mutability: 'MUTABLE',
       data: {
         anchor: '1jlo1',
       },
     },
-    '1': {
+    1: {
       type: 'LINK',
       mutability: 'MUTABLE',
       data: {
@@ -178,7 +178,7 @@ export const rawWithAnchorsInImage = {
     },
   ],
   entityMap: {
-    '0': {
+    0: {
       type: 'wix-draft-plugin-image',
       mutability: 'IMMUTABLE',
       data: {
@@ -200,7 +200,7 @@ export const rawWithAnchorsInImage = {
         },
       },
     },
-    '1': {
+    1: {
       type: 'wix-draft-plugin-image',
       mutability: 'IMMUTABLE',
       data: {
@@ -263,7 +263,7 @@ export const rawWithOldSoundCloudVersion = {
     },
   ],
   entityMap: {
-    '0': {
+    0: {
       type: 'wix-draft-plugin-sound-cloud',
       mutability: 'IMMUTABLE',
       data: {
@@ -281,8 +281,7 @@ export const rawWithOldSoundCloudVersion = {
           width: 480,
           title: 'Wix.com Official 2018 Big Game Ad with Rhett & Link — Extended Version',
           author_url: 'https://www.youtube.com/user/Wix',
-          html:
-            '<iframe width="480" height="270" src="https://www.youtube.com/embed/jhXlnvYZZQs?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>', //eslint-disable-line
+          html: '<iframe width="480" height="270" src="https://www.youtube.com/embed/jhXlnvYZZQs?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>', //eslint-disable-line
           height: 270,
           author_name: 'Wix.com',
           thumbnail_width: 480,

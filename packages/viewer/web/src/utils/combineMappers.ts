@@ -1,4 +1,4 @@
-import { PluginTypeMapper, PluginMapping } from 'wix-rich-content-common';
+import type { PluginTypeMapper, PluginMapping } from 'wix-rich-content-common';
 
 export const combineMappers = (mappers: PluginTypeMapper[], ...args): PluginMapping => {
   if (!mappers || !mappers.length || mappers.some(resolver => typeof resolver !== 'function')) {

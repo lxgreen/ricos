@@ -1,17 +1,11 @@
-import { Editor, JSONContent } from '@tiptap/react';
-import { Node as ProseMirrorNode } from 'prosemirror-model';
-import { ElementType } from 'react';
-import {
+import type { Editor } from '@tiptap/react';
+import type { Node as ProseMirrorNode } from 'prosemirror-model';
+import type {
   DraftContent,
-  EditorCommands,
-  EditorContextType,
-  Pubsub,
-  ToolbarType,
-  TranslationFunction,
-  RichContentTheme,
   EditorStyleClasses,
+  RichContentTheme,
+  TranslationFunction,
 } from 'wix-rich-content-common';
-import { RicosExtension } from 'ricos-tiptap-types';
 
 export interface PluginProps {
   context: {
@@ -25,31 +19,10 @@ export interface PluginProps {
   updateAttributes: (data: unknown) => null;
 }
 
-export type TiptapAPI = {
-  blur: () => void;
-  focus: () => void;
-  getEditorCommands: () => EditorCommands;
-  getToolbars: () => {
-    MobileToolbar?: ElementType;
-    TextToolbar?: ElementType;
-  };
-  getToolbarProps: (
-    type: ToolbarType
-  ) => {
-    buttons?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
-    context?: EditorContextType;
-    pubsub?: Pubsub;
-  }; // to be deprecated
-  destroy: Editor['destroy'];
-};
-
 export interface RicosTiptapEditorProps {
-  content: JSONContent;
-  extensions?: RicosExtension[];
-  onLoad?: (editor: Editor) => void;
+  editor: Editor;
   t: TranslationFunction;
   onUpdate?: ({ content }: { content: DraftContent }) => void;
-  onBlur?: () => void;
   editorStyleClasses?: EditorStyleClasses;
   onSelectionUpdate?: ({
     selectedNodes,

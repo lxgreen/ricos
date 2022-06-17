@@ -1,7 +1,8 @@
 import React from 'react';
-import { RicosViewer, RicosViewerProps } from './index';
+import type { RicosViewerProps } from './index';
+import { RicosViewer } from './index';
 import { RichContentViewer } from 'wix-rich-content-viewer';
-import { BICallbacks } from 'wix-rich-content-common';
+import type { BICallbacks } from 'wix-rich-content-common';
 import { pluginHashtag, HASHTAG_TYPE } from '../../../plugin-hashtag/web/src';
 import { version } from '../package.json';
 import introState from '../../../../e2e/tests/fixtures/intro.json';
@@ -24,10 +25,7 @@ const getRCV = (ricosViewerProps?: RicosViewerProps, asWrapper?: boolean) => {
       <RichContentViewer />
     </RicosViewer>
   );
-  const element = shallow(toRender)
-    .find('RicosEngine')
-    .dive()
-    .children();
+  const element = shallow(toRender).first().dive().children();
 
   return element.at(element.length - 1); // due to add html by strategies
 };

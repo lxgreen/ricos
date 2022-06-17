@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import styles from '../../statics/styles/radio-group.scss';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 
 export interface RadioGroupDataSource {
   value: string;

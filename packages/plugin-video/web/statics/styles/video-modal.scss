@@ -1,16 +1,22 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 
+$TITLE_HEIGHT_MOBILE: 50px;
+$TABS_HEIGHT: 50px;
+$HEADER_HEIGHT_MOBILE: $TITLE_HEIGHT_MOBILE + $TABS_HEIGHT;
+
 .video_modal_container {
   position: relative;
   height: 100%;
   margin-top: -15px;
-  @include phone {
+  &.video_modal_mobile {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100vh;
+    height: calc(100vh - #{$HEADER_HEIGHT_MOBILE});
     width: 100%;
     margin: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }
 
@@ -18,22 +24,24 @@
   width: calc(100% + 40px);
   margin-left: -20px;
   position: relative;
-  @include phone {
+  .video_modal_mobile & {
     width: 100%;
     margin: 0;
   }
 }
 
 .video_modal_tab {
+  @include border-box;
   padding: 16px 20px 0;
+  .video_modal_mobile & {
+    padding: 20px;
+    position: absolute;
+    top: $HEADER_HEIGHT_MOBILE;
+    width: 100%;
+    background-color: white;
+  }
   &.video_upload_tab {
     height: 58px;
-    @include phone {
-      padding: 20px;
-    }
-  }
-  @include phone {
-    padding: 0;
   }
 }
 
@@ -58,7 +66,7 @@
 
 .video_modal_add_button_inline {
   @extend %video_modal_add_button;
-  @include phone {
+  .video_modal_mobile & {
     flex-direction: column;
     gap: 24px;
     margin-bottom: 0;
@@ -73,4 +81,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.video_tabs_headers {
+  position: absolute;
+  top: $TITLE_HEIGHT_MOBILE;
+  width: 100%;
+  background-color: white;
+  z-index: 2;
 }

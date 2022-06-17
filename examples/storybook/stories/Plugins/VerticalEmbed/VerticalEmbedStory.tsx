@@ -2,8 +2,10 @@ import React from 'react';
 import fixtrue from '../../../../../e2e/tests/fixtures/empty.json';
 import VerticalEmbedEditor from './VerticalEmbedEditor';
 import VerticalEmbedSlimEditor from './VerticalEmbedSlimEditor';
-import editorSourcecode from '!!raw-loader!./VerticalEmbedEditor.tsx';
-import slimEditorSourcecode from '!!raw-loader!./VerticalEmbedSlimEditor.tsx';
+// eslint-disable-next-line import/no-unresolved
+import editorSourcecode from './VerticalEmbedEditor.tsx?raw';
+// eslint-disable-next-line import/no-unresolved
+import slimEditorSourcecode from './VerticalEmbedSlimEditor.tsx?raw';
 import TabsWrapper from '../../Components/TabsWrapper';
 import { RichContentEditorBox, ContentState, Section, Page } from '../../Components/StoryParts';
 import apiData from '../apiData';

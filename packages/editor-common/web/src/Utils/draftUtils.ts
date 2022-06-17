@@ -1,33 +1,31 @@
-import { DraftContent } from 'ricos-content';
+import type { DraftContent } from 'ricos-content';
+import type { RawDraftEntity, EditorChangeType, EntityInstance } from '@wix/draft-js';
+import { List } from 'immutable';
 import {
+  genKey,
+  ContentBlock,
   EditorState,
   Modifier,
   RichUtils,
   SelectionState,
   AtomicBlockUtils,
-  ContentBlock,
   ContentState,
-  RawDraftEntity,
-  EditorChangeType,
-  EntityInstance,
   BlockMapBuilder,
 } from '@wix/draft-js';
 import DraftOffsetKey from '@wix/draft-js/lib/DraftOffsetKey';
 
 import { cloneDeepWith, flatMap, findIndex, findLastIndex, countBy, debounce, times } from 'lodash';
 import { TEXT_TYPES } from '../consts';
-import {
+import type {
   AnchorTarget,
-  LINK_TYPE,
-  CUSTOM_LINK_TYPE,
   TextAlignment,
   InlineStyle,
   RelValue,
-  SPOILER_TYPE,
   LinkDataUrl,
   AddLinkData,
 } from 'wix-rich-content-common';
-import { Optional } from 'utility-types';
+import { LINK_TYPE, CUSTOM_LINK_TYPE, SPOILER_TYPE } from 'wix-rich-content-common';
+import type { Optional } from 'utility-types';
 import { getContentSummary } from 'wix-rich-content-common/libs/contentAnalytics';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -207,8 +205,9 @@ function insertLink(
     mutability: 'MUTABLE',
   });
   const contentWithLink = editorWithLink.getCurrentContent();
-  const selectedTextLength = contentWithLink.getBlockForKey(oldSelection.getAnchorKey()).getText()
-    .length;
+  const selectedTextLength = contentWithLink
+    .getBlockForKey(oldSelection.getAnchorKey())
+    .getText().length;
   const shouldPreventInlineStyleAtCurrentBlock =
     selectedTextLength - selection.getFocusOffset() === 0;
   const isNewLine = selection.getAnchorKey() !== oldSelection.getAnchorKey();
@@ -360,10 +359,7 @@ export const setBlockNewEntityData = (
 export const isAtomicBlockFocused = (editorState: EditorState) => {
   const selection = editorState.getSelection();
   const [anchorKey, focusKey] = [selection.getAnchorKey(), selection.getFocusKey()];
-  const block = editorState
-    .getCurrentContent()
-    .getBlockForKey(anchorKey)
-    .getType();
+  const block = editorState.getCurrentContent().getBlockForKey(anchorKey).getType();
   return anchorKey === focusKey && block === 'atomic';
 };
 
@@ -425,8 +421,49 @@ export const createBlockAndFocus = (editorState: EditorState, data, pluginType: 
   });
 };
 
+const addEmptyBlock = (direction, editorState) => {
+  const selection = editorState.getSelection();
+  const contentState = editorState.getCurrentContent();
+  const currentBlock = contentState.getBlockForKey(selection.getEndKey());
+
+  const blockMap = contentState.getBlockMap();
+  // Split the blocks
+  const blocksBefore = blockMap.toSeq().takeUntil(v => v === currentBlock);
+  const blocksAfter = blockMap
+    .toSeq()
+    .skipUntil(v => v === currentBlock)
+    .rest();
+  const newBlockKey = genKey();
+  const newBlocks = [
+    [currentBlock.getKey(), currentBlock],
+    [
+      newBlockKey,
+      new ContentBlock({
+        key: newBlockKey,
+        type: 'unstyled',
+        text: '',
+        characterList: List(),
+      }),
+    ],
+  ];
+  direction === 'before' && newBlocks.reverse();
+
+  const newBlockMap = blocksBefore.concat(newBlocks, blocksAfter).toOrderedMap();
+  const newContentState = contentState.merge({
+    blockMap: newBlockMap,
+    selectionBefore: selection,
+    selectionAfter: selection,
+  });
+
+  const newEditorState = EditorState.push(editorState, newContentState, 'insert-fragment');
+  const newSelection = SelectionState.createEmpty(newBlockKey);
+  return EditorState.forceSelection(newEditorState, newSelection);
+};
+
 export const createBlock = (editorState: EditorState, data, type: string) => {
-  const currentEditorState = editorState;
+  const currentEditorState = isAtomicBlockInSelection(editorState)
+    ? addEmptyBlock('after', editorState)
+    : editorState;
   const contentState = currentEditorState.getCurrentContent();
   const contentStateWithEntity = contentState.createEntity(
     type,
@@ -434,6 +471,7 @@ export const createBlock = (editorState: EditorState, data, type: string) => {
     cloneDeepWithoutEditorState(data)
   );
   const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+
   const newEditorState = AtomicBlockUtils.insertAtomicBlock(currentEditorState, entityKey, ' ');
   const recentlyCreatedKey = newEditorState.getSelection().getAnchorKey();
   // when adding atomic block, there is the atomic itself, and then there is a text block with one space,
@@ -700,7 +738,7 @@ export function getBlockEntityType(editorState: EditorState, blockKey: string) {
   return getBlockEntity(editorState, blockKey)?.getType();
 }
 
-function getBlockEntity(editorState: EditorState, blockKey: string) {
+export function getBlockEntity(editorState: EditorState, blockKey: string) {
   const contentState = editorState.getCurrentContent();
   const block = contentState.getBlockForKey(blockKey);
   const entityKey = block?.getEntityAt(0);
@@ -810,11 +848,7 @@ export function isCursorAtFirstLine(editorState: EditorState) {
   const selection = editorState.getSelection();
   return (
     selection.isCollapsed() &&
-    editorState
-      .getCurrentContent()
-      .getBlockMap()
-      .first()
-      .getKey() === selection.getFocusKey()
+    editorState.getCurrentContent().getBlockMap().first().getKey() === selection.getFocusKey()
   );
 }
 
@@ -893,11 +927,7 @@ function createEmptyBlocks(numOfBlocks = 1) {
   const blocks: ContentBlock[] = [];
   // eslint-disable-next-line fp/no-loops
   for (let i = 0; i < numOfBlocks; i++) {
-    blocks.push(
-      ContentState.createFromText('')
-        .getBlockMap()
-        .first()
-    );
+    blocks.push(ContentState.createFromText('').getBlockMap().first());
   }
   return blocks;
 }

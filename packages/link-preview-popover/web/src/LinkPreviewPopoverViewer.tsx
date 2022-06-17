@@ -1,12 +1,10 @@
 import React from 'react';
 import styles from '../statics/styles/link-preview-popover.rtlignore.scss';
-import { LinkPreviewData } from 'wix-rich-content-common';
+import type { LinkPreviewData } from 'wix-rich-content-common';
 
 export type LinkPreviewPopoverViewerProps = LinkPreviewData;
 
-export default class LinkPreviewPopoverViewer extends React.Component<
-  LinkPreviewPopoverViewerProps
-> {
+export default class LinkPreviewPopoverViewer extends React.Component<LinkPreviewPopoverViewerProps> {
   constructor(props) {
     super(props);
     this.state = {};

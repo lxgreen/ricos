@@ -19,6 +19,8 @@ class CollapsibleListModal extends Component {
     this.styles = mergeStyles({ styles, theme });
   }
 
+  useNewSettingsUi = this.props.experiments?.newSettingsModals?.enabled;
+
   initState(props) {
     return { initialComponentData: props.pubsub.get('componentData') };
   }
@@ -56,12 +58,17 @@ class CollapsibleListModal extends Component {
   };
 
   renderDesktopHeader = () => {
-    const { t } = this.props;
-    return (
+    const { t, experiments = {} } = this.props;
+
+    return this.useNewSettingsUi ? (
       <SettingsPanelHeader
         title={t('CollapsibleList_CollapsibleListSettings_Common_Header')}
         onClose={this.revertComponentData}
       />
+    ) : (
+      <h3 className={this.styles.collapsibleListModalTitle}>
+        {t('CollapsibleList_CollapsibleListSettings_Common_Header')}
+      </h3>
     );
   };
 
@@ -74,17 +81,20 @@ class CollapsibleListModal extends Component {
         theme={theme}
         onCancel={this.revertComponentData}
         onSave={this.onDoneClick}
+        title={this.useNewSettingsUi && t('CollapsibleList_CollapsibleListSettings_Common_Header')}
+        useNewSettingsUi={this.useNewSettingsUi}
       />
     );
   };
 
   renderSettings = () => {
-    const { isMobile, theme, t } = this.props;
+    const { isMobile, theme, t, experiments = {} } = this.props;
 
     return (
       <div
         className={classNames(styles.collapsibleListModal_scrollContainer, {
           [styles.collapsibleListModal_mobile]: isMobile,
+          [styles.collapsibleListModal_scrollContainer_newUi]: this.useNewSettingsUi,
         })}
       >
         <CollapsibleListSettings
@@ -92,6 +102,7 @@ class CollapsibleListModal extends Component {
           theme={theme}
           isMobile={isMobile}
           t={t}
+          experiments={experiments}
         />
       </div>
     );
@@ -116,7 +127,9 @@ class CollapsibleListModal extends Component {
 
     return (
       <div
-        className={this.styles.collapsibleListModal}
+        className={classNames(this.styles.collapsibleListModal, {
+          [this.styles.collapsibleListModal_newUi]: this.useNewSettingsUi,
+        })}
         data-hook="collapsibleListModal"
         dir={languageDir}
       >
@@ -134,6 +147,7 @@ CollapsibleListModal.propTypes = {
   t: PropTypes.func,
   isMobile: PropTypes.bool,
   languageDir: PropTypes.string,
+  experiments: PropTypes.object,
 };
 
 export default CollapsibleListModal;

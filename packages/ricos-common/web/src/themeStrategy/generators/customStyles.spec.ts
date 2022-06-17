@@ -1,11 +1,11 @@
-import { CssVarsObject } from '../themeTypes';
+import type { CssVarsObject } from '../themeTypes';
 import { customStylesTestCase, expectedOutput } from '../../../tests/customStylesExamples';
 import {
   customStylesTestCase as settingsTestCase,
   expectedOutput as settingsOutput,
 } from '../../../tests/settingsStylesExamples';
 import createCustomStyles from './customStyles';
-import { RicosCustomStyles, RicosSettingsStyles } from 'wix-rich-content-common';
+import type { RicosCustomStyles, RicosSettingsStyles } from 'ricos-types';
 import { merge } from 'lodash';
 
 const makeCustomStyles = (customStyles?: RicosCustomStyles) => createCustomStyles({ customStyles });

@@ -1,19 +1,16 @@
 import { setupContentBuilder } from './RicosContentBuilder';
+import type { ImageData, ParagraphData, AppEmbedData } from 'ricos-schema';
 import {
-  ImageData,
   PluginContainerData_Width_Type,
   PluginContainerData_Alignment,
   RichContent,
   Node_Type,
-  ParagraphData,
   TextStyle_TextAlignment,
   Decoration_Type,
-  AppEmbedData,
   AppEmbedData_AppType,
-  PollData,
 } from 'ricos-schema';
-import { TableCell } from '../types/contentApi';
-import { RichText } from '../types/node-refined-types';
+import type { TableCell } from '../types/contentApi';
+import type { RichText } from '../types/node-refined-types';
 
 describe('Ricos Content Builder', () => {
   it('should implement ContentBuilder', () => {
@@ -309,7 +306,11 @@ describe('Ricos Content Builder', () => {
       type: AppEmbedData_AppType.EVENT,
       itemId: 'assa',
       name: 'Birthday party',
-      imageSrc: 'https://static.wixstatic.com/media/8bb438_8307fc32bdf4455ab3033c542da4c6c7.jpg',
+      image: {
+        src: {
+          url: 'https://static.wixstatic.com/media/8bb438_8307fc32bdf4455ab3033c542da4c6c7.jpg',
+        },
+      },
       url: 'https://static.wixstatic.com/media/8bb438_8307fc32bdf4455ab3033c542da4c6c7.jpg',
       eventData: { scheduling: 'now', location: 'home' },
     };

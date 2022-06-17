@@ -1,4 +1,4 @@
-import { ModalStyles } from 'wix-rich-content-common';
+import type { ModalStyles } from 'wix-rich-content-common';
 
 const commonDesktopModalStyles: React.CSSProperties = {
   width: '362px',

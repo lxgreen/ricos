@@ -1,4 +1,6 @@
 import { testImages, testWixVideos } from './mock';
+import { mockAudioData } from './mockAudioData';
+import { FILE_URLS } from './fileMockURL';
 
 export const mockImageNativeUploadFunc = (files, updateEntity) => {
   const mockImageIndex = Math.floor(Math.random() * testImages.length);
@@ -39,14 +41,17 @@ export const mockFileNativeUploadFunc = (file, updateEntity) => {
   const name = file.name;
   let type;
   if (name && name.includes('.')) {
-    type = name.split('.').pop();
+    if (name && name.includes('.')) {
+      const currentType = name.split('.').pop();
+      type = FILE_URLS[currentType] ? currentType : 'pdf';
+    }
   }
   const size = file.size;
 
   const data = {
     name,
     type,
-    url: 'https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    url: FILE_URLS[type],
     size,
   };
   setTimeout(() => updateEntity({ data }), 5000);
@@ -66,7 +71,7 @@ export const mockFileUploadFunc = updateEntity => {
     data.push({
       name,
       type,
-      url: 'https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      url: FILE_URLS[type],
       size: 150000,
     });
   });
@@ -98,8 +103,7 @@ export const mockVideoNativeUploadFunc = (file, updateEntity, removeEntity) => {
 
 export const getVideoToUpload = (url, thumbnailUrl) => {
   const videoWithAbsoluteUrl = {
-    url:
-      'https://video.wixstatic.com/video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4',
+    url: 'https://video.wixstatic.com/video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4',
   };
   const videoWithRelativeUrl = {
     pathname: `video/${url}/1080p/mp4/file.mp4`,
@@ -114,4 +118,40 @@ export const getVideoToUpload = (url, thumbnailUrl) => {
   return videoWithRelativeUrl;
 };
 
+export const mockCustomAudioUploadFunc = (updateEntity, removeEntity) => {
+  console.log('consumer wants to upload custom audio');
+  const audioToUpload = getAudioToUpload('f0f74f_35a1cdce4973490eac49e74c3244364d');
+  setTimeout(() => {
+    updateEntity({ data: audioToUpload });
+    console.log('consumer uploaded ', audioToUpload);
+  }, 500);
+};
+
+export const mockAudioNativeUploadFunc = (file, updateEntity, removeEntity) => {
+  console.log('consumer wants to upload custom audio', file);
+  const mockAudioIndex = Math.floor(Math.random() * mockAudioData.length);
+  const testAudio = mockAudioData[mockAudioIndex];
+  const audioToUpload = getAudioToUpload(testAudio.url);
+  setTimeout(() => {
+    updateEntity({ data: audioToUpload });
+    console.log('consumer uploaded ', audioToUpload);
+  }, 5000);
+};
+
+export const getAudioToUpload = url => {
+  const audioWithAbsoluteUrl = {
+    url: 'https://static.wixstatic.com/mp3/f0f74f_35a1cdce4973490eac49e74c3244364d.mp3',
+  };
+  const audioWithRelativeUrl = {
+    audio: { src: { id: `mp3/${url}.mp3` } },
+    name: 'Dear Fear',
+    authorName: 'KOTA The Friend',
+  };
+  // You can provide either absolute or relative URL.
+  // If relative URL is provided, a function 'getVideoUrl' will be invoked to form a full URL.
+  return audioWithRelativeUrl;
+};
+
 export const getVideoUrl = src => `https://video.wixstatic.com/${src.pathname}`;
+
+export const getAudioUrl = src => `https://static.wixstatic.com/${src.id}`;

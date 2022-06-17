@@ -2,42 +2,43 @@ import {
   TOOLBARS,
   STATIC_TOOLBAR_BUTTONS_WITHOUT_EMBED,
   VIDEO_PLUGIN,
+  AUDIO_PLUGIN,
   SOUND_CLOUD,
   SOCIAL_EMBED,
 } from '../cypress/dataHooks';
-import { DEFAULT_DESKTOP_BROWSERS } from './settings';
 
 const LINKS = {
   YOUTUBE: 'https://www.youtube.com/watch?v=whbidPR4nVA',
   SOUNDCLOUD: 'https://soundcloud.com/martingarrix/martin-garrix-animals-original',
 };
 
-const modalHandler = (INPUT: string, ADD_BUTTON: string, LINK: string) => {
-  cy.get(`[data-hook=${INPUT}]`)
-    .wait(500)
-    .type(LINK);
+const modalHandler = (ADD_BUTTON: string, INPUT?: string, LINK?: string) => {
+  LINK && INPUT && cy.get(`[data-hook=${INPUT}]`).wait(500).type(LINK);
   cy.get(`[data-hook=${ADD_BUTTON}]`).click();
-  cy.waitForVideoToLoad();
+  cy.waitForMediaToLoad(1); //editor only
 };
 
 const additionalCommands = {
   VIDEO: () => {
     cy.wait(500);
-    modalHandler(VIDEO_PLUGIN.INPUT, VIDEO_PLUGIN.ADD, LINKS.YOUTUBE);
+    modalHandler(VIDEO_PLUGIN.ADD, VIDEO_PLUGIN.INPUT, LINKS.YOUTUBE);
+    cy.wait(500);
   },
   SOUND_CLOUD: () => {
-    modalHandler(SOUND_CLOUD.INPUT, SOUND_CLOUD.ADD, LINKS.SOUNDCLOUD);
+    modalHandler(SOUND_CLOUD.ADD, SOUND_CLOUD.INPUT, LINKS.SOUNDCLOUD);
   },
   YOUTUBE: () => {
-    modalHandler(SOCIAL_EMBED.INPUT, SOCIAL_EMBED.ADD, LINKS.YOUTUBE);
+    modalHandler(SOCIAL_EMBED.ADD, SOCIAL_EMBED.INPUT, LINKS.YOUTUBE);
   },
   CODE_BLOCK: () => {
     cy.moveCursorToEnd(); //DO NOT REMOVE - fix flakiness
   },
   EMOJI: () => {
-    cy.get(`[data-hook=emoji-5]:first`)
-      .click()
-      .enterParagraphs(['.']);
+    cy.get(`[data-hook=emoji-5]:first`).click().enterParagraphs(['.']);
+  },
+  AUDIO: () => {
+    cy.wait(500);
+    modalHandler(AUDIO_PLUGIN.CUSTOM);
   },
   // GIPHY: () => {
   //   cy.get(`[data-hook=${GIPHY_PLUGIN.UPLOAD_MODAL}]`);
@@ -46,18 +47,21 @@ const additionalCommands = {
   // ADSENSE: () => {},
 };
 
-const testInsertPlugin = (toolbar: string) => ([plugin, pluginButtonName]: [string, string]) =>
-  it(`should insert ${plugin?.toLocaleLowerCase()}`, function() {
-    cy.loadRicosEditorAndViewer('empty')
-      .wait(500)
-      .insertPlugin(toolbar, pluginButtonName);
+const EXCLUDE_PLUGINS = ['map', 'video'];
 
-    additionalCommands[plugin]?.();
-
-    cy.wait(1500);
-
-    cy.eyesCheckWindow(this.test.title);
-  });
+const testInsertPlugin =
+  (toolbar: string) =>
+  ([plugin = '', pluginButtonName]: [string, string]) => {
+    const pluginLowercase = plugin.toLocaleLowerCase();
+    if (EXCLUDE_PLUGINS.indexOf(pluginLowercase) === -1) {
+      it(`should insert ${pluginLowercase}`, () => {
+        cy.loadRicosEditor('empty').wait(500).insertPlugin(toolbar, pluginButtonName);
+        additionalCommands[plugin]?.();
+        cy.wait(1500);
+        cy.percySnapshot();
+      });
+    }
+  };
 
 // const testNativeUploadMediaPlugin = toolbar => ([plugin, pluginButtonName]) =>
 //   it(`should upload native ${plugin?.toLocaleLowerCase()}`, function() {
@@ -81,32 +85,15 @@ const testInsertPlugin = (toolbar: string) => ([plugin, pluginButtonName]: [stri
 
 //     cy.wait(2000);
 
-//     cy.eyesCheckWindow(this.test.title);
+//     cy.percySnapshot();
 //   });
 
-const eyesOpen = ({
-  test: {
-    parent: { title },
-  },
-}: Mocha.Context) =>
-  cy.eyesOpen({
-    appName: 'Insert Plugins',
-    testName: title,
-    browser: DEFAULT_DESKTOP_BROWSERS,
-  });
-
 describe('insert plugins tests', () => {
-  before(function() {
-    eyesOpen(this);
-  });
-
   beforeEach('load editor', () => {
     cy.switchToDesktop();
   });
 
   afterEach(() => cy.matchContentSnapshot());
-
-  after(() => cy.eyesClose());
 
   context('side toolbar', () => {
     Object.entries(STATIC_TOOLBAR_BUTTONS_WITHOUT_EMBED).forEach(testInsertPlugin(TOOLBARS.SIDE));

@@ -17,7 +17,7 @@ import { defaultConfig, useExperiments } from '../testAppConfig';
 import { fireEvent as testFireEvent } from '@testing-library/react';
 import RicosDriver from '../../../packages/ricos-driver/web/src/RicosDriver';
 import { merge } from 'lodash';
-import { TestAppConfig } from '../../../examples/main/src/types';
+import type { TestAppConfig } from '../../../examples/main/src/types';
 import { TABLE_COMMANDS } from './tableCommands'; // eslint-disable-line @typescript-eslint/no-unused-vars
 import { checkValidity } from '../../../packages/common/web/src/Utils/data-schema-validator';
 import contentSchema from '../../../packages/common/web/statics/schemas/content-state.schema.json';
@@ -50,7 +50,7 @@ type ChainableCommands = {
 // Commands that use the prevSubject option
 interface ChainableCommandsWithSubject {
   typeAllAtOnce: RemoveFirstArg<ToCommand<typeof typeAllAtOnce>>;
-  waitForVideoToLoad: RemoveFirstArg<ToCommand<typeof waitForVideoToLoad>>;
+  waitForMediaToLoad: RemoveFirstArg<ToCommand<typeof waitForMediaToLoad>>;
   fireEvent: RemoveFirstArg<ToCommand<typeof fireEvent>>;
 }
 
@@ -63,6 +63,7 @@ const ONCHANGE_DEBOUNCE_TIME = 200;
 let isMobile = false;
 let isHebrew = false;
 let isSeoMode = false;
+let isTiptap = false;
 
 // All new commands should be added to the COMMANDS object
 const COMMANDS = {
@@ -93,13 +94,29 @@ const COMMANDS = {
     isHebrew = false;
   },
 
-  loadEditorAndViewer: (fixtureName?: string, config?: TestAppConfig) =>
-    run('rce', fixtureName, config),
+  toggleTiptap: (useTiptap: boolean) => {
+    isTiptap = useTiptap;
+  },
+  switchToTiptap: () => {
+    isTiptap = true;
+  },
+
+  switchToDraft: () => {
+    isTiptap = false;
+  },
 
   loadIsolatedEditorAndViewer: (fixtureName?: string) => run('rce-isolated', fixtureName),
 
   loadRicosEditorAndViewer: (fixtureName?: string, config?: TestAppConfig) =>
-    run('ricos', fixtureName, config),
+    isTiptap ? loadTiptap(fixtureName, config) : run('ricos', fixtureName, config),
+
+  loadRicosEditor: (fixtureName?: string, config?: TestAppConfig) =>
+    isTiptap
+      ? loadTiptap(fixtureName, { ...config, viewMode: 'EDITOR' })
+      : run('ricos', fixtureName, { ...config, viewMode: 'EDITOR' }),
+
+  loadRicosViewer: (fixtureName?: string, config?: TestAppConfig) =>
+    run('ricos', fixtureName, { ...config, viewMode: 'VIEWER' }),
 
   loadTestAppOnSsr: (compName: string, fixtureName?: string, config?: TestAppConfig) => {
     cy.request(getUrl(compName, fixtureName, config))
@@ -130,9 +147,7 @@ const COMMANDS = {
           expect(result.valid).to.equal(true);
         });
 
-      cy.window()
-        .its('__CONTENT_SNAPSHOT__')
-        .toMatchSnapshot();
+      cy.window().its('__CONTENT_SNAPSHOT__').toMatchSnapshot();
     }
   },
 
@@ -166,10 +181,12 @@ const COMMANDS = {
   },
 
   blurEditor: () => {
-    cy.getEditor()
-      .blur()
-      .get('[data-hook=inlineToolbar]')
-      .should('not.exist');
+    cy.getEditor().blur();
+
+    //TIPTAP TODO - blur should remove floating toolbar
+    if (!isTiptap) {
+      cy.get(RicosDriver.editor.floatingFormattingToolbar(isTiptap)).should('not.exist');
+    }
   },
 
   getEditor: () => cy.get(RicosDriver.editor.contentEditable),
@@ -179,23 +196,14 @@ const COMMANDS = {
   },
 
   focusCollapsibleList: (idx: number) => {
-    cy.getCollapsibleList()
-      .get(RicosDriver.editor.contentEditable)
-      .eq(idx)
-      .focus();
+    cy.getCollapsibleList().get(RicosDriver.editor.contentEditable).eq(idx).focus();
   },
 
   toggleCollapseExpand: (idx: number) => {
-    cy.get(`[data-hook=ExpandCollapseButton_${idx}]`)
-      .first()
-      .click();
+    cy.get(`[data-hook=ExpandCollapseButton_${idx}]`).first().click();
   },
 
-  focusEditor: () =>
-    cy
-      .getEditor()
-      .first()
-      .focus(),
+  focusEditor: () => cy.getEditor().first().focus(),
 
   moveCursorToStart: () => {
     cy.focusEditor().type('{selectall}{uparrow}');
@@ -210,7 +218,11 @@ const COMMANDS = {
       cy.setEditorSelection(selection[0], selection[1]);
     }
     cy.get(
-      `[data-hook=${isMobile ? 'mobileToolbar' : 'inlineToolbar'}] [data-hook=${buttonSelector}]`
+      `${
+        isMobile
+          ? RicosDriver.editor.mobileToolbar
+          : RicosDriver.editor.floatingFormattingToolbar(isTiptap)
+      } [data-hook=${buttonSelector}]`
     );
   },
 
@@ -222,9 +234,7 @@ const COMMANDS = {
   },
 
   setColorByHex: color => {
-    cy.get(`[data-hook="${COLOR_PICKER.COLOR_INPUT}"]`)
-      .clear()
-      .type(color);
+    cy.get(`[data-hook="${COLOR_PICKER.COLOR_INPUT}"]`).clear().type(color);
   },
 
   updateTextColor: () => {
@@ -283,7 +293,7 @@ const COMMANDS = {
   },
 
   openSideToolbar: () => {
-    cy.get('[aria-label="Plugin Toolbar"]').click();
+    cy.get(RicosDriver.editor.addPanelButton).click();
     cy.get('[data-hook="floatingAddPluginMenu"]');
   },
 
@@ -303,17 +313,13 @@ const COMMANDS = {
   },
 
   openMapSettings: () => {
-    cy.get(`[data-hook=${PLUGIN_COMPONENT.MAP}]:first`)
-      .parent()
-      .click();
+    cy.get(`[data-hook=${PLUGIN_COMPONENT.MAP}]:first`).parent().click();
     cy.clickToolbarButton(PLUGIN_TOOLBAR_BUTTONS.SETTINGS);
     cy.get('[data-hook="mapSettings"]');
   },
 
   openGalleryAdvancedSettings: () => {
-    cy.get(`[data-hook=${PLUGIN_COMPONENT.GALLERY}]:first`)
-      .parent()
-      .click();
+    cy.get(`[data-hook=${PLUGIN_COMPONENT.GALLERY}]:first`).parent().click();
     cy.get(`[data-hook=${PLUGIN_TOOLBAR_BUTTONS.ADV_SETTINGS}]:first`)
       .scrollIntoView()
       .click({ force: true });
@@ -380,17 +386,11 @@ const COMMANDS = {
     cy.get(`[data-hook=${GALLERY_SETTINGS.TITLE}]`).type('Title');
     cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]:first`).click({ multiple: true });
     cy.get(`[data-hook=${ACTION_BUTTONS.SAVE}]`).click();
-    pluginToClick &&
-      cy
-        .get(`[data-hook=${pluginToClick}]:first`)
-        .parent()
-        .click();
+    pluginToClick && cy.get(`[data-hook=${pluginToClick}]:first`).parent().click();
   },
 
   checkTitle: () => {
-    cy.get('[data-hook=galleryViewer]:first')
-      .parent()
-      .click();
+    cy.get('[data-hook=galleryViewer]:first').parent().click();
     cy.get(`[data-hook=${GALLERY_SETTINGS.VIEWER_IMAGE}]:first`);
   },
 
@@ -424,17 +424,12 @@ const COMMANDS = {
       default:
         button = PLUGIN_TOOLBAR_BUTTONS.SMALL_RIGHT;
     }
-    cy.get(`${RicosDriver.viewer.image.root}:first`)
-      .parent()
-      .click();
+    cy.get(`${RicosDriver.viewer.image.root}:first`).parent().click();
     cy.clickToolbarButton(button);
   },
 
   openPluginToolbar: (plugin: string) => {
-    cy.get(`[data-hook*=${plugin}]`)
-      .first()
-      .parent()
-      .click();
+    cy.get(`[data-hook*=${plugin}]`).first().parent().click();
     cy.get('[data-hook*="PluginToolbar"]:first');
   },
 
@@ -446,18 +441,12 @@ const COMMANDS = {
   },
 
   undo: () => {
-    cy.getEditor()
-      .first()
-      .type('{ctrl+z}')
-      .type('{cmd+z}');
+    cy.getEditor().first().type('{ctrl+z}').type('{cmd+z}');
     cy.wait(100);
   },
 
   redo: () => {
-    cy.getEditor()
-      .first()
-      .type('{ctrl+shift+z}')
-      .type('{cmd+shift+z}');
+    cy.getEditor().first().type('{ctrl+shift+z}').type('{cmd+shift+z}');
     cy.wait(100);
   },
 
@@ -476,9 +465,7 @@ const COMMANDS = {
       'https://soundcloud.com/nlechoppa/camelot'
     );
     cy.get(`[data-hook*=${ACTION_BUTTONS.SAVE}]`).click({ force: true });
-    cy.get(`[data-hook=${PLUGIN_COMPONENT.SOUND_CLOUD}]:first`)
-      .parent()
-      .click({ force: true });
+    cy.get(`[data-hook=${PLUGIN_COMPONENT.SOUND_CLOUD}]:first`).parent().click({ force: true });
   },
 
   addSocialEmbed: (url: string) => {
@@ -489,9 +476,7 @@ const COMMANDS = {
   addVideoFromURL: () => {
     cy.get(`[data-hook*=${VIDEO_PLUGIN.INPUT}]`).type('https://youtu.be/BBu5codsO6Y');
     cy.get(`[data-hook*=${VIDEO_PLUGIN.ADD}]`).click();
-    cy.get(`[data-hook=${PLUGIN_COMPONENT.VIDEO}]:first`)
-      .parent()
-      .click();
+    cy.get(`[data-hook=${PLUGIN_COMPONENT.VIDEO}]:first`).parent().click();
   },
 
   clickOnStaticButton: (dataHook: string, args: { force?: boolean } = {}) =>
@@ -513,9 +498,7 @@ const COMMANDS = {
 
   addCustomVideo: () => {
     cy.get(`[data-hook*=${VIDEO_PLUGIN.CUSTOM}]`).click();
-    cy.get(`[data-hook=${PLUGIN_COMPONENT.VIDEO}]:first`)
-      .parent()
-      .click();
+    cy.get(`[data-hook=${PLUGIN_COMPONENT.VIDEO}]:first`).parent().click();
   },
 
   dragAndDrop: (src, dest, elem: 0) => {
@@ -544,9 +527,7 @@ const COMMANDS = {
   waitForHtmlToLoad: () => {
     cy.get('iframe', { timeout: 15000 })
       .each($el => {
-        cy.wrap($el)
-          .its('0.contentDocument.body')
-          .should('not.be.undefined');
+        cy.wrap($el).its('0.contentDocument.body').should('not.be.undefined');
       })
       .wait(4000);
   },
@@ -570,9 +551,7 @@ const COMMANDS = {
 
   triggerLinkPreviewViewerUpdate: () => {
     cy.moveCursorToEnd();
-    cy.focusEditor()
-      .get('[data-hook=addPluginFloatingToolbar]')
-      .should('be.visible');
+    cy.focusEditor().get(RicosDriver.editor.addPanelButton).should('be.visible');
   },
 
   insertPlugin: (toolbar: string, pluginInsertButtonName: string) => {
@@ -607,15 +586,18 @@ const COMMANDS = {
       await waitForMutations(doc.body);
     });
   },
-  paste: (pastePayload: string, pasteType = 'text') => {
+  paste: (pastePayload: string, isHtml = false) => {
     cy.getEditor().then($destination => {
       const pasteEvent = Object.assign(new Event('paste', { bubbles: true, cancelable: true }), {
         clipboardData: {
-          getData: (type = pasteType) => {
-            return pastePayload;
+          getData: (type = 'Text') => {
+            if (type === 'Text' || type === (isHtml ? 'text/html' : 'text/plain')) {
+              return pastePayload;
+            }
           },
         },
       });
+
       $destination[0].dispatchEvent(pasteEvent);
     });
   },
@@ -628,10 +610,7 @@ const COMMANDS = {
 
   loadOutOfViewImagesInGallery: () => {
     cy.get(`[data-hook=${'gallery-item-image-img'}]`).each($el =>
-      cy
-        .wrap($el)
-        .invoke('attr', 'loading', 'eager')
-        .should('have.attr', 'loading', 'eager')
+      cy.wrap($el).invoke('attr', 'loading', 'eager').should('have.attr', 'loading', 'eager')
     );
   },
 };
@@ -647,8 +626,8 @@ const typeAllAtOnce = ($subject: HTMLElement, value: string) => {
   return cy.wrap($subject).type('t{backspace}');
 };
 
-const waitForVideoToLoad = () => {
-  cy.get('[data-loaded=true]', { timeout: 15000 }).should('have.length', 2);
+const waitForMediaToLoad = (_, count = 2) => {
+  cy.get('[data-loaded=true]', { timeout: 15000 }).should('have.length', count);
 };
 
 const fireEvent = (element: HTMLElement, event: string, value: string) => {
@@ -658,7 +637,7 @@ const fireEvent = (element: HTMLElement, event: string, value: string) => {
 
 // Add all commands with prevSubject
 Cypress.Commands.add('typeAllAtOnce', { prevSubject: 'element' }, typeAllAtOnce);
-Cypress.Commands.add('waitForVideoToLoad', { prevSubject: 'optional' }, waitForVideoToLoad);
+Cypress.Commands.add('waitForMediaToLoad', { prevSubject: 'optional' }, waitForMediaToLoad);
 Cypress.Commands.add('fireEvent', { prevSubject: true }, fireEvent);
 
 //////// Non-command functions ////////
@@ -695,17 +674,23 @@ const getUrl = (componentId: string, fixtureName = '', config: TestAppConfig = {
 const run = (app: string, fixtureName?: string, config?: TestAppConfig) => {
   cy.visit(getUrl(app, fixtureName, config)).then(contentWindow => {
     disableTransitions();
-    findEditorElement();
+    cy.get(RicosDriver.editor.root(app === 'tiptap'), { timeout: 60000 });
     contentWindow.richContentHideTooltips = true;
   });
 };
 
+const loadTiptap = (fixtureName?: string, config?: TestAppConfig) =>
+  run('tiptap', fixtureName, {
+    ...(config || {}),
+    experiments: {
+      ...(config?.experiments || {}),
+      tiptapEditor: { enabled: true },
+      newFormattingToolbar: { enabled: true },
+    },
+  });
+
 function disableTransitions() {
   Cypress.$('head').append('<style> * {transition: none !important;}</style>');
-}
-
-function findEditorElement() {
-  cy.get('.DraftEditor-root', { timeout: 60000 });
 }
 
 export function setSelection(start: number, offset: number, container: Cypress.Chainable) {
@@ -714,11 +699,13 @@ export function setSelection(start: number, offset: number, container: Cypress.C
     const document = args[0].ownerDocument;
     const range = document.createRange();
     const startObj = getTextElmentAndLocalOffset(start);
-    range.setStart(startObj.element, startObj.offset);
-    const endObj = getTextElmentAndLocalOffset(start + offset);
-    range.setEnd(endObj.element, endObj.offset);
-    document.getSelection().removeAllRanges(range);
-    document.getSelection().addRange(range);
+    if (startObj.element) {
+      range.setStart(startObj.element, startObj.offset);
+      const endObj = getTextElmentAndLocalOffset(start + offset);
+      range.setEnd(endObj.element, endObj.offset);
+      document.getSelection().removeAllRanges(range);
+      document.getSelection().addRange(range);
+    }
   });
 }
 
@@ -787,11 +774,7 @@ function getTextElements(rootElement: HTMLElement) {
 /* eslint-enable */
 
 function setInlineToolbarMenuItem(item: string, selection: [number, number], buttonIndex: number) {
-  cy.setTextStyle(item, selection)
-    .get('.ReactModalPortal')
-    .find('button')
-    .eq(buttonIndex)
-    .click();
+  cy.setTextStyle(item, selection).get('.ReactModalPortal').find('button').eq(buttonIndex).click();
 }
 
 function addHtmlPlugin(htmlSrc: string, isUrl = false) {
@@ -799,9 +782,7 @@ function addHtmlPlugin(htmlSrc: string, isUrl = false) {
   if (isUrl) {
     cy.get(`[data-hook*=${HTML_PLUGIN.RADIO_URL}]`).click();
   }
-  cy.get(`[data-hook*=${HTML_PLUGIN.INPUT}]`)
-    .click()
-    .clear();
+  cy.get(`[data-hook*=${HTML_PLUGIN.INPUT}]`).click().clear();
   cy.get(`[data-hook*=${HTML_PLUGIN.INPUT}]`).typeAllAtOnce(htmlSrc);
   cy.get(`[data-hook*=${HTML_PLUGIN.UPDATE}]`).click();
 }

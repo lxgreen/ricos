@@ -1,9 +1,9 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 
-$TITLE_HEIGHT: 0;
+$TITLE_HEIGHT: 70px;
 $FOOTER_HEIGHT: 100px;
-$MOBILE_HEADER_HEIGHT: 50px;
+$TITLE_HEIGHT_MOBILE: 50px;
 
 .imageSettings {
   position: absolute;
@@ -15,12 +15,27 @@ $MOBILE_HEADER_HEIGHT: 50px;
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
+  text-align: left;
+  &.imageSettings_newUi {
+    position: unset;
+  }
+}
+
+.imageSettingsTitle {
+  position: absolute;
+  margin: 24px 0 24px 24px;
+  font-size: 20px;
 }
 
 .imageSettingsImageSection {
   padding: 0 24px;
   @include phone {
     padding: 0;
+  }
+  .imageSettings_newUi & {
+    @include phone {
+      padding: 20px 20px 0 20px;
+    }
   }
 }
 
@@ -42,9 +57,21 @@ $MOBILE_HEADER_HEIGHT: 50px;
 }
 
 .imageSettings_scrollContainer {
-  height: calc(100% - #{$FOOTER_HEIGHT});
   margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
   width: 100%;
+  .imageSettings_newUi & {
+    margin: 0;
+    height: calc(100% - #{$TITLE_HEIGHT} - #{$FOOTER_HEIGHT});
+    padding-bottom: 30px;
+    position: absolute;
+    width: 100%;
+    overflow: scroll;
+    top: $TITLE_HEIGHT;
+    @include phone {
+      height: calc(100% - #{$TITLE_HEIGHT_MOBILE});
+      top: $TITLE_HEIGHT_MOBILE;
+    }
+  }
 }
 
 .imageSettings_inputsWrapper {

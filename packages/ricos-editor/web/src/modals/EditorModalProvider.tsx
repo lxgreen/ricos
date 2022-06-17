@@ -1,16 +1,16 @@
-import React, {
-  Children,
-  Component,
-  ReactElement,
-  Suspense,
-  Fragment,
-  FunctionComponent,
-} from 'react';
-import mergeModalStyles from './mergeModalStyles';
-import { ModalStyles, ModalsMap, AvailableExperiments } from 'wix-rich-content-common';
-import { ModalSettings } from 'ricos-common';
 import { merge } from 'lodash';
+import type { FunctionComponent, ReactElement } from 'react';
+import React, { Children, Component, Fragment, Suspense } from 'react';
 import ReactDOM from 'react-dom';
+import type { ModalSettings } from 'ricos-common';
+import type {
+  AvailableExperiments,
+  EditorCommands,
+  ModalsMap,
+  ModalStyles,
+} from 'wix-rich-content-common';
+import mergeModalStyles from './mergeModalStyles';
+import RicosPortal from './RicosPortal';
 
 interface Props {
   children: ReactElement;
@@ -22,6 +22,8 @@ interface Props {
   experiments?: AvailableExperiments;
   onModalOpen: (modalProps: Record<string, unknown>) => void;
   onModalClose: () => void;
+  editorCommands: EditorCommands;
+  parentClass?: string;
 }
 
 type ModalProps = {
@@ -64,8 +66,8 @@ export default class EditorModalProvider extends Component<Props, State> {
   loadEditorModalAfterLocaleResourceIsLoadedToPreventRemountHackFromBreakingModal() {
     const { locale, localeResource } = this.props.children.props;
     if (locale === 'en' || localeResource) {
-      const EditorModal = React.lazy(() =>
-        import(/* webpackChunkName: "RicosEditorModal"  */ './EditorModal')
+      const EditorModal = React.lazy(
+        () => import(/* webpackChunkName: "RicosEditorModal"  */ './EditorModal')
       );
       this.setState({ EditorModal });
     }
@@ -92,12 +94,22 @@ export default class EditorModalProvider extends Component<Props, State> {
 
   render() {
     const { EditorModal, showModal, modalProps, modalStyles, editorModalId } = this.state;
-    const { children, ModalsMap, locale, theme, ariaHiddenId, container, experiments } = this.props;
+    const {
+      children,
+      ModalsMap,
+      locale,
+      theme,
+      ariaHiddenId,
+      container,
+      experiments = {},
+      editorCommands,
+      parentClass,
+    } = this.props;
     const childProps = merge(children.props, this.modalHandlers);
     return (
       <Fragment>
         {Children.only(React.cloneElement(children, childProps))}
-        <MaybePortal container={container}>
+        <RicosPortal className={parentClass} container={container}>
           <div className="ricos-editor-modal">
             <div id={editorModalId} />
             {EditorModal && (
@@ -114,23 +126,14 @@ export default class EditorModalProvider extends Component<Props, State> {
                   locale={locale}
                   target={editorModalId}
                   experiments={experiments}
+                  editorCommands={editorCommands}
                   {...modalProps}
                 />
               </Suspense>
             )}
           </div>
-        </MaybePortal>
+        </RicosPortal>
       </Fragment>
     );
   }
 }
-
-const MaybePortal: FunctionComponent<{
-  children: ReactElement;
-  container?: HTMLElement;
-}> = ({ children, container }) => {
-  if (container) {
-    return ReactDOM.createPortal(children, container);
-  }
-  return children;
-};

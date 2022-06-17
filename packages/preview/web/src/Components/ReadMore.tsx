@@ -1,7 +1,8 @@
 import React, { PureComponent, Fragment } from 'react';
-import { mergeStyles, RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import type { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../statics/styles/read-more.scss';
-import { PreviewConfig } from '..';
+import type { PreviewConfig } from '..';
 
 interface Props {
   label?: string;

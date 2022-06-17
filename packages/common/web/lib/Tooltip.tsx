@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { ReactElement, Suspense } from 'react';
+import type { ReactElement } from 'react';
+import React, { Suspense } from 'react';
 import { getTooltipStyles } from './tooltipStyles';
 import { GlobalContext } from '../src/Utils/contexts';
 
@@ -17,6 +18,7 @@ interface Props {
   place?: 'top' | 'bottom' | 'left' | 'right';
   followMouse?: boolean;
   hideArrow?: boolean;
+  brightMode?: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -59,7 +61,7 @@ class Tooltip extends React.Component<Props> {
   showTooltip = (e: MouseEvent) => {
     ToolTipComponent.preload();
     if (!(e.target as HTMLButtonElement).disabled) {
-      this.mousePosition = { x: e.clientX, y: e.clientY };
+      this.mousePosition = { x: e.pageX, y: e.pageY };
 
       this.timeoutId = setTimeout(() => {
         this.setState({ tooltipVisible: true }, () => {
@@ -72,7 +74,7 @@ class Tooltip extends React.Component<Props> {
 
   onMouseMove = (e: MouseEvent) => {
     if (this.props.followMouse) {
-      this.mousePosition = { x: e.clientX, y: e.clientY };
+      this.mousePosition = { x: e.pageX, y: e.pageY };
       this.updateTooltipPosition();
     }
   };
@@ -109,10 +111,19 @@ class Tooltip extends React.Component<Props> {
   };
 
   render() {
-    const { children, content, isError, place, tooltipOffset, followMouse, hideArrow } = this.props;
+    const {
+      children,
+      content,
+      isError,
+      place,
+      tooltipOffset,
+      followMouse,
+      hideArrow,
+      brightMode = false,
+    } = this.props;
     const { tooltipVisible } = this.state;
     const { isMobile } = this.context;
-    const style = getTooltipStyles(isError, followMouse, tooltipOffset, place);
+    const style = getTooltipStyles(isError, followMouse, tooltipOffset, place, brightMode);
 
     const elementProps = tooltipVisible
       ? { ...this.wrapperProps, 'data-tooltipid': true }

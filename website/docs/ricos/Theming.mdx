@@ -9,8 +9,6 @@ import { pluginHashtag } from 'wix-rich-content-plugin-hashtag';
 import { pluginLink } from 'wix-rich-content-plugin-link';
 import { createContent } from 'ricos-content';
 import { RicosEditorWithMobile } from '../../infra/editor/components/RicosEditorWithMobile';
-import 'ricos-editor/dist/styles.min.css';
-import 'wix-rich-content-plugin-hashtag/dist/styles.min.css';
 import customTypography from '../../infra/editor/content/customTypography.json';
 
 Ricos is stylable, which means you can apply color schemes & font properties to your Ricos UI.
@@ -73,14 +71,17 @@ Please read the `contentBgColor` under PaletteConfig section below.
 Palette can receive few more optional fields:
 
 ##### `fallbackColor`
+
 When `ActionColor` is too bright, it is replaced with `FallbackColor` when used on bright backgrounds (e.g modals, toolbars).
 Therefore this color should remain relatively dark.
 Default is black.
 
 ##### `textColorLow`
+
 Work in progress
 
 ##### `disabledColor`
+
 Work in progress
 
 #### Palette Presets
@@ -94,6 +95,7 @@ Pick a palette preset by name. Currently supports 'darkTheme' only.
 ## PaletteConfig
 
 ##### `contentBgColor`
+
 If set to true, Ricos' internal content container would be colored with `bgColor`.
 
 Ricos' background color is transparent by default.
@@ -114,6 +116,7 @@ Only applicable for `RicosEditor`
 :::
 
 ##### `focusActionColor`
+
 Override the `actionColor` of plugin when focused / clicked
 Default is `actionColor`.
 
@@ -123,8 +126,13 @@ Only applicable for `RicosEditor`
 
 ## Custom Styles
 
+```jsx
+customStyles?: RicosCustomStyles
+```
+
 Ricos allows you to customize several font and color properties of the content.
 The `font-family` of a text content within Ricos is inherited from that component's wrapper, while other typography properties like `font-size` are defined within Ricos. These properties can be overridden via `customStyles`:
+See [here](https://github.com/wix/ricos/blob/master/packages/ricos-types/web/src/themeTypes.ts#L78) RicosCustomStyles type declaration
 
 ```tsx
 const customStyles: RicosCustomStyles = {
@@ -146,6 +154,8 @@ const customStyles: RicosCustomStyles = {
     fontWeight: 'bold',
     color: 'brown',
   },
+  button: { color: 'purple' },
+  footerToolbar: { marginTop: '120px' },
 };
 
 // Example 1
@@ -160,27 +170,28 @@ const customStyles: RicosCustomStyles = {
     content={customTypography}
     placeholder={'Type here!'}
     theme={{
-      parentClass: 'card3', 
+      parentClass: 'card3',
       customStyles: {
-      h2: {
-        fontFamily: 'Times',
-        fontSize: '26px',
-        color: 'orange',
-        fontStyle: 'italic',
-        textDecoration: 'underline',
+        h2: {
+          fontFamily: 'Times',
+          fontSize: '26px',
+          color: 'orange',
+          fontStyle: 'italic',
+          textDecoration: 'underline',
+        },
+        h3: {
+          fontFamily: 'Tahoma',
+          fontSize: '20px',
+          color: 'purple',
+          textDecoration: 'none',
+        },
+        quote: {
+          lineHeight: '24px',
+          fontWeight: 'bold',
+          color: 'brown',
+        },
       },
-      h3: {
-        fontFamily: 'Tahoma',
-        fontSize: '20px',
-        color: 'purple',
-        textDecoration: 'none',
-      },
-      quote: {
-        lineHeight: '24px',
-        fontWeight: 'bold',
-        color: 'brown',
-      },
-    }}}
+    }}
   />
 </div>
 <div className="card card4" style={{ backgroundColor: '#0E092B' }}>
@@ -191,10 +202,9 @@ const customStyles: RicosCustomStyles = {
   />
 </div>
 
-Current customizable properties are:
-`h2`, `h3`, `h4`, `h5`, `h6`, `p`, `quote`, `link`, `hashtag`, `button`.
+### API
 
-and the accepted CSS properties are
+#### `h1, h2, h3, h4, h5, h6, p, link, hashtag:`
 
 ```jsx
 {
@@ -209,15 +219,64 @@ and the accepted CSS properties are
 }
 ```
 
-:::note
-`button` only supports the `color` field (for now)
-:::
+#### `quote:`
 
-:::note
-`quote` also supports `borderColor` for its indented quote border effect
-:::
+```jsx
+{
+  fontSize,
+  fontFamily,
+  fontWeight,
+  fontStyle,
+  textDecoration,
+  lineHeight,
+  minHeight,
+  color,
+  borderColor, // for its indented quote border effect
+  borderWidth,
+  paddingTop,
+  paddingBottom,
+  paddingInlineStart,
+}
+```
+
+#### `button:`
+
+```jsx
+{
+  color,
+}
+```
+
+#### `footerToolbar:`
+
+```jsx
+{
+  marginTop,
+}
+```
+
+#### `mention:`
+
+```jsx
+{
+    backgroundColor,
+    color,
+}
+```
+
+#### `codeBlock:`
+
+```jsx
+{
+    fontSize,
+    lineHeight,
+    margin,
+    padding,
+}
+```
 
 ## Settings Styles
+
 The editor panels' styles can be modified according to your choice.
 
 ```tsx

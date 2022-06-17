@@ -2,6 +2,7 @@
 @import '~wix-rich-content-common/dist/statics/styles/consts';
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 @import '~wix-rich-content-common/dist/statics/styles/fonts';
+@import '~wix-rich-content-common/dist/statics/styles/no-outline';
 
 .pluginContainerMobile {
   max-width: 100%;
@@ -9,8 +10,81 @@
 
 .wrapper {
   @media print {
-    li {
+    background-color: white;
+    li,
+    img,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    blockquote {
       break-inside: avoid;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: black !important;
+
+      * {
+        color: black !important;
+      }
+    }
+    p,
+    ol li {
+      font-size: 11pt !important;
+      * {
+        font-size: 11pt !important;
+      }
+    }
+
+    h1 {
+      font-size: 24pt !important;
+      * {
+        font-size: 24pt !important;
+      }
+    }
+    h2 {
+      font-size: 20pt !important;
+      * {
+        font-size: 20pt !important;
+      }
+    }
+    h3 {
+      font-size: 16pt !important;
+      * {
+        font-size: 16pt !important;
+      }
+    }
+    h4 {
+      font-size: 14pt !important;
+      * {
+        font-size: 14pt !important;
+      }
+    }
+    h5 {
+      font-size: 12pt !important;
+      * {
+        font-size: 12pt !important;
+      }
+    }
+    h6 {
+      font-size: 11pt !important;
+      * {
+        font-size: 11pt !important;
+      }
+    }
+    blockquote {
+      font-size: 16pt !important;
+      * {
+        font-size: 16pt !important;
+      }
     }
   }
 
@@ -172,13 +246,13 @@
 
 .quote {
   composes: blockStyleSpacing;
-  border-inline-start-width: 3px;
+  border-inline-start-width: $ricos-quote-border-width;
   border-inline-start-style: solid;
   font-size: $quoteFontSize;
   line-height: $quoteLineHeight;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-inline-start: 18px;
+  padding-top: $ricos-quote-padding-top;
+  padding-bottom: $ricos-quote-padding-bottom;
+  padding-inline-start: $ricos-quote-padding-inline-start;
   font-style: normal;
   border-left-color: $ricos-quote-border-color;
   border-right-color: $ricos-quote-border-color;
@@ -209,9 +283,10 @@
   composes: blockStyleSpacing;
   background-color: rgba($fallbackColorTuple, 0.06);
   font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
-  font-size: 16px;
-  line-height: 26px;
-  padding: 2px 25px;
+  font-size: $ricos-code-block-font-size;
+  line-height: $ricos-code-block-line-height;
+  padding: $ricos-code-block-padding;
+  margin: $ricos-code-block-margin;
   white-space: pre-wrap;
 
   .renderedInTable & {

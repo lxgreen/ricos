@@ -5,16 +5,10 @@ import { not } from 'fp-ts/Predicate';
 import * as RONEA from 'fp-ts/ReadonlyNonEmptyArray';
 import * as R from 'fp-ts/Record';
 import * as S from 'fp-ts/string';
-import { Element } from 'parse5';
-import {
-  Decoration_Type,
-  Node,
-  PluginContainerData,
-  PluginContainerData_Alignment,
-  TextStyle,
-  TextStyle_TextAlignment,
-} from 'ricos-schema';
-import { and } from '../../../../fp-utils';
+import type { Element } from 'parse5';
+import type { Node, PluginContainerData, TextStyle, TextStyle_TextAlignment } from 'ricos-schema';
+import { Decoration_Type, PluginContainerData_Alignment } from 'ricos-schema';
+import { and, or } from '../../../../fp-utils';
 import { createParagraphNode } from '../../../nodeUtils';
 import {
   getClassNames,
@@ -27,6 +21,7 @@ import {
   isText,
   isWhitespace,
   hasChild,
+  oneOf,
 } from '../core/parse5-utils';
 import parse from '../core/parser';
 import {
@@ -38,8 +33,8 @@ import {
   textToText,
 } from '../core/rules';
 import { aToCustomLink } from './aToCustomLink';
-import { Rule } from '../core/models';
-import { iframeToVideo } from './iframeToVideo';
+import type { Rule } from '../core/models';
+import { iframeToYoutubeVideo, iframeToVimeoVideo } from './iframeToVideo';
 import postprocess from './postprocess';
 import { preprocess } from './preprocess';
 
@@ -68,17 +63,23 @@ const traverseSpan: Rule = [
 
 const fontStyleToItalic: Rule = [
   and([hasTag('span'), hasStyleRule({ 'font-style': 'italic' })]),
-  ({ addDecoration }) => (el: Element) => addDecoration(Decoration_Type.ITALIC, {}, el),
+  ({ addDecoration }) =>
+    (el: Element) =>
+      addDecoration(Decoration_Type.ITALIC, {}, el),
 ];
 
 const fontWeightToBold: Rule = [
-  and([hasTag('span'), hasStyleRule({ 'font-weight': 'bold' })]),
-  ({ addDecoration }) => (el: Element) => addDecoration(Decoration_Type.BOLD, {}, el),
+  or([oneOf(['b', 'strong']), and([hasTag('span'), hasStyleRule({ 'font-weight': 'bold' })])]),
+  ({ addDecoration }) =>
+    (el: Element) =>
+      addDecoration(Decoration_Type.BOLD, {}, el),
 ];
 
 const textDecorationToUnderline: Rule = [
   and([hasTag('span'), hasStyleRule({ 'text-decoration': 'underline' })]),
-  ({ addDecoration }) => (el: Element) => addDecoration(Decoration_Type.UNDERLINE, {}, el),
+  ({ addDecoration }) =>
+    (el: Element) =>
+      addDecoration(Decoration_Type.UNDERLINE, {}, el),
 ];
 
 type Alignment = 'LEFT' | 'RIGHT' | 'CENTER' | '';
@@ -106,15 +107,14 @@ const mergeWithTextStyle = (dataProp: string, textStyle: Partial<TextStyle>) => 
   [dataProp]: { ...node[dataProp], textStyle: { ...node[dataProp].textStyle, ...textStyle } },
 });
 
-const mergeWithContainerData = (dataProp: string, containerData: PluginContainerData) => (
-  node: Node
-) => ({
-  ...node,
-  [dataProp]: {
-    ...node[dataProp],
-    containerData: { ...node[dataProp].containerData, ...containerData },
-  },
-});
+const mergeWithContainerData =
+  (dataProp: string, containerData: PluginContainerData) => (node: Node) => ({
+    ...node,
+    [dataProp]: {
+      ...node[dataProp],
+      containerData: { ...node[dataProp].containerData, ...containerData },
+    },
+  });
 
 const lineHeightToTextStyle = (lineHeight?: string): Partial<TextStyle> => ({ lineHeight });
 
@@ -168,12 +168,30 @@ const hToStyledHeading: Rule = [
     ),
 ];
 
-const iframeToAlignedVideo: Rule = [
-  iframeToVideo[0],
+const iframeToAlignedVimeoVideo: Rule = [
+  iframeToVimeoVideo[0],
   context => (element: Element) => {
     return pipe(
       element,
-      iframeToVideo[1](context),
+      iframeToVimeoVideo[1](context),
+      A.map(
+        hasAlignmentClass(element)
+          ? mergeWithContainerData(
+              'videoData',
+              pipe(element, getAlignmentByClass, alignmentToContainerData)
+            )
+          : identity
+      )
+    );
+  },
+];
+
+const iframeToAlignedYoutubeVideo: Rule = [
+  iframeToYoutubeVideo[0],
+  context => (element: Element) => {
+    return pipe(
+      element,
+      iframeToYoutubeVideo[1](context),
       A.map(
         hasAlignmentClass(element)
           ? mergeWithContainerData(
@@ -218,7 +236,8 @@ export default flow(
     fontWeightToBold,
     fontStyleToItalic,
     textDecorationToUnderline,
-    iframeToAlignedVideo,
+    iframeToAlignedYoutubeVideo,
+    iframeToAlignedVimeoVideo,
     imgToAlignedImage,
     traverseDiv,
     traverseSpan,

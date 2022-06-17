@@ -16,7 +16,7 @@ const DesktopPanel = ({
   options,
   onChange,
   customPanelOptions,
-  panelHeader,
+  customPanelName,
   theme,
   sizeFitContent,
   t,
@@ -131,7 +131,7 @@ const DesktopPanel = ({
             data-hook="modal-option"
             onClick={customPanelOptions.onOpen}
           >
-            {panelHeader}
+            {customPanelName}
           </button>
         </>
       )}

@@ -2,12 +2,21 @@
 
 :global {
   .ProseMirror {
-    p {
-      margin: 0;
-    }
-
+    // TODO: reset all editor-related styles
+    text-align: initial;
     &:focus-visible {
       outline: none;
     }
+    .is-editor-empty:first-child:before {
+      color: #9197a3;
+      content: attr(data-placeholder);
+      float: left;
+      height: 0;
+      pointer-events: none;
+    }
   }
+}
+
+.ricos-node {
+  margin: 2px 0;
 }

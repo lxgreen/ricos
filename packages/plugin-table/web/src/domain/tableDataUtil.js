@@ -63,9 +63,9 @@ export class TableDataUtil {
 
   getRow = i => this.getRows()?.[i];
 
-  getRowNum = () => Object.entries(this.getRows()).length;
+  getRowNum = () => Object.entries(this.getRows() || {}).length;
 
-  getColNum = () => Object.entries(this.getRowColumns(0)).length;
+  getColNum = () => Object.entries(this.getRowColumns(0) || {}).length;
 
   getCell = (i, j) => this.getRow(i) && this.getRowColumns(i)[j];
 
@@ -130,7 +130,7 @@ export class TableDataUtil {
   };
 
   getCellWidthAsRatio = (tableWidth, totalColsWidth, cellWidth) =>
-    (totalColsWidth * cellWidth) / tableWidth;
+    parseInt((totalColsWidth * cellWidth) / tableWidth, 10);
 
   //MERGE
   getCellMergeData = (i, j) => this.getCell(i, j)?.merge;

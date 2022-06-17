@@ -5,12 +5,14 @@ import { RichContentEditorBox, Section, Page } from '../Components/StoryParts';
 import { pluginImage } from 'wix-rich-content-plugin-image';
 import { pluginGallery } from 'wix-rich-content-plugin-gallery';
 import { pluginVideo } from 'wix-rich-content-plugin-video';
+import { pluginAudio } from 'wix-rich-content-plugin-audio';
 import { pluginFileUpload } from 'wix-rich-content-plugin-file-upload';
 import MobileDetect from 'mobile-detect';
 import {
   mockFileNativeUploadFunc,
   mockImageNativeUploadFunc,
   mockVideoNativeUploadFunc,
+  mockAudioNativeUploadFunc,
 } from '../../src/shared/utils/fileUploadUtil';
 import ActionButton from '../Components/ActionButton';
 
@@ -20,6 +22,10 @@ const plugins = [
   pluginVideo({
     handleFileUpload: mockVideoNativeUploadFunc,
     getVideoUrl: src => `https://video.wixstatic.com/${src.pathname}`,
+  }),
+  pluginAudio({
+    handleFileUpload: mockAudioNativeUploadFunc,
+    getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,
   }),
   pluginFileUpload({
     accept: '*',

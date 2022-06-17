@@ -1,18 +1,21 @@
-import React, { Component, Children, FunctionComponent, ReactElement } from 'react';
+import type { FunctionComponent, ReactElement } from 'react';
+import React, { Component, Children } from 'react';
 
 import pluginsStrategy from './pluginsStrategy/pluginsStrategy';
 import themeStrategy from './themeStrategy/themeStrategy';
 import { merge } from 'lodash';
 
 import previewStrategy from './previewStrategy/previewStrategy';
-import { PreviewConfig } from 'wix-rich-content-preview';
-import { RicosEditorProps, RicosViewerProps, RichContentProps, BasePlugin } from './types';
+import type { PreviewConfig } from 'wix-rich-content-preview';
+import type { RicosEditorProps, RicosViewerProps, RichContentProps, BasePlugin } from './types';
 import {
   convertRelStringToObject,
   convertRelObjectToString,
 } from 'wix-rich-content-common/libs/linkConverters';
 import { applyBIGenerics } from './biCallbacks';
 import { pipe } from 'fp-ts/function';
+import type { EditorCommands, IUploadObserver, RichContentTheme, ThemeData } from 'ricos-types';
+import UploadContextWrapper from './withUploadContext';
 
 interface EngineProps extends RicosEditorProps, RicosViewerProps {
   children: ReactElement;
@@ -22,6 +25,9 @@ interface EngineProps extends RicosEditorProps, RicosViewerProps {
   isPreviewExpanded?: boolean;
   onPreviewExpand?: PreviewConfig['onPreviewExpand'];
   getContentId: () => string | undefined;
+  editorCommands?: EditorCommands;
+  localeResource?: Record<string, string>;
+  UploadObserver?: IUploadObserver;
 }
 
 export class RicosEngine extends Component<EngineProps> {
@@ -55,11 +61,11 @@ export class RicosEngine extends Component<EngineProps> {
     const strategiesProps = merge(
       { theme },
       pluginsStrategy({
-        themeData,
+        themeData: themeData as ThemeData,
         isViewer,
         plugins,
         childProps: children.props,
-        cssOverride: theme,
+        cssOverride: theme as RichContentTheme,
         content,
         experiments,
       })
@@ -103,6 +109,11 @@ export class RicosEngine extends Component<EngineProps> {
       experiments,
       iframeSandboxDomain,
       textWrap = true,
+      editorCommands,
+      isViewer,
+      locale,
+      localeResource,
+      UploadObserver,
     } = this.props;
 
     const { strategyProps, previewContent, htmls } = this.runStrategies();
@@ -110,14 +121,8 @@ export class RicosEngine extends Component<EngineProps> {
     const { useStaticTextToolbar, textToolbarContainer, getToolbarSettings } =
       toolbarSettings || {};
 
-    const {
-      openModal,
-      closeModal,
-      ariaHiddenId,
-      container,
-      onModalOpen,
-      onModalClose,
-    } = modalSettings;
+    const { openModal, closeModal, ariaHiddenId, container, onModalOpen, onModalClose } =
+      modalSettings;
     const { pauseMedia, disableRightClick, fullscreenProps } = mediaSettings;
     const { anchorTarget = '_blank', customAnchorScroll } = linkSettings;
     let { relValue, rel } = linkSettings;
@@ -191,21 +196,44 @@ export class RicosEngine extends Component<EngineProps> {
       applyBIGenerics(getContentId)
     );
 
-    return [
-      ...htmls,
+    const useUploadContext = !isViewer && experiments?.useUploadContext?.enabled;
+
+    const modal = (
       <RicosModal
+        key={'ricosElement'}
+        parentClass={this.props?.theme?.parentClass}
         ariaHiddenId={ariaHiddenId}
         isModalSuspended={isPreview()}
         container={container}
         fullscreenProps={fullscreenProps}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         {...(mergedRCProps as any)}
-        key={'ricosElement'}
         onModalOpen={onModalOpen}
         onModalClose={onModalClose}
+        editorCommands={editorCommands}
       >
-        {Children.only(React.cloneElement(children, { ...mergedRCProps }))}
-      </RicosModal>,
+        {Children.only(React.cloneElement(children, mergedRCProps))}
+      </RicosModal>
+    );
+
+    return [
+      ...htmls,
+      useUploadContext ? (
+        <UploadContextWrapper
+          {...{
+            locale,
+            localeResource,
+            editorCommands,
+            helpers: mergedRCProps.helpers,
+            UploadObserver,
+            isMobile,
+          }}
+        >
+          {modal}
+        </UploadContextWrapper>
+      ) : (
+        modal
+      ),
     ];
   }
 }

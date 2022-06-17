@@ -10,15 +10,14 @@ import {
   getToolbarTheme,
   TOOLBARS,
 } from 'wix-rich-content-editor-common';
-import { ContentBlock, EditorProps } from 'draft-js';
-import {
+import type { ContentBlock, EditorProps } from 'draft-js';
+import type {
   CreatePluginConfig,
   EditorPluginConfig,
   UISettings,
   Pubsub,
   CreatePluginToolbar,
   PluginButton,
-  simplePubsub,
   ToolbarButtonProps,
   CreatePluginFunction,
   BlockRendererFn,
@@ -26,39 +25,47 @@ import {
   GetEditorState,
   SetEditorState,
   UnderlyingPlugin,
-  WRAP,
-  NO_WRAP,
 } from 'wix-rich-content-common';
-import { CSSProperties, ComponentType } from 'react';
+import { simplePubsub, WRAP, NO_WRAP } from 'wix-rich-content-common';
+import type { CSSProperties, ComponentType } from 'react';
 import { UNSUPPORTED_BLOCKS_TYPE } from '../consts';
 
 type EditorStateFuncs = { getEditorState: GetEditorState; setEditorState: SetEditorState };
 
-const getData = (
-  contentBlock: ContentBlock,
-  { getEditorState }: Pick<EditorStateFuncs, 'getEditorState'>,
-  removeConfigFromData: boolean
-) => () => {
-  const { config, ...rest } = getEditorState?.()
-    .getCurrentContent()
-    .getEntity(contentBlock.getEntityAt(0))
-    .getData();
-  return removeConfigFromData ? { ...rest } : { config, ...rest };
-};
+const getData =
+  (
+    contentBlock: ContentBlock,
+    { getEditorState }: Pick<EditorStateFuncs, 'getEditorState'>,
+    removeConfigFromData: boolean
+  ) =>
+  () => {
+    const { config, ...rest } = getEditorState()
+      .getCurrentContent()
+      .getEntity(contentBlock.getEntityAt(0))
+      .getData();
+    return removeConfigFromData ? { ...rest } : { config, ...rest };
+  };
 
-const setData = (
-  contentBlock: ContentBlock,
-  { getEditorState, setEditorState }: EditorStateFuncs,
-  type: string
-) => newData => {
-  const editorState = setBlockNewEntityData(getEditorState(), contentBlock.getKey(), newData, type);
-  setEditorState(editorState);
-};
+const setData =
+  (
+    contentBlock: ContentBlock,
+    { getEditorState, setEditorState }: EditorStateFuncs,
+    type: string
+  ) =>
+  newData => {
+    const editorState = setBlockNewEntityData(
+      getEditorState(),
+      contentBlock.getKey(),
+      newData,
+      type
+    );
+    setEditorState(editorState);
+  };
 
-const deleteEntity = (
-  contentBlock: ContentBlock,
-  { getEditorState, setEditorState }: EditorStateFuncs
-) => () => setEditorState(deleteBlock(getEditorState(), contentBlock.getKey()));
+const deleteEntity =
+  (contentBlock: ContentBlock, { getEditorState, setEditorState }: EditorStateFuncs) =>
+  () =>
+    setEditorState(deleteBlock(getEditorState(), contentBlock.getKey()));
 
 const DEFAULT_SETTINGS = {
   showInsertButtons: true,

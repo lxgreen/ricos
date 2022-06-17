@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import { RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
 import { TextSearchInput } from '../';
 import { KEYS_CHARCODE } from '../consts';
 import ModalContainer from './TextInputModalContainer';
@@ -19,14 +19,8 @@ const SearchInputModal = props => {
     children?: React.ReactNode;
   }
 
-  const {
-    dataHook,
-    children,
-    onCloseRequested,
-    placeholder,
-    onInputChange,
-    input,
-  }: ModalProps = props;
+  const { dataHook, children, onCloseRequested, placeholder, onInputChange, input }: ModalProps =
+    props;
 
   const onTextChange = url => {
     onInputChange(url);

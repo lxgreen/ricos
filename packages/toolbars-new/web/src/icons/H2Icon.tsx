@@ -14,7 +14,7 @@ const H2Icon = () => (
       <g
         id="Mobile-headings"
         transform="translate(-199.000000, -687.000000)"
-        fill="#000000"
+        fill="currentColor"
         fillRule="nonzero"
       >
         <path

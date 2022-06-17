@@ -1,5 +1,6 @@
 import { markInputRule, markPasteRule, mergeAttributes } from '@tiptap/core';
-import { RicosMarkExtension } from 'ricos-tiptap-types';
+import { Decoration_Type } from 'ricos-schema';
+import type { DOMOutputSpec, RicosExtension } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -25,81 +26,94 @@ export const starPasteRegex = /(?:^|\s)((?:\*\*)((?:[^*]+))(?:\*\*))/g;
 export const underscoreInputRegex = /(?:^|\s)((?:__)((?:[^__]+))(?:__))$/;
 export const underscorePasteRegex = /(?:^|\s)((?:__)((?:[^__]+))(?:__))/g;
 
-export const createBold = (): RicosMarkExtension => ({
+export const bold: RicosExtension = {
   type: 'mark' as const,
-  createExtensionConfig: () => ({
-    name: 'bold',
+  groups: [],
+  name: Decoration_Type.BOLD,
+  createExtensionConfig() {
+    return {
+      name: this.name,
+      addOptions() {
+        return {
+          HTMLAttributes: {},
+        };
+      },
 
-    addOptions() {
-      return {
-        HTMLAttributes: {},
-      };
-    },
+      parseHTML() {
+        return [
+          {
+            tag: 'strong',
+          },
+          {
+            tag: 'b',
+            getAttrs: node => (node as HTMLElement).style.fontWeight !== 'normal' && null,
+          },
+          {
+            style: 'font-weight',
+            getAttrs: value => /^(bold(er)?|[5-9]\d{2,})$/.test(value as string) && null,
+          },
+        ];
+      },
 
-    parseHTML() {
-      return [
-        {
-          tag: 'strong',
-        },
-        {
-          tag: 'b',
-          getAttrs: node => (node as HTMLElement).style.fontWeight !== 'normal' && null,
-        },
-        {
-          style: 'font-weight',
-          getAttrs: value => /^(bold(er)?|[5-9]\d{2,})$/.test(value as string) && null,
-        },
-      ];
-    },
+      renderHTML({ HTMLAttributes }) {
+        return [
+          'strong',
+          mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+          0,
+        ] as DOMOutputSpec;
+      },
 
-    renderHTML({ HTMLAttributes }) {
-      return ['strong', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes), 0];
-    },
+      addCommands() {
+        return {
+          setBold:
+            () =>
+            ({ commands }) => {
+              return commands.setMark(this.name);
+            },
+          toggleBold:
+            () =>
+            ({ commands }) => {
+              return commands.toggleMark(this.name);
+            },
+          unsetBold:
+            () =>
+            ({ commands }) => {
+              return commands.unsetMark(this.name);
+            },
+        };
+      },
 
-    addCommands() {
-      return {
-        setBold: () => ({ commands }) => {
-          return commands.setMark(this.name);
-        },
-        toggleBold: () => ({ commands }) => {
-          return commands.toggleMark(this.name);
-        },
-        unsetBold: () => ({ commands }) => {
-          return commands.unsetMark(this.name);
-        },
-      };
-    },
+      addKeyboardShortcuts() {
+        return {
+          'Mod-b': () => this.editor.commands.toggleBold(),
+        };
+      },
 
-    addKeyboardShortcuts() {
-      return {
-        'Mod-b': () => this.editor.commands.toggleBold(),
-      };
-    },
+      addInputRules() {
+        return [
+          markInputRule({
+            find: starInputRegex,
+            type: this.type,
+          }),
+          markInputRule({
+            find: underscoreInputRegex,
+            type: this.type,
+          }),
+        ];
+      },
 
-    addInputRules() {
-      return [
-        markInputRule({
-          find: starInputRegex,
-          type: this.type,
-        }),
-        markInputRule({
-          find: underscoreInputRegex,
-          type: this.type,
-        }),
-      ];
-    },
-
-    addPasteRules() {
-      return [
-        markPasteRule({
-          find: starPasteRegex,
-          type: this.type,
-        }),
-        markPasteRule({
-          find: underscorePasteRegex,
-          type: this.type,
-        }),
-      ];
-    },
-  }),
-});
+      addPasteRules() {
+        return [
+          markPasteRule({
+            find: starPasteRegex,
+            type: this.type,
+          }),
+          markPasteRule({
+            find: underscorePasteRegex,
+            type: this.type,
+          }),
+        ];
+      },
+    };
+  },
+};

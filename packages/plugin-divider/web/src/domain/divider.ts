@@ -1,5 +1,5 @@
 import { DEFAULTS, ALIGNMENTS, SIZE_LARGE, SIZES } from '../defaults';
-import { ComponentData } from 'wix-rich-content-common';
+import type { ComponentData } from 'wix-rich-content-common';
 
 export const getNextValue = (array: readonly string[], currentValue: string) =>
   array[(array.indexOf(currentValue) + 1) % array.length];

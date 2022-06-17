@@ -18,8 +18,8 @@ import {
 } from './icons';
 
 import { layoutData, GALLERY_LAYOUTS } from './layout-data-provider';
-import { ComponentType } from 'react';
-import { Store, TranslationFunction, ComponentData } from 'wix-rich-content-common';
+import type { ComponentType } from 'react';
+import type { Store, TranslationFunction, ComponentData } from 'wix-rich-content-common';
 
 type GalleryLayout = { value: GALLERY_LAYOUTS; label: string; icon: ComponentType };
 

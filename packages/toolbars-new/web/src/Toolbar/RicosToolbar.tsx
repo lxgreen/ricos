@@ -2,17 +2,17 @@
 import React, { Component } from 'react';
 import Toolbar from './Toolbar';
 import { createButtonsList } from './buttonsListCreator';
-import {
+import type {
   TranslationFunction,
   EditorCommands,
   AnchorTarget,
   RelValue,
   Link_Rel,
   CustomAnchorScroll,
-  AvailableExperiments,
   OnAddPluginLink,
 } from 'wix-rich-content-common';
-import { RicosCssOverride, RicosTheme } from 'ricos-common';
+import type { RicosCssOverride } from 'ricos-common';
+import type { RicosTheme } from 'ricos-types';
 
 export type linkPanelDataType = {
   linkTypes?: any;
@@ -57,12 +57,12 @@ interface RicosToolbarProps {
   colorPickerData?: any;
   headingsData?: any;
   onToolbarButtonClick?: (name: string, value?: any) => void;
-  experiments?: AvailableExperiments;
   defaultLineSpacing?: defaultLineSpacingType;
   getEditorContainer: () => Element;
   cssOverride?: RicosCssOverride;
   configButtonsOverrides?: any;
   disabled?: boolean;
+  dataHook?: string;
 }
 
 class RicosToolbar extends Component<RicosToolbarProps> {
@@ -109,12 +109,12 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       setKeepOpen,
       afterClick,
       nestedMenu,
-      experiments,
       defaultLineSpacing,
       getEditorContainer,
       cssOverride,
       configButtonsOverrides,
       disabled,
+      dataHook,
     } = this.props;
     const updatedButtons = createButtonsList({
       buttons,
@@ -124,7 +124,6 @@ class RicosToolbar extends Component<RicosToolbarProps> {
       colorPickerData,
       headingsData,
       defaultLineSpacing,
-      experiments,
       theme,
       configButtonsOverrides,
     });
@@ -145,6 +144,7 @@ class RicosToolbar extends Component<RicosToolbarProps> {
         onToolbarButtonClick={this.props.onToolbarButtonClick}
         getEditorContainer={getEditorContainer}
         disabled={disabled}
+        dataHook={dataHook}
       />
     );
   }

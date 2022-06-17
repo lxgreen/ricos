@@ -8,9 +8,11 @@ import {
 
 import dividerContentState from '../../../../../e2e/tests/fixtures/divider.json';
 import DividerEditor from './DividerEditor';
-import editorSourcecode from '!!raw-loader!./DividerEditor.tsx';
+// eslint-disable-next-line import/no-unresolved
+import editorSourcecode from './DividerEditor.tsx?raw';
 import DividerViewer from './DividerViewer';
-import viewerSourcecode from '!!raw-loader!./DividerViewer.tsx';
+// eslint-disable-next-line import/no-unresolved
+import viewerSourcecode from './DividerViewer.tsx?raw';
 
 export default () => {
   return (

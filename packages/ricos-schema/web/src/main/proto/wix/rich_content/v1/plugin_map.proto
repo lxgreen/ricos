@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package wix.rich_content.v1;
-
+import "wix/api/annotations.proto";
 import "wix/rich_content/v1/common.proto";
 import "google/protobuf/wrappers.proto";
 
@@ -18,7 +18,7 @@ enum MapType {
 }
 
 message MapSettings {
-  google.protobuf.StringValue address = 1;
+  google.protobuf.StringValue address = 1 [(.wix.api.pii) = true];
   google.protobuf.BoolValue draggable = 2;
   // Visibilty of marker
   google.protobuf.BoolValue marker = 3;

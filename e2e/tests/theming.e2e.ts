@@ -1,38 +1,41 @@
 import { useTheming, getPluginMenuConfig, usePlugins, plugins } from '../cypress/testAppConfig';
-import { DEFAULT_DESKTOP_BROWSERS, DEFAULT_MOBILE_BROWSERS } from './settings';
+import { DEFAULT_MOBILE_WIDTHS } from './settings';
 
-function testFlow(isDesktop: boolean, title: string) {
-  if (isDesktop) {
-    cy.setEditorSelection(111, 7);
-    cy.wait(200);
-    cy.eyesCheckWindow(title + ' (formatting selection)');
+function testFlow(title: string) {
+  cy.setEditorSelection(111, 7);
+  cy.wait(400);
+  cy.percySnapshot(title + ' (formatting selection)');
 
-    cy.setEditorSelection(171, 14);
-    cy.wait(200);
-    cy.eyesCheckWindow(title + ' (link selection)');
-  }
+  cy.setEditorSelection(171, 14);
+  cy.wait(400);
+  cy.percySnapshot(title + ' (link selection)');
 }
 
+const snapshot = (title, isDesktop) => {
+  cy.wait(200).setEditorSelection(0, 0).wait(200);
+  cy.percySnapshot(
+    `${title}  - ${isDesktop ? 'desktop' : 'mobile'}`,
+    isDesktop ? {} : DEFAULT_MOBILE_WIDTHS
+  );
+  isDesktop && testFlow(title);
+};
+
 function tests({ isDesktop }: { isDesktop?: boolean }) {
-  it('no palette, no cssOverride', function() {
+  it('no palette, no cssOverride', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...useTheming({ skipCssOverride: true }),
       ...usePlugins(plugins.all),
       ...getPluginMenuConfig(),
     }).focusEditor();
-    cy.wait(2000);
-    cy.eyesCheckWindow(this.test.title);
-    testFlow(isDesktop, this.test.title);
+    snapshot(this.test.title, isDesktop);
   });
 
-  it('no palette, cssOverride', function() {
+  it('no palette, cssOverride', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', usePlugins(plugins.all)).focusEditor();
-    cy.wait(2000);
-    cy.eyesCheckWindow(this.test.title);
-    testFlow(isDesktop, this.test.title);
+    snapshot(this.test.title, isDesktop);
   });
 
-  it('palette, no cssOverride', function() {
+  it('palette, no cssOverride', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({
@@ -40,22 +43,18 @@ function tests({ isDesktop }: { isDesktop?: boolean }) {
         paletteType: 'light',
       }),
     }).focusEditor();
-    cy.wait(2000);
-    cy.eyesCheckWindow(this.test.title);
-    testFlow(isDesktop, this.test.title);
+    snapshot(this.test.title, isDesktop);
   });
 
-  it('palette, cssOverride', function() {
+  it('palette, cssOverride', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({ paletteType: 'light' }),
     }).focusEditor();
-    cy.wait(2000);
-    cy.eyesCheckWindow(this.test.title);
-    testFlow(isDesktop, this.test.title);
+    snapshot(this.test.title, isDesktop);
   });
 
-  it('dark palette, no cssOverride', function() {
+  it('dark palette, no cssOverride', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({
@@ -63,12 +62,10 @@ function tests({ isDesktop }: { isDesktop?: boolean }) {
         paletteType: 'dark',
       }),
     }).focusEditor();
-    cy.wait(2000);
-    cy.eyesCheckWindow(this.test.title);
-    testFlow(isDesktop, this.test.title);
+    snapshot(this.test.title, isDesktop);
   });
 
-  it('dark palette, no cssOverride, no container', function() {
+  it('dark palette, no cssOverride, no container', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({
@@ -77,12 +74,10 @@ function tests({ isDesktop }: { isDesktop?: boolean }) {
         disableContainer: true,
       }),
     }).focusEditor();
-    cy.wait(2000);
-    cy.eyesCheckWindow(this.test.title);
-    testFlow(isDesktop, this.test.title);
+    snapshot(this.test.title, isDesktop);
   });
 
-  it('dark palette, no cssOverride, no container, contentBgColor', function() {
+  it('dark palette, no cssOverride, no container, contentBgColor', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({
@@ -92,32 +87,26 @@ function tests({ isDesktop }: { isDesktop?: boolean }) {
         contentBgColor: true,
       }),
     }).focusEditor();
-    cy.wait(2000);
-    cy.eyesCheckWindow(this.test.title);
-    testFlow(isDesktop, this.test.title);
+    snapshot(this.test.title, isDesktop);
   });
 
-  it('dark palette, cssOverride', function() {
+  it('dark palette, cssOverride', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({ paletteType: 'dark' }),
     }).focusEditor();
-    cy.wait(2000);
-    cy.eyesCheckWindow(this.test.title);
-    testFlow(isDesktop, this.test.title);
+    snapshot(this.test.title, isDesktop);
   });
 
-  it('dark palette, no cssOverride, fallbackColor=red', function() {
+  it('dark palette, no cssOverride, fallbackColor=red', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({ paletteType: 'dark', skipCssOverride: true, fallbackColor: '%23FF0000' }),
     }).focusEditor();
-    cy.wait(2000);
-    cy.eyesCheckWindow(this.test.title);
-    testFlow(isDesktop, this.test.title);
+    snapshot(this.test.title, isDesktop);
   });
 
-  it('dark palette, no cssOverride, settingsActionColor=blue', function() {
+  it('dark palette, no cssOverride, settingsActionColor=blue', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({
@@ -127,19 +116,15 @@ function tests({ isDesktop }: { isDesktop?: boolean }) {
         focusActionColor: '%233899EC',
       }),
     }).focusEditor();
-    cy.wait(2000);
-    cy.eyesCheckWindow(this.test.title);
-    testFlow(isDesktop, this.test.title);
+    snapshot(this.test.title, isDesktop);
   });
 
-  it('customStyles', function() {
+  it('customStyles', function () {
     cy.loadRicosEditorAndViewer('storybook-example-app', {
       ...usePlugins(plugins.all),
       ...useTheming({ useCustomStyles: true, skipCssOverride: true }),
     }).focusEditor();
-    cy.wait(2000);
-    cy.eyesCheckWindow(this.test.title);
-    testFlow(isDesktop, this.test.title);
+    snapshot(this.test.title, isDesktop);
   });
 }
 
@@ -147,33 +132,13 @@ describe('Theming', () => {
   afterEach(() => cy.matchContentSnapshot());
 
   context('desktop', () => {
-    before(function() {
-      cy.eyesOpen({
-        appName: 'Theming',
-        testName: this.test.parent.title,
-        browser: DEFAULT_DESKTOP_BROWSERS,
-      });
-    });
-
     beforeEach(() => cy.switchToDesktop());
-
-    after(() => cy.eyesClose());
 
     tests({ isDesktop: true });
   });
 
   context('mobile', () => {
-    before(function() {
-      cy.eyesOpen({
-        appName: 'Theming',
-        testName: this.test.parent.title,
-        browser: DEFAULT_MOBILE_BROWSERS,
-      });
-    });
-
     beforeEach(() => cy.switchToMobile());
-
-    after(() => cy.eyesClose());
 
     tests({});
   });

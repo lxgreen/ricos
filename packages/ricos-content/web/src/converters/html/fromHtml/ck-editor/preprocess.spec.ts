@@ -1,4 +1,3 @@
-import { readFileSync } from 'fs';
 import { preprocess } from './preprocess';
 
 describe('CKEditor preprocess', () => {
@@ -18,15 +17,6 @@ describe('CKEditor preprocess', () => {
       '<ol><li><p>item</p></li><li><div><img><p>This should be <strong>wrapped</strong> with P!</p></div></li></ol>';
     const actual = preprocess(
       '<ol><li>item</li><li><p><img>This should be <strong>wrapped</strong> with P!</p></li></ol>'
-    );
-    expect(actual).toEqual(expected);
-  });
-
-  it('<p/> => <div/>', async () => {
-    const expected =
-      '<p>text</p><div></div><div></div><ol><li><p>item</p></li><li><div></div></li></ol>';
-    const actual = preprocess(
-      '<p>text</p><div></div><div></div><ol><li><p>item</p></li><li><p/></li></ol>'
     );
     expect(actual).toEqual(expected);
   });

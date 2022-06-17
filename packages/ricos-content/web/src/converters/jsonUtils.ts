@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { RichContent } from 'ricos-schema';
+import type { RichContent } from 'ricos-schema';
 
 export const fromJSONLight = (object: Record<string, any>): RichContent => {
   const { version, createdTimestamp, updatedTimestamp } = object.metadata || {};
@@ -49,7 +49,7 @@ export interface Timestamp {
 
 const baseTimestamp: Timestamp = { seconds: 0, nanos: 0 };
 
-const Timestamp = {
+const TimestampObj = {
   fromJSON(object: any): Timestamp {
     const message = { ...baseTimestamp } as Timestamp;
     if (object.seconds !== undefined && object.seconds !== null) {
@@ -85,6 +85,6 @@ function fromJsonTimestamp(o: any): Date {
   } else if (typeof o === 'string') {
     return new Date(o);
   } else {
-    return fromTimestamp(Timestamp.fromJSON(o));
+    return fromTimestamp(TimestampObj.fromJSON(o));
   }
 }

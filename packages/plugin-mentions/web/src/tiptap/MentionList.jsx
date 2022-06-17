@@ -1,13 +1,21 @@
-import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/mouse-events-have-key-events */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useState, useEffect, forwardRef, useImperativeHandle, useContext } from 'react';
 import PropTypes from 'prop-types';
-import styles from '../../statics/mention-list.scss';
+import MentionAvatar from './MentionAvatar';
 import classNames from 'classnames';
+import { RicosContext } from 'ricos-context';
+import styles from '../../statics/mention-list.scss';
+import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 
 const MentionList = forwardRef((props, ref) => {
+  const { languageDir } = useContext(RicosContext) || {};
+
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const selectItem = index => {
-    const item = props.items[index];
+    const item = props.items[index]?.name;
 
     if (item) {
       props.command({ id: item });
@@ -49,20 +57,33 @@ const MentionList = forwardRef((props, ref) => {
     },
   }));
 
-  const Container = props.container.type || 'div';
-  return (
-    <Container className={styles.items} {...(props.container.props || {})}>
-      {props.items.map((item, index) => (
-        <button
-          className={classNames(styles.item, index === selectedIndex && styles.selected)}
-          key={index}
-          onClick={() => selectItem(index)}
-        >
-          {item}
-        </button>
-      ))}
-    </Container>
-  );
+  const hasEllipsis = name => {
+    const charactersLimit = 23;
+    return name.length > charactersLimit;
+  };
+
+  return props.items.length ? (
+    <div dir={languageDir} className={styles.mention_list}>
+      {props.items.map((item, i) => {
+        const tooltipContent = hasEllipsis(item.name) ? item.name : null;
+        return (
+          <Tooltip key={i} content={tooltipContent} place="top">
+            <div
+              key={i}
+              className={classNames(styles.mention_item, {
+                [styles.mention_item_selected]: i === selectedIndex,
+              })}
+              onMouseOver={() => setSelectedIndex(i)}
+              onClick={() => selectItem(i)}
+            >
+              <MentionAvatar src={item?.avatar} alt={item.name} />
+              <span>{item.name}</span>
+            </div>
+          </Tooltip>
+        );
+      })}
+    </div>
+  ) : null;
 });
 
 MentionList.propTypes = {

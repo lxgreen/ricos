@@ -1,17 +1,19 @@
-import React, { FunctionComponent } from 'react';
-import { DraftContent, RicosEditor } from 'ricos-editor';
+import type { FunctionComponent } from 'react';
+import React from 'react';
+import type { DraftContent } from 'ricos-editor';
+import { RicosEditor } from 'ricos-editor';
 import { pluginLinkPreview, LinkPreviewProviders } from 'wix-rich-content-plugin-link-preview';
 import { pluginLink } from 'wix-rich-content-plugin-link';
 import { pluginHtml } from 'wix-rich-content-plugin-html';
 import { mockFetchUrlPreviewData } from '../../../src/shared/utils/linkPreviewUtil';
 
-const { Instagram, Twitter, YouTube, TikTok } = LinkPreviewProviders;
+const { Instagram, Twitter, TikTok } = LinkPreviewProviders;
 
 const plugins = [
   pluginLink(),
   pluginLinkPreview({
     fetchData: mockFetchUrlPreviewData(),
-    exposeEmbedButtons: [Instagram, Twitter, YouTube, TikTok],
+    exposeEmbedButtons: [Instagram, Twitter, TikTok],
     enableEmbed: true,
   }),
   pluginHtml(),

@@ -2,9 +2,7 @@ import * as S from 'fp-ts/string';
 import { v4 as uuid } from 'uuid';
 import { pipe } from 'fp-ts/function';
 import { merge } from 'lodash';
-import {
-  TextStyle_TextAlignment,
-  Node_Type,
+import type {
   NodeStyle,
   ParagraphData,
   CodeBlockData,
@@ -20,19 +18,20 @@ import {
   Node,
   Decoration,
   Metadata,
-  Decoration_Type,
   HeadingData,
   PollData,
   TextData,
   VideoData,
-  LATEST_VERSION,
+  AudioData,
   Link,
   Link_Target,
   AppEmbedData,
+  EmbedData,
   TableData,
   TableCellData,
   CollapsibleListData,
 } from 'ricos-schema';
+import { TextStyle_TextAlignment, Node_Type, Decoration_Type, LATEST_VERSION } from 'ricos-schema';
 import { generateId } from './generateRandomId';
 import { fromEntries } from '../utils';
 
@@ -68,12 +67,13 @@ export const dataByNodeType = (type: Node_Type, data: unknown) =>
     [Node_Type.HTML]: { htmlData: data as HTMLData },
     [Node_Type.IMAGE]: { imageData: data as ImageData },
     [Node_Type.BUTTON]: { buttonData: data as ButtonData },
-    [Node_Type.LINK_PREVIEW]: { LinkPreviewData: data as LinkPreviewData },
     [Node_Type.MAP]: { mapData: data as MapData },
     [Node_Type.PARAGRAPH]: { paragraphData: data as ParagraphData },
     [Node_Type.POLL]: { pollData: data as PollData },
     [Node_Type.TEXT]: { textData: data as TextData },
     [Node_Type.VIDEO]: { videoData: data as VideoData },
+    [Node_Type.AUDIO]: { audioData: data as AudioData },
+    [Node_Type.EMBED]: { embedData: data as EmbedData },
     [Node_Type.APP_EMBED]: { appEmbedData: data as AppEmbedData },
     [Node_Type.LINK_PREVIEW]: { linkPreviewData: data as LinkPreviewData },
     [Node_Type.TABLE]: { tableData: data as TableData },
@@ -203,24 +203,26 @@ export const createLinkDecoration = (data: { url?: string; rel?: string; target?
 
 export const last = arr => (arr.length > 0 ? arr[arr.length - 1] : null);
 
-export const partitionBy = <T>(
-  isSeparator: (node: T) => boolean,
-  isPartition: (node: T) => boolean,
-  Separator: (node: T) => T,
-  Partition: (node: T) => T,
-  addToPartition: (partition: T, node: T) => void
-) => (nodes: T[]): T[] =>
-  nodes.reduce((partitions: T[], node: T) => {
-    if (isSeparator(node)) {
-      partitions.push(Separator(node));
-    } else {
-      let lastPartition = last(partitions);
-      if (!lastPartition || !isPartition(lastPartition)) {
-        const partition = Partition(node);
-        partitions.push(partition);
-        lastPartition = last(partitions);
+export const partitionBy =
+  <T>(
+    isSeparator: (node: T) => boolean,
+    isPartition: (node: T) => boolean,
+    Separator: (node: T) => T,
+    Partition: (node: T) => T,
+    addToPartition: (partition: T, node: T) => void
+  ) =>
+  (nodes: T[]): T[] =>
+    nodes.reduce((partitions: T[], node: T) => {
+      if (isSeparator(node)) {
+        partitions.push(Separator(node));
+      } else {
+        let lastPartition = last(partitions);
+        if (!lastPartition || !isPartition(lastPartition)) {
+          const partition = Partition(node);
+          partitions.push(partition);
+          lastPartition = last(partitions);
+        }
+        addToPartition(lastPartition, node);
       }
-      addToPartition(lastPartition, node);
-    }
-    return partitions;
-  }, []);
+      return partitions;
+    }, []);

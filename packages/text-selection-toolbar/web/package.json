@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-text-selection-toolbar",
-  "version": "8.65.22",
+  "version": "8.71.28",
   "author": {
     "name": "Dana Rish",
     "email": "danari@wix.com"
@@ -31,11 +31,10 @@
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "build:analyze:editor": "npm run build -- --environment MODULE_ANALYZE_EDITOR  && open stats.html",
     "build:analyze:viewer": "npm run build -- --environment MODULE_ANALYZE_VIEWER && open stats.html",
-    "watch": "cross-env NODE_ENV=development MODULE_WATCH=1 npm run build:rollup -- --watch.chokidar",
+    "watch": "cross-env NODE_ENV=development npm run build:rollup -- --watch",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,d.ts}'"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.2.0",
     "classnames": "^2.0.0",
     "lodash": "^4.0.0",
     "prop-types": "^15.0.0",

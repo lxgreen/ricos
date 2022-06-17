@@ -1,6 +1,6 @@
 import { compare as compareDraftContent } from './compare';
 import content from '../../../../../e2e/tests/fixtures/migration-content.json';
-import { DraftContent } from '../types/contentTypes';
+import type { DraftContent } from '../types/contentTypes';
 import { Lens } from 'monocle-ts';
 
 describe('comapare DraftContent', () => {

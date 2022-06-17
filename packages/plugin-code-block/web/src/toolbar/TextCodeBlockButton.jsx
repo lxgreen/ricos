@@ -15,16 +15,8 @@ export default class TextCodeBlockButton extends Component {
   }
 
   render() {
-    const {
-      theme,
-      helpers,
-      isMobile,
-      t,
-      tabIndex,
-      setEditorState,
-      getEditorState,
-      config,
-    } = this.props;
+    const { theme, helpers, isMobile, t, tabIndex, setEditorState, getEditorState, config } =
+      this.props;
     const icon = config?.['code-block']?.toolbar?.icons?.InsertPluginButtonIcon || CodeBlockIcon;
     const onClick = () => {
       const editorState = getEditorState();

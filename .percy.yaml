@@ -1,0 +1,14 @@
+version: 1
+snapshot:
+  widths: [1440]
+  percy-css: |
+    [data-hook="giphySelector"] {
+      display: none; 
+    }
+    video[aria-label="gif"] {
+      display: none;
+    }
+
+    [data-hook="addPluginFloatingToolbar"] {
+      display: none;
+    }

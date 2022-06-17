@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import {
-  mergeStyles,
+import type {
   TranslationFunction,
   RichContentTheme,
   Helpers,
   TextDirection,
 } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import { SettingsMobileHeader, Button } from '..';
 import { BUTTON_SIZE } from '../consts';
 import Styles from '../../statics/styles/url-input-modal.scss';
+import classNames from 'classnames';
 
 interface TextInputModalContainerProps {
   t: TranslationFunction;
@@ -33,6 +34,7 @@ interface TextInputModalContainerProps {
   onInputChange: (text) => void;
   input?: string;
   helpers?: Helpers;
+  withMobileSaveButton?: boolean;
 }
 
 const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
@@ -45,6 +47,7 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
   subTitle,
   isMobile,
   withMobileHeader = true,
+  withMobileSaveButton = false,
   selected = true,
   showTitle = true,
   onConfirm,
@@ -63,10 +66,12 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
       onCancel={() => onCloseRequested?.()}
       t={t}
       title={t('EmbedURL_MobileHeader')}
+      useNewSettingsUi
+      showSaveBtn={false}
     />
   );
 
-  const renderDesktopFooter = () => (
+  const renderActionButton = () => (
     <Button
       dataHook="actionButtonSave"
       disabled={!selected}
@@ -78,14 +83,27 @@ const TextInputModalContainer: React.FC<TextInputModalContainerProps> = ({
     </Button>
   );
 
+  const shouldRenderActionButton = !isMobile || (isMobile && withMobileSaveButton);
+
   return (
-    <div className={styles.inputModal_container}>
+    <div
+      className={classNames(styles.inputModal_container, {
+        [styles.inputModal_mobile]: isMobile,
+        [styles.inputModal_mobile_withHeader]: withMobileHeader && isMobile,
+      })}
+    >
       {isMobile && withMobileHeader && renderMobileHeader()}
       <div className={styles.inputModal_content} data-hook={dataHook} dir={languageDir}>
         {modalTitle}
         {modalSubTitle}
-        <div className={styles.inputModal_textInput}>{children}</div>
-        {!isMobile && renderDesktopFooter()}
+        <div
+          className={classNames(styles.inputModal_textInput, {
+            [styles.textInput_margin_bottom]: withMobileSaveButton,
+          })}
+        >
+          {children}
+        </div>
+        {shouldRenderActionButton && renderActionButton()}
       </div>
     </div>
   );

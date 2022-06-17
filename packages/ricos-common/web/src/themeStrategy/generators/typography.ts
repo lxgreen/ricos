@@ -1,4 +1,5 @@
-import { CssVarsObject, RicosTheme, WixTypography, WixTypographyDefinition } from '../themeTypes';
+import type { RicosTheme, WixTypography, WixTypographyDefinition } from 'ricos-types';
+import type { CssVarsObject } from '../themeTypes';
 
 const toEntries = (wixTypography: WixTypography): [string, WixTypographyDefinition][] =>
   Object.entries(wixTypography);

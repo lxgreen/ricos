@@ -1,6 +1,8 @@
-.noOutline {
-  *:focus {
-    outline: none;
-    box-shadow: none;
+:global {
+  .noOutline {
+    *:focus {
+      outline: none;
+      box-shadow: none;
+    }
   }
 }

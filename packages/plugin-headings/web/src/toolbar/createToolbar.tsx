@@ -11,7 +11,7 @@ import {
 import HeadingButton from './HeadingButton';
 import HeadingsDropDownPanel from './HeadingPanel';
 import { HEADING_TYPE_TO_ELEMENT } from '../constants';
-import { CreatePluginToolbar } from 'wix-rich-content-common';
+import type { CreatePluginToolbar } from 'wix-rich-content-common';
 import { HEADINGS_DROPDOWN_TYPE } from '../types';
 
 const createToolbar: CreatePluginToolbar = config => {

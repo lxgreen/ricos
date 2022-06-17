@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
-import { Decoration, Node, Node_Type, Decoration_Type } from 'ricos-schema';
-import { RicosInlineStyleRange, RicosEntityRange, RicosEntityMap } from '../../../types';
+import type { Decoration, Node } from 'ricos-schema';
+import { Node_Type, Decoration_Type } from 'ricos-schema';
+import type { RicosInlineStyleRange, RicosEntityRange, RicosEntityMap } from '../../../types';
 import { FROM_RICOS_DECORATION_TYPE, TO_RICOS_DECORATION_DATA_FIELD } from '../consts';
 import { emojiRegex } from '../emojiRegex';
 import { createDecorationEntityData } from './getDraftEntityData';
@@ -119,7 +120,11 @@ export const parseEntityDecorations = (
   entityMap: RicosEntityMap;
   latestEntityKey: number;
 } => {
-  const { entityRanges, entityMap, latestEntityKey: newLatestEntityKey } = decorations.reduce<{
+  const {
+    entityRanges,
+    entityMap,
+    latestEntityKey: newLatestEntityKey,
+  } = decorations.reduce<{
     entityRanges: RicosEntityRange[];
     entityMap: RicosEntityMap;
     latestEntityKey: number;
@@ -173,29 +178,35 @@ const convertDecorationTypes = (decorations: Decoration[]): DraftTypedDecoration
 export const convertDocumentStyleDecorationTypes = (decorations: Decoration[]) => {
   let draftBlockStyles = {};
   decorations.forEach(decoration => {
-    draftBlockStyles = {
-      ...draftBlockStyles,
-      ...ricosDecorationToCss[decoration.type](decoration),
-    };
+    decoration &&
+      (draftBlockStyles = {
+        ...draftBlockStyles,
+        ...ricosDecorationToCss[decoration.type](decoration),
+      });
   });
   return draftBlockStyles;
 };
 
 const ricosDecorationToCss = {
   [Decoration_Type.BOLD]: ({ fontWeightValue }) => {
-    return { 'font-weight': !fontWeightValue || fontWeightValue >= 700 ? 'bold' : 'normal' };
+    return fontWeightValue ? { 'font-weight': fontWeightValue >= 700 ? 'bold' : 'normal' } : {};
   },
   [Decoration_Type.ITALIC]: ({ italicData }) => {
-    return { 'font-style': italicData || typeof italicData === 'undefined' ? 'italic' : 'normal' };
+    return typeof italicData !== 'undefined'
+      ? { 'font-style': italicData ? 'italic' : 'normal' }
+      : {};
   },
   [Decoration_Type.UNDERLINE]: ({ underlineData }) => {
-    return {
-      'text-decoration':
-        underlineData || typeof underlineData === 'undefined' ? 'underline' : 'none',
-    };
+    return typeof underlineData !== 'undefined'
+      ? {
+          'text-decoration': underlineData ? 'underline' : 'none',
+        }
+      : {};
   },
   [Decoration_Type.FONT_SIZE]: ({ fontSizeData }) => {
-    return { 'font-size': fontSizeData.value + (fontSizeData.unit || 'px') };
+    return fontSizeData
+      ? { 'font-size': fontSizeData.value + (fontSizeData.unit.toLowerCase() || 'px') }
+      : {};
   },
   [Decoration_Type.COLOR]: ({ colorData }) => {
     const { foreground, background } = colorData;
@@ -229,7 +240,7 @@ const toDraftDecorationType = (decoration: Decoration): DraftTypedDecoration => 
     Decoration_Type.BOLD,
     Decoration_Type.ITALIC,
     Decoration_Type.UNDERLINE,
-  ])[decoration.type];
+  ])[decoration?.type];
   return type ? { ...decoration, type } : decoration;
 };
 

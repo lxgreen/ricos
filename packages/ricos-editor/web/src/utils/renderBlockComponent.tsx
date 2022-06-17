@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+import type { FC } from 'react';
+import React from 'react';
 
 export const renderSideBlockComponent = (
   id: string,
@@ -7,18 +8,15 @@ export const renderSideBlockComponent = (
 ) => {
   const node = document.querySelectorAll(`[data-offset-key="${id}-0-0"]`)[0] as HTMLElement;
   if (node?.offsetParent) {
-    const top = node.getBoundingClientRect().top;
-    const parentTop = node.offsetParent.getBoundingClientRect().top;
-    const lineHeight = window.getComputedStyle(node).getPropertyValue('line-height');
+    const { top } = node.getBoundingClientRect();
+    const { top: parentTop, width } = node.offsetParent.getBoundingClientRect();
+    const insetInlineStart = (dir === 'ltr' ? width : 0) + 10;
     return (
       <div
-        dir={dir}
         style={{
           position: 'absolute',
-          display: 'block',
           top: top - parentTop,
-          lineHeight,
-          insetInlineEnd: 0,
+          insetInlineStart,
         }}
       >
         <Component id={id} />

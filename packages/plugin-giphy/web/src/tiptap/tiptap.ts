@@ -1,24 +1,36 @@
-import { CreateRicosExtensions } from 'ricos-tiptap-types';
-import { Gif as Component } from './component';
-import gifDataDefaults from 'ricos-schema/dist/statics/gif.defaults.json';
 import { TIPTAP_GIF_TYPE } from 'ricos-content';
+import gifDataDefaults from 'ricos-schema/dist/statics/gif.defaults.json';
+import type { ExtensionProps, NodeConfig, RicosExtension } from 'ricos-tiptap-types';
+import { Gif as Component } from './component';
 
 const name = TIPTAP_GIF_TYPE;
 
-export const createRicosExtensions: CreateRicosExtensions = defaultOptions => [
+export const tiptapExtensions = [
   {
     type: 'node' as const,
-    Component,
-    componentDataDefaults: { ...gifDataDefaults, id: '' },
-    createExtensionConfig: () => ({
-      name,
-      group: 'block',
-      selectable: true,
-      draggable: true,
-      addOptions: () => defaultOptions,
-      addCommands() {
-        return {};
-      },
+    name,
+    groups: ['react'],
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions: () => settings,
     }),
+    Component,
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        group: 'block',
+        selectable: true,
+        draggable: true,
+        addAttributes: () => gifDataDefaults,
+        addCommands() {
+          return {};
+        },
+      };
+    },
   },
 ];

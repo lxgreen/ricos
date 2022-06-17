@@ -5,12 +5,16 @@ import {
   pluginVideo,
 } from 'wix-rich-content-plugin-video/loadable/viewer';
 import {
+  audioTypeMapper,
+  AUDIO_TYPE,
+  pluginAudio,
+} from 'wix-rich-content-plugin-audio/loadable/viewer';
+import {
   dividerTypeMapper,
   pluginDivider,
   DIVIDER_TYPE,
 } from 'wix-rich-content-plugin-divider/viewer';
 import { htmlTypeMapper, pluginHtml, HTML_TYPE } from 'wix-rich-content-plugin-html/viewer';
-import { soundCloudTypeMapper, pluginSoundCloud } from 'wix-rich-content-plugin-sound-cloud/viewer';
 import { linkTypeMapper, LINK_TYPE, pluginLink } from 'wix-rich-content-plugin-link/viewer';
 import {
   linkPreviewTypeMapper,
@@ -35,7 +39,7 @@ import {
   buttonTypeMapper,
   pluginActionButton,
   ACTION_BUTTON_TYPE,
-} from 'wix-rich-content-plugin-button/viewer';
+} from 'wix-rich-content-plugin-button/loadable/viewer';
 import { HashtagDecorator, pluginHashtag } from 'wix-rich-content-plugin-hashtag/viewer';
 import {
   verticalEmbedTypeMapper,
@@ -56,7 +60,7 @@ import {
   mentionsTypeMapper,
   MENTION_TYPE,
   pluginMentions,
-} from 'wix-rich-content-plugin-mentions/viewer';
+} from 'wix-rich-content-plugin-mentions/loadable/viewer';
 import {
   fileUploadTypeMapper,
   pluginFileUpload,
@@ -92,42 +96,15 @@ import {
 import { pollTypeMapper, pluginPoll, POLL_TYPE } from 'wix-rich-content-plugin-social-polls/viewer';
 import { SocialPollsServiceMock } from '../../src/Components/SocialPollsServiceMock/SocialPollsServiceMock';
 
-import 'wix-rich-content-editor-common/dist/styles.min.css';
-import 'wix-rich-content-common/dist/styles.min.css';
-import 'wix-rich-content-viewer/dist/styles.min.css';
-// import 'wix-rich-content-plugin-code-block/dist/styles.min.css';
-import 'wix-rich-content-plugin-button/dist/styles.min.css';
-import 'wix-rich-content-plugin-divider/dist/styles.min.css';
-import 'wix-rich-content-plugin-hashtag/dist/styles.min.css';
-import 'wix-rich-content-plugin-html/dist/styles.min.css';
-import 'wix-rich-content-plugin-image/dist/styles.min.css';
-import 'wix-rich-content-plugin-gallery/dist/styles.min.css';
-import 'wix-rich-content-plugin-link/dist/styles.min.css';
-import 'wix-rich-content-plugin-link-preview/dist/styles.min.css';
-import 'wix-rich-content-plugin-spoiler/dist/styles.min.css';
-import 'wix-rich-content-plugin-mentions/dist/styles.min.css';
-import 'wix-rich-content-plugin-video/dist/styles.min.css';
-import 'wix-rich-content-plugin-sound-cloud/dist/styles.min.css';
-import 'wix-rich-content-plugin-map/dist/styles.min.css';
-import 'wix-rich-content-plugin-file-upload/dist/styles.min.css';
-import 'wix-rich-content-plugin-giphy/dist/styles.min.css';
-import 'wix-rich-content-text-selection-toolbar/dist/styles.min.css';
-import 'wix-rich-content-link-preview-popover/dist/styles.min.css';
-import 'wix-rich-content-plugin-social-polls/dist/styles.min.css';
-import 'wix-rich-content-plugin-collapsible-list/dist/styles.min.css';
-import 'wix-rich-content-plugin-table/dist/styles.min.css';
-import 'wix-rich-content-plugin-vertical-embed/dist/styles.min.css';
-
-import { RichContentViewerProps } from 'wix-rich-content-viewer';
-import {
+import type { RichContentViewerProps } from 'wix-rich-content-viewer';
+import type {
   Decorator,
-  HASHTAG_TYPE,
   PluginTypeMapper,
   DraftContent,
   UISettings,
-  ViewerPlugin,
   ViewerPluginCreator,
 } from 'wix-rich-content-common';
+import { HASHTAG_TYPE, ViewerPlugin } from 'wix-rich-content-common';
 
 const linkPluginSettings = {
   // eslint-disable-next-line no-console
@@ -142,12 +119,12 @@ const mentionsPluginSettings = {
 
 export const typeMappers: PluginTypeMapper[] = [
   videoTypeMapper,
+  audioTypeMapper,
   buttonTypeMapper,
   dividerTypeMapper,
   htmlTypeMapper,
   linkTypeMapper,
   linkPreviewTypeMapper,
-  soundCloudTypeMapper,
   mentionsTypeMapper,
   imageTypeMapper,
   tableTypeMapper,
@@ -209,14 +186,23 @@ const config: RichContentViewerProps['config'] = {
     resolveFileUrl: () =>
       new Promise(resolve =>
         setTimeout(
-          () => resolve('https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf'),
+          // eslint-disable-next-line max-len
+          () =>
+            resolve(
+              // eslint-disable-next-line max-len
+              'https://cms.education.gov.il/NR/rdonlyres/BFBDB737-89E9-4B70-A1FF-1122B7AE8F1D/69371/14_HEB_ClassRecipeBook.pdf'
+            ),
           1000
         )
       ),
     downloadTarget: '_blank',
+    adobeAPIKey: '77266adc759d4dc2a9e071e3bde25095',
   },
   [VIDEO_TYPE]: {
     getVideoUrl: src => `https://video.wixstatic.com/${src.pathname}`,
+  },
+  [AUDIO_TYPE]: {
+    getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,
   },
   uiSettings,
   [ACTION_BUTTON_TYPE]: {
@@ -233,12 +219,20 @@ const config: RichContentViewerProps['config'] = {
     },
     createHref: decoratedText => `/search/posts?query=${encodeURIComponent('#')}${decoratedText}`,
   },
+  [VERTICAL_EMBED_TYPE]: {
+    changeBaseUrl: url => {
+      // eslint-disable-next-line no-console
+      console.log('change vertical embed baseUrl');
+      return url;
+    },
+  },
 };
 
 export const ricosViewerPlugins: Record<string, ViewerPluginCreator<unknown>> = {
   [IMAGE_TYPE]: pluginImage,
   [GALLERY_TYPE]: pluginGallery,
   [VIDEO_TYPE]: pluginVideo,
+  [AUDIO_TYPE]: pluginAudio,
   [HTML_TYPE]: pluginHtml,
   [DIVIDER_TYPE]: pluginDivider,
   [LINK_TYPE]: pluginLink,

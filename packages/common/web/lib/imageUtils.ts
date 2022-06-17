@@ -1,5 +1,5 @@
 import imageClientAPI from 'image-client-api/dist/imageClientSDK';
-import { ComponentData } from 'ricos-content';
+import type { ComponentData } from 'ricos-content';
 
 const WIX_STATIC_URL = 'https://static.wixstatic.com';
 const DEFAULT = {
@@ -12,6 +12,12 @@ const PRELOAD = {
   WIDTH: 750,
   QUALITY: 20,
 };
+
+const IMAGE_SIZE = {
+  small: 350,
+  fullWidth: 940,
+};
+
 const resize = (w: number, h: number, rw: number, rh: number) => {
   if (rw > w && rh > h) {
     return { width: w, height: h };
@@ -24,48 +30,56 @@ const ceilDimension = (dim: Dimension) => ({ w: Math.ceil(dim.w), h: Math.ceil(d
 
 const createUrl = (
   src: ComponentData['src'],
-  removeUsm?: boolean,
   rw?: number,
   rh?: number,
   rq?: number,
-  type = DEFAULT.TYPE
+  type = DEFAULT.TYPE,
+  size?: string,
+  options?: {
+    removeUsm?: boolean;
+    encAutoImageUrls?: boolean;
+  }
 ) => {
   if (type === 'preload') {
-    return createPreloadUrl(src, rw, rh, rq);
+    return createPreloadUrl(src, rw, rh, rq, options?.encAutoImageUrls);
   }
   if (type === 'quailtyPreload') {
-    return createQuailtyPreloadUrl(src, rw, rq);
+    return createQuailtyPreloadUrl(src, rw, rq, size, options?.encAutoImageUrls);
   }
-  return createHiResUrl(src, rw, rh, rq, removeUsm);
+  return createHiResUrl(src, rw, rh, rq, options?.removeUsm);
 };
 
 const createPreloadUrl = (
   { file_name: fileName, width: w, height: h }: ComponentData['src'] = {},
   rw = DEFAULT.SIZE,
   rh = DEFAULT.SIZE,
-  rq = DEFAULT.QUALITY
+  rq = DEFAULT.QUALITY,
+  encAutoImageUrls
 ) => {
   if (fileName) {
     const { width, height } = resize(w, h, rw, rh);
     const H = Math.ceil(height); //make sure no sterching will occur
     const W = Math.ceil(width);
     const format = getImageFormat(fileName);
-    return `${WIX_STATIC_URL}/media/${fileName}/v1/fit/w_${W},h_${H},al_c,q_${rq}/file${format}`;
+    const params = `w_${W},h_${H},al_c,q_${rq}${encAutoImageUrls ? ',enc_auto' : ''}`;
+    return `${WIX_STATIC_URL}/media/${fileName}/v1/fit/${params}/file${format}`;
   }
 };
 
 const createQuailtyPreloadUrl = (
   { file_name: fileName, width: w, height: h }: ComponentData['src'] = {},
-  rw = PRELOAD.WIDTH,
-  rq = PRELOAD.QUALITY
+  rw,
+  rq = PRELOAD.QUALITY,
+  size,
+  encAutoImageUrls
 ) => {
   if (fileName) {
-    const minW = Math.min(rw, w);
+    const width = rw || IMAGE_SIZE[size] || PRELOAD.WIDTH;
+    const minW = Math.min(width, w);
     const ratio = h / w;
     const tDim: Dimension = ceilDimension({ w: minW, h: minW * ratio });
-    return `${WIX_STATIC_URL}/media/${fileName}/v1/fit/w_${tDim.w},h_${
-      tDim.h
-    },al_c,q_${rq}/file${getImageFormat(fileName)}`;
+    const params = `w_${tDim.w},h_${tDim.h},al_c,q_${rq}${encAutoImageUrls ? ',enc_auto' : ''}`;
+    return `${WIX_STATIC_URL}/media/${fileName}/v1/fit/${params}/file${getImageFormat(fileName)}`;
   }
   return '';
 };
@@ -104,6 +118,8 @@ const getImageSrc = (
     requiredQuality?: number;
     imageType?: string;
     removeUsm?: boolean;
+    encAutoImageUrls?: boolean;
+    size?: string;
   } = {}
 ) => {
   if (typeof src === 'object') {
@@ -124,11 +140,15 @@ const getImageSrc = (
     } else if (src.file_name) {
       const url = createUrl(
         src,
-        options.removeUsm,
         options.requiredWidth,
         options.requiredHeight,
         options.requiredQuality,
-        options.imageType
+        options.imageType,
+        options.size,
+        {
+          removeUsm: options.removeUsm,
+          encAutoImageUrls: options.encAutoImageUrls,
+        }
       );
       return url;
     }
@@ -144,4 +164,25 @@ const isPNG = (src?: ComponentData['src']): boolean => {
   return /(.*)\.(png)$/.test(src.file_name);
 };
 
-export { isPNG, getImageSrc, DEFAULT as WIX_MEDIA_DEFAULT };
+function getMediaId(src: string) {
+  try {
+    const [, mediaId] = /media\/([^/]+)/.exec(src) as string[];
+    return mediaId;
+  } catch (error) {
+    return src;
+  }
+}
+
+function getScaleImageSrc(src: string, width: number, height: number) {
+  const mediaId = getMediaId(src);
+
+  try {
+    return imageClientAPI.getScaleToFillImageURL(mediaId, null, null, width, height, {
+      quality: 90,
+    });
+  } catch (error) {
+    return src;
+  }
+}
+
+export { isPNG, getImageSrc, getScaleImageSrc, DEFAULT as WIX_MEDIA_DEFAULT };

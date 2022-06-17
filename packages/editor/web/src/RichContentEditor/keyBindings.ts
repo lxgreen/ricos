@@ -1,6 +1,6 @@
-import { DraftEditorCommand, EditorProps } from '@wix/draft-js';
+import type { DraftEditorCommand, EditorProps } from '@wix/draft-js';
 import { isEqual } from 'lodash';
-import {
+import type {
   CommandHandler,
   KeyCommand,
   ModifierKey,

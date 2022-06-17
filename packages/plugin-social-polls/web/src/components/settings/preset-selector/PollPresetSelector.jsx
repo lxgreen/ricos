@@ -2,11 +2,7 @@
 import React, { PureComponent } from 'react';
 import { merge } from 'lodash';
 
-import {
-  SelectionList,
-  SettingsSeparator,
-  SelectionListItem,
-} from 'wix-rich-content-ui-components';
+import { SelectionList, SettingsSeparator } from 'wix-rich-content-ui-components';
 import { mergeStyles } from 'wix-rich-content-common';
 
 import { getRandomValue } from '../../../helpers';
@@ -25,41 +21,42 @@ export class PollPresetSelector extends PureComponent {
   styles = mergeStyles({ styles, theme: this.props.theme });
 
   handleTypeSelection = preset => {
-    const { helpers, componentData, onConfirm } = this.props;
+    const { componentData, onPollAdd } = this.props;
 
-    onConfirm(
-      merge({}, componentData, {
-        poll: {
-          mediaId: getRandomValue(POLL_IMAGES_POOL),
-          options: [
-            {
-              title: '',
-              mediaId: getRandomValue(OPTION_IMAGES_POOL),
-            },
-            {
-              title: '',
-              mediaId: getRandomValue(OPTION_IMAGES_POOL),
-            },
-          ],
-        },
-        layout: preset,
-        design: {
-          poll: {
-            backgroundType: BACKGROUND_TYPE.IMAGE,
-            background: getRandomValue(BACKGROUND_PRESETS[BACKGROUND_TYPE.IMAGE]),
+    const data = merge({}, componentData, {
+      poll: {
+        mediaId: getRandomValue(POLL_IMAGES_POOL),
+        options: [
+          {
+            title: '',
+            mediaId: getRandomValue(OPTION_IMAGES_POOL),
           },
+          {
+            title: '',
+            mediaId: getRandomValue(OPTION_IMAGES_POOL),
+          },
+        ],
+      },
+      layout: preset,
+      design: {
+        poll: {
+          backgroundType: BACKGROUND_TYPE.IMAGE,
+          background: getRandomValue(BACKGROUND_PRESETS[BACKGROUND_TYPE.IMAGE]),
         },
-      })
-    );
-    helpers.closeModal();
+      },
+    });
+    onPollAdd(data);
   };
 
-  renderOption = ({ item, selected }) => (
-    <SelectionListItem icon={<item.icon />} label={item.label} selected={selected} />
+  renderOption = ({ item }) => (
+    <>
+      <item.icon />
+      <p className={this.styles.selectionListOptionLabel}>{item.label}</p>
+    </>
   );
 
   render() {
-    const { t, isMobile, helpers } = this.props;
+    const { t, isMobile, closeModal } = this.props;
 
     return (
       <div className={this.styles.root}>
@@ -70,7 +67,7 @@ export class PollPresetSelector extends PureComponent {
               <RemoveIcon
                 width={30}
                 height={30}
-                onClick={helpers.closeModal}
+                onClick={closeModal}
                 className={styles.close_icon}
               />
             </div>

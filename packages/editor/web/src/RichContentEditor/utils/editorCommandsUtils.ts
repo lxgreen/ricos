@@ -1,7 +1,5 @@
+import type { EditorState, ContentState, ContentBlock } from 'wix-rich-content-editor-common';
 import {
-  EditorState,
-  ContentState,
-  ContentBlock,
   DraftOffsetKey,
   getBlockType,
   RichUtils,
@@ -16,22 +14,27 @@ import {
   getSelectionRange,
 } from 'wix-rich-content-editor-common';
 import { cloneDeep, uniq, pick } from 'lodash';
-import {
+import type {
   RicosCustomStyles,
   DocumentStyle,
   InlineStyle,
+  CustomInlineStyleType,
+} from 'wix-rich-content-common';
+import {
   INLINE_STYLE_TYPES,
   RICOS_TEXT_HIGHLIGHT_TYPE,
   RICOS_TEXT_COLOR_TYPE,
   RICOS_FONT_SIZE_TYPE,
-  CustomInlineStyleType,
   dynamicStyleParsers,
   safeJsonParse,
   draftDecorationsToCss,
-  DRAFT_TO_RICOS_DOC_TYPE,
+  DRAFT_TO_DOC_TYPE,
+  DRAFT_TO_DOC_TYPE_WITH_LISTS,
+  defaultFontSizes,
+  defaultMobileFontSizes,
 } from 'wix-rich-content-common';
 
-import { DRAFT_TO_RICOS_CUSTOM_STYLES, defaultFontSizes, defaultMobileFontSizes } from './consts';
+import { DRAFT_TO_RICOS_CUSTOM_STYLES } from './consts';
 
 export const getWiredFontStyles = (
   documentStyle?: DocumentStyle,
@@ -39,12 +42,12 @@ export const getWiredFontStyles = (
   isMobile?: boolean
 ) => {
   const fontSizes = {};
-  Object.entries(DRAFT_TO_RICOS_DOC_TYPE).forEach(([draftHeader, ricosHeader]) => {
+  Object.entries(DRAFT_TO_DOC_TYPE).forEach(([draftHeader, ricosHeader]) => {
     fontSizes[ricosHeader] = {
       'font-size':
         documentStyle?.[ricosHeader]?.['font-size'] ||
         customStyles?.[DRAFT_TO_RICOS_CUSTOM_STYLES[draftHeader]]?.fontSize ||
-        (isMobile ? defaultMobileFontSizes[draftHeader] : defaultFontSizes[draftHeader]),
+        (isMobile ? defaultMobileFontSizes[ricosHeader] : defaultFontSizes[ricosHeader]),
       'font-family':
         customStyles?.[DRAFT_TO_RICOS_CUSTOM_STYLES[draftHeader]]?.fontFamily ||
         'HelveticaNeue, Helvetica, Arial',
@@ -151,7 +154,7 @@ export const getFontSize = (editorState: EditorState) => {
 const getBlockStyle = (editorState: EditorState, getDocumentStyle) => {
   const blockType = getBlockType(editorState);
   const documentStyle = getDocumentStyle?.();
-  return documentStyle?.[DRAFT_TO_RICOS_DOC_TYPE[blockType]];
+  return documentStyle?.[DRAFT_TO_DOC_TYPE_WITH_LISTS[blockType]];
 };
 
 export const setFontSize = (
@@ -238,12 +241,31 @@ export const getAnchorBlockInlineStyles = (editorState: EditorState) => {
   const anchorKey = editorState.getSelection().getAnchorKey();
   const block = editorState.getCurrentContent().getBlockForKey(anchorKey);
   getBlockStyleRanges(block).forEach(range => {
-    const [key, value] = Object.entries(safeJsonParse(range.style) || { key: '' })?.[0];
+    const [key, value] = Object.entries(safeJsonParse(range.style) || { key: '' })[0];
     inlineStyles = {
       ...inlineStyles,
       ...draftDecorationsToCss[range.style],
       ...dynamicDecorationGetters[key]?.(value),
     };
+  });
+  return inlineStyles;
+};
+
+export const getInlineStylesInSelection = (editorState: EditorState) => {
+  const { dynamicStyles = {} } = getAnchorBlockData(editorState);
+  let inlineStyles = pick(dynamicStyles, ['line-height', 'padding-top', 'padding-bottom']);
+  const anchorKey = editorState.getSelection().getAnchorKey();
+  const block = editorState.getCurrentContent().getBlockForKey(anchorKey);
+  const selectionStartIndex = editorState.getSelection().getStartOffset();
+  getBlockStyleRanges(block).forEach(range => {
+    if (selectionStartIndex >= range.start && selectionStartIndex < range.end) {
+      const [key, value] = Object.entries(safeJsonParse(range.style) || { key: '' })[0];
+      inlineStyles = {
+        ...inlineStyles,
+        ...draftDecorationsToCss[range.style],
+        ...dynamicDecorationGetters[key]?.(value),
+      };
+    }
   });
   return inlineStyles;
 };

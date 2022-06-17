@@ -1,6 +1,6 @@
-import { DraftContent, RicosContentBlock, RicosEntity } from '../../types/contentTypes';
+import type { DraftContent, RicosContentBlock, RicosEntity } from '../../types/contentTypes';
 import { isArray } from 'lodash';
-import { TextBlockWithEntities } from '../ContentStateAnalyzer/types';
+import type { TextBlockWithEntities } from '../ContentStateAnalyzer/types';
 import mergeEntityData from './mergeEntityData';
 
 type PartialBlockConfig = Partial<RicosContentBlock>;
@@ -26,10 +26,7 @@ const DEFAULT_BLOCK_CONFIG = {
   depth: 0,
 };
 
-const createBlockKey = () =>
-  Math.random()
-    .toString(36)
-    .substr(2, 5);
+const createBlockKey = () => Math.random().toString(36).substr(2, 5);
 
 const createBlock = (
   type: string,

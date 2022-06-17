@@ -1,7 +1,9 @@
-import React, { Component, CSSProperties, RefCallback } from 'react';
+import type { CSSProperties, RefCallback } from 'react';
+import React, { Component } from 'react';
 import RichContentEditorModal from './RichContentEditorModal';
 import ClickOutside from 'react-click-outsider';
-import { getLangDir, ModalStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { ModalStyles, RichContentTheme } from 'wix-rich-content-common';
+import { getLangDir } from 'wix-rich-content-common';
 
 class InnerModal extends Component<{
   theme: RichContentTheme;
@@ -48,7 +50,7 @@ class InnerModal extends Component<{
       marginLeft: 'auto',
       marginRight: 'auto',
       color: 'var(--ricos-settings-text-color, #000)',
-      borderRadius: 'var(--ricos-settings-whitebox-border-radius, 0px)',
+      borderRadius: 'var(--ricos-settings-whitebox-border-radius, 2px)',
       boxShadow: 'var(--ricos-settings-whitebox-box-shadow, 0 4px 8px 0 rgba(0, 0, 0, 0.07))',
     };
     const innerModalStyles: CSSProperties = {

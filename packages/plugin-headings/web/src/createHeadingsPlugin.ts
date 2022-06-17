@@ -1,7 +1,8 @@
 import createToolbar from './toolbar/createToolbar';
-import { HEADINGS_DROPDOWN_TYPE, HeadingsPluginEditorConfig } from './types';
+import type { HeadingsPluginEditorConfig } from './types';
+import { HEADINGS_DROPDOWN_TYPE } from './types';
 import { createBasePlugin } from 'wix-rich-content-plugin-commons';
-import { CreatePluginFunction } from 'wix-rich-content-common';
+import type { CreatePluginFunction } from 'wix-rich-content-common';
 import { DEFAULTS } from './defaults';
 
 const createHeadingsPlugin: CreatePluginFunction<HeadingsPluginEditorConfig> = config => {

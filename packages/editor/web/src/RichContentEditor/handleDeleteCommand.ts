@@ -1,8 +1,5 @@
-import {
-  EditorState,
-  isAtomicBlockFocused,
-  replaceWithEmptyBlock,
-} from 'wix-rich-content-editor-common';
+import type { EditorState } from 'wix-rich-content-editor-common';
+import { isAtomicBlockFocused, replaceWithEmptyBlock } from 'wix-rich-content-editor-common';
 import removeBlockAdjacentToAtomic from './atomicBlockRemovalUtil';
 
 export default (editorState: EditorState) => {

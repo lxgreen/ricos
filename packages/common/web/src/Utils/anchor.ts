@@ -1,6 +1,4 @@
-import scrollIntoView from 'smooth-scroll-into-view-if-needed';
-
-export const anchorScroll = (element, experiments) => {
+export const anchorScroll = element => {
   const stickyHeaderHeight = document.querySelector('[id="SITE_HEADER"]')?.clientHeight || 0;
   const stickyAd = document.querySelector('[id="WIX_ADS"]')?.clientHeight || 0;
   const mobileToolbar =
@@ -8,23 +6,7 @@ export const anchorScroll = (element, experiments) => {
     document.querySelector('[data-hook="ricos-editor-toolbars"]')?.clientHeight ||
     0;
   const fixedElementsOffset = stickyHeaderHeight + stickyAd + mobileToolbar;
-  if (experiments?.anchorScrollWithSmoothScrollIntoViewIfNeeded?.enabled) {
-    anchorScrollUsingSmoothScrollIntoViewIfNeeded(element, fixedElementsOffset);
-  } else {
-    anchorScrollUsingScrollIntoView(element, fixedElementsOffset);
-  }
-};
-
-const anchorScrollUsingSmoothScrollIntoViewIfNeeded = (element, fixedElementsOffset) => {
-  const { paddingTop, marginTop } = element.style;
-  element.style.marginTop = `-${fixedElementsOffset}px`;
-  element.style.paddingTop = `${fixedElementsOffset}px`;
-  scrollIntoView(element, {
-    block: 'start',
-    inline: 'start',
-  });
-  element.style.marginTop = marginTop;
-  element.style.paddingTop = paddingTop;
+  anchorScrollUsingScrollIntoView(element, fixedElementsOffset);
 };
 
 const anchorScrollUsingScrollIntoView = (element, fixedElementsOffset) => {

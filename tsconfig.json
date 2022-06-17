@@ -16,7 +16,11 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "preserveConstEnums": false,
-    "allowJs": true
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "draft-js/*": ["./node_modules/@wix/draft-js/*"]
+    }
   },
   "files": ["external-types.d.ts"],
   "include": ["packages", "packages/**/*.json", "*.ts", "scripts"],

@@ -8,6 +8,7 @@ const TrashIcon = props => (
     height="19"
     viewBox="0 0 19 19"
     {...props}
+    fill="currentColor"
   >
     <defs>
       <path

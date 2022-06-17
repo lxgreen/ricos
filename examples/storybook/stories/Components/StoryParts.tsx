@@ -1,8 +1,9 @@
-import React, { FunctionComponent, ReactNode } from 'react';
+import type { FunctionComponent, ReactNode } from 'react';
+import React from 'react';
 import ReactJson from 'react-json-view';
 import SourceCode from './SourceCode';
 import styles from './styles.scss';
-import { DraftContent } from 'ricos-editor';
+import type { DraftContent } from 'ricos-editor';
 
 export const Page: FunctionComponent<{ title?: string }> = ({ title, children }) => (
   <div className={styles.page}>

@@ -1,3 +1,4 @@
+import type { ContentBlock } from 'wix-rich-content-editor-common';
 import {
   RichUtils,
   EditorState,
@@ -7,7 +8,6 @@ import {
   getSelectedBlocks,
   SelectionState,
   setNativeSelectionToBlock,
-  ContentBlock,
 } from 'wix-rich-content-editor-common';
 import removeBlockAdjacentToAtomic from './atomicBlockRemovalUtil';
 

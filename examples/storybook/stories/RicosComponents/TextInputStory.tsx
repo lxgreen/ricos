@@ -14,15 +14,15 @@ export default () => {
           <div>import {'{ ֿTextInput }'} from &apos;wix-rich-content-plugin-commons&apos;;</div>
           <div className={styles.section}>
             <label>Plain</label>
-            <TextInput placeholder="Placeholder" />
+            <TextInput theme={styles} placeholder="Placeholder" />
           </div>
           <div className={styles.section}>
             <label>With Search Icon</label>
-            <TextInput placeholder="Placeholder" searchIcon />
+            <TextInput theme={styles} placeholder="Placeholder" searchIcon />
           </div>
           <div className={styles.section}>
             <label>Error State</label>
-            <TextInput placeholder="Placeholder" error={'Oh no!!!'} />
+            <TextInput theme={styles} placeholder="Placeholder" error={'Oh no!!!'} />
           </div>
         </div>
         <div className={styles.container}>

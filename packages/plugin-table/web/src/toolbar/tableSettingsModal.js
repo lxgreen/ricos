@@ -5,9 +5,7 @@ import styles from '../../statics/styles/table-settings-modal.scss';
 import TableSettingsCountSection from './TableSettingsCountSection';
 import { getDefaultsSettings, isCellsNumberInvalid } from '../tableUtil';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
-import { Button } from 'wix-rich-content-ui-components';
-import { CloseIcon } from '../icons';
-
+import { Button, SettingsMobileHeader } from 'wix-rich-content-ui-components';
 export default class tableSettingsModal extends Component {
   constructor(props) {
     super(props);
@@ -23,25 +21,12 @@ export default class tableSettingsModal extends Component {
   }
 
   onCreateTableClicked = () => {
-    const {
-      colCount,
-      rowCount,
-      submittedInvalidCol,
-      submittedInvalidRow,
-      invalidCellNum,
-    } = this.state;
+    const { colCount, rowCount, submittedInvalidCol, submittedInvalidRow, invalidCellNum } =
+      this.state;
     if (!invalidCellNum && colCount && rowCount && !submittedInvalidCol && !submittedInvalidRow) {
-      const { componentData, pubsub, onConfirm, helpers } = this.props;
+      const { onTableAdd } = this.props;
       const { config } = getDefaultsSettings(parseInt(rowCount), parseInt(colCount));
-      if (onConfirm) {
-        onConfirm({
-          ...componentData,
-          config,
-        });
-      } else {
-        pubsub.update('componentData', { config });
-      }
-      helpers.closeModal();
+      onTableAdd({ config });
     }
   };
 
@@ -72,29 +57,28 @@ export default class tableSettingsModal extends Component {
 
   render() {
     const { styles } = this;
-    const {
-      colCount,
-      rowCount,
-      submittedInvalidCol,
-      submittedInvalidRow,
-      invalidCellNum,
-    } = this.state;
-    const { isMobile, helpers, t } = this.props;
+    const { colCount, rowCount, submittedInvalidCol, submittedInvalidRow, invalidCellNum } =
+      this.state;
+    const { isMobile, closeModal, t, theme } = this.props;
     return (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-      <div onKeyUp={this.onKeyUp}>
+      <div onKeyUp={this.onKeyUp} className={isMobile ? styles.settings_mobile_container : null}>
         {isMobile && (
-          // eslint-disable-next-line
-          <div onClick={helpers.closeModal} className={styles.closeButton}>
-            <CloseIcon />
-          </div>
+          <SettingsMobileHeader
+            theme={theme}
+            onCancel={closeModal}
+            t={t}
+            title={t('TablePlugin_MobileHeader')}
+            useNewSettingsUi
+            showSaveBtn={false}
+          />
         )}
-        <div className={styles.title}>{t('TablePlugin_SettingsModal_Title')}</div>
+        {!isMobile && <div className={styles.title}>{t('TablePlugin_SettingsModal_Title')}</div>}
         <div className={styles.subtitle}>{t('TablePlugin_SettingsModal_SubTitle')}</div>
         <div className={styles.tableConfig}>
           <TableSettingsCountSection
             title={t('TablePlugin_SettingsModal_ColCount')}
-            theme={this.props.theme}
+            theme={theme}
             input={colCount}
             onCountChange={this.onColCountChange}
             error={
@@ -106,7 +90,7 @@ export default class tableSettingsModal extends Component {
           />
           <TableSettingsCountSection
             title={t('TablePlugin_SettingsModal_RowCount')}
-            theme={this.props.theme}
+            theme={theme}
             input={rowCount}
             onCountChange={this.onRowCountChange}
             error={
@@ -136,8 +120,7 @@ tableSettingsModal.propTypes = {
   componentData: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   t: PropTypes.func,
-  pubsub: PropTypes.object,
-  onConfirm: PropTypes.func,
-  helpers: PropTypes.object,
   isMobile: PropTypes.bool,
+  closeModal: PropTypes.func,
+  onTableAdd: PropTypes.func,
 };

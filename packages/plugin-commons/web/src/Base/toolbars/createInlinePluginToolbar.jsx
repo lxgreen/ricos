@@ -28,14 +28,8 @@ export default function createInlinePluginToolbar({
     constructor(props) {
       super(props);
 
-      const {
-        structure,
-        offset,
-        shouldCreate,
-        visibilityFn,
-        displayOptions,
-        ToolbarDecoration,
-      } = setVariables({ buttons, getToolbarSettings, isMobile });
+      const { structure, offset, shouldCreate, visibilityFn, displayOptions, ToolbarDecoration } =
+        setVariables({ buttons, getToolbarSettings, isMobile });
       this.structure = structure;
       this.offset = offset;
       this.shouldCreate = shouldCreate;

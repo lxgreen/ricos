@@ -1,4 +1,5 @@
-import React, { FunctionComponent, MouseEventHandler } from 'react';
+import type { FunctionComponent, MouseEventHandler } from 'react';
+import React from 'react';
 import styles from './ActionButton.scss';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 

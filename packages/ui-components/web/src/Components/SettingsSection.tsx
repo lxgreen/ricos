@@ -1,12 +1,15 @@
-import React, { HTMLAttributes } from 'react';
+import type { HTMLAttributes } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../statics/styles/settings-section.scss';
 
 interface SettingsSectionProps {
   className?: string;
   theme: RichContentTheme;
   ariaProps?: HTMLAttributes<HTMLDivElement>;
+  headerText?: string;
 }
 
 class SettingsSection extends React.Component<SettingsSectionProps> {
@@ -19,9 +22,10 @@ class SettingsSection extends React.Component<SettingsSectionProps> {
 
   render() {
     const { styles } = this;
-    const { children, ariaProps, className } = this.props;
+    const { children, ariaProps, className, headerText } = this.props;
     return (
       <div className={classNames(styles.section, className)} {...ariaProps}>
+        {headerText && <div className={styles.sectionHeader}> {headerText} </div>}
         {children}
       </div>
     );

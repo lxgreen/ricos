@@ -33,7 +33,7 @@
 .button_colorPicker_pickerButton {
   width: 20px;
   height: 20px;
-  border-radius: 28px;
+  border-radius: var(--ricos-settings-small-buttons-border-radius, 28px);
   border: 1px solid #c9c9c9;
   box-sizing: border-box;
   cursor: pointer;

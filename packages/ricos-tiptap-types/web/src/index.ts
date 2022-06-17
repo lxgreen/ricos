@@ -1,22 +1,36 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
+import type {
   ExtensionConfig,
-  MarkConfig,
-  mergeAttributes as mergeAttributesFn,
-  markPasteRule as markPasteRuleFn,
   markInputRule as markInputRuleFn,
-  textblockTypeInputRule as textblockTypeInputRuleFn,
-  NodeConfig,
+  markPasteRule as markPasteRuleFn,
+  mergeAttributes as mergeAttributesFn,
   NodeViewRendererProps,
+  textblockTypeInputRule as textblockTypeInputRuleFn,
 } from '@tiptap/core';
-import { Plugin as IPlugin, PluginKey as IPluginKey } from 'prosemirror-state';
-import { ComponentType } from 'react';
-import {
-  TranslationFunction,
+import { MarkConfig, NodeConfig } from '@tiptap/core';
+import type { Editor, NodeViewContent } from '@tiptap/react';
+import type { Plugin as IPlugin, PluginKey as IPluginKey } from 'prosemirror-state';
+import type { ComponentType } from 'react';
+import type {
+  Decoration_Type,
+  DraftContent,
   EditorPlugin,
   LegacyEditorPluginConfig,
-} from 'wix-rich-content-common';
+  LinkSettings,
+  Node_Type,
+  RicosEditorAPI,
+  TextAlignment,
+  TranslationFunction,
+} from 'ricos-types';
+import type { ComponentData } from 'wix-rich-content-common';
 
+export type PluginProps = NodeViewRendererProps & {
+  settings: LegacyEditorPluginConfig;
+  componentData: ComponentData;
+  updateAttributes: (data: unknown) => null;
+  selected: boolean;
+  NodeViewContent: typeof NodeViewContent;
+};
 export type RicosNodeProps = NodeViewRendererProps &
   RicosTiptapContextValue & {
     componentData: NodeViewRendererProps['node']['attrs'];
@@ -51,8 +65,19 @@ export type NodeHocDescriptor = {
   priority: number;
 };
 
+export type Group = 'react' | 'text-container' | 'text' | 'spoilerable' | 'shortcuts-enabled';
+
 export type RicosNodeExtension = {
+  name: Node_Type | string;
   type: 'node';
+  groups: Group[];
+  settings?: Record<string, unknown>;
+  reconfigure?: (
+    config: NodeConfig,
+    extensions: RicosExtension[],
+    ricosProps: ExtensionProps,
+    settings: Record<string, unknown>
+  ) => NodeConfig;
   createExtensionConfig: ({
     textblockTypeInputRule,
     mergeAttributes,
@@ -68,12 +93,20 @@ export type RicosNodeExtension = {
     Plugin: typeof IPlugin;
     PluginKey: typeof IPluginKey;
   }) => NodeConfig;
-  Component?: ComponentType;
-  componentDataDefaults?: any;
+  Component?: ComponentType<PluginProps>;
 };
 
 export type RicosMarkExtension = {
+  name: Decoration_Type | string;
   type: 'mark';
+  groups: Group[];
+  settings?: Record<string, unknown>;
+  reconfigure?: (
+    config: MarkConfig,
+    extensions: RicosExtension[],
+    ricosProps: ExtensionProps,
+    settings: Record<string, unknown>
+  ) => MarkConfig;
   createExtensionConfig: ({
     textblockTypeInputRule,
     mergeAttributes,
@@ -89,11 +122,19 @@ export type RicosMarkExtension = {
     Plugin: typeof IPlugin;
     PluginKey: typeof IPluginKey;
   }) => MarkConfig;
-  componentDataDefaults?: any;
 };
 
 export type RicosFunctionalExtension = {
+  name: string;
   type: 'extension';
+  groups: Group[];
+  settings?: Record<string, unknown>;
+  reconfigure?: (
+    config: RicosExtensionConfig,
+    extensions: RicosExtension[],
+    ricosProps: ExtensionProps,
+    settings: Record<string, unknown>
+  ) => RicosExtensionConfig;
   createExtensionConfig: ({
     mergeAttributes,
   }: {
@@ -114,8 +155,34 @@ export interface TiptapEditorPlugin extends EditorPlugin {
   tiptapExtensions: RicosExtension[];
 }
 
-export type CreateRicosExtensions = <PluginType extends keyof LegacyEditorPluginConfig>(
-  config: LegacyEditorPluginConfig[PluginType]
-) => RicosExtension[];
+export type { DOMOutputSpec } from 'prosemirror-model';
+export { NodeConfig, MarkConfig };
 
-export { DOMOutputSpec } from 'prosemirror-model';
+export type ExtensionProps = {
+  placeholder?: string;
+  textAlignment?: TextAlignment;
+  iframeSandboxDomain?: string;
+  isTextWrap?: boolean;
+  maxTextLength?: number;
+  anchorTarget?: LinkSettings['anchorTarget'];
+  rel?: LinkSettings['rel'];
+  relValue?: LinkSettings['relValue'];
+};
+
+export type HtmlAttributes = {
+  autoCapitalize: string;
+  // explicit true/false enumeration as required by the HTML spec
+  spellCheck: 'true' | 'false';
+  autoComplete: string;
+  autoCorrect: string;
+  tabIndex: number;
+};
+
+export interface TiptapAdapter {
+  getEditorCommands: RicosEditorAPI['getEditorCommands'];
+  focus: RicosEditorAPI['focus'];
+  blur: RicosEditorAPI['blur'];
+  tiptapEditor: Editor;
+  getDraftContent: () => DraftContent;
+  isContentChanged: () => boolean;
+}

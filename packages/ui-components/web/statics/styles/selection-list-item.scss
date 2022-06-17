@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   font-size: 14px;
   cursor: pointer;
   font-family: inherit;
@@ -24,7 +24,7 @@
   &.selectionListItem_icon_selected {
     background-color: rgba($settings-action-color-fallback-tuple, 0.1);
   }
-  svg{
+  svg {
     max-width: 46px;
     max-height: 46px;
   }

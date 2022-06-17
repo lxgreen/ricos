@@ -1,5 +1,4 @@
 /* eslint-disable */
-import { hot } from 'react-hot-loader/root';
 import React, { PureComponent } from 'react';
 import { ReflexContainer, ReflexElement, ReflexSplitter } from 'react-reflex';
 import { compact, flatMap, debounce } from 'lodash';
@@ -14,12 +13,14 @@ import {
 import { SectionSettings, OnVisibilityChanged } from './types';
 import { DraftContent, ToolbarType } from 'wix-rich-content-common';
 import ContentStateEditorType from './Components/ContentStateEditor';
-import { ensureDraftContent } from 'ricos-content/libs/migrateSchema';
+import { ensureDraftContent } from 'ricos-content/libs/ensureDraftContent';
 import { themeStrategy } from 'ricos-common';
 import { FONTS, EXPERIMENTS, ricosPalettes } from '../../storybook/src/shared/resources';
 import { mockFetchUrlPreviewData } from '../../storybook/src/shared/utils/linkPreviewUtil';
+import { config as initialPluginConfig, addPluginMenuConfig } from '../shared/editor/EditorPlugins';
 
 const ContentStateEditor = React.lazy(() => import('./Components/ContentStateEditor'));
+const EditorSettings = React.lazy(() => import('./Components/EditorSettings'));
 const Editor = React.lazy(() => import('../shared/editor/Editor'));
 const Viewer = React.lazy(() => import('../shared/viewer/Viewer'));
 const Preview = React.lazy(() => import('../shared/preview/Preview'));
@@ -42,6 +43,7 @@ interface ExampleAppState {
   isViewerShown?: boolean;
   isPreviewShown?: boolean;
   isContentStateShown?: boolean;
+  isEditorSettingsShown?: boolean;
   viewerResetKey?: number;
   previewResetKey?: number;
   editorResetKey?: number;
@@ -74,16 +76,23 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
       isViewerShown: !isMobile,
       isPreviewShown: false,
       isContentStateShown: false,
+      isEditorSettingsShown: false,
       viewerResetKey: 0,
       previewResetKey: 0,
       editorResetKey: 0,
       shouldNativeUpload: false,
       shouldUseNewContent: false,
-      styleElement: this.getInitialStyleElement(),
+      activeFont: 0,
+      activePalette: 0,
       experiments: get('experiments') || {},
       externalToolbarToShow: ToolbarType.FORMATTING,
       textWrap: true,
       showSideBlockComponent: false,
+      editorKey: 1,
+      editorSettings: {
+        pluginsConfig: initialPluginConfig,
+        toolbarConfig: { addPluginMenuConfig },
+      },
       ...localState,
     };
   }
@@ -133,6 +142,9 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
   onSetLocale = (locale: string) => {
     this.props.setLocale && this.props.setLocale(locale);
   };
+
+  setEditorSettings = editorSettings =>
+    this.setState({ editorSettings, editorKey: this.state.editorKey + 1 });
 
   initSectionsSettings = () => {
     const {
@@ -274,37 +286,21 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
 
   getThemeObj = (activeFont, activePalette) => {
     const themeObj: any = {};
-    activeFont && (themeObj.customStyles = FONTS[activeFont]);
-    activePalette && (themeObj.palette = ricosPalettes[activePalette]);
+    activeFont !== undefined && (themeObj.customStyles = FONTS[activeFont]);
+    activePalette !== undefined && (themeObj.palette = ricosPalettes[activePalette]);
     return themeObj;
   };
 
   onPaletteChange = i => {
     this.setState({
-      styleElement: this.getHtmlTheme({ palette: ricosPalettes[i] }),
       activePalette: i,
     });
     set('activePalette', i);
   };
 
   onFontChange = i => {
-    this.setState({ styleElement: this.getHtmlTheme({ customStyles: FONTS[i] }), activeFont: i });
+    this.setState({ activeFont: i });
     set('activeFont', i);
-  };
-
-  getHtmlTheme = themeObj => {
-    const { activeFont, activePalette } = this.state;
-    const { html } = themeStrategy({
-      ricosTheme: { ...this.getThemeObj(activeFont, activePalette), ...themeObj },
-    });
-    return html ? [html] : [];
-  };
-
-  getInitialStyleElement = () => {
-    const activePalette = get('activePalette');
-    const activeFont = get('activeFont');
-    const { html } = themeStrategy({ ricosTheme: this.getThemeObj(activeFont, activePalette) });
-    return html ? [html] : [];
   };
 
   onSetExperiment = (name: string, value: any) => {
@@ -326,7 +322,6 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
       editorIsMobile,
       shouldNativeUpload,
       experiments,
-      styleElement,
       externalPopups,
       textWrap,
       showSideBlockComponent,
@@ -339,13 +334,18 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
           className="section editor-example"
         >
           <SectionHeader
-            title="Editor"
+            title={experiments?.tiptapEditor?.enabled ? 'Tiptap 👍' : 'Draft 👎'}
+            onClick={() =>
+              this.onSetExperiment(
+                'tiptapEditor',
+                experiments?.tiptapEditor?.enabled ? 'false' : 'true'
+              )
+            }
             settings={this.editorSettings}
             onHide={this.onSectionVisibilityChange}
           />
           <SectionContent>
             <ErrorBoundary>
-              {...styleElement}
               <Editor
                 isMobile={editorIsMobile || isMobile}
                 shouldNativeUpload={shouldNativeUpload}
@@ -361,6 +361,9 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
                 experiments={experiments}
                 textWrap={textWrap}
                 showSideBlockComponent={showSideBlockComponent}
+                testAppConfig={this.state.editorSettings}
+                key={this.state.editorKey}
+                ricosTheme={this.getThemeObj(this.state.activeFont, this.state.activePalette)}
               />
             </ErrorBoundary>
           </SectionContent>
@@ -464,6 +467,23 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
     );
   };
 
+  renderEditorSettings = () => {
+    const { isEditorSettingsShown } = this.state;
+    return (
+      isEditorSettingsShown && (
+        <ReflexElement key="editorsettings-section" className="section">
+          <SectionHeader title="Editor Settings" onHide={this.onSectionVisibilityChange} />
+          <SectionContent>
+            <EditorSettings
+              setEditorSettings={this.setEditorSettings}
+              editorSettings={this.state.editorSettings}
+            />
+          </SectionContent>
+        </ReflexElement>
+      )
+    );
+  };
+
   setSectionVisibility: OnVisibilityChanged = (sectionName, isVisible) =>
     this.setState({ [`show${sectionName}`]: isVisible });
 
@@ -473,6 +493,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
       this.renderViewer(),
       this.renderPreview(),
       this.renderContentState(),
+      this.renderEditorSettings(),
     ]);
 
     return flatMap(sections, (val, i, arr) =>
@@ -484,7 +505,13 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
 
   render() {
     const { isMobile } = this.props;
-    const { isEditorShown, isViewerShown, isContentStateShown, isPreviewShown } = this.state;
+    const {
+      isEditorShown,
+      isViewerShown,
+      isContentStateShown,
+      isPreviewShown,
+      isEditorSettingsShown,
+    } = this.state;
     const showEmptyState =
       !isEditorShown && !isViewerShown && !isContentStateShown && !isPreviewShown;
     this.initSectionsSettings();
@@ -504,6 +531,7 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
           isViewerShown={isViewerShown}
           isPreviewShown={isPreviewShown}
           isContentStateShown={isContentStateShown}
+          isEditorSettingsShown={isEditorSettingsShown}
           toggleSectionVisibility={this.onSectionVisibilityChange}
         />
       </div>
@@ -511,4 +539,4 @@ class ExampleApp extends PureComponent<ExampleAppProps, ExampleAppState> {
   }
 }
 
-export default hot(ExampleApp);
+export default ExampleApp;

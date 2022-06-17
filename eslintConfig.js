@@ -11,8 +11,18 @@ module.exports = {
     react: {
       version: '16.6.3',
     },
+    'import/resolver': {
+      'eslint-import-resolver-custom-alias': {
+        alias: {
+          'draft-js': '../../../node_modules/@wix/draft-js',
+        },
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        packages: ['packages/*'],
+      },
+    },
   },
   rules: {
+    '@typescript-eslint/consistent-type-imports': 'error',
     semi: 'error',
     quotes: [
       'error',
@@ -79,5 +89,14 @@ module.exports = {
     indent: 'off',
     curly: 'off',
     'cypress/no-unnecessary-waiting': 'warn',
+    'no-duplicate-imports': 'off',
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        'no-undef': 'off',
+      },
+    },
+  ],
 };

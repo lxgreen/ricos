@@ -1,4 +1,5 @@
-import React, { Component, ComponentType } from 'react';
+import type { ComponentType } from 'react';
+import React, { Component } from 'react';
 import { getDisplayName } from 'wix-rich-content-common';
 
 export default (EmbeddedComponent: ComponentType, props?: Record<string, unknown>): ComponentType =>

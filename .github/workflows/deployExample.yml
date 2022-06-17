@@ -10,6 +10,10 @@ on:
   pull_request:
     branches:
       - master
+env:
+  BACKFILL_CACHE_PROVIDER: 'azure-blob'
+  BACKFILL_CACHE_PROVIDER_OPTIONS: ${{ secrets.BACKFILL_CACHE_PROVIDER_OPTIONS }}
+
 jobs:
   surge-examples:
     runs-on: ubuntu-18.04
@@ -19,15 +23,16 @@ jobs:
         with:
           node-version: '14'
 
-      - name: cache-node_modules
+      - name: cache node_modules
         id: cache-modules
         uses: actions/cache@v2
         with:
           path: |
             node_modules
-            */*/node_modules
+            **/node_modules
             ~/.cache
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock', 'cacheBust') }}
+
       - name: npm install + bootstrap
         if: steps.cache-modules.outputs.cache-hit != 'true'
         run: npx midgard-yarn install --frozen-lockfile
@@ -48,4 +53,3 @@ jobs:
       SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
       SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
       REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      LAGE_NPM_TOKEN: ${{ secrets.LAGE_NPM_TOKEN }}

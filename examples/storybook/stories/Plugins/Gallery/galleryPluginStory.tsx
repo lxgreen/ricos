@@ -8,9 +8,11 @@ import {
 } from '../../Components/StoryParts';
 
 import GalleryEditor from './galleryEditor';
-import editorSourcecode from '!!raw-loader!./galleryEditor.tsx';
+// eslint-disable-next-line import/no-unresolved
+import editorSourcecode from './galleryEditor.tsx?raw';
 import GalleryViewer from './galleryViewer';
-import viewerSourcecode from '!!raw-loader!./galleryViewer.tsx';
+// eslint-disable-next-line import/no-unresolved
+import viewerSourcecode from './galleryViewer.tsx?raw';
 import SyntaxHighlighter from '../../Components/SyntaxHighlighter';
 import fixtrue from '../../../../../e2e/tests/fixtures/gallery-with-title-and-link.json';
 import ActionButton from '../../Components/ActionButton';

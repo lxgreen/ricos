@@ -6,6 +6,7 @@ import {
   Modifier,
 } from '../index';
 import { uniq } from 'lodash';
+import type { CustomInlineStyleType } from 'wix-rich-content-common';
 import {
   RICOS_TEXT_HIGHLIGHT_TYPE,
   RICOS_TEXT_COLOR_TYPE,
@@ -15,7 +16,6 @@ import {
   TEXT_COLOR_TYPE,
   TEXT_HIGHLIGHT_TYPE,
   defaultStyleFnMapper,
-  CustomInlineStyleType,
   dynamicStyleParsers,
 } from 'wix-rich-content-common';
 
@@ -155,10 +155,8 @@ export const getCustomStyleFn = (
 };
 
 export const getCustomStyleFns = config => {
-  const {
-    [TEXT_COLOR_TYPE]: colorSetting = {},
-    [TEXT_HIGHLIGHT_TYPE]: highlightSettings = {},
-  } = config;
+  const { [TEXT_COLOR_TYPE]: colorSetting = {}, [TEXT_HIGHLIGHT_TYPE]: highlightSettings = {} } =
+    config;
   const colorTypes = [
     { type: RICOS_TEXT_COLOR_TYPE, setting: colorSetting },
     { type: RICOS_TEXT_HIGHLIGHT_TYPE, setting: highlightSettings },

@@ -1,15 +1,17 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { Component, FC } from 'react';
+import type { FC, Ref } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import ClickOutside from 'react-click-outsider';
 import styles from '../ToolbarNew.scss';
 import ToolbarInputButton from '../ToolbarInputButton';
 import ToolbarButton from '../ToolbarButton';
-import { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import type { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
 import { elementOverflowWithEditor, KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 import { FocusManager } from 'wix-rich-content-ui-components';
+import { GlobalContext } from 'wix-rich-content-common';
 
 type dropDownPropsType = {
   isMobile?: boolean;
@@ -58,6 +60,8 @@ interface State {
 class ModalButton extends Component<ModalButtonProps, State> {
   modalRef?: HTMLDivElement | null;
 
+  buttonRef: React.RefObject<any> = React.createRef();
+
   constructor(props) {
     super(props);
     this.state = {
@@ -68,12 +72,15 @@ class ModalButton extends Component<ModalButtonProps, State> {
     };
   }
 
+  static contextType = GlobalContext;
+
   setModalRef = ref => (this.modalRef = ref);
 
   toggleModal = e => {
     const { isModalOpen } = this.state;
     if (!isModalOpen) {
-      this.openModal();
+      this.buttonRef?.current.focus();
+      setTimeout(() => this.openModal());
     } else {
       this.closeModal();
     }
@@ -81,10 +88,14 @@ class ModalButton extends Component<ModalButtonProps, State> {
 
   handleOverflow = () => {
     const { isMobile, getEditorContainer } = this.props;
+    const { experiments } = this.context;
+    const modalOverflowByBoundingClientRect =
+      !!experiments?.modalOverflowByBoundingClientRect?.enabled;
     if (this.modalRef) {
       const modalOverflowWithEditor = elementOverflowWithEditor(
         this.modalRef,
-        getEditorContainer() as HTMLElement
+        getEditorContainer() as HTMLElement,
+        modalOverflowByBoundingClientRect
       );
       const isModalWidthOverflow = !!modalOverflowWithEditor.overflowRight;
       const isModalOverflowByHeight = !!modalOverflowWithEditor.overflowBottom;
@@ -203,6 +214,7 @@ class ModalButton extends Component<ModalButtonProps, State> {
       tabIndex,
       isMobile,
       disabled: isDisabled(),
+      ref: this.buttonRef as Ref<any>,
     };
     const Button = isInput ? (
       <ToolbarInputButton onChange={this.onChange} {...toolbarButtonProps} />

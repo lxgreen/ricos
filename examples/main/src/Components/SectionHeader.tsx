@@ -2,12 +2,13 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { PureComponent } from 'react';
 import { MdClose, MdSettings, MdInvertColors } from 'react-icons/md';
-import { SectionSettings, OnVisibilityChanged } from '../types';
-
+import type { SectionSettings, OnVisibilityChanged } from '../types';
+import { ExperimentsSetting } from './ExperimentsSetting';
 export default class SectionHeader extends PureComponent<{
   title?: string;
   settings: SectionSettings[];
   onHide: OnVisibilityChanged;
+  onClick?: () => void;
 }> {
   static defaultProps = {
     settings: [],
@@ -18,14 +19,16 @@ export default class SectionHeader extends PureComponent<{
   };
 
   render() {
-    const { title, settings } = this.props;
+    const { title, settings, onClick } = this.props;
     const hasSettings = !!settings.length;
 
     return (
       <div className="header">
         <div className="title">
           <MdClose onClick={this.onHideClick} />
-          <h3>{title}</h3>
+          <h3 className={onClick ? 'cursor' : ''} onClick={onClick || (() => {})}>
+            {title}
+          </h3>
         </div>
         {hasSettings && (
           <div className="settings">
@@ -52,7 +55,7 @@ export default class SectionHeader extends PureComponent<{
                             </li>
                           ))
                         ) : itemsType === 'experiments' ? (
-                          <Experiments items={items} active={getActive()} action={action} />
+                          <ExperimentsSetting items={items} active={getActive()} action={action} />
                         ) : itemsType === 'palettes' ? (
                           <Palettes items={items} active={getActive()} action={action} />
                         ) : (
@@ -72,29 +75,6 @@ export default class SectionHeader extends PureComponent<{
     );
   }
 }
-
-const Experiments = ({ items, active, action }) =>
-  items.map(({ name, scope, input = ['true', 'false'] }) => (
-    <li key={name} className="experimentContainer">
-      <div className="experiment">
-        <div className="scope">{scope}</div>
-        <div className="experimentTitle">{`specs.${scope}.${name}`}</div>
-        <div className="options">
-          {input.map((value, index) => (
-            /* eslint-disable */
-            <div
-              key={index}
-              className={`option ${active?.[name]?.value === value ? 'active' : null}`}
-              onClick={() => action(name, value)}
-            >
-              {value}
-            </div>
-            /* eslint-enable */
-          ))}
-        </div>
-      </div>
-    </li>
-  ));
 
 const Palettes = ({ items, active, action }) =>
   items.map(({ bgColor, textColor, actionColor }, i) => (

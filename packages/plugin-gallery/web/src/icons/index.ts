@@ -40,3 +40,4 @@ export { default as NextIcon } from './NextIcon';
 export { default as PreviousIcon } from './PreviousIcon';
 export { default as SelectedIcon } from './SelectedIcon';
 export { default as NotSelectedIcon } from './NotSelectedIcon';
+export { default as AddMediaIcon } from './AddMediaIcon';

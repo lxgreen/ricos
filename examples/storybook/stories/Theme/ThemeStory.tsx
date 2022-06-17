@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable react/self-closing-comp */
+import React, { useState, useEffect, useRef } from 'react';
+// eslint-disable-next-line wix-style-react/no-full-wsr-lib
 import { Layout, Palette, ToggleSwitch } from 'wix-style-react';
 import { Page, Section, ContentState } from '../Components/StoryParts';
-import exapmleState from '../../../../e2e/tests/fixtures/storybook-example-app.json';
+import exampleState from '../../../../e2e/tests/fixtures/storybook-example-app-doc-style.json';
 import { wixPalettes, ricosPalettes } from '../../src/shared/resources/palettesExample';
 import { FONTS } from '../../src/shared/resources/fontsExample';
 import ExampleApplication from '../Components/ExampleApplication';
 import { SelectorCell } from './SelectorCell';
-import { RicosTheme } from 'ricos-common';
+import type { RicosTheme } from 'ricos-common';
 import { withWixStyle } from './wixStyle';
+import { withOneAppStyle } from './oneAppStyle';
+import { ToggleTiptapButton } from '../Components/ToggleTiptapButton';
 
 const palettes = Object.keys(wixPalettes);
 
@@ -16,10 +20,23 @@ const ThemeSelector = () => {
   const [fontPage, setFontPage] = useState(0);
   const [isFallback, setFallback] = useState(false);
   const [isFloatingBM, setFloatingBM] = useState(false);
+  const [isOneApp, setOneApp] = useState(false);
+  const [isTiptap, setIsTiptap] = useState(false);
+  const [useExternalModalsContainer, setUseExternalModalsContainer] = useState(false);
+  const modalsContainerRef = useRef<HTMLDivElement>(null);
   const fallbackColor = isFallback ? '#FF0000' : undefined;
   const palette = ricosPalettes[palettePage];
   const values = Object.values(palette);
-  const createTheme = (theme: RicosTheme) => (isFloatingBM ? withWixStyle(theme) : theme);
+  const createTheme = (theme: RicosTheme) => {
+    let currentTheme = theme;
+    if (isOneApp) {
+      currentTheme = withOneAppStyle(currentTheme);
+    }
+    if (isFloatingBM) {
+      currentTheme = withWixStyle(currentTheme);
+    }
+    return currentTheme;
+  };
 
   useEffect(() => {
     document.onkeyup = event => {
@@ -43,6 +60,8 @@ const ThemeSelector = () => {
 
   return (
     <>
+      <div id="modalsExternalContainer" ref={modalsContainerRef}></div>
+
       <Layout cols={12} justifyItems={'center'}>
         <SelectorCell
           type={'a Palette'}
@@ -68,23 +87,43 @@ const ThemeSelector = () => {
 
       <div>
         <ToggleSwitch checked={isFallback} onChange={({ target }) => setFallback(target.checked)} />
-        <span>Use RED fallback color</span>
+        <span> Use RED fallback color</span>
       </div>
       <div>
         <ToggleSwitch
           checked={isFloatingBM}
           onChange={({ target }) => setFloatingBM(target.checked)}
         />
-        <span>Use BM Blue floating action color</span>
+        <span> Use BM Blue floating action color</span>
       </div>
+      <div>
+        <ToggleSwitch checked={isOneApp} onChange={({ target }) => setOneApp(target.checked)} />
+        <span> Use OneApp styles</span>
+      </div>
+      <div>
+        <ToggleSwitch
+          checked={useExternalModalsContainer}
+          onChange={({ target }) => setUseExternalModalsContainer(target.checked)}
+        />
+        <span> Use External Modals Container</span>
+      </div>
+      <ToggleTiptapButton isTiptap={isTiptap} setIsTiptap={setIsTiptap} />
       <div style={{ backgroundColor: palette.bgColor, padding: 4 }}>
         <ExampleApplication
           key={palettePage}
-          initialState={exapmleState}
+          initialState={exampleState}
           theme={createTheme({
             palette: { ...palette, fallbackColor },
             customStyles: FONTS[fontPage],
           })}
+          experiments={{ tiptapEditor: { enabled: isTiptap } }}
+          modalSettings={
+            useExternalModalsContainer
+              ? {
+                  container: modalsContainerRef.current,
+                }
+              : undefined
+          }
         />
       </div>
     </>
@@ -111,7 +150,7 @@ export default () => {
         </a>
         <ThemeSelector />
         <Section title="Content State">
-          <ContentState json={exapmleState} />
+          <ContentState json={exampleState} />
         </Section>
       </Page>
     </>

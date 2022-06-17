@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import ReactDOM from 'react-dom';
 import { debounce } from 'lodash';
 import Measure from 'react-measure';
-import { PreviewConfig } from '../';
+import type { PreviewConfig } from '../';
 import styles from '../../statics/styles/image-counter.scss';
 
 interface Props {

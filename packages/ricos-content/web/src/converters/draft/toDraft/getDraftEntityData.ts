@@ -1,5 +1,6 @@
 /* eslint-disable fp/no-delete */
-import { Node, Node_Type, ButtonData_Type } from 'ricos-schema';
+import type { Node } from 'ricos-schema';
+import { Node_Type, ButtonData_Type } from 'ricos-schema';
 import {
   ENTITY_DECORATION_TO_MUTABILITY,
   FROM_RICOS_ENTITY_TYPE,
@@ -11,8 +12,8 @@ import {
   LINK_PREVIEW_TYPE,
   RICOS_NODE_TYPE_TO_DATA_FIELD,
 } from '../../../consts';
-import { RicosEntity, RicosEntityMap } from '../../../types';
-import { DraftTypedDecoration } from './decorationParsers';
+import type { RicosEntity, RicosEntityMap } from '../../../types';
+import type { DraftTypedDecoration } from './decorationParsers';
 import { convertDecorationToDraftData, convertNodeToDraftData } from './convertDraftPluginData';
 
 const getNodeEntityData = (node: Node) => {
@@ -71,7 +72,7 @@ const getDynamicStyles = (node: Node) => {
 };
 
 export const createTextBlockData = (node: Node) => {
-  const { indentation } = node[RICOS_NODE_TYPE_TO_DATA_FIELD[node.type]] || {};
+  const { indentation = 0 } = node[RICOS_NODE_TYPE_TO_DATA_FIELD[node.type]] || {};
   const { textAlignment, lineHeight, paddingTop, paddingBottom } = getDynamicStyles(node);
   return JSON.parse(
     JSON.stringify({

@@ -2,7 +2,8 @@ import React, { useMemo, useState } from 'react';
 import { Layout, Cell } from 'wix-style-react';
 import { Page } from '../Components/StoryParts';
 import { setupContentBuilder } from 'ricos-content/libs/Content';
-import { fromDraft, toDraft } from 'ricos-content/libs/migrateSchema';
+import { fromDraft } from 'ricos-content/libs/fromDraft';
+import { toDraft } from 'ricos-content/libs/toDraft';
 import { emptyState } from 'ricos-common';
 import {
   Paragraph,
@@ -17,7 +18,7 @@ import {
   Code,
 } from './PluginPanels';
 import { Sidebar } from './Sidebar';
-import { AddMethod, EditPanelProps, Plugins } from './types';
+import type { AddMethod, EditPanelProps, Plugins } from './types';
 import { newKey } from './blockKeyGenerator';
 import ViewerWrapper from '../Components/ViewerWrapper';
 import theme from '../../../main/shared/theme/theme';

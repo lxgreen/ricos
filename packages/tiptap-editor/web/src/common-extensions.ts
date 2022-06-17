@@ -1,0 +1,38 @@
+import type { RicosExtension } from 'ricos-tiptap-types';
+import {
+  bulletedList,
+  bold,
+  italic,
+  underline,
+  listItem,
+  blockquote,
+  orderedList,
+  link,
+  placeholder,
+  fontSize,
+  textAlign,
+  commonNodeCommands,
+  characterCount,
+  lineSpacing,
+  indent,
+  anchor,
+} from 'wix-tiptap-extensions';
+
+export const commonExtensions: RicosExtension[] = [
+  placeholder,
+  bulletedList,
+  bold,
+  italic,
+  underline,
+  listItem,
+  blockquote,
+  orderedList,
+  link,
+  fontSize,
+  textAlign,
+  characterCount,
+  lineSpacing,
+  indent,
+  commonNodeCommands,
+  anchor,
+];

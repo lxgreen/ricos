@@ -1,9 +1,8 @@
 import React from 'react';
+import type { Node_Type } from 'ricos-schema';
+import type { RicosExtension } from 'ricos-tiptap-types';
 import toConstantCase from 'to-constant-case';
-import { Node_Type } from 'ricos-schema';
-import { tiptapNodeDataToDraft } from './content-utils';
-
-const name = 'draft';
+import { tiptapNodeDataToDraft } from 'ricos-converters';
 
 const DraftHOC = Component => {
   const Draft = props => {
@@ -21,19 +20,21 @@ const DraftHOC = Component => {
   return Draft;
 };
 
-export const createDraftConfig = () => ({
+export const draft: RicosExtension = {
   type: 'extension' as const,
-  createExtensionConfig: () => {
+  groups: [],
+  name: 'draft',
+  createExtensionConfig() {
     return {
-      name,
+      name: this.name,
       priority: 1,
       addNodeHoc() {
         return {
-          priority: 100,
+          priority: 9,
           nodeTypes: ['*'],
           nodeHoc: DraftHOC,
         };
       },
     };
   },
-});
+};

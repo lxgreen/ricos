@@ -1,18 +1,31 @@
 import createInsertButtons from './insert-buttons';
 import createInlineButtons from './inline-buttons';
-import { CreatePluginToolbar, TranslationFunction } from 'wix-rich-content-common';
-import { FilePluginEditorConfig } from '../types';
+import type {
+  CreatePluginToolbar,
+  TranslationFunction,
+  AvailableExperiments,
+} from 'wix-rich-content-common';
+import type { FilePluginEditorConfig } from '../types';
 
 const createToolbar: CreatePluginToolbar = ({
   settings,
   t,
+  isMobile,
+  experiments,
 }: {
   t: TranslationFunction;
   settings: FilePluginEditorConfig;
+  isMobile?: boolean;
+  experiments?: AvailableExperiments;
 }) => {
   return {
-    InlineButtons: createInlineButtons({ settings, t }),
-    InsertButtons: createInsertButtons({ settings, t }),
+    InlineButtons: createInlineButtons({
+      settings,
+      t,
+      isMobile,
+      experiments,
+    }),
+    InsertButtons: createInsertButtons({ settings, t, experiments }),
     name: 'FileUpload',
   };
 };

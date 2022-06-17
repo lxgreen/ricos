@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { mergeStyles } from 'wix-rich-content-common';
-import { SelectionList, SelectionListItem } from 'wix-rich-content-ui-components';
+import { SelectionList, SelectionListItem, Label } from 'wix-rich-content-ui-components';
 import styles from '../../../statics/styles/image-ratio-selector.scss';
 class ImageRatioSelector extends Component {
   constructor(props) {
@@ -12,22 +12,47 @@ class ImageRatioSelector extends Component {
 
   dataMapper = ({ ratio }) => ({ value: ratio });
 
-  renderOption = ({ item, selected }) => (
-    <SelectionListItem label={item.name}>
-      <div
-        className={classNames(
-          this.styles.imageRatioSelector_ratioButton,
-          selected ? this.styles.imageRatioSelector_ratioButton_selected : ''
-        )}
-      >
+  useNewSettingsUi = !!this.props.experiments.newSettingsModals?.enabled;
+
+  renderOption = ({ item, selected }) =>
+    this.useNewSettingsUi ? (
+      <SelectionListItem label={item.name}>
         <div
-          className={classNames(this.styles.imageRatioSelector_ratioIcon, item.ratioClass, {
-            [this.styles.imageRatioSelector_ratioIcon_selected]: selected,
-          })}
-        />
+          className={classNames(
+            this.styles.imageRatioSelector_ratioButton,
+            this.styles.newSettingsUi,
+            selected ? this.styles.imageRatioSelector_ratioButton_selected : ''
+          )}
+        >
+          <div
+            className={classNames(
+              this.styles.imageRatioSelector_ratioIcon,
+              item.ratioClass,
+              this.styles.newSettingsUi,
+              {
+                [this.styles.imageRatioSelector_ratioIcon_selected]: selected,
+              }
+            )}
+          />
+        </div>
+      </SelectionListItem>
+    ) : (
+      <div className={this.styles.imageRatioSelector_tile}>
+        <div
+          className={classNames(
+            this.styles.imageRatioSelector_ratioButton,
+            selected ? this.styles.imageRatioSelector_ratioButton_selected : ''
+          )}
+        >
+          <div
+            className={classNames(this.styles.imageRatioSelector_ratioIcon, item.ratioClass, {
+              [this.styles.imageRatioSelector_ratioIcon_selected]: selected,
+            })}
+          />
+        </div>
+        <span className={this.styles.imageRatioSelector_ratioLabel}>{item.name}</span>
       </div>
-    </SelectionListItem>
-  );
+    );
 
   render() {
     const dataSource = [
@@ -67,8 +92,8 @@ class ImageRatioSelector extends Component {
     const imageRatioLabel = t('GallerySettings_Image_Ratio');
 
     return (
-      <div>
-        <span className={styles.imageRatioSelector_label}>{imageRatioLabel}</span>
+      <div className={this.useNewSettingsUi ? styles.imageRatio_selectionList : ''}>
+        <Label label={imageRatioLabel} />
         <SelectionList
           theme={theme}
           className={styles.imageRatioSelector_grid}
@@ -77,6 +102,8 @@ class ImageRatioSelector extends Component {
           renderItem={this.renderOption}
           value={value}
           onChange={onChange}
+          optionClassName={styles.imageRatioSelector_option}
+          useNewSettingsUi={this.useNewSettingsUi}
         />
       </div>
     );
@@ -86,6 +113,7 @@ class ImageRatioSelector extends Component {
 ImageRatioSelector.propTypes = {
   value: PropTypes.number.isRequired,
   theme: PropTypes.object.isRequired,
+  experiments: PropTypes.object,
   onChange: PropTypes.func.isRequired,
   t: PropTypes.func,
 };

@@ -46,14 +46,8 @@ export default function createAtomicPluginToolbar({
     constructor(props) {
       super(props);
 
-      const {
-        structure,
-        offset,
-        shouldCreate,
-        visibilityFn,
-        displayOptions,
-        ToolbarDecoration,
-      } = setVariables({ buttons, getToolbarSettings, isMobile });
+      const { structure, offset, shouldCreate, visibilityFn, displayOptions, ToolbarDecoration } =
+        setVariables({ buttons, getToolbarSettings, isMobile });
       this.structure = structure;
       this.offset = offset;
       this.shouldCreate = shouldCreate;
@@ -254,6 +248,7 @@ export default function createAtomicPluginToolbar({
         hideInlinePanel: this.hidePanels,
         uiSettings,
         getEditorBounds,
+        blockKey: this.focusedBlock,
         ...buttonProps,
       };
       switch (button.type) {
@@ -303,6 +298,23 @@ export default function createAtomicPluginToolbar({
             type: BUTTONS.EXTERNAL_MODAL,
           };
           return shouldShowSettingsButton ? <Button {...videoSettingsProps} /> : null;
+        }
+        case BUTTONS.FILE_UPLOAD_SETTINGS: {
+          const shouldShowSettingsButton =
+            this.state.componentData.type === 'pdf' && !innerRCERenderedIn;
+          const fileUploadSettingsProps = {
+            ...defaultButtonProps,
+            type: BUTTONS.EXTERNAL_MODAL,
+          };
+          return shouldShowSettingsButton ? <Button {...fileUploadSettingsProps} /> : null;
+        }
+        case BUTTONS.AUDIO_SETTINGS: {
+          const shouldShowSettingsButton = !!this.state.componentData?.audio?.src?.id;
+          const audioSettingsProps = {
+            ...defaultButtonProps,
+            type: BUTTONS.EXTERNAL_MODAL,
+          };
+          return shouldShowSettingsButton ? <Button {...audioSettingsProps} /> : null;
         }
         case BUTTONS.LINK_PREVIEW: {
           return (

@@ -2,11 +2,12 @@ import * as E from 'fp-ts/Either';
 import { flow, identity, pipe } from 'fp-ts/function';
 import { not } from 'fp-ts/Predicate';
 import * as S from 'fp-ts/string';
-import { Element } from 'parse5';
-import { Decoration_Type, Link } from 'ricos-schema';
+import type { Element } from 'parse5';
+import type { Link } from 'ricos-schema';
+import { Decoration_Type } from 'ricos-schema';
 import { and, getMatches } from '../../../../fp-utils';
 import { createLink } from '../../../nodeUtils';
-import { Rule } from '../core/models';
+import type { Rule } from '../core/models';
 import { getAttributes, hasParent, isRoot } from '../core/parse5-utils';
 import { aToLink } from '../core/rules';
 
@@ -31,7 +32,9 @@ const toCustomData = flow(
 const getData = (onclick?: string): Record<string, string> =>
   onclick?.startsWith('Wix.') ? { customData: toCustomData(onclick) } : {};
 
-const mergeData = (onclick?: string) => (link: Link): Link => ({ ...link, ...getData(onclick) });
+const mergeData =
+  (onclick?: string) =>
+  (link: Link): Link => ({ ...link, ...getData(onclick) });
 
 const createCustomLink = ({ url, onclick, ...rest }: Record<string, string>): Link =>
   pipe({ url, ...rest }, createLink, mergeData(onclick));

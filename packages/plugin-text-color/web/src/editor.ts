@@ -1,16 +1,12 @@
 import { createTextColorPlugin } from './createTextColorPlugin';
 import { createTextHighlightPlugin } from './createTextHighlightPlugin';
-import {
-  TEXT_COLOR_TYPE,
-  TEXT_HIGHLIGHT_TYPE,
-  TextColorPluginEditorConfig,
-  TextHighlightPluginEditorConfig,
-} from './types';
+import type { TextColorPluginEditorConfig, TextHighlightPluginEditorConfig } from './types';
+import { TEXT_COLOR_TYPE, TEXT_HIGHLIGHT_TYPE } from './types';
 import { DEFAULTS } from './constants';
 import { ModalsMap } from './modals';
-import { EditorPluginCreator } from 'wix-rich-content-common';
-import { TiptapEditorPlugin } from 'ricos-tiptap-types';
-import { getTiptapExtensions } from './tiptap';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
+import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { tiptapExtensions } from './tiptap';
 
 export const pluginTextColor: EditorPluginCreator<TextColorPluginEditorConfig> = config => {
   return {
@@ -18,7 +14,7 @@ export const pluginTextColor: EditorPluginCreator<TextColorPluginEditorConfig> =
     type: TEXT_COLOR_TYPE,
     createPlugin: createTextColorPlugin,
     ModalsMap,
-    tiptapExtensions: getTiptapExtensions(config),
+    tiptapExtensions,
   } as TiptapEditorPlugin;
 };
 

@@ -1,9 +1,11 @@
-import React, { PureComponent, Ref, ComponentType, useEffect, useState, useRef } from 'react';
+import type { Ref, ComponentType } from 'react';
+import React, { PureComponent, useEffect, useState, useRef } from 'react';
 import { I18nextProvider, translate, Trans, I18n as I18nReact } from 'react-i18next';
 import i18n from './i18n';
 import createHocName from './createHocName';
-import { LocaleResource } from '../types';
-import { i18n as I18n } from 'i18next';
+import type { LocaleResource } from 'ricos-types';
+import type { i18n as I18n } from 'i18next';
+
 interface Props {
   locale: string;
   localeResource: LocaleResource;
@@ -38,26 +40,21 @@ export default <T, P>(
 
     async componentDidMount() {
       if (this.props.locale !== 'en') {
-        const { locale, localeResource } = await this.getResourceByLocale(this.props.locale);
-        this.changeLocale({ locale, localeResource });
+        try {
+          const { locale, localeResource } = await import(
+            /* webpackChunkName: "messages_[request]" */
+            `wix-rich-content-common/dist/statics/locale/messages_${this.props.locale}.json`
+          ).then(res => res.default);
+          this.changeLocale({ locale, localeResource });
+        } catch (err) {
+          console.warn(`can't find ${this.props.locale} locale`);
+        }
       }
     }
 
     componentWillReceiveProps(nextProps) {
       if (this.props.locale !== nextProps.locale) {
         this.changeLocale(nextProps);
-      }
-    }
-
-    async getResourceByLocale(locale) {
-      try {
-        const localeResource = await import(
-          /* webpackChunkName: "messages_[request]" */
-          `wix-rich-content-common/dist/statics/locale/messages_${locale}.json`
-        ).then(res => res.default);
-        return { locale, localeResource };
-      } catch (err) {
-        throw new Error(`error while loading locale ${locale}:\n${err}`);
       }
     }
 

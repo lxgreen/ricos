@@ -28,3 +28,8 @@ h3 {
 :not(.mobile) > div > .rcWrapper {
   padding: 10px 50px;
 }
+
+#RicosEditorContainer,
+#RicosViewerContainer {
+  font-family: HelveticaNeue, Helvetica, Arial;
+}

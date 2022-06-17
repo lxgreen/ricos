@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import { Layout, Cell, Button } from 'wix-style-react';
 import {
   emptyCommonBuilderFields,
@@ -8,7 +9,7 @@ import {
   PNLMedia,
   PNLContainerData,
 } from '../AbstractPanels';
-import { EditPanelProps } from '../types';
+import type { EditPanelProps } from '../types';
 
 export const Video: FC<EditPanelProps<'addVideo'>> = ({ addFunc }) => {
   const [commonFields, setCommonFields] = useState(emptyCommonBuilderFields);

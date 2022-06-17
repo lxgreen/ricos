@@ -1,7 +1,7 @@
 import createInlineButtons from './inline-buttons';
 import createInsertButtons from './insert-buttons';
-import { CreatePluginToolbar, TranslationFunction } from 'wix-rich-content-common';
-import { GiphyPluginEditorConfig } from '../types';
+import type { CreatePluginToolbar, TranslationFunction } from 'wix-rich-content-common';
+import type { GiphyPluginEditorConfig } from '../types';
 
 const createToolbar: CreatePluginToolbar = ({
   t,

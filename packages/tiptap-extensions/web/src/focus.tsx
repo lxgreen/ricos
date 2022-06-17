@@ -1,8 +1,8 @@
-import { Editor } from '@tiptap/react';
+import type { Editor } from '@tiptap/react';
 import { pipe } from 'fp-ts/function';
-import React, { ComponentType, useEffect, useState } from 'react';
-
-const name = 'focus';
+import type { ComponentType } from 'react';
+import React, { useEffect, useState } from 'react';
+import type { RicosExtension } from 'ricos-tiptap-types';
 
 const isInSelection = (selection: Editor['state']['selection']) => (position: number) =>
   position >= selection.$from.pos && position <= selection.$to.pos;
@@ -30,15 +30,19 @@ const FocusHoc = (Component: ComponentType) => {
   return Focus;
 };
 
-export const createFocusConfig = () => ({
+export const focus: RicosExtension = {
   type: 'extension' as const,
-  createExtensionConfig: () => ({
-    name,
-    priority: 20,
-    addNodeHoc: () => ({
-      priority: 100,
-      nodeTypes: ['*'],
-      nodeHoc: FocusHoc,
-    }),
-  }),
-});
+  groups: [],
+  name: 'focus',
+  createExtensionConfig() {
+    return {
+      name: this.name,
+      priority: 20,
+      addNodeHoc: () => ({
+        priority: 100,
+        nodeTypes: ['*'],
+        nodeHoc: FocusHoc,
+      }),
+    };
+  },
+};

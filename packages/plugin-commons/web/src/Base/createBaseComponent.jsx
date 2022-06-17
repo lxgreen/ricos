@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { merge, compact, debounce } from 'lodash';
 import classNames from 'classnames';
-import '../styles.scss';
 import {
   alignmentClassName,
   sizeClassName,

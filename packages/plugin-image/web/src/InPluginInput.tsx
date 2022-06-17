@@ -1,9 +1,5 @@
-import React, {
-  Component,
-  FocusEventHandler,
-  KeyboardEventHandler,
-  ChangeEventHandler,
-} from 'react';
+import type { FocusEventHandler, KeyboardEventHandler, ChangeEventHandler } from 'react';
+import React, { Component } from 'react';
 import classnames from 'classnames';
 import styles from '../statics/styles/in-plugin-input.scss';
 

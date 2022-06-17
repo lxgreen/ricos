@@ -1,10 +1,13 @@
 import { createDividerPlugin } from './createDividerPlugin';
 import { DEFAULTS } from './defaults';
-import { DIVIDER_TYPE, DividerPluginEditorConfig } from './types';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import type { DividerPluginEditorConfig } from './types';
+import { DIVIDER_TYPE } from './types';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createDividerData } from './createDividerData';
-import { createTiptapExtensions } from './tiptap';
-import { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { tiptapExtensions } from './tiptap/tiptap';
+import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { getAddButtons } from './getAddButtons';
+import { getToolbarButtons } from './getToolbarButtons';
 
 export const pluginDivider: EditorPluginCreator<DividerPluginEditorConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };
@@ -14,6 +17,8 @@ export const pluginDivider: EditorPluginCreator<DividerPluginEditorConfig> = con
     createPlugin: createDividerPlugin,
     ModalsMap: {},
     createPluginData: createDividerData,
-    tiptapExtensions: createTiptapExtensions(pluginConfig),
+    tiptapExtensions,
+    addButtons: getAddButtons(),
+    toolbarButtons: getToolbarButtons(config),
   } as TiptapEditorPlugin;
 };

@@ -1,11 +1,14 @@
 import { createVideoPlugin } from './createVideoPlugin';
-import { VIDEO_TYPE, VideoPluginEditorConfig } from './types';
+import type { VideoPluginEditorConfig } from './types';
+import { VIDEO_TYPE } from './types';
 import { DEFAULTS } from './defaults';
 import { ModalsMap } from './modals';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createVideoData } from './createVideoData';
-import { createRicosExtensions } from './tiptap';
-import { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { tiptapExtensions } from './tiptap/tiptap';
+import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { getAddButtons } from './getAddButtons';
+import { getToolbarButtons } from './getToolbarButtons';
 
 export const pluginVideo: EditorPluginCreator<VideoPluginEditorConfig> = config => {
   const pluginConfig: VideoPluginEditorConfig = { ...DEFAULTS.config, ...config };
@@ -15,9 +18,8 @@ export const pluginVideo: EditorPluginCreator<VideoPluginEditorConfig> = config 
     createPlugin: createVideoPlugin,
     ModalsMap,
     createPluginData: createVideoData,
-    configFixer: () =>
-      (pluginConfig.uploadHandler =
-        pluginConfig.handleFileUpload || pluginConfig.handleFileSelection),
-    tiptapExtensions: createRicosExtensions(pluginConfig),
+    tiptapExtensions,
+    addButtons: getAddButtons(config),
+    toolbarButtons: getToolbarButtons(config),
   } as TiptapEditorPlugin;
 };

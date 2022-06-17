@@ -1,5 +1,7 @@
-import React, { FunctionComponent } from 'react';
-import { DraftContent, RicosViewer } from 'ricos-viewer';
+import type { FunctionComponent } from 'react';
+import React from 'react';
+import type { DraftContent } from 'ricos-viewer';
+import { RicosViewer } from 'ricos-viewer';
 import { pluginFileUpload } from 'wix-rich-content-plugin-file-upload/dist/module.viewer';
 
 const FileUploadViewer: FunctionComponent<{ content?: DraftContent }> = ({ content }) => (

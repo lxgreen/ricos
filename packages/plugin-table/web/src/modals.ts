@@ -1,11 +1,11 @@
-import tableSettingsModal from './toolbar/tableSettingsModal';
+import tableInsertModal from './toolbar/tableInsertModal';
 
 const Modals = {
   TABLE_SETTINGS: 'table-settings',
 };
 
 const ModalsMap = {
-  [Modals.TABLE_SETTINGS]: tableSettingsModal,
+  [Modals.TABLE_SETTINGS]: tableInsertModal,
 };
 
 export { Modals, ModalsMap };

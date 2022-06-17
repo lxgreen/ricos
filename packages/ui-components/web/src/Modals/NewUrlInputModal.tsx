@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useRef } from 'react';
-import { RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
 import { TextInput } from '../';
 import { KEYS_CHARCODE } from '../consts';
 import ModalContainer from './TextInputModalContainer';
@@ -15,7 +15,7 @@ const NewUrlInputModal = props => {
     errorMessage: string;
     placeholder: string;
     onInputChange: (text) => void;
-    onDblClick?: (text) => void;
+    onDoubleClick?: (text) => void;
     input?: string;
   }
 
@@ -28,7 +28,7 @@ const NewUrlInputModal = props => {
     placeholder,
     onInputChange,
     input,
-    onDblClick,
+    onDoubleClick,
   }: ModalProps = props;
   const InputRef = useRef<HTMLInputElement | null>(null);
 
@@ -65,7 +65,8 @@ const NewUrlInputModal = props => {
         theme={props.theme}
         data-hook={`${dataHook}Input`}
         autoComplete="off"
-        onDblClick={onDblClick}
+        onDoubleClick={onDoubleClick}
+        style={{ paddingLeft: '12px' }}
       />
     </ModalContainer>
   );

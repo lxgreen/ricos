@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -9,13 +10,15 @@ import {
   SettingsSection,
   FileInput,
   SettingsPanelFooter,
+  SettingsPanelHeader,
   FocusManager,
   SettingsMobileHeader,
-  SettingsPanelHeader,
+  Label,
 } from 'wix-rich-content-ui-components';
 import { LinkPanelWrapper } from 'wix-rich-content-editor-common';
 import { BackIcon, DeleteIcon, ReplaceIcon, NextIcon, PreviousIcon } from '../../icons';
 import styles from '../../../statics/styles/gallery-image-settings.scss';
+import { sampleItems } from '../../defaults';
 
 class ImageSettings extends Component {
   constructor(props) {
@@ -23,6 +26,7 @@ class ImageSettings extends Component {
     this.styles = mergeStyles({ styles, theme: props.theme });
     const { t } = props;
     this.updateLabel = t('GalleryImageSettings_Update');
+    this.headerLabel = t('GalleryImageSettings_Header');
     this.ReplaceLabel = t('GalleryImageSettings_Replace_Label');
     this.deleteLabel = t('GalleryImageSettings_Delete_Label');
     this.titleLabel = t('ImageSettings_Caption_Label');
@@ -40,14 +44,21 @@ class ImageSettings extends Component {
     this.props.handleFileChange(files);
   };
 
-  getMediaUrl = item =>
-    imageClientAPI.getScaleToFillImageURL(
-      'media/' + (item.metadata.type !== 'video' ? item.url : item.metadata.poster),
-      item.metadata.width,
-      item.metadata.height,
+  getMediaUrl = item => {
+    const itemToScale = item.url && item.metadata ? item : sampleItems[0];
+    const {
+      metadata: { width, height, type = 'image', poster },
+      url,
+    } = itemToScale;
+
+    return imageClientAPI.getScaleToFillImageURL(
+      (item.url ? 'media/' : '') + (type !== 'video' ? url : poster),
+      width,
+      height,
       420,
       240
     );
+  };
 
   onTitleChange = title => this.props.onUpdateItem({ title });
 
@@ -76,12 +87,14 @@ class ImageSettings extends Component {
       accept,
       anchorTarget,
       relValue,
+      experiments = {},
     } = this.props;
 
     const { linkPanel } = uiSettings || {};
     const { showNewTabCheckbox, showNoFollowCheckbox, showSponsoredCheckbox, placeholder } =
       linkPanel || {};
     const { metadata = {} } = image || {};
+    const useNewSettingsUi = experiments?.newSettingsModals?.enabled;
 
     const altText = typeof metadata.altText === 'string' ? metadata.altText : metadata.title;
     /* eslint-disable jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events */
@@ -89,14 +102,33 @@ class ImageSettings extends Component {
       <FocusManager className={styles.galleryImageSettings}>
         <div className={styles.galleryImageSettings_content}>
           {isMobile ? (
-            <SettingsMobileHeader theme={theme} onCancel={onCancel} onSave={onSave} t={t} />
-          ) : (
-            <SettingsPanelHeader onClose={onCancel} showCloseIcon={false}>
-              <div>
+            <SettingsMobileHeader
+              theme={theme}
+              onCancel={onCancel}
+              onSave={onSave}
+              t={t}
+              title={useNewSettingsUi && t('GallerySettings_Header')}
+              useNewSettingsUi={useNewSettingsUi}
+            />
+          ) : useNewSettingsUi ? (
+            <SettingsPanelHeader showCloseIcon={false}>
+              <div onClick={onCancel}>
                 <BackIcon className={styles.galleryImageSettings_backIcon} />
-                {t('GalleryImageSettings_Header')}
+                {this.headerLabel}
               </div>
             </SettingsPanelHeader>
+          ) : (
+            <h3
+              className={classNames(
+                styles.galleryImageSettings_backButton,
+                styles.galleryImageSettings_title
+              )}
+              data-hook="galleryImageSettingsHeader"
+              onClick={onCancel}
+            >
+              <BackIcon className={styles.galleryImageSettings_backIcon} />
+              {this.headerLabel}
+            </h3>
           )}
           <div
             className={classNames(styles.galleryImageSettings_scrollContainer, {
@@ -206,9 +238,9 @@ class ImageSettings extends Component {
                     theme={theme}
                     className={this.styles.galleryImageSettings_section}
                   >
-                    <span id="gallery_image_link_lbl" className={this.styles.inputWithLabel_label}>
-                      {this.linkLabel}
-                    </span>
+                    <div id="gallery_image_link_lbl" className={this.styles.linkLabel}>
+                      <Label label={this.linkLabel} />
+                    </div>
                     <LinkPanelWrapper
                       linkValues={metadata.link || {}}
                       onChange={this.onLinkPanelChange}
@@ -259,6 +291,7 @@ ImageSettings.propTypes = {
   visibleLeftArrow: PropTypes.bool,
   visibleRightArrow: PropTypes.bool,
   uiSettings: PropTypes.object,
+  experiments: PropTypes.object,
   accept: PropTypes.string,
 };
 

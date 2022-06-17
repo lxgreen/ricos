@@ -1,7 +1,8 @@
 import { createIndentPlugin } from './createIndentPlugin';
-import { INDENT_TYPE, IndentPluginEditorConfig } from './types';
+import type { IndentPluginEditorConfig } from './types';
+import { INDENT_TYPE } from './types';
 import { DEFAULTS } from './defaults';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
 
 export const pluginIndent: EditorPluginCreator<IndentPluginEditorConfig> = config => {
   return {

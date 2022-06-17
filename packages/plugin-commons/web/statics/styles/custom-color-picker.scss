@@ -1,7 +1,6 @@
 @import '~wix-rich-content-common/dist/statics/styles/palette.scss';
 @import '~wix-rich-content-common/dist/statics/styles/mixins.scss';
 
-
 .customColorPicker_editable_input_container {
   margin: 12px auto;
   justify-content: center;
@@ -19,7 +18,7 @@
 
 .customColorPicker_input_label {
   font-size: 14px;
-  color: #757575;
+  color: $secondary-text-color;
   width: auto;
   line-height: 20px;
   display: inline-block;
@@ -82,6 +81,7 @@
     height: 14px;
     left: 10px;
   }
+  fill: $secondary-text-color;
 }
 
 :global {

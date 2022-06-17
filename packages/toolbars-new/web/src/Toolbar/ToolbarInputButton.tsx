@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { Component, ReactElement, ReactNode, RefObject, Ref } from 'react';
+import type { ReactElement, ReactNode, RefObject, Ref } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
 import DropdownArrowIcon from '../icons/DropdownArrowIcon';
 import Styles from './ToolbarInputButton.scss';

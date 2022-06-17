@@ -10,6 +10,8 @@ env:
   captureVideos: 'true'
   captureImages: 'true'
   COMMIT_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+  BACKFILL_CACHE_PROVIDER: 'azure-blob'
+  BACKFILL_CACHE_PROVIDER_OPTIONS: ${{ secrets.BACKFILL_CACHE_PROVIDER_OPTIONS }}
 
 jobs:
   cache-build:
@@ -36,9 +38,9 @@ jobs:
         with:
           path: |
             node_modules
-            */*/node_modules
+            **/node_modules
             ~/.cache
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock', 'cacheBust') }}
 
       - name: npm install + bootstrap
         if: steps.cache-modules.outputs.cache-hit != 'true'
@@ -55,8 +57,6 @@ jobs:
 
       - name: build packages
         if: steps.cache-build.outputs.cache-hit != 'true'
-        env:
-          LAGE_NPM_TOKEN: '${{ secrets.LAGE_NPM_TOKEN }}'
         run: npm run build:ci
 
       - name: build test env
@@ -101,9 +101,9 @@ jobs:
         with:
           path: |
             node_modules
-            */*/node_modules
+            **/node_modules
             ~/.cache
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock', 'cacheBust') }}
 
       - name: lerna link
         if: steps.cache-modules.outputs.cache-hit == 'true'
@@ -116,7 +116,7 @@ jobs:
         run: |
           npm run e2e:app:wait
 
-      - name: Run tests with Knapsack Pro
+      - name: Run tests
         env:
           KNAPSACK_PRO_TEST_SUITE_TOKEN_CYPRESS: ${{ secrets.KNAPSACK_PRO_TEST_SUITE_TOKEN_CYPRESS }}
           #          KNAPSACK_PRO_CI_NODE_BUILD_ID: $(openssl rand -base64 32)
@@ -124,12 +124,10 @@ jobs:
           KNAPSACK_PRO_CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
           KNAPSACK_PRO_CI_NODE_INDEX: ${{ matrix.ci_node_index }}
           KNAPSACK_PRO_TEST_FILE_PATTERN: 'e2e/tests/*.e2e.ts'
-          APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
-          APPLITOOLS_SERVER_URL: ${{ secrets.APPLITOOLS_SERVER_URL }}
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
         run: |
-          # fix video recording bug
-          echo -e 'pcm.!default {\n type hw\n card 0\n}\n\nctl.!default {\n type hw\n card 0\n}' > ~/.asoundrc
-          $(npm bin)/knapsack-pro-cypress
+          npx percy exec --parallel -- $(npm bin)/knapsack-pro-cypress
+
   # disabled because it was taking a lot of time. Can be enabled when needed.
   #      - uses: actions/upload-artifact@v2
   #        if: failure()
@@ -139,7 +137,6 @@ jobs:
   #            e2e/cypress/screenshots
   #            e2e/cypress/videos
   #            **/applitools.log
-
 
   content-state-tests:
     needs: cache-build
@@ -172,9 +169,9 @@ jobs:
         with:
           path: |
             node_modules
-            */*/node_modules
+            **/node_modules
             ~/.cache
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock', 'cacheBust') }}
 
       - name: lerna link
         if: steps.cache-modules.outputs.cache-hit == 'true'
@@ -191,7 +188,6 @@ jobs:
           KNAPSACK_PRO_CI_NODE_TOTAL: ${{ matrix.ci_node_total }}
           KNAPSACK_PRO_CI_NODE_INDEX: ${{ matrix.ci_node_index }}
           KNAPSACK_PRO_TEST_FILE_PATTERN: 'e2e/tests/*.e2e.ts'
-          APPLITOOLS_IS_DISABLED: true
         run: |
           # fix video recording bug
           echo -e 'pcm.!default {\n type hw\n card 0\n}\n\nctl.!default {\n type hw\n card 0\n}' > ~/.asoundrc
@@ -205,7 +201,7 @@ jobs:
             e2e/cypress/videos
             **/applitools.log
 
-  lint-and-unit-tests:
+  lint:
     needs: cache-build
     runs-on: ubuntu-18.04
     steps:
@@ -230,9 +226,9 @@ jobs:
         with:
           path: |
             node_modules
-            */*/node_modules
+            **/node_modules
             ~/.cache
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock', 'cacheBust') }}
 
       - name: npm install + bootstrap
         if: steps.cache-modules.outputs.cache-hit != 'true'
@@ -243,21 +239,91 @@ jobs:
 
       - run: npm run lint
 
+  unit-tests:
+    needs: cache-build
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: cache-build
+        id: cache-build
+        uses: actions/cache@v2
+        with:
+          path: |
+            packages/*/web/dist
+            packages/ricos-schema/web/src/generated*
+            e2e/test-env/dist
+          key: ${{ runner.os }}-build-${{ env.COMMIT_SHA }}
+
+      - name: cache node_modules
+        id: cache-modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            **/node_modules
+            ~/.cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock', 'cacheBust') }}
+
+      - name: npm install + bootstrap
+        if: steps.cache-modules.outputs.cache-hit != 'true'
+        run: npx midgard-yarn install --frozen-lockfile
+      - name: lerna link
+        if: steps.cache-modules.outputs.cache-hit == 'true'
+        run: npm run link
+
       - run: npm run test
 
-  e2e-visual-applitoolsSendCompletion:
+  finalize-percy:
     needs: e2e-visual
     if: always()
     runs-on: ubuntu-18.04
     steps:
-      - name: Update Applitools batch status
-        uses: wei/curl@v1.1.1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
-          args: -d "" -X POST https://wixeyesapi.applitools.com/api/externals/github/servers/github.com/commit/${{ env.COMMIT_SHA }}/complete?apiKey=${{ secrets.APPLITOOLS_API_KEY }}
+          node-version: '14'
+
+      - name: cache-build
+        id: cache-build
+        uses: actions/cache@v2
+        with:
+          path: |
+            packages/*/web/dist
+            packages/ricos-schema/web/src/generated*
+            e2e/test-env/dist
+          key: ${{ runner.os }}-build-${{ env.COMMIT_SHA }}
+
+      - name: cache node_modules
+        id: cache-modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            **/node_modules
+            ~/.cache
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock', 'cacheBust') }}
+
+      - name: lerna link
+        if: steps.cache-modules.outputs.cache-hit == 'true'
+        run: npm run link
+
+      - name: Finalize Percy batch status
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        run: npx percy build:finalize
+
+      # - name: Percy Wait
+      #   env:
+      #     PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+      #   run: npx percy build:wait  --project org/project --commit ${{ env.COMMIT_SHA }}
 
   notify-on-slack:
     runs-on: ubuntu-18.04
-    needs: [e2e-visual, content-state-tests, lint-and-unit-tests]
+    needs: [e2e-visual, content-state-tests, lint, unit-tests]
     if: always()
     steps:
       - name: Get commit author
@@ -270,7 +336,7 @@ jobs:
           echo "pr-number=$(curl -s https://api.github.com/repos/wix/ricos/commits/${{ env.COMMIT_SHA }} | jq '.commit.message' | sed 's/.*(#//g' | sed 's/[^0-9]//g')" >> $GITHUB_ENV
       - name: Notify fail in Slack
         uses: voxmedia/github-action-slack-notify-build@v1.1.3
-        if: github.ref == 'refs/heads/master' && (needs.e2e-visual.result == 'failure' || needs.content-state-tests.result == 'failure' || needs.lint-and-unit-tests.result == 'failure')
+        if: github.ref == 'refs/heads/master' && (needs.e2e-visual.result == 'failure' || needs.content-state-tests.result == 'failure' || needs.lint.result == 'failure' || needs.unit-tests.result == 'failure')
         with:
           channel_id: C0124DH7HHS #ricos-ci
           status: FAILED ${{ env[env.commit-author] }}
@@ -294,7 +360,7 @@ jobs:
           echo "previous-status=$(echo $(curl -s https://api.github.com/repos/wix/ricos/actions/workflows/tests.yml/runs\?branch\=master | jq '.workflow_runs | .[] | select( .head_sha == "${{ env.previous-commit }}") | .conclusion' | sed 's/\"//g'))" >> $GITHUB_ENV
       - name: Notify recovery in Slack
         uses: voxmedia/github-action-slack-notify-build@v1.1.3
-        if: github.ref == 'refs/heads/master' && env.previous-status == 'failure' && (needs.e2e-visual.result == 'success' && needs.content-state-tests.result == 'success' && needs.lint-and-unit-tests.result == 'success')
+        if: github.ref == 'refs/heads/master' && env.previous-status == 'failure' && (needs.e2e-visual.result == 'success' && needs.content-state-tests.result == 'success' && needs.lint.result == 'success' && needs.unit-tests.result == 'success')
         with:
           channel_id: C0124DH7HHS #ricos-ci
           status: 'RECOVERED  :celebrate:'

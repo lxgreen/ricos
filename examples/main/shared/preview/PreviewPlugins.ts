@@ -1,8 +1,8 @@
 import theme from '../theme/theme';
 import { VIDEO_TYPE, videoTypeMapper } from 'wix-rich-content-plugin-video/viewer';
+import { AUDIO_TYPE, audioTypeMapper } from 'wix-rich-content-plugin-audio/viewer';
 import { dividerTypeMapper } from 'wix-rich-content-plugin-divider/viewer';
 import { htmlTypeMapper } from 'wix-rich-content-plugin-html/viewer';
-import { soundCloudTypeMapper } from 'wix-rich-content-plugin-sound-cloud/viewer';
 import { LINK_TYPE, linkTypeMapper } from 'wix-rich-content-plugin-link/viewer';
 import {
   LINK_PREVIEW_TYPE,
@@ -36,28 +36,7 @@ import {
   SPOILER_TYPE,
 } from 'wix-rich-content-plugin-spoiler/viewer';
 
-import 'wix-rich-content-editor-common/dist/styles.min.css';
-import 'wix-rich-content-common/dist/styles.min.css';
-import 'wix-rich-content-viewer/dist/styles.min.css';
-// import 'wix-rich-content-plugin-code-block/dist/styles.min.css';
-import 'wix-rich-content-plugin-button/dist/styles.min.css';
-import 'wix-rich-content-plugin-divider/dist/styles.min.css';
-import 'wix-rich-content-plugin-emoji/dist/styles.min.css';
-import 'wix-rich-content-plugin-hashtag/dist/styles.min.css';
-import 'wix-rich-content-plugin-html/dist/styles.min.css';
-import 'wix-rich-content-plugin-image/dist/styles.min.css';
-import 'wix-rich-content-plugin-gallery/dist/styles.min.css';
-import 'wix-rich-content-plugin-link/dist/styles.min.css';
-import 'wix-rich-content-plugin-link-preview/dist/styles.min.css';
-import 'wix-rich-content-plugin-mentions/dist/styles.min.css';
-import 'wix-rich-content-plugin-video/dist/styles.min.css';
-import 'wix-rich-content-plugin-sound-cloud/dist/styles.min.css';
-import 'wix-rich-content-plugin-map/dist/styles.min.css';
-import 'wix-rich-content-plugin-file-upload/dist/styles.min.css';
-import 'wix-rich-content-plugin-giphy/dist/styles.min.css';
-import 'wix-rich-content-text-selection-toolbar/dist/styles.min.css';
-import 'wix-rich-content-plugin-spoiler/dist/styles.min.css';
-import { DraftContent } from 'wix-rich-content-common';
+import type { DraftContent } from 'wix-rich-content-common';
 
 const linkPluginSettings = {
   // eslint-disable-next-line no-console
@@ -71,12 +50,12 @@ const mentionsPluginSettings = {
 
 export const typeMappers = [
   videoTypeMapper,
+  audioTypeMapper,
   buttonTypeMapper,
   dividerTypeMapper,
   htmlTypeMapper,
   linkTypeMapper,
   linkPreviewTypeMapper,
-  soundCloudTypeMapper,
   mentionsTypeMapper,
   imageTypeMapper,
   galleryTypeMapper,
@@ -112,13 +91,20 @@ export const config = {
     resolveFileUrl: () =>
       new Promise(resolve =>
         setTimeout(
-          () => resolve('https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf'),
+          () =>
+            resolve(
+              // eslint-disable-next-line max-len
+              'https://cms.education.gov.il/NR/rdonlyres/BFBDB737-89E9-4B70-A1FF-1122B7AE8F1D/69371/14_HEB_ClassRecipeBook.pdf'
+            ),
           1000
         )
       ),
   },
   [VIDEO_TYPE]: {
     getVideoUrl: src => `https://video.wixstatic.com/${src.pathname}`,
+  },
+  [AUDIO_TYPE]: {
+    getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,
   },
   [SPOILER_TYPE]: { initSpoilersContentState, SpoilerViewerWrapper },
 };

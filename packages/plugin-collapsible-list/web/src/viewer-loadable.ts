@@ -5,12 +5,19 @@
 */
 
 import { typeMapper } from './typeMapper-loadable';
-import { COLLAPSIBLE_LIST_TYPE, CollapsibleListPluginViewerConfig } from './types';
+import type { CollapsibleListPluginViewerConfig } from './types';
+import { COLLAPSIBLE_LIST_TYPE } from './types';
 import { DEFAULTS } from './defaults';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
-export { COLLAPSIBLE_LIST_TYPE, typeMapper as collapsibleListTypeMapper };
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
+export {
+  COLLAPSIBLE_LIST_TYPE,
+  typeMapper as collapsibleListTypeMapper,
+  CollapsibleListPluginViewerConfig,
+};
 
-export const pluginCollapsibleList: ViewerPluginCreator<CollapsibleListPluginViewerConfig> = config => {
+export const pluginCollapsibleList: ViewerPluginCreator<
+  CollapsibleListPluginViewerConfig
+> = config => {
   return {
     config: { ...DEFAULTS.config, ...config },
     type: COLLAPSIBLE_LIST_TYPE,

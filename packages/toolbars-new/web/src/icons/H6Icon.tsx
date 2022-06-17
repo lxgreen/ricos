@@ -14,7 +14,7 @@ const H6Icon = () => (
       <g
         id="Mobile-headings"
         transform="translate(-359.000000, -687.000000)"
-        fill="#000000"
+        fill="currentColor"
         fillRule="nonzero"
       >
         <path

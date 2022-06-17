@@ -4,7 +4,7 @@
 import React from 'react';
 import Styles from './customPanelStyles.scss';
 import { mergeStyles } from 'wix-rich-content-common';
-import { InfoIcon } from 'wix-rich-content-ui-components';
+import { InfoIconComponent } from 'wix-rich-content-ui-components';
 import classNames from 'classnames';
 import { KEYS_CHARCODE } from 'wix-rich-content-editor-common';
 
@@ -34,13 +34,17 @@ const UpdateHeadingPanel = ({
   return (
     <div className={styles.panel}>
       <div
-        className={classNames(styles.panel_row, styles.buttonComponent)}
-        onClick={() => onApply(false)}
-        onKeyDown={e => onKeyDown(e, onApply, onClose, true)}
+        className={styles.panel_row}
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
         tabIndex={0}
       >
-        {t('FormattingToolbar_TextStyle_Heading_Apply', { optionName })}
+        <div
+          className={classNames(styles.panel_row, styles.buttonComponent)}
+          onClick={() => onApply(false)}
+          onKeyDown={e => onKeyDown(e, onApply, onClose, true)}
+        >
+          {t('FormattingToolbar_TextStyle_Heading_Apply', { optionName })}
+        </div>
       </div>
       <div className={styles.separator} />
       <div
@@ -55,24 +59,24 @@ const UpdateHeadingPanel = ({
         >
           {t('FormattingToolbar_TextStyle_Heading_Update', { optionName })}
         </div>
-        <InfoIcon
+        <InfoIconComponent
           tooltipText={t('FormattingToolbar_TextStyle_Update_Heading_Tooltip')}
           size={{ height: 16, width: 16 }}
-          iconStyles={classNames(styles.infoIcon, updateButtonDisabled && styles.disabled_icon)}
+          iconStyles={classNames(updateButtonDisabled && styles.disabled_icon)}
         />
       </div>
       <div
+        className={styles.panel_row}
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
         tabIndex={resetButtonDisabled ? -1 : 0}
-        className={classNames(
-          styles.panel_row,
-          styles.buttonComponent,
-          resetButtonDisabled && styles.disabled
-        )}
-        onClick={() => !resetButtonDisabled && onReset()}
-        onKeyDown={e => !resetButtonDisabled && onKeyDown(e, onReset, onClose)}
       >
-        {t('FormattingToolbar_TextStyle_Heading_Reset')}
+        <div
+          className={classNames(styles.buttonComponent, resetButtonDisabled && styles.disabled)}
+          onClick={() => !resetButtonDisabled && onReset()}
+          onKeyDown={e => !resetButtonDisabled && onKeyDown(e, onReset, onClose)}
+        >
+          {t('FormattingToolbar_TextStyle_Heading_Reset')}
+        </div>
       </div>
     </div>
   );

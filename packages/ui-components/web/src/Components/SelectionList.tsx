@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
-import React, { Component, KeyboardEventHandler } from 'react';
+import type { KeyboardEventHandler } from 'react';
+import React, { Component } from 'react';
 import classnames from 'classnames';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../statics/styles/selection-list.scss';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type SelectionItem = Record<string, any> | string | number;
-type SelectionOption = { value?: SelectionItem; label?: string };
+type SelectionOption = { value?: SelectionItem; label?: string; subText?: string };
 
 function defaultDataMapper(item: SelectionItem): SelectionOption {
   switch (typeof item) {
@@ -57,6 +59,8 @@ interface SelectionListProps {
   value: string;
   onChange: (value: string) => void;
   optionClassName?: string;
+  useNewSettingsUi?: boolean;
+  renderOptionSubtext?: (props: { item: SelectionItem; selected: boolean }) => JSX.Element | null;
 }
 
 class SelectionList extends Component<SelectionListProps, { focusIndex: number }> {
@@ -73,11 +77,14 @@ class SelectionList extends Component<SelectionListProps, { focusIndex: number }
   static defaultProps = {
     dataMapper: defaultDataMapper,
     renderItem: defaultRenderItem,
+    useNewSettingsUi: false,
   };
 
-  mapItemToOptionData(
-    item: SelectionItem
-  ): { item: SelectionItem; option: SelectionOption; selected: boolean } {
+  mapItemToOptionData(item: SelectionItem): {
+    item: SelectionItem;
+    option: SelectionOption;
+    selected: boolean;
+  } {
     const option = this.props.dataMapper(item);
     return {
       item,
@@ -118,17 +125,28 @@ class SelectionList extends Component<SelectionListProps, { focusIndex: number }
   }
 
   render() {
-    const { dataSource, className, onChange, renderItem, theme, optionClassName } = this.props;
+    const {
+      dataSource,
+      className,
+      onChange,
+      renderItem,
+      theme,
+      optionClassName,
+      useNewSettingsUi,
+    } = this.props;
+    const optionsData = dataSource.map(item => this.mapItemToOptionData(item));
+    const subText = (
+      optionsData.filter(optionData => optionData.selected)?.[0]?.item as Record<string, string>
+    )?.subText;
     return (
-      <div
-        ref={el => (this.ref = el)}
-        className={classnames(this.styles.selectionList, className)}
-        role={'listbox'}
-        aria-orientation={'horizontal'}
-      >
-        {dataSource
-          .map(item => this.mapItemToOptionData(item))
-          .map(({ item, option, selected }, i) => (
+      <>
+        <div
+          ref={el => (this.ref = el)}
+          className={classnames(this.styles.selectionList, className)}
+          role={'listbox'}
+          aria-orientation={'horizontal'}
+        >
+          {optionsData.map(({ item, option, selected }, i) => (
             <SelectionListOption
               tabIndex={0}
               selected={selected}
@@ -141,11 +159,14 @@ class SelectionList extends Component<SelectionListProps, { focusIndex: number }
               value={option.value}
               optionClassName={optionClassName}
               onKeyDown={e => this.onKeyDown(e)}
+              useNewSettingsUi={useNewSettingsUi}
             >
               {renderItem({ item, option, selected })}
             </SelectionListOption>
           ))}
-      </div>
+        </div>
+        {subText && <div className={this.styles.selectionSubText}> {subText} </div>}
+      </>
     );
   }
 }
@@ -160,6 +181,7 @@ interface SelectionListOptionProps {
   dataHook?: string;
   tabIndex?: number;
   onKeyDown?: KeyboardEventHandler;
+  useNewSettingsUi?: boolean;
 }
 
 class SelectionListOption extends Component<SelectionListOptionProps> {
@@ -179,7 +201,17 @@ class SelectionListOption extends Component<SelectionListOptionProps> {
   }
 
   render() {
-    const { selected, onChange, children, value, dataHook, tabIndex, onKeyDown } = this.props;
+    const {
+      selected,
+      onChange,
+      children,
+      value,
+      optionClassName,
+      dataHook,
+      tabIndex,
+      onKeyDown,
+      useNewSettingsUi,
+    } = this.props;
 
     return (
       <div
@@ -188,6 +220,15 @@ class SelectionListOption extends Component<SelectionListOptionProps> {
         aria-selected={selected}
         ref={el => (this.ref = el)}
         onKeyDown={e => onKeyDown?.(e)}
+        className={
+          useNewSettingsUi
+            ? ''
+            : classnames(
+                this.styles.selectionListOption,
+                { [this.styles.selectionListOption_selected]: selected },
+                optionClassName
+              )
+        }
         data-hook={dataHook}
         onClick={() => onChange(value)}
       >

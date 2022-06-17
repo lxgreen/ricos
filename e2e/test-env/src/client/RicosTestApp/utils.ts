@@ -1,4 +1,4 @@
-import { EditorPlugin, ViewerPlugin } from 'wix-rich-content-common';
+import type { EditorPlugin, ViewerPlugin } from 'wix-rich-content-common';
 
 export const createPresets = <T extends EditorPlugin | ViewerPlugin>(
   plugins: Record<string, T>
@@ -7,6 +7,7 @@ export const createPresets = <T extends EditorPlugin | ViewerPlugin>(
     plugins.image,
     plugins.gallery,
     plugins.video,
+    plugins.audio,
     plugins.html,
     plugins.divider,
     plugins.spacing,
@@ -14,7 +15,6 @@ export const createPresets = <T extends EditorPlugin | ViewerPlugin>(
     plugins.hashtag,
     plugins.mentions,
     plugins.codeBlock,
-    plugins.soundCloud,
     plugins.giphy,
     plugins.headers,
     plugins.map,

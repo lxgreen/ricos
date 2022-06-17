@@ -20,3 +20,5 @@ export { default as textWrapContentStateExpected } from './textWrapContentStateE
 export { default as noConfigContentState } from './noConfigContentState';
 export { default as noConfigContentStateExpected } from './noConfigContentStateExpected';
 export { default as pollContent } from './pollContent';
+export { default as invalidInlineStyleState } from './invalidInlineStyleState';
+export { default as invalidInlineStyleStateExpected } from './invalidInlineStyleStateExpected';

@@ -1,6 +1,8 @@
-import React, { Component, Ref } from 'react';
+import type { CSSProperties, Ref } from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import Tooltip from 'wix-rich-content-common/libs/Tooltip';
 import { ErrorIcon, SearchIcon } from '../Icons';
 import textInputStyles from '../../statics/styles/text-input.scss';
@@ -20,9 +22,10 @@ interface TextInputProps {
   type?: string; // TODO: ensure type specifity
   id?: string; // TODO: ensure type specifity
   onKeyPress?: (e) => void;
-  onDblClick?: (text) => void;
+  onDoubleClick?: (text) => void;
   value?: string;
   autoComplete?: string;
+  style?: CSSProperties;
 }
 export default class TextInput extends Component<TextInputProps, { focusSearchIcon: boolean }> {
   static defaultProps = {
@@ -60,6 +63,7 @@ export default class TextInput extends Component<TextInputProps, { focusSearchIc
       dataHook,
       showErrorIcon,
       placeholder,
+      style,
       ...otherProps
     } = this.props;
     const inputProps = omit(otherProps, ['onChange']);
@@ -85,7 +89,8 @@ export default class TextInput extends Component<TextInputProps, { focusSearchIc
           onChange={this.handleOnChange}
           onFocus={this.focusSearchIcon}
           onBlur={this.unfocusSearchIcon}
-          onDoubleClick={otherProps?.onDblClick}
+          onDoubleClick={otherProps?.onDoubleClick}
+          style={style}
           {...inputProps}
         />
         {error &&

@@ -1,30 +1,24 @@
-import {
-  TOOLBARS,
-  INSERT_PLUGIN_BUTTONS,
-  BUTTON_TYPES,
-  undo,
-  redo,
-} from 'wix-rich-content-editor-common';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { TOOLBARS, INSERT_PLUGIN_BUTTONS, BUTTON_TYPES } from 'wix-rich-content-editor-common';
 import UndoIcon from './icons/UndoIcon';
 import RedoIcon from './icons/RedoIcon';
-import {
-  CreateInsertButtons,
-  TranslationFunction,
-  GetEditorState,
-  SetEditorState,
-} from 'wix-rich-content-common';
-import { UndoRedoPluginEditorConfig } from './types';
+import type { CreateInsertButtons, TranslationFunction } from 'wix-rich-content-common';
+import type { UndoRedoPluginEditorConfig } from './types';
 
 const createInsertButtons: CreateInsertButtons = ({
   t,
   settings,
-  getEditorState,
-  setEditorState,
+  onUndoClick,
+  onRedoClick,
+  isUndoDisabled,
+  isRedoDisabled,
 }: {
   t: TranslationFunction;
-  getEditorState: GetEditorState;
-  setEditorState: SetEditorState;
   settings: UndoRedoPluginEditorConfig;
+  onUndoClick?: (e: any & { ref?: any; render?: any }) => void;
+  onRedoClick?: (e: any & { ref?: any; render?: any }) => void;
+  isUndoDisabled?: () => boolean;
+  isRedoDisabled?: () => boolean;
 }) => {
   const undoIcon = settings?.toolbar?.icons?.Undo || UndoIcon;
   const redoIcon = settings?.toolbar?.icons?.Redo || RedoIcon;
@@ -36,14 +30,8 @@ const createInsertButtons: CreateInsertButtons = ({
       toolbars: [TOOLBARS.INSERT_PLUGIN, TOOLBARS.FOOTER],
       getIcon: () => undoIcon,
       componentData: {},
-      onClick: e => {
-        e.preventDefault();
-        setEditorState(undo(getEditorState()));
-      },
-      isDisabled: () =>
-        getEditorState()
-          .getUndoStack()
-          .isEmpty(),
+      onClick: onUndoClick,
+      isDisabled: isUndoDisabled,
     },
     {
       type: BUTTON_TYPES.BUTTON,
@@ -52,14 +40,8 @@ const createInsertButtons: CreateInsertButtons = ({
       toolbars: [TOOLBARS.INSERT_PLUGIN, TOOLBARS.FOOTER],
       getIcon: () => redoIcon,
       componentData: {},
-      onClick: e => {
-        e.preventDefault();
-        setEditorState(redo(getEditorState()));
-      },
-      isDisabled: () =>
-        getEditorState()
-          .getRedoStack()
-          .isEmpty(),
+      onClick: onRedoClick,
+      isDisabled: isRedoDisabled,
     },
   ];
 };

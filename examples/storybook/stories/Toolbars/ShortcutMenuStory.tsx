@@ -14,14 +14,14 @@ import { HTML_TYPE } from 'wix-rich-content-plugin-html';
 import { IMAGE_TYPE } from 'wix-rich-content-plugin-image';
 import { LINK_TYPE } from 'wix-rich-content-plugin-link';
 import { MAP_TYPE } from 'wix-rich-content-plugin-map';
-import { SOUND_CLOUD_TYPE } from 'wix-rich-content-plugin-sound-cloud';
 import { VIDEO_TYPE } from 'wix-rich-content-plugin-video';
+import { AUDIO_TYPE } from 'wix-rich-content-plugin-audio';
 import { VERTICAL_EMBED_TYPE } from 'wix-rich-content-plugin-vertical-embed';
 import TabsWrapper from '../Components/TabsWrapper';
 import apiData from '../Plugins/apiData';
-import { DraftContent, ToolbarSettings } from 'ricos-editor';
+import type { DraftContent, ToolbarSettings } from 'ricos-editor';
 import { ToolbarType } from 'wix-rich-content-common';
-import { FooterToolbarConfig } from '../../../main/src/types';
+import type { FooterToolbarConfig } from 'wix-rich-content-common';
 
 export default () => {
   class ShortcutMenuStory extends Component<
@@ -89,8 +89,8 @@ export default () => {
               { value: 'html', id: HTML_TYPE },
               { value: 'image', id: IMAGE_TYPE },
               { value: 'map', id: MAP_TYPE },
-              { value: 'soundCloud', id: SOUND_CLOUD_TYPE },
               { value: 'video', id: VIDEO_TYPE },
+              { value: 'audio', id: AUDIO_TYPE },
               { value: 'socialEmbed', id: LINK_TYPE },
               { value: 'verticalEmbed', id: VERTICAL_EMBED_TYPE },
               { value: 'emoji', id: EMOJI_TYPE },

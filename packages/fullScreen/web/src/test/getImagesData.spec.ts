@@ -1,7 +1,7 @@
 import getImagesData from '../../lib/getImagesData';
 import initialContentState from './Fixtures/imagesContentState';
 import { cloneDeep } from 'lodash';
-import { DraftContent } from 'ricos-common';
+import type { DraftContent } from 'ricos-common';
 
 describe('get images from content', () => {
   let imagesContentState: DraftContent;
@@ -38,9 +38,8 @@ describe('get images from content', () => {
   });
 
   it('should get 7 of the images when image expand inside collapsible list is enabled', () => {
-    imagesContentState.entityMap['3'].data.pairs['1'].content.entityMap[
-      '0'
-    ].data.disableExpand = false; // image inside collapsible list
+    imagesContentState.entityMap['3'].data.pairs['1'].content.entityMap['0'].data.disableExpand =
+      false; // image inside collapsible list
 
     const res = getImagesData(imagesContentState);
     const imageKeys = Object.keys(res.imageMap).length;

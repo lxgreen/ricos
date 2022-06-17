@@ -7,9 +7,6 @@ sidebar_label: Quick Start
 import { RicosEditor } from 'ricos-editor';
 import { pluginDivider } from 'wix-rich-content-plugin-divider';
 import { pluginVideo } from 'wix-rich-content-plugin-video';
-import 'wix-rich-content-plugin-video/dist/styles.min.css';
-import 'wix-rich-content-plugin-divider/dist/styles.min.css';
-import 'ricos-editor/dist/styles.min.css';
 
 Let's get started by installing the package:
 
@@ -21,7 +18,6 @@ Then add a basic rich text editor to your app. You can now test typing and addin
 
 ```jsx
 import { RicosEditor } from 'ricos-editor';
-import 'ricos-editor/dist/styles.min.css';
 
 <RicosEditor placeholder={'Type here!'} />;
 ```
@@ -40,14 +36,10 @@ Adding videos and dividers:
 
 ```jsx
 import { RicosEditor } from 'ricos-editor';
-import 'ricos-editor/dist/styles.min.css';
-import 'wix-rich-content-plugin-commons/dist/styles.min.css';
 
 import { pluginVideo } from 'wix-rich-content-plugin-video';
-import 'wix-rich-content-plugin-video/dist/styles.min.css';
 
 import { pluginDivider } from 'wix-rich-content-plugin-divider';
-import 'wix-rich-content-plugin-divider/dist/styles.min.css';
 
 <RicosEditor placeholder={'Type here!'} plugins={[pluginDivider(), pluginVideo()]} />;
 ```

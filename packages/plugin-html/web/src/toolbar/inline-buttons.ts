@@ -16,16 +16,19 @@ import {
   SRC_TYPE_URL,
 } from '../defaults';
 import EditPanel from './HtmlEditPanel';
-import { CreateInlineButtons, GetEditorBounds, translate } from 'wix-rich-content-common';
-import { HtmlPluginEditorConfig } from '../types';
+import type { CreateInlineButtons, GetEditorBounds } from 'wix-rich-content-common';
+import { translate } from 'wix-rich-content-common';
+import type { HtmlPluginEditorConfig } from '../types';
 
-const getAlignmentButtonPropsFn = getEditorBounds => ({ componentData }) => {
-  const editorBounds = getEditorBounds?.();
-  const maxAlignmentWidth = editorBounds ? editorBounds.width - 1 : MAX_ALIGNMENT_WIDTH;
-  return {
-    disabled: (componentData?.config?.width || 0) > maxAlignmentWidth,
+const getAlignmentButtonPropsFn =
+  getEditorBounds =>
+  ({ componentData }) => {
+    const editorBounds = getEditorBounds?.();
+    const maxAlignmentWidth = editorBounds ? editorBounds.width - 1 : MAX_ALIGNMENT_WIDTH;
+    return {
+      disabled: (componentData?.config?.width || 0) > maxAlignmentWidth,
+    };
   };
-};
 
 const TOOLTIP_TEXT_BY_SRC_TYPE = {
   [SRC_TYPE_HTML]: 'HtmlPlugin_EditHtml_Tooltip',

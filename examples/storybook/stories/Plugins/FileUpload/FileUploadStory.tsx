@@ -8,9 +8,11 @@ import {
 
 import fileUploadContentState from '../../../../../e2e/tests/fixtures/file-upload.json';
 import FileUploadEditor from './FileUploadEditor';
-import editorSourcecode from '!!raw-loader!./FileUploadEditor.tsx';
+// eslint-disable-next-line import/no-unresolved
+import editorSourcecode from './FileUploadEditor.tsx?raw';
 import FileUploadViewer from './FileUploadViewer';
-import viewerSourcecode from '!!raw-loader!./FileUploadViewer.tsx';
+// eslint-disable-next-line import/no-unresolved
+import viewerSourcecode from './FileUploadViewer.tsx?raw';
 import SyntaxHighlighter from '../../Components/SyntaxHighlighter';
 
 const mockData = () => {

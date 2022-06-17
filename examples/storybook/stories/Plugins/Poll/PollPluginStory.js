@@ -8,9 +8,9 @@ import {
 
 import pollContentState from '../../../../../e2e/tests/fixtures/poll.json';
 import PollEditor from './PollEditor';
-import editorSourcecode from '!!raw-loader!./PollEditor.js';
+import editorSourcecode from './PollEditor.js?raw';
 import PollViewer from './PollViewer';
-import viewerSourcecode from '!!raw-loader!./PollViewer.js';
+import viewerSourcecode from './PollViewer.js?raw';
 
 export default () => {
   return (

@@ -1,8 +1,9 @@
 import { toHtml } from '../../converters/html/toHtml/toHtml';
 import { fieldsToTranslatables } from './fieldsToTranslatables';
 import { extract } from '../../RicosContentAPI/extract';
-import { RichContent, Node_Type, Node } from 'ricos-schema';
-import {
+import type { RichContent, Node } from 'ricos-schema';
+import { Node_Type } from 'ricos-schema';
+import type {
   TextualTranslatable,
   NonTextualNode,
   Translatable,

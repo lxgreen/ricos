@@ -6,9 +6,6 @@
 // Version 1.4.1
 // MIT License
 
-// $track-color: $settings-action-color-fallback;
-// $thumb-color: $settings-action-color-fallback;
-
 $thumb-radius: 8px !default;
 $thumb-height: 16px !default;
 $thumb-width: 16px !default;
@@ -16,7 +13,15 @@ $thumb-shadow-size: 1px !default;
 $thumb-shadow-blur: 1px !default;
 $thumb-shadow-color: rgba(0, 0, 0, 0.2) !default;
 $thumb-border-width: 4px !default;
-$thumb-border-color: $settings-action-color-fallback !default;
+$thumb-border-color: var(
+  --ricos-settings-action-color,
+  var(--ricos-action-color-fallback, #0261ff)
+) !default;
+
+$thumb-border-color-livesite: var(
+  --ricos-oneapp-text-color,
+  var(--ricos-action-color-fallback, #0261ff)
+) !default;
 
 $track-width: 100% !default;
 $track-height: 6px !default;
@@ -41,9 +46,9 @@ $track-radius: 3px !default;
 }
 
 @mixin thumb {
-  @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
-  background: $settings-action-color-fallback;
-  border: $thumb-border-width solid $thumb-border-color;
+  box-shadow: none;
+  background: transparent;
+  border: $thumb-border-width solid transparent;
   border-radius: $thumb-radius;
   cursor: pointer;
   height: $thumb-height;
@@ -58,6 +63,13 @@ $track-radius: 3px !default;
   margin: $thumb-height / 2 0;
   width: $track-width;
 
+  &.small_track {
+    height: 4px;
+  }
+  &.medium_track {
+    height: 6px;
+  }
+
   &:focus {
     &::-webkit-slider-runnable-track {
       background: $track-unfilled-color;
@@ -71,13 +83,58 @@ $track-radius: 3px !default;
       background: $track-unfilled-color;
     }
   }
+  &::-webkit-slider-thumb {
+    @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
+  }
+
+  &:not(.slider_fixed_thumb) {
+    &:hover,
+    &:focus {
+      &.slider_livesite {
+        &::-webkit-slider-thumb {
+          background-color: $thumb-border-color-livesite;
+          border: $thumb-border-width solid $thumb-border-color-livesite;
+        }
+      }
+      &:not(.slider_livesite) {
+        &::-webkit-slider-thumb {
+          background-color: $thumb-border-color;
+          border: $thumb-border-width solid $thumb-border-color;
+        }
+      }
+    }
+  }
+  &.slider_fixed_thumb {
+    &.slider_livesite {
+      &::-webkit-slider-thumb {
+        background-color: $thumb-border-color-livesite;
+        border: $thumb-border-width solid $thumb-border-color-livesite;
+      }
+    }
+    &:not(.slider_livesite) {
+      &::-webkit-slider-thumb {
+        background-color: $thumb-border-color;
+        border: $thumb-border-width solid $thumb-border-color;
+      }
+    }
+  }
 
   &::-webkit-slider-runnable-track {
-    @include track;
     @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
     background: transparent;
     border: $track-border-width solid $track-border-color;
     border-radius: $track-radius;
+  }
+
+  &:not(.small_track) {
+    &::-webkit-slider-runnable-track {
+      @include track;
+    }
+  }
+  &.small_track {
+    &::-webkit-slider-runnable-track {
+      height: 4px !important;
+    }
   }
 
   &::-webkit-slider-thumb {

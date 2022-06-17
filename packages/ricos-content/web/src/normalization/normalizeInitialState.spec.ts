@@ -16,10 +16,17 @@ import {
   textWrapContentStateExpected,
   noConfigContentState,
   noConfigContentStateExpected,
+  invalidInlineStyleState,
+  invalidInlineStyleStateExpected,
 } from './Fixtures';
 import { WRAP } from '..';
 import { compare } from '../comparision/compare';
-import { RicosInlineStyleRange, RicosEntityRange, DraftContent, RicosContentBlock } from '../types';
+import type {
+  RicosInlineStyleRange,
+  RicosEntityRange,
+  DraftContent,
+  RicosContentBlock,
+} from '../types';
 
 const createState = ({
   text = 'bla bla bla  bla   ',
@@ -904,6 +911,16 @@ describe('normalizeInitialState', () => {
       );
       expect(actual).toHaveProperty('ID');
       expect(actual.ID).toStrictEqual('1234');
+    });
+  });
+
+  describe('invalid inline style removal', () => {
+    it('should remove number from inline style', () => {
+      expect(
+        compare(normalizeInitialState(invalidInlineStyleState), invalidInlineStyleStateExpected, {
+          ignoredKeys: ['ID'],
+        })
+      ).toStrictEqual({});
     });
   });
 });

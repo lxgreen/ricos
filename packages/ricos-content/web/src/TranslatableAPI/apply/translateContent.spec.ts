@@ -1,7 +1,8 @@
-import { RichContent, Node_Type, Node } from 'ricos-schema';
-import { DeepPartial } from 'utility-types';
+import type { Node } from 'ricos-schema';
+import { RichContent, Node_Type } from 'ricos-schema';
+import type { DeepPartial } from 'utility-types';
 import { translateContent } from './translateContent';
-import { Translatable } from '../types';
+import type { Translatable } from '../types';
 import migrationContent from '../../../statics/json/migratedFixtures/migration-content.json';
 import translatablesMock from '../../../__tests__/translatablesMock.json';
 import paragraph from '../../../__tests__/toTranslatables/paragraph.json';
@@ -31,8 +32,7 @@ describe('translateContent', () => {
     const mockTranslatable: Translatable[] = [
       {
         id: '0',
-        text:
-          '<p>Hello, this is a dummy text with <strong>bold</strong> and <u>underline</u> and <em>italic</em>.</p>',
+        text: '<p>Hello, this is a dummy text with <strong>bold</strong> and <u>underline</u> and <em>italic</em>.</p>',
         type: Node_Type.PARAGRAPH,
       },
     ];
@@ -44,8 +44,8 @@ describe('translateContent', () => {
     const mockTranslatable: Translatable[] = [
       {
         id: '0',
-        text:
-          '<h2>Hello, this is a dummy text with <strong>bold</strong> and <u>underline</u> and <em>italic</em>.</h2>',
+        // eslint-disable-next-line max-len
+        text: '<h2>Hello, this is a dummy text with <strong>bold</strong> and <u>underline</u> and <em>italic</em>.</h2>',
         type: Node_Type.HEADING,
       },
     ];

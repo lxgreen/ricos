@@ -1,8 +1,10 @@
-import React, { FunctionComponent, KeyboardEventHandler } from 'react';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { FunctionComponent, KeyboardEventHandler } from 'react';
+import React from 'react';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../statics/mentions.scss';
 import cx from 'classnames';
-import { Mention, Settings } from './createMentionsPlugin';
+import type { Mention, Settings } from './createMentionsPlugin';
 
 interface Props {
   mention: Mention;

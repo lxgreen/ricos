@@ -1,4 +1,4 @@
-import { TranslationFunction } from 'wix-rich-content-common';
+import type { TranslationFunction } from 'wix-rich-content-common';
 
 const pluginTags = [
   { plugin: 'ImagePlugin_InsertButton', tags: 'Image_plugin_search_tags', pluginId: 'image' },
@@ -7,6 +7,11 @@ const pluginTags = [
     plugin: 'VideoPlugin_InsertButton',
     tags: 'Video_plugin_search_tags',
     pluginId: 'video',
+  },
+  {
+    plugin: 'AudioPlugin_InsertButton',
+    tags: 'Audio_plugin_search_tags',
+    pluginId: 'audio',
   },
   {
     plugin: 'HTMLCodePlugin_InsertButton',
@@ -61,9 +66,7 @@ const getRelatedPlugins = (searchTag: string, t: TranslationFunction) => {
   }[] = [];
   pluginTags.map(data => {
     return (
-      t(data.tags)
-        .toLowerCase()
-        .includes(searchTag.toLowerCase()) && relatedPlugins.push(data)
+      t(data.tags).toLowerCase().includes(searchTag.toLowerCase()) && relatedPlugins.push(data)
     );
   });
   return relatedPlugins;

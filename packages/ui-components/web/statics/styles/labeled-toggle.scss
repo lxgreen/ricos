@@ -11,6 +11,7 @@
 
 .labeled_toggle_input_container:hover {
   opacity: 1;
+  cursor: pointer;
 }
 
 .labeled_toggle_input_container_checked {
@@ -43,6 +44,7 @@
 
 .labeled_toggle_root {
   padding-top: 24px;
+  gap: 36px;
 }
 
 .labeled_toggle_root + .labeled_toggle_root {
@@ -60,6 +62,8 @@
 .infoIcon {
   margin-left: 4px;
   cursor: pointer;
+  fill: $settings-icons-color;
+  color: $settings-icons-color;
 }
 
 .labeled_toggle_switch {
@@ -75,11 +79,13 @@
 
 .labeled_toggle_label_wrapper {
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  flex-direction: row;
 }
 
 .labeled_toggle_label {
+  text-align: left;
   font-size: 16px;
   @include phone {
     font-size: 14px;
@@ -90,10 +96,11 @@
   flex: 1;
   height: 100%;
   border-radius: 12px;
-  background-color: #aaa;
+  background-color: #0009;
   &_checked {
     background-color: $settings-action-color;
   }
+  @include svg-fill;
 }
 
 .labeled_toggle_slider {

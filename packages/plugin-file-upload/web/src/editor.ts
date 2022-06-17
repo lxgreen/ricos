@@ -1,10 +1,17 @@
 import { createFileUploadPlugin } from './createFileUploadPlugin';
-import { FILE_UPLOAD_TYPE, FilePluginEditorConfig } from './types';
+import type { FilePluginEditorConfig } from './types';
+import { FILE_UPLOAD_TYPE } from './types';
 import { DEFAULTS } from './defaults';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import { ModalsMap } from './modals';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { createFileData } from './createFileData';
-import { createRicosExtensions } from './tiptap';
-import { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { tiptapExtensions } from './tiptap/tiptap';
+import type { TiptapEditorPlugin } from 'ricos-tiptap-types';
+import { getToolbarButtons } from './getToolbarButtons';
+import { getAddButtons } from './getAddButtons';
+import { FilePluginService } from './toolbar/filePluginService';
+
+const filePluginService = new FilePluginService();
 
 export const pluginFileUpload: EditorPluginCreator<FilePluginEditorConfig> = config => {
   const pluginConfig: FilePluginEditorConfig = { ...DEFAULTS.config, ...config };
@@ -12,11 +19,10 @@ export const pluginFileUpload: EditorPluginCreator<FilePluginEditorConfig> = con
     config: pluginConfig,
     type: FILE_UPLOAD_TYPE,
     createPlugin: createFileUploadPlugin,
-    ModalsMap: {},
+    ModalsMap,
     createPluginData: createFileData,
-    configFixer: () =>
-      (pluginConfig.uploadHandler =
-        pluginConfig.onFileSelected || pluginConfig.handleFileSelection),
-    tiptapExtensions: createRicosExtensions(pluginConfig),
+    tiptapExtensions,
+    toolbarButtons: getToolbarButtons(config, filePluginService),
+    addButtons: getAddButtons(config, filePluginService),
   } as TiptapEditorPlugin;
 };

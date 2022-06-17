@@ -1,7 +1,8 @@
-import { INDENT_TYPE, IndentPluginViewerConfig } from './types';
+import type { IndentPluginViewerConfig } from './types';
+import { INDENT_TYPE } from './types';
 import { DEFAULTS } from './defaults';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
-export { INDENT_TYPE };
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
+export { INDENT_TYPE, IndentPluginViewerConfig };
 
 export const pluginIndent: ViewerPluginCreator<IndentPluginViewerConfig> = config => {
   return {

@@ -31,12 +31,16 @@ import {
   insertCustomLink,
   getSelectedBlocks,
   toggleBlockTypeWithSpaces,
+  getBlockEntity,
 } from 'wix-rich-content-editor-common';
-import {
-  AvailableExperiments,
+import type {
   EditorCommands,
   GetEditorState,
   SetEditorState,
+  DocumentStyle,
+  RicosCustomStyles,
+} from 'wix-rich-content-common';
+import {
   RICOS_LINE_SPACING_TYPE,
   RICOS_INDENT_TYPE,
   RICOS_TEXT_COLOR_TYPE,
@@ -45,8 +49,6 @@ import {
   RICOS_MENTION_TYPE,
   RICOS_FONT_SIZE_TYPE,
   UNSUPPORTED_BLOCKS_TYPE,
-  DocumentStyle,
-  RicosCustomStyles,
   CUSTOM_LINK,
   CODE_BLOCK_TYPE,
 } from 'wix-rich-content-common';
@@ -56,6 +58,7 @@ import {
   getWiredFontStyles,
   updateDocumentStyle,
   getAnchorBlockInlineStyles,
+  getInlineStylesInSelection,
   setFontSize,
   getFontSize,
   getColor,
@@ -118,8 +121,7 @@ export const createEditorCommands = (
   plugins,
   getEditorState: GetEditorState,
   setEditorState: SetEditorState,
-  externalEditorProps,
-  experiments?: AvailableExperiments
+  externalEditorProps
 ): EditorCommands => {
   const setBlockType: EditorCommands['setBlockType'] = type => {
     if (type === CODE_BLOCK_TYPE) {
@@ -165,11 +167,13 @@ export const createEditorCommands = (
     getDocumentStyle: EditorCommands['getDocumentStyle'];
     updateDocumentStyle: EditorCommands['updateDocumentStyle'];
     getAnchorBlockInlineStyles: EditorCommands['getAnchorBlockInlineStyles'];
+    getInlineStylesInSelection: EditorCommands['getInlineStylesInSelection'];
     getWiredFontStyles: EditorCommands['getWiredFontStyles'];
     isAtomicBlockInSelection: EditorCommands['isAtomicBlockInSelection'];
     isTextBlockInSelection: EditorCommands['isTextBlockInSelection'];
     getAnchorBlockType: EditorCommands['getAnchorBlockType'];
     getAllBlocksKeys: EditorCommands['getAllBlocksKeys'];
+    getBlockComponentData: EditorCommands['getBlockComponentData'];
   } = {
     getSelection: () => {
       const selection = getEditorState().getSelection();
@@ -215,8 +219,10 @@ export const createEditorCommands = (
       const pluginsList = plugins?.map(plugin =>
         isRicosSchema ? TO_RICOS_PLUGIN_TYPE_MAP[plugin.blockType] : plugin.blockType
       );
-      return pluginsList.filter(
-        (pluginName: string) => pluginName && !PluginsToExclude.includes[pluginName]
+      return (
+        pluginsList?.filter(
+          (pluginName: string) => pluginName && !PluginsToExclude.includes[pluginName]
+        ) || []
       );
     },
     getDocumentStyle: () => documentStyleGetter(),
@@ -229,13 +235,12 @@ export const createEditorCommands = (
       }
     },
     getAnchorBlockInlineStyles: () => getAnchorBlockInlineStyles(getEditorState()),
+    getInlineStylesInSelection: () => getInlineStylesInSelection(getEditorState()),
     getWiredFontStyles: (customStyles?: RicosCustomStyles, isMobile?: boolean) =>
       getWiredFontStyles(documentStyleGetter(), customStyles, isMobile),
-    scrollToBlock: blockKey => scrollToBlock(blockKey, experiments),
+    scrollToBlock: blockKey => scrollToBlock(blockKey),
     isBlockInContent: blockKey => {
-      const blocks = getEditorState()
-        .getCurrentContent()
-        .getBlocksAsArray();
+      const blocks = getEditorState().getCurrentContent().getBlocksAsArray();
       return blocks.some(block => block.getKey() === blockKey);
     },
     isAtomicBlockInSelection: () => isAtomicBlockInSelection(getEditorState()),
@@ -246,6 +251,10 @@ export const createEditorCommands = (
         .getCurrentContent()
         .getBlocksAsArray()
         .map(block => block.getKey()),
+    getBlockComponentData: (blockKey: string) => {
+      const editorState = getEditorState();
+      return getBlockEntity(editorState, blockKey)?.getData() || {};
+    },
   };
 
   const toggleOverlayBGColor = (element: HTMLElement) => {
@@ -360,6 +369,10 @@ export const createEditorCommands = (
     ...pluginsCommands,
     ...decorationsCommands,
     ...editorState,
+    getEditorState: () => getEditorState(),
+    focus: () => {},
+    updateBlock: () => {},
+    insertText: () => true,
   };
 
   return editorCommands;

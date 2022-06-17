@@ -1,11 +1,8 @@
-import imageClientAPI from 'image-client-api/dist/imageClientSDK';
-
+import { getScaleImageSrc } from 'wix-rich-content-common/libs/imageUtils';
 import { BACKGROUND_TYPE } from './defaults';
 
 export function generateId() {
-  return Math.random()
-    .toString(36)
-    .substr(2, 9);
+  return Math.random().toString(36).substr(2, 9);
 }
 
 export function getRandomValue<T>(pool: T[]) {
@@ -32,32 +29,11 @@ export function getBackgroundString(
         return null;
       }
       // eslint-disable-next-line no-case-declarations
-      const imageSrc = getImageSrc(background, width, height);
+      const imageSrc = getScaleImageSrc(background, width, height);
       return `url('${imageSrc}') center / cover`;
 
     case BACKGROUND_TYPE.COLOR:
     default:
       return background;
-  }
-}
-
-export function getMediaId(src: string) {
-  try {
-    const [, mediaId] = /media\/([^/]+)/.exec(src) as string[];
-    return mediaId;
-  } catch (error) {
-    return src;
-  }
-}
-
-export function getImageSrc(src: string, width: number, height: number) {
-  const mediaId = getMediaId(src);
-
-  try {
-    return imageClientAPI.getScaleToFillImageURL(mediaId, null, null, width, height, {
-      quality: 90,
-    });
-  } catch (error) {
-    return src;
   }
 }

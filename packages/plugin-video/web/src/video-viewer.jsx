@@ -26,7 +26,7 @@ class VideoViewer extends Component {
   componentWillReceiveProps(nextProps) {
     if (!isEqual(nextProps.componentData, this.props.componentData)) {
       validate(nextProps.componentData, pluginVideoSchema);
-      if (nextProps.componentData.src !== this.props.componentData.src) {
+      if (!isEqual(nextProps.componentData.src, this.props.componentData.src)) {
         const url = getVideoSrc(nextProps.componentData.src, nextProps.settings);
         if (typeof url === 'string') {
           this.setUrl(url);
@@ -65,13 +65,13 @@ class VideoViewer extends Component {
     return this.findFormalVideoRatio(element.clientHeight / element.clientWidth);
   };
 
-  onReactPlayerReady = () => {
+  onReactPlayerReady = player => {
     // eslint-disable-next-line react/no-find-dom-node
     const wrapper = ReactDOM.findDOMNode(this).parentNode;
     const ratio = this.getVideoRatio(wrapper);
     wrapper.style['padding-bottom'] = ratio * 100 + '%';
     if (!this.props.isLoaded) {
-      this.props.onReady?.() || this.setState({ isLoaded: true });
+      this.props.onReady?.(player) || this.setState({ isLoaded: true });
     }
   };
 
@@ -97,11 +97,19 @@ class VideoViewer extends Component {
     return disable;
   };
 
+  onProgress = progress => {
+    const { settings, blockKey } = this.props;
+    settings.onProgress?.({ ...progress, id: blockKey });
+  };
+
   render() {
-    const { theme, width, height, disabled, setComponentUrl } = this.props;
+    const { theme, width, height, disabled, setComponentUrl, onDuration, settings, muted } =
+      this.props;
     this.styles = this.styles || mergeStyles({ styles, theme });
     const { url, key } = this.state;
     setComponentUrl?.(url);
+    const isLoaded = this.props.isLoaded || this.state.isLoaded;
+
     const props = {
       url,
       onReady: this.onReactPlayerReady,
@@ -109,23 +117,25 @@ class VideoViewer extends Component {
       width,
       height,
       key,
+      onDuration,
+      onProgress: this.onProgress,
+      progressInterval: settings.progressInterval || 1000,
+      muted,
+      isLoaded,
       ...this.disableDownloadProps(),
     };
 
-    const isLoaded = this.props.isLoaded || this.state.isLoaded;
     return (
-      <>
-        <ReactPlayerWrapper
-          className={classNames(this.styles.video_player)}
-          onContextMenu={this.handleContextMenu}
-          data-loaded={isLoaded}
-          controls={this.props.isLoaded !== false}
-          {...props}
-        />
-      </>
+      <ReactPlayerWrapper
+        className={classNames(this.styles.video_player)}
+        onContextMenu={this.handleContextMenu}
+        controls={this.props.isLoaded !== false}
+        {...props}
+      />
     );
   }
 }
+
 VideoViewer.propTypes = {
   componentData: PropTypes.object.isRequired,
   onStart: PropTypes.func,
@@ -138,7 +148,11 @@ VideoViewer.propTypes = {
   onReady: PropTypes.func,
   isLoaded: PropTypes.bool,
   onReload: PropTypes.func,
+  onDuration: PropTypes.func,
+  blockKey: PropTypes.string,
+  muted: PropTypes.bool,
 };
+
 VideoViewer.defaultProps = {
   width: '100%',
   height: '100%',

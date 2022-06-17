@@ -1,5 +1,5 @@
 import { emojiComponent } from './emojiComponent';
-import { DraftDecorator, ContentBlock, ContentState } from 'draft-js';
+import type { DraftDecorator, ContentBlock, ContentState } from 'draft-js';
 
 const createEmojiDecorator = (): DraftDecorator[] => {
   return [{ strategy: emojiEditorStrategy, component: emojiComponent }];

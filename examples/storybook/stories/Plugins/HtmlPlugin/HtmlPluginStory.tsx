@@ -5,7 +5,8 @@ import { pluginHtml } from 'wix-rich-content-plugin-html/dist/module.viewer';
 import { pluginLinkPreview } from 'wix-rich-content-plugin-link-preview/dist/module.viewer';
 import content from '../../../../../e2e/tests/fixtures/html-domain-example.json';
 import HtmlWithDomainStory from './HtmlWithDomainStory';
-import HtmlWithDomainSourceCode from '!!raw-loader!./HtmlWithDomainStory.tsx';
+// eslint-disable-next-line import/no-unresolved
+import HtmlWithDomainSourceCode from './HtmlWithDomainStory.tsx?raw';
 
 export default () => (
   <Page title={'HTML Plugin'}>

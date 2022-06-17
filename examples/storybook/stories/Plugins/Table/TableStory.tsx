@@ -2,8 +2,10 @@ import React from 'react';
 import fixtrue from '../../../../../e2e/tests/fixtures/tablesExamples.json';
 import TableViewer from './TableViewer';
 import TableEditor from './TableEditor';
-import viewerSourcecode from '!!raw-loader!./TableViewer.tsx';
-import editorSourcecode from '!!raw-loader!./TableEditor.tsx';
+// eslint-disable-next-line import/no-unresolved
+import viewerSourcecode from './TableViewer.tsx?raw';
+// eslint-disable-next-line import/no-unresolved
+import editorSourcecode from './TableEditor.tsx?raw';
 import {
   RichContentEditorBox,
   RichContentViewerBox,

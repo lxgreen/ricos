@@ -1,7 +1,15 @@
-import React, { RefObject } from 'react';
+import type { RefObject } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import { IMAGE_TYPE, ImagePluginViewerConfig, ImageData } from './types';
+import type { ImagePluginViewerConfig, ImageData } from './types';
+import { IMAGE_TYPE } from './types';
 import { get, includes, isEqual, isFunction } from 'lodash';
+import type {
+  Helpers,
+  RichContentTheme,
+  SEOSettings,
+  CustomAnchorScroll,
+} from 'wix-rich-content-common';
 import {
   mergeStyles,
   validate,
@@ -9,10 +17,6 @@ import {
   anchorScroll,
   addAnchorTagToUrl,
   GlobalContext,
-  Helpers,
-  RichContentTheme,
-  SEOSettings,
-  CustomAnchorScroll,
 } from 'wix-rich-content-common';
 import { getImageSrc, isPNG, WIX_MEDIA_DEFAULT } from 'wix-rich-content-common/libs/imageUtils';
 import pluginImageSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-image.schema.json';
@@ -119,12 +123,16 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
   }
 
   getImageUrl(src): ImageSrc | null {
-    const { helpers, seoMode } = this.props || {};
+    const { helpers, seoMode, isMobile } = this.props || {};
+
     if (!src && helpers?.handleFileSelection) {
       return null;
     }
 
-    const removeUsm = this.context.experiments?.removeUsmFromImageUrls?.enabled;
+    const { experiments } = this.context;
+    const removeUsm = experiments?.removeUsmFromImageUrls?.enabled;
+    const encAutoImageUrls = experiments?.encAutoImageUrls?.enabled;
+    const qualityPreloadPngs = experiments?.qualityPreloadPngs?.enabled;
 
     const imageUrl: ImageSrc = {
       preload: '',
@@ -135,8 +143,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       let requiredHeight;
       let requiredWidth = width || 1;
       if (isMobile && !isSSR()) {
-        //adjust the image width to viewport scaling and device pixel ratio
-        requiredWidth *= window.devicePixelRatio;
+        //adjust the image width to viewport scaling
         requiredWidth *= window.screen.width / document.body.clientWidth;
       }
       //keep the image's original ratio
@@ -147,23 +154,31 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
     };
 
     let requiredWidth, requiredHeight;
-    let imageSrcOpts = {};
+    let webAndNonPngPreloadOpts = {};
     /**
         PNG files can't reduce quality via Wix services and we want to avoid downloading a big png image that will affect performance.
       **/
-    if (!this.props.isMobile && !isPNG(src)) {
+    const validQualtyPreloadFileType = (encAutoImageUrls && qualityPreloadPngs) || !isPNG(src);
+    if (!isMobile && validQualtyPreloadFileType) {
       const {
-        componentData: { config: { alignment, width } = {} },
+        componentData: { config: { alignment, width, size } = {} },
       } = this.props;
       const usePredefinedWidth = (alignment === 'left' || alignment === 'right') && !width;
-      imageSrcOpts = {
-        removeUsm,
+      webAndNonPngPreloadOpts = {
         imageType: 'quailtyPreload',
+        size: this.context.experiments.imagePreloadWidthByConfig?.enabled && size,
         ...(usePredefinedWidth && { requiredWidth: 300 }),
       };
     }
 
-    imageUrl.preload = getImageSrc(src, helpers?.getImageUrl, imageSrcOpts);
+    const commonPreloadOpts = {
+      encAutoImageUrls,
+    };
+
+    imageUrl.preload = getImageSrc(src, helpers?.getImageUrl, {
+      ...commonPreloadOpts,
+      ...webAndNonPngPreloadOpts,
+    });
     if (seoMode) {
       requiredWidth = src?.width && Math.min(src.width, SEO_IMAGE_WIDTH);
       requiredHeight = this.calculateHeight(SEO_IMAGE_WIDTH, src);
@@ -223,6 +238,18 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
     );
   };
 
+  getImageSize = opts => {
+    let width, height;
+    if (opts?.width && opts?.height) {
+      width = opts.width;
+      height = opts.height;
+    } else {
+      width = this.props.componentData?.src?.width;
+      height = this.props.componentData?.src?.height;
+    }
+    return { width, height };
+  };
+
   getImage(
     imageClassNames,
     src,
@@ -234,8 +261,9 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       height?: number | string;
     } = {}
   ) {
-    const { fadeIn = false, width, height } = opts;
+    const { fadeIn = false } = opts;
     const loading = this.context.experiments.lazyImagesAndIframes?.enabled ? 'lazy' : undefined;
+    const { width, height } = this.getImageSize(opts);
     return (
       <img
         {...props}
@@ -342,7 +370,7 @@ class ImageViewer extends React.Component<ImageViewerProps, ImageViewerState> {
       const anchorString = `viewer-${anchor}`;
       const element = document.getElementById(anchorString);
       addAnchorTagToUrl(anchorString);
-      anchorScroll(element, this.context.experiments);
+      anchorScroll(element);
     }
   };
 

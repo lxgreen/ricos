@@ -1,4 +1,5 @@
-import { Children, ReactElement } from 'react';
+import type { ReactElement } from 'react';
+import { Children } from 'react';
 
 // from: react-children-utilities
 

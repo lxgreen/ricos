@@ -1,6 +1,7 @@
 import { EditorState } from 'wix-rich-content-editor-common';
 import { COMPONENT_DATA, directions, EXPANDED } from '../../defaults';
-import { Store, generateKey } from 'wix-rich-content-common';
+import type { Store } from 'wix-rich-content-common';
+import { generateKey } from 'wix-rich-content-common';
 
 type Pair = {
   key: string;

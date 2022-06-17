@@ -1,12 +1,17 @@
-import { RicosExtension } from 'ricos-tiptap-types';
-export const createDoc = (): RicosExtension => ({
+import type { RicosExtension } from 'ricos-tiptap-types';
+export const doc: RicosExtension = {
   type: 'node' as const,
-  createExtensionConfig: () => ({
-    name: 'doc',
-    topNode: true,
-    content: 'block+',
-    addAttributes: () => ({
-      metadata: {},
-    }),
-  }),
-});
+  groups: [],
+  name: 'doc',
+  createExtensionConfig() {
+    return {
+      name: this.name,
+      topNode: true,
+      content: 'block+',
+      addAttributes: () => ({
+        metadata: {},
+        documentStyle: {},
+      }),
+    };
+  },
+};

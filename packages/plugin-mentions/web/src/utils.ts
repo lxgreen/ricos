@@ -1,5 +1,5 @@
 import addMention from 'draft-js-mention-plugin/lib/modifiers/addMention';
-import { DraftContent } from 'wix-rich-content-common';
+import type { DraftContent } from 'wix-rich-content-common';
 
 export const addMentionToEditorState = (...args) => addMention(...args);
 

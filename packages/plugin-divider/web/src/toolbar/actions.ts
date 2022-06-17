@@ -1,5 +1,5 @@
 import { Divider } from '../domain/divider';
-import { Store, ComponentData } from 'wix-rich-content-common';
+import type { Store, ComponentData } from 'wix-rich-content-common';
 
 const COMPONENT_DATA = 'componentData';
 

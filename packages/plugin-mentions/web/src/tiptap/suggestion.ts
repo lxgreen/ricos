@@ -1,5 +1,6 @@
 import Suggestion from '@tiptap/suggestion';
-import { ReactRenderer, Editor } from '@tiptap/react';
+import type { Editor } from '@tiptap/react';
+import { ReactRenderer } from '@tiptap/react';
 import tippy from 'tippy.js';
 import MentionList from './MentionList.jsx';
 
@@ -14,17 +15,30 @@ export default (
     handleDropdownClose,
   },
   PluginKey
-) =>
-  Suggestion({
+) => {
+  const shouldEndMentioningProcess = (query, items) => {
+    //There is no way to programmatically end mentioning process
+    //https://github.com/ueberdosis/tiptap/issues/823
+    const names = items.map(item => item.name.toLowerCase());
+    return !names.some(name => name.includes(query.toLowerCase()));
+  };
+
+  return Suggestion({
     editor,
     char: mentionTrigger,
+    allowSpaces: true,
     pluginKey: new PluginKey('mention'),
     command: ({ editor, range, props }) => {
-      editor.commands.insertMention({ name: props.id }, range);
+      editor.chain().focus().insertMention({ name: props.id }, range).run;
     },
     items: async ({ query }) => {
       const mentions = await getMentions(query);
-      return mentions.map(mention => mention.name).slice(0, visibleItemsBeforeOverflow);
+      return mentions
+        .map(mention => ({
+          name: mention.name,
+          avatar: mention.avatar,
+        }))
+        .slice(0, visibleItemsBeforeOverflow);
     },
     render: () => {
       let component;
@@ -38,6 +52,8 @@ export default (
             editor: editor as Editor,
             props: { ...props, container: popoverComponent },
           });
+
+          component.element.setAttribute('dir', '');
 
           popup = tippy('body', {
             getReferenceClientRect: props.clientRect,
@@ -66,6 +82,11 @@ export default (
             return true;
           }
 
+          const { items, query } = component.props;
+          if (props.event.key === 'Enter' && shouldEndMentioningProcess(query, items)) {
+            this.onExit();
+          }
+
           return component.ref?.onKeyDown(props);
         },
 
@@ -77,3 +98,4 @@ export default (
       };
     },
   });
+};

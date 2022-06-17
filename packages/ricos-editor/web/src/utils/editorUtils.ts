@@ -3,16 +3,19 @@ import {
   convertToRaw,
   convertFromRaw,
 } from 'wix-rich-content-editor/libs/editorStateConversion';
-import { EditorProps } from 'draft-js';
+import type { EditorProps, EditorState } from 'draft-js';
 import { pick } from 'lodash';
 import { v4 as uuid } from 'uuid';
 import { DRAFT_EDITOR_PROPS } from 'ricos-common';
 import { isContentStateEmpty } from 'ricos-content';
 import { isContentEqual } from 'ricos-content/libs/comapareDraftContent';
-import { DraftContent, isSSR } from 'wix-rich-content-common';
+import type { DraftContent } from 'wix-rich-content-common';
+import { isSSR } from 'wix-rich-content-common';
 import { getEmptyDraftContent } from 'wix-rich-content-editor-common';
-import { EditorDataInstance, OnContentChangeFunction, ContentStateGetter } from '../index';
+import type { EditorDataInstance, OnContentChangeFunction, ContentStateGetter } from '../index';
 import errorBlocksRemover from './errorBlocksRemover';
+
+type onDraftEditorContentChange = (draftContent: DraftContent, editorState: EditorState) => void;
 
 /* eslint-disable no-console */
 export const assert = (predicate, message) => console.assert(predicate, message);
@@ -26,8 +29,13 @@ const wait = ms => {
 const enforceContentId = (content?: DraftContent): DraftContent | undefined =>
   content && { ...content, ID: content.ID || uuid() };
 
+type ContentChangeCallbacks = [
+  onContentChange: OnContentChangeFunction | undefined,
+  onDraftEditorContentChange: onDraftEditorContentChange | undefined
+];
+
 export function createDataConverter(
-  onContentChange?: OnContentChangeFunction,
+  contentChangeCallbacks: ContentChangeCallbacks,
   initialContent?: DraftContent
 ): EditorDataInstance {
   const initialOrEmptyContent = enforceContentId(initialContent) || getEmptyDraftContent();
@@ -91,7 +99,9 @@ export function createDataConverter(
       isUpdated = true;
     }
 
+    const [onContentChange, onDraftEditorContentChange] = contentChangeCallbacks;
     onContentChange?.(currContent);
+    onDraftEditorContentChange?.(currContent, currEditorState);
 
     if (waitingForUpdateResolve) {
       waitingForUpdateResolve();

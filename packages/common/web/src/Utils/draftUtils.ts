@@ -1,4 +1,4 @@
-import { RicosContentBlock, DraftContent, RicosEntityRange } from '../types';
+import type { RicosContentBlock, DraftContent, RicosEntityRange } from 'ricos-types';
 
 export const hasLinksInBlock = (block: RicosContentBlock, contentState: DraftContent) => {
   return getLinkRangesInBlock(block, contentState).length > 0;

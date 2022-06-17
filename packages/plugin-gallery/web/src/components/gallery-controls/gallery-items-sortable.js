@@ -12,7 +12,12 @@ import imageClientAPI from 'image-client-api/dist/imageClientSDK';
 import Styles from '../../../statics/styles/gallery-items-sortable.scss';
 import ImageSettings from './gallery-image-settings';
 import { mergeStyles } from 'wix-rich-content-common';
-import { MediaItemErrorMsg, Loader, FileInput } from 'wix-rich-content-ui-components';
+import {
+  MediaItemErrorMsg,
+  Loader,
+  FileInput,
+  SettingsAddItem,
+} from 'wix-rich-content-ui-components';
 import { GALLERY_ITEMS_TYPES } from '../../defaults';
 import { FabIcon, UploadIcon, SelectedIcon, NotSelectedIcon } from '../../icons';
 
@@ -23,9 +28,10 @@ const onKeyDown = (e, handler) => {
 };
 
 const isLocalObjectUrl = item => {
-  return item.url.indexOf('data:') !== -1;
+  return !!item.url && item.url?.indexOf('data:') !== -1;
 };
 
+// eslint-disable-next-line complexity
 const SortableItem = sortableElement(props => {
   const {
     item,
@@ -39,17 +45,34 @@ const SortableItem = sortableElement(props => {
     t,
     isMobile,
     accept,
+    experiments = {},
   } = props;
 
   const styles = mergeStyles({ styles: Styles, theme });
-  const imageSize =
-    isMobile && window && window.document
-      ? (window.document.body.getBoundingClientRect().width - 20) / 3
-      : 104;
+  const useNewSettingsUi = experiments?.newSettingsModals?.enabled;
+  const newUiImageSize = isMobile ? 85 : 116;
+  const imageSize = useNewSettingsUi
+    ? newUiImageSize
+    : isMobile && window && window.document
+    ? (window.document.body.getBoundingClientRect().width - 20) / 3
+    : 104;
+
   if (addItemsButton) {
     const uploadMediaLabel = t('GallerySettings_Upload_Media');
 
-    return (
+    return useNewSettingsUi ? (
+      <SettingsAddItem
+        handleFileChange={handleFileChange}
+        handleFileSelection={handleFileSelection}
+        accept={accept}
+        imageSize={imageSize}
+        isMobile={isMobile}
+        uploadMediaLabel={uploadMediaLabel}
+        theme={theme}
+        dataHook="galleryItemsSortableFileInputBottom"
+        inlineStyle={{ width: imageSize + 'px', height: imageSize + 'px' }}
+      />
+    ) : (
       <FileInput
         className={classNames(styles.itemContainer, styles.filesItem, {
           [styles.mobile]: isMobile,
@@ -68,12 +91,12 @@ const SortableItem = sortableElement(props => {
     );
   } else {
     let prefix = '';
-    if (item.url.indexOf('/') < 0) {
+    if (item.url?.indexOf('/') < 0) {
       prefix = 'media/';
     }
 
     let url;
-    if (!isLocalObjectUrl(item)) {
+    if (!isLocalObjectUrl(item) && item.metadata) {
       url = imageClientAPI.getScaleToFillImageURL(
         prefix +
           (item.metadata.type !== GALLERY_ITEMS_TYPES.VIDEO ? item.url : item.metadata.poster),
@@ -91,8 +114,9 @@ const SortableItem = sortableElement(props => {
         aria-selected={item.selected}
         className={classNames(styles.itemContainer, {
           [styles.itemContainerSelected]: item.selected && !isMobile,
+          [styles.itemContainer_newUi]: useNewSettingsUi,
           [styles.itemContainerSelectedMobile]: item.selected && isMobile,
-          [styles.mobile]: isMobile,
+          [styles.mobile]: !useNewSettingsUi && isMobile,
           [styles.sorting]: isMobileSorting,
         })}
         data-hook="galleryItemsSortable"
@@ -140,7 +164,9 @@ const SortableList = sortableContainer(props => {
     t,
     isMobile,
     accept,
+    experiments,
   } = props;
+  const useNewSettingsUi = experiments?.newSettingsModals?.enabled;
 
   const styles = mergeStyles({ styles: Styles, theme });
   return (
@@ -148,7 +174,9 @@ const SortableList = sortableContainer(props => {
       role="grid"
       aria-label="Gallery Media Management"
       aria-multiselectable="true"
-      className={classNames(styles.sortableContainer, { [styles.mobile]: isMobile })}
+      className={classNames(styles.sortableContainer, {
+        [styles.mobile]: !useNewSettingsUi && isMobile,
+      })}
     >
       {items.map((item, itemIdx) => (
         <SortableItem
@@ -163,6 +191,7 @@ const SortableList = sortableContainer(props => {
           t={t}
           isMobile={isMobile}
           accept={accept}
+          experiments={experiments}
         />
       ))}
       {isMobileSorting ? null : (
@@ -178,6 +207,7 @@ const SortableList = sortableContainer(props => {
           addItemsButton
           disabled
           accept={accept}
+          experiments={experiments}
         />
       )}
     </div>
@@ -199,8 +229,10 @@ const ItemActionsMenu = props => {
     t,
     isMobile,
     accept,
+    experiments = {},
   } = props;
 
+  const useNewSettingsUi = experiments?.newSettingsModals?.enabled;
   const styles = mergeStyles({ styles: Styles, theme });
   const hasUnselectedItems = items.some(item => !item.selected);
   const hasSelectedItems = items.some(item => item.selected);
@@ -224,7 +256,7 @@ const ItemActionsMenu = props => {
       theme={theme}
       accept={accept}
     >
-      {isMobile ? <FabIcon className={styles.fab} /> : `+ ${addMediaLabel}`}
+      {!useNewSettingsUi && isMobile ? <FabIcon className={styles.fab} /> : `+ ${addMediaLabel}`}
     </FileInput>
   );
 
@@ -297,7 +329,7 @@ const ItemActionsMenu = props => {
       {itemSettingsLabel}
     </button>
   );
-  if (isMobile && selectedItems.length === 0) {
+  if (!useNewSettingsUi && isMobile && selectedItems.length === 0) {
     buttons.push(toggleSortingButton);
     buttons.push(separator('sep-0'));
   }
@@ -320,7 +352,10 @@ const ItemActionsMenu = props => {
   buttons.splice(buttons.length - 1, 1);
 
   return (
-    <div role="menu" className={classNames(styles.topBar, { [styles.mobile]: isMobile })}>
+    <div
+      role="menu"
+      className={classNames(styles.topBar, { [styles.mobile]: !useNewSettingsUi && isMobile })}
+    >
       {buttons}
       {hasSelectedItems || isMobileSorting ? null : addItemButton}
     </div>
@@ -340,6 +375,7 @@ ItemActionsMenu.propTypes = {
   t: PropTypes.func,
   isMobile: PropTypes.bool,
   accept: PropTypes.string,
+  experiments: PropTypes.object,
 };
 
 export class SortableComponent extends Component {
@@ -386,10 +422,7 @@ export class SortableComponent extends Component {
     this.setState({
       items,
       editedItem: selectedItems.length ? selectedItems[0] : null,
-      editedItemIndex:
-        selectedItems.length === 1
-          ? findIndex(items, i => i.itemId === selectedItems[0].itemId)
-          : -1,
+      editedItemIndex: selectedItems.length === 1 ? findIndex(items, i => i.selected) : -1,
     });
   };
 
@@ -454,7 +487,7 @@ export class SortableComponent extends Component {
   propsToState(props) {
     return {
       items: props.items,
-      editedImage: props?.items?.[this.state?.editedImageIndex],
+      editedItem: props?.items?.[this.state?.editedItemIndex],
     };
   }
 
@@ -493,9 +526,9 @@ export class SortableComponent extends Component {
 
   handleFileSelection = multiple => {
     const { items, editedItem } = this.state;
-    const { handleFileSelection, handleFilesAdded, deleteBlock } = this.props;
+    const { handleFileSelection } = this.props;
     const index = editedItem ? findIndex(items, i => editedItem.url === i.url) : undefined;
-    handleFileSelection(index, multiple, handleFilesAdded, deleteBlock);
+    handleFileSelection(index, multiple);
   };
 
   onNextItem = () => {
@@ -568,6 +601,7 @@ export class SortableComponent extends Component {
       anchorTarget,
       uiSettings,
       accept,
+      experiments,
     } = this.props;
     return (
       !!this.state.items &&
@@ -586,6 +620,7 @@ export class SortableComponent extends Component {
             t={t}
             isMobile={this.props.isMobile}
             accept={accept}
+            experiments={experiments}
           />
           <SortableList
             items={this.state.items}
@@ -602,6 +637,7 @@ export class SortableComponent extends Component {
             t={t}
             isMobile={this.props.isMobile}
             accept={accept}
+            experiments={experiments}
           />
         </div>
       ) : (
@@ -625,6 +661,7 @@ export class SortableComponent extends Component {
             visibleRightArrow={this.state.editedItemIndex < this.state.items.length - 1}
             uiSettings={uiSettings}
             accept={accept}
+            experiments={experiments}
           />
         </div>
       ))
@@ -638,13 +675,12 @@ SortableComponent.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleFileChange: PropTypes.func,
   handleFileSelection: PropTypes.func,
-  handleFilesAdded: PropTypes.func,
-  deleteBlock: PropTypes.func,
   isMobile: PropTypes.bool,
   theme: PropTypes.object.isRequired,
   t: PropTypes.func,
   relValue: PropTypes.string,
   anchorTarget: PropTypes.string,
   uiSettings: PropTypes.object,
+  experiments: PropTypes.object,
   accept: PropTypes.string,
 };

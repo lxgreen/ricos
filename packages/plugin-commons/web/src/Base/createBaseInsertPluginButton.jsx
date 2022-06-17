@@ -6,6 +6,7 @@ import { generateInsertPluginButtonProps } from '../Utils/generateInsertPluginBu
 import { FileInput } from 'wix-rich-content-ui-components';
 import { ToolbarButton, BUTTON_TYPES } from 'wix-rich-content-editor-common';
 import styles from '../../statics/styles/toolbar-button.scss';
+import { GlobalContext, UploadServiceContext } from 'wix-rich-content-common';
 
 /**
  * createBaseInsertPluginButton
@@ -49,6 +50,8 @@ export default ({
       this.toolbarName = props.toolbarName;
     }
 
+    static contextType = GlobalContext;
+
     componentDidMount() {
       const { onButtonVisible } = this.props;
       if (button?.isVisiblePromise) {
@@ -63,8 +66,9 @@ export default ({
       }
     }
 
-    getButtonProps = () => {
+    getButtonProps = (uploadService, updateService) => {
       const { setEditorState, getEditorState, closePluginMenu, pluginMenuButtonRef } = this.props;
+      const { experiments } = this.context;
       return generateInsertPluginButtonProps({
         blockType,
         button,
@@ -81,6 +85,9 @@ export default ({
         toolbarName: this.toolbarName,
         closePluginMenu,
         pluginMenuButtonRef,
+        experiments,
+        uploadService,
+        updateService,
       });
     };
 
@@ -168,12 +175,24 @@ export default ({
       const buttonWrapperClassNames = classNames(styles.buttonWrapper, {
         [styles.mobile]: isMobile,
       });
-      const Button = (
-        <div className={buttonWrapperClassNames}>
-          {buttonProps.type === BUTTON_TYPES.FILE
-            ? this.renderFileUploadButton(buttonProps)
-            : this.renderButton(buttonProps)}
-        </div>
+      const hasUploadContext = this.context.experiments?.useUploadContext?.enabled;
+      const buttonRenderer =
+        buttonProps.type === BUTTON_TYPES.FILE && !hasUploadContext
+          ? this.renderFileUploadButton
+          : this.renderButton;
+      const Button = hasUploadContext ? (
+        <UploadServiceContext.Consumer>
+          {({ uploadService, updateService }) => {
+            const buttonPropsWithContext = this.getButtonProps(uploadService, updateService);
+            return (
+              <div className={buttonWrapperClassNames}>
+                {buttonRenderer(buttonPropsWithContext)}
+              </div>
+            );
+          }}
+        </UploadServiceContext.Consumer>
+      ) : (
+        <div className={buttonWrapperClassNames}>{buttonRenderer(buttonProps)}</div>
       );
       return (
         <ToolbarButton

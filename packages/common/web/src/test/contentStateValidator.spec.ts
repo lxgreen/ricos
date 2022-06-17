@@ -1,5 +1,8 @@
+/* eslint-disable max-len */
 import { isValidEditorData } from '../../lib/contentStateValidator';
-
+import EmojiContent from './fixtures/emojiContent.json';
+import PollsContent from './fixtures/pollsContent.json';
+import audioContent from './fixtures/audioContent.json';
 describe('Content State Validator', () => {
   it('should return invalid result', async () => {
     const validation = isValidEditorData({ what: 'hey!' });
@@ -156,6 +159,20 @@ describe('Content State Validator', () => {
       VERSION: '7.15.3-alpha.0',
     };
     const validation = isValidEditorData(anchorInImageAfterConvert);
+    expect(validation.valid).toEqual(true);
+  });
+
+  it('should return valid for emoji content', async () => {
+    const validation = isValidEditorData(EmojiContent);
+    expect(validation.valid).toEqual(true);
+  });
+
+  it('should return valid for poll content', async () => {
+    const validation = isValidEditorData(PollsContent);
+    expect(validation.valid).toEqual(true);
+  });
+  it('should return valid for audio content', async () => {
+    const validation = isValidEditorData(audioContent);
     expect(validation.valid).toEqual(true);
   });
 });

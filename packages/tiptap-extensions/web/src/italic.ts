@@ -1,5 +1,6 @@
 import { markInputRule, markPasteRule, mergeAttributes } from '@tiptap/core';
-import { RicosExtension, DOMOutputSpec } from 'ricos-tiptap-types';
+import { Decoration_Type } from 'ricos-schema';
+import type { DOMOutputSpec, RicosExtension } from 'ricos-tiptap-types';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -25,84 +26,94 @@ export const starPasteRegex = /(?:^|\s)((?:\*)((?:[^*]+))(?:\*))/g;
 export const underscoreInputRegex = /(?:^|\s)((?:_)((?:[^_]+))(?:_))$/;
 export const underscorePasteRegex = /(?:^|\s)((?:_)((?:[^_]+))(?:_))/g;
 
-export const createItalic = (): RicosExtension => ({
+export const italic: RicosExtension = {
   type: 'mark' as const,
-  createExtensionConfig: () => ({
-    name: 'italic',
+  groups: [],
 
-    addOptions() {
-      return {
-        HTMLAttributes: {},
-      };
-    },
+  name: Decoration_Type.ITALIC,
+  createExtensionConfig() {
+    return {
+      name: this.name,
+      addOptions() {
+        return {
+          HTMLAttributes: {},
+        };
+      },
 
-    parseHTML() {
-      return [
-        {
-          tag: 'em',
-        },
-        {
-          tag: 'i',
-          getAttrs: node => (node as HTMLElement).style.fontStyle !== 'normal' && null,
-        },
-        {
-          style: 'font-style=italic',
-        },
-      ];
-    },
+      parseHTML() {
+        return [
+          {
+            tag: 'em',
+          },
+          {
+            tag: 'i',
+            getAttrs: node => (node as HTMLElement).style.fontStyle !== 'normal' && null,
+          },
+          {
+            style: 'font-style=italic',
+          },
+        ];
+      },
 
-    renderHTML({ HTMLAttributes }) {
-      return [
-        'em',
-        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-        0,
-      ] as DOMOutputSpec;
-    },
+      renderHTML({ HTMLAttributes }) {
+        return [
+          'em',
+          mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+          0,
+        ] as DOMOutputSpec;
+      },
 
-    addCommands() {
-      return {
-        setItalic: () => ({ commands }) => {
-          return commands.setMark(this.name);
-        },
-        toggleItalic: () => ({ commands }) => {
-          return commands.toggleMark(this.name);
-        },
-        unsetItalic: () => ({ commands }) => {
-          return commands.unsetMark(this.name);
-        },
-      };
-    },
+      addCommands() {
+        return {
+          setItalic:
+            () =>
+            ({ commands }) => {
+              return commands.setMark(this.name);
+            },
+          toggleItalic:
+            () =>
+            ({ commands }) => {
+              return commands.toggleMark(this.name);
+            },
+          unsetItalic:
+            () =>
+            ({ commands }) => {
+              return commands.unsetMark(this.name);
+            },
+        };
+      },
 
-    addKeyboardShortcuts() {
-      return {
-        'Mod-i': () => this.editor.commands.toggleItalic(),
-      };
-    },
+      addKeyboardShortcuts() {
+        return {
+          'Mod-i': () => this.editor.commands.toggleItalic(),
+        };
+      },
 
-    addInputRules() {
-      return [
-        markInputRule({
-          find: starInputRegex,
-          type: this.type,
-        }),
-        markInputRule({
-          find: underscoreInputRegex,
-          type: this.type,
-        }),
-      ];
-    },
+      addInputRules() {
+        return [
+          markInputRule({
+            find: starInputRegex,
+            type: this.type,
+          }),
+          markInputRule({
+            find: underscoreInputRegex,
+            type: this.type,
+          }),
+        ];
+      },
 
-    addPasteRules() {
-      return [
-        markPasteRule({
-          find: starPasteRegex,
-          type: this.type,
-        }),
-        markPasteRule({
-          find: underscorePasteRegex,
-          type: this.type,
-        }),
-      ];
-    },
-  }),
-});
+      addPasteRules() {
+        return [
+          markPasteRule({
+            find: starPasteRegex,
+            type: this.type,
+          }),
+          markPasteRule({
+            find: underscorePasteRegex,
+            type: this.type,
+          }),
+        ];
+      },
+    };
+  },
+};

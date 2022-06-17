@@ -1,7 +1,9 @@
-import React, { Component, CSSProperties, MouseEvent } from 'react';
+import type { CSSProperties, MouseEvent } from 'react';
+import React, { Component } from 'react';
 import styles from '../../statics/styles/labeled-toggle.scss';
 import classNames from 'classnames';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import InfoIcon from './InfoIcon';
 
 interface LabeledToggleProps {
@@ -12,6 +14,7 @@ interface LabeledToggleProps {
   style?: CSSProperties;
   dataHook?: string;
   tooltipText?: string;
+  isMobile?: boolean;
 }
 
 export default class LabeledToggle extends Component<LabeledToggleProps> {
@@ -23,19 +26,22 @@ export default class LabeledToggle extends Component<LabeledToggleProps> {
   }
 
   render() {
-    const { label, onChange, checked, style, dataHook, tooltipText } = this.props;
+    const { label, onChange, checked, style, dataHook, tooltipText, isMobile = false } = this.props;
     return (
       <div className={this.styles.labeled_toggle_root} style={style}>
-        <div
-          role="button"
-          tabIndex={0}
-          onClick={onChange}
-          onKeyPress={e => e.key === 'Enter' && onChange()}
-          className={this.styles.labeled_toggle_label_wrapper}
-        >
-          <p className={this.styles.labeled_toggle_label}>{label}</p>
+        <div className={this.styles.labeled_toggle_label_wrapper}>
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={onChange}
+            onKeyPress={e => e.key === 'Enter' && onChange()}
+          >
+            <p className={this.styles.labeled_toggle_label}>{label}</p>
+          </div>
+          {tooltipText && !isMobile && (
+            <InfoIcon iconStyles={styles.infoIcon} tooltipText={tooltipText} />
+          )}
         </div>
-        {tooltipText && <InfoIcon iconStyles={styles.infoIcon} tooltipText={tooltipText} />}
         <div
           className={this.styles.labeled_toggle_input_root}
           onClick={onChange}

@@ -1,7 +1,7 @@
-import { Overwrite } from 'utility-types';
+import type { Overwrite } from 'utility-types';
 import { isArray, isObject } from 'lodash';
-import { Node, RichContent } from 'ricos-schema';
-import {
+import type { Node, RichContent } from 'ricos-schema';
+import type {
   RawDraftInlineStyleRange,
   RawDraftContentBlock,
   RawDraftEntity,
@@ -10,12 +10,15 @@ import {
 } from 'draft-js';
 
 export interface TextBlockStyle {
-  'font-size'?: number;
+  'font-size'?: string;
   color?: string;
   'background-color'?: string;
   'font-weight'?: string;
   'font-style'?: string;
   'text-decoration'?: string;
+  'line-height'?: string;
+  'padding-top'?: string;
+  'padding-bottom'?: string;
 }
 export interface DocumentStyle {
   headerOne?: TextBlockStyle;

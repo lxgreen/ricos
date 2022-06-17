@@ -1,47 +1,34 @@
-import { RicosFunctionalExtension } from 'ricos-tiptap-types';
+import type { RicosExtension, RicosExtensionConfig } from 'ricos-tiptap-types';
 import { Plugin, PluginKey } from 'prosemirror-state';
 import { generateId } from 'ricos-content';
 
-const name = 'unique-id';
-
-export const createUniqueId = (): RicosFunctionalExtension => ({
+export const uniqueId: RicosExtension = {
   type: 'extension',
-  createExtensionConfig: () => {
+  groups: [],
+  name: 'unique-id',
+  reconfigure(config: RicosExtensionConfig, extensions: RicosExtension[]) {
     return {
-      name,
-      priority: 1,
+      ...config,
       addGlobalAttributes() {
         return [
           {
-            //TODO: take node extensions names from extensions config
-            types: [
-              'divider',
-              'image',
-              'gallery',
-              'file',
-              'gif',
-              'video',
-              'linkPreview',
-              'paragraph',
-              'bulletedList',
-              'spoiler',
-              'codeBlock',
-              'heading',
-              'blockquote',
-              'orderedList',
-              'listItem',
-              'poll',
-            ],
+            types: extensions
+              .filter(extension => extension.type === 'node' && !extension.groups.includes('text'))
+              .map(({ name }) => name),
             attributes: {
               id: {
                 default: null,
-                rendered: false,
-                keepOnSplit: false,
               },
             },
           },
         ];
       },
+    };
+  },
+  createExtensionConfig() {
+    return {
+      name: this.name,
+      priority: 1,
       addProseMirrorPlugins() {
         return [
           new Plugin({
@@ -72,4 +59,4 @@ export const createUniqueId = (): RicosFunctionalExtension => ({
       },
     };
   },
-});
+};

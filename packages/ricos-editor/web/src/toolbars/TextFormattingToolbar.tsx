@@ -1,19 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { RichContentEditor } from 'wix-rich-content-editor';
-import {
+import type { RichContentEditor } from 'wix-rich-content-editor';
+import type {
   EditorCommands,
   TextButtons,
   EditorPlugin,
   LinkPanelSettings,
-  ToolbarType,
-  AvailableExperiments,
-  getLangDir,
   OnAddPluginLink,
   AddLinkData,
 } from 'wix-rich-content-common';
-import { LinkSettings, ToolbarSettings, RicosCssOverride, RicosTheme } from 'ricos-common';
+import { ToolbarType, getLangDir } from 'wix-rich-content-common';
+import type { LinkSettings, ToolbarSettings, RicosCssOverride } from 'ricos-common';
+import type { RicosTheme } from 'ricos-types';
 import {
   FloatingToolbarContainer,
   RicosToolbar,
@@ -41,7 +40,6 @@ interface TextFormattingToolbarProps {
     pluginId?: string
   ) => void;
   onAddPluginLink?: OnAddPluginLink;
-  experiments?: AvailableExperiments;
   getEditorContainer: () => Element;
   cssOverride?: RicosCssOverride;
 }
@@ -78,7 +76,6 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
       theme,
       toolbarSettings = {},
       locale,
-      experiments,
       getEditorContainer,
       cssOverride,
     } = this.props;
@@ -145,7 +142,15 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
       this.props.onToolbarButtonClick?.(name, ToolbarType.FORMATTING, value, pluginId);
     };
     const hideFormattingToolbar = isMobile && isLinkToolbarOpen(activeEditor);
-    const disableFormattingToolbar = !editorCommands.isTextBlockInSelection();
+
+    let disabledToolbarBySettings = false;
+    const { useStaticTextToolbar } = toolbarSettings;
+    if (textToolbarType === ToolbarType.STATIC && typeof useStaticTextToolbar === 'object') {
+      disabledToolbarBySettings = useStaticTextToolbar.disabled;
+    }
+    const disableFormattingToolbar =
+      !editorCommands.isTextBlockInSelection() || disabledToolbarBySettings;
+
     const ToolbarToRender = (
       <RicosToolbar
         theme={theme}
@@ -157,12 +162,12 @@ class TextFormattingToolbar extends Component<TextFormattingToolbarProps, State>
         colorPickerData={colorPickerData}
         headingsData={headingsData}
         onToolbarButtonClick={onToolbarButtonClick}
-        experiments={experiments}
         defaultLineSpacing={defaultLineSpacing}
         getEditorContainer={getEditorContainer}
         cssOverride={cssOverride}
         configButtonsOverrides={configButtonsOverrides}
         disabled={disableFormattingToolbar}
+        dataHook={'inlineToolbar'}
       />
     );
     const ToolbarContainer =

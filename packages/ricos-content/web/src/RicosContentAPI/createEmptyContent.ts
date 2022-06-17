@@ -1,4 +1,4 @@
-import { RichContent } from 'ricos-schema';
+import type { RichContent } from 'ricos-schema';
 import { initializeMetadata } from '../converters/nodeUtils';
 
 type EmptyContentCreator = (metadata?: Parameters<typeof initializeMetadata>[0]) => RichContent;

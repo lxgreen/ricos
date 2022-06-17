@@ -2,7 +2,8 @@ import * as A from 'fp-ts/Array';
 import { pipe } from 'fp-ts/function';
 import * as M from 'fp-ts/Monoid';
 import { fromNullable } from 'fp-ts/Option';
-import { GalleryData, ImageData, Media, Node_Type, RichContent, VideoData } from 'ricos-schema';
+import type { GalleryData, ImageData, Media, RichContent, VideoData } from 'ricos-schema';
+import { Node_Type } from 'ricos-schema';
 import { RICOS_NODE_TYPE_TO_DATA_FIELD } from '../consts';
 import { extract } from './extract';
 

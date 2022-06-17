@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-import {
-  Pubsub,
-  Helpers,
-  ComponentData,
-  RichContentTheme,
-  TranslationFunction,
-  mergeStyles,
-} from 'wix-rich-content-common';
+import type { ComponentData, RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import InfiniteScroll from 'react-infinite-scroller';
 import MDSpinner from 'react-md-spinner';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -14,10 +8,10 @@ import { SEARCH_TYPE, PAGE_SIZE, WAIT_INTERVAL } from '../constants';
 import { PoweredByGiphy } from '../icons';
 import GiphyEmptyState from './giphyEmptyState';
 import styles from '../../statics/styles/giphy-selecter.scss';
-import { GIFObject } from '../types';
+import type { GIFObject } from '../types';
 
 interface Props {
-  pubsub: Pubsub;
+  onGifAdd: (gif) => void;
   componentData: ComponentData;
   searchTag: string;
   gifs: GIFObject[];
@@ -104,13 +98,8 @@ class GiphySelector extends Component<Props, State> {
   };
 
   selectGif(gif) {
-    const { componentData, pubsub, onConfirm, onCloseRequested } = this.props;
-
-    if (onConfirm) {
-      onConfirm({ ...componentData, gif });
-    } else {
-      pubsub.update('componentData', { gif });
-    }
+    const { onGifAdd, onCloseRequested } = this.props;
+    onGifAdd(gif);
 
     onCloseRequested();
   }
@@ -170,7 +159,7 @@ class GiphySelector extends Component<Props, State> {
       </div>
     );
     return (
-      <div>
+      <div data-hook="giphySelector">
         <div className={styles.giphy_selecter_infinite_scroll_container}>
           {!gifs.length && searchTag ? (
             <GiphyEmptyState t={t} />

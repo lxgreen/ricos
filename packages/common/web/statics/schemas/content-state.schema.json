@@ -89,7 +89,6 @@
             "wix-draft-plugin-gallery",
             "wix-draft-plugin-link",
             "wix-draft-plugin-html",
-            "wix-draft-plugin-sound-cloud",
             "wix-draft-plugin-hashtag",
             "wix-draft-plugin-divider",
             "wix-draft-plugin-emoji",
@@ -103,7 +102,8 @@
             "wix-rich-content-plugin-table",
             "wix-rich-content-plugin-collapsible-list",
             "EMOJI_TYPE",
-            "ricos-plugin-custom-link"
+            "ricos-plugin-custom-link",
+            "ricos-audio"
           ],
           "title": "entity type",
           "examples": ["wix-draft-plugin-image"]

@@ -1,8 +1,9 @@
 import createToolbar from './toolbar/createToolbar';
 import { createBasePlugin, createBaseMediaPlugin } from 'wix-rich-content-plugin-commons';
 import { Component, DEFAULTS } from './gallery-component';
-import { GALLERY_TYPE, GalleryPluginEditorConfig } from './types';
-import { CreatePluginFunction } from 'wix-rich-content-common';
+import type { GalleryPluginEditorConfig } from './types';
+import { GALLERY_TYPE } from './types';
+import type { CreatePluginFunction } from 'wix-rich-content-common';
 
 const fileInputAccept = '.jpg,.png,.gif,.jpeg,.jpe,.jfif,.bmp,.heic,.heif,.tfif,.tif,.webp';
 
@@ -46,7 +47,9 @@ const createGalleryPlugin: CreatePluginFunction<GalleryPluginEditorConfig> = con
         }
       : pluginData;
   return createBasePlugin({
-    component: createBaseMediaPlugin(Component),
+    component: experiments?.useUploadContext?.enabled
+      ? Component
+      : createBaseMediaPlugin(Component),
     settings,
     theme,
     t,

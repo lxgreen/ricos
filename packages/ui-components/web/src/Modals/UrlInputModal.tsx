@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { mergeStyles, RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import type { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import { SettingsPanelFooter, SettingsMobileHeader, TextInput, CloseIcon } from '..';
 import { FOOTER_BUTTON_ALIGNMENT, MODAL_CONTROLS_POSITION, KEYS_CHARCODE } from '../consts';
 import styles from '../../statics/styles/url-input-modal.scss';

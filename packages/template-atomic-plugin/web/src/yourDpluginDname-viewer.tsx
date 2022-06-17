@@ -1,7 +1,9 @@
-import React, { FC, useMemo } from 'react';
-import { mergeStyles, RichContentTheme, ComponentData } from 'wix-rich-content-common';
+import type { FC } from 'react';
+import React, { useMemo } from 'react';
+import type { RichContentTheme, ComponentData } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../statics/styles/yourDpluginDname.scss';
-import { YourPluginNamePluginViewerConfig } from './types';
+import type { YourPluginNamePluginViewerConfig } from './types';
 
 interface Props {
   componentData: ComponentData;

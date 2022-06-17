@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 import { camelCase, upperFirst } from 'lodash';
-import React, { CSSProperties } from 'react';
-import { RichContentTheme } from 'wix-rich-content-common';
+import type { CSSProperties } from 'react';
+import React from 'react';
+import type { RicosExtension } from 'ricos-tiptap-types';
+import type { RichContentTheme } from 'wix-rich-content-common';
 import generalRTLIgnoredStyles from 'wix-rich-content-common/dist/statics/styles/general.rtlignore.scss';
 import generalStyles from 'wix-rich-content-editor-common/dist/statics/styles/general.scss';
 
@@ -59,8 +61,6 @@ export const getComponentStyles = ({ componentData, theme, isFocused, isMobile }
   };
 };
 
-const name = 'styles';
-
 const StylesHOC = Component => {
   const Styles = props => {
     const { context, componentData, selected } = props;
@@ -88,11 +88,13 @@ const StylesHOC = Component => {
   return Styles;
 };
 
-export const createStylesConfig = () => ({
+export const styles: RicosExtension = {
   type: 'extension' as const,
-  createExtensionConfig: () => {
+  groups: [],
+  name: 'style',
+  createExtensionConfig() {
     return {
-      name,
+      name: this.name,
       priority: 30,
       addOptions: () => ({}),
       addNodeHoc() {
@@ -104,4 +106,4 @@ export const createStylesConfig = () => ({
       },
     };
   },
-});
+};

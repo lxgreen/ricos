@@ -1,11 +1,13 @@
-import {
+import type {
   FileComponentData,
-  Helpers,
   ImageComponentData,
   UpdateEntityFunc,
   VideoComponentData,
+  AudioComponentData,
 } from 'wix-rich-content-common';
 import { testImages, testWixVideos } from './mock';
+import { mockAudioData } from './mockAudioData';
+import { FILE_URLS } from './fileMockURL';
 
 export const mockImageNativeUploadFunc = (
   files: File,
@@ -59,14 +61,15 @@ export const mockFileNativeUploadFunc = (
   const name = file.name;
   let type;
   if (name && name.includes('.')) {
-    type = name.split('.').pop();
+    const currentType = name.split('.').pop();
+    type = FILE_URLS[currentType] ? currentType : 'pdf';
   }
   const size = file.size;
 
   const data = {
     name,
     type,
-    url: 'https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    url: FILE_URLS[type],
     size,
   };
   setTimeout(() => updateEntity({ data }), 5000);
@@ -86,7 +89,7 @@ export const mockFileUploadFunc = (updateEntity: UpdateEntityFunc<FileComponentD
     data.push({
       name,
       type,
-      url: 'https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      url: FILE_URLS[type],
       size: 150000,
     });
   });
@@ -110,6 +113,20 @@ export const mockCustomVideoUploadFunc = (
   }, 500);
 };
 
+export const mockCustomAudioUploadFunc = (
+  updateEntity: UpdateEntityFunc<AudioComponentData>,
+  removeEntity
+) => {
+  // eslint-disable-next-line no-console
+  console.log('consumer wants to upload custom audio');
+  const audioToUpload = getAudioToUpload('f0f74f_35a1cdce4973490eac49e74c3244364d');
+  setTimeout(() => {
+    updateEntity({ data: audioToUpload });
+    // eslint-disable-next-line no-console
+    console.log('consumer uploaded ', audioToUpload);
+  }, 500);
+};
+
 export const mockVideoNativeUploadFunc = (
   file: File,
   updateEntity: UpdateEntityFunc<VideoComponentData>,
@@ -127,10 +144,26 @@ export const mockVideoNativeUploadFunc = (
   }, 5000);
 };
 
+export const mockAudioNativeUploadFunc = (
+  file: File,
+  updateEntity: UpdateEntityFunc<AudioComponentData>,
+  removeEntity
+) => {
+  // eslint-disable-next-line no-console
+  console.log('consumer wants to upload custom audio', file);
+  const mockAudioIndex = Math.floor(Math.random() * mockAudioData.length);
+  const testAudio = mockAudioData[mockAudioIndex];
+  const audioToUpload = getAudioToUpload(testAudio.url);
+  setTimeout(() => {
+    updateEntity({ data: audioToUpload });
+    // eslint-disable-next-line no-console
+    console.log('consumer uploaded ', audioToUpload);
+  }, 5000);
+};
+
 export const getVideoToUpload = (url: string, thumbnailUrl: string) => {
   const videoWithAbsoluteUrl = {
-    url:
-      'https://video.wixstatic.com/video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4',
+    url: 'https://video.wixstatic.com/video/11062b_a552731f40854d16a91627687fb8d1a6/1080p/mp4/file.mp4',
   };
   const videoWithRelativeUrl = {
     pathname: `video/${url}/1080p/mp4/file.mp4`,
@@ -143,6 +176,20 @@ export const getVideoToUpload = (url: string, thumbnailUrl: string) => {
   // You can provide either absolute or relative URL.
   // If relative URL is provided, a function 'getVideoUrl' will be invoked to form a full URL.
   return videoWithRelativeUrl;
+};
+
+export const getAudioToUpload = (url: string) => {
+  const audioWithAbsoluteUrl = {
+    url: 'https://static.wixstatic.com/mp3/f0f74f_35a1cdce4973490eac49e74c3244364d.mp3',
+  };
+  const audioWithRelativeUrl = {
+    audio: { src: { id: `mp3/${url}.mp3` } },
+    name: 'Dear Fear',
+    authorName: 'KOTA The Friend',
+  };
+  // You can provide either absolute or relative URL.
+  // If relative URL is provided, a function 'getVideoUrl' will be invoked to form a full URL.
+  return audioWithRelativeUrl;
 };
 
 //////////////////////////////////////////FOR TESTS//////////////////////////////////////////
@@ -198,6 +245,8 @@ export const mockTestImageUpload = (
   }, 200);
 };
 
+const SAMPLE_PDF = 'https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf';
+
 export const mockTestFileNativeUpload = (
   _file: File,
   updateEntity: UpdateEntityFunc<FileComponentData>
@@ -209,7 +258,7 @@ export const mockTestFileNativeUpload = (
   const file = {
     name,
     type,
-    url: 'https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    url: SAMPLE_PDF,
   };
 
   setTimeout(() => {
@@ -226,7 +275,7 @@ export const mockTestFileUpload = (updateEntity: UpdateEntityFunc<FileComponentD
   data.push({
     name,
     type,
-    url: 'https://www.w3.org/wai/er/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    url: SAMPLE_PDF,
   });
 
   setTimeout(() => updateEntity({ data }), 200);

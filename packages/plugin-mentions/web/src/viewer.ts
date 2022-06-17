@@ -1,7 +1,8 @@
 import typeMapper from './typeMapper';
-import { MENTION_TYPE, MentionsPluginViewerConfig } from './types';
+import type { MentionsPluginViewerConfig } from './types';
+import { MENTION_TYPE } from './types';
 import { DEFAULTS } from './defaultSettings';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
 export { MENTION_TYPE, typeMapper as mentionsTypeMapper };
 
 /*

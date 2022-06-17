@@ -1,4 +1,4 @@
-import {
+import type {
   RicosEntityMap,
   RicosEntityRange,
   RicosContentBlock,
@@ -30,30 +30,32 @@ const filterRangesByType = (
 
 const inlinePluginsRemover: (options?: {
   imagesOnly?: boolean;
-}) => NormalizationProcessor<DraftContent> = ({ imagesOnly = false } = {}) => contentState => {
-  const newBlocks = contentState.blocks.map((block: RicosContentBlock) => {
-    const { entityRanges = [], type } = block;
-    const isAtomic = type === 'atomic';
+}) => NormalizationProcessor<DraftContent> =
+  ({ imagesOnly = false } = {}) =>
+  contentState => {
+    const newBlocks = contentState.blocks.map((block: RicosContentBlock) => {
+      const { entityRanges = [], type } = block;
+      const isAtomic = type === 'atomic';
 
-    let filteredRanges = entityRanges;
-    if (!isAtomic) {
-      filteredRanges = filterRangesByType(
-        entityRanges,
-        contentState.entityMap,
-        imagesOnly ? imagesTypes : invalidInlineTypes
-      );
-    }
+      let filteredRanges = entityRanges;
+      if (!isAtomic) {
+        filteredRanges = filterRangesByType(
+          entityRanges,
+          contentState.entityMap,
+          imagesOnly ? imagesTypes : invalidInlineTypes
+        );
+      }
+
+      return {
+        ...block,
+        entityRanges: filteredRanges,
+      };
+    });
 
     return {
-      ...block,
-      entityRanges: filteredRanges,
+      ...contentState,
+      blocks: newBlocks,
     };
-  });
-
-  return {
-    ...contentState,
-    blocks: newBlocks,
   };
-};
 
 export default inlinePluginsRemover;

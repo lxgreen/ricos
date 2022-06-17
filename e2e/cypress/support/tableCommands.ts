@@ -22,10 +22,7 @@ export const TABLE_COMMANDS = {
   },
 
   focusTable: () => {
-    cy.get(`[data-hook*=${PLUGIN_COMPONENT.TABLE}]`)
-      .first()
-      .parent()
-      .click();
+    cy.get(`[data-hook*=${PLUGIN_COMPONENT.TABLE}]`).first().parent().click();
   },
 
   focusCell: (cellIndex: number) => {
@@ -36,30 +33,20 @@ export const TABLE_COMMANDS = {
   },
 
   editCell: (cellIndex: number, text = 'table!!') => {
-    cy.get(`[data-hook*=${TABLE_PLUGIN.CELL}]`)
-      .eq(cellIndex)
-      .click()
-      .type(text);
+    cy.get(`[data-hook*=${TABLE_PLUGIN.CELL}]`).eq(cellIndex).click().type(text);
   },
 
   editCellAndGoOut: (cellIndex: number) => {
-    cy.get(`[data-hook*=${TABLE_PLUGIN.CELL}]`)
-      .eq(cellIndex)
-      .click()
-      .type('table!!{enter}');
+    cy.get(`[data-hook*=${TABLE_PLUGIN.CELL}]`).eq(cellIndex).click().type('table!!{enter}');
   },
 
   enterEditingCell: (cellIndex: number) => {
-    cy.get(`[data-hook*=${TABLE_PLUGIN.CELL}]`)
-      .eq(cellIndex)
-      .dblclick();
+    cy.get(`[data-hook*=${TABLE_PLUGIN.CELL}]`).eq(cellIndex).dblclick();
   },
 
   paintBG: () => {
     cy.get(`[data-hook*=${TABLE_PLUGIN.BG_COLOR}]`).click({ force: true });
-    cy.get(`[data-scheme-color]`)
-      .eq(2)
-      .click();
+    cy.get(`[data-scheme-color]`).eq(2).click();
   },
 
   alignCell: (alignTo: string) => {
@@ -80,45 +67,31 @@ export const TABLE_COMMANDS = {
   },
 
   clickOnTableToolbarContextMenuClear: () => {
-    cy.clickOnTableToolbarContextMenu()
-      .get(`[data-hook*=${TABLE_PLUGIN.CLEAR}]`)
-      .click();
+    cy.clickOnTableToolbarContextMenu().get(`[data-hook*=${TABLE_PLUGIN.CLEAR}]`).click();
   },
 
   clickOnTableToolbarContextMenuDeleteCol: () => {
-    cy.clickOnTableToolbarContextMenu()
-      .get(`[data-hook*=${TABLE_PLUGIN.DELETE_COLUMN}]`)
-      .click();
+    cy.clickOnTableToolbarContextMenu().get(`[data-hook*=${TABLE_PLUGIN.DELETE_COLUMN}]`).click();
   },
 
   clickOnTableToolbarContextMenuDeleteRow: () => {
-    cy.clickOnTableToolbarContextMenu()
-      .get(`[data-hook*=${TABLE_PLUGIN.DELETE_ROW}]`)
-      .click();
+    cy.clickOnTableToolbarContextMenu().get(`[data-hook*=${TABLE_PLUGIN.DELETE_ROW}]`).click();
   },
 
   clickOnTableToolbarContextMenuInsertRight: () => {
-    cy.clickOnTableToolbarContextMenu()
-      .get(`[data-hook*=${TABLE_PLUGIN.INSERT_RIGHT}]`)
-      .click();
+    cy.clickOnTableToolbarContextMenu().get(`[data-hook*=${TABLE_PLUGIN.INSERT_RIGHT}]`).click();
   },
 
   clickOnTableToolbarContextMenuInsertLeft: () => {
-    cy.clickOnTableToolbarContextMenu()
-      .get(`[data-hook*=${TABLE_PLUGIN.INSERT_LEFT}]`)
-      .click();
+    cy.clickOnTableToolbarContextMenu().get(`[data-hook*=${TABLE_PLUGIN.INSERT_LEFT}]`).click();
   },
 
   clickOnTableToolbarContextMenuInsertAbove: () => {
-    cy.clickOnTableToolbarContextMenu()
-      .get(`[data-hook*=${TABLE_PLUGIN.INSERT_ABOVE}]`)
-      .click();
+    cy.clickOnTableToolbarContextMenu().get(`[data-hook*=${TABLE_PLUGIN.INSERT_ABOVE}]`).click();
   },
 
   clickOnTableToolbarContextMenuInsertBelow: () => {
-    cy.clickOnTableToolbarContextMenu()
-      .get(`[data-hook*=${TABLE_PLUGIN.INSERT_BELOW}]`)
-      .click();
+    cy.clickOnTableToolbarContextMenu().get(`[data-hook*=${TABLE_PLUGIN.INSERT_BELOW}]`).click();
   },
 
   clickOnTableToolbarContextMenuMerge: () => {
@@ -136,9 +109,7 @@ export const TABLE_COMMANDS = {
   paintBorder: (type: string, colorIndex: number) => {
     cy.get(`[data-hook*=${TABLE_PLUGIN.BORDER_COLOR_BUTTONS}]`).click({ force: true });
     cy.get(`[data-hook*=${type}]`).click();
-    cy.get(`[data-scheme-color]`)
-      .eq(colorIndex)
-      .click({ force: true });
+    cy.get(`[data-scheme-color]`).eq(colorIndex).click({ force: true });
   },
 
   paintTableTextColor: () => {

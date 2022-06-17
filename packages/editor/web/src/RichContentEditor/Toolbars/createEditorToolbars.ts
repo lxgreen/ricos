@@ -10,7 +10,7 @@ import { getDefaultToolbarSettings } from './default-toolbar-settings';
 import { mobileTextButtonList, desktopTextButtonList, pluginButtonNames } from './buttons';
 import { reducePluginTextButtons } from './buttons/utils';
 import { get } from 'lodash';
-import {
+import type {
   PluginButton,
   EditorContextType,
   ToolbarButtonProps,
@@ -19,7 +19,8 @@ import {
   PluginTextButtons,
   AvailableExperiments,
 } from 'wix-rich-content-common';
-import { EditorProps } from 'draft-js';
+import type { EditorProps } from 'draft-js';
+import type { TextAlignment } from 'ricos-types';
 
 const createEditorToolbars = ({
   buttons,
@@ -37,7 +38,7 @@ const createEditorToolbars = ({
     pluginButtons: PluginButton[];
     pluginTextButtons: PluginTextButtons[];
   };
-  textAlignment: EditorProps['textAlignment'];
+  textAlignment: TextAlignment;
   refId: number;
   context: EditorContextType;
   pluginButtonProps: ToolbarButtonProps[];

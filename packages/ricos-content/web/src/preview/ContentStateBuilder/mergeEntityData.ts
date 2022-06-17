@@ -1,4 +1,4 @@
-import { RicosEntity } from '../../types/contentTypes';
+import type { RicosEntity } from '../../types/contentTypes';
 import { toGalleryItems } from './galleryEntityData';
 
 type Merger = (mediaInfo: RicosEntity['data'], entity: RicosEntity) => RicosEntity;

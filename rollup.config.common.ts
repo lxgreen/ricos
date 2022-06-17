@@ -2,9 +2,9 @@
 
 import { readdirSync, existsSync } from 'fs';
 import { cloneDeep } from 'lodash';
-import { plugins as createPlugins, lastEntryPlugins } from './rollup.plugins';
+import { plugins, postcss, addStylesImport, lastEntryPlugins } from './rollup.plugins';
 import { isExternal as external } from './rollup.externals';
-import { RollupOptions, OutputOptions, WatcherOptions } from 'rollup';
+import type { RollupOptions, OutputOptions, WatcherOptions } from 'rollup';
 
 if (!process.env.MODULE_NAME) {
   console.error('Environment variable "MODULE_NAME" is missing!');
@@ -12,21 +12,19 @@ if (!process.env.MODULE_NAME) {
 }
 
 const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): RollupOptions[] => {
-  const plugins = createPlugins(shouldExtractCss);
+  const onlyCurrentPackageRegex = new RegExp(`/${process.env.MODULE_NAME}/`);
   const watch: WatcherOptions = {
-    exclude: ['node_modules/**'],
+    // exclude: ['node_modules/**'],
+    include: [onlyCurrentPackageRegex],
     clearScreen: false,
   };
-  const commonOptions = {
-    plugins,
+  const getCommonOptions = (entry?: string) => ({
+    plugins: [...plugins, postcss(shouldExtractCss, entry), addStylesImport()],
     external,
     watch,
-  };
+  });
 
   output = output.map(o => ({ ...o, sourcemap: true }));
-  if (process.env.MODULE_WATCH && !process.env.BUILD_CJS) {
-    output = output.filter(o => o.format === 'es');
-  }
 
   let addPartToFilename = (fileName: string, fileNamePart: string) => {
     const anchor = fileName.indexOf('.');
@@ -37,7 +35,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
   const editorEntry: RollupOptions = {
     input: 'src/index.ts',
     output: cloneDeep(output),
-    ...commonOptions,
+    ...getCommonOptions(),
   };
 
   const libEntries: RollupOptions[] = [];
@@ -52,7 +50,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
           format,
           file: `dist/lib/${fileName}${format === 'cjs' ? '.cjs.js' : '.js'}`,
         })),
-        ...commonOptions,
+        ...getCommonOptions(fileName),
       });
     });
   } catch (_) {}
@@ -68,29 +66,16 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
         }
         return o;
       }),
-      ...commonOptions,
+      ...getCommonOptions('viewer'),
     });
   }
-
-  const viewerLoadableOutput: OutputOptions[] = [
-    {
-      dir: 'dist/loadable/viewer/es/',
-      format: 'es',
-      chunkFileNames: '[name].js',
-    },
-    {
-      dir: 'dist/loadable/viewer/cjs/',
-      format: 'cjs',
-      chunkFileNames: '[name].cjs.js',
-    },
-  ];
 
   const viewerLoadablePath = 'src/viewer-loadable.ts';
   if (existsSync(`./${viewerLoadablePath}`)) {
     viewerEntry.push({
       input: viewerLoadablePath,
       output: viewerLoadableOutput,
-      ...commonOptions,
+      ...getCommonOptions('viewer'),
     });
   }
 
@@ -116,7 +101,7 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
           lodash: '_',
         },
       },
-      ...commonOptions,
+      ...getCommonOptions('mobile'),
       external: source => ['lodash', 'react', 'react-dom'].includes(source),
     });
   }
@@ -125,7 +110,20 @@ const commonConfig = (output: OutputOptions[], shouldExtractCss: boolean): Rollu
   return entries.filter(x => x);
 };
 
-const output: OutputOptions[] = process.env.DYNAMIC_IMPORT
+let viewerLoadableOutput: OutputOptions[] = [
+  {
+    dir: 'dist/loadable/viewer/es/',
+    format: 'es',
+    chunkFileNames: '[name].js',
+  },
+  {
+    dir: 'dist/loadable/viewer/cjs/',
+    format: 'cjs',
+    chunkFileNames: '[name].cjs.js',
+  },
+];
+
+let output: OutputOptions[] = process.env.DYNAMIC_IMPORT
   ? [
       {
         dir: 'dist/es',
@@ -150,5 +148,10 @@ const output: OutputOptions[] = process.env.DYNAMIC_IMPORT
         exports: 'auto',
       },
     ];
+
+if (process.env.ROLLUP_WATCH && !process.env.BUILD_CJS) {
+  output = output.filter(o => o.format === 'es');
+  viewerLoadableOutput = viewerLoadableOutput.filter(o => o.format === 'es');
+}
 
 export default commonConfig(output, process.env.EXTRACT_CSS !== 'false');

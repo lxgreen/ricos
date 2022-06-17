@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react';
 import { debounce } from 'lodash';
-import { getContentStateSchema, DraftContent } from 'wix-rich-content-common';
+import type { DraftContent } from 'wix-rich-content-common';
+import { getContentStateSchema } from 'wix-rich-content-common';
 
 import dividerSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-divider.schema.json';
 import imageSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-image.schema.json';
 import videoSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-video.schema.json';
+import audioSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-audio.schema.json';
 import giphySchema from 'wix-rich-content-common/dist/statics/schemas/plugin-giphy.schema.json';
-import soundCloudSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-sound-cloud.schema.json';
 import fileUploadSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-file-upload.schema.json';
 import mapSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-map.schema.json';
 import htmlSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-html.schema.json';
@@ -19,13 +20,14 @@ import linkPreviewSchema from 'wix-rich-content-common/dist/statics/schemas/plug
 import pollsSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-polls.schema.json';
 import tableSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-table.schema.json';
 import collapsibleListSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-collapsible-list.schema.json';
+import emojiSchema from 'wix-rich-content-common/dist/statics/schemas/plugin-emoji.schema.json';
 
 import { DIVIDER_TYPE } from 'wix-rich-content-plugin-divider';
 import { VIDEO_TYPE } from 'wix-rich-content-plugin-video';
+import { AUDIO_TYPE } from 'wix-rich-content-plugin-audio';
 import { IMAGE_TYPE } from 'wix-rich-content-plugin-image';
 import { GIPHY_TYPE } from 'wix-rich-content-plugin-giphy';
 import { FILE_UPLOAD_TYPE } from 'wix-rich-content-plugin-file-upload';
-import { SOUND_CLOUD_TYPE } from 'wix-rich-content-plugin-sound-cloud';
 import { MAP_TYPE } from 'wix-rich-content-plugin-map';
 import { HTML_TYPE } from 'wix-rich-content-plugin-html';
 import { LINK_TYPE } from 'wix-rich-content-plugin-link';
@@ -37,8 +39,11 @@ import { LINK_PREVIEW_TYPE } from 'wix-rich-content-plugin-link-preview';
 import { POLL_TYPE } from 'wix-rich-content-plugin-social-polls';
 import { TABLE_TYPE } from 'wix-rich-content-plugin-table';
 import { COLLAPSIBLE_LIST_TYPE } from 'wix-rich-content-plugin-collapsible-list';
-import MonacoEditor, { ChangeHandler, EditorWillMount } from 'react-monaco-editor';
-import { ensureDraftContent, ensureRicosContent } from 'ricos-content/libs/migrateSchema';
+import { EMOJI_TYPE } from 'wix-rich-content-plugin-emoji';
+import type { ChangeHandler, EditorWillMount } from 'react-monaco-editor';
+import MonacoEditor from 'react-monaco-editor';
+import { ensureDraftContent } from 'ricos-content/libs/ensureDraftContent';
+import { ensureRicosContent } from 'ricos-content/libs/ensureRicosContent';
 
 function nonSerializedAttribute(key, value) {
   if (typeof value === 'function') {
@@ -98,7 +103,7 @@ class ContentStateEditor extends PureComponent<Props> {
             [VIDEO_TYPE]: videoSchema,
             [GIPHY_TYPE]: giphySchema,
             [FILE_UPLOAD_TYPE]: fileUploadSchema,
-            [SOUND_CLOUD_TYPE]: soundCloudSchema,
+            [AUDIO_TYPE]: audioSchema,
             [MAP_TYPE]: mapSchema,
             [HTML_TYPE]: htmlSchema,
             [LINK_TYPE]: linkSchema,
@@ -111,6 +116,8 @@ class ContentStateEditor extends PureComponent<Props> {
             [POLL_TYPE]: pollsSchema,
             [TABLE_TYPE]: tableSchema,
             [COLLAPSIBLE_LIST_TYPE]: collapsibleListSchema,
+            [EMOJI_TYPE]: emojiSchema,
+            EMOJI_TYPE: emojiSchema,
           }),
         },
       ],

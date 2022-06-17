@@ -1,12 +1,9 @@
-import { storiesOf } from '@storybook/react';
+export { UrlInputModalDesktop, UrlInputModalMobile } from './UrlInputModalStory';
+export { Loader } from './Loader';
+export { default as textInput } from './TextInputStory';
+export { default as verticalEmbedDisabledMode } from './VerticalEmbedDisabledStory';
+export { default as mobileSettingsHeader } from './MobileSettingsHeaderStory';
 
-import TextInput from './TextInputStory';
-import { UrlInputModalDesktop, UrlInputModalMobile } from './UrlInputModalStory';
-import MobileSettingsHeader from './MobileSettingsHeaderStory';
-
-storiesOf('Ricos Components', module)
-  .add('Text Input', TextInput)
-  .add('URL Input Modal', UrlInputModalDesktop)
-  .addParameters({ viewport: { defaultViewport: 'iphone6' } })
-  .add('Mobile URL Input Modal', UrlInputModalMobile)
-  .add('Mobile Settings Header', MobileSettingsHeader);
+export default {
+  title: 'Ricos Components',
+};

@@ -1,11 +1,11 @@
-import UUT from './ContentStateBuilder';
+import ContentStateBuilder from './ContentStateBuilder';
 import { contentState as expected } from '../tests/contentState';
 import { butKey, but } from '../tests/test-utils';
 
 /* eslint-disable max-len*/
 describe('content state text builder', () => {
   it('should add a single plain text block', () => {
-    const contentState = new UUT()
+    const contentState = new ContentStateBuilder()
       .plain({
         block: expected.blocks[0],
         entities: {},
@@ -15,7 +15,7 @@ describe('content state text builder', () => {
   });
 
   it('should add multiple plain text blocks from array', () => {
-    const contentState = new UUT()
+    const contentState = new ContentStateBuilder()
       .plain([
         {
           block: expected.blocks[0],
@@ -32,7 +32,7 @@ describe('content state text builder', () => {
   });
 
   it('should add multiple plain text blocks by chaining', () => {
-    const contentState = new UUT()
+    const contentState = new ContentStateBuilder()
       .plain({
         block: expected.blocks[0],
         entities: {},
@@ -49,7 +49,7 @@ describe('content state text builder', () => {
 
 describe('content state media builder', () => {
   it('should add an image to the content', () => {
-    const contentState = new UUT()
+    const contentState = new ContentStateBuilder()
       .image({
         mediaInfo: {
           url: '8bb438_c1089eafb4ab405ba328b528e3ecc63e.jpg',
@@ -74,7 +74,7 @@ describe('content state media builder', () => {
   });
 
   it('should add a gallery to the content', () => {
-    const contentState = new UUT()
+    const contentState = new ContentStateBuilder()
       .gallery({
         mediaInfo: [
           {
@@ -109,7 +109,7 @@ describe('content state media builder', () => {
   });
 
   it('should add a video to the content', () => {
-    const contentState = new UUT()
+    const contentState = new ContentStateBuilder()
       .video({
         mediaInfo: {
           url: 'http://mirrors.standaloneinstaller.com/video-sample/jellyfish-25-mbps-hd-hevc.mp4',
@@ -125,7 +125,7 @@ describe('content state media builder', () => {
   });
 
   it('should add a giphy to the content', () => {
-    const contentState = new UUT()
+    const contentState = new ContentStateBuilder()
       .giphy({
         mediaInfo: {
           height: 270,
@@ -140,7 +140,7 @@ describe('content state media builder', () => {
   });
 
   it('should add a file to the content', () => {
-    const contentState = new UUT()
+    const contentState = new ContentStateBuilder()
       .file({
         mediaInfo: {
           fileType: 'jpg',
@@ -154,7 +154,7 @@ describe('content state media builder', () => {
   });
 
   it('should add a map to the content', () => {
-    const contentState = new UUT()
+    const contentState = new ContentStateBuilder()
       .map({
         mediaInfo: {
           address: 'Wix HQ, Nemal Tel Aviv Street, Tel Aviv-Yafo, Israel',
@@ -174,7 +174,9 @@ describe('content state media builder', () => {
   });
 
   it('should add a link preview to the content', () => {
-    const contentState = new UUT().linkPreview({ mediaInfo: { url: 'wix.com' } }).get();
+    const contentState = new ContentStateBuilder()
+      .linkPreview({ mediaInfo: { url: 'wix.com' } })
+      .get();
     expect(contentState.entityMap[0]).toEqual({
       type: 'wix-draft-plugin-link-preview',
       mutability: 'IMMUTABLE',
@@ -193,7 +195,7 @@ describe('content state media builder', () => {
 
 describe('content state interactions', () => {
   it('should chain content methods with readMore interaction', () => {
-    const contentState = new UUT()
+    const contentState = new ContentStateBuilder()
       .plain({
         block: expected.blocks[0],
         entities: {},
@@ -221,7 +223,7 @@ describe('content state interactions', () => {
   });
 
   it('should chain content methods with seeFullPost interaction', () => {
-    const contentState = new UUT()
+    const contentState = new ContentStateBuilder()
       .plain({
         block: expected.blocks[0],
         entities: {},
@@ -249,7 +251,7 @@ describe('content state interactions', () => {
   });
 
   it('should chain content methods with imageCounter interaction', () => {
-    const contentState = new UUT()
+    const contentState = new ContentStateBuilder()
       .image({
         mediaInfo: {
           url: '8bb438_c1089eafb4ab405ba328b528e3ecc63e.jpg',

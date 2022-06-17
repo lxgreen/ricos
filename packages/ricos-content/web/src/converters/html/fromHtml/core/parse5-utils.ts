@@ -1,14 +1,15 @@
-import { pipe, flow } from 'fp-ts/function';
+import { pipe, flow, constFalse } from 'fp-ts/function';
 import * as A from 'fp-ts/Array';
 import * as R from 'fp-ts/Record';
 import * as O from 'fp-ts/Option';
 import * as S from 'fp-ts/string';
+import type * as P from 'fp-ts/Predicate';
+
 import { MonoidAny } from 'fp-ts/boolean';
 import { concatAll } from 'fp-ts/Monoid';
 import * as RONEA from 'fp-ts/ReadonlyNonEmptyArray';
 
-import {
-  parseFragment,
+import type {
   ChildNode,
   DocumentFragment,
   Document,
@@ -18,8 +19,9 @@ import {
   CommentNode,
   Attribute,
 } from 'parse5';
+import { parseFragment } from 'parse5';
 import { equals } from '../../../../fp-utils';
-import { ContentNode } from './models';
+import type { ContentNode } from './models';
 
 export type AstContext = {
   visit: (node: Element | DocumentFragment) => ContentNode;
@@ -37,10 +39,12 @@ export const isWhitespace = flow(
   O.fold(() => false, equals(S.Eq)(''))
 );
 
-export const hasDescendant = (predicate: (child: Node) => boolean) => (node: Node): boolean =>
-  predicate(node) ||
-  (!isLeaf(node) &&
-    pipe((node as Element).childNodes, A.map(hasDescendant(predicate)), concatAll(MonoidAny)));
+export const hasDescendant =
+  (predicate: (child: Node) => boolean) =>
+  (node: Node): boolean =>
+    predicate(node) ||
+    (!isLeaf(node) &&
+      pipe((node as Element).childNodes, A.map(hasDescendant(predicate)), concatAll(MonoidAny)));
 
 type AttrRecord = Record<Attribute['name'], Attribute['value']>;
 
@@ -55,6 +59,9 @@ export const getAttributes = (el: Element) =>
     el => (el.attrs ? O.some(el.attrs) : O.none),
     O.fold(() => ({} as AttrRecord), toRecord)
   );
+
+export const hasAttribute = (key: string, valuePredicate: P.Predicate<string>) =>
+  flow(getAttributes, R.lookup(key), O.fold(constFalse, valuePredicate));
 
 export const getChildNodes = (element: Element | DocumentFragment): ContentNode[] =>
   isLeaf(element) ? [] : (element.childNodes as ContentNode[]);
@@ -83,9 +90,10 @@ export const toDocumentFragment = (nodes: ChildNode[]): DocumentFragment => {
 
 export const toName = (node: ContentNode) => node.nodeName;
 
-export const hasParent = (
-  predicate: (node: ContentNode | Document | DocumentFragment) => boolean
-) => (node: ContentNode) => predicate(node.parentNode);
+export const hasParent =
+  (predicate: (node: ContentNode | Document | DocumentFragment) => boolean) =>
+  (node: ContentNode) =>
+    predicate(node.parentNode);
 
 export const hasTag = (tag: string) => flow(toName, equals(S.Eq)(tag));
 

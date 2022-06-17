@@ -1,7 +1,8 @@
 import { createLineSpacingPlugin } from './createLineSpacingPlugin';
-import { LINE_SPACING_TYPE, LineSpacingPluginEditorConfig } from './types';
+import type { LineSpacingPluginEditorConfig } from './types';
+import { LINE_SPACING_TYPE } from './types';
 import { ModalsMap } from './modals';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
 import { DEFAULTS } from './defaults';
 
 export const pluginLineSpacing: EditorPluginCreator<LineSpacingPluginEditorConfig> = config => {

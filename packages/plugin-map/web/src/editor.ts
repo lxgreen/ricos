@@ -1,7 +1,10 @@
 import { createMapPlugin } from './createMapPlugin';
 import { DEFAULTS } from './defaults';
-import { MAP_TYPE, MapPluginEditorConfig } from './types';
-import { EditorPluginCreator } from 'wix-rich-content-common';
+import { createMapData } from './createMapData';
+import type { MapPluginEditorConfig } from './types';
+import { MAP_TYPE } from './types';
+import type { EditorPluginCreator } from 'wix-rich-content-common';
+import { getToolbarButtons } from './getToolbarButtons';
 
 export const pluginMap: EditorPluginCreator<MapPluginEditorConfig> = config => {
   return {
@@ -9,5 +12,7 @@ export const pluginMap: EditorPluginCreator<MapPluginEditorConfig> = config => {
     type: MAP_TYPE,
     createPlugin: createMapPlugin,
     ModalsMap: {},
+    createPluginData: createMapData,
+    toolbarButtons: getToolbarButtons(config),
   };
 };

@@ -1,4 +1,5 @@
-import React, { FunctionComponent } from 'react';
+import type { FunctionComponent } from 'react';
+import React from 'react';
 import { RicosEngine } from 'ricos-common';
 
 const functionComponent: FunctionComponent = () => <div />;

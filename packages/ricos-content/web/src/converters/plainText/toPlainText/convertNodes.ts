@@ -1,7 +1,9 @@
-import { Node, Node_Type } from 'ricos-schema';
+import type { Node } from 'ricos-schema';
+import { Node_Type } from 'ricos-schema';
 import { toPlainText } from '..';
 import { LINK_TYPE } from '../../../consts';
-import { mergeTextNodes, RangedDecoration } from '../../draft/toDraft/decorationParsers';
+import type { RangedDecoration } from '../../draft/toDraft/decorationParsers';
+import { mergeTextNodes } from '../../draft/toDraft/decorationParsers';
 
 export const parseTextNodes = (node: Node) => {
   const {
@@ -55,7 +57,7 @@ export const parseImage = async (
   urlShortener?: (url: string) => Promise<string>
 ): Promise<string> => {
   const { caption } = imageData || {};
-  const { src, width, height } = imageData?.image || {};
+  const { src } = imageData?.image || {};
   const id = src?.id || src?.custom;
   let url = `https://static.wixstatic.com/media/${id?.replace('media/', '')}`;
   if (urlShortener) {
@@ -65,6 +67,7 @@ export const parseImage = async (
 };
 
 const getDefaultVideoUrl = async (fileId: string) => `https://video.wixstatic.com/${fileId}`;
+const getDefaultAudioUrl = async (fileId: string) => `https://static.wixstatic.com/${fileId}`;
 
 export const parseVideo = async (
   { videoData }: Node,
@@ -76,6 +79,17 @@ export const parseVideo = async (
   const vidId = id || custom;
   const videoUrl = (vidId ? getVideoUrl(vidId) : url) || '';
   return title ? title + delimiter + videoUrl : videoUrl;
+};
+
+export const parseAudio = async (
+  { audioData }: Node,
+  delimiter: string,
+  getAudioUrl: (fileId: string) => Promise<string> = getDefaultAudioUrl
+): Promise<string> => {
+  const { audio, name } = audioData || {};
+  const { id, url } = audio?.src || {};
+  const audioUrl = (id ? await getAudioUrl(id) : url) || '';
+  return name ? name + delimiter + audioUrl : audioUrl;
 };
 
 export const parseGiphy = ({ gifData }: Node): string => {

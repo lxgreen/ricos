@@ -1,8 +1,9 @@
-import { LINK_TYPE, LinkPluginViewerConfig } from './types';
+import type { LinkPluginViewerConfig } from './types';
+import { LINK_TYPE } from './types';
 import { typeMapper } from './typeMapper-loadable';
 import { DEFAULTS } from './defaults';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
-export { typeMapper as linkTypeMapper, LINK_TYPE };
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
+export { typeMapper as linkTypeMapper, LINK_TYPE, LinkPluginViewerConfig };
 
 export const pluginLink: ViewerPluginCreator<LinkPluginViewerConfig> = config => {
   return {

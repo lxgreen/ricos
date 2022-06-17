@@ -1,9 +1,9 @@
-import { ExposedBlocks, PreviewMetadata, ExposedGroupBlocks } from './../types';
-import { DraftContent, RicosContentBlock, RicosEntity } from '../../types/contentTypes';
+import type { ExposedBlocks, PreviewMetadata, ExposedGroupBlocks } from './../types';
+import type { DraftContent, RicosContentBlock, RicosEntity } from '../../types/contentTypes';
 import extractEntityData from './extractEntityData';
 import { METHOD_BLOCK_MAP, METHOD_GROUPED_BLOCK_MAP } from '../const';
 import { merge, cloneDeep, groupBy } from 'lodash';
-import {
+import type {
   BlockFilter,
   BlockTypeFilter,
   SequentialBlockArrays,

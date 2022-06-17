@@ -1,21 +1,27 @@
-// import linkPreviewDataDefaults from 'ricos-schema/dist/statics/link_preview.defaults.json';
-import { CreateRicosExtensions } from 'ricos-tiptap-types';
-import { LinkPreview as Component } from './component';
-import { Editor } from '@tiptap/core';
-import { KeyboardShortcutCommand } from '@tiptap/react';
-import { LinkPreviewPluginEditorConfig, LINK_PREVIEW_TYPE } from '../types';
+import type { Editor } from '@tiptap/core';
+import type { KeyboardShortcutCommand } from '@tiptap/react';
+import type { ResolvedPos } from 'prosemirror-model';
+import { TIPTAP_LINK_PREVIEW_TYPE, TIPTAP_EMBED_TYPE } from 'ricos-content';
+import { convertBlockDataToRicos } from 'ricos-content/libs/convertBlockDataToRicos';
+import type { LinkPreviewData } from 'ricos-schema';
 import linkPreviewDefaults from 'ricos-schema/dist/statics/link_preview.defaults.json';
-import { LinkPreviewData } from 'ricos-schema';
+import embedDefaults from 'ricos-schema/dist/statics/embed.defaults.json';
+import type {
+  ExtensionProps,
+  NodeConfig,
+  RicosExtension,
+  RicosExtensionConfig,
+} from 'ricos-tiptap-types';
+import type { DeepPartial } from 'utility-types';
 import {
   createLinkPreviewData,
   fetchLinkPreview,
   shouldAddEmbed,
   shouldAddLinkPreview,
 } from '../../lib/utils';
-import { convertBlockDataToRicos } from 'ricos-content/libs/migrateSchema';
-import { DeepPartial } from 'utility-types';
-import { ResolvedPos } from 'prosemirror-model';
-import { TIPTAP_LINK_PREVIEW_TYPE } from 'ricos-content';
+import type { LinkPreviewPluginEditorConfig } from '../types';
+import { LINK_PREVIEW_TYPE } from '../types';
+import { LinkPreview as Component } from './component';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -28,15 +34,14 @@ declare module '@tiptap/core' {
   }
 }
 
-const name = TIPTAP_LINK_PREVIEW_TYPE;
-
 //// Regexes should be shared with link extension
 
 /**
  * A regex that matches any string that contains a link
  */
-// eslint-disable-next-line max-len
-export const urlRegex = /(?:https?:\/\/)?(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z]{2,}\b(?:[-a-zA-Z0-9@:%._+~#=?!&/]*)(?:[-a-zA-Z0-9@:%._+~#=?!&/]*)/gi;
+export const urlRegex =
+  // eslint-disable-next-line max-len
+  /(?:https?:\/\/)?(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z]{2,}\b(?:[-a-zA-Z0-9@:%._+~#=?!&/]*)(?:[-a-zA-Z0-9@:%._+~#=?!&/]*)/gi;
 
 /**
  * A regex that matches an url
@@ -47,76 +52,130 @@ const isLinkOnlyBlock = ({ parent, nodeBefore }: ResolvedPos): boolean =>
   parent.childCount === 1 && nodeBefore?.text?.search(urlRegexExact) !== -1;
 
 const insertNewLineAbove = (editor: Editor) =>
-  editor
-    .chain()
-    .enter()
-    .setTextSelection(editor.state.selection.anchor)
-    .run();
+  editor.chain().enter().setTextSelection(editor.state.selection.anchor).run();
 
-const addLinkPreview = (config: LinkPreviewPluginEditorConfig): KeyboardShortcutCommand => ({
-  editor,
-}) => {
-  const pos = editor.state.selection.$anchor;
-  const { enableEmbed = true, enableLinkPreview = true, fetchData, link: linkConfig } =
-    config || {};
-  if (pos.nodeBefore?.text && isLinkOnlyBlock(pos) && fetchData) {
-    const { target, rel } = linkConfig || {};
-    const url = pos.nodeBefore?.text;
-    fetchLinkPreview(fetchData, url)
-      .then(linkPreviewData => {
-        if (
-          shouldAddEmbed(linkPreviewData.html, enableEmbed, linkPreviewData.fixedUrl) ||
-          shouldAddLinkPreview(linkPreviewData.title, enableLinkPreview)
-        ) {
-          return createLinkPreviewData({ url, target, rel }, linkPreviewData, config).then(
-            linkPreviewComponentData => {
-              const convertedLinkPreviewData = convertBlockDataToRicos(
-                LINK_PREVIEW_TYPE,
-                linkPreviewComponentData
-              );
-              editor
-                .chain()
-                .deleteRange({ from: pos.pos - (pos.nodeBefore?.nodeSize || 0), to: pos.pos })
-                .insertContent({ type: name, attrs: convertedLinkPreviewData })
-                .run();
-            }
-          );
-        }
-      })
-      .finally(() => insertNewLineAbove(editor));
-    return true;
-  }
-  return false;
-};
+const addLinkPreview =
+  (config: LinkPreviewPluginEditorConfig): KeyboardShortcutCommand =>
+  ({ editor }) => {
+    const pos = editor.state.selection.$anchor;
+    const {
+      enableEmbed = true,
+      enableLinkPreview = true,
+      fetchData,
+      link: linkConfig,
+    } = config || {};
+    if (pos.nodeBefore?.text && isLinkOnlyBlock(pos) && fetchData) {
+      const { target, rel } = linkConfig || {};
+      const url = pos.nodeBefore?.text;
+      fetchLinkPreview(fetchData, url)
+        .then(linkPreviewData => {
+          if (
+            shouldAddEmbed(linkPreviewData.html, enableEmbed, linkPreviewData.fixedUrl) ||
+            shouldAddLinkPreview(linkPreviewData.title, enableLinkPreview)
+          ) {
+            return createLinkPreviewData({ url, target, rel }, linkPreviewData, config).then(
+              linkPreviewComponentData => {
+                const convertedLinkPreviewData = convertBlockDataToRicos(
+                  LINK_PREVIEW_TYPE,
+                  linkPreviewComponentData
+                );
+                editor
+                  .chain()
+                  .deleteRange({ from: pos.pos - (pos.nodeBefore?.nodeSize || 0), to: pos.pos })
+                  .insertContent({
+                    type: TIPTAP_LINK_PREVIEW_TYPE,
+                    attrs: convertedLinkPreviewData,
+                  })
+                  .run();
+              }
+            );
+          }
+        })
+        .finally(() => insertNewLineAbove(editor));
+      return true;
+    }
+    return false;
+  };
 
-export const createRicosExtensions: CreateRicosExtensions = config => [
+export const tiptapExtensions = [
   {
     type: 'node' as const,
-    Component,
-    componentDataDefaults: { ...linkPreviewDefaults, id: '' },
-    createExtensionConfig: () => ({
-      name,
-      addCommands() {
-        return {
-          setLinkPreview: attributes => ({ commands }) => {
-            return commands.setNode('linkPreview', attributes);
-          },
-        };
-      },
+    name: TIPTAP_LINK_PREVIEW_TYPE,
+    groups: ['react'],
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions: () => settings,
     }),
+    Component,
+    createExtensionConfig() {
+      return {
+        group: 'block',
+        selectable: true,
+        draggable: true,
+        name: this.name,
+        addAttributes: () => linkPreviewDefaults,
+        addCommands() {
+          return {
+            setLinkPreview:
+              attributes =>
+              ({ commands }) => {
+                return commands.setNode('linkPreview', attributes);
+              },
+          };
+        },
+      };
+    },
   },
   {
-    type: 'extension',
-    createExtensionConfig: () => ({
-      name: 'linkPreviewEnter',
-      group: 'block',
-      selectable: true,
-      draggable: true,
+    type: 'node' as const,
+    name: TIPTAP_EMBED_TYPE,
+    groups: ['react'],
+    reconfigure: (
+      config: NodeConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions: () => settings,
+    }),
+    Component,
+    createExtensionConfig() {
+      return {
+        group: 'block',
+        selectable: true,
+        draggable: true,
+        name: this.name,
+        addAttributes: () => embedDefaults,
+      };
+    },
+  },
+  {
+    type: 'extension' as const,
+    groups: ['shortcuts-enabled'],
+    name: 'linkPreviewEnter',
+    reconfigure: (
+      config: RicosExtensionConfig,
+      _extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
       addKeyboardShortcuts() {
         return {
-          Enter: addLinkPreview(config),
+          Enter: addLinkPreview(settings),
         };
       },
     }),
+    createExtensionConfig() {
+      return {
+        name: this.name,
+      };
+    },
   },
 ];

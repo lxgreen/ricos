@@ -1,12 +1,17 @@
 import React from 'react';
-import { CreateRicosExtensions, DOMOutputSpec } from 'ricos-tiptap-types';
-import { BlockSpoilerComponent } from '..';
 import colorDataDefaults from 'ricos-schema/dist/statics/color.defaults.json';
+import type {
+  DOMOutputSpec,
+  ExtensionProps,
+  RicosExtension,
+  RicosExtensionConfig,
+} from 'ricos-tiptap-types';
+import { Decoration_Type } from 'ricos-schema';
+import { BlockSpoilerComponent } from '..';
 
 const SPOILER_STYLE = 'blur(0.25em)';
 
 const SpoilerHoc = Component => {
-  // should use the new api containerData
   const Spoiler = props => {
     const { context, componentData } = props;
     const { isMobile, theme, t } = context;
@@ -44,56 +49,75 @@ declare module '@tiptap/core' {
   }
 }
 
-export const createTiptapExtensions: CreateRicosExtensions = defaultOptions => [
+export const tiptapExtensions: RicosExtension[] = [
   {
     type: 'extension' as const,
-    createExtensionConfig: () => ({
-      name: 'node-spoiler',
-      priority: 10,
-      addOptions: () => defaultOptions,
+    name: 'node-spoiler',
+    groups: [],
+    reconfigure: (
+      config: RicosExtensionConfig,
+      extensions: RicosExtension[],
+      _props: ExtensionProps,
+      settings: Record<string, unknown>
+    ) => ({
+      ...config,
+      addOptions: () => settings,
       addNodeHoc: () => ({
-        nodeTypes: ['image'],
+        nodeTypes: extensions
+          .filter(extension => extension.groups.includes('spoilerable'))
+          .map(({ name }) => name),
         priority: 10,
         nodeHoc: SpoilerHoc,
       }),
     }),
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        priority: 10,
+      };
+    },
   },
   {
     type: 'mark' as const,
-    createExtensionConfig: () => ({
-      name: 'spoiler',
+    groups: [],
+    name: Decoration_Type.SPOILER,
+    createExtensionConfig() {
+      return {
+        name: this.name,
+        addOptions: () => ({
+          HTMLAttributes: {},
+        }),
 
-      addOptions: () => ({
-        HTMLAttributes: {},
-      }),
+        addAttributes() {
+          return colorDataDefaults;
+        },
 
-      addAttributes() {
-        return colorDataDefaults;
-      },
-
-      parseHTML() {
-        return [
-          {
-            tag: 'span',
-            getAttrs: element => {
-              const { filter } = (element as HTMLElement).style || {};
-              return filter === SPOILER_STYLE ? {} : false;
+        parseHTML() {
+          return [
+            {
+              tag: 'span',
+              getAttrs: element => {
+                const { filter } = (element as HTMLElement).style || {};
+                return filter === SPOILER_STYLE ? {} : false;
+              },
             },
-          },
-        ];
-      },
+          ];
+        },
 
-      renderHTML() {
-        return ['span', { style: `filter: ${SPOILER_STYLE}` }, 0] as DOMOutputSpec;
-      },
+        renderHTML() {
+          return ['span', { style: `filter: ${SPOILER_STYLE}` }, 0] as DOMOutputSpec;
+        },
 
-      addCommands() {
-        return {
-          toggleSpoiler: () => ({ commands }) => {
-            return commands.toggleMark('spoiler');
-          },
-        };
-      },
-    }),
+        addCommands() {
+          return {
+            toggleSpoiler:
+              () =>
+              ({ commands }) => {
+                return commands.toggleMark(this.name);
+              },
+          };
+        },
+      };
+    },
   },
 ];

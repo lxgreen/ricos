@@ -73,6 +73,7 @@ export const UNDO_REDO_TYPE = 'wix-rich-content-undo-redo';
 export const APP_EMBED_TYPE = 'wix-draft-plugin-vertical-embed';
 export const VERTICAL_EMBED_TYPE = 'wix-draft-plugin-vertical-embed';
 export const VIDEO_TYPE = 'wix-draft-plugin-video';
+export const AUDIO_TYPE = 'ricos-audio';
 export const VIDEO_TYPE_LEGACY = 'VIDEO-EMBED';
 export const POLL_TYPE = 'wix-draft-plugin-poll';
 export const TABLE_TYPE = 'wix-rich-content-plugin-table';
@@ -103,7 +104,6 @@ export const RICOS_LINK_BUTTON_TYPE = 'ricos-link-button';
 export const RICOS_LINK_PREVIEW_TYPE = 'ricos-link-preview';
 export const RICOS_MAP_TYPE = 'ricos-map';
 export const RICOS_POLL_TYPE = 'ricos-poll';
-export const RICOS_SOUND_CLOUD_TYPE = 'ricos-sound-cloud';
 export const RICOS_SPOILER_TYPE = 'ricos-spoiler';
 export const RICOS_TABLE_TYPE = 'ricos-table';
 export const RICOS_TEXT_COLOR_TYPE = 'ricos-text-color';
@@ -123,14 +123,23 @@ export const RICOS_EXTERNAL_LINK_TYPE = 'ricos-external-link'; // TODO: is this 
 export const RICOS_EXTERNAL_MENTION_TYPE = 'ricos-external-mention'; // TODO: is this type needed?
 
 // tiptap plugins types
-export const TIPTAP_DIVIDER_TYPE = 'divider';
-export const TIPTAP_IMAGE_TYPE = 'image';
-export const TIPTAP_GALLERY_TYPE = 'gallery';
-export const TIPTAP_FILE_TYPE = 'file';
-export const TIPTAP_GIF_TYPE = 'gif';
-export const TIPTAP_VIDEO_TYPE = 'video';
-export const TIPTAP_LINK_PREVIEW_TYPE = 'linkPreview';
-export const TIPTAP_POLL_TYPE = 'poll';
+export const TIPTAP_DIVIDER_TYPE = Node_Type.DIVIDER;
+export const TIPTAP_IMAGE_TYPE = Node_Type.IMAGE;
+export const TIPTAP_GALLERY_TYPE = Node_Type.GALLERY;
+export const TIPTAP_FILE_TYPE = Node_Type.FILE;
+export const TIPTAP_GIF_TYPE = Node_Type.GIF;
+export const TIPTAP_VIDEO_TYPE = Node_Type.VIDEO;
+export const TIPTAP_AUDIO_TYPE = Node_Type.AUDIO;
+export const TIPTAP_LINK_PREVIEW_TYPE = Node_Type.LINK_PREVIEW;
+export const TIPTAP_EMBED_TYPE = Node_Type.EMBED;
+export const TIPTAP_POLL_TYPE = Node_Type.POLL;
+export const TIPTAP_APP_EMBED_TYPE = Node_Type.APP_EMBED;
+export const TIPTAP_COLLAPSIBLE_LIST_TYPE = Node_Type.COLLAPSIBLE_LIST;
+export const TIPTAP_COLLAPSIBLE_ITEM_TYPE = Node_Type.COLLAPSIBLE_ITEM;
+export const TIPTAP_COLLAPSIBLE_ITEM_TITLE_TYPE = Node_Type.COLLAPSIBLE_ITEM_TITLE;
+export const TIPTAP_COLLAPSIBLE_ITEM_BODY_TYPE = Node_Type.COLLAPSIBLE_ITEM_BODY;
+export const TIPTAP_HTML_TYPE = Node_Type.HTML;
+export const TIPTAP_CODE_BLOCK_TYPE = Node_Type.CODE_BLOCK;
 
 export const RICOS_NODE_TYPE_TO_DATA_FIELD = {
   [Node_Type.BUTTON]: 'buttonData',
@@ -155,4 +164,5 @@ export const RICOS_NODE_TYPE_TO_DATA_FIELD = {
   [Node_Type.BLOCKQUOTE]: 'paragraphData',
   [Node_Type.EMBED]: 'embedData',
   [Node_Type.EXTERNAL]: 'externalData',
+  [Node_Type.AUDIO]: 'audioData',
 } as const;

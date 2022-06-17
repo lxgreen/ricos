@@ -3,14 +3,8 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import {
-  mergeStyles,
-  AccessibilityListener,
-  normalizeInitialState,
-  getLangDir,
-  SPOILER_TYPE,
-  GlobalContext,
-  Version,
+import type { TextAlignment } from 'ricos-types';
+import type {
   DraftContent,
   TranslationFunction,
   SEOSettings,
@@ -29,11 +23,20 @@ import {
   ViewerContextType,
   InlineStyleMapperFunction,
   AvailableExperiments,
+  DocumentStyle,
+} from 'wix-rich-content-common';
+import {
+  mergeStyles,
+  AccessibilityListener,
+  normalizeInitialState,
+  getLangDir,
+  SPOILER_TYPE,
+  GlobalContext,
+  Version,
   IMAGE_TYPE,
   GALLERY_TYPE,
   VIDEO_TYPE,
   createJustificationFixDecorator,
-  DocumentStyle,
 } from 'wix-rich-content-common';
 import draftDefaultStyles from 'wix-rich-content-common/dist/statics/styles/draftDefault.rtlignore.scss';
 import { convertToReact } from './utils/convertContentState';
@@ -45,6 +48,7 @@ import { combineMappers } from './utils/combineMappers';
 
 export interface RichContentViewerProps {
   /** This is a legacy API, changes should be made also in the new Ricos Viewer API **/
+  onLoad?: (any) => void;
   initialState?: DraftContent;
   isMobile?: boolean;
   renderStaticHtml?: boolean;
@@ -62,7 +66,7 @@ export interface RichContentViewerProps {
   config: LegacyViewerPluginConfig;
   textDirection?: TextDirection;
   direction?: TextDirection;
-  textAlignment?: 'left' | 'right';
+  textAlignment?: TextAlignment;
   disabled?: boolean;
   seoMode?: SEOSettings;
   iframeSandboxDomain?: string;

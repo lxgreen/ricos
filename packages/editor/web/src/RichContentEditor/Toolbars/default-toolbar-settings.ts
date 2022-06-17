@@ -6,8 +6,8 @@ import {
   createInsertPluginToolbarButtonProps,
   createFormattingToolbarButtonProps,
 } from './createExternalToolbarButtonProps';
-import { EditorState } from 'draft-js';
-import { GetToolbarSettings } from 'wix-rich-content-common';
+import type { EditorState } from 'draft-js';
+import type { GetToolbarSettings } from 'wix-rich-content-common';
 
 const defaultInlineToolbarVisibilityFn = (editorState: EditorState) => {
   const selection = editorState.getSelection();

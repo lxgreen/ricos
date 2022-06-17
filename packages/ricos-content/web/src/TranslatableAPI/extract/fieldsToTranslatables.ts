@@ -1,5 +1,5 @@
-import { NonTextualTranslatable, NonTextualNode } from '../types';
-import { Node } from 'ricos-schema';
+import type { NonTextualTranslatable, NonTextualNode } from '../types';
+import type { Node } from 'ricos-schema';
 import { get } from 'lodash';
 
 const fieldsToPath = (path: (string | number | symbol)[]) =>

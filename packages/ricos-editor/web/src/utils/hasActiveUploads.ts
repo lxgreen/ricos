@@ -1,5 +1,5 @@
-import { EntityInstance, ContentState, ContentBlock } from 'draft-js';
-import { Iterable } from 'immutable';
+import type { EntityInstance, ContentState, ContentBlock } from 'draft-js';
+import type { Iterable } from 'immutable';
 import { IMAGE_TYPE, VIDEO_TYPE, FILE_UPLOAD_TYPE, GALLERY_TYPE } from 'wix-rich-content-common';
 
 const isUploadingImage = (entity: EntityInstance) =>
@@ -8,14 +8,19 @@ const isUploadingImage = (entity: EntityInstance) =>
 const isUploadingVideo = (entity: EntityInstance) =>
   entity.getType() === VIDEO_TYPE && entity.getData().tempData === true;
 
-const isUploadingFile = (entity: EntityInstance) =>
-  entity.getType() === FILE_UPLOAD_TYPE && entity.getData().tempData === true;
+const isUploadingFile = (entity: EntityInstance) => {
+  const { tempData, name, type } = entity.getData();
+  return entity.getType() === FILE_UPLOAD_TYPE && (tempData === true || !name || !type);
+};
 
 const isUploadingGallery = (entity: EntityInstance) => {
-  const items = entity.getData().items as { url: string }[];
+  const data = entity.getData();
+  const items = data.items as { url: string; loading?: boolean }[];
   return (
     entity.getType() === GALLERY_TYPE &&
-    (items?.length === 0 || items.some?.(item => item.url?.includes('base64')))
+    (items?.length === 0 ||
+      items.some?.(item => item.url?.includes('base64') || !!item.loading) ||
+      data.loading)
   );
 };
 

@@ -1,6 +1,7 @@
 import { identity, flow } from 'fp-ts/function';
 import * as E from 'fp-ts/Either';
-import { RichContent, Node_Type, Node } from 'ricos-schema';
+import type { RichContent, Node } from 'ricos-schema';
+import { Node_Type } from 'ricos-schema';
 import { modify } from '../../../../RicosContentAPI/modify';
 import { extract } from '../../../../RicosContentAPI/extract';
 import { createNode, partitionBy } from '../../../nodeUtils';

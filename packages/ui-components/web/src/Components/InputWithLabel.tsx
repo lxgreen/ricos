@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
-import React, { ChangeEvent, Component } from 'react';
+import type { ChangeEvent, Ref } from 'react';
+import React, { Component } from 'react';
 import { omit } from 'lodash';
 import classNames from 'classnames';
 import Label from './Label';
-import { mergeStyles, RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import type { RichContentTheme, TranslationFunction } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../statics/styles/input-with-label.scss';
 import infoIconStyles from '../../statics/styles/info-icon.scss';
 
@@ -20,7 +22,11 @@ interface InputWithLabelProps {
   t?: TranslationFunction;
   isMobile?: boolean;
   onChange: (e) => void;
+  onBlur?: (e) => void;
   getTarget?: boolean;
+  tabIndex?: number;
+  inputRef?: Ref<HTMLInputElement>;
+  placeholder?: string;
 }
 
 class InputWithLabel extends Component<InputWithLabelProps> {
@@ -51,6 +57,9 @@ class InputWithLabel extends Component<InputWithLabelProps> {
       isMobile,
       tooltipTextKey,
       t,
+      inputRef,
+      placeholder,
+      onBlur,
       ...otherProps
     } = this.props;
     const inputProps = omit(otherProps, ['theme', 'onChange']);
@@ -66,6 +75,10 @@ class InputWithLabel extends Component<InputWithLabelProps> {
         id={id}
         data-hook={dataHook}
         onChange={this.handleOnChange}
+        onBlur={onBlur}
+        placeholder={placeholder}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ref={inputRef as any}
         {...inputProps}
       />
     );

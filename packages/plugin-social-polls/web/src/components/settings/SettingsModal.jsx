@@ -7,6 +7,7 @@ import {
   Tabs,
   Tab,
   SettingsPanelFooter,
+  SettingsPanelHeader,
   FocusManager,
   SettingsMobileHeader,
   Button,
@@ -38,11 +39,17 @@ export class SettingsModal extends Component {
     relValue: PropTypes.string,
     anchorTarget: PropTypes.string,
     settings: PropTypes.object.isRequired,
+    experiments: PropTypes.object,
+    updateData: PropTypes.func,
+    onSave: PropTypes.func,
+    onCancel: PropTypes.func,
   };
 
   static defaultProps = {
     activeTab: TABS.LAYOUT,
   };
+
+  modalsWithEditorCommands = this.props.experiments?.modalBaseActionHoc?.enabled;
 
   state = {
     activeTab: this.props.activeTab,
@@ -56,14 +63,17 @@ export class SettingsModal extends Component {
   static contextType = GlobalContext;
 
   setPoll = poll => {
-    const { pubsub } = this.props;
+    const { pubsub, updateData } = this.props;
+    if (this.modalsWithEditorCommands) {
+      updateData({ poll });
+    } else {
+      const componentData = pubsub.store.get('componentData');
 
-    const componentData = pubsub.store.get('componentData');
-
-    pubsub.store.set('componentData', {
-      ...componentData,
-      poll,
-    });
+      pubsub.store.set('componentData', {
+        ...componentData,
+        poll,
+      });
+    }
   };
 
   componentDidCatch() {}
@@ -77,47 +87,75 @@ export class SettingsModal extends Component {
   openPreview = () => this.setState({ isPreviewOpen: true });
 
   restoreChanges = () => {
-    const { pubsub, helpers } = this.props;
-    const { componentData } = this.state;
+    if (!this.modalsWithEditorCommands) {
+      const { pubsub, helpers } = this.props;
+      const { componentData } = this.state;
 
-    pubsub.set('componentData', componentData);
+      pubsub.set('componentData', componentData);
 
-    helpers.closeModal();
+      helpers.closeModal();
+    }
   };
 
   componentDidMount() {
-    this.props.pubsub.subscribe('componentData', this.onComponentUpdate);
+    !this.modalsWithEditorCommands &&
+      this.props.pubsub.subscribe('componentData', this.onComponentUpdate);
   }
 
   componentWillUnmount() {
-    this.props.pubsub.unsubscribe('componentData', this.onComponentUpdate);
+    !!this.modalsWithEditorCommands &&
+      this.props.pubsub.unsubscribe('componentData', this.onComponentUpdate);
   }
 
   onComponentUpdate = () => this.forceUpdate();
 
   render() {
     const { activeTab, $container, isPreviewOpen } = this.state;
-    const { pubsub, helpers, t, theme, isMobile, settings } = this.props;
+    const {
+      pubsub,
+      helpers,
+      t,
+      theme,
+      isMobile,
+      settings,
+      updateData,
+      onCancel,
+      onSave,
+      experiments = {},
+    } = this.props;
     const { languageDir } = this.context;
 
-    const componentData = pubsub.store.get('componentData');
+    const componentData = this.modalsWithEditorCommands
+      ? this.props.componentData
+      : pubsub.store.get('componentData');
+
+    const useNewSettingsUi = experiments?.newSettingsModals?.enabled;
 
     return (
-      <div ref={$container}>
+      <div ref={$container} className={this.styles.settings_container}>
         <FocusManager dir={languageDir}>
           {isMobile ? (
             <SettingsMobileHeader
-              onSave={helpers.closeModal}
-              onCancel={this.restoreChanges}
+              onSave={this.modalsWithEditorCommands ? onSave : helpers.closeModal}
+              onCancel={this.modalsWithEditorCommands ? onCancel : this.restoreChanges}
               theme={styles}
+              title={useNewSettingsUi && t('Poll_PollSettings_Common_Header')}
               t={t}
+              useNewSettingsUi={useNewSettingsUi}
             >
-              <div className={this.styles.preview_button}>
-                <Button borderless isMobile onClick={this.openPreview}>
-                  {t('Poll_FormatToolbar_Preview_Tooltip')}
-                </Button>
-              </div>
+              {!useNewSettingsUi && (
+                <div className={this.styles.preview_button}>
+                  <Button borderless isMobile onClick={this.openPreview}>
+                    {t('Poll_FormatToolbar_Preview_Tooltip')}
+                  </Button>
+                </div>
+              )}
             </SettingsMobileHeader>
+          ) : useNewSettingsUi ? (
+            <SettingsPanelHeader
+              title={t('Poll_PollSettings_Common_Header')}
+              onClose={this.restoreChanges}
+            />
           ) : (
             <div className={this.styles.header}>
               <h3 className={this.styles.title}>{t('Poll_PollSettings_Common_Header')}</h3>
@@ -140,12 +178,23 @@ export class SettingsModal extends Component {
                 poll={componentData.poll}
                 setPoll={this.setPoll}
                 t={t}
+                experiments={experiments}
               >
-                <EditPollSection store={pubsub.store} />
+                <EditPollSection
+                  store={pubsub.store}
+                  updateData={updateData}
+                  layout={componentData.layout}
+                  experiments={experiments}
+                />
               </PollContextProvider>
             </RCEHelpersContext.Provider>
           ) : (
-            <Tabs value={activeTab} theme={theme} onTabSelected={this.handleTabChange}>
+            <Tabs
+              value={activeTab}
+              theme={theme}
+              headersStyle={useNewSettingsUi && styles.poll_tab_headers}
+              onTabSelected={this.handleTabChange}
+            >
               <Tab
                 label={t('Poll_PollSettings_Tab_Layout_TabName')}
                 value={TABS.LAYOUT}
@@ -153,10 +202,12 @@ export class SettingsModal extends Component {
               >
                 <LayoutSettingsSection
                   theme={theme}
+                  updateData={updateData}
                   store={pubsub.store}
                   componentData={componentData}
                   t={t}
                   isMobile={isMobile}
+                  experiments={experiments}
                 />
               </Tab>
               <Tab
@@ -166,10 +217,12 @@ export class SettingsModal extends Component {
               >
                 <DesignSettingsSection
                   theme={theme}
+                  updateData={updateData}
                   store={pubsub.store}
                   componentData={componentData}
                   t={t}
                   languageDir={languageDir}
+                  experiments={experiments}
                 />
               </Tab>
               <Tab
@@ -179,10 +232,12 @@ export class SettingsModal extends Component {
               >
                 <PollSettingsSection
                   theme={theme}
+                  updateData={updateData}
                   store={pubsub.store}
                   componentData={componentData}
                   t={t}
                   settings={settings}
+                  experiments={experiments}
                 />
               </Tab>
             </Tabs>
@@ -191,14 +246,14 @@ export class SettingsModal extends Component {
           {!isMobile && (
             <SettingsPanelFooter
               fixed
-              cancel={this.restoreChanges}
-              save={helpers.closeModal}
+              cancel={this.modalsWithEditorCommands ? onCancel : this.restoreChanges}
+              save={this.modalsWithEditorCommands ? onSave : helpers.closeModal}
               theme={this.props.theme}
               t={t}
             />
           )}
 
-          {isMobile && $container.current && (
+          {isMobile && $container.current && isPreviewOpen && (
             <ReactModal
               isOpen={isPreviewOpen}
               onRequestClose={this.closePreview}
@@ -216,6 +271,7 @@ export class SettingsModal extends Component {
                 onRequestClose={this.closePreview}
                 theme={theme}
                 t={t}
+                experiments={experiments}
               />
               &nbsp;
               <button

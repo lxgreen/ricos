@@ -3,7 +3,7 @@ declare module '*.scss' {
   export = classes;
 }
 declare module '*.svg' {
-  import { FunctionComponent, SVGProps } from 'react';
+  import type { FunctionComponent, SVGProps } from 'react';
   const ReactComponent: FunctionComponent<SVGProps<SVGSVGElement>>;
   export default ReactComponent;
 }
@@ -12,9 +12,9 @@ declare module 'postcss-exclude-files';
 declare module '@rollup/plugin-babel';
 declare module 'deep-freeze';
 declare module 'to-*-case' {
-  export default function(string: string): string;
+  export default function (string: string): string;
 }
-declare module '!!raw-loader!*' {
+declare module '*?raw' {
   const contents: string;
   export = contents;
 }

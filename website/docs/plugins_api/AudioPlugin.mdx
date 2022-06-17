@@ -1,0 +1,201 @@
+---
+id: AudioPlugin
+title: Audio Plugin
+sidebar_label: Audio Plugin
+---
+
+import { RicosViewer } from 'ricos-viewer';
+import { pluginAudio } from 'wix-rich-content-plugin-audio';
+import { pluginAudio as pluginAudioViewer } from 'wix-rich-content-plugin-audio/viewer';
+import { createContent } from 'ricos-content';
+import audioContent from '../../infra/editor/content/audio-content.json';
+import { RicosEditorWithMobile } from '../../infra/editor/components/RicosEditorWithMobile.tsx';
+import {
+  mockAudioNativeUploadFunc,
+  getAudioUrl,
+} from '../../infra/editor/config/fileUploadUtil.js';
+
+Audio plugin allows the user to share audio files
+
+<div className="card">
+  <RicosEditorWithMobile
+    content={createContent('Add A Audio!')}
+    placeholder={'Type here!'}
+    plugins={[pluginAudio({ handleFileUpload: mockAudioNativeUploadFunc, getAudioUrl })]}
+  />
+</div>
+<br />
+
+## Usage
+
+```jsx
+/* Editor */
+import { RicosEditor } from 'ricos-editor';
+import { pluginAudio } from 'wix-rich-content-plugin-audio';
+<RicosEditor plugins={[pluginAudio(AudioConfig)]} />;
+
+/* Viewer */
+import { RicosViewer } from 'ricos-viewer';
+import { pluginAudio } from 'wix-rich-content-plugin-audio/viewer';
+<RicosViewer plugins={[pluginAudio(AudioConfig)]} />;
+```
+
+## Audio Config API
+
+#### disableDownload should be set in the mediaSettings of the editor.
+
+```jsx
+disableDownload?: boolean;
+```
+
+Showcase of Audio without download
+
+<div className="card">
+  <RicosViewer
+    content={audioContent}
+    placeholder={'Type here!'}
+    plugins={[
+      pluginAudioViewer({
+        getAudioUrl: src => `https://static.wixstatic.com/${src.id}`,
+      }),
+    ]}
+  />
+</div>
+
+### `getAudioUrl`
+
+This function take the id and form a full URL (invoked when rendering audio which has relative URL).
+
+```jsx
+getAudioUrl?: (src: { id: string }) => string;
+```
+
+### `handleFileSelection`
+
+Here you can call your custom audio upload functionality
+
+```jsx
+handleFileSelection?: (updateEntity: ({ data: dataType }) => void) => void;
+
+dataType =
+  {
+  name?: string,
+  authorName?: string,
+  audio: {
+    src: {id?: string, url?: string},
+    duration?: number,
+  },
+};
+```
+
+### `handleFileUpload`
+
+Use for native file upload
+
+```jsx
+handleFileUpload?: (file: File, updateEntity: ({ data: dataType }) => void) => void;
+
+dataType =
+  {
+  name?: string,
+  authorName?: string,
+  audio: {
+    src: {id?: string, url?: string},
+    duration?: number,
+  },
+};
+```
+
+## Sound Cloud Plugin
+
+SoundCloud toolbar button is part of the audio plugin. To use it we need to expose a button with `exposeButtons`:
+
+see documentation above.
+
+<div className="card">
+  <RicosEditorWithMobile
+    content={createContent('Add A SoundCloud!')}
+    placeholder={'Type here!'}
+    plugins={[
+      pluginAudio({
+        handleFileUpload: mockAudioNativeUploadFunc,
+        getAudioUrl,
+        exposeButtons: ['soundCloud', 'audio'],
+      }),
+    ]}
+  />
+</div>
+<br />
+
+```jsx
+/* Editor */
+import { RicosEditor } from 'ricos-editor';
+import { pluginAudio, audioButtonsTypes } from 'wix-rich-content-plugin-audio';
+<RicosEditor plugins={[pluginAudio({ exposeButtons: [audioButtonsTypes.soundCloud] })]} />;
+
+/* Viewer */
+import { RicosViewer } from 'ricos-viewer';
+import { pluginAudio } from 'wix-rich-content-plugin-audio/viewer';
+<RicosViewer plugins={[pluginAudio(AudioConfig)]} />;
+```
+
+### `exposeButtons`
+
+The buttons exposed by the plugin
+
+```jsx
+exposeButtons?: array;
+```
+
+Example value:
+
+```jsx
+[audioButtonsTypes.audio, audioButtonsTypes.soundCloud, audioButtonsTypes.spotify];
+```
+
+## Spotify Plugin
+
+Spotify toolbar button is part of the audio plugin. To use it we need to expose a button with `exposeButtons`:
+
+see documentation above.
+
+<div className="card">
+  <RicosEditorWithMobile
+    content={createContent('Add A Spotify!')}
+    placeholder={'Type here!'}
+    plugins={[
+      pluginAudio({
+        handleFileUpload: mockAudioNativeUploadFunc,
+        getAudioUrl,
+        exposeButtons: ['spotify', 'audio'],
+      }),
+    ]}
+  />
+</div>
+<br />
+
+```jsx
+/* Editor */
+import { RicosEditor } from 'ricos-editor';
+import { pluginAudio, audioButtonsTypes } from 'wix-rich-content-plugin-audio';
+<RicosEditor plugins={[pluginAudio({ exposeButtons: [audioButtonsTypes.spotify] })]} />;
+
+/* Viewer */
+import { RicosViewer } from 'ricos-viewer';
+import { pluginAudio } from 'wix-rich-content-plugin-audio/viewer';
+<RicosViewer plugins={[pluginAudio(AudioConfig)]} />;
+```
+
+### `exposeButtons`
+
+The buttons exposed by the plugin
+
+```jsx
+exposeButtons?: array;
+```
+
+Example value:
+
+```jsx
+[audioButtonsTypes.youTube, audioButtonsTypes.audio, audioButtonsTypes.soundCloud];
+```

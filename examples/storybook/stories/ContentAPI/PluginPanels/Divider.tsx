@@ -1,6 +1,7 @@
-import React, { FC, useState } from 'react';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import { Layout, Cell, Button, Dropdown, Typography as t } from 'wix-style-react';
-import { DividerData_Alignment, DividerData_Type, DividerData_Width } from 'ricos-schema';
+import type { DividerData_Alignment, DividerData_Width, DividerData_LineStyle } from 'ricos-schema';
 import {
   emptyCommonBuilderFields,
   emptyPluginContainerData,
@@ -15,13 +16,13 @@ import {
   dividerWidth,
   dividerWidthOptions,
 } from '../AbstractPanels/utils';
-import { EditPanelProps } from '../types';
+import type { EditPanelProps } from '../types';
 import { HorizontalField } from '../HorizontalField';
 
 export const Divider: FC<EditPanelProps<'addDivider'>> = ({ addFunc }) => {
   const [commonFields, setCommonFields] = useState(emptyCommonBuilderFields);
   const [alignment, setAlignment] = useState('CENTER' as DividerData_Alignment);
-  const [type, setType] = useState('SINGLE' as DividerData_Type);
+  const [lineStyle, setType] = useState('SINGLE' as DividerData_LineStyle);
   const [width, setWidth] = useState('LARGE' as DividerData_Width);
   const [containerData, setContainerData] = useState(emptyPluginContainerData);
   const onAdd = () => {
@@ -29,7 +30,7 @@ export const Divider: FC<EditPanelProps<'addDivider'>> = ({ addFunc }) => {
       data: {
         containerData,
         alignment,
-        type,
+        lineStyle,
         width,
       },
       ...commonFields,
@@ -50,7 +51,7 @@ export const Divider: FC<EditPanelProps<'addDivider'>> = ({ addFunc }) => {
         <HorizontalField label="type">
           <Dropdown
             placeholder="type"
-            selectedId={dividerTypes.indexOf(type)}
+            selectedId={dividerTypes.indexOf(lineStyle)}
             options={dividerTypesOptions}
             onSelect={({ id }) => setType(dividerTypes[id])}
           />

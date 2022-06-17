@@ -86,6 +86,7 @@ message Media {
     FileSource src = 1;
     google.protobuf.Int32Value width = 2;
     google.protobuf.Int32Value height = 3;
+    google.protobuf.DoubleValue duration = 4;
 }
 
 message Oembed {

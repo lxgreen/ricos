@@ -12,7 +12,8 @@ import { pluginDivider } from 'wix-rich-content-plugin-divider/dist/module.viewe
 
 import dividerContentState from '../../../../e2e/tests/fixtures/divider.json';
 import DividerEditor from './RicosBasicUsage';
-import sourcecode from '!!raw-loader!./RicosBasicUsage.tsx';
+// eslint-disable-next-line import/no-unresolved
+import sourcecode from './RicosBasicUsage.tsx?raw';
 
 export default () => {
   return (

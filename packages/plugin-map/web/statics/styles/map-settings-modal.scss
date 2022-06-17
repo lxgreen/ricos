@@ -1,7 +1,8 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 
-$TITLE_HEIGHT: 0px;
+$TITLE_HEIGHT: 77px;
+$TITLE_HEIGHT_MOBILE: 50px;
 $FOOTER_HEIGHT: 100px;
 
 .map_settings_modal_main_content_block {
@@ -9,16 +10,44 @@ $FOOTER_HEIGHT: 100px;
   @include phone {
     padding: 0px 20px;
   }
+
+  &.map_settings_modal_main_content_block_newUi {
+    @include border-box;
+    height: calc(100% - #{$TITLE_HEIGHT} - #{$FOOTER_HEIGHT});
+    position: absolute;
+    width: 100%;
+    top: $TITLE_HEIGHT;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 24px;
+    @include phone {
+      height: calc(100% - #{$TITLE_HEIGHT_MOBILE});
+      top: $TITLE_HEIGHT_MOBILE;
+      padding: 20px;
+    }
+  }
 }
 
 .map_settings_modal_settings_container {
   display: flex;
   flex-direction: column;
+  text-align: left;
   height: 100vh;
 
   @include phone {
     height: 100%;
     padding-bottom: 30px;
+  }
+}
+
+.map_settings_modal_title_container {
+  flex: none;
+  padding: 24px 24px 20px;
+  box-sizing: border-box;
+
+  @include phone {
+    padding: 30px 20px;
+    height: auto;
   }
 }
 
@@ -88,12 +117,18 @@ $FOOTER_HEIGHT: 100px;
   @include phone {
     padding: 36px 0px;
   }
+
+  &.map_settings_modal_divider_newUi {
+    padding: 24px 0px;
+    @include phone {
+      padding: 20px 0px;
+    }
+  }
 }
 
 .map_settings_modal_divider {
   height: 1px;
-  opacity: 0.2;
-  background-color: $primary-text-color;
+  border-bottom: 1px solid $settings-dividers-color;
 }
 
 .map_settings_modal_map_modes {
@@ -108,6 +143,11 @@ $FOOTER_HEIGHT: 100px;
 .map_settings_modal_location_display_name_settings_section {
   @include phone {
     margin-bottom: 42px;
+  }
+  .map_settings_modal_main_content_block_newUi & {
+    @include phone {
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -133,6 +173,13 @@ $FOOTER_HEIGHT: 100px;
     padding-right: 0px;
     margin-right: -2.5px;
   }
+  .settings_section_newUi & {
+    height: 42px;
+    bottom: 0;
+    @include phone {
+      right: 10px;
+    }
+  }
 }
 
 .map_settings_modal_location_input_settings_section {
@@ -141,6 +188,12 @@ $FOOTER_HEIGHT: 100px;
 
   @include phone {
     padding-top: 0px;
+  }
+  &.settings_section_newUi {
+    padding: 0 0 24px 0;
+    @include phone {
+      padding-bottom: 20px;
+    }
   }
 }
 
@@ -157,7 +210,5 @@ $FOOTER_HEIGHT: 100px;
 }
 
 .map_settings_modal_scrollbar_container {
-  height: calc(100% - #{$FOOTER_HEIGHT});
-  margin: $TITLE_HEIGHT auto $FOOTER_HEIGHT auto;
-  width: 100%;
+  height: 100%;
 }

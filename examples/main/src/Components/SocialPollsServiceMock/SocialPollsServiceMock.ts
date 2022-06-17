@@ -6,6 +6,10 @@ export class SocialPollsServiceMock {
 
   private votes = votes;
 
+  createPoll(_pollId) {
+    return Promise.resolve(this.poll);
+  }
+
   fetchPoll(_pollId) {
     return Promise.resolve(this.poll);
   }

@@ -1,4 +1,4 @@
-import { DraftContent } from '../types';
+import type { DraftContent } from '../types';
 
 export const isContentStateEmpty = (contentState: DraftContent): boolean => {
   const { blocks } = contentState;

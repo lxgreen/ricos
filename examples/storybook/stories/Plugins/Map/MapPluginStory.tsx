@@ -8,9 +8,11 @@ import {
 
 import mapContentState from '../../../../../e2e/tests/fixtures/map.json';
 import MapEditor from './MapEditor';
-import editorSourcecode from '!!raw-loader!./MapEditor.tsx';
+// eslint-disable-next-line import/no-unresolved
+import editorSourcecode from './MapEditor.tsx?raw';
 import MapViewer from './MapViewer';
-import viewerSourcecode from '!!raw-loader!./MapViewer.tsx';
+// eslint-disable-next-line import/no-unresolved
+import viewerSourcecode from './MapViewer.tsx?raw';
 
 export default () => {
   return (

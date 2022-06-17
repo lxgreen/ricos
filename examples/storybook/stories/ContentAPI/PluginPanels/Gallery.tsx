@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import {
   Layout,
   Cell,
@@ -13,7 +14,7 @@ import {
   PNLCommonFields,
   PNLContainerData,
 } from '../AbstractPanels';
-import { EditPanelProps } from '../types';
+import type { EditPanelProps } from '../types';
 import { HorizontalField } from '../HorizontalField';
 
 export const Gallery: FC<EditPanelProps<'addGallery'>> = ({ addFunc }) => {
@@ -27,7 +28,9 @@ export const Gallery: FC<EditPanelProps<'addGallery'>> = ({ addFunc }) => {
     addFunc('addGallery', {
       data: {
         containerData,
-        config: { disableExpand, key, layout, spacing },
+        disableExpand,
+        // @ts-ignore
+        config: { key, layout, spacing },
         // TODO: items
         // TODO: styles
       },

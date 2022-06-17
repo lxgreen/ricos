@@ -1,4 +1,5 @@
-import React, { ComponentProps } from 'react';
+import type { ComponentProps } from 'react';
+import React from 'react';
 import { renderToString } from 'react-dom/server';
 import RichContentApp from '../../../../examples/main/shared/RichContentApp';
 import serialize from 'serialize-javascript';
@@ -17,6 +18,7 @@ export default function renderer() {
       'rce-isolated': IsolatedTestApp,
       rcp: PreviewTestApp,
       ricos: RicosTestApp,
+      tiptap: RicosTestApp,
     };
     if (Object.keys(compMap).indexOf(componentId) === -1) {
       return res.status(404).send(`Component for ${componentId} not found`);

@@ -54,3 +54,15 @@ const getCellEditorWithText = text => ({
   entityMap: {},
   VERSION: '6.8.0',
 });
+
+export const invalidTableData = {
+  type: TABLE_TYPE,
+  config: {
+    alignment: 'center',
+    colsWidth: [10, 10],
+    colsMinWidth: [120, 120],
+    rowsHeight: [47, 47],
+    size: 'content',
+    rows: {},
+  },
+};

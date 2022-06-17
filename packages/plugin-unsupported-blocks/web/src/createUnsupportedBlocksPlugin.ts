@@ -1,9 +1,11 @@
 import { Component, DEFAULTS } from './unsupported-blocks-component';
-import { UnsupportedBlocksPluginEditorConfig } from './types';
+import type { UnsupportedBlocksPluginEditorConfig } from './types';
 import { createBasePlugin, UNSUPPORTED_BLOCKS_TYPE } from 'wix-rich-content-plugin-commons';
-import { CreatePluginFunction } from 'wix-rich-content-common';
+import type { CreatePluginFunction } from 'wix-rich-content-common';
 
-const createUnsupportedBlocksPlugin: CreatePluginFunction<UnsupportedBlocksPluginEditorConfig> = config => {
+const createUnsupportedBlocksPlugin: CreatePluginFunction<
+  UnsupportedBlocksPluginEditorConfig
+> = config => {
   const { helpers, t, [UNSUPPORTED_BLOCKS_TYPE]: settings = {}, isMobile, ...rest } = config;
 
   return createBasePlugin({

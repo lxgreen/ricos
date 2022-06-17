@@ -1,11 +1,11 @@
-import { AnyExtension, Node, Mark, Extension } from '@tiptap/core';
-import { ComponentType } from 'react';
-import { NodeHocDescriptor } from 'ricos-tiptap-types';
+import type { AnyExtension, Extension, Mark, Node } from '@tiptap/core';
+import type { ComponentType } from 'react';
+import type { ExtensionProps, Group, NodeHocDescriptor, RicosExtension } from 'ricos-tiptap-types';
 
 export const DEFAULT_PRIORITY = 100;
 
 export interface ConvertableExtension {
-  toTiptapExtension(): AnyExtension;
+  toTiptapExtension(extensions: ExtensionAggregate, ricosProps: ExtensionProps): AnyExtension;
 }
 
 export interface SortableExtension {
@@ -16,24 +16,33 @@ export interface IdentifiableExtension {
   name: string;
 }
 
+export interface Grouped {
+  groups: Group[];
+}
+
 export interface IMarkExtension
   extends ConvertableExtension,
     SortableExtension,
-    IdentifiableExtension {
+    IdentifiableExtension,
+    Grouped {
   type: 'mark';
+  getRicosExtension: () => RicosExtension;
 }
 
-export interface IReactNodeExtension extends SortableExtension, IdentifiableExtension {
-  type: 'react-node';
+export interface IReactNodeExtension extends SortableExtension, IdentifiableExtension, Grouped {
+  type: 'node';
   getComponent(): ComponentType;
   asRenderable: (decoratedComponent: ComponentType) => DecoratedNodeExtension;
+  getRicosExtension: () => RicosExtension;
 }
 
 export interface IHtmlNodeExtension
   extends SortableExtension,
     IdentifiableExtension,
-    ConvertableExtension {
-  type: 'html-node';
+    ConvertableExtension,
+    Grouped {
+  type: 'node';
+  getRicosExtension: () => RicosExtension;
 }
 
 export interface DecoratedNodeExtension extends IReactNodeExtension, ConvertableExtension {}
@@ -41,9 +50,14 @@ export interface DecoratedNodeExtension extends IReactNodeExtension, Convertable
 export interface IFunctionalExtension
   extends ConvertableExtension,
     IdentifiableExtension,
-    SortableExtension {
+    SortableExtension,
+    Grouped {
   type: 'extension';
-  getNodeHocDescriptor(): NodeHocDescriptor;
+  getNodeHocDescriptor(
+    extensions: ExtensionAggregate,
+    ricosProps: ExtensionProps
+  ): NodeHocDescriptor;
+  getRicosExtension: () => RicosExtension;
 }
 
 export type IExtension =
@@ -63,16 +77,19 @@ export type ReactNodeExtensionAggregate = {
 };
 
 export type ConvertableNodeExtensionAggregate = {
-  toTiptapExtensions: () => Node[];
+  toTiptapExtensions: (extensions: ExtensionAggregate, ricosProps: ExtensionProps) => Node[];
 };
 
 export type FunctionalExtensionAggregate = {
-  toTiptapExtensions: () => Extension[];
-  getNodeHocComposer: () => NodeHocComposer;
+  toTiptapExtensions: (extensions: ExtensionAggregate, ricosProps: ExtensionProps) => Extension[];
+  getNodeHocComposer: (
+    extensions: ExtensionAggregate,
+    ricosProps: ExtensionProps
+  ) => NodeHocComposer;
 };
 
 export type MarkExtensionAggregate = {
-  toTiptapExtensions: () => Mark[];
+  toTiptapExtensions: (extensions: ExtensionAggregate, ricosProps: ExtensionProps) => Mark[];
 };
 
 export type ExtensionAggregate = {
@@ -80,6 +97,7 @@ export type ExtensionAggregate = {
   getHtmlNodeExtensions: () => ConvertableNodeExtensionAggregate;
   getMarkExtensions: () => MarkExtensionAggregate;
   getFunctionalExtensions: () => FunctionalExtensionAggregate;
+  getRicosExtensions: () => RicosExtension[];
 };
 
 export type NodeHocComposer = {

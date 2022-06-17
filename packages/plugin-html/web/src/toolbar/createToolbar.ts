@@ -1,12 +1,12 @@
 import createInlineButtons from './inline-buttons';
 import createInsertButtons from './insert-buttons';
-import {
+import type {
   CreatePluginToolbar,
   TranslationFunction,
   Helpers,
   GetEditorBounds,
 } from 'wix-rich-content-common';
-import { HtmlPluginEditorConfig } from '../types';
+import type { HtmlPluginEditorConfig } from '../types';
 
 const createToolbar: CreatePluginToolbar = ({
   helpers,

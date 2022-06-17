@@ -1,4 +1,5 @@
-import { Struct, Value, NullValue, ListValue } from 'ricos-schema';
+import type { Struct, Value, ListValue } from 'ricos-schema';
+import { NullValue } from 'ricos-schema';
 import { isObject } from 'lodash';
 
 export type BoolValue = {

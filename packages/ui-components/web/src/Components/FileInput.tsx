@@ -1,6 +1,8 @@
-import React, { ChangeEvent, Component, CSSProperties } from 'react';
+import type { ChangeEvent, CSSProperties } from 'react';
+import React, { Component } from 'react';
 import classnames from 'classnames';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../statics/styles/file-input.scss';
 
 interface FileInputProps {
@@ -15,10 +17,14 @@ interface FileInputProps {
   theme?: RichContentTheme;
   dataHook?: string;
   tabIndex?: number;
+  inputRef?: React.RefObject<HTMLInputElement>;
+  children?: React.ReactElement | React.ReactNode;
 }
 
 class FileInput extends Component<FileInputProps, { focused: boolean }> {
   styles: Record<string, string>;
+
+  inputRef: React.RefObject<HTMLInputElement>;
 
   id: string;
 
@@ -35,6 +41,7 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
     this.styles = mergeStyles({ styles, theme: props.theme });
     this.state = { focused: false };
     this.id = `file_input_${Math.floor(Math.random() * 9999)}`;
+    this.inputRef = props?.inputRef;
   }
 
   onFocus() {
@@ -54,6 +61,8 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
     this.props.onChange(Array.from(e.target.files || []));
     e.target.value = null;
   };
+
+  onKeyPress = e => e.key === 'Enter' && this.inputRef?.current?.click();
 
   render() {
     const {
@@ -75,6 +84,7 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
     };
 
     return (
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
       <label
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore: disabled doesn't exist in label
@@ -86,15 +96,22 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
         })}
         style={this.props.style}
         title={title}
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+        tabIndex={tabIndex}
+        data-hook="file-input-label"
+        onKeyPress={this.onKeyPress}
+        onClick={this.onKeyPress}
       >
         {handleFileSelection ? (
-          <button
+          <input
             disabled={disabled}
             className={styles.visuallyHidden}
             {...a11yProps}
             id={this.id}
+            tabIndex={-1}
             data-hook={dataHook}
             onClick={this.onClick}
+            ref={this.inputRef}
           />
         ) : (
           <input
@@ -109,7 +126,8 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
             accept={accept}
             onFocus={() => this.onFocus()}
             onBlur={() => this.onBlur()}
-            tabIndex={tabIndex}
+            ref={this.inputRef}
+            tabIndex={-1}
             {...hasMultiple}
           />
         )}
@@ -119,4 +137,6 @@ class FileInput extends Component<FileInputProps, { focused: boolean }> {
   }
 }
 
-export default FileInput;
+export default React.forwardRef((props: FileInputProps, ref: React.RefObject<HTMLInputElement>) => (
+  <FileInput inputRef={ref} {...props} />
+));

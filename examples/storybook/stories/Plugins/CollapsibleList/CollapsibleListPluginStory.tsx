@@ -8,9 +8,11 @@ import {
 
 import collapsibleListContentState from '../../../../../e2e/tests/fixtures/collapsible-list-rich-text.json';
 import CollapsibleListEditor from './CollapsibleListEditor';
-import editorSourcecode from '!!raw-loader!./CollapsibleListEditor.tsx';
+// eslint-disable-next-line import/no-unresolved
+import editorSourcecode from './CollapsibleListEditor.tsx?raw';
 import CollapsibleListViewer from './CollapsibleListViewer';
-import viewerSourcecode from '!!raw-loader!./CollapsibleListViewer.tsx';
+// eslint-disable-next-line import/no-unresolved
+import viewerSourcecode from './CollapsibleListViewer.tsx?raw';
 
 export default () => {
   return (

@@ -1,6 +1,6 @@
 {
   "name": "wix-rich-content-link-preview-popover",
-  "version": "8.65.22",
+  "version": "8.71.28",
   "author": {
     "name": "Or Leib",
     "email": "orlei@wix.com"
@@ -31,11 +31,11 @@
     "build:dev": "cross-env NODE_ENV=development npm run build",
     "build:analyze:editor": "npm run build -- --environment MODULE_ANALYZE_EDITOR  && open stats.html",
     "build:analyze:viewer": "npm run build -- --environment MODULE_ANALYZE_VIEWER && open stats.html",
-    "watch": "cross-env NODE_ENV=development MODULE_WATCH=1 npm run build:rollup -- --watch.chokidar",
+    "watch": "cross-env NODE_ENV=development npm run build:rollup -- --watch",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,d.ts}'"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.2.0",
+    "@babel/runtime": "^7.17.2",
     "classnames": "^2.0.0",
     "lodash": "^4.0.0",
     "prop-types": "^15.0.0",
@@ -43,7 +43,7 @@
     "react-dom": "^16.13.1"
   },
   "dependencies": {
-    "wix-rich-content-common": "8.65.22"
+    "wix-rich-content-common": "8.71.28"
   },
   "unpkg": true,
   "publishConfig": {

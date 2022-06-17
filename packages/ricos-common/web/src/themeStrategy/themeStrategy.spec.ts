@@ -1,8 +1,10 @@
 import getType from 'jest-get-type';
 import themeStrategy from './themeStrategy';
-import { RicosTheme, RicosCssOverride } from './themeTypes';
+import type { RicosTheme } from 'ricos-types';
+
+import type { RicosCssOverride } from './themeTypes';
 import { wixPalettes } from '../../tests/palettesExample';
-import { BasePlugin } from '..';
+import type { BasePlugin } from '..';
 
 // eslint-disable-next-line mocha/no-skipped-tests
 interface strategyProps {
@@ -33,8 +35,8 @@ describe('ThemeStrategy', () => {
   });
 
   it('should include modalTheme', () => {
-    expect(emptyResult.theme.modalTheme).toBeTruthy();
-    expect(getType(emptyResult.theme.modalTheme)).toBe('object');
+    expect(emptyResult.theme?.modalTheme).toBeTruthy();
+    expect(getType(emptyResult.theme?.modalTheme)).toBe('object');
   });
 
   it('should wrap classnames with parentClass prop, if given with a palette', () => {

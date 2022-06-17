@@ -12,14 +12,8 @@ export default class RevealButton extends React.Component {
   };
 
   render() {
-    const {
-      className,
-      onRevealSpoiler,
-      setInPluginEditingMode,
-      setFocusToBlock,
-      value,
-      onChange,
-    } = this.props;
+    const { className, onRevealSpoiler, setInPluginEditingMode, setFocusToBlock, value, onChange } =
+      this.props;
 
     const InputComponent = (
       <input size={value.length + 1} data-hook={'revealSpoilerContent'} type="text" />

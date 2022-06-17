@@ -11,6 +11,7 @@
 
   .showCustomPanel_button {
     font-family: $ricos-settings-font-family;
+    color: $settings-text-color;
     height: 36px;
     width: 100%;
     background-color: transparent;
@@ -57,6 +58,7 @@
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;
+          line-height: 25px;
         }
       }
 
@@ -102,10 +104,10 @@
   height: 36px;
   &.panel_selectedRow {
     @extend %active;
-    color: $settings-action-color-fallback;
   }
   &:not(.panel_selectedRow) {
     color: var(--ricos-settings-text-color, #000);
+    @include svg-fill;
   }
   @include phone {
     width: 100%;
@@ -127,11 +129,15 @@
 .panel_row_subtext {
   width: 100%;
   font-size: 12px;
-  color: #757575;
+  color: $secondary-text-color;
 }
 
 %active {
-  background-color: rgba($action-color-fallback-tuple, 0.1);
+  background-color: rgba($settings-action-color-fallback-tuple, 0.1);
+  color: var(--ricos-settings-action-color, $action-color-fallback);
+  svg {
+    @include fillWithSettingsActionColor;
+  }
 }
 
 %hover {

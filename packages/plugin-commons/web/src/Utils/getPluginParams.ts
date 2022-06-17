@@ -1,5 +1,5 @@
+import type { PluginAddParams } from 'wix-rich-content-common';
 import {
-  PluginAddParams,
   TABLE_TYPE,
   LINK_PREVIEW_TYPE,
   VERTICAL_EMBED_TYPE,

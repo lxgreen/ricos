@@ -1,17 +1,21 @@
 @import '~wix-rich-content-common/dist/statics/styles/mixins';
 @import '~wix-rich-content-common/dist/statics/styles/palette';
 
+$TITLE_HEIGHT_MOBILE: 50px;
+
 .giphy_api_input_modal_container {
-  @include phone {
-    padding: 20px;
-    padding-top: 12px;
+  &.mobile {
+    @include border-box;
+    padding: 12px 20px;
+    position: absolute;
+    width: 100%;
+    top: $TITLE_HEIGHT_MOBILE;
     overflow: hidden;
   }
 }
-
 .giphy_api_input_modal_navbar {
   display: grid;
-  grid-template-areas: "title icon";
+  grid-template-areas: 'title icon';
   padding-left: 20px;
   padding-top: 20px;
   padding-top: 15px;

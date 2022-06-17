@@ -1,27 +1,23 @@
-import React, { FunctionComponent } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { FunctionComponent } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import redoIcon from './icons/RedoIcon';
-import { InlineToolbarButton, redo, FORMATTING_BUTTONS } from 'wix-rich-content-editor-common';
+import { InlineToolbarButton, FORMATTING_BUTTONS } from 'wix-rich-content-editor-common';
 import { UNDO_REDO_TYPE } from './types';
-import {
-  TranslationFunction,
-  RichContentTheme,
-  Helpers,
-  SetEditorState,
-  GetEditorState,
-} from 'wix-rich-content-common';
+import type { TranslationFunction, RichContentTheme, Helpers } from 'wix-rich-content-common';
 
 interface RedoButtonProps {
   theme?: RichContentTheme;
   helpers?: Helpers;
-  setEditorState: SetEditorState;
   isMobile?: boolean;
   className?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   config?: any;
   tabIndex?: number;
   t: TranslationFunction;
-  getEditorState: GetEditorState;
+  isDisabled: () => boolean;
+  onClick: (e: any & { ref?: any; render?: any }) => void;
 }
 
 const RedoButton: FunctionComponent<RedoButtonProps> = props => {
@@ -34,18 +30,12 @@ const RedoButton: FunctionComponent<RedoButtonProps> = props => {
     config,
     tabIndex,
     t,
-    getEditorState,
-    setEditorState,
+    isDisabled,
+    onClick,
   } = props;
-  const editorState = getEditorState();
   const combinedClassName = classNames(theme.redo, className);
   const icon = config?.toolbar?.icons?.Redo || redoIcon();
-  const disabled = editorState?.getRedoStack()?.isEmpty?.() || !editorState;
-
-  const onClick = event => {
-    event.stopPropagation();
-    setEditorState(redo(getEditorState()));
-  };
+  const disabled = isDisabled();
 
   if (isMobile) {
     return (

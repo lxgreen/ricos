@@ -1,14 +1,15 @@
-import { Editor, EditorContent, JSONContent } from '@tiptap/react';
-import { Node } from 'prosemirror-model';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import type { JSONContent } from '@tiptap/react';
+import { EditorContent } from '@tiptap/react';
+import type { Node } from 'prosemirror-model';
+import type { FunctionComponent } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { getLangDir } from 'wix-rich-content-common';
-import { tiptapToDraft } from 'wix-tiptap-extensions';
+import { tiptapToDraft } from 'ricos-converters';
 import { RicosTiptapContext } from '../../context';
+import { RicosContext } from 'ricos-context';
 import { useForceUpdate } from '../../lib/useForceUpdate';
-import { Extensions } from '../../models/Extensions';
-import { RicosTiptapEditorProps } from '../../types';
-import { coreConfigs } from './core-configs';
-// import { patchExtensions } from '../../unsupported-content';
+import '../../statics/styles/tiptap-editor-styles.scss';
+import type { RicosTiptapEditorProps } from '../../types';
 
 // TODO: maybe should move it to utils ?
 const getSelectedNodes = ({ editor }) => {
@@ -22,50 +23,37 @@ const getSelectedNodes = ({ editor }) => {
 };
 
 export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
-  content,
-  extensions = [],
-  onLoad,
+  editor,
   onUpdate,
   onSelectionUpdate,
-  onBlur,
   locale,
   editorStyleClasses,
+  htmlAttributes,
   ...context
 }) => {
   const forceUpdate = useForceUpdate();
-  const [editor, setEditor] = useState<Editor>((null as unknown) as Editor);
-  // const patchedExtensions = patchExtensions(content, [...coreConfigs, ...extensions]);
-
-  const getContent = editor => tiptapToDraft(editor.getJSON() as JSONContent);
+  const { experiments } = useContext(RicosContext);
 
   useEffect(() => {
-    const mergedExtensions = Extensions.of([...coreConfigs, ...extensions]);
-    const tiptapExtensions = mergedExtensions.getTiptapExtensions();
-    console.log({ tiptapExtensions }); // eslint-disable-line no-console
-    const editorInstance = new Editor({
-      extensions: tiptapExtensions,
-      content,
-      injectCSS: true,
-      onUpdate: ({ editor }) => {
-        const convertedContent = getContent(editor);
-        onUpdate?.({ content: convertedContent });
-      },
-      onBlur: () => {
-        onBlur?.();
-      },
+    editor.on('update', ({ editor }) => {
+      onUpdate?.({
+        content: tiptapToDraft(
+          editor.getJSON() as JSONContent,
+          experiments.removeRichContentSchemaNormalizer?.enabled
+        ),
+      });
     });
-
-    editorInstance.on('selectionUpdate', ({ editor }) => {
+    editor.on('selectionUpdate', ({ editor }) => {
       const selectedNodes = getSelectedNodes({ editor });
-      onSelectionUpdate?.({ selectedNodes, content: getContent(editor) });
+      onSelectionUpdate?.({
+        selectedNodes,
+        content: tiptapToDraft(
+          editor.getJSON() as JSONContent,
+          experiments.removeRichContentSchemaNormalizer?.enabled
+        ),
+      });
     });
-    editorInstance.on('transaction', forceUpdate);
-
-    setEditor(editorInstance);
-
-    onLoad?.(editorInstance);
-
-    return () => editorInstance.destroy();
+    editor.on('transaction', forceUpdate);
   }, []);
 
   const { containerClassName, editorClassName } = editorStyleClasses || {};
@@ -78,7 +66,7 @@ export const RicosTiptapEditor: FunctionComponent<RicosTiptapEditorProps> = ({
         },
       }}
     >
-      <div dir={getLangDir(locale)} className={containerClassName}>
+      <div dir={getLangDir(locale)} className={containerClassName} {...htmlAttributes}>
         <EditorContent editor={editor} className={editorClassName} />
       </div>
     </RicosTiptapContext.Provider>

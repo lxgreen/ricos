@@ -1,9 +1,11 @@
-import { getLinkRangesInBlock, ViewerPluginCreator } from 'wix-rich-content-common';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
+import { getLinkRangesInBlock } from 'wix-rich-content-common';
 import { default as createHashtagDecorator } from './HashtagDecorator';
-import { HASHTAG_TYPE, HashtagPluginViewerConfig } from './types';
+import type { HashtagPluginViewerConfig } from './types';
+import { HASHTAG_TYPE } from './types';
 import { DEFAULTS } from './defaults';
 const HashtagDecorator = createHashtagDecorator(getLinkRangesInBlock);
-export { HashtagDecorator };
+export { HashtagDecorator, HashtagPluginViewerConfig };
 
 export const pluginHashtag: ViewerPluginCreator<HashtagPluginViewerConfig> = config => {
   const pluginConfig = { ...DEFAULTS.config, ...config };

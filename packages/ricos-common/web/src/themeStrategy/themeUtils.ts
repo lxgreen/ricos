@@ -1,4 +1,4 @@
-import { CssVarsObject } from './themeTypes';
+import type { CssVarsObject } from './themeTypes';
 const defaultFallbackColor = '#000000';
 const defaultFallbackColorBright = '#FFFFFF';
 

@@ -1,11 +1,13 @@
-import { Node } from '@tiptap/core';
-import {
+import type { Node } from '@tiptap/core';
+import type { RicosEditorProps } from 'ricos-common';
+import type {
   DecoratedNodeExtension,
   ConvertableNodeExtensionAggregate,
   IReactNodeExtension,
   ReactNodeExtensionAggregate,
   NodeHocComposer,
   IHtmlNodeExtension,
+  ExtensionAggregate,
 } from './domain-types';
 import { IExtensionAggregate } from './IExtensionAggregate';
 
@@ -34,8 +36,10 @@ export class DecoratedNodeExtensions implements ConvertableNodeExtensionAggregat
     this.extensions = new IExtensionAggregate(extensions);
   }
 
-  toTiptapExtensions() {
-    return this.extensions.asArray().map(e => e.toTiptapExtension()) as Node[];
+  toTiptapExtensions(extensions: ExtensionAggregate, ricosProps: RicosEditorProps) {
+    return this.extensions
+      .asArray()
+      .map(e => e.toTiptapExtension(extensions, ricosProps)) as Node[];
   }
 }
 
@@ -46,7 +50,13 @@ export class HtmlNodeExtensions implements ConvertableNodeExtensionAggregate {
     this.extensions = new IExtensionAggregate(extensions);
   }
 
-  toTiptapExtensions() {
-    return this.extensions.asArray().map(e => e.toTiptapExtension()) as Node[];
+  asArray() {
+    return this.extensions.asArray();
+  }
+
+  toTiptapExtensions(extensions: ExtensionAggregate, ricosProps: RicosEditorProps) {
+    return this.extensions
+      .asArray()
+      .map(e => e.toTiptapExtension(extensions, ricosProps)) as Node[];
   }
 }

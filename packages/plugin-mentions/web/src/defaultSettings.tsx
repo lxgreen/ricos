@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mention } from './createMentionsPlugin';
+import type { Mention } from './createMentionsPlugin';
 
 export const DEFAULT_SETTINGS = {
   mentionPrefix: '@',

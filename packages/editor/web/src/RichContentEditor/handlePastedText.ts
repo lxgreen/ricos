@@ -1,11 +1,10 @@
+import type { BlockMap, EditorChangeType } from 'wix-rich-content-editor-common';
 import {
   EditorState,
   Modifier,
   SelectionState,
   ContentState,
   createEntity,
-  BlockMap,
-  EditorChangeType,
 } from 'wix-rich-content-editor-common';
 import draftConvertFromHtml from './utils/draftConvertFromHtml';
 import {
@@ -14,13 +13,8 @@ import {
 } from './utils/pasting/pastedContentUtil';
 import normalizeHTML from './utils/pasting/normalizeHTML';
 import { convertFromRaw } from '../../lib/editorStateConversion';
-import {
-  COLLAPSIBLE_LIST_TYPE,
-  DraftContent,
-  isListType,
-  RicosContentBlock,
-  RicosEntityMap,
-} from 'ricos-content';
+import type { DraftContent, RicosContentBlock, RicosEntityMap } from 'ricos-content';
+import { COLLAPSIBLE_LIST_TYPE, isListType } from 'ricos-content';
 
 const clearAtomicBlockEntities = editorState => {
   let contentState = editorState.getCurrentContent();
@@ -47,23 +41,13 @@ const replaceWithFragment = (
   let contentWithFragment = Modifier.replaceWithFragment(contentState, selection, fragment);
 
   const startBlockKey = selection.getStartKey();
-  const isEmptyBlock =
-    contentState
-      .getBlockMap()
-      .get(startBlockKey)
-      .getText() === '';
+  const isEmptyBlock = contentState.getBlockMap().get(startBlockKey).getText() === '';
 
-  const startBlockType = contentState
-    .getBlockMap()
-    .get(startBlockKey)
-    .getType();
+  const startBlockType = contentState.getBlockMap().get(startBlockKey).getType();
 
   const fragmentSize = fragment.size;
   if (fragmentSize === 1 && isEmptyBlock && !isListType(startBlockType)) {
-    const pastedBlockType = fragment
-      .values()
-      .next()
-      .value.getType();
+    const pastedBlockType = fragment.values().next().value.getType();
 
     contentWithFragment = Modifier.setBlockType(
       contentWithFragment,

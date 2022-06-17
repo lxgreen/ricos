@@ -1,6 +1,6 @@
 import React from 'react';
 import { NewUrlInputModal, BUTTON_SIZE } from 'wix-rich-content-ui-components';
-import { Helpers, TranslationFunction, TextDirection } from 'wix-rich-content-common';
+import type { Helpers, TranslationFunction, TextDirection } from 'wix-rich-content-common';
 
 interface MediaURLInputModalProps {
   onConfirm: () => void;
@@ -11,7 +11,7 @@ interface MediaURLInputModalProps {
   url: string;
   submittedInvalidUrl: boolean;
   setUrl: (url) => void;
-  onDblClick: (url) => void;
+  onDoubleClick: (url) => void;
   withMobileHeader?: boolean;
   dataHook?: string;
   title?: string;
@@ -33,7 +33,7 @@ const MediaURLInputModal: React.FC<MediaURLInputModalProps> = ({
   title,
   subTitle,
   saveLabel,
-  onDblClick,
+  onDoubleClick,
 }) => {
   return (
     <NewUrlInputModal
@@ -54,7 +54,8 @@ const MediaURLInputModal: React.FC<MediaURLInputModalProps> = ({
       buttonSize={BUTTON_SIZE.medium}
       isMobile={isMobile}
       withMobileHeader={withMobileHeader}
-      onDblClick={onDblClick}
+      onDoubleClick={onDoubleClick}
+      withMobileSaveButton
     />
   );
 };

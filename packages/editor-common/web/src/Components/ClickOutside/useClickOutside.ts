@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import type React from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const isMouseEvent = e => ['mouseup', 'mousedown'].includes(e.type);
 const isTouchEvent = e => ['touchstart', 'touchend'].includes(e.type);

@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react';
+import type { FC } from 'react';
+import React, { useState } from 'react';
 import {
   Layout,
   Cell,
@@ -12,7 +13,7 @@ import {
   PNLCommonFields,
   PNLContainerData,
 } from '../AbstractPanels';
-import { EditPanelProps } from '../types';
+import type { EditPanelProps } from '../types';
 
 export const Html: FC<EditPanelProps<'addHtml'>> = ({ addFunc }) => {
   const [commonFields, setCommonFields] = useState(emptyCommonBuilderFields);

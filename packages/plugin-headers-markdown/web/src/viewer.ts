@@ -1,12 +1,10 @@
-import { DraftDecorator } from 'draft-js';
+import type { DraftDecorator } from 'draft-js';
 import { strategy, component } from './decorator';
-import {
-  HEADERS_MARKDOWN_TYPE as type,
-  HeadersMarkdownPluginViewerConfig,
-  HeadersMarkdownPluginEditorConfig,
-} from './types';
+import type { HeadersMarkdownPluginViewerConfig, HeadersMarkdownPluginEditorConfig } from './types';
+import { HEADERS_MARKDOWN_TYPE as type } from './types';
 import { DEFAULTS } from './defaults';
-import { ViewerPluginCreator } from 'wix-rich-content-common';
+import type { ViewerPluginCreator } from 'wix-rich-content-common';
+export { HeadersMarkdownPluginViewerConfig };
 
 export const createHeadersMarkdownDecorator = (
   config: HeadersMarkdownPluginEditorConfig
@@ -18,7 +16,9 @@ export const createHeadersMarkdownDecorator = (
   };
 };
 
-export const pluginHeadersMarkdown: ViewerPluginCreator<HeadersMarkdownPluginViewerConfig> = config => {
+export const pluginHeadersMarkdown: ViewerPluginCreator<
+  HeadersMarkdownPluginViewerConfig
+> = config => {
   const pluginConfig = { ...DEFAULTS.configViewer, ...config };
   return {
     config: pluginConfig,

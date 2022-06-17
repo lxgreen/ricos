@@ -102,7 +102,7 @@ export const getButtonProps = ({ config, type }) => {
             height: '86px',
             top: bottom,
             left: left - 15,
-            borderRadius: '2px',
+            borderRadius: 'var(--ricos-settings-whitebox-border-radius, 2px)',
             border: '1px solid #ededed',
             margin: '0',
             background: '#fff',
@@ -186,9 +186,7 @@ export const getButtonProps = ({ config, type }) => {
   };
 
   const isDisabled = () =>
-    getEditorState()
-      .getSelection()
-      .isCollapsed() || isAtomicBlockFocused(getEditorState());
+    getEditorState().getSelection().isCollapsed() || isAtomicBlockFocused(getEditorState());
 
   return {
     onClose: () => {},

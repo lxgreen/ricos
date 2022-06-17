@@ -1,25 +1,33 @@
 import createToolbar from './toolbar/createToolbar';
 import { DEFAULTS } from './defaults';
 import { Component } from './file-upload-component';
-import { FILE_UPLOAD_TYPE, FilePluginEditorConfig } from './types';
+import type { FilePluginEditorConfig } from './types';
+import { FILE_UPLOAD_TYPE } from './types';
 import { createBasePlugin, createBaseMediaPlugin } from 'wix-rich-content-plugin-commons';
-import { CreatePluginFunction } from 'wix-rich-content-common';
+import type { CreatePluginFunction } from 'wix-rich-content-common';
 
 const createFileUploadPlugin: CreatePluginFunction<FilePluginEditorConfig> = config => {
   const type = FILE_UPLOAD_TYPE;
-  const { helpers, t, [type]: settings = {}, ...rest } = config;
+  const { helpers, t, [type]: settings = {}, isMobile, experiments, ...rest } = config;
   return createBasePlugin({
-    component: createBaseMediaPlugin(Component),
+    component: experiments?.useUploadContext?.enabled
+      ? Component
+      : createBaseMediaPlugin(Component),
     type: FILE_UPLOAD_TYPE,
     toolbar: createToolbar({
       helpers,
       t,
       settings,
+
+      isMobile,
+      experiments,
     }),
     helpers,
     settings,
     t,
     defaultPluginData: DEFAULTS,
+    isMobile,
+    experiments,
     ...rest,
   });
 };

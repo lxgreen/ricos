@@ -1,7 +1,10 @@
-import React, { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import { mergeStyles, RichContentTheme } from 'wix-rich-content-common';
+import type { RichContentTheme } from 'wix-rich-content-common';
+import { mergeStyles } from 'wix-rich-content-common';
 import styles from '../../statics/styles/loaders.rtlignore.scss';
+import { isNumber } from 'lodash';
 
 const styleLoader: CSSProperties = {
   position: 'absolute',
@@ -49,8 +52,8 @@ function createFakeProgressStepper(
 
 interface LoaderProps {
   type: string;
-  theme: RichContentTheme;
-  isFastFakeLoader: boolean;
+  theme?: RichContentTheme;
+  isFastFakeLoader?: boolean;
   isVerySlowFakeLoader?: boolean;
   percent?: number;
   disableProgress?: boolean;
@@ -70,7 +73,7 @@ class Loader extends React.Component<LoaderProps> {
 
   componentDidMount() {
     const { percent } = this.props;
-    if (!percent) {
+    if (!isNumber(percent)) {
       let approximateExpectedDuration: number | undefined;
       if (this.props.isFastFakeLoader) {
         approximateExpectedDuration = 8500;
@@ -92,13 +95,13 @@ class Loader extends React.Component<LoaderProps> {
 
   initiateStyles() {
     if (!this.styles) {
-      const theme = this.props.theme;
+      const theme = this.props.theme || {};
       this.styles = mergeStyles({ styles, theme });
     }
   }
 
   renderProgress() {
-    const percent = this.props.percent || this.state.percent;
+    const percent = isNumber(this.props.percent) ? this.props.percent : this.state.percent;
     return (
       <div>
         <div

@@ -1,8 +1,8 @@
 import InsertPluginIcon from '../icons/InsertPluginIcon';
 import { DEFAULTS } from '../defaults';
 import { TOOLBARS, BUTTON_TYPES, INSERT_PLUGIN_BUTTONS } from 'wix-rich-content-editor-common';
-import { CreateInsertButtons, TranslationFunction } from 'wix-rich-content-common';
-import { DividerPluginEditorConfig } from '../types';
+import type { CreateInsertButtons, TranslationFunction } from 'wix-rich-content-common';
+import type { DividerPluginEditorConfig } from '../types';
 
 export const createInsertButtons: CreateInsertButtons = ({
   t,

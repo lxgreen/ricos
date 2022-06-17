@@ -11,6 +11,7 @@ import {
   alignmentClassName,
   sizeClassName,
   textWrapClassName,
+  MediaUploadErrorKey,
 } from 'wix-rich-content-common';
 
 const fileReader = file => {
@@ -29,7 +30,7 @@ const handleUploadFinished = (
   fileType
 ) => {
   return onUploadFinished({
-    data: data && dataBuilder[type]?.({ data, error }, getComponentData(), fileType, itemIndex),
+    data: dataBuilder[type]?.({ data, error }, getComponentData(), fileType, itemIndex),
     error,
   });
 };
@@ -43,33 +44,38 @@ const handleUploadStart = (
   itemPos
 ) => {
   if (file) {
-    fileReader(file).then(url => {
-      const { type, commonPubsub } = props;
-      const tempData = tempDataBuilder[type]?.({
-        url,
-        file,
+    const { type, commonPubsub } = props;
+    fileReader(file)
+      .then(url => {
+        const tempData = tempDataBuilder[type]?.({
+          url,
+          file,
+        });
+        onLocalLoad?.(tempData);
+        const handleFileUpload = uploadFunctionGetter[type](props);
+        const {
+          helpers: { onMediaUploadStart, onMediaUploadEnd },
+        } = props;
+        const uploadBIData = onMediaUploadStart(type, file.size, file.type);
+        const fileType = getGalleryFileType(file.type);
+        handleFileUpload(file, ({ data, error }) => {
+          onMediaUploadEnd(uploadBIData, error);
+          error && commonPubsub.set('onMediaUploadError', error);
+          handleUploadFinished(
+            type,
+            getComponentData,
+            data,
+            error,
+            onUploadFinished,
+            itemPos,
+            fileType
+          );
+        });
+      })
+      .catch(e => {
+        commonPubsub.set('onMediaUploadError', { key: MediaUploadErrorKey.GENERIC });
+        console.error('Reading file locally failed', e);
       });
-      onLocalLoad?.(tempData);
-      const handleFileUpload = uploadFunctionGetter[type](props);
-      const {
-        helpers: { onMediaUploadStart, onMediaUploadEnd },
-      } = props;
-      const uploadBIData = onMediaUploadStart(type, file.size, file.type);
-      const fileType = getGalleryFileType(file.type);
-      handleFileUpload(file, ({ data, error }) => {
-        onMediaUploadEnd(uploadBIData, error);
-        error && commonPubsub.set('onMediaUploadError', error);
-        handleUploadFinished(
-          type,
-          getComponentData,
-          data,
-          error,
-          onUploadFinished,
-          itemPos,
-          fileType
-        );
-      });
-    });
   }
 };
 
@@ -119,8 +125,16 @@ const createBaseMediaPlugin = PluginComponent => {
       this.updateComponent();
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(_, prevState) {
       this.updateComponent();
+      const { type, store, block, componentData } = this.props;
+      if (type === GALLERY_TYPE) {
+        if (prevState.isLoading && !this.state.isLoading) {
+          store.set('componentData', { ...componentData, loading: undefined }, block.getKey());
+        } else if (this.state.isLoading && !prevState.isLoading) {
+          store.set('componentData', { ...componentData, loading: true }, block.getKey());
+        }
+      }
     }
 
     updateComponent() {
