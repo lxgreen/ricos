@@ -56,6 +56,7 @@ const AudioInsertModal: React.FC<Props> = props => {
     pubsub,
     languageDir,
     experiments,
+    onReplace,
     helpers = {},
   } = props;
   const src = componentData?.audio?.src;
@@ -66,7 +67,7 @@ const AudioInsertModal: React.FC<Props> = props => {
   const [activeTab, setActiveTab] = useState(isEmbedType ? audioTabs.embed : audioTabs.upload);
   const [url, setUrl] = useState(initialUrl);
   const [submittedInvalidUrl, setSubmittedInvalidUrl] = useState(false);
-  const useModalBaseActionHoc = experiments?.modalBaseActionHoc?.enabled;
+  const modalsWithEditorCommands = experiments?.tiptapEditor?.enabled;
   const { onPluginsPopOverTabSwitch, onPluginsPopOverClick, onAudioSelected } = helpers || {};
   const onTabSelected = tab => {
     onPluginsPopOverTabSwitch?.({
@@ -92,8 +93,11 @@ const AudioInsertModal: React.FC<Props> = props => {
       const { onConfirm } = props;
       if (onConfirm) {
         onConfirm({ ...rest, audio: { src: { url } } });
+      }
+      if (onReplace) {
+        onReplace({ ...rest, audio: { src: { url } } });
       } else {
-        useModalBaseActionHoc
+        modalsWithEditorCommands
           ? setData?.({ ...rest, audio: { src: { url } } })
           : pubsub?.set('componentData', { ...rest, audio: { src: { url } } });
       }
@@ -114,8 +118,11 @@ const AudioInsertModal: React.FC<Props> = props => {
         } else {
           if (onConfirm) {
             onConfirm({ ...rest, audio: { src: { url } }, html });
+          }
+          if (onReplace) {
+            onReplace({ ...rest, audio: { src: { url } }, html });
           } else {
-            useModalBaseActionHoc
+            modalsWithEditorCommands
               ? setData?.({ ...rest, audio: { src: { url } }, html })
               : pubsub?.set('componentData', { ...rest, audio: { src: { url } }, html });
           }

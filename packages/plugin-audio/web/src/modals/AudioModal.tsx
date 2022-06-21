@@ -14,7 +14,9 @@ const AudioModal = props => {
     ? useContext(UploadServiceContext)
     : {};
 
-  const onReplace = audio => pubsub.update('componentData', audio);
+  const onReplace = audio => {
+    pubsub.set('componentData', audio);
+  };
 
   return (
     <AudioInsertModal

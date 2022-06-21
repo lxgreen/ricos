@@ -17,9 +17,28 @@
     Click to see more.
   </summary>
 
+## :bug: Bug Fix
+
+- `audio`
+  - [#4040](https://github.com/wix/ricos/pull/4040) fix audio replace on tiptap editor
+  - [#4049](https://github.com/wix/ricos/pull/4049) fix audio data on replace
+
+## :house: Internal
+
+- `tiptap-extensions`
+  - [#4053](https://github.com/wix/ricos/pull/4053) bold/italic toggles with styles (theme,documentStyle) support
+  - [#4055](https://github.com/wix/ricos/pull/4055) update document style command
+
 </details>
 
 <hr/>
+
+## 8.71.30 (Jun 20, 2022)
+
+## :bug: Bug Fix
+
+- `video`
+  - [#4048](https:// github.com/wix/ricos/pull/4048) Fix right click while video download is disabled
 
 ## 8.71.28 (Jun 15, 2022)
 
